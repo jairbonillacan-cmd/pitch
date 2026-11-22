@@ -12,6 +12,8 @@ import type { BookQuoteItem, OddsFormat } from "../../types";
 
 const MAX_QUOTE_AGE_MS = 72 * 60 * 60 * 1000;
 const MAX_FUTURE_SKEW_MS = 6 * 60 * 60 * 1000;
+const MAX_AUDITABLE_EV_PCT = 20;
+const MAX_AUDITABLE_EDGE_PTS = 15;
 
 function isFreshQuoteTimestamp(
   capturedAtUtc: string | null | undefined,
@@ -197,6 +199,22 @@ export function BookmakerComparePill({
       ? Math.round((probability - 1 / effectiveHouse) * 1000) / 10
       : (edgePtsOverride ?? null);
 
+  const isOutlierEv = valuePct !== null && valuePct > MAX_AUDITABLE_EV_PCT;
+  const auditablePositiveEv =
+    valuePct !== null && valuePct > 0 && !isOutlierEv ? valuePct : null;
+  const isOutlierEdgePts =
+    !isOutlierEv &&
+    valuePct === null &&
+    edgePts !== null &&
+    edgePts > MAX_AUDITABLE_EDGE_PTS;
+  const auditablePositiveEdgePts =
+    !isOutlierEv &&
+    edgePts !== null &&
+    edgePts > 0 &&
+    edgePts <= MAX_AUDITABLE_EDGE_PTS
+      ? edgePts
+      : null;
+
   const movement =
     effectiveHouse !== null
       ? classifyOddsMovement(effectiveOpen, effectiveHouse, effectiveDir, movementSignal)
@@ -248,13 +266,21 @@ export function BookmakerComparePill({
           </span>
         ) : null}
 
-        {valuePct !== null && valuePct > 0 ? (
+        {auditablePositiveEv !== null ? (
           <span
             className="pl-bk-ev-badge is-positive num"
             data-ev-positive="true"
             title="Valor esperado positivo frente al momio de casa"
           >
-            Valor +{valuePct.toFixed(1)} %
+            Valor +{auditablePositiveEv.toFixed(1)} %
+          </span>
+        ) : isOutlierEv ? (
+          <span
+            className="pl-bk-ev-badge is-neutral num"
+            data-ev-outlier="true"
+            title="Divergencia atípica entre el modelo y la cuota capturada; verifica la línea antes de jugar"
+          >
+            Divergencia
           </span>
         ) : null}
 
@@ -309,13 +335,21 @@ export function BookmakerComparePill({
           {effectiveHouse !== null ? `Justo ${fairFormatted}` : "Sin cuota capturada"}
         </span>
 
-        {valuePct !== null && valuePct > 0 ? (
+        {auditablePositiveEv !== null ? (
           <span className="pl-bk-ev-badge is-positive" data-ev-positive="true">
-            Valor +{valuePct.toFixed(1)} %
+            Valor +{auditablePositiveEv.toFixed(1)} %
           </span>
-        ) : edgePts !== null && edgePts > 0 ? (
+        ) : isOutlierEv || isOutlierEdgePts ? (
+          <span
+            className="pl-bk-ev-badge is-neutral"
+            data-ev-outlier="true"
+            title="Divergencia atípica entre el modelo y la cuota capturada; verifica la línea antes de jugar"
+          >
+            Divergencia
+          </span>
+        ) : auditablePositiveEdgePts !== null ? (
           <span className="pl-bk-ev-badge is-positive">
-            +{edgePts.toFixed(1)} pts
+            +{auditablePositiveEdgePts.toFixed(1)} pts
           </span>
         ) : null}
       </div>

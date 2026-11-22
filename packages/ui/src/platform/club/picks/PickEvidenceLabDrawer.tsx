@@ -2,11 +2,15 @@
 
 import React, { useId, useMemo, useRef, useState } from "react";
 import type { LeagueId, PlatformSport } from "@pitchlab/contracts";
-import { parseStrictFiniteNumber } from "@pitchlab/contracts";
+import { parseStrictFiniteNumber, sportScoringUnit } from "@pitchlab/contracts";
 import { Button } from "../../../components/ui/primitives";
 import { TeamBadge } from "../../../sports";
 import { formatOddsValue } from "../../access-guard";
 import { MaestroIcon } from "../../components/MaestroPrimitives";
+import {
+  MarketCategoryIcon,
+  type MarketCategoryIconName,
+} from "../../components/PackSportIcons";
 import { useSheetSwipeDismiss } from "../../components/use-sheet-swipe-dismiss";
 import { useAbortableJson, useMediaQuery, useSafeEffect } from "../../hooks";
 import type {
@@ -57,6 +61,7 @@ interface LabUiState {
   readonly sampleWindow: 5 | 10 | 20;
   readonly venueFilter: "all" | "home" | "away";
   readonly activeBarId: string | null;
+  readonly chartTableOpen: boolean;
 }
 
 interface LabSeriesSummary {
@@ -121,6 +126,65 @@ const NFL_METRICS: readonly LabMetricOption[] = [
   { key: "team_points", label: "Puntos equipo", unitLabel: "pts", defaultLine: 21.5, lines: [17.5, 20.5, 23.5, 26.5] },
 ];
 
+const MAX_AUDITABLE_EV_PCT = 20;
+
+const LAB_METRIC_ICON_MAP: Readonly<Record<string, MarketCategoryIconName>> = {
+  goals: "over-under",
+  corners: "corners",
+  shots: "shots",
+  shots_on_target: "shots-on-target",
+  cards: "total-cards",
+  fouls: "fouls",
+  goal_or_assist: "expected-assists",
+  PTS: "basketball-points",
+  REB: "basketball-rebounds",
+  AST: "basketball-assists",
+  "3PM": "basketball-three-pointers",
+  runs: "baseball-total-runs",
+  f5_runs: "baseball-first-five",
+  points: "american-football-total-points",
+  team_points: "team-goals",
+};
+
+const LAB_UNIT_TOKEN_RE =
+  /\b(?:goles?|puntos?|pts|carreras?|c[oó]rners?|tiros?(?:\s+a\s+puerta)?|remates?|tarjetas?|amarillas?|faltas?|rebotes?|reb|asistencias?|ast|triples?|3pm|g\+a|atajadas?|yardas?|touchdowns?)\b/i;
+
+const LAB_BARE_OVER_UNDER_RE =
+  /(\b(?:m[aá]s\s+de|menos\s+de|over|under)\s+\d+(?:[.,]\d+)?)(?=\s*(?:$|[()·|—,-]))/gi;
+
+function resolveLabMetricIconName(metricKey: string): MarketCategoryIconName | undefined {
+  return LAB_METRIC_ICON_MAP[metricKey];
+}
+
+function resolveLabUnitForPick(
+  family: string,
+  sport: PlatformSport,
+  statLabel?: string | null,
+): string {
+  if (statLabel && statLabel.trim().length > 0) {
+    return statLabel.trim().toLowerCase();
+  }
+  const fam = family.toLowerCase();
+  if (fam.includes("corner")) return "córners";
+  if (fam.includes("shots_on_target") || fam.includes("sot")) return "tiros a puerta";
+  if (fam.includes("shot")) return "tiros";
+  if (fam.includes("card") || fam.includes("yellow")) return "tarjetas";
+  if (fam.includes("foul")) return "faltas";
+  return sportScoringUnit(sport).plural;
+}
+
+function ensureLabPickLabelUnit(
+  label: string,
+  family: string,
+  sport: PlatformSport,
+  statLabel?: string | null,
+): string {
+  const trimmed = label.trim();
+  if (!trimmed || LAB_UNIT_TOKEN_RE.test(trimmed)) return trimmed;
+  const unit = resolveLabUnitForPick(family, sport, statLabel);
+  return trimmed.replace(LAB_BARE_OVER_UNDER_RE, `$1 ${unit}`);
+}
+
 function createInitialUiState(pickId: string): LabUiState {
   return {
     pickId,
@@ -133,6 +197,7 @@ function createInitialUiState(pickId: string): LabUiState {
     sampleWindow: 10,
     venueFilter: "all",
     activeBarId: null,
+    chartTableOpen: false,
   };
 }
 
@@ -934,6 +999,12 @@ export function PickEvidenceLabDrawer({
 
   const isCustomSpec = matchedCatalogPick === null;
   const builtSelectionLabel = `${selectedDirection === "over" ? "Más de" : "Menos de"} ${formatNumeric(selectedLine)} ${activeMetricSpec.unitLabel}`;
+  const displayActivePickLabel = ensureLabPickLabelUnit(
+    activePick.label,
+    activePick.family,
+    activePick.sport,
+    activePick.playerMeta?.statLabel ?? null,
+  );
   const isFinished = activePick.gameStatus === "FT";
   const isLive = activePick.gameStatus === "LIVE";
 
@@ -945,10 +1016,19 @@ export function PickEvidenceLabDrawer({
   const activeFairOdds = activePricing
     ? formatOddsValue(activePricing.fairOdds, oddsFormat)
     : null;
-  const activeEvPct =
-    activePricing && activePricing.evPct !== null && activePricing.evPct > 0
+  const rawActiveEvPct =
+    activePricing && activePricing.evPct !== null && Number.isFinite(activePricing.evPct)
       ? activePricing.evPct
       : null;
+  const isActiveOutlierEv = rawActiveEvPct !== null && rawActiveEvPct > MAX_AUDITABLE_EV_PCT;
+  const activeEvPct =
+    rawActiveEvPct !== null && rawActiveEvPct > 0 && !isActiveOutlierEv ? rawActiveEvPct : null;
+
+  const homeLogoUrl = game?.home.logoUrl;
+  const awayLogoUrl = game?.away.logoUrl;
+  const entityLogoUrl =
+    entityTeamSlug === awayTeam.slug ? awayLogoUrl : homeLogoUrl;
+  const activeMetricIconName = resolveLabMetricIconName(activeMetricSpec.key);
 
   const hasActiveFilters =
     activeUi.rivalFilter !== "all" ||
@@ -1057,29 +1137,66 @@ export function PickEvidenceLabDrawer({
                   league={league}
                   slug={entityTeamSlug}
                   name={entityName}
+                  logoUrl={entityLogoUrl}
                   size={44}
                 />
               ) : (
                 <span className="inline-flex items-center gap-1 shrink-0" aria-hidden="true">
-                  <TeamBadge league={league} slug={homeTeam.slug} name={homeTeam.name} size={30} />
-                  <TeamBadge league={league} slug={awayTeam.slug} name={awayTeam.name} size={30} />
+                  <TeamBadge
+                    league={league}
+                    slug={homeTeam.slug}
+                    name={homeTeam.name}
+                    logoUrl={homeLogoUrl}
+                    size={30}
+                  />
+                  <TeamBadge
+                    league={league}
+                    slug={awayTeam.slug}
+                    name={awayTeam.name}
+                    logoUrl={awayLogoUrl}
+                    size={30}
+                  />
                 </span>
               )}
               <div className="min-w-0">
-                <h2 id={titleId} className="pl-pick-lab-title">
-                  {entityName}
-                </h2>
+                <div className="pl-pick-lab-title-row">
+                  <h2 id={titleId} className="pl-pick-lab-title">
+                    {entityName}
+                  </h2>
+                  <span className="pl-pick-lab-family-chip">
+                    <MarketCategoryIcon family={activePick.family} size={16} />
+                    <span>{displayActivePickLabel}</span>
+                  </span>
+                </div>
                 <p className="pl-pick-lab-subtitle">{entitySubtitle}</p>
               </div>
             </div>
 
             <div className="pl-pick-lab-match-pill">
-              <span className="pl-pick-lab-kpi-eyebrow">{statusPillLabel}</span>
+              <span className="pl-pick-lab-kpi-eyebrow pl-pick-lab-status-row">
+                <MaestroIcon
+                  name={isLive ? "live-pulse" : isFinished ? "verified-seal" : "target-picks"}
+                  size={13}
+                />
+                <span>{statusPillLabel}</span>
+              </span>
               <span className="inline-flex items-center gap-1.5 text-xs font-bold">
-                <TeamBadge league={league} slug={homeTeam.slug} name={homeTeam.name} size={18} />
+                <TeamBadge
+                  league={league}
+                  slug={homeTeam.slug}
+                  name={homeTeam.name}
+                  logoUrl={homeLogoUrl}
+                  size={18}
+                />
                 <span>{homeTeam.shortName}</span>
                 <span aria-hidden="true">vs</span>
-                <TeamBadge league={league} slug={awayTeam.slug} name={awayTeam.name} size={18} />
+                <TeamBadge
+                  league={league}
+                  slug={awayTeam.slug}
+                  name={awayTeam.name}
+                  logoUrl={awayLogoUrl}
+                  size={18}
+                />
                 <span>{awayTeam.shortName}</span>
               </span>
             </div>
@@ -1161,9 +1278,18 @@ export function PickEvidenceLabDrawer({
                       </strong>
                     </div>
                     <div className="pl-pick-lab-kpi-item">
-                      <span className="pl-pick-lab-kpi-label">EV+</span>
-                      <strong className={`pl-pick-lab-kpi-val ${activeEvPct !== null ? "is-pos" : ""}`.trim()}>
-                        {activeEvPct !== null ? `+${activeEvPct.toFixed(1)} %` : "—"}
+                      <span className="pl-pick-lab-kpi-label">
+                        {isActiveOutlierEv ? "Señal" : "EV+"}
+                      </span>
+                      <strong
+                        className={`pl-pick-lab-kpi-val ${activeEvPct !== null ? "is-pos" : ""}`.trim()}
+                        data-ev-outlier={isActiveOutlierEv ? "true" : undefined}
+                      >
+                        {activeEvPct !== null
+                          ? `+${activeEvPct.toFixed(1)} %`
+                          : isActiveOutlierEv
+                            ? "Divergencia"
+                            : "—"}
                       </strong>
                     </div>
                   </div>
@@ -1304,9 +1430,16 @@ export function PickEvidenceLabDrawer({
             <section className="pl-pick-lab-chart" data-pick-lab-chart="">
               <div className="pl-pick-lab-chart-head">
                 <div className="min-w-0">
-                  <h3 className="pl-pick-lab-side-title m-0">
-                    {activeMetricSpec.label}
-                    {activeUi.perspective === "against" ? " (en contra)" : ""}
+                  <h3 className="pl-pick-lab-side-title pl-pick-lab-chart-title m-0">
+                    <MarketCategoryIcon
+                      {...(activeMetricIconName ? { name: activeMetricIconName } : {})}
+                      family={activePick.family}
+                      size={18}
+                    />
+                    <span>
+                      {activeMetricSpec.label}
+                      {activeUi.perspective === "against" ? " (en contra)" : ""}
+                    </span>
                   </h3>
                   <div className="pl-pick-lab-chart-stats num">
                     <span>
@@ -1514,70 +1647,83 @@ export function PickEvidenceLabDrawer({
                     </span>
                   </div>
 
-                  <details className="pl-atom-disclosure">
+                  <details
+                    className="pl-atom-disclosure"
+                    open={activeUi.chartTableOpen}
+                    onToggle={(event) => {
+                      const nextOpen = event.currentTarget.open;
+                      updateUi((prev) =>
+                        prev.chartTableOpen === nextOpen
+                          ? prev
+                          : { ...prev, chartTableOpen: nextOpen },
+                      );
+                    }}
+                  >
                     <summary className="num">
                       Ver serie partido a partido como tabla ({filteredBars.length})
                     </summary>
-                    <div
-                      className="pl-pick-lab-history-wrap"
-                      tabIndex={0}
-                      role="region"
-                      aria-labelledby={chartTableCaptionId}
-                    >
-                      <table className="pl-pick-lab-history-table">
-                        <caption id={chartTableCaptionId} className="sr-only">
-                          Serie histórica de {activeMetricSpec.label} para {entityName}
-                        </caption>
-                        <thead>
-                          <tr>
-                            <th scope="col">Fecha</th>
-                            <th scope="col">Rival</th>
-                            <th scope="col" className="num">
-                              {activeMetricSpec.label}
-                            </th>
-                            <th scope="col" className="num">
-                              Min
-                            </th>
-                            <th scope="col">Resultado</th>
-                          </tr>
-                        </thead>
-                        <tbody>
-                          {filteredBars.map((bar) => {
-                            const outcome = classifyBarOutcome(
-                              bar.value,
-                              selectedLine,
-                              selectedDirection,
-                            );
-                            return (
-                              <tr key={`tbl-${bar.id}`}>
-                                <th scope="row" className="num">
-                                  {bar.dateLabel}
-                                </th>
-                                <td data-label="Rival">
-                                  {bar.isHome ? `vs ${bar.opponentName}` : `@ ${bar.opponentName}`}
-                                </td>
-                                <td className="num" data-label={activeMetricSpec.label}>
-                                  {formatNumeric(bar.value)}
-                                </td>
-                                <td className="num" data-label="Min">
-                                  {typeof bar.minutesPlayed === "number" &&
-                                  Number.isFinite(bar.minutesPlayed)
-                                    ? `${Math.round(bar.minutesPlayed)}'`
-                                    : "—"}
-                                </td>
-                                <td data-label="Resultado">
-                                  {outcome === "hit"
-                                    ? "Cumplió"
-                                    : outcome === "push"
-                                      ? "Push"
-                                      : "No cumplió"}
-                                </td>
-                              </tr>
-                            );
-                          })}
-                        </tbody>
-                      </table>
-                    </div>
+                    {activeUi.chartTableOpen ? (
+                      <div
+                        className="pl-pick-lab-history-wrap"
+                        tabIndex={0}
+                        role="region"
+                        aria-labelledby={chartTableCaptionId}
+                      >
+                        <table className="pl-pick-lab-history-table">
+                          <caption id={chartTableCaptionId} className="sr-only">
+                            Serie histórica de {activeMetricSpec.label} para {entityName}
+                          </caption>
+                          <thead>
+                            <tr>
+                              <th scope="col">Fecha</th>
+                              <th scope="col">Rival</th>
+                              <th scope="col" className="num">
+                                {activeMetricSpec.label}
+                              </th>
+                              <th scope="col" className="num">
+                                Min
+                              </th>
+                              <th scope="col">Resultado</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            {filteredBars.map((bar) => {
+                              const outcome = classifyBarOutcome(
+                                bar.value,
+                                selectedLine,
+                                selectedDirection,
+                              );
+                              return (
+                                <tr key={`tbl-${bar.id}`}>
+                                  <th scope="row" className="num">
+                                    {bar.dateLabel}
+                                  </th>
+                                  <td data-label="Rival">
+                                    {bar.isHome ? `vs ${bar.opponentName}` : `@ ${bar.opponentName}`}
+                                  </td>
+                                  <td className="num" data-label={activeMetricSpec.label}>
+                                    {formatNumeric(bar.value)}
+                                  </td>
+                                  <td className="num" data-label="Min">
+                                    {typeof bar.minutesPlayed === "number" &&
+                                    Number.isFinite(bar.minutesPlayed)
+                                      ? `${Math.round(bar.minutesPlayed)}'`
+                                      : "—"}
+                                  </td>
+                                  <td data-label="Resultado">
+                                    {outcome === "hit"
+                                      ? "Cumplió"
+                                      : outcome === "push"
+                                        ? "Push"
+                                        : "No cumplió"}
+                                  </td>
+                                </tr>
+                              );
+                            })}
+                          </tbody>
+                        </table>
+                      </div>
+                    ) : null}
                   </details>
                 </>
               ) : (
@@ -1650,8 +1796,17 @@ export function PickEvidenceLabDrawer({
                     Línea manual · sin EV+ simulado
                   </span>
                 ) : activeEvPct !== null ? (
-                  <span className="pl-sf-signal-pill is-positive num">
+                  <span className="pl-sf-signal-pill is-positive num" data-ev-positive="true">
                     EV +{activeEvPct.toFixed(1)} %
+                  </span>
+                ) : isActiveOutlierEv ? (
+                  <span
+                    className="pl-sf-signal-pill is-neutral"
+                    data-ev-outlier="true"
+                    title="Diferencia atípica frente a la cuota capturada; verifica la línea antes de jugar"
+                  >
+                    <MaestroIcon name="alert-warning" size={12} />
+                    <span>Divergencia</span>
                   </span>
                 ) : activeFairOdds ? (
                   <span className="pl-sf-signal-pill is-neutral num">
@@ -1665,6 +1820,7 @@ export function PickEvidenceLabDrawer({
                 <div className="pl-pick-lab-chip-row" role="group" aria-label="Mercados disponibles">
                   {metricOptions.map((option) => {
                     const isActive = option.key === selectedMetricKey;
+                    const optIconName = resolveLabMetricIconName(option.key);
                     return (
                       <button
                         key={option.key}
@@ -1673,7 +1829,12 @@ export function PickEvidenceLabDrawer({
                         aria-pressed={isActive}
                         onClick={() => handleSelectMetric(option)}
                       >
-                        {option.label}
+                        <MarketCategoryIcon
+                          {...(optIconName ? { name: optIconName } : {})}
+                          family={option.key}
+                          size={15}
+                        />
+                        <span>{option.label}</span>
                       </button>
                     );
                   })}
@@ -1777,14 +1938,26 @@ export function PickEvidenceLabDrawer({
                         ? formatOddsValue(rel.pricing.marketDecimal, oddsFormat)
                         : null;
                     const relFair = formatOddsValue(rel.pricing.fairOdds, oddsFormat);
-                    const relEv =
-                      rel.pricing.evPct !== null && rel.pricing.evPct > 0
+                    const relRawEv =
+                      rel.pricing.evPct !== null && Number.isFinite(rel.pricing.evPct)
                         ? rel.pricing.evPct
                         : null;
+                    const relEv =
+                      relRawEv !== null && relRawEv > 0 && relRawEv <= MAX_AUDITABLE_EV_PCT
+                        ? relRawEv
+                        : null;
+                    const relDisplayLabel = ensureLabPickLabelUnit(
+                      rel.label,
+                      rel.family,
+                      rel.sport,
+                      rel.playerMeta?.statLabel ?? null,
+                    );
                     const topBullet = rel.evidence.bullets[0] ?? null;
                     const relTeamSlug =
                       rel.playerMeta?.teamSlug ??
                       (rel.playerMeta?.teamSide === "away" ? awayTeam.slug : entityTeamSlug);
+                    const relTeamLogoUrl =
+                      relTeamSlug === awayTeam.slug ? awayLogoUrl : homeLogoUrl;
 
                     return (
                       <li key={rel.id} className="pl-pick-lab-related-card">
@@ -1807,12 +1980,16 @@ export function PickEvidenceLabDrawer({
                                   league={rel.league}
                                   slug={relTeamSlug}
                                   name={entityName}
+                                  logoUrl={relTeamLogoUrl}
                                   size={24}
                                 />
                               )}
                               <span className="pl-pick-lab-related-meta min-w-0">
-                                <strong className="truncate">{rel.label}</strong>
-                                <span className="truncate">{rel.familyLabel}</span>
+                                <strong className="truncate">{relDisplayLabel}</strong>
+                                <span className="pl-pick-lab-related-fam truncate">
+                                  <MarketCategoryIcon family={rel.family} size={14} />
+                                  <span className="truncate">{rel.familyLabel}</span>
+                                </span>
                               </span>
                             </span>
 
@@ -1844,24 +2021,13 @@ export function PickEvidenceLabDrawer({
                         >
                           <span>
                             {isExpanded ? "Ocultar estadísticas" : "Expandir estadísticas"}
-                            <span className="sr-only"> de {rel.label}</span>
+                            <span className="sr-only"> de {relDisplayLabel}</span>
                           </span>
-                          <svg
-                            viewBox="0 0 16 16"
-                            width={14}
-                            height={14}
-                            aria-hidden="true"
+                          <MaestroIcon
+                            name="chevronDown"
+                            size={14}
                             className="pl-pick-lab-expand-chevron shrink-0"
-                          >
-                            <path
-                              d="M4 6l4 4 4-4"
-                              fill="none"
-                              stroke="currentColor"
-                              strokeWidth="1.75"
-                              strokeLinecap="round"
-                              strokeLinejoin="round"
-                            />
-                          </svg>
+                          />
                         </button>
 
                         {isExpanded ? (

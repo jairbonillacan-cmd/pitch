@@ -13,6 +13,7 @@ import {
   canonicalGameHref,
   isLivePhaseActive,
   parseStrictFiniteNumber,
+  sportScoringUnit,
   type LiveScoreboardEntry,
 } from "@pitchlab/contracts";
 import {
@@ -34,7 +35,11 @@ import {
   parseManualOddsInput,
   resolvePreferredBookQuote,
 } from "../bookmakers";
-import { MaestroIcon } from "../components/MaestroPrimitives";
+import { MaestroIcon, type MaestroIconName } from "../components/MaestroPrimitives";
+import {
+  MarketCategoryIcon,
+  type MarketCategoryIconName,
+} from "../components/PackSportIcons";
 import { AtmosphereStage, ClubWorkspaceShell } from "../components/ShellChrome";
 import { useSheetSwipeDismiss } from "../components/use-sheet-swipe-dismiss";
 import {
@@ -346,14 +351,123 @@ const CATALOG_FAMILY_ID_SET: ReadonlySet<string> = new Set(MARKET_FAMILY_IDS);
 const LEGACY_FAMILY_GROUP_SET: ReadonlySet<string> = new Set(
   MARKET_FAMILY_GROUPS.map((item) => item.id),
 );
-const INITIAL_GAMES_SHOWN = 4;
+const INITIAL_GAMES_SHOWN = 3;
 const GAMES_PAGE_STEP = 6;
-const PER_MATCH_INITIAL_PICKS = 5;
+const PER_MATCH_INITIAL_PICKS = 4;
 const PER_MATCH_LOAD_STEP = 6;
-const INITIAL_FLAT_PICKS = 18;
+const INITIAL_FLAT_PICKS = 12;
 const FLAT_PICKS_STEP = 20;
 const TRIVIAL_ODDS_FLOOR = 1.25;
 const DEFAULT_LIVE_TRACKER_POLL_MS = 30_000;
+const MAX_AUDITABLE_EV_PCT = 20;
+const MAX_AUDITABLE_EDGE_PTS = 15;
+
+type QuickPresetId =
+  | "mejor-valor"
+  | "alta-prob"
+  | "goles"
+  | "principales"
+  | "props"
+  | "en-vivo";
+
+type FilterAccordionId =
+  | "group"
+  | "sort"
+  | "pickType"
+  | "direction"
+  | "period"
+  | "markets"
+  | "position"
+  | "competitions"
+  | "teams"
+  | "odds"
+  | "band"
+  | "dates"
+  | "casas";
+
+interface QuickPresetSpec {
+  readonly id: QuickPresetId;
+  readonly label: string;
+  readonly maestroIcon?: MaestroIconName;
+  readonly marketIcon?: MarketCategoryIconName;
+}
+
+const QUICK_PRESETS: readonly QuickPresetSpec[] = [
+  { id: "mejor-valor", label: "Mejor valor", marketIcon: "expected-value" },
+  { id: "alta-prob", label: "Alta probabilidad", maestroIcon: "verified-seal" },
+  { id: "goles", label: "Goles", marketIcon: "over-under" },
+  { id: "principales", label: "Mercados principales", marketIcon: "result-1x2" },
+  { id: "props", label: "Props", maestroIcon: "player-props" },
+  { id: "en-vivo", label: "En vivo", maestroIcon: "live-pulse" },
+];
+
+const PICK_UNIT_TOKEN_RE =
+  /\b(?:goles?|puntos?|pts|carreras?|c[oó]rners?|tiros?(?:\s+a\s+puerta)?|remates?|tarjetas?|amarillas?|faltas?|rebotes?|reb|asistencias?|ast|triples?|3pm|g\+a|atajadas?|yardas?|touchdowns?)\b/i;
+
+const PICK_BARE_OVER_UNDER_RE =
+  /(\b(?:m[aá]s\s+de|menos\s+de|over|under)\s+\d+(?:[.,]\d+)?)(?=\s*(?:$|[()·|—,-]))/gi;
+
+const THRESHOLD_DECIMAL_EXACT_RE =
+  /^Tiene valor si tu casa paga\s+(\d+(?:\.\d+)?)\s+o m[aá]s\.?$/i;
+
+const THRESHOLD_INLINE_ODDS_RE = /\b(paga|desde)\s+(\d+\.\d{2})\b/gi;
+
+function resolveUnitForFamily(
+  familyId: MarketFamilyId,
+  sport: PlatformGame["sport"],
+  statLabel?: string | null,
+): string {
+  if (statLabel && statLabel.trim().length > 0) {
+    return statLabel.trim().toLowerCase();
+  }
+  if (familyId === "corners_total" || familyId === "corners_team") return "córners";
+  if (familyId === "shots_on_target") return "tiros a puerta";
+  if (familyId === "shots_total") return "tiros";
+  if (familyId === "cards_total") return "tarjetas";
+  if (familyId === "fouls_total") return "faltas";
+  return sportScoringUnit(sport).plural;
+}
+
+function ensurePickLabelWithUnit(
+  label: string,
+  familyId: MarketFamilyId,
+  sport: PlatformGame["sport"],
+  statLabel?: string | null,
+): string {
+  const trimmed = label.trim();
+  if (!trimmed || PICK_UNIT_TOKEN_RE.test(trimmed)) return trimmed;
+  const unit = resolveUnitForFamily(familyId, sport, statLabel);
+  return trimmed.replace(PICK_BARE_OVER_UNDER_RE, `$1 ${unit}`);
+}
+
+function formatValueThresholdForOdds(
+  item: ScreenerItem,
+  oddsFormat: OddsFormat,
+  isSecondary = false,
+): string {
+  const minValueOdds =
+    item.pick.p > 0.01 && item.pick.p < 0.99
+      ? Math.max(1.02, Math.ceil((1 / item.pick.p) * 100 + 1) / 100)
+      : item.pick.fairDecimal;
+  const raw = item.valueThresholdLabel?.trim() ?? "";
+  if (raw.length > 0) {
+    const exactMatch = THRESHOLD_DECIMAL_EXACT_RE.exec(raw);
+    if (exactMatch?.[1]) {
+      const parsed = parseStrictFiniteNumber(exactMatch[1]);
+      const targetDec = parsed !== null && parsed > 1.01 ? parsed : minValueOdds;
+      return `Tiene valor si tu casa paga ${formatOddsValue(targetDec, oddsFormat)} o más`;
+    }
+    return raw.replace(THRESHOLD_INLINE_ODDS_RE, (full, verb: string, decStr: string) => {
+      const parsed = parseStrictFiniteNumber(decStr);
+      if (parsed === null || parsed <= 1.01) return full;
+      return `${verb} ${formatOddsValue(parsed, oddsFormat)}`;
+    });
+  }
+  if (isSecondary) {
+    return `Justo ${formatOddsValue(item.pick.fairDecimal, oddsFormat)}`;
+  }
+  return `Tiene valor si tu casa paga ${formatOddsValue(minValueOdds, oddsFormat)} o más`;
+}
 
 function subscribePageVisibility(onStoreChange: () => void): () => void {
   if (typeof document === "undefined") return () => undefined;
@@ -930,11 +1044,11 @@ function buildCompactEvidenceBullets(
         ...w,
         detail: text,
       });
-      if (out.length >= 5) return out;
+      if (out.length >= 3) return out;
     }
   }
 
-  if (catalogBullets && out.length < 4) {
+  if (catalogBullets && out.length < 3) {
     for (const bullet of catalogBullets) {
       const text = bullet.label.trim();
       if (!text) continue;
@@ -949,7 +1063,7 @@ function buildCompactEvidenceBullets(
         ratePct: bullet.ratePct,
         tone: bullet.tone,
       });
-      if (out.length >= 5) break;
+      if (out.length >= 3) break;
     }
   }
 
@@ -1324,9 +1438,15 @@ const ScreenerPickRow = memo(function ScreenerPickRow({
   const periodTag = periodShortTag(item.period);
   const manualDec = parseManualOddsInput(manualRaw);
   const effectiveHouseDec = manualDec ?? item.houseDecimal;
+  const hasHouseQuote = effectiveHouseDec !== null;
   const effectiveHouseLabel = manualDec !== null ? "Tu momio" : item.houseLabel;
   const effectiveValuePct =
     manualDec !== null ? computeExpectedValuePct(pick.p, manualDec) : item.valuePct;
+  const isOutlierEv = effectiveValuePct !== null && effectiveValuePct > MAX_AUDITABLE_EV_PCT;
+  const auditablePositiveEv =
+    effectiveValuePct !== null && effectiveValuePct > 0 && !isOutlierEv
+      ? effectiveValuePct
+      : null;
   const effectiveMovement = manualDec !== null ? null : (item.movement ?? null);
   const oddsDisplay =
     effectiveHouseDec !== null
@@ -1482,12 +1602,20 @@ const ScreenerPickRow = memo(function ScreenerPickRow({
               aria-label={`Analizar ${pick.label} (${game.home.shortName} vs ${game.away.shortName}) en Bet Lab`}
               onClick={() => onOpenLab(item)}
             >
-              <MaestroIcon name="chart" size={13} className="pl-scr-bet-icon" />
+              <MarketCategoryIcon
+                family={item.catalogFamilyId}
+                size={18}
+                className="pl-scr-bet-icon"
+              />
               <span className="pl-scr-pick-title">{pick.label}</span>
             </button>
           ) : (
             <div className="pl-scr-bet-main">
-              <MaestroIcon name="chart" size={13} className="pl-scr-bet-icon" />
+              <MarketCategoryIcon
+                family={item.catalogFamilyId}
+                size={18}
+                className="pl-scr-bet-icon"
+              />
               <strong className="pl-scr-pick-title locked-redact">
                 Pick reservado Pase PitchLab Ultra
               </strong>
@@ -1593,12 +1721,12 @@ const ScreenerPickRow = memo(function ScreenerPickRow({
             <>
               <div className="pl-scr-odds-pill-wrap num">
                 <div
-                  className={`pl-scr-odds-pill ${effectiveValuePct !== null && effectiveValuePct > 0 ? "is-ev-pos" : ""}`.trim()}
+                  className={`pl-scr-odds-pill ${auditablePositiveEv !== null ? "is-ev-pos" : ""}`.trim()}
                   data-bookmaker-compare="compact"
                 >
                   <strong className="pl-scr-odds-val">{oddsDisplay}</strong>
                   <span className="pl-scr-odds-book">
-                    {effectiveHouseLabel ?? "Justo"}
+                    {hasHouseQuote ? (effectiveHouseLabel ?? "Casa") : "Justo"}
                   </span>
                   {effectiveMovement && effectiveMovement.kind !== "stable" ? (
                     <span
@@ -1611,18 +1739,28 @@ const ScreenerPickRow = memo(function ScreenerPickRow({
                 </div>
 
                 <div className="pl-scr-odds-sub">
-                  {effectiveValuePct !== null && effectiveValuePct > 0 ? (
+                  {auditablePositiveEv !== null ? (
                     <span
                       className="pl-scr-ev-tag"
                       data-ev-positive="true"
                       title="Valor esperado positivo calculado con probabilidad calibrada Spacetime"
                     >
-                      +{effectiveValuePct.toFixed(1)} % EV+
+                      +{auditablePositiveEv.toFixed(1)} % EV+
+                    </span>
+                  ) : isOutlierEv ? (
+                    <span
+                      className="pl-scr-ev-tag is-outlier"
+                      data-ev-outlier="true"
+                      title="Divergencia atípica entre el modelo y la cuota capturada; verifica la línea antes de jugar"
+                    >
+                      <MaestroIcon name="alert-warning" size={12} />
+                      <span>Divergencia</span>
                     </span>
                   ) : null}
                   <span className="pl-scr-spacetime-line">
-                    Spacetime {(pick.p * 100).toFixed(1)} % · Justo{" "}
-                    {formatOddsValue(pick.fairDecimal, oddsFormat)}
+                    {hasHouseQuote
+                      ? `Spacetime ${(pick.p * 100).toFixed(1)} % · Justo ${formatOddsValue(pick.fairDecimal, oddsFormat)}`
+                      : `Spacetime ${(pick.p * 100).toFixed(1)} %`}
                   </span>
                 </div>
               </div>
@@ -1943,6 +2081,9 @@ export function PicksFinderClubView({
   const [maxOddsStep, setMaxOddsStep] = useState<number>(100);
   const [activeViewId, setActiveViewId] = useState<string | null>(null);
   const [collapsedGroups, setCollapsedGroups] = useState<ReadonlySet<string>>(() => new Set());
+  const [openAccordions, setOpenAccordions] = useState<ReadonlySet<FilterAccordionId>>(
+    () => new Set<FilterAccordionId>(["casas"]),
+  );
   const [mobileSheetOpen, setMobileSheetOpen] = useState<boolean>(false);
   const [potdExpanded, setPotdExpanded] = useState<boolean>(false);
   const [visibleGamesCount, setVisibleGamesCount] = useState<number>(INITIAL_GAMES_SHOWN);
@@ -2187,7 +2328,19 @@ export function PicksFinderClubView({
 
       if (serverCatalog && serverCatalog.picks.length > 0) {
         for (let idx = 0; idx < serverCatalog.picks.length; idx += 1) {
-          const catItem = serverCatalog.picks[idx]!;
+          const rawCatItem = serverCatalog.picks[idx]!;
+          const normalizedLabel = rawCatItem.isRedacted
+            ? rawCatItem.label
+            : ensurePickLabelWithUnit(
+                rawCatItem.label,
+                rawCatItem.family,
+                rawCatItem.sport,
+                rawCatItem.playerMeta?.statLabel ?? null,
+              );
+          const catItem =
+            normalizedLabel === rawCatItem.label
+              ? rawCatItem
+              : { ...rawCatItem, label: normalizedLabel };
           const pick = catalogPickItemToMatchPick(catItem, game, idx);
           const legacyFamily = catalogCategoryToLegacyFilter(catItem.category, catItem.sport);
           const period = resolvePickPeriod(pick, catItem.family);
@@ -2461,14 +2614,23 @@ export function PicksFinderClubView({
         const resolvedFamilyId =
           resolveMarketFamilyIdFromRaw(pick.market, game.sport) ??
           defaultFamilyForSport(game.sport);
-        const period = resolvePickPeriod(pick, resolvedFamilyId);
-        const sideBucket = resolveSideBucket(pick, game, null);
-        const settlement = resolveSettlementStatus(game, pick, resolvedFamilyId);
-        const baseWindows = extractEvidenceWindows({ game, pick });
+        const normalizedFallbackLabel = ensurePickLabelWithUnit(
+          pick.label,
+          resolvedFamilyId,
+          game.sport,
+        );
+        const normalizedPick: MatchPick =
+          normalizedFallbackLabel === pick.label
+            ? pick
+            : { ...pick, label: normalizedFallbackLabel };
+        const period = resolvePickPeriod(normalizedPick, resolvedFamilyId);
+        const sideBucket = resolveSideBucket(normalizedPick, game, null);
+        const settlement = resolveSettlementStatus(game, normalizedPick, resolvedFamilyId);
+        const baseWindows = extractEvidenceWindows({ game, pick: normalizedPick });
         const evidenceWindows = buildCompactEvidenceBullets(baseWindows);
-        const isFallbackLocked = !isPickUnlocked(pick, game.status, viewerRole);
+        const isFallbackLocked = !isPickUnlocked(normalizedPick, game.status, viewerRole);
         const catalogPick = buildFallbackCatalogPickItem({
-          pick,
+          pick: normalizedPick,
           game,
           familyId: resolvedFamilyId,
           settlement,
@@ -2495,12 +2657,15 @@ export function PicksFinderClubView({
               `${game.home.name} ${game.home.shortName} ${game.away.name} ${game.away.shortName} ${game.leagueLabel}`,
             )
           : normText(
-              `${game.home.name} ${game.home.shortName} ${game.away.name} ${game.away.shortName} ${game.leagueLabel} ${pick.label} ${pick.categoryLabel} ${pick.marketGroup}`,
+              `${game.home.name} ${game.home.shortName} ${game.away.name} ${game.away.shortName} ${game.leagueLabel} ${normalizedPick.label} ${normalizedPick.categoryLabel} ${normalizedPick.marketGroup}`,
             );
 
         out.push({
           game,
-          pick: quotes && !pick.bookQuotes ? { ...pick, bookQuotes: quotes } : pick,
+          pick:
+            quotes && !normalizedPick.bookQuotes
+              ? { ...normalizedPick, bookQuotes: quotes }
+              : normalizedPick,
           catalogPick,
           tabBucket,
           isLiveGame,
@@ -2582,13 +2747,25 @@ export function PicksFinderClubView({
       }
       const game = gameById.get(catPick.gameId);
       if (!game) continue;
-      const matchPick = catalogPickItemToMatchPick(catPick, game, 0);
-      const scored = scoreRecommendedCatalogPick(catPick);
-      const baseWindows = catalogEvidenceToWindowItems(catPick.evidence, catPick.sport);
+      const normalizedPotdLabel = catPick.isRedacted
+        ? catPick.label
+        : ensurePickLabelWithUnit(
+            catPick.label,
+            catPick.family,
+            catPick.sport,
+            catPick.playerMeta?.statLabel ?? null,
+          );
+      const safeCatPick =
+        normalizedPotdLabel === catPick.label
+          ? catPick
+          : { ...catPick, label: normalizedPotdLabel };
+      const matchPick = catalogPickItemToMatchPick(safeCatPick, game, 0);
+      const scored = scoreRecommendedCatalogPick(safeCatPick);
+      const baseWindows = catalogEvidenceToWindowItems(safeCatPick.evidence, safeCatPick.sport);
       resolved.push({
         game,
         pick: matchPick,
-        catalogPick: catPick,
+        catalogPick: safeCatPick,
         tabBucket: "upcoming",
         isLiveGame: false,
         isSettled: false,
@@ -2647,23 +2824,31 @@ export function PicksFinderClubView({
   }, [all, liveTrackedItems, onlyRecommended]);
 
   const tabItems = useMemo<
-    readonly { readonly id: TimingMode; readonly label: string; readonly count: number }[]
+    readonly {
+      readonly id: TimingMode;
+      readonly label: string;
+      readonly count: number;
+      readonly icon: MaestroIconName;
+    }[]
   >(
     () => [
       {
         id: "upcoming",
         label: "Recomendados / Próximos",
         count: timingCounts.upcoming,
+        icon: "target-picks",
       },
       {
         id: "live",
         label: "Activos / En vivo",
         count: timingCounts.live,
+        icon: "live-pulse",
       },
       {
         id: "settled",
         label: "Liquidados FT",
         count: timingCounts.settled,
+        icon: "verified-seal",
       },
     ],
     [timingCounts.live, timingCounts.settled, timingCounts.upcoming],
@@ -2791,6 +2976,88 @@ export function PicksFinderClubView({
     setFlatShown(INITIAL_FLAT_PICKS);
   };
 
+  const handleAccordionToggle = useCallback((id: FilterAccordionId, isOpen: boolean) => {
+    setOpenAccordions((prev) => {
+      if (prev.has(id) === isOpen) return prev;
+      const next = new Set(prev);
+      if (isOpen) next.add(id);
+      else next.delete(id);
+      return next;
+    });
+  }, []);
+
+  const activePresetId = useMemo<QuickPresetId | null>(() => {
+    if (timing === "live") return "en-vivo";
+    if (timing !== "upcoming") return null;
+    if (onlyPositiveEdge && sort === "ev" && family === "all" && band === "all" && pickTypeFilter === "all") {
+      return "mejor-valor";
+    }
+    if (band === "alta" && sort === "p" && family === "all" && !onlyPositiveEdge && pickTypeFilter === "all") {
+      return "alta-prob";
+    }
+    if (family === "goles" && band === "all" && !onlyPositiveEdge && pickTypeFilter === "all") {
+      return "goles";
+    }
+    if (family === "resultado" && pickTypeFilter === "team_match" && band === "all" && !onlyPositiveEdge) {
+      return "principales";
+    }
+    if (family === "props" && band === "all" && !onlyPositiveEdge) {
+      return "props";
+    }
+    return null;
+  }, [band, family, onlyPositiveEdge, pickTypeFilter, sort, timing]);
+
+  const applyQuickPreset = useCallback(
+    (presetId: QuickPresetId) => {
+      setActiveViewId(null);
+      setVisibleGamesCount(INITIAL_GAMES_SHOWN);
+      setPerMatchVisibleCounts({});
+      setFlatShown(INITIAL_FLAT_PICKS);
+
+      if (activePresetId === presetId) {
+        setTiming("upcoming");
+        setSort("recomendados");
+        setBand("all");
+        setFamily("all");
+        setPickTypeFilter("all");
+        setOnlyPositiveEdge(false);
+        setOnlyRecommended(true);
+        return;
+      }
+
+      if (presetId === "en-vivo") {
+        setTiming("live");
+        return;
+      }
+
+      setTiming("upcoming");
+      setBand("all");
+      setFamily("all");
+      setPickTypeFilter("all");
+      setOnlyPositiveEdge(false);
+      setOnlyRecommended(true);
+      setSort("recomendados");
+
+      if (presetId === "mejor-valor") {
+        setOnlyPositiveEdge(true);
+        setSort("ev");
+      } else if (presetId === "alta-prob") {
+        setBand("alta");
+        setOnlyRecommended(false);
+        setSort("p");
+      } else if (presetId === "goles") {
+        setFamily("goles");
+      } else if (presetId === "principales") {
+        setFamily("resultado");
+        setPickTypeFilter("team_match");
+      } else if (presetId === "props") {
+        setFamily("props");
+        setOnlyRecommended(false);
+      }
+    },
+    [activePresetId],
+  );
+
   const effectiveIncludeTrivial =
     includeTrivialOdds || (minOddsStep > 0 && minOddsVal < TRIVIAL_ODDS_FLOOR);
 
@@ -2868,10 +3135,14 @@ export function PicksFinderClubView({
       if (periodFilter !== "all" && item.period !== periodFilter) return false;
       if (!matchesPosition(item)) return false;
       if (onlyPositiveEdge) {
-        const hasVal =
-          (item.valuePct !== null && item.valuePct > 0) ||
-          (item.edgePts !== null && item.edgePts > 0);
-        if (!hasVal) return false;
+        const hasAuditableEv =
+          item.valuePct !== null && item.valuePct > 0 && item.valuePct <= MAX_AUDITABLE_EV_PCT;
+        const hasAuditableEdge =
+          item.valuePct === null &&
+          item.edgePts !== null &&
+          item.edgePts > 0 &&
+          item.edgePts <= MAX_AUDITABLE_EDGE_PTS;
+        if (!hasAuditableEv && !hasAuditableEdge) return false;
       }
 
       const effectiveDec = item.houseDecimal ?? item.pick.fairDecimal;
@@ -2897,16 +3168,24 @@ export function PicksFinderClubView({
         );
       }
       if (sort === "recomendados") {
+        const aEv =
+          a.valuePct !== null && a.valuePct <= MAX_AUDITABLE_EV_PCT ? a.valuePct : -999;
+        const bEv =
+          b.valuePct !== null && b.valuePct <= MAX_AUDITABLE_EV_PCT ? b.valuePct : -999;
         return (
           b.recommendationScore - a.recommendationScore ||
           b.convergenceCount - a.convergenceCount ||
-          (b.valuePct ?? -999) - (a.valuePct ?? -999) ||
+          bEv - aEv ||
           b.pick.p - a.pick.p
         );
       }
       if (sort === "ev") {
+        const aEv =
+          a.valuePct !== null && a.valuePct <= MAX_AUDITABLE_EV_PCT ? a.valuePct : -999;
+        const bEv =
+          b.valuePct !== null && b.valuePct <= MAX_AUDITABLE_EV_PCT ? b.valuePct : -999;
         return (
-          (b.valuePct ?? -999) - (a.valuePct ?? -999) ||
+          bEv - aEv ||
           (b.edgePts ?? -999) - (a.edgePts ?? -999) ||
           b.pick.p - a.pick.p
         );
@@ -2985,10 +3264,14 @@ export function PicksFinderClubView({
       if (periodFilter !== "all" && item.period !== periodFilter) continue;
       if (!matchesPosition(item)) continue;
       if (onlyPositiveEdge) {
-        const hasVal =
-          (item.valuePct !== null && item.valuePct > 0) ||
-          (item.edgePts !== null && item.edgePts > 0);
-        if (!hasVal) continue;
+        const hasAuditableEv =
+          item.valuePct !== null && item.valuePct > 0 && item.valuePct <= MAX_AUDITABLE_EV_PCT;
+        const hasAuditableEdge =
+          item.valuePct === null &&
+          item.edgePts !== null &&
+          item.edgePts > 0 &&
+          item.edgePts <= MAX_AUDITABLE_EDGE_PTS;
+        if (!hasAuditableEv && !hasAuditableEdge) continue;
       }
       const effectiveDec = item.houseDecimal ?? item.pick.fairDecimal;
       if (timing === "upcoming") {
@@ -3384,400 +3667,478 @@ export function PicksFinderClubView({
       </div>
 
       <div className="pl-scr-acc-list">
-        <details className="pl-scr-acc">
+        <details
+          className="pl-scr-acc"
+          open={openAccordions.has("group")}
+          onToggle={(e) => handleAccordionToggle("group", e.currentTarget.open)}
+        >
           <summary className="pl-scr-acc-summary">
             <span className="pl-scr-acc-key">Agrupar por</span>
             <span className="pl-scr-acc-val">{currentGroupLabel}</span>
           </summary>
-          <div className="pl-scr-acc-body">
-            <div
-              className="pl-scr-group-seg is-rail"
-              role="group"
-              aria-label="Modo de agrupación"
-              data-screener-group-mode=""
-            >
-              {GROUP_MODES.map((m) => (
-                <button
-                  key={m.id}
-                  type="button"
-                  className={`pl-scr-seg-btn ${groupMode === m.id ? "is-on" : ""}`.trim()}
-                  aria-pressed={groupMode === m.id}
-                  onClick={() => setGroupMode(m.id)}
-                >
-                  {m.label}
-                </button>
-              ))}
+          {openAccordions.has("group") ? (
+            <div className="pl-scr-acc-body">
+              <div
+                className="pl-scr-group-seg is-rail"
+                role="group"
+                aria-label="Modo de agrupación"
+                data-screener-group-mode=""
+              >
+                {GROUP_MODES.map((m) => (
+                  <button
+                    key={m.id}
+                    type="button"
+                    className={`pl-scr-seg-btn ${groupMode === m.id ? "is-on" : ""}`.trim()}
+                    aria-pressed={groupMode === m.id}
+                    onClick={() => setGroupMode(m.id)}
+                  >
+                    {m.label}
+                  </button>
+                ))}
+              </div>
             </div>
-          </div>
+          ) : null}
         </details>
 
-        <details className="pl-scr-acc">
+        <details
+          className="pl-scr-acc"
+          open={openAccordions.has("sort")}
+          onToggle={(e) => handleAccordionToggle("sort", e.currentTarget.open)}
+        >
           <summary className="pl-scr-acc-summary">
             <span className="pl-scr-acc-key">Ordenar por</span>
             <span className="pl-scr-acc-val">{currentSortLabel}</span>
           </summary>
-          <div className="pl-scr-acc-body">
-            <label className="pl-scr-field">
-              <span className="sr-only">Ordenar por</span>
-              <select
-                value={sort}
-                onChange={(e) => {
-                  setActiveViewId(null);
-                  setSort(parseSortExtended(e.target.value));
-                }}
-                className="pl-scr-select"
-              >
-                {SORT_OPTIONS.map((opt) => (
-                  <option key={opt.id} value={opt.id}>
-                    {opt.label}
-                  </option>
-                ))}
-              </select>
-            </label>
-          </div>
-        </details>
-
-        <details className="pl-scr-acc">
-          <summary className="pl-scr-acc-summary">
-            <span className="pl-scr-acc-key">Tipo de pick</span>
-            <span className="pl-scr-acc-val">{currentTypeLabel}</span>
-          </summary>
-          <div className="pl-scr-acc-body">
-            <label className="pl-scr-field">
-              <span className="sr-only">Tipo de pick</span>
-              <select
-                value={pickTypeFilter}
-                onChange={(e) => {
-                  setActiveViewId(null);
-                  setPickTypeFilter(parsePickTypeFilter(e.target.value));
-                  setVisibleGamesCount(INITIAL_GAMES_SHOWN);
-                }}
-                className="pl-scr-select"
-              >
-                {PICK_TYPE_OPTIONS.map((opt) => (
-                  <option key={opt.id} value={opt.id}>
-                    {opt.label}
-                  </option>
-                ))}
-              </select>
-            </label>
-          </div>
-        </details>
-
-        <details className="pl-scr-acc">
-          <summary className="pl-scr-acc-summary">
-            <span className="pl-scr-acc-key">Dirección</span>
-            <span className="pl-scr-acc-val">{currentDirectionLabel}</span>
-          </summary>
-          <div className="pl-scr-acc-body">
-            <label className="pl-scr-field">
-              <span className="sr-only">Dirección</span>
-              <select
-                value={directionFilter}
-                onChange={(e) => {
-                  setActiveViewId(null);
-                  setDirectionFilter(parseDirectionFilter(e.target.value));
-                  setVisibleGamesCount(INITIAL_GAMES_SHOWN);
-                }}
-                className="pl-scr-select"
-              >
-                {DIRECTION_OPTIONS.map((opt) => (
-                  <option key={opt.id} value={opt.id}>
-                    {opt.label}
-                  </option>
-                ))}
-              </select>
-            </label>
-          </div>
-        </details>
-
-        <details className="pl-scr-acc">
-          <summary className="pl-scr-acc-summary">
-            <span className="pl-scr-acc-key">Periodo</span>
-            <span className="pl-scr-acc-val">{currentPeriodLabel}</span>
-          </summary>
-          <div className="pl-scr-acc-body">
-            <label className="pl-scr-field">
-              <span className="sr-only">Periodo</span>
-              <select
-                value={periodFilter}
-                onChange={(e) => {
-                  setActiveViewId(null);
-                  setPeriodFilter(parsePeriodFilter(e.target.value));
-                  setVisibleGamesCount(INITIAL_GAMES_SHOWN);
-                }}
-                className="pl-scr-select"
-                data-screener-period-filter=""
-              >
-                {PERIOD_OPTIONS.map((opt) => (
-                  <option key={opt.id} value={opt.id}>
-                    {opt.label}
-                  </option>
-                ))}
-              </select>
-            </label>
-          </div>
-        </details>
-
-        <details className="pl-scr-acc">
-          <summary className="pl-scr-acc-summary">
-            <span className="pl-scr-acc-key">Mercados</span>
-            <span className="pl-scr-acc-val truncate">{currentMarketLabel}</span>
-          </summary>
-          <div className="pl-scr-acc-body">
-            <label className="pl-scr-field">
-              <span className="sr-only">Familia de mercado</span>
-              <select
-                value={family}
-                aria-label="Familia de mercado"
-                onChange={(e) => {
-                  setActiveViewId(null);
-                  setFamily(parseFamilyFilter(e.target.value));
-                  setVisibleGamesCount(INITIAL_GAMES_SHOWN);
-                }}
-                className="pl-scr-select"
-              >
-                <optgroup label="Agrupaciones">
-                  {MARKET_FAMILY_GROUPS.map((f) => (
-                    <option key={f.id} value={f.id}>
-                      {f.label}
-                    </option>
-                  ))}
-                </optgroup>
-                <optgroup label="34 familias del catálogo">
-                  {MARKET_FAMILY_IDS.map((famId) => (
-                    <option key={famId} value={famId}>
-                      {MARKET_FAMILIES[famId].label}
-                    </option>
-                  ))}
-                </optgroup>
-              </select>
-            </label>
-          </div>
-        </details>
-
-        <details className="pl-scr-acc">
-          <summary className="pl-scr-acc-summary">
-            <span className="pl-scr-acc-key">Posiciones</span>
-            <span className="pl-scr-acc-val">{currentPosLabel}</span>
-          </summary>
-          <div className="pl-scr-acc-body">
-            <label className="pl-scr-field">
-              <span className="sr-only">Posición</span>
-              <select
-                value={positionFilter}
-                onChange={(e) => {
-                  setActiveViewId(null);
-                  setPositionFilter(parsePositionFilter(e.target.value));
-                  setVisibleGamesCount(INITIAL_GAMES_SHOWN);
-                }}
-                className="pl-scr-select"
-                data-screener-position-filter=""
-              >
-                {POSITION_OPTIONS.map((opt) => (
-                  <option key={opt.id} value={opt.id}>
-                    {opt.label}
-                  </option>
-                ))}
-              </select>
-            </label>
-          </div>
-        </details>
-
-        <details className="pl-scr-acc">
-          <summary className="pl-scr-acc-summary">
-            <span className="pl-scr-acc-key">Competiciones</span>
-            <span className="pl-scr-acc-val truncate">{currentCompLabel}</span>
-          </summary>
-          <div className="pl-scr-acc-body space-y-2">
-            <label className="pl-scr-field">
-              <span>Deporte</span>
-              <select
-                value={sport}
-                onChange={(e) => {
-                  setActiveViewId(null);
-                  setSport(parseSportFilter(e.target.value));
-                  setLeague("all");
-                  setTeamFilter("all");
-                  setVisibleGamesCount(INITIAL_GAMES_SHOWN);
-                }}
-                className="pl-scr-select"
-              >
-                {SPORT_OPTIONS.map((s) => (
-                  <option key={s.id} value={s.id}>
-                    {s.label}
-                  </option>
-                ))}
-              </select>
-            </label>
-
-            <label className="pl-scr-field">
-              <span>Liga</span>
-              <select
-                value={league}
-                onChange={(e) => {
-                  setActiveViewId(null);
-                  setLeague(e.target.value);
-                  setTeamFilter("all");
-                  setVisibleGamesCount(INITIAL_GAMES_SHOWN);
-                }}
-                className="pl-scr-select"
-              >
-                <option value="all">Todas ({leagues.length})</option>
-                {leagues.map(([id, label]) => (
-                  <option key={id} value={id}>
-                    {label}
-                  </option>
-                ))}
-              </select>
-            </label>
-          </div>
-        </details>
-
-        <details className="pl-scr-acc">
-          <summary className="pl-scr-acc-summary">
-            <span className="pl-scr-acc-key">Equipos</span>
-            <span className="pl-scr-acc-val truncate">{currentTeamLabel}</span>
-          </summary>
-          <div className="pl-scr-acc-body">
-            <label className="pl-scr-field">
-              <span className="sr-only">Equipo</span>
-              <select
-                value={teamFilter}
-                onChange={(e) => {
-                  setActiveViewId(null);
-                  setTeamFilter(e.target.value);
-                  setVisibleGamesCount(INITIAL_GAMES_SHOWN);
-                }}
-                className="pl-scr-select"
-              >
-                <option value="all">Todos ({teams.length})</option>
-                {teams.map(([slug, name]) => (
-                  <option key={slug} value={slug}>
-                    {name}
-                  </option>
-                ))}
-              </select>
-            </label>
-          </div>
-        </details>
-
-        <details className="pl-scr-acc">
-          <summary className="pl-scr-acc-summary">
-            <span className="pl-scr-acc-key">Cuotas</span>
-            <span className="pl-scr-acc-val num">{currentOddsSummary}</span>
-          </summary>
-          <div className="pl-scr-acc-body">
-            <NonLinearOddsSlider
-              minStep={minOddsStep}
-              maxStep={maxOddsStep}
-              oddsFormat={oddsFormat}
-              compact
-              onChange={(nextMin, nextMax) => {
-                setActiveViewId(null);
-                setMinOddsStep(nextMin);
-                setMaxOddsStep(nextMax);
-                setVisibleGamesCount(INITIAL_GAMES_SHOWN);
-              }}
-            />
-          </div>
-        </details>
-
-        <details className="pl-scr-acc">
-          <summary className="pl-scr-acc-summary">
-            <span className="pl-scr-acc-key">Acierto / Probabilidad</span>
-            <span className="pl-scr-acc-val">{currentBandLabel}</span>
-          </summary>
-          <div className="pl-scr-acc-body">
-            <div
-              className="pl-scr-band-group is-rail"
-              role="group"
-              aria-label="Probabilidad calibrada Spacetime"
-            >
-              {BANDS.map((b) => (
-                <button
-                  key={b.id}
-                  type="button"
-                  className={`pl-scr-band-btn ${band === b.id ? "is-on" : ""}`.trim()}
-                  aria-pressed={band === b.id}
-                  title={b.hint || undefined}
-                  onClick={() => {
-                    setActiveViewId(null);
-                    setBand(b.id);
-                    setVisibleGamesCount(INITIAL_GAMES_SHOWN);
-                  }}
-                >
-                  <span>{b.label}</span>
-                  <span className="num pl-scr-band-count">{counts[b.id]}</span>
-                </button>
-              ))}
-            </div>
-          </div>
-        </details>
-
-        {timing === "upcoming" ? (
-          <details className="pl-scr-acc">
-            <summary className="pl-scr-acc-summary">
-              <span className="pl-scr-acc-key">Fechas</span>
-              <span className="pl-scr-acc-val">{currentWindowLabel}</span>
-            </summary>
+          {openAccordions.has("sort") ? (
             <div className="pl-scr-acc-body">
               <label className="pl-scr-field">
-                <span className="sr-only">Fechas de los partidos</span>
+                <span className="sr-only">Ordenar por</span>
                 <select
-                  value={windowFilter}
+                  value={sort}
                   onChange={(e) => {
                     setActiveViewId(null);
-                    setWindowFilter(parseWindowFilter(e.target.value));
-                    setVisibleGamesCount(INITIAL_GAMES_SHOWN);
+                    setSort(parseSortExtended(e.target.value));
                   }}
                   className="pl-scr-select"
                 >
-                  {WINDOW_OPTIONS.map((w) => (
-                    <option key={w.id} value={w.id}>
-                      {w.label}
+                  {SORT_OPTIONS.map((opt) => (
+                    <option key={opt.id} value={opt.id}>
+                      {opt.label}
                     </option>
                   ))}
                 </select>
               </label>
             </div>
+          ) : null}
+        </details>
+
+        <details
+          className="pl-scr-acc"
+          open={openAccordions.has("pickType")}
+          onToggle={(e) => handleAccordionToggle("pickType", e.currentTarget.open)}
+        >
+          <summary className="pl-scr-acc-summary">
+            <span className="pl-scr-acc-key">Tipo de pick</span>
+            <span className="pl-scr-acc-val">{currentTypeLabel}</span>
+          </summary>
+          {openAccordions.has("pickType") ? (
+            <div className="pl-scr-acc-body">
+              <label className="pl-scr-field">
+                <span className="sr-only">Tipo de pick</span>
+                <select
+                  value={pickTypeFilter}
+                  onChange={(e) => {
+                    setActiveViewId(null);
+                    setPickTypeFilter(parsePickTypeFilter(e.target.value));
+                    setVisibleGamesCount(INITIAL_GAMES_SHOWN);
+                  }}
+                  className="pl-scr-select"
+                >
+                  {PICK_TYPE_OPTIONS.map((opt) => (
+                    <option key={opt.id} value={opt.id}>
+                      {opt.label}
+                    </option>
+                  ))}
+                </select>
+              </label>
+            </div>
+          ) : null}
+        </details>
+
+        <details
+          className="pl-scr-acc"
+          open={openAccordions.has("direction")}
+          onToggle={(e) => handleAccordionToggle("direction", e.currentTarget.open)}
+        >
+          <summary className="pl-scr-acc-summary">
+            <span className="pl-scr-acc-key">Dirección</span>
+            <span className="pl-scr-acc-val">{currentDirectionLabel}</span>
+          </summary>
+          {openAccordions.has("direction") ? (
+            <div className="pl-scr-acc-body">
+              <label className="pl-scr-field">
+                <span className="sr-only">Dirección</span>
+                <select
+                  value={directionFilter}
+                  onChange={(e) => {
+                    setActiveViewId(null);
+                    setDirectionFilter(parseDirectionFilter(e.target.value));
+                    setVisibleGamesCount(INITIAL_GAMES_SHOWN);
+                  }}
+                  className="pl-scr-select"
+                >
+                  {DIRECTION_OPTIONS.map((opt) => (
+                    <option key={opt.id} value={opt.id}>
+                      {opt.label}
+                    </option>
+                  ))}
+                </select>
+              </label>
+            </div>
+          ) : null}
+        </details>
+
+        <details
+          className="pl-scr-acc"
+          open={openAccordions.has("period")}
+          onToggle={(e) => handleAccordionToggle("period", e.currentTarget.open)}
+        >
+          <summary className="pl-scr-acc-summary">
+            <span className="pl-scr-acc-key">Periodo</span>
+            <span className="pl-scr-acc-val">{currentPeriodLabel}</span>
+          </summary>
+          {openAccordions.has("period") ? (
+            <div className="pl-scr-acc-body">
+              <label className="pl-scr-field">
+                <span className="sr-only">Periodo</span>
+                <select
+                  value={periodFilter}
+                  onChange={(e) => {
+                    setActiveViewId(null);
+                    setPeriodFilter(parsePeriodFilter(e.target.value));
+                    setVisibleGamesCount(INITIAL_GAMES_SHOWN);
+                  }}
+                  className="pl-scr-select"
+                  data-screener-period-filter=""
+                >
+                  {PERIOD_OPTIONS.map((opt) => (
+                    <option key={opt.id} value={opt.id}>
+                      {opt.label}
+                    </option>
+                  ))}
+                </select>
+              </label>
+            </div>
+          ) : null}
+        </details>
+
+        <details
+          className="pl-scr-acc"
+          open={openAccordions.has("markets")}
+          onToggle={(e) => handleAccordionToggle("markets", e.currentTarget.open)}
+        >
+          <summary className="pl-scr-acc-summary">
+            <span className="pl-scr-acc-key">Mercados</span>
+            <span className="pl-scr-acc-val truncate">{currentMarketLabel}</span>
+          </summary>
+          {openAccordions.has("markets") ? (
+            <div className="pl-scr-acc-body">
+              <label className="pl-scr-field">
+                <span className="sr-only">Familia de mercado</span>
+                <select
+                  value={family}
+                  aria-label="Familia de mercado"
+                  onChange={(e) => {
+                    setActiveViewId(null);
+                    setFamily(parseFamilyFilter(e.target.value));
+                    setVisibleGamesCount(INITIAL_GAMES_SHOWN);
+                  }}
+                  className="pl-scr-select"
+                >
+                  <optgroup label="Agrupaciones">
+                    {MARKET_FAMILY_GROUPS.map((f) => (
+                      <option key={f.id} value={f.id}>
+                        {f.label}
+                      </option>
+                    ))}
+                  </optgroup>
+                  <optgroup label="34 familias del catálogo">
+                    {MARKET_FAMILY_IDS.map((famId) => (
+                      <option key={famId} value={famId}>
+                        {MARKET_FAMILIES[famId].label}
+                      </option>
+                    ))}
+                  </optgroup>
+                </select>
+              </label>
+            </div>
+          ) : null}
+        </details>
+
+        <details
+          className="pl-scr-acc"
+          open={openAccordions.has("position")}
+          onToggle={(e) => handleAccordionToggle("position", e.currentTarget.open)}
+        >
+          <summary className="pl-scr-acc-summary">
+            <span className="pl-scr-acc-key">Posiciones</span>
+            <span className="pl-scr-acc-val">{currentPosLabel}</span>
+          </summary>
+          {openAccordions.has("position") ? (
+            <div className="pl-scr-acc-body">
+              <label className="pl-scr-field">
+                <span className="sr-only">Posición</span>
+                <select
+                  value={positionFilter}
+                  onChange={(e) => {
+                    setActiveViewId(null);
+                    setPositionFilter(parsePositionFilter(e.target.value));
+                    setVisibleGamesCount(INITIAL_GAMES_SHOWN);
+                  }}
+                  className="pl-scr-select"
+                  data-screener-position-filter=""
+                >
+                  {POSITION_OPTIONS.map((opt) => (
+                    <option key={opt.id} value={opt.id}>
+                      {opt.label}
+                    </option>
+                  ))}
+                </select>
+              </label>
+            </div>
+          ) : null}
+        </details>
+
+        <details
+          className="pl-scr-acc"
+          open={openAccordions.has("competitions")}
+          onToggle={(e) => handleAccordionToggle("competitions", e.currentTarget.open)}
+        >
+          <summary className="pl-scr-acc-summary">
+            <span className="pl-scr-acc-key">Competiciones</span>
+            <span className="pl-scr-acc-val truncate">{currentCompLabel}</span>
+          </summary>
+          {openAccordions.has("competitions") ? (
+            <div className="pl-scr-acc-body space-y-2">
+              <label className="pl-scr-field">
+                <span>Deporte</span>
+                <select
+                  value={sport}
+                  onChange={(e) => {
+                    setActiveViewId(null);
+                    setSport(parseSportFilter(e.target.value));
+                    setLeague("all");
+                    setTeamFilter("all");
+                    setVisibleGamesCount(INITIAL_GAMES_SHOWN);
+                  }}
+                  className="pl-scr-select"
+                >
+                  {SPORT_OPTIONS.map((s) => (
+                    <option key={s.id} value={s.id}>
+                      {s.label}
+                    </option>
+                  ))}
+                </select>
+              </label>
+
+              <label className="pl-scr-field">
+                <span>Liga</span>
+                <select
+                  value={league}
+                  onChange={(e) => {
+                    setActiveViewId(null);
+                    setLeague(e.target.value);
+                    setTeamFilter("all");
+                    setVisibleGamesCount(INITIAL_GAMES_SHOWN);
+                  }}
+                  className="pl-scr-select"
+                >
+                  <option value="all">Todas ({leagues.length})</option>
+                  {leagues.map(([id, label]) => (
+                    <option key={id} value={id}>
+                      {label}
+                    </option>
+                  ))}
+                </select>
+              </label>
+            </div>
+          ) : null}
+        </details>
+
+        <details
+          className="pl-scr-acc"
+          open={openAccordions.has("teams")}
+          onToggle={(e) => handleAccordionToggle("teams", e.currentTarget.open)}
+        >
+          <summary className="pl-scr-acc-summary">
+            <span className="pl-scr-acc-key">Equipos</span>
+            <span className="pl-scr-acc-val truncate">{currentTeamLabel}</span>
+          </summary>
+          {openAccordions.has("teams") ? (
+            <div className="pl-scr-acc-body">
+              <label className="pl-scr-field">
+                <span className="sr-only">Equipo</span>
+                <select
+                  value={teamFilter}
+                  onChange={(e) => {
+                    setActiveViewId(null);
+                    setTeamFilter(e.target.value);
+                    setVisibleGamesCount(INITIAL_GAMES_SHOWN);
+                  }}
+                  className="pl-scr-select"
+                >
+                  <option value="all">Todos ({teams.length})</option>
+                  {teams.map(([slug, name]) => (
+                    <option key={slug} value={slug}>
+                      {name}
+                    </option>
+                  ))}
+                </select>
+              </label>
+            </div>
+          ) : null}
+        </details>
+
+        <details
+          className="pl-scr-acc"
+          open={openAccordions.has("odds")}
+          onToggle={(e) => handleAccordionToggle("odds", e.currentTarget.open)}
+        >
+          <summary className="pl-scr-acc-summary">
+            <span className="pl-scr-acc-key">Cuotas</span>
+            <span className="pl-scr-acc-val num">{currentOddsSummary}</span>
+          </summary>
+          {openAccordions.has("odds") ? (
+            <div className="pl-scr-acc-body">
+              <NonLinearOddsSlider
+                minStep={minOddsStep}
+                maxStep={maxOddsStep}
+                oddsFormat={oddsFormat}
+                compact
+                onChange={(nextMin, nextMax) => {
+                  setActiveViewId(null);
+                  setMinOddsStep(nextMin);
+                  setMaxOddsStep(nextMax);
+                  setVisibleGamesCount(INITIAL_GAMES_SHOWN);
+                }}
+              />
+            </div>
+          ) : null}
+        </details>
+
+        <details
+          className="pl-scr-acc"
+          open={openAccordions.has("band")}
+          onToggle={(e) => handleAccordionToggle("band", e.currentTarget.open)}
+        >
+          <summary className="pl-scr-acc-summary">
+            <span className="pl-scr-acc-key">Acierto / Probabilidad</span>
+            <span className="pl-scr-acc-val">{currentBandLabel}</span>
+          </summary>
+          {openAccordions.has("band") ? (
+            <div className="pl-scr-acc-body">
+              <div
+                className="pl-scr-band-group is-rail"
+                role="group"
+                aria-label="Probabilidad calibrada Spacetime"
+              >
+                {BANDS.map((b) => (
+                  <button
+                    key={b.id}
+                    type="button"
+                    className={`pl-scr-band-btn ${band === b.id ? "is-on" : ""}`.trim()}
+                    aria-pressed={band === b.id}
+                    title={b.hint || undefined}
+                    onClick={() => {
+                      setActiveViewId(null);
+                      setBand(b.id);
+                      setVisibleGamesCount(INITIAL_GAMES_SHOWN);
+                    }}
+                  >
+                    <span>{b.label}</span>
+                    <span className="num pl-scr-band-count">{counts[b.id]}</span>
+                  </button>
+                ))}
+              </div>
+            </div>
+          ) : null}
+        </details>
+
+        {timing === "upcoming" ? (
+          <details
+            className="pl-scr-acc"
+            open={openAccordions.has("dates")}
+            onToggle={(e) => handleAccordionToggle("dates", e.currentTarget.open)}
+          >
+            <summary className="pl-scr-acc-summary">
+              <span className="pl-scr-acc-key">Fechas</span>
+              <span className="pl-scr-acc-val">{currentWindowLabel}</span>
+            </summary>
+            {openAccordions.has("dates") ? (
+              <div className="pl-scr-acc-body">
+                <label className="pl-scr-field">
+                  <span className="sr-only">Fechas de los partidos</span>
+                  <select
+                    value={windowFilter}
+                    onChange={(e) => {
+                      setActiveViewId(null);
+                      setWindowFilter(parseWindowFilter(e.target.value));
+                      setVisibleGamesCount(INITIAL_GAMES_SHOWN);
+                    }}
+                    className="pl-scr-select"
+                  >
+                    {WINDOW_OPTIONS.map((w) => (
+                      <option key={w.id} value={w.id}>
+                        {w.label}
+                      </option>
+                    ))}
+                  </select>
+                </label>
+              </div>
+            ) : null}
           </details>
         ) : null}
 
-        <details className="pl-scr-acc">
+        <details
+          className="pl-scr-acc"
+          open={openAccordions.has("casas")}
+          onToggle={(e) => handleAccordionToggle("casas", e.currentTarget.open)}
+        >
           <summary className="pl-scr-acc-summary">
             <span className="pl-scr-acc-key">Casas</span>
             <span className="pl-scr-acc-val num">{preferredBooks.length} activas</span>
           </summary>
-          <div className="pl-scr-acc-body space-y-2">
-            <div className="pl-scr-books-pills" role="group" aria-label="Casas preferidas">
-              {QUICK_BOOKS.map((book) => {
-                const active = preferredBookSet.has(normalizeBookKey(book.id));
-                return (
-                  <button
-                    key={book.id}
-                    type="button"
-                    className={`pl-scr-book-chip ${active ? "is-on" : ""}`.trim()}
-                    aria-pressed={active}
-                    data-quick-book={book.id}
-                    onClick={() => togglePreferredBook(book.id)}
-                  >
-                    {book.label}
-                  </button>
-                );
-              })}
+          {openAccordions.has("casas") ? (
+            <div className="pl-scr-acc-body space-y-2">
+              <div className="pl-scr-books-pills" role="group" aria-label="Casas preferidas">
+                {QUICK_BOOKS.map((book) => {
+                  const active = preferredBookSet.has(normalizeBookKey(book.id));
+                  return (
+                    <button
+                      key={book.id}
+                      type="button"
+                      className={`pl-scr-book-chip ${active ? "is-on" : ""}`.trim()}
+                      aria-pressed={active}
+                      data-quick-book={book.id}
+                      onClick={() => togglePreferredBook(book.id)}
+                    >
+                      {book.label}
+                    </button>
+                  );
+                })}
+              </div>
+              <a
+                href="/app/account?tab=prefs#pl-prefs-picks"
+                className="pl-scr-rail-prefs-link"
+                onClick={(e) => {
+                  e.preventDefault();
+                  navigateTo("/app/account?tab=prefs#pl-prefs-picks");
+                }}
+              >
+                Configurar todas mis casas →
+              </a>
             </div>
-            <a
-              href="/app/account?tab=prefs#pl-prefs-picks"
-              className="pl-scr-rail-prefs-link"
-              onClick={(e) => {
-                e.preventDefault();
-                navigateTo("/app/account?tab=prefs#pl-prefs-picks");
-              }}
-            >
-              Configurar todas mis casas →
-            </a>
-          </div>
+          ) : null}
         </details>
       </div>
 
@@ -4017,6 +4378,7 @@ export function PicksFinderClubView({
                           }
                         }}
                       >
+                        <MaestroIcon name={tabItem.icon} size={14} className="pl-scr-tab-icon" />
                         <span className="pl-sf-tab-label">{tabItem.label}</span>
                         <span className="pl-sf-tab-count num">{tabItem.count}</span>
                       </button>
@@ -4072,9 +4434,7 @@ export function PicksFinderClubView({
               <div className="pl-scr-potd-row">
                 <div className="pl-scr-potd-left">
                   <div className="pl-scr-potd-eyebrow num">
-                    <span className="pl-scr-potd-star" aria-hidden="true">
-                      ★
-                    </span>
+                    <MaestroIcon name="target-picks" size={14} className="pl-scr-potd-icon" />
                     <span>PICK DEL DÍA</span>
                     <span className="pl-scr-meta-sep" aria-hidden="true">
                       ·
@@ -4108,12 +4468,16 @@ export function PicksFinderClubView({
                     <span className="pl-scr-meta-sep" aria-hidden="true">
                       —
                     </span>
+                    <MarketCategoryIcon
+                      family={featuredPotd.catalogFamilyId}
+                      size={18}
+                      className="pl-scr-potd-mkt-icon"
+                    />
                     <strong className="pl-scr-potd-pick">{featuredPotd.pick.label}</strong>
                   </div>
 
                   <p className="pl-scr-potd-reason">
-                    {featuredPotd.valueThresholdLabel ??
-                      `Tiene valor si tu casa paga ${formatOddsValue(featuredPotd.pick.fairDecimal, oddsFormat)} o más.`}
+                    {formatValueThresholdForOdds(featuredPotd, oddsFormat)}
                     {featuredPotd.evidenceWindows.length > 0 ? (
                       <span className="pl-scr-potd-ev num">
                         {" · "}
@@ -4176,6 +4540,11 @@ export function PicksFinderClubView({
                     <div key={candidate.pick.id} className="pl-scr-potd-subcard">
                       <div className="pl-scr-potd-subhead">
                         <span className="pl-scr-potd-rank num">#{idx + 2}</span>
+                        <MarketCategoryIcon
+                          family={candidate.catalogFamilyId}
+                          size={16}
+                          className="pl-scr-potd-mkt-icon"
+                        />
                         <strong className="pl-scr-potd-subpick">{candidate.pick.label}</strong>
                         <span className="pl-scr-potd-subprob num">
                           {(candidate.pick.p * 100).toFixed(1)} %
@@ -4188,8 +4557,7 @@ export function PicksFinderClubView({
                       </span>
                       <div className="pl-scr-potd-subfoot">
                         <span className="pl-scr-potd-subreason">
-                          {candidate.valueThresholdLabel ??
-                            `Justo ${formatOddsValue(candidate.pick.fairDecimal, oddsFormat)}`}
+                          {formatValueThresholdForOdds(candidate, oddsFormat, true)}
                         </span>
                         <button
                           type="button"
@@ -4214,6 +4582,38 @@ export function PicksFinderClubView({
               aria-labelledby={`${tabsUid}-tab-${timing}`}
               data-picks-main=""
             >
+              <div
+                className="pl-scr-presets-bar"
+                role="group"
+                aria-label="Presets rápidos de picks"
+                data-picks-presets=""
+                data-finder-quick-chips=""
+              >
+                {QUICK_PRESETS.map((preset) => {
+                  const isActive = activePresetId === preset.id;
+                  return (
+                    <button
+                      key={preset.id}
+                      type="button"
+                      className={`pl-scr-preset-pill${isActive ? " is-active" : ""}`}
+                      aria-pressed={isActive}
+                      data-picks-preset={preset.id}
+                      onClick={() => applyQuickPreset(preset.id)}
+                    >
+                      {preset.marketIcon ? (
+                        <MarketCategoryIcon name={preset.marketIcon} size={14} />
+                      ) : preset.maestroIcon ? (
+                        <MaestroIcon name={preset.maestroIcon} size={14} />
+                      ) : null}
+                      <span>{preset.label}</span>
+                      {preset.id === "en-vivo" && timingCounts.live > 0 ? (
+                        <span className="pl-scr-preset-count num">{timingCounts.live}</span>
+                      ) : null}
+                    </button>
+                  );
+                })}
+              </div>
+
               {timing === "live" ? renderLiveTrackerCard() : null}
 
               {timing === "settled" && settledKpis.length > 0 ? (
@@ -4420,6 +4820,10 @@ export function PicksFinderClubView({
                             aria-expanded={!isCollapsed}
                             onClick={() => toggleGroupCollapse(`k:${grp.key}`)}
                           >
+                            <MarketCategoryIcon
+                              family={grp.items[0]?.catalogFamilyId ?? grp.key}
+                              size={18}
+                            />
                             <strong className="pl-scr-group-title">{grp.label}</strong>
                             <span className="pl-scr-group-count num">
                               {grp.items.length} {grp.items.length === 1 ? "pick" : "picks"}
