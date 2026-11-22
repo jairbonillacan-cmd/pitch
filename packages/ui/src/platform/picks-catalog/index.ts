@@ -1,9 +1,3 @@
-/**
- * Punto de entrada del módulo `@pitchlab/ui/picks-catalog`.
- * Motor puro, tipado y determinista de 34 familias de mercado (20 Fútbol + 14 Deportes US),
- * valoración de-vig proporcional/Shin + EV+, evidencia real multi-ventana y Bet Builder SGP.
- */
-
 export {
   CATALOG_CATEGORY_LABELS,
   CATALOG_CATEGORY_ORDER,
@@ -29,6 +23,7 @@ export {
   type FootballPlayerMatchLog,
   type FootballPlayerPropCandidateInput,
   type FootballPlayerPropStatKey,
+  type GamePreviewPayload,
   type LineupConfirmationStatus,
   type MarketFamilyId,
   type MarketFamilySpec,
@@ -43,11 +38,16 @@ export {
   type NhlMarketFamilyId,
   type PickAxisKey,
   type PickDirection,
+  type PickLabMatchBar,
+  type PickLabResponsePayload,
   type PickPricingMetrics,
+  type PickRecommendationScoreResult,
+  type PickRecommendationTier,
   type PickSettlementStatus,
   type PlayerPropMeta,
   type PlayerPropStatKey,
   type RefereeEvidenceSignal,
+  type ScreenerApiResponse,
   type TeamMatchEvidenceRecord,
   type UsMarketFamilyId,
   type XgEvidenceSignal,
@@ -69,8 +69,12 @@ export {
   computeProportionalDeVig,
   computeShinDeVig,
   gradeCatalogPick,
+  isMarketBookLabelPermitted,
+  isMarketQuoteFreshWithin72h,
   resolveRefereeEvidenceSignal,
   resolveXgEvidenceSignal,
+  scoreRecommendedCatalogPick,
+  selectPicksOfTheDay,
   toneForObservedRate,
   type BuildCatalogEvidenceInput,
   type ComputePickPricingInput,

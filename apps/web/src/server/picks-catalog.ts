@@ -101,18 +101,26 @@ export function redactCatalogPickForVisitor(
     isDailyOpenPromo: false,
     isTipsterWeeklyOpen: false,
     isRedacted: true,
+    recommendationScore: 0,
+    recommendationTier: "playable",
+    isRecommendedByModel: false,
+    convergenceCount: 0,
+    pickOfTheDayReason: null,
+    projectedScoreLabel: null,
   };
 }
 
 function rankPickForCompaction(item: CatalogPickItem): number {
-  const primaryBonus = item.isPrimaryModelPick ? 100 : 0;
+  const primaryBonus = item.isPrimaryModelPick ? 120 : 0;
+  const recommendedBonus = item.isRecommendedByModel ? 70 : 0;
+  const trivialPenalty = item.recommendationTier === "trivial_odds" ? -120 : 0;
+  const recScore = item.recommendationScore ?? 0;
   const valueBonus =
     item.pricing.hasPositiveValue && item.pricing.evPct !== null
-      ? 40 + Math.min(30, item.pricing.evPct * 2)
+      ? 35 + Math.min(25, item.pricing.evPct * 1.8)
       : 0;
-  const quoteBonus = item.pricing.marketDecimal !== null ? 15 : 0;
-  const balanceScore = 30 - Math.abs(item.pricing.p - 0.58) * 50;
-  return primaryBonus + valueBonus + quoteBonus + balanceScore;
+  const quoteBonus = item.pricing.marketDecimal !== null ? 12 : 0;
+  return primaryBonus + recommendedBonus + trivialPenalty + recScore + valueBonus + quoteBonus;
 }
 
 function rebuildCatalogSummary(
@@ -189,13 +197,15 @@ export function compactCatalogPayload(
     selected.push(item);
   }
 
+  selected.sort((a, b) => rankPickForCompaction(b) - rankPickForCompaction(a));
+
   const finalPicks = compactMode
     ? selected.map((item) => ({
         ...item,
         evidence: {
           ...item.evidence,
-          windows: item.evidence.windows.slice(0, 3),
-          bullets: item.evidence.bullets.slice(0, 3),
+          windows: item.evidence.windows.slice(0, 4),
+          bullets: item.evidence.bullets.slice(0, 4),
         },
         ...(item.bookQuotes && item.bookQuotes.length > 0
           ? { bookQuotes: item.bookQuotes.slice(0, 2) }
@@ -227,7 +237,7 @@ export function buildServerMatchPicksCatalog(
     finalStats: options.finalStats ?? null,
     allowedFamilies,
     deVigPreference: options.deVigPreference ?? "auto",
-    nowIso: options.nowIso,
+    nowIso: options.nowIso ?? new Date().toISOString(),
   };
 
   let catalog = buildMatchPicksCatalog(game, ctx);
@@ -286,6 +296,10 @@ export function buildServerMatchPicksCatalogsBatch(
       {
         readonly markets?: readonly PlatformMarketRow[];
         readonly v5?: MatchIntelligenceV5View | null;
+        readonly homeHistory?: readonly TeamMatchEvidenceRecord[];
+        readonly awayHistory?: readonly TeamMatchEvidenceRecord[];
+        readonly footballPlayers?: readonly FootballPlayerPropCandidateInput[];
+        readonly nbaPlayers?: readonly NbaPlayerPropCandidateInput[];
       }
     >;
   },
@@ -297,6 +311,10 @@ export function buildServerMatchPicksCatalogsBatch(
       ...options,
       markets: detail?.markets ?? game.markets,
       v5: detail?.v5 ?? null,
+      homeHistory: detail?.homeHistory,
+      awayHistory: detail?.awayHistory,
+      footballPlayers: detail?.footballPlayers ?? options.footballPlayers,
+      nbaPlayers: detail?.nbaPlayers ?? options.nbaPlayers,
       maxPicksPerFamily: options.maxPicksPerFamily ?? 2,
       maxTotalPicks: options.maxTotalPicks ?? 18,
       compact: options.compact ?? true,

@@ -1,23 +1,10 @@
-/**
- * Catálogo determinista de 34 familias de mercado multi-deporte (20 Fútbol + 14 Deportes US)
- * impulsado por probabilidades calibradas Spacetime v5.1.
- *
- * Modelos matemáticos puros incluidos (sin dependencias externas, 100 % deterministas):
- * - Fútbol goles: matriz bivariada de Dixon-Coles (1997) re-anclada exactamente a `game.x12`
- *   para garantizar coherencia algebraica total entre 1X2, Doble Oportunidad, DNB, BTTS,
- *   Totales (0.5–4.5), Totales por Equipo, Hándicap Asiático (-2.5..+2.5 con push exacto),
- *   Portería a Cero, Ganar a Cero y Combinadas 1X2+Over / 1X2+BTTS, más 1T (44 %) y 2T (56 %).
- * - Fútbol conteos: Binomial Negativa condicionada a guion de partido (`game-state`) y rigor
- *   arbitral Empirical Bayes (κ = 15) — supera los promedios estáticos de córners y tarjetas.
- * - Fútbol Player Props: conjugación Poisson-Gamma / Binomial Negativa con guardia estricta
- *   `minMinutes >= 45`, estado de alineación `confirmed | probable | unknown` y exclusión de bajas.
- * - MLB: Binomial Negativa (r = 5.5) + cadena exacta de extra innings (evita el sesgo de
- *   truncamiento en Run Line y Totales) + F5 en 5 entradas (r = 4.8).
- * - NHL: matriz reglamentaria con ajuste por portería vacía (empty-net) y OT/SO conservativo.
- * - NBA & NFL: distribución Normal de margen/total (con núcleo discreto de números clave ±3/±7
- *   en NFL) + Player Props NBA (`PTS`, `REB`, `AST`, `3PM`).
- */
-import type { PlatformSport } from "@pitchlab/contracts";
+import {
+  isPermittedMarketQuoteBook,
+  parseStrictFiniteNumber,
+  sportScoringUnit,
+  type PlatformSport,
+} from "@pitchlab/contracts";
+import { resolvePersonPhotoUrl } from "@pitchlab/sports-assets";
 import { normalCdf } from "../spacetime-markets";
 import type {
   BookQuoteItem,
@@ -51,12 +38,14 @@ import {
   buildNumericSeriesEvidenceWindows,
   computePickPricing,
   gradeCatalogPick,
+  isMarketBookLabelPermitted,
+  isMarketQuoteFreshWithin72h,
   resolveRefereeEvidenceSignal,
   resolveXgEvidenceSignal,
+  scoreRecommendedCatalogPick,
 } from "./evidence-engine";
 
 export const MARKET_FAMILIES: Readonly<Record<MarketFamilyId, MarketFamilySpec>> = {
-  // ── FÚTBOL (20 familias) ────────────────────────────────────────────────────────────────
   "1x2": {
     id: "1x2",
     sport: "football",
@@ -339,7 +328,6 @@ export const MARKET_FAMILIES: Readonly<Record<MarketFamilyId, MarketFamilySpec>>
       "Tiros, tiros a puerta, gol/asistencia, faltas y tarjetas con guardia >= 45 min y estado de alineación.",
   },
 
-  // ── NBA (4 familias) ────────────────────────────────────────────────────────────────────
   nba_moneyline: {
     id: "nba_moneyline",
     sport: "basketball",
@@ -397,7 +385,6 @@ export const MARKET_FAMILIES: Readonly<Record<MarketFamilyId, MarketFamilySpec>>
     description: "Proyecciones calibradas de Puntos (PTS), Rebotes (REB), Asistencias (AST) y Triples (3PM).",
   },
 
-  // ── MLB (4 familias) ────────────────────────────────────────────────────────────────────
   mlb_moneyline: {
     id: "mlb_moneyline",
     sport: "baseball",
@@ -455,7 +442,6 @@ export const MARKET_FAMILIES: Readonly<Record<MarketFamilyId, MarketFamilySpec>>
     description: "Más/Menos carreras combinadas integrando la masa exacta de extra innings.",
   },
 
-  // ── NHL (3 familias) ────────────────────────────────────────────────────────────────────
   nhl_moneyline: {
     id: "nhl_moneyline",
     sport: "ice-hockey",
@@ -499,7 +485,6 @@ export const MARKET_FAMILIES: Readonly<Record<MarketFamilyId, MarketFamilySpec>>
     description: "Más/Menos goles totales integrando gol decisivo de prórroga y empty-net.",
   },
 
-  // ── NFL (3 familias) ────────────────────────────────────────────────────────────────────
   nfl_moneyline: {
     id: "nfl_moneyline",
     sport: "american-football",
@@ -552,7 +537,6 @@ export function getMarketFamiliesForSport(sport: PlatformSport): readonly Market
   return MARKET_FAMILY_IDS.map((id) => MARKET_FAMILIES[id]).filter((spec) => spec.sport === sport);
 }
 
-// ── Primitivas matemáticas puras ──────────────────────────────────────────────────────────
 
 function clamp(v: number, lo: number, hi: number): number {
   return Math.min(hi, Math.max(lo, v));
@@ -589,7 +573,6 @@ function normalizeName(name: string): string {
     .trim();
 }
 
-/** Aproximación de Lanczos para `ln Γ(z)` (exacta a < 1e-12 para z > 0). */
 function logGamma(z: number): number {
   const g = 7;
   const coef = [
@@ -615,7 +598,6 @@ function logGamma(z: number): number {
   return 0.5 * Math.log(2 * Math.PI) + (zm + 0.5) * Math.log(t) - t + Math.log(x);
 }
 
-/** PMF exacta de Binomial Negativa `NB(mean = mu, dispersion = r)` para `k = 0..maxK`. */
 function negBinomPmfArray(mu: number, r: number, maxK: number): number[] {
   const safeMu = Number.isFinite(mu) ? Math.max(0.001, mu) : 0.02;
   const safeR = Number.isFinite(r) ? Math.max(0.001, r) : 0.5;
@@ -641,7 +623,6 @@ function negBinomPmfArray(mu: number, r: number, maxK: number): number[] {
   return pmf;
 }
 
-/** Evalúa `P(Y > line)`, `P(Y < line)` y `P(Y = line)` bajo Binomial Negativa con manejo de push. */
 function negBinomOverUnder(
   mu: number,
   dispersionR: number,
@@ -674,7 +655,6 @@ function negBinomOverUnder(
   };
 }
 
-/** Inversa normal para calibrar σ de margen a la probabilidad `x12` del motor. */
 function normalInvCdf(p: number): number {
   const safe = clamp(p, 0.005, 0.995);
   let lo = -5;
@@ -687,10 +667,6 @@ function normalInvCdf(p: number): number {
   return (lo + hi) * 0.5;
 }
 
-/**
- * Matriz de marcadores Dixon-Coles (1997) re-anclada exactamente a `x12` cuando existe,
- * asegurando coherencia matemática estricta en todos los mercados derivados de goles.
- */
 function buildCoherentFootballMatrix(
   lamHome: number,
   lamAway: number,
@@ -777,7 +753,11 @@ function sumMatrix(matrix: readonly (readonly number[])[], pred: (h: number, a: 
   return acc;
 }
 
-// ── Índice de cuotas reales del mercado y vinculación con picks principales ──────────────
+function sanitizeSafePhotoKey(raw?: string | null): string | null {
+  const trimmed = raw?.trim();
+  if (!trimmed || /^https?:\/\//i.test(trimmed)) return null;
+  return resolvePersonPhotoUrl(trimmed) ? trimmed : null;
+}
 
 interface IndexedQuote {
   readonly decimal: number;
@@ -787,9 +767,29 @@ interface IndexedQuote {
   readonly publishedProb?: number;
 }
 
+function selectPermittedFreshBookQuotes(
+  bookQuotes: readonly BookQuoteItem[] | undefined,
+  nowIso: string | null,
+): readonly BookQuoteItem[] {
+  if (!bookQuotes || bookQuotes.length === 0) return [];
+  const valid = bookQuotes
+    .filter(
+      (q) =>
+        typeof q.decimal === "number" &&
+        Number.isFinite(q.decimal) &&
+        q.decimal >= 1.01 &&
+        isPermittedMarketQuoteBook(q.book, q.bookLabel) &&
+        isMarketQuoteFreshWithin72h(q.capturedAtUtc, nowIso),
+    )
+    .slice()
+    .sort((a, b) => b.decimal - a.decimal);
+  return valid.map((q, idx) => (idx === 0 ? { ...q, isBest: true } : { ...q, isBest: false }));
+}
+
 function buildQuoteIndex(
   game: PlatformGame,
   markets: readonly PlatformMarketRow[],
+  nowIso: string | null,
 ): Map<string, IndexedQuote> {
   const index = new Map<string, IndexedQuote>();
 
@@ -798,17 +798,39 @@ function buildQuoteIndex(
   };
 
   for (const row of markets) {
-    const dec =
-      typeof row.currentDecimal === "number" && Number.isFinite(row.currentDecimal) && row.currentDecimal >= 1.01
+    const cleanQuotes = selectPermittedFreshBookQuotes(row.bookQuotes, nowIso);
+    const bestFromQuotes = cleanQuotes[0] ?? null;
+
+    const fallbackAllowed =
+      typeof row.currentDecimal === "number" &&
+      Number.isFinite(row.currentDecimal) &&
+      row.currentDecimal >= 1.01 &&
+      isMarketBookLabelPermitted(row.quoteBookLabel) &&
+      isMarketQuoteFreshWithin72h(row.quoteCapturedAtUtc, nowIso);
+
+    const dec = bestFromQuotes
+      ? bestFromQuotes.decimal
+      : fallbackAllowed
         ? row.currentDecimal
         : null;
+    const bookLabel = bestFromQuotes
+      ? bestFromQuotes.bookLabel
+      : fallbackAllowed
+        ? (row.quoteBookLabel ?? null)
+        : null;
+    const capturedAtUtc = bestFromQuotes
+      ? bestFromQuotes.capturedAtUtc
+      : fallbackAllowed
+        ? (row.quoteCapturedAtUtc ?? null)
+        : null;
+
     if (dec === null && !Number.isFinite(row.p)) continue;
 
     const entry: IndexedQuote = {
       decimal: dec ?? 0,
-      bookLabel: row.quoteBookLabel ?? null,
-      capturedAtUtc: row.quoteCapturedAtUtc ?? null,
-      bookQuotes: row.bookQuotes,
+      bookLabel,
+      capturedAtUtc,
+      ...(cleanQuotes.length > 0 ? { bookQuotes: cleanQuotes } : {}),
       publishedProb: Number.isFinite(row.p) && row.p > 0.005 && row.p < 0.995 ? row.p : undefined,
     };
     const m = row.market.toLowerCase();
@@ -818,45 +840,49 @@ function buildQuoteIndex(
     put(`${m}|${s}`, entry);
   }
 
-  // Vincular cuotas 1X2 / Moneyline de `game.spacetime.market` cuando existan
   const stMarket = game.spacetime?.market;
   if (stMarket) {
     const book = stMarket.bookLabel.split(" · ")[0]?.trim() ?? stMarket.bookLabel;
-    if (stMarket.odds.home >= 1.01) {
-      put("1x2|home", {
-        decimal: stMarket.odds.home,
-        bookLabel: book,
-        capturedAtUtc: stMarket.asOfUtc,
-      });
-      put("h2h|home", {
-        decimal: stMarket.odds.home,
-        bookLabel: book,
-        capturedAtUtc: stMarket.asOfUtc,
-      });
-    }
-    if (stMarket.odds.draw !== null && stMarket.odds.draw >= 1.01) {
-      put("1x2|draw", {
-        decimal: stMarket.odds.draw,
-        bookLabel: book,
-        capturedAtUtc: stMarket.asOfUtc,
-      });
-      put("h2h|draw", {
-        decimal: stMarket.odds.draw,
-        bookLabel: book,
-        capturedAtUtc: stMarket.asOfUtc,
-      });
-    }
-    if (stMarket.odds.away >= 1.01) {
-      put("1x2|away", {
-        decimal: stMarket.odds.away,
-        bookLabel: book,
-        capturedAtUtc: stMarket.asOfUtc,
-      });
-      put("h2h|away", {
-        decimal: stMarket.odds.away,
-        bookLabel: book,
-        capturedAtUtc: stMarket.asOfUtc,
-      });
+    if (
+      isMarketBookLabelPermitted(book) &&
+      isMarketQuoteFreshWithin72h(stMarket.asOfUtc, nowIso)
+    ) {
+      if (stMarket.odds.home >= 1.01) {
+        put("1x2|home", {
+          decimal: stMarket.odds.home,
+          bookLabel: book,
+          capturedAtUtc: stMarket.asOfUtc,
+        });
+        put("h2h|home", {
+          decimal: stMarket.odds.home,
+          bookLabel: book,
+          capturedAtUtc: stMarket.asOfUtc,
+        });
+      }
+      if (stMarket.odds.draw !== null && stMarket.odds.draw >= 1.01) {
+        put("1x2|draw", {
+          decimal: stMarket.odds.draw,
+          bookLabel: book,
+          capturedAtUtc: stMarket.asOfUtc,
+        });
+        put("h2h|draw", {
+          decimal: stMarket.odds.draw,
+          bookLabel: book,
+          capturedAtUtc: stMarket.asOfUtc,
+        });
+      }
+      if (stMarket.odds.away >= 1.01) {
+        put("1x2|away", {
+          decimal: stMarket.odds.away,
+          bookLabel: book,
+          capturedAtUtc: stMarket.asOfUtc,
+        });
+        put("h2h|away", {
+          decimal: stMarket.odds.away,
+          bookLabel: book,
+          capturedAtUtc: stMarket.asOfUtc,
+        });
+      }
     }
   }
 
@@ -889,13 +915,13 @@ function parseLineFromKey(key: string): number | null {
   const trimmed = key.trim().toLowerCase();
   const direct = trimmed.match(/(?:_|\s)([+-]?\d+(?:\.\d+)?)$/);
   if (direct?.[1]) {
-    const n = Number(direct[1]);
-    if (Number.isFinite(n)) return n;
+    const n = parseStrictFiniteNumber(direct[1]);
+    if (n !== null) return n;
   }
   const underscoreDec = trimmed.match(/(?:_|\s)([+-]?\d+)_(\d+)$/);
   if (underscoreDec?.[1] && underscoreDec?.[2]) {
-    const n = Number(`${underscoreDec[1]}.${underscoreDec[2]}`);
-    if (Number.isFinite(n)) return n;
+    const n = parseStrictFiniteNumber(`${underscoreDec[1]}.${underscoreDec[2]}`);
+    if (n !== null) return n;
   }
   return null;
 }
@@ -1062,7 +1088,6 @@ function conflictGroupFor(
   return "independent";
 }
 
-// ── Priors Empirical Bayes para Football Player Props ────────────────────────────────────
 
 const FOOTBALL_POS_PRIORS: Readonly<
   Record<string, Readonly<Record<FootballPlayerPropStatKey, { readonly rate: number; readonly r: number }>>>
@@ -1138,7 +1163,6 @@ function mapPlayerPropItemToNbaStat(statLabel: string): NbaPlayerPropStatKey | n
   return null;
 }
 
-// ── Generador Maestro del Catálogo de 34 Familias ────────────────────────────────────────
 
 interface EmitPickArgs {
   readonly family: MarketFamilyId;
@@ -1162,11 +1186,6 @@ interface EmitPickArgs {
   readonly engineName?: string;
 }
 
-/**
- * Construye el catálogo completo, tipado y determinista de picks para un partido
- * cubriendo las 34 familias de mercado (20 Fútbol + 14 Deportes US) con valoración
- * de-vig/EV+, evidencia multi-ventana real y liquidación `FT` íntegra.
- */
 export function buildMatchPicksCatalog(
   game: PlatformGame,
   context: CatalogBuildContext = {},
@@ -1197,10 +1216,22 @@ export function buildMatchPicksCatalog(
     };
   }
 
-  const quoteIndex = buildQuoteIndex(game, markets);
+  const freshnessNowIso = context.nowIso ?? null;
+  const quoteIndex = buildQuoteIndex(game, markets, freshnessNowIso);
   const xgSignal = resolveXgEvidenceSignal(game, v5);
   const refereeSignal = resolveRefereeEvidenceSignal(game, v5);
   const matchLabel = `${game.home.shortName} vs ${game.away.shortName}`;
+  const scoreUnit = sportScoringUnit(game.sport);
+  const projectedScoreLabel =
+    game.projection &&
+    Number.isFinite(game.projection.home) &&
+    Number.isFinite(game.projection.away) &&
+    game.projection.home > 0 &&
+    game.projection.away > 0
+      ? `Proy. ${game.projection.home.toFixed(scoreUnit.decimals)} – ${game.projection.away.toFixed(scoreUnit.decimals)}`
+      : xgSignal
+        ? `Proy. ${xgSignal.homeXg.toFixed(scoreUnit.decimals)} – ${xgSignal.awayXg.toFixed(scoreUnit.decimals)}`
+        : null;
   const defaultEngine =
     game.spacetime?.engineName ??
     (game.sport === "football"
@@ -1243,6 +1274,7 @@ export function buildMatchPicksCatalog(
       companionProbSum: args.companionProbSum,
       marketBookLabel: args.marketBookLabel ?? primaryMatch?.marketBookLabel ?? null,
       marketCapturedAtUtc: args.marketCapturedAtUtc ?? primaryMatch?.marketCapturedAtUtc ?? null,
+      nowIso: freshnessNowIso,
       deVigPreference: deVigPref,
     });
 
@@ -1277,7 +1309,9 @@ export function buildMatchPicksCatalog(
     const id = primaryMatch?.id && !seenIds.has(primaryMatch.id) ? primaryMatch.id : fallbackId;
     seenIds.add(id);
 
-    picks.push({
+    const safeQuotes = selectPermittedFreshBookQuotes(args.bookQuotes, freshnessNowIso);
+
+    const draftItem: CatalogPickItem = {
       id,
       gameId: game.id,
       league: game.league,
@@ -1303,9 +1337,20 @@ export function buildMatchPicksCatalog(
       isDerived: args.isDerived,
       conflictGroup: primaryMatch?.conflictGroup ?? conflictGroupFor(args.family, args.selectionKey, args.direction),
       ...(args.playerMeta ? { playerMeta: args.playerMeta } : {}),
-      ...(args.bookQuotes && args.bookQuotes.length > 0 ? { bookQuotes: args.bookQuotes } : {}),
+      ...(safeQuotes.length > 0 ? { bookQuotes: safeQuotes } : {}),
       ...(primaryMatch?.isDailyOpenPromo ? { isDailyOpenPromo: true } : {}),
       ...(primaryMatch?.isTipsterWeeklyOpen ? { isTipsterWeeklyOpen: true } : {}),
+    };
+
+    const scored = scoreRecommendedCatalogPick(draftItem);
+    picks.push({
+      ...draftItem,
+      recommendationScore: scored.score,
+      recommendationTier: scored.tier,
+      isRecommendedByModel: scored.isRecommended,
+      convergenceCount: scored.convergenceCount,
+      pickOfTheDayReason: scored.valueThresholdLabel,
+      projectedScoreLabel,
     });
   };
 
@@ -1344,7 +1389,6 @@ export function buildMatchPicksCatalog(
   };
 }
 
-// ── 1. FÚTBOL (20 familias) ──────────────────────────────────────────────────────────────
 
 function emitFootballCatalog(
   game: PlatformGame,
@@ -1356,7 +1400,6 @@ function emitFootballCatalog(
   const home = game.home.shortName || game.home.name;
   const away = game.away.shortName || game.away.name;
 
-  // Resolver x12 y lambdas base con total coherencia
   const rawX12 = game.x12;
   let lamHome = game.projection?.home ?? null;
   let lamAway = game.projection?.away ?? null;
@@ -1376,7 +1419,6 @@ function emitFootballCatalog(
   const pDraw = clampProb(sumMatrix(matrix, (h, a) => h === a));
   const pAway = clampProb(sumMatrix(matrix, (h, a) => a > h));
 
-  // (1) 1x2
   const qH = lookupQuote(quoteIndex, ["1x2|home", "h2h|home"]);
   const qD = lookupQuote(quoteIndex, ["1x2|draw", "h2h|draw"]);
   const qA = lookupQuote(quoteIndex, ["1x2|away", "h2h|away"]);
@@ -1427,7 +1469,6 @@ function emitFootballCatalog(
     isDerived: false,
   });
 
-  // (2) double_chance (las 3 vías 1X + X2 + 12 suman probabilidad teórica 2.0)
   const q1X = lookupQuote(quoteIndex, ["double_chance|1x"]);
   const qX2 = lookupQuote(quoteIndex, ["double_chance|x2"]);
   const q12 = lookupQuote(quoteIndex, ["double_chance|12"]);
@@ -1481,7 +1522,6 @@ function emitFootballCatalog(
     isDerived: !q12,
   });
 
-  // (3) dnb
   const dnbDenom = Math.max(1e-6, pHome + pAway);
   const qDnbH = lookupQuote(quoteIndex, ["dnb|home", "draw_no_bet|home"]);
   const qDnbA = lookupQuote(quoteIndex, ["dnb|away", "draw_no_bet|away"]);
@@ -1517,7 +1557,6 @@ function emitFootballCatalog(
     contextBullets: [`Empate devuelve importe (P empate ${(pDraw * 100).toFixed(1)} %)`],
   });
 
-  // (4) btts
   const pBttsYes = clampProb(
     lookupPublishedProb(quoteIndex, ["btts|yes"]) ?? sumMatrix(matrix, (h, a) => h > 0 && a > 0),
   );
@@ -1555,7 +1594,6 @@ function emitFootballCatalog(
     isDerived: !qBttsN,
   });
 
-  // (5) totals (0.5 – 4.5)
   for (const line of [0.5, 1.5, 2.5, 3.5, 4.5] as const) {
     const lineKey = String(line).replace(".", "_");
     const pubOver = lookupPublishedProb(quoteIndex, [
@@ -1609,7 +1647,6 @@ function emitFootballCatalog(
     });
   }
 
-  // (6) team_totals (Local / Visita: 0.5, 1.5, 2.5)
   for (const side of [
     { key: "home" as const, name: home, axis: "team_goals_home" as const, lam: lamHome },
     { key: "away" as const, name: away, axis: "team_goals_away" as const, lam: lamAway },
@@ -1663,7 +1700,6 @@ function emitFootballCatalog(
     }
   }
 
-  // (7) half_time_result (1T 1X2 — 44 % de intensidad goleadora)
   const htMatrix = buildCoherentFootballMatrix(lamHome * 0.44, lamAway * 0.44, null, -0.05, 6);
   const pHtH = clampProb(
     lookupPublishedProb(quoteIndex, ["ht_1x2|ht_home", "ht_1x2|home"]) ??
@@ -1707,7 +1743,6 @@ function emitFootballCatalog(
     isDerived: true,
   });
 
-  // (8) second_half_result (2T 1X2 — 56 % de intensidad goleadora)
   const shMatrix = buildCoherentFootballMatrix(lamHome * 0.56, lamAway * 0.56, null, -0.06, 6);
   const p2hH = clampProb(
     lookupPublishedProb(quoteIndex, ["2h_1x2|home", "2h_1x2|2h_home"]) ??
@@ -1751,7 +1786,6 @@ function emitFootballCatalog(
     isDerived: true,
   });
 
-  // (9) combo_1x2_over
   const comboOverSpecs: ReadonlyArray<{
     readonly key: string;
     readonly label: string;
@@ -1764,6 +1798,10 @@ function emitFootballCatalog(
     { key: "away_over_1.5", label: `${away} gana y Más de 1.5 goles`, line: 1.5, pred: (h, a) => a > h && h + a > 1.5 },
     { key: "away_over_2.5", label: `${away} gana y Más de 2.5 goles`, line: 2.5, pred: (h, a) => a > h && h + a > 2.5 },
     { key: "away_under_3.5", label: `${away} gana y Menos de 3.5 goles`, line: 3.5, pred: (h, a) => a > h && h + a < 3.5 },
+    { key: "1x_over_1.5", label: `${home} o Empate (1X) y Más de 1.5 goles`, line: 1.5, pred: (h, a) => h >= a && h + a > 1.5 },
+    { key: "x2_over_1.5", label: `${away} o Empate (X2) y Más de 1.5 goles`, line: 1.5, pred: (h, a) => a >= h && h + a > 1.5 },
+    { key: "1x_under_3.5", label: `${home} o Empate (1X) y Menos de 3.5 goles`, line: 3.5, pred: (h, a) => h >= a && h + a < 3.5 },
+    { key: "x2_under_3.5", label: `${away} o Empate (X2) y Menos de 3.5 goles`, line: 3.5, pred: (h, a) => a >= h && h + a < 3.5 },
   ];
   for (const spec of comboOverSpecs) {
     const p = sumMatrix(matrix, spec.pred);
@@ -1779,7 +1817,6 @@ function emitFootballCatalog(
     });
   }
 
-  // (10) combo_1x2_btts
   const comboBttsSpecs: ReadonlyArray<{
     readonly key: string;
     readonly label: string;
@@ -1805,7 +1842,6 @@ function emitFootballCatalog(
     });
   }
 
-  // (11) asian_handicap (-2.5 .. +2.5 con probabilidad exacta condicional sin push)
   const ahLines = [-2.5, -2.0, -1.5, -1.0, -0.5, 0.5, 1.0, 1.5, 2.0, 2.5] as const;
   for (const homeLine of ahLines) {
     const awayLine = -homeLine;
@@ -1862,7 +1898,6 @@ function emitFootballCatalog(
     });
   }
 
-  // (12) clean_sheet
   const pCsHome = clampProb(sumMatrix(matrix, (_h, a) => a === 0));
   const pCsAway = clampProb(sumMatrix(matrix, (h) => h === 0));
   emit({
@@ -1908,7 +1943,6 @@ function emitFootballCatalog(
     isDerived: true,
   });
 
-  // (13) win_to_nil
   const pWtnHome = sumMatrix(matrix, (h, a) => h > 0 && a === 0);
   const pWtnAway = sumMatrix(matrix, (h, a) => a > 0 && h === 0);
   if (pWtnHome >= 0.06) {
@@ -1934,14 +1968,12 @@ function emitFootballCatalog(
     });
   }
 
-  // ── Conteos de fútbol condicionados a guion de partido (`game-state`) y árbitro EB ─────
   const v5Micro = context.v5?.microCounts ?? null;
   const sup = lamHome - lamAway;
   const tempo = lamHome + lamAway - 2.6;
   const tightness = Math.exp(-Math.abs(sup)) - 0.5;
   const v5RefAlreadyBaked = Boolean(v5Micro?.refereeProfile);
 
-  // (14) corners_total & (15) corners_team
   const cornersHomeMean =
     v5Micro?.corners?.home ??
     game.counts?.corners?.home ??
@@ -2026,7 +2058,6 @@ function emitFootballCatalog(
     });
   }
 
-  // (16) shots_total
   const shotsHomeMean =
     v5Micro?.shots?.home ?? round1(clamp(12.6 + 2.8 * sup + 1.4 * tempo, 6.5, 22.0));
   const shotsAwayMean =
@@ -2060,7 +2091,6 @@ function emitFootballCatalog(
     });
   }
 
-  // (17) shots_on_target
   const sotHomeMean =
     v5Micro?.shotsOnTarget?.home ?? round1(clamp(4.3 + 1.15 * sup + 0.65 * tempo, 2.0, 8.5));
   const sotAwayMean =
@@ -2094,7 +2124,6 @@ function emitFootballCatalog(
     });
   }
 
-  // (18) fouls_total (con ajuste arbitral Empirical Bayes cuando aplica)
   const foulsMult = !v5RefAlreadyBaked && refereeSignal ? refereeSignal.foulsMultiplier : 1.0;
   const baseFoulsTotal =
     v5Micro?.fouls?.total ??
@@ -2140,7 +2169,6 @@ function emitFootballCatalog(
     });
   }
 
-  // (19) cards_total (ajuste bayesiano explícito por rigor arbitral κ = 15)
   const cardsMult = !v5RefAlreadyBaked && refereeSignal ? refereeSignal.cardsMultiplier : 1.0;
   const baseCardsTotal =
     v5Micro?.yellowCards?.total ??
@@ -2188,7 +2216,6 @@ function emitFootballCatalog(
     });
   }
 
-  // (20) player_props_football (guardia estricta minMinutes >= 45 + estado de alineación)
   emitFootballPlayerProps(game, context, lamHome, lamAway, refereeSignal, emit);
 }
 
@@ -2203,13 +2230,13 @@ function emitFootballPlayerProps(
   const candidates: FootballPlayerPropCandidateInput[] = [...(context.footballPlayers ?? [])];
   const explicitKeys = new Set(candidates.map((c) => normalizeName(c.playerName)));
 
-  // Convertir PlayerPropItem existentes del partido sin mutar la entrada (solo con minutos reales verificados)
   const fromItemsByPlayer = new Map<
     string,
     {
       playerName: string;
       teamSide: "home" | "away";
       teamName: string;
+      teamSlug: string;
       position: string;
       avgMinutes: number | null;
       matchLogs: Array<{
@@ -2236,7 +2263,6 @@ function emitFootballPlayerProps(
     const pKey = normalizeName(pp.player);
     if (explicitKeys.has(pKey)) continue;
 
-    // Guardia estricta minMinutes >= 45: fallar cerrado si faltan minutos reales (cero minutos sintéticos)
     const rawCarrier = pp as typeof pp & {
       readonly minutesPlayed?: readonly number[];
       readonly avgMinutes?: number | null;
@@ -2263,6 +2289,7 @@ function emitFootballPlayerProps(
         playerName: pp.player,
         teamSide: isHome ? "home" : "away",
         teamName: pp.teamName,
+        teamSlug: pp.teamSlug,
         position: pp.position,
         avgMinutes: realAvgMinutes,
         matchLogs: [],
@@ -2296,6 +2323,7 @@ function emitFootballPlayerProps(
       playerName: bucket.playerName,
       teamSide: bucket.teamSide,
       teamName: bucket.teamName,
+      teamSlug: bucket.teamSlug,
       position: bucket.position,
       minMinutes: FOOTBALL_PROP_MIN_MINUTES,
       avgMinutes: bucket.avgMinutes,
@@ -2328,7 +2356,6 @@ function emitFootballPlayerProps(
     );
     if (lineupCheck.isRuledOut) continue;
 
-    // Guardia estricta de minutos >= 45 (falla cerrado si faltan minutos o son NaN)
     const qualifiedLogs = cand.matchLogs
       ? cand.matchLogs.filter((l) => Number.isFinite(l.minutesPlayed) && l.minutesPlayed >= minMinutesGuard)
       : null;
@@ -2424,7 +2451,6 @@ function emitFootballPlayerProps(
       }
 
       const nObs = observedValues ? observedValues.length : qualifyingMatches;
-      // Contracción Empirical Bayes Poisson-Gamma hacia prior posicional (imposible emitir p = 1.0)
       const shrunkBaseRate = (rawSum + EB_PRIOR_GAMES * prior.rate) / (nObs + EB_PRIOR_GAMES);
       const contextMult =
         statKey === "cards"
@@ -2486,6 +2512,8 @@ function emitFootballPlayerProps(
         playerSlug,
         teamSide: cand.teamSide,
         teamName: cand.teamName,
+        teamSlug: cand.teamSlug ?? (cand.teamSide === "home" ? game.home.slug : game.away.slug),
+        photoKey: sanitizeSafePhotoKey(cand.photoKey),
         position: cand.position,
         statKey,
         statLabel: FOOTBALL_PROP_STAT_LABELS[statKey],
@@ -2527,7 +2555,6 @@ function emitFootballPlayerProps(
   }
 }
 
-// ── 2. NBA (4 familias) ──────────────────────────────────────────────────────────────────
 
 function emitNbaCatalog(
   game: PlatformGame,
@@ -2549,7 +2576,6 @@ function emitNbaCatalog(
   }
   const pAway = clampProb(1 - pHome);
 
-  // (21) nba_moneyline
   const qH = lookupQuote(quoteIndex, ["h2h|home", "moneyline|home", "1x2|home"]);
   const qA = lookupQuote(quoteIndex, ["h2h|away", "moneyline|away", "1x2|away"]);
   const mlComp = qH && qA ? [qH.decimal, qA.decimal] : null;
@@ -2595,7 +2621,6 @@ function emitNbaCatalog(
     }
     const sigmaTotal = 17.2;
 
-    // (22) nba_spread
     const centerSpread = roundToHalf(-marginMean);
     for (const hLine of Array.from(new Set([centerSpread - 3, centerSpread, centerSpread + 3]))) {
       const aLine = -hLine;
@@ -2639,7 +2664,6 @@ function emitNbaCatalog(
       });
     }
 
-    // (23) nba_totals
     const centerTotal = roundToHalf(totalMean);
     for (const line of [centerTotal - 5, centerTotal, centerTotal + 5].filter((l) => l >= 170)) {
       const pOver = clampProb(1 - normalCdf((line - totalMean) / sigmaTotal));
@@ -2677,7 +2701,6 @@ function emitNbaCatalog(
     }
   }
 
-  // (24) nba_player_props (PTS, REB, AST, 3PM)
   emitNbaPlayerProps(game, context, emit);
 }
 
@@ -2686,12 +2709,13 @@ function emitNbaPlayerProps(
   context: CatalogBuildContext,
   emit: (args: EmitPickArgs) => void,
 ): void {
-  // Clonación inmutable para combinar `nbaPlayers` y `playerProps` sin mutar entradas
   const byPlayer = new Map<
     string,
     {
       playerName: string;
       playerSlug?: string;
+      photoKey?: string | null;
+      teamSlug?: string | null;
       teamSide: "home" | "away";
       teamName: string;
       position: string;
@@ -2722,6 +2746,8 @@ function emitNbaPlayerProps(
     byPlayer.set(key, {
       playerName: c.playerName,
       playerSlug: c.playerSlug,
+      photoKey: c.photoKey ?? null,
+      teamSlug: c.teamSlug ?? null,
       teamSide: c.teamSide,
       teamName: c.teamName,
       position: c.position,
@@ -2798,7 +2824,6 @@ function emitNbaPlayerProps(
       ? cand.matchLogs.filter((l) => Number.isFinite(l.minutesPlayed) && l.minutesPlayed >= minMinutes)
       : null;
 
-    // Guardia estricta de minutos >= 18 en NBA (fallar cerrado ante minutos faltantes o NaN)
     if (qualifiedLogs !== null) {
       if (qualifiedLogs.length < 3) continue;
     } else if (
@@ -2836,7 +2861,6 @@ function emitNbaPlayerProps(
       );
       const line = proj?.line ?? roundToHalf(mean);
 
-      // Para 3PM usamos Binomial Negativa (discreta de conteo); para PTS/REB/AST Normal calibrada
       const pOver =
         statKey === "3PM"
           ? clamp(negBinomOverUnder(mean, 4.2, line).pOver, 0.08, 0.92)
@@ -2854,6 +2878,8 @@ function emitNbaPlayerProps(
         playerSlug,
         teamSide: cand.teamSide,
         teamName: cand.teamName,
+        teamSlug: cand.teamSlug ?? (cand.teamSide === "home" ? game.home.slug : game.away.slug),
+        photoKey: sanitizeSafePhotoKey(cand.photoKey),
         position: cand.position,
         statKey,
         statLabel: NBA_PROP_STAT_LABELS[statKey],
@@ -2916,7 +2942,6 @@ function emitNbaPlayerProps(
   }
 }
 
-// ── 3. MLB (4 familias: Moneyline, Run Line, F5 y Totales con cadena de extra innings) ────
 
 function emitMlbCatalog(
   game: PlatformGame,
@@ -2930,7 +2955,6 @@ function emitMlbCatalog(
   const awayFull = game.projection?.away ?? 4.15;
   const totalFull = game.projection?.total ?? homeFull + awayFull;
 
-  // Convolución Binomial Negativa de 9 entradas (r = 5.5) + cadena exacta de extra innings
   const muH9 = Math.max(0.8, homeFull * 0.945);
   const muA9 = Math.max(0.8, awayFull * 0.945);
   const pmfH9 = negBinomPmfArray(muH9, 5.5, 22);
@@ -2942,11 +2966,9 @@ function emitMlbCatalog(
   let pHomeRlMinus15 = 0;
   let pAwayRlMinus15 = 0;
 
-  // Distribución exacta de carreras totales incluyendo extra innings
   const totalDist = new Array<number>(52).fill(0);
   const pHomeEi = clamp(0.535 + 0.12 * Math.tanh((muH9 - muA9) / 3), 0.44, 0.63);
   const pAwayEi = 1 - pHomeEi;
-  // Distribución empírica de carreras añadidas en extra innings (corredor en 2ª base)
   const eiAddedDist: ReadonlyArray<readonly [number, number]> = [
     [1, 0.34],
     [2, 0.27],
@@ -2968,7 +2990,6 @@ function emitMlbCatalog(
         totalDist[Math.min(51, h + a)]! += p;
       } else {
         pTie9 += p;
-        // En extras: local walk-off gana por 2+ ~22 %, visitante al bate gana por 2+ ~48 %
         pHomeRlMinus15 += p * pHomeEi * 0.22;
         pAwayRlMinus15 += p * pAwayEi * 0.48;
         for (const [extraRuns, w] of eiAddedDist) {
@@ -2986,7 +3007,6 @@ function emitMlbCatalog(
   );
   const pAwayMl = clampProb(1 - pHomeMl);
 
-  // (25) mlb_moneyline
   const qH = lookupQuote(quoteIndex, ["h2h|home", "moneyline|home", "1x2|home"]);
   const qA = lookupQuote(quoteIndex, ["h2h|away", "moneyline|away", "1x2|away"]);
   const mlComp = qH && qA ? [qH.decimal, qA.decimal] : null;
@@ -3023,7 +3043,6 @@ function emitMlbCatalog(
     contextBullets: [`Probabilidad de extra innings: ${(pTie9 * 100).toFixed(1)} %`],
   });
 
-  // (26) mlb_run_line (-1.5 / +1.5)
   const homeFav = pHomeMl >= 0.5;
   const rlHomeLine = homeFav ? -1.5 : 1.5;
   const rlAwayLine = -rlHomeLine;
@@ -3069,7 +3088,6 @@ function emitMlbCatalog(
     contextBullets: ["Incluye resolución exacta de entradas extra"],
   });
 
-  // (27) mlb_f5 (Primeras 5 entradas: 3 vías + total F5)
   const muH5 = Math.max(0.5, homeFull * 0.555);
   const muA5 = Math.max(0.5, awayFull * 0.555);
   const pmfH5 = negBinomPmfArray(muH5, 4.8, 16);
@@ -3155,7 +3173,6 @@ function emitMlbCatalog(
     isDerived: true,
   });
 
-  // (28) mlb_totals (con masa exacta de extra innings)
   const centerRuns = clamp(roundToHalf(totalFull), 6.5, 11.5);
   for (const line of Array.from(new Set([centerRuns - 1, centerRuns, centerRuns + 1])).filter(
     (l) => l >= 5.5 && l <= 13.5,
@@ -3201,7 +3218,6 @@ function emitMlbCatalog(
   void context;
 }
 
-// ── 4. NHL (3 familias: Moneyline, Puck Line con empty-net y Totales con OT/SO) ──────────
 
 function emitNhlCatalog(
   game: PlatformGame,
@@ -3214,7 +3230,6 @@ function emitNhlCatalog(
   const awayFull = game.projection?.away ?? 2.9;
   const totalFull = game.projection?.total ?? homeFull + awayFull;
 
-  // Escala reglamentaria (60 min) con conservación de gol decisivo OT + empty-net
   const muHReg = Math.max(1.0, homeFull * 0.94);
   const muAReg = Math.max(1.0, awayFull * 0.94);
   const pmfH = negBinomPmfArray(muHReg, 14.0, 14);
@@ -3240,10 +3255,8 @@ function emitNhlCatalog(
       const diff = h - a;
       if (diff === 0) {
         pOt += p;
-        // Prórroga/SO añade exactamente +1 gol decisivo al total final
         totalDist[Math.min(29, h + a + 1)]! += p;
       } else if (diff === 1) {
-        // 24 % de ventajas de 1 gol reciben gol a portería vacía (+1 gol y margen = 2)
         pHomeMinus15 += p * EMPTY_NET_SHARE;
         totalDist[Math.min(29, h + a)]! += p * (1 - EMPTY_NET_SHARE);
         totalDist[Math.min(29, h + a + 1)]! += p * EMPTY_NET_SHARE;
@@ -3261,7 +3274,6 @@ function emitNhlCatalog(
     }
   }
 
-  // (29) nhl_moneyline
   const qH = lookupQuote(quoteIndex, ["h2h|home", "moneyline|home", "1x2|home"]);
   const qA = lookupQuote(quoteIndex, ["h2h|away", "moneyline|away", "1x2|away"]);
   const mlComp = qH && qA ? [qH.decimal, qA.decimal] : null;
@@ -3298,7 +3310,6 @@ function emitNhlCatalog(
     contextBullets: [`Probabilidad de prórroga/SO: ${(pOt * 100).toFixed(1)} %`],
   });
 
-  // (30) nhl_puck_line (-1.5 / +1.5)
   const homeFav = pHomeMl >= 0.5;
   const plHomeLine = homeFav ? -1.5 : 1.5;
   const plAwayLine = -plHomeLine;
@@ -3347,7 +3358,6 @@ function emitNhlCatalog(
     contextBullets: ["Incluye ajuste de gol a portería vacía (empty-net)"],
   });
 
-  // (31) nhl_totals (5.5, 6.5 y centrada)
   const nhlLines = Array.from(new Set([5.5, roundToHalf(totalFull), 6.5]))
     .filter((l) => l >= 4.5 && l <= 8.5)
     .sort((a, b) => a - b);
@@ -3390,7 +3400,6 @@ function emitNhlCatalog(
   }
 }
 
-// ── 5. NFL (3 familias: Moneyline, Spread con números clave ±3/±7 y Totales) ─────────────
 
 function buildNflKeyNumberMarginPmf(
   expectedMargin: number,
@@ -3424,7 +3433,6 @@ function buildNflKeyNumberMarginPmf(
     for (let i = 0; i < pmf.length; i += 1) pmf[i] = pmf[i]! / sum;
   }
 
-  // Re-anclar victoria local exacta a `targetPHome` preservando la masa de números clave
   let pPos = 0;
   let pNeg = 0;
   let pZero = 0;
@@ -3468,7 +3476,6 @@ function emitNflCatalog(
   );
   const pAwayMl = clampProb(1 - pHomeMl);
 
-  // (32) nfl_moneyline
   const qH = lookupQuote(quoteIndex, ["h2h|home", "moneyline|home", "1x2|home"]);
   const qA = lookupQuote(quoteIndex, ["h2h|away", "moneyline|away", "1x2|away"]);
   const mlComp = qH && qA ? [qH.decimal, qA.decimal] : null;
@@ -3503,7 +3510,6 @@ function emitNflCatalog(
     isDerived: false,
   });
 
-  // (33) nfl_spread (con números clave ±3 y ±7)
   let sigmaMargin = 13.2;
   const zWin = normalInvCdf(pHomeMl);
   if (Math.abs(zWin) > 0.08 && Math.sign(zWin) === Math.sign(marginMean)) {
@@ -3574,7 +3580,6 @@ function emitNflCatalog(
     });
   }
 
-  // (34) nfl_totals
   const sigmaTotal = 13.5;
   const centerTot = clamp(roundToHalf(totalMean), 32.5, 62.5);
   for (const line of Array.from(new Set([centerTot - 3.5, centerTot, centerTot + 3.5])).filter(
