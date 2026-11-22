@@ -24,7 +24,7 @@ type Story = StoryObj<typeof meta>;
 
 const CAPTURED_UTC = "2026-11-21T16:30:00Z";
 const LIGA_MX = asLeagueId("liga-mx");
-const LA_LIGA = asLeagueId("la-liga");
+const LA_LIGA = asLeagueId("laliga");
 
 const PUMAS_GAME: PlatformGame = {
   id: "lmx-2026-pumas-monterrey",

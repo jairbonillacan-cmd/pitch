@@ -136,12 +136,34 @@ function createInitialUiState(pickId: string): LabUiState {
   };
 }
 
-function normalizeMetricKey(raw: string): string {
+function normalizeMetricKey(raw: string, sport?: PlatformSport): string {
   const clean = raw.trim().toLowerCase();
   if (clean === "pts") return "PTS";
   if (clean === "reb") return "REB";
   if (clean === "ast") return "AST";
   if (clean === "3pm") return "3PM";
+  if (clean.includes("f5") && clean.includes("run")) return "f5_runs";
+  if (
+    clean === "runs" ||
+    clean === "runs_for" ||
+    clean === "total_runs" ||
+    clean.includes("run") ||
+    clean.includes("carrera")
+  ) {
+    return "runs";
+  }
+  if (clean === "team_points" || (clean === "points_for" && sport === "american-football")) {
+    return "team_points";
+  }
+  if (
+    clean === "points" ||
+    clean === "points_for" ||
+    clean === "total_points" ||
+    clean.includes("point") ||
+    clean.includes("punto")
+  ) {
+    return sport === "basketball" ? "PTS" : "points";
+  }
   if (clean.includes("corner")) return "corners";
   if (clean.includes("sot") || clean.includes("shots_on_target") || clean.includes("puerta")) {
     return "shots_on_target";
@@ -150,7 +172,7 @@ function normalizeMetricKey(raw: string): string {
   if (clean.includes("card") || clean.includes("tarjeta") || clean.includes("amarilla")) return "cards";
   if (clean.includes("foul") || clean.includes("falta")) return "fouls";
   if (clean.includes("goal_or_assist")) return "goal_or_assist";
-  if (clean.includes("goal") || clean.includes("gol") || clean.includes("total")) return "goals";
+  if (clean === "total_goals" || clean.includes("goal") || clean.includes("gol")) return "goals";
   return raw.trim();
 }
 
@@ -170,7 +192,7 @@ function inferMetricKeyFromPick(pick: CatalogPickItem): string {
   if (pick.sport === "baseball") {
     return hay.includes("f5") ? "f5_runs" : "runs";
   }
-  if (pick.sport === "american_football") {
+  if (pick.sport === "american-football") {
     return hay.includes("team") ? "team_points" : "points";
   }
   if (hay.includes("corner") || hay.includes("esquina")) return "corners";
@@ -202,15 +224,15 @@ function getMetricCatalog(
       ? NBA_METRICS
       : sport === "baseball"
         ? MLB_METRICS
-        : sport === "hockey"
+        : sport === "ice-hockey"
           ? NHL_METRICS
-          : sport === "american_football"
+          : sport === "american-football"
             ? NFL_METRICS
             : entityKind === "player"
               ? FOOTBALL_PLAYER_METRICS
               : FOOTBALL_TEAM_METRICS;
 
-  const normalizedActive = normalizeMetricKey(activeKey);
+  const normalizedActive = normalizeMetricKey(activeKey, sport);
   const exists = baseList.some((opt) => opt.key === normalizedActive);
   if (exists) {
     return baseList.map((opt) => {
@@ -383,12 +405,13 @@ function deriveBarsForMetric(
   entityKind: "player" | "team" | "match",
   barsFor: readonly PickLabMatchBar[],
   barsAgainst: readonly PickLabMatchBar[],
+  sport?: PlatformSport,
 ): { readonly bars: readonly PickLabMatchBar[]; readonly hasRealSeries: boolean } {
   const rawSeries = perspective === "against" ? barsAgainst : barsFor;
-  if (normalizeMetricKey(selectedMetricKey) === normalizeMetricKey(baseMetricKey)) {
+  if (normalizeMetricKey(selectedMetricKey, sport) === normalizeMetricKey(baseMetricKey, sport)) {
     return { bars: rawSeries, hasRealSeries: rawSeries.length > 0 };
   }
-  if (normalizeMetricKey(selectedMetricKey) === "goals" && entityKind !== "player") {
+  if (normalizeMetricKey(selectedMetricKey, sport) === "goals" && entityKind !== "player") {
     const source = barsFor.length > 0 ? barsFor : barsAgainst;
     const derived: PickLabMatchBar[] = [];
     for (const bar of source) {
@@ -495,15 +518,47 @@ export function PickEvidenceLabDrawer({
     labDataOverride ??
     (fetchedLabData && pick && fetchedLabData.pick.id === pick.id ? fetchedLabData : null);
 
+  const [settledUrl, setSettledUrl] = useState<string | null>(null);
+  const loadingUrlRef = useRef<string | null>(null);
+
+  useSafeEffect(() => {
+    if (!requestUrl) {
+      loadingUrlRef.current = null;
+      setSettledUrl(null);
+      return;
+    }
+    if (typeof fetch !== "function") {
+      setSettledUrl(requestUrl);
+      return;
+    }
+    if (labLoading) {
+      loadingUrlRef.current = requestUrl;
+      return;
+    }
+    if (loadingUrlRef.current === requestUrl || resolvedLabData !== null) {
+      setSettledUrl(requestUrl);
+    }
+  }, [labLoading, requestUrl, resolvedLabData]);
+
+  const isLabSkeletonVisible =
+    !resolvedLabData &&
+    (labLoading || (Boolean(requestUrl) && settledUrl !== requestUrl));
+  const currentLabError =
+    requestUrl && settledUrl === requestUrl && !labLoading ? labError : null;
+
   const swipe = useSheetSwipeDismiss({
     onDismiss: () => onCloseRef.current(),
     disabled: !open || !isMobileViewport,
     scrollContainerRef: bodyScrollRef,
   });
 
+  const isDialogActive = open && Boolean(pickId);
+
   useSafeEffect(() => {
     const dialog = dialogRef.current;
     if (!dialog) return undefined;
+
+    let isDisposing = false;
 
     const closeDialogSafely = () => {
       if (typeof dialog.close === "function" && dialog.open) {
@@ -520,7 +575,8 @@ export function PickEvidenceLabDrawer({
       }
     };
 
-    if (!open || !pickId) {
+    if (!isDialogActive) {
+      isDisposing = true;
       closeDialogSafely();
       return undefined;
     }
@@ -551,7 +607,7 @@ export function PickEvidenceLabDrawer({
     };
 
     const handleClose = () => {
-      if (dialog.open) return;
+      if (isDisposing || dialog.open) return;
       dialog.returnValue = "";
       onCloseRef.current();
     };
@@ -570,34 +626,57 @@ export function PickEvidenceLabDrawer({
     };
     window.addEventListener("keydown", handleEscapeFallback);
 
-    let pressedOutside = false;
-    const isOutsidePanel = (event: PointerEvent): boolean => {
-      if (event.target !== dialog) return false;
-      return isPointerOutsideElement(event, panelRef.current ?? dialog);
-    };
-    const onPointerDown = (event: PointerEvent) => {
-      pressedOutside = isOutsidePanel(event);
-    };
-    const onPointerUp = (event: PointerEvent) => {
-      if (pressedOutside && isOutsidePanel(event)) {
-        closeDialogSafely();
-        onCloseRef.current();
-      }
-      pressedOutside = false;
-    };
+    let cleanupLightDismiss: (() => void) | undefined;
+    if (
+      typeof HTMLDialogElement !== "undefined" &&
+      !("closedBy" in HTMLDialogElement.prototype)
+    ) {
+      let pressedOutside = false;
+      const isOutsidePanel = (event: PointerEvent): boolean => {
+        if (event.target !== dialog) return false;
+        return isPointerOutsideElement(event, panelRef.current ?? dialog);
+      };
+      const onPointerDown = (event: PointerEvent) => {
+        pressedOutside = isOutsidePanel(event);
+      };
+      const onPointerUp = (event: PointerEvent) => {
+        if (pressedOutside && isOutsidePanel(event)) {
+          pressedOutside = false;
+          if (typeof dialog.close === "function" && dialog.open) {
+            try {
+              dialog.returnValue = "";
+              dialog.close();
+              return;
+            } catch (err) {
+              void err;
+            }
+          }
+          if (dialog.hasAttribute("open")) {
+            dialog.removeAttribute("open");
+          }
+          onCloseRef.current();
+          return;
+        }
+        pressedOutside = false;
+      };
 
-    dialog.addEventListener("pointerdown", onPointerDown);
-    dialog.addEventListener("pointerup", onPointerUp);
+      dialog.addEventListener("pointerdown", onPointerDown);
+      dialog.addEventListener("pointerup", onPointerUp);
+      cleanupLightDismiss = () => {
+        dialog.removeEventListener("pointerdown", onPointerDown);
+        dialog.removeEventListener("pointerup", onPointerUp);
+      };
+    }
 
     return () => {
+      isDisposing = true;
       window.removeEventListener("keydown", handleEscapeFallback);
       dialog.removeEventListener("cancel", handleCancel);
       dialog.removeEventListener("close", handleClose);
-      dialog.removeEventListener("pointerdown", onPointerDown);
-      dialog.removeEventListener("pointerup", onPointerUp);
+      cleanupLightDismiss?.();
       closeDialogSafely();
     };
-  }, [open, pickId]);
+  }, [isDialogActive]);
 
   const activePick: CatalogPickItem | null = resolvedLabData?.pick ?? pick;
 
@@ -618,8 +697,9 @@ export function PickEvidenceLabDrawer({
   }, [activePick, relatedPicks, resolvedLabData?.relatedPicks]);
 
   const baseMetricKey = useMemo(() => {
-    if (resolvedLabData?.metricKey) return normalizeMetricKey(resolvedLabData.metricKey);
-    if (activePick) return normalizeMetricKey(inferMetricKeyFromPick(activePick));
+    const sport = activePick?.sport;
+    if (resolvedLabData?.metricKey) return normalizeMetricKey(resolvedLabData.metricKey, sport);
+    if (activePick) return normalizeMetricKey(inferMetricKeyFromPick(activePick), sport);
     return "goals";
   }, [activePick, resolvedLabData?.metricKey]);
 
@@ -665,6 +745,8 @@ export function PickEvidenceLabDrawer({
   const rawBarsFor = resolvedLabData?.barsFor ?? [];
   const rawBarsAgainst = resolvedLabData?.barsAgainst ?? [];
 
+  const activeSport = activePick?.sport;
+
   const { bars: metricBars, hasRealSeries } = useMemo(
     () =>
       deriveBarsForMetric(
@@ -674,8 +756,17 @@ export function PickEvidenceLabDrawer({
         entityKind,
         rawBarsFor,
         rawBarsAgainst,
+        activeSport,
       ),
-    [activeUi.perspective, baseMetricKey, entityKind, rawBarsAgainst, rawBarsFor, selectedMetricKey],
+    [
+      activeSport,
+      activeUi.perspective,
+      baseMetricKey,
+      entityKind,
+      rawBarsAgainst,
+      rawBarsFor,
+      selectedMetricKey,
+    ],
   );
 
   const hasAgainstSeries = useMemo(
@@ -687,8 +778,9 @@ export function PickEvidenceLabDrawer({
         entityKind,
         rawBarsFor,
         rawBarsAgainst,
+        activeSport,
       ).bars.length > 0,
-    [baseMetricKey, entityKind, rawBarsAgainst, rawBarsFor, selectedMetricKey],
+    [activeSport, baseMetricKey, entityKind, rawBarsAgainst, rawBarsFor, selectedMetricKey],
   );
 
   const rivalOptions = useMemo(() => {
@@ -753,7 +845,7 @@ export function PickEvidenceLabDrawer({
     }
     if (activeUi.perspective !== "for") return null;
     for (const candidate of mergedRelatedPicks) {
-      const candidateMetric = normalizeMetricKey(inferMetricKeyFromPick(candidate));
+      const candidateMetric = normalizeMetricKey(inferMetricKeyFromPick(candidate), candidate.sport);
       const candidateDir = inferDirectionFromPick(candidate);
       if (
         candidateMetric === selectedMetricKey &&
@@ -869,7 +961,7 @@ export function PickEvidenceLabDrawer({
     if (option.key === selectedMetricKey) return;
     if (option.key !== baseMetricKey && onSelectRelatedPick) {
       const relatedMatch = mergedRelatedPicks.find(
-        (rel) => normalizeMetricKey(inferMetricKeyFromPick(rel)) === option.key,
+        (rel) => normalizeMetricKey(inferMetricKeyFromPick(rel), rel.sport) === option.key,
       );
       if (relatedMatch) {
         onSelectRelatedPick(relatedMatch);
@@ -981,30 +1073,28 @@ export function PickEvidenceLabDrawer({
               </div>
             </div>
 
-            <div className="flex items-center gap-2 shrink-0">
-              <div className="pl-pick-lab-match-pill">
-                <span className="pl-pick-lab-kpi-eyebrow">{statusPillLabel}</span>
-                <span className="inline-flex items-center gap-1.5 text-xs font-bold">
-                  <TeamBadge league={league} slug={homeTeam.slug} name={homeTeam.name} size={18} />
-                  <span>{homeTeam.shortName}</span>
-                  <span aria-hidden="true">vs</span>
-                  <TeamBadge league={league} slug={awayTeam.slug} name={awayTeam.name} size={18} />
-                  <span>{awayTeam.shortName}</span>
-                </span>
-              </div>
-
-              <Button
-                variant="ghost"
-                size="icon"
-                className="pl-pick-lab-close"
-                data-pick-lab-close=""
-                aria-label="Cerrar Bet Lab"
-                autoFocus
-                onClick={onClose}
-              >
-                <MaestroIcon name="x" size={18} />
-              </Button>
+            <div className="pl-pick-lab-match-pill">
+              <span className="pl-pick-lab-kpi-eyebrow">{statusPillLabel}</span>
+              <span className="inline-flex items-center gap-1.5 text-xs font-bold">
+                <TeamBadge league={league} slug={homeTeam.slug} name={homeTeam.name} size={18} />
+                <span>{homeTeam.shortName}</span>
+                <span aria-hidden="true">vs</span>
+                <TeamBadge league={league} slug={awayTeam.slug} name={awayTeam.name} size={18} />
+                <span>{awayTeam.shortName}</span>
+              </span>
             </div>
+
+            <Button
+              variant="ghost"
+              size="icon"
+              className="pl-pick-lab-close"
+              data-pick-lab-close=""
+              aria-label="Cerrar Bet Lab"
+              autoFocus
+              onClick={onClose}
+            >
+              <MaestroIcon name="x" size={18} />
+            </Button>
           </header>
         </div>
 
@@ -1021,7 +1111,9 @@ export function PickEvidenceLabDrawer({
                     <strong className={`pl-pick-lab-kpi-val ${toneClassForRate(seriesSummary.hitRatePct)}`.trim()}>
                       {seriesSummary.hitRatePct !== null
                         ? `${seriesSummary.hitRatePct} %`
-                        : activePick.evidence.avgObservedRatePct !== null && !hasRealSeries
+                        : !isCustomSpec &&
+                            !hasRealSeries &&
+                            activePick.evidence.avgObservedRatePct !== null
                           ? `${activePick.evidence.avgObservedRatePct} %`
                           : "—"}
                     </strong>
@@ -1262,7 +1354,7 @@ export function PickEvidenceLabDrawer({
                 </div>
               </div>
 
-              {labLoading && !resolvedLabData ? (
+              {isLabSkeletonVisible ? (
                 <div
                   className="pl-pick-lab-skeleton"
                   role="progressbar"
@@ -1274,7 +1366,7 @@ export function PickEvidenceLabDrawer({
                   <div className="pl-pick-lab-plot-wrap">
                     <div
                       className="pl-pick-lab-yaxis num"
-                      style={{ height: "var(--pl-pick-lab-track-h, 180px)" }}
+                      style={{ height: "var(--pl-pick-lab-track-h, 152px)" }}
                       aria-hidden="true"
                     >
                       {yTicks.map((tick, index) => (
@@ -1283,32 +1375,32 @@ export function PickEvidenceLabDrawer({
                     </div>
 
                     <div className="pl-pick-lab-plot">
-                      <div
-                        style={{
-                          position: "absolute",
-                          insetInline: 0,
-                          top: 0,
-                          height: "var(--pl-pick-lab-track-h, 180px)",
-                          pointerEvents: "none",
-                        }}
-                        aria-hidden="true"
-                      >
-                        <div
-                          className="pl-pick-lab-threshold"
-                          style={
-                            {
-                              bottom: `${thresholdPct}%`,
-                              "--pl-threshold-bottom": `${thresholdPct}%`,
-                            } as React.CSSProperties
-                          }
-                        >
-                          <span className="pl-pick-lab-threshold-tag num">
-                            {formatNumeric(selectedLine)}
-                          </span>
-                        </div>
-                      </div>
-
                       <div className="pl-pick-lab-bars">
+                        <div
+                          style={{
+                            position: "absolute",
+                            insetInline: 0,
+                            top: 5,
+                            height: "var(--pl-pick-lab-track-h, 152px)",
+                            pointerEvents: "none",
+                          }}
+                          aria-hidden="true"
+                        >
+                          <div
+                            className="pl-pick-lab-threshold"
+                            style={
+                              {
+                                bottom: `${thresholdPct}%`,
+                                "--pl-threshold-bottom": `${thresholdPct}%`,
+                              } as React.CSSProperties
+                            }
+                          >
+                            <span className="pl-pick-lab-threshold-tag num">
+                              {formatNumeric(selectedLine)}
+                            </span>
+                          </div>
+                        </div>
+
                         {filteredBars.map((bar) => {
                           const outcome = classifyBarOutcome(
                             bar.value,
@@ -1320,12 +1412,6 @@ export function PickEvidenceLabDrawer({
                             Math.min(100, Math.round((Math.max(0, bar.value) / chartCeiling) * 1000) / 10),
                           );
                           const isSelected = inspectedBar?.id === bar.id;
-                          const barColorVar =
-                            outcome === "hit"
-                              ? "var(--pl-pos, var(--pl-success))"
-                              : outcome === "push"
-                                ? "var(--pl-warn, var(--pl-warning))"
-                                : "var(--pl-neg, var(--pl-danger))";
                           const minuteSuffix =
                             typeof bar.minutesPlayed === "number" &&
                             Number.isFinite(bar.minutesPlayed)
@@ -1353,14 +1439,11 @@ export function PickEvidenceLabDrawer({
                               >
                                 <span
                                   className="pl-pick-lab-bar-track"
-                                  style={{ height: "var(--pl-pick-lab-track-h, 180px)" }}
+                                  style={{ height: "var(--pl-pick-lab-track-h, 152px)" }}
                                 >
                                   <span
                                     className={`pl-pick-lab-bar is-${outcome}`}
-                                    style={{
-                                      height: `${barPct}%`,
-                                      backgroundColor: barColorVar,
-                                    }}
+                                    style={{ height: `${barPct}%` }}
                                   >
                                     <span className="pl-pick-lab-bar-val num">
                                       {formatNumeric(bar.value)}
@@ -1513,8 +1596,8 @@ export function PickEvidenceLabDrawer({
                   ) : (
                     <>
                       <p className="pl-pick-lab-subtitle m-0">
-                        {labError
-                          ? `${labError} Mostramos las ventanas verificadas disponibles del modelo.`
+                        {currentLabError
+                          ? `${currentLabError} Mostramos las ventanas verificadas disponibles del modelo.`
                           : selectedMetricKey !== baseMetricKey
                             ? `No hay serie partido a partido precargada para ${activeMetricSpec.label}. Selecciona un pick relacionado o vuelve a ${baseMetricLabel}.`
                             : "Sin serie partido a partido disponible para este mercado. Mostramos las ventanas verificadas registradas sin inventar valores."}
@@ -1763,7 +1846,22 @@ export function PickEvidenceLabDrawer({
                             {isExpanded ? "Ocultar estadísticas" : "Expandir estadísticas"}
                             <span className="sr-only"> de {rel.label}</span>
                           </span>
-                          <MaestroIcon name="chevronDown" size={14} />
+                          <svg
+                            viewBox="0 0 16 16"
+                            width={14}
+                            height={14}
+                            aria-hidden="true"
+                            className="pl-pick-lab-expand-chevron shrink-0"
+                          >
+                            <path
+                              d="M4 6l4 4 4-4"
+                              fill="none"
+                              stroke="currentColor"
+                              strokeWidth="1.75"
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                            />
+                          </svg>
                         </button>
 
                         {isExpanded ? (
