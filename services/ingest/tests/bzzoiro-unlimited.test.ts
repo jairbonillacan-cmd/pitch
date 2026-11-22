@@ -1395,7 +1395,10 @@ describe("Bzzoiro Unlimited · 3. Árbitros, alineaciones, disponibilidad, H2H y
       "/events/555/h2h/": { matches: [] },
       "/events/555/broadcasts/?country_code=MX": { results: [{ channel: "Max", country_code: "MX" }] },
     });
-    const bundle = await fetchBzzoiroFullPreMatchBundle(client, { providerEventId: 555 });
+    const bundle = await fetchBzzoiroFullPreMatchBundle(client, {
+      providerEventId: 555,
+      updatedAtIso: "2026-11-20T18:00:00Z",
+    });
     expect(bundle.referee?.name).toBe("Anthony Taylor");
     expect(bundle.broadcastsMx).toEqual(["Max"]);
     expect(calls).toContain("/events/555/broadcasts/?country_code=MX");
@@ -1769,7 +1772,10 @@ describe("Bzzoiro Unlimited · 3. Árbitros, alineaciones, disponibilidad, H2H y
     expect(sqInj[0]?.player).toBe("Andrés Guardado");
 
     const callsBeforeEmbedded = calls.length;
-    const embeddedBundle = await fetchBzzoiroFullPreMatchBundle(client, { providerEventId: 601 });
+    const embeddedBundle = await fetchBzzoiroFullPreMatchBundle(client, {
+      providerEventId: 601,
+      updatedAtIso: "2026-11-20T18:00:00Z",
+    });
     const embeddedCalls = calls.slice(callsBeforeEmbedded);
     expect(embeddedCalls.some((c) => c.startsWith("/referees/"))).toBe(false);
     expect(embeddedBundle.referee?.name).toBe("Adonai Escobedo");

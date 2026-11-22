@@ -1210,14 +1210,12 @@ function ClubWorkspaceShellImpl({
                   {railGroups[0]!.items.map((item) => {
                     const active = activePath === item.href;
                     const visibleLabel = item.navLabel ?? item.label;
-                    const accessibleLabel = item.badge ? `${item.badge} ${visibleLabel}` : visibleLabel;
                     return (
                       <a
                         key={item.href}
                         href={item.href}
                         aria-current={active ? "page" : undefined}
-                        aria-label={accessibleLabel}
-                        title={item.label !== visibleLabel ? item.label : undefined}
+                        title={item.label}
                         data-nav-group="primary"
                         onPointerEnter={() => prefetchRoute(item.href)}
                         onTouchStart={() => prefetchRoute(item.href)}
@@ -1239,7 +1237,7 @@ function ClubWorkspaceShellImpl({
                             </span>
                           ) : null}
                         </span>
-                        <span className="pl-header-nav-label-wrap" aria-hidden="true">
+                        <span className="pl-header-nav-label-wrap">
                           <span className="pl-header-nav-label">{visibleLabel}</span>
                         </span>
                       </a>
