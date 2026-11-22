@@ -109,7 +109,8 @@ describe("ClubLayoutShell header navigation", () => {
     expect(openHtml).toContain("Buscar partido, equipo, jugador, liga o @socio...");
     expect(openHtml).not.toContain("glass-ring--featured");
     expect(openHtml).not.toContain("@tipster");
-    expect(openHtml).toContain('aria-label="Cerrar buscador"');
+    expect(openHtml).toContain('<span class="sr-only">Cerrar buscador</span>');
+    expect(openHtml).not.toContain('aria-label="Cerrar buscador"');
     expect(openHtml).toContain("Ligas oficiales");
     expect(openHtml).toContain("1 juego");
     expect(openHtml).not.toContain("1 juegos");
