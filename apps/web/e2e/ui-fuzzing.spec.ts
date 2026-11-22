@@ -202,6 +202,9 @@ async function waitForLayoutStable(page: Page): Promise<void> {
       ) {
         return false;
       }
+      if (!img.closest("summary") && img.closest("details:not([open])")) {
+        return false;
+      }
       let cur: Element | null = img;
       while (cur && cur !== document.documentElement) {
         const st = window.getComputedStyle(cur);
@@ -298,6 +301,9 @@ async function auditPageInvariants(
               "nextjs-portal, [data-nextjs-toast], [hidden], dialog:not([open]), [popover]:not(:popover-open), [inert]",
             )
           ) {
+            continue;
+          }
+          if (!img.closest("summary") && img.closest("details:not([open])")) {
             continue;
           }
           let hidden = false;
@@ -446,6 +452,9 @@ async function auditPageInvariants(
           "nextjs-portal, [data-nextjs-toast], [hidden], dialog:not([open]), [popover]:not(:popover-open), [inert]",
         )
       ) {
+        return false;
+      }
+      if (!img.closest("summary") && img.closest("details:not([open])")) {
         return false;
       }
       let cur: Element | null = img;
