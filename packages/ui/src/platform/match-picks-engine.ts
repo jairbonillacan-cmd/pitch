@@ -11,6 +11,7 @@ import {
   type StandingRow,
 } from "@pitchlab/contracts";
 import { decimalToAmericanInt } from "./access-guard";
+import { isConservativeChalkPick, isPlayableValueOdds } from "./pick-quality-ranker";
 import type {
   EngineKey,
   LineupAbsenceItem,
@@ -431,16 +432,35 @@ function buildMatchPicksAndParlayCandidates(
   const groupHas = (group: string, ...needles: string[]) =>
     needles.some((n) => group.toLowerCase().includes(n));
 
-  // 1) Pick Principal: la señal estructural más clara entre 54 % y 71 %.
+  const snapshotIntermedia = fromSnapshotPick("intermedia", 0.5);
+  const playableSnapshotMain =
+    snapshotIntermedia &&
+    !isConservativeChalkPick(
+      snapshotIntermedia.row.market,
+      snapshotIntermedia.row.label,
+      snapshotIntermedia.row.fairOdds,
+    )
+      ? snapshotIntermedia
+      : null;
+
   const main =
-    fromSnapshotPick("intermedia", 0.5) ??
+    playableSnapshotMain ??
     take(
       ({ row }) =>
         !COUNT_MARKET_KEYS.has(row.market.toLowerCase()) &&
         row.market !== "correct_score" &&
-        row.p >= 0.54 &&
-        row.p <= 0.71,
-    );
+        !isConservativeChalkPick(row.market, row.label, row.fairOdds) &&
+        isPlayableValueOdds(row.fairOdds),
+    ) ??
+    take(
+      ({ row }) =>
+        !COUNT_MARKET_KEYS.has(row.market.toLowerCase()) &&
+        row.market !== "correct_score" &&
+        !isConservativeChalkPick(row.market, row.label, row.fairOdds) &&
+        row.p >= 0.35 &&
+        row.p <= 0.68,
+    ) ??
+    snapshotIntermedia;
   if (main) {
     pickRows.push({
       category: "principal",

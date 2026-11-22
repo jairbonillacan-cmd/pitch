@@ -347,6 +347,10 @@ export function HomeClubView({
         if (slug) {
           map.set(`${leagueSummary.league}::${slug.toLowerCase()}`, row.form);
         }
+        const nameSlug = cleanTeamRouteSlug(row.name);
+        if (nameSlug) {
+          map.set(`${leagueSummary.league}::${nameSlug.toLowerCase()}`, row.form);
+        }
         if (row.code) {
           map.set(`${leagueSummary.league}::${row.code.toLowerCase()}`, row.form);
         }

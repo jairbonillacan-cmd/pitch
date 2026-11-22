@@ -991,7 +991,58 @@ function getDatasetMemoBundle(): DatasetMemoBundle {
     teamLabelByLeagueAndCanon: buildTeamLabelLookup(value),
     at: now,
   };
+  attachGameTeamFormsToBundle(datasetMemo);
   return datasetMemo;
+}
+
+function attachGameTeamFormsToBundle(bundle: DatasetMemoBundle): void {
+  const formCache = new Map<string, readonly string[]>();
+
+  for (const leagueSummary of bundle.value.leagues) {
+    for (const row of leagueSummary.standings) {
+      if (!row.form || row.form.length === 0) continue;
+      const sliced = row.form.slice(0, 5);
+      const keys = [
+        canonicalTeamSlugKey(row.teamId),
+        canonicalTeamSlugKey(cleanTeamRouteSlug(row.name)),
+        canonicalTeamSlugKey(row.shortName),
+      ];
+      for (const k of keys) {
+        if (k) formCache.set(`${leagueSummary.league}|${k}`, sliced);
+      }
+    }
+  }
+
+  const resolveForm = (league: string, slug: string, shortName: string): readonly string[] | undefined => {
+    const canonSlug = canonicalTeamSlugKey(slug);
+    const cacheKey = `${league}|${canonSlug}`;
+    const existing =
+      formCache.get(cacheKey) ??
+      formCache.get(`${league}|${canonicalTeamSlugKey(shortName)}`);
+    if (existing) return existing;
+
+    const history = loadTeamHistoryForGame(bundle, league, slug, 5);
+    const derived = buildTeamFormTokens(history, 5);
+    formCache.set(cacheKey, derived);
+    return derived.length > 0 ? derived : undefined;
+  };
+
+  for (const game of bundle.value.games) {
+    const homeForm =
+      game.home.form && game.home.form.length > 0
+        ? game.home.form.slice(0, 5)
+        : resolveForm(game.league, game.home.slug, game.home.shortName);
+    const awayForm =
+      game.away.form && game.away.form.length > 0
+        ? game.away.form.slice(0, 5)
+        : resolveForm(game.league, game.away.slug, game.away.shortName);
+    if (homeForm && homeForm.length > 0) {
+      game.home = { ...game.home, form: homeForm };
+    }
+    if (awayForm && awayForm.length > 0) {
+      game.away = { ...game.away, form: awayForm };
+    }
+  }
 }
 
 function getRedactedMemo(bundle: DatasetMemoBundle): {

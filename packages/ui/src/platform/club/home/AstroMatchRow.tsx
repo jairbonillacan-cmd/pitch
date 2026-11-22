@@ -7,7 +7,6 @@ import {
   isLeagueHealthyForUi,
   isLivePhaseActive,
   sportHasDraw,
-  sportScoringUnit,
   type LeagueId,
   type LiveScoreboardEntry,
 } from "@pitchlab/contracts";
@@ -17,6 +16,7 @@ import { AtomicFormStrip, parseAtomicForm } from "../../atomic";
 import { MaestroIcon } from "../../components/MaestroPrimitives";
 import { ParlayPickButton } from "../../components/MatchList";
 import { setActiveSharedTransition } from "../../navigation-helpers";
+import { selectHeadlineMatchPick } from "../../pick-quality-ranker";
 import { usePlatformActions, usePlatformCore } from "../../platform-provider";
 import type { PlatformGame } from "../../types";
 import {
@@ -49,7 +49,7 @@ function resolveValidForm(
   game: PlatformGame,
   side: "home" | "away",
 ): readonly string[] | string | null {
-  const candidate = explicit ?? resolveFactorForm(game, side);
+  const candidate = explicit ?? game[side].form ?? resolveFactorForm(game, side);
   if (!candidate) return null;
   const parsed = parseAtomicForm(candidate, { sport: game.sport, max: 5 });
   return parsed.length > 0 ? candidate : null;
@@ -76,6 +76,36 @@ export interface AstroMatchRowProps {
   readonly showLeagueTag?: boolean;
 }
 
+function renderRowFormDashes(
+  entries: readonly ReturnType<typeof parseAtomicForm>[number][],
+  teamName: string,
+): React.JSX.Element {
+  if (entries.length === 0) {
+    return (
+      <span className="pl-home-md-score is-empty" aria-hidden="true">
+        —
+      </span>
+    );
+  }
+  const summary = entries.map((entry) => entry.glyph).join(" ");
+  return (
+    <span
+      className="pl-home-md-form-dashes"
+      data-row-form-dashes=""
+      aria-label={`Forma últimos ${entries.length} partidos de ${teamName}: ${summary}`}
+      title={`${teamName}: ${summary}`}
+    >
+      {entries.map((entry, idx) => (
+        <span
+          key={`${entry.glyph}-${idx}`}
+          className={`pl-home-md-form-dash is-${entry.outcome}`}
+          aria-hidden="true"
+        />
+      ))}
+    </span>
+  );
+}
+
 export const AstroMatchRow = React.memo(function AstroMatchRow({
   game,
   liveEntry,
@@ -92,8 +122,6 @@ export const AstroMatchRow = React.memo(function AstroMatchRow({
   const { setAuraFromGame, navigateTo, prefetchRoute, toggleWatchlistGame } = usePlatformActions();
 
   const hasDraw = sportHasDraw(game.sport);
-  const unit = sportScoringUnit(game.sport);
-  const decimals = unit.decimals;
   const hasForecast = game.hasForecast !== false && Boolean(game.x12 && game.projection);
   const live =
     (liveEntry ? isLivePhaseActive(liveEntry.phase) : false) || String(game.status) === "LIVE";
@@ -104,7 +132,7 @@ export const AstroMatchRow = React.memo(function AstroMatchRow({
   const activeScore = live
     ? (liveEntry?.score ?? game.score ?? null)
     : (game.score ?? liveEntry?.score ?? null);
-  const mainPick = game.picks[0];
+  const mainPick = selectHeadlineMatchPick(game.picks) ?? game.picks[0];
   const unlocked = mainPick ? isPickUnlocked(mainPick, game.status, viewerRole) : false;
   const outcome = hasForecast ? mostLikelyOutcome(game) : null;
   const [ph, pd, pa] = game.x12 ?? [0, 0, 0];
@@ -120,6 +148,20 @@ export const AstroMatchRow = React.memo(function AstroMatchRow({
     () => resolveValidForm(awayForm, game, "away"),
     [awayForm, game],
   );
+  const homeFormDashes = useMemo(
+    () =>
+      resolvedHomeForm
+        ? parseAtomicForm(resolvedHomeForm, { sport: game.sport, max: 5 })
+        : [],
+    [game.sport, resolvedHomeForm],
+  );
+  const awayFormDashes = useMemo(
+    () =>
+      resolvedAwayForm
+        ? parseAtomicForm(resolvedAwayForm, { sport: game.sport, max: 5 })
+        : [],
+    [game.sport, resolvedAwayForm],
+  );
 
   const homeStrong = isFinished
     ? (activeScore?.home ?? 0) > (activeScore?.away ?? 0)
@@ -129,16 +171,8 @@ export const AstroMatchRow = React.memo(function AstroMatchRow({
     : outcome?.side === "away";
 
   const showRealScore = live || isFinished;
-  const homeVal = showRealScore
-    ? (activeScore?.home ?? "—")
-    : unlocked && game.projection
-      ? game.projection.home.toFixed(decimals)
-      : "—";
-  const awayVal = showRealScore
-    ? (activeScore?.away ?? "—")
-    : unlocked && game.projection
-      ? game.projection.away.toFixed(decimals)
-      : "—";
+  const homeVal = showRealScore ? (activeScore?.home ?? "—") : null;
+  const awayVal = showRealScore ? (activeScore?.away ?? "—") : null;
 
   const handleActivateMatch = (e: React.MouseEvent<HTMLAnchorElement>) => {
     if (e.metaKey || e.ctrlKey || e.shiftKey || e.altKey || e.button !== 0) {
@@ -252,7 +286,7 @@ export const AstroMatchRow = React.memo(function AstroMatchRow({
               >
                 {game.home.shortName || game.home.name}
               </span>
-              {resolvedHomeForm ? (
+              {showRealScore && resolvedHomeForm ? (
                 <span className="pl-home-md-form-strip" data-home-form-strip="">
                   <AtomicFormStrip
                     form={resolvedHomeForm}
@@ -264,11 +298,15 @@ export const AstroMatchRow = React.memo(function AstroMatchRow({
                   />
                 </span>
               ) : null}
-              <strong
-                className={`pl-home-md-score num ${homeStrong ? "is-strong" : ""} ${live ? "is-live" : ""}`.trim()}
-              >
-                {homeVal}
-              </strong>
+              {showRealScore ? (
+                <strong
+                  className={`pl-home-md-score num ${homeStrong ? "is-strong" : ""} ${live ? "is-live" : ""}`.trim()}
+                >
+                  {homeVal}
+                </strong>
+              ) : (
+                renderRowFormDashes(homeFormDashes, game.home.shortName || game.home.name)
+              )}
             </span>
 
             <span className="pl-home-md-team-line">
@@ -284,7 +322,7 @@ export const AstroMatchRow = React.memo(function AstroMatchRow({
               >
                 {game.away.shortName || game.away.name}
               </span>
-              {resolvedAwayForm ? (
+              {showRealScore && resolvedAwayForm ? (
                 <span className="pl-home-md-form-strip" data-home-form-strip="">
                   <AtomicFormStrip
                     form={resolvedAwayForm}
@@ -296,11 +334,15 @@ export const AstroMatchRow = React.memo(function AstroMatchRow({
                   />
                 </span>
               ) : null}
-              <strong
-                className={`pl-home-md-score num ${awayStrong ? "is-strong" : ""} ${live ? "is-live" : ""}`.trim()}
-              >
-                {awayVal}
-              </strong>
+              {showRealScore ? (
+                <strong
+                  className={`pl-home-md-score num ${awayStrong ? "is-strong" : ""} ${live ? "is-live" : ""}`.trim()}
+                >
+                  {awayVal}
+                </strong>
+              ) : (
+                renderRowFormDashes(awayFormDashes, game.away.shortName || game.away.name)
+              )}
             </span>
           </span>
         </a>

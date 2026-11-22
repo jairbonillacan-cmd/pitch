@@ -309,6 +309,7 @@ export interface PlatformGame {
     code: string;
     logoUrl?: string;
     record: string;
+    form?: readonly string[];
   };
   away: {
     slug: string;
@@ -317,6 +318,7 @@ export interface PlatformGame {
     code: string;
     logoUrl?: string;
     record: string;
+    form?: readonly string[];
   };
   /** `false` cuando el snapshot no trae análisis/pronóstico para este partido. */
   hasForecast?: boolean;

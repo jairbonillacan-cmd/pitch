@@ -417,13 +417,20 @@ export function MatchHeroScoreboard({
             </>
           ) : intelUnlocked ? (
             <>
-              <strong className="pl-match-hero-score pl-match-hero-score--proj num">
-                Proy. {game.projection.home.toFixed(unit.decimals)} –{" "}
-                {game.projection.away.toFixed(unit.decimals)}
+              <strong className="pl-match-hero-score num">
+                {game.kickoffLocal}
               </strong>
-              <span className="pl-match-hero-sub num">
-                {unit.plural === "puntos" ? "Puntos" : "Goles"} esperados:{" "}
-                {game.projection.total.toFixed(unit.decimals)}
+              <span className="pl-match-hero-sub">Inicio</span>
+              <span
+                className="pl-pill pl-pill--wrap text-[11px] inline-flex items-center justify-center gap-1 mt-1 max-w-full num"
+                data-match-hero-expected=""
+              >
+                <span>
+                  {unit.plural === "puntos" ? "Puntos" : "Goles"} esperados:{" "}
+                  {game.projection.home.toFixed(unit.decimals)} –{" "}
+                  {game.projection.away.toFixed(unit.decimals)} · Total{" "}
+                  {game.projection.total.toFixed(unit.decimals)}
+                </span>
               </span>
             </>
           ) : (

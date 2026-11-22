@@ -37,6 +37,11 @@ import { MomentumChart } from "../../live/live-charts";
 import { useLiveMatch } from "../../live/live-store";
 import { sanitizeInternalHref, setActiveSharedTransition } from "../../navigation-helpers";
 import {
+  isConservativeChalkPick,
+  partitionPlayableAndConservative,
+  scorePlayablePick,
+} from "../../pick-quality-ranker";
+import {
   catalogEvidenceToWindowItems,
   catalogPickItemToMatchPick,
   type CatalogPickItem,
@@ -168,6 +173,9 @@ interface DetailPickDisplayItem {
   readonly marketDecimal: number | null;
   readonly marketBookLabel: string | null;
   readonly evPct: number | null;
+  readonly market?: string | null;
+  readonly label?: string | null;
+  readonly decimal?: number | null;
   readonly settlement: PickSettlementStatus | "hit" | "miss" | null;
   readonly windows: readonly EvidenceWindowItem[];
   readonly bullets: readonly { readonly label: string; readonly ratePct: number | null; readonly tone: string }[];
@@ -625,15 +633,44 @@ function buildDisplayPicks(params: {
     );
     const pool = filtered.length > 0 ? filtered : catalogPicks;
     const sorted = [...pool].sort((a, b) => {
-      if (a.isPrimaryModelPick !== b.isPrimaryModelPick) {
-        return a.isPrimaryModelPick ? -1 : 1;
+      const aPrimaryPlayable =
+        a.isPrimaryModelPick &&
+        !isConservativeChalkPick(
+          a.family,
+          a.label,
+          a.pricing.marketDecimal ?? a.pricing.fairOdds,
+          a.pricing.evPct,
+        );
+      const bPrimaryPlayable =
+        b.isPrimaryModelPick &&
+        !isConservativeChalkPick(
+          b.family,
+          b.label,
+          b.pricing.marketDecimal ?? b.pricing.fairOdds,
+          b.pricing.evPct,
+        );
+      if (aPrimaryPlayable !== bPrimaryPlayable) {
+        return aPrimaryPlayable ? -1 : 1;
       }
-      const scoreDiff = (b.recommendationScore ?? 0) - (a.recommendationScore ?? 0);
-      if (scoreDiff !== 0) return scoreDiff;
+      const bScore = scorePlayablePick({
+        market: b.family,
+        label: b.label,
+        p: b.pricing.p,
+        decimal: b.pricing.marketDecimal ?? b.pricing.fairOdds,
+        evPct: b.pricing.evPct,
+      });
+      const aScore = scorePlayablePick({
+        market: a.family,
+        label: a.label,
+        p: a.pricing.p,
+        decimal: a.pricing.marketDecimal ?? a.pricing.fairOdds,
+        evPct: a.pricing.evPct,
+      });
+      if (Math.abs(bScore - aScore) > 0.01) return bScore - aScore;
       return b.pricing.p - a.pricing.p;
     });
 
-    return sorted.slice(0, 6).map((item, idx): DetailPickDisplayItem => {
+    return sorted.slice(0, 8).map((item, idx): DetailPickDisplayItem => {
       const matchPick = catalogPickItemToMatchPick(item, game, idx);
       const unlocked =
         !item.isRedacted &&
@@ -647,17 +684,48 @@ function buildDisplayPicks(params: {
         marketDecimal: item.pricing.marketDecimal,
         marketBookLabel: item.pricing.marketBookLabel,
         evPct: item.pricing.evPct,
+        market: item.family,
+        label: item.label,
+        decimal: item.pricing.marketDecimal ?? item.pricing.fairOdds,
         settlement: item.settlement,
         windows: unlocked ? catalogEvidenceToWindowItems(item.evidence, item.sport) : [],
         bullets: unlocked ? item.evidence.bullets.slice(0, 3) : [],
-        isPrimary: item.isPrimaryModelPick || idx === 0,
+        isPrimary: idx === 0,
         isRedacted: !unlocked,
         fromCatalog: true,
       };
     });
   }
 
-  return game.picks.slice(0, 5).map((pick, idx): DetailPickDisplayItem => {
+  const rankedFallback = [...game.picks].sort((a, b) => {
+    const aEv =
+      a.marketDecimal && a.marketDecimal > 1
+        ? Math.round((a.p * a.marketDecimal - 1) * 1000) / 10
+        : null;
+    const bEv =
+      b.marketDecimal && b.marketDecimal > 1
+        ? Math.round((b.p * b.marketDecimal - 1) * 1000) / 10
+        : null;
+    return (
+      scorePlayablePick({
+        market: a.market,
+        label: a.label,
+        p: a.p,
+        decimal: a.marketDecimal ?? a.fairDecimal,
+        evPct: aEv,
+      }) *
+        -1 +
+      scorePlayablePick({
+        market: b.market,
+        label: b.label,
+        p: b.p,
+        decimal: b.marketDecimal ?? b.fairDecimal,
+        evPct: bEv,
+      })
+    );
+  });
+
+  return rankedFallback.slice(0, 8).map((pick, idx): DetailPickDisplayItem => {
     const unlocked =
       (hasFullAccess || Boolean(pick.isDailyOpenPromo || pick.isTipsterWeeklyOpen)) &&
       isPickUnlocked(pick, game.status, viewerRole);
@@ -676,6 +744,9 @@ function buildDisplayPicks(params: {
       marketDecimal: pick.marketDecimal,
       marketBookLabel: pick.marketBookLabel ?? null,
       evPct,
+      market: pick.market ?? pick.categoryLabel,
+      label: pick.label,
+      decimal: pick.marketDecimal ?? pick.fairDecimal,
       settlement: pick.result ?? null,
       windows,
       bullets: [],
@@ -1003,6 +1074,10 @@ export function HomeMatchDetailPanel({
   const displayPicks = useMemo(
     () => buildDisplayPicks({ game, preview, viewerRole, hasFullAccess }),
     [game, hasFullAccess, preview, viewerRole],
+  );
+  const partitionedDisplayPicks = useMemo(
+    () => partitionPlayableAndConservative(displayPicks),
+    [displayPicks],
   );
 
   const liveProgressBars = useMemo<readonly ComputedLiveBar[]>(() => {
@@ -1340,16 +1415,16 @@ export function HomeMatchDetailPanel({
               </>
             ) : (
               <>
-                <strong className="pl-home-md-score-big">
-                  {intelUnlocked && activeProjection
-                    ? `${activeProjection.home.toFixed(unit.decimals)} – ${activeProjection.away.toFixed(unit.decimals)}`
-                    : kickoffTime}
-                </strong>
-                <span className="pl-home-md-score-state">
-                  {intelUnlocked && activeProjection
-                    ? `Proyección (${unit.short})`
-                    : "Por jugar"}
-                </span>
+                <strong className="pl-home-md-score-big num">{kickoffTime}</strong>
+                <span className="pl-home-md-score-state">Inicio</span>
+                {intelUnlocked && activeProjection ? (
+                  <span className="pl-home-md-hero-exp num" data-home-md-expected="">
+                    {unit.plural === "puntos" ? "Puntos" : "Goles"} esperados:{" "}
+                    {activeProjection.home.toFixed(unit.decimals)} –{" "}
+                    {activeProjection.away.toFixed(unit.decimals)} (Total{" "}
+                    {(activeProjection.home + activeProjection.away).toFixed(unit.decimals)})
+                  </span>
+                ) : null}
               </>
             )}
           </div>
@@ -1419,10 +1494,7 @@ export function HomeMatchDetailPanel({
           </div>
         ) : null}
 
-        <div
-          className={`pl-home-md-meta-strip${!venueName && !refereeName ? " is-empty" : ""}`}
-          aria-hidden={!venueName && !refereeName ? true : undefined}
-        >
+        <div className="pl-home-md-meta-strip">
           {venueName ? (
             <span className="pl-home-md-meta-item">
               <MaestroIcon name="stadium" size={13} />
@@ -1450,7 +1522,12 @@ export function HomeMatchDetailPanel({
                 <span className="truncate">{refereeName}</span>
               </span>
             )
-          ) : null}
+          ) : (
+            <span className="pl-home-md-meta-item" data-home-md-referee-pending="">
+              <MaestroIcon name="whistle" size={13} />
+              <span>{isFinished ? "Árbitro no reportado" : "Árbitro por confirmar"}</span>
+            </span>
+          )}
         </div>
 
         <div className="pl-home-md-cta-row">
@@ -1580,152 +1657,173 @@ export function HomeMatchDetailPanel({
               </div>
             ) : null}
 
-            {displayPicks.length > 0 ? (
-              <div key={displayPicks[0]?.fromCatalog ? "catalog" : "base"} className="pl-home-md-picks-list">
-                {displayPicks.map((item) => {
-                  if (item.isRedacted) {
-                    return (
-                      <article
-                        key={item.id}
-                        className="pl-home-md-pick-card is-locked"
-                        data-detail-pick-locked=""
-                      >
-                        <div className="pl-home-md-pick-head">
-                          <span className="pl-home-md-pick-cat">{item.categoryLabel}</span>
-                          <MaestroIcon name="lock" size={13} />
-                        </div>
-                        <p className="pl-home-md-lock-copy">
-                          Pronóstico calibrado, momio justo y evidencia histórica disponibles con Pase PitchLab Ultra.
-                        </p>
-                        <a
-                          href={upgradeHref}
-                          onClick={(e) => {
-                            e.preventDefault();
-                            navigateSafe(upgradeHref);
-                          }}
-                          className="pl-btn-accent text-xs min-h-10 px-3 inline-flex items-center gap-1.5 no-underline self-start"
-                        >
-                          <MaestroIcon name="unlock" size={12} />
-                          <span>{hasAccountSession ? "Activar Pase Ultra" : "Pase PitchLab Ultra"}</span>
-                        </a>
-                      </article>
-                    );
-                  }
-
-                  const inParlay = effectiveParlayIds.has(item.pick.id);
-                  const isSealed = sealedIds.has(item.pick.id);
-                  const settledLabel = settlementLabelEs(item.settlement);
-                  const labHref = `/app/picks?lab=${encodeURIComponent(item.pick.id)}`;
-
+            {displayPicks.length > 0 ? (() => {
+              const renderPickCard = (item: DetailPickDisplayItem) => {
+                if (item.isRedacted) {
                   return (
                     <article
                       key={item.id}
-                      className={`pl-home-md-pick-card ${item.isPrimary ? "is-primary" : ""}`.trim()}
-                      data-detail-pick={item.pick.id}
+                      className="pl-home-md-pick-card is-locked"
+                      data-detail-pick-locked=""
                     >
                       <div className="pl-home-md-pick-head">
-                        <div className="pl-home-md-pick-title-wrap">
-                          <span className="pl-home-md-pick-cat">{item.categoryLabel}</span>
-                          <strong className="pl-home-md-pick-title">{item.pick.label}</strong>
-                        </div>
-                        <div className="pl-home-md-pick-prob-wrap num">
-                          <strong className="pl-home-md-pick-prob">
-                            {(item.pick.p * 100).toFixed(1)} %
-                          </strong>
-                          {settledLabel ? (
-                            <span className={`pl-home-md-settled-pill is-${item.settlement}`.trim()}>
-                              {settledLabel}
-                            </span>
-                          ) : null}
-                        </div>
+                        <span className="pl-home-md-pick-cat">{item.categoryLabel}</span>
+                        <MaestroIcon name="lock" size={13} />
                       </div>
-
-                      <div className="pl-home-md-pick-pricing num">
-                        <span className="pl-home-md-price-chip">
-                          <span>Momio justo</span>
-                          <strong>{formatOddsValue(item.fairDecimal, oddsFormat)}</strong>
-                        </span>
-                        {item.marketDecimal ? (
-                          <span className="pl-home-md-price-chip is-book">
-                            <span>{item.marketBookLabel ?? "Casa"}</span>
-                            <strong>{formatOddsValue(item.marketDecimal, oddsFormat)}</strong>
-                          </span>
-                        ) : null}
-                        {item.evPct !== null && item.evPct > 0 ? (
-                          <span className="pl-home-md-ev-badge">
-                            EV +{item.evPct.toFixed(1)} %
-                          </span>
-                        ) : null}
-                      </div>
-
-                      {item.windows.length > 0 ? (
-                        <EvidenceWindowPills
-                          windows={item.windows.slice(0, 5)}
-                          size="sm"
-                        />
-                      ) : null}
-
-                      {item.bullets.length > 0 ? (
-                        <ul className="pl-home-md-ev-bullets">
-                          {item.bullets.map((bullet, bIdx) => (
-                            <li key={`${item.id}-b-${bIdx}`}>
-                              <span>{bullet.label}</span>
-                              {bullet.ratePct !== null ? (
-                                <strong className={`pl-home-md-ev-rate is-${bullet.tone} num`}>
-                                  {bullet.ratePct} %
-                                </strong>
-                              ) : null}
-                            </li>
-                          ))}
-                        </ul>
-                      ) : null}
-
-                      {(!isFinished && !live) || item.fromCatalog ? (
-                        <div className="pl-home-md-pick-actions">
-                          {!isFinished && !live ? (
-                            <>
-                              <button
-                                type="button"
-                                className={`pl-home-parlay-btn is-sm ${inParlay ? "is-on" : ""}`.trim()}
-                                aria-pressed={inParlay}
-                                onClick={() => handleParlayClick(item.pick)}
-                              >
-                                <MaestroIcon name={inParlay ? "check" : "plus"} size={13} />
-                                <span>{inParlay ? "En parlay" : "Parlay"}</span>
-                              </button>
-                              <button
-                                type="button"
-                                className={`pl-home-md-action-btn ${isSealed ? "is-done" : ""}`.trim()}
-                                disabled={isSealed}
-                                onClick={() => handleSealClick(item.pick)}
-                              >
-                                <MaestroIcon name={isSealed ? "check" : "add-to-record"} size={13} />
-                                <span>{isSealed ? "Sellado" : "Sellar"}</span>
-                              </button>
-                            </>
-                          ) : null}
-                          {item.fromCatalog ? (
-                            <a
-                              href={labHref}
-                              onPointerEnter={() => prefetchSafe(labHref)}
-                              onClick={(e) => {
-                                if (e.metaKey || e.ctrlKey || e.shiftKey || e.altKey || e.button !== 0) return;
-                                e.preventDefault();
-                                navigateSafe(labHref);
-                              }}
-                              className="pl-home-md-lab-link no-underline"
-                            >
-                              <span>Abrir en Bet Lab</span>
-                              <MaestroIcon name="arrowRight" size={12} />
-                            </a>
-                          ) : null}
-                        </div>
-                      ) : null}
+                      <p className="pl-home-md-lock-copy">
+                        Pronóstico calibrado, momio justo y evidencia histórica disponibles con Pase PitchLab Ultra.
+                      </p>
+                      <a
+                        href={upgradeHref}
+                        onClick={(e) => {
+                          e.preventDefault();
+                          navigateSafe(upgradeHref);
+                        }}
+                        className="pl-btn-accent text-xs min-h-10 px-3 inline-flex items-center gap-1.5 no-underline self-start"
+                      >
+                        <MaestroIcon name="unlock" size={12} />
+                        <span>{hasAccountSession ? "Activar Pase Ultra" : "Pase PitchLab Ultra"}</span>
+                      </a>
                     </article>
                   );
-                })}
-              </div>
-            ) : !isPreviewLoading ? (
+                }
+
+                const inParlay = effectiveParlayIds.has(item.pick.id);
+                const isSealed = sealedIds.has(item.pick.id);
+                const settledLabel = settlementLabelEs(item.settlement);
+                const labHref = `/app/picks?lab=${encodeURIComponent(item.pick.id)}`;
+
+                return (
+                  <article
+                    key={item.id}
+                    className={`pl-home-md-pick-card ${item.isPrimary ? "is-primary" : ""}`.trim()}
+                    data-detail-pick={item.pick.id}
+                  >
+                    <div className="pl-home-md-pick-head">
+                      <div className="pl-home-md-pick-title-wrap">
+                        <span className="pl-home-md-pick-cat">{item.categoryLabel}</span>
+                        <strong className="pl-home-md-pick-title">{item.pick.label}</strong>
+                      </div>
+                      <div className="pl-home-md-pick-prob-wrap num">
+                        <strong className="pl-home-md-pick-prob">
+                          {(item.pick.p * 100).toFixed(1)} %
+                        </strong>
+                        {settledLabel ? (
+                          <span className={`pl-home-md-settled-pill is-${item.settlement}`.trim()}>
+                            {settledLabel}
+                          </span>
+                        ) : null}
+                      </div>
+                    </div>
+
+                    <div className="pl-home-md-pick-pricing num">
+                      <span className="pl-home-md-price-chip">
+                        <span>Momio justo</span>
+                        <strong>{formatOddsValue(item.fairDecimal, oddsFormat)}</strong>
+                      </span>
+                      {item.marketDecimal ? (
+                        <span className="pl-home-md-price-chip is-book">
+                          <span>{item.marketBookLabel ?? "Casa"}</span>
+                          <strong>{formatOddsValue(item.marketDecimal, oddsFormat)}</strong>
+                        </span>
+                      ) : null}
+                      {item.evPct !== null && item.evPct > 0 ? (
+                        <span className="pl-home-md-ev-badge">
+                          EV +{item.evPct.toFixed(1)} %
+                        </span>
+                      ) : null}
+                    </div>
+
+                    {item.windows.length > 0 ? (
+                      <EvidenceWindowPills
+                        windows={item.windows.slice(0, 5)}
+                        size="sm"
+                      />
+                    ) : null}
+
+                    {item.bullets.length > 0 ? (
+                      <ul className="pl-home-md-ev-bullets">
+                        {item.bullets.map((bullet, bIdx) => (
+                          <li key={`${item.id}-b-${bIdx}`}>
+                            <span>{bullet.label}</span>
+                            {bullet.ratePct !== null ? (
+                              <strong className={`pl-home-md-ev-rate is-${bullet.tone} num`}>
+                                {bullet.ratePct} %
+                              </strong>
+                            ) : null}
+                          </li>
+                        ))}
+                      </ul>
+                    ) : null}
+
+                    {(!isFinished && !live) || item.fromCatalog ? (
+                      <div className="pl-home-md-pick-actions">
+                        {!isFinished && !live ? (
+                          <>
+                            <button
+                              type="button"
+                              className={`pl-home-parlay-btn is-sm ${inParlay ? "is-on" : ""}`.trim()}
+                              aria-pressed={inParlay}
+                              onClick={() => handleParlayClick(item.pick)}
+                            >
+                              <MaestroIcon name={inParlay ? "check" : "plus"} size={13} />
+                              <span>{inParlay ? "En parlay" : "Parlay"}</span>
+                            </button>
+                            <button
+                              type="button"
+                              className={`pl-home-md-action-btn ${isSealed ? "is-done" : ""}`.trim()}
+                              disabled={isSealed}
+                              onClick={() => handleSealClick(item.pick)}
+                            >
+                              <MaestroIcon name={isSealed ? "check" : "add-to-record"} size={13} />
+                              <span>{isSealed ? "Sellado" : "Sellar"}</span>
+                            </button>
+                          </>
+                        ) : null}
+                        {item.fromCatalog ? (
+                          <a
+                            href={labHref}
+                            onPointerEnter={() => prefetchSafe(labHref)}
+                            onClick={(e) => {
+                              if (e.metaKey || e.ctrlKey || e.shiftKey || e.altKey || e.button !== 0) return;
+                              e.preventDefault();
+                              navigateSafe(labHref);
+                            }}
+                            className="pl-home-md-lab-link no-underline"
+                          >
+                            <span>Abrir en Bet Lab</span>
+                            <MaestroIcon name="arrowRight" size={12} />
+                          </a>
+                        ) : null}
+                      </div>
+                    ) : null}
+                  </article>
+                );
+              };
+              return (
+                <div key={displayPicks[0]?.fromCatalog ? "catalog" : "base"} className="space-y-2.5">
+                  <div className="pl-home-md-picks-list">
+                    {partitionedDisplayPicks.playable.map(renderPickCard)}
+                  </div>
+                  {partitionedDisplayPicks.conservative.length > 0 ? (
+                    <details
+                      className="pl-home-md-conservative-details"
+                      data-home-md-conservative-picks=""
+                    >
+                      <summary className="pl-home-md-conservative-summary">
+                        <span>Conservadores / para combinar</span>
+                        <span className="pl-pill text-[11px] num">
+                          {partitionedDisplayPicks.conservative.length}
+                        </span>
+                      </summary>
+                      <div className="pl-home-md-conservative-list">
+                        {partitionedDisplayPicks.conservative.map(renderPickCard)}
+                      </div>
+                    </details>
+                  ) : null}
+                </div>
+              );
+            })() : !isPreviewLoading ? (
               <p className="pl-home-md-empty">
                 Aún no hay selecciones publicadas para este partido.
               </p>

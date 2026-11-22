@@ -23,6 +23,11 @@ import {
   type PickSettlementStatus,
 } from "../../picks-catalog";
 import {
+  isConservativeChalkPick,
+  partitionPlayableAndConservative,
+  scorePlayablePick,
+} from "../../pick-quality-ranker";
+import {
   useIsPickInParlay,
   usePlatformActions,
   usePlatformCore,
@@ -94,6 +99,10 @@ interface ResolvedEvidenceItem {
   readonly catalogWindows?: readonly EvidenceWindowItem[];
   readonly settlement?: PickSettlementStatus;
   readonly familyId?: MarketFamilyId;
+  readonly market?: string | null;
+  readonly label?: string | null;
+  readonly decimal?: number | null;
+  readonly evPct?: number | null;
 }
 
 export function MatchPicksEvidenceBoard({
@@ -285,6 +294,10 @@ export function MatchPicksEvidenceBoard({
       return {
         ...item,
         pick: quotes && !item.pick.bookQuotes ? { ...item.pick, bookQuotes: quotes } : item.pick,
+        market: item.pick.market ?? null,
+        label: item.pick.label,
+        decimal: effectiveHouseDecimal ?? item.pick.fairDecimal,
+        evPct: effectiveValuePct,
         effectiveHouseDecimal,
         effectiveHouseLabel,
         effectiveOpenDecimal,
@@ -343,21 +356,60 @@ export function MatchPicksEvidenceBoard({
       if (sortBy === "prob") {
         return b.pick.p - a.pick.p;
       }
-      if (a.isPrimaryModelPick !== b.isPrimaryModelPick) {
-        return a.isPrimaryModelPick ? -1 : 1;
+      const aPrimaryPlayable =
+        a.isPrimaryModelPick &&
+        !isConservativeChalkPick(
+          a.pick.market,
+          a.pick.label,
+          a.effectiveHouseDecimal ?? a.pick.fairDecimal,
+          a.effectiveValuePct,
+        );
+      const bPrimaryPlayable =
+        b.isPrimaryModelPick &&
+        !isConservativeChalkPick(
+          b.pick.market,
+          b.pick.label,
+          b.effectiveHouseDecimal ?? b.pick.fairDecimal,
+          b.effectiveValuePct,
+        );
+      if (aPrimaryPlayable !== bPrimaryPlayable) {
+        return aPrimaryPlayable ? -1 : 1;
       }
-      return (
-        (b.effectiveValuePct ?? -50) * 0.25 +
-        b.pick.p * 100 -
-        ((a.effectiveValuePct ?? -50) * 0.25 + a.pick.p * 100)
-      );
+      const bScore = scorePlayablePick({
+        market: b.pick.market,
+        label: b.pick.label,
+        p: b.pick.p,
+        decimal: b.effectiveHouseDecimal ?? b.pick.fairDecimal,
+        evPct: b.effectiveValuePct,
+        evidenceAvgPct: b.evidenceAvgPct,
+      });
+      const aScore = scorePlayablePick({
+        market: a.pick.market,
+        label: a.pick.label,
+        p: a.pick.p,
+        decimal: a.effectiveHouseDecimal ?? a.pick.fairDecimal,
+        evPct: a.effectiveValuePct,
+        evidenceAvgPct: a.evidenceAvgPct,
+      });
+      return bScore - aScore || b.pick.p - a.pick.p;
     });
   }, [enriched, marketFilter, onlyValue, sortBy]);
+
+  const partitionedFiltered = useMemo<{
+    readonly playable: readonly ResolvedEvidenceItem[];
+    readonly conservative: readonly ResolvedEvidenceItem[];
+  }>(
+    () =>
+      marketFilter === "all"
+        ? partitionPlayableAndConservative(filtered)
+        : { playable: filtered, conservative: [] },
+    [filtered, marketFilter],
+  );
 
   const grouped = useMemo(() => {
     const map = new Map<BoardGroupKey, ResolvedEvidenceItem[]>();
     const labels = new Map<BoardGroupKey, string>();
-    for (const item of filtered) {
+    for (const item of partitionedFiltered.playable) {
       const arr = map.get(item.groupKey) ?? [];
       arr.push(item);
       map.set(item.groupKey, arr);
@@ -372,7 +424,7 @@ export function MatchPicksEvidenceBoard({
         label: labels.get(k) ?? k,
         items: map.get(k)!,
       }));
-  }, [filtered, groupOrder]);
+  }, [groupOrder, partitionedFiltered.playable]);
 
   const toggleGroup = (key: string) => {
     setCollapsed((prev) => {
@@ -398,6 +450,169 @@ export function MatchPicksEvidenceBoard({
       </section>
     );
   }
+
+  const renderEvidencePickRow = (item: (typeof filtered)[number]) => {
+    const unlocked = isPickUnlocked(item.pick, game.status, viewerRole);
+    const isFinished = game.status === "FT";
+    const windows = unlocked
+      ? item.catalogWindows && item.catalogWindows.length > 0
+        ? item.catalogWindows
+        : extractEvidenceWindows({
+            game,
+            pick: item.pick,
+            bullets: item.evidence,
+            v5,
+          })
+      : [];
+
+    return (
+      <article
+        key={item.id}
+        role="listitem"
+        className="pl-ev-row"
+        data-evidence-pick={item.id}
+        data-market-family={item.familyId ?? item.pick.market ?? ""}
+      >
+        <div className="pl-ev-col-pick">
+          <div className="flex flex-wrap items-center gap-1.5">
+            <span className="pl-ev-cat">{item.pick.categoryLabel}</span>
+            {unlocked && item.isPrimaryModelPick ? (
+              <span className="pl-pill pl-pill--brand text-[10px]">Modelo</span>
+            ) : null}
+            {isFinished && unlocked && item.settlement ? (
+              <span className="pl-pill text-[10px]" data-settlement={item.settlement}>
+                {settlementBadgeLabel(item.settlement)}
+              </span>
+            ) : null}
+          </div>
+          {unlocked ? (
+            <>
+              <strong className="pl-ev-label">{item.pick.label}</strong>
+              <div className="pl-ev-prob-inline num">
+                <strong
+                  style={{
+                    color:
+                      item.pick.p >= 0.65
+                        ? "var(--pl-success)"
+                        : "var(--pl-text)",
+                  }}
+                >
+                  {(item.pick.p * 100).toFixed(1)} %
+                </strong>
+                <PBar p={item.pick.p} lead={item.pick.p >= 0.65} />
+              </div>
+            </>
+          ) : (
+            <div className="space-y-1">
+              <strong className="pl-ev-label locked-redact">
+                Selección reservada Pase PitchLab Ultra
+              </strong>
+              <button
+                type="button"
+                className="pl-acct-text-link text-xs min-h-11 [@media(min-width:768px)_and_(pointer:fine)]:min-h-9 inline-flex items-center"
+                onClick={() => navigateTo(upgradeHref)}
+              >
+                {hasAccountSession
+                  ? "Activar Pase Ultra"
+                  : "Probar 7 días gratis"}
+              </button>
+            </div>
+          )}
+        </div>
+
+        <div className="pl-ev-col-evidence space-y-2">
+          {unlocked ? (
+            <>
+              {windows.length > 0 ? (
+                <EvidenceWindowPills windows={windows} size="sm" />
+              ) : null}
+              <ul className="pl-ev-bullets" aria-label="Evidencia del pick">
+                {item.evidence.map((b, bIdx) => (
+                  <li key={`${item.id}-ev-${bIdx}`} className="pl-ev-bullet">
+                    <span
+                      className={`pl-ev-dot is-${b.tone}`}
+                      aria-hidden="true"
+                    />
+                    <span className="pl-ev-bullet-text">{b.label}</span>
+                    {b.ratePct !== null ? (
+                      <strong className={`pl-ev-bullet-pct num is-${b.tone}`}>
+                        {b.ratePct} %
+                      </strong>
+                    ) : null}
+                  </li>
+                ))}
+              </ul>
+            </>
+          ) : (
+            <p className="m-0 text-xs" style={{ color: "var(--pl-text-muted)" }}>
+              Evidencia histórica y tasas reales disponibles con Pase PitchLab Ultra.
+            </p>
+          )}
+        </div>
+
+        <div className="pl-ev-col-odds">
+          {unlocked ? (
+            <>
+              <BookmakerComparePill
+                probability={item.pick.p}
+                fairDecimal={item.pick.fairDecimal}
+                houseDecimal={item.effectiveHouseDecimal}
+                houseBookLabel={item.effectiveHouseLabel}
+                openingDecimal={item.effectiveOpenDecimal}
+                movementDirection={item.effectiveMoveDir}
+                capturedAtUtc={item.effectiveCapturedAtUtc}
+                bookQuotes={item.pick.bookQuotes}
+                oddsFormat={oddsFormat}
+                variant="box"
+                showMultiBookQuotes
+                edgePtsOverride={item.effectiveEdgePts}
+              />
+
+              {!isFinished ? (
+                <div className="pl-ev-actions">
+                  <EvidenceParlayButton pick={item.pick} />
+                  <BetBuilderQuickButton
+                    pick={item.pick}
+                    onInspect={setBuilderPick}
+                    compact
+                  />
+                  <button
+                    type="button"
+                    className="pl-btn-glass text-xs min-h-11 [@media(min-width:768px)_and_(pointer:fine)]:min-h-9 px-3"
+                    onClick={() => openComposer(item.pick)}
+                  >
+                    Sellar
+                  </button>
+                  {canTipsterFeature ? (
+                    <button
+                      type="button"
+                      className="pl-btn-glass text-xs min-w-11 min-h-11 [@media(min-width:768px)_and_(pointer:fine)]:min-w-0 [@media(min-width:768px)_and_(pointer:fine)]:min-h-9 px-2.5"
+                      title="Usar como Pick abierto semanal"
+                      aria-label={`Usar ${item.pick.label} como Pick abierto semanal`}
+                      onClick={() => {
+                        setSelectedTipsterPickId(item.pick.id);
+                        pushToast(
+                          `«${item.pick.label}» asignado como tu Pick abierto semanal.`,
+                          "success",
+                        );
+                      }}
+                    >
+                      <MaestroIcon name="crown" size={13} />
+                    </button>
+                  ) : null}
+                </div>
+              ) : null}
+            </>
+          ) : (
+            <span className="pl-pill text-xs">
+              <MaestroIcon name="lock" size={12} />
+              <span>Ultra</span>
+            </span>
+          )}
+        </div>
+      </article>
+    );
+  };
 
   return (
     <section
@@ -517,173 +732,28 @@ export function MatchPicksEvidenceBoard({
 
                 {!isCollapsed ? (
                   <div className="pl-ev-rows" role="list" aria-label={group.label}>
-                    {group.items.map((item) => {
-                      const unlocked = isPickUnlocked(item.pick, game.status, viewerRole);
-                      const isFinished = game.status === "FT";
-                      const windows = unlocked
-                        ? item.catalogWindows && item.catalogWindows.length > 0
-                          ? item.catalogWindows
-                          : extractEvidenceWindows({
-                              game,
-                              pick: item.pick,
-                              bullets: item.evidence,
-                              v5,
-                            })
-                        : [];
-
-                      return (
-                        <article
-                          key={item.id}
-                          role="listitem"
-                          className="pl-ev-row"
-                          data-evidence-pick={item.id}
-                          data-market-family={item.familyId ?? item.pick.market ?? ""}
-                        >
-                          <div className="pl-ev-col-pick">
-                            <div className="flex flex-wrap items-center gap-1.5">
-                              <span className="pl-ev-cat">{item.pick.categoryLabel}</span>
-                              {unlocked && item.isPrimaryModelPick ? (
-                                <span className="pl-pill pl-pill--brand text-[10px]">Modelo</span>
-                              ) : null}
-                              {isFinished && unlocked && item.settlement ? (
-                                <span className="pl-pill text-[10px]" data-settlement={item.settlement}>
-                                  {settlementBadgeLabel(item.settlement)}
-                                </span>
-                              ) : null}
-                            </div>
-                            {unlocked ? (
-                              <>
-                                <strong className="pl-ev-label">{item.pick.label}</strong>
-                                <div className="pl-ev-prob-inline num">
-                                  <strong
-                                    style={{
-                                      color:
-                                        item.pick.p >= 0.65
-                                          ? "var(--pl-success)"
-                                          : "var(--pl-text)",
-                                    }}
-                                  >
-                                    {(item.pick.p * 100).toFixed(1)} %
-                                  </strong>
-                                  <PBar p={item.pick.p} lead={item.pick.p >= 0.65} />
-                                </div>
-                              </>
-                            ) : (
-                              <div className="space-y-1">
-                                <strong className="pl-ev-label locked-redact">
-                                  Selección reservada Pase PitchLab Ultra
-                                </strong>
-                                <button
-                                  type="button"
-                                  className="pl-acct-text-link text-xs min-h-11 [@media(min-width:768px)_and_(pointer:fine)]:min-h-9 inline-flex items-center"
-                                  onClick={() => navigateTo(upgradeHref)}
-                                >
-                                  {hasAccountSession
-                                    ? "Activar Pase Ultra"
-                                    : "Probar 7 días gratis"}
-                                </button>
-                              </div>
-                            )}
-                          </div>
-
-                          <div className="pl-ev-col-evidence space-y-2">
-                            {unlocked ? (
-                              <>
-                                {windows.length > 0 ? (
-                                  <EvidenceWindowPills windows={windows} size="sm" />
-                                ) : null}
-                                <ul className="pl-ev-bullets" aria-label="Evidencia del pick">
-                                  {item.evidence.map((b, bIdx) => (
-                                    <li key={`${item.id}-ev-${bIdx}`} className="pl-ev-bullet">
-                                      <span
-                                        className={`pl-ev-dot is-${b.tone}`}
-                                        aria-hidden="true"
-                                      />
-                                      <span className="pl-ev-bullet-text">{b.label}</span>
-                                      {b.ratePct !== null ? (
-                                        <strong className={`pl-ev-bullet-pct num is-${b.tone}`}>
-                                          {b.ratePct} %
-                                        </strong>
-                                      ) : null}
-                                    </li>
-                                  ))}
-                                </ul>
-                              </>
-                            ) : (
-                              <p className="m-0 text-xs" style={{ color: "var(--pl-text-muted)" }}>
-                                Evidencia histórica y tasas reales disponibles con Pase PitchLab Ultra.
-                              </p>
-                            )}
-                          </div>
-
-                          <div className="pl-ev-col-odds">
-                            {unlocked ? (
-                              <>
-                                <BookmakerComparePill
-                                  probability={item.pick.p}
-                                  fairDecimal={item.pick.fairDecimal}
-                                  houseDecimal={item.effectiveHouseDecimal}
-                                  houseBookLabel={item.effectiveHouseLabel}
-                                  openingDecimal={item.effectiveOpenDecimal}
-                                  movementDirection={item.effectiveMoveDir}
-                                  capturedAtUtc={item.effectiveCapturedAtUtc}
-                                  bookQuotes={item.pick.bookQuotes}
-                                  oddsFormat={oddsFormat}
-                                  variant="box"
-                                  showMultiBookQuotes
-                                  edgePtsOverride={item.effectiveEdgePts}
-                                />
-
-                                {!isFinished ? (
-                                  <div className="pl-ev-actions">
-                                    <EvidenceParlayButton pick={item.pick} />
-                                    <BetBuilderQuickButton
-                                      pick={item.pick}
-                                      onInspect={setBuilderPick}
-                                      compact
-                                    />
-                                    <button
-                                      type="button"
-                                      className="pl-btn-glass text-xs min-h-11 [@media(min-width:768px)_and_(pointer:fine)]:min-h-9 px-3"
-                                      onClick={() => openComposer(item.pick)}
-                                    >
-                                      Sellar
-                                    </button>
-                                    {canTipsterFeature ? (
-                                      <button
-                                        type="button"
-                                        className="pl-btn-glass text-xs min-w-11 min-h-11 [@media(min-width:768px)_and_(pointer:fine)]:min-w-0 [@media(min-width:768px)_and_(pointer:fine)]:min-h-9 px-2.5"
-                                        title="Usar como Pick abierto semanal"
-                                        aria-label={`Usar ${item.pick.label} como Pick abierto semanal`}
-                                        onClick={() => {
-                                          setSelectedTipsterPickId(item.pick.id);
-                                          pushToast(
-                                            `«${item.pick.label}» asignado como tu Pick abierto semanal.`,
-                                            "success",
-                                          );
-                                        }}
-                                      >
-                                        <MaestroIcon name="crown" size={13} />
-                                      </button>
-                                    ) : null}
-                                  </div>
-                                ) : null}
-                              </>
-                            ) : (
-                              <span className="pl-pill text-xs">
-                                <MaestroIcon name="lock" size={12} />
-                                <span>Ultra</span>
-                              </span>
-                            )}
-                          </div>
-                        </article>
-                      );
-                    })}
+                    {group.items.map(renderEvidencePickRow)}
                   </div>
                 ) : null}
               </div>
             );
           })}
+          {partitionedFiltered.conservative.length > 0 ? (
+            <details
+              className="pl-ev-conservative-details"
+              data-ev-conservative-picks=""
+            >
+              <summary className="pl-ev-conservative-summary">
+                <span>Conservadores / para combinar</span>
+                <span className="pl-pill text-[11px] num">
+                  {partitionedFiltered.conservative.length}
+                </span>
+              </summary>
+              <div className="pl-ev-rows mt-2" role="list" aria-label="Picks conservadores">
+                {partitionedFiltered.conservative.map(renderEvidencePickRow)}
+              </div>
+            </details>
+          ) : null}
         </div>
       )}
 
