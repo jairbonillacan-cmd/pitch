@@ -289,6 +289,49 @@ async function auditPageInvariants(
   options: { readonly allowOpenDialog?: boolean } = {},
 ): Promise<void> {
   await waitForLayoutStable(page);
+  await page
+    .waitForFunction(
+      () => {
+        for (const img of Array.from(document.querySelectorAll("img"))) {
+          if (
+            img.closest(
+              "nextjs-portal, [data-nextjs-toast], [hidden], dialog:not([open]), [popover]:not(:popover-open), [inert]",
+            )
+          ) {
+            continue;
+          }
+          let hidden = false;
+          let cur: Element | null = img;
+          while (cur && cur !== document.documentElement) {
+            const st = window.getComputedStyle(cur);
+            if (
+              st.display === "none" ||
+              st.visibility === "hidden" ||
+              Number.parseFloat(st.opacity || "1") === 0
+            ) {
+              hidden = true;
+              break;
+            }
+            cur = cur.parentElement;
+          }
+          if (hidden) continue;
+          const rect = img.getBoundingClientRect();
+          if (rect.width <= 1 || rect.height <= 1) continue;
+          const inViewport =
+            rect.bottom > 0 &&
+            rect.top < window.innerHeight &&
+            rect.right > 0 &&
+            rect.left < window.innerWidth;
+          if (inViewport && !img.complete) {
+            return false;
+          }
+        }
+        return true;
+      },
+      null,
+      { timeout: 2_500 },
+    )
+    .catch(() => void 0);
   const report: PageInvariantAudit = await page.evaluate(() => {
     const root = document.documentElement;
     const scrollWidth = root.scrollWidth;
