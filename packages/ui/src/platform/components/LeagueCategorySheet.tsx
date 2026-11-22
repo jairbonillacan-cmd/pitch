@@ -234,7 +234,7 @@ export function LeagueCategorySheet({
         ) : null}
       </div>
 
-      <div ref={bodyRef} className="pl-native-modal-body pl-sheet-body">
+      <div ref={bodyRef} tabIndex={0} className="pl-native-modal-body pl-sheet-body" aria-label="Lista de competiciones">
         {includeAllOption && !query.trim() ? (
           <button
             type="button"

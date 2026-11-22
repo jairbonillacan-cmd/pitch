@@ -138,8 +138,6 @@ export function TopLayerModalDialog({
     };
 
     const handleClose = () => {
-      // En desarrollo (StrictMode) el efecto se monta dos veces: el «close» del
-      // primer desmontaje llega cuando el diálogo ya se volvió a abrir.
       if (dialog.open) return;
       dialog.removeAttribute("data-closing");
       dialog.returnValue = "";
@@ -906,7 +904,7 @@ export function ShareTicketModal(): React.JSX.Element | null {
               >
                 <button
                   type="button"
-                  className="seg-btn !min-h-[30px] !px-2.5 text-xs"
+                  className="seg-btn !min-h-[44px] sm:!min-h-[32px] !px-3 text-xs"
                   aria-pressed={aspect === "4:5"}
                   onClick={() => setAspect("4:5")}
                 >
@@ -914,7 +912,7 @@ export function ShareTicketModal(): React.JSX.Element | null {
                 </button>
                 <button
                   type="button"
-                  className="seg-btn !min-h-[30px] !px-2.5 text-xs"
+                  className="seg-btn !min-h-[44px] sm:!min-h-[32px] !px-3 text-xs"
                   aria-pressed={aspect === "9:16"}
                   onClick={() => setAspect("9:16")}
                 >
@@ -923,7 +921,7 @@ export function ShareTicketModal(): React.JSX.Element | null {
               </div>
               <button
                 type="button"
-                className="pl-btn-glass px-2.5"
+                className="pl-btn-glass min-h-11 min-w-11 sm:min-h-9 sm:min-w-9 px-2.5 inline-flex items-center justify-center"
                 aria-label="Cerrar vista de boleto"
                 onClick={closeShareTicket}
               >
@@ -1191,7 +1189,7 @@ export function ShareTicketModal(): React.JSX.Element | null {
             <div className="flex items-center gap-2">
               <button
                 type="button"
-                className="pl-btn-glass text-xs inline-flex items-center gap-1.5"
+                className="pl-btn-glass min-h-11 sm:min-h-9 text-xs inline-flex items-center gap-1.5"
                 onClick={handleDownloadTicket}
               >
                 <MaestroIcon name="download" size={14} />
@@ -1200,7 +1198,7 @@ export function ShareTicketModal(): React.JSX.Element | null {
               <button
                 type="button"
                 autoFocus
-                className="pl-btn-primary text-xs inline-flex items-center gap-1.5"
+                className="pl-btn-primary min-h-11 sm:min-h-9 text-xs inline-flex items-center gap-1.5"
                 onClick={() => void handleCopyShareLink()}
               >
                 <MaestroIcon name={copyState === "copied" ? "check" : "copy"} size={14} />
@@ -1282,7 +1280,7 @@ export function BetaPinModal(): React.JSX.Element | null {
             </div>
             <button
               type="button"
-              className="pl-btn-glass px-2.5"
+              className="pl-btn-glass min-h-11 min-w-11 sm:min-h-9 sm:min-w-9 px-2.5 inline-flex items-center justify-center"
               aria-label="Cerrar acceso con PIN"
               onClick={closeBetaPin}
             >
@@ -1496,7 +1494,6 @@ export function ConfirmActionDialog({
           </p>
         </div>
         <div className="flex items-center justify-end gap-2">
-          {/* Foco inicial en la acción segura (modern-web-guidance/dialog) */}
           <button
             type="button"
             autoFocus

@@ -20,11 +20,6 @@ export interface FeedbackSupportDialogProps {
   onErrorToast?: (message: string) => void;
 }
 
-/**
- * Modal atómico para «Feedback e ideas», «Contactar con soporte», «Comunidad de Telegram»
- * y «Eliminar cuenta» (Imágenes 8 y 9 · ADR-044).
- * En acciones destructivas (`delete`) enfoca primero el botón seguro «Cancelar».
- */
 export function FeedbackSupportDialog({
   kind,
   onClose,
@@ -237,44 +232,48 @@ export function FeedbackSupportDialog({
         </button>
       </div>
 
-      <div className="pl-native-modal-body">
-        {isTelegram ? (
-          <div className="space-y-3">
+      {isTelegram ? (
+        <>
+          <div className="pl-native-modal-body" tabIndex={0}>
             <p className="m-0 text-sm" style={{ color: "var(--pl-text-secondary)" }}>
               Nuestro canal oficial de Telegram estará disponible muy pronto para socios de PitchLab. Mientras tanto,
               puedes participar en <strong>Comunidad</strong> dentro de la app o escribirnos por{" "}
               <strong>Feedback e ideas</strong>.
             </p>
-            <div className="pl-native-modal-foot">
-              <button
-                type="button"
-                className="pl-btn-primary min-h-11 px-5 text-sm"
-                onClick={() => dialogRef.current?.close()}
-              >
-                Entendido
-              </button>
-            </div>
           </div>
-        ) : doneMessage ? (
-          <div className="space-y-4">
+          <div className="pl-native-modal-foot">
+            <button
+              type="button"
+              className="pl-btn-primary min-h-11 px-5 text-sm"
+              onClick={() => dialogRef.current?.close()}
+            >
+              Entendido
+            </button>
+          </div>
+        </>
+      ) : doneMessage ? (
+        <>
+          <div className="pl-native-modal-body" tabIndex={0}>
             <p className="pl-support-done" role="status">
               <MaestroIcon name="check" size={16} />
               <span>{doneMessage}</span>
             </p>
-            <div className="pl-native-modal-foot">
-              <button
-                type="button"
-                className="pl-btn-primary min-h-11 px-5 text-sm"
-                onClick={() => dialogRef.current?.close()}
-              >
-                Cerrar
-              </button>
-            </div>
           </div>
-        ) : (
-          <form onSubmit={handleSubmit} className="space-y-3.5">
+          <div className="pl-native-modal-foot">
+            <button
+              type="button"
+              className="pl-btn-primary min-h-11 px-5 text-sm"
+              onClick={() => dialogRef.current?.close()}
+            >
+              Cerrar
+            </button>
+          </div>
+        </>
+      ) : (
+        <form onSubmit={handleSubmit} className="pl-support-form">
+          <div className="pl-native-modal-body" tabIndex={0}>
             {isFeedback ? (
-              <div className="space-y-1.5">
+              <div className="pl-support-field">
                 <span className="pl-support-label">Tipo de idea</span>
                 <div className="pl-support-chips" role="group" aria-label="Tipo de feedback">
                   {FEEDBACK_CATEGORIES.map((cat) => (
@@ -298,7 +297,7 @@ export function FeedbackSupportDialog({
                 <input
                   type="text"
                   maxLength={120}
-                  className="glass-input min-h-11 px-3 text-sm w-full"
+                  className="glass-input min-h-11 px-3 text-base sm:text-sm w-full"
                   placeholder="Ej. Problema con mi cupón o pago SPEI"
                   value={subject}
                   onChange={(e) => setSubject(e.target.value)}
@@ -313,7 +312,7 @@ export function FeedbackSupportDialog({
               <textarea
                 rows={4}
                 maxLength={1500}
-                className="glass-input p-3 text-sm w-full"
+                className="glass-input p-3 text-base sm:text-sm w-full"
                 placeholder={
                   isDelete
                     ? "Cuéntanos si algo no funcionó como esperabas…"
@@ -334,7 +333,7 @@ export function FeedbackSupportDialog({
                 <input
                   type="text"
                   autoComplete="off"
-                  className="glass-input min-h-11 px-3 text-sm w-full"
+                  className="glass-input min-h-11 px-3 text-base sm:text-sm w-full"
                   placeholder="ELIMINAR"
                   value={confirmWord}
                   onChange={(e) => setConfirmWord(e.target.value)}
@@ -347,37 +346,37 @@ export function FeedbackSupportDialog({
                 {errorText}
               </p>
             ) : null}
+          </div>
 
-            <div className="pl-native-modal-foot">
-              <button
-                type="button"
-                autoFocus={isDelete}
-                className="pl-btn-glass min-h-11 px-4 text-sm"
-                onClick={() => dialogRef.current?.close()}
-              >
-                Cancelar
-              </button>
-              <button
-                type="submit"
-                disabled={busy}
-                className={
-                  isDelete
-                    ? "pl-btn-danger min-h-11 px-5 text-sm"
-                    : "pl-btn-primary min-h-11 px-5 text-sm"
-                }
-              >
-                {busy
-                  ? "Enviando…"
-                  : isDelete
-                    ? "Solicitar eliminación"
-                    : isFeedback
-                      ? "Enviar idea"
-                      : "Enviar a soporte"}
-              </button>
-            </div>
-          </form>
-        )}
-      </div>
+          <div className="pl-native-modal-foot">
+            <button
+              type="button"
+              autoFocus={isDelete}
+              className="pl-btn-glass min-h-11 px-4 text-sm"
+              onClick={() => dialogRef.current?.close()}
+            >
+              Cancelar
+            </button>
+            <button
+              type="submit"
+              disabled={busy}
+              className={
+                isDelete
+                  ? "pl-btn-danger min-h-11 px-5 text-sm"
+                  : "pl-btn-primary min-h-11 px-5 text-sm"
+              }
+            >
+              {busy
+                ? "Enviando…"
+                : isDelete
+                  ? "Solicitar eliminación"
+                  : isFeedback
+                    ? "Enviar idea"
+                    : "Enviar a soporte"}
+            </button>
+          </div>
+        </form>
+      )}
     </dialog>
   );
 }

@@ -1068,9 +1068,7 @@ export function HomeBoardBar({
                           hasGames && (isPastCell || (dayMeta!.upcoming === 0 && !hasLive)),
                         );
                         const isBusy = Boolean(dayMeta && dayMeta.total >= 6);
-                        const countText = hasGames
-                          ? `, ${dayMeta!.total} ${dayMeta!.total === 1 ? "partido" : "partidos"}${hasLive ? `, ${dayMeta!.live} en vivo` : ""}`
-                          : ", sin partidos";
+                        const liveText = hasLive ? `, ${dayMeta!.live} en vivo` : "";
                         const todayText = isTodayCell ? ", hoy" : "";
                         const isFocusable = cell.iso === activeTabIso;
 
@@ -1087,7 +1085,6 @@ export function HomeBoardBar({
                               data-cal-iso={cell.iso}
                               aria-pressed={isSelected}
                               aria-current={isTodayCell ? "date" : undefined}
-                              aria-label={`${cell.dayNum} de ${FULL_MONTHS_ES[calMonth.monthIndex]} de ${calMonth.year}${todayText}${countText}`}
                               className={[
                                 "pl-home-cal-day num",
                                 isSelected ? "is-selected" : "",
@@ -1109,12 +1106,20 @@ export function HomeBoardBar({
                               }}
                             >
                               <span className="pl-home-cal-num">{cell.dayNum}</span>
+                              <span className="sr-only">
+                                {` de ${FULL_MONTHS_ES[calMonth.monthIndex]} de ${calMonth.year}${todayText}`}
+                              </span>
                               {hasGames ? (
-                                <span className="pl-home-cal-meta" aria-hidden="true">
-                                  {hasLive ? <i className="pl-home-cal-live-dot" /> : null}
+                                <span className="pl-home-cal-meta">
+                                  {hasLive ? <i className="pl-home-cal-live-dot" aria-hidden="true" /> : null}
                                   <span className="pl-home-cal-count">{dayMeta!.total}</span>
+                                  <span className="sr-only">
+                                    {` ${dayMeta!.total === 1 ? "partido" : "partidos"}${liveText}`}
+                                  </span>
                                 </span>
-                              ) : null}
+                              ) : (
+                                <span className="sr-only">, sin partidos</span>
+                              )}
                             </button>
                           </span>
                         );

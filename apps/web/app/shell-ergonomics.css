@@ -2985,22 +2985,22 @@
 
   @media (max-width: 359px) {
     .pl-home-cal-popover {
-      inset-inline: 4px;
-      left: 4px;
-      right: 4px;
-      max-width: calc(100dvw - 8px);
-      max-inline-size: calc(100dvw - 8px);
+      inset-inline: 2px;
+      left: 2px;
+      right: 2px;
+      max-width: calc(100dvw - 4px);
+      max-inline-size: calc(100dvw - 4px);
     }
 
     .pl-home-cal-weekdays,
     .pl-home-cal-weeks {
-      padding-inline: 4px;
+      padding-inline: 2px;
     }
 
     .pl-home-cal-weekdays,
     .pl-home-cal-week {
       grid-template-columns: repeat(7, minmax(0, 1fr));
-      gap: 2px;
+      gap: 1px;
     }
 
     .pl-home-cal-day {

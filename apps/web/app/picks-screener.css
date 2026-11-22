@@ -3719,6 +3719,10 @@
   inset-block-end: calc(100% + 3px);
   inset-inline-start: 50%;
   transform: translateX(-50%);
+  z-index: 3;
+  padding: 1px 4px;
+  border-radius: 4px;
+  background: var(--pl-surface);
   font-size: 0.72rem;
   font-weight: 800;
   color: var(--pl-text);

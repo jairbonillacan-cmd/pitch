@@ -550,11 +550,11 @@ export function CommandPaletteModal({
           <button
             type="button"
             className="pl-cmd-close"
-            aria-label="Cerrar buscador"
             onClick={() => setCmdkOpen(false)}
           >
             <MaestroIcon name="x" size={14} className="sm:hidden" />
             <span className="hidden sm:inline">Esc</span>
+            <span className="sr-only">Cerrar buscador</span>
           </button>
         </div>
 

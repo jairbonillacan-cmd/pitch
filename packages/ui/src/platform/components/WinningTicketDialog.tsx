@@ -13,7 +13,6 @@ function americanLabel(decimal: number): string {
   return a > 0 ? `+${a}` : `−${Math.abs(a)}`;
 }
 
-/** Contenido del boleto a partir de una entrada ganada de la bitácora. */
 export function winningContentFromEntry(
   entry: JournalEntry,
   aspect: WinningAspect,
@@ -39,10 +38,6 @@ export function winningContentFromEntry(
   };
 }
 
-/**
- * Comparte un pick o parlay ganado como boleto PNG. La vista previa es el mismo PNG que se
- * descarga o comparte (no una aproximación en HTML).
- */
 export function WinningTicketDialog({
   entry,
   onClose,
@@ -118,7 +113,7 @@ export function WinningTicketDialog({
               Una imagen lista para Instagram, X o WhatsApp.
             </p>
           </div>
-          <button type="button" className="pl-btn-glass min-h-9 px-2.5" onClick={onClose} aria-label="Cerrar">
+          <button type="button" className="pl-btn-glass min-h-11 min-w-11 sm:min-h-9 sm:min-w-9 px-2.5 inline-flex items-center justify-center" onClick={onClose} aria-label="Cerrar">
             <MaestroIcon name="x" size={14} />
           </button>
         </div>
@@ -133,7 +128,7 @@ export function WinningTicketDialog({
             <button
               key={o.id}
               type="button"
-              className="seg-btn text-xs"
+              className="seg-btn min-h-11 sm:min-h-9 text-xs"
               aria-pressed={aspect === o.id}
               onClick={() => setAspect(o.id)}
             >
@@ -157,12 +152,12 @@ export function WinningTicketDialog({
         </div>
 
         <div className="flex flex-wrap justify-end gap-2">
-          <button type="button" className="pl-btn-glass text-sm min-h-10 px-4 inline-flex items-center gap-1.5" onClick={download} disabled={!url}>
+          <button type="button" className="pl-btn-glass text-sm min-h-11 sm:min-h-10 px-4 inline-flex items-center gap-1.5" onClick={download} disabled={!url}>
             <MaestroIcon name="download" size={14} />
             <span>Descargar PNG</span>
           </button>
           {canShareFile ? (
-            <button type="button" className="pl-btn-primary text-sm min-h-10 px-4 inline-flex items-center gap-1.5" onClick={share}>
+            <button type="button" className="pl-btn-primary text-sm min-h-11 sm:min-h-10 px-4 inline-flex items-center gap-1.5" onClick={share}>
               <MaestroIcon name="share" size={14} />
               <span>Compartir</span>
             </button>

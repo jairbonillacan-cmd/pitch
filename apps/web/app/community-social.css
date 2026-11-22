@@ -323,7 +323,18 @@
   font-size: 12.5px;
 }
 
-.pl-com-sheet,
+.pl-com-sheet {
+  inline-size: 100%;
+  min-block-size: 100%;
+  border: 0;
+  border-radius: 0;
+  background: var(--pl-surface);
+  padding: calc(16px + env(safe-area-inset-top, 0px)) 18px calc(24px + env(safe-area-inset-bottom, 0px));
+  color: var(--pl-text);
+  display: flex;
+  flex-direction: column;
+}
+
 .pl-com-picker {
   inline-size: 100%;
   border-radius: var(--radius-panel, 12px);
@@ -1747,15 +1758,21 @@
 }
 
 .pl-com-menu {
-  margin: 6px 0 0;
   padding: 6px;
-  min-inline-size: 152px;
+  min-inline-size: 164px;
   border: 1px solid var(--pl-border-strong);
   border-radius: var(--radius-panel, 12px);
   background: var(--pl-surface-elevated);
   color: var(--pl-text);
-  position-area: block-end span-inline-start;
-  position-try-fallbacks: flip-block, flip-inline;
+}
+
+@supports (position-area: block-end) {
+  .pl-com-menu {
+    inset: auto;
+    margin: 6px 0 0;
+    position-area: block-end span-inline-start;
+    position-try-fallbacks: flip-block, flip-inline;
+  }
 }
 
 .pl-com-menu:not(:popover-open):not([data-fallback-open="true"]) {
@@ -1786,6 +1803,23 @@
   font-weight: 600;
   text-align: start;
   cursor: pointer;
+}
+
+@media (max-width: 767px), (pointer: coarse) {
+  .pl-com-more-btn,
+  .pl-com-more-btn--sm {
+    inline-size: 44px;
+    block-size: 44px;
+  }
+
+  .pl-com-menu-item {
+    min-block-size: 44px;
+  }
+
+  .pl-com-sheet-head button {
+    min-inline-size: 44px;
+    min-block-size: 44px;
+  }
 }
 
 .pl-com-menu-item:hover,

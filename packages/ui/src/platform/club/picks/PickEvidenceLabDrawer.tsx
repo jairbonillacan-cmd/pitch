@@ -1550,7 +1550,11 @@ export function PickEvidenceLabDrawer({
                             Number.isFinite(bar.minutesPlayed)
                               ? `, ${Math.round(bar.minutesPlayed)} minutos`
                               : "";
-                          const ariaLabel = `${bar.isHome ? "Contra" : "En casa de"} ${bar.opponentName} (${bar.dateLabel}): ${formatNumeric(bar.value)} ${activeMetricSpec.unitLabel}${minuteSuffix}. ${outcomeStatusText(outcome, selectedLine, selectedDirection)}.`;
+                          const outcomeLabel = outcomeStatusText(
+                            outcome,
+                            selectedLine,
+                            selectedDirection,
+                          );
 
                           return (
                             <div key={bar.id} className="pl-pick-lab-bar-col">
@@ -1558,7 +1562,6 @@ export function PickEvidenceLabDrawer({
                                 type="button"
                                 className={`pl-pick-lab-bar-btn${isSelected ? " is-selected" : ""}`}
                                 aria-pressed={isSelected}
-                                aria-label={ariaLabel}
                                 data-lab-bar-outcome={outcome}
                                 onClick={() =>
                                   updateUi((prev) => ({ ...prev, activeBarId: bar.id }))
@@ -1581,6 +1584,9 @@ export function PickEvidenceLabDrawer({
                                     <span className="pl-pick-lab-bar-val num">
                                       {formatNumeric(bar.value)}
                                     </span>
+                                    <span className="sr-only">
+                                      {` ${activeMetricSpec.unitLabel}`}
+                                    </span>
                                   </span>
                                 </span>
                                 <span className="pl-pick-lab-bar-meta">
@@ -1593,6 +1599,9 @@ export function PickEvidenceLabDrawer({
                                   <span className="num">{bar.dateLabel}</span>
                                   <span>
                                     {bar.isHome ? `vs ${bar.opponentShort}` : `@ ${bar.opponentShort}`}
+                                  </span>
+                                  <span className="sr-only">
+                                    {` (${bar.opponentName}${minuteSuffix}). ${outcomeLabel}.`}
                                   </span>
                                 </span>
                               </button>

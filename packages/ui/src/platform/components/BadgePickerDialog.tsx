@@ -14,16 +14,9 @@ export interface BadgePickerDialogProps {
   publicBadges: readonly BadgeView[];
   own?: OwnBadgesState | null;
   onToggleFeatured?: (id: string) => void;
-  /** IDs redundantes que ya se muestran de forma fija junto al nombre (p. ej. `tipster-verificado`). */
   excludeBadgeIds?: readonly string[];
 }
 
-/**
- * Modal nativo `<dialog closedby="any">` para explorar insignias y elegir hasta 3 destacadas
- * en el encabezado del perfil (Imágenes 3 y 4 · ADR-044).
- * Cumple `dialog`, `light-dismiss-a-dialog` (con fallback `pointerdown`/`pointerup`) y
- * `prevent-page-scroll-under-modal-dialog`.
- */
 export function BadgePickerDialog({
   open,
   onClose,
@@ -72,7 +65,6 @@ export function BadgePickerDialog({
     };
     dialog.addEventListener("close", handleClose);
 
-    // Fallback para navegadores sin `closedby` (ej. Safari): comprueba pointerdown + pointerup fuera del cuadro.
     const needsFallback =
       typeof HTMLDialogElement !== "undefined" && !("closedBy" in HTMLDialogElement.prototype);
     let pressedOutside = false;
@@ -148,7 +140,7 @@ export function BadgePickerDialog({
         </div>
       </div>
 
-      <div ref={bodyRef} className="pl-native-modal-body">
+      <div ref={bodyRef} tabIndex={0} className="pl-native-modal-body" aria-label="Lista de insignias">
         {isOwn && own ? (
           <>
             <div className="pl-bm-section">
