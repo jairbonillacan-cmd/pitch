@@ -387,6 +387,7 @@ describe("user_preferences: preferredBookmakers y savedViews", () => {
               if (table === users) return [{ publicProfile: true }];
               return [];
             }),
+            for: vi.fn(async () => [{ id: SAMPLE_USER_UUID }]),
           })),
         })),
       })),
