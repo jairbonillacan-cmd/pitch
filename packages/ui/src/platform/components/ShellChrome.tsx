@@ -5,7 +5,6 @@ import React, {
   createContext,
   lazy,
   useContext,
-  useEffect,
   useId,
   useMemo,
   useRef,
@@ -14,14 +13,15 @@ import React, {
 import {
   canonicalGameHref,
   competitionPrestigeScore,
-  getLeagueCapability,
   isLeagueActiveInWindow,
   isNationalCompetition,
   type LeagueId,
 } from "@pitchlab/contracts";
 import { LIGHT_THEME_TOKENS, STAGE_DARK_TOKENS } from "@pitchlab/tokens";
+import { usePackIconBase } from "../../pack-icon-theme";
 import { BrandLogo, ThemeToggle } from "../../primitives";
 import { EmblemSurfaceProvider, LeagueBadge } from "../../sports";
+import { useSafeEffect } from "../hooks";
 import { ProgressiveImage } from "./ProgressiveImage";
 import { encodeForensicTag, getSessionWatermark } from "../access-guard";
 import { formatUnits, profileRecord } from "../profile-stats";
@@ -84,7 +84,6 @@ const LazyBetaPinModal = lazy(() =>
   import("./PlatformOverlays").then((m) => ({ default: m.BetaPinModal })),
 );
 
-/** Monta modales del shell bajo demanda (ADR-051): cero costo inicial hasta que se abren. */
 function LazyAppOverlays({ inClubApp }: { inClubApp: boolean }): React.JSX.Element {
   const { composerPick, shareTicket, cmdkOpen, betaPinOpen } = useOverlayState();
   return (
@@ -97,18 +96,11 @@ function LazyAppOverlays({ inClubApp }: { inClubApp: boolean }): React.JSX.Eleme
   );
 }
 
-/** Opciones de formato de momios disponibles en el menú y en móvil. */
-
 const ODDS_FORMAT_OPTIONS: ReadonlyArray<{ value: OddsFormat; label: string }> = [
   { value: "american", label: "Momio" },
   { value: "decimal", label: "Decimal" },
 ];
 
-/**
- * Selector «Momio / Decimal» con el `seg-well` de la casa: grupo de radio con flechas.
- * Antes usaba el SegmentedControl de Astryx, que agregaba ~110 kB a cada página del Club
- * solo por este control (P0-08 de la auditoría 2026-11-13).
- */
 export function OddsFormatSegment(): React.JSX.Element {
   const { oddsFormat } = usePlatformCore();
   const { setOddsFormat } = usePlatformActions();
@@ -148,10 +140,9 @@ export function OddsFormatSegment(): React.JSX.Element {
   );
 }
 
-/** Tema actual del documento (`html[data-theme]`), al día si otro control lo cambia. */
 function useDocumentTheme(): "dark" | "light" {
   const [theme, setTheme] = useState<"dark" | "light">("dark");
-  useEffect(() => {
+  useSafeEffect(() => {
     const root = document.documentElement;
     const read = () => setTheme(root.dataset.theme === "light" ? "light" : "dark");
     read();
@@ -162,7 +153,6 @@ function useDocumentTheme(): "dark" | "light" {
   return theme;
 }
 
-/** Mismo cambio que ThemeToggle: sin transiciones durante el cambio y guardado en `pl-theme`. */
 function applyTheme(next: "dark" | "light"): void {
   const root = document.documentElement;
   if ((root.dataset.theme === "light" ? "light" : "dark") === next) return;
@@ -187,12 +177,10 @@ function applyTheme(next: "dark" | "light"): void {
 
 export type VisualStyle = "solid" | "glass";
 
-/** Estilo visual del documento (`html[data-style]`): siempre sólido. */
 export function useDocumentStyle(): VisualStyle {
   return "solid";
 }
 
-/** Mantiene el documento en modo sólido. */
 export function applyVisualStyle(_next?: VisualStyle): void {
   void _next;
   if (typeof document === "undefined") return;
@@ -204,7 +192,6 @@ export function applyVisualStyle(_next?: VisualStyle): void {
   }
 }
 
-/** Control segmentado del menú de cuenta (Estilo, Momio y Tema). ←/→ mueven la selección. */
 function MenuSegment({
   labelledBy,
   value,
@@ -265,7 +252,7 @@ function FloatingQuickJumpBar({
   const [collapsed, setCollapsed] = useState<boolean>(true);
   const [clientPath, setClientPath] = useState<string>(activePath ?? "");
 
-  useEffect(() => {
+  useSafeEffect(() => {
     if (activePath) {
       setClientPath(activePath);
       return;
@@ -380,11 +367,6 @@ function FloatingQuickJumpBar({
   );
 }
 
-/*
- * El layout del club monta el escenario y el shell (encabezado + barra lateral) una sola vez.
- * Las vistas los siguen declarando; si ya hay uno montado más arriba, solo devuelven su
- * contenido. Así cambiar de página no vuelve a montar ni el encabezado ni la barra lateral.
- */
 const StageMountedContext = createContext(false);
 const ShellMountedContext = createContext(false);
 
@@ -418,7 +400,6 @@ export function ClubWorkspaceShell(props: ClubWorkspaceShellProps): React.JSX.El
   );
 }
 
-/** Escenario + shell para el layout de /app (se montan una vez por sesión de navegación). */
 export function ClubLayoutShell({
   activePath,
   children,
@@ -443,7 +424,7 @@ function AtmosphereStageImpl({
   const auraColors = useAuraColors();
   const [clientPath, setClientPath] = useState<string>(activePath ?? "");
 
-  useEffect(() => {
+  useSafeEffect(() => {
     if (activePath !== undefined) {
       setClientPath(activePath);
       return;
@@ -591,7 +572,6 @@ export function PublicHeaderV4({
         </div>
       </div>
 
-      {/* Sub-barra móvil compacta */}
       <nav
         aria-label="Secciones públicas móvil"
         className="lg:hidden flex items-center gap-1 px-4 pb-2.5 overflow-x-auto"
@@ -684,12 +664,50 @@ export function PublicFooterV4(): React.JSX.Element {
   );
 }
 
+type InterfazPackIconSlug =
+  | "target-picks"
+  | "player-props"
+  | "compare-h2h"
+  | "alert-market"
+  | "verified-seal";
+
+function ShellNavIcon({
+  icon,
+  packSlug,
+  size,
+  className,
+}: {
+  icon: MaestroIconName;
+  packSlug?: InterfazPackIconSlug;
+  size: number;
+  className?: string;
+}): React.JSX.Element {
+  const iconBase = usePackIconBase();
+  if (!packSlug) {
+    return <MaestroIcon name={icon} size={size} className={className} />;
+  }
+  return (
+    <img
+      src={`${iconBase}/32/interfaz/${packSlug}.webp`}
+      srcSet={`${iconBase}/32/interfaz/${packSlug}.webp 1x, ${iconBase}/64/interfaz/${packSlug}.webp 2x`}
+      width={size}
+      height={size}
+      alt=""
+      aria-hidden="true"
+      decoding="async"
+      draggable={false}
+      className={["pl-maestro-icon inline-block shrink-0", className].filter(Boolean).join(" ")}
+    />
+  );
+}
+
 interface RailNavItem {
   href: string;
   label: string;
   navLabel?: string;
   shortLabel?: string;
   icon: MaestroIconName;
+  packIconSlug?: InterfazPackIconSlug;
   badge?: string;
   badgeBrand?: boolean;
   liveDot?: boolean;
@@ -700,7 +718,6 @@ interface RailNavGroup {
   items: RailNavItem[];
 }
 
-/** Evento que avisa a la vista de Cuenta qué pestaña abrir (el menú del perfil la elige). */
 export const ACCOUNT_TAB_EVENT = "pl-account-tab";
 
 interface ProfileMenuItem {
@@ -708,7 +725,6 @@ interface ProfileMenuItem {
   label: string;
   icon: MaestroIconName;
   accountTab?: "referrals" | "plan" | "prefs" | "cfdi";
-  /** Dato a la derecha de la fila (récord, abiertos). */
   trail?: React.ReactNode;
 }
 interface ProfileMenuGroup {
@@ -726,7 +742,6 @@ const CLUB_FOOTER_LINKS = [
   { href: "/legal/creditos", label: "Créditos de datos" },
 ] as const;
 
-/** Pie compacto del club: cierra la página sin dejar un hueco vacío al final. */
 function ClubFooter(): React.JSX.Element {
   const { navigateTo } = usePlatformActions();
   return (
@@ -752,14 +767,8 @@ function ClubFooter(): React.JSX.Element {
   );
 }
 
-/**
- * Protección contra filtraciones del Club, en dos capas:
- * 1. Trama diagonal muy tenue con `@usuario · CÓDIGO` sobre toda la pantalla: no tapa la
- *    lectura y no se quita recortando una esquina de la captura.
- * 2. Al copiar texto, se agrega la atribución y una huella invisible con el mismo código.
- */
 function ClubWatermarkLayer({ label, handle }: { label: string; handle: string | null }): null {
-  useEffect(() => {
+  useSafeEffect(() => {
     const onCopy = (e: ClipboardEvent) => {
       const selection = window.getSelection()?.toString() ?? "";
       if (selection.trim().length < 12 || !e.clipboardData) return;
@@ -849,10 +858,9 @@ function ClubWorkspaceShellImpl({
         : null,
     [hasLeaguesOpen, homeSport, homeSportLeagues, homeSportGames.length, homeLeague],
   );
-  // Retiene la última instantánea durante la retracción para no desmontar ligas en el primer cuadro.
   const [lastLeaguesSnapshot, setLastLeaguesSnapshot] = useState(activeLeagueSnapshot);
 
-  useEffect(() => {
+  useSafeEffect(() => {
     if (activeLeagueSnapshot) {
       setLastLeaguesSnapshot(activeLeagueSnapshot);
       return;
@@ -862,7 +870,6 @@ function ClubWorkspaceShellImpl({
   }, [activeLeagueSnapshot]);
 
   const displayedLeagues = activeLeagueSnapshot ?? lastLeaguesSnapshot;
-  // Con cuenta, el usuario real; con el PIN de la beta, el de ejemplo según el rol.
   const ownHandle = ownHandleFor(viewerIdentity, viewerRole);
 
   const navContainerRef = useRef<HTMLElement>(null);
@@ -872,11 +879,11 @@ function ClubWorkspaceShellImpl({
 
   const closeHeaderNav = () => setNavExpanded(false);
 
-  useEffect(() => {
+  useSafeEffect(() => {
     setNavExpanded(false);
   }, [activePath]);
 
-  useEffect(() => {
+  useSafeEffect(() => {
     if (!navExpanded) return;
     const onKeyDown = (e: KeyboardEvent) => {
       if (e.key !== "Escape") return;
@@ -901,17 +908,16 @@ function ClubWorkspaceShellImpl({
 
   const handleNavTriggerClick = () => setNavExpanded((prev) => !prev);
   const [isApplePlatform, setIsApplePlatform] = useState(false);
-  useEffect(() => {
+  useSafeEffect(() => {
     const plat = typeof navigator !== "undefined" ? `${navigator.platform} ${navigator.userAgent}` : "";
     setIsApplePlatform(/Mac|iPhone|iPad|iPod/i.test(plat));
   }, []);
 
   const profileTriggerRef = useRef<HTMLButtonElement>(null);
   const profileMenuRef = useRef<HTMLDivElement>(null);
-  // id único por instancia: durante la carga conviven dos encabezados.
   const profileMenuId = `pl-profile-menu${useId().replace(/:/g, "")}`;
   const [profileMenuOpen, setProfileMenuOpen] = useState<boolean>(false);
-  useEffect(() => {
+  useSafeEffect(() => {
     const menu = profileMenuRef.current;
     if (!menu) return;
     const onToggle = (e: Event) => setProfileMenuOpen((e as ToggleEvent).newState === "open");
@@ -932,7 +938,6 @@ function ClubWorkspaceShellImpl({
       ] satisfies ProfileMenuGroup[];
     }
     const handle = ownHandle;
-    // El récord va junto a la fila que lleva a él. El tipster simulado es un perfil de ejemplo.
     const showRecord = viewerRole !== "tipster" && ownRecord.settled > 0;
     const profileTrail = showRecord ? (
       <span className="pl-profile-menu-rec num" title="Saldo y cumplidos">
@@ -965,7 +970,7 @@ function ClubWorkspaceShellImpl({
         label: "Tu cuenta",
         items: [
           { href: "/app/account?tab=plan", label: "Mi plan Ultra", icon: "crown", accountTab: "plan" },
-          { href: "/app/account?tab=prefs", label: "Preferencias", icon: "sliders", accountTab: "prefs" },
+          { href: "/app/account?tab=prefs", label: "Preferencias", icon: "settings", accountTab: "prefs" },
         ],
       },
     ];
@@ -981,14 +986,13 @@ function ClubWorkspaceShellImpl({
       label: "Ayuda",
       items: [
         { href: "/app/tech", label: "Cómo calculamos", icon: "cpu" },
-        { href: "/legal/juego-responsable", label: "Juego responsable", icon: "shield" },
+        { href: "/legal/juego-responsable", label: "Juego responsable", icon: "responsible-play" },
       ],
     });
     return groups;
   }, [viewerRole, ownRecord, journal.length, ownHandle]);
 
   const docTheme = useDocumentTheme();
-  // Teclado: flechas, Inicio y Fin recorren los enlaces del menú.
   const onProfileMenuKeyDown = (e: React.KeyboardEvent<HTMLDivElement>) => {
     if (!["ArrowDown", "ArrowUp", "Home", "End"].includes(e.key)) return;
     const items = Array.from(
@@ -1031,33 +1035,50 @@ function ClubWorkspaceShellImpl({
     scrollContainerRef: moreSheetScrollRef,
   });
 
-  const activeRefereesHref = useMemo(() => {
-    const match = /^\/app\/([a-z0-9-]+)(?:\/|$)/.exec(normalizedPath);
-    const segment = match?.[1];
-    if (segment) {
-      const cap = getLeagueCapability(segment);
-      if (cap?.sport === "football" && cap.providers.referees) {
-        return `/app/${segment}/arbitros`;
-      }
-    }
-    return "/app/liga-mx/arbitros";
-  }, [normalizedPath]);
-
   const railGroups: RailNavGroup[] = useMemo(() => {
     const explore: RailNavItem[] = [
-      { href: "/app/picks", label: "Buscar picks", shortLabel: "Buscar picks", icon: "search" },
-      { href: "/app/props", label: "Tendencias de jugadores", shortLabel: "Player Props", icon: "users" },
+      {
+        href: "/app/picks",
+        label: "Buscar picks",
+        shortLabel: "Buscar picks",
+        icon: "search",
+        packIconSlug: "target-picks",
+      },
+      {
+        href: "/app/props",
+        label: "Tendencias de jugadores",
+        shortLabel: "Player Props",
+        icon: "users",
+        packIconSlug: "player-props",
+      },
       { href: "/app/momios", label: "Compara tu momio", shortLabel: "Momios", icon: "activity" },
-      { href: "/app/comparar", label: "Comparar H2H", shortLabel: "Comparar H2H", icon: "layers" },
-      { href: "/app/alertas", label: "Alertas de mercado", shortLabel: "Alertas", icon: "bell" },
-      { href: activeRefereesHref, label: "Árbitros", shortLabel: "Árbitros", icon: "whistle" },
-      { href: "/app/historial", label: "Resultados", shortLabel: "Resultados", icon: "shield" },
+      {
+        href: "/app/comparar",
+        label: "Comparar H2H",
+        shortLabel: "Comparar H2H",
+        icon: "layers",
+        packIconSlug: "compare-h2h",
+      },
+      {
+        href: "/app/alertas",
+        label: "Alertas de mercado",
+        shortLabel: "Alertas",
+        icon: "bell",
+        packIconSlug: "alert-market",
+      },
+      {
+        href: "/app/historial",
+        label: "Resultados",
+        shortLabel: "Resultados",
+        icon: "shield",
+        packIconSlug: "verified-seal",
+      },
     ];
     return [
       { title: "Club", items: primaryNavItems(parlayLegs.length, journal.length) },
       { title: "Explorar", items: explore },
     ];
-  }, [activeRefereesHref, journal.length, parlayLegs.length]);
+  }, [journal.length, parlayLegs.length]);
 
   const allClubItems = useMemo(
     () => railGroups.flatMap((g) => g.items),
@@ -1141,7 +1162,6 @@ function ClubWorkspaceShellImpl({
     "/app/momios": "Calcula tu ventaja real frente a tu casa",
     "/app/comparar": "Cara a cara entre clubes y jugadores",
     "/app/alertas": "Copiloto NL, apertura de líneas, steam y EV+",
-    [activeRefereesHref]: "Rigor arbitral, tarjetas ajustadas y tendencias",
     "/app/historial": "Balance verificado, calibración y marcadores finales",
   };
 
@@ -1160,7 +1180,6 @@ function ClubWorkspaceShellImpl({
         <div className="pl-header-top">
         <div className="pl-header-grid max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-7 h-14 sm:h-16">
           <div className="pl-header-bar flex items-center justify-between gap-2 xl:gap-3 h-full min-w-0">
-            {/* Izquierda: Logo a / + Barra de navegación (hover/clic expande sobre contenido) + Buscador + Rol */}
             <div className="pl-header-left flex items-center gap-2 xl:gap-3 min-w-0 flex-1 h-full">
               <a
                 href="/app"
@@ -1263,7 +1282,7 @@ function ClubWorkspaceShellImpl({
                         className="pl-header-nav-icon"
                       >
                         <span className="pl-header-nav-glyph">
-                          <MaestroIcon name={item.icon} size={16} />
+                          <ShellNavIcon icon={item.icon} packSlug={item.packIconSlug} size={16} />
                         </span>
                         <span className="pl-header-nav-label-wrap" aria-hidden="true">
                           <span className="pl-header-nav-label">{item.shortLabel ?? item.label}</span>
@@ -1296,7 +1315,6 @@ function ClubWorkspaceShellImpl({
                   className="pl-header-nav-overlay"
                 >
                   <div className="pl-header-nav-overlay-inner">
-                    {/* Columna 1: Navegación principal */}
                     <section aria-labelledby="pl-nav-col-club" className="pl-header-overlay-col">
                       <div className="pl-header-overlay-head">
                         <h2 id="pl-nav-col-club" className="pl-header-overlay-title">
@@ -1337,7 +1355,6 @@ function ClubWorkspaceShellImpl({
                       </div>
                     </section>
 
-                    {/* Columna 2: Ligas y Selecciones */}
                     <section aria-labelledby="pl-nav-col-leagues" className="pl-header-overlay-col">
                       <div className="pl-header-overlay-head">
                         <h2 id="pl-nav-col-leagues" className="pl-header-overlay-title">
@@ -1366,7 +1383,14 @@ function ClubWorkspaceShellImpl({
                               className="league-tab pl-header-overlay-link"
                             >
                               <span className="flex items-center gap-2 min-w-0 flex-1">
-                                <LeagueBadge league={lg.league} label={lg.label} logoUrl={lg.logoUrl} size={18} />
+                                <LeagueBadge
+                                  league={lg.league}
+                                  label={lg.label}
+                                  logoUrl={lg.logoUrl}
+                                  size={18}
+                                  decorative
+                                  lowPriority
+                                />
                                 <span className="truncate">{lg.label}</span>
                               </span>
                               <span className="pl-header-overlay-count num">
@@ -1411,7 +1435,14 @@ function ClubWorkspaceShellImpl({
                                   className="league-tab pl-header-overlay-link"
                                 >
                                   <span className="flex items-center gap-2 min-w-0 flex-1">
-                                    <LeagueBadge league={lg.league} label={lg.label} logoUrl={lg.logoUrl} size={18} />
+                                    <LeagueBadge
+                                      league={lg.league}
+                                      label={lg.label}
+                                      logoUrl={lg.logoUrl}
+                                      size={18}
+                                      decorative
+                                      lowPriority
+                                    />
                                     <span className="truncate">{lg.label}</span>
                                   </span>
                                   <span className="pl-header-overlay-count num">
@@ -1425,7 +1456,6 @@ function ClubWorkspaceShellImpl({
                       ) : null}
                     </section>
 
-                    {/* Columna 3: Explorar + Acción cerrar */}
                     <section aria-labelledby="pl-nav-col-explore" className="pl-header-overlay-col">
                       <div className="pl-header-overlay-head">
                         <h2 id="pl-nav-col-explore" className="pl-header-overlay-title">
@@ -1459,7 +1489,12 @@ function ClubWorkspaceShellImpl({
                               }}
                               className="pl-header-overlay-link pl-header-overlay-link--explore"
                             >
-                              <MaestroIcon name={item.icon} size={15} className="pl-header-overlay-icon shrink-0 mt-0.5" />
+                              <ShellNavIcon
+                                icon={item.icon}
+                                packSlug={item.packIconSlug}
+                                size={15}
+                                className="pl-header-overlay-icon shrink-0 mt-0.5"
+                              />
                               <span className="min-w-0 flex-1">
                                 <span className="block truncate leading-snug">{item.label}</span>
                                 {hint ? (
@@ -1500,11 +1535,9 @@ function ClubWorkspaceShellImpl({
               </button>
             </div>
 
-            {/* Derecha: Campana + Chip de perfil */}
             <div className="flex items-center gap-2 shrink-0">
             <NotificationBell />
 
-            {/* Chip de perfil: abre el menú de la cuenta (popover en escritorio, hoja en móvil). */}
             <button
               ref={profileTriggerRef}
               type="button"
@@ -1515,7 +1548,6 @@ function ClubWorkspaceShellImpl({
               aria-label={viewerRole === "visitor" ? "Menú, entrar o crear cuenta" : `Menú de ${profileHandle}`}
               data-profile-menu-trigger=""
               onClick={() => {
-                // Antes de abrir: colocar el panel bajo el chip, alineado a su borde derecho.
                 const rect = profileTriggerRef.current?.getBoundingClientRect();
                 const menu = profileMenuRef.current;
                 if (rect && menu) {
@@ -1789,7 +1821,6 @@ function ClubWorkspaceShellImpl({
         </div>
         </div>
 
-        {/* Tiras integradas en la base del header: deportes y sus ligas, visibles únicamente en /app */}
         {isHomeRoute && homeNav ? (
           <div className="pl-header-sportband">
             <div className="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-7">
@@ -1840,7 +1871,6 @@ function ClubWorkspaceShellImpl({
         </main>
       </div>
 
-      {/* Barra inferior móvil: los 4 destinos principales y «Más» */}
       <nav
         aria-label="Navegación móvil"
         className="mobile-dock glass-pill-bar glass-ring"
@@ -1931,7 +1961,7 @@ function ClubWorkspaceShellImpl({
                 }}
                 className="pl-btn-glass min-h-11 text-xs justify-start gap-2"
               >
-                <MaestroIcon name={m.icon} size={14} />
+                <ShellNavIcon icon={m.icon} packSlug={m.packIconSlug} size={14} />
                 <span className="truncate">{m.shortLabel ?? m.label}</span>
               </a>
             ))}
@@ -1973,7 +2003,7 @@ function ClubWorkspaceShellImpl({
                     }}
                     className="league-tab pl-btn-glass min-h-11 text-xs justify-start gap-2"
                   >
-                    <LeagueBadge league={lg.league} label={lg.label} logoUrl={lg.logoUrl} size={16} />
+                    <LeagueBadge league={lg.league} label={lg.label} logoUrl={lg.logoUrl} size={16} decorative />
                     <span className="truncate">{lg.label}</span>
                   </a>
                 );
@@ -2002,7 +2032,7 @@ function ClubWorkspaceShellImpl({
                       }}
                       className="league-tab pl-btn-glass min-h-11 text-xs justify-start gap-2"
                     >
-                      <LeagueBadge league={lg.league} label={lg.label} logoUrl={lg.logoUrl} size={16} />
+                      <LeagueBadge league={lg.league} label={lg.label} logoUrl={lg.logoUrl} size={16} decorative />
                       <span className="truncate">{lg.label}</span>
                     </a>
                   );
@@ -2057,7 +2087,6 @@ interface PrimaryNavItem extends RailNavItem {
   shortLabel?: string;
 }
 
-/** Los 4 destinos principales, iguales en el riel y en el dock móvil. */
 function primaryNavItems(parlayCount: number, journalCount: number): PrimaryNavItem[] {
   return [
     { href: "/app", label: "Hoy", navLabel: "Hoy", icon: "calendar" },
