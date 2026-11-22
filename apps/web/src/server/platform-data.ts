@@ -1240,13 +1240,14 @@ function buildServerRawPlatformDatasetUncached(): PlatformDataset {
   for (const leagueKey of PRODUCT_LEAGUES) {
     const env = envelopes[leagueKey];
     if (env?.data) {
+      const snapshotGeneratedAt = env.data.generatedAt;
       const signals = buildSpacetimeSignals(env.data.games);
       const games = env.data.games.map((g) => {
         const applied = applyOutlook(
           g,
           signals[g.id] ?? null,
           undefined,
-          env.data.generatedAt,
+          snapshotGeneratedAt,
         );
         if (applied.signal) signals[g.id] = applied.signal;
         else delete signals[g.id];
