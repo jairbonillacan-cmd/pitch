@@ -24,6 +24,7 @@ async function toggleClubTheme(
   await expect(page.locator("html")).toHaveAttribute("data-theme", expectedTheme);
   await page.keyboard.press("Escape");
   await expect(page.locator(".pl-profile-menu:popover-open")).toHaveCount(0);
+  await expect(page.locator(".pl-profile-menu:not(.pl-notif-menu)")).toBeHidden();
   await waitForVisualFrame(page);
 }
 
@@ -515,6 +516,7 @@ test("Modo Sólido unificado en /app: sin opción Cristal, diferenciación real 
   await expect(html).toHaveAttribute("data-style", "solid");
   await page.keyboard.press("Escape");
   await expect(menu).toHaveCount(0);
+  await expect(page.locator(".pl-profile-menu:not(.pl-notif-menu)")).toBeHidden();
   await waitForVisualFrame(page);
 
   await page.screenshot({

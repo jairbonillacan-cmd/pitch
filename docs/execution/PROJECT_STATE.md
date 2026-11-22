@@ -1,7 +1,7 @@
 # Estado del proyecto PitchLab
 
 > **Propósito:** que cualquier sesión retome el trabajo sin reconstruir el contexto. Se actualiza al cerrar cada fase.
-> **Última actualización:** 2026-11-22 · **Rama:** `gemini-dos` (**Olas 0A–8 + Preparación de Producción Nivel Lanzamiento (`Paso 0 + Tareas 1–6`) COMPLETADAS en rama local `gemini-dos`**, pendiente únicamente autorización explícita para `git push`: `6` reglas estructurales Constraint-First en **`0`** + `3` defensas EDC, *ratchet* **`6,734 → 6,522`** (`-212` acumulado en esta jornada; `-2,374` desde `8,896`; `822` archivos / `0` violaciones), poda real **`-105.1 KB`** de CSS muerto (`pitchlab-v4.css` `513.0 → 427.1 KB`, `legacy-d1-storybook.css` `56.6 → 37.4 KB`), **`5` error boundaries** planos sin fuga en producción ni `backdrop-filter`, endurecimiento HTTP + tormentas PGlite `0000..0027`, auditoría **`27/27`** `@pitchlab/emails`, SEO técnico + **`3` artículos técnicos ES-MX** (`0` violaciones Axe WCAG 2.1 AA en `dark`/`light`), y revisión visual Chromium `52/52` (`issues=0`, `0 px` overflow). Ver detalles y cierre `12/12` al final).
+> **Última actualización:** 2026-11-22 · **Rama:** `gemini-dos` (**Olas 0A–8 + Preparación de Producción Nivel Lanzamiento (`Paso 0 + Tareas 1–6`) COMPLETADAS Y VERIFICADAS (`12/12` gates PASS)** en rama local `gemini-dos`, pendiente únicamente autorización explícita para `git push`: `6` reglas estructurales Constraint-First en **`0`** + `3` defensas EDC, *ratchet* **`6,734 → 6,522`** (`-212` acumulado en esta jornada; `-2,374` desde `8,896`; `822` archivos / `0` violaciones), poda real **`-105.1 KB`** de CSS muerto (`pitchlab-v4.css` `513.0 → 427.1 KB`, `legacy-d1-storybook.css` `56.6 → 37.4 KB`), **`5` error boundaries** planos sin fuga en producción ni `backdrop-filter`, endurecimiento HTTP + tormentas PGlite `0000..0027`, auditoría **`27/27`** `@pitchlab/emails`, SEO técnico + **`3` artículos técnicos ES-MX** (`0` violaciones Axe WCAG 2.1 AA en `dark`/`light`), revisión visual Chromium `52/52` (`issues=0`, `0 px` overflow), `build-storybook` (`16.94s`) y `pnpm e2e` (`83 passed | 1 skipped | 0 failed` en `16.8m`). Ver detalle completo al final).
 
 ## Estado actual
 
@@ -1817,6 +1817,24 @@ _(Cada sesión de agente agrega aquí su entrada con el formato de `AGENT_EXECUT
   - Ruta canónica `/i/SOFIA5` en `registry.tsx`, sustitución de copia heredada «bitácora» → «récord» / «Ver mi récord» en `account.tsx`, `billing.tsx`, `plan.tsx`, `product.tsx` y `pick-results.ts`, y enlace en vivo `/app/bitacora` → `/app/lab` en `lifecycle-emails.ts`. Contratos automatizados `27/27` en `packages/emails/tests/emails.test.ts` (**`91/91` PASS**; +`21/21` en `apps/web/tests/emails.test.ts`).
 - **Tarea 5 · SEO técnico + `3` artículos técnicos ES-MX (`553b4f04`):**
   - Metadatos `canonical`/`openGraph`/`twitter` y JSON-LD (`Organization` + `WebSite` en `page.tsx`, «récord verificable» en `json-ld.tsx`, `noindex` en `/login`, `/signup` y `/offline/layout.tsx`, `canonical` en `/u/[handle]`); `apps/web/tests/seo-contracts.test.ts` (**`5/5` PASS**) y `3` artículos nuevos en `apps/web/content/blog/` (`clv-como-medir-si-le-ganas-al-cierre.md`, `parlays-y-correlacion-mismo-partido-sgp.md`, `como-leer-xg-y-calibracion-sin-caer-en-trampas.md`; `blog.test.ts` **`19/19` PASS**). Verificado en vivo en `:6420`: `/blog/rss.xml` `200 OK` (`4,939 B`) y auditoría Playwright + Axe WCAG 2.1 AA dark/light (`21/21`, `failures=0`).
-- **Tarea 6 · Poda *Software Garden* y revisión visual final (`c16d3a93`):**
+- **Tarea 6 · Poda *Software Garden* y revisión visual final (`c16d3a93`..HEAD):**
   - Auditoría de huérfanos en `245` archivos (`0` eliminaciones especulativas; los `3` candidatos usan `React.lazy` dinámico) y limpieza de comentarios redundantes en `apps/web/src/server/*` reduciendo `lint-ratchet-baseline.json` de **`6,734 → 6,522`** (**`-212`** en la jornada; **`6/7`** reglas estructurales en **`0`** en `822` archivos). Revisión visual final `VISUAL_CHECK (final)` **`52/52` PASS (`issues=0`)**.
+  - Corrección de prueba determinista por hora actual en `apps/web/tests/ola8-property-and-chaos.test.ts` (`200ee953`, `Date.now()` relativo) y espera explícita `toBeHidden()` tras cerrar `.pl-profile-menu` con `Escape` en `apps/web/e2e/app-home.spec.ts` para evitar que Axe evalúe contraste a mitad del fade-out `allow-discrete` de `260 ms`.
+  - **Batería definitiva secuencial de cierre (`12/12` PASS, `gemini-dos`):**
+
+| # | Gate / Comando | Resultado verificado |
+|---|---|---|
+| 1 | `node scripts/lint-codebase.mjs` | **PASS** · **`822` archivos / `0` violaciones** (*ratchet* `6,522`; `6/7` reglas estructurales en **`0`**) |
+| 2 | `node --test scripts/tests/*.mjs` | **PASS** · **`21/21`** (`912.88 ms`) |
+| 3 | `node scripts/check-no-demo-prod.mjs` | **PASS** |
+| 4 | `node scripts/check-no-secrets.mjs` | **PASS** · **`8,373` archivos** / `0` secretos |
+| 5 | `node scripts/check-prod-readiness.mjs` | **PASS** · **`12` OK, `0` errores** (`28` migraciones `0000..0027`, `shell-index.json` `57` competencias) |
+| 6 | `pnpm run eval:cortex` | **PASS** · **`24/24`** (`8/8` válidos, `16/16` adversariales, `24/24` fallbacks) |
+| 7 | `pnpm run eval:alerts` | **PASS** · **`16/16`** (`13/13` accept, `3/3` reject) |
+| 8 | `pnpm -r --workspace-concurrency=1 typecheck` | **PASS** · **`11/11` paquetes con `typecheck`** (`packages/*` + `apps/web`) |
+| 9 | `pnpm -r --workspace-concurrency=1 test` | **PASS** · **`11/11` paquetes con `test`** (`222` archivos passed / `2` skipped · **`2,001` passed / `25` skipped**, incl. `65/65` archivos / `443/443` tests en `@pitchlab/web` y `16/16` / `91/91` en `@pitchlab/db`) |
+| 10 | `pnpm build` | **PASS** · **`9.0s`**, `25/25` estáticas, First Load JS shared **`104 kB`**, Middleware **`36.7 kB`** |
+| 11 | `STORYBOOK_DISABLE_TELEMETRY=1 pnpm build-storybook` | **PASS** · **`4,507` módulos en `16.94s`**, **`0` fallos** |
+| 12 | `pnpm e2e` (`desktop` + `mobile`) | **PASS** · **`83 passed | 1 skipped | 0 failed`** (`84` total, **`16.8m`**, Axe WCAG 2.1 AA oscuro/claro PASS) |
+
   - Pendiente únicamente autorización explícita para `git push` de `gemini-dos`.
