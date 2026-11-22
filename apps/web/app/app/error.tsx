@@ -1,7 +1,8 @@
 "use client";
 
-import React, { useEffect } from "react";
+import React from "react";
 import { BrandLogo } from "@pitchlab/ui/brand-logo";
+import { useSafeEffect } from "@pitchlab/ui/hooks";
 
 const IS_DEV = process.env.NODE_ENV !== "production";
 
@@ -12,7 +13,7 @@ export default function ClubErrorPage({
   error: Error & { digest?: string };
   reset: () => void;
 }): React.JSX.Element {
-  useEffect(() => {
+  useSafeEffect(() => {
     console.error("[error club]", error);
   }, [error]);
 

@@ -1,7 +1,8 @@
 "use client";
 
-import React, { useEffect } from "react";
+import React from "react";
 import { BrandLogo } from "@pitchlab/ui/brand-logo";
+import { useSafeEffect } from "@pitchlab/ui/hooks";
 
 export default function PublicErrorPage({
   error,
@@ -10,7 +11,7 @@ export default function PublicErrorPage({
   error: Error & { digest?: string };
   reset: () => void;
 }): React.JSX.Element {
-  useEffect(() => {
+  useSafeEffect(() => {
     console.error("[error público]", error);
   }, [error]);
 

@@ -1,6 +1,7 @@
 "use client";
 
-import React, { useEffect } from "react";
+import React from "react";
+import { useSafeEffect } from "@pitchlab/ui/hooks";
 
 export default function GlobalErrorPage({
   error,
@@ -9,7 +10,7 @@ export default function GlobalErrorPage({
   error: Error & { digest?: string };
   reset: () => void;
 }): React.JSX.Element {
-  useEffect(() => {
+  useSafeEffect(() => {
     console.error("[error global]", error);
   }, [error]);
 

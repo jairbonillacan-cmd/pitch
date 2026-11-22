@@ -1,10 +1,11 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { resolvePersonPhotoUrl } from "@pitchlab/sports-assets";
 import { usePackIconBase } from "../../../pack-icon-theme";
 import { useEmblemSurface } from "../../../sports";
 import { ProgressiveImage } from "../../components/ProgressiveImage";
+import { useSafeEffect } from "../../hooks";
 
 const EXTERNAL_BZZOIRO_IMG_RE = /^https:\/\/sports\.bzzoiro\.com\/img\//i;
 
@@ -52,7 +53,7 @@ export function PersonAvatar({
     primaryUrl ? "primary" : secondaryUrl ? "secondary" : "icon",
   );
 
-  useEffect(() => {
+  useSafeEffect(() => {
     setStage(primaryUrl ? "primary" : secondaryUrl ? "secondary" : "icon");
   }, [primaryUrl, secondaryUrl]);
 

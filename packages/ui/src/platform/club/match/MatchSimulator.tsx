@@ -1,8 +1,9 @@
 "use client";
 
-import React, { useCallback, useEffect, useId, useMemo, useRef, useState } from "react";
-import { sportHasDraw, sportScoringUnit } from "@pitchlab/contracts";
+import React, { useCallback, useId, useMemo, useRef, useState } from "react";
+import { parseStrictFiniteNumber, sportHasDraw, sportScoringUnit } from "@pitchlab/contracts";
 import { MaestroIcon } from "../../components/MaestroPrimitives";
+import { useSafeEffect } from "../../hooks";
 import { normalCdf } from "../../spacetime-markets";
 import type { PlatformGame } from "../../types";
 import {
@@ -141,7 +142,7 @@ function MatchSimulatorInner({
     setRunning(false);
   }, []);
 
-  useEffect(
+  useSafeEffect(
     () => () => {
       if (raf.current !== null) cancelAnimationFrame(raf.current);
       if (timer.current !== null) window.clearInterval(timer.current);
@@ -150,7 +151,7 @@ function MatchSimulatorInner({
   );
 
   // Al cambiar de partido, reinicia el escenario y cancela corridas previas.
-  useEffect(() => {
+  useSafeEffect(() => {
     cancelPending();
     setHomeAdjPct(0);
     setAwayAdjPct(0);
@@ -351,7 +352,10 @@ function MatchSimulatorInner({
               step={ADJ_STEP_PCT}
               value={homeAdjPct}
               aria-valuetext={`${game.home.shortName}: ${simInput.homeExpected.toFixed(unit.decimals)} ${unitPlural} (${signedPctLabel(homeAdjPct)})`}
-              onChange={(e) => handleAdjustHome(Number(e.target.value))}
+              onChange={(e) => {
+                const parsed = parseStrictFiniteNumber(e.target.value);
+                if (parsed !== null) handleAdjustHome(parsed);
+              }}
               className="w-full min-h-11 cursor-pointer touch-manipulation"
               style={{ accentColor: "var(--pl-brand)" }}
             />
@@ -374,7 +378,10 @@ function MatchSimulatorInner({
               step={ADJ_STEP_PCT}
               value={awayAdjPct}
               aria-valuetext={`${game.away.shortName}: ${simInput.awayExpected.toFixed(unit.decimals)} ${unitPlural} (${signedPctLabel(awayAdjPct)})`}
-              onChange={(e) => handleAdjustAway(Number(e.target.value))}
+              onChange={(e) => {
+                const parsed = parseStrictFiniteNumber(e.target.value);
+                if (parsed !== null) handleAdjustAway(parsed);
+              }}
               className="w-full min-h-11 cursor-pointer touch-manipulation"
               style={{ accentColor: "var(--pl-info)" }}
             />

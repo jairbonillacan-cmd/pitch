@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useId, useMemo, useRef, useState } from "react";
+import React, { useId, useMemo, useRef, useState } from "react";
 import type { LiveMatchDetail } from "@pitchlab/contracts";
 import { PBar, TeamBadge } from "../../../sports";
 import {
@@ -17,6 +17,7 @@ import { AtomicLineupPitch } from "../../atomic/AtomicLineupPitch";
 import { AtomicShotmapPitch, type AtomicShotItem } from "../../atomic/AtomicShotmapPitch";
 import { MaestroIcon } from "../../components/MaestroPrimitives";
 import { RefereeRigorBadge } from "../../components/RefereeRigorBadge";
+import { useSafeEffect } from "../../hooks";
 import { useLiveMatch } from "../../live/live-store";
 import { formatPctEs } from "../../notifications";
 import {
@@ -149,7 +150,7 @@ export function PreMatchModule({
     stickyFrozenRef.current = null;
   }
 
-  useEffect(() => {
+  useSafeEffect(() => {
     const stored = readClientFrozenPick(game.id);
     if (stored) {
       stickyFrozenRef.current = stored;
@@ -160,7 +161,7 @@ export function PreMatchModule({
   }, [game.id]);
 
   // En vivo actualiza el reloj cada 30 s para sellar puntualmente al cruzar T - 60 min.
-  useEffect(() => {
+  useSafeEffect(() => {
     if (nowProp !== undefined || game.status === "FT") return;
     setLiveNowMs(Date.now());
     const interval = window.setInterval(() => {
@@ -211,7 +212,7 @@ export function PreMatchModule({
     stickyFrozenRef.current = freeze.snapshotToPersist;
   }
 
-  useEffect(() => {
+  useSafeEffect(() => {
     if (!freeze.isFrozen || !freeze.snapshotToPersist) return;
     const saved = saveClientFrozenPick(freeze.snapshotToPersist);
     stickyFrozenRef.current = saved;

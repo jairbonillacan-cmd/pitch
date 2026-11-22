@@ -1,11 +1,12 @@
 "use client";
 
-import React, { useEffect, useMemo, useRef, useState } from "react";
+import React, { useMemo, useRef, useState } from "react";
 import type { LeagueId } from "@pitchlab/contracts";
 import { LeagueBadge } from "../../../sports";
 import { formatOddsValue } from "../../access-guard";
 import { MaestroIcon } from "../../components/MaestroPrimitives";
 import { ConfirmActionDialog } from "../../components/PlatformOverlays";
+import { useSafeEffect } from "../../hooks";
 import {
   assessParlayRisk,
   buildSmartAutoParlay,
@@ -70,14 +71,14 @@ export function HomeParlayHubCard({
   const dailyPanelRef = useRef<HTMLDivElement | null>(null);
   const riskHint = RISKS.find((r) => r.id === risk)?.hint ?? "";
 
-  useEffect(() => {
+  useSafeEffect(() => {
     if (legs.length > prevLegCountRef.current) {
       setActiveTab("custom");
     }
     prevLegCountRef.current = legs.length;
   }, [legs.length]);
 
-  useEffect(() => {
+  useSafeEffect(() => {
     const customEl = customPanelRef.current;
     const dailyEl = dailyPanelRef.current;
     const onCustomMatch = () => setActiveTab("custom");
@@ -89,6 +90,19 @@ export function HomeParlayHubCard({
       dailyEl?.removeEventListener("beforematch", onDailyMatch);
     };
   }, []);
+
+  useSafeEffect(() => {
+    const customEl = customPanelRef.current;
+    const dailyEl = dailyPanelRef.current;
+    if (customEl) {
+      if (activeTab !== "custom") customEl.setAttribute("hidden", "until-found");
+      else customEl.removeAttribute("hidden");
+    }
+    if (dailyEl) {
+      if (activeTab !== "daily") dailyEl.setAttribute("hidden", "until-found");
+      else dailyEl.removeAttribute("hidden");
+    }
+  }, [activeTab]);
 
   const openGamesCount = useMemo(
     () => visibleGames.filter((g) => g.status !== "FT" && g.status !== "LIVE").length,
@@ -250,9 +264,7 @@ export function HomeParlayHubCard({
         role="tabpanel"
         aria-labelledby="parlay-hub-tab-custom"
         className="pl-parlay-hub-panel"
-        {...(activeTab !== "custom"
-          ? ({ hidden: "until-found" } as unknown as React.HTMLAttributes<HTMLDivElement>)
-          : {})}
+        hidden={activeTab !== "custom"}
       >
         <div className="pl-parlay-hub-panel-body">
           <div className="flex items-center justify-between gap-2">
@@ -438,9 +450,7 @@ export function HomeParlayHubCard({
         role="tabpanel"
         aria-labelledby="parlay-hub-tab-daily"
         className="pl-parlay-hub-panel"
-        {...(activeTab !== "daily"
-          ? ({ hidden: "until-found" } as unknown as React.HTMLAttributes<HTMLDivElement>)
-          : {})}
+        hidden={activeTab !== "daily"}
       >
         <div className="pl-parlay-hub-panel-body">
           <OfficialDailyParlayCard

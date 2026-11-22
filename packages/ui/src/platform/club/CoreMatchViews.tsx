@@ -1,6 +1,6 @@
 "use client";
 
-import React, { Suspense, lazy, useEffect, useId, useMemo, useRef, useState } from "react";
+import React, { Suspense, lazy, useId, useMemo, useRef, useState } from "react";
 import {
   COMPETITION_BY_ID,
   canonicalGameHref,
@@ -3588,7 +3588,7 @@ export function MatchStudioClubView({
   const [visitedTabs, setVisitedTabs] = useState<ReadonlySet<MatchTabKey>>(
     () => new Set([activeTab]),
   );
-  useEffect(() => {
+  useSafeEffect(() => {
     setVisitedTabs((prev) => (prev.has(activeTab) ? prev : new Set([...prev, activeTab])));
   }, [activeTab]);
   const isTabMounted = (key: MatchTabKey) => activeTab === key || visitedTabs.has(key);
@@ -3619,7 +3619,7 @@ export function MatchStudioClubView({
     return detail && base.id === gameId ? { ...base, ...detail } : base;
   }, [dataset.games, gameId, leagueId, detail]);
 
-  useEffect(() => {
+  useSafeEffect(() => {
     void loadMatchSocialPosts(game.id);
   }, [game.id, loadMatchSocialPosts]);
 
