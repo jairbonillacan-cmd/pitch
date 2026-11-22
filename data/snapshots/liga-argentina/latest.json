@@ -4,8 +4,8 @@
   "logoUrl": "https://sports.bzzoiro.com/img/league/85/?bg=transparent",
   "season": "liga-argentina-2026",
   "seasonLabel": "2026",
-  "periodLabel": "Clausura, Group B · Matchday 16",
-  "updatedAt": "2026-11-22T19:27:07.879Z",
+  "periodLabel": "Clausura, Group A · Matchday 16",
+  "updatedAt": "2026-11-22T21:56:46.653Z",
   "source": "pitchlab-football-v2",
   "provenance": "derived",
   "isDemo": false,
@@ -18,8 +18,8 @@
       "forPerGame": 1.4375,
       "againstPerGame": 1.5,
       "gamesPlayed": 16,
-      "adjustedFor": 1.2747968270425765,
-      "adjustedAgainst": 1.3565559364077127
+      "adjustedFor": 1.2797198011462525,
+      "adjustedAgainst": 1.3522161949170615
     },
     "liga-argentina.argentinos-juniors": {
       "teamId": "liga-argentina.argentinos-juniors",
@@ -29,8 +29,8 @@
       "forPerGame": 1.2352941176470589,
       "againstPerGame": 0.9411764705882353,
       "gamesPlayed": 17,
-      "adjustedFor": 1.1363387226682,
-      "adjustedAgainst": 0.9583455491614045
+      "adjustedFor": 1.1407141998574406,
+      "adjustedAgainst": 0.9559075480624
     },
     "liga-argentina.atletico-belgrano": {
       "teamId": "liga-argentina.atletico-belgrano",
@@ -40,19 +40,19 @@
       "forPerGame": 1.0588235294117647,
       "againstPerGame": 0.9411764705882353,
       "gamesPlayed": 17,
-      "adjustedFor": 1.0141907900019156,
-      "adjustedAgainst": 0.9478235319496628
+      "adjustedFor": 1.0184977467364766,
+      "adjustedAgainst": 0.9459226269107153
     },
     "liga-argentina.rosario-central": {
       "teamId": "liga-argentina.rosario-central",
       "name": "Rosario Central",
       "shortName": "Rosario Central",
       "code": "ROS",
-      "forPerGame": 1.625,
-      "againstPerGame": 0.75,
-      "gamesPlayed": 16,
-      "adjustedFor": 1.441889714739279,
-      "adjustedAgainst": 0.81522539441307
+      "forPerGame": 1.7058823529411764,
+      "againstPerGame": 0.7647058823529411,
+      "gamesPlayed": 17,
+      "adjustedFor": 1.5181784886425909,
+      "adjustedAgainst": 0.825343289691354
     },
     "liga-argentina.defensa-y-justicia": {
       "teamId": "liga-argentina.defensa-y-justicia",
@@ -62,8 +62,8 @@
       "forPerGame": 1.2352941176470589,
       "againstPerGame": 0.9411764705882353,
       "gamesPlayed": 17,
-      "adjustedFor": 1.1798133044255115,
-      "adjustedAgainst": 0.93275620390935
+      "adjustedFor": 1.1770977436033883,
+      "adjustedAgainst": 0.9352105573305743
     },
     "liga-argentina.aldosivi": {
       "teamId": "liga-argentina.aldosivi",
@@ -73,19 +73,19 @@
       "forPerGame": 1,
       "againstPerGame": 1.625,
       "gamesPlayed": 16,
-      "adjustedFor": 0.9708903419438385,
-      "adjustedAgainst": 1.4552684501511528
+      "adjustedFor": 0.9747787196902469,
+      "adjustedAgainst": 1.4512378180735828
     },
     "liga-argentina.gimnasia-y-esgrima-mendoza": {
       "teamId": "liga-argentina.gimnasia-y-esgrima-mendoza",
       "name": "Gimnasia y Esgrima Mendoza",
       "shortName": "Gimnasia y Esgrima Men",
       "code": "GIM",
-      "forPerGame": 1.125,
-      "againstPerGame": 1.0625,
-      "gamesPlayed": 16,
-      "adjustedFor": 1.065532641648648,
-      "adjustedAgainst": 1.0099878907034303
+      "forPerGame": 1.1176470588235294,
+      "againstPerGame": 1.1764705882352942,
+      "gamesPlayed": 17,
+      "adjustedFor": 1.0795515514243281,
+      "adjustedAgainst": 1.0913356548318798
     },
     "liga-argentina.central-cordoba": {
       "teamId": "liga-argentina.central-cordoba",
@@ -95,8 +95,8 @@
       "forPerGame": 0.75,
       "againstPerGame": 1.625,
       "gamesPlayed": 16,
-      "adjustedFor": 0.8404793155304182,
-      "adjustedAgainst": 1.468666276894876
+      "adjustedFor": 0.8390242049647957,
+      "adjustedAgainst": 1.472925874924487
     },
     "liga-argentina.velez-sarsfield": {
       "teamId": "liga-argentina.velez-sarsfield",
@@ -106,8 +106,8 @@
       "forPerGame": 1.5294117647058822,
       "againstPerGame": 1.0588235294117647,
       "gamesPlayed": 17,
-      "adjustedFor": 1.4496998112846908,
-      "adjustedAgainst": 1.0574745833278634
+      "adjustedFor": 1.4456719339488968,
+      "adjustedAgainst": 1.0600403774093836
     },
     "liga-argentina.instituto-cordoba": {
       "teamId": "liga-argentina.instituto-cordoba",
@@ -117,8 +117,8 @@
       "forPerGame": 1.625,
       "againstPerGame": 0.9375,
       "gamesPlayed": 16,
-      "adjustedFor": 1.5046641237795646,
-      "adjustedAgainst": 0.9887741996392969
+      "adjustedFor": 1.501270678265535,
+      "adjustedAgainst": 0.9916255582801997
     },
     "liga-argentina.racing": {
       "teamId": "liga-argentina.racing",
@@ -128,8 +128,8 @@
       "forPerGame": 1,
       "againstPerGame": 1.5,
       "gamesPlayed": 16,
-      "adjustedFor": 0.9806056853285124,
-      "adjustedAgainst": 1.366943173252519
+      "adjustedFor": 0.9843737975847582,
+      "adjustedAgainst": 1.3632030350827329
     },
     "liga-argentina.gimnasia-y-esgrima": {
       "teamId": "liga-argentina.gimnasia-y-esgrima",
@@ -139,8 +139,8 @@
       "forPerGame": 1.5625,
       "againstPerGame": 1.25,
       "gamesPlayed": 16,
-      "adjustedFor": 1.3990393310603477,
-      "adjustedAgainst": 1.1882821658939424
+      "adjustedFor": 1.3995694748533531,
+      "adjustedAgainst": 1.1837576460931136
     },
     "liga-argentina.huracan": {
       "teamId": "liga-argentina.huracan",
@@ -150,8 +150,8 @@
       "forPerGame": 0.875,
       "againstPerGame": 1,
       "gamesPlayed": 16,
-      "adjustedFor": 0.8710564643591641,
-      "adjustedAgainst": 1.0310242714591393
+      "adjustedFor": 0.874424386084678,
+      "adjustedAgainst": 1.02741701446923
     },
     "liga-argentina.banfield": {
       "teamId": "liga-argentina.banfield",
@@ -161,8 +161,8 @@
       "forPerGame": 1.125,
       "againstPerGame": 1.5625,
       "gamesPlayed": 16,
-      "adjustedFor": 1.1219874891655646,
-      "adjustedAgainst": 1.4407186066294089
+      "adjustedFor": 1.1266525357400523,
+      "adjustedAgainst": 1.4362919314858245
     },
     "liga-argentina.atletico-platense": {
       "teamId": "liga-argentina.atletico-platense",
@@ -172,8 +172,8 @@
       "forPerGame": 1.125,
       "againstPerGame": 1.25,
       "gamesPlayed": 16,
-      "adjustedFor": 1.1395891668823095,
-      "adjustedAgainst": 1.1487670116744004
+      "adjustedFor": 1.136721213580621,
+      "adjustedAgainst": 1.1518301370335058
     },
     "liga-argentina.atletico-union-santa-fe": {
       "teamId": "liga-argentina.atletico-union-santa-fe",
@@ -183,8 +183,8 @@
       "forPerGame": 1.5,
       "againstPerGame": 1.5,
       "gamesPlayed": 16,
-      "adjustedFor": 1.3753347116997476,
-      "adjustedAgainst": 1.350951116640796
+      "adjustedFor": 1.3730252388100792,
+      "adjustedAgainst": 1.3547397530793301
     },
     "liga-argentina.estudiantes-rio-cuarto": {
       "teamId": "liga-argentina.estudiantes-rio-cuarto",
@@ -194,8 +194,8 @@
       "forPerGame": 0.625,
       "againstPerGame": 1.4375,
       "gamesPlayed": 16,
-      "adjustedFor": 0.7040405363621792,
-      "adjustedAgainst": 1.3213561718849067
+      "adjustedFor": 0.7067863234163666,
+      "adjustedAgainst": 1.3169790657868008
     },
     "liga-argentina.tigre": {
       "teamId": "liga-argentina.tigre",
@@ -205,8 +205,8 @@
       "forPerGame": 1,
       "againstPerGame": 1,
       "gamesPlayed": 16,
-      "adjustedFor": 0.9561195274524653,
-      "adjustedAgainst": 0.9917057173114011
+      "adjustedFor": 0.9598929398451156,
+      "adjustedAgainst": 0.9888610502802211
     },
     "liga-argentina.newell-s-old-boys": {
       "teamId": "liga-argentina.newell-s-old-boys",
@@ -216,8 +216,8 @@
       "forPerGame": 1,
       "againstPerGame": 0.8125,
       "gamesPlayed": 16,
-      "adjustedFor": 0.98539561232514,
-      "adjustedAgainst": 0.8159474889708336
+      "adjustedFor": 0.9825984235702724,
+      "adjustedAgainst": 0.8157220070401593
     },
     "liga-argentina.talleres": {
       "teamId": "liga-argentina.talleres",
@@ -227,8 +227,8 @@
       "forPerGame": 1.0625,
       "againstPerGame": 1.4375,
       "gamesPlayed": 16,
-      "adjustedFor": 1.0763957374701252,
-      "adjustedAgainst": 1.2752797001274867
+      "adjustedFor": 1.0731270943578894,
+      "adjustedAgainst": 1.2749216498582312
     },
     "liga-argentina.river-plate": {
       "teamId": "liga-argentina.river-plate",
@@ -238,8 +238,8 @@
       "forPerGame": 1.3125,
       "againstPerGame": 0.875,
       "gamesPlayed": 16,
-      "adjustedFor": 1.2127137264201577,
-      "adjustedAgainst": 0.8669019841604659
+      "adjustedFor": 1.2176598481877263,
+      "adjustedAgainst": 0.8647865862576559
     },
     "liga-argentina.barracas-central": {
       "teamId": "liga-argentina.barracas-central",
@@ -249,8 +249,8 @@
       "forPerGame": 1.0588235294117647,
       "againstPerGame": 0.7647058823529411,
       "gamesPlayed": 17,
-      "adjustedFor": 1.0262014475555785,
-      "adjustedAgainst": 0.8207532570115353
+      "adjustedFor": 1.030182360291677,
+      "adjustedAgainst": 0.8187664586979654
     },
     "liga-argentina.lanus": {
       "teamId": "liga-argentina.lanus",
@@ -260,8 +260,8 @@
       "forPerGame": 1.1875,
       "againstPerGame": 0.75,
       "gamesPlayed": 16,
-      "adjustedFor": 1.1319059289456666,
-      "adjustedAgainst": 0.7780909040761156
+      "adjustedFor": 1.1287526197246955,
+      "adjustedAgainst": 0.7801962014931509
     },
     "liga-argentina.san-lorenzo": {
       "teamId": "liga-argentina.san-lorenzo",
@@ -271,8 +271,8 @@
       "forPerGame": 0.5625,
       "againstPerGame": 1,
       "gamesPlayed": 16,
-      "adjustedFor": 0.6708883004036686,
-      "adjustedAgainst": 0.9941136393342852
+      "adjustedFor": 0.6695291446278254,
+      "adjustedAgainst": 0.9971269069260147
     },
     "liga-argentina.atletico-tucuman": {
       "teamId": "liga-argentina.atletico-tucuman",
@@ -282,8 +282,8 @@
       "forPerGame": 1,
       "againstPerGame": 1.0625,
       "gamesPlayed": 16,
-      "adjustedFor": 0.979673259130948,
-      "adjustedAgainst": 1.0597352753149534
+      "adjustedFor": 0.9835928080369037,
+      "adjustedAgainst": 1.0563931365374362
     },
     "liga-argentina.independiente-rivadavia": {
       "teamId": "liga-argentina.independiente-rivadavia",
@@ -293,8 +293,8 @@
       "forPerGame": 1.3125,
       "againstPerGame": 1.5,
       "gamesPlayed": 16,
-      "adjustedFor": 1.2330993145802973,
-      "adjustedAgainst": 1.4048458343772066
+      "adjustedFor": 1.2334487578930156,
+      "adjustedAgainst": 1.3988949558881323
     },
     "liga-argentina.estudiantes-la-plata": {
       "teamId": "liga-argentina.estudiantes-la-plata",
@@ -304,8 +304,8 @@
       "forPerGame": 1.3125,
       "againstPerGame": 1.375,
       "gamesPlayed": 16,
-      "adjustedFor": 1.2595394008459435,
-      "adjustedAgainst": 1.259423149111738
+      "adjustedFor": 1.2563347767152842,
+      "adjustedAgainst": 1.2629802313827807
     },
     "liga-argentina.independiente": {
       "teamId": "liga-argentina.independiente",
@@ -315,8 +315,8 @@
       "forPerGame": 1,
       "againstPerGame": 1,
       "gamesPlayed": 17,
-      "adjustedFor": 0.9969186849071036,
-      "adjustedAgainst": 0.9794986210608003
+      "adjustedFor": 0.9951932757622387,
+      "adjustedAgainst": 0.9822162788724055
     },
     "liga-argentina.deportivo-riestra": {
       "teamId": "liga-argentina.deportivo-riestra",
@@ -326,8 +326,8 @@
       "forPerGame": 0.6875,
       "againstPerGame": 1.1875,
       "gamesPlayed": 16,
-      "adjustedFor": 0.7567078370898535,
-      "adjustedAgainst": 1.131181566361633
+      "adjustedFor": 0.7550722924490129,
+      "adjustedAgainst": 1.1344079368404028
     },
     "liga-argentina.boca-juniors": {
       "teamId": "liga-argentina.boca-juniors",
@@ -337,46 +337,11 @@
       "forPerGame": 1.5,
       "againstPerGame": 0.875,
       "gamesPlayed": 16,
-      "adjustedFor": 1.3889372226704189,
-      "adjustedAgainst": 0.867942146539465
+      "adjustedFor": 1.3860600411711272,
+      "adjustedAgainst": 0.8703461839381248
     }
   },
   "games": [
-    {
-      "id": "liga-argentina-2026-11-06-barracas-centr-racing-9uq5rn",
-      "league": "liga-argentina",
-      "season": "liga-argentina-2026",
-      "week": 16,
-      "round": "Clausura, Group B · Matchday 16",
-      "phase": "Group stage",
-      "startTime": "2026-11-06T18:00:00.000Z",
-      "status": "final",
-      "home": {
-        "id": "liga-argentina.barracas-central",
-        "league": "liga-argentina",
-        "name": "Barracas Central",
-        "shortName": "Barracas Central",
-        "code": "BAR",
-        "logoUrl": "https://sports.bzzoiro.com/img/team/734/?bg=transparent"
-      },
-      "away": {
-        "id": "liga-argentina.racing",
-        "league": "liga-argentina",
-        "name": "Racing Club",
-        "shortName": "Racing",
-        "code": "RAC",
-        "logoUrl": "https://sports.bzzoiro.com/img/team/733/?bg=transparent"
-      },
-      "venue": "Estadio Claudio Chiqui Tapia, Barracas",
-      "referee": "Dario Herrera",
-      "neutralSite": false,
-      "result": {
-        "home": 2,
-        "away": 0,
-        "observedAt": "2026-11-22T19:27:07.879Z",
-        "source": "pitchlab-feed"
-      }
-    },
     {
       "id": "liga-argentina-2026-11-06-san-lorenzo-atletico-plate-3pn0mo",
       "league": "liga-argentina",
@@ -408,7 +373,7 @@
       "result": {
         "home": 0,
         "away": 2,
-        "observedAt": "2026-11-22T19:27:07.879Z",
+        "observedAt": "2026-11-22T21:56:46.653Z",
         "source": "pitchlab-feed"
       }
     },
@@ -443,7 +408,7 @@
       "result": {
         "home": 2,
         "away": 0,
-        "observedAt": "2026-11-22T19:27:07.879Z",
+        "observedAt": "2026-11-22T21:56:46.653Z",
         "source": "pitchlab-feed"
       }
     },
@@ -478,7 +443,7 @@
       "result": {
         "home": 2,
         "away": 1,
-        "observedAt": "2026-11-22T19:27:07.879Z",
+        "observedAt": "2026-11-22T21:56:46.653Z",
         "source": "pitchlab-feed"
       }
     },
@@ -513,7 +478,7 @@
       "result": {
         "home": 1,
         "away": 0,
-        "observedAt": "2026-11-22T19:27:07.879Z",
+        "observedAt": "2026-11-22T21:56:46.653Z",
         "source": "pitchlab-feed"
       }
     },
@@ -548,7 +513,7 @@
       "result": {
         "home": 2,
         "away": 2,
-        "observedAt": "2026-11-22T19:27:07.879Z",
+        "observedAt": "2026-11-22T21:56:46.653Z",
         "source": "pitchlab-feed"
       }
     },
@@ -583,7 +548,7 @@
       "result": {
         "home": 1,
         "away": 1,
-        "observedAt": "2026-11-22T19:27:07.879Z",
+        "observedAt": "2026-11-22T21:56:46.653Z",
         "source": "pitchlab-feed"
       }
     },
@@ -618,7 +583,7 @@
       "result": {
         "home": 1,
         "away": 1,
-        "observedAt": "2026-11-22T19:27:07.879Z",
+        "observedAt": "2026-11-22T21:56:46.653Z",
         "source": "pitchlab-feed"
       }
     },
@@ -653,7 +618,7 @@
       "result": {
         "home": 2,
         "away": 0,
-        "observedAt": "2026-11-22T19:27:07.879Z",
+        "observedAt": "2026-11-22T21:56:46.653Z",
         "source": "pitchlab-feed"
       }
     },
@@ -688,7 +653,7 @@
       "result": {
         "home": 1,
         "away": 0,
-        "observedAt": "2026-11-22T19:27:07.879Z",
+        "observedAt": "2026-11-22T21:56:46.653Z",
         "source": "pitchlab-feed"
       }
     },
@@ -723,7 +688,7 @@
       "result": {
         "home": 0,
         "away": 2,
-        "observedAt": "2026-11-22T19:27:07.879Z",
+        "observedAt": "2026-11-22T21:56:46.653Z",
         "source": "pitchlab-feed"
       }
     },
@@ -758,7 +723,7 @@
       "result": {
         "home": 2,
         "away": 2,
-        "observedAt": "2026-11-22T19:27:07.879Z",
+        "observedAt": "2026-11-22T21:56:46.653Z",
         "source": "pitchlab-feed"
       }
     },
@@ -793,7 +758,7 @@
       "result": {
         "home": 1,
         "away": 1,
-        "observedAt": "2026-11-22T19:27:07.879Z",
+        "observedAt": "2026-11-22T21:56:46.653Z",
         "source": "pitchlab-feed"
       }
     },
@@ -828,7 +793,7 @@
       "result": {
         "home": 1,
         "away": 1,
-        "observedAt": "2026-11-22T19:27:07.879Z",
+        "observedAt": "2026-11-22T21:56:46.653Z",
         "source": "pitchlab-feed"
       }
     },
@@ -863,7 +828,7 @@
       "result": {
         "home": 0,
         "away": 1,
-        "observedAt": "2026-11-22T19:27:07.879Z",
+        "observedAt": "2026-11-22T21:56:46.653Z",
         "source": "pitchlab-feed"
       }
     },
@@ -898,7 +863,7 @@
       "result": {
         "home": 1,
         "away": 2,
-        "observedAt": "2026-11-22T19:27:07.879Z",
+        "observedAt": "2026-11-22T21:56:46.653Z",
         "source": "pitchlab-feed"
       }
     },
@@ -910,7 +875,7 @@
       "round": "Round of 16",
       "phase": "Round of 16",
       "startTime": "2026-11-22T19:00:00.000Z",
-      "status": "scheduled",
+      "status": "final",
       "home": {
         "id": "liga-argentina.rosario-central",
         "league": "liga-argentina",
@@ -929,7 +894,13 @@
       },
       "venue": "Gigante de Arroyito, Rosario",
       "referee": "Leandro Rey Hilfer",
-      "neutralSite": false
+      "neutralSite": false,
+      "result": {
+        "home": 3,
+        "away": 1,
+        "observedAt": "2026-11-22T21:56:46.653Z",
+        "source": "pitchlab-feed"
+      }
     },
     {
       "id": "liga-argentina-2026-11-22-river-plate-lanus-tk1xbd",
@@ -1048,458 +1019,6 @@
     }
   ],
   "analyses": {
-    "liga-argentina-2026-11-06-barracas-centr-racing-9uq5rn": {
-      "game": "liga-argentina-2026-11-06-barracas-centr-racing-9uq5rn",
-      "model": {
-        "id": "pitchlab-statistical-liga-argentina",
-        "version": "2.0.0",
-        "status": "candidate",
-        "label": "Modelo PitchLab · en validación"
-      },
-      "projection": {
-        "home": 1.5306666065342827,
-        "away": 0.786011817077483,
-        "total": 2.3166784236117657,
-        "margin": 0.7446547894567996
-      },
-      "x12": [
-        0.551571164112287,
-        0.25449788964048187,
-        0.19393094624723178
-      ],
-      "probabilities": [
-        {
-          "market": "h2h",
-          "selection": "Barracas Central gana",
-          "p": 0.551571164112287,
-          "fairOdds": 1.8130026822729683
-        },
-        {
-          "market": "h2h",
-          "selection": "Empate",
-          "p": 0.25449788964048187,
-          "fairOdds": 3.929305666984731
-        },
-        {
-          "market": "h2h",
-          "selection": "Racing gana",
-          "p": 0.19393094624723178,
-          "fairOdds": 5.156474607849103
-        },
-        {
-          "market": "double_chance",
-          "selection": "Barracas Central o empate",
-          "p": 0.8060690537527688,
-          "fairOdds": 1.2405885021194625
-        },
-        {
-          "market": "double_chance",
-          "selection": "Racing o empate",
-          "p": 0.44842883588771365,
-          "fairOdds": 2.2300082420444514
-        },
-        {
-          "market": "double_chance",
-          "selection": "Sin empate",
-          "p": 0.7455021103595187,
-          "fairOdds": 1.3413778259027993
-        },
-        {
-          "market": "totals",
-          "selection": "Más de 1.5",
-          "line": 1.5,
-          "p": 0.6711940299543551,
-          "fairOdds": 1.4898821434213376
-        },
-        {
-          "market": "totals",
-          "selection": "Más de 2.5",
-          "line": 2.5,
-          "p": 0.40837875422850933,
-          "fairOdds": 2.4487072102689447
-        },
-        {
-          "market": "totals",
-          "selection": "Menos de 2.5",
-          "line": 2.5,
-          "p": 0.5916212457714907,
-          "fairOdds": 1.690270603274181
-        },
-        {
-          "market": "totals",
-          "selection": "Más de 3.5",
-          "line": 3.5,
-          "p": 0.20405180668811362,
-          "fairOdds": 4.90071622609285
-        },
-        {
-          "market": "totals",
-          "selection": "Menos de 3.5",
-          "line": 3.5,
-          "p": 0.7959481933118864,
-          "fairOdds": 1.2563631758985065
-        },
-        {
-          "market": "btts",
-          "selection": "Sí",
-          "p": 0.4247712468118421,
-          "fairOdds": 2.354208312134091
-        },
-        {
-          "market": "btts",
-          "selection": "No",
-          "p": 0.5752287531881579,
-          "fairOdds": 1.7384388288269361
-        },
-        {
-          "market": "team_totals",
-          "selection": "Barracas Central más de 1.5",
-          "line": 1.5,
-          "p": 0.4523852155118786,
-          "fairOdds": 2.210505484509456
-        },
-        {
-          "market": "team_totals",
-          "selection": "Barracas Central menos de 1.5",
-          "line": 1.5,
-          "p": 0.5476147844881214,
-          "fairOdds": 1.8261011724413945
-        },
-        {
-          "market": "team_totals",
-          "selection": "Racing más de 1.5",
-          "line": 1.5,
-          "p": 0.18618866682987312,
-          "fairOdds": 5.370896183029947
-        },
-        {
-          "market": "team_totals",
-          "selection": "Racing menos de 1.5",
-          "line": 1.5,
-          "p": 0.8138113331701269,
-          "fairOdds": 1.2287860333728609
-        },
-        {
-          "market": "correct_score",
-          "selection": "1–0",
-          "p": 0.15270410159831563,
-          "fairOdds": 6.548612575125685
-        },
-        {
-          "market": "correct_score",
-          "selection": "1–1",
-          "p": 0.11684914778230462,
-          "fairOdds": 8.558042732695375
-        },
-        {
-          "market": "correct_score",
-          "selection": "2–0",
-          "p": 0.1155076784947788,
-          "fairOdds": 8.657433107749648
-        }
-      ],
-      "marketGroups": [
-        {
-          "group": "Resultado",
-          "rows": [
-            {
-              "market": "h2h",
-              "selection": "home",
-              "label": "Barracas Central gana",
-              "p": 0.551571164112287,
-              "fairOdds": 1.8130026822729683
-            },
-            {
-              "market": "h2h",
-              "selection": "draw",
-              "label": "Empate",
-              "p": 0.25449788964048187,
-              "fairOdds": 3.929305666984731
-            },
-            {
-              "market": "h2h",
-              "selection": "away",
-              "label": "Racing gana",
-              "p": 0.19393094624723178,
-              "fairOdds": 5.156474607849103
-            }
-          ]
-        },
-        {
-          "group": "Doble oportunidad",
-          "rows": [
-            {
-              "market": "double_chance",
-              "selection": "1x",
-              "label": "Barracas Central o empate",
-              "p": 0.8060690537527688,
-              "fairOdds": 1.2405885021194625
-            },
-            {
-              "market": "double_chance",
-              "selection": "x2",
-              "label": "Racing o empate",
-              "p": 0.44842883588771365,
-              "fairOdds": 2.2300082420444514
-            },
-            {
-              "market": "double_chance",
-              "selection": "12",
-              "label": "Sin empate",
-              "p": 0.7455021103595187,
-              "fairOdds": 1.3413778259027993
-            }
-          ]
-        },
-        {
-          "group": "Goles totales",
-          "rows": [
-            {
-              "market": "totals",
-              "selection": "over_1.5",
-              "label": "Más de 1.5",
-              "line": 1.5,
-              "p": 0.6711940299543551,
-              "fairOdds": 1.4898821434213376
-            },
-            {
-              "market": "totals",
-              "selection": "over_2.5",
-              "label": "Más de 2.5",
-              "line": 2.5,
-              "p": 0.40837875422850933,
-              "fairOdds": 2.4487072102689447
-            },
-            {
-              "market": "totals",
-              "selection": "under_2.5",
-              "label": "Menos de 2.5",
-              "line": 2.5,
-              "p": 0.5916212457714907,
-              "fairOdds": 1.690270603274181
-            },
-            {
-              "market": "totals",
-              "selection": "over_3.5",
-              "label": "Más de 3.5",
-              "line": 3.5,
-              "p": 0.20405180668811362,
-              "fairOdds": 4.90071622609285
-            },
-            {
-              "market": "totals",
-              "selection": "under_3.5",
-              "label": "Menos de 3.5",
-              "line": 3.5,
-              "p": 0.7959481933118864,
-              "fairOdds": 1.2563631758985065
-            }
-          ]
-        },
-        {
-          "group": "Ambos anotan",
-          "rows": [
-            {
-              "market": "btts",
-              "selection": "yes",
-              "label": "Sí",
-              "p": 0.4247712468118421,
-              "fairOdds": 2.354208312134091
-            },
-            {
-              "market": "btts",
-              "selection": "no",
-              "label": "No",
-              "p": 0.5752287531881579,
-              "fairOdds": 1.7384388288269361
-            }
-          ]
-        },
-        {
-          "group": "Goles por equipo (1.5)",
-          "rows": [
-            {
-              "market": "team_totals",
-              "selection": "home_over",
-              "label": "Barracas Central más de 1.5",
-              "line": 1.5,
-              "p": 0.4523852155118786,
-              "fairOdds": 2.210505484509456
-            },
-            {
-              "market": "team_totals",
-              "selection": "home_under",
-              "label": "Barracas Central menos de 1.5",
-              "line": 1.5,
-              "p": 0.5476147844881214,
-              "fairOdds": 1.8261011724413945
-            },
-            {
-              "market": "team_totals",
-              "selection": "away_over",
-              "label": "Racing más de 1.5",
-              "line": 1.5,
-              "p": 0.18618866682987312,
-              "fairOdds": 5.370896183029947
-            },
-            {
-              "market": "team_totals",
-              "selection": "away_under",
-              "label": "Racing menos de 1.5",
-              "line": 1.5,
-              "p": 0.8138113331701269,
-              "fairOdds": 1.2287860333728609
-            }
-          ]
-        },
-        {
-          "group": "Marcador exacto (más probables)",
-          "rows": [
-            {
-              "market": "correct_score",
-              "selection": "1-0",
-              "label": "1–0",
-              "p": 0.15270410159831563,
-              "fairOdds": 6.548612575125685
-            },
-            {
-              "market": "correct_score",
-              "selection": "1-1",
-              "label": "1–1",
-              "p": 0.11684914778230462,
-              "fairOdds": 8.558042732695375
-            },
-            {
-              "market": "correct_score",
-              "selection": "2-0",
-              "label": "2–0",
-              "p": 0.1155076784947788,
-              "fairOdds": 8.657433107749648
-            }
-          ]
-        }
-      ],
-      "mostLikelyScore": {
-        "home": 1,
-        "away": 0,
-        "p": 0.15270410159831563
-      },
-      "factors": [
-        {
-          "key": "home_attack",
-          "label": "Ataque local",
-          "value": "1.29 goles/partido",
-          "detail": "6 % menos que la media · 16 partidos"
-        },
-        {
-          "key": "away_defense",
-          "label": "Defensa visitante",
-          "value": "1.37 concedidos/partido",
-          "detail": "27 % más que la media · 16 partidos"
-        },
-        {
-          "key": "away_attack",
-          "label": "Ataque visitante",
-          "value": "0.79 goles/partido",
-          "detail": "10 % menos que la media · ajustado por rival"
-        },
-        {
-          "key": "home_defense",
-          "label": "Defensa local",
-          "value": "0.87 concedidos/partido",
-          "detail": "20 % menos que la media · ajustado por rival"
-        },
-        {
-          "key": "home_advantage",
-          "label": "Localía",
-          "value": "×1.19",
-          "detail": "estimada de 240 partidos"
-        },
-        {
-          "key": "uncertainty",
-          "label": "Intervalo 90%",
-          "value": "goles 1.6–3.5",
-          "detail": "local 36%–75% · 240 partidos"
-        },
-        {
-          "key": "home_position",
-          "label": "Posición local",
-          "value": "10.º · 26 pts",
-          "detail": "de 30 equipos"
-        },
-        {
-          "key": "away_position",
-          "label": "Posición visitante",
-          "value": "25.º · 15 pts",
-          "detail": "de 30 equipos"
-        },
-        {
-          "key": "home_form",
-          "label": "Forma local",
-          "value": "G-G-E-G-E · 11 pts",
-          "detail": "10 goles a favor · 6 en contra"
-        },
-        {
-          "key": "away_form",
-          "label": "Forma visitante",
-          "value": "G-P-E-P-G · 7 pts",
-          "detail": "5 goles a favor · 6 en contra"
-        }
-      ],
-      "steps": [
-        "Sincronizando Liga Profesional Argentina · corte 6 nov 2026, 11:00",
-        "Fuerza ajustada por rival · BAR 0.94 / 0.80 · RAC 0.90 / 1.27",
-        "Ponderando 211.6 partidos por antigüedad y calidad del rival",
-        "Proyección de goles 1.53 – 0.79 · total 2.32",
-        "Simulando 121 marcadores con incertidumbre del ajuste",
-        "20 mercados listos · marcador proyectado 1–0"
-      ],
-      "inputsAsOf": "2026-11-06T17:00:00.000Z",
-      "publishedAt": "2026-11-06T17:00:00.000Z",
-      "source": "pitchlab-football-v2",
-      "projectedScore": {
-        "home": 1,
-        "away": 0,
-        "p": 0.15270410159831563
-      },
-      "insights": {
-        "why": [
-          "Se esperan 2.3 goles: 1.5 de Barracas Central y 0.8 de Racing.",
-          "Racing concede 27 % más que la media.",
-          "Barracas Central concede 20 % menos que la media."
-        ],
-        "restDays": {
-          "home": 5,
-          "away": 6
-        }
-      },
-      "matchContext": {
-        "referee": "Dario Herrera",
-        "refereeStats": {
-          "country": "Argentina",
-          "matches": 94,
-          "avgYellow": 5.53,
-          "avgRed": 0.31,
-          "avgFouls": 24.6,
-          "avgGoals": 2.05
-        },
-        "weather": {
-          "description": "clear",
-          "temperatureC": 22,
-          "windSpeedKmh": 50
-        },
-        "travelDistanceKm": 3,
-        "halfTimeScore": {
-          "home": 1,
-          "away": 0
-        },
-        "groupName": "Clausura, Group B",
-        "stageName": "Group stage",
-        "venueCity": "Barracas",
-        "venueCountry": "Argentina",
-        "venueCapacity": 12000
-      }
-    },
     "liga-argentina-2026-11-06-san-lorenzo-atletico-plate-3pn0mo": {
       "game": "liga-argentina-2026-11-06-san-lorenzo-atletico-plate-3pn0mo",
       "model": {
@@ -6445,11 +5964,11 @@
         "referee": "Leandro Rey Hilfer",
         "refereeStats": {
           "country": "Argentina",
-          "matches": 83,
-          "avgYellow": 4.84,
+          "matches": 84,
+          "avgYellow": 4.8,
           "avgRed": 0.18,
           "avgFouls": 24.4,
-          "avgGoals": 2.06
+          "avgGoals": 2.08
         },
         "weather": {
           "description": "cloudy",
@@ -8856,19 +8375,19 @@
         "referee": "Leandro Rey Hilfer",
         "refereeStats": {
           "country": "Argentina",
-          "matches": 83,
-          "avgYellow": 4.84,
+          "matches": 84,
+          "avgYellow": 4.8,
           "avgRed": 0.18,
           "avgFouls": 24.4,
-          "avgGoals": 2.06
+          "avgGoals": 2.08
         },
         "weather": {
-          "description": "rain",
+          "description": "clear",
           "temperatureC": 25,
           "windSpeedKmh": 40
         },
         "halfTimeScore": {
-          "home": 2,
+          "home": 3,
           "away": 0
         },
         "stageName": "Round of 16",
@@ -10808,13 +10327,13 @@
       "name": "Rosario Central",
       "shortName": "Rosario Central",
       "code": "ROS",
-      "played": 16,
-      "won": 10,
+      "played": 17,
+      "won": 11,
       "drawn": 4,
       "lost": 2,
-      "goalsFor": 26,
-      "goalsAgainst": 12,
-      "points": 34,
+      "goalsFor": 29,
+      "goalsAgainst": 13,
+      "points": 37,
       "form": [
         "W",
         "W",
@@ -11088,19 +10607,19 @@
       "name": "Gimnasia y Esgrima Mendoza",
       "shortName": "Gimnasia y Esgrima Men",
       "code": "GIM",
-      "played": 16,
+      "played": 17,
       "won": 6,
       "drawn": 4,
-      "lost": 6,
-      "goalsFor": 18,
-      "goalsAgainst": 17,
+      "lost": 7,
+      "goalsFor": 19,
+      "goalsAgainst": 20,
       "points": 22,
       "form": [
-        "W",
         "L",
         "L",
         "D",
-        "D"
+        "D",
+        "L"
       ]
     },
     {

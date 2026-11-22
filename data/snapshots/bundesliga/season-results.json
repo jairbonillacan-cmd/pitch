@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "league": "bundesliga",
   "season": "bundesliga-2026-27",
-  "updatedAt": "2026-11-20T19:06:37.907Z",
+  "updatedAt": "2026-11-22T22:03:53.979Z",
   "matches": [
     {
       "id": "bundesliga-espn-401884817",
@@ -753,10 +753,10 @@
       "neutralSite": false
     },
     {
-      "id": "bundesliga-2026-27-md9-hamburger-borussia-monchengladbach",
+      "id": "bundesliga-espn-401884739",
       "date": "2026-11-06",
-      "startTime": "2026-11-06T19:30:00Z",
-      "round": "Jornada 9",
+      "startTime": "2026-11-06T19:30Z",
+      "round": null,
       "homeTeam": "bundesliga.hamburger",
       "awayTeam": "bundesliga.borussia-monchengladbach",
       "homeScore": 3,
@@ -764,10 +764,10 @@
       "neutralSite": false
     },
     {
-      "id": "bundesliga-2026-27-md9-borussia-dortmund-elversberg",
+      "id": "bundesliga-espn-401884745",
       "date": "2026-11-07",
-      "startTime": "2026-11-07T14:30:00Z",
-      "round": "Jornada 9",
+      "startTime": "2026-11-07T14:30Z",
+      "round": null,
       "homeTeam": "bundesliga.borussia-dortmund",
       "awayTeam": "bundesliga.elversberg",
       "homeScore": 2,
@@ -775,10 +775,10 @@
       "neutralSite": false
     },
     {
-      "id": "bundesliga-2026-27-md9-mainz-bayern-munchen",
+      "id": "bundesliga-espn-401884740",
       "date": "2026-11-07",
-      "startTime": "2026-11-07T14:30:00Z",
-      "round": "Jornada 9",
+      "startTime": "2026-11-07T14:30Z",
+      "round": null,
       "homeTeam": "bundesliga.mainz",
       "awayTeam": "bundesliga.bayern-munchen",
       "homeScore": 1,
@@ -786,10 +786,10 @@
       "neutralSite": false
     },
     {
-      "id": "bundesliga-2026-27-md9-rb-leipzig-augsburg",
+      "id": "bundesliga-espn-401884744",
       "date": "2026-11-07",
-      "startTime": "2026-11-07T14:30:00Z",
-      "round": "Jornada 9",
+      "startTime": "2026-11-07T14:30Z",
+      "round": null,
       "homeTeam": "bundesliga.rb-leipzig",
       "awayTeam": "bundesliga.augsburg",
       "homeScore": 5,
@@ -797,10 +797,10 @@
       "neutralSite": false
     },
     {
-      "id": "bundesliga-2026-27-md9-paderborn-eintracht-frankfurt",
+      "id": "bundesliga-espn-401884737",
       "date": "2026-11-07",
-      "startTime": "2026-11-07T14:30:00Z",
-      "round": "Jornada 9",
+      "startTime": "2026-11-07T14:30Z",
+      "round": null,
       "homeTeam": "bundesliga.paderborn",
       "awayTeam": "bundesliga.eintracht-frankfurt",
       "homeScore": 2,
@@ -808,10 +808,10 @@
       "neutralSite": false
     },
     {
-      "id": "bundesliga-2026-27-md9-stuttgart-werder-bremen",
+      "id": "bundesliga-espn-401884743",
       "date": "2026-11-07",
-      "startTime": "2026-11-07T17:30:00Z",
-      "round": "Jornada 9",
+      "startTime": "2026-11-07T17:30Z",
+      "round": null,
       "homeTeam": "bundesliga.stuttgart",
       "awayTeam": "bundesliga.werder-bremen",
       "homeScore": 1,
@@ -819,21 +819,10 @@
       "neutralSite": false
     },
     {
-      "id": "bundesliga-2026-27-md9-koln-bayer-leverkusen",
+      "id": "bundesliga-espn-401884741",
       "date": "2026-11-08",
-      "startTime": "2026-11-08T14:30:00Z",
-      "round": "Jornada 9",
-      "homeTeam": "bundesliga.koln",
-      "awayTeam": "bundesliga.bayer-leverkusen",
-      "homeScore": 1,
-      "awayScore": 2,
-      "neutralSite": false
-    },
-    {
-      "id": "bundesliga-2026-27-md9-freiburg-union-berlin",
-      "date": "2026-11-08",
-      "startTime": "2026-11-08T16:30:00Z",
-      "round": "Jornada 9",
+      "startTime": "2026-11-08T16:30Z",
+      "round": null,
       "homeTeam": "bundesliga.freiburg",
       "awayTeam": "bundesliga.union-berlin",
       "homeScore": 2,
@@ -841,14 +830,113 @@
       "neutralSite": false
     },
     {
-      "id": "bundesliga-2026-27-md9-hoffenheim-schalke",
+      "id": "bundesliga-espn-401884742",
       "date": "2026-11-08",
-      "startTime": "2026-11-08T18:30:00Z",
-      "round": "Jornada 9",
+      "startTime": "2026-11-08T18:30Z",
+      "round": null,
       "homeTeam": "bundesliga.hoffenheim",
       "awayTeam": "bundesliga.schalke",
       "homeScore": 2,
       "awayScore": 1,
+      "neutralSite": false
+    },
+    {
+      "id": "bundesliga-2026-27-md10-bayern-munchen-koln",
+      "date": "2026-11-20",
+      "startTime": "2026-11-20T19:30:00Z",
+      "round": "Jornada 10",
+      "homeTeam": "bundesliga.bayern-munchen",
+      "awayTeam": "bundesliga.koln",
+      "homeScore": 1,
+      "awayScore": 1,
+      "neutralSite": false
+    },
+    {
+      "id": "bundesliga-2026-27-md10-union-berlin-rb-leipzig",
+      "date": "2026-11-21",
+      "startTime": "2026-11-21T14:30:00Z",
+      "round": "Jornada 10",
+      "homeTeam": "bundesliga.union-berlin",
+      "awayTeam": "bundesliga.rb-leipzig",
+      "homeScore": 1,
+      "awayScore": 5,
+      "neutralSite": false
+    },
+    {
+      "id": "bundesliga-2026-27-md10-bayer-leverkusen-paderborn",
+      "date": "2026-11-21",
+      "startTime": "2026-11-21T14:30:00Z",
+      "round": "Jornada 10",
+      "homeTeam": "bundesliga.bayer-leverkusen",
+      "awayTeam": "bundesliga.paderborn",
+      "homeScore": 4,
+      "awayScore": 0,
+      "neutralSite": false
+    },
+    {
+      "id": "bundesliga-2026-27-md10-borussia-monchengladbach-borussia-dortmund",
+      "date": "2026-11-21",
+      "startTime": "2026-11-21T14:30:00Z",
+      "round": "Jornada 10",
+      "homeTeam": "bundesliga.borussia-monchengladbach",
+      "awayTeam": "bundesliga.borussia-dortmund",
+      "homeScore": 0,
+      "awayScore": 1,
+      "neutralSite": false
+    },
+    {
+      "id": "bundesliga-2026-27-md10-eintracht-frankfurt-hoffenheim",
+      "date": "2026-11-21",
+      "startTime": "2026-11-21T14:30:00Z",
+      "round": "Jornada 10",
+      "homeTeam": "bundesliga.eintracht-frankfurt",
+      "awayTeam": "bundesliga.hoffenheim",
+      "homeScore": 1,
+      "awayScore": 0,
+      "neutralSite": false
+    },
+    {
+      "id": "bundesliga-2026-27-md10-elversberg-freiburg",
+      "date": "2026-11-21",
+      "startTime": "2026-11-21T14:30:00Z",
+      "round": "Jornada 10",
+      "homeTeam": "bundesliga.elversberg",
+      "awayTeam": "bundesliga.freiburg",
+      "homeScore": 0,
+      "awayScore": 1,
+      "neutralSite": false
+    },
+    {
+      "id": "bundesliga-2026-27-md10-schalke-stuttgart",
+      "date": "2026-11-21",
+      "startTime": "2026-11-21T17:30:00Z",
+      "round": "Jornada 10",
+      "homeTeam": "bundesliga.schalke",
+      "awayTeam": "bundesliga.stuttgart",
+      "homeScore": 0,
+      "awayScore": 0,
+      "neutralSite": false
+    },
+    {
+      "id": "bundesliga-2026-27-md10-augsburg-mainz",
+      "date": "2026-11-22",
+      "startTime": "2026-11-22T14:30:00Z",
+      "round": "Jornada 10",
+      "homeTeam": "bundesliga.augsburg",
+      "awayTeam": "bundesliga.mainz",
+      "homeScore": 3,
+      "awayScore": 1,
+      "neutralSite": false
+    },
+    {
+      "id": "bundesliga-2026-27-md10-werder-bremen-hamburger",
+      "date": "2026-11-22",
+      "startTime": "2026-11-22T16:30:00Z",
+      "round": "Jornada 10",
+      "homeTeam": "bundesliga.werder-bremen",
+      "awayTeam": "bundesliga.hamburger",
+      "homeScore": 4,
+      "awayScore": 0,
       "neutralSite": false
     }
   ]

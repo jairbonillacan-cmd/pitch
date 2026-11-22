@@ -5,7 +5,7 @@
   "season": "liga-1-peru-2026",
   "seasonLabel": "2026",
   "periodLabel": "Regular season · Matchday 16",
-  "updatedAt": "2026-11-22T19:27:07.879Z",
+  "updatedAt": "2026-11-22T21:56:46.653Z",
   "source": "pitchlab-football-v2",
   "provenance": "derived",
   "isDemo": false,
@@ -18,8 +18,8 @@
       "forPerGame": 1.3529411764705883,
       "againstPerGame": 2.4705882352941178,
       "gamesPlayed": 17,
-      "adjustedFor": 1.2726353182733414,
-      "adjustedAgainst": 2.1596913717301423
+      "adjustedFor": 1.2705342168895575,
+      "adjustedAgainst": 2.1565335772142236
     },
     "liga-1-peru.acd-juan-pablo-ii": {
       "teamId": "liga-1-peru.acd-juan-pablo-ii",
@@ -29,19 +29,19 @@
       "forPerGame": 1.6470588235294117,
       "againstPerGame": 1.2352941176470589,
       "gamesPlayed": 17,
-      "adjustedFor": 1.5408898710957646,
-      "adjustedAgainst": 1.197133830507585
+      "adjustedFor": 1.5428312606835162,
+      "adjustedAgainst": 1.1952798117016743
     },
     "liga-1-peru.sporting-cristal": {
       "teamId": "liga-1-peru.sporting-cristal",
       "name": "Club Sporting Cristal",
       "shortName": "Sporting Cristal",
       "code": "SPO",
-      "forPerGame": 2.1875,
-      "againstPerGame": 1.125,
-      "gamesPlayed": 16,
-      "adjustedFor": 1.9151245890933506,
-      "adjustedAgainst": 1.1360512420129452
+      "forPerGame": 2.2941176470588234,
+      "againstPerGame": 1.1176470588235294,
+      "gamesPlayed": 17,
+      "adjustedFor": 1.9936052463568104,
+      "adjustedAgainst": 1.1373112021088185
     },
     "liga-1-peru.deportivo-garcilaso": {
       "teamId": "liga-1-peru.deportivo-garcilaso",
@@ -51,19 +51,19 @@
       "forPerGame": 1.8235294117647058,
       "againstPerGame": 1.1176470588235294,
       "gamesPlayed": 17,
-      "adjustedFor": 1.642968132309619,
-      "adjustedAgainst": 1.139944085570377
+      "adjustedFor": 1.6434054751336749,
+      "adjustedAgainst": 1.1382268883741598
     },
     "liga-1-peru.cienciano": {
       "teamId": "liga-1-peru.cienciano",
       "name": "Cienciano",
       "shortName": "Cienciano",
       "code": "CIE",
-      "forPerGame": 1.25,
-      "againstPerGame": 1.5,
-      "gamesPlayed": 16,
-      "adjustedFor": 1.204882671029658,
-      "adjustedAgainst": 1.4014731711050918
+      "forPerGame": 1.2352941176470589,
+      "againstPerGame": 1.6470588235294117,
+      "gamesPlayed": 17,
+      "adjustedFor": 1.217530667729181,
+      "adjustedAgainst": 1.5030754594950226
     },
     "liga-1-peru.melgar": {
       "teamId": "liga-1-peru.melgar",
@@ -73,8 +73,8 @@
       "forPerGame": 1.6470588235294117,
       "againstPerGame": 1.1176470588235294,
       "gamesPlayed": 17,
-      "adjustedFor": 1.516403072012696,
-      "adjustedAgainst": 1.1089134180751339
+      "adjustedFor": 1.5195206766424731,
+      "adjustedAgainst": 1.107232917633593
     },
     "liga-1-peru.moquegua": {
       "teamId": "liga-1-peru.moquegua",
@@ -84,8 +84,8 @@
       "forPerGame": 0.7058823529411765,
       "againstPerGame": 1.4705882352941178,
       "gamesPlayed": 17,
-      "adjustedFor": 0.7828035118334364,
-      "adjustedAgainst": 1.3520343087231095
+      "adjustedFor": 0.7820712258251427,
+      "adjustedAgainst": 1.350303126144014
     },
     "liga-1-peru.comerciantes-unidos": {
       "teamId": "liga-1-peru.comerciantes-unidos",
@@ -95,8 +95,8 @@
       "forPerGame": 1.7058823529411764,
       "againstPerGame": 1.7647058823529411,
       "gamesPlayed": 17,
-      "adjustedFor": 1.5876469414042762,
-      "adjustedAgainst": 1.6030589333630658
+      "adjustedFor": 1.5880107352723787,
+      "adjustedAgainst": 1.6002809967715936
     },
     "liga-1-peru.asociacion-deportiva-tarma": {
       "teamId": "liga-1-peru.asociacion-deportiva-tarma",
@@ -106,19 +106,19 @@
       "forPerGame": 0.9411764705882353,
       "againstPerGame": 1.7058823529411764,
       "gamesPlayed": 17,
-      "adjustedFor": 0.9984494968468066,
-      "adjustedAgainst": 1.5250841697209023
+      "adjustedFor": 0.9975541304330534,
+      "adjustedAgainst": 1.5224928036670171
     },
     "liga-1-peru.universitario-deportes": {
       "teamId": "liga-1-peru.universitario-deportes",
       "name": "Universitario de Deportes",
       "shortName": "Universitario de Depor",
       "code": "UNI",
-      "forPerGame": 2.1875,
-      "againstPerGame": 1.5,
-      "gamesPlayed": 16,
-      "adjustedFor": 1.9433100050865966,
-      "adjustedAgainst": 1.432768319924379
+      "forPerGame": 2.1176470588235294,
+      "againstPerGame": 1.6470588235294117,
+      "gamesPlayed": 17,
+      "adjustedFor": 1.9360784204474606,
+      "adjustedAgainst": 1.5546338323122753
     },
     "liga-1-peru.atletico-grau": {
       "teamId": "liga-1-peru.atletico-grau",
@@ -128,8 +128,8 @@
       "forPerGame": 1.2352941176470589,
       "againstPerGame": 1.4705882352941178,
       "gamesPlayed": 17,
-      "adjustedFor": 1.170075075653087,
-      "adjustedAgainst": 1.3899681971378206
+      "adjustedFor": 1.1681724778751221,
+      "adjustedAgainst": 1.3881314323372367
     },
     "liga-1-peru.universidad-tecnica-cajamarca": {
       "teamId": "liga-1-peru.universidad-tecnica-cajamarca",
@@ -139,8 +139,8 @@
       "forPerGame": 1.2941176470588236,
       "againstPerGame": 2.0588235294117645,
       "gamesPlayed": 17,
-      "adjustedFor": 1.2733130448881445,
-      "adjustedAgainst": 1.8064024414111834
+      "adjustedFor": 1.2723723841705414,
+      "adjustedAgainst": 1.803336689696221
     },
     "liga-1-peru.cusco": {
       "teamId": "liga-1-peru.cusco",
@@ -150,8 +150,8 @@
       "forPerGame": 1.588235294117647,
       "againstPerGame": 1.4705882352941178,
       "gamesPlayed": 17,
-      "adjustedFor": 1.4438911151427014,
-      "adjustedAgainst": 1.3850132310625596
+      "adjustedFor": 1.446434971681085,
+      "adjustedAgainst": 1.3823595899790293
     },
     "liga-1-peru.alianza-atletico-sullana": {
       "teamId": "liga-1-peru.alianza-atletico-sullana",
@@ -161,8 +161,8 @@
       "forPerGame": 1.7647058823529411,
       "againstPerGame": 1.8235294117647058,
       "gamesPlayed": 17,
-      "adjustedFor": 1.5863987469271625,
-      "adjustedAgainst": 1.652104663695461
+      "adjustedFor": 1.5831334822699037,
+      "adjustedAgainst": 1.6492489986606125
     },
     "liga-1-peru.los-chankas-cyc": {
       "teamId": "liga-1-peru.los-chankas-cyc",
@@ -172,8 +172,8 @@
       "forPerGame": 1.0588235294117647,
       "againstPerGame": 2.1176470588235294,
       "gamesPlayed": 17,
-      "adjustedFor": 1.0846149137786656,
-      "adjustedAgainst": 1.863160253695311
+      "adjustedFor": 1.086251171782137,
+      "adjustedAgainst": 1.8610364483241726
     },
     "liga-1-peru.sport-boys": {
       "teamId": "liga-1-peru.sport-boys",
@@ -183,8 +183,8 @@
       "forPerGame": 1.4705882352941178,
       "againstPerGame": 1.1176470588235294,
       "gamesPlayed": 17,
-      "adjustedFor": 1.3720984735153023,
-      "adjustedAgainst": 1.1213334295071495
+      "adjustedFor": 1.3720359113407479,
+      "adjustedAgainst": 1.11977027354084
     },
     "liga-1-peru.alianza-lima": {
       "teamId": "liga-1-peru.alianza-lima",
@@ -194,91 +194,22 @@
       "forPerGame": 1.7058823529411764,
       "againstPerGame": 0.9411764705882353,
       "gamesPlayed": 17,
-      "adjustedFor": 1.51776836110835,
-      "adjustedAgainst": 0.9675386626428487
+      "adjustedFor": 1.5145752019121903,
+      "adjustedAgainst": 0.9658356753941868
     },
     "liga-1-peru.sport-huancayo": {
       "teamId": "liga-1-peru.sport-huancayo",
       "name": "Sport Huancayo",
       "shortName": "Sport Huancayo",
       "code": "SPO",
-      "forPerGame": 1.6875,
-      "againstPerGame": 1.125,
-      "gamesPlayed": 16,
-      "adjustedFor": 1.5355840197989314,
-      "adjustedAgainst": 1.1243518853334178
+      "forPerGame": 1.8235294117647058,
+      "againstPerGame": 1.1176470588235294,
+      "gamesPlayed": 17,
+      "adjustedFor": 1.6328311974013345,
+      "adjustedAgainst": 1.095805681533175
     }
   },
   "games": [
-    {
-      "id": "liga-1-peru-2026-11-06-atletico-grau-cusco-x0pm8a",
-      "league": "liga-1-peru",
-      "season": "liga-1-peru-2026",
-      "week": 16,
-      "round": "Regular season · Matchday 16",
-      "phase": "Regular season",
-      "startTime": "2026-11-06T20:00:00.000Z",
-      "status": "final",
-      "home": {
-        "id": "liga-1-peru.atletico-grau",
-        "league": "liga-1-peru",
-        "name": "Club Atlético Grau",
-        "shortName": "Grau",
-        "code": "ATL",
-        "logoUrl": "https://sports.bzzoiro.com/img/team/5096/?bg=transparent"
-      },
-      "away": {
-        "id": "liga-1-peru.cusco",
-        "league": "liga-1-peru",
-        "name": "Cusco FC",
-        "shortName": "Cusco",
-        "code": "CUS",
-        "logoUrl": "https://sports.bzzoiro.com/img/team/788/?bg=transparent"
-      },
-      "venue": "Estadio Municipal Ambrosio Maco Arroyo, Piura",
-      "referee": "Rudy Mendez",
-      "neutralSite": false,
-      "result": {
-        "home": 3,
-        "away": 0,
-        "observedAt": "2026-11-22T19:27:07.879Z",
-        "source": "pitchlab-feed"
-      }
-    },
-    {
-      "id": "liga-1-peru-2026-11-07-asociacion-dep-sporting-crist-mhurrn",
-      "league": "liga-1-peru",
-      "season": "liga-1-peru-2026",
-      "week": 16,
-      "round": "Regular season · Matchday 16",
-      "phase": "Regular season",
-      "startTime": "2026-11-07T18:00:00.000Z",
-      "status": "final",
-      "home": {
-        "id": "liga-1-peru.asociacion-deportiva-tarma",
-        "league": "liga-1-peru",
-        "name": "Asociación Deportiva Tarma",
-        "shortName": "Asociación Deportiva T",
-        "code": "ASO",
-        "logoUrl": "https://sports.bzzoiro.com/img/team/5103/?bg=transparent"
-      },
-      "away": {
-        "id": "liga-1-peru.sporting-cristal",
-        "league": "liga-1-peru",
-        "name": "Club Sporting Cristal",
-        "shortName": "Sporting Cristal",
-        "code": "SPO",
-        "logoUrl": "https://sports.bzzoiro.com/img/team/790/?bg=transparent"
-      },
-      "referee": "Jordi Espinoza",
-      "neutralSite": false,
-      "result": {
-        "home": 1,
-        "away": 1,
-        "observedAt": "2026-11-22T19:27:07.879Z",
-        "source": "pitchlab-feed"
-      }
-    },
     {
       "id": "liga-1-peru-2026-11-07-cajamarca-alianza-atleti-3tzs2p",
       "league": "liga-1-peru",
@@ -309,7 +240,7 @@
       "result": {
         "home": 2,
         "away": 0,
-        "observedAt": "2026-11-22T19:27:07.879Z",
+        "observedAt": "2026-11-22T21:56:46.653Z",
         "source": "pitchlab-feed"
       }
     },
@@ -344,7 +275,7 @@
       "result": {
         "home": 2,
         "away": 1,
-        "observedAt": "2026-11-22T19:27:07.879Z",
+        "observedAt": "2026-11-22T21:56:46.653Z",
         "source": "pitchlab-feed"
       }
     },
@@ -379,7 +310,7 @@
       "result": {
         "home": 1,
         "away": 2,
-        "observedAt": "2026-11-22T19:27:07.879Z",
+        "observedAt": "2026-11-22T21:56:46.653Z",
         "source": "pitchlab-feed"
       }
     },
@@ -414,7 +345,7 @@
       "result": {
         "home": 1,
         "away": 1,
-        "observedAt": "2026-11-22T19:27:07.879Z",
+        "observedAt": "2026-11-22T21:56:46.653Z",
         "source": "pitchlab-feed"
       }
     },
@@ -449,7 +380,7 @@
       "result": {
         "home": 0,
         "away": 0,
-        "observedAt": "2026-11-22T19:27:07.879Z",
+        "observedAt": "2026-11-22T21:56:46.653Z",
         "source": "pitchlab-feed"
       }
     },
@@ -484,7 +415,7 @@
       "result": {
         "home": 0,
         "away": 0,
-        "observedAt": "2026-11-22T19:27:07.879Z",
+        "observedAt": "2026-11-22T21:56:46.653Z",
         "source": "pitchlab-feed"
       }
     },
@@ -519,7 +450,7 @@
       "result": {
         "home": 2,
         "away": 2,
-        "observedAt": "2026-11-22T19:27:07.879Z",
+        "observedAt": "2026-11-22T21:56:46.653Z",
         "source": "pitchlab-feed"
       }
     },
@@ -554,7 +485,7 @@
       "result": {
         "home": 3,
         "away": 3,
-        "observedAt": "2026-11-22T19:27:07.879Z",
+        "observedAt": "2026-11-22T21:56:46.653Z",
         "source": "pitchlab-feed"
       }
     },
@@ -588,7 +519,7 @@
       "result": {
         "home": 2,
         "away": 2,
-        "observedAt": "2026-11-22T19:27:07.879Z",
+        "observedAt": "2026-11-22T21:56:46.653Z",
         "source": "pitchlab-feed"
       }
     },
@@ -623,7 +554,7 @@
       "result": {
         "home": 5,
         "away": 3,
-        "observedAt": "2026-11-22T19:27:07.879Z",
+        "observedAt": "2026-11-22T21:56:46.653Z",
         "source": "pitchlab-feed"
       }
     },
@@ -657,7 +588,7 @@
       "result": {
         "home": 2,
         "away": 1,
-        "observedAt": "2026-11-22T19:27:07.879Z",
+        "observedAt": "2026-11-22T21:56:46.653Z",
         "source": "pitchlab-feed"
       }
     },
@@ -692,7 +623,7 @@
       "result": {
         "home": 2,
         "away": 2,
-        "observedAt": "2026-11-22T19:27:07.879Z",
+        "observedAt": "2026-11-22T21:56:46.653Z",
         "source": "pitchlab-feed"
       }
     },
@@ -727,7 +658,7 @@
       "result": {
         "home": 1,
         "away": 1,
-        "observedAt": "2026-11-22T19:27:07.879Z",
+        "observedAt": "2026-11-22T21:56:46.653Z",
         "source": "pitchlab-feed"
       }
     },
@@ -762,7 +693,7 @@
       "result": {
         "home": 5,
         "away": 0,
-        "observedAt": "2026-11-22T19:27:07.879Z",
+        "observedAt": "2026-11-22T21:56:46.653Z",
         "source": "pitchlab-feed"
       }
     },
@@ -774,7 +705,7 @@
       "round": "Regular season · Matchday 17",
       "phase": "Regular season",
       "startTime": "2026-11-22T20:00:00.000Z",
-      "status": "scheduled",
+      "status": "final",
       "home": {
         "id": "liga-1-peru.sporting-cristal",
         "league": "liga-1-peru",
@@ -793,7 +724,13 @@
       },
       "venue": "Estadio Alberto Gallardo, Lima",
       "referee": "Sebastian Lozano",
-      "neutralSite": false
+      "neutralSite": false,
+      "result": {
+        "home": 4,
+        "away": 1,
+        "observedAt": "2026-11-22T21:56:46.653Z",
+        "source": "pitchlab-feed"
+      }
     },
     {
       "id": "liga-1-peru-2026-11-22-sport-huancayo-universitario--sllvy5",
@@ -803,7 +740,7 @@
       "round": "Regular season · Matchday 17",
       "phase": "Regular season",
       "startTime": "2026-11-22T20:00:00.000Z",
-      "status": "scheduled",
+      "status": "final",
       "home": {
         "id": "liga-1-peru.sport-huancayo",
         "league": "liga-1-peru",
@@ -822,896 +759,16 @@
       },
       "venue": "Estadio Huancayo, Huancayo",
       "referee": "Kevin Ortega",
-      "neutralSite": false
+      "neutralSite": false,
+      "result": {
+        "home": 4,
+        "away": 1,
+        "observedAt": "2026-11-22T21:56:46.653Z",
+        "source": "pitchlab-feed"
+      }
     }
   ],
   "analyses": {
-    "liga-1-peru-2026-11-06-atletico-grau-cusco-x0pm8a": {
-      "game": "liga-1-peru-2026-11-06-atletico-grau-cusco-x0pm8a",
-      "model": {
-        "id": "pitchlab-statistical-liga-1-peru",
-        "version": "2.0.0",
-        "status": "candidate",
-        "label": "Modelo PitchLab · en validación"
-      },
-      "projection": {
-        "home": 1.7149662044995173,
-        "away": 1.4616756137163918,
-        "total": 3.1766418182159093,
-        "margin": 0.25329059078312555
-      },
-      "x12": [
-        0.4333268230029754,
-        0.2416601174581112,
-        0.3250130595389136
-      ],
-      "probabilities": [
-        {
-          "market": "h2h",
-          "selection": "Grau gana",
-          "p": 0.4333268230029754,
-          "fairOdds": 2.3077269786115537
-        },
-        {
-          "market": "h2h",
-          "selection": "Empate",
-          "p": 0.2416601174581112,
-          "fairOdds": 4.138043176170092
-        },
-        {
-          "market": "h2h",
-          "selection": "Cusco gana",
-          "p": 0.3250130595389136,
-          "fairOdds": 3.0767994412860533
-        },
-        {
-          "market": "double_chance",
-          "selection": "Grau o empate",
-          "p": 0.6749869404610866,
-          "fairOdds": 1.481510144947242
-        },
-        {
-          "market": "double_chance",
-          "selection": "Cusco o empate",
-          "p": 0.5666731769970248,
-          "fairOdds": 1.764685608200669
-        },
-        {
-          "market": "double_chance",
-          "selection": "Sin empate",
-          "p": 0.758339882541889,
-          "fairOdds": 1.3186699302271792
-        },
-        {
-          "market": "totals",
-          "selection": "Más de 1.5",
-          "line": 1.5,
-          "p": 0.8299107232216556,
-          "fairOdds": 1.20494888428248
-        },
-        {
-          "market": "totals",
-          "selection": "Más de 2.5",
-          "line": 2.5,
-          "p": 0.6151990951393095,
-          "fairOdds": 1.6254900371294496
-        },
-        {
-          "market": "totals",
-          "selection": "Menos de 2.5",
-          "line": 2.5,
-          "p": 0.3848009048606905,
-          "fairOdds": 2.5987464877766597
-        },
-        {
-          "market": "totals",
-          "selection": "Más de 3.5",
-          "line": 3.5,
-          "p": 0.3922752474560428,
-          "fairOdds": 2.549230435733922
-        },
-        {
-          "market": "totals",
-          "selection": "Menos de 3.5",
-          "line": 3.5,
-          "p": 0.6077247525439572,
-          "fairOdds": 1.6454817675501365
-        },
-        {
-          "market": "btts",
-          "selection": "Sí",
-          "p": 0.6340917086569297,
-          "fairOdds": 1.5770589432845623
-        },
-        {
-          "market": "btts",
-          "selection": "No",
-          "p": 0.36590829134307035,
-          "fairOdds": 2.73292522650823
-        },
-        {
-          "market": "team_totals",
-          "selection": "Grau más de 1.5",
-          "line": 1.5,
-          "p": 0.5113870995407597,
-          "fairOdds": 1.9554658318483762
-        },
-        {
-          "market": "team_totals",
-          "selection": "Grau menos de 1.5",
-          "line": 1.5,
-          "p": 0.48861290045924033,
-          "fairOdds": 2.046609901335217
-        },
-        {
-          "market": "team_totals",
-          "selection": "Cusco más de 1.5",
-          "line": 1.5,
-          "p": 0.4292665107316478,
-          "fairOdds": 2.3295551248467676
-        },
-        {
-          "market": "team_totals",
-          "selection": "Cusco menos de 1.5",
-          "line": 1.5,
-          "p": 0.5707334892683522,
-          "fairOdds": 1.7521312815933456
-        },
-        {
-          "market": "correct_score",
-          "selection": "1–1",
-          "p": 0.10877846880228788,
-          "fairOdds": 9.192995737213094
-        },
-        {
-          "market": "correct_score",
-          "selection": "2–1",
-          "p": 0.08968817200631192,
-          "fairOdds": 11.149742241704109
-        },
-        {
-          "market": "correct_score",
-          "selection": "1–2",
-          "p": 0.07644174766620843,
-          "fairOdds": 13.081856845641646
-        }
-      ],
-      "marketGroups": [
-        {
-          "group": "Resultado",
-          "rows": [
-            {
-              "market": "h2h",
-              "selection": "home",
-              "label": "Grau gana",
-              "p": 0.4333268230029754,
-              "fairOdds": 2.3077269786115537
-            },
-            {
-              "market": "h2h",
-              "selection": "draw",
-              "label": "Empate",
-              "p": 0.2416601174581112,
-              "fairOdds": 4.138043176170092
-            },
-            {
-              "market": "h2h",
-              "selection": "away",
-              "label": "Cusco gana",
-              "p": 0.3250130595389136,
-              "fairOdds": 3.0767994412860533
-            }
-          ]
-        },
-        {
-          "group": "Doble oportunidad",
-          "rows": [
-            {
-              "market": "double_chance",
-              "selection": "1x",
-              "label": "Grau o empate",
-              "p": 0.6749869404610866,
-              "fairOdds": 1.481510144947242
-            },
-            {
-              "market": "double_chance",
-              "selection": "x2",
-              "label": "Cusco o empate",
-              "p": 0.5666731769970248,
-              "fairOdds": 1.764685608200669
-            },
-            {
-              "market": "double_chance",
-              "selection": "12",
-              "label": "Sin empate",
-              "p": 0.758339882541889,
-              "fairOdds": 1.3186699302271792
-            }
-          ]
-        },
-        {
-          "group": "Goles totales",
-          "rows": [
-            {
-              "market": "totals",
-              "selection": "over_1.5",
-              "label": "Más de 1.5",
-              "line": 1.5,
-              "p": 0.8299107232216556,
-              "fairOdds": 1.20494888428248
-            },
-            {
-              "market": "totals",
-              "selection": "over_2.5",
-              "label": "Más de 2.5",
-              "line": 2.5,
-              "p": 0.6151990951393095,
-              "fairOdds": 1.6254900371294496
-            },
-            {
-              "market": "totals",
-              "selection": "under_2.5",
-              "label": "Menos de 2.5",
-              "line": 2.5,
-              "p": 0.3848009048606905,
-              "fairOdds": 2.5987464877766597
-            },
-            {
-              "market": "totals",
-              "selection": "over_3.5",
-              "label": "Más de 3.5",
-              "line": 3.5,
-              "p": 0.3922752474560428,
-              "fairOdds": 2.549230435733922
-            },
-            {
-              "market": "totals",
-              "selection": "under_3.5",
-              "label": "Menos de 3.5",
-              "line": 3.5,
-              "p": 0.6077247525439572,
-              "fairOdds": 1.6454817675501365
-            }
-          ]
-        },
-        {
-          "group": "Ambos anotan",
-          "rows": [
-            {
-              "market": "btts",
-              "selection": "yes",
-              "label": "Sí",
-              "p": 0.6340917086569297,
-              "fairOdds": 1.5770589432845623
-            },
-            {
-              "market": "btts",
-              "selection": "no",
-              "label": "No",
-              "p": 0.36590829134307035,
-              "fairOdds": 2.73292522650823
-            }
-          ]
-        },
-        {
-          "group": "Goles por equipo (1.5)",
-          "rows": [
-            {
-              "market": "team_totals",
-              "selection": "home_over",
-              "label": "Grau más de 1.5",
-              "line": 1.5,
-              "p": 0.5113870995407597,
-              "fairOdds": 1.9554658318483762
-            },
-            {
-              "market": "team_totals",
-              "selection": "home_under",
-              "label": "Grau menos de 1.5",
-              "line": 1.5,
-              "p": 0.48861290045924033,
-              "fairOdds": 2.046609901335217
-            },
-            {
-              "market": "team_totals",
-              "selection": "away_over",
-              "label": "Cusco más de 1.5",
-              "line": 1.5,
-              "p": 0.4292665107316478,
-              "fairOdds": 2.3295551248467676
-            },
-            {
-              "market": "team_totals",
-              "selection": "away_under",
-              "label": "Cusco menos de 1.5",
-              "line": 1.5,
-              "p": 0.5707334892683522,
-              "fairOdds": 1.7521312815933456
-            }
-          ]
-        },
-        {
-          "group": "Marcador exacto (más probables)",
-          "rows": [
-            {
-              "market": "correct_score",
-              "selection": "1-1",
-              "label": "1–1",
-              "p": 0.10877846880228788,
-              "fairOdds": 9.192995737213094
-            },
-            {
-              "market": "correct_score",
-              "selection": "2-1",
-              "label": "2–1",
-              "p": 0.08968817200631192,
-              "fairOdds": 11.149742241704109
-            },
-            {
-              "market": "correct_score",
-              "selection": "1-2",
-              "label": "1–2",
-              "p": 0.07644174766620843,
-              "fairOdds": 13.081856845641646
-            }
-          ]
-        }
-      ],
-      "mostLikelyScore": {
-        "home": 1,
-        "away": 1,
-        "p": 0.10877846880228788
-      },
-      "factors": [
-        {
-          "key": "home_attack",
-          "label": "Ataque local",
-          "value": "1.18 goles/partido",
-          "detail": "15 % menos que la media · 17 partidos"
-        },
-        {
-          "key": "away_defense",
-          "label": "Defensa visitante",
-          "value": "1.39 concedidos/partido",
-          "detail": "en la media de la liga · 17 partidos"
-        },
-        {
-          "key": "away_attack",
-          "label": "Ataque visitante",
-          "value": "1.46 goles/partido",
-          "detail": "5 % más que la media · ajustado por rival"
-        },
-        {
-          "key": "home_defense",
-          "label": "Defensa local",
-          "value": "1.39 concedidos/partido",
-          "detail": "en la media de la liga · ajustado por rival"
-        },
-        {
-          "key": "home_advantage",
-          "label": "Localía",
-          "value": "×1.45",
-          "detail": "estimada de 150 partidos"
-        },
-        {
-          "key": "uncertainty",
-          "label": "Intervalo 90%",
-          "value": "goles 2.3–4.5",
-          "detail": "local 23%–67% · 150 partidos"
-        },
-        {
-          "key": "home_position",
-          "label": "Posición local",
-          "value": "11.º · 21 pts",
-          "detail": "de 18 equipos"
-        },
-        {
-          "key": "away_position",
-          "label": "Posición visitante",
-          "value": "10.º · 25 pts",
-          "detail": "de 18 equipos"
-        },
-        {
-          "key": "home_form",
-          "label": "Forma local",
-          "value": "E-P-E-P-P · 2 pts",
-          "detail": "3 goles a favor · 10 en contra"
-        },
-        {
-          "key": "away_form",
-          "label": "Forma visitante",
-          "value": "P-P-G-G-P · 6 pts",
-          "detail": "6 goles a favor · 6 en contra"
-        }
-      ],
-      "steps": [
-        "Sincronizando Liga 1 Perú · corte 6 nov 2026, 13:00",
-        "Fuerza ajustada por rival · ATL 0.85 / 1.01 · CUS 1.05 / 1.01",
-        "Ponderando 133.1 partidos por antigüedad y calidad del rival",
-        "Proyección de goles 1.71 – 1.46 · total 3.18",
-        "Simulando 121 marcadores con incertidumbre del ajuste",
-        "20 mercados listos · marcador proyectado 2–1"
-      ],
-      "inputsAsOf": "2026-11-06T19:00:00.000Z",
-      "publishedAt": "2026-11-06T19:00:00.000Z",
-      "source": "pitchlab-football-v2",
-      "projectedScore": {
-        "home": 2,
-        "away": 1,
-        "p": 0.08968817200631192
-      },
-      "insights": {
-        "why": [
-          "Grau gana en 43% de los escenarios; el empate, en 24%.",
-          "Grau anota 15 % menos que la media."
-        ],
-        "restDays": {
-          "home": 5,
-          "away": 5
-        }
-      },
-      "matchContext": {
-        "referee": "Rudy Mendez",
-        "refereeStats": {
-          "country": "Peru",
-          "matches": 8,
-          "avgYellow": 4.62,
-          "avgRed": 0.5,
-          "avgFouls": 23.1,
-          "avgGoals": 2.62
-        },
-        "halfTimeScore": {
-          "home": 1,
-          "away": 0
-        },
-        "stageName": "Regular season",
-        "venueCity": "Piura",
-        "venueCountry": "Peru",
-        "venueCapacity": 5000
-      }
-    },
-    "liga-1-peru-2026-11-07-asociacion-dep-sporting-crist-mhurrn": {
-      "game": "liga-1-peru-2026-11-07-asociacion-dep-sporting-crist-mhurrn",
-      "model": {
-        "id": "pitchlab-statistical-liga-1-peru",
-        "version": "2.0.0",
-        "status": "candidate",
-        "label": "Modelo PitchLab · en validación"
-      },
-      "projection": {
-        "home": 1.2029028779073074,
-        "away": 2.131897348829219,
-        "total": 3.334800226736527,
-        "margin": -0.9289944709219118
-      },
-      "x12": [
-        0.20495447033507946,
-        0.2125075802009755,
-        0.582537949463945
-      ],
-      "probabilities": [
-        {
-          "market": "h2h",
-          "selection": "Asociación Deportiva T gana",
-          "p": 0.20495447033507946,
-          "fairOdds": 4.8791324159219505
-        },
-        {
-          "market": "h2h",
-          "selection": "Empate",
-          "p": 0.2125075802009755,
-          "fairOdds": 4.705714492886639
-        },
-        {
-          "market": "h2h",
-          "selection": "Sporting Cristal gana",
-          "p": 0.582537949463945,
-          "fairOdds": 1.7166263604288892
-        },
-        {
-          "market": "double_chance",
-          "selection": "Asociación Deportiva T o empate",
-          "p": 0.41746205053605495,
-          "fairOdds": 2.3954273178027066
-        },
-        {
-          "market": "double_chance",
-          "selection": "Sporting Cristal o empate",
-          "p": 0.7950455296649205,
-          "fairOdds": 1.2577896015860368
-        },
-        {
-          "market": "double_chance",
-          "selection": "Sin empate",
-          "p": 0.7874924197990245,
-          "fairOdds": 1.2698534930091256
-        },
-        {
-          "market": "totals",
-          "selection": "Más de 1.5",
-          "line": 1.5,
-          "p": 0.8492388096480756,
-          "fairOdds": 1.1775250832146964
-        },
-        {
-          "market": "totals",
-          "selection": "Más de 2.5",
-          "line": 2.5,
-          "p": 0.6475092092044673,
-          "fairOdds": 1.544379579139275
-        },
-        {
-          "market": "totals",
-          "selection": "Menos de 2.5",
-          "line": 2.5,
-          "p": 0.3524907907955327,
-          "fairOdds": 2.836953549178152
-        },
-        {
-          "market": "totals",
-          "selection": "Más de 3.5",
-          "line": 3.5,
-          "p": 0.427328445251299,
-          "fairOdds": 2.3401203713736636
-        },
-        {
-          "market": "totals",
-          "selection": "Menos de 3.5",
-          "line": 3.5,
-          "p": 0.572671554748701,
-          "fairOdds": 1.746201625884524
-        },
-        {
-          "market": "btts",
-          "selection": "Sí",
-          "p": 0.6203413472331881,
-          "fairOdds": 1.61201571434847
-        },
-        {
-          "market": "btts",
-          "selection": "No",
-          "p": 0.3796586527668119,
-          "fairOdds": 2.6339449732341667
-        },
-        {
-          "market": "team_totals",
-          "selection": "Asociación Deportiva T más de 1.5",
-          "line": 1.5,
-          "p": 0.3384216328616896,
-          "fairOdds": 2.95489384512453
-        },
-        {
-          "market": "team_totals",
-          "selection": "Asociación Deportiva T menos de 1.5",
-          "line": 1.5,
-          "p": 0.6615783671383104,
-          "fairOdds": 1.5115367274258813
-        },
-        {
-          "market": "team_totals",
-          "selection": "Sporting Cristal más de 1.5",
-          "line": 1.5,
-          "p": 0.6285137606467988,
-          "fairOdds": 1.591055061341708
-        },
-        {
-          "market": "team_totals",
-          "selection": "Sporting Cristal menos de 1.5",
-          "line": 1.5,
-          "p": 0.37148623935320124,
-          "fairOdds": 2.691889750051337
-        },
-        {
-          "market": "correct_score",
-          "selection": "1–2",
-          "p": 0.09737653233171283,
-          "fairOdds": 10.269414776380652
-        },
-        {
-          "market": "correct_score",
-          "selection": "1–1",
-          "p": 0.09500606929371808,
-          "fairOdds": 10.525643334516117
-        },
-        {
-          "market": "correct_score",
-          "selection": "0–2",
-          "p": 0.08095128386517703,
-          "fairOdds": 12.353108588932114
-        }
-      ],
-      "marketGroups": [
-        {
-          "group": "Resultado",
-          "rows": [
-            {
-              "market": "h2h",
-              "selection": "home",
-              "label": "Asociación Deportiva T gana",
-              "p": 0.20495447033507946,
-              "fairOdds": 4.8791324159219505
-            },
-            {
-              "market": "h2h",
-              "selection": "draw",
-              "label": "Empate",
-              "p": 0.2125075802009755,
-              "fairOdds": 4.705714492886639
-            },
-            {
-              "market": "h2h",
-              "selection": "away",
-              "label": "Sporting Cristal gana",
-              "p": 0.582537949463945,
-              "fairOdds": 1.7166263604288892
-            }
-          ]
-        },
-        {
-          "group": "Doble oportunidad",
-          "rows": [
-            {
-              "market": "double_chance",
-              "selection": "1x",
-              "label": "Asociación Deportiva T o empate",
-              "p": 0.41746205053605495,
-              "fairOdds": 2.3954273178027066
-            },
-            {
-              "market": "double_chance",
-              "selection": "x2",
-              "label": "Sporting Cristal o empate",
-              "p": 0.7950455296649205,
-              "fairOdds": 1.2577896015860368
-            },
-            {
-              "market": "double_chance",
-              "selection": "12",
-              "label": "Sin empate",
-              "p": 0.7874924197990245,
-              "fairOdds": 1.2698534930091256
-            }
-          ]
-        },
-        {
-          "group": "Goles totales",
-          "rows": [
-            {
-              "market": "totals",
-              "selection": "over_1.5",
-              "label": "Más de 1.5",
-              "line": 1.5,
-              "p": 0.8492388096480756,
-              "fairOdds": 1.1775250832146964
-            },
-            {
-              "market": "totals",
-              "selection": "over_2.5",
-              "label": "Más de 2.5",
-              "line": 2.5,
-              "p": 0.6475092092044673,
-              "fairOdds": 1.544379579139275
-            },
-            {
-              "market": "totals",
-              "selection": "under_2.5",
-              "label": "Menos de 2.5",
-              "line": 2.5,
-              "p": 0.3524907907955327,
-              "fairOdds": 2.836953549178152
-            },
-            {
-              "market": "totals",
-              "selection": "over_3.5",
-              "label": "Más de 3.5",
-              "line": 3.5,
-              "p": 0.427328445251299,
-              "fairOdds": 2.3401203713736636
-            },
-            {
-              "market": "totals",
-              "selection": "under_3.5",
-              "label": "Menos de 3.5",
-              "line": 3.5,
-              "p": 0.572671554748701,
-              "fairOdds": 1.746201625884524
-            }
-          ]
-        },
-        {
-          "group": "Ambos anotan",
-          "rows": [
-            {
-              "market": "btts",
-              "selection": "yes",
-              "label": "Sí",
-              "p": 0.6203413472331881,
-              "fairOdds": 1.61201571434847
-            },
-            {
-              "market": "btts",
-              "selection": "no",
-              "label": "No",
-              "p": 0.3796586527668119,
-              "fairOdds": 2.6339449732341667
-            }
-          ]
-        },
-        {
-          "group": "Goles por equipo (1.5)",
-          "rows": [
-            {
-              "market": "team_totals",
-              "selection": "home_over",
-              "label": "Asociación Deportiva T más de 1.5",
-              "line": 1.5,
-              "p": 0.3384216328616896,
-              "fairOdds": 2.95489384512453
-            },
-            {
-              "market": "team_totals",
-              "selection": "home_under",
-              "label": "Asociación Deportiva T menos de 1.5",
-              "line": 1.5,
-              "p": 0.6615783671383104,
-              "fairOdds": 1.5115367274258813
-            },
-            {
-              "market": "team_totals",
-              "selection": "away_over",
-              "label": "Sporting Cristal más de 1.5",
-              "line": 1.5,
-              "p": 0.6285137606467988,
-              "fairOdds": 1.591055061341708
-            },
-            {
-              "market": "team_totals",
-              "selection": "away_under",
-              "label": "Sporting Cristal menos de 1.5",
-              "line": 1.5,
-              "p": 0.37148623935320124,
-              "fairOdds": 2.691889750051337
-            }
-          ]
-        },
-        {
-          "group": "Marcador exacto (más probables)",
-          "rows": [
-            {
-              "market": "correct_score",
-              "selection": "1-2",
-              "label": "1–2",
-              "p": 0.09737653233171283,
-              "fairOdds": 10.269414776380652
-            },
-            {
-              "market": "correct_score",
-              "selection": "1-1",
-              "label": "1–1",
-              "p": 0.09500606929371808,
-              "fairOdds": 10.525643334516117
-            },
-            {
-              "market": "correct_score",
-              "selection": "0-2",
-              "label": "0–2",
-              "p": 0.08095128386517703,
-              "fairOdds": 12.353108588932114
-            }
-          ]
-        }
-      ],
-      "mostLikelyScore": {
-        "home": 1,
-        "away": 2,
-        "p": 0.09737653233171283
-      },
-      "factors": [
-        {
-          "key": "home_attack",
-          "label": "Ataque local",
-          "value": "0.83 goles/partido",
-          "detail": "27 % menos que la media · 17 partidos"
-        },
-        {
-          "key": "away_defense",
-          "label": "Defensa visitante",
-          "value": "1.14 concedidos/partido",
-          "detail": "17 % menos que la media · 16 partidos"
-        },
-        {
-          "key": "away_attack",
-          "label": "Ataque visitante",
-          "value": "2.13 goles/partido",
-          "detail": "40 % más que la media · ajustado por rival"
-        },
-        {
-          "key": "home_defense",
-          "label": "Defensa local",
-          "value": "1.53 concedidos/partido",
-          "detail": "11 % más que la media · ajustado por rival"
-        },
-        {
-          "key": "home_advantage",
-          "label": "Localía",
-          "value": "×1.45",
-          "detail": "estimada de 150 partidos"
-        },
-        {
-          "key": "uncertainty",
-          "label": "Intervalo 90%",
-          "value": "goles 2.5–5.0",
-          "detail": "local 8%–43% · 150 partidos"
-        },
-        {
-          "key": "home_position",
-          "label": "Posición local",
-          "value": "17.º · 13 pts",
-          "detail": "de 18 equipos"
-        },
-        {
-          "key": "away_position",
-          "label": "Posición visitante",
-          "value": "2.º · 32 pts",
-          "detail": "de 18 equipos"
-        },
-        {
-          "key": "home_form",
-          "label": "Forma local",
-          "value": "E-P-E-G-E · 6 pts",
-          "detail": "6 goles a favor · 5 en contra"
-        },
-        {
-          "key": "away_form",
-          "label": "Forma visitante",
-          "value": "G-G-P-G-G · 12 pts",
-          "detail": "14 goles a favor · 7 en contra"
-        }
-      ],
-      "steps": [
-        "Sincronizando Liga 1 Perú · corte 7 nov 2026, 11:00",
-        "Fuerza ajustada por rival · ASO 0.73 / 1.11 · SPO 1.40 / 0.83",
-        "Ponderando 133.1 partidos por antigüedad y calidad del rival",
-        "Proyección de goles 1.20 – 2.13 · total 3.33",
-        "Simulando 121 marcadores con incertidumbre del ajuste",
-        "20 mercados listos · marcador proyectado 1–2"
-      ],
-      "inputsAsOf": "2026-11-07T17:00:00.000Z",
-      "publishedAt": "2026-11-07T17:00:00.000Z",
-      "source": "pitchlab-football-v2",
-      "projectedScore": {
-        "home": 1,
-        "away": 2,
-        "p": 0.09737653233171283
-      },
-      "insights": {
-        "why": [
-          "Se esperan 3.3 goles: 1.2 de Asociación Deportiva T y 2.1 de Sporting Cristal.",
-          "Sporting Cristal anota 40 % más que la media.",
-          "Asociación Deportiva T anota 27 % menos que la media."
-        ],
-        "restDays": {
-          "home": 4,
-          "away": 5
-        }
-      },
-      "matchContext": {
-        "referee": "Jordi Espinoza",
-        "refereeStats": {
-          "country": "Peru",
-          "matches": 27,
-          "avgYellow": 5.3,
-          "avgRed": 0.3,
-          "avgFouls": 24.3,
-          "avgGoals": 2.74
-        },
-        "halfTimeScore": {
-          "home": 0,
-          "away": 1
-        },
-        "stageName": "Regular season"
-      }
-    },
     "liga-1-peru-2026-11-07-cajamarca-alianza-atleti-3tzs2p": {
       "game": "liga-1-peru-2026-11-07-cajamarca-alianza-atleti-3tzs2p",
       "model": {
@@ -2141,11 +1198,11 @@
         "referee": "Kevin Ortega",
         "refereeStats": {
           "country": "Peru",
-          "matches": 45,
-          "avgYellow": 4.76,
+          "matches": 46,
+          "avgYellow": 4.72,
           "avgRed": 0.24,
-          "avgFouls": 22.8,
-          "avgGoals": 2.84
+          "avgFouls": 22.6,
+          "avgGoals": 2.89
         },
         "halfTimeScore": {
           "home": 1,
@@ -4804,11 +3861,11 @@
         "referee": "Sebastian Lozano",
         "refereeStats": {
           "country": "Peru",
-          "matches": 23,
-          "avgYellow": 4.39,
-          "avgRed": 0.35,
-          "avgFouls": 24.3,
-          "avgGoals": 3.13
+          "matches": 24,
+          "avgYellow": 4.25,
+          "avgRed": 0.33,
+          "avgFouls": 24.2,
+          "avgGoals": 3.21
         },
         "halfTimeScore": {
           "home": 1,
@@ -8464,18 +7521,22 @@
         "referee": "Sebastian Lozano",
         "refereeStats": {
           "country": "Peru",
-          "matches": 23,
-          "avgYellow": 4.39,
-          "avgRed": 0.35,
-          "avgFouls": 24.3,
-          "avgGoals": 3.13
+          "matches": 24,
+          "avgYellow": 4.25,
+          "avgRed": 0.33,
+          "avgFouls": 24.2,
+          "avgGoals": 3.21
         },
         "weather": {
-          "description": "rain",
+          "description": "cloudy",
           "temperatureC": 26,
           "windSpeedKmh": 55
         },
         "travelDistanceKm": 576,
+        "halfTimeScore": {
+          "home": 2,
+          "away": 1
+        },
         "stageName": "Regular season",
         "venueCity": "Lima",
         "venueCountry": "Peru",
@@ -8949,17 +8010,22 @@
         "referee": "Kevin Ortega",
         "refereeStats": {
           "country": "Peru",
-          "matches": 45,
-          "avgYellow": 4.76,
+          "matches": 46,
+          "avgYellow": 4.72,
           "avgRed": 0.24,
-          "avgFouls": 22.8,
-          "avgGoals": 2.84
+          "avgFouls": 22.6,
+          "avgGoals": 2.89
         },
         "weather": {
+          "description": "clear",
           "temperatureC": 19,
           "windSpeedKmh": 14
         },
         "travelDistanceKm": 189,
+        "halfTimeScore": {
+          "home": 3,
+          "away": 0
+        },
         "stageName": "Regular season",
         "venueCity": "Huancayo",
         "venueCountry": "Peru",
@@ -8973,17 +8039,17 @@
       "name": "Sport Huancayo",
       "shortName": "Sport Huancayo",
       "code": "SPO",
-      "played": 16,
-      "won": 11,
+      "played": 17,
+      "won": 12,
       "drawn": 1,
       "lost": 4,
-      "goalsFor": 27,
-      "goalsAgainst": 18,
-      "points": 34,
+      "goalsFor": 31,
+      "goalsAgainst": 19,
+      "points": 37,
       "form": [
         "W",
-        "W",
         "L",
+        "W",
         "W",
         "W"
       ]
@@ -8993,19 +8059,19 @@
       "name": "Club Sporting Cristal",
       "shortName": "Sporting Cristal",
       "code": "SPO",
-      "played": 16,
-      "won": 10,
+      "played": 17,
+      "won": 11,
       "drawn": 2,
       "lost": 4,
-      "goalsFor": 35,
-      "goalsAgainst": 18,
-      "points": 32,
+      "goalsFor": 39,
+      "goalsAgainst": 19,
+      "points": 35,
       "form": [
-        "W",
         "L",
         "W",
         "W",
-        "D"
+        "D",
+        "W"
       ]
     },
     {
@@ -9033,19 +8099,19 @@
       "name": "Universitario de Deportes",
       "shortName": "Universitario de Depor",
       "code": "UNI",
-      "played": 16,
+      "played": 17,
       "won": 9,
       "drawn": 5,
-      "lost": 2,
-      "goalsFor": 35,
-      "goalsAgainst": 24,
+      "lost": 3,
+      "goalsFor": 36,
+      "goalsAgainst": 28,
       "points": 32,
       "form": [
         "W",
         "W",
-        "W",
         "D",
-        "D"
+        "D",
+        "L"
       ]
     },
     {
@@ -9213,17 +8279,17 @@
       "name": "Cienciano",
       "shortName": "Cienciano",
       "code": "CIE",
-      "played": 16,
+      "played": 17,
       "won": 5,
       "drawn": 2,
-      "lost": 9,
-      "goalsFor": 20,
-      "goalsAgainst": 24,
+      "lost": 10,
+      "goalsFor": 21,
+      "goalsAgainst": 28,
       "points": 17,
       "form": [
-        "W",
         "L",
         "W",
+        "L",
         "L",
         "L"
       ]

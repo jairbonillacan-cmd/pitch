@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "league": "laliga",
-  "observedAt": "2026-11-22T19:33:43.299Z",
+  "observedAt": "2026-11-22T22:04:45.643Z",
   "entries": [
     {
       "gameId": "laliga-2026-27-md13-alaves-deportivo-la-coruna",
@@ -99,22 +99,22 @@
       "gameId": "laliga-2026-27-md13-levante-elche",
       "source": "polymarket",
       "unit": "usd",
-      "observedAt": "2026-11-22T19:33:43.299Z",
+      "observedAt": "2026-11-22T22:04:45.643Z",
       "outcomes": [
         {
           "side": "home",
-          "volume": 979.4927110000001,
+          "volume": 992.8260460000001,
           "price": 0.445
         },
         {
           "side": "draw",
-          "volume": 4134.0806330000005,
+          "volume": 4171.0806330000005,
           "price": 0.265
         },
         {
           "side": "away",
-          "volume": 3086.0652969999996,
-          "price": 0.295
+          "volume": 3121.9817409999996,
+          "price": 0.285
         }
       ]
     },

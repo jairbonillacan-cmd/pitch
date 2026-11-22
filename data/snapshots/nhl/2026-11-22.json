@@ -5,7 +5,7 @@
   "season": "nhl-2026-27",
   "seasonLabel": "Temporada 2026-27",
   "periodLabel": "21 nov – 24 nov",
-  "updatedAt": "2026-11-22T19:27:04.373Z",
+  "updatedAt": "2026-11-22T21:56:40.721Z",
   "source": "bzzoiro",
   "provenance": "derived",
   "isDemo": false,
@@ -15,11 +15,11 @@
       "name": "Carolina Hurricanes",
       "shortName": "Hurricanes",
       "code": "CAR",
-      "forPerGame": 4.130434782608695,
-      "againstPerGame": 2.3043478260869565,
-      "gamesPlayed": 23,
-      "adjustedFor": 4.130434782608695,
-      "adjustedAgainst": 2.3043478260869565
+      "forPerGame": 4.166666666666667,
+      "againstPerGame": 2.2916666666666665,
+      "gamesPlayed": 24,
+      "adjustedFor": 4.166666666666667,
+      "adjustedAgainst": 2.2916666666666665
     },
     "nhl.florida-panthers": {
       "teamId": "nhl.florida-panthers",
@@ -70,11 +70,11 @@
       "name": "New York Rangers",
       "shortName": "Rangers",
       "code": "NYR",
-      "forPerGame": 3.0454545454545454,
-      "againstPerGame": 2.6363636363636362,
-      "gamesPlayed": 22,
-      "adjustedFor": 3.0454545454545454,
-      "adjustedAgainst": 2.6363636363636362
+      "forPerGame": 3,
+      "againstPerGame": 2.739130434782609,
+      "gamesPlayed": 23,
+      "adjustedFor": 3,
+      "adjustedAgainst": 2.739130434782609
     },
     "nhl.edmonton-oilers": {
       "teamId": "nhl.edmonton-oilers",
@@ -388,7 +388,7 @@
       "result": {
         "home": 7,
         "away": 4,
-        "observedAt": "2026-11-22T19:26:51.991Z",
+        "observedAt": "2026-11-22T21:56:28.381Z",
         "source": "bzzoiro"
       }
     },
@@ -416,7 +416,7 @@
       "result": {
         "home": 3,
         "away": 4,
-        "observedAt": "2026-11-22T19:26:51.991Z",
+        "observedAt": "2026-11-22T21:56:28.381Z",
         "source": "bzzoiro"
       }
     },
@@ -444,7 +444,7 @@
       "result": {
         "home": 4,
         "away": 3,
-        "observedAt": "2026-11-22T19:26:51.991Z",
+        "observedAt": "2026-11-22T21:56:28.381Z",
         "source": "bzzoiro"
       }
     },
@@ -472,7 +472,7 @@
       "result": {
         "home": 4,
         "away": 3,
-        "observedAt": "2026-11-22T19:26:51.991Z",
+        "observedAt": "2026-11-22T21:56:28.381Z",
         "source": "bzzoiro"
       }
     },
@@ -500,7 +500,7 @@
       "result": {
         "home": 7,
         "away": 5,
-        "observedAt": "2026-11-22T19:26:51.991Z",
+        "observedAt": "2026-11-22T21:56:28.381Z",
         "source": "bzzoiro"
       }
     },
@@ -528,7 +528,7 @@
       "result": {
         "home": 3,
         "away": 4,
-        "observedAt": "2026-11-22T19:26:51.991Z",
+        "observedAt": "2026-11-22T21:56:28.381Z",
         "source": "bzzoiro"
       }
     },
@@ -556,7 +556,7 @@
       "result": {
         "home": 3,
         "away": 4,
-        "observedAt": "2026-11-22T19:26:51.991Z",
+        "observedAt": "2026-11-22T21:56:28.381Z",
         "source": "bzzoiro"
       }
     },
@@ -584,7 +584,7 @@
       "result": {
         "home": 4,
         "away": 5,
-        "observedAt": "2026-11-22T19:26:51.991Z",
+        "observedAt": "2026-11-22T21:56:28.381Z",
         "source": "bzzoiro"
       }
     },
@@ -612,7 +612,7 @@
       "result": {
         "home": 2,
         "away": 3,
-        "observedAt": "2026-11-22T19:26:51.991Z",
+        "observedAt": "2026-11-22T21:56:28.381Z",
         "source": "bzzoiro"
       }
     },
@@ -640,7 +640,7 @@
       "result": {
         "home": 4,
         "away": 2,
-        "observedAt": "2026-11-22T19:26:51.991Z",
+        "observedAt": "2026-11-22T21:56:28.381Z",
         "source": "bzzoiro"
       }
     },
@@ -668,7 +668,7 @@
       "result": {
         "home": 9,
         "away": 6,
-        "observedAt": "2026-11-22T19:26:51.991Z",
+        "observedAt": "2026-11-22T21:56:28.381Z",
         "source": "bzzoiro"
       }
     },
@@ -696,7 +696,7 @@
       "result": {
         "home": 3,
         "away": 2,
-        "observedAt": "2026-11-22T19:26:51.991Z",
+        "observedAt": "2026-11-22T21:56:28.381Z",
         "source": "bzzoiro"
       }
     },
@@ -724,7 +724,7 @@
       "result": {
         "home": 4,
         "away": 3,
-        "observedAt": "2026-11-22T19:26:51.991Z",
+        "observedAt": "2026-11-22T21:56:28.381Z",
         "source": "bzzoiro"
       }
     },
@@ -752,7 +752,7 @@
       "result": {
         "home": 4,
         "away": 3,
-        "observedAt": "2026-11-22T19:26:51.991Z",
+        "observedAt": "2026-11-22T21:56:28.381Z",
         "source": "bzzoiro"
       }
     },
@@ -761,7 +761,7 @@
       "league": "nhl",
       "season": "nhl-2026-27",
       "startTime": "2026-11-22T17:30:00.000Z",
-      "status": "in_progress",
+      "status": "final",
       "home": {
         "id": "nhl.new-york-rangers",
         "league": "nhl",
@@ -777,7 +777,13 @@
         "code": "CAR"
       },
       "referee": "Graham Skilliter",
-      "neutralSite": false
+      "neutralSite": false,
+      "result": {
+        "home": 2,
+        "away": 5,
+        "observedAt": "2026-11-22T21:56:28.381Z",
+        "source": "bzzoiro"
+      }
     },
     {
       "id": "nhl-2026-11-22-buf-tbl",
@@ -821,6 +827,7 @@
         "shortName": "Oilers",
         "code": "EDM"
       },
+      "referee": "Frederick L'Ecuyer",
       "neutralSite": false
     },
     {
@@ -5552,6 +5559,9 @@
           "Oilers gana en 53 % de los escenarios.",
           "Se esperan 6.04 goles: 2.92 de Blues y 3.12 de Oilers."
         ]
+      },
+      "matchContext": {
+        "referee": "Frederick L'Ecuyer"
       }
     },
     "nhl-2026-11-23-pit-dal": {
@@ -8191,6 +8201,32 @@
   },
   "standings": [
     {
+      "teamId": "nhl.carolina-hurricanes",
+      "name": "Carolina Hurricanes",
+      "shortName": "Hurricanes",
+      "code": "CAR",
+      "logoUrl": "/brand/official/nhl/carolina-hurricanes.png",
+      "played": 24,
+      "won": 18,
+      "drawn": 0,
+      "lost": 3,
+      "goalsFor": 100,
+      "goalsAgainst": 55,
+      "points": 39,
+      "conference": "Este",
+      "division": "Metropolitana",
+      "otLosses": 3,
+      "winPct": 0.75,
+      "seed": 1,
+      "form": [
+        "W",
+        "W",
+        "L",
+        "W",
+        "W"
+      ]
+    },
+    {
       "teamId": "nhl.minnesota-wild",
       "name": "Minnesota Wild",
       "shortName": "Wild",
@@ -8214,32 +8250,6 @@
         "W",
         "W",
         "L"
-      ]
-    },
-    {
-      "teamId": "nhl.carolina-hurricanes",
-      "name": "Carolina Hurricanes",
-      "shortName": "Hurricanes",
-      "code": "CAR",
-      "logoUrl": "/brand/official/nhl/carolina-hurricanes.png",
-      "played": 23,
-      "won": 17,
-      "drawn": 0,
-      "lost": 3,
-      "goalsFor": 95,
-      "goalsAgainst": 53,
-      "points": 37,
-      "conference": "Este",
-      "division": "Metropolitana",
-      "otLosses": 3,
-      "winPct": 0.739,
-      "seed": 1,
-      "form": [
-        "W",
-        "W",
-        "W",
-        "L",
-        "W"
       ]
     },
     {
@@ -8534,24 +8544,24 @@
       "shortName": "Rangers",
       "code": "NYR",
       "logoUrl": "/brand/official/nhl/new-york-rangers.png",
-      "played": 22,
+      "played": 23,
       "won": 13,
       "drawn": 0,
-      "lost": 8,
-      "goalsFor": 67,
-      "goalsAgainst": 58,
+      "lost": 9,
+      "goalsFor": 69,
+      "goalsAgainst": 63,
       "points": 27,
       "conference": "Este",
       "division": "Metropolitana",
       "otLosses": 1,
-      "winPct": 0.591,
+      "winPct": 0.565,
       "seed": 8,
       "form": [
-        "W",
         "L",
         "W",
         "W",
-        "W"
+        "W",
+        "L"
       ]
     },
     {

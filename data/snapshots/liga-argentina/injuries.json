@@ -1,55 +1,10 @@
 {
   "schemaVersion": 1,
   "league": "liga-argentina",
-  "observedAt": "2026-11-22T19:27:07.879Z",
+  "observedAt": "2026-11-22T21:56:46.653Z",
   "source": "pitchlab-availability",
   "coverageStatus": "ok",
   "entries": [
-    {
-      "teamId": "liga-argentina.barracas-central",
-      "player": "Dardo Miloc",
-      "position": "M",
-      "status": "Baja",
-      "detail": "Knee Injury",
-      "injuryType": "Knee Injury",
-      "reportedAt": "2026-11-22T19:27:07.879Z"
-    },
-    {
-      "teamId": "liga-argentina.barracas-central",
-      "player": "Fernando Tobio",
-      "position": "D",
-      "status": "Baja",
-      "detail": "Groin Injury",
-      "injuryType": "Groin Injury",
-      "reportedAt": "2026-11-22T19:27:07.879Z"
-    },
-    {
-      "teamId": "liga-argentina.barracas-central",
-      "player": "Juan Espínola",
-      "position": "G",
-      "status": "Baja",
-      "detail": "Knee Surgery",
-      "injuryType": "Knee Surgery",
-      "reportedAt": "2026-11-22T19:27:07.879Z"
-    },
-    {
-      "teamId": "liga-argentina.barracas-central",
-      "player": "Lucas Gamba",
-      "position": "F",
-      "status": "Baja",
-      "detail": "Muscle Injury",
-      "injuryType": "Muscle Injury",
-      "reportedAt": "2026-11-22T19:27:07.879Z"
-    },
-    {
-      "teamId": "liga-argentina.racing",
-      "player": "Marco Di Cesare",
-      "position": "D",
-      "status": "Baja",
-      "detail": "Broken Ankle",
-      "injuryType": "Broken Ankle",
-      "reportedAt": "2026-11-22T19:27:07.879Z"
-    },
     {
       "teamId": "liga-argentina.atletico-platense",
       "player": "Héctor Bobadilla",
@@ -57,7 +12,7 @@
       "status": "Baja",
       "detail": "Sprained Knee Injury",
       "injuryType": "Sprained Knee Injury",
-      "reportedAt": "2026-11-22T19:27:07.879Z"
+      "reportedAt": "2026-11-22T21:56:46.653Z"
     },
     {
       "teamId": "liga-argentina.atletico-platense",
@@ -66,7 +21,7 @@
       "status": "Baja",
       "detail": "Knee Injury",
       "injuryType": "Knee Injury",
-      "reportedAt": "2026-11-22T19:27:07.879Z"
+      "reportedAt": "2026-11-22T21:56:46.653Z"
     },
     {
       "teamId": "liga-argentina.atletico-union-santa-fe",
@@ -75,7 +30,7 @@
       "status": "Baja",
       "detail": "Sprained Knee Injury",
       "injuryType": "Sprained Knee Injury",
-      "reportedAt": "2026-11-22T19:27:07.879Z"
+      "reportedAt": "2026-11-22T21:56:46.653Z"
     },
     {
       "teamId": "liga-argentina.velez-sarsfield",
@@ -84,7 +39,61 @@
       "status": "Baja",
       "detail": "Muscle Injury",
       "injuryType": "Muscle Injury",
-      "reportedAt": "2026-11-22T19:27:07.879Z"
+      "reportedAt": "2026-11-22T21:56:46.653Z"
+    },
+    {
+      "teamId": "liga-argentina.tigre",
+      "player": "Bruno Leyes",
+      "position": "M",
+      "status": "Baja",
+      "detail": "Shoulder Injury",
+      "injuryType": "Shoulder Injury",
+      "reportedAt": "2026-11-22T21:56:46.653Z"
+    },
+    {
+      "teamId": "liga-argentina.tigre",
+      "player": "Joaquín Laso",
+      "position": "D",
+      "status": "Baja",
+      "detail": "Hamstring Injury",
+      "injuryType": "Hamstring Injury",
+      "reportedAt": "2026-11-22T21:56:46.653Z"
+    },
+    {
+      "teamId": "liga-argentina.tigre",
+      "player": "Nicolas Dubersarsky",
+      "position": "M",
+      "status": "Baja",
+      "detail": "Foot Injury",
+      "injuryType": "Foot Injury",
+      "reportedAt": "2026-11-22T21:56:46.653Z"
+    },
+    {
+      "teamId": "liga-argentina.tigre",
+      "player": "Ramón Arias",
+      "position": "D",
+      "status": "Baja",
+      "detail": "Knee Injury",
+      "injuryType": "Knee Injury",
+      "reportedAt": "2026-11-22T21:56:46.653Z"
+    },
+    {
+      "teamId": "liga-argentina.tigre",
+      "player": "Santiago González",
+      "position": "M",
+      "status": "Baja",
+      "detail": "Hamstring Injury",
+      "injuryType": "Hamstring Injury",
+      "reportedAt": "2026-11-22T21:56:46.653Z"
+    },
+    {
+      "teamId": "liga-argentina.tigre",
+      "player": "Valentín Moreno",
+      "position": "D",
+      "status": "Baja",
+      "detail": "Hamstring Injury",
+      "injuryType": "Hamstring Injury",
+      "reportedAt": "2026-11-22T21:56:46.653Z"
     }
   ]
 }

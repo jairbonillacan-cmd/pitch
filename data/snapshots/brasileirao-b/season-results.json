@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "league": "brasileirao-b",
   "season": "2026",
-  "updatedAt": "2026-11-22T19:27:07.879Z",
+  "updatedAt": "2026-11-22T21:56:46.653Z",
   "matches": [
     {
       "id": "brasileirao-b-2026-06-25-cuiaba-londrina-0c8tro",
@@ -2642,6 +2642,17 @@
       "awayTeam": "brasileirao-b.avai",
       "homeScore": 0,
       "awayScore": 2,
+      "neutralSite": false
+    },
+    {
+      "id": "brasileirao-b-2026-11-22-criciuma-fortaleza-7m5phu",
+      "date": "2026-11-22",
+      "startTime": "2026-11-22T19:00:00.000Z",
+      "round": "Final",
+      "homeTeam": "brasileirao-b.criciuma",
+      "awayTeam": "brasileirao-b.fortaleza",
+      "homeScore": 1,
+      "awayScore": 0,
       "neutralSite": false
     }
   ]

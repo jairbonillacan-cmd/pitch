@@ -1,28 +1,10 @@
 {
   "schemaVersion": 1,
   "league": "pro-league-belgica",
-  "observedAt": "2026-11-22T19:27:07.879Z",
+  "observedAt": "2026-11-22T21:56:46.653Z",
   "source": "pitchlab-availability",
   "coverageStatus": "ok",
   "entries": [
-    {
-      "teamId": "pro-league-belgica.kvc-westerlo",
-      "player": "Dylan Ourega",
-      "position": "D",
-      "status": "Baja",
-      "detail": "Thigh Injury",
-      "injuryType": "Thigh Injury",
-      "reportedAt": "2026-11-22T19:27:07.879Z"
-    },
-    {
-      "teamId": "pro-league-belgica.sporting-charleroi",
-      "player": "Massamba Sow",
-      "position": "D",
-      "status": "Baja",
-      "detail": "Unknown",
-      "injuryType": "Unknown",
-      "reportedAt": "2026-11-22T19:27:07.879Z"
-    },
     {
       "teamId": "pro-league-belgica.oud-heverlee-leuven",
       "player": "Birger Verstraete",
@@ -30,7 +12,7 @@
       "status": "Baja",
       "detail": "red_card_suspension",
       "injuryType": "red_card_suspension",
-      "reportedAt": "2026-11-22T19:27:07.879Z"
+      "reportedAt": "2026-11-22T21:56:46.653Z"
     },
     {
       "teamId": "pro-league-belgica.kv-mechelen",
@@ -39,7 +21,7 @@
       "status": "Baja",
       "detail": "Cruciate Ligament Injury",
       "injuryType": "Cruciate Ligament Injury",
-      "reportedAt": "2026-11-22T19:27:07.879Z"
+      "reportedAt": "2026-11-22T21:56:46.653Z"
     },
     {
       "teamId": "pro-league-belgica.raal-la-louviere",
@@ -48,7 +30,7 @@
       "status": "Baja",
       "detail": "Achilles Tendon Injury",
       "injuryType": "Achilles Tendon Injury",
-      "reportedAt": "2026-11-22T19:27:07.879Z"
+      "reportedAt": "2026-11-22T21:56:46.653Z"
     },
     {
       "teamId": "pro-league-belgica.cercle-brugge",
@@ -57,7 +39,7 @@
       "status": "Baja",
       "detail": "Hamstring Injury",
       "injuryType": "Hamstring Injury",
-      "reportedAt": "2026-11-22T19:27:07.879Z"
+      "reportedAt": "2026-11-22T21:56:46.653Z"
     },
     {
       "teamId": "pro-league-belgica.cercle-brugge",
@@ -66,7 +48,34 @@
       "status": "Baja",
       "detail": "Hamstring Injury",
       "injuryType": "Hamstring Injury",
-      "reportedAt": "2026-11-22T19:27:07.879Z"
+      "reportedAt": "2026-11-22T21:56:46.653Z"
+    },
+    {
+      "teamId": "pro-league-belgica.brugge-kv",
+      "player": "Jan Virgili",
+      "position": "M",
+      "status": "Baja",
+      "detail": "Groin Injury",
+      "injuryType": "Groin Injury",
+      "reportedAt": "2026-11-22T21:56:46.653Z"
+    },
+    {
+      "teamId": "pro-league-belgica.rsc-anderlecht",
+      "player": "Giulian Biancone",
+      "position": "D",
+      "status": "Baja",
+      "detail": "yellow_card_accumulation_suspension",
+      "injuryType": "yellow_card_accumulation_suspension",
+      "reportedAt": "2026-11-22T21:56:46.653Z"
+    },
+    {
+      "teamId": "pro-league-belgica.rsc-anderlecht",
+      "player": "Lucas Hey",
+      "position": "D",
+      "status": "Baja",
+      "detail": "Broken Leg",
+      "injuryType": "Broken Leg",
+      "reportedAt": "2026-11-22T21:56:46.653Z"
     }
   ]
 }

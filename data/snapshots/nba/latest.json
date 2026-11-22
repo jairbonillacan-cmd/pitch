@@ -5,7 +5,7 @@
   "season": "nba-2026-27",
   "seasonLabel": "Temporada 2026-27",
   "periodLabel": "21 nov – 24 nov",
-  "updatedAt": "2026-11-22T19:27:04.373Z",
+  "updatedAt": "2026-11-22T21:56:40.721Z",
   "source": "bzzoiro",
   "provenance": "derived",
   "isDemo": false,
@@ -398,7 +398,7 @@
       "result": {
         "home": 132,
         "away": 129,
-        "observedAt": "2026-11-22T19:26:51.991Z",
+        "observedAt": "2026-11-22T21:56:28.381Z",
         "source": "bzzoiro"
       }
     },
@@ -428,7 +428,7 @@
       "result": {
         "home": 97,
         "away": 96,
-        "observedAt": "2026-11-22T19:26:51.991Z",
+        "observedAt": "2026-11-22T21:56:28.381Z",
         "source": "bzzoiro"
       }
     },
@@ -458,7 +458,7 @@
       "result": {
         "home": 110,
         "away": 100,
-        "observedAt": "2026-11-22T19:26:51.991Z",
+        "observedAt": "2026-11-22T21:56:28.381Z",
         "source": "bzzoiro"
       }
     },
@@ -488,7 +488,7 @@
       "result": {
         "home": 104,
         "away": 95,
-        "observedAt": "2026-11-22T19:26:51.991Z",
+        "observedAt": "2026-11-22T21:56:28.381Z",
         "source": "bzzoiro"
       }
     },
@@ -518,7 +518,7 @@
       "result": {
         "home": 114,
         "away": 91,
-        "observedAt": "2026-11-22T19:26:51.991Z",
+        "observedAt": "2026-11-22T21:56:28.381Z",
         "source": "bzzoiro"
       }
     },
@@ -548,7 +548,7 @@
       "result": {
         "home": 97,
         "away": 96,
-        "observedAt": "2026-11-22T19:26:51.991Z",
+        "observedAt": "2026-11-22T21:56:28.381Z",
         "source": "bzzoiro"
       }
     },
@@ -557,7 +557,7 @@
       "league": "nba",
       "season": "nba-2026-27",
       "startTime": "2026-11-22T20:30:00.000Z",
-      "status": "scheduled",
+      "status": "in_progress",
       "home": {
         "id": "nba.atlanta-hawks",
         "league": "nba",
@@ -574,6 +574,7 @@
         "code": "DET",
         "logoUrl": "https://sports.bzzoiro.com/img/basketball/team/9/?bg=transparent"
       },
+      "referee": "Curtis Blair",
       "neutralSite": false
     },
     {
@@ -2828,6 +2829,9 @@
           "Pistons gana en 61 % de los escenarios, por 3.5 puntos en promedio.",
           "Se esperan 228.5 pts: 112.5 de Hawks y 116.0 de Pistons."
         ]
+      },
+      "matchContext": {
+        "referee": "Curtis Blair"
       }
     },
     "nba-2026-11-22-okc-mia": {

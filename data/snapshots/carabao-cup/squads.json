@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "league": "carabao-cup",
   "seasonLabel": "2026/27",
-  "observedAt": "2026-11-22T19:27:07.879Z",
+  "observedAt": "2026-11-22T21:56:46.653Z",
   "teams": [
     {
       "teamId": "carabao-cup.liverpool",
@@ -24,7 +24,7 @@
           "winPct": 48
         }
       },
-      "updatedAt": "2026-11-22T19:27:07.879Z",
+      "updatedAt": "2026-11-22T21:56:46.653Z",
       "players": [
         {
           "id": "carabao-cup.liverpool.alexander-isak",
@@ -1078,8 +1078,8 @@
           "nationality": "Netherlands",
           "nationalityCode": null,
           "photoKey": "pl-p:325",
-          "availability": "doubtful",
-          "injuryDetail": "Physical Discomfort",
+          "availability": "available",
+          "injuryDetail": null,
           "expectedReturn": null,
           "stats": {
             "appearances": 0,
@@ -1195,7 +1195,7 @@
           "winPct": 35.4
         }
       },
-      "updatedAt": "2026-11-22T19:27:07.879Z",
+      "updatedAt": "2026-11-22T21:56:46.653Z",
       "players": [
         {
           "id": "carabao-cup.tottenham-hotspur.andy-robertson",
@@ -2329,7 +2329,7 @@
           "winPct": 41.7
         }
       },
-      "updatedAt": "2026-11-22T19:27:07.879Z",
+      "updatedAt": "2026-11-22T21:56:46.653Z",
       "players": [
         {
           "id": "carabao-cup.reading.andy-rinomhota",
@@ -2549,7 +2549,7 @@
             "offsides": 0,
             "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 0
+            "goalsConceded": 3
           },
           "candidatePicks": []
         },
@@ -2575,10 +2575,10 @@
           "stats": {
             "appearances": 0,
             "subIns": 0,
-            "goals": 0,
+            "goals": 1,
             "assists": 0,
-            "shots": 1,
-            "shotsOnTarget": 0,
+            "shots": 2,
+            "shotsOnTarget": 1,
             "foulsCommitted": 0,
             "foulsSuffered": 0,
             "yellowCards": 0,
@@ -2586,7 +2586,7 @@
             "offsides": 0,
             "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 3
+            "goalsConceded": 0
           },
           "candidatePicks": []
         },
@@ -2725,7 +2725,7 @@
             "subIns": 0,
             "goals": 1,
             "assists": 0,
-            "shots": 2,
+            "shots": 3,
             "shotsOnTarget": 1,
             "foulsCommitted": 0,
             "foulsSuffered": 0,
@@ -2734,7 +2734,7 @@
             "offsides": 0,
             "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 3
+            "goalsConceded": 0
           },
           "candidatePicks": []
         },
@@ -2956,7 +2956,7 @@
             "offsides": 0,
             "saves": 3,
             "shotsFaced": 0,
-            "goalsConceded": 0
+            "goalsConceded": 3
           },
           "candidatePicks": []
         },
@@ -2984,7 +2984,7 @@
             "subIns": 0,
             "goals": 0,
             "assists": 0,
-            "shots": 2,
+            "shots": 1,
             "shotsOnTarget": 0,
             "foulsCommitted": 0,
             "foulsSuffered": 0,
@@ -2993,7 +2993,7 @@
             "offsides": 0,
             "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 0
+            "goalsConceded": 3
           },
           "candidatePicks": []
         },
@@ -3280,7 +3280,7 @@
             "subIns": 0,
             "goals": 0,
             "assists": 0,
-            "shots": 0,
+            "shots": 1,
             "shotsOnTarget": 0,
             "foulsCommitted": 0,
             "foulsSuffered": 0,
@@ -3363,7 +3363,7 @@
             "offsides": 0,
             "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 0
+            "goalsConceded": 3
           },
           "candidatePicks": []
         }
@@ -3389,7 +3389,7 @@
           "winPct": 40.5
         }
       },
-      "updatedAt": "2026-11-22T19:27:07.879Z",
+      "updatedAt": "2026-11-22T21:56:46.653Z",
       "players": [
         {
           "id": "carabao-cup.brentford.aaron-hickey",
@@ -3524,10 +3524,10 @@
           "stats": {
             "appearances": 0,
             "subIns": 0,
-            "goals": 0,
+            "goals": 1,
             "assists": 0,
-            "shots": 1,
-            "shotsOnTarget": 0,
+            "shots": 3,
+            "shotsOnTarget": 2,
             "foulsCommitted": 0,
             "foulsSuffered": 0,
             "yellowCards": 0,
@@ -3535,7 +3535,7 @@
             "offsides": 0,
             "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 0
+            "goalsConceded": 3
           },
           "candidatePicks": []
         },
@@ -3637,7 +3637,7 @@
             "subIns": 0,
             "goals": 0,
             "assists": 0,
-            "shots": 0,
+            "shots": 1,
             "shotsOnTarget": 0,
             "foulsCommitted": 0,
             "foulsSuffered": 0,
@@ -3646,7 +3646,7 @@
             "offsides": 0,
             "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 0
+            "goalsConceded": 3
           },
           "candidatePicks": []
         },
@@ -3822,8 +3822,8 @@
             "subIns": 0,
             "goals": 1,
             "assists": 0,
-            "shots": 3,
-            "shotsOnTarget": 2,
+            "shots": 2,
+            "shotsOnTarget": 1,
             "foulsCommitted": 0,
             "foulsSuffered": 0,
             "yellowCards": 0,
@@ -3831,7 +3831,7 @@
             "offsides": 0,
             "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 3
+            "goalsConceded": 0
           },
           "candidatePicks": []
         },
@@ -3905,7 +3905,7 @@
             "offsides": 0,
             "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 0
+            "goalsConceded": 3
           },
           "candidatePicks": []
         },
@@ -4155,8 +4155,8 @@
             "subIns": 0,
             "goals": 0,
             "assists": 0,
-            "shots": 1,
-            "shotsOnTarget": 1,
+            "shots": 2,
+            "shotsOnTarget": 0,
             "foulsCommitted": 0,
             "foulsSuffered": 0,
             "yellowCards": 0,
@@ -4164,7 +4164,7 @@
             "offsides": 0,
             "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 3
+            "goalsConceded": 0
           },
           "candidatePicks": []
         },
@@ -4266,7 +4266,7 @@
             "subIns": 0,
             "goals": 0,
             "assists": 0,
-            "shots": 2,
+            "shots": 1,
             "shotsOnTarget": 0,
             "foulsCommitted": 0,
             "foulsSuffered": 0,
@@ -4275,7 +4275,7 @@
             "offsides": 0,
             "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 3
+            "goalsConceded": 0
           },
           "candidatePicks": []
         },
@@ -4303,8 +4303,8 @@
             "subIns": 0,
             "goals": 0,
             "assists": 0,
-            "shots": 0,
-            "shotsOnTarget": 0,
+            "shots": 1,
+            "shotsOnTarget": 1,
             "foulsCommitted": 0,
             "foulsSuffered": 0,
             "yellowCards": 0,
@@ -4312,7 +4312,7 @@
             "offsides": 0,
             "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 0
+            "goalsConceded": 3
           },
           "candidatePicks": []
         },
@@ -4414,8 +4414,8 @@
             "subIns": 0,
             "goals": 0,
             "assists": 0,
-            "shots": 3,
-            "shotsOnTarget": 1,
+            "shots": 0,
+            "shotsOnTarget": 0,
             "foulsCommitted": 0,
             "foulsSuffered": 0,
             "yellowCards": 0,
@@ -4423,7 +4423,7 @@
             "offsides": 0,
             "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 3
+            "goalsConceded": 0
           },
           "candidatePicks": []
         },
@@ -4486,7 +4486,7 @@
           "winPct": 37.2
         }
       },
-      "updatedAt": "2026-11-22T19:27:07.879Z",
+      "updatedAt": "2026-11-22T21:56:46.653Z",
       "players": [
         {
           "id": "carabao-cup.ipswich-town.abdoul-ouattara",
@@ -4808,7 +4808,7 @@
             "subIns": 0,
             "goals": 0,
             "assists": 0,
-            "shots": 0,
+            "shots": 2,
             "shotsOnTarget": 0,
             "foulsCommitted": 0,
             "foulsSuffered": 0,
@@ -4817,7 +4817,7 @@
             "offsides": 0,
             "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 2
+            "goalsConceded": 0
           },
           "candidatePicks": []
         },
@@ -5546,7 +5546,7 @@
           "winPct": 65.6
         }
       },
-      "updatedAt": "2026-11-22T19:27:07.879Z",
+      "updatedAt": "2026-11-22T21:56:46.653Z",
       "players": [
         {
           "id": "carabao-cup.arsenal.ben-white",
@@ -6569,7 +6569,7 @@
           "winPct": 38.2
         }
       },
-      "updatedAt": "2026-11-22T19:27:07.879Z",
+      "updatedAt": "2026-11-22T21:56:46.653Z",
       "players": [
         {
           "id": "carabao-cup.everton.ainsley-maitland-niles",
@@ -7407,7 +7407,7 @@
           "winPct": 44.8
         }
       },
-      "updatedAt": "2026-11-22T19:27:07.879Z",
+      "updatedAt": "2026-11-22T21:56:46.653Z",
       "players": [
         {
           "id": "carabao-cup.wolverhampton.adam-armstrong",

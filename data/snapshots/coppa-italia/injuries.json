@@ -1,19 +1,10 @@
 {
   "schemaVersion": 1,
   "league": "coppa-italia",
-  "observedAt": "2026-11-22T19:27:07.879Z",
+  "observedAt": "2026-11-22T21:56:46.653Z",
   "source": "pitchlab-availability",
   "coverageStatus": "ok",
   "entries": [
-    {
-      "teamId": "coppa-italia.frosinone",
-      "player": "Aleksa Terzić",
-      "position": "D",
-      "status": "Baja",
-      "detail": "Muscle Injury",
-      "injuryType": "Muscle Injury",
-      "reportedAt": "2026-11-22T19:27:07.879Z"
-    },
     {
       "teamId": "coppa-italia.frosinone",
       "player": "Antonio Raimondo",
@@ -21,7 +12,16 @@
       "status": "Baja",
       "detail": "Ankle Injury",
       "injuryType": "Ankle Injury",
-      "reportedAt": "2026-11-22T19:27:07.879Z"
+      "reportedAt": "2026-11-22T21:56:46.653Z"
+    },
+    {
+      "teamId": "coppa-italia.frosinone",
+      "player": "Daniel Bîrligea",
+      "position": "F",
+      "status": "Baja",
+      "detail": "Thigh Injury",
+      "injuryType": "Thigh Injury",
+      "reportedAt": "2026-11-22T21:56:46.653Z"
     },
     {
       "teamId": "coppa-italia.frosinone",
@@ -30,7 +30,7 @@
       "status": "Baja",
       "detail": "Groin Injury",
       "injuryType": "Groin Injury",
-      "reportedAt": "2026-11-22T19:27:07.879Z"
+      "reportedAt": "2026-11-22T21:56:46.653Z"
     },
     {
       "teamId": "coppa-italia.frosinone",
@@ -39,7 +39,16 @@
       "status": "Baja",
       "detail": "yellow_card_accumulation_suspension",
       "injuryType": "yellow_card_accumulation_suspension",
-      "reportedAt": "2026-11-22T19:27:07.879Z"
+      "reportedAt": "2026-11-22T21:56:46.653Z"
+    },
+    {
+      "teamId": "coppa-italia.genoa",
+      "player": "Lorenzo Colombo",
+      "position": "F",
+      "status": "Duda",
+      "detail": "Muscle Injury",
+      "injuryType": "Muscle Injury",
+      "reportedAt": "2026-11-22T21:56:46.653Z"
     },
     {
       "teamId": "coppa-italia.hellas-verona",
@@ -48,7 +57,7 @@
       "status": "Baja",
       "detail": "Unknown",
       "injuryType": "Unknown",
-      "reportedAt": "2026-11-22T19:27:07.879Z"
+      "reportedAt": "2026-11-22T21:56:46.653Z"
     },
     {
       "teamId": "coppa-italia.virtus-entella",
@@ -57,7 +66,7 @@
       "status": "Baja",
       "detail": "Muscle Injury",
       "injuryType": "Muscle Injury",
-      "reportedAt": "2026-11-22T19:27:07.879Z"
+      "reportedAt": "2026-11-22T21:56:46.653Z"
     },
     {
       "teamId": "coppa-italia.lazio",
@@ -66,7 +75,7 @@
       "status": "Baja",
       "detail": "Muscle Injury",
       "injuryType": "Muscle Injury",
-      "reportedAt": "2026-11-22T19:27:07.879Z"
+      "reportedAt": "2026-11-22T21:56:46.653Z"
     },
     {
       "teamId": "coppa-italia.lazio",
@@ -75,7 +84,7 @@
       "status": "Baja",
       "detail": "Hamstring Injury",
       "injuryType": "Hamstring Injury",
-      "reportedAt": "2026-11-22T19:27:07.879Z"
+      "reportedAt": "2026-11-22T21:56:46.653Z"
     },
     {
       "teamId": "coppa-italia.lazio",
@@ -84,7 +93,7 @@
       "status": "Baja",
       "detail": "Thigh Injury",
       "injuryType": "Thigh Injury",
-      "reportedAt": "2026-11-22T19:27:07.879Z"
+      "reportedAt": "2026-11-22T21:56:46.653Z"
     },
     {
       "teamId": "coppa-italia.lazio",
@@ -93,7 +102,7 @@
       "status": "Baja",
       "detail": "Muscle Injury",
       "injuryType": "Muscle Injury",
-      "reportedAt": "2026-11-22T19:27:07.879Z"
+      "reportedAt": "2026-11-22T21:56:46.653Z"
     }
   ]
 }

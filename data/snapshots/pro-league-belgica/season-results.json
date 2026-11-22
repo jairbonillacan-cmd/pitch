@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "league": "pro-league-belgica",
   "season": "2026/27",
-  "updatedAt": "2026-11-22T19:27:07.879Z",
+  "updatedAt": "2026-11-22T21:56:46.653Z",
   "matches": [
     {
       "id": "pro-league-belgica-2026-08-07-brugge-kv-kv-kortrijk-n6m4ea",
@@ -1179,6 +1179,17 @@
       "awayTeam": "pro-league-belgica.oud-heverlee-leuven",
       "homeScore": 1,
       "awayScore": 0,
+      "neutralSite": false
+    },
+    {
+      "id": "pro-league-belgica-2026-11-22-lommel-standard-liege-eiyvcl",
+      "date": "2026-11-22",
+      "startTime": "2026-11-22T18:15:00.000Z",
+      "round": "Regular season · Matchday 12",
+      "homeTeam": "pro-league-belgica.lommel",
+      "awayTeam": "pro-league-belgica.standard-liege",
+      "homeScore": 1,
+      "awayScore": 2,
       "neutralSite": false
     }
   ]

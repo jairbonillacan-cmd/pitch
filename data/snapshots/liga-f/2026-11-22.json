@@ -5,7 +5,7 @@
   "season": "liga-f-2026-27",
   "seasonLabel": "2026/27",
   "periodLabel": "Regular season · Matchday 10",
-  "updatedAt": "2026-11-22T19:27:07.879Z",
+  "updatedAt": "2026-11-22T21:56:46.653Z",
   "source": "pitchlab-football-v2",
   "provenance": "derived",
   "isDemo": false,
@@ -18,8 +18,8 @@
       "forPerGame": 1.25,
       "againstPerGame": 1.5833333333333333,
       "gamesPlayed": 12,
-      "adjustedFor": 1.2661643873985393,
-      "adjustedAgainst": 1.4521556095358743
+      "adjustedFor": 1.2571731210928145,
+      "adjustedAgainst": 1.4393374283846823
     },
     "liga-f.logrono-united": {
       "teamId": "liga-f.logrono-united",
@@ -29,8 +29,8 @@
       "forPerGame": 1.4166666666666667,
       "againstPerGame": 1.4166666666666667,
       "gamesPlayed": 12,
-      "adjustedFor": 1.4025221435210395,
-      "adjustedAgainst": 1.3467670252973716
+      "adjustedFor": 1.3948368544766474,
+      "adjustedAgainst": 1.3345247743253346
     },
     "liga-f.real-deportivo-a-coruna": {
       "teamId": "liga-f.real-deportivo-a-coruna",
@@ -40,8 +40,8 @@
       "forPerGame": 1.0833333333333333,
       "againstPerGame": 1.3333333333333333,
       "gamesPlayed": 12,
-      "adjustedFor": 1.1220560942766544,
-      "adjustedAgainst": 1.2463027853067008
+      "adjustedFor": 1.125679729052053,
+      "adjustedAgainst": 1.2324636529148738
     },
     "liga-f.sevilla": {
       "teamId": "liga-f.sevilla",
@@ -51,8 +51,8 @@
       "forPerGame": 1,
       "againstPerGame": 1.5833333333333333,
       "gamesPlayed": 12,
-      "adjustedFor": 1.084402735279999,
-      "adjustedAgainst": 1.3519515556380937
+      "adjustedFor": 1.081580989658533,
+      "adjustedAgainst": 1.3417486774263925
     },
     "liga-f.sd-eibar": {
       "teamId": "liga-f.sd-eibar",
@@ -62,8 +62,8 @@
       "forPerGame": 1,
       "againstPerGame": 1.5,
       "gamesPlayed": 12,
-      "adjustedFor": 1.054637689966341,
-      "adjustedAgainst": 1.480526536517083
+      "adjustedFor": 1.0462345774662107,
+      "adjustedAgainst": 1.4806033495599147
     },
     "liga-f.espanyol-barcelona": {
       "teamId": "liga-f.espanyol-barcelona",
@@ -73,8 +73,8 @@
       "forPerGame": 1.3636363636363635,
       "againstPerGame": 1.2727272727272727,
       "gamesPlayed": 11,
-      "adjustedFor": 1.288798964586175,
-      "adjustedAgainst": 1.2878583830617802
+      "adjustedFor": 1.282632168279975,
+      "adjustedAgainst": 1.2877404806630512
     },
     "liga-f.madrid-cff": {
       "teamId": "liga-f.madrid-cff",
@@ -84,8 +84,8 @@
       "forPerGame": 1.75,
       "againstPerGame": 2,
       "gamesPlayed": 12,
-      "adjustedFor": 1.6973057459005827,
-      "adjustedAgainst": 1.7869434478334392
+      "adjustedFor": 1.688695034161458,
+      "adjustedAgainst": 1.7699798620058418
     },
     "liga-f.granada": {
       "teamId": "liga-f.granada",
@@ -95,19 +95,19 @@
       "forPerGame": 0.8333333333333334,
       "againstPerGame": 1.75,
       "gamesPlayed": 12,
-      "adjustedFor": 0.9414169532724169,
-      "adjustedAgainst": 1.496900271554093
+      "adjustedFor": 0.9444181578567167,
+      "adjustedAgainst": 1.4821440567736233
     },
     "liga-f.athletic": {
       "teamId": "liga-f.athletic",
       "name": "Athletic Club",
       "shortName": "Athletic",
       "code": "ATH",
-      "forPerGame": 1.5454545454545454,
-      "againstPerGame": 1.0909090909090908,
-      "gamesPlayed": 11,
-      "adjustedFor": 1.4018955517217984,
-      "adjustedAgainst": 1.109534980117374
+      "forPerGame": 1.4166666666666667,
+      "againstPerGame": 1.5,
+      "gamesPlayed": 12,
+      "adjustedFor": 1.3581617034045725,
+      "adjustedAgainst": 1.3069875574325935
     },
     "liga-f.badalona-women": {
       "teamId": "liga-f.badalona-women",
@@ -117,8 +117,8 @@
       "forPerGame": 1.1666666666666667,
       "againstPerGame": 2,
       "gamesPlayed": 12,
-      "adjustedFor": 1.2486763273237895,
-      "adjustedAgainst": 1.666359981718305
+      "adjustedFor": 1.2463560785031582,
+      "adjustedAgainst": 1.6523084245852526
     },
     "liga-f.deportivo-alaves": {
       "teamId": "liga-f.deportivo-alaves",
@@ -128,8 +128,8 @@
       "forPerGame": 0.8181818181818182,
       "againstPerGame": 1.5454545454545454,
       "gamesPlayed": 11,
-      "adjustedFor": 0.9782958818993247,
-      "adjustedAgainst": 1.4396373521538448
+      "adjustedFor": 0.98060684658885,
+      "adjustedAgainst": 1.4238683307349467
     },
     "liga-f.valencia": {
       "teamId": "liga-f.valencia",
@@ -139,19 +139,19 @@
       "forPerGame": 0.7272727272727273,
       "againstPerGame": 1.7272727272727273,
       "gamesPlayed": 11,
-      "adjustedFor": 0.8832372995339102,
-      "adjustedAgainst": 1.5335929747414052
+      "adjustedFor": 0.876687663680736,
+      "adjustedAgainst": 1.5343687314726653
     },
     "liga-f.barcelona": {
       "teamId": "liga-f.barcelona",
       "name": "Fútbol Club Barcelona",
       "shortName": "Fútbol Barcelona",
       "code": "BAR",
-      "forPerGame": 3.8181818181818183,
-      "againstPerGame": 0.5454545454545454,
-      "gamesPlayed": 11,
-      "adjustedFor": 2.9345333000349014,
-      "adjustedAgainst": 0.7532951655837304
+      "forPerGame": 4,
+      "againstPerGame": 0.5,
+      "gamesPlayed": 12,
+      "adjustedFor": 3.1432116865113855,
+      "adjustedAgainst": 0.7014404227732669
     },
     "liga-f.costa-adeje-tenerife": {
       "teamId": "liga-f.costa-adeje-tenerife",
@@ -161,8 +161,8 @@
       "forPerGame": 1.5454545454545454,
       "againstPerGame": 1.6363636363636365,
       "gamesPlayed": 11,
-      "adjustedFor": 1.486666302858457,
-      "adjustedAgainst": 1.4167948056265067
+      "adjustedFor": 1.479127387317033,
+      "adjustedAgainst": 1.4053920809230216
     },
     "liga-f.real-madrid": {
       "teamId": "liga-f.real-madrid",
@@ -172,8 +172,8 @@
       "forPerGame": 2.5833333333333335,
       "againstPerGame": 1.8333333333333333,
       "gamesPlayed": 12,
-      "adjustedFor": 2.3017709698021043,
-      "adjustedAgainst": 1.666036935059159
+      "adjustedFor": 2.2901618656406035,
+      "adjustedAgainst": 1.651469696851757
     },
     "liga-f.atletico-madrid": {
       "teamId": "liga-f.atletico-madrid",
@@ -183,46 +183,11 @@
       "forPerGame": 2.25,
       "againstPerGame": 1.1666666666666667,
       "gamesPlayed": 12,
-      "adjustedFor": 1.9727151974093589,
-      "adjustedAgainst": 1.152708900700888
+      "adjustedFor": 1.9682094156578183,
+      "adjustedAgainst": 1.14184684004559
     }
   },
   "games": [
-    {
-      "id": "liga-f-2026-11-09-atletico-madri-badalona-women-c70com",
-      "league": "liga-f",
-      "season": "liga-f-2026-27",
-      "week": 10,
-      "round": "Regular season · Matchday 10",
-      "phase": "Regular season",
-      "startTime": "2026-11-09T18:00:00.000Z",
-      "status": "final",
-      "home": {
-        "id": "liga-f.atletico-madrid",
-        "league": "liga-f",
-        "name": "Club Atlético de Madrid",
-        "shortName": "de Madrid",
-        "code": "ATL",
-        "logoUrl": "https://sports.bzzoiro.com/img/team/920/?bg=transparent"
-      },
-      "away": {
-        "id": "liga-f.badalona-women",
-        "league": "liga-f",
-        "name": "FC Badalona Women",
-        "shortName": "Badalona Women",
-        "code": "BAD",
-        "logoUrl": "https://sports.bzzoiro.com/img/team/916/?bg=transparent"
-      },
-      "venue": "Centro Deportivo Wanda, Alcala de Henares",
-      "referee": "Paola Cebollada Lopez",
-      "neutralSite": false,
-      "result": {
-        "home": 3,
-        "away": 0,
-        "observedAt": "2026-11-22T19:27:07.879Z",
-        "source": "pitchlab-feed"
-      }
-    },
     {
       "id": "liga-f-2026-11-09-real-deportivo-valencia-bjyfdz",
       "league": "liga-f",
@@ -254,7 +219,7 @@
       "result": {
         "home": 0,
         "away": 2,
-        "observedAt": "2026-11-22T19:27:07.879Z",
+        "observedAt": "2026-11-22T21:56:46.653Z",
         "source": "pitchlab-feed"
       }
     },
@@ -289,7 +254,7 @@
       "result": {
         "home": 1,
         "away": 3,
-        "observedAt": "2026-11-22T19:27:07.879Z",
+        "observedAt": "2026-11-22T21:56:46.653Z",
         "source": "pitchlab-feed"
       }
     },
@@ -323,7 +288,7 @@
       "result": {
         "home": 2,
         "away": 1,
-        "observedAt": "2026-11-22T19:27:07.879Z",
+        "observedAt": "2026-11-22T21:56:46.653Z",
         "source": "pitchlab-feed"
       }
     },
@@ -358,7 +323,7 @@
       "result": {
         "home": 3,
         "away": 3,
-        "observedAt": "2026-11-22T19:27:07.879Z",
+        "observedAt": "2026-11-22T21:56:46.653Z",
         "source": "pitchlab-feed"
       }
     },
@@ -393,7 +358,7 @@
       "result": {
         "home": 1,
         "away": 4,
-        "observedAt": "2026-11-22T19:27:07.879Z",
+        "observedAt": "2026-11-22T21:56:46.653Z",
         "source": "pitchlab-feed"
       }
     },
@@ -428,7 +393,7 @@
       "result": {
         "home": 2,
         "away": 3,
-        "observedAt": "2026-11-22T19:27:07.879Z",
+        "observedAt": "2026-11-22T21:56:46.653Z",
         "source": "pitchlab-feed"
       }
     },
@@ -463,7 +428,7 @@
       "result": {
         "home": 1,
         "away": 2,
-        "observedAt": "2026-11-22T19:27:07.879Z",
+        "observedAt": "2026-11-22T21:56:46.653Z",
         "source": "pitchlab-feed"
       }
     },
@@ -498,7 +463,7 @@
       "result": {
         "home": 1,
         "away": 1,
-        "observedAt": "2026-11-22T19:27:07.879Z",
+        "observedAt": "2026-11-22T21:56:46.653Z",
         "source": "pitchlab-feed"
       }
     },
@@ -532,7 +497,7 @@
       "result": {
         "home": 0,
         "away": 0,
-        "observedAt": "2026-11-22T19:27:07.879Z",
+        "observedAt": "2026-11-22T21:56:46.653Z",
         "source": "pitchlab-feed"
       }
     },
@@ -567,7 +532,7 @@
       "result": {
         "home": 2,
         "away": 1,
-        "observedAt": "2026-11-22T19:27:07.879Z",
+        "observedAt": "2026-11-22T21:56:46.653Z",
         "source": "pitchlab-feed"
       }
     },
@@ -602,7 +567,7 @@
       "result": {
         "home": 1,
         "away": 3,
-        "observedAt": "2026-11-22T19:27:07.879Z",
+        "observedAt": "2026-11-22T21:56:46.653Z",
         "source": "pitchlab-feed"
       }
     },
@@ -637,7 +602,7 @@
       "result": {
         "home": 3,
         "away": 1,
-        "observedAt": "2026-11-22T19:27:07.879Z",
+        "observedAt": "2026-11-22T21:56:46.653Z",
         "source": "pitchlab-feed"
       }
     },
@@ -672,7 +637,7 @@
       "result": {
         "home": 1,
         "away": 0,
-        "observedAt": "2026-11-22T19:27:07.879Z",
+        "observedAt": "2026-11-22T21:56:46.653Z",
         "source": "pitchlab-feed"
       }
     },
@@ -707,7 +672,7 @@
       "result": {
         "home": 1,
         "away": 5,
-        "observedAt": "2026-11-22T19:27:07.879Z",
+        "observedAt": "2026-11-22T21:56:46.653Z",
         "source": "pitchlab-feed"
       }
     },
@@ -742,7 +707,7 @@
       "result": {
         "home": 0,
         "away": 3,
-        "observedAt": "2026-11-22T19:27:07.879Z",
+        "observedAt": "2026-11-22T21:56:46.653Z",
         "source": "pitchlab-feed"
       }
     },
@@ -754,7 +719,7 @@
       "round": "Regular season · Matchday 12",
       "phase": "Regular season",
       "startTime": "2026-11-22T18:00:00.000Z",
-      "status": "scheduled",
+      "status": "final",
       "home": {
         "id": "liga-f.barcelona",
         "league": "liga-f",
@@ -772,7 +737,13 @@
         "logoUrl": "https://sports.bzzoiro.com/img/team/911/?bg=transparent"
       },
       "referee": "Paola Cebollada Lopez",
-      "neutralSite": false
+      "neutralSite": false,
+      "result": {
+        "home": 6,
+        "away": 0,
+        "observedAt": "2026-11-22T21:56:46.653Z",
+        "source": "pitchlab-feed"
+      }
     },
     {
       "id": "liga-f-2026-11-23-espanyol-barce-valencia-6y90m8",
@@ -1278,454 +1249,6 @@
     }
   ],
   "analyses": {
-    "liga-f-2026-11-09-atletico-madri-badalona-women-c70com": {
-      "game": "liga-f-2026-11-09-atletico-madri-badalona-women-c70com",
-      "model": {
-        "id": "pitchlab-statistical-liga-f",
-        "version": "2.0.0",
-        "status": "candidate",
-        "label": "Modelo PitchLab · en validación"
-      },
-      "projection": {
-        "home": 2.609599973154637,
-        "away": 1.0144699644680282,
-        "total": 3.6240699376226653,
-        "margin": 1.595130008686609
-      },
-      "x12": [
-        0.7163654024328754,
-        0.1582028750331827,
-        0.12543172253394164
-      ],
-      "probabilities": [
-        {
-          "market": "h2h",
-          "selection": "de Madrid gana",
-          "p": 0.7163654024328754,
-          "fairOdds": 1.395935644859261
-        },
-        {
-          "market": "h2h",
-          "selection": "Empate",
-          "p": 0.1582028750331827,
-          "fairOdds": 6.3209976417321885
-        },
-        {
-          "market": "h2h",
-          "selection": "Badalona Women gana",
-          "p": 0.12543172253394164,
-          "fairOdds": 7.972464858157405
-        },
-        {
-          "market": "double_chance",
-          "selection": "de Madrid o empate",
-          "p": 0.8745682774660581,
-          "fairOdds": 1.1434213037058274
-        },
-        {
-          "market": "double_chance",
-          "selection": "Badalona Women o empate",
-          "p": 0.28363459756712434,
-          "fairOdds": 3.525662978273806
-        },
-        {
-          "market": "double_chance",
-          "selection": "Sin empate",
-          "p": 0.841797124966817,
-          "fairOdds": 1.1879346820523047
-        },
-        {
-          "market": "totals",
-          "selection": "Más de 1.5",
-          "line": 1.5,
-          "p": 0.8755876768420939,
-          "fairOdds": 1.1420900801238012
-        },
-        {
-          "market": "totals",
-          "selection": "Más de 2.5",
-          "line": 2.5,
-          "p": 0.701465416105195,
-          "fairOdds": 1.425587031150279
-        },
-        {
-          "market": "totals",
-          "selection": "Menos de 2.5",
-          "line": 2.5,
-          "p": 0.29853458389480503,
-          "fairOdds": 3.34969565989169
-        },
-        {
-          "market": "totals",
-          "selection": "Más de 3.5",
-          "line": 3.5,
-          "p": 0.48984197518850414,
-          "fairOdds": 2.0414747013364334
-        },
-        {
-          "market": "totals",
-          "selection": "Menos de 3.5",
-          "line": 3.5,
-          "p": 0.5101580248114959,
-          "fairOdds": 1.9601769478574829
-        },
-        {
-          "market": "btts",
-          "selection": "Sí",
-          "p": 0.5894518335001866,
-          "fairOdds": 1.6964914572611698
-        },
-        {
-          "market": "btts",
-          "selection": "No",
-          "p": 0.4105481664998134,
-          "fairOdds": 2.4357677895035845
-        },
-        {
-          "market": "team_totals",
-          "selection": "de Madrid más de 1.5",
-          "line": 1.5,
-          "p": 0.734439737749554,
-          "fairOdds": 1.3615820993893482
-        },
-        {
-          "market": "team_totals",
-          "selection": "de Madrid menos de 1.5",
-          "line": 1.5,
-          "p": 0.26556026225044604,
-          "fairOdds": 3.765623634822722
-        },
-        {
-          "market": "team_totals",
-          "selection": "Badalona Women más de 1.5",
-          "line": 1.5,
-          "p": 0.26956412719240586,
-          "fairOdds": 3.709692422412844
-        },
-        {
-          "market": "team_totals",
-          "selection": "Badalona Women menos de 1.5",
-          "line": 1.5,
-          "p": 0.7304358728075941,
-          "fairOdds": 1.3690455757002673
-        },
-        {
-          "market": "correct_score",
-          "selection": "2–1",
-          "p": 0.09214725187112206,
-          "fairOdds": 10.852195585806601
-        },
-        {
-          "market": "correct_score",
-          "selection": "2–0",
-          "p": 0.09083290299229568,
-          "fairOdds": 11.009226470333317
-        },
-        {
-          "market": "correct_score",
-          "selection": "3–1",
-          "p": 0.08015582200305124,
-          "fairOdds": 12.475700142678765
-        }
-      ],
-      "marketGroups": [
-        {
-          "group": "Resultado",
-          "rows": [
-            {
-              "market": "h2h",
-              "selection": "home",
-              "label": "de Madrid gana",
-              "p": 0.7163654024328754,
-              "fairOdds": 1.395935644859261
-            },
-            {
-              "market": "h2h",
-              "selection": "draw",
-              "label": "Empate",
-              "p": 0.1582028750331827,
-              "fairOdds": 6.3209976417321885
-            },
-            {
-              "market": "h2h",
-              "selection": "away",
-              "label": "Badalona Women gana",
-              "p": 0.12543172253394164,
-              "fairOdds": 7.972464858157405
-            }
-          ]
-        },
-        {
-          "group": "Doble oportunidad",
-          "rows": [
-            {
-              "market": "double_chance",
-              "selection": "1x",
-              "label": "de Madrid o empate",
-              "p": 0.8745682774660581,
-              "fairOdds": 1.1434213037058274
-            },
-            {
-              "market": "double_chance",
-              "selection": "x2",
-              "label": "Badalona Women o empate",
-              "p": 0.28363459756712434,
-              "fairOdds": 3.525662978273806
-            },
-            {
-              "market": "double_chance",
-              "selection": "12",
-              "label": "Sin empate",
-              "p": 0.841797124966817,
-              "fairOdds": 1.1879346820523047
-            }
-          ]
-        },
-        {
-          "group": "Goles totales",
-          "rows": [
-            {
-              "market": "totals",
-              "selection": "over_1.5",
-              "label": "Más de 1.5",
-              "line": 1.5,
-              "p": 0.8755876768420939,
-              "fairOdds": 1.1420900801238012
-            },
-            {
-              "market": "totals",
-              "selection": "over_2.5",
-              "label": "Más de 2.5",
-              "line": 2.5,
-              "p": 0.701465416105195,
-              "fairOdds": 1.425587031150279
-            },
-            {
-              "market": "totals",
-              "selection": "under_2.5",
-              "label": "Menos de 2.5",
-              "line": 2.5,
-              "p": 0.29853458389480503,
-              "fairOdds": 3.34969565989169
-            },
-            {
-              "market": "totals",
-              "selection": "over_3.5",
-              "label": "Más de 3.5",
-              "line": 3.5,
-              "p": 0.48984197518850414,
-              "fairOdds": 2.0414747013364334
-            },
-            {
-              "market": "totals",
-              "selection": "under_3.5",
-              "label": "Menos de 3.5",
-              "line": 3.5,
-              "p": 0.5101580248114959,
-              "fairOdds": 1.9601769478574829
-            }
-          ]
-        },
-        {
-          "group": "Ambos anotan",
-          "rows": [
-            {
-              "market": "btts",
-              "selection": "yes",
-              "label": "Sí",
-              "p": 0.5894518335001866,
-              "fairOdds": 1.6964914572611698
-            },
-            {
-              "market": "btts",
-              "selection": "no",
-              "label": "No",
-              "p": 0.4105481664998134,
-              "fairOdds": 2.4357677895035845
-            }
-          ]
-        },
-        {
-          "group": "Goles por equipo (1.5)",
-          "rows": [
-            {
-              "market": "team_totals",
-              "selection": "home_over",
-              "label": "de Madrid más de 1.5",
-              "line": 1.5,
-              "p": 0.734439737749554,
-              "fairOdds": 1.3615820993893482
-            },
-            {
-              "market": "team_totals",
-              "selection": "home_under",
-              "label": "de Madrid menos de 1.5",
-              "line": 1.5,
-              "p": 0.26556026225044604,
-              "fairOdds": 3.765623634822722
-            },
-            {
-              "market": "team_totals",
-              "selection": "away_over",
-              "label": "Badalona Women más de 1.5",
-              "line": 1.5,
-              "p": 0.26956412719240586,
-              "fairOdds": 3.709692422412844
-            },
-            {
-              "market": "team_totals",
-              "selection": "away_under",
-              "label": "Badalona Women menos de 1.5",
-              "line": 1.5,
-              "p": 0.7304358728075941,
-              "fairOdds": 1.3690455757002673
-            }
-          ]
-        },
-        {
-          "group": "Marcador exacto (más probables)",
-          "rows": [
-            {
-              "market": "correct_score",
-              "selection": "2-1",
-              "label": "2–1",
-              "p": 0.09214725187112206,
-              "fairOdds": 10.852195585806601
-            },
-            {
-              "market": "correct_score",
-              "selection": "2-0",
-              "label": "2–0",
-              "p": 0.09083290299229568,
-              "fairOdds": 11.009226470333317
-            },
-            {
-              "market": "correct_score",
-              "selection": "3-1",
-              "label": "3–1",
-              "p": 0.08015582200305124,
-              "fairOdds": 12.475700142678765
-            }
-          ]
-        }
-      ],
-      "mostLikelyScore": {
-        "home": 2,
-        "away": 1,
-        "p": 0.09214725187112206
-      },
-      "factors": [
-        {
-          "key": "home_attack",
-          "label": "Ataque local",
-          "value": "2.38 goles/partido",
-          "detail": "41 % más que la media · 11 partidos"
-        },
-        {
-          "key": "away_defense",
-          "label": "Defensa visitante",
-          "value": "1.68 concedidos/partido",
-          "detail": "26 % más que la media · 11 partidos"
-        },
-        {
-          "key": "away_attack",
-          "label": "Ataque visitante",
-          "value": "1.01 goles/partido",
-          "detail": "12 % menos que la media · ajustado por rival"
-        },
-        {
-          "key": "home_defense",
-          "label": "Defensa local",
-          "value": "1.15 concedidos/partido",
-          "detail": "14 % menos que la media · ajustado por rival"
-        },
-        {
-          "key": "home_advantage",
-          "label": "Localía",
-          "value": "×1.10",
-          "detail": "estimada de 87 partidos"
-        },
-        {
-          "key": "uncertainty",
-          "label": "Intervalo 90%",
-          "value": "goles 2.6–5.4",
-          "detail": "local 47%–90% · 87 partidos"
-        },
-        {
-          "key": "home_position",
-          "label": "Posición local",
-          "value": "3.º · 22 pts",
-          "detail": "de 16 equipos"
-        },
-        {
-          "key": "away_position",
-          "label": "Posición visitante",
-          "value": "15.º · 9 pts",
-          "detail": "de 16 equipos"
-        },
-        {
-          "key": "home_form",
-          "label": "Forma local",
-          "value": "P-G-G-G-E · 10 pts",
-          "detail": "13 goles a favor · 5 en contra"
-        },
-        {
-          "key": "away_form",
-          "label": "Forma visitante",
-          "value": "P-E-P-P-P · 1 pts",
-          "detail": "3 goles a favor · 13 en contra"
-        }
-      ],
-      "steps": [
-        "Sincronizando Liga F · corte 9 nov 2026, 11:00",
-        "Fuerza ajustada por rival · ATL 1.41 / 0.86 · BAD 0.88 / 1.26",
-        "Ponderando 80.2 partidos por antigüedad y calidad del rival",
-        "Proyección de goles 2.61 – 1.01 · total 3.62",
-        "Simulando 121 marcadores con incertidumbre del ajuste",
-        "20 mercados listos · marcador proyectado 2–1"
-      ],
-      "inputsAsOf": "2026-11-09T17:00:00.000Z",
-      "publishedAt": "2026-11-09T17:00:00.000Z",
-      "source": "pitchlab-football-v2",
-      "projectedScore": {
-        "home": 2,
-        "away": 1,
-        "p": 0.09214725187112206
-      },
-      "insights": {
-        "why": [
-          "Se esperan 3.6 goles: 2.6 de de Madrid y 1.0 de Badalona Women.",
-          "de Madrid anota 41 % más que la media.",
-          "Badalona Women concede 26 % más que la media."
-        ],
-        "restDays": {
-          "home": 9,
-          "away": 8
-        }
-      },
-      "matchContext": {
-        "referee": "Paola Cebollada Lopez",
-        "refereeStats": {
-          "country": "Spain",
-          "matches": 23,
-          "avgYellow": 4.09,
-          "avgRed": 0.09,
-          "avgFouls": 16.4,
-          "avgGoals": 2.39
-        },
-        "weather": {
-          "description": "clear"
-        },
-        "travelDistanceKm": 468,
-        "halfTimeScore": {
-          "home": 0,
-          "away": 0
-        },
-        "stageName": "Regular season",
-        "venueCity": "Alcala de Henares",
-        "venueCountry": "Spain"
-      }
-    },
     "liga-f-2026-11-09-real-deportivo-valencia-bjyfdz": {
       "game": "liga-f-2026-11-09-real-deportivo-valencia-bjyfdz",
       "model": {
@@ -5735,11 +5258,11 @@
         "referee": "Paola Cebollada Lopez",
         "refereeStats": {
           "country": "Spain",
-          "matches": 23,
-          "avgYellow": 4.09,
-          "avgRed": 0.09,
-          "avgFouls": 16.4,
-          "avgGoals": 2.39
+          "matches": 24,
+          "avgYellow": 3.96,
+          "avgRed": 0.08,
+          "avgFouls": 16.2,
+          "avgGoals": 2.54
         },
         "weather": {
           "description": "clear"
@@ -9127,11 +8650,11 @@
         "referee": "Paola Cebollada Lopez",
         "refereeStats": {
           "country": "Spain",
-          "matches": 23,
-          "avgYellow": 4.09,
-          "avgRed": 0.09,
-          "avgFouls": 16.4,
-          "avgGoals": 2.39
+          "matches": 24,
+          "avgYellow": 3.96,
+          "avgRed": 0.08,
+          "avgFouls": 16.2,
+          "avgGoals": 2.54
         },
         "halfTimeScore": {
           "home": 2,
@@ -17578,19 +17101,19 @@
       "name": "Fútbol Club Barcelona",
       "shortName": "Fútbol Barcelona",
       "code": "BAR",
-      "played": 11,
-      "won": 9,
+      "played": 12,
+      "won": 10,
       "drawn": 1,
       "lost": 1,
-      "goalsFor": 42,
+      "goalsFor": 48,
       "goalsAgainst": 6,
-      "points": 28,
+      "points": 31,
       "form": [
-        "L",
         "W",
         "W",
         "W",
-        "D"
+        "D",
+        "W"
       ]
     },
     {
@@ -17658,19 +17181,19 @@
       "name": "Athletic Club",
       "shortName": "Athletic",
       "code": "ATH",
-      "played": 11,
+      "played": 12,
       "won": 5,
       "drawn": 4,
-      "lost": 2,
+      "lost": 3,
       "goalsFor": 17,
-      "goalsAgainst": 12,
+      "goalsAgainst": 18,
       "points": 19,
       "form": [
-        "W",
         "D",
         "L",
         "D",
-        "W"
+        "W",
+        "L"
       ]
     },
     {

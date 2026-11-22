@@ -5,7 +5,7 @@
   "season": "brasileirao-b-2026",
   "seasonLabel": "2026",
   "periodLabel": "League phase · Matchday 37",
-  "updatedAt": "2026-11-22T19:27:07.879Z",
+  "updatedAt": "2026-11-22T21:56:46.653Z",
   "source": "pitchlab-football-v2",
   "provenance": "derived",
   "isDemo": false,
@@ -18,8 +18,8 @@
       "forPerGame": 1.0416666666666667,
       "againstPerGame": 1.0833333333333333,
       "gamesPlayed": 24,
-      "adjustedFor": 0.9705263547537544,
-      "adjustedAgainst": 1.0140408146297764
+      "adjustedFor": 0.9694364784575163,
+      "adjustedAgainst": 1.0133893816531137
     },
     "brasileirao-b.londrina": {
       "teamId": "brasileirao-b.londrina",
@@ -29,8 +29,8 @@
       "forPerGame": 1.25,
       "againstPerGame": 1.5416666666666667,
       "gamesPlayed": 24,
-      "adjustedFor": 1.1652029642457506,
-      "adjustedAgainst": 1.4479302507394463
+      "adjustedFor": 1.1645753016633944,
+      "adjustedAgainst": 1.4474131021975978
     },
     "brasileirao-b.gremio-novorizontino": {
       "teamId": "brasileirao-b.gremio-novorizontino",
@@ -40,8 +40,8 @@
       "forPerGame": 1.875,
       "againstPerGame": 0.7916666666666666,
       "gamesPlayed": 24,
-      "adjustedFor": 1.6959890108879736,
-      "adjustedAgainst": 0.7996909898128058
+      "adjustedFor": 1.695596674228186,
+      "adjustedAgainst": 0.7996143822371778
     },
     "brasileirao-b.vila-nova": {
       "teamId": "brasileirao-b.vila-nova",
@@ -51,8 +51,8 @@
       "forPerGame": 1.2916666666666667,
       "againstPerGame": 1,
       "gamesPlayed": 24,
-      "adjustedFor": 1.2330039785381177,
-      "adjustedAgainst": 0.9329711324106711
+      "adjustedFor": 1.2328203069065016,
+      "adjustedAgainst": 0.9329021613874859
     },
     "brasileirao-b.operario-pr": {
       "teamId": "brasileirao-b.operario-pr",
@@ -62,8 +62,8 @@
       "forPerGame": 1.375,
       "againstPerGame": 1.375,
       "gamesPlayed": 24,
-      "adjustedFor": 1.2327595142790455,
-      "adjustedAgainst": 1.2678474971567093
+      "adjustedFor": 1.2316694659660885,
+      "adjustedAgainst": 1.2671693301984623
     },
     "brasileirao-b.america-mineiro": {
       "teamId": "brasileirao-b.america-mineiro",
@@ -73,19 +73,19 @@
       "forPerGame": 0.7083333333333334,
       "againstPerGame": 1.3333333333333333,
       "gamesPlayed": 24,
-      "adjustedFor": 0.7158452223093698,
-      "adjustedAgainst": 1.2159361441778151
+      "adjustedFor": 0.7149052709866949,
+      "adjustedAgainst": 1.2153930342985142
     },
     "brasileirao-b.criciuma": {
       "teamId": "brasileirao-b.criciuma",
       "name": "Criciúma",
       "shortName": "Criciúma",
       "code": "CRI",
-      "forPerGame": 0.9166666666666666,
-      "againstPerGame": 0.875,
-      "gamesPlayed": 24,
-      "adjustedFor": 0.855235300846308,
-      "adjustedAgainst": 0.8405160936264086
+      "forPerGame": 0.92,
+      "againstPerGame": 0.84,
+      "gamesPlayed": 25,
+      "adjustedFor": 0.8632674270100508,
+      "adjustedAgainst": 0.809413393314438
     },
     "brasileirao-b.sao-bernardo": {
       "teamId": "brasileirao-b.sao-bernardo",
@@ -95,8 +95,8 @@
       "forPerGame": 1.4166666666666667,
       "againstPerGame": 1.375,
       "gamesPlayed": 24,
-      "adjustedFor": 1.3569309704292742,
-      "adjustedAgainst": 1.2810725967486543
+      "adjustedFor": 1.3577667838968606,
+      "adjustedAgainst": 1.2801777442980553
     },
     "brasileirao-b.juventude": {
       "teamId": "brasileirao-b.juventude",
@@ -106,8 +106,8 @@
       "forPerGame": 1.5416666666666667,
       "againstPerGame": 0.75,
       "gamesPlayed": 24,
-      "adjustedFor": 1.4238123398742657,
-      "adjustedAgainst": 0.7832305585941189
+      "adjustedFor": 1.4226938409010774,
+      "adjustedAgainst": 0.7826389473982525
     },
     "brasileirao-b.ceara": {
       "teamId": "brasileirao-b.ceara",
@@ -117,8 +117,8 @@
       "forPerGame": 1,
       "againstPerGame": 1.3333333333333333,
       "gamesPlayed": 24,
-      "adjustedFor": 0.9825364983731567,
-      "adjustedAgainst": 1.2156132581437193
+      "adjustedFor": 0.9821533061898712,
+      "adjustedAgainst": 1.2150617638985326
     },
     "brasileirao-b.atletico-goianiense": {
       "teamId": "brasileirao-b.atletico-goianiense",
@@ -128,8 +128,8 @@
       "forPerGame": 1.25,
       "againstPerGame": 0.7916666666666666,
       "gamesPlayed": 24,
-      "adjustedFor": 1.1546090380253937,
-      "adjustedAgainst": 0.7933944118006074
+      "adjustedFor": 1.1534659798247267,
+      "adjustedAgainst": 0.7934699230998014
     },
     "brasileirao-b.ponte-preta": {
       "teamId": "brasileirao-b.ponte-preta",
@@ -139,8 +139,8 @@
       "forPerGame": 0.4583333333333333,
       "againstPerGame": 2.25,
       "gamesPlayed": 24,
-      "adjustedFor": 0.5544882531563365,
-      "adjustedAgainst": 1.9478670267557932
+      "adjustedFor": 0.5542335553421103,
+      "adjustedAgainst": 1.948347135643055
     },
     "brasileirao-b.athletic": {
       "teamId": "brasileirao-b.athletic",
@@ -150,8 +150,8 @@
       "forPerGame": 1.2916666666666667,
       "againstPerGame": 1.2916666666666667,
       "gamesPlayed": 24,
-      "adjustedFor": 1.2213195151167682,
-      "adjustedAgainst": 1.2200201345734456
+      "adjustedFor": 1.2207269505790046,
+      "adjustedAgainst": 1.2194567435911243
     },
     "brasileirao-b.avai": {
       "teamId": "brasileirao-b.avai",
@@ -161,8 +161,8 @@
       "forPerGame": 0.9166666666666666,
       "againstPerGame": 1.125,
       "gamesPlayed": 24,
-      "adjustedFor": 0.8817860789145451,
-      "adjustedAgainst": 1.0574334508511094
+      "adjustedFor": 0.8810441273782694,
+      "adjustedAgainst": 1.056817710475791
     },
     "brasileirao-b.nautico": {
       "teamId": "brasileirao-b.nautico",
@@ -172,8 +172,8 @@
       "forPerGame": 0.8333333333333334,
       "againstPerGame": 1.375,
       "gamesPlayed": 24,
-      "adjustedFor": 0.8280502437966368,
-      "adjustedAgainst": 1.2641684876159591
+      "adjustedFor": 0.8270763660958964,
+      "adjustedAgainst": 1.26365483633102
     },
     "brasileirao-b.goias": {
       "teamId": "brasileirao-b.goias",
@@ -183,19 +183,19 @@
       "forPerGame": 1.0833333333333333,
       "againstPerGame": 0.9583333333333334,
       "gamesPlayed": 24,
-      "adjustedFor": 0.9771646475120802,
-      "adjustedAgainst": 0.9375016375745394
+      "adjustedFor": 0.9759736844781365,
+      "adjustedAgainst": 0.9368867201119159
     },
     "brasileirao-b.fortaleza": {
       "teamId": "brasileirao-b.fortaleza",
       "name": "Fortaleza",
       "shortName": "Fortaleza",
       "code": "FOR",
-      "forPerGame": 1.2083333333333333,
-      "againstPerGame": 0.75,
-      "gamesPlayed": 24,
-      "adjustedFor": 1.0965236319453835,
-      "adjustedAgainst": 0.7501808868014732
+      "forPerGame": 1.16,
+      "againstPerGame": 0.76,
+      "gamesPlayed": 25,
+      "adjustedFor": 1.0697010475435709,
+      "adjustedAgainst": 0.7638284930329514
     },
     "brasileirao-b.sport-recife": {
       "teamId": "brasileirao-b.sport-recife",
@@ -205,8 +205,8 @@
       "forPerGame": 1.5,
       "againstPerGame": 1.375,
       "gamesPlayed": 24,
-      "adjustedFor": 1.4244074495689958,
-      "adjustedAgainst": 1.2790361923966727
+      "adjustedFor": 1.4244893193565074,
+      "adjustedAgainst": 1.2792076289047745
     },
     "brasileirao-b.botafogo-sp": {
       "teamId": "brasileirao-b.botafogo-sp",
@@ -216,8 +216,8 @@
       "forPerGame": 1.2916666666666667,
       "againstPerGame": 1.1666666666666667,
       "gamesPlayed": 24,
-      "adjustedFor": 1.1723017701717071,
-      "adjustedAgainst": 1.0572156410692874
+      "adjustedFor": 1.1714838184843372,
+      "adjustedAgainst": 1.0565501464587885
     },
     "brasileirao-b.crb": {
       "teamId": "brasileirao-b.crb",
@@ -227,46 +227,11 @@
       "forPerGame": 1.4583333333333333,
       "againstPerGame": 1.1666666666666667,
       "gamesPlayed": 24,
-      "adjustedFor": 1.339082360855984,
-      "adjustedAgainst": 1.1167294392925304
+      "adjustedFor": 1.3385716278649755,
+      "adjustedAgainst": 1.116264209408743
     }
   },
   "games": [
-    {
-      "id": "brasileirao-b-2026-11-07-vila-nova-criciuma-8pqqtj",
-      "league": "brasileirao-b",
-      "season": "brasileirao-b-2026",
-      "week": 37,
-      "round": "League phase · Matchday 37",
-      "phase": "League phase",
-      "startTime": "2026-11-07T23:00:00.000Z",
-      "status": "final",
-      "home": {
-        "id": "brasileirao-b.vila-nova",
-        "league": "brasileirao-b",
-        "name": "Vila Nova FC",
-        "shortName": "Vila Nova",
-        "code": "VIL",
-        "logoUrl": "https://sports.bzzoiro.com/img/team/826/?bg=transparent"
-      },
-      "away": {
-        "id": "brasileirao-b.criciuma",
-        "league": "brasileirao-b",
-        "name": "Criciúma",
-        "shortName": "Criciúma",
-        "code": "CRI",
-        "logoUrl": "https://sports.bzzoiro.com/img/team/929/?bg=transparent"
-      },
-      "venue": "Estádio Onésio Brasileiro Alvarenga, Goiânia",
-      "referee": "Bruno Arleu de Araujo",
-      "neutralSite": false,
-      "result": {
-        "home": 1,
-        "away": 0,
-        "observedAt": "2026-11-22T19:27:07.879Z",
-        "source": "pitchlab-feed"
-      }
-    },
     {
       "id": "brasileirao-b-2026-11-07-cuiaba-juventude-mtlybb",
       "league": "brasileirao-b",
@@ -298,7 +263,7 @@
       "result": {
         "home": 1,
         "away": 2,
-        "observedAt": "2026-11-22T19:27:07.879Z",
+        "observedAt": "2026-11-22T21:56:46.653Z",
         "source": "pitchlab-feed"
       }
     },
@@ -333,7 +298,7 @@
       "result": {
         "home": 0,
         "away": 3,
-        "observedAt": "2026-11-22T19:27:07.879Z",
+        "observedAt": "2026-11-22T21:56:46.653Z",
         "source": "pitchlab-feed"
       }
     },
@@ -368,7 +333,7 @@
       "result": {
         "home": 2,
         "away": 3,
-        "observedAt": "2026-11-22T19:27:07.879Z",
+        "observedAt": "2026-11-22T21:56:46.653Z",
         "source": "pitchlab-feed"
       }
     },
@@ -403,7 +368,7 @@
       "result": {
         "home": 1,
         "away": 0,
-        "observedAt": "2026-11-22T19:27:07.879Z",
+        "observedAt": "2026-11-22T21:56:46.653Z",
         "source": "pitchlab-feed"
       }
     },
@@ -438,7 +403,7 @@
       "result": {
         "home": 0,
         "away": 1,
-        "observedAt": "2026-11-22T19:27:07.879Z",
+        "observedAt": "2026-11-22T21:56:46.653Z",
         "source": "pitchlab-feed"
       }
     },
@@ -473,7 +438,7 @@
       "result": {
         "home": 2,
         "away": 1,
-        "observedAt": "2026-11-22T19:27:07.879Z",
+        "observedAt": "2026-11-22T21:56:46.653Z",
         "source": "pitchlab-feed"
       }
     },
@@ -507,7 +472,7 @@
       "result": {
         "home": 0,
         "away": 2,
-        "observedAt": "2026-11-22T19:27:07.879Z",
+        "observedAt": "2026-11-22T21:56:46.653Z",
         "source": "pitchlab-feed"
       }
     },
@@ -541,7 +506,7 @@
       "result": {
         "home": 2,
         "away": 2,
-        "observedAt": "2026-11-22T19:27:07.879Z",
+        "observedAt": "2026-11-22T21:56:46.653Z",
         "source": "pitchlab-feed"
       }
     },
@@ -576,7 +541,7 @@
       "result": {
         "home": 3,
         "away": 0,
-        "observedAt": "2026-11-22T19:27:07.879Z",
+        "observedAt": "2026-11-22T21:56:46.653Z",
         "source": "pitchlab-feed"
       }
     },
@@ -611,7 +576,7 @@
       "result": {
         "home": 2,
         "away": 0,
-        "observedAt": "2026-11-22T19:27:07.879Z",
+        "observedAt": "2026-11-22T21:56:46.653Z",
         "source": "pitchlab-feed"
       }
     },
@@ -646,7 +611,7 @@
       "result": {
         "home": 1,
         "away": 0,
-        "observedAt": "2026-11-22T19:27:07.879Z",
+        "observedAt": "2026-11-22T21:56:46.653Z",
         "source": "pitchlab-feed"
       }
     },
@@ -681,7 +646,7 @@
       "result": {
         "home": 0,
         "away": 1,
-        "observedAt": "2026-11-22T19:27:07.879Z",
+        "observedAt": "2026-11-22T21:56:46.653Z",
         "source": "pitchlab-feed"
       }
     },
@@ -716,7 +681,7 @@
       "result": {
         "home": 1,
         "away": 1,
-        "observedAt": "2026-11-22T19:27:07.879Z",
+        "observedAt": "2026-11-22T21:56:46.653Z",
         "source": "pitchlab-feed"
       }
     },
@@ -751,7 +716,7 @@
       "result": {
         "home": 1,
         "away": 0,
-        "observedAt": "2026-11-22T19:27:07.879Z",
+        "observedAt": "2026-11-22T21:56:46.653Z",
         "source": "pitchlab-feed"
       }
     },
@@ -786,7 +751,7 @@
       "result": {
         "home": 0,
         "away": 2,
-        "observedAt": "2026-11-22T19:27:07.879Z",
+        "observedAt": "2026-11-22T21:56:46.653Z",
         "source": "pitchlab-feed"
       }
     },
@@ -798,7 +763,7 @@
       "round": "Final",
       "phase": "Final",
       "startTime": "2026-11-22T19:00:00.000Z",
-      "status": "scheduled",
+      "status": "final",
       "home": {
         "id": "brasileirao-b.criciuma",
         "league": "brasileirao-b",
@@ -817,7 +782,13 @@
       },
       "venue": "Estádio Heriberto Hülse, Criciúma",
       "referee": "Rafael Rodrigo Klein",
-      "neutralSite": false
+      "neutralSite": false,
+      "result": {
+        "home": 1,
+        "away": 0,
+        "observedAt": "2026-11-22T21:56:46.653Z",
+        "source": "pitchlab-feed"
+      }
     },
     {
       "id": "brasileirao-b-2026-11-22-atletico-goian-vila-nova-ah34ah",
@@ -906,466 +877,6 @@
     }
   ],
   "analyses": {
-    "brasileirao-b-2026-11-07-vila-nova-criciuma-8pqqtj": {
-      "game": "brasileirao-b-2026-11-07-vila-nova-criciuma-8pqqtj",
-      "model": {
-        "id": "pitchlab-statistical-brasileirao-b",
-        "version": "2.0.0",
-        "status": "candidate",
-        "label": "Modelo PitchLab · en validación"
-      },
-      "projection": {
-        "home": 1.3380816028487619,
-        "away": 0.7446854464552318,
-        "total": 2.082767049303994,
-        "margin": 0.59339615639353
-      },
-      "x12": [
-        0.5148173243861609,
-        0.27088493589963836,
-        0.2142977397142009
-      ],
-      "probabilities": [
-        {
-          "market": "h2h",
-          "selection": "Vila Nova gana",
-          "p": 0.5148173243861609,
-          "fairOdds": 1.9424365743564351
-        },
-        {
-          "market": "h2h",
-          "selection": "Empate",
-          "p": 0.27088493589963836,
-          "fairOdds": 3.6916043215134544
-        },
-        {
-          "market": "h2h",
-          "selection": "Criciúma gana",
-          "p": 0.2142977397142009,
-          "fairOdds": 4.666404794253333
-        },
-        {
-          "market": "double_chance",
-          "selection": "Vila Nova o empate",
-          "p": 0.7857022602857993,
-          "fairOdds": 1.2727467522318823
-        },
-        {
-          "market": "double_chance",
-          "selection": "Criciúma o empate",
-          "p": 0.48518267561383926,
-          "fairOdds": 2.0610793630148243
-        },
-        {
-          "market": "double_chance",
-          "selection": "Sin empate",
-          "p": 0.7291150641003619,
-          "fairOdds": 1.371525633246759
-        },
-        {
-          "market": "totals",
-          "selection": "Más de 1.5",
-          "line": 1.5,
-          "p": 0.6097262542907137,
-          "fairOdds": 1.640080270388367
-        },
-        {
-          "market": "totals",
-          "selection": "Más de 2.5",
-          "line": 2.5,
-          "p": 0.3457135442243502,
-          "fairOdds": 2.8925681874675173
-        },
-        {
-          "market": "totals",
-          "selection": "Menos de 2.5",
-          "line": 2.5,
-          "p": 0.6542864557756498,
-          "fairOdds": 1.5283825473882238
-        },
-        {
-          "market": "totals",
-          "selection": "Más de 3.5",
-          "line": 3.5,
-          "p": 0.15811187988960174,
-          "fairOdds": 6.324635446104548
-        },
-        {
-          "market": "totals",
-          "selection": "Menos de 3.5",
-          "line": 3.5,
-          "p": 0.8418881201103983,
-          "fairOdds": 1.187806284603313
-        },
-        {
-          "market": "btts",
-          "selection": "Sí",
-          "p": 0.38114571250334295,
-          "fairOdds": 2.623668500511413
-        },
-        {
-          "market": "btts",
-          "selection": "No",
-          "p": 0.618854287496657,
-          "fairOdds": 1.615889265379618
-        },
-        {
-          "market": "team_totals",
-          "selection": "Vila Nova más de 1.5",
-          "line": 1.5,
-          "p": 0.38660774617879623,
-          "fairOdds": 2.5866010442985936
-        },
-        {
-          "market": "team_totals",
-          "selection": "Vila Nova menos de 1.5",
-          "line": 1.5,
-          "p": 0.6133922538212038,
-          "fairOdds": 1.630278168285261
-        },
-        {
-          "market": "team_totals",
-          "selection": "Criciúma más de 1.5",
-          "line": 1.5,
-          "p": 0.17147740181570104,
-          "fairOdds": 5.8316722169302
-        },
-        {
-          "market": "team_totals",
-          "selection": "Criciúma menos de 1.5",
-          "line": 1.5,
-          "p": 0.828522598184299,
-          "fairOdds": 1.2069676822231432
-        },
-        {
-          "market": "correct_score",
-          "selection": "1–0",
-          "p": 0.17291206627822836,
-          "fairOdds": 5.783286392465669
-        },
-        {
-          "market": "correct_score",
-          "selection": "0–0",
-          "p": 0.11837788795084034,
-          "fairOdds": 8.447523581560075
-        },
-        {
-          "market": "correct_score",
-          "selection": "1–1",
-          "p": 0.11793559813278043,
-          "fairOdds": 8.479204038751114
-        }
-      ],
-      "marketGroups": [
-        {
-          "group": "Resultado",
-          "rows": [
-            {
-              "market": "h2h",
-              "selection": "home",
-              "label": "Vila Nova gana",
-              "p": 0.5148173243861609,
-              "fairOdds": 1.9424365743564351
-            },
-            {
-              "market": "h2h",
-              "selection": "draw",
-              "label": "Empate",
-              "p": 0.27088493589963836,
-              "fairOdds": 3.6916043215134544
-            },
-            {
-              "market": "h2h",
-              "selection": "away",
-              "label": "Criciúma gana",
-              "p": 0.2142977397142009,
-              "fairOdds": 4.666404794253333
-            }
-          ]
-        },
-        {
-          "group": "Doble oportunidad",
-          "rows": [
-            {
-              "market": "double_chance",
-              "selection": "1x",
-              "label": "Vila Nova o empate",
-              "p": 0.7857022602857993,
-              "fairOdds": 1.2727467522318823
-            },
-            {
-              "market": "double_chance",
-              "selection": "x2",
-              "label": "Criciúma o empate",
-              "p": 0.48518267561383926,
-              "fairOdds": 2.0610793630148243
-            },
-            {
-              "market": "double_chance",
-              "selection": "12",
-              "label": "Sin empate",
-              "p": 0.7291150641003619,
-              "fairOdds": 1.371525633246759
-            }
-          ]
-        },
-        {
-          "group": "Goles totales",
-          "rows": [
-            {
-              "market": "totals",
-              "selection": "over_1.5",
-              "label": "Más de 1.5",
-              "line": 1.5,
-              "p": 0.6097262542907137,
-              "fairOdds": 1.640080270388367
-            },
-            {
-              "market": "totals",
-              "selection": "over_2.5",
-              "label": "Más de 2.5",
-              "line": 2.5,
-              "p": 0.3457135442243502,
-              "fairOdds": 2.8925681874675173
-            },
-            {
-              "market": "totals",
-              "selection": "under_2.5",
-              "label": "Menos de 2.5",
-              "line": 2.5,
-              "p": 0.6542864557756498,
-              "fairOdds": 1.5283825473882238
-            },
-            {
-              "market": "totals",
-              "selection": "over_3.5",
-              "label": "Más de 3.5",
-              "line": 3.5,
-              "p": 0.15811187988960174,
-              "fairOdds": 6.324635446104548
-            },
-            {
-              "market": "totals",
-              "selection": "under_3.5",
-              "label": "Menos de 3.5",
-              "line": 3.5,
-              "p": 0.8418881201103983,
-              "fairOdds": 1.187806284603313
-            }
-          ]
-        },
-        {
-          "group": "Ambos anotan",
-          "rows": [
-            {
-              "market": "btts",
-              "selection": "yes",
-              "label": "Sí",
-              "p": 0.38114571250334295,
-              "fairOdds": 2.623668500511413
-            },
-            {
-              "market": "btts",
-              "selection": "no",
-              "label": "No",
-              "p": 0.618854287496657,
-              "fairOdds": 1.615889265379618
-            }
-          ]
-        },
-        {
-          "group": "Goles por equipo (1.5)",
-          "rows": [
-            {
-              "market": "team_totals",
-              "selection": "home_over",
-              "label": "Vila Nova más de 1.5",
-              "line": 1.5,
-              "p": 0.38660774617879623,
-              "fairOdds": 2.5866010442985936
-            },
-            {
-              "market": "team_totals",
-              "selection": "home_under",
-              "label": "Vila Nova menos de 1.5",
-              "line": 1.5,
-              "p": 0.6133922538212038,
-              "fairOdds": 1.630278168285261
-            },
-            {
-              "market": "team_totals",
-              "selection": "away_over",
-              "label": "Criciúma más de 1.5",
-              "line": 1.5,
-              "p": 0.17147740181570104,
-              "fairOdds": 5.8316722169302
-            },
-            {
-              "market": "team_totals",
-              "selection": "away_under",
-              "label": "Criciúma menos de 1.5",
-              "line": 1.5,
-              "p": 0.828522598184299,
-              "fairOdds": 1.2069676822231432
-            }
-          ]
-        },
-        {
-          "group": "Marcador exacto (más probables)",
-          "rows": [
-            {
-              "market": "correct_score",
-              "selection": "1-0",
-              "label": "1–0",
-              "p": 0.17291206627822836,
-              "fairOdds": 5.783286392465669
-            },
-            {
-              "market": "correct_score",
-              "selection": "0-0",
-              "label": "0–0",
-              "p": 0.11837788795084034,
-              "fairOdds": 8.447523581560075
-            },
-            {
-              "market": "correct_score",
-              "selection": "1-1",
-              "label": "1–1",
-              "p": 0.11793559813278043,
-              "fairOdds": 8.479204038751114
-            }
-          ]
-        }
-      ],
-      "mostLikelyScore": {
-        "home": 1,
-        "away": 0,
-        "p": 0.17291206627822836
-      },
-      "factors": [
-        {
-          "key": "home_attack",
-          "label": "Ataque local",
-          "value": "0.95 goles/partido",
-          "detail": "15 % más que la media · 24 partidos"
-        },
-        {
-          "key": "away_defense",
-          "label": "Defensa visitante",
-          "value": "0.82 concedidos/partido",
-          "detail": "23 % menos que la media · 25 partidos"
-        },
-        {
-          "key": "away_attack",
-          "label": "Ataque visitante",
-          "value": "0.74 goles/partido",
-          "detail": "20 % menos que la media · ajustado por rival"
-        },
-        {
-          "key": "home_defense",
-          "label": "Defensa local",
-          "value": "0.93 concedidos/partido",
-          "detail": "13 % menos que la media · ajustado por rival"
-        },
-        {
-          "key": "home_advantage",
-          "label": "Localía",
-          "value": "×1.42",
-          "detail": "estimada de 242 partidos"
-        },
-        {
-          "key": "uncertainty",
-          "label": "Intervalo 90%",
-          "value": "goles 1.6–2.9",
-          "detail": "local 33%–71% · 242 partidos"
-        },
-        {
-          "key": "home_position",
-          "label": "Posición local",
-          "value": "8.º · 38 pts",
-          "detail": "de 20 equipos"
-        },
-        {
-          "key": "away_position",
-          "label": "Posición visitante",
-          "value": "6.º · 41 pts",
-          "detail": "de 20 equipos"
-        },
-        {
-          "key": "home_form",
-          "label": "Forma local",
-          "value": "E-G-E-P-E · 6 pts",
-          "detail": "8 goles a favor · 7 en contra"
-        },
-        {
-          "key": "away_form",
-          "label": "Forma visitante",
-          "value": "P-G-G-P-G · 9 pts",
-          "detail": "5 goles a favor · 3 en contra"
-        }
-      ],
-      "steps": [
-        "Sincronizando Brasileirão Serie B · corte 7 nov 2026, 16:00",
-        "Fuerza ajustada por rival · VIL 1.15 / 0.87 · CRI 0.80 / 0.77",
-        "Ponderando 210.6 partidos por antigüedad y calidad del rival",
-        "Proyección de goles 1.34 – 0.74 · total 2.08",
-        "Simulando 121 marcadores con incertidumbre del ajuste",
-        "20 mercados listos · marcador proyectado 1–0"
-      ],
-      "inputsAsOf": "2026-11-07T22:00:00.000Z",
-      "publishedAt": "2026-11-07T22:00:00.000Z",
-      "source": "pitchlab-football-v2",
-      "projectedScore": {
-        "home": 1,
-        "away": 0,
-        "p": 0.17291206627822836
-      },
-      "insights": {
-        "why": [
-          "Se esperan 2.1 goles: 1.3 de Vila Nova y 0.7 de Criciúma.",
-          "Criciúma concede 23 % menos que la media.",
-          "Criciúma anota 20 % menos que la media."
-        ],
-        "headToHead": [
-          {
-            "date": "2026-07-18",
-            "homeTeamId": "brasileirao-b.criciuma",
-            "awayTeamId": "brasileirao-b.vila-nova",
-            "homeGoals": 2,
-            "awayGoals": 0
-          }
-        ],
-        "restDays": {
-          "home": 7,
-          "away": 8
-        }
-      },
-      "matchContext": {
-        "referee": "Bruno Arleu de Araujo",
-        "refereeStats": {
-          "country": "Brazil",
-          "matches": 74,
-          "avgYellow": 5.43,
-          "avgRed": 0.2,
-          "avgFouls": 27.8,
-          "avgGoals": 2.31
-        },
-        "weather": {
-          "description": "cloudy",
-          "temperatureC": 21,
-          "windSpeedKmh": 19
-        },
-        "travelDistanceKm": 1338,
-        "halfTimeScore": {
-          "home": 1,
-          "away": 0
-        },
-        "stageName": "League phase",
-        "venueCity": "Goiânia",
-        "venueCountry": "Brazil",
-        "venueCapacity": 11788
-      }
-    },
     "brasileirao-b-2026-11-07-cuiaba-juventude-mtlybb": {
       "game": "brasileirao-b-2026-11-07-cuiaba-juventude-mtlybb",
       "model": {
@@ -2723,11 +2234,11 @@
         "referee": "Rafael Rodrigo Klein",
         "refereeStats": {
           "country": "Brazil",
-          "matches": 75,
-          "avgYellow": 4.33,
-          "avgRed": 0.4,
-          "avgFouls": 26.7,
-          "avgGoals": 2.29
+          "matches": 76,
+          "avgYellow": 4.34,
+          "avgRed": 0.39,
+          "avgFouls": 26.3,
+          "avgGoals": 2.28
         },
         "weather": {
           "description": "cloudy",
@@ -6842,11 +6353,11 @@
         "referee": "Wilton Pereira Sampaio",
         "refereeStats": {
           "country": "Brazil",
-          "matches": 83,
-          "avgYellow": 4.8,
-          "avgRed": 0.22,
+          "matches": 84,
+          "avgYellow": 4.85,
+          "avgRed": 0.21,
           "avgFouls": 26.7,
-          "avgGoals": 2.47
+          "avgGoals": 2.51
         },
         "weather": {
           "description": "clear",
@@ -8718,13 +8229,14 @@
         "referee": "Rafael Rodrigo Klein",
         "refereeStats": {
           "country": "Brazil",
-          "matches": 75,
-          "avgYellow": 4.33,
-          "avgRed": 0.4,
-          "avgFouls": 26.7,
-          "avgGoals": 2.29
+          "matches": 76,
+          "avgYellow": 4.34,
+          "avgRed": 0.39,
+          "avgFouls": 26.3,
+          "avgGoals": 2.28
         },
         "weather": {
+          "description": "clear",
           "temperatureC": 22,
           "windSpeedKmh": 31
         },
@@ -9224,6 +8736,10 @@
           "windSpeedKmh": 23
         },
         "travelDistanceKm": 3,
+        "halfTimeScore": {
+          "home": 1,
+          "away": 0
+        },
         "stageName": "Final",
         "venueCity": "Goiânia",
         "venueCountry": "Brazil",
@@ -10259,19 +9775,19 @@
       "name": "Fortaleza",
       "shortName": "Fortaleza",
       "code": "FOR",
-      "played": 24,
+      "played": 25,
       "won": 11,
       "drawn": 10,
-      "lost": 3,
+      "lost": 4,
       "goalsFor": 29,
-      "goalsAgainst": 18,
+      "goalsAgainst": 19,
       "points": 43,
       "form": [
-        "W",
         "D",
         "D",
         "L",
-        "W"
+        "W",
+        "L"
       ]
     },
     {
@@ -10292,6 +9808,26 @@
         "L",
         "W",
         "D"
+      ]
+    },
+    {
+      "teamId": "brasileirao-b.criciuma",
+      "name": "Criciúma",
+      "shortName": "Criciúma",
+      "code": "CRI",
+      "played": 25,
+      "won": 13,
+      "drawn": 2,
+      "lost": 10,
+      "goalsFor": 23,
+      "goalsAgainst": 21,
+      "points": 41,
+      "form": [
+        "L",
+        "W",
+        "L",
+        "L",
+        "W"
       ]
     },
     {
@@ -10331,26 +9867,6 @@
         "L",
         "D",
         "W",
-        "L"
-      ]
-    },
-    {
-      "teamId": "brasileirao-b.criciuma",
-      "name": "Criciúma",
-      "shortName": "Criciúma",
-      "code": "CRI",
-      "played": 24,
-      "won": 12,
-      "drawn": 2,
-      "lost": 10,
-      "goalsFor": 22,
-      "goalsAgainst": 21,
-      "points": 38,
-      "form": [
-        "W",
-        "L",
-        "W",
-        "L",
         "L"
       ]
     },

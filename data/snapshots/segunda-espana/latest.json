@@ -5,7 +5,7 @@
   "season": "segunda-espana-2026-27",
   "seasonLabel": "2026/27",
   "periodLabel": "Regular season · Matchday 14",
-  "updatedAt": "2026-11-22T19:27:07.879Z",
+  "updatedAt": "2026-11-22T21:56:46.653Z",
   "source": "pitchlab-football-v2",
   "provenance": "derived",
   "isDemo": false,
@@ -18,8 +18,8 @@
       "forPerGame": 1.1333333333333333,
       "againstPerGame": 1.8,
       "gamesPlayed": 15,
-      "adjustedFor": 1.1312106235577075,
-      "adjustedAgainst": 1.6550960050148673
+      "adjustedFor": 1.1311381085448622,
+      "adjustedAgainst": 1.6547926985208525
     },
     "segunda-espana.castellon": {
       "teamId": "segunda-espana.castellon",
@@ -29,8 +29,8 @@
       "forPerGame": 1.8571428571428572,
       "againstPerGame": 0.35714285714285715,
       "gamesPlayed": 14,
-      "adjustedFor": 1.5383195005580321,
-      "adjustedAgainst": 0.5586786821604964
+      "adjustedFor": 1.5387776469425578,
+      "adjustedAgainst": 0.557752221518238
     },
     "segunda-espana.andorra": {
       "teamId": "segunda-espana.andorra",
@@ -40,8 +40,8 @@
       "forPerGame": 1.3571428571428572,
       "againstPerGame": 1.9285714285714286,
       "gamesPlayed": 14,
-      "adjustedFor": 1.2680632312114262,
-      "adjustedAgainst": 1.7056130154110627
+      "adjustedFor": 1.2673754745804835,
+      "adjustedAgainst": 1.7021144921643723
     },
     "segunda-espana.ad-ceuta": {
       "teamId": "segunda-espana.ad-ceuta",
@@ -51,8 +51,8 @@
       "forPerGame": 0.7142857142857143,
       "againstPerGame": 2.2857142857142856,
       "gamesPlayed": 14,
-      "adjustedFor": 0.7715058665735255,
-      "adjustedAgainst": 1.9582326203991556
+      "adjustedFor": 0.7697414705753574,
+      "adjustedAgainst": 1.9543825985097765
     },
     "segunda-espana.real-oviedo": {
       "teamId": "segunda-espana.real-oviedo",
@@ -62,8 +62,8 @@
       "forPerGame": 1.3333333333333333,
       "againstPerGame": 1.4,
       "gamesPlayed": 15,
-      "adjustedFor": 1.2611471920375423,
-      "adjustedAgainst": 1.3379714406821162
+      "adjustedFor": 1.261432471632345,
+      "adjustedAgainst": 1.3371410260179268
     },
     "segunda-espana.granada": {
       "teamId": "segunda-espana.granada",
@@ -73,8 +73,8 @@
       "forPerGame": 1.5714285714285714,
       "againstPerGame": 1.0714285714285714,
       "gamesPlayed": 14,
-      "adjustedFor": 1.3857680375310086,
-      "adjustedAgainst": 1.061077640916506
+      "adjustedFor": 1.3863140908972225,
+      "adjustedAgainst": 1.0605718341724
     },
     "segunda-espana.cadiz": {
       "teamId": "segunda-espana.cadiz",
@@ -84,8 +84,8 @@
       "forPerGame": 1.3333333333333333,
       "againstPerGame": 1.2666666666666666,
       "gamesPlayed": 15,
-      "adjustedFor": 1.2098669240694941,
-      "adjustedAgainst": 1.2119863687861196
+      "adjustedFor": 1.2053396714356117,
+      "adjustedAgainst": 1.206780067902953
     },
     "segunda-espana.celta-fortuna": {
       "teamId": "segunda-espana.celta-fortuna",
@@ -95,8 +95,8 @@
       "forPerGame": 1.3333333333333333,
       "againstPerGame": 1.8,
       "gamesPlayed": 15,
-      "adjustedFor": 1.2191891605737828,
-      "adjustedAgainst": 1.6127285158899594
+      "adjustedFor": 1.2192819845179248,
+      "adjustedAgainst": 1.6132970570487712
     },
     "segunda-espana.mallorca": {
       "teamId": "segunda-espana.mallorca",
@@ -106,8 +106,8 @@
       "forPerGame": 1.2857142857142858,
       "againstPerGame": 0.7142857142857143,
       "gamesPlayed": 14,
-      "adjustedFor": 1.1884052564855416,
-      "adjustedAgainst": 0.7968834220251589
+      "adjustedFor": 1.1843076374472385,
+      "adjustedAgainst": 0.7930224339811806
     },
     "segunda-espana.real-valladolid": {
       "teamId": "segunda-espana.real-valladolid",
@@ -117,8 +117,8 @@
       "forPerGame": 1.5333333333333334,
       "againstPerGame": 1.4666666666666666,
       "gamesPlayed": 15,
-      "adjustedFor": 1.367369732225882,
-      "adjustedAgainst": 1.370136654478862
+      "adjustedFor": 1.3644419618280992,
+      "adjustedAgainst": 1.3669136536179944
     },
     "segunda-espana.eibar": {
       "teamId": "segunda-espana.eibar",
@@ -128,8 +128,8 @@
       "forPerGame": 1.6428571428571428,
       "againstPerGame": 1.2142857142857142,
       "gamesPlayed": 14,
-      "adjustedFor": 1.4754990422410557,
-      "adjustedAgainst": 1.138783101409975
+      "adjustedFor": 1.4729606916126894,
+      "adjustedAgainst": 1.1363627953587265
     },
     "segunda-espana.tenerife": {
       "teamId": "segunda-espana.tenerife",
@@ -139,8 +139,8 @@
       "forPerGame": 1.2142857142857142,
       "againstPerGame": 1.2142857142857142,
       "gamesPlayed": 14,
-      "adjustedFor": 1.1233469668903429,
-      "adjustedAgainst": 1.1560073694445392
+      "adjustedFor": 1.1192753091665018,
+      "adjustedAgainst": 1.1510043954500744
     },
     "segunda-espana.girona": {
       "teamId": "segunda-espana.girona",
@@ -150,8 +150,8 @@
       "forPerGame": 1.7333333333333334,
       "againstPerGame": 0.9333333333333333,
       "gamesPlayed": 15,
-      "adjustedFor": 1.4923806346913921,
-      "adjustedAgainst": 0.9269355845929106
+      "adjustedFor": 1.4893672212168456,
+      "adjustedAgainst": 0.9243718954463263
     },
     "segunda-espana.leganes": {
       "teamId": "segunda-espana.leganes",
@@ -161,19 +161,19 @@
       "forPerGame": 1.1333333333333333,
       "againstPerGame": 1.6666666666666667,
       "gamesPlayed": 15,
-      "adjustedFor": 1.1768820907746242,
-      "adjustedAgainst": 1.471043355026505
+      "adjustedFor": 1.1787496340435917,
+      "adjustedAgainst": 1.4710151115323726
     },
     "segunda-espana.burgos": {
       "teamId": "segunda-espana.burgos",
       "name": "Burgos Club de Fútbol",
       "shortName": "Burgos de Fútbol",
       "code": "BUR",
-      "forPerGame": 1.4285714285714286,
-      "againstPerGame": 1.2142857142857142,
-      "gamesPlayed": 14,
-      "adjustedFor": 1.2370568783052276,
-      "adjustedAgainst": 1.1803727769466916
+      "forPerGame": 1.4,
+      "againstPerGame": 1.1333333333333333,
+      "gamesPlayed": 15,
+      "adjustedFor": 1.1933507632823341,
+      "adjustedAgainst": 1.1221959213255284
     },
     "segunda-espana.cordoba": {
       "teamId": "segunda-espana.cordoba",
@@ -183,8 +183,8 @@
       "forPerGame": 1.8666666666666667,
       "againstPerGame": 1.6666666666666667,
       "gamesPlayed": 15,
-      "adjustedFor": 1.6869911170133396,
-      "adjustedAgainst": 1.5197089722612651
+      "adjustedFor": 1.6870615816910077,
+      "adjustedAgainst": 1.5193775254535722
     },
     "segunda-espana.las-palmas": {
       "teamId": "segunda-espana.las-palmas",
@@ -194,19 +194,19 @@
       "forPerGame": 1.4,
       "againstPerGame": 1.4666666666666666,
       "gamesPlayed": 15,
-      "adjustedFor": 1.3092057457776851,
-      "adjustedAgainst": 1.368311958199051
+      "adjustedFor": 1.3100599782934093,
+      "adjustedAgainst": 1.3676905687244938
     },
     "segunda-espana.albacete-balompie": {
       "teamId": "segunda-espana.albacete-balompie",
       "name": "Albacete Balompié",
       "shortName": "Albacete Balompié",
       "code": "ALB",
-      "forPerGame": 1,
-      "againstPerGame": 1.7142857142857142,
-      "gamesPlayed": 14,
-      "adjustedFor": 1.0053529741428695,
-      "adjustedAgainst": 1.4962461459822698
+      "forPerGame": 0.9333333333333333,
+      "againstPerGame": 1.6666666666666667,
+      "gamesPlayed": 15,
+      "adjustedFor": 0.9553981647734775,
+      "adjustedAgainst": 1.464125474873495
     },
     "segunda-espana.sporting-gijon": {
       "teamId": "segunda-espana.sporting-gijon",
@@ -216,8 +216,8 @@
       "forPerGame": 1.0666666666666667,
       "againstPerGame": 1.2666666666666666,
       "gamesPlayed": 15,
-      "adjustedFor": 1.0025041341150294,
-      "adjustedAgainst": 1.2732193899198092
+      "adjustedFor": 1.0026237459647422,
+      "adjustedAgainst": 1.2728714522302178
     },
     "segunda-espana.ce-sabadell": {
       "teamId": "segunda-espana.ce-sabadell",
@@ -227,8 +227,8 @@
       "forPerGame": 0.8666666666666667,
       "againstPerGame": 0.9333333333333333,
       "gamesPlayed": 15,
-      "adjustedFor": 0.8648571115335039,
-      "adjustedAgainst": 0.9762964221566313
+      "adjustedFor": 0.8641528409610933,
+      "adjustedAgainst": 0.9755940947189384
     },
     "segunda-espana.almeria": {
       "teamId": "segunda-espana.almeria",
@@ -238,8 +238,8 @@
       "forPerGame": 1.8571428571428572,
       "againstPerGame": 0.7857142857142857,
       "gamesPlayed": 14,
-      "adjustedFor": 1.5879162472586077,
-      "adjustedAgainst": 0.8495966173923835
+      "adjustedFor": 1.5871349072129999,
+      "adjustedAgainst": 0.8472025853365894
     },
     "segunda-espana.eldense": {
       "teamId": "segunda-espana.eldense",
@@ -249,46 +249,11 @@
       "forPerGame": 1,
       "againstPerGame": 1.4,
       "gamesPlayed": 15,
-      "adjustedFor": 1.0596876799218218,
-      "adjustedAgainst": 1.2771213339740792
+      "adjustedFor": 1.0594261736691293,
+      "adjustedAgainst": 1.2763528191371625
     }
   },
   "games": [
-    {
-      "id": "segunda-espana-2026-11-14-almeria-andorra-719nrl",
-      "league": "segunda-espana",
-      "season": "segunda-espana-2026-27",
-      "week": 14,
-      "round": "Regular season · Matchday 14",
-      "phase": "Regular season",
-      "startTime": "2026-11-14T17:30:00.000Z",
-      "status": "final",
-      "home": {
-        "id": "segunda-espana.almeria",
-        "league": "segunda-espana",
-        "name": "Almería",
-        "shortName": "Almería",
-        "code": "ALM",
-        "logoUrl": "https://sports.bzzoiro.com/img/team/1264/?bg=transparent"
-      },
-      "away": {
-        "id": "segunda-espana.andorra",
-        "league": "segunda-espana",
-        "name": "FC Andorra",
-        "shortName": "Andorra",
-        "code": "AND",
-        "logoUrl": "https://sports.bzzoiro.com/img/team/1460/?bg=transparent"
-      },
-      "venue": "UD Almeria Stadium, Almeria",
-      "referee": "Andres Fuentes Molina",
-      "neutralSite": false,
-      "result": {
-        "home": 2,
-        "away": 1,
-        "observedAt": "2026-11-22T19:27:07.879Z",
-        "source": "pitchlab-feed"
-      }
-    },
     {
       "id": "segunda-espana-2026-11-14-real-oviedo-girona-udvodn",
       "league": "segunda-espana",
@@ -320,7 +285,7 @@
       "result": {
         "home": 1,
         "away": 2,
-        "observedAt": "2026-11-22T19:27:07.879Z",
+        "observedAt": "2026-11-22T21:56:46.653Z",
         "source": "pitchlab-feed"
       }
     },
@@ -355,7 +320,7 @@
       "result": {
         "home": 2,
         "away": 0,
-        "observedAt": "2026-11-22T19:27:07.879Z",
+        "observedAt": "2026-11-22T21:56:46.653Z",
         "source": "pitchlab-feed"
       }
     },
@@ -390,7 +355,7 @@
       "result": {
         "home": 1,
         "away": 0,
-        "observedAt": "2026-11-22T19:27:07.879Z",
+        "observedAt": "2026-11-22T21:56:46.653Z",
         "source": "pitchlab-feed"
       }
     },
@@ -425,7 +390,7 @@
       "result": {
         "home": 1,
         "away": 1,
-        "observedAt": "2026-11-22T19:27:07.879Z",
+        "observedAt": "2026-11-22T21:56:46.653Z",
         "source": "pitchlab-feed"
       }
     },
@@ -460,7 +425,7 @@
       "result": {
         "home": 2,
         "away": 0,
-        "observedAt": "2026-11-22T19:27:07.879Z",
+        "observedAt": "2026-11-22T21:56:46.653Z",
         "source": "pitchlab-feed"
       }
     },
@@ -495,7 +460,7 @@
       "result": {
         "home": 1,
         "away": 0,
-        "observedAt": "2026-11-22T19:27:07.879Z",
+        "observedAt": "2026-11-22T21:56:46.653Z",
         "source": "pitchlab-feed"
       }
     },
@@ -530,7 +495,7 @@
       "result": {
         "home": 1,
         "away": 3,
-        "observedAt": "2026-11-22T19:27:07.879Z",
+        "observedAt": "2026-11-22T21:56:46.653Z",
         "source": "pitchlab-feed"
       }
     },
@@ -565,7 +530,7 @@
       "result": {
         "home": 1,
         "away": 1,
-        "observedAt": "2026-11-22T19:27:07.879Z",
+        "observedAt": "2026-11-22T21:56:46.653Z",
         "source": "pitchlab-feed"
       }
     },
@@ -600,7 +565,7 @@
       "result": {
         "home": 0,
         "away": 3,
-        "observedAt": "2026-11-22T19:27:07.879Z",
+        "observedAt": "2026-11-22T21:56:46.653Z",
         "source": "pitchlab-feed"
       }
     },
@@ -635,7 +600,7 @@
       "result": {
         "home": 2,
         "away": 0,
-        "observedAt": "2026-11-22T19:27:07.879Z",
+        "observedAt": "2026-11-22T21:56:46.653Z",
         "source": "pitchlab-feed"
       }
     },
@@ -670,7 +635,7 @@
       "result": {
         "home": 0,
         "away": 0,
-        "observedAt": "2026-11-22T19:27:07.879Z",
+        "observedAt": "2026-11-22T21:56:46.653Z",
         "source": "pitchlab-feed"
       }
     },
@@ -705,7 +670,7 @@
       "result": {
         "home": 3,
         "away": 0,
-        "observedAt": "2026-11-22T19:27:07.879Z",
+        "observedAt": "2026-11-22T21:56:46.653Z",
         "source": "pitchlab-feed"
       }
     },
@@ -740,7 +705,7 @@
       "result": {
         "home": 0,
         "away": 2,
-        "observedAt": "2026-11-22T19:27:07.879Z",
+        "observedAt": "2026-11-22T21:56:46.653Z",
         "source": "pitchlab-feed"
       }
     },
@@ -775,7 +740,7 @@
       "result": {
         "home": 2,
         "away": 1,
-        "observedAt": "2026-11-22T19:27:07.879Z",
+        "observedAt": "2026-11-22T21:56:46.653Z",
         "source": "pitchlab-feed"
       }
     },
@@ -810,7 +775,7 @@
       "result": {
         "home": 1,
         "away": 1,
-        "observedAt": "2026-11-22T19:27:07.879Z",
+        "observedAt": "2026-11-22T21:56:46.653Z",
         "source": "pitchlab-feed"
       }
     },
@@ -822,7 +787,7 @@
       "round": "Regular season · Matchday 15",
       "phase": "Regular season",
       "startTime": "2026-11-22T20:00:00.000Z",
-      "status": "scheduled",
+      "status": "final",
       "home": {
         "id": "segunda-espana.burgos",
         "league": "segunda-espana",
@@ -841,7 +806,13 @@
       },
       "venue": "Municipal El Plantio, Burgos",
       "referee": "Marta Huerta de Aza",
-      "neutralSite": false
+      "neutralSite": false,
+      "result": {
+        "home": 1,
+        "away": 0,
+        "observedAt": "2026-11-22T21:56:46.653Z",
+        "source": "pitchlab-feed"
+      }
     },
     {
       "id": "segunda-espana-2026-11-23-ad-ceuta-almeria-4g5ft2",
@@ -1710,459 +1681,37 @@
       },
       "venue": "Gran Canaria, Las Palmas de Gran Canaria",
       "neutralSite": false
+    },
+    {
+      "id": "segunda-espana-2026-12-13-granada-girona-7xzz93",
+      "league": "segunda-espana",
+      "season": "segunda-espana-2026-27",
+      "week": 18,
+      "round": "Regular season · Matchday 18",
+      "phase": "Regular season",
+      "startTime": "2026-12-13T19:00:00.000Z",
+      "status": "scheduled",
+      "home": {
+        "id": "segunda-espana.granada",
+        "league": "segunda-espana",
+        "name": "Granada",
+        "shortName": "Granada",
+        "code": "GRA",
+        "logoUrl": "https://sports.bzzoiro.com/img/team/1261/?bg=transparent"
+      },
+      "away": {
+        "id": "segunda-espana.girona",
+        "league": "segunda-espana",
+        "name": "Girona FC",
+        "shortName": "Girona",
+        "code": "GIR",
+        "logoUrl": "https://sports.bzzoiro.com/img/team/39/?bg=transparent"
+      },
+      "venue": "Estadio Nuevo Los Carmenes, Granada",
+      "neutralSite": false
     }
   ],
   "analyses": {
-    "segunda-espana-2026-11-14-almeria-andorra-719nrl": {
-      "game": "segunda-espana-2026-11-14-almeria-andorra-719nrl",
-      "model": {
-        "id": "pitchlab-statistical-segunda-espana",
-        "version": "2.0.0",
-        "status": "candidate",
-        "label": "Modelo PitchLab · en validación"
-      },
-      "projection": {
-        "home": 2.8073321073782087,
-        "away": 0.917587881044998,
-        "total": 3.7249199884232067,
-        "margin": 1.8897442263332107
-      },
-      "x12": [
-        0.7681560483201648,
-        0.13354762299297626,
-        0.09829632868685892
-      ],
-      "probabilities": [
-        {
-          "market": "h2h",
-          "selection": "Almería gana",
-          "p": 0.7681560483201648,
-          "fairOdds": 1.3018188194792466
-        },
-        {
-          "market": "h2h",
-          "selection": "Empate",
-          "p": 0.13354762299297626,
-          "fairOdds": 7.487965548084622
-        },
-        {
-          "market": "h2h",
-          "selection": "Andorra gana",
-          "p": 0.09829632868685892,
-          "fairOdds": 10.173319933297655
-        },
-        {
-          "market": "double_chance",
-          "selection": "Almería o empate",
-          "p": 0.9017036713131411,
-          "fairOdds": 1.1090117871470027
-        },
-        {
-          "market": "double_chance",
-          "selection": "Andorra o empate",
-          "p": 0.23184395167983518,
-          "fairOdds": 4.313246012045851
-        },
-        {
-          "market": "double_chance",
-          "selection": "Sin empate",
-          "p": 0.8664523770070237,
-          "fairOdds": 1.1541315212894774
-        },
-        {
-          "market": "totals",
-          "selection": "Más de 1.5",
-          "line": 1.5,
-          "p": 0.8829328309517394,
-          "fairOdds": 1.1325889863242151
-        },
-        {
-          "market": "totals",
-          "selection": "Más de 2.5",
-          "line": 2.5,
-          "p": 0.7187129551860398,
-          "fairOdds": 1.3913760601979808
-        },
-        {
-          "market": "totals",
-          "selection": "Menos de 2.5",
-          "line": 2.5,
-          "p": 0.28128704481396016,
-          "fairOdds": 3.555087297608704
-        },
-        {
-          "market": "totals",
-          "selection": "Más de 3.5",
-          "line": 3.5,
-          "p": 0.5109538290944595,
-          "fairOdds": 1.9571239964523899
-        },
-        {
-          "market": "totals",
-          "selection": "Menos de 3.5",
-          "line": 3.5,
-          "p": 0.4890461709055405,
-          "fairOdds": 2.044796707330013
-        },
-        {
-          "market": "btts",
-          "selection": "Sí",
-          "p": 0.5611551501958156,
-          "fairOdds": 1.7820383536550435
-        },
-        {
-          "market": "btts",
-          "selection": "No",
-          "p": 0.43884484980418437,
-          "fairOdds": 2.2787096634407513
-        },
-        {
-          "market": "team_totals",
-          "selection": "Almería más de 1.5",
-          "line": 1.5,
-          "p": 0.770128765831935,
-          "fairOdds": 1.2984841553343947
-        },
-        {
-          "market": "team_totals",
-          "selection": "Almería menos de 1.5",
-          "line": 1.5,
-          "p": 0.229871234168065,
-          "fairOdds": 4.350261587184386
-        },
-        {
-          "market": "team_totals",
-          "selection": "Andorra más de 1.5",
-          "line": 1.5,
-          "p": 0.2339591583463969,
-          "fairOdds": 4.274250288246519
-        },
-        {
-          "market": "team_totals",
-          "selection": "Andorra menos de 1.5",
-          "line": 1.5,
-          "p": 0.7660408416536031,
-          "fairOdds": 1.305413426575748
-        },
-        {
-          "market": "correct_score",
-          "selection": "2–0",
-          "p": 0.0950425553617892,
-          "fairOdds": 10.521602625196659
-        },
-        {
-          "market": "correct_score",
-          "selection": "3–0",
-          "p": 0.0889386724114739,
-          "fairOdds": 11.24370279976195
-        },
-        {
-          "market": "correct_score",
-          "selection": "2–1",
-          "p": 0.08720989698352606,
-          "fairOdds": 11.46658847893032
-        }
-      ],
-      "marketGroups": [
-        {
-          "group": "Resultado",
-          "rows": [
-            {
-              "market": "h2h",
-              "selection": "home",
-              "label": "Almería gana",
-              "p": 0.7681560483201648,
-              "fairOdds": 1.3018188194792466
-            },
-            {
-              "market": "h2h",
-              "selection": "draw",
-              "label": "Empate",
-              "p": 0.13354762299297626,
-              "fairOdds": 7.487965548084622
-            },
-            {
-              "market": "h2h",
-              "selection": "away",
-              "label": "Andorra gana",
-              "p": 0.09829632868685892,
-              "fairOdds": 10.173319933297655
-            }
-          ]
-        },
-        {
-          "group": "Doble oportunidad",
-          "rows": [
-            {
-              "market": "double_chance",
-              "selection": "1x",
-              "label": "Almería o empate",
-              "p": 0.9017036713131411,
-              "fairOdds": 1.1090117871470027
-            },
-            {
-              "market": "double_chance",
-              "selection": "x2",
-              "label": "Andorra o empate",
-              "p": 0.23184395167983518,
-              "fairOdds": 4.313246012045851
-            },
-            {
-              "market": "double_chance",
-              "selection": "12",
-              "label": "Sin empate",
-              "p": 0.8664523770070237,
-              "fairOdds": 1.1541315212894774
-            }
-          ]
-        },
-        {
-          "group": "Goles totales",
-          "rows": [
-            {
-              "market": "totals",
-              "selection": "over_1.5",
-              "label": "Más de 1.5",
-              "line": 1.5,
-              "p": 0.8829328309517394,
-              "fairOdds": 1.1325889863242151
-            },
-            {
-              "market": "totals",
-              "selection": "over_2.5",
-              "label": "Más de 2.5",
-              "line": 2.5,
-              "p": 0.7187129551860398,
-              "fairOdds": 1.3913760601979808
-            },
-            {
-              "market": "totals",
-              "selection": "under_2.5",
-              "label": "Menos de 2.5",
-              "line": 2.5,
-              "p": 0.28128704481396016,
-              "fairOdds": 3.555087297608704
-            },
-            {
-              "market": "totals",
-              "selection": "over_3.5",
-              "label": "Más de 3.5",
-              "line": 3.5,
-              "p": 0.5109538290944595,
-              "fairOdds": 1.9571239964523899
-            },
-            {
-              "market": "totals",
-              "selection": "under_3.5",
-              "label": "Menos de 3.5",
-              "line": 3.5,
-              "p": 0.4890461709055405,
-              "fairOdds": 2.044796707330013
-            }
-          ]
-        },
-        {
-          "group": "Ambos anotan",
-          "rows": [
-            {
-              "market": "btts",
-              "selection": "yes",
-              "label": "Sí",
-              "p": 0.5611551501958156,
-              "fairOdds": 1.7820383536550435
-            },
-            {
-              "market": "btts",
-              "selection": "no",
-              "label": "No",
-              "p": 0.43884484980418437,
-              "fairOdds": 2.2787096634407513
-            }
-          ]
-        },
-        {
-          "group": "Goles por equipo (1.5)",
-          "rows": [
-            {
-              "market": "team_totals",
-              "selection": "home_over",
-              "label": "Almería más de 1.5",
-              "line": 1.5,
-              "p": 0.770128765831935,
-              "fairOdds": 1.2984841553343947
-            },
-            {
-              "market": "team_totals",
-              "selection": "home_under",
-              "label": "Almería menos de 1.5",
-              "line": 1.5,
-              "p": 0.229871234168065,
-              "fairOdds": 4.350261587184386
-            },
-            {
-              "market": "team_totals",
-              "selection": "away_over",
-              "label": "Andorra más de 1.5",
-              "line": 1.5,
-              "p": 0.2339591583463969,
-              "fairOdds": 4.274250288246519
-            },
-            {
-              "market": "team_totals",
-              "selection": "away_under",
-              "label": "Andorra menos de 1.5",
-              "line": 1.5,
-              "p": 0.7660408416536031,
-              "fairOdds": 1.305413426575748
-            }
-          ]
-        },
-        {
-          "group": "Marcador exacto (más probables)",
-          "rows": [
-            {
-              "market": "correct_score",
-              "selection": "2-0",
-              "label": "2–0",
-              "p": 0.0950425553617892,
-              "fairOdds": 10.521602625196659
-            },
-            {
-              "market": "correct_score",
-              "selection": "3-0",
-              "label": "3–0",
-              "p": 0.0889386724114739,
-              "fairOdds": 11.24370279976195
-            },
-            {
-              "market": "correct_score",
-              "selection": "2-1",
-              "label": "2–1",
-              "p": 0.08720989698352606,
-              "fairOdds": 11.46658847893032
-            }
-          ]
-        }
-      ],
-      "mostLikelyScore": {
-        "home": 2,
-        "away": 0,
-        "p": 0.0950425553617892
-      },
-      "factors": [
-        {
-          "key": "home_attack",
-          "label": "Ataque local",
-          "value": "2.08 goles/partido",
-          "detail": "29 % más que la media · 14 partidos"
-        },
-        {
-          "key": "away_defense",
-          "label": "Defensa visitante",
-          "value": "1.61 concedidos/partido",
-          "detail": "31 % más que la media · 13 partidos"
-        },
-        {
-          "key": "away_attack",
-          "label": "Ataque visitante",
-          "value": "0.92 goles/partido",
-          "detail": "8 % más que la media · ajustado por rival"
-        },
-        {
-          "key": "home_defense",
-          "label": "Defensa local",
-          "value": "0.85 concedidos/partido",
-          "detail": "31 % menos que la media · ajustado por rival"
-        },
-        {
-          "key": "home_advantage",
-          "label": "Localía",
-          "value": "×1.35",
-          "detail": "estimada de 151 partidos"
-        },
-        {
-          "key": "uncertainty",
-          "label": "Intervalo 90%",
-          "value": "goles 2.7–5.4",
-          "detail": "local 52%–92% · 151 partidos"
-        },
-        {
-          "key": "home_position",
-          "label": "Posición local",
-          "value": "1.º · 32 pts",
-          "detail": "de 22 equipos"
-        },
-        {
-          "key": "away_position",
-          "label": "Posición visitante",
-          "value": "21.º · 11 pts",
-          "detail": "de 22 equipos"
-        },
-        {
-          "key": "home_form",
-          "label": "Forma local",
-          "value": "G-G-E-E-G · 11 pts",
-          "detail": "11 goles a favor · 5 en contra"
-        },
-        {
-          "key": "away_form",
-          "label": "Forma visitante",
-          "value": "E-G-P-P-E · 5 pts",
-          "detail": "5 goles a favor · 7 en contra"
-        }
-      ],
-      "steps": [
-        "Sincronizando LaLiga Hypermotion · corte 14 nov 2026, 10:30",
-        "Fuerza ajustada por rival · ALM 1.29 / 0.69 · AND 1.08 / 1.31",
-        "Ponderando 137.3 partidos por antigüedad y calidad del rival",
-        "Proyección de goles 2.81 – 0.92 · total 3.72",
-        "Simulando 121 marcadores con incertidumbre del ajuste",
-        "20 mercados listos · marcador proyectado 3–0"
-      ],
-      "inputsAsOf": "2026-11-14T16:30:00.000Z",
-      "publishedAt": "2026-11-14T16:30:00.000Z",
-      "source": "pitchlab-football-v2",
-      "projectedScore": {
-        "home": 3,
-        "away": 0,
-        "p": 0.0889386724114739
-      },
-      "insights": {
-        "why": [
-          "Se esperan 3.7 goles: 2.8 de Almería y 0.9 de Andorra.",
-          "Almería concede 31 % menos que la media.",
-          "Andorra concede 31 % más que la media."
-        ],
-        "restDays": {
-          "home": 6,
-          "away": 12
-        }
-      },
-      "matchContext": {
-        "referee": "Andres Fuentes Molina",
-        "refereeStats": {
-          "country": "Spain",
-          "matches": 54,
-          "avgYellow": 5.15,
-          "avgRed": 0.33,
-          "avgFouls": 26.8,
-          "avgGoals": 2.83
-        },
-        "weather": {
-          "description": "cloudy",
-          "temperatureC": 19,
-          "windSpeedKmh": 26
-        },
-        "halfTimeScore": {
-          "home": 2,
-          "away": 0
-        },
-        "stageName": "Regular season",
-        "venueCity": "Almeria",
-        "venueCountry": "Spain",
-        "venueCapacity": 17400
-      }
-    },
     "segunda-espana-2026-11-14-real-oviedo-girona-udvodn": {
       "game": "segunda-espana-2026-11-14-real-oviedo-girona-udvodn",
       "model": {
@@ -8745,7 +8294,7 @@
         "refereeStats": {
           "country": "Spain",
           "matches": 32,
-          "avgYellow": 4.78,
+          "avgYellow": 4.81,
           "avgRed": 0.22,
           "avgFouls": 27.7,
           "avgGoals": 3
@@ -9720,18 +9269,22 @@
         "referee": "Marta Huerta de Aza",
         "refereeStats": {
           "country": "Spain",
-          "matches": 46,
-          "avgYellow": 4.7,
+          "matches": 47,
+          "avgYellow": 4.72,
           "avgRed": 0.3,
           "avgFouls": 26,
-          "avgGoals": 2.35
+          "avgGoals": 2.32
         },
         "weather": {
-          "description": "rain",
+          "description": "cloudy",
           "temperatureC": 12,
           "windSpeedKmh": 25
         },
         "travelDistanceKm": 405,
+        "halfTimeScore": {
+          "home": 0,
+          "away": 0
+        },
         "stageName": "Regular season",
         "venueCity": "Burgos",
         "venueCountry": "Spain",
@@ -20155,6 +19708,11 @@
       },
       "picksAt": "2026-11-20T13:22:46.169Z",
       "matchContext": {
+        "weather": {
+          "description": "rain",
+          "temperatureC": 0,
+          "windSpeedKmh": 87
+        },
         "stageName": "Regular season",
         "venueCity": "Burgos",
         "venueCountry": "Spain",
@@ -20625,6 +20183,11 @@
       },
       "picksAt": "2026-11-20T23:19:05.023Z",
       "matchContext": {
+        "weather": {
+          "description": "rain",
+          "temperatureC": 9,
+          "windSpeedKmh": 18
+        },
         "stageName": "Regular season",
         "venueCity": "Cordoba",
         "venueCountry": "Spain",
@@ -24382,6 +23945,475 @@
         "venueCountry": "Spain",
         "venueCapacity": 32392
       }
+    },
+    "segunda-espana-2026-12-13-granada-girona-7xzz93": {
+      "game": "segunda-espana-2026-12-13-granada-girona-7xzz93",
+      "model": {
+        "id": "pitchlab-statistical-segunda-espana",
+        "version": "2.0.0",
+        "status": "candidate",
+        "label": "Modelo PitchLab · en validación"
+      },
+      "projection": {
+        "home": 1.3944092511327546,
+        "away": 1.2981682560832568,
+        "total": 2.6925775072160114,
+        "margin": 0.09624099504949779
+      },
+      "x12": [
+        0.396137823676977,
+        0.25211628430560495,
+        0.35174589201741757
+      ],
+      "probabilities": [
+        {
+          "market": "h2h",
+          "selection": "Granada gana",
+          "p": 0.396137823676977,
+          "fairOdds": 2.524373943184559
+        },
+        {
+          "market": "h2h",
+          "selection": "Empate",
+          "p": 0.25211628430560495,
+          "fairOdds": 3.9664236792727015
+        },
+        {
+          "market": "h2h",
+          "selection": "Girona gana",
+          "p": 0.35174589201741757,
+          "fairOdds": 2.842961418154906
+        },
+        {
+          "market": "double_chance",
+          "selection": "Granada o empate",
+          "p": 0.6482541079825819,
+          "fairOdds": 1.5426049564299396
+        },
+        {
+          "market": "double_chance",
+          "selection": "Girona o empate",
+          "p": 0.6038621763230225,
+          "fairOdds": 1.6560070148607426
+        },
+        {
+          "market": "double_chance",
+          "selection": "Sin empate",
+          "p": 0.7478837156943945,
+          "fairOdds": 1.3371062626648058
+        },
+        {
+          "market": "totals",
+          "selection": "Más de 1.5",
+          "line": 1.5,
+          "p": 0.7469254952392506,
+          "fairOdds": 1.338821617917442
+        },
+        {
+          "market": "totals",
+          "selection": "Más de 2.5",
+          "line": 2.5,
+          "p": 0.5045553169447619,
+          "fairOdds": 1.9819432407437674
+        },
+        {
+          "market": "totals",
+          "selection": "Menos de 2.5",
+          "line": 2.5,
+          "p": 0.49544468305523814,
+          "fairOdds": 2.0183888014164197
+        },
+        {
+          "market": "totals",
+          "selection": "Más de 3.5",
+          "line": 3.5,
+          "p": 0.28427179391275015,
+          "fairOdds": 3.5177601908226044
+        },
+        {
+          "market": "totals",
+          "selection": "Menos de 3.5",
+          "line": 3.5,
+          "p": 0.7157282060872499,
+          "fairOdds": 1.3971784142290689
+        },
+        {
+          "market": "btts",
+          "selection": "Sí",
+          "p": 0.5436311707235923,
+          "fairOdds": 1.8394824540119077
+        },
+        {
+          "market": "btts",
+          "selection": "No",
+          "p": 0.45636882927640765,
+          "fairOdds": 2.1912101262164265
+        },
+        {
+          "market": "team_totals",
+          "selection": "Granada más de 1.5",
+          "line": 1.5,
+          "p": 0.4062354614078273,
+          "fairOdds": 2.4616265565159057
+        },
+        {
+          "market": "team_totals",
+          "selection": "Granada menos de 1.5",
+          "line": 1.5,
+          "p": 0.5937645385921727,
+          "fairOdds": 1.6841692876624452
+        },
+        {
+          "market": "team_totals",
+          "selection": "Girona más de 1.5",
+          "line": 1.5,
+          "p": 0.3725276832354921,
+          "fairOdds": 2.6843642633877853
+        },
+        {
+          "market": "team_totals",
+          "selection": "Girona menos de 1.5",
+          "line": 1.5,
+          "p": 0.6274723167645079,
+          "fairOdds": 1.5936958066236138
+        },
+        {
+          "market": "correct_score",
+          "selection": "1–1",
+          "p": 0.11949630588229038,
+          "fairOdds": 8.368459532004682
+        },
+        {
+          "market": "correct_score",
+          "selection": "1–0",
+          "p": 0.0974741993965838,
+          "fairOdds": 10.259125042221656
+        },
+        {
+          "market": "correct_score",
+          "selection": "0–1",
+          "p": 0.09095808458270374,
+          "fairOdds": 10.994074958677794
+        }
+      ],
+      "marketGroups": [
+        {
+          "group": "Resultado",
+          "rows": [
+            {
+              "market": "h2h",
+              "selection": "home",
+              "label": "Granada gana",
+              "p": 0.396137823676977,
+              "fairOdds": 2.524373943184559
+            },
+            {
+              "market": "h2h",
+              "selection": "draw",
+              "label": "Empate",
+              "p": 0.25211628430560495,
+              "fairOdds": 3.9664236792727015
+            },
+            {
+              "market": "h2h",
+              "selection": "away",
+              "label": "Girona gana",
+              "p": 0.35174589201741757,
+              "fairOdds": 2.842961418154906
+            }
+          ]
+        },
+        {
+          "group": "Doble oportunidad",
+          "rows": [
+            {
+              "market": "double_chance",
+              "selection": "1x",
+              "label": "Granada o empate",
+              "p": 0.6482541079825819,
+              "fairOdds": 1.5426049564299396
+            },
+            {
+              "market": "double_chance",
+              "selection": "x2",
+              "label": "Girona o empate",
+              "p": 0.6038621763230225,
+              "fairOdds": 1.6560070148607426
+            },
+            {
+              "market": "double_chance",
+              "selection": "12",
+              "label": "Sin empate",
+              "p": 0.7478837156943945,
+              "fairOdds": 1.3371062626648058
+            }
+          ]
+        },
+        {
+          "group": "Goles totales",
+          "rows": [
+            {
+              "market": "totals",
+              "selection": "over_1.5",
+              "label": "Más de 1.5",
+              "line": 1.5,
+              "p": 0.7469254952392506,
+              "fairOdds": 1.338821617917442
+            },
+            {
+              "market": "totals",
+              "selection": "over_2.5",
+              "label": "Más de 2.5",
+              "line": 2.5,
+              "p": 0.5045553169447619,
+              "fairOdds": 1.9819432407437674
+            },
+            {
+              "market": "totals",
+              "selection": "under_2.5",
+              "label": "Menos de 2.5",
+              "line": 2.5,
+              "p": 0.49544468305523814,
+              "fairOdds": 2.0183888014164197
+            },
+            {
+              "market": "totals",
+              "selection": "over_3.5",
+              "label": "Más de 3.5",
+              "line": 3.5,
+              "p": 0.28427179391275015,
+              "fairOdds": 3.5177601908226044
+            },
+            {
+              "market": "totals",
+              "selection": "under_3.5",
+              "label": "Menos de 3.5",
+              "line": 3.5,
+              "p": 0.7157282060872499,
+              "fairOdds": 1.3971784142290689
+            }
+          ]
+        },
+        {
+          "group": "Ambos anotan",
+          "rows": [
+            {
+              "market": "btts",
+              "selection": "yes",
+              "label": "Sí",
+              "p": 0.5436311707235923,
+              "fairOdds": 1.8394824540119077
+            },
+            {
+              "market": "btts",
+              "selection": "no",
+              "label": "No",
+              "p": 0.45636882927640765,
+              "fairOdds": 2.1912101262164265
+            }
+          ]
+        },
+        {
+          "group": "Goles por equipo (1.5)",
+          "rows": [
+            {
+              "market": "team_totals",
+              "selection": "home_over",
+              "label": "Granada más de 1.5",
+              "line": 1.5,
+              "p": 0.4062354614078273,
+              "fairOdds": 2.4616265565159057
+            },
+            {
+              "market": "team_totals",
+              "selection": "home_under",
+              "label": "Granada menos de 1.5",
+              "line": 1.5,
+              "p": 0.5937645385921727,
+              "fairOdds": 1.6841692876624452
+            },
+            {
+              "market": "team_totals",
+              "selection": "away_over",
+              "label": "Girona más de 1.5",
+              "line": 1.5,
+              "p": 0.3725276832354921,
+              "fairOdds": 2.6843642633877853
+            },
+            {
+              "market": "team_totals",
+              "selection": "away_under",
+              "label": "Girona menos de 1.5",
+              "line": 1.5,
+              "p": 0.6274723167645079,
+              "fairOdds": 1.5936958066236138
+            }
+          ]
+        },
+        {
+          "group": "Marcador exacto (más probables)",
+          "rows": [
+            {
+              "market": "correct_score",
+              "selection": "1-1",
+              "label": "1–1",
+              "p": 0.11949630588229038,
+              "fairOdds": 8.368459532004682
+            },
+            {
+              "market": "correct_score",
+              "selection": "1-0",
+              "label": "1–0",
+              "p": 0.0974741993965838,
+              "fairOdds": 10.259125042221656
+            },
+            {
+              "market": "correct_score",
+              "selection": "0-1",
+              "label": "0–1",
+              "p": 0.09095808458270374,
+              "fairOdds": 10.994074958677794
+            }
+          ]
+        }
+      ],
+      "mostLikelyScore": {
+        "home": 1,
+        "away": 1,
+        "p": 0.11949630588229038
+      },
+      "factors": [
+        {
+          "key": "home_attack",
+          "label": "Ataque local",
+          "value": "1.05 goles/partido",
+          "detail": "14 % más que la media · 14 partidos"
+        },
+        {
+          "key": "away_defense",
+          "label": "Defensa visitante",
+          "value": "0.92 concedidos/partido",
+          "detail": "24 % menos que la media · 15 partidos"
+        },
+        {
+          "key": "away_attack",
+          "label": "Ataque visitante",
+          "value": "1.30 goles/partido",
+          "detail": "22 % más que la media · ajustado por rival"
+        },
+        {
+          "key": "home_defense",
+          "label": "Defensa local",
+          "value": "1.06 concedidos/partido",
+          "detail": "13 % menos que la media · ajustado por rival"
+        },
+        {
+          "key": "home_advantage",
+          "label": "Localía",
+          "value": "×1.32",
+          "detail": "estimada de 161 partidos"
+        },
+        {
+          "key": "uncertainty",
+          "label": "Intervalo 90%",
+          "value": "goles 1.9–3.9",
+          "detail": "local 20%–61% · 161 partidos"
+        },
+        {
+          "key": "home_position",
+          "label": "Posición local",
+          "value": "4.º · 27 pts",
+          "detail": "de 22 equipos"
+        },
+        {
+          "key": "away_position",
+          "label": "Posición visitante",
+          "value": "3.º · 27 pts",
+          "detail": "de 22 equipos"
+        },
+        {
+          "key": "home_form",
+          "label": "Forma local",
+          "value": "G-G-G-G-E · 13 pts",
+          "detail": "8 goles a favor · 2 en contra"
+        },
+        {
+          "key": "away_form",
+          "label": "Forma visitante",
+          "value": "G-P-P-G-G · 9 pts",
+          "detail": "9 goles a favor · 5 en contra"
+        }
+      ],
+      "steps": [
+        "Sincronizando LaLiga Hypermotion · corte 22 nov 2026, 21:56",
+        "Fuerza ajustada por rival · GRA 1.14 / 0.87 · GIR 1.22 / 0.76",
+        "Ponderando 146.5 partidos por antigüedad y calidad del rival",
+        "Proyección de goles 1.39 – 1.30 · total 2.69",
+        "Simulando 121 marcadores con incertidumbre del ajuste",
+        "20 mercados listos · marcador proyectado 2–1"
+      ],
+      "inputsAsOf": "2026-11-22T21:56:46.653Z",
+      "publishedAt": "2026-11-22T21:56:46.653Z",
+      "source": "pitchlab-football-v2",
+      "picks": [
+        {
+          "profile": "conservadora",
+          "market": "double_chance",
+          "selection": "12",
+          "label": "Sin empate",
+          "p": 0.7478837156943945,
+          "fairOdds": 1.3371062626648058
+        },
+        {
+          "profile": "intermedia",
+          "market": "double_chance",
+          "selection": "1x",
+          "label": "Granada o empate",
+          "p": 0.6482541079825819,
+          "fairOdds": 1.5426049564299396
+        },
+        {
+          "profile": "arriesgada",
+          "market": "totals",
+          "selection": "over_2.5",
+          "label": "Más de 2.5",
+          "line": 2.5,
+          "p": 0.5045553169447619,
+          "fairOdds": 1.9819432407437674
+        }
+      ],
+      "confidence": {
+        "score": 36,
+        "level": "baja",
+        "reasons": [
+          "Partido parejo",
+          "Muestra suficiente",
+          "Rango de incertidumbre amplio"
+        ]
+      },
+      "projectedScore": {
+        "home": 2,
+        "away": 1,
+        "p": 0.08544961764023337
+      },
+      "insights": {
+        "why": [
+          "Granada gana en 40% de los escenarios; el empate, en 25%.",
+          "Girona concede 24 % menos que la media.",
+          "Girona anota 22 % más que la media."
+        ],
+        "restDays": {
+          "home": 22,
+          "away": 21
+        }
+      },
+      "picksAt": "2026-11-22T21:56:46.653Z",
+      "matchContext": {
+        "stageName": "Regular season",
+        "venueCity": "Granada",
+        "venueCountry": "Spain",
+        "venueCapacity": 19189
+      }
     }
   },
   "standings": [
@@ -24466,6 +24498,26 @@
       ]
     },
     {
+      "teamId": "segunda-espana.burgos",
+      "name": "Burgos Club de Fútbol",
+      "shortName": "Burgos de Fútbol",
+      "code": "BUR",
+      "played": 15,
+      "won": 8,
+      "drawn": 3,
+      "lost": 4,
+      "goalsFor": 21,
+      "goalsAgainst": 17,
+      "points": 27,
+      "form": [
+        "W",
+        "D",
+        "W",
+        "L",
+        "W"
+      ]
+    },
+    {
       "teamId": "segunda-espana.mallorca",
       "name": "Mallorca",
       "shortName": "Mallorca",
@@ -24502,26 +24554,6 @@
         "L",
         "D",
         "D",
-        "L"
-      ]
-    },
-    {
-      "teamId": "segunda-espana.burgos",
-      "name": "Burgos Club de Fútbol",
-      "shortName": "Burgos de Fútbol",
-      "code": "BUR",
-      "played": 14,
-      "won": 7,
-      "drawn": 3,
-      "lost": 4,
-      "goalsFor": 20,
-      "goalsAgainst": 17,
-      "points": 24,
-      "form": [
-        "W",
-        "W",
-        "D",
-        "W",
         "L"
       ]
     },
@@ -24770,19 +24802,19 @@
       "name": "Albacete Balompié",
       "shortName": "Albacete Balompié",
       "code": "ALB",
-      "played": 14,
+      "played": 15,
       "won": 4,
       "drawn": 1,
-      "lost": 9,
+      "lost": 10,
       "goalsFor": 14,
-      "goalsAgainst": 24,
+      "goalsAgainst": 25,
       "points": 13,
       "form": [
-        "L",
         "W",
         "W",
         "W",
-        "W"
+        "W",
+        "L"
       ]
     },
     {

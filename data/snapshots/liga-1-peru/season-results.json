@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "league": "liga-1-peru",
   "season": "2026",
-  "updatedAt": "2026-11-22T19:27:07.879Z",
+  "updatedAt": "2026-11-22T21:56:46.653Z",
   "matches": [
     {
       "id": "liga-1-peru-2026-07-17-cajamarca-acd-juan-pablo-8g5jl2",
@@ -1663,6 +1663,28 @@
       "awayTeam": "liga-1-peru.cajamarca",
       "homeScore": 5,
       "awayScore": 0,
+      "neutralSite": false
+    },
+    {
+      "id": "liga-1-peru-2026-11-22-sporting-crist-cienciano-egfg7r",
+      "date": "2026-11-22",
+      "startTime": "2026-11-22T20:00:00.000Z",
+      "round": "Regular season · Matchday 17",
+      "homeTeam": "liga-1-peru.sporting-cristal",
+      "awayTeam": "liga-1-peru.cienciano",
+      "homeScore": 4,
+      "awayScore": 1,
+      "neutralSite": false
+    },
+    {
+      "id": "liga-1-peru-2026-11-22-sport-huancayo-universitario--sllvy5",
+      "date": "2026-11-22",
+      "startTime": "2026-11-22T20:00:00.000Z",
+      "round": "Regular season · Matchday 17",
+      "homeTeam": "liga-1-peru.sport-huancayo",
+      "awayTeam": "liga-1-peru.universitario-deportes",
+      "homeScore": 4,
+      "awayScore": 1,
       "neutralSite": false
     }
   ]

@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "league": "nhl",
-  "observedAt": "2026-11-22T19:27:04.373Z",
+  "observedAt": "2026-11-22T21:56:40.721Z",
   "source": "espn-public-nhl",
   "coverageStatus": "ok",
   "entries": [
@@ -13,7 +13,7 @@
       "detail": "Upper Body",
       "injuryType": "Upper Body",
       "returnDate": "2026-11-23",
-      "reportedAt": "2026-11-22T04:05:00.000Z"
+      "reportedAt": "2026-11-22T21:11:00.000Z"
     },
     {
       "teamId": "nhl.anaheim-ducks",
@@ -264,16 +264,6 @@
       "injuryType": "Lower Body",
       "returnDate": "2026-11-27",
       "reportedAt": "2026-11-14T15:10:00.000Z"
-    },
-    {
-      "teamId": "nhl.dallas-stars",
-      "player": "Matt Duchene",
-      "position": "C",
-      "status": "Baja",
-      "detail": "Abdomen",
-      "injuryType": "Abdomen",
-      "returnDate": "2027-01-12",
-      "reportedAt": "2026-10-12T16:46:00.000Z"
     },
     {
       "teamId": "nhl.detroit-red-wings",
@@ -857,6 +847,16 @@
     },
     {
       "teamId": "nhl.tampa-bay-lightning",
+      "player": "Zemgus Girgensons",
+      "position": "C",
+      "status": "Baja",
+      "detail": "Upper Body",
+      "injuryType": "Upper Body",
+      "returnDate": "2026-11-25",
+      "reportedAt": "2026-11-22T20:52:00.000Z"
+    },
+    {
+      "teamId": "nhl.tampa-bay-lightning",
       "player": "Conor Geekie",
       "position": "C",
       "status": "Baja",
@@ -864,16 +864,6 @@
       "injuryType": "Upper Body",
       "returnDate": "2026-12-12",
       "reportedAt": "2026-11-21T20:20:00.000Z"
-    },
-    {
-      "teamId": "nhl.tampa-bay-lightning",
-      "player": "Zemgus Girgensons",
-      "position": "C",
-      "status": "Duda",
-      "detail": "Upper Body",
-      "injuryType": "Upper Body",
-      "returnDate": "2026-11-22",
-      "reportedAt": "2026-11-20T14:41:00.000Z"
     },
     {
       "teamId": "nhl.tampa-bay-lightning",

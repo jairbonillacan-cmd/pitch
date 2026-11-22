@@ -1,3022 +1,52 @@
 {
   "schemaVersion": 1,
   "league": "ligapro-ecuador",
-  "updatedAt": "2026-11-22T19:27:07.879Z",
+  "updatedAt": "2026-11-22T21:56:46.653Z",
   "lines": [
     {
-      "gameId": "ligapro-ecuador-2026-11-22-orense-mushuc-runa-fe1gx6",
-      "homeName": "Orense SC",
-      "awayName": "Mushuc Runa SC",
+      "gameId": "ligapro-ecuador-2026-11-22-ldu-aucas-rzcyqb",
+      "homeName": "LDU",
+      "awayName": "Aucas",
       "market": "1x2",
       "outcome": "HOME",
       "line": null,
       "book": "1xbet",
+      "decimal": 1.76,
+      "openingDecimal": 1.76,
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-22T21:50:07Z"
+    },
+    {
+      "gameId": "ligapro-ecuador-2026-11-22-ldu-aucas-rzcyqb",
+      "homeName": "LDU",
+      "awayName": "Aucas",
+      "market": "1x2",
+      "outcome": "HOME",
+      "line": null,
+      "book": "pinnacle",
       "decimal": 1.77,
       "openingDecimal": 1.77,
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T19:20:12Z"
+      "capturedAtUtc": "2026-11-22T21:50:07Z"
     },
     {
-      "gameId": "ligapro-ecuador-2026-11-22-orense-mushuc-runa-fe1gx6",
-      "homeName": "Orense SC",
-      "awayName": "Mushuc Runa SC",
+      "gameId": "ligapro-ecuador-2026-11-22-ldu-aucas-rzcyqb",
+      "homeName": "LDU",
+      "awayName": "Aucas",
       "market": "1x2",
-      "outcome": "HOME",
-      "line": null,
-      "book": "pinnacle",
-      "decimal": 1.76,
-      "openingDecimal": 1.76,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T19:20:12Z"
-    },
-    {
-      "gameId": "ligapro-ecuador-2026-11-22-orense-mushuc-runa-fe1gx6",
-      "homeName": "Orense SC",
-      "awayName": "Mushuc Runa SC",
-      "market": "1x2",
-      "outcome": "HOME",
-      "line": null,
-      "book": "william-hill",
-      "decimal": 1.7,
-      "openingDecimal": 1.7,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T19:20:12Z"
-    },
-    {
-      "gameId": "ligapro-ecuador-2026-11-22-orense-mushuc-runa-fe1gx6",
-      "homeName": "Orense SC",
-      "awayName": "Mushuc Runa SC",
-      "market": "1x2",
-      "outcome": "HOME",
-      "line": null,
-      "book": "bet365",
-      "decimal": 1.7,
-      "openingDecimal": 1.86,
-      "deltaPct": -8.6,
-      "movement": "shortening",
-      "movementSignal": "STEAM",
-      "capturedAtUtc": "2026-11-22T19:20:12Z"
-    },
-    {
-      "gameId": "ligapro-ecuador-2026-11-22-orense-mushuc-runa-fe1gx6",
-      "homeName": "Orense SC",
-      "awayName": "Mushuc Runa SC",
-      "market": "1x2",
-      "outcome": "HOME",
-      "line": null,
-      "book": "betfair",
-      "decimal": 1.73,
-      "openingDecimal": 1.73,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T19:20:12Z"
-    },
-    {
-      "gameId": "ligapro-ecuador-2026-11-22-orense-mushuc-runa-fe1gx6",
-      "homeName": "Orense SC",
-      "awayName": "Mushuc Runa SC",
-      "market": "1x2",
-      "outcome": "HOME",
-      "line": null,
-      "book": "dafabet",
-      "decimal": 1.74,
-      "openingDecimal": 1.74,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T19:20:12Z"
-    },
-    {
-      "gameId": "ligapro-ecuador-2026-11-22-orense-mushuc-runa-fe1gx6",
-      "homeName": "Orense SC",
-      "awayName": "Mushuc Runa SC",
-      "market": "1x2",
-      "outcome": "HOME",
-      "line": null,
-      "book": "betvictor",
-      "decimal": 1.62,
-      "openingDecimal": 1.62,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T19:20:12Z"
-    },
-    {
-      "gameId": "ligapro-ecuador-2026-11-22-orense-mushuc-runa-fe1gx6",
-      "homeName": "Orense SC",
-      "awayName": "Mushuc Runa SC",
-      "market": "1x2",
-      "outcome": "HOME",
-      "line": null,
-      "book": "melbet",
-      "decimal": 1.7,
-      "openingDecimal": 1.7,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T19:20:12Z"
-    },
-    {
-      "gameId": "ligapro-ecuador-2026-11-22-orense-mushuc-runa-fe1gx6",
-      "homeName": "Orense SC",
-      "awayName": "Mushuc Runa SC",
-      "market": "1x2",
-      "outcome": "HOME",
-      "line": null,
-      "book": "mansionbet",
-      "decimal": 1.71,
-      "openingDecimal": 1.71,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T19:20:12Z"
-    },
-    {
-      "gameId": "ligapro-ecuador-2026-11-22-orense-mushuc-runa-fe1gx6",
-      "homeName": "Orense SC",
-      "awayName": "Mushuc Runa SC",
-      "market": "1x2",
-      "outcome": "HOME",
-      "line": null,
-      "book": "sbo",
-      "decimal": 1.76,
-      "openingDecimal": 1.76,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T19:20:12Z"
-    },
-    {
-      "gameId": "ligapro-ecuador-2026-11-22-orense-mushuc-runa-fe1gx6",
-      "homeName": "Orense SC",
-      "awayName": "Mushuc Runa SC",
-      "market": "1x2",
-      "outcome": "DRAW",
-      "line": null,
-      "book": "1xbet",
-      "decimal": 3.56,
-      "openingDecimal": 3.56,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T19:20:12Z"
-    },
-    {
-      "gameId": "ligapro-ecuador-2026-11-22-orense-mushuc-runa-fe1gx6",
-      "homeName": "Orense SC",
-      "awayName": "Mushuc Runa SC",
-      "market": "1x2",
-      "outcome": "DRAW",
-      "line": null,
-      "book": "pinnacle",
-      "decimal": 3.68,
-      "openingDecimal": 3.68,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T19:20:12Z"
-    },
-    {
-      "gameId": "ligapro-ecuador-2026-11-22-orense-mushuc-runa-fe1gx6",
-      "homeName": "Orense SC",
-      "awayName": "Mushuc Runa SC",
-      "market": "1x2",
-      "outcome": "DRAW",
-      "line": null,
-      "book": "william-hill",
-      "decimal": 3.3,
-      "openingDecimal": 3.3,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T19:20:12Z"
-    },
-    {
-      "gameId": "ligapro-ecuador-2026-11-22-orense-mushuc-runa-fe1gx6",
-      "homeName": "Orense SC",
-      "awayName": "Mushuc Runa SC",
-      "market": "1x2",
-      "outcome": "DRAW",
-      "line": null,
-      "book": "bet365",
-      "decimal": 3.6,
-      "openingDecimal": 3.4,
-      "deltaPct": 5.88,
-      "movement": "drifting",
-      "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-22T19:20:12Z"
-    },
-    {
-      "gameId": "ligapro-ecuador-2026-11-22-orense-mushuc-runa-fe1gx6",
-      "homeName": "Orense SC",
-      "awayName": "Mushuc Runa SC",
-      "market": "1x2",
-      "outcome": "DRAW",
-      "line": null,
-      "book": "betfair",
-      "decimal": 3.6,
-      "openingDecimal": 3.6,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T19:20:12Z"
-    },
-    {
-      "gameId": "ligapro-ecuador-2026-11-22-orense-mushuc-runa-fe1gx6",
-      "homeName": "Orense SC",
-      "awayName": "Mushuc Runa SC",
-      "market": "1x2",
-      "outcome": "DRAW",
-      "line": null,
-      "book": "dafabet",
-      "decimal": 3.6,
-      "openingDecimal": 3.6,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T19:20:12Z"
-    },
-    {
-      "gameId": "ligapro-ecuador-2026-11-22-orense-mushuc-runa-fe1gx6",
-      "homeName": "Orense SC",
-      "awayName": "Mushuc Runa SC",
-      "market": "1x2",
-      "outcome": "DRAW",
-      "line": null,
-      "book": "betvictor",
-      "decimal": 3,
-      "openingDecimal": 3,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T19:20:12Z"
-    },
-    {
-      "gameId": "ligapro-ecuador-2026-11-22-orense-mushuc-runa-fe1gx6",
-      "homeName": "Orense SC",
-      "awayName": "Mushuc Runa SC",
-      "market": "1x2",
-      "outcome": "DRAW",
-      "line": null,
-      "book": "melbet",
-      "decimal": 3.05,
-      "openingDecimal": 3.05,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T19:20:12Z"
-    },
-    {
-      "gameId": "ligapro-ecuador-2026-11-22-orense-mushuc-runa-fe1gx6",
-      "homeName": "Orense SC",
-      "awayName": "Mushuc Runa SC",
-      "market": "1x2",
-      "outcome": "DRAW",
-      "line": null,
-      "book": "mansionbet",
-      "decimal": 3.45,
-      "openingDecimal": 3.45,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T19:20:12Z"
-    },
-    {
-      "gameId": "ligapro-ecuador-2026-11-22-orense-mushuc-runa-fe1gx6",
-      "homeName": "Orense SC",
-      "awayName": "Mushuc Runa SC",
-      "market": "1x2",
-      "outcome": "DRAW",
-      "line": null,
-      "book": "sbo",
-      "decimal": 3.18,
-      "openingDecimal": 3.18,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T19:20:12Z"
-    },
-    {
-      "gameId": "ligapro-ecuador-2026-11-22-orense-mushuc-runa-fe1gx6",
-      "homeName": "Orense SC",
-      "awayName": "Mushuc Runa SC",
-      "market": "1x2",
-      "outcome": "AWAY",
-      "line": null,
-      "book": "1xbet",
-      "decimal": 4.5,
-      "openingDecimal": 4.5,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T19:20:12Z"
-    },
-    {
-      "gameId": "ligapro-ecuador-2026-11-22-orense-mushuc-runa-fe1gx6",
-      "homeName": "Orense SC",
-      "awayName": "Mushuc Runa SC",
-      "market": "1x2",
-      "outcome": "AWAY",
-      "line": null,
-      "book": "pinnacle",
-      "decimal": 4.76,
-      "openingDecimal": 4.76,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T19:20:12Z"
-    },
-    {
-      "gameId": "ligapro-ecuador-2026-11-22-orense-mushuc-runa-fe1gx6",
-      "homeName": "Orense SC",
-      "awayName": "Mushuc Runa SC",
-      "market": "1x2",
-      "outcome": "AWAY",
-      "line": null,
-      "book": "william-hill",
-      "decimal": 4.2,
-      "openingDecimal": 4.2,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T19:20:12Z"
-    },
-    {
-      "gameId": "ligapro-ecuador-2026-11-22-orense-mushuc-runa-fe1gx6",
-      "homeName": "Orense SC",
-      "awayName": "Mushuc Runa SC",
-      "market": "1x2",
-      "outcome": "AWAY",
-      "line": null,
-      "book": "bet365",
-      "decimal": 4.75,
-      "openingDecimal": 3.8,
-      "deltaPct": 25,
-      "movement": "drifting",
-      "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-22T19:20:12Z"
-    },
-    {
-      "gameId": "ligapro-ecuador-2026-11-22-orense-mushuc-runa-fe1gx6",
-      "homeName": "Orense SC",
-      "awayName": "Mushuc Runa SC",
-      "market": "1x2",
-      "outcome": "AWAY",
-      "line": null,
-      "book": "betfair",
-      "decimal": 4.6,
-      "openingDecimal": 4.6,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T19:20:12Z"
-    },
-    {
-      "gameId": "ligapro-ecuador-2026-11-22-orense-mushuc-runa-fe1gx6",
-      "homeName": "Orense SC",
-      "awayName": "Mushuc Runa SC",
-      "market": "1x2",
-      "outcome": "AWAY",
-      "line": null,
-      "book": "dafabet",
-      "decimal": 4.4,
-      "openingDecimal": 4.4,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T19:20:12Z"
-    },
-    {
-      "gameId": "ligapro-ecuador-2026-11-22-orense-mushuc-runa-fe1gx6",
-      "homeName": "Orense SC",
-      "awayName": "Mushuc Runa SC",
-      "market": "1x2",
-      "outcome": "AWAY",
-      "line": null,
-      "book": "betvictor",
-      "decimal": 4,
-      "openingDecimal": 4,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T19:20:12Z"
-    },
-    {
-      "gameId": "ligapro-ecuador-2026-11-22-orense-mushuc-runa-fe1gx6",
-      "homeName": "Orense SC",
-      "awayName": "Mushuc Runa SC",
-      "market": "1x2",
-      "outcome": "AWAY",
-      "line": null,
-      "book": "melbet",
-      "decimal": 3.85,
-      "openingDecimal": 3.85,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T19:20:12Z"
-    },
-    {
-      "gameId": "ligapro-ecuador-2026-11-22-orense-mushuc-runa-fe1gx6",
-      "homeName": "Orense SC",
-      "awayName": "Mushuc Runa SC",
-      "market": "1x2",
-      "outcome": "AWAY",
-      "line": null,
-      "book": "mansionbet",
-      "decimal": 4.05,
-      "openingDecimal": 4.05,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T19:20:12Z"
-    },
-    {
-      "gameId": "ligapro-ecuador-2026-11-22-orense-mushuc-runa-fe1gx6",
-      "homeName": "Orense SC",
-      "awayName": "Mushuc Runa SC",
-      "market": "1x2",
-      "outcome": "AWAY",
-      "line": null,
-      "book": "sbo",
-      "decimal": 3.78,
-      "openingDecimal": 3.78,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T19:20:12Z"
-    },
-    {
-      "gameId": "ligapro-ecuador-2026-11-22-orense-mushuc-runa-fe1gx6",
-      "homeName": "Orense SC",
-      "awayName": "Mushuc Runa SC",
-      "market": "double_chance",
-      "outcome": "1X",
-      "line": null,
-      "book": "1xbet",
-      "decimal": 1.17,
-      "openingDecimal": 1.17,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T19:20:12Z"
-    },
-    {
-      "gameId": "ligapro-ecuador-2026-11-22-orense-mushuc-runa-fe1gx6",
-      "homeName": "Orense SC",
-      "awayName": "Mushuc Runa SC",
-      "market": "double_chance",
-      "outcome": "1X",
-      "line": null,
-      "book": "william-hill",
-      "decimal": 1.18,
-      "openingDecimal": 1.18,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T19:20:12Z"
-    },
-    {
-      "gameId": "ligapro-ecuador-2026-11-22-orense-mushuc-runa-fe1gx6",
-      "homeName": "Orense SC",
-      "awayName": "Mushuc Runa SC",
-      "market": "double_chance",
-      "outcome": "1X",
-      "line": null,
-      "book": "betfair",
-      "decimal": 1.17,
-      "openingDecimal": 1.17,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T19:20:12Z"
-    },
-    {
-      "gameId": "ligapro-ecuador-2026-11-22-orense-mushuc-runa-fe1gx6",
-      "homeName": "Orense SC",
-      "awayName": "Mushuc Runa SC",
-      "market": "double_chance",
-      "outcome": "1X",
-      "line": null,
-      "book": "sbo",
-      "decimal": 1.11,
-      "openingDecimal": 1.11,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T19:20:12Z"
-    },
-    {
-      "gameId": "ligapro-ecuador-2026-11-22-orense-mushuc-runa-fe1gx6",
-      "homeName": "Orense SC",
-      "awayName": "Mushuc Runa SC",
-      "market": "double_chance",
-      "outcome": "X2",
-      "line": null,
-      "book": "1xbet",
-      "decimal": 1.96,
-      "openingDecimal": 1.96,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T19:20:12Z"
-    },
-    {
-      "gameId": "ligapro-ecuador-2026-11-22-orense-mushuc-runa-fe1gx6",
-      "homeName": "Orense SC",
-      "awayName": "Mushuc Runa SC",
-      "market": "double_chance",
-      "outcome": "X2",
-      "line": null,
-      "book": "william-hill",
-      "decimal": 1.95,
-      "openingDecimal": 1.95,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T19:20:12Z"
-    },
-    {
-      "gameId": "ligapro-ecuador-2026-11-22-orense-mushuc-runa-fe1gx6",
-      "homeName": "Orense SC",
-      "awayName": "Mushuc Runa SC",
-      "market": "double_chance",
-      "outcome": "X2",
-      "line": null,
-      "book": "betfair",
-      "decimal": 2.1,
-      "openingDecimal": 2.1,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T19:20:12Z"
-    },
-    {
-      "gameId": "ligapro-ecuador-2026-11-22-orense-mushuc-runa-fe1gx6",
-      "homeName": "Orense SC",
-      "awayName": "Mushuc Runa SC",
-      "market": "double_chance",
-      "outcome": "X2",
-      "line": null,
-      "book": "sbo",
-      "decimal": 2,
-      "openingDecimal": 2,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T19:20:12Z"
-    },
-    {
-      "gameId": "ligapro-ecuador-2026-11-22-orense-mushuc-runa-fe1gx6",
-      "homeName": "Orense SC",
-      "awayName": "Mushuc Runa SC",
-      "market": "double_chance",
-      "outcome": "12",
-      "line": null,
-      "book": "1xbet",
-      "decimal": 1.26,
-      "openingDecimal": 1.26,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T19:20:12Z"
-    },
-    {
-      "gameId": "ligapro-ecuador-2026-11-22-orense-mushuc-runa-fe1gx6",
-      "homeName": "Orense SC",
-      "awayName": "Mushuc Runa SC",
-      "market": "double_chance",
-      "outcome": "12",
-      "line": null,
-      "book": "william-hill",
-      "decimal": 1.25,
-      "openingDecimal": 1.25,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T19:20:12Z"
-    },
-    {
-      "gameId": "ligapro-ecuador-2026-11-22-orense-mushuc-runa-fe1gx6",
-      "homeName": "Orense SC",
-      "awayName": "Mushuc Runa SC",
-      "market": "double_chance",
-      "outcome": "12",
-      "line": null,
-      "book": "betfair",
-      "decimal": 1.25,
-      "openingDecimal": 1.25,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T19:20:12Z"
-    },
-    {
-      "gameId": "ligapro-ecuador-2026-11-22-orense-mushuc-runa-fe1gx6",
-      "homeName": "Orense SC",
-      "awayName": "Mushuc Runa SC",
-      "market": "double_chance",
-      "outcome": "12",
-      "line": null,
-      "book": "sbo",
-      "decimal": 1.18,
-      "openingDecimal": 1.18,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T19:20:12Z"
-    },
-    {
-      "gameId": "ligapro-ecuador-2026-11-22-orense-mushuc-runa-fe1gx6",
-      "homeName": "Orense SC",
-      "awayName": "Mushuc Runa SC",
-      "market": "over_under_15",
-      "outcome": "over",
-      "line": 1.5,
-      "book": "1xbet",
-      "decimal": 1.32,
-      "openingDecimal": 1.32,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T19:20:12Z"
-    },
-    {
-      "gameId": "ligapro-ecuador-2026-11-22-orense-mushuc-runa-fe1gx6",
-      "homeName": "Orense SC",
-      "awayName": "Mushuc Runa SC",
-      "market": "over_under_15",
-      "outcome": "over",
-      "line": 1.5,
-      "book": "pinnacle",
-      "decimal": 1.35,
-      "openingDecimal": 1.35,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T19:20:12Z"
-    },
-    {
-      "gameId": "ligapro-ecuador-2026-11-22-orense-mushuc-runa-fe1gx6",
-      "homeName": "Orense SC",
-      "awayName": "Mushuc Runa SC",
-      "market": "over_under_15",
-      "outcome": "over",
-      "line": 1.5,
-      "book": "betfair",
-      "decimal": 1.33,
-      "openingDecimal": 1.33,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T19:20:12Z"
-    },
-    {
-      "gameId": "ligapro-ecuador-2026-11-22-orense-mushuc-runa-fe1gx6",
-      "homeName": "Orense SC",
-      "awayName": "Mushuc Runa SC",
-      "market": "over_under_15",
-      "outcome": "over",
-      "line": 1.5,
-      "book": "betvictor",
-      "decimal": 1.29,
-      "openingDecimal": 1.29,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T19:20:12Z"
-    },
-    {
-      "gameId": "ligapro-ecuador-2026-11-22-orense-mushuc-runa-fe1gx6",
-      "homeName": "Orense SC",
-      "awayName": "Mushuc Runa SC",
-      "market": "over_under_15",
-      "outcome": "under",
-      "line": 1.5,
-      "book": "1xbet",
-      "decimal": 2.93,
-      "openingDecimal": 2.93,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T19:20:12Z"
-    },
-    {
-      "gameId": "ligapro-ecuador-2026-11-22-orense-mushuc-runa-fe1gx6",
-      "homeName": "Orense SC",
-      "awayName": "Mushuc Runa SC",
-      "market": "over_under_15",
-      "outcome": "under",
-      "line": 1.5,
-      "book": "pinnacle",
-      "decimal": 3.17,
-      "openingDecimal": 3.17,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T19:20:12Z"
-    },
-    {
-      "gameId": "ligapro-ecuador-2026-11-22-orense-mushuc-runa-fe1gx6",
-      "homeName": "Orense SC",
-      "awayName": "Mushuc Runa SC",
-      "market": "over_under_15",
-      "outcome": "under",
-      "line": 1.5,
-      "book": "betfair",
-      "decimal": 3.25,
-      "openingDecimal": 3.25,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T19:20:12Z"
-    },
-    {
-      "gameId": "ligapro-ecuador-2026-11-22-orense-mushuc-runa-fe1gx6",
-      "homeName": "Orense SC",
-      "awayName": "Mushuc Runa SC",
-      "market": "over_under_15",
-      "outcome": "under",
-      "line": 1.5,
-      "book": "betvictor",
-      "decimal": 2.36,
-      "openingDecimal": 2.36,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T19:20:12Z"
-    },
-    {
-      "gameId": "ligapro-ecuador-2026-11-22-orense-mushuc-runa-fe1gx6",
-      "homeName": "Orense SC",
-      "awayName": "Mushuc Runa SC",
-      "market": "over_under_25",
-      "outcome": "over",
-      "line": 2.5,
-      "book": "1xbet",
-      "decimal": 2.06,
-      "openingDecimal": 2.06,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T19:20:12Z"
-    },
-    {
-      "gameId": "ligapro-ecuador-2026-11-22-orense-mushuc-runa-fe1gx6",
-      "homeName": "Orense SC",
-      "awayName": "Mushuc Runa SC",
-      "market": "over_under_25",
-      "outcome": "over",
-      "line": 2.5,
-      "book": "pinnacle",
-      "decimal": 2.11,
-      "openingDecimal": 2.11,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T19:20:12Z"
-    },
-    {
-      "gameId": "ligapro-ecuador-2026-11-22-orense-mushuc-runa-fe1gx6",
-      "homeName": "Orense SC",
-      "awayName": "Mushuc Runa SC",
-      "market": "over_under_25",
-      "outcome": "over",
-      "line": 2.5,
-      "book": "bet365",
-      "decimal": 2.07,
-      "openingDecimal": 1.9,
-      "deltaPct": 8.95,
-      "movement": "drifting",
-      "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-22T19:20:12Z"
-    },
-    {
-      "gameId": "ligapro-ecuador-2026-11-22-orense-mushuc-runa-fe1gx6",
-      "homeName": "Orense SC",
-      "awayName": "Mushuc Runa SC",
-      "market": "over_under_25",
-      "outcome": "over",
-      "line": 2.5,
-      "book": "betfair",
-      "decimal": 2.1,
-      "openingDecimal": 2.1,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T19:20:12Z"
-    },
-    {
-      "gameId": "ligapro-ecuador-2026-11-22-orense-mushuc-runa-fe1gx6",
-      "homeName": "Orense SC",
-      "awayName": "Mushuc Runa SC",
-      "market": "over_under_25",
-      "outcome": "over",
-      "line": 2.5,
-      "book": "betvictor",
-      "decimal": 1.8,
-      "openingDecimal": 1.8,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T19:20:12Z"
-    },
-    {
-      "gameId": "ligapro-ecuador-2026-11-22-orense-mushuc-runa-fe1gx6",
-      "homeName": "Orense SC",
-      "awayName": "Mushuc Runa SC",
-      "market": "over_under_25",
-      "outcome": "over",
-      "line": 2.5,
-      "book": "sbo",
-      "decimal": 1.95,
-      "openingDecimal": 1.95,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T19:20:12Z"
-    },
-    {
-      "gameId": "ligapro-ecuador-2026-11-22-orense-mushuc-runa-fe1gx6",
-      "homeName": "Orense SC",
-      "awayName": "Mushuc Runa SC",
-      "market": "over_under_25",
-      "outcome": "under",
-      "line": 2.5,
-      "book": "1xbet",
-      "decimal": 1.71,
-      "openingDecimal": 1.71,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T19:20:12Z"
-    },
-    {
-      "gameId": "ligapro-ecuador-2026-11-22-orense-mushuc-runa-fe1gx6",
-      "homeName": "Orense SC",
-      "awayName": "Mushuc Runa SC",
-      "market": "over_under_25",
-      "outcome": "under",
-      "line": 2.5,
-      "book": "pinnacle",
-      "decimal": 1.74,
-      "openingDecimal": 1.74,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T19:20:12Z"
-    },
-    {
-      "gameId": "ligapro-ecuador-2026-11-22-orense-mushuc-runa-fe1gx6",
-      "homeName": "Orense SC",
-      "awayName": "Mushuc Runa SC",
-      "market": "over_under_25",
-      "outcome": "under",
-      "line": 2.5,
-      "book": "bet365",
-      "decimal": 1.72,
-      "openingDecimal": 1.9,
-      "deltaPct": -9.47,
-      "movement": "shortening",
-      "movementSignal": "STEAM",
-      "capturedAtUtc": "2026-11-22T19:20:12Z"
-    },
-    {
-      "gameId": "ligapro-ecuador-2026-11-22-orense-mushuc-runa-fe1gx6",
-      "homeName": "Orense SC",
-      "awayName": "Mushuc Runa SC",
-      "market": "over_under_25",
-      "outcome": "under",
-      "line": 2.5,
-      "book": "betfair",
-      "decimal": 1.73,
-      "openingDecimal": 1.73,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T19:20:12Z"
-    },
-    {
-      "gameId": "ligapro-ecuador-2026-11-22-orense-mushuc-runa-fe1gx6",
-      "homeName": "Orense SC",
-      "awayName": "Mushuc Runa SC",
-      "market": "over_under_25",
-      "outcome": "under",
-      "line": 2.5,
-      "book": "betvictor",
-      "decimal": 1.55,
-      "openingDecimal": 1.55,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T19:20:12Z"
-    },
-    {
-      "gameId": "ligapro-ecuador-2026-11-22-orense-mushuc-runa-fe1gx6",
-      "homeName": "Orense SC",
-      "awayName": "Mushuc Runa SC",
-      "market": "over_under_25",
-      "outcome": "under",
-      "line": 2.5,
-      "book": "sbo",
-      "decimal": 1.83,
-      "openingDecimal": 1.83,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T19:20:12Z"
-    },
-    {
-      "gameId": "ligapro-ecuador-2026-11-22-orense-mushuc-runa-fe1gx6",
-      "homeName": "Orense SC",
-      "awayName": "Mushuc Runa SC",
-      "market": "over_under_35",
-      "outcome": "over",
-      "line": 3.5,
-      "book": "1xbet",
-      "decimal": 3.52,
-      "openingDecimal": 3.52,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T19:20:12Z"
-    },
-    {
-      "gameId": "ligapro-ecuador-2026-11-22-orense-mushuc-runa-fe1gx6",
-      "homeName": "Orense SC",
-      "awayName": "Mushuc Runa SC",
-      "market": "over_under_35",
-      "outcome": "over",
-      "line": 3.5,
-      "book": "pinnacle",
-      "decimal": 3.77,
-      "openingDecimal": 3.77,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T19:20:12Z"
-    },
-    {
-      "gameId": "ligapro-ecuador-2026-11-22-orense-mushuc-runa-fe1gx6",
-      "homeName": "Orense SC",
-      "awayName": "Mushuc Runa SC",
-      "market": "over_under_35",
-      "outcome": "over",
-      "line": 3.5,
-      "book": "betfair",
-      "decimal": 3.8,
-      "openingDecimal": 3.8,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T19:20:12Z"
-    },
-    {
-      "gameId": "ligapro-ecuador-2026-11-22-orense-mushuc-runa-fe1gx6",
-      "homeName": "Orense SC",
-      "awayName": "Mushuc Runa SC",
-      "market": "over_under_35",
-      "outcome": "over",
-      "line": 3.5,
-      "book": "betvictor",
-      "decimal": 2.7,
-      "openingDecimal": 2.7,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T19:20:12Z"
-    },
-    {
-      "gameId": "ligapro-ecuador-2026-11-22-orense-mushuc-runa-fe1gx6",
-      "homeName": "Orense SC",
-      "awayName": "Mushuc Runa SC",
-      "market": "over_under_35",
-      "outcome": "under",
-      "line": 3.5,
-      "book": "1xbet",
-      "decimal": 1.23,
-      "openingDecimal": 1.23,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T19:20:12Z"
-    },
-    {
-      "gameId": "ligapro-ecuador-2026-11-22-orense-mushuc-runa-fe1gx6",
-      "homeName": "Orense SC",
-      "awayName": "Mushuc Runa SC",
-      "market": "over_under_35",
-      "outcome": "under",
-      "line": 3.5,
-      "book": "pinnacle",
-      "decimal": 1.27,
-      "openingDecimal": 1.27,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T19:20:12Z"
-    },
-    {
-      "gameId": "ligapro-ecuador-2026-11-22-orense-mushuc-runa-fe1gx6",
-      "homeName": "Orense SC",
-      "awayName": "Mushuc Runa SC",
-      "market": "over_under_35",
-      "outcome": "under",
-      "line": 3.5,
-      "book": "betfair",
-      "decimal": 1.25,
-      "openingDecimal": 1.25,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T19:20:12Z"
-    },
-    {
-      "gameId": "ligapro-ecuador-2026-11-22-orense-mushuc-runa-fe1gx6",
-      "homeName": "Orense SC",
-      "awayName": "Mushuc Runa SC",
-      "market": "over_under_35",
-      "outcome": "under",
-      "line": 3.5,
-      "book": "betvictor",
-      "decimal": 1.21,
-      "openingDecimal": 1.21,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T19:20:12Z"
-    },
-    {
-      "gameId": "ligapro-ecuador-2026-11-22-orense-mushuc-runa-fe1gx6",
-      "homeName": "Orense SC",
-      "awayName": "Mushuc Runa SC",
-      "market": "btts",
-      "outcome": "yes",
-      "line": null,
-      "book": "1xbet",
-      "decimal": 1.92,
-      "openingDecimal": 1.79,
-      "deltaPct": 7.26,
-      "movement": "drifting",
-      "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-22T19:20:12Z"
-    },
-    {
-      "gameId": "ligapro-ecuador-2026-11-22-orense-mushuc-runa-fe1gx6",
-      "homeName": "Orense SC",
-      "awayName": "Mushuc Runa SC",
-      "market": "btts",
-      "outcome": "yes",
-      "line": null,
-      "book": "betano",
-      "decimal": 1.93,
-      "openingDecimal": 1.83,
-      "deltaPct": 5.46,
-      "movement": "drifting",
-      "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-22T17:21:00Z"
-    },
-    {
-      "gameId": "ligapro-ecuador-2026-11-22-orense-mushuc-runa-fe1gx6",
-      "homeName": "Orense SC",
-      "awayName": "Mushuc Runa SC",
-      "market": "btts",
-      "outcome": "yes",
-      "line": null,
-      "book": "interwetten",
-      "decimal": 1.9,
-      "openingDecimal": 1.75,
-      "deltaPct": 8.57,
-      "movement": "drifting",
-      "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-22T17:21:00Z"
-    },
-    {
-      "gameId": "ligapro-ecuador-2026-11-22-orense-mushuc-runa-fe1gx6",
-      "homeName": "Orense SC",
-      "awayName": "Mushuc Runa SC",
-      "market": "btts",
-      "outcome": "yes",
-      "line": null,
-      "book": "unibet",
-      "decimal": 1.93,
-      "openingDecimal": 1.78,
-      "deltaPct": 8.43,
-      "movement": "drifting",
-      "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-22T17:21:00Z"
-    },
-    {
-      "gameId": "ligapro-ecuador-2026-11-22-orense-mushuc-runa-fe1gx6",
-      "homeName": "Orense SC",
-      "awayName": "Mushuc Runa SC",
-      "market": "btts",
-      "outcome": "yes",
-      "line": null,
-      "book": "betway",
-      "decimal": 2,
-      "openingDecimal": 1.85,
-      "deltaPct": 8.11,
-      "movement": "drifting",
-      "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-22T17:21:00Z"
-    },
-    {
-      "gameId": "ligapro-ecuador-2026-11-22-orense-mushuc-runa-fe1gx6",
-      "homeName": "Orense SC",
-      "awayName": "Mushuc Runa SC",
-      "market": "btts",
-      "outcome": "yes",
-      "line": null,
-      "book": "888sport",
-      "decimal": 1.909,
-      "openingDecimal": 1.727,
-      "deltaPct": 10.54,
-      "movement": "drifting",
-      "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-22T17:21:00Z"
-    },
-    {
-      "gameId": "ligapro-ecuador-2026-11-22-orense-mushuc-runa-fe1gx6",
-      "homeName": "Orense SC",
-      "awayName": "Mushuc Runa SC",
-      "market": "btts",
-      "outcome": "yes",
-      "line": null,
-      "book": "william-hill",
-      "decimal": 1.91,
-      "openingDecimal": 1.727,
-      "deltaPct": 10.6,
-      "movement": "drifting",
-      "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-22T19:20:12Z"
-    },
-    {
-      "gameId": "ligapro-ecuador-2026-11-22-orense-mushuc-runa-fe1gx6",
-      "homeName": "Orense SC",
-      "awayName": "Mushuc Runa SC",
-      "market": "btts",
-      "outcome": "yes",
-      "line": null,
-      "book": "bet365",
-      "decimal": 1.83,
-      "openingDecimal": 1.727,
-      "deltaPct": 5.96,
-      "movement": "drifting",
-      "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-22T19:20:12Z"
-    },
-    {
-      "gameId": "ligapro-ecuador-2026-11-22-orense-mushuc-runa-fe1gx6",
-      "homeName": "Orense SC",
-      "awayName": "Mushuc Runa SC",
-      "market": "btts",
-      "outcome": "yes",
-      "line": null,
-      "book": "betsson",
-      "decimal": 1.92,
-      "openingDecimal": 1.8,
-      "deltaPct": 6.67,
-      "movement": "drifting",
-      "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-22T17:21:00Z"
-    },
-    {
-      "gameId": "ligapro-ecuador-2026-11-22-orense-mushuc-runa-fe1gx6",
-      "homeName": "Orense SC",
-      "awayName": "Mushuc Runa SC",
-      "market": "btts",
-      "outcome": "yes",
-      "line": null,
-      "book": "betfair",
-      "decimal": 2,
-      "openingDecimal": 2,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T19:20:12Z"
-    },
-    {
-      "gameId": "ligapro-ecuador-2026-11-22-orense-mushuc-runa-fe1gx6",
-      "homeName": "Orense SC",
-      "awayName": "Mushuc Runa SC",
-      "market": "btts",
-      "outcome": "yes",
-      "line": null,
-      "book": "fonbet",
-      "decimal": 1.93,
-      "openingDecimal": 1.83,
-      "deltaPct": 5.46,
-      "movement": "drifting",
-      "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-22T17:21:00Z"
-    },
-    {
-      "gameId": "ligapro-ecuador-2026-11-22-orense-mushuc-runa-fe1gx6",
-      "homeName": "Orense SC",
-      "awayName": "Mushuc Runa SC",
-      "market": "btts",
-      "outcome": "yes",
-      "line": null,
-      "book": "10bet",
-      "decimal": 1.85,
-      "openingDecimal": 1.75,
-      "deltaPct": 5.71,
-      "movement": "drifting",
-      "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-22T17:21:00Z"
-    },
-    {
-      "gameId": "ligapro-ecuador-2026-11-22-orense-mushuc-runa-fe1gx6",
-      "homeName": "Orense SC",
-      "awayName": "Mushuc Runa SC",
-      "market": "btts",
-      "outcome": "yes",
-      "line": null,
-      "book": "betvictor",
-      "decimal": 1.75,
-      "openingDecimal": 1.75,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T19:20:12Z"
-    },
-    {
-      "gameId": "ligapro-ecuador-2026-11-22-orense-mushuc-runa-fe1gx6",
-      "homeName": "Orense SC",
-      "awayName": "Mushuc Runa SC",
-      "market": "draw_no_bet",
-      "outcome": "HOME",
-      "line": null,
-      "book": "betano",
-      "decimal": 1.3,
-      "openingDecimal": 1.34,
-      "deltaPct": -2.99,
-      "movement": "shortening",
-      "movementSignal": "SHORTENING",
-      "capturedAtUtc": "2026-11-22T17:21:00Z"
-    },
-    {
-      "gameId": "ligapro-ecuador-2026-11-22-orense-mushuc-runa-fe1gx6",
-      "homeName": "Orense SC",
-      "awayName": "Mushuc Runa SC",
-      "market": "draw_no_bet",
       "outcome": "HOME",
       "line": null,
       "book": "unibet",
-      "decimal": 1.3,
-      "openingDecimal": 1.35,
-      "deltaPct": -3.7,
-      "movement": "shortening",
-      "movementSignal": "SHORTENING",
-      "capturedAtUtc": "2026-11-22T17:21:00Z"
-    },
-    {
-      "gameId": "ligapro-ecuador-2026-11-22-orense-mushuc-runa-fe1gx6",
-      "homeName": "Orense SC",
-      "awayName": "Mushuc Runa SC",
-      "market": "draw_no_bet",
-      "outcome": "HOME",
-      "line": null,
-      "book": "novibet",
-      "decimal": 1.31,
-      "openingDecimal": 1.33,
-      "deltaPct": -1.5,
-      "movement": "shortening",
-      "movementSignal": "SHORTENING",
-      "capturedAtUtc": "2026-11-22T17:21:00Z"
-    },
-    {
-      "gameId": "ligapro-ecuador-2026-11-22-orense-mushuc-runa-fe1gx6",
-      "homeName": "Orense SC",
-      "awayName": "Mushuc Runa SC",
-      "market": "draw_no_bet",
-      "outcome": "HOME",
-      "line": null,
-      "book": "betway",
-      "decimal": 1.3,
-      "openingDecimal": 1.3,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T17:21:00Z"
-    },
-    {
-      "gameId": "ligapro-ecuador-2026-11-22-orense-mushuc-runa-fe1gx6",
-      "homeName": "Orense SC",
-      "awayName": "Mushuc Runa SC",
-      "market": "draw_no_bet",
-      "outcome": "HOME",
-      "line": null,
-      "book": "888sport",
-      "decimal": 1.3,
-      "openingDecimal": 1.25,
-      "deltaPct": 4,
-      "movement": "drifting",
-      "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-22T17:21:00Z"
-    },
-    {
-      "gameId": "ligapro-ecuador-2026-11-22-orense-mushuc-runa-fe1gx6",
-      "homeName": "Orense SC",
-      "awayName": "Mushuc Runa SC",
-      "market": "draw_no_bet",
-      "outcome": "HOME",
-      "line": null,
-      "book": "william-hill",
-      "decimal": 1.3,
-      "openingDecimal": 1.25,
-      "deltaPct": 4,
-      "movement": "drifting",
-      "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-22T17:21:00Z"
-    },
-    {
-      "gameId": "ligapro-ecuador-2026-11-22-orense-mushuc-runa-fe1gx6",
-      "homeName": "Orense SC",
-      "awayName": "Mushuc Runa SC",
-      "market": "draw_no_bet",
-      "outcome": "HOME",
-      "line": null,
-      "book": "bet365",
-      "decimal": 1.286,
-      "openingDecimal": 1.4,
-      "deltaPct": -8.14,
-      "movement": "shortening",
-      "movementSignal": "STEAM",
-      "capturedAtUtc": "2026-11-22T17:21:00Z"
-    },
-    {
-      "gameId": "ligapro-ecuador-2026-11-22-orense-mushuc-runa-fe1gx6",
-      "homeName": "Orense SC",
-      "awayName": "Mushuc Runa SC",
-      "market": "draw_no_bet",
-      "outcome": "HOME",
-      "line": null,
-      "book": "betsson",
-      "decimal": 1.32,
-      "openingDecimal": 1.37,
-      "deltaPct": -3.65,
-      "movement": "shortening",
-      "movementSignal": "SHORTENING",
-      "capturedAtUtc": "2026-11-22T17:21:00Z"
-    },
-    {
-      "gameId": "ligapro-ecuador-2026-11-22-orense-mushuc-runa-fe1gx6",
-      "homeName": "Orense SC",
-      "awayName": "Mushuc Runa SC",
-      "market": "draw_no_bet",
-      "outcome": "HOME",
-      "line": null,
-      "book": "10bet",
-      "decimal": 1.3,
-      "openingDecimal": 1.333,
-      "deltaPct": -2.48,
-      "movement": "shortening",
-      "movementSignal": "SHORTENING",
-      "capturedAtUtc": "2026-11-22T17:21:00Z"
-    },
-    {
-      "gameId": "ligapro-ecuador-2026-11-22-orense-mushuc-runa-fe1gx6",
-      "homeName": "Orense SC",
-      "awayName": "Mushuc Runa SC",
-      "market": "draw_no_bet",
-      "outcome": "AWAY",
-      "line": null,
-      "book": "betano",
-      "decimal": 3.3,
-      "openingDecimal": 3.1,
-      "deltaPct": 6.45,
-      "movement": "drifting",
-      "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-22T17:21:00Z"
-    },
-    {
-      "gameId": "ligapro-ecuador-2026-11-22-orense-mushuc-runa-fe1gx6",
-      "homeName": "Orense SC",
-      "awayName": "Mushuc Runa SC",
-      "market": "draw_no_bet",
-      "outcome": "AWAY",
-      "line": null,
-      "book": "unibet",
-      "decimal": 3.1,
-      "openingDecimal": 2.9,
-      "deltaPct": 6.9,
-      "movement": "drifting",
-      "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-22T17:21:00Z"
-    },
-    {
-      "gameId": "ligapro-ecuador-2026-11-22-orense-mushuc-runa-fe1gx6",
-      "homeName": "Orense SC",
-      "awayName": "Mushuc Runa SC",
-      "market": "draw_no_bet",
-      "outcome": "AWAY",
-      "line": null,
-      "book": "novibet",
-      "decimal": 3.15,
-      "openingDecimal": 3.05,
-      "deltaPct": 3.28,
-      "movement": "drifting",
-      "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-22T17:21:00Z"
-    },
-    {
-      "gameId": "ligapro-ecuador-2026-11-22-orense-mushuc-runa-fe1gx6",
-      "homeName": "Orense SC",
-      "awayName": "Mushuc Runa SC",
-      "market": "draw_no_bet",
-      "outcome": "AWAY",
-      "line": null,
-      "book": "betway",
-      "decimal": 3.3,
-      "openingDecimal": 3.25,
-      "deltaPct": 1.54,
-      "movement": "drifting",
-      "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-22T17:21:00Z"
-    },
-    {
-      "gameId": "ligapro-ecuador-2026-11-22-orense-mushuc-runa-fe1gx6",
-      "homeName": "Orense SC",
-      "awayName": "Mushuc Runa SC",
-      "market": "draw_no_bet",
-      "outcome": "AWAY",
-      "line": null,
-      "book": "888sport",
-      "decimal": 3.1,
-      "openingDecimal": 3.3,
-      "deltaPct": -6.06,
-      "movement": "shortening",
-      "movementSignal": "SHORTENING",
-      "capturedAtUtc": "2026-11-22T17:21:00Z"
-    },
-    {
-      "gameId": "ligapro-ecuador-2026-11-22-orense-mushuc-runa-fe1gx6",
-      "homeName": "Orense SC",
-      "awayName": "Mushuc Runa SC",
-      "market": "draw_no_bet",
-      "outcome": "AWAY",
-      "line": null,
-      "book": "william-hill",
-      "decimal": 3.1,
-      "openingDecimal": 3.3,
-      "deltaPct": -6.06,
-      "movement": "shortening",
-      "movementSignal": "SHORTENING",
-      "capturedAtUtc": "2026-11-22T17:21:00Z"
-    },
-    {
-      "gameId": "ligapro-ecuador-2026-11-22-orense-mushuc-runa-fe1gx6",
-      "homeName": "Orense SC",
-      "awayName": "Mushuc Runa SC",
-      "market": "draw_no_bet",
-      "outcome": "AWAY",
-      "line": null,
-      "book": "bet365",
-      "decimal": 3.5,
-      "openingDecimal": 2.75,
-      "deltaPct": 27.27,
-      "movement": "drifting",
-      "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-22T17:21:00Z"
-    },
-    {
-      "gameId": "ligapro-ecuador-2026-11-22-orense-mushuc-runa-fe1gx6",
-      "homeName": "Orense SC",
-      "awayName": "Mushuc Runa SC",
-      "market": "draw_no_bet",
-      "outcome": "AWAY",
-      "line": null,
-      "book": "betsson",
-      "decimal": 3.2,
-      "openingDecimal": 2.95,
-      "deltaPct": 8.47,
-      "movement": "drifting",
-      "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-22T17:21:00Z"
-    },
-    {
-      "gameId": "ligapro-ecuador-2026-11-22-orense-mushuc-runa-fe1gx6",
-      "homeName": "Orense SC",
-      "awayName": "Mushuc Runa SC",
-      "market": "draw_no_bet",
-      "outcome": "AWAY",
-      "line": null,
-      "book": "10bet",
-      "decimal": 3.2,
-      "openingDecimal": 3,
-      "deltaPct": 6.67,
-      "movement": "drifting",
-      "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-22T17:21:00Z"
-    },
-    {
-      "gameId": "ligapro-ecuador-2026-11-22-orense-mushuc-runa-fe1gx6",
-      "homeName": "Orense SC",
-      "awayName": "Mushuc Runa SC",
-      "market": "btts",
-      "outcome": "no",
-      "line": null,
-      "book": "1xbet",
-      "decimal": 1.77,
-      "openingDecimal": 1.898,
-      "deltaPct": -6.74,
-      "movement": "shortening",
-      "movementSignal": "SHORTENING",
-      "capturedAtUtc": "2026-11-22T19:20:12Z"
-    },
-    {
-      "gameId": "ligapro-ecuador-2026-11-22-orense-mushuc-runa-fe1gx6",
-      "homeName": "Orense SC",
-      "awayName": "Mushuc Runa SC",
-      "market": "btts",
-      "outcome": "no",
-      "line": null,
-      "book": "betano",
-      "decimal": 1.78,
-      "openingDecimal": 1.88,
-      "deltaPct": -5.32,
-      "movement": "shortening",
-      "movementSignal": "SHORTENING",
-      "capturedAtUtc": "2026-11-22T17:21:00Z"
-    },
-    {
-      "gameId": "ligapro-ecuador-2026-11-22-orense-mushuc-runa-fe1gx6",
-      "homeName": "Orense SC",
-      "awayName": "Mushuc Runa SC",
-      "market": "btts",
-      "outcome": "no",
-      "line": null,
-      "book": "interwetten",
-      "decimal": 1.75,
-      "openingDecimal": 1.9,
-      "deltaPct": -7.89,
-      "movement": "shortening",
-      "movementSignal": "STEAM",
-      "capturedAtUtc": "2026-11-22T17:21:00Z"
-    },
-    {
-      "gameId": "ligapro-ecuador-2026-11-22-orense-mushuc-runa-fe1gx6",
-      "homeName": "Orense SC",
-      "awayName": "Mushuc Runa SC",
-      "market": "btts",
-      "outcome": "no",
-      "line": null,
-      "book": "unibet",
-      "decimal": 1.8,
-      "openingDecimal": 1.93,
-      "deltaPct": -6.74,
-      "movement": "shortening",
-      "movementSignal": "SHORTENING",
-      "capturedAtUtc": "2026-11-22T17:21:00Z"
-    },
-    {
-      "gameId": "ligapro-ecuador-2026-11-22-orense-mushuc-runa-fe1gx6",
-      "homeName": "Orense SC",
-      "awayName": "Mushuc Runa SC",
-      "market": "btts",
-      "outcome": "no",
-      "line": null,
-      "book": "betway",
-      "decimal": 1.75,
-      "openingDecimal": 1.909,
-      "deltaPct": -8.33,
-      "movement": "shortening",
-      "movementSignal": "STEAM",
-      "capturedAtUtc": "2026-11-22T17:21:00Z"
-    },
-    {
-      "gameId": "ligapro-ecuador-2026-11-22-orense-mushuc-runa-fe1gx6",
-      "homeName": "Orense SC",
-      "awayName": "Mushuc Runa SC",
-      "market": "btts",
-      "outcome": "no",
-      "line": null,
-      "book": "888sport",
-      "decimal": 1.909,
-      "openingDecimal": 2,
-      "deltaPct": -4.55,
-      "movement": "shortening",
-      "movementSignal": "SHORTENING",
-      "capturedAtUtc": "2026-11-22T17:21:00Z"
-    },
-    {
-      "gameId": "ligapro-ecuador-2026-11-22-orense-mushuc-runa-fe1gx6",
-      "homeName": "Orense SC",
-      "awayName": "Mushuc Runa SC",
-      "market": "btts",
-      "outcome": "no",
-      "line": null,
-      "book": "william-hill",
-      "decimal": 1.91,
-      "openingDecimal": 2,
-      "deltaPct": -4.5,
-      "movement": "shortening",
-      "movementSignal": "SHORTENING",
-      "capturedAtUtc": "2026-11-22T19:20:12Z"
-    },
-    {
-      "gameId": "ligapro-ecuador-2026-11-22-orense-mushuc-runa-fe1gx6",
-      "homeName": "Orense SC",
-      "awayName": "Mushuc Runa SC",
-      "market": "btts",
-      "outcome": "no",
-      "line": null,
-      "book": "bet365",
-      "decimal": 1.83,
-      "openingDecimal": 2,
-      "deltaPct": -8.5,
-      "movement": "shortening",
-      "movementSignal": "STEAM",
-      "capturedAtUtc": "2026-11-22T19:20:12Z"
-    },
-    {
-      "gameId": "ligapro-ecuador-2026-11-22-orense-mushuc-runa-fe1gx6",
-      "homeName": "Orense SC",
-      "awayName": "Mushuc Runa SC",
-      "market": "btts",
-      "outcome": "no",
-      "line": null,
-      "book": "betsson",
-      "decimal": 1.78,
-      "openingDecimal": 1.9,
-      "deltaPct": -6.32,
-      "movement": "shortening",
-      "movementSignal": "SHORTENING",
-      "capturedAtUtc": "2026-11-22T17:21:00Z"
-    },
-    {
-      "gameId": "ligapro-ecuador-2026-11-22-orense-mushuc-runa-fe1gx6",
-      "homeName": "Orense SC",
-      "awayName": "Mushuc Runa SC",
-      "market": "btts",
-      "outcome": "no",
-      "line": null,
-      "book": "betfair",
-      "decimal": 1.8,
-      "openingDecimal": 1.8,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T19:20:12Z"
-    },
-    {
-      "gameId": "ligapro-ecuador-2026-11-22-orense-mushuc-runa-fe1gx6",
-      "homeName": "Orense SC",
-      "awayName": "Mushuc Runa SC",
-      "market": "btts",
-      "outcome": "no",
-      "line": null,
-      "book": "fonbet",
-      "decimal": 1.77,
-      "openingDecimal": 1.87,
-      "deltaPct": -5.35,
-      "movement": "shortening",
-      "movementSignal": "SHORTENING",
-      "capturedAtUtc": "2026-11-22T17:21:00Z"
-    },
-    {
-      "gameId": "ligapro-ecuador-2026-11-22-orense-mushuc-runa-fe1gx6",
-      "homeName": "Orense SC",
-      "awayName": "Mushuc Runa SC",
-      "market": "btts",
-      "outcome": "no",
-      "line": null,
-      "book": "10bet",
-      "decimal": 1.833,
-      "openingDecimal": 1.93,
-      "deltaPct": -5.03,
-      "movement": "shortening",
-      "movementSignal": "SHORTENING",
-      "capturedAtUtc": "2026-11-22T17:21:00Z"
-    },
-    {
-      "gameId": "ligapro-ecuador-2026-11-22-orense-mushuc-runa-fe1gx6",
-      "homeName": "Orense SC",
-      "awayName": "Mushuc Runa SC",
-      "market": "btts",
-      "outcome": "no",
-      "line": null,
-      "book": "betvictor",
-      "decimal": 1.6,
-      "openingDecimal": 1.6,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T19:20:12Z"
-    },
-    {
-      "gameId": "ligapro-ecuador-2026-11-22-orense-mushuc-runa-fe1gx6",
-      "homeName": "Orense SC",
-      "awayName": "Mushuc Runa SC",
-      "market": "over_under_05",
-      "outcome": "over",
-      "line": 0.5,
-      "book": "betfair",
-      "decimal": 1.06,
-      "openingDecimal": 1.06,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T19:20:12Z"
-    },
-    {
-      "gameId": "ligapro-ecuador-2026-11-22-orense-mushuc-runa-fe1gx6",
-      "homeName": "Orense SC",
-      "awayName": "Mushuc Runa SC",
-      "market": "over_under_05",
-      "outcome": "over",
-      "line": 0.5,
-      "book": "betvictor",
-      "decimal": 1.03,
-      "openingDecimal": 1.03,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T19:20:12Z"
-    },
-    {
-      "gameId": "ligapro-ecuador-2026-11-22-orense-mushuc-runa-fe1gx6",
-      "homeName": "Orense SC",
-      "awayName": "Mushuc Runa SC",
-      "market": "over_under_05",
-      "outcome": "under",
-      "line": 0.5,
-      "book": "1xbet",
-      "decimal": 8.6,
-      "openingDecimal": 8.6,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T19:20:12Z"
-    },
-    {
-      "gameId": "ligapro-ecuador-2026-11-22-orense-mushuc-runa-fe1gx6",
-      "homeName": "Orense SC",
-      "awayName": "Mushuc Runa SC",
-      "market": "over_under_05",
-      "outcome": "under",
-      "line": 0.5,
-      "book": "betfair",
-      "decimal": 9,
-      "openingDecimal": 9,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T19:20:12Z"
-    },
-    {
-      "gameId": "ligapro-ecuador-2026-11-22-orense-mushuc-runa-fe1gx6",
-      "homeName": "Orense SC",
-      "awayName": "Mushuc Runa SC",
-      "market": "over_under_05",
-      "outcome": "under",
-      "line": 0.5,
-      "book": "betvictor",
-      "decimal": 4.5,
-      "openingDecimal": 4.5,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T19:20:12Z"
-    },
-    {
-      "gameId": "ligapro-ecuador-2026-11-22-orense-mushuc-runa-fe1gx6",
-      "homeName": "Orense SC",
-      "awayName": "Mushuc Runa SC",
-      "market": "asian_handicap",
-      "outcome": "HOME",
-      "line": -0.25,
-      "book": "1xbet",
-      "decimal": 1.515,
-      "openingDecimal": 1.536,
-      "deltaPct": -1.37,
-      "movement": "shortening",
-      "movementSignal": "SHORTENING",
-      "capturedAtUtc": "2026-11-22T17:21:00Z"
-    },
-    {
-      "gameId": "ligapro-ecuador-2026-11-22-orense-mushuc-runa-fe1gx6",
-      "homeName": "Orense SC",
-      "awayName": "Mushuc Runa SC",
-      "market": "asian_handicap",
-      "outcome": "HOME",
-      "line": -0.25,
-      "book": "bet365",
-      "decimal": 1.5,
-      "openingDecimal": 1.525,
-      "deltaPct": -1.64,
-      "movement": "shortening",
-      "movementSignal": "SHORTENING",
-      "capturedAtUtc": "2026-11-22T17:21:00Z"
-    },
-    {
-      "gameId": "ligapro-ecuador-2026-11-22-orense-mushuc-runa-fe1gx6",
-      "homeName": "Orense SC",
-      "awayName": "Mushuc Runa SC",
-      "market": "asian_handicap",
-      "outcome": "AWAY",
-      "line": -0.25,
-      "book": "1xbet",
-      "decimal": 2.385,
-      "openingDecimal": 2.434,
-      "deltaPct": -2.01,
-      "movement": "shortening",
-      "movementSignal": "SHORTENING",
-      "capturedAtUtc": "2026-11-22T17:21:00Z"
-    },
-    {
-      "gameId": "ligapro-ecuador-2026-11-22-orense-mushuc-runa-fe1gx6",
-      "homeName": "Orense SC",
-      "awayName": "Mushuc Runa SC",
-      "market": "asian_handicap",
-      "outcome": "AWAY",
-      "line": -0.25,
-      "book": "bet365",
-      "decimal": 2.5,
-      "openingDecimal": 2.425,
-      "deltaPct": 3.09,
-      "movement": "drifting",
-      "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-22T17:21:00Z"
-    },
-    {
-      "gameId": "ligapro-ecuador-2026-11-22-orense-mushuc-runa-fe1gx6",
-      "homeName": "Orense SC",
-      "awayName": "Mushuc Runa SC",
-      "market": "asian_handicap",
-      "outcome": "HOME",
-      "line": -1.75,
-      "book": "1xbet",
-      "decimal": 3.78,
-      "openingDecimal": 3.725,
-      "deltaPct": 1.48,
-      "movement": "drifting",
-      "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-22T17:21:00Z"
-    },
-    {
-      "gameId": "ligapro-ecuador-2026-11-22-orense-mushuc-runa-fe1gx6",
-      "homeName": "Orense SC",
-      "awayName": "Mushuc Runa SC",
-      "market": "asian_handicap",
-      "outcome": "HOME",
-      "line": -1.75,
-      "book": "bet365",
-      "decimal": 3.7,
-      "openingDecimal": 3.8,
-      "deltaPct": -2.63,
-      "movement": "shortening",
-      "movementSignal": "SHORTENING",
-      "capturedAtUtc": "2026-11-22T17:21:00Z"
-    },
-    {
-      "gameId": "ligapro-ecuador-2026-11-22-orense-mushuc-runa-fe1gx6",
-      "homeName": "Orense SC",
-      "awayName": "Mushuc Runa SC",
-      "market": "asian_handicap",
-      "outcome": "AWAY",
-      "line": -1.75,
-      "book": "1xbet",
-      "decimal": 1.189,
-      "openingDecimal": 1.197,
-      "deltaPct": -0.67,
-      "movement": "shortening",
-      "movementSignal": "SHORTENING",
-      "capturedAtUtc": "2026-11-22T17:21:00Z"
-    },
-    {
-      "gameId": "ligapro-ecuador-2026-11-22-orense-mushuc-runa-fe1gx6",
-      "homeName": "Orense SC",
-      "awayName": "Mushuc Runa SC",
-      "market": "asian_handicap",
-      "outcome": "AWAY",
-      "line": -1.75,
-      "book": "bet365",
-      "decimal": 1.26,
-      "openingDecimal": 1.25,
-      "deltaPct": 0.8,
-      "movement": "drifting",
-      "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-22T17:21:00Z"
-    },
-    {
-      "gameId": "ligapro-ecuador-2026-11-22-orense-mushuc-runa-fe1gx6",
-      "homeName": "Orense SC",
-      "awayName": "Mushuc Runa SC",
-      "market": "asian_handicap",
-      "outcome": "HOME",
-      "line": -1.25,
-      "book": "1xbet",
-      "decimal": 2.678,
-      "openingDecimal": 2.68,
-      "deltaPct": -0.07,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T17:21:00Z"
-    },
-    {
-      "gameId": "ligapro-ecuador-2026-11-22-orense-mushuc-runa-fe1gx6",
-      "homeName": "Orense SC",
-      "awayName": "Mushuc Runa SC",
-      "market": "asian_handicap",
-      "outcome": "HOME",
-      "line": -1.25,
-      "book": "bet365",
-      "decimal": 2.675,
-      "openingDecimal": 2.75,
-      "deltaPct": -2.73,
-      "movement": "shortening",
-      "movementSignal": "SHORTENING",
-      "capturedAtUtc": "2026-11-22T17:21:00Z"
-    },
-    {
-      "gameId": "ligapro-ecuador-2026-11-22-orense-mushuc-runa-fe1gx6",
-      "homeName": "Orense SC",
-      "awayName": "Mushuc Runa SC",
-      "market": "asian_handicap",
-      "outcome": "AWAY",
-      "line": -1.25,
-      "book": "1xbet",
-      "decimal": 1.379,
-      "openingDecimal": 1.38,
-      "deltaPct": -0.07,
-      "movement": "shortening",
-      "movementSignal": "SHORTENING",
-      "capturedAtUtc": "2026-11-22T17:21:00Z"
-    },
-    {
-      "gameId": "ligapro-ecuador-2026-11-22-orense-mushuc-runa-fe1gx6",
-      "homeName": "Orense SC",
-      "awayName": "Mushuc Runa SC",
-      "market": "asian_handicap",
-      "outcome": "AWAY",
-      "line": -1.25,
-      "book": "bet365",
-      "decimal": 1.45,
-      "openingDecimal": 1.425,
-      "deltaPct": 1.75,
-      "movement": "drifting",
-      "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-22T17:21:00Z"
-    },
-    {
-      "gameId": "ligapro-ecuador-2026-11-22-orense-mushuc-runa-fe1gx6",
-      "homeName": "Orense SC",
-      "awayName": "Mushuc Runa SC",
-      "market": "asian_handicap",
-      "outcome": "HOME",
-      "line": -0.75,
-      "book": "1xbet",
-      "decimal": 1.93,
-      "openingDecimal": 1.953,
-      "deltaPct": -1.18,
-      "movement": "shortening",
-      "movementSignal": "SHORTENING",
-      "capturedAtUtc": "2026-11-22T17:21:00Z"
-    },
-    {
-      "gameId": "ligapro-ecuador-2026-11-22-orense-mushuc-runa-fe1gx6",
-      "homeName": "Orense SC",
-      "awayName": "Mushuc Runa SC",
-      "market": "asian_handicap",
-      "outcome": "HOME",
-      "line": -0.75,
-      "book": "bet365",
-      "decimal": 1.95,
-      "openingDecimal": 2,
-      "deltaPct": -2.5,
-      "movement": "shortening",
-      "movementSignal": "SHORTENING",
-      "capturedAtUtc": "2026-11-22T17:21:00Z"
-    },
-    {
-      "gameId": "ligapro-ecuador-2026-11-22-orense-mushuc-runa-fe1gx6",
-      "homeName": "Orense SC",
-      "awayName": "Mushuc Runa SC",
-      "market": "asian_handicap",
-      "outcome": "HOME",
-      "line": -0.75,
-      "book": "10bet",
-      "decimal": 2,
-      "openingDecimal": 1.93,
-      "deltaPct": 3.63,
-      "movement": "drifting",
-      "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-22T17:21:00Z"
-    },
-    {
-      "gameId": "ligapro-ecuador-2026-11-22-orense-mushuc-runa-fe1gx6",
-      "homeName": "Orense SC",
-      "awayName": "Mushuc Runa SC",
-      "market": "asian_handicap",
-      "outcome": "AWAY",
-      "line": -0.75,
-      "book": "1xbet",
-      "decimal": 1.755,
-      "openingDecimal": 1.739,
-      "deltaPct": 0.92,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T17:21:00Z"
-    },
-    {
-      "gameId": "ligapro-ecuador-2026-11-22-orense-mushuc-runa-fe1gx6",
-      "homeName": "Orense SC",
-      "awayName": "Mushuc Runa SC",
-      "market": "asian_handicap",
-      "outcome": "AWAY",
-      "line": -0.75,
-      "book": "bet365",
-      "decimal": 1.85,
-      "openingDecimal": 1.8,
-      "deltaPct": 2.78,
-      "movement": "drifting",
-      "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-22T17:21:00Z"
-    },
-    {
-      "gameId": "ligapro-ecuador-2026-11-22-orense-mushuc-runa-fe1gx6",
-      "homeName": "Orense SC",
-      "awayName": "Mushuc Runa SC",
-      "market": "asian_handicap",
-      "outcome": "AWAY",
-      "line": -0.75,
-      "book": "10bet",
-      "decimal": 1.769,
-      "openingDecimal": 1.8,
-      "deltaPct": -1.72,
-      "movement": "shortening",
-      "movementSignal": "SHORTENING",
-      "capturedAtUtc": "2026-11-22T17:21:00Z"
-    },
-    {
-      "gameId": "ligapro-ecuador-2026-11-22-orense-mushuc-runa-fe1gx6",
-      "homeName": "Orense SC",
-      "awayName": "Mushuc Runa SC",
-      "market": "asian_handicap",
-      "outcome": "HOME",
-      "line": 0.25,
-      "book": "1xbet",
-      "decimal": 1.251,
-      "openingDecimal": 1.251,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T17:21:00Z"
-    },
-    {
-      "gameId": "ligapro-ecuador-2026-11-22-orense-mushuc-runa-fe1gx6",
-      "homeName": "Orense SC",
-      "awayName": "Mushuc Runa SC",
-      "market": "asian_handicap",
-      "outcome": "HOME",
-      "line": 0.25,
-      "book": "bet365",
-      "decimal": 1.23,
-      "openingDecimal": 1.24,
-      "deltaPct": -0.81,
-      "movement": "shortening",
-      "movementSignal": "SHORTENING",
-      "capturedAtUtc": "2026-11-22T17:21:00Z"
-    },
-    {
-      "gameId": "ligapro-ecuador-2026-11-22-orense-mushuc-runa-fe1gx6",
-      "homeName": "Orense SC",
-      "awayName": "Mushuc Runa SC",
-      "market": "asian_handicap",
-      "outcome": "AWAY",
-      "line": 0.25,
-      "book": "1xbet",
-      "decimal": 3.475,
-      "openingDecimal": 3.475,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T17:21:00Z"
-    },
-    {
-      "gameId": "ligapro-ecuador-2026-11-22-orense-mushuc-runa-fe1gx6",
-      "homeName": "Orense SC",
-      "awayName": "Mushuc Runa SC",
-      "market": "asian_handicap",
-      "outcome": "AWAY",
-      "line": 0.25,
-      "book": "bet365",
-      "decimal": 4,
-      "openingDecimal": 3.9,
-      "deltaPct": 2.56,
-      "movement": "drifting",
-      "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-22T17:21:00Z"
-    },
-    {
-      "gameId": "ligapro-ecuador-2026-11-22-orense-mushuc-runa-fe1gx6",
-      "homeName": "Orense SC",
-      "awayName": "Mushuc Runa SC",
-      "market": "asian_handicap",
-      "outcome": "HOME",
-      "line": 0.75,
-      "book": "1xbet",
-      "decimal": 1.093,
-      "openingDecimal": 1.106,
-      "deltaPct": -1.18,
-      "movement": "shortening",
-      "movementSignal": "SHORTENING",
-      "capturedAtUtc": "2026-11-22T17:21:00Z"
-    },
-    {
-      "gameId": "ligapro-ecuador-2026-11-22-orense-mushuc-runa-fe1gx6",
-      "homeName": "Orense SC",
-      "awayName": "Mushuc Runa SC",
-      "market": "asian_handicap",
-      "outcome": "HOME",
-      "line": 0.75,
-      "book": "bet365",
-      "decimal": 1.12,
-      "openingDecimal": 1.13,
-      "deltaPct": -0.88,
-      "movement": "shortening",
-      "movementSignal": "SHORTENING",
-      "capturedAtUtc": "2026-11-22T17:21:00Z"
-    },
-    {
-      "gameId": "ligapro-ecuador-2026-11-22-orense-mushuc-runa-fe1gx6",
-      "homeName": "Orense SC",
-      "awayName": "Mushuc Runa SC",
-      "market": "asian_handicap",
-      "outcome": "AWAY",
-      "line": 0.75,
-      "book": "1xbet",
-      "decimal": 5.43,
-      "openingDecimal": 5.13,
-      "deltaPct": 5.85,
-      "movement": "drifting",
-      "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-22T17:21:00Z"
-    },
-    {
-      "gameId": "ligapro-ecuador-2026-11-22-orense-mushuc-runa-fe1gx6",
-      "homeName": "Orense SC",
-      "awayName": "Mushuc Runa SC",
-      "market": "asian_handicap",
-      "outcome": "AWAY",
-      "line": 0.75,
-      "book": "bet365",
-      "decimal": 6.25,
-      "openingDecimal": 6,
-      "deltaPct": 4.17,
-      "movement": "drifting",
-      "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-22T17:21:00Z"
-    },
-    {
-      "gameId": "ligapro-ecuador-2026-11-22-orense-mushuc-runa-fe1gx6",
-      "homeName": "Orense SC",
-      "awayName": "Mushuc Runa SC",
-      "market": "asian_handicap",
-      "outcome": "HOME",
-      "line": -2.75,
-      "book": "1xbet",
-      "decimal": 8.6,
-      "openingDecimal": 7.47,
-      "deltaPct": 15.13,
-      "movement": "drifting",
-      "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-22T17:21:00Z"
-    },
-    {
-      "gameId": "ligapro-ecuador-2026-11-22-orense-mushuc-runa-fe1gx6",
-      "homeName": "Orense SC",
-      "awayName": "Mushuc Runa SC",
-      "market": "asian_handicap",
-      "outcome": "HOME",
-      "line": -2.25,
-      "book": "1xbet",
-      "decimal": 5.72,
-      "openingDecimal": 5.53,
-      "deltaPct": 3.44,
-      "movement": "drifting",
-      "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-22T17:21:00Z"
-    },
-    {
-      "gameId": "ligapro-ecuador-2026-11-22-orense-mushuc-runa-fe1gx6",
-      "homeName": "Orense SC",
-      "awayName": "Mushuc Runa SC",
-      "market": "asian_handicap",
-      "outcome": "HOME",
-      "line": -2.25,
-      "book": "bet365",
-      "decimal": 5.9,
-      "openingDecimal": 5.9,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T17:21:00Z"
-    },
-    {
-      "gameId": "ligapro-ecuador-2026-11-22-orense-mushuc-runa-fe1gx6",
-      "homeName": "Orense SC",
-      "awayName": "Mushuc Runa SC",
-      "market": "asian_handicap",
-      "outcome": "AWAY",
-      "line": -2.25,
-      "book": "1xbet",
-      "decimal": 1.068,
-      "openingDecimal": 1.077,
-      "deltaPct": -0.84,
-      "movement": "shortening",
-      "movementSignal": "SHORTENING",
-      "capturedAtUtc": "2026-11-22T17:21:00Z"
-    },
-    {
-      "gameId": "ligapro-ecuador-2026-11-22-orense-mushuc-runa-fe1gx6",
-      "homeName": "Orense SC",
-      "awayName": "Mushuc Runa SC",
-      "market": "asian_handicap",
-      "outcome": "AWAY",
-      "line": -2.25,
-      "book": "bet365",
-      "decimal": 1.13,
-      "openingDecimal": 1.125,
-      "deltaPct": 0.44,
-      "movement": "drifting",
-      "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-22T17:21:00Z"
-    },
-    {
-      "gameId": "ligapro-ecuador-2026-11-22-orense-mushuc-runa-fe1gx6",
-      "homeName": "Orense SC",
-      "awayName": "Mushuc Runa SC",
-      "market": "total_corners",
-      "outcome": "over",
-      "line": 7.5,
-      "book": "1xbet",
-      "decimal": 1.29,
-      "openingDecimal": 1.29,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T19:20:12Z"
-    },
-    {
-      "gameId": "ligapro-ecuador-2026-11-22-orense-mushuc-runa-fe1gx6",
-      "homeName": "Orense SC",
-      "awayName": "Mushuc Runa SC",
-      "market": "total_corners",
-      "outcome": "under",
-      "line": 7.5,
-      "book": "1xbet",
-      "decimal": 3.08,
-      "openingDecimal": 3.08,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T19:20:12Z"
-    },
-    {
-      "gameId": "ligapro-ecuador-2026-11-22-orense-mushuc-runa-fe1gx6",
-      "homeName": "Orense SC",
-      "awayName": "Mushuc Runa SC",
-      "market": "total_corners",
-      "outcome": "over",
-      "line": 8.5,
-      "book": "1xbet",
-      "decimal": 1.56,
-      "openingDecimal": 1.56,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T19:20:12Z"
-    },
-    {
-      "gameId": "ligapro-ecuador-2026-11-22-orense-mushuc-runa-fe1gx6",
-      "homeName": "Orense SC",
-      "awayName": "Mushuc Runa SC",
-      "market": "total_corners",
-      "outcome": "under",
-      "line": 8.5,
-      "book": "1xbet",
-      "decimal": 2.24,
-      "openingDecimal": 2.24,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T19:20:12Z"
-    },
-    {
-      "gameId": "ligapro-ecuador-2026-11-22-orense-mushuc-runa-fe1gx6",
-      "homeName": "Orense SC",
-      "awayName": "Mushuc Runa SC",
-      "market": "total_corners",
-      "outcome": "over",
-      "line": 9.5,
-      "book": "1xbet",
-      "decimal": 1.94,
-      "openingDecimal": 1.94,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T19:20:12Z"
-    },
-    {
-      "gameId": "ligapro-ecuador-2026-11-22-orense-mushuc-runa-fe1gx6",
-      "homeName": "Orense SC",
-      "awayName": "Mushuc Runa SC",
-      "market": "total_corners",
-      "outcome": "over",
-      "line": 9.5,
-      "book": "pinnacle",
-      "decimal": 1.95,
-      "openingDecimal": 1.95,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T19:20:12Z"
-    },
-    {
-      "gameId": "ligapro-ecuador-2026-11-22-orense-mushuc-runa-fe1gx6",
-      "homeName": "Orense SC",
-      "awayName": "Mushuc Runa SC",
-      "market": "total_corners",
-      "outcome": "under",
-      "line": 9.5,
-      "book": "1xbet",
       "decimal": 1.77,
       "openingDecimal": 1.77,
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T19:20:12Z"
-    },
-    {
-      "gameId": "ligapro-ecuador-2026-11-22-orense-mushuc-runa-fe1gx6",
-      "homeName": "Orense SC",
-      "awayName": "Mushuc Runa SC",
-      "market": "total_corners",
-      "outcome": "under",
-      "line": 9.5,
-      "book": "pinnacle",
-      "decimal": 1.76,
-      "openingDecimal": 1.76,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T19:20:12Z"
-    },
-    {
-      "gameId": "ligapro-ecuador-2026-11-22-orense-mushuc-runa-fe1gx6",
-      "homeName": "Orense SC",
-      "awayName": "Mushuc Runa SC",
-      "market": "total_corners",
-      "outcome": "over",
-      "line": 10.5,
-      "book": "1xbet",
-      "decimal": 2.5,
-      "openingDecimal": 2.5,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T19:20:12Z"
-    },
-    {
-      "gameId": "ligapro-ecuador-2026-11-22-orense-mushuc-runa-fe1gx6",
-      "homeName": "Orense SC",
-      "awayName": "Mushuc Runa SC",
-      "market": "total_corners",
-      "outcome": "under",
-      "line": 10.5,
-      "book": "1xbet",
-      "decimal": 1.44,
-      "openingDecimal": 1.44,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T19:20:12Z"
-    },
-    {
-      "gameId": "ligapro-ecuador-2026-11-22-orense-mushuc-runa-fe1gx6",
-      "homeName": "Orense SC",
-      "awayName": "Mushuc Runa SC",
-      "market": "total_corners",
-      "outcome": "over",
-      "line": 11.5,
-      "book": "1xbet",
-      "decimal": 3.42,
-      "openingDecimal": 3.42,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T19:20:12Z"
-    },
-    {
-      "gameId": "ligapro-ecuador-2026-11-22-orense-mushuc-runa-fe1gx6",
-      "homeName": "Orense SC",
-      "awayName": "Mushuc Runa SC",
-      "market": "total_corners",
-      "outcome": "under",
-      "line": 11.5,
-      "book": "1xbet",
-      "decimal": 1.23,
-      "openingDecimal": 1.23,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T19:20:12Z"
-    },
-    {
-      "gameId": "ligapro-ecuador-2026-11-22-orense-mushuc-runa-fe1gx6",
-      "homeName": "Orense SC",
-      "awayName": "Mushuc Runa SC",
-      "market": "asian_handicap",
-      "outcome": "HOME",
-      "line": -1.5,
-      "book": "1xbet",
-      "decimal": 3.045,
-      "openingDecimal": 2.983,
-      "deltaPct": 2.08,
-      "movement": "drifting",
-      "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-22T17:21:00Z"
-    },
-    {
-      "gameId": "ligapro-ecuador-2026-11-22-orense-mushuc-runa-fe1gx6",
-      "homeName": "Orense SC",
-      "awayName": "Mushuc Runa SC",
-      "market": "asian_handicap",
-      "outcome": "HOME",
-      "line": -1.5,
-      "book": "unibet",
-      "decimal": 3.1,
-      "openingDecimal": 3.4,
-      "deltaPct": -8.82,
-      "movement": "shortening",
-      "movementSignal": "STEAM",
-      "capturedAtUtc": "2026-11-22T17:21:00Z"
-    },
-    {
-      "gameId": "ligapro-ecuador-2026-11-22-orense-mushuc-runa-fe1gx6",
-      "homeName": "Orense SC",
-      "awayName": "Mushuc Runa SC",
-      "market": "asian_handicap",
-      "outcome": "HOME",
-      "line": -1.5,
-      "book": "bet365",
-      "decimal": 3,
-      "openingDecimal": 3.1,
-      "deltaPct": -3.23,
-      "movement": "shortening",
-      "movementSignal": "SHORTENING",
-      "capturedAtUtc": "2026-11-22T17:21:00Z"
-    },
-    {
-      "gameId": "ligapro-ecuador-2026-11-22-orense-mushuc-runa-fe1gx6",
-      "homeName": "Orense SC",
-      "awayName": "Mushuc Runa SC",
-      "market": "asian_handicap",
-      "outcome": "HOME",
-      "line": -1.5,
-      "book": "fonbet",
-      "decimal": 3,
-      "openingDecimal": 2.95,
-      "deltaPct": 1.69,
-      "movement": "drifting",
-      "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-22T17:21:00Z"
-    },
-    {
-      "gameId": "ligapro-ecuador-2026-11-22-orense-mushuc-runa-fe1gx6",
-      "homeName": "Orense SC",
-      "awayName": "Mushuc Runa SC",
-      "market": "asian_handicap",
-      "outcome": "AWAY",
-      "line": -1.5,
-      "book": "1xbet",
-      "decimal": 1.292,
-      "openingDecimal": 1.306,
-      "deltaPct": -1.07,
-      "movement": "shortening",
-      "movementSignal": "SHORTENING",
-      "capturedAtUtc": "2026-11-22T17:21:00Z"
-    },
-    {
-      "gameId": "ligapro-ecuador-2026-11-22-orense-mushuc-runa-fe1gx6",
-      "homeName": "Orense SC",
-      "awayName": "Mushuc Runa SC",
-      "market": "asian_handicap",
-      "outcome": "AWAY",
-      "line": -1.5,
-      "book": "unibet",
-      "decimal": 1.34,
-      "openingDecimal": 1.3,
-      "deltaPct": 3.08,
-      "movement": "drifting",
-      "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-22T17:21:00Z"
-    },
-    {
-      "gameId": "ligapro-ecuador-2026-11-22-orense-mushuc-runa-fe1gx6",
-      "homeName": "Orense SC",
-      "awayName": "Mushuc Runa SC",
-      "market": "asian_handicap",
-      "outcome": "AWAY",
-      "line": -1.5,
-      "book": "bet365",
-      "decimal": 1.375,
-      "openingDecimal": 1.35,
-      "deltaPct": 1.85,
-      "movement": "drifting",
-      "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-22T17:21:00Z"
-    },
-    {
-      "gameId": "ligapro-ecuador-2026-11-22-orense-mushuc-runa-fe1gx6",
-      "homeName": "Orense SC",
-      "awayName": "Mushuc Runa SC",
-      "market": "asian_handicap",
-      "outcome": "AWAY",
-      "line": -1.5,
-      "book": "fonbet",
-      "decimal": 1.3,
-      "openingDecimal": 1.35,
-      "deltaPct": -3.7,
-      "movement": "shortening",
-      "movementSignal": "SHORTENING",
-      "capturedAtUtc": "2026-11-22T17:21:00Z"
-    },
-    {
-      "gameId": "ligapro-ecuador-2026-11-22-orense-mushuc-runa-fe1gx6",
-      "homeName": "Orense SC",
-      "awayName": "Mushuc Runa SC",
-      "market": "asian_handicap",
-      "outcome": "HOME",
-      "line": -2.5,
-      "book": "1xbet",
-      "decimal": 6.1,
-      "openingDecimal": 5.91,
-      "deltaPct": 3.21,
-      "movement": "drifting",
-      "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-22T17:21:00Z"
-    },
-    {
-      "gameId": "ligapro-ecuador-2026-11-22-orense-mushuc-runa-fe1gx6",
-      "homeName": "Orense SC",
-      "awayName": "Mushuc Runa SC",
-      "market": "asian_handicap",
-      "outcome": "HOME",
-      "line": -2.5,
-      "book": "bet365",
-      "decimal": 6.4,
-      "openingDecimal": 6.4,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T17:21:00Z"
-    },
-    {
-      "gameId": "ligapro-ecuador-2026-11-22-orense-mushuc-runa-fe1gx6",
-      "homeName": "Orense SC",
-      "awayName": "Mushuc Runa SC",
-      "market": "asian_handicap",
-      "outcome": "HOME",
-      "line": -2.5,
-      "book": "fonbet",
-      "decimal": 6.6,
-      "openingDecimal": 5.4,
-      "deltaPct": 22.22,
-      "movement": "drifting",
-      "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-22T17:21:00Z"
-    },
-    {
-      "gameId": "ligapro-ecuador-2026-11-22-orense-mushuc-runa-fe1gx6",
-      "homeName": "Orense SC",
-      "awayName": "Mushuc Runa SC",
-      "market": "asian_handicap",
-      "outcome": "AWAY",
-      "line": -2.5,
-      "book": "1xbet",
-      "decimal": 1.053,
-      "openingDecimal": 1.061,
-      "deltaPct": -0.75,
-      "movement": "shortening",
-      "movementSignal": "SHORTENING",
-      "capturedAtUtc": "2026-11-22T17:21:00Z"
-    },
-    {
-      "gameId": "ligapro-ecuador-2026-11-22-orense-mushuc-runa-fe1gx6",
-      "homeName": "Orense SC",
-      "awayName": "Mushuc Runa SC",
-      "market": "asian_handicap",
-      "outcome": "AWAY",
-      "line": -2.5,
-      "book": "bet365",
-      "decimal": 1.12,
-      "openingDecimal": 1.115,
-      "deltaPct": 0.45,
-      "movement": "drifting",
-      "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-22T17:21:00Z"
-    },
-    {
-      "gameId": "ligapro-ecuador-2026-11-22-orense-mushuc-runa-fe1gx6",
-      "homeName": "Orense SC",
-      "awayName": "Mushuc Runa SC",
-      "market": "asian_handicap",
-      "outcome": "AWAY",
-      "line": -2.5,
-      "book": "fonbet",
-      "decimal": 1.06,
-      "openingDecimal": 1.1,
-      "deltaPct": -3.64,
-      "movement": "shortening",
-      "movementSignal": "SHORTENING",
-      "capturedAtUtc": "2026-11-22T17:21:00Z"
-    },
-    {
-      "gameId": "ligapro-ecuador-2026-11-22-orense-mushuc-runa-fe1gx6",
-      "homeName": "Orense SC",
-      "awayName": "Mushuc Runa SC",
-      "market": "asian_handicap",
-      "outcome": "AWAY",
-      "line": 1.5,
-      "book": "1xbet",
-      "decimal": 8.6,
-      "openingDecimal": 8.6,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T17:21:00Z"
-    },
-    {
-      "gameId": "ligapro-ecuador-2026-11-22-orense-mushuc-runa-fe1gx6",
-      "homeName": "Orense SC",
-      "awayName": "Mushuc Runa SC",
-      "market": "asian_handicap",
-      "outcome": "HOME",
-      "line": -0.5,
-      "book": "unibet",
-      "decimal": 1.73,
-      "openingDecimal": 1.78,
-      "deltaPct": -2.81,
-      "movement": "shortening",
-      "movementSignal": "SHORTENING",
-      "capturedAtUtc": "2026-11-22T17:21:00Z"
-    },
-    {
-      "gameId": "ligapro-ecuador-2026-11-22-orense-mushuc-runa-fe1gx6",
-      "homeName": "Orense SC",
-      "awayName": "Mushuc Runa SC",
-      "market": "asian_handicap",
-      "outcome": "HOME",
-      "line": -0.5,
-      "book": "888sport",
-      "decimal": 1.7,
-      "openingDecimal": 1.7,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T17:21:00Z"
-    },
-    {
-      "gameId": "ligapro-ecuador-2026-11-22-orense-mushuc-runa-fe1gx6",
-      "homeName": "Orense SC",
-      "awayName": "Mushuc Runa SC",
-      "market": "asian_handicap",
-      "outcome": "HOME",
-      "line": -0.5,
-      "book": "william-hill",
-      "decimal": 1.7,
-      "openingDecimal": 1.7,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T17:21:00Z"
-    },
-    {
-      "gameId": "ligapro-ecuador-2026-11-22-orense-mushuc-runa-fe1gx6",
-      "homeName": "Orense SC",
-      "awayName": "Mushuc Runa SC",
-      "market": "asian_handicap",
-      "outcome": "HOME",
-      "line": -0.5,
-      "book": "bet365",
-      "decimal": 1.7,
-      "openingDecimal": 1.725,
-      "deltaPct": -1.45,
-      "movement": "shortening",
-      "movementSignal": "SHORTENING",
-      "capturedAtUtc": "2026-11-22T17:21:00Z"
-    },
-    {
-      "gameId": "ligapro-ecuador-2026-11-22-orense-mushuc-runa-fe1gx6",
-      "homeName": "Orense SC",
-      "awayName": "Mushuc Runa SC",
-      "market": "asian_handicap",
-      "outcome": "HOME",
-      "line": -0.5,
-      "book": "betsson",
-      "decimal": 1.71,
-      "openingDecimal": 1.75,
-      "deltaPct": -2.29,
-      "movement": "shortening",
-      "movementSignal": "SHORTENING",
-      "capturedAtUtc": "2026-11-22T17:21:00Z"
-    },
-    {
-      "gameId": "ligapro-ecuador-2026-11-22-orense-mushuc-runa-fe1gx6",
-      "homeName": "Orense SC",
-      "awayName": "Mushuc Runa SC",
-      "market": "asian_handicap",
-      "outcome": "HOME",
-      "line": -0.5,
-      "book": "10bet",
-      "decimal": 1.75,
-      "openingDecimal": 1.727,
-      "deltaPct": 1.33,
-      "movement": "drifting",
-      "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-22T17:21:00Z"
-    },
-    {
-      "gameId": "ligapro-ecuador-2026-11-22-orense-mushuc-runa-fe1gx6",
-      "homeName": "Orense SC",
-      "awayName": "Mushuc Runa SC",
-      "market": "asian_handicap",
-      "outcome": "AWAY",
-      "line": -0.5,
-      "book": "unibet",
-      "decimal": 2.05,
-      "openingDecimal": 1.98,
-      "deltaPct": 3.54,
-      "movement": "drifting",
-      "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-22T17:21:00Z"
-    },
-    {
-      "gameId": "ligapro-ecuador-2026-11-22-orense-mushuc-runa-fe1gx6",
-      "homeName": "Orense SC",
-      "awayName": "Mushuc Runa SC",
-      "market": "asian_handicap",
-      "outcome": "AWAY",
-      "line": -0.5,
-      "book": "888sport",
-      "decimal": 2,
-      "openingDecimal": 2,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T17:21:00Z"
-    },
-    {
-      "gameId": "ligapro-ecuador-2026-11-22-orense-mushuc-runa-fe1gx6",
-      "homeName": "Orense SC",
-      "awayName": "Mushuc Runa SC",
-      "market": "asian_handicap",
-      "outcome": "AWAY",
-      "line": -0.5,
-      "book": "william-hill",
-      "decimal": 2,
-      "openingDecimal": 2,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T17:21:00Z"
-    },
-    {
-      "gameId": "ligapro-ecuador-2026-11-22-orense-mushuc-runa-fe1gx6",
-      "homeName": "Orense SC",
-      "awayName": "Mushuc Runa SC",
-      "market": "asian_handicap",
-      "outcome": "AWAY",
-      "line": -0.5,
-      "book": "bet365",
-      "decimal": 2.1,
-      "openingDecimal": 2.075,
-      "deltaPct": 1.2,
-      "movement": "drifting",
-      "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-22T17:21:00Z"
-    },
-    {
-      "gameId": "ligapro-ecuador-2026-11-22-orense-mushuc-runa-fe1gx6",
-      "homeName": "Orense SC",
-      "awayName": "Mushuc Runa SC",
-      "market": "asian_handicap",
-      "outcome": "AWAY",
-      "line": -0.5,
-      "book": "betsson",
-      "decimal": 1.98,
-      "openingDecimal": 1.93,
-      "deltaPct": 2.59,
-      "movement": "drifting",
-      "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-22T17:21:00Z"
-    },
-    {
-      "gameId": "ligapro-ecuador-2026-11-22-orense-mushuc-runa-fe1gx6",
-      "homeName": "Orense SC",
-      "awayName": "Mushuc Runa SC",
-      "market": "asian_handicap",
-      "outcome": "AWAY",
-      "line": -0.5,
-      "book": "10bet",
-      "decimal": 2,
-      "openingDecimal": 2.05,
-      "deltaPct": -2.44,
-      "movement": "shortening",
-      "movementSignal": "SHORTENING",
-      "capturedAtUtc": "2026-11-22T17:21:00Z"
-    },
-    {
-      "gameId": "ligapro-ecuador-2026-11-22-orense-mushuc-runa-fe1gx6",
-      "homeName": "Orense SC",
-      "awayName": "Mushuc Runa SC",
-      "market": "asian_handicap",
-      "outcome": "HOME",
-      "line": 0,
-      "book": "1xbet",
-      "decimal": 1.319,
-      "openingDecimal": 1.319,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T17:21:00Z"
-    },
-    {
-      "gameId": "ligapro-ecuador-2026-11-22-orense-mushuc-runa-fe1gx6",
-      "homeName": "Orense SC",
-      "awayName": "Mushuc Runa SC",
-      "market": "asian_handicap",
-      "outcome": "HOME",
-      "line": 0,
-      "book": "bet365",
-      "decimal": 1.3,
-      "openingDecimal": 1.3,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T17:21:00Z"
-    },
-    {
-      "gameId": "ligapro-ecuador-2026-11-22-orense-mushuc-runa-fe1gx6",
-      "homeName": "Orense SC",
-      "awayName": "Mushuc Runa SC",
-      "market": "asian_handicap",
-      "outcome": "HOME",
-      "line": 0,
-      "book": "fonbet",
-      "decimal": 1.27,
-      "openingDecimal": 1.27,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T17:21:00Z"
-    },
-    {
-      "gameId": "ligapro-ecuador-2026-11-22-orense-mushuc-runa-fe1gx6",
-      "homeName": "Orense SC",
-      "awayName": "Mushuc Runa SC",
-      "market": "asian_handicap",
-      "outcome": "AWAY",
-      "line": 0,
-      "book": "1xbet",
-      "decimal": 3.21,
-      "openingDecimal": 3.21,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T17:21:00Z"
-    },
-    {
-      "gameId": "ligapro-ecuador-2026-11-22-orense-mushuc-runa-fe1gx6",
-      "homeName": "Orense SC",
-      "awayName": "Mushuc Runa SC",
-      "market": "asian_handicap",
-      "outcome": "AWAY",
-      "line": 0,
-      "book": "bet365",
-      "decimal": 3.45,
-      "openingDecimal": 3.45,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T17:21:00Z"
-    },
-    {
-      "gameId": "ligapro-ecuador-2026-11-22-orense-mushuc-runa-fe1gx6",
-      "homeName": "Orense SC",
-      "awayName": "Mushuc Runa SC",
-      "market": "asian_handicap",
-      "outcome": "AWAY",
-      "line": 0,
-      "book": "fonbet",
-      "decimal": 3.25,
-      "openingDecimal": 3.25,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T17:21:00Z"
-    },
-    {
-      "gameId": "ligapro-ecuador-2026-11-22-orense-mushuc-runa-fe1gx6",
-      "homeName": "Orense SC",
-      "awayName": "Mushuc Runa SC",
-      "market": "asian_handicap",
-      "outcome": "HOME",
-      "line": 0.5,
-      "book": "unibet",
-      "decimal": 1.2,
-      "openingDecimal": 1.22,
-      "deltaPct": -1.64,
-      "movement": "shortening",
-      "movementSignal": "SHORTENING",
-      "capturedAtUtc": "2026-11-22T17:21:00Z"
-    },
-    {
-      "gameId": "ligapro-ecuador-2026-11-22-orense-mushuc-runa-fe1gx6",
-      "homeName": "Orense SC",
-      "awayName": "Mushuc Runa SC",
-      "market": "asian_handicap",
-      "outcome": "HOME",
-      "line": 0.5,
-      "book": "bet365",
-      "decimal": 1.19,
-      "openingDecimal": 1.2,
-      "deltaPct": -0.83,
-      "movement": "shortening",
-      "movementSignal": "SHORTENING",
-      "capturedAtUtc": "2026-11-22T17:21:00Z"
-    },
-    {
-      "gameId": "ligapro-ecuador-2026-11-22-orense-mushuc-runa-fe1gx6",
-      "homeName": "Orense SC",
-      "awayName": "Mushuc Runa SC",
-      "market": "asian_handicap",
-      "outcome": "AWAY",
-      "line": 0.5,
-      "book": "unibet",
-      "decimal": 4.25,
-      "openingDecimal": 4,
-      "deltaPct": 6.25,
-      "movement": "drifting",
-      "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-22T17:21:00Z"
-    },
-    {
-      "gameId": "ligapro-ecuador-2026-11-22-ldu-aucas-rzcyqb",
-      "homeName": "LDU",
-      "awayName": "Aucas",
-      "market": "1x2",
-      "outcome": "HOME",
-      "line": null,
-      "book": "1xbet",
-      "decimal": 1.76,
-      "openingDecimal": 1.8,
-      "deltaPct": -2.22,
-      "movement": "shortening",
-      "movementSignal": "SHORTENING",
-      "capturedAtUtc": "2026-11-22T19:20:12Z"
-    },
-    {
-      "gameId": "ligapro-ecuador-2026-11-22-ldu-aucas-rzcyqb",
-      "homeName": "LDU",
-      "awayName": "Aucas",
-      "market": "1x2",
-      "outcome": "HOME",
-      "line": null,
-      "book": "pinnacle",
-      "decimal": 1.77,
-      "openingDecimal": 1.84,
-      "deltaPct": -3.8,
-      "movement": "shortening",
-      "movementSignal": "SHORTENING",
-      "capturedAtUtc": "2026-11-22T19:20:12Z"
-    },
-    {
-      "gameId": "ligapro-ecuador-2026-11-22-ldu-aucas-rzcyqb",
-      "homeName": "LDU",
-      "awayName": "Aucas",
-      "market": "1x2",
-      "outcome": "HOME",
-      "line": null,
-      "book": "unibet",
-      "decimal": 1.77,
-      "openingDecimal": 1.71,
-      "deltaPct": 3.51,
-      "movement": "drifting",
-      "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-22T19:20:12Z"
+      "capturedAtUtc": "2026-11-22T21:50:07Z"
     },
     {
       "gameId": "ligapro-ecuador-2026-11-22-ldu-aucas-rzcyqb",
@@ -3027,11 +57,11 @@
       "line": null,
       "book": "bwin",
       "decimal": 1.73,
-      "openingDecimal": 1.77,
-      "deltaPct": -2.26,
-      "movement": "shortening",
-      "movementSignal": "SHORTENING",
-      "capturedAtUtc": "2026-11-22T19:20:12Z"
+      "openingDecimal": 1.73,
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-22T21:50:07Z"
     },
     {
       "gameId": "ligapro-ecuador-2026-11-22-ldu-aucas-rzcyqb",
@@ -3042,11 +72,11 @@
       "line": null,
       "book": "william-hill",
       "decimal": 1.73,
-      "openingDecimal": 1.75,
-      "deltaPct": -1.14,
-      "movement": "shortening",
-      "movementSignal": "SHORTENING",
-      "capturedAtUtc": "2026-11-22T19:20:12Z"
+      "openingDecimal": 1.73,
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-22T21:50:07Z"
     },
     {
       "gameId": "ligapro-ecuador-2026-11-22-ldu-aucas-rzcyqb",
@@ -3057,11 +87,11 @@
       "line": null,
       "book": "bet365",
       "decimal": 1.66,
-      "openingDecimal": 1.71,
-      "deltaPct": -2.92,
-      "movement": "shortening",
-      "movementSignal": "SHORTENING",
-      "capturedAtUtc": "2026-11-22T19:20:12Z"
+      "openingDecimal": 1.66,
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-22T21:50:07Z"
     },
     {
       "gameId": "ligapro-ecuador-2026-11-22-ldu-aucas-rzcyqb",
@@ -3072,11 +102,11 @@
       "line": null,
       "book": "betfair",
       "decimal": 1.75,
-      "openingDecimal": 1.8,
-      "deltaPct": -2.78,
-      "movement": "shortening",
-      "movementSignal": "SHORTENING",
-      "capturedAtUtc": "2026-11-22T19:20:12Z"
+      "openingDecimal": 1.75,
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-22T21:50:07Z"
     },
     {
       "gameId": "ligapro-ecuador-2026-11-22-ldu-aucas-rzcyqb",
@@ -3087,11 +117,11 @@
       "line": null,
       "book": "coral",
       "decimal": 1.75,
-      "openingDecimal": 1.8,
-      "deltaPct": -2.78,
-      "movement": "shortening",
-      "movementSignal": "SHORTENING",
-      "capturedAtUtc": "2026-11-22T19:20:12Z"
+      "openingDecimal": 1.75,
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-22T21:50:07Z"
     },
     {
       "gameId": "ligapro-ecuador-2026-11-22-ldu-aucas-rzcyqb",
@@ -3102,11 +132,11 @@
       "line": null,
       "book": "dafabet",
       "decimal": 1.76,
-      "openingDecimal": 1.81,
-      "deltaPct": -2.76,
-      "movement": "shortening",
-      "movementSignal": "SHORTENING",
-      "capturedAtUtc": "2026-11-22T19:20:12Z"
+      "openingDecimal": 1.76,
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-22T21:50:07Z"
     },
     {
       "gameId": "ligapro-ecuador-2026-11-22-ldu-aucas-rzcyqb",
@@ -3117,11 +147,11 @@
       "line": null,
       "book": "ladbrokes",
       "decimal": 1.75,
-      "openingDecimal": 1.8,
-      "deltaPct": -2.78,
-      "movement": "shortening",
-      "movementSignal": "SHORTENING",
-      "capturedAtUtc": "2026-11-22T19:20:12Z"
+      "openingDecimal": 1.75,
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-22T21:50:07Z"
     },
     {
       "gameId": "ligapro-ecuador-2026-11-22-ldu-aucas-rzcyqb",
@@ -3132,11 +162,11 @@
       "line": null,
       "book": "betvictor",
       "decimal": 1.62,
-      "openingDecimal": 1.73,
-      "deltaPct": -6.36,
-      "movement": "shortening",
-      "movementSignal": "SHORTENING",
-      "capturedAtUtc": "2026-11-22T19:20:12Z"
+      "openingDecimal": 1.62,
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-22T21:50:07Z"
     },
     {
       "gameId": "ligapro-ecuador-2026-11-22-ldu-aucas-rzcyqb",
@@ -3147,11 +177,11 @@
       "line": null,
       "book": "melbet",
       "decimal": 1.69,
-      "openingDecimal": 1.78,
-      "deltaPct": -5.06,
-      "movement": "shortening",
-      "movementSignal": "SHORTENING",
-      "capturedAtUtc": "2026-11-22T19:20:12Z"
+      "openingDecimal": 1.69,
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-22T21:50:07Z"
     },
     {
       "gameId": "ligapro-ecuador-2026-11-22-ldu-aucas-rzcyqb",
@@ -3166,7 +196,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T19:20:12Z"
+      "capturedAtUtc": "2026-11-22T21:50:07Z"
     },
     {
       "gameId": "ligapro-ecuador-2026-11-22-ldu-aucas-rzcyqb",
@@ -3177,11 +207,11 @@
       "line": null,
       "book": "sbo",
       "decimal": 1.75,
-      "openingDecimal": 1.84,
-      "deltaPct": -4.89,
-      "movement": "shortening",
-      "movementSignal": "SHORTENING",
-      "capturedAtUtc": "2026-11-22T19:20:12Z"
+      "openingDecimal": 1.75,
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-22T21:50:07Z"
     },
     {
       "gameId": "ligapro-ecuador-2026-11-22-ldu-aucas-rzcyqb",
@@ -3192,11 +222,11 @@
       "line": null,
       "book": "1xbet",
       "decimal": 3.64,
-      "openingDecimal": 3.6,
-      "deltaPct": 1.11,
-      "movement": "drifting",
-      "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-22T19:20:12Z"
+      "openingDecimal": 3.64,
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-22T21:50:07Z"
     },
     {
       "gameId": "ligapro-ecuador-2026-11-22-ldu-aucas-rzcyqb",
@@ -3207,11 +237,11 @@
       "line": null,
       "book": "pinnacle",
       "decimal": 3.76,
-      "openingDecimal": 3.57,
-      "deltaPct": 5.32,
-      "movement": "drifting",
-      "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-22T19:20:12Z"
+      "openingDecimal": 3.76,
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-22T21:50:07Z"
     },
     {
       "gameId": "ligapro-ecuador-2026-11-22-ldu-aucas-rzcyqb",
@@ -3222,11 +252,11 @@
       "line": null,
       "book": "unibet",
       "decimal": 3.45,
-      "openingDecimal": 3.55,
-      "deltaPct": -2.82,
-      "movement": "shortening",
-      "movementSignal": "SHORTENING",
-      "capturedAtUtc": "2026-11-22T19:20:12Z"
+      "openingDecimal": 3.45,
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-22T21:50:07Z"
     },
     {
       "gameId": "ligapro-ecuador-2026-11-22-ldu-aucas-rzcyqb",
@@ -3237,11 +267,11 @@
       "line": null,
       "book": "bwin",
       "decimal": 3.3,
-      "openingDecimal": 3.4,
-      "deltaPct": -2.94,
-      "movement": "shortening",
-      "movementSignal": "SHORTENING",
-      "capturedAtUtc": "2026-11-22T19:20:12Z"
+      "openingDecimal": 3.3,
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-22T21:50:07Z"
     },
     {
       "gameId": "ligapro-ecuador-2026-11-22-ldu-aucas-rzcyqb",
@@ -3256,7 +286,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T19:20:12Z"
+      "capturedAtUtc": "2026-11-22T21:50:07Z"
     },
     {
       "gameId": "ligapro-ecuador-2026-11-22-ldu-aucas-rzcyqb",
@@ -3267,11 +297,11 @@
       "line": null,
       "book": "bet365",
       "decimal": 3.5,
-      "openingDecimal": 3.4,
-      "deltaPct": 2.94,
-      "movement": "drifting",
-      "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-22T19:20:12Z"
+      "openingDecimal": 3.5,
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-22T21:50:07Z"
     },
     {
       "gameId": "ligapro-ecuador-2026-11-22-ldu-aucas-rzcyqb",
@@ -3286,7 +316,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T19:20:12Z"
+      "capturedAtUtc": "2026-11-22T21:50:07Z"
     },
     {
       "gameId": "ligapro-ecuador-2026-11-22-ldu-aucas-rzcyqb",
@@ -3297,11 +327,11 @@
       "line": null,
       "book": "coral",
       "decimal": 3.3,
-      "openingDecimal": 3.4,
-      "deltaPct": -2.94,
-      "movement": "shortening",
-      "movementSignal": "SHORTENING",
-      "capturedAtUtc": "2026-11-22T19:20:12Z"
+      "openingDecimal": 3.3,
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-22T21:50:07Z"
     },
     {
       "gameId": "ligapro-ecuador-2026-11-22-ldu-aucas-rzcyqb",
@@ -3312,11 +342,11 @@
       "line": null,
       "book": "dafabet",
       "decimal": 3.55,
-      "openingDecimal": 3.35,
-      "deltaPct": 5.97,
-      "movement": "drifting",
-      "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-22T19:20:12Z"
+      "openingDecimal": 3.55,
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-22T21:50:07Z"
     },
     {
       "gameId": "ligapro-ecuador-2026-11-22-ldu-aucas-rzcyqb",
@@ -3327,11 +357,11 @@
       "line": null,
       "book": "ladbrokes",
       "decimal": 3.3,
-      "openingDecimal": 3.4,
-      "deltaPct": -2.94,
-      "movement": "shortening",
-      "movementSignal": "SHORTENING",
-      "capturedAtUtc": "2026-11-22T19:20:12Z"
+      "openingDecimal": 3.3,
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-22T21:50:07Z"
     },
     {
       "gameId": "ligapro-ecuador-2026-11-22-ldu-aucas-rzcyqb",
@@ -3342,11 +372,11 @@
       "line": null,
       "book": "betvictor",
       "decimal": 3.1,
-      "openingDecimal": 3,
-      "deltaPct": 3.33,
-      "movement": "drifting",
-      "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-22T19:20:12Z"
+      "openingDecimal": 3.1,
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-22T21:50:07Z"
     },
     {
       "gameId": "ligapro-ecuador-2026-11-22-ldu-aucas-rzcyqb",
@@ -3357,11 +387,11 @@
       "line": null,
       "book": "melbet",
       "decimal": 3.15,
-      "openingDecimal": 3.65,
-      "deltaPct": -13.7,
-      "movement": "shortening",
-      "movementSignal": "STEAM",
-      "capturedAtUtc": "2026-11-22T19:20:12Z"
+      "openingDecimal": 3.15,
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-22T21:50:07Z"
     },
     {
       "gameId": "ligapro-ecuador-2026-11-22-ldu-aucas-rzcyqb",
@@ -3376,7 +406,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T19:20:12Z"
+      "capturedAtUtc": "2026-11-22T21:50:07Z"
     },
     {
       "gameId": "ligapro-ecuador-2026-11-22-ldu-aucas-rzcyqb",
@@ -3387,11 +417,11 @@
       "line": null,
       "book": "sbo",
       "decimal": 3.16,
-      "openingDecimal": 3.02,
-      "deltaPct": 4.64,
-      "movement": "drifting",
-      "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-22T19:20:12Z"
+      "openingDecimal": 3.16,
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-22T21:50:07Z"
     },
     {
       "gameId": "ligapro-ecuador-2026-11-22-ldu-aucas-rzcyqb",
@@ -3402,11 +432,11 @@
       "line": null,
       "book": "1xbet",
       "decimal": 4.44,
-      "openingDecimal": 4.24,
-      "deltaPct": 4.72,
-      "movement": "drifting",
-      "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-22T19:20:12Z"
+      "openingDecimal": 4.44,
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-22T21:50:07Z"
     },
     {
       "gameId": "ligapro-ecuador-2026-11-22-ldu-aucas-rzcyqb",
@@ -3417,11 +447,11 @@
       "line": null,
       "book": "pinnacle",
       "decimal": 4.6,
-      "openingDecimal": 4.16,
-      "deltaPct": 10.58,
-      "movement": "drifting",
-      "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-22T19:20:12Z"
+      "openingDecimal": 4.6,
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-22T21:50:07Z"
     },
     {
       "gameId": "ligapro-ecuador-2026-11-22-ldu-aucas-rzcyqb",
@@ -3432,11 +462,11 @@
       "line": null,
       "book": "unibet",
       "decimal": 4.5,
-      "openingDecimal": 4.9,
-      "deltaPct": -8.16,
-      "movement": "shortening",
-      "movementSignal": "STEAM",
-      "capturedAtUtc": "2026-11-22T19:20:12Z"
+      "openingDecimal": 4.5,
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-22T21:50:07Z"
     },
     {
       "gameId": "ligapro-ecuador-2026-11-22-ldu-aucas-rzcyqb",
@@ -3447,11 +477,11 @@
       "line": null,
       "book": "bwin",
       "decimal": 4.1,
-      "openingDecimal": 3.9,
-      "deltaPct": 5.13,
-      "movement": "drifting",
-      "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-22T19:20:12Z"
+      "openingDecimal": 4.1,
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-22T21:50:07Z"
     },
     {
       "gameId": "ligapro-ecuador-2026-11-22-ldu-aucas-rzcyqb",
@@ -3462,11 +492,11 @@
       "line": null,
       "book": "william-hill",
       "decimal": 4,
-      "openingDecimal": 3.8,
-      "deltaPct": 5.26,
-      "movement": "drifting",
-      "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-22T19:20:12Z"
+      "openingDecimal": 4,
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-22T21:50:07Z"
     },
     {
       "gameId": "ligapro-ecuador-2026-11-22-ldu-aucas-rzcyqb",
@@ -3477,11 +507,11 @@
       "line": null,
       "book": "bet365",
       "decimal": 4.5,
-      "openingDecimal": 4.333,
-      "deltaPct": 3.85,
-      "movement": "drifting",
-      "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-22T19:20:12Z"
+      "openingDecimal": 4.5,
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-22T21:50:07Z"
     },
     {
       "gameId": "ligapro-ecuador-2026-11-22-ldu-aucas-rzcyqb",
@@ -3492,11 +522,11 @@
       "line": null,
       "book": "betfair",
       "decimal": 4.4,
-      "openingDecimal": 4.2,
-      "deltaPct": 4.76,
-      "movement": "drifting",
-      "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-22T19:20:12Z"
+      "openingDecimal": 4.4,
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-22T21:50:07Z"
     },
     {
       "gameId": "ligapro-ecuador-2026-11-22-ldu-aucas-rzcyqb",
@@ -3507,11 +537,11 @@
       "line": null,
       "book": "coral",
       "decimal": 4.2,
-      "openingDecimal": 3.9,
-      "deltaPct": 7.69,
-      "movement": "drifting",
-      "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-22T19:20:12Z"
+      "openingDecimal": 4.2,
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-22T21:50:07Z"
     },
     {
       "gameId": "ligapro-ecuador-2026-11-22-ldu-aucas-rzcyqb",
@@ -3522,11 +552,11 @@
       "line": null,
       "book": "dafabet",
       "decimal": 4.4,
-      "openingDecimal": 3.95,
-      "deltaPct": 11.39,
-      "movement": "drifting",
-      "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-22T19:20:12Z"
+      "openingDecimal": 4.4,
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-22T21:50:07Z"
     },
     {
       "gameId": "ligapro-ecuador-2026-11-22-ldu-aucas-rzcyqb",
@@ -3537,11 +567,11 @@
       "line": null,
       "book": "ladbrokes",
       "decimal": 4.2,
-      "openingDecimal": 3.9,
-      "deltaPct": 7.69,
-      "movement": "drifting",
-      "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-22T19:20:12Z"
+      "openingDecimal": 4.2,
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-22T21:50:07Z"
     },
     {
       "gameId": "ligapro-ecuador-2026-11-22-ldu-aucas-rzcyqb",
@@ -3552,11 +582,11 @@
       "line": null,
       "book": "betvictor",
       "decimal": 3.9,
-      "openingDecimal": 3.5,
-      "deltaPct": 11.43,
-      "movement": "drifting",
-      "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-22T19:20:12Z"
+      "openingDecimal": 3.9,
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-22T21:50:07Z"
     },
     {
       "gameId": "ligapro-ecuador-2026-11-22-ldu-aucas-rzcyqb",
@@ -3567,11 +597,11 @@
       "line": null,
       "book": "melbet",
       "decimal": 3.68,
-      "openingDecimal": 4.23,
-      "deltaPct": -13,
-      "movement": "shortening",
-      "movementSignal": "STEAM",
-      "capturedAtUtc": "2026-11-22T19:20:12Z"
+      "openingDecimal": 3.68,
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-22T21:50:07Z"
     },
     {
       "gameId": "ligapro-ecuador-2026-11-22-ldu-aucas-rzcyqb",
@@ -3586,7 +616,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T19:20:12Z"
+      "capturedAtUtc": "2026-11-22T21:50:07Z"
     },
     {
       "gameId": "ligapro-ecuador-2026-11-22-ldu-aucas-rzcyqb",
@@ -3597,11 +627,11 @@
       "line": null,
       "book": "sbo",
       "decimal": 3.86,
-      "openingDecimal": 3.43,
-      "deltaPct": 12.54,
-      "movement": "drifting",
-      "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-22T19:20:12Z"
+      "openingDecimal": 3.86,
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-22T21:50:07Z"
     },
     {
       "gameId": "ligapro-ecuador-2026-11-22-ldu-aucas-rzcyqb",
@@ -3612,11 +642,11 @@
       "line": null,
       "book": "1xbet",
       "decimal": 1.18,
-      "openingDecimal": 1.19,
-      "deltaPct": -0.84,
-      "movement": "shortening",
-      "movementSignal": "SHORTENING",
-      "capturedAtUtc": "2026-11-22T19:20:12Z"
+      "openingDecimal": 1.18,
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-22T21:50:07Z"
     },
     {
       "gameId": "ligapro-ecuador-2026-11-22-ldu-aucas-rzcyqb",
@@ -3631,7 +661,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T19:20:12Z"
+      "capturedAtUtc": "2026-11-22T21:50:07Z"
     },
     {
       "gameId": "ligapro-ecuador-2026-11-22-ldu-aucas-rzcyqb",
@@ -3646,7 +676,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T19:20:12Z"
+      "capturedAtUtc": "2026-11-22T21:50:07Z"
     },
     {
       "gameId": "ligapro-ecuador-2026-11-22-ldu-aucas-rzcyqb",
@@ -3657,11 +687,11 @@
       "line": null,
       "book": "sbo",
       "decimal": 1.11,
-      "openingDecimal": 1.14,
-      "deltaPct": -2.63,
-      "movement": "shortening",
-      "movementSignal": "SHORTENING",
-      "capturedAtUtc": "2026-11-22T19:20:12Z"
+      "openingDecimal": 1.11,
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-22T21:50:07Z"
     },
     {
       "gameId": "ligapro-ecuador-2026-11-22-ldu-aucas-rzcyqb",
@@ -3672,11 +702,11 @@
       "line": null,
       "book": "1xbet",
       "decimal": 1.98,
-      "openingDecimal": 1.92,
-      "deltaPct": 3.13,
-      "movement": "drifting",
-      "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-22T19:20:12Z"
+      "openingDecimal": 1.98,
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-22T21:50:07Z"
     },
     {
       "gameId": "ligapro-ecuador-2026-11-22-ldu-aucas-rzcyqb",
@@ -3687,11 +717,11 @@
       "line": null,
       "book": "william-hill",
       "decimal": 1.95,
-      "openingDecimal": 1.91,
-      "deltaPct": 2.09,
-      "movement": "drifting",
-      "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-22T19:20:12Z"
+      "openingDecimal": 1.95,
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-22T21:50:07Z"
     },
     {
       "gameId": "ligapro-ecuador-2026-11-22-ldu-aucas-rzcyqb",
@@ -3702,11 +732,11 @@
       "line": null,
       "book": "betfair",
       "decimal": 2,
-      "openingDecimal": 1.91,
-      "deltaPct": 4.71,
-      "movement": "drifting",
-      "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-22T19:20:12Z"
+      "openingDecimal": 2,
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-22T21:50:07Z"
     },
     {
       "gameId": "ligapro-ecuador-2026-11-22-ldu-aucas-rzcyqb",
@@ -3717,11 +747,11 @@
       "line": null,
       "book": "sbo",
       "decimal": 2.01,
-      "openingDecimal": 1.9,
-      "deltaPct": 5.79,
-      "movement": "drifting",
-      "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-22T19:20:12Z"
+      "openingDecimal": 2.01,
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-22T21:50:07Z"
     },
     {
       "gameId": "ligapro-ecuador-2026-11-22-ldu-aucas-rzcyqb",
@@ -3736,7 +766,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T19:20:12Z"
+      "capturedAtUtc": "2026-11-22T21:50:07Z"
     },
     {
       "gameId": "ligapro-ecuador-2026-11-22-ldu-aucas-rzcyqb",
@@ -3747,11 +777,11 @@
       "line": null,
       "book": "william-hill",
       "decimal": 1.25,
-      "openingDecimal": 1.29,
-      "deltaPct": -3.1,
-      "movement": "shortening",
-      "movementSignal": "SHORTENING",
-      "capturedAtUtc": "2026-11-22T19:20:12Z"
+      "openingDecimal": 1.25,
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-22T21:50:07Z"
     },
     {
       "gameId": "ligapro-ecuador-2026-11-22-ldu-aucas-rzcyqb",
@@ -3766,7 +796,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T19:20:12Z"
+      "capturedAtUtc": "2026-11-22T21:50:07Z"
     },
     {
       "gameId": "ligapro-ecuador-2026-11-22-ldu-aucas-rzcyqb",
@@ -3777,11 +807,11 @@
       "line": null,
       "book": "sbo",
       "decimal": 1.18,
-      "openingDecimal": 1.2,
-      "deltaPct": -1.67,
-      "movement": "shortening",
-      "movementSignal": "SHORTENING",
-      "capturedAtUtc": "2026-11-22T19:20:12Z"
+      "openingDecimal": 1.18,
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-22T21:50:07Z"
     },
     {
       "gameId": "ligapro-ecuador-2026-11-22-ldu-aucas-rzcyqb",
@@ -3792,11 +822,11 @@
       "line": 1.5,
       "book": "1xbet",
       "decimal": 1.27,
-      "openingDecimal": 1.28,
-      "deltaPct": -0.78,
-      "movement": "shortening",
-      "movementSignal": "SHORTENING",
-      "capturedAtUtc": "2026-11-22T19:20:12Z"
+      "openingDecimal": 1.27,
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-22T21:50:07Z"
     },
     {
       "gameId": "ligapro-ecuador-2026-11-22-ldu-aucas-rzcyqb",
@@ -3811,7 +841,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T19:20:12Z"
+      "capturedAtUtc": "2026-11-22T21:50:07Z"
     },
     {
       "gameId": "ligapro-ecuador-2026-11-22-ldu-aucas-rzcyqb",
@@ -3822,11 +852,11 @@
       "line": 1.5,
       "book": "betfair",
       "decimal": 1.3,
-      "openingDecimal": 1.33,
-      "deltaPct": -2.26,
-      "movement": "shortening",
-      "movementSignal": "SHORTENING",
-      "capturedAtUtc": "2026-11-22T19:20:12Z"
+      "openingDecimal": 1.3,
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-22T21:50:07Z"
     },
     {
       "gameId": "ligapro-ecuador-2026-11-22-ldu-aucas-rzcyqb",
@@ -3841,7 +871,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T19:20:12Z"
+      "capturedAtUtc": "2026-11-22T21:50:07Z"
     },
     {
       "gameId": "ligapro-ecuador-2026-11-22-ldu-aucas-rzcyqb",
@@ -3852,11 +882,11 @@
       "line": 1.5,
       "book": "1xbet",
       "decimal": 3.15,
-      "openingDecimal": 3.17,
-      "deltaPct": -0.63,
-      "movement": "shortening",
-      "movementSignal": "SHORTENING",
-      "capturedAtUtc": "2026-11-22T19:20:12Z"
+      "openingDecimal": 3.15,
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-22T21:50:07Z"
     },
     {
       "gameId": "ligapro-ecuador-2026-11-22-ldu-aucas-rzcyqb",
@@ -3867,11 +897,11 @@
       "line": 1.5,
       "book": "pinnacle",
       "decimal": 3.41,
-      "openingDecimal": 3.3,
-      "deltaPct": 3.33,
-      "movement": "drifting",
-      "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-22T19:20:12Z"
+      "openingDecimal": 3.41,
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-22T21:50:07Z"
     },
     {
       "gameId": "ligapro-ecuador-2026-11-22-ldu-aucas-rzcyqb",
@@ -3882,11 +912,11 @@
       "line": 1.5,
       "book": "betfair",
       "decimal": 3.4,
-      "openingDecimal": 3.25,
-      "deltaPct": 4.62,
-      "movement": "drifting",
-      "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-22T19:20:12Z"
+      "openingDecimal": 3.4,
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-22T21:50:07Z"
     },
     {
       "gameId": "ligapro-ecuador-2026-11-22-ldu-aucas-rzcyqb",
@@ -3901,7 +931,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T19:20:12Z"
+      "capturedAtUtc": "2026-11-22T21:50:07Z"
     },
     {
       "gameId": "ligapro-ecuador-2026-11-22-ldu-aucas-rzcyqb",
@@ -3916,7 +946,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T19:20:12Z"
+      "capturedAtUtc": "2026-11-22T21:50:07Z"
     },
     {
       "gameId": "ligapro-ecuador-2026-11-22-ldu-aucas-rzcyqb",
@@ -3927,11 +957,11 @@
       "line": 2.5,
       "book": "pinnacle",
       "decimal": 2.02,
-      "openingDecimal": 2.01,
-      "deltaPct": 0.5,
+      "openingDecimal": 2.02,
+      "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T19:20:12Z"
+      "capturedAtUtc": "2026-11-22T21:50:07Z"
     },
     {
       "gameId": "ligapro-ecuador-2026-11-22-ldu-aucas-rzcyqb",
@@ -3942,11 +972,11 @@
       "line": 2.5,
       "book": "bet365",
       "decimal": 1.95,
-      "openingDecimal": 2.05,
-      "deltaPct": -4.88,
-      "movement": "shortening",
-      "movementSignal": "SHORTENING",
-      "capturedAtUtc": "2026-11-22T19:20:12Z"
+      "openingDecimal": 1.95,
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-22T21:50:07Z"
     },
     {
       "gameId": "ligapro-ecuador-2026-11-22-ldu-aucas-rzcyqb",
@@ -3961,7 +991,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T19:20:12Z"
+      "capturedAtUtc": "2026-11-22T21:50:07Z"
     },
     {
       "gameId": "ligapro-ecuador-2026-11-22-ldu-aucas-rzcyqb",
@@ -3972,11 +1002,11 @@
       "line": 2.5,
       "book": "betvictor",
       "decimal": 1.73,
-      "openingDecimal": 1.74,
-      "deltaPct": -0.57,
-      "movement": "shortening",
-      "movementSignal": "SHORTENING",
-      "capturedAtUtc": "2026-11-22T19:20:12Z"
+      "openingDecimal": 1.73,
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-22T21:50:07Z"
     },
     {
       "gameId": "ligapro-ecuador-2026-11-22-ldu-aucas-rzcyqb",
@@ -3987,11 +1017,11 @@
       "line": 2.5,
       "book": "sbo",
       "decimal": 2.02,
-      "openingDecimal": 2,
-      "deltaPct": 1,
-      "movement": "drifting",
-      "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-22T19:20:12Z"
+      "openingDecimal": 2.02,
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-22T21:50:07Z"
     },
     {
       "gameId": "ligapro-ecuador-2026-11-22-ldu-aucas-rzcyqb",
@@ -4006,7 +1036,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T19:20:12Z"
+      "capturedAtUtc": "2026-11-22T21:50:07Z"
     },
     {
       "gameId": "ligapro-ecuador-2026-11-22-ldu-aucas-rzcyqb",
@@ -4017,11 +1047,11 @@
       "line": 2.5,
       "book": "pinnacle",
       "decimal": 1.83,
-      "openingDecimal": 1.79,
-      "deltaPct": 2.23,
-      "movement": "drifting",
-      "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-22T19:20:12Z"
+      "openingDecimal": 1.83,
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-22T21:50:07Z"
     },
     {
       "gameId": "ligapro-ecuador-2026-11-22-ldu-aucas-rzcyqb",
@@ -4032,11 +1062,11 @@
       "line": 2.5,
       "book": "bet365",
       "decimal": 1.85,
-      "openingDecimal": 1.75,
-      "deltaPct": 5.71,
-      "movement": "drifting",
-      "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-22T19:20:12Z"
+      "openingDecimal": 1.85,
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-22T21:50:07Z"
     },
     {
       "gameId": "ligapro-ecuador-2026-11-22-ldu-aucas-rzcyqb",
@@ -4051,7 +1081,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T19:20:12Z"
+      "capturedAtUtc": "2026-11-22T21:50:07Z"
     },
     {
       "gameId": "ligapro-ecuador-2026-11-22-ldu-aucas-rzcyqb",
@@ -4062,11 +1092,11 @@
       "line": 2.5,
       "book": "betvictor",
       "decimal": 1.61,
-      "openingDecimal": 1.6,
-      "deltaPct": 0.63,
-      "movement": "drifting",
-      "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-22T19:20:12Z"
+      "openingDecimal": 1.61,
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-22T21:50:07Z"
     },
     {
       "gameId": "ligapro-ecuador-2026-11-22-ldu-aucas-rzcyqb",
@@ -4081,7 +1111,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T19:20:12Z"
+      "capturedAtUtc": "2026-11-22T21:50:07Z"
     },
     {
       "gameId": "ligapro-ecuador-2026-11-22-ldu-aucas-rzcyqb",
@@ -4092,11 +1122,11 @@
       "line": 3.5,
       "book": "1xbet",
       "decimal": 3.36,
-      "openingDecimal": 3.47,
-      "deltaPct": -3.17,
-      "movement": "shortening",
-      "movementSignal": "SHORTENING",
-      "capturedAtUtc": "2026-11-22T19:20:12Z"
+      "openingDecimal": 3.36,
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-22T21:50:07Z"
     },
     {
       "gameId": "ligapro-ecuador-2026-11-22-ldu-aucas-rzcyqb",
@@ -4107,11 +1137,11 @@
       "line": 3.5,
       "book": "pinnacle",
       "decimal": 3.47,
-      "openingDecimal": 3.42,
-      "deltaPct": 1.46,
-      "movement": "drifting",
-      "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-22T19:20:12Z"
+      "openingDecimal": 3.47,
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-22T21:50:07Z"
     },
     {
       "gameId": "ligapro-ecuador-2026-11-22-ldu-aucas-rzcyqb",
@@ -4126,7 +1156,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T19:20:12Z"
+      "capturedAtUtc": "2026-11-22T21:50:07Z"
     },
     {
       "gameId": "ligapro-ecuador-2026-11-22-ldu-aucas-rzcyqb",
@@ -4141,7 +1171,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T19:20:12Z"
+      "capturedAtUtc": "2026-11-22T21:50:07Z"
     },
     {
       "gameId": "ligapro-ecuador-2026-11-22-ldu-aucas-rzcyqb",
@@ -4152,11 +1182,11 @@
       "line": 3.5,
       "book": "1xbet",
       "decimal": 1.25,
-      "openingDecimal": 1.26,
-      "deltaPct": -0.79,
-      "movement": "shortening",
-      "movementSignal": "SHORTENING",
-      "capturedAtUtc": "2026-11-22T19:20:12Z"
+      "openingDecimal": 1.25,
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-22T21:50:07Z"
     },
     {
       "gameId": "ligapro-ecuador-2026-11-22-ldu-aucas-rzcyqb",
@@ -4167,11 +1197,11 @@
       "line": 3.5,
       "book": "pinnacle",
       "decimal": 1.3,
-      "openingDecimal": 1.29,
-      "deltaPct": 0.78,
-      "movement": "drifting",
-      "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-22T19:20:12Z"
+      "openingDecimal": 1.3,
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-22T21:50:07Z"
     },
     {
       "gameId": "ligapro-ecuador-2026-11-22-ldu-aucas-rzcyqb",
@@ -4186,7 +1216,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T19:20:12Z"
+      "capturedAtUtc": "2026-11-22T21:50:07Z"
     },
     {
       "gameId": "ligapro-ecuador-2026-11-22-ldu-aucas-rzcyqb",
@@ -4201,7 +1231,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T19:20:12Z"
+      "capturedAtUtc": "2026-11-22T21:50:07Z"
     },
     {
       "gameId": "ligapro-ecuador-2026-11-22-ldu-aucas-rzcyqb",
@@ -4212,11 +1242,11 @@
       "line": null,
       "book": "1xbet",
       "decimal": 1.84,
-      "openingDecimal": 1.83,
-      "deltaPct": 0.55,
-      "movement": "drifting",
-      "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-22T19:20:12Z"
+      "openingDecimal": 1.84,
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-22T21:50:07Z"
     },
     {
       "gameId": "ligapro-ecuador-2026-11-22-ldu-aucas-rzcyqb",
@@ -4226,12 +1256,12 @@
       "outcome": "yes",
       "line": null,
       "book": "betano",
-      "decimal": 1.85,
+      "decimal": 1.88,
       "openingDecimal": 1.82,
-      "deltaPct": 1.65,
+      "deltaPct": 3.3,
       "movement": "drifting",
       "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-22T17:21:14Z"
+      "capturedAtUtc": "2026-11-22T20:20:38Z"
     },
     {
       "gameId": "ligapro-ecuador-2026-11-22-ldu-aucas-rzcyqb",
@@ -4246,7 +1276,7 @@
       "deltaPct": 1.67,
       "movement": "drifting",
       "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-22T17:21:14Z"
+      "capturedAtUtc": "2026-11-22T20:20:38Z"
     },
     {
       "gameId": "ligapro-ecuador-2026-11-22-ldu-aucas-rzcyqb",
@@ -4261,7 +1291,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T17:21:14Z"
+      "capturedAtUtc": "2026-11-22T20:20:38Z"
     },
     {
       "gameId": "ligapro-ecuador-2026-11-22-ldu-aucas-rzcyqb",
@@ -4276,7 +1306,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T17:21:14Z"
+      "capturedAtUtc": "2026-11-22T20:20:38Z"
     },
     {
       "gameId": "ligapro-ecuador-2026-11-22-ldu-aucas-rzcyqb",
@@ -4291,7 +1321,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T17:21:14Z"
+      "capturedAtUtc": "2026-11-22T20:20:38Z"
     },
     {
       "gameId": "ligapro-ecuador-2026-11-22-ldu-aucas-rzcyqb",
@@ -4306,7 +1336,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T17:21:14Z"
+      "capturedAtUtc": "2026-11-22T20:20:38Z"
     },
     {
       "gameId": "ligapro-ecuador-2026-11-22-ldu-aucas-rzcyqb",
@@ -4321,7 +1351,7 @@
       "deltaPct": 1.81,
       "movement": "drifting",
       "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-22T17:21:14Z"
+      "capturedAtUtc": "2026-11-22T20:20:38Z"
     },
     {
       "gameId": "ligapro-ecuador-2026-11-22-ldu-aucas-rzcyqb",
@@ -4336,7 +1366,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T17:21:14Z"
+      "capturedAtUtc": "2026-11-22T20:20:38Z"
     },
     {
       "gameId": "ligapro-ecuador-2026-11-22-ldu-aucas-rzcyqb",
@@ -4351,7 +1381,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T19:20:12Z"
+      "capturedAtUtc": "2026-11-22T21:50:07Z"
     },
     {
       "gameId": "ligapro-ecuador-2026-11-22-ldu-aucas-rzcyqb",
@@ -4362,11 +1392,11 @@
       "line": null,
       "book": "bet365",
       "decimal": 1.83,
-      "openingDecimal": 1.833,
-      "deltaPct": -0.16,
-      "movement": "shortening",
-      "movementSignal": "SHORTENING",
-      "capturedAtUtc": "2026-11-22T19:20:12Z"
+      "openingDecimal": 1.83,
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-22T21:50:07Z"
     },
     {
       "gameId": "ligapro-ecuador-2026-11-22-ldu-aucas-rzcyqb",
@@ -4381,7 +1411,7 @@
       "deltaPct": 1.62,
       "movement": "drifting",
       "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-22T17:21:14Z"
+      "capturedAtUtc": "2026-11-22T20:20:38Z"
     },
     {
       "gameId": "ligapro-ecuador-2026-11-22-ldu-aucas-rzcyqb",
@@ -4396,7 +1426,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T19:20:12Z"
+      "capturedAtUtc": "2026-11-22T21:50:07Z"
     },
     {
       "gameId": "ligapro-ecuador-2026-11-22-ldu-aucas-rzcyqb",
@@ -4411,7 +1441,7 @@
       "deltaPct": 1.62,
       "movement": "drifting",
       "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-22T17:21:14Z"
+      "capturedAtUtc": "2026-11-22T20:20:38Z"
     },
     {
       "gameId": "ligapro-ecuador-2026-11-22-ldu-aucas-rzcyqb",
@@ -4426,7 +1456,7 @@
       "deltaPct": 2.78,
       "movement": "drifting",
       "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-22T17:21:14Z"
+      "capturedAtUtc": "2026-11-22T20:20:38Z"
     },
     {
       "gameId": "ligapro-ecuador-2026-11-22-ldu-aucas-rzcyqb",
@@ -4437,11 +1467,11 @@
       "line": null,
       "book": "betvictor",
       "decimal": 1.67,
-      "openingDecimal": 1.65,
-      "deltaPct": 1.21,
-      "movement": "drifting",
-      "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-22T19:20:12Z"
+      "openingDecimal": 1.67,
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-22T21:50:07Z"
     },
     {
       "gameId": "ligapro-ecuador-2026-11-22-ldu-aucas-rzcyqb",
@@ -4456,7 +1486,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T17:21:14Z"
+      "capturedAtUtc": "2026-11-22T20:20:38Z"
     },
     {
       "gameId": "ligapro-ecuador-2026-11-22-ldu-aucas-rzcyqb",
@@ -4466,12 +1496,12 @@
       "outcome": "HOME",
       "line": null,
       "book": "betano",
-      "decimal": 1.33,
+      "decimal": 1.31,
       "openingDecimal": 1.38,
-      "deltaPct": -3.62,
+      "deltaPct": -5.07,
       "movement": "shortening",
       "movementSignal": "SHORTENING",
-      "capturedAtUtc": "2026-11-22T17:21:14Z"
+      "capturedAtUtc": "2026-11-22T20:20:38Z"
     },
     {
       "gameId": "ligapro-ecuador-2026-11-22-ldu-aucas-rzcyqb",
@@ -4486,7 +1516,7 @@
       "deltaPct": -2.92,
       "movement": "shortening",
       "movementSignal": "SHORTENING",
-      "capturedAtUtc": "2026-11-22T17:21:14Z"
+      "capturedAtUtc": "2026-11-22T20:20:38Z"
     },
     {
       "gameId": "ligapro-ecuador-2026-11-22-ldu-aucas-rzcyqb",
@@ -4501,7 +1531,7 @@
       "deltaPct": -2.94,
       "movement": "shortening",
       "movementSignal": "SHORTENING",
-      "capturedAtUtc": "2026-11-22T17:21:14Z"
+      "capturedAtUtc": "2026-11-22T20:20:38Z"
     },
     {
       "gameId": "ligapro-ecuador-2026-11-22-ldu-aucas-rzcyqb",
@@ -4516,7 +1546,7 @@
       "deltaPct": -2.24,
       "movement": "shortening",
       "movementSignal": "SHORTENING",
-      "capturedAtUtc": "2026-11-22T17:21:14Z"
+      "capturedAtUtc": "2026-11-22T20:20:38Z"
     },
     {
       "gameId": "ligapro-ecuador-2026-11-22-ldu-aucas-rzcyqb",
@@ -4531,7 +1561,7 @@
       "deltaPct": -2.24,
       "movement": "shortening",
       "movementSignal": "SHORTENING",
-      "capturedAtUtc": "2026-11-22T17:21:14Z"
+      "capturedAtUtc": "2026-11-22T20:20:38Z"
     },
     {
       "gameId": "ligapro-ecuador-2026-11-22-ldu-aucas-rzcyqb",
@@ -4546,7 +1576,7 @@
       "deltaPct": -3.7,
       "movement": "shortening",
       "movementSignal": "SHORTENING",
-      "capturedAtUtc": "2026-11-22T17:21:14Z"
+      "capturedAtUtc": "2026-11-22T20:20:38Z"
     },
     {
       "gameId": "ligapro-ecuador-2026-11-22-ldu-aucas-rzcyqb",
@@ -4561,7 +1591,7 @@
       "deltaPct": -2.48,
       "movement": "shortening",
       "movementSignal": "SHORTENING",
-      "capturedAtUtc": "2026-11-22T17:21:14Z"
+      "capturedAtUtc": "2026-11-22T20:20:38Z"
     },
     {
       "gameId": "ligapro-ecuador-2026-11-22-ldu-aucas-rzcyqb",
@@ -4576,7 +1606,7 @@
       "deltaPct": -3.7,
       "movement": "shortening",
       "movementSignal": "SHORTENING",
-      "capturedAtUtc": "2026-11-22T17:21:14Z"
+      "capturedAtUtc": "2026-11-22T20:20:38Z"
     },
     {
       "gameId": "ligapro-ecuador-2026-11-22-ldu-aucas-rzcyqb",
@@ -4591,7 +1621,7 @@
       "deltaPct": -3.53,
       "movement": "shortening",
       "movementSignal": "SHORTENING",
-      "capturedAtUtc": "2026-11-22T17:21:14Z"
+      "capturedAtUtc": "2026-11-22T20:20:38Z"
     },
     {
       "gameId": "ligapro-ecuador-2026-11-22-ldu-aucas-rzcyqb",
@@ -4606,7 +1636,7 @@
       "deltaPct": -3.65,
       "movement": "shortening",
       "movementSignal": "SHORTENING",
-      "capturedAtUtc": "2026-11-22T17:21:14Z"
+      "capturedAtUtc": "2026-11-22T20:20:38Z"
     },
     {
       "gameId": "ligapro-ecuador-2026-11-22-ldu-aucas-rzcyqb",
@@ -4621,7 +1651,7 @@
       "deltaPct": -4.81,
       "movement": "shortening",
       "movementSignal": "SHORTENING",
-      "capturedAtUtc": "2026-11-22T17:21:14Z"
+      "capturedAtUtc": "2026-11-22T20:20:38Z"
     },
     {
       "gameId": "ligapro-ecuador-2026-11-22-ldu-aucas-rzcyqb",
@@ -4636,7 +1666,7 @@
       "deltaPct": -2.24,
       "movement": "shortening",
       "movementSignal": "SHORTENING",
-      "capturedAtUtc": "2026-11-22T17:21:14Z"
+      "capturedAtUtc": "2026-11-22T20:20:38Z"
     },
     {
       "gameId": "ligapro-ecuador-2026-11-22-ldu-aucas-rzcyqb",
@@ -4646,12 +1676,12 @@
       "outcome": "AWAY",
       "line": null,
       "book": "betano",
-      "decimal": 3.15,
+      "decimal": 3.25,
       "openingDecimal": 2.9,
-      "deltaPct": 8.62,
+      "deltaPct": 12.07,
       "movement": "drifting",
       "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-22T17:21:14Z"
+      "capturedAtUtc": "2026-11-22T20:20:38Z"
     },
     {
       "gameId": "ligapro-ecuador-2026-11-22-ldu-aucas-rzcyqb",
@@ -4666,7 +1696,7 @@
       "deltaPct": 6.9,
       "movement": "drifting",
       "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-22T17:21:14Z"
+      "capturedAtUtc": "2026-11-22T20:20:38Z"
     },
     {
       "gameId": "ligapro-ecuador-2026-11-22-ldu-aucas-rzcyqb",
@@ -4681,7 +1711,7 @@
       "deltaPct": 8.77,
       "movement": "drifting",
       "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-22T17:21:14Z"
+      "capturedAtUtc": "2026-11-22T20:20:38Z"
     },
     {
       "gameId": "ligapro-ecuador-2026-11-22-ldu-aucas-rzcyqb",
@@ -4696,7 +1726,7 @@
       "deltaPct": 5.08,
       "movement": "drifting",
       "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-22T17:21:14Z"
+      "capturedAtUtc": "2026-11-22T20:20:38Z"
     },
     {
       "gameId": "ligapro-ecuador-2026-11-22-ldu-aucas-rzcyqb",
@@ -4711,7 +1741,7 @@
       "deltaPct": 5.08,
       "movement": "drifting",
       "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-22T17:21:14Z"
+      "capturedAtUtc": "2026-11-22T20:20:38Z"
     },
     {
       "gameId": "ligapro-ecuador-2026-11-22-ldu-aucas-rzcyqb",
@@ -4726,7 +1756,7 @@
       "deltaPct": 8.33,
       "movement": "drifting",
       "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-22T17:21:14Z"
+      "capturedAtUtc": "2026-11-22T20:20:38Z"
     },
     {
       "gameId": "ligapro-ecuador-2026-11-22-ldu-aucas-rzcyqb",
@@ -4741,7 +1771,7 @@
       "deltaPct": 6.9,
       "movement": "drifting",
       "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-22T17:21:14Z"
+      "capturedAtUtc": "2026-11-22T20:20:38Z"
     },
     {
       "gameId": "ligapro-ecuador-2026-11-22-ldu-aucas-rzcyqb",
@@ -4756,7 +1786,7 @@
       "deltaPct": 6.9,
       "movement": "drifting",
       "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-22T17:21:14Z"
+      "capturedAtUtc": "2026-11-22T20:20:38Z"
     },
     {
       "gameId": "ligapro-ecuador-2026-11-22-ldu-aucas-rzcyqb",
@@ -4771,7 +1801,7 @@
       "deltaPct": 7.69,
       "movement": "drifting",
       "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-22T17:21:14Z"
+      "capturedAtUtc": "2026-11-22T20:20:38Z"
     },
     {
       "gameId": "ligapro-ecuador-2026-11-22-ldu-aucas-rzcyqb",
@@ -4786,7 +1816,7 @@
       "deltaPct": 6.78,
       "movement": "drifting",
       "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-22T17:21:14Z"
+      "capturedAtUtc": "2026-11-22T20:20:38Z"
     },
     {
       "gameId": "ligapro-ecuador-2026-11-22-ldu-aucas-rzcyqb",
@@ -4801,7 +1831,7 @@
       "deltaPct": 11.86,
       "movement": "drifting",
       "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-22T17:21:14Z"
+      "capturedAtUtc": "2026-11-22T20:20:38Z"
     },
     {
       "gameId": "ligapro-ecuador-2026-11-22-ldu-aucas-rzcyqb",
@@ -4816,7 +1846,7 @@
       "deltaPct": 5.08,
       "movement": "drifting",
       "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-22T17:21:14Z"
+      "capturedAtUtc": "2026-11-22T20:20:38Z"
     },
     {
       "gameId": "ligapro-ecuador-2026-11-22-ldu-aucas-rzcyqb",
@@ -4827,11 +1857,11 @@
       "line": null,
       "book": "1xbet",
       "decimal": 1.85,
-      "openingDecimal": 1.86,
-      "deltaPct": -0.54,
+      "openingDecimal": 1.85,
+      "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T19:20:12Z"
+      "capturedAtUtc": "2026-11-22T21:50:07Z"
     },
     {
       "gameId": "ligapro-ecuador-2026-11-22-ldu-aucas-rzcyqb",
@@ -4841,12 +1871,12 @@
       "outcome": "no",
       "line": null,
       "book": "betano",
-      "decimal": 1.85,
+      "decimal": 1.83,
       "openingDecimal": 1.88,
-      "deltaPct": -1.6,
+      "deltaPct": -2.66,
       "movement": "shortening",
       "movementSignal": "SHORTENING",
-      "capturedAtUtc": "2026-11-22T17:21:14Z"
+      "capturedAtUtc": "2026-11-22T20:20:38Z"
     },
     {
       "gameId": "ligapro-ecuador-2026-11-22-ldu-aucas-rzcyqb",
@@ -4861,7 +1891,7 @@
       "deltaPct": -1.08,
       "movement": "shortening",
       "movementSignal": "SHORTENING",
-      "capturedAtUtc": "2026-11-22T17:21:14Z"
+      "capturedAtUtc": "2026-11-22T20:20:38Z"
     },
     {
       "gameId": "ligapro-ecuador-2026-11-22-ldu-aucas-rzcyqb",
@@ -4876,7 +1906,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T17:21:14Z"
+      "capturedAtUtc": "2026-11-22T20:20:38Z"
     },
     {
       "gameId": "ligapro-ecuador-2026-11-22-ldu-aucas-rzcyqb",
@@ -4891,7 +1921,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T17:21:14Z"
+      "capturedAtUtc": "2026-11-22T20:20:38Z"
     },
     {
       "gameId": "ligapro-ecuador-2026-11-22-ldu-aucas-rzcyqb",
@@ -4906,7 +1936,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T17:21:14Z"
+      "capturedAtUtc": "2026-11-22T20:20:38Z"
     },
     {
       "gameId": "ligapro-ecuador-2026-11-22-ldu-aucas-rzcyqb",
@@ -4921,7 +1951,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T17:21:14Z"
+      "capturedAtUtc": "2026-11-22T20:20:38Z"
     },
     {
       "gameId": "ligapro-ecuador-2026-11-22-ldu-aucas-rzcyqb",
@@ -4936,7 +1966,7 @@
       "deltaPct": -2.7,
       "movement": "shortening",
       "movementSignal": "SHORTENING",
-      "capturedAtUtc": "2026-11-22T17:21:14Z"
+      "capturedAtUtc": "2026-11-22T20:20:38Z"
     },
     {
       "gameId": "ligapro-ecuador-2026-11-22-ldu-aucas-rzcyqb",
@@ -4951,7 +1981,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T17:21:14Z"
+      "capturedAtUtc": "2026-11-22T20:20:38Z"
     },
     {
       "gameId": "ligapro-ecuador-2026-11-22-ldu-aucas-rzcyqb",
@@ -4966,7 +1996,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T19:20:12Z"
+      "capturedAtUtc": "2026-11-22T21:50:07Z"
     },
     {
       "gameId": "ligapro-ecuador-2026-11-22-ldu-aucas-rzcyqb",
@@ -4977,11 +2007,11 @@
       "line": null,
       "book": "bet365",
       "decimal": 1.83,
-      "openingDecimal": 1.833,
-      "deltaPct": -0.16,
-      "movement": "shortening",
-      "movementSignal": "SHORTENING",
-      "capturedAtUtc": "2026-11-22T19:20:12Z"
+      "openingDecimal": 1.83,
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-22T21:50:07Z"
     },
     {
       "gameId": "ligapro-ecuador-2026-11-22-ldu-aucas-rzcyqb",
@@ -4996,7 +2026,7 @@
       "deltaPct": -1.62,
       "movement": "shortening",
       "movementSignal": "SHORTENING",
-      "capturedAtUtc": "2026-11-22T17:21:14Z"
+      "capturedAtUtc": "2026-11-22T20:20:38Z"
     },
     {
       "gameId": "ligapro-ecuador-2026-11-22-ldu-aucas-rzcyqb",
@@ -5007,11 +2037,11 @@
       "line": null,
       "book": "betfair",
       "decimal": 1.9,
-      "openingDecimal": 1.87,
-      "deltaPct": 1.6,
-      "movement": "drifting",
-      "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-22T19:20:12Z"
+      "openingDecimal": 1.9,
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-22T21:50:07Z"
     },
     {
       "gameId": "ligapro-ecuador-2026-11-22-ldu-aucas-rzcyqb",
@@ -5026,7 +2056,7 @@
       "deltaPct": -1.62,
       "movement": "shortening",
       "movementSignal": "SHORTENING",
-      "capturedAtUtc": "2026-11-22T17:21:14Z"
+      "capturedAtUtc": "2026-11-22T20:20:38Z"
     },
     {
       "gameId": "ligapro-ecuador-2026-11-22-ldu-aucas-rzcyqb",
@@ -5041,7 +2071,7 @@
       "deltaPct": -1.98,
       "movement": "shortening",
       "movementSignal": "SHORTENING",
-      "capturedAtUtc": "2026-11-22T17:21:14Z"
+      "capturedAtUtc": "2026-11-22T20:20:38Z"
     },
     {
       "gameId": "ligapro-ecuador-2026-11-22-ldu-aucas-rzcyqb",
@@ -5052,11 +2082,11 @@
       "line": null,
       "book": "betvictor",
       "decimal": 1.67,
-      "openingDecimal": 1.7,
-      "deltaPct": -1.76,
-      "movement": "shortening",
-      "movementSignal": "SHORTENING",
-      "capturedAtUtc": "2026-11-22T19:20:12Z"
+      "openingDecimal": 1.67,
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-22T21:50:07Z"
     },
     {
       "gameId": "ligapro-ecuador-2026-11-22-ldu-aucas-rzcyqb",
@@ -5071,7 +2101,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T17:21:14Z"
+      "capturedAtUtc": "2026-11-22T20:20:38Z"
     },
     {
       "gameId": "ligapro-ecuador-2026-11-22-ldu-aucas-rzcyqb",
@@ -5086,7 +2116,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T19:20:12Z"
+      "capturedAtUtc": "2026-11-22T21:50:07Z"
     },
     {
       "gameId": "ligapro-ecuador-2026-11-22-ldu-aucas-rzcyqb",
@@ -5101,7 +2131,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T19:20:12Z"
+      "capturedAtUtc": "2026-11-22T21:50:07Z"
     },
     {
       "gameId": "ligapro-ecuador-2026-11-22-ldu-aucas-rzcyqb",
@@ -5116,7 +2146,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T19:20:12Z"
+      "capturedAtUtc": "2026-11-22T21:50:07Z"
     },
     {
       "gameId": "ligapro-ecuador-2026-11-22-ldu-aucas-rzcyqb",
@@ -5127,11 +2157,11 @@
       "line": 0.5,
       "book": "betfair",
       "decimal": 10,
-      "openingDecimal": 9,
-      "deltaPct": 11.11,
-      "movement": "drifting",
-      "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-22T19:20:12Z"
+      "openingDecimal": 10,
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-22T21:50:07Z"
     },
     {
       "gameId": "ligapro-ecuador-2026-11-22-ldu-aucas-rzcyqb",
@@ -5146,7 +2176,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T19:20:12Z"
+      "capturedAtUtc": "2026-11-22T21:50:07Z"
     },
     {
       "gameId": "ligapro-ecuador-2026-11-22-ldu-aucas-rzcyqb",
@@ -5161,7 +2191,7 @@
       "deltaPct": -2.52,
       "movement": "shortening",
       "movementSignal": "SHORTENING",
-      "capturedAtUtc": "2026-11-22T17:21:14Z"
+      "capturedAtUtc": "2026-11-22T20:20:38Z"
     },
     {
       "gameId": "ligapro-ecuador-2026-11-22-ldu-aucas-rzcyqb",
@@ -5176,7 +2206,7 @@
       "deltaPct": -4.35,
       "movement": "shortening",
       "movementSignal": "SHORTENING",
-      "capturedAtUtc": "2026-11-22T17:21:14Z"
+      "capturedAtUtc": "2026-11-22T20:20:38Z"
     },
     {
       "gameId": "ligapro-ecuador-2026-11-22-ldu-aucas-rzcyqb",
@@ -5186,12 +2216,12 @@
       "outcome": "HOME",
       "line": -0.25,
       "book": "bet365",
-      "decimal": 1.475,
+      "decimal": 1.5,
       "openingDecimal": 1.6,
-      "deltaPct": -7.81,
+      "deltaPct": -6.25,
       "movement": "shortening",
       "movementSignal": "STEAM",
-      "capturedAtUtc": "2026-11-22T17:21:14Z"
+      "capturedAtUtc": "2026-11-22T20:20:38Z"
     },
     {
       "gameId": "ligapro-ecuador-2026-11-22-ldu-aucas-rzcyqb",
@@ -5206,7 +2236,7 @@
       "deltaPct": 4.06,
       "movement": "drifting",
       "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-22T17:21:14Z"
+      "capturedAtUtc": "2026-11-22T20:20:38Z"
     },
     {
       "gameId": "ligapro-ecuador-2026-11-22-ldu-aucas-rzcyqb",
@@ -5221,7 +2251,7 @@
       "deltaPct": 4.44,
       "movement": "drifting",
       "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-22T17:21:14Z"
+      "capturedAtUtc": "2026-11-22T20:20:38Z"
     },
     {
       "gameId": "ligapro-ecuador-2026-11-22-ldu-aucas-rzcyqb",
@@ -5231,12 +2261,12 @@
       "outcome": "AWAY",
       "line": -0.25,
       "book": "bet365",
-      "decimal": 2.6,
+      "decimal": 2.5,
       "openingDecimal": 2.3,
-      "deltaPct": 13.04,
+      "deltaPct": 8.7,
       "movement": "drifting",
       "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-22T17:21:14Z"
+      "capturedAtUtc": "2026-11-22T20:20:38Z"
     },
     {
       "gameId": "ligapro-ecuador-2026-11-22-ldu-aucas-rzcyqb",
@@ -5251,7 +2281,7 @@
       "deltaPct": -5.03,
       "movement": "shortening",
       "movementSignal": "SHORTENING",
-      "capturedAtUtc": "2026-11-22T17:21:14Z"
+      "capturedAtUtc": "2026-11-22T20:20:38Z"
     },
     {
       "gameId": "ligapro-ecuador-2026-11-22-ldu-aucas-rzcyqb",
@@ -5266,7 +2296,7 @@
       "deltaPct": -16.47,
       "movement": "shortening",
       "movementSignal": "STEAM",
-      "capturedAtUtc": "2026-11-22T17:21:14Z"
+      "capturedAtUtc": "2026-11-22T20:20:38Z"
     },
     {
       "gameId": "ligapro-ecuador-2026-11-22-ldu-aucas-rzcyqb",
@@ -5281,7 +2311,7 @@
       "deltaPct": 1.54,
       "movement": "drifting",
       "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-22T17:21:14Z"
+      "capturedAtUtc": "2026-11-22T20:20:38Z"
     },
     {
       "gameId": "ligapro-ecuador-2026-11-22-ldu-aucas-rzcyqb",
@@ -5296,7 +2326,7 @@
       "deltaPct": 5.37,
       "movement": "drifting",
       "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-22T17:21:14Z"
+      "capturedAtUtc": "2026-11-22T20:20:38Z"
     },
     {
       "gameId": "ligapro-ecuador-2026-11-22-ldu-aucas-rzcyqb",
@@ -5311,7 +2341,7 @@
       "deltaPct": -4.32,
       "movement": "shortening",
       "movementSignal": "SHORTENING",
-      "capturedAtUtc": "2026-11-22T17:21:14Z"
+      "capturedAtUtc": "2026-11-22T20:20:38Z"
     },
     {
       "gameId": "ligapro-ecuador-2026-11-22-ldu-aucas-rzcyqb",
@@ -5326,7 +2356,7 @@
       "deltaPct": -13.33,
       "movement": "shortening",
       "movementSignal": "STEAM",
-      "capturedAtUtc": "2026-11-22T17:21:14Z"
+      "capturedAtUtc": "2026-11-22T20:20:38Z"
     },
     {
       "gameId": "ligapro-ecuador-2026-11-22-ldu-aucas-rzcyqb",
@@ -5341,7 +2371,7 @@
       "deltaPct": 2.22,
       "movement": "drifting",
       "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-22T17:21:14Z"
+      "capturedAtUtc": "2026-11-22T20:20:38Z"
     },
     {
       "gameId": "ligapro-ecuador-2026-11-22-ldu-aucas-rzcyqb",
@@ -5356,7 +2386,7 @@
       "deltaPct": 7.27,
       "movement": "drifting",
       "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-22T17:21:14Z"
+      "capturedAtUtc": "2026-11-22T20:20:38Z"
     },
     {
       "gameId": "ligapro-ecuador-2026-11-22-ldu-aucas-rzcyqb",
@@ -5371,7 +2401,7 @@
       "deltaPct": -3.67,
       "movement": "shortening",
       "movementSignal": "SHORTENING",
-      "capturedAtUtc": "2026-11-22T17:21:14Z"
+      "capturedAtUtc": "2026-11-22T20:20:38Z"
     },
     {
       "gameId": "ligapro-ecuador-2026-11-22-ldu-aucas-rzcyqb",
@@ -5386,7 +2416,7 @@
       "deltaPct": -5.71,
       "movement": "shortening",
       "movementSignal": "SHORTENING",
-      "capturedAtUtc": "2026-11-22T17:21:14Z"
+      "capturedAtUtc": "2026-11-22T20:20:38Z"
     },
     {
       "gameId": "ligapro-ecuador-2026-11-22-ldu-aucas-rzcyqb",
@@ -5396,12 +2426,12 @@
       "outcome": "HOME",
       "line": -0.75,
       "book": "bet365",
-      "decimal": 1.9,
+      "decimal": 1.925,
       "openingDecimal": 2.1,
-      "deltaPct": -9.52,
+      "deltaPct": -8.33,
       "movement": "shortening",
       "movementSignal": "STEAM",
-      "capturedAtUtc": "2026-11-22T17:21:14Z"
+      "capturedAtUtc": "2026-11-22T20:20:38Z"
     },
     {
       "gameId": "ligapro-ecuador-2026-11-22-ldu-aucas-rzcyqb",
@@ -5416,7 +2446,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T17:21:14Z"
+      "capturedAtUtc": "2026-11-22T20:20:38Z"
     },
     {
       "gameId": "ligapro-ecuador-2026-11-22-ldu-aucas-rzcyqb",
@@ -5431,7 +2461,7 @@
       "deltaPct": 3.4,
       "movement": "drifting",
       "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-22T17:21:14Z"
+      "capturedAtUtc": "2026-11-22T20:20:38Z"
     },
     {
       "gameId": "ligapro-ecuador-2026-11-22-ldu-aucas-rzcyqb",
@@ -5446,7 +2476,7 @@
       "deltaPct": 4.76,
       "movement": "drifting",
       "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-22T17:21:14Z"
+      "capturedAtUtc": "2026-11-22T20:20:38Z"
     },
     {
       "gameId": "ligapro-ecuador-2026-11-22-ldu-aucas-rzcyqb",
@@ -5456,12 +2486,12 @@
       "outcome": "AWAY",
       "line": -0.75,
       "book": "bet365",
-      "decimal": 1.9,
+      "decimal": 1.875,
       "openingDecimal": 1.7,
-      "deltaPct": 11.76,
+      "deltaPct": 10.29,
       "movement": "drifting",
       "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-22T17:21:14Z"
+      "capturedAtUtc": "2026-11-22T20:20:38Z"
     },
     {
       "gameId": "ligapro-ecuador-2026-11-22-ldu-aucas-rzcyqb",
@@ -5476,7 +2506,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T17:21:14Z"
+      "capturedAtUtc": "2026-11-22T20:20:38Z"
     },
     {
       "gameId": "ligapro-ecuador-2026-11-22-ldu-aucas-rzcyqb",
@@ -5491,7 +2521,7 @@
       "deltaPct": -1.6,
       "movement": "shortening",
       "movementSignal": "SHORTENING",
-      "capturedAtUtc": "2026-11-22T17:21:14Z"
+      "capturedAtUtc": "2026-11-22T20:20:38Z"
     },
     {
       "gameId": "ligapro-ecuador-2026-11-22-ldu-aucas-rzcyqb",
@@ -5506,7 +2536,7 @@
       "deltaPct": -5.38,
       "movement": "shortening",
       "movementSignal": "STEAM",
-      "capturedAtUtc": "2026-11-22T17:21:14Z"
+      "capturedAtUtc": "2026-11-22T20:20:38Z"
     },
     {
       "gameId": "ligapro-ecuador-2026-11-22-ldu-aucas-rzcyqb",
@@ -5521,7 +2551,7 @@
       "deltaPct": 4.75,
       "movement": "drifting",
       "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-22T17:21:14Z"
+      "capturedAtUtc": "2026-11-22T20:20:38Z"
     },
     {
       "gameId": "ligapro-ecuador-2026-11-22-ldu-aucas-rzcyqb",
@@ -5531,12 +2561,12 @@
       "outcome": "AWAY",
       "line": 0.25,
       "book": "bet365",
-      "decimal": 4.1,
+      "decimal": 4,
       "openingDecimal": 3.45,
-      "deltaPct": 18.84,
+      "deltaPct": 15.94,
       "movement": "drifting",
       "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-22T17:21:14Z"
+      "capturedAtUtc": "2026-11-22T20:20:38Z"
     },
     {
       "gameId": "ligapro-ecuador-2026-11-22-ldu-aucas-rzcyqb",
@@ -5551,7 +2581,7 @@
       "deltaPct": -0.91,
       "movement": "shortening",
       "movementSignal": "SHORTENING",
-      "capturedAtUtc": "2026-11-22T17:21:14Z"
+      "capturedAtUtc": "2026-11-22T20:20:38Z"
     },
     {
       "gameId": "ligapro-ecuador-2026-11-22-ldu-aucas-rzcyqb",
@@ -5561,12 +2591,12 @@
       "outcome": "HOME",
       "line": 0.75,
       "book": "bet365",
-      "decimal": 1.12,
+      "decimal": 1.125,
       "openingDecimal": 1.15,
-      "deltaPct": -2.61,
+      "deltaPct": -2.17,
       "movement": "shortening",
       "movementSignal": "SHORTENING",
-      "capturedAtUtc": "2026-11-22T17:21:14Z"
+      "capturedAtUtc": "2026-11-22T20:20:38Z"
     },
     {
       "gameId": "ligapro-ecuador-2026-11-22-ldu-aucas-rzcyqb",
@@ -5581,7 +2611,7 @@
       "deltaPct": 4.93,
       "movement": "drifting",
       "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-22T17:21:14Z"
+      "capturedAtUtc": "2026-11-22T20:20:38Z"
     },
     {
       "gameId": "ligapro-ecuador-2026-11-22-ldu-aucas-rzcyqb",
@@ -5591,12 +2621,12 @@
       "outcome": "AWAY",
       "line": 0.75,
       "book": "bet365",
-      "decimal": 6.25,
+      "decimal": 6,
       "openingDecimal": 5.5,
-      "deltaPct": 13.64,
+      "deltaPct": 9.09,
       "movement": "drifting",
       "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-22T17:21:14Z"
+      "capturedAtUtc": "2026-11-22T20:20:38Z"
     },
     {
       "gameId": "ligapro-ecuador-2026-11-22-ldu-aucas-rzcyqb",
@@ -5611,7 +2641,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T17:21:14Z"
+      "capturedAtUtc": "2026-11-22T20:20:38Z"
     },
     {
       "gameId": "ligapro-ecuador-2026-11-22-ldu-aucas-rzcyqb",
@@ -5626,7 +2656,7 @@
       "deltaPct": -5.72,
       "movement": "shortening",
       "movementSignal": "SHORTENING",
-      "capturedAtUtc": "2026-11-22T17:21:14Z"
+      "capturedAtUtc": "2026-11-22T20:20:38Z"
     },
     {
       "gameId": "ligapro-ecuador-2026-11-22-ldu-aucas-rzcyqb",
@@ -5641,7 +2671,7 @@
       "deltaPct": -15.44,
       "movement": "shortening",
       "movementSignal": "STEAM",
-      "capturedAtUtc": "2026-11-22T17:21:14Z"
+      "capturedAtUtc": "2026-11-22T20:20:38Z"
     },
     {
       "gameId": "ligapro-ecuador-2026-11-22-ldu-aucas-rzcyqb",
@@ -5656,7 +2686,7 @@
       "deltaPct": 1.14,
       "movement": "drifting",
       "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-22T17:21:14Z"
+      "capturedAtUtc": "2026-11-22T20:20:38Z"
     },
     {
       "gameId": "ligapro-ecuador-2026-11-22-ldu-aucas-rzcyqb",
@@ -5671,7 +2701,7 @@
       "deltaPct": 2.7,
       "movement": "drifting",
       "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-22T17:21:14Z"
+      "capturedAtUtc": "2026-11-22T20:20:38Z"
     },
     {
       "gameId": "ligapro-ecuador-2026-11-22-ldu-aucas-rzcyqb",
@@ -5682,11 +2712,11 @@
       "line": 7.5,
       "book": "1xbet",
       "decimal": 1.23,
-      "openingDecimal": 1.32,
-      "deltaPct": -6.82,
-      "movement": "shortening",
-      "movementSignal": "STEAM",
-      "capturedAtUtc": "2026-11-22T19:20:12Z"
+      "openingDecimal": 1.23,
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-22T21:50:07Z"
     },
     {
       "gameId": "ligapro-ecuador-2026-11-22-ldu-aucas-rzcyqb",
@@ -5697,11 +2727,11 @@
       "line": 7.5,
       "book": "1xbet",
       "decimal": 3.42,
-      "openingDecimal": 2.92,
-      "deltaPct": 17.12,
-      "movement": "drifting",
-      "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-22T19:20:12Z"
+      "openingDecimal": 3.42,
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-22T21:50:07Z"
     },
     {
       "gameId": "ligapro-ecuador-2026-11-22-ldu-aucas-rzcyqb",
@@ -5712,11 +2742,11 @@
       "line": 8.5,
       "book": "1xbet",
       "decimal": 1.47,
-      "openingDecimal": 1.62,
-      "deltaPct": -9.26,
-      "movement": "shortening",
-      "movementSignal": "STEAM",
-      "capturedAtUtc": "2026-11-22T19:20:12Z"
+      "openingDecimal": 1.47,
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-22T21:50:07Z"
     },
     {
       "gameId": "ligapro-ecuador-2026-11-22-ldu-aucas-rzcyqb",
@@ -5727,11 +2757,11 @@
       "line": 8.5,
       "book": "1xbet",
       "decimal": 2.43,
-      "openingDecimal": 2.15,
-      "deltaPct": 13.02,
-      "movement": "drifting",
-      "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-22T19:20:12Z"
+      "openingDecimal": 2.43,
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-22T21:50:07Z"
     },
     {
       "gameId": "ligapro-ecuador-2026-11-22-ldu-aucas-rzcyqb",
@@ -5742,11 +2772,11 @@
       "line": 9.5,
       "book": "1xbet",
       "decimal": 1.82,
-      "openingDecimal": 2.02,
-      "deltaPct": -9.9,
-      "movement": "shortening",
-      "movementSignal": "STEAM",
-      "capturedAtUtc": "2026-11-22T19:20:12Z"
+      "openingDecimal": 1.82,
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-22T21:50:07Z"
     },
     {
       "gameId": "ligapro-ecuador-2026-11-22-ldu-aucas-rzcyqb",
@@ -5761,7 +2791,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T19:20:12Z"
+      "capturedAtUtc": "2026-11-22T21:50:07Z"
     },
     {
       "gameId": "ligapro-ecuador-2026-11-22-ldu-aucas-rzcyqb",
@@ -5772,11 +2802,11 @@
       "line": 9.5,
       "book": "1xbet",
       "decimal": 1.88,
-      "openingDecimal": 1.71,
-      "deltaPct": 9.94,
-      "movement": "drifting",
-      "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-22T19:20:12Z"
+      "openingDecimal": 1.88,
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-22T21:50:07Z"
     },
     {
       "gameId": "ligapro-ecuador-2026-11-22-ldu-aucas-rzcyqb",
@@ -5791,7 +2821,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T19:20:12Z"
+      "capturedAtUtc": "2026-11-22T21:50:07Z"
     },
     {
       "gameId": "ligapro-ecuador-2026-11-22-ldu-aucas-rzcyqb",
@@ -5802,11 +2832,11 @@
       "line": 10.5,
       "book": "1xbet",
       "decimal": 2.29,
-      "openingDecimal": 2.63,
-      "deltaPct": -12.93,
-      "movement": "shortening",
-      "movementSignal": "STEAM",
-      "capturedAtUtc": "2026-11-22T19:20:12Z"
+      "openingDecimal": 2.29,
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-22T21:50:07Z"
     },
     {
       "gameId": "ligapro-ecuador-2026-11-22-ldu-aucas-rzcyqb",
@@ -5817,11 +2847,11 @@
       "line": 10.5,
       "book": "1xbet",
       "decimal": 1.54,
-      "openingDecimal": 1.4,
-      "deltaPct": 10,
-      "movement": "drifting",
-      "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-22T19:20:12Z"
+      "openingDecimal": 1.54,
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-22T21:50:07Z"
     },
     {
       "gameId": "ligapro-ecuador-2026-11-22-ldu-aucas-rzcyqb",
@@ -5832,11 +2862,11 @@
       "line": 11.5,
       "book": "1xbet",
       "decimal": 3.06,
-      "openingDecimal": 3.66,
-      "deltaPct": -16.39,
-      "movement": "shortening",
-      "movementSignal": "STEAM",
-      "capturedAtUtc": "2026-11-22T19:20:12Z"
+      "openingDecimal": 3.06,
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-22T21:50:07Z"
     },
     {
       "gameId": "ligapro-ecuador-2026-11-22-ldu-aucas-rzcyqb",
@@ -5847,11 +2877,11 @@
       "line": 11.5,
       "book": "1xbet",
       "decimal": 1.29,
-      "openingDecimal": 1.2,
-      "deltaPct": 7.5,
-      "movement": "drifting",
-      "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-22T19:20:12Z"
+      "openingDecimal": 1.29,
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-22T21:50:07Z"
     },
     {
       "gameId": "ligapro-ecuador-2026-11-22-ldu-aucas-rzcyqb",
@@ -5866,7 +2896,7 @@
       "deltaPct": -5.4,
       "movement": "shortening",
       "movementSignal": "SHORTENING",
-      "capturedAtUtc": "2026-11-22T17:21:14Z"
+      "capturedAtUtc": "2026-11-22T20:20:38Z"
     },
     {
       "gameId": "ligapro-ecuador-2026-11-22-ldu-aucas-rzcyqb",
@@ -5881,7 +2911,7 @@
       "deltaPct": -8.82,
       "movement": "shortening",
       "movementSignal": "STEAM",
-      "capturedAtUtc": "2026-11-22T17:21:14Z"
+      "capturedAtUtc": "2026-11-22T20:20:38Z"
     },
     {
       "gameId": "ligapro-ecuador-2026-11-22-ldu-aucas-rzcyqb",
@@ -5891,12 +2921,12 @@
       "outcome": "HOME",
       "line": -1.5,
       "book": "bet365",
-      "decimal": 2.85,
+      "decimal": 3,
       "openingDecimal": 3.45,
-      "deltaPct": -17.39,
+      "deltaPct": -13.04,
       "movement": "shortening",
       "movementSignal": "STEAM",
-      "capturedAtUtc": "2026-11-22T17:21:14Z"
+      "capturedAtUtc": "2026-11-22T20:20:38Z"
     },
     {
       "gameId": "ligapro-ecuador-2026-11-22-ldu-aucas-rzcyqb",
@@ -5911,7 +2941,7 @@
       "deltaPct": -3.23,
       "movement": "shortening",
       "movementSignal": "SHORTENING",
-      "capturedAtUtc": "2026-11-22T17:21:14Z"
+      "capturedAtUtc": "2026-11-22T20:20:38Z"
     },
     {
       "gameId": "ligapro-ecuador-2026-11-22-ldu-aucas-rzcyqb",
@@ -5926,7 +2956,7 @@
       "deltaPct": 2.35,
       "movement": "drifting",
       "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-22T17:21:14Z"
+      "capturedAtUtc": "2026-11-22T20:20:38Z"
     },
     {
       "gameId": "ligapro-ecuador-2026-11-22-ldu-aucas-rzcyqb",
@@ -5941,7 +2971,7 @@
       "deltaPct": 3.1,
       "movement": "drifting",
       "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-22T17:21:14Z"
+      "capturedAtUtc": "2026-11-22T20:20:38Z"
     },
     {
       "gameId": "ligapro-ecuador-2026-11-22-ldu-aucas-rzcyqb",
@@ -5951,12 +2981,12 @@
       "outcome": "AWAY",
       "line": -1.5,
       "book": "bet365",
-      "decimal": 1.4,
+      "decimal": 1.375,
       "openingDecimal": 1.3,
-      "deltaPct": 7.69,
+      "deltaPct": 5.77,
       "movement": "drifting",
       "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-22T17:21:14Z"
+      "capturedAtUtc": "2026-11-22T20:20:38Z"
     }
   ]
 }

@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "league": "brasileirao",
   "season": "2026",
-  "updatedAt": "2026-11-22T19:27:07.879Z",
+  "updatedAt": "2026-11-22T21:56:46.653Z",
   "matches": [
     {
       "id": "brasileirao-2026-07-16-vitoria-vasco-gama-a31ng3",
@@ -1937,6 +1937,17 @@
       "homeTeam": "brasileirao.chapecoense",
       "awayTeam": "brasileirao.cruzeiro",
       "homeScore": 1,
+      "awayScore": 2,
+      "neutralSite": false
+    },
+    {
+      "id": "brasileirao-2026-11-22-athletico-remo-bdcdjv",
+      "date": "2026-11-22",
+      "startTime": "2026-11-22T19:00:00.000Z",
+      "round": "Regular season · Matchday 36",
+      "homeTeam": "brasileirao.athletico",
+      "awayTeam": "brasileirao.remo",
+      "homeScore": 4,
       "awayScore": 2,
       "neutralSite": false
     }

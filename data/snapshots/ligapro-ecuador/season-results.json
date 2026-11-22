@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "league": "ligapro-ecuador",
   "season": "2026",
-  "updatedAt": "2026-11-22T19:27:07.879Z",
+  "updatedAt": "2026-11-22T21:56:46.653Z",
   "matches": [
     {
       "id": "ligapro-ecuador-2026-07-01-ldu-orense-hsz276",
@@ -1795,6 +1795,17 @@
       "awayTeam": "ligapro-ecuador.barcelona-guayaquil",
       "homeScore": 0,
       "awayScore": 1,
+      "neutralSite": false
+    },
+    {
+      "id": "ligapro-ecuador-2026-11-22-orense-mushuc-runa-fe1gx6",
+      "date": "2026-11-22",
+      "startTime": "2026-11-22T20:00:00.000Z",
+      "round": "Regular season · Matchday 7",
+      "homeTeam": "ligapro-ecuador.orense",
+      "awayTeam": "ligapro-ecuador.mushuc-runa",
+      "homeScore": 2,
+      "awayScore": 3,
       "neutralSite": false
     },
     {
