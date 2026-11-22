@@ -395,22 +395,15 @@ export function computePickPricing(input: ComputePickPricingInput): PickPricingM
     deVigMarketProb !== null ? round1((safeP - deVigMarketProb) * 100) : null;
 
   const isSharpBook = isSharpBookLabel(input.marketBookLabel);
+  const evLimit = isSharpBook ? MAX_SHARP_EV_PCT : MAX_SOFT_EV_PCT;
   const probDivergenceAnomalous =
     deVigMarketProb !== null && Math.abs(safeP - deVigMarketProb) > MAX_DEVIG_PROB_DIVERGENCE;
-  const softEvAnomalous = rawEvPct !== null && rawEvPct > MAX_SOFT_EV_PCT;
-  const sharpWithoutDeVigAnomalous =
-    isSharpBook && deVigMarketProb === null && rawEvPct !== null && rawEvPct > MAX_SHARP_EV_PCT;
-  const hardAnomaly = probDivergenceAnomalous || softEvAnomalous || sharpWithoutDeVigAnomalous;
-  const sharpBorderlineAnomaly =
-    !hardAnomaly &&
-    isSharpBook &&
-    rawEvPct !== null &&
-    rawEvPct > MAX_SHARP_EV_PCT &&
-    rawEvPct <= MAX_SOFT_EV_PCT;
+  const evAnomalous = rawEvPct !== null && rawEvPct > evLimit;
+  const isAnomalous = probDivergenceAnomalous || evAnomalous;
 
-  const evPct = hardAnomaly ? null : sharpBorderlineAnomaly ? 0 : rawEvPct;
-  const edgePts = hardAnomaly ? null : sharpBorderlineAnomaly ? 0 : rawEdgePts;
-  const hasPositiveValue = !hardAnomaly && !sharpBorderlineAnomaly && evPct !== null && evPct > 0;
+  const evPct = isAnomalous ? null : rawEvPct;
+  const edgePts = isAnomalous ? null : rawEdgePts;
+  const hasPositiveValue = !isAnomalous && evPct !== null && evPct > 0;
   const valueLabel = hasPositiveValue && evPct !== null ? `Valor +${evPct.toFixed(1)} %` : null;
 
   return {
@@ -1370,6 +1363,7 @@ export function formatValueThresholdLabel(
 export function isCatalogPickPricingAnomalous(item: CatalogPickItem): boolean {
   const { p, marketDecimal, deVigMarketProb, noVigEdgePts, evPct, edgePts, marketBookLabel } =
     item.pricing;
+  const evLimit = isSharpBookLabel(marketBookLabel) ? MAX_SHARP_EV_PCT : MAX_SOFT_EV_PCT;
   if (
     deVigMarketProb !== null &&
     Number.isFinite(deVigMarketProb) &&
@@ -1384,7 +1378,7 @@ export function isCatalogPickPricingAnomalous(item: CatalogPickItem): boolean {
   ) {
     return true;
   }
-  if (evPct !== null && Number.isFinite(evPct) && evPct > MAX_SHARP_EV_PCT) {
+  if (evPct !== null && Number.isFinite(evPct) && evPct > evLimit) {
     return true;
   }
   if (
@@ -1396,7 +1390,6 @@ export function isCatalogPickPricingAnomalous(item: CatalogPickItem): boolean {
   }
   if (marketDecimal !== null && Number.isFinite(marketDecimal) && marketDecimal >= 1.01) {
     const rawEv = (p * marketDecimal - 1) * 100;
-    const evLimit = isSharpBookLabel(marketBookLabel) ? MAX_SHARP_EV_PCT : MAX_SOFT_EV_PCT;
     if (rawEv > evLimit) return true;
   }
   return false;

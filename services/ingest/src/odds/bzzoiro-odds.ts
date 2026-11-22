@@ -186,8 +186,8 @@ export interface SelectionOddsComparison {
   readonly signal: LineMovementSignal;
   readonly modelProb: number;
   readonly fairOdds: number;
-  readonly edgePts: number;
-  readonly evPct: number;
+  readonly edgePts: number | null;
+  readonly evPct: number | null;
   readonly anchoredQuote: SpacetimeAnchoredQuote;
   readonly books: readonly ComparisonBookQuote[];
 }
@@ -207,8 +207,8 @@ export interface BestOddsComparisonEntry {
   readonly signal: LineMovementSignal;
   readonly modelProb: number;
   readonly fairOdds: number;
-  readonly edgePts: number;
-  readonly evPct: number;
+  readonly edgePts: number | null;
+  readonly evPct: number | null;
   readonly anchoredQuote: SpacetimeAnchoredQuote;
 }
 
@@ -611,16 +611,124 @@ function lookupModelProb(
   return null;
 }
 
-function computeSpacetimeAnalytics(modelProb: number, currentDecimal: number): {
+const MAX_SHARP_EV_PCT = 18;
+const MAX_SOFT_EV_PCT = 22;
+const MAX_DEVIG_PROB_DIVERGENCE = 0.12;
+const SHARP_COMPARISON_PRIORITY: readonly string[] = [
+  "pinnacle",
+  "betcris",
+  "betonline",
+  "betonlineag",
+];
+
+function isSharpComparisonBook(bookKeyOrLabel: string | null | undefined): boolean {
+  if (!bookKeyOrLabel) return false;
+  const norm = bookKeyOrLabel.trim().toLowerCase().replace(/[^a-z0-9]/g, "");
+  if (norm.length === 0) return false;
+  return SHARP_COMPARISON_PRIORITY.some((token) => norm.includes(token));
+}
+
+function computeSameBookDeVigFromGrouped(
+  grouped: ReadonlyMap<
+    string,
+    {
+      readonly market: string;
+      readonly selection: string;
+      readonly line: number | null;
+      readonly byBook: ReadonlyMap<string, { readonly currentDecimal: number }>;
+    }
+  >,
+  targetKey: string,
+): number | null {
+  const bucket = grouped.get(targetKey);
+  if (!bucket) return null;
+  const m = bucket.market;
+  const s = bucket.selection;
+  const l = bucket.line;
+  const lTok = l === null ? "null" : String(l);
+
+  let legs: readonly string[] | null = null;
+  let targetProbSum = 1;
+  if (m === "1x2") {
+    legs = grouped.has("1x2|null|draw")
+      ? ["1x2|null|home", "1x2|null|draw", "1x2|null|away"]
+      : ["1x2|null|home", "1x2|null|away"];
+  } else if (m === "double_chance") {
+    legs = ["double_chance|null|1X", "double_chance|null|X2", "double_chance|null|12"];
+    targetProbSum = 2;
+  } else if (m === "dnb") {
+    legs = ["dnb|null|home", "dnb|null|away"];
+  } else if (m === "btts") {
+    legs = ["btts|null|yes", "btts|null|no"];
+  } else if (m === "totals" || m === "corners_total") {
+    if (l === null) return null;
+    legs = [`${m}|${lTok}|over`, `${m}|${lTok}|under`];
+  } else if (m === "ah" || m === "spread") {
+    if (l === null) return null;
+    const opp = l === 0 ? 0 : -l;
+    if (s === "home") legs = [`${m}|${l}|home`, `${m}|${opp}|away`];
+    else if (s === "away") legs = [`${m}|${opp}|home`, `${m}|${l}|away`];
+  }
+  if (!legs) return null;
+  const targetIdx = legs.indexOf(targetKey);
+  if (targetIdx < 0) return null;
+
+  const legMaps = legs.map((lk) => grouped.get(lk)?.byBook ?? null);
+  if (legMaps.some((bm) => bm === null || bm.size === 0)) return null;
+  const first = legMaps[0]!;
+  const commonBooks: string[] = [];
+  for (const bk of first.keys()) {
+    if (legMaps.every((bm) => bm!.has(bk))) commonBooks.push(bk);
+  }
+  if (commonBooks.length === 0) return null;
+  commonBooks.sort((a, b) => {
+    const pa = SHARP_COMPARISON_PRIORITY.findIndex((t) => a.includes(t));
+    const pb = SHARP_COMPARISON_PRIORITY.findIndex((t) => b.includes(t));
+    const ra = pa >= 0 ? pa : 99;
+    const rb = pb >= 0 ? pb : 99;
+    if (ra !== rb) return ra - rb;
+    return a.localeCompare(b);
+  });
+  const chosenBook = commonBooks[0]!;
+  const implied: number[] = [];
+  let sumQ = 0;
+  for (const bm of legMaps) {
+    const dec = bm!.get(chosenBook)!.currentDecimal;
+    if (!Number.isFinite(dec) || dec < 1.01) return null;
+    const q = 1 / dec;
+    implied.push(q);
+    sumQ += q;
+  }
+  const effectiveSum = sumQ / targetProbSum;
+  if (effectiveSum < 0.92 || effectiveSum > 1.32) return null;
+  const prob = implied[targetIdx]! / effectiveSum;
+  return Number.isFinite(prob) && prob > 0 && prob < 1 ? prob : null;
+}
+
+function computeSpacetimeAnalytics(
+  modelProb: number,
+  currentDecimal: number,
+  bookKeyOrLabel?: string | null,
+  deVigMarketProb: number | null = null,
+): {
   modelProb: number;
   fairOdds: number;
-  edgePts: number;
-  evPct: number;
+  edgePts: number | null;
+  evPct: number | null;
 } {
   const fairOdds = round3(1 / modelProb);
-  const edgePts = round2((modelProb - 1 / currentDecimal) * 100);
-  const evPct = round2((modelProb * currentDecimal - 1) * 100);
-  return { modelProb: round3(modelProb), fairOdds, edgePts, evPct };
+  const rawEdgePts = round2((modelProb - 1 / currentDecimal) * 100);
+  const rawEvPct = round2((modelProb * currentDecimal - 1) * 100);
+  const evLimit = isSharpComparisonBook(bookKeyOrLabel) ? MAX_SHARP_EV_PCT : MAX_SOFT_EV_PCT;
+  const probDivergent =
+    deVigMarketProb !== null && Math.abs(modelProb - deVigMarketProb) > MAX_DEVIG_PROB_DIVERGENCE;
+  const anomalous = probDivergent || rawEvPct > evLimit;
+  return {
+    modelProb: round3(modelProb),
+    fairOdds,
+    edgePts: anomalous ? null : rawEdgePts,
+    evPct: anomalous ? null : rawEvPct,
+  };
 }
 
 function flattenComparisonRows(raw: unknown): BzOddsRow[] {
@@ -848,7 +956,14 @@ export function parseBzzoiroOddsComparison(
 
     const modelProb = lookupModelProb(options.modelProbsByKey, bucket.market, bucket.line, bucket.selection);
     if (modelProb === null) continue;
-    const analytics = computeSpacetimeAnalytics(modelProb, bestDecimal);
+    const bucketKey = selectionPriorKey(bucket.market, bucket.line, bucket.selection);
+    const deVigProb = computeSameBookDeVigFromGrouped(grouped, bucketKey);
+    const analytics = computeSpacetimeAnalytics(
+      modelProb,
+      bestDecimal,
+      sorted[0]!.book,
+      deVigProb,
+    );
     const bestCapturedAtIso = sorted[0]!.capturedAtUtc ?? normalizeCapturedAtIso(options.capturedAtUtc);
     if (!isFreshComparisonTimestamp(bestCapturedAtIso, nowMs)) continue;
     const anchoredQuote = toSpacetimeAnchoredQuote({
@@ -929,7 +1044,7 @@ export function parseBzzoiroBestOdds(
       : undefined;
     const modelProb = lookupModelProb(options.modelProbsByKey, quote.market, selectionLine, quote.selection);
     if (modelProb === null) continue;
-    const analytics = computeSpacetimeAnalytics(modelProb, currentDecimal);
+    const analytics = computeSpacetimeAnalytics(modelProb, currentDecimal, bookMeta.canonical, null);
     const capturedAtIso = normalizeCapturedAtIso(row.updated_at ?? row.captured_at ?? options.capturedAtUtc);
     if (!isFreshComparisonTimestamp(capturedAtIso, nowMs)) continue;
     const anchoredQuote = toSpacetimeAnchoredQuote({

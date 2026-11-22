@@ -179,13 +179,16 @@ export function buildNotifications(input: BuildNotificationsInput): PlatformNoti
       );
       if (pick && pick.marketDecimal !== null) {
         const label = pick.isRedacted ? `Selección para socios en ${matchTitle(g)}` : pick.label;
+        const displayEngine = /geodesic/i.test(pick.engineName)
+          ? "Motor Spacetime"
+          : pick.engineName;
         out.push({
           id: `value:${pick.id}`,
           kind: "cuotas",
           priority: kickoff - now <= URGENT_VALUE_MS ? "urgent" : "normal",
           title: `${label}: la casa paga ${formatOddsValue(pick.marketDecimal, fmt)}, la cuota justa es ${formatOddsValue(pick.fairDecimal, fmt)}`,
           context: {
-            lead: `${pick.engineName} estima ${formatPctEs(pick.p)}`,
+            lead: `${displayEngine} estima ${formatPctEs(pick.p)}`,
             text: `; el momio de la casa implica ${formatPctEs(1 / pick.marketDecimal)}.`,
           },
           atIso: clampToNow(Number.isNaN(asOfMs) ? now : asOfMs, now),
@@ -242,7 +245,14 @@ export function buildNotifications(input: BuildNotificationsInput): PlatformNoti
       const settledMs = g ? Date.parse(g.kickoffUtc) + gameDurationMs(g) : sealedMs;
       const at = Math.max(Number.isNaN(settledMs) ? 0 : settledMs, Number.isNaN(sealedMs) ? 0 : sealedMs);
       if (!at) continue;
-      const clv = `${e.clvPct >= 0 ? "+" : ""}${e.clvPct.toFixed(1)} pts`;
+      const rawClv = e.clvPct;
+      const clv =
+        typeof rawClv === "number" &&
+        Number.isFinite(rawClv) &&
+        rawClv <= 50 &&
+        rawClv >= -60
+          ? `${rawClv >= 0 ? "+" : ""}${rawClv.toFixed(1)} pts`
+          : null;
       out.push({
         id: `graded:${e.id}`,
         kind: "picks",
@@ -250,7 +260,9 @@ export function buildNotifications(input: BuildNotificationsInput): PlatformNoti
         title: `Pick calificado: ${e.pickLabel}`,
         context: {
           lead: e.status === "won" ? "Cumplido" : "No cumplido",
-          text: ` · ${clv} frente a la cuota justa. Registraste ${formatOddsValue(e.userDecimal, fmt)}.`,
+          text: clv
+            ? ` · ${clv} frente a la cuota justa. Registraste ${formatOddsValue(e.userDecimal, fmt)}.`
+            : ` · Registraste ${formatOddsValue(e.userDecimal, fmt)}.`,
         },
         atIso: clampToNow(at, now),
         actionLabel: "Ver bitácora",

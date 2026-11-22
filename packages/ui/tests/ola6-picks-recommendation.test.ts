@@ -3,11 +3,14 @@ import { asLeagueId, asMarketKey, type MatchAnalysis } from "@pitchlab/contracts
 import { buildPlatformDataset } from "../src/platform/match-picks-engine";
 import { buildOfficialDailyParlay } from "../src/platform/daily-parlay";
 import {
+  MAX_PARLAY_LEGS,
   buildSmartAutoParlay,
+  checkParlayCompatibility,
   computeParlaySummary,
   parlayMarketDiversityKey,
 } from "../src/platform/parlay-engine";
 import {
+  buildMatchPicksCatalog,
   computePickPricing,
   scoreRecommendedCatalogPick,
   selectPicksOfTheDay,
@@ -773,5 +776,85 @@ describe("Ola 6 · scoreRecommendedCatalogPick y selectPicksOfTheDay", () => {
     expect(totalSlot).toBeDefined();
     expect(totalSlot!.market).toBe("totals");
     expect(totalSlot!.label).toBe("Más de 3.5 goles");
+
+    const sharpOver18 = computePickPricing({
+      calibratedProb: 0.56,
+      marketDecimal: 2.15,
+      companionMarketDecimals: [2.15, 3.55, 3.6],
+      companionIndex: 0,
+      marketBookLabel: "Pinnacle",
+      marketCapturedAtUtc: FIXED_CAPTURED_AT,
+      nowIso: FIXED_NOW_ISO,
+    });
+    expect(sharpOver18.evPct).toBeNull();
+    expect(sharpOver18.edgePts).toBeNull();
+    expect(sharpOver18.hasPositiveValue).toBe(false);
+
+    const softWithin22 = computePickPricing({
+      calibratedProb: 0.56,
+      marketDecimal: 2.14,
+      companionMarketDecimals: [2.14, 3.55, 3.6],
+      companionIndex: 0,
+      marketBookLabel: "Bet365",
+      marketCapturedAtUtc: FIXED_CAPTURED_AT,
+      nowIso: FIXED_NOW_ISO,
+    });
+    expect(softWithin22.evPct).toBeGreaterThan(18);
+    expect(softWithin22.evPct).toBeLessThanOrEqual(22);
+    expect(softWithin22.hasPositiveValue).toBe(true);
+
+    const crossBookGame: PlatformGame = {
+      ...baseGame,
+      markets: [
+        {
+          group: "Goles totales",
+          market: "totals",
+          selection: "over",
+          label: "Más de 2.5 goles",
+          line: 2.5,
+          p: 0.55,
+          fairDecimal: 1.82,
+          fairAmerican: -122,
+          openDecimal: 1.9,
+          currentDecimal: 1.9,
+          quoteBookLabel: "Pinnacle",
+          quoteCapturedAtUtc: FIXED_CAPTURED_AT,
+          edgePts: 2.4,
+        },
+        {
+          group: "Goles totales",
+          market: "totals",
+          selection: "under",
+          label: "Menos de 2.5 goles",
+          line: 2.5,
+          p: 0.45,
+          fairDecimal: 2.22,
+          fairAmerican: 122,
+          openDecimal: 1.95,
+          currentDecimal: 1.95,
+          quoteBookLabel: "Bet365",
+          quoteCapturedAtUtc: FIXED_CAPTURED_AT,
+          edgePts: -6.3,
+        },
+      ],
+    };
+    const crossCatalog = buildMatchPicksCatalog(crossBookGame, {
+      nowIso: FIXED_NOW_ISO,
+      allowedFamilies: new Set(["totals"]),
+    });
+    const crossOver25 = crossCatalog.picks.find((p) => p.line === 2.5 && p.direction === "over");
+    expect(crossOver25?.pricing.deVigMarketProb).toBeNull();
+
+    const sixLegs = [1, 2, 3, 4, 5, 6].map((n) => ({
+      pick: makePick(`cap-g-${n}`, "h2h", "1x2", "home", "Gana Liverpool", 0.58, 1.85),
+    }));
+    expect(MAX_PARLAY_LEGS).toBe(6);
+    const seventh = checkParlayCompatibility(
+      sixLegs,
+      makePick("cap-g-7", "h2h", "1x2", "home", "Gana Liverpool", 0.58, 1.85),
+      false,
+    );
+    expect(seventh.allowed).toBe(false);
+    expect(seventh.code).toBe("max_legs");
   });
 });

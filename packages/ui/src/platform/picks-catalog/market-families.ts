@@ -1030,7 +1030,7 @@ function resolveSameBookCompanionDecimals(
     }
   }
 
-  return present.map((leg) => leg.decimal);
+  return null;
 }
 
 function parseLineFromKey(key: string): number | null {

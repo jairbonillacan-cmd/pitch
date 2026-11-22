@@ -57,6 +57,22 @@ const INITIAL_MATRIX_ROWS = 18;
 const MAX_QUOTE_AGE_MS = 72 * 60 * 60 * 1000;
 const MAX_FUTURE_SKEW_MS = 6 * 60 * 60 * 1000;
 const MAX_MATRIX_BOOKS = 3;
+const MAX_SHARP_EV_PCT = 18;
+const MAX_SOFT_EV_PCT = 22;
+const MAX_DEVIG_PROB_DIVERGENCE = 0.12;
+const SHARP_BOOK_PRIORITY: readonly string[] = [
+  "pinnacle",
+  "betcris",
+  "betonline",
+  "betonlineag",
+];
+
+function isSharpOddsBook(raw: string | null | undefined): boolean {
+  if (!raw) return false;
+  const key = normalizeBookKey(raw);
+  if (key.length === 0) return false;
+  return SHARP_BOOK_PRIORITY.some((token) => key.includes(token));
+}
 
 function isPermittedBookKey(raw: string): boolean {
   const key = normalizeBookKey(raw);
@@ -68,7 +84,180 @@ function isSafeBookLabel(label: string | null | undefined): boolean {
   const trimmed = label.trim();
   if (trimmed.length === 0) return false;
   if (!isSafePublicLabel(trimmed)) return false;
-  return !isBlockedMarketQuoteBook(trimmed, trimmed);
+  const primary = trimmed.split(/[·|]/)[0]?.trim() ?? trimmed;
+  return (
+    !isBlockedMarketQuoteBook(primary, trimmed) &&
+    isPermittedMarketQuoteBook(primary, trimmed)
+  );
+}
+
+function normalizeMarketFamilyForDeVig(rawMarket: string | undefined): string {
+  const m = (rawMarket ?? "").trim().toLowerCase();
+  if (m === "h2h" || m === "1x2" || m === "moneyline" || m === "ml") return "1x2";
+  if (m === "btts") return "btts";
+  if (m === "dnb" || m === "draw_no_bet") return "dnb";
+  if (m === "totals" || m.startsWith("totals_") || m.endsWith("_totals")) return "totals";
+  if (m === "spread" || m === "spreads" || m === "handicap" || m === "asian_handicap") {
+    return "spread";
+  }
+  return m;
+}
+
+function normalizeSelectionForDeVig(market: string, rawSelection: string): string {
+  const s = rawSelection.trim().toLowerCase();
+  if (market === "1x2" || market === "dnb" || market === "spread") {
+    if (s === "1" || s === "home" || s.startsWith("home_")) return "home";
+    if (s === "x" || s === "draw") return "draw";
+    if (s === "2" || s === "away" || s.startsWith("away_")) return "away";
+  }
+  if (market === "btts") {
+    if (s === "yes" || s === "si" || s === "sí") return "yes";
+    if (s === "no") return "no";
+  }
+  if (market === "totals") {
+    if (s === "over" || s.startsWith("over_")) return "over";
+    if (s === "under" || s.startsWith("under_")) return "under";
+  }
+  return s;
+}
+
+function resolveSameBookDeVigForPick(
+  game: PlatformGame,
+  pk: MatchPick,
+  anchorMs: number,
+): number | null {
+  const market = normalizeMarketFamilyForDeVig(pk.market);
+  const sel = normalizeSelectionForDeVig(market, pk.selectionKey);
+  const line = typeof pk.line === "number" && Number.isFinite(pk.line) ? pk.line : null;
+
+  let legSpecs: ReadonlyArray<{ readonly sel: string; readonly line: number | null }> | null = null;
+  if (market === "1x2") {
+    const hasDraw = game.markets.some(
+      (r) =>
+        normalizeMarketFamilyForDeVig(r.market) === "1x2" &&
+        normalizeSelectionForDeVig("1x2", r.selection) === "draw",
+    );
+    legSpecs = hasDraw
+      ? [
+          { sel: "home", line: null },
+          { sel: "draw", line: null },
+          { sel: "away", line: null },
+        ]
+      : [
+          { sel: "home", line: null },
+          { sel: "away", line: null },
+        ];
+  } else if (market === "btts") {
+    legSpecs = [
+      { sel: "yes", line: null },
+      { sel: "no", line: null },
+    ];
+  } else if (market === "dnb") {
+    legSpecs = [
+      { sel: "home", line: null },
+      { sel: "away", line: null },
+    ];
+  } else if (market === "totals") {
+    if (line === null) return null;
+    legSpecs = [
+      { sel: "over", line },
+      { sel: "under", line },
+    ];
+  } else if (market === "spread") {
+    if (line === null) return null;
+    const opp = line === 0 ? 0 : -line;
+    if (sel === "home") {
+      legSpecs = [
+        { sel: "home", line },
+        { sel: "away", line: opp },
+      ];
+    } else if (sel === "away") {
+      legSpecs = [
+        { sel: "home", line: opp },
+        { sel: "away", line },
+      ];
+    }
+  }
+  if (!legSpecs) return null;
+  const targetIdx = legSpecs.findIndex(
+    (sp) =>
+      sp.sel === sel &&
+      (sp.line === null || (line !== null && Math.abs(sp.line - line) < 0.01)),
+  );
+  if (targetIdx < 0) return null;
+
+  const legBookMaps = legSpecs.map((spec) => {
+    const map = new Map<string, number>();
+    const row = game.markets.find((r) => {
+      if (normalizeMarketFamilyForDeVig(r.market) !== market) return false;
+      if (normalizeSelectionForDeVig(market, r.selection) !== spec.sel) return false;
+      if (spec.line === null) return true;
+      return typeof r.line === "number" && Number.isFinite(r.line) && Math.abs(r.line - spec.line) < 0.01;
+    });
+    if (!row) return map;
+    const fresh = filterFreshPermittedQuotes(row.bookQuotes, anchorMs);
+    for (const q of fresh) {
+      const bk = normalizeBookKey(q.book);
+      if (bk && !map.has(bk)) map.set(bk, q.decimal);
+    }
+    if (
+      map.size === 0 &&
+      row.currentDecimal !== null &&
+      Number.isFinite(row.currentDecimal) &&
+      row.currentDecimal > 1.01 &&
+      isSafeBookLabel(row.quoteBookLabel) &&
+      isFreshQuoteStamp(row.quoteCapturedAtUtc, anchorMs)
+    ) {
+      const bk = normalizeBookKey(row.quoteBookLabel ?? "");
+      if (bk) map.set(bk, row.currentDecimal);
+    }
+    return map;
+  });
+
+  if (legBookMaps.some((m) => m.size === 0)) return null;
+  const firstMap = legBookMaps[0]!;
+  const commonBooks: string[] = [];
+  for (const bk of firstMap.keys()) {
+    if (legBookMaps.every((m) => m.has(bk))) commonBooks.push(bk);
+  }
+  if (commonBooks.length === 0) return null;
+  commonBooks.sort((a, b) => {
+    const pa = SHARP_BOOK_PRIORITY.findIndex((t) => a.includes(t));
+    const pb = SHARP_BOOK_PRIORITY.findIndex((t) => b.includes(t));
+    const ra = pa >= 0 ? pa : 99;
+    const rb = pb >= 0 ? pb : 99;
+    if (ra !== rb) return ra - rb;
+    return a.localeCompare(b);
+  });
+  const chosenBook = commonBooks[0]!;
+  const decimals = legBookMaps.map((m) => m.get(chosenBook)!);
+  const probs = computeDeVigProbs(decimals);
+  if (!probs) return null;
+  const pDeVig = probs[targetIdx];
+  return typeof pDeVig === "number" && Number.isFinite(pDeVig) ? pDeVig : null;
+}
+
+function computeGuardedOddsEvaluation(
+  p: number,
+  decimal: number | null,
+  bookKeyOrLabel: string | null | undefined,
+  deVigProb: number | null,
+): { readonly evPct: number | null; readonly edgePts: number | null } {
+  if (decimal === null || !Number.isFinite(decimal) || decimal <= 1.01) {
+    return { evPct: null, edgePts: null };
+  }
+  if (deVigProb !== null && Math.abs(p - deVigProb) > MAX_DEVIG_PROB_DIVERGENCE) {
+    return { evPct: null, edgePts: null };
+  }
+  const rawEv = computeExpectedValuePct(p, decimal);
+  const evLimit = isSharpOddsBook(bookKeyOrLabel) ? MAX_SHARP_EV_PCT : MAX_SOFT_EV_PCT;
+  if (rawEv === null || rawEv > evLimit) {
+    return { evPct: null, edgePts: null };
+  }
+  return {
+    evPct: rawEv,
+    edgePts: edgeAgainstBook(p, decimal),
+  };
 }
 
 function isFreshQuoteStamp(
@@ -249,9 +438,9 @@ function resolvePickReferenceQuote(
     Number.isFinite(pk.marketDecimal) &&
     pk.marketDecimal > 1.01 &&
     isFreshQuoteStamp(pk.marketCapturedAtUtc, anchorMs) &&
-    (pk.marketBookLabel == null || isSafeBookLabel(pk.marketBookLabel))
+    isSafeBookLabel(pk.marketBookLabel)
   ) {
-    const label = pk.marketBookLabel?.trim() || "Referencia";
+    const label = pk.marketBookLabel!.trim();
     return {
       decimal: pk.marketDecimal,
       bookKey: normalizeBookKey(label),
@@ -291,6 +480,7 @@ interface OddsMatrixRow {
   readonly manualDec: number | null;
   readonly manualInvalid: boolean;
   readonly activeDec: number | null;
+  readonly deVigProb: number | null;
   readonly evPct: number | null;
   readonly edgePts: number | null;
   readonly direction: MarketDirectionBadge | null;
@@ -547,8 +737,11 @@ export function OddsCompareClubView(): React.JSX.Element {
         const manualDec = manualRaw.trim() ? parseUserOdds(manualRaw) : null;
         const manualInvalid = Boolean(manualRaw.trim() && !manualDec);
         const activeDec = manualDec ?? refQuote?.decimal ?? null;
-        const evPct = activeDec !== null ? computeExpectedValuePct(pk.p, activeDec) : null;
-        const edgePts = activeDec !== null ? edgeAgainstBook(pk.p, activeDec) : null;
+        const activeBook = manualDec !== null ? null : (refQuote?.bookKey ?? refQuote?.bookLabel ?? null);
+        const deVigProb = resolveSameBookDeVigForPick(game, pk, anchorMs);
+        const guardedEval = computeGuardedOddsEvaluation(pk.p, activeDec, activeBook, deVigProb);
+        const evPct = guardedEval.evPct;
+        const edgePts = guardedEval.edgePts;
         const direction = refQuote
           ? describeMarketDirection(
               refQuote.openingDecimal,
@@ -570,6 +763,7 @@ export function OddsCompareClubView(): React.JSX.Element {
           manualDec,
           manualInvalid,
           activeDec,
+          deVigProb,
           evPct,
           edgePts,
           direction,
@@ -731,7 +925,12 @@ export function OddsCompareClubView(): React.JSX.Element {
               </span>
             );
           }
-          const cellEv = computeExpectedValuePct(row.pick.p, quote.decimal);
+          const cellEv = computeGuardedOddsEvaluation(
+            row.pick.p,
+            quote.decimal,
+            quote.book || quote.bookLabel,
+            row.deVigProb,
+          ).evPct;
           const cellMove = resolveCellMovement(quote);
           const isBest =
             row.refQuote !== null &&

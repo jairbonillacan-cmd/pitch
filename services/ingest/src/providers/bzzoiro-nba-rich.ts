@@ -241,8 +241,8 @@ export interface NbaSelectionOddsComparison {
   readonly signal: LineMovementSignal;
   readonly modelProb: number;
   readonly fairOdds: number;
-  readonly edgePts: number;
-  readonly evPct: number;
+  readonly edgePts: number | null;
+  readonly evPct: number | null;
   readonly anchoredQuote: SpacetimeAnchoredQuote;
   readonly books: readonly ComparisonBookQuote[];
 }
@@ -930,11 +930,56 @@ export function parseBzzoiroNbaOddsComparison(
       capturedAtIso: bestCapturedAtIso,
     });
 
+    const sharpPriority = ["pinnacle", "betcris", "betonline", "betonlineag"];
+    const oppKey =
+      bucket.market === "moneyline"
+        ? `moneyline|null|${bucket.selection === "home" ? "away" : "home"}`
+        : bucket.market === "totals" && bucket.line !== null
+          ? `totals|${bucket.line}|${bucket.selection === "over" ? "under" : "over"}`
+          : bucket.market === "spread" && bucket.line !== null
+            ? `spread|${bucket.line === 0 ? 0 : -bucket.line}|${bucket.selection === "home" ? "away" : "home"}`
+            : null;
+    let deVigProb: number | null = null;
+    if (oppKey) {
+      const oppBucket = grouped.get(oppKey);
+      if (oppBucket) {
+        const common: string[] = [];
+        for (const bk of bucket.byBook.keys()) {
+          if (oppBucket.byBook.has(bk)) common.push(bk);
+        }
+        if (common.length > 0) {
+          common.sort((a, b) => {
+            const pa = sharpPriority.findIndex((t) => a.includes(t));
+            const pb = sharpPriority.findIndex((t) => b.includes(t));
+            const ra = pa >= 0 ? pa : 99;
+            const rb = pb >= 0 ? pb : 99;
+            if (ra !== rb) return ra - rb;
+            return a.localeCompare(b);
+          });
+          const chosenBook = common[0]!;
+          const dSelf = bucket.byBook.get(chosenBook)!.currentDecimal;
+          const dOpp = oppBucket.byBook.get(chosenBook)!.currentDecimal;
+          const sumQ = 1 / dSelf + 1 / dOpp;
+          if (sumQ >= 0.92 && sumQ <= 1.32) {
+            deVigProb = 1 / dSelf / sumQ;
+          }
+        }
+      }
+    }
+
+    const bestBookKey = sorted[0]!.book;
+    const isSharpBest = sharpPriority.some((t) => bestBookKey.includes(t));
+    const evLimit = isSharpBest ? 18 : 22;
+    const rawEdgePts = round2((validRawProb - 1 / bestDecimal) * 100);
+    const rawEvPct = round2((validRawProb * bestDecimal - 1) * 100);
+    const probDivergent = deVigProb !== null && Math.abs(validRawProb - deVigProb) > 0.12;
+    const isAnomalous = probDivergent || rawEvPct > evLimit;
+
     out.push({
       market: bucket.market,
       selection: bucket.selection,
       line: bucket.line,
-      bestBook: sorted[0]!.book,
+      bestBook: bestBookKey,
       bestBookLabel: sorted[0]!.bookLabel,
       bestDecimal,
       pinnacleDecimal: books.find((b) => b.book === "pinnacle")?.currentDecimal ?? null,
@@ -944,8 +989,8 @@ export function parseBzzoiroNbaOddsComparison(
       signal: consensusMv.signal,
       modelProb,
       fairOdds: round3(1 / validRawProb),
-      edgePts: round2((validRawProb - 1 / bestDecimal) * 100),
-      evPct: round2((validRawProb * bestDecimal - 1) * 100),
+      edgePts: isAnomalous ? null : rawEdgePts,
+      evPct: isAnomalous ? null : rawEvPct,
       anchoredQuote,
       books,
     });

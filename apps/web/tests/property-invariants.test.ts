@@ -35,6 +35,9 @@ import type {
   PlatformMarketRow,
 } from "@pitchlab/ui/types";
 import {
+  parseQuotesLedgerTicks,
+} from "../src/server/book-quotes";
+import {
   isCleanPublicCanonicalPath,
   sanitizeCanonicalPublicUrl,
 } from "../src/server/json-ld";
@@ -1292,6 +1295,62 @@ describe("Property-Based Testing · Invariantes cuantitativas y de seguridad", (
       }
       const uniqueMarketKeys = new Set(legs.map((l) => parlayMarketDiversityKey(l.pick)));
       expect(uniqueMarketKeys.size).toBe(3);
+
+      const ledger = parseQuotesLedgerTicks(
+        [
+          {
+            event_id: "ws:football:E0:20261121:liverpool:arsenal",
+            sport: "football",
+            league: "E0",
+            market: "corners_team",
+            line: 5.5,
+            selection: "home_over",
+            book: "pinnacle",
+            price_decimal: 1.92,
+            ts_captured: FIXED_NOW_ISO,
+          },
+          {
+            event_id: "ws:football:E0:20261121:liverpool:arsenal",
+            sport: "football",
+            league: "E0",
+            market: "corners_total",
+            line: 9.5,
+            selection: "over",
+            book: "pinnacle",
+            price_decimal: 1.88,
+            ts_captured: FIXED_NOW_ISO,
+          },
+          {
+            event_id: "ws:football:E0:20261121:liverpool:arsenal",
+            sport: "football",
+            league: "E0",
+            market: "cards_total",
+            line: 4.5,
+            selection: "over",
+            book: "bet365",
+            price_decimal: 1.95,
+            ts_captured: FIXED_NOW_ISO,
+          },
+          {
+            event_id: "ws:football:E0:20261121:liverpool:arsenal",
+            sport: "football",
+            league: "E0",
+            market: "team_totals",
+            line: null,
+            selection: "home_over",
+            book: "bet365",
+            price_decimal: 2.1,
+            ts_captured: FIXED_NOW_ISO,
+          },
+        ],
+        Date.parse(FIXED_NOW_ISO),
+      );
+      const plEvent = ledger.get("premier-league")?.[0];
+      expect(plEvent?.bySelectionKey.has("corners_team|5.5|home_over")).toBe(true);
+      expect(plEvent?.bySelectionKey.has("corners_total|9.5|over")).toBe(true);
+      expect(plEvent?.bySelectionKey.has("corners_total|5.5|home_over")).toBe(false);
+      expect(plEvent?.bySelectionKey.has("cards_total|4.5|over")).toBe(true);
+      expect(plEvent?.bySelectionKey.has("team_totals|null|home_over")).toBe(false);
     });
   });
 });

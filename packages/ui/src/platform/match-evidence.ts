@@ -318,7 +318,7 @@ function marketRowToPick(game: PlatformGame, row: PlatformMarketRow, idx: number
     categoryLabel: row.group,
     risk: row.p >= 0.68 ? "conservador" : row.p >= 0.54 ? "medio" : "arriesgado",
     engineKey: "geodesic",
-    engineName: "PitchLab Geodesic v2.0",
+    engineName: "Motor Spacetime",
     marketGroup: row.group,
     selectionKey: row.selection,
     market: row.market,

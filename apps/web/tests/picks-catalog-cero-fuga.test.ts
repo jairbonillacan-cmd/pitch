@@ -149,8 +149,8 @@ function makeSampleMarkets(): PlatformMarketRow[] {
       p: 0.56,
       fairDecimal: 1.79,
       fairAmerican: -127,
-      openDecimal: 2.22,
-      currentDecimal: 2.15,
+      openDecimal: 2.12,
+      currentDecimal: 2.05,
       movementDirection: "shortening",
       quoteBookLabel: "Pinnacle",
       quoteCapturedAtUtc: FIXED_NOW_ISO,
@@ -158,8 +158,8 @@ function makeSampleMarkets(): PlatformMarketRow[] {
         {
           book: "pinnacle",
           bookLabel: "Pinnacle",
-          decimal: 2.15,
-          openingDecimal: 2.22,
+          decimal: 2.05,
+          openingDecimal: 2.12,
           movementDirection: "shortening",
           capturedAtUtc: FIXED_NOW_ISO,
           isBest: true,
@@ -167,11 +167,11 @@ function makeSampleMarkets(): PlatformMarketRow[] {
         {
           book: "bet365",
           bookLabel: "Bet365",
-          decimal: 2.1,
+          decimal: 2.02,
           capturedAtUtc: FIXED_NOW_ISO,
         },
       ],
-      edgePts: 9.5,
+      edgePts: 7.2,
     },
     {
       group: "Resultado 1X2",
@@ -378,11 +378,11 @@ function makePromoPrimaryPick(game: PlatformGame): MatchPick {
     p: 0.56,
     fairDecimal: 1.79,
     fairAmerican: -127,
-    marketDecimal: 2.15,
-    marketAmerican: 115,
+    marketDecimal: 2.05,
+    marketAmerican: 105,
     marketBookLabel: "Pinnacle",
     marketCapturedAtUtc: FIXED_NOW_ISO,
-    edgePts: 9.5,
+    edgePts: 7.2,
     confidenceScore: 78,
     suggestedUnits: 1.5,
     isDailyOpenPromo: true,
@@ -433,7 +433,7 @@ describe("picks-catalog · Frontera Cero-Fuga en NS/LIVE, auditoría íntegra en
       expect(memberHome1x2).toBeDefined();
       expect(memberHome1x2!.pricing.p).toBeGreaterThan(0.4);
       expect(memberHome1x2!.pricing.fairOdds).toBeGreaterThan(1);
-      expect(memberHome1x2!.pricing.marketDecimal).toBe(2.15);
+      expect(memberHome1x2!.pricing.marketDecimal).toBe(2.05);
       expect(memberHome1x2!.pricing.edgePts).not.toBeNull();
       expect(memberHome1x2!.pricing.evPct).not.toBeNull();
       expect(memberHome1x2!.pricing.deVigMarketProb).not.toBeNull();
@@ -506,7 +506,7 @@ describe("picks-catalog · Frontera Cero-Fuga en NS/LIVE, auditoría íntegra en
       expect(serializedVisitorPicks).not.toContain("Michael Oliver");
       expect(serializedVisitorPicks).not.toContain("Gana Liverpool");
       expect(serializedVisitorPicks).not.toContain("Más de 2.5");
-      expect(serializedVisitorPicks).not.toContain("2.15");
+      expect(serializedVisitorPicks).not.toContain("2.05");
     }
   });
 

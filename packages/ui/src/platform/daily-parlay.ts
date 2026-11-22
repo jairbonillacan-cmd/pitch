@@ -850,10 +850,22 @@ export function buildOfficialDailyParlay(options: {
   for (const item of candidates) {
     if (legs.length >= spec.maxLegs) break;
     const key = parlayMarketDiversityKey(item.pick);
-    if ((diversityCounts.get(key) ?? 0) >= diversityCap) continue;
+    if ((diversityCounts.get(key) ?? 0) >= 1) continue;
     if (canAddSinglePerGame(legs, item.pick)) {
       legs.push({ pick: item.pick });
       diversityCounts.set(key, (diversityCounts.get(key) ?? 0) + 1);
+    }
+  }
+
+  if (legs.length < spec.maxLegs && diversityCap > 1) {
+    for (const item of candidates) {
+      if (legs.length >= spec.maxLegs) break;
+      const key = parlayMarketDiversityKey(item.pick);
+      if ((diversityCounts.get(key) ?? 0) >= diversityCap) continue;
+      if (canAddSinglePerGame(legs, item.pick)) {
+        legs.push({ pick: item.pick });
+        diversityCounts.set(key, (diversityCounts.get(key) ?? 0) + 1);
+      }
     }
   }
 
@@ -1070,10 +1082,22 @@ export function buildPersonalQuickParlay(options: {
   for (const item of candidates) {
     if (legs.length >= requestedCount) break;
     const key = parlayMarketDiversityKey(item.pick);
-    if ((diversityCounts.get(key) ?? 0) >= diversityCap) continue;
+    if ((diversityCounts.get(key) ?? 0) >= 1) continue;
     if (checkParlayCompatibility(legs, item.pick, allowSgp).allowed) {
       legs.push({ pick: item.pick });
       diversityCounts.set(key, (diversityCounts.get(key) ?? 0) + 1);
+    }
+  }
+
+  if (legs.length < requestedCount && diversityCap > 1) {
+    for (const item of candidates) {
+      if (legs.length >= requestedCount) break;
+      const key = parlayMarketDiversityKey(item.pick);
+      if ((diversityCounts.get(key) ?? 0) >= diversityCap) continue;
+      if (checkParlayCompatibility(legs, item.pick, allowSgp).allowed) {
+        legs.push({ pick: item.pick });
+        diversityCounts.set(key, (diversityCounts.get(key) ?? 0) + 1);
+      }
     }
   }
 

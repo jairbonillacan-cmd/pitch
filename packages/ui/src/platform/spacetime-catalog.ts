@@ -434,7 +434,7 @@ export const INITIAL_SOCIAL_POSTS: readonly SocialPost[] = [
         authorName: "Jair R.",
         verifiedBadge: "+9.2u · Ventaja +2.8 %",
         createdAt: "Hace 20 min",
-        body: "Registrado en mi bitácora a −112 antes del ajuste de línea en Geodesic v2.0.",
+        body: "Registrado en mi bitácora a −112 antes del ajuste de línea en Motor Spacetime.",
       },
     ],
   },

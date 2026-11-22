@@ -157,7 +157,7 @@ const ENGINE_NAMES = {
   tachyon: "PitchLab Tachyon v3.0",
   minkowski: "PitchLab Minkowski v3.0",
   singularity: "PitchLab Singularity v3.0",
-  geodesic: "PitchLab Geodesic v2.0",
+  geodesic: "Motor Spacetime",
 } as const;
 
 /** Lado 1X2 / moneyline de una fila de mercado; `null` si no es mercado de ganador. */
@@ -417,8 +417,15 @@ function buildMatchPicksAndParlayCandidates(
   const fromSnapshotPick = (profile: string, minP = 0) => {
     const snap = match.picks?.find((p) => p.profile === profile);
     if (!snap || usedLabels.has(snap.label)) return undefined;
+    if (COUNT_MARKET_KEYS.has(snap.market.toLowerCase()) || snap.market === "correct_score") {
+      return undefined;
+    }
     return take(
-      ({ row }) => row.market === snap.market && row.selection === snap.selection && row.p >= minP,
+      ({ row }) =>
+        !COUNT_MARKET_KEYS.has(row.market.toLowerCase()) &&
+        row.market === snap.market &&
+        row.selection === snap.selection &&
+        row.p >= minP,
     );
   };
   const groupHas = (group: string, ...needles: string[]) =>

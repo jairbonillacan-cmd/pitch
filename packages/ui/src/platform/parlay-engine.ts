@@ -25,6 +25,8 @@ const OPPOSING_GROUPS: Readonly<Record<PickConflictGroup, readonly PickConflictG
   independent: [],
 };
 
+export const MAX_PARLAY_LEGS = 6;
+
 export interface ParlayCompatibilityResult {
   allowed: boolean;
   code?:
@@ -33,6 +35,7 @@ export interface ParlayCompatibilityResult {
     | "live"
     | "invalid_odds"
     | "duplicate"
+    | "max_legs"
     | "same_game_disabled"
     | "sgp_limit"
     | "exact_score_sgp"
@@ -248,6 +251,13 @@ export function checkParlayCompatibility(
       allowed: false,
       code: "duplicate",
       reason: "Esta selección ya está en tu boleto combinado.",
+    };
+  }
+  if (existingLegs.length >= MAX_PARLAY_LEGS) {
+    return {
+      allowed: false,
+      code: "max_legs",
+      reason: `Máximo ${MAX_PARLAY_LEGS} selecciones por parlay.`,
     };
   }
 
@@ -676,7 +686,7 @@ export function buildSmartAutoParlay(
   games: readonly PlatformGame[],
   options: AutoParlayOptions,
 ): ParlayLeg[] {
-  const targetLegs = Math.max(2, Math.round(options.legCount));
+  const targetLegs = Math.min(MAX_PARLAY_LEGS, Math.max(2, Math.round(options.legCount)));
   const leagueSet = new Set(options.leagues);
   const candidateEntries: Array<{ readonly game: PlatformGame; readonly pick: MatchPick }> = [];
 
@@ -733,11 +743,24 @@ export function buildSmartAutoParlay(
   for (const { pick } of sorted) {
     if (selected.length >= targetLegs) break;
     const key = parlayMarketDiversityKey(pick);
-    if ((diversityCounts.get(key) ?? 0) >= diversityCap) continue;
+    if ((diversityCounts.get(key) ?? 0) >= 1) continue;
     const compat = checkParlayCompatibility(selected, pick, options.allowSgp);
     if (compat.allowed) {
       selected.push({ pick });
       diversityCounts.set(key, (diversityCounts.get(key) ?? 0) + 1);
+    }
+  }
+
+  if (selected.length < targetLegs && diversityCap > 1) {
+    for (const { pick } of sorted) {
+      if (selected.length >= targetLegs) break;
+      const key = parlayMarketDiversityKey(pick);
+      if ((diversityCounts.get(key) ?? 0) >= diversityCap) continue;
+      const compat = checkParlayCompatibility(selected, pick, options.allowSgp);
+      if (compat.allowed) {
+        selected.push({ pick });
+        diversityCounts.set(key, (diversityCounts.get(key) ?? 0) + 1);
+      }
     }
   }
 

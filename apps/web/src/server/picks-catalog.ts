@@ -113,9 +113,23 @@ export function redactCatalogPickForVisitor(
 const MAX_DEVIG_PROB_DIVERGENCE_PTS = 12;
 const MAX_SHARP_EV_PCT = 18;
 const MAX_SOFT_EV_PCT = 22;
+const SHARP_BOOK_TOKENS = ["pinnacle", "betcris", "betonline"] as const;
+
+function isSharpCatalogBook(bookLabel?: string | null): boolean {
+  if (!bookLabel) return false;
+  const norm = bookLabel
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .toLowerCase()
+    .trim();
+  if (norm.length === 0) return false;
+  return SHARP_BOOK_TOKENS.some((token) => norm.includes(token));
+}
 
 function isHardAnomalousCatalogPick(item: CatalogPickItem): boolean {
-  const { p, marketDecimal, deVigMarketProb, noVigEdgePts, evPct, edgePts } = item.pricing;
+  const { p, marketDecimal, deVigMarketProb, noVigEdgePts, evPct, edgePts, marketBookLabel } =
+    item.pricing;
+  const evLimit = isSharpCatalogBook(marketBookLabel) ? MAX_SHARP_EV_PCT : MAX_SOFT_EV_PCT;
   if (
     deVigMarketProb !== null &&
     Number.isFinite(deVigMarketProb) &&
@@ -130,7 +144,7 @@ function isHardAnomalousCatalogPick(item: CatalogPickItem): boolean {
   ) {
     return true;
   }
-  if (evPct !== null && Number.isFinite(evPct) && evPct > MAX_SHARP_EV_PCT) {
+  if (evPct !== null && Number.isFinite(evPct) && evPct > evLimit) {
     return true;
   }
   if (
@@ -142,7 +156,7 @@ function isHardAnomalousCatalogPick(item: CatalogPickItem): boolean {
   }
   if (marketDecimal !== null && Number.isFinite(marketDecimal) && marketDecimal >= 1.01) {
     const rawEv = (p * marketDecimal - 1) * 100;
-    if (rawEv > MAX_SOFT_EV_PCT) return true;
+    if (rawEv > evLimit) return true;
   }
   return false;
 }
@@ -157,9 +171,12 @@ function rankPickForCompaction(item: CatalogPickItem): number {
       ? -25
       : 0;
   const recScore = item.recommendationScore ?? 0;
+  const evLimit = isSharpCatalogBook(item.pricing.marketBookLabel)
+    ? MAX_SHARP_EV_PCT
+    : MAX_SOFT_EV_PCT;
   const cappedEv =
     item.pricing.hasPositiveValue && item.pricing.evPct !== null
-      ? Math.min(MAX_SHARP_EV_PCT, Math.max(0, item.pricing.evPct))
+      ? Math.min(evLimit, Math.max(0, item.pricing.evPct))
       : 0;
   const valueBonus = cappedEv > 0 ? 35 + Math.min(25, cappedEv * 1.8) : 0;
   const quoteBonus = item.pricing.marketDecimal !== null ? 12 : 0;

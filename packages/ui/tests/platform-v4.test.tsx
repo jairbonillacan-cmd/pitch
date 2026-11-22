@@ -155,7 +155,7 @@ describe("PitchLab Spacetime Suite v3.0 & Liquid Glass Platform v4", () => {
     const value = game.picks.find((p) => p.category === "valor");
     if (value) {
       expect(value.marketDecimal).toBe(2.1);
-      expect(value.engineName).toBe("PitchLab Geodesic v2.0");
+      expect(value.engineName).toBe("Motor Spacetime");
     }
     expect(game.preGame.moneyFlow?.homeShare).toBe(45);
     expect(game.preGame.absences).toHaveLength(1);
@@ -269,18 +269,29 @@ describe("PitchLab Spacetime Suite v3.0 & Liquid Glass Platform v4", () => {
     const uniqueGameIds = new Set(autoNoSgp.map((l) => l.pick.gameId));
     expect(uniqueGameIds.size).toBe(3);
 
-    const autoEight = buildSmartAutoParlay(dataset.games, {
+    const autoSix = buildSmartAutoParlay(dataset.games, {
       leagues: dataset.leagues.map((l) => l.league),
       risk: "arriesgado",
       legCount: 8,
       allowSgp: false,
       viewerRole: "member",
     });
-    expect(autoEight.length).toBeGreaterThanOrEqual(7);
-    const eightRisk = assessParlayRisk(computeParlaySummary(autoEight, 1));
-    expect(["muy_alto", "extremo"]).toContain(eightRisk.level);
-    expect(eightRisk.weakestLeg).not.toBeNull();
-    expect(eightRisk.warnings.length).toBeGreaterThan(0);
+    expect(autoSix.length).toBeLessThanOrEqual(6);
+    expect(autoSix.length).toBeGreaterThanOrEqual(2);
+    if (autoSix.length === 6) {
+      const extraCandidate = dataset.games
+        .filter((g) => g.status === "NS" && !autoSix.some((l) => l.pick.gameId === g.id))
+        .flatMap((g) => g.picks)[0];
+      if (extraCandidate) {
+        const seventhCheck = checkParlayCompatibility(autoSix, extraCandidate, false);
+        expect(seventhCheck.allowed).toBe(false);
+        expect(seventhCheck.code).toBe("max_legs");
+      }
+    }
+    const sixRisk = assessParlayRisk(computeParlaySummary(autoSix, 1));
+    expect(["alto", "muy_alto", "extremo"]).toContain(sixRisk.level);
+    expect(sixRisk.weakestLeg).not.toBeNull();
+    expect(sixRisk.warnings.length).toBeGreaterThan(0);
 
     // Bloquea partidos en vivo, marcador exacto en SGP, mismo eje redundante y contradicciones lógicas (BTTS Sí + Under 1.5)
     const livePick = { ...pickA, id: "live-pick-test", gameId: "other-live-game", gameStatus: "LIVE" as const };

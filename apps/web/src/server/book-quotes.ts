@@ -231,12 +231,77 @@ export function classifyQuoteMovement(params: {
   });
 }
 
+const LINE_SCOPED_QUOTE_MARKETS: ReadonlySet<string> = new Set([
+  "totals",
+  "team_totals",
+  "corners_total",
+  "corners_team",
+  "cards_total",
+  "yellow_total",
+  "fouls_total",
+  "shots_total",
+  "shots_on_target",
+  "spread",
+  "nba_totals",
+  "nba_spread",
+  "mlb_totals",
+  "mlb_run_line",
+  "nhl_totals",
+  "nhl_puck_line",
+  "nfl_totals",
+  "nfl_spread",
+]);
+
+const SPREAD_LIKE_QUOTE_MARKETS: ReadonlySet<string> = new Set([
+  "spread",
+  "nba_spread",
+  "mlb_run_line",
+  "nhl_puck_line",
+  "nfl_spread",
+]);
+
+const OVER_UNDER_QUOTE_MARKETS: ReadonlySet<string> = new Set([
+  "totals",
+  "team_totals",
+  "corners_total",
+  "corners_team",
+  "cards_total",
+  "yellow_total",
+  "fouls_total",
+  "shots_total",
+  "shots_on_target",
+  "nba_totals",
+  "mlb_totals",
+  "nhl_totals",
+  "nfl_totals",
+]);
+
+function isLineScopedQuoteMarket(market: string): boolean {
+  return (
+    LINE_SCOPED_QUOTE_MARKETS.has(market) ||
+    market.startsWith("team_goals_") ||
+    market.startsWith("totals_")
+  );
+}
+
+function isSpreadLikeQuoteMarket(market: string): boolean {
+  return SPREAD_LIKE_QUOTE_MARKETS.has(market);
+}
+
 function normalizeMarketKey(rawMarket: string | undefined, rawSelection?: string): string {
   const m = (rawMarket ?? "").trim().toLowerCase().replace(/[\s-]+/g, "_");
   const sel = (rawSelection ?? "").trim().toLowerCase().replace(/[\s-]+/g, "_");
 
   if (m === "h2h" || m === "1x2" || m === "moneyline" || m === "ml" || m === "match_winner") return "1x2";
   if (m === "btts" || m === "both_teams_to_score") return "btts";
+  if (
+    m === "team_totals" ||
+    m === "team_total" ||
+    m.startsWith("team_totals_") ||
+    m.startsWith("team_goals_")
+  ) {
+    return "team_totals";
+  }
   if (
     m === "totals" ||
     m === "total" ||
@@ -249,14 +314,60 @@ function normalizeMarketKey(rawMarket: string | undefined, rawSelection?: string
     return "totals";
   }
   if (
+    m === "corners_team" ||
+    m.startsWith("corners_team_") ||
+    m === "team_corners" ||
+    m.startsWith("team_corners_")
+  ) {
+    return "corners_team";
+  }
+  if (
     m === "corners_total" ||
     m === "total_corners" ||
     m === "corners_over_under" ||
     m.startsWith("total_corners_") ||
-    m.startsWith("corners_")
+    m.startsWith("corners_total_")
   ) {
     return "corners_total";
   }
+  if (
+    m === "cards_total" ||
+    m === "total_cards" ||
+    m === "cards_over_under" ||
+    m.startsWith("cards_total_")
+  ) {
+    return "cards_total";
+  }
+  if (
+    m === "yellow_total" ||
+    m === "total_yellow_cards" ||
+    m === "yellow_cards_total" ||
+    m.startsWith("yellow_total_")
+  ) {
+    return "yellow_total";
+  }
+  if (
+    m === "fouls_total" ||
+    m === "total_fouls" ||
+    m.startsWith("fouls_total_")
+  ) {
+    return "fouls_total";
+  }
+  if (
+    m === "shots_on_target" ||
+    m === "total_shots_on_target" ||
+    m.startsWith("shots_on_target_")
+  ) {
+    return "shots_on_target";
+  }
+  if (
+    m === "shots_total" ||
+    m === "total_shots" ||
+    m.startsWith("shots_total_")
+  ) {
+    return "shots_total";
+  }
+  if (m === "nhl_puckline" || m === "nhl_puck_line") return "nhl_puck_line";
   if (
     m === "spread" ||
     m === "spreads" ||
@@ -288,7 +399,7 @@ function normalizeMarketKey(rawMarket: string | undefined, rawSelection?: string
 
 function normalizeSelectionToken(market: string, rawSelection: string | undefined): string {
   const s = (rawSelection ?? "").trim().toLowerCase().replace(/[\s-]+/g, "_");
-  if (market === "1x2" || market === "spread" || market === "dnb") {
+  if (market === "1x2" || isSpreadLikeQuoteMarket(market) || market === "dnb") {
     if (s === "1" || s === "home" || s === "local" || s.startsWith("home_") || s.startsWith("local_")) {
       return "home";
     }
@@ -311,7 +422,13 @@ function normalizeSelectionToken(market: string, rawSelection: string | undefine
     }
     if (s === "no" || s === "btts_no" || s === "home_no" || s === "away_no") return "no";
   }
-  if (market === "totals" || market === "corners_total") {
+  if (market === "team_totals" || market === "corners_team") {
+    if (s.startsWith("home_over")) return "home_over";
+    if (s.startsWith("home_under")) return "home_under";
+    if (s.startsWith("away_over")) return "away_over";
+    if (s.startsWith("away_under")) return "away_under";
+  }
+  if (OVER_UNDER_QUOTE_MARKETS.has(market)) {
     if (s === "over" || s.startsWith("over_") || s === "mas") return "over";
     if (s === "under" || s.startsWith("under_") || s === "menos") return "under";
   }
@@ -334,7 +451,7 @@ function normalizeLineValue(
   rawSelection?: string,
   labelFallback?: string,
 ): string {
-  if (market !== "totals" && market !== "corners_total" && market !== "spread") return "null";
+  if (!isLineScopedQuoteMarket(market)) return "null";
   if (typeof line === "number" && Number.isFinite(line)) {
     return String(normalizeSignedZero(line));
   }
@@ -365,16 +482,16 @@ function inferSourceLine(
   rawMarket: unknown,
   rawLine: unknown,
 ): number | null {
-  if (canonicalMarket !== "totals" && canonicalMarket !== "corners_total" && canonicalMarket !== "spread") {
+  if (!isLineScopedQuoteMarket(canonicalMarket)) {
     return null;
   }
   const explicit = parseStrictFiniteNumber(rawLine);
   if (explicit !== null) {
     const clean = normalizeSignedZero(explicit);
-    if (canonicalMarket === "spread") return clean;
+    if (isSpreadLikeQuoteMarket(canonicalMarket)) return clean;
     if (clean > 0) return clean;
   }
-  if (canonicalMarket === "totals" || canonicalMarket === "corners_total") {
+  if (OVER_UNDER_QUOTE_MARKETS.has(canonicalMarket)) {
     const slug = String(rawMarket ?? "").trim().toLowerCase().replace(/[\s-]+/g, "_");
     const suffix = /(\d{2,3})$/.exec(slug);
     if (suffix?.[1]) {
@@ -394,7 +511,7 @@ function sidePerspectiveLine(
   line: number | null,
 ): number | null {
   if (line === null) return null;
-  if (canonicalMarket === "spread" && canonicalSelection === "away") {
+  if (isSpreadLikeQuoteMarket(canonicalMarket) && canonicalSelection === "away") {
     return line === 0 ? 0 : normalizeSignedZero(-line);
   }
   return normalizeSignedZero(line);
@@ -409,7 +526,7 @@ function buildSourceTickLookupKey(
   const selection = normalizeSelectionToken(market, rawSelection);
   if (!market || !selection) return null;
   const parsedLine = inferSourceLine(market, rawMarket, rawLine);
-  if ((market === "totals" || market === "corners_total" || market === "spread") && parsedLine === null) {
+  if (isLineScopedQuoteMarket(market) && parsedLine === null) {
     return null;
   }
   const lineForSide = sidePerspectiveLine(market, selection, parsedLine);
@@ -965,17 +1082,26 @@ function resolveEventSelectionDeVigProb(
     legs = ["dnb|null|home", "dnb|null|away"];
   } else if (market === "btts") {
     legs = ["btts|null|yes", "btts|null|no"];
-  } else if (market === "totals" || market === "corners_total") {
+  } else if (market === "team_totals" || market === "corners_team") {
+    if (normLine === "null") return null;
+    if (selection === "home_over" || selection === "home_under") {
+      legs = [`${market}|${normLine}|home_over`, `${market}|${normLine}|home_under`];
+    } else if (selection === "away_over" || selection === "away_under") {
+      legs = [`${market}|${normLine}|away_over`, `${market}|${normLine}|away_under`];
+    } else if (selection === "over" || selection === "under") {
+      legs = [`${market}|${normLine}|over`, `${market}|${normLine}|under`];
+    }
+  } else if (OVER_UNDER_QUOTE_MARKETS.has(market)) {
     if (normLine === "null") return null;
     legs = [`${market}|${normLine}|over`, `${market}|${normLine}|under`];
-  } else if (market === "spread") {
+  } else if (isSpreadLikeQuoteMarket(market)) {
     const lineNum = parseStrictFiniteNumber(normLine);
     if (lineNum === null) return null;
     const oppLine = lineNum === 0 ? 0 : normalizeSignedZero(-lineNum);
     if (selection === "home") {
-      legs = [`spread|${lineNum}|home`, `spread|${oppLine}|away`];
+      legs = [`${market}|${lineNum}|home`, `${market}|${oppLine}|away`];
     } else if (selection === "away") {
-      legs = [`spread|${oppLine}|home`, `spread|${lineNum}|away`];
+      legs = [`${market}|${oppLine}|home`, `${market}|${lineNum}|away`];
     }
   }
 
@@ -984,7 +1110,6 @@ function resolveEventSelectionDeVigProb(
   if (targetIdx < 0) return null;
 
   const legBookMaps: Array<Map<string, number>> = [];
-  const bestPerLeg: number[] = [];
 
   for (const legKey of legs) {
     const fresh = (ev.bySelectionKey.get(legKey) ?? []).filter(
@@ -1001,29 +1126,26 @@ function resolveEventSelectionDeVigProb(
       if (bk && !map.has(bk)) map.set(bk, q.decimal);
     }
     legBookMaps.push(map);
-    bestPerLeg.push(fresh[0]!.decimal);
   }
 
   const firstMap = legBookMaps[0];
-  let companionDecimals: readonly number[] = bestPerLeg;
-  if (firstMap) {
-    const commonBooks: string[] = [];
-    for (const bk of firstMap.keys()) {
-      if (legBookMaps.every((m) => m.has(bk))) commonBooks.push(bk);
-    }
-    if (commonBooks.length > 0) {
-      commonBooks.sort((a, b) => {
-        const pa = SHARP_BOOK_PRIORITY.findIndex((t) => a.includes(t));
-        const pb = SHARP_BOOK_PRIORITY.findIndex((t) => b.includes(t));
-        const ra = pa >= 0 ? pa : 99;
-        const rb = pb >= 0 ? pb : 99;
-        if (ra !== rb) return ra - rb;
-        return a.localeCompare(b);
-      });
-      const chosenBook = commonBooks[0]!;
-      companionDecimals = legBookMaps.map((m) => m.get(chosenBook)!);
-    }
+  if (!firstMap) return null;
+  const commonBooks: string[] = [];
+  for (const bk of firstMap.keys()) {
+    if (legBookMaps.every((m) => m.has(bk))) commonBooks.push(bk);
   }
+  if (commonBooks.length === 0) return null;
+
+  commonBooks.sort((a, b) => {
+    const pa = SHARP_BOOK_PRIORITY.findIndex((t) => a.includes(t));
+    const pb = SHARP_BOOK_PRIORITY.findIndex((t) => b.includes(t));
+    const ra = pa >= 0 ? pa : 99;
+    const rb = pb >= 0 ? pb : 99;
+    if (ra !== rb) return ra - rb;
+    return a.localeCompare(b);
+  });
+  const chosenBook = commonBooks[0]!;
+  const companionDecimals = legBookMaps.map((m) => m.get(chosenBook)!);
 
   const devig = computeAdaptiveDeVig(companionDecimals, "auto", targetProbSum);
   if (!devig) return null;
@@ -1436,6 +1558,10 @@ export function buildMarketRowComparison(
     capturedAtIso,
   });
 
+  const rawEvPct = round2((row.p * bestDecimal - 1) * 100);
+  const evLimit = isSharpQuoteBook(bestBook || bestBookLabel) ? MAX_SHARP_EV_PCT : MAX_SOFT_EV_PCT;
+  const isAnomalous = rawEvPct > evLimit;
+
   return {
     market,
     selection,
@@ -1451,8 +1577,8 @@ export function buildMarketRowComparison(
     signal: consensusMv.signal,
     modelProb: round3(row.p),
     fairDecimal: round3(1 / row.p),
-    edgePts: round2((row.p - 1 / bestDecimal) * 100),
-    evPct: round2((row.p * bestDecimal - 1) * 100),
+    edgePts: isAnomalous ? null : round2((row.p - 1 / bestDecimal) * 100),
+    evPct: isAnomalous ? null : rawEvPct,
     anchoredQuote,
     books,
   };
