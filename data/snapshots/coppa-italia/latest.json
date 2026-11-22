@@ -5,32 +5,21 @@
   "season": "coppa-italia-2026-27",
   "seasonLabel": "2026/27",
   "periodLabel": "Round of 64",
-  "updatedAt": "2026-11-19T16:13:44.585Z",
+  "updatedAt": "2026-11-22T04:33:15.743Z",
   "source": "pitchlab-football-v2",
   "provenance": "derived",
   "isDemo": false,
   "teamRates": {
-    "coppa-italia.l-r-vicenza": {
-      "teamId": "coppa-italia.l-r-vicenza",
-      "name": "L.R. Vicenza",
-      "shortName": "L.R. Vicenza",
-      "code": "LRV",
+    "coppa-italia.arezzo": {
+      "teamId": "coppa-italia.arezzo",
+      "name": "Arezzo",
+      "shortName": "Arezzo",
+      "code": "ARE",
       "forPerGame": 1,
-      "againstPerGame": 1,
-      "gamesPlayed": 1,
-      "adjustedFor": 1.3857142857142857,
-      "adjustedAgainst": 1.3857142857142857
-    },
-    "coppa-italia.catania": {
-      "teamId": "coppa-italia.catania",
-      "name": "Catania",
-      "shortName": "Catania",
-      "code": "CAT",
-      "forPerGame": 0.5,
-      "againstPerGame": 1.5,
+      "againstPerGame": 0.5,
       "gamesPlayed": 2,
-      "adjustedFor": 1.2125,
-      "adjustedAgainst": 1.4625
+      "adjustedFor": 1.0966214139828068,
+      "adjustedAgainst": 1.0441501069175434
     },
     "coppa-italia.ascoli": {
       "teamId": "coppa-italia.ascoli",
@@ -40,96 +29,8 @@
       "forPerGame": 2,
       "againstPerGame": 2.5,
       "gamesPlayed": 2,
-      "adjustedFor": 1.5875,
-      "adjustedAgainst": 1.7125
-    },
-    "coppa-italia.potenza": {
-      "teamId": "coppa-italia.potenza",
-      "name": "Potenza Calcio",
-      "shortName": "Potenza Calcio",
-      "code": "POT",
-      "forPerGame": 1,
-      "againstPerGame": 3,
-      "gamesPlayed": 1,
-      "adjustedFor": 1.3857142857142857,
-      "adjustedAgainst": 1.6714285714285713
-    },
-    "coppa-italia.arezzo": {
-      "teamId": "coppa-italia.arezzo",
-      "name": "Arezzo",
-      "shortName": "Arezzo",
-      "code": "ARE",
-      "forPerGame": 1,
-      "againstPerGame": 0.5,
-      "gamesPlayed": 2,
-      "adjustedFor": 1.3375,
-      "adjustedAgainst": 1.2125
-    },
-    "coppa-italia.union-brescia": {
-      "teamId": "coppa-italia.union-brescia",
-      "name": "Union Brescia",
-      "shortName": "Union Brescia",
-      "code": "UNI",
-      "forPerGame": 0,
-      "againstPerGame": 2,
-      "gamesPlayed": 1,
-      "adjustedFor": 1.2428571428571427,
-      "adjustedAgainst": 1.5285714285714285
-    },
-    "coppa-italia.benevento": {
-      "teamId": "coppa-italia.benevento",
-      "name": "Benevento",
-      "shortName": "Benevento",
-      "code": "BEN",
-      "forPerGame": 3,
-      "againstPerGame": 3.5,
-      "gamesPlayed": 2,
-      "adjustedFor": 1.8375,
-      "adjustedAgainst": 1.9625
-    },
-    "coppa-italia.ravenna": {
-      "teamId": "coppa-italia.ravenna",
-      "name": "Ravenna",
-      "shortName": "Ravenna",
-      "code": "RAV",
-      "forPerGame": 3,
-      "againstPerGame": 5,
-      "gamesPlayed": 1,
-      "adjustedFor": 1.6714285714285713,
-      "adjustedAgainst": 1.957142857142857
-    },
-    "coppa-italia.parma": {
-      "teamId": "coppa-italia.parma",
-      "name": "Parma",
-      "shortName": "Parma",
-      "code": "PAR",
-      "forPerGame": 1,
-      "againstPerGame": 1,
-      "gamesPlayed": 2,
-      "adjustedFor": 1.3375,
-      "adjustedAgainst": 1.3375
-    },
-    "coppa-italia.cagliari": {
-      "teamId": "coppa-italia.cagliari",
-      "name": "Cagliari",
-      "shortName": "Cagliari",
-      "code": "CAG",
-      "forPerGame": 1,
-      "againstPerGame": 1,
-      "gamesPlayed": 2,
-      "adjustedFor": 1.3375,
-      "adjustedAgainst": 1.3375
-    },
-    "coppa-italia.monza": {
-      "teamId": "coppa-italia.monza",
-      "name": "Monza",
-      "shortName": "Monza",
-      "code": "MON",
-      "forPerGame": 2,
-      "againstPerGame": 0,
-      "gamesPlayed": 2,
-      "adjustedFor": 1.5875,
-      "adjustedAgainst": 1.0875
+      "adjustedFor": 1.2321115430392713,
+      "adjustedAgainst": 1.295745127882874
     },
     "coppa-italia.avellino": {
       "teamId": "coppa-italia.avellino",
@@ -139,96 +40,41 @@
       "forPerGame": 0,
       "againstPerGame": 3,
       "gamesPlayed": 1,
-      "adjustedFor": 1.2428571428571427,
-      "adjustedAgainst": 1.6714285714285713
+      "adjustedFor": 1.0895388688507213,
+      "adjustedAgainst": 1.2432350026183154
     },
-    "coppa-italia.fiorentina": {
-      "teamId": "coppa-italia.fiorentina",
-      "name": "Fiorentina",
-      "shortName": "Fiorentina",
-      "code": "FIO",
-      "forPerGame": 3.5,
-      "againstPerGame": 0.5,
+    "coppa-italia.benevento": {
+      "teamId": "coppa-italia.benevento",
+      "name": "Benevento",
+      "shortName": "Benevento",
+      "code": "BEN",
+      "forPerGame": 3,
+      "againstPerGame": 3.5,
       "gamesPlayed": 2,
-      "adjustedFor": 1.9625,
-      "adjustedAgainst": 1.2125
+      "adjustedFor": 1.3519234779598017,
+      "adjustedAgainst": 1.4042257641071703
     },
-    "coppa-italia.catanzaro": {
-      "teamId": "coppa-italia.catanzaro",
-      "name": "Catanzaro",
-      "shortName": "Catanzaro",
-      "code": "CAT",
-      "forPerGame": 2,
-      "againstPerGame": 2,
-      "gamesPlayed": 1,
-      "adjustedFor": 1.5285714285714285,
-      "adjustedAgainst": 1.5285714285714285
+    "coppa-italia.bologna": {
+      "teamId": "coppa-italia.bologna",
+      "name": "Bologna",
+      "shortName": "Bologna",
+      "code": "BOL",
+      "forPerGame": 1.1617642818107174,
+      "againstPerGame": 1.1617642818107174,
+      "gamesPlayed": 0,
+      "adjustedFor": 1.1617642818107174,
+      "adjustedAgainst": 1.1617642818107174
     },
-    "coppa-italia.sudtirol": {
-      "teamId": "coppa-italia.sudtirol",
-      "name": "Südtirol",
-      "shortName": "Südtirol",
-      "code": "SUD",
+    "coppa-italia.cagliari": {
+      "teamId": "coppa-italia.cagliari",
+      "name": "Cagliari",
+      "shortName": "Cagliari",
+      "code": "CAG",
       "forPerGame": 1,
-      "againstPerGame": 1.5,
-      "gamesPlayed": 2,
-      "adjustedFor": 1.3375,
-      "adjustedAgainst": 1.4625
-    },
-    "coppa-italia.udinese": {
-      "teamId": "coppa-italia.udinese",
-      "name": "Udinese",
-      "shortName": "Udinese",
-      "code": "UDI",
-      "forPerGame": 1.5,
-      "againstPerGame": 0.5,
-      "gamesPlayed": 2,
-      "adjustedFor": 1.4625,
-      "adjustedAgainst": 1.2125
-    },
-    "coppa-italia.padova": {
-      "teamId": "coppa-italia.padova",
-      "name": "Padova",
-      "shortName": "Padova",
-      "code": "PAD",
-      "forPerGame": 0,
       "againstPerGame": 1,
-      "gamesPlayed": 1,
-      "adjustedFor": 1.2428571428571427,
-      "adjustedAgainst": 1.3857142857142857
-    },
-    "coppa-italia.venezia": {
-      "teamId": "coppa-italia.venezia",
-      "name": "Venezia",
-      "shortName": "Venezia",
-      "code": "VEN",
-      "forPerGame": 2,
-      "againstPerGame": 2,
       "gamesPlayed": 2,
-      "adjustedFor": 1.5875,
-      "adjustedAgainst": 1.5875
-    },
-    "coppa-italia.modena": {
-      "teamId": "coppa-italia.modena",
-      "name": "Modena",
-      "shortName": "Modena",
-      "code": "MOD",
-      "forPerGame": 2,
-      "againstPerGame": 3,
-      "gamesPlayed": 1,
-      "adjustedFor": 1.5285714285714285,
-      "adjustedAgainst": 1.6714285714285713
-    },
-    "coppa-italia.torino": {
-      "teamId": "coppa-italia.torino",
-      "name": "Torino",
-      "shortName": "Torino",
-      "code": "TOR",
-      "forPerGame": 0.5,
-      "againstPerGame": 0.5,
-      "gamesPlayed": 2,
-      "adjustedFor": 1.2125,
-      "adjustedAgainst": 1.2125
+      "adjustedFor": 1.0657202033583333,
+      "adjustedAgainst": 1.1436150245782788
     },
     "coppa-italia.carrarese": {
       "teamId": "coppa-italia.carrarese",
@@ -238,118 +84,30 @@
       "forPerGame": 0,
       "againstPerGame": 1,
       "gamesPlayed": 1,
-      "adjustedFor": 1.2428571428571427,
-      "adjustedAgainst": 1.3857142857142857
+      "adjustedFor": 1.0825333561526373,
+      "adjustedAgainst": 1.1219061055561064
     },
-    "coppa-italia.frosinone": {
-      "teamId": "coppa-italia.frosinone",
-      "name": "Frosinone",
-      "shortName": "Frosinone",
-      "code": "FRO",
-      "forPerGame": 2.5,
-      "againstPerGame": 1,
-      "gamesPlayed": 2,
-      "adjustedFor": 1.7125,
-      "adjustedAgainst": 1.3375
-    },
-    "coppa-italia.juve-stabia": {
-      "teamId": "coppa-italia.juve-stabia",
-      "name": "Juve Stabia",
-      "shortName": "Juve Stabia",
-      "code": "JUV",
-      "forPerGame": 1,
-      "againstPerGame": 4,
-      "gamesPlayed": 1,
-      "adjustedFor": 1.3857142857142857,
-      "adjustedAgainst": 1.8142857142857143
-    },
-    "coppa-italia.genoa": {
-      "teamId": "coppa-italia.genoa",
-      "name": "Genoa",
-      "shortName": "Genoa",
-      "code": "GEN",
-      "forPerGame": 2.5,
-      "againstPerGame": 0.5,
-      "gamesPlayed": 2,
-      "adjustedFor": 1.7125,
-      "adjustedAgainst": 1.2125
-    },
-    "coppa-italia.hellas-verona": {
-      "teamId": "coppa-italia.hellas-verona",
-      "name": "Hellas Verona",
-      "shortName": "Hellas Verona",
-      "code": "HEL",
-      "forPerGame": 2,
+    "coppa-italia.catania": {
+      "teamId": "coppa-italia.catania",
+      "name": "Catania",
+      "shortName": "Catania",
+      "code": "CAT",
+      "forPerGame": 0.5,
       "againstPerGame": 1.5,
       "gamesPlayed": 2,
-      "adjustedFor": 1.5875,
-      "adjustedAgainst": 1.4625
+      "adjustedFor": 1.0723116682507343,
+      "adjustedAgainst": 1.137734190955994
     },
-    "coppa-italia.virtus-entella": {
-      "teamId": "coppa-italia.virtus-entella",
-      "name": "Virtus Entella",
-      "shortName": "Virtus Entella",
-      "code": "VIR",
+    "coppa-italia.catanzaro": {
+      "teamId": "coppa-italia.catanzaro",
+      "name": "Catanzaro",
+      "shortName": "Catanzaro",
+      "code": "CAT",
       "forPerGame": 2,
       "againstPerGame": 2,
       "gamesPlayed": 1,
-      "adjustedFor": 1.5285714285714285,
-      "adjustedAgainst": 1.5285714285714285
-    },
-    "coppa-italia.lazio": {
-      "teamId": "coppa-italia.lazio",
-      "name": "Lazio",
-      "shortName": "Lazio",
-      "code": "LAZ",
-      "forPerGame": 0,
-      "againstPerGame": 2,
-      "gamesPlayed": 1,
-      "adjustedFor": 1.2428571428571427,
-      "adjustedAgainst": 1.5285714285714285
-    },
-    "coppa-italia.mantova": {
-      "teamId": "coppa-italia.mantova",
-      "name": "Mantova",
-      "shortName": "Mantova",
-      "code": "MAN",
-      "forPerGame": 2,
-      "againstPerGame": 2.5,
-      "gamesPlayed": 2,
-      "adjustedFor": 1.5875,
-      "adjustedAgainst": 1.7125
-    },
-    "coppa-italia.pisa": {
-      "teamId": "coppa-italia.pisa",
-      "name": "Pisa",
-      "shortName": "Pisa",
-      "code": "PIS",
-      "forPerGame": 0.5,
-      "againstPerGame": 2,
-      "gamesPlayed": 2,
-      "adjustedFor": 1.2125,
-      "adjustedAgainst": 1.5875
-    },
-    "coppa-italia.empoli": {
-      "teamId": "coppa-italia.empoli",
-      "name": "Empoli",
-      "shortName": "Empoli",
-      "code": "EMP",
-      "forPerGame": 1,
-      "againstPerGame": 1,
-      "gamesPlayed": 1,
-      "adjustedFor": 1.3857142857142857,
-      "adjustedAgainst": 1.3857142857142857
-    },
-    "coppa-italia.sassuolo": {
-      "teamId": "coppa-italia.sassuolo",
-      "name": "Sassuolo",
-      "shortName": "Sassuolo",
-      "code": "SAS",
-      "forPerGame": 2,
-      "againstPerGame": 0.5,
-      "gamesPlayed": 2,
-      "adjustedFor": 1.5875,
-      "adjustedAgainst": 1.2125
+      "adjustedFor": 1.1846002633599857,
+      "adjustedAgainst": 1.2313249567439615
     },
     "coppa-italia.cesena": {
       "teamId": "coppa-italia.cesena",
@@ -359,8 +117,19 @@
       "forPerGame": 0,
       "againstPerGame": 3,
       "gamesPlayed": 1,
-      "adjustedFor": 1.2428571428571427,
-      "adjustedAgainst": 1.6714285714285713
+      "adjustedFor": 1.0825582248388266,
+      "adjustedAgainst": 1.249347967574207
+    },
+    "coppa-italia.como": {
+      "teamId": "coppa-italia.como",
+      "name": "Como",
+      "shortName": "Como",
+      "code": "COM",
+      "forPerGame": 1.1617642818107174,
+      "againstPerGame": 1.1617642818107174,
+      "gamesPlayed": 0,
+      "adjustedFor": 1.1617642818107174,
+      "adjustedAgainst": 1.1617642818107174
     },
     "coppa-italia.cremonese": {
       "teamId": "coppa-italia.cremonese",
@@ -370,30 +139,118 @@
       "forPerGame": 2,
       "againstPerGame": 0,
       "gamesPlayed": 2,
-      "adjustedFor": 1.5875,
-      "adjustedAgainst": 1.0875
+      "adjustedFor": 1.237076918960881,
+      "adjustedAgainst": 0.9693847533843564
     },
-    "coppa-italia.sampdoria": {
-      "teamId": "coppa-italia.sampdoria",
-      "name": "Sampdoria",
-      "shortName": "Sampdoria",
-      "code": "SAM",
+    "coppa-italia.empoli": {
+      "teamId": "coppa-italia.empoli",
+      "name": "Empoli",
+      "shortName": "Empoli",
+      "code": "EMP",
+      "forPerGame": 1,
+      "againstPerGame": 1,
+      "gamesPlayed": 1,
+      "adjustedFor": 1.1485355782381532,
+      "adjustedAgainst": 1.118700384560672
+    },
+    "coppa-italia.fiorentina": {
+      "teamId": "coppa-italia.fiorentina",
+      "name": "Fiorentina",
+      "shortName": "Fiorentina",
+      "code": "FIO",
+      "forPerGame": 3.5,
+      "againstPerGame": 0.5,
+      "gamesPlayed": 2,
+      "adjustedFor": 1.3540120846378643,
+      "adjustedAgainst": 1.062653021785554
+    },
+    "coppa-italia.frosinone": {
+      "teamId": "coppa-italia.frosinone",
+      "name": "Frosinone",
+      "shortName": "Frosinone",
+      "code": "FRO",
+      "forPerGame": 2.5,
+      "againstPerGame": 1,
+      "gamesPlayed": 2,
+      "adjustedFor": 1.2930199166758831,
+      "adjustedAgainst": 1.0939971941462523
+    },
+    "coppa-italia.genoa": {
+      "teamId": "coppa-italia.genoa",
+      "name": "Genoa",
+      "shortName": "Genoa",
+      "code": "GEN",
+      "forPerGame": 2.5,
+      "againstPerGame": 0.5,
+      "gamesPlayed": 2,
+      "adjustedFor": 1.2427573599030062,
+      "adjustedAgainst": 1.0632045127598937
+    },
+    "coppa-italia.hellas-verona": {
+      "teamId": "coppa-italia.hellas-verona",
+      "name": "Hellas Verona",
+      "shortName": "Hellas Verona",
+      "code": "HEL",
+      "forPerGame": 2,
+      "againstPerGame": 1.5,
+      "gamesPlayed": 2,
+      "adjustedFor": 1.237398510815213,
+      "adjustedAgainst": 1.1705751364577528
+    },
+    "coppa-italia.inter": {
+      "teamId": "coppa-italia.inter",
+      "name": "Inter",
+      "shortName": "Inter",
+      "code": "INT",
+      "forPerGame": 1.1617642818107174,
+      "againstPerGame": 1.1617642818107174,
+      "gamesPlayed": 0,
+      "adjustedFor": 1.1617642818107174,
+      "adjustedAgainst": 1.1617642818107174
+    },
+    "coppa-italia.juve-stabia": {
+      "teamId": "coppa-italia.juve-stabia",
+      "name": "Juve Stabia",
+      "shortName": "Juve Stabia",
+      "code": "JUV",
+      "forPerGame": 1,
+      "againstPerGame": 4,
+      "gamesPlayed": 1,
+      "adjustedFor": 1.1579699715141674,
+      "adjustedAgainst": 1.308792546215317
+    },
+    "coppa-italia.juventus": {
+      "teamId": "coppa-italia.juventus",
+      "name": "Juventus",
+      "shortName": "Juventus",
+      "code": "JUV",
+      "forPerGame": 1.1617642818107174,
+      "againstPerGame": 1.1617642818107174,
+      "gamesPlayed": 0,
+      "adjustedFor": 1.1617642818107174,
+      "adjustedAgainst": 1.1617642818107174
+    },
+    "coppa-italia.l-r-vicenza": {
+      "teamId": "coppa-italia.l-r-vicenza",
+      "name": "L.R. Vicenza",
+      "shortName": "L.R. Vicenza",
+      "code": "LRV",
+      "forPerGame": 1,
+      "againstPerGame": 1,
+      "gamesPlayed": 1,
+      "adjustedFor": 1.108214716991054,
+      "adjustedAgainst": 1.1596945790629507
+    },
+    "coppa-italia.lazio": {
+      "teamId": "coppa-italia.lazio",
+      "name": "Lazio",
+      "shortName": "Lazio",
+      "code": "LAZ",
       "forPerGame": 0,
       "againstPerGame": 2,
       "gamesPlayed": 1,
-      "adjustedFor": 1.2428571428571427,
-      "adjustedAgainst": 1.5285714285714285
-    },
-    "coppa-italia.palermo": {
-      "teamId": "coppa-italia.palermo",
-      "name": "Palermo",
-      "shortName": "Palermo",
-      "code": "PAL",
-      "forPerGame": 3.5,
-      "againstPerGame": 1,
-      "gamesPlayed": 2,
-      "adjustedFor": 1.9625,
-      "adjustedAgainst": 1.3375
+      "adjustedFor": 1.0219826431578052,
+      "adjustedAgainst": 1.2198239890378022
     },
     "coppa-italia.lecce": {
       "teamId": "coppa-italia.lecce",
@@ -403,63 +260,206 @@
       "forPerGame": 0,
       "againstPerGame": 2,
       "gamesPlayed": 1,
-      "adjustedFor": 1.2428571428571427,
-      "adjustedAgainst": 1.5285714285714285
+      "adjustedFor": 1.0772244169588288,
+      "adjustedAgainst": 1.1531335784378254
     },
-    "coppa-italia.inter": {
-      "teamId": "coppa-italia.inter",
-      "name": "Inter",
-      "shortName": "Inter",
-      "code": "INT",
-      "forPerGame": 1.45,
-      "againstPerGame": 1.45,
-      "gamesPlayed": 0,
-      "adjustedFor": 1.45,
-      "adjustedAgainst": 1.45
+    "coppa-italia.mantova": {
+      "teamId": "coppa-italia.mantova",
+      "name": "Mantova",
+      "shortName": "Mantova",
+      "code": "MAN",
+      "forPerGame": 2,
+      "againstPerGame": 2.5,
+      "gamesPlayed": 2,
+      "adjustedFor": 1.2838311984295738,
+      "adjustedAgainst": 1.2520940471022035
     },
-    "coppa-italia.como": {
-      "teamId": "coppa-italia.como",
-      "name": "Como",
-      "shortName": "Como",
-      "code": "COM",
-      "forPerGame": 1.45,
-      "againstPerGame": 1.45,
-      "gamesPlayed": 0,
-      "adjustedFor": 1.45,
-      "adjustedAgainst": 1.45
+    "coppa-italia.modena": {
+      "teamId": "coppa-italia.modena",
+      "name": "Modena",
+      "shortName": "Modena",
+      "code": "MOD",
+      "forPerGame": 2,
+      "againstPerGame": 3,
+      "gamesPlayed": 1,
+      "adjustedFor": 1.223620158099525,
+      "adjustedAgainst": 1.2433541467491513
     },
-    "coppa-italia.juventus": {
-      "teamId": "coppa-italia.juventus",
-      "name": "Juventus",
-      "shortName": "Juventus",
-      "code": "JUV",
-      "forPerGame": 1.45,
-      "againstPerGame": 1.45,
-      "gamesPlayed": 0,
-      "adjustedFor": 1.45,
-      "adjustedAgainst": 1.45
-    },
-    "coppa-italia.bologna": {
-      "teamId": "coppa-italia.bologna",
-      "name": "Bologna",
-      "shortName": "Bologna",
-      "code": "BOL",
-      "forPerGame": 1.45,
-      "againstPerGame": 1.45,
-      "gamesPlayed": 0,
-      "adjustedFor": 1.45,
-      "adjustedAgainst": 1.45
+    "coppa-italia.monza": {
+      "teamId": "coppa-italia.monza",
+      "name": "Monza",
+      "shortName": "Monza",
+      "code": "MON",
+      "forPerGame": 2,
+      "againstPerGame": 0,
+      "gamesPlayed": 2,
+      "adjustedFor": 1.2318937985726537,
+      "adjustedAgainst": 0.975952065068035
     },
     "coppa-italia.napoli": {
       "teamId": "coppa-italia.napoli",
       "name": "SSC Napoli",
       "shortName": "SSC Napoli",
       "code": "NAP",
-      "forPerGame": 1.45,
-      "againstPerGame": 1.45,
+      "forPerGame": 1.1617642818107174,
+      "againstPerGame": 1.1617642818107174,
       "gamesPlayed": 0,
-      "adjustedFor": 1.45,
-      "adjustedAgainst": 1.45
+      "adjustedFor": 1.1617642818107174,
+      "adjustedAgainst": 1.1617642818107174
+    },
+    "coppa-italia.padova": {
+      "teamId": "coppa-italia.padova",
+      "name": "Padova",
+      "shortName": "Padova",
+      "code": "PAD",
+      "forPerGame": 0,
+      "againstPerGame": 1,
+      "gamesPlayed": 1,
+      "adjustedFor": 1.0825351408570516,
+      "adjustedAgainst": 1.1093371028333017
+    },
+    "coppa-italia.palermo": {
+      "teamId": "coppa-italia.palermo",
+      "name": "Palermo",
+      "shortName": "Palermo",
+      "code": "PAL",
+      "forPerGame": 3.5,
+      "againstPerGame": 1,
+      "gamesPlayed": 2,
+      "adjustedFor": 1.3832964709087288,
+      "adjustedAgainst": 1.141184685673319
+    },
+    "coppa-italia.parma": {
+      "teamId": "coppa-italia.parma",
+      "name": "Parma",
+      "shortName": "Parma",
+      "code": "PAR",
+      "forPerGame": 1,
+      "againstPerGame": 1,
+      "gamesPlayed": 2,
+      "adjustedFor": 1.0745649514686268,
+      "adjustedAgainst": 1.1451134426671838
+    },
+    "coppa-italia.pisa": {
+      "teamId": "coppa-italia.pisa",
+      "name": "Pisa",
+      "shortName": "Pisa",
+      "code": "PIS",
+      "forPerGame": 0.5,
+      "againstPerGame": 2,
+      "gamesPlayed": 2,
+      "adjustedFor": 1.0354870992332053,
+      "adjustedAgainst": 1.2175592442416294
+    },
+    "coppa-italia.potenza": {
+      "teamId": "coppa-italia.potenza",
+      "name": "Potenza Calcio",
+      "shortName": "Potenza Calcio",
+      "code": "POT",
+      "forPerGame": 1,
+      "againstPerGame": 3,
+      "gamesPlayed": 1,
+      "adjustedFor": 1.1430034896685524,
+      "adjustedAgainst": 1.2424300511022182
+    },
+    "coppa-italia.ravenna": {
+      "teamId": "coppa-italia.ravenna",
+      "name": "Ravenna",
+      "shortName": "Ravenna",
+      "code": "RAV",
+      "forPerGame": 3,
+      "againstPerGame": 5,
+      "gamesPlayed": 1,
+      "adjustedFor": 1.284523326288658,
+      "adjustedAgainst": 1.371214187846487
+    },
+    "coppa-italia.sampdoria": {
+      "teamId": "coppa-italia.sampdoria",
+      "name": "Sampdoria",
+      "shortName": "Sampdoria",
+      "code": "SAM",
+      "forPerGame": 0,
+      "againstPerGame": 2,
+      "gamesPlayed": 1,
+      "adjustedFor": 1.0896132782847845,
+      "adjustedAgainst": 1.1697403454999564
+    },
+    "coppa-italia.sassuolo": {
+      "teamId": "coppa-italia.sassuolo",
+      "name": "Sassuolo",
+      "shortName": "Sassuolo",
+      "code": "SAS",
+      "forPerGame": 2,
+      "againstPerGame": 0.5,
+      "gamesPlayed": 2,
+      "adjustedFor": 1.1854235763685372,
+      "adjustedAgainst": 1.0667372390444856
+    },
+    "coppa-italia.sudtirol": {
+      "teamId": "coppa-italia.sudtirol",
+      "name": "Südtirol",
+      "shortName": "Südtirol",
+      "code": "SUD",
+      "forPerGame": 1,
+      "againstPerGame": 1.5,
+      "gamesPlayed": 2,
+      "adjustedFor": 1.1396895106384062,
+      "adjustedAgainst": 1.1093345651151165
+    },
+    "coppa-italia.torino": {
+      "teamId": "coppa-italia.torino",
+      "name": "Torino",
+      "shortName": "Torino",
+      "code": "TOR",
+      "forPerGame": 0.5,
+      "againstPerGame": 0.5,
+      "gamesPlayed": 2,
+      "adjustedFor": 1.0083617705493337,
+      "adjustedAgainst": 1.0711452767881782
+    },
+    "coppa-italia.udinese": {
+      "teamId": "coppa-italia.udinese",
+      "name": "Udinese",
+      "shortName": "Udinese",
+      "code": "UDI",
+      "forPerGame": 1.5,
+      "againstPerGame": 0.5,
+      "gamesPlayed": 2,
+      "adjustedFor": 1.121191971672792,
+      "adjustedAgainst": 1.071120393868313
+    },
+    "coppa-italia.union-brescia": {
+      "teamId": "coppa-italia.union-brescia",
+      "name": "Union Brescia",
+      "shortName": "Union Brescia",
+      "code": "UNI",
+      "forPerGame": 0,
+      "againstPerGame": 2,
+      "gamesPlayed": 1,
+      "adjustedFor": 1.0853256267580351,
+      "adjustedAgainst": 1.1858674139972747
+    },
+    "coppa-italia.venezia": {
+      "teamId": "coppa-italia.venezia",
+      "name": "Venezia",
+      "shortName": "Venezia",
+      "code": "VEN",
+      "forPerGame": 2,
+      "againstPerGame": 2,
+      "gamesPlayed": 2,
+      "adjustedFor": 1.2319862862571624,
+      "adjustedAgainst": 1.235426591309834
+    },
+    "coppa-italia.virtus-entella": {
+      "teamId": "coppa-italia.virtus-entella",
+      "name": "Virtus Entella",
+      "shortName": "Virtus Entella",
+      "code": "VIR",
+      "forPerGame": 2,
+      "againstPerGame": 2,
+      "gamesPlayed": 1,
+      "adjustedFor": 1.228954992245878,
+      "adjustedAgainst": 1.1696958014866647
     }
   },
   "games": [
@@ -5974,103 +5974,150 @@
       "game": "coppa-italia-2026-12-01-inter-genoa-mvd7sa",
       "model": {
         "id": "pitchlab-statistical-coppa-italia",
-        "version": "1.0.0",
-        "status": "reference",
+        "version": "2.0.0",
+        "status": "candidate",
         "label": "Modelo PitchLab · en validación"
       },
       "projection": {
-        "home": 1.2973437778082586,
-        "away": 1.600505806955728,
-        "total": 2.8978495847639865
+        "home": 1.6657232128158728,
+        "away": 1.2427573599030062,
+        "total": 2.908480572718879,
+        "margin": 0.4229658529128666
       },
       "x12": [
-        0.30101827825199484,
-        0.2630416012575814,
-        0.43594011848538383
+        0.47864745175348106,
+        0.22999155966439142,
+        0.2913609885821277
       ],
       "probabilities": [
         {
           "market": "h2h",
           "selection": "Inter gana",
-          "p": 0.30101827825199484,
-          "fairOdds": 3.322057403978833
+          "p": 0.47864745175348106,
+          "fairOdds": 2.089220356938268
         },
         {
           "market": "h2h",
           "selection": "Empate",
-          "p": 0.2630416012575814,
-          "fairOdds": 3.801680020267052
+          "p": 0.22999155966439142,
+          "fairOdds": 4.3479856454698655
         },
         {
           "market": "h2h",
           "selection": "Genoa gana",
-          "p": 0.43594011848538383,
-          "fairOdds": 2.293893031626379
+          "p": 0.2913609885821277,
+          "fairOdds": 3.432168475492812
         },
         {
           "market": "double_chance",
           "selection": "Inter o empate",
-          "p": 0.5640598795095763,
-          "fairOdds": 1.7728614218572918
+          "p": 0.7086390114178724,
+          "fairOdds": 1.411155727934257
         },
         {
           "market": "double_chance",
           "selection": "Genoa o empate",
-          "p": 0.6989817197429653,
-          "fairOdds": 1.4306525789654805
+          "p": 0.5213525482465191,
+          "fairOdds": 1.91808787233002
         },
         {
           "market": "double_chance",
           "selection": "Sin empate",
-          "p": 0.7369583967373787,
-          "fairOdds": 1.3569287010327102
+          "p": 0.7700084403356088,
+          "fairOdds": 1.298687063175761
         },
         {
           "market": "totals",
-          "selection": "Más de 1.5",
+          "selection": "Más de 1.5 goles",
           "line": 1.5,
-          "p": 0.7850660639418514,
-          "fairOdds": 1.2737781518398028
+          "p": 0.7811115050698938,
+          "fairOdds": 1.280226950325767
         },
         {
           "market": "totals",
-          "selection": "Más de 2.5",
+          "selection": "Más de 2.5 goles",
           "line": 2.5,
-          "p": 0.5535390882220592,
-          "fairOdds": 1.8065571542778518
+          "p": 0.5559956818354399,
+          "fairOdds": 1.798575119682267
         },
         {
           "market": "totals",
-          "selection": "Menos de 2.5",
+          "selection": "Menos de 2.5 goles",
           "line": 2.5,
-          "p": 0.4464609117779408,
-          "fairOdds": 2.239837740817446
+          "p": 0.4440043181645601,
+          "fairOdds": 2.252230347970113
         },
         {
           "market": "totals",
-          "selection": "Más de 3.5",
+          "selection": "Más de 3.5 goles",
           "line": 3.5,
-          "p": 0.3298956380716389,
-          "fairOdds": 3.031261661552626
+          "p": 0.33227255571475134,
+          "fairOdds": 3.0095774772878863
         },
         {
           "market": "totals",
-          "selection": "Menos de 3.5",
+          "selection": "Menos de 3.5 goles",
           "line": 3.5,
-          "p": 0.6701043619283611,
-          "fairOdds": 1.4923048659499802
+          "p": 0.6677274442852487,
+          "fairOdds": 1.497617042040894
         },
         {
           "market": "btts",
           "selection": "Sí",
-          "p": 0.5800905866774017,
-          "fairOdds": 1.7238686904535432
+          "p": 0.5712700135935764,
+          "fairOdds": 1.7504857181449027
         },
         {
           "market": "btts",
           "selection": "No",
-          "p": 0.41990941332259835,
-          "fairOdds": 2.381466021652968
+          "p": 0.42872998640642357,
+          "fairOdds": 2.332470393269924
+        },
+        {
+          "market": "team_totals",
+          "selection": "Inter más de 1.5 goles",
+          "line": 1.5,
+          "p": 0.4960339196094101,
+          "fairOdds": 2.015991166062647
+        },
+        {
+          "market": "team_totals",
+          "selection": "Inter menos de 1.5 goles",
+          "line": 1.5,
+          "p": 0.5039660803905899,
+          "fairOdds": 1.9842605264722735
+        },
+        {
+          "market": "team_totals",
+          "selection": "Genoa más de 1.5 goles",
+          "line": 1.5,
+          "p": 0.3527684712617858,
+          "fairOdds": 2.8347204511309925
+        },
+        {
+          "market": "team_totals",
+          "selection": "Genoa menos de 1.5 goles",
+          "line": 1.5,
+          "p": 0.6472315287382142,
+          "fairOdds": 1.545042161264165
+        },
+        {
+          "market": "correct_score",
+          "selection": "1–1",
+          "p": 0.10729424171330106,
+          "fairOdds": 9.320164661511672
+        },
+        {
+          "market": "correct_score",
+          "selection": "1–0",
+          "p": 0.09652667766594546,
+          "fairOdds": 10.359830299564939
+        },
+        {
+          "market": "correct_score",
+          "selection": "2–1",
+          "p": 0.09406447843332773,
+          "fairOdds": 10.631005632044122
         }
       ],
       "marketGroups": [
@@ -6081,22 +6128,22 @@
               "market": "h2h",
               "selection": "home",
               "label": "Inter gana",
-              "p": 0.30101827825199484,
-              "fairOdds": 3.322057403978833
+              "p": 0.47864745175348106,
+              "fairOdds": 2.089220356938268
             },
             {
               "market": "h2h",
               "selection": "draw",
               "label": "Empate",
-              "p": 0.2630416012575814,
-              "fairOdds": 3.801680020267052
+              "p": 0.22999155966439142,
+              "fairOdds": 4.3479856454698655
             },
             {
               "market": "h2h",
               "selection": "away",
               "label": "Genoa gana",
-              "p": 0.43594011848538383,
-              "fairOdds": 2.293893031626379
+              "p": 0.2913609885821277,
+              "fairOdds": 3.432168475492812
             }
           ]
         },
@@ -6107,22 +6154,22 @@
               "market": "double_chance",
               "selection": "1x",
               "label": "Inter o empate",
-              "p": 0.5640598795095763,
-              "fairOdds": 1.7728614218572918
+              "p": 0.7086390114178724,
+              "fairOdds": 1.411155727934257
             },
             {
               "market": "double_chance",
               "selection": "x2",
               "label": "Genoa o empate",
-              "p": 0.6989817197429653,
-              "fairOdds": 1.4306525789654805
+              "p": 0.5213525482465191,
+              "fairOdds": 1.91808787233002
             },
             {
               "market": "double_chance",
               "selection": "12",
               "label": "Sin empate",
-              "p": 0.7369583967373787,
-              "fairOdds": 1.3569287010327102
+              "p": 0.7700084403356088,
+              "fairOdds": 1.298687063175761
             }
           ]
         },
@@ -6132,42 +6179,42 @@
             {
               "market": "totals",
               "selection": "over_1.5",
-              "label": "Más de 1.5",
+              "label": "Más de 1.5 goles",
               "line": 1.5,
-              "p": 0.7850660639418514,
-              "fairOdds": 1.2737781518398028
+              "p": 0.7811115050698938,
+              "fairOdds": 1.280226950325767
             },
             {
               "market": "totals",
               "selection": "over_2.5",
-              "label": "Más de 2.5",
+              "label": "Más de 2.5 goles",
               "line": 2.5,
-              "p": 0.5535390882220592,
-              "fairOdds": 1.8065571542778518
+              "p": 0.5559956818354399,
+              "fairOdds": 1.798575119682267
             },
             {
               "market": "totals",
               "selection": "under_2.5",
-              "label": "Menos de 2.5",
+              "label": "Menos de 2.5 goles",
               "line": 2.5,
-              "p": 0.4464609117779408,
-              "fairOdds": 2.239837740817446
+              "p": 0.4440043181645601,
+              "fairOdds": 2.252230347970113
             },
             {
               "market": "totals",
               "selection": "over_3.5",
-              "label": "Más de 3.5",
+              "label": "Más de 3.5 goles",
               "line": 3.5,
-              "p": 0.3298956380716389,
-              "fairOdds": 3.031261661552626
+              "p": 0.33227255571475134,
+              "fairOdds": 3.0095774772878863
             },
             {
               "market": "totals",
               "selection": "under_3.5",
-              "label": "Menos de 3.5",
+              "label": "Menos de 3.5 goles",
               "line": 3.5,
-              "p": 0.6701043619283611,
-              "fairOdds": 1.4923048659499802
+              "p": 0.6677274442852487,
+              "fairOdds": 1.497617042040894
             }
           ]
         },
@@ -6178,15 +6225,78 @@
               "market": "btts",
               "selection": "yes",
               "label": "Sí",
-              "p": 0.5800905866774017,
-              "fairOdds": 1.7238686904535432
+              "p": 0.5712700135935764,
+              "fairOdds": 1.7504857181449027
             },
             {
               "market": "btts",
               "selection": "no",
               "label": "No",
-              "p": 0.41990941332259835,
-              "fairOdds": 2.381466021652968
+              "p": 0.42872998640642357,
+              "fairOdds": 2.332470393269924
+            }
+          ]
+        },
+        {
+          "group": "Goles por equipo (1.5)",
+          "rows": [
+            {
+              "market": "team_totals",
+              "selection": "home_over",
+              "label": "Inter más de 1.5 goles",
+              "line": 1.5,
+              "p": 0.4960339196094101,
+              "fairOdds": 2.015991166062647
+            },
+            {
+              "market": "team_totals",
+              "selection": "home_under",
+              "label": "Inter menos de 1.5 goles",
+              "line": 1.5,
+              "p": 0.5039660803905899,
+              "fairOdds": 1.9842605264722735
+            },
+            {
+              "market": "team_totals",
+              "selection": "away_over",
+              "label": "Genoa más de 1.5 goles",
+              "line": 1.5,
+              "p": 0.3527684712617858,
+              "fairOdds": 2.8347204511309925
+            },
+            {
+              "market": "team_totals",
+              "selection": "away_under",
+              "label": "Genoa menos de 1.5 goles",
+              "line": 1.5,
+              "p": 0.6472315287382142,
+              "fairOdds": 1.545042161264165
+            }
+          ]
+        },
+        {
+          "group": "Marcador exacto (más probables)",
+          "rows": [
+            {
+              "market": "correct_score",
+              "selection": "1-1",
+              "label": "1–1",
+              "p": 0.10729424171330106,
+              "fairOdds": 9.320164661511672
+            },
+            {
+              "market": "correct_score",
+              "selection": "1-0",
+              "label": "1–0",
+              "p": 0.09652667766594546,
+              "fairOdds": 10.359830299564939
+            },
+            {
+              "market": "correct_score",
+              "selection": "2-1",
+              "label": "2–1",
+              "p": 0.09406447843332773,
+              "fairOdds": 10.631005632044122
             }
           ]
         }
@@ -6194,57 +6304,118 @@
       "mostLikelyScore": {
         "home": 1,
         "away": 1,
-        "p": 0.12365622919512523
+        "p": 0.10729424171330106
       },
       "factors": [
         {
           "key": "home_attack",
           "label": "Ataque local",
-          "value": "1.45 goles/partido",
-          "detail": "0 partidos · ajustado a 1.45"
+          "value": "1.06 goles/partido",
+          "detail": "en la media de la liga · 0 partidos"
         },
         {
           "key": "away_defense",
           "label": "Defensa visitante",
-          "value": "0.50 recibidos/partido",
-          "detail": "ajustado a 1.21"
+          "value": "1.06 concedidos/partido",
+          "detail": "8 % menos que la media · 2 partidos"
         },
         {
           "key": "away_attack",
           "label": "Ataque visitante",
-          "value": "2.50 goles/partido",
-          "detail": "ajustado a 1.71"
+          "value": "1.24 goles/partido",
+          "detail": "7 % más que la media · ajustado por rival"
         },
         {
           "key": "home_defense",
           "label": "Defensa local",
-          "value": "1.45 recibidos/partido",
-          "detail": "ajustado a 1.45"
+          "value": "1.16 concedidos/partido",
+          "detail": "en la media de la liga · ajustado por rival"
         },
         {
           "key": "home_advantage",
           "label": "Localía",
-          "value": "Incluida",
-          "detail": "Ajuste del modelo PitchLab"
+          "value": "×1.57",
+          "detail": "estimada de 28 partidos"
         },
         {
-          "key": "sample_size",
-          "label": "Muestra",
-          "value": "0 y 2 partidos",
-          "detail": "Temporada actual"
+          "key": "uncertainty",
+          "label": "Intervalo 90%",
+          "value": "goles 1.9–4.5",
+          "detail": "local 25%–73% · 28 partidos"
+        },
+        {
+          "key": "away_position",
+          "label": "Posición visitante",
+          "value": "3.º · 6 pts",
+          "detail": "de 36 equipos"
+        },
+        {
+          "key": "away_form",
+          "label": "Forma visitante",
+          "value": "G-G · 6 pts",
+          "detail": "5 goles a favor · 1 en contra"
         }
       ],
       "steps": [
-        "Sincronizando Coppa Italia · corte 19 nov 2026, 10:13",
-        "Fuerza de ataque y defensa · INT 1.45 / 1.45 · GEN 2.50 / 0.50",
-        "Ajuste por localía y tamaño de muestra (0 partidos)",
-        "Proyección de goles 1.30 – 1.60",
-        "Evaluando 196 marcadores posibles",
-        "13 mercados listos · marcador más probable 1–1"
+        "Sincronizando Coppa Italia · corte 21 nov 2026, 22:33",
+        "Fuerza ajustada por rival · INT 1.00 / 1.00 · GEN 1.07 / 0.92",
+        "Ponderando 23.4 partidos por antigüedad y calidad del rival",
+        "Proyección de goles 1.67 – 1.24 · total 2.91",
+        "Simulando 121 marcadores con incertidumbre del ajuste",
+        "20 mercados listos · marcador proyectado 2–1"
       ],
-      "inputsAsOf": "2026-11-19T16:13:44.585Z",
+      "inputsAsOf": "2026-11-22T04:33:15.743Z",
       "publishedAt": "2026-11-19T16:13:44.585Z",
       "source": "pitchlab-football-v2",
+      "picks": [
+        {
+          "profile": "conservadora",
+          "market": "totals",
+          "selection": "over_1.5",
+          "label": "Más de 1.5 goles",
+          "line": 1.5,
+          "p": 0.7811115050698938,
+          "fairOdds": 1.280226950325767
+        },
+        {
+          "profile": "intermedia",
+          "market": "totals",
+          "selection": "under_3.5",
+          "label": "Menos de 3.5 goles",
+          "line": 3.5,
+          "p": 0.6677274442852487,
+          "fairOdds": 1.497617042040894
+        },
+        {
+          "profile": "arriesgada",
+          "market": "team_totals",
+          "selection": "home_under",
+          "label": "Inter menos de 1.5 goles",
+          "line": 1.5,
+          "p": 0.5039660803905899,
+          "fairOdds": 1.9842605264722735
+        }
+      ],
+      "confidence": {
+        "score": 21,
+        "level": "baja",
+        "reasons": [
+          "Poca muestra esta temporada",
+          "Rango de incertidumbre amplio"
+        ]
+      },
+      "projectedScore": {
+        "home": 2,
+        "away": 1,
+        "p": 0.09406447843332773
+      },
+      "insights": {
+        "why": [
+          "Se esperan 2.9 goles: 1.7 de Inter y 1.2 de Genoa.",
+          "Genoa concede 8 % menos que la media."
+        ]
+      },
+      "picksAt": "2026-11-22T04:33:15.743Z",
       "matchContext": {
         "stageName": "Round of 16"
       }
@@ -6253,103 +6424,150 @@
       "game": "coppa-italia-2026-12-02-como-cremonese-77v582",
       "model": {
         "id": "pitchlab-statistical-coppa-italia",
-        "version": "1.0.0",
-        "status": "reference",
+        "version": "2.0.0",
+        "status": "candidate",
         "label": "Modelo PitchLab · en validación"
       },
       "projection": {
-        "home": 1.1623193327201682,
-        "away": 1.4853114814495108,
-        "total": 2.6476308141696787
+        "home": 1.5187357337964673,
+        "away": 1.237076918960881,
+        "total": 2.7558126527573483,
+        "margin": 0.2816588148355863
       },
       "x12": [
-        0.2869035085154933,
-        0.276704773592712,
-        0.43639171712714
+        0.44395984436830266,
+        0.24030694264939523,
+        0.3157332129823024
       ],
       "probabilities": [
         {
           "market": "h2h",
           "selection": "Como gana",
-          "p": 0.2869035085154933,
-          "fairOdds": 3.4854924053534124
+          "p": 0.44395984436830266,
+          "fairOdds": 2.252455965748142
         },
         {
           "market": "h2h",
           "selection": "Empate",
-          "p": 0.276704773592712,
-          "fairOdds": 3.6139600593660974
+          "p": 0.24030694264939523,
+          "fairOdds": 4.161344607754372
         },
         {
           "market": "h2h",
           "selection": "Cremonese gana",
-          "p": 0.43639171712714,
-          "fairOdds": 2.2915192033964664
+          "p": 0.3157332129823024,
+          "fairOdds": 3.1672309370128016
         },
         {
           "market": "double_chance",
           "selection": "Como o empate",
-          "p": 0.5636082821082053,
-          "fairOdds": 1.7742819467795068
+          "p": 0.6842667870176979,
+          "fairOdds": 1.4614182932338289
         },
         {
           "market": "double_chance",
           "selection": "Cremonese o empate",
-          "p": 0.713096490719852,
-          "fairOdds": 1.4023347653702887
+          "p": 0.5560401556316976,
+          "fairOdds": 1.798431264130439
         },
         {
           "market": "double_chance",
           "selection": "Sin empate",
-          "p": 0.7232952256426333,
-          "fairOdds": 1.3825613173535332
+          "p": 0.7596930573506051,
+          "fairOdds": 1.3163210987967355
         },
         {
           "market": "totals",
-          "selection": "Más de 1.5",
+          "selection": "Más de 1.5 goles",
           "line": 1.5,
-          "p": 0.7416791725487971,
-          "fairOdds": 1.3482918720280057
+          "p": 0.7553197783093306,
+          "fairOdds": 1.3239425587905949
         },
         {
           "market": "totals",
-          "selection": "Más de 2.5",
+          "selection": "Más de 2.5 goles",
           "line": 2.5,
-          "p": 0.49346109624654877,
-          "fairOdds": 2.0265022057592326
+          "p": 0.5199469176194893,
+          "fairOdds": 1.9232732536974593
         },
         {
           "market": "totals",
-          "selection": "Menos de 2.5",
+          "selection": "Menos de 2.5 goles",
           "line": 2.5,
-          "p": 0.5065389037534512,
-          "fairOdds": 1.974182027461275
+          "p": 0.4800530823805107,
+          "fairOdds": 2.0831029665326826
         },
         {
           "market": "totals",
-          "selection": "Más de 3.5",
+          "selection": "Más de 3.5 goles",
           "line": 3.5,
-          "p": 0.2743978204292976,
-          "fairOdds": 3.64434381598036
+          "p": 0.29824783435788116,
+          "fairOdds": 3.352916215311238
         },
         {
           "market": "totals",
-          "selection": "Menos de 3.5",
+          "selection": "Menos de 3.5 goles",
           "line": 3.5,
-          "p": 0.7256021795707024,
-          "fairOdds": 1.3781656507587163
+          "p": 0.7017521656421188,
+          "fairOdds": 1.4250045086572376
         },
         {
           "market": "btts",
           "selection": "Sí",
-          "p": 0.5316270523251888,
-          "fairOdds": 1.8810178970883409
+          "p": 0.5483667530198164,
+          "fairOdds": 1.8235970625372009
         },
         {
           "market": "btts",
           "selection": "No",
-          "p": 0.4683729476748112,
-          "fairOdds": 2.135050721789967
+          "p": 0.4516332469801836,
+          "fairOdds": 2.2141859721055415
+        },
+        {
+          "market": "team_totals",
+          "selection": "Como más de 1.5 goles",
+          "line": 1.5,
+          "p": 0.44842531577197176,
+          "fairOdds": 2.230025747494838
+        },
+        {
+          "market": "team_totals",
+          "selection": "Como menos de 1.5 goles",
+          "line": 1.5,
+          "p": 0.5515746842280282,
+          "fairOdds": 1.8129911118012567
+        },
+        {
+          "market": "team_totals",
+          "selection": "Cremonese más de 1.5 goles",
+          "line": 1.5,
+          "p": 0.35073009345317385,
+          "fairOdds": 2.8511953170437327
+        },
+        {
+          "market": "team_totals",
+          "selection": "Cremonese menos de 1.5 goles",
+          "line": 1.5,
+          "p": 0.6492699065468261,
+          "fairOdds": 1.5401915134470794
+        },
+        {
+          "market": "correct_score",
+          "selection": "1–1",
+          "p": 0.11344062199165754,
+          "fairOdds": 8.815184388477174
+        },
+        {
+          "market": "correct_score",
+          "selection": "1–0",
+          "p": 0.10249744368936846,
+          "fairOdds": 9.756340880369926
+        },
+        {
+          "market": "correct_score",
+          "selection": "2–1",
+          "p": 0.0906770138330672,
+          "fairOdds": 11.028153197026983
         }
       ],
       "marketGroups": [
@@ -6360,22 +6578,22 @@
               "market": "h2h",
               "selection": "home",
               "label": "Como gana",
-              "p": 0.2869035085154933,
-              "fairOdds": 3.4854924053534124
+              "p": 0.44395984436830266,
+              "fairOdds": 2.252455965748142
             },
             {
               "market": "h2h",
               "selection": "draw",
               "label": "Empate",
-              "p": 0.276704773592712,
-              "fairOdds": 3.6139600593660974
+              "p": 0.24030694264939523,
+              "fairOdds": 4.161344607754372
             },
             {
               "market": "h2h",
               "selection": "away",
               "label": "Cremonese gana",
-              "p": 0.43639171712714,
-              "fairOdds": 2.2915192033964664
+              "p": 0.3157332129823024,
+              "fairOdds": 3.1672309370128016
             }
           ]
         },
@@ -6386,22 +6604,22 @@
               "market": "double_chance",
               "selection": "1x",
               "label": "Como o empate",
-              "p": 0.5636082821082053,
-              "fairOdds": 1.7742819467795068
+              "p": 0.6842667870176979,
+              "fairOdds": 1.4614182932338289
             },
             {
               "market": "double_chance",
               "selection": "x2",
               "label": "Cremonese o empate",
-              "p": 0.713096490719852,
-              "fairOdds": 1.4023347653702887
+              "p": 0.5560401556316976,
+              "fairOdds": 1.798431264130439
             },
             {
               "market": "double_chance",
               "selection": "12",
               "label": "Sin empate",
-              "p": 0.7232952256426333,
-              "fairOdds": 1.3825613173535332
+              "p": 0.7596930573506051,
+              "fairOdds": 1.3163210987967355
             }
           ]
         },
@@ -6411,42 +6629,42 @@
             {
               "market": "totals",
               "selection": "over_1.5",
-              "label": "Más de 1.5",
+              "label": "Más de 1.5 goles",
               "line": 1.5,
-              "p": 0.7416791725487971,
-              "fairOdds": 1.3482918720280057
+              "p": 0.7553197783093306,
+              "fairOdds": 1.3239425587905949
             },
             {
               "market": "totals",
               "selection": "over_2.5",
-              "label": "Más de 2.5",
+              "label": "Más de 2.5 goles",
               "line": 2.5,
-              "p": 0.49346109624654877,
-              "fairOdds": 2.0265022057592326
+              "p": 0.5199469176194893,
+              "fairOdds": 1.9232732536974593
             },
             {
               "market": "totals",
               "selection": "under_2.5",
-              "label": "Menos de 2.5",
+              "label": "Menos de 2.5 goles",
               "line": 2.5,
-              "p": 0.5065389037534512,
-              "fairOdds": 1.974182027461275
+              "p": 0.4800530823805107,
+              "fairOdds": 2.0831029665326826
             },
             {
               "market": "totals",
               "selection": "over_3.5",
-              "label": "Más de 3.5",
+              "label": "Más de 3.5 goles",
               "line": 3.5,
-              "p": 0.2743978204292976,
-              "fairOdds": 3.64434381598036
+              "p": 0.29824783435788116,
+              "fairOdds": 3.352916215311238
             },
             {
               "market": "totals",
               "selection": "under_3.5",
-              "label": "Menos de 3.5",
+              "label": "Menos de 3.5 goles",
               "line": 3.5,
-              "p": 0.7256021795707024,
-              "fairOdds": 1.3781656507587163
+              "p": 0.7017521656421188,
+              "fairOdds": 1.4250045086572376
             }
           ]
         },
@@ -6457,15 +6675,78 @@
               "market": "btts",
               "selection": "yes",
               "label": "Sí",
-              "p": 0.5316270523251888,
-              "fairOdds": 1.8810178970883409
+              "p": 0.5483667530198164,
+              "fairOdds": 1.8235970625372009
             },
             {
               "market": "btts",
               "selection": "no",
               "label": "No",
-              "p": 0.4683729476748112,
-              "fairOdds": 2.135050721789967
+              "p": 0.4516332469801836,
+              "fairOdds": 2.2141859721055415
+            }
+          ]
+        },
+        {
+          "group": "Goles por equipo (1.5)",
+          "rows": [
+            {
+              "market": "team_totals",
+              "selection": "home_over",
+              "label": "Como más de 1.5 goles",
+              "line": 1.5,
+              "p": 0.44842531577197176,
+              "fairOdds": 2.230025747494838
+            },
+            {
+              "market": "team_totals",
+              "selection": "home_under",
+              "label": "Como menos de 1.5 goles",
+              "line": 1.5,
+              "p": 0.5515746842280282,
+              "fairOdds": 1.8129911118012567
+            },
+            {
+              "market": "team_totals",
+              "selection": "away_over",
+              "label": "Cremonese más de 1.5 goles",
+              "line": 1.5,
+              "p": 0.35073009345317385,
+              "fairOdds": 2.8511953170437327
+            },
+            {
+              "market": "team_totals",
+              "selection": "away_under",
+              "label": "Cremonese menos de 1.5 goles",
+              "line": 1.5,
+              "p": 0.6492699065468261,
+              "fairOdds": 1.5401915134470794
+            }
+          ]
+        },
+        {
+          "group": "Marcador exacto (más probables)",
+          "rows": [
+            {
+              "market": "correct_score",
+              "selection": "1-1",
+              "label": "1–1",
+              "p": 0.11344062199165754,
+              "fairOdds": 8.815184388477174
+            },
+            {
+              "market": "correct_score",
+              "selection": "1-0",
+              "label": "1–0",
+              "p": 0.10249744368936846,
+              "fairOdds": 9.756340880369926
+            },
+            {
+              "market": "correct_score",
+              "selection": "2-1",
+              "label": "2–1",
+              "p": 0.0906770138330672,
+              "fairOdds": 11.028153197026983
             }
           ]
         }
@@ -6473,57 +6754,116 @@
       "mostLikelyScore": {
         "home": 1,
         "away": 1,
-        "p": 0.13204297551914407
+        "p": 0.11344062199165754
       },
       "factors": [
         {
           "key": "home_attack",
           "label": "Ataque local",
-          "value": "1.45 goles/partido",
-          "detail": "0 partidos · ajustado a 1.45"
+          "value": "0.97 goles/partido",
+          "detail": "en la media de la liga · 0 partidos"
         },
         {
           "key": "away_defense",
           "label": "Defensa visitante",
-          "value": "0.00 recibidos/partido",
-          "detail": "ajustado a 1.09"
+          "value": "0.97 concedidos/partido",
+          "detail": "17 % menos que la media · 2 partidos"
         },
         {
           "key": "away_attack",
           "label": "Ataque visitante",
-          "value": "2.00 goles/partido",
-          "detail": "ajustado a 1.59"
+          "value": "1.24 goles/partido",
+          "detail": "6 % más que la media · ajustado por rival"
         },
         {
           "key": "home_defense",
           "label": "Defensa local",
-          "value": "1.45 recibidos/partido",
-          "detail": "ajustado a 1.45"
+          "value": "1.16 concedidos/partido",
+          "detail": "en la media de la liga · ajustado por rival"
         },
         {
           "key": "home_advantage",
           "label": "Localía",
-          "value": "Incluida",
-          "detail": "Ajuste del modelo PitchLab"
+          "value": "×1.57",
+          "detail": "estimada de 28 partidos"
         },
         {
-          "key": "sample_size",
-          "label": "Muestra",
-          "value": "0 y 2 partidos",
-          "detail": "Temporada actual"
+          "key": "uncertainty",
+          "label": "Intervalo 90%",
+          "value": "goles 1.8–4.0",
+          "detail": "local 17%–72% · 28 partidos"
+        },
+        {
+          "key": "away_position",
+          "label": "Posición visitante",
+          "value": "4.º · 6 pts",
+          "detail": "de 36 equipos"
+        },
+        {
+          "key": "away_form",
+          "label": "Forma visitante",
+          "value": "G-G · 6 pts",
+          "detail": "4 goles a favor · 0 en contra"
         }
       ],
       "steps": [
-        "Sincronizando Coppa Italia · corte 19 nov 2026, 10:13",
-        "Fuerza de ataque y defensa · COM 1.45 / 1.45 · CRE 2.00 / 0.00",
-        "Ajuste por localía y tamaño de muestra (0 partidos)",
-        "Proyección de goles 1.16 – 1.49",
-        "Evaluando 196 marcadores posibles",
-        "13 mercados listos · marcador más probable 1–1"
+        "Sincronizando Coppa Italia · corte 21 nov 2026, 22:33",
+        "Fuerza ajustada por rival · COM 1.00 / 1.00 · CRE 1.06 / 0.83",
+        "Ponderando 23.4 partidos por antigüedad y calidad del rival",
+        "Proyección de goles 1.52 – 1.24 · total 2.76",
+        "Simulando 121 marcadores con incertidumbre del ajuste",
+        "20 mercados listos · marcador proyectado 2–1"
       ],
-      "inputsAsOf": "2026-11-19T16:13:44.585Z",
+      "inputsAsOf": "2026-11-22T04:33:15.743Z",
       "publishedAt": "2026-11-19T16:13:44.585Z",
       "source": "pitchlab-football-v2",
+      "picks": [
+        {
+          "profile": "conservadora",
+          "market": "double_chance",
+          "selection": "12",
+          "label": "Sin empate",
+          "p": 0.7596930573506051,
+          "fairOdds": 1.3163210987967355
+        },
+        {
+          "profile": "intermedia",
+          "market": "double_chance",
+          "selection": "1x",
+          "label": "Como o empate",
+          "p": 0.6842667870176979,
+          "fairOdds": 1.4614182932338289
+        },
+        {
+          "profile": "arriesgada",
+          "market": "totals",
+          "selection": "over_2.5",
+          "label": "Más de 2.5 goles",
+          "line": 2.5,
+          "p": 0.5199469176194893,
+          "fairOdds": 1.9232732536974593
+        }
+      ],
+      "confidence": {
+        "score": 15,
+        "level": "baja",
+        "reasons": [
+          "Poca muestra esta temporada",
+          "Rango de incertidumbre amplio"
+        ]
+      },
+      "projectedScore": {
+        "home": 2,
+        "away": 1,
+        "p": 0.0906770138330672
+      },
+      "insights": {
+        "why": [
+          "Como gana en 44% de los escenarios; el empate, en 24%.",
+          "Cremonese concede 17 % menos que la media."
+        ]
+      },
+      "picksAt": "2026-11-22T04:33:15.743Z",
       "matchContext": {
         "stageName": "Round of 16",
         "venueCity": "Como",
@@ -6535,103 +6875,150 @@
       "game": "coppa-italia-2026-12-03-juventus-sassuolo-ssj9cf",
       "model": {
         "id": "pitchlab-statistical-coppa-italia",
-        "version": "1.0.0",
-        "status": "reference",
+        "version": "2.0.0",
+        "status": "candidate",
         "label": "Modelo PitchLab · en validación"
       },
       "projection": {
-        "home": 1.2877585576437007,
-        "away": 1.4947240991525748,
-        "total": 2.7824826567962755
+        "home": 1.671257937420732,
+        "away": 1.1854235763685372,
+        "total": 2.856681513789269,
+        "margin": 0.4858343610521947
       },
       "x12": [
-        0.3173994082405131,
-        0.2712370356324131,
-        0.41136355521421825
+        0.4929841045922254,
+        0.2303686234629682,
+        0.27664727194480654
       ],
       "probabilities": [
         {
           "market": "h2h",
           "selection": "Juventus gana",
-          "p": 0.3173994082405131,
-          "fairOdds": 3.150604487712965
+          "p": 0.4929841045922254,
+          "fairOdds": 2.0284629680446913
         },
         {
           "market": "h2h",
           "selection": "Empate",
-          "p": 0.2712370356324131,
-          "fairOdds": 3.6868121555318276
+          "p": 0.2303686234629682,
+          "fairOdds": 4.340868929838226
         },
         {
           "market": "h2h",
           "selection": "Sassuolo gana",
-          "p": 0.41136355521421825,
-          "fairOdds": 2.43093970606912
+          "p": 0.27664727194480654,
+          "fairOdds": 3.6147112276585487
         },
         {
           "market": "double_chance",
           "selection": "Juventus o empate",
-          "p": 0.5886364438729261,
-          "fairOdds": 1.6988414672739467
+          "p": 0.7233527280551936,
+          "fairOdds": 1.3824514116212714
         },
         {
           "market": "double_chance",
           "selection": "Sassuolo o empate",
-          "p": 0.6826005908466313,
-          "fairOdds": 1.4649855470527757
+          "p": 0.5070158954077747,
+          "fairOdds": 1.9723247516643159
         },
         {
           "market": "double_chance",
           "selection": "Sin empate",
-          "p": 0.7287629634547313,
-          "fairOdds": 1.372188283635406
+          "p": 0.769631376537032,
+          "fairOdds": 1.299323326057099
         },
         {
           "market": "totals",
-          "selection": "Más de 1.5",
+          "selection": "Más de 1.5 goles",
           "line": 1.5,
-          "p": 0.7659222784142551,
-          "fairOdds": 1.305615501967606
+          "p": 0.7727063501484184,
+          "fairOdds": 1.294152687897445
         },
         {
           "market": "totals",
-          "selection": "Más de 2.5",
+          "selection": "Más de 2.5 goles",
           "line": 2.5,
-          "p": 0.5263601998362337,
-          "fairOdds": 1.8998396921179255
+          "p": 0.543946440810402,
+          "fairOdds": 1.838416294277326
         },
         {
           "market": "totals",
-          "selection": "Menos de 2.5",
+          "selection": "Menos de 2.5 goles",
           "line": 2.5,
-          "p": 0.4736398001637663,
-          "fairOdds": 2.1113090573347906
+          "p": 0.456053559189598,
+          "fairOdds": 2.1927249110323546
         },
         {
           "market": "totals",
-          "selection": "Más de 3.5",
+          "selection": "Más de 3.5 goles",
           "line": 3.5,
-          "p": 0.3041677568797634,
-          "fairOdds": 3.287659449043105
+          "p": 0.32069518906782135,
+          "fairOdds": 3.1182257610622206
         },
         {
           "market": "totals",
-          "selection": "Menos de 3.5",
+          "selection": "Menos de 3.5 goles",
           "line": 3.5,
-          "p": 0.6958322431202366,
-          "fairOdds": 1.4371280001567914
+          "p": 0.6793048109321786,
+          "fairOdds": 1.4720932104510582
         },
         {
           "market": "btts",
           "selection": "Sí",
-          "p": 0.5616857157522722,
-          "fairOdds": 1.780355049016492
+          "p": 0.558140031780473,
+          "fairOdds": 1.7916650715950058
         },
         {
           "market": "btts",
           "selection": "No",
-          "p": 0.4383142842477278,
-          "fairOdds": 2.2814679693049134
+          "p": 0.441859968219527,
+          "fairOdds": 2.2631604397870575
+        },
+        {
+          "market": "team_totals",
+          "selection": "Juventus más de 1.5 goles",
+          "line": 1.5,
+          "p": 0.4977749166926767,
+          "fairOdds": 2.008940118245038
+        },
+        {
+          "market": "team_totals",
+          "selection": "Juventus menos de 1.5 goles",
+          "line": 1.5,
+          "p": 0.5022250833073233,
+          "fairOdds": 1.9911390992553764
+        },
+        {
+          "market": "team_totals",
+          "selection": "Sassuolo más de 1.5 goles",
+          "line": 1.5,
+          "p": 0.33209802151920753,
+          "fairOdds": 3.0111591614590907
+        },
+        {
+          "market": "team_totals",
+          "selection": "Sassuolo menos de 1.5 goles",
+          "line": 1.5,
+          "p": 0.6679019784807925,
+          "fairOdds": 1.4972256891267137
+        },
+        {
+          "market": "correct_score",
+          "selection": "1–1",
+          "p": 0.1081434769320604,
+          "fairOdds": 9.246974744747996
+        },
+        {
+          "market": "correct_score",
+          "selection": "1–0",
+          "p": 0.10172092919266702,
+          "fairOdds": 9.830818573294051
+        },
+        {
+          "market": "correct_score",
+          "selection": "2–1",
+          "p": 0.09512402326472724,
+          "fairOdds": 10.512591516624887
         }
       ],
       "marketGroups": [
@@ -6642,22 +7029,22 @@
               "market": "h2h",
               "selection": "home",
               "label": "Juventus gana",
-              "p": 0.3173994082405131,
-              "fairOdds": 3.150604487712965
+              "p": 0.4929841045922254,
+              "fairOdds": 2.0284629680446913
             },
             {
               "market": "h2h",
               "selection": "draw",
               "label": "Empate",
-              "p": 0.2712370356324131,
-              "fairOdds": 3.6868121555318276
+              "p": 0.2303686234629682,
+              "fairOdds": 4.340868929838226
             },
             {
               "market": "h2h",
               "selection": "away",
               "label": "Sassuolo gana",
-              "p": 0.41136355521421825,
-              "fairOdds": 2.43093970606912
+              "p": 0.27664727194480654,
+              "fairOdds": 3.6147112276585487
             }
           ]
         },
@@ -6668,22 +7055,22 @@
               "market": "double_chance",
               "selection": "1x",
               "label": "Juventus o empate",
-              "p": 0.5886364438729261,
-              "fairOdds": 1.6988414672739467
+              "p": 0.7233527280551936,
+              "fairOdds": 1.3824514116212714
             },
             {
               "market": "double_chance",
               "selection": "x2",
               "label": "Sassuolo o empate",
-              "p": 0.6826005908466313,
-              "fairOdds": 1.4649855470527757
+              "p": 0.5070158954077747,
+              "fairOdds": 1.9723247516643159
             },
             {
               "market": "double_chance",
               "selection": "12",
               "label": "Sin empate",
-              "p": 0.7287629634547313,
-              "fairOdds": 1.372188283635406
+              "p": 0.769631376537032,
+              "fairOdds": 1.299323326057099
             }
           ]
         },
@@ -6693,42 +7080,42 @@
             {
               "market": "totals",
               "selection": "over_1.5",
-              "label": "Más de 1.5",
+              "label": "Más de 1.5 goles",
               "line": 1.5,
-              "p": 0.7659222784142551,
-              "fairOdds": 1.305615501967606
+              "p": 0.7727063501484184,
+              "fairOdds": 1.294152687897445
             },
             {
               "market": "totals",
               "selection": "over_2.5",
-              "label": "Más de 2.5",
+              "label": "Más de 2.5 goles",
               "line": 2.5,
-              "p": 0.5263601998362337,
-              "fairOdds": 1.8998396921179255
+              "p": 0.543946440810402,
+              "fairOdds": 1.838416294277326
             },
             {
               "market": "totals",
               "selection": "under_2.5",
-              "label": "Menos de 2.5",
+              "label": "Menos de 2.5 goles",
               "line": 2.5,
-              "p": 0.4736398001637663,
-              "fairOdds": 2.1113090573347906
+              "p": 0.456053559189598,
+              "fairOdds": 2.1927249110323546
             },
             {
               "market": "totals",
               "selection": "over_3.5",
-              "label": "Más de 3.5",
+              "label": "Más de 3.5 goles",
               "line": 3.5,
-              "p": 0.3041677568797634,
-              "fairOdds": 3.287659449043105
+              "p": 0.32069518906782135,
+              "fairOdds": 3.1182257610622206
             },
             {
               "market": "totals",
               "selection": "under_3.5",
-              "label": "Menos de 3.5",
+              "label": "Menos de 3.5 goles",
               "line": 3.5,
-              "p": 0.6958322431202366,
-              "fairOdds": 1.4371280001567914
+              "p": 0.6793048109321786,
+              "fairOdds": 1.4720932104510582
             }
           ]
         },
@@ -6739,15 +7126,78 @@
               "market": "btts",
               "selection": "yes",
               "label": "Sí",
-              "p": 0.5616857157522722,
-              "fairOdds": 1.780355049016492
+              "p": 0.558140031780473,
+              "fairOdds": 1.7916650715950058
             },
             {
               "market": "btts",
               "selection": "no",
               "label": "No",
-              "p": 0.4383142842477278,
-              "fairOdds": 2.2814679693049134
+              "p": 0.441859968219527,
+              "fairOdds": 2.2631604397870575
+            }
+          ]
+        },
+        {
+          "group": "Goles por equipo (1.5)",
+          "rows": [
+            {
+              "market": "team_totals",
+              "selection": "home_over",
+              "label": "Juventus más de 1.5 goles",
+              "line": 1.5,
+              "p": 0.4977749166926767,
+              "fairOdds": 2.008940118245038
+            },
+            {
+              "market": "team_totals",
+              "selection": "home_under",
+              "label": "Juventus menos de 1.5 goles",
+              "line": 1.5,
+              "p": 0.5022250833073233,
+              "fairOdds": 1.9911390992553764
+            },
+            {
+              "market": "team_totals",
+              "selection": "away_over",
+              "label": "Sassuolo más de 1.5 goles",
+              "line": 1.5,
+              "p": 0.33209802151920753,
+              "fairOdds": 3.0111591614590907
+            },
+            {
+              "market": "team_totals",
+              "selection": "away_under",
+              "label": "Sassuolo menos de 1.5 goles",
+              "line": 1.5,
+              "p": 0.6679019784807925,
+              "fairOdds": 1.4972256891267137
+            }
+          ]
+        },
+        {
+          "group": "Marcador exacto (más probables)",
+          "rows": [
+            {
+              "market": "correct_score",
+              "selection": "1-1",
+              "label": "1–1",
+              "p": 0.1081434769320604,
+              "fairOdds": 9.246974744747996
+            },
+            {
+              "market": "correct_score",
+              "selection": "1-0",
+              "label": "1–0",
+              "p": 0.10172092919266702,
+              "fairOdds": 9.830818573294051
+            },
+            {
+              "market": "correct_score",
+              "selection": "2-1",
+              "label": "2–1",
+              "p": 0.09512402326472724,
+              "fairOdds": 10.512591516624887
             }
           ]
         }
@@ -6755,57 +7205,117 @@
       "mostLikelyScore": {
         "home": 1,
         "away": 1,
-        "p": 0.1286478027035815
+        "p": 0.1081434769320604
       },
       "factors": [
         {
           "key": "home_attack",
           "label": "Ataque local",
-          "value": "1.45 goles/partido",
-          "detail": "0 partidos · ajustado a 1.45"
+          "value": "1.07 goles/partido",
+          "detail": "en la media de la liga · 0 partidos"
         },
         {
           "key": "away_defense",
           "label": "Defensa visitante",
-          "value": "0.50 recibidos/partido",
-          "detail": "ajustado a 1.21"
+          "value": "1.07 concedidos/partido",
+          "detail": "8 % menos que la media · 2 partidos"
         },
         {
           "key": "away_attack",
           "label": "Ataque visitante",
-          "value": "2.00 goles/partido",
-          "detail": "ajustado a 1.59"
+          "value": "1.19 goles/partido",
+          "detail": "en la media de la liga · ajustado por rival"
         },
         {
           "key": "home_defense",
           "label": "Defensa local",
-          "value": "1.45 recibidos/partido",
-          "detail": "ajustado a 1.45"
+          "value": "1.16 concedidos/partido",
+          "detail": "en la media de la liga · ajustado por rival"
         },
         {
           "key": "home_advantage",
           "label": "Localía",
-          "value": "Incluida",
-          "detail": "Ajuste del modelo PitchLab"
+          "value": "×1.57",
+          "detail": "estimada de 28 partidos"
         },
         {
-          "key": "sample_size",
-          "label": "Muestra",
-          "value": "0 y 2 partidos",
-          "detail": "Temporada actual"
+          "key": "uncertainty",
+          "label": "Intervalo 90%",
+          "value": "goles 1.9–4.4",
+          "detail": "local 26%–78% · 28 partidos"
+        },
+        {
+          "key": "away_position",
+          "label": "Posición visitante",
+          "value": "8.º · 4 pts",
+          "detail": "de 36 equipos"
+        },
+        {
+          "key": "away_form",
+          "label": "Forma visitante",
+          "value": "G-E · 4 pts",
+          "detail": "4 goles a favor · 1 en contra"
         }
       ],
       "steps": [
-        "Sincronizando Coppa Italia · corte 19 nov 2026, 10:13",
-        "Fuerza de ataque y defensa · JUV 1.45 / 1.45 · SAS 2.00 / 0.50",
-        "Ajuste por localía y tamaño de muestra (0 partidos)",
-        "Proyección de goles 1.29 – 1.49",
-        "Evaluando 196 marcadores posibles",
-        "13 mercados listos · marcador más probable 1–1"
+        "Sincronizando Coppa Italia · corte 21 nov 2026, 22:33",
+        "Fuerza ajustada por rival · JUV 1.00 / 1.00 · SAS 1.02 / 0.92",
+        "Ponderando 23.4 partidos por antigüedad y calidad del rival",
+        "Proyección de goles 1.67 – 1.19 · total 2.86",
+        "Simulando 121 marcadores con incertidumbre del ajuste",
+        "20 mercados listos · marcador proyectado 2–1"
       ],
-      "inputsAsOf": "2026-11-19T16:13:44.585Z",
+      "inputsAsOf": "2026-11-22T04:33:15.743Z",
       "publishedAt": "2026-11-19T16:13:44.585Z",
       "source": "pitchlab-football-v2",
+      "picks": [
+        {
+          "profile": "conservadora",
+          "market": "totals",
+          "selection": "over_1.5",
+          "label": "Más de 1.5 goles",
+          "line": 1.5,
+          "p": 0.7727063501484184,
+          "fairOdds": 1.294152687897445
+        },
+        {
+          "profile": "intermedia",
+          "market": "totals",
+          "selection": "under_3.5",
+          "label": "Menos de 3.5 goles",
+          "line": 3.5,
+          "p": 0.6793048109321786,
+          "fairOdds": 1.4720932104510582
+        },
+        {
+          "profile": "arriesgada",
+          "market": "double_chance",
+          "selection": "x2",
+          "label": "Sassuolo o empate",
+          "p": 0.5070158954077747,
+          "fairOdds": 1.9723247516643159
+        }
+      ],
+      "confidence": {
+        "score": 22,
+        "level": "baja",
+        "reasons": [
+          "Poca muestra esta temporada",
+          "Rango de incertidumbre amplio"
+        ]
+      },
+      "projectedScore": {
+        "home": 2,
+        "away": 1,
+        "p": 0.09512402326472724
+      },
+      "insights": {
+        "why": [
+          "Se esperan 2.9 goles: 1.7 de Juventus y 1.2 de Sassuolo.",
+          "Sassuolo concede 8 % menos que la media."
+        ]
+      },
+      "picksAt": "2026-11-22T04:33:15.743Z",
       "matchContext": {
         "stageName": "Round of 16",
         "venueCity": "Turin",
@@ -6817,103 +7327,150 @@
       "game": "coppa-italia-2026-12-15-bologna-palermo-rgfb24",
       "model": {
         "id": "pitchlab-statistical-coppa-italia",
-        "version": "1.0.0",
-        "status": "reference",
+        "version": "2.0.0",
+        "status": "candidate",
         "label": "Modelo PitchLab · en validación"
       },
       "projection": {
-        "home": 1.4433274636811866,
-        "away": 1.8186058368939866,
-        "total": 3.261933300575173
+        "home": 1.7878948012566587,
+        "away": 1.3832964709087288,
+        "total": 3.1711912721653874,
+        "margin": 0.4045983303479299
       },
       "x12": [
-        0.29907007594257423,
-        0.24373047816565624,
-        0.45719943622487164
+        0.4761847408400947,
+        0.22013505972997988,
+        0.30368019942992547
       ],
       "probabilities": [
         {
           "market": "h2h",
           "selection": "Bologna gana",
-          "p": 0.29907007594257423,
-          "fairOdds": 3.343697950549939
+          "p": 0.4761847408400947,
+          "fairOdds": 2.1000252931998196
         },
         {
           "market": "h2h",
           "selection": "Empate",
-          "p": 0.24373047816565624,
-          "fairOdds": 4.102892701504201
+          "p": 0.22013505972997988,
+          "fairOdds": 4.542665767218594
         },
         {
           "market": "h2h",
           "selection": "Palermo gana",
-          "p": 0.45719943622487164,
-          "fairOdds": 2.1872292937565088
+          "p": 0.30368019942992547,
+          "fairOdds": 3.2929377742678647
         },
         {
           "market": "double_chance",
           "selection": "Bologna o empate",
-          "p": 0.5428005541082305,
-          "fairOdds": 1.8422973087102033
+          "p": 0.6963198005700746,
+          "fairOdds": 1.4361217348426736
         },
         {
           "market": "double_chance",
           "selection": "Palermo o empate",
-          "p": 0.7009299143905279,
-          "fairOdds": 1.4266761618663677
+          "p": 0.5238152591599053,
+          "fairOdds": 1.9090700061006232
         },
         {
           "market": "double_chance",
           "selection": "Sin empate",
-          "p": 0.7562695121674459,
-          "fairOdds": 1.3222799331603754
+          "p": 0.7798649402700202,
+          "fairOdds": 1.2822733121632066
         },
         {
           "market": "totals",
-          "selection": "Más de 1.5",
+          "selection": "Más de 1.5 goles",
           "line": 1.5,
-          "p": 0.836707207545333,
-          "fairOdds": 1.1951612116904344
+          "p": 0.8198150209630499,
+          "fairOdds": 1.21978735986721
         },
         {
           "market": "totals",
-          "selection": "Más de 2.5",
+          "selection": "Más de 2.5 goles",
           "line": 2.5,
-          "p": 0.6328713783464753,
-          "fairOdds": 1.5800998974115943
+          "p": 0.6140501470952048,
+          "fairOdds": 1.6285314883980575
         },
         {
           "market": "totals",
-          "selection": "Menos de 2.5",
+          "selection": "Menos de 2.5 goles",
           "line": 2.5,
-          "p": 0.36712862165352467,
-          "fairOdds": 2.7238410219722495
+          "p": 0.3859498529047952,
+          "fairOdds": 2.591010185581484
         },
         {
           "market": "totals",
-          "selection": "Más de 3.5",
+          "selection": "Más de 3.5 goles",
           "line": 3.5,
-          "p": 0.4112384186417729,
-          "fairOdds": 2.4316794216424937
+          "p": 0.3910595376490821,
+          "fairOdds": 2.557155378466569
         },
         {
           "market": "totals",
-          "selection": "Menos de 3.5",
+          "selection": "Menos de 3.5 goles",
           "line": 3.5,
-          "p": 0.5887615813582271,
-          "fairOdds": 1.6984803894525147
+          "p": 0.6089404623509179,
+          "fairOdds": 1.6421966708195583
         },
         {
           "market": "btts",
           "selection": "Sí",
-          "p": 0.6399217542551142,
-          "fairOdds": 1.5626910530085454
+          "p": 0.6187025750193442,
+          "fairOdds": 1.6162854986804187
         },
         {
           "market": "btts",
           "selection": "No",
-          "p": 0.3600782457448858,
-          "fairOdds": 2.7771741609419434
+          "p": 0.3812974249806558,
+          "fairOdds": 2.6226245825046752
+        },
+        {
+          "market": "team_totals",
+          "selection": "Bologna más de 1.5 goles",
+          "line": 1.5,
+          "p": 0.5335503096084,
+          "fairOdds": 1.8742375029900207
+        },
+        {
+          "market": "team_totals",
+          "selection": "Bologna menos de 1.5 goles",
+          "line": 1.5,
+          "p": 0.4664496903916,
+          "fairOdds": 2.143853925941009
+        },
+        {
+          "market": "team_totals",
+          "selection": "Palermo más de 1.5 goles",
+          "line": 1.5,
+          "p": 0.40238683647603546,
+          "fairOdds": 2.485170759455388
+        },
+        {
+          "market": "team_totals",
+          "selection": "Palermo menos de 1.5 goles",
+          "line": 1.5,
+          "p": 0.5976131635239645,
+          "fairOdds": 1.6733232482753027
+        },
+        {
+          "market": "correct_score",
+          "selection": "1–1",
+          "p": 0.09857149606274775,
+          "fairOdds": 10.144920590060124
+        },
+        {
+          "market": "correct_score",
+          "selection": "2–1",
+          "p": 0.09275550808561994,
+          "fairOdds": 10.781030912761846
+        },
+        {
+          "market": "correct_score",
+          "selection": "1–0",
+          "p": 0.0801968177282641,
+          "fairOdds": 12.469322702907771
         }
       ],
       "marketGroups": [
@@ -6924,22 +7481,22 @@
               "market": "h2h",
               "selection": "home",
               "label": "Bologna gana",
-              "p": 0.29907007594257423,
-              "fairOdds": 3.343697950549939
+              "p": 0.4761847408400947,
+              "fairOdds": 2.1000252931998196
             },
             {
               "market": "h2h",
               "selection": "draw",
               "label": "Empate",
-              "p": 0.24373047816565624,
-              "fairOdds": 4.102892701504201
+              "p": 0.22013505972997988,
+              "fairOdds": 4.542665767218594
             },
             {
               "market": "h2h",
               "selection": "away",
               "label": "Palermo gana",
-              "p": 0.45719943622487164,
-              "fairOdds": 2.1872292937565088
+              "p": 0.30368019942992547,
+              "fairOdds": 3.2929377742678647
             }
           ]
         },
@@ -6950,22 +7507,22 @@
               "market": "double_chance",
               "selection": "1x",
               "label": "Bologna o empate",
-              "p": 0.5428005541082305,
-              "fairOdds": 1.8422973087102033
+              "p": 0.6963198005700746,
+              "fairOdds": 1.4361217348426736
             },
             {
               "market": "double_chance",
               "selection": "x2",
               "label": "Palermo o empate",
-              "p": 0.7009299143905279,
-              "fairOdds": 1.4266761618663677
+              "p": 0.5238152591599053,
+              "fairOdds": 1.9090700061006232
             },
             {
               "market": "double_chance",
               "selection": "12",
               "label": "Sin empate",
-              "p": 0.7562695121674459,
-              "fairOdds": 1.3222799331603754
+              "p": 0.7798649402700202,
+              "fairOdds": 1.2822733121632066
             }
           ]
         },
@@ -6975,42 +7532,42 @@
             {
               "market": "totals",
               "selection": "over_1.5",
-              "label": "Más de 1.5",
+              "label": "Más de 1.5 goles",
               "line": 1.5,
-              "p": 0.836707207545333,
-              "fairOdds": 1.1951612116904344
+              "p": 0.8198150209630499,
+              "fairOdds": 1.21978735986721
             },
             {
               "market": "totals",
               "selection": "over_2.5",
-              "label": "Más de 2.5",
+              "label": "Más de 2.5 goles",
               "line": 2.5,
-              "p": 0.6328713783464753,
-              "fairOdds": 1.5800998974115943
+              "p": 0.6140501470952048,
+              "fairOdds": 1.6285314883980575
             },
             {
               "market": "totals",
               "selection": "under_2.5",
-              "label": "Menos de 2.5",
+              "label": "Menos de 2.5 goles",
               "line": 2.5,
-              "p": 0.36712862165352467,
-              "fairOdds": 2.7238410219722495
+              "p": 0.3859498529047952,
+              "fairOdds": 2.591010185581484
             },
             {
               "market": "totals",
               "selection": "over_3.5",
-              "label": "Más de 3.5",
+              "label": "Más de 3.5 goles",
               "line": 3.5,
-              "p": 0.4112384186417729,
-              "fairOdds": 2.4316794216424937
+              "p": 0.3910595376490821,
+              "fairOdds": 2.557155378466569
             },
             {
               "market": "totals",
               "selection": "under_3.5",
-              "label": "Menos de 3.5",
+              "label": "Menos de 3.5 goles",
               "line": 3.5,
-              "p": 0.5887615813582271,
-              "fairOdds": 1.6984803894525147
+              "p": 0.6089404623509179,
+              "fairOdds": 1.6421966708195583
             }
           ]
         },
@@ -7021,15 +7578,78 @@
               "market": "btts",
               "selection": "yes",
               "label": "Sí",
-              "p": 0.6399217542551142,
-              "fairOdds": 1.5626910530085454
+              "p": 0.6187025750193442,
+              "fairOdds": 1.6162854986804187
             },
             {
               "market": "btts",
               "selection": "no",
               "label": "No",
-              "p": 0.3600782457448858,
-              "fairOdds": 2.7771741609419434
+              "p": 0.3812974249806558,
+              "fairOdds": 2.6226245825046752
+            }
+          ]
+        },
+        {
+          "group": "Goles por equipo (1.5)",
+          "rows": [
+            {
+              "market": "team_totals",
+              "selection": "home_over",
+              "label": "Bologna más de 1.5 goles",
+              "line": 1.5,
+              "p": 0.5335503096084,
+              "fairOdds": 1.8742375029900207
+            },
+            {
+              "market": "team_totals",
+              "selection": "home_under",
+              "label": "Bologna menos de 1.5 goles",
+              "line": 1.5,
+              "p": 0.4664496903916,
+              "fairOdds": 2.143853925941009
+            },
+            {
+              "market": "team_totals",
+              "selection": "away_over",
+              "label": "Palermo más de 1.5 goles",
+              "line": 1.5,
+              "p": 0.40238683647603546,
+              "fairOdds": 2.485170759455388
+            },
+            {
+              "market": "team_totals",
+              "selection": "away_under",
+              "label": "Palermo menos de 1.5 goles",
+              "line": 1.5,
+              "p": 0.5976131635239645,
+              "fairOdds": 1.6733232482753027
+            }
+          ]
+        },
+        {
+          "group": "Marcador exacto (más probables)",
+          "rows": [
+            {
+              "market": "correct_score",
+              "selection": "1-1",
+              "label": "1–1",
+              "p": 0.09857149606274775,
+              "fairOdds": 10.144920590060124
+            },
+            {
+              "market": "correct_score",
+              "selection": "2-1",
+              "label": "2–1",
+              "p": 0.09275550808561994,
+              "fairOdds": 10.781030912761846
+            },
+            {
+              "market": "correct_score",
+              "selection": "1-0",
+              "label": "1–0",
+              "p": 0.0801968177282641,
+              "fairOdds": 12.469322702907771
             }
           ]
         }
@@ -7037,57 +7657,116 @@
       "mostLikelyScore": {
         "home": 1,
         "away": 1,
-        "p": 0.10861444286042249
+        "p": 0.09857149606274775
       },
       "factors": [
         {
           "key": "home_attack",
           "label": "Ataque local",
-          "value": "1.45 goles/partido",
-          "detail": "0 partidos · ajustado a 1.45"
+          "value": "1.14 goles/partido",
+          "detail": "en la media de la liga · 0 partidos"
         },
         {
           "key": "away_defense",
           "label": "Defensa visitante",
-          "value": "1.00 recibidos/partido",
-          "detail": "ajustado a 1.34"
+          "value": "1.14 concedidos/partido",
+          "detail": "en la media de la liga · 2 partidos"
         },
         {
           "key": "away_attack",
           "label": "Ataque visitante",
-          "value": "3.50 goles/partido",
-          "detail": "ajustado a 1.96"
+          "value": "1.38 goles/partido",
+          "detail": "19 % más que la media · ajustado por rival"
         },
         {
           "key": "home_defense",
           "label": "Defensa local",
-          "value": "1.45 recibidos/partido",
-          "detail": "ajustado a 1.45"
+          "value": "1.16 concedidos/partido",
+          "detail": "en la media de la liga · ajustado por rival"
         },
         {
           "key": "home_advantage",
           "label": "Localía",
-          "value": "Incluida",
-          "detail": "Ajuste del modelo PitchLab"
+          "value": "×1.57",
+          "detail": "estimada de 28 partidos"
         },
         {
-          "key": "sample_size",
-          "label": "Muestra",
-          "value": "0 y 2 partidos",
-          "detail": "Temporada actual"
+          "key": "uncertainty",
+          "label": "Intervalo 90%",
+          "value": "goles 2.2–4.8",
+          "detail": "local 22%–74% · 28 partidos"
+        },
+        {
+          "key": "away_position",
+          "label": "Posición visitante",
+          "value": "2.º · 6 pts",
+          "detail": "de 36 equipos"
+        },
+        {
+          "key": "away_form",
+          "label": "Forma visitante",
+          "value": "G-G · 6 pts",
+          "detail": "7 goles a favor · 2 en contra"
         }
       ],
       "steps": [
-        "Sincronizando Coppa Italia · corte 19 nov 2026, 10:13",
-        "Fuerza de ataque y defensa · BOL 1.45 / 1.45 · PAL 3.50 / 1.00",
-        "Ajuste por localía y tamaño de muestra (0 partidos)",
-        "Proyección de goles 1.44 – 1.82",
-        "Evaluando 196 marcadores posibles",
-        "13 mercados listos · marcador más probable 1–1"
+        "Sincronizando Coppa Italia · corte 21 nov 2026, 22:33",
+        "Fuerza ajustada por rival · BOL 1.00 / 1.00 · PAL 1.19 / 0.98",
+        "Ponderando 23.4 partidos por antigüedad y calidad del rival",
+        "Proyección de goles 1.79 – 1.38 · total 3.17",
+        "Simulando 121 marcadores con incertidumbre del ajuste",
+        "20 mercados listos · marcador proyectado 2–1"
       ],
-      "inputsAsOf": "2026-11-19T16:13:44.585Z",
+      "inputsAsOf": "2026-11-22T04:33:15.743Z",
       "publishedAt": "2026-11-19T16:13:44.585Z",
       "source": "pitchlab-football-v2",
+      "picks": [
+        {
+          "profile": "conservadora",
+          "market": "totals",
+          "selection": "over_1.5",
+          "label": "Más de 1.5 goles",
+          "line": 1.5,
+          "p": 0.8198150209630499,
+          "fairOdds": 1.21978735986721
+        },
+        {
+          "profile": "intermedia",
+          "market": "double_chance",
+          "selection": "1x",
+          "label": "Bologna o empate",
+          "p": 0.6963198005700746,
+          "fairOdds": 1.4361217348426736
+        },
+        {
+          "profile": "arriesgada",
+          "market": "h2h",
+          "selection": "home",
+          "label": "Bologna gana",
+          "p": 0.4761847408400947,
+          "fairOdds": 2.1000252931998196
+        }
+      ],
+      "confidence": {
+        "score": 20,
+        "level": "baja",
+        "reasons": [
+          "Poca muestra esta temporada",
+          "Rango de incertidumbre amplio"
+        ]
+      },
+      "projectedScore": {
+        "home": 2,
+        "away": 1,
+        "p": 0.09275550808561994
+      },
+      "insights": {
+        "why": [
+          "Bologna gana en 48% de los escenarios; el empate, en 22%.",
+          "Palermo anota 19 % más que la media."
+        ]
+      },
+      "picksAt": "2026-11-22T04:33:15.743Z",
       "matchContext": {
         "stageName": "Round of 16",
         "venueCity": "Bologna",
@@ -7099,103 +7778,150 @@
       "game": "coppa-italia-2026-12-16-napoli-fiorentina-qgmak2",
       "model": {
         "id": "pitchlab-statistical-coppa-italia",
-        "version": "1.0.0",
-        "status": "reference",
+        "version": "2.0.0",
+        "status": "candidate",
         "label": "Modelo PitchLab · en validación"
       },
       "projection": {
-        "home": 1.3187797349298656,
-        "away": 1.8043432022607981,
-        "total": 3.1231229371906637
+        "home": 1.6648591915418929,
+        "away": 1.3540120846378643,
+        "total": 3.018871276179757,
+        "margin": 0.3108471069040286
       },
       "x12": [
-        0.27255689967550456,
-        0.24701016625792904,
-        0.48043292559453576
+        0.45391672842021585,
+        0.22799095812984266,
+        0.31809231344994143
       ],
       "probabilities": [
         {
           "market": "h2h",
           "selection": "SSC Napoli gana",
-          "p": 0.27255689967550456,
-          "fairOdds": 3.6689586695128993
+          "p": 0.45391672842021585,
+          "fairOdds": 2.203047249393824
         },
         {
           "market": "h2h",
           "selection": "Empate",
-          "p": 0.24701016625792904,
-          "fairOdds": 4.048416367429168
+          "p": 0.22799095812984266,
+          "fairOdds": 4.386138854815865
         },
         {
           "market": "h2h",
           "selection": "Fiorentina gana",
-          "p": 0.48043292559453576,
-          "fairOdds": 2.081456009207737
+          "p": 0.31809231344994143,
+          "fairOdds": 3.1437414791771485
         },
         {
           "market": "double_chance",
           "selection": "SSC Napoli o empate",
-          "p": 0.5195670659334336,
-          "fairOdds": 1.9246793447222057
+          "p": 0.6819076865500585,
+          "fairOdds": 1.4664741573148266
         },
         {
           "market": "double_chance",
           "selection": "Fiorentina o empate",
-          "p": 0.7274430918524648,
-          "fairOdds": 1.37467797990006
+          "p": 0.5460832715797841,
+          "fairOdds": 1.831222547995407
         },
         {
           "market": "double_chance",
           "selection": "Sin empate",
-          "p": 0.7529898252700403,
-          "fairOdds": 1.328039193147631
+          "p": 0.7720090418701573,
+          "fairOdds": 1.2953216164120886
         },
         {
           "market": "totals",
-          "selection": "Más de 1.5",
+          "selection": "Más de 1.5 goles",
           "line": 1.5,
-          "p": 0.8185022580675576,
-          "fairOdds": 1.2217437278193335
+          "p": 0.7981456515308027,
+          "fairOdds": 1.2529041511183465
         },
         {
           "market": "totals",
-          "selection": "Más de 2.5",
+          "selection": "Más de 2.5 goles",
           "line": 2.5,
-          "p": 0.6038215068655959,
-          "fairOdds": 1.656118552634776
+          "p": 0.5810238359435747,
+          "fairOdds": 1.7210997865105033
         },
         {
           "market": "totals",
-          "selection": "Menos de 2.5",
+          "selection": "Menos de 2.5 goles",
           "line": 2.5,
-          "p": 0.3961784931344041,
-          "fairOdds": 2.5241148051435203
+          "p": 0.41897616405642535,
+          "fairOdds": 2.386770622744366
         },
         {
           "market": "totals",
-          "selection": "Más de 3.5",
+          "selection": "Más de 3.5 goles",
           "line": 3.5,
-          "p": 0.3803300474482062,
-          "fairOdds": 2.6292952836869437
+          "p": 0.35699488925845413,
+          "fairOdds": 2.8011605490408815
         },
         {
           "market": "totals",
-          "selection": "Menos de 3.5",
+          "selection": "Menos de 3.5 goles",
           "line": 3.5,
-          "p": 0.6196699525517938,
-          "fairOdds": 1.6137622872982809
+          "p": 0.6430051107415459,
+          "fairOdds": 1.5551975922038157
         },
         {
           "market": "btts",
           "selection": "Sí",
-          "p": 0.6119754881336682,
-          "fairOdds": 1.6340523752833367
+          "p": 0.595929826813992,
+          "fairOdds": 1.6780499230023114
         },
         {
           "market": "btts",
           "selection": "No",
-          "p": 0.3880245118663318,
-          "fairOdds": 2.5771567759731733
+          "p": 0.404070173186008,
+          "fairOdds": 2.4748176588121096
+        },
+        {
+          "market": "team_totals",
+          "selection": "SSC Napoli más de 1.5 goles",
+          "line": 1.5,
+          "p": 0.4957617857693457,
+          "fairOdds": 2.0170977850746494
+        },
+        {
+          "market": "team_totals",
+          "selection": "SSC Napoli menos de 1.5 goles",
+          "line": 1.5,
+          "p": 0.5042382142306543,
+          "fairOdds": 1.983189634934271
+        },
+        {
+          "market": "team_totals",
+          "selection": "Fiorentina más de 1.5 goles",
+          "line": 1.5,
+          "p": 0.39218865799304314,
+          "fairOdds": 2.5497932681616167
+        },
+        {
+          "market": "team_totals",
+          "selection": "Fiorentina menos de 1.5 goles",
+          "line": 1.5,
+          "p": 0.6078113420069569,
+          "fairOdds": 1.645247350432882
+        },
+        {
+          "market": "correct_score",
+          "selection": "1–1",
+          "p": 0.1046273572135282,
+          "fairOdds": 9.557729705044114
+        },
+        {
+          "market": "correct_score",
+          "selection": "2–1",
+          "p": 0.09167885123351546,
+          "fairOdds": 10.907641037657607
+        },
+        {
+          "market": "correct_score",
+          "selection": "1–0",
+          "p": 0.08684575564917864,
+          "fairOdds": 11.514667499003536
         }
       ],
       "marketGroups": [
@@ -7206,22 +7932,22 @@
               "market": "h2h",
               "selection": "home",
               "label": "SSC Napoli gana",
-              "p": 0.27255689967550456,
-              "fairOdds": 3.6689586695128993
+              "p": 0.45391672842021585,
+              "fairOdds": 2.203047249393824
             },
             {
               "market": "h2h",
               "selection": "draw",
               "label": "Empate",
-              "p": 0.24701016625792904,
-              "fairOdds": 4.048416367429168
+              "p": 0.22799095812984266,
+              "fairOdds": 4.386138854815865
             },
             {
               "market": "h2h",
               "selection": "away",
               "label": "Fiorentina gana",
-              "p": 0.48043292559453576,
-              "fairOdds": 2.081456009207737
+              "p": 0.31809231344994143,
+              "fairOdds": 3.1437414791771485
             }
           ]
         },
@@ -7232,22 +7958,22 @@
               "market": "double_chance",
               "selection": "1x",
               "label": "SSC Napoli o empate",
-              "p": 0.5195670659334336,
-              "fairOdds": 1.9246793447222057
+              "p": 0.6819076865500585,
+              "fairOdds": 1.4664741573148266
             },
             {
               "market": "double_chance",
               "selection": "x2",
               "label": "Fiorentina o empate",
-              "p": 0.7274430918524648,
-              "fairOdds": 1.37467797990006
+              "p": 0.5460832715797841,
+              "fairOdds": 1.831222547995407
             },
             {
               "market": "double_chance",
               "selection": "12",
               "label": "Sin empate",
-              "p": 0.7529898252700403,
-              "fairOdds": 1.328039193147631
+              "p": 0.7720090418701573,
+              "fairOdds": 1.2953216164120886
             }
           ]
         },
@@ -7257,42 +7983,42 @@
             {
               "market": "totals",
               "selection": "over_1.5",
-              "label": "Más de 1.5",
+              "label": "Más de 1.5 goles",
               "line": 1.5,
-              "p": 0.8185022580675576,
-              "fairOdds": 1.2217437278193335
+              "p": 0.7981456515308027,
+              "fairOdds": 1.2529041511183465
             },
             {
               "market": "totals",
               "selection": "over_2.5",
-              "label": "Más de 2.5",
+              "label": "Más de 2.5 goles",
               "line": 2.5,
-              "p": 0.6038215068655959,
-              "fairOdds": 1.656118552634776
+              "p": 0.5810238359435747,
+              "fairOdds": 1.7210997865105033
             },
             {
               "market": "totals",
               "selection": "under_2.5",
-              "label": "Menos de 2.5",
+              "label": "Menos de 2.5 goles",
               "line": 2.5,
-              "p": 0.3961784931344041,
-              "fairOdds": 2.5241148051435203
+              "p": 0.41897616405642535,
+              "fairOdds": 2.386770622744366
             },
             {
               "market": "totals",
               "selection": "over_3.5",
-              "label": "Más de 3.5",
+              "label": "Más de 3.5 goles",
               "line": 3.5,
-              "p": 0.3803300474482062,
-              "fairOdds": 2.6292952836869437
+              "p": 0.35699488925845413,
+              "fairOdds": 2.8011605490408815
             },
             {
               "market": "totals",
               "selection": "under_3.5",
-              "label": "Menos de 3.5",
+              "label": "Menos de 3.5 goles",
               "line": 3.5,
-              "p": 0.6196699525517938,
-              "fairOdds": 1.6137622872982809
+              "p": 0.6430051107415459,
+              "fairOdds": 1.5551975922038157
             }
           ]
         },
@@ -7303,15 +8029,78 @@
               "market": "btts",
               "selection": "yes",
               "label": "Sí",
-              "p": 0.6119754881336682,
-              "fairOdds": 1.6340523752833367
+              "p": 0.595929826813992,
+              "fairOdds": 1.6780499230023114
             },
             {
               "market": "btts",
               "selection": "no",
               "label": "No",
-              "p": 0.3880245118663318,
-              "fairOdds": 2.5771567759731733
+              "p": 0.404070173186008,
+              "fairOdds": 2.4748176588121096
+            }
+          ]
+        },
+        {
+          "group": "Goles por equipo (1.5)",
+          "rows": [
+            {
+              "market": "team_totals",
+              "selection": "home_over",
+              "label": "SSC Napoli más de 1.5 goles",
+              "line": 1.5,
+              "p": 0.4957617857693457,
+              "fairOdds": 2.0170977850746494
+            },
+            {
+              "market": "team_totals",
+              "selection": "home_under",
+              "label": "SSC Napoli menos de 1.5 goles",
+              "line": 1.5,
+              "p": 0.5042382142306543,
+              "fairOdds": 1.983189634934271
+            },
+            {
+              "market": "team_totals",
+              "selection": "away_over",
+              "label": "Fiorentina más de 1.5 goles",
+              "line": 1.5,
+              "p": 0.39218865799304314,
+              "fairOdds": 2.5497932681616167
+            },
+            {
+              "market": "team_totals",
+              "selection": "away_under",
+              "label": "Fiorentina menos de 1.5 goles",
+              "line": 1.5,
+              "p": 0.6078113420069569,
+              "fairOdds": 1.645247350432882
+            }
+          ]
+        },
+        {
+          "group": "Marcador exacto (más probables)",
+          "rows": [
+            {
+              "market": "correct_score",
+              "selection": "1-1",
+              "label": "1–1",
+              "p": 0.1046273572135282,
+              "fairOdds": 9.557729705044114
+            },
+            {
+              "market": "correct_score",
+              "selection": "2-1",
+              "label": "2–1",
+              "p": 0.09167885123351546,
+              "fairOdds": 10.907641037657607
+            },
+            {
+              "market": "correct_score",
+              "selection": "1-0",
+              "label": "1–0",
+              "p": 0.08684575564917864,
+              "fairOdds": 11.514667499003536
             }
           ]
         }
@@ -7319,57 +8108,118 @@
       "mostLikelyScore": {
         "home": 1,
         "away": 1,
-        "p": 0.11312539541911014
+        "p": 0.1046273572135282
       },
       "factors": [
         {
           "key": "home_attack",
           "label": "Ataque local",
-          "value": "1.45 goles/partido",
-          "detail": "0 partidos · ajustado a 1.45"
+          "value": "1.06 goles/partido",
+          "detail": "en la media de la liga · 0 partidos"
         },
         {
           "key": "away_defense",
           "label": "Defensa visitante",
-          "value": "0.50 recibidos/partido",
-          "detail": "ajustado a 1.21"
+          "value": "1.06 concedidos/partido",
+          "detail": "9 % menos que la media · 2 partidos"
         },
         {
           "key": "away_attack",
           "label": "Ataque visitante",
-          "value": "3.50 goles/partido",
-          "detail": "ajustado a 1.96"
+          "value": "1.35 goles/partido",
+          "detail": "17 % más que la media · ajustado por rival"
         },
         {
           "key": "home_defense",
           "label": "Defensa local",
-          "value": "1.45 recibidos/partido",
-          "detail": "ajustado a 1.45"
+          "value": "1.16 concedidos/partido",
+          "detail": "en la media de la liga · ajustado por rival"
         },
         {
           "key": "home_advantage",
           "label": "Localía",
-          "value": "Incluida",
-          "detail": "Ajuste del modelo PitchLab"
+          "value": "×1.57",
+          "detail": "estimada de 28 partidos"
         },
         {
-          "key": "sample_size",
-          "label": "Muestra",
-          "value": "0 y 2 partidos",
-          "detail": "Temporada actual"
+          "key": "uncertainty",
+          "label": "Intervalo 90%",
+          "value": "goles 2.1–4.5",
+          "detail": "local 22%–72% · 28 partidos"
+        },
+        {
+          "key": "away_position",
+          "label": "Posición visitante",
+          "value": "1.º · 6 pts",
+          "detail": "de 36 equipos"
+        },
+        {
+          "key": "away_form",
+          "label": "Forma visitante",
+          "value": "G-G · 6 pts",
+          "detail": "7 goles a favor · 1 en contra"
         }
       ],
       "steps": [
-        "Sincronizando Coppa Italia · corte 19 nov 2026, 10:13",
-        "Fuerza de ataque y defensa · NAP 1.45 / 1.45 · FIO 3.50 / 0.50",
-        "Ajuste por localía y tamaño de muestra (0 partidos)",
-        "Proyección de goles 1.32 – 1.80",
-        "Evaluando 196 marcadores posibles",
-        "13 mercados listos · marcador más probable 1–1"
+        "Sincronizando Coppa Italia · corte 21 nov 2026, 22:33",
+        "Fuerza ajustada por rival · NAP 1.00 / 1.00 · FIO 1.17 / 0.91",
+        "Ponderando 23.4 partidos por antigüedad y calidad del rival",
+        "Proyección de goles 1.66 – 1.35 · total 3.02",
+        "Simulando 121 marcadores con incertidumbre del ajuste",
+        "20 mercados listos · marcador proyectado 2–1"
       ],
-      "inputsAsOf": "2026-11-19T16:13:44.585Z",
+      "inputsAsOf": "2026-11-22T04:33:15.743Z",
       "publishedAt": "2026-11-19T16:13:44.585Z",
       "source": "pitchlab-football-v2",
+      "picks": [
+        {
+          "profile": "conservadora",
+          "market": "totals",
+          "selection": "over_1.5",
+          "label": "Más de 1.5 goles",
+          "line": 1.5,
+          "p": 0.7981456515308027,
+          "fairOdds": 1.2529041511183465
+        },
+        {
+          "profile": "intermedia",
+          "market": "double_chance",
+          "selection": "1x",
+          "label": "SSC Napoli o empate",
+          "p": 0.6819076865500585,
+          "fairOdds": 1.4664741573148266
+        },
+        {
+          "profile": "arriesgada",
+          "market": "team_totals",
+          "selection": "home_under",
+          "label": "SSC Napoli menos de 1.5 goles",
+          "line": 1.5,
+          "p": 0.5042382142306543,
+          "fairOdds": 1.983189634934271
+        }
+      ],
+      "confidence": {
+        "score": 16,
+        "level": "baja",
+        "reasons": [
+          "Poca muestra esta temporada",
+          "Rango de incertidumbre amplio"
+        ]
+      },
+      "projectedScore": {
+        "home": 2,
+        "away": 1,
+        "p": 0.09167885123351546
+      },
+      "insights": {
+        "why": [
+          "SSC Napoli gana en 45% de los escenarios; el empate, en 23%.",
+          "Fiorentina anota 17 % más que la media.",
+          "Fiorentina concede 9 % menos que la media."
+        ]
+      },
+      "picksAt": "2026-11-22T04:33:15.743Z",
       "matchContext": {
         "stageName": "Round of 16",
         "venueCity": "Naples",

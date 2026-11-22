@@ -5,32 +5,21 @@
   "season": "copa-do-brasil-2026",
   "seasonLabel": "2026",
   "periodLabel": "Round of 16",
-  "updatedAt": "2026-11-19T16:05:39.021Z",
+  "updatedAt": "2026-11-22T04:33:15.743Z",
   "source": "pitchlab-football-v2",
   "provenance": "derived",
   "isDemo": false,
   "teamRates": {
-    "copa-do-brasil.vasco-gama": {
-      "teamId": "copa-do-brasil.vasco-gama",
-      "name": "Vasco da Gama",
-      "shortName": "Vasco da Gama",
-      "code": "VAS",
-      "forPerGame": 1.3333333333333333,
-      "againstPerGame": 0.5,
-      "gamesPlayed": 6,
-      "adjustedFor": 0.8945609835496338,
-      "adjustedAgainst": 0.46618324137220807
-    },
-    "copa-do-brasil.fluminense": {
-      "teamId": "copa-do-brasil.fluminense",
-      "name": "Fluminense",
-      "shortName": "Fluminense",
-      "code": "FLU",
-      "forPerGame": 0.5,
-      "againstPerGame": 1.5,
+    "copa-do-brasil.athletico": {
+      "teamId": "copa-do-brasil.athletico",
+      "name": "Athletico",
+      "shortName": "Athletico",
+      "code": "ATH",
+      "forPerGame": 1,
+      "againstPerGame": 2,
       "gamesPlayed": 2,
-      "adjustedFor": 0.6682417096292258,
-      "adjustedAgainst": 0.764928667099802
+      "adjustedFor": 0.7037185006104897,
+      "adjustedAgainst": 0.8441957990894048
     },
     "copa-do-brasil.atletico-mineiro": {
       "teamId": "copa-do-brasil.atletico-mineiro",
@@ -40,85 +29,8 @@
       "forPerGame": 0.8333333333333334,
       "againstPerGame": 0.8333333333333334,
       "gamesPlayed": 6,
-      "adjustedFor": 0.7632729542913015,
-      "adjustedAgainst": 0.7109932616396247
-    },
-    "copa-do-brasil.juventude": {
-      "teamId": "copa-do-brasil.juventude",
-      "name": "Juventude",
-      "shortName": "Juventude",
-      "code": "JUV",
-      "forPerGame": 0,
-      "againstPerGame": 0.5,
-      "gamesPlayed": 2,
-      "adjustedFor": 0.4292215061495616,
-      "adjustedAgainst": 0.5296905275890763
-    },
-    "copa-do-brasil.santos": {
-      "teamId": "copa-do-brasil.santos",
-      "name": "Santos",
-      "shortName": "Santos",
-      "code": "SAN",
-      "forPerGame": 0.25,
-      "againstPerGame": 0.75,
-      "gamesPlayed": 4,
-      "adjustedFor": 0.4359648894547575,
-      "adjustedAgainst": 0.601690319779916
-    },
-    "copa-do-brasil.remo": {
-      "teamId": "copa-do-brasil.remo",
-      "name": "Remo",
-      "shortName": "Remo",
-      "code": "REM",
-      "forPerGame": 0,
-      "againstPerGame": 0.5,
-      "gamesPlayed": 2,
-      "adjustedFor": 0.45578262305539846,
-      "adjustedAgainst": 0.6117409168457449
-    },
-    "copa-do-brasil.palmeiras": {
-      "teamId": "copa-do-brasil.palmeiras",
-      "name": "Palmeiras",
-      "shortName": "Palmeiras",
-      "code": "PAL",
-      "forPerGame": 1.6666666666666667,
-      "againstPerGame": 0.8333333333333334,
-      "gamesPlayed": 6,
-      "adjustedFor": 1.1441399164341768,
-      "adjustedAgainst": 0.6755820610617255
-    },
-    "copa-do-brasil.fortaleza": {
-      "teamId": "copa-do-brasil.fortaleza",
-      "name": "Fortaleza",
-      "shortName": "Fortaleza",
-      "code": "FOR",
-      "forPerGame": 1.5,
-      "againstPerGame": 2.5,
-      "gamesPlayed": 2,
-      "adjustedFor": 0.8992395339252695,
-      "adjustedAgainst": 0.9330485054425224
-    },
-    "copa-do-brasil.mirassol": {
-      "teamId": "copa-do-brasil.mirassol",
-      "name": "Mirassol",
-      "shortName": "Mirassol",
-      "code": "MIR",
-      "forPerGame": 0.5,
-      "againstPerGame": 1,
-      "gamesPlayed": 2,
-      "adjustedFor": 0.6519762357000987,
-      "adjustedAgainst": 0.6225812371508306
-    },
-    "copa-do-brasil.gremio": {
-      "teamId": "copa-do-brasil.gremio",
-      "name": "Grêmio",
-      "shortName": "Grêmio",
-      "code": "GRE",
-      "forPerGame": 1.3333333333333333,
-      "againstPerGame": 0.5,
-      "gamesPlayed": 6,
-      "adjustedFor": 0.9360805157801544,
-      "adjustedAgainst": 0.5042719759064868
+      "adjustedFor": 0.7020495468018926,
+      "adjustedAgainst": 0.6795084516805558
     },
     "copa-do-brasil.chapecoense": {
       "teamId": "copa-do-brasil.chapecoense",
@@ -128,30 +40,8 @@
       "forPerGame": 0,
       "againstPerGame": 1,
       "gamesPlayed": 2,
-      "adjustedFor": 0.4336490219877133,
-      "adjustedAgainst": 0.6685850573373315
-    },
-    "copa-do-brasil.cruzeiro": {
-      "teamId": "copa-do-brasil.cruzeiro",
-      "name": "Cruzeiro",
-      "shortName": "Cruzeiro",
-      "code": "CRU",
-      "forPerGame": 1,
-      "againstPerGame": 0.75,
-      "gamesPlayed": 4,
-      "adjustedFor": 0.7592447573708463,
-      "adjustedAgainst": 0.6919805094054157
-    },
-    "copa-do-brasil.internacional": {
-      "teamId": "copa-do-brasil.internacional",
-      "name": "Internacional",
-      "shortName": "Internacional",
-      "code": "INT",
-      "forPerGame": 1,
-      "againstPerGame": 1.25,
-      "gamesPlayed": 4,
-      "adjustedFor": 0.7805106824040664,
-      "adjustedAgainst": 0.8024629505514013
+      "adjustedFor": 0.5825880586251502,
+      "adjustedAgainst": 0.7091443221361827
     },
     "copa-do-brasil.corinthians": {
       "teamId": "copa-do-brasil.corinthians",
@@ -161,19 +51,129 @@
       "forPerGame": 1,
       "againstPerGame": 1.5,
       "gamesPlayed": 2,
-      "adjustedFor": 0.6965385606955792,
-      "adjustedAgainst": 0.798134152831669
+      "adjustedFor": 0.7046336710166221,
+      "adjustedAgainst": 0.7745551762942471
     },
-    "copa-do-brasil.athletico": {
-      "teamId": "copa-do-brasil.athletico",
-      "name": "Athletico",
-      "shortName": "Athletico",
-      "code": "ATH",
+    "copa-do-brasil.cruzeiro": {
+      "teamId": "copa-do-brasil.cruzeiro",
+      "name": "Cruzeiro",
+      "shortName": "Cruzeiro",
+      "code": "CRU",
       "forPerGame": 1,
-      "againstPerGame": 2,
+      "againstPerGame": 0.75,
+      "gamesPlayed": 4,
+      "adjustedFor": 0.7242321450583713,
+      "adjustedAgainst": 0.683823528453995
+    },
+    "copa-do-brasil.fluminense": {
+      "teamId": "copa-do-brasil.fluminense",
+      "name": "Fluminense",
+      "shortName": "Fluminense",
+      "code": "FLU",
+      "forPerGame": 0.5,
+      "againstPerGame": 1.5,
       "gamesPlayed": 2,
-      "adjustedFor": 0.6921646046923258,
-      "adjustedAgainst": 0.9524273970965159
+      "adjustedFor": 0.6729526269825883,
+      "adjustedAgainst": 0.7590780833030084
+    },
+    "copa-do-brasil.fortaleza": {
+      "teamId": "copa-do-brasil.fortaleza",
+      "name": "Fortaleza",
+      "shortName": "Fortaleza",
+      "code": "FOR",
+      "forPerGame": 1.5,
+      "againstPerGame": 2.5,
+      "gamesPlayed": 2,
+      "adjustedFor": 0.7893994330815467,
+      "adjustedAgainst": 0.8634973548280667
+    },
+    "copa-do-brasil.gremio": {
+      "teamId": "copa-do-brasil.gremio",
+      "name": "Grêmio",
+      "shortName": "Grêmio",
+      "code": "GRE",
+      "forPerGame": 1.3333333333333333,
+      "againstPerGame": 0.5,
+      "gamesPlayed": 6,
+      "adjustedFor": 0.8324794847668054,
+      "adjustedAgainst": 0.5709376656462984
+    },
+    "copa-do-brasil.internacional": {
+      "teamId": "copa-do-brasil.internacional",
+      "name": "Internacional",
+      "shortName": "Internacional",
+      "code": "INT",
+      "forPerGame": 1,
+      "againstPerGame": 1.25,
+      "gamesPlayed": 4,
+      "adjustedFor": 0.7289209042079673,
+      "adjustedAgainst": 0.7581064381179725
+    },
+    "copa-do-brasil.juventude": {
+      "teamId": "copa-do-brasil.juventude",
+      "name": "Juventude",
+      "shortName": "Juventude",
+      "code": "JUV",
+      "forPerGame": 0,
+      "againstPerGame": 0.5,
+      "gamesPlayed": 2,
+      "adjustedFor": 0.5832764892758445,
+      "adjustedAgainst": 0.6461259326302164
+    },
+    "copa-do-brasil.mirassol": {
+      "teamId": "copa-do-brasil.mirassol",
+      "name": "Mirassol",
+      "shortName": "Mirassol",
+      "code": "MIR",
+      "forPerGame": 0.5,
+      "againstPerGame": 1,
+      "gamesPlayed": 2,
+      "adjustedFor": 0.669012887101972,
+      "adjustedAgainst": 0.6900274342218272
+    },
+    "copa-do-brasil.palmeiras": {
+      "teamId": "copa-do-brasil.palmeiras",
+      "name": "Palmeiras",
+      "shortName": "Palmeiras",
+      "code": "PAL",
+      "forPerGame": 1.6666666666666667,
+      "againstPerGame": 0.8333333333333334,
+      "gamesPlayed": 6,
+      "adjustedFor": 0.9341838025175427,
+      "adjustedAgainst": 0.6653614789328692
+    },
+    "copa-do-brasil.remo": {
+      "teamId": "copa-do-brasil.remo",
+      "name": "Remo",
+      "shortName": "Remo",
+      "code": "REM",
+      "forPerGame": 0,
+      "againstPerGame": 0.5,
+      "gamesPlayed": 2,
+      "adjustedFor": 0.5878768307745765,
+      "adjustedAgainst": 0.6711273234787896
+    },
+    "copa-do-brasil.santos": {
+      "teamId": "copa-do-brasil.santos",
+      "name": "Santos",
+      "shortName": "Santos",
+      "code": "SAN",
+      "forPerGame": 0.25,
+      "againstPerGame": 0.75,
+      "gamesPlayed": 4,
+      "adjustedFor": 0.5536723582637552,
+      "adjustedAgainst": 0.6473832706805419
+    },
+    "copa-do-brasil.vasco-gama": {
+      "teamId": "copa-do-brasil.vasco-gama",
+      "name": "Vasco da Gama",
+      "shortName": "Vasco da Gama",
+      "code": "VAS",
+      "forPerGame": 1.3333333333333333,
+      "againstPerGame": 0.5,
+      "gamesPlayed": 6,
+      "adjustedFor": 0.8166335949337474,
+      "adjustedAgainst": 0.5504611815730405
     },
     "copa-do-brasil.vitoria": {
       "teamId": "copa-do-brasil.vitoria",
@@ -183,8 +183,8 @@
       "forPerGame": 1,
       "againstPerGame": 1.25,
       "gamesPlayed": 4,
-      "adjustedFor": 0.7401363196616417,
-      "adjustedAgainst": 0.8116085725754817
+      "adjustedFor": 0.7184677354479002,
+      "adjustedAgainst": 0.7600637776997551
     }
   },
   "games": [
@@ -8079,145 +8079,145 @@
         "label": "Modelo PitchLab · en validación"
       },
       "projection": {
-        "home": 1.7866612026509403,
-        "away": 0.8447832350768845,
-        "total": 2.6314444377278248,
-        "margin": 0.9418779675740558
+        "home": 1.3014361657221714,
+        "away": 0.7623331309662931,
+        "total": 2.0637692966884646,
+        "margin": 0.5391030347558783
       },
       "x12": [
-        0.5751648265488069,
-        0.2726180269719335,
-        0.15221714647925932
+        0.4683013012773046,
+        0.33825190788714865,
+        0.1934467908355465
       ],
       "probabilities": [
         {
           "market": "h2h",
           "selection": "Grêmio gana",
-          "p": 0.5751648265488069,
-          "fairOdds": 1.7386320474434347
+          "p": 0.4683013012773046,
+          "fairOdds": 2.1353773676743426
         },
         {
           "market": "h2h",
           "selection": "Empate",
-          "p": 0.2726180269719335,
-          "fairOdds": 3.668136003724184
+          "p": 0.33825190788714865,
+          "fairOdds": 2.956376524958526
         },
         {
           "market": "h2h",
           "selection": "Palmeiras gana",
-          "p": 0.15221714647925932,
-          "fairOdds": 6.56956212312295
+          "p": 0.1934467908355465,
+          "fairOdds": 5.169380146761507
         },
         {
           "market": "double_chance",
           "selection": "Grêmio o empate",
-          "p": 0.8477828535207403,
-          "fairOdds": 1.179547328478183
+          "p": 0.8065532091644533,
+          "fairOdds": 1.2398438052660499
         },
         {
           "market": "double_chance",
           "selection": "Palmeiras o empate",
-          "p": 0.4248351734511928,
-          "fairOdds": 2.35385406503985
+          "p": 0.5316986987226952,
+          "fairOdds": 1.880764429934302
         },
         {
           "market": "double_chance",
           "selection": "Sin empate",
-          "p": 0.7273819730280662,
-          "fairOdds": 1.3747934882645418
+          "p": 0.6617480921128511,
+          "fairOdds": 1.511149048888327
         },
         {
           "market": "totals",
-          "selection": "Más de 1.5",
+          "selection": "Más de 1.5 goles",
           "line": 1.5,
-          "p": 0.760354973873777,
-          "fairOdds": 1.31517519364055
+          "p": 0.6361744716893866,
+          "fairOdds": 1.571895831255945
         },
         {
           "market": "totals",
-          "selection": "Más de 2.5",
+          "selection": "Más de 2.5 goles",
           "line": 2.5,
-          "p": 0.48943394265105733,
-          "fairOdds": 2.0431766431715412
+          "p": 0.34057820773258807,
+          "fairOdds": 2.936183165263382
         },
         {
           "market": "totals",
-          "selection": "Menos de 2.5",
+          "selection": "Menos de 2.5 goles",
           "line": 2.5,
-          "p": 0.5105660573489427,
-          "fairOdds": 1.9586104199569954
+          "p": 0.6594217922674119,
+          "fairOdds": 1.5164800613602942
         },
         {
           "market": "totals",
-          "selection": "Más de 3.5",
+          "selection": "Más de 3.5 goles",
           "line": 3.5,
-          "p": 0.2708537369746338,
-          "fairOdds": 3.692029547643468
+          "p": 0.1545629219801441,
+          "fairOdds": 6.46985698244282
         },
         {
           "market": "totals",
-          "selection": "Menos de 3.5",
+          "selection": "Menos de 3.5 goles",
           "line": 3.5,
-          "p": 0.7291462630253662,
-          "fairOdds": 1.3714669480041086
+          "p": 0.8454370780198559,
+          "fairOdds": 1.1828201364697113
         },
         {
           "market": "btts",
           "selection": "Sí",
-          "p": 0.4965319763069818,
-          "fairOdds": 2.013968984309176
+          "p": 0.41345218202082784,
+          "fairOdds": 2.4186593842903568
         },
         {
           "market": "btts",
           "selection": "No",
-          "p": 0.5034680236930182,
-          "fairOdds": 1.986223459962443
+          "p": 0.5865478179791721,
+          "fairOdds": 1.704890836428803
         },
         {
           "market": "team_totals",
-          "selection": "Grêmio más de 1.5",
+          "selection": "Grêmio más de 1.5 goles",
           "line": 1.5,
-          "p": 0.5331812029502041,
-          "fairOdds": 1.8755349859799801
+          "p": 0.37368552588717774,
+          "fairOdds": 2.676046918397149
         },
         {
           "market": "team_totals",
-          "selection": "Grêmio menos de 1.5",
+          "selection": "Grêmio menos de 1.5 goles",
           "line": 1.5,
-          "p": 0.4668187970497959,
-          "fairOdds": 2.1421588126266675
+          "p": 0.6263144741128223,
+          "fairOdds": 1.5966420086594761
         },
         {
           "market": "team_totals",
-          "selection": "Palmeiras más de 1.5",
+          "selection": "Palmeiras más de 1.5 goles",
           "line": 1.5,
-          "p": 0.2073879937739196,
-          "fairOdds": 4.821879906365904
+          "p": 0.17773664874423467,
+          "fairOdds": 5.6263016494646125
         },
         {
           "market": "team_totals",
-          "selection": "Palmeiras menos de 1.5",
+          "selection": "Palmeiras menos de 1.5 goles",
           "line": 1.5,
-          "p": 0.7926120062260804,
-          "fairOdds": 1.2616513403088236
+          "p": 0.8222633512557653,
+          "fairOdds": 1.2161553819379087
+        },
+        {
+          "market": "correct_score",
+          "selection": "0–0",
+          "p": 0.15216946503277895,
+          "fairOdds": 6.571620658484862
         },
         {
           "market": "correct_score",
           "selection": "1–1",
-          "p": 0.13036115714746124,
-          "fairOdds": 7.670996651777379
-        },
-        {
-          "market": "correct_score",
-          "selection": "2–0",
-          "p": 0.11487721156207502,
-          "fairOdds": 8.704946667857099
+          "p": 0.15116991011338818,
+          "fairOdds": 6.615073060835512
         },
         {
           "market": "correct_score",
           "selection": "1–0",
-          "p": 0.10686742728439073,
-          "fairOdds": 9.357388171597371
+          "p": 0.14005419539493366,
+          "fairOdds": 7.140093141659461
         }
       ],
       "marketGroups": [
@@ -8228,22 +8228,22 @@
               "market": "h2h",
               "selection": "home",
               "label": "Grêmio gana",
-              "p": 0.5751648265488069,
-              "fairOdds": 1.7386320474434347
+              "p": 0.4683013012773046,
+              "fairOdds": 2.1353773676743426
             },
             {
               "market": "h2h",
               "selection": "draw",
               "label": "Empate",
-              "p": 0.2726180269719335,
-              "fairOdds": 3.668136003724184
+              "p": 0.33825190788714865,
+              "fairOdds": 2.956376524958526
             },
             {
               "market": "h2h",
               "selection": "away",
               "label": "Palmeiras gana",
-              "p": 0.15221714647925932,
-              "fairOdds": 6.56956212312295
+              "p": 0.1934467908355465,
+              "fairOdds": 5.169380146761507
             }
           ]
         },
@@ -8254,22 +8254,22 @@
               "market": "double_chance",
               "selection": "1x",
               "label": "Grêmio o empate",
-              "p": 0.8477828535207403,
-              "fairOdds": 1.179547328478183
+              "p": 0.8065532091644533,
+              "fairOdds": 1.2398438052660499
             },
             {
               "market": "double_chance",
               "selection": "x2",
               "label": "Palmeiras o empate",
-              "p": 0.4248351734511928,
-              "fairOdds": 2.35385406503985
+              "p": 0.5316986987226952,
+              "fairOdds": 1.880764429934302
             },
             {
               "market": "double_chance",
               "selection": "12",
               "label": "Sin empate",
-              "p": 0.7273819730280662,
-              "fairOdds": 1.3747934882645418
+              "p": 0.6617480921128511,
+              "fairOdds": 1.511149048888327
             }
           ]
         },
@@ -8279,42 +8279,42 @@
             {
               "market": "totals",
               "selection": "over_1.5",
-              "label": "Más de 1.5",
+              "label": "Más de 1.5 goles",
               "line": 1.5,
-              "p": 0.760354973873777,
-              "fairOdds": 1.31517519364055
+              "p": 0.6361744716893866,
+              "fairOdds": 1.571895831255945
             },
             {
               "market": "totals",
               "selection": "over_2.5",
-              "label": "Más de 2.5",
+              "label": "Más de 2.5 goles",
               "line": 2.5,
-              "p": 0.48943394265105733,
-              "fairOdds": 2.0431766431715412
+              "p": 0.34057820773258807,
+              "fairOdds": 2.936183165263382
             },
             {
               "market": "totals",
               "selection": "under_2.5",
-              "label": "Menos de 2.5",
+              "label": "Menos de 2.5 goles",
               "line": 2.5,
-              "p": 0.5105660573489427,
-              "fairOdds": 1.9586104199569954
+              "p": 0.6594217922674119,
+              "fairOdds": 1.5164800613602942
             },
             {
               "market": "totals",
               "selection": "over_3.5",
-              "label": "Más de 3.5",
+              "label": "Más de 3.5 goles",
               "line": 3.5,
-              "p": 0.2708537369746338,
-              "fairOdds": 3.692029547643468
+              "p": 0.1545629219801441,
+              "fairOdds": 6.46985698244282
             },
             {
               "market": "totals",
               "selection": "under_3.5",
-              "label": "Menos de 3.5",
+              "label": "Menos de 3.5 goles",
               "line": 3.5,
-              "p": 0.7291462630253662,
-              "fairOdds": 1.3714669480041086
+              "p": 0.8454370780198559,
+              "fairOdds": 1.1828201364697113
             }
           ]
         },
@@ -8325,15 +8325,15 @@
               "market": "btts",
               "selection": "yes",
               "label": "Sí",
-              "p": 0.4965319763069818,
-              "fairOdds": 2.013968984309176
+              "p": 0.41345218202082784,
+              "fairOdds": 2.4186593842903568
             },
             {
               "market": "btts",
               "selection": "no",
               "label": "No",
-              "p": 0.5034680236930182,
-              "fairOdds": 1.986223459962443
+              "p": 0.5865478179791721,
+              "fairOdds": 1.704890836428803
             }
           ]
         },
@@ -8343,34 +8343,34 @@
             {
               "market": "team_totals",
               "selection": "home_over",
-              "label": "Grêmio más de 1.5",
+              "label": "Grêmio más de 1.5 goles",
               "line": 1.5,
-              "p": 0.5331812029502041,
-              "fairOdds": 1.8755349859799801
+              "p": 0.37368552588717774,
+              "fairOdds": 2.676046918397149
             },
             {
               "market": "team_totals",
               "selection": "home_under",
-              "label": "Grêmio menos de 1.5",
+              "label": "Grêmio menos de 1.5 goles",
               "line": 1.5,
-              "p": 0.4668187970497959,
-              "fairOdds": 2.1421588126266675
+              "p": 0.6263144741128223,
+              "fairOdds": 1.5966420086594761
             },
             {
               "market": "team_totals",
               "selection": "away_over",
-              "label": "Palmeiras más de 1.5",
+              "label": "Palmeiras más de 1.5 goles",
               "line": 1.5,
-              "p": 0.2073879937739196,
-              "fairOdds": 4.821879906365904
+              "p": 0.17773664874423467,
+              "fairOdds": 5.6263016494646125
             },
             {
               "market": "team_totals",
               "selection": "away_under",
-              "label": "Palmeiras menos de 1.5",
+              "label": "Palmeiras menos de 1.5 goles",
               "line": 1.5,
-              "p": 0.7926120062260804,
-              "fairOdds": 1.2616513403088236
+              "p": 0.8222633512557653,
+              "fairOdds": 1.2161553819379087
             }
           ]
         },
@@ -8379,69 +8379,69 @@
           "rows": [
             {
               "market": "correct_score",
-              "selection": "1-1",
-              "label": "1–1",
-              "p": 0.13036115714746124,
-              "fairOdds": 7.670996651777379
+              "selection": "0-0",
+              "label": "0–0",
+              "p": 0.15216946503277895,
+              "fairOdds": 6.571620658484862
             },
             {
               "market": "correct_score",
-              "selection": "2-0",
-              "label": "2–0",
-              "p": 0.11487721156207502,
-              "fairOdds": 8.704946667857099
+              "selection": "1-1",
+              "label": "1–1",
+              "p": 0.15116991011338818,
+              "fairOdds": 6.615073060835512
             },
             {
               "market": "correct_score",
               "selection": "1-0",
               "label": "1–0",
-              "p": 0.10686742728439073,
-              "fairOdds": 9.357388171597371
+              "p": 0.14005419539493366,
+              "fairOdds": 7.140093141659461
             }
           ]
         }
       ],
       "mostLikelyScore": {
-        "home": 1,
-        "away": 1,
-        "p": 0.13036115714746124
+        "home": 0,
+        "away": 0,
+        "p": 0.15216946503277895
       },
       "factors": [
         {
           "key": "home_attack",
           "label": "Ataque local",
-          "value": "0.93 goles/partido",
-          "detail": "37 % más que la media · 6 partidos"
+          "value": "0.79 goles/partido",
+          "detail": "19 % más que la media · 6 partidos"
         },
         {
           "key": "away_defense",
           "label": "Defensa visitante",
-          "value": "0.68 concedidos/partido",
-          "detail": "en la media de la liga · 6 partidos"
+          "value": "0.67 concedidos/partido",
+          "detail": "5 % menos que la media · 6 partidos"
         },
         {
           "key": "away_attack",
           "label": "Ataque visitante",
-          "value": "0.84 goles/partido",
-          "detail": "68 % más que la media · ajustado por rival"
+          "value": "0.76 goles/partido",
+          "detail": "34 % más que la media · ajustado por rival"
         },
         {
           "key": "home_defense",
           "label": "Defensa local",
-          "value": "0.50 concedidos/partido",
-          "detail": "26 % menos que la media · ajustado por rival"
+          "value": "0.57 concedidos/partido",
+          "detail": "18 % menos que la media · ajustado por rival"
         },
         {
           "key": "home_advantage",
           "label": "Localía",
-          "value": "×1.93",
+          "value": "×1.64",
           "detail": "estimada de 28 partidos"
         },
         {
           "key": "uncertainty",
           "label": "Intervalo 90%",
-          "value": "goles 1.6–5.2",
-          "detail": "local 24%–88% · 28 partidos"
+          "value": "goles 1.4–3.6",
+          "detail": "local 21%–75% · 28 partidos"
         },
         {
           "key": "home_position",
@@ -8469,67 +8469,67 @@
         }
       ],
       "steps": [
-        "Sincronizando Copa do Brasil · corte 19 nov 2026, 10:05",
-        "Fuerza ajustada por rival · GRE 1.37 / 0.74 · PAL 1.68 / 0.99",
-        "Ponderando 23.8 partidos por antigüedad y calidad del rival",
-        "Proyección de goles 1.79 – 0.84 · total 2.63",
+        "Sincronizando Copa do Brasil · corte 21 nov 2026, 22:33",
+        "Fuerza ajustada por rival · GRE 1.19 / 0.82 · PAL 1.34 / 0.95",
+        "Ponderando 23.7 partidos por antigüedad y calidad del rival",
+        "Proyección de goles 1.30 – 0.76 · total 2.06",
         "Simulando 121 marcadores con incertidumbre del ajuste",
-        "20 mercados listos · marcador proyectado 2–0"
+        "20 mercados listos · marcador proyectado 1–0"
       ],
-      "inputsAsOf": "2026-11-19T16:05:39.021Z",
+      "inputsAsOf": "2026-11-22T04:33:15.743Z",
       "publishedAt": "2026-11-19T16:05:39.021Z",
       "source": "pitchlab-football-v2",
       "picks": [
         {
           "profile": "conservadora",
-          "market": "double_chance",
-          "selection": "1x",
-          "label": "Grêmio o empate",
-          "p": 0.8477828535207403,
-          "fairOdds": 1.179547328478183
+          "market": "totals",
+          "selection": "under_3.5",
+          "label": "Menos de 3.5 goles",
+          "line": 3.5,
+          "p": 0.8454370780198559,
+          "fairOdds": 1.1828201364697113
         },
         {
           "profile": "intermedia",
-          "market": "h2h",
-          "selection": "home",
-          "label": "Grêmio gana",
-          "p": 0.5751648265488069,
-          "fairOdds": 1.7386320474434347
+          "market": "double_chance",
+          "selection": "12",
+          "label": "Sin empate",
+          "p": 0.6617480921128511,
+          "fairOdds": 1.511149048888327
         },
         {
           "profile": "arriesgada",
-          "market": "totals",
-          "selection": "under_2.5",
-          "label": "Menos de 2.5",
-          "line": 2.5,
-          "p": 0.5105660573489427,
-          "fairOdds": 1.9586104199569954
+          "market": "h2h",
+          "selection": "home",
+          "label": "Grêmio gana",
+          "p": 0.4683013012773046,
+          "fairOdds": 2.1353773676743426
         }
       ],
       "confidence": {
-        "score": 48,
-        "level": "media",
+        "score": 33,
+        "level": "baja",
         "reasons": [
           "Rango de incertidumbre amplio"
         ]
       },
       "projectedScore": {
-        "home": 2,
+        "home": 1,
         "away": 0,
-        "p": 0.11487721156207502
+        "p": 0.14005419539493366
       },
       "insights": {
         "why": [
-          "Grêmio gana en 58% de los escenarios; el empate, en 27%.",
-          "Palmeiras anota 68 % más que la media.",
-          "Grêmio anota 37 % más que la media."
+          "Grêmio gana en 47% de los escenarios; el empate, en 34%.",
+          "Palmeiras anota 34 % más que la media.",
+          "Grêmio concede 18 % menos que la media."
         ],
         "restDays": {
           "home": 29,
           "away": 28
         }
       },
-      "picksAt": "2026-11-19T16:05:39.021Z",
+      "picksAt": "2026-11-22T04:33:15.743Z",
       "matchContext": {
         "stageName": "Final",
         "venueCity": "Porto Alegre",

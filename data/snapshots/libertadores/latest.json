@@ -5,77 +5,11 @@
   "season": "libertadores-2026",
   "seasonLabel": "2026",
   "periodLabel": "Round of 16",
-  "updatedAt": "2026-11-19T16:05:39.021Z",
+  "updatedAt": "2026-11-22T04:33:15.743Z",
   "source": "pitchlab-football-v2",
   "provenance": "derived",
   "isDemo": false,
   "teamRates": {
-    "libertadores.fluminense": {
-      "teamId": "libertadores.fluminense",
-      "name": "Fluminense",
-      "shortName": "Fluminense",
-      "code": "FLU",
-      "forPerGame": 1,
-      "againstPerGame": 0.8333333333333334,
-      "gamesPlayed": 6,
-      "adjustedFor": 0.8803224117500345,
-      "adjustedAgainst": 0.7955448987000969
-    },
-    "libertadores.independiente-rivadavia": {
-      "teamId": "libertadores.independiente-rivadavia",
-      "name": "Independiente Rivadavia",
-      "shortName": "Independiente Rivadavi",
-      "code": "IND",
-      "forPerGame": 0.5,
-      "againstPerGame": 0.5,
-      "gamesPlayed": 2,
-      "adjustedFor": 0.7002159121182714,
-      "adjustedAgainst": 0.6822718806543235
-    },
-    "libertadores.deportes-tolima": {
-      "teamId": "libertadores.deportes-tolima",
-      "name": "Deportes Tolima",
-      "shortName": "Deportes Tolima",
-      "code": "DEP",
-      "forPerGame": 0.5,
-      "againstPerGame": 2,
-      "gamesPlayed": 2,
-      "adjustedFor": 0.6748809414708103,
-      "adjustedAgainst": 1.0710878491569202
-    },
-    "libertadores.independiente-valle": {
-      "teamId": "libertadores.independiente-valle",
-      "name": "Independiente del Valle",
-      "shortName": "Independiente del Vall",
-      "code": "IND",
-      "forPerGame": 1.25,
-      "againstPerGame": 1,
-      "gamesPlayed": 4,
-      "adjustedFor": 0.9774529147685534,
-      "adjustedAgainst": 0.8912878186665548
-    },
-    "libertadores.estudiantes-la-plata": {
-      "teamId": "libertadores.estudiantes-la-plata",
-      "name": "Estudiantes de La Plata",
-      "shortName": "Estudiantes de La Plat",
-      "code": "EST",
-      "forPerGame": 1,
-      "againstPerGame": 0.3333333333333333,
-      "gamesPlayed": 6,
-      "adjustedFor": 0.8912530774200669,
-      "adjustedAgainst": 0.5163383666743413
-    },
-    "libertadores.universidad-catolica": {
-      "teamId": "libertadores.universidad-catolica",
-      "name": "Universidad Católica",
-      "shortName": "Universidad Católica",
-      "code": "UNI",
-      "forPerGame": 0.5,
-      "againstPerGame": 2,
-      "gamesPlayed": 2,
-      "adjustedFor": 0.7795456018136837,
-      "adjustedAgainst": 1.1019185227150854
-    },
     "libertadores.atletico-platense": {
       "teamId": "libertadores.atletico-platense",
       "name": "Club Atlético Platense",
@@ -84,30 +18,8 @@
       "forPerGame": 0.75,
       "againstPerGame": 1,
       "gamesPlayed": 4,
-      "adjustedFor": 0.7857837208710984,
-      "adjustedAgainst": 0.8919839109784288
-    },
-    "libertadores.coquimbo-unido": {
-      "teamId": "libertadores.coquimbo-unido",
-      "name": "Coquimbo Unido",
-      "shortName": "Coquimbo Unido",
-      "code": "COQ",
-      "forPerGame": 0.5,
-      "againstPerGame": 0.5,
-      "gamesPlayed": 2,
-      "adjustedFor": 0.6738748044180262,
-      "adjustedAgainst": 0.7043808583739829
-    },
-    "libertadores.palmeiras": {
-      "teamId": "libertadores.palmeiras",
-      "name": "Palmeiras",
-      "shortName": "Palmeiras",
-      "code": "PAL",
-      "forPerGame": 1.1666666666666667,
-      "againstPerGame": 1,
-      "gamesPlayed": 6,
-      "adjustedFor": 0.9696806060171501,
-      "adjustedAgainst": 0.8916680351605066
+      "adjustedFor": 0.7975357500989213,
+      "adjustedAgainst": 0.8573126291477312
     },
     "libertadores.cerro-porteno": {
       "teamId": "libertadores.cerro-porteno",
@@ -117,63 +29,19 @@
       "forPerGame": 0.5,
       "againstPerGame": 1,
       "gamesPlayed": 2,
-      "adjustedFor": 0.6739516187165566,
-      "adjustedAgainst": 0.7964740073217685
+      "adjustedFor": 0.7546596903778112,
+      "adjustedAgainst": 0.8201061521862647
     },
-    "libertadores.cruzeiro": {
-      "teamId": "libertadores.cruzeiro",
-      "name": "Cruzeiro",
-      "shortName": "Cruzeiro",
-      "code": "CRU",
-      "forPerGame": 1,
-      "againstPerGame": 1.5,
-      "gamesPlayed": 2,
-      "adjustedFor": 0.9281102285863146,
-      "adjustedAgainst": 0.9622040907324785
-    },
-    "libertadores.flamengo": {
-      "teamId": "libertadores.flamengo",
-      "name": "Flamengo",
-      "shortName": "Flamengo",
-      "code": "FLA",
-      "forPerGame": 1,
-      "againstPerGame": 0.5,
-      "gamesPlayed": 6,
-      "adjustedFor": 0.8868828947022251,
-      "adjustedAgainst": 0.5534585995811567
-    },
-    "libertadores.mirassol": {
-      "teamId": "libertadores.mirassol",
-      "name": "Mirassol",
-      "shortName": "Mirassol",
-      "code": "MIR",
+    "libertadores.coquimbo-unido": {
+      "teamId": "libertadores.coquimbo-unido",
+      "name": "Coquimbo Unido",
+      "shortName": "Coquimbo Unido",
+      "code": "COQ",
       "forPerGame": 0.5,
       "againstPerGame": 0.5,
       "gamesPlayed": 2,
-      "adjustedFor": 0.6794281579395598,
-      "adjustedAgainst": 0.6786351774596855
-    },
-    "libertadores.ldu": {
-      "teamId": "libertadores.ldu",
-      "name": "LDU",
-      "shortName": "LDU",
-      "code": "LDU",
-      "forPerGame": 1,
-      "againstPerGame": 1,
-      "gamesPlayed": 4,
-      "adjustedFor": 0.8862963848503463,
-      "adjustedAgainst": 0.8687598274328857
-    },
-    "libertadores.rosario-central": {
-      "teamId": "libertadores.rosario-central",
-      "name": "Rosario Central",
-      "shortName": "Rosario Central",
-      "code": "ROS",
-      "forPerGame": 0,
-      "againstPerGame": 0.5,
-      "gamesPlayed": 2,
-      "adjustedFor": 0.5787967604008825,
-      "adjustedAgainst": 0.722927092675214
+      "adjustedFor": 0.7561362565627403,
+      "adjustedAgainst": 0.7661041157343772
     },
     "libertadores.corinthians": {
       "teamId": "libertadores.corinthians",
@@ -183,8 +51,140 @@
       "forPerGame": 0.5,
       "againstPerGame": 0.5,
       "gamesPlayed": 4,
-      "adjustedFor": 0.7238782685160773,
-      "adjustedAgainst": 0.6799665604909714
+      "adjustedFor": 0.7519420590943977,
+      "adjustedAgainst": 0.737589583854247
+    },
+    "libertadores.cruzeiro": {
+      "teamId": "libertadores.cruzeiro",
+      "name": "Cruzeiro",
+      "shortName": "Cruzeiro",
+      "code": "CRU",
+      "forPerGame": 1,
+      "againstPerGame": 1.5,
+      "gamesPlayed": 2,
+      "adjustedFor": 0.855277628254704,
+      "adjustedAgainst": 0.8991435738936406
+    },
+    "libertadores.deportes-tolima": {
+      "teamId": "libertadores.deportes-tolima",
+      "name": "Deportes Tolima",
+      "shortName": "Deportes Tolima",
+      "code": "DEP",
+      "forPerGame": 0.5,
+      "againstPerGame": 2,
+      "gamesPlayed": 2,
+      "adjustedFor": 0.7564191129954144,
+      "adjustedAgainst": 0.963404152250697
+    },
+    "libertadores.estudiantes-la-plata": {
+      "teamId": "libertadores.estudiantes-la-plata",
+      "name": "Estudiantes de La Plata",
+      "shortName": "Estudiantes de La Plat",
+      "code": "EST",
+      "forPerGame": 1,
+      "againstPerGame": 0.3333333333333333,
+      "gamesPlayed": 6,
+      "adjustedFor": 0.8641179891228455,
+      "adjustedAgainst": 0.6388472569048422
+    },
+    "libertadores.flamengo": {
+      "teamId": "libertadores.flamengo",
+      "name": "Flamengo",
+      "shortName": "Flamengo",
+      "code": "FLA",
+      "forPerGame": 1,
+      "againstPerGame": 0.5,
+      "gamesPlayed": 6,
+      "adjustedFor": 0.8644362091486558,
+      "adjustedAgainst": 0.6723899881851761
+    },
+    "libertadores.fluminense": {
+      "teamId": "libertadores.fluminense",
+      "name": "Fluminense",
+      "shortName": "Fluminense",
+      "code": "FLU",
+      "forPerGame": 1,
+      "againstPerGame": 0.8333333333333334,
+      "gamesPlayed": 6,
+      "adjustedFor": 0.8644276518002523,
+      "adjustedAgainst": 0.8103001960904918
+    },
+    "libertadores.independiente-rivadavia": {
+      "teamId": "libertadores.independiente-rivadavia",
+      "name": "Independiente Rivadavia",
+      "shortName": "Independiente Rivadavi",
+      "code": "IND",
+      "forPerGame": 0.5,
+      "againstPerGame": 0.5,
+      "gamesPlayed": 2,
+      "adjustedFor": 0.7635265181655045,
+      "adjustedAgainst": 0.7580347625247414
+    },
+    "libertadores.independiente-valle": {
+      "teamId": "libertadores.independiente-valle",
+      "name": "Independiente del Valle",
+      "shortName": "Independiente del Vall",
+      "code": "IND",
+      "forPerGame": 1.25,
+      "againstPerGame": 1,
+      "gamesPlayed": 4,
+      "adjustedFor": 0.9130393036710587,
+      "adjustedAgainst": 0.857991043335094
+    },
+    "libertadores.ldu": {
+      "teamId": "libertadores.ldu",
+      "name": "LDU",
+      "shortName": "LDU",
+      "code": "LDU",
+      "forPerGame": 1,
+      "againstPerGame": 1,
+      "gamesPlayed": 4,
+      "adjustedFor": 0.856241927307489,
+      "adjustedAgainst": 0.8505773144571728
+    },
+    "libertadores.mirassol": {
+      "teamId": "libertadores.mirassol",
+      "name": "Mirassol",
+      "shortName": "Mirassol",
+      "code": "MIR",
+      "forPerGame": 0.5,
+      "againstPerGame": 0.5,
+      "gamesPlayed": 2,
+      "adjustedFor": 0.756988620312937,
+      "adjustedAgainst": 0.7579948728045802
+    },
+    "libertadores.palmeiras": {
+      "teamId": "libertadores.palmeiras",
+      "name": "Palmeiras",
+      "shortName": "Palmeiras",
+      "code": "PAL",
+      "forPerGame": 1.1666666666666667,
+      "againstPerGame": 1,
+      "gamesPlayed": 6,
+      "adjustedFor": 0.9188483433205611,
+      "adjustedAgainst": 0.8683225492005305
+    },
+    "libertadores.rosario-central": {
+      "teamId": "libertadores.rosario-central",
+      "name": "Rosario Central",
+      "shortName": "Rosario Central",
+      "code": "ROS",
+      "forPerGame": 0,
+      "againstPerGame": 0.5,
+      "gamesPlayed": 2,
+      "adjustedFor": 0.7007241356657207,
+      "adjustedAgainst": 0.7732325694783235
+    },
+    "libertadores.universidad-catolica": {
+      "teamId": "libertadores.universidad-catolica",
+      "name": "Universidad Católica",
+      "shortName": "Universidad Católica",
+      "code": "UNI",
+      "forPerGame": 0.5,
+      "againstPerGame": 2,
+      "gamesPlayed": 2,
+      "adjustedFor": 0.7866782941793191,
+      "adjustedAgainst": 0.970109441202527
     }
   },
   "games": [
@@ -8090,145 +8090,145 @@
         "label": "Modelo PitchLab · en validación"
       },
       "projection": {
-        "home": 0.6389765737189514,
-        "away": 1.0138689073137783,
-        "total": 1.6528454810327298,
-        "margin": -0.3748923335948269
+        "home": 0.7568426617897253,
+        "away": 0.9291386587333148,
+        "total": 1.68598132052304,
+        "margin": -0.17229599694358955
       },
       "x12": [
-        0.20144957644121522,
-        0.38679332387845666,
-        0.4117570996803282
+        0.2555442310197617,
+        0.3924267167627042,
+        0.35202905221753367
       ],
       "probabilities": [
         {
           "market": "h2h",
           "selection": "Palmeiras gana",
-          "p": 0.20144957644121522,
-          "fairOdds": 4.9640213579292825
+          "p": 0.2555442310197617,
+          "fairOdds": 3.9132168862096837
         },
         {
           "market": "h2h",
           "selection": "Empate",
-          "p": 0.38679332387845666,
-          "fairOdds": 2.585360031483463
+          "p": 0.3924267167627042,
+          "fairOdds": 2.548246480895663
         },
         {
           "market": "h2h",
           "selection": "Estudiantes de La Plat gana",
-          "p": 0.4117570996803282,
-          "fairOdds": 2.4286162904692112
+          "p": 0.35202905221753367,
+          "fairOdds": 2.840674636654868
         },
         {
           "market": "double_chance",
           "selection": "Palmeiras o empate",
-          "p": 0.5882429003196719,
-          "fairOdds": 1.699978018360383
+          "p": 0.6479709477824659,
+          "fairOdds": 1.5432790674061452
         },
         {
           "market": "double_chance",
           "selection": "Estudiantes de La Plat o empate",
-          "p": 0.7985504235587848,
-          "fairOdds": 1.2522690746859089
+          "p": 0.7444557689802378,
+          "fairOdds": 1.343263148285907
         },
         {
           "market": "double_chance",
           "selection": "Sin empate",
-          "p": 0.6132066761215434,
-          "fairOdds": 1.6307715472455007
+          "p": 0.6075732832372953,
+          "fairOdds": 1.6458919896407584
         },
         {
           "market": "totals",
-          "selection": "Más de 1.5",
+          "selection": "Más de 1.5 goles",
           "line": 1.5,
-          "p": 0.5167816730317879,
-          "fairOdds": 1.935053141751969
+          "p": 0.5284440335707479,
+          "fairOdds": 1.8923479810017012
         },
         {
           "market": "totals",
-          "selection": "Más de 2.5",
+          "selection": "Más de 2.5 goles",
           "line": 2.5,
-          "p": 0.23038390712997414,
-          "fairOdds": 4.340580956619668
+          "p": 0.23908082781704498,
+          "fairOdds": 4.182685868752484
         },
         {
           "market": "totals",
-          "selection": "Menos de 2.5",
+          "selection": "Menos de 2.5 goles",
           "line": 2.5,
-          "p": 0.7696160928700259,
-          "fairOdds": 1.2993491290843913
+          "p": 0.760919172182955,
+          "fairOdds": 1.314200031431933
         },
         {
           "market": "totals",
-          "selection": "Más de 3.5",
+          "selection": "Más de 3.5 goles",
           "line": 3.5,
-          "p": 0.08626404199758753,
-          "fairOdds": 11.592315602693022
+          "p": 0.09110368289411064,
+          "fairOdds": 10.97650466186197
         },
         {
           "market": "totals",
-          "selection": "Menos de 3.5",
+          "selection": "Menos de 3.5 goles",
           "line": 3.5,
-          "p": 0.9137359580024125,
-          "fairOdds": 1.0944080631194333
+          "p": 0.9088963171058894,
+          "fairOdds": 1.1002355067123644
         },
         {
           "market": "btts",
           "selection": "Sí",
-          "p": 0.32567205101015095,
-          "fairOdds": 3.070573593583659
+          "p": 0.3472792560714619,
+          "fairOdds": 2.8795270161320077
         },
         {
           "market": "btts",
           "selection": "No",
-          "p": 0.674327948989849,
-          "fairOdds": 1.482957960585812
+          "p": 0.6527207439285381,
+          "fairOdds": 1.5320487502531146
         },
         {
           "market": "team_totals",
-          "selection": "Palmeiras más de 1.5",
+          "selection": "Palmeiras más de 1.5 goles",
           "line": 1.5,
-          "p": 0.13489515126989815,
-          "fairOdds": 7.413164895743365
+          "p": 0.17578544885394842,
+          "fairOdds": 5.688753002706449
         },
         {
           "market": "team_totals",
-          "selection": "Palmeiras menos de 1.5",
+          "selection": "Palmeiras menos de 1.5 goles",
           "line": 1.5,
-          "p": 0.8651048487301018,
-          "fairOdds": 1.1559292511976005
+          "p": 0.8242145511460516,
+          "fairOdds": 1.2132763230272054
         },
         {
           "market": "team_totals",
-          "selection": "Estudiantes de La Plat más de 1.5",
+          "selection": "Estudiantes de La Plat más de 1.5 goles",
           "line": 1.5,
-          "p": 0.2693430326621207,
-          "fairOdds": 3.7127375826886797
+          "p": 0.23819528942023527,
+          "fairOdds": 4.198235835956241
         },
         {
           "market": "team_totals",
-          "selection": "Estudiantes de La Plat menos de 1.5",
+          "selection": "Estudiantes de La Plat menos de 1.5 goles",
           "line": 1.5,
-          "p": 0.7306569673378793,
-          "fairOdds": 1.3686313067587128
+          "p": 0.7618047105797647,
+          "fairOdds": 1.312672376676378
         },
         {
           "market": "correct_score",
           "selection": "0–0",
-          "p": 0.21631697293871177,
-          "fairOdds": 4.6228457546108785
-        },
-        {
-          "market": "correct_score",
-          "selection": "0–1",
-          "p": 0.16934740771083212,
-          "fairOdds": 5.905021006920533
+          "p": 0.21131830197714413,
+          "fairOdds": 4.732197782415262
         },
         {
           "market": "correct_score",
           "selection": "1–1",
-          "p": 0.14887655823421883,
-          "fairOdds": 6.716974195673964
+          "p": 0.1563345611621968,
+          "fairOdds": 6.396538248266818
+        },
+        {
+          "market": "correct_score",
+          "selection": "0–1",
+          "p": 0.146078829392495,
+          "fairOdds": 6.845618931632652
         }
       ],
       "marketGroups": [
@@ -8239,22 +8239,22 @@
               "market": "h2h",
               "selection": "home",
               "label": "Palmeiras gana",
-              "p": 0.20144957644121522,
-              "fairOdds": 4.9640213579292825
+              "p": 0.2555442310197617,
+              "fairOdds": 3.9132168862096837
             },
             {
               "market": "h2h",
               "selection": "draw",
               "label": "Empate",
-              "p": 0.38679332387845666,
-              "fairOdds": 2.585360031483463
+              "p": 0.3924267167627042,
+              "fairOdds": 2.548246480895663
             },
             {
               "market": "h2h",
               "selection": "away",
               "label": "Estudiantes de La Plat gana",
-              "p": 0.4117570996803282,
-              "fairOdds": 2.4286162904692112
+              "p": 0.35202905221753367,
+              "fairOdds": 2.840674636654868
             }
           ]
         },
@@ -8265,22 +8265,22 @@
               "market": "double_chance",
               "selection": "1x",
               "label": "Palmeiras o empate",
-              "p": 0.5882429003196719,
-              "fairOdds": 1.699978018360383
+              "p": 0.6479709477824659,
+              "fairOdds": 1.5432790674061452
             },
             {
               "market": "double_chance",
               "selection": "x2",
               "label": "Estudiantes de La Plat o empate",
-              "p": 0.7985504235587848,
-              "fairOdds": 1.2522690746859089
+              "p": 0.7444557689802378,
+              "fairOdds": 1.343263148285907
             },
             {
               "market": "double_chance",
               "selection": "12",
               "label": "Sin empate",
-              "p": 0.6132066761215434,
-              "fairOdds": 1.6307715472455007
+              "p": 0.6075732832372953,
+              "fairOdds": 1.6458919896407584
             }
           ]
         },
@@ -8290,42 +8290,42 @@
             {
               "market": "totals",
               "selection": "over_1.5",
-              "label": "Más de 1.5",
+              "label": "Más de 1.5 goles",
               "line": 1.5,
-              "p": 0.5167816730317879,
-              "fairOdds": 1.935053141751969
+              "p": 0.5284440335707479,
+              "fairOdds": 1.8923479810017012
             },
             {
               "market": "totals",
               "selection": "over_2.5",
-              "label": "Más de 2.5",
+              "label": "Más de 2.5 goles",
               "line": 2.5,
-              "p": 0.23038390712997414,
-              "fairOdds": 4.340580956619668
+              "p": 0.23908082781704498,
+              "fairOdds": 4.182685868752484
             },
             {
               "market": "totals",
               "selection": "under_2.5",
-              "label": "Menos de 2.5",
+              "label": "Menos de 2.5 goles",
               "line": 2.5,
-              "p": 0.7696160928700259,
-              "fairOdds": 1.2993491290843913
+              "p": 0.760919172182955,
+              "fairOdds": 1.314200031431933
             },
             {
               "market": "totals",
               "selection": "over_3.5",
-              "label": "Más de 3.5",
+              "label": "Más de 3.5 goles",
               "line": 3.5,
-              "p": 0.08626404199758753,
-              "fairOdds": 11.592315602693022
+              "p": 0.09110368289411064,
+              "fairOdds": 10.97650466186197
             },
             {
               "market": "totals",
               "selection": "under_3.5",
-              "label": "Menos de 3.5",
+              "label": "Menos de 3.5 goles",
               "line": 3.5,
-              "p": 0.9137359580024125,
-              "fairOdds": 1.0944080631194333
+              "p": 0.9088963171058894,
+              "fairOdds": 1.1002355067123644
             }
           ]
         },
@@ -8336,15 +8336,15 @@
               "market": "btts",
               "selection": "yes",
               "label": "Sí",
-              "p": 0.32567205101015095,
-              "fairOdds": 3.070573593583659
+              "p": 0.3472792560714619,
+              "fairOdds": 2.8795270161320077
             },
             {
               "market": "btts",
               "selection": "no",
               "label": "No",
-              "p": 0.674327948989849,
-              "fairOdds": 1.482957960585812
+              "p": 0.6527207439285381,
+              "fairOdds": 1.5320487502531146
             }
           ]
         },
@@ -8354,34 +8354,34 @@
             {
               "market": "team_totals",
               "selection": "home_over",
-              "label": "Palmeiras más de 1.5",
+              "label": "Palmeiras más de 1.5 goles",
               "line": 1.5,
-              "p": 0.13489515126989815,
-              "fairOdds": 7.413164895743365
+              "p": 0.17578544885394842,
+              "fairOdds": 5.688753002706449
             },
             {
               "market": "team_totals",
               "selection": "home_under",
-              "label": "Palmeiras menos de 1.5",
+              "label": "Palmeiras menos de 1.5 goles",
               "line": 1.5,
-              "p": 0.8651048487301018,
-              "fairOdds": 1.1559292511976005
+              "p": 0.8242145511460516,
+              "fairOdds": 1.2132763230272054
             },
             {
               "market": "team_totals",
               "selection": "away_over",
-              "label": "Estudiantes de La Plat más de 1.5",
+              "label": "Estudiantes de La Plat más de 1.5 goles",
               "line": 1.5,
-              "p": 0.2693430326621207,
-              "fairOdds": 3.7127375826886797
+              "p": 0.23819528942023527,
+              "fairOdds": 4.198235835956241
             },
             {
               "market": "team_totals",
               "selection": "away_under",
-              "label": "Estudiantes de La Plat menos de 1.5",
+              "label": "Estudiantes de La Plat menos de 1.5 goles",
               "line": 1.5,
-              "p": 0.7306569673378793,
-              "fairOdds": 1.3686313067587128
+              "p": 0.7618047105797647,
+              "fairOdds": 1.312672376676378
             }
           ]
         },
@@ -8392,22 +8392,22 @@
               "market": "correct_score",
               "selection": "0-0",
               "label": "0–0",
-              "p": 0.21631697293871177,
-              "fairOdds": 4.6228457546108785
-            },
-            {
-              "market": "correct_score",
-              "selection": "0-1",
-              "label": "0–1",
-              "p": 0.16934740771083212,
-              "fairOdds": 5.905021006920533
+              "p": 0.21131830197714413,
+              "fairOdds": 4.732197782415262
             },
             {
               "market": "correct_score",
               "selection": "1-1",
               "label": "1–1",
-              "p": 0.14887655823421883,
-              "fairOdds": 6.716974195673964
+              "p": 0.1563345611621968,
+              "fairOdds": 6.396538248266818
+            },
+            {
+              "market": "correct_score",
+              "selection": "0-1",
+              "label": "0–1",
+              "p": 0.146078829392495,
+              "fairOdds": 6.845618931632652
             }
           ]
         }
@@ -8415,44 +8415,44 @@
       "mostLikelyScore": {
         "home": 0,
         "away": 0,
-        "p": 0.21631697293871177
+        "p": 0.21131830197714413
       },
       "factors": [
         {
           "key": "home_attack",
           "label": "Ataque local",
-          "value": "0.64 goles/partido",
-          "detail": "24 % más que la media · 6 partidos"
+          "value": "0.73 goles/partido",
+          "detail": "14 % más que la media · 6 partidos"
         },
         {
           "key": "away_defense",
           "label": "Defensa visitante",
-          "value": "0.52 concedidos/partido",
-          "detail": "34 % menos que la media · 6 partidos"
+          "value": "0.64 concedidos/partido",
+          "detail": "21 % menos que la media · 6 partidos"
         },
         {
           "key": "away_attack",
           "label": "Ataque visitante",
-          "value": "1.01 goles/partido",
-          "detail": "14 % más que la media · ajustado por rival"
+          "value": "0.93 goles/partido",
+          "detail": "7 % más que la media · ajustado por rival"
         },
         {
           "key": "home_defense",
           "label": "Defensa local",
-          "value": "0.89 concedidos/partido",
-          "detail": "14 % más que la media · ajustado por rival"
+          "value": "0.87 concedidos/partido",
+          "detail": "8 % más que la media · ajustado por rival"
         },
         {
           "key": "home_advantage",
           "label": "Localía",
-          "value": "×1.00",
+          "value": "×1.04",
           "detail": "estimada de 28 partidos"
         },
         {
           "key": "uncertainty",
           "label": "Intervalo 90%",
-          "value": "goles 0.9–3.5",
-          "detail": "local 5%–58% · 28 partidos"
+          "value": "goles 1.1–2.8",
+          "detail": "local 8%–54% · 28 partidos"
         },
         {
           "key": "home_position",
@@ -8480,14 +8480,14 @@
         }
       ],
       "steps": [
-        "Sincronizando Copa Libertadores · corte 19 nov 2026, 10:05",
-        "Fuerza ajustada por rival · PAL 1.24 / 1.14 · EST 1.14 / 0.66",
-        "Ponderando 24.2 partidos por antigüedad y calidad del rival",
-        "Proyección de goles 0.64 – 1.01 · total 1.65",
+        "Sincronizando Copa Libertadores · corte 21 nov 2026, 22:33",
+        "Fuerza ajustada por rival · PAL 1.14 / 1.08 · EST 1.07 / 0.79",
+        "Ponderando 24.1 partidos por antigüedad y calidad del rival",
+        "Proyección de goles 0.76 – 0.93 · total 1.69",
         "Simulando 121 marcadores con incertidumbre del ajuste",
-        "20 mercados listos · marcador proyectado 0–1"
+        "20 mercados listos · marcador proyectado 0–0"
       ],
-      "inputsAsOf": "2026-11-19T16:05:39.021Z",
+      "inputsAsOf": "2026-11-22T04:33:15.743Z",
       "publishedAt": "2026-11-19T16:05:39.021Z",
       "source": "pitchlab-football-v2",
       "picks": [
@@ -8495,27 +8495,26 @@
           "profile": "conservadora",
           "market": "totals",
           "selection": "under_3.5",
-          "label": "Menos de 3.5",
+          "label": "Menos de 3.5 goles",
           "line": 3.5,
-          "p": 0.9137359580024125,
-          "fairOdds": 1.0944080631194333
+          "p": 0.9088963171058894,
+          "fairOdds": 1.1002355067123644
         },
         {
           "profile": "intermedia",
           "market": "btts",
           "selection": "no",
           "label": "Ambos anotan: No",
-          "p": 0.674327948989849,
-          "fairOdds": 1.482957960585812
+          "p": 0.6527207439285381,
+          "fairOdds": 1.5320487502531146
         },
         {
           "profile": "arriesgada",
-          "market": "totals",
-          "selection": "over_1.5",
-          "label": "Más de 1.5",
-          "line": 1.5,
-          "p": 0.5167816730317879,
-          "fairOdds": 1.935053141751969
+          "market": "h2h",
+          "selection": "draw",
+          "label": "Empate",
+          "p": 0.3924267167627042,
+          "fairOdds": 2.548246480895663
         }
       ],
       "confidence": {
@@ -8528,17 +8527,17 @@
       },
       "projectedScore": {
         "home": 0,
-        "away": 1,
-        "p": 0.16934740771083212
+        "away": 0,
+        "p": 0.21131830197714413
       },
       "insights": {
         "why": [
-          "Se esperan 1.7 goles: 0.6 de Palmeiras y 1.0 de Estudiantes de La Plat.",
-          "Estudiantes de La Plat concede 34 % menos que la media.",
-          "Palmeiras anota 24 % más que la media."
+          "Se esperan 1.7 goles: 0.8 de Palmeiras y 0.9 de Estudiantes de La Plat.",
+          "Estudiantes de La Plat concede 21 % menos que la media.",
+          "Palmeiras anota 14 % más que la media."
         ]
       },
-      "picksAt": "2026-11-19T16:05:39.021Z",
+      "picksAt": "2026-11-22T04:33:15.743Z",
       "matchContext": {
         "weather": {
           "description": "rain",

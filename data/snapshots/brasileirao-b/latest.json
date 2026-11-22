@@ -5,33 +5,11 @@
   "season": "brasileirao-b-2026",
   "seasonLabel": "2026",
   "periodLabel": "League phase · Matchday 37",
-  "updatedAt": "2026-11-19T16:05:39.021Z",
+  "updatedAt": "2026-11-22T04:33:15.743Z",
   "source": "pitchlab-football-v2",
   "provenance": "derived",
   "isDemo": false,
   "teamRates": {
-    "brasileirao-b.ponte-preta": {
-      "teamId": "brasileirao-b.ponte-preta",
-      "name": "Ponte Preta",
-      "shortName": "Ponte Preta",
-      "code": "PON",
-      "forPerGame": 0.44,
-      "againstPerGame": 2.24,
-      "gamesPlayed": 25,
-      "adjustedFor": 0.5379940821987604,
-      "adjustedAgainst": 1.9156352295090384
-    },
-    "brasileirao-b.gremio-novorizontino": {
-      "teamId": "brasileirao-b.gremio-novorizontino",
-      "name": "Grêmio Novorizontino",
-      "shortName": "Grêmio Novorizontino",
-      "code": "GRE",
-      "forPerGame": 1.88,
-      "againstPerGame": 0.76,
-      "gamesPlayed": 25,
-      "adjustedFor": 1.679231442967918,
-      "adjustedAgainst": 0.7858532786958371
-    },
     "brasileirao-b.america-mineiro": {
       "teamId": "brasileirao-b.america-mineiro",
       "name": "América Mineiro",
@@ -40,107 +18,8 @@
       "forPerGame": 0.68,
       "againstPerGame": 1.32,
       "gamesPlayed": 25,
-      "adjustedFor": 0.6960410236257574,
-      "adjustedAgainst": 1.214345566854052
-    },
-    "brasileirao-b.criciuma": {
-      "teamId": "brasileirao-b.criciuma",
-      "name": "Criciúma",
-      "shortName": "Criciúma",
-      "code": "CRI",
-      "forPerGame": 0.92,
-      "againstPerGame": 0.84,
-      "gamesPlayed": 25,
-      "adjustedFor": 0.8598520660723639,
-      "adjustedAgainst": 0.8247452959812287
-    },
-    "brasileirao-b.cuiaba": {
-      "teamId": "brasileirao-b.cuiaba",
-      "name": "Cuiabá",
-      "shortName": "Cuiabá",
-      "code": "CUI",
-      "forPerGame": 1.0416666666666667,
-      "againstPerGame": 1.0833333333333333,
-      "gamesPlayed": 24,
-      "adjustedFor": 0.9695564094804782,
-      "adjustedAgainst": 1.0131396713904905
-    },
-    "brasileirao-b.londrina": {
-      "teamId": "brasileirao-b.londrina",
-      "name": "Londrina",
-      "shortName": "Londrina",
-      "code": "LON",
-      "forPerGame": 1.25,
-      "againstPerGame": 1.5416666666666667,
-      "gamesPlayed": 24,
-      "adjustedFor": 1.164645419839536,
-      "adjustedAgainst": 1.4473203556831928
-    },
-    "brasileirao-b.vila-nova": {
-      "teamId": "brasileirao-b.vila-nova",
-      "name": "Vila Nova FC",
-      "shortName": "Vila Nova",
-      "code": "VIL",
-      "forPerGame": 1.2916666666666667,
-      "againstPerGame": 1,
-      "gamesPlayed": 24,
-      "adjustedFor": 1.2334563739061617,
-      "adjustedAgainst": 0.9317896426565262
-    },
-    "brasileirao-b.operario-pr": {
-      "teamId": "brasileirao-b.operario-pr",
-      "name": "Operário-PR",
-      "shortName": "Operário-PR",
-      "code": "OPE",
-      "forPerGame": 1.375,
-      "againstPerGame": 1.375,
-      "gamesPlayed": 24,
-      "adjustedFor": 1.2334304060392571,
-      "adjustedAgainst": 1.2684102531354635
-    },
-    "brasileirao-b.sao-bernardo": {
-      "teamId": "brasileirao-b.sao-bernardo",
-      "name": "São Bernardo",
-      "shortName": "São Bernardo",
-      "code": "SAO",
-      "forPerGame": 1.4166666666666667,
-      "againstPerGame": 1.375,
-      "gamesPlayed": 24,
-      "adjustedFor": 1.3563351545541031,
-      "adjustedAgainst": 1.2794304154394454
-    },
-    "brasileirao-b.juventude": {
-      "teamId": "brasileirao-b.juventude",
-      "name": "Juventude",
-      "shortName": "Juventude",
-      "code": "JUV",
-      "forPerGame": 1.5416666666666667,
-      "againstPerGame": 0.75,
-      "gamesPlayed": 24,
-      "adjustedFor": 1.4223407471902383,
-      "adjustedAgainst": 0.7818449478869889
-    },
-    "brasileirao-b.ceara": {
-      "teamId": "brasileirao-b.ceara",
-      "name": "Ceará",
-      "shortName": "Ceará",
-      "code": "CEA",
-      "forPerGame": 1,
-      "againstPerGame": 1.3333333333333333,
-      "gamesPlayed": 24,
-      "adjustedFor": 0.9818838997850488,
-      "adjustedAgainst": 1.2148281039579834
-    },
-    "brasileirao-b.atletico-goianiense": {
-      "teamId": "brasileirao-b.atletico-goianiense",
-      "name": "Atlético Goianiense",
-      "shortName": "Goianiense",
-      "code": "ATL",
-      "forPerGame": 1.25,
-      "againstPerGame": 0.7916666666666666,
-      "gamesPlayed": 24,
-      "adjustedFor": 1.1551932548117723,
-      "adjustedAgainst": 0.7928127533444971
+      "adjustedFor": 0.6432817157095808,
+      "adjustedAgainst": 1.0403368477583492
     },
     "brasileirao-b.athletic": {
       "teamId": "brasileirao-b.athletic",
@@ -150,8 +29,19 @@
       "forPerGame": 1.2916666666666667,
       "againstPerGame": 1.2916666666666667,
       "gamesPlayed": 24,
-      "adjustedFor": 1.2200434682344785,
-      "adjustedAgainst": 1.218294240969434
+      "adjustedFor": 1.0467354061999652,
+      "adjustedAgainst": 1.0550572507567597
+    },
+    "brasileirao-b.atletico-goianiense": {
+      "teamId": "brasileirao-b.atletico-goianiense",
+      "name": "Atlético Goianiense",
+      "shortName": "Goianiense",
+      "code": "ATL",
+      "forPerGame": 1.25,
+      "againstPerGame": 0.7916666666666666,
+      "gamesPlayed": 24,
+      "adjustedFor": 0.996909226771865,
+      "adjustedAgainst": 0.7172063740005281
     },
     "brasileirao-b.avai": {
       "teamId": "brasileirao-b.avai",
@@ -161,52 +51,8 @@
       "forPerGame": 0.9166666666666666,
       "againstPerGame": 1.125,
       "gamesPlayed": 24,
-      "adjustedFor": 0.8804602479582686,
-      "adjustedAgainst": 1.0566157514613217
-    },
-    "brasileirao-b.nautico": {
-      "teamId": "brasileirao-b.nautico",
-      "name": "Náutico",
-      "shortName": "Náutico",
-      "code": "NAU",
-      "forPerGame": 0.8333333333333334,
-      "againstPerGame": 1.375,
-      "gamesPlayed": 24,
-      "adjustedFor": 0.8268099065732551,
-      "adjustedAgainst": 1.2626223898432116
-    },
-    "brasileirao-b.goias": {
-      "teamId": "brasileirao-b.goias",
-      "name": "Goiás",
-      "shortName": "Goiás",
-      "code": "GOI",
-      "forPerGame": 1.0833333333333333,
-      "againstPerGame": 0.9583333333333334,
-      "gamesPlayed": 24,
-      "adjustedFor": 0.9769072281067303,
-      "adjustedAgainst": 0.9365549649901788
-    },
-    "brasileirao-b.fortaleza": {
-      "teamId": "brasileirao-b.fortaleza",
-      "name": "Fortaleza",
-      "shortName": "Fortaleza",
-      "code": "FOR",
-      "forPerGame": 1.2083333333333333,
-      "againstPerGame": 0.75,
-      "gamesPlayed": 24,
-      "adjustedFor": 1.0968285519982635,
-      "adjustedAgainst": 0.7494929100548725
-    },
-    "brasileirao-b.sport-recife": {
-      "teamId": "brasileirao-b.sport-recife",
-      "name": "Sport Recife",
-      "shortName": "Sport Recife",
-      "code": "SPO",
-      "forPerGame": 1.5,
-      "againstPerGame": 1.375,
-      "gamesPlayed": 24,
-      "adjustedFor": 1.4242733130939578,
-      "adjustedAgainst": 1.27720256833726
+      "adjustedFor": 0.7862866201314779,
+      "adjustedAgainst": 0.9163378276661038
     },
     "brasileirao-b.botafogo-sp": {
       "teamId": "brasileirao-b.botafogo-sp",
@@ -216,8 +62,19 @@
       "forPerGame": 1.2916666666666667,
       "againstPerGame": 1.1666666666666667,
       "gamesPlayed": 24,
-      "adjustedFor": 1.1716946639325316,
-      "adjustedAgainst": 1.0557193566581655
+      "adjustedFor": 1.0112643911177264,
+      "adjustedAgainst": 0.9274349101217046
+    },
+    "brasileirao-b.ceara": {
+      "teamId": "brasileirao-b.ceara",
+      "name": "Ceará",
+      "shortName": "Ceará",
+      "code": "CEA",
+      "forPerGame": 1,
+      "againstPerGame": 1.3333333333333333,
+      "gamesPlayed": 24,
+      "adjustedFor": 0.8619374349942456,
+      "adjustedAgainst": 1.0321435126580034
     },
     "brasileirao-b.crb": {
       "teamId": "brasileirao-b.crb",
@@ -227,8 +84,151 @@
       "forPerGame": 1.4583333333333333,
       "againstPerGame": 1.1666666666666667,
       "gamesPlayed": 24,
-      "adjustedFor": 1.3379722519545343,
-      "adjustedAgainst": 1.1152504379752517
+      "adjustedFor": 1.136362488909901,
+      "adjustedAgainst": 0.9667720056446979
+    },
+    "brasileirao-b.criciuma": {
+      "teamId": "brasileirao-b.criciuma",
+      "name": "Criciúma",
+      "shortName": "Criciúma",
+      "code": "CRI",
+      "forPerGame": 0.92,
+      "againstPerGame": 0.84,
+      "gamesPlayed": 25,
+      "adjustedFor": 0.7711476589602879,
+      "adjustedAgainst": 0.7439243909277024
+    },
+    "brasileirao-b.cuiaba": {
+      "teamId": "brasileirao-b.cuiaba",
+      "name": "Cuiabá",
+      "shortName": "Cuiabá",
+      "code": "CUI",
+      "forPerGame": 1.0416666666666667,
+      "againstPerGame": 1.0833333333333333,
+      "gamesPlayed": 24,
+      "adjustedFor": 0.8544420139731068,
+      "adjustedAgainst": 0.881634250197718
+    },
+    "brasileirao-b.fortaleza": {
+      "teamId": "brasileirao-b.fortaleza",
+      "name": "Fortaleza",
+      "shortName": "Fortaleza",
+      "code": "FOR",
+      "forPerGame": 1.2083333333333333,
+      "againstPerGame": 0.75,
+      "gamesPlayed": 24,
+      "adjustedFor": 0.9541276985817697,
+      "adjustedAgainst": 0.6953040762602413
+    },
+    "brasileirao-b.goias": {
+      "teamId": "brasileirao-b.goias",
+      "name": "Goiás",
+      "shortName": "Goiás",
+      "code": "GOI",
+      "forPerGame": 1.0833333333333333,
+      "againstPerGame": 0.9583333333333334,
+      "gamesPlayed": 24,
+      "adjustedFor": 0.8630061687410685,
+      "adjustedAgainst": 0.8308649058971167
+    },
+    "brasileirao-b.gremio-novorizontino": {
+      "teamId": "brasileirao-b.gremio-novorizontino",
+      "name": "Grêmio Novorizontino",
+      "shortName": "Grêmio Novorizontino",
+      "code": "GRE",
+      "forPerGame": 1.88,
+      "againstPerGame": 0.76,
+      "gamesPlayed": 25,
+      "adjustedFor": 1.3995883258749764,
+      "adjustedAgainst": 0.7146627552634569
+    },
+    "brasileirao-b.juventude": {
+      "teamId": "brasileirao-b.juventude",
+      "name": "Juventude",
+      "shortName": "Juventude",
+      "code": "JUV",
+      "forPerGame": 1.5416666666666667,
+      "againstPerGame": 0.75,
+      "gamesPlayed": 24,
+      "adjustedFor": 1.2010336984305336,
+      "adjustedAgainst": 0.7121587554887188
+    },
+    "brasileirao-b.londrina": {
+      "teamId": "brasileirao-b.londrina",
+      "name": "Londrina",
+      "shortName": "Londrina",
+      "code": "LON",
+      "forPerGame": 1.25,
+      "againstPerGame": 1.5416666666666667,
+      "gamesPlayed": 24,
+      "adjustedFor": 1.0007978206310384,
+      "adjustedAgainst": 1.2173568613999735
+    },
+    "brasileirao-b.nautico": {
+      "teamId": "brasileirao-b.nautico",
+      "name": "Náutico",
+      "shortName": "Náutico",
+      "code": "NAU",
+      "forPerGame": 0.8333333333333334,
+      "againstPerGame": 1.375,
+      "gamesPlayed": 24,
+      "adjustedFor": 0.7439758908358531,
+      "adjustedAgainst": 1.1037262488006343
+    },
+    "brasileirao-b.operario-pr": {
+      "teamId": "brasileirao-b.operario-pr",
+      "name": "Operário-PR",
+      "shortName": "Operário-PR",
+      "code": "OPE",
+      "forPerGame": 1.375,
+      "againstPerGame": 1.375,
+      "gamesPlayed": 24,
+      "adjustedFor": 1.0597914050838955,
+      "adjustedAgainst": 1.0859358079084154
+    },
+    "brasileirao-b.ponte-preta": {
+      "teamId": "brasileirao-b.ponte-preta",
+      "name": "Ponte Preta",
+      "shortName": "Ponte Preta",
+      "code": "PON",
+      "forPerGame": 0.44,
+      "againstPerGame": 2.24,
+      "gamesPlayed": 25,
+      "adjustedFor": 0.5209155166536312,
+      "adjustedAgainst": 1.581570867310695
+    },
+    "brasileirao-b.sao-bernardo": {
+      "teamId": "brasileirao-b.sao-bernardo",
+      "name": "São Bernardo",
+      "shortName": "São Bernardo",
+      "code": "SAO",
+      "forPerGame": 1.4166666666666667,
+      "againstPerGame": 1.375,
+      "gamesPlayed": 24,
+      "adjustedFor": 1.1460318478473652,
+      "adjustedAgainst": 1.078466828941696
+    },
+    "brasileirao-b.sport-recife": {
+      "teamId": "brasileirao-b.sport-recife",
+      "name": "Sport Recife",
+      "shortName": "Sport Recife",
+      "code": "SPO",
+      "forPerGame": 1.5,
+      "againstPerGame": 1.375,
+      "gamesPlayed": 24,
+      "adjustedFor": 1.1972358851967884,
+      "adjustedAgainst": 1.072534813803892
+    },
+    "brasileirao-b.vila-nova": {
+      "teamId": "brasileirao-b.vila-nova",
+      "name": "Vila Nova FC",
+      "shortName": "Vila Nova",
+      "code": "VIL",
+      "forPerGame": 1.2916666666666667,
+      "againstPerGame": 1,
+      "gamesPlayed": 24,
+      "adjustedFor": 1.0532550781925751,
+      "adjustedAgainst": 0.8242194270244345
     }
   },
   "games": [
@@ -8250,145 +8250,145 @@
         "label": "Modelo PitchLab · en validación"
       },
       "projection": {
-        "home": 0.8476766630891971,
-        "away": 0.840794462926272,
-        "total": 1.688471126015469,
-        "margin": 0.006882200162925067
+        "home": 0.8032116337270933,
+        "away": 0.7560121186779073,
+        "total": 1.5592237524050006,
+        "margin": 0.04719951504918596
       },
       "x12": [
-        0.33755132832635726,
-        0.328755191787318,
-        0.33369347988632486
+        0.34065078508200586,
+        0.3459759221817395,
+        0.3133732927362537
       ],
       "probabilities": [
         {
           "market": "h2h",
           "selection": "Criciúma gana",
-          "p": 0.33755132832635726,
-          "fairOdds": 2.962512412432762
+          "p": 0.34065078508200586,
+          "fairOdds": 2.9355575967901175
         },
         {
           "market": "h2h",
           "selection": "Empate",
-          "p": 0.328755191787318,
-          "fairOdds": 3.041777057765619
+          "p": 0.3459759221817395,
+          "fairOdds": 2.890374548881771
         },
         {
           "market": "h2h",
           "selection": "Fortaleza gana",
-          "p": 0.33369347988632486,
-          "fairOdds": 2.996762179292977
+          "p": 0.3133732927362537,
+          "fairOdds": 3.1910824029335396
         },
         {
           "market": "double_chance",
           "selection": "Criciúma o empate",
-          "p": 0.6663065201136753,
-          "fairOdds": 1.5008107677370393
+          "p": 0.6866267072637453,
+          "fairOdds": 1.4563954320755579
         },
         {
           "market": "double_chance",
           "selection": "Fortaleza o empate",
-          "p": 0.6624486716736429,
-          "fairOdds": 1.5095509173164328
+          "p": 0.6593492149179931,
+          "fairOdds": 1.5166469867176158
         },
         {
           "market": "double_chance",
           "selection": "Sin empate",
-          "p": 0.6712448082126821,
-          "fairOdds": 1.489769436969936
+          "p": 0.6540240778182596,
+          "fairOdds": 1.5289956959013982
         },
         {
           "market": "totals",
-          "selection": "Más de 1.5",
+          "selection": "Más de 1.5 goles",
           "line": 1.5,
-          "p": 0.49657995322229787,
-          "fairOdds": 2.013774405331949
+          "p": 0.45541207587611643,
+          "fairOdds": 2.195813534536193
         },
         {
           "market": "totals",
-          "selection": "Más de 2.5",
+          "selection": "Más de 2.5 goles",
           "line": 2.5,
-          "p": 0.23973656503562757,
-          "fairOdds": 4.171245215978583
+          "p": 0.20615962519577935,
+          "fairOdds": 4.850610293118018
         },
         {
           "market": "totals",
-          "selection": "Menos de 2.5",
+          "selection": "Menos de 2.5 goles",
           "line": 2.5,
-          "p": 0.7602634349643724,
-          "fairOdds": 1.3153335462554006
+          "p": 0.7938403748042206,
+          "fairOdds": 1.259699092839191
         },
         {
           "market": "totals",
-          "selection": "Más de 3.5",
+          "selection": "Más de 3.5 goles",
           "line": 3.5,
-          "p": 0.09147247610583764,
-          "fairOdds": 10.932250252447046
+          "p": 0.0732942541959799,
+          "fairOdds": 13.643634292616197
         },
         {
           "market": "totals",
-          "selection": "Menos de 3.5",
+          "selection": "Menos de 3.5 goles",
           "line": 3.5,
-          "p": 0.9085275238941624,
-          "fairOdds": 1.1006821188132696
+          "p": 0.9267057458040201,
+          "fairOdds": 1.0790911835044132
         },
         {
           "market": "btts",
           "selection": "Sí",
-          "p": 0.31843943336136293,
-          "fairOdds": 3.14031459434613
+          "p": 0.28649082194802566,
+          "fairOdds": 3.4905132150495803
         },
         {
           "market": "btts",
           "selection": "No",
-          "p": 0.6815605666386371,
-          "fairOdds": 1.467221035001867
+          "p": 0.7135091780519743,
+          "fairOdds": 1.401523667474333
         },
         {
           "market": "team_totals",
-          "selection": "Criciúma más de 1.5",
+          "selection": "Criciúma más de 1.5 goles",
           "line": 1.5,
-          "p": 0.20843847392072123,
-          "fairOdds": 4.797578782793939
+          "p": 0.19236278825393205,
+          "fairOdds": 5.198510632315911
         },
         {
           "market": "team_totals",
-          "selection": "Criciúma menos de 1.5",
+          "selection": "Criciúma menos de 1.5 goles",
           "line": 1.5,
-          "p": 0.7915615260792788,
-          "fairOdds": 1.2633256759624836
+          "p": 0.807637211746068,
+          "fairOdds": 1.2381796993207559
         },
         {
           "market": "team_totals",
-          "selection": "Fortaleza más de 1.5",
+          "selection": "Fortaleza más de 1.5 goles",
           "line": 1.5,
-          "p": 0.20594075880285767,
-          "fairOdds": 4.855765346369714
+          "p": 0.17549058797405714,
+          "fairOdds": 5.698311297172419
         },
         {
           "market": "team_totals",
-          "selection": "Fortaleza menos de 1.5",
+          "selection": "Fortaleza menos de 1.5 goles",
           "line": 1.5,
-          "p": 0.7940592411971423,
-          "fairOdds": 1.2593518822252816
+          "p": 0.8245094120259429,
+          "fairOdds": 1.2128424314076058
         },
         {
           "market": "correct_score",
           "selection": "0–0",
-          "p": 0.1782162318377304,
-          "fairOdds": 5.611161170271633
+          "p": 0.2039141704711272,
+          "fairOdds": 4.904024068997171
         },
         {
           "market": "correct_score",
           "selection": "1–0",
-          "p": 0.16323782912254473,
-          "fairOdds": 6.1260309903367265
+          "p": 0.17529988819287515,
+          "fairOdds": 5.704510198544689
         },
         {
           "market": "correct_score",
           "selection": "0–1",
-          "p": 0.161965985817427,
-          "fairOdds": 6.174135852988482
+          "p": 0.16537386545988114,
+          "fairOdds": 6.046904673958866
         }
       ],
       "marketGroups": [
@@ -8399,22 +8399,22 @@
               "market": "h2h",
               "selection": "home",
               "label": "Criciúma gana",
-              "p": 0.33755132832635726,
-              "fairOdds": 2.962512412432762
+              "p": 0.34065078508200586,
+              "fairOdds": 2.9355575967901175
             },
             {
               "market": "h2h",
               "selection": "draw",
               "label": "Empate",
-              "p": 0.328755191787318,
-              "fairOdds": 3.041777057765619
+              "p": 0.3459759221817395,
+              "fairOdds": 2.890374548881771
             },
             {
               "market": "h2h",
               "selection": "away",
               "label": "Fortaleza gana",
-              "p": 0.33369347988632486,
-              "fairOdds": 2.996762179292977
+              "p": 0.3133732927362537,
+              "fairOdds": 3.1910824029335396
             }
           ]
         },
@@ -8425,22 +8425,22 @@
               "market": "double_chance",
               "selection": "1x",
               "label": "Criciúma o empate",
-              "p": 0.6663065201136753,
-              "fairOdds": 1.5008107677370393
+              "p": 0.6866267072637453,
+              "fairOdds": 1.4563954320755579
             },
             {
               "market": "double_chance",
               "selection": "x2",
               "label": "Fortaleza o empate",
-              "p": 0.6624486716736429,
-              "fairOdds": 1.5095509173164328
+              "p": 0.6593492149179931,
+              "fairOdds": 1.5166469867176158
             },
             {
               "market": "double_chance",
               "selection": "12",
               "label": "Sin empate",
-              "p": 0.6712448082126821,
-              "fairOdds": 1.489769436969936
+              "p": 0.6540240778182596,
+              "fairOdds": 1.5289956959013982
             }
           ]
         },
@@ -8450,42 +8450,42 @@
             {
               "market": "totals",
               "selection": "over_1.5",
-              "label": "Más de 1.5",
+              "label": "Más de 1.5 goles",
               "line": 1.5,
-              "p": 0.49657995322229787,
-              "fairOdds": 2.013774405331949
+              "p": 0.45541207587611643,
+              "fairOdds": 2.195813534536193
             },
             {
               "market": "totals",
               "selection": "over_2.5",
-              "label": "Más de 2.5",
+              "label": "Más de 2.5 goles",
               "line": 2.5,
-              "p": 0.23973656503562757,
-              "fairOdds": 4.171245215978583
+              "p": 0.20615962519577935,
+              "fairOdds": 4.850610293118018
             },
             {
               "market": "totals",
               "selection": "under_2.5",
-              "label": "Menos de 2.5",
+              "label": "Menos de 2.5 goles",
               "line": 2.5,
-              "p": 0.7602634349643724,
-              "fairOdds": 1.3153335462554006
+              "p": 0.7938403748042206,
+              "fairOdds": 1.259699092839191
             },
             {
               "market": "totals",
               "selection": "over_3.5",
-              "label": "Más de 3.5",
+              "label": "Más de 3.5 goles",
               "line": 3.5,
-              "p": 0.09147247610583764,
-              "fairOdds": 10.932250252447046
+              "p": 0.0732942541959799,
+              "fairOdds": 13.643634292616197
             },
             {
               "market": "totals",
               "selection": "under_3.5",
-              "label": "Menos de 3.5",
+              "label": "Menos de 3.5 goles",
               "line": 3.5,
-              "p": 0.9085275238941624,
-              "fairOdds": 1.1006821188132696
+              "p": 0.9267057458040201,
+              "fairOdds": 1.0790911835044132
             }
           ]
         },
@@ -8496,15 +8496,15 @@
               "market": "btts",
               "selection": "yes",
               "label": "Sí",
-              "p": 0.31843943336136293,
-              "fairOdds": 3.14031459434613
+              "p": 0.28649082194802566,
+              "fairOdds": 3.4905132150495803
             },
             {
               "market": "btts",
               "selection": "no",
               "label": "No",
-              "p": 0.6815605666386371,
-              "fairOdds": 1.467221035001867
+              "p": 0.7135091780519743,
+              "fairOdds": 1.401523667474333
             }
           ]
         },
@@ -8514,34 +8514,34 @@
             {
               "market": "team_totals",
               "selection": "home_over",
-              "label": "Criciúma más de 1.5",
+              "label": "Criciúma más de 1.5 goles",
               "line": 1.5,
-              "p": 0.20843847392072123,
-              "fairOdds": 4.797578782793939
+              "p": 0.19236278825393205,
+              "fairOdds": 5.198510632315911
             },
             {
               "market": "team_totals",
               "selection": "home_under",
-              "label": "Criciúma menos de 1.5",
+              "label": "Criciúma menos de 1.5 goles",
               "line": 1.5,
-              "p": 0.7915615260792788,
-              "fairOdds": 1.2633256759624836
+              "p": 0.807637211746068,
+              "fairOdds": 1.2381796993207559
             },
             {
               "market": "team_totals",
               "selection": "away_over",
-              "label": "Fortaleza más de 1.5",
+              "label": "Fortaleza más de 1.5 goles",
               "line": 1.5,
-              "p": 0.20594075880285767,
-              "fairOdds": 4.855765346369714
+              "p": 0.17549058797405714,
+              "fairOdds": 5.698311297172419
             },
             {
               "market": "team_totals",
               "selection": "away_under",
-              "label": "Fortaleza menos de 1.5",
+              "label": "Fortaleza menos de 1.5 goles",
               "line": 1.5,
-              "p": 0.7940592411971423,
-              "fairOdds": 1.2593518822252816
+              "p": 0.8245094120259429,
+              "fairOdds": 1.2128424314076058
             }
           ]
         },
@@ -8552,22 +8552,22 @@
               "market": "correct_score",
               "selection": "0-0",
               "label": "0–0",
-              "p": 0.1782162318377304,
-              "fairOdds": 5.611161170271633
+              "p": 0.2039141704711272,
+              "fairOdds": 4.904024068997171
             },
             {
               "market": "correct_score",
               "selection": "1-0",
               "label": "1–0",
-              "p": 0.16323782912254473,
-              "fairOdds": 6.1260309903367265
+              "p": 0.17529988819287515,
+              "fairOdds": 5.704510198544689
             },
             {
               "market": "correct_score",
               "selection": "0-1",
               "label": "0–1",
-              "p": 0.161965985817427,
-              "fairOdds": 6.174135852988482
+              "p": 0.16537386545988114,
+              "fairOdds": 6.046904673958866
             }
           ]
         }
@@ -8575,44 +8575,44 @@
       "mostLikelyScore": {
         "home": 0,
         "away": 0,
-        "p": 0.1782162318377304
+        "p": 0.2039141704711272
       },
       "factors": [
         {
           "key": "home_attack",
           "label": "Ataque local",
-          "value": "0.60 goles/partido",
-          "detail": "20 % menos que la media · 25 partidos"
+          "value": "0.57 goles/partido",
+          "detail": "18 % menos que la media · 25 partidos"
         },
         {
           "key": "away_defense",
           "label": "Defensa visitante",
-          "value": "0.75 concedidos/partido",
-          "detail": "30 % menos que la media · 24 partidos"
+          "value": "0.70 concedidos/partido",
+          "detail": "26 % menos que la media · 24 partidos"
         },
         {
           "key": "away_attack",
           "label": "Ataque visitante",
-          "value": "0.84 goles/partido",
+          "value": "0.76 goles/partido",
           "detail": "en la media de la liga · ajustado por rival"
         },
         {
           "key": "home_defense",
           "label": "Defensa local",
-          "value": "0.82 concedidos/partido",
-          "detail": "23 % menos que la media · ajustado por rival"
+          "value": "0.74 concedidos/partido",
+          "detail": "21 % menos que la media · ajustado por rival"
         },
         {
           "key": "home_advantage",
           "label": "Localía",
-          "value": "×1.42",
+          "value": "×1.41",
           "detail": "estimada de 242 partidos"
         },
         {
           "key": "uncertainty",
           "label": "Intervalo 90%",
-          "value": "goles 1.3–2.3",
-          "detail": "local 19%–52% · 242 partidos"
+          "value": "goles 1.1–2.0",
+          "detail": "local 20%–50% · 242 partidos"
         },
         {
           "key": "home_position",
@@ -8640,14 +8640,14 @@
         }
       ],
       "steps": [
-        "Sincronizando Brasileirão Serie B · corte 19 nov 2026, 10:05",
-        "Fuerza ajustada por rival · CRI 0.80 / 0.77 · FOR 1.02 / 0.70",
-        "Ponderando 210.6 partidos por antigüedad y calidad del rival",
-        "Proyección de goles 0.85 – 0.84 · total 1.69",
+        "Sincronizando Brasileirão Serie B · corte 21 nov 2026, 22:33",
+        "Fuerza ajustada por rival · CRI 0.82 / 0.79 · FOR 1.02 / 0.74",
+        "Ponderando 209.4 partidos por antigüedad y calidad del rival",
+        "Proyección de goles 0.80 – 0.76 · total 1.56",
         "Simulando 121 marcadores con incertidumbre del ajuste",
-        "20 mercados listos · marcador proyectado 1–0"
+        "20 mercados listos · marcador proyectado 0–0"
       ],
-      "inputsAsOf": "2026-11-19T16:05:39.021Z",
+      "inputsAsOf": "2026-11-22T04:33:15.743Z",
       "publishedAt": "2026-11-19T16:05:39.021Z",
       "source": "pitchlab-football-v2",
       "picks": [
@@ -8655,31 +8655,31 @@
           "profile": "conservadora",
           "market": "totals",
           "selection": "under_3.5",
-          "label": "Menos de 3.5",
+          "label": "Menos de 3.5 goles",
           "line": 3.5,
-          "p": 0.9085275238941624,
-          "fairOdds": 1.1006821188132696
+          "p": 0.9267057458040201,
+          "fairOdds": 1.0790911835044132
         },
         {
           "profile": "intermedia",
-          "market": "btts",
-          "selection": "no",
-          "label": "Ambos anotan: No",
-          "p": 0.6815605666386371,
-          "fairOdds": 1.467221035001867
+          "market": "double_chance",
+          "selection": "1x",
+          "label": "Criciúma o empate",
+          "p": 0.6866267072637453,
+          "fairOdds": 1.4563954320755579
         },
         {
           "profile": "arriesgada",
           "market": "totals",
           "selection": "over_1.5",
-          "label": "Más de 1.5",
+          "label": "Más de 1.5 goles",
           "line": 1.5,
-          "p": 0.49657995322229787,
-          "fairOdds": 2.013774405331949
+          "p": 0.45541207587611643,
+          "fairOdds": 2.195813534536193
         }
       ],
       "confidence": {
-        "score": 32,
+        "score": 34,
         "level": "baja",
         "reasons": [
           "Partido parejo",
@@ -8687,15 +8687,15 @@
         ]
       },
       "projectedScore": {
-        "home": 1,
+        "home": 0,
         "away": 0,
-        "p": 0.16323782912254473
+        "p": 0.2039141704711272
       },
       "insights": {
         "why": [
-          "Se esperan 1.7 goles: 0.8 de Criciúma y 0.8 de Fortaleza.",
-          "Fortaleza concede 30 % menos que la media.",
-          "Criciúma concede 23 % menos que la media."
+          "Criciúma gana en 34% de los escenarios; el empate, en 35%.",
+          "Fortaleza concede 26 % menos que la media.",
+          "Criciúma concede 21 % menos que la media."
         ],
         "headToHead": [
           {
@@ -8711,7 +8711,7 @@
           "away": 8
         }
       },
-      "picksAt": "2026-11-19T16:05:39.021Z",
+      "picksAt": "2026-11-22T04:33:15.743Z",
       "matchContext": {
         "weather": {
           "temperatureC": 22,
@@ -8732,145 +8732,145 @@
         "label": "Modelo PitchLab · en validación"
       },
       "projection": {
-        "home": 1.415831211761926,
-        "away": 0.9089200208967303,
-        "total": 2.3247512326586564,
-        "margin": 0.5069111908651958
+        "home": 1.2308811830213857,
+        "away": 0.804583566087696,
+        "total": 2.0354647491090816,
+        "margin": 0.4262976169336897
       },
       "x12": [
-        0.494267406011484,
-        0.2578621144185435,
-        0.24787047956997296
+        0.4684514183011567,
+        0.2828215796404604,
+        0.2487270020583829
       ],
       "probabilities": [
         {
           "market": "h2h",
           "selection": "Goianiense gana",
-          "p": 0.494267406011484,
-          "fairOdds": 2.023196326194258
+          "p": 0.4684514183011567,
+          "fairOdds": 2.1346930779428717
         },
         {
           "market": "h2h",
           "selection": "Empate",
-          "p": 0.2578621144185435,
-          "fairOdds": 3.8780415737104788
+          "p": 0.2828215796404604,
+          "fairOdds": 3.535798086098166
         },
         {
           "market": "h2h",
           "selection": "Vila Nova gana",
-          "p": 0.24787047956997296,
-          "fairOdds": 4.0343650511948255
+          "p": 0.2487270020583829,
+          "fairOdds": 4.0204722113977525
         },
         {
           "market": "double_chance",
           "selection": "Goianiense o empate",
-          "p": 0.7521295204300276,
-          "fairOdds": 1.3295582380920952
+          "p": 0.7512729979416171,
+          "fairOdds": 1.3310740606142641
         },
         {
           "market": "double_chance",
           "selection": "Vila Nova o empate",
-          "p": 0.5057325939885164,
-          "fairOdds": 1.977329545073195
+          "p": 0.5315485816988433,
+          "fairOdds": 1.8812955850695219
         },
         {
           "market": "double_chance",
           "selection": "Sin empate",
-          "p": 0.742137885581457,
-          "fairOdds": 1.3474584971720058
+          "p": 0.7171784203595396,
+          "fairOdds": 1.3943531645844487
         },
         {
           "market": "totals",
-          "selection": "Más de 1.5",
+          "selection": "Más de 1.5 goles",
           "line": 1.5,
-          "p": 0.6685200520055867,
-          "fairOdds": 1.4958414440972418
+          "p": 0.5970403382272862,
+          "fairOdds": 1.6749287040958896
         },
         {
           "market": "totals",
-          "selection": "Más de 2.5",
+          "selection": "Más de 2.5 goles",
           "line": 2.5,
-          "p": 0.4105137974642534,
-          "fairOdds": 2.4359717168509487
+          "p": 0.33292179622950724,
+          "fairOdds": 3.0037084123823097
         },
         {
           "market": "totals",
-          "selection": "Menos de 2.5",
+          "selection": "Menos de 2.5 goles",
           "line": 2.5,
-          "p": 0.5894862025357466,
-          "fairOdds": 1.6963925460822975
+          "p": 0.6670782037704928,
+          "fairOdds": 1.4990746127631662
         },
         {
           "market": "totals",
-          "selection": "Más de 3.5",
+          "selection": "Más de 3.5 goles",
           "line": 3.5,
-          "p": 0.20570353404437025,
-          "fairOdds": 4.861365190664639
+          "p": 0.14933204525438337,
+          "fairOdds": 6.696486332163503
         },
         {
           "market": "totals",
-          "selection": "Menos de 3.5",
+          "selection": "Menos de 3.5 goles",
           "line": 3.5,
-          "p": 0.7942964659556297,
-          "fairOdds": 1.2589757639131445
+          "p": 0.8506679547456166,
+          "fairOdds": 1.1755468093294281
         },
         {
           "market": "btts",
           "selection": "Sí",
-          "p": 0.445831441902287,
-          "fairOdds": 2.243000170048954
+          "p": 0.38484253038145083,
+          "fairOdds": 2.598465400923368
         },
         {
           "market": "btts",
           "selection": "No",
-          "p": 0.5541685580977129,
-          "fairOdds": 1.8045051192234485
+          "p": 0.6151574696185491,
+          "fairOdds": 1.625600028266074
         },
         {
           "market": "team_totals",
-          "selection": "Goianiense más de 1.5",
+          "selection": "Goianiense más de 1.5 goles",
           "line": 1.5,
-          "p": 0.4136201441811438,
-          "fairOdds": 2.417677219226665
+          "p": 0.348504276314188,
+          "fairOdds": 2.8694052497033558
         },
         {
           "market": "team_totals",
-          "selection": "Goianiense menos de 1.5",
+          "selection": "Goianiense menos de 1.5 goles",
           "line": 1.5,
-          "p": 0.5863798558188562,
-          "fairOdds": 1.7053791839481587
+          "p": 0.651495723685812,
+          "fairOdds": 1.534929491697257
         },
         {
           "market": "team_totals",
-          "selection": "Vila Nova más de 1.5",
+          "selection": "Vila Nova más de 1.5 goles",
           "line": 1.5,
-          "p": 0.2307831572246769,
-          "fairOdds": 4.333071841228253
+          "p": 0.19285642226745514,
+          "fairOdds": 5.185204559136695
         },
         {
           "market": "team_totals",
-          "selection": "Vila Nova menos de 1.5",
+          "selection": "Vila Nova menos de 1.5 goles",
           "line": 1.5,
-          "p": 0.7692168427753231,
-          "fairOdds": 1.3000235361358115
+          "p": 0.8071435777325449,
+          "fairOdds": 1.2389369470165816
         },
         {
           "market": "correct_score",
           "selection": "1–0",
-          "p": 0.14477267342821326,
-          "fairOdds": 6.907380904973468
+          "p": 0.16724536497585973,
+          "fairOdds": 5.979238947186013
+        },
+        {
+          "market": "correct_score",
+          "selection": "0–0",
+          "p": 0.12415183001980026,
+          "fairOdds": 8.054653723916239
         },
         {
           "market": "correct_score",
           "selection": "1–1",
-          "p": 0.11957331336561636,
-          "fairOdds": 8.363070085231517
-        },
-        {
-          "market": "correct_score",
-          "selection": "2–0",
-          "p": 0.09803168668923434,
-          "fairOdds": 10.2007833770121
+          "p": 0.12289092752050602,
+          "fairOdds": 8.137297196598475
         }
       ],
       "marketGroups": [
@@ -8881,22 +8881,22 @@
               "market": "h2h",
               "selection": "home",
               "label": "Goianiense gana",
-              "p": 0.494267406011484,
-              "fairOdds": 2.023196326194258
+              "p": 0.4684514183011567,
+              "fairOdds": 2.1346930779428717
             },
             {
               "market": "h2h",
               "selection": "draw",
               "label": "Empate",
-              "p": 0.2578621144185435,
-              "fairOdds": 3.8780415737104788
+              "p": 0.2828215796404604,
+              "fairOdds": 3.535798086098166
             },
             {
               "market": "h2h",
               "selection": "away",
               "label": "Vila Nova gana",
-              "p": 0.24787047956997296,
-              "fairOdds": 4.0343650511948255
+              "p": 0.2487270020583829,
+              "fairOdds": 4.0204722113977525
             }
           ]
         },
@@ -8907,22 +8907,22 @@
               "market": "double_chance",
               "selection": "1x",
               "label": "Goianiense o empate",
-              "p": 0.7521295204300276,
-              "fairOdds": 1.3295582380920952
+              "p": 0.7512729979416171,
+              "fairOdds": 1.3310740606142641
             },
             {
               "market": "double_chance",
               "selection": "x2",
               "label": "Vila Nova o empate",
-              "p": 0.5057325939885164,
-              "fairOdds": 1.977329545073195
+              "p": 0.5315485816988433,
+              "fairOdds": 1.8812955850695219
             },
             {
               "market": "double_chance",
               "selection": "12",
               "label": "Sin empate",
-              "p": 0.742137885581457,
-              "fairOdds": 1.3474584971720058
+              "p": 0.7171784203595396,
+              "fairOdds": 1.3943531645844487
             }
           ]
         },
@@ -8932,42 +8932,42 @@
             {
               "market": "totals",
               "selection": "over_1.5",
-              "label": "Más de 1.5",
+              "label": "Más de 1.5 goles",
               "line": 1.5,
-              "p": 0.6685200520055867,
-              "fairOdds": 1.4958414440972418
+              "p": 0.5970403382272862,
+              "fairOdds": 1.6749287040958896
             },
             {
               "market": "totals",
               "selection": "over_2.5",
-              "label": "Más de 2.5",
+              "label": "Más de 2.5 goles",
               "line": 2.5,
-              "p": 0.4105137974642534,
-              "fairOdds": 2.4359717168509487
+              "p": 0.33292179622950724,
+              "fairOdds": 3.0037084123823097
             },
             {
               "market": "totals",
               "selection": "under_2.5",
-              "label": "Menos de 2.5",
+              "label": "Menos de 2.5 goles",
               "line": 2.5,
-              "p": 0.5894862025357466,
-              "fairOdds": 1.6963925460822975
+              "p": 0.6670782037704928,
+              "fairOdds": 1.4990746127631662
             },
             {
               "market": "totals",
               "selection": "over_3.5",
-              "label": "Más de 3.5",
+              "label": "Más de 3.5 goles",
               "line": 3.5,
-              "p": 0.20570353404437025,
-              "fairOdds": 4.861365190664639
+              "p": 0.14933204525438337,
+              "fairOdds": 6.696486332163503
             },
             {
               "market": "totals",
               "selection": "under_3.5",
-              "label": "Menos de 3.5",
+              "label": "Menos de 3.5 goles",
               "line": 3.5,
-              "p": 0.7942964659556297,
-              "fairOdds": 1.2589757639131445
+              "p": 0.8506679547456166,
+              "fairOdds": 1.1755468093294281
             }
           ]
         },
@@ -8978,15 +8978,15 @@
               "market": "btts",
               "selection": "yes",
               "label": "Sí",
-              "p": 0.445831441902287,
-              "fairOdds": 2.243000170048954
+              "p": 0.38484253038145083,
+              "fairOdds": 2.598465400923368
             },
             {
               "market": "btts",
               "selection": "no",
               "label": "No",
-              "p": 0.5541685580977129,
-              "fairOdds": 1.8045051192234485
+              "p": 0.6151574696185491,
+              "fairOdds": 1.625600028266074
             }
           ]
         },
@@ -8996,34 +8996,34 @@
             {
               "market": "team_totals",
               "selection": "home_over",
-              "label": "Goianiense más de 1.5",
+              "label": "Goianiense más de 1.5 goles",
               "line": 1.5,
-              "p": 0.4136201441811438,
-              "fairOdds": 2.417677219226665
+              "p": 0.348504276314188,
+              "fairOdds": 2.8694052497033558
             },
             {
               "market": "team_totals",
               "selection": "home_under",
-              "label": "Goianiense menos de 1.5",
+              "label": "Goianiense menos de 1.5 goles",
               "line": 1.5,
-              "p": 0.5863798558188562,
-              "fairOdds": 1.7053791839481587
+              "p": 0.651495723685812,
+              "fairOdds": 1.534929491697257
             },
             {
               "market": "team_totals",
               "selection": "away_over",
-              "label": "Vila Nova más de 1.5",
+              "label": "Vila Nova más de 1.5 goles",
               "line": 1.5,
-              "p": 0.2307831572246769,
-              "fairOdds": 4.333071841228253
+              "p": 0.19285642226745514,
+              "fairOdds": 5.185204559136695
             },
             {
               "market": "team_totals",
               "selection": "away_under",
-              "label": "Vila Nova menos de 1.5",
+              "label": "Vila Nova menos de 1.5 goles",
               "line": 1.5,
-              "p": 0.7692168427753231,
-              "fairOdds": 1.3000235361358115
+              "p": 0.8071435777325449,
+              "fairOdds": 1.2389369470165816
             }
           ]
         },
@@ -9034,22 +9034,22 @@
               "market": "correct_score",
               "selection": "1-0",
               "label": "1–0",
-              "p": 0.14477267342821326,
-              "fairOdds": 6.907380904973468
+              "p": 0.16724536497585973,
+              "fairOdds": 5.979238947186013
+            },
+            {
+              "market": "correct_score",
+              "selection": "0-0",
+              "label": "0–0",
+              "p": 0.12415183001980026,
+              "fairOdds": 8.054653723916239
             },
             {
               "market": "correct_score",
               "selection": "1-1",
               "label": "1–1",
-              "p": 0.11957331336561636,
-              "fairOdds": 8.363070085231517
-            },
-            {
-              "market": "correct_score",
-              "selection": "2-0",
-              "label": "2–0",
-              "p": 0.09803168668923434,
-              "fairOdds": 10.2007833770121
+              "p": 0.12289092752050602,
+              "fairOdds": 8.137297196598475
             }
           ]
         }
@@ -9057,44 +9057,44 @@
       "mostLikelyScore": {
         "home": 1,
         "away": 0,
-        "p": 0.14477267342821326
+        "p": 0.16724536497585973
       },
       "factors": [
         {
           "key": "home_attack",
           "label": "Ataque local",
-          "value": "1.00 goles/partido",
-          "detail": "7 % más que la media · 24 partidos"
+          "value": "0.88 goles/partido",
+          "detail": "6 % más que la media · 24 partidos"
         },
         {
           "key": "away_defense",
           "label": "Defensa visitante",
-          "value": "0.93 concedidos/partido",
-          "detail": "13 % menos que la media · 24 partidos"
+          "value": "0.82 concedidos/partido",
+          "detail": "12 % menos que la media · 24 partidos"
         },
         {
           "key": "away_attack",
           "label": "Ataque visitante",
-          "value": "0.91 goles/partido",
-          "detail": "15 % más que la media · ajustado por rival"
+          "value": "0.80 goles/partido",
+          "detail": "12 % más que la media · ajustado por rival"
         },
         {
           "key": "home_defense",
           "label": "Defensa local",
-          "value": "0.79 concedidos/partido",
-          "detail": "26 % menos que la media · ajustado por rival"
+          "value": "0.72 concedidos/partido",
+          "detail": "24 % menos que la media · ajustado por rival"
         },
         {
           "key": "home_advantage",
           "label": "Localía",
-          "value": "×1.42",
+          "value": "×1.41",
           "detail": "estimada de 242 partidos"
         },
         {
           "key": "uncertainty",
           "label": "Intervalo 90%",
-          "value": "goles 1.7–3.3",
-          "detail": "local 32%–68% · 242 partidos"
+          "value": "goles 1.5–2.8",
+          "detail": "local 28%–66% · 242 partidos"
         },
         {
           "key": "home_position",
@@ -9122,14 +9122,14 @@
         }
       ],
       "steps": [
-        "Sincronizando Brasileirão Serie B · corte 19 nov 2026, 10:05",
-        "Fuerza ajustada por rival · ATL 1.07 / 0.74 · VIL 1.15 / 0.87",
-        "Ponderando 210.6 partidos por antigüedad y calidad del rival",
-        "Proyección de goles 1.42 – 0.91 · total 2.32",
+        "Sincronizando Brasileirão Serie B · corte 21 nov 2026, 22:33",
+        "Fuerza ajustada por rival · ATL 1.06 / 0.76 · VIL 1.12 / 0.88",
+        "Ponderando 209.4 partidos por antigüedad y calidad del rival",
+        "Proyección de goles 1.23 – 0.80 · total 2.04",
         "Simulando 121 marcadores con incertidumbre del ajuste",
         "20 mercados listos · marcador proyectado 1–0"
       ],
-      "inputsAsOf": "2026-11-19T16:05:39.021Z",
+      "inputsAsOf": "2026-11-22T04:33:15.743Z",
       "publishedAt": "2026-11-19T16:05:39.021Z",
       "source": "pitchlab-football-v2",
       "picks": [
@@ -9137,31 +9137,31 @@
           "profile": "conservadora",
           "market": "totals",
           "selection": "under_3.5",
-          "label": "Menos de 3.5",
+          "label": "Menos de 3.5 goles",
           "line": 3.5,
-          "p": 0.7942964659556297,
-          "fairOdds": 1.2589757639131445
+          "p": 0.8506679547456166,
+          "fairOdds": 1.1755468093294281
         },
         {
           "profile": "intermedia",
           "market": "totals",
-          "selection": "over_1.5",
-          "label": "Más de 1.5",
-          "line": 1.5,
-          "p": 0.6685200520055867,
-          "fairOdds": 1.4958414440972418
+          "selection": "under_2.5",
+          "label": "Menos de 2.5 goles",
+          "line": 2.5,
+          "p": 0.6670782037704928,
+          "fairOdds": 1.4990746127631662
         },
         {
           "profile": "arriesgada",
-          "market": "double_chance",
-          "selection": "x2",
-          "label": "Vila Nova o empate",
-          "p": 0.5057325939885164,
-          "fairOdds": 1.977329545073195
+          "market": "h2h",
+          "selection": "home",
+          "label": "Goianiense gana",
+          "p": 0.4684514183011567,
+          "fairOdds": 2.1346930779428717
         }
       ],
       "confidence": {
-        "score": 52,
+        "score": 48,
         "level": "media",
         "reasons": [
           "Muestra suficiente"
@@ -9170,13 +9170,13 @@
       "projectedScore": {
         "home": 1,
         "away": 0,
-        "p": 0.14477267342821326
+        "p": 0.16724536497585973
       },
       "insights": {
         "why": [
-          "Se esperan 2.3 goles: 1.4 de Goianiense y 0.9 de Vila Nova.",
-          "Goianiense concede 26 % menos que la media.",
-          "Vila Nova concede 13 % menos que la media."
+          "Se esperan 2.0 goles: 1.2 de Goianiense y 0.8 de Vila Nova.",
+          "Goianiense concede 24 % menos que la media.",
+          "Vila Nova concede 12 % menos que la media."
         ],
         "headToHead": [
           {
@@ -9192,7 +9192,7 @@
           "away": 8
         }
       },
-      "picksAt": "2026-11-19T16:05:39.021Z",
+      "picksAt": "2026-11-22T04:33:15.743Z",
       "matchContext": {
         "weather": {
           "temperatureC": 26,
@@ -9213,145 +9213,145 @@
         "label": "Modelo PitchLab · en validación"
       },
       "projection": {
-        "home": 1.2862736713060194,
-        "away": 1.0004693116934131,
-        "total": 2.2867429829994323,
-        "margin": 0.2858043596126063
+        "home": 1.1316063413789947,
+        "away": 0.8751689836403135,
+        "total": 2.006775325019308,
+        "margin": 0.25643735773868126
       },
       "x12": [
-        0.4365799230880993,
-        0.2678515919454926,
-        0.2955684849664077
+        0.4213225146079778,
+        0.29105306906830536,
+        0.28762441632371694
       ],
       "probabilities": [
         {
           "market": "h2h",
           "selection": "Vila Nova gana",
-          "p": 0.4365799230880993,
-          "fairOdds": 2.290531348593888
+          "p": 0.4213225146079778,
+          "fairOdds": 2.3734786661720566
         },
         {
           "market": "h2h",
           "selection": "Empate",
-          "p": 0.2678515919454926,
-          "fairOdds": 3.7334107023097274
+          "p": 0.29105306906830536,
+          "fairOdds": 3.4357995371810235
         },
         {
           "market": "h2h",
           "selection": "Goianiense gana",
-          "p": 0.2955684849664077,
-          "fairOdds": 3.3833106398798005
+          "p": 0.28762441632371694,
+          "fairOdds": 3.4767562948290007
         },
         {
           "market": "double_chance",
           "selection": "Vila Nova o empate",
-          "p": 0.7044315150335918,
-          "fairOdds": 1.4195844147494077
+          "p": 0.7123755836762832,
+          "fairOdds": 1.4037538945950438
         },
         {
           "market": "double_chance",
           "selection": "Goianiense o empate",
-          "p": 0.5634200769119002,
-          "fairOdds": 1.7748746290352129
+          "p": 0.5786774853920222,
+          "fairOdds": 1.728078291006181
         },
         {
           "market": "double_chance",
           "selection": "Sin empate",
-          "p": 0.732148408054507,
-          "fairOdds": 1.3658433030773618
+          "p": 0.7089469309316947,
+          "fairOdds": 1.4105428155049697
         },
         {
           "market": "totals",
-          "selection": "Más de 1.5",
+          "selection": "Más de 1.5 goles",
           "line": 1.5,
-          "p": 0.6595401664283034,
-          "fairOdds": 1.5162078837676174
+          "p": 0.5891687176870504,
+          "fairOdds": 1.6973066796991274
         },
         {
           "market": "totals",
-          "selection": "Más de 2.5",
+          "selection": "Más de 2.5 goles",
           "line": 2.5,
-          "p": 0.4004425345008573,
-          "fairOdds": 2.4972372159378065
+          "p": 0.32515743268451747,
+          "fairOdds": 3.075433311623682
         },
         {
           "market": "totals",
-          "selection": "Menos de 2.5",
+          "selection": "Menos de 2.5 goles",
           "line": 2.5,
-          "p": 0.5995574654991427,
-          "fairOdds": 1.6678968364900293
+          "p": 0.6748425673154825,
+          "fairOdds": 1.4818270933589603
         },
         {
           "market": "totals",
-          "selection": "Más de 3.5",
+          "selection": "Más de 3.5 goles",
           "line": 3.5,
-          "p": 0.19796305586191587,
-          "fairOdds": 5.051447582712225
+          "p": 0.1441011611030506,
+          "fairOdds": 6.9395693438227966
         },
         {
           "market": "totals",
-          "selection": "Menos de 3.5",
+          "selection": "Menos de 3.5 goles",
           "line": 3.5,
-          "p": 0.8020369441380841,
-          "fairOdds": 1.2468253579947723
+          "p": 0.8558988388969494,
+          "fairOdds": 1.1683623747974268
         },
         {
           "market": "btts",
           "selection": "Sí",
-          "p": 0.4510543907952305,
-          "fairOdds": 2.21702752574241
+          "p": 0.38845888836998016,
+          "fairOdds": 2.5742749874925486
         },
         {
           "market": "btts",
           "selection": "No",
-          "p": 0.5489456092047695,
-          "fairOdds": 1.8216741025557173
+          "p": 0.6115411116300198,
+          "fairOdds": 1.6352130396181712
         },
         {
           "market": "team_totals",
-          "selection": "Vila Nova más de 1.5",
+          "selection": "Vila Nova más de 1.5 goles",
           "line": 1.5,
-          "p": 0.36830605942039807,
-          "fairOdds": 2.7151331736808686
+          "p": 0.3125254444766514,
+          "fairOdds": 3.1997394697720662
         },
         {
           "market": "team_totals",
-          "selection": "Vila Nova menos de 1.5",
+          "selection": "Vila Nova menos de 1.5 goles",
           "line": 1.5,
-          "p": 0.6316939405796019,
-          "fairOdds": 1.5830451042200342
+          "p": 0.6874745555233486,
+          "fairOdds": 1.4545992894802304
         },
         {
           "market": "team_totals",
-          "selection": "Goianiense más de 1.5",
+          "selection": "Goianiense más de 1.5 goles",
           "line": 1.5,
-          "p": 0.26441376034821706,
-          "fairOdds": 3.7819514335527016
+          "p": 0.21844534932065285,
+          "fairOdds": 4.5778040279178205
         },
         {
           "market": "team_totals",
-          "selection": "Goianiense menos de 1.5",
+          "selection": "Goianiense menos de 1.5 goles",
           "line": 1.5,
-          "p": 0.7355862396517829,
-          "fairOdds": 1.3594599057119219
+          "p": 0.7815546506793472,
+          "fairOdds": 1.2795010548920343
         },
         {
           "market": "correct_score",
           "selection": "1–0",
-          "p": 0.13721847353961908,
-          "fairOdds": 7.287648479133315
+          "p": 0.15876835415267923,
+          "fairOdds": 6.298484388383546
+        },
+        {
+          "market": "correct_score",
+          "selection": "0–0",
+          "p": 0.12776525470102423,
+          "fairOdds": 7.826854040560868
         },
         {
           "market": "correct_score",
           "selection": "1–1",
-          "p": 0.12420553679006975,
-          "fairOdds": 8.051170872440126
-        },
-        {
-          "market": "correct_score",
-          "selection": "0–1",
-          "p": 0.10818165382375364,
-          "fairOdds": 9.24371152274276
+          "p": 0.12646765378004068,
+          "fairOdds": 7.9071602114106865
         }
       ],
       "marketGroups": [
@@ -9362,22 +9362,22 @@
               "market": "h2h",
               "selection": "home",
               "label": "Vila Nova gana",
-              "p": 0.4365799230880993,
-              "fairOdds": 2.290531348593888
+              "p": 0.4213225146079778,
+              "fairOdds": 2.3734786661720566
             },
             {
               "market": "h2h",
               "selection": "draw",
               "label": "Empate",
-              "p": 0.2678515919454926,
-              "fairOdds": 3.7334107023097274
+              "p": 0.29105306906830536,
+              "fairOdds": 3.4357995371810235
             },
             {
               "market": "h2h",
               "selection": "away",
               "label": "Goianiense gana",
-              "p": 0.2955684849664077,
-              "fairOdds": 3.3833106398798005
+              "p": 0.28762441632371694,
+              "fairOdds": 3.4767562948290007
             }
           ]
         },
@@ -9388,22 +9388,22 @@
               "market": "double_chance",
               "selection": "1x",
               "label": "Vila Nova o empate",
-              "p": 0.7044315150335918,
-              "fairOdds": 1.4195844147494077
+              "p": 0.7123755836762832,
+              "fairOdds": 1.4037538945950438
             },
             {
               "market": "double_chance",
               "selection": "x2",
               "label": "Goianiense o empate",
-              "p": 0.5634200769119002,
-              "fairOdds": 1.7748746290352129
+              "p": 0.5786774853920222,
+              "fairOdds": 1.728078291006181
             },
             {
               "market": "double_chance",
               "selection": "12",
               "label": "Sin empate",
-              "p": 0.732148408054507,
-              "fairOdds": 1.3658433030773618
+              "p": 0.7089469309316947,
+              "fairOdds": 1.4105428155049697
             }
           ]
         },
@@ -9413,42 +9413,42 @@
             {
               "market": "totals",
               "selection": "over_1.5",
-              "label": "Más de 1.5",
+              "label": "Más de 1.5 goles",
               "line": 1.5,
-              "p": 0.6595401664283034,
-              "fairOdds": 1.5162078837676174
+              "p": 0.5891687176870504,
+              "fairOdds": 1.6973066796991274
             },
             {
               "market": "totals",
               "selection": "over_2.5",
-              "label": "Más de 2.5",
+              "label": "Más de 2.5 goles",
               "line": 2.5,
-              "p": 0.4004425345008573,
-              "fairOdds": 2.4972372159378065
+              "p": 0.32515743268451747,
+              "fairOdds": 3.075433311623682
             },
             {
               "market": "totals",
               "selection": "under_2.5",
-              "label": "Menos de 2.5",
+              "label": "Menos de 2.5 goles",
               "line": 2.5,
-              "p": 0.5995574654991427,
-              "fairOdds": 1.6678968364900293
+              "p": 0.6748425673154825,
+              "fairOdds": 1.4818270933589603
             },
             {
               "market": "totals",
               "selection": "over_3.5",
-              "label": "Más de 3.5",
+              "label": "Más de 3.5 goles",
               "line": 3.5,
-              "p": 0.19796305586191587,
-              "fairOdds": 5.051447582712225
+              "p": 0.1441011611030506,
+              "fairOdds": 6.9395693438227966
             },
             {
               "market": "totals",
               "selection": "under_3.5",
-              "label": "Menos de 3.5",
+              "label": "Menos de 3.5 goles",
               "line": 3.5,
-              "p": 0.8020369441380841,
-              "fairOdds": 1.2468253579947723
+              "p": 0.8558988388969494,
+              "fairOdds": 1.1683623747974268
             }
           ]
         },
@@ -9459,15 +9459,15 @@
               "market": "btts",
               "selection": "yes",
               "label": "Sí",
-              "p": 0.4510543907952305,
-              "fairOdds": 2.21702752574241
+              "p": 0.38845888836998016,
+              "fairOdds": 2.5742749874925486
             },
             {
               "market": "btts",
               "selection": "no",
               "label": "No",
-              "p": 0.5489456092047695,
-              "fairOdds": 1.8216741025557173
+              "p": 0.6115411116300198,
+              "fairOdds": 1.6352130396181712
             }
           ]
         },
@@ -9477,34 +9477,34 @@
             {
               "market": "team_totals",
               "selection": "home_over",
-              "label": "Vila Nova más de 1.5",
+              "label": "Vila Nova más de 1.5 goles",
               "line": 1.5,
-              "p": 0.36830605942039807,
-              "fairOdds": 2.7151331736808686
+              "p": 0.3125254444766514,
+              "fairOdds": 3.1997394697720662
             },
             {
               "market": "team_totals",
               "selection": "home_under",
-              "label": "Vila Nova menos de 1.5",
+              "label": "Vila Nova menos de 1.5 goles",
               "line": 1.5,
-              "p": 0.6316939405796019,
-              "fairOdds": 1.5830451042200342
+              "p": 0.6874745555233486,
+              "fairOdds": 1.4545992894802304
             },
             {
               "market": "team_totals",
               "selection": "away_over",
-              "label": "Goianiense más de 1.5",
+              "label": "Goianiense más de 1.5 goles",
               "line": 1.5,
-              "p": 0.26441376034821706,
-              "fairOdds": 3.7819514335527016
+              "p": 0.21844534932065285,
+              "fairOdds": 4.5778040279178205
             },
             {
               "market": "team_totals",
               "selection": "away_under",
-              "label": "Goianiense menos de 1.5",
+              "label": "Goianiense menos de 1.5 goles",
               "line": 1.5,
-              "p": 0.7355862396517829,
-              "fairOdds": 1.3594599057119219
+              "p": 0.7815546506793472,
+              "fairOdds": 1.2795010548920343
             }
           ]
         },
@@ -9515,22 +9515,22 @@
               "market": "correct_score",
               "selection": "1-0",
               "label": "1–0",
-              "p": 0.13721847353961908,
-              "fairOdds": 7.287648479133315
+              "p": 0.15876835415267923,
+              "fairOdds": 6.298484388383546
+            },
+            {
+              "market": "correct_score",
+              "selection": "0-0",
+              "label": "0–0",
+              "p": 0.12776525470102423,
+              "fairOdds": 7.826854040560868
             },
             {
               "market": "correct_score",
               "selection": "1-1",
               "label": "1–1",
-              "p": 0.12420553679006975,
-              "fairOdds": 8.051170872440126
-            },
-            {
-              "market": "correct_score",
-              "selection": "0-1",
-              "label": "0–1",
-              "p": 0.10818165382375364,
-              "fairOdds": 9.24371152274276
+              "p": 0.12646765378004068,
+              "fairOdds": 7.9071602114106865
             }
           ]
         }
@@ -9538,44 +9538,44 @@
       "mostLikelyScore": {
         "home": 1,
         "away": 0,
-        "p": 0.13721847353961908
+        "p": 0.15876835415267923
       },
       "factors": [
         {
           "key": "home_attack",
           "label": "Ataque local",
-          "value": "0.91 goles/partido",
-          "detail": "15 % más que la media · 24 partidos"
+          "value": "0.80 goles/partido",
+          "detail": "12 % más que la media · 24 partidos"
         },
         {
           "key": "away_defense",
           "label": "Defensa visitante",
-          "value": "0.79 concedidos/partido",
-          "detail": "26 % menos que la media · 24 partidos"
+          "value": "0.72 concedidos/partido",
+          "detail": "24 % menos que la media · 24 partidos"
         },
         {
           "key": "away_attack",
           "label": "Ataque visitante",
-          "value": "1.00 goles/partido",
-          "detail": "7 % más que la media · ajustado por rival"
+          "value": "0.88 goles/partido",
+          "detail": "6 % más que la media · ajustado por rival"
         },
         {
           "key": "home_defense",
           "label": "Defensa local",
-          "value": "0.93 concedidos/partido",
-          "detail": "13 % menos que la media · ajustado por rival"
+          "value": "0.82 concedidos/partido",
+          "detail": "12 % menos que la media · ajustado por rival"
         },
         {
           "key": "home_advantage",
           "label": "Localía",
-          "value": "×1.42",
+          "value": "×1.41",
           "detail": "estimada de 242 partidos"
         },
         {
           "key": "uncertainty",
           "label": "Intervalo 90%",
-          "value": "goles 1.7–3.3",
-          "detail": "local 27%–64% · 242 partidos"
+          "value": "goles 1.5–2.8",
+          "detail": "local 26%–61% · 242 partidos"
         },
         {
           "key": "home_position",
@@ -9603,14 +9603,14 @@
         }
       ],
       "steps": [
-        "Sincronizando Brasileirão Serie B · corte 19 nov 2026, 10:05",
-        "Fuerza ajustada por rival · VIL 1.15 / 0.87 · ATL 1.07 / 0.74",
-        "Ponderando 210.6 partidos por antigüedad y calidad del rival",
-        "Proyección de goles 1.29 – 1.00 · total 2.29",
+        "Sincronizando Brasileirão Serie B · corte 21 nov 2026, 22:33",
+        "Fuerza ajustada por rival · VIL 1.12 / 0.88 · ATL 1.06 / 0.76",
+        "Ponderando 209.4 partidos por antigüedad y calidad del rival",
+        "Proyección de goles 1.13 – 0.88 · total 2.01",
         "Simulando 121 marcadores con incertidumbre del ajuste",
         "20 mercados listos · marcador proyectado 1–0"
       ],
-      "inputsAsOf": "2026-11-19T16:05:39.021Z",
+      "inputsAsOf": "2026-11-22T04:33:15.743Z",
       "publishedAt": "2026-11-19T16:05:39.021Z",
       "source": "pitchlab-football-v2",
       "picks": [
@@ -9618,46 +9618,47 @@
           "profile": "conservadora",
           "market": "totals",
           "selection": "under_3.5",
-          "label": "Menos de 3.5",
+          "label": "Menos de 3.5 goles",
           "line": 3.5,
-          "p": 0.8020369441380841,
-          "fairOdds": 1.2468253579947723
+          "p": 0.8558988388969494,
+          "fairOdds": 1.1683623747974268
         },
         {
           "profile": "intermedia",
-          "market": "totals",
-          "selection": "over_1.5",
-          "label": "Más de 1.5",
+          "market": "team_totals",
+          "selection": "home_under",
+          "label": "Vila Nova menos de 1.5 goles",
           "line": 1.5,
-          "p": 0.6595401664283034,
-          "fairOdds": 1.5162078837676174
+          "p": 0.6874745555233486,
+          "fairOdds": 1.4545992894802304
         },
         {
           "profile": "arriesgada",
-          "market": "btts",
-          "selection": "yes",
-          "label": "Ambos anotan: Sí",
-          "p": 0.4510543907952305,
-          "fairOdds": 2.21702752574241
+          "market": "h2h",
+          "selection": "home",
+          "label": "Vila Nova gana",
+          "p": 0.4213225146079778,
+          "fairOdds": 2.3734786661720566
         }
       ],
       "confidence": {
-        "score": 44,
+        "score": 43,
         "level": "baja",
         "reasons": [
+          "Partido parejo",
           "Muestra suficiente"
         ]
       },
       "projectedScore": {
         "home": 1,
         "away": 0,
-        "p": 0.13721847353961908
+        "p": 0.15876835415267923
       },
       "insights": {
         "why": [
-          "Se esperan 2.3 goles: 1.3 de Vila Nova y 1.0 de Goianiense.",
-          "Goianiense concede 26 % menos que la media.",
-          "Vila Nova concede 13 % menos que la media."
+          "Se esperan 2.0 goles: 1.1 de Vila Nova y 0.9 de Goianiense.",
+          "Goianiense concede 24 % menos que la media.",
+          "Vila Nova concede 12 % menos que la media."
         ],
         "headToHead": [
           {
@@ -9673,7 +9674,7 @@
           "away": 13
         }
       },
-      "picksAt": "2026-11-19T16:05:39.021Z",
+      "picksAt": "2026-11-22T04:33:15.743Z",
       "matchContext": {
         "weather": {
           "temperatureC": 22,
@@ -9694,145 +9695,145 @@
         "label": "Modelo PitchLab · en validación"
       },
       "projection": {
-        "home": 1.1898646259051056,
-        "away": 0.5989940613076576,
-        "total": 1.7888586872127632,
-        "margin": 0.5908705645974479
+        "home": 1.0632930421574662,
+        "away": 0.5710916039934317,
+        "total": 1.634384646150898,
+        "margin": 0.4922014381640345
       },
       "x12": [
-        0.510312161183316,
-        0.2973547493703954,
-        0.19233308944628816
+        0.4774344177786781,
+        0.32092527466495085,
+        0.20164030755637094
       ],
       "probabilities": [
         {
           "market": "h2h",
           "selection": "Fortaleza gana",
-          "p": 0.510312161183316,
-          "fairOdds": 1.9595848895334804
+          "p": 0.4774344177786781,
+          "fairOdds": 2.094528510643665
         },
         {
           "market": "h2h",
           "selection": "Empate",
-          "p": 0.2973547493703954,
-          "fairOdds": 3.362986473622337
+          "p": 0.32092527466495085,
+          "fairOdds": 3.1159901663837783
         },
         {
           "market": "h2h",
           "selection": "Criciúma gana",
-          "p": 0.19233308944628816,
-          "fairOdds": 5.199313352054612
+          "p": 0.20164030755637094,
+          "fairOdds": 4.959325901248381
         },
         {
           "market": "double_chance",
           "selection": "Fortaleza o empate",
-          "p": 0.8076669105537114,
-          "fairOdds": 1.2381341700806228
+          "p": 0.7983596924436289,
+          "fairOdds": 1.2525682464494017
         },
         {
           "market": "double_chance",
           "selection": "Criciúma o empate",
-          "p": 0.48968783881668354,
-          "fairOdds": 2.0421172852004474
+          "p": 0.5225655822213218,
+          "fairOdds": 1.9136354058168163
         },
         {
           "market": "double_chance",
           "selection": "Sin empate",
-          "p": 0.7026452506296041,
-          "fairOdds": 1.4231932815370938
+          "p": 0.6790747253350491,
+          "fairOdds": 1.4725919883214758
         },
         {
           "market": "totals",
-          "selection": "Más de 1.5",
+          "selection": "Más de 1.5 goles",
           "line": 1.5,
-          "p": 0.5278833199608164,
-          "fairOdds": 1.8943580184996711
+          "p": 0.480181560983452,
+          "fairOdds": 2.082545606190951
         },
         {
           "market": "totals",
-          "selection": "Más de 2.5",
+          "selection": "Más de 2.5 goles",
           "line": 2.5,
-          "p": 0.2663972886020739,
-          "fairOdds": 3.7537919595485514
+          "p": 0.22556437550457054,
+          "fairOdds": 4.4333241796851794
         },
         {
           "market": "totals",
-          "selection": "Menos de 2.5",
+          "selection": "Menos de 2.5 goles",
           "line": 2.5,
-          "p": 0.7336027113979261,
-          "fairOdds": 1.363135637945554
+          "p": 0.7744356244954295,
+          "fairOdds": 1.2912629124616177
         },
         {
           "market": "totals",
-          "selection": "Más de 3.5",
+          "selection": "Más de 3.5 goles",
           "line": 3.5,
-          "p": 0.10692492877764681,
-          "fairOdds": 9.352356007451977
+          "p": 0.0836235437255658,
+          "fairOdds": 11.958354734185644
         },
         {
           "market": "totals",
-          "selection": "Menos de 3.5",
+          "selection": "Menos de 3.5 goles",
           "line": 3.5,
-          "p": 0.8930750712223532,
-          "fairOdds": 1.1197266973663238
+          "p": 0.9163764562744342,
+          "fairOdds": 1.0912545746379612
         },
         {
           "market": "btts",
           "selection": "Sí",
-          "p": 0.3075677862915181,
-          "fairOdds": 3.2513157897888
+          "p": 0.27892436587695185,
+          "fairOdds": 3.585201303069924
         },
         {
           "market": "btts",
           "selection": "No",
-          "p": 0.692432213708482,
-          "fairOdds": 1.4441846872551858
+          "p": 0.7210756341230482,
+          "fairOdds": 1.3868170725476971
         },
         {
           "market": "team_totals",
-          "selection": "Fortaleza más de 1.5",
+          "selection": "Fortaleza más de 1.5 goles",
           "line": 1.5,
-          "p": 0.3337063844640056,
-          "fairOdds": 2.996646293136362
+          "p": 0.28751025000495156,
+          "fairOdds": 3.478136866364861
         },
         {
           "market": "team_totals",
-          "selection": "Fortaleza menos de 1.5",
+          "selection": "Fortaleza menos de 1.5 goles",
           "line": 1.5,
-          "p": 0.6662936155359944,
-          "fairOdds": 1.500839834996105
+          "p": 0.7124897499950484,
+          "fairOdds": 1.4035289630579943
         },
         {
           "market": "team_totals",
-          "selection": "Criciúma más de 1.5",
+          "selection": "Criciúma más de 1.5 goles",
           "line": 1.5,
-          "p": 0.12157025088880857,
-          "fairOdds": 8.225696604958289
+          "p": 0.11247708392438072,
+          "fairOdds": 8.890699910679658
         },
         {
           "market": "team_totals",
-          "selection": "Criciúma menos de 1.5",
+          "selection": "Criciúma menos de 1.5 goles",
           "line": 1.5,
-          "p": 0.8784297491111914,
-          "fairOdds": 1.138394961022
+          "p": 0.8875229160756193,
+          "fairOdds": 1.1267314701255526
         },
         {
           "market": "correct_score",
           "selection": "1–0",
-          "p": 0.2048434766612525,
-          "fairOdds": 4.881776155623884
+          "p": 0.21334186604832756,
+          "fairOdds": 4.687312521085166
         },
         {
           "market": "correct_score",
           "selection": "0–0",
-          "p": 0.16119423898293206,
-          "fairOdds": 6.2036956550654665
+          "p": 0.18914961120371301,
+          "fairOdds": 5.286820277536843
         },
         {
           "market": "correct_score",
-          "selection": "2–0",
-          "p": 0.11832422787308172,
-          "fairOdds": 8.451354536389887
+          "selection": "0–1",
+          "p": 0.11732696176450742,
+          "fairOdds": 8.523190108741996
         }
       ],
       "marketGroups": [
@@ -9843,22 +9844,22 @@
               "market": "h2h",
               "selection": "home",
               "label": "Fortaleza gana",
-              "p": 0.510312161183316,
-              "fairOdds": 1.9595848895334804
+              "p": 0.4774344177786781,
+              "fairOdds": 2.094528510643665
             },
             {
               "market": "h2h",
               "selection": "draw",
               "label": "Empate",
-              "p": 0.2973547493703954,
-              "fairOdds": 3.362986473622337
+              "p": 0.32092527466495085,
+              "fairOdds": 3.1159901663837783
             },
             {
               "market": "h2h",
               "selection": "away",
               "label": "Criciúma gana",
-              "p": 0.19233308944628816,
-              "fairOdds": 5.199313352054612
+              "p": 0.20164030755637094,
+              "fairOdds": 4.959325901248381
             }
           ]
         },
@@ -9869,22 +9870,22 @@
               "market": "double_chance",
               "selection": "1x",
               "label": "Fortaleza o empate",
-              "p": 0.8076669105537114,
-              "fairOdds": 1.2381341700806228
+              "p": 0.7983596924436289,
+              "fairOdds": 1.2525682464494017
             },
             {
               "market": "double_chance",
               "selection": "x2",
               "label": "Criciúma o empate",
-              "p": 0.48968783881668354,
-              "fairOdds": 2.0421172852004474
+              "p": 0.5225655822213218,
+              "fairOdds": 1.9136354058168163
             },
             {
               "market": "double_chance",
               "selection": "12",
               "label": "Sin empate",
-              "p": 0.7026452506296041,
-              "fairOdds": 1.4231932815370938
+              "p": 0.6790747253350491,
+              "fairOdds": 1.4725919883214758
             }
           ]
         },
@@ -9894,42 +9895,42 @@
             {
               "market": "totals",
               "selection": "over_1.5",
-              "label": "Más de 1.5",
+              "label": "Más de 1.5 goles",
               "line": 1.5,
-              "p": 0.5278833199608164,
-              "fairOdds": 1.8943580184996711
+              "p": 0.480181560983452,
+              "fairOdds": 2.082545606190951
             },
             {
               "market": "totals",
               "selection": "over_2.5",
-              "label": "Más de 2.5",
+              "label": "Más de 2.5 goles",
               "line": 2.5,
-              "p": 0.2663972886020739,
-              "fairOdds": 3.7537919595485514
+              "p": 0.22556437550457054,
+              "fairOdds": 4.4333241796851794
             },
             {
               "market": "totals",
               "selection": "under_2.5",
-              "label": "Menos de 2.5",
+              "label": "Menos de 2.5 goles",
               "line": 2.5,
-              "p": 0.7336027113979261,
-              "fairOdds": 1.363135637945554
+              "p": 0.7744356244954295,
+              "fairOdds": 1.2912629124616177
             },
             {
               "market": "totals",
               "selection": "over_3.5",
-              "label": "Más de 3.5",
+              "label": "Más de 3.5 goles",
               "line": 3.5,
-              "p": 0.10692492877764681,
-              "fairOdds": 9.352356007451977
+              "p": 0.0836235437255658,
+              "fairOdds": 11.958354734185644
             },
             {
               "market": "totals",
               "selection": "under_3.5",
-              "label": "Menos de 3.5",
+              "label": "Menos de 3.5 goles",
               "line": 3.5,
-              "p": 0.8930750712223532,
-              "fairOdds": 1.1197266973663238
+              "p": 0.9163764562744342,
+              "fairOdds": 1.0912545746379612
             }
           ]
         },
@@ -9940,15 +9941,15 @@
               "market": "btts",
               "selection": "yes",
               "label": "Sí",
-              "p": 0.3075677862915181,
-              "fairOdds": 3.2513157897888
+              "p": 0.27892436587695185,
+              "fairOdds": 3.585201303069924
             },
             {
               "market": "btts",
               "selection": "no",
               "label": "No",
-              "p": 0.692432213708482,
-              "fairOdds": 1.4441846872551858
+              "p": 0.7210756341230482,
+              "fairOdds": 1.3868170725476971
             }
           ]
         },
@@ -9958,34 +9959,34 @@
             {
               "market": "team_totals",
               "selection": "home_over",
-              "label": "Fortaleza más de 1.5",
+              "label": "Fortaleza más de 1.5 goles",
               "line": 1.5,
-              "p": 0.3337063844640056,
-              "fairOdds": 2.996646293136362
+              "p": 0.28751025000495156,
+              "fairOdds": 3.478136866364861
             },
             {
               "market": "team_totals",
               "selection": "home_under",
-              "label": "Fortaleza menos de 1.5",
+              "label": "Fortaleza menos de 1.5 goles",
               "line": 1.5,
-              "p": 0.6662936155359944,
-              "fairOdds": 1.500839834996105
+              "p": 0.7124897499950484,
+              "fairOdds": 1.4035289630579943
             },
             {
               "market": "team_totals",
               "selection": "away_over",
-              "label": "Criciúma más de 1.5",
+              "label": "Criciúma más de 1.5 goles",
               "line": 1.5,
-              "p": 0.12157025088880857,
-              "fairOdds": 8.225696604958289
+              "p": 0.11247708392438072,
+              "fairOdds": 8.890699910679658
             },
             {
               "market": "team_totals",
               "selection": "away_under",
-              "label": "Criciúma menos de 1.5",
+              "label": "Criciúma menos de 1.5 goles",
               "line": 1.5,
-              "p": 0.8784297491111914,
-              "fairOdds": 1.138394961022
+              "p": 0.8875229160756193,
+              "fairOdds": 1.1267314701255526
             }
           ]
         },
@@ -9996,22 +9997,22 @@
               "market": "correct_score",
               "selection": "1-0",
               "label": "1–0",
-              "p": 0.2048434766612525,
-              "fairOdds": 4.881776155623884
+              "p": 0.21334186604832756,
+              "fairOdds": 4.687312521085166
             },
             {
               "market": "correct_score",
               "selection": "0-0",
               "label": "0–0",
-              "p": 0.16119423898293206,
-              "fairOdds": 6.2036956550654665
+              "p": 0.18914961120371301,
+              "fairOdds": 5.286820277536843
             },
             {
               "market": "correct_score",
-              "selection": "2-0",
-              "label": "2–0",
-              "p": 0.11832422787308172,
-              "fairOdds": 8.451354536389887
+              "selection": "0-1",
+              "label": "0–1",
+              "p": 0.11732696176450742,
+              "fairOdds": 8.523190108741996
             }
           ]
         }
@@ -10019,44 +10020,44 @@
       "mostLikelyScore": {
         "home": 1,
         "away": 0,
-        "p": 0.2048434766612525
+        "p": 0.21334186604832756
       },
       "factors": [
         {
           "key": "home_attack",
           "label": "Ataque local",
-          "value": "0.84 goles/partido",
+          "value": "0.76 goles/partido",
           "detail": "en la media de la liga · 24 partidos"
         },
         {
           "key": "away_defense",
           "label": "Defensa visitante",
-          "value": "0.82 concedidos/partido",
-          "detail": "23 % menos que la media · 25 partidos"
+          "value": "0.74 concedidos/partido",
+          "detail": "21 % menos que la media · 25 partidos"
         },
         {
           "key": "away_attack",
           "label": "Ataque visitante",
-          "value": "0.60 goles/partido",
-          "detail": "20 % menos que la media · ajustado por rival"
+          "value": "0.57 goles/partido",
+          "detail": "18 % menos que la media · ajustado por rival"
         },
         {
           "key": "home_defense",
           "label": "Defensa local",
-          "value": "0.75 concedidos/partido",
-          "detail": "30 % menos que la media · ajustado por rival"
+          "value": "0.70 concedidos/partido",
+          "detail": "26 % menos que la media · ajustado por rival"
         },
         {
           "key": "home_advantage",
           "label": "Localía",
-          "value": "×1.42",
+          "value": "×1.41",
           "detail": "estimada de 242 partidos"
         },
         {
           "key": "uncertainty",
           "label": "Intervalo 90%",
-          "value": "goles 1.3–2.4",
-          "detail": "local 37%–68% · 242 partidos"
+          "value": "goles 1.2–2.3",
+          "detail": "local 31%–65% · 242 partidos"
         },
         {
           "key": "home_position",
@@ -10084,14 +10085,14 @@
         }
       ],
       "steps": [
-        "Sincronizando Brasileirão Serie B · corte 19 nov 2026, 10:05",
-        "Fuerza ajustada por rival · FOR 1.02 / 0.70 · CRI 0.80 / 0.77",
-        "Ponderando 210.6 partidos por antigüedad y calidad del rival",
-        "Proyección de goles 1.19 – 0.60 · total 1.79",
+        "Sincronizando Brasileirão Serie B · corte 21 nov 2026, 22:33",
+        "Fuerza ajustada por rival · FOR 1.02 / 0.74 · CRI 0.82 / 0.79",
+        "Ponderando 209.4 partidos por antigüedad y calidad del rival",
+        "Proyección de goles 1.06 – 0.57 · total 1.63",
         "Simulando 121 marcadores con incertidumbre del ajuste",
         "20 mercados listos · marcador proyectado 1–0"
       ],
-      "inputsAsOf": "2026-11-19T16:05:39.021Z",
+      "inputsAsOf": "2026-11-22T04:33:15.743Z",
       "publishedAt": "2026-11-19T16:05:39.021Z",
       "source": "pitchlab-football-v2",
       "picks": [
@@ -10099,30 +10100,31 @@
           "profile": "conservadora",
           "market": "totals",
           "selection": "under_3.5",
-          "label": "Menos de 3.5",
+          "label": "Menos de 3.5 goles",
           "line": 3.5,
-          "p": 0.8930750712223532,
-          "fairOdds": 1.1197266973663238
+          "p": 0.9163764562744342,
+          "fairOdds": 1.0912545746379612
         },
         {
           "profile": "intermedia",
-          "market": "btts",
-          "selection": "no",
-          "label": "Ambos anotan: No",
-          "p": 0.692432213708482,
-          "fairOdds": 1.4441846872551858
+          "market": "double_chance",
+          "selection": "12",
+          "label": "Sin empate",
+          "p": 0.6790747253350491,
+          "fairOdds": 1.4725919883214758
         },
         {
           "profile": "arriesgada",
-          "market": "h2h",
-          "selection": "home",
-          "label": "Fortaleza gana",
-          "p": 0.510312161183316,
-          "fairOdds": 1.9595848895334804
+          "market": "totals",
+          "selection": "over_1.5",
+          "label": "Más de 1.5 goles",
+          "line": 1.5,
+          "p": 0.480181560983452,
+          "fairOdds": 2.082545606190951
         }
       ],
       "confidence": {
-        "score": 57,
+        "score": 51,
         "level": "media",
         "reasons": [
           "Muestra suficiente"
@@ -10131,13 +10133,13 @@
       "projectedScore": {
         "home": 1,
         "away": 0,
-        "p": 0.2048434766612525
+        "p": 0.21334186604832756
       },
       "insights": {
         "why": [
-          "Se esperan 1.8 goles: 1.2 de Fortaleza y 0.6 de Criciúma.",
-          "Fortaleza concede 30 % menos que la media.",
-          "Criciúma concede 23 % menos que la media."
+          "Fortaleza gana en 48% de los escenarios; el empate, en 32%.",
+          "Fortaleza concede 26 % menos que la media.",
+          "Criciúma concede 21 % menos que la media."
         ],
         "headToHead": [
           {
@@ -10153,7 +10155,7 @@
           "away": 14
         }
       },
-      "picksAt": "2026-11-19T16:05:39.021Z",
+      "picksAt": "2026-11-22T04:33:15.743Z",
       "matchContext": {
         "weather": {
           "description": "cloudy",

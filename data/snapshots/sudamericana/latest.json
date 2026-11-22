@@ -5,164 +5,21 @@
   "season": "sudamericana-2026",
   "seasonLabel": "2026",
   "periodLabel": "Round of 16",
-  "updatedAt": "2026-11-19T16:05:39.021Z",
+  "updatedAt": "2026-11-22T04:33:15.743Z",
   "source": "pitchlab-football-v2",
   "provenance": "derived",
   "isDemo": false,
   "teamRates": {
-    "sudamericana.nacional": {
-      "teamId": "sudamericana.nacional",
-      "name": "Nacional",
-      "shortName": "Nacional",
-      "code": "NAC",
-      "forPerGame": 1,
-      "againstPerGame": 2,
-      "gamesPlayed": 2,
-      "adjustedFor": 0.9879348210519516,
-      "adjustedAgainst": 1.2475234048693085
-    },
-    "sudamericana.tigre": {
-      "teamId": "sudamericana.tigre",
-      "name": "Tigre",
-      "shortName": "Tigre",
-      "code": "TIG",
-      "forPerGame": 1.25,
-      "againstPerGame": 1.25,
-      "gamesPlayed": 4,
-      "adjustedFor": 1.070982811564731,
-      "adjustedAgainst": 1.0937401384215828
-    },
-    "sudamericana.universidad-central": {
-      "teamId": "sudamericana.universidad-central",
-      "name": "Universidad Central",
-      "shortName": "Universidad Central",
-      "code": "UNI",
-      "forPerGame": 1.5,
-      "againstPerGame": 4,
-      "gamesPlayed": 2,
-      "adjustedFor": 1.1181932675778348,
-      "adjustedAgainst": 1.6079680981325344
-    },
-    "sudamericana.santos": {
-      "teamId": "sudamericana.santos",
-      "name": "Santos",
-      "shortName": "Santos",
-      "code": "SAN",
-      "forPerGame": 2.3333333333333335,
+    "sudamericana.atletico-mineiro": {
+      "teamId": "sudamericana.atletico-mineiro",
+      "name": "Atlético Mineiro",
+      "shortName": "Mineiro",
+      "code": "ATL",
+      "forPerGame": 1.6666666666666667,
       "againstPerGame": 1.3333333333333333,
       "gamesPlayed": 6,
-      "adjustedFor": 1.5397387444370563,
-      "adjustedAgainst": 1.1288783079436417
-    },
-    "sudamericana.independiente-medellin": {
-      "teamId": "sudamericana.independiente-medellin",
-      "name": "Independiente Medellín",
-      "shortName": "Independiente Medellín",
-      "code": "IND",
-      "forPerGame": 1,
-      "againstPerGame": 1.5,
-      "gamesPlayed": 2,
-      "adjustedFor": 1.0759522570864986,
-      "adjustedAgainst": 1.0530481545764743
-    },
-    "sudamericana.vasco-gama": {
-      "teamId": "sudamericana.vasco-gama",
-      "name": "Vasco da Gama",
-      "shortName": "Vasco da Gama",
-      "code": "VAS",
-      "forPerGame": 1.375,
-      "againstPerGame": 0.75,
-      "gamesPlayed": 8,
-      "adjustedFor": 1.2630278098137153,
-      "adjustedAgainst": 0.8158914385372867
-    },
-    "sudamericana.sporting-cristal": {
-      "teamId": "sudamericana.sporting-cristal",
-      "name": "Club Sporting Cristal",
-      "shortName": "Sporting Cristal",
-      "code": "SPO",
-      "forPerGame": 0,
-      "againstPerGame": 0.5,
-      "gamesPlayed": 2,
-      "adjustedFor": 0.7526239612518059,
-      "adjustedAgainst": 0.8702787161588028
-    },
-    "sudamericana.red-bull-bragantino": {
-      "teamId": "sudamericana.red-bull-bragantino",
-      "name": "Red Bull Bragantino",
-      "shortName": "Red Bull Bragantino",
-      "code": "RED",
-      "forPerGame": 0.75,
-      "againstPerGame": 0.75,
-      "gamesPlayed": 4,
-      "adjustedFor": 0.8931754473098961,
-      "adjustedAgainst": 0.861207814543522
-    },
-    "sudamericana.lanus": {
-      "teamId": "sudamericana.lanus",
-      "name": "CA Lanús",
-      "shortName": "Lanús",
-      "code": "LAN",
-      "forPerGame": 1,
-      "againstPerGame": 2,
-      "gamesPlayed": 2,
-      "adjustedFor": 0.9853190233792638,
-      "adjustedAgainst": 1.1489385171521402
-    },
-    "sudamericana.cienciano": {
-      "teamId": "sudamericana.cienciano",
-      "name": "Cienciano",
-      "shortName": "Cienciano",
-      "code": "CIE",
-      "forPerGame": 2,
-      "againstPerGame": 1.1666666666666667,
-      "gamesPlayed": 6,
-      "adjustedFor": 1.4064715042243392,
-      "adjustedAgainst": 1.0892298769108577
-    },
-    "sudamericana.bolivar": {
-      "teamId": "sudamericana.bolivar",
-      "name": "Bolívar",
-      "shortName": "Bolívar",
-      "code": "BOL",
-      "forPerGame": 1.5,
-      "againstPerGame": 1.5,
-      "gamesPlayed": 4,
-      "adjustedFor": 1.1891499828372802,
-      "adjustedAgainst": 1.2113633049284145
-    },
-    "sudamericana.gremio": {
-      "teamId": "sudamericana.gremio",
-      "name": "Grêmio",
-      "shortName": "Grêmio",
-      "code": "GRE",
-      "forPerGame": 1,
-      "againstPerGame": 2,
-      "gamesPlayed": 2,
-      "adjustedFor": 0.9487827445885518,
-      "adjustedAgainst": 1.20936105913366
-    },
-    "sudamericana.independiente-santa-fe": {
-      "teamId": "sudamericana.independiente-santa-fe",
-      "name": "Independiente Santa Fe",
-      "shortName": "Independiente Santa Fe",
-      "code": "IND",
-      "forPerGame": 1,
-      "againstPerGame": 0.5,
-      "gamesPlayed": 6,
-      "adjustedFor": 0.9469208614060193,
-      "adjustedAgainst": 0.7299972168462152
-    },
-    "sudamericana.caracas-f-c": {
-      "teamId": "sudamericana.caracas-f-c",
-      "name": "Caracas F.C.",
-      "shortName": "Caracas F.C.",
-      "code": "CAR",
-      "forPerGame": 0,
-      "againstPerGame": 2.5,
-      "gamesPlayed": 2,
-      "adjustedFor": 0.7860208745723439,
-      "adjustedAgainst": 1.4414000357597123
+      "adjustedFor": 1.2308810415694702,
+      "adjustedAgainst": 1.0660176928788672
     },
     "sudamericana.boca-juniors": {
       "teamId": "sudamericana.boca-juniors",
@@ -172,96 +29,19 @@
       "forPerGame": 1.625,
       "againstPerGame": 0.625,
       "gamesPlayed": 8,
-      "adjustedFor": 1.3578269880264815,
-      "adjustedAgainst": 0.741570584014628
+      "adjustedFor": 1.22307626143862,
+      "adjustedAgainst": 0.8330469219111667
     },
-    "sudamericana.o-higgins": {
-      "teamId": "sudamericana.o-higgins",
-      "name": "O'Higgins",
-      "shortName": "O'Higgins",
-      "code": "OHI",
-      "forPerGame": 0.5,
-      "againstPerGame": 0.5,
-      "gamesPlayed": 2,
-      "adjustedFor": 0.9450857596650066,
-      "adjustedAgainst": 0.7661508182936778
-    },
-    "sudamericana.recoleta": {
-      "teamId": "sudamericana.recoleta",
-      "name": "Recoleta FC",
-      "shortName": "Recoleta",
-      "code": "REC",
-      "forPerGame": 0.5,
-      "againstPerGame": 3.5,
-      "gamesPlayed": 2,
-      "adjustedFor": 0.9401108800383019,
-      "adjustedAgainst": 1.5666797687303073
-    },
-    "sudamericana.sao-paulo": {
-      "teamId": "sudamericana.sao-paulo",
-      "name": "São Paulo",
-      "shortName": "São Paulo",
-      "code": "SAO",
-      "forPerGame": 1.25,
-      "againstPerGame": 1,
+    "sudamericana.bolivar": {
+      "teamId": "sudamericana.bolivar",
+      "name": "Bolívar",
+      "shortName": "Bolívar",
+      "code": "BOL",
+      "forPerGame": 1.5,
+      "againstPerGame": 1.5,
       "gamesPlayed": 4,
-      "adjustedFor": 1.1177246465375716,
-      "adjustedAgainst": 0.8884138635022515
-    },
-    "sudamericana.atletico-mineiro": {
-      "teamId": "sudamericana.atletico-mineiro",
-      "name": "Atlético Mineiro",
-      "shortName": "Mineiro",
-      "code": "ATL",
-      "forPerGame": 1.6666666666666667,
-      "againstPerGame": 1.3333333333333333,
-      "gamesPlayed": 6,
-      "adjustedFor": 1.3956540068446444,
-      "adjustedAgainst": 1.0895785815907757
-    },
-    "sudamericana.montevideo-city-torque": {
-      "teamId": "sudamericana.montevideo-city-torque",
-      "name": "Montevideo City Torque",
-      "shortName": "Montevideo City Torque",
-      "code": "MON",
-      "forPerGame": 1.3333333333333333,
-      "againstPerGame": 1,
-      "gamesPlayed": 6,
-      "adjustedFor": 1.1042837524727884,
-      "adjustedAgainst": 0.8701145374656626
-    },
-    "sudamericana.river-plate": {
-      "teamId": "sudamericana.river-plate",
-      "name": "River Plate",
-      "shortName": "River Plate",
-      "code": "RIV",
-      "forPerGame": 0.5,
-      "againstPerGame": 0.5,
-      "gamesPlayed": 2,
-      "adjustedFor": 0.9448370438546669,
-      "adjustedAgainst": 0.852688774568543
-    },
-    "sudamericana.olimpia": {
-      "teamId": "sudamericana.olimpia",
-      "name": "Olimpia",
-      "shortName": "Olimpia",
-      "code": "OLI",
-      "forPerGame": 0.5,
-      "againstPerGame": 2,
-      "gamesPlayed": 2,
-      "adjustedFor": 0.9177015675736491,
-      "adjustedAgainst": 1.1976128182116894
-    },
-    "sudamericana.macara": {
-      "teamId": "sudamericana.macara",
-      "name": "Macará",
-      "shortName": "Macará",
-      "code": "MAC",
-      "forPerGame": 0.5,
-      "againstPerGame": 1,
-      "gamesPlayed": 2,
-      "adjustedFor": 0.825852116370243,
-      "adjustedAgainst": 0.8541118662361625
+      "adjustedFor": 1.1191611999429327,
+      "adjustedAgainst": 1.130978089668143
     },
     "sudamericana.botafogo": {
       "teamId": "sudamericana.botafogo",
@@ -271,8 +51,228 @@
       "forPerGame": 1,
       "againstPerGame": 3,
       "gamesPlayed": 2,
-      "adjustedFor": 0.984598908190591,
-      "adjustedAgainst": 1.4104464539986723
+      "adjustedFor": 1.0309272802559375,
+      "adjustedAgainst": 1.268270296709406
+    },
+    "sudamericana.caracas-f-c": {
+      "teamId": "sudamericana.caracas-f-c",
+      "name": "Caracas F.C.",
+      "shortName": "Caracas F.C.",
+      "code": "CAR",
+      "forPerGame": 0,
+      "againstPerGame": 2.5,
+      "gamesPlayed": 2,
+      "adjustedFor": 0.9246253530115871,
+      "adjustedAgainst": 1.2510023021284586
+    },
+    "sudamericana.cienciano": {
+      "teamId": "sudamericana.cienciano",
+      "name": "Cienciano",
+      "shortName": "Cienciano",
+      "code": "CIE",
+      "forPerGame": 2,
+      "againstPerGame": 1.1666666666666667,
+      "gamesPlayed": 6,
+      "adjustedFor": 1.2716727310201186,
+      "adjustedAgainst": 1.047206913651525
+    },
+    "sudamericana.gremio": {
+      "teamId": "sudamericana.gremio",
+      "name": "Grêmio",
+      "shortName": "Grêmio",
+      "code": "GRE",
+      "forPerGame": 1,
+      "againstPerGame": 2,
+      "gamesPlayed": 2,
+      "adjustedFor": 1.018391196212689,
+      "adjustedAgainst": 1.1575647245400016
+    },
+    "sudamericana.independiente-medellin": {
+      "teamId": "sudamericana.independiente-medellin",
+      "name": "Independiente Medellín",
+      "shortName": "Independiente Medellín",
+      "code": "IND",
+      "forPerGame": 1,
+      "againstPerGame": 1.5,
+      "gamesPlayed": 2,
+      "adjustedFor": 1.0580166975521978,
+      "adjustedAgainst": 1.085655804477513
+    },
+    "sudamericana.independiente-santa-fe": {
+      "teamId": "sudamericana.independiente-santa-fe",
+      "name": "Independiente Santa Fe",
+      "shortName": "Independiente Santa Fe",
+      "code": "IND",
+      "forPerGame": 1,
+      "againstPerGame": 0.5,
+      "gamesPlayed": 6,
+      "adjustedFor": 0.9853691490011268,
+      "adjustedAgainst": 0.8448667011512732
+    },
+    "sudamericana.lanus": {
+      "teamId": "sudamericana.lanus",
+      "name": "CA Lanús",
+      "shortName": "Lanús",
+      "code": "LAN",
+      "forPerGame": 1,
+      "againstPerGame": 2,
+      "gamesPlayed": 2,
+      "adjustedFor": 1.031470173185733,
+      "adjustedAgainst": 1.1342646545915394
+    },
+    "sudamericana.macara": {
+      "teamId": "sudamericana.macara",
+      "name": "Macará",
+      "shortName": "Macará",
+      "code": "MAC",
+      "forPerGame": 0.5,
+      "againstPerGame": 1,
+      "gamesPlayed": 2,
+      "adjustedFor": 0.955050579076118,
+      "adjustedAgainst": 0.9856176107261025
+    },
+    "sudamericana.montevideo-city-torque": {
+      "teamId": "sudamericana.montevideo-city-torque",
+      "name": "Montevideo City Torque",
+      "shortName": "Montevideo City Torque",
+      "code": "MON",
+      "forPerGame": 1.3333333333333333,
+      "againstPerGame": 1,
+      "gamesPlayed": 6,
+      "adjustedFor": 1.0901584590798092,
+      "adjustedAgainst": 0.9462406177563535
+    },
+    "sudamericana.nacional": {
+      "teamId": "sudamericana.nacional",
+      "name": "Nacional",
+      "shortName": "Nacional",
+      "code": "NAC",
+      "forPerGame": 1,
+      "againstPerGame": 2,
+      "gamesPlayed": 2,
+      "adjustedFor": 1.0299202683073228,
+      "adjustedAgainst": 1.166747749260439
+    },
+    "sudamericana.o-higgins": {
+      "teamId": "sudamericana.o-higgins",
+      "name": "O'Higgins",
+      "shortName": "O'Higgins",
+      "code": "OHI",
+      "forPerGame": 0.5,
+      "againstPerGame": 0.5,
+      "gamesPlayed": 2,
+      "adjustedFor": 0.9967247041982794,
+      "adjustedAgainst": 0.9421043484717385
+    },
+    "sudamericana.olimpia": {
+      "teamId": "sudamericana.olimpia",
+      "name": "Olimpia",
+      "shortName": "Olimpia",
+      "code": "OLI",
+      "forPerGame": 0.5,
+      "againstPerGame": 2,
+      "gamesPlayed": 2,
+      "adjustedFor": 0.9871963388981626,
+      "adjustedAgainst": 1.158031207919538
+    },
+    "sudamericana.recoleta": {
+      "teamId": "sudamericana.recoleta",
+      "name": "Recoleta FC",
+      "shortName": "Recoleta",
+      "code": "REC",
+      "forPerGame": 0.5,
+      "againstPerGame": 3.5,
+      "gamesPlayed": 2,
+      "adjustedFor": 0.9937543365028864,
+      "adjustedAgainst": 1.3477891011210876
+    },
+    "sudamericana.red-bull-bragantino": {
+      "teamId": "sudamericana.red-bull-bragantino",
+      "name": "Red Bull Bragantino",
+      "shortName": "Red Bull Bragantino",
+      "code": "RED",
+      "forPerGame": 0.75,
+      "againstPerGame": 0.75,
+      "gamesPlayed": 4,
+      "adjustedFor": 0.9575150905715756,
+      "adjustedAgainst": 0.9492584515408347
+    },
+    "sudamericana.river-plate": {
+      "teamId": "sudamericana.river-plate",
+      "name": "River Plate",
+      "shortName": "River Plate",
+      "code": "RIV",
+      "forPerGame": 0.5,
+      "againstPerGame": 0.5,
+      "gamesPlayed": 2,
+      "adjustedFor": 0.9917906163542657,
+      "adjustedAgainst": 0.9728340868489574
+    },
+    "sudamericana.santos": {
+      "teamId": "sudamericana.santos",
+      "name": "Santos",
+      "shortName": "Santos",
+      "code": "SAN",
+      "forPerGame": 2.3333333333333335,
+      "againstPerGame": 1.3333333333333333,
+      "gamesPlayed": 6,
+      "adjustedFor": 1.3605416715457048,
+      "adjustedAgainst": 1.084897169394915
+    },
+    "sudamericana.sao-paulo": {
+      "teamId": "sudamericana.sao-paulo",
+      "name": "São Paulo",
+      "shortName": "São Paulo",
+      "code": "SAO",
+      "forPerGame": 1.25,
+      "againstPerGame": 1,
+      "gamesPlayed": 4,
+      "adjustedFor": 1.084470124471419,
+      "adjustedAgainst": 0.9768660330780503
+    },
+    "sudamericana.sporting-cristal": {
+      "teamId": "sudamericana.sporting-cristal",
+      "name": "Club Sporting Cristal",
+      "shortName": "Sporting Cristal",
+      "code": "SPO",
+      "forPerGame": 0,
+      "againstPerGame": 0.5,
+      "gamesPlayed": 2,
+      "adjustedFor": 0.9104606848504806,
+      "adjustedAgainst": 0.9807989859796876
+    },
+    "sudamericana.tigre": {
+      "teamId": "sudamericana.tigre",
+      "name": "Tigre",
+      "shortName": "Tigre",
+      "code": "TIG",
+      "forPerGame": 1.25,
+      "againstPerGame": 1.25,
+      "gamesPlayed": 4,
+      "adjustedFor": 1.0619212802773714,
+      "adjustedAgainst": 1.0696812681689392
+    },
+    "sudamericana.universidad-central": {
+      "teamId": "sudamericana.universidad-central",
+      "name": "Universidad Central",
+      "shortName": "Universidad Central",
+      "code": "UNI",
+      "forPerGame": 1.5,
+      "againstPerGame": 4,
+      "gamesPlayed": 2,
+      "adjustedFor": 1.094223727388309,
+      "adjustedAgainst": 1.376659293336417
+    },
+    "sudamericana.vasco-gama": {
+      "teamId": "sudamericana.vasco-gama",
+      "name": "Vasco da Gama",
+      "shortName": "Vasco da Gama",
+      "code": "VAS",
+      "forPerGame": 1.375,
+      "againstPerGame": 0.75,
+      "gamesPlayed": 8,
+      "adjustedFor": 1.149563840208572,
+      "adjustedAgainst": 0.8792107475358568
     }
   },
   "games": [
@@ -8177,145 +8177,145 @@
         "label": "Modelo PitchLab · en validación"
       },
       "projection": {
-        "home": 1.404573621333664,
-        "away": 1.4165423351785076,
-        "total": 2.8211159565121715,
-        "margin": -0.01196871384484366
+        "home": 1.3072397730024505,
+        "away": 1.2306903804101015,
+        "total": 2.5379301534125522,
+        "margin": 0.07654939259234905
       },
       "x12": [
-        0.3773638243873146,
-        0.2398621108849745,
-        0.3827740647277109
+        0.39076001282291206,
+        0.2547188604766855,
+        0.3545211267004023
       ],
       "probabilities": [
         {
           "market": "h2h",
           "selection": "Mineiro gana",
-          "p": 0.3773638243873146,
-          "fairOdds": 2.6499625437695133
+          "p": 0.39076001282291206,
+          "fairOdds": 2.5591154856809477
         },
         {
           "market": "h2h",
           "selection": "Empate",
-          "p": 0.2398621108849745,
-          "fairOdds": 4.169061951095513
+          "p": 0.2547188604766855,
+          "fairOdds": 3.925896959999671
         },
         {
           "market": "h2h",
           "selection": "Boca Juniors gana",
-          "p": 0.3827740647277109,
-          "fairOdds": 2.6125071998056013
+          "p": 0.3545211267004023,
+          "fairOdds": 2.8207063689185357
         },
         {
           "market": "double_chance",
           "selection": "Mineiro o empate",
-          "p": 0.6172259352722891,
-          "fairOdds": 1.6201522697824586
+          "p": 0.6454788732995975,
+          "fairOdds": 1.5492373822990366
         },
         {
           "market": "double_chance",
           "selection": "Boca Juniors o empate",
-          "p": 0.6226361756126855,
-          "fairOdds": 1.6060743644006574
+          "p": 0.6092399871770878,
+          "fairOdds": 1.6413893064266807
         },
         {
           "market": "double_chance",
           "selection": "Sin empate",
-          "p": 0.7601378891150254,
-          "fairOdds": 1.3155507892972274
+          "p": 0.7452811395233143,
+          "fairOdds": 1.3417755353900478
         },
         {
           "market": "totals",
-          "selection": "Más de 1.5",
+          "selection": "Más de 1.5 goles",
           "line": 1.5,
-          "p": 0.7665695700764232,
-          "fairOdds": 1.304513039697499
+          "p": 0.7140408000115377,
+          "fairOdds": 1.4004801966271978
         },
         {
           "market": "totals",
-          "selection": "Más de 2.5",
+          "selection": "Más de 2.5 goles",
           "line": 2.5,
-          "p": 0.5355643111133251,
-          "fairOdds": 1.8671893911698692
+          "p": 0.46587889259784465,
+          "fairOdds": 2.146480589459155
         },
         {
           "market": "totals",
-          "selection": "Menos de 2.5",
+          "selection": "Menos de 2.5 goles",
           "line": 2.5,
-          "p": 0.46443568888667486,
-          "fairOdds": 2.1531506383524417
+          "p": 0.5341211074021553,
+          "fairOdds": 1.8722345665457307
         },
         {
           "market": "totals",
-          "selection": "Más de 3.5",
+          "selection": "Más de 3.5 goles",
           "line": 3.5,
-          "p": 0.31276351749575426,
-          "fairOdds": 3.197303854384407
+          "p": 0.2505616630871611,
+          "fairOdds": 3.991033535134771
         },
         {
           "market": "totals",
-          "selection": "Menos de 3.5",
+          "selection": "Menos de 3.5 goles",
           "line": 3.5,
-          "p": 0.6872364825042457,
-          "fairOdds": 1.4551031929446818
+          "p": 0.7494383369128389,
+          "fairOdds": 1.3343325938185917
         },
         {
           "market": "btts",
           "selection": "Sí",
-          "p": 0.5655933198814236,
-          "fairOdds": 1.7680548281752153
+          "p": 0.5100158727456182,
+          "fairOdds": 1.9607232900744882
         },
         {
           "market": "btts",
           "selection": "No",
-          "p": 0.4344066801185764,
-          "fairOdds": 2.301990383129095
+          "p": 0.4899841272543818,
+          "fairOdds": 2.0408824375668737
         },
         {
           "market": "team_totals",
-          "selection": "Mineiro más de 1.5",
+          "selection": "Mineiro más de 1.5 goles",
           "line": 1.5,
-          "p": 0.409745057778681,
-          "fairOdds": 2.4405419443524767
+          "p": 0.3757396197720464,
+          "fairOdds": 2.661417501318279
         },
         {
           "market": "team_totals",
-          "selection": "Mineiro menos de 1.5",
+          "selection": "Mineiro menos de 1.5 goles",
           "line": 1.5,
-          "p": 0.590254942221319,
-          "fairOdds": 1.6941831884315592
+          "p": 0.6242603802279536,
+          "fairOdds": 1.6018956699363847
         },
         {
           "market": "team_totals",
-          "selection": "Boca Juniors más de 1.5",
+          "selection": "Boca Juniors más de 1.5 goles",
           "line": 1.5,
-          "p": 0.4138644995798255,
-          "fairOdds": 2.416249765358581
+          "p": 0.3484356891510534,
+          "fairOdds": 2.86997007234377
         },
         {
           "market": "team_totals",
-          "selection": "Boca Juniors menos de 1.5",
+          "selection": "Boca Juniors menos de 1.5 goles",
           "line": 1.5,
-          "p": 0.5861355004201745,
-          "fairOdds": 1.7060901434619546
+          "p": 0.6515643108489466,
+          "fairOdds": 1.5347679167649069
         },
         {
           "market": "correct_score",
           "selection": "1–1",
-          "p": 0.11253894601079723,
-          "fairOdds": 8.885812738143628
-        },
-        {
-          "market": "correct_score",
-          "selection": "0–1",
-          "p": 0.09026332256610622,
-          "fairOdds": 11.078696989772665
+          "p": 0.12078658444506572,
+          "fairOdds": 8.27906513454567
         },
         {
           "market": "correct_score",
           "selection": "1–0",
-          "p": 0.08955071134690587,
-          "fairOdds": 11.166857135574855
+          "p": 0.10966812300853372,
+          "fairOdds": 9.118419943434118
+        },
+        {
+          "market": "correct_score",
+          "selection": "0–1",
+          "p": 0.1036184376820638,
+          "fairOdds": 9.650792101964866
         }
       ],
       "marketGroups": [
@@ -8326,22 +8326,22 @@
               "market": "h2h",
               "selection": "home",
               "label": "Mineiro gana",
-              "p": 0.3773638243873146,
-              "fairOdds": 2.6499625437695133
+              "p": 0.39076001282291206,
+              "fairOdds": 2.5591154856809477
             },
             {
               "market": "h2h",
               "selection": "draw",
               "label": "Empate",
-              "p": 0.2398621108849745,
-              "fairOdds": 4.169061951095513
+              "p": 0.2547188604766855,
+              "fairOdds": 3.925896959999671
             },
             {
               "market": "h2h",
               "selection": "away",
               "label": "Boca Juniors gana",
-              "p": 0.3827740647277109,
-              "fairOdds": 2.6125071998056013
+              "p": 0.3545211267004023,
+              "fairOdds": 2.8207063689185357
             }
           ]
         },
@@ -8352,22 +8352,22 @@
               "market": "double_chance",
               "selection": "1x",
               "label": "Mineiro o empate",
-              "p": 0.6172259352722891,
-              "fairOdds": 1.6201522697824586
+              "p": 0.6454788732995975,
+              "fairOdds": 1.5492373822990366
             },
             {
               "market": "double_chance",
               "selection": "x2",
               "label": "Boca Juniors o empate",
-              "p": 0.6226361756126855,
-              "fairOdds": 1.6060743644006574
+              "p": 0.6092399871770878,
+              "fairOdds": 1.6413893064266807
             },
             {
               "market": "double_chance",
               "selection": "12",
               "label": "Sin empate",
-              "p": 0.7601378891150254,
-              "fairOdds": 1.3155507892972274
+              "p": 0.7452811395233143,
+              "fairOdds": 1.3417755353900478
             }
           ]
         },
@@ -8377,42 +8377,42 @@
             {
               "market": "totals",
               "selection": "over_1.5",
-              "label": "Más de 1.5",
+              "label": "Más de 1.5 goles",
               "line": 1.5,
-              "p": 0.7665695700764232,
-              "fairOdds": 1.304513039697499
+              "p": 0.7140408000115377,
+              "fairOdds": 1.4004801966271978
             },
             {
               "market": "totals",
               "selection": "over_2.5",
-              "label": "Más de 2.5",
+              "label": "Más de 2.5 goles",
               "line": 2.5,
-              "p": 0.5355643111133251,
-              "fairOdds": 1.8671893911698692
+              "p": 0.46587889259784465,
+              "fairOdds": 2.146480589459155
             },
             {
               "market": "totals",
               "selection": "under_2.5",
-              "label": "Menos de 2.5",
+              "label": "Menos de 2.5 goles",
               "line": 2.5,
-              "p": 0.46443568888667486,
-              "fairOdds": 2.1531506383524417
+              "p": 0.5341211074021553,
+              "fairOdds": 1.8722345665457307
             },
             {
               "market": "totals",
               "selection": "over_3.5",
-              "label": "Más de 3.5",
+              "label": "Más de 3.5 goles",
               "line": 3.5,
-              "p": 0.31276351749575426,
-              "fairOdds": 3.197303854384407
+              "p": 0.2505616630871611,
+              "fairOdds": 3.991033535134771
             },
             {
               "market": "totals",
               "selection": "under_3.5",
-              "label": "Menos de 3.5",
+              "label": "Menos de 3.5 goles",
               "line": 3.5,
-              "p": 0.6872364825042457,
-              "fairOdds": 1.4551031929446818
+              "p": 0.7494383369128389,
+              "fairOdds": 1.3343325938185917
             }
           ]
         },
@@ -8423,15 +8423,15 @@
               "market": "btts",
               "selection": "yes",
               "label": "Sí",
-              "p": 0.5655933198814236,
-              "fairOdds": 1.7680548281752153
+              "p": 0.5100158727456182,
+              "fairOdds": 1.9607232900744882
             },
             {
               "market": "btts",
               "selection": "no",
               "label": "No",
-              "p": 0.4344066801185764,
-              "fairOdds": 2.301990383129095
+              "p": 0.4899841272543818,
+              "fairOdds": 2.0408824375668737
             }
           ]
         },
@@ -8441,34 +8441,34 @@
             {
               "market": "team_totals",
               "selection": "home_over",
-              "label": "Mineiro más de 1.5",
+              "label": "Mineiro más de 1.5 goles",
               "line": 1.5,
-              "p": 0.409745057778681,
-              "fairOdds": 2.4405419443524767
+              "p": 0.3757396197720464,
+              "fairOdds": 2.661417501318279
             },
             {
               "market": "team_totals",
               "selection": "home_under",
-              "label": "Mineiro menos de 1.5",
+              "label": "Mineiro menos de 1.5 goles",
               "line": 1.5,
-              "p": 0.590254942221319,
-              "fairOdds": 1.6941831884315592
+              "p": 0.6242603802279536,
+              "fairOdds": 1.6018956699363847
             },
             {
               "market": "team_totals",
               "selection": "away_over",
-              "label": "Boca Juniors más de 1.5",
+              "label": "Boca Juniors más de 1.5 goles",
               "line": 1.5,
-              "p": 0.4138644995798255,
-              "fairOdds": 2.416249765358581
+              "p": 0.3484356891510534,
+              "fairOdds": 2.86997007234377
             },
             {
               "market": "team_totals",
               "selection": "away_under",
-              "label": "Boca Juniors menos de 1.5",
+              "label": "Boca Juniors menos de 1.5 goles",
               "line": 1.5,
-              "p": 0.5861355004201745,
-              "fairOdds": 1.7060901434619546
+              "p": 0.6515643108489466,
+              "fairOdds": 1.5347679167649069
             }
           ]
         },
@@ -8479,22 +8479,22 @@
               "market": "correct_score",
               "selection": "1-1",
               "label": "1–1",
-              "p": 0.11253894601079723,
-              "fairOdds": 8.885812738143628
-            },
-            {
-              "market": "correct_score",
-              "selection": "0-1",
-              "label": "0–1",
-              "p": 0.09026332256610622,
-              "fairOdds": 11.078696989772665
+              "p": 0.12078658444506572,
+              "fairOdds": 8.27906513454567
             },
             {
               "market": "correct_score",
               "selection": "1-0",
               "label": "1–0",
-              "p": 0.08955071134690587,
-              "fairOdds": 11.166857135574855
+              "p": 0.10966812300853372,
+              "fairOdds": 9.118419943434118
+            },
+            {
+              "market": "correct_score",
+              "selection": "0-1",
+              "label": "0–1",
+              "p": 0.1036184376820638,
+              "fairOdds": 9.650792101964866
             }
           ]
         }
@@ -8502,44 +8502,44 @@
       "mostLikelyScore": {
         "home": 1,
         "away": 1,
-        "p": 0.11253894601079723
+        "p": 0.12078658444506572
       },
       "factors": [
         {
           "key": "home_attack",
           "label": "Ataque local",
-          "value": "0.99 goles/partido",
-          "detail": "34 % más que la media · 6 partidos"
+          "value": "0.97 goles/partido",
+          "detail": "16 % más que la media · 6 partidos"
         },
         {
           "key": "away_defense",
           "label": "Defensa visitante",
-          "value": "0.74 concedidos/partido",
-          "detail": "29 % menos que la media · 8 partidos"
+          "value": "0.83 concedidos/partido",
+          "detail": "21 % menos que la media · 8 partidos"
         },
         {
           "key": "away_attack",
           "label": "Ataque visitante",
-          "value": "1.42 goles/partido",
-          "detail": "30 % más que la media · ajustado por rival"
+          "value": "1.23 goles/partido",
+          "detail": "15 % más que la media · ajustado por rival"
         },
         {
           "key": "home_defense",
           "label": "Defensa local",
-          "value": "1.09 concedidos/partido",
-          "detail": "4 % más que la media · ajustado por rival"
+          "value": "1.07 concedidos/partido",
+          "detail": "en la media de la liga · ajustado por rival"
         },
         {
           "key": "home_advantage",
           "label": "Localía",
-          "value": "×1.42",
+          "value": "×1.35",
           "detail": "estimada de 44 partidos"
         },
         {
           "key": "uncertainty",
           "label": "Intervalo 90%",
-          "value": "goles 1.7–5.1",
-          "detail": "local 12%–74% · 44 partidos"
+          "value": "goles 1.8–3.8",
+          "detail": "local 21%–65% · 44 partidos"
         },
         {
           "key": "home_position",
@@ -8567,66 +8567,28 @@
         }
       ],
       "steps": [
-        "Sincronizando Copa Sudamericana · corte 19 nov 2026, 10:05",
-        "Fuerza ajustada por rival · ATL 1.34 / 1.04 · BOC 1.30 / 0.71",
-        "Ponderando 37.0 partidos por antigüedad y calidad del rival",
-        "Proyección de goles 1.40 – 1.42 · total 2.82",
+        "Sincronizando Copa Sudamericana · corte 21 nov 2026, 22:33",
+        "Fuerza ajustada por rival · ATL 1.16 / 1.01 · BOC 1.15 / 0.79",
+        "Ponderando 36.8 partidos por antigüedad y calidad del rival",
+        "Proyección de goles 1.31 – 1.23 · total 2.54",
         "Simulando 121 marcadores con incertidumbre del ajuste",
-        "20 mercados listos · marcador proyectado 1–2"
+        "20 mercados listos · marcador proyectado 1–0"
       ],
-      "inputsAsOf": "2026-11-19T16:05:39.021Z",
+      "inputsAsOf": "2026-11-22T04:33:15.743Z",
       "publishedAt": "2026-11-19T16:05:39.021Z",
       "source": "pitchlab-football-v2",
-      "picks": [
-        {
-          "profile": "conservadora",
-          "market": "totals",
-          "selection": "over_1.5",
-          "label": "Más de 1.5",
-          "line": 1.5,
-          "p": 0.7665695700764232,
-          "fairOdds": 1.304513039697499
-        },
-        {
-          "profile": "intermedia",
-          "market": "totals",
-          "selection": "under_3.5",
-          "label": "Menos de 3.5",
-          "line": 3.5,
-          "p": 0.6872364825042457,
-          "fairOdds": 1.4551031929446818
-        },
-        {
-          "profile": "arriesgada",
-          "market": "totals",
-          "selection": "under_2.5",
-          "label": "Menos de 2.5",
-          "line": 2.5,
-          "p": 0.46443568888667486,
-          "fairOdds": 2.1531506383524417
-        }
-      ],
-      "confidence": {
-        "score": 20,
-        "level": "baja",
-        "reasons": [
-          "Partido parejo",
-          "Rango de incertidumbre amplio"
-        ]
-      },
       "projectedScore": {
         "home": 1,
-        "away": 2,
-        "p": 0.08390325335824353
+        "away": 0,
+        "p": 0.10966812300853372
       },
       "insights": {
         "why": [
-          "Se esperan 2.8 goles: 1.4 de Mineiro y 1.4 de Boca Juniors.",
-          "Boca Juniors concede 29 % menos que la media.",
-          "Mineiro anota 34 % más que la media."
+          "Se esperan 2.5 goles: 1.3 de Mineiro y 1.2 de Boca Juniors.",
+          "Boca Juniors concede 21 % menos que la media.",
+          "Mineiro anota 16 % más que la media."
         ]
       },
-      "picksAt": "2026-11-19T16:05:39.021Z",
       "matchContext": {
         "weather": {
           "temperatureC": 29,

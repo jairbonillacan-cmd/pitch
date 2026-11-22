@@ -5,21 +5,21 @@
   "season": "liga-argentina-2026",
   "seasonLabel": "2026",
   "periodLabel": "Clausura, Group B · Matchday 15",
-  "updatedAt": "2026-11-19T16:05:39.021Z",
+  "updatedAt": "2026-11-22T04:33:15.743Z",
   "source": "pitchlab-football-v2",
   "provenance": "derived",
   "isDemo": false,
   "teamRates": {
-    "liga-argentina.sarmiento": {
-      "teamId": "liga-argentina.sarmiento",
-      "name": "Sarmiento",
-      "shortName": "Sarmiento",
-      "code": "SAR",
-      "forPerGame": 1.4375,
-      "againstPerGame": 1.5,
+    "liga-argentina.aldosivi": {
+      "teamId": "liga-argentina.aldosivi",
+      "name": "Aldosivi",
+      "shortName": "Aldosivi",
+      "code": "ALD",
+      "forPerGame": 1,
+      "againstPerGame": 1.625,
       "gamesPlayed": 16,
-      "adjustedFor": 1.2725563569802074,
-      "adjustedAgainst": 1.3555808125375086
+      "adjustedFor": 0.9493739563278849,
+      "adjustedAgainst": 1.3086530112019463
     },
     "liga-argentina.argentinos-juniors": {
       "teamId": "liga-argentina.argentinos-juniors",
@@ -29,8 +29,8 @@
       "forPerGame": 1.25,
       "againstPerGame": 0.875,
       "gamesPlayed": 16,
-      "adjustedFor": 1.1383063819699928,
-      "adjustedAgainst": 0.8957279446385903
+      "adjustedFor": 1.0792879500600634,
+      "adjustedAgainst": 0.8811122096433541
     },
     "liga-argentina.atletico-belgrano": {
       "teamId": "liga-argentina.atletico-belgrano",
@@ -40,129 +40,8 @@
       "forPerGame": 1.0625,
       "againstPerGame": 0.9375,
       "gamesPlayed": 16,
-      "adjustedFor": 1.0089490189380421,
-      "adjustedAgainst": 0.9590765251063731
-    },
-    "liga-argentina.rosario-central": {
-      "teamId": "liga-argentina.rosario-central",
-      "name": "Rosario Central",
-      "shortName": "Rosario Central",
-      "code": "ROS",
-      "forPerGame": 1.625,
-      "againstPerGame": 0.75,
-      "gamesPlayed": 16,
-      "adjustedFor": 1.4399159476200927,
-      "adjustedAgainst": 0.8135886288966309
-    },
-    "liga-argentina.defensa-y-justicia": {
-      "teamId": "liga-argentina.defensa-y-justicia",
-      "name": "Defensa y Justicia",
-      "shortName": "Defensa y Justicia",
-      "code": "DEF",
-      "forPerGame": 1.3125,
-      "againstPerGame": 0.9375,
-      "gamesPlayed": 16,
-      "adjustedFor": 1.2328829190488317,
-      "adjustedAgainst": 0.9261833864694476
-    },
-    "liga-argentina.aldosivi": {
-      "teamId": "liga-argentina.aldosivi",
-      "name": "Aldosivi",
-      "shortName": "Aldosivi",
-      "code": "ALD",
-      "forPerGame": 1,
-      "againstPerGame": 1.625,
-      "gamesPlayed": 16,
-      "adjustedFor": 0.9681885618508137,
-      "adjustedAgainst": 1.4512342463162955
-    },
-    "liga-argentina.gimnasia-y-esgrima-mendoza": {
-      "teamId": "liga-argentina.gimnasia-y-esgrima-mendoza",
-      "name": "Gimnasia y Esgrima Mendoza",
-      "shortName": "Gimnasia y Esgrima Men",
-      "code": "GIM",
-      "forPerGame": 1.125,
-      "againstPerGame": 1.0625,
-      "gamesPlayed": 16,
-      "adjustedFor": 1.0638498308359081,
-      "adjustedAgainst": 1.0066565350512586
-    },
-    "liga-argentina.central-cordoba": {
-      "teamId": "liga-argentina.central-cordoba",
-      "name": "Central Córdoba",
-      "shortName": "Central Córdoba",
-      "code": "CEN",
-      "forPerGame": 0.75,
-      "againstPerGame": 1.625,
-      "gamesPlayed": 16,
-      "adjustedFor": 0.8393450666442238,
-      "adjustedAgainst": 1.465031738993305
-    },
-    "liga-argentina.velez-sarsfield": {
-      "teamId": "liga-argentina.velez-sarsfield",
-      "name": "Vélez Sarsfield",
-      "shortName": "Vélez Sarsfield",
-      "code": "VEL",
-      "forPerGame": 1.5625,
-      "againstPerGame": 1.0625,
-      "gamesPlayed": 16,
-      "adjustedFor": 1.4723789826758762,
-      "adjustedAgainst": 1.0550199478607487
-    },
-    "liga-argentina.instituto-cordoba": {
-      "teamId": "liga-argentina.instituto-cordoba",
-      "name": "Instituto De Córdoba",
-      "shortName": "Instituto De Córdoba",
-      "code": "INS",
-      "forPerGame": 1.625,
-      "againstPerGame": 0.9375,
-      "gamesPlayed": 16,
-      "adjustedFor": 1.5045066919998706,
-      "adjustedAgainst": 0.9856958223473331
-    },
-    "liga-argentina.racing": {
-      "teamId": "liga-argentina.racing",
-      "name": "Racing Club",
-      "shortName": "Racing",
-      "code": "RAC",
-      "forPerGame": 1,
-      "againstPerGame": 1.5,
-      "gamesPlayed": 16,
-      "adjustedFor": 0.9770871177057822,
-      "adjustedAgainst": 1.37013036199675
-    },
-    "liga-argentina.gimnasia-y-esgrima": {
-      "teamId": "liga-argentina.gimnasia-y-esgrima",
-      "name": "Gimnasia y Esgrima",
-      "shortName": "Gimnasia y Esgrima",
-      "code": "GIM",
-      "forPerGame": 1.5625,
-      "againstPerGame": 1.25,
-      "gamesPlayed": 16,
-      "adjustedFor": 1.396439026233548,
-      "adjustedAgainst": 1.1870932700592287
-    },
-    "liga-argentina.huracan": {
-      "teamId": "liga-argentina.huracan",
-      "name": "Huracán",
-      "shortName": "Huracán",
-      "code": "HUR",
-      "forPerGame": 0.875,
-      "againstPerGame": 1,
-      "gamesPlayed": 16,
-      "adjustedFor": 0.8682256805105014,
-      "adjustedAgainst": 1.0297720483414552
-    },
-    "liga-argentina.banfield": {
-      "teamId": "liga-argentina.banfield",
-      "name": "Banfield",
-      "shortName": "Banfield",
-      "code": "BAN",
-      "forPerGame": 1.125,
-      "againstPerGame": 1.5625,
-      "gamesPlayed": 16,
-      "adjustedFor": 1.1204082352882516,
-      "adjustedAgainst": 1.4396536600984198
+      "adjustedFor": 0.9809828261075779,
+      "adjustedAgainst": 0.9358172210167929
     },
     "liga-argentina.atletico-platense": {
       "teamId": "liga-argentina.atletico-platense",
@@ -172,107 +51,8 @@
       "forPerGame": 1.125,
       "againstPerGame": 1.25,
       "gamesPlayed": 16,
-      "adjustedFor": 1.140077877525886,
-      "adjustedAgainst": 1.1455247802190458
-    },
-    "liga-argentina.atletico-union-santa-fe": {
-      "teamId": "liga-argentina.atletico-union-santa-fe",
-      "name": "Club Atlético Unión de Santa Fe",
-      "shortName": "Unión de Santa Fe",
-      "code": "ATL",
-      "forPerGame": 1.5,
-      "againstPerGame": 1.5,
-      "gamesPlayed": 16,
-      "adjustedFor": 1.374907610766081,
-      "adjustedAgainst": 1.3474395353345086
-    },
-    "liga-argentina.estudiantes-rio-cuarto": {
-      "teamId": "liga-argentina.estudiantes-rio-cuarto",
-      "name": "Estudiantes de Río Cuarto",
-      "shortName": "Estudiantes de Río Cua",
-      "code": "EST",
-      "forPerGame": 0.625,
-      "againstPerGame": 1.4375,
-      "gamesPlayed": 16,
-      "adjustedFor": 0.7008118649702557,
-      "adjustedAgainst": 1.3203341124899577
-    },
-    "liga-argentina.tigre": {
-      "teamId": "liga-argentina.tigre",
-      "name": "Tigre",
-      "shortName": "Tigre",
-      "code": "TIG",
-      "forPerGame": 1,
-      "againstPerGame": 1,
-      "gamesPlayed": 16,
-      "adjustedFor": 0.9534577130429459,
-      "adjustedAgainst": 0.9891565721876622
-    },
-    "liga-argentina.newell-s-old-boys": {
-      "teamId": "liga-argentina.newell-s-old-boys",
-      "name": "Newell's Old Boys",
-      "shortName": "Newell's Old Boys",
-      "code": "NEW",
-      "forPerGame": 1,
-      "againstPerGame": 0.8125,
-      "gamesPlayed": 16,
-      "adjustedFor": 0.9839373626319267,
-      "adjustedAgainst": 0.8127644748199843
-    },
-    "liga-argentina.talleres": {
-      "teamId": "liga-argentina.talleres",
-      "name": "CA Talleres",
-      "shortName": "Talleres",
-      "code": "TAL",
-      "forPerGame": 1.0625,
-      "againstPerGame": 1.4375,
-      "gamesPlayed": 16,
-      "adjustedFor": 1.0740301542922681,
-      "adjustedAgainst": 1.272171073046832
-    },
-    "liga-argentina.river-plate": {
-      "teamId": "liga-argentina.river-plate",
-      "name": "River Plate",
-      "shortName": "River Plate",
-      "code": "RIV",
-      "forPerGame": 1.3125,
-      "againstPerGame": 0.875,
-      "gamesPlayed": 16,
-      "adjustedFor": 1.210418761130419,
-      "adjustedAgainst": 0.8644068358884653
-    },
-    "liga-argentina.barracas-central": {
-      "teamId": "liga-argentina.barracas-central",
-      "name": "Barracas Central",
-      "shortName": "Barracas Central",
-      "code": "BAR",
-      "forPerGame": 1.0625,
-      "againstPerGame": 0.8125,
-      "gamesPlayed": 16,
-      "adjustedFor": 1.016954699194836,
-      "adjustedAgainst": 0.8688714182124646
-    },
-    "liga-argentina.lanus": {
-      "teamId": "liga-argentina.lanus",
-      "name": "CA Lanús",
-      "shortName": "Lanús",
-      "code": "LAN",
-      "forPerGame": 1.1875,
-      "againstPerGame": 0.75,
-      "gamesPlayed": 16,
-      "adjustedFor": 1.1347992834930984,
-      "adjustedAgainst": 0.7748586566977358
-    },
-    "liga-argentina.san-lorenzo": {
-      "teamId": "liga-argentina.san-lorenzo",
-      "name": "San Lorenzo",
-      "shortName": "San Lorenzo",
-      "code": "SAN",
-      "forPerGame": 0.5625,
-      "againstPerGame": 1,
-      "gamesPlayed": 16,
-      "adjustedFor": 0.6692280093689054,
-      "adjustedAgainst": 0.9907920439712433
+      "adjustedFor": 1.0633392934735448,
+      "adjustedAgainst": 1.0798849611876251
     },
     "liga-argentina.atletico-tucuman": {
       "teamId": "liga-argentina.atletico-tucuman",
@@ -282,52 +62,41 @@
       "forPerGame": 1,
       "againstPerGame": 1.0625,
       "gamesPlayed": 16,
-      "adjustedFor": 0.9779391538415704,
-      "adjustedAgainst": 1.0583576431970456
+      "adjustedFor": 0.9582643747455324,
+      "adjustedAgainst": 1.0156590552010563
     },
-    "liga-argentina.independiente-rivadavia": {
-      "teamId": "liga-argentina.independiente-rivadavia",
-      "name": "Independiente Rivadavia",
-      "shortName": "Independiente Rivadavi",
-      "code": "IND",
-      "forPerGame": 1.3125,
+    "liga-argentina.atletico-union-santa-fe": {
+      "teamId": "liga-argentina.atletico-union-santa-fe",
+      "name": "Club Atlético Unión de Santa Fe",
+      "shortName": "Unión de Santa Fe",
+      "code": "ATL",
+      "forPerGame": 1.5,
       "againstPerGame": 1.5,
       "gamesPlayed": 16,
-      "adjustedFor": 1.2311599606865473,
-      "adjustedAgainst": 1.407906554482219
+      "adjustedFor": 1.2445185938320635,
+      "adjustedAgainst": 1.2388131323665754
     },
-    "liga-argentina.estudiantes-la-plata": {
-      "teamId": "liga-argentina.estudiantes-la-plata",
-      "name": "Estudiantes de La Plata",
-      "shortName": "Estudiantes de La Plat",
-      "code": "EST",
-      "forPerGame": 1.3125,
-      "againstPerGame": 1.375,
+    "liga-argentina.banfield": {
+      "teamId": "liga-argentina.banfield",
+      "name": "Banfield",
+      "shortName": "Banfield",
+      "code": "BAN",
+      "forPerGame": 1.125,
+      "againstPerGame": 1.5625,
       "gamesPlayed": 16,
-      "adjustedFor": 1.2594067747020699,
-      "adjustedAgainst": 1.2561489016121679
+      "adjustedFor": 1.0555889093919781,
+      "adjustedAgainst": 1.2953407532937913
     },
-    "liga-argentina.independiente": {
-      "teamId": "liga-argentina.independiente",
-      "name": "CA Independiente",
-      "shortName": "Independiente",
-      "code": "IND",
-      "forPerGame": 0.9375,
-      "againstPerGame": 1,
+    "liga-argentina.barracas-central": {
+      "teamId": "liga-argentina.barracas-central",
+      "name": "Barracas Central",
+      "shortName": "Barracas Central",
+      "code": "BAR",
+      "forPerGame": 1.0625,
+      "againstPerGame": 0.8125,
       "gamesPlayed": 16,
-      "adjustedFor": 0.9323236546342765,
-      "adjustedAgainst": 0.97530614125492
-    },
-    "liga-argentina.deportivo-riestra": {
-      "teamId": "liga-argentina.deportivo-riestra",
-      "name": "Deportivo Riestra",
-      "shortName": "Riestra",
-      "code": "DEP",
-      "forPerGame": 0.6875,
-      "againstPerGame": 1.1875,
-      "gamesPlayed": 16,
-      "adjustedFor": 0.7532962317726453,
-      "adjustedAgainst": 1.128782146347701
+      "adjustedFor": 0.9899351822511031,
+      "adjustedAgainst": 0.866919778167385
     },
     "liga-argentina.boca-juniors": {
       "teamId": "liga-argentina.boca-juniors",
@@ -337,8 +106,239 @@
       "forPerGame": 1.5,
       "againstPerGame": 0.875,
       "gamesPlayed": 16,
-      "adjustedFor": 1.3880926837469225,
-      "adjustedAgainst": 0.8649074589352036
+      "adjustedFor": 1.2535510175583726,
+      "adjustedAgainst": 0.8745740014327823
+    },
+    "liga-argentina.central-cordoba": {
+      "teamId": "liga-argentina.central-cordoba",
+      "name": "Central Córdoba",
+      "shortName": "Central Córdoba",
+      "code": "CEN",
+      "forPerGame": 0.75,
+      "againstPerGame": 1.625,
+      "gamesPlayed": 16,
+      "adjustedFor": 0.8420593249576168,
+      "adjustedAgainst": 1.3257161440723497
+    },
+    "liga-argentina.defensa-y-justicia": {
+      "teamId": "liga-argentina.defensa-y-justicia",
+      "name": "Defensa y Justicia",
+      "shortName": "Defensa y Justicia",
+      "code": "DEF",
+      "forPerGame": 1.3125,
+      "againstPerGame": 0.9375,
+      "gamesPlayed": 16,
+      "adjustedFor": 1.1382157240687891,
+      "adjustedAgainst": 0.9129683796908816
+    },
+    "liga-argentina.deportivo-riestra": {
+      "teamId": "liga-argentina.deportivo-riestra",
+      "name": "Deportivo Riestra",
+      "shortName": "Riestra",
+      "code": "DEP",
+      "forPerGame": 0.6875,
+      "againstPerGame": 1.1875,
+      "gamesPlayed": 16,
+      "adjustedFor": 0.7810819070405534,
+      "adjustedAgainst": 1.0727969841079443
+    },
+    "liga-argentina.estudiantes-la-plata": {
+      "teamId": "liga-argentina.estudiantes-la-plata",
+      "name": "Estudiantes de La Plata",
+      "shortName": "Estudiantes de La Plat",
+      "code": "EST",
+      "forPerGame": 1.3125,
+      "againstPerGame": 1.375,
+      "gamesPlayed": 16,
+      "adjustedFor": 1.1568863916383025,
+      "adjustedAgainst": 1.1675555006072527
+    },
+    "liga-argentina.estudiantes-rio-cuarto": {
+      "teamId": "liga-argentina.estudiantes-rio-cuarto",
+      "name": "Estudiantes de Río Cuarto",
+      "shortName": "Estudiantes de Río Cua",
+      "code": "EST",
+      "forPerGame": 0.625,
+      "againstPerGame": 1.4375,
+      "gamesPlayed": 16,
+      "adjustedFor": 0.747997511477457,
+      "adjustedAgainst": 1.204088963082998
+    },
+    "liga-argentina.gimnasia-y-esgrima": {
+      "teamId": "liga-argentina.gimnasia-y-esgrima",
+      "name": "Gimnasia y Esgrima",
+      "shortName": "Gimnasia y Esgrima",
+      "code": "GIM",
+      "forPerGame": 1.5625,
+      "againstPerGame": 1.25,
+      "gamesPlayed": 16,
+      "adjustedFor": 1.2723186327174392,
+      "adjustedAgainst": 1.1032713914569778
+    },
+    "liga-argentina.gimnasia-y-esgrima-mendoza": {
+      "teamId": "liga-argentina.gimnasia-y-esgrima-mendoza",
+      "name": "Gimnasia y Esgrima Mendoza",
+      "shortName": "Gimnasia y Esgrima Men",
+      "code": "GIM",
+      "forPerGame": 1.125,
+      "againstPerGame": 1.0625,
+      "gamesPlayed": 16,
+      "adjustedFor": 1.0159289059195484,
+      "adjustedAgainst": 0.9798627505537901
+    },
+    "liga-argentina.huracan": {
+      "teamId": "liga-argentina.huracan",
+      "name": "Huracán",
+      "shortName": "Huracán",
+      "code": "HUR",
+      "forPerGame": 0.875,
+      "againstPerGame": 1,
+      "gamesPlayed": 16,
+      "adjustedFor": 0.8748617211203337,
+      "adjustedAgainst": 0.9813469995580995
+    },
+    "liga-argentina.independiente": {
+      "teamId": "liga-argentina.independiente",
+      "name": "CA Independiente",
+      "shortName": "Independiente",
+      "code": "IND",
+      "forPerGame": 0.9375,
+      "againstPerGame": 1,
+      "gamesPlayed": 16,
+      "adjustedFor": 0.9175952331846686,
+      "adjustedAgainst": 0.9548153944048756
+    },
+    "liga-argentina.independiente-rivadavia": {
+      "teamId": "liga-argentina.independiente-rivadavia",
+      "name": "Independiente Rivadavia",
+      "shortName": "Independiente Rivadavi",
+      "code": "IND",
+      "forPerGame": 1.3125,
+      "againstPerGame": 1.5,
+      "gamesPlayed": 16,
+      "adjustedFor": 1.1445702802528153,
+      "adjustedAgainst": 1.2544029871173752
+    },
+    "liga-argentina.instituto-cordoba": {
+      "teamId": "liga-argentina.instituto-cordoba",
+      "name": "Instituto De Córdoba",
+      "shortName": "Instituto De Córdoba",
+      "code": "INS",
+      "forPerGame": 1.625,
+      "againstPerGame": 0.9375,
+      "gamesPlayed": 16,
+      "adjustedFor": 1.3389290227311315,
+      "adjustedAgainst": 0.9543813737866299
+    },
+    "liga-argentina.lanus": {
+      "teamId": "liga-argentina.lanus",
+      "name": "CA Lanús",
+      "shortName": "Lanús",
+      "code": "LAN",
+      "forPerGame": 1.1875,
+      "againstPerGame": 0.75,
+      "gamesPlayed": 16,
+      "adjustedFor": 1.0670652740844626,
+      "adjustedAgainst": 0.8049926701831714
+    },
+    "liga-argentina.newell-s-old-boys": {
+      "teamId": "liga-argentina.newell-s-old-boys",
+      "name": "Newell's Old Boys",
+      "shortName": "Newell's Old Boys",
+      "code": "NEW",
+      "forPerGame": 1,
+      "againstPerGame": 0.8125,
+      "gamesPlayed": 16,
+      "adjustedFor": 0.9549265759351255,
+      "adjustedAgainst": 0.8338655334025551
+    },
+    "liga-argentina.racing": {
+      "teamId": "liga-argentina.racing",
+      "name": "Racing Club",
+      "shortName": "Racing",
+      "code": "RAC",
+      "forPerGame": 1,
+      "againstPerGame": 1.5,
+      "gamesPlayed": 16,
+      "adjustedFor": 0.9537110864506474,
+      "adjustedAgainst": 1.2499238586763715
+    },
+    "liga-argentina.river-plate": {
+      "teamId": "liga-argentina.river-plate",
+      "name": "River Plate",
+      "shortName": "River Plate",
+      "code": "RIV",
+      "forPerGame": 1.3125,
+      "againstPerGame": 0.875,
+      "gamesPlayed": 16,
+      "adjustedFor": 1.1334853748897171,
+      "adjustedAgainst": 0.8660500643175194
+    },
+    "liga-argentina.rosario-central": {
+      "teamId": "liga-argentina.rosario-central",
+      "name": "Rosario Central",
+      "shortName": "Rosario Central",
+      "code": "ROS",
+      "forPerGame": 1.625,
+      "againstPerGame": 0.75,
+      "gamesPlayed": 16,
+      "adjustedFor": 1.3094410236072553,
+      "adjustedAgainst": 0.8250480433971997
+    },
+    "liga-argentina.san-lorenzo": {
+      "teamId": "liga-argentina.san-lorenzo",
+      "name": "San Lorenzo",
+      "shortName": "San Lorenzo",
+      "code": "SAN",
+      "forPerGame": 0.5625,
+      "againstPerGame": 1,
+      "gamesPlayed": 16,
+      "adjustedFor": 0.7199899474286098,
+      "adjustedAgainst": 0.9651547118043227
+    },
+    "liga-argentina.sarmiento": {
+      "teamId": "liga-argentina.sarmiento",
+      "name": "Sarmiento",
+      "shortName": "Sarmiento",
+      "code": "SAR",
+      "forPerGame": 1.4375,
+      "againstPerGame": 1.5,
+      "gamesPlayed": 16,
+      "adjustedFor": 1.1787420654006988,
+      "adjustedAgainst": 1.2344931430559087
+    },
+    "liga-argentina.talleres": {
+      "teamId": "liga-argentina.talleres",
+      "name": "CA Talleres",
+      "shortName": "Talleres",
+      "code": "TAL",
+      "forPerGame": 1.0625,
+      "againstPerGame": 1.4375,
+      "gamesPlayed": 16,
+      "adjustedFor": 1.0149315339928608,
+      "adjustedAgainst": 1.191089141912135
+    },
+    "liga-argentina.tigre": {
+      "teamId": "liga-argentina.tigre",
+      "name": "Tigre",
+      "shortName": "Tigre",
+      "code": "TIG",
+      "forPerGame": 1,
+      "againstPerGame": 1,
+      "gamesPlayed": 16,
+      "adjustedFor": 0.9413929983475984,
+      "adjustedAgainst": 0.9604695085760291
+    },
+    "liga-argentina.velez-sarsfield": {
+      "teamId": "liga-argentina.velez-sarsfield",
+      "name": "Vélez Sarsfield",
+      "shortName": "Vélez Sarsfield",
+      "code": "VEL",
+      "forPerGame": 1.5625,
+      "againstPerGame": 1.0625,
+      "gamesPlayed": 16,
+      "adjustedFor": 1.3088828831217665,
+      "adjustedAgainst": 1.0109340233419222
     }
   },
   "games": [
@@ -8360,145 +8360,145 @@
         "label": "Modelo PitchLab · en validación"
       },
       "projection": {
-        "home": 1.5512792392910801,
-        "away": 0.9855307292032319,
-        "total": 2.536809968494312,
-        "margin": 0.5657485100878482
+        "home": 1.4021526954917938,
+        "away": 0.9602146928319303,
+        "total": 2.362367388323724,
+        "margin": 0.4419380026598635
       },
       "x12": [
-        0.5064722694591351,
-        0.25133178447070637,
-        0.2421959460701584
+        0.4735507251349114,
+        0.2668572659540463,
+        0.2595920089110426
       ],
       "probabilities": [
         {
           "market": "h2h",
           "selection": "Vélez Sarsfield gana",
-          "p": 0.5064722694591351,
-          "fairOdds": 1.974441761772873
+          "p": 0.4735507251349114,
+          "fairOdds": 2.1117061951813225
         },
         {
           "market": "h2h",
           "selection": "Empate",
-          "p": 0.25133178447070637,
-          "fairOdds": 3.9788043605624965
+          "p": 0.2668572659540463,
+          "fairOdds": 3.7473216118919668
         },
         {
           "market": "h2h",
           "selection": "Belgrano gana",
-          "p": 0.2421959460701584,
-          "fairOdds": 4.128888266818157
+          "p": 0.2595920089110426,
+          "fairOdds": 3.8521987028602314
         },
         {
           "market": "double_chance",
           "selection": "Vélez Sarsfield o empate",
-          "p": 0.7578040539298415,
-          "fairOdds": 1.3196023362690816
+          "p": 0.7404079910889577,
+          "fairOdds": 1.3506067087812577
         },
         {
           "market": "double_chance",
           "selection": "Belgrano o empate",
-          "p": 0.49352773054086474,
-          "fairOdds": 2.026228594904048
+          "p": 0.5264492748650889,
+          "fairOdds": 1.8995182399221011
         },
         {
           "market": "double_chance",
           "selection": "Sin empate",
-          "p": 0.7486682155292935,
-          "fairOdds": 1.335705161856003
+          "p": 0.733142734045954,
+          "fairOdds": 1.3639908759394719
         },
         {
           "market": "totals",
-          "selection": "Más de 1.5",
+          "selection": "Más de 1.5 goles",
           "line": 1.5,
-          "p": 0.718358697728652,
-          "fairOdds": 1.392062215104874
+          "p": 0.681372769899198,
+          "fairOdds": 1.4676254235224861
         },
         {
           "market": "totals",
-          "selection": "Más de 2.5",
+          "selection": "Más de 2.5 goles",
           "line": 2.5,
-          "p": 0.46559345835177335,
-          "fairOdds": 2.1477964994183023
+          "p": 0.4204288141359376,
+          "fairOdds": 2.3785239412174763
         },
         {
           "market": "totals",
-          "selection": "Menos de 2.5",
+          "selection": "Menos de 2.5 goles",
           "line": 2.5,
-          "p": 0.5344065416482267,
-          "fairOdds": 1.8712345790449745
+          "p": 0.5795711858640624,
+          "fairOdds": 1.7254135892023945
         },
         {
           "market": "totals",
-          "selection": "Más de 3.5",
+          "selection": "Más de 3.5 goles",
           "line": 3.5,
-          "p": 0.25032008301862385,
-          "fairOdds": 3.9948852203184986
+          "p": 0.21344896199893615,
+          "fairOdds": 4.684960707398447
         },
         {
           "market": "totals",
-          "selection": "Menos de 3.5",
+          "selection": "Menos de 3.5 goles",
           "line": 3.5,
-          "p": 0.7496799169813761,
-          "fairOdds": 1.3339026127664593
+          "p": 0.7865510380010639,
+          "fairOdds": 1.2713733142370445
         },
         {
           "market": "btts",
           "selection": "Sí",
-          "p": 0.49208618422214767,
-          "fairOdds": 2.0321643485698013
+          "p": 0.4634171789639254,
+          "fairOdds": 2.1578828869394258
         },
         {
           "market": "btts",
           "selection": "No",
-          "p": 0.5079138157778523,
-          "fairOdds": 1.968837958204651
+          "p": 0.5365828210360746,
+          "fairOdds": 1.863645202187287
         },
         {
           "market": "team_totals",
-          "selection": "Vélez Sarsfield más de 1.5",
+          "selection": "Vélez Sarsfield más de 1.5 goles",
           "line": 1.5,
-          "p": 0.45918800864026277,
-          "fairOdds": 2.1777572174874025
+          "p": 0.40891007547796177,
+          "fairOdds": 2.4455254589438336
         },
         {
           "market": "team_totals",
-          "selection": "Vélez Sarsfield menos de 1.5",
+          "selection": "Vélez Sarsfield menos de 1.5 goles",
           "line": 1.5,
-          "p": 0.5408119913597372,
-          "fairOdds": 1.8490714258863763
+          "p": 0.5910899245220382,
+          "fairOdds": 1.691789960400037
         },
         {
           "market": "team_totals",
-          "selection": "Belgrano más de 1.5",
+          "selection": "Belgrano más de 1.5 goles",
           "line": 1.5,
-          "p": 0.25891835105970973,
-          "fairOdds": 3.8622214142302638
+          "p": 0.24960885502281094,
+          "fairOdds": 4.00626812662
         },
         {
           "market": "team_totals",
-          "selection": "Belgrano menos de 1.5",
+          "selection": "Belgrano menos de 1.5 goles",
           "line": 1.5,
-          "p": 0.7410816489402903,
-          "fairOdds": 1.3493789806156313
+          "p": 0.7503911449771891,
+          "fairOdds": 1.332638326949339
         },
         {
           "market": "correct_score",
           "selection": "1–0",
-          "p": 0.12454919092922713,
-          "fairOdds": 8.028956210307559
+          "p": 0.13398091428624284,
+          "fairOdds": 7.463749634246823
         },
         {
           "market": "correct_score",
           "selection": "1–1",
-          "p": 0.11914454005220791,
-          "fairOdds": 8.393166817059432
+          "p": 0.12492141514577036,
+          "fairOdds": 8.005032594556374
         },
         {
           "market": "correct_score",
           "selection": "2–0",
-          "p": 0.09519797907348104,
-          "fairOdds": 10.504424670907394
+          "p": 0.09259715285516616,
+          "fairOdds": 10.799468117169093
         }
       ],
       "marketGroups": [
@@ -8509,22 +8509,22 @@
               "market": "h2h",
               "selection": "home",
               "label": "Vélez Sarsfield gana",
-              "p": 0.5064722694591351,
-              "fairOdds": 1.974441761772873
+              "p": 0.4735507251349114,
+              "fairOdds": 2.1117061951813225
             },
             {
               "market": "h2h",
               "selection": "draw",
               "label": "Empate",
-              "p": 0.25133178447070637,
-              "fairOdds": 3.9788043605624965
+              "p": 0.2668572659540463,
+              "fairOdds": 3.7473216118919668
             },
             {
               "market": "h2h",
               "selection": "away",
               "label": "Belgrano gana",
-              "p": 0.2421959460701584,
-              "fairOdds": 4.128888266818157
+              "p": 0.2595920089110426,
+              "fairOdds": 3.8521987028602314
             }
           ]
         },
@@ -8535,22 +8535,22 @@
               "market": "double_chance",
               "selection": "1x",
               "label": "Vélez Sarsfield o empate",
-              "p": 0.7578040539298415,
-              "fairOdds": 1.3196023362690816
+              "p": 0.7404079910889577,
+              "fairOdds": 1.3506067087812577
             },
             {
               "market": "double_chance",
               "selection": "x2",
               "label": "Belgrano o empate",
-              "p": 0.49352773054086474,
-              "fairOdds": 2.026228594904048
+              "p": 0.5264492748650889,
+              "fairOdds": 1.8995182399221011
             },
             {
               "market": "double_chance",
               "selection": "12",
               "label": "Sin empate",
-              "p": 0.7486682155292935,
-              "fairOdds": 1.335705161856003
+              "p": 0.733142734045954,
+              "fairOdds": 1.3639908759394719
             }
           ]
         },
@@ -8560,42 +8560,42 @@
             {
               "market": "totals",
               "selection": "over_1.5",
-              "label": "Más de 1.5",
+              "label": "Más de 1.5 goles",
               "line": 1.5,
-              "p": 0.718358697728652,
-              "fairOdds": 1.392062215104874
+              "p": 0.681372769899198,
+              "fairOdds": 1.4676254235224861
             },
             {
               "market": "totals",
               "selection": "over_2.5",
-              "label": "Más de 2.5",
+              "label": "Más de 2.5 goles",
               "line": 2.5,
-              "p": 0.46559345835177335,
-              "fairOdds": 2.1477964994183023
+              "p": 0.4204288141359376,
+              "fairOdds": 2.3785239412174763
             },
             {
               "market": "totals",
               "selection": "under_2.5",
-              "label": "Menos de 2.5",
+              "label": "Menos de 2.5 goles",
               "line": 2.5,
-              "p": 0.5344065416482267,
-              "fairOdds": 1.8712345790449745
+              "p": 0.5795711858640624,
+              "fairOdds": 1.7254135892023945
             },
             {
               "market": "totals",
               "selection": "over_3.5",
-              "label": "Más de 3.5",
+              "label": "Más de 3.5 goles",
               "line": 3.5,
-              "p": 0.25032008301862385,
-              "fairOdds": 3.9948852203184986
+              "p": 0.21344896199893615,
+              "fairOdds": 4.684960707398447
             },
             {
               "market": "totals",
               "selection": "under_3.5",
-              "label": "Menos de 3.5",
+              "label": "Menos de 3.5 goles",
               "line": 3.5,
-              "p": 0.7496799169813761,
-              "fairOdds": 1.3339026127664593
+              "p": 0.7865510380010639,
+              "fairOdds": 1.2713733142370445
             }
           ]
         },
@@ -8606,15 +8606,15 @@
               "market": "btts",
               "selection": "yes",
               "label": "Sí",
-              "p": 0.49208618422214767,
-              "fairOdds": 2.0321643485698013
+              "p": 0.4634171789639254,
+              "fairOdds": 2.1578828869394258
             },
             {
               "market": "btts",
               "selection": "no",
               "label": "No",
-              "p": 0.5079138157778523,
-              "fairOdds": 1.968837958204651
+              "p": 0.5365828210360746,
+              "fairOdds": 1.863645202187287
             }
           ]
         },
@@ -8624,34 +8624,34 @@
             {
               "market": "team_totals",
               "selection": "home_over",
-              "label": "Vélez Sarsfield más de 1.5",
+              "label": "Vélez Sarsfield más de 1.5 goles",
               "line": 1.5,
-              "p": 0.45918800864026277,
-              "fairOdds": 2.1777572174874025
+              "p": 0.40891007547796177,
+              "fairOdds": 2.4455254589438336
             },
             {
               "market": "team_totals",
               "selection": "home_under",
-              "label": "Vélez Sarsfield menos de 1.5",
+              "label": "Vélez Sarsfield menos de 1.5 goles",
               "line": 1.5,
-              "p": 0.5408119913597372,
-              "fairOdds": 1.8490714258863763
+              "p": 0.5910899245220382,
+              "fairOdds": 1.691789960400037
             },
             {
               "market": "team_totals",
               "selection": "away_over",
-              "label": "Belgrano más de 1.5",
+              "label": "Belgrano más de 1.5 goles",
               "line": 1.5,
-              "p": 0.25891835105970973,
-              "fairOdds": 3.8622214142302638
+              "p": 0.24960885502281094,
+              "fairOdds": 4.00626812662
             },
             {
               "market": "team_totals",
               "selection": "away_under",
-              "label": "Belgrano menos de 1.5",
+              "label": "Belgrano menos de 1.5 goles",
               "line": 1.5,
-              "p": 0.7410816489402903,
-              "fairOdds": 1.3493789806156313
+              "p": 0.7503911449771891,
+              "fairOdds": 1.332638326949339
             }
           ]
         },
@@ -8662,22 +8662,22 @@
               "market": "correct_score",
               "selection": "1-0",
               "label": "1–0",
-              "p": 0.12454919092922713,
-              "fairOdds": 8.028956210307559
+              "p": 0.13398091428624284,
+              "fairOdds": 7.463749634246823
             },
             {
               "market": "correct_score",
               "selection": "1-1",
               "label": "1–1",
-              "p": 0.11914454005220791,
-              "fairOdds": 8.393166817059432
+              "p": 0.12492141514577036,
+              "fairOdds": 8.005032594556374
             },
             {
               "market": "correct_score",
               "selection": "2-0",
               "label": "2–0",
-              "p": 0.09519797907348104,
-              "fairOdds": 10.504424670907394
+              "p": 0.09259715285516616,
+              "fairOdds": 10.799468117169093
             }
           ]
         }
@@ -8685,44 +8685,44 @@
       "mostLikelyScore": {
         "home": 1,
         "away": 0,
-        "p": 0.12454919092922713
+        "p": 0.13398091428624284
       },
       "factors": [
         {
           "key": "home_attack",
           "label": "Ataque local",
-          "value": "1.31 goles/partido",
-          "detail": "36 % más que la media · 16 partidos"
+          "value": "1.19 goles/partido",
+          "detail": "27 % más que la media · 16 partidos"
         },
         {
           "key": "away_defense",
           "label": "Defensa visitante",
-          "value": "0.96 concedidos/partido",
-          "detail": "11 % menos que la media · 16 partidos"
+          "value": "0.94 concedidos/partido",
+          "detail": "9 % menos que la media · 16 partidos"
         },
         {
           "key": "away_attack",
           "label": "Ataque visitante",
-          "value": "0.99 goles/partido",
-          "detail": "7 % menos que la media · ajustado por rival"
+          "value": "0.96 goles/partido",
+          "detail": "5 % menos que la media · ajustado por rival"
         },
         {
           "key": "home_defense",
           "label": "Defensa local",
-          "value": "1.06 concedidos/partido",
+          "value": "1.01 concedidos/partido",
           "detail": "en la media de la liga · ajustado por rival"
         },
         {
           "key": "home_advantage",
           "label": "Localía",
-          "value": "×1.19",
+          "value": "×1.18",
           "detail": "estimada de 240 partidos"
         },
         {
           "key": "uncertainty",
           "label": "Intervalo 90%",
-          "value": "goles 1.8–3.7",
-          "detail": "local 29%–72% · 240 partidos"
+          "value": "goles 1.8–3.3",
+          "detail": "local 28%–66% · 240 partidos"
         },
         {
           "key": "home_position",
@@ -8750,68 +8750,32 @@
         }
       ],
       "steps": [
-        "Sincronizando Liga Profesional Argentina · corte 19 nov 2026, 10:05",
-        "Fuerza ajustada por rival · VEL 1.36 / 0.98 · ATL 0.93 / 0.89",
-        "Ponderando 211.6 partidos por antigüedad y calidad del rival",
-        "Proyección de goles 1.55 – 0.99 · total 2.54",
+        "Sincronizando Liga Profesional Argentina · corte 21 nov 2026, 22:33",
+        "Fuerza ajustada por rival · VEL 1.27 / 0.98 · ATL 0.95 / 0.91",
+        "Ponderando 210.4 partidos por antigüedad y calidad del rival",
+        "Proyección de goles 1.40 – 0.96 · total 2.36",
         "Simulando 121 marcadores con incertidumbre del ajuste",
         "20 mercados listos · marcador proyectado 1–0"
       ],
-      "inputsAsOf": "2026-11-19T16:05:39.021Z",
+      "inputsAsOf": "2026-11-22T04:33:15.743Z",
       "publishedAt": "2026-11-19T16:05:39.021Z",
       "source": "pitchlab-football-v2",
-      "picks": [
-        {
-          "profile": "conservadora",
-          "market": "double_chance",
-          "selection": "1x",
-          "label": "Vélez Sarsfield o empate",
-          "p": 0.7578040539298415,
-          "fairOdds": 1.3196023362690816
-        },
-        {
-          "profile": "intermedia",
-          "market": "team_totals",
-          "selection": "home_under",
-          "label": "Vélez Sarsfield menos de 1.5",
-          "line": 1.5,
-          "p": 0.5408119913597372,
-          "fairOdds": 1.8490714258863763
-        },
-        {
-          "profile": "arriesgada",
-          "market": "btts",
-          "selection": "no",
-          "label": "Ambos anotan: No",
-          "p": 0.5079138157778523,
-          "fairOdds": 1.968837958204651
-        }
-      ],
-      "confidence": {
-        "score": 51,
-        "level": "media",
-        "reasons": [
-          "Muestra suficiente",
-          "Rango de incertidumbre amplio"
-        ]
-      },
       "projectedScore": {
         "home": 1,
         "away": 0,
-        "p": 0.12454919092922713
+        "p": 0.13398091428624284
       },
       "insights": {
         "why": [
-          "Se esperan 2.5 goles: 1.6 de Vélez Sarsfield y 1.0 de Belgrano.",
-          "Vélez Sarsfield anota 36 % más que la media.",
-          "Belgrano concede 11 % menos que la media."
+          "Se esperan 2.4 goles: 1.4 de Vélez Sarsfield y 1.0 de Belgrano.",
+          "Vélez Sarsfield anota 27 % más que la media.",
+          "Belgrano concede 9 % menos que la media."
         ],
         "restDays": {
           "home": 14,
           "away": 15
         }
       },
-      "picksAt": "2026-11-19T16:05:39.021Z",
       "matchContext": {
         "referee": "Yael Falcon Perez",
         "refereeStats": {
@@ -8842,145 +8806,145 @@
         "label": "Modelo PitchLab · en validación"
       },
       "projection": {
-        "home": 1.1767777725820525,
-        "away": 0.8720449485693166,
-        "total": 2.048822721151369,
-        "margin": 0.30473282401273594
+        "home": 1.1295539593216248,
+        "away": 0.8750777170856485,
+        "total": 2.004631676407273,
+        "margin": 0.2544762422359763
       },
       "x12": [
-        0.43104021728008163,
-        0.2952424976024153,
-        0.2737172851175027
+        0.41606068380503736,
+        0.3006188960373665,
+        0.28332042015759645
       ],
       "probabilities": [
         {
           "market": "h2h",
           "selection": "Defensa y Justicia gana",
-          "p": 0.43104021728008163,
-          "fairOdds": 2.3199691349223204
+          "p": 0.41606068380503736,
+          "fairOdds": 2.403495545059941
         },
         {
           "market": "h2h",
           "selection": "Empate",
-          "p": 0.2952424976024153,
-          "fairOdds": 3.3870462691541037
+          "p": 0.3006188960373665,
+          "fairOdds": 3.3264708678715302
         },
         {
           "market": "h2h",
           "selection": "Barracas Central gana",
-          "p": 0.2737172851175027,
-          "fairOdds": 3.6534046418395354
+          "p": 0.28332042015759645,
+          "fairOdds": 3.5295726282057323
         },
         {
           "market": "double_chance",
           "selection": "Defensa y Justicia o empate",
-          "p": 0.7262827148824968,
-          "fairOdds": 1.3768742935893594
+          "p": 0.7166795798424039,
+          "fairOdds": 1.3953236957301023
         },
         {
           "market": "double_chance",
           "selection": "Barracas Central o empate",
-          "p": 0.568959782719918,
-          "fairOdds": 1.7575934721070967
+          "p": 0.583939316194963,
+          "fairOdds": 1.7125067147664443
         },
         {
           "market": "double_chance",
           "selection": "Sin empate",
-          "p": 0.7047575023975843,
-          "fairOdds": 1.4189277823903983
+          "p": 0.6993811039626339,
+          "fairOdds": 1.4298355994093708
         },
         {
           "market": "totals",
-          "selection": "Más de 1.5",
+          "selection": "Más de 1.5 goles",
           "line": 1.5,
-          "p": 0.6050637808669045,
-          "fairOdds": 1.6527183275906072
+          "p": 0.5932490371975822,
+          "fairOdds": 1.6856327398757311
         },
         {
           "market": "totals",
-          "selection": "Más de 2.5",
+          "selection": "Más de 2.5 goles",
           "line": 2.5,
-          "p": 0.3365358287874346,
-          "fairOdds": 2.971451817190103
+          "p": 0.32457721526630123,
+          "fairOdds": 3.080930986420425
         },
         {
           "market": "totals",
-          "selection": "Menos de 2.5",
+          "selection": "Menos de 2.5 goles",
           "line": 2.5,
-          "p": 0.6634641712125654,
-          "fairOdds": 1.5072403957735538
+          "p": 0.6754227847336988,
+          "fairOdds": 1.4805541397219424
         },
         {
           "market": "totals",
-          "selection": "Más de 3.5",
+          "selection": "Más de 3.5 goles",
           "line": 3.5,
-          "p": 0.1517921803808222,
-          "fairOdds": 6.587954646221963
+          "p": 0.14371324665423435,
+          "fairOdds": 6.958300805811877
         },
         {
           "market": "totals",
-          "selection": "Menos de 3.5",
+          "selection": "Menos de 3.5 goles",
           "line": 3.5,
-          "p": 0.8482078196191778,
-          "fairOdds": 1.1789563558244167
+          "p": 0.8562867533457656,
+          "fairOdds": 1.1678330840605722
         },
         {
           "market": "btts",
           "selection": "Sí",
-          "p": 0.4005364352501512,
-          "fairOdds": 2.4966517699581052
+          "p": 0.3927055929827286,
+          "fairOdds": 2.546436867386252
         },
         {
           "market": "btts",
           "selection": "No",
-          "p": 0.5994635647498487,
-          "fairOdds": 1.6681580980109973
+          "p": 0.6072944070172714,
+          "fairOdds": 1.6466478012065078
         },
         {
           "market": "team_totals",
-          "selection": "Defensa y Justicia más de 1.5",
+          "selection": "Defensa y Justicia más de 1.5 goles",
           "line": 1.5,
-          "p": 0.3289636857853704,
-          "fairOdds": 3.0398492089258804
+          "p": 0.3117763190246421,
+          "fairOdds": 3.2074276940865487
         },
         {
           "market": "team_totals",
-          "selection": "Defensa y Justicia menos de 1.5",
+          "selection": "Defensa y Justicia menos de 1.5 goles",
           "line": 1.5,
-          "p": 0.6710363142146296,
-          "fairOdds": 1.4902323150281134
+          "p": 0.6882236809753579,
+          "fairOdds": 1.4530159708872403
         },
         {
           "market": "team_totals",
-          "selection": "Barracas Central más de 1.5",
+          "selection": "Barracas Central más de 1.5 goles",
           "line": 1.5,
-          "p": 0.21730607305459038,
-          "fairOdds": 4.601804201527243
+          "p": 0.21841205887117976,
+          "fairOdds": 4.578501778557033
         },
         {
           "market": "team_totals",
-          "selection": "Barracas Central menos de 1.5",
+          "selection": "Barracas Central menos de 1.5 goles",
           "line": 1.5,
-          "p": 0.7826939269454096,
-          "fairOdds": 1.2776386344310382
+          "p": 0.7815879411288202,
+          "fairOdds": 1.2794465566545652
         },
         {
           "market": "correct_score",
           "selection": "1–0",
-          "p": 0.15365479182753228,
-          "fairOdds": 6.508095114420098
-        },
-        {
-          "market": "correct_score",
-          "selection": "1–1",
-          "p": 0.13027982876252683,
-          "fairOdds": 7.675785342202077
+          "p": 0.15415941540580744,
+          "fairOdds": 6.486791594062625
         },
         {
           "market": "correct_score",
           "selection": "0–0",
-          "p": 0.12690259986170635,
-          "fairOdds": 7.880059203592063
+          "p": 0.13271260325679685,
+          "fairOdds": 7.535079377992574
+        },
+        {
+          "market": "correct_score",
+          "selection": "1–1",
+          "p": 0.13115636704720973,
+          "fairOdds": 7.624486881678036
         }
       ],
       "marketGroups": [
@@ -8991,22 +8955,22 @@
               "market": "h2h",
               "selection": "home",
               "label": "Defensa y Justicia gana",
-              "p": 0.43104021728008163,
-              "fairOdds": 2.3199691349223204
+              "p": 0.41606068380503736,
+              "fairOdds": 2.403495545059941
             },
             {
               "market": "h2h",
               "selection": "draw",
               "label": "Empate",
-              "p": 0.2952424976024153,
-              "fairOdds": 3.3870462691541037
+              "p": 0.3006188960373665,
+              "fairOdds": 3.3264708678715302
             },
             {
               "market": "h2h",
               "selection": "away",
               "label": "Barracas Central gana",
-              "p": 0.2737172851175027,
-              "fairOdds": 3.6534046418395354
+              "p": 0.28332042015759645,
+              "fairOdds": 3.5295726282057323
             }
           ]
         },
@@ -9017,22 +8981,22 @@
               "market": "double_chance",
               "selection": "1x",
               "label": "Defensa y Justicia o empate",
-              "p": 0.7262827148824968,
-              "fairOdds": 1.3768742935893594
+              "p": 0.7166795798424039,
+              "fairOdds": 1.3953236957301023
             },
             {
               "market": "double_chance",
               "selection": "x2",
               "label": "Barracas Central o empate",
-              "p": 0.568959782719918,
-              "fairOdds": 1.7575934721070967
+              "p": 0.583939316194963,
+              "fairOdds": 1.7125067147664443
             },
             {
               "market": "double_chance",
               "selection": "12",
               "label": "Sin empate",
-              "p": 0.7047575023975843,
-              "fairOdds": 1.4189277823903983
+              "p": 0.6993811039626339,
+              "fairOdds": 1.4298355994093708
             }
           ]
         },
@@ -9042,42 +9006,42 @@
             {
               "market": "totals",
               "selection": "over_1.5",
-              "label": "Más de 1.5",
+              "label": "Más de 1.5 goles",
               "line": 1.5,
-              "p": 0.6050637808669045,
-              "fairOdds": 1.6527183275906072
+              "p": 0.5932490371975822,
+              "fairOdds": 1.6856327398757311
             },
             {
               "market": "totals",
               "selection": "over_2.5",
-              "label": "Más de 2.5",
+              "label": "Más de 2.5 goles",
               "line": 2.5,
-              "p": 0.3365358287874346,
-              "fairOdds": 2.971451817190103
+              "p": 0.32457721526630123,
+              "fairOdds": 3.080930986420425
             },
             {
               "market": "totals",
               "selection": "under_2.5",
-              "label": "Menos de 2.5",
+              "label": "Menos de 2.5 goles",
               "line": 2.5,
-              "p": 0.6634641712125654,
-              "fairOdds": 1.5072403957735538
+              "p": 0.6754227847336988,
+              "fairOdds": 1.4805541397219424
             },
             {
               "market": "totals",
               "selection": "over_3.5",
-              "label": "Más de 3.5",
+              "label": "Más de 3.5 goles",
               "line": 3.5,
-              "p": 0.1517921803808222,
-              "fairOdds": 6.587954646221963
+              "p": 0.14371324665423435,
+              "fairOdds": 6.958300805811877
             },
             {
               "market": "totals",
               "selection": "under_3.5",
-              "label": "Menos de 3.5",
+              "label": "Menos de 3.5 goles",
               "line": 3.5,
-              "p": 0.8482078196191778,
-              "fairOdds": 1.1789563558244167
+              "p": 0.8562867533457656,
+              "fairOdds": 1.1678330840605722
             }
           ]
         },
@@ -9088,15 +9052,15 @@
               "market": "btts",
               "selection": "yes",
               "label": "Sí",
-              "p": 0.4005364352501512,
-              "fairOdds": 2.4966517699581052
+              "p": 0.3927055929827286,
+              "fairOdds": 2.546436867386252
             },
             {
               "market": "btts",
               "selection": "no",
               "label": "No",
-              "p": 0.5994635647498487,
-              "fairOdds": 1.6681580980109973
+              "p": 0.6072944070172714,
+              "fairOdds": 1.6466478012065078
             }
           ]
         },
@@ -9106,34 +9070,34 @@
             {
               "market": "team_totals",
               "selection": "home_over",
-              "label": "Defensa y Justicia más de 1.5",
+              "label": "Defensa y Justicia más de 1.5 goles",
               "line": 1.5,
-              "p": 0.3289636857853704,
-              "fairOdds": 3.0398492089258804
+              "p": 0.3117763190246421,
+              "fairOdds": 3.2074276940865487
             },
             {
               "market": "team_totals",
               "selection": "home_under",
-              "label": "Defensa y Justicia menos de 1.5",
+              "label": "Defensa y Justicia menos de 1.5 goles",
               "line": 1.5,
-              "p": 0.6710363142146296,
-              "fairOdds": 1.4902323150281134
+              "p": 0.6882236809753579,
+              "fairOdds": 1.4530159708872403
             },
             {
               "market": "team_totals",
               "selection": "away_over",
-              "label": "Barracas Central más de 1.5",
+              "label": "Barracas Central más de 1.5 goles",
               "line": 1.5,
-              "p": 0.21730607305459038,
-              "fairOdds": 4.601804201527243
+              "p": 0.21841205887117976,
+              "fairOdds": 4.578501778557033
             },
             {
               "market": "team_totals",
               "selection": "away_under",
-              "label": "Barracas Central menos de 1.5",
+              "label": "Barracas Central menos de 1.5 goles",
               "line": 1.5,
-              "p": 0.7826939269454096,
-              "fairOdds": 1.2776386344310382
+              "p": 0.7815879411288202,
+              "fairOdds": 1.2794465566545652
             }
           ]
         },
@@ -9144,22 +9108,22 @@
               "market": "correct_score",
               "selection": "1-0",
               "label": "1–0",
-              "p": 0.15365479182753228,
-              "fairOdds": 6.508095114420098
-            },
-            {
-              "market": "correct_score",
-              "selection": "1-1",
-              "label": "1–1",
-              "p": 0.13027982876252683,
-              "fairOdds": 7.675785342202077
+              "p": 0.15415941540580744,
+              "fairOdds": 6.486791594062625
             },
             {
               "market": "correct_score",
               "selection": "0-0",
               "label": "0–0",
-              "p": 0.12690259986170635,
-              "fairOdds": 7.880059203592063
+              "p": 0.13271260325679685,
+              "fairOdds": 7.535079377992574
+            },
+            {
+              "market": "correct_score",
+              "selection": "1-1",
+              "label": "1–1",
+              "p": 0.13115636704720973,
+              "fairOdds": 7.624486881678036
             }
           ]
         }
@@ -9167,44 +9131,44 @@
       "mostLikelyScore": {
         "home": 1,
         "away": 0,
-        "p": 0.15365479182753228
+        "p": 0.15415941540580744
       },
       "factors": [
         {
           "key": "home_attack",
           "label": "Ataque local",
-          "value": "0.99 goles/partido",
-          "detail": "14 % más que la media · 16 partidos"
+          "value": "0.96 goles/partido",
+          "detail": "10 % más que la media · 16 partidos"
         },
         {
           "key": "away_defense",
           "label": "Defensa visitante",
           "value": "0.87 concedidos/partido",
-          "detail": "20 % menos que la media · 16 partidos"
+          "detail": "16 % menos que la media · 16 partidos"
         },
         {
           "key": "away_attack",
           "label": "Ataque visitante",
-          "value": "0.87 goles/partido",
-          "detail": "6 % menos que la media · ajustado por rival"
+          "value": "0.88 goles/partido",
+          "detail": "4 % menos que la media · ajustado por rival"
         },
         {
           "key": "home_defense",
           "label": "Defensa local",
-          "value": "0.93 concedidos/partido",
-          "detail": "14 % menos que la media · ajustado por rival"
+          "value": "0.91 concedidos/partido",
+          "detail": "12 % menos que la media · ajustado por rival"
         },
         {
           "key": "home_advantage",
           "label": "Localía",
-          "value": "×1.19",
+          "value": "×1.18",
           "detail": "estimada de 240 partidos"
         },
         {
           "key": "uncertainty",
           "label": "Intervalo 90%",
-          "value": "goles 1.4–3.1",
-          "detail": "local 21%–68% · 240 partidos"
+          "value": "goles 1.5–2.9",
+          "detail": "local 24%–64% · 240 partidos"
         },
         {
           "key": "home_position",
@@ -9232,69 +9196,32 @@
         }
       ],
       "steps": [
-        "Sincronizando Liga Profesional Argentina · corte 19 nov 2026, 10:05",
-        "Fuerza ajustada por rival · DEF 1.14 / 0.86 · BAR 0.94 / 0.80",
-        "Ponderando 211.6 partidos por antigüedad y calidad del rival",
-        "Proyección de goles 1.18 – 0.87 · total 2.05",
+        "Sincronizando Liga Profesional Argentina · corte 21 nov 2026, 22:33",
+        "Fuerza ajustada por rival · DEF 1.10 / 0.88 · BAR 0.96 / 0.84",
+        "Ponderando 210.4 partidos por antigüedad y calidad del rival",
+        "Proyección de goles 1.13 – 0.88 · total 2.00",
         "Simulando 121 marcadores con incertidumbre del ajuste",
         "20 mercados listos · marcador proyectado 1–0"
       ],
-      "inputsAsOf": "2026-11-19T16:05:39.021Z",
+      "inputsAsOf": "2026-11-22T04:33:15.743Z",
       "publishedAt": "2026-11-19T16:05:39.021Z",
       "source": "pitchlab-football-v2",
-      "picks": [
-        {
-          "profile": "conservadora",
-          "market": "totals",
-          "selection": "under_3.5",
-          "label": "Menos de 3.5",
-          "line": 3.5,
-          "p": 0.8482078196191778,
-          "fairOdds": 1.1789563558244167
-        },
-        {
-          "profile": "intermedia",
-          "market": "team_totals",
-          "selection": "home_under",
-          "label": "Defensa y Justicia menos de 1.5",
-          "line": 1.5,
-          "p": 0.6710363142146296,
-          "fairOdds": 1.4902323150281134
-        },
-        {
-          "profile": "arriesgada",
-          "market": "h2h",
-          "selection": "home",
-          "label": "Defensa y Justicia gana",
-          "p": 0.43104021728008163,
-          "fairOdds": 2.3199691349223204
-        }
-      ],
-      "confidence": {
-        "score": 38,
-        "level": "baja",
-        "reasons": [
-          "Muestra suficiente",
-          "Rango de incertidumbre amplio"
-        ]
-      },
       "projectedScore": {
         "home": 1,
         "away": 0,
-        "p": 0.15365479182753228
+        "p": 0.15415941540580744
       },
       "insights": {
         "why": [
-          "Se esperan 2.0 goles: 1.2 de Defensa y Justicia y 0.9 de Barracas Central.",
-          "Barracas Central concede 20 % menos que la media.",
-          "Defensa y Justicia concede 14 % menos que la media."
+          "Defensa y Justicia gana en 42% de los escenarios; el empate, en 30%.",
+          "Barracas Central concede 16 % menos que la media.",
+          "Defensa y Justicia concede 12 % menos que la media."
         ],
         "restDays": {
           "home": 14,
           "away": 15
         }
       },
-      "picksAt": "2026-11-19T16:05:39.021Z",
       "matchContext": {
         "referee": "Pablo Echavarria",
         "refereeStats": {
@@ -9325,145 +9252,145 @@
         "label": "Modelo PitchLab · en validación"
       },
       "projection": {
-        "home": 1.219599504893605,
-        "away": 0.7731844361605593,
-        "total": 1.9927839410541643,
-        "margin": 0.4464150687330457
+        "home": 1.1796691736548375,
+        "away": 0.7828282645266593,
+        "total": 1.9624974381814968,
+        "margin": 0.39684090912817815
       },
       "x12": [
-        0.46860742607822997,
-        0.2946735937709938,
-        0.2367189801507768
+        0.45413227714991966,
+        0.2995841568414255,
+        0.2462835660086546
       ],
       "probabilities": [
         {
           "market": "h2h",
           "selection": "Argentinos Juniors gana",
-          "p": 0.46860742607822997,
-          "fairOdds": 2.1339824005116355
+          "p": 0.45413227714991966,
+          "fairOdds": 2.2020015980275205
         },
         {
           "market": "h2h",
           "selection": "Empate",
-          "p": 0.2946735937709938,
-          "fairOdds": 3.3935853810408005
+          "p": 0.2995841568414255,
+          "fairOdds": 3.3379602264124917
         },
         {
           "market": "h2h",
           "selection": "Independiente gana",
-          "p": 0.2367189801507768,
-          "fairOdds": 4.22441833503615
+          "p": 0.2462835660086546,
+          "fairOdds": 4.06036024330125
         },
         {
           "market": "double_chance",
           "selection": "Argentinos Juniors o empate",
-          "p": 0.7632810198492237,
-          "fairOdds": 1.3101334554310509
+          "p": 0.7537164339913451,
+          "fairOdds": 1.3267589174146666
         },
         {
           "market": "double_chance",
           "selection": "Independiente o empate",
-          "p": 0.5313925739217706,
-          "fairOdds": 1.8818479012979503
+          "p": 0.5458677228500801,
+          "fairOdds": 1.8319456493577018
         },
         {
           "market": "double_chance",
           "selection": "Sin empate",
-          "p": 0.7053264062290068,
-          "fairOdds": 1.4177833002828453
+          "p": 0.7004158431585743,
+          "fairOdds": 1.4277232729208835
         },
         {
           "market": "totals",
-          "selection": "Más de 1.5",
+          "selection": "Más de 1.5 goles",
           "line": 1.5,
-          "p": 0.5901092907604147,
-          "fairOdds": 1.6946013486949174
+          "p": 0.5818018003548673,
+          "fairOdds": 1.718798393868934
         },
         {
           "market": "totals",
-          "selection": "Más de 2.5",
+          "selection": "Más de 2.5 goles",
           "line": 2.5,
-          "p": 0.32137036746692704,
-          "fairOdds": 3.111674570005003
+          "p": 0.31317390838194514,
+          "fairOdds": 3.1931140278148766
         },
         {
           "market": "totals",
-          "selection": "Menos de 2.5",
+          "selection": "Menos de 2.5 goles",
           "line": 2.5,
-          "p": 0.678629632533073,
-          "fairOdds": 1.473557817196061
+          "p": 0.6868260916180549,
+          "fairOdds": 1.455972643153606
         },
         {
           "market": "totals",
-          "selection": "Más de 3.5",
+          "selection": "Más de 3.5 goles",
           "line": 3.5,
-          "p": 0.14157671432994212,
-          "fairOdds": 7.063308431282824
+          "p": 0.13617350336543832,
+          "fairOdds": 7.343572540073212
         },
         {
           "market": "totals",
-          "selection": "Menos de 3.5",
+          "selection": "Menos de 3.5 goles",
           "line": 3.5,
-          "p": 0.8584232856700579,
-          "fairOdds": 1.1649264607488272
+          "p": 0.8638264966345617,
+          "fairOdds": 1.1576398777948647
         },
         {
           "market": "btts",
           "selection": "Sí",
-          "p": 0.3774978529583794,
-          "fairOdds": 2.649021688900185
+          "p": 0.3740689759863402,
+          "fairOdds": 2.673303759990288
         },
         {
           "market": "btts",
           "selection": "No",
-          "p": 0.6225021470416205,
-          "fairOdds": 1.6064201621671514
+          "p": 0.6259310240136597,
+          "fairOdds": 1.5976201236802363
         },
         {
           "market": "team_totals",
-          "selection": "Argentinos Juniors más de 1.5",
+          "selection": "Argentinos Juniors más de 1.5 goles",
           "line": 1.5,
-          "p": 0.3444447256756904,
-          "fairOdds": 2.9032234360340974
+          "p": 0.3300123576628835,
+          "fairOdds": 3.0301895573908384
         },
         {
           "market": "team_totals",
-          "selection": "Argentinos Juniors menos de 1.5",
+          "selection": "Argentinos Juniors menos de 1.5 goles",
           "line": 1.5,
-          "p": 0.6555552743243096,
-          "fairOdds": 1.5254243832157626
+          "p": 0.6699876423371165,
+          "fairOdds": 1.492564842706206
         },
         {
           "market": "team_totals",
-          "selection": "Independiente más de 1.5",
+          "selection": "Independiente más de 1.5 goles",
           "line": 1.5,
-          "p": 0.18160272076413064,
-          "fairOdds": 5.506525429752898
+          "p": 0.1850489653456031,
+          "fairOdds": 5.40397509455062
         },
         {
           "market": "team_totals",
-          "selection": "Independiente menos de 1.5",
+          "selection": "Independiente menos de 1.5 goles",
           "line": 1.5,
-          "p": 0.8183972792358694,
-          "fairOdds": 1.2219004453847788
+          "p": 0.8149510346543969,
+          "fairOdds": 1.2270675874705508
         },
         {
           "market": "correct_score",
           "selection": "1–0",
-          "p": 0.16817834098896442,
-          "fairOdds": 5.946068882113769
+          "p": 0.1676982022474743,
+          "fairOdds": 5.963093143504828
         },
         {
           "market": "correct_score",
           "selection": "0–0",
-          "p": 0.1343872816021189,
-          "fairOdds": 7.4411803563428345
+          "p": 0.13856075336385482,
+          "fairOdds": 7.217050829494563
         },
         {
           "market": "correct_score",
           "selection": "1–1",
-          "p": 0.12661394365615344,
-          "fairOdds": 7.898024270657808
+          "p": 0.12780892268316035,
+          "fairOdds": 7.82417986949949
         }
       ],
       "marketGroups": [
@@ -9474,22 +9401,22 @@
               "market": "h2h",
               "selection": "home",
               "label": "Argentinos Juniors gana",
-              "p": 0.46860742607822997,
-              "fairOdds": 2.1339824005116355
+              "p": 0.45413227714991966,
+              "fairOdds": 2.2020015980275205
             },
             {
               "market": "h2h",
               "selection": "draw",
               "label": "Empate",
-              "p": 0.2946735937709938,
-              "fairOdds": 3.3935853810408005
+              "p": 0.2995841568414255,
+              "fairOdds": 3.3379602264124917
             },
             {
               "market": "h2h",
               "selection": "away",
               "label": "Independiente gana",
-              "p": 0.2367189801507768,
-              "fairOdds": 4.22441833503615
+              "p": 0.2462835660086546,
+              "fairOdds": 4.06036024330125
             }
           ]
         },
@@ -9500,22 +9427,22 @@
               "market": "double_chance",
               "selection": "1x",
               "label": "Argentinos Juniors o empate",
-              "p": 0.7632810198492237,
-              "fairOdds": 1.3101334554310509
+              "p": 0.7537164339913451,
+              "fairOdds": 1.3267589174146666
             },
             {
               "market": "double_chance",
               "selection": "x2",
               "label": "Independiente o empate",
-              "p": 0.5313925739217706,
-              "fairOdds": 1.8818479012979503
+              "p": 0.5458677228500801,
+              "fairOdds": 1.8319456493577018
             },
             {
               "market": "double_chance",
               "selection": "12",
               "label": "Sin empate",
-              "p": 0.7053264062290068,
-              "fairOdds": 1.4177833002828453
+              "p": 0.7004158431585743,
+              "fairOdds": 1.4277232729208835
             }
           ]
         },
@@ -9525,42 +9452,42 @@
             {
               "market": "totals",
               "selection": "over_1.5",
-              "label": "Más de 1.5",
+              "label": "Más de 1.5 goles",
               "line": 1.5,
-              "p": 0.5901092907604147,
-              "fairOdds": 1.6946013486949174
+              "p": 0.5818018003548673,
+              "fairOdds": 1.718798393868934
             },
             {
               "market": "totals",
               "selection": "over_2.5",
-              "label": "Más de 2.5",
+              "label": "Más de 2.5 goles",
               "line": 2.5,
-              "p": 0.32137036746692704,
-              "fairOdds": 3.111674570005003
+              "p": 0.31317390838194514,
+              "fairOdds": 3.1931140278148766
             },
             {
               "market": "totals",
               "selection": "under_2.5",
-              "label": "Menos de 2.5",
+              "label": "Menos de 2.5 goles",
               "line": 2.5,
-              "p": 0.678629632533073,
-              "fairOdds": 1.473557817196061
+              "p": 0.6868260916180549,
+              "fairOdds": 1.455972643153606
             },
             {
               "market": "totals",
               "selection": "over_3.5",
-              "label": "Más de 3.5",
+              "label": "Más de 3.5 goles",
               "line": 3.5,
-              "p": 0.14157671432994212,
-              "fairOdds": 7.063308431282824
+              "p": 0.13617350336543832,
+              "fairOdds": 7.343572540073212
             },
             {
               "market": "totals",
               "selection": "under_3.5",
-              "label": "Menos de 3.5",
+              "label": "Menos de 3.5 goles",
               "line": 3.5,
-              "p": 0.8584232856700579,
-              "fairOdds": 1.1649264607488272
+              "p": 0.8638264966345617,
+              "fairOdds": 1.1576398777948647
             }
           ]
         },
@@ -9571,15 +9498,15 @@
               "market": "btts",
               "selection": "yes",
               "label": "Sí",
-              "p": 0.3774978529583794,
-              "fairOdds": 2.649021688900185
+              "p": 0.3740689759863402,
+              "fairOdds": 2.673303759990288
             },
             {
               "market": "btts",
               "selection": "no",
               "label": "No",
-              "p": 0.6225021470416205,
-              "fairOdds": 1.6064201621671514
+              "p": 0.6259310240136597,
+              "fairOdds": 1.5976201236802363
             }
           ]
         },
@@ -9589,34 +9516,34 @@
             {
               "market": "team_totals",
               "selection": "home_over",
-              "label": "Argentinos Juniors más de 1.5",
+              "label": "Argentinos Juniors más de 1.5 goles",
               "line": 1.5,
-              "p": 0.3444447256756904,
-              "fairOdds": 2.9032234360340974
+              "p": 0.3300123576628835,
+              "fairOdds": 3.0301895573908384
             },
             {
               "market": "team_totals",
               "selection": "home_under",
-              "label": "Argentinos Juniors menos de 1.5",
+              "label": "Argentinos Juniors menos de 1.5 goles",
               "line": 1.5,
-              "p": 0.6555552743243096,
-              "fairOdds": 1.5254243832157626
+              "p": 0.6699876423371165,
+              "fairOdds": 1.492564842706206
             },
             {
               "market": "team_totals",
               "selection": "away_over",
-              "label": "Independiente más de 1.5",
+              "label": "Independiente más de 1.5 goles",
               "line": 1.5,
-              "p": 0.18160272076413064,
-              "fairOdds": 5.506525429752898
+              "p": 0.1850489653456031,
+              "fairOdds": 5.40397509455062
             },
             {
               "market": "team_totals",
               "selection": "away_under",
-              "label": "Independiente menos de 1.5",
+              "label": "Independiente menos de 1.5 goles",
               "line": 1.5,
-              "p": 0.8183972792358694,
-              "fairOdds": 1.2219004453847788
+              "p": 0.8149510346543969,
+              "fairOdds": 1.2270675874705508
             }
           ]
         },
@@ -9627,22 +9554,22 @@
               "market": "correct_score",
               "selection": "1-0",
               "label": "1–0",
-              "p": 0.16817834098896442,
-              "fairOdds": 5.946068882113769
+              "p": 0.1676982022474743,
+              "fairOdds": 5.963093143504828
             },
             {
               "market": "correct_score",
               "selection": "0-0",
               "label": "0–0",
-              "p": 0.1343872816021189,
-              "fairOdds": 7.4411803563428345
+              "p": 0.13856075336385482,
+              "fairOdds": 7.217050829494563
             },
             {
               "market": "correct_score",
               "selection": "1-1",
               "label": "1–1",
-              "p": 0.12661394365615344,
-              "fairOdds": 7.898024270657808
+              "p": 0.12780892268316035,
+              "fairOdds": 7.82417986949949
             }
           ]
         }
@@ -9650,44 +9577,44 @@
       "mostLikelyScore": {
         "home": 1,
         "away": 0,
-        "p": 0.16817834098896442
+        "p": 0.1676982022474743
       },
       "factors": [
         {
           "key": "home_attack",
           "label": "Ataque local",
-          "value": "1.03 goles/partido",
+          "value": "1.00 goles/partido",
           "detail": "5 % más que la media · 16 partidos"
         },
         {
           "key": "away_defense",
           "label": "Defensa visitante",
-          "value": "0.98 concedidos/partido",
-          "detail": "10 % menos que la media · 16 partidos"
+          "value": "0.95 concedidos/partido",
+          "detail": "8 % menos que la media · 16 partidos"
         },
         {
           "key": "away_attack",
           "label": "Ataque visitante",
-          "value": "0.77 goles/partido",
-          "detail": "14 % menos que la media · ajustado por rival"
+          "value": "0.78 goles/partido",
+          "detail": "11 % menos que la media · ajustado por rival"
         },
         {
           "key": "home_defense",
           "label": "Defensa local",
-          "value": "0.90 concedidos/partido",
-          "detail": "17 % menos que la media · ajustado por rival"
+          "value": "0.88 concedidos/partido",
+          "detail": "15 % menos que la media · ajustado por rival"
         },
         {
           "key": "home_advantage",
           "label": "Localía",
-          "value": "×1.19",
+          "value": "×1.18",
           "detail": "estimada de 240 partidos"
         },
         {
           "key": "uncertainty",
           "label": "Intervalo 90%",
-          "value": "goles 1.4–3.1",
-          "detail": "local 24%–71% · 240 partidos"
+          "value": "goles 1.5–2.7",
+          "detail": "local 28%–64% · 240 partidos"
         },
         {
           "key": "home_position",
@@ -9715,69 +9642,32 @@
         }
       ],
       "steps": [
-        "Sincronizando Liga Profesional Argentina · corte 19 nov 2026, 10:05",
-        "Fuerza ajustada por rival · ARG 1.05 / 0.83 · IND 0.86 / 0.90",
-        "Ponderando 211.6 partidos por antigüedad y calidad del rival",
-        "Proyección de goles 1.22 – 0.77 · total 1.99",
+        "Sincronizando Liga Profesional Argentina · corte 21 nov 2026, 22:33",
+        "Fuerza ajustada por rival · ARG 1.05 / 0.85 · IND 0.89 / 0.92",
+        "Ponderando 210.4 partidos por antigüedad y calidad del rival",
+        "Proyección de goles 1.18 – 0.78 · total 1.96",
         "Simulando 121 marcadores con incertidumbre del ajuste",
         "20 mercados listos · marcador proyectado 1–0"
       ],
-      "inputsAsOf": "2026-11-19T16:05:39.021Z",
+      "inputsAsOf": "2026-11-22T04:33:15.743Z",
       "publishedAt": "2026-11-19T16:05:39.021Z",
       "source": "pitchlab-football-v2",
-      "picks": [
-        {
-          "profile": "conservadora",
-          "market": "totals",
-          "selection": "under_3.5",
-          "label": "Menos de 3.5",
-          "line": 3.5,
-          "p": 0.8584232856700579,
-          "fairOdds": 1.1649264607488272
-        },
-        {
-          "profile": "intermedia",
-          "market": "totals",
-          "selection": "under_2.5",
-          "label": "Menos de 2.5",
-          "line": 2.5,
-          "p": 0.678629632533073,
-          "fairOdds": 1.473557817196061
-        },
-        {
-          "profile": "arriesgada",
-          "market": "h2h",
-          "selection": "home",
-          "label": "Argentinos Juniors gana",
-          "p": 0.46860742607822997,
-          "fairOdds": 2.1339824005116355
-        }
-      ],
-      "confidence": {
-        "score": 44,
-        "level": "baja",
-        "reasons": [
-          "Muestra suficiente",
-          "Rango de incertidumbre amplio"
-        ]
-      },
       "projectedScore": {
         "home": 1,
         "away": 0,
-        "p": 0.16817834098896442
+        "p": 0.1676982022474743
       },
       "insights": {
         "why": [
           "Se esperan 2.0 goles: 1.2 de Argentinos Juniors y 0.8 de Independiente.",
-          "Argentinos Juniors concede 17 % menos que la media.",
-          "Independiente anota 14 % menos que la media."
+          "Argentinos Juniors concede 15 % menos que la media.",
+          "Independiente anota 11 % menos que la media."
         ],
         "restDays": {
           "home": 14,
           "away": 15
         }
       },
-      "picksAt": "2026-11-19T16:05:39.021Z",
       "matchContext": {
         "referee": "Jorge Balino",
         "refereeStats": {
@@ -9808,145 +9698,145 @@
         "label": "Modelo PitchLab · en validación"
       },
       "projection": {
-        "home": 1.5923391343492443,
-        "away": 0.8013559680394887,
-        "total": 2.393695102388733,
-        "margin": 0.7909831663097556
+        "home": 1.4687730026547012,
+        "away": 0.8115713097646904,
+        "total": 2.2803443124193916,
+        "margin": 0.6572016928900108
       },
       "x12": [
-        0.5632194466592209,
-        0.24716101868495566,
-        0.18961953465582254
+        0.5287490753201213,
+        0.2619828957839315,
+        0.20926802889594745
       ],
       "probabilities": [
         {
           "market": "h2h",
           "selection": "Rosario Central gana",
-          "p": 0.5632194466592209,
-          "fairOdds": 1.775506875573236
+          "p": 0.5287490753201213,
+          "fairOdds": 1.8912562625184142
         },
         {
           "market": "h2h",
           "selection": "Empate",
-          "p": 0.24716101868495566,
-          "fairOdds": 4.045945454184473
+          "p": 0.2619828957839315,
+          "fairOdds": 3.817043082174123
         },
         {
           "market": "h2h",
           "selection": "Gimnasia y Esgrima Men gana",
-          "p": 0.18961953465582254,
-          "fairOdds": 5.2737182475165065
+          "p": 0.20926802889594745,
+          "fairOdds": 4.778560802028777
         },
         {
           "market": "double_chance",
           "selection": "Rosario Central o empate",
-          "p": 0.8103804653441765,
-          "fairOdds": 1.2339882842255954
+          "p": 0.7907319711040528,
+          "fairOdds": 1.2646510278365986
         },
         {
           "market": "double_chance",
           "selection": "Gimnasia y Esgrima Men o empate",
-          "p": 0.4367805533407782,
-          "fairOdds": 2.2894792186862665
+          "p": 0.47125092467987895,
+          "fairOdds": 2.122011751338845
         },
         {
           "market": "double_chance",
           "selection": "Sin empate",
-          "p": 0.7528389813150433,
-          "fairOdds": 1.3283052881417232
+          "p": 0.7380171042160687,
+          "fairOdds": 1.3549821464669345
         },
         {
           "market": "totals",
-          "selection": "Más de 1.5",
+          "selection": "Más de 1.5 goles",
           "line": 1.5,
-          "p": 0.6884360404588571,
-          "fairOdds": 1.4525677640779513
+          "p": 0.6627597047923024,
+          "fairOdds": 1.508842485095534
         },
         {
           "market": "totals",
-          "selection": "Más de 2.5",
+          "selection": "Más de 2.5 goles",
           "line": 2.5,
-          "p": 0.42864256526979916,
-          "fairOdds": 2.332946097806626
+          "p": 0.3987419563522081,
+          "fairOdds": 2.5078875800987985
         },
         {
           "market": "totals",
-          "selection": "Menos de 2.5",
+          "selection": "Menos de 2.5 goles",
           "line": 2.5,
-          "p": 0.5713574347302008,
-          "fairOdds": 1.7502178832628779
+          "p": 0.6012580436477919,
+          "fairOdds": 1.6631794128408954
         },
         {
           "market": "totals",
-          "selection": "Más de 3.5",
+          "selection": "Más de 3.5 goles",
           "line": 3.5,
-          "p": 0.2199595541814412,
-          "fairOdds": 4.546290356522161
+          "p": 0.19666849805514752,
+          "fairOdds": 5.084698413263885
         },
         {
           "market": "totals",
-          "selection": "Menos de 3.5",
+          "selection": "Menos de 3.5 goles",
           "line": 3.5,
-          "p": 0.7800404458185588,
-          "fairOdds": 1.2819848065065653
+          "p": 0.8033315019448525,
+          "fairOdds": 1.2448161158612805
         },
         {
           "market": "btts",
           "selection": "Sí",
-          "p": 0.4373749892260964,
-          "fairOdds": 2.2863675899013525
+          "p": 0.42605332105559834,
+          "fairOdds": 2.347124058374618
         },
         {
           "market": "btts",
           "selection": "No",
-          "p": 0.5626250107739036,
-          "fairOdds": 1.7773827697856466
+          "p": 0.5739466789444017,
+          "fairOdds": 1.7423221297128024
         },
         {
           "market": "team_totals",
-          "selection": "Rosario Central más de 1.5",
+          "selection": "Rosario Central más de 1.5 goles",
           "line": 1.5,
-          "p": 0.4725902649016941,
-          "fairOdds": 2.1159978828764388
+          "p": 0.4316690009335442,
+          "fairOdds": 2.3165897894853718
         },
         {
           "market": "team_totals",
-          "selection": "Rosario Central menos de 1.5",
+          "selection": "Rosario Central menos de 1.5 goles",
           "line": 1.5,
-          "p": 0.5274097350983059,
-          "fairOdds": 1.8960590475517223
+          "p": 0.5683309990664558,
+          "fairOdds": 1.7595380185888267
         },
         {
           "market": "team_totals",
-          "selection": "Gimnasia y Esgrima Men más de 1.5",
+          "selection": "Gimnasia y Esgrima Men más de 1.5 goles",
           "line": 1.5,
-          "p": 0.1916953667008071,
-          "fairOdds": 5.216610172747538
+          "p": 0.19537320113000645,
+          "fairOdds": 5.118409250686197
         },
         {
           "market": "team_totals",
-          "selection": "Gimnasia y Esgrima Men menos de 1.5",
+          "selection": "Gimnasia y Esgrima Men menos de 1.5 goles",
           "line": 1.5,
-          "p": 0.8083046332991929,
-          "fairOdds": 1.2371573275763363
+          "p": 0.8046267988699936,
+          "fairOdds": 1.2428121974117514
         },
         {
           "market": "correct_score",
           "selection": "1–0",
-          "p": 0.14711490004952005,
-          "fairOdds": 6.797408010088659
-        },
-        {
-          "market": "correct_score",
-          "selection": "2–0",
-          "p": 0.11573720578862032,
-          "fairOdds": 8.640263890821558
+          "p": 0.15200886567339306,
+          "fairOdds": 6.578563661863017
         },
         {
           "market": "correct_score",
           "selection": "1–1",
-          "p": 0.11474377298591804,
-          "fairOdds": 8.715069881157955
+          "p": 0.12005405726973008,
+          "fairOdds": 8.329581046588551
+        },
+        {
+          "market": "correct_score",
+          "selection": "2–0",
+          "p": 0.11029062838660503,
+          "fairOdds": 9.066953508458308
         }
       ],
       "marketGroups": [
@@ -9957,22 +9847,22 @@
               "market": "h2h",
               "selection": "home",
               "label": "Rosario Central gana",
-              "p": 0.5632194466592209,
-              "fairOdds": 1.775506875573236
+              "p": 0.5287490753201213,
+              "fairOdds": 1.8912562625184142
             },
             {
               "market": "h2h",
               "selection": "draw",
               "label": "Empate",
-              "p": 0.24716101868495566,
-              "fairOdds": 4.045945454184473
+              "p": 0.2619828957839315,
+              "fairOdds": 3.817043082174123
             },
             {
               "market": "h2h",
               "selection": "away",
               "label": "Gimnasia y Esgrima Men gana",
-              "p": 0.18961953465582254,
-              "fairOdds": 5.2737182475165065
+              "p": 0.20926802889594745,
+              "fairOdds": 4.778560802028777
             }
           ]
         },
@@ -9983,22 +9873,22 @@
               "market": "double_chance",
               "selection": "1x",
               "label": "Rosario Central o empate",
-              "p": 0.8103804653441765,
-              "fairOdds": 1.2339882842255954
+              "p": 0.7907319711040528,
+              "fairOdds": 1.2646510278365986
             },
             {
               "market": "double_chance",
               "selection": "x2",
               "label": "Gimnasia y Esgrima Men o empate",
-              "p": 0.4367805533407782,
-              "fairOdds": 2.2894792186862665
+              "p": 0.47125092467987895,
+              "fairOdds": 2.122011751338845
             },
             {
               "market": "double_chance",
               "selection": "12",
               "label": "Sin empate",
-              "p": 0.7528389813150433,
-              "fairOdds": 1.3283052881417232
+              "p": 0.7380171042160687,
+              "fairOdds": 1.3549821464669345
             }
           ]
         },
@@ -10008,42 +9898,42 @@
             {
               "market": "totals",
               "selection": "over_1.5",
-              "label": "Más de 1.5",
+              "label": "Más de 1.5 goles",
               "line": 1.5,
-              "p": 0.6884360404588571,
-              "fairOdds": 1.4525677640779513
+              "p": 0.6627597047923024,
+              "fairOdds": 1.508842485095534
             },
             {
               "market": "totals",
               "selection": "over_2.5",
-              "label": "Más de 2.5",
+              "label": "Más de 2.5 goles",
               "line": 2.5,
-              "p": 0.42864256526979916,
-              "fairOdds": 2.332946097806626
+              "p": 0.3987419563522081,
+              "fairOdds": 2.5078875800987985
             },
             {
               "market": "totals",
               "selection": "under_2.5",
-              "label": "Menos de 2.5",
+              "label": "Menos de 2.5 goles",
               "line": 2.5,
-              "p": 0.5713574347302008,
-              "fairOdds": 1.7502178832628779
+              "p": 0.6012580436477919,
+              "fairOdds": 1.6631794128408954
             },
             {
               "market": "totals",
               "selection": "over_3.5",
-              "label": "Más de 3.5",
+              "label": "Más de 3.5 goles",
               "line": 3.5,
-              "p": 0.2199595541814412,
-              "fairOdds": 4.546290356522161
+              "p": 0.19666849805514752,
+              "fairOdds": 5.084698413263885
             },
             {
               "market": "totals",
               "selection": "under_3.5",
-              "label": "Menos de 3.5",
+              "label": "Menos de 3.5 goles",
               "line": 3.5,
-              "p": 0.7800404458185588,
-              "fairOdds": 1.2819848065065653
+              "p": 0.8033315019448525,
+              "fairOdds": 1.2448161158612805
             }
           ]
         },
@@ -10054,15 +9944,15 @@
               "market": "btts",
               "selection": "yes",
               "label": "Sí",
-              "p": 0.4373749892260964,
-              "fairOdds": 2.2863675899013525
+              "p": 0.42605332105559834,
+              "fairOdds": 2.347124058374618
             },
             {
               "market": "btts",
               "selection": "no",
               "label": "No",
-              "p": 0.5626250107739036,
-              "fairOdds": 1.7773827697856466
+              "p": 0.5739466789444017,
+              "fairOdds": 1.7423221297128024
             }
           ]
         },
@@ -10072,34 +9962,34 @@
             {
               "market": "team_totals",
               "selection": "home_over",
-              "label": "Rosario Central más de 1.5",
+              "label": "Rosario Central más de 1.5 goles",
               "line": 1.5,
-              "p": 0.4725902649016941,
-              "fairOdds": 2.1159978828764388
+              "p": 0.4316690009335442,
+              "fairOdds": 2.3165897894853718
             },
             {
               "market": "team_totals",
               "selection": "home_under",
-              "label": "Rosario Central menos de 1.5",
+              "label": "Rosario Central menos de 1.5 goles",
               "line": 1.5,
-              "p": 0.5274097350983059,
-              "fairOdds": 1.8960590475517223
+              "p": 0.5683309990664558,
+              "fairOdds": 1.7595380185888267
             },
             {
               "market": "team_totals",
               "selection": "away_over",
-              "label": "Gimnasia y Esgrima Men más de 1.5",
+              "label": "Gimnasia y Esgrima Men más de 1.5 goles",
               "line": 1.5,
-              "p": 0.1916953667008071,
-              "fairOdds": 5.216610172747538
+              "p": 0.19537320113000645,
+              "fairOdds": 5.118409250686197
             },
             {
               "market": "team_totals",
               "selection": "away_under",
-              "label": "Gimnasia y Esgrima Men menos de 1.5",
+              "label": "Gimnasia y Esgrima Men menos de 1.5 goles",
               "line": 1.5,
-              "p": 0.8083046332991929,
-              "fairOdds": 1.2371573275763363
+              "p": 0.8046267988699936,
+              "fairOdds": 1.2428121974117514
             }
           ]
         },
@@ -10110,22 +10000,22 @@
               "market": "correct_score",
               "selection": "1-0",
               "label": "1–0",
-              "p": 0.14711490004952005,
-              "fairOdds": 6.797408010088659
-            },
-            {
-              "market": "correct_score",
-              "selection": "2-0",
-              "label": "2–0",
-              "p": 0.11573720578862032,
-              "fairOdds": 8.640263890821558
+              "p": 0.15200886567339306,
+              "fairOdds": 6.578563661863017
             },
             {
               "market": "correct_score",
               "selection": "1-1",
               "label": "1–1",
-              "p": 0.11474377298591804,
-              "fairOdds": 8.715069881157955
+              "p": 0.12005405726973008,
+              "fairOdds": 8.329581046588551
+            },
+            {
+              "market": "correct_score",
+              "selection": "2-0",
+              "label": "2–0",
+              "p": 0.11029062838660503,
+              "fairOdds": 9.066953508458308
             }
           ]
         }
@@ -10133,44 +10023,44 @@
       "mostLikelyScore": {
         "home": 1,
         "away": 0,
-        "p": 0.14711490004952005
+        "p": 0.15200886567339306
       },
       "factors": [
         {
           "key": "home_attack",
           "label": "Ataque local",
-          "value": "1.34 goles/partido",
-          "detail": "33 % más que la media · 16 partidos"
+          "value": "1.24 goles/partido",
+          "detail": "27 % más que la media · 16 partidos"
         },
         {
           "key": "away_defense",
           "label": "Defensa visitante",
-          "value": "1.01 concedidos/partido",
-          "detail": "7 % menos que la media · 16 partidos"
+          "value": "0.98 concedidos/partido",
+          "detail": "5 % menos que la media · 16 partidos"
         },
         {
           "key": "away_attack",
           "label": "Ataque visitante",
-          "value": "0.80 goles/partido",
+          "value": "0.81 goles/partido",
           "detail": "en la media de la liga · ajustado por rival"
         },
         {
           "key": "home_defense",
           "label": "Defensa local",
-          "value": "0.81 concedidos/partido",
-          "detail": "25 % menos que la media · ajustado por rival"
+          "value": "0.83 concedidos/partido",
+          "detail": "20 % menos que la media · ajustado por rival"
         },
         {
           "key": "home_advantage",
           "label": "Localía",
-          "value": "×1.19",
+          "value": "×1.18",
           "detail": "estimada de 240 partidos"
         },
         {
           "key": "uncertainty",
           "label": "Intervalo 90%",
-          "value": "goles 1.7–3.7",
-          "detail": "local 32%–77% · 240 partidos"
+          "value": "goles 1.7–3.2",
+          "detail": "local 34%–72% · 240 partidos"
         },
         {
           "key": "home_position",
@@ -10198,69 +10088,68 @@
         }
       ],
       "steps": [
-        "Sincronizando Liga Profesional Argentina · corte 19 nov 2026, 10:05",
-        "Fuerza ajustada por rival · ROS 1.33 / 0.75 · GIM 0.98 / 0.93",
-        "Ponderando 211.6 partidos por antigüedad y calidad del rival",
-        "Proyección de goles 1.59 – 0.80 · total 2.39",
+        "Sincronizando Liga Profesional Argentina · corte 21 nov 2026, 22:33",
+        "Fuerza ajustada por rival · ROS 1.27 / 0.80 · GIM 0.98 / 0.95",
+        "Ponderando 210.4 partidos por antigüedad y calidad del rival",
+        "Proyección de goles 1.47 – 0.81 · total 2.28",
         "Simulando 121 marcadores con incertidumbre del ajuste",
         "20 mercados listos · marcador proyectado 1–0"
       ],
-      "inputsAsOf": "2026-11-19T16:05:39.021Z",
+      "inputsAsOf": "2026-11-22T04:33:15.743Z",
       "publishedAt": "2026-11-19T16:05:39.021Z",
       "source": "pitchlab-football-v2",
       "picks": [
         {
           "profile": "conservadora",
-          "market": "double_chance",
-          "selection": "1x",
-          "label": "Rosario Central o empate",
-          "p": 0.8103804653441765,
-          "fairOdds": 1.2339882842255954
+          "market": "team_totals",
+          "selection": "away_under",
+          "label": "Gimnasia y Esgrima Men menos de 1.5 goles",
+          "line": 1.5,
+          "p": 0.8046267988699936,
+          "fairOdds": 1.2428121974117514
         },
         {
           "profile": "intermedia",
           "market": "totals",
           "selection": "over_1.5",
-          "label": "Más de 1.5",
+          "label": "Más de 1.5 goles",
           "line": 1.5,
-          "p": 0.6884360404588571,
-          "fairOdds": 1.4525677640779513
+          "p": 0.6627597047923024,
+          "fairOdds": 1.508842485095534
         },
         {
           "profile": "arriesgada",
-          "market": "team_totals",
-          "selection": "home_over",
-          "label": "Rosario Central más de 1.5",
-          "line": 1.5,
-          "p": 0.4725902649016941,
-          "fairOdds": 2.1159978828764388
+          "market": "double_chance",
+          "selection": "x2",
+          "label": "Gimnasia y Esgrima Men o empate",
+          "p": 0.47125092467987895,
+          "fairOdds": 2.122011751338845
         }
       ],
       "confidence": {
-        "score": 58,
+        "score": 57,
         "level": "media",
         "reasons": [
-          "Muestra suficiente",
-          "Rango de incertidumbre amplio"
+          "Muestra suficiente"
         ]
       },
       "projectedScore": {
         "home": 1,
         "away": 0,
-        "p": 0.14711490004952005
+        "p": 0.15200886567339306
       },
       "insights": {
         "why": [
-          "Se esperan 2.4 goles: 1.6 de Rosario Central y 0.8 de Gimnasia y Esgrima Men.",
-          "Rosario Central anota 33 % más que la media.",
-          "Rosario Central concede 25 % menos que la media."
+          "Se esperan 2.3 goles: 1.5 de Rosario Central y 0.8 de Gimnasia y Esgrima Men.",
+          "Rosario Central anota 27 % más que la media.",
+          "Rosario Central concede 20 % menos que la media."
         ],
         "restDays": {
           "home": 15,
           "away": 15
         }
       },
-      "picksAt": "2026-11-19T16:05:39.021Z",
+      "picksAt": "2026-11-22T04:33:15.743Z",
       "matchContext": {
         "referee": "Leandro Rey Hilfer",
         "refereeStats": {
@@ -10291,145 +10180,145 @@
         "label": "Modelo PitchLab · en validación"
       },
       "projection": {
-        "home": 1.0303273910217359,
-        "away": 0.908191687060739,
-        "total": 1.938519078082475,
-        "margin": 0.12213570396099682
+        "home": 1.0445069568365777,
+        "away": 0.8947838041614987,
+        "total": 1.9392907609980763,
+        "margin": 0.14972315267507896
       },
       "x12": [
-        0.37761182866884935,
-        0.3095226944215844,
-        0.3128654769095658
+        0.3851451276407649,
+        0.3090381987314706,
+        0.30581667362776443
       ],
       "probabilities": [
         {
           "market": "h2h",
           "selection": "River Plate gana",
-          "p": 0.37761182866884935,
-          "fairOdds": 2.6482221267410573
+          "p": 0.3851451276407649,
+          "fairOdds": 2.596423862676322
         },
         {
           "market": "h2h",
           "selection": "Empate",
-          "p": 0.3095226944215844,
-          "fairOdds": 3.2307808701030276
+          "p": 0.3090381987314706,
+          "fairOdds": 3.235845937831523
         },
         {
           "market": "h2h",
           "selection": "Lanús gana",
-          "p": 0.3128654769095658,
-          "fairOdds": 3.196261888265324
+          "p": 0.30581667362776443,
+          "fairOdds": 3.2699328919429203
         },
         {
           "market": "double_chance",
           "selection": "River Plate o empate",
-          "p": 0.6871345230904338,
-          "fairOdds": 1.4553191062245463
+          "p": 0.6941833263722355,
+          "fairOdds": 1.440541658103409
         },
         {
           "market": "double_chance",
           "selection": "Lanús o empate",
-          "p": 0.6223881713311502,
-          "fairOdds": 1.606714340121892
+          "p": 0.6148548723592351,
+          "fairOdds": 1.6264000578916127
         },
         {
           "market": "double_chance",
           "selection": "Sin empate",
-          "p": 0.6904773055784151,
-          "fairOdds": 1.448273523142512
+          "p": 0.6909618012685294,
+          "fairOdds": 1.4472580078437198
         },
         {
           "market": "totals",
-          "selection": "Más de 1.5",
+          "selection": "Más de 1.5 goles",
           "line": 1.5,
-          "p": 0.5750773513373595,
-          "fairOdds": 1.7388965113553339
+          "p": 0.575296587955832,
+          "fairOdds": 1.7382338448299197
         },
         {
           "market": "totals",
-          "selection": "Más de 2.5",
+          "selection": "Más de 2.5 goles",
           "line": 2.5,
-          "p": 0.3066878181677073,
-          "fairOdds": 3.260644671100585
+          "p": 0.3068964901257092,
+          "fairOdds": 3.2584276203041154
         },
         {
           "market": "totals",
-          "selection": "Menos de 2.5",
+          "selection": "Menos de 2.5 goles",
           "line": 2.5,
-          "p": 0.6933121818322927,
-          "fairOdds": 1.4423516940913825
+          "p": 0.6931035098742908,
+          "fairOdds": 1.4427859414265143
         },
         {
           "market": "totals",
-          "selection": "Más de 3.5",
+          "selection": "Más de 3.5 goles",
           "line": 3.5,
-          "p": 0.13195645824854307,
-          "fairOdds": 7.578257353016225
+          "p": 0.13209132266064938,
+          "fairOdds": 7.570519999781217
         },
         {
           "market": "totals",
-          "selection": "Menos de 3.5",
+          "selection": "Menos de 3.5 goles",
           "line": 3.5,
-          "p": 0.8680435417514569,
-          "fairOdds": 1.152015943788135
+          "p": 0.8679086773393506,
+          "fairOdds": 1.1521949556554576
         },
         {
           "market": "btts",
           "selection": "Sí",
-          "p": 0.38175402569197386,
-          "fairOdds": 2.619487766205957
+          "p": 0.3812286613412674,
+          "fairOdds": 2.623097635108873
         },
         {
           "market": "btts",
           "selection": "No",
-          "p": 0.6182459743080262,
-          "fairOdds": 1.617479193648213
+          "p": 0.6187713386587326,
+          "fairOdds": 1.616105881968661
         },
         {
           "market": "team_totals",
-          "selection": "River Plate más de 1.5",
+          "selection": "River Plate más de 1.5 goles",
           "line": 1.5,
-          "p": 0.27539624693038967,
-          "fairOdds": 3.6311315464395717
+          "p": 0.28060901403531013,
+          "fairOdds": 3.5636773944623394
         },
         {
           "market": "team_totals",
-          "selection": "River Plate menos de 1.5",
+          "selection": "River Plate menos de 1.5 goles",
           "line": 1.5,
-          "p": 0.7246037530696103,
-          "fairOdds": 1.3800646156795895
+          "p": 0.7193909859646899,
+          "fairOdds": 1.390064679027106
         },
         {
           "market": "team_totals",
-          "selection": "Lanús más de 1.5",
+          "selection": "Lanús más de 1.5 goles",
           "line": 1.5,
-          "p": 0.23051640916155192,
-          "fairOdds": 4.338085968097715
+          "p": 0.22560953541832884,
+          "fairOdds": 4.432436768001777
         },
         {
           "market": "team_totals",
-          "selection": "Lanús menos de 1.5",
+          "selection": "Lanús menos de 1.5 goles",
           "line": 1.5,
-          "p": 0.7694835908384481,
-          "fairOdds": 1.2995728718664106
+          "p": 0.7743904645816712,
+          "fairOdds": 1.2913382146824393
         },
         {
           "market": "correct_score",
           "selection": "1–0",
-          "p": 0.15030157015449414,
-          "fairOdds": 6.653290441158437
+          "p": 0.15222230457020006,
+          "fairOdds": 6.569339511863927
         },
         {
           "market": "correct_score",
           "selection": "0–0",
-          "p": 0.1418969032105521,
-          "fairOdds": 7.047370149552605
+          "p": 0.14178987698504195,
+          "fairOdds": 7.052689664901074
         },
         {
           "market": "correct_score",
-          "selection": "0–1",
-          "p": 0.13272417529759423,
-          "fairOdds": 7.534422404643309
+          "selection": "1–1",
+          "p": 0.13238610779289467,
+          "fairOdds": 7.553662666511835
         }
       ],
       "marketGroups": [
@@ -10440,22 +10329,22 @@
               "market": "h2h",
               "selection": "home",
               "label": "River Plate gana",
-              "p": 0.37761182866884935,
-              "fairOdds": 2.6482221267410573
+              "p": 0.3851451276407649,
+              "fairOdds": 2.596423862676322
             },
             {
               "market": "h2h",
               "selection": "draw",
               "label": "Empate",
-              "p": 0.3095226944215844,
-              "fairOdds": 3.2307808701030276
+              "p": 0.3090381987314706,
+              "fairOdds": 3.235845937831523
             },
             {
               "market": "h2h",
               "selection": "away",
               "label": "Lanús gana",
-              "p": 0.3128654769095658,
-              "fairOdds": 3.196261888265324
+              "p": 0.30581667362776443,
+              "fairOdds": 3.2699328919429203
             }
           ]
         },
@@ -10466,22 +10355,22 @@
               "market": "double_chance",
               "selection": "1x",
               "label": "River Plate o empate",
-              "p": 0.6871345230904338,
-              "fairOdds": 1.4553191062245463
+              "p": 0.6941833263722355,
+              "fairOdds": 1.440541658103409
             },
             {
               "market": "double_chance",
               "selection": "x2",
               "label": "Lanús o empate",
-              "p": 0.6223881713311502,
-              "fairOdds": 1.606714340121892
+              "p": 0.6148548723592351,
+              "fairOdds": 1.6264000578916127
             },
             {
               "market": "double_chance",
               "selection": "12",
               "label": "Sin empate",
-              "p": 0.6904773055784151,
-              "fairOdds": 1.448273523142512
+              "p": 0.6909618012685294,
+              "fairOdds": 1.4472580078437198
             }
           ]
         },
@@ -10491,42 +10380,42 @@
             {
               "market": "totals",
               "selection": "over_1.5",
-              "label": "Más de 1.5",
+              "label": "Más de 1.5 goles",
               "line": 1.5,
-              "p": 0.5750773513373595,
-              "fairOdds": 1.7388965113553339
+              "p": 0.575296587955832,
+              "fairOdds": 1.7382338448299197
             },
             {
               "market": "totals",
               "selection": "over_2.5",
-              "label": "Más de 2.5",
+              "label": "Más de 2.5 goles",
               "line": 2.5,
-              "p": 0.3066878181677073,
-              "fairOdds": 3.260644671100585
+              "p": 0.3068964901257092,
+              "fairOdds": 3.2584276203041154
             },
             {
               "market": "totals",
               "selection": "under_2.5",
-              "label": "Menos de 2.5",
+              "label": "Menos de 2.5 goles",
               "line": 2.5,
-              "p": 0.6933121818322927,
-              "fairOdds": 1.4423516940913825
+              "p": 0.6931035098742908,
+              "fairOdds": 1.4427859414265143
             },
             {
               "market": "totals",
               "selection": "over_3.5",
-              "label": "Más de 3.5",
+              "label": "Más de 3.5 goles",
               "line": 3.5,
-              "p": 0.13195645824854307,
-              "fairOdds": 7.578257353016225
+              "p": 0.13209132266064938,
+              "fairOdds": 7.570519999781217
             },
             {
               "market": "totals",
               "selection": "under_3.5",
-              "label": "Menos de 3.5",
+              "label": "Menos de 3.5 goles",
               "line": 3.5,
-              "p": 0.8680435417514569,
-              "fairOdds": 1.152015943788135
+              "p": 0.8679086773393506,
+              "fairOdds": 1.1521949556554576
             }
           ]
         },
@@ -10537,15 +10426,15 @@
               "market": "btts",
               "selection": "yes",
               "label": "Sí",
-              "p": 0.38175402569197386,
-              "fairOdds": 2.619487766205957
+              "p": 0.3812286613412674,
+              "fairOdds": 2.623097635108873
             },
             {
               "market": "btts",
               "selection": "no",
               "label": "No",
-              "p": 0.6182459743080262,
-              "fairOdds": 1.617479193648213
+              "p": 0.6187713386587326,
+              "fairOdds": 1.616105881968661
             }
           ]
         },
@@ -10555,34 +10444,34 @@
             {
               "market": "team_totals",
               "selection": "home_over",
-              "label": "River Plate más de 1.5",
+              "label": "River Plate más de 1.5 goles",
               "line": 1.5,
-              "p": 0.27539624693038967,
-              "fairOdds": 3.6311315464395717
+              "p": 0.28060901403531013,
+              "fairOdds": 3.5636773944623394
             },
             {
               "market": "team_totals",
               "selection": "home_under",
-              "label": "River Plate menos de 1.5",
+              "label": "River Plate menos de 1.5 goles",
               "line": 1.5,
-              "p": 0.7246037530696103,
-              "fairOdds": 1.3800646156795895
+              "p": 0.7193909859646899,
+              "fairOdds": 1.390064679027106
             },
             {
               "market": "team_totals",
               "selection": "away_over",
-              "label": "Lanús más de 1.5",
+              "label": "Lanús más de 1.5 goles",
               "line": 1.5,
-              "p": 0.23051640916155192,
-              "fairOdds": 4.338085968097715
+              "p": 0.22560953541832884,
+              "fairOdds": 4.432436768001777
             },
             {
               "market": "team_totals",
               "selection": "away_under",
-              "label": "Lanús menos de 1.5",
+              "label": "Lanús menos de 1.5 goles",
               "line": 1.5,
-              "p": 0.7694835908384481,
-              "fairOdds": 1.2995728718664106
+              "p": 0.7743904645816712,
+              "fairOdds": 1.2913382146824393
             }
           ]
         },
@@ -10593,22 +10482,22 @@
               "market": "correct_score",
               "selection": "1-0",
               "label": "1–0",
-              "p": 0.15030157015449414,
-              "fairOdds": 6.653290441158437
+              "p": 0.15222230457020006,
+              "fairOdds": 6.569339511863927
             },
             {
               "market": "correct_score",
               "selection": "0-0",
               "label": "0–0",
-              "p": 0.1418969032105521,
-              "fairOdds": 7.047370149552605
+              "p": 0.14178987698504195,
+              "fairOdds": 7.052689664901074
             },
             {
               "market": "correct_score",
-              "selection": "0-1",
-              "label": "0–1",
-              "p": 0.13272417529759423,
-              "fairOdds": 7.534422404643309
+              "selection": "1-1",
+              "label": "1–1",
+              "p": 0.13238610779289467,
+              "fairOdds": 7.553662666511835
             }
           ]
         }
@@ -10616,44 +10505,44 @@
       "mostLikelyScore": {
         "home": 1,
         "away": 0,
-        "p": 0.15030157015449414
+        "p": 0.15222230457020006
       },
       "factors": [
         {
           "key": "home_attack",
           "label": "Ataque local",
-          "value": "0.87 goles/partido",
-          "detail": "12 % más que la media · 16 partidos"
+          "value": "0.88 goles/partido",
+          "detail": "10 % más que la media · 16 partidos"
         },
         {
           "key": "away_defense",
           "label": "Defensa visitante",
-          "value": "0.77 concedidos/partido",
-          "detail": "28 % menos que la media · 16 partidos"
+          "value": "0.80 concedidos/partido",
+          "detail": "22 % menos que la media · 16 partidos"
         },
         {
           "key": "away_attack",
           "label": "Ataque visitante",
-          "value": "0.91 goles/partido",
-          "detail": "5 % más que la media · ajustado por rival"
+          "value": "0.89 goles/partido",
+          "detail": "3 % más que la media · ajustado por rival"
         },
         {
           "key": "home_defense",
           "label": "Defensa local",
-          "value": "0.86 concedidos/partido",
-          "detail": "20 % menos que la media · ajustado por rival"
+          "value": "0.87 concedidos/partido",
+          "detail": "16 % menos que la media · ajustado por rival"
         },
         {
           "key": "home_advantage",
           "label": "Localía",
-          "value": "×1.19",
+          "value": "×1.18",
           "detail": "estimada de 240 partidos"
         },
         {
           "key": "uncertainty",
           "label": "Intervalo 90%",
-          "value": "goles 1.3–3.0",
-          "detail": "local 19%–60% · 240 partidos"
+          "value": "goles 1.4–2.9",
+          "detail": "local 21%–56% · 240 partidos"
         },
         {
           "key": "home_position",
@@ -10681,14 +10570,14 @@
         }
       ],
       "steps": [
-        "Sincronizando Liga Profesional Argentina · corte 19 nov 2026, 10:05",
-        "Fuerza ajustada por rival · RIV 1.12 / 0.80 · LAN 1.05 / 0.72",
-        "Ponderando 211.6 partidos por antigüedad y calidad del rival",
-        "Proyección de goles 1.03 – 0.91 · total 1.94",
+        "Sincronizando Liga Profesional Argentina · corte 21 nov 2026, 22:33",
+        "Fuerza ajustada por rival · RIV 1.10 / 0.84 · LAN 1.03 / 0.78",
+        "Ponderando 210.4 partidos por antigüedad y calidad del rival",
+        "Proyección de goles 1.04 – 0.89 · total 1.94",
         "Simulando 121 marcadores con incertidumbre del ajuste",
         "20 mercados listos · marcador proyectado 1–0"
       ],
-      "inputsAsOf": "2026-11-19T16:05:39.021Z",
+      "inputsAsOf": "2026-11-22T04:33:15.743Z",
       "publishedAt": "2026-11-19T16:05:39.021Z",
       "source": "pitchlab-football-v2",
       "picks": [
@@ -10696,55 +10585,53 @@
           "profile": "conservadora",
           "market": "totals",
           "selection": "under_3.5",
-          "label": "Menos de 3.5",
+          "label": "Menos de 3.5 goles",
           "line": 3.5,
-          "p": 0.8680435417514569,
-          "fairOdds": 1.152015943788135
+          "p": 0.8679086773393506,
+          "fairOdds": 1.1521949556554576
         },
         {
           "profile": "intermedia",
-          "market": "totals",
-          "selection": "under_2.5",
-          "label": "Menos de 2.5",
-          "line": 2.5,
-          "p": 0.6933121818322927,
-          "fairOdds": 1.4423516940913825
+          "market": "double_chance",
+          "selection": "1x",
+          "label": "River Plate o empate",
+          "p": 0.6941833263722355,
+          "fairOdds": 1.440541658103409
         },
         {
           "profile": "arriesgada",
-          "market": "btts",
-          "selection": "yes",
-          "label": "Ambos anotan: Sí",
-          "p": 0.38175402569197386,
-          "fairOdds": 2.619487766205957
+          "market": "h2h",
+          "selection": "home",
+          "label": "River Plate gana",
+          "p": 0.3851451276407649,
+          "fairOdds": 2.596423862676322
         }
       ],
       "confidence": {
-        "score": 33,
+        "score": 37,
         "level": "baja",
         "reasons": [
           "Partido parejo",
-          "Muestra suficiente",
-          "Rango de incertidumbre amplio"
+          "Muestra suficiente"
         ]
       },
       "projectedScore": {
         "home": 1,
         "away": 0,
-        "p": 0.15030157015449414
+        "p": 0.15222230457020006
       },
       "insights": {
         "why": [
-          "Se esperan 1.9 goles: 1.0 de River Plate y 0.9 de Lanús.",
-          "Lanús concede 28 % menos que la media.",
-          "River Plate concede 20 % menos que la media."
+          "River Plate gana en 39% de los escenarios; el empate, en 31%.",
+          "Lanús concede 22 % menos que la media.",
+          "River Plate concede 16 % menos que la media."
         ],
         "restDays": {
           "home": 17,
           "away": 14
         }
       },
-      "picksAt": "2026-11-19T16:05:39.021Z",
+      "picksAt": "2026-11-22T04:33:15.743Z",
       "matchContext": {
         "referee": "Pablo Dovalo",
         "refereeStats": {
@@ -10775,145 +10662,145 @@
         "label": "Modelo PitchLab · en validación"
       },
       "projection": {
-        "home": 1.7019716940584535,
-        "away": 0.7923477334851402,
-        "total": 2.494319427543594,
-        "margin": 0.9096239605733133
+        "home": 1.5041240122060673,
+        "away": 0.808435729342926,
+        "total": 2.312559741548993,
+        "margin": 0.6956882828631413
       },
       "x12": [
-        0.5922401151373207,
-        0.23419672489033444,
-        0.17356315997234428
+        0.5388551761860164,
+        0.2577260909638209,
+        0.20341873285016185
       ],
       "probabilities": [
         {
           "market": "h2h",
           "selection": "Instituto De Córdoba gana",
-          "p": 0.5922401151373207,
-          "fairOdds": 1.6885043320108997
+          "p": 0.5388551761860164,
+          "fairOdds": 1.855786200436893
         },
         {
           "market": "h2h",
           "selection": "Empate",
-          "p": 0.23419672489033444,
-          "fairOdds": 4.269914536457598
+          "p": 0.2577260909638209,
+          "fairOdds": 3.8800883382054563
         },
         {
           "market": "h2h",
           "selection": "Huracán gana",
-          "p": 0.17356315997234428,
-          "fairOdds": 5.7615913432282575
+          "p": 0.20341873285016185,
+          "fairOdds": 4.915968091968204
         },
         {
           "market": "double_chance",
           "selection": "Instituto De Córdoba o empate",
-          "p": 0.8264368400276552,
-          "fairOdds": 1.2100138226734143
+          "p": 0.7965812671498373,
+          "fairOdds": 1.2553646956549627
         },
         {
           "market": "double_chance",
           "selection": "Huracán o empate",
-          "p": 0.4077598848626787,
-          "fairOdds": 2.452423686397621
+          "p": 0.4611448238139827,
+          "fairOdds": 2.1685161544898564
         },
         {
           "market": "double_chance",
           "selection": "Sin empate",
-          "p": 0.765803275109665,
-          "fairOdds": 1.3058183903128353
+          "p": 0.7422739090361783,
+          "fairOdds": 1.347211572205834
         },
         {
           "market": "totals",
-          "selection": "Más de 1.5",
+          "selection": "Más de 1.5 goles",
           "line": 1.5,
-          "p": 0.7098643581114644,
-          "fairOdds": 1.4087198329838921
+          "p": 0.6702256980306558,
+          "fairOdds": 1.4920347025462168
         },
         {
           "market": "totals",
-          "selection": "Más de 2.5",
+          "selection": "Más de 2.5 goles",
           "line": 2.5,
-          "p": 0.45472789709618544,
-          "fairOdds": 2.199117332333971
+          "p": 0.4072887284792931,
+          "fairOdds": 2.4552606789137816
         },
         {
           "market": "totals",
-          "selection": "Menos de 2.5",
+          "selection": "Menos de 2.5 goles",
           "line": 2.5,
-          "p": 0.5452721029038146,
-          "fairOdds": 1.8339467481915153
+          "p": 0.5927112715207069,
+          "fairOdds": 1.6871621108779
         },
         {
           "market": "totals",
-          "selection": "Más de 3.5",
+          "selection": "Más de 3.5 goles",
           "line": 3.5,
-          "p": 0.24120886342710568,
-          "fairOdds": 4.14578463573833
+          "p": 0.2032108437911433,
+          "fairOdds": 4.920997232941876
         },
         {
           "market": "totals",
-          "selection": "Menos de 3.5",
+          "selection": "Menos de 3.5 goles",
           "line": 3.5,
-          "p": 0.7587911365728943,
-          "fairOdds": 1.317885715582464
+          "p": 0.7967891562088567,
+          "fairOdds": 1.2550371603424244
         },
         {
           "market": "btts",
           "selection": "Sí",
-          "p": 0.4457783074132809,
-          "fairOdds": 2.2432675241707094
+          "p": 0.42943519117102,
+          "fairOdds": 2.328640084835888
         },
         {
           "market": "btts",
           "selection": "No",
-          "p": 0.5542216925867192,
-          "fairOdds": 1.8043321172303803
+          "p": 0.57056480882898,
+          "fairOdds": 1.7526492775682878
         },
         {
           "market": "team_totals",
-          "selection": "Instituto De Córdoba más de 1.5",
+          "selection": "Instituto De Córdoba más de 1.5 goles",
           "line": 1.5,
-          "p": 0.5073656613157612,
-          "fairOdds": 1.9709650775471887
+          "p": 0.4435536216109601,
+          "fairOdds": 2.254518847953625
         },
         {
           "market": "team_totals",
-          "selection": "Instituto De Córdoba menos de 1.5",
+          "selection": "Instituto De Córdoba menos de 1.5 goles",
           "line": 1.5,
-          "p": 0.4926343386842388,
-          "fairOdds": 2.029903158336197
+          "p": 0.5564463783890399,
+          "fairOdds": 1.7971183546833138
         },
         {
           "market": "team_totals",
-          "selection": "Huracán más de 1.5",
+          "selection": "Huracán más de 1.5 goles",
           "line": 1.5,
-          "p": 0.18845982739237876,
-          "fairOdds": 5.306170624458715
+          "p": 0.19424334143677746,
+          "fairOdds": 5.148181619010509
         },
         {
           "market": "team_totals",
-          "selection": "Huracán menos de 1.5",
+          "selection": "Huracán menos de 1.5 goles",
           "line": 1.5,
-          "p": 0.8115401726076212,
-          "fairOdds": 1.2322248900961048
+          "p": 0.8057566585632225,
+          "fairOdds": 1.2410694834134424
         },
         {
           "market": "correct_score",
           "selection": "1–0",
-          "p": 0.1421723759789114,
-          "fairOdds": 7.033715186333604
-        },
-        {
-          "market": "correct_score",
-          "selection": "2–0",
-          "p": 0.11956561661663746,
-          "fairOdds": 8.363608437752587
+          "p": 0.1507255119194592,
+          "fairOdds": 6.634576902511063
         },
         {
           "market": "correct_score",
           "selection": "1–1",
-          "p": 0.10965691435971296,
-          "fairOdds": 9.119351988326526
+          "p": 0.11858607255101558,
+          "fairOdds": 8.432693473087248
+        },
+        {
+          "market": "correct_score",
+          "selection": "2–0",
+          "p": 0.11199679767289386,
+          "fairOdds": 8.928826723427164
         }
       ],
       "marketGroups": [
@@ -10924,22 +10811,22 @@
               "market": "h2h",
               "selection": "home",
               "label": "Instituto De Córdoba gana",
-              "p": 0.5922401151373207,
-              "fairOdds": 1.6885043320108997
+              "p": 0.5388551761860164,
+              "fairOdds": 1.855786200436893
             },
             {
               "market": "h2h",
               "selection": "draw",
               "label": "Empate",
-              "p": 0.23419672489033444,
-              "fairOdds": 4.269914536457598
+              "p": 0.2577260909638209,
+              "fairOdds": 3.8800883382054563
             },
             {
               "market": "h2h",
               "selection": "away",
               "label": "Huracán gana",
-              "p": 0.17356315997234428,
-              "fairOdds": 5.7615913432282575
+              "p": 0.20341873285016185,
+              "fairOdds": 4.915968091968204
             }
           ]
         },
@@ -10950,22 +10837,22 @@
               "market": "double_chance",
               "selection": "1x",
               "label": "Instituto De Córdoba o empate",
-              "p": 0.8264368400276552,
-              "fairOdds": 1.2100138226734143
+              "p": 0.7965812671498373,
+              "fairOdds": 1.2553646956549627
             },
             {
               "market": "double_chance",
               "selection": "x2",
               "label": "Huracán o empate",
-              "p": 0.4077598848626787,
-              "fairOdds": 2.452423686397621
+              "p": 0.4611448238139827,
+              "fairOdds": 2.1685161544898564
             },
             {
               "market": "double_chance",
               "selection": "12",
               "label": "Sin empate",
-              "p": 0.765803275109665,
-              "fairOdds": 1.3058183903128353
+              "p": 0.7422739090361783,
+              "fairOdds": 1.347211572205834
             }
           ]
         },
@@ -10975,42 +10862,42 @@
             {
               "market": "totals",
               "selection": "over_1.5",
-              "label": "Más de 1.5",
+              "label": "Más de 1.5 goles",
               "line": 1.5,
-              "p": 0.7098643581114644,
-              "fairOdds": 1.4087198329838921
+              "p": 0.6702256980306558,
+              "fairOdds": 1.4920347025462168
             },
             {
               "market": "totals",
               "selection": "over_2.5",
-              "label": "Más de 2.5",
+              "label": "Más de 2.5 goles",
               "line": 2.5,
-              "p": 0.45472789709618544,
-              "fairOdds": 2.199117332333971
+              "p": 0.4072887284792931,
+              "fairOdds": 2.4552606789137816
             },
             {
               "market": "totals",
               "selection": "under_2.5",
-              "label": "Menos de 2.5",
+              "label": "Menos de 2.5 goles",
               "line": 2.5,
-              "p": 0.5452721029038146,
-              "fairOdds": 1.8339467481915153
+              "p": 0.5927112715207069,
+              "fairOdds": 1.6871621108779
             },
             {
               "market": "totals",
               "selection": "over_3.5",
-              "label": "Más de 3.5",
+              "label": "Más de 3.5 goles",
               "line": 3.5,
-              "p": 0.24120886342710568,
-              "fairOdds": 4.14578463573833
+              "p": 0.2032108437911433,
+              "fairOdds": 4.920997232941876
             },
             {
               "market": "totals",
               "selection": "under_3.5",
-              "label": "Menos de 3.5",
+              "label": "Menos de 3.5 goles",
               "line": 3.5,
-              "p": 0.7587911365728943,
-              "fairOdds": 1.317885715582464
+              "p": 0.7967891562088567,
+              "fairOdds": 1.2550371603424244
             }
           ]
         },
@@ -11021,15 +10908,15 @@
               "market": "btts",
               "selection": "yes",
               "label": "Sí",
-              "p": 0.4457783074132809,
-              "fairOdds": 2.2432675241707094
+              "p": 0.42943519117102,
+              "fairOdds": 2.328640084835888
             },
             {
               "market": "btts",
               "selection": "no",
               "label": "No",
-              "p": 0.5542216925867192,
-              "fairOdds": 1.8043321172303803
+              "p": 0.57056480882898,
+              "fairOdds": 1.7526492775682878
             }
           ]
         },
@@ -11039,34 +10926,34 @@
             {
               "market": "team_totals",
               "selection": "home_over",
-              "label": "Instituto De Córdoba más de 1.5",
+              "label": "Instituto De Córdoba más de 1.5 goles",
               "line": 1.5,
-              "p": 0.5073656613157612,
-              "fairOdds": 1.9709650775471887
+              "p": 0.4435536216109601,
+              "fairOdds": 2.254518847953625
             },
             {
               "market": "team_totals",
               "selection": "home_under",
-              "label": "Instituto De Córdoba menos de 1.5",
+              "label": "Instituto De Córdoba menos de 1.5 goles",
               "line": 1.5,
-              "p": 0.4926343386842388,
-              "fairOdds": 2.029903158336197
+              "p": 0.5564463783890399,
+              "fairOdds": 1.7971183546833138
             },
             {
               "market": "team_totals",
               "selection": "away_over",
-              "label": "Huracán más de 1.5",
+              "label": "Huracán más de 1.5 goles",
               "line": 1.5,
-              "p": 0.18845982739237876,
-              "fairOdds": 5.306170624458715
+              "p": 0.19424334143677746,
+              "fairOdds": 5.148181619010509
             },
             {
               "market": "team_totals",
               "selection": "away_under",
-              "label": "Huracán menos de 1.5",
+              "label": "Huracán menos de 1.5 goles",
               "line": 1.5,
-              "p": 0.8115401726076212,
-              "fairOdds": 1.2322248900961048
+              "p": 0.8057566585632225,
+              "fairOdds": 1.2410694834134424
             }
           ]
         },
@@ -11077,22 +10964,22 @@
               "market": "correct_score",
               "selection": "1-0",
               "label": "1–0",
-              "p": 0.1421723759789114,
-              "fairOdds": 7.033715186333604
-            },
-            {
-              "market": "correct_score",
-              "selection": "2-0",
-              "label": "2–0",
-              "p": 0.11956561661663746,
-              "fairOdds": 8.363608437752587
+              "p": 0.1507255119194592,
+              "fairOdds": 6.634576902511063
             },
             {
               "market": "correct_score",
               "selection": "1-1",
               "label": "1–1",
-              "p": 0.10965691435971296,
-              "fairOdds": 9.119351988326526
+              "p": 0.11858607255101558,
+              "fairOdds": 8.432693473087248
+            },
+            {
+              "market": "correct_score",
+              "selection": "2-0",
+              "label": "2–0",
+              "p": 0.11199679767289386,
+              "fairOdds": 8.928826723427164
             }
           ]
         }
@@ -11100,44 +10987,44 @@
       "mostLikelyScore": {
         "home": 1,
         "away": 0,
-        "p": 0.1421723759789114
+        "p": 0.1507255119194592
       },
       "factors": [
         {
           "key": "home_attack",
           "label": "Ataque local",
-          "value": "1.43 goles/partido",
-          "detail": "39 % más que la media · 16 partidos"
+          "value": "1.27 goles/partido",
+          "detail": "30 % más que la media · 16 partidos"
         },
         {
           "key": "away_defense",
           "label": "Defensa visitante",
-          "value": "1.03 concedidos/partido",
+          "value": "0.98 concedidos/partido",
           "detail": "5 % menos que la media · 16 partidos"
         },
         {
           "key": "away_attack",
           "label": "Ataque visitante",
-          "value": "0.79 goles/partido",
-          "detail": "20 % menos que la media · ajustado por rival"
+          "value": "0.81 goles/partido",
+          "detail": "15 % menos que la media · ajustado por rival"
         },
         {
           "key": "home_defense",
           "label": "Defensa local",
-          "value": "0.99 concedidos/partido",
-          "detail": "9 % menos que la media · ajustado por rival"
+          "value": "0.95 concedidos/partido",
+          "detail": "8 % menos que la media · ajustado por rival"
         },
         {
           "key": "home_advantage",
           "label": "Localía",
-          "value": "×1.19",
+          "value": "×1.18",
           "detail": "estimada de 240 partidos"
         },
         {
           "key": "uncertainty",
           "label": "Intervalo 90%",
-          "value": "goles 1.8–3.8",
-          "detail": "local 38%–82% · 240 partidos"
+          "value": "goles 1.7–3.3",
+          "detail": "local 33%–73% · 240 partidos"
         },
         {
           "key": "home_position",
@@ -11165,69 +11052,68 @@
         }
       ],
       "steps": [
-        "Sincronizando Liga Profesional Argentina · corte 19 nov 2026, 10:05",
-        "Fuerza ajustada por rival · INS 1.39 / 0.91 · HUR 0.80 / 0.95",
-        "Ponderando 211.6 partidos por antigüedad y calidad del rival",
-        "Proyección de goles 1.70 – 0.79 · total 2.49",
+        "Sincronizando Liga Profesional Argentina · corte 21 nov 2026, 22:33",
+        "Fuerza ajustada por rival · INS 1.30 / 0.92 · HUR 0.85 / 0.95",
+        "Ponderando 210.4 partidos por antigüedad y calidad del rival",
+        "Proyección de goles 1.50 – 0.81 · total 2.31",
         "Simulando 121 marcadores con incertidumbre del ajuste",
         "20 mercados listos · marcador proyectado 1–0"
       ],
-      "inputsAsOf": "2026-11-19T16:05:39.021Z",
+      "inputsAsOf": "2026-11-22T04:33:15.743Z",
       "publishedAt": "2026-11-19T16:05:39.021Z",
       "source": "pitchlab-football-v2",
       "picks": [
         {
           "profile": "conservadora",
-          "market": "double_chance",
-          "selection": "1x",
-          "label": "Instituto De Córdoba o empate",
-          "p": 0.8264368400276552,
-          "fairOdds": 1.2100138226734143
+          "market": "team_totals",
+          "selection": "away_under",
+          "label": "Huracán menos de 1.5 goles",
+          "line": 1.5,
+          "p": 0.8057566585632225,
+          "fairOdds": 1.2410694834134424
         },
         {
           "profile": "intermedia",
-          "market": "h2h",
-          "selection": "home",
-          "label": "Instituto De Córdoba gana",
-          "p": 0.5922401151373207,
-          "fairOdds": 1.6885043320108997
+          "market": "totals",
+          "selection": "over_1.5",
+          "label": "Más de 1.5 goles",
+          "line": 1.5,
+          "p": 0.6702256980306558,
+          "fairOdds": 1.4920347025462168
         },
         {
           "profile": "arriesgada",
-          "market": "team_totals",
-          "selection": "home_over",
-          "label": "Instituto De Córdoba más de 1.5",
-          "line": 1.5,
-          "p": 0.5073656613157612,
-          "fairOdds": 1.9709650775471887
+          "market": "double_chance",
+          "selection": "x2",
+          "label": "Huracán o empate",
+          "p": 0.4611448238139827,
+          "fairOdds": 2.1685161544898564
         }
       ],
       "confidence": {
-        "score": 63,
-        "level": "alta",
+        "score": 57,
+        "level": "media",
         "reasons": [
-          "Favorito claro",
-          "Muestra suficiente",
-          "Rango de incertidumbre amplio"
+          "Muestra suficiente"
         ]
       },
       "projectedScore": {
         "home": 1,
         "away": 0,
-        "p": 0.1421723759789114
+        "p": 0.1507255119194592
       },
       "insights": {
         "why": [
-          "Instituto De Córdoba gana en 59% de los escenarios; el empate, en 23%.",
-          "Instituto De Córdoba anota 39 % más que la media.",
-          "Huracán anota 20 % menos que la media."
+          "Se esperan 2.3 goles: 1.5 de Instituto De Córdoba y 0.8 de Huracán.",
+          "Instituto De Córdoba anota 30 % más que la media.",
+          "Huracán anota 15 % menos que la media."
         ],
         "restDays": {
           "home": 15,
           "away": 16
         }
       },
-      "picksAt": "2026-11-19T16:05:39.021Z",
+      "picksAt": "2026-11-22T04:33:15.743Z",
       "matchContext": {
         "referee": "Dario Herrera",
         "refereeStats": {
@@ -11257,145 +11143,145 @@
         "label": "Modelo PitchLab · en validación"
       },
       "projection": {
-        "home": 1.2468201146861457,
-        "away": 1.0814154544653445,
-        "total": 2.32823556915149,
-        "margin": 0.16540466022080125
+        "home": 1.2144940757918563,
+        "away": 1.0200852467084378,
+        "total": 2.234579322500294,
+        "margin": 0.1944088290834185
       },
       "x12": [
-        0.40235906668477983,
-        0.2764696569151703,
-        0.32117127640004955
+        0.40710148647564853,
+        0.2828510859002132,
+        0.31004742762413845
       ],
       "probabilities": [
         {
           "market": "h2h",
           "selection": "Gimnasia y Esgrima gana",
-          "p": 0.40235906668477983,
-          "fairOdds": 2.4853422795699793
+          "p": 0.40710148647564853,
+          "fairOdds": 2.4563899499782758
         },
         {
           "market": "h2h",
           "selection": "Empate",
-          "p": 0.2764696569151703,
-          "fairOdds": 3.617033460951673
+          "p": 0.2828510859002132,
+          "fairOdds": 3.5354292412113604
         },
         {
           "market": "h2h",
           "selection": "Newell's Old Boys gana",
-          "p": 0.32117127640004955,
-          "fairOdds": 3.1136034679340514
+          "p": 0.31004742762413845,
+          "fairOdds": 3.2253130034423996
         },
         {
           "market": "double_chance",
           "selection": "Gimnasia y Esgrima o empate",
-          "p": 0.6788287235999502,
-          "fairOdds": 1.47312564308832
+          "p": 0.6899525723758617,
+          "fairOdds": 1.4493749861044585
         },
         {
           "market": "double_chance",
           "selection": "Newell's Old Boys o empate",
-          "p": 0.5976409333152198,
-          "fairOdds": 1.6732454961758114
+          "p": 0.5928985135243516,
+          "fairOdds": 1.6866292918424188
         },
         {
           "market": "double_chance",
           "selection": "Sin empate",
-          "p": 0.7235303430848294,
-          "fairOdds": 1.3821120420968387
+          "p": 0.717148914099787,
+          "fairOdds": 1.3944105336271289
         },
         {
           "market": "totals",
-          "selection": "Más de 1.5",
+          "selection": "Más de 1.5 goles",
           "line": 1.5,
-          "p": 0.6736336514783159,
-          "fairOdds": 1.484486408607201
+          "p": 0.6517907192674114,
+          "fairOdds": 1.534234794143683
         },
         {
           "market": "totals",
-          "selection": "Más de 2.5",
+          "selection": "Más de 2.5 goles",
           "line": 2.5,
-          "p": 0.4114346028697884,
-          "fairOdds": 2.4305199247338996
+          "p": 0.3865431104914563,
+          "fairOdds": 2.58703356199671
         },
         {
           "market": "totals",
-          "selection": "Menos de 2.5",
+          "selection": "Menos de 2.5 goles",
           "line": 2.5,
-          "p": 0.5885653971302116,
-          "fairOdds": 1.6990465373532049
+          "p": 0.6134568895085437,
+          "fairOdds": 1.6301063972093068
         },
         {
           "market": "totals",
-          "selection": "Más de 3.5",
+          "selection": "Más de 3.5 goles",
           "line": 3.5,
-          "p": 0.20641768615693512,
-          "fairOdds": 4.8445461172339686
+          "p": 0.18748923227448555,
+          "fairOdds": 5.333639632893653
         },
         {
           "market": "totals",
-          "selection": "Menos de 3.5",
+          "selection": "Menos de 3.5 goles",
           "line": 3.5,
-          "p": 0.7935823138430649,
-          "fairOdds": 1.260108727924291
+          "p": 0.8125107677255144,
+          "fairOdds": 1.230752920111237
         },
         {
           "market": "btts",
           "selection": "Sí",
-          "p": 0.4689637869189026,
-          "fairOdds": 2.132360808859062
+          "p": 0.4476236601554717,
+          "fairOdds": 2.2340195325078955
         },
         {
           "market": "btts",
           "selection": "No",
-          "p": 0.5310362130810974,
-          "fairOdds": 1.8831107471898243
+          "p": 0.5523763398445283,
+          "fairOdds": 1.8103599446012837
         },
         {
           "market": "team_totals",
-          "selection": "Gimnasia y Esgrima más de 1.5",
+          "selection": "Gimnasia y Esgrima más de 1.5 goles",
           "line": 1.5,
-          "p": 0.35422497191306224,
-          "fairOdds": 2.8230646602900458
+          "p": 0.34260487707403453,
+          "fairOdds": 2.91881425781311
         },
         {
           "market": "team_totals",
-          "selection": "Gimnasia y Esgrima menos de 1.5",
+          "selection": "Gimnasia y Esgrima menos de 1.5 goles",
           "line": 1.5,
-          "p": 0.6457750280869378,
-          "fairOdds": 1.5485268963750864
+          "p": 0.6573951229259655,
+          "fairOdds": 1.5211551852547254
         },
         {
           "market": "team_totals",
-          "selection": "Newell's Old Boys más de 1.5",
+          "selection": "Newell's Old Boys más de 1.5 goles",
           "line": 1.5,
-          "p": 0.2941604002810425,
-          "fairOdds": 3.3995058445820523
+          "p": 0.27162956620352974,
+          "fairOdds": 3.6814843611343413
         },
         {
           "market": "team_totals",
-          "selection": "Newell's Old Boys menos de 1.5",
+          "selection": "Newell's Old Boys menos de 1.5 goles",
           "line": 1.5,
-          "p": 0.7058395997189575,
-          "fairOdds": 1.4167524752056524
-        },
-        {
-          "market": "correct_score",
-          "selection": "1–1",
-          "p": 0.12944723881169862,
-          "fairOdds": 7.725155122502516
+          "p": 0.7283704337964703,
+          "fairOdds": 1.3729277763070646
         },
         {
           "market": "correct_score",
           "selection": "1–0",
-          "p": 0.12349581858740208,
-          "fairOdds": 8.097440151726813
+          "p": 0.13198509838066658,
+          "fairOdds": 7.576612907586254
+        },
+        {
+          "market": "correct_score",
+          "selection": "1–1",
+          "p": 0.13061789012868075,
+          "fairOdds": 7.655919101241267
         },
         {
           "market": "correct_score",
           "selection": "0–1",
-          "p": 0.10737422642731441,
-          "fairOdds": 9.313221927395556
+          "p": 0.1111761299576504,
+          "fairOdds": 8.994736553439335
         }
       ],
       "marketGroups": [
@@ -11406,22 +11292,22 @@
               "market": "h2h",
               "selection": "home",
               "label": "Gimnasia y Esgrima gana",
-              "p": 0.40235906668477983,
-              "fairOdds": 2.4853422795699793
+              "p": 0.40710148647564853,
+              "fairOdds": 2.4563899499782758
             },
             {
               "market": "h2h",
               "selection": "draw",
               "label": "Empate",
-              "p": 0.2764696569151703,
-              "fairOdds": 3.617033460951673
+              "p": 0.2828510859002132,
+              "fairOdds": 3.5354292412113604
             },
             {
               "market": "h2h",
               "selection": "away",
               "label": "Newell's Old Boys gana",
-              "p": 0.32117127640004955,
-              "fairOdds": 3.1136034679340514
+              "p": 0.31004742762413845,
+              "fairOdds": 3.2253130034423996
             }
           ]
         },
@@ -11432,22 +11318,22 @@
               "market": "double_chance",
               "selection": "1x",
               "label": "Gimnasia y Esgrima o empate",
-              "p": 0.6788287235999502,
-              "fairOdds": 1.47312564308832
+              "p": 0.6899525723758617,
+              "fairOdds": 1.4493749861044585
             },
             {
               "market": "double_chance",
               "selection": "x2",
               "label": "Newell's Old Boys o empate",
-              "p": 0.5976409333152198,
-              "fairOdds": 1.6732454961758114
+              "p": 0.5928985135243516,
+              "fairOdds": 1.6866292918424188
             },
             {
               "market": "double_chance",
               "selection": "12",
               "label": "Sin empate",
-              "p": 0.7235303430848294,
-              "fairOdds": 1.3821120420968387
+              "p": 0.717148914099787,
+              "fairOdds": 1.3944105336271289
             }
           ]
         },
@@ -11457,42 +11343,42 @@
             {
               "market": "totals",
               "selection": "over_1.5",
-              "label": "Más de 1.5",
+              "label": "Más de 1.5 goles",
               "line": 1.5,
-              "p": 0.6736336514783159,
-              "fairOdds": 1.484486408607201
+              "p": 0.6517907192674114,
+              "fairOdds": 1.534234794143683
             },
             {
               "market": "totals",
               "selection": "over_2.5",
-              "label": "Más de 2.5",
+              "label": "Más de 2.5 goles",
               "line": 2.5,
-              "p": 0.4114346028697884,
-              "fairOdds": 2.4305199247338996
+              "p": 0.3865431104914563,
+              "fairOdds": 2.58703356199671
             },
             {
               "market": "totals",
               "selection": "under_2.5",
-              "label": "Menos de 2.5",
+              "label": "Menos de 2.5 goles",
               "line": 2.5,
-              "p": 0.5885653971302116,
-              "fairOdds": 1.6990465373532049
+              "p": 0.6134568895085437,
+              "fairOdds": 1.6301063972093068
             },
             {
               "market": "totals",
               "selection": "over_3.5",
-              "label": "Más de 3.5",
+              "label": "Más de 3.5 goles",
               "line": 3.5,
-              "p": 0.20641768615693512,
-              "fairOdds": 4.8445461172339686
+              "p": 0.18748923227448555,
+              "fairOdds": 5.333639632893653
             },
             {
               "market": "totals",
               "selection": "under_3.5",
-              "label": "Menos de 3.5",
+              "label": "Menos de 3.5 goles",
               "line": 3.5,
-              "p": 0.7935823138430649,
-              "fairOdds": 1.260108727924291
+              "p": 0.8125107677255144,
+              "fairOdds": 1.230752920111237
             }
           ]
         },
@@ -11503,15 +11389,15 @@
               "market": "btts",
               "selection": "yes",
               "label": "Sí",
-              "p": 0.4689637869189026,
-              "fairOdds": 2.132360808859062
+              "p": 0.4476236601554717,
+              "fairOdds": 2.2340195325078955
             },
             {
               "market": "btts",
               "selection": "no",
               "label": "No",
-              "p": 0.5310362130810974,
-              "fairOdds": 1.8831107471898243
+              "p": 0.5523763398445283,
+              "fairOdds": 1.8103599446012837
             }
           ]
         },
@@ -11521,34 +11407,34 @@
             {
               "market": "team_totals",
               "selection": "home_over",
-              "label": "Gimnasia y Esgrima más de 1.5",
+              "label": "Gimnasia y Esgrima más de 1.5 goles",
               "line": 1.5,
-              "p": 0.35422497191306224,
-              "fairOdds": 2.8230646602900458
+              "p": 0.34260487707403453,
+              "fairOdds": 2.91881425781311
             },
             {
               "market": "team_totals",
               "selection": "home_under",
-              "label": "Gimnasia y Esgrima menos de 1.5",
+              "label": "Gimnasia y Esgrima menos de 1.5 goles",
               "line": 1.5,
-              "p": 0.6457750280869378,
-              "fairOdds": 1.5485268963750864
+              "p": 0.6573951229259655,
+              "fairOdds": 1.5211551852547254
             },
             {
               "market": "team_totals",
               "selection": "away_over",
-              "label": "Newell's Old Boys más de 1.5",
+              "label": "Newell's Old Boys más de 1.5 goles",
               "line": 1.5,
-              "p": 0.2941604002810425,
-              "fairOdds": 3.3995058445820523
+              "p": 0.27162956620352974,
+              "fairOdds": 3.6814843611343413
             },
             {
               "market": "team_totals",
               "selection": "away_under",
-              "label": "Newell's Old Boys menos de 1.5",
+              "label": "Newell's Old Boys menos de 1.5 goles",
               "line": 1.5,
-              "p": 0.7058395997189575,
-              "fairOdds": 1.4167524752056524
+              "p": 0.7283704337964703,
+              "fairOdds": 1.3729277763070646
             }
           ]
         },
@@ -11557,69 +11443,69 @@
           "rows": [
             {
               "market": "correct_score",
-              "selection": "1-1",
-              "label": "1–1",
-              "p": 0.12944723881169862,
-              "fairOdds": 7.725155122502516
+              "selection": "1-0",
+              "label": "1–0",
+              "p": 0.13198509838066658,
+              "fairOdds": 7.576612907586254
             },
             {
               "market": "correct_score",
-              "selection": "1-0",
-              "label": "1–0",
-              "p": 0.12349581858740208,
-              "fairOdds": 8.097440151726813
+              "selection": "1-1",
+              "label": "1–1",
+              "p": 0.13061789012868075,
+              "fairOdds": 7.655919101241267
             },
             {
               "market": "correct_score",
               "selection": "0-1",
               "label": "0–1",
-              "p": 0.10737422642731441,
-              "fairOdds": 9.313221927395556
+              "p": 0.1111761299576504,
+              "fairOdds": 8.994736553439335
             }
           ]
         }
       ],
       "mostLikelyScore": {
         "home": 1,
-        "away": 1,
-        "p": 0.12944723881169862
+        "away": 0,
+        "p": 0.13198509838066658
       },
       "factors": [
         {
           "key": "home_attack",
           "label": "Ataque local",
-          "value": "1.05 goles/partido",
-          "detail": "29 % más que la media · 16 partidos"
+          "value": "1.03 goles/partido",
+          "detail": "23 % más que la media · 16 partidos"
         },
         {
           "key": "away_defense",
           "label": "Defensa visitante",
-          "value": "0.81 concedidos/partido",
-          "detail": "25 % menos que la media · 16 partidos"
+          "value": "0.83 concedidos/partido",
+          "detail": "19 % menos que la media · 16 partidos"
         },
         {
           "key": "away_attack",
           "label": "Ataque visitante",
-          "value": "1.08 goles/partido",
-          "detail": "9 % menos que la media · ajustado por rival"
+          "value": "1.02 goles/partido",
+          "detail": "8 % menos que la media · ajustado por rival"
         },
         {
           "key": "home_defense",
           "label": "Defensa local",
-          "value": "1.19 concedidos/partido",
-          "detail": "10 % más que la media · ajustado por rival"
+          "value": "1.10 concedidos/partido",
+          "detail": "7 % más que la media · ajustado por rival"
         },
         {
           "key": "home_advantage",
           "label": "Localía",
-          "value": "×1.19",
+          "value": "×1.18",
           "detail": "estimada de 240 partidos"
         },
         {
           "key": "uncertainty",
           "label": "Intervalo 90%",
-          "value": "goles 1.7–3.5",
-          "detail": "local 20%–62% · 240 partidos"
+          "value": "goles 1.7–3.2",
+          "detail": "local 24%–60% · 240 partidos"
         },
         {
           "key": "home_position",
@@ -11647,14 +11533,14 @@
         }
       ],
       "steps": [
-        "Sincronizando Liga Profesional Argentina · corte 19 nov 2026, 10:05",
-        "Fuerza ajustada por rival · GIM 1.29 / 1.10 · NEW 0.91 / 0.75",
-        "Ponderando 211.6 partidos por antigüedad y calidad del rival",
-        "Proyección de goles 1.25 – 1.08 · total 2.33",
+        "Sincronizando Liga Profesional Argentina · corte 21 nov 2026, 22:33",
+        "Fuerza ajustada por rival · GIM 1.23 / 1.07 · NEW 0.92 / 0.81",
+        "Ponderando 210.4 partidos por antigüedad y calidad del rival",
+        "Proyección de goles 1.21 – 1.02 · total 2.23",
         "Simulando 121 marcadores con incertidumbre del ajuste",
         "20 mercados listos · marcador proyectado 1–0"
       ],
-      "inputsAsOf": "2026-11-19T16:05:39.021Z",
+      "inputsAsOf": "2026-11-22T04:33:15.743Z",
       "publishedAt": "2026-11-19T16:05:39.021Z",
       "source": "pitchlab-football-v2",
       "picks": [
@@ -11662,54 +11548,53 @@
           "profile": "conservadora",
           "market": "totals",
           "selection": "under_3.5",
-          "label": "Menos de 3.5",
+          "label": "Menos de 3.5 goles",
           "line": 3.5,
-          "p": 0.7935823138430649,
-          "fairOdds": 1.260108727924291
+          "p": 0.8125107677255144,
+          "fairOdds": 1.230752920111237
         },
         {
           "profile": "intermedia",
           "market": "double_chance",
           "selection": "1x",
           "label": "Gimnasia y Esgrima o empate",
-          "p": 0.6788287235999502,
-          "fairOdds": 1.47312564308832
+          "p": 0.6899525723758617,
+          "fairOdds": 1.4493749861044585
         },
         {
           "profile": "arriesgada",
           "market": "btts",
           "selection": "yes",
           "label": "Ambos anotan: Sí",
-          "p": 0.4689637869189026,
-          "fairOdds": 2.132360808859062
+          "p": 0.4476236601554717,
+          "fairOdds": 2.2340195325078955
         }
       ],
       "confidence": {
-        "score": 36,
+        "score": 40,
         "level": "baja",
         "reasons": [
           "Partido parejo",
-          "Muestra suficiente",
-          "Rango de incertidumbre amplio"
+          "Muestra suficiente"
         ]
       },
       "projectedScore": {
         "home": 1,
         "away": 0,
-        "p": 0.12349581858740208
+        "p": 0.13198509838066658
       },
       "insights": {
         "why": [
-          "Gimnasia y Esgrima gana en 40% de los escenarios; el empate, en 28%.",
-          "Newell's Old Boys concede 25 % menos que la media.",
-          "Gimnasia y Esgrima anota 29 % más que la media."
+          "Gimnasia y Esgrima gana en 41% de los escenarios; el empate, en 28%.",
+          "Newell's Old Boys concede 19 % menos que la media.",
+          "Gimnasia y Esgrima anota 23 % más que la media."
         ],
         "restDays": {
           "home": 18,
           "away": 15
         }
       },
-      "picksAt": "2026-11-19T16:05:39.021Z",
+      "picksAt": "2026-11-22T04:33:15.743Z",
       "matchContext": {
         "weather": {
           "description": "rain",
@@ -11731,145 +11616,145 @@
         "label": "Modelo PitchLab · en validación"
       },
       "projection": {
-        "home": 2.146888085109272,
-        "away": 0.9858807851978332,
-        "total": 3.1327688703071055,
-        "margin": 1.161007299911439
+        "home": 1.8000417713407395,
+        "away": 0.9692217633033655,
+        "total": 2.769263534644105,
+        "margin": 0.830820008037374
       },
       "x12": [
-        0.6404987618322919,
-        0.19507380209202896,
-        0.16442743607567883
+        0.5706289746366429,
+        0.22687969399965185,
+        0.20249133136370528
       ],
       "probabilities": [
         {
           "market": "h2h",
           "selection": "Boca Juniors gana",
-          "p": 0.6404987618322919,
-          "fairOdds": 1.5612832679633497
+          "p": 0.5706289746366429,
+          "fairOdds": 1.752452196520105
         },
         {
           "market": "h2h",
           "selection": "Empate",
-          "p": 0.19507380209202896,
-          "fairOdds": 5.1262649790782016
+          "p": 0.22687969399965185,
+          "fairOdds": 4.407622305773802
         },
         {
           "market": "h2h",
           "selection": "Independiente Rivadavi gana",
-          "p": 0.16442743607567883,
-          "fairOdds": 6.0817101079149785
+          "p": 0.20249133136370528,
+          "fairOdds": 4.938483011916434
         },
         {
           "market": "double_chance",
           "selection": "Boca Juniors o empate",
-          "p": 0.8355725639243209,
-          "fairOdds": 1.1967841491867983
+          "p": 0.7975086686362947,
+          "fairOdds": 1.2539048656486165
         },
         {
           "market": "double_chance",
           "selection": "Independiente Rivadavi o empate",
-          "p": 0.3595012381677078,
-          "fairOdds": 2.781631587965488
+          "p": 0.42937102536335714,
+          "fairOdds": 2.3289880800730454
         },
         {
           "market": "double_chance",
           "selection": "Sin empate",
-          "p": 0.8049261979079707,
-          "fairOdds": 1.2423499230103734
+          "p": 0.7731203060003482,
+          "fairOdds": 1.2934597529502085
         },
         {
           "market": "totals",
-          "selection": "Más de 1.5",
+          "selection": "Más de 1.5 goles",
           "line": 1.5,
-          "p": 0.8184369986610245,
-          "fairOdds": 1.221841145544514
+          "p": 0.7619945881500286,
+          "fairOdds": 1.31234527849837
         },
         {
           "market": "totals",
-          "selection": "Más de 2.5",
+          "selection": "Más de 2.5 goles",
           "line": 2.5,
-          "p": 0.6058824522025517,
-          "fairOdds": 1.65048516649512
+          "p": 0.5231860365301927,
+          "fairOdds": 1.9113659963711411
         },
         {
           "market": "totals",
-          "selection": "Menos de 2.5",
+          "selection": "Menos de 2.5 goles",
           "line": 2.5,
-          "p": 0.39411754779744834,
-          "fairOdds": 2.5373140718766907
+          "p": 0.4768139634698073,
+          "fairOdds": 2.097254016478319
         },
         {
           "market": "totals",
-          "selection": "Más de 3.5",
+          "selection": "Más de 3.5 goles",
           "line": 3.5,
-          "p": 0.38247560751541354,
-          "fairOdds": 2.6145458176955785
+          "p": 0.30122992961563666,
+          "fairOdds": 3.3197232468764972
         },
         {
           "market": "totals",
-          "selection": "Menos de 3.5",
+          "selection": "Menos de 3.5 goles",
           "line": 3.5,
-          "p": 0.6175243924845865,
-          "fairOdds": 1.6193692300583256
+          "p": 0.6987700703843633,
+          "fairOdds": 1.4310859070565844
         },
         {
           "market": "btts",
           "selection": "Sí",
-          "p": 0.552253922903798,
-          "fairOdds": 1.810761243201162
+          "p": 0.5163966418572752,
+          "fairOdds": 1.9364959392520333
         },
         {
           "market": "btts",
           "selection": "No",
-          "p": 0.44774607709620196,
-          "fairOdds": 2.2334087357847285
+          "p": 0.4836033581427248,
+          "fairOdds": 2.06781028949115
         },
         {
           "market": "team_totals",
-          "selection": "Boca Juniors más de 1.5",
+          "selection": "Boca Juniors más de 1.5 goles",
           "line": 1.5,
-          "p": 0.6322890690296445,
-          "fairOdds": 1.5815550971562273
+          "p": 0.5371740952595191,
+          "fairOdds": 1.8615938646797197
         },
         {
           "market": "team_totals",
-          "selection": "Boca Juniors menos de 1.5",
+          "selection": "Boca Juniors menos de 1.5 goles",
           "line": 1.5,
-          "p": 0.36771093097035545,
-          "fairOdds": 2.719527530392125
+          "p": 0.4628259047404809,
+          "fairOdds": 2.1606396482079524
         },
         {
           "market": "team_totals",
-          "selection": "Independiente Rivadavi más de 1.5",
+          "selection": "Independiente Rivadavi más de 1.5 goles",
           "line": 1.5,
-          "p": 0.2590471161583303,
-          "fairOdds": 3.8603016116527513
+          "p": 0.25292024709603167,
+          "fairOdds": 3.953815526758949
         },
         {
           "market": "team_totals",
-          "selection": "Independiente Rivadavi menos de 1.5",
+          "selection": "Independiente Rivadavi menos de 1.5 goles",
           "line": 1.5,
-          "p": 0.7409528838416697,
-          "fairOdds": 1.3496134798952812
-        },
-        {
-          "market": "correct_score",
-          "selection": "2–0",
-          "p": 0.10047348747311875,
-          "fairOdds": 9.952874386564373
-        },
-        {
-          "market": "correct_score",
-          "selection": "2–1",
-          "p": 0.09905488072156297,
-          "fairOdds": 10.095413701127327
+          "p": 0.7470797529039683,
+          "fairOdds": 1.3385451768876178
         },
         {
           "market": "correct_score",
           "selection": "1–0",
-          "p": 0.09498334951982622,
-          "fairOdds": 10.528161041438809
+          "p": 0.11451873172608502,
+          "fairOdds": 8.732195903041253
+        },
+        {
+          "market": "correct_score",
+          "selection": "1–1",
+          "p": 0.10776245070110266,
+          "fairOdds": 9.279670177264887
+        },
+        {
+          "market": "correct_score",
+          "selection": "2–0",
+          "p": 0.10159226878560294,
+          "fairOdds": 9.843268704928402
         }
       ],
       "marketGroups": [
@@ -11880,22 +11765,22 @@
               "market": "h2h",
               "selection": "home",
               "label": "Boca Juniors gana",
-              "p": 0.6404987618322919,
-              "fairOdds": 1.5612832679633497
+              "p": 0.5706289746366429,
+              "fairOdds": 1.752452196520105
             },
             {
               "market": "h2h",
               "selection": "draw",
               "label": "Empate",
-              "p": 0.19507380209202896,
-              "fairOdds": 5.1262649790782016
+              "p": 0.22687969399965185,
+              "fairOdds": 4.407622305773802
             },
             {
               "market": "h2h",
               "selection": "away",
               "label": "Independiente Rivadavi gana",
-              "p": 0.16442743607567883,
-              "fairOdds": 6.0817101079149785
+              "p": 0.20249133136370528,
+              "fairOdds": 4.938483011916434
             }
           ]
         },
@@ -11906,22 +11791,22 @@
               "market": "double_chance",
               "selection": "1x",
               "label": "Boca Juniors o empate",
-              "p": 0.8355725639243209,
-              "fairOdds": 1.1967841491867983
+              "p": 0.7975086686362947,
+              "fairOdds": 1.2539048656486165
             },
             {
               "market": "double_chance",
               "selection": "x2",
               "label": "Independiente Rivadavi o empate",
-              "p": 0.3595012381677078,
-              "fairOdds": 2.781631587965488
+              "p": 0.42937102536335714,
+              "fairOdds": 2.3289880800730454
             },
             {
               "market": "double_chance",
               "selection": "12",
               "label": "Sin empate",
-              "p": 0.8049261979079707,
-              "fairOdds": 1.2423499230103734
+              "p": 0.7731203060003482,
+              "fairOdds": 1.2934597529502085
             }
           ]
         },
@@ -11931,42 +11816,42 @@
             {
               "market": "totals",
               "selection": "over_1.5",
-              "label": "Más de 1.5",
+              "label": "Más de 1.5 goles",
               "line": 1.5,
-              "p": 0.8184369986610245,
-              "fairOdds": 1.221841145544514
+              "p": 0.7619945881500286,
+              "fairOdds": 1.31234527849837
             },
             {
               "market": "totals",
               "selection": "over_2.5",
-              "label": "Más de 2.5",
+              "label": "Más de 2.5 goles",
               "line": 2.5,
-              "p": 0.6058824522025517,
-              "fairOdds": 1.65048516649512
+              "p": 0.5231860365301927,
+              "fairOdds": 1.9113659963711411
             },
             {
               "market": "totals",
               "selection": "under_2.5",
-              "label": "Menos de 2.5",
+              "label": "Menos de 2.5 goles",
               "line": 2.5,
-              "p": 0.39411754779744834,
-              "fairOdds": 2.5373140718766907
+              "p": 0.4768139634698073,
+              "fairOdds": 2.097254016478319
             },
             {
               "market": "totals",
               "selection": "over_3.5",
-              "label": "Más de 3.5",
+              "label": "Más de 3.5 goles",
               "line": 3.5,
-              "p": 0.38247560751541354,
-              "fairOdds": 2.6145458176955785
+              "p": 0.30122992961563666,
+              "fairOdds": 3.3197232468764972
             },
             {
               "market": "totals",
               "selection": "under_3.5",
-              "label": "Menos de 3.5",
+              "label": "Menos de 3.5 goles",
               "line": 3.5,
-              "p": 0.6175243924845865,
-              "fairOdds": 1.6193692300583256
+              "p": 0.6987700703843633,
+              "fairOdds": 1.4310859070565844
             }
           ]
         },
@@ -11977,15 +11862,15 @@
               "market": "btts",
               "selection": "yes",
               "label": "Sí",
-              "p": 0.552253922903798,
-              "fairOdds": 1.810761243201162
+              "p": 0.5163966418572752,
+              "fairOdds": 1.9364959392520333
             },
             {
               "market": "btts",
               "selection": "no",
               "label": "No",
-              "p": 0.44774607709620196,
-              "fairOdds": 2.2334087357847285
+              "p": 0.4836033581427248,
+              "fairOdds": 2.06781028949115
             }
           ]
         },
@@ -11995,34 +11880,34 @@
             {
               "market": "team_totals",
               "selection": "home_over",
-              "label": "Boca Juniors más de 1.5",
+              "label": "Boca Juniors más de 1.5 goles",
               "line": 1.5,
-              "p": 0.6322890690296445,
-              "fairOdds": 1.5815550971562273
+              "p": 0.5371740952595191,
+              "fairOdds": 1.8615938646797197
             },
             {
               "market": "team_totals",
               "selection": "home_under",
-              "label": "Boca Juniors menos de 1.5",
+              "label": "Boca Juniors menos de 1.5 goles",
               "line": 1.5,
-              "p": 0.36771093097035545,
-              "fairOdds": 2.719527530392125
+              "p": 0.4628259047404809,
+              "fairOdds": 2.1606396482079524
             },
             {
               "market": "team_totals",
               "selection": "away_over",
-              "label": "Independiente Rivadavi más de 1.5",
+              "label": "Independiente Rivadavi más de 1.5 goles",
               "line": 1.5,
-              "p": 0.2590471161583303,
-              "fairOdds": 3.8603016116527513
+              "p": 0.25292024709603167,
+              "fairOdds": 3.953815526758949
             },
             {
               "market": "team_totals",
               "selection": "away_under",
-              "label": "Independiente Rivadavi menos de 1.5",
+              "label": "Independiente Rivadavi menos de 1.5 goles",
               "line": 1.5,
-              "p": 0.7409528838416697,
-              "fairOdds": 1.3496134798952812
+              "p": 0.7470797529039683,
+              "fairOdds": 1.3385451768876178
             }
           ]
         },
@@ -12031,69 +11916,69 @@
           "rows": [
             {
               "market": "correct_score",
-              "selection": "2-0",
-              "label": "2–0",
-              "p": 0.10047348747311875,
-              "fairOdds": 9.952874386564373
-            },
-            {
-              "market": "correct_score",
-              "selection": "2-1",
-              "label": "2–1",
-              "p": 0.09905488072156297,
-              "fairOdds": 10.095413701127327
-            },
-            {
-              "market": "correct_score",
               "selection": "1-0",
               "label": "1–0",
-              "p": 0.09498334951982622,
-              "fairOdds": 10.528161041438809
+              "p": 0.11451873172608502,
+              "fairOdds": 8.732195903041253
+            },
+            {
+              "market": "correct_score",
+              "selection": "1-1",
+              "label": "1–1",
+              "p": 0.10776245070110266,
+              "fairOdds": 9.279670177264887
+            },
+            {
+              "market": "correct_score",
+              "selection": "2-0",
+              "label": "2–0",
+              "p": 0.10159226878560294,
+              "fairOdds": 9.843268704928402
             }
           ]
         }
       ],
       "mostLikelyScore": {
-        "home": 2,
+        "home": 1,
         "away": 0,
-        "p": 0.10047348747311875
+        "p": 0.11451873172608502
       },
       "factors": [
         {
           "key": "home_attack",
           "label": "Ataque local",
-          "value": "1.81 goles/partido",
-          "detail": "29 % más que la media · 16 partidos"
+          "value": "1.52 goles/partido",
+          "detail": "21 % más que la media · 16 partidos"
         },
         {
           "key": "away_defense",
           "label": "Defensa visitante",
-          "value": "1.41 concedidos/partido",
-          "detail": "30 % más que la media · 16 partidos"
+          "value": "1.25 concedidos/partido",
+          "detail": "21 % más que la media · 16 partidos"
         },
         {
           "key": "away_attack",
           "label": "Ataque visitante",
-          "value": "0.99 goles/partido",
-          "detail": "14 % más que la media · ajustado por rival"
+          "value": "0.97 goles/partido",
+          "detail": "11 % más que la media · ajustado por rival"
         },
         {
           "key": "home_defense",
           "label": "Defensa local",
-          "value": "0.86 concedidos/partido",
-          "detail": "20 % menos que la media · ajustado por rival"
+          "value": "0.87 concedidos/partido",
+          "detail": "15 % menos que la media · ajustado por rival"
         },
         {
           "key": "home_advantage",
           "label": "Localía",
-          "value": "×1.19",
+          "value": "×1.18",
           "detail": "estimada de 240 partidos"
         },
         {
           "key": "uncertainty",
           "label": "Intervalo 90%",
-          "value": "goles 2.1–4.4",
-          "detail": "local 43%–83% · 240 partidos"
+          "value": "goles 2.1–4.0",
+          "detail": "local 36%–78% · 240 partidos"
         },
         {
           "key": "home_position",
@@ -12121,14 +12006,14 @@
         }
       ],
       "steps": [
-        "Sincronizando Liga Profesional Argentina · corte 19 nov 2026, 10:05",
-        "Fuerza ajustada por rival · BOC 1.29 / 0.80 · IND 1.14 / 1.30",
-        "Ponderando 211.6 partidos por antigüedad y calidad del rival",
-        "Proyección de goles 2.15 – 0.99 · total 3.13",
+        "Sincronizando Liga Profesional Argentina · corte 21 nov 2026, 22:33",
+        "Fuerza ajustada por rival · BOC 1.21 / 0.85 · IND 1.11 / 1.21",
+        "Ponderando 210.4 partidos por antigüedad y calidad del rival",
+        "Proyección de goles 1.80 – 0.97 · total 2.77",
         "Simulando 121 marcadores con incertidumbre del ajuste",
         "20 mercados listos · marcador proyectado 2–1"
       ],
-      "inputsAsOf": "2026-11-19T16:05:39.021Z",
+      "inputsAsOf": "2026-11-22T04:33:15.743Z",
       "publishedAt": "2026-11-19T16:05:39.021Z",
       "source": "pitchlab-football-v2",
       "picks": [
@@ -12137,51 +12022,52 @@
           "market": "double_chance",
           "selection": "1x",
           "label": "Boca Juniors o empate",
-          "p": 0.8355725639243209,
-          "fairOdds": 1.1967841491867983
+          "p": 0.7975086686362947,
+          "fairOdds": 1.2539048656486165
         },
         {
           "profile": "intermedia",
-          "market": "h2h",
-          "selection": "home",
-          "label": "Boca Juniors gana",
-          "p": 0.6404987618322919,
-          "fairOdds": 1.5612832679633497
+          "market": "totals",
+          "selection": "under_3.5",
+          "label": "Menos de 3.5 goles",
+          "line": 3.5,
+          "p": 0.6987700703843633,
+          "fairOdds": 1.4310859070565844
         },
         {
           "profile": "arriesgada",
           "market": "btts",
-          "selection": "no",
-          "label": "Ambos anotan: No",
-          "p": 0.44774607709620196,
-          "fairOdds": 2.2334087357847285
+          "selection": "yes",
+          "label": "Ambos anotan: Sí",
+          "p": 0.5163966418572752,
+          "fairOdds": 1.9364959392520333
         }
       ],
       "confidence": {
-        "score": 72,
-        "level": "alta",
+        "score": 61,
+        "level": "media",
         "reasons": [
-          "Favorito claro",
-          "Muestra suficiente"
+          "Muestra suficiente",
+          "Rango de incertidumbre amplio"
         ]
       },
       "projectedScore": {
         "home": 2,
         "away": 1,
-        "p": 0.09905488072156297
+        "p": 0.09846543789037154
       },
       "insights": {
         "why": [
-          "Boca Juniors gana en 64% de los escenarios; el empate, en 20%.",
-          "Independiente Rivadavi concede 30 % más que la media.",
-          "Boca Juniors anota 29 % más que la media."
+          "Se esperan 2.8 goles: 1.8 de Boca Juniors y 1.0 de Independiente Rivadavi.",
+          "Independiente Rivadavi concede 21 % más que la media.",
+          "Boca Juniors anota 21 % más que la media."
         ],
         "restDays": {
           "home": 19,
           "away": 19
         }
       },
-      "picksAt": "2026-11-19T16:05:39.021Z",
+      "picksAt": "2026-11-22T04:33:15.743Z",
       "matchContext": {
         "weather": {
           "description": "unknown",

@@ -5,22 +5,11 @@
   "season": "liga-1-peru-2026",
   "seasonLabel": "2026",
   "periodLabel": "Regular season · Matchday 14",
-  "updatedAt": "2026-11-19T16:05:39.021Z",
+  "updatedAt": "2026-11-22T04:33:15.743Z",
   "source": "pitchlab-football-v2",
   "provenance": "derived",
   "isDemo": false,
   "teamRates": {
-    "liga-1-peru.cajamarca": {
-      "teamId": "liga-1-peru.cajamarca",
-      "name": "FC Cajamarca",
-      "shortName": "Cajamarca",
-      "code": "CAJ",
-      "forPerGame": 1.4375,
-      "againstPerGame": 2.3125,
-      "gamesPlayed": 16,
-      "adjustedFor": 1.3142076078936524,
-      "adjustedAgainst": 2.0165478712812286
-    },
     "liga-1-peru.acd-juan-pablo-ii": {
       "teamId": "liga-1-peru.acd-juan-pablo-ii",
       "name": "ACD Juan Pablo II",
@@ -29,129 +18,8 @@
       "forPerGame": 1.6470588235294117,
       "againstPerGame": 1.2352941176470589,
       "gamesPlayed": 17,
-      "adjustedFor": 1.542402381552359,
-      "adjustedAgainst": 1.1993151146939431
-    },
-    "liga-1-peru.sporting-cristal": {
-      "teamId": "liga-1-peru.sporting-cristal",
-      "name": "Club Sporting Cristal",
-      "shortName": "Sporting Cristal",
-      "code": "SPO",
-      "forPerGame": 2.1875,
-      "againstPerGame": 1.125,
-      "gamesPlayed": 16,
-      "adjustedFor": 1.9242869375374065,
-      "adjustedAgainst": 1.1389142692055496
-    },
-    "liga-1-peru.deportivo-garcilaso": {
-      "teamId": "liga-1-peru.deportivo-garcilaso",
-      "name": "Deportivo Garcilaso",
-      "shortName": "Garcilaso",
-      "code": "DEP",
-      "forPerGame": 1.8235294117647058,
-      "againstPerGame": 1.1176470588235294,
-      "gamesPlayed": 17,
-      "adjustedFor": 1.6499263539039748,
-      "adjustedAgainst": 1.1422002094620283
-    },
-    "liga-1-peru.cienciano": {
-      "teamId": "liga-1-peru.cienciano",
-      "name": "Cienciano",
-      "shortName": "Cienciano",
-      "code": "CIE",
-      "forPerGame": 1.25,
-      "againstPerGame": 1.5,
-      "gamesPlayed": 16,
-      "adjustedFor": 1.208326797370522,
-      "adjustedAgainst": 1.4051717490896458
-    },
-    "liga-1-peru.melgar": {
-      "teamId": "liga-1-peru.melgar",
-      "name": "Melgar",
-      "shortName": "Melgar",
-      "code": "MEL",
-      "forPerGame": 1.6470588235294117,
-      "againstPerGame": 1.1176470588235294,
-      "gamesPlayed": 17,
-      "adjustedFor": 1.521383360739063,
-      "adjustedAgainst": 1.1109332497328839
-    },
-    "liga-1-peru.moquegua": {
-      "teamId": "liga-1-peru.moquegua",
-      "name": "CD Moquegua",
-      "shortName": "Moquegua",
-      "code": "MOQ",
-      "forPerGame": 0.7058823529411765,
-      "againstPerGame": 1.4705882352941178,
-      "gamesPlayed": 17,
-      "adjustedFor": 0.7849425072983384,
-      "adjustedAgainst": 1.354696433318014
-    },
-    "liga-1-peru.comerciantes-unidos": {
-      "teamId": "liga-1-peru.comerciantes-unidos",
-      "name": "Comerciantes Unidos",
-      "shortName": "Comerciantes Unidos",
-      "code": "COM",
-      "forPerGame": 1.7058823529411764,
-      "againstPerGame": 1.7647058823529411,
-      "gamesPlayed": 17,
-      "adjustedFor": 1.5937136600450175,
-      "adjustedAgainst": 1.6054535988997032
-    },
-    "liga-1-peru.asociacion-deportiva-tarma": {
-      "teamId": "liga-1-peru.asociacion-deportiva-tarma",
-      "name": "Asociación Deportiva Tarma",
-      "shortName": "Asociación Deportiva T",
-      "code": "ASO",
-      "forPerGame": 0.9411764705882353,
-      "againstPerGame": 1.7058823529411764,
-      "gamesPlayed": 17,
-      "adjustedFor": 1.0033380565695582,
-      "adjustedAgainst": 1.5277844991848966
-    },
-    "liga-1-peru.universitario-deportes": {
-      "teamId": "liga-1-peru.universitario-deportes",
-      "name": "Universitario de Deportes",
-      "shortName": "Universitario de Depor",
-      "code": "UNI",
-      "forPerGame": 2.1875,
-      "againstPerGame": 1.5,
-      "gamesPlayed": 16,
-      "adjustedFor": 1.9482490095024787,
-      "adjustedAgainst": 1.4358873307960491
-    },
-    "liga-1-peru.atletico-grau": {
-      "teamId": "liga-1-peru.atletico-grau",
-      "name": "Club Atlético Grau",
-      "shortName": "Grau",
-      "code": "ATL",
-      "forPerGame": 1.2352941176470589,
-      "againstPerGame": 1.4705882352941178,
-      "gamesPlayed": 17,
-      "adjustedFor": 1.1739722978497138,
-      "adjustedAgainst": 1.3929124447103471
-    },
-    "liga-1-peru.universidad-tecnica-cajamarca": {
-      "teamId": "liga-1-peru.universidad-tecnica-cajamarca",
-      "name": "Universidad Técnica de Cajamarca",
-      "shortName": "Universidad Técnica de",
-      "code": "UNI",
-      "forPerGame": 1.2941176470588236,
-      "againstPerGame": 2.0588235294117645,
-      "gamesPlayed": 17,
-      "adjustedFor": 1.2779159537279643,
-      "adjustedAgainst": 1.808952864866229
-    },
-    "liga-1-peru.cusco": {
-      "teamId": "liga-1-peru.cusco",
-      "name": "Cusco FC",
-      "shortName": "Cusco",
-      "code": "CUS",
-      "forPerGame": 1.588235294117647,
-      "againstPerGame": 1.4705882352941178,
-      "gamesPlayed": 17,
-      "adjustedFor": 1.447080943871536,
-      "adjustedAgainst": 1.3877315840548423
+      "adjustedFor": 1.316769944509068,
+      "adjustedAgainst": 1.0621732030971993
     },
     "liga-1-peru.alianza-atletico-sullana": {
       "teamId": "liga-1-peru.alianza-atletico-sullana",
@@ -161,30 +29,8 @@
       "forPerGame": 1.7647058823529411,
       "againstPerGame": 1.8235294117647058,
       "gamesPlayed": 17,
-      "adjustedFor": 1.5923855514889,
-      "adjustedAgainst": 1.6543963645501778
-    },
-    "liga-1-peru.los-chankas-cyc": {
-      "teamId": "liga-1-peru.los-chankas-cyc",
-      "name": "Los Chankas CYC",
-      "shortName": "Los Chankas CYC",
-      "code": "LOS",
-      "forPerGame": 1.0588235294117647,
-      "againstPerGame": 2.1176470588235294,
-      "gamesPlayed": 17,
-      "adjustedFor": 1.0887228229120798,
-      "adjustedAgainst": 1.867195580367703
-    },
-    "liga-1-peru.sport-boys": {
-      "teamId": "liga-1-peru.sport-boys",
-      "name": "Sport Boys",
-      "shortName": "Sport Boys",
-      "code": "SPO",
-      "forPerGame": 1.4705882352941178,
-      "againstPerGame": 1.1176470588235294,
-      "gamesPlayed": 17,
-      "adjustedFor": 1.3784096608456993,
-      "adjustedAgainst": 1.123106569554683
+      "adjustedFor": 1.3570865239600511,
+      "adjustedAgainst": 1.4253686986392826
     },
     "liga-1-peru.alianza-lima": {
       "teamId": "liga-1-peru.alianza-lima",
@@ -194,8 +40,129 @@
       "forPerGame": 1.5,
       "againstPerGame": 1,
       "gamesPlayed": 16,
-      "adjustedFor": 1.4068880139812157,
-      "adjustedAgainst": 1.015639375016999
+      "adjustedFor": 1.225219460379317,
+      "adjustedAgainst": 0.9515131767858558
+    },
+    "liga-1-peru.asociacion-deportiva-tarma": {
+      "teamId": "liga-1-peru.asociacion-deportiva-tarma",
+      "name": "Asociación Deportiva Tarma",
+      "shortName": "Asociación Deportiva T",
+      "code": "ASO",
+      "forPerGame": 0.9411764705882353,
+      "againstPerGame": 1.7058823529411764,
+      "gamesPlayed": 17,
+      "adjustedFor": 0.9389796179851275,
+      "adjustedAgainst": 1.3069265058822885
+    },
+    "liga-1-peru.atletico-grau": {
+      "teamId": "liga-1-peru.atletico-grau",
+      "name": "Club Atlético Grau",
+      "shortName": "Grau",
+      "code": "ATL",
+      "forPerGame": 1.2352941176470589,
+      "againstPerGame": 1.4705882352941178,
+      "gamesPlayed": 17,
+      "adjustedFor": 1.0625710949184382,
+      "adjustedAgainst": 1.22527425519326
+    },
+    "liga-1-peru.cajamarca": {
+      "teamId": "liga-1-peru.cajamarca",
+      "name": "FC Cajamarca",
+      "shortName": "Cajamarca",
+      "code": "CAJ",
+      "forPerGame": 1.4375,
+      "againstPerGame": 2.3125,
+      "gamesPlayed": 16,
+      "adjustedFor": 1.1607369405854129,
+      "adjustedAgainst": 1.6754440765721
+    },
+    "liga-1-peru.cienciano": {
+      "teamId": "liga-1-peru.cienciano",
+      "name": "Cienciano",
+      "shortName": "Cienciano",
+      "code": "CIE",
+      "forPerGame": 1.25,
+      "againstPerGame": 1.5,
+      "gamesPlayed": 16,
+      "adjustedFor": 1.0876764736487705,
+      "adjustedAgainst": 1.2291226833451443
+    },
+    "liga-1-peru.comerciantes-unidos": {
+      "teamId": "liga-1-peru.comerciantes-unidos",
+      "name": "Comerciantes Unidos",
+      "shortName": "Comerciantes Unidos",
+      "code": "COM",
+      "forPerGame": 1.7058823529411764,
+      "againstPerGame": 1.7647058823529411,
+      "gamesPlayed": 17,
+      "adjustedFor": 1.3532761726604412,
+      "adjustedAgainst": 1.3527607129094172
+    },
+    "liga-1-peru.cusco": {
+      "teamId": "liga-1-peru.cusco",
+      "name": "Cusco FC",
+      "shortName": "Cusco",
+      "code": "CUS",
+      "forPerGame": 1.588235294117647,
+      "againstPerGame": 1.4705882352941178,
+      "gamesPlayed": 17,
+      "adjustedFor": 1.2517504448138985,
+      "adjustedAgainst": 1.217667570072867
+    },
+    "liga-1-peru.deportivo-garcilaso": {
+      "teamId": "liga-1-peru.deportivo-garcilaso",
+      "name": "Deportivo Garcilaso",
+      "shortName": "Garcilaso",
+      "code": "DEP",
+      "forPerGame": 1.8235294117647058,
+      "againstPerGame": 1.1176470588235294,
+      "gamesPlayed": 17,
+      "adjustedFor": 1.4019449276565303,
+      "adjustedAgainst": 1.0277372096455324
+    },
+    "liga-1-peru.los-chankas-cyc": {
+      "teamId": "liga-1-peru.los-chankas-cyc",
+      "name": "Los Chankas CYC",
+      "shortName": "Los Chankas CYC",
+      "code": "LOS",
+      "forPerGame": 1.0588235294117647,
+      "againstPerGame": 2.1176470588235294,
+      "gamesPlayed": 17,
+      "adjustedFor": 0.9980068574888341,
+      "adjustedAgainst": 1.537728846205476
+    },
+    "liga-1-peru.melgar": {
+      "teamId": "liga-1-peru.melgar",
+      "name": "Melgar",
+      "shortName": "Melgar",
+      "code": "MEL",
+      "forPerGame": 1.6470588235294117,
+      "againstPerGame": 1.1176470588235294,
+      "gamesPlayed": 17,
+      "adjustedFor": 1.3064434755770438,
+      "adjustedAgainst": 1.0127236328972047
+    },
+    "liga-1-peru.moquegua": {
+      "teamId": "liga-1-peru.moquegua",
+      "name": "CD Moquegua",
+      "shortName": "Moquegua",
+      "code": "MOQ",
+      "forPerGame": 0.7058823529411765,
+      "againstPerGame": 1.4705882352941178,
+      "gamesPlayed": 17,
+      "adjustedFor": 0.7843184854631216,
+      "adjustedAgainst": 1.197474566953489
+    },
+    "liga-1-peru.sport-boys": {
+      "teamId": "liga-1-peru.sport-boys",
+      "name": "Sport Boys",
+      "shortName": "Sport Boys",
+      "code": "SPO",
+      "forPerGame": 1.4705882352941178,
+      "againstPerGame": 1.1176470588235294,
+      "gamesPlayed": 17,
+      "adjustedFor": 1.2072099014772786,
+      "adjustedAgainst": 1.0172082558101072
     },
     "liga-1-peru.sport-huancayo": {
       "teamId": "liga-1-peru.sport-huancayo",
@@ -205,8 +172,41 @@
       "forPerGame": 1.6875,
       "againstPerGame": 1.125,
       "gamesPlayed": 16,
-      "adjustedFor": 1.540161183162876,
-      "adjustedAgainst": 1.1264720915338262
+      "adjustedFor": 1.3208410989648494,
+      "adjustedAgainst": 1.0234183649701636
+    },
+    "liga-1-peru.sporting-cristal": {
+      "teamId": "liga-1-peru.sporting-cristal",
+      "name": "Club Sporting Cristal",
+      "shortName": "Sporting Cristal",
+      "code": "SPO",
+      "forPerGame": 2.1875,
+      "againstPerGame": 1.125,
+      "gamesPlayed": 16,
+      "adjustedFor": 1.593362943772986,
+      "adjustedAgainst": 1.0397408682848213
+    },
+    "liga-1-peru.universidad-tecnica-cajamarca": {
+      "teamId": "liga-1-peru.universidad-tecnica-cajamarca",
+      "name": "Universidad Técnica de Cajamarca",
+      "shortName": "Universidad Técnica de",
+      "code": "UNI",
+      "forPerGame": 1.2941176470588236,
+      "againstPerGame": 2.0588235294117645,
+      "gamesPlayed": 17,
+      "adjustedFor": 1.1333917365248773,
+      "adjustedAgainst": 1.5270904597432697
+    },
+    "liga-1-peru.universitario-deportes": {
+      "teamId": "liga-1-peru.universitario-deportes",
+      "name": "Universitario de Deportes",
+      "shortName": "Universitario de Depor",
+      "code": "UNI",
+      "forPerGame": 2.1875,
+      "againstPerGame": 1.5,
+      "gamesPlayed": 16,
+      "adjustedFor": 1.6045736320356,
+      "adjustedAgainst": 1.2483885263832186
     }
   },
   "games": [
@@ -7992,145 +7992,145 @@
         "label": "Modelo PitchLab · en validación"
       },
       "projection": {
-        "home": 2.9864848114923936,
-        "away": 0.9679164366374353,
-        "total": 3.954401248129829,
-        "margin": 2.0185683748549583
+        "home": 2.4171106515104657,
+        "away": 0.9127176976075729,
+        "total": 3.3298283491180385,
+        "margin": 1.5043929539028928
       },
       "x12": [
-        0.7770920496140494,
-        0.13457959425377333,
-        0.0883283561321774
+        0.7021587219647671,
+        0.17774080707218848,
+        0.12010047096304506
       ],
       "probabilities": [
         {
           "market": "h2h",
           "selection": "Alianza Lima gana",
-          "p": 0.7770920496140494,
-          "fairOdds": 1.286848836629663
+          "p": 0.7021587219647671,
+          "fairOdds": 1.4241794180122396
         },
         {
           "market": "h2h",
           "selection": "Empate",
-          "p": 0.13457959425377333,
-          "fairOdds": 7.4305469974469185
+          "p": 0.17774080707218848,
+          "fairOdds": 5.626170019549058
         },
         {
           "market": "h2h",
           "selection": "Cajamarca gana",
-          "p": 0.0883283561321774,
-          "fairOdds": 11.321392628473326
+          "p": 0.12010047096304506,
+          "fairOdds": 8.326362019909983
         },
         {
           "market": "double_chance",
           "selection": "Alianza Lima o empate",
-          "p": 0.9116716438678227,
-          "fairOdds": 1.0968861505414809
+          "p": 0.8798995290369556,
+          "fairOdds": 1.136493391574483
         },
         {
           "market": "double_chance",
           "selection": "Cajamarca o empate",
-          "p": 0.22290795038595074,
-          "fairOdds": 4.4861567219498655
+          "p": 0.2978412780352335,
+          "fairOdds": 3.357492979471112
         },
         {
           "market": "double_chance",
           "selection": "Sin empate",
-          "p": 0.8654204057462268,
-          "fairOdds": 1.1555077663528504
+          "p": 0.8222591929278122,
+          "fairOdds": 1.216161532277076
         },
         {
           "market": "totals",
-          "selection": "Más de 1.5",
+          "selection": "Más de 1.5 goles",
           "line": 1.5,
-          "p": 0.9072138734052635,
-          "fairOdds": 1.1022759123451895
+          "p": 0.8485424702251089,
+          "fairOdds": 1.178491395645419
         },
         {
           "market": "totals",
-          "selection": "Más de 2.5",
+          "selection": "Más de 2.5 goles",
           "line": 2.5,
-          "p": 0.7550699167641397,
-          "fairOdds": 1.3243806670056606
+          "p": 0.6465125085496817,
+          "fairOdds": 1.5467604830157038
         },
         {
           "market": "totals",
-          "selection": "Menos de 2.5",
+          "selection": "Menos de 2.5 goles",
           "line": 2.5,
-          "p": 0.2449300832358603,
-          "fairOdds": 4.082797779630157
+          "p": 0.3534874914503183,
+          "fairOdds": 2.8289544161721696
         },
         {
           "market": "totals",
-          "selection": "Más de 3.5",
+          "selection": "Más de 3.5 goles",
           "line": 3.5,
-          "p": 0.5574464053286301,
-          "fairOdds": 1.7938944272328248
+          "p": 0.42621574638101856,
+          "fairOdds": 2.346229599659237
         },
         {
           "market": "totals",
-          "selection": "Menos de 3.5",
+          "selection": "Menos de 3.5 goles",
           "line": 3.5,
-          "p": 0.4425535946713699,
-          "fairOdds": 2.2596133260256916
+          "p": 0.5737842536189814,
+          "fairOdds": 1.7428153416424093
         },
         {
           "market": "btts",
           "selection": "Sí",
-          "p": 0.5910403092077703,
-          "fairOdds": 1.6919319789548681
+          "p": 0.5487402967039573,
+          "fairOdds": 1.8223556862992607
         },
         {
           "market": "btts",
           "selection": "No",
-          "p": 0.4089596907922297,
-          "fairOdds": 2.445228765854202
+          "p": 0.4512597032960427,
+          "fairOdds": 2.2160188306110813
         },
         {
           "market": "team_totals",
-          "selection": "Alianza Lima más de 1.5",
+          "selection": "Alianza Lima más de 1.5 goles",
           "line": 1.5,
-          "p": 0.7987673082415754,
-          "fairOdds": 1.2519290532826424
+          "p": 0.6952518167562591,
+          "fairOdds": 1.4383277769277363
         },
         {
           "market": "team_totals",
-          "selection": "Alianza Lima menos de 1.5",
+          "selection": "Alianza Lima menos de 1.5 goles",
           "line": 1.5,
-          "p": 0.20123269175842462,
-          "fairOdds": 4.969371483637847
+          "p": 0.30474818324374087,
+          "fairOdds": 3.281397740770744
         },
         {
           "market": "team_totals",
-          "selection": "Cajamarca más de 1.5",
+          "selection": "Cajamarca más de 1.5 goles",
           "line": 1.5,
-          "p": 0.25244028658439577,
-          "fairOdds": 3.961332850355802
+          "p": 0.23217434595562159,
+          "fairOdds": 4.307108073822862
         },
         {
           "market": "team_totals",
-          "selection": "Cajamarca menos de 1.5",
+          "selection": "Cajamarca menos de 1.5 goles",
           "line": 1.5,
-          "p": 0.7475597134156042,
-          "fairOdds": 1.3376857822246664
+          "p": 0.7678256540443784,
+          "fairOdds": 1.302378990246922
         },
         {
           "market": "correct_score",
           "selection": "2–0",
-          "p": 0.08551420913847312,
-          "fairOdds": 11.693963027602821
-        },
-        {
-          "market": "correct_score",
-          "selection": "3–0",
-          "p": 0.08512896225294465,
-          "fairOdds": 11.746883475786873
+          "p": 0.10458198819551544,
+          "fairOdds": 9.561875971706577
         },
         {
           "market": "correct_score",
           "selection": "2–1",
-          "p": 0.08277060859117931,
-          "fairOdds": 12.08158326996484
+          "p": 0.09545383147703322,
+          "fairOdds": 10.476268836213308
+        },
+        {
+          "market": "correct_score",
+          "selection": "3–0",
+          "p": 0.08426207920784072,
+          "fairOdds": 11.867734684464663
         }
       ],
       "marketGroups": [
@@ -8141,22 +8141,22 @@
               "market": "h2h",
               "selection": "home",
               "label": "Alianza Lima gana",
-              "p": 0.7770920496140494,
-              "fairOdds": 1.286848836629663
+              "p": 0.7021587219647671,
+              "fairOdds": 1.4241794180122396
             },
             {
               "market": "h2h",
               "selection": "draw",
               "label": "Empate",
-              "p": 0.13457959425377333,
-              "fairOdds": 7.4305469974469185
+              "p": 0.17774080707218848,
+              "fairOdds": 5.626170019549058
             },
             {
               "market": "h2h",
               "selection": "away",
               "label": "Cajamarca gana",
-              "p": 0.0883283561321774,
-              "fairOdds": 11.321392628473326
+              "p": 0.12010047096304506,
+              "fairOdds": 8.326362019909983
             }
           ]
         },
@@ -8167,22 +8167,22 @@
               "market": "double_chance",
               "selection": "1x",
               "label": "Alianza Lima o empate",
-              "p": 0.9116716438678227,
-              "fairOdds": 1.0968861505414809
+              "p": 0.8798995290369556,
+              "fairOdds": 1.136493391574483
             },
             {
               "market": "double_chance",
               "selection": "x2",
               "label": "Cajamarca o empate",
-              "p": 0.22290795038595074,
-              "fairOdds": 4.4861567219498655
+              "p": 0.2978412780352335,
+              "fairOdds": 3.357492979471112
             },
             {
               "market": "double_chance",
               "selection": "12",
               "label": "Sin empate",
-              "p": 0.8654204057462268,
-              "fairOdds": 1.1555077663528504
+              "p": 0.8222591929278122,
+              "fairOdds": 1.216161532277076
             }
           ]
         },
@@ -8192,42 +8192,42 @@
             {
               "market": "totals",
               "selection": "over_1.5",
-              "label": "Más de 1.5",
+              "label": "Más de 1.5 goles",
               "line": 1.5,
-              "p": 0.9072138734052635,
-              "fairOdds": 1.1022759123451895
+              "p": 0.8485424702251089,
+              "fairOdds": 1.178491395645419
             },
             {
               "market": "totals",
               "selection": "over_2.5",
-              "label": "Más de 2.5",
+              "label": "Más de 2.5 goles",
               "line": 2.5,
-              "p": 0.7550699167641397,
-              "fairOdds": 1.3243806670056606
+              "p": 0.6465125085496817,
+              "fairOdds": 1.5467604830157038
             },
             {
               "market": "totals",
               "selection": "under_2.5",
-              "label": "Menos de 2.5",
+              "label": "Menos de 2.5 goles",
               "line": 2.5,
-              "p": 0.2449300832358603,
-              "fairOdds": 4.082797779630157
+              "p": 0.3534874914503183,
+              "fairOdds": 2.8289544161721696
             },
             {
               "market": "totals",
               "selection": "over_3.5",
-              "label": "Más de 3.5",
+              "label": "Más de 3.5 goles",
               "line": 3.5,
-              "p": 0.5574464053286301,
-              "fairOdds": 1.7938944272328248
+              "p": 0.42621574638101856,
+              "fairOdds": 2.346229599659237
             },
             {
               "market": "totals",
               "selection": "under_3.5",
-              "label": "Menos de 3.5",
+              "label": "Menos de 3.5 goles",
               "line": 3.5,
-              "p": 0.4425535946713699,
-              "fairOdds": 2.2596133260256916
+              "p": 0.5737842536189814,
+              "fairOdds": 1.7428153416424093
             }
           ]
         },
@@ -8238,15 +8238,15 @@
               "market": "btts",
               "selection": "yes",
               "label": "Sí",
-              "p": 0.5910403092077703,
-              "fairOdds": 1.6919319789548681
+              "p": 0.5487402967039573,
+              "fairOdds": 1.8223556862992607
             },
             {
               "market": "btts",
               "selection": "no",
               "label": "No",
-              "p": 0.4089596907922297,
-              "fairOdds": 2.445228765854202
+              "p": 0.4512597032960427,
+              "fairOdds": 2.2160188306110813
             }
           ]
         },
@@ -8256,34 +8256,34 @@
             {
               "market": "team_totals",
               "selection": "home_over",
-              "label": "Alianza Lima más de 1.5",
+              "label": "Alianza Lima más de 1.5 goles",
               "line": 1.5,
-              "p": 0.7987673082415754,
-              "fairOdds": 1.2519290532826424
+              "p": 0.6952518167562591,
+              "fairOdds": 1.4383277769277363
             },
             {
               "market": "team_totals",
               "selection": "home_under",
-              "label": "Alianza Lima menos de 1.5",
+              "label": "Alianza Lima menos de 1.5 goles",
               "line": 1.5,
-              "p": 0.20123269175842462,
-              "fairOdds": 4.969371483637847
+              "p": 0.30474818324374087,
+              "fairOdds": 3.281397740770744
             },
             {
               "market": "team_totals",
               "selection": "away_over",
-              "label": "Cajamarca más de 1.5",
+              "label": "Cajamarca más de 1.5 goles",
               "line": 1.5,
-              "p": 0.25244028658439577,
-              "fairOdds": 3.961332850355802
+              "p": 0.23217434595562159,
+              "fairOdds": 4.307108073822862
             },
             {
               "market": "team_totals",
               "selection": "away_under",
-              "label": "Cajamarca menos de 1.5",
+              "label": "Cajamarca menos de 1.5 goles",
               "line": 1.5,
-              "p": 0.7475597134156042,
-              "fairOdds": 1.3376857822246664
+              "p": 0.7678256540443784,
+              "fairOdds": 1.302378990246922
             }
           ]
         },
@@ -8294,22 +8294,22 @@
               "market": "correct_score",
               "selection": "2-0",
               "label": "2–0",
-              "p": 0.08551420913847312,
-              "fairOdds": 11.693963027602821
-            },
-            {
-              "market": "correct_score",
-              "selection": "3-0",
-              "label": "3–0",
-              "p": 0.08512896225294465,
-              "fairOdds": 11.746883475786873
+              "p": 0.10458198819551544,
+              "fairOdds": 9.561875971706577
             },
             {
               "market": "correct_score",
               "selection": "2-1",
               "label": "2–1",
-              "p": 0.08277060859117931,
-              "fairOdds": 12.08158326996484
+              "p": 0.09545383147703322,
+              "fairOdds": 10.476268836213308
+            },
+            {
+              "market": "correct_score",
+              "selection": "3-0",
+              "label": "3–0",
+              "p": 0.08426207920784072,
+              "fairOdds": 11.867734684464663
             }
           ]
         }
@@ -8317,44 +8317,44 @@
       "mostLikelyScore": {
         "home": 2,
         "away": 0,
-        "p": 0.08551420913847312
+        "p": 0.10458198819551544
       },
       "factors": [
         {
           "key": "home_attack",
           "label": "Ataque local",
-          "value": "2.06 goles/partido",
+          "value": "1.70 goles/partido",
           "detail": "en la media de la liga · 16 partidos"
         },
         {
           "key": "away_defense",
           "label": "Defensa visitante",
-          "value": "2.02 concedidos/partido",
-          "detail": "46 % más que la media · 16 partidos"
+          "value": "1.68 concedidos/partido",
+          "detail": "38 % más que la media · 16 partidos"
         },
         {
           "key": "away_attack",
           "label": "Ataque visitante",
-          "value": "0.97 goles/partido",
-          "detail": "5 % menos que la media · ajustado por rival"
+          "value": "0.91 goles/partido",
+          "detail": "4 % menos que la media · ajustado por rival"
         },
         {
           "key": "home_defense",
           "label": "Defensa local",
-          "value": "1.02 concedidos/partido",
-          "detail": "26 % menos que la media · ajustado por rival"
+          "value": "0.95 concedidos/partido",
+          "detail": "21 % menos que la media · ajustado por rival"
         },
         {
           "key": "home_advantage",
           "label": "Localía",
-          "value": "×1.45",
+          "value": "×1.42",
           "detail": "estimada de 150 partidos"
         },
         {
           "key": "uncertainty",
           "label": "Intervalo 90%",
-          "value": "goles 2.8–5.1",
-          "detail": "local 56%–90% · 150 partidos"
+          "value": "goles 2.5–4.6",
+          "detail": "local 49%–86% · 150 partidos"
         },
         {
           "key": "home_position",
@@ -8382,68 +8382,32 @@
         }
       ],
       "steps": [
-        "Sincronizando Liga 1 Perú · corte 19 nov 2026, 10:05",
-        "Fuerza ajustada por rival · ALI 1.02 / 0.74 · CAJ 0.95 / 1.46",
-        "Ponderando 133.1 partidos por antigüedad y calidad del rival",
-        "Proyección de goles 2.99 – 0.97 · total 3.95",
+        "Sincronizando Liga 1 Perú · corte 21 nov 2026, 22:33",
+        "Fuerza ajustada por rival · ALI 1.01 / 0.79 · CAJ 0.96 / 1.38",
+        "Ponderando 132.4 partidos por antigüedad y calidad del rival",
+        "Proyección de goles 2.42 – 0.91 · total 3.33",
         "Simulando 121 marcadores con incertidumbre del ajuste",
-        "20 mercados listos · marcador proyectado 3–0"
+        "20 mercados listos · marcador proyectado 2–1"
       ],
-      "inputsAsOf": "2026-11-19T16:05:39.021Z",
+      "inputsAsOf": "2026-11-22T04:33:15.743Z",
       "publishedAt": "2026-11-19T16:05:39.021Z",
       "source": "pitchlab-football-v2",
-      "picks": [
-        {
-          "profile": "conservadora",
-          "market": "double_chance",
-          "selection": "1x",
-          "label": "Alianza Lima o empate",
-          "p": 0.9116716438678227,
-          "fairOdds": 1.0968861505414809
-        },
-        {
-          "profile": "intermedia",
-          "market": "btts",
-          "selection": "yes",
-          "label": "Ambos anotan: Sí",
-          "p": 0.5910403092077703,
-          "fairOdds": 1.6919319789548681
-        },
-        {
-          "profile": "arriesgada",
-          "market": "totals",
-          "selection": "under_3.5",
-          "label": "Menos de 3.5",
-          "line": 3.5,
-          "p": 0.4425535946713699,
-          "fairOdds": 2.2596133260256916
-        }
-      ],
-      "confidence": {
-        "score": 90,
-        "level": "alta",
-        "reasons": [
-          "Favorito claro",
-          "Muestra suficiente"
-        ]
-      },
       "projectedScore": {
-        "home": 3,
-        "away": 0,
-        "p": 0.08512896225294465
+        "home": 2,
+        "away": 1,
+        "p": 0.09545383147703322
       },
       "insights": {
         "why": [
-          "Se esperan 4.0 goles: 3.0 de Alianza Lima y 1.0 de Cajamarca.",
-          "Cajamarca concede 46 % más que la media.",
-          "Alianza Lima concede 26 % menos que la media."
+          "Se esperan 3.3 goles: 2.4 de Alianza Lima y 0.9 de Cajamarca.",
+          "Cajamarca concede 38 % más que la media.",
+          "Alianza Lima concede 21 % menos que la media."
         ],
         "restDays": {
           "home": 13,
           "away": 14
         }
       },
-      "picksAt": "2026-11-19T16:05:39.021Z",
       "matchContext": {
         "weather": {
           "description": "rain",
@@ -8465,145 +8429,145 @@
         "label": "Modelo PitchLab · en validación"
       },
       "projection": {
-        "home": 2.846370868656133,
-        "away": 0.9979523370598032,
-        "total": 3.8443232057159364,
-        "margin": 1.8484185315963297
+        "home": 2.3060178035863865,
+        "away": 0.9345718771707388,
+        "total": 3.2405896807571253,
+        "margin": 1.3714459264156478
       },
       "x12": [
-        0.7519879093144151,
-        0.14659261471343604,
-        0.10141947597214931
+        0.6774072815649969,
+        0.18902417539619362,
+        0.13356854303880983
       ],
       "probabilities": [
         {
           "market": "h2h",
           "selection": "Sporting Cristal gana",
-          "p": 0.7519879093144151,
-          "fairOdds": 1.3298086147577781
+          "p": 0.6774072815649969,
+          "fairOdds": 1.4762167859928008
         },
         {
           "market": "h2h",
           "selection": "Empate",
-          "p": 0.14659261471343604,
-          "fairOdds": 6.821626055001694
+          "p": 0.18902417539619362,
+          "fairOdds": 5.290328593705041
         },
         {
           "market": "h2h",
           "selection": "Cienciano gana",
-          "p": 0.10141947597214931,
-          "fairOdds": 9.860039113933194
+          "p": 0.13356854303880983,
+          "fairOdds": 7.4867927526127085
         },
         {
           "market": "double_chance",
           "selection": "Sporting Cristal o empate",
-          "p": 0.898580524027851,
-          "fairOdds": 1.1128663188887515
+          "p": 0.8664314569611905,
+          "fairOdds": 1.1541593878727239
         },
         {
           "market": "double_chance",
           "selection": "Cienciano o empate",
-          "p": 0.24801209068558536,
-          "fairOdds": 4.032061490372012
+          "p": 0.3225927184350035,
+          "fairOdds": 3.0998839801819074
         },
         {
           "market": "double_chance",
           "selection": "Sin empate",
-          "p": 0.8534073852865643,
-          "fairOdds": 1.171773313942217
+          "p": 0.8109758246038067,
+          "fairOdds": 1.2330823800925743
         },
         {
           "market": "totals",
-          "selection": "Más de 1.5",
+          "selection": "Más de 1.5 goles",
           "line": 1.5,
-          "p": 0.898739766985591,
-          "fairOdds": 1.112669135976969
+          "p": 0.8378109238801749,
+          "fairOdds": 1.1935867288154645
         },
         {
           "market": "totals",
-          "selection": "Más de 2.5",
+          "selection": "Más de 2.5 goles",
           "line": 2.5,
-          "p": 0.7381380500946335,
-          "fairOdds": 1.3547601290460427
+          "p": 0.6284916201906099,
+          "fairOdds": 1.5911111109114207
         },
         {
           "market": "totals",
-          "selection": "Menos de 2.5",
+          "selection": "Menos de 2.5 goles",
           "line": 2.5,
-          "p": 0.2618619499053665,
-          "fairOdds": 3.818806055486057
+          "p": 0.3715083798093901,
+          "fairOdds": 2.691729323879774
         },
         {
           "market": "totals",
-          "selection": "Más de 3.5",
+          "selection": "Más de 3.5 goles",
           "line": 3.5,
-          "p": 0.5354529585936043,
-          "fairOdds": 1.8675776909078123
+          "p": 0.4064860976270419,
+          "fairOdds": 2.4601087364063248
         },
         {
           "market": "totals",
-          "selection": "Menos de 3.5",
+          "selection": "Menos de 3.5 goles",
           "line": 3.5,
-          "p": 0.4645470414063957,
-          "fairOdds": 2.152634525391754
+          "p": 0.5935139023729581,
+          "fairOdds": 1.6848804990108053
         },
         {
           "market": "btts",
           "selection": "Sí",
-          "p": 0.5971379081046508,
-          "fairOdds": 1.674655027636842
+          "p": 0.5505237252960866,
+          "fairOdds": 1.8164521419347963
         },
         {
           "market": "btts",
           "selection": "No",
-          "p": 0.40286209189534916,
-          "fairOdds": 2.4822390096206135
+          "p": 0.4494762747039134,
+          "fairOdds": 2.2248115335091643
         },
         {
           "market": "team_totals",
-          "selection": "Sporting Cristal más de 1.5",
+          "selection": "Sporting Cristal más de 1.5 goles",
           "line": 1.5,
-          "p": 0.7766583491993567,
-          "fairOdds": 1.2875674368670371
+          "p": 0.6705211896116304,
+          "fairOdds": 1.4913771786678442
         },
         {
           "market": "team_totals",
-          "selection": "Sporting Cristal menos de 1.5",
+          "selection": "Sporting Cristal menos de 1.5 goles",
           "line": 1.5,
-          "p": 0.22334165080064328,
-          "fairOdds": 4.477445189534346
+          "p": 0.32947881038836957,
+          "fairOdds": 3.035096547851623
         },
         {
           "market": "team_totals",
-          "selection": "Cienciano más de 1.5",
+          "selection": "Cienciano más de 1.5 goles",
           "line": 1.5,
-          "p": 0.26348781783711106,
-          "fairOdds": 3.795241875729537
+          "p": 0.2401891985928628,
+          "fairOdds": 4.16338455625171
         },
         {
           "market": "team_totals",
-          "selection": "Cienciano menos de 1.5",
+          "selection": "Cienciano menos de 1.5 goles",
           "line": 1.5,
-          "p": 0.7365121821628889,
-          "fairOdds": 1.3577507938338995
+          "p": 0.7598108014071372,
+          "fairOdds": 1.3161171151397726
         },
         {
           "market": "correct_score",
           "selection": "2–0",
-          "p": 0.08670943420805231,
-          "fairOdds": 11.532770443416577
+          "p": 0.10407303277849868,
+          "fairOdds": 9.608637062862632
         },
         {
           "market": "correct_score",
           "selection": "2–1",
-          "p": 0.08653188251305906,
-          "fairOdds": 11.55643412529577
+          "p": 0.09726372960665335,
+          "fairOdds": 10.281324847855668
         },
         {
           "market": "correct_score",
-          "selection": "3–0",
-          "p": 0.0822690691891519,
-          "fairOdds": 12.155236589596193
+          "selection": "1–1",
+          "p": 0.08815248284803205,
+          "fairOdds": 11.343979973019266
         }
       ],
       "marketGroups": [
@@ -8614,22 +8578,22 @@
               "market": "h2h",
               "selection": "home",
               "label": "Sporting Cristal gana",
-              "p": 0.7519879093144151,
-              "fairOdds": 1.3298086147577781
+              "p": 0.6774072815649969,
+              "fairOdds": 1.4762167859928008
             },
             {
               "market": "h2h",
               "selection": "draw",
               "label": "Empate",
-              "p": 0.14659261471343604,
-              "fairOdds": 6.821626055001694
+              "p": 0.18902417539619362,
+              "fairOdds": 5.290328593705041
             },
             {
               "market": "h2h",
               "selection": "away",
               "label": "Cienciano gana",
-              "p": 0.10141947597214931,
-              "fairOdds": 9.860039113933194
+              "p": 0.13356854303880983,
+              "fairOdds": 7.4867927526127085
             }
           ]
         },
@@ -8640,22 +8604,22 @@
               "market": "double_chance",
               "selection": "1x",
               "label": "Sporting Cristal o empate",
-              "p": 0.898580524027851,
-              "fairOdds": 1.1128663188887515
+              "p": 0.8664314569611905,
+              "fairOdds": 1.1541593878727239
             },
             {
               "market": "double_chance",
               "selection": "x2",
               "label": "Cienciano o empate",
-              "p": 0.24801209068558536,
-              "fairOdds": 4.032061490372012
+              "p": 0.3225927184350035,
+              "fairOdds": 3.0998839801819074
             },
             {
               "market": "double_chance",
               "selection": "12",
               "label": "Sin empate",
-              "p": 0.8534073852865643,
-              "fairOdds": 1.171773313942217
+              "p": 0.8109758246038067,
+              "fairOdds": 1.2330823800925743
             }
           ]
         },
@@ -8665,42 +8629,42 @@
             {
               "market": "totals",
               "selection": "over_1.5",
-              "label": "Más de 1.5",
+              "label": "Más de 1.5 goles",
               "line": 1.5,
-              "p": 0.898739766985591,
-              "fairOdds": 1.112669135976969
+              "p": 0.8378109238801749,
+              "fairOdds": 1.1935867288154645
             },
             {
               "market": "totals",
               "selection": "over_2.5",
-              "label": "Más de 2.5",
+              "label": "Más de 2.5 goles",
               "line": 2.5,
-              "p": 0.7381380500946335,
-              "fairOdds": 1.3547601290460427
+              "p": 0.6284916201906099,
+              "fairOdds": 1.5911111109114207
             },
             {
               "market": "totals",
               "selection": "under_2.5",
-              "label": "Menos de 2.5",
+              "label": "Menos de 2.5 goles",
               "line": 2.5,
-              "p": 0.2618619499053665,
-              "fairOdds": 3.818806055486057
+              "p": 0.3715083798093901,
+              "fairOdds": 2.691729323879774
             },
             {
               "market": "totals",
               "selection": "over_3.5",
-              "label": "Más de 3.5",
+              "label": "Más de 3.5 goles",
               "line": 3.5,
-              "p": 0.5354529585936043,
-              "fairOdds": 1.8675776909078123
+              "p": 0.4064860976270419,
+              "fairOdds": 2.4601087364063248
             },
             {
               "market": "totals",
               "selection": "under_3.5",
-              "label": "Menos de 3.5",
+              "label": "Menos de 3.5 goles",
               "line": 3.5,
-              "p": 0.4645470414063957,
-              "fairOdds": 2.152634525391754
+              "p": 0.5935139023729581,
+              "fairOdds": 1.6848804990108053
             }
           ]
         },
@@ -8711,15 +8675,15 @@
               "market": "btts",
               "selection": "yes",
               "label": "Sí",
-              "p": 0.5971379081046508,
-              "fairOdds": 1.674655027636842
+              "p": 0.5505237252960866,
+              "fairOdds": 1.8164521419347963
             },
             {
               "market": "btts",
               "selection": "no",
               "label": "No",
-              "p": 0.40286209189534916,
-              "fairOdds": 2.4822390096206135
+              "p": 0.4494762747039134,
+              "fairOdds": 2.2248115335091643
             }
           ]
         },
@@ -8729,34 +8693,34 @@
             {
               "market": "team_totals",
               "selection": "home_over",
-              "label": "Sporting Cristal más de 1.5",
+              "label": "Sporting Cristal más de 1.5 goles",
               "line": 1.5,
-              "p": 0.7766583491993567,
-              "fairOdds": 1.2875674368670371
+              "p": 0.6705211896116304,
+              "fairOdds": 1.4913771786678442
             },
             {
               "market": "team_totals",
               "selection": "home_under",
-              "label": "Sporting Cristal menos de 1.5",
+              "label": "Sporting Cristal menos de 1.5 goles",
               "line": 1.5,
-              "p": 0.22334165080064328,
-              "fairOdds": 4.477445189534346
+              "p": 0.32947881038836957,
+              "fairOdds": 3.035096547851623
             },
             {
               "market": "team_totals",
               "selection": "away_over",
-              "label": "Cienciano más de 1.5",
+              "label": "Cienciano más de 1.5 goles",
               "line": 1.5,
-              "p": 0.26348781783711106,
-              "fairOdds": 3.795241875729537
+              "p": 0.2401891985928628,
+              "fairOdds": 4.16338455625171
             },
             {
               "market": "team_totals",
               "selection": "away_under",
-              "label": "Cienciano menos de 1.5",
+              "label": "Cienciano menos de 1.5 goles",
               "line": 1.5,
-              "p": 0.7365121821628889,
-              "fairOdds": 1.3577507938338995
+              "p": 0.7598108014071372,
+              "fairOdds": 1.3161171151397726
             }
           ]
         },
@@ -8767,22 +8731,22 @@
               "market": "correct_score",
               "selection": "2-0",
               "label": "2–0",
-              "p": 0.08670943420805231,
-              "fairOdds": 11.532770443416577
+              "p": 0.10407303277849868,
+              "fairOdds": 9.608637062862632
             },
             {
               "market": "correct_score",
               "selection": "2-1",
               "label": "2–1",
-              "p": 0.08653188251305906,
-              "fairOdds": 11.55643412529577
+              "p": 0.09726372960665335,
+              "fairOdds": 10.281324847855668
             },
             {
               "market": "correct_score",
-              "selection": "3-0",
-              "label": "3–0",
-              "p": 0.0822690691891519,
-              "fairOdds": 12.155236589596193
+              "selection": "1-1",
+              "label": "1–1",
+              "p": 0.08815248284803205,
+              "fairOdds": 11.343979973019266
             }
           ]
         }
@@ -8790,44 +8754,44 @@
       "mostLikelyScore": {
         "home": 2,
         "away": 0,
-        "p": 0.08670943420805231
+        "p": 0.10407303277849868
       },
       "factors": [
         {
           "key": "home_attack",
           "label": "Ataque local",
-          "value": "1.96 goles/partido",
-          "detail": "40 % más que la media · 16 partidos"
+          "value": "1.62 goles/partido",
+          "detail": "32 % más que la media · 16 partidos"
         },
         {
           "key": "away_defense",
           "label": "Defensa visitante",
-          "value": "1.41 concedidos/partido",
+          "value": "1.23 concedidos/partido",
           "detail": "en la media de la liga · 16 partidos"
         },
         {
           "key": "away_attack",
           "label": "Ataque visitante",
-          "value": "1.00 goles/partido",
-          "detail": "12 % menos que la media · ajustado por rival"
+          "value": "0.93 goles/partido",
+          "detail": "10 % menos que la media · ajustado por rival"
         },
         {
           "key": "home_defense",
           "label": "Defensa local",
-          "value": "1.14 concedidos/partido",
-          "detail": "17 % menos que la media · ajustado por rival"
+          "value": "1.04 concedidos/partido",
+          "detail": "14 % menos que la media · ajustado por rival"
         },
         {
           "key": "home_advantage",
           "label": "Localía",
-          "value": "×1.45",
+          "value": "×1.42",
           "detail": "estimada de 150 partidos"
         },
         {
           "key": "uncertainty",
           "label": "Intervalo 90%",
-          "value": "goles 2.7–5.7",
-          "detail": "local 54%–91% · 150 partidos"
+          "value": "goles 2.4–4.5",
+          "detail": "local 46%–85% · 150 partidos"
         },
         {
           "key": "home_position",
@@ -8855,46 +8819,44 @@
         }
       ],
       "steps": [
-        "Sincronizando Liga 1 Perú · corte 19 nov 2026, 10:05",
-        "Fuerza ajustada por rival · SPO 1.40 / 0.83 · CIE 0.88 / 1.02",
-        "Ponderando 133.1 partidos por antigüedad y calidad del rival",
-        "Proyección de goles 2.85 – 1.00 · total 3.84",
+        "Sincronizando Liga 1 Perú · corte 21 nov 2026, 22:33",
+        "Fuerza ajustada por rival · SPO 1.32 / 0.86 · CIE 0.90 / 1.02",
+        "Ponderando 132.4 partidos por antigüedad y calidad del rival",
+        "Proyección de goles 2.31 – 0.93 · total 3.24",
         "Simulando 121 marcadores con incertidumbre del ajuste",
         "20 mercados listos · marcador proyectado 2–1"
       ],
-      "inputsAsOf": "2026-11-19T16:05:39.021Z",
+      "inputsAsOf": "2026-11-22T04:33:15.743Z",
       "publishedAt": "2026-11-19T16:05:39.021Z",
       "source": "pitchlab-football-v2",
       "picks": [
         {
           "profile": "conservadora",
-          "market": "totals",
-          "selection": "over_1.5",
-          "label": "Más de 1.5",
-          "line": 1.5,
-          "p": 0.898739766985591,
-          "fairOdds": 1.112669135976969
+          "market": "double_chance",
+          "selection": "1x",
+          "label": "Sporting Cristal o empate",
+          "p": 0.8664314569611905,
+          "fairOdds": 1.1541593878727239
         },
         {
           "profile": "intermedia",
-          "market": "btts",
-          "selection": "yes",
-          "label": "Ambos anotan: Sí",
-          "p": 0.5971379081046508,
-          "fairOdds": 1.674655027636842
+          "market": "h2h",
+          "selection": "home",
+          "label": "Sporting Cristal gana",
+          "p": 0.6774072815649969,
+          "fairOdds": 1.4762167859928008
         },
         {
           "profile": "arriesgada",
-          "market": "totals",
-          "selection": "under_3.5",
-          "label": "Menos de 3.5",
-          "line": 3.5,
-          "p": 0.4645470414063957,
-          "fairOdds": 2.152634525391754
+          "market": "btts",
+          "selection": "no",
+          "label": "Ambos anotan: No",
+          "p": 0.4494762747039134,
+          "fairOdds": 2.2248115335091643
         }
       ],
       "confidence": {
-        "score": 89,
+        "score": 77,
         "level": "alta",
         "reasons": [
           "Favorito claro",
@@ -8904,20 +8866,20 @@
       "projectedScore": {
         "home": 2,
         "away": 1,
-        "p": 0.08653188251305906
+        "p": 0.09726372960665335
       },
       "insights": {
         "why": [
-          "Se esperan 3.8 goles: 2.8 de Sporting Cristal y 1.0 de Cienciano.",
-          "Sporting Cristal anota 40 % más que la media.",
-          "Sporting Cristal concede 17 % menos que la media."
+          "Sporting Cristal gana en 68% de los escenarios; el empate, en 19%.",
+          "Sporting Cristal anota 32 % más que la media.",
+          "Sporting Cristal concede 14 % menos que la media."
         ],
         "restDays": {
           "home": 15,
           "away": 14
         }
       },
-      "picksAt": "2026-11-19T16:05:39.021Z",
+      "picksAt": "2026-11-22T04:33:15.743Z",
       "matchContext": {
         "weather": {
           "description": "rain",
@@ -8939,145 +8901,145 @@
         "label": "Modelo PitchLab · en validación"
       },
       "projection": {
-        "home": 2.327977516930882,
-        "away": 1.5914729410897346,
-        "total": 3.9194504580206164,
-        "margin": 0.7365045758411473
+        "home": 1.9415699958606247,
+        "away": 1.3570652061425212,
+        "total": 3.2986352020031457,
+        "margin": 0.5845047897181035
       },
       "x12": [
-        0.5393794279275567,
-        0.2030236371033397,
-        0.2575969349691031
+        0.5069713630416159,
+        0.22931630777448853,
+        0.2637123291838954
       ],
       "probabilities": [
         {
           "market": "h2h",
           "selection": "Sport Huancayo gana",
-          "p": 0.5393794279275567,
-          "fairOdds": 1.8539824624796566
+          "p": 0.5069713630416159,
+          "fairOdds": 1.9724980006768402
         },
         {
           "market": "h2h",
           "selection": "Empate",
-          "p": 0.2030236371033397,
-          "fairOdds": 4.925534850363245
+          "p": 0.22931630777448853,
+          "fairOdds": 4.360788858433077
         },
         {
           "market": "h2h",
           "selection": "Universitario de Depor gana",
-          "p": 0.2575969349691031,
-          "fairOdds": 3.882033767676401
+          "p": 0.2637123291838954,
+          "fairOdds": 3.792010798640615
         },
         {
           "market": "double_chance",
           "selection": "Sport Huancayo o empate",
-          "p": 0.7424030650308964,
-          "fairOdds": 1.3469771975663696
+          "p": 0.7362876708161045,
+          "fairOdds": 1.3581648038348866
         },
         {
           "market": "double_chance",
           "selection": "Universitario de Depor o empate",
-          "p": 0.4606205720724428,
-          "fairOdds": 2.170984234379197
+          "p": 0.49302863695838395,
+          "fairOdds": 2.028279748959915
         },
         {
           "market": "double_chance",
           "selection": "Sin empate",
-          "p": 0.7969763628966597,
-          "fairOdds": 1.25474235693194
+          "p": 0.7706836922255114,
+          "fairOdds": 1.2975491892300064
         },
         {
           "market": "totals",
-          "selection": "Más de 1.5",
+          "selection": "Más de 1.5 goles",
           "line": 1.5,
-          "p": 0.9052778577698207,
-          "fairOdds": 1.1046332254977826
+          "p": 0.8456143011141969,
+          "fairOdds": 1.1825722420758278
         },
         {
           "market": "totals",
-          "selection": "Más de 2.5",
+          "selection": "Más de 2.5 goles",
           "line": 2.5,
-          "p": 0.7498464700566262,
-          "fairOdds": 1.333606331339378
+          "p": 0.640297020380191,
+          "fairOdds": 1.5617751889681248
         },
         {
           "market": "totals",
-          "selection": "Menos de 2.5",
+          "selection": "Menos de 2.5 goles",
           "line": 2.5,
-          "p": 0.2501535299433738,
-          "fairOdds": 3.9975450285525285
+          "p": 0.359702979619809,
+          "fairOdds": 2.7800714941448583
         },
         {
           "market": "totals",
-          "selection": "Más de 3.5",
+          "selection": "Más de 3.5 goles",
           "line": 3.5,
-          "p": 0.5506217301741358,
-          "fairOdds": 1.8161288325539693
+          "p": 0.4193564924413492,
+          "fairOdds": 2.3846059808883466
         },
         {
           "market": "totals",
-          "selection": "Menos de 3.5",
+          "selection": "Menos de 3.5 goles",
           "line": 3.5,
-          "p": 0.44937826982586415,
-          "fairOdds": 2.225296742513838
+          "p": 0.5806435075586508,
+          "fairOdds": 1.7222271272859966
         },
         {
           "market": "btts",
           "selection": "Sí",
-          "p": 0.7216731817424977,
-          "fairOdds": 1.3856687837359776
+          "p": 0.6404183306395184,
+          "fairOdds": 1.5614793521000645
         },
         {
           "market": "btts",
           "selection": "No",
-          "p": 0.2783268182575023,
-          "fairOdds": 3.592898471877836
+          "p": 0.35958166936048164,
+          "fairOdds": 2.7810093928828645
         },
         {
           "market": "team_totals",
-          "selection": "Sport Huancayo más de 1.5",
+          "selection": "Sport Huancayo más de 1.5 goles",
           "line": 1.5,
-          "p": 0.6755357459138112,
-          "fairOdds": 1.4803065656389203
+          "p": 0.5779452456630083,
+          "fairOdds": 1.7302677156774915
         },
         {
           "market": "team_totals",
-          "selection": "Sport Huancayo menos de 1.5",
+          "selection": "Sport Huancayo menos de 1.5 goles",
           "line": 1.5,
-          "p": 0.32446425408618884,
-          "fairOdds": 3.0820036025736313
+          "p": 0.4220547543369917,
+          "fairOdds": 2.3693608227939666
         },
         {
           "market": "team_totals",
-          "selection": "Universitario de Depor más de 1.5",
+          "selection": "Universitario de Depor más de 1.5 goles",
           "line": 1.5,
-          "p": 0.4723096100868528,
-          "fairOdds": 2.1172552466508368
+          "p": 0.3932556272949378,
+          "fairOdds": 2.5428752460038164
         },
         {
           "market": "team_totals",
-          "selection": "Universitario de Depor menos de 1.5",
+          "selection": "Universitario de Depor menos de 1.5 goles",
           "line": 1.5,
-          "p": 0.5276903899131472,
-          "fairOdds": 1.8950506189142282
-        },
-        {
-          "market": "correct_score",
-          "selection": "2–1",
-          "p": 0.08561420091835868,
-          "fairOdds": 11.680305244612345
+          "p": 0.6067443727050622,
+          "fairOdds": 1.648140543177479
         },
         {
           "market": "correct_score",
           "selection": "1–1",
-          "p": 0.07649452652144029,
-          "fairOdds": 13.072830769397791
+          "p": 0.10169364828158406,
+          "fairOdds": 9.833455844076472
         },
         {
           "market": "correct_score",
-          "selection": "2–2",
-          "p": 0.06812634206729389,
-          "fairOdds": 14.678609912920605
+          "selection": "2–1",
+          "p": 0.09447145276226172,
+          "fairOdds": 10.585208237630358
+        },
+        {
+          "market": "correct_score",
+          "selection": "2–0",
+          "p": 0.06961452724206102,
+          "fairOdds": 14.36481779906136
         }
       ],
       "marketGroups": [
@@ -9088,22 +9050,22 @@
               "market": "h2h",
               "selection": "home",
               "label": "Sport Huancayo gana",
-              "p": 0.5393794279275567,
-              "fairOdds": 1.8539824624796566
+              "p": 0.5069713630416159,
+              "fairOdds": 1.9724980006768402
             },
             {
               "market": "h2h",
               "selection": "draw",
               "label": "Empate",
-              "p": 0.2030236371033397,
-              "fairOdds": 4.925534850363245
+              "p": 0.22931630777448853,
+              "fairOdds": 4.360788858433077
             },
             {
               "market": "h2h",
               "selection": "away",
               "label": "Universitario de Depor gana",
-              "p": 0.2575969349691031,
-              "fairOdds": 3.882033767676401
+              "p": 0.2637123291838954,
+              "fairOdds": 3.792010798640615
             }
           ]
         },
@@ -9114,22 +9076,22 @@
               "market": "double_chance",
               "selection": "1x",
               "label": "Sport Huancayo o empate",
-              "p": 0.7424030650308964,
-              "fairOdds": 1.3469771975663696
+              "p": 0.7362876708161045,
+              "fairOdds": 1.3581648038348866
             },
             {
               "market": "double_chance",
               "selection": "x2",
               "label": "Universitario de Depor o empate",
-              "p": 0.4606205720724428,
-              "fairOdds": 2.170984234379197
+              "p": 0.49302863695838395,
+              "fairOdds": 2.028279748959915
             },
             {
               "market": "double_chance",
               "selection": "12",
               "label": "Sin empate",
-              "p": 0.7969763628966597,
-              "fairOdds": 1.25474235693194
+              "p": 0.7706836922255114,
+              "fairOdds": 1.2975491892300064
             }
           ]
         },
@@ -9139,42 +9101,42 @@
             {
               "market": "totals",
               "selection": "over_1.5",
-              "label": "Más de 1.5",
+              "label": "Más de 1.5 goles",
               "line": 1.5,
-              "p": 0.9052778577698207,
-              "fairOdds": 1.1046332254977826
+              "p": 0.8456143011141969,
+              "fairOdds": 1.1825722420758278
             },
             {
               "market": "totals",
               "selection": "over_2.5",
-              "label": "Más de 2.5",
+              "label": "Más de 2.5 goles",
               "line": 2.5,
-              "p": 0.7498464700566262,
-              "fairOdds": 1.333606331339378
+              "p": 0.640297020380191,
+              "fairOdds": 1.5617751889681248
             },
             {
               "market": "totals",
               "selection": "under_2.5",
-              "label": "Menos de 2.5",
+              "label": "Menos de 2.5 goles",
               "line": 2.5,
-              "p": 0.2501535299433738,
-              "fairOdds": 3.9975450285525285
+              "p": 0.359702979619809,
+              "fairOdds": 2.7800714941448583
             },
             {
               "market": "totals",
               "selection": "over_3.5",
-              "label": "Más de 3.5",
+              "label": "Más de 3.5 goles",
               "line": 3.5,
-              "p": 0.5506217301741358,
-              "fairOdds": 1.8161288325539693
+              "p": 0.4193564924413492,
+              "fairOdds": 2.3846059808883466
             },
             {
               "market": "totals",
               "selection": "under_3.5",
-              "label": "Menos de 3.5",
+              "label": "Menos de 3.5 goles",
               "line": 3.5,
-              "p": 0.44937826982586415,
-              "fairOdds": 2.225296742513838
+              "p": 0.5806435075586508,
+              "fairOdds": 1.7222271272859966
             }
           ]
         },
@@ -9185,15 +9147,15 @@
               "market": "btts",
               "selection": "yes",
               "label": "Sí",
-              "p": 0.7216731817424977,
-              "fairOdds": 1.3856687837359776
+              "p": 0.6404183306395184,
+              "fairOdds": 1.5614793521000645
             },
             {
               "market": "btts",
               "selection": "no",
               "label": "No",
-              "p": 0.2783268182575023,
-              "fairOdds": 3.592898471877836
+              "p": 0.35958166936048164,
+              "fairOdds": 2.7810093928828645
             }
           ]
         },
@@ -9203,34 +9165,34 @@
             {
               "market": "team_totals",
               "selection": "home_over",
-              "label": "Sport Huancayo más de 1.5",
+              "label": "Sport Huancayo más de 1.5 goles",
               "line": 1.5,
-              "p": 0.6755357459138112,
-              "fairOdds": 1.4803065656389203
+              "p": 0.5779452456630083,
+              "fairOdds": 1.7302677156774915
             },
             {
               "market": "team_totals",
               "selection": "home_under",
-              "label": "Sport Huancayo menos de 1.5",
+              "label": "Sport Huancayo menos de 1.5 goles",
               "line": 1.5,
-              "p": 0.32446425408618884,
-              "fairOdds": 3.0820036025736313
+              "p": 0.4220547543369917,
+              "fairOdds": 2.3693608227939666
             },
             {
               "market": "team_totals",
               "selection": "away_over",
-              "label": "Universitario de Depor más de 1.5",
+              "label": "Universitario de Depor más de 1.5 goles",
               "line": 1.5,
-              "p": 0.4723096100868528,
-              "fairOdds": 2.1172552466508368
+              "p": 0.3932556272949378,
+              "fairOdds": 2.5428752460038164
             },
             {
               "market": "team_totals",
               "selection": "away_under",
-              "label": "Universitario de Depor menos de 1.5",
+              "label": "Universitario de Depor menos de 1.5 goles",
               "line": 1.5,
-              "p": 0.5276903899131472,
-              "fairOdds": 1.8950506189142282
+              "p": 0.6067443727050622,
+              "fairOdds": 1.648140543177479
             }
           ]
         },
@@ -9239,69 +9201,69 @@
           "rows": [
             {
               "market": "correct_score",
-              "selection": "2-1",
-              "label": "2–1",
-              "p": 0.08561420091835868,
-              "fairOdds": 11.680305244612345
-            },
-            {
-              "market": "correct_score",
               "selection": "1-1",
               "label": "1–1",
-              "p": 0.07649452652144029,
-              "fairOdds": 13.072830769397791
+              "p": 0.10169364828158406,
+              "fairOdds": 9.833455844076472
             },
             {
               "market": "correct_score",
-              "selection": "2-2",
-              "label": "2–2",
-              "p": 0.06812634206729389,
-              "fairOdds": 14.678609912920605
+              "selection": "2-1",
+              "label": "2–1",
+              "p": 0.09447145276226172,
+              "fairOdds": 10.585208237630358
+            },
+            {
+              "market": "correct_score",
+              "selection": "2-0",
+              "label": "2–0",
+              "p": 0.06961452724206102,
+              "fairOdds": 14.36481779906136
             }
           ]
         }
       ],
       "mostLikelyScore": {
-        "home": 2,
+        "home": 1,
         "away": 1,
-        "p": 0.08561420091835868
+        "p": 0.10169364828158406
       },
       "factors": [
         {
           "key": "home_attack",
           "label": "Ataque local",
-          "value": "1.60 goles/partido",
-          "detail": "12 % más que la media · 16 partidos"
+          "value": "1.36 goles/partido",
+          "detail": "9 % más que la media · 16 partidos"
         },
         {
           "key": "away_defense",
           "label": "Defensa visitante",
-          "value": "1.44 concedidos/partido",
-          "detail": "4 % más que la media · 16 partidos"
+          "value": "1.25 concedidos/partido",
+          "detail": "3 % más que la media · 16 partidos"
         },
         {
           "key": "away_attack",
           "label": "Ataque visitante",
-          "value": "1.59 goles/partido",
-          "detail": "41 % más que la media · ajustado por rival"
+          "value": "1.36 goles/partido",
+          "detail": "33 % más que la media · ajustado por rival"
         },
         {
           "key": "home_defense",
           "label": "Defensa local",
-          "value": "1.13 concedidos/partido",
-          "detail": "18 % menos que la media · ajustado por rival"
+          "value": "1.02 concedidos/partido",
+          "detail": "15 % menos que la media · ajustado por rival"
         },
         {
           "key": "home_advantage",
           "label": "Localía",
-          "value": "×1.45",
+          "value": "×1.42",
           "detail": "estimada de 150 partidos"
         },
         {
           "key": "uncertainty",
           "label": "Intervalo 90%",
-          "value": "goles 2.9–5.5",
-          "detail": "local 33%–77% · 150 partidos"
+          "value": "goles 2.5–4.6",
+          "detail": "local 29%–71% · 150 partidos"
         },
         {
           "key": "home_position",
@@ -9329,14 +9291,14 @@
         }
       ],
       "steps": [
-        "Sincronizando Liga 1 Perú · corte 19 nov 2026, 10:05",
-        "Fuerza ajustada por rival · SPO 1.12 / 0.82 · UNI 1.41 / 1.04",
-        "Ponderando 133.1 partidos por antigüedad y calidad del rival",
-        "Proyección de goles 2.33 – 1.59 · total 3.92",
+        "Sincronizando Liga 1 Perú · corte 21 nov 2026, 22:33",
+        "Fuerza ajustada por rival · SPO 1.09 / 0.85 · UNI 1.33 / 1.03",
+        "Ponderando 132.4 partidos por antigüedad y calidad del rival",
+        "Proyección de goles 1.94 – 1.36 · total 3.30",
         "Simulando 121 marcadores con incertidumbre del ajuste",
         "20 mercados listos · marcador proyectado 2–1"
       ],
-      "inputsAsOf": "2026-11-19T16:05:39.021Z",
+      "inputsAsOf": "2026-11-22T04:33:15.743Z",
       "publishedAt": "2026-11-19T16:05:39.021Z",
       "source": "pitchlab-football-v2",
       "picks": [
@@ -9344,32 +9306,30 @@
           "profile": "conservadora",
           "market": "totals",
           "selection": "over_1.5",
-          "label": "Más de 1.5",
+          "label": "Más de 1.5 goles",
           "line": 1.5,
-          "p": 0.9052778577698207,
-          "fairOdds": 1.1046332254977826
+          "p": 0.8456143011141969,
+          "fairOdds": 1.1825722420758278
         },
         {
           "profile": "intermedia",
-          "market": "team_totals",
-          "selection": "home_over",
-          "label": "Sport Huancayo más de 1.5",
-          "line": 1.5,
-          "p": 0.6755357459138112,
-          "fairOdds": 1.4803065656389203
+          "market": "btts",
+          "selection": "yes",
+          "label": "Ambos anotan: Sí",
+          "p": 0.6404183306395184,
+          "fairOdds": 1.5614793521000645
         },
         {
           "profile": "arriesgada",
-          "market": "team_totals",
-          "selection": "away_over",
-          "label": "Universitario de Depor más de 1.5",
-          "line": 1.5,
-          "p": 0.4723096100868528,
-          "fairOdds": 2.1172552466508368
+          "market": "h2h",
+          "selection": "home",
+          "label": "Sport Huancayo gana",
+          "p": 0.5069713630416159,
+          "fairOdds": 1.9724980006768402
         }
       ],
       "confidence": {
-        "score": 55,
+        "score": 51,
         "level": "media",
         "reasons": [
           "Muestra suficiente",
@@ -9379,20 +9339,20 @@
       "projectedScore": {
         "home": 2,
         "away": 1,
-        "p": 0.08561420091835868
+        "p": 0.09447145276226172
       },
       "insights": {
         "why": [
-          "Se esperan 3.9 goles: 2.3 de Sport Huancayo y 1.6 de Universitario de Depor.",
-          "Universitario de Depor anota 41 % más que la media.",
-          "Sport Huancayo concede 18 % menos que la media."
+          "Se esperan 3.3 goles: 1.9 de Sport Huancayo y 1.4 de Universitario de Depor.",
+          "Universitario de Depor anota 33 % más que la media.",
+          "Sport Huancayo concede 15 % menos que la media."
         ],
         "restDays": {
           "home": 14,
           "away": 13
         }
       },
-      "picksAt": "2026-11-19T16:05:39.021Z",
+      "picksAt": "2026-11-22T04:33:15.743Z",
       "matchContext": {
         "weather": {
           "temperatureC": 19,

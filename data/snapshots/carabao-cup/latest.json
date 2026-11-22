@@ -5,220 +5,11 @@
   "season": "carabao-cup-2026-27",
   "seasonLabel": "2026/27",
   "periodLabel": "Round 3",
-  "updatedAt": "2026-11-19T16:05:39.021Z",
+  "updatedAt": "2026-11-22T04:33:15.743Z",
   "source": "pitchlab-football-v2",
   "provenance": "derived",
   "isDemo": false,
   "teamRates": {
-    "carabao-cup.tranmere-rovers": {
-      "teamId": "carabao-cup.tranmere-rovers",
-      "name": "Tranmere Rovers",
-      "shortName": "Tranmere Rovers",
-      "code": "TRA",
-      "forPerGame": 2,
-      "againstPerGame": 2,
-      "gamesPlayed": 1,
-      "adjustedFor": 1.5313945733413112,
-      "adjustedAgainst": 1.5650656688148683
-    },
-    "carabao-cup.rochdale": {
-      "teamId": "carabao-cup.rochdale",
-      "name": "Rochdale",
-      "shortName": "Rochdale",
-      "code": "ROC",
-      "forPerGame": 1,
-      "againstPerGame": 2,
-      "gamesPlayed": 2,
-      "adjustedFor": 1.3888215437021698,
-      "adjustedAgainst": 1.5749080244384723
-    },
-    "carabao-cup.york-city": {
-      "teamId": "carabao-cup.york-city",
-      "name": "York City",
-      "shortName": "York City",
-      "code": "YOR",
-      "forPerGame": 0,
-      "againstPerGame": 2,
-      "gamesPlayed": 1,
-      "adjustedFor": 1.2516560380371542,
-      "adjustedAgainst": 1.587016403500757
-    },
-    "carabao-cup.crawley-town": {
-      "teamId": "carabao-cup.crawley-town",
-      "name": "Crawley Town",
-      "shortName": "Crawley Town",
-      "code": "CRA",
-      "forPerGame": 1,
-      "againstPerGame": 0.5,
-      "gamesPlayed": 2,
-      "adjustedFor": 1.272631855639698,
-      "adjustedAgainst": 1.2215414651440477
-    },
-    "carabao-cup.bristol-city": {
-      "teamId": "carabao-cup.bristol-city",
-      "name": "Bristol City",
-      "shortName": "Bristol City",
-      "code": "BRI",
-      "forPerGame": 0,
-      "againstPerGame": 1,
-      "gamesPlayed": 1,
-      "adjustedFor": 1.2751591493784604,
-      "adjustedAgainst": 1.42854656985651
-    },
-    "carabao-cup.walsall": {
-      "teamId": "carabao-cup.walsall",
-      "name": "Walsall",
-      "shortName": "Walsall",
-      "code": "WAL",
-      "forPerGame": 0.5,
-      "againstPerGame": 0,
-      "gamesPlayed": 2,
-      "adjustedFor": 1.1961428765996531,
-      "adjustedAgainst": 1.0610846752880245
-    },
-    "carabao-cup.wycombe-wanderers": {
-      "teamId": "carabao-cup.wycombe-wanderers",
-      "name": "Wycombe Wanderers",
-      "shortName": "Wycombe Wanderers",
-      "code": "WYC",
-      "forPerGame": 1,
-      "againstPerGame": 2,
-      "gamesPlayed": 1,
-      "adjustedFor": 1.3572192925561295,
-      "adjustedAgainst": 1.5756771912624672
-    },
-    "carabao-cup.stevenage": {
-      "teamId": "carabao-cup.stevenage",
-      "name": "Stevenage",
-      "shortName": "Stevenage",
-      "code": "STE",
-      "forPerGame": 1,
-      "againstPerGame": 2,
-      "gamesPlayed": 2,
-      "adjustedFor": 1.33687046064415,
-      "adjustedAgainst": 1.6289760784925995
-    },
-    "carabao-cup.wolverhampton": {
-      "teamId": "carabao-cup.wolverhampton",
-      "name": "Wolverhampton",
-      "shortName": "Wolverhampton",
-      "code": "WOL",
-      "forPerGame": 1.6666666666666667,
-      "againstPerGame": 0.3333333333333333,
-      "gamesPlayed": 3,
-      "adjustedFor": 1.569826895720456,
-      "adjustedAgainst": 1.0143037213697772
-    },
-    "carabao-cup.port-vale": {
-      "teamId": "carabao-cup.port-vale",
-      "name": "Port Vale",
-      "shortName": "Port Vale",
-      "code": "POR",
-      "forPerGame": 0,
-      "againstPerGame": 3,
-      "gamesPlayed": 1,
-      "adjustedFor": 1.2817137909905627,
-      "adjustedAgainst": 1.699708783682411
-    },
-    "carabao-cup.middlesbrough": {
-      "teamId": "carabao-cup.middlesbrough",
-      "name": "Middlesbrough",
-      "shortName": "Middlesbrough",
-      "code": "MID",
-      "forPerGame": 1.3333333333333333,
-      "againstPerGame": 1.3333333333333333,
-      "gamesPlayed": 3,
-      "adjustedFor": 1.4538716918741643,
-      "adjustedAgainst": 1.438706843082548
-    },
-    "carabao-cup.wrexham": {
-      "teamId": "carabao-cup.wrexham",
-      "name": "Wrexham",
-      "shortName": "Wrexham",
-      "code": "WRE",
-      "forPerGame": 0,
-      "againstPerGame": 1,
-      "gamesPlayed": 1,
-      "adjustedFor": 1.217855479656672,
-      "adjustedAgainst": 1.3853415057446907
-    },
-    "carabao-cup.cambridge-united": {
-      "teamId": "carabao-cup.cambridge-united",
-      "name": "Cambridge United",
-      "shortName": "Cambridge United",
-      "code": "CAM",
-      "forPerGame": 1,
-      "againstPerGame": 1,
-      "gamesPlayed": 2,
-      "adjustedFor": 1.3478394042647919,
-      "adjustedAgainst": 1.3759954151069236
-    },
-    "carabao-cup.barnet": {
-      "teamId": "carabao-cup.barnet",
-      "name": "Barnet",
-      "shortName": "Barnet",
-      "code": "BAR",
-      "forPerGame": 1,
-      "againstPerGame": 2,
-      "gamesPlayed": 1,
-      "adjustedFor": 1.3969362804225474,
-      "adjustedAgainst": 1.5737975466134464
-    },
-    "carabao-cup.queens-park-rangers": {
-      "teamId": "carabao-cup.queens-park-rangers",
-      "name": "Queens Park Rangers",
-      "shortName": "Queens Park Rangers",
-      "code": "QUE",
-      "forPerGame": 1,
-      "againstPerGame": 1,
-      "gamesPlayed": 1,
-      "adjustedFor": 1.4363541733595802,
-      "adjustedAgainst": 1.4352563835972432
-    },
-    "carabao-cup.millwall": {
-      "teamId": "carabao-cup.millwall",
-      "name": "Millwall",
-      "shortName": "Millwall",
-      "code": "MIL",
-      "forPerGame": 0.6666666666666666,
-      "againstPerGame": 0.6666666666666666,
-      "gamesPlayed": 3,
-      "adjustedFor": 1.1568060832781788,
-      "adjustedAgainst": 1.1477444409846407
-    },
-    "carabao-cup.watford": {
-      "teamId": "carabao-cup.watford",
-      "name": "Watford",
-      "shortName": "Watford",
-      "code": "WAT",
-      "forPerGame": 1,
-      "againstPerGame": 2.5,
-      "gamesPlayed": 2,
-      "adjustedFor": 1.355632103579843,
-      "adjustedAgainst": 1.7377448294802744
-    },
-    "carabao-cup.bradford-city": {
-      "teamId": "carabao-cup.bradford-city",
-      "name": "Bradford City",
-      "shortName": "Bradford City",
-      "code": "BRA",
-      "forPerGame": 1.75,
-      "againstPerGame": 0.25,
-      "gamesPlayed": 4,
-      "adjustedFor": 1.635092851376921,
-      "adjustedAgainst": 0.8895295663234651
-    },
-    "carabao-cup.crewe-alexandra": {
-      "teamId": "carabao-cup.crewe-alexandra",
-      "name": "Crewe Alexandra",
-      "shortName": "Crewe Alexandra",
-      "code": "CRE",
-      "forPerGame": 2,
-      "againstPerGame": 2,
-      "gamesPlayed": 2,
-      "adjustedFor": 1.57940498471987,
-      "adjustedAgainst": 1.5804543726887987
-    },
     "carabao-cup.accrington-stanley": {
       "teamId": "carabao-cup.accrington-stanley",
       "name": "Accrington Stanley",
@@ -227,745 +18,8 @@
       "forPerGame": 1,
       "againstPerGame": 2,
       "gamesPlayed": 1,
-      "adjustedFor": 1.3639040569993532,
-      "adjustedAgainst": 1.5316443084116824
-    },
-    "carabao-cup.fleetwood-town": {
-      "teamId": "carabao-cup.fleetwood-town",
-      "name": "Fleetwood Town",
-      "shortName": "Fleetwood Town",
-      "code": "FLE",
-      "forPerGame": 1.75,
-      "againstPerGame": 0.25,
-      "gamesPlayed": 4,
-      "adjustedFor": 1.5998186922443995,
-      "adjustedAgainst": 0.8932365588753408
-    },
-    "carabao-cup.chesterfield": {
-      "teamId": "carabao-cup.chesterfield",
-      "name": "Chesterfield",
-      "shortName": "Chesterfield",
-      "code": "CHE",
-      "forPerGame": 0,
-      "againstPerGame": 1,
-      "gamesPlayed": 1,
-      "adjustedFor": 1.300899445364224,
-      "adjustedAgainst": 1.361884723734202
-    },
-    "carabao-cup.wimbledon": {
-      "teamId": "carabao-cup.wimbledon",
-      "name": "AFC Wimbledon",
-      "shortName": "AFC Wimbledon",
-      "code": "WIM",
-      "forPerGame": 0.5,
-      "againstPerGame": 2,
-      "gamesPlayed": 2,
-      "adjustedFor": 1.209790171937416,
-      "adjustedAgainst": 1.5988374948895234
-    },
-    "carabao-cup.newport-county": {
-      "teamId": "carabao-cup.newport-county",
-      "name": "Newport County",
-      "shortName": "Newport County",
-      "code": "NEW",
-      "forPerGame": 1,
-      "againstPerGame": 1,
-      "gamesPlayed": 1,
-      "adjustedFor": 1.3610104814828932,
-      "adjustedAgainst": 1.426067619945555
-    },
-    "carabao-cup.bristol-rovers": {
-      "teamId": "carabao-cup.bristol-rovers",
-      "name": "Bristol Rovers",
-      "shortName": "Bristol Rovers",
-      "code": "BRI",
-      "forPerGame": 0,
-      "againstPerGame": 1,
-      "gamesPlayed": 1,
-      "adjustedFor": 1.2139322243589712,
-      "adjustedAgainst": 1.3247632382744012
-    },
-    "carabao-cup.peterborough-united": {
-      "teamId": "carabao-cup.peterborough-united",
-      "name": "Peterborough United",
-      "shortName": "Peterborough United",
-      "code": "PET",
-      "forPerGame": 2.25,
-      "againstPerGame": 1.5,
-      "gamesPlayed": 4,
-      "adjustedFor": 1.8426486112348908,
-      "adjustedAgainst": 1.4678358187879823
-    },
-    "carabao-cup.salford-city": {
-      "teamId": "carabao-cup.salford-city",
-      "name": "Salford City",
-      "shortName": "Salford City",
-      "code": "SAL",
-      "forPerGame": 1,
-      "againstPerGame": 1,
-      "gamesPlayed": 1,
-      "adjustedFor": 1.3361371011531133,
-      "adjustedAgainst": 1.41855473973905
-    },
-    "carabao-cup.shrewsbury-town": {
-      "teamId": "carabao-cup.shrewsbury-town",
-      "name": "Shrewsbury Town",
-      "shortName": "Shrewsbury Town",
-      "code": "SHR",
-      "forPerGame": 0.5,
-      "againstPerGame": 2.5,
-      "gamesPlayed": 2,
-      "adjustedFor": 1.2536204952441736,
-      "adjustedAgainst": 1.7654145593552013
-    },
-    "carabao-cup.bromley": {
-      "teamId": "carabao-cup.bromley",
-      "name": "Bromley",
-      "shortName": "Bromley",
-      "code": "BRO",
-      "forPerGame": 1,
-      "againstPerGame": 1,
-      "gamesPlayed": 1,
-      "adjustedFor": 1.4241155653742426,
-      "adjustedAgainst": 1.3758673387058744
-    },
-    "carabao-cup.reading": {
-      "teamId": "carabao-cup.reading",
-      "name": "Reading",
-      "shortName": "Reading",
-      "code": "REA",
-      "forPerGame": 1.6666666666666667,
-      "againstPerGame": 1,
-      "gamesPlayed": 3,
-      "adjustedFor": 1.5117480134615433,
-      "adjustedAgainst": 1.2185151981334623
-    },
-    "carabao-cup.stockport-county": {
-      "teamId": "carabao-cup.stockport-county",
-      "name": "Stockport County",
-      "shortName": "Stockport County",
-      "code": "STO",
-      "forPerGame": 1,
-      "againstPerGame": 1,
-      "gamesPlayed": 1,
-      "adjustedFor": 1.3555052535129644,
-      "adjustedAgainst": 1.404940669462154
-    },
-    "carabao-cup.doncaster-rovers": {
-      "teamId": "carabao-cup.doncaster-rovers",
-      "name": "Doncaster Rovers",
-      "shortName": "Doncaster Rovers",
-      "code": "DON",
-      "forPerGame": 1,
-      "againstPerGame": 2,
-      "gamesPlayed": 2,
-      "adjustedFor": 1.3342403858649614,
-      "adjustedAgainst": 1.6389226726957358
-    },
-    "carabao-cup.grimsby-town": {
-      "teamId": "carabao-cup.grimsby-town",
-      "name": "Grimsby Town",
-      "shortName": "Grimsby Town",
-      "code": "GRI",
-      "forPerGame": 1,
-      "againstPerGame": 3,
-      "gamesPlayed": 1,
-      "adjustedFor": 1.338320554353525,
-      "adjustedAgainst": 1.70346481323336
-    },
-    "carabao-cup.blackpool": {
-      "teamId": "carabao-cup.blackpool",
-      "name": "Blackpool",
-      "shortName": "Blackpool",
-      "code": "BLA",
-      "forPerGame": 2,
-      "againstPerGame": 2.5,
-      "gamesPlayed": 2,
-      "adjustedFor": 1.5526254794314438,
-      "adjustedAgainst": 1.750971819466713
-    },
-    "carabao-cup.barnsley": {
-      "teamId": "carabao-cup.barnsley",
-      "name": "Barnsley",
-      "shortName": "Barnsley",
-      "code": "BAR",
-      "forPerGame": 2.3333333333333335,
-      "againstPerGame": 2,
-      "gamesPlayed": 3,
-      "adjustedFor": 1.8011784182436799,
-      "adjustedAgainst": 1.6133357112197622
-    },
-    "carabao-cup.wigan-athletic": {
-      "teamId": "carabao-cup.wigan-athletic",
-      "name": "Wigan Athletic",
-      "shortName": "Wigan Athletic",
-      "code": "WIG",
-      "forPerGame": 1,
-      "againstPerGame": 1,
-      "gamesPlayed": 1,
-      "adjustedFor": 1.358737050905854,
-      "adjustedAgainst": 1.330958894531852
-    },
-    "carabao-cup.stoke-city": {
-      "teamId": "carabao-cup.stoke-city",
-      "name": "Stoke City",
-      "shortName": "Stoke City",
-      "code": "STO",
-      "forPerGame": 1.5,
-      "againstPerGame": 0.5,
-      "gamesPlayed": 2,
-      "adjustedFor": 1.4804206572302478,
-      "adjustedAgainst": 1.2372824759189025
-    },
-    "carabao-cup.oldham-athletic": {
-      "teamId": "carabao-cup.oldham-athletic",
-      "name": "Oldham Athletic",
-      "shortName": "Oldham Athletic",
-      "code": "OLD",
-      "forPerGame": 0,
-      "againstPerGame": 2,
-      "gamesPlayed": 1,
-      "adjustedFor": 1.2469976888094527,
-      "adjustedAgainst": 1.5493835156562052
-    },
-    "carabao-cup.leyton-orient": {
-      "teamId": "carabao-cup.leyton-orient",
-      "name": "Leyton Orient",
-      "shortName": "Leyton Orient",
-      "code": "LEY",
-      "forPerGame": 1,
-      "againstPerGame": 1,
-      "gamesPlayed": 3,
-      "adjustedFor": 1.383754317410816,
-      "adjustedAgainst": 1.326024120001825
-    },
-    "carabao-cup.oxford-united": {
-      "teamId": "carabao-cup.oxford-united",
-      "name": "Oxford United",
-      "shortName": "Oxford United",
-      "code": "OXF",
-      "forPerGame": 0,
-      "againstPerGame": 2,
-      "gamesPlayed": 1,
-      "adjustedFor": 1.2338114691024307,
-      "adjustedAgainst": 1.5671083353060433
-    },
-    "carabao-cup.preston-north-end": {
-      "teamId": "carabao-cup.preston-north-end",
-      "name": "Preston North End",
-      "shortName": "Preston North End",
-      "code": "PRE",
-      "forPerGame": 0.5,
-      "againstPerGame": 2.5,
-      "gamesPlayed": 2,
-      "adjustedFor": 1.2381796362416233,
-      "adjustedAgainst": 1.6997867557405044
-    },
-    "carabao-cup.huddersfield-town": {
-      "teamId": "carabao-cup.huddersfield-town",
-      "name": "Huddersfield Town",
-      "shortName": "Huddersfield Town",
-      "code": "HUD",
-      "forPerGame": 1,
-      "againstPerGame": 1,
-      "gamesPlayed": 1,
-      "adjustedFor": 1.3453369538528952,
-      "adjustedAgainst": 1.421192434653876
-    },
-    "carabao-cup.cardiff-city": {
-      "teamId": "carabao-cup.cardiff-city",
-      "name": "Cardiff City",
-      "shortName": "Cardiff City",
-      "code": "CAR",
-      "forPerGame": 2,
-      "againstPerGame": 2,
-      "gamesPlayed": 2,
-      "adjustedFor": 1.5310220977239966,
-      "adjustedAgainst": 1.582083808426676
-    },
-    "carabao-cup.swindon-town": {
-      "teamId": "carabao-cup.swindon-town",
-      "name": "Swindon Town",
-      "shortName": "Swindon Town",
-      "code": "SWI",
-      "forPerGame": 2,
-      "againstPerGame": 3,
-      "gamesPlayed": 1,
-      "adjustedFor": 1.5300138206076335,
-      "adjustedAgainst": 1.707745432207291
-    },
-    "carabao-cup.burton-albion": {
-      "teamId": "carabao-cup.burton-albion",
-      "name": "Burton Albion",
-      "shortName": "Burton Albion",
-      "code": "BUR",
-      "forPerGame": 1,
-      "againstPerGame": 2,
-      "gamesPlayed": 1,
-      "adjustedFor": 1.3826822133487788,
-      "adjustedAgainst": 1.545539807750719
-    },
-    "carabao-cup.blackburn-rovers": {
-      "teamId": "carabao-cup.blackburn-rovers",
-      "name": "Blackburn Rovers",
-      "shortName": "Blackburn Rovers",
-      "code": "BLA",
-      "forPerGame": 1.5,
-      "againstPerGame": 1.5,
-      "gamesPlayed": 2,
-      "adjustedFor": 1.5016754021706444,
-      "adjustedAgainst": 1.4674066934739018
-    },
-    "carabao-cup.sheffield-wednesday": {
-      "teamId": "carabao-cup.sheffield-wednesday",
-      "name": "Sheffield Wednesday",
-      "shortName": "Sheffield Wednesday",
-      "code": "SHE",
-      "forPerGame": 0.5,
-      "againstPerGame": 1,
-      "gamesPlayed": 2,
-      "adjustedFor": 1.237781719853555,
-      "adjustedAgainst": 1.344589975822395
-    },
-    "carabao-cup.bolton-wanderers": {
-      "teamId": "carabao-cup.bolton-wanderers",
-      "name": "Bolton Wanderers",
-      "shortName": "Bolton Wanderers",
-      "code": "BOL",
-      "forPerGame": 0,
-      "againstPerGame": 1,
-      "gamesPlayed": 1,
-      "adjustedFor": 1.2310879833829182,
-      "adjustedAgainst": 1.4212605382316952
-    },
-    "carabao-cup.derby-county": {
-      "teamId": "carabao-cup.derby-county",
-      "name": "Derby County",
-      "shortName": "Derby County",
-      "code": "DER",
-      "forPerGame": 1,
-      "againstPerGame": 2,
-      "gamesPlayed": 1,
-      "adjustedFor": 1.3632779183056474,
-      "adjustedAgainst": 1.5143737212145538
-    },
-    "carabao-cup.lincoln-city": {
-      "teamId": "carabao-cup.lincoln-city",
-      "name": "Lincoln City",
-      "shortName": "Lincoln City",
-      "code": "LIN",
-      "forPerGame": 2,
-      "againstPerGame": 2,
-      "gamesPlayed": 3,
-      "adjustedFor": 1.6780021396761113,
-      "adjustedAgainst": 1.5891702805130905
-    },
-    "carabao-cup.norwich-city": {
-      "teamId": "carabao-cup.norwich-city",
-      "name": "Norwich City",
-      "shortName": "Norwich City",
-      "code": "NOR",
-      "forPerGame": 2,
-      "againstPerGame": 2.3333333333333335,
-      "gamesPlayed": 3,
-      "adjustedFor": 1.601159633028105,
-      "adjustedAgainst": 1.732557252051826
-    },
-    "carabao-cup.milton-keynes-dons": {
-      "teamId": "carabao-cup.milton-keynes-dons",
-      "name": "Milton Keynes Dons",
-      "shortName": "Milton Keynes Dons",
-      "code": "MIL",
-      "forPerGame": 1,
-      "againstPerGame": 4,
-      "gamesPlayed": 1,
-      "adjustedFor": 1.340326232257845,
-      "adjustedAgainst": 1.8600518920855422
-    },
-    "carabao-cup.swansea-city": {
-      "teamId": "carabao-cup.swansea-city",
-      "name": "Swansea City",
-      "shortName": "Swansea City",
-      "code": "SWA",
-      "forPerGame": 0,
-      "againstPerGame": 1,
-      "gamesPlayed": 1,
-      "adjustedFor": 1.163588191920458,
-      "adjustedAgainst": 1.407269506625018
-    },
-    "carabao-cup.birmingham-city": {
-      "teamId": "carabao-cup.birmingham-city",
-      "name": "Birmingham City",
-      "shortName": "Birmingham City",
-      "code": "BIR",
-      "forPerGame": 1,
-      "againstPerGame": 3,
-      "gamesPlayed": 2,
-      "adjustedFor": 1.3203389536862193,
-      "adjustedAgainst": 1.8379845690650798
-    },
-    "carabao-cup.gillingham": {
-      "teamId": "carabao-cup.gillingham",
-      "name": "Gillingham",
-      "shortName": "Gillingham",
-      "code": "GIL",
-      "forPerGame": 0,
-      "againstPerGame": 3,
-      "gamesPlayed": 1,
-      "adjustedFor": 1.24144151401578,
-      "adjustedAgainst": 1.7260790229566298
-    },
-    "carabao-cup.luton-town": {
-      "teamId": "carabao-cup.luton-town",
-      "name": "Luton Town",
-      "shortName": "Luton Town",
-      "code": "LUT",
-      "forPerGame": 1.5,
-      "againstPerGame": 1,
-      "gamesPlayed": 2,
-      "adjustedFor": 1.4397064539262965,
-      "adjustedAgainst": 1.2782615383756932
-    },
-    "carabao-cup.burnley": {
-      "teamId": "carabao-cup.burnley",
-      "name": "Burnley",
-      "shortName": "Burnley",
-      "code": "BUR",
-      "forPerGame": 0.5,
-      "againstPerGame": 0.5,
-      "gamesPlayed": 2,
-      "adjustedFor": 1.2544823781015808,
-      "adjustedAgainst": 1.1579602489057332
-    },
-    "carabao-cup.notts-county": {
-      "teamId": "carabao-cup.notts-county",
-      "name": "Notts County",
-      "shortName": "Notts County",
-      "code": "NOT",
-      "forPerGame": 1,
-      "againstPerGame": 1,
-      "gamesPlayed": 1,
-      "adjustedFor": 1.4339714704199047,
-      "adjustedAgainst": 1.4184078402032643
-    },
-    "carabao-cup.leicester-city": {
-      "teamId": "carabao-cup.leicester-city",
-      "name": "Leicester City",
-      "shortName": "Leicester City",
-      "code": "LEI",
-      "forPerGame": 1,
-      "againstPerGame": 1.5,
-      "gamesPlayed": 2,
-      "adjustedFor": 1.2927953188402335,
-      "adjustedAgainst": 1.4653544779560963
-    },
-    "carabao-cup.northampton-town": {
-      "teamId": "carabao-cup.northampton-town",
-      "name": "Northampton Town",
-      "shortName": "Northampton Town",
-      "code": "NOR",
-      "forPerGame": 0,
-      "againstPerGame": 1,
-      "gamesPlayed": 1,
-      "adjustedFor": 1.2136617413946837,
-      "adjustedAgainst": 1.4119066016862107
-    },
-    "carabao-cup.west-ham-united": {
-      "teamId": "carabao-cup.west-ham-united",
-      "name": "West Ham United",
-      "shortName": "West Ham United",
-      "code": "WES",
-      "forPerGame": 3,
-      "againstPerGame": 1.6666666666666667,
-      "gamesPlayed": 3,
-      "adjustedFor": 2.043952765120687,
-      "adjustedAgainst": 1.526152655621954
-    },
-    "carabao-cup.portsmouth": {
-      "teamId": "carabao-cup.portsmouth",
-      "name": "Portsmouth",
-      "shortName": "Portsmouth",
-      "code": "POR",
-      "forPerGame": 1,
-      "againstPerGame": 3,
-      "gamesPlayed": 1,
-      "adjustedFor": 1.3725236716588145,
-      "adjustedAgainst": 1.6115932327886615
-    },
-    "carabao-cup.cheltenham-town": {
-      "teamId": "carabao-cup.cheltenham-town",
-      "name": "Cheltenham Town",
-      "shortName": "Cheltenham Town",
-      "code": "CHE",
-      "forPerGame": 1,
-      "againstPerGame": 3,
-      "gamesPlayed": 1,
-      "adjustedFor": 1.3217168978881941,
-      "adjustedAgainst": 1.703523057566001
-    },
-    "carabao-cup.charlton-athletic": {
-      "teamId": "carabao-cup.charlton-athletic",
-      "name": "Charlton Athletic",
-      "shortName": "Charlton Athletic",
-      "code": "CHA",
-      "forPerGame": 2,
-      "againstPerGame": 3,
-      "gamesPlayed": 2,
-      "adjustedFor": 1.552330439814566,
-      "adjustedAgainst": 1.8619996562582801
-    },
-    "carabao-cup.rotherham-united": {
-      "teamId": "carabao-cup.rotherham-united",
-      "name": "Rotherham United",
-      "shortName": "Rotherham United",
-      "code": "ROT",
-      "forPerGame": 1,
-      "againstPerGame": 4,
-      "gamesPlayed": 1,
-      "adjustedFor": 1.3599182798164862,
-      "adjustedAgainst": 1.8111409215945018
-    },
-    "carabao-cup.west-bromwich-albion": {
-      "teamId": "carabao-cup.west-bromwich-albion",
-      "name": "West Bromwich Albion",
-      "shortName": "West Bromwich Albion",
-      "code": "WES",
-      "forPerGame": 3,
-      "againstPerGame": 2,
-      "gamesPlayed": 2,
-      "adjustedFor": 1.8352251764220924,
-      "adjustedAgainst": 1.6106054725172079
-    },
-    "carabao-cup.colchester-united": {
-      "teamId": "carabao-cup.colchester-united",
-      "name": "Colchester United",
-      "shortName": "Colchester United",
-      "code": "COL",
-      "forPerGame": 0,
-      "againstPerGame": 2,
-      "gamesPlayed": 1,
-      "adjustedFor": 1.1993459349654632,
-      "adjustedAgainst": 1.5560473431222257
-    },
-    "carabao-cup.southampton": {
-      "teamId": "carabao-cup.southampton",
-      "name": "Southampton",
-      "shortName": "Southampton",
-      "code": "SOU",
-      "forPerGame": 1.5,
-      "againstPerGame": 2,
-      "gamesPlayed": 2,
-      "adjustedFor": 1.4438194806866531,
-      "adjustedAgainst": 1.5718825709468751
-    },
-    "carabao-cup.mansfield-town": {
-      "teamId": "carabao-cup.mansfield-town",
-      "name": "Mansfield Town",
-      "shortName": "Mansfield Town",
-      "code": "MAN",
-      "forPerGame": 0,
-      "againstPerGame": 3,
-      "gamesPlayed": 1,
-      "adjustedFor": 1.2596772385945447,
-      "adjustedAgainst": 1.700533362090698
-    },
-    "carabao-cup.sheffield-united": {
-      "teamId": "carabao-cup.sheffield-united",
-      "name": "Sheffield United",
-      "shortName": "Sheffield United",
-      "code": "SHE",
-      "forPerGame": 1.6666666666666667,
-      "againstPerGame": 0.6666666666666666,
-      "gamesPlayed": 3,
-      "adjustedFor": 1.569328644670412,
-      "adjustedAgainst": 1.15496079239139
-    },
-    "carabao-cup.plymouth-argyle": {
-      "teamId": "carabao-cup.plymouth-argyle",
-      "name": "Plymouth Argyle",
-      "shortName": "Plymouth Argyle",
-      "code": "PLY",
-      "forPerGame": 2,
-      "againstPerGame": 2,
-      "gamesPlayed": 2,
-      "adjustedFor": 1.558294506211842,
-      "adjustedAgainst": 1.6242656500906159
-    },
-    "carabao-cup.exeter-city": {
-      "teamId": "carabao-cup.exeter-city",
-      "name": "Exeter City",
-      "shortName": "Exeter City",
-      "code": "EXE",
-      "forPerGame": 0,
-      "againstPerGame": 2,
-      "gamesPlayed": 1,
-      "adjustedFor": 1.1906217278768303,
-      "adjustedAgainst": 1.5356083489181391
-    },
-    "carabao-cup.hull-city": {
-      "teamId": "carabao-cup.hull-city",
-      "name": "Hull City",
-      "shortName": "Hull City",
-      "code": "HUL",
-      "forPerGame": 0.5,
-      "againstPerGame": 1,
-      "gamesPlayed": 2,
-      "adjustedFor": 1.223573612911661,
-      "adjustedAgainst": 1.2923711883858058
-    },
-    "carabao-cup.coventry-city": {
-      "teamId": "carabao-cup.coventry-city",
-      "name": "Coventry City",
-      "shortName": "Coventry City",
-      "code": "COV",
-      "forPerGame": 2.5,
-      "againstPerGame": 2.5,
-      "gamesPlayed": 2,
-      "adjustedFor": 1.7240002987628558,
-      "adjustedAgainst": 1.7504684449848695
-    },
-    "carabao-cup.ipswich-town": {
-      "teamId": "carabao-cup.ipswich-town",
-      "name": "Ipswich Town",
-      "shortName": "Ipswich Town",
-      "code": "IPS",
-      "forPerGame": 2.5,
-      "againstPerGame": 2.5,
-      "gamesPlayed": 2,
-      "adjustedFor": 1.777862885276291,
-      "adjustedAgainst": 1.7406720908560271
-    },
-    "carabao-cup.brentford": {
-      "teamId": "carabao-cup.brentford",
-      "name": "Brentford",
-      "shortName": "Brentford",
-      "code": "BRE",
-      "forPerGame": 3.3333333333333335,
-      "againstPerGame": 1.6666666666666667,
-      "gamesPlayed": 3,
-      "adjustedFor": 2.1908010698471094,
-      "adjustedAgainst": 1.538206007892697
-    },
-    "carabao-cup.nottingham-forest": {
-      "teamId": "carabao-cup.nottingham-forest",
-      "name": "Nottingham Forest",
-      "shortName": "Nottingham Forest",
-      "code": "NOT",
-      "forPerGame": 0,
-      "againstPerGame": 2,
-      "gamesPlayed": 1,
-      "adjustedFor": 1.1513592440284064,
-      "adjustedAgainst": 1.4971392611639331
-    },
-    "carabao-cup.leeds-united": {
-      "teamId": "carabao-cup.leeds-united",
-      "name": "Leeds United",
-      "shortName": "Leeds United",
-      "code": "LEE",
-      "forPerGame": 2.5,
-      "againstPerGame": 3,
-      "gamesPlayed": 2,
-      "adjustedFor": 1.783264418084177,
-      "adjustedAgainst": 1.8713510928584887
-    },
-    "carabao-cup.tottenham-hotspur": {
-      "teamId": "carabao-cup.tottenham-hotspur",
-      "name": "Tottenham Hotspur",
-      "shortName": "Tottenham Hotspur",
-      "code": "TOT",
-      "forPerGame": 3,
-      "againstPerGame": 2,
-      "gamesPlayed": 2,
-      "adjustedFor": 1.8858628185134274,
-      "adjustedAgainst": 1.5850326120475184
-    },
-    "carabao-cup.newcastle-united": {
-      "teamId": "carabao-cup.newcastle-united",
-      "name": "Newcastle United",
-      "shortName": "Newcastle United",
-      "code": "NEW",
-      "forPerGame": 1.6666666666666667,
-      "againstPerGame": 1.6666666666666667,
-      "gamesPlayed": 3,
-      "adjustedFor": 1.6205399871700619,
-      "adjustedAgainst": 1.4719346986274353
-    },
-    "carabao-cup.everton": {
-      "teamId": "carabao-cup.everton",
-      "name": "Everton",
-      "shortName": "Everton",
-      "code": "EVE",
-      "forPerGame": 2.6666666666666665,
-      "againstPerGame": 0.3333333333333333,
-      "gamesPlayed": 3,
-      "adjustedFor": 1.9694731432335943,
-      "adjustedAgainst": 1.0094763910214233
-    },
-    "carabao-cup.chelsea": {
-      "teamId": "carabao-cup.chelsea",
-      "name": "Chelsea",
-      "shortName": "Chelsea",
-      "code": "CHE",
-      "forPerGame": 3,
-      "againstPerGame": 1.3333333333333333,
-      "gamesPlayed": 3,
-      "adjustedFor": 2.0588545966681897,
-      "adjustedAgainst": 1.348268517662963
-    },
-    "carabao-cup.fulham": {
-      "teamId": "carabao-cup.fulham",
-      "name": "Fulham",
-      "shortName": "Fulham",
-      "code": "FUL",
-      "forPerGame": 2,
-      "againstPerGame": 1,
-      "gamesPlayed": 3,
-      "adjustedFor": 1.693263378414986,
-      "adjustedAgainst": 1.2154465355387205
-    },
-    "carabao-cup.sunderland": {
-      "teamId": "carabao-cup.sunderland",
-      "name": "Sunderland",
-      "shortName": "Sunderland",
-      "code": "SUN",
-      "forPerGame": 2,
-      "againstPerGame": 1,
-      "gamesPlayed": 2,
-      "adjustedFor": 1.6548176017989207,
-      "adjustedAgainst": 1.256590301754379
-    },
-    "carabao-cup.bournemouth": {
-      "teamId": "carabao-cup.bournemouth",
-      "name": "Bournemouth",
-      "shortName": "Bournemouth",
-      "code": "BOU",
-      "forPerGame": 3.5,
-      "againstPerGame": 0,
-      "gamesPlayed": 2,
-      "adjustedFor": 2.04907166444498,
-      "adjustedAgainst": 0.979450038860806
-    },
-    "carabao-cup.crystal-palace": {
-      "teamId": "carabao-cup.crystal-palace",
-      "name": "Crystal Palace",
-      "shortName": "Crystal Palace",
-      "code": "CRY",
-      "forPerGame": 2,
-      "againstPerGame": 0,
-      "gamesPlayed": 2,
-      "adjustedFor": 1.66019979029476,
-      "adjustedAgainst": 0.9791156887912207
-    },
-    "carabao-cup.liverpool": {
-      "teamId": "carabao-cup.liverpool",
-      "name": "Liverpool FC",
-      "shortName": "Liverpool",
-      "code": "LIV",
-      "forPerGame": 2,
-      "againstPerGame": 1,
-      "gamesPlayed": 2,
-      "adjustedFor": 1.6135260407675944,
-      "adjustedAgainst": 1.1822306964544231
+      "adjustedFor": 1.4551488730418687,
+      "adjustedAgainst": 1.5264157339402475
     },
     "carabao-cup.arsenal": {
       "teamId": "carabao-cup.arsenal",
@@ -975,8 +29,8 @@
       "forPerGame": 2.5,
       "againstPerGame": 1.5,
       "gamesPlayed": 2,
-      "adjustedFor": 1.8257288484891674,
-      "adjustedAgainst": 1.3961585405351353
+      "adjustedFor": 1.6599629493992183,
+      "adjustedAgainst": 1.471354802599262
     },
     "carabao-cup.aston-villa": {
       "teamId": "carabao-cup.aston-villa",
@@ -986,19 +40,107 @@
       "forPerGame": 1.5,
       "againstPerGame": 2,
       "gamesPlayed": 2,
-      "adjustedFor": 1.486347156442046,
-      "adjustedAgainst": 1.4984050428695017
+      "adjustedFor": 1.4970464578077487,
+      "adjustedAgainst": 1.5380413169826361
     },
-    "carabao-cup.manchester-united": {
-      "teamId": "carabao-cup.manchester-united",
-      "name": "Manchester United",
-      "shortName": "Manchester United",
-      "code": "MAN",
-      "forPerGame": 2,
-      "againstPerGame": 3,
+    "carabao-cup.barnet": {
+      "teamId": "carabao-cup.barnet",
+      "name": "Barnet",
+      "shortName": "Barnet",
+      "code": "BAR",
+      "forPerGame": 1,
+      "againstPerGame": 2,
       "gamesPlayed": 1,
-      "adjustedFor": 1.5468346048728188,
-      "adjustedAgainst": 1.6722685571128564
+      "adjustedFor": 1.4637862454859993,
+      "adjustedAgainst": 1.5368592509669332
+    },
+    "carabao-cup.barnsley": {
+      "teamId": "carabao-cup.barnsley",
+      "name": "Barnsley",
+      "shortName": "Barnsley",
+      "code": "BAR",
+      "forPerGame": 2.3333333333333335,
+      "againstPerGame": 2,
+      "gamesPlayed": 3,
+      "adjustedFor": 1.6631960610329815,
+      "adjustedAgainst": 1.5843432826283506
+    },
+    "carabao-cup.birmingham-city": {
+      "teamId": "carabao-cup.birmingham-city",
+      "name": "Birmingham City",
+      "shortName": "Birmingham City",
+      "code": "BIR",
+      "forPerGame": 1,
+      "againstPerGame": 3,
+      "gamesPlayed": 2,
+      "adjustedFor": 1.422363703954927,
+      "adjustedAgainst": 1.6944507754442937
+    },
+    "carabao-cup.blackburn-rovers": {
+      "teamId": "carabao-cup.blackburn-rovers",
+      "name": "Blackburn Rovers",
+      "shortName": "Blackburn Rovers",
+      "code": "BLA",
+      "forPerGame": 1.5,
+      "againstPerGame": 1.5,
+      "gamesPlayed": 2,
+      "adjustedFor": 1.502930354165647,
+      "adjustedAgainst": 1.4949165415932464
+    },
+    "carabao-cup.blackpool": {
+      "teamId": "carabao-cup.blackpool",
+      "name": "Blackpool",
+      "shortName": "Blackpool",
+      "code": "BLA",
+      "forPerGame": 2,
+      "againstPerGame": 2.5,
+      "gamesPlayed": 2,
+      "adjustedFor": 1.5488743401948946,
+      "adjustedAgainst": 1.6357108480859166
+    },
+    "carabao-cup.bolton-wanderers": {
+      "teamId": "carabao-cup.bolton-wanderers",
+      "name": "Bolton Wanderers",
+      "shortName": "Bolton Wanderers",
+      "code": "BOL",
+      "forPerGame": 0,
+      "againstPerGame": 1,
+      "gamesPlayed": 1,
+      "adjustedFor": 1.3883059228032302,
+      "adjustedAgainst": 1.465704026859848
+    },
+    "carabao-cup.bournemouth": {
+      "teamId": "carabao-cup.bournemouth",
+      "name": "Bournemouth",
+      "shortName": "Bournemouth",
+      "code": "BOU",
+      "forPerGame": 3.5,
+      "againstPerGame": 0,
+      "gamesPlayed": 2,
+      "adjustedFor": 1.7818300041255255,
+      "adjustedAgainst": 1.2597813706902559
+    },
+    "carabao-cup.bradford-city": {
+      "teamId": "carabao-cup.bradford-city",
+      "name": "Bradford City",
+      "shortName": "Bradford City",
+      "code": "BRA",
+      "forPerGame": 1.75,
+      "againstPerGame": 0.25,
+      "gamesPlayed": 4,
+      "adjustedFor": 1.5675913404098198,
+      "adjustedAgainst": 1.1734883022841884
+    },
+    "carabao-cup.brentford": {
+      "teamId": "carabao-cup.brentford",
+      "name": "Brentford",
+      "shortName": "Brentford",
+      "code": "BRE",
+      "forPerGame": 3.3333333333333335,
+      "againstPerGame": 1.6666666666666667,
+      "gamesPlayed": 3,
+      "adjustedFor": 1.8731610817323292,
+      "adjustedAgainst": 1.5279670048851255
     },
     "carabao-cup.brighton-hove-albion": {
       "teamId": "carabao-cup.brighton-hove-albion",
@@ -1008,8 +150,371 @@
       "forPerGame": 2.5,
       "againstPerGame": 2,
       "gamesPlayed": 2,
-      "adjustedFor": 1.7755209260548537,
-      "adjustedAgainst": 1.5191619305929847
+      "adjustedFor": 1.6488024927369418,
+      "adjustedAgainst": 1.5403972439683868
+    },
+    "carabao-cup.bristol-city": {
+      "teamId": "carabao-cup.bristol-city",
+      "name": "Bristol City",
+      "shortName": "Bristol City",
+      "code": "BRI",
+      "forPerGame": 0,
+      "againstPerGame": 1,
+      "gamesPlayed": 1,
+      "adjustedFor": 1.3953269427952752,
+      "adjustedAgainst": 1.4701098394905292
+    },
+    "carabao-cup.bristol-rovers": {
+      "teamId": "carabao-cup.bristol-rovers",
+      "name": "Bristol Rovers",
+      "shortName": "Bristol Rovers",
+      "code": "BRI",
+      "forPerGame": 0,
+      "againstPerGame": 1,
+      "gamesPlayed": 1,
+      "adjustedFor": 1.3801953623006065,
+      "adjustedAgainst": 1.445712442603936
+    },
+    "carabao-cup.bromley": {
+      "teamId": "carabao-cup.bromley",
+      "name": "Bromley",
+      "shortName": "Bromley",
+      "code": "BRO",
+      "forPerGame": 1,
+      "againstPerGame": 1,
+      "gamesPlayed": 1,
+      "adjustedFor": 1.4648999582869475,
+      "adjustedAgainst": 1.4577610761983333
+    },
+    "carabao-cup.burnley": {
+      "teamId": "carabao-cup.burnley",
+      "name": "Burnley",
+      "shortName": "Burnley",
+      "code": "BUR",
+      "forPerGame": 0.5,
+      "againstPerGame": 0.5,
+      "gamesPlayed": 2,
+      "adjustedFor": 1.373657634715982,
+      "adjustedAgainst": 1.3468250568374085
+    },
+    "carabao-cup.burton-albion": {
+      "teamId": "carabao-cup.burton-albion",
+      "name": "Burton Albion",
+      "shortName": "Burton Albion",
+      "code": "BUR",
+      "forPerGame": 1,
+      "againstPerGame": 2,
+      "gamesPlayed": 1,
+      "adjustedFor": 1.455688033176583,
+      "adjustedAgainst": 1.534960949433727
+    },
+    "carabao-cup.cambridge-united": {
+      "teamId": "carabao-cup.cambridge-united",
+      "name": "Cambridge United",
+      "shortName": "Cambridge United",
+      "code": "CAM",
+      "forPerGame": 1,
+      "againstPerGame": 1,
+      "gamesPlayed": 2,
+      "adjustedFor": 1.4259584257077698,
+      "adjustedAgainst": 1.4403823431877596
+    },
+    "carabao-cup.cardiff-city": {
+      "teamId": "carabao-cup.cardiff-city",
+      "name": "Cardiff City",
+      "shortName": "Cardiff City",
+      "code": "CAR",
+      "forPerGame": 2,
+      "againstPerGame": 2,
+      "gamesPlayed": 2,
+      "adjustedFor": 1.5390529998968712,
+      "adjustedAgainst": 1.5608394218408528
+    },
+    "carabao-cup.charlton-athletic": {
+      "teamId": "carabao-cup.charlton-athletic",
+      "name": "Charlton Athletic",
+      "shortName": "Charlton Athletic",
+      "code": "CHA",
+      "forPerGame": 2,
+      "againstPerGame": 3,
+      "gamesPlayed": 2,
+      "adjustedFor": 1.5539196824453265,
+      "adjustedAgainst": 1.6953389959105338
+    },
+    "carabao-cup.chelsea": {
+      "teamId": "carabao-cup.chelsea",
+      "name": "Chelsea",
+      "shortName": "Chelsea",
+      "code": "CHE",
+      "forPerGame": 3,
+      "againstPerGame": 1.3333333333333333,
+      "gamesPlayed": 3,
+      "adjustedFor": 1.7942284464643234,
+      "adjustedAgainst": 1.4445251069031815
+    },
+    "carabao-cup.cheltenham-town": {
+      "teamId": "carabao-cup.cheltenham-town",
+      "name": "Cheltenham Town",
+      "shortName": "Cheltenham Town",
+      "code": "CHE",
+      "forPerGame": 1,
+      "againstPerGame": 3,
+      "gamesPlayed": 1,
+      "adjustedFor": 1.4405807542901439,
+      "adjustedAgainst": 1.60655800008935
+    },
+    "carabao-cup.chesterfield": {
+      "teamId": "carabao-cup.chesterfield",
+      "name": "Chesterfield",
+      "shortName": "Chesterfield",
+      "code": "CHE",
+      "forPerGame": 0,
+      "againstPerGame": 1,
+      "gamesPlayed": 1,
+      "adjustedFor": 1.406495766578352,
+      "adjustedAgainst": 1.4516184851412752
+    },
+    "carabao-cup.colchester-united": {
+      "teamId": "carabao-cup.colchester-united",
+      "name": "Colchester United",
+      "shortName": "Colchester United",
+      "code": "COL",
+      "forPerGame": 0,
+      "againstPerGame": 2,
+      "gamesPlayed": 1,
+      "adjustedFor": 1.375672247385676,
+      "adjustedAgainst": 1.5361690267188328
+    },
+    "carabao-cup.coventry-city": {
+      "teamId": "carabao-cup.coventry-city",
+      "name": "Coventry City",
+      "shortName": "Coventry City",
+      "code": "COV",
+      "forPerGame": 2.5,
+      "againstPerGame": 2.5,
+      "gamesPlayed": 2,
+      "adjustedFor": 1.6266133392974653,
+      "adjustedAgainst": 1.638223008921176
+    },
+    "carabao-cup.crawley-town": {
+      "teamId": "carabao-cup.crawley-town",
+      "name": "Crawley Town",
+      "shortName": "Crawley Town",
+      "code": "CRA",
+      "forPerGame": 1,
+      "againstPerGame": 0.5,
+      "gamesPlayed": 2,
+      "adjustedFor": 1.414570431983802,
+      "adjustedAgainst": 1.3623054496234948
+    },
+    "carabao-cup.crewe-alexandra": {
+      "teamId": "carabao-cup.crewe-alexandra",
+      "name": "Crewe Alexandra",
+      "shortName": "Crewe Alexandra",
+      "code": "CRE",
+      "forPerGame": 2,
+      "againstPerGame": 2,
+      "gamesPlayed": 2,
+      "adjustedFor": 1.556245466758579,
+      "adjustedAgainst": 1.5573540651518467
+    },
+    "carabao-cup.crystal-palace": {
+      "teamId": "carabao-cup.crystal-palace",
+      "name": "Crystal Palace",
+      "shortName": "Crystal Palace",
+      "code": "CRY",
+      "forPerGame": 2,
+      "againstPerGame": 0,
+      "gamesPlayed": 2,
+      "adjustedFor": 1.5759399948427746,
+      "adjustedAgainst": 1.2571355518058926
+    },
+    "carabao-cup.derby-county": {
+      "teamId": "carabao-cup.derby-county",
+      "name": "Derby County",
+      "shortName": "Derby County",
+      "code": "DER",
+      "forPerGame": 1,
+      "againstPerGame": 2,
+      "gamesPlayed": 1,
+      "adjustedFor": 1.4499017638230607,
+      "adjustedAgainst": 1.5273989770978842
+    },
+    "carabao-cup.doncaster-rovers": {
+      "teamId": "carabao-cup.doncaster-rovers",
+      "name": "Doncaster Rovers",
+      "shortName": "Doncaster Rovers",
+      "code": "DON",
+      "forPerGame": 1,
+      "againstPerGame": 2,
+      "gamesPlayed": 2,
+      "adjustedFor": 1.4265827648417975,
+      "adjustedAgainst": 1.5728464321882947
+    },
+    "carabao-cup.everton": {
+      "teamId": "carabao-cup.everton",
+      "name": "Everton",
+      "shortName": "Everton",
+      "code": "EVE",
+      "forPerGame": 2.6666666666666665,
+      "againstPerGame": 0.3333333333333333,
+      "gamesPlayed": 3,
+      "adjustedFor": 1.7427291001420218,
+      "adjustedAgainst": 1.2546655844578845
+    },
+    "carabao-cup.exeter-city": {
+      "teamId": "carabao-cup.exeter-city",
+      "name": "Exeter City",
+      "shortName": "Exeter City",
+      "code": "EXE",
+      "forPerGame": 0,
+      "againstPerGame": 2,
+      "gamesPlayed": 1,
+      "adjustedFor": 1.3781656963448359,
+      "adjustedAgainst": 1.5271939942887023
+    },
+    "carabao-cup.fleetwood-town": {
+      "teamId": "carabao-cup.fleetwood-town",
+      "name": "Fleetwood Town",
+      "shortName": "Fleetwood Town",
+      "code": "FLE",
+      "forPerGame": 1.75,
+      "againstPerGame": 0.25,
+      "gamesPlayed": 4,
+      "adjustedFor": 1.5493523572418342,
+      "adjustedAgainst": 1.1785549549234182
+    },
+    "carabao-cup.fulham": {
+      "teamId": "carabao-cup.fulham",
+      "name": "Fulham",
+      "shortName": "Fulham",
+      "code": "FUL",
+      "forPerGame": 2,
+      "againstPerGame": 1,
+      "gamesPlayed": 3,
+      "adjustedFor": 1.593794669600633,
+      "adjustedAgainst": 1.3746131856316222
+    },
+    "carabao-cup.gillingham": {
+      "teamId": "carabao-cup.gillingham",
+      "name": "Gillingham",
+      "shortName": "Gillingham",
+      "code": "GIL",
+      "forPerGame": 0,
+      "againstPerGame": 3,
+      "gamesPlayed": 1,
+      "adjustedFor": 1.3864481365305685,
+      "adjustedAgainst": 1.611790098419523
+    },
+    "carabao-cup.grimsby-town": {
+      "teamId": "carabao-cup.grimsby-town",
+      "name": "Grimsby Town",
+      "shortName": "Grimsby Town",
+      "code": "GRI",
+      "forPerGame": 1,
+      "againstPerGame": 3,
+      "gamesPlayed": 1,
+      "adjustedFor": 1.4450424793730476,
+      "adjustedAgainst": 1.6069670778687617
+    },
+    "carabao-cup.huddersfield-town": {
+      "teamId": "carabao-cup.huddersfield-town",
+      "name": "Huddersfield Town",
+      "shortName": "Huddersfield Town",
+      "code": "HUD",
+      "forPerGame": 1,
+      "againstPerGame": 1,
+      "gamesPlayed": 1,
+      "adjustedFor": 1.4499427525234938,
+      "adjustedAgainst": 1.4657135173571576
+    },
+    "carabao-cup.hull-city": {
+      "teamId": "carabao-cup.hull-city",
+      "name": "Hull City",
+      "shortName": "Hull City",
+      "code": "HUL",
+      "forPerGame": 0.5,
+      "againstPerGame": 1,
+      "gamesPlayed": 2,
+      "adjustedFor": 1.364486390520557,
+      "adjustedAgainst": 1.411376458524391
+    },
+    "carabao-cup.ipswich-town": {
+      "teamId": "carabao-cup.ipswich-town",
+      "name": "Ipswich Town",
+      "shortName": "Ipswich Town",
+      "code": "IPS",
+      "forPerGame": 2.5,
+      "againstPerGame": 2.5,
+      "gamesPlayed": 2,
+      "adjustedFor": 1.6370297743494717,
+      "adjustedAgainst": 1.6425481126034565
+    },
+    "carabao-cup.leeds-united": {
+      "teamId": "carabao-cup.leeds-united",
+      "name": "Leeds United",
+      "shortName": "Leeds United",
+      "code": "LEE",
+      "forPerGame": 2.5,
+      "againstPerGame": 3,
+      "gamesPlayed": 2,
+      "adjustedFor": 1.6474181289569723,
+      "adjustedAgainst": 1.7002405504015192
+    },
+    "carabao-cup.leicester-city": {
+      "teamId": "carabao-cup.leicester-city",
+      "name": "Leicester City",
+      "shortName": "Leicester City",
+      "code": "LEI",
+      "forPerGame": 1,
+      "againstPerGame": 1.5,
+      "gamesPlayed": 2,
+      "adjustedFor": 1.4150307516296317,
+      "adjustedAgainst": 1.4946121262203493
+    },
+    "carabao-cup.leyton-orient": {
+      "teamId": "carabao-cup.leyton-orient",
+      "name": "Leyton Orient",
+      "shortName": "Leyton Orient",
+      "code": "LEY",
+      "forPerGame": 1,
+      "againstPerGame": 1,
+      "gamesPlayed": 3,
+      "adjustedFor": 1.42013794258165,
+      "adjustedAgainst": 1.4102153897652936
+    },
+    "carabao-cup.lincoln-city": {
+      "teamId": "carabao-cup.lincoln-city",
+      "name": "Lincoln City",
+      "shortName": "Lincoln City",
+      "code": "LIN",
+      "forPerGame": 2,
+      "againstPerGame": 2,
+      "gamesPlayed": 3,
+      "adjustedFor": 1.6008036904151899,
+      "adjustedAgainst": 1.5711873839424977
+    },
+    "carabao-cup.liverpool": {
+      "teamId": "carabao-cup.liverpool",
+      "name": "Liverpool FC",
+      "shortName": "Liverpool",
+      "code": "LIV",
+      "forPerGame": 2,
+      "againstPerGame": 1,
+      "gamesPlayed": 2,
+      "adjustedFor": 1.559523214075598,
+      "adjustedAgainst": 1.3839156253113944
+    },
+    "carabao-cup.luton-town": {
+      "teamId": "carabao-cup.luton-town",
+      "name": "Luton Town",
+      "shortName": "Luton Town",
+      "code": "LUT",
+      "forPerGame": 1.5,
+      "againstPerGame": 1,
+      "gamesPlayed": 2,
+      "adjustedFor": 1.4895815377128505,
+      "adjustedAgainst": 1.4078314876639635
     },
     "carabao-cup.manchester-city": {
       "teamId": "carabao-cup.manchester-city",
@@ -1019,8 +524,503 @@
       "forPerGame": 3.5,
       "againstPerGame": 1,
       "gamesPlayed": 2,
-      "adjustedFor": 2.0074319222310533,
-      "adjustedAgainst": 1.2629038595412572
+      "adjustedFor": 1.7712429333782147,
+      "adjustedAgainst": 1.409110620171629
+    },
+    "carabao-cup.manchester-united": {
+      "teamId": "carabao-cup.manchester-united",
+      "name": "Manchester United",
+      "shortName": "Manchester United",
+      "code": "MAN",
+      "forPerGame": 2,
+      "againstPerGame": 3,
+      "gamesPlayed": 1,
+      "adjustedFor": 1.529744688882614,
+      "adjustedAgainst": 1.606025197698397
+    },
+    "carabao-cup.mansfield-town": {
+      "teamId": "carabao-cup.mansfield-town",
+      "name": "Mansfield Town",
+      "shortName": "Mansfield Town",
+      "code": "MAN",
+      "forPerGame": 0,
+      "againstPerGame": 3,
+      "gamesPlayed": 1,
+      "adjustedFor": 1.3924377447731329,
+      "adjustedAgainst": 1.6078844086827753
+    },
+    "carabao-cup.middlesbrough": {
+      "teamId": "carabao-cup.middlesbrough",
+      "name": "Middlesbrough",
+      "shortName": "Middlesbrough",
+      "code": "MID",
+      "forPerGame": 1.3333333333333333,
+      "againstPerGame": 1.3333333333333333,
+      "gamesPlayed": 3,
+      "adjustedFor": 1.4728988022392782,
+      "adjustedAgainst": 1.4692500155834074
+    },
+    "carabao-cup.millwall": {
+      "teamId": "carabao-cup.millwall",
+      "name": "Millwall",
+      "shortName": "Millwall",
+      "code": "MIL",
+      "forPerGame": 0.6666666666666666,
+      "againstPerGame": 0.6666666666666666,
+      "gamesPlayed": 3,
+      "adjustedFor": 1.3277514425641261,
+      "adjustedAgainst": 1.3256656467652383
+    },
+    "carabao-cup.milton-keynes-dons": {
+      "teamId": "carabao-cup.milton-keynes-dons",
+      "name": "Milton Keynes Dons",
+      "shortName": "Milton Keynes Dons",
+      "code": "MIL",
+      "forPerGame": 1,
+      "againstPerGame": 4,
+      "gamesPlayed": 1,
+      "adjustedFor": 1.4485247994260058,
+      "adjustedAgainst": 1.6754460648180263
+    },
+    "carabao-cup.newcastle-united": {
+      "teamId": "carabao-cup.newcastle-united",
+      "name": "Newcastle United",
+      "shortName": "Newcastle United",
+      "code": "NEW",
+      "forPerGame": 1.6666666666666667,
+      "againstPerGame": 1.6666666666666667,
+      "gamesPlayed": 3,
+      "adjustedFor": 1.5487268930202718,
+      "adjustedAgainst": 1.5131829011078408
+    },
+    "carabao-cup.newport-county": {
+      "teamId": "carabao-cup.newport-county",
+      "name": "Newport County",
+      "shortName": "Newport County",
+      "code": "NEW",
+      "forPerGame": 1,
+      "againstPerGame": 1,
+      "gamesPlayed": 1,
+      "adjustedFor": 1.4547245021310147,
+      "adjustedAgainst": 1.4661081037781583
+    },
+    "carabao-cup.northampton-town": {
+      "teamId": "carabao-cup.northampton-town",
+      "name": "Northampton Town",
+      "shortName": "Northampton Town",
+      "code": "NOR",
+      "forPerGame": 0,
+      "againstPerGame": 1,
+      "gamesPlayed": 1,
+      "adjustedFor": 1.3839998242771885,
+      "adjustedAgainst": 1.461863663556543
+    },
+    "carabao-cup.norwich-city": {
+      "teamId": "carabao-cup.norwich-city",
+      "name": "Norwich City",
+      "shortName": "Norwich City",
+      "code": "NOR",
+      "forPerGame": 2,
+      "againstPerGame": 2.3333333333333335,
+      "gamesPlayed": 3,
+      "adjustedFor": 1.574646258794,
+      "adjustedAgainst": 1.6480057501908123
+    },
+    "carabao-cup.nottingham-forest": {
+      "teamId": "carabao-cup.nottingham-forest",
+      "name": "Nottingham Forest",
+      "shortName": "Nottingham Forest",
+      "code": "NOT",
+      "forPerGame": 0,
+      "againstPerGame": 2,
+      "gamesPlayed": 1,
+      "adjustedFor": 1.3615268711499846,
+      "adjustedAgainst": 1.5246196814062092
+    },
+    "carabao-cup.notts-county": {
+      "teamId": "carabao-cup.notts-county",
+      "name": "Notts County",
+      "shortName": "Notts County",
+      "code": "NOT",
+      "forPerGame": 1,
+      "againstPerGame": 1,
+      "gamesPlayed": 1,
+      "adjustedFor": 1.4707688329877926,
+      "adjustedAgainst": 1.4650485344537014
+    },
+    "carabao-cup.oldham-athletic": {
+      "teamId": "carabao-cup.oldham-athletic",
+      "name": "Oldham Athletic",
+      "shortName": "Oldham Athletic",
+      "code": "OLD",
+      "forPerGame": 0,
+      "againstPerGame": 2,
+      "gamesPlayed": 1,
+      "adjustedFor": 1.3926708006894386,
+      "adjustedAgainst": 1.5315010744769428
+    },
+    "carabao-cup.oxford-united": {
+      "teamId": "carabao-cup.oxford-united",
+      "name": "Oxford United",
+      "shortName": "Oxford United",
+      "code": "OXF",
+      "forPerGame": 0,
+      "againstPerGame": 2,
+      "gamesPlayed": 1,
+      "adjustedFor": 1.389936186836918,
+      "adjustedAgainst": 1.5373291380141776
+    },
+    "carabao-cup.peterborough-united": {
+      "teamId": "carabao-cup.peterborough-united",
+      "name": "Peterborough United",
+      "shortName": "Peterborough United",
+      "code": "PET",
+      "forPerGame": 2.25,
+      "againstPerGame": 1.5,
+      "gamesPlayed": 4,
+      "adjustedFor": 1.687636722064062,
+      "adjustedAgainst": 1.494019311254612
+    },
+    "carabao-cup.plymouth-argyle": {
+      "teamId": "carabao-cup.plymouth-argyle",
+      "name": "Plymouth Argyle",
+      "shortName": "Plymouth Argyle",
+      "code": "PLY",
+      "forPerGame": 2,
+      "againstPerGame": 2,
+      "gamesPlayed": 2,
+      "adjustedFor": 1.5477823942201194,
+      "adjustedAgainst": 1.572277565432544
+    },
+    "carabao-cup.port-vale": {
+      "teamId": "carabao-cup.port-vale",
+      "name": "Port Vale",
+      "shortName": "Port Vale",
+      "code": "POR",
+      "forPerGame": 0,
+      "againstPerGame": 3,
+      "gamesPlayed": 1,
+      "adjustedFor": 1.4011384718292583,
+      "adjustedAgainst": 1.6033521223778988
+    },
+    "carabao-cup.portsmouth": {
+      "teamId": "carabao-cup.portsmouth",
+      "name": "Portsmouth",
+      "shortName": "Portsmouth",
+      "code": "POR",
+      "forPerGame": 1,
+      "againstPerGame": 3,
+      "gamesPlayed": 1,
+      "adjustedFor": 1.4572000570875339,
+      "adjustedAgainst": 1.5824736350709607
+    },
+    "carabao-cup.preston-north-end": {
+      "teamId": "carabao-cup.preston-north-end",
+      "name": "Preston North End",
+      "shortName": "Preston North End",
+      "code": "PRE",
+      "forPerGame": 0.5,
+      "againstPerGame": 2.5,
+      "gamesPlayed": 2,
+      "adjustedFor": 1.3650419496411108,
+      "adjustedAgainst": 1.6285309313365086
+    },
+    "carabao-cup.queens-park-rangers": {
+      "teamId": "carabao-cup.queens-park-rangers",
+      "name": "Queens Park Rangers",
+      "shortName": "Queens Park Rangers",
+      "code": "QUE",
+      "forPerGame": 1,
+      "againstPerGame": 1,
+      "gamesPlayed": 1,
+      "adjustedFor": 1.468694672519884,
+      "adjustedAgainst": 1.4722663951026844
+    },
+    "carabao-cup.reading": {
+      "teamId": "carabao-cup.reading",
+      "name": "Reading",
+      "shortName": "Reading",
+      "code": "REA",
+      "forPerGame": 1.6666666666666667,
+      "againstPerGame": 1,
+      "gamesPlayed": 3,
+      "adjustedFor": 1.5227169335721957,
+      "adjustedAgainst": 1.3747344699960644
+    },
+    "carabao-cup.rochdale": {
+      "teamId": "carabao-cup.rochdale",
+      "name": "Rochdale",
+      "shortName": "Rochdale",
+      "code": "ROC",
+      "forPerGame": 1,
+      "againstPerGame": 2,
+      "gamesPlayed": 2,
+      "adjustedFor": 1.4459182296591795,
+      "adjustedAgainst": 1.552210265595161
+    },
+    "carabao-cup.rotherham-united": {
+      "teamId": "carabao-cup.rotherham-united",
+      "name": "Rotherham United",
+      "shortName": "Rotherham United",
+      "code": "ROT",
+      "forPerGame": 1,
+      "againstPerGame": 4,
+      "gamesPlayed": 1,
+      "adjustedFor": 1.4505286066899166,
+      "adjustedAgainst": 1.6702528238844452
+    },
+    "carabao-cup.salford-city": {
+      "teamId": "carabao-cup.salford-city",
+      "name": "Salford City",
+      "shortName": "Salford City",
+      "code": "SAL",
+      "forPerGame": 1,
+      "againstPerGame": 1,
+      "gamesPlayed": 1,
+      "adjustedFor": 1.4450761278075925,
+      "adjustedAgainst": 1.4685920913627049
+    },
+    "carabao-cup.sheffield-united": {
+      "teamId": "carabao-cup.sheffield-united",
+      "name": "Sheffield United",
+      "shortName": "Sheffield United",
+      "code": "SHE",
+      "forPerGame": 1.6666666666666667,
+      "againstPerGame": 0.6666666666666666,
+      "gamesPlayed": 3,
+      "adjustedFor": 1.5399537876171099,
+      "adjustedAgainst": 1.3234799534431763
+    },
+    "carabao-cup.sheffield-wednesday": {
+      "teamId": "carabao-cup.sheffield-wednesday",
+      "name": "Sheffield Wednesday",
+      "shortName": "Sheffield Wednesday",
+      "code": "SHE",
+      "forPerGame": 0.5,
+      "againstPerGame": 1,
+      "gamesPlayed": 2,
+      "adjustedFor": 1.3651648429809164,
+      "adjustedAgainst": 1.4333207684198699
+    },
+    "carabao-cup.shrewsbury-town": {
+      "teamId": "carabao-cup.shrewsbury-town",
+      "name": "Shrewsbury Town",
+      "shortName": "Shrewsbury Town",
+      "code": "SHR",
+      "forPerGame": 0.5,
+      "againstPerGame": 2.5,
+      "gamesPlayed": 2,
+      "adjustedFor": 1.3767733621861986,
+      "adjustedAgainst": 1.6352626471693505
+    },
+    "carabao-cup.southampton": {
+      "teamId": "carabao-cup.southampton",
+      "name": "Southampton",
+      "shortName": "Southampton",
+      "code": "SOU",
+      "forPerGame": 1.5,
+      "againstPerGame": 2,
+      "gamesPlayed": 2,
+      "adjustedFor": 1.4873837040285027,
+      "adjustedAgainst": 1.5568539403583759
+    },
+    "carabao-cup.stevenage": {
+      "teamId": "carabao-cup.stevenage",
+      "name": "Stevenage",
+      "shortName": "Stevenage",
+      "code": "STE",
+      "forPerGame": 1,
+      "againstPerGame": 2,
+      "gamesPlayed": 2,
+      "adjustedFor": 1.4258915663814262,
+      "adjustedAgainst": 1.5691032611871176
+    },
+    "carabao-cup.stockport-county": {
+      "teamId": "carabao-cup.stockport-county",
+      "name": "Stockport County",
+      "shortName": "Stockport County",
+      "code": "STO",
+      "forPerGame": 1,
+      "againstPerGame": 1,
+      "gamesPlayed": 1,
+      "adjustedFor": 1.449776396630982,
+      "adjustedAgainst": 1.464877510864486
+    },
+    "carabao-cup.stoke-city": {
+      "teamId": "carabao-cup.stoke-city",
+      "name": "Stoke City",
+      "shortName": "Stoke City",
+      "code": "STO",
+      "forPerGame": 1.5,
+      "againstPerGame": 0.5,
+      "gamesPlayed": 2,
+      "adjustedFor": 1.4925819063919972,
+      "adjustedAgainst": 1.3715797057651629
+    },
+    "carabao-cup.sunderland": {
+      "teamId": "carabao-cup.sunderland",
+      "name": "Sunderland",
+      "shortName": "Sunderland",
+      "code": "SUN",
+      "forPerGame": 2,
+      "againstPerGame": 1,
+      "gamesPlayed": 2,
+      "adjustedFor": 1.5773911355354346,
+      "adjustedAgainst": 1.4084690290901338
+    },
+    "carabao-cup.swansea-city": {
+      "teamId": "carabao-cup.swansea-city",
+      "name": "Swansea City",
+      "shortName": "Swansea City",
+      "code": "SWA",
+      "forPerGame": 0,
+      "againstPerGame": 1,
+      "gamesPlayed": 1,
+      "adjustedFor": 1.365870237896753,
+      "adjustedAgainst": 1.465191422388166
+    },
+    "carabao-cup.swindon-town": {
+      "teamId": "carabao-cup.swindon-town",
+      "name": "Swindon Town",
+      "shortName": "Swindon Town",
+      "code": "SWI",
+      "forPerGame": 2,
+      "againstPerGame": 3,
+      "gamesPlayed": 1,
+      "adjustedFor": 1.5304092704263454,
+      "adjustedAgainst": 1.6031724690817164
+    },
+    "carabao-cup.tottenham-hotspur": {
+      "teamId": "carabao-cup.tottenham-hotspur",
+      "name": "Tottenham Hotspur",
+      "shortName": "Tottenham Hotspur",
+      "code": "TOT",
+      "forPerGame": 3,
+      "againstPerGame": 2,
+      "gamesPlayed": 2,
+      "adjustedFor": 1.7014583390888927,
+      "adjustedAgainst": 1.5605910863018881
+    },
+    "carabao-cup.tranmere-rovers": {
+      "teamId": "carabao-cup.tranmere-rovers",
+      "name": "Tranmere Rovers",
+      "shortName": "Tranmere Rovers",
+      "code": "TRA",
+      "forPerGame": 2,
+      "againstPerGame": 2,
+      "gamesPlayed": 1,
+      "adjustedFor": 1.5263111483548149,
+      "adjustedAgainst": 1.5388846916554142
+    },
+    "carabao-cup.walsall": {
+      "teamId": "carabao-cup.walsall",
+      "name": "Walsall",
+      "shortName": "Walsall",
+      "code": "WAL",
+      "forPerGame": 0.5,
+      "againstPerGame": 0,
+      "gamesPlayed": 2,
+      "adjustedFor": 1.357781016350573,
+      "adjustedAgainst": 1.2916726412551702
+    },
+    "carabao-cup.watford": {
+      "teamId": "carabao-cup.watford",
+      "name": "Watford",
+      "shortName": "Watford",
+      "code": "WAT",
+      "forPerGame": 1,
+      "againstPerGame": 2.5,
+      "gamesPlayed": 2,
+      "adjustedFor": 1.4283151087226884,
+      "adjustedAgainst": 1.637550556619057
+    },
+    "carabao-cup.west-bromwich-albion": {
+      "teamId": "carabao-cup.west-bromwich-albion",
+      "name": "West Bromwich Albion",
+      "shortName": "West Bromwich Albion",
+      "code": "WES",
+      "forPerGame": 3,
+      "againstPerGame": 2,
+      "gamesPlayed": 2,
+      "adjustedFor": 1.6945498698835386,
+      "adjustedAgainst": 1.5628953213176549
+    },
+    "carabao-cup.west-ham-united": {
+      "teamId": "carabao-cup.west-ham-united",
+      "name": "West Ham United",
+      "shortName": "West Ham United",
+      "code": "WES",
+      "forPerGame": 3,
+      "againstPerGame": 1.6666666666666667,
+      "gamesPlayed": 3,
+      "adjustedFor": 1.789611154521135,
+      "adjustedAgainst": 1.5294502772806313
+    },
+    "carabao-cup.wigan-athletic": {
+      "teamId": "carabao-cup.wigan-athletic",
+      "name": "Wigan Athletic",
+      "shortName": "Wigan Athletic",
+      "code": "WIG",
+      "forPerGame": 1,
+      "againstPerGame": 1,
+      "gamesPlayed": 1,
+      "adjustedFor": 1.4531703960369413,
+      "adjustedAgainst": 1.4430469761842852
+    },
+    "carabao-cup.wimbledon": {
+      "teamId": "carabao-cup.wimbledon",
+      "name": "AFC Wimbledon",
+      "shortName": "AFC Wimbledon",
+      "code": "WIM",
+      "forPerGame": 0.5,
+      "againstPerGame": 2,
+      "gamesPlayed": 2,
+      "adjustedFor": 1.3599331311471936,
+      "adjustedAgainst": 1.563136897244768
+    },
+    "carabao-cup.wolverhampton": {
+      "teamId": "carabao-cup.wolverhampton",
+      "name": "Wolverhampton",
+      "shortName": "Wolverhampton",
+      "code": "WOL",
+      "forPerGame": 1.6666666666666667,
+      "againstPerGame": 0.3333333333333333,
+      "gamesPlayed": 3,
+      "adjustedFor": 1.534690647158171,
+      "adjustedAgainst": 1.2552846393641168
+    },
+    "carabao-cup.wrexham": {
+      "teamId": "carabao-cup.wrexham",
+      "name": "Wrexham",
+      "shortName": "Wrexham",
+      "code": "WRE",
+      "forPerGame": 0,
+      "againstPerGame": 1,
+      "gamesPlayed": 1,
+      "adjustedFor": 1.3859742953819956,
+      "adjustedAgainst": 1.45750204604171
+    },
+    "carabao-cup.wycombe-wanderers": {
+      "teamId": "carabao-cup.wycombe-wanderers",
+      "name": "Wycombe Wanderers",
+      "shortName": "Wycombe Wanderers",
+      "code": "WYC",
+      "forPerGame": 1,
+      "againstPerGame": 2,
+      "gamesPlayed": 1,
+      "adjustedFor": 1.4501415057307618,
+      "adjustedAgainst": 1.540889174663551
+    },
+    "carabao-cup.york-city": {
+      "teamId": "carabao-cup.york-city",
+      "name": "York City",
+      "shortName": "York City",
+      "code": "YOR",
+      "forPerGame": 0,
+      "againstPerGame": 2,
+      "gamesPlayed": 1,
+      "adjustedFor": 1.3907177348229371,
+      "adjustedAgainst": 1.5414613520262788
     }
   },
   "games": [
@@ -8858,145 +8858,145 @@
         "label": "Modelo PitchLab · en validación"
       },
       "projection": {
-        "home": 1.2256635355567704,
-        "away": 1.4216138871213828,
-        "total": 2.6472774226781532,
-        "margin": -0.19595035156461238
+        "home": 1.4431076120529305,
+        "away": 1.479115036540987,
+        "total": 2.922222648593918,
+        "margin": -0.036007424488056605
       },
       "x12": [
-        0.3308575847479878,
-        0.24733749354892956,
-        0.42180492170308276
+        0.3744164885704644,
+        0.23514400975338887,
+        0.39043950167614655
       ],
       "probabilities": [
         {
           "market": "h2h",
           "selection": "Manchester City gana",
-          "p": 0.3308575847479878,
-          "fairOdds": 3.0224484675534757
+          "p": 0.3744164885704644,
+          "fairOdds": 2.6708225479546477
         },
         {
           "market": "h2h",
           "selection": "Empate",
-          "p": 0.24733749354892956,
-          "fairOdds": 4.043058679262369
+          "p": 0.23514400975338887,
+          "fairOdds": 4.252713054645817
         },
         {
           "market": "h2h",
           "selection": "Bradford City gana",
-          "p": 0.42180492170308276,
-          "fairOdds": 2.3707641816088643
+          "p": 0.39043950167614655,
+          "fairOdds": 2.561216259387245
         },
         {
           "market": "double_chance",
           "selection": "Manchester City o empate",
-          "p": 0.5781950782969174,
-          "fairOdds": 1.7295200833350495
+          "p": 0.6095604983238533,
+          "fairOdds": 1.6405262525208946
         },
         {
           "market": "double_chance",
           "selection": "Bradford City o empate",
-          "p": 0.6691424152520123,
-          "fairOdds": 1.4944501756376931
+          "p": 0.6255835114295354,
+          "fairOdds": 1.5985076040685229
         },
         {
           "market": "double_chance",
           "selection": "Sin empate",
-          "p": 0.7526625064510706,
-          "fairOdds": 1.3286167325049403
+          "p": 0.764855990246611,
+          "fairOdds": 1.3074356646897307
         },
         {
           "market": "totals",
-          "selection": "Más de 1.5",
+          "selection": "Más de 1.5 goles",
           "line": 1.5,
-          "p": 0.7354408102337401,
-          "fairOdds": 1.3597287315102584
+          "p": 0.783186187220877,
+          "fairOdds": 1.276835593268675
         },
         {
           "market": "totals",
-          "selection": "Más de 2.5",
+          "selection": "Más de 2.5 goles",
           "line": 2.5,
-          "p": 0.49337316911451645,
-          "fairOdds": 2.0268633614486053
+          "p": 0.5591603450446162,
+          "fairOdds": 1.7883957774584471
         },
         {
           "market": "totals",
-          "selection": "Menos de 2.5",
+          "selection": "Menos de 2.5 goles",
           "line": 2.5,
-          "p": 0.5066268308854835,
-          "fairOdds": 1.9738394001995467
+          "p": 0.4408396549553838,
+          "fairOdds": 2.26839847268551
         },
         {
           "market": "totals",
-          "selection": "Más de 3.5",
+          "selection": "Más de 3.5 goles",
           "line": 3.5,
-          "p": 0.27432011325076877,
-          "fairOdds": 3.6453761561619564
+          "p": 0.33534809161822965,
+          "fairOdds": 2.9819761167403036
         },
         {
           "market": "totals",
-          "selection": "Menos de 3.5",
+          "selection": "Menos de 3.5 goles",
           "line": 3.5,
-          "p": 0.7256798867492312,
-          "fairOdds": 1.3780180741671346
+          "p": 0.6646519083817704,
+          "fairOdds": 1.5045469476416649
         },
         {
           "market": "btts",
           "selection": "Sí",
-          "p": 0.5297846880498006,
-          "fairOdds": 1.8875592718262904
+          "p": 0.5840385832553752,
+          "fairOdds": 1.7122156457987685
         },
         {
           "market": "btts",
           "selection": "No",
-          "p": 0.4702153119501994,
-          "fairOdds": 2.1266853175251557
+          "p": 0.41596141674462483,
+          "fairOdds": 2.4040691269544827
         },
         {
           "market": "team_totals",
-          "selection": "Manchester City más de 1.5",
+          "selection": "Manchester City más de 1.5 goles",
           "line": 1.5,
-          "p": 0.34662782746339715,
-          "fairOdds": 2.8849386020676513
+          "p": 0.4229557882375753,
+          "fairOdds": 2.3643133107763443
         },
         {
           "market": "team_totals",
-          "selection": "Manchester City menos de 1.5",
+          "selection": "Manchester City menos de 1.5 goles",
           "line": 1.5,
-          "p": 0.6533721725366028,
-          "fairOdds": 1.530521258837326
+          "p": 0.5770442117624247,
+          "fairOdds": 1.7329694668382025
         },
         {
           "market": "team_totals",
-          "selection": "Bradford City más de 1.5",
+          "selection": "Bradford City más de 1.5 goles",
           "line": 1.5,
-          "p": 0.415605695740786,
-          "fairOdds": 2.406126793372201
+          "p": 0.4351600702849072,
+          "fairOdds": 2.2980049602098873
         },
         {
           "market": "team_totals",
-          "selection": "Bradford City menos de 1.5",
+          "selection": "Bradford City menos de 1.5 goles",
           "line": 1.5,
-          "p": 0.584394304259214,
-          "fairOdds": 1.71117341957604
+          "p": 0.5648399297150928,
+          "fairOdds": 1.7704130805773655
         },
         {
           "market": "correct_score",
           "selection": "1–1",
-          "p": 0.1172677864255993,
-          "fairOdds": 8.527491056842377
+          "p": 0.10912379923526627,
+          "fairOdds": 9.163903813906282
         },
         {
           "market": "correct_score",
           "selection": "0–1",
-          "p": 0.10688460001333114,
-          "fairOdds": 9.355884756786997
+          "p": 0.08534044135011608,
+          "fairOdds": 11.717773943743962
         },
         {
           "market": "correct_score",
-          "selection": "1–0",
-          "p": 0.09300272128310183,
-          "fairOdds": 10.752373545672748
+          "selection": "1–2",
+          "p": 0.08495086962808539,
+          "fairOdds": 11.771509866561656
         }
       ],
       "marketGroups": [
@@ -9007,22 +9007,22 @@
               "market": "h2h",
               "selection": "home",
               "label": "Manchester City gana",
-              "p": 0.3308575847479878,
-              "fairOdds": 3.0224484675534757
+              "p": 0.3744164885704644,
+              "fairOdds": 2.6708225479546477
             },
             {
               "market": "h2h",
               "selection": "draw",
               "label": "Empate",
-              "p": 0.24733749354892956,
-              "fairOdds": 4.043058679262369
+              "p": 0.23514400975338887,
+              "fairOdds": 4.252713054645817
             },
             {
               "market": "h2h",
               "selection": "away",
               "label": "Bradford City gana",
-              "p": 0.42180492170308276,
-              "fairOdds": 2.3707641816088643
+              "p": 0.39043950167614655,
+              "fairOdds": 2.561216259387245
             }
           ]
         },
@@ -9033,22 +9033,22 @@
               "market": "double_chance",
               "selection": "1x",
               "label": "Manchester City o empate",
-              "p": 0.5781950782969174,
-              "fairOdds": 1.7295200833350495
+              "p": 0.6095604983238533,
+              "fairOdds": 1.6405262525208946
             },
             {
               "market": "double_chance",
               "selection": "x2",
               "label": "Bradford City o empate",
-              "p": 0.6691424152520123,
-              "fairOdds": 1.4944501756376931
+              "p": 0.6255835114295354,
+              "fairOdds": 1.5985076040685229
             },
             {
               "market": "double_chance",
               "selection": "12",
               "label": "Sin empate",
-              "p": 0.7526625064510706,
-              "fairOdds": 1.3286167325049403
+              "p": 0.764855990246611,
+              "fairOdds": 1.3074356646897307
             }
           ]
         },
@@ -9058,42 +9058,42 @@
             {
               "market": "totals",
               "selection": "over_1.5",
-              "label": "Más de 1.5",
+              "label": "Más de 1.5 goles",
               "line": 1.5,
-              "p": 0.7354408102337401,
-              "fairOdds": 1.3597287315102584
+              "p": 0.783186187220877,
+              "fairOdds": 1.276835593268675
             },
             {
               "market": "totals",
               "selection": "over_2.5",
-              "label": "Más de 2.5",
+              "label": "Más de 2.5 goles",
               "line": 2.5,
-              "p": 0.49337316911451645,
-              "fairOdds": 2.0268633614486053
+              "p": 0.5591603450446162,
+              "fairOdds": 1.7883957774584471
             },
             {
               "market": "totals",
               "selection": "under_2.5",
-              "label": "Menos de 2.5",
+              "label": "Menos de 2.5 goles",
               "line": 2.5,
-              "p": 0.5066268308854835,
-              "fairOdds": 1.9738394001995467
+              "p": 0.4408396549553838,
+              "fairOdds": 2.26839847268551
             },
             {
               "market": "totals",
               "selection": "over_3.5",
-              "label": "Más de 3.5",
+              "label": "Más de 3.5 goles",
               "line": 3.5,
-              "p": 0.27432011325076877,
-              "fairOdds": 3.6453761561619564
+              "p": 0.33534809161822965,
+              "fairOdds": 2.9819761167403036
             },
             {
               "market": "totals",
               "selection": "under_3.5",
-              "label": "Menos de 3.5",
+              "label": "Menos de 3.5 goles",
               "line": 3.5,
-              "p": 0.7256798867492312,
-              "fairOdds": 1.3780180741671346
+              "p": 0.6646519083817704,
+              "fairOdds": 1.5045469476416649
             }
           ]
         },
@@ -9104,15 +9104,15 @@
               "market": "btts",
               "selection": "yes",
               "label": "Sí",
-              "p": 0.5297846880498006,
-              "fairOdds": 1.8875592718262904
+              "p": 0.5840385832553752,
+              "fairOdds": 1.7122156457987685
             },
             {
               "market": "btts",
               "selection": "no",
               "label": "No",
-              "p": 0.4702153119501994,
-              "fairOdds": 2.1266853175251557
+              "p": 0.41596141674462483,
+              "fairOdds": 2.4040691269544827
             }
           ]
         },
@@ -9122,34 +9122,34 @@
             {
               "market": "team_totals",
               "selection": "home_over",
-              "label": "Manchester City más de 1.5",
+              "label": "Manchester City más de 1.5 goles",
               "line": 1.5,
-              "p": 0.34662782746339715,
-              "fairOdds": 2.8849386020676513
+              "p": 0.4229557882375753,
+              "fairOdds": 2.3643133107763443
             },
             {
               "market": "team_totals",
               "selection": "home_under",
-              "label": "Manchester City menos de 1.5",
+              "label": "Manchester City menos de 1.5 goles",
               "line": 1.5,
-              "p": 0.6533721725366028,
-              "fairOdds": 1.530521258837326
+              "p": 0.5770442117624247,
+              "fairOdds": 1.7329694668382025
             },
             {
               "market": "team_totals",
               "selection": "away_over",
-              "label": "Bradford City más de 1.5",
+              "label": "Bradford City más de 1.5 goles",
               "line": 1.5,
-              "p": 0.415605695740786,
-              "fairOdds": 2.406126793372201
+              "p": 0.4351600702849072,
+              "fairOdds": 2.2980049602098873
             },
             {
               "market": "team_totals",
               "selection": "away_under",
-              "label": "Bradford City menos de 1.5",
+              "label": "Bradford City menos de 1.5 goles",
               "line": 1.5,
-              "p": 0.584394304259214,
-              "fairOdds": 1.71117341957604
+              "p": 0.5648399297150928,
+              "fairOdds": 1.7704130805773655
             }
           ]
         },
@@ -9160,22 +9160,22 @@
               "market": "correct_score",
               "selection": "1-1",
               "label": "1–1",
-              "p": 0.1172677864255993,
-              "fairOdds": 8.527491056842377
+              "p": 0.10912379923526627,
+              "fairOdds": 9.163903813906282
             },
             {
               "market": "correct_score",
               "selection": "0-1",
               "label": "0–1",
-              "p": 0.10688460001333114,
-              "fairOdds": 9.355884756786997
+              "p": 0.08534044135011608,
+              "fairOdds": 11.717773943743962
             },
             {
               "market": "correct_score",
-              "selection": "1-0",
-              "label": "1–0",
-              "p": 0.09300272128310183,
-              "fairOdds": 10.752373545672748
+              "selection": "1-2",
+              "label": "1–2",
+              "p": 0.08495086962808539,
+              "fairOdds": 11.771509866561656
             }
           ]
         }
@@ -9183,44 +9183,44 @@
       "mostLikelyScore": {
         "home": 1,
         "away": 1,
-        "p": 0.1172677864255993
+        "p": 0.10912379923526627
       },
       "factors": [
         {
           "key": "home_attack",
           "label": "Ataque local",
-          "value": "1.23 goles/partido",
-          "detail": "38 % más que la media · 2 partidos"
+          "value": "1.39 goles/partido",
+          "detail": "19 % más que la media · 2 partidos"
         },
         {
           "key": "away_defense",
           "label": "Defensa visitante",
-          "value": "0.89 concedidos/partido",
-          "detail": "39 % menos que la media · 4 partidos"
+          "value": "1.17 concedidos/partido",
+          "detail": "21 % menos que la media · 4 partidos"
         },
         {
           "key": "away_attack",
           "label": "Ataque visitante",
-          "value": "1.42 goles/partido",
-          "detail": "13 % más que la media · ajustado por rival"
+          "value": "1.48 goles/partido",
+          "detail": "5 % más que la media · ajustado por rival"
         },
         {
           "key": "home_defense",
           "label": "Defensa local",
-          "value": "1.26 concedidos/partido",
-          "detail": "13 % menos que la media · ajustado por rival"
+          "value": "1.41 concedidos/partido",
+          "detail": "6 % menos que la media · ajustado por rival"
         },
         {
           "key": "home_advantage",
           "label": "Localía",
-          "value": "×1.00",
+          "value": "×1.04",
           "detail": "estimada de 84 partidos"
         },
         {
           "key": "uncertainty",
           "label": "Intervalo 90%",
-          "value": "goles 1.5–4.8",
-          "detail": "local 9%–71% · 84 partidos"
+          "value": "goles 2.0–4.4",
+          "detail": "local 16%–68% · 84 partidos"
         },
         {
           "key": "home_position",
@@ -9248,45 +9248,47 @@
         }
       ],
       "steps": [
-        "Sincronizando Carabao Cup · corte 19 nov 2026, 10:05",
-        "Fuerza ajustada por rival · MAN 1.38 / 0.87 · BRA 1.13 / 0.61",
-        "Ponderando 71.7 partidos por antigüedad y calidad del rival",
-        "Proyección de goles 1.23 – 1.42 · total 2.65",
+        "Sincronizando Carabao Cup · corte 21 nov 2026, 22:33",
+        "Fuerza ajustada por rival · MAN 1.19 / 0.94 · BRA 1.05 / 0.79",
+        "Ponderando 71.3 partidos por antigüedad y calidad del rival",
+        "Proyección de goles 1.44 – 1.48 · total 2.92",
         "Simulando 121 marcadores con incertidumbre del ajuste",
-        "20 mercados listos · marcador proyectado 0–1"
+        "20 mercados listos · marcador proyectado 1–2"
       ],
-      "inputsAsOf": "2026-11-19T16:05:39.021Z",
+      "inputsAsOf": "2026-11-22T04:33:15.743Z",
       "publishedAt": "2026-11-19T16:05:39.021Z",
       "source": "pitchlab-football-v2",
       "picks": [
         {
           "profile": "conservadora",
-          "market": "double_chance",
-          "selection": "12",
-          "label": "Sin empate",
-          "p": 0.7526625064510706,
-          "fairOdds": 1.3286167325049403
+          "market": "totals",
+          "selection": "over_1.5",
+          "label": "Más de 1.5 goles",
+          "line": 1.5,
+          "p": 0.783186187220877,
+          "fairOdds": 1.276835593268675
         },
         {
           "profile": "intermedia",
-          "market": "double_chance",
-          "selection": "x2",
-          "label": "Bradford City o empate",
-          "p": 0.6691424152520123,
-          "fairOdds": 1.4944501756376931
+          "market": "totals",
+          "selection": "under_3.5",
+          "label": "Menos de 3.5 goles",
+          "line": 3.5,
+          "p": 0.6646519083817704,
+          "fairOdds": 1.5045469476416649
         },
         {
           "profile": "arriesgada",
           "market": "totals",
           "selection": "under_2.5",
-          "label": "Menos de 2.5",
+          "label": "Menos de 2.5 goles",
           "line": 2.5,
-          "p": 0.5066268308854835,
-          "fairOdds": 1.9738394001995467
+          "p": 0.4408396549553838,
+          "fairOdds": 2.26839847268551
         }
       ],
       "confidence": {
-        "score": 16,
+        "score": 12,
         "level": "baja",
         "reasons": [
           "Partido parejo",
@@ -9295,18 +9297,18 @@
         ]
       },
       "projectedScore": {
-        "home": 0,
-        "away": 1,
-        "p": 0.10688460001333114
+        "home": 1,
+        "away": 2,
+        "p": 0.08495086962808539
       },
       "insights": {
         "why": [
-          "Bradford City gana en 42% de los escenarios; el empate, en 25%.",
-          "Bradford City concede 39 % menos que la media.",
-          "Manchester City anota 38 % más que la media."
+          "Se esperan 2.9 goles: 1.4 de Manchester City y 1.5 de Bradford City.",
+          "Bradford City concede 21 % menos que la media.",
+          "Manchester City anota 19 % más que la media."
         ]
       },
-      "picksAt": "2026-11-19T16:05:39.021Z",
+      "picksAt": "2026-11-22T04:33:15.743Z",
       "matchContext": {
         "stageName": "Quarterfinals",
         "venueCity": "Manchester",
@@ -9323,145 +9325,145 @@
         "label": "Modelo PitchLab · en validación"
       },
       "projection": {
-        "home": 1.431937656296151,
-        "away": 1.1154576548004629,
-        "total": 2.547395311096614,
-        "margin": 0.3164800014956881
+        "home": 1.5410928347433341,
+        "away": 1.3278392825282201,
+        "total": 2.8689321172715543,
+        "margin": 0.213253552215114
       },
       "x12": [
-        0.44920727669145427,
-        0.25056041220505004,
-        0.30023231110349574
+        0.4297035115090057,
+        0.23610027593091928,
+        0.33419621256007476
       ],
       "probabilities": [
         {
           "market": "h2h",
           "selection": "Crystal Palace gana",
-          "p": 0.44920727669145427,
-          "fairOdds": 2.2261438135314693
+          "p": 0.4297035115090057,
+          "fairOdds": 2.327186008995512
         },
         {
           "market": "h2h",
           "selection": "Empate",
-          "p": 0.25056041220505004,
-          "fairOdds": 3.9910534597206615
+          "p": 0.23610027593091928,
+          "fairOdds": 4.235488484954548
         },
         {
           "market": "h2h",
           "selection": "Sunderland gana",
-          "p": 0.30023231110349574,
-          "fairOdds": 3.3307540961348465
+          "p": 0.33419621256007476,
+          "fairOdds": 2.9922541381890766
         },
         {
           "market": "double_chance",
           "selection": "Crystal Palace o empate",
-          "p": 0.6997676888965043,
-          "fairOdds": 1.4290456902589284
+          "p": 0.665803787439925,
+          "fairOdds": 1.5019439944087571
         },
         {
           "market": "double_chance",
           "selection": "Sunderland o empate",
-          "p": 0.5507927233085458,
-          "fairOdds": 1.8155650168962292
+          "p": 0.570296488490994,
+          "fairOdds": 1.7534738862692327
         },
         {
           "market": "double_chance",
           "selection": "Sin empate",
-          "p": 0.74943958779495,
-          "fairOdds": 1.3343303666974213
+          "p": 0.7638997240690805,
+          "fairOdds": 1.3090723409000324
         },
         {
           "market": "totals",
-          "selection": "Más de 1.5",
+          "selection": "Más de 1.5 goles",
           "line": 1.5,
-          "p": 0.716038828980379,
-          "fairOdds": 1.3965723079905799
+          "p": 0.7745937062184018,
+          "fairOdds": 1.2909993871264986
         },
         {
           "market": "totals",
-          "selection": "Más de 2.5",
+          "selection": "Más de 2.5 goles",
           "line": 2.5,
-          "p": 0.4682854461427588,
-          "fairOdds": 2.135449666943409
+          "p": 0.546813655733726,
+          "fairOdds": 1.8287765667779075
         },
         {
           "market": "totals",
-          "selection": "Menos de 2.5",
+          "selection": "Menos de 2.5 goles",
           "line": 2.5,
-          "p": 0.5317145538572412,
-          "fairOdds": 1.8807083476381345
+          "p": 0.453186344266274,
+          "fairOdds": 2.2065978215187356
         },
         {
           "market": "totals",
-          "selection": "Más de 3.5",
+          "selection": "Más de 3.5 goles",
           "line": 3.5,
-          "p": 0.2526012997199284,
-          "fairOdds": 3.958807817334074
+          "p": 0.32343145597070255,
+          "fairOdds": 3.091845216473265
         },
         {
           "market": "totals",
-          "selection": "Menos de 3.5",
+          "selection": "Menos de 3.5 goles",
           "line": 3.5,
-          "p": 0.7473987002800716,
-          "fairOdds": 1.3379739617225337
+          "p": 0.6765685440292974,
+          "fairOdds": 1.478046842149222
         },
         {
           "market": "btts",
           "selection": "Sí",
-          "p": 0.505422206663081,
-          "fairOdds": 1.9785438526776267
+          "p": 0.5717556518506213,
+          "fairOdds": 1.7489988892340032
         },
         {
           "market": "btts",
           "selection": "No",
-          "p": 0.494577793336919,
-          "fairOdds": 2.021926607850698
+          "p": 0.42824434814937873,
+          "fairOdds": 2.3351154646206407
         },
         {
           "market": "team_totals",
-          "selection": "Crystal Palace más de 1.5",
+          "selection": "Crystal Palace más de 1.5 goles",
           "line": 1.5,
-          "p": 0.41914200982942085,
-          "fairOdds": 2.3858262272659623
+          "p": 0.4558323398143911,
+          "fairOdds": 2.1937890593879033
         },
         {
           "market": "team_totals",
-          "selection": "Crystal Palace menos de 1.5",
+          "selection": "Crystal Palace menos de 1.5 goles",
           "line": 1.5,
-          "p": 0.5808579901705792,
-          "fairOdds": 1.7215911925500629
+          "p": 0.5441676601856089,
+          "fairOdds": 1.8376689266299144
         },
         {
           "market": "team_totals",
-          "selection": "Sunderland más de 1.5",
+          "selection": "Sunderland más de 1.5 goles",
           "line": 1.5,
-          "p": 0.30662649059168834,
-          "fairOdds": 3.2612968242578413
+          "p": 0.3830076309756809,
+          "fairOdds": 2.6109140370195263
         },
         {
           "market": "team_totals",
-          "selection": "Sunderland menos de 1.5",
+          "selection": "Sunderland menos de 1.5 goles",
           "line": 1.5,
-          "p": 0.6933735094083117,
-          "fairOdds": 1.4422241208109425
+          "p": 0.6169923690243191,
+          "fairOdds": 1.6207655883675678
         },
         {
           "market": "correct_score",
           "selection": "1–1",
-          "p": 0.11879037209281204,
-          "fairOdds": 8.418190652847612
+          "p": 0.11034100002274155,
+          "fairOdds": 9.062814364505465
         },
         {
           "market": "correct_score",
           "selection": "1–0",
-          "p": 0.11835185037370248,
-          "fairOdds": 8.449382048885969
+          "p": 0.09327916752560196,
+          "fairOdds": 10.72050733863522
         },
         {
           "market": "correct_score",
-          "selection": "0–1",
-          "p": 0.09357610602033041,
-          "fairOdds": 10.686488704528262
+          "selection": "2–1",
+          "p": 0.08949774974392688,
+          "fairOdds": 11.173465286682896
         }
       ],
       "marketGroups": [
@@ -9472,22 +9474,22 @@
               "market": "h2h",
               "selection": "home",
               "label": "Crystal Palace gana",
-              "p": 0.44920727669145427,
-              "fairOdds": 2.2261438135314693
+              "p": 0.4297035115090057,
+              "fairOdds": 2.327186008995512
             },
             {
               "market": "h2h",
               "selection": "draw",
               "label": "Empate",
-              "p": 0.25056041220505004,
-              "fairOdds": 3.9910534597206615
+              "p": 0.23610027593091928,
+              "fairOdds": 4.235488484954548
             },
             {
               "market": "h2h",
               "selection": "away",
               "label": "Sunderland gana",
-              "p": 0.30023231110349574,
-              "fairOdds": 3.3307540961348465
+              "p": 0.33419621256007476,
+              "fairOdds": 2.9922541381890766
             }
           ]
         },
@@ -9498,22 +9500,22 @@
               "market": "double_chance",
               "selection": "1x",
               "label": "Crystal Palace o empate",
-              "p": 0.6997676888965043,
-              "fairOdds": 1.4290456902589284
+              "p": 0.665803787439925,
+              "fairOdds": 1.5019439944087571
             },
             {
               "market": "double_chance",
               "selection": "x2",
               "label": "Sunderland o empate",
-              "p": 0.5507927233085458,
-              "fairOdds": 1.8155650168962292
+              "p": 0.570296488490994,
+              "fairOdds": 1.7534738862692327
             },
             {
               "market": "double_chance",
               "selection": "12",
               "label": "Sin empate",
-              "p": 0.74943958779495,
-              "fairOdds": 1.3343303666974213
+              "p": 0.7638997240690805,
+              "fairOdds": 1.3090723409000324
             }
           ]
         },
@@ -9523,42 +9525,42 @@
             {
               "market": "totals",
               "selection": "over_1.5",
-              "label": "Más de 1.5",
+              "label": "Más de 1.5 goles",
               "line": 1.5,
-              "p": 0.716038828980379,
-              "fairOdds": 1.3965723079905799
+              "p": 0.7745937062184018,
+              "fairOdds": 1.2909993871264986
             },
             {
               "market": "totals",
               "selection": "over_2.5",
-              "label": "Más de 2.5",
+              "label": "Más de 2.5 goles",
               "line": 2.5,
-              "p": 0.4682854461427588,
-              "fairOdds": 2.135449666943409
+              "p": 0.546813655733726,
+              "fairOdds": 1.8287765667779075
             },
             {
               "market": "totals",
               "selection": "under_2.5",
-              "label": "Menos de 2.5",
+              "label": "Menos de 2.5 goles",
               "line": 2.5,
-              "p": 0.5317145538572412,
-              "fairOdds": 1.8807083476381345
+              "p": 0.453186344266274,
+              "fairOdds": 2.2065978215187356
             },
             {
               "market": "totals",
               "selection": "over_3.5",
-              "label": "Más de 3.5",
+              "label": "Más de 3.5 goles",
               "line": 3.5,
-              "p": 0.2526012997199284,
-              "fairOdds": 3.958807817334074
+              "p": 0.32343145597070255,
+              "fairOdds": 3.091845216473265
             },
             {
               "market": "totals",
               "selection": "under_3.5",
-              "label": "Menos de 3.5",
+              "label": "Menos de 3.5 goles",
               "line": 3.5,
-              "p": 0.7473987002800716,
-              "fairOdds": 1.3379739617225337
+              "p": 0.6765685440292974,
+              "fairOdds": 1.478046842149222
             }
           ]
         },
@@ -9569,15 +9571,15 @@
               "market": "btts",
               "selection": "yes",
               "label": "Sí",
-              "p": 0.505422206663081,
-              "fairOdds": 1.9785438526776267
+              "p": 0.5717556518506213,
+              "fairOdds": 1.7489988892340032
             },
             {
               "market": "btts",
               "selection": "no",
               "label": "No",
-              "p": 0.494577793336919,
-              "fairOdds": 2.021926607850698
+              "p": 0.42824434814937873,
+              "fairOdds": 2.3351154646206407
             }
           ]
         },
@@ -9587,34 +9589,34 @@
             {
               "market": "team_totals",
               "selection": "home_over",
-              "label": "Crystal Palace más de 1.5",
+              "label": "Crystal Palace más de 1.5 goles",
               "line": 1.5,
-              "p": 0.41914200982942085,
-              "fairOdds": 2.3858262272659623
+              "p": 0.4558323398143911,
+              "fairOdds": 2.1937890593879033
             },
             {
               "market": "team_totals",
               "selection": "home_under",
-              "label": "Crystal Palace menos de 1.5",
+              "label": "Crystal Palace menos de 1.5 goles",
               "line": 1.5,
-              "p": 0.5808579901705792,
-              "fairOdds": 1.7215911925500629
+              "p": 0.5441676601856089,
+              "fairOdds": 1.8376689266299144
             },
             {
               "market": "team_totals",
               "selection": "away_over",
-              "label": "Sunderland más de 1.5",
+              "label": "Sunderland más de 1.5 goles",
               "line": 1.5,
-              "p": 0.30662649059168834,
-              "fairOdds": 3.2612968242578413
+              "p": 0.3830076309756809,
+              "fairOdds": 2.6109140370195263
             },
             {
               "market": "team_totals",
               "selection": "away_under",
-              "label": "Sunderland menos de 1.5",
+              "label": "Sunderland menos de 1.5 goles",
               "line": 1.5,
-              "p": 0.6933735094083117,
-              "fairOdds": 1.4422241208109425
+              "p": 0.6169923690243191,
+              "fairOdds": 1.6207655883675678
             }
           ]
         },
@@ -9625,22 +9627,22 @@
               "market": "correct_score",
               "selection": "1-1",
               "label": "1–1",
-              "p": 0.11879037209281204,
-              "fairOdds": 8.418190652847612
+              "p": 0.11034100002274155,
+              "fairOdds": 9.062814364505465
             },
             {
               "market": "correct_score",
               "selection": "1-0",
               "label": "1–0",
-              "p": 0.11835185037370248,
-              "fairOdds": 8.449382048885969
+              "p": 0.09327916752560196,
+              "fairOdds": 10.72050733863522
             },
             {
               "market": "correct_score",
-              "selection": "0-1",
-              "label": "0–1",
-              "p": 0.09357610602033041,
-              "fairOdds": 10.686488704528262
+              "selection": "2-1",
+              "label": "2–1",
+              "p": 0.08949774974392688,
+              "fairOdds": 11.173465286682896
             }
           ]
         }
@@ -9648,44 +9650,44 @@
       "mostLikelyScore": {
         "home": 1,
         "away": 1,
-        "p": 0.11879037209281204
+        "p": 0.11034100002274155
       },
       "factors": [
         {
           "key": "home_attack",
           "label": "Ataque local",
-          "value": "1.44 goles/partido",
-          "detail": "14 % más que la media · 2 partidos"
+          "value": "1.49 goles/partido",
+          "detail": "6 % más que la media · 2 partidos"
         },
         {
           "key": "away_defense",
           "label": "Defensa visitante",
-          "value": "1.26 concedidos/partido",
-          "detail": "13 % menos que la media · 2 partidos"
+          "value": "1.41 concedidos/partido",
+          "detail": "6 % menos que la media · 2 partidos"
         },
         {
           "key": "away_attack",
           "label": "Ataque visitante",
-          "value": "1.12 goles/partido",
-          "detail": "14 % más que la media · ajustado por rival"
+          "value": "1.33 goles/partido",
+          "detail": "6 % más que la media · ajustado por rival"
         },
         {
           "key": "home_defense",
           "label": "Defensa local",
-          "value": "0.98 concedidos/partido",
-          "detail": "33 % menos que la media · ajustado por rival"
+          "value": "1.26 concedidos/partido",
+          "detail": "16 % menos que la media · ajustado por rival"
         },
         {
           "key": "home_advantage",
           "label": "Localía",
-          "value": "×1.00",
+          "value": "×1.04",
           "detail": "estimada de 84 partidos"
         },
         {
           "key": "uncertainty",
           "label": "Intervalo 90%",
-          "value": "goles 1.5–4.8",
-          "detail": "local 14%–75% · 84 partidos"
+          "value": "goles 2.0–4.6",
+          "detail": "local 19%–67% · 84 partidos"
         },
         {
           "key": "home_position",
@@ -9713,44 +9715,47 @@
         }
       ],
       "steps": [
-        "Sincronizando Carabao Cup · corte 19 nov 2026, 10:05",
-        "Fuerza ajustada por rival · CRY 1.14 / 0.67 · SUN 1.14 / 0.87",
-        "Ponderando 71.7 partidos por antigüedad y calidad del rival",
-        "Proyección de goles 1.43 – 1.12 · total 2.55",
+        "Sincronizando Carabao Cup · corte 21 nov 2026, 22:33",
+        "Fuerza ajustada por rival · CRY 1.06 / 0.84 · SUN 1.06 / 0.94",
+        "Ponderando 71.3 partidos por antigüedad y calidad del rival",
+        "Proyección de goles 1.54 – 1.33 · total 2.87",
         "Simulando 121 marcadores con incertidumbre del ajuste",
-        "20 mercados listos · marcador proyectado 1–0"
+        "20 mercados listos · marcador proyectado 2–1"
       ],
-      "inputsAsOf": "2026-11-19T16:05:39.021Z",
+      "inputsAsOf": "2026-11-22T04:33:15.743Z",
       "publishedAt": "2026-11-19T16:05:39.021Z",
       "source": "pitchlab-football-v2",
       "picks": [
         {
           "profile": "conservadora",
-          "market": "double_chance",
-          "selection": "12",
-          "label": "Sin empate",
-          "p": 0.74943958779495,
-          "fairOdds": 1.3343303666974213
+          "market": "totals",
+          "selection": "over_1.5",
+          "label": "Más de 1.5 goles",
+          "line": 1.5,
+          "p": 0.7745937062184018,
+          "fairOdds": 1.2909993871264986
         },
         {
           "profile": "intermedia",
-          "market": "double_chance",
-          "selection": "1x",
-          "label": "Crystal Palace o empate",
-          "p": 0.6997676888965043,
-          "fairOdds": 1.4290456902589284
+          "market": "totals",
+          "selection": "under_3.5",
+          "label": "Menos de 3.5 goles",
+          "line": 3.5,
+          "p": 0.6765685440292974,
+          "fairOdds": 1.478046842149222
         },
         {
           "profile": "arriesgada",
-          "market": "btts",
-          "selection": "yes",
-          "label": "Ambos anotan: Sí",
-          "p": 0.505422206663081,
-          "fairOdds": 1.9785438526776267
+          "market": "team_totals",
+          "selection": "home_over",
+          "label": "Crystal Palace más de 1.5 goles",
+          "line": 1.5,
+          "p": 0.4558323398143911,
+          "fairOdds": 2.1937890593879033
         }
       ],
       "confidence": {
-        "score": 20,
+        "score": 19,
         "level": "baja",
         "reasons": [
           "Poca muestra esta temporada",
@@ -9758,18 +9763,17 @@
         ]
       },
       "projectedScore": {
-        "home": 1,
-        "away": 0,
-        "p": 0.11835185037370248
+        "home": 2,
+        "away": 1,
+        "p": 0.08949774974392688
       },
       "insights": {
         "why": [
-          "Crystal Palace gana en 45% de los escenarios; el empate, en 25%.",
-          "Crystal Palace concede 33 % menos que la media.",
-          "Sunderland concede 13 % menos que la media."
+          "Se esperan 2.9 goles: 1.5 de Crystal Palace y 1.3 de Sunderland.",
+          "Crystal Palace concede 16 % menos que la media."
         ]
       },
-      "picksAt": "2026-11-19T16:05:39.021Z",
+      "picksAt": "2026-11-22T04:33:15.743Z",
       "matchContext": {
         "stageName": "Quarterfinals",
         "venueCity": "London",
@@ -9786,145 +9790,145 @@
         "label": "Modelo PitchLab · en validación"
       },
       "projection": {
-        "home": 1.084746652422829,
-        "away": 1.667739926999249,
-        "total": 2.752486579422078,
-        "margin": -0.5829932745764199
+        "home": 1.3640454704095613,
+        "away": 1.6512007941244888,
+        "total": 3.01524626453405,
+        "margin": -0.2871553237149276
       },
       "x12": [
-        0.25286853794281744,
-        0.231535106804745,
-        0.5155963552524379
+        0.3229061861304346,
+        0.22857907622958165,
+        0.4485147376399843
       ],
       "probabilities": [
         {
           "market": "h2h",
           "selection": "Liverpool gana",
-          "p": 0.25286853794281744,
-          "fairOdds": 3.954624043526267
+          "p": 0.3229061861304346,
+          "fairOdds": 3.096874705262105
         },
         {
           "market": "h2h",
           "selection": "Empate",
-          "p": 0.231535106804745,
-          "fairOdds": 4.3189994545548815
+          "p": 0.22857907622958165,
+          "fairOdds": 4.374853623940687
         },
         {
           "market": "h2h",
           "selection": "Bournemouth gana",
-          "p": 0.5155963552524379,
-          "fairOdds": 1.9395016854034903
+          "p": 0.4485147376399843,
+          "fairOdds": 2.229581139879252
         },
         {
           "market": "double_chance",
           "selection": "Liverpool o empate",
-          "p": 0.4844036447475625,
-          "fairOdds": 2.0643940458398706
+          "p": 0.5514852623600163,
+          "fairOdds": 1.8132850834863976
         },
         {
           "market": "double_chance",
           "selection": "Bournemouth o empate",
-          "p": 0.7471314620571828,
-          "fairOdds": 1.3384525358449748
+          "p": 0.6770938138695659,
+          "fairOdds": 1.4769002160646503
         },
         {
           "market": "double_chance",
           "selection": "Sin empate",
-          "p": 0.7684648931952553,
-          "fairOdds": 1.3012956204700883
+          "p": 0.7714209237704188,
+          "fairOdds": 1.296309147426766
         },
         {
           "market": "totals",
-          "selection": "Más de 1.5",
+          "selection": "Más de 1.5 goles",
           "line": 1.5,
-          "p": 0.754938786191178,
-          "fairOdds": 1.3246107079028306
+          "p": 0.7975950904445892,
+          "fairOdds": 1.2537690013144236
         },
         {
           "market": "totals",
-          "selection": "Más de 2.5",
+          "selection": "Más de 2.5 goles",
           "line": 2.5,
-          "p": 0.5191434229863754,
-          "fairOdds": 1.926249964311393
+          "p": 0.5802163523397765,
+          "fairOdds": 1.7234950307198458
         },
         {
           "market": "totals",
-          "selection": "Menos de 2.5",
+          "selection": "Menos de 2.5 goles",
           "line": 2.5,
-          "p": 0.4808565770136246,
-          "fairOdds": 2.07962217385178
+          "p": 0.41978364766022347,
+          "fairOdds": 2.382179500258687
         },
         {
           "market": "totals",
-          "selection": "Más de 3.5",
+          "selection": "Más de 3.5 goles",
           "line": 3.5,
-          "p": 0.29750996757649484,
-          "fairOdds": 3.361231921558672
+          "p": 0.35618283576923704,
+          "fairOdds": 2.8075468539642876
         },
         {
           "market": "totals",
-          "selection": "Menos de 3.5",
+          "selection": "Menos de 3.5 goles",
           "line": 3.5,
-          "p": 0.7024900324235052,
-          "fairOdds": 1.4235077422381661
+          "p": 0.643817164230763,
+          "fairOdds": 1.5532360048132712
         },
         {
           "market": "btts",
           "selection": "Sí",
-          "p": 0.5313403347044956,
-          "fairOdds": 1.8820329169178338
+          "p": 0.5960675430396131,
+          "fairOdds": 1.6776622241509007
         },
         {
           "market": "btts",
           "selection": "No",
-          "p": 0.4686596652955044,
-          "fairOdds": 2.13374453585518
+          "p": 0.40393245696038693,
+          "fairOdds": 2.4756614200429765
         },
         {
           "market": "team_totals",
-          "selection": "Liverpool más de 1.5",
+          "selection": "Liverpool más de 1.5 goles",
           "line": 1.5,
-          "p": 0.29538187629142176,
-          "fairOdds": 3.385448059830884
+          "p": 0.3956917823170887,
+          "fairOdds": 2.527219529665762
         },
         {
           "market": "team_totals",
-          "selection": "Liverpool menos de 1.5",
+          "selection": "Liverpool menos de 1.5 goles",
           "line": 1.5,
-          "p": 0.7046181237085782,
-          "fairOdds": 1.4192084568258825
+          "p": 0.6043082176829113,
+          "fairOdds": 1.6547847120700807
         },
         {
           "market": "team_totals",
-          "selection": "Bournemouth más de 1.5",
+          "selection": "Bournemouth más de 1.5 goles",
           "line": 1.5,
-          "p": 0.49666874216533985,
-          "fairOdds": 2.013414405022296
+          "p": 0.4914474589582922,
+          "fairOdds": 2.0348055153640896
         },
         {
           "market": "team_totals",
-          "selection": "Bournemouth menos de 1.5",
+          "selection": "Bournemouth menos de 1.5 goles",
           "line": 1.5,
-          "p": 0.5033312578346602,
-          "fairOdds": 1.9867631593198034
-        },
-        {
-          "market": "correct_score",
-          "selection": "0–1",
-          "p": 0.11211859713544009,
-          "fairOdds": 8.919126938343624
+          "p": 0.5085525410417078,
+          "fairOdds": 1.9663651624896459
         },
         {
           "market": "correct_score",
           "selection": "1–1",
-          "p": 0.10959511269051486,
-          "fairOdds": 9.124494472886719
+          "p": 0.10491757011961919,
+          "fairOdds": 9.531292031066622
         },
         {
           "market": "correct_score",
           "selection": "1–2",
-          "p": 0.09619797117787039,
-          "fairOdds": 10.395229626527117
+          "p": 0.09117893426269841,
+          "fairOdds": 10.96744558473199
+        },
+        {
+          "market": "correct_score",
+          "selection": "0–1",
+          "p": 0.08648668851530365,
+          "fairOdds": 11.562472990546423
         }
       ],
       "marketGroups": [
@@ -9935,22 +9939,22 @@
               "market": "h2h",
               "selection": "home",
               "label": "Liverpool gana",
-              "p": 0.25286853794281744,
-              "fairOdds": 3.954624043526267
+              "p": 0.3229061861304346,
+              "fairOdds": 3.096874705262105
             },
             {
               "market": "h2h",
               "selection": "draw",
               "label": "Empate",
-              "p": 0.231535106804745,
-              "fairOdds": 4.3189994545548815
+              "p": 0.22857907622958165,
+              "fairOdds": 4.374853623940687
             },
             {
               "market": "h2h",
               "selection": "away",
               "label": "Bournemouth gana",
-              "p": 0.5155963552524379,
-              "fairOdds": 1.9395016854034903
+              "p": 0.4485147376399843,
+              "fairOdds": 2.229581139879252
             }
           ]
         },
@@ -9961,22 +9965,22 @@
               "market": "double_chance",
               "selection": "1x",
               "label": "Liverpool o empate",
-              "p": 0.4844036447475625,
-              "fairOdds": 2.0643940458398706
+              "p": 0.5514852623600163,
+              "fairOdds": 1.8132850834863976
             },
             {
               "market": "double_chance",
               "selection": "x2",
               "label": "Bournemouth o empate",
-              "p": 0.7471314620571828,
-              "fairOdds": 1.3384525358449748
+              "p": 0.6770938138695659,
+              "fairOdds": 1.4769002160646503
             },
             {
               "market": "double_chance",
               "selection": "12",
               "label": "Sin empate",
-              "p": 0.7684648931952553,
-              "fairOdds": 1.3012956204700883
+              "p": 0.7714209237704188,
+              "fairOdds": 1.296309147426766
             }
           ]
         },
@@ -9986,42 +9990,42 @@
             {
               "market": "totals",
               "selection": "over_1.5",
-              "label": "Más de 1.5",
+              "label": "Más de 1.5 goles",
               "line": 1.5,
-              "p": 0.754938786191178,
-              "fairOdds": 1.3246107079028306
+              "p": 0.7975950904445892,
+              "fairOdds": 1.2537690013144236
             },
             {
               "market": "totals",
               "selection": "over_2.5",
-              "label": "Más de 2.5",
+              "label": "Más de 2.5 goles",
               "line": 2.5,
-              "p": 0.5191434229863754,
-              "fairOdds": 1.926249964311393
+              "p": 0.5802163523397765,
+              "fairOdds": 1.7234950307198458
             },
             {
               "market": "totals",
               "selection": "under_2.5",
-              "label": "Menos de 2.5",
+              "label": "Menos de 2.5 goles",
               "line": 2.5,
-              "p": 0.4808565770136246,
-              "fairOdds": 2.07962217385178
+              "p": 0.41978364766022347,
+              "fairOdds": 2.382179500258687
             },
             {
               "market": "totals",
               "selection": "over_3.5",
-              "label": "Más de 3.5",
+              "label": "Más de 3.5 goles",
               "line": 3.5,
-              "p": 0.29750996757649484,
-              "fairOdds": 3.361231921558672
+              "p": 0.35618283576923704,
+              "fairOdds": 2.8075468539642876
             },
             {
               "market": "totals",
               "selection": "under_3.5",
-              "label": "Menos de 3.5",
+              "label": "Menos de 3.5 goles",
               "line": 3.5,
-              "p": 0.7024900324235052,
-              "fairOdds": 1.4235077422381661
+              "p": 0.643817164230763,
+              "fairOdds": 1.5532360048132712
             }
           ]
         },
@@ -10032,15 +10036,15 @@
               "market": "btts",
               "selection": "yes",
               "label": "Sí",
-              "p": 0.5313403347044956,
-              "fairOdds": 1.8820329169178338
+              "p": 0.5960675430396131,
+              "fairOdds": 1.6776622241509007
             },
             {
               "market": "btts",
               "selection": "no",
               "label": "No",
-              "p": 0.4686596652955044,
-              "fairOdds": 2.13374453585518
+              "p": 0.40393245696038693,
+              "fairOdds": 2.4756614200429765
             }
           ]
         },
@@ -10050,34 +10054,34 @@
             {
               "market": "team_totals",
               "selection": "home_over",
-              "label": "Liverpool más de 1.5",
+              "label": "Liverpool más de 1.5 goles",
               "line": 1.5,
-              "p": 0.29538187629142176,
-              "fairOdds": 3.385448059830884
+              "p": 0.3956917823170887,
+              "fairOdds": 2.527219529665762
             },
             {
               "market": "team_totals",
               "selection": "home_under",
-              "label": "Liverpool menos de 1.5",
+              "label": "Liverpool menos de 1.5 goles",
               "line": 1.5,
-              "p": 0.7046181237085782,
-              "fairOdds": 1.4192084568258825
+              "p": 0.6043082176829113,
+              "fairOdds": 1.6547847120700807
             },
             {
               "market": "team_totals",
               "selection": "away_over",
-              "label": "Bournemouth más de 1.5",
+              "label": "Bournemouth más de 1.5 goles",
               "line": 1.5,
-              "p": 0.49666874216533985,
-              "fairOdds": 2.013414405022296
+              "p": 0.4914474589582922,
+              "fairOdds": 2.0348055153640896
             },
             {
               "market": "team_totals",
               "selection": "away_under",
-              "label": "Bournemouth menos de 1.5",
+              "label": "Bournemouth menos de 1.5 goles",
               "line": 1.5,
-              "p": 0.5033312578346602,
-              "fairOdds": 1.9867631593198034
+              "p": 0.5085525410417078,
+              "fairOdds": 1.9663651624896459
             }
           ]
         },
@@ -10086,69 +10090,69 @@
           "rows": [
             {
               "market": "correct_score",
-              "selection": "0-1",
-              "label": "0–1",
-              "p": 0.11211859713544009,
-              "fairOdds": 8.919126938343624
-            },
-            {
-              "market": "correct_score",
               "selection": "1-1",
               "label": "1–1",
-              "p": 0.10959511269051486,
-              "fairOdds": 9.124494472886719
+              "p": 0.10491757011961919,
+              "fairOdds": 9.531292031066622
             },
             {
               "market": "correct_score",
               "selection": "1-2",
               "label": "1–2",
-              "p": 0.09619797117787039,
-              "fairOdds": 10.395229626527117
+              "p": 0.09117893426269841,
+              "fairOdds": 10.96744558473199
+            },
+            {
+              "market": "correct_score",
+              "selection": "0-1",
+              "label": "0–1",
+              "p": 0.08648668851530365,
+              "fairOdds": 11.562472990546423
             }
           ]
         }
       ],
       "mostLikelyScore": {
-        "home": 0,
+        "home": 1,
         "away": 1,
-        "p": 0.11211859713544009
+        "p": 0.10491757011961919
       },
       "factors": [
         {
           "key": "home_attack",
           "label": "Ataque local",
-          "value": "1.09 goles/partido",
-          "detail": "11 % más que la media · 2 partidos"
+          "value": "1.32 goles/partido",
+          "detail": "4 % más que la media · 2 partidos"
         },
         {
           "key": "away_defense",
           "label": "Defensa visitante",
-          "value": "0.98 concedidos/partido",
-          "detail": "33 % menos que la media · 2 partidos"
+          "value": "1.26 concedidos/partido",
+          "detail": "16 % menos que la media · 2 partidos"
         },
         {
           "key": "away_attack",
           "label": "Ataque visitante",
-          "value": "1.67 goles/partido",
-          "detail": "41 % más que la media · ajustado por rival"
+          "value": "1.65 goles/partido",
+          "detail": "19 % más que la media · ajustado por rival"
         },
         {
           "key": "home_defense",
           "label": "Defensa local",
-          "value": "1.18 concedidos/partido",
-          "detail": "19 % menos que la media · ajustado por rival"
+          "value": "1.38 concedidos/partido",
+          "detail": "7 % menos que la media · ajustado por rival"
         },
         {
           "key": "home_advantage",
           "label": "Localía",
-          "value": "×1.00",
+          "value": "×1.04",
           "detail": "estimada de 84 partidos"
         },
         {
           "key": "uncertainty",
           "label": "Intervalo 90%",
-          "value": "goles 1.6–5.2",
-          "detail": "local 6%–64% · 84 partidos"
+          "value": "goles 2.1–4.5",
+          "detail": "local 11%–60% · 84 partidos"
         },
         {
           "key": "home_position",
@@ -10176,45 +10180,46 @@
         }
       ],
       "steps": [
-        "Sincronizando Carabao Cup · corte 19 nov 2026, 10:05",
-        "Fuerza ajustada por rival · LIV 1.11 / 0.81 · BOU 1.41 / 0.67",
-        "Ponderando 71.7 partidos por antigüedad y calidad del rival",
-        "Proyección de goles 1.08 – 1.67 · total 2.75",
+        "Sincronizando Carabao Cup · corte 21 nov 2026, 22:33",
+        "Fuerza ajustada por rival · LIV 1.04 / 0.93 · BOU 1.19 / 0.84",
+        "Ponderando 71.3 partidos por antigüedad y calidad del rival",
+        "Proyección de goles 1.36 – 1.65 · total 3.02",
         "Simulando 121 marcadores con incertidumbre del ajuste",
         "20 mercados listos · marcador proyectado 1–2"
       ],
-      "inputsAsOf": "2026-11-19T16:05:39.021Z",
+      "inputsAsOf": "2026-11-22T04:33:15.743Z",
       "publishedAt": "2026-11-19T16:05:39.021Z",
       "source": "pitchlab-football-v2",
       "picks": [
         {
           "profile": "conservadora",
-          "market": "double_chance",
-          "selection": "12",
-          "label": "Sin empate",
-          "p": 0.7684648931952553,
-          "fairOdds": 1.3012956204700883
+          "market": "totals",
+          "selection": "over_1.5",
+          "label": "Más de 1.5 goles",
+          "line": 1.5,
+          "p": 0.7975950904445892,
+          "fairOdds": 1.2537690013144236
         },
         {
           "profile": "intermedia",
-          "market": "btts",
-          "selection": "yes",
-          "label": "Ambos anotan: Sí",
-          "p": 0.5313403347044956,
-          "fairOdds": 1.8820329169178338
+          "market": "double_chance",
+          "selection": "x2",
+          "label": "Bournemouth o empate",
+          "p": 0.6770938138695659,
+          "fairOdds": 1.4769002160646503
         },
         {
           "profile": "arriesgada",
-          "market": "totals",
-          "selection": "over_2.5",
-          "label": "Más de 2.5",
-          "line": 2.5,
-          "p": 0.5191434229863754,
-          "fairOdds": 1.926249964311393
+          "market": "team_totals",
+          "selection": "away_under",
+          "label": "Bournemouth menos de 1.5 goles",
+          "line": 1.5,
+          "p": 0.5085525410417078,
+          "fairOdds": 1.9663651624896459
         }
       ],
       "confidence": {
-        "score": 30,
+        "score": 21,
         "level": "baja",
         "reasons": [
           "Poca muestra esta temporada",
@@ -10224,16 +10229,16 @@
       "projectedScore": {
         "home": 1,
         "away": 2,
-        "p": 0.09619797117787039
+        "p": 0.09117893426269841
       },
       "insights": {
         "why": [
-          "Se esperan 2.8 goles: 1.1 de Liverpool y 1.7 de Bournemouth.",
-          "Bournemouth concede 33 % menos que la media.",
-          "Bournemouth anota 41 % más que la media."
+          "Bournemouth gana en 45% de los escenarios; el empate, en 23%.",
+          "Bournemouth anota 19 % más que la media.",
+          "Bournemouth concede 16 % menos que la media."
         ]
       },
-      "picksAt": "2026-11-19T16:05:39.021Z",
+      "picksAt": "2026-11-22T04:33:15.743Z",
       "matchContext": {
         "stageName": "Quarterfinals",
         "venueCity": "Liverpool",
@@ -10250,145 +10255,145 @@
         "label": "Modelo PitchLab · en validación"
       },
       "projection": {
-        "home": 1.1085032864249058,
-        "away": 1.2111153253085365,
-        "total": 2.3196186117334423,
-        "margin": -0.10261203888363069
+        "home": 1.3496464130718024,
+        "away": 1.3753199078307388,
+        "total": 2.724966320902541,
+        "margin": -0.02567349475893632
       },
       "x12": [
-        0.3404629924725842,
-        0.26858936538802325,
-        0.39094764213939265
+        0.3718005886963888,
+        0.2446146408719708,
+        0.38358477043164
       ],
       "probabilities": [
         {
           "market": "h2h",
           "selection": "Fleetwood Town gana",
-          "p": 0.3404629924725842,
-          "fairOdds": 2.937176791925557
+          "p": 0.3718005886963888,
+          "fairOdds": 2.689613815583807
         },
         {
           "market": "h2h",
           "selection": "Empate",
-          "p": 0.26858936538802325,
-          "fairOdds": 3.723155600577592
+          "p": 0.2446146408719708,
+          "fairOdds": 4.08806274405869
         },
         {
           "market": "h2h",
           "selection": "Everton gana",
-          "p": 0.39094764213939265,
-          "fairOdds": 2.557887277507737
+          "p": 0.38358477043164,
+          "fairOdds": 2.6069856706634122
         },
         {
           "market": "double_chance",
           "selection": "Fleetwood Town o empate",
-          "p": 0.6090523578606075,
-          "fairOdds": 1.641894965340349
+          "p": 0.6164152295683596,
+          "fairOdds": 1.6222830845698653
         },
         {
           "market": "double_chance",
           "selection": "Everton o empate",
-          "p": 0.6595370075274158,
-          "fairOdds": 1.5162151457565203
+          "p": 0.6281994113036108,
+          "fairOdds": 1.591851221135094
         },
         {
           "market": "double_chance",
           "selection": "Sin empate",
-          "p": 0.7314106346119769,
-          "fairOdds": 1.3672210283495718
+          "p": 0.7553853591280288,
+          "fairOdds": 1.3238276171441017
         },
         {
           "market": "totals",
-          "selection": "Más de 1.5",
+          "selection": "Más de 1.5 goles",
           "line": 1.5,
-          "p": 0.6670454444946929,
-          "fairOdds": 1.4991482338321493
+          "p": 0.7497507367533162,
+          "fairOdds": 1.333776615319314
         },
         {
           "market": "totals",
-          "selection": "Más de 2.5",
+          "selection": "Más de 2.5 goles",
           "line": 2.5,
-          "p": 0.40915689534100874,
-          "fairOdds": 2.4440502198222944
+          "p": 0.5124712254497596,
+          "fairOdds": 1.9513290704709731
         },
         {
           "market": "totals",
-          "selection": "Menos de 2.5",
+          "selection": "Menos de 2.5 goles",
           "line": 2.5,
-          "p": 0.5908431046589913,
-          "fairOdds": 1.6924966917861488
+          "p": 0.48752877455024035,
+          "fairOdds": 2.0511609820826053
         },
         {
           "market": "totals",
-          "selection": "Más de 3.5",
+          "selection": "Más de 3.5 goles",
           "line": 3.5,
-          "p": 0.2046532836339352,
-          "fairOdds": 4.886312998469681
+          "p": 0.2914191894511404,
+          "fairOdds": 3.4314830189576817
         },
         {
           "market": "totals",
-          "selection": "Menos de 3.5",
+          "selection": "Menos de 3.5 goles",
           "line": 3.5,
-          "p": 0.7953467163660648,
-          "fairOdds": 1.2573132942183944
+          "p": 0.7085808105488596,
+          "fairOdds": 1.4112716363648206
         },
         {
           "market": "btts",
           "selection": "Sí",
-          "p": 0.4637943334912965,
-          "fairOdds": 2.1561281106483503
+          "p": 0.5473741270942672,
+          "fairOdds": 1.8269040323635588
         },
         {
           "market": "btts",
           "selection": "No",
-          "p": 0.5362056665087035,
-          "fairOdds": 1.8649560466436592
+          "p": 0.45262587290573275,
+          "fairOdds": 2.2093301772173937
         },
         {
           "market": "team_totals",
-          "selection": "Fleetwood Town más de 1.5",
+          "selection": "Fleetwood Town más de 1.5 goles",
           "line": 1.5,
-          "p": 0.30408301855730135,
-          "fairOdds": 3.2885756157789525
+          "p": 0.3906615148742614,
+          "fairOdds": 2.5597607184876168
         },
         {
           "market": "team_totals",
-          "selection": "Fleetwood Town menos de 1.5",
+          "selection": "Fleetwood Town menos de 1.5 goles",
           "line": 1.5,
-          "p": 0.6959169814426986,
-          "fairOdds": 1.4369530082839908
+          "p": 0.6093384851257386,
+          "fairOdds": 1.641123980202313
         },
         {
           "market": "team_totals",
-          "selection": "Everton más de 1.5",
+          "selection": "Everton más de 1.5 goles",
           "line": 1.5,
-          "p": 0.3413863587845992,
-          "fairOdds": 2.9292324495922784
+          "p": 0.39961702968423674,
+          "fairOdds": 2.502395858330073
         },
         {
           "market": "team_totals",
-          "selection": "Everton menos de 1.5",
+          "selection": "Everton menos de 1.5 goles",
           "line": 1.5,
-          "p": 0.6586136412154008,
-          "fairOdds": 1.5183408563397007
-        },
-        {
-          "market": "correct_score",
-          "selection": "0–1",
-          "p": 0.12566531469302616,
-          "fairOdds": 7.957645293315732
+          "p": 0.6003829703157633,
+          "fairOdds": 1.6656035388113417
         },
         {
           "market": "correct_score",
           "selection": "1–1",
-          "p": 0.12538586162629897,
-          "fairOdds": 7.975380852590924
+          "p": 0.1155871863808147,
+          "fairOdds": 8.651477999519688
+        },
+        {
+          "market": "correct_score",
+          "selection": "0–1",
+          "p": 0.09623360900935685,
+          "fairOdds": 10.391380000128327
         },
         {
           "market": "correct_score",
           "selection": "1–0",
-          "p": 0.11557741405975124,
-          "fairOdds": 8.652209500750898
+          "p": 0.09455075150796506,
+          "fairOdds": 10.576330532029234
         }
       ],
       "marketGroups": [
@@ -10399,22 +10404,22 @@
               "market": "h2h",
               "selection": "home",
               "label": "Fleetwood Town gana",
-              "p": 0.3404629924725842,
-              "fairOdds": 2.937176791925557
+              "p": 0.3718005886963888,
+              "fairOdds": 2.689613815583807
             },
             {
               "market": "h2h",
               "selection": "draw",
               "label": "Empate",
-              "p": 0.26858936538802325,
-              "fairOdds": 3.723155600577592
+              "p": 0.2446146408719708,
+              "fairOdds": 4.08806274405869
             },
             {
               "market": "h2h",
               "selection": "away",
               "label": "Everton gana",
-              "p": 0.39094764213939265,
-              "fairOdds": 2.557887277507737
+              "p": 0.38358477043164,
+              "fairOdds": 2.6069856706634122
             }
           ]
         },
@@ -10425,22 +10430,22 @@
               "market": "double_chance",
               "selection": "1x",
               "label": "Fleetwood Town o empate",
-              "p": 0.6090523578606075,
-              "fairOdds": 1.641894965340349
+              "p": 0.6164152295683596,
+              "fairOdds": 1.6222830845698653
             },
             {
               "market": "double_chance",
               "selection": "x2",
               "label": "Everton o empate",
-              "p": 0.6595370075274158,
-              "fairOdds": 1.5162151457565203
+              "p": 0.6281994113036108,
+              "fairOdds": 1.591851221135094
             },
             {
               "market": "double_chance",
               "selection": "12",
               "label": "Sin empate",
-              "p": 0.7314106346119769,
-              "fairOdds": 1.3672210283495718
+              "p": 0.7553853591280288,
+              "fairOdds": 1.3238276171441017
             }
           ]
         },
@@ -10450,42 +10455,42 @@
             {
               "market": "totals",
               "selection": "over_1.5",
-              "label": "Más de 1.5",
+              "label": "Más de 1.5 goles",
               "line": 1.5,
-              "p": 0.6670454444946929,
-              "fairOdds": 1.4991482338321493
+              "p": 0.7497507367533162,
+              "fairOdds": 1.333776615319314
             },
             {
               "market": "totals",
               "selection": "over_2.5",
-              "label": "Más de 2.5",
+              "label": "Más de 2.5 goles",
               "line": 2.5,
-              "p": 0.40915689534100874,
-              "fairOdds": 2.4440502198222944
+              "p": 0.5124712254497596,
+              "fairOdds": 1.9513290704709731
             },
             {
               "market": "totals",
               "selection": "under_2.5",
-              "label": "Menos de 2.5",
+              "label": "Menos de 2.5 goles",
               "line": 2.5,
-              "p": 0.5908431046589913,
-              "fairOdds": 1.6924966917861488
+              "p": 0.48752877455024035,
+              "fairOdds": 2.0511609820826053
             },
             {
               "market": "totals",
               "selection": "over_3.5",
-              "label": "Más de 3.5",
+              "label": "Más de 3.5 goles",
               "line": 3.5,
-              "p": 0.2046532836339352,
-              "fairOdds": 4.886312998469681
+              "p": 0.2914191894511404,
+              "fairOdds": 3.4314830189576817
             },
             {
               "market": "totals",
               "selection": "under_3.5",
-              "label": "Menos de 3.5",
+              "label": "Menos de 3.5 goles",
               "line": 3.5,
-              "p": 0.7953467163660648,
-              "fairOdds": 1.2573132942183944
+              "p": 0.7085808105488596,
+              "fairOdds": 1.4112716363648206
             }
           ]
         },
@@ -10496,15 +10501,15 @@
               "market": "btts",
               "selection": "yes",
               "label": "Sí",
-              "p": 0.4637943334912965,
-              "fairOdds": 2.1561281106483503
+              "p": 0.5473741270942672,
+              "fairOdds": 1.8269040323635588
             },
             {
               "market": "btts",
               "selection": "no",
               "label": "No",
-              "p": 0.5362056665087035,
-              "fairOdds": 1.8649560466436592
+              "p": 0.45262587290573275,
+              "fairOdds": 2.2093301772173937
             }
           ]
         },
@@ -10514,34 +10519,34 @@
             {
               "market": "team_totals",
               "selection": "home_over",
-              "label": "Fleetwood Town más de 1.5",
+              "label": "Fleetwood Town más de 1.5 goles",
               "line": 1.5,
-              "p": 0.30408301855730135,
-              "fairOdds": 3.2885756157789525
+              "p": 0.3906615148742614,
+              "fairOdds": 2.5597607184876168
             },
             {
               "market": "team_totals",
               "selection": "home_under",
-              "label": "Fleetwood Town menos de 1.5",
+              "label": "Fleetwood Town menos de 1.5 goles",
               "line": 1.5,
-              "p": 0.6959169814426986,
-              "fairOdds": 1.4369530082839908
+              "p": 0.6093384851257386,
+              "fairOdds": 1.641123980202313
             },
             {
               "market": "team_totals",
               "selection": "away_over",
-              "label": "Everton más de 1.5",
+              "label": "Everton más de 1.5 goles",
               "line": 1.5,
-              "p": 0.3413863587845992,
-              "fairOdds": 2.9292324495922784
+              "p": 0.39961702968423674,
+              "fairOdds": 2.502395858330073
             },
             {
               "market": "team_totals",
               "selection": "away_under",
-              "label": "Everton menos de 1.5",
+              "label": "Everton menos de 1.5 goles",
               "line": 1.5,
-              "p": 0.6586136412154008,
-              "fairOdds": 1.5183408563397007
+              "p": 0.6003829703157633,
+              "fairOdds": 1.6656035388113417
             }
           ]
         },
@@ -10550,69 +10555,69 @@
           "rows": [
             {
               "market": "correct_score",
-              "selection": "0-1",
-              "label": "0–1",
-              "p": 0.12566531469302616,
-              "fairOdds": 7.957645293315732
+              "selection": "1-1",
+              "label": "1–1",
+              "p": 0.1155871863808147,
+              "fairOdds": 8.651477999519688
             },
             {
               "market": "correct_score",
-              "selection": "1-1",
-              "label": "1–1",
-              "p": 0.12538586162629897,
-              "fairOdds": 7.975380852590924
+              "selection": "0-1",
+              "label": "0–1",
+              "p": 0.09623360900935685,
+              "fairOdds": 10.391380000128327
             },
             {
               "market": "correct_score",
               "selection": "1-0",
               "label": "1–0",
-              "p": 0.11557741405975124,
-              "fairOdds": 8.652209500750898
+              "p": 0.09455075150796506,
+              "fairOdds": 10.576330532029234
             }
           ]
         }
       ],
       "mostLikelyScore": {
-        "home": 0,
+        "home": 1,
         "away": 1,
-        "p": 0.12566531469302616
+        "p": 0.1155871863808147
       },
       "factors": [
         {
           "key": "home_attack",
           "label": "Ataque local",
-          "value": "1.11 goles/partido",
-          "detail": "10 % más que la media · 4 partidos"
+          "value": "1.30 goles/partido",
+          "detail": "4 % más que la media · 4 partidos"
         },
         {
           "key": "away_defense",
           "label": "Defensa visitante",
-          "value": "1.01 concedidos/partido",
-          "detail": "31 % menos que la media · 3 partidos"
+          "value": "1.25 concedidos/partido",
+          "detail": "16 % menos que la media · 3 partidos"
         },
         {
           "key": "away_attack",
           "label": "Ataque visitante",
-          "value": "1.21 goles/partido",
-          "detail": "36 % más que la media · ajustado por rival"
+          "value": "1.38 goles/partido",
+          "detail": "17 % más que la media · ajustado por rival"
         },
         {
           "key": "home_defense",
           "label": "Defensa local",
-          "value": "0.89 concedidos/partido",
-          "detail": "39 % menos que la media · ajustado por rival"
+          "value": "1.18 concedidos/partido",
+          "detail": "21 % menos que la media · ajustado por rival"
         },
         {
           "key": "home_advantage",
           "label": "Localía",
-          "value": "×1.00",
+          "value": "×1.04",
           "detail": "estimada de 84 partidos"
         },
         {
           "key": "uncertainty",
           "label": "Intervalo 90%",
-          "value": "goles 1.5–4.5",
-          "detail": "local 8%–75% · 84 partidos"
+          "value": "goles 2.0–4.1",
+          "detail": "local 16%–63% · 84 partidos"
         },
         {
           "key": "home_position",
@@ -10640,46 +10645,45 @@
         }
       ],
       "steps": [
-        "Sincronizando Carabao Cup · corte 19 nov 2026, 10:05",
-        "Fuerza ajustada por rival · FLE 1.10 / 0.61 · EVE 1.36 / 0.69",
-        "Ponderando 71.7 partidos por antigüedad y calidad del rival",
-        "Proyección de goles 1.11 – 1.21 · total 2.32",
+        "Sincronizando Carabao Cup · corte 21 nov 2026, 22:33",
+        "Fuerza ajustada por rival · FLE 1.04 / 0.79 · EVE 1.17 / 0.84",
+        "Ponderando 71.3 partidos por antigüedad y calidad del rival",
+        "Proyección de goles 1.35 – 1.38 · total 2.72",
         "Simulando 121 marcadores con incertidumbre del ajuste",
-        "20 mercados listos · marcador proyectado 0–1"
+        "20 mercados listos · marcador proyectado 1–2"
       ],
-      "inputsAsOf": "2026-11-19T16:05:39.021Z",
+      "inputsAsOf": "2026-11-22T04:33:15.743Z",
       "publishedAt": "2026-11-19T16:05:39.021Z",
       "source": "pitchlab-football-v2",
       "picks": [
         {
           "profile": "conservadora",
-          "market": "totals",
-          "selection": "under_3.5",
-          "label": "Menos de 3.5",
-          "line": 3.5,
-          "p": 0.7953467163660648,
-          "fairOdds": 1.2573132942183944
+          "market": "double_chance",
+          "selection": "12",
+          "label": "Sin empate",
+          "p": 0.7553853591280288,
+          "fairOdds": 1.3238276171441017
         },
         {
           "profile": "intermedia",
-          "market": "team_totals",
-          "selection": "home_under",
-          "label": "Fleetwood Town menos de 1.5",
-          "line": 1.5,
-          "p": 0.6959169814426986,
-          "fairOdds": 1.4369530082839908
+          "market": "double_chance",
+          "selection": "x2",
+          "label": "Everton o empate",
+          "p": 0.6281994113036108,
+          "fairOdds": 1.591851221135094
         },
         {
           "profile": "arriesgada",
-          "market": "btts",
-          "selection": "yes",
-          "label": "Ambos anotan: Sí",
-          "p": 0.4637943334912965,
-          "fairOdds": 2.1561281106483503
+          "market": "totals",
+          "selection": "over_2.5",
+          "label": "Más de 2.5 goles",
+          "line": 2.5,
+          "p": 0.5124712254497596,
+          "fairOdds": 1.9513290704709731
         }
       ],
       "confidence": {
-        "score": 14,
+        "score": 15,
         "level": "baja",
         "reasons": [
           "Partido parejo",
@@ -10688,18 +10692,18 @@
         ]
       },
       "projectedScore": {
-        "home": 0,
-        "away": 1,
-        "p": 0.12566531469302616
+        "home": 1,
+        "away": 2,
+        "p": 0.08366808343140868
       },
       "insights": {
         "why": [
-          "Se esperan 2.3 goles: 1.1 de Fleetwood Town y 1.2 de Everton.",
-          "Fleetwood Town concede 39 % menos que la media.",
-          "Everton concede 31 % menos que la media."
+          "Everton gana en 38% de los escenarios; el empate, en 24%.",
+          "Fleetwood Town concede 21 % menos que la media.",
+          "Everton concede 16 % menos que la media."
         ]
       },
-      "picksAt": "2026-11-19T16:05:39.021Z",
+      "picksAt": "2026-11-22T04:33:15.743Z",
       "matchContext": {
         "stageName": "Quarterfinals",
         "venueCity": "Fleetwood",
