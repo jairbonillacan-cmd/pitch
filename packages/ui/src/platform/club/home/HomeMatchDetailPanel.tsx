@@ -1307,16 +1307,18 @@ export function HomeMatchDetailPanel({
               />
               <strong className="pl-home-md-side-name">{game.home.name}</strong>
             </a>
-            {homeForm ? (
-              <AtomicFormStrip
-                form={homeForm}
-                sport={game.sport}
-                max={5}
-                size="xs"
-                teamName={game.home.shortName || game.home.name}
-                emptyFallback={null}
-              />
-            ) : null}
+            <div className="pl-home-md-form-slot" aria-hidden={!homeForm ? true : undefined}>
+              {homeForm ? (
+                <AtomicFormStrip
+                  form={homeForm}
+                  sport={game.sport}
+                  max={5}
+                  size="xs"
+                  teamName={game.home.shortName || game.home.name}
+                  emptyFallback={null}
+                />
+              ) : null}
+            </div>
           </div>
 
           <div className="pl-home-md-center-score num">
@@ -1372,16 +1374,18 @@ export function HomeMatchDetailPanel({
               />
               <strong className="pl-home-md-side-name">{game.away.name}</strong>
             </a>
-            {awayForm ? (
-              <AtomicFormStrip
-                form={awayForm}
-                sport={game.sport}
-                max={5}
-                size="xs"
-                teamName={game.away.shortName || game.away.name}
-                emptyFallback={null}
-              />
-            ) : null}
+            <div className="pl-home-md-form-slot" aria-hidden={!awayForm ? true : undefined}>
+              {awayForm ? (
+                <AtomicFormStrip
+                  form={awayForm}
+                  sport={game.sport}
+                  max={5}
+                  size="xs"
+                  teamName={game.away.shortName || game.away.name}
+                  emptyFallback={null}
+                />
+              ) : null}
+            </div>
           </div>
         </div>
 

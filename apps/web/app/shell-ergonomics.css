@@ -1592,6 +1592,13 @@
     text-wrap: balance;
   }
 
+  .pl-home-md-form-slot {
+    min-block-size: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
   .pl-home-md-center-score {
     display: flex;
     flex-direction: column;
