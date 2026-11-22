@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { suggestHandles } from "@pitchlab/db";
 import { withPublicRead } from "../../../../src/server/api-guards";
+import { sanitizeQueryText } from "../../../../src/server/query-params";
 import { getAuth } from "../../../../src/server/auth";
 import { profileIdForAuthUser } from "../../../../src/server/member-data";
 import {
@@ -43,7 +44,7 @@ export const GET = withPublicRead(
       }
     }
 
-    const rawName = new URL(request.url).searchParams.get("name")?.slice(0, 60) ?? "";
+    const rawName = sanitizeQueryText(new URL(request.url).searchParams.get("name"), 60);
     const bases = [rawName, session?.user?.name ?? "", session?.user?.email ?? ""]
       .map((value) => value.trim())
       .filter(Boolean);

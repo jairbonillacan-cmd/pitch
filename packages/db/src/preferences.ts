@@ -372,6 +372,11 @@ export async function upsertUserPreferences(
   now = new Date(),
 ): Promise<UserPreferencesRecord> {
   return withDbTransaction(db, async (t) => {
+    await t
+      .select({ id: users.id })
+      .from(users)
+      .where(eq(users.id, userId))
+      .for("update");
     const current = await getUserPreferences(t, userId);
 
     const oddsFormat: OddsFormatPref = patch.oddsFormat ?? current.oddsFormat;

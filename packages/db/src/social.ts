@@ -1,5 +1,6 @@
 import { and, asc, desc, eq, gte, inArray, isNotNull, isNull, lt, ne, or, sql } from "drizzle-orm";
 import type { Db } from "./billing";
+import { withDbTransaction } from "./client";
 import { sanitizeFollowedTopics } from "./preferences";
 import {
   notifications,
@@ -1288,6 +1289,7 @@ export async function reportSocialContent(
   if (!isSocialReportReason(input.reason)) {
     return { ok: false, reason: "motivo_invalido" };
   }
+  const reason: SocialReportReason = input.reason;
   const postId = typeof input.postId === "string" && UUID_PATTERN.test(input.postId.trim()) ? input.postId.trim() : null;
   const commentId =
     typeof input.commentId === "string" && UUID_PATTERN.test(input.commentId.trim()) ? input.commentId.trim() : null;
@@ -1340,43 +1342,69 @@ export async function reportSocialContent(
     return { ok: false, reason: "limite" };
   }
 
-  const inserted = await db
-    .insert(socialReports)
-    .values({
-      reporterUserId,
-      postId,
-      commentId,
-      reason: input.reason,
-      status: "pending",
-      createdAt: now,
-    })
-    .onConflictDoNothing()
-    .returning({ id: socialReports.id });
-  if (inserted.length === 0) {
-    return { ok: false, reason: "ya_reportado" };
-  }
-
-  const [{ reporterCount }] = await db
-    .select({ reporterCount: sql<number>`count(distinct ${socialReports.reporterUserId})::int` })
-    .from(socialReports)
-    .where(and(eq(socialReports.status, "pending"), targetMatch));
-
-  let autoHidden = false;
-  if (reporterCount >= SOCIAL_LIMITS.autoHideReportThreshold && !targetAlreadyHidden) {
-    if (postId) {
-      await db.update(socialPosts).set({ isHiddenByModeration: true }).where(eq(socialPosts.id, postId));
-    } else {
-      await db.update(socialComments).set({ isHiddenByModeration: true }).where(eq(socialComments.id, commentId!));
+  return withDbTransaction(db, async (t) => {
+    const targetLock = postId
+      ? t
+          .select({ hidden: socialPosts.isHiddenByModeration })
+          .from(socialPosts)
+          .where(eq(socialPosts.id, postId))
+          .for("update")
+      : t
+          .select({ hidden: socialComments.isHiddenByModeration })
+          .from(socialComments)
+          .where(eq(socialComments.id, commentId!))
+          .for("update");
+    const [lockedTarget] = await targetLock;
+    if (!lockedTarget) {
+      return { ok: false, reason: "no_existe" } as const;
     }
-    await db.insert(socialModerationLogs).values({
-      userId: targetAuthorId,
-      reason: `auto_ocultar:${postId ? `post:${postId}` : `comment:${commentId}`}:${reporterCount}_reportes`,
-      createdAt: now,
-    });
-    autoHidden = true;
-  }
 
-  return { ok: true, id: inserted[0]!.id, autoHidden };
+    const inserted = await t
+      .insert(socialReports)
+      .values({
+        reporterUserId,
+        postId,
+        commentId,
+        reason,
+        status: "pending",
+        createdAt: now,
+      })
+      .onConflictDoNothing()
+      .returning({ id: socialReports.id });
+    if (inserted.length === 0) {
+      return { ok: false, reason: "ya_reportado" } as const;
+    }
+
+    const [{ reporterCount }] = await t
+      .select({ reporterCount: sql<number>`count(distinct ${socialReports.reporterUserId})::int` })
+      .from(socialReports)
+      .where(and(eq(socialReports.status, "pending"), targetMatch));
+
+    let autoHidden = false;
+    if (reporterCount >= SOCIAL_LIMITS.autoHideReportThreshold && !lockedTarget.hidden && !targetAlreadyHidden) {
+      const hiddenRows = postId
+        ? await t
+            .update(socialPosts)
+            .set({ isHiddenByModeration: true })
+            .where(and(eq(socialPosts.id, postId), eq(socialPosts.isHiddenByModeration, false)))
+            .returning({ id: socialPosts.id })
+        : await t
+            .update(socialComments)
+            .set({ isHiddenByModeration: true })
+            .where(and(eq(socialComments.id, commentId!), eq(socialComments.isHiddenByModeration, false)))
+            .returning({ id: socialComments.id });
+      if (hiddenRows.length > 0) {
+        await t.insert(socialModerationLogs).values({
+          userId: targetAuthorId,
+          reason: `auto_ocultar:${postId ? `post:${postId}` : `comment:${commentId}`}:${reporterCount}_reportes`,
+          createdAt: now,
+        });
+        autoHidden = true;
+      }
+    }
+
+    return { ok: true, id: inserted[0]!.id, autoHidden } as const;
+  });
 }
 
 export interface ModerationQueueItem {

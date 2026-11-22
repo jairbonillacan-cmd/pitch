@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import { parseStrictFiniteNumber } from "@pitchlab/contracts";
 import { withSessionRead } from "../../../../src/server/api-guards";
 import { loadScreenerApiPage } from "../../../../src/server/platform-data";
+import { sanitizeQueryText } from "../../../../src/server/query-params";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
@@ -45,10 +46,8 @@ function parseOptionalBool(raw: string | null): boolean | undefined {
 }
 
 function parseOptionalText(raw: string | null, maxLen: number): string | undefined {
-  if (raw === null) return undefined;
-  const trimmed = raw.trim();
-  if (!trimmed) return undefined;
-  return trimmed.slice(0, maxLen);
+  const clean = sanitizeQueryText(raw, maxLen);
+  return clean || undefined;
 }
 
 export const GET = withSessionRead(

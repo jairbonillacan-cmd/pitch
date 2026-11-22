@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import { parseStrictFiniteNumber } from "@pitchlab/contracts";
 import { withSessionRead } from "../../../../src/server/api-guards";
 import { searchPlayersDirectory } from "../../../../src/server/player-search";
+import { sanitizeQueryText } from "../../../../src/server/query-params";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
@@ -22,14 +23,14 @@ export const GET = withSessionRead(
     allowBetaPin: true,
     watermark: true,
     resourceKey: ({ request }) =>
-      new URL(request.url).searchParams.get("q")?.trim().toLowerCase() ?? null,
+      sanitizeQueryText(new URL(request.url).searchParams.get("q"), 80).toLowerCase() || null,
     cacheControl: "private, no-store",
   },
   ({ request }) => {
     const url = new URL(request.url);
-    const q = (url.searchParams.get("q") ?? "").trim().slice(0, 80);
-    const league = url.searchParams.get("league")?.trim() || null;
-    const team = url.searchParams.get("team")?.trim() || null;
+    const q = sanitizeQueryText(url.searchParams.get("q"), 80);
+    const league = sanitizeQueryText(url.searchParams.get("league"), 64) || null;
+    const team = sanitizeQueryText(url.searchParams.get("team"), 120) || null;
     const limit = parseBoundedLimit(url.searchParams.get("limit"));
 
     if (q.length < 2) {

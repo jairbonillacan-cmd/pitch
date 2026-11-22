@@ -4,6 +4,7 @@ import { createSocialPost, getSocialPostById, listSocialFeed } from "@pitchlab/d
 import { z } from "zod";
 import { withActivePaseMutation, withSessionRead } from "../../../../src/server/api-guards";
 import { withAuthorBadges } from "../../../../src/server/badges";
+import { hasControlOrBidiChars, sanitizeQueryText } from "../../../../src/server/query-params";
 import { parseNewPost, reasonResponse } from "../../../../src/server/social";
 
 export const runtime = "nodejs";
@@ -41,13 +42,24 @@ export const GET = withSessionRead(
     watermark: true,
     resourceKey: ({ request }) => {
       const params = new URL(request.url).searchParams;
-      return params.get("before") ?? params.get("author") ?? params.get("gameId") ?? "feed";
+      return (
+        sanitizeQueryText(params.get("before") ?? params.get("author") ?? params.get("gameId"), 128) ||
+        "feed"
+      );
     },
   },
   async ({ request, user }) => {
     const url = new URL(request.url);
     const before = url.searchParams.get("before");
-    const beforeDate = before ? new Date(before) : undefined;
+    let beforeDate: Date | undefined;
+    if (before !== null && before.trim() !== "") {
+      const parsedTs = hasControlOrBidiChars(before) ? Number.NaN : Date.parse(before.trim());
+      if (!Number.isFinite(parsedTs)) {
+        const err = createSanitizedErrorPayload("INVALID_CURSOR", "Cursor de fecha inválido.");
+        return NextResponse.json({ ok: false, error: err.message, code: err.code }, { status: 400 });
+      }
+      beforeDate = new Date(parsedTs);
+    }
     const sort = url.searchParams.get("sort") === "most_commented" ? "most_commented" : "recent";
     const rawLimit = url.searchParams.get("limit");
     const parsedLimit = rawLimit === null ? null : parseStrictFiniteNumber(rawLimit);
@@ -57,11 +69,11 @@ export const GET = withSessionRead(
         : undefined;
     const posts = await listSocialFeed(user.db, user.userId, {
       limit,
-      before: beforeDate && !Number.isNaN(beforeDate.getTime()) ? beforeDate : undefined,
-      authorHandle: url.searchParams.get("author")?.trim().slice(0, 32) || undefined,
+      before: beforeDate,
+      authorHandle: sanitizeQueryText(url.searchParams.get("author"), 32) || undefined,
       following: url.searchParams.get("following") === "1",
-      gameId: url.searchParams.get("gameId")?.trim().slice(0, 128) || undefined,
-      leagueLabel: url.searchParams.get("league")?.trim().slice(0, 60) || undefined,
+      gameId: sanitizeQueryText(url.searchParams.get("gameId"), 128) || undefined,
+      leagueLabel: sanitizeQueryText(url.searchParams.get("league"), 60) || undefined,
       openPickOnly: url.searchParams.get("openPick") === "1",
       sort,
     });

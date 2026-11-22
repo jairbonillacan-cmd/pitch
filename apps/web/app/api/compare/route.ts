@@ -5,6 +5,7 @@ import type {
   TeamComparisonPayload,
 } from "@pitchlab/ui/compare";
 import { withSessionRead } from "../../../src/server/api-guards";
+import { hasControlOrBidiChars, sanitizeQueryText } from "../../../src/server/query-params";
 import {
   listComparePlayersForLeague,
   loadPlayerComparison,
@@ -107,18 +108,23 @@ export const GET = withSessionRead(
     bucket: "compare",
     allowBetaPin: true,
     watermark: true,
-    resourceKey: ({ request }) => new URL(request.url).search,
+    resourceKey: ({ request }) => new URL(request.url).search.slice(0, 200),
     cacheControl: "private, no-store",
   },
   async ({ request, access }) => {
     const url = new URL(request.url);
     const mode = url.searchParams.get("modo") === "jugadores" ? "jugadores" : "equipos";
-    const league = (url.searchParams.get("liga") ?? "liga-mx").trim().toLowerCase();
+    const league = sanitizeQueryText(url.searchParams.get("liga") ?? "liga-mx", 64).toLowerCase();
     if (!isProductLeague(league)) {
       return NextResponse.json({ error: "Liga no válida" }, { status: 400 });
     }
-    const a = (url.searchParams.get("a") ?? "").trim();
-    const b = (url.searchParams.get("b") ?? "").trim();
+    const rawA = url.searchParams.get("a") ?? "";
+    const rawB = url.searchParams.get("b") ?? "";
+    if (hasControlOrBidiChars(rawA) || hasControlOrBidiChars(rawB)) {
+      return NextResponse.json({ error: "Parámetro inválido" }, { status: 400 });
+    }
+    const a = sanitizeQueryText(rawA, 120);
+    const b = sanitizeQueryText(rawB, 120);
 
     const opts = { fullAccess: access.fullAccess };
 

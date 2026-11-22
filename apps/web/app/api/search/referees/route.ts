@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { parseStrictFiniteNumber } from "@pitchlab/contracts";
 import { withSessionRead } from "../../../../src/server/api-guards";
+import { sanitizeQueryText } from "../../../../src/server/query-params";
 import {
   isProductLeagueKey,
   MAX_REFEREE_SEARCH_LIMIT,
@@ -38,9 +39,9 @@ export const GET = withSessionRead(
     watermark: true,
     resourceKey: ({ request }) => {
       const params = new URL(request.url).searchParams;
-      const q = (params.get("q") ?? "").trim().toLowerCase();
-      const league = (params.get("league") ?? "").trim().toLowerCase();
-      const tier = (params.get("tier") ?? "").trim().toLowerCase();
+      const q = sanitizeQueryText(params.get("q"), 80).toLowerCase();
+      const league = sanitizeQueryText(params.get("league"), 64).toLowerCase();
+      const tier = sanitizeQueryText(params.get("tier"), 32).toLowerCase();
       const combined = [league, tier, q].filter(Boolean).join(":");
       return combined || null;
     },
@@ -48,8 +49,8 @@ export const GET = withSessionRead(
   },
   ({ request }) => {
     const url = new URL(request.url);
-    const q = (url.searchParams.get("q") ?? "").trim().slice(0, 80);
-    const rawLeague = (url.searchParams.get("league") ?? "").trim().toLowerCase();
+    const q = sanitizeQueryText(url.searchParams.get("q"), 80);
+    const rawLeague = sanitizeQueryText(url.searchParams.get("league"), 64).toLowerCase();
     if (rawLeague && !isProductLeagueKey(rawLeague)) {
       return NextResponse.json({ error: "Liga no válida" }, { status: 400 });
     }
