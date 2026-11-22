@@ -1820,6 +1820,22 @@
     min-inline-size: 44px;
     min-block-size: 44px;
   }
+
+  .pl-com-post-avatar,
+  .pl-com-comment-avatar-link {
+    min-inline-size: 44px;
+    min-block-size: 44px;
+    align-items: center;
+    justify-content: center;
+    align-self: flex-start;
+  }
+
+  .pl-com-post-name a,
+  .pl-com-comment-author {
+    display: inline-flex;
+    align-items: center;
+    min-block-size: 44px;
+  }
 }
 
 .pl-com-menu-item:hover,

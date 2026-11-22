@@ -2513,15 +2513,27 @@ html[data-theme="light"] .pl-tipster-badge {
   .pl-prof-btn--primary,
   .pl-sw-update-btn
 ) :is(.pl-maestro-icon, .pl-pack-icon):not(.pl-emblem) {
-  filter: invert(1);
+  filter: brightness(0);
 }
 
 html[data-theme="light"] :is(
+  [data-hierarchy="primary"],
+  .button--primary,
+  .pl-btn-primary,
+  .btn-primary,
+  .pl-home-md-full-cta,
+  .pl-lh-follow-btn:not(.is-on):not([aria-pressed="true"]):not([data-active="true"]),
+  .pl-home-cal-today-btn,
+  .pl-lp-btn-primary,
+  .pl-auth-btn-primary,
+  .pl-profile-menu-cta--primary,
+  .pl-prof-btn--primary,
+  .pl-sw-update-btn,
   .pl-btn-accent,
   .btn-accent,
   .pl-scr-potd-cta
 ) :is(.pl-maestro-icon, .pl-pack-icon):not(.pl-emblem) {
-  filter: invert(1);
+  filter: brightness(0) invert(1);
 }
 
 html[data-theme="light"] .share-ticket-card :is(
@@ -3258,6 +3270,8 @@ html[data-theme="light"] .pl-menu-seg button[aria-pressed="true"] {
 .pl-club-footer a {
   display: inline-flex;
   align-items: center;
+  justify-content: center;
+  min-width: 44px;
   min-height: 44px;
   color: var(--pl-text-secondary);
   text-decoration: none;
@@ -16392,6 +16406,14 @@ dialog.pl-native-dialog.pl-home-fmodal-dialog[open] {
   outline: 2px solid var(--pl-brand);
   outline-offset: 2px;
 }
+@media (max-width: 767px), (pointer: coarse) {
+  .pl-team-crumb-link {
+    display: inline-flex;
+    align-items: center;
+    min-width: 44px;
+    min-height: 44px;
+  }
+}
 .pl-team-crumb-text {
   color: var(--pl-brand);
   font-weight: 600;
@@ -18582,6 +18604,11 @@ html[data-theme="light"] .pl-clean-hero-light img {
 
   .pl-clean-leagues button {
     font-size: 13px;
+    min-width: 44px;
+    min-height: 44px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
   }
 
   .pl-clean-stat strong {

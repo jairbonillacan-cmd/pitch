@@ -1021,6 +1021,14 @@
     white-space: nowrap;
   }
 
+  @media (max-width: 767px), (pointer: coarse) {
+    a.pl-pb-player-name {
+      display: inline-flex;
+      align-items: center;
+      min-block-size: 44px;
+    }
+  }
+
   @media (min-width: 768px) and (pointer: fine) {
     .pl-pb-input {
       min-block-size: 36px;

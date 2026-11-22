@@ -2985,26 +2985,27 @@
 
   @media (max-width: 359px) {
     .pl-home-cal-popover {
-      inset-inline: 2px;
-      left: 2px;
-      right: 2px;
-      max-width: calc(100dvw - 4px);
-      max-inline-size: calc(100dvw - 4px);
+      inset-inline: 1px;
+      left: 1px;
+      right: 1px;
+      max-width: calc(100dvw - 2px);
+      max-inline-size: calc(100dvw - 2px);
+      border-inline: 0;
     }
 
     .pl-home-cal-weekdays,
     .pl-home-cal-weeks {
-      padding-inline: 2px;
+      padding-inline: 1px;
     }
 
     .pl-home-cal-weekdays,
     .pl-home-cal-week {
       grid-template-columns: repeat(7, minmax(0, 1fr));
-      gap: 1px;
+      gap: 0;
     }
 
     .pl-home-cal-day {
-      min-inline-size: 0;
+      min-inline-size: 44px;
       min-block-size: 44px;
     }
   }
