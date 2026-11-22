@@ -1,5 +1,7 @@
 import React from "react";
 import type { Meta, StoryObj } from "@storybook/react-vite";
+import { Button } from "../../components/ui/primitives";
+import { EmblemSurfaceProvider, LeagueBadge, TeamBadge } from "../../sports";
 import {
   MAESTRO_NEW_INTERFACE_ICONS,
   MaestroIcon,
@@ -263,4 +265,184 @@ export const ResolucionFamiliasOscuro: Story = {
 export const ResolucionFamiliasClaro: Story = {
   globals: { theme: "light" },
   render: () => <MarketResolutionGallery />,
+};
+
+const CTA_ROW_STYLE: React.CSSProperties = {
+  display: "flex",
+  flexWrap: "wrap",
+  alignItems: "center",
+  gap: 12,
+};
+
+const UNKNOWN_FAMILIES: readonly string[] = [
+  "",
+  "   ",
+  "mercado-desconocido",
+  "familia-sin-alias-v9",
+];
+
+function PrimaryCtaContrastGallery({
+  mobile = false,
+}: {
+  readonly mobile?: boolean;
+}): React.JSX.Element {
+  return (
+    <EmblemSurfaceProvider surface="app">
+      <main
+        style={{
+          ...STAGE_STYLE,
+          maxWidth: mobile ? 375 : 960,
+        }}
+      >
+        <section style={SECTION_STYLE}>
+          <div style={HEADER_ROW_STYLE}>
+            <h2 className="m-0 text-sm font-bold">
+              Inversión de contraste en CTAs primarios sólidos
+            </h2>
+            <span className="text-xs" style={{ color: "var(--pl-text-muted)" }}>
+              filter: invert(1) excluyendo .pl-emblem
+            </span>
+          </div>
+
+          <div style={CTA_ROW_STYLE}>
+            <Button variant="primary" size="default">
+              <MaestroIcon name="target-picks" size={16} />
+              <span>Explorar picks EV+</span>
+            </Button>
+            <Button variant="primary" size="default">
+              <MarketCategoryIcon name="expected-value" size={16} />
+              <span>Sellar pick calibrado</span>
+            </Button>
+            <Button variant="primary" size="default">
+              <PlayerMetaIcon name="jersey" size={16} />
+              <span>Abrir Props Lab</span>
+            </Button>
+            <Button variant="primary" size="default">
+              <MatchContextIcon name="weather-clear" size={16} />
+              <span>Contexto de estadio</span>
+            </Button>
+            <Button variant="primary" size="default">
+              <SportEventIcon kind="goal" size={16} />
+              <span>Seguir partido</span>
+            </Button>
+          </div>
+
+          <div style={CTA_ROW_STYLE}>
+            <button
+              type="button"
+              className="pl-btn-primary inline-flex items-center gap-2 px-4 min-h-11 rounded-md text-sm font-bold"
+            >
+              <MaestroIcon name="plus" size={15} />
+              <MarketCategoryIcon name="corners" size={16} />
+              <span>CTA sólido .pl-btn-primary</span>
+            </button>
+            <a
+              href="/app/picks"
+              onClick={(event) => event.preventDefault()}
+              className="pl-btn-accent inline-flex items-center gap-2 px-4 min-h-11 rounded-md text-sm font-bold no-underline"
+            >
+              <MaestroIcon name="unlock" size={15} />
+              <MarketCategoryIcon name="steam-move" size={16} />
+              <span>CTA acento .pl-btn-accent</span>
+            </a>
+            <a
+              href="/app/liga-mx"
+              onClick={(event) => event.preventDefault()}
+              className="pl-home-md-full-cta inline-flex items-center gap-2 px-4 min-h-11 rounded-md text-sm font-bold no-underline"
+            >
+              <span>Ver partido completo</span>
+              <MaestroIcon name="arrowRight" size={14} />
+            </a>
+          </div>
+        </section>
+
+        <section style={SECTION_STYLE}>
+          <div style={HEADER_ROW_STYLE}>
+            <h2 className="m-0 text-sm font-bold">
+              Exclusión de emblemas (.pl-emblem) vs iconos de pack
+            </h2>
+            <span className="text-xs" style={{ color: "var(--pl-text-muted)" }}>
+              Escudos sin inversión sobre CTA sólido
+            </span>
+          </div>
+          <div style={CTA_ROW_STYLE}>
+            <Button variant="primary" size="default">
+              <TeamBadge league="liga-mx" slug="club-america" name="Club América" size={18} />
+              <span>Club América · Ver ficha</span>
+              <MaestroIcon name="arrowRight" size={14} />
+            </Button>
+            <Button variant="primary" size="default">
+              <LeagueBadge league="liga-mx" label="Liga MX" size={18} />
+              <span>Liga MX · Tabla y llaves</span>
+              <MarketCategoryIcon name="result-1x2" size={16} />
+            </Button>
+            <Button variant="secondary" size="default">
+              <MarketCategoryIcon name="closing-line-value" size={16} />
+              <span>Secundario (sin inversión)</span>
+            </Button>
+            <Button variant="ghost" size="default">
+              <MaestroIcon name="verified-seal" size={16} />
+              <span>Ghost (sin inversión)</span>
+            </Button>
+          </div>
+        </section>
+      </main>
+    </EmblemSurfaceProvider>
+  );
+}
+
+function FallbackResolutionGallery(): React.JSX.Element {
+  return (
+    <section style={SECTION_STYLE}>
+      <h2 className="m-0 text-sm font-bold">
+        Respaldo seguro ante familia vacía o desconocida
+      </h2>
+      <ul role="list" style={GRID_STYLE}>
+        {UNKNOWN_FAMILIES.map((raw, index) => {
+          const resolved = resolveMarketCategoryIconKey(raw);
+          return (
+            <li key={`fallback-${index}`} style={CELL_STYLE}>
+              <MarketCategoryIcon family={raw} size={24} />
+              <span style={{ ...LABEL_STYLE, color: "var(--pl-text)", fontWeight: 700 }}>
+                {raw.trim().length > 0 ? raw : "(vacío)"}
+              </span>
+              <span style={LABEL_STYLE}>{resolved}</span>
+            </li>
+          );
+        })}
+      </ul>
+    </section>
+  );
+}
+
+export const CtaPrimarioSolidoContrasteOscuro: Story = {
+  globals: { theme: "dark" },
+  render: () => <PrimaryCtaContrastGallery />,
+};
+
+export const CtaPrimarioSolidoContrasteClaro: Story = {
+  globals: { theme: "light" },
+  render: () => <PrimaryCtaContrastGallery />,
+};
+
+export const RespaldoFamiliaVaciaOscuro: Story = {
+  globals: { theme: "dark" },
+  render: () => <FallbackResolutionGallery />,
+};
+
+export const RespaldoFamiliaVaciaClaro: Story = {
+  globals: { theme: "light" },
+  render: () => <FallbackResolutionGallery />,
+};
+
+export const MovilCtaPrimarioOscuro: Story = {
+  globals: { theme: "dark" },
+  parameters: { viewport: { defaultViewport: "mobile1" } },
+  render: () => <PrimaryCtaContrastGallery mobile />,
+};
+
+export const MovilCtaPrimarioClaro: Story = {
+  globals: { theme: "light" },
+  parameters: { viewport: { defaultViewport: "mobile1" } },
+  render: () => <PrimaryCtaContrastGallery mobile />,
 };

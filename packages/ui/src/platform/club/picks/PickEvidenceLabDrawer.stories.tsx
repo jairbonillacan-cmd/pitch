@@ -3,11 +3,15 @@ import type { Meta, StoryObj } from "@storybook/react-vite";
 import { asLeagueId } from "@pitchlab/contracts";
 import { Button } from "../../../components/ui/primitives";
 import { EmblemSurfaceProvider } from "../../../sports";
+import { redactDatasetForVisitor } from "../../access-guard";
+import { useSafeEffect } from "../../hooks";
 import type {
   CatalogPickItem,
   PickLabMatchBar,
   PickLabResponsePayload,
 } from "../../picks-catalog";
+import { PlatformProvider } from "../../platform-provider";
+import { STORY_DATASET } from "../../story-fixtures";
 import type { PlatformGame } from "../../types";
 import {
   PickEvidenceLabDrawer,
@@ -787,6 +791,335 @@ export const SinSerieRespaldoClaro: Story = {
       initialPayload={FALLBACK_LAB_PAYLOAD}
       game={PUMAS_GAME}
       caption="Bet Lab · Respaldo honesto sin serie barra a barra (Claro)"
+    />
+  ),
+};
+
+const VISITOR_REDACTED_DATASET = redactDatasetForVisitor(STORY_DATASET);
+
+const EMPTY_EVIDENCE_PICK: CatalogPickItem = {
+  ...PUMAS_CORNERS_PICK,
+  id: "pick-lab-empty-evidence",
+  label: "Pumas UNAM Más de 4.5 córners",
+  line: 4.5,
+  pricing: {
+    ...PUMAS_CORNERS_PICK.pricing,
+    marketDecimal: null,
+    marketAmerican: null,
+    marketBookLabel: null,
+    marketCapturedAtUtc: null,
+    deVigMarketProb: null,
+    deVigMethod: "none",
+    overroundPct: null,
+    evPct: null,
+    edgePts: null,
+    noVigEdgePts: null,
+    valueLabel: null,
+    hasPositiveValue: false,
+  },
+  evidence: {
+    windows: [],
+    xgSignal: null,
+    refereeSignal: null,
+    bullets: [],
+    avgObservedRatePct: null,
+  },
+  bookQuotes: [],
+};
+
+const EMPTY_EVIDENCE_PAYLOAD: PickLabResponsePayload = {
+  ...FALLBACK_LAB_PAYLOAD,
+  pick: EMPTY_EVIDENCE_PICK,
+  entitySubtitle: "Liga MX · Sin muestra histórica ni picks relacionados",
+  defaultLine: 4.5,
+  defaultDirection: "over",
+  barsFor: [],
+  barsAgainst: [],
+  recentHistory: [],
+  relatedPicks: [],
+};
+
+const LOADING_LAB_PICK: CatalogPickItem = {
+  ...PUMAS_CORNERS_PICK,
+  id: "pick-lab-loading-series",
+};
+
+const ERROR_LAB_PICK: CatalogPickItem = {
+  ...PUMAS_CORNERS_PICK,
+  id: "pick-lab-error-series",
+};
+
+const VISITOR_REDACTED_PICK: CatalogPickItem = {
+  ...EMPTY_EVIDENCE_PICK,
+  id: "pick-lab-visitor-redacted",
+  label: "Selección reservada Pase PitchLab Ultra",
+  isRedacted: true,
+};
+
+const VISITOR_LAB_PAYLOAD: PickLabResponsePayload = {
+  ...EMPTY_EVIDENCE_PAYLOAD,
+  pick: VISITOR_REDACTED_PICK,
+  entitySubtitle: "Liga MX · Acceso limitado visitante Cero-Fuga",
+};
+
+function PickLabFetchMock({
+  pickId,
+  mode,
+  children,
+}: {
+  readonly pickId: string;
+  readonly mode: "pending" | "error";
+  readonly children: React.ReactNode;
+}): React.JSX.Element {
+  const [ready, setReady] = useState(false);
+
+  useSafeEffect(() => {
+    const originalFetch = window.fetch;
+    const targetPath = `/api/picks/lab/${encodeURIComponent(pickId)}`;
+    const interceptedFetch: typeof window.fetch = (input, init) => {
+      const url =
+        typeof input === "string"
+          ? input
+          : input instanceof URL
+            ? input.href
+            : input.url;
+      if (url.includes(targetPath)) {
+        if (mode === "pending") {
+          return new Promise<Response>((_resolve, reject) => {
+            const signal = init?.signal;
+            if (signal?.aborted) {
+              reject(new DOMException("Aborted", "AbortError"));
+              return;
+            }
+            signal?.addEventListener(
+              "abort",
+              () => {
+                reject(new DOMException("Aborted", "AbortError"));
+              },
+              { once: true },
+            );
+          });
+        }
+        return new Promise<Response>((resolve, reject) => {
+          const signal = init?.signal;
+          if (signal?.aborted) {
+            reject(new DOMException("Aborted", "AbortError"));
+            return;
+          }
+          const timerId = window.setTimeout(() => {
+            resolve(
+              new Response(
+                JSON.stringify({ ok: false, error: "Servicio de laboratorio temporalmente no disponible." }),
+                {
+                  status: 503,
+                  headers: { "content-type": "application/json" },
+                },
+              ),
+            );
+          }, 45);
+          signal?.addEventListener(
+            "abort",
+            () => {
+              window.clearTimeout(timerId);
+              reject(new DOMException("Aborted", "AbortError"));
+            },
+            { once: true },
+          );
+        });
+      }
+      return originalFetch.call(window, input, init);
+    };
+
+    window.fetch = interceptedFetch;
+    setReady(true);
+
+    return () => {
+      window.fetch = originalFetch;
+    };
+  }, [mode, pickId]);
+
+  return ready ? <>{children}</> : <></>;
+}
+
+function PickLabRemoteHarness({
+  pick,
+  game,
+  caption,
+}: {
+  readonly pick: CatalogPickItem;
+  readonly game: PlatformGame;
+  readonly caption: string;
+}): React.JSX.Element {
+  const [open, setOpen] = useState(true);
+  return (
+    <EmblemSurfaceProvider surface="app">
+      <div className="pl-stage" style={{ minHeight: "100vh", padding: 24 }}>
+        <div className="pl-sf-card" style={{ maxWidth: 560 }}>
+          <header className="pl-sf-card-head">
+            <h1 className="pl-sf-card-title">{caption}</h1>
+          </header>
+          <div className="pl-sf-card-body">
+            <Button variant="primary" size="default" onClick={() => setOpen(true)}>
+              Abrir Bet Lab
+            </Button>
+          </div>
+        </div>
+        <PickEvidenceLabDrawer
+          open={open}
+          pick={pick}
+          game={game}
+          relatedPicks={[]}
+          onClose={() => setOpen(false)}
+          onAddToParlay={() => undefined}
+          onSealPick={() => undefined}
+        />
+      </div>
+    </EmblemSurfaceProvider>
+  );
+}
+
+function PickLabVisitorHarness({
+  caption,
+}: {
+  readonly caption: string;
+}): React.JSX.Element {
+  const [open, setOpen] = useState(true);
+  return (
+    <EmblemSurfaceProvider surface="public">
+      <PlatformProvider dataset={VISITOR_REDACTED_DATASET} initialRole="visitor">
+        <div className="pl-stage" style={{ minHeight: "100vh", padding: 24 }}>
+          <div className="pl-sf-card" style={{ maxWidth: 560 }}>
+            <header className="pl-sf-card-head">
+              <h1 className="pl-sf-card-title">{caption}</h1>
+            </header>
+            <div className="pl-sf-card-body">
+              <Button variant="primary" size="default" onClick={() => setOpen(true)}>
+                Abrir Bet Lab
+              </Button>
+            </div>
+          </div>
+          <PickEvidenceLabDrawer
+            open={open}
+            pick={VISITOR_REDACTED_PICK}
+            game={PUMAS_GAME}
+            relatedPicks={[]}
+            labDataOverride={VISITOR_LAB_PAYLOAD}
+            onClose={() => setOpen(false)}
+          />
+        </div>
+      </PlatformProvider>
+    </EmblemSurfaceProvider>
+  );
+}
+
+export const EstadoVacioOscuro: Story = {
+  globals: { theme: "dark" },
+  render: () => (
+    <PickLabStoryHarness
+      initialPayload={EMPTY_EVIDENCE_PAYLOAD}
+      game={PUMAS_GAME}
+      caption="Bet Lab · Estado vacío sin evidencia ni relacionados (Oscuro)"
+    />
+  ),
+};
+
+export const EstadoVacioClaro: Story = {
+  globals: { theme: "light" },
+  render: () => (
+    <PickLabStoryHarness
+      initialPayload={EMPTY_EVIDENCE_PAYLOAD}
+      game={PUMAS_GAME}
+      caption="Bet Lab · Estado vacío sin evidencia ni relacionados (Claro)"
+    />
+  ),
+};
+
+export const CargandoSerieOscuro: Story = {
+  globals: { theme: "dark" },
+  render: () => (
+    <PickLabFetchMock pickId={LOADING_LAB_PICK.id} mode="pending">
+      <PickLabRemoteHarness
+        pick={LOADING_LAB_PICK}
+        game={PUMAS_GAME}
+        caption="Bet Lab · Cargando serie histórica (Oscuro)"
+      />
+    </PickLabFetchMock>
+  ),
+};
+
+export const CargandoSerieClaro: Story = {
+  globals: { theme: "light" },
+  render: () => (
+    <PickLabFetchMock pickId={LOADING_LAB_PICK.id} mode="pending">
+      <PickLabRemoteHarness
+        pick={LOADING_LAB_PICK}
+        game={PUMAS_GAME}
+        caption="Bet Lab · Cargando serie histórica (Claro)"
+      />
+    </PickLabFetchMock>
+  ),
+};
+
+export const ErrorHonestoOscuro: Story = {
+  globals: { theme: "dark" },
+  render: () => (
+    <PickLabFetchMock pickId={ERROR_LAB_PICK.id} mode="error">
+      <PickLabRemoteHarness
+        pick={ERROR_LAB_PICK}
+        game={PUMAS_GAME}
+        caption="Bet Lab · Error honesto al cargar serie (Oscuro)"
+      />
+    </PickLabFetchMock>
+  ),
+};
+
+export const ErrorHonestoClaro: Story = {
+  globals: { theme: "light" },
+  render: () => (
+    <PickLabFetchMock pickId={ERROR_LAB_PICK.id} mode="error">
+      <PickLabRemoteHarness
+        pick={ERROR_LAB_PICK}
+        game={PUMAS_GAME}
+        caption="Bet Lab · Error honesto al cargar serie (Claro)"
+      />
+    </PickLabFetchMock>
+  ),
+};
+
+export const VisitanteCeroFugaOscuro: Story = {
+  globals: { theme: "dark" },
+  render: () => (
+    <PickLabVisitorHarness caption="Bet Lab · Visitante Cero-Fuga (Oscuro)" />
+  ),
+};
+
+export const VisitanteCeroFugaClaro: Story = {
+  globals: { theme: "light" },
+  render: () => (
+    <PickLabVisitorHarness caption="Bet Lab · Visitante Cero-Fuga (Claro)" />
+  ),
+};
+
+export const MovilOscuro: Story = {
+  globals: { theme: "dark" },
+  parameters: { viewport: { defaultViewport: "mobile1" } },
+  render: () => (
+    <PickLabStoryHarness
+      initialPayload={PUMAS_LAB_PAYLOAD}
+      game={PUMAS_GAME}
+      caption="Bet Lab · Móvil 375px (Oscuro)"
+    />
+  ),
+};
+
+export const MovilClaro: Story = {
+  globals: { theme: "light" },
+  parameters: { viewport: { defaultViewport: "mobile1" } },
+  render: () => (
+    <PickLabStoryHarness
+      initialPayload={PUMAS_LAB_PAYLOAD}
+      game={PUMAS_GAME}
+      caption="Bet Lab · Móvil 375px (Claro)"
     />
   ),
 };

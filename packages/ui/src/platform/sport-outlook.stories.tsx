@@ -1,6 +1,17 @@
 import React from "react";
+import type { Meta, StoryObj } from "@storybook/react-vite";
+import { asLeagueId } from "@pitchlab/contracts";
+import { EmblemSurfaceProvider } from "../sports";
+import { redactDatasetForVisitor } from "./access-guard";
+import {
+  LeagueHubClubView,
+  type LeagueHubEnrichmentData,
+} from "./club/CoreMatchViews";
 import { SportOutlookCard } from "./club/match/sport-outlook/SportOutlookCard";
 import type { SportOutlookInput } from "./club/match/sport-outlook/sport-outlook-types";
+import { buildPlatformDataset } from "./match-picks-engine";
+import { PlatformProvider } from "./platform-provider";
+import { STORY_DATASET } from "./story-fixtures";
 
 const NFL: SportOutlookInput = {
   sport: "nfl",
@@ -148,45 +159,442 @@ const SIN_DATOS: SportOutlookInput = {
   pAway: Number.NaN,
 };
 
-function Frame({ outlook }: { outlook: SportOutlookInput }): React.JSX.Element {
+function Frame({
+  outlook,
+  oddsFormat = "american",
+  isExample = true,
+  mobile = false,
+}: {
+  readonly outlook: SportOutlookInput;
+  readonly oddsFormat?: "american" | "decimal";
+  readonly isExample?: boolean;
+  readonly mobile?: boolean;
+}): React.JSX.Element {
   return (
-    <div style={{ maxWidth: 960 }}>
-      <SportOutlookCard outlook={outlook} oddsFormat="american" isExample />
+    <div style={{ maxWidth: mobile ? 375 : 960, width: "100%", margin: mobile ? "0 auto" : undefined }}>
+      <SportOutlookCard outlook={outlook} oddsFormat={oddsFormat} isExample={isExample} />
     </div>
   );
 }
 
-export default {
+const meta = {
   title: "Platform v4 / Panorama por deporte",
-};
+} satisfies Meta;
 
-export const Nfl = { render: () => <Frame outlook={NFL} />, globals: { theme: "dark" } };
-export const NflClaro = { ...Nfl, globals: { theme: "light" } };
+export default meta;
+type Story = StoryObj<typeof meta>;
 
-export const Nhl = { render: () => <Frame outlook={NHL} />, globals: { theme: "dark" } };
-export const NhlClaro = { ...Nhl, globals: { theme: "light" } };
+export const Nfl: Story = { render: () => <Frame outlook={NFL} />, globals: { theme: "dark" } };
+export const NflClaro: Story = { ...Nfl, globals: { theme: "light" } };
 
-export const Mlb = { render: () => <Frame outlook={MLB} />, globals: { theme: "dark" } };
-export const MlbClaro = { ...Mlb, globals: { theme: "light" } };
+export const Nhl: Story = { render: () => <Frame outlook={NHL} />, globals: { theme: "dark" } };
+export const NhlClaro: Story = { ...Nhl, globals: { theme: "light" } };
 
-export const Nba = { render: () => <Frame outlook={NBA} />, globals: { theme: "dark" } };
-export const NbaClaro = { ...Nba, globals: { theme: "light" } };
+export const Mlb: Story = { render: () => <Frame outlook={MLB} />, globals: { theme: "dark" } };
+export const MlbClaro: Story = { ...Mlb, globals: { theme: "light" } };
 
-export const NcaafSoloMotor = {
+export const Nba: Story = { render: () => <Frame outlook={NBA} />, globals: { theme: "dark" } };
+export const NbaClaro: Story = { ...Nba, globals: { theme: "light" } };
+
+export const NcaafSoloMotor: Story = {
   render: () => <Frame outlook={NCAAF} />,
   globals: { theme: "dark" },
 };
-export const NcaafSoloMotorClaro = { ...NcaafSoloMotor, globals: { theme: "light" } };
+export const NcaafSoloMotorClaro: Story = { ...NcaafSoloMotor, globals: { theme: "light" } };
 
-export const SinPanorama = {
+export const SinPanorama: Story = {
   render: () => <Frame outlook={SIN_DATOS} />,
   globals: { theme: "dark" },
 };
-export const SinPanoramaClaro = { ...SinPanorama, globals: { theme: "light" } };
+export const SinPanoramaClaro: Story = { ...SinPanorama, globals: { theme: "light" } };
 
-export const Movil = {
-  render: () => <Frame outlook={MLB} />,
+export const Movil: Story = {
+  render: () => <Frame outlook={MLB} mobile />,
   globals: { theme: "dark" },
   parameters: { viewport: { defaultViewport: "mobile1" } },
 };
-export const MovilClaro = { ...Movil, globals: { theme: "light" } };
+export const MovilClaro: Story = { ...Movil, globals: { theme: "light" } };
+
+const OUTLOOK_MINIMO_SIN_LINEAS: SportOutlookInput = {
+  sport: "nba",
+  homeTeam: "Boston Celtics",
+  awayTeam: "Miami Heat",
+  pHome: 0.642,
+  pAway: 0.358,
+  expectedHome: 115.4,
+  expectedAway: 108.1,
+  drivers: [],
+  lines: [],
+  confirmations: [],
+  generatedAtUtc: "2026-11-21T18:00:00Z",
+};
+
+const VISITOR_LEAGUE_DATASET = redactDatasetForVisitor(STORY_DATASET);
+
+const EMPTY_LEAGUE_DATASET = buildPlatformDataset([
+  {
+    league: asLeagueId("liga-mx"),
+    leagueLabel: "Liga MX",
+    sport: "football",
+    season: "Apertura 2026",
+    roundLabel: "Jornada pendiente",
+    generatedAt: "2026-11-21T18:00:00Z",
+    games: [],
+    standings: [],
+  },
+]);
+
+const LIGA_MX_HUB_ENRICHMENT: LeagueHubEnrichmentData = {
+  league: "liga-mx",
+  leagueLabel: "Liga MX",
+  capabilities: {
+    sport: "football",
+    tier: "tier1_core",
+    hasStandingsTable: true,
+    hasKnockoutBracket: false,
+    hasRelegationZones: false,
+    hasReferees: true,
+    hasPlayerProps: true,
+  },
+  seasonProgress: {
+    seasonLabel: "Apertura 2026",
+    periodLabel: "Jornada 16",
+    startDateIso: "2026-07-10",
+    endDateIso: "2026-11-24",
+    startLabel: "10 jul",
+    endLabel: "24 nov",
+    playedRounds: 15,
+    totalRounds: 17,
+    pct: 88,
+    progressSummary: "88% de la temporada",
+  },
+  standingsSplits: {
+    league: "liga-mx",
+    leagueLabel: "Liga MX",
+    sport: "football",
+    season: "Apertura 2026",
+    roundLabel: "Jornada 16",
+    updatedAt: "2026-11-21T18:00:00Z",
+    hasRelegationZones: false,
+    hasConferences: false,
+    conferences: [],
+    total: [
+      {
+        rank: 1,
+        teamId: "liga-mx.cruz-azul",
+        teamSlug: "cruz-azul",
+        name: "Cruz Azul",
+        shortName: "Cruz Azul",
+        code: "CAZ",
+        teamHref: "/app/liga-mx/t/cruz-azul",
+        conference: null,
+        division: null,
+        played: 15,
+        won: 12,
+        drawn: 2,
+        lost: 1,
+        goalsFor: 34,
+        goalsAgainst: 11,
+        goalDiff: 23,
+        points: 38,
+        winPct: null,
+        gamesBehind: null,
+        seed: 1,
+        form: ["W", "W", "D", "W", "W"],
+        zoneId: "liguilla",
+        zoneLabel: "Liguilla directa",
+        zoneTone: "ucl",
+      },
+      {
+        rank: 2,
+        teamId: "liga-mx.club-america",
+        teamSlug: "club-america",
+        name: "Club América",
+        shortName: "América",
+        code: "AME",
+        teamHref: "/app/liga-mx/t/club-america",
+        conference: null,
+        division: null,
+        played: 15,
+        won: 10,
+        drawn: 3,
+        lost: 2,
+        goalsFor: 29,
+        goalsAgainst: 15,
+        goalDiff: 14,
+        points: 33,
+        winPct: null,
+        gamesBehind: null,
+        seed: 2,
+        form: ["W", "D", "W", "W", "L"],
+        zoneId: "liguilla",
+        zoneLabel: "Liguilla directa",
+        zoneTone: "ucl",
+      },
+    ],
+    home: [
+      {
+        rank: 1,
+        teamId: "liga-mx.cruz-azul",
+        teamSlug: "cruz-azul",
+        name: "Cruz Azul",
+        shortName: "Cruz Azul",
+        code: "CAZ",
+        teamHref: "/app/liga-mx/t/cruz-azul",
+        conference: null,
+        division: null,
+        played: 8,
+        won: 7,
+        drawn: 1,
+        lost: 0,
+        goalsFor: 20,
+        goalsAgainst: 5,
+        goalDiff: 15,
+        points: 22,
+        winPct: null,
+        gamesBehind: null,
+        seed: 1,
+        form: ["W", "W", "W", "D", "W"],
+        zoneId: "liguilla",
+        zoneLabel: "Liguilla directa",
+        zoneTone: "ucl",
+      },
+    ],
+    away: [
+      {
+        rank: 1,
+        teamId: "liga-mx.cruz-azul",
+        teamSlug: "cruz-azul",
+        name: "Cruz Azul",
+        shortName: "Cruz Azul",
+        code: "CAZ",
+        teamHref: "/app/liga-mx/t/cruz-azul",
+        conference: null,
+        division: null,
+        played: 7,
+        won: 5,
+        drawn: 1,
+        lost: 1,
+        goalsFor: 14,
+        goalsAgainst: 6,
+        goalDiff: 8,
+        points: 16,
+        winPct: null,
+        gamesBehind: null,
+        seed: 1,
+        form: ["W", "D", "W", "L", "W"],
+        zoneId: "liguilla",
+        zoneLabel: "Liguilla directa",
+        zoneTone: "ucl",
+      },
+    ],
+    zones: [
+      {
+        id: "liguilla",
+        label: "Liguilla directa (1–6)",
+        tone: "ucl",
+        startRank: 1,
+        endRank: 6,
+        scope: "league",
+      },
+    ],
+  },
+  bracket: null,
+  attackDefense: null,
+  statLeaders: {
+    scoringUnitPlural: "goles",
+    playerCategories: [
+      {
+        key: "goals",
+        label: "Goles",
+        unitLabel: "goles",
+        entries: [
+          {
+            rank: 1,
+            playerSlug: "henry-martin",
+            name: "Henry Martín",
+            shortName: "H. Martín",
+            teamSlug: "club-america",
+            teamName: "Club América",
+            teamHref: "/app/liga-mx/t/club-america",
+            playerHref: "/app/liga-mx/t/club-america/p/henry-martin",
+            positionLabel: "DEL",
+            appearances: 14,
+            primaryValue: 11,
+            primaryFormatted: "11",
+            secondaryLabel: "0.79 / partido",
+          },
+        ],
+      },
+    ],
+    teamAttack: [
+      {
+        rank: 1,
+        teamSlug: "cruz-azul",
+        name: "Cruz Azul",
+        shortName: "Cruz Azul",
+        teamHref: "/app/liga-mx/t/cruz-azul",
+        played: 15,
+        primaryValue: 2.27,
+        primaryFormatted: "2.27",
+        secondaryLabel: "34 goles",
+      },
+    ],
+    teamDefense: [
+      {
+        rank: 1,
+        teamSlug: "cruz-azul",
+        name: "Cruz Azul",
+        shortName: "Cruz Azul",
+        teamHref: "/app/liga-mx/t/cruz-azul",
+        played: 15,
+        primaryValue: 0.73,
+        primaryFormatted: "0.73",
+        secondaryLabel: "11 recibidos",
+      },
+    ],
+  },
+  titleProjection: {
+    titleLabel: "Campeón Apertura 2026",
+    subtitle: "Simulación Spacetime v5.1",
+    candidates: [
+      {
+        rank: 1,
+        teamSlug: "cruz-azul",
+        name: "Cruz Azul",
+        shortName: "Cruz Azul",
+        code: "CAZ",
+        teamHref: "/app/liga-mx/t/cruz-azul",
+        currentRank: 1,
+        played: 15,
+        points: 38,
+        winPct: null,
+        titleProbPct: 31.4,
+        fairDecimal: 3.18,
+        netRatingLabel: "+1.12 xG",
+      },
+      {
+        rank: 2,
+        teamSlug: "club-america",
+        name: "Club América",
+        shortName: "América",
+        code: "AME",
+        teamHref: "/app/liga-mx/t/club-america",
+        currentRank: 2,
+        played: 15,
+        points: 33,
+        winPct: null,
+        titleProbPct: 24.8,
+        fairDecimal: 4.03,
+        netRatingLabel: "+0.86 xG",
+      },
+    ],
+  },
+  refereeRanking: null,
+};
+
+export const NbaFormatoDecimalOscuro: Story = {
+  globals: { theme: "dark" },
+  render: () => <Frame outlook={NBA} oddsFormat="decimal" isExample={false} />,
+};
+
+export const NbaFormatoDecimalClaro: Story = {
+  ...NbaFormatoDecimalOscuro,
+  globals: { theme: "light" },
+};
+
+export const PanoramaMinimoSinLineasOscuro: Story = {
+  globals: { theme: "dark" },
+  render: () => <Frame outlook={OUTLOOK_MINIMO_SIN_LINEAS} oddsFormat="decimal" isExample={false} />,
+};
+
+export const PanoramaMinimoSinLineasClaro: Story = {
+  ...PanoramaMinimoSinLineasOscuro,
+  globals: { theme: "light" },
+};
+
+export const LeagueHubEnriquecidoOscuro: Story = {
+  globals: { theme: "dark" },
+  parameters: { layout: "fullscreen" },
+  render: () => (
+    <EmblemSurfaceProvider surface="app">
+      <PlatformProvider dataset={STORY_DATASET} initialRole="member">
+        <LeagueHubClubView
+          leagueId={asLeagueId("liga-mx")}
+          initialSection="tabla"
+          enrichment={LIGA_MX_HUB_ENRICHMENT}
+        />
+      </PlatformProvider>
+    </EmblemSurfaceProvider>
+  ),
+};
+
+export const LeagueHubEnriquecidoClaro: Story = {
+  ...LeagueHubEnriquecidoOscuro,
+  globals: { theme: "light" },
+};
+
+export const LeagueHubVacioSinPartidosOscuro: Story = {
+  globals: { theme: "dark" },
+  parameters: { layout: "fullscreen" },
+  render: () => (
+    <EmblemSurfaceProvider surface="app">
+      <PlatformProvider dataset={EMPTY_LEAGUE_DATASET} initialRole="member">
+        <LeagueHubClubView
+          leagueId={asLeagueId("liga-mx")}
+          initialSection="partidos"
+          enrichment={null}
+        />
+      </PlatformProvider>
+    </EmblemSurfaceProvider>
+  ),
+};
+
+export const LeagueHubVacioSinPartidosClaro: Story = {
+  ...LeagueHubVacioSinPartidosOscuro,
+  globals: { theme: "light" },
+};
+
+export const LeagueHubVisitanteCeroFugaOscuro: Story = {
+  globals: { theme: "dark" },
+  parameters: { layout: "fullscreen" },
+  render: () => (
+    <EmblemSurfaceProvider surface="public">
+      <PlatformProvider dataset={VISITOR_LEAGUE_DATASET} initialRole="visitor">
+        <LeagueHubClubView
+          leagueId={asLeagueId("liga-mx")}
+          initialSection="partidos"
+          enrichment={null}
+        />
+      </PlatformProvider>
+    </EmblemSurfaceProvider>
+  ),
+};
+
+export const LeagueHubVisitanteCeroFugaClaro: Story = {
+  ...LeagueHubVisitanteCeroFugaOscuro,
+  globals: { theme: "light" },
+};
+
+export const LeagueHubMovilOscuro: Story = {
+  globals: { theme: "dark" },
+  parameters: { layout: "fullscreen", viewport: { defaultViewport: "mobile1" } },
+  render: () => (
+    <EmblemSurfaceProvider surface="app">
+      <PlatformProvider dataset={STORY_DATASET} initialRole="member">
+        <div style={{ maxWidth: 375, width: "100%", margin: "0 auto" }}>
+          <LeagueHubClubView
+            leagueId={asLeagueId("liga-mx")}
+            initialSection="tabla"
+            enrichment={LIGA_MX_HUB_ENRICHMENT}
+          />
+        </div>
+      </PlatformProvider>
+    </EmblemSurfaceProvider>
+  ),
+};
+
+export const LeagueHubMovilClaro: Story = {
+  ...LeagueHubMovilOscuro,
+  globals: { theme: "light" },
+};

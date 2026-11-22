@@ -1,11 +1,16 @@
-import React from "react";
+import React, { useState } from "react";
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import {
   asLeagueId,
   type LiveMatchDetail,
   type LiveScoreboardEntry,
 } from "@pitchlab/contracts";
+import { EmblemSurfaceProvider } from "../../../sports";
+import { redactDatasetForVisitor } from "../../access-guard";
+import { useSafeEffect } from "../../hooks";
 import type { CatalogPickItem, GamePreviewPayload } from "../../picks-catalog";
+import { PlatformProvider } from "../../platform-provider";
+import { STORY_DATASET } from "../../story-fixtures";
 import type { LeagueStandingsSplitsData } from "../StandingsBracketsSection";
 import type { MatchPick, PlatformGame } from "../../types";
 import { HomeMatchDetailPanel } from "./HomeMatchDetailPanel";
@@ -925,4 +930,294 @@ export const NbaSinTabAlineaciones: Story = {
 export const NbaSinTabAlineacionesClaro: Story = {
   globals: { theme: "light" },
   render: NbaSinTabAlineaciones.render,
+};
+
+const VISITOR_REDACTED_DATASET = redactDatasetForVisitor(STORY_DATASET);
+
+const EMPTY_PICKS_GAME: PlatformGame = {
+  ...FOOTBALL_PRE_GAME,
+  id: "lmx-empty-detail-2026",
+  hasForecast: false,
+  x12: null,
+  projection: null,
+  goalLine: null,
+  picks: [],
+  factors: [],
+  headToHead: [],
+  counts: undefined,
+  preGame: {
+    cortexSynthesis: "",
+    tacticalKeys: [],
+    lineupStatusLabel: "Sin alineación publicada",
+    lineupsConfirmed60m: false,
+    absences: [],
+    moneyFlow: null,
+  },
+};
+
+const EMPTY_PICKS_PREVIEW: GamePreviewPayload = {
+  ok: true,
+  gameId: EMPTY_PICKS_GAME.id,
+  fullAccess: true,
+  game: {
+    ...FOOTBALL_PRE_PREVIEW.game,
+    id: EMPTY_PICKS_GAME.id,
+    projection: null,
+    x12: [0, 0, 0],
+    home: { ...FOOTBALL_PRE_PREVIEW.game.home, form: [] },
+    away: { ...FOOTBALL_PRE_PREVIEW.game.away, form: [] },
+  },
+  detail: {
+    markets: [],
+    headToHead: [],
+    factors: [],
+    v5: null,
+    picksCatalog: null,
+  },
+  standings: null,
+  injuries: [],
+};
+
+const LOADING_PREVIEW_GAME: PlatformGame = {
+  ...EMPTY_PICKS_GAME,
+  id: "lmx-loading-preview-2026",
+};
+
+const ERROR_PREVIEW_GAME: PlatformGame = {
+  ...EMPTY_PICKS_GAME,
+  id: "lmx-error-preview-2026",
+};
+
+const VISITOR_REDACTED_PREVIEW: GamePreviewPayload = {
+  ...FOOTBALL_PRE_PREVIEW,
+  fullAccess: false,
+  game: {
+    ...FOOTBALL_PRE_PREVIEW.game,
+    projection: null,
+    x12: [0, 0, 0],
+  },
+  detail: {
+    markets: [],
+    headToHead: FOOTBALL_PRE_GAME.headToHead,
+    factors: [],
+    v5: null,
+    picksCatalog: {
+      gameId: FOOTBALL_PRE_GAME.id,
+      league: FOOTBALL_PRE_GAME.league,
+      sport: "football",
+      gameStatus: "NS",
+      generatedAtUtc: "2026-11-21T18:00:00Z",
+      engineVersion: "spacetime-v5.1",
+      isRedactedForVisitor: true,
+      totalPicks: FOOTBALL_PRE_CATALOG_PICKS.length,
+      availableFamilies: ["1x2", "corners_total"],
+      familyCounts: { "1x2": 1, corners_total: 1 },
+      picks: FOOTBALL_PRE_CATALOG_PICKS.map((item) => ({
+        ...item,
+        label: "Selección reservada Pase PitchLab Ultra",
+        isRedacted: true,
+        pricing: {
+          ...item.pricing,
+          p: 0,
+          fairOdds: 0,
+          fairAmerican: 0,
+          marketDecimal: null,
+          marketAmerican: null,
+          marketBookLabel: null,
+          evPct: null,
+          edgePts: null,
+          noVigEdgePts: null,
+          valueLabel: null,
+          hasPositiveValue: false,
+        },
+        evidence: {
+          windows: [],
+          xgSignal: null,
+          refereeSignal: null,
+          bullets: [],
+          avgObservedRatePct: null,
+        },
+      })),
+    },
+  },
+};
+
+function PreviewFetchInterceptor({
+  gameId,
+  mode,
+  children,
+}: {
+  readonly gameId: string;
+  readonly mode: "pending" | "error";
+  readonly children: React.ReactNode;
+}): React.JSX.Element {
+  const [ready, setReady] = useState(false);
+
+  useSafeEffect(() => {
+    const originalFetch = window.fetch;
+    const targetPath = `/api/games/${encodeURIComponent(gameId)}/preview`;
+    const interceptedFetch: typeof window.fetch = (input, init) => {
+      const url =
+        typeof input === "string"
+          ? input
+          : input instanceof URL
+            ? input.href
+            : input.url;
+      if (url.includes(targetPath)) {
+        if (mode === "pending") {
+          return new Promise<Response>((_resolve, reject) => {
+            const signal = init?.signal;
+            if (signal?.aborted) {
+              reject(new DOMException("Aborted", "AbortError"));
+              return;
+            }
+            signal?.addEventListener(
+              "abort",
+              () => {
+                reject(new DOMException("Aborted", "AbortError"));
+              },
+              { once: true },
+            );
+          });
+        }
+        return new Promise<Response>((resolve, reject) => {
+          const signal = init?.signal;
+          if (signal?.aborted) {
+            reject(new DOMException("Aborted", "AbortError"));
+            return;
+          }
+          const timerId = window.setTimeout(() => {
+            resolve(
+              new Response(
+                JSON.stringify({ ok: false, error: "Error temporal al consultar previa." }),
+                {
+                  status: 503,
+                  headers: { "content-type": "application/json" },
+                },
+              ),
+            );
+          }, 45);
+          signal?.addEventListener(
+            "abort",
+            () => {
+              window.clearTimeout(timerId);
+              reject(new DOMException("Aborted", "AbortError"));
+            },
+            { once: true },
+          );
+        });
+      }
+      return originalFetch.call(window, input, init);
+    };
+
+    window.fetch = interceptedFetch;
+    setReady(true);
+
+    return () => {
+      window.fetch = originalFetch;
+    };
+  }, [gameId, mode]);
+
+  return ready ? <>{children}</> : <></>;
+}
+
+export const EstadoVacioSinPicksOscuro: Story = {
+  globals: { theme: "dark" },
+  render: () => (
+    <EmblemSurfaceProvider surface="app">
+      <div style={{ maxWidth: 820 }}>
+        <HomeMatchDetailPanel
+          game={EMPTY_PICKS_GAME}
+          previewOverride={EMPTY_PICKS_PREVIEW}
+        />
+      </div>
+    </EmblemSurfaceProvider>
+  ),
+};
+
+export const EstadoVacioSinPicksClaro: Story = {
+  globals: { theme: "light" },
+  render: EstadoVacioSinPicksOscuro.render,
+};
+
+export const CargandoPreviewOscuro: Story = {
+  globals: { theme: "dark" },
+  render: () => (
+    <EmblemSurfaceProvider surface="app">
+      <PlatformProvider dataset={STORY_DATASET} initialRole="member">
+        <PreviewFetchInterceptor gameId={LOADING_PREVIEW_GAME.id} mode="pending">
+          <div style={{ maxWidth: 820 }}>
+            <HomeMatchDetailPanel game={LOADING_PREVIEW_GAME} />
+          </div>
+        </PreviewFetchInterceptor>
+      </PlatformProvider>
+    </EmblemSurfaceProvider>
+  ),
+};
+
+export const CargandoPreviewClaro: Story = {
+  globals: { theme: "light" },
+  render: CargandoPreviewOscuro.render,
+};
+
+export const ErrorHonestoPreviewOscuro: Story = {
+  globals: { theme: "dark" },
+  render: () => (
+    <EmblemSurfaceProvider surface="app">
+      <PlatformProvider dataset={STORY_DATASET} initialRole="member">
+        <PreviewFetchInterceptor gameId={ERROR_PREVIEW_GAME.id} mode="error">
+          <div style={{ maxWidth: 820 }}>
+            <HomeMatchDetailPanel game={ERROR_PREVIEW_GAME} />
+          </div>
+        </PreviewFetchInterceptor>
+      </PlatformProvider>
+    </EmblemSurfaceProvider>
+  ),
+};
+
+export const ErrorHonestoPreviewClaro: Story = {
+  globals: { theme: "light" },
+  render: ErrorHonestoPreviewOscuro.render,
+};
+
+export const VisitanteCeroFugaOscuro: Story = {
+  globals: { theme: "dark" },
+  render: () => (
+    <EmblemSurfaceProvider surface="public">
+      <PlatformProvider dataset={VISITOR_REDACTED_DATASET} initialRole="visitor">
+        <div style={{ maxWidth: 820 }}>
+          <HomeMatchDetailPanel
+            game={FOOTBALL_PRE_GAME}
+            previewOverride={VISITOR_REDACTED_PREVIEW}
+          />
+        </div>
+      </PlatformProvider>
+    </EmblemSurfaceProvider>
+  ),
+};
+
+export const VisitanteCeroFugaClaro: Story = {
+  globals: { theme: "light" },
+  render: VisitanteCeroFugaOscuro.render,
+};
+
+export const MovilOscuro: Story = {
+  globals: { theme: "dark" },
+  parameters: { viewport: { defaultViewport: "mobile1" } },
+  render: () => (
+    <EmblemSurfaceProvider surface="app">
+      <div style={{ maxWidth: 375, width: "100%", margin: "0 auto" }}>
+        <HomeMatchDetailPanel
+          game={FOOTBALL_PRE_GAME}
+          previewOverride={FOOTBALL_PRE_PREVIEW}
+        />
+      </div>
+    </EmblemSurfaceProvider>
+  ),
+};
+
+export const MovilClaro: Story = {
+  globals: { theme: "light" },
+  parameters: { viewport: { defaultViewport: "mobile1" } },
+  render: MovilOscuro.render,
 };
