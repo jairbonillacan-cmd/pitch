@@ -20,9 +20,7 @@ import {
   SofascoreCard,
   SofascoreEmptyState,
   SofascoreKpiStrip,
-  SofascoreTabs,
   type SofascoreKpiItem,
-  type SofascoreTabItem,
 } from "../../components/ui/primitives";
 import { LeagueBadge, TeamBadge } from "../../sports";
 import { formatOddsValue, isPickUnlocked } from "../access-guard";
@@ -42,6 +40,7 @@ import { useSheetSwipeDismiss } from "../components/use-sheet-swipe-dismiss";
 import {
   useAbortableJson,
   useDebouncedValue,
+  useMediaQuery,
   useSafeEffect,
   useVisibilityPolling,
 } from "../hooks";
@@ -63,12 +62,14 @@ import {
   type MarketFamilyId,
   type MatchPicksCatalog,
   type PickDirection,
+  type PickLabResponsePayload,
   type PickSettlementStatus,
   type PlayerPropMeta,
   type ScreenerApiResponse,
 } from "../picks-catalog";
 import {
   useIsPickInParlay,
+  useJournalEntries,
   usePlatformActions,
   usePlatformCore,
 } from "../platform-provider";
@@ -570,11 +571,6 @@ function parseFamilyFilter(raw: string): MarketFamilyFilter {
     }
   }
   return "all";
-}
-
-function parseTimingMode(raw: string): TimingMode {
-  if (raw === "live" || raw === "settled") return raw;
-  return "upcoming";
 }
 
 function defaultFamilyForSport(sport: PlatformGame["sport"]): MarketFamilyId {
@@ -1198,7 +1194,7 @@ function inferLiveUnitLabel(liveProgress: LivePickProgressItem, sport: PlatformG
   const ratio = liveProgress.progressRatioLabel ?? "";
   const parts = ratio.trim().split(/\s+/);
   const tail = parts[parts.length - 1];
-  if (tail && !/^\d/.test(tail) && tail !== "/") return tail;
+  if (tail && !/^[+-]?\d/.test(tail) && tail !== "/") return tail;
   return sport === "football" ? "goles" : "pts";
 }
 
@@ -1356,21 +1352,29 @@ const ScreenerPickRow = memo(function ScreenerPickRow({
       ? sideTeam.name
       : `${game.home.shortName} vs ${game.away.shortName}`;
 
-  const liveDirection = trackedLive?.direction ?? inferLiveDirection(pick);
+  const liveDirection =
+    trackedLive?.direction ?? (liveProgress?.asianState ? "handicap" : inferLiveDirection(pick));
   const liveStatus = item.isLiveGame
     ? resolveLiveStatusPill({ tracked: trackedLive, liveProgress, direction: liveDirection })
     : null;
+  const normalizedPickLabel = normText(pick.label);
+  const isBttsYes =
+    normalizedPickLabel.includes("ambos anotan") && !normalizedPickLabel.includes("no");
+  const rawLiveActual = liveProgress?.rawActual ?? liveProgress?.currentValue ?? null;
+  const rawLiveTarget =
+    typeof pick.line === "number" && Number.isFinite(pick.line)
+      ? pick.line
+      : (liveProgress?.rawLine ?? (isBttsYes ? 1.5 : (liveProgress?.targetValue ?? null)));
   const hasNumericLiveBar =
     unlocked &&
     item.isLiveGame &&
     (Boolean(trackedLive) ||
-      (liveProgress !== null &&
-        liveProgress.currentValue !== null &&
-        liveProgress.targetValue !== null &&
-        liveProgress.targetValue > 0));
+      (rawLiveActual !== null &&
+        rawLiveTarget !== null &&
+        (liveDirection === "handicap" || rawLiveTarget > 0)));
 
-  const liveActual = trackedLive?.actualValue ?? liveProgress?.currentValue ?? 0;
-  const liveTarget = trackedLive?.targetLine ?? liveProgress?.targetValue ?? 1;
+  const liveActual = trackedLive?.actualValue ?? rawLiveActual ?? 0;
+  const liveTarget = trackedLive?.targetLine ?? rawLiveTarget ?? 1;
   const liveClock =
     trackedLive?.clockLabel ??
     (liveProgress ? `${liveProgress.scoreLabel} · ${liveProgress.clockLabel}` : "En vivo");
@@ -1379,7 +1383,7 @@ const ScreenerPickRow = memo(function ScreenerPickRow({
     (liveProgress ? inferLiveUnitLabel(liveProgress, game.sport) : "goles");
   const liveProjected =
     trackedLive?.projectedFinal ??
-    (liveProgress
+    (liveProgress && liveDirection !== "handicap" && !isBttsYes
       ? estimateResidualProjection(liveActual, liveProgress.clockLabel, game.sport)
       : null);
 
@@ -1390,23 +1394,13 @@ const ScreenerPickRow = memo(function ScreenerPickRow({
     onOpenLab(item);
   };
 
-  const handleRowKeyDown = (event: React.KeyboardEvent<HTMLTableRowElement>) => {
-    if (!unlocked || event.target !== event.currentTarget) return;
-    if (event.key === "Enter" || event.key === " ") {
-      event.preventDefault();
-      onOpenLab(item);
-    }
-  };
-
   return (
     <tr
       className={`pl-scr-row ${unlocked ? "is-clickable" : ""}`.trim()}
       data-picks-row=""
       data-pick-id={pick.id}
       data-pick-recommended={item.isRecommended ? "true" : "false"}
-      tabIndex={unlocked ? 0 : undefined}
       onClick={handleRowClick}
-      onKeyDown={handleRowKeyDown}
     >
       <th scope="row" className="pl-scr-td pl-scr-col-pick" data-label="Pick">
         <div className="pl-scr-entity">
@@ -1481,12 +1475,24 @@ const ScreenerPickRow = memo(function ScreenerPickRow({
         data-market-family={item.catalogFamilyId}
       >
         <div className="pl-scr-bet-cell">
-          <div className="pl-scr-bet-main">
-            <MaestroIcon name="chart" size={13} className="pl-scr-bet-icon" />
-            <strong className={`pl-scr-pick-title ${unlocked ? "" : "locked-redact"}`.trim()}>
-              {unlocked ? pick.label : "Pick reservado Pase PitchLab Ultra"}
-            </strong>
-          </div>
+          {unlocked ? (
+            <button
+              type="button"
+              className="pl-scr-pick-open-btn"
+              aria-label={`Analizar ${pick.label} (${game.home.shortName} vs ${game.away.shortName}) en Bet Lab`}
+              onClick={() => onOpenLab(item)}
+            >
+              <MaestroIcon name="chart" size={13} className="pl-scr-bet-icon" />
+              <span className="pl-scr-pick-title">{pick.label}</span>
+            </button>
+          ) : (
+            <div className="pl-scr-bet-main">
+              <MaestroIcon name="chart" size={13} className="pl-scr-bet-icon" />
+              <strong className="pl-scr-pick-title locked-redact">
+                Pick reservado Pase PitchLab Ultra
+              </strong>
+            </div>
+          )}
           <div className="pl-scr-bet-sub">
             <span>
               {game.home.shortName} vs {game.away.shortName}
@@ -1512,7 +1518,7 @@ const ScreenerPickRow = memo(function ScreenerPickRow({
                 unitLabel={liveUnit}
                 direction={liveDirection}
                 projectedFinal={liveProjected}
-                asianState={trackedLive?.asianState ?? null}
+                asianState={trackedLive?.asianState ?? liveProgress?.asianState ?? null}
                 starterAlert={trackedLive?.starterAlert ?? null}
                 starterAlertDetail={trackedLive?.starterAlertDetail ?? null}
                 compact
@@ -1895,6 +1901,16 @@ export function PicksFinderClubView({
     prefetchRoute,
     requestFullShell,
   } = usePlatformActions();
+  const journalEntries = useJournalEntries();
+  const journalCount = journalEntries.length;
+  const isDesktopViewport = useMediaQuery("(min-width: 1024px)", false);
+  const tabsUid = useId();
+  const tabPanelId = `${tabsUid}-panel`;
+  const tabButtonRefs = useRef<Record<TimingMode, HTMLButtonElement | null>>({
+    upcoming: null,
+    live: null,
+    settled: null,
+  });
 
   useSafeEffect(() => {
     void requestFullShell();
@@ -1941,6 +1957,13 @@ export function PicksFinderClubView({
     readonly game: PlatformGame;
   } | null>(null);
   const [activeLabPickId, setActiveLabPickId] = useState<string | null>(null);
+  const [activeLabOverride, setActiveLabOverride] = useState<CatalogPickItem | null>(null);
+
+  useSafeEffect(() => {
+    if (isDesktopViewport && mobileSheetOpen) {
+      setMobileSheetOpen(false);
+    }
+  }, [isDesktopViewport, mobileSheetOpen]);
 
   const [extraCatalogs, setExtraCatalogs] = useState<Readonly<Record<string, MatchPicksCatalog>>>(
     {},
@@ -2040,19 +2063,30 @@ export function PicksFinderClubView({
     }
   }, []);
 
+  const prevLiveTriggerRef = useRef<string>("");
+
   useSafeEffect(() => {
     if (!canPollLiveTrackedPicks) return undefined;
+    const triggerKey = `${timing}:${journalCount}`;
+    const enteringLiveOrSealed =
+      timing === "live" ||
+      (prevLiveTriggerRef.current !== "" && prevLiveTriggerRef.current !== triggerKey);
+    prevLiveTriggerRef.current = triggerKey;
+    if (enteringLiveOrSealed) {
+      setLiveTrackerPollMs((prev) => prev ?? DEFAULT_LIVE_TRACKER_POLL_MS);
+    }
     const controller = new AbortController();
     void fetchLiveTrackedPicks(controller.signal);
     return () => {
       controller.abort();
     };
-  }, [canPollLiveTrackedPicks, fetchLiveTrackedPicks]);
+  }, [canPollLiveTrackedPicks, fetchLiveTrackedPicks, journalCount, timing]);
 
   useVisibilityPolling(
     () => fetchLiveTrackedPicks(),
     liveTrackerPollMs,
-    canPollLiveTrackedPicks && (timing === "live" || liveTrackedItems.length > 0),
+    canPollLiveTrackedPicks &&
+      (timing === "live" || liveTrackedItems.length > 0 || journalCount > 0),
   );
 
   const hasDatasetLiveGames = useMemo(
@@ -2598,18 +2632,23 @@ export function PicksFinderClubView({
   }, [all, apiPicksOfTheDay, gameById, initialPicksOfTheDay, itemByPickId, league, sport]);
 
   const timingCounts = useMemo(() => {
-    let live = 0;
+    const liveIds = new Set<string>();
     let upcoming = 0;
     let settled = 0;
     for (const item of all) {
-      if (item.tabBucket === "live") live += 1;
+      if (item.tabBucket === "live") liveIds.add(item.pick.id);
       else if (item.tabBucket === "settled") settled += 1;
       else if (!onlyRecommended || item.isRecommended) upcoming += 1;
     }
-    return { live, upcoming, settled };
-  }, [all, onlyRecommended]);
+    for (const tracked of liveTrackedItems) {
+      liveIds.add(tracked.pickId);
+    }
+    return { live: liveIds.size, upcoming, settled };
+  }, [all, liveTrackedItems, onlyRecommended]);
 
-  const tabItems = useMemo<readonly SofascoreTabItem[]>(
+  const tabItems = useMemo<
+    readonly { readonly id: TimingMode; readonly label: string; readonly count: number }[]
+  >(
     () => [
       {
         id: "upcoming",
@@ -2619,7 +2658,7 @@ export function PicksFinderClubView({
       {
         id: "live",
         label: "Activos / En vivo",
-        count: timingCounts.live + liveTrackedItems.length,
+        count: timingCounts.live,
       },
       {
         id: "settled",
@@ -2627,7 +2666,7 @@ export function PicksFinderClubView({
         count: timingCounts.settled,
       },
     ],
-    [liveTrackedItems.length, timingCounts.live, timingCounts.settled, timingCounts.upcoming],
+    [timingCounts.live, timingCounts.settled, timingCounts.upcoming],
   );
 
   const leagues = useMemo(() => {
@@ -3067,15 +3106,62 @@ export function PicksFinderClubView({
     return inPotd ?? null;
   }, [activeLabPickId, itemByPickId, picksOfTheDay]);
 
+  const missingLabUrl = useMemo<string | null>(() => {
+    if (!activeLabPickId || activeLabItem) return null;
+    if (activeLabOverride && activeLabOverride.id === activeLabPickId) return null;
+    return `/api/picks/lab/${encodeURIComponent(activeLabPickId)}`;
+  }, [activeLabItem, activeLabOverride, activeLabPickId]);
+
+  const missingLabFetch = useAbortableJson<PickLabResponsePayload>(missingLabUrl, {
+    enabled: missingLabUrl !== null,
+  });
+
+  useSafeEffect(() => {
+    const payload = missingLabFetch.data;
+    if (payload && payload.ok && payload.pick.id === activeLabPickId) {
+      setActiveLabOverride(payload.pick);
+    }
+  }, [activeLabPickId, missingLabFetch.data]);
+
+  const resolvedLabPick = useMemo<CatalogPickItem | null>(() => {
+    if (!activeLabPickId) return null;
+    if (activeLabItem) return activeLabItem.catalogPick;
+    if (activeLabOverride && activeLabOverride.id === activeLabPickId) {
+      return activeLabOverride;
+    }
+    if (missingLabFetch.data?.ok && missingLabFetch.data.pick.id === activeLabPickId) {
+      return missingLabFetch.data.pick;
+    }
+    return null;
+  }, [activeLabItem, activeLabOverride, activeLabPickId, missingLabFetch.data]);
+
+  const resolvedLabGame = useMemo<PlatformGame | null>(() => {
+    if (activeLabItem) return activeLabItem.game;
+    if (!resolvedLabPick) return null;
+    return gameById.get(resolvedLabPick.gameId) ?? null;
+  }, [activeLabItem, gameById, resolvedLabPick]);
+
+  const resolvedLabDataOverride = useMemo<PickLabResponsePayload | null>(() => {
+    if (
+      missingLabFetch.data &&
+      missingLabFetch.data.ok &&
+      resolvedLabPick &&
+      missingLabFetch.data.pick.id === resolvedLabPick.id
+    ) {
+      return missingLabFetch.data;
+    }
+    return null;
+  }, [missingLabFetch.data, resolvedLabPick]);
+
   const activeLabRelatedPicks = useMemo<readonly CatalogPickItem[]>(() => {
-    if (!activeLabItem) return [];
-    const targetGameId = activeLabItem.game.id;
-    const targetPlayer = activeLabItem.playerMeta?.playerName ?? null;
-    return all
+    if (!resolvedLabPick) return [];
+    const targetGameId = resolvedLabPick.gameId;
+    const targetPlayer = resolvedLabPick.playerMeta?.playerName ?? null;
+    const fromCatalog = all
       .filter(
         (candidate) =>
           candidate.game.id === targetGameId &&
-          candidate.pick.id !== activeLabItem.pick.id &&
+          candidate.pick.id !== resolvedLabPick.id &&
           !candidate.catalogPick.isRedacted &&
           isPickUnlocked(candidate.pick, candidate.game.status, viewerRole),
       )
@@ -3086,7 +3172,15 @@ export function PicksFinderClubView({
       })
       .slice(0, 8)
       .map((candidate) => candidate.catalogPick);
-  }, [activeLabItem, all, viewerRole]);
+
+    if (fromCatalog.length > 0) return fromCatalog;
+    if (resolvedLabDataOverride?.relatedPicks && resolvedLabDataOverride.relatedPicks.length > 0) {
+      return resolvedLabDataOverride.relatedPicks
+        .filter((candidate) => candidate.id !== resolvedLabPick.id)
+        .slice(0, 8);
+    }
+    return [];
+  }, [all, resolvedLabDataOverride, resolvedLabPick, viewerRole]);
 
   const toggleGroupCollapse = useCallback((groupKey: string) => {
     setCollapsedGroups((prev) => {
@@ -3137,10 +3231,12 @@ export function PicksFinderClubView({
 
   const handleOpenLab = useCallback((item: ScreenerItem) => {
     setActiveLabPickId(item.pick.id);
+    setActiveLabOverride(item.catalogPick);
   }, []);
 
   const handleCloseLab = useCallback(() => {
     setActiveLabPickId(null);
+    setActiveLabOverride(null);
     if (typeof window !== "undefined") {
       const url = new URL(window.location.href);
       if (url.searchParams.has("lab")) {
@@ -3152,20 +3248,21 @@ export function PicksFinderClubView({
 
   const handleSelectRelatedPick = useCallback((relatedPick: CatalogPickItem) => {
     setActiveLabPickId(relatedPick.id);
+    setActiveLabOverride(relatedPick);
   }, []);
 
   const handleLabAddToParlay = useCallback(
     (catPick: CatalogPickItem) => {
-      const game = gameById.get(catPick.gameId) ?? activeLabItem?.game ?? null;
+      const game = gameById.get(catPick.gameId) ?? resolvedLabGame ?? null;
       const matchPick = catalogPickItemToMatchPick(catPick, game, 0);
       addPickToParlay(matchPick);
     },
-    [activeLabItem?.game, addPickToParlay, gameById],
+    [addPickToParlay, gameById, resolvedLabGame],
   );
 
   const handleLabSealPick = useCallback(
     (catPick: CatalogPickItem, customSpec?: PickLabCustomSelection) => {
-      const game = gameById.get(catPick.gameId) ?? activeLabItem?.game ?? null;
+      const game = gameById.get(catPick.gameId) ?? resolvedLabGame ?? null;
       const basePick = catalogPickItemToMatchPick(catPick, game, 0);
       const finalPick: MatchPick = customSpec
         ? {
@@ -3179,7 +3276,7 @@ export function PicksFinderClubView({
       handleCloseLab();
       openComposer(finalPick);
     },
-    [activeLabItem?.game, gameById, handleCloseLab, openComposer],
+    [gameById, handleCloseLab, openComposer, resolvedLabGame],
   );
 
   const handleOpenManual = useCallback((pickId: string) => {
@@ -3706,99 +3803,79 @@ export function PicksFinderClubView({
     </div>
   );
 
-  const renderLiveTrackerCard = (compactStrip: boolean) => {
-    const displayed = compactStrip ? liveTrackedItems.slice(0, 3) : liveTrackedItems;
-    return (
-      <SofascoreCard
-        title={compactStrip ? "Tus picks activos en vivo" : "Seguimiento en vivo de tus picks"}
-        meta={
-          compactStrip ? (
-            <Button
-              type="button"
-              variant="ghost"
-              size="sm"
-              onClick={() => {
-                setTiming("live");
-                setVisibleGamesCount(INITIAL_GAMES_SHOWN);
-              }}
+  const renderLiveTrackerCard = () => (
+    <SofascoreCard
+      title="Seguimiento en vivo de tus picks"
+      meta={`${liveTrackedItems.length} ${liveTrackedItems.length === 1 ? "seguido" : "seguidos"}`}
+      density="compact"
+    >
+      {liveTrackedItems.length > 0 ? (
+        <div className="pl-scr-live-tracker-grid" data-live-tracker-strip="">
+          {liveTrackedItems.map((tracked) => (
+            <div
+              key={tracked.id}
+              className="pl-scr-live-tracker-card"
+              data-picks-live-progress=""
             >
-              Ver tablero en vivo ({liveTrackedItems.length})
-            </Button>
-          ) : (
-            `${liveTrackedItems.length} ${liveTrackedItems.length === 1 ? "seguido" : "seguidos"}`
-          )
-        }
-        density="compact"
-      >
-        {displayed.length > 0 ? (
-          <div className="pl-scr-live-tracker-grid" data-live-tracker-strip="">
-            {displayed.map((tracked) => (
-              <div
-                key={tracked.id}
-                className="pl-scr-live-tracker-card"
-                data-picks-live-progress=""
-              >
-                <LivePickProgressBar
-                  pickLabel={tracked.pickLabel}
-                  matchLabel={
-                    tracked.leagueLabel
-                      ? `${tracked.leagueLabel} · ${tracked.matchLabel}`
-                      : tracked.matchLabel
-                  }
-                  clockLabel={tracked.clockLabel}
-                  actualValue={tracked.actualValue}
-                  targetLine={tracked.targetLine}
-                  unitLabel={tracked.unitLabel}
-                  direction={tracked.direction}
-                  projectedFinal={tracked.projectedFinal}
-                  asianState={tracked.asianState}
-                  starterAlert={tracked.starterAlert}
-                  starterAlertDetail={tracked.starterAlertDetail}
-                  compact={compactStrip}
-                />
-                {!compactStrip && tracked.pickKind === "parlay" && tracked.legs.length > 1 ? (
-                  <details className="pl-scr-live-legs">
-                    <summary className="pl-scr-live-legs-summary num">
-                      Ver {tracked.legs.length} piernas del parlay
-                    </summary>
-                    <div className="pl-scr-live-legs-list">
-                      {tracked.legs.map((leg) => (
-                        <LivePickProgressBar
-                          key={leg.pickId}
-                          pickLabel={leg.pickLabel}
-                          matchLabel={
-                            leg.leagueLabel
-                              ? `${leg.leagueLabel} · ${leg.matchLabel}`
-                              : leg.matchLabel
-                          }
-                          clockLabel={leg.clockLabel}
-                          actualValue={leg.actualValue}
-                          targetLine={leg.targetLine}
-                          unitLabel={leg.unitLabel}
-                          direction={leg.direction}
-                          projectedFinal={leg.projectedFinal}
-                          asianState={leg.asianState}
-                          starterAlert={leg.starterAlert}
-                          starterAlertDetail={leg.starterAlertDetail}
-                          compact
-                        />
-                      ))}
-                    </div>
-                  </details>
-                ) : null}
-              </div>
-            ))}
-          </div>
-        ) : (
-          <p className="pl-scr-live-tracker-note">
-            {hasAccountSessionAuth && liveTrackerLoaded
-              ? "No tienes picks sellados en juego ahora mismo. Sella un pick desde Próximos para seguir su avance actual / línea aquí."
-              : "Inicia sesión con tu cuenta de socio para seguir tus picks sellados en tiempo real con barra actual / línea y alertas de alineación."}
-          </p>
-        )}
-      </SofascoreCard>
-    );
-  };
+              <LivePickProgressBar
+                pickLabel={tracked.pickLabel}
+                matchLabel={
+                  tracked.leagueLabel
+                    ? `${tracked.leagueLabel} · ${tracked.matchLabel}`
+                    : tracked.matchLabel
+                }
+                clockLabel={tracked.clockLabel}
+                actualValue={tracked.actualValue}
+                targetLine={tracked.targetLine}
+                unitLabel={tracked.unitLabel}
+                direction={tracked.direction}
+                projectedFinal={tracked.projectedFinal}
+                asianState={tracked.asianState}
+                starterAlert={tracked.starterAlert}
+                starterAlertDetail={tracked.starterAlertDetail}
+              />
+              {tracked.pickKind === "parlay" && tracked.legs.length > 1 ? (
+                <details className="pl-scr-live-legs">
+                  <summary className="pl-scr-live-legs-summary num">
+                    Ver {tracked.legs.length} piernas del parlay
+                  </summary>
+                  <div className="pl-scr-live-legs-list">
+                    {tracked.legs.map((leg) => (
+                      <LivePickProgressBar
+                        key={leg.pickId}
+                        pickLabel={leg.pickLabel}
+                        matchLabel={
+                          leg.leagueLabel
+                            ? `${leg.leagueLabel} · ${leg.matchLabel}`
+                            : leg.matchLabel
+                        }
+                        clockLabel={leg.clockLabel}
+                        actualValue={leg.actualValue}
+                        targetLine={leg.targetLine}
+                        unitLabel={leg.unitLabel}
+                        direction={leg.direction}
+                        projectedFinal={leg.projectedFinal}
+                        asianState={leg.asianState}
+                        starterAlert={leg.starterAlert}
+                        starterAlertDetail={leg.starterAlertDetail}
+                        compact
+                      />
+                    ))}
+                  </div>
+                </details>
+              ) : null}
+            </div>
+          ))}
+        </div>
+      ) : (
+        <p className="pl-scr-live-tracker-note">
+          {hasAccountSessionAuth && liveTrackerLoaded
+            ? "No tienes picks sellados en juego ahora mismo. Sella un pick desde Próximos para seguir su avance actual / línea aquí."
+            : "Inicia sesión con tu cuenta de socio para seguir tus picks sellados en tiempo real con barra actual / línea y alertas de alineación."}
+        </p>
+      )}
+    </SofascoreCard>
+  );
 
   const renderPickTable = (
     itemsToRender: readonly ScreenerItem[],
@@ -3876,17 +3953,76 @@ export function PicksFinderClubView({
             <div className="pl-scr-topbar-left">
               <h1 className="pl-scr-h1">Explorar picks</h1>
               <div className="pl-scr-tabs-bar" data-screener-timing="">
-                <SofascoreTabs
-                  items={tabItems}
-                  value={timing}
-                  onChange={(nextId) => {
-                    setTiming(parseTimingMode(nextId));
-                    setVisibleGamesCount(INITIAL_GAMES_SHOWN);
-                    setFlatShown(INITIAL_FLAT_PICKS);
-                  }}
-                  variant="underline"
-                  ariaLabel="Estado de los picks"
-                />
+                <div
+                  role="tablist"
+                  aria-label="Estado de los picks"
+                  aria-orientation="horizontal"
+                  className="pl-sf-tabs is-underline"
+                  data-pl-sf-tabs="underline"
+                >
+                  {tabItems.map((tabItem, tabIndex) => {
+                    const isSelected = tabItem.id === timing;
+                    return (
+                      <button
+                        key={tabItem.id}
+                        id={`${tabsUid}-tab-${tabItem.id}`}
+                        ref={(el) => {
+                          tabButtonRefs.current[tabItem.id] = el;
+                        }}
+                        type="button"
+                        role="tab"
+                        aria-selected={isSelected}
+                        aria-controls={tabPanelId}
+                        tabIndex={isSelected ? 0 : -1}
+                        data-pl-sf-tab={tabItem.id}
+                        className="pl-sf-tab"
+                        onClick={(event) => {
+                          event.currentTarget.scrollIntoView({
+                            behavior: "auto",
+                            inline: "nearest",
+                            block: "nearest",
+                          });
+                          if (tabItem.id !== timing) {
+                            setTiming(tabItem.id);
+                            setVisibleGamesCount(INITIAL_GAMES_SHOWN);
+                            setFlatShown(INITIAL_FLAT_PICKS);
+                          }
+                        }}
+                        onKeyDown={(event) => {
+                          let nextIdx = -1;
+                          if (event.key === "ArrowRight") {
+                            nextIdx = (tabIndex + 1) % tabItems.length;
+                          } else if (event.key === "ArrowLeft") {
+                            nextIdx = (tabIndex - 1 + tabItems.length) % tabItems.length;
+                          } else if (event.key === "Home") {
+                            nextIdx = 0;
+                          } else if (event.key === "End") {
+                            nextIdx = tabItems.length - 1;
+                          }
+                          if (nextIdx < 0) return;
+                          event.preventDefault();
+                          const targetTab = tabItems[nextIdx];
+                          if (!targetTab) return;
+                          const btn = tabButtonRefs.current[targetTab.id];
+                          btn?.focus();
+                          btn?.scrollIntoView({
+                            behavior: "auto",
+                            inline: "nearest",
+                            block: "nearest",
+                          });
+                          if (targetTab.id !== timing) {
+                            setTiming(targetTab.id);
+                            setVisibleGamesCount(INITIAL_GAMES_SHOWN);
+                            setFlatShown(INITIAL_FLAT_PICKS);
+                          }
+                        }}
+                      >
+                        <span className="pl-sf-tab-label">{tabItem.label}</span>
+                        <span className="pl-sf-tab-count num">{tabItem.count}</span>
+                      </button>
+                    );
+                  })}
+                </div>
               </div>
             </div>
 
@@ -4072,18 +4208,13 @@ export function PicksFinderClubView({
 
           <div className="pl-scr-layout" data-picks-layout="">
             <div
+              id={tabPanelId}
               className="pl-scr-main"
               role="tabpanel"
-              aria-label={
-                timing === "live"
-                  ? "Picks activos y en vivo"
-                  : timing === "settled"
-                    ? "Picks liquidados FT"
-                    : "Picks recomendados y próximos"
-              }
+              aria-labelledby={`${tabsUid}-tab-${timing}`}
               data-picks-main=""
             >
-              {timing === "live" ? renderLiveTrackerCard(false) : null}
+              {timing === "live" ? renderLiveTrackerCard() : null}
 
               {timing === "settled" && settledKpis.length > 0 ? (
                 <SofascoreKpiStrip items={settledKpis} />
@@ -4388,10 +4519,11 @@ export function PicksFinderClubView({
         ) : null}
 
         <PickEvidenceLabDrawer
-          open={Boolean(activeLabItem)}
-          pick={activeLabItem?.catalogPick ?? null}
-          game={activeLabItem?.game ?? null}
+          open={Boolean(activeLabPickId && resolvedLabPick)}
+          pick={resolvedLabPick}
+          game={resolvedLabGame}
           relatedPicks={activeLabRelatedPicks}
+          labDataOverride={resolvedLabDataOverride}
           onClose={handleCloseLab}
           onSelectRelatedPick={handleSelectRelatedPick}
           onAddToParlay={handleLabAddToParlay}
