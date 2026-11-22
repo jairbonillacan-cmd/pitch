@@ -458,7 +458,7 @@ export function SignupSurfaceV4({
       active = false;
       controller.abort();
     };
-  }, [confirmedSession]);
+  }, [confirmedSession, nextPath]);
 
   useContinueAfterConfirmation(destination);
 
@@ -578,6 +578,7 @@ export function SignupSurfaceV4({
       identityOk = false;
     }
     if (!SIGNUP_HANDLE_PATTERN.test(cleanHandle)) {
+      setCustomHandle(cleanHandle);
       setHandleTouched(true);
       identityOk = false;
     } else if (handleStatus === "taken" || handleStatus === "reserved") {
