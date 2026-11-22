@@ -665,6 +665,44 @@ test("no-raw-server-console bloquea console.(log|info|warn|error) en apps/web/sr
   }
 });
 
+test("las 6 reglas estructurales Constraint-First están bloqueadas en 0 en scripts/lint-ratchet-baseline.json", () => {
+  const baselinePath = join(REPO_ROOT, "scripts", "lint-ratchet-baseline.json");
+  const baseline = JSON.parse(readFileSync(baselinePath, "utf8"));
+  assert.ok(baseline && typeof baseline.rules === "object" && baseline.rules !== null);
+
+  const lockedZeroRules = [
+    "no-monolithic-use-platform",
+    "require-api-wrapper",
+    "no-slop-wrapper-bloat",
+    "no-view-use-effect",
+    "no-unsafe-type-assertion",
+    "no-unsafe-number-cast",
+  ];
+
+  for (const rule of lockedZeroRules) {
+    const ruleMap = baseline.rules[rule];
+    assert.ok(
+      ruleMap && typeof ruleMap === "object" && !Array.isArray(ruleMap),
+      `La regla estructural ${rule} debe existir como objeto en scripts/lint-ratchet-baseline.json`,
+    );
+    const entries = Object.entries(ruleMap);
+    const totalDebt = entries.reduce(
+      (acc, [, count]) => acc + (typeof count === "number" && Number.isFinite(count) ? count : 0),
+      0,
+    );
+    assert.equal(
+      entries.length,
+      0,
+      `La regla estructural ${rule} está bloqueada en 0 archivos de deuda; encontradas ${entries.length} entrada(s): ${entries.map(([file, count]) => `${file}=${count}`).join(", ")}`,
+    );
+    assert.equal(
+      totalDebt,
+      0,
+      `La regla estructural ${rule} está bloqueada en 0 entradas de deuda; suma actual: ${totalDebt}`,
+    );
+  }
+});
+
 test("el propio scripts/lint-codebase.mjs pasa en modo --strict-files con cero deuda y los tests tienen cero comentarios", () => {
   const selfCheck = runCli(["--strict-files", "scripts/lint-codebase.mjs"]);
   assert.equal(selfCheck.status, 0, selfCheck.stderr);

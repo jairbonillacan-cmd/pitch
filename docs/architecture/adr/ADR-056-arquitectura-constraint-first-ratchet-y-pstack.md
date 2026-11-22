@@ -85,3 +85,16 @@ Se institucionaliza la **Arquitectura *Constraint-First*** de PitchLab, codifica
 - **Batería secuencial final de Ola 5 completada en `513374cf` (detalle completo en `docs/execution/PROJECT_STATE.md`):**
   - Auditoría adversarial `pstack` de 4 ejes cerrada con **`0 CRÍTICO / 0 ALTO`**.
   - `pnpm -r --workspace-concurrency=1 typecheck` (`11/11` PASS), `pnpm -r --workspace-concurrency=1 test` (`11/11` paquetes · `213` passed | `0` failed | `2` skipped · `1,907` passed | `0` failed | `25` skipped, incluyendo `property-invariants.test.ts`, `state-machines-fc.test.ts` y `api-guards.test.ts`), `pnpm run eval:cortex` (`24/24` PASS), `pnpm run eval:alerts` (`16/16` PASS), `pnpm build` (`11/11` paquetes PASS), `pnpm build-storybook` (`4,494` módulos PASS) y `pnpm e2e` (`71` passed | `0` failed | `1` skipped por diseño, incl. `apps/web/e2e/ui-fuzzing.spec.ts` + Axe WCAG AA).
+
+---
+
+## Adenda Ola 8 (2026-11-22) · Deuda estructural a 0
+
+- **Cierre estructural definitivo (`gemini-dos`, `817` archivos escaneados / `0` violaciones):** **`6` de las `7` reglas del *ratchet*** alcanzaron **`0` definitivo** en todo el monorepo y quedaron **bloqueadas contra regresión** mediante prueba permanente en `scripts/tests/lint-codebase.test.mjs` (`20/20` pruebas en `scripts/tests/*.mjs`) que exige `0` archivos y `0` entradas de deuda en `scripts/lint-ratchet-baseline.json`:
+  - `no-monolithic-use-platform`: **`0`** (`0` archivos).
+  - `require-api-wrapper`: **`0`** (`0` archivos).
+  - `no-slop-wrapper-bloat`: **`4 → 0`** (`0` archivos).
+  - `no-view-use-effect`: **`44 → 0`** (`0` archivos).
+  - `no-unsafe-type-assertion`: **`73 → 0`** (`0` archivos).
+  - `no-unsafe-number-cast`: **`333 → 0`** (`0` archivos).
+- **Reducción acumulada del *ratchet*:** el total en `scripts/lint-ratchet-baseline.json` descendió de **`7,237 → 6,761`** (**`-476`** en Ola 8 y **`-2,135`** acumulado desde la línea base inicial `8,896`); únicamente restan comentarios históricos en `no-prod-comments` (`6,783 → 6,761` en `350` archivos).
