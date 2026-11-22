@@ -22,6 +22,12 @@ interface SmallInputSample {
   readonly fontSizePx: number;
 }
 
+interface BrokenImageSample {
+  readonly src: string;
+  readonly alt: string;
+  readonly className: string;
+}
+
 interface PageInvariantAudit {
   readonly scrollWidth: number;
   readonly clientWidth: number;
@@ -30,7 +36,9 @@ interface PageInvariantAudit {
   readonly isMobileViewport: boolean;
   readonly smallButtons: readonly SmallButtonSample[];
   readonly smallInputs: readonly SmallInputSample[];
+  readonly brokenImages: readonly BrokenImageSample[];
   readonly fd16Leaks: readonly string[];
+  readonly ola7CopyLeaks: readonly string[];
   readonly openDialogsCount: number;
   readonly injectedScriptCount: number;
 }
@@ -186,6 +194,57 @@ async function waitForLayoutStable(page: Page): Promise<void> {
         }),
       ]);
     }
+    const isImageRendered = (img: HTMLImageElement): boolean => {
+      if (
+        img.closest(
+          "nextjs-portal, [data-nextjs-toast], [hidden], dialog:not([open]), [popover]:not(:popover-open), [inert]",
+        )
+      ) {
+        return false;
+      }
+      let cur: Element | null = img;
+      while (cur && cur !== document.documentElement) {
+        const st = window.getComputedStyle(cur);
+        if (
+          st.display === "none" ||
+          st.visibility === "hidden" ||
+          Number.parseFloat(st.opacity || "1") === 0
+        ) {
+          return false;
+        }
+        cur = cur.parentElement;
+      }
+      const rect = img.getBoundingClientRect();
+      return rect.width > 1 && rect.height > 1;
+    };
+    const pendingImgs = Array.from(document.querySelectorAll("img")).filter((img) => {
+      if (img.complete) return false;
+      if (!isImageRendered(img)) return false;
+      const rect = img.getBoundingClientRect();
+      const nearViewport = rect.bottom > -200 && rect.top < window.innerHeight + 300;
+      return nearViewport || img.loading !== "lazy";
+    });
+    if (pendingImgs.length > 0) {
+      await Promise.race([
+        Promise.all(
+          pendingImgs.map(
+            (img) =>
+              new Promise<void>((resolve) => {
+                if (img.complete) {
+                  resolve();
+                  return;
+                }
+                const done = () => resolve();
+                img.addEventListener("load", done, { once: true });
+                img.addEventListener("error", done, { once: true });
+              }),
+          ),
+        ),
+        new Promise<void>((resolve) => {
+          window.setTimeout(resolve, 3_000);
+        }),
+      ]);
+    }
     await new Promise<void>((resolve) => {
       window.requestAnimationFrame(() => {
         window.requestAnimationFrame(() => resolve());
@@ -338,6 +397,67 @@ async function auditPageInvariants(
       (node.textContent ?? "").includes("alert(1)"),
     ).length;
 
+    const isImageRendered = (img: HTMLImageElement): boolean => {
+      if (
+        img.closest(
+          "nextjs-portal, [data-nextjs-toast], [hidden], dialog:not([open]), [popover]:not(:popover-open), [inert]",
+        )
+      ) {
+        return false;
+      }
+      let cur: Element | null = img;
+      while (cur && cur !== document.documentElement) {
+        const st = window.getComputedStyle(cur);
+        if (
+          st.display === "none" ||
+          st.visibility === "hidden" ||
+          Number.parseFloat(st.opacity || "1") === 0
+        ) {
+          return false;
+        }
+        cur = cur.parentElement;
+      }
+      const rect = img.getBoundingClientRect();
+      return rect.width > 1 && rect.height > 1;
+    };
+
+    const brokenImages: BrokenImageSample[] = [];
+    for (const img of Array.from(document.querySelectorAll("img"))) {
+      if (!isImageRendered(img)) continue;
+      const rect = img.getBoundingClientRect();
+      const inViewport =
+        rect.bottom > 0 &&
+        rect.top < window.innerHeight &&
+        rect.right > 0 &&
+        rect.left < window.innerWidth;
+      if ((img.complete && img.naturalWidth === 0) || (inViewport && img.naturalWidth === 0)) {
+        brokenImages.push({
+          src: (img.currentSrc || img.getAttribute("src") || "(empty)").slice(0, 140),
+          alt: (img.getAttribute("alt") || "").slice(0, 60),
+          className: (img.getAttribute("class") || "").trim().slice(0, 80),
+        });
+        if (brokenImages.length >= 10) break;
+      }
+    }
+
+    const ola7CopyLeaks: string[] = [];
+    const pathname = window.location.pathname;
+    const allowEngineCatalogGeodesic =
+      /^\/(?:motores|app\/tech|app\/social)(?:\/|$)/.test(pathname) ||
+      /^\/app\/[a-z0-9-]+\/g\/[a-z0-9-]+/.test(pathname);
+    if (/(?:^|[\s:(["'·])-5000\b/.test(visibleText)) {
+      ola7CopyLeaks.push("visible-text:-5000");
+    }
+    if (/fr[eé]chet[\s-]+hoeffding/i.test(visibleText)) {
+      ola7CopyLeaks.push("visible-text:Fréchet-Hoeffding");
+    }
+    if (/armador inteligente geodesic/i.test(visibleText)) {
+      ola7CopyLeaks.push("visible-text:Armador Inteligente Geodesic");
+    }
+    if (!allowEngineCatalogGeodesic && /geodesic\s+v2\.0/i.test(visibleText)) {
+      ola7CopyLeaks.push("visible-text:Geodesic v2.0");
+    }
+
     return {
       scrollWidth,
       clientWidth,
@@ -346,7 +466,9 @@ async function auditPageInvariants(
       isMobileViewport,
       smallButtons,
       smallInputs,
+      brokenImages,
       fd16Leaks,
+      ola7CopyLeaks,
       openDialogsCount: document.querySelectorAll("dialog[open]").length,
       injectedScriptCount,
     };
@@ -368,6 +490,14 @@ async function auditPageInvariants(
     ).toEqual([]);
   }
 
+  expect(
+    report.brokenImages,
+    `Imágenes rotas (naturalWidth === 0) en ${label}`,
+  ).toEqual([]);
+  expect(
+    report.ola7CopyLeaks,
+    `Fuga de copy/regresión Ola 7 (-5000 / Fréchet-Hoeffding / Geodesic v2.0) en ${label}`,
+  ).toEqual([]);
   expect(
     report.fd16Leaks,
     `Fuga FD-16 (/scoutpicks|sofascore|bzzoiro|poisson|dixon/i) en DOM/texto visible en ${label}`,

@@ -209,7 +209,7 @@ test("Club PitchLab v4 + Ola 6: Inicio Maestro-Detalle, Jornada, Buscador, Parla
   expect(calBox!.x).toBeGreaterThanOrEqual(0);
   expect(Math.round(calBox!.x + calBox!.width)).toBeLessThanOrEqual(width + 1);
   await calPopover.locator(".pl-home-cal-today-btn").click();
-  await expect(calPopover).toHaveCount(0);
+  await expect(calPopover).toBeHidden();
   await expect(dayCenter).toContainText("Hoy");
 
   if (width <= 640) {
@@ -361,7 +361,7 @@ test("Club PitchLab v4 + Ola 6: Inicio Maestro-Detalle, Jornada, Buscador, Parla
     await page.setViewportSize({ width, height: 900 });
   }
   await page.locator("[data-generate-parlay]").click();
-  const sealParlayBtn = page.getByRole("button", { name: /Sellar en Mi récord/i });
+  const sealParlayBtn = page.getByRole("button", { name: /Sellar en Mi récord/i }).first();
   await expect(sealParlayBtn).toBeEnabled();
   await sealParlayBtn.click();
 
