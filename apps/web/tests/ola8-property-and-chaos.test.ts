@@ -989,9 +989,11 @@ describe("Ola 8 · Propiedades cuantitativas (fast-check)", () => {
         .returning({ id: users.id });
       const userId = insertedUser!.id;
 
-      const sealNow = new Date("2026-11-22T12:00:00Z");
-      const kickoffAt = new Date("2026-11-22T20:00:00Z");
-      const settleAt = new Date("2026-11-22T23:00:00Z");
+      const baseMs = Date.now();
+      const sealNow = new Date(baseMs);
+      const kickoffAt = new Date(baseMs + 8 * 3_600_000);
+      const settleAt = new Date(baseMs + 11 * 3_600_000);
+      const replayAt = new Date(baseMs + 14 * 3_600_000);
 
       const sealedA = await sealPick(
         testDb,
@@ -1080,7 +1082,7 @@ describe("Ola 8 · Propiedades cuantitativas (fast-check)", () => {
         result: "lost",
         clvPct: -30,
         closingDecimal: 3.1,
-        now: new Date("2026-11-23T02:00:00Z"),
+        now: replayAt,
       });
       const replayB = await settleSealedPick(testDb, {
         userId,
@@ -1088,7 +1090,7 @@ describe("Ola 8 · Propiedades cuantitativas (fast-check)", () => {
         result: "won",
         clvPct: 18,
         closingDecimal: 1.5,
-        now: new Date("2026-11-23T02:00:00Z"),
+        now: replayAt,
       });
       expect(replayA).toBeNull();
       expect(replayB).toBeNull();
