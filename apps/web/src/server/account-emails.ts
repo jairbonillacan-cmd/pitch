@@ -1,7 +1,3 @@
-/**
- * Correos de la cuenta que salen al registrarse: bienvenida (ya) y los dos avisos de la prueba
- * de 7 días (programados en Resend: día 5 y día 7). Un fallo de correo nunca rompe el registro.
- */
 import {
   claimEmail,
   listScheduledEmails,
@@ -15,16 +11,15 @@ import { renderEmail, siteUrl } from "@pitchlab/emails";
 import { MEMBERSHIP_SPEC } from "@pitchlab/ui/spacetime-catalog";
 import { firstName, formatLongDate } from "./email-format";
 import type { Mailer } from "./mailer";
+import { logSecurityEvent } from "./safe-logger";
 
 const DAY_MS = 86_400_000;
-/** Si falta menos que esto, se manda de inmediato en vez de programarlo. */
 const SCHEDULE_THRESHOLD_MS = 60_000;
 
 export interface AccountEmailsInput {
   userId: string;
   email: string;
   displayName: string | null;
-  /** ¿Se concedió la prueba de 7 días? Si no, solo sale la bienvenida. */
   trialGranted: boolean;
   now: Date;
 }
@@ -82,7 +77,7 @@ export async function startAccountEmails(db: Db, mailer: Mailer, input: AccountE
 
 async function sendOnce(db: Db, mailer: Mailer, input: AccountEmailsInput, job: Pending): Promise<void> {
   const rowId = await claimEmail(db, { userId: input.userId, kind: job.kind, sendAt: job.sendAt });
-  if (!rowId) return; // ya se mandó o se programó antes
+  if (!rowId) return;
   try {
     const { subject, html, text } = await job.build();
     const scheduled = job.sendAt.getTime() - input.now.getTime() > SCHEDULE_THRESHOLD_MS;
@@ -97,17 +92,21 @@ async function sendOnce(db: Db, mailer: Mailer, input: AccountEmailsInput, job: 
     });
     await markEmail(db, rowId, { status: scheduled ? "scheduled" : "sent", providerId: id });
   } catch (error) {
-    console.error(`[correo] no se pudo enviar ${job.kind}:`, error);
-    // Se libera la reserva: si la persona repite el registro, el correo se vuelve a intentar.
-    await releaseEmail(db, rowId).catch((e) => console.error("[correo] no se pudo liberar la reserva:", e));
+    logSecurityEvent("error", "account_email_send_failed", {
+      kind: job.kind,
+      userId: input.userId,
+      error,
+    });
+    await releaseEmail(db, rowId).catch((e) =>
+      logSecurityEvent("error", "account_email_release_failed", {
+        kind: job.kind,
+        rowId,
+        error: e,
+      }),
+    );
   }
 }
 
-/**
- * Cancela los avisos de la prueba que siguen programados. Hay que llamarla cuando la persona se
- * suscribe antes de que termine la prueba (webhook de Stripe, F4); si no, el aviso del día 5
- * le llegaría a alguien que ya pagó.
- */
 export async function cancelTrialEmails(db: Db, mailer: Mailer, userId: string): Promise<number> {
   const rows = await listScheduledEmails(db, userId, ["trial_ending", "trial_ended"]);
   let canceled = 0;
@@ -117,7 +116,12 @@ export async function cancelTrialEmails(db: Db, mailer: Mailer, userId: string):
       await markEmail(db, row.id, { status: "canceled" });
       canceled += 1;
     } catch (error) {
-      console.error(`[correo] no se pudo cancelar ${row.kind}:`, error);
+      logSecurityEvent("error", "account_email_cancel_failed", {
+        kind: row.kind,
+        rowId: row.id,
+        userId,
+        error,
+      });
     }
   }
   return canceled;

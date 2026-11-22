@@ -14,6 +14,7 @@ import {
 } from "@pitchlab/sports-assets";
 import type { LeagueNewsItem } from "@pitchlab/ui/types";
 import { fetchEspnLeagueNews } from "./espn-news";
+import { logSecurityEvent } from "./safe-logger";
 import {
   LEAGUE_LABELS,
   loadRawLeagueSnapshot,
@@ -265,7 +266,7 @@ function loadInjuryNews(
       .slice(0, 6)
       .map((x) => x.item);
   } catch (err) {
-    console.warn(`[league-news] error leyendo injuries.json de ${league}:`, err);
+    logSecurityEvent("warn", "league_news_injuries_read_failed", { league, error: err });
     return [];
   }
 }
@@ -346,7 +347,7 @@ function loadMarketNews(
       .slice(0, 4)
       .map((x) => x.item);
   } catch (err) {
-    console.warn(`[league-news] error leyendo market-pulse.json de ${league}:`, err);
+    logSecurityEvent("warn", "league_news_market_pulse_read_failed", { league, error: err });
     return [];
   }
 }
@@ -450,12 +451,6 @@ function loadAnalysisAndResultNews(
   return items;
 }
 
-/**
- * Construye noticias reales de actualidad de la liga (API pública en español con caché
- * de 10 min) y las complementa con reportes verificados del corte actual de PitchLab
- * (parte médico, pulso de mercado, claves del modelo, liderato en tabla y resultados cerrados).
- * Respeta la regla Cero-Fuga cuando `fullAccess` es `false`.
- */
 export async function loadLeagueNews(
   league: ProductLeague,
   fullAccess: boolean,
@@ -471,6 +466,5 @@ export async function loadLeagueNews(
     ...loadAnalysisAndResultNews(league, snapshot, fullAccess),
   ];
 
-  // Mostrar primero las noticias periodísticas en vivo y complementar con señales exclusivas de PitchLab.
   return [...liveHeadlines, ...localSignals].slice(0, 16);
 }

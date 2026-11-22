@@ -44,6 +44,7 @@ import {
   type ProductLeague,
   type SnapshotEnvelope,
 } from "./snapshots";
+import { logSecurityEvent } from "./safe-logger";
 import { findSpacetimeTeamRecord } from "./spacetime";
 
 interface SnapshotTeamRef {
@@ -109,7 +110,6 @@ const HISTORY_FILENAME_OVERRIDES: Readonly<Record<string, string>> = {
   "copa-asiatica": "international.jsonl",
 };
 
-/** Equivalencias entre slugs de snapshot y slugs históricos (sin exponer nombres de proveedores). */
 const SLUG_CANONICAL_ALIASES: Readonly<Record<string, string>> = {
   "atlas-guadalajara": "atlas",
   "deportivo-guadalajara": "chivas",
@@ -230,7 +230,7 @@ function loadSeasonResultsEntries(league: ProductLeague): SeasonResultEntry[] {
     seasonResultsCache.set(fullPath, { mtimeMs, entries });
     return entries;
   } catch (err) {
-    console.warn(`[team-profile] no se pudo leer season-results de ${league}:`, err);
+    logSecurityEvent("warn", "team_profile_season_results_read_failed", { league, error: err });
     return [];
   }
 }
@@ -265,7 +265,7 @@ function loadRecentHistoryEntries(league: ProductLeague): HistoryJsonlEntry[] {
     historyCache.set(fullPath, { mtimeMs, entries: parsed });
     return parsed;
   } catch (err) {
-    console.warn(`[team-profile] no se pudo leer histórico de ${league}:`, err);
+    logSecurityEvent("warn", "team_profile_history_read_failed", { league, error: err });
     return [];
   }
 }
@@ -366,12 +366,12 @@ function loadLeagueDatedSnapshots(league: ProductLeague, latest: LeagueSnapshot)
         const raw = JSON.parse(fs.readFileSync(path.join(dir, file), "utf8")) as LeagueSnapshot;
         if (raw && Array.isArray(raw.games)) out.push(raw);
       } catch (err) {
-        console.warn(`[team-profile] snapshot fechado inválido ${league}/${file}:`, err);
+        logSecurityEvent("warn", "team_profile_dated_snapshot_invalid", { league, file, error: err });
       }
     }
     return out;
   } catch (err) {
-    console.warn(`[team-profile] error listando snapshots de ${league}:`, err);
+    logSecurityEvent("warn", "team_profile_snapshots_list_failed", { league, error: err });
     return [latest];
   }
 }
@@ -393,7 +393,7 @@ function loadTeamInjuries(league: ProductLeague, teamId: string): TeamInjuryItem
         reportedAt: formatIsoUpdatedEs(e.reportedAt),
       }));
   } catch (err) {
-    console.warn(`[team-profile] no se pudo leer injuries.json de ${league}:`, err);
+    logSecurityEvent("warn", "team_profile_injuries_read_failed", { league, error: err });
     return [];
   }
 }
@@ -864,16 +864,10 @@ function findTeamRefInSnapshots(leagueRaw: string, teamSlugOrId: string): Snapsh
   return bySlug.get(target) ?? null;
 }
 
-/** Comprueba si existe un equipo dentro de los snapshots activos de una liga. */
 export function teamExistsInSnapshots(leagueRaw: string, teamSlugOrId: string): boolean {
   return findTeamRefInSnapshots(leagueRaw, teamSlugOrId) !== null;
 }
 
-/**
- * Construye el directorio global de equipos directamente desde los sobres ya cargados en memoria
- * (provenientes de `shell-index.json`), evitando releer y validar con Zod los 57 `latest.json`
- * en cada arranque en frío del servidor.
- */
 export function buildTeamsDirectoryFromEnvelopes(
   envelopes: Readonly<Partial<Record<ProductLeague, SnapshotEnvelope>>>,
 ): TeamLeagueDirectoryItem[] {
@@ -943,7 +937,6 @@ export function buildTeamsDirectoryFromEnvelopes(
   return items;
 }
 
-/** Devuelve el directorio ordenado de todos los clubes/franquicias de una o todas las ligas activas. */
 export function loadLeagueTeamsDirectory(
   onlyLeague?: ProductLeague,
 ): TeamLeagueDirectoryItem[] {
@@ -980,7 +973,6 @@ export function loadLeagueTeamsDirectory(
   return items;
 }
 
-/** Carga el perfil integral de un equipo desde snapshots reales, histórico, bajas y ficha maestra. */
 export function loadTeamProfile(
   leagueRaw: string,
   teamSlugOrId: string,
@@ -1002,7 +994,6 @@ export function loadTeamProfile(
   const latestGameIds = new Set<string>(snapshot.games.map((g) => String(g.id)));
   const snapshots = loadLeagueDatedSnapshots(leagueRaw, snapshot);
 
-  // 1. Standing row (cuando la liga incluye clasificación tabular).
   let standing: TeamStandingSummary | null = null;
   const standings = snapshot.standings ?? [];
   const standingIdx = standings.findIndex((s) => s.teamId === team.id);
@@ -1022,7 +1013,6 @@ export function loadTeamProfile(
     };
   }
 
-  // 2. Próximos partidos en latest.json (Cero-Fuga si !options.fullAccess).
   const hasDraw = sportHasDraw(sport);
   const upcomingFixtures: TeamUpcomingFixtureRow[] = snapshot.games
     .filter(
@@ -1079,7 +1069,6 @@ export function loadTeamProfile(
       };
     });
 
-  // 3. Partidos finalizados deduplicados entre snapshots cerrados e histórico jsonl.
   const finishedMap = new Map<string, InternalFinishedGame>();
 
   for (const snap of snapshots) {
@@ -1242,7 +1231,6 @@ export function loadTeamProfile(
     });
   }
 
-  // 4. Sede y altitud reales (prioriza el directorio canónico del club y descarta nombres genéricos de país).
   const homeSnapshotVenue =
     snapshot.games.find((g) => g.home.id === team.id && !g.neutralSite && g.venue)?.venue ?? null;
   const master = findSpacetimeTeamRecord(leagueRaw, team.name, team.slug);
@@ -1257,7 +1245,6 @@ export function loadTeamProfile(
     venueName || master?.stadium_elevation_m != null || master?.roof_type
       ? {
           name: venueName,
-          // Altitud y tipo de techo vienen de la ficha maestra: se reservan a sesiones con acceso completo.
           elevationM: options.fullAccess ? (master?.stadium_elevation_m ?? null) : null,
           roofType: !options.fullAccess
             ? null
@@ -1270,7 +1257,6 @@ export function loadTeamProfile(
         }
       : null;
 
-  // 5. Equipos de la misma liga para navegación rápida.
   const relatedTeams = loadLeagueTeamsDirectory(leagueRaw)
     .filter((item) => item.slug !== team.slug)
     .slice(0, 12)
@@ -1282,7 +1268,6 @@ export function loadTeamProfile(
       href: item.href,
     }));
 
-  // 6. Calcular promedios recientes sobre hasta 10 partidos finalizados recientes.
   const recentAverages = buildRecentAverages(finishedSorted, teamCanon, sport);
   const updatedLabel = formatIsoUpdatedEs(snapshot.updatedAt) ?? snapshot.updatedAt.slice(0, 10);
   const squad = loadTeamSquadSummary(leagueRaw, team, options.fullAccess);
@@ -1503,7 +1488,6 @@ function loadTeamSquadSummary(
   return entry ? mapSquadEntryToSummary(entry, fullAccess) : null;
 }
 
-/** Comprueba si existe un jugador dentro de la plantilla del equipo en los snapshots activos. */
 export function playerExistsInSnapshots(
   leagueRaw: string,
   teamSlugOrId: string,
@@ -1518,7 +1502,6 @@ export function playerExistsInSnapshots(
   return entry.players.some((p) => p.slug.toLowerCase() === targetSlug);
 }
 
-/** Carga la ficha individual de un jugador con bio, estadísticas de temporada y picks aplicables. */
 export function loadPlayerProfile(
   leagueRaw: string,
   teamSlugOrId: string,
@@ -1589,7 +1572,6 @@ function readCachedNbaPropSeeds(): NbaPlayerPropSeed[] {
   }
 }
 
-/** Construye props individuales de jugadores de fútbol para próximos partidos a partir de `squads.json`. */
 export function loadLeaguePlayerProps(games: readonly PlatformGame[]): PlayerPropItem[] {
   const items: PlayerPropItem[] = [];
   const soccerUpcoming = games
@@ -1638,7 +1620,7 @@ export function loadLeaguePlayerProps(games: readonly PlatformGame[]): PlayerPro
         const baseLine = primary.line;
         const step = 0.5;
         const minLine = 0.5;
-        const maxLine = Math.max(baseLine + 1.5, Number((baseLine + 2).toFixed(1)));
+        const maxLine = Math.max(baseLine + 1.5, Math.round((baseLine + 2) * 10) / 10);
         const priorRefProb = 0.52 * primary.p + 0.48 * 0.5;
         const overRef = Math.min(0.88, Math.max(0.14, priorRefProb));
         const marketOverDecimal = Math.max(
@@ -1733,8 +1715,8 @@ export function loadLeaguePlayerProps(games: readonly PlatformGame[]): PlayerPro
                 statLabel: seed.statLabel,
                 baseLine: seed.baseLine,
                 step: wideStat ? 1 : 0.5,
-                minLine: Math.max(0.5, Number((seed.baseLine - range).toFixed(1))),
-                maxLine: Number((seed.baseLine + range).toFixed(1)),
+                minLine: Math.max(0.5, Math.round((seed.baseLine - range) * 10) / 10),
+                maxLine: Math.round((seed.baseLine + range) * 10) / 10,
                 projectionMean: seed.projectionMean,
                 projectionSd: Math.max(0.6, seed.projectionSd),
                 engineName: "Tachyon NBA Lab",
@@ -1773,10 +1755,6 @@ export interface ServerLeagueStandingsMeta {
   awayBySlug: Record<string, ServerStandingsSplitRow>;
 }
 
-/**
- * Calcula la racha reciente real (últimos 5 partidos) y las tablas Local / Visitante
- * de la temporada vigente combinando el histórico cerrado y el snapshot activo.
- */
 export function loadLeagueStandingsMeta(leagueRaw: string): ServerLeagueStandingsMeta | null {
   if (!isProductLeague(leagueRaw)) return null;
   const snapshot = loadRawLeagueSnapshot(leagueRaw);

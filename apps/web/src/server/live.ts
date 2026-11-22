@@ -1,21 +1,9 @@
-/**
- * EN-VIVO-1 · Lector en vivo único del servidor (Match Center).
- *
- * Principios de aislamiento y eficiencia del lector en vivo:
- * - Ningún navegador habla con el proveedor. Los navegadores leen `/api/live/*`; esa ruta sale de
- *   la caché del CDN (`s-maxage`), luego de la caché compartida en Neon, y solo una instancia a la
- *   vez (arriendo en `live_feed_cache`) consulta a Bzzoiro.
- * - Sin partidos que puedan estar en juego no se consulta al proveedor, y la respuesta le dice al
- *   navegador que no vuelva a preguntar (`nextPollSeconds: null`).
- * - Todo sale con nuestro `gameId`; el id de Bzzoiro vive solo en `provider_match_links`.
- * - Cuota: un tope diario propio y una reserva que deja peticiones a la ingesta (las 7,500 diarias
- *   de Bzzoiro se comparten). Se lee el `RateLimit` que manda Bzzoiro en cada respuesta.
- */
 import fs from "node:fs";
 import path from "node:path";
 import {
   LIVE_CAPABLE_BZZOIRO_LEAGUES,
   canonicalGameHref,
+  parseStrictFiniteNumber,
   type LiveAveragePosition,
   type LiveMatchDetail,
   type LiveScoreboard,
@@ -38,6 +26,7 @@ import {
   type Db,
   type LiveMomentInput,
 } from "@pitchlab/db";
+import { logSecurityEvent } from "./safe-logger";
 import { serverDb } from "./session-user";
 import { loadLeagueSnapshotEnvelope, PRODUCT_LEAGUES, resolveSnapshotsRoot, type ProductLeague } from "./snapshots";
 import { evaluateLiveInPlaySoccerV5 } from "./spacetime-v5";
@@ -69,31 +58,25 @@ import {
 } from "@pitchlab/ingest/providers/bzzoiro-live";
 import { readProviderConfigs } from "@pitchlab/ingest/providers/config";
 
-/** Ligas de fútbol con marcador en vivo y su id en Bzzoiro (núcleo + expansión ADR-043). */
 export const LIVE_LEAGUES: Readonly<Record<string, readonly number[]>> =
   LIVE_CAPABLE_BZZOIRO_LEAGUES;
 export type LiveLeague = string;
 
 const TTL = {
   scoreboard: 20_000,
-  /** Lista de partidos de una liga en un día (para enlazar ids): cambia poco. */
   leagueDay: 6 * 3_600_000,
   incidentsLive: 30_000,
   statsLive: 60_000,
   commentaryLive: 30_000,
   playerStatsLive: 60_000,
   broadcasts: 6 * 3_600_000,
-  /** Un partido terminado no cambia: se guarda una semana. */
   finished: 7 * 24 * 3_600_000,
   lease: 8_000,
 } as const;
 
 const PROVIDER_TIMEOUT_MS = 8_000;
-/** Ventana en la que un partido puede estar en juego: de 10 min antes a 3 h después del inicio. */
 const LIVE_WINDOW_BEFORE_MS = 10 * 60_000;
 const LIVE_WINDOW_AFTER_MS = 3 * 3_600_000;
-
-// ---------- Almacén (Neon o memoria) ----------
 
 export interface LiveStore {
   read<T>(key: string, now: Date): Promise<{ payload: T; fresh: boolean; fetchedAt: Date } | null>;
@@ -165,7 +148,6 @@ export function dbLiveStore(db: Db): LiveStore {
   };
 }
 
-/** Sin base (desarrollo con PIN): misma lógica, guardada en la memoria de la instancia. */
 export function memoryLiveStore(): LiveStore {
   const cache = new Map<string, { payload: unknown; fetchedAt: Date; freshUntil: number; lease: number }>();
   const links = new Map<string, string>();
@@ -206,7 +188,7 @@ export function memoryLiveStore(): LiveStore {
       for (const r of rows) if (!links.has(r.gameId) && !taken.has(r.providerEventId)) links.set(r.gameId, r.providerEventId);
     },
     async moments() {
-      // Sin base no hay socios con cuenta a quienes avisar.
+      return undefined;
     },
   };
 }
@@ -219,14 +201,11 @@ function liveStore(): LiveStore {
   return defaultStore;
 }
 
-// ---------- Proveedor ----------
-
 export type LiveFetch = (pathWithQuery: string) => Promise<{ status: number; body: unknown; remaining: number | null }>;
 
-/** `RateLimit: "football";r=7213;t=52800` → 7213. */
 export function parseRateLimitRemaining(header: string | null): number | null {
   const match = header?.match(/;\s*r=(\d+)/);
-  return match ? Number(match[1]) : null;
+  return match ? parseStrictFiniteNumber(match[1]) : null;
 }
 
 function bzzoiroFetch(): LiveFetch | null {
@@ -245,11 +224,8 @@ function bzzoiroFetch(): LiveFetch | null {
 }
 
 export interface LiveBudget {
-  /** Tope diario de peticiones del lector en vivo. */
   dailyMax: number;
-  /** Peticiones que se dejan siempre a la ingesta (según el `RateLimit` del proveedor). */
   reserve: number;
-  /** Omite el tope artificial cuando la cuenta es comercial/ilimitada (`BZZOIRO_UNLIMITED=1`). */
   unlimited?: boolean;
 }
 
@@ -260,7 +236,10 @@ function isUnlimitedEnv(): boolean {
 
 function readBudget(): LiveBudget {
   const unlimited = isUnlimitedEnv();
-  const n = (v: string | undefined, d: number) => (v && Number.isFinite(Number(v)) ? Math.max(0, Number(v)) : d);
+  const n = (v: string | undefined, d: number) => {
+    const parsed = parseStrictFiniteNumber(v);
+    return parsed !== null ? Math.max(0, parsed) : d;
+  };
   return {
     dailyMax: n(process.env.BZZOIRO_LIVE_DAILY_MAX, unlimited ? 0 : 2500),
     reserve: n(process.env.BZZOIRO_LIVE_RESERVE, unlimited ? 0 : 300),
@@ -274,7 +253,6 @@ export interface LiveDeps {
   budget: LiveBudget;
   now: () => Date;
   candidates: (now: Date) => LinkCandidate[];
-  /** Activa narración incremental, player-stats y canales TV MX (por defecto en modo ilimitado). */
   includeRich?: boolean;
   log?: (msg: string) => void;
 }
@@ -286,7 +264,7 @@ function defaultDeps(): LiveDeps {
     budget: readBudget(),
     now: () => new Date(),
     candidates: todaysCandidates,
-    log: (m) => console.warn(`[en-vivo] ${m}`),
+    log: (m) => logSecurityEvent("warn", "live_feed_warning", { detail: m }),
   };
 }
 
@@ -310,10 +288,6 @@ async function providerGet<T>(deps: LiveDeps, pathWithQuery: string): Promise<T 
   return res.body as T;
 }
 
-/**
- * Devuelve lo que haya en caché o, si está vencido y esta instancia gana el turno, lo refresca.
- * Ante cualquier falla se sirve lo último conocido (con aviso), nunca se reintenta en bucle.
- */
 async function cached<T>(
   deps: LiveDeps,
   key: string,
@@ -343,8 +317,6 @@ async function cached<T>(
     };
   }
 }
-
-// ---------- Partidos candidatos (snapshots) ----------
 
 interface SnapshotGame {
   id: string;
@@ -378,12 +350,10 @@ function snapshotGames(league: LiveLeague): SnapshotGame[] {
 }
 
 function isoUtc(startTime: string): string {
-  // Los snapshots traen «2026-11-14T23:00Z» o «2026-11-20T20:30:00» (sin zona = UTC).
   const ms = Date.parse(/[zZ]|[+-]\d\d:?\d\d$/.test(startTime) ? startTime : `${startTime}Z`);
   return Number.isFinite(ms) ? new Date(ms).toISOString() : startTime;
 }
 
-/** Partidos de hoy y de las próximas horas en las ligas con marcador en vivo. */
 export function todaysCandidates(now: Date): LinkCandidate[] {
   const from = now.getTime() - 4 * 3_600_000;
   const to = now.getTime() + 20 * 3_600_000;
@@ -427,16 +397,10 @@ function inLiveWindow(c: LinkCandidate, now: number): boolean {
   return now >= t - LIVE_WINDOW_BEFORE_MS && now <= t + LIVE_WINDOW_AFTER_MS;
 }
 
-// ---------- Marcador del día ----------
-
 interface ScoreboardCache {
   entries: LiveScoreboardEntry[];
 }
 
-/**
- * Una sola petición (`/events/live/`) cubre todas las ligas. Los partidos que estaban en juego y
- * ya no aparecen se cierran con una lectura de `/events/{id}/` (una vez por partido).
- */
 async function refreshScoreboard(deps: LiveDeps, candidates: LinkCandidate[], prev: ScoreboardCache | null): Promise<ScoreboardCache> {
   const now = deps.now();
   const live = list<BzLiveEvent>(await providerGet<BzList<BzLiveEvent>>(deps, "/events/live/"));
@@ -460,7 +424,6 @@ async function refreshScoreboard(deps: LiveDeps, candidates: LinkCandidate[], pr
     if (c) byGame.set(c.gameId, toScoreboardEntry(e, c.gameId, c.league, c.kickoffUtc));
   }
 
-  // Partidos que estaban en juego y salieron de la lista: se leen una vez para el final.
   for (const c of candidates) {
     if (byGame.has(c.gameId)) continue;
     const before = prevById.get(c.gameId);
@@ -496,7 +459,6 @@ export async function getLiveScoreboard(deps: LiveDeps = defaultDeps()): Promise
 
   const prev = await deps.store.read<ScoreboardCache>("live:scoreboard", now);
   if (!anyInWindow) {
-    // Nada puede estar en juego: cero peticiones al proveedor.
     const prevById = new Map((prev?.payload.entries ?? []).map((e) => [e.gameId, e]));
     entries = candidates.map((c) => prevById.get(c.gameId) ?? scheduledEntry(c));
   } else {
@@ -519,8 +481,6 @@ export async function getLiveScoreboard(deps: LiveDeps = defaultDeps()): Promise
     entries,
   };
 }
-
-// ---------- Ficha en vivo ----------
 
 async function linkGame(deps: LiveDeps, c: LinkCandidate): Promise<string | null> {
   const known = (await deps.store.links([c.gameId])).get(c.gameId);
@@ -548,7 +508,6 @@ async function linkGame(deps: LiveDeps, c: LinkCandidate): Promise<string | null
   return link.providerEventId;
 }
 
-/** La ficha pide más (incidentes y estadísticas): nunca más seguido que cada 20 s. */
 function livePoll(entry: LiveScoreboardEntry, now: Date): number | null {
   const poll = nextPollSeconds([entry], now.getTime());
   return poll === null ? null : Math.max(20, poll);
@@ -577,12 +536,10 @@ export async function getLiveMatchDetail(gameId: string, deps: LiveDeps = defaul
 
   const kickoff = Date.parse(c.kickoffUtc);
   if (now.getTime() < kickoff - LIVE_WINDOW_BEFORE_MS) {
-    // Aún no empieza: nada que leer. El navegador vuelve a preguntar cerca del inicio.
     return { ...empty, nextPollSeconds: nextPollSeconds([base], now.getTime()) };
   }
   if (!deps.fetch) return { ...empty, notice: "El marcador en vivo no está configurado en este entorno." };
 
-  // Estado: del marcador compartido si está en la ventana; si no, del evento (una vez).
   let entry: LiveScoreboardEntry = base;
   let notice: string | null = null;
   let sourceFetchedAt: string | null = null;
@@ -692,11 +649,12 @@ export async function getLiveMatchDetail(gameId: string, deps: LiveDeps = defaul
   if (isLivePhaseActive(entry.phase)) {
     const rawClock = entry.clock ?? "";
     const clockMatch = /\d+/.exec(rawClock);
+    const parsedClockMinute = clockMatch ? parseStrictFiniteNumber(clockMatch[0]) : null;
     const minute =
       entry.phase === "halftime"
         ? 45
-        : clockMatch
-          ? Math.max(0, Math.min(90, Number(clockMatch[0])))
+        : parsedClockMinute !== null
+          ? Math.max(0, Math.min(90, parsedClockMinute))
           : 0;
     const redCardsHome = incidents.filter(
       (i) => i.side === "home" && (i.kind === "red" || i.kind === "second_yellow"),
@@ -704,7 +662,6 @@ export async function getLiveMatchDetail(gameId: string, deps: LiveDeps = defaul
     const redCardsAway = incidents.filter(
       (i) => i.side === "away" && (i.kind === "red" || i.kind === "second_yellow"),
     ).length;
-    // Leer goles esperados prepartido reales desde el snapshot cacheado de la liga (respaldo 1.45 / 1.15).
     let pregameMuHome = 1.45;
     let pregameMuAway = 1.15;
     if ((PRODUCT_LEAGUES as readonly string[]).includes(c.league)) {
@@ -751,7 +708,6 @@ export async function getLiveMatchDetail(gameId: string, deps: LiveDeps = defaul
   };
 }
 
-/** `Cache-Control` para el CDN según qué tan vivo esté lo que se sirve. */
 export function liveCacheControl(nextPoll: number | null, terminal: boolean): string {
   if (terminal) return "public, s-maxage=3600, stale-while-revalidate=86400";
   if (nextPoll === null) return "public, s-maxage=120, stale-while-revalidate=300";

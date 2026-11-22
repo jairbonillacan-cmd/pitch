@@ -1,6 +1,6 @@
 import { eq, recordFunnelEvent, users, type Db, type FunnelStageName } from "@pitchlab/db";
+import { logSecurityEvent } from "./safe-logger";
 
-/** Registra un hito del embudo para el socio únicamente si otorgó `analyticsConsent`. */
 export async function recordMemberFunnelIfConsented(
   db: Db,
   userId: string,
@@ -24,7 +24,7 @@ export async function recordMemberFunnelIfConsented(
     meta: meta ?? null,
     now,
   }).catch((error) => {
-    console.error(`[embudo] ${eventName}:`, error);
+    logSecurityEvent("error", "funnel_event_record_failed", { eventName, userId, error });
     return false;
   });
 }

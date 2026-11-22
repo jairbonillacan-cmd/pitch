@@ -1,5 +1,5 @@
-import { readFileSync } from "node:fs";
-import { resolve } from "node:path";
+import { readdirSync, readFileSync } from "node:fs";
+import { join, relative, resolve } from "node:path";
 import { PGlite } from "@electric-sql/pglite";
 import { drizzle } from "drizzle-orm/pglite";
 import { NextResponse } from "next/server";
@@ -67,6 +67,7 @@ import {
   users,
 } from "@pitchlab/db";
 import { GET as getAlerts } from "../app/api/alerts/route";
+import { POST as postBetaUnlock } from "../app/api/beta/unlock/route";
 import { GET as getLiveAlerts } from "../app/api/live/alerts/route";
 import {
   GET as getUnsubscribe,
@@ -717,5 +718,194 @@ describe("Ola 7 · regresiones de seguridad, Cero-Fuga y APIs de parlays", () =>
       "utf8",
     );
     expect(emailConfirmSrc).toContain("sanitizeInternalHref");
+  });
+
+  it("exige 0 llamadas crudas a console.(log|info|warn|error) en apps/web/src/server/**/*.ts fuera de safe-logger.ts", () => {
+    const serverRoot = resolve(REPO_ROOT, "apps/web/src/server");
+    const collectTsFiles = (dir: string): string[] => {
+      const out: string[] = [];
+      for (const entry of readdirSync(dir, { withFileTypes: true })) {
+        const full = join(dir, entry.name);
+        if (entry.isDirectory()) {
+          out.push(...collectTsFiles(full));
+        } else if (entry.isFile() && entry.name.endsWith(".ts")) {
+          out.push(full);
+        }
+      }
+      return out;
+    };
+
+    const serverFiles = collectTsFiles(serverRoot);
+    expect(serverFiles.length).toBeGreaterThan(20);
+
+    const rawConsoleOffenders: string[] = [];
+    for (const fullPath of serverFiles) {
+      const rel = relative(REPO_ROOT, fullPath).replace(/\\/g, "/");
+      if (rel === "apps/web/src/server/safe-logger.ts") continue;
+      const src = readFileSync(fullPath, "utf8");
+      if (/\bconsole\.(?:log|info|warn|error)\s*\(/.test(src)) {
+        rawConsoleOffenders.push(rel);
+      }
+    }
+    expect(rawConsoleOffenders).toEqual([]);
+
+    for (const migratedFile of [
+      "apps/web/src/server/account-emails.ts",
+      "apps/web/src/server/badges.ts",
+      "apps/web/src/server/funnel.ts",
+      "apps/web/src/server/league-news.ts",
+      "apps/web/src/server/live.ts",
+      "apps/web/src/server/pick-results.ts",
+      "apps/web/src/server/snapshots.ts",
+      "apps/web/src/server/spacetime.ts",
+      "apps/web/src/server/team-profile.ts",
+      "apps/web/src/server/transfer-emails.ts",
+    ]) {
+      const src = readFileSync(resolve(REPO_ROOT, migratedFile), "utf8");
+      expect(src, migratedFile).toContain("logSecurityEvent");
+    }
+  });
+
+  it("exige cobertura 100 % de api-guards en apps/web/app/api/**/route.ts (excepto webhook Stripe HMAC y proxy Better Auth) y preserva el contrato de POST /api/beta/unlock", async () => {
+    const apiRoot = resolve(REPO_ROOT, "apps/web/app/api");
+    const collectRoutes = (dir: string): string[] => {
+      const out: string[] = [];
+      for (const entry of readdirSync(dir, { withFileTypes: true })) {
+        const full = join(dir, entry.name);
+        if (entry.isDirectory()) {
+          out.push(...collectRoutes(full));
+        } else if (entry.isFile() && entry.name === "route.ts") {
+          out.push(full);
+        }
+      }
+      return out;
+    };
+
+    const routeFiles = collectRoutes(apiRoot);
+    expect(routeFiles.length).toBeGreaterThan(50);
+
+    const explicitExemptions = new Set([
+      "apps/web/app/api/webhooks/stripe/route.ts",
+      "apps/web/app/api/auth/[...all]/route.ts",
+    ]);
+    const unguardedRoutes: string[] = [];
+    for (const fullPath of routeFiles) {
+      const rel = relative(REPO_ROOT, fullPath).replace(/\\/g, "/");
+      const src = readFileSync(fullPath, "utf8");
+      if (explicitExemptions.has(rel)) {
+        if (rel === "apps/web/app/api/webhooks/stripe/route.ts") {
+          expect(src).toContain("verifyStripeSignature");
+          expect(src).toContain("checkEndpointRateLimit");
+          expect(src).toContain("logSecurityEvent");
+        } else {
+          expect(src).toContain("toNextJsHandler");
+          expect(src).toContain("checkEndpointRateLimit");
+          expect(src).toContain("logSecurityEvent");
+        }
+        continue;
+      }
+      if (!src.includes("api-guards")) {
+        unguardedRoutes.push(rel);
+      }
+    }
+    expect(unguardedRoutes).toEqual([]);
+
+    const betaUnlockSrc = readFileSync(
+      resolve(REPO_ROOT, "apps/web/app/api/beta/unlock/route.ts"),
+      "utf8",
+    );
+    expect(betaUnlockSrc).toContain("withPublicRead");
+    expect(betaUnlockSrc).toContain("failClosed: true");
+    expect(betaUnlockSrc).toContain("verifySameOrigin: true");
+    expect(betaUnlockSrc).toContain("requireJson: true");
+    expect(betaUnlockSrc).toContain('cacheControl: "no-store"');
+
+    vi.stubEnv("PITCHLAB_BETA_CODE", "2026");
+    const warnSpy = vi.spyOn(console, "warn").mockImplementation(() => {});
+    try {
+      const csrfRes = await postBetaUnlock(
+        new Request("http://localhost:3000/api/beta/unlock", {
+          method: "POST",
+          headers: {
+            "content-type": "application/json",
+            origin: "https://evil.example",
+            "cf-connecting-ip": "198.51.100.20",
+          },
+          body: JSON.stringify({ code: "2026" }),
+        }),
+      );
+      expect(csrfRes.status).toBe(403);
+      expect(csrfRes.headers.get("cache-control")).toBe("no-store");
+
+      const nonJsonRes = await postBetaUnlock(
+        new Request("http://localhost:3000/api/beta/unlock", {
+          method: "POST",
+          headers: {
+            "content-type": "text/plain",
+            origin: "http://localhost:3000",
+            "cf-connecting-ip": "198.51.100.20",
+          },
+          body: "2026",
+        }),
+      );
+      expect(nonJsonRes.status).toBe(415);
+      expect(nonJsonRes.headers.get("cache-control")).toBe("no-store");
+
+      const badPinRes = await postBetaUnlock(
+        new Request("http://localhost:3000/api/beta/unlock", {
+          method: "POST",
+          headers: {
+            "content-type": "application/json",
+            origin: "http://localhost:3000",
+            "cf-connecting-ip": "198.51.100.21",
+          },
+          body: JSON.stringify({ code: "0000" }),
+        }),
+      );
+      expect(badPinRes.status).toBe(401);
+      expect(await badPinRes.json()).toEqual({
+        ok: false,
+        error: "Código incorrecto. Si tienes invitación, escríbenos.",
+      });
+
+      const okRes = await postBetaUnlock(
+        new Request("http://localhost:3000/api/beta/unlock", {
+          method: "POST",
+          headers: {
+            "content-type": "application/json",
+            origin: "http://localhost:3000",
+            "cf-connecting-ip": "198.51.100.22",
+          },
+          body: JSON.stringify({ code: "2026", next: "/app/nfl" }),
+        }),
+      );
+      expect(okRes.status).toBe(200);
+      expect(okRes.headers.get("cache-control")).toBe("no-store");
+      expect(okRes.headers.get("set-cookie") ?? "").toContain("pl_beta=");
+      expect(await okRes.json()).toEqual({ ok: true, redirectTo: "/app/nfl" });
+
+      let rateLimitedRes: Response | null = null;
+      for (let attempt = 0; attempt < 6; attempt += 1) {
+        rateLimitedRes = await postBetaUnlock(
+          new Request("http://localhost:3000/api/beta/unlock", {
+            method: "POST",
+            headers: {
+              "content-type": "application/json",
+              origin: "http://localhost:3000",
+              "cf-connecting-ip": "198.51.100.23",
+            },
+            body: JSON.stringify({ code: "0000" }),
+          }),
+        );
+      }
+      expect(rateLimitedRes?.status).toBe(429);
+      expect(rateLimitedRes?.headers.get("retry-after")).toBeTruthy();
+      expect(await rateLimitedRes?.json()).toEqual({
+        ok: false,
+        error: "Demasiados intentos. Intenta de nuevo en unos minutos.",
+      });
+    } finally {
+      warnSpy.mockRestore();
+    }
   });
 });

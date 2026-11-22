@@ -29,6 +29,7 @@ import {
   getOfficialEspnLeagueLogoUrl,
   getOfficialEspnTeamLogoUrl,
 } from "@pitchlab/sports-assets";
+import { logSecurityEvent } from "./safe-logger";
 
 export interface ClientLeagueSnapshot {
   schemaVersion: 1;
@@ -383,7 +384,7 @@ export function loadRawLeagueSnapshot(leagueKey: ProductLeague): LeagueSnapshot 
     rawSnapshotCache.set(leagueKey, { mtime, snapshot: parsed });
     return parsed;
   } catch (err) {
-    console.warn(`[snapshots] error leyendo snapshot crudo de ${leagueKey}:`, err);
+    logSecurityEvent("warn", "snapshots_raw_read_failed", { league: leagueKey, error: err });
     return null;
   }
 }

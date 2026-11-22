@@ -1,9 +1,4 @@
-/**
- * Liquidación de los picks de la bitácora y su aviso por correo.
- *
- * `settleAndNotify` es el punto de entrada para quien califique picks. Hoy nada lo llama: falta el
- * calificador que decide `won`, `lost` o `void` con el marcador final (ver `docs/architecture/CORREOS.md`).
- */
+import { parseStrictFiniteNumber } from "@pitchlab/contracts";
 import {
   and,
   eq,
@@ -17,15 +12,12 @@ import {
 import { renderEmail, siteUrl } from "@pitchlab/emails";
 import { firstName, formatOdds, formatPoints } from "./email-format";
 import type { Mailer } from "./mailer";
+import { logSecurityEvent } from "./safe-logger";
 import { sendPushToUsers } from "./web-push";
 
 export type PickResult = "won" | "lost" | "void";
 export type SettledPick = typeof sealedPicks.$inferSelect;
 
-/**
- * Pasa un pick de `pending` al resultado. Devuelve null si no existe o ya estaba calificado:
- * un pick se califica una sola vez, así que tampoco se avisa dos veces.
- */
 export async function settleSealedPick(
   db: Db,
   input: {
@@ -56,7 +48,6 @@ export async function settleSealedPick(
 
 export type PickNotice = "enviado" | "sin_aviso" | "sin_correo";
 
-/** Manda el aviso de un pick ya calificado, solo si la persona activó «avisarme». */
 export async function notifyPickGraded(db: Db, mailer: Mailer, pick: SettledPick): Promise<PickNotice> {
   if (pick.status !== "won" && pick.status !== "lost" && pick.status !== "void") return "sin_aviso";
   const { pickResults } = await getEmailPreferences(db, pick.userId);
@@ -72,6 +63,9 @@ export async function notifyPickGraded(db: Db, mailer: Mailer, pick: SettledPick
     .from(userPreferences)
     .where(eq(userPreferences.userId, pick.userId));
   const format = prefs?.oddsFormat === "decimal" ? "decimal" : "american";
+  const userDecimal = parseStrictFiniteNumber(pick.userDecimal) ?? 1.02;
+  const fairDecimal = parseStrictFiniteNumber(pick.fairDecimal) ?? 1.02;
+  const clvPct = pick.clvPct != null ? parseStrictFiniteNumber(pick.clvPct) : null;
 
   const { subject, html, text } = await renderEmail("pick-graded", {
     name: firstName(user.displayName),
@@ -79,9 +73,9 @@ export async function notifyPickGraded(db: Db, mailer: Mailer, pick: SettledPick
     matchLabel: pick.matchLabel,
     leagueLabel: pick.leagueLabel,
     pickLabel: pick.pickLabel,
-    userOddsLabel: formatOdds(Number(pick.userDecimal), format),
-    fairOddsLabel: formatOdds(Number(pick.fairDecimal), format),
-    ...(pick.clvPct != null ? { clvLabel: formatPoints(Number(pick.clvPct)) } : {}),
+    userOddsLabel: formatOdds(userDecimal, format),
+    fairOddsLabel: formatOdds(fairDecimal, format),
+    ...(clvPct !== null ? { clvLabel: formatPoints(clvPct) } : {}),
     journalUrl: `${siteUrl()}/app/lab`,
     settingsUrl: `${siteUrl()}/app/account?tab=prefs`,
   });
@@ -96,7 +90,6 @@ export async function notifyPickGraded(db: Db, mailer: Mailer, pick: SettledPick
   return "enviado";
 }
 
-/** Califica un pick y, si la persona lo pidió, le avisa. El correo nunca revierte la calificación. */
 export async function settleAndNotify(
   db: Db,
   mailer: Mailer,
@@ -129,7 +122,11 @@ export async function settleAndNotify(
   try {
     return { settled: true, notice: await notifyPickGraded(db, mailer, pick) };
   } catch (error) {
-    console.error("[correo] no se pudo avisar del pick calificado:", error);
+    logSecurityEvent("error", "pick_graded_email_failed", {
+      pickId: pick.id,
+      userId: pick.userId,
+      error,
+    });
     return { settled: true, notice: "error" };
   }
 }
