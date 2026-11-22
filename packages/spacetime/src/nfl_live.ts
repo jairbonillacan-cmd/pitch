@@ -230,10 +230,17 @@ export interface MinkowskiV3LivePrediction {
   delta: NFLLiveContextDelta;
 }
 
+const STRICT_FINITE_NUMBER_RE = /^[+-]?(?:\d+\.?\d*|\.\d+)(?:[eE][+-]?\d+)?$/;
+
 function num(val: unknown, fallback: number | null = null): number | null {
-  if (val === null || val === undefined || typeof val === "boolean") return fallback;
-  const f = Number(val);
-  return Number.isFinite(f) ? f : fallback;
+  if (typeof val === "number") return Number.isFinite(val) ? val : fallback;
+  if (typeof val === "string") {
+    const trimmed = val.trim();
+    if (!STRICT_FINITE_NUMBER_RE.test(trimmed)) return fallback;
+    const f = Number.parseFloat(trimmed);
+    return Number.isFinite(f) ? f : fallback;
+  }
+  return fallback;
 }
 
 function normPct(val: number | null): number | null {
@@ -523,15 +530,15 @@ export function applyMinkowskiV3LiveContext(
   let paIn: number;
   let baseTot: number | null;
   if (Array.isArray(basePrediction)) {
-    phIn = Number(basePrediction[0]);
-    pdIn = Number(basePrediction[1]);
-    paIn = Number(basePrediction[2]);
+    phIn = num(basePrediction[0]) ?? Number.NaN;
+    pdIn = num(basePrediction[1]) ?? Number.NaN;
+    paIn = num(basePrediction[2]) ?? Number.NaN;
     baseTot = p.default_expected_total_pts;
   } else {
     const obj = basePrediction as NFLBaseThreeWay;
-    phIn = Number(obj.pHome);
-    pdIn = Number(obj.pDraw);
-    paIn = Number(obj.pAway);
+    phIn = num(obj.pHome) ?? Number.NaN;
+    pdIn = num(obj.pDraw) ?? Number.NaN;
+    paIn = num(obj.pAway) ?? Number.NaN;
     baseTot = num(obj.expectedTotal, p.default_expected_total_pts);
   }
 

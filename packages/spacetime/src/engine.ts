@@ -422,16 +422,29 @@ export const DEFAULT_PROSPECTIVE_AVAILABILITY_PRIOR: Readonly<ProspectiveAvailab
     },
   });
 
+const STRICT_FINITE_NUMBER_RE = /^[+-]?(?:\d+\.?\d*|\.\d+)(?:[eE][+-]?\d+)?$/;
+
+function parseFiniteNumber(raw: unknown): number | null {
+  if (typeof raw === "number") {
+    return Number.isFinite(raw) ? raw : null;
+  }
+  if (typeof raw === "string") {
+    const trimmed = raw.trim();
+    if (!STRICT_FINITE_NUMBER_RE.test(trimmed)) return null;
+    const parsed = Number.parseFloat(trimmed);
+    return Number.isFinite(parsed) ? parsed : null;
+  }
+  return null;
+}
+
 function safeNonNegFloat(
   ctx: TeamAvailabilityContext | null | undefined,
   key: keyof TeamAvailabilityContext,
   fallback = 0,
 ): number {
   if (!ctx) return fallback;
-  const raw = ctx[key];
-  if (raw === null || raw === undefined) return fallback;
-  const val = Number(raw);
-  if (!Number.isFinite(val)) return fallback;
+  const val = parseFiniteNumber(ctx[key]);
+  if (val === null) return fallback;
   return Math.max(0, val);
 }
 
@@ -442,8 +455,8 @@ function teamEffectiveAbsences(
   if (!ctx) return 0;
   const aw = cfg.absence_weights;
   const maxAbs = cfg.bounds.max_effective_absences_per_team;
-  const rwRaw = ctx.rotowire_injured_out_count;
-  const hasRw = rwRaw !== null && rwRaw !== undefined && Number.isFinite(Number(rwRaw)) && Number(rwRaw) > 0;
+  const rwVal = parseFiniteNumber(ctx.rotowire_injured_out_count);
+  const hasRw = rwVal !== null && rwVal > 0;
   const rwOut = safeNonNegFloat(ctx, "rotowire_injured_out_count", 0);
   const tmInj = safeNonNegFloat(ctx, "injured_players_count", 0);
   const susp = safeNonNegFloat(ctx, "suspended_players_count", 0);
@@ -457,11 +470,8 @@ function teamEffectiveAbsences(
 
 function teamSquadValueRatio(ctx: TeamAvailabilityContext | null | undefined): number {
   if (!ctx) return 1.0;
-  const vr = ctx.value_ratio_vs_league_median;
-  if (vr !== null && vr !== undefined) {
-    const val = Number(vr);
-    if (Number.isFinite(val) && val > 0) return val;
-  }
+  const val = parseFiniteNumber(ctx.value_ratio_vs_league_median);
+  if (val !== null && val > 0) return val;
   return 1.0;
 }
 

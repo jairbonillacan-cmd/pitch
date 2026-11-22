@@ -136,24 +136,112 @@ export interface BuildClubV33OutlookInput {
   readonly maxQuoteAgeMinutes?: number;
 }
 
+function isJsonRecord(value: unknown): value is Record<string, unknown> {
+  return value !== null && typeof value === "object" && !Array.isArray(value);
+}
+
+function isModelArtifact(value: unknown): value is ModelArtifact {
+  return (
+    isJsonRecord(value) &&
+    typeof value.type === "string" &&
+    typeof value.version === "string" &&
+    typeof value.n_features_base === "number" &&
+    Array.isArray(value.features) &&
+    Array.isArray(value.div_levels) &&
+    Array.isArray(value.coef) &&
+    Array.isArray(value.intercept) &&
+    Array.isArray(value.classes) &&
+    isJsonRecord(value.imputer) &&
+    isJsonRecord(value.scaler)
+  );
+}
+
+function isClubFreeOpenStateArtifact(value: unknown): value is ClubFreeOpenStateArtifact {
+  return (
+    isJsonRecord(value) &&
+    typeof value.schema_version === "string" &&
+    typeof value.n_active_clubs === "number" &&
+    Array.isArray(value.live_base_38_features) &&
+    Array.isArray(value.free_open_14_features) &&
+    isJsonRecord(value.div_ewm_log_val) &&
+    isJsonRecord(value.div_ewm_xi_val) &&
+    isJsonRecord(value.clubs)
+  );
+}
+
+function isOutlookCalibrationArtifact(value: unknown): value is OutlookCalibrationArtifact {
+  return (
+    isJsonRecord(value) &&
+    typeof value.schema_version === "string" &&
+    typeof value.eval_split === "string" &&
+    typeof value.holdout_cut_utc === "string" &&
+    typeof value.holdout_sealed_untouched === "boolean" &&
+    typeof value.bootstrap_samples === "number" &&
+    typeof value.max_sharp_age_minutes === "number" &&
+    isJsonRecord(value.segments)
+  );
+}
+
+function parseModelArtifact(raw: unknown, label: string): ModelArtifact {
+  if (!isModelArtifact(raw)) {
+    throw new Error(`Invalid ModelArtifact JSON: ${label}`);
+  }
+  return raw;
+}
+
+function parseClubFreeOpenStateArtifact(raw: unknown, label: string): ClubFreeOpenStateArtifact {
+  if (!isClubFreeOpenStateArtifact(raw)) {
+    throw new Error(`Invalid ClubFreeOpenStateArtifact JSON: ${label}`);
+  }
+  return raw;
+}
+
+function parseOutlookCalibrationArtifact(raw: unknown, label: string): OutlookCalibrationArtifact {
+  if (!isOutlookCalibrationArtifact(raw)) {
+    throw new Error(`Invalid OutlookCalibrationArtifact JSON: ${label}`);
+  }
+  return raw;
+}
+
+const DEFAULT_CLUB_V33_CANDIDATE_MODEL = parseModelArtifact(
+  defaultClubV33ModelJson,
+  "model_club_v3_3_candidate.json",
+);
+const DEFAULT_CLUB_V34_CANDIDATE_MODEL = parseModelArtifact(
+  defaultClubV34ModelJson,
+  "model_club_v3_4_candidate.json",
+);
+const DEFAULT_CLUB_V34_LIVE_COMPLETE_MODEL = parseModelArtifact(
+  defaultClubV34LiveModelJson,
+  "model_club_v3_4_live_candidate.json",
+);
+const DEFAULT_CLUB_FREE_OPEN_STATE_ARTIFACT = parseClubFreeOpenStateArtifact(
+  defaultClubFreeOpenStateJson,
+  "club_free_open_state_v3_4.json",
+);
+const DEFAULT_CLUB_OUTLOOK_CALIBRATION = parseOutlookCalibrationArtifact(
+  defaultOutlookCalibrationJson,
+  "outlook_calibration_v3_2.json",
+);
+
 export function getDefaultClubV33CandidateModel(): ModelArtifact {
-  return defaultClubV33ModelJson as unknown as ModelArtifact;
+  return DEFAULT_CLUB_V33_CANDIDATE_MODEL;
 }
 
 export function getDefaultClubV34CandidateModel(): ModelArtifact {
-  return defaultClubV34ModelJson as unknown as ModelArtifact;
+  return DEFAULT_CLUB_V34_CANDIDATE_MODEL;
 }
 
 export function getDefaultClubV34LiveCompleteModel(): ModelArtifact {
-  return defaultClubV34LiveModelJson as unknown as ModelArtifact;
+  return DEFAULT_CLUB_V34_LIVE_COMPLETE_MODEL;
 }
 
 export function getDefaultClubFreeOpenStateArtifact(): ClubFreeOpenStateArtifact {
-  return defaultClubFreeOpenStateJson as unknown as ClubFreeOpenStateArtifact;
+  return DEFAULT_CLUB_FREE_OPEN_STATE_ARTIFACT;
 }
 
 export function getDefaultClubOutlookCalibration(): OutlookCalibrationArtifact {
-  return defaultOutlookCalibrationJson as unknown as OutlookCalibrationArtifact;
+  return DEFAULT_CLUB_OUTLOOK_CALIBRATION;
 }
 
 /**
@@ -290,7 +378,10 @@ export function computeLiveClubFreeOpen14Vector(params: {
 }
 
 const MOTOR_A_BASE_NAMES: readonly string[] = Object.freeze(
-  (frozenMotorAJson as unknown as ModelArtifact).features.slice(0, TACHYON_V30_BASE_FEATURE_COUNT),
+  parseModelArtifact(frozenMotorAJson, "model_motor_a.json").features.slice(
+    0,
+    TACHYON_V30_BASE_FEATURE_COUNT,
+  ),
 );
 
 /**
@@ -448,7 +539,7 @@ export interface ClubFreeOpenTeamStateV35 extends ClubFreeOpenTeamState {
   readonly corners_total_ewm10: number;
 }
 
-export interface ClubFreeOpenStateV35Artifact extends Omit<ClubFreeOpenStateArtifact, "clubs"> {
+export interface ClubFreeOpenStateV35Artifact extends ClubFreeOpenStateArtifact {
   readonly v3_5_extra_6_features: readonly string[];
   readonly horizon_goals_13_features: readonly string[];
   readonly clubs: Readonly<Record<string, ClubFreeOpenTeamStateV35>>;
@@ -528,7 +619,7 @@ export function synthesizeClubV35LiveVectors(params: {
     awayTeam: params.awayTeam,
     hDivChange: params.hDivChange,
     aDivChange: params.aDivChange,
-    clubState: params.clubStateV35 as unknown as ClubFreeOpenStateArtifact,
+    clubState: params.clubStateV35,
   });
 
   const liveNames = params.clubStateV35.live_base_38_features;
@@ -573,9 +664,13 @@ export function synthesizeClubV35LiveVectors(params: {
   const corSum = 0.5 * (coH + coA);
 
   const free14Offset = 38;
-  const valDiff = Number(row52.features[free14Offset + 1] ?? 0.0);
-  const promBoostDiff = Number(row52.features[free14Offset + 4] ?? 0.0);
-  const netTrDiff = Number(row52.features[free14Offset + 12] ?? 0.0);
+  const readFeatureOr = (idx: number, fallback: number): number => {
+    const v = row52.features[idx];
+    return typeof v === "number" && Number.isFinite(v) ? v : fallback;
+  };
+  const valDiff = readFeatureOr(free14Offset + 1, 0.0);
+  const promBoostDiff = readFeatureOr(free14Offset + 4, 0.0);
+  const netTrDiff = readFeatureOr(free14Offset + 12, 0.0);
 
   const earlyW = Math.min(1.0, Math.max(0.0, 1.0 - sProg));
   const earlyTrShock = earlyW * netTrDiff;

@@ -810,6 +810,21 @@ function lookupStaleSegment(
   return { segmentKey: exactKey, segment: null };
 }
 
+const STRICT_FINITE_NUMBER_RE = /^[+-]?(?:\d+\.?\d*|\.\d+)(?:[eE][+-]?\d+)?$/;
+
+function parseFiniteOrNaN(raw: unknown): number {
+  if (typeof raw === "number") {
+    return Number.isFinite(raw) ? raw : Number.NaN;
+  }
+  if (typeof raw === "string") {
+    const trimmed = raw.trim();
+    if (!STRICT_FINITE_NUMBER_RE.test(trimmed)) return Number.NaN;
+    const parsed = Number.parseFloat(trimmed);
+    return Number.isFinite(parsed) ? parsed : Number.NaN;
+  }
+  return Number.NaN;
+}
+
 function resolveSharpNoVigFromCandidate(
   candidate: StaleLineCandidate,
   marketCanon: string,
@@ -842,7 +857,7 @@ function resolveSharpNoVigFromCandidate(
   if (candidate.sharp_market_odds !== null && candidate.sharp_market_odds !== undefined) {
     let oddsArr: number[] | null = null;
     if (Array.isArray(candidate.sharp_market_odds)) {
-      oddsArr = candidate.sharp_market_odds.map((x) => Number(x));
+      oddsArr = candidate.sharp_market_odds.map((x) => parseFiniteOrNaN(x));
     } else if (typeof candidate.sharp_market_odds === "object") {
       const rec = candidate.sharp_market_odds as Readonly<Record<string, number>>;
       const extracted: number[] = [];

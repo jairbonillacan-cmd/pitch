@@ -2,6 +2,8 @@
  * Funciones puras de cuotas y probabilidad implícita (SHARED_CONTRACTS.md §5).
  */
 
+import { parseStrictFiniteNumber } from "./branded";
+
 /**
  * Convierte una cadena de cuota decimal ("2.10" o "2,10") o americana ("+110", "-150", "−150")
  * a cuota decimal (> 1). Devuelve null si el formato no es válido.
@@ -10,8 +12,8 @@ export function parseOdds(raw: string | number | null | undefined): number | nul
   if (raw === null || raw === undefined) return null;
   const cleaned = String(raw).trim().replace("−", "-").replace(",", ".");
   if (!cleaned) return null;
-  const num = Number(cleaned);
-  if (!Number.isFinite(num)) return null;
+  const num = parseStrictFiniteNumber(cleaned);
+  if (num === null) return null;
   if (/^[+-]/.test(cleaned) || Math.abs(num) >= 100) {
     if (Math.abs(num) < 100) return null;
     return num > 0 ? 1 + num / 100 : 1 + 100 / Math.abs(num);

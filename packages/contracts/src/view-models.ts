@@ -4,6 +4,7 @@ import type {
   MatchPreGameContext,
   TeamInjuryEntry,
 } from "./injuries-lineups";
+import { parseStrictFiniteNumber } from "./branded";
 import { asMarketKey, type LeagueId } from "./ids";
 import type {
   AnalysisConfidence,
@@ -305,8 +306,10 @@ function readFormatterParts(
   const out = { year: 0, month: 1, day: 1, hour: 0, minute: 0, second: 0 };
   for (const part of parts) {
     if (part.type === "year" || part.type === "month" || part.type === "day" || part.type === "hour" || part.type === "minute" || part.type === "second") {
-      const n = Number(part.value);
-      out[part.type] = part.type === "hour" && n === 24 ? 0 : n;
+      const n = parseStrictFiniteNumber(part.value);
+      if (n !== null) {
+        out[part.type] = part.type === "hour" && n === 24 ? 0 : n;
+      }
     }
   }
   return out;
@@ -322,13 +325,13 @@ export function easternWallTimeToUtcIso(gameday: string, gametime?: string | nul
     const parsed = Date.parse(gameday);
     return Number.isFinite(parsed) ? new Date(parsed).toISOString() : gameday;
   }
-  const year = Number(dateMatch[1]);
-  const month = Number(dateMatch[2]);
-  const day = Number(dateMatch[3]);
+  const year = parseStrictFiniteNumber(dateMatch[1]) ?? 0;
+  const month = parseStrictFiniteNumber(dateMatch[2]) ?? 0;
+  const day = parseStrictFiniteNumber(dateMatch[3]) ?? 0;
   const timeMatch = /^(\d{1,2}):(\d{2})(?::(\d{2}))?/.exec((gametime ?? "").trim());
-  const hour = timeMatch ? Number(timeMatch[1]) : 13;
-  const minute = timeMatch ? Number(timeMatch[2]) : 0;
-  const second = timeMatch && timeMatch[3] ? Number(timeMatch[3]) : 0;
+  const hour = timeMatch ? (parseStrictFiniteNumber(timeMatch[1]) ?? 13) : 13;
+  const minute = timeMatch ? (parseStrictFiniteNumber(timeMatch[2]) ?? 0) : 0;
+  const second = timeMatch && timeMatch[3] ? (parseStrictFiniteNumber(timeMatch[3]) ?? 0) : 0;
 
   const targetWallMs = Date.UTC(year, month - 1, day, hour, minute, second);
   let guess = targetWallMs + 5 * 3600_000;

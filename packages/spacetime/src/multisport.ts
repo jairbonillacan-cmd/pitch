@@ -281,10 +281,27 @@ function slug(text: string): string {
     .replace(/^_+|_+$/g, "");
 }
 
+const STRICT_FINITE_NUMBER_RE = /^[+-]?(?:\d+\.?\d*|\.\d+)(?:[eE][+-]?\d+)?$/;
+
+function parseFiniteNumber(val: unknown): number | null {
+  if (typeof val === "number") return Number.isFinite(val) ? val : null;
+  if (typeof val === "string") {
+    const trimmed = val.trim();
+    if (!STRICT_FINITE_NUMBER_RE.test(trimmed)) return null;
+    const f = Number.parseFloat(trimmed);
+    return Number.isFinite(f) ? f : null;
+  }
+  return null;
+}
+
 function num(val: unknown, fallback: number | null = null): number | null {
-  if (val === null || val === undefined || typeof val === "boolean") return fallback;
-  const f = Number(val);
-  return Number.isFinite(f) ? f : fallback;
+  const f = parseFiniteNumber(val);
+  return f !== null ? f : fallback;
+}
+
+function asFiniteNumber(val: unknown): number {
+  const f = parseFiniteNumber(val);
+  return f !== null ? f : Number.NaN;
 }
 
 function pick<T>(...vals: Array<T | undefined>): T | undefined {
@@ -295,11 +312,11 @@ function pick<T>(...vals: Array<T | undefined>): T | undefined {
 }
 
 function predictLinear(spec: StandardizedLinearModel, xVec: readonly number[]): number {
-  let acc = Number(spec.intercept);
+  let acc = asFiniteNumber(spec.intercept);
   for (let i = 0; i < spec.coef.length; i++) {
     acc +=
-      Number(spec.coef[i]!) *
-      ((Number(xVec[i]!) - Number(spec.mean[i]!)) / Number(spec.scale[i]!));
+      asFiniteNumber(spec.coef[i]!) *
+      ((asFiniteNumber(xVec[i]!) - asFiniteNumber(spec.mean[i]!)) / asFiniteNumber(spec.scale[i]!));
   }
   return acc;
 }
@@ -389,12 +406,12 @@ export function predictNHL(
       if (ov.hd !== null) ov.entry.hd_xgf_pg = ov.hd > 10.0 ? ov.hd / ov.gp : ov.hd;
       if (ov.pyth !== null) ov.entry.pythag_215 = ov.pyth > 1.5 ? ov.pyth / 100.0 : ov.pyth;
 
-      const fVec = cfg.feature_order!.map((c) => Number(ov.entry[c]));
+      const fVec = cfg.feature_order!.map((c) => asFiniteNumber(ov.entry[c]));
       ov.entry.strength_prob = logistic(predictLinear(cfg.strength_model!, fVec));
       ov.entry.proj_gf_pg = clamp(
         predictLinear(
           cfg.gf_model!,
-          cfg.off_feature_order!.map((c) => Number(ov.entry[c])),
+          cfg.off_feature_order!.map((c) => asFiniteNumber(ov.entry[c])),
         ),
         2.15,
         4.15,
@@ -402,7 +419,7 @@ export function predictNHL(
       ov.entry.proj_ga_pg = clamp(
         predictLinear(
           cfg.ga_model!,
-          cfg.def_feature_order!.map((c) => Number(ov.entry[c])),
+          cfg.def_feature_order!.map((c) => asFiniteNumber(ov.entry[c])),
         ),
         2.15,
         4.15,
@@ -410,8 +427,8 @@ export function predictNHL(
     }
   }
 
-  const strengthH = Number(h.strength_prob);
-  const strengthA = Number(a.strength_prob);
+  const strengthH = asFiniteNumber(h.strength_prob);
+  const strengthA = asFiniteNumber(a.strength_prob);
   const pNeutral = log5(strengthH, strengthA);
   const structuralLogit = logitFn(pNeutral);
 
@@ -421,7 +438,7 @@ export function predictNHL(
     confRaw: boolean | null | undefined,
     entry: Record<string, unknown>,
   ): number => {
-    const defSv = Number(entry.default_goalie_sv_pct ?? p.league_sv_pct!);
+    const defSv = num(entry.default_goalie_sv_pct, p.league_sv_pct!) ?? p.league_sv_pct!;
     let svVal = svRaw ?? defSv;
     if (svVal > 1.5) svVal /= 100.0;
     const isConf =
@@ -456,20 +473,20 @@ export function predictNHL(
   const goalieLogitDelta = p.goalie_logit_per_goal! * (gsaaH - gsaaA);
 
   const hOut =
-    num(pick(matchup.homeInjuriesOut, matchup.home_injuries_out), Number(h.active_injuries_out)) ??
+    num(pick(matchup.homeInjuriesOut, matchup.home_injuries_out), num(h.active_injuries_out)) ??
     0.0;
   const aOut =
-    num(pick(matchup.awayInjuriesOut, matchup.away_injuries_out), Number(a.active_injuries_out)) ??
+    num(pick(matchup.awayInjuriesOut, matchup.away_injuries_out), num(a.active_injuries_out)) ??
     0.0;
   const hQ =
     num(
       pick(matchup.homeInjuriesQuestionable, matchup.home_injuries_questionable),
-      Number(h.active_injuries_questionable),
+      num(h.active_injuries_questionable),
     ) ?? 0.0;
   const aQ =
     num(
       pick(matchup.awayInjuriesQuestionable, matchup.away_injuries_questionable),
-      Number(a.active_injuries_questionable),
+      num(a.active_injuries_questionable),
     ) ?? 0.0;
 
   const penH = Math.min(
@@ -485,10 +502,10 @@ export function predictNHL(
   const hElev =
     num(
       pick(matchup.stadiumElevationM, matchup.stadium_elevation_m),
-      Number(h.stadium_elevation_m),
+      num(h.stadium_elevation_m),
     ) ?? 120.0;
   const aElev =
-    num(pick(matchup.awayElevationM, matchup.away_elevation_m), Number(a.stadium_elevation_m)) ??
+    num(pick(matchup.awayElevationM, matchup.away_elevation_m), num(a.stadium_elevation_m)) ??
     120.0;
   const altDiff = Math.max(0.0, hElev - aElev);
 
@@ -509,14 +526,14 @@ export function predictNHL(
 
   const lgGoals = p.league_goals_per_team!;
   const rawGfH =
-    (Number(h.proj_gf_pg) * Number(a.proj_ga_pg)) / lgGoals +
+    (asFiniteNumber(h.proj_gf_pg) * asFiniteNumber(a.proj_ga_pg)) / lgGoals +
     hGoalHfa +
     altGoals -
     gsaaA -
     0.65 * penH +
     0.35 * penA;
   const rawGfA =
-    (Number(a.proj_gf_pg) * Number(h.proj_ga_pg)) / lgGoals +
+    (asFiniteNumber(a.proj_gf_pg) * asFiniteNumber(h.proj_ga_pg)) / lgGoals +
     aGoalHfa -
     gsaaH -
     0.65 * penA +
@@ -545,10 +562,10 @@ export function predictNHL(
     {
       factor: "even_strength_xg_possession",
       label: "5v5 xG%, Corsi%, Fenwick%, High-Danger xG/60 & Pythag 2.15",
-      homeValue: Number(h.xg_pct),
-      awayValue: Number(a.xg_pct),
+      homeValue: asFiniteNumber(h.xg_pct),
+      awayValue: asFiniteNumber(a.xg_pct),
       impactLogit: structuralLogit,
-      impactUnits: Number(h.proj_gf_pg) - Number(a.proj_gf_pg),
+      impactUnits: asFiniteNumber(h.proj_gf_pg) - asFiniteNumber(a.proj_gf_pg),
     },
     {
       factor: "starting_goalie_matchup",
@@ -617,12 +634,13 @@ export function predictMLB(
     let effSp: number;
     if (spFip !== null && spEra !== null) effSp = 0.65 * spFip + 0.35 * spEra;
     else if (spFip !== null) effSp = spFip;
-    else effSp = Number(spEra);
+    else if (spEra !== null) effSp = spEra;
+    else return 0.0;
     const confW =
       confRaw === null || confRaw === undefined || Boolean(confRaw)
         ? p.starter_confirmed_weight!
         : p.starter_projected_weight!;
-    const baseRot = Number(entry.rotation_baseline_era ?? p.league_fip!);
+    const baseRot = num(entry.rotation_baseline_era, p.league_fip!) ?? p.league_fip!;
     return clamp(p.starter_innings_weight! * confW * (effSp - baseRot), -1.15, 1.15);
   };
 
@@ -641,23 +659,23 @@ export function predictMLB(
 
   const hOut = Math.min(
     8.0,
-    num(pick(matchup.homeInjuriesOut, matchup.home_injuries_out), Number(h.active_injuries_out)) ??
+    num(pick(matchup.homeInjuriesOut, matchup.home_injuries_out), num(h.active_injuries_out)) ??
       0.0,
   );
   const aOut = Math.min(
     8.0,
-    num(pick(matchup.awayInjuriesOut, matchup.away_injuries_out), Number(a.active_injuries_out)) ??
+    num(pick(matchup.awayInjuriesOut, matchup.away_injuries_out), num(a.active_injuries_out)) ??
       0.0,
   );
   const hQ =
     num(
       pick(matchup.homeInjuriesQuestionable, matchup.home_injuries_questionable),
-      Number(h.active_injuries_questionable),
+      num(h.active_injuries_questionable),
     ) ?? 0.0;
   const aQ =
     num(
       pick(matchup.awayInjuriesQuestionable, matchup.away_injuries_questionable),
-      Number(a.active_injuries_questionable),
+      num(a.active_injuries_questionable),
     ) ?? 0.0;
 
   const injH = Math.min(
@@ -677,14 +695,14 @@ export function predictMLB(
   else isDome = Boolean(h.is_dome);
 
   const explicitElev = pick(matchup.stadiumElevationM, matchup.stadium_elevation_m);
-  const hElev = num(explicitElev, Number(h.stadium_elevation_m)) ?? 100.0;
+  const hElev = num(explicitElev, num(h.stadium_elevation_m)) ?? 100.0;
   const aElev =
-    num(pick(matchup.awayElevationM, matchup.away_elevation_m), Number(a.stadium_elevation_m)) ??
+    num(pick(matchup.awayElevationM, matchup.away_elevation_m), num(a.stadium_elevation_m)) ??
     100.0;
   const defaultPres =
     explicitElev !== undefined && explicitElev !== null
       ? 1013.25 * Math.exp(-hElev / 8434.5)
-      : Number(h.structural_pressure_hpa);
+      : num(h.structural_pressure_hpa);
   const presHpa =
     num(pick(matchup.surfacePressureHpa, matchup.surface_pressure_hpa), defaultPres) ?? 1001.0;
 
@@ -715,10 +733,10 @@ export function predictMLB(
   const hSplit = neutralSite ? 0.0 : p.home_run_split_boost!;
   const aSplit = neutralSite ? 0.0 : p.away_run_split_drag!;
 
-  const effRsH = clamp(Number(h.proj_rs_pg) - 0.65 * injH, 2.5, 6.8);
-  const effRaH = clamp(Number(h.proj_ra_pg) + spDeltaH + 0.35 * injH, 2.3, 6.8);
-  const effRsA = clamp(Number(a.proj_rs_pg) - 0.65 * injA, 2.5, 6.8);
-  const effRaA = clamp(Number(a.proj_ra_pg) + spDeltaA + 0.35 * injA, 2.3, 6.8);
+  const effRsH = clamp(asFiniteNumber(h.proj_rs_pg) - 0.65 * injH, 2.5, 6.8);
+  const effRaH = clamp(asFiniteNumber(h.proj_ra_pg) + spDeltaH + 0.35 * injH, 2.3, 6.8);
+  const effRsA = clamp(asFiniteNumber(a.proj_rs_pg) - 0.65 * injA, 2.5, 6.8);
+  const effRaA = clamp(asFiniteNumber(a.proj_ra_pg) + spDeltaA + 0.35 * injA, 2.3, 6.8);
 
   const rawRunsH = ((effRsH * effRaA) / lgRuns + hSplit) * envMult;
   const rawRunsA = ((effRsA * effRaH) / lgRuns + aSplit) * envMult;
@@ -736,8 +754,8 @@ export function predictMLB(
     safePow(effRsA, pythagenpatExponent) /
     (safePow(effRsA, pythagenpatExponent) + safePow(effRaA, pythagenpatExponent));
 
-  const sHome = 0.65 * pyHEff + 0.35 * Number(h.talent_win_pct);
-  const sAway = 0.65 * pyAEff + 0.35 * Number(a.talent_win_pct);
+  const sHome = 0.65 * pyHEff + 0.35 * asFiniteNumber(h.talent_win_pct);
+  const sAway = 0.65 * pyAEff + 0.35 * asFiniteNumber(a.talent_win_pct);
   const pNeutral = log5(sHome, sAway);
 
   let hfaProb = 0.5;
@@ -750,16 +768,18 @@ export function predictMLB(
   const pHome = clamp(log5(pNeutral, hfaProb), 1e-6, 1.0 - 1e-6);
   const pAway = 1.0 - pHome;
 
-  const baseTalentLog5 = log5(Number(h.talent_win_pct), Number(a.talent_win_pct));
+  const baseTalentLog5 = log5(asFiniteNumber(h.talent_win_pct), asFiniteNumber(a.talent_win_pct));
   const drivers: MultiSportDriver[] = [
     {
       factor: "fip_woba_pythag_structure",
       label: "Pythagorean 1.83 + FIP / (ERA-FIP) Regression + wOBA / OPS+",
-      homeValue: Number(h.talent_win_pct),
-      awayValue: Number(a.talent_win_pct),
+      homeValue: asFiniteNumber(h.talent_win_pct),
+      awayValue: asFiniteNumber(a.talent_win_pct),
       impactLogit: logitFn(baseTalentLog5),
       impactUnits:
-        Number(h.proj_rs_pg) - Number(h.proj_ra_pg) - (Number(a.proj_rs_pg) - Number(a.proj_ra_pg)),
+        asFiniteNumber(h.proj_rs_pg) -
+        asFiniteNumber(h.proj_ra_pg) -
+        (asFiniteNumber(a.proj_rs_pg) - asFiniteNumber(a.proj_ra_pg)),
     },
     {
       factor: "starting_pitcher_matchup",
@@ -819,9 +839,9 @@ export function predictNBA(
   const neutralSite = Boolean(pick(matchup.neutralSite, matchup.neutral_site) ?? false);
 
   const hPace =
-    num(pick(matchup.homePace, matchup.home_pace), Number(h.pace)) ?? p.league_pace!;
+    num(pick(matchup.homePace, matchup.home_pace), num(h.pace)) ?? p.league_pace!;
   const aPace =
-    num(pick(matchup.awayPace, matchup.away_pace), Number(a.pace)) ?? p.league_pace!;
+    num(pick(matchup.awayPace, matchup.away_pace), num(a.pace)) ?? p.league_pace!;
   const expectedPace = clamp(
     p.pace_shrink! * (0.5 * (hPace + aPace)) + (1.0 - p.pace_shrink!) * p.league_pace!,
     92.0,
@@ -829,17 +849,17 @@ export function predictNBA(
   );
   const paceScale = expectedPace / 100.0;
 
-  const rtgH = Number(h.power_rating_pts);
-  const rtgA = Number(a.power_rating_pts);
+  const rtgH = asFiniteNumber(h.power_rating_pts);
+  const rtgA = asFiniteNumber(a.power_rating_pts);
   const structuralMargin = paceScale * (rtgH - rtgA);
 
   const hElev =
     num(
       pick(matchup.stadiumElevationM, matchup.stadium_elevation_m),
-      Number(h.stadium_elevation_m),
+      num(h.stadium_elevation_m),
     ) ?? 150.0;
   const aElev =
-    num(pick(matchup.awayElevationM, matchup.away_elevation_m), Number(a.stadium_elevation_m)) ??
+    num(pick(matchup.awayElevationM, matchup.away_elevation_m), num(a.stadium_elevation_m)) ??
     150.0;
   const altDiff = Math.max(0.0, hElev - aElev);
 
@@ -853,20 +873,20 @@ export function predictNBA(
   }
 
   const hOut =
-    num(pick(matchup.homeInjuriesOut, matchup.home_injuries_out), Number(h.active_injuries_out)) ??
+    num(pick(matchup.homeInjuriesOut, matchup.home_injuries_out), num(h.active_injuries_out)) ??
     0.0;
   const aOut =
-    num(pick(matchup.awayInjuriesOut, matchup.away_injuries_out), Number(a.active_injuries_out)) ??
+    num(pick(matchup.awayInjuriesOut, matchup.away_injuries_out), num(a.active_injuries_out)) ??
     0.0;
   const hQ =
     num(
       pick(matchup.homeInjuriesQuestionable, matchup.home_injuries_questionable),
-      Number(h.active_injuries_questionable),
+      num(h.active_injuries_questionable),
     ) ?? 0.0;
   const aQ =
     num(
       pick(matchup.awayInjuriesQuestionable, matchup.away_injuries_questionable),
-      Number(a.active_injuries_questionable),
+      num(a.active_injuries_questionable),
     ) ?? 0.0;
 
   const injuryMargin = clamp(
@@ -878,7 +898,11 @@ export function predictNBA(
   const expectedMargin = structuralMargin + hcaPts + altPts + injuryMargin;
   const baseTotal =
     expectedPace *
-      ((Number(h.ortg) + Number(a.drtg) + Number(a.ortg) + Number(h.drtg)) / 200.0) -
+      ((asFiniteNumber(h.ortg) +
+        asFiniteNumber(a.drtg) +
+        asFiniteNumber(a.ortg) +
+        asFiniteNumber(h.drtg)) /
+        200.0) -
     p.injury_total_pts_drag! * Math.min(10.0, hOut + aOut);
   const expectedTotalPoints = clamp(baseTotal, 198.0, 254.0);
   const expectedPointsHome = 0.5 * (expectedTotalPoints + expectedMargin);
@@ -946,8 +970,8 @@ export function predictNCAAF(
   const a = resolveTeamEntry(cfg, String(pick(matchup.awayTeam, matchup.away_team) ?? ""));
   const neutralSite = Boolean(pick(matchup.neutralSite, matchup.neutral_site) ?? false);
 
-  const rtgH = Number(h.power_rating_pts);
-  const rtgA = Number(a.power_rating_pts);
+  const rtgH = asFiniteNumber(h.power_rating_pts);
+  const rtgA = asFiniteNumber(a.power_rating_pts);
   const structuralMargin = rtgH - rtgA;
 
   const explicitDome = pick(matchup.isDome, matchup.is_dome);
@@ -956,10 +980,10 @@ export function predictNCAAF(
   const hElev =
     num(
       pick(matchup.stadiumElevationM, matchup.stadium_elevation_m),
-      Number(h.stadium_elevation_m),
+      num(h.stadium_elevation_m),
     ) ?? 180.0;
   const aElev =
-    num(pick(matchup.awayElevationM, matchup.away_elevation_m), Number(a.stadium_elevation_m)) ??
+    num(pick(matchup.awayElevationM, matchup.away_elevation_m), num(a.stadium_elevation_m)) ??
     180.0;
   const altDiff = Math.max(0.0, hElev - aElev);
 
@@ -978,24 +1002,24 @@ export function predictNCAAF(
   }
 
   const hQb =
-    num(pick(matchup.homeQbInjured, matchup.home_qb_injured), Number(h.active_qb_injured)) ?? 0.0;
+    num(pick(matchup.homeQbInjured, matchup.home_qb_injured), num(h.active_qb_injured)) ?? 0.0;
   const aQb =
-    num(pick(matchup.awayQbInjured, matchup.away_qb_injured), Number(a.active_qb_injured)) ?? 0.0;
+    num(pick(matchup.awayQbInjured, matchup.away_qb_injured), num(a.active_qb_injured)) ?? 0.0;
   const hOut =
-    num(pick(matchup.homeInjuriesOut, matchup.home_injuries_out), Number(h.active_injuries_out)) ??
+    num(pick(matchup.homeInjuriesOut, matchup.home_injuries_out), num(h.active_injuries_out)) ??
     0.0;
   const aOut =
-    num(pick(matchup.awayInjuriesOut, matchup.away_injuries_out), Number(a.active_injuries_out)) ??
+    num(pick(matchup.awayInjuriesOut, matchup.away_injuries_out), num(a.active_injuries_out)) ??
     0.0;
   const hQ =
     num(
       pick(matchup.homeInjuriesQuestionable, matchup.home_injuries_questionable),
-      Number(h.active_injuries_questionable),
+      num(h.active_injuries_questionable),
     ) ?? 0.0;
   const aQ =
     num(
       pick(matchup.awayInjuriesQuestionable, matchup.away_injuries_questionable),
-      Number(a.active_injuries_questionable),
+      num(a.active_injuries_questionable),
     ) ?? 0.0;
 
   const injuryMargin = clamp(
@@ -1032,9 +1056,15 @@ export function predictNCAAF(
   const expMarginRaw = weatherDamping * (structuralMargin + hfaPts + altPts + injuryMargin);
 
   const yppSumDelta =
-    Number(h.off_ypp) - Number(a.def_ypp) + (Number(a.off_ypp) - Number(h.def_ypp));
+    asFiniteNumber(h.off_ypp) -
+    asFiniteNumber(a.def_ypp) +
+    (asFiniteNumber(a.off_ypp) - asFiniteNumber(h.def_ypp));
   const rawTotal =
-    0.5 * (Number(h.ppg) + Number(a.oppg) + Number(a.ppg) + Number(h.oppg)) +
+    0.5 *
+      (asFiniteNumber(h.ppg) +
+        asFiniteNumber(a.oppg) +
+        asFiniteNumber(a.ppg) +
+        asFiniteNumber(h.oppg)) +
     p.ypp_total_pts_scale! * yppSumDelta +
     weatherTotalSuppression -
     2.2 * (hQb + aQb);
