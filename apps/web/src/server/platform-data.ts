@@ -7,6 +7,7 @@ import {
   FORBIDDEN_PROVIDER_TOKENS,
   LeagueInjuriesFileSchema,
   LeagueSquadsFileSchema,
+  MAX_POSITIVE_DECIMAL_ODDS,
   TIER1_LEAGUE_IDS,
   canonicalGameHref,
   canonicalGameSlug,
@@ -19,6 +20,7 @@ import {
   parseStrictFiniteNumber,
   sportScoringUnit,
   type LeagueSquadsFile,
+  type PlatformSport,
   type StandingRow,
   type TeamInjuryEntry,
   type TeamSquadEntry,
@@ -551,6 +553,70 @@ function findSquadTeamEntry(
   );
 }
 
+const SAFE_ENTITY_ID_RE = /^[A-Za-z0-9._:+-]+$/;
+
+function isSeasonMinutesMetric(metric: { readonly key: string; readonly label: string }): boolean {
+  const k = metric.key.trim().toLowerCase();
+  const l = metric.label.trim().toUpperCase();
+  return (
+    k === "min" ||
+    k === "minutes" ||
+    k === "min_total" ||
+    k === "total_minutes" ||
+    k === "min_per_game" ||
+    k === "mpg" ||
+    l === "MIN" ||
+    l === "MPG" ||
+    l === "MIN/P"
+  );
+}
+
+function normalizeSeasonMinutesPerGame(
+  sport: PlatformSport,
+  seasonMinMetric: { readonly key: string; readonly label: string; readonly value: string } | undefined,
+  seasonGp: number,
+  avgFromLogs: number | null,
+): number | null {
+  if (!seasonMinMetric) return null;
+  const raw = parseStatNumeric(seasonMinMetric.value);
+  if (raw === null || raw <= 0) return null;
+
+  const k = seasonMinMetric.key.trim().toLowerCase();
+  const l = seasonMinMetric.label.trim().toUpperCase();
+  const isExplicitPerGame =
+    k.includes("per_game") ||
+    k.includes("avg") ||
+    k === "mpg" ||
+    l.includes("/P") ||
+    l.includes("MPG");
+  const isExplicitTotal = k.includes("total") || l.includes("TOTAL");
+
+  if (sport === "basketball") {
+    if (isExplicitPerGame) {
+      return Math.round(raw * 10) / 10;
+    }
+    if (
+      seasonGp > 1 &&
+      (isExplicitTotal ||
+        !seasonMinMetric.value.includes(".") ||
+        (avgFromLogs !== null &&
+          avgFromLogs > 0 &&
+          raw / avgFromLogs >= Math.max(2, seasonGp * 0.6)))
+    ) {
+      return Math.round((raw / seasonGp) * 10) / 10;
+    }
+    return Math.round(raw * 10) / 10;
+  }
+
+  if (isExplicitPerGame) {
+    return Math.round(raw * 10) / 10;
+  }
+  if (seasonGp > 1) {
+    return Math.round((raw / seasonGp) * 10) / 10;
+  }
+  return Math.round(raw * 10) / 10;
+}
+
 function extractFootballCandidatesForGame(
   game: PlatformGame,
 ): readonly FootballPlayerPropCandidateInput[] {
@@ -650,23 +716,8 @@ function extractFootballCandidatesForGame(
         player.stats.yellowCards;
       if (activity <= 0) continue;
 
-      let avgMinutes: number | null = null;
-      const minMetric = player.seasonMetrics?.find((m) => {
-        const k = m.key.trim().toLowerCase();
-        const l = m.label.trim().toUpperCase();
-        return k === "min" || l === "MIN" || k === "min_per_game" || k === "mpg";
-      });
-      if (minMetric) {
-        const rawMin = parseStatNumeric(minMetric.value);
-        if (rawMin !== null) {
-          avgMinutes = rawMin > 95 ? Math.round((rawMin / apps) * 10) / 10 : Math.round(rawMin * 10) / 10;
-        }
-      } else {
-        const starts = Math.max(0, apps - player.stats.subIns);
-        if (starts >= 3 && starts / apps >= 0.7) {
-          avgMinutes = Math.round(((starts * 72 + player.stats.subIns * 18) / apps) * 10) / 10;
-        }
-      }
+      const minMetric = player.seasonMetrics?.find(isSeasonMinutesMetric);
+      const avgMinutes = normalizeSeasonMinutesPerGame("football", minMetric, apps, null);
 
       if (avgMinutes === null || avgMinutes < FOOTBALL_STARTER_MIN_MINUTES) continue;
 
@@ -776,21 +827,16 @@ function extractNbaCandidatesForGame(
         });
       }
 
-      const minMetric = player.seasonMetrics?.find((m) => {
-        const k = m.key.trim().toLowerCase();
-        const l = m.label.trim().toUpperCase();
-        return k === "min" || l === "MIN" || k === "mpg";
-      });
-      const seasonMin = minMetric ? parseStatNumeric(minMetric.value) : null;
+      const minMetric = player.seasonMetrics?.find(isSeasonMinutesMetric);
       const gp = Math.max(1, player.stats.appearances);
-      const seasonAvgMin =
-        seasonMin !== null
-          ? seasonMin > 48
-            ? Math.round((seasonMin / gp) * 10) / 10
-            : Math.round(seasonMin * 10) / 10
+      const allLogAvg =
+        matchLogs.length > 0
+          ? matchLogs.reduce((acc, l) => acc + l.minutesPlayed, 0) / matchLogs.length
           : null;
+      const seasonAvgMin = normalizeSeasonMinutesPerGame("basketball", minMetric, gp, allLogAvg);
 
       const qualifiedLogs = matchLogs.filter((l) => l.minutesPlayed >= NBA_STARTER_MIN_MINUTES);
+      if (matchLogs.length >= 3 && qualifiedLogs.length < 3) continue;
       const avgMinutes =
         qualifiedLogs.length >= 3
           ? Math.round(
@@ -1314,6 +1360,7 @@ function projectShellPick(
         (q) =>
           Number.isFinite(q.decimal) &&
           q.decimal > 1.01 &&
+          q.decimal <= MAX_POSITIVE_DECIMAL_ODDS &&
           ALLOWED_BOOKMAKER_IDS.has(q.book) &&
           isPermittedMarketQuoteBook(q.book, q.bookLabel) &&
           isMarketFresh(q.capturedAtUtc, opts.nowMs),
@@ -1337,14 +1384,18 @@ function projectShellPick(
     }
   }
 
+  const topBookLabel = typeof pk.marketBookLabel === "string" ? pk.marketBookLabel.trim() : "";
+  const topBookPrimary = topBookLabel.split(/[·|]/)[0]?.trim() ?? topBookLabel;
   const topMarketAllowed =
     !pk.isRedacted &&
     pk.marketDecimal !== null &&
     Number.isFinite(pk.marketDecimal) &&
     pk.marketDecimal > 1.01 &&
-    isMarketFresh(pk.marketCapturedAtUtc, opts.nowMs) &&
-    (pk.marketBookLabel == null ||
-      !isBlockedMarketQuoteBook(pk.marketBookLabel, pk.marketBookLabel));
+    pk.marketDecimal <= MAX_POSITIVE_DECIMAL_ODDS &&
+    topBookLabel.length > 0 &&
+    !isBlockedMarketQuoteBook(topBookPrimary, topBookLabel) &&
+    isPermittedMarketQuoteBook(topBookPrimary, topBookLabel) &&
+    isMarketFresh(pk.marketCapturedAtUtc, opts.nowMs);
 
   return {
     id: pk.id,
@@ -1603,7 +1654,7 @@ function buildScreenerCatalogsRecord(
   fullAccess: boolean,
   maxGames: number,
 ): Record<string, MatchPicksCatalog> {
-  const horizon = upcomingPlusRecentFinished(bundle.value, fullAccess ? 6 : 0);
+  const horizon = upcomingPlusRecentFinished(bundle.value, 6);
   const upcomingGames = horizon.games
     .filter((g) => g.status !== "FT" && g.hasForecast !== false)
     .slice()
@@ -1614,20 +1665,24 @@ function buildScreenerCatalogsRecord(
       return compareShellGamePriority(a, b);
     });
 
-  const finishedGames = fullAccess
-    ? horizon.games
-        .filter((g) => g.status === "FT" && g.hasForecast !== false)
-        .slice()
-        .sort((a, b) => (b.kickoffUtc || "").localeCompare(a.kickoffUtc || ""))
-        .slice(0, 3)
-    : [];
+  const finishedGames = horizon.games
+    .filter((g) => g.status === "FT" && g.hasForecast !== false)
+    .slice()
+    .sort((a, b) => (b.kickoffUtc || "").localeCompare(a.kickoffUtc || ""))
+    .slice(0, 3);
 
   const capLimit = Math.max(1, maxGames);
   let targetGames: PlatformGame[];
-  if (fullAccess && finishedGames.length > 0 && capLimit >= 12) {
-    const headUpcoming = upcomingGames.slice(0, 10);
-    const tailUpcoming = upcomingGames.slice(10, Math.max(10, capLimit - finishedGames.length));
-    targetGames = [...headUpcoming, ...finishedGames, ...tailUpcoming].slice(0, capLimit);
+  if (finishedGames.length > 0 && capLimit >= 4) {
+    const ftQuota = Math.min(finishedGames.length, capLimit >= 8 ? 3 : 2);
+    const selectedFt = finishedGames.slice(0, ftQuota);
+    const headCount = Math.min(6, Math.max(1, capLimit - selectedFt.length));
+    const headUpcoming = upcomingGames.slice(0, headCount);
+    const tailUpcoming = upcomingGames.slice(
+      headCount,
+      Math.max(headCount, capLimit - selectedFt.length),
+    );
+    targetGames = [...headUpcoming, ...selectedFt, ...tailUpcoming].slice(0, capLimit);
   } else {
     targetGames = upcomingGames.slice(0, capLimit);
   }
@@ -1783,15 +1838,18 @@ export function loadScreenerApiPage(params: {
     const rawCatalog = getOrBuildEnrichedCatalogForGame(bundle, game, params.fullAccess, true);
     if (rawCatalog.picks.length === 0) continue;
 
+    const includeTrivial = params.includeTrivial === true;
     const filteredPicks = rawCatalog.picks.filter((pk) => {
       if (pk.isRedacted) {
         return gameMatchesQ;
       }
-      if (params.includeTrivial === false && pk.recommendationTier === "trivial_odds") {
-        return false;
-      }
-      if (params.onlyRecommended === true && pk.isRecommendedByModel !== true) {
-        return false;
+      if (pk.gameStatus !== "FT") {
+        if (!includeTrivial && pk.recommendationTier === "trivial_odds") {
+          return false;
+        }
+        if (params.onlyRecommended === true && pk.isRecommendedByModel !== true) {
+          return false;
+        }
       }
       if (!gameMatchesQ) {
         const hay = normalizeSearchToken(
@@ -1909,8 +1967,14 @@ function buildPlayerLabBars(
 
     let value: number | null = null;
     if (statKey === "goal_or_assist") {
-      const gHit = rg.stats.find((st) => normalizeSearchToken(st.label).includes("gol"));
-      const aHit = rg.stats.find((st) => normalizeSearchToken(st.label).includes("asist"));
+      const gHit = rg.stats.find((st) => {
+        const norm = normalizeSearchToken(st.label);
+        return norm.includes("gol") || norm.includes("goal");
+      });
+      const aHit = rg.stats.find((st) => {
+        const norm = normalizeSearchToken(st.label);
+        return norm.includes("asist") || norm.includes("assist");
+      });
       const gv = gHit ? parseStatNumeric(gHit.value) : null;
       const av = aHit ? parseStatNumeric(aHit.value) : null;
       if (gv !== null || av !== null) value = (gv ?? 0) + (av ?? 0);
@@ -1943,32 +2007,35 @@ function buildPlayerLabBars(
     });
   }
 
-  return bars;
+  return bars.reverse();
 }
 
 function historyToLabBars(
   entries: readonly CachedTeamHistoryEntry[],
   mode: "total" | "for" | "against",
 ): readonly PickLabMatchBar[] {
-  return entries.map((rec) => ({
-    id: rec.id,
-    dateLabel: formatShortDateMx(rec.dateIso),
-    opponentName: rec.opponentName,
-    opponentShort: rec.opponentShort,
-    opponentSlug: rec.opponentSlug,
-    leagueLabel: rec.leagueLabel,
-    isHome: rec.isHome,
-    value:
-      mode === "total"
-        ? rec.goalsFor + rec.goalsAgainst
-        : mode === "for"
-          ? rec.goalsFor
-          : rec.goalsAgainst,
-    minutesPlayed: null,
-    scoreLabel: `${rec.goalsFor}-${rec.goalsAgainst}`,
-    gf: rec.goalsFor,
-    gc: rec.goalsAgainst,
-  }));
+  return entries
+    .slice()
+    .reverse()
+    .map((rec) => ({
+      id: rec.id,
+      dateLabel: formatShortDateMx(rec.dateIso),
+      opponentName: rec.opponentName,
+      opponentShort: rec.opponentShort,
+      opponentSlug: rec.opponentSlug,
+      leagueLabel: rec.leagueLabel,
+      isHome: rec.isHome,
+      value:
+        mode === "total"
+          ? rec.goalsFor + rec.goalsAgainst
+          : mode === "for"
+            ? rec.goalsFor
+            : rec.goalsAgainst,
+      minutesPlayed: null,
+      scoreLabel: `${rec.goalsFor}-${rec.goalsAgainst}`,
+      gf: rec.goalsFor,
+      gc: rec.goalsAgainst,
+    }));
 }
 
 function historyToRecentRows(
@@ -2013,7 +2080,13 @@ export async function loadPickEvidenceLabData(
   fullAccess: boolean,
 ): Promise<PickLabResponsePayload | null> {
   const cleanId = pickId.trim();
-  if (!cleanId || cleanId.length > 220 || cleanId.includes("__locked__")) {
+  if (
+    !cleanId ||
+    cleanId.length > 220 ||
+    cleanId.includes("..") ||
+    cleanId.includes("__locked__") ||
+    !SAFE_ENTITY_ID_RE.test(cleanId)
+  ) {
     return null;
   }
 
@@ -2393,7 +2466,14 @@ export async function loadGamePreviewPayload(
   fullAccess: boolean,
 ): Promise<GamePreviewPayload | null> {
   const cleanId = gameId.trim();
-  if (!cleanId || cleanId.length > 160) return null;
+  if (
+    !cleanId ||
+    cleanId.length > 160 ||
+    cleanId.includes("..") ||
+    !SAFE_ENTITY_ID_RE.test(cleanId)
+  ) {
+    return null;
+  }
 
   const bundle = getDatasetMemoBundle();
   const rawGame = bundle.gamesById.get(cleanId);
@@ -2445,6 +2525,15 @@ export async function loadGamePreviewPayload(
       ? { home: rawGame.projection.home, away: rawGame.projection.away }
       : null;
 
+  const previewDetail: PlatformGameDetail = {
+    markets: [],
+    headToHead: detail.headToHead,
+    factors: detail.factors,
+    ...(detail.v5 !== undefined ? { v5: detail.v5 } : {}),
+    ...(detail.frozenMainPick !== undefined ? { frozenMainPick: detail.frozenMainPick } : {}),
+    ...(detail.picksCatalog !== undefined ? { picksCatalog: detail.picksCatalog } : {}),
+  };
+
   return {
     ok: true,
     gameId: rawGame.id,
@@ -2478,7 +2567,7 @@ export async function loadGamePreviewPayload(
         form: buildTeamFormTokens(awayHistory, 5),
       },
     },
-    detail,
+    detail: previewDetail,
     standings,
     injuries: loadGameInjuriesList(rawGame, allowFull),
   };

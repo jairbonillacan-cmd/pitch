@@ -1,4 +1,5 @@
 import {
+  MAX_POSITIVE_DECIMAL_ODDS,
   isPermittedMarketQuoteBook,
   parseStrictFiniteNumber,
   sportScoringUnit,
@@ -778,6 +779,7 @@ function selectPermittedFreshBookQuotes(
         typeof q.decimal === "number" &&
         Number.isFinite(q.decimal) &&
         q.decimal >= 1.01 &&
+        q.decimal <= MAX_POSITIVE_DECIMAL_ODDS &&
         isPermittedMarketQuoteBook(q.book, q.bookLabel) &&
         isMarketQuoteFreshWithin72h(q.capturedAtUtc, nowIso),
     )
@@ -805,6 +807,7 @@ function buildQuoteIndex(
       typeof row.currentDecimal === "number" &&
       Number.isFinite(row.currentDecimal) &&
       row.currentDecimal >= 1.01 &&
+      row.currentDecimal <= MAX_POSITIVE_DECIMAL_ODDS &&
       isMarketBookLabelPermitted(row.quoteBookLabel) &&
       isMarketQuoteFreshWithin72h(row.quoteCapturedAtUtc, nowIso);
 
@@ -844,10 +847,10 @@ function buildQuoteIndex(
   if (stMarket) {
     const book = stMarket.bookLabel.split(" · ")[0]?.trim() ?? stMarket.bookLabel;
     if (
-      isMarketBookLabelPermitted(book) &&
+      isMarketBookLabelPermitted(stMarket.bookLabel) &&
       isMarketQuoteFreshWithin72h(stMarket.asOfUtc, nowIso)
     ) {
-      if (stMarket.odds.home >= 1.01) {
+      if (stMarket.odds.home >= 1.01 && stMarket.odds.home <= MAX_POSITIVE_DECIMAL_ODDS) {
         put("1x2|home", {
           decimal: stMarket.odds.home,
           bookLabel: book,
@@ -859,7 +862,11 @@ function buildQuoteIndex(
           capturedAtUtc: stMarket.asOfUtc,
         });
       }
-      if (stMarket.odds.draw !== null && stMarket.odds.draw >= 1.01) {
+      if (
+        stMarket.odds.draw !== null &&
+        stMarket.odds.draw >= 1.01 &&
+        stMarket.odds.draw <= MAX_POSITIVE_DECIMAL_ODDS
+      ) {
         put("1x2|draw", {
           decimal: stMarket.odds.draw,
           bookLabel: book,
@@ -871,7 +878,7 @@ function buildQuoteIndex(
           capturedAtUtc: stMarket.asOfUtc,
         });
       }
-      if (stMarket.odds.away >= 1.01) {
+      if (stMarket.odds.away >= 1.01 && stMarket.odds.away <= MAX_POSITIVE_DECIMAL_ODDS) {
         put("1x2|away", {
           decimal: stMarket.odds.away,
           bookLabel: book,
@@ -1266,14 +1273,19 @@ export function buildMatchPicksCatalog(
     if (primaryMatch) {
       claimedPrimaryIds.add(primaryMatch.id);
     }
+    const usesArgMarketSource = args.marketDecimal !== undefined && args.marketDecimal !== null;
     const pricing = computePickPricing({
       calibratedProb: args.p,
-      marketDecimal: args.marketDecimal ?? primaryMatch?.marketDecimal ?? null,
+      marketDecimal: usesArgMarketSource ? args.marketDecimal : (primaryMatch?.marketDecimal ?? null),
       companionMarketDecimals: args.companionMarketDecimals ?? null,
       companionIndex: args.companionIndex,
       companionProbSum: args.companionProbSum,
-      marketBookLabel: args.marketBookLabel ?? primaryMatch?.marketBookLabel ?? null,
-      marketCapturedAtUtc: args.marketCapturedAtUtc ?? primaryMatch?.marketCapturedAtUtc ?? null,
+      marketBookLabel: usesArgMarketSource
+        ? (args.marketBookLabel ?? null)
+        : (primaryMatch?.marketBookLabel ?? null),
+      marketCapturedAtUtc: usesArgMarketSource
+        ? (args.marketCapturedAtUtc ?? null)
+        : (primaryMatch?.marketCapturedAtUtc ?? null),
       nowIso: freshnessNowIso,
       deVigPreference: deVigPref,
     });
@@ -2313,8 +2325,8 @@ function emitFootballPlayerProps(
 
     bucket.marketQuotes[statKey] = {
       line: pp.baseLine,
-      overDecimal: pp.marketOverDecimal >= 1.01 ? pp.marketOverDecimal : null,
-      underDecimal: pp.marketUnderDecimal >= 1.01 ? pp.marketUnderDecimal : null,
+      overDecimal: null,
+      underDecimal: null,
     };
   }
 
@@ -2795,8 +2807,8 @@ function emitNbaPlayerProps(
         mean: pp.projectionMean,
         sd: pp.projectionSd,
         last10: pp.last10,
-        overDecimal: pp.marketOverDecimal >= 1.01 ? pp.marketOverDecimal : null,
-        underDecimal: pp.marketUnderDecimal >= 1.01 ? pp.marketUnderDecimal : null,
+        overDecimal: null,
+        underDecimal: null,
       };
     }
   }
@@ -2884,7 +2896,7 @@ function emitNbaPlayerProps(
         statKey,
         statLabel: NBA_PROP_STAT_LABELS[statKey],
         minMinutesGuard: minMinutes,
-        qualifyingMatches: Math.max(logValues.length, 3),
+        qualifyingMatches: qualifiedLogs ? qualifiedLogs.length : logValues.length,
         avgMinutes,
         lineupStatus: lineupCheck.status,
         projectionMean: mean,

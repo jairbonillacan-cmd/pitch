@@ -8,6 +8,21 @@ export const dynamic = "force-dynamic";
 
 const MAX_PAGE_SIZE = 40;
 const DEFAULT_PAGE_SIZE = 16;
+const SAFE_ID_RE = /^[A-Za-z0-9._:+-]+$/;
+
+function validateSafeId(raw: string | null, maxLen: number): string | null {
+  if (!raw) return null;
+  const trimmed = raw.trim();
+  if (
+    trimmed.length === 0 ||
+    trimmed.length > maxLen ||
+    trimmed.includes("..") ||
+    !SAFE_ID_RE.test(trimmed)
+  ) {
+    return null;
+  }
+  return trimmed;
+}
 
 function parseBoundedInt(
   raw: string | null,
@@ -56,10 +71,24 @@ export const GET = withSessionRead(
     );
     const sport = parseOptionalText(sp.get("sport"), 40);
     const league = parseOptionalText(sp.get("league"), 64);
-    const gameId = parseOptionalText(sp.get("gameId"), 160);
+    const rawGameId = sp.get("gameId");
+    let gameId: string | undefined;
+    if (rawGameId !== null && rawGameId.trim().length > 0) {
+      const validatedGameId = validateSafeId(rawGameId, 160);
+      if (!validatedGameId) {
+        return NextResponse.json(
+          { ok: false, error: "datos_invalidos" },
+          {
+            status: 400,
+            headers: { "Cache-Control": "private, no-store" },
+          },
+        );
+      }
+      gameId = validatedGameId;
+    }
     const q = parseOptionalText(sp.get("q"), 80);
     const onlyRecommended = parseOptionalBool(sp.get("onlyRecommended"));
-    const includeTrivial = parseOptionalBool(sp.get("includeTrivial"));
+    const includeTrivial = parseOptionalBool(sp.get("includeTrivial")) ?? false;
 
     const payload = loadScreenerApiPage({
       fullAccess: access.fullAccess,

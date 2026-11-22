@@ -1,4 +1,5 @@
 import {
+  MAX_POSITIVE_DECIMAL_ODDS,
   isBlockedMarketQuoteBook,
   isPermittedMarketQuoteBook,
   sportScoringUnit,
@@ -41,6 +42,7 @@ const MIN_DE_VIG_IMPLIED_SUM = 0.92;
 const MAX_DE_VIG_IMPLIED_SUM = 1.32;
 const AUTO_SHIN_OVERROUND_THRESHOLD_PCT = 3.5;
 const MAX_QUOTE_FRESHNESS_MS = 72 * 3_600_000;
+const MAX_QUOTE_FUTURE_SKEW_MS = 6 * 3_600_000;
 const TRIVIAL_ODDS_THRESHOLD = 1.25;
 const OPTIMAL_ODDS_MIN = 1.45;
 const OPTIMAL_ODDS_MAX = 2.8;
@@ -88,19 +90,25 @@ export function isMarketQuoteFreshWithin72h(
   capturedAtUtc?: string | null,
   referenceNowIso?: string | null,
 ): boolean {
-  if (!capturedAtUtc || !referenceNowIso) return true;
+  if (!capturedAtUtc || capturedAtUtc.trim().length === 0) return false;
   const capturedMs = Date.parse(capturedAtUtc);
-  const nowMs = Date.parse(referenceNowIso);
+  const nowMs =
+    referenceNowIso && referenceNowIso.trim().length > 0
+      ? Date.parse(referenceNowIso)
+      : Date.now();
   if (!Number.isFinite(capturedMs) || !Number.isFinite(nowMs)) return false;
-  return nowMs - capturedMs <= MAX_QUOTE_FRESHNESS_MS;
+  const ageMs = nowMs - capturedMs;
+  return ageMs >= -MAX_QUOTE_FUTURE_SKEW_MS && ageMs <= MAX_QUOTE_FRESHNESS_MS;
 }
 
 export function isMarketBookLabelPermitted(bookLabel?: string | null): boolean {
-  if (bookLabel == null || bookLabel.trim().length === 0) return true;
-  const primary = bookLabel.split(/[·|]/)[0]?.trim() ?? bookLabel.trim();
+  if (bookLabel == null) return false;
+  const trimmed = bookLabel.trim();
+  if (trimmed.length === 0) return false;
+  const primary = trimmed.split(/[·|]/)[0]?.trim() ?? trimmed;
   return (
-    !isBlockedMarketQuoteBook(primary, bookLabel) &&
-    isPermittedMarketQuoteBook(primary, bookLabel)
+    !isBlockedMarketQuoteBook(primary, trimmed) &&
+    isPermittedMarketQuoteBook(primary, trimmed)
   );
 }
 
@@ -343,7 +351,8 @@ export function computePickPricing(input: ComputePickPricingInput): PickPricingM
     freshMarket &&
     typeof input.marketDecimal === "number" &&
     Number.isFinite(input.marketDecimal) &&
-    input.marketDecimal >= 1.01
+    input.marketDecimal >= 1.01 &&
+    input.marketDecimal <= MAX_POSITIVE_DECIMAL_ODDS
       ? round2(input.marketDecimal)
       : null;
 
@@ -1378,11 +1387,24 @@ export function scoreRecommendedCatalogPick(
   let tier: PickRecommendationTier;
   let isRecommended: boolean;
 
+  const hasMarketEv =
+    item.pricing.marketDecimal !== null &&
+    item.pricing.evPct !== null &&
+    Number.isFinite(item.pricing.evPct);
+  const marketEvPct = hasMarketEv ? item.pricing.evPct! : null;
+  const hasNegativeMarketEv = marketEvPct !== null && marketEvPct < 0;
+  const hasSevereNegativeMarketEv = marketEvPct !== null && marketEvPct < -2.5;
+
   if (isTrivialOdds) {
     score = Math.min(score, 24);
     tier = "trivial_odds";
     isRecommended = false;
+  } else if (hasSevereNegativeMarketEv) {
+    score = Math.min(score, 54);
+    tier = "playable";
+    isRecommended = false;
   } else if (
+    !hasNegativeMarketEv &&
     score >= 76 &&
     effectiveOdds >= OPTIMAL_ODDS_MIN &&
     effectiveOdds <= OPTIMAL_ODDS_MAX &&
@@ -1415,6 +1437,18 @@ export function scoreRecommendedCatalogPick(
   };
 }
 
+function potdEvPriorityRank(item: CatalogPickItem): number {
+  if (item.pricing.hasPositiveValue) return 2;
+  if (
+    item.pricing.marketDecimal !== null &&
+    item.pricing.evPct !== null &&
+    Number.isFinite(item.pricing.evPct)
+  ) {
+    return item.pricing.evPct >= 0 ? 1 : 0;
+  }
+  return 1;
+}
+
 export function selectPicksOfTheDay(
   picks: readonly CatalogPickItem[],
   limit = 3,
@@ -1444,16 +1478,21 @@ export function selectPicksOfTheDay(
     ) {
       continue;
     }
+    const hasMarketEv =
+      item.pricing.marketDecimal !== null &&
+      item.pricing.evPct !== null &&
+      Number.isFinite(item.pricing.evPct);
+    if (hasMarketEv && item.pricing.evPct! < -2.0) continue;
     const scored = scoreRecommendedCatalogPick(item);
-    if (scored.tier === "trivial_odds") continue;
+    if (!scored.isRecommended || scored.tier === "trivial_odds") continue;
     eligible.push({ item, scored });
   }
 
   eligible.sort((a, b) => {
+    const evRankDiff = potdEvPriorityRank(b.item) - potdEvPriorityRank(a.item);
+    if (evRankDiff !== 0) return evRankDiff;
     const scoreDiff = b.scored.score - a.scored.score;
     if (scoreDiff !== 0) return scoreDiff;
-    const valDiff = (b.item.pricing.hasPositiveValue ? 1 : 0) - (a.item.pricing.hasPositiveValue ? 1 : 0);
-    if (valDiff !== 0) return valDiff;
     const evDiff = (b.item.pricing.evPct ?? -999) - (a.item.pricing.evPct ?? -999);
     if (evDiff !== 0) return evDiff;
     const convDiff = b.scored.convergenceCount - a.scored.convergenceCount;

@@ -164,24 +164,27 @@ export function compactCatalogPayload(
     byFamily.set(item.family, list);
   }
 
+  const familyBest: CatalogPickItem[] = [];
   const trimmedPerFamily: CatalogPickItem[] = [];
   for (const items of byFamily.values()) {
     const sorted = items
       .slice()
       .sort((a, b) => rankPickForCompaction(b) - rankPickForCompaction(a))
       .slice(0, maxPerFamily);
+    if (sorted[0]) {
+      familyBest.push(sorted[0]);
+    }
     trimmedPerFamily.push(...sorted);
   }
+
+  familyBest.sort((a, b) => rankPickForCompaction(b) - rankPickForCompaction(a));
 
   const selected: CatalogPickItem[] = [];
   const selectedIds = new Set<string>();
 
-  for (const items of byFamily.values()) {
+  for (const best of familyBest) {
     if (selected.length >= maxTotal) break;
-    const best = items
-      .slice()
-      .sort((a, b) => rankPickForCompaction(b) - rankPickForCompaction(a))[0];
-    if (best && !selectedIds.has(best.id)) {
+    if (!selectedIds.has(best.id)) {
       selectedIds.add(best.id);
       selected.push(best);
     }
