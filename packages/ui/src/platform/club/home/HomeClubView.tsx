@@ -1,7 +1,11 @@
 "use client";
 
-import React, { useCallback, useMemo, useState } from "react";
+import React, { useCallback, useMemo, useRef, useState, useSyncExternalStore } from "react";
 import {
+  cleanTeamRouteSlug,
+  competitionPrestigeScore,
+  getLeagueCapability,
+  isLeagueHealthyForUi,
   isLivePhaseActive,
   isSafePublicLabel,
   LeagueIdSchema,
@@ -11,12 +15,19 @@ import {
 } from "@pitchlab/contracts";
 import { isPickUnlocked } from "../../access-guard";
 import { LivePicksTrackerStrip } from "../../components/LivePicksTrackerStrip";
+import { MaestroIcon } from "../../components/MaestroPrimitives";
 import { AtmosphereStage, ClubWorkspaceShell } from "../../components/ShellChrome";
-import { useAbortableJson, useLocalStorageState, useSafeEffect } from "../../hooks";
+import {
+  useAbortableJson,
+  useLocalStorageState,
+  useMediaQuery,
+  useSafeEffect,
+} from "../../hooks";
 import { useLiveScoreboard } from "../../live/live-store";
 import {
   useHomeNavFilter,
   useJournalEntries,
+  useParlayState,
   usePlatformActions,
   usePlatformCore,
   useWatchlistGameIds,
@@ -32,6 +43,10 @@ import {
   type CalendarEventDaysSummary,
 } from "./HomeFilterBar";
 import { HomeFiltersModal } from "./HomeFiltersModal";
+import {
+  HomeMatchDetailPanel,
+  type HomeMatchDetailPanelProps,
+} from "./HomeMatchDetailPanel";
 import { HomeParlayHubCard } from "./HomeParlayHubCard";
 import { HomeRightRail } from "./HomeRightRail";
 import {
@@ -64,9 +79,11 @@ export {
   HomeBoardBar,
   HomeFilterHeader,
   HomeFiltersModal,
+  HomeMatchDetailPanel,
   HomeParlayHubCard,
   HomeRightRail,
   HomeTrendingStrip,
+  type HomeMatchDetailPanelProps,
 };
 
 export interface HomeClubViewProps {
@@ -144,6 +161,36 @@ function signalFilterForPinnedView(view: HomePinnedViewItem): ModelSignalFilter 
   return view.onlyPositiveEdge ? "value" : view.band === "alta" ? "high_confidence" : "all";
 }
 
+function subscribeUrlSearch(onStoreChange: () => void): () => void {
+  if (typeof window === "undefined") return () => undefined;
+  window.addEventListener("popstate", onStoreChange);
+  return () => window.removeEventListener("popstate", onStoreChange);
+}
+
+function getUrlMatchSnapshot(): string | null {
+  if (typeof window === "undefined") return null;
+  const match = new URLSearchParams(window.location.search).get("match");
+  return match && match.trim().length > 0 ? match.trim() : null;
+}
+
+function getServerUrlMatchSnapshot(): string | null {
+  return null;
+}
+
+function syncMatchQueryParam(gameId: string): void {
+  if (typeof window === "undefined" || typeof window.history?.replaceState !== "function") {
+    return;
+  }
+  try {
+    const url = new URL(window.location.href);
+    url.searchParams.set("match", gameId);
+    const nextUrl = `${url.pathname}${url.search}${url.hash}`;
+    window.history.replaceState(window.history.state, "", nextUrl);
+  } catch (err) {
+    void err;
+  }
+}
+
 export function HomeClubView({
   initialDay,
   initialToday,
@@ -160,11 +207,27 @@ export function HomeClubView({
   } = usePlatformCore();
   const journal = useJournalEntries();
   const watchlistGameIds = useWatchlistGameIds();
+  const { parlaySummary } = useParlayState();
   const { topics, toggleLeague: toggleTopicLeague } = useFollowedTopics();
-  const { navigateTo, setFavoriteLeagues, requestFullShell } = usePlatformActions();
+  const {
+    navigateTo,
+    setFavoriteLeagues,
+    requestFullShell,
+    setAuraFromGame,
+    toggleWatchlistGame,
+    addPickToParlay,
+    removePickFromParlay,
+    sealPickToJournal,
+  } = usePlatformActions();
   const homeNav = useHomeNavFilter();
   const { setTodayOverride } = homeNav;
   const games = dataset.games;
+  const isDesktop = useMediaQuery("(min-width: 1024px)", true);
+  const urlMatchId = useSyncExternalStore(
+    subscribeUrlSearch,
+    getUrlMatchSnapshot,
+    getServerUrlMatchSnapshot,
+  );
 
   const today = useMemo(
     () => initialToday ?? todayId(userTimezone || "America/Mexico_City"),
@@ -206,6 +269,10 @@ export function HomeClubView({
   const [showOdds, setShowOdds] = useState<boolean>(false);
   const [filtersOpen, setFiltersOpen] = useState<boolean>(false);
   const [activePinnedViewId, setActivePinnedViewId] = useState<string | null>(null);
+  const [selectedMatchId, setSelectedMatchId] = useState<string | null>(null);
+  const [rightMode, setRightMode] = useState<"match" | "parlay">("match");
+  const desktopParlayPanelRef = useRef<HTMLDivElement | null>(null);
+  const desktopPaneRef = useRef<HTMLElement | null>(null);
 
   const favoriteLeagueSet = useMemo(() => {
     const s = new Set<string>(favoriteLeagues);
@@ -215,6 +282,31 @@ export function HomeClubView({
 
   const favoriteTeamSet = useMemo(() => new Set<string>(topics.teams), [topics.teams]);
   const watchlistSet = useMemo(() => new Set<string>(watchlistGameIds), [watchlistGameIds]);
+  const parlayLegsCount = parlaySummary.legs.length;
+  const parlayPickIds = useMemo(
+    () => new Set<string>(parlaySummary.legs.map((leg) => leg.pick.id)),
+    [parlaySummary.legs],
+  );
+
+  const teamFormLookup = useMemo<ReadonlyMap<string, readonly string[]>>(() => {
+    const map = new Map<string, readonly string[]>();
+    for (const leagueSummary of dataset.leagues) {
+      for (const row of leagueSummary.standings) {
+        if (!row.form || row.form.length === 0) continue;
+        const slug = cleanTeamRouteSlug(row.teamId);
+        if (slug) {
+          map.set(`${leagueSummary.league}::${slug.toLowerCase()}`, row.form);
+        }
+        if (row.code) {
+          map.set(`${leagueSummary.league}::${row.code.toLowerCase()}`, row.form);
+        }
+        if (row.shortName) {
+          map.set(`${leagueSummary.league}::${row.shortName.toLowerCase()}`, row.form);
+        }
+      }
+    }
+    return map;
+  }, [dataset.leagues]);
 
   const onToggleFavoriteLeague = useCallback(
     (lg: LeagueId) => {
@@ -456,6 +548,166 @@ export function HomeClubView({
     [statusFilteredGames],
   );
 
+  const showRecommendedAccordion =
+    boardView === "all" &&
+    league === ALL &&
+    statusFilter === "all" &&
+    activeModalFilterCount === 0 &&
+    statusFilteredGames.length >= 5;
+
+  const recommendedGames = useMemo<readonly PlatformGame[]>(() => {
+    if (!showRecommendedAccordion) return [];
+    const ranked = statusFilteredGames
+      .filter((g) => {
+        const cap = getLeagueCapability(g.league);
+        return !cap || isLeagueHealthyForUi(g.league, { hasValidSnapshot: true, gamesCount: 1 });
+      })
+      .slice()
+      .sort((a, b) => {
+        const aEntry = liveByGameId.get(a.id);
+        const bEntry = liveByGameId.get(b.id);
+        const aLive = (aEntry ? isLivePhaseActive(aEntry.phase) : false) || String(a.status) === "LIVE";
+        const bLive = (bEntry ? isLivePhaseActive(bEntry.phase) : false) || String(b.status) === "LIVE";
+        if (aLive !== bLive) return aLive ? -1 : 1;
+        const aScore =
+          competitionPrestigeScore(a.league) +
+          (a.picks[0]?.edgePts && a.picks[0].edgePts > 0 ? 35 : 0) +
+          (a.picks[0]?.p ?? 0) * 40 +
+          (watchlistSet.has(a.id) ? 50 : 0);
+        const bScore =
+          competitionPrestigeScore(b.league) +
+          (b.picks[0]?.edgePts && b.picks[0].edgePts > 0 ? 35 : 0) +
+          (b.picks[0]?.p ?? 0) * 40 +
+          (watchlistSet.has(b.id) ? 50 : 0);
+        if (bScore !== aScore) return bScore - aScore;
+        return a.kickoffUtc.localeCompare(b.kickoffUtc) || a.id.localeCompare(b.id);
+      });
+    return ranked.slice(0, 3);
+  }, [liveByGameId, showRecommendedAccordion, statusFilteredGames, watchlistSet]);
+
+  const orderedDisplayGames = useMemo<readonly PlatformGame[]>(() => {
+    const out: PlatformGame[] = [];
+    const seen = new Set<string>();
+    for (const g of recommendedGames) {
+      if (!seen.has(g.id)) {
+        seen.add(g.id);
+        out.push(g);
+      }
+    }
+    for (const dg of dayGroups) {
+      for (const lg of dg.leagues) {
+        const cap = getLeagueCapability(lg.league);
+        if (cap && !isLeagueHealthyForUi(lg.league, { hasValidSnapshot: true, gamesCount: lg.count })) {
+          continue;
+        }
+        for (const g of lg.games) {
+          if (!seen.has(g.id)) {
+            seen.add(g.id);
+            out.push(g);
+          }
+        }
+      }
+    }
+    return out;
+  }, [dayGroups, recommendedGames]);
+
+  const selectedGame = useMemo<PlatformGame | null>(() => {
+    const requestedId = selectedMatchId ?? urlMatchId;
+    if (requestedId) {
+      const inFiltered = orderedDisplayGames.find((g) => g.id === requestedId);
+      if (inFiltered) return inFiltered;
+      const inVisible = visible.find((g) => g.id === requestedId);
+      if (inVisible) return inVisible;
+      if (
+        selectedMatchId === null &&
+        sport === ALL &&
+        league === ALL &&
+        statusFilter === "all" &&
+        boardView === "all"
+      ) {
+        const inAll = games.find((g) => g.id === requestedId);
+        if (inAll) return inAll;
+      }
+    }
+    const firstLive = orderedDisplayGames.find((g) => {
+      const entry = liveByGameId.get(g.id);
+      return (entry ? isLivePhaseActive(entry.phase) : false) || String(g.status) === "LIVE";
+    });
+    return firstLive ?? orderedDisplayGames[0] ?? null;
+  }, [
+    boardView,
+    games,
+    league,
+    liveByGameId,
+    orderedDisplayGames,
+    selectedMatchId,
+    sport,
+    statusFilter,
+    urlMatchId,
+    visible,
+  ]);
+
+  const effectiveRightMode: "match" | "parlay" =
+    rightMode === "match" && selectedGame !== null ? "match" : "parlay";
+
+  useSafeEffect(() => {
+    const el = desktopParlayPanelRef.current;
+    if (!el) return;
+    if (effectiveRightMode !== "parlay") {
+      el.setAttribute("hidden", "until-found");
+    } else {
+      el.removeAttribute("hidden");
+    }
+    const onBeforeMatch = () => setRightMode("parlay");
+    el.addEventListener("beforematch", onBeforeMatch);
+    return () => el.removeEventListener("beforematch", onBeforeMatch);
+  }, [effectiveRightMode, isDesktop]);
+
+  const handleSelectDesktopGame = useCallback(
+    (game: PlatformGame) => {
+      setSelectedMatchId(game.id);
+      setRightMode("match");
+      setAuraFromGame(game);
+      syncMatchQueryParam(game.id);
+      if (desktopPaneRef.current) {
+        desktopPaneRef.current.scrollTop = 0;
+      }
+    },
+    [setAuraFromGame],
+  );
+
+  const handleOpenParlay = useCallback(() => {
+    if (isDesktop) {
+      setRightMode((prev) => (prev === "parlay" && selectedGame !== null ? "match" : "parlay"));
+      if (desktopPaneRef.current) {
+        desktopPaneRef.current.scrollTop = 0;
+      }
+      return;
+    }
+    if (typeof document !== "undefined") {
+      const el = document.querySelector<HTMLElement>("[data-home-mobile-parlay]");
+      el?.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+  }, [isDesktop, selectedGame]);
+
+  const handleToggleParlayPick = useCallback(
+    (pick: MatchPick) => {
+      if (parlayPickIds.has(pick.id)) {
+        removePickFromParlay(pick.id);
+      } else {
+        addPickToParlay(pick);
+      }
+    },
+    [addPickToParlay, parlayPickIds, removePickFromParlay],
+  );
+
+  const handleSealPick = useCallback(
+    (pick: MatchPick) => {
+      sealPickToJournal(pick, 1, pick.marketDecimal ?? pick.fairDecimal);
+    },
+    [sealPickToJournal],
+  );
+
   const trendGames = useMemo(() => {
     const liveIds = new Set<string>();
     for (const [gid, entry] of liveByGameId.entries()) {
@@ -589,6 +841,17 @@ export function HomeClubView({
     void requestFullShell();
   }, [requestFullShell]);
 
+  const selectedHomeForm = selectedGame
+    ? (teamFormLookup.get(`${selectedGame.league}::${selectedGame.home.slug.toLowerCase()}`) ??
+      teamFormLookup.get(`${selectedGame.league}::${selectedGame.home.code.toLowerCase()}`) ??
+      null)
+    : null;
+  const selectedAwayForm = selectedGame
+    ? (teamFormLookup.get(`${selectedGame.league}::${selectedGame.away.slug.toLowerCase()}`) ??
+      teamFormLookup.get(`${selectedGame.league}::${selectedGame.away.code.toLowerCase()}`) ??
+      null)
+    : null;
+
   return (
     <AtmosphereStage activePath="/app">
       <ClubWorkspaceShell
@@ -609,10 +872,14 @@ export function HomeClubView({
           emptyJumpTarget={emptyJumpTarget}
           onPickDay={pickDay}
           onJumpDay={jumpDay}
+          onSelectMatch={handleSelectDesktopGame}
         />
 
-        <div className="pl-astro-workspace !mt-3.5">
-          <div className="pl-astro-center">
+        <div
+          className="pl-astro-workspace pl-home-md-workspace !mt-3.5"
+          data-home-master-detail=""
+        >
+          <div className="pl-astro-center pl-home-md-master" data-home-master-list="">
             <h1 className="sr-only">Partidos</h1>
 
             <HomeBoardBar
@@ -633,6 +900,9 @@ export function HomeClubView({
               showOdds={showOdds}
               onShowOddsChange={setShowOdds}
               onRequestFullShell={handleRequestFullShell}
+              parlayCount={parlayLegsCount}
+              parlayActive={isDesktop && effectiveRightMode === "parlay"}
+              onOpenParlay={handleOpenParlay}
             />
 
             {pinnedViews.length > 0 ? (
@@ -683,6 +953,13 @@ export function HomeClubView({
               onResetFilters={resetModalFilters}
               hasActiveFilters={activeModalFilterCount > 0}
               resetKey={`${day}|${sport}|${league}|${boardView}|${statusFilter}|${signalFilter}`}
+              selectedGameId={isDesktop ? (selectedGame?.id ?? null) : null}
+              onSelectGame={handleSelectDesktopGame}
+              teamFormLookup={teamFormLookup}
+              watchlistSet={watchlistSet}
+              onToggleWatchlist={toggleWatchlistGame}
+              recommendedGames={recommendedGames}
+              showRecommendedAccordion={showRecommendedAccordion}
             />
 
             <HomeFiltersModal
@@ -704,16 +981,140 @@ export function HomeClubView({
             />
           </div>
 
-          <HomeRightRail
-            visibleGames={visible}
-            allGames={dataset.games}
-            selectedDay={day}
-            today={today}
-            isPastDay={isPast}
-            activeLeague={league === ALL ? null : league}
-            topPicks={top}
-            valuePicks={value}
-          />
+          <aside
+            ref={desktopPaneRef}
+            aria-label="Detalle del partido y centro de parlays"
+            className="pl-home-md-detail-pane"
+            data-home-detail-pane=""
+          >
+            {isDesktop ? (
+              <>
+                <div
+                  className="pl-home-md-mode-bar"
+                  role="tablist"
+                  aria-label="Cambiar panel derecho"
+                  {...({ focusgroup: "tablist nomemory" } as React.HTMLAttributes<HTMLDivElement>)}
+                >
+                  <button
+                    type="button"
+                    role="tab"
+                    id="home-right-mode-match"
+                    aria-selected={effectiveRightMode === "match"}
+                    tabIndex={effectiveRightMode === "match" ? 0 : -1}
+                    disabled={!selectedGame}
+                    data-home-right-mode="match"
+                    className={`pl-home-md-mode-btn ${effectiveRightMode === "match" ? "is-active" : ""}`.trim()}
+                    onClick={() => setRightMode("match")}
+                    onKeyDown={(e) => {
+                      if (e.key === "ArrowRight" || e.key === "End") {
+                        e.preventDefault();
+                        setRightMode("parlay");
+                        document.getElementById("home-right-mode-parlay")?.focus();
+                      }
+                    }}
+                    {...(effectiveRightMode === "match"
+                      ? ({ focusgroupstart: "" } as React.ButtonHTMLAttributes<HTMLButtonElement>)
+                      : {})}
+                  >
+                    <MaestroIcon name="activity" size={14} />
+                    <span>Partido seleccionado</span>
+                  </button>
+                  <button
+                    type="button"
+                    role="tab"
+                    id="home-right-mode-parlay"
+                    aria-selected={effectiveRightMode === "parlay"}
+                    tabIndex={effectiveRightMode === "parlay" ? 0 : -1}
+                    data-home-right-mode="parlay"
+                    className={`pl-home-md-mode-btn ${effectiveRightMode === "parlay" ? "is-active" : ""}`.trim()}
+                    onClick={() => setRightMode("parlay")}
+                    onKeyDown={(e) => {
+                      if ((e.key === "ArrowLeft" || e.key === "Home") && selectedGame) {
+                        e.preventDefault();
+                        setRightMode("match");
+                        document.getElementById("home-right-mode-match")?.focus();
+                      }
+                    }}
+                    {...(effectiveRightMode === "parlay"
+                      ? ({ focusgroupstart: "" } as React.ButtonHTMLAttributes<HTMLButtonElement>)
+                      : {})}
+                  >
+                    <MaestroIcon name="ticket" size={14} />
+                    <span>Tu parlay / Parlay del día</span>
+                    {parlayLegsCount > 0 ? (
+                      <span className="pl-home-md-mode-badge num">{parlayLegsCount}</span>
+                    ) : null}
+                  </button>
+                </div>
+
+                <div className="pl-home-md-panels-stack">
+                  {selectedGame ? (
+                    <div
+                      role="tabpanel"
+                      aria-labelledby="home-right-mode-match"
+                      hidden={effectiveRightMode !== "match"}
+                      className="pl-home-md-mode-panel"
+                    >
+                      {effectiveRightMode === "match" ? (
+                        <div className="pl-home-md-mode-panel-inner">
+                          <HomeMatchDetailPanel
+                            game={selectedGame}
+                            liveEntry={liveByGameId.get(selectedGame.id)}
+                            isWatched={watchlistSet.has(selectedGame.id)}
+                            onToggleWatchlist={toggleWatchlistGame}
+                            parlayPickIds={parlayPickIds}
+                            onToggleParlay={handleToggleParlayPick}
+                            onSealPick={handleSealPick}
+                            homeFormFallback={selectedHomeForm}
+                            awayFormFallback={selectedAwayForm}
+                          />
+                        </div>
+                      ) : null}
+                    </div>
+                  ) : null}
+
+                  <div
+                    ref={desktopParlayPanelRef}
+                    role="tabpanel"
+                    aria-labelledby="home-right-mode-parlay"
+                    hidden={effectiveRightMode !== "parlay"}
+                    className="pl-home-md-mode-panel"
+                  >
+                    <div className="pl-home-md-mode-panel-inner">
+                      <HomeRightRail
+                        visibleGames={visible}
+                        allGames={dataset.games}
+                        selectedDay={day}
+                        today={today}
+                        isPastDay={isPast}
+                        activeLeague={league === ALL ? null : league}
+                        topPicks={top}
+                        valuePicks={value}
+                        compactParlayOnly={effectiveRightMode !== "parlay"}
+                        embedded
+                        onSelectGame={handleSelectDesktopGame}
+                      />
+                    </div>
+                  </div>
+                </div>
+              </>
+            ) : null}
+          </aside>
+
+          {!isDesktop ? (
+            <div className="pl-home-md-mobile-rail" data-home-mobile-parlay="">
+              <HomeRightRail
+                visibleGames={visible}
+                allGames={dataset.games}
+                selectedDay={day}
+                today={today}
+                isPastDay={isPast}
+                activeLeague={league === ALL ? null : league}
+                topPicks={top}
+                valuePicks={value}
+              />
+            </div>
+          ) : null}
         </div>
       </ClubWorkspaceShell>
     </AtmosphereStage>

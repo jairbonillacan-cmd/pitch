@@ -492,6 +492,7 @@ export function HomeTrendingStrip({
   emptyJumpTarget,
   onPickDay,
   onJumpDay,
+  onSelectMatch,
 }: {
   readonly orderedChips: readonly MatchChipEntry[];
   readonly day: string;
@@ -501,6 +502,7 @@ export function HomeTrendingStrip({
   readonly emptyJumpTarget: { dayId: string; resetFilters: boolean } | null;
   readonly onPickDay: (d: DaySelection) => void;
   readonly onJumpDay: (targetDay: string, resetFilters: boolean) => void;
+  readonly onSelectMatch?: (game: PlatformGame) => void;
 }): React.JSX.Element {
   const { userTimezone } = usePlatformCore();
   const { prefetchRoute } = usePlatformActions();
@@ -545,6 +547,13 @@ export function HomeTrendingStrip({
                   userTimezone={userTimezone}
                   onPrefetch={prefetchRoute}
                   onSelect={(game) => {
+                    const isDesktopViewport =
+                      typeof window !== "undefined" &&
+                      typeof window.matchMedia === "function" &&
+                      window.matchMedia("(min-width: 1024px)").matches;
+                    if (isDesktopViewport && onSelectMatch) {
+                      onSelectMatch(game);
+                    }
                     if (game.dayId !== day) {
                       onPickDay(game.dayId);
                       if (typeof window !== "undefined") {
@@ -626,6 +635,9 @@ export function HomeBoardBar({
   showOdds,
   onShowOddsChange,
   onRequestFullShell,
+  parlayCount,
+  parlayActive = false,
+  onOpenParlay,
 }: {
   readonly boardView: HomeBoardView;
   readonly onBoardViewChange: (v: HomeBoardView) => void;
@@ -644,6 +656,9 @@ export function HomeBoardBar({
   readonly showOdds: boolean;
   readonly onShowOddsChange: (show: boolean) => void;
   readonly onRequestFullShell: () => void;
+  readonly parlayCount?: number;
+  readonly parlayActive?: boolean;
+  readonly onOpenParlay?: () => void;
 }): React.JSX.Element {
   const [calendarOpen, setCalendarOpen] = useState<boolean>(false);
   const [calMonth, setCalMonth] = useState<{ year: number; monthIndex: number }>(() =>
@@ -1055,18 +1070,33 @@ export function HomeBoardBar({
           </button>
         </div>
 
-        <label htmlFor={oddsSwitchId} className="pl-home-odds-toggle">
-          <span className="pl-home-odds-label">Momios</span>
-          <input
-            id={oddsSwitchId}
-            type="checkbox"
-            {...({ switch: "" } as React.InputHTMLAttributes<HTMLInputElement>)}
-            role="switch"
-            checked={showOdds}
-            onChange={(e) => onShowOddsChange(e.target.checked)}
-            className="pl-home-switch"
-          />
-        </label>
+        <div className="pl-home-md-board-right">
+          {onOpenParlay && typeof parlayCount === "number" ? (
+            <button
+              type="button"
+              className={`pl-home-md-parlay-chip min-h-11 [@media(min-width:768px)_and_(pointer:fine)]:min-h-9 ${parlayActive ? "is-active" : ""} ${parlayCount > 0 ? "has-legs" : ""}`.trim()}
+              aria-pressed={parlayActive}
+              data-home-parlay-shortcut=""
+              onClick={onOpenParlay}
+            >
+              <MaestroIcon name="ticket" size={13} />
+              <span className="num">Tu parlay ({parlayCount})</span>
+            </button>
+          ) : null}
+
+          <label htmlFor={oddsSwitchId} className="pl-home-odds-toggle">
+            <span className="pl-home-odds-label">Momios</span>
+            <input
+              id={oddsSwitchId}
+              type="checkbox"
+              {...({ switch: "" } as React.InputHTMLAttributes<HTMLInputElement>)}
+              role="switch"
+              checked={showOdds}
+              onChange={(e) => onShowOddsChange(e.target.checked)}
+              className="pl-home-switch"
+            />
+          </label>
+        </div>
       </div>
     </section>
   );
