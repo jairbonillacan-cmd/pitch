@@ -64,8 +64,8 @@
 
 | Ruta | Vista | Notas |
 |---|---|---|
-| `/app` | Jornada de hoy | Partidos próximos, spotlight y top 3 picks |
-| `/app/picks` | Todos los picks del día | Buscador con comparador de momio en vivo |
+| `/app` | Jornada de hoy *(Ola 6)* | Maestro-Detalle en escritorio (`>= 1024 px`: cartelera densa `~40%` con forma + `HomeMatchDetailPanel` sticky `~60%` vía `/api/games/[gameId]/preview`, conmutable a *Tu parlay / Parlay del día*); navegación directa a `/app/[league]/g/[gameSlug]` en móvil (`< 1024 px`) |
+| `/app/picks` | Picks recomendados, En Vivo y Bet Lab *(Ola 6)* | Picks recomendados Spacetime v5.1 (excluye `< 1.25` por defecto), *Pick del día* (`1.45–2.80`), tabla 4 cols + rail sticky, `<LivePickProgressBar>` y `PickEvidenceLabDrawer` (`/api/picks/screener` y `/api/picks/lab/[pickId]`) |
 | `/app/parlays` | Armador de parlays y SGP | De 2 a 6 selecciones + guardado en bitácora |
 | `/app/props` | Tendencias y props de jugadores (`ADR-046`/`ADR-058`) | Protegido por `fullAccess` (`Cero-Fuga`); tabla maestra + `<PropBetLabChart>` (curva minutos + `xG` + rival EB) |
 | `/app/alertas` | Alertas de mercado y Copiloto NL (`ADR-058`) | `5` triggers (`market_opened`, `sharp_steam`, `stale_line_ev`, `lineup_confirmed`, `schedule_change`), parser ES determinista y Copiloto NL ZDR opt-in (`FLAG_AI_ENABLED`) |
@@ -110,10 +110,14 @@
 
 ## 5. Endpoints HTTP reales (`apps/web/app/api/*`)
 
-Todas las **`86` rutas** están gobernadas al `100 %` por `apps/web/src/server/api-guards.ts` (`ADR-057`: `82` envueltas en uno de los 6 wrappers canónicos + `4` excepciones endurecidas `auth/[...all]`, `webhooks/stripe`, `beta/unlock`, `beta/logout`; verificadas por `require-api-wrapper` en `scripts/lint-codebase.mjs`):
+Todas las **`89` rutas** están gobernadas al `100 %` por `apps/web/src/server/api-guards.ts` (`ADR-057`: `85` envueltas en uno de los 6 wrappers canónicos + `4` exenciones endurecidas `auth/[...all]`, `webhooks/stripe`, `beta/unlock`, `beta/logout`; verificadas por `require-api-wrapper` en `scripts/lint-codebase.mjs`):
 
 - **Autenticación, onboarding y sesión pública (7):** `/api/auth/[...all]`, `/api/handles/check`, `/api/handles/suggest`, `/api/me/signup`, `/api/beta/unlock`, `/api/beta/logout`, `/api/public/session`.
 - **Salud, shell progresivo, en vivo, noticias, búsqueda, comparación y parlays SGP (12):** `/api/health`, `/api/shell/extend`, `/api/analytics/funnel`, `/api/live/scoreboard`, `/api/live/alerts`, `/api/live/games/[gameId]`, `/api/news/article`, `/api/search/players`, `/api/search/referees` (`withSessionRead`, `limit <= 40`, allowlist `PRODUCT_LEAGUES`), `/api/compare`, `/api/parlays/sgp`, `/api/me/live-picks` (`GET`, `withSessionRead`, `allowBeta: false`, `X-PitchLab-Trace`, `private, no-store`).
+- **Screener de picks, Bet Lab y vista previa Maestro-Detalle (Ola 6 · `withSessionRead`, `allowBetaPin: true`, `private, no-store`, `Cero-Fuga`) (3):**
+  - `GET /api/picks/screener` (paginación `limit <= 40` de picks recomendados + `picksOfTheDay`).
+  - `GET /api/picks/lab/[pickId]` (series históricas reales `barsFor`/`barsAgainst`, `recentHistory` y `relatedPicks` para `PickEvidenceLabDrawer`; `404` si inexistente o bloqueado por `Cero-Fuga`).
+  - `GET /api/games/[gameId]/preview` (detalle embebido bajo demanda para `HomeMatchDetailPanel`, con `detail`, `standings` e `injuries`, manteniendo el shell RSC `<= 480 KB`; `404` si inexistente).
 - **Alertas de mercado y Copiloto NL (`0026`, `ADR-058`) (3):** `/api/alerts` (`GET` `withSessionRead`; `POST|PATCH|DELETE` `withActivePaseMutation`), `/api/alerts/copilot` (`POST`, `withActivePaseMutation`, `15/min`), `/api/alerts/batch` (`POST`, `withActivePaseMutation`, máx. `10` ops atómicas).
 - **Cuenta, plan, cupones, preferencias, push, feedback y privacidad (21):** `/api/me/profile`, `/api/me/profile/x`, `/api/me/avatar`, `/api/me/badges`, `/api/me/journal`, `/api/me/watchlist`, `/api/me/plan`, `/api/me/transfers`, `/api/me/transfers/[id]`, `/api/me/coupons/preview`, `/api/me/redeem`, `/api/me/referrals`, `/api/me/preferences`, `/api/me/email-preferences`, `/api/me/email-preferences/unsubscribe`, `/api/me/push`, `/api/me/feedback`, `/api/me/export`, `/api/me/deletion-request`, `/api/me/notifications`, `/api/me/notifications/read`.
 - **Comunidad, perfiles, tipsters y pagos (18):** `/api/u/[handle]`, `/api/u/[handle]/record`, `/api/social/posts`, `/api/social/posts/[id]`, `/api/social/posts/[id]/comments`, `/api/social/posts/[id]/comments/[commentId]`, `/api/social/posts/[id]/comments/[commentId]/like`, `/api/social/posts/[id]/like`, `/api/social/posts/[id]/copy`, `/api/social/follows`, `/api/social/reports`, `/api/social/consensus`, `/api/social/ranking`, `/api/social/votes`, `/api/tipster/me`, `/api/tipster/connect`, `/api/billing/checkout`, `/api/webhooks/stripe`.
