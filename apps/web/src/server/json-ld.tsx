@@ -1,9 +1,5 @@
 import React from "react";
 
-/**
- * Datos estructurados (schema.org) y sanitización canónica FD-16 para buscadores.
- * Escapa `<` y separadores de línea Unicode para impedir romper el bloque `<script>`.
- */
 export function JsonLd({
   data,
 }: {
@@ -22,17 +18,9 @@ export function JsonLd({
   );
 }
 
-/* ------------------------------------------------------------------ */
-/* Limpieza de URLs canónicas y activos (regla FD-16)                  */
-/* ------------------------------------------------------------------ */
-
 const FORBIDDEN_PROVIDER_RE =
   /(?:sportmonks|api-sports|api-football|bzzoiro|sofascore|flagcdn|understat|polymarket|kalshi|espn|nflverse|openfootball)/i;
 
-/**
- * Detecta colas numéricas largas (>= 5 dígitos) típicas de IDs crudos de proveedor
- * (p. ej. `-69552`, `-37250424` o `/19621792`), sin rechazar años (`2026`) ni fechas `YYYY-MM-DD`.
- */
 const PROVIDER_NUMERIC_ID_RE = /(?:^|\/|[-_])\d{5,}(?=\/|\.|$)/;
 
 const PROVIDER_QUERY_KEY_RE =
@@ -185,10 +173,6 @@ export function sanitizeCanonicalPublicUrl(
   return cleanPath === "/" ? `${origin}/` : `${origin}${cleanPath}`;
 }
 
-/**
- * Permite únicamente rutas propias de imagen/escudo bajo `siteUrl` (o rutas relativas `/brand/...`),
- * bloqueando hotlinks a CDNs de terceros (`FD-16`).
- */
 export function sanitizeFirstPartyAssetUrl(
   assetPathOrUrl: string | null | undefined,
   siteUrl: string,
@@ -224,10 +208,6 @@ export function sanitizeFirstPartyAssetUrl(
 
   return null;
 }
-
-/* ------------------------------------------------------------------ */
-/* SportsEvent JSON-LD (NS / LIVE / FT / Postponed / Cancelled)        */
-/* ------------------------------------------------------------------ */
 
 export type SportsEventMatchStatus =
   | "NS"
@@ -275,16 +255,6 @@ export type SportsEventLifecyclePhase =
 
 export interface SportsEventStatusResolution {
   phase: SportsEventLifecyclePhase;
-  /**
-   * Valor oficial de `schema.org/EventStatusType` cuando aplica.
-   *
-   * Nota Schema.org / Google Rich Results: `EventStatusType` solo define
-   * `EventScheduled`, `EventPostponed`, `EventCancelled`, `EventRescheduled` y
-   * `EventMovedOnline` (no existe `EventCompleted` en el enum oficial). Por eso
-   * los partidos finalizados (`FT`/`final`) **nunca** emiten `EventScheduled`:
-   * omiten `eventStatus` y declaran `endDate`, marcador oficial y
-   * `additionalProperty` con `EventCompleted`.
-   */
   schemaEventStatus:
     | "https://schema.org/EventScheduled"
     | "https://schema.org/EventPostponed"
@@ -381,13 +351,6 @@ function buildSportsTeamJsonLd(
   return node;
 }
 
-/**
- * Genera datos estructurados `SportsEvent` (schema.org) diferenciando explícitamente:
- * - Partidos próximos (`NS` / `scheduled`): `eventStatus: "https://schema.org/EventScheduled"`.
- * - Partidos en curso (`LIVE` / `in_progress`): `eventStatus: "https://schema.org/EventScheduled"` + señal `EventInProgress`.
- * - Partidos finalizados (`FT` / `final`): sin `EventScheduled`, con `endDate`, marcador oficial, `winner` (si hubo ganador) y `EventCompleted`.
- * - URLs canónicas y escudos estrictamente propios sin IDs de proveedor (`FD-16`).
- */
 export function buildSportsEventJsonLd(
   input: SportsEventJsonLdInput,
   siteUrl: string,
@@ -512,10 +475,6 @@ export function buildSportsEventJsonLd(
   return node;
 }
 
-/**
- * Envuelve una lista de partidos en un `ItemList` de `SportsEvent` para superficies públicas
- * (p. ej. calendario o historial de resultados).
- */
 export function buildSportsEventListJsonLd(
   events: ReadonlyArray<SportsEventJsonLdInput>,
   siteUrl: string,
@@ -539,10 +498,6 @@ export function buildSportsEventListJsonLd(
   };
 }
 
-/* ------------------------------------------------------------------ */
-/* Datos estructurados públicos para `/precio`                         */
-/* ------------------------------------------------------------------ */
-
 export interface PricingJsonLdSpec {
   readonly name: string;
   readonly monthlyMxn: number;
@@ -555,10 +510,29 @@ export interface PricingFaqItem {
   readonly answer: string;
 }
 
-/**
- * Genera el grafo JSON-LD público de `/precio` (`SoftwareApplication` con ofertas en MXN,
- * `BreadcrumbList` y `FAQPage`). Nunca incluye datos de sesión, CLABE ni referencias SPEI.
- */
+export function buildHomePageJsonLd(
+  siteUrl: string,
+): ReadonlyArray<Record<string, unknown>> {
+  const origin = normalizeSiteOrigin(siteUrl);
+  const organizationNode: Record<string, unknown> = {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    name: "PitchLab",
+    url: `${origin}/`,
+    logo: `${origin}/brand/app-icons/icon-512.png`,
+  };
+  const webSiteNode: Record<string, unknown> = {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    name: "PitchLab",
+    url: `${origin}/`,
+    inLanguage: "es-MX",
+    description:
+      "Probabilidad deportiva calculada antes del partido, momio justo sin margen, armador de parlays y récord verificable.",
+  };
+  return [organizationNode, webSiteNode];
+}
+
 export function buildPricingPageJsonLd(
   siteUrl: string,
   spec: PricingJsonLdSpec,
@@ -576,7 +550,7 @@ export function buildPricingPageJsonLd(
     url: pricingUrl,
     inLanguage: "es-MX",
     description:
-      "Probabilidad calibrada por partido, momio justo sin margen, mercados avanzados, armador de parlays y bitácora verificable. No somos casa de apuestas.",
+      "Probabilidad calibrada por partido, momio justo sin margen, mercados avanzados, armador de parlays y récord verificable. No somos casa de apuestas.",
     publisher: {
       "@type": "Organization",
       name: "PitchLab",

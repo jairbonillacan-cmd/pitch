@@ -16,6 +16,7 @@ export const dynamic = "force-dynamic";
 export const metadata: Metadata = {
   title: "Entra a PitchLab",
   description: "Lo más probable de cada partido, con su momio justo.",
+  robots: { index: false, follow: false },
 };
 
 export default async function LoginPage({

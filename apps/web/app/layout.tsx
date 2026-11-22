@@ -19,7 +19,21 @@ export const metadata: Metadata = {
   metadataBase: new URL(process.env.BETTER_AUTH_URL ?? "https://pitchlab.mx"),
   title: "PitchLab · Probabilidades deportivas, momio justo y parlays",
   description:
-    "Probabilidad estimada antes del partido, hasta 5 picks por encuentro, armador de parlays sin contradicciones y bitácora verificada.",
+    "Probabilidad estimada antes del partido, hasta 5 picks por encuentro, armador de parlays sin contradicciones y récord verificado.",
+  openGraph: {
+    type: "website",
+    locale: "es_MX",
+    siteName: "PitchLab",
+    title: "PitchLab · Probabilidades deportivas, momio justo y parlays",
+    description:
+      "Probabilidad estimada antes del partido, hasta 5 picks por encuentro, armador de parlays sin contradicciones y récord verificado.",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "PitchLab · Probabilidades deportivas, momio justo y parlays",
+    description:
+      "Probabilidad estimada antes del partido, hasta 5 picks por encuentro, armador de parlays sin contradicciones y récord verificado.",
+  },
   manifest: "/manifest.webmanifest",
   appleWebApp: {
     capable: true,
