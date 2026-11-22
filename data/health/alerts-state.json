@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "updatedAtUtc": "2026-11-22T18:18:45.999Z",
+  "updatedAtUtc": "2026-11-22T18:37:59Z",
   "openIncidents": {
     "validation::calendario::premier-league": {
       "incidentKey": "validation::calendario::premier-league",
@@ -12,9 +12,9 @@
       "workflowId": "pre-mvp-snapshot",
       "message": "EMPTY_OR_REGRESSED_SNAPSHOT: El candidato perdió marcadores finales en Jornada 11 (8 < 10).",
       "failingSinceUtc": "2026-11-21T17:59:10.304Z",
-      "lastSeenAtUtc": "2026-11-22T18:18:45.999Z",
+      "lastSeenAtUtc": "2026-11-22T18:37:59Z",
       "emailedAtUtc": null,
-      "occurrences": 9
+      "occurrences": 10
     },
     "validation::calendario::laliga": {
       "incidentKey": "validation::calendario::laliga",
@@ -26,9 +26,9 @@
       "workflowId": "pre-mvp-snapshot",
       "message": "EMPTY_OR_REGRESSED_SNAPSHOT: El candidato perdió marcadores finales en Jornada 13 (7 < 10).",
       "failingSinceUtc": "2026-11-20T23:27:09.374Z",
-      "lastSeenAtUtc": "2026-11-22T18:18:45.999Z",
+      "lastSeenAtUtc": "2026-11-22T18:37:59Z",
       "emailedAtUtc": null,
-      "occurrences": 16
+      "occurrences": 17
     },
     "validation::calendario::bundesliga": {
       "incidentKey": "validation::calendario::bundesliga",
@@ -40,9 +40,9 @@
       "workflowId": "pre-mvp-snapshot",
       "message": "EMPTY_OR_REGRESSED_SNAPSHOT: El candidato perdió marcadores finales en Jornada 10 (8 < 9).",
       "failingSinceUtc": "2026-11-20T23:27:09.374Z",
-      "lastSeenAtUtc": "2026-11-22T18:18:45.999Z",
+      "lastSeenAtUtc": "2026-11-22T18:37:59Z",
       "emailedAtUtc": null,
-      "occurrences": 16
+      "occurrences": 17
     },
     "validation::calendario::serie-a": {
       "incidentKey": "validation::calendario::serie-a",
@@ -54,9 +54,9 @@
       "workflowId": "pre-mvp-snapshot",
       "message": "EMPTY_OR_REGRESSED_SNAPSHOT: El candidato perdió marcadores finales en Jornada 12 (7 < 10).",
       "failingSinceUtc": "2026-11-21T17:59:10.304Z",
-      "lastSeenAtUtc": "2026-11-22T18:18:45.999Z",
+      "lastSeenAtUtc": "2026-11-22T18:37:59Z",
       "emailedAtUtc": null,
-      "occurrences": 9
+      "occurrences": 10
     },
     "validation::calendario::ligue-1": {
       "incidentKey": "validation::calendario::ligue-1",
@@ -68,9 +68,9 @@
       "workflowId": "pre-mvp-snapshot",
       "message": "EMPTY_OR_REGRESSED_SNAPSHOT: El candidato perdió marcadores finales en Jornada 11 (8 < 9).",
       "failingSinceUtc": "2026-11-20T23:27:09.374Z",
-      "lastSeenAtUtc": "2026-11-22T18:18:45.999Z",
+      "lastSeenAtUtc": "2026-11-22T18:37:59Z",
       "emailedAtUtc": null,
-      "occurrences": 16
+      "occurrences": 17
     }
   }
 }
