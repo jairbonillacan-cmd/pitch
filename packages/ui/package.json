@@ -27,6 +27,7 @@
     "./badges": "./src/platform/badges.ts",
     "./ranking": "./src/platform/ranking.ts",
     "./record": "./src/platform/club/BitacoraClubView.tsx",
+    "./league-hub": "./src/platform/club/league/LeagueHubClubView.tsx",
     "./match-studio": "./src/platform/club/CoreMatchViews.tsx",
     "./match-tab": "./src/platform/club/match/match-tab.ts",
     "./games-supplement": "./src/platform/platform-provider.tsx",

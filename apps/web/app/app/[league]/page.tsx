@@ -5,7 +5,7 @@ import React from "react";
 import { notFound } from "next/navigation";
 import { asLeagueId } from "@pitchlab/contracts";
 import { PlatformGamesSupplement } from "@pitchlab/ui/games-supplement";
-import { LeagueHubClubView } from "@pitchlab/ui/match-studio";
+import { LeagueHubClubView } from "@pitchlab/ui/league-hub";
 import { loadLeagueNews } from "../../../src/server/league-news";
 import { loadLeagueHubGames, loadLeagueStandings } from "../../../src/server/platform-data";
 import { loadLeagueHubEnrichment } from "../../../src/server/standings-brackets";
