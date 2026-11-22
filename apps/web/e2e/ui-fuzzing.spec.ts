@@ -37,6 +37,7 @@ interface PageInvariantAudit {
 
 interface RuntimeMonitors {
   readonly assertClean: (label: string) => void;
+  readonly setAllowExpected404: (allow: boolean) => void;
 }
 
 const ORIGIN = (process.env.PLAYWRIGHT_BASE_URL ?? "http://127.0.0.1:3100").replace(/\/+$/, "");
@@ -74,7 +75,6 @@ const REDESIGNED_BATCH_B: readonly RouteEntry[] = [
   { id: "account-prefs", path: "/app/account?tab=prefs", group: "redesign" },
   { id: "canjear", path: "/app/canjear", group: "redesign" },
   { id: "tipster", path: "/app/tipster", group: "redesign" },
-  { id: "admin", path: "/app/admin", group: "redesign" },
   { id: "motores", path: "/motores", group: "redesign" },
   { id: "tech", path: "/app/tech", group: "redesign" },
   { id: "juego-responsable", path: "/legal/juego-responsable", group: "redesign" },
@@ -87,7 +87,7 @@ const RESIZE_REPRESENTATIVE_ROUTES: readonly RouteEntry[] = [
   { id: "parlays", path: "/app/parlays", group: "redesign" },
   { id: "picks", path: "/app/picks", group: "redesign" },
   { id: "momios", path: "/app/momios", group: "redesign" },
-  { id: "admin", path: "/app/admin", group: "redesign" },
+  { id: "account-prefs", path: "/app/account?tab=prefs", group: "redesign" },
   { id: "social", path: "/app/social", group: "social" },
   { id: "alertas", path: "/app/alertas", group: "ola4" },
   { id: "arbitros-ligamx", path: "/app/liga-mx/arbitros", group: "ola4" },
@@ -115,10 +115,13 @@ function attachRuntimeMonitors(page: Page): RuntimeMonitors {
   const pageErrors: string[] = [];
   const httpErrors: string[] = [];
   const browserDialogs: string[] = [];
+  let allowExpected404 = false;
 
   page.on("console", (msg) => {
     if (msg.type() === "error") {
-      consoleErrors.push(msg.text().slice(0, 280));
+      const text = msg.text().slice(0, 280);
+      if (allowExpected404 && /status of 404/i.test(text)) return;
+      consoleErrors.push(text);
     }
   });
 
@@ -145,6 +148,9 @@ function attachRuntimeMonitors(page: Page): RuntimeMonitors {
       expect(pageErrors, `pageerror en ${label}`).toEqual([]);
       expect(httpErrors, `HTTP >=500/401/403 en ${label}`).toEqual([]);
       expect(browserDialogs, `Diálogo JS inesperado (XSS/alert) en ${label}`).toEqual([]);
+    },
+    setAllowExpected404: (allow: boolean) => {
+      allowExpected404 = allow;
     },
   };
 }
@@ -609,6 +615,25 @@ test.describe("Ola 5 · Adversarial UI Fuzzing across Redesigned, Social, Ola 4 
       { exerciseControls: true },
     );
 
+    monitors.setAllowExpected404(true);
+    const adminResponse = await page.goto("/app/admin", { waitUntil: "domcontentloaded" });
+    const adminStatus = adminResponse?.status() ?? 200;
+    expect(
+      adminStatus === 404 || adminStatus === 200,
+      `Ruta /app/admin bajo PIN beta devolvió HTTP inesperado ${adminStatus}`,
+    ).toBe(true);
+    await expect(page.locator(".pl-notfound")).toBeVisible();
+    await expect(page.locator(".pl-notfound")).toContainText("404");
+    await expect(page.getByRole("heading", { name: /Consola del fundador/i })).toHaveCount(0);
+    await expect(page.locator("[data-data-health-panel]")).toHaveCount(0);
+    await expect(page.locator("[data-admin-security-abuse-panel]")).toHaveCount(0);
+    for (const theme of THEMES) {
+      await applyTheme(page, theme);
+      await auditPageInvariants(page, `/app/admin RBAC 404 [${theme}]`);
+      monitors.assertClean(`/app/admin RBAC 404 [${theme}]`);
+    }
+    monitors.setAllowExpected404(false);
+
     monitors.assertClean(`Batch B final (${testInfo.project.name})`);
   });
 
@@ -778,15 +803,29 @@ test.describe("Ola 5 · Adversarial UI Fuzzing across Redesigned, Social, Ola 4 
     }
     await auditPageInvariants(page, "/app/picks tras dobles clics en tabs");
 
-    await navigateAndCheckStatus(page, "/app/admin");
-    const adminTabs = page.locator('#main [role="tablist"]').first().locator('[role="tab"]');
-    const adminTabCount = await adminTabs.count();
-    expect(adminTabCount, "Debe haber al menos 4 pestañas en /app/admin").toBeGreaterThanOrEqual(4);
-    for (let idx = 0; idx < adminTabCount; idx += 1) {
-      const tab = adminTabs.nth(idx);
+    await navigateAndCheckStatus(page, "/app/account?tab=plan");
+    const accountTabs = page.locator('#main [role="tablist"]').first().locator('[role="tab"]');
+    const accountTabCount = await accountTabs.count();
+    expect(
+      accountTabCount,
+      "Debe haber al menos 3 pestañas en /app/account",
+    ).toBeGreaterThanOrEqual(3);
+    for (let idx = 0; idx < accountTabCount; idx += 1) {
+      const tab = accountTabs.nth(idx);
       await tab.dblclick();
       await expect(tab).toHaveAttribute("aria-selected", "true");
-      await auditPageInvariants(page, `/app/admin double-click tab(${idx})`);
+      await auditPageInvariants(page, `/app/account double-click tab(${idx})`);
+    }
+
+    await navigateAndCheckStatus(page, "/app/lab?tab=banca");
+    const recordTabs = page.locator('#main [role="tablist"]').first().locator('[role="tab"]');
+    const recordTabCount = await recordTabs.count();
+    expect(recordTabCount, "Debe haber al menos 3 pestañas en /app/lab").toBeGreaterThanOrEqual(3);
+    for (let idx = 0; idx < recordTabCount; idx += 1) {
+      const tab = recordTabs.nth(idx);
+      await tab.dblclick();
+      await expect(tab).toHaveAttribute("aria-selected", "true");
+      await auditPageInvariants(page, `/app/lab double-click tab(${idx})`);
     }
 
     monitors.assertClean(`Double-click stress final (${testInfo.project.name})`);
