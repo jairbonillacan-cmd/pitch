@@ -31,7 +31,7 @@ Se institucionaliza la **Arquitectura *Constraint-First*** de PitchLab, codifica
    - El archivo `scripts/lint-ratchet-baseline.json` solo decrece mediante `node scripts/lint-codebase.mjs --shrink-baseline` y bloquea cualquier incremento neto o introducción de deuda en archivos nuevos.
 3. **Nivel 3 · Verificación formal generativa (`fast-check`), evals deterministas y runtime real:**
    - **Property-Based Testing (`apps/web/tests/property-invariants.test.ts`):** `13` propiedades `fast-check` verificando `de-vig` proporcional/Shin/adaptativo (sin `NaN`/`Infinity`, suma `≈ 1.0`), cotas de Fréchet-Hoeffding en Cópula Gaussiana y Student-t QMC (`evaluateBetBuilder`, `evaluateSgpCopulaV5`), liquidación determinista `gradeCatalogPick` (`FT` siempre auditable; `NS`/`LIVE` siempre `pending`), redacción `Cero-Fuga` y sanitización `FD-16` en `sanitizeCanonicalPublicUrl`.
-   - **Máquinas de estado `fc.commands` (`apps/web/tests/state-machines-fc.test.ts`):** `3` modelos secuenciales (`fc.modelRun` / `fc.asyncModelRun`) sobre PGlite real con migración `0025` en `sealed_picks`, ciclo de vida de `BetBuilder` SGP y detector *scraping velocity* en `withSessionRead`.
+   - **Máquinas de estado `fc.commands` (`apps/web/tests/state-machines-fc.test.ts`):** `3` modelos secuenciales (`fc.modelRun` / `fc.asyncModelRun`) sobre PGlite real con migraciones `0025`/`0027` en `sealed_picks`, ciclo de vida de `BetBuilder` SGP y detector *scraping velocity* en `withSessionRead`.
    - **Evals deterministas de IA (`services/ai-eval/`):** `pnpm run eval:cortex` (`eval-cortex.ts` + `cortex-golden.json`) y `pnpm run eval:alerts` (`eval-alerts.ts` + `alerts-golden.json`).
 4. **Nivel 4 · Prosa mínima vinculante:**
    - `AGENTS.md`, `docs/architecture/CONSTRAINT_FIRST_PLAYBOOK.md`, `docs/design/FEATURE_MAP.md` y los ADRs se reservan para criterios de producto, vocabulario compartido y punteros de contexto; ninguna restricción expresable en tipos o lint debe vivir solo como párrafo.
@@ -68,15 +68,20 @@ Se institucionaliza la **Arquitectura *Constraint-First*** de PitchLab, codifica
 
 ## Validación y métricas verificadas
 
-- **Estado del *ratchet* en `scripts/lint-ratchet-baseline.json` (al cierre de Mega-Ola `2B + 3`, `8bc5eeb0`):**
-  - `no-monolithic-use-platform`: **`0` archivos / `0` ocurrencias** (erradicado al 100 %).
-  - `require-api-wrapper`: **`0` archivos / `0` ocurrencias** (`86/86` rutas API cubiertas).
-  - Deuda legada total: **`8,896 → 8,112`** (`-784` tras Tanda A `-282` y Tanda B `-502`; `no-view-use-effect: 120 → 51` en `22` archivos, `no-prod-comments: 8,267 → 7,601`, `no-unsafe-number-cast: 415 → 370`, `no-unsafe-type-assertion: 88 → 86`, `no-slop-wrapper-bloat: 6 → 4`).
-- **Gates ejecutados en `8bc5eeb0` (previo al cierre secuencial final de Ola 5):**
-  - `scripts/tests/lint-codebase.test.mjs`: `16` pruebas unitarias cubriendo todas las reglas del linter.
-  - `pnpm --filter @pitchlab/ui typecheck` y `pnpm --filter @pitchlab/web typecheck`: **PASS**.
-  - `pnpm --filter @pitchlab/ui test`: **PASS** (`47/47` archivos, `315/315` pruebas).
-  - Suites críticas `@pitchlab/web` (incluyendo `apps/web/tests/property-invariants.test.ts`, `apps/web/tests/state-machines-fc.test.ts` y `apps/web/tests/api-guards.test.ts`): **PASS** (`7/7` archivos, `64/64` pruebas).
-  - `pnpm run eval:cortex`: **PASS (`24/24`:** `8/8` válidos, `16/16` adversariales rechazados, `24/24` fallback determinista).
-  - `pnpm run eval:alerts`: **PASS (`16/16`:** `13/13` aceptados, `3/3` rechazados).
-- *Nota de cierre:* las métricas de la batería secuencial completa de Ola 5 (`pnpm test` 11/11, `pnpm build`, `pnpm build-storybook`, `pnpm e2e` con `ui-fuzzing.spec.ts`) se registran en `docs/execution/PROJECT_STATE.md` inmediatamente al concluir Ola 5.
+- **Linter instructivo (`node scripts/lint-codebase.mjs`) al cierre definitivo de Ola 5 (`513374cf`):**
+  - **`802` archivos escaneados / `0` violaciones** (`scripts/tests/lint-codebase.test.mjs`: `16/16` pruebas unitarias cubriendo todas las reglas).
+- **Estado final verificado del *ratchet* en `scripts/lint-ratchet-baseline.json` (`513374cf`):**
+  - **Total actual: `8,063`** (reducción neta de **`-833`** desde la línea base inicial `8,896`, acumulada entre Tanda A `-282`, Tanda B `-502`, *Deslop* `-41`, remediación adversarial Ola 5 `-7` y ajuste loopback E2E `-1`).
+  - **Desglose exacto por regla:**
+    - `no-monolithic-use-platform`: **`0`** (`0` archivos — erradicado al 100 %).
+    - `require-api-wrapper`: **`0`** (`0` archivos — `86/86` rutas API cubiertas).
+    - `no-slop-wrapper-bloat`: **`4`** (`4` archivos).
+    - `no-view-use-effect`: **`50`** (`21` archivos).
+    - `no-unsafe-type-assertion`: **`85`** (`36` archivos).
+    - `no-unsafe-number-cast`: **`366`** (`94` archivos).
+    - `no-prod-comments`: **`7,558`** (`379` archivos).
+- **Pasada de *Deslop* por sustracción (`bc90a395`):**
+  - **`-571` líneas netas** (`+308` inserciones / `-879` eliminaciones en `23` archivos), eliminando CSS/código sin uso, cerrando notas cosméticas y reduciendo el *ratchet* sin regresiones funcionales.
+- **Batería secuencial final de Ola 5 completada en `513374cf` (detalle completo en `docs/execution/PROJECT_STATE.md`):**
+  - Auditoría adversarial `pstack` de 4 ejes cerrada con **`0 CRÍTICO / 0 ALTO`**.
+  - `pnpm -r --workspace-concurrency=1 typecheck` (`11/11` PASS), `pnpm -r --workspace-concurrency=1 test` (`11/11` paquetes · `213` passed | `0` failed | `2` skipped · `1,907` passed | `0` failed | `25` skipped, incluyendo `property-invariants.test.ts`, `state-machines-fc.test.ts` y `api-guards.test.ts`), `pnpm run eval:cortex` (`24/24` PASS), `pnpm run eval:alerts` (`16/16` PASS), `pnpm build` (`11/11` paquetes PASS), `pnpm build-storybook` (`4,494` módulos PASS) y `pnpm e2e` (`71` passed | `0` failed | `1` skipped por diseño, incl. `apps/web/e2e/ui-fuzzing.spec.ts` + Axe WCAG AA).

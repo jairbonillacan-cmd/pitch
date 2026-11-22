@@ -1,6 +1,6 @@
 # Mapa de rutas (`pitchlab.mx`)
 
-> **Propósito:** fuente única de verdad de las URLs implementadas en `apps/web/app/`. Todo enlace en UI, correos, SEO (`robots.ts` / `sitemap.ts`) y guardas (`club-route-guard.ts`) sigue este mapa.
+> **Propósito:** fuente única de verdad de las URLs implementadas en `apps/web/app/` (**`55/55` `page.tsx` productivos**, incluyendo `/verificacion`, `/app/alertas`, `/app/[league]/arbitros` y `/app/[league]/r/[refereeSlug]`). Todo enlace en UI, correos, SEO (`robots.ts` / `sitemap.ts`) y guardas (`club-route-guard.ts`) sigue este mapa.
 > **Actualizado:** 2026-11-21 · **Arquitectura:** Next.js App Router (`apps/web/app`), un solo origen (`https://pitchlab.mx`).
 
 ## 1. Convenciones
@@ -72,7 +72,7 @@
 | `/app/momios` | Comparador de momios | Matriz terminal multi-casa anclada a `Momio justo PitchLab` (`SpacetimeAnchoredQuote`) |
 | `/app/comparar` | Comparador rápido H2H (`?modo=equipos\|jugadores&liga=&a=&b=`) | Equipos cara a cara (incl. `Ataque vs Defensa`), jugadores lado a lado y descarga 9:16 |
 | `/app/historial` | Resultados cerrados (`FT`) | Historial completo + `<CalibrationCurveChart>` (Brier, ECE y cubetas reales) |
-| `/app/lab` | Mi Récord / Bitácora | Picks y parlays sellados inmutables (`0025`) con `<LivePickProgressBar>`, CLV y CSV |
+| `/app/lab` | Mi Récord / Bitácora | Picks y parlays sellados inmutables (`0025`/`0027`) con `<LivePickProgressBar>`, CLV y CSV |
 | `/app/tech` | Motores dentro del Club | Validación y comparativa interna |
 | `/app/social` | Comunidad VIP | Feed (`Para ti · Siguiendo · Consenso · Ranking`), moderación y copiar a parlay |
 | `/app/account` | Cuenta, Preferencias, Plan, CFDI y Referidos | `?tab=prefs|plan|cfdi|referrals`, `?pago=ok|cancelado`; SPEI, casas/vistas guardadas DB (`0025`), export y solicitud de baja |
@@ -119,3 +119,16 @@ Todas las **`86` rutas** están gobernadas al `100 %` por `apps/web/src/server/a
 - **Comunidad, perfiles, tipsters y pagos (18):** `/api/u/[handle]`, `/api/u/[handle]/record`, `/api/social/posts`, `/api/social/posts/[id]`, `/api/social/posts/[id]/comments`, `/api/social/posts/[id]/comments/[commentId]`, `/api/social/posts/[id]/comments/[commentId]/like`, `/api/social/posts/[id]/like`, `/api/social/posts/[id]/copy`, `/api/social/follows`, `/api/social/reports`, `/api/social/consensus`, `/api/social/ranking`, `/api/social/votes`, `/api/tipster/me`, `/api/tipster/connect`, `/api/billing/checkout`, `/api/webhooks/stripe`.
 - **Tareas programadas (`withCronSecret`) (5):** `/api/cron/settle-picks`, `/api/cron/push-alerts`, `/api/cron/tipster-payouts`, `/api/cron/weekly-digest`, `/api/cron/monthly-record`.
 - **Administración interna (`withAdminMutation` / `requireAdmin`) (20):** `/api/admin/overview`, `/api/admin/data-health`, `/api/admin/security-abuse` (`GET`, `limit <= 40`, telemetría `security_abuse_events` 24 h), `/api/admin/flags`, `/api/admin/moderation`, `/api/admin/tipsters`, `/api/admin/transfers`, `/api/admin/transfers/[id]/approve`, `/api/admin/transfers/[id]/reject`, `/api/admin/coupons`, `/api/admin/coupons/batch`, `/api/admin/coupons/[id]`, `/api/admin/coupons/[id]/redemptions`, `/api/admin/inbox`, `/api/admin/audit`, `/api/admin/members`, `/api/admin/access/grant`, `/api/admin/access/revoke`, `/api/admin/tipster-payouts`, `/api/admin/tipster-payouts/[id]/mark-paid`.
+
+## 6. Rutas Atlas SEO reservadas / diferidas (NO implementadas en esta fase)
+
+Las siguientes URLs están reservadas únicamente para una futura fase de Atlas SEO público y **NO existen como `page.tsx`** en `apps/web/app/` (frente a las **`55/55` rutas `page.tsx` productivas implementadas**, que sí incluyen `/verificacion`, `/app/alertas`, `/app/[league]/arbitros` y `/app/[league]/r/[refereeSlug]`):
+
+| Ruta reservada | Estado actual | Regla operativa |
+|---|---|---|
+| `/estadisticas/[league]` | **Diferida (NO implementada)** | Devuelve `HTTP 404`; prohibido enlazar en UI, correos o `sitemap.ts` hasta su fase dedicada |
+| `/estadisticas/[league]/equipos/[teamSlug]` | **Diferida (NO implementada)** | Devuelve `HTTP 404`; la superficie productiva equivalente en el Club es `/app/[league]/t/[teamSlug]` |
+| `/estadisticas/[league]/jugadores/[playerSlug]` | **Diferida (NO implementada)** | Devuelve `HTTP 404`; la superficie productiva equivalente en el Club es `/app/[league]/t/[teamSlug]/p/[playerSlug]` |
+| `/estadisticas/[league]/arbitros/[refereeSlug]` | **Diferida (NO implementada)** | Devuelve `HTTP 404`; la superficie productiva equivalente en el Club es `/app/[league]/r/[refereeSlug]` |
+| `/estadisticas/[league]/h2h/[matchupSlug]` | **Diferida (NO implementada)** | Devuelve `HTTP 404`; la superficie productiva equivalente en el Club es `/app/comparar` |
+| `/partidos/[league]/[gameSlug]` | **Diferida (NO implementada)** | Devuelve `HTTP 404`; la superficie productiva equivalente en el Club es `/app/[league]/g/[gameSlug]` |
