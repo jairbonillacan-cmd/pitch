@@ -1,5 +1,6 @@
 import {
   asMarketKey,
+  parseStrictFiniteNumber,
   selectionHolds,
   sportHasDraw,
   sportScoringUnit,
@@ -228,10 +229,70 @@ function projectionFor(
   return match.projection ?? undefined;
 }
 
+const COUNT_MARKET_KEYS = new Set([
+  "corners_total",
+  "corners_team",
+  "fouls_total",
+  "yellow_total",
+  "cards_total",
+  "shots_total",
+  "shots_on_target",
+]);
+
+const TOTAL_UNIT_RE = /\b(goles?|puntos?|carreras?|c[oó]rners?|faltas?|tarjetas?|tiros?|remates?)\b/i;
+
+function unitForTotalMarket(market: string, sport: PlatformSport): string {
+  const m = market.toLowerCase();
+  if (m.includes("corner")) return "córners";
+  if (m.includes("foul")) return "faltas";
+  if (m.includes("card") || m.includes("yellow")) return "tarjetas";
+  if (m.includes("shot")) return "tiros";
+  return sportScoringUnit(sport).plural;
+}
+
+function isTotalLikeMarket(market: string): boolean {
+  const m = market.toLowerCase();
+  return (
+    m === "totals" ||
+    m === "team_totals" ||
+    m.startsWith("totals_") ||
+    m.endsWith("_totals") ||
+    COUNT_MARKET_KEYS.has(m)
+  );
+}
+
+function normalizeTotalRowLabel(
+  group: string,
+  row: Pick<AnalysisMarketRow, "market" | "label" | "line">,
+  sport: PlatformSport,
+): string {
+  const unit = unitForTotalMarket(row.market, sport);
+  const trimmed = row.label.trim();
+  if (/^(más|menos)$/i.test(trimmed)) {
+    return typeof row.line === "number" && Number.isFinite(row.line)
+      ? `${trimmed} de ${row.line} ${unit}`
+      : `${group}: ${trimmed} ${unit}`;
+  }
+  if (TOTAL_UNIT_RE.test(trimmed)) return trimmed;
+  if (/\d/.test(trimmed)) return `${trimmed} ${unit}`;
+  if (typeof row.line === "number" && Number.isFinite(row.line)) {
+    return `${trimmed} ${row.line} ${unit}`;
+  }
+  return `${trimmed} ${unit}`;
+}
+
 /** Etiqueta que se entiende sola: «Sí»/«No» de ambos anotan llevan el mercado delante. */
-function pickLabelOf(group: string, row: AnalysisMarketRow): string {
-  if (row.market === "btts") return `Ambos anotan: ${row.label}`;
-  if (row.market === "correct_score") return `Marcador exacto ${row.label}`;
+function pickLabelOf(group: string, row: AnalysisMarketRow, sport: PlatformSport): string {
+  const m = row.market.toLowerCase();
+  if (m === "btts") {
+    return row.label.toLowerCase().startsWith("ambos anotan")
+      ? row.label
+      : `Ambos anotan: ${row.label}`;
+  }
+  if (m === "correct_score") return `Marcador exacto ${row.label}`;
+  if (isTotalLikeMarket(m)) {
+    return normalizeTotalRowLabel(group, row, sport);
+  }
   if (/^(sí|si|no|más|menos)$/i.test(row.label.trim())) return `${group}: ${row.label}`;
   return row.label;
 }
@@ -287,7 +348,7 @@ function assembleMatchPick(input: {
     market: asMarketKey(row.market),
     ...(row.line !== undefined ? { line: row.line } : {}),
     conflictGroup,
-    label: pickLabelOf(input.marketGroup, row),
+    label: pickLabelOf(input.marketGroup, row, match.sport),
     rationale: input.rationale,
     p,
     fairDecimal,
@@ -365,7 +426,14 @@ function buildMatchPicksAndParlayCandidates(
 
   // 1) Pick Principal: la señal estructural más clara entre 54 % y 71 %.
   const main =
-    fromSnapshotPick("intermedia", 0.5) ?? take(({ row }) => row.p >= 0.54 && row.p <= 0.71);
+    fromSnapshotPick("intermedia", 0.5) ??
+    take(
+      ({ row }) =>
+        !COUNT_MARKET_KEYS.has(row.market.toLowerCase()) &&
+        row.market !== "correct_score" &&
+        row.p >= 0.54 &&
+        row.p <= 0.71,
+    );
   if (main) {
     pickRows.push({
       category: "principal",
@@ -384,7 +452,14 @@ function buildMatchPicksAndParlayCandidates(
 
   // 2) Escudo Conservador: frecuencia alta (72 %–89 %), base de parlays.
   const shield =
-    fromSnapshotPick("conservadora") ?? take(({ row }) => row.p >= 0.72 && row.p <= 0.89);
+    fromSnapshotPick("conservadora") ??
+    take(
+      ({ row }) =>
+        !COUNT_MARKET_KEYS.has(row.market.toLowerCase()) &&
+        row.market !== "correct_score" &&
+        row.p >= 0.72 &&
+        row.p <= 0.89,
+    );
   if (shield) {
     pickRows.push({
       category: "conservador",
@@ -402,7 +477,9 @@ function buildMatchPicksAndParlayCandidates(
   // 3) Línea de Totales.
   const totals = take(
     ({ group, row }) =>
-      (groupHas(group, "total", "goles", "puntos") || row.market.toLowerCase().includes("total")) &&
+      !COUNT_MARKET_KEYS.has(row.market.toLowerCase()) &&
+      (groupHas(group, "total", "goles", "puntos", "carreras") ||
+        row.market.toLowerCase().includes("total")) &&
       row.market !== "team_totals" &&
       row.p >= 0.51 &&
       row.p <= 0.74,
@@ -410,7 +487,12 @@ function buildMatchPicksAndParlayCandidates(
   if (totals) {
     pickRows.push({
       category: "totales",
-      categoryLabel: unit.plural === "puntos" ? "Puntos totales" : "Goles totales",
+      categoryLabel:
+        unit.plural === "puntos"
+          ? "Puntos totales"
+          : unit.plural === "carreras"
+            ? "Carreras totales"
+            : "Goles totales",
       risk: "medio",
       engineKey: primaryEngine,
       engineName: primaryEngineName,
@@ -428,6 +510,8 @@ function buildMatchPicksAndParlayCandidates(
     fromSnapshotPick("arriesgada") ??
     take(
       ({ group, row }) =>
+        !COUNT_MARKET_KEYS.has(row.market.toLowerCase()) &&
+        row.market !== "correct_score" &&
         (groupHas(group, "ambos", "equipo", "hándicap", "spread", "puck line") ||
           row.market === "btts" ||
           row.market === "team_totals") &&
@@ -502,7 +586,7 @@ function buildMatchPicksAndParlayCandidates(
   const parlayCandidates: MatchPick[] = [];
   let altIdx = 0;
   for (const { group, row } of allRows) {
-    if (COUNT_MARKET_KEYS.has(row.market) || row.market === "correct_score") continue;
+    if (COUNT_MARKET_KEYS.has(row.market.toLowerCase()) || row.market === "correct_score") continue;
     if (!Number.isFinite(row.p) || row.p < 0.52 || row.p >= 0.99) continue;
     const dedupKey = `${asMarketKey(row.market)}:${row.selection}:${row.line ?? ""}`;
     if (existingKeys.has(dedupKey) || usedLabels.has(row.label)) continue;
@@ -734,13 +818,11 @@ function buildPreGameIntel(match: MatchAnalysis, signal: SpacetimeSignal | null)
   };
 }
 
-const COUNT_MARKET_KEYS = new Set(["corners_total", "fouls_total", "yellow_total"]);
-
 function parseGoalLineFromRow(row: Pick<PlatformMarketRow, "selection" | "label">): number | null {
   const fromSelection = /over_(\d+(?:\.\d+)?)/i.exec(row.selection)?.[1];
-  if (fromSelection) return Number(fromSelection);
+  if (fromSelection) return parseStrictFiniteNumber(fromSelection);
   const fromLabel = /más\s+de\s+(\d+(?:\.\d+)?)/i.exec(row.label)?.[1];
-  if (fromLabel) return Number(fromLabel);
+  if (fromLabel) return parseStrictFiniteNumber(fromLabel);
   return null;
 }
 
@@ -773,8 +855,8 @@ function buildPlatformMarkets(
     Boolean(signal || match.x12 || match.projection || match.outcomes.length > 0);
   if (!hasForecast) return [];
   const rows = rowsWithSpacetime(match, signal);
-  const coreRows = rows.filter((entry) => !COUNT_MARKET_KEYS.has(entry.row.market));
-  const countRows = rows.filter((entry) => COUNT_MARKET_KEYS.has(entry.row.market));
+  const coreRows = rows.filter((entry) => !COUNT_MARKET_KEYS.has(entry.row.market.toLowerCase()));
+  const countRows = rows.filter((entry) => COUNT_MARKET_KEYS.has(entry.row.market.toLowerCase()));
   const source =
     rows.length > 0
       ? [...coreRows.slice(0, 22), ...countRows]
@@ -792,11 +874,14 @@ function buildPlatformMarkets(
   return source.map(({ group, row }) => {
     const fairDecimal = Math.max(1.01, Math.round(row.fairOdds * 100) / 100);
     const currentDecimal = realOdds(signal, moneylineSide(row.market, row.selection));
+    const displayLabel = isTotalLikeMarket(row.market)
+      ? normalizeTotalRowLabel(group, row, match.sport)
+      : row.label;
     return {
       group,
       market: row.market,
       selection: row.selection,
-      label: row.label,
+      label: displayLabel,
       ...(row.line !== undefined ? { line: row.line } : {}),
       p: row.p,
       fairDecimal,

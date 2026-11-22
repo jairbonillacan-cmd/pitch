@@ -1,5 +1,12 @@
 import { describe, expect, it } from "vitest";
-import { asLeagueId } from "@pitchlab/contracts";
+import { asLeagueId, asMarketKey, type MatchAnalysis } from "@pitchlab/contracts";
+import { buildPlatformDataset } from "../src/platform/match-picks-engine";
+import { buildOfficialDailyParlay } from "../src/platform/daily-parlay";
+import {
+  buildSmartAutoParlay,
+  computeParlaySummary,
+  parlayMarketDiversityKey,
+} from "../src/platform/parlay-engine";
 import {
   computePickPricing,
   scoreRecommendedCatalogPick,
@@ -7,6 +14,9 @@ import {
   type CatalogPickItem,
   type EvidenceWindowStat,
 } from "../src/platform/picks-catalog/index";
+import { formatValueThresholdLabel } from "../src/platform/picks-catalog/evidence-engine";
+import { buildQuoteIndex } from "../src/platform/picks-catalog/market-families";
+import type { MatchPick, PlatformGame } from "../src/platform/types";
 
 const FIXED_CAPTURED_AT = "2026-11-21T16:00:00Z";
 const FIXED_NOW_ISO = "2026-11-21T18:00:00Z";
@@ -476,19 +486,292 @@ describe("Ola 6 · scoreRecommendedCatalogPick y selectPicksOfTheDay", () => {
 
     const mildScored = scoreRecommendedCatalogPick(mildNegEv);
     expect(mildScored.tier).not.toBe("top_pick");
+    expect(mildScored.tier).toBe("playable");
+    expect(mildScored.isRecommended).toBe(false);
 
     const deepScored = scoreRecommendedCatalogPick(deepNegEv);
     expect(deepScored.tier).not.toBe("top_pick");
     expect(deepScored.tier).toBe("playable");
     expect(deepScored.isRecommended).toBe(false);
 
-    expect(selectPicksOfTheDay([deepNegEv, negBelowMinus2], 3)).toEqual([]);
+    expect(selectPicksOfTheDay([deepNegEv, negBelowMinus2, mildNegEv], 3)).toEqual([]);
 
     const selected = selectPicksOfTheDay([deepNegEv, negBelowMinus2, mildNegEv, positiveEv], 3);
     expect(selected.length).toBeGreaterThanOrEqual(1);
     expect(selected[0]!.id).toBe(positiveEv.id);
     const selectedIds = selected.map((p) => p.id);
+    expect(selectedIds).not.toContain(mildNegEv.id);
     expect(selectedIds).not.toContain(deepNegEv.id);
     expect(selectedIds).not.toContain(negBelowMinus2.id);
+  });
+
+  it("descalifica divergencias anómalas (> 12% vs de-vig o EV > 18% sharp) y soporta formato americano", () => {
+    const hallucinated = makeCatalogPick({
+      id: "pick-hallucinated-ev",
+      gameId: "game-anom-1",
+      p: 0.728,
+      marketDecimal: 2.17,
+      companionMarketDecimals: [2.17, 1.72],
+      windows: [
+        makeWindow("L5", "Últimos 5", 5, 5),
+        makeWindow("L10", "Últimos 10", 9, 10),
+      ],
+      isPrimaryModelPick: true,
+    });
+
+    expect(hallucinated.pricing.hasPositiveValue).toBe(false);
+    expect(hallucinated.pricing.evPct).toBeNull();
+    expect(hallucinated.pricing.edgePts).toBeNull();
+    expect(hallucinated.pricing.valueLabel).toBeNull();
+
+    const anomScored = scoreRecommendedCatalogPick(hallucinated);
+    expect(anomScored.isRecommended).toBe(false);
+    expect(anomScored.tier).toBe("playable");
+    expect(selectPicksOfTheDay([hallucinated], 3)).toEqual([]);
+
+    const healthy = makeCatalogPick({
+      id: "pick-american-fmt",
+      gameId: "game-am-1",
+      p: 0.6,
+      marketDecimal: 1.85,
+      companionMarketDecimals: [1.85, 1.95],
+      windows: [makeWindow("L5", "Últimos 5", 4, 5)],
+    });
+    const americanScored = scoreRecommendedCatalogPick(healthy, { oddsFormat: "american" });
+    expect(americanScored.valueThresholdLabel).toMatch(/-\d{3}\s+o\s+más/);
+    expect(formatValueThresholdLabel(0.45, "american")).toMatch(/\+\d{3}\s+o\s+más/);
+  });
+
+  it("evita -5000 en 0 piernas, bloquea cruces de línea en buildQuoteIndex y garantiza diversidad en parlays", () => {
+    const empty = computeParlaySummary([]);
+    expect(empty.fairDecimal).toBe(0);
+    expect(empty.bookDecimal).toBe(0);
+    expect(empty.fairAmerican).toBe(0);
+    expect(empty.bookAmerican).toBe(0);
+
+    const baseGame: PlatformGame = {
+      id: "g-idx-1",
+      league: asLeagueId("premier-league"),
+      leagueLabel: "Premier League",
+      sport: "football",
+      hasForecast: true,
+      round: "J12",
+      dayId: "2026-11-21",
+      dayLabel: "sábado",
+      kickoffUtc: "2026-11-21T18:00:00Z",
+      kickoffLocal: "12:00",
+      venue: "Anfield",
+      status: "NS",
+      home: { slug: "liv", name: "Liverpool", shortName: "Liverpool", code: "LIV", record: "8-2" },
+      away: { slug: "ars", name: "Arsenal", shortName: "Arsenal", code: "ARS", record: "7-3" },
+      x12: [0.5, 0.25, 0.25],
+      projection: { home: 1.6, away: 1.1, total: 2.7 },
+      goalLine: { line: 2.5, pOver: 0.55 },
+      confidenceScore: 76,
+      confidenceLevel: "alta",
+      picks: [],
+      preGame: {
+        cortexSynthesis: "",
+        tacticalKeys: [],
+        lineupStatusLabel: "Pendiente",
+        lineupsConfirmed60m: false,
+        absences: [],
+        moneyFlow: null,
+      },
+      markets: [],
+      factors: [],
+      headToHead: [],
+      updatedAtLabel: "2026-11-21",
+      spacetime: null,
+    };
+
+    const quoteIdx = buildQuoteIndex(
+      baseGame,
+      [
+        {
+          group: "Goles totales",
+          market: "totals",
+          selection: "over",
+          label: "Más de 2.5 goles",
+          line: 2.5,
+          p: 0.55,
+          fairDecimal: 1.82,
+          fairAmerican: -122,
+          openDecimal: 1.9,
+          currentDecimal: 1.9,
+          quoteBookLabel: "Pinnacle",
+          quoteCapturedAtUtc: FIXED_CAPTURED_AT,
+          edgePts: 2.4,
+        },
+        {
+          group: "Goles totales",
+          market: "totals",
+          selection: "over",
+          label: "Sin línea",
+          p: 0.6,
+          fairDecimal: 1.67,
+          fairAmerican: -149,
+          openDecimal: 2.4,
+          currentDecimal: 2.4,
+          quoteBookLabel: "Pinnacle",
+          quoteCapturedAtUtc: FIXED_CAPTURED_AT,
+          edgePts: 18,
+        },
+      ],
+      FIXED_NOW_ISO,
+    );
+
+    expect(quoteIdx.has("totals|over")).toBe(false);
+    expect(quoteIdx.get("totals|over|2.5")?.decimal).toBe(1.9);
+    expect(quoteIdx.has("totals|over|3.5")).toBe(false);
+
+    const makePick = (
+      gameId: string,
+      suffix: string,
+      market: string,
+      selectionKey: string,
+      label: string,
+      p: number,
+      marketDecimal: number,
+      line?: number,
+    ): MatchPick => ({
+      id: `${gameId}__${suffix}`,
+      gameId,
+      league: asLeagueId("premier-league"),
+      leagueLabel: "Premier League",
+      matchLabel: "Liverpool vs Arsenal",
+      kickoffLocal: "12:00",
+      gameStatus: "NS",
+      slotIndex: 1,
+      category: market === "1x2" ? "principal" : "totales",
+      categoryLabel: market,
+      risk: "medio",
+      engineKey: "tachyon",
+      engineName: "PitchLab Spacetime v5.1",
+      marketGroup: market,
+      selectionKey,
+      market: asMarketKey(market),
+      ...(line !== undefined ? { line } : {}),
+      conflictGroup:
+        market === "totals"
+          ? "over_total"
+          : market === "btts"
+            ? "btts_yes"
+            : "home_side",
+      label,
+      rationale: "Prueba",
+      p,
+      fairDecimal: Math.round((1 / p) * 100) / 100,
+      fairAmerican: -120,
+      marketDecimal,
+      marketAmerican: -110,
+      marketBookLabel: "Pinnacle",
+      marketCapturedAtUtc: FIXED_CAPTURED_AT,
+      edgePts: Math.round((p - 1 / marketDecimal) * 1000) / 10,
+      confidenceScore: 76,
+      suggestedUnits: 1,
+      result: null,
+    });
+
+    const threeGames: PlatformGame[] = [1, 2, 3].map((idx) => {
+      const gid = `div-g-${idx}`;
+      return {
+        ...baseGame,
+        id: gid,
+        kickoffUtc: `2026-11-21T1${idx}:00:00Z`,
+        picks: [
+          makePick(gid, "anom", "totals", "over_3.5", "Más de 3.5 goles", 0.72, 2.2, 3.5),
+          makePick(gid, "o35", "totals", "over_3.5", "Más de 3.5 goles", 0.58, 1.9, 3.5),
+          makePick(gid, "h2h", "1x2", "home", "Gana Liverpool", 0.58, 1.85),
+          makePick(gid, "btts", "btts", "yes", "Ambos anotan: Sí", 0.57, 1.85),
+        ],
+      };
+    });
+
+    const autoLegs = buildSmartAutoParlay(threeGames, {
+      leagues: [],
+      risk: "medio",
+      legCount: 3,
+      allowSgp: false,
+      viewerRole: "member",
+    });
+    expect(autoLegs).toHaveLength(3);
+    expect(autoLegs.every((l) => !l.pick.id.endsWith("__anom"))).toBe(true);
+    expect(new Set(autoLegs.map((l) => parlayMarketDiversityKey(l.pick))).size).toBe(3);
+
+    const official = buildOfficialDailyParlay({
+      dayId: "2026-11-21",
+      games: threeGames,
+      risk: "medio",
+      viewerRole: "member",
+    });
+    expect(official.status).toBe("ready");
+    expect(official.legs.every((l) => !l.pick.id.endsWith("__anom"))).toBe(true);
+    expect(new Set(official.legs.map((l) => parlayMarketDiversityKey(l.pick))).size).toBe(3);
+
+    const legacyMatch: MatchAnalysis = {
+      id: "legacy-unit-1",
+      league: asLeagueId("premier-league"),
+      leagueLabel: "Premier League",
+      sport: "football",
+      round: "J12",
+      day: "2026-11-21",
+      dayLabel: "sábado",
+      kickoffUtc: "2026-11-21T20:00:00Z",
+      kickoffLocal: "14:00",
+      venue: "Anfield",
+      status: "NS",
+      home: { slug: "liv", name: "Liverpool", shortName: "Liverpool", code: "LIV", record: "8-2" },
+      away: { slug: "ars", name: "Arsenal", shortName: "Arsenal", code: "ARS", record: "7-3" },
+      projection: { home: 1.7, away: 1.1, total: 2.8 },
+      x12: [0.52, 0.25, 0.23],
+      outcomes: [],
+      marketGroups: [
+        {
+          group: "Tarjetas",
+          rows: [
+            {
+              market: asMarketKey("yellow_total"),
+              selection: "over_4.5",
+              label: "Más de 4.5",
+              line: 4.5,
+              p: 0.65,
+              fairOdds: 1.54,
+            },
+          ],
+        },
+        {
+          group: "Goles totales",
+          rows: [
+            {
+              market: asMarketKey("totals"),
+              selection: "over_3.5",
+              label: "Más de 3.5",
+              line: 3.5,
+              p: 0.56,
+              fairOdds: 1.79,
+            },
+          ],
+        },
+      ],
+      factors: [],
+      trace: [],
+      confidence: { score: 74, level: "alta", reasons: [] },
+    };
+    const ds = buildPlatformDataset([
+      {
+        league: asLeagueId("premier-league"),
+        leagueLabel: "Premier League",
+        sport: "football",
+        season: "2026",
+        roundLabel: "J12",
+        generatedAt: FIXED_NOW_ISO,
+        games: [legacyMatch],
+      },
+    ]);
+    const totalSlot = ds.games[0]!.picks.find((p) => p.category === "totales" || p.market === "totals");
+    expect(totalSlot).toBeDefined();
+    expect(totalSlot!.market).toBe("totals");
+    expect(totalSlot!.label).toBe("Más de 3.5 goles");
   });
 });

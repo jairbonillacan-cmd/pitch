@@ -73,7 +73,6 @@ export function fitDixonColes(
   options: DixonColesOptions = {},
 ): DixonColesModel {
   const xi = options.xi ?? 0.0019;
-  const priorMatches = options.priorMatches ?? 4;
   const maxIterations = options.maxIterations ?? 400;
   const tolerance = options.tolerance ?? 1e-6;
   const priorHome = options.priorHomeAdvantage ?? 1.15;
@@ -122,7 +121,10 @@ export function fitDixonColes(
 
   const weightSum = rows.reduce((s, r) => s + r.weight, 0);
   const observedGoals = rows.reduce((s, r) => s + r.weight * (r.homeGoals + r.awayGoals), 0);
-  let baseRate = observedGoals / (weightSum * 2);
+  let baseRate = weightSum > EPS ? observedGoals / (weightSum * 2) : 1.4;
+
+  const avgTeamMatches = teams.length > 0 ? (2 * weightSum) / teams.length : 0;
+  const priorMatches = options.priorMatches ?? clamp(12 - avgTeamMatches * 0.2, 6, 10);
 
   const attack: Record<string, number> = {};
   const defense: Record<string, number> = {};
@@ -178,7 +180,7 @@ export function fitDixonColes(
       attackDen[r.home]! += w * defense[r.away]! * homeAdvantage;
       attackDen[r.away]! += w * defense[r.home]!;
       defenseDen[r.home]! += w * attack[r.away]!;
-      defenseDen[r.away]! += w * attack[r.home]!;
+      defenseDen[r.away]! += w * attack[r.home]! * homeAdvantage;
 
       homeGoalsWeighted += w * r.homeGoals;
       homeExpectation += w * attack[r.home]! * defense[r.away]!;
@@ -207,7 +209,15 @@ export function fitDixonColes(
       attack[t] = attack[t]! / gmAttack;
       defense[t] = defense[t]! / gmDefense;
     }
-    baseRate = baseRate * gmAttack * gmDefense;
+    let canonicalTotalIndex = 0;
+    for (const r of rows) {
+      canonicalTotalIndex +=
+        r.weight *
+        (attack[r.home]! * defense[r.away]! * homeAdvantage + attack[r.away]! * defense[r.home]!);
+    }
+    if (canonicalTotalIndex > EPS) {
+      baseRate = observedGoals / canonicalTotalIndex;
+    }
 
     // Convergencia medida sobre la parametrización canónica (gm = 1), no sobre el paso interno.
     for (const t of teams) {
@@ -252,7 +262,7 @@ export function fitDixonColes(
     exposureAttack[r.home]! += r.weight * defense[r.away]! * homeAdvantage;
     exposureAttack[r.away]! += r.weight * defense[r.home]!;
     exposureDefense[r.home]! += r.weight * attack[r.away]!;
-    exposureDefense[r.away]! += r.weight * attack[r.home]!;
+    exposureDefense[r.away]! += r.weight * attack[r.home]! * homeAdvantage;
     homeInfo += r.weight * attack[r.home]! * defense[r.away]!;
   }
   for (const t of teams) {

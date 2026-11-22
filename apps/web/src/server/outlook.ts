@@ -113,15 +113,26 @@ function rowsOf(
   if (!meta) return [];
   const freshQuote = isPermittedFreshMarketBlock(m.market, nowMs) ? m.market : null;
   const quoteBookLabel = freshQuote ? formatBookLabel(freshQuote.book) : null;
+  const baseLine = typeof m.line === "number" && Number.isFinite(m.line) ? m.line : undefined;
   return m.selections.map((s) => {
     const rawPrice = freshQuote?.oddsBySelection?.[s.selection];
     const currentDecimal =
       typeof rawPrice === "number" && Number.isFinite(rawPrice) && rawPrice > 1 ? rawPrice : null;
+    const rowLine =
+      baseLine === undefined
+        ? undefined
+        : (meta.market === "handicap" || meta.market === "spread") &&
+            s.selection.toLowerCase() === "away"
+          ? baseLine === 0
+            ? 0
+            : -baseLine
+          : baseLine;
     return {
       group: meta.group,
       market: meta.market,
       selection: s.selection,
       label: relabel(s.label, o, game),
+      ...(rowLine !== undefined ? { line: rowLine } : {}),
       p: s.p,
       fairDecimal: s.fairOdds.decimal,
       fairAmerican: s.fairOdds.american,
@@ -279,13 +290,31 @@ function footballGroups(o: MatchOutlook, match: MatchAnalysis): AnalysisMarketGr
   });
   if (dcRows.length > 0) groups.push({ group: "Doble oportunidad", rows: dcRows });
 
-  const totals = (["1_5", "2_5", "3_5"] as const).flatMap((k) => {
-    const line = Number(k.replace("_", "."));
+  const totals = (
+    [
+      ["1_5", 1.5],
+      ["2_5", 2.5],
+      ["3_5", 3.5],
+    ] as const
+  ).flatMap(([k, line]) => {
     const over = sel(o, `totals_${k}`, "over");
     const under = sel(o, `totals_${k}`, "under");
     return [
-      ...(over ? [row("totals", `over_${line}`, `Más de ${line}`, over.p, over.fairOdds.decimal, line)] : []),
-      ...(under ? [row("totals", `under_${line}`, `Menos de ${line}`, under.p, under.fairOdds.decimal, line)] : []),
+      ...(over
+        ? [row("totals", `over_${line}`, `Más de ${line} goles`, over.p, over.fairOdds.decimal, line)]
+        : []),
+      ...(under
+        ? [
+            row(
+              "totals",
+              `under_${line}`,
+              `Menos de ${line} goles`,
+              under.p,
+              under.fairOdds.decimal,
+              line,
+            ),
+          ]
+        : []),
     ];
   });
   if (totals.length > 0) groups.push({ group: "Goles totales", rows: totals });

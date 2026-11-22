@@ -1,4 +1,8 @@
-import type { LeagueId } from "@pitchlab/contracts";
+import {
+  isTier1League,
+  parseStrictFiniteNumber,
+  type LeagueId,
+} from "@pitchlab/contracts";
 import { decimalToAmericanInt, isPickUnlocked, pickReferenceDecimal } from "./access-guard";
 import type {
   MatchPick,
@@ -101,8 +105,12 @@ function parseTotalDirectionAndLine(pick: MatchPick): {
   if (line === undefined) {
     const mSel = s.match(/(\d+(?:\.\d+)?)/);
     const mLbl = l.match(/(?:más|menos) de\s+(\d+(?:\.\d+)?)/i);
-    const parsed = mLbl ? Number(mLbl[1]) : mSel ? Number(mSel[1]) : Number.NaN;
-    if (Number.isFinite(parsed)) line = parsed;
+    const parsed = mLbl?.[1]
+      ? parseStrictFiniteNumber(mLbl[1])
+      : mSel?.[1]
+        ? parseStrictFiniteNumber(mSel[1])
+        : null;
+    if (parsed !== null) line = parsed;
   }
   if (line === undefined) return null;
 
@@ -492,10 +500,10 @@ export function computeParlaySummary(
       hasSgpCorrelation: false,
       sgpPairsCount: 0,
       combinedProbability: 0,
-      fairDecimal: 1,
-      fairAmerican: 100,
-      bookDecimal: 1,
-      bookAmerican: 100,
+      fairDecimal: 0,
+      fairAmerican: 0,
+      bookDecimal: 0,
+      bookAmerican: 0,
       edgePts: 0,
       stakeUnits: cleanStake,
       projectedReturnUnits: 0,
@@ -576,6 +584,82 @@ export function computeParlaySummary(
   };
 }
 
+const MAX_PARLAY_EV_PCT = 18;
+const MAX_PARLAY_EDGE_PTS = 12;
+const PARLAY_EDGE_CLAMP_MIN = -6;
+const PARLAY_EDGE_CLAMP_MAX = 10;
+
+export function clampParlayEdgePts(edgePts: number | null | undefined): number {
+  if (typeof edgePts !== "number" || !Number.isFinite(edgePts)) return 0;
+  return Math.min(PARLAY_EDGE_CLAMP_MAX, Math.max(PARLAY_EDGE_CLAMP_MIN, edgePts));
+}
+
+export function isParlayPickOutlier(pick: MatchPick): boolean {
+  if (
+    typeof pick.edgePts === "number" &&
+    Number.isFinite(pick.edgePts) &&
+    pick.edgePts > MAX_PARLAY_EDGE_PTS
+  ) {
+    return true;
+  }
+  if (
+    pick.marketDecimal !== null &&
+    Number.isFinite(pick.marketDecimal) &&
+    pick.marketDecimal >= 1.01
+  ) {
+    const evPct = (pick.p * pick.marketDecimal - 1) * 100;
+    if (evPct > MAX_PARLAY_EV_PCT) return true;
+    const impliedEdgePts = (pick.p - 1 / pick.marketDecimal) * 100;
+    if (impliedEdgePts > MAX_PARLAY_EDGE_PTS) return true;
+  }
+  return false;
+}
+
+export function parlayMarketDiversityKey(pick: MatchPick): string {
+  const rawMarket = (pick.market ?? "").toLowerCase();
+  const normMarket =
+    rawMarket === "h2h" || rawMarket === "1x2" || rawMarket === "moneyline" || rawMarket === "ml"
+      ? "moneyline"
+      : rawMarket.startsWith("totals_") ||
+          rawMarket === "over_under" ||
+          rawMarket.endsWith("_totals")
+        ? "totals"
+        : rawMarket === "spreads" || rawMarket === "handicap" || rawMarket === "asian_handicap"
+          ? "spread"
+          : rawMarket || getPickAxis(pick);
+  const totalInfo = parseTotalDirectionAndLine(pick);
+  if (totalInfo) {
+    return `${normMarket}|${totalInfo.line}|${totalInfo.dir}`;
+  }
+  const lineToken =
+    typeof pick.line === "number" && Number.isFinite(pick.line) ? String(pick.line) : "";
+  const s = pick.selectionKey.toLowerCase();
+  const direction =
+    s.includes("over") || pick.conflictGroup === "over_total"
+      ? "over"
+      : s.includes("under") || pick.conflictGroup === "under_total"
+        ? "under"
+        : s === "draw" || s === "x" || pick.conflictGroup === "draw_side"
+          ? "draw"
+          : s === "yes" || pick.conflictGroup === "btts_yes"
+            ? "yes"
+            : s === "no" || pick.conflictGroup === "btts_no"
+              ? "no"
+              : s.startsWith("home") || s === "1" || s === "1x" || pick.conflictGroup === "home_side"
+                ? "home"
+                : s.startsWith("away") ||
+                    s === "2" ||
+                    s === "x2" ||
+                    pick.conflictGroup === "away_side"
+                  ? "away"
+                  : s;
+  return `${normMarket}|${lineToken}|${direction}`;
+}
+
+export function maxSameMarketLegsFor(targetLegs: number): number {
+  return targetLegs <= 3 ? 1 : 2;
+}
+
 export interface AutoParlayOptions {
   leagues: readonly LeagueId[];
   risk: RiskBand;
@@ -594,18 +678,21 @@ export function buildSmartAutoParlay(
 ): ParlayLeg[] {
   const targetLegs = Math.max(2, Math.round(options.legCount));
   const leagueSet = new Set(options.leagues);
-  const candidatePicks: MatchPick[] = [];
+  const candidateEntries: Array<{ readonly game: PlatformGame; readonly pick: MatchPick }> = [];
 
   for (const game of games) {
     if (game.status === "FT" || game.status === "LIVE") continue;
     if (leagueSet.size > 0 && !leagueSet.has(game.league)) continue;
     for (const pick of game.picks) {
       if (!isPickUnlocked(pick, game.status, options.viewerRole)) continue;
-      candidatePicks.push(pick);
+      if (isParlayPickOutlier(pick)) continue;
+      candidateEntries.push({ game, pick });
     }
   }
 
-  const scoreCandidate = (pick: MatchPick): number => {
+  const scoreCandidate = (entry: { readonly game: PlatformGame; readonly pick: MatchPick }): number => {
+    const { game, pick } = entry;
+    const boundedEdge = clampParlayEdgePts(pick.edgePts);
     const riskMatchBonus =
       pick.risk === options.risk
         ? 25
@@ -618,21 +705,49 @@ export function buildSmartAutoParlay(
               : 0;
     const probWeight =
       options.risk === "conservador"
-        ? pick.p * 40
+        ? pick.p * 40 + boundedEdge * 0.5
         : options.risk === "medio"
-          ? pick.p * 22 + (pick.edgePts ?? 0) * 3.2
-          : (1 - Math.abs(0.46 - pick.p)) * 20 + (pick.edgePts ?? 0) * 4.2;
-    return riskMatchBonus + probWeight + (pick.confidenceScore ?? 0) * 0.15;
+          ? pick.p * 22 + boundedEdge * 3.2
+          : (1 - Math.abs(0.46 - pick.p)) * 20 + boundedEdge * 4.2;
+    const primaryBonus = pick.category === "principal" ? 6 : pick.category === "conservador" ? 3 : 0;
+    const tier1Bonus = isTier1League(game.league) ? 4 : 0;
+    const calibratedBonus = game.spacetime?.outlookDriven ? 3 : 0;
+    return (
+      riskMatchBonus +
+      probWeight +
+      primaryBonus +
+      tier1Bonus +
+      calibratedBonus +
+      (pick.confidenceScore ?? 0) * 0.15
+    );
   };
 
-  const sorted = candidatePicks.slice().sort((a, b) => scoreCandidate(b) - scoreCandidate(a));
-  const selected: ParlayLeg[] = [];
+  const sorted = candidateEntries
+    .slice()
+    .sort((a, b) => scoreCandidate(b) - scoreCandidate(a) || a.pick.id.localeCompare(b.pick.id));
 
-  for (const pick of sorted) {
+  const selected: ParlayLeg[] = [];
+  const diversityCap = maxSameMarketLegsFor(targetLegs);
+  const diversityCounts = new Map<string, number>();
+
+  for (const { pick } of sorted) {
     if (selected.length >= targetLegs) break;
+    const key = parlayMarketDiversityKey(pick);
+    if ((diversityCounts.get(key) ?? 0) >= diversityCap) continue;
     const compat = checkParlayCompatibility(selected, pick, options.allowSgp);
     if (compat.allowed) {
       selected.push({ pick });
+      diversityCounts.set(key, (diversityCounts.get(key) ?? 0) + 1);
+    }
+  }
+
+  if (selected.length < targetLegs) {
+    for (const { pick } of sorted) {
+      if (selected.length >= targetLegs) break;
+      const compat = checkParlayCompatibility(selected, pick, options.allowSgp);
+      if (compat.allowed) {
+        selected.push({ pick });
+      }
     }
   }
 

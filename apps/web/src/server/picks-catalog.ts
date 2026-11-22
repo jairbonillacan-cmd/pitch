@@ -110,17 +110,97 @@ export function redactCatalogPickForVisitor(
   };
 }
 
+const MAX_DEVIG_PROB_DIVERGENCE_PTS = 12;
+const MAX_SHARP_EV_PCT = 18;
+const MAX_SOFT_EV_PCT = 22;
+
+function isHardAnomalousCatalogPick(item: CatalogPickItem): boolean {
+  const { p, marketDecimal, deVigMarketProb, noVigEdgePts, evPct, edgePts } = item.pricing;
+  if (
+    deVigMarketProb !== null &&
+    Number.isFinite(deVigMarketProb) &&
+    Math.abs(p - deVigMarketProb) * 100 > MAX_DEVIG_PROB_DIVERGENCE_PTS
+  ) {
+    return true;
+  }
+  if (
+    noVigEdgePts !== null &&
+    Number.isFinite(noVigEdgePts) &&
+    Math.abs(noVigEdgePts) > MAX_DEVIG_PROB_DIVERGENCE_PTS
+  ) {
+    return true;
+  }
+  if (evPct !== null && Number.isFinite(evPct) && evPct > MAX_SHARP_EV_PCT) {
+    return true;
+  }
+  if (
+    edgePts !== null &&
+    Number.isFinite(edgePts) &&
+    edgePts > MAX_DEVIG_PROB_DIVERGENCE_PTS
+  ) {
+    return true;
+  }
+  if (marketDecimal !== null && Number.isFinite(marketDecimal) && marketDecimal >= 1.01) {
+    const rawEv = (p * marketDecimal - 1) * 100;
+    if (rawEv > MAX_SOFT_EV_PCT) return true;
+  }
+  return false;
+}
+
 function rankPickForCompaction(item: CatalogPickItem): number {
   const primaryBonus = item.isPrimaryModelPick ? 120 : 0;
   const recommendedBonus = item.isRecommendedByModel ? 70 : 0;
   const trivialPenalty = item.recommendationTier === "trivial_odds" ? -120 : 0;
-  const recScore = item.recommendationScore ?? 0;
-  const valueBonus =
-    item.pricing.hasPositiveValue && item.pricing.evPct !== null
-      ? 35 + Math.min(25, item.pricing.evPct * 1.8)
+  const anomalyPenalty = isHardAnomalousCatalogPick(item) ? -240 : 0;
+  const negativeEvPenalty =
+    item.pricing.evPct !== null && Number.isFinite(item.pricing.evPct) && item.pricing.evPct < 0
+      ? -25
       : 0;
+  const recScore = item.recommendationScore ?? 0;
+  const cappedEv =
+    item.pricing.hasPositiveValue && item.pricing.evPct !== null
+      ? Math.min(MAX_SHARP_EV_PCT, Math.max(0, item.pricing.evPct))
+      : 0;
+  const valueBonus = cappedEv > 0 ? 35 + Math.min(25, cappedEv * 1.8) : 0;
   const quoteBonus = item.pricing.marketDecimal !== null ? 12 : 0;
-  return primaryBonus + recommendedBonus + trivialPenalty + recScore + valueBonus + quoteBonus;
+  return (
+    primaryBonus +
+    recommendedBonus +
+    trivialPenalty +
+    anomalyPenalty +
+    negativeEvPenalty +
+    recScore +
+    valueBonus +
+    quoteBonus
+  );
+}
+
+function selectDiverseFamilySlice(
+  items: readonly CatalogPickItem[],
+  maxPerFamily: number,
+): CatalogPickItem[] {
+  const sorted = items.slice().sort((a, b) => rankPickForCompaction(b) - rankPickForCompaction(a));
+  const picked: CatalogPickItem[] = [];
+  const usedIds = new Set<string>();
+  const usedSignatures = new Set<string>();
+
+  for (const item of sorted) {
+    if (picked.length >= maxPerFamily) break;
+    const sig = `${item.direction}|${item.line ?? ""}`;
+    if (usedSignatures.has(sig)) continue;
+    usedSignatures.add(sig);
+    usedIds.add(item.id);
+    picked.push(item);
+  }
+
+  for (const item of sorted) {
+    if (picked.length >= maxPerFamily) break;
+    if (usedIds.has(item.id)) continue;
+    usedIds.add(item.id);
+    picked.push(item);
+  }
+
+  return picked;
 }
 
 function rebuildCatalogSummary(
@@ -157,8 +237,18 @@ export function compactCatalogPayload(
   const maxTotal = Math.max(1, options.maxTotalPicks ?? DEFAULT_MAX_TOTAL_PICKS);
   const compactMode = options.compact ?? true;
 
+  const sourcePicks =
+    catalog.gameStatus === "FT"
+      ? catalog.picks
+      : catalog.picks.filter(
+          (item) =>
+            !isHardAnomalousCatalogPick(item) ||
+            Boolean(item.isDailyOpenPromo) ||
+            Boolean(item.isTipsterWeeklyOpen),
+        );
+
   const byFamily = new Map<MarketFamilyId, CatalogPickItem[]>();
-  for (const item of catalog.picks) {
+  for (const item of sourcePicks) {
     const list = byFamily.get(item.family) ?? [];
     list.push(item);
     byFamily.set(item.family, list);
@@ -167,10 +257,7 @@ export function compactCatalogPayload(
   const familyBest: CatalogPickItem[] = [];
   const trimmedPerFamily: CatalogPickItem[] = [];
   for (const items of byFamily.values()) {
-    const sorted = items
-      .slice()
-      .sort((a, b) => rankPickForCompaction(b) - rankPickForCompaction(a))
-      .slice(0, maxPerFamily);
+    const sorted = selectDiverseFamilySlice(items, maxPerFamily);
     if (sorted[0]) {
       familyBest.push(sorted[0]);
     }
@@ -181,11 +268,17 @@ export function compactCatalogPayload(
 
   const selected: CatalogPickItem[] = [];
   const selectedIds = new Set<string>();
+  const signatureCounts = new Map<string, number>();
+
+  const signatureOf = (item: CatalogPickItem): string =>
+    `${item.family}|${item.line ?? ""}|${item.direction}`;
 
   for (const best of familyBest) {
     if (selected.length >= maxTotal) break;
     if (!selectedIds.has(best.id)) {
       selectedIds.add(best.id);
+      const sig = signatureOf(best);
+      signatureCounts.set(sig, (signatureCounts.get(sig) ?? 0) + 1);
       selected.push(best);
     }
   }
@@ -196,6 +289,16 @@ export function compactCatalogPayload(
 
   for (const item of remainder) {
     if (selected.length >= maxTotal) break;
+    const sig = signatureOf(item);
+    if ((signatureCounts.get(sig) ?? 0) >= 1) continue;
+    selectedIds.add(item.id);
+    signatureCounts.set(sig, 1);
+    selected.push(item);
+  }
+
+  for (const item of remainder) {
+    if (selected.length >= maxTotal) break;
+    if (selectedIds.has(item.id)) continue;
     selectedIds.add(item.id);
     selected.push(item);
   }

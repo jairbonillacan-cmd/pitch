@@ -1,10 +1,18 @@
 import fc from "fast-check";
 import { describe, expect, it } from "vitest";
-import { asLeagueId } from "@pitchlab/contracts";
+import { asLeagueId, asMarketKey, type MatchAnalysis } from "@pitchlab/contracts";
 import { evaluatePlayerLinkedSgpV5 } from "@pitchlab/spacetime/v5";
 import { redactDatasetForVisitor } from "@pitchlab/ui/access-guard";
 import {
+  buildSmartAutoParlay,
+  computeParlaySummary,
+  isParlayPickOutlier,
+  parlayMarketDiversityKey,
+} from "@pitchlab/ui/parlay";
+import { buildPlatformDataset } from "@pitchlab/ui/picks-engine";
+import {
   bivariateNormalJointProb,
+  buildMatchPicksCatalog,
   catalogPickItemToMatchPick,
   computeAdaptiveDeVig,
   computePickPricing,
@@ -14,6 +22,7 @@ import {
   evaluateBetBuilder,
   gradeCatalogPick,
   MARKET_FAMILY_IDS,
+  scoreRecommendedCatalogPick,
   type BetBuilderLegInput,
   type CatalogPickItem,
   type MarketFamilyId,
@@ -1002,6 +1011,287 @@ describe("Property-Based Testing · Invariantes cuantitativas y de seguridad", (
         ),
         { numRuns: NUM_RUNS },
       );
+    });
+  });
+
+  describe("Ola 7 · Anti-EV alucinado, unidades obligatorias, cero cruce de líneas y diversidad de parlays", () => {
+    it("suprime EV+ cuando |p - deVigMarketProb| > 0.12 o evPct supera el umbral sharp/soft", () => {
+      fc.assert(
+        fc.property(
+          fc.double({ min: 0.2, max: 0.72, noNaN: true, noDefaultInfinity: true }),
+          fc.double({ min: 0.13, max: 0.35, noNaN: true, noDefaultInfinity: true }),
+          fc.double({ min: 0.02, max: 0.08, noNaN: true, noDefaultInfinity: true }),
+          fc.constantFrom("Pinnacle", "Bet365", "Caliente"),
+          (trueMarketP, delta, overround, bookLabel) => {
+            const pModel = Math.min(0.95, trueMarketP + delta);
+            if (pModel - trueMarketP <= 0.125) return;
+            const d1 = Math.max(1.05, Math.round((1 / (trueMarketP * (1 + overround))) * 100) / 100);
+            const d2 = Math.max(
+              1.05,
+              Math.round((1 / ((1 - trueMarketP) * (1 + overround))) * 100) / 100,
+            );
+            const pricing = computePickPricing({
+              calibratedProb: pModel,
+              marketDecimal: d1,
+              companionMarketDecimals: [d1, d2],
+              companionIndex: 0,
+              marketBookLabel: bookLabel,
+              marketCapturedAtUtc: FIXED_NOW_ISO,
+              nowIso: FIXED_NOW_ISO,
+            });
+            if (
+              pricing.deVigMarketProb !== null &&
+              Math.abs(pricing.p - pricing.deVigMarketProb) > 0.12
+            ) {
+              expect(pricing.hasPositiveValue).toBe(false);
+              expect(pricing.evPct).toBeNull();
+              expect(pricing.edgePts).toBeNull();
+              expect(pricing.valueLabel).toBeNull();
+            }
+            if (pricing.hasPositiveValue && pricing.evPct !== null) {
+              const limit = bookLabel === "Pinnacle" ? 18 : 22;
+              expect(pricing.evPct).toBeLessThanOrEqual(limit);
+            }
+          },
+        ),
+        { numRuns: NUM_RUNS },
+      );
+    });
+
+    it("garantiza unidad obligatoria en totales y excluye mercados de conteo del slot totales", () => {
+      const sports: ReadonlyArray<{
+        readonly sport: MatchAnalysis["sport"];
+        readonly league: "premier-league" | "nba" | "mlb" | "nhl";
+        readonly line: number;
+        readonly expectedUnit: RegExp;
+      }> = [
+        { sport: "football", league: "premier-league", line: 3.5, expectedUnit: /\bgoles\b/i },
+        { sport: "basketball", league: "nba", line: 221.5, expectedUnit: /\bpuntos\b/i },
+        { sport: "baseball", league: "mlb", line: 8.5, expectedUnit: /\bcarreras\b/i },
+        { sport: "ice-hockey", league: "nhl", line: 5.5, expectedUnit: /\bgoles\b/i },
+      ];
+
+      for (const spec of sports) {
+        const match: MatchAnalysis = {
+          id: `unit-${spec.sport}`,
+          league: asLeagueId(spec.league),
+          leagueLabel: spec.league,
+          sport: spec.sport,
+          round: "J1",
+          day: "2026-11-21",
+          dayLabel: "sábado",
+          kickoffUtc: "2026-11-21T20:00:00Z",
+          kickoffLocal: "14:00",
+          venue: "Arena",
+          status: "NS",
+          home: { slug: "a", name: "Alpha", shortName: "Alpha", code: "ALP", record: "5-1" },
+          away: { slug: "b", name: "Beta", shortName: "Beta", code: "BET", record: "3-3" },
+          projection: { home: 2.0, away: 1.4, total: 3.4 },
+          x12: [0.55, spec.sport === "football" ? 0.25 : 0, spec.sport === "football" ? 0.2 : 0.45],
+          outcomes: [],
+          marketGroups: [
+            {
+              group: "Córners totales",
+              rows: [
+                {
+                  market: asMarketKey("corners_total"),
+                  selection: "over_9.5",
+                  label: "Más de 9.5",
+                  line: 9.5,
+                  p: 0.64,
+                  fairOdds: 1.56,
+                },
+              ],
+            },
+            {
+              group: "Totales",
+              rows: [
+                {
+                  market: asMarketKey("totals"),
+                  selection: `over_${spec.line}`,
+                  label: `Más de ${spec.line}`,
+                  line: spec.line,
+                  p: 0.58,
+                  fairOdds: 1.72,
+                },
+              ],
+            },
+          ],
+          factors: [],
+          trace: [],
+          confidence: { score: 72, level: "alta", reasons: [] },
+        };
+
+        const ds = buildPlatformDataset([
+          {
+            league: asLeagueId(spec.league),
+            leagueLabel: spec.league,
+            sport: spec.sport,
+            season: "2026",
+            roundLabel: "J1",
+            generatedAt: FIXED_NOW_ISO,
+            games: [match],
+          },
+        ]);
+        const game = ds.games[0]!;
+        const totalPicks = game.picks.filter(
+          (pk) => pk.market === "totals" || pk.category === "totales",
+        );
+        expect(totalPicks.length).toBeGreaterThan(0);
+        for (const pk of totalPicks) {
+          expect(pk.market).not.toBe("corners_total");
+          expect(pk.label).toMatch(spec.expectedUnit);
+        }
+      }
+    });
+
+    it("impide cruce de cuotas entre líneas distintas de totales en buildMatchPicksCatalog", () => {
+      const game = makeBaseGame({
+        markets: [
+          {
+            group: "Goles totales",
+            market: "totals",
+            selection: "over",
+            label: "Más de 2.5 goles",
+            line: 2.5,
+            p: 0.54,
+            fairDecimal: 1.85,
+            fairAmerican: -118,
+            openDecimal: 1.9,
+            currentDecimal: 1.9,
+            quoteBookLabel: "Pinnacle",
+            quoteCapturedAtUtc: FIXED_NOW_ISO,
+            edgePts: 1.4,
+          },
+          {
+            group: "Goles totales",
+            market: "totals",
+            selection: "under",
+            label: "Menos de 2.5 goles",
+            line: 2.5,
+            p: 0.46,
+            fairDecimal: 2.17,
+            fairAmerican: 117,
+            openDecimal: 1.96,
+            currentDecimal: 1.96,
+            quoteBookLabel: "Pinnacle",
+            quoteCapturedAtUtc: FIXED_NOW_ISO,
+            edgePts: -5.0,
+          },
+          {
+            group: "Goles totales",
+            market: "totals",
+            selection: "over",
+            label: "Más sin línea",
+            p: 0.6,
+            fairDecimal: 1.67,
+            fairAmerican: -149,
+            openDecimal: 2.5,
+            currentDecimal: 2.5,
+            quoteBookLabel: "Pinnacle",
+            quoteCapturedAtUtc: FIXED_NOW_ISO,
+            edgePts: 20,
+          },
+        ],
+      });
+
+      const catalog = buildMatchPicksCatalog(game, {
+        nowIso: FIXED_NOW_ISO,
+        allowedFamilies: new Set<MarketFamilyId>(["totals"]),
+      });
+      const over25 = catalog.picks.find((p) => p.line === 2.5 && p.direction === "over");
+      const over15 = catalog.picks.find((p) => p.line === 1.5 && p.direction === "over");
+      const over35 = catalog.picks.find((p) => p.line === 3.5 && p.direction === "over");
+      expect(over25?.pricing.marketDecimal).toBe(1.9);
+      expect(over15?.pricing.marketDecimal).toBeNull();
+      expect(over35?.pricing.marketDecimal).toBeNull();
+      for (const item of catalog.picks) {
+        const scored = scoreRecommendedCatalogPick(item);
+        if (item.pricing.evPct !== null && item.pricing.evPct < 0) {
+          expect(scored.isRecommended).toBe(false);
+        }
+      }
+    });
+
+    it("computeParlaySummary([]) devuelve 0 y buildSmartAutoParlay veta outliers y exige diversidad", () => {
+      const emptySummary = computeParlaySummary([]);
+      expect(emptySummary.fairDecimal).toBe(0);
+      expect(emptySummary.bookDecimal).toBe(0);
+      expect(emptySummary.fairAmerican).toBe(0);
+      expect(emptySummary.bookAmerican).toBe(0);
+
+      const makeDiverseGame = (idx: number): PlatformGame => {
+        const gid = `div-game-${idx}`;
+        return makeBaseGame({
+          id: gid,
+          picks: [
+            {
+              ...makePromoPick(makeBaseGame({ id: gid }), false, "Más de 3.5 goles", 2.4),
+              id: `${gid}__outlier`,
+              market: "totals",
+              selectionKey: "over_3.5",
+              line: 3.5,
+              conflictGroup: "over_total",
+              p: 0.72,
+              fairDecimal: 1.39,
+              edgePts: 30.3,
+              risk: "medio",
+            },
+            {
+              ...makePromoPick(makeBaseGame({ id: gid }), false, "Más de 3.5 goles", 1.9),
+              id: `${gid}__over35`,
+              market: "totals",
+              selectionKey: "over_3.5",
+              line: 3.5,
+              conflictGroup: "over_total",
+              p: 0.59,
+              fairDecimal: 1.69,
+              edgePts: 6.4,
+              risk: "medio",
+            },
+            {
+              ...makePromoPick(makeBaseGame({ id: gid }), false, "Gana Liverpool", 1.85),
+              id: `${gid}__h2h`,
+              market: "1x2",
+              selectionKey: "home",
+              line: null,
+              conflictGroup: "home_side",
+              p: 0.58,
+              fairDecimal: 1.72,
+              edgePts: 3.9,
+              risk: "medio",
+            },
+            {
+              ...makePromoPick(makeBaseGame({ id: gid }), false, "Ambos anotan: Sí", 1.8),
+              id: `${gid}__btts`,
+              market: "btts",
+              selectionKey: "yes",
+              line: null,
+              conflictGroup: "btts_yes",
+              p: 0.58,
+              fairDecimal: 1.72,
+              edgePts: 2.4,
+              risk: "medio",
+            },
+          ],
+        });
+      };
+
+      const games = [makeDiverseGame(1), makeDiverseGame(2), makeDiverseGame(3)];
+      const legs = buildSmartAutoParlay(games, {
+        leagues: [],
+        risk: "medio",
+        legCount: 3,
+        allowSgp: false,
+        viewerRole: "member",
+      });
+      expect(legs).toHaveLength(3);
+      for (const leg of legs) {
+        expect(isParlayPickOutlier(leg.pick)).toBe(false);
+        expect(leg.pick.id).not.toContain("__outlier");
+      }
+      const uniqueMarketKeys = new Set(legs.map((l) => parlayMarketDiversityKey(l.pick)));
+      expect(uniqueMarketKeys.size).toBe(3);
     });
   });
 });

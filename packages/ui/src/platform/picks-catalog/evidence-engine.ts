@@ -4,7 +4,7 @@ import {
   isPermittedMarketQuoteBook,
   sportScoringUnit,
 } from "@pitchlab/contracts";
-import { decimalToAmericanInt } from "../access-guard";
+import { decimalToAmericanInt, formatOddsValue } from "../access-guard";
 import {
   REFEREE_EB_PRIOR_WEIGHT,
   classifyRefereeRigor,
@@ -47,6 +47,10 @@ const TRIVIAL_ODDS_THRESHOLD = 1.25;
 const OPTIMAL_ODDS_MIN = 1.45;
 const OPTIMAL_ODDS_MAX = 2.8;
 const CONVERGENCE_RATE_THRESHOLD_PCT = 65;
+const MAX_DEVIG_PROB_DIVERGENCE = 0.12;
+const MAX_SHARP_EV_PCT = 18;
+const MAX_SOFT_EV_PCT = 22;
+const SHARP_BOOK_TOKENS = ["pinnacle", "betcris", "betonline"] as const;
 
 const MATCH_LEVEL_EVIDENCE_FAMILIES: ReadonlySet<MarketFamilyId> = new Set([
   "totals",
@@ -110,6 +114,13 @@ export function isMarketBookLabelPermitted(bookLabel?: string | null): boolean {
     !isBlockedMarketQuoteBook(primary, trimmed) &&
     isPermittedMarketQuoteBook(primary, trimmed)
   );
+}
+
+export function isSharpBookLabel(bookLabel?: string | null): boolean {
+  if (!bookLabel) return false;
+  const norm = normalizeText(bookLabel);
+  if (norm.length === 0) return false;
+  return SHARP_BOOK_TOKENS.some((token) => norm.includes(token));
 }
 
 export function toneForObservedRate(ratePct: number): EvidenceTone {
@@ -378,12 +389,29 @@ export function computePickPricing(input: ComputePickPricingInput): PickPricingM
     }
   }
 
-  const evPct = validMarket !== null ? round1((safeP * validMarket - 1) * 100) : null;
-  const edgePts = validMarket !== null ? round1((safeP - 1 / validMarket) * 100) : null;
+  const rawEvPct = validMarket !== null ? round1((safeP * validMarket - 1) * 100) : null;
+  const rawEdgePts = validMarket !== null ? round1((safeP - 1 / validMarket) * 100) : null;
   const noVigEdgePts =
     deVigMarketProb !== null ? round1((safeP - deVigMarketProb) * 100) : null;
-  const hasPositiveValue = evPct !== null && evPct > 0;
-  const valueLabel = hasPositiveValue ? `Valor +${evPct.toFixed(1)} %` : null;
+
+  const isSharpBook = isSharpBookLabel(input.marketBookLabel);
+  const probDivergenceAnomalous =
+    deVigMarketProb !== null && Math.abs(safeP - deVigMarketProb) > MAX_DEVIG_PROB_DIVERGENCE;
+  const softEvAnomalous = rawEvPct !== null && rawEvPct > MAX_SOFT_EV_PCT;
+  const sharpWithoutDeVigAnomalous =
+    isSharpBook && deVigMarketProb === null && rawEvPct !== null && rawEvPct > MAX_SHARP_EV_PCT;
+  const hardAnomaly = probDivergenceAnomalous || softEvAnomalous || sharpWithoutDeVigAnomalous;
+  const sharpBorderlineAnomaly =
+    !hardAnomaly &&
+    isSharpBook &&
+    rawEvPct !== null &&
+    rawEvPct > MAX_SHARP_EV_PCT &&
+    rawEvPct <= MAX_SOFT_EV_PCT;
+
+  const evPct = hardAnomaly ? null : sharpBorderlineAnomaly ? 0 : rawEvPct;
+  const edgePts = hardAnomaly ? null : sharpBorderlineAnomaly ? 0 : rawEdgePts;
+  const hasPositiveValue = !hardAnomaly && !sharpBorderlineAnomaly && evPct !== null && evPct > 0;
+  const valueLabel = hasPositiveValue && evPct !== null ? `Valor +${evPct.toFixed(1)} %` : null;
 
   return {
     p: safeP,
@@ -1326,8 +1354,61 @@ function computeOddsPlayabilityScore(odds: number): number {
   return Math.max(2, 10 - (odds - 3.8) * 2);
 }
 
+export function computeMinValueDecimal(calibratedProb: number): number {
+  const safeP = clamp(calibratedProb, MIN_CALIBRATED_PROB, MAX_CALIBRATED_PROB);
+  return Math.max(1.02, Math.ceil((1 / safeP) * 100 + 1) / 100);
+}
+
+export function formatValueThresholdLabel(
+  calibratedProb: number,
+  oddsFormat: "decimal" | "american" = "decimal",
+): string {
+  const minValueOdds = computeMinValueDecimal(calibratedProb);
+  return `Tiene valor si tu casa paga ${formatOddsValue(minValueOdds, oddsFormat)} o más`;
+}
+
+export function isCatalogPickPricingAnomalous(item: CatalogPickItem): boolean {
+  const { p, marketDecimal, deVigMarketProb, noVigEdgePts, evPct, edgePts, marketBookLabel } =
+    item.pricing;
+  if (
+    deVigMarketProb !== null &&
+    Number.isFinite(deVigMarketProb) &&
+    Math.abs(p - deVigMarketProb) > MAX_DEVIG_PROB_DIVERGENCE
+  ) {
+    return true;
+  }
+  if (
+    noVigEdgePts !== null &&
+    Number.isFinite(noVigEdgePts) &&
+    Math.abs(noVigEdgePts) > MAX_DEVIG_PROB_DIVERGENCE * 100
+  ) {
+    return true;
+  }
+  if (evPct !== null && Number.isFinite(evPct) && evPct > MAX_SHARP_EV_PCT) {
+    return true;
+  }
+  if (
+    edgePts !== null &&
+    Number.isFinite(edgePts) &&
+    edgePts > MAX_DEVIG_PROB_DIVERGENCE * 100
+  ) {
+    return true;
+  }
+  if (marketDecimal !== null && Number.isFinite(marketDecimal) && marketDecimal >= 1.01) {
+    const rawEv = (p * marketDecimal - 1) * 100;
+    const evLimit = isSharpBookLabel(marketBookLabel) ? MAX_SHARP_EV_PCT : MAX_SOFT_EV_PCT;
+    if (rawEv > evLimit) return true;
+  }
+  return false;
+}
+
+export interface ScoreRecommendedCatalogPickOptions {
+  readonly oddsFormat?: "decimal" | "american";
+}
+
 export function scoreRecommendedCatalogPick(
   item: CatalogPickItem,
+  options: ScoreRecommendedCatalogPickOptions = {},
 ): PickRecommendationScoreResult {
   if (
     item.isRedacted ||
@@ -1359,18 +1440,20 @@ export function scoreRecommendedCatalogPick(
   }
   const convergenceCount = alignedWindows.size;
 
-  const minValueOdds = Math.max(1.02, Math.ceil((1 / p) * 100 + 1) / 100);
   const valueThresholdLabel = isTrivialOdds
     ? null
-    : `Tiene valor si tu casa paga ${minValueOdds.toFixed(2)} o más`;
+    : formatValueThresholdLabel(p, options.oddsFormat ?? "decimal");
 
   const probScore = clamp(34 * Math.exp(-Math.pow((p - 0.62) / 0.24, 2)), 4, 34);
   const oddsScore = computeOddsPlayabilityScore(effectiveOdds);
+  const pricingAnomalous = isCatalogPickPricingAnomalous(item);
 
   let evScore = 7;
-  if (item.pricing.evPct !== null && Number.isFinite(item.pricing.evPct)) {
+  if (pricingAnomalous) {
+    evScore = 0;
+  } else if (item.pricing.evPct !== null && Number.isFinite(item.pricing.evPct)) {
     if (item.pricing.evPct > 0) {
-      evScore = Math.min(24, 10 + item.pricing.evPct * 1.4);
+      evScore = Math.min(24, 10 + Math.min(item.pricing.evPct, MAX_SHARP_EV_PCT) * 1.4);
     } else if (item.pricing.evPct >= -2.5) {
       evScore = 6 + ((item.pricing.evPct + 2.5) / 2.5) * 4;
     } else {
@@ -1381,7 +1464,7 @@ export function scoreRecommendedCatalogPick(
   const evidenceBonus =
     Math.min(14, convergenceCount * 3.5) +
     (item.evidence.xgSignal !== null || item.evidence.refereeSignal !== null ? 2 : 0);
-  const primaryBonus = !isTrivialOdds && item.isPrimaryModelPick ? 4 : 0;
+  const primaryBonus = !isTrivialOdds && !pricingAnomalous && item.isPrimaryModelPick ? 4 : 0;
 
   let score = Math.round(clamp(probScore + oddsScore + evScore + evidenceBonus + primaryBonus, 0, 100));
   let tier: PickRecommendationTier;
@@ -1391,20 +1474,28 @@ export function scoreRecommendedCatalogPick(
     item.pricing.marketDecimal !== null &&
     item.pricing.evPct !== null &&
     Number.isFinite(item.pricing.evPct);
-  const marketEvPct = hasMarketEv ? item.pricing.evPct! : null;
+  const rawMarketEvPct =
+    item.pricing.marketDecimal !== null &&
+    Number.isFinite(item.pricing.marketDecimal) &&
+    item.pricing.marketDecimal >= 1.01
+      ? round1((p * item.pricing.marketDecimal - 1) * 100)
+      : null;
+  const marketEvPct = hasMarketEv ? item.pricing.evPct! : rawMarketEvPct;
   const hasNegativeMarketEv = marketEvPct !== null && marketEvPct < 0;
-  const hasSevereNegativeMarketEv = marketEvPct !== null && marketEvPct < -2.5;
 
   if (isTrivialOdds) {
     score = Math.min(score, 24);
     tier = "trivial_odds";
     isRecommended = false;
-  } else if (hasSevereNegativeMarketEv) {
+  } else if (pricingAnomalous) {
+    score = Math.min(score, 42);
+    tier = "playable";
+    isRecommended = false;
+  } else if (hasNegativeMarketEv) {
     score = Math.min(score, 54);
     tier = "playable";
     isRecommended = false;
   } else if (
-    !hasNegativeMarketEv &&
     score >= 76 &&
     effectiveOdds >= OPTIMAL_ODDS_MIN &&
     effectiveOdds <= OPTIMAL_ODDS_MAX &&
@@ -1464,6 +1555,7 @@ export function selectPicksOfTheDay(
   for (const item of picks) {
     if (item.gameStatus === "FT" || item.isRedacted) continue;
     if (!Number.isFinite(item.pricing.p) || item.pricing.p <= 0) continue;
+    if (isCatalogPickPricingAnomalous(item)) continue;
     const effectiveOdds = resolveEffectiveOdds(item);
     if (
       !Number.isFinite(effectiveOdds) ||
@@ -1482,7 +1574,14 @@ export function selectPicksOfTheDay(
       item.pricing.marketDecimal !== null &&
       item.pricing.evPct !== null &&
       Number.isFinite(item.pricing.evPct);
-    if (hasMarketEv && item.pricing.evPct! < -2.0) continue;
+    if (hasMarketEv && item.pricing.evPct! < 0) continue;
+    if (
+      item.pricing.marketDecimal !== null &&
+      Number.isFinite(item.pricing.marketDecimal) &&
+      item.pricing.p * item.pricing.marketDecimal - 1 < 0
+    ) {
+      continue;
+    }
     const scored = scoreRecommendedCatalogPick(item);
     if (!scored.isRecommended || scored.tier === "trivial_odds") continue;
     eligible.push({ item, scored });

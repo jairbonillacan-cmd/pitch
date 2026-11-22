@@ -788,7 +788,57 @@ function selectPermittedFreshBookQuotes(
   return valid.map((q, idx) => (idx === 0 ? { ...q, isBest: true } : { ...q, isBest: false }));
 }
 
-function buildQuoteIndex(
+const LINE_SCOPED_MARKETS: ReadonlySet<string> = new Set([
+  "totals",
+  "team_totals",
+  "spread",
+  "spreads",
+  "handicap",
+  "asian_handicap",
+  "corners_total",
+  "corners_team",
+  "fouls_total",
+  "cards_total",
+  "yellow_total",
+  "shots_total",
+  "shots_on_target",
+  "nba_totals",
+  "nba_spread",
+  "mlb_totals",
+  "mlb_run_line",
+  "nhl_totals",
+  "nhl_puck_line",
+  "nhl_puckline",
+  "nfl_totals",
+  "nfl_spread",
+  "over_under",
+]);
+
+const SHARP_COMPANION_BOOK_PRIORITY: readonly string[] = [
+  "pinnacle",
+  "betcris",
+  "betonline",
+  "betonlineag",
+];
+
+function isLineScopedMarket(marketLower: string): boolean {
+  return (
+    LINE_SCOPED_MARKETS.has(marketLower) ||
+    marketLower.startsWith("totals_") ||
+    marketLower.startsWith("ah_") ||
+    marketLower.startsWith("team_goals_")
+  );
+}
+
+function normalizeBookKey(raw: string): string {
+  return raw
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .toLowerCase()
+    .replace(/[^a-z0-9]/g, "");
+}
+
+export function buildQuoteIndex(
   game: PlatformGame,
   markets: readonly PlatformMarketRow[],
   nowIso: string | null,
@@ -838,9 +888,25 @@ function buildQuoteIndex(
     };
     const m = row.market.toLowerCase();
     const s = row.selection.toLowerCase();
-    const l = row.line !== undefined && row.line !== null ? String(row.line) : "";
-    put(`${m}|${s}|${l}`, entry);
-    put(`${m}|${s}`, entry);
+    const explicitLine =
+      typeof row.line === "number" && Number.isFinite(row.line) ? row.line : null;
+    const resolvedLine = explicitLine ?? parseLineFromKey(s) ?? parseLineFromKey(m);
+
+    if (isLineScopedMarket(m)) {
+      if (resolvedLine === null) continue;
+      const l = String(resolvedLine);
+      put(`${m}|${s}|${l}`, entry);
+      const baseSel = s.replace(/_[+-]?\d+(?:[._]\d+)?$/, "");
+      if (baseSel && baseSel !== s) {
+        put(`${m}|${baseSel}|${l}`, entry);
+      }
+    } else {
+      const l = resolvedLine !== null ? String(resolvedLine) : "";
+      if (l.length > 0) {
+        put(`${m}|${s}|${l}`, entry);
+      }
+      put(`${m}|${s}`, entry);
+    }
   }
 
   const stMarket = game.spacetime?.market;
@@ -916,6 +982,55 @@ function lookupPublishedProb(
     if (found && typeof found.publishedProb === "number") return found.publishedProb;
   }
   return null;
+}
+
+function resolveSameBookCompanionDecimals(
+  legs: ReadonlyArray<IndexedQuote | null>,
+): readonly number[] | null {
+  if (legs.length < 2) return null;
+  const present: IndexedQuote[] = [];
+  for (const leg of legs) {
+    if (!leg || !Number.isFinite(leg.decimal) || leg.decimal < 1.01) return null;
+    present.push(leg);
+  }
+
+  const legBookMaps = present.map((leg) => {
+    const map = new Map<string, number>();
+    for (const q of leg.bookQuotes ?? []) {
+      if (!Number.isFinite(q.decimal) || q.decimal < 1.01) continue;
+      const key = normalizeBookKey(q.book || q.bookLabel);
+      if (key && !map.has(key)) map.set(key, q.decimal);
+    }
+    if (map.size === 0 && leg.bookLabel) {
+      const primary = normalizeBookKey(leg.bookLabel.split(/[·|]/)[0] ?? leg.bookLabel);
+      if (primary) map.set(primary, leg.decimal);
+    }
+    return map;
+  });
+
+  const firstMap = legBookMaps[0];
+  if (firstMap) {
+    const commonBooks: string[] = [];
+    for (const key of firstMap.keys()) {
+      if (legBookMaps.every((m) => m.has(key))) {
+        commonBooks.push(key);
+      }
+    }
+    if (commonBooks.length > 0) {
+      commonBooks.sort((a, b) => {
+        const pa = SHARP_COMPANION_BOOK_PRIORITY.findIndex((t) => a.includes(t));
+        const pb = SHARP_COMPANION_BOOK_PRIORITY.findIndex((t) => b.includes(t));
+        const ra = pa >= 0 ? pa : 99;
+        const rb = pb >= 0 ? pb : 99;
+        if (ra !== rb) return ra - rb;
+        return a.localeCompare(b);
+      });
+      const chosenBook = commonBooks[0]!;
+      return legBookMaps.map((m) => m.get(chosenBook)!);
+    }
+  }
+
+  return present.map((leg) => leg.decimal);
 }
 
 function parseLineFromKey(key: string): number | null {
@@ -1434,7 +1549,7 @@ function emitFootballCatalog(
   const qH = lookupQuote(quoteIndex, ["1x2|home", "h2h|home"]);
   const qD = lookupQuote(quoteIndex, ["1x2|draw", "h2h|draw"]);
   const qA = lookupQuote(quoteIndex, ["1x2|away", "h2h|away"]);
-  const x12Comp = qH && qD && qA ? [qH.decimal, qD.decimal, qA.decimal] : null;
+  const x12Comp = resolveSameBookCompanionDecimals([qH, qD, qA]);
   emit({
     family: "1x2",
     selectionKey: "home",
@@ -1484,7 +1599,7 @@ function emitFootballCatalog(
   const q1X = lookupQuote(quoteIndex, ["double_chance|1x"]);
   const qX2 = lookupQuote(quoteIndex, ["double_chance|x2"]);
   const q12 = lookupQuote(quoteIndex, ["double_chance|12"]);
-  const dcComp = q1X && qX2 && q12 ? [q1X.decimal, qX2.decimal, q12.decimal] : null;
+  const dcComp = resolveSameBookCompanionDecimals([q1X, qX2, q12]);
   emit({
     family: "double_chance",
     selectionKey: "1x",
@@ -1537,7 +1652,7 @@ function emitFootballCatalog(
   const dnbDenom = Math.max(1e-6, pHome + pAway);
   const qDnbH = lookupQuote(quoteIndex, ["dnb|home", "draw_no_bet|home"]);
   const qDnbA = lookupQuote(quoteIndex, ["dnb|away", "draw_no_bet|away"]);
-  const dnbComp = qDnbH && qDnbA ? [qDnbH.decimal, qDnbA.decimal] : null;
+  const dnbComp = resolveSameBookCompanionDecimals([qDnbH, qDnbA]);
   emit({
     family: "dnb",
     selectionKey: "home",
@@ -1574,7 +1689,7 @@ function emitFootballCatalog(
   );
   const qBttsY = lookupQuote(quoteIndex, ["btts|yes"]);
   const qBttsN = lookupQuote(quoteIndex, ["btts|no"]);
-  const bttsComp = qBttsY && qBttsN ? [qBttsY.decimal, qBttsN.decimal] : null;
+  const bttsComp = resolveSameBookCompanionDecimals([qBttsY, qBttsN]);
   emit({
     family: "btts",
     selectionKey: "yes",
@@ -1610,23 +1725,21 @@ function emitFootballCatalog(
     const lineKey = String(line).replace(".", "_");
     const pubOver = lookupPublishedProb(quoteIndex, [
       `totals|over_${line}|${line}`,
-      `totals|over_${line}`,
-      `totals_${lineKey}|over`,
+      `totals_${lineKey}|over|${line}`,
+      `totals|over|${line}`,
     ]);
     const pOver = clampProb(pubOver ?? sumMatrix(matrix, (h, a) => h + a > line));
     const qO = lookupQuote(quoteIndex, [
       `totals|over_${line}|${line}`,
-      `totals|over_${line}`,
-      `totals_${lineKey}|over`,
+      `totals_${lineKey}|over|${line}`,
       `totals|over|${line}`,
     ]);
     const qU = lookupQuote(quoteIndex, [
       `totals|under_${line}|${line}`,
-      `totals|under_${line}`,
-      `totals_${lineKey}|under`,
+      `totals_${lineKey}|under|${line}`,
       `totals|under|${line}`,
     ]);
-    const comp = qO && qU ? [qO.decimal, qU.decimal] : null;
+    const comp = resolveSameBookCompanionDecimals([qO, qU]);
     emit({
       family: "totals",
       selectionKey: `over_${line}`,
@@ -1670,13 +1783,17 @@ function emitFootballCatalog(
       if (pOver < 0.06 || pOver > 0.96) continue;
       const qO = lookupQuote(quoteIndex, [
         `team_totals|${side.key}_over|${line}`,
-        `team_goals_${side.key}|${side.key}_over_${line}`,
+        `team_totals|${side.key}_over_${line}|${line}`,
+        `team_goals_${side.key}|${side.key}_over_${line}|${line}`,
+        `team_goals_${side.key}|${side.key}_over|${line}`,
       ]);
       const qU = lookupQuote(quoteIndex, [
         `team_totals|${side.key}_under|${line}`,
-        `team_goals_${side.key}|${side.key}_under_${line}`,
+        `team_totals|${side.key}_under_${line}|${line}`,
+        `team_goals_${side.key}|${side.key}_under_${line}|${line}`,
+        `team_goals_${side.key}|${side.key}_under|${line}`,
       ]);
-      const comp = qO && qU ? [qO.decimal, qU.decimal] : null;
+      const comp = resolveSameBookCompanionDecimals([qO, qU]);
       emit({
         family: "team_totals",
         selectionKey: `${side.key}_over_${line}`,
@@ -1866,16 +1983,22 @@ function emitFootballCatalog(
     if (pCondH < 0.06 || pCondH > 0.94) continue;
 
     const qAhH = lookupQuote(quoteIndex, [
-      `asian_handicap|home_${formatSignedLine(homeLine)}`,
-      `spread|home_${formatSignedLine(homeLine)}`,
+      `asian_handicap|home_${formatSignedLine(homeLine)}|${homeLine}`,
+      `asian_handicap|home|${homeLine}`,
+      `spread|home_${formatSignedLine(homeLine)}|${homeLine}`,
+      `spread|home|${homeLine}`,
       `spreads|home|${homeLine}`,
+      `handicap|home|${homeLine}`,
     ]);
     const qAhA = lookupQuote(quoteIndex, [
-      `asian_handicap|away_${formatSignedLine(awayLine)}`,
-      `spread|away_${formatSignedLine(awayLine)}`,
+      `asian_handicap|away_${formatSignedLine(awayLine)}|${awayLine}`,
+      `asian_handicap|away|${awayLine}`,
+      `spread|away_${formatSignedLine(awayLine)}|${awayLine}`,
+      `spread|away|${awayLine}`,
       `spreads|away|${awayLine}`,
+      `handicap|away|${awayLine}`,
     ]);
-    const comp = qAhH && qAhA ? [qAhH.decimal, qAhA.decimal] : null;
+    const comp = resolveSameBookCompanionDecimals([qAhH, qAhA]);
     const pushNote = pPush > 0.005 ? [`Push si diferencia exacta (${(pPush * 100).toFixed(1)} %)`] : undefined;
 
     emit({
@@ -2001,9 +2124,15 @@ function emitFootballCatalog(
   );
   for (const line of cornerLines) {
     const nb = negBinomOverUnder(cornersTotalMean, 8.5, line);
-    const qO = lookupQuote(quoteIndex, [`corners_total|over|${line}`, `corners_total|over_${line}`]);
-    const qU = lookupQuote(quoteIndex, [`corners_total|under|${line}`, `corners_total|under_${line}`]);
-    const comp = qO && qU ? [qO.decimal, qU.decimal] : null;
+    const qO = lookupQuote(quoteIndex, [
+      `corners_total|over|${line}`,
+      `corners_total|over_${line}|${line}`,
+    ]);
+    const qU = lookupQuote(quoteIndex, [
+      `corners_total|under|${line}`,
+      `corners_total|under_${line}|${line}`,
+    ]);
+    const comp = resolveSameBookCompanionDecimals([qO, qU]);
     const ctx = [
       `Ritmo proyectado ${cornersTotalMean.toFixed(1)} córners (${cornersHomeMean.toFixed(1)} + ${cornersAwayMean.toFixed(1)})`,
     ];
@@ -2145,9 +2274,15 @@ function emitFootballCatalog(
   const foulsCenter = roundToHalf(foulsTotalMean);
   for (const line of [foulsCenter - 2, foulsCenter, foulsCenter + 2].filter((l) => l >= 16.5)) {
     const nb = negBinomOverUnder(foulsTotalMean, 12.0, line);
-    const qO = lookupQuote(quoteIndex, [`fouls_total|over|${line}`, `fouls_total|over_${line}`]);
-    const qU = lookupQuote(quoteIndex, [`fouls_total|under|${line}`, `fouls_total|under_${line}`]);
-    const comp = qO && qU ? [qO.decimal, qU.decimal] : null;
+    const qO = lookupQuote(quoteIndex, [
+      `fouls_total|over|${line}`,
+      `fouls_total|over_${line}|${line}`,
+    ]);
+    const qU = lookupQuote(quoteIndex, [
+      `fouls_total|under|${line}`,
+      `fouls_total|under_${line}|${line}`,
+    ]);
+    const comp = resolveSameBookCompanionDecimals([qO, qU]);
     const ctx = [`Proyección ${foulsTotalMean.toFixed(1)} faltas combinadas`];
     emit({
       family: "fouls_total",
@@ -2190,9 +2325,19 @@ function emitFootballCatalog(
   const cardsCenter = clamp(roundToHalf(cardsTotalMean), 2.5, 6.5);
   for (const line of [cardsCenter - 1, cardsCenter, cardsCenter + 1].filter((l) => l >= 1.5 && l <= 7.5)) {
     const nb = negBinomOverUnder(cardsTotalMean, 6.0, line);
-    const qO = lookupQuote(quoteIndex, [`yellow_total|over|${line}`, `cards_total|over|${line}`]);
-    const qU = lookupQuote(quoteIndex, [`yellow_total|under|${line}`, `cards_total|under|${line}`]);
-    const comp = qO && qU ? [qO.decimal, qU.decimal] : null;
+    const qO = lookupQuote(quoteIndex, [
+      `yellow_total|over|${line}`,
+      `yellow_total|over_${line}|${line}`,
+      `cards_total|over|${line}`,
+      `cards_total|over_${line}|${line}`,
+    ]);
+    const qU = lookupQuote(quoteIndex, [
+      `yellow_total|under|${line}`,
+      `yellow_total|under_${line}|${line}`,
+      `cards_total|under|${line}`,
+      `cards_total|under_${line}|${line}`,
+    ]);
+    const comp = resolveSameBookCompanionDecimals([qO, qU]);
     const ctx = [
       `Media ajustada ${cardsTotalMean.toFixed(2)} tarjetas${refereeSignal ? ` (factor arbitral ×${refereeSignal.cardsMultiplier.toFixed(2)})` : ""}`,
     ];
@@ -2590,7 +2735,7 @@ function emitNbaCatalog(
 
   const qH = lookupQuote(quoteIndex, ["h2h|home", "moneyline|home", "1x2|home"]);
   const qA = lookupQuote(quoteIndex, ["h2h|away", "moneyline|away", "1x2|away"]);
-  const mlComp = qH && qA ? [qH.decimal, qA.decimal] : null;
+  const mlComp = resolveSameBookCompanionDecimals([qH, qA]);
   emit({
     family: "nba_moneyline",
     selectionKey: "home",
@@ -2638,14 +2783,18 @@ function emitNbaCatalog(
       const aLine = -hLine;
       const pHomeCover = clampProb(1 - normalCdf((-hLine - marginMean) / sigmaMargin));
       const qSH = lookupQuote(quoteIndex, [
-        `spread|home_${formatSignedLine(hLine)}`,
+        `spread|home_${formatSignedLine(hLine)}|${hLine}`,
+        `spread|home|${hLine}`,
         `spreads|home|${hLine}`,
+        `nba_spread|home|${hLine}`,
       ]);
       const qSA = lookupQuote(quoteIndex, [
-        `spread|away_${formatSignedLine(aLine)}`,
+        `spread|away_${formatSignedLine(aLine)}|${aLine}`,
+        `spread|away|${aLine}`,
         `spreads|away|${aLine}`,
+        `nba_spread|away|${aLine}`,
       ]);
-      const comp = qSH && qSA ? [qSH.decimal, qSA.decimal] : null;
+      const comp = resolveSameBookCompanionDecimals([qSH, qSA]);
       emit({
         family: "nba_spread",
         selectionKey: `home_${formatSignedLine(hLine)}`,
@@ -2679,9 +2828,17 @@ function emitNbaCatalog(
     const centerTotal = roundToHalf(totalMean);
     for (const line of [centerTotal - 5, centerTotal, centerTotal + 5].filter((l) => l >= 170)) {
       const pOver = clampProb(1 - normalCdf((line - totalMean) / sigmaTotal));
-      const qO = lookupQuote(quoteIndex, [`totals|over_${line}`, `totals|over|${line}`]);
-      const qU = lookupQuote(quoteIndex, [`totals|under_${line}`, `totals|under|${line}`]);
-      const comp = qO && qU ? [qO.decimal, qU.decimal] : null;
+      const qO = lookupQuote(quoteIndex, [
+        `totals|over_${line}|${line}`,
+        `totals|over|${line}`,
+        `nba_totals|over|${line}`,
+      ]);
+      const qU = lookupQuote(quoteIndex, [
+        `totals|under_${line}|${line}`,
+        `totals|under|${line}`,
+        `nba_totals|under|${line}`,
+      ]);
+      const comp = resolveSameBookCompanionDecimals([qO, qU]);
       emit({
         family: "nba_totals",
         selectionKey: `over_${line}`,
@@ -3021,7 +3178,7 @@ function emitMlbCatalog(
 
   const qH = lookupQuote(quoteIndex, ["h2h|home", "moneyline|home", "1x2|home"]);
   const qA = lookupQuote(quoteIndex, ["h2h|away", "moneyline|away", "1x2|away"]);
-  const mlComp = qH && qA ? [qH.decimal, qA.decimal] : null;
+  const mlComp = resolveSameBookCompanionDecimals([qH, qA]);
   emit({
     family: "mlb_moneyline",
     selectionKey: "home",
@@ -3061,14 +3218,18 @@ function emitMlbCatalog(
   const pRlHome = clampProb(homeFav ? pHomeRlMinus15 : 1 - pAwayRlMinus15);
   const pRlAway = clampProb(1 - pRlHome);
   const qRlH = lookupQuote(quoteIndex, [
-    `spread|home_${formatSignedLine(rlHomeLine)}`,
+    `spread|home_${formatSignedLine(rlHomeLine)}|${rlHomeLine}`,
+    `spread|home|${rlHomeLine}`,
     `spreads|home|${rlHomeLine}`,
+    `mlb_run_line|home|${rlHomeLine}`,
   ]);
   const qRlA = lookupQuote(quoteIndex, [
-    `spread|away_${formatSignedLine(rlAwayLine)}`,
+    `spread|away_${formatSignedLine(rlAwayLine)}|${rlAwayLine}`,
+    `spread|away|${rlAwayLine}`,
     `spreads|away|${rlAwayLine}`,
+    `mlb_run_line|away|${rlAwayLine}`,
   ]);
-  const rlComp = qRlH && qRlA ? [qRlH.decimal, qRlA.decimal] : null;
+  const rlComp = resolveSameBookCompanionDecimals([qRlH, qRlA]);
   emit({
     family: "mlb_run_line",
     selectionKey: `home_${formatSignedLine(rlHomeLine)}`,
@@ -3193,9 +3354,17 @@ function emitMlbCatalog(
     for (let r = 0; r < totalDist.length; r += 1) {
       if (r > line) pOver += totalDist[r]!;
     }
-    const qO = lookupQuote(quoteIndex, [`totals|over_${line}`, `totals|over|${line}`]);
-    const qU = lookupQuote(quoteIndex, [`totals|under_${line}`, `totals|under|${line}`]);
-    const comp = qO && qU ? [qO.decimal, qU.decimal] : null;
+    const qO = lookupQuote(quoteIndex, [
+      `totals|over_${line}|${line}`,
+      `totals|over|${line}`,
+      `mlb_totals|over|${line}`,
+    ]);
+    const qU = lookupQuote(quoteIndex, [
+      `totals|under_${line}|${line}`,
+      `totals|under|${line}`,
+      `mlb_totals|under|${line}`,
+    ]);
+    const comp = resolveSameBookCompanionDecimals([qO, qU]);
     emit({
       family: "mlb_totals",
       selectionKey: `over_${line}`,
@@ -3288,7 +3457,7 @@ function emitNhlCatalog(
 
   const qH = lookupQuote(quoteIndex, ["h2h|home", "moneyline|home", "1x2|home"]);
   const qA = lookupQuote(quoteIndex, ["h2h|away", "moneyline|away", "1x2|away"]);
-  const mlComp = qH && qA ? [qH.decimal, qA.decimal] : null;
+  const mlComp = resolveSameBookCompanionDecimals([qH, qA]);
   emit({
     family: "nhl_moneyline",
     selectionKey: "home",
@@ -3325,20 +3494,28 @@ function emitNhlCatalog(
   const homeFav = pHomeMl >= 0.5;
   const plHomeLine = homeFav ? -1.5 : 1.5;
   const plAwayLine = -plHomeLine;
-  const pubHomePl = lookupPublishedProb(quoteIndex, ["nhl_puckline|home_-1.5"]);
+  const pubHomePl = lookupPublishedProb(quoteIndex, [
+    "nhl_puckline|home_-1.5|-1.5",
+    "nhl_puck_line|home_-1.5|-1.5",
+    "nhl_puckline|home|-1.5",
+  ]);
   const pPlHome = clampProb(
     homeFav ? (pubHomePl ?? pHomeMinus15) : 1 - pAwayMinus15,
   );
   const pPlAway = clampProb(1 - pPlHome);
   const qPlH = lookupQuote(quoteIndex, [
-    `nhl_puckline|home_${formatSignedLine(plHomeLine)}`,
-    `spread|home_${formatSignedLine(plHomeLine)}`,
+    `nhl_puckline|home_${formatSignedLine(plHomeLine)}|${plHomeLine}`,
+    `nhl_puck_line|home|${plHomeLine}`,
+    `spread|home_${formatSignedLine(plHomeLine)}|${plHomeLine}`,
+    `spreads|home|${plHomeLine}`,
   ]);
   const qPlA = lookupQuote(quoteIndex, [
-    `nhl_puckline|away_${formatSignedLine(plAwayLine)}`,
-    `spread|away_${formatSignedLine(plAwayLine)}`,
+    `nhl_puckline|away_${formatSignedLine(plAwayLine)}|${plAwayLine}`,
+    `nhl_puck_line|away|${plAwayLine}`,
+    `spread|away_${formatSignedLine(plAwayLine)}|${plAwayLine}`,
+    `spreads|away|${plAwayLine}`,
   ]);
-  const plComp = qPlH && qPlA ? [qPlH.decimal, qPlA.decimal] : null;
+  const plComp = resolveSameBookCompanionDecimals([qPlH, qPlA]);
   emit({
     family: "nhl_puck_line",
     selectionKey: `home_${formatSignedLine(plHomeLine)}`,
@@ -3378,9 +3555,17 @@ function emitNhlCatalog(
     for (let g = 0; g < totalDist.length; g += 1) {
       if (g > line) pOver += totalDist[g]!;
     }
-    const qO = lookupQuote(quoteIndex, [`totals|over_${line}`, `totals|over|${line}`]);
-    const qU = lookupQuote(quoteIndex, [`totals|under_${line}`, `totals|under|${line}`]);
-    const comp = qO && qU ? [qO.decimal, qU.decimal] : null;
+    const qO = lookupQuote(quoteIndex, [
+      `totals|over_${line}|${line}`,
+      `totals|over|${line}`,
+      `nhl_totals|over|${line}`,
+    ]);
+    const qU = lookupQuote(quoteIndex, [
+      `totals|under_${line}|${line}`,
+      `totals|under|${line}`,
+      `nhl_totals|under|${line}`,
+    ]);
+    const comp = resolveSameBookCompanionDecimals([qO, qU]);
     emit({
       family: "nhl_totals",
       selectionKey: `over_${line}`,
@@ -3490,7 +3675,7 @@ function emitNflCatalog(
 
   const qH = lookupQuote(quoteIndex, ["h2h|home", "moneyline|home", "1x2|home"]);
   const qA = lookupQuote(quoteIndex, ["h2h|away", "moneyline|away", "1x2|away"]);
-  const mlComp = qH && qA ? [qH.decimal, qA.decimal] : null;
+  const mlComp = resolveSameBookCompanionDecimals([qH, qA]);
   emit({
     family: "nfl_moneyline",
     selectionKey: "home",
@@ -3548,14 +3733,18 @@ function emitNflCatalog(
     const pHomeCover = clampProb(pWinH / active);
     const pAwayCover = clampProb(1 - pHomeCover);
     const qSH = lookupQuote(quoteIndex, [
-      `spread|home_${formatSignedLine(hLine)}`,
+      `spread|home_${formatSignedLine(hLine)}|${hLine}`,
+      `spread|home|${hLine}`,
       `spreads|home|${hLine}`,
+      `nfl_spread|home|${hLine}`,
     ]);
     const qSA = lookupQuote(quoteIndex, [
-      `spread|away_${formatSignedLine(aLine)}`,
+      `spread|away_${formatSignedLine(aLine)}|${aLine}`,
+      `spread|away|${aLine}`,
       `spreads|away|${aLine}`,
+      `nfl_spread|away|${aLine}`,
     ]);
-    const comp = qSH && qSA ? [qSH.decimal, qSA.decimal] : null;
+    const comp = resolveSameBookCompanionDecimals([qSH, qSA]);
     const notes =
       pPush > 0.005
         ? [`Núcleo números clave NFL (±3 / ±7) · push ${(pPush * 100).toFixed(1)} %`]
@@ -3598,9 +3787,17 @@ function emitNflCatalog(
     (l) => l >= 28.5 && l <= 68.5,
   )) {
     const pOver = clampProb(1 - normalCdf((line - totalMean) / sigmaTotal));
-    const qO = lookupQuote(quoteIndex, [`totals|over_${line}`, `totals|over|${line}`]);
-    const qU = lookupQuote(quoteIndex, [`totals|under_${line}`, `totals|under|${line}`]);
-    const comp = qO && qU ? [qO.decimal, qU.decimal] : null;
+    const qO = lookupQuote(quoteIndex, [
+      `totals|over_${line}|${line}`,
+      `totals|over|${line}`,
+      `nfl_totals|over|${line}`,
+    ]);
+    const qU = lookupQuote(quoteIndex, [
+      `totals|under_${line}|${line}`,
+      `totals|under|${line}`,
+      `nfl_totals|under|${line}`,
+    ]);
+    const comp = resolveSameBookCompanionDecimals([qO, qU]);
     emit({
       family: "nfl_totals",
       selectionKey: `over_${line}`,

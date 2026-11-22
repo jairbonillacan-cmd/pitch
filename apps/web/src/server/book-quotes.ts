@@ -24,6 +24,7 @@ import {
   formatCanonicalBookLabel,
   normalizeBookKey,
 } from "@pitchlab/ui/bookmakers";
+import { computeAdaptiveDeVig } from "@pitchlab/ui/picks-catalog";
 import type {
   BookQuoteItem,
   MatchPick,
@@ -917,9 +918,137 @@ function findEventQuotesForGame(
   return bestMatch;
 }
 
+const MAX_DEVIG_PROB_DIVERGENCE = 0.12;
+const MAX_SHARP_EV_PCT = 18;
+const MAX_SOFT_EV_PCT = 22;
+const SHARP_BOOK_PRIORITY: readonly string[] = [
+  "pinnacle",
+  "betcris",
+  "betonline",
+  "betonlineag",
+];
+
+function isSharpQuoteBook(bookKeyOrLabel?: string | null): boolean {
+  if (!bookKeyOrLabel) return false;
+  const norm = normalizeBookKey(bookKeyOrLabel);
+  if (!norm) return false;
+  return SHARP_BOOK_PRIORITY.some((token) => norm.includes(token));
+}
+
 function computeEdgePts(p: number, decimal: number | null): number | null {
   if (decimal === null || decimal <= 1) return null;
   return Math.round((p - 1 / decimal) * 1000) / 10;
+}
+
+function resolveEventSelectionDeVigProb(
+  ev: ParsedEventQuotes,
+  key: string,
+  nowMs: number,
+): number | null {
+  const parts = key.split("|");
+  if (parts.length !== 3) return null;
+  const [market, normLine, selection] = parts;
+  if (!market || !normLine || !selection) return null;
+
+  let legs: readonly string[] | null = null;
+  let targetProbSum = 1;
+
+  if (market === "1x2") {
+    const hasDraw = ev.bySelectionKey.has("1x2|null|draw");
+    legs = hasDraw
+      ? ["1x2|null|home", "1x2|null|draw", "1x2|null|away"]
+      : ["1x2|null|home", "1x2|null|away"];
+  } else if (market === "double_chance") {
+    legs = ["double_chance|null|1x", "double_chance|null|x2", "double_chance|null|12"];
+    targetProbSum = 2;
+  } else if (market === "dnb") {
+    legs = ["dnb|null|home", "dnb|null|away"];
+  } else if (market === "btts") {
+    legs = ["btts|null|yes", "btts|null|no"];
+  } else if (market === "totals" || market === "corners_total") {
+    if (normLine === "null") return null;
+    legs = [`${market}|${normLine}|over`, `${market}|${normLine}|under`];
+  } else if (market === "spread") {
+    const lineNum = parseStrictFiniteNumber(normLine);
+    if (lineNum === null) return null;
+    const oppLine = lineNum === 0 ? 0 : normalizeSignedZero(-lineNum);
+    if (selection === "home") {
+      legs = [`spread|${lineNum}|home`, `spread|${oppLine}|away`];
+    } else if (selection === "away") {
+      legs = [`spread|${oppLine}|home`, `spread|${lineNum}|away`];
+    }
+  }
+
+  if (!legs) return null;
+  const targetIdx = legs.indexOf(key);
+  if (targetIdx < 0) return null;
+
+  const legBookMaps: Array<Map<string, number>> = [];
+  const bestPerLeg: number[] = [];
+
+  for (const legKey of legs) {
+    const fresh = (ev.bySelectionKey.get(legKey) ?? []).filter(
+      (q) =>
+        Number.isFinite(q.decimal) &&
+        q.decimal >= 1.01 &&
+        isPermittedMarketQuoteBook(q.book, q.bookLabel) &&
+        isMarketFresh(q.capturedAtUtc, nowMs),
+    );
+    if (fresh.length === 0) return null;
+    const map = new Map<string, number>();
+    for (const q of fresh) {
+      const bk = normalizeBookKey(q.book || q.bookLabel);
+      if (bk && !map.has(bk)) map.set(bk, q.decimal);
+    }
+    legBookMaps.push(map);
+    bestPerLeg.push(fresh[0]!.decimal);
+  }
+
+  const firstMap = legBookMaps[0];
+  let companionDecimals: readonly number[] = bestPerLeg;
+  if (firstMap) {
+    const commonBooks: string[] = [];
+    for (const bk of firstMap.keys()) {
+      if (legBookMaps.every((m) => m.has(bk))) commonBooks.push(bk);
+    }
+    if (commonBooks.length > 0) {
+      commonBooks.sort((a, b) => {
+        const pa = SHARP_BOOK_PRIORITY.findIndex((t) => a.includes(t));
+        const pb = SHARP_BOOK_PRIORITY.findIndex((t) => b.includes(t));
+        const ra = pa >= 0 ? pa : 99;
+        const rb = pb >= 0 ? pb : 99;
+        if (ra !== rb) return ra - rb;
+        return a.localeCompare(b);
+      });
+      const chosenBook = commonBooks[0]!;
+      companionDecimals = legBookMaps.map((m) => m.get(chosenBook)!);
+    }
+  }
+
+  const devig = computeAdaptiveDeVig(companionDecimals, "auto", targetProbSum);
+  if (!devig) return null;
+  const prob = devig.probs[targetIdx];
+  return typeof prob === "number" && Number.isFinite(prob) ? prob : null;
+}
+
+function computeGuardedEdgePts(
+  p: number,
+  decimal: number | null,
+  bookKeyOrLabel: string | null | undefined,
+  deVigMarketProb: number | null,
+): number | null {
+  if (decimal === null || !Number.isFinite(decimal) || decimal <= 1) return null;
+  if (
+    deVigMarketProb !== null &&
+    Number.isFinite(deVigMarketProb) &&
+    Math.abs(p - deVigMarketProb) > MAX_DEVIG_PROB_DIVERGENCE
+  ) {
+    return null;
+  }
+  const evPct = (p * decimal - 1) * 100;
+  const evLimit = isSharpQuoteBook(bookKeyOrLabel) ? MAX_SHARP_EV_PCT : MAX_SOFT_EV_PCT;
+  if (evPct > evLimit) return null;
+  return computeEdgePts(p, decimal);
 }
 
 function enrichPickWithQuotes(
@@ -969,10 +1098,17 @@ function enrichPickWithQuotes(
     mergedQuotes = finalizeBookQuoteList(quotes);
   }
 
+  const deVigMarketProb = resolveEventSelectionDeVigProb(ev, key, nowMs);
   const top = mergedQuotes[0]!;
   if (existingMarketAllowed && pick.marketDecimal !== null) {
     return {
       ...pick,
+      edgePts: computeGuardedEdgePts(
+        pick.p,
+        pick.marketDecimal,
+        pick.marketBookLabel,
+        deVigMarketProb,
+      ),
       bookQuotes: mergedQuotes,
     };
   }
@@ -984,7 +1120,12 @@ function enrichPickWithQuotes(
     marketAmerican: decimalToAmericanInt(roundedDec),
     marketBookLabel: top.bookLabel,
     marketCapturedAtUtc: top.capturedAtUtc,
-    edgePts: computeEdgePts(pick.p, roundedDec),
+    edgePts: computeGuardedEdgePts(
+      pick.p,
+      roundedDec,
+      top.book || top.bookLabel,
+      deVigMarketProb,
+    ),
     bookQuotes: mergedQuotes,
   };
 }
@@ -1015,6 +1156,7 @@ export function enrichMarketRowsWithBookQuotes(
     );
     if (quotes.length === 0) return row;
 
+    const deVigMarketProb = resolveEventSelectionDeVigProb(ev, key, nowMs);
     const top = quotes[0]!;
     const refQuote = quotes.find((q) => q.openingDecimal != null || q.movementDirection != null) ?? top;
     const derivedOpen =
@@ -1027,6 +1169,15 @@ export function enrichMarketRowsWithBookQuotes(
         ...row,
         openDecimal: derivedOpen,
         ...(derivedMovement ? { movementDirection: derivedMovement } : {}),
+        edgePts:
+          row.edgePts !== null
+            ? computeGuardedEdgePts(
+                row.p,
+                row.currentDecimal,
+                row.quoteBookLabel ?? top.bookLabel,
+                deVigMarketProb,
+              )
+            : null,
         bookQuotes: quotes,
       };
     }
@@ -1039,7 +1190,12 @@ export function enrichMarketRowsWithBookQuotes(
       currentDecimal: roundedDec,
       quoteBookLabel: top.bookLabel,
       quoteCapturedAtUtc: top.capturedAtUtc,
-      edgePts: computeEdgePts(row.p, roundedDec),
+      edgePts: computeGuardedEdgePts(
+        row.p,
+        roundedDec,
+        top.book || top.bookLabel,
+        deVigMarketProb,
+      ),
       bookQuotes: quotes,
     };
   });

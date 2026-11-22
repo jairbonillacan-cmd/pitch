@@ -89,6 +89,56 @@ export function selectPicks(
  * Candidatos a partir de los grupos de mercado publicados. La etiqueta se completa para
  * que el pick se entienda fuera de su tabla («Ambos anotan: Sí», «Más de 44.5 puntos»).
  */
+const TOTAL_UNIT_RE = /\b(goles?|puntos?|carreras?|c[oó]rners?|faltas?|tarjetas?|tiros?|remates?)\b/i;
+
+function inferTotalUnitFromGroup(
+  groupName: string,
+  market: string,
+  line: number | undefined,
+  allGroupNames: string,
+): string {
+  const m = market.toLowerCase();
+  if (m.includes("corner")) return "córners";
+  if (m.includes("foul")) return "faltas";
+  if (m.includes("card") || m.includes("yellow")) return "tarjetas";
+  if (m.includes("shot")) return "tiros";
+  const g = groupName.toLowerCase();
+  if (g.includes("carrera") || g.includes("run")) return "carreras";
+  if (g.includes("gol")) return "goles";
+  if (g.includes("punto") || g.includes("pts")) return "puntos";
+  if (g.includes("córner") || g.includes("corner")) return "córners";
+  if (g.includes("falta")) return "faltas";
+  if (g.includes("tarjeta")) return "tarjetas";
+  if (allGroupNames.includes("carrera") || allGroupNames.includes("run line")) return "carreras";
+  if (
+    allGroupNames.includes("puck") ||
+    allGroupNames.includes("ambos anotan") ||
+    allGroupNames.includes("gol")
+  ) {
+    return "goles";
+  }
+  if (typeof line === "number" && Number.isFinite(line) && line <= 6.5) return "goles";
+  if (typeof line === "number" && Number.isFinite(line) && line <= 14.5) return "carreras";
+  return "puntos";
+}
+
+function normalizeTotalCandidateLabel(
+  label: string,
+  line: number | undefined,
+  unit: string,
+): string {
+  const trimmed = label.trim();
+  if (trimmed === "Más" || trimmed === "Menos") {
+    return line !== undefined && Number.isFinite(line)
+      ? `${trimmed} de ${line} ${unit}`
+      : `${trimmed} ${unit}`;
+  }
+  if (TOTAL_UNIT_RE.test(trimmed)) return trimmed;
+  if (/\d/.test(trimmed)) return `${trimmed} ${unit}`;
+  if (line !== undefined && Number.isFinite(line)) return `${trimmed} ${line} ${unit}`;
+  return `${trimmed} ${unit}`;
+}
+
 export function candidatesFromGroups(
   groups: ReadonlyArray<{
     group: string;
@@ -102,12 +152,25 @@ export function candidatesFromGroups(
     }>;
   }>,
 ): PickCandidate[] {
+  const allGroupNames = groups.map((g) => g.group.toLowerCase()).join(" ");
   return groups.flatMap((group) =>
     group.rows.map((row) => {
       let label = row.label;
-      if (row.market === "btts") label = `Ambos anotan: ${row.label}`;
-      else if (row.market === "totals" && (row.label === "Más" || row.label === "Menos")) {
-        label = `${row.label} de ${row.line} puntos`;
+      const isTotalLike =
+        row.market === "totals" ||
+        row.market === "team_totals" ||
+        row.market.startsWith("totals_") ||
+        row.market === "corners_total" ||
+        row.market === "fouls_total" ||
+        row.market === "cards_total" ||
+        row.market === "yellow_total";
+      if (row.market === "btts") {
+        label = row.label.toLowerCase().startsWith("ambos anotan")
+          ? row.label
+          : `Ambos anotan: ${row.label}`;
+      } else if (isTotalLike) {
+        const unit = inferTotalUnitFromGroup(group.group, row.market, row.line, allGroupNames);
+        label = normalizeTotalCandidateLabel(row.label, row.line, unit);
       }
       return {
         market: row.market,

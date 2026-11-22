@@ -130,7 +130,7 @@ export function analyzeFootballGameV2(input: FootballAnalysisInput): GameAnalysi
         {
           market: asMarketKey("totals"),
           selection: "over_1.5",
-          label: "Más de 1.5",
+          label: "Más de 1.5 goles",
           line: 1.5,
           p: over15.over,
           fairOdds: 1 / over15.over,
@@ -138,7 +138,7 @@ export function analyzeFootballGameV2(input: FootballAnalysisInput): GameAnalysi
         {
           market: asMarketKey("totals"),
           selection: "over_2.5",
-          label: "Más de 2.5",
+          label: "Más de 2.5 goles",
           line: 2.5,
           p: over25.over,
           fairOdds: 1 / over25.over,
@@ -146,7 +146,7 @@ export function analyzeFootballGameV2(input: FootballAnalysisInput): GameAnalysi
         {
           market: asMarketKey("totals"),
           selection: "under_2.5",
-          label: "Menos de 2.5",
+          label: "Menos de 2.5 goles",
           line: 2.5,
           p: over25.under,
           fairOdds: 1 / over25.under,
@@ -154,7 +154,7 @@ export function analyzeFootballGameV2(input: FootballAnalysisInput): GameAnalysi
         {
           market: asMarketKey("totals"),
           selection: "over_3.5",
-          label: "Más de 3.5",
+          label: "Más de 3.5 goles",
           line: 3.5,
           p: over35.over,
           fairOdds: 1 / over35.over,
@@ -162,7 +162,7 @@ export function analyzeFootballGameV2(input: FootballAnalysisInput): GameAnalysi
         {
           market: asMarketKey("totals"),
           selection: "under_3.5",
-          label: "Menos de 3.5",
+          label: "Menos de 3.5 goles",
           line: 3.5,
           p: over35.under,
           fairOdds: 1 / over35.under,
@@ -194,7 +194,7 @@ export function analyzeFootballGameV2(input: FootballAnalysisInput): GameAnalysi
         {
           market: asMarketKey("team_totals"),
           selection: "home_over",
-          label: `${game.home.shortName} más de ${prediction.teamTotals.home.line.toFixed(1)}`,
+          label: `${game.home.shortName} más de ${prediction.teamTotals.home.line.toFixed(1)} goles`,
           line: prediction.teamTotals.home.line,
           p: prediction.teamTotals.home.over,
           fairOdds: 1 / prediction.teamTotals.home.over,
@@ -202,7 +202,7 @@ export function analyzeFootballGameV2(input: FootballAnalysisInput): GameAnalysi
         {
           market: asMarketKey("team_totals"),
           selection: "home_under",
-          label: `${game.home.shortName} menos de ${prediction.teamTotals.home.line.toFixed(1)}`,
+          label: `${game.home.shortName} menos de ${prediction.teamTotals.home.line.toFixed(1)} goles`,
           line: prediction.teamTotals.home.line,
           p: prediction.teamTotals.home.under,
           fairOdds: 1 / prediction.teamTotals.home.under,
@@ -210,7 +210,7 @@ export function analyzeFootballGameV2(input: FootballAnalysisInput): GameAnalysi
         {
           market: asMarketKey("team_totals"),
           selection: "away_over",
-          label: `${game.away.shortName} más de ${prediction.teamTotals.away.line.toFixed(1)}`,
+          label: `${game.away.shortName} más de ${prediction.teamTotals.away.line.toFixed(1)} goles`,
           line: prediction.teamTotals.away.line,
           p: prediction.teamTotals.away.over,
           fairOdds: 1 / prediction.teamTotals.away.over,
@@ -218,7 +218,7 @@ export function analyzeFootballGameV2(input: FootballAnalysisInput): GameAnalysi
         {
           market: asMarketKey("team_totals"),
           selection: "away_under",
-          label: `${game.away.shortName} menos de ${prediction.teamTotals.away.line.toFixed(1)}`,
+          label: `${game.away.shortName} menos de ${prediction.teamTotals.away.line.toFixed(1)} goles`,
           line: prediction.teamTotals.away.line,
           p: prediction.teamTotals.away.under,
           fairOdds: 1 / prediction.teamTotals.away.under,
