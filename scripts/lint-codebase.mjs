@@ -116,6 +116,32 @@ const CSS_JANK_BOX_SHADOW_RE =
   /(?<![\w-])transition(?:-property|Property)?\s*:\s*[^;{}]*\bbox-shadow\b/gi;
 const FORBIDDEN_UI_COPY_QUICK_RE = /confianza|datos\s+(?:completos|parciales)/i;
 const FORBIDDEN_UI_COPY_RE = /\bConfianza\s+\d+|\bDatos\s+(?:completos|parciales)\b/gi;
+const FORBIDDEN_MATH_JARGON_QUICK_RE = /fr[eé]chet|armador\s+inteligente\s+geodesic/i;
+const FORBIDDEN_MATH_JARGON_RE =
+  /\bFr[eé]chet[- ]Hoeffding\b|\bArmador\s+Inteligente\s+Geodesic\b/gi;
+const CURVED_ACCENT_QUICK_RE =
+  /pl-sb-rank-cell|pl-st-rank-cell|pl-st-zone-cell|pl-astro-row/;
+const CURVED_ACCENT_SELECTOR_RE =
+  /\.(?:pl-sb-rank-cell|pl-st-rank-cell|pl-st-zone-cell|pl-astro-row)(?![\w-])/;
+const CURVED_ACCENT_PSEUDO_RE = /::?(?:before|after)\b/i;
+const CURVED_ACCENT_BORDER_PROPS = new Set([
+  "border-left",
+  "border-left-width",
+  "border-inline-start",
+  "border-inline-start-width",
+]);
+const CURVED_ACCENT_RADIUS_PROPS = new Set([
+  "border-radius",
+  "border-top-left-radius",
+  "border-bottom-left-radius",
+  "border-start-start-radius",
+  "border-end-start-radius",
+]);
+const CSS_ZERO_LEN_RE = /^0(?:\.0+)?(?:[a-z%]+)?$/;
+const CSS_INACTIVE_BORDER_TOKEN_RE =
+  /^(?:0(?:\.0+)?(?:[a-z%]+)?|none|hidden|initial|unset|revert|revert-layer)$/;
+const CSS_RESET_VALUE_RE = /^(?:none|initial|unset|revert|revert-layer)$/;
+const RAW_SERVER_CONSOLE_RE = /(?<![.\w$])console\s*\.\s*(?:log|info|warn|error)\b/g;
 const MONOLITHIC_USE_PLATFORM_RE = /\busePlatform\s*\(/g;
 const VIEW_USE_EFFECT_RE = /\b(?:React\.)?use(?:Layout)?Effect\s*\(/g;
 const UNSAFE_NUMBER_CAST_RE = /(?<![.\w$])Number\s*\(/g;
@@ -178,6 +204,28 @@ function isViewUseEffectTarget(rel) {
 
 function isApiRouteTarget(rel) {
   return /^apps\/web\/app\/api\/(?:.+\/)?route\.ts$/.test(rel) && !API_WRAPPER_EXEMPTIONS.has(rel);
+}
+
+function isForbiddenMathJargonTarget(rel) {
+  return (
+    (rel.startsWith("packages/ui/src/") || rel.startsWith("apps/web/app/")) &&
+    !isTestPath(rel) &&
+    !isStoryPath(rel) &&
+    !rel.startsWith("apps/web/app/motores/")
+  );
+}
+
+function isCurvedAccentTarget(rel) {
+  return rel.endsWith(".css") && rel.startsWith("apps/web/app/") && !STORYBOOK_CSS_ALLOWLIST.has(rel);
+}
+
+function isRawServerConsoleTarget(rel) {
+  return (
+    isProdScriptExt(rel) &&
+    rel.startsWith("apps/web/src/server/") &&
+    rel !== "apps/web/src/server/safe-logger.ts" &&
+    !isTestPath(rel)
+  );
 }
 
 function isIdentStartCode(c) {
@@ -816,6 +864,245 @@ function collectMatchLines(text, regex, getLineStarts) {
   return matches;
 }
 
+function stripBalancedParens(text) {
+  let out = "";
+  let depth = 0;
+  for (let i = 0; i < text.length; i += 1) {
+    const ch = text[i];
+    if (ch === "(") {
+      depth += 1;
+    } else if (ch === ")") {
+      if (depth > 0) depth -= 1;
+    } else if (depth === 0) {
+      out += ch;
+    }
+  }
+  return out;
+}
+
+function splitTopLevelCommas(selectorText) {
+  const parts = [];
+  let start = 0;
+  let parenDepth = 0;
+  let bracketDepth = 0;
+  for (let i = 0; i < selectorText.length; i += 1) {
+    const ch = selectorText[i];
+    if (ch === "(") {
+      parenDepth += 1;
+    } else if (ch === ")" && parenDepth > 0) {
+      parenDepth -= 1;
+    } else if (ch === "[") {
+      bracketDepth += 1;
+    } else if (ch === "]" && bracketDepth > 0) {
+      bracketDepth -= 1;
+    } else if (ch === "," && parenDepth === 0 && bracketDepth === 0) {
+      const part = selectorText.slice(start, i).trim();
+      if (part.length > 0) parts.push(part);
+      start = i + 1;
+    }
+  }
+  const tail = selectorText.slice(start).trim();
+  if (tail.length > 0) parts.push(tail);
+  return parts;
+}
+
+function extractRightmostCompound(selector) {
+  let parenDepth = 0;
+  let bracketDepth = 0;
+  let i = selector.length - 1;
+  while (i >= 0) {
+    const ch = selector[i];
+    if (ch === ")") {
+      parenDepth += 1;
+    } else if (ch === "(" && parenDepth > 0) {
+      parenDepth -= 1;
+    } else if (ch === "]") {
+      bracketDepth += 1;
+    } else if (ch === "[" && bracketDepth > 0) {
+      bracketDepth -= 1;
+    } else if (
+      parenDepth === 0 &&
+      bracketDepth === 0 &&
+      (ch === " " || ch === "\t" || ch === "\n" || ch === "\r" || ch === ">" || ch === "+" || ch === "~")
+    ) {
+      break;
+    }
+    i -= 1;
+  }
+  return selector.slice(i + 1);
+}
+
+function findCurvedAccentSelector(selectorText) {
+  const trimmed = selectorText.trim();
+  if (trimmed.length === 0 || trimmed.startsWith("@")) {
+    return null;
+  }
+  if (!CURVED_ACCENT_QUICK_RE.test(trimmed)) {
+    return null;
+  }
+  for (const part of splitTopLevelCommas(trimmed)) {
+    if (!CURVED_ACCENT_QUICK_RE.test(part)) continue;
+    const subject = extractRightmostCompound(part);
+    if (CURVED_ACCENT_PSEUDO_RE.test(subject)) continue;
+    const match = CURVED_ACCENT_SELECTOR_RE.exec(subject);
+    if (match) {
+      return match[0];
+    }
+  }
+  return null;
+}
+
+function isActiveLeftBorderValue(rawValue) {
+  const cleaned = rawValue.replace(/!\s*important\s*$/i, "").trim().toLowerCase();
+  if (cleaned.length === 0) return false;
+  const tokens = stripBalancedParens(cleaned)
+    .split(/\s+/)
+    .filter((token) => token.length > 0);
+  if (tokens.length === 0) return false;
+  return !tokens.some((token) => CSS_INACTIVE_BORDER_TOKEN_RE.test(token));
+}
+
+function isActiveBorderRadiusValue(rawValue) {
+  const cleaned = rawValue.replace(/!\s*important\s*$/i, "").trim().toLowerCase();
+  if (cleaned.length === 0 || CSS_RESET_VALUE_RE.test(cleaned)) return false;
+  const tokens = stripBalancedParens(cleaned)
+    .split(/[\s/]+/)
+    .filter((token) => token.length > 0);
+  if (tokens.length === 0) return false;
+  return tokens.some((token) => !CSS_ZERO_LEN_RE.test(token));
+}
+
+function findParentStyleSelector(stack) {
+  for (let i = stack.length - 1; i >= 0; i -= 1) {
+    const sel = stack[i].selector;
+    if (sel.length > 0 && !sel.startsWith("@")) {
+      return sel;
+    }
+  }
+  return null;
+}
+
+function resolveNestedSelector(rawSelector, stack) {
+  if (!rawSelector.includes("&")) {
+    return rawSelector;
+  }
+  const parentSel = findParentStyleSelector(stack);
+  if (!parentSel) {
+    return rawSelector;
+  }
+  const parentParts = splitTopLevelCommas(parentSel);
+  const childParts = splitTopLevelCommas(rawSelector);
+  const resolved = [];
+  for (const parentPart of parentParts) {
+    for (const childPart of childParts) {
+      resolved.push(childPart.replace(/&/g, parentPart));
+    }
+  }
+  return resolved.join(", ");
+}
+
+function evaluateCurvedAccentBlock(block) {
+  const matchedSelector = findCurvedAccentSelector(block.selector);
+  if (!matchedSelector) return null;
+
+  const activeBorderProps = new Set();
+  const activeRadiusProps = new Set();
+
+  for (const decl of block.ownDecls) {
+    const colonIdx = decl.indexOf(":");
+    if (colonIdx === -1) continue;
+    const prop = decl.slice(0, colonIdx).trim().toLowerCase();
+    const val = decl.slice(colonIdx + 1);
+
+    if (prop === "border") {
+      if (!isActiveLeftBorderValue(val)) {
+        activeBorderProps.clear();
+      }
+      continue;
+    }
+
+    if (CURVED_ACCENT_BORDER_PROPS.has(prop)) {
+      if (isActiveLeftBorderValue(val)) {
+        activeBorderProps.add(prop);
+      } else {
+        activeBorderProps.delete(prop);
+        if (prop === "border-left") activeBorderProps.delete("border-left-width");
+        if (prop === "border-inline-start") activeBorderProps.delete("border-inline-start-width");
+      }
+      continue;
+    }
+
+    if (CURVED_ACCENT_RADIUS_PROPS.has(prop)) {
+      if (isActiveBorderRadiusValue(val)) {
+        activeRadiusProps.add(prop);
+      } else if (prop === "border-radius") {
+        activeRadiusProps.clear();
+      } else {
+        activeRadiusProps.delete(prop);
+      }
+    }
+  }
+
+  if (activeBorderProps.size > 0 && activeRadiusProps.size > 0) {
+    return {
+      offset: block.selectorOffset,
+      value: matchedSelector,
+    };
+  }
+  return null;
+}
+
+function collectCurvedAccentSlopHits(codeOnly, getLineStarts) {
+  const hits = [];
+  const stack = [];
+  const len = codeOnly.length;
+  let tokenStart = 0;
+
+  for (let i = 0; i < len; i += 1) {
+    const c = codeOnly.charCodeAt(i);
+    if (c === 123) {
+      const rawPrelude = codeOnly.slice(tokenStart, i);
+      const leadingWs = rawPrelude.length - rawPrelude.trimStart().length;
+      const selectorOffset = tokenStart + leadingWs;
+      const rawSelector = rawPrelude.trim();
+      const selector = resolveNestedSelector(rawSelector, stack);
+      stack.push({ selector, selectorOffset, ownDecls: [] });
+      tokenStart = i + 1;
+      continue;
+    }
+    if (c === 59) {
+      if (stack.length > 0) {
+        const decl = codeOnly.slice(tokenStart, i).trim();
+        if (decl.length > 0 && !decl.startsWith("@")) {
+          stack[stack.length - 1].ownDecls.push(decl);
+        }
+      }
+      tokenStart = i + 1;
+      continue;
+    }
+    if (c === 125) {
+      if (stack.length > 0) {
+        const tailDecl = codeOnly.slice(tokenStart, i).trim();
+        const block = stack.pop();
+        if (tailDecl.length > 0 && !tailDecl.startsWith("@")) {
+          block.ownDecls.push(tailDecl);
+        }
+        const hit = evaluateCurvedAccentBlock(block);
+        if (hit) {
+          hits.push({
+            line: lineAtOffset(getLineStarts(), hit.offset),
+            value: hit.value,
+          });
+        }
+      }
+      tokenStart = i + 1;
+    }
+  }
+
+  hits.sort((a, b) => a.line - b.line);
+  return hits;
+}
+
 function emptyBaseline() {
   const rules = {};
   for (const rule of RATCHET_RULES) {
@@ -1053,6 +1340,58 @@ function evaluateFile(rel, content) {
           `Copy editorial prohibido (${hit.value}) en interfaz`,
           "Oculta la calibración probabilística real y viola el diseño plano editorial de ADR-054",
           "probabilidad calibrada Spacetime, momio justo (fairOdds) y evidencia verificable en MatchPicksEvidenceBoard",
+        ),
+      );
+    }
+  }
+
+  if (
+    isForbiddenMathJargonTarget(rel) &&
+    FORBIDDEN_MATH_JARGON_QUICK_RE.test(scanned.codeWithoutComments)
+  ) {
+    for (const hit of collectMatchLines(
+      scanned.codeWithoutComments,
+      FORBIDDEN_MATH_JARGON_RE,
+      getLineStarts,
+    )) {
+      immediateErrors.push(
+        formatDiagnostic(
+          "no-forbidden-math-jargon",
+          rel,
+          hit.line,
+          `Jerga matemática o interna prohibida (${hit.value}) en interfaz`,
+          "Expone terminología académica o nombres internos erradicados del copy visible (Ola 7 / ADR-061)",
+          "lenguaje editorial claro orientado al usuario (Armador de Parlays, límite de correlación o Motor Spacetime)",
+        ),
+      );
+    }
+  }
+
+  if (isCurvedAccentTarget(rel) && CURVED_ACCENT_QUICK_RE.test(scanned.codeOnly)) {
+    for (const hit of collectCurvedAccentSlopHits(scanned.codeOnly, getLineStarts)) {
+      immediateErrors.push(
+        formatDiagnostic(
+          "no-curved-accent-slop",
+          rel,
+          hit.line,
+          `Borde curvo de acento detectado en ${hit.value} (border-left/border-inline-start + border-radius)`,
+          "Genera artefactos visuales curvos en filas o celdas de ranking (Ola 7 / ADR-060)",
+          "barra vertical recta de 3px en pseudo-elemento ::before con border-radius: 0 en la celda",
+        ),
+      );
+    }
+  }
+
+  if (isRawServerConsoleTarget(rel) && scanned.codeOnly.includes("console")) {
+    for (const hit of collectMatchLines(scanned.codeOnly, RAW_SERVER_CONSOLE_RE, getLineStarts)) {
+      immediateErrors.push(
+        formatDiagnostic(
+          "no-raw-server-console",
+          rel,
+          hit.line,
+          `Llamada cruda a ${hit.value} en módulo de servidor`,
+          "Puede filtrar PII, tokens o credenciales sin redacción en logs y viola ADR-057/ADR-061",
+          "logSecurityEvent de apps/web/src/server/safe-logger.ts",
         ),
       );
     }

@@ -505,6 +505,166 @@ test("ratchet baseline y --strict-files aplican 0 en nuevos/estrictos para regla
   }
 });
 
+test("no-forbidden-math-jargon bloquea jerga interna/académica en UI y excluye motores, tests, stories y comentarios", async () => {
+  const rootDir = createTempWorkspace({
+    "packages/ui/src/ParlayCard.tsx": [
+      'export const title = "Armador Inteligente Geodesic";',
+      "export const Note = () => <span>Acotado por Fréchet-Hoeffding</span>;",
+    ].join("\n"),
+    "apps/web/app/parlays/Panel.tsx": 'export const bound = "Frechet Hoeffding aplicado";\n',
+    "packages/ui/src/platform/bet-math.ts": [
+      `${LINE_CMT} cota matemática Fréchet-Hoeffding solo en comentario`,
+      "export const sanitize = /\\b(?:fr[eé]chet[\\s-]+hoeffding|armador\\s+inteligente)\\b/i;",
+    ].join("\n"),
+    "apps/web/app/motores/page.tsx": [
+      'export const docA = "Cota Fréchet-Hoeffding documentada en /motores";',
+      'export const docB = "Histórico Armador Inteligente Geodesic";',
+    ].join("\n"),
+    "packages/ui/src/ParlayCard.test.tsx": 'export const t = "Fréchet-Hoeffding y Armador Inteligente Geodesic";\n',
+    "packages/ui/src/ParlayCard.stories.tsx": 'export const s = "Armador Inteligente Geodesic";\n',
+  });
+  try {
+    const result = await runLint({ rootDir });
+    assert.equal(result.ok, false);
+    const jargonErrors = result.errors.filter((e) => e.startsWith("[no-forbidden-math-jargon]"));
+    assert.equal(jargonErrors.length, 3);
+    assertInstructiveDiagnostic(
+      jargonErrors[0],
+      "no-forbidden-math-jargon",
+      "apps/web/app/parlays/Panel.tsx",
+      1,
+    );
+    assertInstructiveDiagnostic(
+      jargonErrors[1],
+      "no-forbidden-math-jargon",
+      "packages/ui/src/ParlayCard.tsx",
+      1,
+    );
+    assertInstructiveDiagnostic(
+      jargonErrors[2],
+      "no-forbidden-math-jargon",
+      "packages/ui/src/ParlayCard.tsx",
+      2,
+    );
+  } finally {
+    rmSync(rootDir, { recursive: true, force: true });
+  }
+});
+
+test("no-curved-accent-slop detecta border-left/border-inline-start con border-radius en celdas/filas conocidas y respeta ::before y ceros", async () => {
+  const rootDir = createTempWorkspace({
+    "apps/web/app/bad-curved.css": [
+      "@layer components {",
+      "  .pl-sb-rank-cell.is-zone-ucl {",
+      "    border-left: 3px solid var(--pl-success);",
+      "    border-radius: 6px;",
+      "  }",
+      "  .pl-lh-shell .pl-st-rank-cell {",
+      "    border-inline-start: 3px solid var(--pl-brand);",
+      "    border-start-start-radius: 8px;",
+      "  }",
+      "  .pl-st-zone-cell {",
+      "    border-radius: var(--pl-radius-sm);",
+      "    border-left-width: 3px;",
+      "  }",
+      "  .pl-astro-row {",
+      "    &.is-live {",
+      "      border-inline-start: 3px solid var(--pl-danger);",
+      "      border-radius: 14px;",
+      "    }",
+      "  }",
+      "}",
+    ].join("\n"),
+    "apps/web/app/good-straight.css": [
+      "@layer components {",
+      "  .pl-sb-rank-cell {",
+      "    border-left: 3px solid var(--pl-success);",
+      "    border-radius: 0;",
+      "  }",
+      '  .pl-sb-rank-cell[class*="is-zone-"]::before {',
+      "    border-inline-start: 3px solid Highlight;",
+      "    border-radius: 1.5px;",
+      "  }",
+      "  .pl-astro-row {",
+      "    border: 1px solid var(--pl-border);",
+      "    border-inline-start: 0;",
+      "    border-radius: 16px;",
+      "  }",
+      "  .pl-astro-row-body {",
+      "    border-left: 3px solid var(--pl-brand);",
+      "    border-radius: 8px;",
+      "  }",
+      "  .pl-astro-row .pl-child {",
+      "    border-left: 3px solid var(--pl-brand);",
+      "    border-radius: 8px;",
+      "  }",
+      "}",
+    ].join("\n"),
+    "apps/web/app/legacy-d1-storybook.css": [
+      ".pl-sb-rank-cell {",
+      "  border-left: 3px solid var(--pl-success);",
+      "  border-radius: 6px;",
+      "}",
+    ].join("\n"),
+  });
+  try {
+    const result = await runLint({ rootDir });
+    assert.equal(result.ok, false);
+    assert.equal(result.errors.length, 4);
+    assertInstructiveDiagnostic(result.errors[0], "no-curved-accent-slop", "apps/web/app/bad-curved.css", 2);
+    assertInstructiveDiagnostic(result.errors[1], "no-curved-accent-slop", "apps/web/app/bad-curved.css", 6);
+    assertInstructiveDiagnostic(result.errors[2], "no-curved-accent-slop", "apps/web/app/bad-curved.css", 10);
+    assertInstructiveDiagnostic(result.errors[3], "no-curved-accent-slop", "apps/web/app/bad-curved.css", 15);
+  } finally {
+    rmSync(rootDir, { recursive: true, force: true });
+  }
+});
+
+test("no-raw-server-console bloquea console.(log|info|warn|error) en apps/web/src/server/ excepto safe-logger.ts", async () => {
+  const rootDir = createTempWorkspace({
+    "apps/web/src/server/alerts.ts": [
+      'export function run(err: unknown) {',
+      '  console.log("debug");',
+      '  console.info("info");',
+      '  console.warn("warn", err);',
+      '  return Promise.reject(err).catch(console.error);',
+      "}",
+    ].join("\n"),
+    "apps/web/src/server/billing/checkout.ts": 'export const logCheckout = () => console.error("fail");\n',
+    "apps/web/src/server/safe-logger.ts": [
+      "export function emit(payload: string) {",
+      "  console.error(payload);",
+      "  console.warn(payload);",
+      "  console.info(payload);",
+      "}",
+    ].join("\n"),
+    "apps/web/src/server/clean.ts": [
+      'export const doc = "console.error(no-ejecutable)";',
+      "export const custom = (obj: { console: { warn: (v: string) => void } }) => obj.console.warn('ok');",
+    ].join("\n"),
+    "apps/web/src/server/alerts.test.ts": 'export const t = () => console.error("test");\n',
+    "apps/web/src/client/debug.ts": 'export const c = () => console.warn("client");\n',
+  });
+  try {
+    const result = await runLint({ rootDir });
+    assert.equal(result.ok, false);
+    assert.equal(result.errors.length, 5);
+    assertInstructiveDiagnostic(result.errors[0], "no-raw-server-console", "apps/web/src/server/alerts.ts", 2);
+    assertInstructiveDiagnostic(result.errors[1], "no-raw-server-console", "apps/web/src/server/alerts.ts", 3);
+    assertInstructiveDiagnostic(result.errors[2], "no-raw-server-console", "apps/web/src/server/alerts.ts", 4);
+    assertInstructiveDiagnostic(result.errors[3], "no-raw-server-console", "apps/web/src/server/alerts.ts", 5);
+    assertInstructiveDiagnostic(
+      result.errors[4],
+      "no-raw-server-console",
+      "apps/web/src/server/billing/checkout.ts",
+      1,
+    );
+    assert.match(result.errors[0], /logSecurityEvent/);
+  } finally {
+    rmSync(rootDir, { recursive: true, force: true });
+  }
+});
+
 test("el propio scripts/lint-codebase.mjs pasa en modo --strict-files con cero deuda y los tests tienen cero comentarios", () => {
   const selfCheck = runCli(["--strict-files", "scripts/lint-codebase.mjs"]);
   assert.equal(selfCheck.status, 0, selfCheck.stderr);
