@@ -349,8 +349,9 @@ describe("match-enrichment server module", () => {
       awaySquad,
       sanitizePhotoKey: sanitize,
     });
-    expect(memberPlayerPicks.length).toBe(2);
-    expect(memberPlayerPicks[0]?.photoKey).toBe("pl-p:7");
+    expect(memberPlayerPicks.length).toBe(4);
+    expect(memberPlayerPicks.some((p) => p.photoKey === "pl-p:7" && p.marketKey === "player_sot")).toBe(true);
+    expect(memberPlayerPicks.some((p) => p.photoKey === "pl-p:1" && p.marketKey === "player_saves")).toBe(true);
 
     const injuries = buildEnrichedMatchInjuries({
       game,
