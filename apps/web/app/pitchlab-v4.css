@@ -16315,7 +16315,6 @@ html[data-theme="light"] .pl-clean-hero-light img {
 
 @starting-style {
   .pl-toast-item {
-    opacity: 0;
     translate: 0 -10px;
   }
 }

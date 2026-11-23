@@ -702,7 +702,7 @@ export function MatchStudioClubView({
                               if (debateError) setDebateError("");
                             }}
                             placeholder="¿Qué ves en este partido?"
-                            className="glass-input w-full p-2.5 text-xs resize-none"
+                            className="glass-input w-full p-2.5 text-base sm:text-xs resize-none"
                           />
                           {debateError ? (
                             <p
