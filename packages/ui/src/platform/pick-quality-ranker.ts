@@ -182,25 +182,35 @@ export function partitionPlayableAndConservative<
     readonly label?: string | null;
     readonly decimal?: number | null;
     readonly evPct?: number | null;
+    readonly isSettled?: boolean;
+    readonly gameStatus?: string | null;
   },
->(items: readonly T[]): {
+>(
+  items: readonly T[],
+  options?: { readonly preserveAll?: boolean },
+): {
   readonly playable: readonly T[];
   readonly conservative: readonly T[];
 } {
+  if (options?.preserveAll === true) {
+    return { playable: items, conservative: [] };
+  }
   const playable: T[] = [];
   const conservative: T[] = [];
   for (const item of items) {
     if (
-      isConservativeChalkPick(
+      item.isSettled === true ||
+      item.gameStatus === "FT" ||
+      !isConservativeChalkPick(
         item.market,
         item.label,
         item.decimal,
         item.evPct,
       )
     ) {
-      conservative.push(item);
-    } else {
       playable.push(item);
+    } else {
+      conservative.push(item);
     }
   }
   if (playable.length === 0) {

@@ -395,15 +395,16 @@ export function MatchPicksEvidenceBoard({
     });
   }, [enriched, marketFilter, onlyValue, sortBy]);
 
+  const isMatchFinished = game.status === "FT";
   const partitionedFiltered = useMemo<{
     readonly playable: readonly ResolvedEvidenceItem[];
     readonly conservative: readonly ResolvedEvidenceItem[];
   }>(
     () =>
       marketFilter === "all"
-        ? partitionPlayableAndConservative(filtered)
+        ? partitionPlayableAndConservative(filtered, { preserveAll: isMatchFinished })
         : { playable: filtered, conservative: [] },
-    [filtered, marketFilter],
+    [filtered, isMatchFinished, marketFilter],
   );
 
   const grouped = useMemo(() => {
@@ -742,6 +743,7 @@ export function MatchPicksEvidenceBoard({
             <details
               className="pl-ev-conservative-details"
               data-ev-conservative-picks=""
+              open={isMatchFinished || undefined}
             >
               <summary className="pl-ev-conservative-summary">
                 <span>Conservadores / para combinar</span>

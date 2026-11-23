@@ -1,5 +1,6 @@
 import { describe, expect, it } from "vitest";
 import { asLeagueId, asTeamId, type SquadPlayerEntry, type TeamSquadEntry } from "@pitchlab/contracts";
+import type { MatchPicksCatalog } from "@pitchlab/ui/picks-catalog";
 import type { PlatformGame } from "@pitchlab/ui/types";
 import {
   buildEnrichedMatchInjuries,
@@ -7,6 +8,10 @@ import {
   buildMatchEnfrentamientos,
   buildMatchPlayerPicks,
 } from "../src/server/match-enrichment";
+import {
+  loadGamePreviewPayload,
+  loadInitialShellDatasetForAccess,
+} from "../src/server/platform-data";
 
 function makePlayer(
   id: string,
@@ -136,7 +141,7 @@ function makeSquad(teamSlug: string, teamName: string, extra?: Partial<TeamSquad
   };
 }
 
-function makeGame(): PlatformGame {
+function makeGame(overrides: Partial<PlatformGame> = {}): PlatformGame {
   return {
     id: "laliga-2026-barcelona-real-madrid",
     league: asLeagueId("laliga"),
@@ -190,6 +195,7 @@ function makeGame(): PlatformGame {
     ],
     updatedAtLabel: "Hoy",
     spacetime: null,
+    ...overrides,
   };
 }
 
@@ -218,60 +224,63 @@ describe("match-enrichment server module", () => {
     expect(lineups?.home.starters[0]?.recentMatches).toHaveLength(1);
   });
 
-  it("calcula Enfrentamientos con rankings reales sin ceros inventados y filtro de competencia", () => {
-    const enf = buildMatchEnfrentamientos({
+  it("calcula Enfrentamientos con rankings reales, control Cero-Fuga en indices ajustados y filtro de competencia", () => {
+    const baseSnapshot = {
+      teamRates: {
+        "laliga.fc-barcelona": {
+          teamId: "laliga.fc-barcelona",
+          name: "FC Barcelona",
+          forPerGame: 2.8,
+          againstPerGame: 0.9,
+          gamesPlayed: 10,
+          adjustedFor: 2.5,
+          adjustedAgainst: 0.95,
+        },
+        "laliga.real-madrid": {
+          teamId: "laliga.real-madrid",
+          name: "Real Madrid",
+          forPerGame: 2.2,
+          againstPerGame: 0.8,
+          gamesPlayed: 10,
+          adjustedFor: 2.1,
+          adjustedAgainst: 0.85,
+        },
+      },
+      standings: [
+        {
+          teamId: "laliga.fc-barcelona",
+          name: "FC Barcelona",
+          shortName: "Barcelona",
+          code: "BAR",
+          played: 10,
+          won: 9,
+          drawn: 0,
+          lost: 1,
+          goalsFor: 28,
+          goalsAgainst: 9,
+          points: 27,
+        },
+        {
+          teamId: "laliga.real-madrid",
+          name: "Real Madrid",
+          shortName: "Real Madrid",
+          code: "RMA",
+          played: 10,
+          won: 8,
+          drawn: 2,
+          lost: 0,
+          goalsFor: 22,
+          goalsAgainst: 8,
+          points: 26,
+        },
+      ],
+    };
+
+    const enfMember = buildMatchEnfrentamientos({
       game,
       leagueLabel: "LaLiga",
-      snapshot: {
-        teamRates: {
-          "laliga.fc-barcelona": {
-            teamId: "laliga.fc-barcelona",
-            name: "FC Barcelona",
-            forPerGame: 2.8,
-            againstPerGame: 0.9,
-            gamesPlayed: 10,
-            adjustedFor: 2.5,
-            adjustedAgainst: 0.95,
-          },
-          "laliga.real-madrid": {
-            teamId: "laliga.real-madrid",
-            name: "Real Madrid",
-            forPerGame: 2.2,
-            againstPerGame: 0.8,
-            gamesPlayed: 10,
-            adjustedFor: 2.1,
-            adjustedAgainst: 0.85,
-          },
-        },
-        standings: [
-          {
-            teamId: "laliga.fc-barcelona",
-            name: "FC Barcelona",
-            shortName: "Barcelona",
-            code: "BAR",
-            played: 10,
-            won: 9,
-            drawn: 0,
-            lost: 1,
-            goalsFor: 28,
-            goalsAgainst: 9,
-            points: 27,
-          },
-          {
-            teamId: "laliga.real-madrid",
-            name: "Real Madrid",
-            shortName: "Real Madrid",
-            code: "RMA",
-            played: 10,
-            won: 8,
-            drawn: 2,
-            lost: 0,
-            goalsFor: 22,
-            goalsAgainst: 8,
-            points: 26,
-          },
-        ],
-      },
+      allowFull: true,
+      snapshot: baseSnapshot,
       homeHistory: [
         {
           id: "h1",
@@ -299,13 +308,26 @@ describe("match-enrichment server module", () => {
       awayHistory: [],
     });
 
-    expect(enf.rankings?.leagueSize).toBe(2);
-    expect(enf.rankings?.attack[0]?.homeRank).toBe(1);
-    expect(enf.rankings?.defense[0]?.awayRank).toBe(1);
-    expect(enf.homeRecent[0]?.isSameCompetition).toBe(true);
-    expect(enf.homeRecent[1]?.isSameCompetition).toBe(false);
-    expect(enf.h2h).toHaveLength(1);
-    expect(enf.h2h[0]?.homeScore).toBe(2);
+    expect(enfMember.rankings?.leagueSize).toBe(2);
+    expect(enfMember.rankings?.attack[0]?.homeRank).toBe(1);
+    expect(enfMember.rankings?.defense[0]?.awayRank).toBe(1);
+    expect(enfMember.rankings?.attack.some((r) => r.key === "adjusted_offense")).toBe(true);
+    expect(enfMember.homeRecent[0]?.isSameCompetition).toBe(true);
+    expect(enfMember.homeRecent[1]?.isSameCompetition).toBe(false);
+    expect(enfMember.h2h).toHaveLength(1);
+    expect(enfMember.h2h[0]?.homeScore).toBe(2);
+
+    const enfVisitor = buildMatchEnfrentamientos({
+      game,
+      leagueLabel: "LaLiga",
+      allowFull: false,
+      snapshot: baseSnapshot,
+      homeHistory: [],
+      awayHistory: [],
+    });
+    expect(enfVisitor.rankings?.attack.some((r) => r.key === "for_per_game")).toBe(true);
+    expect(enfVisitor.rankings?.attack.some((r) => r.key === "adjusted_offense")).toBe(false);
+    expect(enfVisitor.rankings?.defense.some((r) => r.key === "adjusted_defense")).toBe(false);
   });
 
   it("aplica Cero-Fuga en picks de jugadores y fusiona lesiones de plantilla sin duplicados", () => {
@@ -354,5 +376,349 @@ describe("match-enrichment server module", () => {
     expect(barcelonaInjuries).toHaveLength(1);
     expect(barcelonaInjuries[0]?.photoKey).toBe("pl-p:19");
     expect(barcelonaInjuries[0]?.expectedReturn).toBe("2026-12-05");
+  });
+
+  it("blinda FD-16, casas permitidas, Anti-EV, muestra >= 45 min y unidades obligatorias en picks", () => {
+    const toxicSquad = makeSquad("fc-barcelona", "Barcelona", {
+      players: [
+        makePlayer("77", "Low Minutes FWD", "FWD", {
+          recentGames: [
+            {
+              dateIso: "2026-11-15",
+              opponent: "Rival",
+              isHome: true,
+              score: "1-0",
+              result: "W",
+              stats: [{ label: "MIN", value: "24" }],
+            },
+          ],
+          candidatePicks: [
+            {
+              id: "low-min-pick",
+              marketKey: "player_sot",
+              marketLabel: "Tiros a puerta",
+              selectionLabel: "Más de 0.5 tiros a puerta",
+              line: 0.5,
+              projectionMean: 0.7,
+              projectionSd: 0.5,
+              p: 0.6,
+              fairDecimal: 1.67,
+              fairAmerican: -149,
+              rationale: "Poca muestra real.",
+            },
+          ],
+        }),
+        makePlayer("78", "Good FWD", "FWD", {
+          candidatePicks: [
+            {
+              id: "unitless-pick",
+              marketKey: "player_sot",
+              marketLabel: "Tiros",
+              selectionLabel: "Más de 1.5",
+              line: 1.5,
+              projectionMean: 1.8,
+              projectionSd: 1.0,
+              p: 0.58,
+              fairDecimal: 1.72,
+              fairAmerican: -139,
+              rationale: "Sin unidad explícita.",
+            },
+            {
+              id: "valid-pick",
+              marketKey: "player_sot",
+              marketLabel: "Tiros a puerta",
+              selectionLabel: "Más de 1.5 tiros a puerta",
+              line: 1.5,
+              projectionMean: 1.9,
+              projectionSd: 1.0,
+              p: 0.6,
+              fairDecimal: 1.67,
+              fairAmerican: -149,
+              rationale: "7 tiros en 5 partidos.",
+            },
+          ],
+        }),
+      ],
+    });
+
+    const catalog: MatchPicksCatalog = {
+      gameId: game.id,
+      league: asLeagueId("laliga"),
+      sport: "football",
+      gameStatus: "NS",
+      generatedAtUtc: "2026-11-22T12:00:00Z",
+      engineVersion: "spacetime-v5.1",
+      isRedactedForVisitor: false,
+      totalPicks: 2,
+      availableFamilies: ["player_props_football"],
+      familyCounts: { player_props_football: 2 },
+      picks: [
+        {
+          id: "cat-blocked-book",
+          gameId: game.id,
+          league: asLeagueId("laliga"),
+          leagueLabel: "LaLiga",
+          sport: "football",
+          matchLabel: "Barcelona vs Real Madrid",
+          kickoffUtc: "2026-11-22T20:00:00Z",
+          kickoffLocal: "14:00",
+          gameStatus: "NS",
+          family: "player_props_football",
+          familyLabel: "Tiros a puerta",
+          category: "player_props",
+          axis: "player_prop",
+          direction: "over",
+          line: 0.5,
+          label: "Más de 0.5 tiros a puerta",
+          selectionKey: "player_sot:good-fwd:0.5",
+          conflictGroup: "independent",
+          settlement: "pending",
+          engineName: "PitchLab Tachyon v5.1",
+          isPrimaryModelPick: false,
+          isDerived: true,
+          recommendationScore: 70,
+          isRedacted: false,
+          pricing: {
+            p: 0.58,
+            fairOdds: 1.72,
+            fairAmerican: -139,
+            marketDecimal: 2.2,
+            marketAmerican: 120,
+            marketBookLabel: "Betfair",
+            marketCapturedAtUtc: "2026-11-22T12:00:00Z",
+            deVigMarketProb: 0.5,
+            deVigMethod: "proportional",
+            overroundPct: 4.5,
+            evPct: 27.6,
+            edgePts: 12.5,
+            noVigEdgePts: 8.0,
+            valueLabel: "Valor",
+            hasPositiveValue: true,
+          },
+          evidence: {
+            windows: [],
+            xgSignal: null,
+            refereeSignal: null,
+            bullets: [{ label: "Datos Bzzoiro internos", ratePct: 80, tone: "high" }],
+            avgObservedRatePct: 80,
+          },
+          playerMeta: {
+            playerName: "Good FWD",
+            playerSlug: "good-fwd",
+            teamSide: "home",
+            teamName: "FC Barcelona",
+            teamSlug: "fc-barcelona",
+            position: "FWD",
+            statKey: "shots_on_target",
+            statLabel: "Tiros a puerta",
+            minMinutesGuard: 45,
+            qualifyingMatches: 5,
+            avgMinutes: 78,
+            lineupStatus: "probable",
+            projectionMean: 1.1,
+            projectionSd: 0.8,
+          },
+        },
+        {
+          id: "cat-inflated-sharp-ev",
+          gameId: game.id,
+          league: asLeagueId("laliga"),
+          leagueLabel: "LaLiga",
+          sport: "football",
+          matchLabel: "Barcelona vs Real Madrid",
+          kickoffUtc: "2026-11-22T20:00:00Z",
+          kickoffLocal: "14:00",
+          gameStatus: "NS",
+          family: "player_props_football",
+          familyLabel: "Tiros totales",
+          category: "player_props",
+          axis: "player_prop",
+          direction: "over",
+          line: 2.5,
+          label: "Más de 2.5 tiros",
+          selectionKey: "player_shots:good-fwd:2.5",
+          conflictGroup: "independent",
+          settlement: "pending",
+          engineName: "PitchLab Tachyon v5.1",
+          isPrimaryModelPick: false,
+          isDerived: true,
+          recommendationScore: 70,
+          isRedacted: false,
+          pricing: {
+            p: 0.62,
+            fairOdds: 1.61,
+            fairAmerican: -164,
+            marketDecimal: 1.98,
+            marketAmerican: -102,
+            marketBookLabel: "Pinnacle",
+            marketCapturedAtUtc: "2026-11-22T12:00:00Z",
+            deVigMarketProb: 0.52,
+            deVigMethod: "proportional",
+            overroundPct: 2.5,
+            evPct: 22.8,
+            edgePts: 11.4,
+            noVigEdgePts: 10.0,
+            valueLabel: "Valor",
+            hasPositiveValue: true,
+          },
+          evidence: {
+            windows: [],
+            xgSignal: null,
+            refereeSignal: null,
+            bullets: [{ label: "6/8 últimos partidos", ratePct: 75, tone: "high" }],
+            avgObservedRatePct: 75,
+          },
+          playerMeta: {
+            playerName: "Good FWD",
+            playerSlug: "good-fwd",
+            teamSide: "home",
+            teamName: "FC Barcelona",
+            teamSlug: "fc-barcelona",
+            position: "FWD",
+            statKey: "shots",
+            statLabel: "Tiros totales",
+            minMinutesGuard: 45,
+            qualifyingMatches: 5,
+            avgMinutes: 78,
+            lineupStatus: "probable",
+            projectionMean: 2.8,
+            projectionSd: 1.2,
+          },
+        },
+      ],
+    };
+
+    const picks = buildMatchPlayerPicks({
+      game,
+      allowFull: true,
+      catalog,
+      homeSquad: toxicSquad,
+      awaySquad: null,
+      sanitizePhotoKey: sanitize,
+    });
+
+    expect(picks.some((p) => p.playerName === "Low Minutes FWD")).toBe(false);
+    expect(picks.some((p) => p.selectionLabel === "Más de 1.5")).toBe(false);
+    const blockedBookItem = picks.find((p) => p.id === "cat-blocked-book");
+    expect(blockedBookItem?.marketBookLabel).toBeNull();
+    expect(blockedBookItem?.marketDecimal).toBeNull();
+    expect(blockedBookItem?.evPct).toBeNull();
+    expect(blockedBookItem?.evidenceBullets).toEqual([]);
+    const inflatedSharpItem = picks.find((p) => p.id === "cat-inflated-sharp-ev");
+    expect(inflatedSharpItem?.marketBookLabel).toBe("Pinnacle");
+    expect(inflatedSharpItem?.evPct).toBeNull();
+  });
+
+  it("usa unidades multi-deporte exactas y nunca filtra cancha/formacion de futbol a deportes US", () => {
+    const mlbGame = makeGame({
+      id: "mlb-test",
+      league: asLeagueId("mlb"),
+      leagueLabel: "MLB",
+      sport: "baseball",
+    });
+    const nhlGame = makeGame({
+      id: "nhl-test",
+      league: asLeagueId("nhl"),
+      leagueLabel: "NHL",
+      sport: "ice-hockey",
+    });
+    const nbaGame = makeGame({
+      id: "nba-test",
+      league: asLeagueId("nba"),
+      leagueLabel: "NBA",
+      sport: "basketball",
+    });
+
+    const ratesSnapshot = {
+      teamRates: {
+        "laliga.fc-barcelona": {
+          teamId: "laliga.fc-barcelona",
+          name: "FC Barcelona",
+          forPerGame: 4.5,
+          againstPerGame: 3.1,
+          gamesPlayed: 10,
+        },
+        "laliga.real-madrid": {
+          teamId: "laliga.real-madrid",
+          name: "Real Madrid",
+          forPerGame: 3.9,
+          againstPerGame: 3.4,
+          gamesPlayed: 10,
+        },
+      },
+    };
+
+    expect(
+      buildMatchEnfrentamientos({
+        game: mlbGame,
+        leagueLabel: "MLB",
+        snapshot: ratesSnapshot,
+        homeHistory: [],
+        awayHistory: [],
+      }).rankings?.attack[0]?.label,
+    ).toBe("Carreras anotadas / PJ");
+
+    expect(
+      buildMatchEnfrentamientos({
+        game: nhlGame,
+        leagueLabel: "NHL",
+        snapshot: ratesSnapshot,
+        homeHistory: [],
+        awayHistory: [],
+      }).rankings?.attack[0]?.label,
+    ).toBe("Goles anotados / PJ");
+
+    expect(
+      buildMatchEnfrentamientos({
+        game: nbaGame,
+        leagueLabel: "NBA",
+        snapshot: ratesSnapshot,
+        homeHistory: [],
+        awayHistory: [],
+      }).rankings?.attack[0]?.label,
+    ).toBe("Puntos anotados / PJ");
+
+    expect(
+      buildEnrichedMatchLineups({
+        game: nbaGame,
+        homeSquad,
+        awaySquad,
+        confirmedLineups: {
+          status: "confirmed",
+          sourceLabel: "Oficial",
+          verifiedAtUtc: "2026-11-22T12:00:00Z",
+          homeFormation: "4-3-3",
+          homeStarters: [{ name: "Star" }],
+          awayStarters: [{ name: "Star 2" }],
+        },
+        sanitizePhotoKey: sanitize,
+      }),
+    ).toBeNull();
+  });
+
+  it("respeta presupuesto de shell RSC (<= 480 KB) y Cero-Fuga en preview real", async () => {
+    const visitorShell = loadInitialShellDatasetForAccess(false);
+    const memberShell = loadInitialShellDatasetForAccess(true);
+    const visitorBytes = Buffer.byteLength(JSON.stringify(visitorShell), "utf8");
+    const memberBytes = Buffer.byteLength(JSON.stringify(memberShell), "utf8");
+    expect(visitorBytes).toBeLessThanOrEqual(480 * 1024);
+    expect(memberBytes).toBeLessThanOrEqual(480 * 1024);
+
+    const sampleGame = memberShell.games.find((g) => g.league === "laliga" && g.status !== "FT") ?? memberShell.games[0];
+    expect(sampleGame).toBeDefined();
+    if (!sampleGame) return;
+
+    const visitorPreview = await loadGamePreviewPayload(sampleGame.id, false);
+    const memberPreview = await loadGamePreviewPayload(sampleGame.id, true);
+    expect(visitorPreview?.fullAccess).toBe(false);
+    expect(visitorPreview?.detail.markets).toEqual([]);
+    expect(visitorPreview?.detail.playerPicks ?? []).toEqual([]);
+    expect(
+      (visitorPreview?.detail.enfrentamientos?.rankings?.attack ?? []).some(
+        (r) => r.key === "adjusted_offense",
+      ),
+    ).toBe(false);
+    const previewJson = JSON.stringify(memberPreview);
+    expect(previewJson).not.toMatch(/sofascore|a\.espncdn\.com|mlbstatic\.com/i);
   });
 });

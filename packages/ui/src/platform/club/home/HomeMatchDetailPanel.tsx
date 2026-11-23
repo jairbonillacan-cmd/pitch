@@ -1069,8 +1069,11 @@ export function HomeMatchDetailPanel({
     [game, hasFullAccess, preview, viewerRole],
   );
   const partitionedDisplayPicks = useMemo(
-    () => partitionPlayableAndConservative(displayPicks),
-    [displayPicks],
+    () =>
+      partitionPlayableAndConservative(displayPicks, {
+        preserveAll: game.status === "FT",
+      }),
+    [displayPicks, game.status],
   );
 
   const liveProgressBars = useMemo<readonly ComputedLiveBar[]>(() => {
@@ -1896,6 +1899,7 @@ export function HomeMatchDetailPanel({
                     <details
                       className="pl-home-md-conservative-details"
                       data-home-md-conservative-picks=""
+                      open={game.status === "FT" || undefined}
                     >
                       <summary className="pl-home-md-conservative-summary">
                         <span>Conservadores / para combinar</span>

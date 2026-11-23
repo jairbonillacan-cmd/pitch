@@ -1,3 +1,4 @@
+import fc from "fast-check";
 import { describe, expect, it } from "vitest";
 import {
   isConservativeChalkPick,
@@ -65,5 +66,71 @@ describe("pick-quality-ranker (Q2 playable value priority)", () => {
     ]);
     expect(allChalk.playable.map((x) => x.id)).toEqual(["c1"]);
     expect(allChalk.conservative).toEqual([]);
+  });
+
+  it("propiedad fast-check: jamas oculta picks en partidos FT ni picks liquidados", () => {
+    const arbPick = fc.record({
+      id: fc.uuid(),
+      market: fc.constantFrom("btts", "double_chance", "totals_1_5", "1x2", "totals_over_2_5"),
+      label: fc.constantFrom(
+        "Ambos anotan — Sí",
+        "Real Sociedad o empate (X2)",
+        "Más de 1.5 goles",
+        "Gana Barcelona",
+        "Más de 2.5 goles",
+      ),
+      decimal: fc.double({ min: 1.08, max: 4.5, noNaN: true, noDefaultInfinity: true }),
+      evPct: fc.option(fc.double({ min: -8, max: 18, noNaN: true, noDefaultInfinity: true }), {
+        nil: null,
+      }),
+      isSettled: fc.boolean(),
+      gameStatus: fc.constantFrom("NS", "FT"),
+    });
+
+    fc.assert(
+      fc.property(fc.array(arbPick, { minLength: 1, maxLength: 20 }), (picks) => {
+        const preserved = partitionPlayableAndConservative(picks, { preserveAll: true });
+        expect(preserved.conservative).toEqual([]);
+        expect(preserved.playable).toHaveLength(picks.length);
+
+        const regular = partitionPlayableAndConservative(picks);
+        expect(regular.playable.length + regular.conservative.length).toBe(picks.length);
+        for (const hidden of regular.conservative) {
+          expect(hidden.isSettled).toBe(false);
+          expect(hidden.gameStatus).not.toBe("FT");
+        }
+      }),
+      { numRuns: 150 },
+    );
+  });
+
+  it("propiedad fast-check: scorePlayablePick es finito y prefiere rango 1.55-2.60 sobre chalk < 1.45", () => {
+    fc.assert(
+      fc.property(
+        fc.double({ min: 0.4, max: 0.65, noNaN: true, noDefaultInfinity: true }),
+        fc.double({ min: 1.55, max: 2.6, noNaN: true, noDefaultInfinity: true }),
+        fc.double({ min: 1.08, max: 1.4, noNaN: true, noDefaultInfinity: true }),
+        (pVal, playableDec, chalkDec) => {
+          const sPlayable = scorePlayablePick({
+            market: "btts",
+            label: "Ambos anotan — Sí",
+            p: pVal,
+            decimal: playableDec,
+            evPct: 2.5,
+          });
+          const sChalk = scorePlayablePick({
+            market: "double_chance",
+            label: "Equipo o empate (1X)",
+            p: 0.8,
+            decimal: chalkDec,
+            evPct: 0.5,
+          });
+          expect(Number.isFinite(sPlayable)).toBe(true);
+          expect(Number.isFinite(sChalk)).toBe(true);
+          expect(sPlayable).toBeGreaterThan(sChalk);
+        },
+      ),
+      { numRuns: 150 },
+    );
   });
 });

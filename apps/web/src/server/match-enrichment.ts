@@ -1,7 +1,9 @@
 import {
   canonicalPlayerHref,
   cleanTeamRouteSlug,
+  isPermittedMarketQuoteBook,
   isSafePublicLabel,
+  parseStrictFiniteNumber,
   slugifyPlayerName,
   type SquadPlayerEntry,
   type StandingRow,
@@ -140,29 +142,42 @@ function mapSquadPlayerToLineupDetail(params: {
     overridePosition,
   } = params;
   const jerseyNum = overrideJersey ?? parseJerseyNumber(player.jersey);
-  const recentMatches = (player.recentGames ?? []).slice(0, 5).map((rg) => ({
-    dateIso: rg.dateIso,
-    opponent: rg.opponent,
-    score: rg.score ?? null,
-    result: rg.result ?? null,
-    statsSummary: rg.stats
-      .slice(0, 3)
-      .map((st) => `${st.label}: ${st.value}`)
-      .join(" · "),
-  }));
+  const recentMatches = (player.recentGames ?? [])
+    .filter((rg) => isSafePublicLabel(rg.opponent))
+    .slice(0, 5)
+    .map((rg) => ({
+      dateIso: rg.dateIso,
+      opponent: rg.opponent,
+      score: rg.score ?? null,
+      result: rg.result ?? null,
+      statsSummary: rg.stats
+        .filter((st) => isSafePublicLabel(st.label) && isSafePublicLabel(st.value))
+        .slice(0, 3)
+        .map((st) => `${st.label}: ${st.value}`)
+        .join(" · "),
+    }));
+
+  const safePositionRaw = overridePosition ?? player.positionLabel;
+  const safePositionLabel = isSafePublicLabel(safePositionRaw) ? safePositionRaw : "XI";
+  const safeNationality =
+    player.nationality && isSafePublicLabel(player.nationality) ? player.nationality : null;
+  const safeNationalityCode =
+    player.nationalityCode && isSafePublicLabel(player.nationalityCode)
+      ? player.nationalityCode
+      : null;
 
   return {
     id: player.id,
     name: player.name,
-    shortName: player.shortName,
+    shortName: isSafePublicLabel(player.shortName) ? player.shortName : player.name,
     slug: player.slug,
     jersey: jerseyNum !== null ? String(jerseyNum) : player.jersey ?? null,
     positionGroup: player.positionGroup,
-    positionLabel: overridePosition ?? player.positionLabel,
+    positionLabel: safePositionLabel,
     age: player.age ?? null,
     heightCm: player.heightCm ?? null,
-    nationality: player.nationality ?? null,
-    nationalityCode: player.nationalityCode ?? null,
+    nationality: safeNationality,
+    nationalityCode: safeNationalityCode,
     photoKey: sanitizePhotoKey(player.photoKey),
     fallbackPhotoKey: sanitizePhotoKey(player.fallbackPhotoKey),
     rating: null,
@@ -207,6 +222,8 @@ function mapConfirmedStarterToDetail(params: {
     };
   }
 
+  const fallbackPosition =
+    starter.position && isSafePublicLabel(starter.position) ? starter.position : "XI";
   const fallbackSlug = starterSlug || normalizeToken(starter.name).replace(/\s+/g, "-");
   return {
     detail: {
@@ -216,7 +233,7 @@ function mapConfirmedStarterToDetail(params: {
       slug: fallbackSlug,
       jersey: starter.number !== undefined ? String(starter.number) : null,
       positionGroup: "MID",
-      positionLabel: starter.position ?? "XI",
+      positionLabel: fallbackPosition,
       age: null,
       heightCm: null,
       nationality: null,
@@ -267,7 +284,7 @@ function buildLineupSide(params: {
   const coachPhotoKey = sanitizePhotoKey(squad?.coach?.photoKey);
   const coachNationality = squad?.coach?.nationality ?? null;
 
-  const players = squad?.players ?? [];
+  const players = (squad?.players ?? []).filter((p) => isSafePublicLabel(p.name));
   const unavailableEntries = players.filter(
     (p) => p.availability === "injured" || p.availability === "suspended",
   );
@@ -279,7 +296,7 @@ function buildLineupSide(params: {
   const usedIds = new Set<string>();
 
   if (confirmedStarters && confirmedStarters.length > 0) {
-    for (const st of confirmedStarters.slice(0, 11)) {
+    for (const st of confirmedStarters.filter((s) => isSafePublicLabel(s.name)).slice(0, 11)) {
       const mapped = mapConfirmedStarterToDetail({
         league,
         teamSlug: effectiveTeamSlug,
@@ -370,7 +387,7 @@ function buildLineupSide(params: {
     formation,
     coachName: coachName && isSafePublicLabel(coachName) ? coachName : null,
     coachPhotoKey,
-    coachNationality,
+    coachNationality: coachNationality && isSafePublicLabel(coachNationality) ? coachNationality : null,
     starters,
     substitutes,
     unavailable,
@@ -393,11 +410,11 @@ export function buildEnrichedMatchLineups(params: {
     probableLineups,
     sanitizePhotoKey,
   } = params;
-  const source = confirmedLineups ?? probableLineups ?? null;
-
-  if (game.sport !== "football" && !source) {
+  if (game.sport !== "football") {
     return null;
   }
+
+  const source = confirmedLineups ?? probableLineups ?? null;
 
   const isConfirmed =
     Boolean(confirmedLineups) && confirmedLineups?.status !== "predicted";
@@ -470,15 +487,38 @@ function resolveMatchingTeamKey<T>(
   return null;
 }
 
+function scoringUnitLabels(sport: PlatformGame["sport"]): {
+  readonly forLabel: string;
+  readonly againstLabel: string;
+} {
+  if (sport === "baseball") {
+    return {
+      forLabel: "Carreras anotadas / PJ",
+      againstLabel: "Carreras recibidas / PJ",
+    };
+  }
+  if (sport === "basketball" || sport === "american-football") {
+    return {
+      forLabel: "Puntos anotados / PJ",
+      againstLabel: "Puntos recibidos / PJ",
+    };
+  }
+  return {
+    forLabel: "Goles anotados / PJ",
+    againstLabel: "Goles recibidos / PJ",
+  };
+}
+
 function buildMatchupRankings(
   game: PlatformGame,
   snapshot: EnrichmentSnapshotLike | null,
   resolveCanonicalSlug: (raw: string) => string = cleanTeamRouteSlug,
+  allowFull = false,
 ): MatchupTeamRankings | null {
   if (!snapshot) return null;
   const attack: TeamRankingMetricRow[] = [];
   const defense: TeamRankingMetricRow[] = [];
-  const unitNoun = game.sport === "football" ? "Goles" : "Puntos";
+  const unitLabels = scoringUnitLabels(game.sport);
 
   const ratesList = Object.entries(snapshot.teamRates ?? {}).filter(
     ([, r]) => r.gamesPlayed > 0 && Number.isFinite(r.forPerGame) && Number.isFinite(r.againstPerGame),
@@ -541,7 +581,7 @@ function buildMatchupRankings(
       hasGoalsFromRates = true;
       pushMetric(attack, {
         key: "for_per_game",
-        label: `${unitNoun} anotados / PJ`,
+        label: unitLabels.forLabel,
         unit: "",
         homeVal: hr.forPerGame,
         awayVal: ar.forPerGame,
@@ -549,6 +589,7 @@ function buildMatchupRankings(
         higherIsBetter: true,
       });
       if (
+        allowFull &&
         typeof hr.adjustedFor === "number" &&
         typeof ar.adjustedFor === "number" &&
         Number.isFinite(hr.adjustedFor) &&
@@ -569,7 +610,7 @@ function buildMatchupRankings(
       }
       pushMetric(defense, {
         key: "against_per_game",
-        label: `${unitNoun} recibidos / PJ`,
+        label: unitLabels.againstLabel,
         unit: "",
         homeVal: hr.againstPerGame,
         awayVal: ar.againstPerGame,
@@ -577,6 +618,7 @@ function buildMatchupRankings(
         higherIsBetter: false,
       });
       if (
+        allowFull &&
         typeof hr.adjustedAgainst === "number" &&
         typeof ar.adjustedAgainst === "number" &&
         Number.isFinite(hr.adjustedAgainst) &&
@@ -623,7 +665,7 @@ function buildMatchupRankings(
       if (!hasGoalsFromRates) {
         pushMetric(attack, {
           key: "goals_for_pg",
-          label: `${unitNoun} anotados / PJ`,
+          label: unitLabels.forLabel,
           unit: "",
           homeVal: hs.goalsFor / hs.played,
           awayVal: as.goalsFor / as.played,
@@ -632,7 +674,7 @@ function buildMatchupRankings(
         });
         pushMetric(defense, {
           key: "goals_against_pg",
-          label: `${unitNoun} recibidos / PJ`,
+          label: unitLabels.againstLabel,
           unit: "",
           homeVal: hs.goalsAgainst / hs.played,
           awayVal: as.goalsAgainst / as.played,
@@ -732,9 +774,18 @@ export function buildMatchEnfrentamientos(params: {
   readonly snapshot: EnrichmentSnapshotLike | null;
   readonly homeHistory: readonly EnrichmentHistoryRecord[];
   readonly awayHistory: readonly EnrichmentHistoryRecord[];
+  readonly allowFull?: boolean;
   readonly resolveCanonicalSlug?: (raw: string) => string;
 }): MatchEnfrentamientosData {
-  const { game, leagueLabel, snapshot, homeHistory, awayHistory, resolveCanonicalSlug } = params;
+  const {
+    game,
+    leagueLabel,
+    snapshot,
+    homeHistory,
+    awayHistory,
+    allowFull = false,
+    resolveCanonicalSlug,
+  } = params;
   const homeNorm = normalizeToken(game.home.name);
   const awayNorm = normalizeToken(game.away.name);
 
@@ -770,7 +821,7 @@ export function buildMatchEnfrentamientos(params: {
   });
 
   return {
-    rankings: buildMatchupRankings(game, snapshot, resolveCanonicalSlug),
+    rankings: buildMatchupRankings(game, snapshot, resolveCanonicalSlug, allowFull),
     h2h,
     homeRecent: mapTeamHistoryRows(game, "home", leagueLabel, homeHistory),
     awayRecent: mapTeamHistoryRows(game, "away", leagueLabel, awayHistory),
@@ -802,6 +853,70 @@ function findSquadPlayerByMeta(
   );
 }
 
+const PLAYER_SHARP_BOOK_TOKENS = ["pinnacle", "betcris", "betonline"] as const;
+const MAX_PLAYER_SHARP_EV_PCT = 18;
+const MAX_PLAYER_SOFT_EV_PCT = 22;
+const FOOTBALL_MIN_STARTER_MINUTES = 45;
+const NUMERIC_UNIT_RE =
+  /\b(goles?|gol|tiros?|remates?|puntos?|rebotes?|asistencias?|triples?|atajadas?|yardas?|pases?|recepciones?|carreras?|hits?|bases?|jonrones?|tarjetas?|faltas?|c[oó]rners?|saques?|pts|reb|ast|3pm|sot)\b/i;
+
+function isSharpPlayerQuoteBook(bookLabel?: string | null): boolean {
+  if (!bookLabel) return false;
+  const norm = normalizeToken(bookLabel);
+  if (!norm) return false;
+  return PLAYER_SHARP_BOOK_TOKENS.some((token) => norm.includes(token));
+}
+
+function hasNumericSelectionUnit(label: string): boolean {
+  if (!/\d/.test(label)) return true;
+  return NUMERIC_UNIT_RE.test(label);
+}
+
+function passesFootballMinutesGuardIfReported(player: SquadPlayerEntry): boolean {
+  const recentLogs = player.recentGames ?? [];
+  const logMins: number[] = [];
+  for (const rg of recentLogs) {
+    const hit = rg.stats.find((st) => {
+      const k = st.label.trim().toUpperCase();
+      return k === "MIN" || k === "MINS" || k === "MINUTOS";
+    });
+    if (!hit) continue;
+    const val = parseStrictFiniteNumber(hit.value);
+    if (val !== null && val >= 0) {
+      logMins.push(val);
+    }
+  }
+  if (logMins.length > 0) {
+    const avgLogMin = logMins.reduce((a, b) => a + b, 0) / logMins.length;
+    return avgLogMin >= FOOTBALL_MIN_STARTER_MINUTES;
+  }
+
+  const seasonMinMetric = player.seasonMetrics?.find((m) => {
+    const k = m.key.trim().toLowerCase();
+    const l = m.label.trim().toUpperCase();
+    return (
+      k === "min" ||
+      k === "minutes" ||
+      k === "minutos" ||
+      k === "min_per_game" ||
+      k === "mpg" ||
+      l === "MIN" ||
+      l === "MINUTOS" ||
+      l === "MPG"
+    );
+  });
+  if (seasonMinMetric) {
+    const rawVal = parseStrictFiniteNumber(seasonMinMetric.value);
+    if (rawVal !== null && rawVal > 0) {
+      const apps = Math.max(1, player.stats.appearances);
+      const perGame = rawVal > 110 && apps > 1 ? rawVal / apps : rawVal;
+      return perGame >= FOOTBALL_MIN_STARTER_MINUTES;
+    }
+  }
+
+  return true;
+}
+
 export function buildMatchPlayerPicks(params: {
   readonly game: PlatformGame;
   readonly allowFull: boolean;
@@ -822,6 +937,14 @@ export function buildMatchPlayerPicks(params: {
     catalog.picks.forEach((item, idx) => {
       if (!item.playerMeta) return;
       const meta = item.playerMeta;
+      if (
+        !isSafePublicLabel(meta.playerName) ||
+        !isSafePublicLabel(item.label) ||
+        !isSafePublicLabel(meta.teamName) ||
+        !hasNumericSelectionUnit(item.label)
+      ) {
+        return;
+      }
       const squad = meta.teamSide === "home" ? homeSquad : awaySquad;
       const squadPlayer = findSquadPlayerByMeta(squad, meta.playerName, meta.playerSlug);
       const playerSlug = meta.playerSlug ?? squadPlayer?.slug ?? slugifyPlayerName(meta.playerName);
@@ -837,7 +960,48 @@ export function buildMatchPlayerPicks(params: {
       if (seen.has(dedupKey)) return;
       seen.add(dedupKey);
 
-      const matchPick = catalogPickItemToMatchPick(item, game, idx);
+      const rawBookLabel = item.pricing.marketBookLabel;
+      const permittedQuote =
+        rawBookLabel && isSafePublicLabel(rawBookLabel) && isPermittedMarketQuoteBook(rawBookLabel);
+      const safeMarketBookLabel = permittedQuote ? rawBookLabel : null;
+      const safeMarketDecimal = permittedQuote ? item.pricing.marketDecimal : null;
+      const evLimit = isSharpPlayerQuoteBook(safeMarketBookLabel)
+        ? MAX_PLAYER_SHARP_EV_PCT
+        : MAX_PLAYER_SOFT_EV_PCT;
+      const rawEvPct = permittedQuote ? item.pricing.evPct : null;
+      const safeEvPct =
+        rawEvPct !== null && Number.isFinite(rawEvPct) && rawEvPct <= evLimit ? rawEvPct : null;
+
+      const baseMatchPick = catalogPickItemToMatchPick(item, game, idx);
+      const matchPick: MatchPick = {
+        ...baseMatchPick,
+        marketDecimal: safeMarketDecimal,
+        marketAmerican: safeMarketDecimal ? baseMatchPick.marketAmerican : null,
+        marketBookLabel: safeMarketBookLabel,
+        edgePts: safeEvPct !== null ? baseMatchPick.edgePts : null,
+      };
+      const safePosition =
+        meta.position && isSafePublicLabel(meta.position)
+          ? meta.position
+          : squadPlayer?.positionLabel && isSafePublicLabel(squadPlayer.positionLabel)
+            ? squadPlayer.positionLabel
+            : null;
+      const safeBullets = item.evidence.bullets
+        .filter((b) => isSafePublicLabel(b.label))
+        .slice(0, 3)
+        .map((b) => ({
+          label: b.label,
+          ratePct: b.ratePct,
+          tone:
+            b.tone === "high"
+              ? ("green" as const)
+              : b.tone === "mid"
+                ? ("amber" as const)
+                : b.tone === "low"
+                  ? ("red" as const)
+                  : ("neutral" as const),
+        }));
+
       out.push({
         id: item.id,
         playerName: meta.playerName,
@@ -845,7 +1009,7 @@ export function buildMatchPlayerPicks(params: {
         teamSide: meta.teamSide,
         teamName: meta.teamName,
         teamSlug,
-        positionLabel: meta.position || squadPlayer?.positionLabel || null,
+        positionLabel: safePosition,
         photoKey: sanitizePhotoKey(meta.photoKey ?? squadPlayer?.photoKey),
         fallbackPhotoKey: sanitizePhotoKey(squadPlayer?.fallbackPhotoKey),
         playerHref:
@@ -857,21 +1021,10 @@ export function buildMatchPlayerPicks(params: {
         line: item.line,
         p: item.pricing.p,
         fairDecimal: item.pricing.fairOdds,
-        marketDecimal: item.pricing.marketDecimal,
-        marketBookLabel: item.pricing.marketBookLabel,
-        evPct: item.pricing.evPct,
-        evidenceBullets: item.evidence.bullets.slice(0, 3).map((b) => ({
-          label: b.label,
-          ratePct: b.ratePct,
-          tone:
-            b.tone === "high"
-              ? "green"
-              : b.tone === "mid"
-                ? "amber"
-                : b.tone === "low"
-                  ? "red"
-                  : "neutral",
-        })),
+        marketDecimal: safeMarketDecimal,
+        marketBookLabel: safeMarketBookLabel,
+        evPct: safeEvPct,
+        evidenceBullets: safeBullets,
         pick: matchPick,
       });
     });
@@ -902,7 +1055,30 @@ export function buildMatchPlayerPicks(params: {
       if (!s.squad) continue;
       for (const player of s.squad.players) {
         if (player.availability === "injured" || player.availability === "suspended") continue;
+        if (!isSafePublicLabel(player.name) || player.stats.appearances < 3) continue;
+        if (!passesFootballMinutesGuardIfReported(player)) continue;
+
         for (const cp of player.candidatePicks ?? []) {
+          if (
+            !isSafePublicLabel(cp.selectionLabel) ||
+            !isSafePublicLabel(cp.rationale) ||
+            !isSafePublicLabel(cp.marketLabel) ||
+            !hasNumericSelectionUnit(cp.selectionLabel)
+          ) {
+            continue;
+          }
+          if (
+            !(
+              Number.isFinite(cp.p) &&
+              cp.p > 0.02 &&
+              cp.p < 0.98 &&
+              Number.isFinite(cp.fairDecimal) &&
+              cp.fairDecimal > 1.01
+            )
+          ) {
+            continue;
+          }
+
           const direction = inferDirectionFromLabel(cp.selectionLabel);
           const statKeyAlias =
             cp.marketKey === "player_sot"
@@ -916,7 +1092,10 @@ export function buildMatchPlayerPicks(params: {
           seen.add(exactKey);
 
           const matchLabel = `${game.home.shortName} vs ${game.away.shortName}`;
-          const fullLabel = `${player.shortName} · ${cp.selectionLabel}`;
+          const safeShortPlayer = isSafePublicLabel(player.shortName)
+            ? player.shortName
+            : player.name;
+          const fullLabel = `${safeShortPlayer} · ${cp.selectionLabel}`;
           const pickId = `${game.id}-pp-${player.slug}-${cp.id}`;
           const matchPick: MatchPick = {
             id: pickId,
@@ -967,7 +1146,7 @@ export function buildMatchPlayerPicks(params: {
             teamSide: s.side,
             teamName: s.teamName,
             teamSlug: s.teamSlug,
-            positionLabel: player.positionLabel,
+            positionLabel: isSafePublicLabel(player.positionLabel) ? player.positionLabel : null,
             photoKey: sanitizePhotoKey(player.photoKey),
             fallbackPhotoKey: sanitizePhotoKey(player.fallbackPhotoKey),
             playerHref: canonicalPlayerHref(game.league, s.teamSlug, player.slug),
@@ -1109,11 +1288,14 @@ export function buildEnrichedMatchInjuries(params: {
         teamSide: s.side,
         player: player.name,
         playerSlug: player.slug,
-        position: player.positionLabel,
+        position: isSafePublicLabel(player.positionLabel) ? player.positionLabel : null,
         status: mapSquadAvailabilityStatus(player.availability),
         detail: safeDetail,
         injuryCategory: safeDetail,
-        expectedReturn: player.expectedReturn ?? null,
+        expectedReturn:
+          player.expectedReturn && isSafePublicLabel(player.expectedReturn)
+            ? player.expectedReturn
+            : null,
         reportedAt: s.squad.updatedAt ?? null,
         photoKey: sanitizePhotoKey(player.photoKey),
         fallbackPhotoKey: sanitizePhotoKey(player.fallbackPhotoKey),
@@ -1128,6 +1310,11 @@ export function buildEnrichedMatchInjuries(params: {
       const rawDetail = (abs.injuryType ?? abs.impactNote)?.trim() ?? null;
       const safeDetail = rawDetail && isSafePublicLabel(rawDetail) ? rawDetail : null;
       const safePos = abs.role && isSafePublicLabel(abs.role) ? abs.role.trim() : null;
+      const safeStatus = isSafePublicLabel(abs.status) ? abs.status.trim() : "Baja";
+      const safeInjuryCategory =
+        abs.injuryType && isSafePublicLabel(abs.injuryType) ? abs.injuryType.trim() : null;
+      const safeReturnDate =
+        abs.returnDate && isSafePublicLabel(abs.returnDate) ? abs.returnDate.trim() : null;
       const squad = abs.teamSide === "home" ? homeSquad : awaySquad;
       const squadMatch = findSquadPlayerByMeta(squad, playerName, null);
 
@@ -1135,11 +1322,15 @@ export function buildEnrichedMatchInjuries(params: {
         teamSide: abs.teamSide,
         player: playerName,
         playerSlug: squadMatch?.slug ?? (slugifyPlayerName(playerName) || null),
-        position: safePos ?? squadMatch?.positionLabel ?? null,
-        status: abs.status,
+        position:
+          safePos ??
+          (squadMatch?.positionLabel && isSafePublicLabel(squadMatch.positionLabel)
+            ? squadMatch.positionLabel
+            : null),
+        status: safeStatus,
         detail: safeDetail,
-        injuryCategory: abs.injuryType ?? null,
-        expectedReturn: abs.returnDate ?? null,
+        injuryCategory: safeInjuryCategory,
+        expectedReturn: safeReturnDate,
         reportedAt: null,
         photoKey: sanitizePhotoKey(squadMatch?.photoKey),
         fallbackPhotoKey: sanitizePhotoKey(squadMatch?.fallbackPhotoKey),

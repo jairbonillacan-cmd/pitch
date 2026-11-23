@@ -1273,6 +1273,11 @@ function getInitialVisitorShell(bundle: DatasetMemoBundle): PlatformDataset {
   return bundle.initialVisitorShell;
 }
 
+export function loadInitialShellDatasetForAccess(fullAccess: boolean): PlatformDataset {
+  const bundle = getDatasetMemoBundle();
+  return fullAccess ? getInitialMemberShell(bundle) : getInitialVisitorShell(bundle);
+}
+
 export function loadExtendedShellPayload(fullAccess: boolean): {
   games: PlatformGame[];
   teams: NonNullable<PlatformDataset["teams"]>;
@@ -2451,6 +2456,7 @@ async function loadGameDetailForAccess(
     snapshot,
     homeHistory,
     awayHistory,
+    allowFull,
     resolveCanonicalSlug: canonicalTeamSlugKey,
   });
   const injuries = buildEnrichedMatchInjuries({
