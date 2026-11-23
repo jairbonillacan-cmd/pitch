@@ -25,7 +25,7 @@ import {
   PRODUCT_LEAGUES,
   resolveSnapshotsRoot,
   type ProductLeague,
-} from "./snapshots";
+} from "./snapshots-config";
 
 const V3_LIVE_SNAPSHOT_LEAGUES = new Set<ProductLeague>([
   "liga-mx",

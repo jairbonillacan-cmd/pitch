@@ -3,7 +3,6 @@ import path from "node:path";
 import {
   CLIENT_MATCH_CONTEXT_FACTOR_LABELS,
   COMPETITION_BY_ID,
-  LEAGUE_CAPABILITY_LIST,
   LeagueSnapshotSchema,
   LeagueInjuriesFileSchema,
   MarketPulseFileSchema,
@@ -22,7 +21,6 @@ import {
   type LeagueSnapshot,
   type OutcomeMarket,
   type PlatformSport,
-  type ProductLeagueKey,
   type StandingRow,
   type MatchAnalysis,
   type MarketPulseView,
@@ -52,6 +50,14 @@ import {
   getOfficialEspnTeamLogoUrl,
 } from "@pitchlab/sports-assets";
 import { logSecurityEvent } from "./safe-logger";
+import {
+  LEAGUE_LABELS,
+  PRODUCT_LEAGUES,
+  resolveSnapshotsRoot,
+  type ProductLeague,
+} from "./snapshots-config";
+
+export { LEAGUE_LABELS, PRODUCT_LEAGUES, resolveSnapshotsRoot, type ProductLeague };
 
 export interface ClientLeagueSnapshot {
   schemaVersion: 1;
@@ -1110,25 +1116,6 @@ function reconcileShellIndexEnvelopeV6(
   return reconciledEnvelope;
 }
 
-export function resolveSnapshotsRoot(): string {
-  const candidates = [
-    path.resolve(process.cwd(), "data/snapshots"),
-    path.resolve(process.cwd(), "../../data/snapshots"),
-  ];
-  for (const candidate of candidates) {
-    if (fs.existsSync(candidate)) {
-      return candidate;
-    }
-  }
-  return candidates[1] ?? candidates[0]!;
-}
-
-export const PRODUCT_LEAGUES: readonly ProductLeagueKey[] = Object.freeze(
-  LEAGUE_CAPABILITY_LIST.map((entry) => entry.id),
-);
-
-export type ProductLeague = (typeof PRODUCT_LEAGUES)[number];
-
 const snapshotCache = new Map<string, { key: string; envelope: SnapshotEnvelope }>();
 
 function fileMtime(file: string): number {
@@ -1180,10 +1167,6 @@ function matchForClient({ steps: _steps, why: _why, ...match }: MatchAnalysis): 
     confidence: match.confidence ? { ...match.confidence, reasons: [] } : undefined,
   };
 }
-
-export const LEAGUE_LABELS: Record<ProductLeague, string> = Object.fromEntries(
-  PRODUCT_LEAGUES.map((id) => [id, COMPETITION_BY_ID[id]?.label ?? id]),
-) as Record<ProductLeague, string>;
 
 const LEAGUE_SEASONS: Record<ProductLeague, string> = Object.fromEntries(
   PRODUCT_LEAGUES.map((id) => [id, COMPETITION_BY_ID[id]?.season ?? "2026"]),
