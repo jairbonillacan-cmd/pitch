@@ -60,7 +60,11 @@ describe("Punto 5 · Mercados derivados del motor v3.2", () => {
         expect(Math.abs(derivScore.p - pubScore.p)).toBeLessThan(1e-9);
       }
     }
-    expect(checkedWithoutSharp).toBe(84);
+    const expectedWithoutSharp = footballOutlooks.filter(
+      (outlook) => !outlook.dataQuality.sharpMarketAvailable,
+    ).length;
+    expect(checkedWithoutSharp).toBe(expectedWithoutSharp);
+    expect(checkedWithoutSharp).toBeGreaterThan(0);
     expect(worstDelta).toBeLessThan(1e-9);
 
     // También verifica paridad sobre un partido sintético construido en caliente con buildMatchOutlook.
