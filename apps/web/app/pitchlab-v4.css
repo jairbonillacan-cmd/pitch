@@ -19464,8 +19464,8 @@ body {
   -webkit-user-select: none;
 }
 
-/* Anti-zoom automático en iOS Safari (< 768 px): todos los controles >= 16px */
-@media (max-width: 767px) {
+/* Anti-zoom automático en iOS Safari (<= 768 px): todos los controles >= 16px */
+@media (max-width: 768px) {
   input:not([type="checkbox"]):not([type="radio"]):not([type="range"]),
   textarea,
   select {

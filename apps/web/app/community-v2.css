@@ -1066,7 +1066,7 @@ button.pl-prof-badges-btn:hover {
   }
 }
 
-@media (max-width: 767px), (pointer: coarse) {
+@media (max-width: 768px), (pointer: coarse) {
   button.pl-prof-badges-btn {
     min-block-size: 44px;
     min-inline-size: 44px;

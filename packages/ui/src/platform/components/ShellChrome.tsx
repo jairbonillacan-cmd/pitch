@@ -1189,7 +1189,7 @@ function ClubWorkspaceShellImpl({
                   homeNav?.resetFilters();
                   navigateTo("/app");
                 }}
-                className="pl-header-logo inline-flex items-center gap-2 no-underline shrink-0 min-h-11 sm:min-h-9"
+                className="pl-header-logo inline-flex items-center gap-2 no-underline shrink-0 min-h-11 [@media(min-width:769px)_and_(pointer:fine)]:min-h-9"
                 aria-label="PitchLab Inicio"
               >
                 <BrandLogo variant="horizontal" width={120} height={24} alt="" />

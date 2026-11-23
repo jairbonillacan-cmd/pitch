@@ -57,16 +57,16 @@
     white-space: nowrap;
   }
 
-  @container (max-width: 380px) {
-    .pl-sf-card-head:has([role="tablist"], button) {
+  @container (max-width: 400px) {
+    .pl-sf-card-head {
       flex-wrap: wrap;
-      row-gap: 8px;
+      row-gap: 6px;
     }
 
     .pl-sf-card-meta:not(:has([role="tablist"], button)) {
-      max-inline-size: 48%;
-      overflow: hidden;
-      text-overflow: ellipsis;
+      max-inline-size: 100%;
+      white-space: normal;
+      line-height: 1.3;
     }
   }
 

@@ -596,6 +596,7 @@
 .pl-com-post-name {
   margin: 0;
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
   gap: 6px;
   font-size: 14.5px;
@@ -727,12 +728,13 @@
 
 .pl-com-match-chip {
   display: inline-flex;
+  flex-wrap: wrap;
   align-items: center;
-  gap: 8px;
+  gap: 4px 8px;
   align-self: flex-start;
   margin-block-start: 10px;
   padding: 6px 12px;
-  border-radius: var(--radius-pill, 999px);
+  border-radius: 14px;
   border: 1px solid var(--pl-border);
   background: var(--pl-surface-elevated);
   font-size: 13px;
@@ -1805,7 +1807,7 @@
   cursor: pointer;
 }
 
-@media (max-width: 767px), (pointer: coarse) {
+@media (max-width: 768px), (pointer: coarse) {
   .pl-com-more-btn,
   .pl-com-more-btn--sm {
     inline-size: 44px;
@@ -1833,7 +1835,9 @@
   .pl-com-post-name a,
   .pl-com-comment-author {
     display: inline-flex;
+    flex-wrap: wrap;
     align-items: center;
+    gap: 0 5px;
     min-block-size: 44px;
   }
 }
@@ -2051,7 +2055,7 @@
   }
 }
 
-@media (max-width: 767px), (pointer: coarse) {
+@media (max-width: 768px), (pointer: coarse) {
   .pl-com-reset-btn,
   .pl-com-act,
   .pl-com-comment-act,

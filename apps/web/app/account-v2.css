@@ -316,9 +316,9 @@
 
 .pl-acct-card-stage .pl-acct-card-placeholder {
   width: 100%;
-  max-width: 344px;
-  aspect-ratio: 1.586 / 1;
-  margin: 10px auto;
+  max-width: 452px;
+  aspect-ratio: 1.66 / 1;
+  margin: 0 auto;
   padding: 18px 20px;
   border-radius: 16px;
   border: 1px solid var(--share-card-border);
@@ -1822,7 +1822,7 @@ html[data-theme="light"] .pl-acct-seg-btn[aria-pressed="true"] {
   flex-shrink: 0;
 }
 
-@media (min-width: 768px) and (pointer: fine) {
+@media (min-width: 769px) and (pointer: fine) {
   .pl-acct-input,
   .pl-acct-search-input,
   .pl-acct-unit-input,
@@ -1867,7 +1867,7 @@ html[data-theme="light"] .pl-acct-seg-btn[aria-pressed="true"] {
   }
 }
 
-@media (max-width: 767px), (pointer: coarse) {
+@media (max-width: 768px), (pointer: coarse) {
   .pl-acct-tab-btn,
   .pl-acct-flip-btn,
   .pl-acct-share-btn,

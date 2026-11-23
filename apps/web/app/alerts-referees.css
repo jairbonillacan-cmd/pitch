@@ -635,7 +635,7 @@
     white-space: nowrap;
   }
 
-  @media (max-width: 767px), (pointer: coarse) {
+  @media (max-width: 768px), (pointer: coarse) {
     .pl-rf-name-link {
       min-block-size: 44px;
     }
@@ -1433,14 +1433,14 @@
     text-underline-offset: 2px;
   }
 
-  @media (max-width: 767px) {
+  @media (max-width: 768px) {
     .pl-al-cell-name,
     .pl-al-cell-sub {
       max-inline-size: 168px;
     }
   }
 
-  @media (max-width: 767px), (pointer: coarse) {
+  @media (max-width: 768px), (pointer: coarse) {
     .pl-al-input,
     .pl-al-select {
       min-block-size: 44px;

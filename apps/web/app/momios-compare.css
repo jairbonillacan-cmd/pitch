@@ -814,12 +814,12 @@
 
   @container (width < 520px) {
     .pl-mc-market-cell {
-      min-inline-size: 132px;
-      max-inline-size: 156px;
+      min-inline-size: 118px;
+      max-inline-size: 146px;
     }
   }
 
-  @media (max-width: 767px), (pointer: coarse) {
+  @media (max-width: 768px), (pointer: coarse) {
     .pl-mc-chip-btn {
       min-block-size: 44px;
       min-inline-size: 44px;
