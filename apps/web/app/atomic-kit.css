@@ -794,7 +794,7 @@ html[data-theme="light"] .pl-atom-jersey {
 .pl-atom-lineup-canvas {
   position: relative;
   inline-size: 100%;
-  aspect-ratio: 320 / 272;
+  aspect-ratio: 320 / 380;
   border-radius: 12px;
   overflow: hidden;
   border: 1px solid var(--pl-border);

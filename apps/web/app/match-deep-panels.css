@@ -43,8 +43,8 @@
 
   .pl-mdp-pp-shell {
     display: grid;
-    grid-template-columns: minmax(0, 1fr) 232px;
-    gap: 14px;
+    grid-template-columns: minmax(0, 1fr) 194px;
+    gap: 12px;
     align-items: start;
     min-inline-size: 0;
   }
@@ -79,7 +79,7 @@
     letter-spacing: 0.03em;
     text-transform: uppercase;
     color: var(--pl-text-muted);
-    padding: 11px 14px;
+    padding: 10px 10px;
     border-bottom: 1px solid var(--pl-border);
     white-space: nowrap;
   }
@@ -98,15 +98,16 @@
   }
 
   .pl-mdp-pp-table td {
-    padding: 12px 14px;
+    padding: 10px 10px;
     vertical-align: middle;
   }
 
   .pl-mdp-pp-player-cell {
     display: flex;
     align-items: center;
-    gap: 10px;
-    min-inline-size: 170px;
+    gap: 8px;
+    min-inline-size: 138px;
+    max-inline-size: 184px;
   }
 
   .pl-mdp-pp-player-meta {
@@ -135,7 +136,7 @@
   }
 
   .pl-mdp-pp-bet-cell {
-    min-inline-size: 165px;
+    min-inline-size: 122px;
   }
 
   .pl-mdp-pp-selection {
@@ -159,14 +160,14 @@
     display: flex;
     flex-direction: column;
     gap: 4px;
-    min-inline-size: 205px;
+    min-inline-size: 152px;
   }
 
   .pl-mdp-pp-ev-item {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    gap: 10px;
+    gap: 6px;
     font-size: 0.76rem;
     color: var(--pl-text-secondary);
   }
@@ -189,7 +190,7 @@
   }
 
   .pl-mdp-pp-odds-cell {
-    min-inline-size: 158px;
+    min-inline-size: 132px;
   }
 
   .pl-mdp-pp-odds-stack {
@@ -240,8 +241,15 @@
 
   .pl-mdp-pp-actions {
     display: inline-flex;
+    flex-wrap: nowrap;
     align-items: center;
-    gap: 6px;
+    gap: 5px;
+  }
+
+  .pl-mdp-pp-actions button {
+    white-space: nowrap;
+    padding: 5px 8px;
+    font-size: 0.72rem;
   }
 
   .pl-mdp-pp-rail {
@@ -250,10 +258,10 @@
     border-radius: 16px;
     border: 1px solid var(--pl-card-border);
     background: var(--pl-card-bg);
-    padding: 13px;
+    padding: 11px;
     display: flex;
     flex-direction: column;
-    gap: 14px;
+    gap: 12px;
   }
 
   .pl-mdp-rail-group {
@@ -322,13 +330,27 @@
 
   .pl-mdp-lineups-layout {
     display: grid;
-    grid-template-columns: minmax(0, 1fr) 300px;
+    grid-template-columns: minmax(0, 1fr) 268px;
     gap: 14px;
     align-items: start;
   }
 
   .pl-mdp-lineups-layout.is-compact {
     grid-template-columns: minmax(0, 1fr);
+  }
+
+  .pl-mdp-lineups-layout .pl-atom-lineup-canvas {
+    min-block-size: 360px;
+  }
+
+  .pl-mdp-lineups-layout .pl-atom-node-trigger {
+    gap: 2px;
+    padding: 1px;
+  }
+
+  .pl-mdp-lineups-layout .pl-atom-node-metric {
+    font-size: 0.58rem;
+    padding: 0 4px;
   }
 
   .pl-mdp-lineup-banner {
@@ -669,7 +691,7 @@
 
   .pl-mdp-match-history-row {
     display: grid;
-    grid-template-columns: 76px minmax(0, 1fr) auto 28px;
+    grid-template-columns: 92px minmax(0, 1fr) auto 28px;
     align-items: center;
     gap: 10px;
     padding: 9px 11px;
@@ -677,6 +699,10 @@
     border: 1px solid var(--pl-border);
     background: var(--pl-surface-elevated);
     font-size: 0.8rem;
+  }
+
+  .pl-mdp-match-history-row > :first-child {
+    white-space: nowrap;
   }
 
   .pl-mdp-match-history-teams {
@@ -865,7 +891,7 @@
     }
 
     .pl-mdp-match-history-row {
-      grid-template-columns: 62px minmax(0, 1fr) auto 24px;
+      grid-template-columns: 80px minmax(0, 1fr) auto 24px;
       gap: 8px;
       padding: 8px 9px;
     }

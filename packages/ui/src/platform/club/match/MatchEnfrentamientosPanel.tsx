@@ -24,7 +24,7 @@ type TeamSideMode = "attack" | "defense";
 type HistoryTabKey = "home" | "h2h" | "away";
 
 function formatMetricVal(val: number, unit: string): string {
-  const rounded = Number.isInteger(val) ? String(val) : val.toFixed(2);
+  const rounded = unit === "%" ? String(Math.round(val)) : val.toFixed(2);
   return unit ? `${rounded} ${unit}` : rounded;
 }
 

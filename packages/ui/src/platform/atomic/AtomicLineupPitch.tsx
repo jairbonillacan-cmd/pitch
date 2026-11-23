@@ -139,7 +139,7 @@ function layoutLineupNodes(
     const remaining = players.length - cursor;
     const isLast = r === rows.length - 1;
     const countInRow = isLast ? remaining : Math.min(rows[r]!, remaining);
-    const yPct = rows.length === 1 ? 50 : 14 + (r / Math.max(1, rows.length - 1)) * 71;
+    const yPct = rows.length === 1 ? 50 : 12 + (r / Math.max(1, rows.length - 1)) * 75;
 
     for (let i = 0; i < countInRow && cursor < players.length; i += 1) {
       const player = players[cursor]!;
@@ -206,13 +206,13 @@ function HalfLineupPane({
         role={hasInteractiveNodes ? "group" : "img"}
         aria-label={`Alineación de ${teamName}${formation ? ` (${formation})` : ""}: ${nodes.map((n) => `${n.player.number ?? ""} ${n.player.name}`.trim()).join(", ")}`}
       >
-        <svg viewBox="0 0 320 272" className="pl-atom-pitch-svg" aria-hidden="true">
-          <rect x="8" y="8" width="304" height="256" rx="10" className="pl-atom-pitch-grass" />
-          <line x1="8" y1="264" x2="312" y2="264" className="pl-atom-pitch-line" />
-          <path d="M 118 264 A 42 42 0 0 1 202 264" className="pl-atom-pitch-line" />
-          <rect x="70" y="8" width="180" height="58" className="pl-atom-pitch-line" />
-          <rect x="116" y="8" width="88" height="22" className="pl-atom-pitch-line" />
-          <path d="M 130 66 A 32 32 0 0 0 190 66" className="pl-atom-pitch-line" />
+        <svg viewBox="0 0 320 380" className="pl-atom-pitch-svg" aria-hidden="true">
+          <rect x="8" y="8" width="304" height="364" rx="10" className="pl-atom-pitch-grass" />
+          <line x1="8" y1="372" x2="312" y2="372" className="pl-atom-pitch-line" />
+          <path d="M 118 372 A 42 42 0 0 1 202 372" className="pl-atom-pitch-line" />
+          <rect x="70" y="8" width="180" height="66" className="pl-atom-pitch-line" />
+          <rect x="116" y="8" width="88" height="24" className="pl-atom-pitch-line" />
+          <path d="M 130 74 A 32 32 0 0 0 190 74" className="pl-atom-pitch-line" />
         </svg>
 
         <ol className="pl-atom-pitch-nodes" role="list">
