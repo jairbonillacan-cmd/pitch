@@ -1,0 +1,3801 @@
+{
+  "schema_version": "officials_freeze_v6_0_parity_snapshot_1.0.0",
+  "status": "candidate",
+  "production_activated": false,
+  "holdout_sealed_untouched": true,
+  "referee_parity_cases": [
+    {
+      "input": {
+        "league": "premier-league",
+        "refereeName": "Andy Madley"
+      },
+      "expected": {
+        "league": "premier-league",
+        "sport": "football",
+        "refereeRaw": "Andy Madley",
+        "canonicalKey": "a madley",
+        "matchedV51Key": "a madley",
+        "confederation": "UEFA",
+        "provenance": "empirical_tm_verified",
+        "historicalGames": 268,
+        "yellowMult": 0.94883,
+        "redMult": 0.7153,
+        "foulsMult": 1.04188,
+        "cardsPerFoulMult": 0.9102084335199999,
+        "yellowRatePrior": 3.69779545728,
+        "redCardRatePrior": 0.07814151790000001,
+        "foulsRatePrior": 23.32003434012,
+        "gammaRed": 0.168,
+        "bookingPointsExpected": 38.93149251707741,
+        "pRedCardOver05": 0.07505374868368409,
+        "pBookingPointsOver355": 0.5246787865174926,
+        "pBookingPointsOver455": 0.3411504711149955,
+        "pBookingPointsOver555": 0.20072408450047258
+      }
+    },
+    {
+      "input": {
+        "league": "premier-league",
+        "refereeName": "Chris Kavanagh"
+      },
+      "expected": {
+        "league": "premier-league",
+        "sport": "football",
+        "refereeRaw": "Chris Kavanagh",
+        "canonicalKey": "c kavanagh",
+        "matchedV51Key": "c kavanagh",
+        "confederation": "UEFA",
+        "provenance": "empirical_tm_verified",
+        "historicalGames": 236,
+        "yellowMult": 1.01124,
+        "redMult": 0.6842,
+        "foulsMult": 0.98154,
+        "cardsPerFoulMult": 1.04299854379,
+        "yellowRatePrior": 3.9410207078399995,
+        "redCardRatePrior": 0.07474406060000001,
+        "foulsRatePrior": 21.96946529946,
+        "gammaRed": 0.168,
+        "bookingPointsExpected": 41.27880858284589,
+        "pRedCardOver05": 0.07191555105161651,
+        "pBookingPointsOver355": 0.569723696040895,
+        "pBookingPointsOver455": 0.3846668535038916,
+        "pBookingPointsOver555": 0.23522188033485372
+      }
+    },
+    {
+      "input": {
+        "league": "premier-league",
+        "refereeName": "Adam Herczeg"
+      },
+      "expected": {
+        "league": "premier-league",
+        "sport": "football",
+        "refereeRaw": "Adam Herczeg",
+        "canonicalKey": "a herczeg",
+        "matchedV51Key": null,
+        "confederation": "UEFA",
+        "provenance": "confederation_hierarchical_prior",
+        "historicalGames": 0,
+        "yellowMult": 1.0,
+        "redMult": 1.0,
+        "foulsMult": 1.0,
+        "cardsPerFoulMult": 0.994459,
+        "yellowRatePrior": 3.897216,
+        "redCardRatePrior": 0.109243,
+        "foulsRatePrior": 22.382649,
+        "gammaRed": 0.168,
+        "bookingPointsExpected": 41.703234987795256,
+        "pRedCardOver05": 0.103274077244084,
+        "pBookingPointsOver355": 0.5704158297569814,
+        "pBookingPointsOver455": 0.38786556731559774,
+        "pBookingPointsOver555": 0.24031208167577703
+      }
+    },
+    {
+      "input": {
+        "league": "laliga",
+        "refereeName": "César Soto Grado"
+      },
+      "expected": {
+        "league": "laliga",
+        "sport": "football",
+        "refereeRaw": "César Soto Grado",
+        "canonicalKey": "c soto grado",
+        "matchedV51Key": "c soto grado",
+        "confederation": "UEFA",
+        "provenance": "empirical_tm_verified",
+        "historicalGames": 114,
+        "yellowMult": 1.05895,
+        "redMult": 0.85011,
+        "foulsMult": 0.99293,
+        "cardsPerFoulMult": 1.1263843121700001,
+        "yellowRatePrior": 5.037253600100001,
+        "redCardRatePrior": 0.18709305891,
+        "foulsRatePrior": 24.66918499534,
+        "gammaRed": 0.168,
+        "bookingPointsExpected": 55.04986039284297,
+        "pRedCardOver05": 0.1700555066838515,
+        "pBookingPointsOver355": 0.7573265095103643,
+        "pBookingPointsOver455": 0.601108127938416,
+        "pBookingPointsOver555": 0.44219516198711595
+      }
+    },
+    {
+      "input": {
+        "league": "laliga",
+        "refereeName": "Francisco Hernandez Maeso"
+      },
+      "expected": {
+        "league": "laliga",
+        "sport": "football",
+        "refereeRaw": "Francisco Hernandez Maeso",
+        "canonicalKey": "f hernandez maeso",
+        "matchedV51Key": "f jose hernandez maeso",
+        "confederation": "UEFA",
+        "provenance": "empirical_tm_verified",
+        "historicalGames": 30,
+        "yellowMult": 0.97326,
+        "redMult": 0.76372,
+        "foulsMult": 1.01648,
+        "cardsPerFoulMult": 0.99288511296,
+        "yellowRatePrior": 4.62964015188,
+        "redCardRatePrior": 0.16808026131999998,
+        "foulsRatePrior": 25.25428093024,
+        "gammaRed": 0.168,
+        "bookingPointsExpected": 50.49840760940073,
+        "pRedCardOver05": 0.15423840494843766,
+        "pBookingPointsOver355": 0.7011001805020509,
+        "pBookingPointsOver455": 0.5322630920417089,
+        "pBookingPointsOver555": 0.3726542941604047
+      }
+    },
+    {
+      "input": {
+        "league": "laliga",
+        "refereeName": "Isidro Diaz de Mera Escuderos"
+      },
+      "expected": {
+        "league": "laliga",
+        "sport": "football",
+        "refereeRaw": "Isidro Diaz de Mera Escuderos",
+        "canonicalKey": "i diaz de mera escuderos",
+        "matchedV51Key": "i diaz de mera escuderos",
+        "confederation": "UEFA",
+        "provenance": "empirical_tm_verified",
+        "historicalGames": 86,
+        "yellowMult": 1.10268,
+        "redMult": 1.09343,
+        "foulsMult": 1.01354,
+        "cardsPerFoulMult": 1.16405472144,
+        "yellowRatePrior": 5.24527012584,
+        "redCardRatePrior": 0.24064316782999998,
+        "foulsRatePrior": 25.18123710652,
+        "gammaRed": 0.168,
+        "bookingPointsExpected": 58.468775016908,
+        "pRedCardOver05": 0.21297271702947806,
+        "pBookingPointsOver355": 0.787558558210371,
+        "pBookingPointsOver455": 0.6418823520699009,
+        "pBookingPointsOver555": 0.4877471543383948
+      }
+    },
+    {
+      "input": {
+        "league": "serie-a",
+        "refereeName": "Davide Massa"
+      },
+      "expected": {
+        "league": "serie-a",
+        "sport": "football",
+        "refereeRaw": "Davide Massa",
+        "canonicalKey": "d massa",
+        "matchedV51Key": "d massa",
+        "confederation": "UEFA",
+        "provenance": "empirical_tm_verified",
+        "historicalGames": 152,
+        "yellowMult": 1.05611,
+        "redMult": 0.66413,
+        "foulsMult": 1.0711,
+        "cardsPerFoulMult": 0.97694025,
+        "yellowRatePrior": 4.208883499700001,
+        "redCardRatePrior": 0.13673905396,
+        "foulsRatePrior": 26.714305099999997,
+        "gammaRed": 0.168,
+        "bookingPointsExpected": 45.50731128127036,
+        "pRedCardOver05": 0.12747717132726077,
+        "pBookingPointsOver355": 0.6307849489377833,
+        "pBookingPointsOver455": 0.4520141734091343,
+        "pBookingPointsOver555": 0.2968281670386227
+      }
+    },
+    {
+      "input": {
+        "league": "serie-a",
+        "refereeName": "Daniele Chiffi"
+      },
+      "expected": {
+        "league": "serie-a",
+        "sport": "football",
+        "refereeRaw": "Daniele Chiffi",
+        "canonicalKey": "d chiffi",
+        "matchedV51Key": "d chiffi",
+        "confederation": "UEFA",
+        "provenance": "empirical_tm_verified",
+        "historicalGames": 86,
+        "yellowMult": 0.87447,
+        "redMult": 0.79546,
+        "foulsMult": 0.95392,
+        "cardsPerFoulMult": 0.8969707499999999,
+        "yellowRatePrior": 3.4849990568999996,
+        "redCardRatePrior": 0.16377885031999997,
+        "foulsRatePrior": 23.79171872,
+        "gammaRed": 0.168,
+        "bookingPointsExpected": 38.94446182401458,
+        "pRedCardOver05": 0.1506166909940727,
+        "pBookingPointsOver355": 0.5085160328452483,
+        "pBookingPointsOver455": 0.33274343748352125,
+        "pBookingPointsOver555": 0.20027236375751511
+      }
+    },
+    {
+      "input": {
+        "league": "bundesliga",
+        "refereeName": "Felix Zwayer"
+      },
+      "expected": {
+        "league": "bundesliga",
+        "sport": "football",
+        "refereeRaw": "Felix Zwayer",
+        "canonicalKey": "f zwayer",
+        "matchedV51Key": "f zwayer",
+        "confederation": "UEFA",
+        "provenance": "empirical_tm_verified",
+        "historicalGames": 200,
+        "yellowMult": 1.08635,
+        "redMult": 0.70783,
+        "foulsMult": 0.99001,
+        "cardsPerFoulMult": 1.1197127678799998,
+        "yellowRatePrior": 4.4161594072499994,
+        "redCardRatePrior": 0.1339709841,
+        "foulsRatePrior": 21.91831253486,
+        "gammaRed": 0.168,
+        "bookingPointsExpected": 47.5108685261505,
+        "pRedCardOver05": 0.12507166330455377,
+        "pBookingPointsOver355": 0.6633640253442059,
+        "pBookingPointsOver455": 0.48739623930784937,
+        "pBookingPointsOver555": 0.32846081406653077
+      }
+    },
+    {
+      "input": {
+        "league": "bundesliga",
+        "refereeName": "Daniel Siebert"
+      },
+      "expected": {
+        "league": "bundesliga",
+        "sport": "football",
+        "refereeRaw": "Daniel Siebert",
+        "canonicalKey": "d siebert",
+        "matchedV51Key": "d siebert",
+        "confederation": "UEFA",
+        "provenance": "empirical_tm_verified",
+        "historicalGames": 178,
+        "yellowMult": 1.04403,
+        "redMult": 0.68222,
+        "foulsMult": 0.9948,
+        "cardsPerFoulMult": 1.0737285441199997,
+        "yellowRatePrior": 4.24412289405,
+        "redCardRatePrior": 0.1291237794,
+        "foulsRatePrior": 22.0243606728,
+        "gammaRed": 0.168,
+        "bookingPointsExpected": 45.66932335527687,
+        "pRedCardOver05": 0.12084271776850275,
+        "pBookingPointsOver355": 0.6349640216276953,
+        "pBookingPointsOver455": 0.4560142475699843,
+        "pBookingPointsOver555": 0.29985807857764996
+      }
+    },
+    {
+      "input": {
+        "league": "ligue-1",
+        "refereeName": "François Letexier"
+      },
+      "expected": {
+        "league": "ligue-1",
+        "sport": "football",
+        "refereeRaw": "François Letexier",
+        "canonicalKey": "f letexier",
+        "matchedV51Key": "f letexier",
+        "confederation": "UEFA",
+        "provenance": "empirical_tm_verified",
+        "historicalGames": 163,
+        "yellowMult": 1.08752,
+        "redMult": 0.79705,
+        "foulsMult": 0.9777,
+        "cardsPerFoulMult": 1.0904335159199998,
+        "yellowRatePrior": 4.180808599520001,
+        "redCardRatePrior": 0.1310174849,
+        "foulsRatePrior": 23.4617613084,
+        "gammaRed": 0.168,
+        "bookingPointsExpected": 45.08352306318665,
+        "pRedCardOver05": 0.12249740645539864,
+        "pBookingPointsOver355": 0.6249099293077984,
+        "pBookingPointsOver455": 0.44539016740931126,
+        "pBookingPointsOver555": 0.29062567837476805
+      }
+    },
+    {
+      "input": {
+        "league": "ligue-2",
+        "refereeName": "Benoît Millot"
+      },
+      "expected": {
+        "league": "ligue-2",
+        "sport": "football",
+        "refereeRaw": "Benoît Millot",
+        "canonicalKey": "b millot",
+        "matchedV51Key": "b millot",
+        "confederation": "UEFA",
+        "provenance": "empirical_tm_verified",
+        "historicalGames": 209,
+        "yellowMult": 1.10374,
+        "redMult": 0.70533,
+        "foulsMult": 1.02357,
+        "cardsPerFoulMult": 1.01508438203,
+        "yellowRatePrior": 4.19659387092,
+        "redCardRatePrior": 0.15212839572,
+        "foulsRatePrior": 27.087163832970003,
+        "gammaRed": 0.168,
+        "bookingPointsExpected": 45.76914853171078,
+        "pRedCardOver05": 0.14072597561693811,
+        "pBookingPointsOver355": 0.6320345840425337,
+        "pBookingPointsOver455": 0.4543206847293611,
+        "pBookingPointsOver555": 0.29988001666088504
+      }
+    },
+    {
+      "input": {
+        "league": "liga-portugal",
+        "refereeName": "Joao Pedro Pinheiro"
+      },
+      "expected": {
+        "league": "liga-portugal",
+        "sport": "football",
+        "refereeRaw": "Joao Pedro Pinheiro",
+        "canonicalKey": "j pedro pinheiro",
+        "matchedV51Key": "j pinheiro",
+        "confederation": "UEFA",
+        "provenance": "empirical_tm_verified",
+        "historicalGames": 139,
+        "yellowMult": 0.93064,
+        "redMult": 0.65,
+        "foulsMult": 1.00614,
+        "cardsPerFoulMult": 0.99646077663,
+        "yellowRatePrior": 4.3485652330399995,
+        "redCardRatePrior": 0.14726725,
+        "foulsRatePrior": 26.656381379400003,
+        "gammaRed": 0.168,
+        "bookingPointsExpected": 47.16733345378742,
+        "pRedCardOver05": 0.1365637340144259,
+        "pBookingPointsOver355": 0.6553930015656229,
+        "pBookingPointsOver455": 0.4793538656874227,
+        "pBookingPointsOver555": 0.3219792156535999
+      }
+    },
+    {
+      "input": {
+        "league": "liga-portugal",
+        "refereeName": "Bruno Jose Ribeiro Pires Costa"
+      },
+      "expected": {
+        "league": "liga-portugal",
+        "sport": "football",
+        "refereeRaw": "Bruno Jose Ribeiro Pires Costa",
+        "canonicalKey": "b jose ribeiro pires costa",
+        "matchedV51Key": "b jose costa",
+        "confederation": "UEFA",
+        "provenance": "empirical_tm_verified",
+        "historicalGames": 22,
+        "yellowMult": 0.87463,
+        "redMult": 0.84095,
+        "foulsMult": 1.045,
+        "cardsPerFoulMult": 0.8996395338700001,
+        "yellowRatePrior": 4.08684949043,
+        "redCardRatePrior": 0.19052983675,
+        "foulsRatePrior": 27.68592695,
+        "gammaRed": 0.168,
+        "bookingPointsExpected": 45.63174076044121,
+        "pRedCardOver05": 0.1728816381382846,
+        "pBookingPointsOver355": 0.62232603166905,
+        "pBookingPointsOver455": 0.44646055782290883,
+        "pBookingPointsOver555": 0.29547658496319334
+      }
+    },
+    {
+      "input": {
+        "league": "liga-portugal",
+        "refereeName": "Claudio Filipe Ruivo Pereira"
+      },
+      "expected": {
+        "league": "liga-portugal",
+        "sport": "football",
+        "refereeRaw": "Claudio Filipe Ruivo Pereira",
+        "canonicalKey": "c filipe ruivo pereira",
+        "matchedV51Key": "c pereira",
+        "confederation": "UEFA",
+        "provenance": "empirical_tm_verified",
+        "historicalGames": 67,
+        "yellowMult": 0.92445,
+        "redMult": 0.67835,
+        "foulsMult": 0.95365,
+        "cardsPerFoulMult": 1.05338082949,
+        "yellowRatePrior": 4.31964146145,
+        "redCardRatePrior": 0.15369036775,
+        "foulsRatePrior": 25.2657265415,
+        "gammaRed": 0.168,
+        "bookingPointsExpected": 47.03867368940172,
+        "pRedCardOver05": 0.1420589433799272,
+        "pBookingPointsOver355": 0.6521123597371776,
+        "pBookingPointsOver455": 0.4761353058424025,
+        "pBookingPointsOver555": 0.31947647169843946
+      }
+    },
+    {
+      "input": {
+        "league": "liga-portugal",
+        "refereeName": "David Rafael Oliveira da Silva"
+      },
+      "expected": {
+        "league": "liga-portugal",
+        "sport": "football",
+        "refereeRaw": "David Rafael Oliveira da Silva",
+        "canonicalKey": "d rafael oliveira da silva",
+        "matchedV51Key": "d silva",
+        "confederation": "UEFA",
+        "provenance": "empirical_tm_verified",
+        "historicalGames": 24,
+        "yellowMult": 1.06555,
+        "redMult": 0.97325,
+        "foulsMult": 1.02229,
+        "cardsPerFoulMult": 1.1191913331499999,
+        "yellowRatePrior": 4.978953928549999,
+        "redCardRatePrior": 0.22050438625,
+        "foulsRatePrior": 27.084254795899998,
+        "gammaRed": 0.168,
+        "bookingPointsExpected": 55.30214683468176,
+        "pRedCardOver05": 0.19711005006408433,
+        "pBookingPointsOver355": 0.7546862461247369,
+        "pBookingPointsOver455": 0.5992369354510294,
+        "pBookingPointsOver555": 0.44203226690771985
+      }
+    },
+    {
+      "input": {
+        "league": "super-lig",
+        "refereeName": "Oguzhan Cakir"
+      },
+      "expected": {
+        "league": "super-lig",
+        "sport": "football",
+        "refereeRaw": "Oguzhan Cakir",
+        "canonicalKey": "o cakir",
+        "matchedV51Key": "o cakr",
+        "confederation": "UEFA",
+        "provenance": "empirical_tm_verified",
+        "historicalGames": 15,
+        "yellowMult": 1.03261,
+        "redMult": 0.93536,
+        "foulsMult": 0.97022,
+        "cardsPerFoulMult": 1.17156373425,
+        "yellowRatePrior": 4.7331847831000005,
+        "redCardRatePrior": 0.24654312416,
+        "foulsRatePrior": 24.058717068940002,
+        "gammaRed": 0.168,
+        "bookingPointsExpected": 53.49542484040332,
+        "pRedCardOver05": 0.21755792717404843,
+        "pBookingPointsOver355": 0.727564398045935,
+        "pBookingPointsOver455": 0.5673641688501259,
+        "pBookingPointsOver555": 0.41134316426416107
+      }
+    },
+    {
+      "input": {
+        "league": "super-lig",
+        "refereeName": "Atilla Karaoglan"
+      },
+      "expected": {
+        "league": "super-lig",
+        "sport": "football",
+        "refereeRaw": "Atilla Karaoglan",
+        "canonicalKey": "a karaoglan",
+        "matchedV51Key": "a karaoglan",
+        "confederation": "UEFA",
+        "provenance": "empirical_tm_verified",
+        "historicalGames": 64,
+        "yellowMult": 1.15645,
+        "redMult": 1.07164,
+        "foulsMult": 1.00415,
+        "cardsPerFoulMult": 1.2483986331599999,
+        "yellowRatePrior": 5.3008314295,
+        "redCardRatePrior": 0.28246394284,
+        "foulsRatePrior": 24.900085284550002,
+        "gammaRed": 0.168,
+        "bookingPointsExpected": 60.06990397467412,
+        "pRedCardOver05": 0.2448811642506259,
+        "pBookingPointsOver355": 0.7972921867022315,
+        "pBookingPointsOver455": 0.656497207890238,
+        "pBookingPointsOver555": 0.5058212991011598
+      }
+    },
+    {
+      "input": {
+        "league": "champions-league",
+        "refereeName": "Clement Turpin"
+      },
+      "expected": {
+        "league": "champions-league",
+        "sport": "football",
+        "refereeRaw": "Clement Turpin",
+        "canonicalKey": "c turpin",
+        "matchedV51Key": "c turpin",
+        "confederation": "UEFA",
+        "provenance": "empirical_tm_verified",
+        "historicalGames": 215,
+        "yellowMult": 0.88325,
+        "redMult": 0.90936,
+        "foulsMult": 1.00993,
+        "cardsPerFoulMult": 0.9215928036000001,
+        "yellowRatePrior": 3.7151870942499996,
+        "redCardRatePrior": 0.17941581864,
+        "foulsRatePrior": 23.78159026673,
+        "gammaRed": 0.168,
+        "bookingPointsExpected": 41.63726639761665,
+        "pRedCardOver05": 0.16370602389226074,
+        "pBookingPointsOver355": 0.555537515155615,
+        "pBookingPointsOver455": 0.37828301325163305,
+        "pBookingPointsOver555": 0.23731679306454434
+      }
+    },
+    {
+      "input": {
+        "league": "champions-league",
+        "refereeName": "Joao Pedro Pinheiro"
+      },
+      "expected": {
+        "league": "champions-league",
+        "sport": "football",
+        "refereeRaw": "Joao Pedro Pinheiro",
+        "canonicalKey": "j pedro pinheiro",
+        "matchedV51Key": "j pinheiro",
+        "confederation": "UEFA",
+        "provenance": "empirical_tm_verified",
+        "historicalGames": 139,
+        "yellowMult": 0.93064,
+        "redMult": 0.65,
+        "foulsMult": 1.00614,
+        "cardsPerFoulMult": 0.9772383753000001,
+        "yellowRatePrior": 3.91452218216,
+        "redCardRatePrior": 0.12824435,
+        "foulsRatePrior": 23.692344252540003,
+        "gammaRed": 0.168,
+        "bookingPointsExpected": 42.3513305555071,
+        "pRedCardOver05": 0.1200731837517407,
+        "pBookingPointsOver355": 0.578280868396459,
+        "pBookingPointsOver455": 0.3970807054605793,
+        "pBookingPointsOver555": 0.2492475017341676
+      }
+    },
+    {
+      "input": {
+        "league": "liga-mx",
+        "refereeName": "Luis Santander"
+      },
+      "expected": {
+        "league": "liga-mx",
+        "sport": "football",
+        "refereeRaw": "Luis Santander",
+        "canonicalKey": "l santander",
+        "matchedV51Key": null,
+        "confederation": "CONCACAF",
+        "provenance": "confederation_hierarchical_prior",
+        "historicalGames": 0,
+        "yellowMult": 1.0,
+        "redMult": 1.0,
+        "foulsMult": 1.0,
+        "cardsPerFoulMult": 1.082,
+        "yellowRatePrior": 4.475,
+        "redCardRatePrior": 0.2655,
+        "foulsRatePrior": 24.825,
+        "gammaRed": 0.168,
+        "bookingPointsExpected": 51.38749945686628,
+        "pRedCardOver05": 0.23210332875734607,
+        "pBookingPointsOver355": 0.6955680980920623,
+        "pBookingPointsOver455": 0.5311380278886134,
+        "pBookingPointsOver555": 0.37743249689856034
+      }
+    },
+    {
+      "input": {
+        "league": "libertadores",
+        "refereeName": "Dario Herrera"
+      },
+      "expected": {
+        "league": "libertadores",
+        "sport": "football",
+        "refereeRaw": "Dario Herrera",
+        "canonicalKey": "d herrera",
+        "matchedV51Key": null,
+        "confederation": "CONMEBOL",
+        "provenance": "confederation_hierarchical_prior",
+        "historicalGames": 0,
+        "yellowMult": 1.0,
+        "redMult": 1.0,
+        "foulsMult": 1.0,
+        "cardsPerFoulMult": 1.132769,
+        "yellowRatePrior": 5.1,
+        "redCardRatePrior": 0.317385,
+        "foulsRatePrior": 27.146154,
+        "gammaRed": 0.168,
+        "bookingPointsExpected": 58.93461835742772,
+        "pRedCardOver05": 0.2704936639621722,
+        "pBookingPointsOver355": 0.7793834400166894,
+        "pBookingPointsOver455": 0.6349592816994436,
+        "pBookingPointsOver555": 0.48472341179078143
+      }
+    },
+    {
+      "input": {
+        "league": "liga-argentina",
+        "refereeName": "Facundo Raul Tello Figueroa"
+      },
+      "expected": {
+        "league": "liga-argentina",
+        "sport": "football",
+        "refereeRaw": "Facundo Raul Tello Figueroa",
+        "canonicalKey": "f raul tello figueroa",
+        "matchedV51Key": null,
+        "confederation": "CONMEBOL",
+        "provenance": "confederation_hierarchical_prior",
+        "historicalGames": 0,
+        "yellowMult": 1.0,
+        "redMult": 1.0,
+        "foulsMult": 1.0,
+        "cardsPerFoulMult": 1.1208,
+        "yellowRatePrior": 5.008,
+        "redCardRatePrior": 0.305333,
+        "foulsRatePrior": 26.8,
+        "gammaRed": 0.168,
+        "bookingPointsExpected": 57.71332044195091,
+        "pRedCardOver05": 0.2617579144617116,
+        "pBookingPointsOver355": 0.7679607287928961,
+        "pBookingPointsOver455": 0.6199340457555498,
+        "pBookingPointsOver555": 0.468274179528453
+      }
+    },
+    {
+      "input": {
+        "league": "brasileirao",
+        "refereeName": "Anderson Daronco"
+      },
+      "expected": {
+        "league": "brasileirao",
+        "sport": "football",
+        "refereeRaw": "Anderson Daronco",
+        "canonicalKey": "a daronco",
+        "matchedV51Key": null,
+        "confederation": "CONMEBOL",
+        "provenance": "confederation_hierarchical_prior",
+        "historicalGames": 0,
+        "yellowMult": 1.0,
+        "redMult": 1.0,
+        "foulsMult": 1.0,
+        "cardsPerFoulMult": 1.101733,
+        "yellowRatePrior": 4.876,
+        "redCardRatePrior": 0.2892,
+        "foulsRatePrior": 26.873333,
+        "gammaRed": 0.168,
+        "bookingPointsExpected": 55.989997376538575,
+        "pRedCardOver05": 0.24989348033696135,
+        "pBookingPointsOver355": 0.7507785476664619,
+        "pBookingPointsOver455": 0.5977962051904956,
+        "pBookingPointsOver555": 0.4445284239074937
+      }
+    },
+    {
+      "input": {
+        "league": "mls",
+        "refereeName": "Drew Fischer"
+      },
+      "expected": {
+        "league": "mls",
+        "sport": "football",
+        "refereeRaw": "Drew Fischer",
+        "canonicalKey": "d fischer",
+        "matchedV51Key": null,
+        "confederation": "CONCACAF",
+        "provenance": "confederation_hierarchical_prior",
+        "historicalGames": 0,
+        "yellowMult": 1.0,
+        "redMult": 1.0,
+        "foulsMult": 1.0,
+        "cardsPerFoulMult": 1.01,
+        "yellowRatePrior": 4.04,
+        "redCardRatePrior": 0.216,
+        "foulsRatePrior": 23.85,
+        "gammaRed": 0.168,
+        "bookingPointsExpected": 45.79999993493195,
+        "pRedCardOver05": 0.19351680628230283,
+        "pBookingPointsOver355": 0.6202532975139605,
+        "pBookingPointsOver455": 0.4458978015042571,
+        "pBookingPointsOver555": 0.2966166585316962
+      }
+    },
+    {
+      "input": {
+        "league": "j1-league",
+        "refereeName": "Akihiko Ikeuchi"
+      },
+      "expected": {
+        "league": "j1-league",
+        "sport": "football",
+        "refereeRaw": "Akihiko Ikeuchi",
+        "canonicalKey": "a ikeuchi",
+        "matchedV51Key": null,
+        "confederation": "AFC",
+        "provenance": "confederation_hierarchical_prior",
+        "historicalGames": 0,
+        "yellowMult": 1.0,
+        "redMult": 1.0,
+        "foulsMult": 1.0,
+        "cardsPerFoulMult": 0.838137,
+        "yellowRatePrior": 3.02274,
+        "redCardRatePrior": 0.127315,
+        "foulsRatePrior": 21.545205,
+        "gammaRed": 0.168,
+        "bookingPointsExpected": 33.41027499985797,
+        "pRedCardOver05": 0.1192592059807398,
+        "pBookingPointsOver355": 0.4051499000570342,
+        "pBookingPointsOver455": 0.2405135708228627,
+        "pBookingPointsOver555": 0.1308418778299923
+      }
+    },
+    {
+      "input": {
+        "league": "saudi-pro-league",
+        "refereeName": "Abdullah Dhafer Al-Shehri"
+      },
+      "expected": {
+        "league": "saudi-pro-league",
+        "sport": "football",
+        "refereeRaw": "Abdullah Dhafer Al-Shehri",
+        "canonicalKey": "a dhafer al shehri",
+        "matchedV51Key": null,
+        "confederation": "AFC",
+        "provenance": "confederation_hierarchical_prior",
+        "historicalGames": 0,
+        "yellowMult": 1.0,
+        "redMult": 1.0,
+        "foulsMult": 1.0,
+        "cardsPerFoulMult": 0.989724,
+        "yellowRatePrior": 3.961379,
+        "redCardRatePrior": 0.202483,
+        "foulsRatePrior": 23.427586,
+        "gammaRed": 0.168,
+        "bookingPointsExpected": 44.67586495876239,
+        "pRedCardOver05": 0.18263327214187997,
+        "pBookingPointsOver355": 0.6041648402499771,
+        "pBookingPointsOver455": 0.4283755668807744,
+        "pBookingPointsOver555": 0.2806039569490659
+      }
+    },
+    {
+      "input": {
+        "league": "caf-champions",
+        "refereeName": "Omar Abdulkadir Artan"
+      },
+      "expected": {
+        "league": "caf-champions",
+        "sport": "football",
+        "refereeRaw": "Omar Abdulkadir Artan",
+        "canonicalKey": "o abdulkadir artan",
+        "matchedV51Key": null,
+        "confederation": "CAF",
+        "provenance": "confederation_hierarchical_prior",
+        "historicalGames": 0,
+        "yellowMult": 1.0,
+        "redMult": 1.0,
+        "foulsMult": 1.0,
+        "cardsPerFoulMult": 0.996642,
+        "yellowRatePrior": 4.206415,
+        "redCardRatePrior": 0.230642,
+        "foulsRatePrior": 25.532075,
+        "gammaRed": 0.168,
+        "bookingPointsExpected": 47.83019985623694,
+        "pRedCardOver05": 0.20513626692389275,
+        "pBookingPointsOver355": 0.6498160356266558,
+        "pBookingPointsOver455": 0.47821159765679827,
+        "pBookingPointsOver555": 0.3261946771787623
+      }
+    },
+    {
+      "input": {
+        "league": "copa-del-rey",
+        "refereeName": "Mateo Busquets Ferrer"
+      },
+      "expected": {
+        "league": "copa-del-rey",
+        "sport": "football",
+        "refereeRaw": "Mateo Busquets Ferrer",
+        "canonicalKey": "m busquets ferrer",
+        "matchedV51Key": "m busquets ferrer",
+        "confederation": "UEFA",
+        "provenance": "empirical_tm_verified",
+        "historicalGames": 32,
+        "yellowMult": 1.11179,
+        "redMult": 1.32552,
+        "foulsMult": 1.01516,
+        "cardsPerFoulMult": 1.1368765200000002,
+        "yellowRatePrior": 4.7240968828900005,
+        "redCardRatePrior": 0.2737795284,
+        "foulsRatePrior": 24.649930360880003,
+        "gammaRed": 0.168,
+        "bookingPointsExpected": 54.085455653345974,
+        "pRedCardOver05": 0.23836761894390257,
+        "pBookingPointsOver355": 0.730043062033295,
+        "pBookingPointsOver455": 0.5718648700834826,
+        "pBookingPointsOver555": 0.41752060572480854
+      }
+    },
+    {
+      "input": {
+        "league": "mlb",
+        "refereeName": "Vic Carapazza"
+      },
+      "expected": {
+        "league": "mlb",
+        "sport": "mlb",
+        "refereeRaw": "Vic Carapazza",
+        "canonicalKey": "v carapazza",
+        "matchedV51Key": null,
+        "confederation": "US_MAJOR_PRO",
+        "provenance": "non_soccer_umpire_neutral",
+        "historicalGames": 0,
+        "yellowMult": 1.0,
+        "redMult": 1.0,
+        "foulsMult": 1.0,
+        "cardsPerFoulMult": 1.0,
+        "yellowRatePrior": null,
+        "redCardRatePrior": null,
+        "foulsRatePrior": null,
+        "gammaRed": 0.0,
+        "bookingPointsExpected": null,
+        "pRedCardOver05": null,
+        "pBookingPointsOver355": null,
+        "pBookingPointsOver455": null,
+        "pBookingPointsOver555": null
+      }
+    }
+  ],
+  "freeze_parity_vectors": [
+    {
+      "sequenceId": "soccer_scheduled_to_live_to_ft_clean",
+      "observations": [
+        {
+          "matchId": "mx-2026-j16-queretaro-monterrey-401876988",
+          "sport": "football",
+          "league": "liga-mx",
+          "homeTeam": "queretaro",
+          "awayTeam": "monterrey",
+          "kickoffUtc": "2026-11-14T23:00Z",
+          "status": "scheduled",
+          "incomingAnalysis": {
+            "inputsAsOfUtc": "2026-11-11T02:38:42.517Z",
+            "probabilities": {
+              "pHome": 0.2815,
+              "pDraw": 0.2685,
+              "pAway": 0.45,
+              "pOver25": 0.542
+            },
+            "projection": {
+              "home": 1.18,
+              "away": 1.62,
+              "total": 2.8
+            }
+          }
+        },
+        {
+          "matchId": "mx-2026-j16-queretaro-monterrey-401876988",
+          "sport": "football",
+          "league": "liga-mx",
+          "homeTeam": "queretaro",
+          "awayTeam": "monterrey",
+          "kickoffUtc": "2026-11-14T23:00:00.000Z",
+          "status": "in_progress",
+          "incomingAnalysis": null
+        },
+        {
+          "matchId": "mx-2026-j16-queretaro-monterrey-401876988",
+          "sport": "football",
+          "league": "liga-mx",
+          "homeTeam": "queretaro",
+          "awayTeam": "monterrey",
+          "kickoffUtc": "2026-11-14T23:00:00.000Z",
+          "status": "final",
+          "incomingAnalysis": {
+            "inputsAsOfUtc": "2026-11-22T04:33:15.743Z",
+            "probabilities": {
+              "pHome": 0.99,
+              "pDraw": 0.005,
+              "pAway": 0.005,
+              "pOver25": 0.99
+            },
+            "projection": {
+              "home": 3.0,
+              "away": 0.0,
+              "total": 3.0
+            }
+          }
+        }
+      ],
+      "expectedAudit": {
+        "totalObservationsAudited": 3,
+        "uniqueMatchesTracked": 1,
+        "sealedMatchesCount": 1,
+        "rawStrictPreKickoffCount": 1,
+        "rawPostKickoffContaminatedCount": 1,
+        "rawPostKickoffFtCount": 1,
+        "rawPostKickoffScheduledCount": 0,
+        "rawMissingAnalysisOnFtCount": 0,
+        "rescuedFromPriorSealCount": 2,
+        "recoveredFromCausalBackfillCount": 0,
+        "rejectedUnrecoverableContaminatedCount": 0,
+        "finalMatchesTotal": 1,
+        "finalMatchesWithSealedForecast": 1,
+        "contaminatedAcceptedIntoLedgerCount": 0,
+        "ledgerSha256": "e05634b8d349c0ab8ebfc6d4f40dd3b8a1d95a622d291d45f463feaf0445f934"
+      },
+      "expectedMatchOutcomes": {
+        "liga-mx::mx-2026-j16-queretaro-monterrey-401876988": {
+          "matchId": "mx-2026-j16-queretaro-monterrey-401876988",
+          "lifecycleStatus": "FT",
+          "hasForecast": true,
+          "causalityStatus": "strict_pre_kickoff_sealed",
+          "incomingCausalityStatus": "post_kickoff_contaminated",
+          "sealAction": "rejected_contaminated_preserved_seal",
+          "incomingContaminatedRejected": true,
+          "sealedRecord": {
+            "schemaVersion": "prekickoff_seal_v6.0.0",
+            "matchId": "mx-2026-j16-queretaro-monterrey-401876988",
+            "sport": "football",
+            "league": "liga-mx",
+            "homeTeam": "queretaro",
+            "awayTeam": "monterrey",
+            "kickoffUtc": "2026-11-14T23:00:00.000Z",
+            "kickoffEpochMs": 1794697200000,
+            "inputsAsOfUtc": "2026-11-11T02:38:42.517Z",
+            "inputsAsOfEpochMs": 1794364722517,
+            "leadTimeSeconds": 332477.483,
+            "sealOrigin": "live_snapshot_prekickoff",
+            "prevSealSha256": "0000000000000000000000000000000000000000000000000000000000000000",
+            "sealSha256": "b0195a51c892d91cd4c4e38a8011e5ff6423f740b9fd64120970d43941551ea9",
+            "probabilities": {
+              "pAway": 0.45,
+              "pDraw": 0.2685,
+              "pHome": 0.2815,
+              "pOver25": 0.542
+            },
+            "projection": {
+              "away": 1.62,
+              "home": 1.18,
+              "total": 2.8
+            }
+          }
+        }
+      }
+    },
+    {
+      "sequenceId": "nba_live_to_ft_missing_upstream_preserved",
+      "observations": [
+        {
+          "matchId": "nba-2026-11-15-ind-phi",
+          "sport": "nba",
+          "league": "nba",
+          "homeTeam": "philadelphia-76ers",
+          "awayTeam": "indiana-pacers",
+          "kickoffUtc": "2026-11-15T18:00:00.000Z",
+          "status": "in_progress",
+          "incomingAnalysis": {
+            "inputsAsOfUtc": "2026-11-15T03:11:00.566Z",
+            "probabilities": {
+              "pHome": 0.6124,
+              "pDraw": null,
+              "pAway": 0.3876
+            },
+            "projection": {
+              "home": 116.4,
+              "away": 112.1,
+              "total": 228.5,
+              "margin": 4.3
+            }
+          }
+        },
+        {
+          "matchId": "nba-2026-11-15-ind-phi",
+          "sport": "nba",
+          "league": "nba",
+          "homeTeam": "philadelphia-76ers",
+          "awayTeam": "indiana-pacers",
+          "kickoffUtc": "2026-11-15T18:00:00.000Z",
+          "status": "final",
+          "incomingAnalysis": null
+        }
+      ],
+      "expectedAudit": {
+        "totalObservationsAudited": 2,
+        "uniqueMatchesTracked": 1,
+        "sealedMatchesCount": 1,
+        "rawStrictPreKickoffCount": 1,
+        "rawPostKickoffContaminatedCount": 0,
+        "rawPostKickoffFtCount": 0,
+        "rawPostKickoffScheduledCount": 0,
+        "rawMissingAnalysisOnFtCount": 1,
+        "rescuedFromPriorSealCount": 1,
+        "recoveredFromCausalBackfillCount": 0,
+        "rejectedUnrecoverableContaminatedCount": 0,
+        "finalMatchesTotal": 1,
+        "finalMatchesWithSealedForecast": 1,
+        "contaminatedAcceptedIntoLedgerCount": 0,
+        "ledgerSha256": "62ba41ef0bcd2647301b3e9f67d20527913a15f0d4dbdc3f64a4dff02748131a"
+      },
+      "expectedMatchOutcomes": {
+        "nba::nba-2026-11-15-ind-phi": {
+          "matchId": "nba-2026-11-15-ind-phi",
+          "lifecycleStatus": "FT",
+          "hasForecast": true,
+          "causalityStatus": "strict_pre_kickoff_sealed",
+          "incomingCausalityStatus": "missing_analysis",
+          "sealAction": "preserved_seal_on_missing_upstream",
+          "incomingContaminatedRejected": false,
+          "sealedRecord": {
+            "schemaVersion": "prekickoff_seal_v6.0.0",
+            "matchId": "nba-2026-11-15-ind-phi",
+            "sport": "nba",
+            "league": "nba",
+            "homeTeam": "philadelphia-76ers",
+            "awayTeam": "indiana-pacers",
+            "kickoffUtc": "2026-11-15T18:00:00.000Z",
+            "kickoffEpochMs": 1794765600000,
+            "inputsAsOfUtc": "2026-11-15T03:11:00.566Z",
+            "inputsAsOfEpochMs": 1794712260566,
+            "leadTimeSeconds": 53339.434,
+            "sealOrigin": "live_snapshot_prekickoff",
+            "prevSealSha256": "0000000000000000000000000000000000000000000000000000000000000000",
+            "sealSha256": "04e73bf725ace2e960cbcc70a1717239aca23a01f3e57d073dfe1ed2de123b8c",
+            "probabilities": {
+              "pAway": 0.3876,
+              "pDraw": null,
+              "pHome": 0.6124
+            },
+            "projection": {
+              "away": 112.1,
+              "home": 116.4,
+              "margin": 4.3,
+              "total": 228.5
+            }
+          }
+        }
+      }
+    },
+    {
+      "sequenceId": "mlb_post_kickoff_contaminated_rejected",
+      "observations": [
+        {
+          "matchId": "mlb-2026-10-06-new-york-yankees-tampa-bay-rays",
+          "sport": "mlb",
+          "league": "mlb",
+          "homeTeam": "new-york-yankees",
+          "awayTeam": "tampa-bay-rays",
+          "kickoffUtc": "2026-10-06T00:00:00.000Z",
+          "status": "final",
+          "incomingAnalysis": {
+            "inputsAsOfUtc": "2026-11-19T01:44:47.629Z",
+            "probabilities": {
+              "pHome": 0.582,
+              "pDraw": null,
+              "pAway": 0.418
+            },
+            "projection": {
+              "home": 4.52,
+              "away": 3.88,
+              "total": 8.4,
+              "margin": 0.64
+            }
+          }
+        }
+      ],
+      "expectedAudit": {
+        "totalObservationsAudited": 1,
+        "uniqueMatchesTracked": 1,
+        "sealedMatchesCount": 0,
+        "rawStrictPreKickoffCount": 0,
+        "rawPostKickoffContaminatedCount": 1,
+        "rawPostKickoffFtCount": 1,
+        "rawPostKickoffScheduledCount": 0,
+        "rawMissingAnalysisOnFtCount": 0,
+        "rescuedFromPriorSealCount": 0,
+        "recoveredFromCausalBackfillCount": 0,
+        "rejectedUnrecoverableContaminatedCount": 1,
+        "finalMatchesTotal": 1,
+        "finalMatchesWithSealedForecast": 0,
+        "contaminatedAcceptedIntoLedgerCount": 0,
+        "ledgerSha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+      },
+      "expectedMatchOutcomes": {
+        "mlb::mlb-2026-10-06-new-york-yankees-tampa-bay-rays": {
+          "matchId": "mlb-2026-10-06-new-york-yankees-tampa-bay-rays",
+          "lifecycleStatus": "FT",
+          "hasForecast": false,
+          "causalityStatus": "post_kickoff_contaminated",
+          "incomingCausalityStatus": "post_kickoff_contaminated",
+          "sealAction": "rejected_post_kickoff_contaminated",
+          "incomingContaminatedRejected": true,
+          "sealedRecord": null
+        }
+      }
+    },
+    {
+      "sequenceId": "nhl_ft_causal_walkforward_recovery",
+      "observations": [
+        {
+          "matchId": "nhl-2026-11-14-sea-car",
+          "sport": "nhl",
+          "league": "nhl",
+          "homeTeam": "carolina-hurricanes",
+          "awayTeam": "seattle-kraken",
+          "kickoffUtc": "2026-11-14T18:00:00.000Z",
+          "status": "final",
+          "incomingAnalysis": null,
+          "causalBackfillAnalysis": {
+            "inputsAsOfUtc": "2026-11-13T23:59:59.000Z",
+            "probabilities": {
+              "pHome": 0.5785907937452232,
+              "pDraw": null,
+              "pAway": 0.42140920625477685,
+              "pOverCanonical": 0.5112381437648715
+            },
+            "projection": {
+              "home": 3.5670345824923038,
+              "away": 3.0028355666729594,
+              "total": 6.569870149165263,
+              "margin": 0.564199015819344
+            }
+          }
+        }
+      ],
+      "expectedAudit": {
+        "totalObservationsAudited": 1,
+        "uniqueMatchesTracked": 1,
+        "sealedMatchesCount": 1,
+        "rawStrictPreKickoffCount": 0,
+        "rawPostKickoffContaminatedCount": 0,
+        "rawPostKickoffFtCount": 0,
+        "rawPostKickoffScheduledCount": 0,
+        "rawMissingAnalysisOnFtCount": 1,
+        "rescuedFromPriorSealCount": 0,
+        "recoveredFromCausalBackfillCount": 1,
+        "rejectedUnrecoverableContaminatedCount": 0,
+        "finalMatchesTotal": 1,
+        "finalMatchesWithSealedForecast": 1,
+        "contaminatedAcceptedIntoLedgerCount": 0,
+        "ledgerSha256": "d12af684910bcd2fab1ff548cd10632c5001edaf718ee221fd3c232f7849fa74"
+      },
+      "expectedMatchOutcomes": {
+        "nhl::nhl-2026-11-14-sea-car": {
+          "matchId": "nhl-2026-11-14-sea-car",
+          "lifecycleStatus": "FT",
+          "hasForecast": true,
+          "causalityStatus": "strict_pre_kickoff_sealed",
+          "incomingCausalityStatus": "missing_analysis",
+          "sealAction": "recovered_ft_from_causal_walkforward",
+          "incomingContaminatedRejected": false,
+          "sealedRecord": {
+            "schemaVersion": "prekickoff_seal_v6.0.0",
+            "matchId": "nhl-2026-11-14-sea-car",
+            "sport": "nhl",
+            "league": "nhl",
+            "homeTeam": "carolina-hurricanes",
+            "awayTeam": "seattle-kraken",
+            "kickoffUtc": "2026-11-14T18:00:00.000Z",
+            "kickoffEpochMs": 1794679200000,
+            "inputsAsOfUtc": "2026-11-13T23:59:59.000Z",
+            "inputsAsOfEpochMs": 1794614399000,
+            "leadTimeSeconds": 64801.0,
+            "sealOrigin": "causal_walkforward_backfill",
+            "prevSealSha256": "0000000000000000000000000000000000000000000000000000000000000000",
+            "sealSha256": "763a80be7784dfc28b7c97e2885e9db90eeacf255a4cb0e080df0eb99de1256a",
+            "probabilities": {
+              "pAway": 0.42140920625477685,
+              "pDraw": null,
+              "pHome": 0.5785907937452232,
+              "pOverCanonical": 0.5112381437648715
+            },
+            "projection": {
+              "away": 3.0028355666729594,
+              "home": 3.5670345824923038,
+              "margin": 0.564199015819344,
+              "total": 6.569870149165263
+            }
+          }
+        }
+      }
+    },
+    {
+      "sequenceId": "bundesliga_naive_utc_timestamp_normalization",
+      "observations": [
+        {
+          "matchId": "bundesliga-2026-27-md10-bayern-munchen-koln",
+          "sport": "football",
+          "league": "bundesliga",
+          "homeTeam": "bayern-munchen",
+          "awayTeam": "koln",
+          "kickoffUtc": "2026-11-20T20:30:00",
+          "status": "scheduled",
+          "incomingAnalysis": {
+            "inputsAsOfUtc": "2026-11-14T05:44:28.107Z",
+            "probabilities": {
+              "pHome": 0.885756,
+              "pDraw": 0.089364,
+              "pAway": 0.02488,
+              "pOver25": 0.894528
+            },
+            "projection": {
+              "home": 4.381673,
+              "away": 0.986182,
+              "total": 5.367855
+            }
+          }
+        },
+        {
+          "matchId": "bundesliga-2026-27-md10-bayern-munchen-koln",
+          "sport": "football",
+          "league": "bundesliga",
+          "homeTeam": "bayern-munchen",
+          "awayTeam": "koln",
+          "kickoffUtc": "2026-11-20T20:30:00Z",
+          "status": "scheduled",
+          "incomingAnalysis": {
+            "inputsAsOfUtc": "2026-11-22T04:33:15.743Z",
+            "probabilities": {
+              "pHome": 0.85,
+              "pDraw": 0.1,
+              "pAway": 0.05,
+              "pOver25": 0.84
+            },
+            "projection": {
+              "home": 3.8,
+              "away": 1.0,
+              "total": 4.8
+            }
+          }
+        }
+      ],
+      "expectedAudit": {
+        "totalObservationsAudited": 2,
+        "uniqueMatchesTracked": 1,
+        "sealedMatchesCount": 1,
+        "rawStrictPreKickoffCount": 1,
+        "rawPostKickoffContaminatedCount": 1,
+        "rawPostKickoffFtCount": 0,
+        "rawPostKickoffScheduledCount": 1,
+        "rawMissingAnalysisOnFtCount": 0,
+        "rescuedFromPriorSealCount": 1,
+        "recoveredFromCausalBackfillCount": 0,
+        "rejectedUnrecoverableContaminatedCount": 0,
+        "finalMatchesTotal": 0,
+        "finalMatchesWithSealedForecast": 0,
+        "contaminatedAcceptedIntoLedgerCount": 0,
+        "ledgerSha256": "affc280bbf3513391423cf1feb8da2eac65bd05886f31775c4c8d70865cc2f41"
+      },
+      "expectedMatchOutcomes": {
+        "bundesliga::bundesliga-2026-27-md10-bayern-munchen-koln": {
+          "matchId": "bundesliga-2026-27-md10-bayern-munchen-koln",
+          "lifecycleStatus": "scheduled",
+          "hasForecast": true,
+          "causalityStatus": "strict_pre_kickoff_sealed",
+          "incomingCausalityStatus": "post_kickoff_contaminated",
+          "sealAction": "rejected_contaminated_preserved_seal",
+          "incomingContaminatedRejected": true,
+          "sealedRecord": {
+            "schemaVersion": "prekickoff_seal_v6.0.0",
+            "matchId": "bundesliga-2026-27-md10-bayern-munchen-koln",
+            "sport": "football",
+            "league": "bundesliga",
+            "homeTeam": "bayern-munchen",
+            "awayTeam": "koln",
+            "kickoffUtc": "2026-11-20T20:30:00.000Z",
+            "kickoffEpochMs": 1795206600000,
+            "inputsAsOfUtc": "2026-11-14T05:44:28.107Z",
+            "inputsAsOfEpochMs": 1794635068107,
+            "leadTimeSeconds": 571531.893,
+            "sealOrigin": "live_snapshot_prekickoff",
+            "prevSealSha256": "0000000000000000000000000000000000000000000000000000000000000000",
+            "sealSha256": "b2d9cab35568e53268e7bc29df33a1be5c5dc9801fc324e2bc3d5642d287862c",
+            "probabilities": {
+              "pAway": 0.02488,
+              "pDraw": 0.089364,
+              "pHome": 0.885756,
+              "pOver25": 0.894528
+            },
+            "projection": {
+              "away": 0.986182,
+              "home": 4.381673,
+              "total": 5.367855
+            }
+          }
+        }
+      }
+    }
+  ],
+  "combined_freeze_parity_audit": {
+    "totalObservationsAudited": 9,
+    "uniqueMatchesTracked": 5,
+    "sealedMatchesCount": 4,
+    "rawStrictPreKickoffCount": 3,
+    "rawPostKickoffContaminatedCount": 3,
+    "rawPostKickoffFtCount": 2,
+    "rawPostKickoffScheduledCount": 1,
+    "rawMissingAnalysisOnFtCount": 2,
+    "rescuedFromPriorSealCount": 4,
+    "recoveredFromCausalBackfillCount": 1,
+    "rejectedUnrecoverableContaminatedCount": 1,
+    "finalMatchesTotal": 4,
+    "finalMatchesWithSealedForecast": 3,
+    "contaminatedAcceptedIntoLedgerCount": 0,
+    "ledgerSha256": "9f00cec956a88a17757d0d364f55c543a6f23eb97e4ee4f770d9783086d0a9bc"
+  },
+  "quotes_live_parity_bundle": {
+    "ticks": [
+      {
+        "event_id": "ws:football:D1:20261120:bayern_munchen:koln",
+        "sport": "football",
+        "league": "D1",
+        "market": "1x2",
+        "line": null,
+        "selection": "away",
+        "book": "bet365",
+        "price_decimal": 23,
+        "ts_captured": "2026-11-15T06:54:44Z",
+        "ts_event_start": "2026-11-20T19:30:00Z",
+        "source": "scraped_ws"
+      },
+      {
+        "event_id": "ws:football:D1:20261120:bayern_munchen:koln",
+        "sport": "football",
+        "league": "D1",
+        "market": "1x2",
+        "line": null,
+        "selection": "draw",
+        "book": "bet365",
+        "price_decimal": 11,
+        "ts_captured": "2026-11-15T06:54:44Z",
+        "ts_event_start": "2026-11-20T19:30:00Z",
+        "source": "scraped_ws"
+      },
+      {
+        "event_id": "ws:football:D1:20261120:bayern_munchen:koln",
+        "sport": "football",
+        "league": "D1",
+        "market": "1x2",
+        "line": null,
+        "selection": "home",
+        "book": "bet365",
+        "price_decimal": 1.071,
+        "ts_captured": "2026-11-15T06:54:44Z",
+        "ts_event_start": "2026-11-20T19:30:00Z",
+        "source": "scraped_ws"
+      },
+      {
+        "event_id": "ws:football:D1:20261120:bayern_munchen:koln",
+        "sport": "football",
+        "league": "D1",
+        "market": "btts",
+        "line": null,
+        "selection": "no",
+        "book": "bet365",
+        "price_decimal": 1.8,
+        "ts_captured": "2026-11-15T06:54:44Z",
+        "ts_event_start": "2026-11-20T19:30:00Z",
+        "source": "scraped_ws"
+      },
+      {
+        "event_id": "ws:football:D1:20261120:bayern_munchen:koln",
+        "sport": "football",
+        "league": "D1",
+        "market": "btts",
+        "line": null,
+        "selection": "yes",
+        "book": "bet365",
+        "price_decimal": 1.95,
+        "ts_captured": "2026-11-15T06:54:44Z",
+        "ts_event_start": "2026-11-20T19:30:00Z",
+        "source": "scraped_ws"
+      },
+      {
+        "event_id": "ws:football:D1:20261120:bayern_munchen:koln",
+        "sport": "football",
+        "league": "D1",
+        "market": "totals",
+        "line": 1.5,
+        "selection": "over",
+        "book": "bet365",
+        "price_decimal": 1.05,
+        "ts_captured": "2026-11-15T06:54:44Z",
+        "ts_event_start": "2026-11-20T19:30:00Z",
+        "source": "scraped_ws"
+      },
+      {
+        "event_id": "ws:football:D1:20261120:bayern_munchen:koln",
+        "sport": "football",
+        "league": "D1",
+        "market": "totals",
+        "line": 2.5,
+        "selection": "over",
+        "book": "bet365",
+        "price_decimal": 1.2,
+        "ts_captured": "2026-11-15T06:54:44Z",
+        "ts_event_start": "2026-11-20T19:30:00Z",
+        "source": "scraped_ws"
+      },
+      {
+        "event_id": "ws:football:D1:20261120:bayern_munchen:koln",
+        "sport": "football",
+        "league": "D1",
+        "market": "totals",
+        "line": 3.5,
+        "selection": "over",
+        "book": "bet365",
+        "price_decimal": 1.5,
+        "ts_captured": "2026-11-15T06:54:44Z",
+        "ts_event_start": "2026-11-20T19:30:00Z",
+        "source": "scraped_ws"
+      },
+      {
+        "event_id": "ws:football:D1:20261120:bayern_munchen:koln",
+        "sport": "football",
+        "league": "D1",
+        "market": "totals",
+        "line": 1.5,
+        "selection": "under",
+        "book": "bet365",
+        "price_decimal": 11,
+        "ts_captured": "2026-11-15T06:54:44Z",
+        "ts_event_start": "2026-11-20T19:30:00Z",
+        "source": "scraped_ws"
+      },
+      {
+        "event_id": "ws:football:D1:20261120:bayern_munchen:koln",
+        "sport": "football",
+        "league": "D1",
+        "market": "totals",
+        "line": 2.5,
+        "selection": "under",
+        "book": "bet365",
+        "price_decimal": 4.5,
+        "ts_captured": "2026-11-15T06:54:44Z",
+        "ts_event_start": "2026-11-20T19:30:00Z",
+        "source": "scraped_ws"
+      },
+      {
+        "event_id": "ws:football:D1:20261120:bayern_munchen:koln",
+        "sport": "football",
+        "league": "D1",
+        "market": "totals",
+        "line": 3.5,
+        "selection": "under",
+        "book": "bet365",
+        "price_decimal": 2.625,
+        "ts_captured": "2026-11-15T06:54:44Z",
+        "ts_event_start": "2026-11-20T19:30:00Z",
+        "source": "scraped_ws"
+      },
+      {
+        "event_id": "ws:football:E0:20261121:manchester_city:fulham",
+        "sport": "football",
+        "league": "E0",
+        "market": "1x2",
+        "line": null,
+        "selection": "away",
+        "book": "bet365",
+        "price_decimal": 7,
+        "ts_captured": "2026-11-15T06:54:44Z",
+        "ts_event_start": "2026-11-21T12:30:00Z",
+        "source": "scraped_ws"
+      },
+      {
+        "event_id": "ws:football:E0:20261121:manchester_city:fulham",
+        "sport": "football",
+        "league": "E0",
+        "market": "1x2",
+        "line": null,
+        "selection": "draw",
+        "book": "bet365",
+        "price_decimal": 4.75,
+        "ts_captured": "2026-11-15T06:54:44Z",
+        "ts_event_start": "2026-11-21T12:30:00Z",
+        "source": "scraped_ws"
+      },
+      {
+        "event_id": "ws:football:E0:20261121:manchester_city:fulham",
+        "sport": "football",
+        "league": "E0",
+        "market": "1x2",
+        "line": null,
+        "selection": "home",
+        "book": "bet365",
+        "price_decimal": 1.4,
+        "ts_captured": "2026-11-15T06:54:44Z",
+        "ts_event_start": "2026-11-21T12:30:00Z",
+        "source": "scraped_ws"
+      },
+      {
+        "event_id": "ws:football:E0:20261121:manchester_city:fulham",
+        "sport": "football",
+        "league": "E0",
+        "market": "btts",
+        "line": null,
+        "selection": "no",
+        "book": "bet365",
+        "price_decimal": 2.05,
+        "ts_captured": "2026-11-15T06:54:44Z",
+        "ts_event_start": "2026-11-21T12:30:00Z",
+        "source": "scraped_ws"
+      },
+      {
+        "event_id": "ws:football:E0:20261121:manchester_city:fulham",
+        "sport": "football",
+        "league": "E0",
+        "market": "btts",
+        "line": null,
+        "selection": "yes",
+        "book": "bet365",
+        "price_decimal": 1.7,
+        "ts_captured": "2026-11-15T06:54:44Z",
+        "ts_event_start": "2026-11-21T12:30:00Z",
+        "source": "scraped_ws"
+      },
+      {
+        "event_id": "ws:football:E0:20261121:manchester_city:fulham",
+        "sport": "football",
+        "league": "E0",
+        "market": "totals",
+        "line": 1.5,
+        "selection": "over",
+        "book": "bet365",
+        "price_decimal": 1.143,
+        "ts_captured": "2026-11-15T06:54:44Z",
+        "ts_event_start": "2026-11-21T12:30:00Z",
+        "source": "scraped_ws"
+      },
+      {
+        "event_id": "ws:football:E0:20261121:manchester_city:fulham",
+        "sport": "football",
+        "league": "E0",
+        "market": "totals",
+        "line": 2.5,
+        "selection": "over",
+        "book": "bet365",
+        "price_decimal": 1.5,
+        "ts_captured": "2026-11-15T06:54:44Z",
+        "ts_event_start": "2026-11-21T12:30:00Z",
+        "source": "scraped_ws"
+      },
+      {
+        "event_id": "ws:football:E0:20261121:manchester_city:fulham",
+        "sport": "football",
+        "league": "E0",
+        "market": "totals",
+        "line": 3.5,
+        "selection": "over",
+        "book": "bet365",
+        "price_decimal": 2.2,
+        "ts_captured": "2026-11-15T06:54:44Z",
+        "ts_event_start": "2026-11-21T12:30:00Z",
+        "source": "scraped_ws"
+      },
+      {
+        "event_id": "ws:football:E0:20261121:manchester_city:fulham",
+        "sport": "football",
+        "league": "E0",
+        "market": "totals",
+        "line": 0.5,
+        "selection": "over",
+        "book": "bet365",
+        "price_decimal": 1.025,
+        "ts_captured": "2026-11-15T06:54:44Z",
+        "ts_event_start": "2026-11-21T12:30:00Z",
+        "source": "scraped_ws"
+      },
+      {
+        "event_id": "ws:football:E0:20261121:manchester_city:fulham",
+        "sport": "football",
+        "league": "E0",
+        "market": "totals",
+        "line": 1.5,
+        "selection": "under",
+        "book": "bet365",
+        "price_decimal": 5.5,
+        "ts_captured": "2026-11-15T06:54:44Z",
+        "ts_event_start": "2026-11-21T12:30:00Z",
+        "source": "scraped_ws"
+      },
+      {
+        "event_id": "ws:football:E0:20261121:manchester_city:fulham",
+        "sport": "football",
+        "league": "E0",
+        "market": "totals",
+        "line": 2.5,
+        "selection": "under",
+        "book": "bet365",
+        "price_decimal": 2.625,
+        "ts_captured": "2026-11-15T06:54:44Z",
+        "ts_event_start": "2026-11-21T12:30:00Z",
+        "source": "scraped_ws"
+      },
+      {
+        "event_id": "ws:football:E0:20261121:manchester_city:fulham",
+        "sport": "football",
+        "league": "E0",
+        "market": "totals",
+        "line": 3.5,
+        "selection": "under",
+        "book": "bet365",
+        "price_decimal": 1.667,
+        "ts_captured": "2026-11-15T06:54:44Z",
+        "ts_event_start": "2026-11-21T12:30:00Z",
+        "source": "scraped_ws"
+      },
+      {
+        "event_id": "ws:football:E0:20261121:manchester_city:fulham",
+        "sport": "football",
+        "league": "E0",
+        "market": "totals",
+        "line": 0.5,
+        "selection": "under",
+        "book": "bet365",
+        "price_decimal": 17,
+        "ts_captured": "2026-11-15T06:54:44Z",
+        "ts_event_start": "2026-11-21T12:30:00Z",
+        "source": "scraped_ws"
+      },
+      {
+        "event_id": "ws:football:F1:20261120:troyes:le_havre",
+        "sport": "football",
+        "league": "F1",
+        "market": "1x2",
+        "line": null,
+        "selection": "away",
+        "book": "bet365",
+        "price_decimal": 3.5,
+        "ts_captured": "2026-11-15T06:54:44Z",
+        "ts_event_start": "2026-11-20T19:45:00Z",
+        "source": "scraped_ws"
+      },
+      {
+        "event_id": "ws:football:F1:20261120:troyes:le_havre",
+        "sport": "football",
+        "league": "F1",
+        "market": "1x2",
+        "line": null,
+        "selection": "draw",
+        "book": "bet365",
+        "price_decimal": 3.4,
+        "ts_captured": "2026-11-15T06:54:44Z",
+        "ts_event_start": "2026-11-20T19:45:00Z",
+        "source": "scraped_ws"
+      },
+      {
+        "event_id": "ws:football:F1:20261120:troyes:le_havre",
+        "sport": "football",
+        "league": "F1",
+        "market": "1x2",
+        "line": null,
+        "selection": "home",
+        "book": "bet365",
+        "price_decimal": 2,
+        "ts_captured": "2026-11-15T06:54:44Z",
+        "ts_event_start": "2026-11-20T19:45:00Z",
+        "source": "scraped_ws"
+      },
+      {
+        "event_id": "ws:football:F1:20261120:troyes:le_havre",
+        "sport": "football",
+        "league": "F1",
+        "market": "btts",
+        "line": null,
+        "selection": "no",
+        "book": "bet365",
+        "price_decimal": 2.1,
+        "ts_captured": "2026-11-15T06:54:44Z",
+        "ts_event_start": "2026-11-20T19:45:00Z",
+        "source": "scraped_ws"
+      },
+      {
+        "event_id": "ws:football:F1:20261120:troyes:le_havre",
+        "sport": "football",
+        "league": "F1",
+        "market": "btts",
+        "line": null,
+        "selection": "yes",
+        "book": "bet365",
+        "price_decimal": 1.667,
+        "ts_captured": "2026-11-15T06:54:44Z",
+        "ts_event_start": "2026-11-20T19:45:00Z",
+        "source": "scraped_ws"
+      },
+      {
+        "event_id": "ws:football:F1:20261120:troyes:le_havre",
+        "sport": "football",
+        "league": "F1",
+        "market": "totals",
+        "line": 1.5,
+        "selection": "over",
+        "book": "bet365",
+        "price_decimal": 1.25,
+        "ts_captured": "2026-11-15T06:54:44Z",
+        "ts_event_start": "2026-11-20T19:45:00Z",
+        "source": "scraped_ws"
+      },
+      {
+        "event_id": "ws:football:F1:20261120:troyes:le_havre",
+        "sport": "football",
+        "league": "F1",
+        "market": "totals",
+        "line": 2.5,
+        "selection": "over",
+        "book": "bet365",
+        "price_decimal": 1.8,
+        "ts_captured": "2026-11-15T06:54:44Z",
+        "ts_event_start": "2026-11-20T19:45:00Z",
+        "source": "scraped_ws"
+      },
+      {
+        "event_id": "ws:football:F1:20261120:troyes:le_havre",
+        "sport": "football",
+        "league": "F1",
+        "market": "totals",
+        "line": 3.5,
+        "selection": "over",
+        "book": "bet365",
+        "price_decimal": 3,
+        "ts_captured": "2026-11-15T06:54:44Z",
+        "ts_event_start": "2026-11-20T19:45:00Z",
+        "source": "scraped_ws"
+      },
+      {
+        "event_id": "ws:football:F1:20261120:troyes:le_havre",
+        "sport": "football",
+        "league": "F1",
+        "market": "totals",
+        "line": 0.5,
+        "selection": "over",
+        "book": "bet365",
+        "price_decimal": 1.05,
+        "ts_captured": "2026-11-15T06:54:44Z",
+        "ts_event_start": "2026-11-20T19:45:00Z",
+        "source": "scraped_ws"
+      },
+      {
+        "event_id": "ws:football:F1:20261120:troyes:le_havre",
+        "sport": "football",
+        "league": "F1",
+        "market": "totals",
+        "line": 1.5,
+        "selection": "under",
+        "book": "bet365",
+        "price_decimal": 4,
+        "ts_captured": "2026-11-15T06:54:44Z",
+        "ts_event_start": "2026-11-20T19:45:00Z",
+        "source": "scraped_ws"
+      },
+      {
+        "event_id": "ws:football:F1:20261120:troyes:le_havre",
+        "sport": "football",
+        "league": "F1",
+        "market": "totals",
+        "line": 2.5,
+        "selection": "under",
+        "book": "bet365",
+        "price_decimal": 2,
+        "ts_captured": "2026-11-15T06:54:44Z",
+        "ts_event_start": "2026-11-20T19:45:00Z",
+        "source": "scraped_ws"
+      },
+      {
+        "event_id": "ws:football:F1:20261120:troyes:le_havre",
+        "sport": "football",
+        "league": "F1",
+        "market": "totals",
+        "line": 3.5,
+        "selection": "under",
+        "book": "bet365",
+        "price_decimal": 1.4,
+        "ts_captured": "2026-11-15T06:54:44Z",
+        "ts_event_start": "2026-11-20T19:45:00Z",
+        "source": "scraped_ws"
+      },
+      {
+        "event_id": "ws:football:F1:20261120:troyes:le_havre",
+        "sport": "football",
+        "league": "F1",
+        "market": "totals",
+        "line": 0.5,
+        "selection": "under",
+        "book": "bet365",
+        "price_decimal": 11,
+        "ts_captured": "2026-11-15T06:54:44Z",
+        "ts_event_start": "2026-11-20T19:45:00Z",
+        "source": "scraped_ws"
+      },
+      {
+        "event_id": "ws:football:I1:20261121:como:cagliari",
+        "sport": "football",
+        "league": "I1",
+        "market": "1x2",
+        "line": null,
+        "selection": "away",
+        "book": "bet365",
+        "price_decimal": 9,
+        "ts_captured": "2026-11-15T15:18:25Z",
+        "ts_event_start": "2026-11-21T14:00:00Z",
+        "source": "scraped_ws"
+      },
+      {
+        "event_id": "ws:football:I1:20261121:como:cagliari",
+        "sport": "football",
+        "league": "I1",
+        "market": "1x2",
+        "line": null,
+        "selection": "draw",
+        "book": "bet365",
+        "price_decimal": 5.25,
+        "ts_captured": "2026-11-15T15:18:25Z",
+        "ts_event_start": "2026-11-21T14:00:00Z",
+        "source": "scraped_ws"
+      },
+      {
+        "event_id": "ws:football:I1:20261121:como:cagliari",
+        "sport": "football",
+        "league": "I1",
+        "market": "1x2",
+        "line": null,
+        "selection": "home",
+        "book": "bet365",
+        "price_decimal": 1.3,
+        "ts_captured": "2026-11-15T15:18:25Z",
+        "ts_event_start": "2026-11-21T14:00:00Z",
+        "source": "scraped_ws"
+      },
+      {
+        "event_id": "ws:football:I1:20261121:como:cagliari",
+        "sport": "football",
+        "league": "I1",
+        "market": "btts",
+        "line": null,
+        "selection": "no",
+        "book": "bet365",
+        "price_decimal": 1.909,
+        "ts_captured": "2026-11-15T15:18:25Z",
+        "ts_event_start": "2026-11-21T14:00:00Z",
+        "source": "scraped_ws"
+      },
+      {
+        "event_id": "ws:football:I1:20261121:como:cagliari",
+        "sport": "football",
+        "league": "I1",
+        "market": "btts",
+        "line": null,
+        "selection": "yes",
+        "book": "bet365",
+        "price_decimal": 1.909,
+        "ts_captured": "2026-11-15T15:18:25Z",
+        "ts_event_start": "2026-11-21T14:00:00Z",
+        "source": "scraped_ws"
+      },
+      {
+        "event_id": "ws:football:I1:20261121:como:cagliari",
+        "sport": "football",
+        "league": "I1",
+        "market": "totals",
+        "line": 1.5,
+        "selection": "over",
+        "book": "bet365",
+        "price_decimal": 1.143,
+        "ts_captured": "2026-11-15T15:18:25Z",
+        "ts_event_start": "2026-11-21T14:00:00Z",
+        "source": "scraped_ws"
+      },
+      {
+        "event_id": "ws:football:I1:20261121:como:cagliari",
+        "sport": "football",
+        "league": "I1",
+        "market": "totals",
+        "line": 2.5,
+        "selection": "over",
+        "book": "bet365",
+        "price_decimal": 1.5,
+        "ts_captured": "2026-11-15T15:18:25Z",
+        "ts_event_start": "2026-11-21T14:00:00Z",
+        "source": "scraped_ws"
+      },
+      {
+        "event_id": "ws:football:I1:20261121:como:cagliari",
+        "sport": "football",
+        "league": "I1",
+        "market": "totals",
+        "line": 3.5,
+        "selection": "over",
+        "book": "bet365",
+        "price_decimal": 2.3,
+        "ts_captured": "2026-11-15T15:18:25Z",
+        "ts_event_start": "2026-11-21T14:00:00Z",
+        "source": "scraped_ws"
+      },
+      {
+        "event_id": "ws:football:I1:20261121:como:cagliari",
+        "sport": "football",
+        "league": "I1",
+        "market": "totals",
+        "line": 0.5,
+        "selection": "over",
+        "book": "bet365",
+        "price_decimal": 1.025,
+        "ts_captured": "2026-11-15T15:18:25Z",
+        "ts_event_start": "2026-11-21T14:00:00Z",
+        "source": "scraped_ws"
+      },
+      {
+        "event_id": "ws:football:I1:20261121:como:cagliari",
+        "sport": "football",
+        "league": "I1",
+        "market": "totals",
+        "line": 1.5,
+        "selection": "under",
+        "book": "bet365",
+        "price_decimal": 5.5,
+        "ts_captured": "2026-11-15T15:18:25Z",
+        "ts_event_start": "2026-11-21T14:00:00Z",
+        "source": "scraped_ws"
+      },
+      {
+        "event_id": "ws:football:I1:20261121:como:cagliari",
+        "sport": "football",
+        "league": "I1",
+        "market": "totals",
+        "line": 2.5,
+        "selection": "under",
+        "book": "bet365",
+        "price_decimal": 2.625,
+        "ts_captured": "2026-11-15T15:18:25Z",
+        "ts_event_start": "2026-11-21T14:00:00Z",
+        "source": "scraped_ws"
+      },
+      {
+        "event_id": "ws:football:I1:20261121:como:cagliari",
+        "sport": "football",
+        "league": "I1",
+        "market": "totals",
+        "line": 3.5,
+        "selection": "under",
+        "book": "bet365",
+        "price_decimal": 1.615,
+        "ts_captured": "2026-11-15T15:18:25Z",
+        "ts_event_start": "2026-11-21T14:00:00Z",
+        "source": "scraped_ws"
+      },
+      {
+        "event_id": "ws:football:I1:20261121:como:cagliari",
+        "sport": "football",
+        "league": "I1",
+        "market": "totals",
+        "line": 0.5,
+        "selection": "under",
+        "book": "bet365",
+        "price_decimal": 17,
+        "ts_captured": "2026-11-15T15:18:25Z",
+        "ts_event_start": "2026-11-21T14:00:00Z",
+        "source": "scraped_ws"
+      },
+      {
+        "event_id": "ws:football:I1:20261121:lazio:lecce",
+        "sport": "football",
+        "league": "I1",
+        "market": "1x2",
+        "line": null,
+        "selection": "away",
+        "book": "bet365",
+        "price_decimal": 8,
+        "ts_captured": "2026-11-15T15:18:25Z",
+        "ts_event_start": "2026-11-21T14:00:00Z",
+        "source": "scraped_ws"
+      },
+      {
+        "event_id": "ws:football:I1:20261121:lazio:lecce",
+        "sport": "football",
+        "league": "I1",
+        "market": "1x2",
+        "line": null,
+        "selection": "draw",
+        "book": "bet365",
+        "price_decimal": 4.75,
+        "ts_captured": "2026-11-15T15:18:25Z",
+        "ts_event_start": "2026-11-21T14:00:00Z",
+        "source": "scraped_ws"
+      },
+      {
+        "event_id": "ws:football:I1:20261121:lazio:lecce",
+        "sport": "football",
+        "league": "I1",
+        "market": "1x2",
+        "line": null,
+        "selection": "home",
+        "book": "bet365",
+        "price_decimal": 1.364,
+        "ts_captured": "2026-11-15T15:18:25Z",
+        "ts_event_start": "2026-11-21T14:00:00Z",
+        "source": "scraped_ws"
+      },
+      {
+        "event_id": "ws:football:I1:20261121:lazio:lecce",
+        "sport": "football",
+        "league": "I1",
+        "market": "btts",
+        "line": null,
+        "selection": "no",
+        "book": "bet365",
+        "price_decimal": 1.95,
+        "ts_captured": "2026-11-15T15:18:25Z",
+        "ts_event_start": "2026-11-21T14:00:00Z",
+        "source": "scraped_ws"
+      },
+      {
+        "event_id": "ws:football:I1:20261121:lazio:lecce",
+        "sport": "football",
+        "league": "I1",
+        "market": "btts",
+        "line": null,
+        "selection": "yes",
+        "book": "bet365",
+        "price_decimal": 1.8,
+        "ts_captured": "2026-11-15T15:18:25Z",
+        "ts_event_start": "2026-11-21T14:00:00Z",
+        "source": "scraped_ws"
+      },
+      {
+        "event_id": "ws:football:I1:20261121:lazio:lecce",
+        "sport": "football",
+        "league": "I1",
+        "market": "totals",
+        "line": 1.5,
+        "selection": "over",
+        "book": "bet365",
+        "price_decimal": 1.167,
+        "ts_captured": "2026-11-15T15:18:25Z",
+        "ts_event_start": "2026-11-21T14:00:00Z",
+        "source": "scraped_ws"
+      },
+      {
+        "event_id": "ws:football:I1:20261121:lazio:lecce",
+        "sport": "football",
+        "league": "I1",
+        "market": "totals",
+        "line": 2.5,
+        "selection": "over",
+        "book": "bet365",
+        "price_decimal": 1.571,
+        "ts_captured": "2026-11-15T15:18:25Z",
+        "ts_event_start": "2026-11-21T14:00:00Z",
+        "source": "scraped_ws"
+      },
+      {
+        "event_id": "ws:football:I1:20261121:lazio:lecce",
+        "sport": "football",
+        "league": "I1",
+        "market": "totals",
+        "line": 3.5,
+        "selection": "over",
+        "book": "bet365",
+        "price_decimal": 2.375,
+        "ts_captured": "2026-11-15T15:18:25Z",
+        "ts_event_start": "2026-11-21T14:00:00Z",
+        "source": "scraped_ws"
+      },
+      {
+        "event_id": "ws:football:I1:20261121:lazio:lecce",
+        "sport": "football",
+        "league": "I1",
+        "market": "totals",
+        "line": 0.5,
+        "selection": "over",
+        "book": "bet365",
+        "price_decimal": 1.03,
+        "ts_captured": "2026-11-15T15:18:25Z",
+        "ts_event_start": "2026-11-21T14:00:00Z",
+        "source": "scraped_ws"
+      },
+      {
+        "event_id": "ws:football:I1:20261121:lazio:lecce",
+        "sport": "football",
+        "league": "I1",
+        "market": "totals",
+        "line": 1.5,
+        "selection": "under",
+        "book": "bet365",
+        "price_decimal": 5,
+        "ts_captured": "2026-11-15T15:18:25Z",
+        "ts_event_start": "2026-11-21T14:00:00Z",
+        "source": "scraped_ws"
+      },
+      {
+        "event_id": "ws:football:I1:20261121:lazio:lecce",
+        "sport": "football",
+        "league": "I1",
+        "market": "totals",
+        "line": 2.5,
+        "selection": "under",
+        "book": "bet365",
+        "price_decimal": 2.375,
+        "ts_captured": "2026-11-15T15:18:25Z",
+        "ts_event_start": "2026-11-21T14:00:00Z",
+        "source": "scraped_ws"
+      },
+      {
+        "event_id": "ws:football:I1:20261121:lazio:lecce",
+        "sport": "football",
+        "league": "I1",
+        "market": "totals",
+        "line": 3.5,
+        "selection": "under",
+        "book": "bet365",
+        "price_decimal": 1.571,
+        "ts_captured": "2026-11-15T15:18:25Z",
+        "ts_event_start": "2026-11-21T14:00:00Z",
+        "source": "scraped_ws"
+      },
+      {
+        "event_id": "ws:football:I1:20261121:lazio:lecce",
+        "sport": "football",
+        "league": "I1",
+        "market": "totals",
+        "line": 0.5,
+        "selection": "under",
+        "book": "bet365",
+        "price_decimal": 15,
+        "ts_captured": "2026-11-15T15:18:25Z",
+        "ts_event_start": "2026-11-21T14:00:00Z",
+        "source": "scraped_ws"
+      },
+      {
+        "event_id": "ws:football:MEX:20261121:puebla:atletico_san_luis",
+        "sport": "football",
+        "league": "MEX",
+        "market": "1x2",
+        "line": null,
+        "selection": "away",
+        "book": "bet365",
+        "price_decimal": 2.5,
+        "ts_captured": "2026-11-15T06:54:44Z",
+        "ts_event_start": "2026-11-21T01:00:00Z",
+        "source": "scraped_ws"
+      },
+      {
+        "event_id": "ws:football:MEX:20261121:puebla:atletico_san_luis",
+        "sport": "football",
+        "league": "MEX",
+        "market": "1x2",
+        "line": null,
+        "selection": "draw",
+        "book": "bet365",
+        "price_decimal": 3.4,
+        "ts_captured": "2026-11-15T06:54:44Z",
+        "ts_event_start": "2026-11-21T01:00:00Z",
+        "source": "scraped_ws"
+      },
+      {
+        "event_id": "ws:football:MEX:20261121:puebla:atletico_san_luis",
+        "sport": "football",
+        "league": "MEX",
+        "market": "1x2",
+        "line": null,
+        "selection": "home",
+        "book": "bet365",
+        "price_decimal": 2.55,
+        "ts_captured": "2026-11-15T06:54:44Z",
+        "ts_event_start": "2026-11-21T01:00:00Z",
+        "source": "scraped_ws"
+      },
+      {
+        "event_id": "ws:football:MEX:20261121:puebla:atletico_san_luis",
+        "sport": "football",
+        "league": "MEX",
+        "market": "btts",
+        "line": null,
+        "selection": "no",
+        "book": "bet365",
+        "price_decimal": 2.25,
+        "ts_captured": "2026-11-15T06:54:44Z",
+        "ts_event_start": "2026-11-21T01:00:00Z",
+        "source": "scraped_ws"
+      },
+      {
+        "event_id": "ws:football:MEX:20261121:puebla:atletico_san_luis",
+        "sport": "football",
+        "league": "MEX",
+        "market": "btts",
+        "line": null,
+        "selection": "yes",
+        "book": "bet365",
+        "price_decimal": 1.571,
+        "ts_captured": "2026-11-15T06:54:44Z",
+        "ts_event_start": "2026-11-21T01:00:00Z",
+        "source": "scraped_ws"
+      },
+      {
+        "event_id": "ws:football:MEX:20261121:puebla:atletico_san_luis",
+        "sport": "football",
+        "league": "MEX",
+        "market": "totals",
+        "line": 1.5,
+        "selection": "over",
+        "book": "bet365",
+        "price_decimal": 1.2,
+        "ts_captured": "2026-11-15T06:54:44Z",
+        "ts_event_start": "2026-11-21T01:00:00Z",
+        "source": "scraped_ws"
+      },
+      {
+        "event_id": "ws:football:MEX:20261121:puebla:atletico_san_luis",
+        "sport": "football",
+        "league": "MEX",
+        "market": "totals",
+        "line": 2.5,
+        "selection": "over",
+        "book": "bet365",
+        "price_decimal": 1.7,
+        "ts_captured": "2026-11-15T06:54:44Z",
+        "ts_event_start": "2026-11-21T01:00:00Z",
+        "source": "scraped_ws"
+      },
+      {
+        "event_id": "ws:football:MEX:20261121:puebla:atletico_san_luis",
+        "sport": "football",
+        "league": "MEX",
+        "market": "totals",
+        "line": 3.5,
+        "selection": "over",
+        "book": "bet365",
+        "price_decimal": 2.625,
+        "ts_captured": "2026-11-15T06:54:44Z",
+        "ts_event_start": "2026-11-21T01:00:00Z",
+        "source": "scraped_ws"
+      },
+      {
+        "event_id": "ws:football:MEX:20261121:puebla:atletico_san_luis",
+        "sport": "football",
+        "league": "MEX",
+        "market": "totals",
+        "line": 0.5,
+        "selection": "over",
+        "book": "bet365",
+        "price_decimal": 1.04,
+        "ts_captured": "2026-11-15T06:54:44Z",
+        "ts_event_start": "2026-11-21T01:00:00Z",
+        "source": "scraped_ws"
+      },
+      {
+        "event_id": "ws:football:MEX:20261121:puebla:atletico_san_luis",
+        "sport": "football",
+        "league": "MEX",
+        "market": "totals",
+        "line": 1.5,
+        "selection": "under",
+        "book": "bet365",
+        "price_decimal": 4.333,
+        "ts_captured": "2026-11-15T06:54:44Z",
+        "ts_event_start": "2026-11-21T01:00:00Z",
+        "source": "scraped_ws"
+      },
+      {
+        "event_id": "ws:football:MEX:20261121:puebla:atletico_san_luis",
+        "sport": "football",
+        "league": "MEX",
+        "market": "totals",
+        "line": 2.5,
+        "selection": "under",
+        "book": "bet365",
+        "price_decimal": 2.1,
+        "ts_captured": "2026-11-15T06:54:44Z",
+        "ts_event_start": "2026-11-21T01:00:00Z",
+        "source": "scraped_ws"
+      },
+      {
+        "event_id": "ws:football:MEX:20261121:puebla:atletico_san_luis",
+        "sport": "football",
+        "league": "MEX",
+        "market": "totals",
+        "line": 3.5,
+        "selection": "under",
+        "book": "bet365",
+        "price_decimal": 1.444,
+        "ts_captured": "2026-11-15T06:54:44Z",
+        "ts_event_start": "2026-11-21T01:00:00Z",
+        "source": "scraped_ws"
+      },
+      {
+        "event_id": "ws:football:MEX:20261121:puebla:atletico_san_luis",
+        "sport": "football",
+        "league": "MEX",
+        "market": "totals",
+        "line": 0.5,
+        "selection": "under",
+        "book": "bet365",
+        "price_decimal": 13,
+        "ts_captured": "2026-11-15T06:54:44Z",
+        "ts_event_start": "2026-11-21T01:00:00Z",
+        "source": "scraped_ws"
+      },
+      {
+        "event_id": "ws:football:MEX:20261121:fc_juarez:atlas",
+        "sport": "football",
+        "league": "MEX",
+        "market": "1x2",
+        "line": null,
+        "selection": "away",
+        "book": "bet365",
+        "price_decimal": 2.01,
+        "ts_captured": "2026-11-15T06:54:44Z",
+        "ts_event_start": "2026-11-21T03:00:00Z",
+        "source": "scraped_ws"
+      },
+      {
+        "event_id": "ws:football:MEX:20261121:fc_juarez:atlas",
+        "sport": "football",
+        "league": "MEX",
+        "market": "1x2",
+        "line": null,
+        "selection": "draw",
+        "book": "bet365",
+        "price_decimal": 3.6,
+        "ts_captured": "2026-11-15T06:54:44Z",
+        "ts_event_start": "2026-11-21T03:00:00Z",
+        "source": "scraped_ws"
+      },
+      {
+        "event_id": "ws:football:MEX:20261121:fc_juarez:atlas",
+        "sport": "football",
+        "league": "MEX",
+        "market": "1x2",
+        "line": null,
+        "selection": "home",
+        "book": "bet365",
+        "price_decimal": 3.2,
+        "ts_captured": "2026-11-15T06:54:44Z",
+        "ts_event_start": "2026-11-21T03:00:00Z",
+        "source": "scraped_ws"
+      },
+      {
+        "event_id": "ws:football:MEX:20261121:fc_juarez:atlas",
+        "sport": "football",
+        "league": "MEX",
+        "market": "btts",
+        "line": null,
+        "selection": "no",
+        "book": "bet365",
+        "price_decimal": 2.25,
+        "ts_captured": "2026-11-15T06:54:44Z",
+        "ts_event_start": "2026-11-21T03:00:00Z",
+        "source": "scraped_ws"
+      },
+      {
+        "event_id": "ws:football:MEX:20261121:fc_juarez:atlas",
+        "sport": "football",
+        "league": "MEX",
+        "market": "btts",
+        "line": null,
+        "selection": "yes",
+        "book": "bet365",
+        "price_decimal": 1.571,
+        "ts_captured": "2026-11-15T06:54:44Z",
+        "ts_event_start": "2026-11-21T03:00:00Z",
+        "source": "scraped_ws"
+      },
+      {
+        "event_id": "ws:football:MEX:20261121:fc_juarez:atlas",
+        "sport": "football",
+        "league": "MEX",
+        "market": "totals",
+        "line": 1.5,
+        "selection": "over",
+        "book": "bet365",
+        "price_decimal": 1.2,
+        "ts_captured": "2026-11-15T06:54:44Z",
+        "ts_event_start": "2026-11-21T03:00:00Z",
+        "source": "scraped_ws"
+      },
+      {
+        "event_id": "ws:football:MEX:20261121:fc_juarez:atlas",
+        "sport": "football",
+        "league": "MEX",
+        "market": "totals",
+        "line": 2.5,
+        "selection": "over",
+        "book": "bet365",
+        "price_decimal": 1.667,
+        "ts_captured": "2026-11-15T06:54:44Z",
+        "ts_event_start": "2026-11-21T03:00:00Z",
+        "source": "scraped_ws"
+      },
+      {
+        "event_id": "ws:football:MEX:20261121:fc_juarez:atlas",
+        "sport": "football",
+        "league": "MEX",
+        "market": "totals",
+        "line": 3.5,
+        "selection": "over",
+        "book": "bet365",
+        "price_decimal": 2.625,
+        "ts_captured": "2026-11-15T06:54:44Z",
+        "ts_event_start": "2026-11-21T03:00:00Z",
+        "source": "scraped_ws"
+      },
+      {
+        "event_id": "ws:football:MEX:20261121:fc_juarez:atlas",
+        "sport": "football",
+        "league": "MEX",
+        "market": "totals",
+        "line": 0.5,
+        "selection": "over",
+        "book": "bet365",
+        "price_decimal": 1.03,
+        "ts_captured": "2026-11-15T06:54:44Z",
+        "ts_event_start": "2026-11-21T03:00:00Z",
+        "source": "scraped_ws"
+      },
+      {
+        "event_id": "ws:football:MEX:20261121:fc_juarez:atlas",
+        "sport": "football",
+        "league": "MEX",
+        "market": "totals",
+        "line": 1.5,
+        "selection": "under",
+        "book": "bet365",
+        "price_decimal": 4.333,
+        "ts_captured": "2026-11-15T06:54:44Z",
+        "ts_event_start": "2026-11-21T03:00:00Z",
+        "source": "scraped_ws"
+      },
+      {
+        "event_id": "ws:football:MEX:20261121:fc_juarez:atlas",
+        "sport": "football",
+        "league": "MEX",
+        "market": "totals",
+        "line": 2.5,
+        "selection": "under",
+        "book": "bet365",
+        "price_decimal": 2.15,
+        "ts_captured": "2026-11-15T06:54:44Z",
+        "ts_event_start": "2026-11-21T03:00:00Z",
+        "source": "scraped_ws"
+      },
+      {
+        "event_id": "ws:football:MEX:20261121:fc_juarez:atlas",
+        "sport": "football",
+        "league": "MEX",
+        "market": "totals",
+        "line": 3.5,
+        "selection": "under",
+        "book": "bet365",
+        "price_decimal": 1.444,
+        "ts_captured": "2026-11-15T06:54:44Z",
+        "ts_event_start": "2026-11-21T03:00:00Z",
+        "source": "scraped_ws"
+      },
+      {
+        "event_id": "ws:football:MEX:20261121:fc_juarez:atlas",
+        "sport": "football",
+        "league": "MEX",
+        "market": "totals",
+        "line": 0.5,
+        "selection": "under",
+        "book": "bet365",
+        "price_decimal": 15,
+        "ts_captured": "2026-11-15T06:54:44Z",
+        "ts_event_start": "2026-11-21T03:00:00Z",
+        "source": "scraped_ws"
+      },
+      {
+        "event_id": "ws:football:MEX:20261121:tijuana:atlante",
+        "sport": "football",
+        "league": "MEX",
+        "market": "1x2",
+        "line": null,
+        "selection": "away",
+        "book": "bet365",
+        "price_decimal": 4.5,
+        "ts_captured": "2026-11-15T06:54:44Z",
+        "ts_event_start": "2026-11-21T03:00:00Z",
+        "source": "scraped_ws"
+      },
+      {
+        "event_id": "ws:football:MEX:20261121:tijuana:atlante",
+        "sport": "football",
+        "league": "MEX",
+        "market": "1x2",
+        "line": null,
+        "selection": "draw",
+        "book": "bet365",
+        "price_decimal": 3.8,
+        "ts_captured": "2026-11-15T06:54:44Z",
+        "ts_event_start": "2026-11-21T03:00:00Z",
+        "source": "scraped_ws"
+      },
+      {
+        "event_id": "ws:football:MEX:20261121:tijuana:atlante",
+        "sport": "football",
+        "league": "MEX",
+        "market": "1x2",
+        "line": null,
+        "selection": "home",
+        "book": "bet365",
+        "price_decimal": 1.66,
+        "ts_captured": "2026-11-15T06:54:44Z",
+        "ts_event_start": "2026-11-21T03:00:00Z",
+        "source": "scraped_ws"
+      },
+      {
+        "event_id": "ws:football:MEX:20261121:tijuana:atlante",
+        "sport": "football",
+        "league": "MEX",
+        "market": "btts",
+        "line": null,
+        "selection": "no",
+        "book": "bet365",
+        "price_decimal": 2.1,
+        "ts_captured": "2026-11-15T06:54:44Z",
+        "ts_event_start": "2026-11-21T03:00:00Z",
+        "source": "scraped_ws"
+      },
+      {
+        "event_id": "ws:football:MEX:20261121:tijuana:atlante",
+        "sport": "football",
+        "league": "MEX",
+        "market": "btts",
+        "line": null,
+        "selection": "yes",
+        "book": "bet365",
+        "price_decimal": 1.667,
+        "ts_captured": "2026-11-15T06:54:44Z",
+        "ts_event_start": "2026-11-21T03:00:00Z",
+        "source": "scraped_ws"
+      },
+      {
+        "event_id": "ws:football:MEX:20261121:tijuana:atlante",
+        "sport": "football",
+        "league": "MEX",
+        "market": "totals",
+        "line": 1.5,
+        "selection": "over",
+        "book": "bet365",
+        "price_decimal": 1.182,
+        "ts_captured": "2026-11-15T06:54:44Z",
+        "ts_event_start": "2026-11-21T03:00:00Z",
+        "source": "scraped_ws"
+      },
+      {
+        "event_id": "ws:football:MEX:20261121:tijuana:atlante",
+        "sport": "football",
+        "league": "MEX",
+        "market": "totals",
+        "line": 2.5,
+        "selection": "over",
+        "book": "bet365",
+        "price_decimal": 1.65,
+        "ts_captured": "2026-11-15T06:54:44Z",
+        "ts_event_start": "2026-11-21T03:00:00Z",
+        "source": "scraped_ws"
+      },
+      {
+        "event_id": "ws:football:MEX:20261121:tijuana:atlante",
+        "sport": "football",
+        "league": "MEX",
+        "market": "totals",
+        "line": 3.5,
+        "selection": "over",
+        "book": "bet365",
+        "price_decimal": 2.5,
+        "ts_captured": "2026-11-15T06:54:44Z",
+        "ts_event_start": "2026-11-21T03:00:00Z",
+        "source": "scraped_ws"
+      },
+      {
+        "event_id": "ws:football:MEX:20261121:tijuana:atlante",
+        "sport": "football",
+        "league": "MEX",
+        "market": "totals",
+        "line": 0.5,
+        "selection": "over",
+        "book": "bet365",
+        "price_decimal": 1.03,
+        "ts_captured": "2026-11-15T06:54:44Z",
+        "ts_event_start": "2026-11-21T03:00:00Z",
+        "source": "scraped_ws"
+      },
+      {
+        "event_id": "ws:football:MEX:20261121:tijuana:atlante",
+        "sport": "football",
+        "league": "MEX",
+        "market": "totals",
+        "line": 1.5,
+        "selection": "under",
+        "book": "bet365",
+        "price_decimal": 4.5,
+        "ts_captured": "2026-11-15T06:54:44Z",
+        "ts_event_start": "2026-11-21T03:00:00Z",
+        "source": "scraped_ws"
+      },
+      {
+        "event_id": "ws:football:MEX:20261121:tijuana:atlante",
+        "sport": "football",
+        "league": "MEX",
+        "market": "totals",
+        "line": 2.5,
+        "selection": "under",
+        "book": "bet365",
+        "price_decimal": 2.2,
+        "ts_captured": "2026-11-15T06:54:44Z",
+        "ts_event_start": "2026-11-21T03:00:00Z",
+        "source": "scraped_ws"
+      },
+      {
+        "event_id": "ws:football:MEX:20261121:tijuana:atlante",
+        "sport": "football",
+        "league": "MEX",
+        "market": "totals",
+        "line": 3.5,
+        "selection": "under",
+        "book": "bet365",
+        "price_decimal": 1.5,
+        "ts_captured": "2026-11-15T06:54:44Z",
+        "ts_event_start": "2026-11-21T03:00:00Z",
+        "source": "scraped_ws"
+      },
+      {
+        "event_id": "ws:football:MEX:20261121:tijuana:atlante",
+        "sport": "football",
+        "league": "MEX",
+        "market": "totals",
+        "line": 0.5,
+        "selection": "under",
+        "book": "bet365",
+        "price_decimal": 15,
+        "ts_captured": "2026-11-15T06:54:44Z",
+        "ts_event_start": "2026-11-21T03:00:00Z",
+        "source": "scraped_ws"
+      },
+      {
+        "event_id": "ws:football:SP1:20261120:athletic_club:espanyol",
+        "sport": "football",
+        "league": "SP1",
+        "market": "1x2",
+        "line": null,
+        "selection": "away",
+        "book": "bet365",
+        "price_decimal": 7,
+        "ts_captured": "2026-11-15T06:54:44Z",
+        "ts_event_start": "2026-11-20T20:00:00Z",
+        "source": "scraped_ws"
+      },
+      {
+        "event_id": "ws:football:SP1:20261120:athletic_club:espanyol",
+        "sport": "football",
+        "league": "SP1",
+        "market": "1x2",
+        "line": null,
+        "selection": "draw",
+        "book": "bet365",
+        "price_decimal": 4.1,
+        "ts_captured": "2026-11-15T06:54:44Z",
+        "ts_event_start": "2026-11-20T20:00:00Z",
+        "source": "scraped_ws"
+      },
+      {
+        "event_id": "ws:football:SP1:20261120:athletic_club:espanyol",
+        "sport": "football",
+        "league": "SP1",
+        "market": "1x2",
+        "line": null,
+        "selection": "home",
+        "book": "bet365",
+        "price_decimal": 1.45,
+        "ts_captured": "2026-11-15T06:54:44Z",
+        "ts_event_start": "2026-11-20T20:00:00Z",
+        "source": "scraped_ws"
+      },
+      {
+        "event_id": "ws:football:SP1:20261120:athletic_club:espanyol",
+        "sport": "football",
+        "league": "SP1",
+        "market": "btts",
+        "line": null,
+        "selection": "no",
+        "book": "bet365",
+        "price_decimal": 1.8,
+        "ts_captured": "2026-11-15T06:54:44Z",
+        "ts_event_start": "2026-11-20T20:00:00Z",
+        "source": "scraped_ws"
+      },
+      {
+        "event_id": "ws:football:SP1:20261120:athletic_club:espanyol",
+        "sport": "football",
+        "league": "SP1",
+        "market": "btts",
+        "line": null,
+        "selection": "yes",
+        "book": "bet365",
+        "price_decimal": 1.95,
+        "ts_captured": "2026-11-15T06:54:44Z",
+        "ts_event_start": "2026-11-20T20:00:00Z",
+        "source": "scraped_ws"
+      },
+      {
+        "event_id": "ws:football:SP1:20261120:athletic_club:espanyol",
+        "sport": "football",
+        "league": "SP1",
+        "market": "totals",
+        "line": 1.5,
+        "selection": "over",
+        "book": "bet365",
+        "price_decimal": 1.25,
+        "ts_captured": "2026-11-15T06:54:44Z",
+        "ts_event_start": "2026-11-20T20:00:00Z",
+        "source": "scraped_ws"
+      },
+      {
+        "event_id": "ws:football:SP1:20261120:athletic_club:espanyol",
+        "sport": "football",
+        "league": "SP1",
+        "market": "totals",
+        "line": 2.5,
+        "selection": "over",
+        "book": "bet365",
+        "price_decimal": 1.8,
+        "ts_captured": "2026-11-15T06:54:44Z",
+        "ts_event_start": "2026-11-20T20:00:00Z",
+        "source": "scraped_ws"
+      },
+      {
+        "event_id": "ws:football:SP1:20261120:athletic_club:espanyol",
+        "sport": "football",
+        "league": "SP1",
+        "market": "totals",
+        "line": 3.5,
+        "selection": "over",
+        "book": "bet365",
+        "price_decimal": 3,
+        "ts_captured": "2026-11-15T06:54:44Z",
+        "ts_event_start": "2026-11-20T20:00:00Z",
+        "source": "scraped_ws"
+      },
+      {
+        "event_id": "ws:football:SP1:20261120:athletic_club:espanyol",
+        "sport": "football",
+        "league": "SP1",
+        "market": "totals",
+        "line": 0.5,
+        "selection": "over",
+        "book": "bet365",
+        "price_decimal": 1.04,
+        "ts_captured": "2026-11-15T06:54:44Z",
+        "ts_event_start": "2026-11-20T20:00:00Z",
+        "source": "scraped_ws"
+      },
+      {
+        "event_id": "ws:football:SP1:20261120:athletic_club:espanyol",
+        "sport": "football",
+        "league": "SP1",
+        "market": "totals",
+        "line": 1.5,
+        "selection": "under",
+        "book": "bet365",
+        "price_decimal": 4,
+        "ts_captured": "2026-11-15T06:54:44Z",
+        "ts_event_start": "2026-11-20T20:00:00Z",
+        "source": "scraped_ws"
+      },
+      {
+        "event_id": "ws:football:SP1:20261120:athletic_club:espanyol",
+        "sport": "football",
+        "league": "SP1",
+        "market": "totals",
+        "line": 2.5,
+        "selection": "under",
+        "book": "bet365",
+        "price_decimal": 2,
+        "ts_captured": "2026-11-15T06:54:44Z",
+        "ts_event_start": "2026-11-20T20:00:00Z",
+        "source": "scraped_ws"
+      },
+      {
+        "event_id": "ws:football:SP1:20261120:athletic_club:espanyol",
+        "sport": "football",
+        "league": "SP1",
+        "market": "totals",
+        "line": 3.5,
+        "selection": "under",
+        "book": "bet365",
+        "price_decimal": 1.4,
+        "ts_captured": "2026-11-15T06:54:44Z",
+        "ts_event_start": "2026-11-20T20:00:00Z",
+        "source": "scraped_ws"
+      },
+      {
+        "event_id": "ws:football:SP1:20261120:athletic_club:espanyol",
+        "sport": "football",
+        "league": "SP1",
+        "market": "totals",
+        "line": 0.5,
+        "selection": "under",
+        "book": "bet365",
+        "price_decimal": 12,
+        "ts_captured": "2026-11-15T06:54:44Z",
+        "ts_event_start": "2026-11-20T20:00:00Z",
+        "source": "scraped_ws"
+      },
+      {
+        "event_id": "ws:football:SP1:20261121:alaves:deportivo_la_coruna",
+        "sport": "football",
+        "league": "SP1",
+        "market": "1x2",
+        "line": null,
+        "selection": "away",
+        "book": "bet365",
+        "price_decimal": 3.6,
+        "ts_captured": "2026-11-15T06:54:44Z",
+        "ts_event_start": "2026-11-21T13:00:00Z",
+        "source": "scraped_ws"
+      },
+      {
+        "event_id": "ws:football:SP1:20261121:alaves:deportivo_la_coruna",
+        "sport": "football",
+        "league": "SP1",
+        "market": "1x2",
+        "line": null,
+        "selection": "draw",
+        "book": "bet365",
+        "price_decimal": 3.25,
+        "ts_captured": "2026-11-15T06:54:44Z",
+        "ts_event_start": "2026-11-21T13:00:00Z",
+        "source": "scraped_ws"
+      },
+      {
+        "event_id": "ws:football:SP1:20261121:alaves:deportivo_la_coruna",
+        "sport": "football",
+        "league": "SP1",
+        "market": "1x2",
+        "line": null,
+        "selection": "home",
+        "book": "bet365",
+        "price_decimal": 2,
+        "ts_captured": "2026-11-15T06:54:44Z",
+        "ts_event_start": "2026-11-21T13:00:00Z",
+        "source": "scraped_ws"
+      },
+      {
+        "event_id": "ws:football:SP1:20261121:alaves:deportivo_la_coruna",
+        "sport": "football",
+        "league": "SP1",
+        "market": "btts",
+        "line": null,
+        "selection": "no",
+        "book": "bet365",
+        "price_decimal": 1.8,
+        "ts_captured": "2026-11-15T06:54:44Z",
+        "ts_event_start": "2026-11-21T13:00:00Z",
+        "source": "scraped_ws"
+      },
+      {
+        "event_id": "ws:football:SP1:20261121:alaves:deportivo_la_coruna",
+        "sport": "football",
+        "league": "SP1",
+        "market": "btts",
+        "line": null,
+        "selection": "yes",
+        "book": "bet365",
+        "price_decimal": 1.95,
+        "ts_captured": "2026-11-15T06:54:44Z",
+        "ts_event_start": "2026-11-21T13:00:00Z",
+        "source": "scraped_ws"
+      },
+      {
+        "event_id": "ws:football:SP1:20261121:alaves:deportivo_la_coruna",
+        "sport": "football",
+        "league": "SP1",
+        "market": "totals",
+        "line": 1.5,
+        "selection": "over",
+        "book": "bet365",
+        "price_decimal": 1.364,
+        "ts_captured": "2026-11-15T06:54:44Z",
+        "ts_event_start": "2026-11-21T13:00:00Z",
+        "source": "scraped_ws"
+      },
+      {
+        "event_id": "ws:football:SP1:20261121:alaves:deportivo_la_coruna",
+        "sport": "football",
+        "league": "SP1",
+        "market": "totals",
+        "line": 2.5,
+        "selection": "over",
+        "book": "bet365",
+        "price_decimal": 2.2,
+        "ts_captured": "2026-11-15T06:54:44Z",
+        "ts_event_start": "2026-11-21T13:00:00Z",
+        "source": "scraped_ws"
+      },
+      {
+        "event_id": "ws:football:SP1:20261121:alaves:deportivo_la_coruna",
+        "sport": "football",
+        "league": "SP1",
+        "market": "totals",
+        "line": 3.5,
+        "selection": "over",
+        "book": "bet365",
+        "price_decimal": 4,
+        "ts_captured": "2026-11-15T06:54:44Z",
+        "ts_event_start": "2026-11-21T13:00:00Z",
+        "source": "scraped_ws"
+      },
+      {
+        "event_id": "ws:football:SP1:20261121:alaves:deportivo_la_coruna",
+        "sport": "football",
+        "league": "SP1",
+        "market": "totals",
+        "line": 0.5,
+        "selection": "over",
+        "book": "bet365",
+        "price_decimal": 1.071,
+        "ts_captured": "2026-11-15T06:54:44Z",
+        "ts_event_start": "2026-11-21T13:00:00Z",
+        "source": "scraped_ws"
+      },
+      {
+        "event_id": "ws:football:SP1:20261121:alaves:deportivo_la_coruna",
+        "sport": "football",
+        "league": "SP1",
+        "market": "totals",
+        "line": 1.5,
+        "selection": "under",
+        "book": "bet365",
+        "price_decimal": 3.2,
+        "ts_captured": "2026-11-15T06:54:44Z",
+        "ts_event_start": "2026-11-21T13:00:00Z",
+        "source": "scraped_ws"
+      },
+      {
+        "event_id": "ws:football:SP1:20261121:alaves:deportivo_la_coruna",
+        "sport": "football",
+        "league": "SP1",
+        "market": "totals",
+        "line": 2.5,
+        "selection": "under",
+        "book": "bet365",
+        "price_decimal": 1.667,
+        "ts_captured": "2026-11-15T06:54:44Z",
+        "ts_event_start": "2026-11-21T13:00:00Z",
+        "source": "scraped_ws"
+      },
+      {
+        "event_id": "ws:football:SP1:20261121:alaves:deportivo_la_coruna",
+        "sport": "football",
+        "league": "SP1",
+        "market": "totals",
+        "line": 3.5,
+        "selection": "under",
+        "book": "bet365",
+        "price_decimal": 1.25,
+        "ts_captured": "2026-11-15T06:54:44Z",
+        "ts_event_start": "2026-11-21T13:00:00Z",
+        "source": "scraped_ws"
+      },
+      {
+        "event_id": "ws:football:SP1:20261121:alaves:deportivo_la_coruna",
+        "sport": "football",
+        "league": "SP1",
+        "market": "totals",
+        "line": 0.5,
+        "selection": "under",
+        "book": "bet365",
+        "price_decimal": 9,
+        "ts_captured": "2026-11-15T06:54:44Z",
+        "ts_event_start": "2026-11-21T13:00:00Z",
+        "source": "scraped_ws"
+      }
+    ],
+    "engine_pre_kickoff_by_event": {
+      "ws:football:D1:20261120:bayern_munchen:koln": {
+        "matchedSnapshotGameId": "bundesliga-2026-27-md10-bayern-munchen-koln",
+        "sealedFromSnapshot": "2026-11-09.json",
+        "v6Probs": {
+          "pHome": 0.8752794688563287,
+          "pDraw": 0.09560245420293415,
+          "pAway": 0.029118076940737266,
+          "pOver05": 0.9845938950887791,
+          "pOver15": 0.9388462544672647,
+          "pOver25": 0.8184797631238843,
+          "pOver35": 0.6356265140152687,
+          "pBttsYes": 0.522177035286184
+        },
+        "rawPreKickoffProbs": {
+          "pHome": 0.88691932458753,
+          "pDraw": 0.08989630487958754,
+          "pAway": 0.02318437053288263,
+          "pOver05": 0.9910935778398243,
+          "pOver15": 0.9634808547561026,
+          "pOver25": 0.8789811847583756,
+          "pOver35": 0.7410331660850477,
+          "pBttsYes": 0.5743629063136785
+        }
+      },
+      "ws:football:E0:20261121:manchester_city:fulham": {
+        "matchedSnapshotGameId": "pl-2026-27-md11-manchester-city-fulham",
+        "sealedFromSnapshot": "2026-11-09.json",
+        "v6Probs": {
+          "pHome": 0.6752698787195612,
+          "pDraw": 0.19247582438157754,
+          "pAway": 0.1322542968988613,
+          "pOver05": 0.9361567749873883,
+          "pOver15": 0.7990441920708298,
+          "pOver25": 0.5549010522273745,
+          "pOver35": 0.33543889634957963,
+          "pBttsYes": 0.5138450658221554
+        },
+        "rawPreKickoffProbs": {
+          "pHome": 0.7006355989052698,
+          "pDraw": 0.1764411574841477,
+          "pAway": 0.12292324361058274,
+          "pOver05": 0.9425770450936906,
+          "pOver15": 0.8166454721806236,
+          "pOver25": 0.586066623226744,
+          "pOver35": 0.36208875853797245,
+          "pBttsYes": 0.53336445461436
+        }
+      },
+      "ws:football:F1:20261120:troyes:le_havre": {
+        "matchedSnapshotGameId": "ligue-1-2026-27-md11-es-troyes-le-havre",
+        "sealedFromSnapshot": "2026-11-09.json",
+        "v6Probs": {
+          "pHome": 0.4242239210366763,
+          "pDraw": 0.26842308814131405,
+          "pAway": 0.3073529908220098,
+          "pOver05": 0.920262096932788,
+          "pOver15": 0.7647546627775406,
+          "pOver25": 0.506709125638842,
+          "pOver35": 0.286691585062394,
+          "pBttsYes": 0.554951653777122
+        },
+        "rawPreKickoffProbs": {
+          "pHome": 0.43390895913967165,
+          "pDraw": 0.2613021030514314,
+          "pAway": 0.30478893780889665,
+          "pOver05": 0.9105261639672599,
+          "pOver15": 0.7405693130235749,
+          "pOver25": 0.4748121674408405,
+          "pOver35": 0.2581714594058538,
+          "pBttsYes": 0.5342719261856432
+        }
+      },
+      "ws:football:I1:20261121:como:cagliari": {
+        "matchedSnapshotGameId": "serie-a-2026-27-md12-como-cagliari",
+        "sealedFromSnapshot": "2026-11-09.json",
+        "v6Probs": {
+          "pHome": 0.6595633979814519,
+          "pDraw": 0.2061939489798612,
+          "pAway": 0.13424265303868696,
+          "pOver05": 0.9255556577775553,
+          "pOver15": 0.7706289063876892,
+          "pOver25": 0.5170232054414673,
+          "pOver35": 0.29681385127942017,
+          "pBttsYes": 0.4840088363212236
+        },
+        "rawPreKickoffProbs": {
+          "pHome": 0.6819288208298834,
+          "pDraw": 0.19173761405048176,
+          "pAway": 0.12633356511963442,
+          "pOver05": 0.9119095433154254,
+          "pOver15": 0.7362322667293314,
+          "pOver25": 0.47208289661565317,
+          "pOver35": 0.2558353993683099,
+          "pBttsYes": 0.4510732676732726
+        }
+      },
+      "ws:football:I1:20261121:lazio:lecce": {
+        "matchedSnapshotGameId": "serie-a-2026-27-md12-lazio-lecce",
+        "sealedFromSnapshot": "2026-11-09.json",
+        "v6Probs": {
+          "pHome": 0.7017693992328715,
+          "pDraw": 0.1823732258645412,
+          "pAway": 0.1158573749025874,
+          "pOver05": 0.9415305085778618,
+          "pOver15": 0.8120716504144363,
+          "pOver25": 0.5738601516362299,
+          "pOver35": 0.35563630193864537,
+          "pBttsYes": 0.5074849150965186
+        },
+        "rawPreKickoffProbs": {
+          "pHome": 0.7249428025624685,
+          "pDraw": 0.16765706024467222,
+          "pAway": 0.10740013719285954,
+          "pOver05": 0.9401817469108317,
+          "pOver15": 0.8083433888639718,
+          "pOver25": 0.573960447184723,
+          "pOver35": 0.3499245559361379,
+          "pBttsYes": 0.5042663623191744
+        }
+      },
+      "ws:football:MEX:20261121:fc_juarez:atlas": {
+        "matchedSnapshotGameId": "mx-2026-j17-fc-juarez-atlas-401877053",
+        "sealedFromSnapshot": "2026-11-11.json",
+        "v6Probs": {
+          "pHome": 0.2727912808016051,
+          "pDraw": 0.2545973390460733,
+          "pAway": 0.47261138015232174,
+          "pOver05": 0.9513854235934732,
+          "pOver15": 0.8461155593897206,
+          "pOver25": 0.6224094271571304,
+          "pOver35": 0.4165650529559975,
+          "pBttsYes": 0.6160399384117169
+        },
+        "rawPreKickoffProbs": {
+          "pHome": 0.2853970667428197,
+          "pDraw": 0.2567297482760328,
+          "pAway": 0.4578731849811478,
+          "pOver05": 0.9581630481097706,
+          "pOver15": 0.8658240555323895,
+          "pOver25": 0.6658097076475932,
+          "pOver35": 0.4479591311165667,
+          "pBttsYes": 0.650021846080258
+        }
+      },
+      "ws:football:MEX:20261121:puebla:atletico_san_luis": {
+        "matchedSnapshotGameId": "mx-2026-j17-puebla-atletico-san-luis-401877054",
+        "sealedFromSnapshot": "2026-11-11.json",
+        "v6Probs": {
+          "pHome": 0.3913998183387986,
+          "pDraw": 0.2860337735622627,
+          "pAway": 0.32256640809893866,
+          "pOver05": 0.9149279272888817,
+          "pOver15": 0.7516129302058798,
+          "pOver25": 0.4901175081221418,
+          "pOver35": 0.27076088217799,
+          "pBttsYes": 0.5442486775943106
+        },
+        "rawPreKickoffProbs": {
+          "pHome": 0.39818814295594795,
+          "pDraw": 0.28317694780535785,
+          "pAway": 0.3186349092386945,
+          "pOver05": 0.8974374489334233,
+          "pOver15": 0.7095642678840364,
+          "pOver25": 0.43553798336728455,
+          "pOver35": 0.2254920530242533,
+          "pBttsYes": 0.5056133651902158
+        }
+      },
+      "ws:football:MEX:20261121:tijuana:atlante": {
+        "matchedSnapshotGameId": "mx-2026-j17-tijuana-atlante-401877052",
+        "sealedFromSnapshot": "2026-11-11.json",
+        "v6Probs": {
+          "pHome": 0.5391362574308458,
+          "pDraw": 0.2466352192267828,
+          "pAway": 0.21422852334237136,
+          "pOver05": 0.9334731565195813,
+          "pOver15": 0.7956056063513317,
+          "pOver25": 0.5487562435909976,
+          "pOver35": 0.32901705018297894,
+          "pBttsYes": 0.5507886716333089
+        },
+        "rawPreKickoffProbs": {
+          "pHome": 0.5444403010913399,
+          "pDraw": 0.24161512855693795,
+          "pAway": 0.21394457035172226,
+          "pOver05": 0.9304795429038721,
+          "pOver15": 0.7876734880939134,
+          "pOver25": 0.5410074216532952,
+          "pOver35": 0.31790308586497246,
+          "pBttsYes": 0.5463819509691571
+        }
+      },
+      "ws:football:SP1:20261120:athletic_club:espanyol": {
+        "matchedSnapshotGameId": "laliga-2026-27-md13-athletic-club-espanyol",
+        "sealedFromSnapshot": "2026-11-09.json",
+        "v6Probs": {
+          "pHome": 0.521471586614498,
+          "pDraw": 0.2562395780642933,
+          "pAway": 0.2222888353212087,
+          "pOver05": 0.9156386414904517,
+          "pOver15": 0.7511764623109027,
+          "pOver25": 0.4903596322413398,
+          "pOver35": 0.27099024055365856,
+          "pBttsYes": 0.5229040862803559
+        },
+        "rawPreKickoffProbs": {
+          "pHome": 0.5381445063709379,
+          "pDraw": 0.24671306392535572,
+          "pAway": 0.21514242970370676,
+          "pOver05": 0.9047801010708374,
+          "pOver15": 0.7246955132781686,
+          "pOver25": 0.4551683767332949,
+          "pOver35": 0.24157578161874127,
+          "pBttsYes": 0.49872523330954155
+        }
+      },
+      "ws:football:SP1:20261121:alaves:deportivo_la_coruna": {
+        "matchedSnapshotGameId": "laliga-2026-27-md13-alaves-deportivo-la-coruna",
+        "sealedFromSnapshot": "2026-11-09.json",
+        "v6Probs": {
+          "pHome": 0.4261940472706568,
+          "pDraw": 0.27332665481071816,
+          "pAway": 0.3004792979186251,
+          "pOver05": 0.9189126224792544,
+          "pOver15": 0.7613927806840234,
+          "pOver25": 0.5024234673029924,
+          "pOver35": 0.28253506873970785,
+          "pBttsYes": 0.5520674737553921
+        },
+        "rawPreKickoffProbs": {
+          "pHome": 0.4379881140416871,
+          "pDraw": 0.26738771223056446,
+          "pAway": 0.29462417372774813,
+          "pOver05": 0.9111262480616867,
+          "pOver15": 0.7420774981555139,
+          "pOver25": 0.47676927061019136,
+          "pOver35": 0.2598526360241126,
+          "pBttsYes": 0.5362258629871794
+        }
+      }
+    },
+    "expected_live_eval": {
+      "n_raw_ticks": 128,
+      "n_valid_prekickoff_ticks": 128,
+      "n_post_kickoff_discarded_ticks": 0,
+      "n_incomplete_or_invalid_ticks": 0,
+      "n_complete_markets": 59,
+      "n_unique_events": 10,
+      "devig_method": "power",
+      "mean_overround": 0.05991873,
+      "mean_power_alpha": 1.12328895,
+      "prekickoff_dispersion_and_alignment": {
+        "mad_prob_dispersion_v6": {
+          "n_rows": 128,
+          "n_clusters": 10,
+          "mean": 0.04005091,
+          "se": 0.00531759,
+          "ci95_lo": 0.02949957,
+          "ci95_hi": 0.05074345,
+          "bootstrap_method": "cluster_mulberry32",
+          "n_resamples": 1000,
+          "seed": 20261111
+        },
+        "rmse_prob_dispersion_v6": 0.0496625,
+        "mean_signed_prob_diff_v6_minus_power": -0.0,
+        "cross_entropy_v6_vs_raw_prekickoff": {
+          "n_rows": 59,
+          "n_clusters": 10,
+          "cand_mean": 0.59553374,
+          "bench_mean": 0.59961846,
+          "delta_mean": -0.00408473,
+          "se": 0.00200055,
+          "ci95_lo": -0.00835882,
+          "ci95_hi": -0.00024273,
+          "p_value_one_sided": 0.015,
+          "significant_improvement": true,
+          "significance_label": "significativa",
+          "bootstrap_method": "cluster_mulberry32",
+          "n_resamples": 1000,
+          "seed": 20261111
+        },
+        "kl_divergence_v6_vs_raw_prekickoff": {
+          "n_rows": 59,
+          "n_clusters": 10,
+          "cand_mean": 0.00759279,
+          "bench_mean": 0.01167751,
+          "delta_mean": -0.00408473,
+          "se": 0.00200055,
+          "ci95_lo": -0.00835882,
+          "ci95_hi": -0.00024273,
+          "p_value_one_sided": 0.015,
+          "significant_improvement": true,
+          "significance_label": "significativa",
+          "bootstrap_method": "cluster_mulberry32",
+          "n_resamples": 1000,
+          "seed": 20261111
+        },
+        "brier_divergence_v6_vs_raw_prekickoff": {
+          "n_rows": 59,
+          "n_clusters": 10,
+          "cand_mean": 0.00535075,
+          "bench_mean": 0.00854216,
+          "delta_mean": -0.0031914,
+          "se": 0.00162835,
+          "ci95_lo": -0.00671414,
+          "ci95_hi": -9.775e-05,
+          "p_value_one_sided": 0.02,
+          "significant_improvement": true,
+          "significance_label": "significativa",
+          "bootstrap_method": "cluster_mulberry32",
+          "n_resamples": 1000,
+          "seed": 20261111
+        },
+        "mad_dispersion_v6_vs_raw_prekickoff": {
+          "n_rows": 128,
+          "n_clusters": 10,
+          "cand_mean": 0.04005091,
+          "bench_mean": 0.05090561,
+          "delta_mean": -0.0108547,
+          "se": 0.00504642,
+          "ci95_lo": -0.02097191,
+          "ci95_hi": -0.00056633,
+          "p_value_one_sided": 0.019,
+          "significant_improvement": true,
+          "significance_label": "significativa",
+          "bootstrap_method": "cluster_mulberry32",
+          "n_resamples": 1000,
+          "seed": 20261111
+        },
+        "playable_zone_1_55_to_2_60_mad_v6_vs_raw": {
+          "n_rows": 47,
+          "n_clusters": 10,
+          "cand_mean": 0.04276842,
+          "bench_mean": 0.05529543,
+          "delta_mean": -0.01252701,
+          "se": 0.00653285,
+          "ci95_lo": -0.02538334,
+          "ci95_hi": 0.00070412,
+          "p_value_one_sided": 0.031,
+          "significant_improvement": false,
+          "significance_label": "no significativa",
+          "bootstrap_method": "cluster_mulberry32",
+          "n_resamples": 1000,
+          "seed": 20261111
+        }
+      },
+      "settled_outcome_calibration": {
+        "n_settled_events": 0,
+        "n_settled_markets": 0,
+        "logloss_v6": null,
+        "logloss_power_novig": null,
+        "delta_logloss_v6_minus_power": null,
+        "ci95_lo": null,
+        "ci95_hi": null,
+        "brier_v6": null,
+        "brier_power_novig": null,
+        "delta_brier_v6_minus_power": null,
+        "ece_v6": null,
+        "ece_power_novig": null,
+        "significant_improvement": false,
+        "significance_label": "no significativa",
+        "bootstrap_method": "cluster_mulberry32",
+        "n_resamples": 1000,
+        "seed": 20261111
+      },
+      "by_market": {
+        "1x2": {
+          "n_markets": 10,
+          "mean_kl_power_to_v6": 0.01055655,
+          "mean_mad_prob_dispersion": 0.03370417,
+          "mean_overround": 0.07788168
+        },
+        "btts": {
+          "n_markets": 10,
+          "mean_kl_power_to_v6": 0.00303512,
+          "mean_mad_prob_dispersion": 0.03270528,
+          "mean_overround": 0.07113177
+        },
+        "totals_0.5": {
+          "n_markets": 9,
+          "mean_kl_power_to_v6": 0.00807336,
+          "mean_mad_prob_dispersion": 0.02756788,
+          "mean_overround": 0.03921436
+        },
+        "totals_1.5": {
+          "n_markets": 10,
+          "mean_kl_power_to_v6": 0.00650151,
+          "mean_mad_prob_dispersion": 0.03960982,
+          "mean_overround": 0.05557301
+        },
+        "totals_2.5": {
+          "n_markets": 10,
+          "mean_kl_power_to_v6": 0.00866706,
+          "mean_mad_prob_dispersion": 0.05479534,
+          "mean_overround": 0.05639482
+        },
+        "totals_3.5": {
+          "n_markets": 10,
+          "mean_kl_power_to_v6": 0.00877117,
+          "mean_mad_prob_dispersion": 0.05384807,
+          "mean_overround": 0.05724631
+        }
+      },
+      "by_league": {
+        "D1": {
+          "n_markets": 5,
+          "mean_kl_power_to_v6": 0.00317126,
+          "mean_mad_prob_dispersion": 0.01864021,
+          "mean_overround": 0.05658698
+        },
+        "E0": {
+          "n_markets": 6,
+          "mean_kl_power_to_v6": 0.01034812,
+          "mean_mad_prob_dispersion": 0.05417712,
+          "mean_overround": 0.05614933
+        },
+        "F1": {
+          "n_markets": 6,
+          "mean_kl_power_to_v6": 0.00226299,
+          "mean_mad_prob_dispersion": 0.02049403,
+          "mean_overround": 0.05872785
+        },
+        "I1": {
+          "n_markets": 12,
+          "mean_kl_power_to_v6": 0.01145105,
+          "mean_mad_prob_dispersion": 0.04903273,
+          "mean_overround": 0.05482369
+        },
+        "MEX": {
+          "n_markets": 18,
+          "mean_kl_power_to_v6": 0.00546985,
+          "mean_mad_prob_dispersion": 0.03791296,
+          "mean_overround": 0.06741991
+        },
+        "SP1": {
+          "n_markets": 12,
+          "mean_kl_power_to_v6": 0.01004847,
+          "mean_mad_prob_dispersion": 0.04855698,
+          "mean_overround": 0.05763038
+        }
+      }
+    },
+    "expected_first_10_markets": [
+      {
+        "eventId": "ws:football:D1:20261120:bayern_munchen:koln",
+        "league": "D1",
+        "book": "bet365",
+        "marketKey": "1x2",
+        "selections": [
+          "home",
+          "draw",
+          "away"
+        ],
+        "decimalOdds": [
+          1.071,
+          11.0,
+          23.0
+        ],
+        "powerNoVigProbs": [
+          0.9208718,
+          0.05603507,
+          0.02309313
+        ],
+        "modelV6Probs": [
+          0.87527947,
+          0.09560245,
+          0.02911808
+        ],
+        "overround": 0.06809417,
+        "powerAlpha": 1.2017946,
+        "klDivergencePowerToModel": 0.01147102,
+        "madProbDispersion": 0.03039489,
+        "madRawPreKickoff": 0.02263498,
+        "settledWinnerIdx": null
+      },
+      {
+        "eventId": "ws:football:D1:20261120:bayern_munchen:koln",
+        "league": "D1",
+        "book": "bet365",
+        "marketKey": "btts",
+        "selections": [
+          "yes",
+          "no"
+        ],
+        "decimalOdds": [
+          1.95,
+          1.8
+        ],
+        "powerNoVigProbs": [
+          0.47788995,
+          0.52211005
+        ],
+        "modelV6Probs": [
+          0.52217704,
+          0.47782296
+        ],
+        "overround": 0.06837607,
+        "powerAlpha": 1.10563393,
+        "klDivergencePowerToModel": 0.00392527,
+        "madProbDispersion": 0.04428709,
+        "madRawPreKickoff": 0.09647296,
+        "settledWinnerIdx": null
+      },
+      {
+        "eventId": "ws:football:D1:20261120:bayern_munchen:koln",
+        "league": "D1",
+        "book": "bet365",
+        "marketKey": "totals_1.5",
+        "selections": [
+          "over",
+          "under"
+        ],
+        "decimalOdds": [
+          1.05,
+          11.0
+        ],
+        "powerNoVigProbs": [
+          0.94328251,
+          0.05671749
+        ],
+        "modelV6Probs": [
+          0.93884625,
+          0.06115375
+        ],
+        "overround": 0.04329004,
+        "powerAlpha": 1.19674644,
+        "klDivergencePowerToModel": 0.00017541,
+        "madProbDispersion": 0.00443625,
+        "madRawPreKickoff": 0.02019835,
+        "settledWinnerIdx": null
+      },
+      {
+        "eventId": "ws:football:D1:20261120:bayern_munchen:koln",
+        "league": "D1",
+        "book": "bet365",
+        "marketKey": "totals_2.5",
+        "selections": [
+          "over",
+          "under"
+        ],
+        "decimalOdds": [
+          1.2,
+          4.5
+        ],
+        "powerNoVigProbs": [
+          0.81501256,
+          0.18498744
+        ],
+        "modelV6Probs": [
+          0.81847976,
+          0.18152024
+        ],
+        "overround": 0.05555556,
+        "powerAlpha": 1.12192853,
+        "klDivergencePowerToModel": 4.026e-05,
+        "madProbDispersion": 0.0034672,
+        "madRawPreKickoff": 0.06396863,
+        "settledWinnerIdx": null
+      },
+      {
+        "eventId": "ws:football:D1:20261120:bayern_munchen:koln",
+        "league": "D1",
+        "book": "bet365",
+        "marketKey": "totals_3.5",
+        "selections": [
+          "over",
+          "under"
+        ],
+        "decimalOdds": [
+          1.5,
+          2.625
+        ],
+        "powerNoVigProbs": [
+          0.64624211,
+          0.35375789
+        ],
+        "modelV6Probs": [
+          0.63562651,
+          0.36437349
+        ],
+        "overround": 0.04761905,
+        "powerAlpha": 1.07674138,
+        "klDivergencePowerToModel": 0.00024432,
+        "madProbDispersion": 0.0106156,
+        "madRawPreKickoff": 0.09479105,
+        "settledWinnerIdx": null
+      },
+      {
+        "eventId": "ws:football:E0:20261121:manchester_city:fulham",
+        "league": "E0",
+        "book": "bet365",
+        "marketKey": "1x2",
+        "selections": [
+          "home",
+          "draw",
+          "away"
+        ],
+        "decimalOdds": [
+          1.4,
+          4.75,
+          7.0
+        ],
+        "powerNoVigProbs": [
+          0.69425857,
+          0.18454929,
+          0.12119214
+        ],
+        "modelV6Probs": [
+          0.67526988,
+          0.19247582,
+          0.1322543
+        ],
+        "overround": 0.06766917,
+        "powerAlpha": 1.0845198,
+        "klDivergencePowerToModel": 0.00090612,
+        "madProbDispersion": 0.01265913,
+        "madRawPreKickoff": 0.00540542,
+        "settledWinnerIdx": null
+      },
+      {
+        "eventId": "ws:football:E0:20261121:manchester_city:fulham",
+        "league": "E0",
+        "book": "bet365",
+        "marketKey": "btts",
+        "selections": [
+          "yes",
+          "no"
+        ],
+        "decimalOdds": [
+          1.7,
+          2.05
+        ],
+        "powerNoVigProbs": [
+          0.55218965,
+          0.44781035
+        ],
+        "modelV6Probs": [
+          0.51384507,
+          0.48615493
+        ],
+        "overround": 0.07604017,
+        "powerAlpha": 1.11917096,
+        "klDivergencePowerToModel": 0.00294996,
+        "madProbDispersion": 0.03834458,
+        "madRawPreKickoff": 0.01882519,
+        "settledWinnerIdx": null
+      },
+      {
+        "eventId": "ws:football:E0:20261121:manchester_city:fulham",
+        "league": "E0",
+        "book": "bet365",
+        "marketKey": "totals_0.5",
+        "selections": [
+          "over",
+          "under"
+        ],
+        "decimalOdds": [
+          1.025,
+          17.0
+        ],
+        "powerNoVigProbs": [
+          0.96992288,
+          0.03007712
+        ],
+        "modelV6Probs": [
+          0.93615677,
+          0.06384323
+        ],
+        "overround": 0.03443329,
+        "powerAlpha": 1.23675497,
+        "klDivergencePowerToModel": 0.01172985,
+        "madProbDispersion": 0.03376611,
+        "madRawPreKickoff": 0.02734584,
+        "settledWinnerIdx": null
+      },
+      {
+        "eventId": "ws:football:E0:20261121:manchester_city:fulham",
+        "league": "E0",
+        "book": "bet365",
+        "marketKey": "totals_1.5",
+        "selections": [
+          "over",
+          "under"
+        ],
+        "decimalOdds": [
+          1.143,
+          5.5
+        ],
+        "powerNoVigProbs": [
+          0.85806711,
+          0.14193289
+        ],
+        "modelV6Probs": [
+          0.79904419,
+          0.20095581
+        ],
+        "overround": 0.05670882,
+        "powerAlpha": 1.14527239,
+        "klDivergencePowerToModel": 0.01179664,
+        "madProbDispersion": 0.05902292,
+        "madRawPreKickoff": 0.04142164,
+        "settledWinnerIdx": null
+      },
+      {
+        "eventId": "ws:football:E0:20261121:manchester_city:fulham",
+        "league": "E0",
+        "book": "bet365",
+        "marketKey": "totals_2.5",
+        "selections": [
+          "over",
+          "under"
+        ],
+        "decimalOdds": [
+          1.5,
+          2.625
+        ],
+        "powerNoVigProbs": [
+          0.64624211,
+          0.35375789
+        ],
+        "modelV6Probs": [
+          0.55490105,
+          0.44509895
+        ],
+        "overround": 0.04761905,
+        "powerAlpha": 1.07674138,
+        "klDivergencePowerToModel": 0.01722474,
+        "madProbDispersion": 0.09134106,
+        "madRawPreKickoff": 0.06017549,
+        "settledWinnerIdx": null
+      }
+    ],
+    "settled_parity_fixture_scores": {
+      "ws:football:D1:20261120:bayern_munchen:koln": {
+        "homeScore": 3,
+        "awayScore": 0
+      },
+      "ws:football:E0:20261121:manchester_city:fulham": {
+        "homeScore": 2,
+        "awayScore": 1
+      },
+      "ws:football:F1:20261120:troyes:le_havre": {
+        "homeScore": 1,
+        "awayScore": 1
+      },
+      "ws:football:I1:20261121:como:cagliari": {
+        "homeScore": 2,
+        "awayScore": 0
+      },
+      "ws:football:MEX:20261121:puebla:atletico_san_luis": {
+        "homeScore": 1,
+        "awayScore": 2
+      },
+      "ws:football:SP1:20261120:athletic_club:espanyol": {
+        "homeScore": 2,
+        "awayScore": 0
+      }
+    },
+    "expected_settled_fixture_eval": {
+      "n_settled_events": 6,
+      "n_settled_markets": 35,
+      "logloss_v6": 0.46243526,
+      "logloss_power_novig": 0.44061356,
+      "delta_logloss_v6_minus_power": 0.0218217,
+      "ci95_lo": -0.00846684,
+      "ci95_hi": 0.04612936,
+      "brier_v6": 0.28128195,
+      "brier_power_novig": 0.27187205,
+      "delta_brier_v6_minus_power": 0.0094099,
+      "ece_v6": 0.11560513,
+      "ece_power_novig": 0.12610288,
+      "significant_improvement": false,
+      "significance_label": "no significativa",
+      "bootstrap_method": "cluster_mulberry32",
+      "n_resamples": 1000,
+      "seed": 20261111
+    }
+  }
+}

@@ -38,3 +38,4 @@ export * from "./derived/outlook_derived";
 // namespace dedicado para no colisionar con la superficie congelada v3.0/v3.1/v3.2
 // (también disponible vía import directo `@pitchlab/spacetime/v5`).
 export * as spacetimeV5 from "./src/v5_index";
+export * as spacetimeV6 from "./src/v6_index";

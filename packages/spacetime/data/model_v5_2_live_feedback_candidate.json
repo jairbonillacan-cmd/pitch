@@ -1,0 +1,365 @@
+{
+  "schema_version": "pitchlab_v5_2_live_feedback_1.0.0",
+  "codename": "PitchLab Spacetime Live-Feedback v5.2 Candidate",
+  "version": "5.2.0-candidate",
+  "status": "candidate",
+  "production_activated": false,
+  "holdout_sealed_untouched": true,
+  "football_calibration": {
+    "global_goal_prior": 2.72,
+    "prior_league_games": 18.0,
+    "prior_team_games": 12.0,
+    "league_ewm_alpha": 0.1,
+    "min_goal_env_scale": 0.68,
+    "max_goal_env_scale": 1.38,
+    "projection_env_blend_weight": 0.38,
+    "dc_rho": -0.105,
+    "tau_logit_core": 1.05,
+    "tau_logit_expansion": 1.24,
+    "x12_dc_consistency_weight": 0.22,
+    "playable_binary_tau_core": 1.08,
+    "playable_binary_tau_expansion": 1.28
+  },
+  "goalkeeper_saves": {
+    "prior_save_rate": 0.712,
+    "prior_shots_faced": 18.0,
+    "min_save_rate": 0.52,
+    "max_save_rate": 0.88,
+    "r_dispersion_sot": 7.5,
+    "spline_knots_x": [
+      0.02,
+      0.12,
+      0.28,
+      0.45,
+      0.62,
+      0.78,
+      0.94
+    ],
+    "spline_knots_y": [
+      0.022,
+      0.125,
+      0.282,
+      0.448,
+      0.608,
+      0.762,
+      0.925
+    ]
+  },
+  "coupled_player_shots": {
+    "league_team_shots_anchor": 12.4,
+    "league_team_sot_anchor": 4.25,
+    "team_coupling_exponent": 0.65,
+    "opp_coupling_exponent": 0.55,
+    "spline_shots": {
+      "x": [
+        0.02,
+        0.15,
+        0.32,
+        0.5,
+        0.68,
+        0.82,
+        0.95
+      ],
+      "y": [
+        0.024,
+        0.155,
+        0.322,
+        0.495,
+        0.662,
+        0.802,
+        0.935
+      ]
+    },
+    "spline_sot": {
+      "x": [
+        0.02,
+        0.15,
+        0.32,
+        0.5,
+        0.68,
+        0.82,
+        0.95
+      ],
+      "y": [
+        0.023,
+        0.152,
+        0.318,
+        0.492,
+        0.658,
+        0.798,
+        0.932
+      ]
+    }
+  },
+  "us_multisport_walkforward": {
+    "mlb": {
+      "prior_team_runs": 4.42,
+      "prior_games": 65.0,
+      "elo_k": 4.2,
+      "elo_home_adv": 22.0,
+      "elo_to_margin_scale": 0.0045,
+      "home_adv_pts": 0.22,
+      "sigma_margin": 5.85,
+      "sigma_total": 4.45,
+      "b2b_penalty_pts": 0.04,
+      "three_in_four_penalty_pts": 0.05,
+      "canonical_total_line": 8.5
+    },
+    "nhl": {
+      "prior_team_runs": 3.12,
+      "prior_games": 38.0,
+      "elo_k": 6.5,
+      "elo_home_adv": 28.0,
+      "elo_to_margin_scale": 0.0052,
+      "home_adv_pts": 0.2,
+      "sigma_margin": 2.95,
+      "sigma_total": 2.48,
+      "b2b_penalty_pts": 0.14,
+      "three_in_four_penalty_pts": 0.08,
+      "canonical_total_line": 6.5
+    },
+    "nba": {
+      "prior_team_runs": 113.8,
+      "prior_games": 20.0,
+      "elo_k": 16.0,
+      "elo_home_adv": 58.0,
+      "elo_to_margin_scale": 0.036,
+      "home_adv_pts": 2.45,
+      "sigma_margin": 13.8,
+      "sigma_total": 16.8,
+      "b2b_penalty_pts": 1.75,
+      "three_in_four_penalty_pts": 0.85,
+      "canonical_total_line": 227.5
+    },
+    "nfl": {
+      "prior_team_runs": 22.8,
+      "prior_games": 16.0,
+      "elo_k": 20.0,
+      "elo_home_adv": 48.0,
+      "elo_to_margin_scale": 0.04,
+      "home_adv_pts": 1.85,
+      "sigma_margin": 13.6,
+      "sigma_total": 13.9,
+      "b2b_penalty_pts": 0.0,
+      "three_in_four_penalty_pts": 0.0,
+      "canonical_total_line": 45.5
+    }
+  },
+  "league_scoring_environments_2026": {
+    "brasileirao": {
+      "games_observed": 170,
+      "mean_raw_goals": 2.6471,
+      "shrunk_env_goals": 2.654
+    },
+    "brasileirao-b": {
+      "games_observed": 242,
+      "mean_raw_goals": 2.3636,
+      "shrunk_env_goals": 2.3883
+    },
+    "bundesliga": {
+      "games_observed": 76,
+      "mean_raw_goals": 3.5921,
+      "shrunk_env_goals": 3.4251
+    },
+    "bundesliga-2": {
+      "games_observed": 99,
+      "mean_raw_goals": 2.9899,
+      "shrunk_env_goals": 2.9484
+    },
+    "caf-champions": {
+      "games_observed": 90,
+      "mean_raw_goals": 2.1556,
+      "shrunk_env_goals": 2.2496
+    },
+    "carabao-cup": {
+      "games_observed": 84,
+      "mean_raw_goals": 3.0714,
+      "shrunk_env_goals": 3.0094
+    },
+    "champions-league": {
+      "games_observed": 162,
+      "mean_raw_goals": 3.3395,
+      "shrunk_env_goals": 3.2776
+    },
+    "championship": {
+      "games_observed": 180,
+      "mean_raw_goals": 2.9556,
+      "shrunk_env_goals": 2.9341
+    },
+    "concacaf-champions": {
+      "games_observed": 1,
+      "mean_raw_goals": 2.0,
+      "shrunk_env_goals": 2.6821
+    },
+    "conference-league": {
+      "games_observed": 312,
+      "mean_raw_goals": 2.8429,
+      "shrunk_env_goals": 2.8362
+    },
+    "copa-colombia": {
+      "games_observed": 32,
+      "mean_raw_goals": 2.9688,
+      "shrunk_env_goals": 2.8792
+    },
+    "copa-del-rey": {
+      "games_observed": 76,
+      "mean_raw_goals": 3.1447,
+      "shrunk_env_goals": 3.0634
+    },
+    "copa-do-brasil": {
+      "games_observed": 28,
+      "mean_raw_goals": 1.8929,
+      "shrunk_env_goals": 2.2165
+    },
+    "coppa-italia": {
+      "games_observed": 28,
+      "mean_raw_goals": 3.0357,
+      "shrunk_env_goals": 2.9122
+    },
+    "coupe-de-france": {
+      "games_observed": 90,
+      "mean_raw_goals": 3.2444,
+      "shrunk_env_goals": 3.157
+    },
+    "dfb-pokal": {
+      "games_observed": 48,
+      "mean_raw_goals": 4.1875,
+      "shrunk_env_goals": 3.7873
+    },
+    "eredivisie": {
+      "games_observed": 108,
+      "mean_raw_goals": 3.8889,
+      "shrunk_env_goals": 3.7219
+    },
+    "europa-league": {
+      "games_observed": 152,
+      "mean_raw_goals": 2.8224,
+      "shrunk_env_goals": 2.8115
+    },
+    "fa-cup": {
+      "games_observed": 366,
+      "mean_raw_goals": 3.265,
+      "shrunk_env_goals": 3.2395
+    },
+    "j1-league": {
+      "games_observed": 140,
+      "mean_raw_goals": 2.95,
+      "shrunk_env_goals": 2.9238
+    },
+    "laliga": {
+      "games_observed": 133,
+      "mean_raw_goals": 2.8722,
+      "shrunk_env_goals": 2.854
+    },
+    "leagues-cup": {
+      "games_observed": 2,
+      "mean_raw_goals": 1.5,
+      "shrunk_env_goals": 2.598
+    },
+    "libertadores": {
+      "games_observed": 28,
+      "mean_raw_goals": 1.6786,
+      "shrunk_env_goals": 2.0861
+    },
+    "liga-1-peru": {
+      "games_observed": 150,
+      "mean_raw_goals": 3.0067,
+      "shrunk_env_goals": 2.976
+    },
+    "liga-argentina": {
+      "games_observed": 240,
+      "mean_raw_goals": 2.3,
+      "shrunk_env_goals": 2.3293
+    },
+    "liga-f": {
+      "games_observed": 87,
+      "mean_raw_goals": 2.977,
+      "shrunk_env_goals": 2.933
+    },
+    "liga-mx": {
+      "games_observed": 144,
+      "mean_raw_goals": 3.0069,
+      "shrunk_env_goals": 2.9751
+    },
+    "liga-portugal": {
+      "games_observed": 98,
+      "mean_raw_goals": 2.6327,
+      "shrunk_env_goals": 2.6462
+    },
+    "ligapro-ecuador": {
+      "games_observed": 160,
+      "mean_raw_goals": 2.4875,
+      "shrunk_env_goals": 2.511
+    },
+    "ligue-1": {
+      "games_observed": 90,
+      "mean_raw_goals": 2.9556,
+      "shrunk_env_goals": 2.9163
+    },
+    "ligue-2": {
+      "games_observed": 108,
+      "mean_raw_goals": 2.6759,
+      "shrunk_env_goals": 2.6822
+    },
+    "mls": {
+      "games_observed": 292,
+      "mean_raw_goals": 3.2089,
+      "shrunk_env_goals": 3.1805
+    },
+    "premier-league": {
+      "games_observed": 100,
+      "mean_raw_goals": 2.73,
+      "shrunk_env_goals": 2.7285
+    },
+    "primera-a-colombia": {
+      "games_observed": 190,
+      "mean_raw_goals": 2.4895,
+      "shrunk_env_goals": 2.5094
+    },
+    "primera-chile": {
+      "games_observed": 96,
+      "mean_raw_goals": 2.8958,
+      "shrunk_env_goals": 2.8681
+    },
+    "pro-league-belgica": {
+      "games_observed": 99,
+      "mean_raw_goals": 3.1919,
+      "shrunk_env_goals": 3.1193
+    },
+    "saudi-pro-league": {
+      "games_observed": 104,
+      "mean_raw_goals": 3.0288,
+      "shrunk_env_goals": 2.9833
+    },
+    "segunda-espana": {
+      "games_observed": 151,
+      "mean_raw_goals": 2.7152,
+      "shrunk_env_goals": 2.7157
+    },
+    "serie-a": {
+      "games_observed": 110,
+      "mean_raw_goals": 3.1091,
+      "shrunk_env_goals": 3.0544
+    },
+    "serie-b": {
+      "games_observed": 110,
+      "mean_raw_goals": 2.6091,
+      "shrunk_env_goals": 2.6247
+    },
+    "sudamericana": {
+      "games_observed": 44,
+      "mean_raw_goals": 2.5227,
+      "shrunk_env_goals": 2.58
+    },
+    "super-lig": {
+      "games_observed": 99,
+      "mean_raw_goals": 3.0101,
+      "shrunk_env_goals": 2.9655
+    },
+    "uefa-super-cup": {
+      "games_observed": 1,
+      "mean_raw_goals": 3.0,
+      "shrunk_env_goals": 2.7347
+    }
+  }
+}

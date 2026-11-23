@@ -1,6 +1,6 @@
 {
   "branch": "origin/prediction-lab",
-  "commit": "d6dfed5b30814d05eb9521c1ddd92d0a3608bf01",
+  "commit": "a802a477df65a05ce5cba075ad2b469553374424",
   "files": [
     "src/blend.ts",
     "src/club_v3_3.ts",
@@ -21,6 +21,7 @@
     "src/montecarlo.ts",
     "src/multisport.ts",
     "src/multisport_v3_6.ts",
+    "src/multisport_v6_0.ts",
     "src/narrative_guardrail.ts",
     "src/nfl_live.ts",
     "src/nfl_v3_5.ts",
@@ -28,17 +29,25 @@
     "src/odds.ts",
     "src/outlook.ts",
     "src/picks.ts",
+    "src/prekickoff_freeze_v6_0.ts",
+    "src/props_v6_0.ts",
     "src/service.ts",
     "src/sgp_copula.ts",
+    "src/soccer_57_v6_0.ts",
     "src/soccer_micro_markets.ts",
     "src/stale_lines.ts",
     "src/tactical_skore.ts",
     "src/types.ts",
     "src/unified_outlook_v4.ts",
     "src/unified_outlook_v5.ts",
+    "src/unified_outlook_v6.ts",
+    "src/v5_2_live_feedback.ts",
     "src/v5_index.ts",
+    "src/v6_index.ts",
     "data/blend_weights_v3_1.json",
     "data/candidate_registry_v5_1.json",
+    "data/candidate_registry_v5_2.json",
+    "data/candidate_registry_v6_0.json",
     "data/club_free_open_state_v3_4.json",
     "data/club_free_open_state_v3_5.json",
     "data/club_micro_state_v5_1.json",
@@ -75,6 +84,7 @@
     "data/live_matchday_v3_snapshot.json",
     "data/live_matchday_v4_candidate_snapshot.json",
     "data/live_matchday_v5_candidate_snapshot.json",
+    "data/live_matchday_v6_candidate_snapshot.json",
     "data/market_v3_snapshot.json",
     "data/markets_2way_config.json",
     "data/model_club_goals_v3_5_candidate.json",
@@ -96,6 +106,7 @@
     "data/model_intl_soccer_v3.json",
     "data/model_motor_a.json",
     "data/model_multisport.json",
+    "data/model_multisport_v6_0_candidate.json",
     "data/model_nfl.json",
     "data/model_nfl_key_numbers_v4_0_candidate.json",
     "data/model_nfl_props_v4_0_candidate.json",
@@ -103,14 +114,19 @@
     "data/model_nfl_v3_2_candidate.json",
     "data/model_nfl_v3_5_candidate.json",
     "data/model_nfl_v5_0_candidate.json",
+    "data/model_officials_freeze_v6_0_candidate.json",
+    "data/model_props_v6_0_candidate.json",
+    "data/model_soccer_57_v6_0_candidate.json",
     "data/model_soccer_micro_v3_6_candidate.json",
     "data/model_soccer_micro_v4_0_candidate.json",
     "data/model_soccer_micro_v5_0_candidate.json",
+    "data/model_v5_2_live_feedback_candidate.json",
     "data/multisport_snapshot.json",
     "data/multisport_v3_6_config_candidate.json",
     "data/multisport_v3_6_snapshot.json",
     "data/multisport_v4_0_snapshot.json",
     "data/multisport_v4_0_state_candidate.json",
+    "data/multisport_v6_0_snapshot.json",
     "data/nfl_causal_state_v3_5.json",
     "data/nfl_snapshot.json",
     "data/nfl_v3_5_snapshot.json",
@@ -119,24 +135,32 @@
     "data/official_priors_v3_6.json",
     "data/official_priors_v4_0.json",
     "data/official_priors_v5_1.json",
+    "data/officials_freeze_v6_0_snapshot.json",
     "data/outlook_calibration_v3_2.json",
     "data/pick_policy_v3_1.json",
     "data/production_segments_v3_1.json",
+    "data/props_v6_0_snapshot.json",
     "data/service_constants_v3_2.json",
     "data/sgp_copula_priors_v4_0_candidate.json",
     "data/sgp_copula_v4_0_snapshot.json",
     "data/sgp_copula_v5_0_candidate.json",
     "data/sgp_copula_v5_0_snapshot.json",
+    "data/soccer_57_v6_0_snapshot.json",
     "data/soccer_micro_v3_6_snapshot.json",
     "data/soccer_micro_v4_0_snapshot.json",
     "data/soccer_micro_v5_0_snapshot.json",
     "data/soccer_v4_0_core_snapshot.json",
     "data/soccer_v5_0_global_snapshot.json",
     "data/stale_lines_config.json",
+    "data/v5_2_live_feedback_snapshot.json",
     "tests/blend.test.ts",
     "tests/club_v3_3.test.ts",
     "tests/devig.test.ts",
     "tests/engine.test.ts",
+    "tests/exp_v58_soccer_57_v6_0.test.ts",
+    "tests/exp_v59_props_v6_0.test.ts",
+    "tests/exp_v60_multisport_v6_0.test.ts",
+    "tests/exp_v61_officials_freeze_v6_0.test.ts",
     "tests/fixture_requests.test.ts",
     "tests/gbm.test.ts",
     "tests/horizon_goals.test.ts",
@@ -158,7 +182,9 @@
     "tests/v3_6_engines.test.ts",
     "tests/v4_0_suite.test.ts",
     "tests/v5_0_suite.test.ts",
-    "tests/v5_1_remediation.test.ts"
+    "tests/v5_1_remediation.test.ts",
+    "tests/v5_2_live_feedback.test.ts",
+    "tests/v6_0_suite.test.ts"
   ],
   "patches": [
     {
@@ -172,6 +198,18 @@
     {
       "file": "src/outlook.ts",
       "reason": "extensión retrocompatible de la app/ingesta (3ac08e22): expone oddsBySelection en MarketQuoteContext para cuotas reales en UI"
+    },
+    {
+      "file": "src/sgp_copula.ts",
+      "reason": "corrección cuantitativa retrocompatible (9178814d): impone cota inferior exacta de Fréchet-Hoeffding en evaluatePlayerLinkedSgpV5"
+    },
+    {
+      "file": "src/props_v6_0.ts",
+      "reason": "Constraint-First (ADR-056): reemplaza coerción laxa Number() por parseo estricto equivalente IEEE-754"
+    },
+    {
+      "file": "src/prekickoff_freeze_v6_0.ts",
+      "reason": "Constraint-First (ADR-056): reemplaza coerción laxa Number() por parseo estricto equivalente IEEE-754"
     },
     {
       "file": "tests/ledger_prospective.test.ts",
@@ -251,6 +289,66 @@
     },
     {
       "file": "tests/v5_1_remediation.test.ts",
+      "reason": "solo verificable en prediction-lab (Python, services/models o data/ledger)"
+    },
+    {
+      "file": "tests/v5_2_live_feedback.test.ts",
+      "reason": "solo verificable en prediction-lab (Python, services/models o data/ledger)"
+    },
+    {
+      "file": "tests/exp_v58_soccer_57_v6_0.test.ts",
+      "reason": "solo verificable en prediction-lab (Python, services/models o data/ledger)"
+    },
+    {
+      "file": "tests/exp_v58_soccer_57_v6_0.test.ts",
+      "reason": "solo verificable en prediction-lab (Python, services/models o data/ledger)"
+    },
+    {
+      "file": "tests/exp_v59_props_v6_0.test.ts",
+      "reason": "solo verificable en prediction-lab (Python, services/models o data/ledger)"
+    },
+    {
+      "file": "tests/exp_v60_multisport_v6_0.test.ts",
+      "reason": "solo verificable en prediction-lab (Python, services/models o data/ledger)"
+    },
+    {
+      "file": "tests/exp_v61_officials_freeze_v6_0.test.ts",
+      "reason": "solo verificable en prediction-lab (Python, services/models o data/ledger)"
+    },
+    {
+      "file": "tests/v6_0_suite.test.ts",
+      "reason": "solo verificable en prediction-lab (Python, services/models o data/ledger)"
+    },
+    {
+      "file": "tests/v6_0_suite.test.ts",
+      "reason": "solo verificable en prediction-lab (Python, services/models o data/ledger)"
+    },
+    {
+      "file": "tests/v6_0_suite.test.ts",
+      "reason": "solo verificable en prediction-lab (Python, services/models o data/ledger)"
+    },
+    {
+      "file": "tests/v6_0_suite.test.ts",
+      "reason": "solo verificable en prediction-lab (Python, services/models o data/ledger)"
+    },
+    {
+      "file": "tests/v6_0_suite.test.ts",
+      "reason": "solo verificable en prediction-lab (Python, services/models o data/ledger)"
+    },
+    {
+      "file": "tests/v6_0_suite.test.ts",
+      "reason": "solo verificable en prediction-lab (Python, services/models o data/ledger)"
+    },
+    {
+      "file": "tests/v6_0_suite.test.ts",
+      "reason": "solo verificable en prediction-lab (Python, services/models o data/ledger)"
+    },
+    {
+      "file": "tests/v6_0_suite.test.ts",
+      "reason": "solo verificable en prediction-lab (Python, services/models o data/ledger)"
+    },
+    {
+      "file": "tests/v6_0_suite.test.ts",
       "reason": "solo verificable en prediction-lab (Python, services/models o data/ledger)"
     },
     {

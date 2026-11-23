@@ -1,0 +1,360 @@
+{
+  "schema_version": "candidate_registry_v6.0.0",
+  "suite_codename": "PitchLab Spacetime v6.0 Unified 57-League Candidate Suite",
+  "suite_version": "6.0.0-candidate",
+  "status": "candidate",
+  "production_activated": false,
+  "holdout_cut_utc": "2025-02-02T17:30:00Z",
+  "holdout_window_protected": [
+    "2025-02-02",
+    "2026-11-08"
+  ],
+  "holdout_sealed_untouched": true,
+  "generated_at_utc": "2026-11-23T04:50:09+00:00",
+  "ts_barrel_entrypoint": "src/domain/prediction/v6_index.ts",
+  "prior_immutable_artifacts_verified_count": 25,
+  "n_active_v6_0_candidate_artifacts": 14,
+  "active_v6_0_artifacts": [
+    {
+      "id": "soccer_57_causal_hierarchy_model_v6_0",
+      "experiment": "EXP_V58",
+      "sport": "soccer_53_competitions",
+      "market": "1x2_4param_score_matrix_venn_abers_playable",
+      "version": "6.0.0-candidate",
+      "artifact_path": "src/data/prediction/model_soccer_57_v6_0_candidate.json",
+      "ts_module": "src/domain/prediction/soccer_57_v6_0.ts",
+      "validation_status": "walk_forward_date_causal_2026_active_43_plus_10_confederation_prior",
+      "status": "candidate",
+      "production_activated": false,
+      "holdout_sealed_untouched": true,
+      "sha256": "684c6d5ff7e0428b07b5b356ee72444ef792f9bfe954ab93ac5711c51998c85e",
+      "size_bytes": 29555
+    },
+    {
+      "id": "soccer_57_parity_snapshot_v6_0",
+      "experiment": "EXP_V58",
+      "sport": "soccer_53_competitions",
+      "market": "parity_vectors_60_ieee754",
+      "version": "6.0.0-candidate",
+      "artifact_path": "src/data/prediction/soccer_57_v6_0_snapshot.json",
+      "ts_module": "src/domain/prediction/soccer_57_v6_0.ts",
+      "validation_status": "ieee754_parity_lt_1e12_verified",
+      "status": "candidate",
+      "production_activated": false,
+      "holdout_sealed_untouched": true,
+      "sha256": "ed6a6f0bdceb1a91f6e76b2a2bc75e9b09f2343a9e6e29d0bb42f7d99414cbfc",
+      "size_bytes": 289921
+    },
+    {
+      "id": "exp_v58_soccer_57_results_v6_0",
+      "experiment": "EXP_V58",
+      "sport": "soccer_53_competitions",
+      "market": "oos_evaluation_report",
+      "version": "6.0.0-candidate",
+      "artifact_path": "research/prediction-lab/experiments/EXP_V58_soccer_57_v6_0/artifacts/exp_v58_soccer_57_v6_0_results.json",
+      "ts_module": "src/domain/prediction/soccer_57_v6_0.ts",
+      "validation_status": "cluster_mulberry32_1000_seed_20261111",
+      "status": "candidate",
+      "production_activated": false,
+      "holdout_sealed_untouched": true,
+      "sha256": "3d59183056dfa79ef3ac044d56cba1dfb0fdcbca429f5a8ec46b461c5aa0e270",
+      "size_bytes": 14371
+    },
+    {
+      "id": "props_coupled_gk_us_model_v6_0",
+      "experiment": "EXP_V59",
+      "sport": "soccer_and_us_major_pro",
+      "market": "coupled_shots_multiline_gk_saves_sgp_us_props",
+      "version": "6.0.0-candidate",
+      "artifact_path": "src/data/prediction/model_props_v6_0_candidate.json",
+      "ts_module": "src/domain/prediction/props_v6_0.ts",
+      "validation_status": "oos_2020_2025_preholdout_and_us_prospective_walkforward",
+      "status": "candidate",
+      "production_activated": false,
+      "holdout_sealed_untouched": true,
+      "sha256": "7bf532bd331c38685b62cd06f24d264e1b1cf11fbcecef975257b06e49d4e6b8",
+      "size_bytes": 32744
+    },
+    {
+      "id": "props_parity_snapshot_v6_0",
+      "experiment": "EXP_V59",
+      "sport": "soccer_and_us_major_pro",
+      "market": "parity_vectors_88_ieee754",
+      "version": "6.0.0-candidate",
+      "artifact_path": "src/data/prediction/props_v6_0_snapshot.json",
+      "ts_module": "src/domain/prediction/props_v6_0.ts",
+      "validation_status": "ieee754_parity_lt_1e12_verified",
+      "status": "candidate",
+      "production_activated": false,
+      "holdout_sealed_untouched": true,
+      "sha256": "5a68f3a323a670e52317f0665844872f2477b583ab2b3195a2fde4b244bd3629",
+      "size_bytes": 149635
+    },
+    {
+      "id": "exp_v59_props_results_v6_0",
+      "experiment": "EXP_V59",
+      "sport": "soccer_and_us_major_pro",
+      "market": "oos_evaluation_report",
+      "version": "6.0.0-candidate",
+      "artifact_path": "research/prediction-lab/experiments/EXP_V59_props_v6_0/artifacts/exp_v59_props_v6_0_results.json",
+      "ts_module": "src/domain/prediction/props_v6_0.ts",
+      "validation_status": "cluster_mulberry32_1000_seed_20261111",
+      "status": "candidate",
+      "production_activated": false,
+      "holdout_sealed_untouched": true,
+      "sha256": "035d437c5e07b65cce5f114aa41997e169a62d47e71a024a154199ea971a3c2a",
+      "size_bytes": 27412
+    },
+    {
+      "id": "multisport_walkforward_physics_model_v6_0",
+      "experiment": "EXP_V60",
+      "sport": "mlb_nhl_nba_nfl",
+      "market": "ml_spread_totals_f5_emptynet_early_payout",
+      "version": "6.0.0-candidate",
+      "artifact_path": "src/data/prediction/model_multisport_v6_0_candidate.json",
+      "ts_module": "src/domain/prediction/multisport_v6_0.ts",
+      "validation_status": "walk_forward_game_oos_2026_verified_2920_games",
+      "status": "candidate",
+      "production_activated": false,
+      "holdout_sealed_untouched": true,
+      "sha256": "712324fc05155e4df13dd5c96873a5538f38e8794fa36e7be89df4415502da10",
+      "size_bytes": 83250
+    },
+    {
+      "id": "multisport_parity_and_live_snapshot_v6_0",
+      "experiment": "EXP_V60",
+      "sport": "mlb_nhl_nba_nfl",
+      "market": "parity_vectors_64_plus_82_live_scheduled",
+      "version": "6.0.0-candidate",
+      "artifact_path": "src/data/prediction/multisport_v6_0_snapshot.json",
+      "ts_module": "src/domain/prediction/multisport_v6_0.ts",
+      "validation_status": "ieee754_parity_lt_1e12_verified",
+      "status": "candidate",
+      "production_activated": false,
+      "holdout_sealed_untouched": true,
+      "sha256": "6bbf0c9621c7a17ae1c80439b285f357dc268b2755377d3d7611900d66f12335",
+      "size_bytes": 332337
+    },
+    {
+      "id": "exp_v60_multisport_results_v6_0",
+      "experiment": "EXP_V60",
+      "sport": "mlb_nhl_nba_nfl",
+      "market": "oos_evaluation_report",
+      "version": "6.0.0-candidate",
+      "artifact_path": "research/prediction-lab/experiments/EXP_V60_multisport_v6_0/artifacts/exp_v60_multisport_v6_0_results.json",
+      "ts_module": "src/domain/prediction/multisport_v6_0.ts",
+      "validation_status": "cluster_mulberry32_1000_seed_20261111",
+      "status": "candidate",
+      "production_activated": false,
+      "holdout_sealed_untouched": true,
+      "sha256": "e4f8e91fe1125f0c31abedba55953dd053849f53862b4d72e91e022c5792b495",
+      "size_bytes": 57356
+    },
+    {
+      "id": "officials_and_prekickoff_freeze_model_v6_0",
+      "experiment": "EXP_V61",
+      "sport": "all_57_leagues",
+      "market": "global_referees_booking_points_prekickoff_seal_power_devig",
+      "version": "6.0.0-candidate",
+      "artifact_path": "src/data/prediction/model_officials_freeze_v6_0_candidate.json",
+      "ts_module": "src/domain/prediction/prekickoff_freeze_v6_0.ts",
+      "validation_status": "1110_soccer_officials_166_snapshots_zero_contaminated_accepted",
+      "status": "candidate",
+      "production_activated": false,
+      "holdout_sealed_untouched": true,
+      "sha256": "a9c60b3830a7ce9ef823813e90c9ba3e0d42b6c56a1c660c469fb2d8efe326aa",
+      "size_bytes": 205404
+    },
+    {
+      "id": "officials_freeze_parity_snapshot_v6_0",
+      "experiment": "EXP_V61",
+      "sport": "all_57_leagues",
+      "market": "parity_vectors_officials_seal_sha256_quotes",
+      "version": "6.0.0-candidate",
+      "artifact_path": "src/data/prediction/officials_freeze_v6_0_snapshot.json",
+      "ts_module": "src/domain/prediction/prekickoff_freeze_v6_0.ts",
+      "validation_status": "ieee754_and_sha256_parity_verified",
+      "status": "candidate",
+      "production_activated": false,
+      "holdout_sealed_untouched": true,
+      "sha256": "b71f44d256863cd1300c039e6cdc2cdb09f0e5ef9383a14adaf8565751e7b8dd",
+      "size_bytes": 122095
+    },
+    {
+      "id": "exp_v61_officials_freeze_results_v6_0",
+      "experiment": "EXP_V61",
+      "sport": "all_57_leagues",
+      "market": "oos_and_causality_audit_report",
+      "version": "6.0.0-candidate",
+      "artifact_path": "research/prediction-lab/experiments/EXP_V61_officials_freeze_v6_0/artifacts/exp_v61_officials_freeze_v6_0_results.json",
+      "ts_module": "src/domain/prediction/prekickoff_freeze_v6_0.ts",
+      "validation_status": "cluster_mulberry32_1000_seed_20261111",
+      "status": "candidate",
+      "production_activated": false,
+      "holdout_sealed_untouched": true,
+      "sha256": "1d8192ba2f63f778417310043291d94ae918c0eb4d988bb765a35255a37f65f6",
+      "size_bytes": 11033
+    },
+    {
+      "id": "live_matchday_unified_snapshot_v6_0",
+      "experiment": "EXP_V62",
+      "sport": "all_57_leagues",
+      "market": "unified_match_intelligence_v6_57_leagues",
+      "version": "6.0.0-candidate",
+      "artifact_path": "src/data/prediction/live_matchday_v6_candidate_snapshot.json",
+      "ts_module": "src/domain/prediction/unified_outlook_v6.ts",
+      "validation_status": "57_of_57_leagues_sealed_guardrail_verified_ieee754_parity",
+      "status": "candidate",
+      "production_activated": false,
+      "holdout_sealed_untouched": true,
+      "sha256": "5a878a5fa71f7e86e1a84b770b17fd13f0970aca1e97d064512ce34a83bf11ae",
+      "size_bytes": 3424258
+    },
+    {
+      "id": "exp_v62_unified_results_v6_0",
+      "experiment": "EXP_V62",
+      "sport": "all_57_leagues",
+      "market": "unified_hub_audit_report",
+      "version": "6.0.0-candidate",
+      "artifact_path": "research/prediction-lab/experiments/EXP_V62_unified_v6_0/artifacts/exp_v62_unified_v6_0_results.json",
+      "ts_module": "src/domain/prediction/unified_outlook_v6.ts",
+      "validation_status": "16_redteam_axioms_verified",
+      "status": "candidate",
+      "production_activated": false,
+      "holdout_sealed_untouched": true,
+      "sha256": "ed53d158330386ec5a5e08591100d74f1acf784c368b7b3e4c73992781f07d34",
+      "size_bytes": 3182
+    }
+  ],
+  "frozen_v3_governance_audit": {
+    "src/domain/prediction/engine.ts": {
+      "sha256": "77dc721430ff17b10cdfa6e1fb472a0bab37a7160636fa4fe7def012249d78a7",
+      "size_bytes": 35073,
+      "intact": true
+    },
+    "src/domain/prediction/outlook.ts": {
+      "sha256": "26933d21438d5298d527cde11913faad26242b326a18ad3d5e683c510cecca47",
+      "size_bytes": 81331,
+      "intact": true
+    },
+    "src/domain/prediction/service.ts": {
+      "sha256": "53fbf32117ab6a649fa5a06be4b75637aaba34cc473533867552d6a3c53c80b5",
+      "size_bytes": 80628,
+      "intact": true
+    },
+    "src/data/prediction/live_matchday_v3_snapshot.json": {
+      "sha256": "1dace760d68442e73c4b365f85cd16509093716b1bcac72aa1da67b61ec29699",
+      "size_bytes": 7960292,
+      "intact": true
+    },
+    "src/data/prediction/production_segments_v3_1.json": {
+      "sha256": "0bc03bbff96a5d82a1a7858e1e8623bf7bfdb250c546d2773a71d56ed9ada9bc",
+      "size_bytes": 85759,
+      "intact": true
+    },
+    "src/data/prediction/blend_weights_v3_1.json": {
+      "sha256": "b29d7a451f6011126997c122778b42ad3239c78337d17c5fa78d550f5c92739b",
+      "size_bytes": 219563,
+      "intact": true
+    },
+    "src/data/prediction/pick_policy_v3_1.json": {
+      "sha256": "2359c8f8822ea394a380202c04e0bcd010d1a3fae7c5c25b8c11ebe810bfb7d1",
+      "size_bytes": 67819,
+      "intact": true
+    },
+    "src/data/prediction/stale_lines_config.json": {
+      "sha256": "8bcb9c7be93270cde0cac2d58bc19f0381184dd2e769f358dd28334db2a05eac",
+      "size_bytes": 25249,
+      "intact": true
+    },
+    "src/data/prediction/model_motor_a.json": {
+      "sha256": "3c72967eddc79bb71ca7fcae40bf21aae760269dc62b43cf2b2db7eeacfceec9",
+      "size_bytes": 24745,
+      "intact": true
+    },
+    "src/data/prediction/model_nfl.json": {
+      "sha256": "e74ae241875739d2dc18564f85133d4e20c1d0cef41d64b6f705852601597225",
+      "size_bytes": 31561,
+      "intact": true
+    },
+    "services/models/artifacts/sealed_holdout_v3_1_eval.json": {
+      "sha256": "5c9e550bfd7889e44f674c91cf64cea4c07b4281fc72231b8cadff850309f2dd",
+      "size_bytes": 869905,
+      "intact": true
+    }
+  },
+  "inherited_v5_1_governance_audit": {
+    "src/data/prediction/gbm_club_v5_0_candidate.json": {
+      "sha256": "e6345a01d79ae73b2d306be12dad03aae8ae16286dcad2c8794bc2b5ea7aa939",
+      "size_bytes": 361829,
+      "intact": true
+    },
+    "src/data/prediction/model_club_goals_v5_0_candidate.json": {
+      "sha256": "6cd7d6eb3eeed44ab1c3e0b894a08f69de5737da0edc9b9b58e3e6676edeef51",
+      "size_bytes": 4882,
+      "intact": true
+    },
+    "src/data/prediction/model_intl_goals_v5_0_candidate.json": {
+      "sha256": "4f7de6a596e80d4ccadb1442de99d9612cad33a6231570ba3daf66257c8c5708",
+      "size_bytes": 4486,
+      "intact": true
+    },
+    "src/data/prediction/model_soccer_micro_v5_0_candidate.json": {
+      "sha256": "fe8cb21debbae900e3c181aab46879750410468b1e3d3d1b316e025627024398",
+      "size_bytes": 14388,
+      "intact": true
+    },
+    "src/data/prediction/model_nfl_v5_0_candidate.json": {
+      "sha256": "1ccaf831df66c52252c13a81affa6d77704800d7305c23aae04a0a00fddccdd3",
+      "size_bytes": 6167,
+      "intact": true
+    },
+    "src/data/prediction/model_hierarchical_props_v5_0_candidate.json": {
+      "sha256": "40702cd3181707b5f3457fc844ebd543fbc26c5f626450dc71a4def28d721320",
+      "size_bytes": 25804,
+      "intact": true
+    },
+    "src/data/prediction/sgp_copula_v5_0_candidate.json": {
+      "sha256": "56ef8d07ac00a96890ce1b60368ae1c6fcbea9a040f14967edc87dc307e41b94",
+      "size_bytes": 3618,
+      "intact": true
+    },
+    "src/data/prediction/model_inplay_early_payout_v5_0_candidate.json": {
+      "sha256": "b0e6a50735856dd3ce052a46042f9b8c07b7f1859977b20eb1de244f8164d408",
+      "size_bytes": 1552,
+      "intact": true
+    },
+    "src/data/prediction/model_epistemic_conformal_v5_1_candidate.json": {
+      "sha256": "657843b8af2961d9b3fde7f6e4c796be8206caa2b0bbdebaf11187d26459c5ba",
+      "size_bytes": 7174,
+      "intact": true
+    },
+    "src/data/prediction/multisport_v4_0_state_candidate.json": {
+      "sha256": "79f04770695eca43c3eb823317b1c81adceae2adfab058fd50ee44859c4da4c7",
+      "size_bytes": 69425,
+      "intact": true
+    },
+    "src/data/prediction/live_matchday_v5_candidate_snapshot.json": {
+      "sha256": "02d17fc10ace231ed60fa8563c5888319e6aa8f8a5f26ae3439b88c1df30e834",
+      "size_bytes": 577394,
+      "intact": true
+    }
+  },
+  "inherited_v5_2_governance_audit": {
+    "src/data/prediction/model_v5_2_live_feedback_candidate.json": {
+      "sha256": "012dcb47fb9e025c6e7e99c4b40a4a1388c4b412e34c50afe4ed92a0d9c5b512",
+      "size_bytes": 8915,
+      "intact": true
+    },
+    "src/data/prediction/v5_2_live_feedback_snapshot.json": {
+      "sha256": "7e93a5d197a9a06fa4bf2ff2eabc90c13f2f18d60518ac00d1edd06cd94e17fa",
+      "size_bytes": 67803,
+      "intact": true
+    },
+    "research/prediction-lab/experiments/EXP_V57_v5_2_live_feedback/artifacts/exp_v57_v5_2_results.json": {
+      "sha256": "3ab18320e544f1448f3fde20f047ddaef3d0500414e95aa59564251ecb012ff5",
+      "size_bytes": 7285,
+      "intact": true
+    }
+  }
+}

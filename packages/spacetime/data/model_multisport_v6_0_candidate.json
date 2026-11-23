@@ -1,0 +1,3152 @@
+{
+  "schema_version": "multisport_v6.0.0",
+  "codename": "PitchLab Spacetime Multi-Sport Walk-Forward Physics & Early-Payout v6.0 Candidate",
+  "version": "6.0.0-candidate",
+  "status": "candidate",
+  "production_activated": false,
+  "holdout_cut_utc": "2025-02-02T17:30:00Z",
+  "holdout_sealed_untouched": true,
+  "hyperparameter_tuning_on_holdout": false,
+  "validation_status": "walk_forward_game_oos_2026_verified",
+  "physics_config": {
+    "mlb": {
+      "league_woba": 0.312,
+      "woba_zero_floor": 0.195,
+      "league_fip": 4.08,
+      "unearned_runs_mult": 1.032,
+      "starter_shrink_ip": 45.0,
+      "home_scoring_mult": 1.026,
+      "away_scoring_mult": 0.978,
+      "r_disp_f5": 5.0,
+      "r_disp_late4": 4.0,
+      "manfred_runner_boost_runs": 0.36,
+      "walkforward": {
+        "prior_team_runs": 4.38,
+        "prior_games": 65.0,
+        "prior_env_team_games": 80.0,
+        "offseason_prior_retention": 0.44,
+        "elo_k": 4.2,
+        "elo_home_adv": 22.0,
+        "elo_woba_tilt_per_100": 0.0045,
+        "b2b_bp_fip_penalty": 0.08,
+        "three_in_four_bp_fip_penalty": 0.06,
+        "canonical_total_lines": [
+          7.5,
+          8.5,
+          9.5
+        ]
+      }
+    },
+    "nhl": {
+      "league_sv_pct": 0.905,
+      "shots_per_game": 30.2,
+      "avg_pp_opportunities": 3.05,
+      "confirmed_goalie_weight": 0.92,
+      "unconfirmed_goalie_weight": 0.42,
+      "b2b_sv_pct_penalty": 0.008,
+      "three_in_four_goals_penalty": 0.06,
+      "empty_net_leader_goal_prob": 0.165,
+      "empty_net_puller_tie_prob": 0.072,
+      "empty_net_diff2_leader_prob": 0.115,
+      "empty_net_diff2_puller_prob": 0.052,
+      "empty_net_two_goal_prob": 0.024,
+      "walkforward": {
+        "prior_team_goals": 3.12,
+        "prior_games": 38.0,
+        "prior_env_team_games": 50.0,
+        "elo_k": 6.5,
+        "elo_home_adv": 28.0,
+        "elo_goals60_tilt_per_100": 0.11,
+        "home_ice_goals_boost": 0.1,
+        "away_ice_goals_offset": -0.1,
+        "canonical_total_lines": [
+          5.5,
+          6.0,
+          6.5
+        ]
+      }
+    },
+    "nba": {
+      "sigma_margin_base": 13.6,
+      "sigma_total_base": 16.8,
+      "home_b2b_penalty_pts": 1.55,
+      "away_b2b_penalty_pts": 2.15,
+      "three_in_four_penalty_pts": 0.85,
+      "ot_scale": 1.62,
+      "injury_out_unit_pts": 1.15,
+      "injury_out_diminishing_power": 0.78,
+      "injury_duda_unit_pts": 0.95,
+      "injury_out_var_unit": 0.55,
+      "injury_duda_var_unit": 1.65,
+      "walkforward": {
+        "prior_team_pts": 113.8,
+        "prior_games": 22.0,
+        "prior_env_team_games": 40.0,
+        "elo_k": 16.0,
+        "elo_home_adv": 56.0,
+        "elo_margin_weight": 0.45,
+        "hca_base_pts": 2.35,
+        "high_altitude_hca_bonus_pts": 1.15,
+        "canonical_total_lines": [
+          221.5,
+          227.5,
+          233.5
+        ]
+      }
+    },
+    "nfl": {
+      "max_abs_margin": 45,
+      "positive_margin_kernel_1_to_45": [
+        0.03933975,
+        0.03725276,
+        0.15032965,
+        0.04863634,
+        0.03288906,
+        0.05755348,
+        0.09549874,
+        0.03554523,
+        0.01543424,
+        0.05812266,
+        0.02473083,
+        0.01543424,
+        0.03080207,
+        0.04844662,
+        0.01486506,
+        0.02207466,
+        0.03326851,
+        0.02340274,
+        0.01126026,
+        0.02207466,
+        0.02947398,
+        0.00993217,
+        0.00974245,
+        0.02264384,
+        0.01069108,
+        0.0065171,
+        0.01467533,
+        0.01714177,
+        0.00575819,
+        0.00518901,
+        0.01220889,
+        0.00556847,
+        0.00329175,
+        0.00575819,
+        0.00594792,
+        0.00101504,
+        0.00310203,
+        0.00499929,
+        0.00063558,
+        0.00101504,
+        0.00196367,
+        0.00101504,
+        0.00082531,
+        0.00044586,
+        0.00348148
+      ],
+      "margin_quad_concentration": 0.00052472,
+      "spread_market_posterior_w_model": 0.16,
+      "discrete_totals": {
+        "max_total_points": 95,
+        "base_kernel_0_to_95": [
+          4.3398e-06,
+          5.3747e-06,
+          6.6234e-06,
+          0.0001315788,
+          9.9106e-06,
+          1.20334e-05,
+          0.000661147,
+          0.0003495845,
+          0.0005416696,
+          0.001608957,
+          0.0010835459,
+          0.0006951001,
+          0.0018029258,
+          0.0034206375,
+          0.0012284747,
+          0.0033757379,
+          0.0069005048,
+          0.0040258878,
+          0.0024069055,
+          0.0075995769,
+          0.0071349523,
+          0.0064449997,
+          0.008986023,
+          0.0172262837,
+          0.0096830112,
+          0.0085767045,
+          0.0152632208,
+          0.02011032,
+          0.0102754537,
+          0.0169897406,
+          0.0234592374,
+          0.0181983219,
+          0.0152766672,
+          0.0278995609,
+          0.0247042827,
+          0.0187725397,
+          0.0234330293,
+          0.0327553634,
+          0.0229081907,
+          0.0214185493,
+          0.0309991155,
+          0.0352272953,
+          0.0190391192,
+          0.0320626304,
+          0.034296935,
+          0.0263591382,
+          0.0215831139,
+          0.0305873927,
+          0.0275714274,
+          0.0209328308,
+          0.0245018814,
+          0.0329735492,
+          0.0215370405,
+          0.0169868184,
+          0.0203150989,
+          0.0252302724,
+          0.012107425,
+          0.0182351598,
+          0.0178155115,
+          0.0133218941,
+          0.0083385408,
+          0.0141036577,
+          0.0128427152,
+          0.0092498983,
+          0.0088831507,
+          0.011991329,
+          0.0083290224,
+          0.0051812587,
+          0.0058820463,
+          0.0083329226,
+          0.004138792,
+          0.0051511754,
+          0.0035917082,
+          0.0047682327,
+          0.0025069381,
+          0.0028561056,
+          0.0022342938,
+          0.0018748187,
+          0.0015294879,
+          0.0020612212,
+          0.0021107396,
+          0.0005657207,
+          0.0007583442,
+          0.001082587,
+          0.00042633,
+          0.000887412,
+          0.0004896813,
+          0.0005904029,
+          0.0004481576,
+          0.0003092585,
+          0.0002966353,
+          0.0001629156,
+          3.11597e-05,
+          2.44848e-05,
+          0.0001426016,
+          0.0007556363
+        ],
+        "quad_concentration": -0.0008,
+        "market_posterior_w_model": 0.22
+      },
+      "overtime_calibration": {
+        "feature_names": [
+          "closeness_exp_abs_m_7",
+          "expected_total_centered_10",
+          "is_indoor",
+          "is_turf"
+        ],
+        "coef": [
+          0.22141710932485645,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "intercept": -2.8809085144867104
+      },
+      "walkforward": {
+        "prior_team_pts": 22.8,
+        "prior_games": 14.0,
+        "prior_env_team_games": 32.0,
+        "offseason_elo_regression": 0.42,
+        "elo_k": 20.0,
+        "elo_home_adv": 44.0,
+        "elo_to_margin_scale": 0.04,
+        "hca_base_pts": 1.75,
+        "short_week_penalty_pts": 0.65,
+        "bye_week_bonus_pts": 0.55,
+        "base_tie_prob": 0.004,
+        "canonical_spread_lines": [
+          -7.0,
+          -3.5,
+          -3.0,
+          3.0,
+          3.5,
+          7.0
+        ],
+        "canonical_total_lines": [
+          41.0,
+          44.0,
+          44.5,
+          45.5,
+          47.0,
+          47.5
+        ]
+      }
+    }
+  },
+  "early_payout_config": {
+    "mlb": {
+      "trigger_lead": 5,
+      "method": "brownian_reflection",
+      "sigma_margin": 4.25,
+      "effective_barrier": 4.55,
+      "intra_game_validation_status": "theoretical_reflection_intra_game_no_2026_pbp_trace"
+    },
+    "nba": {
+      "trigger_lead": 20,
+      "method": "brownian_reflection_dynamic_sigma",
+      "sigma_margin": 12.6,
+      "effective_barrier": 18.8,
+      "intra_game_validation_status": "theoretical_reflection_intra_game_no_2026_pbp_trace"
+    },
+    "nfl": {
+      "trigger_lead": 17,
+      "method": "brownian_reflection",
+      "sigma_margin": 13.077,
+      "effective_barrier": 16.5,
+      "intra_game_validation_status": "oos_validated_nflverse_pbp_2020_2024_no_2026_pbp_trace"
+    },
+    "nhl": {
+      "trigger_lead": 3,
+      "method": "passage_time_markov_dp_18slice",
+      "max_goals_dp": 11,
+      "period_weights_3": [
+        0.3,
+        0.35,
+        0.35
+      ],
+      "intra_game_validation_status": "theoretical_passage_time_dp_intra_game_no_2026_pbp_trace"
+    }
+  },
+  "team_slug_aliases": {
+    "mlb": {
+      "arizona-diamondbacks": "AZ",
+      "az": "AZ",
+      "ari": "AZ",
+      "athletics": "OAK",
+      "oakland-athletics": "OAK",
+      "sacramento-athletics": "OAK",
+      "oak": "OAK",
+      "ath": "OAK",
+      "atlanta-braves": "ATL",
+      "atl": "ATL",
+      "baltimore-orioles": "BAL",
+      "bal": "BAL",
+      "boston-red-sox": "BOS",
+      "bos": "BOS",
+      "chicago-cubs": "CHC",
+      "chc": "CHC",
+      "chicago-white-sox": "CWS",
+      "cws": "CWS",
+      "chw": "CWS",
+      "cincinnati-reds": "CIN",
+      "cin": "CIN",
+      "cleveland-guardians": "CLE",
+      "cle": "CLE",
+      "colorado-rockies": "COL",
+      "col": "COL",
+      "detroit-tigers": "DET",
+      "det": "DET",
+      "houston-astros": "HOU",
+      "hou": "HOU",
+      "kansas-city-royals": "KC",
+      "kc": "KC",
+      "kcr": "KC",
+      "los-angeles-angels": "LAA",
+      "laa": "LAA",
+      "ana": "LAA",
+      "los-angeles-dodgers": "LAD",
+      "lad": "LAD",
+      "miami-marlins": "MIA",
+      "mia": "MIA",
+      "milwaukee-brewers": "MIL",
+      "mil": "MIL",
+      "minnesota-twins": "MIN",
+      "min": "MIN",
+      "new-york-mets": "NYM",
+      "nym": "NYM",
+      "new-york-yankees": "NYY",
+      "nyy": "NYY",
+      "philadelphia-phillies": "PHI",
+      "phi": "PHI",
+      "pittsburgh-pirates": "PIT",
+      "pit": "PIT",
+      "san-diego-padres": "SD",
+      "sd": "SD",
+      "sdp": "SD",
+      "san-francisco-giants": "SF",
+      "sf": "SF",
+      "sfg": "SF",
+      "seattle-mariners": "SEA",
+      "sea": "SEA",
+      "st-louis-cardinals": "STL",
+      "stl": "STL",
+      "tampa-bay-rays": "TB",
+      "tb": "TB",
+      "tbr": "TB",
+      "texas-rangers": "TEX",
+      "tex": "TEX",
+      "toronto-blue-jays": "TOR",
+      "tor": "TOR",
+      "washington-nationals": "WSH",
+      "wsh": "WSH",
+      "was": "WSH"
+    },
+    "nhl": {
+      "anaheim-ducks": "ANA",
+      "ana": "ANA",
+      "arizona-coyotes": "ARI",
+      "utah-mammoth": "ARI",
+      "utah-hockey-club": "ARI",
+      "ari": "ARI",
+      "uta": "ARI",
+      "boston-bruins": "BOS",
+      "bos": "BOS",
+      "buffalo-sabres": "BUF",
+      "buf": "BUF",
+      "calgary-flames": "CGY",
+      "cgy": "CGY",
+      "carolina-hurricanes": "CAR",
+      "car": "CAR",
+      "chicago-blackhawks": "CHI",
+      "chi": "CHI",
+      "colorado-avalanche": "COL",
+      "col": "COL",
+      "columbus-blue-jackets": "CBJ",
+      "cbj": "CBJ",
+      "dallas-stars": "DAL",
+      "dal": "DAL",
+      "detroit-red-wings": "DET",
+      "det": "DET",
+      "edmonton-oilers": "EDM",
+      "edm": "EDM",
+      "florida-panthers": "FLA",
+      "fla": "FLA",
+      "los-angeles-kings": "LAK",
+      "lak": "LAK",
+      "la": "LAK",
+      "minnesota-wild": "MIN",
+      "min": "MIN",
+      "montreal-canadiens": "MTL",
+      "mtl": "MTL",
+      "nashville-predators": "NSH",
+      "nsh": "NSH",
+      "new-jersey-devils": "NJD",
+      "njd": "NJD",
+      "nj": "NJD",
+      "new-york-islanders": "NYI",
+      "nyi": "NYI",
+      "new-york-rangers": "NYR",
+      "nyr": "NYR",
+      "ottawa-senators": "OTT",
+      "ott": "OTT",
+      "philadelphia-flyers": "PHI",
+      "phi": "PHI",
+      "pittsburgh-penguins": "PIT",
+      "pit": "PIT",
+      "san-jose-sharks": "SJS",
+      "sjs": "SJS",
+      "sj": "SJS",
+      "seattle-kraken": "SEA",
+      "sea": "SEA",
+      "st-louis-blues": "STL",
+      "stl": "STL",
+      "tampa-bay-lightning": "TBL",
+      "tbl": "TBL",
+      "tb": "TBL",
+      "toronto-maple-leafs": "TOR",
+      "tor": "TOR",
+      "vancouver-canucks": "VAN",
+      "van": "VAN",
+      "vegas-golden-knights": "VGK",
+      "vgk": "VGK",
+      "washington-capitals": "WSH",
+      "wsh": "WSH",
+      "was": "WSH",
+      "winnipeg-jets": "WPG",
+      "wpg": "WPG"
+    },
+    "nba": {
+      "atlanta-hawks": "ATL",
+      "atl": "ATL",
+      "boston-celtics": "BOS",
+      "bos": "BOS",
+      "brooklyn-nets": "BKN",
+      "bkn": "BKN",
+      "brk": "BKN",
+      "charlotte-hornets": "CHA",
+      "cha": "CHA",
+      "chicago-bulls": "CHI",
+      "chi": "CHI",
+      "cleveland-cavaliers": "CLE",
+      "cle": "CLE",
+      "dallas-mavericks": "DAL",
+      "dal": "DAL",
+      "denver-nuggets": "DEN",
+      "den": "DEN",
+      "detroit-pistons": "DET",
+      "det": "DET",
+      "golden-state-warriors": "GSW",
+      "gsw": "GSW",
+      "gs": "GSW",
+      "houston-rockets": "HOU",
+      "hou": "HOU",
+      "indiana-pacers": "IND",
+      "ind": "IND",
+      "los-angeles-clippers": "LAC",
+      "la-clippers": "LAC",
+      "lac": "LAC",
+      "los-angeles-lakers": "LAL",
+      "lal": "LAL",
+      "memphis-grizzlies": "MEM",
+      "mem": "MEM",
+      "miami-heat": "MIA",
+      "mia": "MIA",
+      "milwaukee-bucks": "MIL",
+      "mil": "MIL",
+      "minnesota-timberwolves": "MIN",
+      "min": "MIN",
+      "new-orleans-pelicans": "NOP",
+      "nop": "NOP",
+      "no": "NOP",
+      "new-york-knicks": "NYK",
+      "nyk": "NYK",
+      "ny": "NYK",
+      "oklahoma-city-thunder": "OKC",
+      "okc": "OKC",
+      "orlando-magic": "ORL",
+      "orl": "ORL",
+      "philadelphia-76ers": "PHI",
+      "phi": "PHI",
+      "phoenix-suns": "PHX",
+      "phx": "PHX",
+      "pho": "PHX",
+      "portland-trail-blazers": "POR",
+      "por": "POR",
+      "sacramento-kings": "SAC",
+      "sac": "SAC",
+      "san-antonio-spurs": "SAS",
+      "sas": "SAS",
+      "sa": "SAS",
+      "toronto-raptors": "TOR",
+      "tor": "TOR",
+      "utah-jazz": "UTA",
+      "uta": "UTA",
+      "utah": "UTA",
+      "washington-wizards": "WAS",
+      "was": "WAS",
+      "wsh": "WAS"
+    },
+    "nfl": {
+      "arizona-cardinals": "ARI",
+      "ari": "ARI",
+      "atlanta-falcons": "ATL",
+      "atl": "ATL",
+      "baltimore-ravens": "BAL",
+      "bal": "BAL",
+      "buffalo-bills": "BUF",
+      "buf": "BUF",
+      "carolina-panthers": "CAR",
+      "car": "CAR",
+      "chicago-bears": "CHI",
+      "chi": "CHI",
+      "cincinnati-bengals": "CIN",
+      "cin": "CIN",
+      "cleveland-browns": "CLE",
+      "cle": "CLE",
+      "dallas-cowboys": "DAL",
+      "dal": "DAL",
+      "denver-broncos": "DEN",
+      "den": "DEN",
+      "detroit-lions": "DET",
+      "det": "DET",
+      "green-bay-packers": "GB",
+      "gb": "GB",
+      "gnb": "GB",
+      "houston-texans": "HOU",
+      "hou": "HOU",
+      "indianapolis-colts": "IND",
+      "ind": "IND",
+      "jacksonville-jaguars": "JAX",
+      "jax": "JAX",
+      "jac": "JAX",
+      "kansas-city-chiefs": "KC",
+      "kc": "KC",
+      "las-vegas-raiders": "LV",
+      "lv": "LV",
+      "lvr": "LV",
+      "oak": "LV",
+      "los-angeles-chargers": "LAC",
+      "lac": "LAC",
+      "los-angeles-rams": "LA",
+      "la": "LA",
+      "lar": "LA",
+      "miami-dolphins": "MIA",
+      "mia": "MIA",
+      "minnesota-vikings": "MIN",
+      "min": "MIN",
+      "new-england-patriots": "NE",
+      "ne": "NE",
+      "new-orleans-saints": "NO",
+      "no": "NO",
+      "new-york-giants": "NYG",
+      "nyg": "NYG",
+      "new-york-jets": "NYJ",
+      "nyj": "NYJ",
+      "philadelphia-eagles": "PHI",
+      "phi": "PHI",
+      "pittsburgh-steelers": "PIT",
+      "pit": "PIT",
+      "san-francisco-49ers": "SF",
+      "sf": "SF",
+      "seattle-seahawks": "SEA",
+      "sea": "SEA",
+      "tampa-bay-buccaneers": "TB",
+      "tb": "TB",
+      "tennessee-titans": "TEN",
+      "ten": "TEN",
+      "washington-commanders": "WAS",
+      "was": "WAS",
+      "wsh": "WAS"
+    }
+  },
+  "nba_active_injuries_observed_at_utc": "2026-11-19T14:16:45.965Z",
+  "nba_active_injuries_2026": {
+    "ATL": {
+      "baja_count": 6,
+      "duda_count": 0,
+      "missing_impact_pts": 4.652173,
+      "questionable_impact_pts": 0.0
+    },
+    "BKN": {
+      "baja_count": 0,
+      "duda_count": 0,
+      "missing_impact_pts": 0.0,
+      "questionable_impact_pts": 0.0
+    },
+    "BOS": {
+      "baja_count": 0,
+      "duda_count": 0,
+      "missing_impact_pts": 0.0,
+      "questionable_impact_pts": 0.0
+    },
+    "CHA": {
+      "baja_count": 2,
+      "duda_count": 1,
+      "missing_impact_pts": 1.974701,
+      "questionable_impact_pts": 0.95
+    },
+    "CHI": {
+      "baja_count": 2,
+      "duda_count": 0,
+      "missing_impact_pts": 1.974701,
+      "questionable_impact_pts": 0.0
+    },
+    "CLE": {
+      "baja_count": 4,
+      "duda_count": 0,
+      "missing_impact_pts": 3.390819,
+      "questionable_impact_pts": 0.0
+    },
+    "DAL": {
+      "baja_count": 4,
+      "duda_count": 0,
+      "missing_impact_pts": 3.390819,
+      "questionable_impact_pts": 0.0
+    },
+    "DEN": {
+      "baja_count": 1,
+      "duda_count": 0,
+      "missing_impact_pts": 1.15,
+      "questionable_impact_pts": 0.0
+    },
+    "DET": {
+      "baja_count": 5,
+      "duda_count": 0,
+      "missing_impact_pts": 4.035473,
+      "questionable_impact_pts": 0.0
+    },
+    "GSW": {
+      "baja_count": 5,
+      "duda_count": 0,
+      "missing_impact_pts": 4.035473,
+      "questionable_impact_pts": 0.0
+    },
+    "HOU": {
+      "baja_count": 1,
+      "duda_count": 1,
+      "missing_impact_pts": 1.15,
+      "questionable_impact_pts": 0.95
+    },
+    "IND": {
+      "baja_count": 4,
+      "duda_count": 1,
+      "missing_impact_pts": 3.390819,
+      "questionable_impact_pts": 0.95
+    },
+    "LAC": {
+      "baja_count": 2,
+      "duda_count": 0,
+      "missing_impact_pts": 1.974701,
+      "questionable_impact_pts": 0.0
+    },
+    "LAL": {
+      "baja_count": 1,
+      "duda_count": 0,
+      "missing_impact_pts": 1.15,
+      "questionable_impact_pts": 0.0
+    },
+    "MEM": {
+      "baja_count": 3,
+      "duda_count": 0,
+      "missing_impact_pts": 2.709271,
+      "questionable_impact_pts": 0.0
+    },
+    "MIA": {
+      "baja_count": 1,
+      "duda_count": 0,
+      "missing_impact_pts": 1.15,
+      "questionable_impact_pts": 0.0
+    },
+    "MIL": {
+      "baja_count": 1,
+      "duda_count": 0,
+      "missing_impact_pts": 1.15,
+      "questionable_impact_pts": 0.0
+    },
+    "MIN": {
+      "baja_count": 3,
+      "duda_count": 0,
+      "missing_impact_pts": 2.709271,
+      "questionable_impact_pts": 0.0
+    },
+    "NOP": {
+      "baja_count": 5,
+      "duda_count": 0,
+      "missing_impact_pts": 4.035473,
+      "questionable_impact_pts": 0.0
+    },
+    "NYK": {
+      "baja_count": 0,
+      "duda_count": 0,
+      "missing_impact_pts": 0.0,
+      "questionable_impact_pts": 0.0
+    },
+    "OKC": {
+      "baja_count": 5,
+      "duda_count": 0,
+      "missing_impact_pts": 4.035473,
+      "questionable_impact_pts": 0.0
+    },
+    "ORL": {
+      "baja_count": 4,
+      "duda_count": 0,
+      "missing_impact_pts": 3.390819,
+      "questionable_impact_pts": 0.0
+    },
+    "PHI": {
+      "baja_count": 6,
+      "duda_count": 0,
+      "missing_impact_pts": 4.652173,
+      "questionable_impact_pts": 0.0
+    },
+    "PHX": {
+      "baja_count": 1,
+      "duda_count": 0,
+      "missing_impact_pts": 1.15,
+      "questionable_impact_pts": 0.0
+    },
+    "POR": {
+      "baja_count": 4,
+      "duda_count": 0,
+      "missing_impact_pts": 3.390819,
+      "questionable_impact_pts": 0.0
+    },
+    "SAC": {
+      "baja_count": 2,
+      "duda_count": 0,
+      "missing_impact_pts": 1.974701,
+      "questionable_impact_pts": 0.0
+    },
+    "SAS": {
+      "baja_count": 3,
+      "duda_count": 0,
+      "missing_impact_pts": 2.709271,
+      "questionable_impact_pts": 0.0
+    },
+    "TOR": {
+      "baja_count": 4,
+      "duda_count": 1,
+      "missing_impact_pts": 3.390819,
+      "questionable_impact_pts": 0.95
+    },
+    "UTA": {
+      "baja_count": 3,
+      "duda_count": 0,
+      "missing_impact_pts": 2.709271,
+      "questionable_impact_pts": 0.0
+    },
+    "WAS": {
+      "baja_count": 4,
+      "duda_count": 1,
+      "missing_impact_pts": 3.390819,
+      "questionable_impact_pts": 0.95
+    }
+  },
+  "league_environments_2026": {
+    "mlb": {
+      "games_ingested": 2202,
+      "shrunk_team_scoring_env": 4.484924,
+      "mean_observed_game_total": 8.9737
+    },
+    "nhl": {
+      "games_ingested": 346,
+      "shrunk_team_scoring_env": 3.167116,
+      "mean_observed_game_total": 6.341
+    },
+    "nba": {
+      "games_ingested": 222,
+      "shrunk_team_scoring_env": 113.733471,
+      "mean_observed_game_total": 227.455
+    },
+    "nfl": {
+      "games_ingested": 150,
+      "shrunk_team_scoring_env": 23.05,
+      "mean_observed_game_total": 46.1533
+    }
+  },
+  "teams_post_walkforward_state_2026": {
+    "mlb::ATL": {
+      "sport": "mlb",
+      "team_key": "ATL",
+      "team_name": "Atlanta Braves",
+      "elevation_m": 316.0,
+      "is_dome": false,
+      "elo": 1520.602329,
+      "games_played": 159,
+      "cum_for": 713.0,
+      "cum_against": 627.0,
+      "last_game_date": "2026-10-07",
+      "prev_game_date": "2026-10-06",
+      "structural_priors": {
+        "woba": 0.314,
+        "fip": 3.42,
+        "era": 3.49,
+        "runs_pg": 4.346,
+        "runs_allowed_pg": 3.747
+      }
+    },
+    "mlb::AZ": {
+      "sport": "mlb",
+      "team_key": "AZ",
+      "team_name": "Arizona Diamondbacks",
+      "elevation_m": 346.0,
+      "is_dome": true,
+      "elo": 1523.36943,
+      "games_played": 133,
+      "cum_for": 611.0,
+      "cum_against": 582.0,
+      "last_game_date": "2026-09-27",
+      "prev_game_date": "2026-09-26",
+      "structural_priors": {
+        "woba": 0.335,
+        "fip": 4.07,
+        "era": 4.62,
+        "runs_pg": 5.469,
+        "runs_allowed_pg": 4.864
+      }
+    },
+    "mlb::BAL": {
+      "sport": "mlb",
+      "team_key": "BAL",
+      "team_name": "Baltimore Orioles",
+      "elevation_m": 8.0,
+      "is_dome": false,
+      "elo": 1495.62851,
+      "games_played": 149,
+      "cum_for": 666.0,
+      "cum_against": 702.0,
+      "last_game_date": "2026-09-25",
+      "prev_game_date": "2026-09-23",
+      "structural_priors": {
+        "woba": 0.323,
+        "fip": 3.92,
+        "era": 3.94,
+        "runs_pg": 4.852,
+        "runs_allowed_pg": 4.315
+      }
+    },
+    "mlb::BOS": {
+      "sport": "mlb",
+      "team_key": "BOS",
+      "team_name": "Boston Red Sox",
+      "elevation_m": 8.0,
+      "is_dome": false,
+      "elo": 1512.369025,
+      "games_played": 155,
+      "cum_for": 648.0,
+      "cum_against": 606.0,
+      "last_game_date": "2026-10-01",
+      "prev_game_date": "2026-09-30",
+      "structural_priors": {
+        "woba": 0.32,
+        "fip": 4.09,
+        "era": 4.04,
+        "runs_pg": 4.636,
+        "runs_allowed_pg": 4.611
+      }
+    },
+    "mlb::CHC": {
+      "sport": "mlb",
+      "team_key": "CHC",
+      "team_name": "Chicago Cubs",
+      "elevation_m": 187.0,
+      "is_dome": false,
+      "elo": 1522.654702,
+      "games_played": 148,
+      "cum_for": 773.0,
+      "cum_against": 662.0,
+      "last_game_date": "2026-10-01",
+      "prev_game_date": "2026-09-30",
+      "structural_priors": {
+        "woba": 0.31,
+        "fip": 4.03,
+        "era": 3.78,
+        "runs_pg": 4.543,
+        "runs_allowed_pg": 4.13
+      }
+    },
+    "mlb::CIN": {
+      "sport": "mlb",
+      "team_key": "CIN",
+      "team_name": "Cincinnati Reds",
+      "elevation_m": 160.0,
+      "is_dome": false,
+      "elo": 1459.614693,
+      "games_played": 150,
+      "cum_for": 620.0,
+      "cum_against": 778.0,
+      "last_game_date": "2026-09-27",
+      "prev_game_date": "2026-09-26",
+      "structural_priors": {
+        "woba": 0.302,
+        "fip": 4.23,
+        "era": 4.09,
+        "runs_pg": 4.315,
+        "runs_allowed_pg": 4.284
+      }
+    },
+    "mlb::CLE": {
+      "sport": "mlb",
+      "team_key": "CLE",
+      "team_name": "Cleveland Guardians",
+      "elevation_m": 203.0,
+      "is_dome": false,
+      "elo": 1512.412268,
+      "games_played": 161,
+      "cum_for": 666.0,
+      "cum_against": 648.0,
+      "last_game_date": "2026-10-20",
+      "prev_game_date": "2026-10-18",
+      "structural_priors": {
+        "woba": 0.305,
+        "fip": 3.96,
+        "era": 3.61,
+        "runs_pg": 4.398,
+        "runs_allowed_pg": 3.857
+      }
+    },
+    "mlb::COL": {
+      "sport": "mlb",
+      "team_key": "COL",
+      "team_name": "Colorado Rockies",
+      "elevation_m": 1580.0,
+      "is_dome": false,
+      "elo": 1419.072389,
+      "games_played": 127,
+      "cum_for": 598.0,
+      "cum_against": 762.0,
+      "last_game_date": "2026-09-27",
+      "prev_game_date": "2026-09-26",
+      "structural_priors": {
+        "woba": 0.304,
+        "fip": 4.92,
+        "era": 5.47,
+        "runs_pg": 4.21,
+        "runs_allowed_pg": 5.735
+      }
+    },
+    "mlb::CWS": {
+      "sport": "mlb",
+      "team_key": "CWS",
+      "team_name": "Chicago White Sox",
+      "elevation_m": 182.0,
+      "is_dome": false,
+      "elo": 1513.514675,
+      "games_played": 159,
+      "cum_for": 757.0,
+      "cum_against": 710.0,
+      "last_game_date": "2026-10-11",
+      "prev_game_date": "2026-10-09",
+      "structural_priors": {
+        "woba": 0.271,
+        "fip": 4.54,
+        "era": 4.67,
+        "runs_pg": 3.13,
+        "runs_allowed_pg": 5.019
+      }
+    },
+    "mlb::DET": {
+      "sport": "mlb",
+      "team_key": "DET",
+      "team_name": "Detroit Tigers",
+      "elevation_m": 177.0,
+      "is_dome": false,
+      "elo": 1510.040784,
+      "games_played": 153,
+      "cum_for": 686.0,
+      "cum_against": 609.0,
+      "last_game_date": "2026-09-27",
+      "prev_game_date": "2026-09-26",
+      "structural_priors": {
+        "woba": 0.298,
+        "fip": 3.69,
+        "era": 3.61,
+        "runs_pg": 4.21,
+        "runs_allowed_pg": 3.963
+      }
+    },
+    "mlb::HOU": {
+      "sport": "mlb",
+      "team_key": "HOU",
+      "team_name": "Houston Astros",
+      "elevation_m": 15.0,
+      "is_dome": true,
+      "elo": 1487.270827,
+      "games_played": 134,
+      "cum_for": 599.0,
+      "cum_against": 648.0,
+      "last_game_date": "2026-09-30",
+      "prev_game_date": "2026-09-29",
+      "structural_priors": {
+        "woba": 0.32,
+        "fip": 4.01,
+        "era": 3.74,
+        "runs_pg": 4.596,
+        "runs_allowed_pg": 4.031
+      }
+    },
+    "mlb::KC": {
+      "sport": "mlb",
+      "team_key": "KC",
+      "team_name": "Kansas City Royals",
+      "elevation_m": 270.0,
+      "is_dome": false,
+      "elo": 1472.15026,
+      "games_played": 147,
+      "cum_for": 637.0,
+      "cum_against": 725.0,
+      "last_game_date": "2026-09-27",
+      "prev_game_date": "2026-09-26",
+      "structural_priors": {
+        "woba": 0.306,
+        "fip": 3.74,
+        "era": 3.76,
+        "runs_pg": 4.537,
+        "runs_allowed_pg": 3.975
+      }
+    },
+    "mlb::LAA": {
+      "sport": "mlb",
+      "team_key": "LAA",
+      "team_name": "Los Angeles Angels",
+      "elevation_m": 49.0,
+      "is_dome": false,
+      "elo": 1438.779981,
+      "games_played": 136,
+      "cum_for": 558.0,
+      "cum_against": 652.0,
+      "last_game_date": "2026-09-27",
+      "prev_game_date": "2026-09-26",
+      "structural_priors": {
+        "woba": 0.295,
+        "fip": 4.67,
+        "era": 4.56,
+        "runs_pg": 3.92,
+        "runs_allowed_pg": 4.92
+      }
+    },
+    "mlb::LAD": {
+      "sport": "mlb",
+      "team_key": "LAD",
+      "team_name": "Los Angeles Dodgers",
+      "elevation_m": 150.0,
+      "is_dome": false,
+      "elo": 1553.289306,
+      "games_played": 145,
+      "cum_for": 723.0,
+      "cum_against": 550.0,
+      "last_game_date": "2026-10-16",
+      "prev_game_date": "2026-10-15",
+      "structural_priors": {
+        "woba": 0.336,
+        "fip": 4.16,
+        "era": 3.9,
+        "runs_pg": 5.198,
+        "runs_allowed_pg": 4.235
+      }
+    },
+    "mlb::MIA": {
+      "sport": "mlb",
+      "team_key": "MIA",
+      "team_name": "Miami Marlins",
+      "elevation_m": 3.0,
+      "is_dome": true,
+      "elo": 1497.285875,
+      "games_played": 156,
+      "cum_for": 684.0,
+      "cum_against": 692.0,
+      "last_game_date": "2026-09-27",
+      "prev_game_date": "2026-09-26",
+      "structural_priors": {
+        "woba": 0.295,
+        "fip": 4.43,
+        "era": 4.73,
+        "runs_pg": 3.932,
+        "runs_allowed_pg": 5.191
+      }
+    },
+    "mlb::MIL": {
+      "sport": "mlb",
+      "team_key": "MIL",
+      "team_name": "Milwaukee Brewers",
+      "elevation_m": 183.0,
+      "is_dome": true,
+      "elo": 1593.637004,
+      "games_played": 162,
+      "cum_for": 838.0,
+      "cum_against": 608.0,
+      "last_game_date": "2026-10-29",
+      "prev_game_date": "2026-10-28",
+      "structural_priors": {
+        "woba": 0.317,
+        "fip": 4.17,
+        "era": 3.65,
+        "runs_pg": 4.796,
+        "runs_allowed_pg": 3.957
+      }
+    },
+    "mlb::MIN": {
+      "sport": "mlb",
+      "team_key": "MIN",
+      "team_name": "Minnesota Twins",
+      "elevation_m": 255.0,
+      "is_dome": false,
+      "elo": 1476.70559,
+      "games_played": 146,
+      "cum_for": 654.0,
+      "cum_against": 721.0,
+      "last_game_date": "2026-09-27",
+      "prev_game_date": "2026-09-26",
+      "structural_priors": {
+        "woba": 0.315,
+        "fip": 3.83,
+        "era": 4.26,
+        "runs_pg": 4.58,
+        "runs_allowed_pg": 4.537
+      }
+    },
+    "mlb::NYM": {
+      "sport": "mlb",
+      "team_key": "NYM",
+      "team_name": "New York Mets",
+      "elevation_m": 7.0,
+      "is_dome": false,
+      "elo": 1493.792243,
+      "games_played": 151,
+      "cum_for": 652.0,
+      "cum_against": 679.0,
+      "last_game_date": "2026-09-27",
+      "prev_game_date": "2026-09-26",
+      "structural_priors": {
+        "woba": 0.319,
+        "fip": 4.03,
+        "era": 3.96,
+        "runs_pg": 4.741,
+        "runs_allowed_pg": 4.302
+      }
+    },
+    "mlb::NYY": {
+      "sport": "mlb",
+      "team_key": "NYY",
+      "team_name": "New York Yankees",
+      "elevation_m": 6.0,
+      "is_dome": false,
+      "elo": 1554.883752,
+      "games_played": 155,
+      "cum_for": 724.0,
+      "cum_against": 564.0,
+      "last_game_date": "2026-10-08",
+      "prev_game_date": "2026-10-06",
+      "structural_priors": {
+        "woba": 0.329,
+        "fip": 4.05,
+        "era": 3.74,
+        "runs_pg": 5.031,
+        "runs_allowed_pg": 4.123
+      }
+    },
+    "mlb::OAK": {
+      "sport": "mlb",
+      "team_key": "OAK",
+      "team_name": "Oakland Athletics",
+      "elevation_m": 140.0,
+      "is_dome": false,
+      "elo": 1442.711745,
+      "games_played": 131,
+      "cum_for": 573.0,
+      "cum_against": 770.0,
+      "last_game_date": "2026-09-27",
+      "prev_game_date": "2026-09-26",
+      "structural_priors": {
+        "woba": 0.302,
+        "fip": 4.22,
+        "era": 4.37,
+        "runs_pg": 3.969,
+        "runs_allowed_pg": 4.716
+      }
+    },
+    "mlb::PHI": {
+      "sport": "mlb",
+      "team_key": "PHI",
+      "team_name": "Philadelphia Phillies",
+      "elevation_m": 3.0,
+      "is_dome": false,
+      "elo": 1515.455266,
+      "games_played": 156,
+      "cum_for": 691.0,
+      "cum_against": 689.0,
+      "last_game_date": "2026-10-02",
+      "prev_game_date": "2026-09-30",
+      "structural_priors": {
+        "woba": 0.324,
+        "fip": 3.84,
+        "era": 3.85,
+        "runs_pg": 4.84,
+        "runs_allowed_pg": 4.142
+      }
+    },
+    "mlb::PIT": {
+      "sport": "mlb",
+      "team_key": "PIT",
+      "team_name": "Pittsburgh Pirates",
+      "elevation_m": 229.0,
+      "is_dome": false,
+      "elo": 1501.553131,
+      "games_played": 153,
+      "cum_for": 727.0,
+      "cum_against": 715.0,
+      "last_game_date": "2026-09-27",
+      "prev_game_date": "2026-09-26",
+      "structural_priors": {
+        "woba": 0.294,
+        "fip": 4.02,
+        "era": 4.15,
+        "runs_pg": 4.105,
+        "runs_allowed_pg": 4.562
+      }
+    },
+    "mlb::SD": {
+      "sport": "mlb",
+      "team_key": "SD",
+      "team_name": "San Diego Padres",
+      "elevation_m": 9.0,
+      "is_dome": false,
+      "elo": 1542.205986,
+      "games_played": 136,
+      "cum_for": 590.0,
+      "cum_against": 532.0,
+      "last_game_date": "2026-10-08",
+      "prev_game_date": "2026-10-07",
+      "structural_priors": {
+        "woba": 0.322,
+        "fip": 3.76,
+        "era": 3.86,
+        "runs_pg": 4.691,
+        "runs_allowed_pg": 4.13
+      }
+    },
+    "mlb::SEA": {
+      "sport": "mlb",
+      "team_key": "SEA",
+      "team_name": "Seattle Mariners",
+      "elevation_m": 5.0,
+      "is_dome": true,
+      "elo": 1483.283747,
+      "games_played": 129,
+      "cum_for": 542.0,
+      "cum_against": 593.0,
+      "last_game_date": "2026-09-27",
+      "prev_game_date": "2026-09-26",
+      "structural_priors": {
+        "woba": 0.302,
+        "fip": 3.72,
+        "era": 3.49,
+        "runs_pg": 4.173,
+        "runs_allowed_pg": 3.747
+      }
+    },
+    "mlb::SF": {
+      "sport": "mlb",
+      "team_key": "SF",
+      "team_name": "San Francisco Giants",
+      "elevation_m": 11.0,
+      "is_dome": false,
+      "elo": 1475.595313,
+      "games_played": 127,
+      "cum_for": 539.0,
+      "cum_against": 579.0,
+      "last_game_date": "2026-09-27",
+      "prev_game_date": "2026-09-26",
+      "structural_priors": {
+        "woba": 0.304,
+        "fip": 3.78,
+        "era": 4.1,
+        "runs_pg": 4.278,
+        "runs_allowed_pg": 4.315
+      }
+    },
+    "mlb::STL": {
+      "sport": "mlb",
+      "team_key": "STL",
+      "team_name": "St. Louis Cardinals",
+      "elevation_m": 146.0,
+      "is_dome": false,
+      "elo": 1480.129661,
+      "games_played": 138,
+      "cum_for": 619.0,
+      "cum_against": 665.0,
+      "last_game_date": "2026-09-27",
+      "prev_game_date": "2026-09-26",
+      "structural_priors": {
+        "woba": 0.306,
+        "fip": 3.94,
+        "era": 4.04,
+        "runs_pg": 4.148,
+        "runs_allowed_pg": 4.438
+      }
+    },
+    "mlb::TB": {
+      "sport": "mlb",
+      "team_key": "TB",
+      "team_name": "Tampa Bay Rays",
+      "elevation_m": 15.0,
+      "is_dome": true,
+      "elo": 1547.509199,
+      "games_played": 166,
+      "cum_for": 742.0,
+      "cum_against": 654.0,
+      "last_game_date": "2026-10-29",
+      "prev_game_date": "2026-10-28",
+      "structural_priors": {
+        "woba": 0.293,
+        "fip": 4.03,
+        "era": 3.77,
+        "runs_pg": 3.728,
+        "runs_allowed_pg": 4.093
+      }
+    },
+    "mlb::TEX": {
+      "sport": "mlb",
+      "team_key": "TEX",
+      "team_name": "Texas Rangers",
+      "elevation_m": 167.0,
+      "is_dome": true,
+      "elo": 1477.270435,
+      "games_played": 135,
+      "cum_for": 551.0,
+      "cum_against": 606.0,
+      "last_game_date": "2026-09-27",
+      "prev_game_date": "2026-09-26",
+      "structural_priors": {
+        "woba": 0.299,
+        "fip": 4.3,
+        "era": 4.35,
+        "runs_pg": 4.216,
+        "runs_allowed_pg": 4.556
+      }
+    },
+    "mlb::TOR": {
+      "sport": "mlb",
+      "team_key": "TOR",
+      "team_name": "Toronto Blue Jays",
+      "elevation_m": 76.0,
+      "is_dome": true,
+      "elo": 1493.868021,
+      "games_played": 151,
+      "cum_for": 599.0,
+      "cum_against": 650.0,
+      "last_game_date": "2026-09-27",
+      "prev_game_date": "2026-09-26",
+      "structural_priors": {
+        "woba": 0.306,
+        "fip": 4.41,
+        "era": 4.29,
+        "runs_pg": 4.142,
+        "runs_allowed_pg": 4.586
+      }
+    },
+    "mlb::WSH": {
+      "sport": "mlb",
+      "team_key": "WSH",
+      "team_name": "Washington Nationals",
+      "elevation_m": 5.0,
+      "is_dome": false,
+      "elo": 1483.343854,
+      "games_played": 156,
+      "cum_for": 780.0,
+      "cum_against": 782.0,
+      "last_game_date": "2026-09-27",
+      "prev_game_date": "2026-09-26",
+      "structural_priors": {
+        "woba": 0.299,
+        "fip": 3.92,
+        "era": 4.3,
+        "runs_pg": 4.074,
+        "runs_allowed_pg": 4.716
+      }
+    },
+    "nhl::ANA": {
+      "sport": "nhl",
+      "team_key": "ANA",
+      "team_name": "Anaheim Ducks",
+      "elevation_m": 165.0,
+      "is_dome": true,
+      "elo": 1497.196396,
+      "games_played": 22,
+      "cum_for": 85.0,
+      "cum_against": 85.0,
+      "last_game_date": "2026-11-18",
+      "prev_game_date": "2026-11-16",
+      "structural_priors": {
+        "xgf_5v5": 2.3853,
+        "xga_5v5": 2.7147,
+        "sv_pct": 0.90234
+      }
+    },
+    "nhl::ARI": {
+      "sport": "nhl",
+      "team_key": "ARI",
+      "team_name": "Arizona Coyotes",
+      "elevation_m": 140.0,
+      "is_dome": true,
+      "elo": 1495.497129,
+      "games_played": 23,
+      "cum_for": 77.0,
+      "cum_against": 79.0,
+      "last_game_date": "2026-11-19",
+      "prev_game_date": "2026-11-17",
+      "structural_priors": {
+        "xgf_5v5": 2.4694,
+        "xga_5v5": 2.6306,
+        "sv_pct": 0.90356
+      }
+    },
+    "nhl::BOS": {
+      "sport": "nhl",
+      "team_key": "BOS",
+      "team_name": "Boston Bruins",
+      "elevation_m": 165.0,
+      "is_dome": true,
+      "elo": 1520.328808,
+      "games_played": 22,
+      "cum_for": 76.0,
+      "cum_against": 56.0,
+      "last_game_date": "2026-11-19",
+      "prev_game_date": "2026-11-18",
+      "structural_priors": {
+        "xgf_5v5": 2.5469,
+        "xga_5v5": 2.5531,
+        "sv_pct": 0.90787
+      }
+    },
+    "nhl::BUF": {
+      "sport": "nhl",
+      "team_key": "BUF",
+      "team_name": "Buffalo Sabres",
+      "elevation_m": 165.0,
+      "is_dome": true,
+      "elo": 1477.988596,
+      "games_played": 21,
+      "cum_for": 58.0,
+      "cum_against": 74.0,
+      "last_game_date": "2026-11-18",
+      "prev_game_date": "2026-11-15",
+      "structural_priors": {
+        "xgf_5v5": 2.4536,
+        "xga_5v5": 2.6464,
+        "sv_pct": 0.905
+      }
+    },
+    "nhl::CAR": {
+      "sport": "nhl",
+      "team_key": "CAR",
+      "team_name": "Carolina Hurricanes",
+      "elevation_m": 165.0,
+      "is_dome": true,
+      "elo": 1544.442492,
+      "games_played": 21,
+      "cum_for": 87.0,
+      "cum_against": 47.0,
+      "last_game_date": "2026-11-14",
+      "prev_game_date": "2026-11-12",
+      "structural_priors": {
+        "xgf_5v5": 2.8545,
+        "xga_5v5": 2.2455,
+        "sv_pct": 0.90409
+      }
+    },
+    "nhl::CBJ": {
+      "sport": "nhl",
+      "team_key": "CBJ",
+      "team_name": "Columbus Blue Jackets",
+      "elevation_m": 165.0,
+      "is_dome": true,
+      "elo": 1475.245077,
+      "games_played": 19,
+      "cum_for": 46.0,
+      "cum_against": 63.0,
+      "last_game_date": "2026-11-18",
+      "prev_game_date": "2026-11-15",
+      "structural_priors": {
+        "xgf_5v5": 2.2991,
+        "xga_5v5": 2.8009,
+        "sv_pct": 0.90279
+      }
+    },
+    "nhl::CGY": {
+      "sport": "nhl",
+      "team_key": "CGY",
+      "team_name": "Calgary Flames",
+      "elevation_m": 1045.0,
+      "is_dome": true,
+      "elo": 1483.612916,
+      "games_played": 22,
+      "cum_for": 56.0,
+      "cum_against": 76.0,
+      "last_game_date": "2026-11-18",
+      "prev_game_date": "2026-11-16",
+      "structural_priors": {
+        "xgf_5v5": 2.5337,
+        "xga_5v5": 2.5663,
+        "sv_pct": 0.90244
+      }
+    },
+    "nhl::CHI": {
+      "sport": "nhl",
+      "team_key": "CHI",
+      "team_name": "Chicago Blackhawks",
+      "elevation_m": 165.0,
+      "is_dome": true,
+      "elo": 1462.5654,
+      "games_played": 21,
+      "cum_for": 52.0,
+      "cum_against": 86.0,
+      "last_game_date": "2026-11-18",
+      "prev_game_date": "2026-11-14",
+      "structural_priors": {
+        "xgf_5v5": 2.1711,
+        "xga_5v5": 2.9289,
+        "sv_pct": 0.90234
+      }
+    },
+    "nhl::COL": {
+      "sport": "nhl",
+      "team_key": "COL",
+      "team_name": "Colorado Avalanche",
+      "elevation_m": 1598.0,
+      "is_dome": true,
+      "elo": 1517.621936,
+      "games_played": 22,
+      "cum_for": 86.0,
+      "cum_against": 68.0,
+      "last_game_date": "2026-11-19",
+      "prev_game_date": "2026-11-15",
+      "structural_priors": {
+        "xgf_5v5": 2.6602,
+        "xga_5v5": 2.4398,
+        "sv_pct": 0.90374
+      }
+    },
+    "nhl::DAL": {
+      "sport": "nhl",
+      "team_key": "DAL",
+      "team_name": "Dallas Stars",
+      "elevation_m": 165.0,
+      "is_dome": true,
+      "elo": 1510.373736,
+      "games_played": 21,
+      "cum_for": 60.0,
+      "cum_against": 53.0,
+      "last_game_date": "2026-11-18",
+      "prev_game_date": "2026-11-16",
+      "structural_priors": {
+        "xgf_5v5": 2.7662,
+        "xga_5v5": 2.3338,
+        "sv_pct": 0.9051
+      }
+    },
+    "nhl::DET": {
+      "sport": "nhl",
+      "team_key": "DET",
+      "team_name": "Detroit Red Wings",
+      "elevation_m": 165.0,
+      "is_dome": true,
+      "elo": 1484.432167,
+      "games_played": 22,
+      "cum_for": 58.0,
+      "cum_against": 68.0,
+      "last_game_date": "2026-11-19",
+      "prev_game_date": "2026-11-15",
+      "structural_priors": {
+        "xgf_5v5": 2.3424,
+        "xga_5v5": 2.7576,
+        "sv_pct": 0.90419
+      }
+    },
+    "nhl::EDM": {
+      "sport": "nhl",
+      "team_key": "EDM",
+      "team_name": "Edmonton Oilers",
+      "elevation_m": 165.0,
+      "is_dome": true,
+      "elo": 1541.920423,
+      "games_played": 23,
+      "cum_for": 92.0,
+      "cum_against": 62.0,
+      "last_game_date": "2026-11-18",
+      "prev_game_date": "2026-11-16",
+      "structural_priors": {
+        "xgf_5v5": 2.9667,
+        "xga_5v5": 2.1333,
+        "sv_pct": 0.90363
+      }
+    },
+    "nhl::FLA": {
+      "sport": "nhl",
+      "team_key": "FLA",
+      "team_name": "Florida Panthers",
+      "elevation_m": 165.0,
+      "is_dome": true,
+      "elo": 1505.668685,
+      "games_played": 23,
+      "cum_for": 72.0,
+      "cum_against": 68.0,
+      "last_game_date": "2026-11-18",
+      "prev_game_date": "2026-11-16",
+      "structural_priors": {
+        "xgf_5v5": 2.7535,
+        "xga_5v5": 2.3465,
+        "sv_pct": 0.90773
+      }
+    },
+    "nhl::LAK": {
+      "sport": "nhl",
+      "team_key": "LAK",
+      "team_name": "Los Angeles Kings",
+      "elevation_m": 165.0,
+      "is_dome": true,
+      "elo": 1481.494109,
+      "games_played": 19,
+      "cum_for": 52.0,
+      "cum_against": 63.0,
+      "last_game_date": "2026-11-18",
+      "prev_game_date": "2026-11-15",
+      "structural_priors": {
+        "xgf_5v5": 2.78,
+        "xga_5v5": 2.32,
+        "sv_pct": 0.90689
+      }
+    },
+    "nhl::MIN": {
+      "sport": "nhl",
+      "team_key": "MIN",
+      "team_name": "Minnesota Wild",
+      "elevation_m": 165.0,
+      "is_dome": true,
+      "elo": 1544.171531,
+      "games_played": 23,
+      "cum_for": 83.0,
+      "cum_against": 51.0,
+      "last_game_date": "2026-11-18",
+      "prev_game_date": "2026-11-15",
+      "structural_priors": {
+        "xgf_5v5": 2.5979,
+        "xga_5v5": 2.5021,
+        "sv_pct": 0.903
+      }
+    },
+    "nhl::MTL": {
+      "sport": "nhl",
+      "team_key": "MTL",
+      "team_name": "Montreal Canadiens",
+      "elevation_m": 165.0,
+      "is_dome": true,
+      "elo": 1511.655102,
+      "games_played": 22,
+      "cum_for": 72.0,
+      "cum_against": 66.0,
+      "last_game_date": "2026-11-19",
+      "prev_game_date": "2026-11-17",
+      "structural_priors": {
+        "xgf_5v5": 2.372,
+        "xga_5v5": 2.728,
+        "sv_pct": 0.90388
+      }
+    },
+    "nhl::NJD": {
+      "sport": "nhl",
+      "team_key": "NJD",
+      "team_name": "New Jersey Devils",
+      "elevation_m": 165.0,
+      "is_dome": true,
+      "elo": 1526.992384,
+      "games_played": 22,
+      "cum_for": 82.0,
+      "cum_against": 64.0,
+      "last_game_date": "2026-11-19",
+      "prev_game_date": "2026-11-15",
+      "structural_priors": {
+        "xgf_5v5": 2.6428,
+        "xga_5v5": 2.4572,
+        "sv_pct": 0.90097
+      }
+    },
+    "nhl::NSH": {
+      "sport": "nhl",
+      "team_key": "NSH",
+      "team_name": "Nashville Predators",
+      "elevation_m": 165.0,
+      "is_dome": true,
+      "elo": 1505.302945,
+      "games_played": 22,
+      "cum_for": 67.0,
+      "cum_against": 66.0,
+      "last_game_date": "2026-11-18",
+      "prev_game_date": "2026-11-16",
+      "structural_priors": {
+        "xgf_5v5": 2.6999,
+        "xga_5v5": 2.4001,
+        "sv_pct": 0.90391
+      }
+    },
+    "nhl::NYI": {
+      "sport": "nhl",
+      "team_key": "NYI",
+      "team_name": "New York Islanders",
+      "elevation_m": 165.0,
+      "is_dome": true,
+      "elo": 1506.195036,
+      "games_played": 20,
+      "cum_for": 65.0,
+      "cum_against": 57.0,
+      "last_game_date": "2026-11-18",
+      "prev_game_date": "2026-11-15",
+      "structural_priors": {
+        "xgf_5v5": 2.5485,
+        "xga_5v5": 2.5515,
+        "sv_pct": 0.90542
+      }
+    },
+    "nhl::NYR": {
+      "sport": "nhl",
+      "team_key": "NYR",
+      "team_name": "New York Rangers",
+      "elevation_m": 165.0,
+      "is_dome": true,
+      "elo": 1513.352908,
+      "games_played": 22,
+      "cum_for": 67.0,
+      "cum_against": 58.0,
+      "last_game_date": "2026-11-17",
+      "prev_game_date": "2026-11-14",
+      "structural_priors": {
+        "xgf_5v5": 2.5128,
+        "xga_5v5": 2.5872,
+        "sv_pct": 0.9065
+      }
+    },
+    "nhl::OTT": {
+      "sport": "nhl",
+      "team_key": "OTT",
+      "team_name": "Ottawa Senators",
+      "elevation_m": 165.0,
+      "is_dome": true,
+      "elo": 1514.657501,
+      "games_played": 22,
+      "cum_for": 70.0,
+      "cum_against": 62.0,
+      "last_game_date": "2026-11-18",
+      "prev_game_date": "2026-11-15",
+      "structural_priors": {
+        "xgf_5v5": 2.5077,
+        "xga_5v5": 2.5923,
+        "sv_pct": 0.90024
+      }
+    },
+    "nhl::PHI": {
+      "sport": "nhl",
+      "team_key": "PHI",
+      "team_name": "Philadelphia Flyers",
+      "elevation_m": 165.0,
+      "is_dome": true,
+      "elo": 1472.155709,
+      "games_played": 24,
+      "cum_for": 57.0,
+      "cum_against": 80.0,
+      "last_game_date": "2026-11-18",
+      "prev_game_date": "2026-11-16",
+      "structural_priors": {
+        "xgf_5v5": 2.6474,
+        "xga_5v5": 2.4526,
+        "sv_pct": 0.90136
+      }
+    },
+    "nhl::PIT": {
+      "sport": "nhl",
+      "team_key": "PIT",
+      "team_name": "Pittsburgh Penguins",
+      "elevation_m": 165.0,
+      "is_dome": true,
+      "elo": 1482.966497,
+      "games_played": 20,
+      "cum_for": 62.0,
+      "cum_against": 71.0,
+      "last_game_date": "2026-11-15",
+      "prev_game_date": "2026-11-12",
+      "structural_priors": {
+        "xgf_5v5": 2.6265,
+        "xga_5v5": 2.4735,
+        "sv_pct": 0.90545
+      }
+    },
+    "nhl::SEA": {
+      "sport": "nhl",
+      "team_key": "SEA",
+      "team_name": "Seattle Kraken",
+      "elevation_m": 165.0,
+      "is_dome": true,
+      "elo": 1493.02384,
+      "games_played": 18,
+      "cum_for": 59.0,
+      "cum_against": 66.0,
+      "last_game_date": "2026-11-14",
+      "prev_game_date": "2026-11-12",
+      "structural_priors": {
+        "xgf_5v5": 2.5995,
+        "xga_5v5": 2.5005,
+        "sv_pct": 0.90598
+      }
+    },
+    "nhl::SJS": {
+      "sport": "nhl",
+      "team_key": "SJS",
+      "team_name": "San Jose Sharks",
+      "elevation_m": 165.0,
+      "is_dome": true,
+      "elo": 1475.613441,
+      "games_played": 24,
+      "cum_for": 65.0,
+      "cum_against": 86.0,
+      "last_game_date": "2026-11-18",
+      "prev_game_date": "2026-11-16",
+      "structural_priors": {
+        "xgf_5v5": 2.1088,
+        "xga_5v5": 2.9911,
+        "sv_pct": 0.90167
+      }
+    },
+    "nhl::STL": {
+      "sport": "nhl",
+      "team_key": "STL",
+      "team_name": "St. Louis Blues",
+      "elevation_m": 165.0,
+      "is_dome": true,
+      "elo": 1497.395777,
+      "games_played": 21,
+      "cum_for": 63.0,
+      "cum_against": 65.0,
+      "last_game_date": "2026-11-18",
+      "prev_game_date": "2026-11-15",
+      "structural_priors": {
+        "xgf_5v5": 2.2593,
+        "xga_5v5": 2.8407,
+        "sv_pct": 0.90608
+      }
+    },
+    "nhl::TBL": {
+      "sport": "nhl",
+      "team_key": "TBL",
+      "team_name": "Tampa Bay Lightning",
+      "elevation_m": 165.0,
+      "is_dome": true,
+      "elo": 1525.429686,
+      "games_played": 21,
+      "cum_for": 79.0,
+      "cum_against": 61.0,
+      "last_game_date": "2026-11-18",
+      "prev_game_date": "2026-11-15",
+      "structural_priors": {
+        "xgf_5v5": 2.5367,
+        "xga_5v5": 2.5633,
+        "sv_pct": 0.90143
+      }
+    },
+    "nhl::TOR": {
+      "sport": "nhl",
+      "team_key": "TOR",
+      "team_name": "Toronto Maple Leafs",
+      "elevation_m": 165.0,
+      "is_dome": true,
+      "elo": 1480.246262,
+      "games_played": 23,
+      "cum_for": 72.0,
+      "cum_against": 82.0,
+      "last_game_date": "2026-11-18",
+      "prev_game_date": "2026-11-15",
+      "structural_priors": {
+        "xgf_5v5": 2.6076,
+        "xga_5v5": 2.4924,
+        "sv_pct": 0.90374
+      }
+    },
+    "nhl::VAN": {
+      "sport": "nhl",
+      "team_key": "VAN",
+      "team_name": "Vancouver Canucks",
+      "elevation_m": 165.0,
+      "is_dome": true,
+      "elo": 1455.209619,
+      "games_played": 23,
+      "cum_for": 66.0,
+      "cum_against": 100.0,
+      "last_game_date": "2026-11-17",
+      "prev_game_date": "2026-11-16",
+      "structural_priors": {
+        "xgf_5v5": 2.6647,
+        "xga_5v5": 2.4352,
+        "sv_pct": 0.90584
+      }
+    },
+    "nhl::VGK": {
+      "sport": "nhl",
+      "team_key": "VGK",
+      "team_name": "Vegas Golden Knights",
+      "elevation_m": 165.0,
+      "is_dome": true,
+      "elo": 1508.890194,
+      "games_played": 23,
+      "cum_for": 77.0,
+      "cum_against": 67.0,
+      "last_game_date": "2026-11-18",
+      "prev_game_date": "2026-11-16",
+      "structural_priors": {
+        "xgf_5v5": 2.6285,
+        "xga_5v5": 2.4715,
+        "sv_pct": 0.90538
+      }
+    },
+    "nhl::WPG": {
+      "sport": "nhl",
+      "team_key": "WPG",
+      "team_name": "Winnipeg Jets",
+      "elevation_m": 165.0,
+      "is_dome": true,
+      "elo": 1494.969432,
+      "games_played": 22,
+      "cum_for": 67.0,
+      "cum_against": 74.0,
+      "last_game_date": "2026-11-18",
+      "prev_game_date": "2026-11-14",
+      "structural_priors": {
+        "xgf_5v5": 2.6194,
+        "xga_5v5": 2.4806,
+        "sv_pct": 0.90916
+      }
+    },
+    "nhl::WSH": {
+      "sport": "nhl",
+      "team_key": "WSH",
+      "team_name": "Washington Capitals",
+      "elevation_m": 165.0,
+      "is_dome": true,
+      "elo": 1493.384266,
+      "games_played": 19,
+      "cum_for": 64.0,
+      "cum_against": 70.0,
+      "last_game_date": "2026-11-18",
+      "prev_game_date": "2026-11-15",
+      "structural_priors": {
+        "xgf_5v5": 2.4189,
+        "xga_5v5": 2.6811,
+        "sv_pct": 0.90514
+      }
+    },
+    "nba::ATL": {
+      "sport": "nba",
+      "team_key": "ATL",
+      "team_name": "Atlanta Hawks",
+      "elevation_m": 175.0,
+      "is_dome": true,
+      "elo": 1531.906004,
+      "games_played": 15,
+      "cum_for": 1766.0,
+      "cum_against": 1737.0,
+      "last_game_date": "2026-11-19",
+      "prev_game_date": "2026-11-16",
+      "structural_priors": {
+        "ortg": 114.6,
+        "drtg": 115.7,
+        "net_rtg": -1.1,
+        "pace": 102.6
+      }
+    },
+    "nba::BKN": {
+      "sport": "nba",
+      "team_key": "BKN",
+      "team_name": "Brooklyn Nets",
+      "elevation_m": 175.0,
+      "is_dome": true,
+      "elo": 1423.459397,
+      "games_played": 14,
+      "cum_for": 1552.0,
+      "cum_against": 1669.0,
+      "last_game_date": "2026-11-19",
+      "prev_game_date": "2026-11-17",
+      "structural_priors": {
+        "ortg": 108.5,
+        "drtg": 115.8,
+        "net_rtg": -7.3,
+        "pace": 96.4
+      }
+    },
+    "nba::BOS": {
+      "sport": "nba",
+      "team_key": "BOS",
+      "team_name": "Boston Celtics",
+      "elevation_m": 175.0,
+      "is_dome": true,
+      "elo": 1566.767977,
+      "games_played": 15,
+      "cum_for": 1708.0,
+      "cum_against": 1551.0,
+      "last_game_date": "2026-11-19",
+      "prev_game_date": "2026-11-17",
+      "structural_priors": {
+        "ortg": 120.6,
+        "drtg": 111.1,
+        "net_rtg": 9.5,
+        "pace": 95.7
+      }
+    },
+    "nba::CHA": {
+      "sport": "nba",
+      "team_key": "CHA",
+      "team_name": "Charlotte Hornets",
+      "elevation_m": 175.0,
+      "is_dome": true,
+      "elo": 1429.206583,
+      "games_played": 14,
+      "cum_for": 1402.0,
+      "cum_against": 1546.0,
+      "last_game_date": "2026-11-18",
+      "prev_game_date": "2026-11-15",
+      "structural_priors": {
+        "ortg": 107.3,
+        "drtg": 116.6,
+        "net_rtg": -9.3,
+        "pace": 97.6
+      }
+    },
+    "nba::CHI": {
+      "sport": "nba",
+      "team_key": "CHI",
+      "team_name": "Chicago Bulls",
+      "elevation_m": 175.0,
+      "is_dome": true,
+      "elo": 1456.355202,
+      "games_played": 14,
+      "cum_for": 1627.0,
+      "cum_against": 1744.0,
+      "last_game_date": "2026-11-19",
+      "prev_game_date": "2026-11-17",
+      "structural_priors": {
+        "ortg": 114.1,
+        "drtg": 115.6,
+        "net_rtg": -1.5,
+        "pace": 102.8
+      }
+    },
+    "nba::CLE": {
+      "sport": "nba",
+      "team_key": "CLE",
+      "team_name": "Cleveland Cavaliers",
+      "elevation_m": 175.0,
+      "is_dome": true,
+      "elo": 1498.979594,
+      "games_played": 16,
+      "cum_for": 1892.0,
+      "cum_against": 1861.0,
+      "last_game_date": "2026-11-19",
+      "prev_game_date": "2026-11-17",
+      "structural_priors": {
+        "ortg": 121.7,
+        "drtg": 112.2,
+        "net_rtg": 9.5,
+        "pace": 99.8
+      }
+    },
+    "nba::DAL": {
+      "sport": "nba",
+      "team_key": "DAL",
+      "team_name": "Dallas Mavericks",
+      "elevation_m": 175.0,
+      "is_dome": true,
+      "elo": 1510.074874,
+      "games_played": 15,
+      "cum_for": 1685.0,
+      "cum_against": 1698.0,
+      "last_game_date": "2026-11-19",
+      "prev_game_date": "2026-11-15",
+      "structural_priors": {
+        "ortg": 114.8,
+        "drtg": 116.0,
+        "net_rtg": -1.2,
+        "pace": 99.2
+      }
+    },
+    "nba::DEN": {
+      "sport": "nba",
+      "team_key": "DEN",
+      "team_name": "Denver Nuggets",
+      "elevation_m": 1609.0,
+      "is_dome": true,
+      "elo": 1538.705446,
+      "games_played": 13,
+      "cum_for": 1471.0,
+      "cum_against": 1459.0,
+      "last_game_date": "2026-11-19",
+      "prev_game_date": "2026-11-17",
+      "structural_priors": {
+        "ortg": 119.9,
+        "drtg": 116.0,
+        "net_rtg": 3.9,
+        "pace": 99.8
+      }
+    },
+    "nba::DET": {
+      "sport": "nba",
+      "team_key": "DET",
+      "team_name": "Detroit Pistons",
+      "elevation_m": 175.0,
+      "is_dome": true,
+      "elo": 1572.928767,
+      "games_played": 14,
+      "cum_for": 1615.0,
+      "cum_against": 1525.0,
+      "last_game_date": "2026-11-19",
+      "prev_game_date": "2026-11-18",
+      "structural_priors": {
+        "ortg": 115.0,
+        "drtg": 113.1,
+        "net_rtg": 1.9,
+        "pace": 99.8
+      }
+    },
+    "nba::GSW": {
+      "sport": "nba",
+      "team_key": "GSW",
+      "team_name": "Golden State Warriors",
+      "elevation_m": 175.0,
+      "is_dome": true,
+      "elo": 1506.68643,
+      "games_played": 15,
+      "cum_for": 1705.0,
+      "cum_against": 1692.0,
+      "last_game_date": "2026-11-19",
+      "prev_game_date": "2026-11-17",
+      "structural_priors": {
+        "ortg": 115.0,
+        "drtg": 111.7,
+        "net_rtg": 3.3,
+        "pace": 98.7
+      }
+    },
+    "nba::HOU": {
+      "sport": "nba",
+      "team_key": "HOU",
+      "team_name": "Houston Rockets",
+      "elevation_m": 15.0,
+      "is_dome": true,
+      "elo": 1582.120558,
+      "games_played": 16,
+      "cum_for": 1886.0,
+      "cum_against": 1747.0,
+      "last_game_date": "2026-11-19",
+      "prev_game_date": "2026-11-17",
+      "structural_priors": {
+        "ortg": 115.3,
+        "drtg": 110.8,
+        "net_rtg": 4.5,
+        "pace": 98.6
+      }
+    },
+    "nba::IND": {
+      "sport": "nba",
+      "team_key": "IND",
+      "team_name": "Indiana Pacers",
+      "elevation_m": 175.0,
+      "is_dome": true,
+      "elo": 1439.291293,
+      "games_played": 15,
+      "cum_for": 1673.0,
+      "cum_against": 1722.0,
+      "last_game_date": "2026-11-19",
+      "prev_game_date": "2026-11-15",
+      "structural_priors": {
+        "ortg": 116.5,
+        "drtg": 114.3,
+        "net_rtg": 2.2,
+        "pace": 99.9
+      }
+    },
+    "nba::LAC": {
+      "sport": "nba",
+      "team_key": "LAC",
+      "team_name": "Los Angeles Clippers",
+      "elevation_m": 175.0,
+      "is_dome": true,
+      "elo": 1433.709348,
+      "games_played": 13,
+      "cum_for": 1455.0,
+      "cum_against": 1530.0,
+      "last_game_date": "2026-11-18",
+      "prev_game_date": "2026-11-15",
+      "structural_priors": {
+        "ortg": 115.1,
+        "drtg": 110.3,
+        "net_rtg": 4.8,
+        "pace": 97.5
+      }
+    },
+    "nba::LAL": {
+      "sport": "nba",
+      "team_key": "LAL",
+      "team_name": "Los Angeles Lakers",
+      "elevation_m": 175.0,
+      "is_dome": true,
+      "elo": 1601.427619,
+      "games_played": 16,
+      "cum_for": 1934.0,
+      "cum_against": 1831.0,
+      "last_game_date": "2026-11-19",
+      "prev_game_date": "2026-11-18",
+      "structural_priors": {
+        "ortg": 115.9,
+        "drtg": 114.7,
+        "net_rtg": 1.2,
+        "pace": 97.6
+      }
+    },
+    "nba::MEM": {
+      "sport": "nba",
+      "team_key": "MEM",
+      "team_name": "Memphis Grizzlies",
+      "elevation_m": 175.0,
+      "is_dome": true,
+      "elo": 1573.848656,
+      "games_played": 15,
+      "cum_for": 1828.0,
+      "cum_against": 1693.0,
+      "last_game_date": "2026-11-19",
+      "prev_game_date": "2026-11-17",
+      "structural_priors": {
+        "ortg": 117.7,
+        "drtg": 113.0,
+        "net_rtg": 4.7,
+        "pace": 103.3
+      }
+    },
+    "nba::MIA": {
+      "sport": "nba",
+      "team_key": "MIA",
+      "team_name": "Miami Heat",
+      "elevation_m": 3.0,
+      "is_dome": true,
+      "elo": 1538.551403,
+      "games_played": 15,
+      "cum_for": 1808.0,
+      "cum_against": 1798.0,
+      "last_game_date": "2026-11-19",
+      "prev_game_date": "2026-11-17",
+      "structural_priors": {
+        "ortg": 113.5,
+        "drtg": 112.9,
+        "net_rtg": 0.6,
+        "pace": 96.2
+      }
+    },
+    "nba::MIL": {
+      "sport": "nba",
+      "team_key": "MIL",
+      "team_name": "Milwaukee Bucks",
+      "elevation_m": 183.0,
+      "is_dome": true,
+      "elo": 1360.720638,
+      "games_played": 15,
+      "cum_for": 1616.0,
+      "cum_against": 1813.0,
+      "last_game_date": "2026-11-19",
+      "prev_game_date": "2026-11-16",
+      "structural_priors": {
+        "ortg": 115.9,
+        "drtg": 113.4,
+        "net_rtg": 2.5,
+        "pace": 99.3
+      }
+    },
+    "nba::MIN": {
+      "sport": "nba",
+      "team_key": "MIN",
+      "team_name": "Minnesota Timberwolves",
+      "elevation_m": 175.0,
+      "is_dome": true,
+      "elo": 1570.625329,
+      "games_played": 15,
+      "cum_for": 1750.0,
+      "cum_against": 1591.0,
+      "last_game_date": "2026-11-18",
+      "prev_game_date": "2026-11-17",
+      "structural_priors": {
+        "ortg": 116.6,
+        "drtg": 111.5,
+        "net_rtg": 5.1,
+        "pace": 97.3
+      }
+    },
+    "nba::NOP": {
+      "sport": "nba",
+      "team_key": "NOP",
+      "team_name": "New Orleans Pelicans",
+      "elevation_m": 175.0,
+      "is_dome": true,
+      "elo": 1422.141546,
+      "games_played": 16,
+      "cum_for": 1846.0,
+      "cum_against": 1965.0,
+      "last_game_date": "2026-11-19",
+      "prev_game_date": "2026-11-17",
+      "structural_priors": {
+        "ortg": 110.4,
+        "drtg": 119.9,
+        "net_rtg": -9.5,
+        "pace": 99.1
+      }
+    },
+    "nba::NYK": {
+      "sport": "nba",
+      "team_key": "NYK",
+      "team_name": "New York Knicks",
+      "elevation_m": 175.0,
+      "is_dome": true,
+      "elo": 1527.125369,
+      "games_played": 14,
+      "cum_for": 1540.0,
+      "cum_against": 1454.0,
+      "last_game_date": "2026-11-18",
+      "prev_game_date": "2026-11-15",
+      "structural_priors": {
+        "ortg": 118.5,
+        "drtg": 114.3,
+        "net_rtg": 4.2,
+        "pace": 96.7
+      }
+    },
+    "nba::OKC": {
+      "sport": "nba",
+      "team_key": "OKC",
+      "team_name": "Oklahoma City Thunder",
+      "elevation_m": 175.0,
+      "is_dome": true,
+      "elo": 1536.256528,
+      "games_played": 15,
+      "cum_for": 1682.0,
+      "cum_against": 1616.0,
+      "last_game_date": "2026-11-19",
+      "prev_game_date": "2026-11-16",
+      "structural_priors": {
+        "ortg": 120.3,
+        "drtg": 107.5,
+        "net_rtg": 12.8,
+        "pace": 100.0
+      }
+    },
+    "nba::ORL": {
+      "sport": "nba",
+      "team_key": "ORL",
+      "team_name": "Orlando Magic",
+      "elevation_m": 175.0,
+      "is_dome": true,
+      "elo": 1487.292475,
+      "games_played": 14,
+      "cum_for": 1531.0,
+      "cum_against": 1579.0,
+      "last_game_date": "2026-11-19",
+      "prev_game_date": "2026-11-17",
+      "structural_priors": {
+        "ortg": 109.4,
+        "drtg": 109.6,
+        "net_rtg": -0.2,
+        "pace": 96.1
+      }
+    },
+    "nba::PHI": {
+      "sport": "nba",
+      "team_key": "PHI",
+      "team_name": "Philadelphia 76ers",
+      "elevation_m": 175.0,
+      "is_dome": true,
+      "elo": 1604.470041,
+      "games_played": 16,
+      "cum_for": 1832.0,
+      "cum_against": 1785.0,
+      "last_game_date": "2026-11-19",
+      "prev_game_date": "2026-11-17",
+      "structural_priors": {
+        "ortg": 111.9,
+        "drtg": 118.2,
+        "net_rtg": -6.3,
+        "pace": 97.4
+      }
+    },
+    "nba::PHX": {
+      "sport": "nba",
+      "team_key": "PHX",
+      "team_name": "Phoenix Suns",
+      "elevation_m": 175.0,
+      "is_dome": true,
+      "elo": 1506.123674,
+      "games_played": 14,
+      "cum_for": 1597.0,
+      "cum_against": 1620.0,
+      "last_game_date": "2026-11-19",
+      "prev_game_date": "2026-11-17",
+      "structural_priors": {
+        "ortg": 116.2,
+        "drtg": 119.3,
+        "net_rtg": -3.1,
+        "pace": 97.1
+      }
+    },
+    "nba::POR": {
+      "sport": "nba",
+      "team_key": "POR",
+      "team_name": "Portland Trail Blazers",
+      "elevation_m": 175.0,
+      "is_dome": true,
+      "elo": 1559.074919,
+      "games_played": 14,
+      "cum_for": 1638.0,
+      "cum_against": 1554.0,
+      "last_game_date": "2026-11-18",
+      "prev_game_date": "2026-11-17",
+      "structural_priors": {
+        "ortg": 111.7,
+        "drtg": 114.7,
+        "net_rtg": -3.0,
+        "pace": 98.8
+      }
+    },
+    "nba::SAC": {
+      "sport": "nba",
+      "team_key": "SAC",
+      "team_name": "Sacramento Kings",
+      "elevation_m": 175.0,
+      "is_dome": true,
+      "elo": 1361.062242,
+      "games_played": 14,
+      "cum_for": 1508.0,
+      "cum_against": 1704.0,
+      "last_game_date": "2026-11-19",
+      "prev_game_date": "2026-11-16",
+      "structural_priors": {
+        "ortg": 116.7,
+        "drtg": 116.2,
+        "net_rtg": 0.5,
+        "pace": 98.2
+      }
+    },
+    "nba::SAS": {
+      "sport": "nba",
+      "team_key": "SAS",
+      "team_name": "San Antonio Spurs",
+      "elevation_m": 175.0,
+      "is_dome": true,
+      "elo": 1589.692925,
+      "games_played": 15,
+      "cum_for": 1756.0,
+      "cum_against": 1588.0,
+      "last_game_date": "2026-11-18",
+      "prev_game_date": "2026-11-15",
+      "structural_priors": {
+        "ortg": 114.4,
+        "drtg": 117.2,
+        "net_rtg": -2.8,
+        "pace": 99.3
+      }
+    },
+    "nba::TOR": {
+      "sport": "nba",
+      "team_key": "TOR",
+      "team_name": "Toronto Raptors",
+      "elevation_m": 76.0,
+      "is_dome": true,
+      "elo": 1429.860871,
+      "games_played": 15,
+      "cum_for": 1680.0,
+      "cum_against": 1680.0,
+      "last_game_date": "2026-11-19",
+      "prev_game_date": "2026-11-18",
+      "structural_priors": {
+        "ortg": 110.5,
+        "drtg": 114.8,
+        "net_rtg": -4.3,
+        "pace": 99.7
+      }
+    },
+    "nba::UTA": {
+      "sport": "nba",
+      "team_key": "UTA",
+      "team_name": "Utah Jazz",
+      "elevation_m": 1288.0,
+      "is_dome": true,
+      "elo": 1404.8072,
+      "games_played": 16,
+      "cum_for": 1740.0,
+      "cum_against": 1856.0,
+      "last_game_date": "2026-11-19",
+      "prev_game_date": "2026-11-18",
+      "structural_priors": {
+        "ortg": 111.2,
+        "drtg": 120.4,
+        "net_rtg": -9.2,
+        "pace": 100.0
+      }
+    },
+    "nba::WAS": {
+      "sport": "nba",
+      "team_key": "WAS",
+      "team_name": "Washington Wizards",
+      "elevation_m": 175.0,
+      "is_dome": true,
+      "elo": 1436.727091,
+      "games_played": 16,
+      "cum_for": 1772.0,
+      "cum_against": 1887.0,
+      "last_game_date": "2026-11-19",
+      "prev_game_date": "2026-11-17",
+      "structural_priors": {
+        "ortg": 106.8,
+        "drtg": 119.1,
+        "net_rtg": -12.3,
+        "pace": 100.9
+      }
+    },
+    "nfl::ARI": {
+      "sport": "nfl",
+      "team_key": "ARI",
+      "team_name": "ARI",
+      "elevation_m": 328.0,
+      "is_dome": true,
+      "elo": 1428.975576,
+      "games_played": 10,
+      "cum_for": 184.0,
+      "cum_against": 289.0,
+      "last_game_date": "2026-11-15",
+      "prev_game_date": "2026-11-08",
+      "structural_priors": {
+        "regressed_elo_prior": 1482.506985,
+        "prior_off_pts": 23.698988,
+        "prior_def_pts": 22.900819
+      }
+    },
+    "nfl::ATL": {
+      "sport": "nfl",
+      "team_key": "ATL",
+      "team_name": "ATL",
+      "elevation_m": 305.0,
+      "is_dome": true,
+      "elo": 1430.429066,
+      "games_played": 10,
+      "cum_for": 201.0,
+      "cum_against": 258.0,
+      "last_game_date": "2026-11-15",
+      "prev_game_date": "2026-11-08",
+      "structural_priors": {
+        "regressed_elo_prior": 1474.391176,
+        "prior_off_pts": 23.523866,
+        "prior_def_pts": 23.862776
+      }
+    },
+    "nfl::BAL": {
+      "sport": "nfl",
+      "team_key": "BAL",
+      "team_name": "BAL",
+      "elevation_m": 10.0,
+      "is_dome": false,
+      "elo": 1491.431806,
+      "games_played": 10,
+      "cum_for": 209.0,
+      "cum_against": 259.0,
+      "last_game_date": "2026-11-17",
+      "prev_game_date": "2026-11-06",
+      "structural_priors": {
+        "regressed_elo_prior": 1560.92431,
+        "prior_off_pts": 24.687517,
+        "prior_def_pts": 21.648216
+      }
+    },
+    "nfl::BUF": {
+      "sport": "nfl",
+      "team_key": "BUF",
+      "team_name": "BUF",
+      "elevation_m": 222.0,
+      "is_dome": false,
+      "elo": 1643.580234,
+      "games_played": 9,
+      "cum_for": 287.0,
+      "cum_against": 199.0,
+      "last_game_date": "2026-11-15",
+      "prev_game_date": "2026-11-10",
+      "structural_priors": {
+        "regressed_elo_prior": 1557.049877,
+        "prior_off_pts": 24.628946,
+        "prior_def_pts": 23.132166
+      }
+    },
+    "nfl::CAR": {
+      "sport": "nfl",
+      "team_key": "CAR",
+      "team_name": "CAR",
+      "elevation_m": 215.0,
+      "is_dome": false,
+      "elo": 1453.663638,
+      "games_played": 9,
+      "cum_for": 219.0,
+      "cum_against": 236.0,
+      "last_game_date": "2026-11-15",
+      "prev_game_date": "2026-11-08",
+      "structural_priors": {
+        "regressed_elo_prior": 1446.808571,
+        "prior_off_pts": 23.470552,
+        "prior_def_pts": 25.031386
+      }
+    },
+    "nfl::CHI": {
+      "sport": "nfl",
+      "team_key": "CHI",
+      "team_name": "CHI",
+      "elevation_m": 182.0,
+      "is_dome": false,
+      "elo": 1554.65856,
+      "games_played": 9,
+      "cum_for": 241.0,
+      "cum_against": 184.0,
+      "last_game_date": "2026-11-09",
+      "prev_game_date": "2026-11-03",
+      "structural_priors": {
+        "regressed_elo_prior": 1465.811149,
+        "prior_off_pts": 21.761233,
+        "prior_def_pts": 23.103171
+      }
+    },
+    "nfl::CIN": {
+      "sport": "nfl",
+      "team_key": "CIN",
+      "team_name": "CIN",
+      "elevation_m": 149.0,
+      "is_dome": false,
+      "elo": 1590.984114,
+      "games_played": 9,
+      "cum_for": 278.0,
+      "cum_against": 193.0,
+      "last_game_date": "2026-11-16",
+      "prev_game_date": "2026-11-08",
+      "structural_priors": {
+        "regressed_elo_prior": 1519.707978,
+        "prior_off_pts": 23.980961,
+        "prior_def_pts": 23.025021
+      }
+    },
+    "nfl::CLE": {
+      "sport": "nfl",
+      "team_key": "CLE",
+      "team_name": "CLE",
+      "elevation_m": 178.0,
+      "is_dome": false,
+      "elo": 1491.728965,
+      "games_played": 10,
+      "cum_for": 188.0,
+      "cum_against": 220.0,
+      "last_game_date": "2026-11-15",
+      "prev_game_date": "2026-11-08",
+      "structural_priors": {
+        "regressed_elo_prior": 1456.445981,
+        "prior_off_pts": 20.959052,
+        "prior_def_pts": 23.81796
+      }
+    },
+    "nfl::DAL": {
+      "sport": "nfl",
+      "team_key": "DAL",
+      "team_name": "DAL",
+      "elevation_m": 163.0,
+      "is_dome": true,
+      "elo": 1466.106689,
+      "games_played": 10,
+      "cum_for": 286.0,
+      "cum_against": 282.0,
+      "last_game_date": "2026-11-15",
+      "prev_game_date": "2026-11-08",
+      "structural_priors": {
+        "regressed_elo_prior": 1490.71107,
+        "prior_off_pts": 22.487026,
+        "prior_def_pts": 23.849907
+      }
+    },
+    "nfl::DEN": {
+      "sport": "nfl",
+      "team_key": "DEN",
+      "team_name": "DEN",
+      "elevation_m": 1588.0,
+      "is_dome": false,
+      "elo": 1591.723086,
+      "games_played": 9,
+      "cum_for": 198.0,
+      "cum_against": 186.0,
+      "last_game_date": "2026-11-08",
+      "prev_game_date": "2026-11-01",
+      "structural_priors": {
+        "regressed_elo_prior": 1522.353616,
+        "prior_off_pts": 24.336139,
+        "prior_def_pts": 22.282199
+      }
+    },
+    "nfl::DET": {
+      "sport": "nfl",
+      "team_key": "DET",
+      "team_name": "DET",
+      "elevation_m": 183.0,
+      "is_dome": true,
+      "elo": 1612.441986,
+      "games_played": 9,
+      "cum_for": 257.0,
+      "cum_against": 199.0,
+      "last_game_date": "2026-11-15",
+      "prev_game_date": "2026-11-08",
+      "structural_priors": {
+        "regressed_elo_prior": 1566.585079,
+        "prior_off_pts": 25.279765,
+        "prior_def_pts": 22.908175
+      }
+    },
+    "nfl::GB": {
+      "sport": "nfl",
+      "team_key": "GB",
+      "team_name": "GB",
+      "elevation_m": 195.0,
+      "is_dome": false,
+      "elo": 1548.927069,
+      "games_played": 10,
+      "cum_for": 226.0,
+      "cum_against": 221.0,
+      "last_game_date": "2026-11-15",
+      "prev_game_date": "2026-11-08",
+      "structural_priors": {
+        "regressed_elo_prior": 1534.476327,
+        "prior_off_pts": 23.911425,
+        "prior_def_pts": 22.386892
+      }
+    },
+    "nfl::HOU": {
+      "sport": "nfl",
+      "team_key": "HOU",
+      "team_name": "HOU",
+      "elevation_m": 15.0,
+      "is_dome": true,
+      "elo": 1462.025963,
+      "games_played": 9,
+      "cum_for": 233.0,
+      "cum_against": 219.0,
+      "last_game_date": "2026-11-15",
+      "prev_game_date": "2026-11-08",
+      "structural_priors": {
+        "regressed_elo_prior": 1504.976864,
+        "prior_off_pts": 22.41318,
+        "prior_def_pts": 22.770916
+      }
+    },
+    "nfl::IND": {
+      "sport": "nfl",
+      "team_key": "IND",
+      "team_name": "IND",
+      "elevation_m": 215.0,
+      "is_dome": true,
+      "elo": 1417.653326,
+      "games_played": 10,
+      "cum_for": 208.0,
+      "cum_against": 271.0,
+      "last_game_date": "2026-11-15",
+      "prev_game_date": "2026-11-08",
+      "structural_priors": {
+        "regressed_elo_prior": 1479.002927,
+        "prior_off_pts": 23.431624,
+        "prior_def_pts": 24.174964
+      }
+    },
+    "nfl::JAX": {
+      "sport": "nfl",
+      "team_key": "JAX",
+      "team_name": "JAX",
+      "elevation_m": 4.0,
+      "is_dome": false,
+      "elo": 1545.493628,
+      "games_played": 9,
+      "cum_for": 269.0,
+      "cum_against": 144.0,
+      "last_game_date": "2026-11-15",
+      "prev_game_date": "2026-11-06",
+      "structural_priors": {
+        "regressed_elo_prior": 1463.260382,
+        "prior_off_pts": 22.288422,
+        "prior_def_pts": 23.03985
+      }
+    },
+    "nfl::KC": {
+      "sport": "nfl",
+      "team_key": "KC",
+      "team_name": "KC",
+      "elevation_m": 250.0,
+      "is_dome": false,
+      "elo": 1595.11664,
+      "games_played": 9,
+      "cum_for": 237.0,
+      "cum_against": 156.0,
+      "last_game_date": "2026-11-15",
+      "prev_game_date": "2026-11-08",
+      "structural_priors": {
+        "regressed_elo_prior": 1550.761419,
+        "prior_off_pts": 22.422514,
+        "prior_def_pts": 22.586893
+      }
+    },
+    "nfl::LA": {
+      "sport": "nfl",
+      "team_key": "LA",
+      "team_name": "LA",
+      "elevation_m": 34.0,
+      "is_dome": true,
+      "elo": 1553.553337,
+      "games_played": 10,
+      "cum_for": 248.0,
+      "cum_against": 187.0,
+      "last_game_date": "2026-11-15",
+      "prev_game_date": "2026-11-08",
+      "structural_priors": {
+        "regressed_elo_prior": 1512.113351,
+        "prior_off_pts": 22.791599,
+        "prior_def_pts": 22.558452
+      }
+    },
+    "nfl::LAC": {
+      "sport": "nfl",
+      "team_key": "LAC",
+      "team_name": "LAC",
+      "elevation_m": 34.0,
+      "is_dome": true,
+      "elo": 1418.584281,
+      "games_played": 9,
+      "cum_for": 144.0,
+      "cum_against": 239.0,
+      "last_game_date": "2026-11-17",
+      "prev_game_date": "2026-11-08",
+      "structural_priors": {
+        "regressed_elo_prior": 1518.530658,
+        "prior_off_pts": 24.104511,
+        "prior_def_pts": 22.537997
+      }
+    },
+    "nfl::LV": {
+      "sport": "nfl",
+      "team_key": "LV",
+      "team_name": "LV",
+      "elevation_m": 615.0,
+      "is_dome": true,
+      "elo": 1447.967856,
+      "games_played": 10,
+      "cum_for": 251.0,
+      "cum_against": 289.0,
+      "last_game_date": "2026-11-15",
+      "prev_game_date": "2026-11-08",
+      "structural_priors": {
+        "regressed_elo_prior": 1459.872704,
+        "prior_off_pts": 22.227697,
+        "prior_def_pts": 23.097445
+      }
+    },
+    "nfl::MIA": {
+      "sport": "nfl",
+      "team_key": "MIA",
+      "team_name": "MIA",
+      "elevation_m": 3.0,
+      "is_dome": false,
+      "elo": 1405.335109,
+      "games_played": 9,
+      "cum_for": 148.0,
+      "cum_against": 224.0,
+      "last_game_date": "2026-11-15",
+      "prev_game_date": "2026-11-08",
+      "structural_priors": {
+        "regressed_elo_prior": 1500.293875,
+        "prior_off_pts": 23.002568,
+        "prior_def_pts": 22.577032
+      }
+    },
+    "nfl::MIN": {
+      "sport": "nfl",
+      "team_key": "MIN",
+      "team_name": "MIN",
+      "elevation_m": 254.0,
+      "is_dome": true,
+      "elo": 1598.709973,
+      "games_played": 9,
+      "cum_for": 176.0,
+      "cum_against": 126.0,
+      "last_game_date": "2026-11-15",
+      "prev_game_date": "2026-11-10",
+      "structural_priors": {
+        "regressed_elo_prior": 1535.828584,
+        "prior_off_pts": 23.237903,
+        "prior_def_pts": 23.027627
+      }
+    },
+    "nfl::NE": {
+      "sport": "nfl",
+      "team_key": "NE",
+      "team_name": "NE",
+      "elevation_m": 78.0,
+      "is_dome": false,
+      "elo": 1475.389136,
+      "games_played": 10,
+      "cum_for": 221.0,
+      "cum_against": 242.0,
+      "last_game_date": "2026-11-15",
+      "prev_game_date": "2026-11-08",
+      "structural_priors": {
+        "regressed_elo_prior": 1452.822586,
+        "prior_off_pts": 22.086006,
+        "prior_def_pts": 23.632958
+      }
+    },
+    "nfl::NO": {
+      "sport": "nfl",
+      "team_key": "NO",
+      "team_name": "NO",
+      "elevation_m": 1.0,
+      "is_dome": true,
+      "elo": 1434.913633,
+      "games_played": 9,
+      "cum_for": 202.0,
+      "cum_against": 236.0,
+      "last_game_date": "2026-11-15",
+      "prev_game_date": "2026-11-08",
+      "structural_priors": {
+        "regressed_elo_prior": 1467.494781,
+        "prior_off_pts": 21.616837,
+        "prior_def_pts": 23.281413
+      }
+    },
+    "nfl::NYG": {
+      "sport": "nfl",
+      "team_key": "NYG",
+      "team_name": "NYG",
+      "elevation_m": 2.0,
+      "is_dome": false,
+      "elo": 1482.675063,
+      "games_played": 9,
+      "cum_for": 203.0,
+      "cum_against": 196.0,
+      "last_game_date": "2026-11-13",
+      "prev_game_date": "2026-11-08",
+      "structural_priors": {
+        "regressed_elo_prior": 1449.298114,
+        "prior_off_pts": 22.157069,
+        "prior_def_pts": 23.767118
+      }
+    },
+    "nfl::NYJ": {
+      "sport": "nfl",
+      "team_key": "NYJ",
+      "team_name": "NYJ",
+      "elevation_m": 2.0,
+      "is_dome": false,
+      "elo": 1401.292649,
+      "games_played": 10,
+      "cum_for": 194.0,
+      "cum_against": 254.0,
+      "last_game_date": "2026-11-15",
+      "prev_game_date": "2026-11-08",
+      "structural_priors": {
+        "regressed_elo_prior": 1476.52068,
+        "prior_off_pts": 22.782814,
+        "prior_def_pts": 23.684252
+      }
+    },
+    "nfl::PHI": {
+      "sport": "nfl",
+      "team_key": "PHI",
+      "team_name": "PHI",
+      "elevation_m": 5.0,
+      "is_dome": false,
+      "elo": 1440.775084,
+      "games_played": 9,
+      "cum_for": 148.0,
+      "cum_against": 221.0,
+      "last_game_date": "2026-11-08",
+      "prev_game_date": "2026-11-02",
+      "structural_priors": {
+        "regressed_elo_prior": 1557.797718,
+        "prior_off_pts": 24.14478,
+        "prior_def_pts": 21.920436
+      }
+    },
+    "nfl::PIT": {
+      "sport": "nfl",
+      "team_key": "PIT",
+      "team_name": "PIT",
+      "elevation_m": 223.0,
+      "is_dome": false,
+      "elo": 1551.696256,
+      "games_played": 9,
+      "cum_for": 198.0,
+      "cum_against": 182.0,
+      "last_game_date": "2026-11-16",
+      "prev_game_date": "2026-11-01",
+      "structural_priors": {
+        "regressed_elo_prior": 1514.043396,
+        "prior_off_pts": 22.430524,
+        "prior_def_pts": 23.347711
+      }
+    },
+    "nfl::SEA": {
+      "sport": "nfl",
+      "team_key": "SEA",
+      "team_name": "SEA",
+      "elevation_m": 4.0,
+      "is_dome": false,
+      "elo": 1543.967191,
+      "games_played": 10,
+      "cum_for": 223.0,
+      "cum_against": 175.0,
+      "last_game_date": "2026-11-15",
+      "prev_game_date": "2026-11-08",
+      "structural_priors": {
+        "regressed_elo_prior": 1510.54536,
+        "prior_off_pts": 22.697587,
+        "prior_def_pts": 22.520648
+      }
+    },
+    "nfl::SF": {
+      "sport": "nfl",
+      "team_key": "SF",
+      "team_name": "SF",
+      "elevation_m": 14.0,
+      "is_dome": false,
+      "elo": 1586.907911,
+      "games_played": 9,
+      "cum_for": 281.0,
+      "cum_against": 196.0,
+      "last_game_date": "2026-11-15",
+      "prev_game_date": "2026-11-08",
+      "structural_priors": {
+        "regressed_elo_prior": 1493.22641,
+        "prior_off_pts": 22.970165,
+        "prior_def_pts": 24.588449
+      }
+    },
+    "nfl::TB": {
+      "sport": "nfl",
+      "team_key": "TB",
+      "team_name": "TB",
+      "elevation_m": 13.0,
+      "is_dome": false,
+      "elo": 1484.98254,
+      "games_played": 9,
+      "cum_for": 202.0,
+      "cum_against": 178.0,
+      "last_game_date": "2026-11-09",
+      "prev_game_date": "2026-11-01",
+      "structural_priors": {
+        "regressed_elo_prior": 1520.980422,
+        "prior_off_pts": 24.707823,
+        "prior_def_pts": 22.468152
+      }
+    },
+    "nfl::TEN": {
+      "sport": "nfl",
+      "team_key": "TEN",
+      "team_name": "TEN",
+      "elevation_m": 122.0,
+      "is_dome": false,
+      "elo": 1366.622363,
+      "games_played": 9,
+      "cum_for": 167.0,
+      "cum_against": 239.0,
+      "last_game_date": "2026-11-15",
+      "prev_game_date": "2026-11-01",
+      "structural_priors": {
+        "regressed_elo_prior": 1443.252395,
+        "prior_off_pts": 22.19118,
+        "prior_def_pts": 23.859685
+      }
+    },
+    "nfl::WAS": {
+      "sport": "nfl",
+      "team_key": "WAS",
+      "team_name": "WAS",
+      "elevation_m": 61.0,
+      "is_dome": false,
+      "elo": 1481.687273,
+      "games_played": 9,
+      "cum_for": 196.0,
+      "cum_against": 223.0,
+      "last_game_date": "2026-11-13",
+      "prev_game_date": "2026-11-08",
+      "structural_priors": {
+        "regressed_elo_prior": 1511.605256,
+        "prior_off_pts": 24.028343,
+        "prior_def_pts": 23.208914
+      }
+    }
+  }
+}
