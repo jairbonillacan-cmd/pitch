@@ -1,0 +1,77 @@
+{
+  "schema_version": "candidate_registry_v5_2_0",
+  "suite_version": "5.2.0-candidate",
+  "status": "candidate",
+  "production_activated": false,
+  "holdout_sealed_untouched": true,
+  "frozen_v3_governance_audit": {
+    "src/domain/prediction/engine.ts": {
+      "sha256": "77dc721430ff17b10cdfa6e1fb472a0bab37a7160636fa4fe7def012249d78a7",
+      "intact": true
+    },
+    "src/domain/prediction/outlook.ts": {
+      "sha256": "26933d21438d5298d527cde11913faad26242b326a18ad3d5e683c510cecca47",
+      "intact": true
+    },
+    "src/domain/prediction/service.ts": {
+      "sha256": "53fbf32117ab6a649fa5a06be4b75637aaba34cc473533867552d6a3c53c80b5",
+      "intact": true
+    },
+    "src/data/prediction/live_matchday_v3_snapshot.json": {
+      "sha256": "1dace760d68442e73c4b365f85cd16509093716b1bcac72aa1da67b61ec29699",
+      "intact": true
+    },
+    "src/data/prediction/production_segments_v3_1.json": {
+      "sha256": "0bc03bbff96a5d82a1a7858e1e8623bf7bfdb250c546d2773a71d56ed9ada9bc",
+      "intact": true
+    },
+    "src/data/prediction/blend_weights_v3_1.json": {
+      "sha256": "b29d7a451f6011126997c122778b42ad3239c78337d17c5fa78d550f5c92739b",
+      "intact": true
+    },
+    "src/data/prediction/pick_policy_v3_1.json": {
+      "sha256": "2359c8f8822ea394a380202c04e0bcd010d1a3fae7c5c25b8c11ebe810bfb7d1",
+      "intact": true
+    },
+    "src/data/prediction/stale_lines_config.json": {
+      "sha256": "8bcb9c7be93270cde0cac2d58bc19f0381184dd2e769f358dd28334db2a05eac",
+      "intact": true
+    },
+    "src/data/prediction/model_motor_a.json": {
+      "sha256": "3c72967eddc79bb71ca7fcae40bf21aae760269dc62b43cf2b2db7eeacfceec9",
+      "intact": true
+    },
+    "src/data/prediction/model_nfl.json": {
+      "sha256": "e74ae241875739d2dc18564f85133d4e20c1d0cef41d64b6f705852601597225",
+      "intact": true
+    },
+    "services/models/artifacts/sealed_holdout_v3_1_eval.json": {
+      "sha256": "5c9e550bfd7889e44f674c91cf64cea4c07b4281fc72231b8cadff850309f2dd",
+      "intact": true
+    }
+  },
+  "inherited_v5_1_artifacts_count": 11,
+  "v5_2_live_feedback_artifacts": [
+    {
+      "artifact_path": "src/data/prediction/model_v5_2_live_feedback_candidate.json",
+      "sha256": "012dcb47fb9e025c6e7e99c4b40a4a1388c4b412e34c50afe4ed92a0d9c5b512",
+      "size_bytes": 8915,
+      "status": "candidate",
+      "production_activated": false
+    },
+    {
+      "artifact_path": "src/data/prediction/v5_2_live_feedback_snapshot.json",
+      "sha256": "7e93a5d197a9a06fa4bf2ff2eabc90c13f2f18d60518ac00d1edd06cd94e17fa",
+      "size_bytes": 67803,
+      "status": "candidate",
+      "production_activated": false
+    },
+    {
+      "artifact_path": "research/prediction-lab/experiments/EXP_V57_v5_2_live_feedback/artifacts/exp_v57_v5_2_results.json",
+      "sha256": "3ab18320e544f1448f3fde20f047ddaef3d0500414e95aa59564251ecb012ff5",
+      "size_bytes": 7285,
+      "status": "candidate",
+      "production_activated": false
+    }
+  ]
+}

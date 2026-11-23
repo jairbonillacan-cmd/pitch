@@ -16,3 +16,4 @@ export * from "./sgp_copula.js";
 export * from "./soccer_micro_markets.js";
 export * from "./unified_outlook_v4.js";
 export * from "./unified_outlook_v5.js";
+export * from "./v5_2_live_feedback.js";

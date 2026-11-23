@@ -1,0 +1,2318 @@
+{
+  "schema_version": "v5_2_live_feedback_parity_snapshot_1.0.0",
+  "status": "candidate",
+  "production_activated": false,
+  "football_recalibration_cases": [
+    {
+      "input": {
+        "rawProjHome": 2.549308,
+        "rawProjAway": 1.10062,
+        "rawX12": [
+          0.710885,
+          0.166151,
+          0.122964
+        ],
+        "leagueEnvGoals": 3.436322,
+        "rawLeagueProjMean": 3.18,
+        "isExpansionLeague": false
+      },
+      "expected": {
+        "lambdaHome": 2.6200152446823033,
+        "lambdaAway": 1.1311466400302503,
+        "expectedTotal": 3.7511618847125536,
+        "envScaleApplied": 1.0806044025157233,
+        "pHome": 0.6965667376039897,
+        "pDraw": 0.17290842764510697,
+        "pAway": 0.13052483475090343,
+        "pOver15": 0.8957024820994381,
+        "pOver25": 0.7231225447090696,
+        "pOver35": 0.5164708506320668,
+        "pBttsYes": 0.6353352128947732
+      }
+    },
+    {
+      "input": {
+        "rawProjHome": 2.528493,
+        "rawProjAway": 1.027028,
+        "rawX12": [
+          0.666336,
+          0.185588,
+          0.148076
+        ],
+        "leagueEnvGoals": 3.445217,
+        "rawLeagueProjMean": 3.18,
+        "isExpansionLeague": false
+      },
+      "expected": {
+        "lambdaHome": 2.6294307446614407,
+        "lambdaAway": 1.0680270812804902,
+        "expectedTotal": 3.697457825941931,
+        "envScaleApplied": 1.083401572327044,
+        "pHome": 0.6660881437039525,
+        "pDraw": 0.18658605239247011,
+        "pAway": 0.14732580390357738,
+        "pOver15": 0.8908750422113406,
+        "pOver25": 0.7141352501278119,
+        "pOver35": 0.5053140061130815,
+        "pBttsYes": 0.6162897046715267
+      }
+    },
+    {
+      "input": {
+        "rawProjHome": 2.139865,
+        "rawProjAway": 1.620629,
+        "rawX12": [
+          0.497894,
+          0.228187,
+          0.273918
+        ],
+        "leagueEnvGoals": 3.429767,
+        "rawLeagueProjMean": 3.18,
+        "isExpansionLeague": false
+      },
+      "expected": {
+        "lambdaHome": 2.172554785257611,
+        "lambdaAway": 1.6453866431187283,
+        "expectedTotal": 3.817941428376339,
+        "envScaleApplied": 1.0785430817610062,
+        "pHome": 0.4943920238695645,
+        "pDraw": 0.22805847833311255,
+        "pAway": 0.27754949779732296,
+        "pOver15": 0.9023827820869728,
+        "pOver25": 0.7339887230916528,
+        "pOver35": 0.5301785419972136,
+        "pBttsYes": 0.7233961010239404
+      }
+    },
+    {
+      "input": {
+        "rawProjHome": 1.702187,
+        "rawProjAway": 0.903206,
+        "rawX12": [
+          0.60436,
+          0.217587,
+          0.178053
+        ],
+        "leagueEnvGoals": 3.445217,
+        "rawLeagueProjMean": 3.18,
+        "isExpansionLeague": false
+      },
+      "expected": {
+        "lambdaHome": 1.9987052709266957,
+        "lambdaAway": 1.060543050165826,
+        "expectedTotal": 3.0592483210925216,
+        "envScaleApplied": 1.083401572327044,
+        "pHome": 0.5933443837409147,
+        "pDraw": 0.22315391413451566,
+        "pAway": 0.18350170212456973,
+        "pOver15": 0.8199716801184184,
+        "pOver25": 0.5899520323214357,
+        "pOver35": 0.366039518581681,
+        "pBttsYes": 0.5755882343013597
+      }
+    },
+    {
+      "input": {
+        "rawProjHome": 1.581536,
+        "rawProjAway": 2.019705,
+        "rawX12": [
+          0.250589,
+          0.217425,
+          0.531986
+        ],
+        "leagueEnvGoals": 3.445217,
+        "rawLeagueProjMean": 3.18,
+        "isExpansionLeague": false
+      },
+      "expected": {
+        "lambdaHome": 1.6372779483046902,
+        "lambdaAway": 2.0908904119670524,
+        "expectedTotal": 3.7281683602717424,
+        "envScaleApplied": 1.083401572327044,
+        "pHome": 0.26714820840666986,
+        "pDraw": 0.2220440889390493,
+        "pAway": 0.5108077026542809,
+        "pOver15": 0.8949899443970067,
+        "pOver25": 0.7193029825719551,
+        "pOver35": 0.5117100761370863,
+        "pBttsYes": 0.7145910755505647
+      }
+    },
+    {
+      "input": {
+        "rawProjHome": 1.501711,
+        "rawProjAway": 3.248289,
+        "rawX12": [
+          0.130461,
+          0.159744,
+          0.709795
+        ],
+        "leagueEnvGoals": 3.436322,
+        "rawLeagueProjMean": 3.18,
+        "isExpansionLeague": false
+      },
+      "expected": {
+        "lambdaHome": 1.4189374248572595,
+        "lambdaAway": 3.0692449005515465,
+        "expectedTotal": 4.488182325408806,
+        "envScaleApplied": 1.0806044025157233,
+        "pHome": 0.14095794043054088,
+        "pDraw": 0.16448454019030387,
+        "pAway": 0.6945575193791553,
+        "pOver15": 0.9434462045483625,
+        "pOver25": 0.8250847555548699,
+        "pOver35": 0.6556992421208779,
+        "pBttsYes": 0.7279535632797112
+      }
+    },
+    {
+      "input": {
+        "rawProjHome": 1.603817,
+        "rawProjAway": 1.313056,
+        "rawX12": [
+          0.381157,
+          0.258771,
+          0.360072
+        ],
+        "leagueEnvGoals": 3.436322,
+        "rawLeagueProjMean": 3.18,
+        "isExpansionLeague": false
+      },
+      "expected": {
+        "lambdaHome": 1.7925008195530603,
+        "lambdaAway": 1.4675327397820717,
+        "expectedTotal": 3.260033559335132,
+        "envScaleApplied": 1.0806044025157233,
+        "pHome": 0.3970666837081478,
+        "pDraw": 0.25696382405982954,
+        "pAway": 0.3459694922320227,
+        "pOver15": 0.8470724459348752,
+        "pOver25": 0.6324839763003853,
+        "pOver35": 0.41081730216514467,
+        "pBttsYes": 0.6519533077758992
+      }
+    },
+    {
+      "input": {
+        "rawProjHome": 3.164344,
+        "rawProjAway": 1.441231,
+        "rawX12": [
+          0.691388,
+          0.168036,
+          0.140576
+        ],
+        "leagueEnvGoals": 3.436322,
+        "rawLeagueProjMean": 3.18,
+        "isExpansionLeague": false
+      },
+      "expected": {
+        "lambdaHome": 3.0172057571732,
+        "lambdaAway": 1.3742154679189391,
+        "expectedTotal": 4.391421225092139,
+        "envScaleApplied": 1.0806044025157233,
+        "pHome": 0.685091789658497,
+        "pDraw": 0.16978643943081964,
+        "pAway": 0.1451217709106833,
+        "pOver15": 0.9386274669618583,
+        "pOver25": 0.8138325964271566,
+        "pOver35": 0.6390486777668976,
+        "pBttsYes": 0.7157978979481056
+      }
+    },
+    {
+      "input": {
+        "rawProjHome": 2.411554,
+        "rawProjAway": 1.409028,
+        "rawX12": [
+          0.619777,
+          0.194791,
+          0.185432
+        ],
+        "leagueEnvGoals": 3.436322,
+        "rawLeagueProjMean": 3.18,
+        "isExpansionLeague": false
+      },
+      "expected": {
+        "lambdaHome": 2.439903591449436,
+        "lambdaAway": 1.4255921607614073,
+        "expectedTotal": 3.865495752210843,
+        "envScaleApplied": 1.0806044025157233,
+        "pHome": 0.6069898967647316,
+        "pDraw": 0.19920163712763078,
+        "pAway": 0.1938084661076376,
+        "pOver15": 0.9057076998572562,
+        "pOver25": 0.7415180934764627,
+        "pOver35": 0.5398200548890326,
+        "pBttsYes": 0.7010694152845127
+      }
+    },
+    {
+      "input": {
+        "rawProjHome": 2.154383,
+        "rawProjAway": 2.022842,
+        "rawX12": [
+          0.465695,
+          0.236396,
+          0.297909
+        ],
+        "leagueEnvGoals": 2.72,
+        "rawLeagueProjMean": 3.18,
+        "isExpansionLeague": true
+      },
+      "expected": {
+        "lambdaHome": 1.6755745237878101,
+        "lambdaAway": 1.5732683189794856,
+        "expectedTotal": 3.2488428427672957,
+        "envScaleApplied": 0.8553459119496856,
+        "pHome": 0.44627059842205885,
+        "pDraw": 0.24363219414433404,
+        "pAway": 0.3100972074336071,
+        "pOver15": 0.8458086053248465,
+        "pOver25": 0.6301963051515064,
+        "pOver35": 0.4083356151855786,
+        "pBttsYes": 0.6549970379572471
+      }
+    },
+    {
+      "input": {
+        "rawProjHome": 1.382495,
+        "rawProjAway": 1.405913,
+        "rawX12": [
+          0.408795,
+          0.278552,
+          0.312653
+        ],
+        "leagueEnvGoals": 2.72,
+        "rawLeagueProjMean": 3.18,
+        "isExpansionLeague": true
+      },
+      "expected": {
+        "lambdaHome": 1.2456168344547216,
+        "lambdaAway": 1.2667162634069136,
+        "expectedTotal": 2.512333097861635,
+        "envScaleApplied": 0.8553459119496856,
+        "pHome": 0.39985926044776887,
+        "pDraw": 0.2796049863910913,
+        "pAway": 0.32053575316113986,
+        "pOver15": 0.7286566783081732,
+        "pOver25": 0.459346591226179,
+        "pOver35": 0.24506344766490362,
+        "pBttsYes": 0.5249928070208376
+      }
+    },
+    {
+      "input": {
+        "rawProjHome": 2.17185,
+        "rawProjAway": 2.183966,
+        "rawX12": [
+          0.42602,
+          0.241938,
+          0.332042
+        ],
+        "leagueEnvGoals": 2.72,
+        "rawLeagueProjMean": 3.18,
+        "isExpansionLeague": true
+      },
+      "expected": {
+        "lambdaHome": 1.667125957165819,
+        "lambdaAway": 1.6764262762933007,
+        "expectedTotal": 3.3435522334591194,
+        "envScaleApplied": 0.8553459119496856,
+        "pHome": 0.41666023542551617,
+        "pDraw": 0.24627736833321892,
+        "pAway": 0.33706239624126483,
+        "pOver15": 0.856985806676467,
+        "pOver25": 0.6492449566178772,
+        "pOver35": 0.4292631193215175,
+        "pBttsYes": 0.6698434957012249
+      }
+    },
+    {
+      "input": {
+        "rawProjHome": 1.747784,
+        "rawProjAway": 2.153027,
+        "rawX12": [
+          0.290071,
+          0.236485,
+          0.473443
+        ],
+        "leagueEnvGoals": 2.896986,
+        "rawLeagueProjMean": 3.18,
+        "isExpansionLeague": false
+      },
+      "expected": {
+        "lambdaHome": 1.4804305763277457,
+        "lambdaAway": 1.8236847359051218,
+        "expectedTotal": 3.3041153122328675,
+        "envScaleApplied": 0.9110018867924528,
+        "pHome": 0.2984925750702363,
+        "pDraw": 0.24036066885212934,
+        "pAway": 0.4611467560776344,
+        "pOver15": 0.8523153563264217,
+        "pOver25": 0.6413993083412365,
+        "pOver35": 0.42057070608506497,
+        "pBttsYes": 0.6581749752441008
+      }
+    },
+    {
+      "input": {
+        "rawProjHome": 2.312192,
+        "rawProjAway": 1.410768,
+        "rawX12": [
+          0.556165,
+          0.216425,
+          0.227409
+        ],
+        "leagueEnvGoals": 2.896986,
+        "rawLeagueProjMean": 3.18,
+        "isExpansionLeague": false
+      },
+      "expected": {
+        "lambdaHome": 1.989674891491748,
+        "lambdaAway": 1.2139864108690066,
+        "expectedTotal": 3.2036613023607545,
+        "envScaleApplied": 0.9110018867924528,
+        "pHome": 0.5490829035371811,
+        "pDraw": 0.22266758781356705,
+        "pAway": 0.2282495086492519,
+        "pOver15": 0.8395760577737663,
+        "pOver25": 0.6208597827169037,
+        "pOver35": 0.39829512809217554,
+        "pBttsYes": 0.6171628046608132
+      }
+    },
+    {
+      "input": {
+        "rawProjHome": 1.622581,
+        "rawProjAway": 1.803099,
+        "rawX12": [
+          0.303949,
+          0.236617,
+          0.459435
+        ],
+        "leagueEnvGoals": 2.896986,
+        "rawLeagueProjMean": 3.18,
+        "isExpansionLeague": false
+      },
+      "expected": {
+        "lambdaHome": 1.4378903818552056,
+        "lambdaAway": 1.5978608831440395,
+        "expectedTotal": 3.035751264999245,
+        "envScaleApplied": 0.9110018867924528,
+        "pHome": 0.3152621492634104,
+        "pDraw": 0.24392330386913905,
+        "pAway": 0.44081454686745053,
+        "pOver15": 0.8177172665448484,
+        "pOver25": 0.5847717770396682,
+        "pOver35": 0.3607773104787377,
+        "pBttsYes": 0.6198705307557888
+      }
+    }
+  ],
+  "goalkeeper_saves_cases": [
+    {
+      "input": {
+        "league": "bundesliga",
+        "playerSlug": "frederik-ronnow",
+        "saves": 35,
+        "shotsFaced": 53,
+        "goalsConceded": 18,
+        "appearances": 8,
+        "subIns": 0,
+        "oppExpectedSoT": 4.4,
+        "line": 2.5,
+        "expectedMinutes": null
+      },
+      "expected": {
+        "ebSaveRate": 0.6734647887323943,
+        "effectiveExposure90": 7.928888888888889,
+        "expectedMinutes": 89.2,
+        "oppExpectedSoT": 4.4,
+        "expectedSaves": 2.936905114241002,
+        "line": 2.5,
+        "pOver": 0.5205807975413423,
+        "pUnder": 0.47941920245865766,
+        "fairOverDecimal": 1.9209,
+        "fairUnderDecimal": 2.0859
+      }
+    },
+    {
+      "input": {
+        "league": "bundesliga",
+        "playerSlug": "alexander-schwolow",
+        "saves": 17,
+        "shotsFaced": 27,
+        "goalsConceded": 10,
+        "appearances": 5,
+        "subIns": 0,
+        "oppExpectedSoT": 4.4,
+        "line": 2.5,
+        "expectedMinutes": null
+      },
+      "expected": {
+        "ebSaveRate": 0.6625777777777777,
+        "effectiveExposure90": 4.955555555555556,
+        "expectedMinutes": 89.2,
+        "oppExpectedSoT": 4.4,
+        "expectedSaves": 2.8894280691358025,
+        "line": 2.5,
+        "pOver": 0.5119204517644378,
+        "pUnder": 0.4880795482355622,
+        "fairOverDecimal": 1.9534,
+        "fairUnderDecimal": 2.0488
+      }
+    },
+    {
+      "input": {
+        "league": "bundesliga",
+        "playerSlug": "robin-zentner",
+        "saves": 10,
+        "shotsFaced": 19,
+        "goalsConceded": 9,
+        "appearances": 4,
+        "subIns": 0,
+        "oppExpectedSoT": 4.4,
+        "line": 2.5,
+        "expectedMinutes": null
+      },
+      "expected": {
+        "ebSaveRate": 0.6166486486486487,
+        "effectiveExposure90": 3.9644444444444447,
+        "expectedMinutes": 89.2,
+        "oppExpectedSoT": 4.4,
+        "expectedSaves": 2.6891362402402406,
+        "line": 2.5,
+        "pOver": 0.47398851527923946,
+        "pUnder": 0.5260114847207605,
+        "fairOverDecimal": 2.1098,
+        "fairUnderDecimal": 1.9011
+      }
+    },
+    {
+      "input": {
+        "league": "bundesliga",
+        "playerSlug": "mark-flekken",
+        "saves": 22,
+        "shotsFaced": 39,
+        "goalsConceded": 17,
+        "appearances": 9,
+        "subIns": 0,
+        "oppExpectedSoT": 4.4,
+        "line": 2.5,
+        "expectedMinutes": null
+      },
+      "expected": {
+        "ebSaveRate": 0.6108070175438597,
+        "effectiveExposure90": 8.92,
+        "expectedMinutes": 89.19999999999999,
+        "oppExpectedSoT": 4.4,
+        "expectedSaves": 2.6636615360623783,
+        "line": 2.5,
+        "pOver": 0.46900381842464883,
+        "pUnder": 0.5309961815753512,
+        "fairOverDecimal": 2.1322,
+        "fairUnderDecimal": 1.8833
+      }
+    },
+    {
+      "input": {
+        "league": "bundesliga",
+        "playerSlug": "gregor-kobel",
+        "saves": 26,
+        "shotsFaced": 33,
+        "goalsConceded": 7,
+        "appearances": 9,
+        "subIns": 0,
+        "oppExpectedSoT": 4.4,
+        "line": 2.5,
+        "expectedMinutes": null
+      },
+      "expected": {
+        "ebSaveRate": 0.7610980392156863,
+        "effectiveExposure90": 8.92,
+        "expectedMinutes": 89.19999999999999,
+        "oppExpectedSoT": 4.4,
+        "expectedSaves": 3.319063982570806,
+        "line": 2.5,
+        "pOver": 0.5856590848275152,
+        "pUnder": 0.41434091517248484,
+        "fairOverDecimal": 1.7075,
+        "fairUnderDecimal": 2.4135
+      }
+    },
+    {
+      "input": {
+        "league": "bundesliga",
+        "playerSlug": "moritz-nicolas",
+        "saves": 36,
+        "shotsFaced": 58,
+        "goalsConceded": 22,
+        "appearances": 7,
+        "subIns": 0,
+        "oppExpectedSoT": 4.4,
+        "line": 2.5,
+        "expectedMinutes": null
+      },
+      "expected": {
+        "ebSaveRate": 0.6423157894736843,
+        "effectiveExposure90": 6.937777777777778,
+        "expectedMinutes": 89.2,
+        "oppExpectedSoT": 4.4,
+        "expectedSaves": 2.8010677894736853,
+        "line": 2.5,
+        "pOver": 0.4954637083356096,
+        "pUnder": 0.5045362916643904,
+        "fairOverDecimal": 2.0183,
+        "fairUnderDecimal": 1.982
+      }
+    },
+    {
+      "input": {
+        "league": "bundesliga",
+        "playerSlug": "noah-atubolu",
+        "saves": 36,
+        "shotsFaced": 56,
+        "goalsConceded": 20,
+        "appearances": 9,
+        "subIns": 0,
+        "oppExpectedSoT": 4.4,
+        "line": 2.5,
+        "expectedMinutes": null
+      },
+      "expected": {
+        "ebSaveRate": 0.6596756756756758,
+        "effectiveExposure90": 8.92,
+        "expectedMinutes": 89.19999999999999,
+        "oppExpectedSoT": 4.4,
+        "expectedSaves": 2.876772324324324,
+        "line": 2.5,
+        "pOver": 0.5095903880013883,
+        "pUnder": 0.49040961199861166,
+        "fairOverDecimal": 1.9624,
+        "fairUnderDecimal": 2.0391
+      }
+    },
+    {
+      "input": {
+        "league": "bundesliga",
+        "playerSlug": "finn-dahmen",
+        "saves": 35,
+        "shotsFaced": 55,
+        "goalsConceded": 20,
+        "appearances": 9,
+        "subIns": 0,
+        "oppExpectedSoT": 4.4,
+        "line": 2.5,
+        "expectedMinutes": null
+      },
+      "expected": {
+        "ebSaveRate": 0.655013698630137,
+        "effectiveExposure90": 8.92,
+        "expectedMinutes": 89.19999999999999,
+        "oppExpectedSoT": 4.4,
+        "expectedSaves": 2.8564419604261797,
+        "line": 2.5,
+        "pOver": 0.5058284068202744,
+        "pUnder": 0.4941715931797256,
+        "fairOverDecimal": 1.977,
+        "fairUnderDecimal": 2.0236
+      }
+    },
+    {
+      "input": {
+        "league": "bundesliga",
+        "playerSlug": "loris-karius",
+        "saves": 46,
+        "shotsFaced": 57,
+        "goalsConceded": 11,
+        "appearances": 9,
+        "subIns": 0,
+        "oppExpectedSoT": 4.4,
+        "line": 2.5,
+        "expectedMinutes": null
+      },
+      "expected": {
+        "ebSaveRate": 0.7842133333333333,
+        "effectiveExposure90": 8.92,
+        "expectedMinutes": 89.19999999999999,
+        "oppExpectedSoT": 4.4,
+        "expectedSaves": 3.4198672118518516,
+        "line": 2.5,
+        "pOver": 0.601469566823954,
+        "pUnder": 0.398530433176046,
+        "fairOverDecimal": 1.6626,
+        "fairUnderDecimal": 2.5092
+      }
+    },
+    {
+      "input": {
+        "league": "bundesliga",
+        "playerSlug": "maarten-vandevoordt",
+        "saves": 43,
+        "shotsFaced": 56,
+        "goalsConceded": 13,
+        "appearances": 8,
+        "subIns": 0,
+        "oppExpectedSoT": 4.4,
+        "line": 2.5,
+        "expectedMinutes": null
+      },
+      "expected": {
+        "ebSaveRate": 0.7542702702702703,
+        "effectiveExposure90": 7.928888888888889,
+        "expectedMinutes": 89.2,
+        "oppExpectedSoT": 4.4,
+        "expectedSaves": 3.2892888408408414,
+        "line": 2.5,
+        "pOver": 0.5808821994947938,
+        "pUnder": 0.4191178005052062,
+        "fairOverDecimal": 1.7215,
+        "fairUnderDecimal": 2.386
+      }
+    },
+    {
+      "input": {
+        "league": "bundesliga",
+        "playerSlug": "mio-backhaus",
+        "saves": 19,
+        "shotsFaced": 29,
+        "goalsConceded": 10,
+        "appearances": 9,
+        "subIns": 0,
+        "oppExpectedSoT": 4.4,
+        "line": 2.5,
+        "expectedMinutes": null
+      },
+      "expected": {
+        "ebSaveRate": 0.676936170212766,
+        "effectiveExposure90": 8.92,
+        "expectedMinutes": 89.19999999999999,
+        "oppExpectedSoT": 4.4,
+        "expectedSaves": 2.9520434231678485,
+        "line": 2.5,
+        "pOver": 0.523315376590731,
+        "pUnder": 0.476684623409269,
+        "fairOverDecimal": 1.9109,
+        "fairUnderDecimal": 2.0978
+      }
+    },
+    {
+      "input": {
+        "league": "bundesliga",
+        "playerSlug": "nahuel-nicolas-noll",
+        "saves": 33,
+        "shotsFaced": 44,
+        "goalsConceded": 11,
+        "appearances": 9,
+        "subIns": 0,
+        "oppExpectedSoT": 4.4,
+        "line": 2.5,
+        "expectedMinutes": null
+      },
+      "expected": {
+        "ebSaveRate": 0.7389677419354839,
+        "effectiveExposure90": 8.92,
+        "expectedMinutes": 89.19999999999999,
+        "oppExpectedSoT": 4.4,
+        "expectedSaves": 3.222556215053763,
+        "line": 2.5,
+        "pOver": 0.5699976133444394,
+        "pUnder": 0.43000238665556056,
+        "fairOverDecimal": 1.7544,
+        "fairUnderDecimal": 2.3256
+      }
+    },
+    {
+      "input": {
+        "league": "bundesliga",
+        "playerSlug": "nicolas-kristof",
+        "saves": 26,
+        "shotsFaced": 44,
+        "goalsConceded": 18,
+        "appearances": 9,
+        "subIns": 0,
+        "oppExpectedSoT": 4.4,
+        "line": 2.5,
+        "expectedMinutes": null
+      },
+      "expected": {
+        "ebSaveRate": 0.6260645161290322,
+        "effectiveExposure90": 8.92,
+        "expectedMinutes": 89.19999999999999,
+        "oppExpectedSoT": 4.4,
+        "expectedSaves": 2.7301977921146947,
+        "line": 2.5,
+        "pOver": 0.48194762432106636,
+        "pUnder": 0.5180523756789337,
+        "fairOverDecimal": 2.0749,
+        "fairUnderDecimal": 1.9303
+      }
+    },
+    {
+      "input": {
+        "league": "bundesliga",
+        "playerSlug": "karl-hein",
+        "saves": 31,
+        "shotsFaced": 46,
+        "goalsConceded": 15,
+        "appearances": 9,
+        "subIns": 0,
+        "oppExpectedSoT": 4.4,
+        "line": 2.5,
+        "expectedMinutes": null
+      },
+      "expected": {
+        "ebSaveRate": 0.684625,
+        "effectiveExposure90": 8.92,
+        "expectedMinutes": 89.19999999999999,
+        "oppExpectedSoT": 4.4,
+        "expectedSaves": 2.9855735555555554,
+        "line": 2.5,
+        "pOver": 0.5293260534979127,
+        "pUnder": 0.47067394650208727,
+        "fairOverDecimal": 1.8892,
+        "fairUnderDecimal": 2.1246
+      }
+    },
+    {
+      "input": {
+        "league": "bundesliga",
+        "playerSlug": "oliver-baumann",
+        "saves": 21,
+        "shotsFaced": 38,
+        "goalsConceded": 17,
+        "appearances": 9,
+        "subIns": 0,
+        "oppExpectedSoT": 4.4,
+        "line": 2.5,
+        "expectedMinutes": null
+      },
+      "expected": {
+        "ebSaveRate": 0.6038571428571429,
+        "effectiveExposure90": 8.92,
+        "expectedMinutes": 89.19999999999999,
+        "oppExpectedSoT": 4.4,
+        "expectedSaves": 2.6333539047619046,
+        "line": 2.5,
+        "pOver": 0.4630270329972989,
+        "pUnder": 0.536972967002701,
+        "fairOverDecimal": 2.1597,
+        "fairUnderDecimal": 1.8623
+      }
+    },
+    {
+      "input": {
+        "league": "bundesliga",
+        "playerSlug": "dennis-seimen",
+        "saves": 19,
+        "shotsFaced": 25,
+        "goalsConceded": 6,
+        "appearances": 5,
+        "subIns": 0,
+        "oppExpectedSoT": 4.4,
+        "line": 2.5,
+        "expectedMinutes": null
+      },
+      "expected": {
+        "ebSaveRate": 0.739906976744186,
+        "effectiveExposure90": 4.955555555555556,
+        "expectedMinutes": 89.2,
+        "oppExpectedSoT": 4.4,
+        "expectedSaves": 3.2266521136950908,
+        "line": 2.5,
+        "pOver": 0.5706728241359476,
+        "pUnder": 0.42932717586405245,
+        "fairOverDecimal": 1.7523,
+        "fairUnderDecimal": 2.3292
+      }
+    },
+    {
+      "input": {
+        "league": "bundesliga",
+        "playerSlug": "fabian-bredlow",
+        "saves": 15,
+        "shotsFaced": 24,
+        "goalsConceded": 9,
+        "appearances": 4,
+        "subIns": 0,
+        "oppExpectedSoT": 4.4,
+        "line": 2.5,
+        "expectedMinutes": null
+      },
+      "expected": {
+        "ebSaveRate": 0.6622857142857143,
+        "effectiveExposure90": 3.9644444444444447,
+        "expectedMinutes": 89.2,
+        "oppExpectedSoT": 4.4,
+        "expectedSaves": 2.8881544126984133,
+        "line": 2.5,
+        "pOver": 0.5116863669521955,
+        "pUnder": 0.4883136330478045,
+        "fairOverDecimal": 1.9543,
+        "fairUnderDecimal": 2.0479
+      }
+    },
+    {
+      "input": {
+        "league": "bundesliga",
+        "playerSlug": "marvin-schwabe",
+        "saves": 11,
+        "shotsFaced": 14,
+        "goalsConceded": 3,
+        "appearances": 3,
+        "subIns": 0,
+        "oppExpectedSoT": 4.4,
+        "line": 2.5,
+        "expectedMinutes": null
+      },
+      "expected": {
+        "ebSaveRate": 0.74425,
+        "effectiveExposure90": 2.9733333333333336,
+        "expectedMinutes": 89.2,
+        "oppExpectedSoT": 4.4,
+        "expectedSaves": 3.245591555555556,
+        "line": 2.5,
+        "pOver": 0.5737828385436854,
+        "pUnder": 0.4262171614563146,
+        "fairOverDecimal": 1.7428,
+        "fairUnderDecimal": 2.3462
+      }
+    },
+    {
+      "input": {
+        "league": "concacaf-nations",
+        "playerSlug": "jelanie-lawrence",
+        "saves": 32,
+        "shotsFaced": 45,
+        "goalsConceded": 13,
+        "appearances": 4,
+        "subIns": 0,
+        "oppExpectedSoT": 4.4,
+        "line": 2.5,
+        "expectedMinutes": null
+      },
+      "expected": {
+        "ebSaveRate": 0.7113650793650794,
+        "effectiveExposure90": 3.9644444444444447,
+        "expectedMinutes": 89.2,
+        "oppExpectedSoT": 4.4,
+        "expectedSaves": 3.102184070546738,
+        "line": 2.5,
+        "pOver": 0.5497345603021064,
+        "pUnder": 0.45026543969789357,
+        "fairOverDecimal": 1.8191,
+        "fairUnderDecimal": 2.2209
+      }
+    },
+    {
+      "input": {
+        "league": "concacaf-nations",
+        "playerSlug": "shahoi-dorsett",
+        "saves": 13,
+        "shotsFaced": 19,
+        "goalsConceded": 6,
+        "appearances": 6,
+        "subIns": 0,
+        "oppExpectedSoT": 4.4,
+        "line": 2.5,
+        "expectedMinutes": null
+      },
+      "expected": {
+        "ebSaveRate": 0.6977297297297297,
+        "effectiveExposure90": 5.946666666666667,
+        "expectedMinutes": 89.2,
+        "oppExpectedSoT": 4.4,
+        "expectedSaves": 3.042721825825826,
+        "line": 2.5,
+        "pOver": 0.5394238855693421,
+        "pUnder": 0.46057611443065793,
+        "fairOverDecimal": 1.8538,
+        "fairUnderDecimal": 2.1712
+      }
+    },
+    {
+      "input": {
+        "league": "concacaf-nations",
+        "playerSlug": "matthew-lentink",
+        "saves": 8,
+        "shotsFaced": 13,
+        "goalsConceded": 5,
+        "appearances": 6,
+        "subIns": 0,
+        "oppExpectedSoT": 4.4,
+        "line": 2.5,
+        "expectedMinutes": null
+      },
+      "expected": {
+        "ebSaveRate": 0.6714838709677419,
+        "effectiveExposure90": 5.946666666666667,
+        "expectedMinutes": 89.2,
+        "oppExpectedSoT": 4.4,
+        "expectedSaves": 2.9282665519713262,
+        "line": 2.5,
+        "pOver": 0.5190145174030707,
+        "pUnder": 0.4809854825969293,
+        "fairOverDecimal": 1.9267,
+        "fairUnderDecimal": 2.0791
+      }
+    },
+    {
+      "input": {
+        "league": "concacaf-nations",
+        "playerSlug": "ian-paul-lowe",
+        "saves": 10,
+        "shotsFaced": 19,
+        "goalsConceded": 9,
+        "appearances": 4,
+        "subIns": 2,
+        "oppExpectedSoT": 4.4,
+        "line": 2.5,
+        "expectedMinutes": null
+      },
+      "expected": {
+        "ebSaveRate": 0.6166486486486487,
+        "effectiveExposure90": 2.6933333333333334,
+        "expectedMinutes": 60.6,
+        "oppExpectedSoT": 4.4,
+        "expectedSaves": 1.8269243963963966,
+        "line": 2.5,
+        "pOver": 0.2822357929593386,
+        "pUnder": 0.7177642070406614,
+        "fairOverDecimal": 3.5431,
+        "fairUnderDecimal": 1.3932
+      }
+    },
+    {
+      "input": {
+        "league": "concacaf-nations",
+        "playerSlug": "jamal-blackman",
+        "saves": 6,
+        "shotsFaced": 13,
+        "goalsConceded": 7,
+        "appearances": 7,
+        "subIns": 0,
+        "oppExpectedSoT": 4.4,
+        "line": 2.5,
+        "expectedMinutes": null
+      },
+      "expected": {
+        "ebSaveRate": 0.6069677419354839,
+        "effectiveExposure90": 6.937777777777778,
+        "expectedMinutes": 89.2,
+        "oppExpectedSoT": 4.4,
+        "expectedSaves": 2.6469188817204303,
+        "line": 2.5,
+        "pOver": 0.4657083166436226,
+        "pUnder": 0.5342916833563773,
+        "fairOverDecimal": 2.1473,
+        "fairUnderDecimal": 1.8716
+      }
+    },
+    {
+      "input": {
+        "league": "concacaf-nations",
+        "playerSlug": "woodrow-west",
+        "saves": 17,
+        "shotsFaced": 22,
+        "goalsConceded": 5,
+        "appearances": 5,
+        "subIns": 0,
+        "oppExpectedSoT": 4.4,
+        "line": 2.5,
+        "expectedMinutes": null
+      },
+      "expected": {
+        "ebSaveRate": 0.7454,
+        "effectiveExposure90": 4.955555555555556,
+        "expectedMinutes": 89.2,
+        "oppExpectedSoT": 4.4,
+        "expectedSaves": 3.250606577777778,
+        "line": 2.5,
+        "pOver": 0.5746030018758805,
+        "pUnder": 0.42539699812411946,
+        "fairOverDecimal": 1.7403,
+        "fairUnderDecimal": 2.3507
+      }
+    },
+    {
+      "input": {
+        "league": "concacaf-nations",
+        "playerSlug": "jahquil-hill",
+        "saves": 13,
+        "shotsFaced": 21,
+        "goalsConceded": 8,
+        "appearances": 3,
+        "subIns": 0,
+        "oppExpectedSoT": 4.4,
+        "line": 2.5,
+        "expectedMinutes": null
+      },
+      "expected": {
+        "ebSaveRate": 0.6619487179487179,
+        "effectiveExposure90": 2.9733333333333336,
+        "expectedMinutes": 89.2,
+        "oppExpectedSoT": 4.4,
+        "expectedSaves": 2.8866848091168094,
+        "line": 2.5,
+        "pOver": 0.5114161551817236,
+        "pUnder": 0.48858384481827644,
+        "fairOverDecimal": 1.9554,
+        "fairUnderDecimal": 2.0467
+      }
+    }
+  ],
+  "coupled_player_shots_cases": [
+    {
+      "input": {
+        "metric": "shots_on_target",
+        "positionGroup": "FWD",
+        "seasonCount": 7,
+        "appearances": 9,
+        "subIns": 4,
+        "teamExpectedShots": 4.6,
+        "oppDefenseShotsFactor": 1.05,
+        "line": 0.5,
+        "expectedMinutes": null
+      },
+      "expected": {
+        "metric": "shots_on_target",
+        "ebRatePer90": 1.192114285714286,
+        "naivePerAppearanceRate": 0.7777777777777778,
+        "effectiveExposure90": 5.222222222222222,
+        "expectedMinutes": 76.0,
+        "muProjected": 1.088636461001965,
+        "line": 0.5,
+        "pOver": 0.5983480154099432,
+        "pUnder": 0.4016519845900568,
+        "fairOverDecimal": 1.6713,
+        "fairUnderDecimal": 2.4897
+      }
+    },
+    {
+      "input": {
+        "metric": "shots_on_target",
+        "positionGroup": "MID",
+        "seasonCount": 4,
+        "appearances": 9,
+        "subIns": 3,
+        "teamExpectedShots": 4.6,
+        "oppDefenseShotsFactor": 1.05,
+        "line": 0.5,
+        "expectedMinutes": null
+      },
+      "expected": {
+        "metric": "shots_on_target",
+        "ebRatePer90": 0.5717425431711146,
+        "naivePerAppearanceRate": 0.4444444444444444,
+        "effectiveExposure90": 6.116666666666666,
+        "expectedMinutes": 79.5,
+        "muProjected": 0.5461589172824761,
+        "line": 0.5,
+        "pOver": 0.39679339740732383,
+        "pUnder": 0.6032066025926761,
+        "fairOverDecimal": 2.5202,
+        "fairUnderDecimal": 1.6578
+      }
+    },
+    {
+      "input": {
+        "metric": "shots_on_target",
+        "positionGroup": "FWD",
+        "seasonCount": 2,
+        "appearances": 9,
+        "subIns": 4,
+        "teamExpectedShots": 4.6,
+        "oppDefenseShotsFactor": 1.05,
+        "line": 0.5,
+        "expectedMinutes": null
+      },
+      "expected": {
+        "metric": "shots_on_target",
+        "ebRatePer90": 0.6778285714285714,
+        "naivePerAppearanceRate": 0.2222222222222222,
+        "effectiveExposure90": 5.222222222222222,
+        "expectedMinutes": 76.0,
+        "muProjected": 0.618991740983861,
+        "line": 0.5,
+        "pOver": 0.43046778398698066,
+        "pUnder": 0.5695322160130194,
+        "fairOverDecimal": 2.3231,
+        "fairUnderDecimal": 1.7558
+      }
+    },
+    {
+      "input": {
+        "metric": "shots_on_target",
+        "positionGroup": "MID",
+        "seasonCount": 4,
+        "appearances": 9,
+        "subIns": 0,
+        "teamExpectedShots": 4.6,
+        "oppDefenseShotsFactor": 1.05,
+        "line": 0.5,
+        "expectedMinutes": null
+      },
+      "expected": {
+        "metric": "shots_on_target",
+        "ebRatePer90": 0.48755020080321293,
+        "naivePerAppearanceRate": 0.4444444444444444,
+        "effectiveExposure90": 7.95,
+        "expectedMinutes": 79.5,
+        "muProjected": 0.4657339093827809,
+        "line": 0.5,
+        "pOver": 0.3537850857355248,
+        "pUnder": 0.6462149142644752,
+        "fairOverDecimal": 2.8266,
+        "fairUnderDecimal": 1.5475
+      }
+    },
+    {
+      "input": {
+        "metric": "shots_on_target",
+        "positionGroup": "FWD",
+        "seasonCount": 10,
+        "appearances": 9,
+        "subIns": 0,
+        "teamExpectedShots": 4.6,
+        "oppDefenseShotsFactor": 1.05,
+        "line": 0.5,
+        "expectedMinutes": null
+      },
+      "expected": {
+        "metric": "shots_on_target",
+        "ebRatePer90": 1.2057851239669422,
+        "naivePerAppearanceRate": 1.1111111111111112,
+        "effectiveExposure90": 7.6,
+        "expectedMinutes": 76.0,
+        "muProjected": 1.1011206440644847,
+        "line": 0.5,
+        "pOver": 0.6017756751740001,
+        "pUnder": 0.3982243248259999,
+        "fairOverDecimal": 1.6617,
+        "fairUnderDecimal": 2.5111
+      }
+    },
+    {
+      "input": {
+        "metric": "shots_on_target",
+        "positionGroup": "FWD",
+        "seasonCount": 13,
+        "appearances": 9,
+        "subIns": 1,
+        "teamExpectedShots": 4.6,
+        "oppDefenseShotsFactor": 1.05,
+        "line": 0.5,
+        "expectedMinutes": null
+      },
+      "expected": {
+        "metric": "shots_on_target",
+        "ebRatePer90": 1.5288266537904394,
+        "naivePerAppearanceRate": 1.4444444444444444,
+        "effectiveExposure90": 7.0055555555555555,
+        "expectedMinutes": 76.0,
+        "muProjected": 1.3961215445637163,
+        "line": 0.5,
+        "pOver": 0.6731510002052015,
+        "pUnder": 0.32684899979479853,
+        "fairOverDecimal": 1.4856,
+        "fairUnderDecimal": 3.0595
+      }
+    },
+    {
+      "input": {
+        "metric": "shots_on_target",
+        "positionGroup": "MID",
+        "seasonCount": 3,
+        "appearances": 9,
+        "subIns": 0,
+        "teamExpectedShots": 4.6,
+        "oppDefenseShotsFactor": 1.05,
+        "line": 0.5,
+        "expectedMinutes": null
+      },
+      "expected": {
+        "metric": "shots_on_target",
+        "ebRatePer90": 0.4072289156626506,
+        "naivePerAppearanceRate": 0.3333333333333333,
+        "effectiveExposure90": 7.95,
+        "expectedMinutes": 79.5,
+        "muProjected": 0.38900674144492575,
+        "line": 0.5,
+        "pOver": 0.30893312000658,
+        "pUnder": 0.69106687999342,
+        "fairOverDecimal": 3.2369,
+        "fairUnderDecimal": 1.447
+      }
+    },
+    {
+      "input": {
+        "metric": "shots_on_target",
+        "positionGroup": "FWD",
+        "seasonCount": 2,
+        "appearances": 9,
+        "subIns": 8,
+        "teamExpectedShots": 4.6,
+        "oppDefenseShotsFactor": 1.05,
+        "line": 0.5,
+        "expectedMinutes": null
+      },
+      "expected": {
+        "metric": "shots_on_target",
+        "ebRatePer90": 0.8972768532526474,
+        "naivePerAppearanceRate": 0.2222222222222222,
+        "effectiveExposure90": 2.8444444444444446,
+        "expectedMinutes": 76.0,
+        "muProjected": 0.819391487686654,
+        "line": 0.5,
+        "pOver": 0.5137188058380185,
+        "pUnder": 0.48628119416198146,
+        "fairOverDecimal": 1.9466,
+        "fairUnderDecimal": 2.0564
+      }
+    },
+    {
+      "input": {
+        "metric": "shots_on_target",
+        "positionGroup": "DEF",
+        "seasonCount": 1,
+        "appearances": 9,
+        "subIns": 1,
+        "teamExpectedShots": 4.6,
+        "oppDefenseShotsFactor": 1.05,
+        "line": 0.5,
+        "expectedMinutes": null
+      },
+      "expected": {
+        "metric": "shots_on_target",
+        "ebRatePer90": 0.15060893098782138,
+        "naivePerAppearanceRate": 0.1111111111111111,
+        "effectiveExposure90": 7.816666666666666,
+        "expectedMinutes": 85.0,
+        "muProjected": 0.15382291699367973,
+        "line": 0.5,
+        "pOver": 0.14295094068985348,
+        "pUnder": 0.8570490593101465,
+        "fairOverDecimal": 6.9954,
+        "fairUnderDecimal": 1.1668
+      }
+    },
+    {
+      "input": {
+        "metric": "shots_on_target",
+        "positionGroup": "MID",
+        "seasonCount": 3,
+        "appearances": 8,
+        "subIns": 0,
+        "teamExpectedShots": 4.6,
+        "oppDefenseShotsFactor": 1.05,
+        "line": 0.5,
+        "expectedMinutes": null
+      },
+      "expected": {
+        "metric": "shots_on_target",
+        "ebRatePer90": 0.438328530259366,
+        "naivePerAppearanceRate": 0.375,
+        "effectiveExposure90": 7.066666666666666,
+        "expectedMinutes": 79.5,
+        "muProjected": 0.4187147490768869,
+        "line": 0.5,
+        "pOver": 0.3267935652086353,
+        "pUnder": 0.6732064347913647,
+        "fairOverDecimal": 3.06,
+        "fairUnderDecimal": 1.4854
+      }
+    },
+    {
+      "input": {
+        "metric": "shots_on_target",
+        "positionGroup": "MID",
+        "seasonCount": 3,
+        "appearances": 8,
+        "subIns": 1,
+        "teamExpectedShots": 4.6,
+        "oppDefenseShotsFactor": 1.05,
+        "line": 0.5,
+        "expectedMinutes": null
+      },
+      "expected": {
+        "metric": "shots_on_target",
+        "ebRatePer90": 0.4627789046653144,
+        "naivePerAppearanceRate": 0.375,
+        "effectiveExposure90": 6.455555555555556,
+        "expectedMinutes": 79.5,
+        "muProjected": 0.4420710484675855,
+        "line": 0.5,
+        "pOver": 0.34038074846263194,
+        "pUnder": 0.659619251537368,
+        "fairOverDecimal": 2.9379,
+        "fairUnderDecimal": 1.516
+      }
+    },
+    {
+      "input": {
+        "metric": "shots_on_target",
+        "positionGroup": "FWD",
+        "seasonCount": 15,
+        "appearances": 9,
+        "subIns": 1,
+        "teamExpectedShots": 4.6,
+        "oppDefenseShotsFactor": 1.05,
+        "line": 0.5,
+        "expectedMinutes": null
+      },
+      "expected": {
+        "metric": "shots_on_target",
+        "ebRatePer90": 1.702655721873491,
+        "naivePerAppearanceRate": 1.6666666666666667,
+        "effectiveExposure90": 7.0055555555555555,
+        "expectedMinutes": 76.0,
+        "muProjected": 1.5548619134737465,
+        "line": 0.5,
+        "pOver": 0.7055701722355087,
+        "pUnder": 0.29442982776449134,
+        "fairOverDecimal": 1.4173,
+        "fairUnderDecimal": 3.3964
+      }
+    },
+    {
+      "input": {
+        "metric": "shots_on_target",
+        "positionGroup": "FWD",
+        "seasonCount": 7,
+        "appearances": 9,
+        "subIns": 0,
+        "teamExpectedShots": 4.6,
+        "oppDefenseShotsFactor": 1.05,
+        "line": 0.5,
+        "expectedMinutes": null
+      },
+      "expected": {
+        "metric": "shots_on_target",
+        "ebRatePer90": 0.9578512396694215,
+        "naivePerAppearanceRate": 0.7777777777777778,
+        "effectiveExposure90": 7.6,
+        "expectedMinutes": 76.0,
+        "muProjected": 0.874707900254104,
+        "line": 0.5,
+        "pOver": 0.532944962538084,
+        "pUnder": 0.467055037461916,
+        "fairOverDecimal": 1.8764,
+        "fairUnderDecimal": 2.1411
+      }
+    },
+    {
+      "input": {
+        "metric": "shots_on_target",
+        "positionGroup": "DEF",
+        "seasonCount": 3,
+        "appearances": 9,
+        "subIns": 0,
+        "teamExpectedShots": 4.6,
+        "oppDefenseShotsFactor": 1.05,
+        "line": 0.5,
+        "expectedMinutes": null
+      },
+      "expected": {
+        "metric": "shots_on_target",
+        "ebRatePer90": 0.29653846153846153,
+        "naivePerAppearanceRate": 0.3333333333333333,
+        "effectiveExposure90": 8.5,
+        "expectedMinutes": 85.0,
+        "muProjected": 0.30286657541147244,
+        "line": 0.5,
+        "pOver": 0.25429015137106803,
+        "pUnder": 0.745709848628932,
+        "fairOverDecimal": 3.9325,
+        "fairUnderDecimal": 1.341
+      }
+    },
+    {
+      "input": {
+        "metric": "shots_on_target",
+        "positionGroup": "MID",
+        "seasonCount": 3,
+        "appearances": 9,
+        "subIns": 0,
+        "teamExpectedShots": 4.6,
+        "oppDefenseShotsFactor": 1.05,
+        "line": 0.5,
+        "expectedMinutes": null
+      },
+      "expected": {
+        "metric": "shots_on_target",
+        "ebRatePer90": 0.4072289156626506,
+        "naivePerAppearanceRate": 0.3333333333333333,
+        "effectiveExposure90": 7.95,
+        "expectedMinutes": 79.5,
+        "muProjected": 0.38900674144492575,
+        "line": 0.5,
+        "pOver": 0.30893312000658,
+        "pUnder": 0.69106687999342,
+        "fairOverDecimal": 3.2369,
+        "fairUnderDecimal": 1.447
+      }
+    },
+    {
+      "input": {
+        "metric": "shots_on_target",
+        "positionGroup": "FWD",
+        "seasonCount": 8,
+        "appearances": 9,
+        "subIns": 1,
+        "teamExpectedShots": 4.6,
+        "oppDefenseShotsFactor": 1.05,
+        "line": 0.5,
+        "expectedMinutes": null
+      },
+      "expected": {
+        "metric": "shots_on_target",
+        "ebRatePer90": 1.0942539835828102,
+        "naivePerAppearanceRate": 0.8888888888888888,
+        "effectiveExposure90": 7.0055555555555555,
+        "expectedMinutes": 76.0,
+        "muProjected": 0.9992706222886407,
+        "line": 0.5,
+        "pOver": 0.5726247101311317,
+        "pUnder": 0.4273752898688683,
+        "fairOverDecimal": 1.7463,
+        "fairUnderDecimal": 2.3399
+      }
+    },
+    {
+      "input": {
+        "metric": "shots_on_target",
+        "positionGroup": "FWD",
+        "seasonCount": 2,
+        "appearances": 6,
+        "subIns": 1,
+        "teamExpectedShots": 4.6,
+        "oppDefenseShotsFactor": 1.05,
+        "line": 0.5,
+        "expectedMinutes": null
+      },
+      "expected": {
+        "metric": "shots_on_target",
+        "ebRatePer90": 0.7344891640866874,
+        "naivePerAppearanceRate": 0.3333333333333333,
+        "effectiveExposure90": 4.472222222222222,
+        "expectedMinutes": 76.0,
+        "muProjected": 0.6707340846574344,
+        "line": 0.5,
+        "pOver": 0.45405097605759376,
+        "pUnder": 0.5459490239424063,
+        "fairOverDecimal": 2.2024,
+        "fairUnderDecimal": 1.8317
+      }
+    },
+    {
+      "input": {
+        "metric": "shots_on_target",
+        "positionGroup": "MID",
+        "seasonCount": 8,
+        "appearances": 9,
+        "subIns": 1,
+        "teamExpectedShots": 4.6,
+        "oppDefenseShotsFactor": 1.05,
+        "line": 0.5,
+        "expectedMinutes": null
+      },
+      "expected": {
+        "metric": "shots_on_target",
+        "ebRatePer90": 0.8505865790708588,
+        "naivePerAppearanceRate": 0.8888888888888888,
+        "effectiveExposure90": 7.338888888888889,
+        "expectedMinutes": 79.5,
+        "muProjected": 0.812525586260791,
+        "line": 0.5,
+        "pOver": 0.514064901089535,
+        "pUnder": 0.48593509891046505,
+        "fairOverDecimal": 1.9453,
+        "fairUnderDecimal": 2.0579
+      }
+    },
+    {
+      "input": {
+        "metric": "shots_on_target",
+        "positionGroup": "FWD",
+        "seasonCount": 4,
+        "appearances": 9,
+        "subIns": 3,
+        "teamExpectedShots": 4.6,
+        "oppDefenseShotsFactor": 1.05,
+        "line": 0.5,
+        "expectedMinutes": null
+      },
+      "expected": {
+        "metric": "shots_on_target",
+        "ebRatePer90": 0.8326332794830371,
+        "naivePerAppearanceRate": 0.4444444444444444,
+        "effectiveExposure90": 5.816666666666666,
+        "expectedMinutes": 76.0,
+        "muProjected": 0.7603591010955463,
+        "line": 0.5,
+        "pOver": 0.4919873838104853,
+        "pUnder": 0.5080126161895147,
+        "fairOverDecimal": 2.0326,
+        "fairUnderDecimal": 1.9685
+      }
+    },
+    {
+      "input": {
+        "metric": "shots_on_target",
+        "positionGroup": "MID",
+        "seasonCount": 2,
+        "appearances": 9,
+        "subIns": 2,
+        "teamExpectedShots": 4.6,
+        "oppDefenseShotsFactor": 1.05,
+        "line": 0.5,
+        "expectedMinutes": null
+      },
+      "expected": {
+        "metric": "shots_on_target",
+        "ebRatePer90": 0.3624938149430975,
+        "naivePerAppearanceRate": 0.2222222222222222,
+        "effectiveExposure90": 6.727777777777778,
+        "expectedMinutes": 79.5,
+        "muProjected": 0.3462733915038818,
+        "line": 0.5,
+        "pOver": 0.28207626900714144,
+        "pUnder": 0.7179237309928586,
+        "fairOverDecimal": 3.5451,
+        "fairUnderDecimal": 1.3929
+      }
+    },
+    {
+      "input": {
+        "metric": "shots_on_target",
+        "positionGroup": "FWD",
+        "seasonCount": 11,
+        "appearances": 8,
+        "subIns": 0,
+        "teamExpectedShots": 4.6,
+        "oppDefenseShotsFactor": 1.05,
+        "line": 0.5,
+        "expectedMinutes": null
+      },
+      "expected": {
+        "metric": "shots_on_target",
+        "ebRatePer90": 1.3850937808489634,
+        "naivePerAppearanceRate": 1.375,
+        "effectiveExposure90": 6.7555555555555555,
+        "expectedMinutes": 76.0,
+        "muProjected": 1.2648649628720554,
+        "line": 0.5,
+        "pOver": 0.6433474194423768,
+        "pUnder": 0.35665258055762317,
+        "fairOverDecimal": 1.5544,
+        "fairUnderDecimal": 2.8038
+      }
+    },
+    {
+      "input": {
+        "metric": "shots_on_target",
+        "positionGroup": "FWD",
+        "seasonCount": 6,
+        "appearances": 8,
+        "subIns": 5,
+        "teamExpectedShots": 4.6,
+        "oppDefenseShotsFactor": 1.05,
+        "line": 0.5,
+        "expectedMinutes": null
+      },
+      "expected": {
+        "metric": "shots_on_target",
+        "ebRatePer90": 1.278470824949698,
+        "naivePerAppearanceRate": 0.75,
+        "effectiveExposure90": 3.783333333333333,
+        "expectedMinutes": 76.0,
+        "muProjected": 1.1674970856788076,
+        "line": 0.5,
+        "pOver": 0.6193623932908612,
+        "pUnder": 0.3806376067091388,
+        "fairOverDecimal": 1.6146,
+        "fairUnderDecimal": 2.6272
+      }
+    },
+    {
+      "input": {
+        "metric": "shots_on_target",
+        "positionGroup": "MID",
+        "seasonCount": 5,
+        "appearances": 7,
+        "subIns": 4,
+        "teamExpectedShots": 4.6,
+        "oppDefenseShotsFactor": 1.05,
+        "line": 0.5,
+        "expectedMinutes": null
+      },
+      "expected": {
+        "metric": "shots_on_target",
+        "ebRatePer90": 0.858125421443021,
+        "naivePerAppearanceRate": 0.7142857142857143,
+        "effectiveExposure90": 3.738888888888889,
+        "expectedMinutes": 79.5,
+        "muProjected": 0.8197270898688774,
+        "line": 0.5,
+        "pOver": 0.5166739001196743,
+        "pUnder": 0.4833260998803257,
+        "fairOverDecimal": 1.9355,
+        "fairUnderDecimal": 2.069
+      }
+    },
+    {
+      "input": {
+        "metric": "shots_on_target",
+        "positionGroup": "MID",
+        "seasonCount": 5,
+        "appearances": 7,
+        "subIns": 3,
+        "teamExpectedShots": 4.6,
+        "oppDefenseShotsFactor": 1.05,
+        "line": 0.5,
+        "expectedMinutes": null
+      },
+      "expected": {
+        "metric": "shots_on_target",
+        "ebRatePer90": 0.7988700564971752,
+        "naivePerAppearanceRate": 0.7142857142857143,
+        "effectiveExposure90": 4.35,
+        "expectedMinutes": 79.5,
+        "muProjected": 0.7631232104680136,
+        "line": 0.5,
+        "pOver": 0.4956481016476928,
+        "pUnder": 0.5043518983523072,
+        "fairOverDecimal": 2.0176,
+        "fairUnderDecimal": 1.9827
+      }
+    },
+    {
+      "input": {
+        "metric": "shots_on_target",
+        "positionGroup": "DEF",
+        "seasonCount": 5,
+        "appearances": 9,
+        "subIns": 1,
+        "teamExpectedShots": 4.6,
+        "oppDefenseShotsFactor": 1.05,
+        "line": 0.5,
+        "expectedMinutes": null
+      },
+      "expected": {
+        "metric": "shots_on_target",
+        "ebRatePer90": 0.47537212449255756,
+        "naivePerAppearanceRate": 0.5555555555555556,
+        "effectiveExposure90": 7.816666666666666,
+        "expectedMinutes": 85.0,
+        "muProjected": 0.4855165385433935,
+        "line": 0.5,
+        "pOver": 0.36658315567802735,
+        "pUnder": 0.6334168443219726,
+        "fairOverDecimal": 2.7279,
+        "fairUnderDecimal": 1.5787
+      }
+    }
+  ],
+  "us_walkforward_cases": [
+    {
+      "input": {
+        "sport": "mlb",
+        "homeElo": 1497.267856,
+        "awayElo": 1506.571607,
+        "homeCumFor": 13.0,
+        "homeCumAgainst": 16.0,
+        "homeGames": 4,
+        "awayCumFor": 21.0,
+        "awayCumAgainst": 14.0,
+        "awayGames": 4,
+        "leagueTeamScoringEnv": 4.425333,
+        "homeB2B": true,
+        "awayB2B": true,
+        "home3in4": true,
+        "away3in4": true,
+        "neutralSite": false
+      },
+      "expected": {
+        "muHome": 4.364147477666278,
+        "muAway": 4.2984501253862275,
+        "expectedMargin": 0.06569735228005048,
+        "expectedTotal": 8.662597603052506,
+        "pHomeWin": 0.5127500171979263,
+        "pAwayWin": 0.48724998280207366,
+        "totalLine": 8.5,
+        "pOver": 0.5145736835278201,
+        "pUnder": 0.48542631647217993
+      }
+    },
+    {
+      "input": {
+        "sport": "mlb",
+        "homeElo": 1499.852591,
+        "awayElo": 1495.178586,
+        "homeCumFor": 14.0,
+        "homeCumAgainst": 16.0,
+        "homeGames": 4,
+        "awayCumFor": 19.0,
+        "awayCumAgainst": 33.0,
+        "awayGames": 4,
+        "leagueTeamScoringEnv": 4.425333,
+        "homeB2B": true,
+        "awayB2B": true,
+        "home3in4": true,
+        "away3in4": true,
+        "neutralSite": false
+      },
+      "expected": {
+        "muHome": 4.581115965884333,
+        "muAway": 4.3389991713876395,
+        "expectedMargin": 0.24211679449669266,
+        "expectedTotal": 8.920115137271972,
+        "pHomeWin": 0.5295896687706014,
+        "pAwayWin": 0.47041033122939857,
+        "totalLine": 8.5,
+        "pOver": 0.5376074885476021,
+        "pUnder": 0.4623925114523979
+      }
+    },
+    {
+      "input": {
+        "sport": "mlb",
+        "homeElo": 1501.735441,
+        "awayElo": 1494.271819,
+        "homeCumFor": 11.0,
+        "homeCumAgainst": 10.0,
+        "homeGames": 4,
+        "awayCumFor": 13.0,
+        "awayCumAgainst": 20.0,
+        "awayGames": 4,
+        "leagueTeamScoringEnv": 4.425333,
+        "homeB2B": true,
+        "awayB2B": true,
+        "home3in4": true,
+        "away3in4": true,
+        "neutralSite": false
+      },
+      "expected": {
+        "muHome": 4.37054596200763,
+        "muAway": 4.147551904686991,
+        "expectedMargin": 0.2229940573206394,
+        "expectedTotal": 8.518097866694621,
+        "pHomeWin": 0.5314615311655877,
+        "pAwayWin": 0.4685384688344123,
+        "totalLine": 8.5,
+        "pOver": 0.5016224787422633,
+        "pUnder": 0.4983775212577367
+      }
+    },
+    {
+      "input": {
+        "sport": "mlb",
+        "homeElo": 1492.581048,
+        "awayElo": 1507.452977,
+        "homeCumFor": 14.0,
+        "homeCumAgainst": 29.0,
+        "homeGames": 4,
+        "awayCumFor": 31.0,
+        "awayCumAgainst": 19.0,
+        "awayGames": 4,
+        "leagueTeamScoringEnv": 4.425333,
+        "homeB2B": true,
+        "awayB2B": true,
+        "home3in4": true,
+        "away3in4": true,
+        "neutralSite": false
+      },
+      "expected": {
+        "muHome": 4.513237269900224,
+        "muAway": 4.575994167812774,
+        "expectedMargin": -0.06275689791254949,
+        "expectedTotal": 9.089231437712998,
+        "pHomeWin": 0.5044421416435121,
+        "pAwayWin": 0.4955578583564879,
+        "totalLine": 8.5,
+        "pOver": 0.5526706463998468,
+        "pUnder": 0.44732935360015325
+      }
+    },
+    {
+      "input": {
+        "sport": "mlb",
+        "homeElo": 1501.216553,
+        "awayElo": 1500.108122,
+        "homeCumFor": 21.0,
+        "homeCumAgainst": 25.0,
+        "homeGames": 4,
+        "awayCumFor": 21.0,
+        "awayCumAgainst": 15.0,
+        "awayGames": 4,
+        "leagueTeamScoringEnv": 4.425333,
+        "homeB2B": true,
+        "awayB2B": true,
+        "home3in4": true,
+        "away3in4": true,
+        "neutralSite": false
+      },
+      "expected": {
+        "muHome": 4.506949419006219,
+        "muAway": 4.416677985740563,
+        "expectedMargin": 0.09027143326565608,
+        "expectedTotal": 8.923627404746782,
+        "pHomeWin": 0.522386401275654,
+        "pAwayWin": 0.47761359872434594,
+        "totalLine": 8.5,
+        "pOver": 0.5379209509090039,
+        "pUnder": 0.46207904909099606
+      }
+    },
+    {
+      "input": {
+        "sport": "nhl",
+        "homeElo": 1497.46628,
+        "awayElo": 1510.698019,
+        "homeCumFor": 9.0,
+        "homeCumAgainst": 11.0,
+        "homeGames": 4,
+        "awayCumFor": 17.0,
+        "awayCumAgainst": 8.0,
+        "awayGames": 4,
+        "leagueTeamScoringEnv": 3.12027,
+        "homeB2B": false,
+        "awayB2B": false,
+        "home3in4": false,
+        "away3in4": false,
+        "neutralSite": false
+      },
+      "expected": {
+        "muHome": 3.0705574721076774,
+        "muAway": 3.054354884656873,
+        "expectedMargin": 0.016202587450803954,
+        "expectedTotal": 6.1249123567645505,
+        "pHomeWin": 0.5136207287523893,
+        "pAwayWin": 0.4863792712476107,
+        "totalLine": 6.5,
+        "pOver": 0.43989120383261715,
+        "pUnder": 0.5601087961673828
+      }
+    },
+    {
+      "input": {
+        "sport": "nhl",
+        "homeElo": 1499.072214,
+        "awayElo": 1500.046786,
+        "homeCumFor": 11.0,
+        "homeCumAgainst": 12.0,
+        "homeGames": 4,
+        "awayCumFor": 19.0,
+        "awayCumAgainst": 18.0,
+        "awayGames": 4,
+        "leagueTeamScoringEnv": 3.12027,
+        "homeB2B": false,
+        "awayB2B": false,
+        "home3in4": false,
+        "away3in4": false,
+        "neutralSite": false
+      },
+      "expected": {
+        "muHome": 3.3119172968666546,
+        "muAway": 3.166465019875123,
+        "expectedMargin": 0.14545227699153135,
+        "expectedTotal": 6.478382316741778,
+        "pHomeWin": 0.5311535956684927,
+        "pAwayWin": 0.46884640433150726,
+        "totalLine": 6.5,
+        "pOver": 0.4965225203769821,
+        "pUnder": 0.5034774796230179
+      }
+    },
+    {
+      "input": {
+        "sport": "nhl",
+        "homeElo": 1509.862062,
+        "awayElo": 1499.188807,
+        "homeCumFor": 17.0,
+        "homeCumAgainst": 10.0,
+        "homeGames": 4,
+        "awayCumFor": 11.0,
+        "awayCumAgainst": 11.0,
+        "awayGames": 4,
+        "leagueTeamScoringEnv": 3.102439,
+        "homeB2B": false,
+        "awayB2B": false,
+        "home3in4": false,
+        "away3in4": false,
+        "neutralSite": false
+      },
+      "expected": {
+        "muHome": 3.2319477651350756,
+        "muAway": 2.957153688849092,
+        "expectedMargin": 0.27479407628598357,
+        "expectedTotal": 6.1891014539841676,
+        "pHomeWin": 0.5480991686405521,
+        "pAwayWin": 0.4519008313594479,
+        "totalLine": 6.5,
+        "pOver": 0.4501183212207963,
+        "pUnder": 0.5498816787792037
+      }
+    },
+    {
+      "input": {
+        "sport": "nhl",
+        "homeElo": 1503.004943,
+        "awayElo": 1483.354617,
+        "homeCumFor": 15.0,
+        "homeCumAgainst": 12.0,
+        "homeGames": 5,
+        "awayCumFor": 6.0,
+        "awayCumAgainst": 19.0,
+        "awayGames": 5,
+        "leagueTeamScoringEnv": 3.118182,
+        "homeB2B": false,
+        "awayB2B": false,
+        "home3in4": false,
+        "away3in4": false,
+        "neutralSite": false
+      },
+      "expected": {
+        "muHome": 3.195924841925161,
+        "muAway": 2.8050483355992184,
+        "expectedMargin": 0.3908765063259428,
+        "expectedTotal": 6.000973177524379,
+        "pHomeWin": 0.5619708810602367,
+        "pAwayWin": 0.43802911893976326,
+        "totalLine": 6.5,
+        "pOver": 0.4202631098078039,
+        "pUnder": 0.5797368901921961
+      }
+    },
+    {
+      "input": {
+        "sport": "nhl",
+        "homeElo": 1501.001765,
+        "awayElo": 1509.726224,
+        "homeCumFor": 12.0,
+        "homeCumAgainst": 14.0,
+        "homeGames": 4,
+        "awayCumFor": 22.0,
+        "awayCumAgainst": 16.0,
+        "awayGames": 4,
+        "leagueTeamScoringEnv": 3.118182,
+        "homeB2B": true,
+        "awayB2B": false,
+        "home3in4": false,
+        "away3in4": false,
+        "neutralSite": false
+      },
+      "expected": {
+        "muHome": 3.249861908287693,
+        "muAway": 3.254774974295957,
+        "expectedMargin": -0.004913066008263717,
+        "expectedTotal": 6.50463688258365,
+        "pHomeWin": 0.5163610161051875,
+        "pAwayWin": 0.4836389838948125,
+        "totalLine": 6.5,
+        "pOver": 0.5007459113744007,
+        "pUnder": 0.4992540886255993
+      }
+    },
+    {
+      "input": {
+        "sport": "nba",
+        "homeElo": 1505.529251,
+        "awayElo": 1443.263941,
+        "homeCumFor": 484.0,
+        "homeCumAgainst": 447.0,
+        "homeGames": 4,
+        "awayCumFor": 436.0,
+        "awayCumAgainst": 487.0,
+        "awayGames": 4,
+        "leagueTeamScoringEnv": 114.506849,
+        "homeB2B": true,
+        "awayB2B": false,
+        "home3in4": true,
+        "away3in4": false,
+        "neutralSite": false
+      },
+      "expected": {
+        "muHome": 116.30406023528495,
+        "muAway": 112.33683030503649,
+        "expectedMargin": 3.9672299302484664,
+        "expectedTotal": 228.64089054032144,
+        "pHomeWin": 0.6451384732005058,
+        "pAwayWin": 0.35486152679949423,
+        "totalLine": 227.5,
+        "pOver": 0.5270714905384759,
+        "pUnder": 0.4729285094615241
+      }
+    },
+    {
+      "input": {
+        "sport": "nba",
+        "homeElo": 1497.285796,
+        "awayElo": 1520.73724,
+        "homeCumFor": 466.0,
+        "homeCumAgainst": 460.0,
+        "homeGames": 4,
+        "awayCumFor": 440.0,
+        "awayCumAgainst": 428.0,
+        "awayGames": 4,
+        "leagueTeamScoringEnv": 114.506849,
+        "homeB2B": true,
+        "awayB2B": false,
+        "home3in4": true,
+        "away3in4": false,
+        "neutralSite": false
+      },
+      "expected": {
+        "muHome": 113.31215027707957,
+        "muAway": 112.8094795849279,
+        "expectedMargin": 0.5026706921516806,
+        "expectedTotal": 226.12162986200747,
+        "pHomeWin": 0.5355450763863698,
+        "pAwayWin": 0.46445492361363017,
+        "totalLine": 227.5,
+        "pOver": 0.46730506386913806,
+        "pUnder": 0.5326949361308619
+      }
+    },
+    {
+      "input": {
+        "sport": "nba",
+        "homeElo": 1535.659245,
+        "awayElo": 1482.312742,
+        "homeCumFor": 488.0,
+        "homeCumAgainst": 420.0,
+        "homeGames": 4,
+        "awayCumFor": 469.0,
+        "awayCumAgainst": 483.0,
+        "awayGames": 4,
+        "leagueTeamScoringEnv": 114.438272,
+        "homeB2B": false,
+        "awayB2B": false,
+        "home3in4": false,
+        "away3in4": false,
+        "neutralSite": false
+      },
+      "expected": {
+        "muHome": 117.47113939542898,
+        "muAway": 112.61836668376183,
+        "expectedMargin": 4.852772711667152,
+        "expectedTotal": 230.0895060791908,
+        "pHomeWin": 0.6479623841274478,
+        "pAwayWin": 0.3520376158725522,
+        "totalLine": 227.5,
+        "pOver": 0.5612492611417819,
+        "pUnder": 0.43875073885821814
+      }
+    },
+    {
+      "input": {
+        "sport": "nba",
+        "homeElo": 1475.463603,
+        "awayElo": 1554.195353,
+        "homeCumFor": 467.0,
+        "homeCumAgainst": 489.0,
+        "homeGames": 4,
+        "awayCumFor": 483.0,
+        "awayCumAgainst": 444.0,
+        "awayGames": 4,
+        "leagueTeamScoringEnv": 114.438272,
+        "homeB2B": false,
+        "awayB2B": false,
+        "home3in4": false,
+        "away3in4": false,
+        "neutralSite": false
+      },
+      "expected": {
+        "muHome": 115.29737112164146,
+        "muAway": 115.75536356364209,
+        "expectedMargin": -0.45799244200064343,
+        "expectedTotal": 231.05273468528355,
+        "pHomeWin": 0.47682491778958336,
+        "pAwayWin": 0.5231750822104166,
+        "totalLine": 227.5,
+        "pOver": 0.5837405955423325,
+        "pUnder": 0.4162594044576675
+      }
+    },
+    {
+      "input": {
+        "sport": "nba",
+        "homeElo": 1477.286989,
+        "awayElo": 1471.625036,
+        "homeCumFor": 443.0,
+        "homeCumAgainst": 518.0,
+        "homeGames": 4,
+        "awayCumFor": 416.0,
+        "awayCumAgainst": 421.0,
+        "awayGames": 4,
+        "leagueTeamScoringEnv": 114.438272,
+        "homeB2B": false,
+        "awayB2B": true,
+        "home3in4": false,
+        "away3in4": false,
+        "neutralSite": false
+      },
+      "expected": {
+        "muHome": 114.22748725939553,
+        "muAway": 112.36860609837441,
+        "expectedMargin": 1.8588811610211282,
+        "expectedTotal": 226.59609335776994,
+        "pHomeWin": 0.5757935394554012,
+        "pAwayWin": 0.42420646054459876,
+        "totalLine": 227.5,
+        "pOver": 0.4785456061052161,
+        "pUnder": 0.5214543938947839
+      }
+    },
+    {
+      "input": {
+        "sport": "nfl",
+        "homeElo": 1502.302728,
+        "awayElo": 1463.749287,
+        "homeCumFor": 42.0,
+        "homeCumAgainst": 56.0,
+        "homeGames": 2,
+        "awayCumFor": 16.0,
+        "awayCumAgainst": 54.0,
+        "awayGames": 2,
+        "leagueTeamScoringEnv": 22.596154,
+        "homeB2B": false,
+        "awayB2B": false,
+        "home3in4": false,
+        "away3in4": false,
+        "neutralSite": false
+      },
+      "expected": {
+        "muHome": 23.89515561441111,
+        "muAway": 20.54081561038481,
+        "expectedMargin": 3.3543400040263007,
+        "expectedTotal": 44.43597122479592,
+        "pHomeWin": 0.6121906345598247,
+        "pAwayWin": 0.3878093654401753,
+        "totalLine": 45.5,
+        "pOver": 0.46949116459431506,
+        "pUnder": 0.5305088354056849
+      }
+    },
+    {
+      "input": {
+        "sport": "nfl",
+        "homeElo": 1503.183215,
+        "awayElo": 1500.250713,
+        "homeCumFor": 33.0,
+        "homeCumAgainst": 53.0,
+        "homeGames": 2,
+        "awayCumFor": 71.0,
+        "awayCumAgainst": 62.0,
+        "awayGames": 2,
+        "leagueTeamScoringEnv": 22.632075,
+        "homeB2B": false,
+        "awayB2B": false,
+        "home3in4": false,
+        "away3in4": false,
+        "neutralSite": false
+      },
+      "expected": {
+        "muHome": 24.287238876580982,
+        "muAway": 23.084037414509385,
+        "expectedMargin": 1.2032014620715992,
+        "expectedTotal": 47.37127629109037,
+        "pHomeWin": 0.5577658152652107,
+        "pAwayWin": 0.44223418473478926,
+        "totalLine": 45.5,
+        "pOver": 0.5535455246969327,
+        "pUnder": 0.44645447530306726
+      }
+    },
+    {
+      "input": {
+        "sport": "nfl",
+        "homeElo": 1498.603513,
+        "awayElo": 1534.150361,
+        "homeCumFor": 23.0,
+        "homeCumAgainst": 33.0,
+        "homeGames": 2,
+        "awayCumFor": 53.0,
+        "awayCumAgainst": 33.0,
+        "awayGames": 2,
+        "leagueTeamScoringEnv": 22.632075,
+        "homeB2B": false,
+        "awayB2B": false,
+        "home3in4": false,
+        "away3in4": false,
+        "neutralSite": false
+      },
+      "expected": {
+        "muHome": 21.74884288720064,
+        "muAway": 21.369794692167314,
+        "expectedMargin": 0.37904819503332443,
+        "expectedTotal": 43.118637579367956,
+        "pHomeWin": 0.5151953564822288,
+        "pAwayWin": 0.4848046435177712,
+        "totalLine": 45.5,
+        "pOver": 0.4319856712516603,
+        "pUnder": 0.5680143287483397
+      }
+    },
+    {
+      "input": {
+        "sport": "nfl",
+        "homeElo": 1469.342743,
+        "awayElo": 1460.907459,
+        "homeCumFor": 53.0,
+        "homeCumAgainst": 74.0,
+        "homeGames": 2,
+        "awayCumFor": 37.0,
+        "awayCumAgainst": 56.0,
+        "awayGames": 2,
+        "leagueTeamScoringEnv": 22.632075,
+        "homeB2B": false,
+        "awayB2B": false,
+        "home3in4": false,
+        "away3in4": false,
+        "neutralSite": false
+      },
+      "expected": {
+        "muHome": 24.72517949877206,
+        "muAway": 22.681433017510447,
+        "expectedMargin": 2.043746481261615,
+        "expectedTotal": 47.40661251628251,
+        "pHomeWin": 0.5721965901262915,
+        "pAwayWin": 0.42780340987370846,
+        "totalLine": 45.5,
+        "pOver": 0.5545503815164864,
+        "pUnder": 0.4454496184835136
+      }
+    },
+    {
+      "input": {
+        "sport": "nfl",
+        "homeElo": 1470.619095,
+        "awayElo": 1525.715077,
+        "homeCumFor": 26.0,
+        "homeCumAgainst": 62.0,
+        "homeGames": 2,
+        "awayCumFor": 64.0,
+        "awayCumAgainst": 40.0,
+        "awayGames": 2,
+        "leagueTeamScoringEnv": 22.632075,
+        "homeB2B": false,
+        "awayB2B": false,
+        "home3in4": false,
+        "away3in4": false,
+        "neutralSite": false
+      },
+      "expected": {
+        "muHome": 22.546038352298492,
+        "muAway": 23.382669273646403,
+        "expectedMargin": -0.8366309213479095,
+        "expectedTotal": 45.928707625944895,
+        "pHomeWin": 0.48406315903405994,
+        "pAwayWin": 0.5159368409659401,
+        "totalLine": 45.5,
+        "pOver": 0.51230239125073,
+        "pUnder": 0.48769760874927004
+      }
+    }
+  ]
+}
