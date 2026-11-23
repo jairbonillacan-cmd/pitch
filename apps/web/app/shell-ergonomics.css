@@ -2227,6 +2227,13 @@
       color 140ms ease;
   }
 
+  @media (max-width: 767px), (pointer: coarse) {
+    .pl-home-md-action-btn {
+      min-block-size: 44px;
+      min-inline-size: 44px;
+    }
+  }
+
   .pl-home-md-action-btn:hover:not(:disabled) {
     background: var(--pl-surface-hover);
     border-color: var(--pl-border-strong);
