@@ -3,13 +3,13 @@ import {
   cleanTeamRouteSlug,
   isPermittedMarketQuoteBook,
   isSafePublicLabel,
-  parseStrictFiniteNumber,
   slugifyPlayerName,
   type SquadPlayerEntry,
   type StandingRow,
   type TeamInjuryEntry,
   type TeamSquadEntry,
 } from "@pitchlab/contracts";
+import { isHardBlockedAvailabilityV6 } from "@pitchlab/spacetime/v6";
 import { scorePlayablePick } from "@pitchlab/ui/pick-quality-ranker";
 import { catalogPickItemToMatchPick, type MatchPicksCatalog } from "@pitchlab/ui/picks-catalog";
 import type {
@@ -27,6 +27,15 @@ import type {
   TeamRankingMetricRow,
   VerifiedMatchLineups,
 } from "@pitchlab/ui/types";
+import {
+  checkStrictPlayerMinutesAndAvailabilityGuardV6,
+  deriveMatchPlayerPropsV6,
+  evaluateCoupledFootballShotsV6,
+  evaluateGoalkeeperSavesV6,
+  extractStrictAvgMinutesFromSquadPlayer,
+  PROPS_V6_SHARP_EV_CAP_PCT,
+  PROPS_V6_SOFT_EV_CAP_PCT,
+} from "./props-explorer";
 
 export interface EnrichmentTeamRate {
   readonly teamId: string;
@@ -285,11 +294,11 @@ function buildLineupSide(params: {
   const coachNationality = squad?.coach?.nationality ?? null;
 
   const players = (squad?.players ?? []).filter((p) => isSafePublicLabel(p.name));
-  const unavailableEntries = players.filter(
-    (p) => p.availability === "injured" || p.availability === "suspended",
+  const unavailableEntries = players.filter((p) =>
+    isHardBlockedAvailabilityV6(p.availability, null),
   );
   const availableEntries = sortSquadForSelection(
-    players.filter((p) => p.availability !== "injured" && p.availability !== "suspended"),
+    players.filter((p) => !isHardBlockedAvailabilityV6(p.availability, null)),
   );
 
   let starters: MatchLineupPlayerDetail[] = [];
@@ -854,11 +863,10 @@ function findSquadPlayerByMeta(
 }
 
 const PLAYER_SHARP_BOOK_TOKENS = ["pinnacle", "betcris", "betonline"] as const;
-const MAX_PLAYER_SHARP_EV_PCT = 18;
-const MAX_PLAYER_SOFT_EV_PCT = 22;
-const FOOTBALL_MIN_STARTER_MINUTES = 45;
+const MAX_PLAYER_SHARP_EV_PCT = PROPS_V6_SHARP_EV_CAP_PCT;
+const MAX_PLAYER_SOFT_EV_PCT = PROPS_V6_SOFT_EV_CAP_PCT;
 const NUMERIC_UNIT_RE =
-  /\b(goles?|gol|tiros?|remates?|puntos?|rebotes?|asistencias?|triples?|atajadas?|yardas?|pases?|recepciones?|carreras?|hits?|bases?|jonrones?|tarjetas?|faltas?|c[oó]rners?|saques?|pts|reb|ast|3pm|sot)\b/i;
+  /\b(goles?|gol|tiros?|remates?|puntos?|rebotes?|asistencias?|triples?|atajadas?|yardas?|pases?|recepciones?|carreras?|hits?|bases?|jonrones?|ponches?|entradas?|touchdowns?|acarreos?|targets?|tarjetas?|faltas?|c[oó]rners?|saques?|pts|reb|ast|3pm|sot|sog)\b/i;
 
 function isSharpPlayerQuoteBook(bookLabel?: string | null): boolean {
   if (!bookLabel) return false;
@@ -872,49 +880,97 @@ function hasNumericSelectionUnit(label: string): boolean {
   return NUMERIC_UNIT_RE.test(label);
 }
 
-function passesFootballMinutesGuardIfReported(player: SquadPlayerEntry): boolean {
-  const recentLogs = player.recentGames ?? [];
-  const logMins: number[] = [];
-  for (const rg of recentLogs) {
-    const hit = rg.stats.find((st) => {
-      const k = st.label.trim().toUpperCase();
-      return k === "MIN" || k === "MINS" || k === "MINUTOS";
-    });
-    if (!hit) continue;
-    const val = parseStrictFiniteNumber(hit.value);
-    if (val !== null && val >= 0) {
-      logMins.push(val);
+function decimalToAmericanOdds(decimal: number): number {
+  const safe = Math.max(1.01, decimal);
+  if (safe >= 2.0) return Math.round((safe - 1) * 100);
+  return -Math.round(100 / (safe - 1));
+}
+
+function pickNearestLine<T extends { readonly line: number }>(
+  lines: readonly T[],
+  targetLine: number,
+): T | null {
+  if (lines.length === 0) return null;
+  let best = lines[0]!;
+  let bestDist = Math.abs(best.line - targetLine);
+  for (let i = 1; i < lines.length; i += 1) {
+    const cand = lines[i]!;
+    const dist = Math.abs(cand.line - targetLine);
+    if (dist < bestDist) {
+      bestDist = dist;
+      best = cand;
     }
   }
-  if (logMins.length > 0) {
-    const avgLogMin = logMins.reduce((a, b) => a + b, 0) / logMins.length;
-    return avgLogMin >= FOOTBALL_MIN_STARTER_MINUTES;
+  return best;
+}
+
+function selectPlayableLine<
+  T extends { readonly line: number; readonly pOver: number | null; readonly fairOverDecimal: number | null },
+>(lines: readonly T[]): T | null {
+  const valid = lines.filter(
+    (l): l is T & { readonly pOver: number; readonly fairOverDecimal: number } =>
+      typeof l.pOver === "number" &&
+      Number.isFinite(l.pOver) &&
+      typeof l.fairOverDecimal === "number" &&
+      Number.isFinite(l.fairOverDecimal),
+  );
+  if (valid.length === 0) return null;
+  const playable = valid.filter(
+    (l) => l.fairOverDecimal >= 1.55 && l.fairOverDecimal <= 2.6,
+  );
+  const pool = playable.length > 0 ? playable : valid;
+  let best = pool[0]!;
+  let bestDist = Math.abs(best.pOver - 0.56);
+  for (let i = 1; i < pool.length; i += 1) {
+    const cand = pool[i]!;
+    const dist = Math.abs(cand.pOver - 0.56);
+    if (dist < bestDist) {
+      bestDist = dist;
+      best = cand;
+    }
+  }
+  return best;
+}
+
+function buildInjuryStatusIndex(params: {
+  readonly game: PlatformGame;
+  readonly leagueInjuries?: readonly TeamInjuryEntry[];
+}): {
+  readonly bySidePlayer: ReadonlyMap<string, string>;
+  readonly byTeamSlugPlayer: ReadonlyMap<string, string>;
+} {
+  const bySidePlayer = new Map<string, string>();
+  const byTeamSlugPlayer = new Map<string, string>();
+  const homeCanon = cleanTeamRouteSlug(params.game.home.slug);
+  const awayCanon = cleanTeamRouteSlug(params.game.away.slug);
+
+  for (const entry of params.leagueInjuries ?? []) {
+    const pNorm = normalizeToken(entry.player);
+    if (!pNorm) continue;
+    const entryCanon = cleanTeamRouteSlug(entry.teamId);
+    const side: "home" | "away" | null =
+      entryCanon === homeCanon ? "home" : entryCanon === awayCanon ? "away" : null;
+    if (side) {
+      bySidePlayer.set(`${side}|${pNorm}`, entry.status);
+    }
+    byTeamSlugPlayer.set(`${entryCanon}|${pNorm}`, entry.status);
   }
 
-  const seasonMinMetric = player.seasonMetrics?.find((m) => {
-    const k = m.key.trim().toLowerCase();
-    const l = m.label.trim().toUpperCase();
-    return (
-      k === "min" ||
-      k === "minutes" ||
-      k === "minutos" ||
-      k === "min_per_game" ||
-      k === "mpg" ||
-      l === "MIN" ||
-      l === "MINUTOS" ||
-      l === "MPG"
-    );
-  });
-  if (seasonMinMetric) {
-    const rawVal = parseStrictFiniteNumber(seasonMinMetric.value);
-    if (rawVal !== null && rawVal > 0) {
-      const apps = Math.max(1, player.stats.appearances);
-      const perGame = rawVal > 110 && apps > 1 ? rawVal / apps : rawVal;
-      return perGame >= FOOTBALL_MIN_STARTER_MINUTES;
+  for (const abs of params.game.preGame?.absences ?? []) {
+    const pNorm = normalizeToken(abs.player);
+    if (!pNorm) continue;
+    const sideKey = `${abs.teamSide}|${pNorm}`;
+    if (!bySidePlayer.has(sideKey)) {
+      bySidePlayer.set(sideKey, abs.status);
+    }
+    const slug = abs.teamSide === "home" ? homeCanon : awayCanon;
+    const slugKey = `${slug}|${pNorm}`;
+    if (!byTeamSlugPlayer.has(slugKey)) {
+      byTeamSlugPlayer.set(slugKey, abs.status);
     }
   }
 
-  return true;
+  return { bySidePlayer, byTeamSlugPlayer };
 }
 
 export function buildMatchPlayerPicks(params: {
@@ -924,11 +980,19 @@ export function buildMatchPlayerPicks(params: {
   readonly homeSquad: TeamSquadEntry | null;
   readonly awaySquad: TeamSquadEntry | null;
   readonly sanitizePhotoKey: (raw?: string | null) => string | null;
+  readonly leagueInjuries?: readonly TeamInjuryEntry[];
+  readonly teamExpectedShots?: { readonly home?: number | null; readonly away?: number | null };
+  readonly teamExpectedSoT?: { readonly home?: number | null; readonly away?: number | null };
 }): readonly MatchPlayerPickItem[] {
   const { game, allowFull, catalog, homeSquad, awaySquad, sanitizePhotoKey } = params;
   if (!allowFull) {
     return [];
   }
+
+  const injuryIdx = buildInjuryStatusIndex({
+    game,
+    leagueInjuries: params.leagueInjuries,
+  });
 
   const out: MatchPlayerPickItem[] = [];
   const seen = new Set<string>();
@@ -947,6 +1011,31 @@ export function buildMatchPlayerPicks(params: {
       }
       const squad = meta.teamSide === "home" ? homeSquad : awaySquad;
       const squadPlayer = findSquadPlayerByMeta(squad, meta.playerName, meta.playerSlug);
+      const reportedInjury =
+        injuryIdx.bySidePlayer.get(`${meta.teamSide}|${normalizeToken(meta.playerName)}`) ?? null;
+
+      if (isHardBlockedAvailabilityV6(squadPlayer?.availability, reportedInjury)) {
+        return;
+      }
+
+      if (game.sport === "football" || game.sport === "basketball") {
+        const resolvedAvgMin =
+          typeof meta.avgMinutes === "number" && Number.isFinite(meta.avgMinutes)
+            ? meta.avgMinutes
+            : squadPlayer
+              ? extractStrictAvgMinutesFromSquadPlayer(squadPlayer, game.sport)
+              : null;
+        const guard = checkStrictPlayerMinutesAndAvailabilityGuardV6({
+          sport: game.sport,
+          avgMinutes: resolvedAvgMin,
+          availability: squadPlayer?.availability,
+          injuryStatus: reportedInjury,
+        });
+        if (!guard.eligible) {
+          return;
+        }
+      }
+
       const playerSlug = meta.playerSlug ?? squadPlayer?.slug ?? slugifyPlayerName(meta.playerName);
       const teamSlug =
         meta.teamSlug ??
@@ -1036,27 +1125,56 @@ export function buildMatchPlayerPicks(params: {
       readonly teamName: string;
       readonly teamSlug: string;
       readonly squad: TeamSquadEntry | null;
+      readonly teamProjGoals: number | null;
+      readonly oppProjGoals: number | null;
+      readonly teamExpShots: number | null;
+      readonly teamExpSoT: number | null;
+      readonly oppExpSoT: number | null;
     }> = [
       {
         side: "home",
         teamName: game.home.name,
         teamSlug: homeSquad?.teamSlug ?? game.home.slug,
         squad: homeSquad,
+        teamProjGoals: game.projection?.home ?? null,
+        oppProjGoals: game.projection?.away ?? null,
+        teamExpShots: params.teamExpectedShots?.home ?? null,
+        teamExpSoT: params.teamExpectedSoT?.home ?? null,
+        oppExpSoT: params.teamExpectedSoT?.away ?? null,
       },
       {
         side: "away",
         teamName: game.away.name,
         teamSlug: awaySquad?.teamSlug ?? game.away.slug,
         squad: awaySquad,
+        teamProjGoals: game.projection?.away ?? null,
+        oppProjGoals: game.projection?.home ?? null,
+        teamExpShots: params.teamExpectedShots?.away ?? null,
+        teamExpSoT: params.teamExpectedSoT?.away ?? null,
+        oppExpSoT: params.teamExpectedSoT?.home ?? null,
       },
     ];
+
+    const matchLabel = `${game.home.shortName} vs ${game.away.shortName}`;
 
     for (const s of sides) {
       if (!s.squad) continue;
       for (const player of s.squad.players) {
-        if (player.availability === "injured" || player.availability === "suspended") continue;
+        const reportedInjury =
+          injuryIdx.bySidePlayer.get(`${s.side}|${normalizeToken(player.name)}`) ?? null;
+        if (isHardBlockedAvailabilityV6(player.availability, reportedInjury)) continue;
         if (!isSafePublicLabel(player.name) || player.stats.appearances < 3) continue;
-        if (!passesFootballMinutesGuardIfReported(player)) continue;
+
+        const avgMinutes = extractStrictAvgMinutesFromSquadPlayer(player, "football");
+        const minGuard = checkStrictPlayerMinutesAndAvailabilityGuardV6({
+          sport: "football",
+          avgMinutes,
+          availability: player.availability,
+          injuryStatus: reportedInjury,
+        });
+        if (!minGuard.eligible || avgMinutes === null) continue;
+
+        let emittedSavesForPlayer = false;
 
         for (const cp of player.candidatePicks ?? []) {
           if (
@@ -1082,16 +1200,105 @@ export function buildMatchPlayerPicks(params: {
           const direction = inferDirectionFromLabel(cp.selectionLabel);
           const statKeyAlias =
             cp.marketKey === "player_sot"
-              ? "player_shots_on_target"
-              : cp.marketKey === "player_goal"
-                ? "player_goals"
-                : cp.marketKey;
+              ? "shots_on_target"
+              : cp.marketKey === "player_shots"
+                ? "shots"
+                : cp.marketKey === "player_goal"
+                  ? "player_goals"
+                  : cp.marketKey;
           const exactKey = `${player.slug}|${cp.marketKey}|${cp.line ?? "null"}|${direction}`;
           const aliasKey = `${player.slug}|${statKeyAlias}|${cp.line ?? "null"}|${direction}`;
           if (seen.has(exactKey) || seen.has(aliasKey)) continue;
+
+          let resolvedP = cp.p;
+          let resolvedFairDecimal = cp.fairDecimal;
+          let resolvedFairAmerican = cp.fairAmerican;
+          let resolvedEngineName = "PitchLab Tachyon v5.1";
+          let resolvedRationale = cp.rationale;
+
+          if (cp.marketKey === "player_shots" || cp.marketKey === "player_sot") {
+            const metric = cp.marketKey === "player_shots" ? "shots" : "shots_on_target";
+            const seasonCount =
+              metric === "shots" ? player.stats.shots : player.stats.shotsOnTarget;
+            const coupled = evaluateCoupledFootballShotsV6({
+              metric,
+              playerName: player.name,
+              positionGroup: player.positionGroup,
+              positionLabel: player.positionLabel,
+              seasonCount,
+              seasonShotsTotal: player.stats.shots,
+              appearances: player.stats.appearances,
+              subIns: player.stats.subIns,
+              avgMinutes,
+              teamExpectedShots: s.teamExpShots,
+              teamExpectedSoT: s.teamExpSoT,
+              teamProjectedGoals: s.teamProjGoals,
+              availability: player.availability,
+              injuryStatus: reportedInjury,
+              allowFull: true,
+            });
+            const matched = pickNearestLine(coupled.lines, cp.line ?? 0.5);
+            if (
+              coupled.eligible &&
+              matched &&
+              matched.pOver !== null &&
+              matched.fairOverDecimal !== null &&
+              direction !== "under"
+            ) {
+              resolvedP = matched.pOver;
+              resolvedFairDecimal = matched.fairOverDecimal;
+              resolvedFairAmerican = decimalToAmericanOdds(matched.fairOverDecimal);
+              resolvedEngineName = "PitchLab Spacetime v6.0";
+            } else if (
+              coupled.eligible &&
+              matched &&
+              matched.pUnder !== null &&
+              matched.fairUnderDecimal !== null &&
+              direction === "under"
+            ) {
+              resolvedP = matched.pUnder;
+              resolvedFairDecimal = matched.fairUnderDecimal;
+              resolvedFairAmerican = decimalToAmericanOdds(matched.fairUnderDecimal);
+              resolvedEngineName = "PitchLab Spacetime v6.0";
+            }
+          } else if (cp.marketKey === "player_saves") {
+            const gkEval = evaluateGoalkeeperSavesV6({
+              playerName: player.name,
+              saves: player.stats.saves,
+              shotsFaced: player.stats.shotsFaced,
+              goalsConceded: player.stats.goalsConceded,
+              appearances: player.stats.appearances,
+              subIns: player.stats.subIns,
+              avgMinutes,
+              oppExpectedSoT: s.oppExpSoT,
+              oppProjectedGoals: s.oppProjGoals,
+              availability: player.availability,
+              injuryStatus: reportedInjury,
+              allowFull: true,
+            });
+            const matched = pickNearestLine(gkEval.lines, cp.line ?? 2.5);
+            if (
+              gkEval.eligible &&
+              matched &&
+              matched.pOver !== null &&
+              matched.fairOverDecimal !== null
+            ) {
+              resolvedP = direction === "under" && matched.pUnder !== null ? matched.pUnder : matched.pOver;
+              resolvedFairDecimal =
+                direction === "under" && matched.fairUnderDecimal !== null
+                  ? matched.fairUnderDecimal
+                  : matched.fairOverDecimal;
+              resolvedFairAmerican = decimalToAmericanOdds(resolvedFairDecimal);
+              resolvedEngineName = "PitchLab Spacetime v6.0";
+              if (gkEval.expectedSaves !== null) {
+                resolvedRationale = `${player.stats.saves} atajadas en ${player.stats.appearances} PJ · proyección ${gkEval.expectedSaves.toFixed(2)} atajadas.`;
+              }
+            }
+            emittedSavesForPlayer = true;
+          }
+
           seen.add(exactKey);
 
-          const matchLabel = `${game.home.shortName} vs ${game.away.shortName}`;
           const safeShortPlayer = isSafePublicLabel(player.shortName)
             ? player.shortName
             : player.name;
@@ -1108,32 +1315,32 @@ export function buildMatchPlayerPicks(params: {
             slotIndex: 50 + out.length,
             category: "tactico",
             categoryLabel: cp.marketLabel,
-            risk: cp.p >= 0.62 ? "conservador" : cp.p >= 0.45 ? "medio" : "arriesgado",
+            risk: resolvedP >= 0.62 ? "conservador" : resolvedP >= 0.45 ? "medio" : "arriesgado",
             engineKey: "tachyon",
-            engineName: "PitchLab Tachyon v5.1",
+            engineName: resolvedEngineName,
             marketGroup: cp.marketLabel,
             selectionKey: `${cp.marketKey}:${player.slug}:${cp.line ?? "0"}`,
             market: cp.marketKey,
             line: cp.line,
             conflictGroup: "independent",
             label: fullLabel,
-            rationale: cp.rationale,
-            p: cp.p,
-            fairDecimal: cp.fairDecimal,
-            fairAmerican: cp.fairAmerican,
+            rationale: resolvedRationale,
+            p: resolvedP,
+            fairDecimal: resolvedFairDecimal,
+            fairAmerican: resolvedFairAmerican,
             marketDecimal: null,
             marketAmerican: null,
             marketBookLabel: null,
             marketCapturedAtUtc: null,
             edgePts: null,
-            confidenceScore: Math.round(cp.p * 100),
+            confidenceScore: Math.round(resolvedP * 100),
             suggestedUnits: 0.75,
           };
 
-          const hitRatePct = Math.round(cp.p * 100);
+          const hitRatePct = Math.round(resolvedP * 100);
           const bullets: MatchPlayerPickItem["evidenceBullets"] = [
             {
-              label: cp.rationale,
+              label: resolvedRationale,
               ratePct: hitRatePct,
               tone: hitRatePct >= 62 ? "green" : hitRatePct >= 45 ? "amber" : "neutral",
             },
@@ -1155,8 +1362,8 @@ export function buildMatchPlayerPicks(params: {
             direction,
             selectionLabel: cp.selectionLabel,
             line: cp.line,
-            p: cp.p,
-            fairDecimal: cp.fairDecimal,
+            p: resolvedP,
+            fairDecimal: resolvedFairDecimal,
             marketDecimal: null,
             marketBookLabel: null,
             evPct: null,
@@ -1164,7 +1371,204 @@ export function buildMatchPlayerPicks(params: {
             pick: matchPick,
           });
         }
+
+        if (player.positionGroup === "GK" && player.stats.saves >= 3 && !emittedSavesForPlayer) {
+          const gkEval = evaluateGoalkeeperSavesV6({
+            playerName: player.name,
+            saves: player.stats.saves,
+            shotsFaced: player.stats.shotsFaced,
+            goalsConceded: player.stats.goalsConceded,
+            appearances: player.stats.appearances,
+            subIns: player.stats.subIns,
+            avgMinutes,
+            oppExpectedSoT: s.oppExpSoT,
+            oppProjectedGoals: s.oppProjGoals,
+            availability: player.availability,
+            injuryStatus: reportedInjury,
+            allowFull: true,
+          });
+          const bestLine = selectPlayableLine(gkEval.lines);
+          if (
+            gkEval.eligible &&
+            bestLine &&
+            bestLine.pOver !== null &&
+            bestLine.fairOverDecimal !== null &&
+            gkEval.expectedSaves !== null
+          ) {
+            const gkKey = `${player.slug}|player_saves|${bestLine.line}|over`;
+            if (!seen.has(gkKey)) {
+              seen.add(gkKey);
+              const safeShortPlayer = isSafePublicLabel(player.shortName)
+                ? player.shortName
+                : player.name;
+              const rationale = `${player.stats.saves} atajadas en ${player.stats.appearances} PJ · proyección ${gkEval.expectedSaves.toFixed(2)} atajadas.`;
+              const pickId = `${game.id}-pp-${player.slug}-saves-${bestLine.line}`;
+              const hitRatePct = Math.round(bestLine.pOver * 100);
+              const matchPick: MatchPick = {
+                id: pickId,
+                gameId: game.id,
+                league: game.league,
+                leagueLabel: game.leagueLabel,
+                matchLabel,
+                kickoffLocal: game.kickoffLocal,
+                gameStatus: game.status,
+                slotIndex: 50 + out.length,
+                category: "tactico",
+                categoryLabel: "Atajadas",
+                risk:
+                  bestLine.pOver >= 0.62
+                    ? "conservador"
+                    : bestLine.pOver >= 0.45
+                      ? "medio"
+                      : "arriesgado",
+                engineKey: "tachyon",
+                engineName: "PitchLab Spacetime v6.0",
+                marketGroup: "Atajadas",
+                selectionKey: `player_saves:${player.slug}:${bestLine.line}`,
+                market: "player_saves",
+                line: bestLine.line,
+                conflictGroup: "independent",
+                label: `${safeShortPlayer} · ${bestLine.selectionLabel}`,
+                rationale,
+                p: bestLine.pOver,
+                fairDecimal: bestLine.fairOverDecimal,
+                fairAmerican: decimalToAmericanOdds(bestLine.fairOverDecimal),
+                marketDecimal: null,
+                marketAmerican: null,
+                marketBookLabel: null,
+                marketCapturedAtUtc: null,
+                edgePts: null,
+                confidenceScore: hitRatePct,
+                suggestedUnits: 0.75,
+              };
+              out.push({
+                id: pickId,
+                playerName: player.name,
+                playerSlug: player.slug,
+                teamSide: s.side,
+                teamName: s.teamName,
+                teamSlug: s.teamSlug,
+                positionLabel: isSafePublicLabel(player.positionLabel) ? player.positionLabel : null,
+                photoKey: sanitizePhotoKey(player.photoKey),
+                fallbackPhotoKey: sanitizePhotoKey(player.fallbackPhotoKey),
+                playerHref: canonicalPlayerHref(game.league, s.teamSlug, player.slug),
+                marketKey: "player_saves",
+                marketLabel: "Atajadas",
+                direction: "over",
+                selectionLabel: bestLine.selectionLabel,
+                line: bestLine.line,
+                p: bestLine.pOver,
+                fairDecimal: bestLine.fairOverDecimal,
+                marketDecimal: null,
+                marketBookLabel: null,
+                evPct: null,
+                evidenceBullets: [
+                  {
+                    label: rationale,
+                    ratePct: hitRatePct,
+                    tone: hitRatePct >= 62 ? "green" : hitRatePct >= 45 ? "amber" : "neutral",
+                  },
+                ],
+                pick: matchPick,
+              });
+            }
+          }
+        }
       }
+    }
+  } else {
+    const usDerived = deriveMatchPlayerPropsV6({
+      gameId: game.id,
+      league: String(game.league),
+      sport: game.sport,
+      homeTeamName: game.home.name,
+      homeTeamSlug: game.home.slug,
+      awayTeamName: game.away.name,
+      awayTeamSlug: game.away.slug,
+      homeSquad,
+      awaySquad,
+      injuryStatusByTeamPlayer: injuryIdx.byTeamSlugPlayer,
+      allowFull: true,
+    });
+    const matchLabel = `${game.away.shortName} @ ${game.home.shortName}`;
+
+    for (const dp of usDerived) {
+      if (
+        !isSafePublicLabel(dp.playerName) ||
+        !isSafePublicLabel(dp.selectionLabel) ||
+        !isSafePublicLabel(dp.marketLabel) ||
+        !hasNumericSelectionUnit(dp.selectionLabel)
+      ) {
+        continue;
+      }
+      const dedupKey = `${dp.playerSlug}|${dp.marketKey}|${dp.line}|${dp.direction}`;
+      if (seen.has(dedupKey)) continue;
+      seen.add(dedupKey);
+
+      const hitRatePct = Math.round(dp.pOver * 100);
+      const matchPick: MatchPick = {
+        id: dp.id,
+        gameId: game.id,
+        league: game.league,
+        leagueLabel: game.leagueLabel,
+        matchLabel,
+        kickoffLocal: game.kickoffLocal,
+        gameStatus: game.status,
+        slotIndex: 50 + out.length,
+        category: "tactico",
+        categoryLabel: dp.marketLabel,
+        risk: dp.pOver >= 0.62 ? "conservador" : dp.pOver >= 0.45 ? "medio" : "arriesgado",
+        engineKey: "tachyon",
+        engineName: dp.engineName,
+        marketGroup: dp.marketLabel,
+        selectionKey: `${dp.marketKey}:${dp.playerSlug}:${dp.line}`,
+        market: dp.marketKey,
+        line: dp.line,
+        conflictGroup: "independent",
+        label: `${dp.playerName} · ${dp.selectionLabel}`,
+        rationale: dp.rationaleEs,
+        p: dp.pOver,
+        fairDecimal: dp.fairOverDecimal,
+        fairAmerican: decimalToAmericanOdds(dp.fairOverDecimal),
+        marketDecimal: null,
+        marketAmerican: null,
+        marketBookLabel: null,
+        marketCapturedAtUtc: null,
+        edgePts: null,
+        confidenceScore: hitRatePct,
+        suggestedUnits: 0.75,
+      };
+
+      out.push({
+        id: dp.id,
+        playerName: dp.playerName,
+        playerSlug: dp.playerSlug,
+        teamSide: dp.teamSide,
+        teamName: dp.teamName,
+        teamSlug: dp.teamSlug,
+        positionLabel: dp.positionLabel,
+        photoKey: sanitizePhotoKey(dp.photoKey),
+        fallbackPhotoKey: sanitizePhotoKey(dp.fallbackPhotoKey),
+        playerHref: canonicalPlayerHref(game.league, dp.teamSlug, dp.playerSlug),
+        marketKey: dp.marketKey,
+        marketLabel: dp.marketLabel,
+        direction: dp.direction,
+        selectionLabel: dp.selectionLabel,
+        line: dp.line,
+        p: dp.pOver,
+        fairDecimal: dp.fairOverDecimal,
+        marketDecimal: null,
+        marketBookLabel: null,
+        evPct: null,
+        evidenceBullets: [
+          {
+            label: dp.rationaleEs,
+            ratePct: hitRatePct,
+            tone: hitRatePct >= 62 ? "green" : hitRatePct >= 45 ? "amber" : "neutral",
+          },
+        ],
+        pick: matchPick,
+      });
     }
   }
 
