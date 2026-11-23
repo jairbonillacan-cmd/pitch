@@ -128,6 +128,16 @@ const baseConfig = {
     "/blog/rss.xml": ["./content/blog/**/*"],
     "/sitemap.xml": ["./content/blog/**/*"],
   },
+  outputFileTracingExcludes: {
+    "*": [
+      "../../data/snapshots/**/20[0-9][0-9]-[0-9][0-9]-[0-9][0-9].json",
+      "../../data/history/**",
+      "./data/snapshots/**/20[0-9][0-9]-[0-9][0-9]-[0-9][0-9].json",
+      "./data/history/**",
+      "**/data/snapshots/**/20[0-9][0-9]-[0-9][0-9]-[0-9][0-9].json",
+      "**/data/history/**",
+    ],
+  },
   ...(process.env.PITCHLAB_STANDALONE === "1" ? { output: "standalone" } : {}),
   experimental: {
     optimizePackageImports: ["@pitchlab/ui", "@heroui/react"],
