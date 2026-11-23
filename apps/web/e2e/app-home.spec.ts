@@ -301,7 +301,7 @@ test("Club PitchLab v4 + Ola 6: Inicio Maestro-Detalle, Jornada, Buscador, Parla
   await toggleClubTheme(page, "dark");
 
   await page.getByRole("button", { name: "Buscar" }).click();
-  const searchInput = page.getByRole("searchbox", {
+  const searchInput = page.getByRole("combobox", {
     name: /Buscar partido,.*liga/i,
   });
   await expect(searchInput).toBeVisible();

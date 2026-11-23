@@ -946,6 +946,10 @@
 }
 
 .pl-com-comment-author {
+  display: inline-flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0 5px;
   font-weight: 650;
   color: var(--pl-text);
   text-decoration: none;
