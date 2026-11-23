@@ -86,11 +86,15 @@ const LazyBetaPinModal = lazy(() =>
 
 function LazyAppOverlays({ inClubApp }: { inClubApp: boolean }): React.JSX.Element {
   const { composerPick, shareTicket, cmdkOpen, betaPinOpen } = useOverlayState();
+  const [cmdkMounted, setCmdkMounted] = useState(false);
+  if (inClubApp && cmdkOpen && !cmdkMounted) {
+    setCmdkMounted(true);
+  }
   return (
     <Suspense fallback={null}>
       {inClubApp && composerPick ? <LazyPickComposerModal /> : null}
       {inClubApp && shareTicket ? <LazyShareTicketModal /> : null}
-      {inClubApp && cmdkOpen ? <LazyCommandPaletteModal /> : null}
+      {inClubApp && (cmdkOpen || cmdkMounted) ? <LazyCommandPaletteModal /> : null}
       {betaPinOpen ? <LazyBetaPinModal /> : null}
     </Suspense>
   );
@@ -1876,7 +1880,7 @@ function ClubWorkspaceShellImpl({
       </header>
 
       <div className="app-frame" data-shell-context={shellContext}>
-        <main id="main" className="min-w-0 space-y-6">
+        <main id="main" tabIndex={-1} className="min-w-0 space-y-6">
           <div key={activePath} className="pl-page-enter space-y-6">
             {children}
           </div>

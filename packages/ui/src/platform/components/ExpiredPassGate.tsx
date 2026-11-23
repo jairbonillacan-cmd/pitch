@@ -147,7 +147,7 @@ export function ExpiredPassGate({
         </div>
       </header>
 
-      <main id="main" className="pl-page-enter px-4 sm:px-6 pt-6 sm:pt-10 pb-16">
+      <main id="main" tabIndex={-1} className="pl-page-enter px-4 sm:px-6 pt-6 sm:pt-10 pb-16">
         <section
           aria-labelledby="expired-pass-heading"
           className="max-w-2xl mx-auto glass-lens glass-ring glass-ring--featured relative overflow-hidden rounded-3xl p-5 sm:p-7 space-y-6"

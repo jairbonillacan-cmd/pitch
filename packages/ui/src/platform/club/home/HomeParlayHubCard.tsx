@@ -7,6 +7,7 @@ import { formatOddsValue } from "../../access-guard";
 import { MaestroIcon } from "../../components/MaestroPrimitives";
 import { ConfirmActionDialog } from "../../components/PlatformOverlays";
 import { useSafeEffect } from "../../hooks";
+import { handleRovingTablistKeyDown } from "../../navigation-helpers";
 import {
   assessParlayRisk,
   buildSmartAutoParlay,
@@ -226,6 +227,7 @@ export function HomeParlayHubCard({
       <div
         role="tablist"
         aria-label="Opciones de parlay"
+        aria-orientation="horizontal"
         className="pl-parlay-hub-tabs"
         {...({ focusgroup: "tablist nomemory" } as React.HTMLAttributes<HTMLDivElement>)}
       >
@@ -234,8 +236,12 @@ export function HomeParlayHubCard({
           role="tab"
           id="parlay-hub-tab-custom"
           aria-selected={activeTab === "custom"}
+          tabIndex={activeTab === "custom" ? 0 : -1}
           className="pl-parlay-hub-tab min-h-11 [@media(min-width:768px)_and_(pointer:fine)]:min-h-9"
           onClick={() => setActiveTab("custom")}
+          onKeyDown={(e) =>
+            handleRovingTablistKeyDown(e, ["custom", "daily"] as const, "custom", setActiveTab)
+          }
           {...(activeTab === "custom"
             ? ({ focusgroupstart: "" } as React.ButtonHTMLAttributes<HTMLButtonElement>)
             : {})}
@@ -248,8 +254,12 @@ export function HomeParlayHubCard({
           role="tab"
           id="parlay-hub-tab-daily"
           aria-selected={activeTab === "daily"}
+          tabIndex={activeTab === "daily" ? 0 : -1}
           className="pl-parlay-hub-tab min-h-11 [@media(min-width:768px)_and_(pointer:fine)]:min-h-9"
           onClick={() => setActiveTab("daily")}
+          onKeyDown={(e) =>
+            handleRovingTablistKeyDown(e, ["custom", "daily"] as const, "daily", setActiveTab)
+          }
           {...(activeTab === "daily"
             ? ({ focusgroupstart: "" } as React.ButtonHTMLAttributes<HTMLButtonElement>)
             : {})}

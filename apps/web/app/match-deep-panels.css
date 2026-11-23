@@ -954,4 +954,24 @@
       max-inline-size: 58px;
     }
   }
+
+  .pl-mdp-switcher-btn:focus-visible,
+  .pl-mdp-rail-btn:focus-visible,
+  .pl-mdp-mode-btn:focus-visible,
+  .pl-mdp-check-label input:focus-visible,
+  .pl-mdp-sub-btn:focus-visible,
+  .pl-mdp-pp-actions button:focus-visible {
+    outline: 2px solid var(--pl-brand);
+    outline-offset: 2px;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .pl-mdp-switcher-btn,
+    .pl-mdp-pp-row,
+    .pl-mdp-rail-btn,
+    .pl-mdp-mode-btn,
+    .pl-mdp-sub-btn {
+      transition: none;
+    }
+  }
 }

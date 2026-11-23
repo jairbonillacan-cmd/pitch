@@ -547,6 +547,7 @@ export function TechPrecisionSurface(): React.JSX.Element {
       <PublicHeaderV4 activePath="/motores" />
       <main
         id="main"
+        tabIndex={-1}
         className="pl-page-enter max-w-6xl mx-auto px-4 sm:px-6 pt-8 sm:pt-10 pb-12 space-y-10"
       >
         <TechPrecisionSection isStandalone />
@@ -584,6 +585,7 @@ export function PricingSurface(): React.JSX.Element {
       <PublicHeaderV4 activePath="/precio" />
       <main
         id="main"
+        tabIndex={-1}
         className="pl-page-enter max-w-6xl mx-auto px-4 sm:px-6 pt-8 sm:pt-10 pb-12 space-y-10"
       >
         <PlansAndReferralsSection isStandalone />

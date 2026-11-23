@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useMemo, useRef, useState } from "react";
+import React, { useId, useMemo, useRef, useState } from "react";
 import {
   canonicalGameHref,
   canonicalTeamHref,
@@ -206,6 +206,8 @@ export function CommandPaletteModal({
   const [activeScope, setActiveScope] = useState<CommandScope>("all");
   const [activeIndex, setActiveIndex] = useState<number>(0);
   const [rendered, setRendered] = useState<boolean>(cmdkOpen);
+  const cmdUid = useId().replace(/:/g, "");
+  const listboxId = `${cmdUid}-listbox`;
   const inputRef = useRef<HTMLInputElement | null>(null);
   const resultsRef = useRef<HTMLDivElement | null>(null);
 
@@ -384,14 +386,14 @@ export function CommandPaletteModal({
   const matchingGames = showGroup("games")
     ? dataset.games
         .filter((g) => {
-          if (!q) return true;
+          if (!nq) return true;
           return (
-            g.home.name.toLowerCase().includes(q) ||
-            g.away.name.toLowerCase().includes(q) ||
-            g.home.shortName.toLowerCase().includes(q) ||
-            g.away.shortName.toLowerCase().includes(q) ||
-            g.leagueLabel.toLowerCase().includes(q) ||
-            g.league.toLowerCase().includes(q)
+            normSearch(g.home.name).includes(nq) ||
+            normSearch(g.away.name).includes(nq) ||
+            normSearch(g.home.shortName).includes(nq) ||
+            normSearch(g.away.shortName).includes(nq) ||
+            normSearch(g.leagueLabel).includes(nq) ||
+            normSearch(g.league).includes(nq)
           );
         })
         .slice(0, 6)
@@ -399,11 +401,11 @@ export function CommandPaletteModal({
 
   const matchingLeagues = showGroup("leagues")
     ? dataset.leagues.filter((lg) => {
-        if (!q) return true;
+        if (!nq) return true;
         return (
-          lg.label.toLowerCase().includes(q) ||
-          lg.league.toLowerCase().includes(q) ||
-          lg.roundLabel.toLowerCase().includes(q)
+          normSearch(lg.label).includes(nq) ||
+          normSearch(lg.league).includes(nq) ||
+          normSearch(lg.roundLabel).includes(nq)
         );
       })
     : [];
@@ -411,12 +413,12 @@ export function CommandPaletteModal({
   const matchingTipsters =
     activeScope === "all"
       ? TIPSTER_CREATORS.filter((c) => {
-          if (!q) return true;
+          if (!nq) return true;
           return (
-            c.handle.toLowerCase().includes(q) ||
-            c.name.toLowerCase().includes(q) ||
-            c.specialty.toLowerCase().includes(q) ||
-            c.promoCode.toLowerCase().includes(q)
+            normSearch(c.handle).includes(nq) ||
+            normSearch(c.name).includes(nq) ||
+            normSearch(c.specialty).includes(nq) ||
+            normSearch(c.promoCode).includes(nq)
           );
         })
       : [];
@@ -427,9 +429,9 @@ export function CommandPaletteModal({
       ? CLUB_COMMAND_VIEWS.filter(
           (r) =>
             (r.href !== "/app/admin" || canSeeAdmin) &&
-            (!q ||
-              r.label.toLowerCase().includes(q) ||
-              r.subtitle.toLowerCase().includes(q)),
+            (!nq ||
+              normSearch(r.label).includes(nq) ||
+              normSearch(r.subtitle).includes(nq)),
         )
       : [];
 
@@ -523,6 +525,13 @@ export function CommandPaletteModal({
               autoCapitalize="none"
               spellCheck={false}
               autoFocus
+              role="combobox"
+              aria-autocomplete="list"
+              aria-expanded={hasResults}
+              aria-controls={hasResults ? listboxId : undefined}
+              aria-activedescendant={
+                hasResults && clampedActive >= 0 ? `${cmdUid}-opt-${clampedActive}` : undefined
+              }
               aria-label="Buscar partido, equipo, jugador, liga o @socio"
               value={query}
               onChange={(e) => {
@@ -583,7 +592,13 @@ export function CommandPaletteModal({
             : ""}
         </p>
 
-        <div ref={resultsRef} className="pl-cmd-results">
+        <div
+          ref={resultsRef}
+          id={hasResults ? listboxId : undefined}
+          role={hasResults ? "listbox" : undefined}
+          aria-label={hasResults ? "Resultados de búsqueda" : undefined}
+          className="pl-cmd-results"
+        >
           {!hasResults && !isRemoteLoading ? (
             <div className="pl-cmd-empty">
               {activeScope === "players" && q.length < 2 ? (
@@ -611,18 +626,21 @@ export function CommandPaletteModal({
           ) : null}
 
           {matchingTeams.length > 0 ? (
-            <section className="pl-cmd-group" aria-label="Equipos y selecciones">
-              <div className="pl-cmd-group-head">
+            <section className="pl-cmd-group" role="group" aria-label="Equipos y selecciones">
+              <div className="pl-cmd-group-head" role="none" aria-hidden="true">
                 <span>Equipos y selecciones</span>
                 <span className="pl-cmd-group-count num">{matchingTeams.length}</span>
               </div>
-              <div className="pl-cmd-list">
+              <div className="pl-cmd-list" role="none">
                 {matchingTeams.map((teamItem, i) => {
                   const idx = teamsOffset + i;
                   const active = idx === clampedActive;
                   return (
                     <a
                       key={teamItem.id}
+                      id={`${cmdUid}-opt-${idx}`}
+                      role="option"
+                      aria-selected={active}
                       href={teamItem.href}
                       data-cmd-idx={idx}
                       data-active={active ? "true" : undefined}
@@ -657,18 +675,21 @@ export function CommandPaletteModal({
           ) : null}
 
           {matchingPlayers.length > 0 ? (
-            <section className="pl-cmd-group" aria-label="Jugadores" data-cmd-players-group="">
-              <div className="pl-cmd-group-head">
+            <section className="pl-cmd-group" role="group" aria-label="Jugadores" data-cmd-players-group="">
+              <div className="pl-cmd-group-head" role="none" aria-hidden="true">
                 <span>Jugadores</span>
                 <span className="pl-cmd-group-count num">{matchingPlayers.length}</span>
               </div>
-              <div className="pl-cmd-list">
+              <div className="pl-cmd-list" role="none">
                 {matchingPlayers.map((playerItem, i) => {
                   const idx = playersOffset + i;
                   const active = idx === clampedActive;
                   return (
                     <a
                       key={playerItem.id}
+                      id={`${cmdUid}-opt-${idx}`}
+                      role="option"
+                      aria-selected={active}
                       href={playerItem.href}
                       data-cmd-idx={idx}
                       data-active={active ? "true" : undefined}
@@ -711,18 +732,21 @@ export function CommandPaletteModal({
           ) : null}
 
           {matchingReferees.length > 0 ? (
-            <section className="pl-cmd-group" aria-label="Árbitros" data-cmd-referees-group="">
-              <div className="pl-cmd-group-head">
+            <section className="pl-cmd-group" role="group" aria-label="Árbitros" data-cmd-referees-group="">
+              <div className="pl-cmd-group-head" role="none" aria-hidden="true">
                 <span>Árbitros</span>
                 <span className="pl-cmd-group-count num">{matchingReferees.length}</span>
               </div>
-              <div className="pl-cmd-list">
+              <div className="pl-cmd-list" role="none">
                 {matchingReferees.map((refItem, i) => {
                   const idx = refereesOffset + i;
                   const active = idx === clampedActive;
                   return (
                     <a
                       key={`${refItem.league}:${refItem.slug}`}
+                      id={`${cmdUid}-opt-${idx}`}
+                      role="option"
+                      aria-selected={active}
                       href={refItem.href}
                       data-cmd-idx={idx}
                       data-active={active ? "true" : undefined}
@@ -776,12 +800,12 @@ export function CommandPaletteModal({
           ) : null}
 
           {matchingGames.length > 0 ? (
-            <section className="pl-cmd-group" aria-label="Partidos y Match Studio">
-              <div className="pl-cmd-group-head">
+            <section className="pl-cmd-group" role="group" aria-label="Partidos y Match Studio">
+              <div className="pl-cmd-group-head" role="none" aria-hidden="true">
                 <span>Partidos y Match Studio</span>
                 <span className="pl-cmd-group-count num">{matchingGames.length}</span>
               </div>
-              <div className="pl-cmd-list">
+              <div className="pl-cmd-list" role="none">
                 {matchingGames.map((g, i) => {
                   const idx = gamesOffset + i;
                   const active = idx === clampedActive;
@@ -789,6 +813,9 @@ export function CommandPaletteModal({
                   return (
                     <a
                       key={g.id}
+                      id={`${cmdUid}-opt-${idx}`}
+                      role="option"
+                      aria-selected={active}
                       href={href}
                       data-cmd-idx={idx}
                       data-active={active ? "true" : undefined}
@@ -836,12 +863,12 @@ export function CommandPaletteModal({
           ) : null}
 
           {matchingLeagues.length > 0 ? (
-            <section className="pl-cmd-group" aria-label="Ligas oficiales">
-              <div className="pl-cmd-group-head">
+            <section className="pl-cmd-group" role="group" aria-label="Ligas oficiales">
+              <div className="pl-cmd-group-head" role="none" aria-hidden="true">
                 <span>Ligas oficiales</span>
                 <span className="pl-cmd-group-count num">{matchingLeagues.length}</span>
               </div>
-              <div className="pl-cmd-league-grid">
+              <div className="pl-cmd-league-grid" role="none">
                 {matchingLeagues.map((lg, i) => {
                   const idx = leaguesOffset + i;
                   const active = idx === clampedActive;
@@ -849,6 +876,9 @@ export function CommandPaletteModal({
                   return (
                     <a
                       key={lg.league}
+                      id={`${cmdUid}-opt-${idx}`}
+                      role="option"
+                      aria-selected={active}
                       href={href}
                       data-cmd-idx={idx}
                       data-active={active ? "true" : undefined}
@@ -879,12 +909,12 @@ export function CommandPaletteModal({
           ) : null}
 
           {matchingTipsters.length > 0 ? (
-            <section className="pl-cmd-group" aria-label="Tipsters verificados">
-              <div className="pl-cmd-group-head">
+            <section className="pl-cmd-group" role="group" aria-label="Tipsters verificados">
+              <div className="pl-cmd-group-head" role="none" aria-hidden="true">
                 <span>Tipsters verificados</span>
                 <span className="pl-cmd-group-count num">{matchingTipsters.length}</span>
               </div>
-              <div className="pl-cmd-list">
+              <div className="pl-cmd-list" role="none">
                 {matchingTipsters.map((creator, i) => {
                   const idx = tipstersOffset + i;
                   const active = idx === clampedActive;
@@ -892,6 +922,9 @@ export function CommandPaletteModal({
                   return (
                     <a
                       key={creator.handle}
+                      id={`${cmdUid}-opt-${idx}`}
+                      role="option"
+                      aria-selected={active}
                       href={href}
                       data-cmd-idx={idx}
                       data-active={active ? "true" : undefined}
@@ -934,18 +967,21 @@ export function CommandPaletteModal({
           ) : null}
 
           {quickRoutes.length > 0 ? (
-            <section className="pl-cmd-group" aria-label="Explorar PitchLab">
-              <div className="pl-cmd-group-head">
+            <section className="pl-cmd-group" role="group" aria-label="Explorar PitchLab">
+              <div className="pl-cmd-group-head" role="none" aria-hidden="true">
                 <span>Explorar PitchLab</span>
                 <span className="pl-cmd-group-count num">{quickRoutes.length}</span>
               </div>
-              <div className="pl-cmd-list">
+              <div className="pl-cmd-list" role="none">
                 {quickRoutes.map((item, i) => {
                   const idx = routesOffset + i;
                   const active = idx === clampedActive;
                   return (
                     <a
                       key={item.href}
+                      id={`${cmdUid}-opt-${idx}`}
+                      role="option"
+                      aria-selected={active}
                       href={item.href}
                       data-cmd-idx={idx}
                       data-active={active ? "true" : undefined}

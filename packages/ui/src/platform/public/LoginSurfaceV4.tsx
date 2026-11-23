@@ -497,7 +497,7 @@ export function LoginSurfaceV4({
         </a>
       </header>
 
-      <main id="main" className="pl-auth-main">
+      <main id="main" tabIndex={-1} className="pl-auth-main">
         <div
           className={[
             "pl-auth-sheet glass-lens glass-ring",

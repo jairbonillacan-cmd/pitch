@@ -9,6 +9,7 @@ import { usePackIconBase } from "../../../pack-icon-theme";
 import { LeagueBadge, TeamBadge } from "../../../sports";
 import { MaestroIcon } from "../../components/MaestroPrimitives";
 import { useSafeEffect } from "../../hooks";
+import { handleRovingTablistKeyDown } from "../../navigation-helpers";
 import { usePlatformActions, usePlatformCore } from "../../platform-provider";
 import type { PlatformGame } from "../../types";
 import {
@@ -881,6 +882,7 @@ export function HomeBoardBar({
           className="pl-home-board-tabs"
           role="tablist"
           aria-label="Vista de partidos"
+          aria-orientation="horizontal"
           {...({ focusgroup: "tablist nomemory" } as React.HTMLAttributes<HTMLDivElement>)}
         >
           {(
@@ -897,8 +899,17 @@ export function HomeBoardBar({
                 type="button"
                 role="tab"
                 aria-selected={selected}
+                tabIndex={selected ? 0 : -1}
                 className={`pl-home-board-tab ${selected ? "is-active" : ""}`.trim()}
                 onClick={() => onBoardViewChange(tabItem.id)}
+                onKeyDown={(e) =>
+                  handleRovingTablistKeyDown(
+                    e,
+                    ["all", "favorites", "competitions"] as const,
+                    tabItem.id,
+                    onBoardViewChange,
+                  )
+                }
                 {...(selected
                   ? ({ focusgroupstart: "" } as React.ButtonHTMLAttributes<HTMLButtonElement>)
                   : {})}

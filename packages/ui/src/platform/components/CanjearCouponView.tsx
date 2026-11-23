@@ -672,7 +672,7 @@ export function CanjearCouponView({
   return (
     <AtmosphereStage activePath="/precio">
       <PublicHeaderV4 activePath="/precio" />
-      <main id="main" className="pl-page-enter px-4 sm:px-6 pt-8 sm:pt-12 pb-16">
+      <main id="main" tabIndex={-1} className="pl-page-enter px-4 sm:px-6 pt-8 sm:pt-12 pb-16">
         {content}
       </main>
       <PublicFooterV4 />

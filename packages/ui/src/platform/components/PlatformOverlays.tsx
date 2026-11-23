@@ -71,9 +71,23 @@ export function TopLayerModalDialog({
   children: React.ReactNode;
 }): React.JSX.Element | null {
   const dialogRef = useRef<HTMLDialogElement | null>(null);
+  const previousFocusRef = useRef<HTMLElement | null>(null);
   const onCloseRef = useRef(onClose);
   onCloseRef.current = onClose;
   const [isMobileViewport, setIsMobileViewport] = useState(false);
+
+  const restorePreviousFocus = () => {
+    const target = previousFocusRef.current;
+    previousFocusRef.current = null;
+    if (!target || !target.isConnected) return;
+    if (
+      document.activeElement === document.body ||
+      document.activeElement === null ||
+      (dialogRef.current && dialogRef.current.contains(document.activeElement))
+    ) {
+      target.focus({ preventScroll: true });
+    }
+  };
 
   useEffect(() => {
     if (typeof window === "undefined" || typeof window.matchMedia !== "function") return;
@@ -102,6 +116,7 @@ export function TopLayerModalDialog({
       if (!dialog.open) return;
       if (supportsTopLayerExit() || typeof dialog.getAnimations !== "function") {
         dialog.close();
+        restorePreviousFocus();
         return;
       }
       dialog.setAttribute("data-closing", "");
@@ -114,7 +129,10 @@ export function TopLayerModalDialog({
       }
       if (cancelled || !dialog.hasAttribute("data-closing")) return;
       dialog.removeAttribute("data-closing");
-      if (dialog.open) dialog.close();
+      if (dialog.open) {
+        dialog.close();
+        restorePreviousFocus();
+      }
     };
 
     if (!open) {
@@ -124,6 +142,14 @@ export function TopLayerModalDialog({
       return () => {
         cancelled = true;
       };
+    }
+
+    if (
+      typeof document !== "undefined" &&
+      document.activeElement instanceof HTMLElement &&
+      !dialog.contains(document.activeElement)
+    ) {
+      previousFocusRef.current = document.activeElement;
     }
 
     dialog.removeAttribute("data-closing");
@@ -141,6 +167,7 @@ export function TopLayerModalDialog({
       if (dialog.open) return;
       dialog.removeAttribute("data-closing");
       dialog.returnValue = "";
+      restorePreviousFocus();
       onCloseRef.current();
     };
     dialog.addEventListener("cancel", handleCancel);
@@ -202,6 +229,7 @@ export function TopLayerModalDialog({
       cleanupLightDismiss?.();
       if (!keepMounted && dialog.open) {
         dialog.close();
+        restorePreviousFocus();
       }
     };
   }, [open, keepMounted]);

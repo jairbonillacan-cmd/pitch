@@ -355,6 +355,11 @@ input {
 .skip-link:focus-visible {
   left: 8px;
 }
+
+main#main:focus:not(:focus-visible) {
+  outline: none;
+}
+
 .only-dark {
   display: block;
 }

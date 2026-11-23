@@ -21,7 +21,7 @@ import { AtomicShotmapPitch, type AtomicShotItem } from "../atomic/AtomicShotmap
 import { MaestroIcon } from "../components/MaestroPrimitives";
 import { SportEventIcon } from "../components/SportEventIcons";
 import { useSafeEffect } from "../hooks";
-import { sanitizeInternalHref } from "../navigation-helpers";
+import { handleRovingTablistKeyDown, sanitizeInternalHref } from "../navigation-helpers";
 import {
   DEFAULT_FOLLOW_ALERTS,
   type FollowAlerts,
@@ -275,25 +275,15 @@ function LiveDetailRightColumn({
     );
   }
 
-  const handleTabKeyDown = (e: React.KeyboardEvent<HTMLDivElement>) => {
-    const idx = tabs.findIndex((t) => t.key === currentTab);
-    if (idx < 0) return;
-    if (e.key === "ArrowRight") {
-      e.preventDefault();
-      setActiveTab(tabs[(idx + 1) % tabs.length]!.key);
-    } else if (e.key === "ArrowLeft") {
-      e.preventDefault();
-      setActiveTab(tabs[(idx - 1 + tabs.length) % tabs.length]!.key);
-    }
-  };
+  const tabKeys = tabs.map((t) => t.key);
 
   return (
     <div className="pl-live-col">
       <div
         role="tablist"
         aria-label="Detalle del partido en vivo"
+        aria-orientation="horizontal"
         className="pl-live-tabs"
-        onKeyDown={handleTabKeyDown}
       >
         {tabs.map((t) => {
           const selected = currentTab === t.key;
@@ -308,6 +298,18 @@ function LiveDetailRightColumn({
               tabIndex={selected ? 0 : -1}
               className="pl-live-tab"
               onClick={() => setActiveTab(t.key)}
+              onKeyDown={(e) =>
+                handleRovingTablistKeyDown(
+                  e,
+                  tabKeys,
+                  t.key,
+                  setActiveTab,
+                  (nextKey) => {
+                    const btn = document.getElementById(`${uid}-tab-${nextKey}`);
+                    return btn instanceof HTMLButtonElement ? btn : null;
+                  },
+                )
+              }
             >
               {t.label}
             </button>
