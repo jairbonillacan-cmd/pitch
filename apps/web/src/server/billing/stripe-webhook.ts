@@ -1,14 +1,3 @@
-/**
- * Webhook de Stripe MX (VISION_REESTRUCTURA_CLAUDE_GROWTH.md §5.3).
- *
- * - Verifica la firma `Stripe-Signature` (HMAC-SHA256 de `${t}.${payload}`, tolerancia 5 min).
- * - Cada evento se procesa una sola vez (`processed_payment_events`); si algo falla se borra la
- *   marca y se responde 500 para que Stripe reintente.
- * - `customer.subscription.*` sincroniza la suscripción y recorre la fecha de cobro si el socio
- *   tiene días ganados; `invoice.paid` aplica referidos y comisiones de tipster;
- *   `charge.refunded` revierte la comisión y, si toca, el premio del referido.
- * - Entiende el formato actual de Stripe (sin `invoice.charge` ni `charge.invoice`) y el anterior.
- */
 import { createHmac, timingSafeEqual } from "node:crypto";
 import { parseStrictFiniteNumber } from "@pitchlab/contracts";
 import {
@@ -37,12 +26,10 @@ import { stripeRequest } from "./stripe-api";
 
 export const SIGNATURE_TOLERANCE_SECONDS = 300;
 export const GRACE_HOURS = 72;
-/** Diferencias menores a esto entre fechas se consideran iguales (relojes y redondeo a segundos). */
 const DATE_TOLERANCE_MS = 60_000;
 
 export class StripeSignatureError extends Error {}
 
-/** Error que pide a Stripe reintentar más tarde (p. ej. llegó la factura antes que la suscripción). */
 export class RetryLaterError extends Error {}
 
 export function verifyStripeSignature(
@@ -65,7 +52,6 @@ export function verifyStripeSignature(
   if (!ok) throw new StripeSignatureError("Firma inválida");
 }
 
-/** Encabezado de prueba con el mismo esquema (para tests y para `stripe trigger` local). */
 export function signStripePayload(payload: string, secret: string, timestamp: number): string {
   const sig = createHmac("sha256", secret).update(`${timestamp}.${payload}`).digest("hex");
   return `t=${timestamp},v1=${sig}`;
@@ -79,20 +65,10 @@ interface StripeEvent {
 }
 
 export interface WebhookDeps {
-  /** Comisión de Stripe del cobro de una factura, en centavos. */
   getInvoiceFeeCentavos: (invoice: Record<string, unknown>) => Promise<number>;
   now: () => Date;
-  /** Factura de un cargo reembolsado cuando el cargo no la trae (formato actual de Stripe). */
   findInvoiceIdForCharge?: (charge: Record<string, unknown>) => Promise<string | null>;
-  /**
-   * Recorre la fecha del siguiente cobro (`trial_end` sin prorrateo). Sin esta dependencia
-   * no se toca Stripe (pruebas o cobro sin configurar).
-   */
   setSubscriptionTrialEnd?: (subscriptionId: string, trialEnd: Date | "now", idempotencyKey: string) => Promise<void>;
-  /**
-   * Cancela correos programados de fin de prueba (`trial_ending`, `trial_ended`) cuando el socio
-   * pasa a suscripción de pago antes de que venzan.
-   */
   cancelScheduledTrialEmails?: (userId: string) => Promise<number | void>;
 }
 
@@ -117,7 +93,6 @@ function obj(v: unknown): Record<string, unknown> {
   return v && typeof v === "object" ? (v as Record<string, unknown>) : {};
 }
 
-/** Id de un campo que puede venir como texto o como objeto expandido. */
 function idOf(v: unknown): string | null {
   return str(v) ?? str(obj(v).id);
 }
@@ -175,18 +150,12 @@ async function syncSubscription(
       target: subscriptions.userId,
       set: {
         ...values,
-        // La gracia de 72 h cuenta desde el primer fallo: otros avisos no la reinician.
         graceUntil: sql`CASE WHEN excluded.status = 'past_due_grace' AND ${subscriptions.status} = 'past_due_grace' AND ${subscriptions.graceUntil} IS NOT NULL THEN ${subscriptions.graceUntil} ELSE excluded.grace_until END`,
       },
     });
   return { message: `suscripción ${values.status}`, userId, status: values.status };
 }
 
-/**
- * Iguala la fecha del siguiente cobro en Stripe con el fin de los días ganados. Así los +7 días
- * del referido (o el bono de embajador) también le sirven a quien ya paga: Stripe recorre su
- * renovación sin cobrar ni prorratear. Es idempotente: siempre fija la misma fecha.
- */
 export async function reconcileStripeRenewal(db: Db, userId: string, deps: WebhookDeps, now: Date): Promise<Date | null> {
   const [sub] = await db.select().from(subscriptions).where(eq(subscriptions.userId, userId));
   if (!sub || sub.provider !== "stripe" || !sub.providerSubscriptionId) return null;
@@ -214,7 +183,6 @@ export async function reconcileStripeRenewal(db: Db, userId: string, deps: Webho
   return moved;
 }
 
-/** Recorre hacia atrás la fecha de cobro en Stripe lo que se revoca por un reembolso. */
 async function shiftStripeForClawback(db: Db, plan: ReferralClawbackPlan, deps: WebhookDeps, now: Date): Promise<void> {
   if (!deps.setSubscriptionTrialEnd) return;
   for (const [userId, ms] of Object.entries(plan.stripeShiftMs)) {
@@ -251,7 +219,6 @@ function invoiceTaxCentavos(invoice: Record<string, unknown>): number {
   return num(invoice.tax) ?? 0;
 }
 
-/** Datos de la suscripción copiados en la factura (formato actual y anterior). */
 function invoiceSubscriptionDetails(invoice: Record<string, unknown>): { subscriptionId: string | null; userId: string | null } {
   const details = obj(obj(invoice.parent).subscription_details);
   const legacy = obj(invoice.subscription_details);
@@ -261,7 +228,6 @@ function invoiceSubscriptionDetails(invoice: Record<string, unknown>): { subscri
   return { subscriptionId, userId };
 }
 
-/** Quién pagó la factura: por cliente registrado o, si aún no llega la suscripción, por los datos de la factura. */
 async function resolveInvoiceUser(db: Db, invoice: Record<string, unknown>, customer: string): Promise<string | null> {
   const [sub] = await db
     .select({ userId: subscriptions.userId })
@@ -274,7 +240,6 @@ async function resolveInvoiceUser(db: Db, invoice: Record<string, unknown>, cust
   return u?.id ?? null;
 }
 
-/** Procesa un evento ya verificado. Devuelve qué hizo (para registro). */
 export async function processStripeEvent(db: Db, event: StripeEvent, deps: WebhookDeps): Promise<string> {
   const inserted = await db
     .insert(processedPaymentEvents)
@@ -314,8 +279,6 @@ export async function processStripeEvent(db: Db, event: StripeEvent, deps: Webho
         if (!customer || !invoiceId || gross <= 0) return "factura sin cliente o sin monto: ignorada";
         const userId = await resolveInvoiceUser(db, o, customer);
         if (!userId) {
-          // Stripe no garantiza el orden: si la factura es de una suscripción que aún no llega,
-          // se pide reintentar en vez de perder el premio del referido.
           if (invoiceSubscriptionDetails(o).subscriptionId) {
             throw new RetryLaterError("La suscripción de esta factura aún no está registrada; Stripe reintentará.");
           }
@@ -340,7 +303,6 @@ export async function processStripeEvent(db: Db, event: StripeEvent, deps: Webho
               }),
             );
         }
-        // Recorre el cobro de quien pagó y, si fue invitado, de su anfitrión (idempotente, sirve en reintentos).
         await reconcileStripeRenewal(db, userId, deps, now);
         const [ref] = await db
           .select({ host: referralGrants.referrerUserId, status: referralGrants.status })
@@ -351,7 +313,6 @@ export async function processStripeEvent(db: Db, event: StripeEvent, deps: Webho
       }
 
       case "account.updated": {
-        // Evento de Connect: la cuenta del tipster ya puede (o ya no puede) recibir pagos.
         const accountId = str(o.id);
         if (!accountId) return "cuenta sin id: ignorada";
         const known = await setConnectPayoutsEnabled(db, accountId, o.payouts_enabled === true);
@@ -359,8 +320,6 @@ export async function processStripeEvent(db: Db, event: StripeEvent, deps: Webho
       }
 
       case "checkout.session.completed": {
-        // La suscripción llega con metadata.user_id en customer.subscription.*; aquí solo se
-        // confirma que el pago corresponde a un usuario conocido.
         const userId = str(o.client_reference_id);
         return userId ? "checkout completado" : "checkout sin usuario: ignorado";
       }
@@ -373,7 +332,6 @@ export async function processStripeEvent(db: Db, event: StripeEvent, deps: Webho
           .update(subscriptions)
           .set({
             status: "past_due_grace",
-            // Si ya estaba en gracia, se conserva la fecha límite original.
             graceUntil: sql`CASE WHEN ${subscriptions.status} = 'past_due_grace' AND ${subscriptions.graceUntil} IS NOT NULL THEN ${subscriptions.graceUntil} ELSE ${newGrace} END`,
             updatedAt: now,
           })
@@ -397,7 +355,6 @@ export async function processStripeEvent(db: Db, event: StripeEvent, deps: Webho
             now,
           });
           if (plan) {
-            // Primero Stripe: si falla, la base queda igual y el reintento vuelve a calcular lo mismo.
             await shiftStripeForClawback(db, plan, deps, now);
             await applyReferralClawback(db, plan, now);
             clawed = true;
@@ -411,15 +368,10 @@ export async function processStripeEvent(db: Db, event: StripeEvent, deps: Webho
         return `evento ${event.type} sin acción`;
     }
   } catch (err) {
-    // Si falla, se borra la marca para que Stripe pueda reintentar.
     await db.delete(processedPaymentEvents).where(eq(processedPaymentEvents.eventId, event.id));
     throw err;
   }
 }
-
-// ---------------------------------------------------------------------------
-// Dependencias reales (API de Stripe)
-// ---------------------------------------------------------------------------
 
 async function chargeFeeCentavos(secretKey: string, chargeId: string, fetchImpl?: typeof fetch): Promise<number> {
   const charge = await stripeRequest<{ balance_transaction?: { fee?: number } }>(
@@ -451,7 +403,6 @@ interface InvoicePaymentList {
   data?: Array<{ status?: string; invoice?: unknown; payment?: { payment_intent?: unknown; charge?: unknown } }>;
 }
 
-/** Comisión real de Stripe de una factura (formato actual vía Invoice Payments y formato anterior). */
 export function stripeFeeFetcher(secretKey: string, fetchImpl?: typeof fetch): WebhookDeps["getInvoiceFeeCentavos"] {
   return async (invoice) => {
     const legacyCharge = idOf(invoice.charge);
@@ -473,12 +424,10 @@ export function stripeFeeFetcher(secretKey: string, fetchImpl?: typeof fetch): W
       if (pi) total += await paymentIntentFeeCentavos(secretKey, pi, fetchImpl);
       else if (ch) total += await chargeFeeCentavos(secretKey, ch, fetchImpl);
     }
-    // Sin pagos con tarjeta (saldo a favor o pago fuera de Stripe) no hay comisión de pasarela.
     return total;
   };
 }
 
-/** Factura de un cargo: `charge.invoice` (formato anterior) o Invoice Payments por PaymentIntent. */
 export function stripeInvoiceForCharge(secretKey: string, fetchImpl?: typeof fetch): NonNullable<WebhookDeps["findInvoiceIdForCharge"]> {
   return async (charge) => {
     const legacy = idOf(charge.invoice);
@@ -496,7 +445,6 @@ export function stripeInvoiceForCharge(secretKey: string, fetchImpl?: typeof fet
   };
 }
 
-/** Recorre la fecha de cobro de una suscripción sin cobrar ni prorratear. */
 export function stripeTrialEndSetter(secretKey: string, fetchImpl?: typeof fetch): NonNullable<WebhookDeps["setSubscriptionTrialEnd"]> {
   return async (subscriptionId, trialEnd, idempotencyKey) => {
     const p = new URLSearchParams();

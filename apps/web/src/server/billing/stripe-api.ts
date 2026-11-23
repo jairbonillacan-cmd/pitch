@@ -1,10 +1,3 @@
-/**
- * Llamadas a la API de Stripe con versión fija.
- *
- * La versión se fija aquí para que el formato de las respuestas no cambie solo cuando Stripe
- * publique otra. El endpoint del webhook debe crearse con esta misma versión en el panel de Stripe.
- * El código del webhook entiende el formato nuevo (sin `invoice.charge` ni `charge.invoice`) y el anterior.
- */
 export const STRIPE_API_VERSION = "2025-09-30.clover";
 export const STRIPE_API_BASE = "https://api.stripe.com/v1";
 

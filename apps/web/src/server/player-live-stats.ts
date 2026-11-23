@@ -184,10 +184,6 @@ function parseOverview(league: string, data: RawOverview): Omit<CachedOverviewRe
   return { appearances, seasonMetrics, recentGames };
 }
 
-/**
- * Completa bajo demanda métricas de temporada y últimos 5 juegos para jugadores US (MLB/NBA/NHL/NFL)
- * cuando no estaban pre-hidratados en `squads.json`. Usa caché en memoria (6 h) y fallo silencioso.
- */
 export async function hydratePlayerLivePerformance(
   profile: PlayerProfileData,
 ): Promise<PlayerProfileData> {
@@ -252,8 +248,6 @@ export async function hydratePlayerLivePerformance(
   }
 }
 
-// ---------- Puente limpio Bzzoiro NBA (`/basketball/api/v2/`) para props NBA y bajas reales con guardia `minMinutes` ----------
-
 export interface NbaRealInjuryBridgeItem {
   readonly teamSlug: string;
   readonly player: string;
@@ -278,7 +272,6 @@ export interface NbaGuardedPlayerProp {
   readonly avgMinutes: number | null;
   readonly sampleGames: number;
   readonly last10: readonly number[];
-  /** Probabilidades y momios justos (`1 / p`) calibrados; cero cuotas sueltas sin análisis propio. */
   readonly pOver: number;
   readonly fairOverDecimal: number;
   readonly pUnder: number;
@@ -394,10 +387,6 @@ function mapSeedToGuardedProp(
   };
 }
 
-/**
- * Construye props NBA protegidos con guardia `minMinutes` (por defecto `>= 18` min) y filtro de bajas reales
- * a partir de bitácoras `/basketball/api/v2/players/{id}/games/` y reportes de disponibilidad.
- */
 export function buildNbaPropsBridgeFromPlayerGames(params: {
   player: string;
   teamSlug: string;
@@ -426,7 +415,6 @@ export function buildNbaPropsBridgeFromPlayerGames(params: {
       (!inj.teamSlug || normalizeTeamSlug(inj.teamSlug) === teamSlug),
   );
 
-  // Baja real confirmada: nunca emitir prop para jugador descartado (`Out` / `Baja`).
   if (matchingInjury?.status === "Baja") return [];
 
   const seeds = buildGuardedNbaPlayerPropSeeds({
@@ -443,10 +431,6 @@ export function buildNbaPropsBridgeFromPlayerGames(params: {
   return seeds.map((seed) => mapSeedToGuardedProp(seed, matchingInjury));
 }
 
-/**
- * Traduce `/basketball/api/v2/players/{id}/games/` al perfil de rendimiento NBA (`seasonMetrics`,
- * `recentGames`, `avgMinutes` y `guardedProps`) sin filtrar IDs crudos ni URLs (`FD-16`).
- */
 export function buildNbaPlayerProfileBridgeFromBzzoiro(params: {
   player: string;
   teamSlug: string;
@@ -521,7 +505,6 @@ export function buildNbaPlayerProfileBridgeFromBzzoiro(params: {
 let nbaInjuriesCache: { mtimeMs: number; entries: NbaRealInjuryBridgeItem[] } | null = null;
 let nbaSeedsCache: { mtimeMs: number; seeds: NbaPlayerPropSeed[] } | null = null;
 
-/** Carga bajas reales NBA desde `data/snapshots/nba/injuries.json` y fusiona `pregame` si se provee. */
 export function loadNbaInjuriesBridge(options?: {
   pregame?: NormalizedNbaPregame | null;
   homeTeamSlug?: string;
@@ -592,10 +575,6 @@ export function loadNbaInjuriesBridge(options?: {
   return all;
 }
 
-/**
- * Carga props NBA desde snapshot `data/snapshots/nba/player-props.json` (o `seeds` inyectados),
- * aplicando guardia `minMinutes` y exclusión de jugadores con baja real (`Baja`/`Out`).
- */
 export function loadNbaGuardedPropsBridge(options: {
   seeds?: readonly NbaPlayerPropSeed[];
   injuries?: readonly NbaRealInjuryBridgeItem[];

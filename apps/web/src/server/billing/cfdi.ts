@@ -1,16 +1,9 @@
-/**
- * CFDI 4.0 vía Facturapi (VISION_REESTRUCTURA_CLAUDE_GROWTH.md §4.2.H).
- * Validación local de datos fiscales + construcción de la factura. El envío a Facturapi
- * requiere FACTURAPI_KEY (la carga el fundador).
- */
-
 export const SAT_TAX_SYSTEMS = ["601", "605", "612", "616", "626"] as const;
 export type SatTaxSystem = (typeof SAT_TAX_SYSTEMS)[number];
 
 export const SAT_CFDI_USES = ["G03", "S01"] as const;
 export type SatCfdiUse = (typeof SAT_CFDI_USES)[number];
 
-/** RFC: 12 caracteres personas morales, 13 físicas (formato SAT con homoclave). */
 const RFC_RE = /^([A-ZÑ&]{3,4})(\d{2})(0[1-9]|1[0-2])(0[1-9]|[12]\d|3[01])([A-Z\d]{2})([A\d])$/;
 
 export function normalizeRfc(raw: string): string {
@@ -18,7 +11,6 @@ export function normalizeRfc(raw: string): string {
 }
 
 function isValidRfcDate(yy: number, mm: number, dd: number): boolean {
-  // Se usa 2000 + yy para admitir 29/feb en años bisiestos múltiplos de 4 (incluido 00 -> 2000).
   const fullYear = 2000 + yy;
   const candidate = new Date(Date.UTC(fullYear, mm - 1, dd));
   return (
@@ -40,7 +32,6 @@ export function isValidRfc(raw: string): boolean {
   );
 }
 
-/** El CFDI 4.0 exige la razón social sin régimen societario («SA DE CV», «SAPI DE CV», …). */
 const CORPORATE_SUFFIX_RE =
   /[\s,]+(S\.?\s?A\.?\s?P\.?\s?I\.?|S\.?\s?A\.?|S\.?\s?DE\s?R\.?\s?L\.?|S\.?\s?C\.?|A\.?\s?C\.?)(\s+DE\s+C\.?\s?V\.?)?\.?$/i;
 
@@ -90,7 +81,6 @@ export function validateCfdiProfile(input: CfdiProfileInput): { ok: true; value:
       };
 }
 
-/** Cuerpo de factura de Facturapi para una mensualidad de Pase PitchLab Ultra (IVA 16 % incluido). */
 export function buildPaseTotalInvoice(input: {
   customer: CfdiProfileInput;
   totalCentavos: number;
@@ -134,7 +124,6 @@ export function buildPaseTotalInvoice(input: {
   };
 }
 
-/** Envía la factura a Facturapi y devuelve su id y folio fiscal (UUID del SAT). */
 export async function stampInvoice(
   apiKey: string,
   body: ReturnType<typeof buildPaseTotalInvoice>,

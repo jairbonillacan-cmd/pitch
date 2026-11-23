@@ -47,7 +47,6 @@ export interface MostLikelyScore {
 
 export type PickProfile = "conservadora" | "intermedia" | "arriesgada";
 
-/** Selección sugerida por el modelo dentro de un perfil de riesgo. */
 export interface AnalysisPick {
   profile: PickProfile;
   market: MarketKey;
@@ -58,21 +57,17 @@ export interface AnalysisPick {
   fairOdds: number;
 }
 
-/** Qué tan claro y estable es el pronóstico (0-100). */
 export interface AnalysisConfidence {
   score: number;
   level: "alta" | "media" | "baja";
   reasons: string[];
-  /** Desglose del índice (0–1 por factor y su peso) para explicarlo en la app. */
   factors?: ConfidenceFactor[];
 }
 
 export interface ConfidenceFactor {
   key: "favorite" | "coverage" | "sample";
   label: string;
-  /** 0 a 1: qué tanto aporta el factor. */
   value: number;
-  /** Peso dentro del índice (suman 1). */
   weight: number;
   detail: string;
 }
@@ -86,19 +81,14 @@ export interface HeadToHeadRow {
 }
 
 export interface AnalysisInsights {
-  /** Frases cortas con los factores que más mueven el pronóstico. */
   why: string[];
-  /** Últimos cruces entre ambos equipos antes del partido. */
   headToHead?: HeadToHeadRow[];
-  /** Días desde el último partido de cada equipo. */
   restDays?: { home?: number; away?: number };
 }
 
 export interface GameAnalysis {
   game: GameId;
-  /** Análisis de Cortex IA por secciones (se genera en el corte). */
   cortex?: CortexWriteup;
-  /** Fútbol: córners, faltas y amarillas esperados (solo si ambos equipos tienen muestra). */
   counts?: { corners?: CountProjection; fouls?: CountProjection; yellow?: CountProjection };
   model: {
     id: string;
@@ -126,17 +116,12 @@ export interface GameAnalysis {
   inputsAsOf: string;
   publishedAt: string;
   source: string;
-  /** Picks por perfil (0 a 3). Se congelan al iniciar el partido. */
   picks?: AnalysisPick[];
   confidence?: AnalysisConfidence;
-  /** Marcador más probable dentro del resultado y del lado de goles favoritos. */
   projectedScore?: MostLikelyScore;
   insights?: AnalysisInsights;
-  /** Hora en que se calcularon los picks (si fue después de publicar el análisis). */
   picksAt?: string;
-  /** Alineaciones confirmadas o proyectadas (con nivel de confianza). */
   lineups?: MatchLineupsProjection;
-  /** Contexto prepartido (árbitro, clima, campo, distancia de viaje, clásico, TV en MX). */
   matchContext?: MatchPreGameContext;
 }
 
@@ -155,7 +140,6 @@ export interface TeamSeasonRate {
 
 export type StandingFormToken = "W" | "D" | "L";
 
-/** Fila de la tabla de posiciones calculada con los partidos ya jugados. */
 export interface StandingRow {
   teamId: string;
   name: string;
@@ -169,26 +153,18 @@ export interface StandingRow {
   goalsFor: number;
   goalsAgainst: number;
   points: number;
-  /** Conferencia (p. ej. AFC/NFC en NFL, Este/Oeste en NBA y NHL, Americana/Nacional en MLB). */
   conference?: string;
-  /** División dentro de la conferencia. */
   division?: string;
-  /** Derrotas en tiempo extra / penales (NHL, 1 pt en tabla). */
   otLosses?: number;
-  /** Porcentaje de victorias (0..1; NFL, NBA, MLB). */
   winPct?: number;
-  /** Juegos detrás del líder de conferencia o división (`"-"` para el líder). */
   gamesBehind?: string;
-  /** Sembrado oficial o calculado dentro de su conferencia. */
   seed?: number;
-  /** Últimos hasta 5 resultados en orden cronológico (más reciente al final). */
   form?: StandingFormToken[];
 }
 
 export interface LeagueSnapshot {
   schemaVersion: 1;
   league: LeagueId;
-  /** URL externa del escudo de la competición (p. ej. Bzzoiro), si aplica. */
   logoUrl?: string;
   season: SeasonId;
   seasonLabel: string;
@@ -200,7 +176,6 @@ export interface LeagueSnapshot {
   teamRates: Record<string, TeamSeasonRate>;
   games: GameDTO[];
   analyses: Record<string, GameAnalysis>;
-  /** Tabla de posiciones (se omite si la competición no tiene clasificación vigente). */
   standings?: StandingRow[];
 }
 
@@ -232,16 +207,12 @@ export const MostLikelyScoreSchema = z.object({
   p: z.number().min(0).max(1),
 });
 
-/** Conteo esperado por equipo (córners, faltas, amarillas) con su línea equilibrada. */
 export const CountProjectionSchema = z.object({
   home: z.number().nonnegative(),
   away: z.number().nonnegative(),
   total: z.number().nonnegative(),
-  /** Línea con .5 más cercana a 50/50. */
   line: z.number(),
-  /** Probabilidad de que el total pase la línea. */
   pOver: z.number().min(0).max(1),
-  /** Partidos con el dato de cada equipo que vio el motor. */
   sample: z.object({ home: z.number().int().nonnegative(), away: z.number().int().nonnegative() }),
 });
 
@@ -250,10 +221,6 @@ export type CountProjection = z.infer<typeof CountProjectionSchema>;
 export const CORTEX_SECTION_KEYS = ["lectura", "goles", "ritmo", "tabla", "cambia"] as const;
 export type CortexSectionKey = (typeof CORTEX_SECTION_KEYS)[number];
 
-/**
- * Cifra que acompaña una sección: un valor suelto («2.96», «60 %») o una comparación
- * local/visitante (córners 5.4 vs 5.3). Sale del motor, nunca del LLM.
- */
 export const CortexStatSchema = z.object({
   label: z.string().min(1),
   value: z.string().min(1).optional(),
@@ -263,9 +230,7 @@ export const CortexStatSchema = z.object({
 
 export type CortexStat = z.infer<typeof CortexStatSchema>;
 
-/** Lectura de Cortex IA por secciones, redactada una vez en el corte (no en cada visita). */
 export const CortexWriteupSchema = z.object({
-  /** Una idea central del partido, en una línea. */
   headline: z.string().min(1),
   headlineOrigin: z.enum(["ia", "plantilla"]),
   sections: z
@@ -274,13 +239,11 @@ export const CortexWriteupSchema = z.object({
         key: z.enum(CORTEX_SECTION_KEYS),
         title: z.string().min(1),
         text: z.string().min(1),
-        /** `plantilla` si el texto del LLM no pasó la validación y se armó con los números. */
         origin: z.enum(["ia", "plantilla"]),
         stats: z.array(CortexStatSchema).max(4).optional(),
       }),
     )
     .min(1),
-  /** Huella de los datos de entrada: si no cambian, no se vuelve a llamar al modelo. */
   fingerprint: z.string().min(8),
   generatedAt: z.string().min(10),
   version: z.string().min(1),
@@ -291,7 +254,6 @@ export type CortexWriteup = z.infer<typeof CortexWriteupSchema>;
 export const GameAnalysisSchema = z.object({
   game: GameIdSchema,
   cortex: CortexWriteupSchema.optional(),
-  /** Fútbol: córners, faltas y amarillas esperados (solo si ambos equipos tienen muestra). */
   counts: z
     .object({
       corners: CountProjectionSchema.optional(),

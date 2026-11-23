@@ -90,7 +90,6 @@ export interface MatchAnalysis {
   leagueLabel: string;
   leagueLogoUrl?: string;
   sport: PlatformSport;
-  /** `true` cuando el snapshot incluye análisis/pronóstico real para el partido. */
   hasForecast?: boolean;
   round: string;
   day: string;
@@ -99,7 +98,6 @@ export interface MatchAnalysis {
   kickoffLocal: string;
   venue: string;
   referee?: string;
-  /** Sede neutral: ningún equipo juega en casa. */
   neutralSite?: boolean;
   status: "NS" | "FT" | "LIVE";
   scheduleStatus?: GameDTO["status"];
@@ -144,22 +142,17 @@ export interface MatchAnalysis {
   why?: string[];
   headToHead?: HeadToHeadView[];
   restDays?: { home?: number; away?: number };
-  /** Volumen por resultado en mercados de predicción (FD-20). Se adjunta en el servidor. */
   marketPulse?: MarketPulseView;
-  /** Bajas y dudas reportadas por fuentes gratuitas y verificadas para ambos clubes. */
   injuries?: {
     home: TeamInjuryEntry[];
     away: TeamInjuryEntry[];
   };
-  /** Proyecciones de conteos (córners, faltas, tarjetas amarillas) cuando hay historial suficiente. */
   counts?: {
     corners?: CountProjection;
     fouls?: CountProjection;
     yellow?: CountProjection;
   };
-  /** Alineaciones confirmadas o proyectadas de fuentes verificadas. */
   lineups?: MatchLineupsProjection;
-  /** Contexto del encuentro (clima, estado del campo, clásico, viaje, canales TV MX). */
   matchContext?: MatchPreGameContext;
 }
 
@@ -219,10 +212,6 @@ const oddsCaptureFormat = new Intl.DateTimeFormat("es-MX", {
   timeZone: "America/Mexico_City",
 });
 
-/**
- * Formatea la hora de captura de un momio en horario del centro de México (`"14 nov · 12:30"`).
- * Devuelve `null` si la cadena no es una fecha válida.
- */
 export function formatOddsCaptureEs(capturedAtIso: string | null | undefined): string | null {
   if (!capturedAtIso) return null;
   const ms = Date.parse(capturedAtIso);
@@ -315,10 +304,6 @@ function readFormatterParts(
   return out;
 }
 
-/**
- * Convierte fecha y hora local de `America/New_York` (como publica nflverse) a ISO UTC exacto,
- * respetando EDT (-04:00) y EST (-05:00) sin depender de la zona horaria del servidor.
- */
 export function easternWallTimeToUtcIso(gameday: string, gametime?: string | null): string {
   const dateMatch = /^(\d{4})-(\d{2})-(\d{2})/.exec(gameday.trim());
   if (!dateMatch) {
@@ -343,10 +328,6 @@ export function easternWallTimeToUtcIso(gameday: string, gametime?: string | nul
   return new Date(guess).toISOString();
 }
 
-/**
- * Normaliza el timestamp de un partido a ISO UTC. Si viene sin sufijo de zona horaria
- * (`YYYY-MM-DDTHH:mm:ss`) y pertenece a `nfl`, lo interpreta en `America/New_York`.
- */
 export function normalizeGameStartTimeUtc(startTime: string, league?: string): string {
   const trimmed = startTime.trim();
   if (/([Zz]|[+-]\d{2}:?\d{2})$/.test(trimmed)) {

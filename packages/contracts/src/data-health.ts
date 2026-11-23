@@ -1,17 +1,6 @@
 import { z } from "zod";
 import { LeagueIdSchema, type LeagueId } from "./ids";
 
-/**
- * Umbrales de frescura (`X` horas) por tipo de dato para alertar al fundador
- * antes de que la información caduque en la aplicación:
- *
- * - `calendario` (30 h general · 12 h en día de partido con juegos vencidos):
- *   cubre el job diario con 6 h de colchón y detecta marcadores estancados en jornada.
- * - `bajas` (36 h): cubre el corte diario y los cortes previos a cada saque inicial.
- * - `momios` (36 h, aviso preventivo a las 18 h): avisa 36 h antes de que venza el tope
- *   duro de 72 h tras el cual la aplicación oculta cualquier cuota de casa.
- * - `alineaciones` (`null`): ranura preparada pero apagada; exenta de alertas de vejez.
- */
 export const DATA_FRESHNESS_THRESHOLDS_HOURS = {
   calendario: {
     warningHours: 24,
@@ -156,7 +145,6 @@ export const AlertLedgerStateSchema = z.object({
 });
 export type AlertLedgerState = z.infer<typeof AlertLedgerStateSchema>;
 
-/** Calcula la antigüedad en horas (redondeada a 1 decimal) entre `updatedAtIso` y `nowIso`. */
 export function computeDataAgeHours(
   updatedAtIso: string | null | undefined,
   nowMs: number = Date.now(),
@@ -168,7 +156,6 @@ export function computeDataAgeHours(
   return Math.round(diffHours * 10) / 10;
 }
 
-/** Evalúa el semáforo de frescura (`ok` | `warning` | `stale`) frente a los umbrales dados. */
 export function evaluateFreshnessStatus(params: {
   ageHours: number | null;
   warningHours: number | null;

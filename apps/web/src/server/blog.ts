@@ -4,14 +4,6 @@ import path from "node:path";
 import { Marked } from "marked";
 import type { BlogCategoryLink, BlogPostSummaryView, BlogPostView } from "@pitchlab/ui/blog";
 
-/**
- * Blog público de PitchLab (`/blog`).
- *
- * Los artículos viven en `apps/web/content/blog/<slug>.md` con un encabezado (frontmatter) entre `---`.
- * Este módulo los lee, valida el encabezado, convierte el Markdown a HTML y arma los datos de SEO
- * (JSON-LD, RSS y sitemap). La guía para escribir un artículo está en `docs/content/BLOG.md`.
- */
-
 export const BLOG_CATEGORIES = [
   {
     slug: "momios",
@@ -50,9 +42,7 @@ export interface BlogPost {
   slug: string;
   title: string;
   description: string;
-  /** Fecha de publicación `YYYY-MM-DD` (día calendario en la Ciudad de México). */
   date: string;
-  /** Última revisión de fondo `YYYY-MM-DD`, si la hubo. */
   updated: string | null;
   category: BlogCategory;
   tags: string[];
@@ -71,10 +61,6 @@ const WORDS_PER_MINUTE = 200;
 const BLOG_TIME_ZONE = "America/Mexico_City";
 
 type FrontmatterValue = string | boolean | string[];
-
-/* ------------------------------------------------------------------ */
-/* Encabezado (frontmatter)                                            */
-/* ------------------------------------------------------------------ */
 
 function unquote(raw: string): string {
   const v = raw.trim();
@@ -95,10 +81,6 @@ function parseScalar(raw: string): FrontmatterValue {
   return unquote(v);
 }
 
-/**
- * Lee el encabezado `---` de un archivo Markdown. Acepta el subconjunto de YAML que usa el blog:
- * `clave: valor`, cadenas con o sin comillas, `true`/`false`, listas `[a, b]` y listas con guiones.
- */
 export function parseFrontmatter(source: string): { data: Record<string, FrontmatterValue>; body: string } {
   const text = source.replace(/^\uFEFF/, "").replace(/\r\n?/g, "\n");
   const match = /^---\n([\s\S]*?)\n---\n?/.exec(text);
@@ -152,10 +134,6 @@ function requireString(data: Record<string, FrontmatterValue>, key: string): str
   return value.trim();
 }
 
-/* ------------------------------------------------------------------ */
-/* Markdown → HTML                                                     */
-/* ------------------------------------------------------------------ */
-
 function escapeHtml(value: string): string {
   return value
     .replace(/&/g, "&amp;")
@@ -165,7 +143,6 @@ function escapeHtml(value: string): string {
     .replace(/'/g, "&#39;");
 }
 
-/** `Momio justo (sin margen)` → `momio-justo-sin-margen`. */
 export function slugifyHeading(text: string): string {
   return text
     .normalize("NFD")
@@ -191,12 +168,6 @@ function isSafeHref(href: string): boolean {
   return /^(https?:\/\/|mailto:|\/(?!\/)|#)/i.test(href);
 }
 
-/**
- * Convierte el cuerpo del artículo a HTML.
- * - Los `#` y `##` se publican como `<h2>` (el `<h1>` es el título del artículo) y alimentan el índice.
- * - El HTML crudo se escapa: el contenido es Markdown puro.
- * - Las tablas quedan dentro de una región desplazable y enfocable para pantallas angostas.
- */
 export function renderBlogMarkdown(body: string): { html: string; toc: BlogTocItem[] } {
   const toc: BlogTocItem[] = [];
   const usedIds = new Map<string, number>();
@@ -255,11 +226,6 @@ export function estimateReadingMinutes(body: string): number {
   return Math.max(1, Math.ceil(words / WORDS_PER_MINUTE));
 }
 
-/* ------------------------------------------------------------------ */
-/* Carga                                                               */
-/* ------------------------------------------------------------------ */
-
-/** Construye un artículo a partir del texto del archivo. Lanza un error claro si algo no cuadra. */
 export function parseBlogPost(slug: string, source: string): BlogPost {
   if (!SLUG_RE.test(slug)) {
     throw new Error(`El nombre del archivo «${slug}» debe ir en minúsculas, sin acentos y con guiones.`);
@@ -335,7 +301,6 @@ export function blogContentDir(): string {
   return existsSync(monorepo) ? monorepo : local;
 }
 
-/** Lee y valida todos los archivos `.md` de una carpeta (incluye borradores y programados). */
 export async function readBlogDirectory(dir: string = blogContentDir()): Promise<BlogPost[]> {
   let files: string[];
   try {
@@ -364,7 +329,6 @@ export async function readBlogDirectory(dir: string = blogContentDir()): Promise
 
 let cachedPosts: Promise<BlogPost[]> | null = null;
 
-/** En producción los archivos no cambian entre deploys: se leen una vez por proceso. */
 async function allPosts(): Promise<BlogPost[]> {
   if (process.env.NODE_ENV !== "production") return readBlogDirectory();
   cachedPosts ??= readBlogDirectory().catch((err: unknown) => {
@@ -374,7 +338,6 @@ async function allPosts(): Promise<BlogPost[]> {
   return cachedPosts;
 }
 
-/** Hoy (`YYYY-MM-DD`) en la Ciudad de México. */
 export function blogToday(now: Date = new Date()): string {
   return new Intl.DateTimeFormat("en-CA", {
     timeZone: BLOG_TIME_ZONE,
@@ -384,7 +347,6 @@ export function blogToday(now: Date = new Date()): string {
   }).format(now);
 }
 
-/** Publicado = no es borrador y su fecha ya llegó (las fechas futuras funcionan como programación). */
 export function isPublished(post: BlogPost, today: string = blogToday()): boolean {
   return !post.draft && post.date <= today;
 }
@@ -394,10 +356,6 @@ export async function getPublishedPosts(): Promise<BlogPost[]> {
   return (await allPosts()).filter((post) => isPublished(post, today));
 }
 
-/**
- * Busca un artículo por slug. Los borradores y programados solo se pueden previsualizar fuera de
- * producción (`isPreview: true`, la página los marca `noindex`).
- */
 export async function getPostBySlug(slug: string): Promise<{ post: BlogPost; isPreview: boolean } | null> {
   if (!SLUG_RE.test(slug)) return null;
   const post = (await allPosts()).find((p) => p.slug === slug);
@@ -411,7 +369,6 @@ export function getBlogCategory(slug: string): BlogCategory | null {
   return BLOG_CATEGORIES.find((c) => c.slug === slug) ?? null;
 }
 
-/** Relacionados: misma categoría primero, luego etiquetas en común, luego lo más reciente. */
 export function pickRelatedPosts(post: BlogPost, pool: readonly BlogPost[], limit = 3): BlogPost[] {
   const tags = new Set(post.tags.map((t) => t.toLowerCase()));
   return pool
@@ -427,11 +384,6 @@ export function pickRelatedPosts(post: BlogPost, pool: readonly BlogPost[], limi
     .map(({ p }) => p);
 }
 
-/* ------------------------------------------------------------------ */
-/* Presentación y SEO                                                  */
-/* ------------------------------------------------------------------ */
-
-/** `2026-11-12` → `12 de noviembre de 2026` (día calendario, sin corrimiento por zona horaria). */
 export function formatBlogDate(date: string): string {
   return new Intl.DateTimeFormat("es-MX", {
     day: "numeric",
@@ -441,7 +393,6 @@ export function formatBlogDate(date: string): string {
   }).format(new Date(`${date}T00:00:00Z`));
 }
 
-/** Fecha con hora a mediodía en la Ciudad de México, para JSON-LD, Open Graph y RSS. */
 export function blogDateToIso(date: string): string {
   return `${date}T12:00:00-06:00`;
 }

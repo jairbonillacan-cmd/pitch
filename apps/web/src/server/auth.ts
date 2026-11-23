@@ -1,14 +1,3 @@
-/**
- * Autenticación con Better Auth (ADR-010).
- *
- * - Enlace mágico por correo: Resend si existe RESEND_API_KEY; en desarrollo el enlace se
- *   imprime en la consola del servidor.
- * - Google: solo si existen sus credenciales. Apple no se usa (su programa de desarrollador cobra).
- * - Al crear la cuenta se crea (o se liga por correo) el perfil en `users`.
- *
- * Se activa con DATABASE_URL y BETTER_AUTH_SECRET; sin ellos `getAuth()` devuelve null y la
- * app sigue con el acceso por código de beta.
- */
 import { randomBytes } from "node:crypto";
 import { appendFile, mkdir } from "node:fs/promises";
 import { basename, dirname, resolve } from "node:path";
@@ -59,10 +48,6 @@ const consoleSender: SendEmail = async (to, subject, html) => {
   });
 };
 
-/**
- * Detecta si la app corre en cualquier despliegue remoto (independiente de proveedor, ADR-050).
- * Acepta bandera neutra `PITCHLAB_HOSTED=1` y marcadores estándar de plataformas comunes.
- */
 export function isHostedRemote(): boolean {
   const explicit = process.env.PITCHLAB_HOSTED?.trim().toLowerCase();
   if (explicit === "1" || explicit === "true") return true;
@@ -98,7 +83,6 @@ const local9990Sender: SendEmail = async (to, subject, html) => {
   });
 };
 
-/** Limpia tokens OAuth persistidos en `auth_account`: PitchLab solo usa OAuth para identificar al socio, nunca para APIs offline. */
 export async function scrubOAuthAccountTokens(db: Db, accountRowId: string): Promise<void> {
   await db
     .update(authAccount)
@@ -112,7 +96,6 @@ export async function scrubOAuthAccountTokens(db: Db, accountRowId: string): Pro
     .where(eq(authAccount.id, accountRowId));
 }
 
-/** Liga la cuenta de Better Auth con el perfil de PitchLab (`users`) por correo. */
 export async function linkProfile(db: Db, account: { id: string; email: string; name: string }): Promise<void> {
   const email = account.email.trim().toLowerCase();
   const [existing] = await db.select({ id: users.id, authUserId: users.authUserId })
@@ -123,7 +106,6 @@ export async function linkProfile(db: Db, account: { id: string; email: string; 
     }
     return;
   }
-  // Código de referido propio (SOCIO-XXXX); se reintenta si choca con uno existente.
   for (let attempt = 0; attempt < 5; attempt += 1) {
     const referralCode = `SOCIO-${randomBytes(3).toString("hex").toUpperCase()}`;
     const inserted = await db
@@ -152,7 +134,6 @@ export function createAuth(options: {
   sendEmail: SendEmail;
   google?: { clientId: string; clientSecret: string };
   twitter?: { clientId: string; clientSecret: string };
-  /** Clave secreta de Cloudflare Turnstile: exige el token al pedir el enlace mágico. */
   turnstileSecret?: string;
 }) {
   const socialProviders: BetterAuthOptions["socialProviders"] = {};
@@ -228,8 +209,6 @@ export function createAuth(options: {
           },
         },
       },
-      // Los tokens se vacían antes de escribir. Un `after` que vuelva a escribir con
-      // `options.db` corre fuera de la transacción de Better Auth y la bloquea.
       account: {
         create: {
           before: async (account) => ({
@@ -262,7 +241,6 @@ export function createAuth(options: {
 
 export type PitchLabAuth = ReturnType<typeof createAuth>;
 
-/** ¿La app corre en tu propia PC? (`http://localhost` o `http://127.0.0.1`, nunca https). */
 export function isLocalBaseURL(url: string): boolean {
   return /^http:\/\/(localhost|127\.0\.0\.1)(:\d+)?(\/|$)/.test(url);
 }
@@ -287,7 +265,6 @@ export function resetAuthForTests(instance?: PitchLabAuth | null): void {
   cached = instance;
 }
 
-/** Instancia según el entorno; null si faltan DATABASE_URL o BETTER_AUTH_SECRET. */
 export function getAuth(): PitchLabAuth | null {
   if (cached !== undefined) return cached;
   const url = process.env.DATABASE_URL;
@@ -352,7 +329,6 @@ export function getAuth(): PitchLabAuth | null {
     sendEmail,
     google: pair(process.env.GOOGLE_CLIENT_ID, process.env.GOOGLE_CLIENT_SECRET),
     twitter: twitterCredentials(),
-    // Solo con las dos claves: si falta la pública, el navegador no podría mandar el token.
     turnstileSecret: turnstileSecret && turnstileSiteKey ? turnstileSecret : undefined,
   });
   return cached;

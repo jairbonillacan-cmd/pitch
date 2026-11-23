@@ -25,9 +25,6 @@ function formatSignedLine(line: number): string {
   return line > 0 ? `+${line}` : `${line}`;
 }
 
-/**
- * Clasifica una fila publicada del panorama v3.2 en las categorías visuales de «Mercados».
- */
 export function classifyPublishedMarketKey(
   marketKey: string,
   line: number | null,
@@ -79,9 +76,6 @@ export function classifyPublishedMarketKey(
   };
 }
 
-/**
- * Marca las filas ya publicadas por v3.2 con su categoría visual y cuál es la más probable.
- */
 export function annotatePublishedRows(
   marketKey: string,
   line: number | null,
@@ -313,10 +307,6 @@ function buildFootballDerivedRows(params: {
   };
 }
 
-/**
- * Deriva mercados adicionales de fútbol desde la proyección del snapshot cuando no existe entrada
- * en `live_matchday_v3_snapshot` (por ejemplo competencias de selecciones internacionales).
- */
 export function buildDerivedFootballFallbackRows(
   game: TeamNamesWithProjection,
   includeScorelines = false,
@@ -342,10 +332,6 @@ export function buildDerivedFootballFallbackRows(
   }).rows;
 }
 
-/**
- * Construye los mercados derivados adicionales (fútbol y NFL) desde el `MatchOutlook` v3.2.
- * Mantiene lenguaje simple en español de México y evita cualquier jerga interna del modelo.
- */
 export function buildDerivedOutlookExtras(
   outlook: MatchOutlook,
   game: TeamNamesWithProjection,
@@ -495,11 +481,6 @@ function roundToHalf(n: number): number {
   return Math.round(n - 0.5) + 0.5;
 }
 
-/**
- * Paridad de mercados derivados para deportes de EE. UU. (NBA, NHL y MLB) a partir de las
- * proyecciones calibradas del snapshot (`projection.home`, `projection.away`, `projection.total`).
- * Todas las filas se marcan `isDerived: true` («Derivado del motor») con etiqueta honesta.
- */
 export function buildDerivedUsSportRows(
   game: TeamNamesWithProjection & {
     readonly sport: string;

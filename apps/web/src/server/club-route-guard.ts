@@ -66,10 +66,6 @@ function safeDecodeSegment(raw: string): string | null {
   }
 }
 
-/**
- * Resuelve alias legados dentro de `/app/*` y detecta rutas inexistentes antes de que
- * `app/app/loading.tsx` confirme un HTTP 200 en streaming.
- */
 export function resolveClubRoute(
   rawPath: string | null | undefined,
   options: {

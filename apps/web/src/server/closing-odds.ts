@@ -1,6 +1,3 @@
-/**
- * Captura y consulta de cuotas de cierre pre-kickoff para el cálculo real de CLV.
- */
 import { parseStrictFiniteNumber } from "@pitchlab/contracts";
 import { listClosingOddsForGames, upsertClosingOdds, type ClosingOddsInput, type ClosingOddsRow, type Db } from "@pitchlab/db";
 import type { PlatformDataset } from "@pitchlab/ui/types";
@@ -45,7 +42,6 @@ export function normalizeClosingSelectionAndLine(
   return { market: normMarket, selection: normSel, lineKey };
 }
 
-/** Extrae cuotas reales pre-kickoff del catálogo enriquecido del servidor. */
 export function collectPreKickoffClosingOdds(dataset: PlatformDataset = buildServerRawPlatformDataset()): ClosingOddsInput[] {
   const rows: ClosingOddsInput[] = [];
 
@@ -91,7 +87,6 @@ export function collectPreKickoffClosingOdds(dataset: PlatformDataset = buildSer
       }
     }
 
-    // Cubre TODAS las 57 ligas (incluidas las 37 de expansión + NBA/NHL/MLB) desde `game.markets` y `market-lines.json`.
     for (const row of game.markets) {
       if (typeof row.currentDecimal !== "number" || !Number.isFinite(row.currentDecimal) || row.currentDecimal < 1.01) {
         continue;
@@ -122,7 +117,6 @@ export function collectPreKickoffClosingOdds(dataset: PlatformDataset = buildSer
       });
     }
 
-    // Respaldo adicional desde `game.picks` cuando el shell ya trae cotización vigente por casa.
     for (const pk of game.picks) {
       if (pk.isRedacted || typeof pk.marketDecimal !== "number" || pk.marketDecimal < 1.01 || !pk.marketCapturedAtUtc) {
         continue;

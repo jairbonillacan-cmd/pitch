@@ -1,6 +1,3 @@
-/**
- * Motor de liquidación automática para picks simples y parlays sellados en Neon.
- */
 import { existsSync, readdirSync, readFileSync } from "node:fs";
 import path from "node:path";
 import { asMarketKey, LeagueSnapshotSchema, parseStrictFiniteNumber, selectionHolds } from "@pitchlab/contracts";
@@ -33,12 +30,6 @@ function resolveHistoryRoot(): string {
   return path.resolve(resolveSnapshotsRoot(), "..", "history");
 }
 
-/**
- * Reúne todos los marcadores finales verificados desde:
- * 1) `data/snapshots/*\/latest.json`
- * 2) snapshots fechados históricos `data/snapshots/*\/*.json`
- * 3) registros históricos `data/history/*.jsonl`
- */
 export function loadFinalMatchScores(
   snapshotsRoot: string = resolveSnapshotsRoot(),
   historyRoot: string = resolveHistoryRoot(),
@@ -189,10 +180,6 @@ function normalizeMarketForGrading(rawMarket: string, selection: string): { mark
   return { market: m, selection: s };
 }
 
-/**
- * Califica una selección individual contra el marcador final, incluyendo push (`void`) en
- * líneas enteras de totales, hándicaps y empate no acción (`dnb`).
- */
 export function gradeSelection(
   input: { market?: string | null; selection?: string | null; line?: number | null; pickLabel?: string | null },
   home: number,
@@ -209,7 +196,7 @@ export function gradeSelection(
       market = "h2h";
       selection = "draw";
     } else if (label.endsWith(" gana")) {
-      return null; // Requiere comparar nombres si no guardó market/selection.
+      return null;
     } else if (/^más de (\d+(?:\.\d+)?)/.test(label)) {
       const m = /^más de (\d+(?:\.\d+)?)/.exec(label)!;
       const parsedLine = parseStrictFiniteNumber(m[1]);
@@ -311,7 +298,6 @@ export async function runPickSettlement(
   const closingOddsCaptured = await syncPreKickoffClosingOdds(db, dataset, now).catch(() => 0);
   const scores = loadFinalMatchScores(options.snapshotsRoot, options.historyRoot);
 
-  // Sincroniza match_results para el ranking de votos de «¿Quién gana?».
   const resultInputs = Array.from(scores.values()).map((s) => ({
     gameId: s.gameId,
     home: s.home,
@@ -429,7 +415,6 @@ export async function runPickSettlement(
         continue;
       }
 
-      // Calcular closingDecimal combinado solo si todas las piernas activas tienen cierre real.
       const activeLegs = legs.filter((l) => nextResults.find((r) => r.pickId === l.pickId)?.status !== "void");
       const allLegsHaveClosing =
         activeLegs.length > 0 &&
@@ -465,7 +450,6 @@ export async function runPickSettlement(
       continue;
     }
 
-    // Pick individual
     const score = scores.get(row.gameId);
     if (!score) {
       skippedUnresolved += 1;

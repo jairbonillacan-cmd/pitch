@@ -25,11 +25,9 @@ export const VALID_LEAGUES = [
   "copa-oro",
   "copa-africana",
   "copa-asiatica",
-  // Norteamérica y CONCACAF clubes
   "mls",
   "concacaf-champions",
   "leagues-cup",
-  // Copas internacionales de clubes
   "champions-league",
   "europa-league",
   "conference-league",
@@ -37,7 +35,6 @@ export const VALID_LEAGUES = [
   "libertadores",
   "sudamericana",
   "caf-champions",
-  // Sudamérica
   "liga-argentina",
   "brasileirao",
   "brasileirao-b",
@@ -47,7 +44,6 @@ export const VALID_LEAGUES = [
   "primera-chile",
   "ligapro-ecuador",
   "liga-1-peru",
-  // Copas y 2.ª división del Top 5 europeo
   "championship",
   "fa-cup",
   "carabao-cup",
@@ -60,7 +56,6 @@ export const VALID_LEAGUES = [
   "coppa-italia",
   "ligue-2",
   "coupe-de-france",
-  // Otras 1.ª divisiones europeas, Medio Oriente y Asia
   "eredivisie",
   "liga-portugal",
   "pro-league-belgica",

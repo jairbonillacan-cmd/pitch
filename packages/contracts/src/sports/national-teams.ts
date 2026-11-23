@@ -1,9 +1,3 @@
-/**
- * Catálogo canónico de selecciones nacionales FIFA y territorios afiliados.
- * Mapea nombres de fuentes internacionales hacia identidad estable en español (`es-MX`),
- * código oficial, slug determinístico y recurso visual oficial.
- */
-
 export interface NationalTeamDef {
   readonly slug: string;
   readonly code: string;
