@@ -6,7 +6,11 @@ import {
   type AnalysisMarketRow,
   type MatchAnalysis,
 } from "@pitchlab/contracts";
-import type { MatchOutlook, MarketOutlook } from "@pitchlab/spacetime";
+import {
+  probabilityToFairOdds,
+  type MarketOutlook,
+  type MatchOutlook,
+} from "@pitchlab/spacetime";
 import liveSnapshotJson from "@pitchlab/spacetime/data/live_matchday_v3_snapshot.json";
 import type { MatchOutlookSummary, PlatformMarketRow, SpacetimeSignal } from "@pitchlab/ui/types";
 import {
@@ -446,8 +450,8 @@ export function outlookDetailFor(
 const round4 = (v: number) => Math.round(v * 10_000) / 10_000;
 
 function fairOddsOf(p: number): { decimal: number; american: number } {
-  const decimal = Math.round((1 / p) * 100) / 100;
-  const american = decimal >= 2 ? Math.round((decimal - 1) * 100) : Math.round(-100 / (decimal - 1));
+  const safeP = Number.isFinite(p) ? Math.max(0.01, Math.min(0.99, p)) : 0.5;
+  const { decimal, american } = probabilityToFairOdds(safeP);
   return { decimal, american };
 }
 
@@ -697,7 +701,7 @@ export function buildV6SoccerOutlookDetail(
     isMostLikely: boolean,
     line?: number,
   ): PlatformMarketRow => {
-    const fair = fairOddsOf(Math.max(0.002, Math.min(0.998, p)));
+    const fair = fairOddsOf(p);
     return {
       group,
       market,
@@ -1160,6 +1164,7 @@ export function applyOutlook(
       ...match,
       x12: [pHome, pDraw, pAway],
       projection,
+      picks: [],
       mostLikelyScore: top
         ? { home: top.homeGoals, away: top.awayGoals, p: round4(top.probability) }
         : match.mostLikelyScore,

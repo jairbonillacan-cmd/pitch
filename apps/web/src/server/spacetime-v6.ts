@@ -15,6 +15,7 @@ import {
   evaluateStudentTSameGameParlayV5,
   evalNflSpreadFromPmfV60,
   evalNflTotalFromPmfV60,
+  nbMarginalPmfV60,
   PLAYABLE_ODDS_MAX_V60,
   PLAYABLE_ODDS_MIN_V60,
   projectMlbWalkforwardOutlookV60,
@@ -906,6 +907,65 @@ export interface Soccer57V6MatchEvaluation {
   readonly inPlayPregameAnchor: SoccerEarlyPayoutAndInPlayResult;
 }
 
+function reconstructDiagonalScoreMatrixV6(params: {
+  readonly muHome: number;
+  readonly muAway: number;
+  readonly rhoEff: number;
+  readonly dispersionR: number;
+  readonly pHome: number;
+  readonly pDraw: number;
+  readonly pAway: number;
+}): readonly (readonly number[])[] {
+  const mg = DEFAULT_SOCCER_V60_MAX_GOALS;
+  const size = mg + 1;
+  const pmfH = nbMarginalPmfV60(params.muHome, params.dispersionR, mg);
+  const pmfA = nbMarginalPmfV60(params.muAway, params.dispersionR, mg);
+  const ph0 = Math.max(params.pHome, 1e-9);
+  const pd0 = clampValue(params.pDraw, 1e-6, 0.96);
+  const pa0 = Math.max(params.pAway, 1e-9);
+  const sp = ph0 + pd0 + pa0;
+  const pH = ph0 / sp;
+  const pD = pd0 / sp;
+  const pA = pa0 / sp;
+
+  const baseMat: number[][] = [];
+  let sumUpper = 0;
+  let sumDiag = 0;
+  let sumLower = 0;
+  for (let h = 0; h < size; h += 1) {
+    const row: number[] = [];
+    const phV = pmfH[h] ?? 0;
+    for (let a = 0; a < size; a += 1) {
+      let base = phV * (pmfA[a] ?? 0);
+      if (h === 0 && a === 0) {
+        base *= Math.max(1 - params.muHome * params.muAway * params.rhoEff, 1e-9);
+      } else if (h === 0 && a === 1) {
+        base *= Math.max(1 + params.muHome * params.rhoEff, 1e-9);
+      } else if (h === 1 && a === 0) {
+        base *= Math.max(1 + params.muAway * params.rhoEff, 1e-9);
+      } else if (h === 1 && a === 1) {
+        base *= Math.max(1 - params.rhoEff, 1e-9);
+      }
+      row.push(base);
+      if (h > a) sumUpper += base;
+      else if (h === a) sumDiag += base;
+      else sumLower += base;
+    }
+    baseMat.push(row);
+  }
+
+  const wUpper = pH / Math.max(sumUpper, 1e-15);
+  const wDiag = pD / Math.max(sumDiag, 1e-15);
+  const wLower = pA / Math.max(sumLower, 1e-15);
+  return Object.freeze(
+    baseMat.map((row, h) =>
+      Object.freeze(
+        row.map((base, a) => base * (h === a ? wDiag : h > a ? wUpper : wLower)),
+      ),
+    ),
+  );
+}
+
 export function evaluateSoccer57V6Match(
   input: EvaluateSoccer57V6MatchInput,
 ): Soccer57V6MatchEvaluation {
@@ -936,13 +996,10 @@ export function evaluateSoccer57V6Match(
         ? clampValue(input.projectedHomeGoals + input.projectedAwayGoals, 1.2, 4.95)
         : clampValue(compSpec?.causal_env_goals_final ?? 2.65, 1.2, 4.95);
 
-  let targetPHome = normH;
-  let targetPDraw = normD;
-  let targetPAway = normA;
-  let totalGoalsTarget = defaultTotal;
   const rhoPrior = compSpec?.rho_prior ?? -0.105;
   const dispersionR = compSpec?.dispersion_r ?? 500;
 
+  let rec: Soccer57PrekickoffRecalibratedOutlookV60 | null = null;
   if (
     input.mode === "prekickoff_recalibration" &&
     isRegisteredLeague &&
@@ -953,45 +1010,76 @@ export function evaluateSoccer57V6Match(
     input.projectedHomeGoals > 0 &&
     input.projectedAwayGoals > 0
   ) {
-    const rec = recalibrateSoccer57MatchServerV6({
+    rec = recalibrateSoccer57MatchServerV6({
       league: slug,
       rawProjHome: input.projectedHomeGoals,
       rawProjAway: input.projectedAwayGoals,
       rawX12: [normH, normD, normA],
       causalLeagueEnvGoals: input.causalLeagueEnvGoals,
     });
-    if (rec) {
-      targetPHome = rec.pHomeTarget;
-      targetPDraw = rec.pDrawTarget;
-      targetPAway = rec.pAwayTarget;
-      totalGoalsTarget = rec.totalGoalsTarget;
-    }
   }
 
-  const solved = solveDiagonalScoreMatrix4ParamV60({
-    pHome: targetPHome,
-    pDraw: targetPDraw,
-    pAway: targetPAway,
-    totalGoalsTarget,
-    rhoPrior,
-    dispersionR,
-    maxGoals: DEFAULT_SOCCER_V60_MAX_GOALS,
-    rhoDrawBlendWeight: 0.0,
-  });
+  let muHome: number;
+  let muAway: number;
+  let rhoEff: number;
+  let solvedDispersionR: number;
+  let totalGoalsTarget: number;
+  let expectedTotalImplied: number;
+  let markets: CoherentSoccerMarketsV60;
+  let playableVennAbers: Soccer57V6MatchEvaluation["playableVennAbers"];
+  let scoreMatrix: readonly (readonly number[])[];
 
-  const markets = deriveCoherentSoccerMarketsV60(solved.matrix);
+  if (rec) {
+    muHome = rec.muHome;
+    muAway = rec.muAway;
+    rhoEff = rec.rhoEff;
+    solvedDispersionR = rec.dispersionR;
+    totalGoalsTarget = rec.totalGoalsTarget;
+    expectedTotalImplied = rec.expectedTotalImplied;
+    markets = rec.markets;
+    playableVennAbers = rec.playableVennAbers;
+    scoreMatrix = reconstructDiagonalScoreMatrixV6({
+      muHome: rec.muHome,
+      muAway: rec.muAway,
+      rhoEff: rec.rhoEff,
+      dispersionR: rec.dispersionR,
+      pHome: rec.pHomeTarget,
+      pDraw: rec.pDrawTarget,
+      pAway: rec.pAwayTarget,
+    });
+  } else {
+    totalGoalsTarget = defaultTotal;
+    const solved = solveDiagonalScoreMatrix4ParamV60({
+      pHome: normH,
+      pDraw: normD,
+      pAway: normA,
+      totalGoalsTarget,
+      rhoPrior,
+      dispersionR,
+      maxGoals: DEFAULT_SOCCER_V60_MAX_GOALS,
+      rhoDrawBlendWeight: 0.0,
+    });
+    muHome = solved.muHome;
+    muAway = solved.muAway;
+    rhoEff = solved.rhoEff;
+    solvedDispersionR = solved.dispersionR;
+    expectedTotalImplied = solved.expectedTotalImplied;
+    markets = deriveCoherentSoccerMarketsV60(solved.matrix);
+    const vaCfg = soccer57Artifact.venn_abers_playable_calibrator;
+    playableVennAbers = Object.freeze({
+      home: calibratePlayableVennAbersLogitV60(markets["1x2"].home, isExpansionOrCup, vaCfg),
+      away: calibratePlayableVennAbersLogitV60(markets["1x2"].away, isExpansionOrCup, vaCfg),
+      over25: calibratePlayableVennAbersLogitV60(markets.totals_2_5.over, isExpansionOrCup, vaCfg),
+      under25: calibratePlayableVennAbersLogitV60(markets.totals_2_5.under, isExpansionOrCup, vaCfg),
+      bttsYes: calibratePlayableVennAbersLogitV60(markets.btts.yes, isExpansionOrCup, vaCfg),
+    });
+    scoreMatrix = solved.matrix;
+  }
+
   const asianHandicap = deriveAsianHandicapFromMatrixV6(
-    solved.matrix,
+    scoreMatrix,
     input.asianHandicapLines ?? DEFAULT_ASIAN_HANDICAP_LINES,
   );
-  const vaCfg = soccer57Artifact.venn_abers_playable_calibrator;
-  const playableVennAbers = Object.freeze({
-    home: calibratePlayableVennAbersLogitV60(markets["1x2"].home, isExpansionOrCup, vaCfg),
-    away: calibratePlayableVennAbersLogitV60(markets["1x2"].away, isExpansionOrCup, vaCfg),
-    over25: calibratePlayableVennAbersLogitV60(markets.totals_2_5.over, isExpansionOrCup, vaCfg),
-    under25: calibratePlayableVennAbersLogitV60(markets.totals_2_5.under, isExpansionOrCup, vaCfg),
-    bttsYes: calibratePlayableVennAbersLogitV60(markets.btts.yes, isExpansionOrCup, vaCfg),
-  });
 
   const officialPrior = resolveOfficialPriorServerV6({
     refereeName: input.refereeName ?? null,
@@ -999,8 +1087,8 @@ export function evaluateSoccer57V6Match(
   });
 
   const divCode = resolveSoccerMicroDivCodeV6(slug);
-  const lh = solved.muHome;
-  const la = solved.muAway;
+  const lh = muHome;
+  const la = muAway;
   const supH = lh - la;
   const supA = -supH;
   const siegeH = Math.pow(Math.max(0, supH), 1.4) - 0.5 * Math.pow(Math.max(0, -supH), 1.2);
@@ -1063,12 +1151,12 @@ export function evaluateSoccer57V6Match(
     competitionStatus: compStatus,
     isExpansionOrCup,
     divCode,
-    muHome: solved.muHome,
-    muAway: solved.muAway,
-    rhoEff: solved.rhoEff,
-    dispersionR: solved.dispersionR,
+    muHome,
+    muAway,
+    rhoEff,
+    dispersionR: solvedDispersionR,
     totalGoalsTarget,
-    expectedTotalImplied: solved.expectedTotalImplied,
+    expectedTotalImplied,
     markets,
     asianHandicap,
     playableVennAbers,
@@ -1130,11 +1218,28 @@ export function resolveMultiSportTeamCodeSafeV6(
   const lookupAlias = (token: string): string | undefined =>
     hasOwn(aliases, token) ? aliases[token] : undefined;
 
+  const lookupUniqueAliasSuffix = (slug: string): string | null => {
+    if (slug.length < 4) return null;
+    const suffix = `-${slug}`;
+    const matchedCodes = new Set<string>();
+    for (const [aliasKey, mappedCode] of Object.entries(aliases)) {
+      if (aliasKey === slug || aliasKey.endsWith(suffix)) {
+        const verified = verifyCode(mappedCode);
+        if (verified) matchedCodes.add(verified);
+      }
+    }
+    if (matchedCodes.size !== 1) return null;
+    for (const only of matchedCodes) return only;
+    return null;
+  };
+
   if (teamCode) {
     const directCode = verifyCode(teamCode);
     if (directCode) return directCode;
     const codeAlias = verifyCode(lookupAlias(cleanFranchiseToken(teamCode)));
     if (codeAlias) return codeAlias;
+    const codeSlugAlias = verifyCode(lookupAlias(slugifyFranchiseName(teamCode)));
+    if (codeSlugAlias) return codeSlugAlias;
   }
 
   const cleanRaw = cleanFranchiseToken(teamNameOrSlug);
@@ -1144,16 +1249,40 @@ export function resolveMultiSportTeamCodeSafeV6(
   const fromSlug = verifyCode(lookupAlias(slugRaw));
   if (fromSlug) return fromSlug;
 
+  const fromNameSuffix = lookupUniqueAliasSuffix(slugRaw);
+  if (fromNameSuffix) return fromNameSuffix;
+
+  if (teamCode) {
+    const fromCodeSuffix = lookupUniqueAliasSuffix(slugifyFranchiseName(teamCode));
+    if (fromCodeSuffix) return fromCodeSuffix;
+  }
+
   let bestCode: string | null = null;
   let bestScore = 0;
-  for (const entry of multisportStateBySport.get(sport) ?? []) {
-    const score = teamScore(entry.team_name, teamNameOrSlug);
-    if (score > bestScore) {
+  let tied = false;
+  const considerScore = (candidateName: string, code: string) => {
+    const verified = verifyCode(code);
+    if (!verified) return;
+    const score = teamScore(candidateName, teamNameOrSlug);
+    if (score <= 0) return;
+    if (score > bestScore + 1e-9) {
       bestScore = score;
-      bestCode = entry.team_key;
+      bestCode = verified;
+      tied = false;
+    } else if (Math.abs(score - bestScore) <= 1e-9 && bestCode !== verified) {
+      tied = true;
+    }
+  };
+
+  for (const entry of multisportStateBySport.get(sport) ?? []) {
+    considerScore(entry.team_name, entry.team_key);
+  }
+  for (const [aliasKey, mappedCode] of Object.entries(aliases)) {
+    if (aliasKey.includes("-")) {
+      considerScore(aliasKey.replace(/-/g, " "), mappedCode);
     }
   }
-  return bestScore >= 0.45 && bestCode ? verifyCode(bestCode) : null;
+  return bestScore >= 0.45 && !tied && bestCode ? bestCode : null;
 }
 
 export function tryProjectMultiSportFromStateV6(params: {
@@ -1833,13 +1962,13 @@ export function evaluateGoalkeeperSavesSgpServerV6(
     probabilityUpperBound: round4(evaluated.frechetUpperBound),
     structuralMultiplier: round4(evaluated.structuralMultiplier),
     correlationDirection: evaluated.correlationDirection,
-    fairCombinedDecimal: round2(evaluated.fairCombinedDecimal),
+    fairCombinedDecimal: round2(fairOdds.decimal),
     fairCombinedAmerican: Math.round(fairOdds.american),
     bookQuoteAudit: evaluated.bookQuoteAudit
       ? {
           offeredDecimal: round2(evaluated.bookQuoteAudit.offeredCombinedDecimalOdds),
           impliedBookProbability: round4(evaluated.bookQuoteAudit.impliedBookProbability),
-          fairCombinedDecimal: round2(evaluated.bookQuoteAudit.fairCombinedDecimalOdds),
+          fairCombinedDecimal: round2(fairOdds.decimal),
           effectiveHoldPct: round1(evaluated.bookQuoteAudit.effectiveHoldPct),
           taxFlag: evaluated.bookQuoteAudit.taxFlag,
         }
@@ -1863,16 +1992,12 @@ export function buildUnifiedMatchIntelligenceServerV6(
 
   if (!input.usSportInput) return null;
   if (input.usSportInput.mode === "post_walkforward_state") {
-    const homeCode = resolveMultiSportTeamCodeSafeV6(
-      input.sport,
-      input.homeSlug,
-      input.homeTeam,
-    );
-    const awayCode = resolveMultiSportTeamCodeSafeV6(
-      input.sport,
-      input.awaySlug,
-      input.awayTeam,
-    );
+    const homeCode =
+      resolveMultiSportTeamCodeSafeV6(input.sport, input.homeTeam, input.homeSlug) ??
+      resolveMultiSportTeamCodeSafeV6(input.sport, input.homeSlug);
+    const awayCode =
+      resolveMultiSportTeamCodeSafeV6(input.sport, input.awayTeam, input.awaySlug) ??
+      resolveMultiSportTeamCodeSafeV6(input.sport, input.awaySlug);
     if (!homeCode || !awayCode) return null;
     return buildUnifiedMatchIntelligenceV6(
       {

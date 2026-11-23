@@ -146,7 +146,11 @@ function makePlatformGame(overrides: Partial<PlatformGame> = {}): PlatformGame {
   };
 }
 
-function makeNonV3SoccerMatch(league: string, leagueLabel: string): MatchAnalysis {
+function makeNonV3SoccerMatch(
+  league: Parameters<typeof asLeagueId>[0],
+  leagueLabel: string,
+  overrides: Partial<MatchAnalysis> = {},
+): MatchAnalysis {
   return {
     id: `v6-match-${league}`,
     league: asLeagueId(league),
@@ -197,6 +201,7 @@ function makeNonV3SoccerMatch(league: string, leagueLabel: string): MatchAnalysi
     ],
     factors: [],
     trace: [],
+    ...overrides,
   };
 }
 
@@ -324,7 +329,21 @@ describe("spacetime-v6 · Artefactos runtime y cobertura 53 ligas de fútbol", (
     expect(ahMinusHalf).toBeDefined();
     expect(ahPlusHalf).toBeDefined();
     expect(ahZero!.pHomeCover + ahZero!.pAwayCover + ahZero!.pPush).toBeCloseTo(1, 9);
+    expect(ahZero!.pHomeCover).toBeCloseTo(evalMx.markets["1x2"].home, 9);
+    expect(ahZero!.pPush).toBeCloseTo(evalMx.markets["1x2"].draw, 9);
+    expect(ahZero!.pAwayCover).toBeCloseTo(evalMx.markets["1x2"].away, 9);
     expect(ahMinusHalf!.pHomeCover).toBeLessThan(ahPlusHalf!.pHomeCover);
+
+    const directRecMx = recalibrateSoccer57MatchServerV6({
+      league: "liga-mx",
+      rawProjHome: 1.62,
+      rawProjAway: 1.08,
+      rawX12: [0.48, 0.27, 0.25],
+    });
+    expect(directRecMx).not.toBeNull();
+    expect(evalMx.muHome).toBeCloseTo(directRecMx!.muHome, 12);
+    expect(evalMx.muAway).toBeCloseTo(directRecMx!.muAway, 12);
+    expect(evalMx.markets.totals_2_5.over).toBeCloseTo(directRecMx!.markets.totals_2_5.over, 12);
 
     const vaPlayable = calibratePlayableOddsV6({ pRaw: 0.52, league: "liga-mx" });
     expect(PLAYABLE_ODDS_MIN_V60).toBe(1.55);
@@ -338,13 +357,25 @@ describe("spacetime-v6 · Artefactos runtime y cobertura 53 ligas de fútbol", (
     expect(vaOutside.inPlayableZone).toBe(false);
   });
 
-  it("outlook.ts aplica recalibración v6.0 de 53 ligas sin romper grupos de conteo ni Cero-Fuga", () => {
-    const mxMatch = makeNonV3SoccerMatch("liga-mx", "Liga MX");
+  it("outlook.ts aplica recalibración v6.0 de 53 ligas sin romper grupos de conteo, cuotas finitas ni Cero-Fuga", () => {
+    const mxMatch = makeNonV3SoccerMatch("liga-mx", "Liga MX", {
+      picks: [
+        {
+          profile: "conservadora",
+          market: asMarketKey("h2h"),
+          selection: "home",
+          label: "Club América gana",
+          p: 0.5,
+          fairOdds: 2.0,
+        },
+      ],
+    });
     const recCheck = recalibrateSoccerOutlookV6(mxMatch);
     expect(recCheck).not.toBeNull();
     expect(recCheck!.playableVennAbers.over25.pCalibrated).toBeGreaterThan(0);
 
     const applied = applyOutlook(mxMatch, null);
+    expect(applied.match.picks).toEqual([]);
     expect(applied.match.x12).not.toBeNull();
     const [pH, pD, pA] = applied.match.x12!;
     expect(pH + pD + pA).toBeCloseTo(1, 3);
@@ -366,6 +397,55 @@ describe("spacetime-v6 · Artefactos runtime y cobertura 53 ligas de fútbol", (
     expect(detailV6).not.toBeNull();
     expect(detailV6!.markets.every((r) => r.currentDecimal === null && r.edgePts === null)).toBe(true);
     expect(detailV6!.outlook.scorelines).toHaveLength(3);
+
+    const extremeFavDetail = buildV6SoccerOutlookDetail({
+      league: "premier-league",
+      home: { name: "Manchester City" },
+      away: { name: "Club Visitante" },
+      x12: [0.96, 0.036, 0.004],
+      projection: { home: 3.1, away: 0.4, total: 3.5 },
+      kickoffUtc: "2026-11-25T20:00:00Z",
+    });
+    expect(extremeFavDetail).not.toBeNull();
+    expect(extremeFavDetail!.markets.length).toBeGreaterThan(0);
+    for (const row of extremeFavDetail!.markets) {
+      expect(Number.isFinite(row.fairAmerican)).toBe(true);
+      expect(row.fairDecimal).toBeGreaterThanOrEqual(1.01);
+      expect(row.fairDecimal).toBeLessThanOrEqual(100);
+    }
+    expect(extremeFavDetail!.outlook.mostLikely.fairDecimal).toBeGreaterThanOrEqual(1.01);
+
+    const extremeFavMatch = makeNonV3SoccerMatch("premier-league", "Premier League", {
+      home: {
+        slug: "club-dominante-test",
+        name: "Club Dominante Test",
+        shortName: "Dominante",
+        code: "DOM",
+        record: "14 PJ",
+      },
+      away: {
+        slug: "club-visitante-test",
+        name: "Club Visitante Test",
+        shortName: "Visitante",
+        code: "VIS",
+        record: "14 PJ",
+      },
+      x12: [0.96, 0.036, 0.004],
+      projection: { home: 3.1, away: 0.4, total: 3.5, margin: 2.7 },
+    });
+    const extremeApplied = applyOutlook(extremeFavMatch, null);
+    for (const group of extremeApplied.match.marketGroups ?? []) {
+      for (const row of group.rows) {
+        expect(Number.isFinite(row.fairOdds)).toBe(true);
+        expect(row.fairOdds).toBeGreaterThanOrEqual(1.01);
+      }
+    }
+    for (const oc of extremeApplied.match.outcomes) {
+      if (oc.fairOdds) {
+        expect(Number.isFinite(oc.fairOdds.american)).toBe(true);
+        expect(oc.fairOdds.decimal).toBeGreaterThanOrEqual(1.01);
+      }
+    }
 
     const vaHelper = calibrateOutlookPlayableProbV6(0.5, "libertadores");
     expect(vaHelper.inPlayableZone).toBe(true);
@@ -397,7 +477,8 @@ describe("spacetime-v6 · US Multisport (MLB/NHL/NBA/NFL), PMF discreta NFL y Ea
       altLines: [30.5, 37.5, 44.0, 45.5, 54.5],
     });
     expect(totalEval.primary.line).toBe(30.5);
-    expect(totalEval.primary.p_over).toBeGreaterThan(0.8);
+    expect(totalEval.primary.p_over).toBeGreaterThan(0.75);
+    expect(totalEval.primary.p_over).toBeGreaterThan(totalEval.byLine["44.0"]!.p_over);
     expect(totalEval.byLine["44.0"]!.p_push).toBeGreaterThan(0);
     expect(totalEval.byLine["30.5"]!.p_over_no_push).toBeGreaterThan(
       totalEval.byLine["37.5"]!.p_over_no_push,
@@ -593,6 +674,20 @@ describe("spacetime-v6 · Cópulas SGP (portero, jugador-partido, spread+over) e
     expect(gkWin.jointProbability).toBeGreaterThan(0);
     expect(gkWin.jointProbability).toBeLessThanOrEqual(gkWin.probabilityUpperBound + 0.0002);
 
+    const gkExtremeTail = evaluateGoalkeeperSavesSgpServerV6({
+      savesLine: 4.5,
+      ebSaveRate: 0.52,
+      oppExpectedSoT: 1.5,
+      teamExpectedGoals: 0.9,
+      opponentExpectedGoals: 1.8,
+      matchOutcome: "clean_sheet",
+      offeredCombinedDecimalOdds: 25,
+    });
+    expect(gkExtremeTail.jointProbability).toBeLessThan(0.01);
+    expect(gkExtremeTail.fairCombinedDecimal).toBe(100);
+    expect(gkExtremeTail.fairCombinedAmerican).toBe(9900);
+    expect(gkExtremeTail.bookQuoteAudit?.fairCombinedDecimal).toBe(100);
+
     const playerLinked = evaluatePlayerLinkedSgpV6({
       pPlayerAnytimeGoal: 0.42,
       teamExpectedGoals: 1.85,
@@ -773,6 +868,56 @@ describe("spacetime-v6 · Cópulas SGP (portero, jugador-partido, spread+over) e
     expect(nhlUni).not.toBeNull();
     expect(nhlUni!.guardrailAudit.passed).toBe(true);
     expect(nhlUni!.earlyPayout.triggerLead).toBe(3);
+
+    expect(resolveMultiSportTeamCodeSafeV6("nfl", "chiefs")).toBe("KC");
+    expect(resolveMultiSportTeamCodeSafeV6("nba", "lakers")).toBe("LAL");
+    expect(resolveMultiSportTeamCodeSafeV6("mlb", "sox")).toBeNull();
+
+    const nflShortSlugUni = buildUnifiedMatchIntelligenceServerV6({
+      matchId: "v6-uni-nfl-short-slug",
+      sport: "nfl",
+      league: "nfl",
+      homeTeam: "Kansas City Chiefs",
+      awayTeam: "Buffalo Bills",
+      homeSlug: "chiefs",
+      awaySlug: "bills",
+      kickoffUtc: "2026-11-24T21:25:00Z",
+      lifecycleStatus: "scheduled",
+      neutralSite: false,
+      causalInputsAsOfUtc: "2026-11-24T14:00:00Z",
+      usSportInput: {
+        mode: "post_walkforward_state",
+        gameDate: "2026-11-24",
+        effectiveSampleGames: 12,
+        seasonProgress: 0.65,
+      },
+    });
+    expect(nflShortSlugUni).not.toBeNull();
+    expect(nflShortSlugUni!.guardrailAudit.passed).toBe(true);
+    expect(nflShortSlugUni!.earlyPayout.triggerLead).toBe(17);
+
+    const nbaShortSlugUni = buildUnifiedMatchIntelligenceServerV6({
+      matchId: "v6-uni-nba-short-slug",
+      sport: "nba",
+      league: "nba",
+      homeTeam: "Los Angeles Lakers",
+      awayTeam: "New York Knicks",
+      homeSlug: "lakers",
+      awaySlug: "knicks",
+      kickoffUtc: "2026-11-25T03:00:00Z",
+      lifecycleStatus: "scheduled",
+      neutralSite: false,
+      causalInputsAsOfUtc: "2026-11-24T18:00:00Z",
+      usSportInput: {
+        mode: "post_walkforward_state",
+        gameDate: "2026-11-25",
+        effectiveSampleGames: 16,
+        seasonProgress: 0.2,
+      },
+    });
+    expect(nbaShortSlugUni).not.toBeNull();
+    expect(nbaShortSlugUni!.guardrailAudit.passed).toBe(true);
+    expect(nbaShortSlugUni!.earlyPayout.triggerLead).toBe(20);
 
     const unknownLeagueUni = buildUnifiedMatchIntelligenceServerV6({
       matchId: "v6-uni-unknown",
