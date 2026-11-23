@@ -1,0 +1,514 @@
+{
+  "schemaVersion": 1,
+  "league": "concacaf-champions",
+  "logoUrl": "/brand/official/competitions/concacaf-champions.png",
+  "season": "concacaf-champions-2026",
+  "seasonLabel": "2026",
+  "periodLabel": "Toluca win 6-5 on penalties",
+  "updatedAt": "2026-11-23T15:07:01.408Z",
+  "source": "pitchlab-concacaf-v1",
+  "provenance": "derived",
+  "isDemo": false,
+  "teamRates": {
+    "concacaf-champions.toluca": {
+      "teamId": "concacaf-champions.toluca",
+      "name": "Toluca",
+      "shortName": "Toluca",
+      "code": "TOL",
+      "forPerGame": 1,
+      "againstPerGame": 1,
+      "gamesPlayed": 1,
+      "adjustedFor": 0.9350817484228204,
+      "adjustedAgainst": 0.9436239622280881
+    },
+    "concacaf-champions.tigres-uanl": {
+      "teamId": "concacaf-champions.tigres-uanl",
+      "name": "Tigres UANL",
+      "shortName": "Tigres",
+      "code": "UANL",
+      "forPerGame": 1,
+      "againstPerGame": 1,
+      "gamesPlayed": 1,
+      "adjustedFor": 0.9553484254684199,
+      "adjustedAgainst": 0.9467000752404245
+    }
+  },
+  "games": [
+    {
+      "id": "concacaf-champions-2026-05-31-toluca-tigres-uanl-o9tjv6",
+      "league": "concacaf-champions",
+      "season": "concacaf-champions-2026",
+      "round": "Toluca win 6-5 on penalties",
+      "startTime": "2026-05-31T00:00:00.000Z",
+      "status": "final",
+      "home": {
+        "id": "concacaf-champions.toluca",
+        "league": "concacaf-champions",
+        "name": "Toluca",
+        "shortName": "Toluca",
+        "code": "TOL",
+        "logoUrl": "https://sports.bzzoiro.com/img/team/310/?bg=transparent"
+      },
+      "away": {
+        "id": "concacaf-champions.tigres-uanl",
+        "league": "concacaf-champions",
+        "name": "Tigres UANL",
+        "shortName": "Tigres",
+        "code": "UANL",
+        "logoUrl": "https://sports.bzzoiro.com/img/team/321/?bg=transparent"
+      },
+      "venue": "Estadio Nemesio Díez Riega, Toluca",
+      "neutralSite": false,
+      "result": {
+        "home": 1,
+        "away": 1,
+        "observedAt": "2026-11-23T15:07:01.408Z",
+        "source": "pitchlab-concacaf"
+      }
+    }
+  ],
+  "analyses": {
+    "concacaf-champions-2026-05-31-toluca-tigres-uanl-o9tjv6": {
+      "game": "concacaf-champions-2026-05-31-toluca-tigres-uanl-o9tjv6",
+      "model": {
+        "id": "pitchlab-statistical-concacaf-champions",
+        "version": "2.0.0",
+        "status": "candidate",
+        "label": "Modelo PitchLab · en validación"
+      },
+      "projection": {
+        "home": 1.0670426620039954,
+        "away": 0.9539292641784659,
+        "total": 2.0209719261824612,
+        "margin": 0.11311339782552954
+      },
+      "x12": [
+        0.34955340936373486,
+        0.3598487701660404,
+        0.29059782047022514
+      ],
+      "probabilities": [
+        {
+          "market": "h2h",
+          "selection": "Toluca gana",
+          "p": 0.34955340936373486,
+          "fairOdds": 2.860793152669353
+        },
+        {
+          "market": "h2h",
+          "selection": "Empate",
+          "p": 0.3598487701660404,
+          "fairOdds": 2.7789451650441457
+        },
+        {
+          "market": "h2h",
+          "selection": "Tigres gana",
+          "p": 0.29059782047022514,
+          "fairOdds": 3.4411820377106395
+        },
+        {
+          "market": "double_chance",
+          "selection": "Toluca o empate",
+          "p": 0.7094021795297752,
+          "fairOdds": 1.4096376200350083
+        },
+        {
+          "market": "double_chance",
+          "selection": "Tigres o empate",
+          "p": 0.6504465906362655,
+          "fairOdds": 1.5374052449437885
+        },
+        {
+          "market": "double_chance",
+          "selection": "Sin empate",
+          "p": 0.64015122983396,
+          "fairOdds": 1.5621308737614645
+        },
+        {
+          "market": "totals",
+          "selection": "Más de 1.5",
+          "line": 1.5,
+          "p": 0.6266201830527194,
+          "fairOdds": 1.5958630555566817
+        },
+        {
+          "market": "totals",
+          "selection": "Más de 2.5",
+          "line": 2.5,
+          "p": 0.3289998428586537,
+          "fairOdds": 3.039515129585105
+        },
+        {
+          "market": "totals",
+          "selection": "Menos de 2.5",
+          "line": 2.5,
+          "p": 0.6710001571413463,
+          "fairOdds": 1.4903126167068093
+        },
+        {
+          "market": "totals",
+          "selection": "Más de 3.5",
+          "line": 3.5,
+          "p": 0.14668054187431356,
+          "fairOdds": 6.81753685404893
+        },
+        {
+          "market": "totals",
+          "selection": "Menos de 3.5",
+          "line": 3.5,
+          "p": 0.8533194581256864,
+          "fairOdds": 1.171894055007836
+        },
+        {
+          "market": "btts",
+          "selection": "Sí",
+          "p": 0.4302571028609585,
+          "fairOdds": 2.3241917294347587
+        },
+        {
+          "market": "btts",
+          "selection": "No",
+          "p": 0.5697428971390415,
+          "fairOdds": 1.7551776512203847
+        },
+        {
+          "market": "team_totals",
+          "selection": "Toluca más de 1.5",
+          "line": 1.5,
+          "p": 0.2888868520291643,
+          "fairOdds": 3.461562867869964
+        },
+        {
+          "market": "team_totals",
+          "selection": "Toluca menos de 1.5",
+          "line": 1.5,
+          "p": 0.7111131479708357,
+          "fairOdds": 1.4062459720418672
+        },
+        {
+          "market": "team_totals",
+          "selection": "Tigres más de 1.5",
+          "line": 1.5,
+          "p": 0.24729877201215555,
+          "fairOdds": 4.043691733135038
+        },
+        {
+          "market": "team_totals",
+          "selection": "Tigres menos de 1.5",
+          "line": 1.5,
+          "p": 0.7527012279878444,
+          "fairOdds": 1.328548383896285
+        },
+        {
+          "market": "correct_score",
+          "selection": "1–1",
+          "p": 0.1618759227686689,
+          "fairOdds": 6.177570962354076
+        },
+        {
+          "market": "correct_score",
+          "selection": "0–0",
+          "p": 0.15950592024175156,
+          "fairOdds": 6.2693597735079205
+        },
+        {
+          "market": "correct_score",
+          "selection": "1–0",
+          "p": 0.1144322153544718,
+          "fairOdds": 8.738797871756153
+        }
+      ],
+      "marketGroups": [
+        {
+          "group": "Resultado",
+          "rows": [
+            {
+              "market": "h2h",
+              "selection": "home",
+              "label": "Toluca gana",
+              "p": 0.34955340936373486,
+              "fairOdds": 2.860793152669353
+            },
+            {
+              "market": "h2h",
+              "selection": "draw",
+              "label": "Empate",
+              "p": 0.3598487701660404,
+              "fairOdds": 2.7789451650441457
+            },
+            {
+              "market": "h2h",
+              "selection": "away",
+              "label": "Tigres gana",
+              "p": 0.29059782047022514,
+              "fairOdds": 3.4411820377106395
+            }
+          ]
+        },
+        {
+          "group": "Doble oportunidad",
+          "rows": [
+            {
+              "market": "double_chance",
+              "selection": "1x",
+              "label": "Toluca o empate",
+              "p": 0.7094021795297752,
+              "fairOdds": 1.4096376200350083
+            },
+            {
+              "market": "double_chance",
+              "selection": "x2",
+              "label": "Tigres o empate",
+              "p": 0.6504465906362655,
+              "fairOdds": 1.5374052449437885
+            },
+            {
+              "market": "double_chance",
+              "selection": "12",
+              "label": "Sin empate",
+              "p": 0.64015122983396,
+              "fairOdds": 1.5621308737614645
+            }
+          ]
+        },
+        {
+          "group": "Goles totales",
+          "rows": [
+            {
+              "market": "totals",
+              "selection": "over_1.5",
+              "label": "Más de 1.5",
+              "line": 1.5,
+              "p": 0.6266201830527194,
+              "fairOdds": 1.5958630555566817
+            },
+            {
+              "market": "totals",
+              "selection": "over_2.5",
+              "label": "Más de 2.5",
+              "line": 2.5,
+              "p": 0.3289998428586537,
+              "fairOdds": 3.039515129585105
+            },
+            {
+              "market": "totals",
+              "selection": "under_2.5",
+              "label": "Menos de 2.5",
+              "line": 2.5,
+              "p": 0.6710001571413463,
+              "fairOdds": 1.4903126167068093
+            },
+            {
+              "market": "totals",
+              "selection": "over_3.5",
+              "label": "Más de 3.5",
+              "line": 3.5,
+              "p": 0.14668054187431356,
+              "fairOdds": 6.81753685404893
+            },
+            {
+              "market": "totals",
+              "selection": "under_3.5",
+              "label": "Menos de 3.5",
+              "line": 3.5,
+              "p": 0.8533194581256864,
+              "fairOdds": 1.171894055007836
+            }
+          ]
+        },
+        {
+          "group": "Ambos anotan",
+          "rows": [
+            {
+              "market": "btts",
+              "selection": "yes",
+              "label": "Sí",
+              "p": 0.4302571028609585,
+              "fairOdds": 2.3241917294347587
+            },
+            {
+              "market": "btts",
+              "selection": "no",
+              "label": "No",
+              "p": 0.5697428971390415,
+              "fairOdds": 1.7551776512203847
+            }
+          ]
+        },
+        {
+          "group": "Goles por equipo (1.5)",
+          "rows": [
+            {
+              "market": "team_totals",
+              "selection": "home_over",
+              "label": "Toluca más de 1.5",
+              "line": 1.5,
+              "p": 0.2888868520291643,
+              "fairOdds": 3.461562867869964
+            },
+            {
+              "market": "team_totals",
+              "selection": "home_under",
+              "label": "Toluca menos de 1.5",
+              "line": 1.5,
+              "p": 0.7111131479708357,
+              "fairOdds": 1.4062459720418672
+            },
+            {
+              "market": "team_totals",
+              "selection": "away_over",
+              "label": "Tigres más de 1.5",
+              "line": 1.5,
+              "p": 0.24729877201215555,
+              "fairOdds": 4.043691733135038
+            },
+            {
+              "market": "team_totals",
+              "selection": "away_under",
+              "label": "Tigres menos de 1.5",
+              "line": 1.5,
+              "p": 0.7527012279878444,
+              "fairOdds": 1.328548383896285
+            }
+          ]
+        },
+        {
+          "group": "Marcador exacto (más probables)",
+          "rows": [
+            {
+              "market": "correct_score",
+              "selection": "1-1",
+              "label": "1–1",
+              "p": 0.1618759227686689,
+              "fairOdds": 6.177570962354076
+            },
+            {
+              "market": "correct_score",
+              "selection": "0-0",
+              "label": "0–0",
+              "p": 0.15950592024175156,
+              "fairOdds": 6.2693597735079205
+            },
+            {
+              "market": "correct_score",
+              "selection": "1-0",
+              "label": "1–0",
+              "p": 0.1144322153544718,
+              "fairOdds": 8.738797871756153
+            }
+          ]
+        }
+      ],
+      "mostLikelyScore": {
+        "home": 1,
+        "away": 1,
+        "p": 0.1618759227686689
+      },
+      "factors": [
+        {
+          "key": "home_attack",
+          "label": "Ataque local",
+          "value": "0.94 goles/partido",
+          "detail": "en la media de la liga · 1 partidos"
+        },
+        {
+          "key": "away_defense",
+          "label": "Defensa visitante",
+          "value": "0.95 concedidos/partido",
+          "detail": "en la media de la liga · 1 partidos"
+        },
+        {
+          "key": "away_attack",
+          "label": "Ataque visitante",
+          "value": "0.95 goles/partido",
+          "detail": "en la media de la liga · ajustado por rival"
+        },
+        {
+          "key": "home_defense",
+          "label": "Defensa local",
+          "value": "0.94 concedidos/partido",
+          "detail": "en la media de la liga · ajustado por rival"
+        },
+        {
+          "key": "home_advantage",
+          "label": "Localía",
+          "value": "×1.14",
+          "detail": "estimada de 1 partidos"
+        },
+        {
+          "key": "uncertainty",
+          "label": "Intervalo 90%",
+          "value": "goles 1.0–5.8",
+          "detail": "local 8%–90% · 1 partidos"
+        },
+        {
+          "key": "home_position",
+          "label": "Posición local",
+          "value": "2.º · 1 pts",
+          "detail": "de 2 equipos"
+        },
+        {
+          "key": "away_position",
+          "label": "Posición visitante",
+          "value": "1.º · 1 pts",
+          "detail": "de 2 equipos"
+        }
+      ],
+      "steps": [
+        "Sincronizando CONCACAF Champions Cup · corte 30 may 2026, 17:00",
+        "Fuerza ajustada por rival · TOL 0.99 / 1.00 · UANL 1.01 / 1.00",
+        "Ponderando 0.7 partidos por antigüedad y calidad del rival",
+        "Proyección de goles 1.07 – 0.95 · total 2.02",
+        "Simulando 121 marcadores con incertidumbre del ajuste",
+        "20 mercados listos · marcador proyectado 1–1"
+      ],
+      "inputsAsOf": "2026-05-30T23:00:00.000Z",
+      "publishedAt": "2026-05-30T23:00:00.000Z",
+      "source": "pitchlab-concacaf-v1",
+      "projectedScore": {
+        "home": 1,
+        "away": 1,
+        "p": 0.1618759227686689
+      },
+      "insights": {
+        "why": [
+          "Se esperan 2.0 goles: 1.1 de Toluca y 1.0 de Tigres."
+        ]
+      }
+    }
+  },
+  "standings": [
+    {
+      "teamId": "concacaf-champions.tigres-uanl",
+      "name": "Tigres UANL",
+      "shortName": "Tigres",
+      "code": "UANL",
+      "played": 1,
+      "won": 0,
+      "drawn": 1,
+      "lost": 0,
+      "goalsFor": 1,
+      "goalsAgainst": 1,
+      "points": 1,
+      "form": [
+        "D"
+      ]
+    },
+    {
+      "teamId": "concacaf-champions.toluca",
+      "name": "Toluca",
+      "shortName": "Toluca",
+      "code": "TOL",
+      "played": 1,
+      "won": 0,
+      "drawn": 1,
+      "lost": 0,
+      "goalsFor": 1,
+      "goalsAgainst": 1,
+      "points": 1,
+      "form": [
+        "D"
+      ]
+    }
+  ]
+}

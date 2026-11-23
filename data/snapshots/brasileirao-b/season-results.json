@@ -2,19 +2,8 @@
   "schemaVersion": 1,
   "league": "brasileirao-b",
   "season": "2026",
-  "updatedAt": "2026-11-22T21:56:46.653Z",
+  "updatedAt": "2026-11-23T15:07:01.408Z",
   "matches": [
-    {
-      "id": "brasileirao-b-2026-06-25-cuiaba-londrina-0c8tro",
-      "date": "2026-06-25",
-      "startTime": "2026-06-25T23:30:00.000Z",
-      "round": "League phase · Matchday 15",
-      "homeTeam": "brasileirao-b.cuiaba",
-      "awayTeam": "brasileirao-b.londrina",
-      "homeScore": 2,
-      "awayScore": 2,
-      "neutralSite": false
-    },
     {
       "id": "brasileirao-b-2026-06-26-gremio-novoriz-vila-nova-hu29ug",
       "date": "2026-06-26",
@@ -2653,6 +2642,17 @@
       "awayTeam": "brasileirao-b.fortaleza",
       "homeScore": 1,
       "awayScore": 0,
+      "neutralSite": false
+    },
+    {
+      "id": "brasileirao-b-2026-11-22-atletico-goian-vila-nova-ah34ah",
+      "date": "2026-11-22",
+      "startTime": "2026-11-22T21:30:00.000Z",
+      "round": "Final",
+      "homeTeam": "brasileirao-b.atletico-goianiense",
+      "awayTeam": "brasileirao-b.vila-nova",
+      "homeScore": 1,
+      "awayScore": 1,
       "neutralSite": false
     }
   ]

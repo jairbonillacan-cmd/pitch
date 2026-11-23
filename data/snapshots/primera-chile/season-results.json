@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "league": "primera-chile",
   "season": "2026",
-  "updatedAt": "2026-11-22T21:56:46.653Z",
+  "updatedAt": "2026-11-23T15:07:01.408Z",
   "matches": [
     {
       "id": "primera-chile-2026-07-25-colo-colo-deportes-limac-rsqzqv",
@@ -1124,6 +1124,28 @@
       "awayTeam": "primera-chile.deportes-concepcion",
       "homeScore": 0,
       "awayScore": 0,
+      "neutralSite": false
+    },
+    {
+      "id": "primera-chile-2026-11-22-colo-colo-universidad-ca-djgjb7",
+      "date": "2026-11-22",
+      "startTime": "2026-11-22T21:00:00.000Z",
+      "round": "Regular season · Matchday 28",
+      "homeTeam": "primera-chile.colo-colo",
+      "awayTeam": "primera-chile.universidad-catolica",
+      "homeScore": 3,
+      "awayScore": 0,
+      "neutralSite": false
+    },
+    {
+      "id": "primera-chile-2026-11-22-deportes-limac-deportes-la-se-qgz024",
+      "date": "2026-11-22",
+      "startTime": "2026-11-22T23:30:00.000Z",
+      "round": "Regular season · Matchday 28",
+      "homeTeam": "primera-chile.deportes-limache",
+      "awayTeam": "primera-chile.deportes-la-serena",
+      "homeScore": 1,
+      "awayScore": 2,
       "neutralSite": false
     }
   ]

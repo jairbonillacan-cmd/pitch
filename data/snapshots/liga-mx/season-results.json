@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "league": "liga-mx",
   "season": "liga-mx-2026-apertura",
-  "updatedAt": "2026-11-22T22:03:53.979Z",
+  "updatedAt": "2026-11-23T15:14:45.285Z",
   "matches": [
     {
       "id": "mx-2026-j1-necaxa-atlante-401877045",
@@ -1663,6 +1663,28 @@
       "awayTeam": "liga-mx.america",
       "homeScore": 1,
       "awayScore": 0,
+      "neutralSite": false
+    },
+    {
+      "id": "mx-2026-j17-chivas-cruz-azul-401877047",
+      "date": "2026-11-22",
+      "startTime": "2026-11-22T23:07Z",
+      "round": "Jornada 17",
+      "homeTeam": "liga-mx.chivas",
+      "awayTeam": "liga-mx.cruz-azul",
+      "homeScore": 1,
+      "awayScore": 0,
+      "neutralSite": false
+    },
+    {
+      "id": "mx-2026-j17-queretaro-necaxa-401877046",
+      "date": "2026-11-23",
+      "startTime": "2026-11-23T01:10Z",
+      "round": "Jornada 17",
+      "homeTeam": "liga-mx.queretaro",
+      "awayTeam": "liga-mx.necaxa",
+      "homeScore": 2,
+      "awayScore": 2,
       "neutralSite": false
     }
   ]

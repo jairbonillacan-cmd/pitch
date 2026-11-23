@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "league": "premier-league",
-  "observedAt": "2026-11-22T22:04:45.643Z",
+  "observedAt": "2026-11-23T15:15:15.858Z",
   "entries": [
     {
       "gameId": "pl-2026-27-md11-afc-bournemouth-nottingham-forest",
@@ -53,21 +53,21 @@
       "gameId": "pl-2026-27-md11-brentford-everton",
       "source": "polymarket",
       "unit": "usd",
-      "observedAt": "2026-11-22T22:04:45.643Z",
+      "observedAt": "2026-11-23T15:15:15.858Z",
       "outcomes": [
         {
           "side": "home",
-          "volume": 3243.168712,
-          "price": 0.415
+          "volume": 41346.441047,
+          "price": 0.425
         },
         {
           "side": "draw",
-          "volume": 1669.432856,
+          "volume": 3488.584669,
           "price": 0.275
         },
         {
           "side": "away",
-          "volume": 5747.690926000001,
+          "volume": 13190.397444999999,
           "price": 0.305
         }
       ]

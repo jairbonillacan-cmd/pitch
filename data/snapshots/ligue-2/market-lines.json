@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "league": "ligue-2",
-  "updatedAt": "2026-11-22T21:56:46.653Z",
+  "updatedAt": "2026-11-23T15:07:01.408Z",
   "lines": [
     {
       "gameId": "ligue-2-2026-11-23-nantes-grenoble-foot-ato2x7",
@@ -16,7 +16,7 @@
       "deltaPct": 3.6,
       "movement": "drifting",
       "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-22T21:50:07Z"
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
     },
     {
       "gameId": "ligue-2-2026-11-23-nantes-grenoble-foot-ato2x7",
@@ -31,7 +31,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T21:50:07Z"
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
     },
     {
       "gameId": "ligue-2-2026-11-23-nantes-grenoble-foot-ato2x7",
@@ -46,7 +46,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T21:50:07Z"
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
     },
     {
       "gameId": "ligue-2-2026-11-23-nantes-grenoble-foot-ato2x7",
@@ -56,12 +56,12 @@
       "outcome": "HOME",
       "line": null,
       "book": "bwin",
-      "decimal": 1.47,
+      "decimal": 1.46,
       "openingDecimal": 1.43,
-      "deltaPct": 2.8,
+      "deltaPct": 2.1,
       "movement": "drifting",
       "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-22T21:50:07Z"
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
     },
     {
       "gameId": "ligue-2-2026-11-23-nantes-grenoble-foot-ato2x7",
@@ -71,12 +71,12 @@
       "outcome": "HOME",
       "line": null,
       "book": "william-hill",
-      "decimal": 1.44,
+      "decimal": 1.4,
       "openingDecimal": 1.4,
-      "deltaPct": 2.86,
-      "movement": "drifting",
-      "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-22T21:50:07Z"
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
     },
     {
       "gameId": "ligue-2-2026-11-23-nantes-grenoble-foot-ato2x7",
@@ -91,7 +91,7 @@
       "deltaPct": -1.66,
       "movement": "shortening",
       "movementSignal": "SHORTENING",
-      "capturedAtUtc": "2026-11-22T21:50:07Z"
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
     },
     {
       "gameId": "ligue-2-2026-11-23-nantes-grenoble-foot-ato2x7",
@@ -106,7 +106,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T21:50:07Z"
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
     },
     {
       "gameId": "ligue-2-2026-11-23-nantes-grenoble-foot-ato2x7",
@@ -121,7 +121,7 @@
       "deltaPct": 2.86,
       "movement": "drifting",
       "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-22T21:50:07Z"
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
     },
     {
       "gameId": "ligue-2-2026-11-23-nantes-grenoble-foot-ato2x7",
@@ -131,12 +131,12 @@
       "outcome": "HOME",
       "line": null,
       "book": "dafabet",
-      "decimal": 1.48,
+      "decimal": 1.46,
       "openingDecimal": 1.46,
-      "deltaPct": 1.37,
-      "movement": "drifting",
-      "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-22T21:50:07Z"
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
     },
     {
       "gameId": "ligue-2-2026-11-23-nantes-grenoble-foot-ato2x7",
@@ -151,7 +151,7 @@
       "deltaPct": 2.86,
       "movement": "drifting",
       "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-22T21:50:07Z"
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
     },
     {
       "gameId": "ligue-2-2026-11-23-nantes-grenoble-foot-ato2x7",
@@ -166,7 +166,22 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T21:50:07Z"
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
+    },
+    {
+      "gameId": "ligue-2-2026-11-23-nantes-grenoble-foot-ato2x7",
+      "homeName": "Nantes",
+      "awayName": "Grenoble Foot 38",
+      "market": "1x2",
+      "outcome": "HOME",
+      "line": null,
+      "book": "melbet",
+      "decimal": 1.3,
+      "openingDecimal": 1.3,
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
     },
     {
       "gameId": "ligue-2-2026-11-23-nantes-grenoble-foot-ato2x7",
@@ -176,12 +191,12 @@
       "outcome": "HOME",
       "line": null,
       "book": "mansionbet",
-      "decimal": 1.49,
+      "decimal": 1.42,
       "openingDecimal": 1.43,
-      "deltaPct": 4.2,
-      "movement": "drifting",
-      "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-22T21:50:07Z"
+      "deltaPct": -0.7,
+      "movement": "shortening",
+      "movementSignal": "SHORTENING",
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
     },
     {
       "gameId": "ligue-2-2026-11-23-nantes-grenoble-foot-ato2x7",
@@ -191,27 +206,12 @@
       "outcome": "HOME",
       "line": null,
       "book": "sbo",
-      "decimal": 1.39,
+      "decimal": 1.38,
       "openingDecimal": 1.38,
-      "deltaPct": 0.72,
+      "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T21:50:07Z"
-    },
-    {
-      "gameId": "ligue-2-2026-11-23-nantes-grenoble-foot-ato2x7",
-      "homeName": "Nantes",
-      "awayName": "Grenoble Foot 38",
-      "market": "1x2",
-      "outcome": "HOME",
-      "line": null,
-      "book": "macauslot",
-      "decimal": 1.44,
-      "openingDecimal": 1.3,
-      "deltaPct": 10.77,
-      "movement": "drifting",
-      "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-22T21:50:07Z"
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
     },
     {
       "gameId": "ligue-2-2026-11-23-nantes-grenoble-foot-ato2x7",
@@ -226,7 +226,7 @@
       "deltaPct": -7.87,
       "movement": "shortening",
       "movementSignal": "SHORTENING",
-      "capturedAtUtc": "2026-11-22T21:50:07Z"
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
     },
     {
       "gameId": "ligue-2-2026-11-23-nantes-grenoble-foot-ato2x7",
@@ -241,7 +241,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T21:50:07Z"
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
     },
     {
       "gameId": "ligue-2-2026-11-23-nantes-grenoble-foot-ato2x7",
@@ -256,7 +256,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T21:50:07Z"
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
     },
     {
       "gameId": "ligue-2-2026-11-23-nantes-grenoble-foot-ato2x7",
@@ -266,12 +266,12 @@
       "outcome": "DRAW",
       "line": null,
       "book": "bwin",
-      "decimal": 4.2,
+      "decimal": 4.33,
       "openingDecimal": 4.33,
-      "deltaPct": -3,
-      "movement": "shortening",
-      "movementSignal": "SHORTENING",
-      "capturedAtUtc": "2026-11-22T21:50:07Z"
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
     },
     {
       "gameId": "ligue-2-2026-11-23-nantes-grenoble-foot-ato2x7",
@@ -286,7 +286,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T21:50:07Z"
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
     },
     {
       "gameId": "ligue-2-2026-11-23-nantes-grenoble-foot-ato2x7",
@@ -301,7 +301,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T21:50:07Z"
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
     },
     {
       "gameId": "ligue-2-2026-11-23-nantes-grenoble-foot-ato2x7",
@@ -311,12 +311,12 @@
       "outcome": "DRAW",
       "line": null,
       "book": "betfair",
-      "decimal": 4.33,
+      "decimal": 4.2,
       "openingDecimal": 4.33,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T21:50:07Z"
+      "deltaPct": -3,
+      "movement": "shortening",
+      "movementSignal": "SHORTENING",
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
     },
     {
       "gameId": "ligue-2-2026-11-23-nantes-grenoble-foot-ato2x7",
@@ -326,12 +326,12 @@
       "outcome": "DRAW",
       "line": null,
       "book": "coral",
-      "decimal": 3.9,
+      "decimal": 4,
       "openingDecimal": 4,
-      "deltaPct": -2.5,
-      "movement": "shortening",
-      "movementSignal": "SHORTENING",
-      "capturedAtUtc": "2026-11-22T21:50:07Z"
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
     },
     {
       "gameId": "ligue-2-2026-11-23-nantes-grenoble-foot-ato2x7",
@@ -341,12 +341,12 @@
       "outcome": "DRAW",
       "line": null,
       "book": "dafabet",
-      "decimal": 4.2,
+      "decimal": 4.4,
       "openingDecimal": 4.4,
-      "deltaPct": -4.55,
-      "movement": "shortening",
-      "movementSignal": "SHORTENING",
-      "capturedAtUtc": "2026-11-22T21:50:07Z"
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
     },
     {
       "gameId": "ligue-2-2026-11-23-nantes-grenoble-foot-ato2x7",
@@ -356,12 +356,12 @@
       "outcome": "DRAW",
       "line": null,
       "book": "ladbrokes",
-      "decimal": 3.9,
+      "decimal": 4,
       "openingDecimal": 4,
-      "deltaPct": -2.5,
-      "movement": "shortening",
-      "movementSignal": "SHORTENING",
-      "capturedAtUtc": "2026-11-22T21:50:07Z"
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
     },
     {
       "gameId": "ligue-2-2026-11-23-nantes-grenoble-foot-ato2x7",
@@ -376,7 +376,22 @@
       "deltaPct": -2.38,
       "movement": "shortening",
       "movementSignal": "SHORTENING",
-      "capturedAtUtc": "2026-11-22T21:50:07Z"
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
+    },
+    {
+      "gameId": "ligue-2-2026-11-23-nantes-grenoble-foot-ato2x7",
+      "homeName": "Nantes",
+      "awayName": "Grenoble Foot 38",
+      "market": "1x2",
+      "outcome": "DRAW",
+      "line": null,
+      "book": "melbet",
+      "decimal": 4.05,
+      "openingDecimal": 4.05,
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
     },
     {
       "gameId": "ligue-2-2026-11-23-nantes-grenoble-foot-ato2x7",
@@ -386,12 +401,12 @@
       "outcome": "DRAW",
       "line": null,
       "book": "mansionbet",
-      "decimal": 4,
+      "decimal": 4.2,
       "openingDecimal": 4.3,
-      "deltaPct": -6.98,
+      "deltaPct": -2.33,
       "movement": "shortening",
       "movementSignal": "SHORTENING",
-      "capturedAtUtc": "2026-11-22T21:50:07Z"
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
     },
     {
       "gameId": "ligue-2-2026-11-23-nantes-grenoble-foot-ato2x7",
@@ -401,27 +416,12 @@
       "outcome": "DRAW",
       "line": null,
       "book": "sbo",
-      "decimal": 3.76,
+      "decimal": 3.8,
       "openingDecimal": 3.87,
-      "deltaPct": -2.84,
+      "deltaPct": -1.81,
       "movement": "shortening",
       "movementSignal": "SHORTENING",
-      "capturedAtUtc": "2026-11-22T21:50:07Z"
-    },
-    {
-      "gameId": "ligue-2-2026-11-23-nantes-grenoble-foot-ato2x7",
-      "homeName": "Nantes",
-      "awayName": "Grenoble Foot 38",
-      "market": "1x2",
-      "outcome": "DRAW",
-      "line": null,
-      "book": "macauslot",
-      "decimal": 4.1,
-      "openingDecimal": 4.1,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T21:50:07Z"
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
     },
     {
       "gameId": "ligue-2-2026-11-23-nantes-grenoble-foot-ato2x7",
@@ -436,7 +436,7 @@
       "deltaPct": -4.4,
       "movement": "shortening",
       "movementSignal": "SHORTENING",
-      "capturedAtUtc": "2026-11-22T21:50:07Z"
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
     },
     {
       "gameId": "ligue-2-2026-11-23-nantes-grenoble-foot-ato2x7",
@@ -451,7 +451,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T21:50:07Z"
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
     },
     {
       "gameId": "ligue-2-2026-11-23-nantes-grenoble-foot-ato2x7",
@@ -466,7 +466,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T21:50:07Z"
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
     },
     {
       "gameId": "ligue-2-2026-11-23-nantes-grenoble-foot-ato2x7",
@@ -476,12 +476,12 @@
       "outcome": "AWAY",
       "line": null,
       "book": "bwin",
-      "decimal": 6.5,
+      "decimal": 6.75,
       "openingDecimal": 7,
-      "deltaPct": -7.14,
+      "deltaPct": -3.57,
       "movement": "shortening",
       "movementSignal": "SHORTENING",
-      "capturedAtUtc": "2026-11-22T21:50:07Z"
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
     },
     {
       "gameId": "ligue-2-2026-11-23-nantes-grenoble-foot-ato2x7",
@@ -491,12 +491,12 @@
       "outcome": "AWAY",
       "line": null,
       "book": "william-hill",
-      "decimal": 6.5,
+      "decimal": 7,
       "openingDecimal": 7,
-      "deltaPct": -7.14,
-      "movement": "shortening",
-      "movementSignal": "SHORTENING",
-      "capturedAtUtc": "2026-11-22T21:50:07Z"
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
     },
     {
       "gameId": "ligue-2-2026-11-23-nantes-grenoble-foot-ato2x7",
@@ -511,7 +511,7 @@
       "deltaPct": 15.38,
       "movement": "drifting",
       "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-22T21:50:07Z"
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
     },
     {
       "gameId": "ligue-2-2026-11-23-nantes-grenoble-foot-ato2x7",
@@ -521,12 +521,12 @@
       "outcome": "AWAY",
       "line": null,
       "book": "betfair",
-      "decimal": 7,
+      "decimal": 6.5,
       "openingDecimal": 7,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T21:50:07Z"
+      "deltaPct": -7.14,
+      "movement": "shortening",
+      "movementSignal": "SHORTENING",
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
     },
     {
       "gameId": "ligue-2-2026-11-23-nantes-grenoble-foot-ato2x7",
@@ -541,7 +541,7 @@
       "deltaPct": -7.69,
       "movement": "shortening",
       "movementSignal": "SHORTENING",
-      "capturedAtUtc": "2026-11-22T21:50:07Z"
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
     },
     {
       "gameId": "ligue-2-2026-11-23-nantes-grenoble-foot-ato2x7",
@@ -551,12 +551,12 @@
       "outcome": "AWAY",
       "line": null,
       "book": "dafabet",
-      "decimal": 7.2,
+      "decimal": 7.4,
       "openingDecimal": 7,
-      "deltaPct": 2.86,
+      "deltaPct": 5.71,
       "movement": "drifting",
       "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-22T21:50:07Z"
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
     },
     {
       "gameId": "ligue-2-2026-11-23-nantes-grenoble-foot-ato2x7",
@@ -571,7 +571,7 @@
       "deltaPct": -7.69,
       "movement": "shortening",
       "movementSignal": "SHORTENING",
-      "capturedAtUtc": "2026-11-22T21:50:07Z"
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
     },
     {
       "gameId": "ligue-2-2026-11-23-nantes-grenoble-foot-ato2x7",
@@ -586,7 +586,22 @@
       "deltaPct": 7.14,
       "movement": "drifting",
       "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-22T21:50:07Z"
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
+    },
+    {
+      "gameId": "ligue-2-2026-11-23-nantes-grenoble-foot-ato2x7",
+      "homeName": "Nantes",
+      "awayName": "Grenoble Foot 38",
+      "market": "1x2",
+      "outcome": "AWAY",
+      "line": null,
+      "book": "melbet",
+      "decimal": 7.6,
+      "openingDecimal": 7.6,
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
     },
     {
       "gameId": "ligue-2-2026-11-23-nantes-grenoble-foot-ato2x7",
@@ -596,12 +611,12 @@
       "outcome": "AWAY",
       "line": null,
       "book": "mansionbet",
-      "decimal": 6.2,
+      "decimal": 7.3,
       "openingDecimal": 6.8,
-      "deltaPct": -8.82,
-      "movement": "shortening",
-      "movementSignal": "STEAM",
-      "capturedAtUtc": "2026-11-22T21:50:07Z"
+      "deltaPct": 7.35,
+      "movement": "drifting",
+      "movementSignal": "DRIFTING",
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
     },
     {
       "gameId": "ligue-2-2026-11-23-nantes-grenoble-foot-ato2x7",
@@ -616,22 +631,7 @@
       "deltaPct": 1.48,
       "movement": "drifting",
       "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-22T21:50:07Z"
-    },
-    {
-      "gameId": "ligue-2-2026-11-23-nantes-grenoble-foot-ato2x7",
-      "homeName": "Nantes",
-      "awayName": "Grenoble Foot 38",
-      "market": "1x2",
-      "outcome": "AWAY",
-      "line": null,
-      "book": "macauslot",
-      "decimal": 7.6,
-      "openingDecimal": 6.2,
-      "deltaPct": 22.58,
-      "movement": "drifting",
-      "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-22T21:50:07Z"
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
     },
     {
       "gameId": "ligue-2-2026-11-23-nantes-grenoble-foot-ato2x7",
@@ -646,7 +646,7 @@
       "deltaPct": 0.95,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T21:50:07Z"
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
     },
     {
       "gameId": "ligue-2-2026-11-23-nantes-grenoble-foot-ato2x7",
@@ -661,7 +661,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T21:50:07Z"
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
     },
     {
       "gameId": "ligue-2-2026-11-23-nantes-grenoble-foot-ato2x7",
@@ -676,7 +676,7 @@
       "deltaPct": 1.85,
       "movement": "drifting",
       "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-22T21:50:07Z"
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
     },
     {
       "gameId": "ligue-2-2026-11-23-nantes-grenoble-foot-ato2x7",
@@ -691,7 +691,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T21:50:07Z"
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
     },
     {
       "gameId": "ligue-2-2026-11-23-nantes-grenoble-foot-ato2x7",
@@ -706,7 +706,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T21:50:07Z"
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
     },
     {
       "gameId": "ligue-2-2026-11-23-nantes-grenoble-foot-ato2x7",
@@ -721,7 +721,7 @@
       "deltaPct": -6.64,
       "movement": "shortening",
       "movementSignal": "SHORTENING",
-      "capturedAtUtc": "2026-11-22T21:50:07Z"
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
     },
     {
       "gameId": "ligue-2-2026-11-23-nantes-grenoble-foot-ato2x7",
@@ -736,7 +736,7 @@
       "deltaPct": -2.96,
       "movement": "shortening",
       "movementSignal": "SHORTENING",
-      "capturedAtUtc": "2026-11-22T21:50:07Z"
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
     },
     {
       "gameId": "ligue-2-2026-11-23-nantes-grenoble-foot-ato2x7",
@@ -746,12 +746,12 @@
       "outcome": "X2",
       "line": null,
       "book": "betfair",
-      "decimal": 2.75,
+      "decimal": 2.7,
       "openingDecimal": 2.8,
-      "deltaPct": -1.79,
+      "deltaPct": -3.57,
       "movement": "shortening",
       "movementSignal": "SHORTENING",
-      "capturedAtUtc": "2026-11-22T21:50:07Z"
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
     },
     {
       "gameId": "ligue-2-2026-11-23-nantes-grenoble-foot-ato2x7",
@@ -761,12 +761,12 @@
       "outcome": "X2",
       "line": null,
       "book": "betvictor",
-      "decimal": 2.63,
+      "decimal": 2.7,
       "openingDecimal": 2.7,
-      "deltaPct": -2.59,
-      "movement": "shortening",
-      "movementSignal": "SHORTENING",
-      "capturedAtUtc": "2026-11-22T21:50:07Z"
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
     },
     {
       "gameId": "ligue-2-2026-11-23-nantes-grenoble-foot-ato2x7",
@@ -776,12 +776,12 @@
       "outcome": "X2",
       "line": null,
       "book": "sbo",
-      "decimal": 2.58,
+      "decimal": 2.61,
       "openingDecimal": 2.62,
-      "deltaPct": -1.53,
-      "movement": "shortening",
-      "movementSignal": "SHORTENING",
-      "capturedAtUtc": "2026-11-22T21:50:07Z"
+      "deltaPct": -0.38,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
     },
     {
       "gameId": "ligue-2-2026-11-23-nantes-grenoble-foot-ato2x7",
@@ -796,7 +796,7 @@
       "deltaPct": 2.54,
       "movement": "drifting",
       "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-22T21:50:07Z"
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
     },
     {
       "gameId": "ligue-2-2026-11-23-nantes-grenoble-foot-ato2x7",
@@ -811,7 +811,7 @@
       "deltaPct": 1.67,
       "movement": "drifting",
       "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-22T21:50:07Z"
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
     },
     {
       "gameId": "ligue-2-2026-11-23-nantes-grenoble-foot-ato2x7",
@@ -826,7 +826,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T21:50:07Z"
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
     },
     {
       "gameId": "ligue-2-2026-11-23-nantes-grenoble-foot-ato2x7",
@@ -836,12 +836,12 @@
       "outcome": "12",
       "line": null,
       "book": "betvictor",
-      "decimal": 1.15,
+      "decimal": 1.13,
       "openingDecimal": 1.13,
-      "deltaPct": 1.77,
-      "movement": "drifting",
-      "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-22T21:50:07Z"
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
     },
     {
       "gameId": "ligue-2-2026-11-23-nantes-grenoble-foot-ato2x7",
@@ -851,12 +851,12 @@
       "outcome": "12",
       "line": null,
       "book": "sbo",
-      "decimal": 1.18,
+      "decimal": 1.17,
       "openingDecimal": 1.17,
-      "deltaPct": 0.85,
-      "movement": "drifting",
-      "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-22T21:50:07Z"
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
     },
     {
       "gameId": "ligue-2-2026-11-23-nantes-grenoble-foot-ato2x7",
@@ -871,7 +871,7 @@
       "deltaPct": 0.83,
       "movement": "drifting",
       "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-22T21:50:07Z"
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
     },
     {
       "gameId": "ligue-2-2026-11-23-nantes-grenoble-foot-ato2x7",
@@ -886,7 +886,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T21:50:07Z"
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
     },
     {
       "gameId": "ligue-2-2026-11-23-nantes-grenoble-foot-ato2x7",
@@ -901,7 +901,7 @@
       "deltaPct": 5.74,
       "movement": "drifting",
       "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-22T21:50:07Z"
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
     },
     {
       "gameId": "ligue-2-2026-11-23-nantes-grenoble-foot-ato2x7",
@@ -916,7 +916,7 @@
       "deltaPct": 3.2,
       "movement": "drifting",
       "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-22T21:50:07Z"
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
     },
     {
       "gameId": "ligue-2-2026-11-23-nantes-grenoble-foot-ato2x7",
@@ -931,7 +931,7 @@
       "deltaPct": 2.35,
       "movement": "drifting",
       "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-22T21:50:07Z"
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
     },
     {
       "gameId": "ligue-2-2026-11-23-nantes-grenoble-foot-ato2x7",
@@ -946,7 +946,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T21:50:07Z"
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
     },
     {
       "gameId": "ligue-2-2026-11-23-nantes-grenoble-foot-ato2x7",
@@ -956,12 +956,12 @@
       "outcome": "under",
       "line": 1.5,
       "book": "betfair",
-      "decimal": 3.5,
+      "decimal": 3.4,
       "openingDecimal": 3.8,
-      "deltaPct": -7.89,
+      "deltaPct": -10.53,
       "movement": "shortening",
-      "movementSignal": "SHORTENING",
-      "capturedAtUtc": "2026-11-22T21:50:07Z"
+      "movementSignal": "STEAM",
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
     },
     {
       "gameId": "ligue-2-2026-11-23-nantes-grenoble-foot-ato2x7",
@@ -976,7 +976,7 @@
       "deltaPct": -5.56,
       "movement": "shortening",
       "movementSignal": "SHORTENING",
-      "capturedAtUtc": "2026-11-22T21:50:07Z"
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
     },
     {
       "gameId": "ligue-2-2026-11-23-nantes-grenoble-foot-ato2x7",
@@ -991,7 +991,7 @@
       "deltaPct": 2.22,
       "movement": "drifting",
       "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-22T21:50:07Z"
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
     },
     {
       "gameId": "ligue-2-2026-11-23-nantes-grenoble-foot-ato2x7",
@@ -1006,7 +1006,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T21:50:07Z"
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
     },
     {
       "gameId": "ligue-2-2026-11-23-nantes-grenoble-foot-ato2x7",
@@ -1021,7 +1021,7 @@
       "deltaPct": 8.11,
       "movement": "drifting",
       "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-22T21:50:07Z"
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
     },
     {
       "gameId": "ligue-2-2026-11-23-nantes-grenoble-foot-ato2x7",
@@ -1036,7 +1036,7 @@
       "deltaPct": 2.7,
       "movement": "drifting",
       "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-22T21:50:07Z"
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
     },
     {
       "gameId": "ligue-2-2026-11-23-nantes-grenoble-foot-ato2x7",
@@ -1051,7 +1051,7 @@
       "deltaPct": 3.87,
       "movement": "drifting",
       "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-22T21:50:07Z"
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
     },
     {
       "gameId": "ligue-2-2026-11-23-nantes-grenoble-foot-ato2x7",
@@ -1066,7 +1066,7 @@
       "deltaPct": 6.91,
       "movement": "drifting",
       "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-22T21:50:07Z"
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
     },
     {
       "gameId": "ligue-2-2026-11-23-nantes-grenoble-foot-ato2x7",
@@ -1081,7 +1081,7 @@
       "deltaPct": 1.6,
       "movement": "drifting",
       "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-22T21:50:07Z"
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
     },
     {
       "gameId": "ligue-2-2026-11-23-nantes-grenoble-foot-ato2x7",
@@ -1096,7 +1096,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T21:50:07Z"
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
     },
     {
       "gameId": "ligue-2-2026-11-23-nantes-grenoble-foot-ato2x7",
@@ -1111,7 +1111,7 @@
       "deltaPct": -7.69,
       "movement": "shortening",
       "movementSignal": "STEAM",
-      "capturedAtUtc": "2026-11-22T21:50:07Z"
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
     },
     {
       "gameId": "ligue-2-2026-11-23-nantes-grenoble-foot-ato2x7",
@@ -1126,7 +1126,7 @@
       "deltaPct": 1.08,
       "movement": "drifting",
       "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-22T21:50:07Z"
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
     },
     {
       "gameId": "ligue-2-2026-11-23-nantes-grenoble-foot-ato2x7",
@@ -1141,7 +1141,7 @@
       "deltaPct": -3.76,
       "movement": "shortening",
       "movementSignal": "SHORTENING",
-      "capturedAtUtc": "2026-11-22T21:50:07Z"
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
     },
     {
       "gameId": "ligue-2-2026-11-23-nantes-grenoble-foot-ato2x7",
@@ -1156,7 +1156,7 @@
       "deltaPct": -6.7,
       "movement": "shortening",
       "movementSignal": "SHORTENING",
-      "capturedAtUtc": "2026-11-22T21:50:07Z"
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
     },
     {
       "gameId": "ligue-2-2026-11-23-nantes-grenoble-foot-ato2x7",
@@ -1171,7 +1171,7 @@
       "deltaPct": 1.71,
       "movement": "drifting",
       "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-22T21:50:07Z"
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
     },
     {
       "gameId": "ligue-2-2026-11-23-nantes-grenoble-foot-ato2x7",
@@ -1186,7 +1186,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T21:50:07Z"
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
     },
     {
       "gameId": "ligue-2-2026-11-23-nantes-grenoble-foot-ato2x7",
@@ -1201,7 +1201,7 @@
       "deltaPct": 13.33,
       "movement": "drifting",
       "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-22T21:50:07Z"
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
     },
     {
       "gameId": "ligue-2-2026-11-23-nantes-grenoble-foot-ato2x7",
@@ -1216,7 +1216,7 @@
       "deltaPct": 6.25,
       "movement": "drifting",
       "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-22T21:50:07Z"
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
     },
     {
       "gameId": "ligue-2-2026-11-23-nantes-grenoble-foot-ato2x7",
@@ -1231,7 +1231,7 @@
       "deltaPct": 0.78,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T21:50:07Z"
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
     },
     {
       "gameId": "ligue-2-2026-11-23-nantes-grenoble-foot-ato2x7",
@@ -1246,7 +1246,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T21:50:07Z"
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
     },
     {
       "gameId": "ligue-2-2026-11-23-nantes-grenoble-foot-ato2x7",
@@ -1261,7 +1261,7 @@
       "deltaPct": -2.26,
       "movement": "shortening",
       "movementSignal": "SHORTENING",
-      "capturedAtUtc": "2026-11-22T21:50:07Z"
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
     },
     {
       "gameId": "ligue-2-2026-11-23-nantes-grenoble-foot-ato2x7",
@@ -1276,7 +1276,7 @@
       "deltaPct": -0.77,
       "movement": "shortening",
       "movementSignal": "SHORTENING",
-      "capturedAtUtc": "2026-11-22T21:50:07Z"
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
     },
     {
       "gameId": "ligue-2-2026-11-23-nantes-grenoble-foot-ato2x7",
@@ -1291,7 +1291,7 @@
       "deltaPct": -0.99,
       "movement": "shortening",
       "movementSignal": "SHORTENING",
-      "capturedAtUtc": "2026-11-22T21:50:07Z"
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
     },
     {
       "gameId": "ligue-2-2026-11-23-nantes-grenoble-foot-ato2x7",
@@ -1301,12 +1301,12 @@
       "outcome": "yes",
       "line": null,
       "book": "betano",
-      "decimal": 2.12,
+      "decimal": 2.07,
       "openingDecimal": 2.12,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T20:21:00Z"
+      "deltaPct": -2.36,
+      "movement": "shortening",
+      "movementSignal": "SHORTENING",
+      "capturedAtUtc": "2026-11-23T14:20:24Z"
     },
     {
       "gameId": "ligue-2-2026-11-23-nantes-grenoble-foot-ato2x7",
@@ -1316,12 +1316,12 @@
       "outcome": "yes",
       "line": null,
       "book": "interwetten",
-      "decimal": 2.2,
+      "decimal": 2.1,
       "openingDecimal": 2.2,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T20:21:00Z"
+      "deltaPct": -4.55,
+      "movement": "shortening",
+      "movementSignal": "SHORTENING",
+      "capturedAtUtc": "2026-11-23T14:20:24Z"
     },
     {
       "gameId": "ligue-2-2026-11-23-nantes-grenoble-foot-ato2x7",
@@ -1331,12 +1331,12 @@
       "outcome": "yes",
       "line": null,
       "book": "unibet",
-      "decimal": 2.15,
+      "decimal": 2.1,
       "openingDecimal": 2.15,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T20:21:00Z"
+      "deltaPct": -2.33,
+      "movement": "shortening",
+      "movementSignal": "SHORTENING",
+      "capturedAtUtc": "2026-11-23T14:20:24Z"
     },
     {
       "gameId": "ligue-2-2026-11-23-nantes-grenoble-foot-ato2x7",
@@ -1346,12 +1346,12 @@
       "outcome": "yes",
       "line": null,
       "book": "novibet",
-      "decimal": 2.1,
+      "decimal": 2.06,
       "openingDecimal": 2.1,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T20:21:00Z"
+      "deltaPct": -1.9,
+      "movement": "shortening",
+      "movementSignal": "SHORTENING",
+      "capturedAtUtc": "2026-11-23T14:20:24Z"
     },
     {
       "gameId": "ligue-2-2026-11-23-nantes-grenoble-foot-ato2x7",
@@ -1366,7 +1366,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T20:21:00Z"
+      "capturedAtUtc": "2026-11-23T14:20:24Z"
     },
     {
       "gameId": "ligue-2-2026-11-23-nantes-grenoble-foot-ato2x7",
@@ -1381,7 +1381,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T20:21:00Z"
+      "capturedAtUtc": "2026-11-23T14:20:24Z"
     },
     {
       "gameId": "ligue-2-2026-11-23-nantes-grenoble-foot-ato2x7",
@@ -1396,7 +1396,7 @@
       "deltaPct": -2.44,
       "movement": "shortening",
       "movementSignal": "SHORTENING",
-      "capturedAtUtc": "2026-11-22T21:50:07Z"
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
     },
     {
       "gameId": "ligue-2-2026-11-23-nantes-grenoble-foot-ato2x7",
@@ -1411,7 +1411,7 @@
       "deltaPct": 10,
       "movement": "drifting",
       "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-22T21:50:07Z"
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
     },
     {
       "gameId": "ligue-2-2026-11-23-nantes-grenoble-foot-ato2x7",
@@ -1421,12 +1421,12 @@
       "outcome": "yes",
       "line": null,
       "book": "betsson",
-      "decimal": 2.18,
+      "decimal": 2.1,
       "openingDecimal": 2.18,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T20:21:00Z"
+      "deltaPct": -3.67,
+      "movement": "shortening",
+      "movementSignal": "SHORTENING",
+      "capturedAtUtc": "2026-11-23T14:20:24Z"
     },
     {
       "gameId": "ligue-2-2026-11-23-nantes-grenoble-foot-ato2x7",
@@ -1441,7 +1441,7 @@
       "deltaPct": 7.5,
       "movement": "drifting",
       "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-22T21:50:07Z"
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
     },
     {
       "gameId": "ligue-2-2026-11-23-nantes-grenoble-foot-ato2x7",
@@ -1451,12 +1451,12 @@
       "outcome": "yes",
       "line": null,
       "book": "fonbet",
-      "decimal": 2.1,
+      "decimal": 2.05,
       "openingDecimal": 2.1,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T20:21:00Z"
+      "deltaPct": -2.38,
+      "movement": "shortening",
+      "movementSignal": "SHORTENING",
+      "capturedAtUtc": "2026-11-23T14:20:24Z"
     },
     {
       "gameId": "ligue-2-2026-11-23-nantes-grenoble-foot-ato2x7",
@@ -1466,12 +1466,12 @@
       "outcome": "yes",
       "line": null,
       "book": "10bet",
-      "decimal": 2.1,
+      "decimal": 2.05,
       "openingDecimal": 2.1,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T20:21:00Z"
+      "deltaPct": -2.38,
+      "movement": "shortening",
+      "movementSignal": "SHORTENING",
+      "capturedAtUtc": "2026-11-23T14:20:24Z"
     },
     {
       "gameId": "ligue-2-2026-11-23-nantes-grenoble-foot-ato2x7",
@@ -1486,7 +1486,7 @@
       "deltaPct": 5,
       "movement": "drifting",
       "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-22T21:50:07Z"
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
     },
     {
       "gameId": "ligue-2-2026-11-23-nantes-grenoble-foot-ato2x7",
@@ -1496,12 +1496,12 @@
       "outcome": "HOME",
       "line": null,
       "book": "betano",
-      "decimal": 1.16,
+      "decimal": 1.17,
       "openingDecimal": 1.16,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T20:21:00Z"
+      "deltaPct": 0.86,
+      "movement": "drifting",
+      "movementSignal": "DRIFTING",
+      "capturedAtUtc": "2026-11-23T14:20:24Z"
     },
     {
       "gameId": "ligue-2-2026-11-23-nantes-grenoble-foot-ato2x7",
@@ -1511,12 +1511,12 @@
       "outcome": "HOME",
       "line": null,
       "book": "unibet",
-      "decimal": 1.15,
+      "decimal": 1.17,
       "openingDecimal": 1.15,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T20:21:00Z"
+      "deltaPct": 1.74,
+      "movement": "drifting",
+      "movementSignal": "DRIFTING",
+      "capturedAtUtc": "2026-11-23T14:20:24Z"
     },
     {
       "gameId": "ligue-2-2026-11-23-nantes-grenoble-foot-ato2x7",
@@ -1526,12 +1526,12 @@
       "outcome": "HOME",
       "line": null,
       "book": "novibet",
-      "decimal": 1.16,
+      "decimal": 1.18,
       "openingDecimal": 1.16,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T20:21:00Z"
+      "deltaPct": 1.72,
+      "movement": "drifting",
+      "movementSignal": "DRIFTING",
+      "capturedAtUtc": "2026-11-23T14:20:24Z"
     },
     {
       "gameId": "ligue-2-2026-11-23-nantes-grenoble-foot-ato2x7",
@@ -1546,7 +1546,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T20:21:00Z"
+      "capturedAtUtc": "2026-11-23T14:20:24Z"
     },
     {
       "gameId": "ligue-2-2026-11-23-nantes-grenoble-foot-ato2x7",
@@ -1561,7 +1561,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T20:21:00Z"
+      "capturedAtUtc": "2026-11-23T14:20:24Z"
     },
     {
       "gameId": "ligue-2-2026-11-23-nantes-grenoble-foot-ato2x7",
@@ -1571,12 +1571,12 @@
       "outcome": "HOME",
       "line": null,
       "book": "william-hill",
-      "decimal": 1.143,
+      "decimal": 1.125,
       "openingDecimal": 1.143,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T20:21:00Z"
+      "deltaPct": -1.57,
+      "movement": "shortening",
+      "movementSignal": "SHORTENING",
+      "capturedAtUtc": "2026-11-23T14:20:24Z"
     },
     {
       "gameId": "ligue-2-2026-11-23-nantes-grenoble-foot-ato2x7",
@@ -1586,12 +1586,12 @@
       "outcome": "HOME",
       "line": null,
       "book": "bet365",
-      "decimal": 1.125,
+      "decimal": 1.143,
       "openingDecimal": 1.125,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T20:21:00Z"
+      "deltaPct": 1.6,
+      "movement": "drifting",
+      "movementSignal": "DRIFTING",
+      "capturedAtUtc": "2026-11-23T14:20:24Z"
     },
     {
       "gameId": "ligue-2-2026-11-23-nantes-grenoble-foot-ato2x7",
@@ -1601,12 +1601,12 @@
       "outcome": "HOME",
       "line": null,
       "book": "betsson",
-      "decimal": 1.15,
+      "decimal": 1.17,
       "openingDecimal": 1.15,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T20:21:00Z"
+      "deltaPct": 1.74,
+      "movement": "drifting",
+      "movementSignal": "DRIFTING",
+      "capturedAtUtc": "2026-11-23T14:20:24Z"
     },
     {
       "gameId": "ligue-2-2026-11-23-nantes-grenoble-foot-ato2x7",
@@ -1616,12 +1616,12 @@
       "outcome": "HOME",
       "line": null,
       "book": "10bet",
-      "decimal": 1.1,
+      "decimal": 1.142,
       "openingDecimal": 1.1,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T20:21:00Z"
+      "deltaPct": 3.82,
+      "movement": "drifting",
+      "movementSignal": "DRIFTING",
+      "capturedAtUtc": "2026-11-23T14:20:24Z"
     },
     {
       "gameId": "ligue-2-2026-11-23-nantes-grenoble-foot-ato2x7",
@@ -1631,12 +1631,12 @@
       "outcome": "AWAY",
       "line": null,
       "book": "betano",
-      "decimal": 4.8,
+      "decimal": 4.55,
       "openingDecimal": 4.8,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T20:21:00Z"
+      "deltaPct": -5.21,
+      "movement": "shortening",
+      "movementSignal": "SHORTENING",
+      "capturedAtUtc": "2026-11-23T14:20:24Z"
     },
     {
       "gameId": "ligue-2-2026-11-23-nantes-grenoble-foot-ato2x7",
@@ -1646,12 +1646,12 @@
       "outcome": "AWAY",
       "line": null,
       "book": "unibet",
-      "decimal": 5,
+      "decimal": 4.75,
       "openingDecimal": 5,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T20:21:00Z"
+      "deltaPct": -5,
+      "movement": "shortening",
+      "movementSignal": "SHORTENING",
+      "capturedAtUtc": "2026-11-23T14:20:24Z"
     },
     {
       "gameId": "ligue-2-2026-11-23-nantes-grenoble-foot-ato2x7",
@@ -1661,12 +1661,12 @@
       "outcome": "AWAY",
       "line": null,
       "book": "novibet",
-      "decimal": 4.7,
+      "decimal": 4.4,
       "openingDecimal": 4.7,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T20:21:00Z"
+      "deltaPct": -6.38,
+      "movement": "shortening",
+      "movementSignal": "SHORTENING",
+      "capturedAtUtc": "2026-11-23T14:20:24Z"
     },
     {
       "gameId": "ligue-2-2026-11-23-nantes-grenoble-foot-ato2x7",
@@ -1681,7 +1681,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T20:21:00Z"
+      "capturedAtUtc": "2026-11-23T14:20:24Z"
     },
     {
       "gameId": "ligue-2-2026-11-23-nantes-grenoble-foot-ato2x7",
@@ -1696,7 +1696,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T20:21:00Z"
+      "capturedAtUtc": "2026-11-23T14:20:24Z"
     },
     {
       "gameId": "ligue-2-2026-11-23-nantes-grenoble-foot-ato2x7",
@@ -1706,12 +1706,12 @@
       "outcome": "AWAY",
       "line": null,
       "book": "william-hill",
-      "decimal": 5,
+      "decimal": 5.5,
       "openingDecimal": 5,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T20:21:00Z"
+      "deltaPct": 10,
+      "movement": "drifting",
+      "movementSignal": "DRIFTING",
+      "capturedAtUtc": "2026-11-23T14:20:24Z"
     },
     {
       "gameId": "ligue-2-2026-11-23-nantes-grenoble-foot-ato2x7",
@@ -1721,12 +1721,12 @@
       "outcome": "AWAY",
       "line": null,
       "book": "bet365",
-      "decimal": 6,
+      "decimal": 5.5,
       "openingDecimal": 6,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T20:21:00Z"
+      "deltaPct": -8.33,
+      "movement": "shortening",
+      "movementSignal": "STEAM",
+      "capturedAtUtc": "2026-11-23T14:20:24Z"
     },
     {
       "gameId": "ligue-2-2026-11-23-nantes-grenoble-foot-ato2x7",
@@ -1736,12 +1736,12 @@
       "outcome": "AWAY",
       "line": null,
       "book": "betsson",
-      "decimal": 5,
+      "decimal": 4.7,
       "openingDecimal": 5,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T20:21:00Z"
+      "deltaPct": -6,
+      "movement": "shortening",
+      "movementSignal": "SHORTENING",
+      "capturedAtUtc": "2026-11-23T14:20:24Z"
     },
     {
       "gameId": "ligue-2-2026-11-23-nantes-grenoble-foot-ato2x7",
@@ -1751,12 +1751,12 @@
       "outcome": "AWAY",
       "line": null,
       "book": "10bet",
-      "decimal": 5.75,
+      "decimal": 5,
       "openingDecimal": 5.75,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T20:21:00Z"
+      "deltaPct": -13.04,
+      "movement": "shortening",
+      "movementSignal": "STEAM",
+      "capturedAtUtc": "2026-11-23T14:20:24Z"
     },
     {
       "gameId": "ligue-2-2026-11-23-nantes-grenoble-foot-ato2x7",
@@ -1771,7 +1771,7 @@
       "deltaPct": 1.18,
       "movement": "drifting",
       "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-22T21:50:07Z"
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
     },
     {
       "gameId": "ligue-2-2026-11-23-nantes-grenoble-foot-ato2x7",
@@ -1781,12 +1781,12 @@
       "outcome": "no",
       "line": null,
       "book": "betano",
-      "decimal": 1.65,
+      "decimal": 1.67,
       "openingDecimal": 1.65,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T20:21:00Z"
+      "deltaPct": 1.21,
+      "movement": "drifting",
+      "movementSignal": "DRIFTING",
+      "capturedAtUtc": "2026-11-23T14:20:24Z"
     },
     {
       "gameId": "ligue-2-2026-11-23-nantes-grenoble-foot-ato2x7",
@@ -1796,12 +1796,12 @@
       "outcome": "no",
       "line": null,
       "book": "interwetten",
-      "decimal": 1.6,
+      "decimal": 1.65,
       "openingDecimal": 1.6,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T20:21:00Z"
+      "deltaPct": 3.12,
+      "movement": "drifting",
+      "movementSignal": "DRIFTING",
+      "capturedAtUtc": "2026-11-23T14:20:24Z"
     },
     {
       "gameId": "ligue-2-2026-11-23-nantes-grenoble-foot-ato2x7",
@@ -1811,12 +1811,12 @@
       "outcome": "no",
       "line": null,
       "book": "unibet",
-      "decimal": 1.65,
+      "decimal": 1.7,
       "openingDecimal": 1.65,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T20:21:00Z"
+      "deltaPct": 3.03,
+      "movement": "drifting",
+      "movementSignal": "DRIFTING",
+      "capturedAtUtc": "2026-11-23T14:20:24Z"
     },
     {
       "gameId": "ligue-2-2026-11-23-nantes-grenoble-foot-ato2x7",
@@ -1826,12 +1826,12 @@
       "outcome": "no",
       "line": null,
       "book": "novibet",
-      "decimal": 1.67,
+      "decimal": 1.7,
       "openingDecimal": 1.67,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T20:21:00Z"
+      "deltaPct": 1.8,
+      "movement": "drifting",
+      "movementSignal": "DRIFTING",
+      "capturedAtUtc": "2026-11-23T14:20:24Z"
     },
     {
       "gameId": "ligue-2-2026-11-23-nantes-grenoble-foot-ato2x7",
@@ -1846,7 +1846,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T20:21:00Z"
+      "capturedAtUtc": "2026-11-23T14:20:24Z"
     },
     {
       "gameId": "ligue-2-2026-11-23-nantes-grenoble-foot-ato2x7",
@@ -1861,7 +1861,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T20:21:00Z"
+      "capturedAtUtc": "2026-11-23T14:20:24Z"
     },
     {
       "gameId": "ligue-2-2026-11-23-nantes-grenoble-foot-ato2x7",
@@ -1876,7 +1876,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T21:50:07Z"
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
     },
     {
       "gameId": "ligue-2-2026-11-23-nantes-grenoble-foot-ato2x7",
@@ -1891,7 +1891,7 @@
       "deltaPct": -6.77,
       "movement": "shortening",
       "movementSignal": "STEAM",
-      "capturedAtUtc": "2026-11-22T21:50:07Z"
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
     },
     {
       "gameId": "ligue-2-2026-11-23-nantes-grenoble-foot-ato2x7",
@@ -1901,12 +1901,12 @@
       "outcome": "no",
       "line": null,
       "book": "betsson",
-      "decimal": 1.62,
+      "decimal": 1.65,
       "openingDecimal": 1.62,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T20:21:00Z"
+      "deltaPct": 1.85,
+      "movement": "drifting",
+      "movementSignal": "DRIFTING",
+      "capturedAtUtc": "2026-11-23T14:20:24Z"
     },
     {
       "gameId": "ligue-2-2026-11-23-nantes-grenoble-foot-ato2x7",
@@ -1921,7 +1921,7 @@
       "deltaPct": -7.22,
       "movement": "shortening",
       "movementSignal": "STEAM",
-      "capturedAtUtc": "2026-11-22T21:50:07Z"
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
     },
     {
       "gameId": "ligue-2-2026-11-23-nantes-grenoble-foot-ato2x7",
@@ -1931,12 +1931,12 @@
       "outcome": "no",
       "line": null,
       "book": "fonbet",
-      "decimal": 1.7,
+      "decimal": 1.73,
       "openingDecimal": 1.7,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T20:21:00Z"
+      "deltaPct": 1.76,
+      "movement": "drifting",
+      "movementSignal": "DRIFTING",
+      "capturedAtUtc": "2026-11-23T14:20:24Z"
     },
     {
       "gameId": "ligue-2-2026-11-23-nantes-grenoble-foot-ato2x7",
@@ -1946,12 +1946,12 @@
       "outcome": "no",
       "line": null,
       "book": "10bet",
-      "decimal": 1.615,
+      "decimal": 1.65,
       "openingDecimal": 1.615,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T20:21:00Z"
+      "deltaPct": 2.17,
+      "movement": "drifting",
+      "movementSignal": "DRIFTING",
+      "capturedAtUtc": "2026-11-23T14:20:24Z"
     },
     {
       "gameId": "ligue-2-2026-11-23-nantes-grenoble-foot-ato2x7",
@@ -1966,7 +1966,7 @@
       "deltaPct": -2.94,
       "movement": "shortening",
       "movementSignal": "SHORTENING",
-      "capturedAtUtc": "2026-11-22T21:50:07Z"
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
     },
     {
       "gameId": "ligue-2-2026-11-23-nantes-grenoble-foot-ato2x7",
@@ -1979,7 +1979,7 @@
       "decimal": 1.04,
       "movement": "drifting",
       "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-22T21:50:07Z"
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
     },
     {
       "gameId": "ligue-2-2026-11-23-nantes-grenoble-foot-ato2x7",
@@ -1994,7 +1994,7 @@
       "deltaPct": 0.98,
       "movement": "drifting",
       "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-22T21:50:07Z"
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
     },
     {
       "gameId": "ligue-2-2026-11-23-nantes-grenoble-foot-ato2x7",
@@ -2004,12 +2004,12 @@
       "outcome": "under",
       "line": 0.5,
       "book": "1xbet",
-      "decimal": 10.6,
+      "decimal": 8.65,
       "openingDecimal": 11.2,
-      "deltaPct": -5.36,
+      "deltaPct": -22.77,
       "movement": "shortening",
-      "movementSignal": "SHORTENING",
-      "capturedAtUtc": "2026-11-22T21:50:07Z"
+      "movementSignal": "STEAM",
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
     },
     {
       "gameId": "ligue-2-2026-11-23-nantes-grenoble-foot-ato2x7",
@@ -2019,12 +2019,12 @@
       "outcome": "under",
       "line": 0.5,
       "book": "betfair",
-      "decimal": 11,
+      "decimal": 10,
       "openingDecimal": 11,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T21:50:07Z"
+      "deltaPct": -9.09,
+      "movement": "shortening",
+      "movementSignal": "STEAM",
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
     },
     {
       "gameId": "ligue-2-2026-11-23-nantes-grenoble-foot-ato2x7",
@@ -2039,7 +2039,7 @@
       "deltaPct": -4.76,
       "movement": "shortening",
       "movementSignal": "SHORTENING",
-      "capturedAtUtc": "2026-11-22T21:50:07Z"
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
     },
     {
       "gameId": "ligue-2-2026-11-23-nantes-grenoble-foot-ato2x7",
@@ -2054,7 +2054,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T20:21:00Z"
+      "capturedAtUtc": "2026-11-23T14:20:24Z"
     },
     {
       "gameId": "ligue-2-2026-11-23-nantes-grenoble-foot-ato2x7",
@@ -2064,12 +2064,12 @@
       "outcome": "HOME",
       "line": -0.25,
       "book": "unibet",
-      "decimal": 1.3,
+      "decimal": 1.33,
       "openingDecimal": 1.3,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T20:21:00Z"
+      "deltaPct": 2.31,
+      "movement": "drifting",
+      "movementSignal": "DRIFTING",
+      "capturedAtUtc": "2026-11-23T14:20:24Z"
     },
     {
       "gameId": "ligue-2-2026-11-23-nantes-grenoble-foot-ato2x7",
@@ -2079,12 +2079,12 @@
       "outcome": "HOME",
       "line": -0.25,
       "book": "novibet",
-      "decimal": 1.33,
+      "decimal": 1.35,
       "openingDecimal": 1.33,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T20:21:00Z"
+      "deltaPct": 1.5,
+      "movement": "drifting",
+      "movementSignal": "DRIFTING",
+      "capturedAtUtc": "2026-11-23T14:20:24Z"
     },
     {
       "gameId": "ligue-2-2026-11-23-nantes-grenoble-foot-ato2x7",
@@ -2094,12 +2094,27 @@
       "outcome": "HOME",
       "line": -0.25,
       "book": "bet365",
-      "decimal": 1.3,
+      "decimal": 1.325,
       "openingDecimal": 1.3,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T20:21:00Z"
+      "deltaPct": 1.92,
+      "movement": "drifting",
+      "movementSignal": "DRIFTING",
+      "capturedAtUtc": "2026-11-23T14:20:24Z"
+    },
+    {
+      "gameId": "ligue-2-2026-11-23-nantes-grenoble-foot-ato2x7",
+      "homeName": "Nantes",
+      "awayName": "Grenoble Foot 38",
+      "market": "asian_handicap",
+      "outcome": "HOME",
+      "line": -0.25,
+      "book": "fonbet",
+      "decimal": 1.27,
+      "openingDecimal": 1.25,
+      "deltaPct": 1.6,
+      "movement": "drifting",
+      "movementSignal": "DRIFTING",
+      "capturedAtUtc": "2026-11-23T14:20:24Z"
     },
     {
       "gameId": "ligue-2-2026-11-23-nantes-grenoble-foot-ato2x7",
@@ -2114,7 +2129,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T20:21:00Z"
+      "capturedAtUtc": "2026-11-23T14:20:24Z"
     },
     {
       "gameId": "ligue-2-2026-11-23-nantes-grenoble-foot-ato2x7",
@@ -2124,12 +2139,12 @@
       "outcome": "AWAY",
       "line": -0.25,
       "book": "unibet",
-      "decimal": 3.4,
+      "decimal": 3.25,
       "openingDecimal": 3.4,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T20:21:00Z"
+      "deltaPct": -4.41,
+      "movement": "shortening",
+      "movementSignal": "SHORTENING",
+      "capturedAtUtc": "2026-11-23T14:20:24Z"
     },
     {
       "gameId": "ligue-2-2026-11-23-nantes-grenoble-foot-ato2x7",
@@ -2139,12 +2154,12 @@
       "outcome": "AWAY",
       "line": -0.25,
       "book": "novibet",
-      "decimal": 3.2,
+      "decimal": 3.1,
       "openingDecimal": 3.2,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T20:21:00Z"
+      "deltaPct": -3.13,
+      "movement": "shortening",
+      "movementSignal": "SHORTENING",
+      "capturedAtUtc": "2026-11-23T14:20:24Z"
     },
     {
       "gameId": "ligue-2-2026-11-23-nantes-grenoble-foot-ato2x7",
@@ -2154,12 +2169,27 @@
       "outcome": "AWAY",
       "line": -0.25,
       "book": "bet365",
-      "decimal": 3.45,
+      "decimal": 3.3,
       "openingDecimal": 3.45,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T20:21:00Z"
+      "deltaPct": -4.35,
+      "movement": "shortening",
+      "movementSignal": "SHORTENING",
+      "capturedAtUtc": "2026-11-23T14:20:24Z"
+    },
+    {
+      "gameId": "ligue-2-2026-11-23-nantes-grenoble-foot-ato2x7",
+      "homeName": "Nantes",
+      "awayName": "Grenoble Foot 38",
+      "market": "asian_handicap",
+      "outcome": "AWAY",
+      "line": -0.25,
+      "book": "fonbet",
+      "decimal": 3.45,
+      "openingDecimal": 3.5,
+      "deltaPct": -1.43,
+      "movement": "shortening",
+      "movementSignal": "SHORTENING",
+      "capturedAtUtc": "2026-11-23T14:20:24Z"
     },
     {
       "gameId": "ligue-2-2026-11-23-nantes-grenoble-foot-ato2x7",
@@ -2174,7 +2204,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T20:21:00Z"
+      "capturedAtUtc": "2026-11-23T14:20:24Z"
     },
     {
       "gameId": "ligue-2-2026-11-23-nantes-grenoble-foot-ato2x7",
@@ -2184,12 +2214,12 @@
       "outcome": "HOME",
       "line": -1.75,
       "book": "unibet",
-      "decimal": 2.8,
+      "decimal": 2.9,
       "openingDecimal": 2.8,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T20:21:00Z"
+      "deltaPct": 3.57,
+      "movement": "drifting",
+      "movementSignal": "DRIFTING",
+      "capturedAtUtc": "2026-11-23T14:20:24Z"
     },
     {
       "gameId": "ligue-2-2026-11-23-nantes-grenoble-foot-ato2x7",
@@ -2199,12 +2229,12 @@
       "outcome": "HOME",
       "line": -1.75,
       "book": "novibet",
-      "decimal": 2.9,
+      "decimal": 3,
       "openingDecimal": 2.9,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T20:21:00Z"
+      "deltaPct": 3.45,
+      "movement": "drifting",
+      "movementSignal": "DRIFTING",
+      "capturedAtUtc": "2026-11-23T14:20:24Z"
     },
     {
       "gameId": "ligue-2-2026-11-23-nantes-grenoble-foot-ato2x7",
@@ -2214,12 +2244,27 @@
       "outcome": "HOME",
       "line": -1.75,
       "book": "bet365",
-      "decimal": 2.75,
+      "decimal": 2.85,
       "openingDecimal": 2.75,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T20:21:00Z"
+      "deltaPct": 3.64,
+      "movement": "drifting",
+      "movementSignal": "DRIFTING",
+      "capturedAtUtc": "2026-11-23T14:20:24Z"
+    },
+    {
+      "gameId": "ligue-2-2026-11-23-nantes-grenoble-foot-ato2x7",
+      "homeName": "Nantes",
+      "awayName": "Grenoble Foot 38",
+      "market": "asian_handicap",
+      "outcome": "HOME",
+      "line": -1.75,
+      "book": "fonbet",
+      "decimal": 2.7,
+      "openingDecimal": 2.65,
+      "deltaPct": 1.89,
+      "movement": "drifting",
+      "movementSignal": "DRIFTING",
+      "capturedAtUtc": "2026-11-23T14:20:24Z"
     },
     {
       "gameId": "ligue-2-2026-11-23-nantes-grenoble-foot-ato2x7",
@@ -2234,7 +2279,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T20:21:00Z"
+      "capturedAtUtc": "2026-11-23T14:20:24Z"
     },
     {
       "gameId": "ligue-2-2026-11-23-nantes-grenoble-foot-ato2x7",
@@ -2244,12 +2289,12 @@
       "outcome": "AWAY",
       "line": -1.75,
       "book": "unibet",
-      "decimal": 1.4,
+      "decimal": 1.37,
       "openingDecimal": 1.4,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T20:21:00Z"
+      "deltaPct": -2.14,
+      "movement": "shortening",
+      "movementSignal": "SHORTENING",
+      "capturedAtUtc": "2026-11-23T14:20:24Z"
     },
     {
       "gameId": "ligue-2-2026-11-23-nantes-grenoble-foot-ato2x7",
@@ -2259,12 +2304,12 @@
       "outcome": "AWAY",
       "line": -1.75,
       "book": "novibet",
-      "decimal": 1.39,
+      "decimal": 1.38,
       "openingDecimal": 1.39,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T20:21:00Z"
+      "deltaPct": -0.72,
+      "movement": "shortening",
+      "movementSignal": "SHORTENING",
+      "capturedAtUtc": "2026-11-23T14:20:24Z"
     },
     {
       "gameId": "ligue-2-2026-11-23-nantes-grenoble-foot-ato2x7",
@@ -2274,12 +2319,27 @@
       "outcome": "AWAY",
       "line": -1.75,
       "book": "bet365",
-      "decimal": 1.425,
+      "decimal": 1.4,
       "openingDecimal": 1.425,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T20:21:00Z"
+      "deltaPct": -1.75,
+      "movement": "shortening",
+      "movementSignal": "SHORTENING",
+      "capturedAtUtc": "2026-11-23T14:20:24Z"
+    },
+    {
+      "gameId": "ligue-2-2026-11-23-nantes-grenoble-foot-ato2x7",
+      "homeName": "Nantes",
+      "awayName": "Grenoble Foot 38",
+      "market": "asian_handicap",
+      "outcome": "AWAY",
+      "line": -1.75,
+      "book": "fonbet",
+      "decimal": 1.4,
+      "openingDecimal": 1.42,
+      "deltaPct": -1.41,
+      "movement": "shortening",
+      "movementSignal": "SHORTENING",
+      "capturedAtUtc": "2026-11-23T14:20:24Z"
     },
     {
       "gameId": "ligue-2-2026-11-23-nantes-grenoble-foot-ato2x7",
@@ -2294,7 +2354,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T20:21:00Z"
+      "capturedAtUtc": "2026-11-23T14:20:24Z"
     },
     {
       "gameId": "ligue-2-2026-11-23-nantes-grenoble-foot-ato2x7",
@@ -2304,12 +2364,12 @@
       "outcome": "HOME",
       "line": -1.25,
       "book": "unibet",
-      "decimal": 2.05,
+      "decimal": 2.1,
       "openingDecimal": 2.05,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T20:21:00Z"
+      "deltaPct": 2.44,
+      "movement": "drifting",
+      "movementSignal": "DRIFTING",
+      "capturedAtUtc": "2026-11-23T14:20:24Z"
     },
     {
       "gameId": "ligue-2-2026-11-23-nantes-grenoble-foot-ato2x7",
@@ -2319,12 +2379,12 @@
       "outcome": "HOME",
       "line": -1.25,
       "book": "novibet",
-      "decimal": 2.15,
+      "decimal": 2.2,
       "openingDecimal": 2.15,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T20:21:00Z"
+      "deltaPct": 2.33,
+      "movement": "drifting",
+      "movementSignal": "DRIFTING",
+      "capturedAtUtc": "2026-11-23T14:20:24Z"
     },
     {
       "gameId": "ligue-2-2026-11-23-nantes-grenoble-foot-ato2x7",
@@ -2334,12 +2394,12 @@
       "outcome": "HOME",
       "line": -1.25,
       "book": "bet365",
-      "decimal": 2.05,
+      "decimal": 2.15,
       "openingDecimal": 2.05,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T20:21:00Z"
+      "deltaPct": 4.88,
+      "movement": "drifting",
+      "movementSignal": "DRIFTING",
+      "capturedAtUtc": "2026-11-23T14:20:24Z"
     },
     {
       "gameId": "ligue-2-2026-11-23-nantes-grenoble-foot-ato2x7",
@@ -2349,12 +2409,27 @@
       "outcome": "HOME",
       "line": -1.25,
       "book": "betsson",
-      "decimal": 2.04,
+      "decimal": 2.09,
       "openingDecimal": 2.04,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T20:21:00Z"
+      "deltaPct": 2.45,
+      "movement": "drifting",
+      "movementSignal": "DRIFTING",
+      "capturedAtUtc": "2026-11-23T14:20:24Z"
+    },
+    {
+      "gameId": "ligue-2-2026-11-23-nantes-grenoble-foot-ato2x7",
+      "homeName": "Nantes",
+      "awayName": "Grenoble Foot 38",
+      "market": "asian_handicap",
+      "outcome": "HOME",
+      "line": -1.25,
+      "book": "fonbet",
+      "decimal": 1.95,
+      "openingDecimal": 1.92,
+      "deltaPct": 1.56,
+      "movement": "drifting",
+      "movementSignal": "DRIFTING",
+      "capturedAtUtc": "2026-11-23T14:20:24Z"
     },
     {
       "gameId": "ligue-2-2026-11-23-nantes-grenoble-foot-ato2x7",
@@ -2369,7 +2444,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T20:21:00Z"
+      "capturedAtUtc": "2026-11-23T11:20:22Z"
     },
     {
       "gameId": "ligue-2-2026-11-23-nantes-grenoble-foot-ato2x7",
@@ -2384,7 +2459,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T20:21:00Z"
+      "capturedAtUtc": "2026-11-23T14:20:24Z"
     },
     {
       "gameId": "ligue-2-2026-11-23-nantes-grenoble-foot-ato2x7",
@@ -2394,12 +2469,12 @@
       "outcome": "AWAY",
       "line": -1.25,
       "book": "unibet",
-      "decimal": 1.7,
+      "decimal": 1.67,
       "openingDecimal": 1.7,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T20:21:00Z"
+      "deltaPct": -1.76,
+      "movement": "shortening",
+      "movementSignal": "SHORTENING",
+      "capturedAtUtc": "2026-11-23T14:20:24Z"
     },
     {
       "gameId": "ligue-2-2026-11-23-nantes-grenoble-foot-ato2x7",
@@ -2409,12 +2484,12 @@
       "outcome": "AWAY",
       "line": -1.25,
       "book": "novibet",
-      "decimal": 1.68,
+      "decimal": 1.65,
       "openingDecimal": 1.68,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T20:21:00Z"
+      "deltaPct": -1.79,
+      "movement": "shortening",
+      "movementSignal": "SHORTENING",
+      "capturedAtUtc": "2026-11-23T14:20:24Z"
     },
     {
       "gameId": "ligue-2-2026-11-23-nantes-grenoble-foot-ato2x7",
@@ -2424,12 +2499,12 @@
       "outcome": "AWAY",
       "line": -1.25,
       "book": "bet365",
-      "decimal": 1.75,
+      "decimal": 1.675,
       "openingDecimal": 1.75,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T20:21:00Z"
+      "deltaPct": -4.29,
+      "movement": "shortening",
+      "movementSignal": "SHORTENING",
+      "capturedAtUtc": "2026-11-23T14:20:24Z"
     },
     {
       "gameId": "ligue-2-2026-11-23-nantes-grenoble-foot-ato2x7",
@@ -2439,12 +2514,27 @@
       "outcome": "AWAY",
       "line": -1.25,
       "book": "betsson",
-      "decimal": 1.72,
+      "decimal": 1.69,
       "openingDecimal": 1.72,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T20:21:00Z"
+      "deltaPct": -1.74,
+      "movement": "shortening",
+      "movementSignal": "SHORTENING",
+      "capturedAtUtc": "2026-11-23T14:20:24Z"
+    },
+    {
+      "gameId": "ligue-2-2026-11-23-nantes-grenoble-foot-ato2x7",
+      "homeName": "Nantes",
+      "awayName": "Grenoble Foot 38",
+      "market": "asian_handicap",
+      "outcome": "AWAY",
+      "line": -1.25,
+      "book": "fonbet",
+      "decimal": 1.75,
+      "openingDecimal": 1.78,
+      "deltaPct": -1.69,
+      "movement": "shortening",
+      "movementSignal": "SHORTENING",
+      "capturedAtUtc": "2026-11-23T14:20:24Z"
     },
     {
       "gameId": "ligue-2-2026-11-23-nantes-grenoble-foot-ato2x7",
@@ -2459,7 +2549,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T20:21:00Z"
+      "capturedAtUtc": "2026-11-23T11:20:22Z"
     },
     {
       "gameId": "ligue-2-2026-11-23-nantes-grenoble-foot-ato2x7",
@@ -2474,7 +2564,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T20:21:00Z"
+      "capturedAtUtc": "2026-11-23T14:20:24Z"
     },
     {
       "gameId": "ligue-2-2026-11-23-nantes-grenoble-foot-ato2x7",
@@ -2484,12 +2574,12 @@
       "outcome": "HOME",
       "line": -0.75,
       "book": "unibet",
-      "decimal": 1.58,
+      "decimal": 1.6,
       "openingDecimal": 1.58,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T20:21:00Z"
+      "deltaPct": 1.27,
+      "movement": "drifting",
+      "movementSignal": "DRIFTING",
+      "capturedAtUtc": "2026-11-23T14:20:24Z"
     },
     {
       "gameId": "ligue-2-2026-11-23-nantes-grenoble-foot-ato2x7",
@@ -2499,12 +2589,12 @@
       "outcome": "HOME",
       "line": -0.75,
       "book": "novibet",
-      "decimal": 1.62,
+      "decimal": 1.65,
       "openingDecimal": 1.62,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T20:21:00Z"
+      "deltaPct": 1.85,
+      "movement": "drifting",
+      "movementSignal": "DRIFTING",
+      "capturedAtUtc": "2026-11-23T14:20:24Z"
     },
     {
       "gameId": "ligue-2-2026-11-23-nantes-grenoble-foot-ato2x7",
@@ -2514,12 +2604,12 @@
       "outcome": "HOME",
       "line": -0.75,
       "book": "bet365",
-      "decimal": 1.575,
+      "decimal": 1.625,
       "openingDecimal": 1.575,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T20:21:00Z"
+      "deltaPct": 3.17,
+      "movement": "drifting",
+      "movementSignal": "DRIFTING",
+      "capturedAtUtc": "2026-11-23T14:20:24Z"
     },
     {
       "gameId": "ligue-2-2026-11-23-nantes-grenoble-foot-ato2x7",
@@ -2529,12 +2619,42 @@
       "outcome": "HOME",
       "line": -0.75,
       "book": "betsson",
-      "decimal": 1.57,
+      "decimal": 1.6,
       "openingDecimal": 1.57,
+      "deltaPct": 1.91,
+      "movement": "drifting",
+      "movementSignal": "DRIFTING",
+      "capturedAtUtc": "2026-11-23T14:20:24Z"
+    },
+    {
+      "gameId": "ligue-2-2026-11-23-nantes-grenoble-foot-ato2x7",
+      "homeName": "Nantes",
+      "awayName": "Grenoble Foot 38",
+      "market": "asian_handicap",
+      "outcome": "HOME",
+      "line": -0.75,
+      "book": "fonbet",
+      "decimal": 1.57,
+      "openingDecimal": 1.55,
+      "deltaPct": 1.29,
+      "movement": "drifting",
+      "movementSignal": "DRIFTING",
+      "capturedAtUtc": "2026-11-23T14:20:24Z"
+    },
+    {
+      "gameId": "ligue-2-2026-11-23-nantes-grenoble-foot-ato2x7",
+      "homeName": "Nantes",
+      "awayName": "Grenoble Foot 38",
+      "market": "asian_handicap",
+      "outcome": "HOME",
+      "line": -0.75,
+      "book": "10bet",
+      "decimal": 1.615,
+      "openingDecimal": 1.615,
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T20:21:00Z"
+      "capturedAtUtc": "2026-11-23T14:20:24Z"
     },
     {
       "gameId": "ligue-2-2026-11-23-nantes-grenoble-foot-ato2x7",
@@ -2549,7 +2669,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T20:21:00Z"
+      "capturedAtUtc": "2026-11-23T14:20:24Z"
     },
     {
       "gameId": "ligue-2-2026-11-23-nantes-grenoble-foot-ato2x7",
@@ -2559,12 +2679,12 @@
       "outcome": "AWAY",
       "line": -0.75,
       "book": "unibet",
-      "decimal": 2.3,
+      "decimal": 2.25,
       "openingDecimal": 2.3,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T20:21:00Z"
+      "deltaPct": -2.17,
+      "movement": "shortening",
+      "movementSignal": "SHORTENING",
+      "capturedAtUtc": "2026-11-23T14:20:24Z"
     },
     {
       "gameId": "ligue-2-2026-11-23-nantes-grenoble-foot-ato2x7",
@@ -2574,12 +2694,12 @@
       "outcome": "AWAY",
       "line": -0.75,
       "book": "novibet",
-      "decimal": 2.25,
+      "decimal": 2.2,
       "openingDecimal": 2.25,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T20:21:00Z"
+      "deltaPct": -2.22,
+      "movement": "shortening",
+      "movementSignal": "SHORTENING",
+      "capturedAtUtc": "2026-11-23T14:20:24Z"
     },
     {
       "gameId": "ligue-2-2026-11-23-nantes-grenoble-foot-ato2x7",
@@ -2589,12 +2709,12 @@
       "outcome": "AWAY",
       "line": -0.75,
       "book": "bet365",
-      "decimal": 2.35,
+      "decimal": 2.25,
       "openingDecimal": 2.35,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T20:21:00Z"
+      "deltaPct": -4.26,
+      "movement": "shortening",
+      "movementSignal": "SHORTENING",
+      "capturedAtUtc": "2026-11-23T14:20:24Z"
     },
     {
       "gameId": "ligue-2-2026-11-23-nantes-grenoble-foot-ato2x7",
@@ -2604,12 +2724,42 @@
       "outcome": "AWAY",
       "line": -0.75,
       "book": "betsson",
-      "decimal": 2.31,
+      "decimal": 2.24,
       "openingDecimal": 2.31,
+      "deltaPct": -3.03,
+      "movement": "shortening",
+      "movementSignal": "SHORTENING",
+      "capturedAtUtc": "2026-11-23T14:20:24Z"
+    },
+    {
+      "gameId": "ligue-2-2026-11-23-nantes-grenoble-foot-ato2x7",
+      "homeName": "Nantes",
+      "awayName": "Grenoble Foot 38",
+      "market": "asian_handicap",
+      "outcome": "AWAY",
+      "line": -0.75,
+      "book": "fonbet",
+      "decimal": 2.25,
+      "openingDecimal": 2.3,
+      "deltaPct": -2.17,
+      "movement": "shortening",
+      "movementSignal": "SHORTENING",
+      "capturedAtUtc": "2026-11-23T14:20:24Z"
+    },
+    {
+      "gameId": "ligue-2-2026-11-23-nantes-grenoble-foot-ato2x7",
+      "homeName": "Nantes",
+      "awayName": "Grenoble Foot 38",
+      "market": "asian_handicap",
+      "outcome": "AWAY",
+      "line": -0.75,
+      "book": "10bet",
+      "decimal": 2.2,
+      "openingDecimal": 2.2,
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T20:21:00Z"
+      "capturedAtUtc": "2026-11-23T14:20:24Z"
     },
     {
       "gameId": "ligue-2-2026-11-23-nantes-grenoble-foot-ato2x7",
@@ -2624,7 +2774,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T20:21:00Z"
+      "capturedAtUtc": "2026-11-23T14:20:24Z"
     },
     {
       "gameId": "ligue-2-2026-11-23-nantes-grenoble-foot-ato2x7",
@@ -2634,12 +2784,12 @@
       "outcome": "HOME",
       "line": 0.25,
       "book": "unibet",
-      "decimal": 1.12,
+      "decimal": 1.13,
       "openingDecimal": 1.12,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T20:21:00Z"
+      "deltaPct": 0.89,
+      "movement": "drifting",
+      "movementSignal": "DRIFTING",
+      "capturedAtUtc": "2026-11-23T14:20:24Z"
     },
     {
       "gameId": "ligue-2-2026-11-23-nantes-grenoble-foot-ato2x7",
@@ -2649,12 +2799,12 @@
       "outcome": "HOME",
       "line": 0.25,
       "book": "novibet",
-      "decimal": 1.14,
+      "decimal": 1.15,
       "openingDecimal": 1.14,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T20:21:00Z"
+      "deltaPct": 0.88,
+      "movement": "drifting",
+      "movementSignal": "DRIFTING",
+      "capturedAtUtc": "2026-11-23T14:20:24Z"
     },
     {
       "gameId": "ligue-2-2026-11-23-nantes-grenoble-foot-ato2x7",
@@ -2664,12 +2814,12 @@
       "outcome": "HOME",
       "line": 0.25,
       "book": "bet365",
-      "decimal": 1.12,
+      "decimal": 1.125,
       "openingDecimal": 1.12,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T20:21:00Z"
+      "deltaPct": 0.45,
+      "movement": "drifting",
+      "movementSignal": "DRIFTING",
+      "capturedAtUtc": "2026-11-23T14:20:24Z"
     },
     {
       "gameId": "ligue-2-2026-11-23-nantes-grenoble-foot-ato2x7",
@@ -2684,7 +2834,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T20:21:00Z"
+      "capturedAtUtc": "2026-11-23T14:20:24Z"
     },
     {
       "gameId": "ligue-2-2026-11-23-nantes-grenoble-foot-ato2x7",
@@ -2694,12 +2844,12 @@
       "outcome": "AWAY",
       "line": 0.25,
       "book": "unibet",
-      "decimal": 5.75,
+      "decimal": 5.25,
       "openingDecimal": 5.75,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T20:21:00Z"
+      "deltaPct": -8.7,
+      "movement": "shortening",
+      "movementSignal": "STEAM",
+      "capturedAtUtc": "2026-11-23T14:20:24Z"
     },
     {
       "gameId": "ligue-2-2026-11-23-nantes-grenoble-foot-ato2x7",
@@ -2709,12 +2859,12 @@
       "outcome": "AWAY",
       "line": 0.25,
       "book": "novibet",
-      "decimal": 5.4,
+      "decimal": 5.05,
       "openingDecimal": 5.4,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T20:21:00Z"
+      "deltaPct": -6.48,
+      "movement": "shortening",
+      "movementSignal": "SHORTENING",
+      "capturedAtUtc": "2026-11-23T14:20:24Z"
     },
     {
       "gameId": "ligue-2-2026-11-23-nantes-grenoble-foot-ato2x7",
@@ -2724,12 +2874,12 @@
       "outcome": "AWAY",
       "line": 0.25,
       "book": "bet365",
-      "decimal": 6.4,
+      "decimal": 5.9,
       "openingDecimal": 6.4,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T20:21:00Z"
+      "deltaPct": -7.81,
+      "movement": "shortening",
+      "movementSignal": "SHORTENING",
+      "capturedAtUtc": "2026-11-23T14:20:24Z"
     },
     {
       "gameId": "ligue-2-2026-11-23-nantes-grenoble-foot-ato2x7",
@@ -2744,7 +2894,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T20:21:00Z"
+      "capturedAtUtc": "2026-11-23T14:20:24Z"
     },
     {
       "gameId": "ligue-2-2026-11-23-nantes-grenoble-foot-ato2x7",
@@ -2754,12 +2904,12 @@
       "outcome": "HOME",
       "line": -2.75,
       "book": "novibet",
-      "decimal": 5.8,
+      "decimal": 6,
       "openingDecimal": 5.8,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T20:21:00Z"
+      "deltaPct": 3.45,
+      "movement": "drifting",
+      "movementSignal": "DRIFTING",
+      "capturedAtUtc": "2026-11-23T14:20:24Z"
     },
     {
       "gameId": "ligue-2-2026-11-23-nantes-grenoble-foot-ato2x7",
@@ -2769,12 +2919,12 @@
       "outcome": "HOME",
       "line": -2.75,
       "book": "bet365",
-      "decimal": 5.75,
+      "decimal": 6.25,
       "openingDecimal": 5.75,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T20:21:00Z"
+      "deltaPct": 8.7,
+      "movement": "drifting",
+      "movementSignal": "DRIFTING",
+      "capturedAtUtc": "2026-11-23T14:20:24Z"
     },
     {
       "gameId": "ligue-2-2026-11-23-nantes-grenoble-foot-ato2x7",
@@ -2789,7 +2939,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T20:21:00Z"
+      "capturedAtUtc": "2026-11-23T14:20:24Z"
     },
     {
       "gameId": "ligue-2-2026-11-23-nantes-grenoble-foot-ato2x7",
@@ -2799,12 +2949,12 @@
       "outcome": "AWAY",
       "line": -2.75,
       "book": "novibet",
-      "decimal": 1.12,
+      "decimal": 1.11,
       "openingDecimal": 1.12,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T20:21:00Z"
+      "deltaPct": -0.89,
+      "movement": "shortening",
+      "movementSignal": "SHORTENING",
+      "capturedAtUtc": "2026-11-23T14:20:24Z"
     },
     {
       "gameId": "ligue-2-2026-11-23-nantes-grenoble-foot-ato2x7",
@@ -2814,12 +2964,12 @@
       "outcome": "AWAY",
       "line": -2.75,
       "book": "bet365",
-      "decimal": 1.14,
+      "decimal": 1.12,
       "openingDecimal": 1.14,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T20:21:00Z"
+      "deltaPct": -1.75,
+      "movement": "shortening",
+      "movementSignal": "SHORTENING",
+      "capturedAtUtc": "2026-11-23T14:20:24Z"
     },
     {
       "gameId": "ligue-2-2026-11-23-nantes-grenoble-foot-ato2x7",
@@ -2834,157 +2984,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T20:21:00Z"
-    },
-    {
-      "gameId": "ligue-2-2026-11-23-nantes-grenoble-foot-ato2x7",
-      "homeName": "Nantes",
-      "awayName": "Grenoble Foot 38",
-      "market": "asian_handicap",
-      "outcome": "HOME",
-      "line": -2.25,
-      "book": "unibet",
-      "decimal": 4,
-      "openingDecimal": 4,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T20:21:00Z"
-    },
-    {
-      "gameId": "ligue-2-2026-11-23-nantes-grenoble-foot-ato2x7",
-      "homeName": "Nantes",
-      "awayName": "Grenoble Foot 38",
-      "market": "asian_handicap",
-      "outcome": "HOME",
-      "line": -2.25,
-      "book": "novibet",
-      "decimal": 4.2,
-      "openingDecimal": 4.2,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T20:21:00Z"
-    },
-    {
-      "gameId": "ligue-2-2026-11-23-nantes-grenoble-foot-ato2x7",
-      "homeName": "Nantes",
-      "awayName": "Grenoble Foot 38",
-      "market": "asian_handicap",
-      "outcome": "HOME",
-      "line": -2.25,
-      "book": "bet365",
-      "decimal": 3.9,
-      "openingDecimal": 3.9,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T20:21:00Z"
-    },
-    {
-      "gameId": "ligue-2-2026-11-23-nantes-grenoble-foot-ato2x7",
-      "homeName": "Nantes",
-      "awayName": "Grenoble Foot 38",
-      "market": "asian_handicap",
-      "outcome": "AWAY",
-      "line": -2.25,
-      "book": "1xbet",
-      "decimal": 1.2,
-      "openingDecimal": 1.2,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T20:21:00Z"
-    },
-    {
-      "gameId": "ligue-2-2026-11-23-nantes-grenoble-foot-ato2x7",
-      "homeName": "Nantes",
-      "awayName": "Grenoble Foot 38",
-      "market": "asian_handicap",
-      "outcome": "AWAY",
-      "line": -2.25,
-      "book": "unibet",
-      "decimal": 1.2,
-      "openingDecimal": 1.2,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T20:21:00Z"
-    },
-    {
-      "gameId": "ligue-2-2026-11-23-nantes-grenoble-foot-ato2x7",
-      "homeName": "Nantes",
-      "awayName": "Grenoble Foot 38",
-      "market": "asian_handicap",
-      "outcome": "AWAY",
-      "line": -2.25,
-      "book": "novibet",
-      "decimal": 1.21,
-      "openingDecimal": 1.21,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T20:21:00Z"
-    },
-    {
-      "gameId": "ligue-2-2026-11-23-nantes-grenoble-foot-ato2x7",
-      "homeName": "Nantes",
-      "awayName": "Grenoble Foot 38",
-      "market": "asian_handicap",
-      "outcome": "AWAY",
-      "line": -2.25,
-      "book": "bet365",
-      "decimal": 1.24,
-      "openingDecimal": 1.24,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T20:21:00Z"
-    },
-    {
-      "gameId": "ligue-2-2026-11-23-nantes-grenoble-foot-ato2x7",
-      "homeName": "Nantes",
-      "awayName": "Grenoble Foot 38",
-      "market": "total_corners",
-      "outcome": "over",
-      "line": 7.5,
-      "book": "1xbet",
-      "decimal": 1.16,
-      "openingDecimal": 1.17,
-      "deltaPct": -0.85,
-      "movement": "shortening",
-      "movementSignal": "SHORTENING",
-      "capturedAtUtc": "2026-11-22T21:50:07Z"
-    },
-    {
-      "gameId": "ligue-2-2026-11-23-nantes-grenoble-foot-ato2x7",
-      "homeName": "Nantes",
-      "awayName": "Grenoble Foot 38",
-      "market": "total_corners",
-      "outcome": "under",
-      "line": 7.5,
-      "book": "1xbet",
-      "decimal": 4.15,
-      "openingDecimal": 3.4,
-      "deltaPct": 22.06,
-      "movement": "drifting",
-      "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-22T21:50:07Z"
-    },
-    {
-      "gameId": "ligue-2-2026-11-23-nantes-grenoble-foot-ato2x7",
-      "homeName": "Nantes",
-      "awayName": "Grenoble Foot 38",
-      "market": "total_corners",
-      "outcome": "over",
-      "line": 8.5,
-      "book": "1xbet",
-      "decimal": 1.32,
-      "openingDecimal": 1.34,
-      "deltaPct": -1.49,
-      "movement": "shortening",
-      "movementSignal": "SHORTENING",
-      "capturedAtUtc": "2026-11-22T21:50:07Z"
+      "capturedAtUtc": "2026-11-23T14:20:24Z"
     },
     {
       "gameId": "ligue-2-2026-11-23-sochaux-usl-dunkerque-xr3yn4",
@@ -2999,7 +2999,7 @@
       "deltaPct": 3.56,
       "movement": "drifting",
       "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-22T21:50:07Z"
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
     },
     {
       "gameId": "ligue-2-2026-11-23-sochaux-usl-dunkerque-xr3yn4",
@@ -3009,12 +3009,12 @@
       "outcome": "HOME",
       "line": null,
       "book": "pinnacle",
-      "decimal": 2.43,
+      "decimal": 2.45,
       "openingDecimal": 2.4,
-      "deltaPct": 1.25,
+      "deltaPct": 2.08,
       "movement": "drifting",
       "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-22T21:50:07Z"
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
     },
     {
       "gameId": "ligue-2-2026-11-23-sochaux-usl-dunkerque-xr3yn4",
@@ -3029,7 +3029,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T21:50:07Z"
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
     },
     {
       "gameId": "ligue-2-2026-11-23-sochaux-usl-dunkerque-xr3yn4",
@@ -3044,7 +3044,7 @@
       "deltaPct": 2.17,
       "movement": "drifting",
       "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-22T21:50:07Z"
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
     },
     {
       "gameId": "ligue-2-2026-11-23-sochaux-usl-dunkerque-xr3yn4",
@@ -3059,7 +3059,7 @@
       "deltaPct": -3.36,
       "movement": "shortening",
       "movementSignal": "SHORTENING",
-      "capturedAtUtc": "2026-11-22T21:50:07Z"
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
     },
     {
       "gameId": "ligue-2-2026-11-23-sochaux-usl-dunkerque-xr3yn4",
@@ -3074,7 +3074,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T21:50:07Z"
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
     },
     {
       "gameId": "ligue-2-2026-11-23-sochaux-usl-dunkerque-xr3yn4",
@@ -3084,12 +3084,12 @@
       "outcome": "HOME",
       "line": null,
       "book": "betfair",
-      "decimal": 2.38,
+      "decimal": 2.3,
       "openingDecimal": 2.3,
-      "deltaPct": 3.48,
-      "movement": "drifting",
-      "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-22T21:50:07Z"
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
     },
     {
       "gameId": "ligue-2-2026-11-23-sochaux-usl-dunkerque-xr3yn4",
@@ -3104,7 +3104,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T21:50:07Z"
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
     },
     {
       "gameId": "ligue-2-2026-11-23-sochaux-usl-dunkerque-xr3yn4",
@@ -3119,7 +3119,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T21:50:07Z"
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
     },
     {
       "gameId": "ligue-2-2026-11-23-sochaux-usl-dunkerque-xr3yn4",
@@ -3134,7 +3134,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T21:50:07Z"
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
     },
     {
       "gameId": "ligue-2-2026-11-23-sochaux-usl-dunkerque-xr3yn4",
@@ -3149,7 +3149,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T21:50:07Z"
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
     },
     {
       "gameId": "ligue-2-2026-11-23-sochaux-usl-dunkerque-xr3yn4",
@@ -3164,7 +3164,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T21:50:07Z"
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
     },
     {
       "gameId": "ligue-2-2026-11-23-sochaux-usl-dunkerque-xr3yn4",
@@ -3179,7 +3179,7 @@
       "deltaPct": 0.44,
       "movement": "drifting",
       "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-22T21:50:07Z"
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
     },
     {
       "gameId": "ligue-2-2026-11-23-sochaux-usl-dunkerque-xr3yn4",
@@ -3189,12 +3189,12 @@
       "outcome": "HOME",
       "line": null,
       "book": "sbo",
-      "decimal": 2.23,
+      "decimal": 2.21,
       "openingDecimal": 2.22,
-      "deltaPct": 0.45,
-      "movement": "drifting",
-      "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-22T21:50:07Z"
+      "deltaPct": -0.45,
+      "movement": "shortening",
+      "movementSignal": "SHORTENING",
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
     },
     {
       "gameId": "ligue-2-2026-11-23-sochaux-usl-dunkerque-xr3yn4",
@@ -3209,7 +3209,7 @@
       "deltaPct": -1.8,
       "movement": "shortening",
       "movementSignal": "SHORTENING",
-      "capturedAtUtc": "2026-11-22T21:50:07Z"
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
     },
     {
       "gameId": "ligue-2-2026-11-23-sochaux-usl-dunkerque-xr3yn4",
@@ -3219,12 +3219,12 @@
       "outcome": "DRAW",
       "line": null,
       "book": "pinnacle",
-      "decimal": 3.21,
+      "decimal": 3.25,
       "openingDecimal": 3.27,
-      "deltaPct": -1.83,
+      "deltaPct": -0.61,
       "movement": "shortening",
       "movementSignal": "SHORTENING",
-      "capturedAtUtc": "2026-11-22T21:50:07Z"
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
     },
     {
       "gameId": "ligue-2-2026-11-23-sochaux-usl-dunkerque-xr3yn4",
@@ -3239,7 +3239,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T21:50:07Z"
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
     },
     {
       "gameId": "ligue-2-2026-11-23-sochaux-usl-dunkerque-xr3yn4",
@@ -3254,7 +3254,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T21:50:07Z"
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
     },
     {
       "gameId": "ligue-2-2026-11-23-sochaux-usl-dunkerque-xr3yn4",
@@ -3269,7 +3269,7 @@
       "deltaPct": -4.62,
       "movement": "shortening",
       "movementSignal": "SHORTENING",
-      "capturedAtUtc": "2026-11-22T21:50:07Z"
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
     },
     {
       "gameId": "ligue-2-2026-11-23-sochaux-usl-dunkerque-xr3yn4",
@@ -3284,7 +3284,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T21:50:07Z"
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
     },
     {
       "gameId": "ligue-2-2026-11-23-sochaux-usl-dunkerque-xr3yn4",
@@ -3299,7 +3299,7 @@
       "deltaPct": -1.52,
       "movement": "shortening",
       "movementSignal": "SHORTENING",
-      "capturedAtUtc": "2026-11-22T21:50:07Z"
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
     },
     {
       "gameId": "ligue-2-2026-11-23-sochaux-usl-dunkerque-xr3yn4",
@@ -3314,7 +3314,7 @@
       "deltaPct": -1.54,
       "movement": "shortening",
       "movementSignal": "SHORTENING",
-      "capturedAtUtc": "2026-11-22T21:50:07Z"
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
     },
     {
       "gameId": "ligue-2-2026-11-23-sochaux-usl-dunkerque-xr3yn4",
@@ -3329,7 +3329,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T21:50:07Z"
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
     },
     {
       "gameId": "ligue-2-2026-11-23-sochaux-usl-dunkerque-xr3yn4",
@@ -3344,7 +3344,7 @@
       "deltaPct": -1.54,
       "movement": "shortening",
       "movementSignal": "SHORTENING",
-      "capturedAtUtc": "2026-11-22T21:50:07Z"
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
     },
     {
       "gameId": "ligue-2-2026-11-23-sochaux-usl-dunkerque-xr3yn4",
@@ -3359,7 +3359,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T21:50:07Z"
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
     },
     {
       "gameId": "ligue-2-2026-11-23-sochaux-usl-dunkerque-xr3yn4",
@@ -3374,7 +3374,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T21:50:07Z"
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
     },
     {
       "gameId": "ligue-2-2026-11-23-sochaux-usl-dunkerque-xr3yn4",
@@ -3389,7 +3389,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T21:50:07Z"
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
     },
     {
       "gameId": "ligue-2-2026-11-23-sochaux-usl-dunkerque-xr3yn4",
@@ -3399,12 +3399,12 @@
       "outcome": "DRAW",
       "line": null,
       "book": "sbo",
-      "decimal": 3.06,
+      "decimal": 3.05,
       "openingDecimal": 3.06,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T21:50:07Z"
+      "deltaPct": -0.33,
+      "movement": "shortening",
+      "movementSignal": "SHORTENING",
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
     },
     {
       "gameId": "ligue-2-2026-11-23-sochaux-usl-dunkerque-xr3yn4",
@@ -3419,7 +3419,7 @@
       "deltaPct": -3.26,
       "movement": "shortening",
       "movementSignal": "SHORTENING",
-      "capturedAtUtc": "2026-11-22T21:50:07Z"
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
     },
     {
       "gameId": "ligue-2-2026-11-23-sochaux-usl-dunkerque-xr3yn4",
@@ -3429,12 +3429,12 @@
       "outcome": "AWAY",
       "line": null,
       "book": "pinnacle",
-      "decimal": 3.04,
+      "decimal": 3.07,
       "openingDecimal": 3.02,
-      "deltaPct": 0.66,
+      "deltaPct": 1.66,
       "movement": "drifting",
       "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-22T21:50:07Z"
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
     },
     {
       "gameId": "ligue-2-2026-11-23-sochaux-usl-dunkerque-xr3yn4",
@@ -3449,7 +3449,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T21:50:07Z"
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
     },
     {
       "gameId": "ligue-2-2026-11-23-sochaux-usl-dunkerque-xr3yn4",
@@ -3464,7 +3464,7 @@
       "deltaPct": -0.7,
       "movement": "shortening",
       "movementSignal": "SHORTENING",
-      "capturedAtUtc": "2026-11-22T21:50:07Z"
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
     },
     {
       "gameId": "ligue-2-2026-11-23-sochaux-usl-dunkerque-xr3yn4",
@@ -3479,7 +3479,7 @@
       "deltaPct": 5.45,
       "movement": "drifting",
       "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-22T21:50:07Z"
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
     },
     {
       "gameId": "ligue-2-2026-11-23-sochaux-usl-dunkerque-xr3yn4",
@@ -3494,7 +3494,7 @@
       "deltaPct": -0.17,
       "movement": "shortening",
       "movementSignal": "SHORTENING",
-      "capturedAtUtc": "2026-11-22T21:50:07Z"
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
     },
     {
       "gameId": "ligue-2-2026-11-23-sochaux-usl-dunkerque-xr3yn4",
@@ -3504,12 +3504,12 @@
       "outcome": "AWAY",
       "line": null,
       "book": "betfair",
-      "decimal": 3,
+      "decimal": 2.9,
       "openingDecimal": 2.9,
-      "deltaPct": 3.45,
-      "movement": "drifting",
-      "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-22T21:50:07Z"
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
     },
     {
       "gameId": "ligue-2-2026-11-23-sochaux-usl-dunkerque-xr3yn4",
@@ -3524,7 +3524,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T21:50:07Z"
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
     },
     {
       "gameId": "ligue-2-2026-11-23-sochaux-usl-dunkerque-xr3yn4",
@@ -3539,7 +3539,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T21:50:07Z"
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
     },
     {
       "gameId": "ligue-2-2026-11-23-sochaux-usl-dunkerque-xr3yn4",
@@ -3554,7 +3554,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T21:50:07Z"
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
     },
     {
       "gameId": "ligue-2-2026-11-23-sochaux-usl-dunkerque-xr3yn4",
@@ -3569,7 +3569,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T21:50:07Z"
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
     },
     {
       "gameId": "ligue-2-2026-11-23-sochaux-usl-dunkerque-xr3yn4",
@@ -3584,7 +3584,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T21:50:07Z"
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
     },
     {
       "gameId": "ligue-2-2026-11-23-sochaux-usl-dunkerque-xr3yn4",
@@ -3594,12 +3594,12 @@
       "outcome": "AWAY",
       "line": null,
       "book": "mansionbet",
-      "decimal": 2.87,
+      "decimal": 2.86,
       "openingDecimal": 2.88,
-      "deltaPct": -0.35,
+      "deltaPct": -0.69,
       "movement": "shortening",
       "movementSignal": "SHORTENING",
-      "capturedAtUtc": "2026-11-22T21:50:07Z"
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
     },
     {
       "gameId": "ligue-2-2026-11-23-sochaux-usl-dunkerque-xr3yn4",
@@ -3609,12 +3609,12 @@
       "outcome": "AWAY",
       "line": null,
       "book": "sbo",
-      "decimal": 2.66,
+      "decimal": 2.7,
       "openingDecimal": 2.68,
-      "deltaPct": -0.75,
-      "movement": "shortening",
-      "movementSignal": "SHORTENING",
-      "capturedAtUtc": "2026-11-22T21:50:07Z"
+      "deltaPct": 0.75,
+      "movement": "drifting",
+      "movementSignal": "DRIFTING",
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
     },
     {
       "gameId": "ligue-2-2026-11-23-sochaux-usl-dunkerque-xr3yn4",
@@ -3629,7 +3629,7 @@
       "deltaPct": 1.49,
       "movement": "drifting",
       "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-22T21:50:07Z"
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
     },
     {
       "gameId": "ligue-2-2026-11-23-sochaux-usl-dunkerque-xr3yn4",
@@ -3644,7 +3644,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T21:50:07Z"
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
     },
     {
       "gameId": "ligue-2-2026-11-23-sochaux-usl-dunkerque-xr3yn4",
@@ -3659,7 +3659,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T21:50:07Z"
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
     },
     {
       "gameId": "ligue-2-2026-11-23-sochaux-usl-dunkerque-xr3yn4",
@@ -3674,7 +3674,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T21:50:07Z"
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
     },
     {
       "gameId": "ligue-2-2026-11-23-sochaux-usl-dunkerque-xr3yn4",
@@ -3684,12 +3684,12 @@
       "outcome": "1X",
       "line": null,
       "book": "sbo",
-      "decimal": 1.36,
+      "decimal": 1.35,
       "openingDecimal": 1.35,
-      "deltaPct": 0.74,
-      "movement": "drifting",
-      "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-22T21:50:07Z"
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
     },
     {
       "gameId": "ligue-2-2026-11-23-sochaux-usl-dunkerque-xr3yn4",
@@ -3704,7 +3704,7 @@
       "deltaPct": -2.5,
       "movement": "shortening",
       "movementSignal": "SHORTENING",
-      "capturedAtUtc": "2026-11-22T21:50:07Z"
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
     },
     {
       "gameId": "ligue-2-2026-11-23-sochaux-usl-dunkerque-xr3yn4",
@@ -3719,7 +3719,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T21:50:07Z"
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
     },
     {
       "gameId": "ligue-2-2026-11-23-sochaux-usl-dunkerque-xr3yn4",
@@ -3734,7 +3734,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T21:50:07Z"
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
     },
     {
       "gameId": "ligue-2-2026-11-23-sochaux-usl-dunkerque-xr3yn4",
@@ -3749,7 +3749,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T21:50:07Z"
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
     },
     {
       "gameId": "ligue-2-2026-11-23-sochaux-usl-dunkerque-xr3yn4",
@@ -3759,12 +3759,12 @@
       "outcome": "X2",
       "line": null,
       "book": "sbo",
-      "decimal": 1.51,
+      "decimal": 1.52,
       "openingDecimal": 1.51,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T21:50:07Z"
+      "deltaPct": 0.66,
+      "movement": "drifting",
+      "movementSignal": "DRIFTING",
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
     },
     {
       "gameId": "ligue-2-2026-11-23-sochaux-usl-dunkerque-xr3yn4",
@@ -3779,7 +3779,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T21:50:07Z"
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
     },
     {
       "gameId": "ligue-2-2026-11-23-sochaux-usl-dunkerque-xr3yn4",
@@ -3794,7 +3794,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T21:50:07Z"
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
     },
     {
       "gameId": "ligue-2-2026-11-23-sochaux-usl-dunkerque-xr3yn4",
@@ -3809,7 +3809,7 @@
       "deltaPct": 2.31,
       "movement": "drifting",
       "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-22T21:50:07Z"
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
     },
     {
       "gameId": "ligue-2-2026-11-23-sochaux-usl-dunkerque-xr3yn4",
@@ -3824,7 +3824,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T21:50:07Z"
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
     },
     {
       "gameId": "ligue-2-2026-11-23-sochaux-usl-dunkerque-xr3yn4",
@@ -3839,7 +3839,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T21:50:07Z"
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
     },
     {
       "gameId": "ligue-2-2026-11-23-sochaux-usl-dunkerque-xr3yn4",
@@ -3854,7 +3854,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T21:50:07Z"
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
     },
     {
       "gameId": "ligue-2-2026-11-23-sochaux-usl-dunkerque-xr3yn4",
@@ -3869,7 +3869,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T21:50:07Z"
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
     },
     {
       "gameId": "ligue-2-2026-11-23-sochaux-usl-dunkerque-xr3yn4",
@@ -3879,12 +3879,12 @@
       "outcome": "over",
       "line": 1.5,
       "book": "betfair",
-      "decimal": 1.25,
+      "decimal": 1.29,
       "openingDecimal": 1.25,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T21:50:07Z"
+      "deltaPct": 3.2,
+      "movement": "drifting",
+      "movementSignal": "DRIFTING",
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
     },
     {
       "gameId": "ligue-2-2026-11-23-sochaux-usl-dunkerque-xr3yn4",
@@ -3899,7 +3899,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T21:50:07Z"
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
     },
     {
       "gameId": "ligue-2-2026-11-23-sochaux-usl-dunkerque-xr3yn4",
@@ -3914,7 +3914,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T21:50:07Z"
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
     },
     {
       "gameId": "ligue-2-2026-11-23-sochaux-usl-dunkerque-xr3yn4",
@@ -3924,12 +3924,12 @@
       "outcome": "under",
       "line": 1.5,
       "book": "pinnacle",
-      "decimal": 3.82,
+      "decimal": 3.85,
       "openingDecimal": 3.79,
-      "deltaPct": 0.79,
+      "deltaPct": 1.58,
       "movement": "drifting",
       "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-22T21:50:07Z"
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
     },
     {
       "gameId": "ligue-2-2026-11-23-sochaux-usl-dunkerque-xr3yn4",
@@ -3939,12 +3939,12 @@
       "outcome": "under",
       "line": 1.5,
       "book": "betfair",
-      "decimal": 3.8,
+      "decimal": 3.5,
       "openingDecimal": 3.8,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T21:50:07Z"
+      "deltaPct": -7.89,
+      "movement": "shortening",
+      "movementSignal": "SHORTENING",
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
     },
     {
       "gameId": "ligue-2-2026-11-23-sochaux-usl-dunkerque-xr3yn4",
@@ -3959,7 +3959,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T21:50:07Z"
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
     },
     {
       "gameId": "ligue-2-2026-11-23-sochaux-usl-dunkerque-xr3yn4",
@@ -3974,7 +3974,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T21:50:07Z"
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
     },
     {
       "gameId": "ligue-2-2026-11-23-sochaux-usl-dunkerque-xr3yn4",
@@ -3984,12 +3984,12 @@
       "outcome": "over",
       "line": 2.5,
       "book": "pinnacle",
-      "decimal": 1.88,
+      "decimal": 1.89,
       "openingDecimal": 1.87,
-      "deltaPct": 0.53,
+      "deltaPct": 1.07,
       "movement": "drifting",
       "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-22T21:50:07Z"
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
     },
     {
       "gameId": "ligue-2-2026-11-23-sochaux-usl-dunkerque-xr3yn4",
@@ -4004,7 +4004,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T21:50:07Z"
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
     },
     {
       "gameId": "ligue-2-2026-11-23-sochaux-usl-dunkerque-xr3yn4",
@@ -4019,7 +4019,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T21:50:07Z"
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
     },
     {
       "gameId": "ligue-2-2026-11-23-sochaux-usl-dunkerque-xr3yn4",
@@ -4034,7 +4034,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T21:50:07Z"
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
     },
     {
       "gameId": "ligue-2-2026-11-23-sochaux-usl-dunkerque-xr3yn4",
@@ -4049,7 +4049,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T21:50:07Z"
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
     },
     {
       "gameId": "ligue-2-2026-11-23-sochaux-usl-dunkerque-xr3yn4",
@@ -4064,7 +4064,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T21:50:07Z"
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
     },
     {
       "gameId": "ligue-2-2026-11-23-sochaux-usl-dunkerque-xr3yn4",
@@ -4074,12 +4074,12 @@
       "outcome": "under",
       "line": 2.5,
       "book": "pinnacle",
-      "decimal": 1.94,
+      "decimal": 1.95,
       "openingDecimal": 1.94,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T21:50:07Z"
+      "deltaPct": 0.52,
+      "movement": "drifting",
+      "movementSignal": "DRIFTING",
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
     },
     {
       "gameId": "ligue-2-2026-11-23-sochaux-usl-dunkerque-xr3yn4",
@@ -4094,7 +4094,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T21:50:07Z"
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
     },
     {
       "gameId": "ligue-2-2026-11-23-sochaux-usl-dunkerque-xr3yn4",
@@ -4109,7 +4109,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T21:50:07Z"
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
     },
     {
       "gameId": "ligue-2-2026-11-23-sochaux-usl-dunkerque-xr3yn4",
@@ -4124,7 +4124,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T21:50:07Z"
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
     },
     {
       "gameId": "ligue-2-2026-11-23-sochaux-usl-dunkerque-xr3yn4",
@@ -4139,7 +4139,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T21:50:07Z"
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
     },
     {
       "gameId": "ligue-2-2026-11-23-sochaux-usl-dunkerque-xr3yn4",
@@ -4154,7 +4154,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T21:50:07Z"
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
     },
     {
       "gameId": "ligue-2-2026-11-23-sochaux-usl-dunkerque-xr3yn4",
@@ -4164,12 +4164,12 @@
       "outcome": "over",
       "line": 3.5,
       "book": "pinnacle",
-      "decimal": 3.1,
+      "decimal": 3.12,
       "openingDecimal": 3.07,
-      "deltaPct": 0.98,
+      "deltaPct": 1.63,
       "movement": "drifting",
       "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-22T21:50:07Z"
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
     },
     {
       "gameId": "ligue-2-2026-11-23-sochaux-usl-dunkerque-xr3yn4",
@@ -4184,7 +4184,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T21:50:07Z"
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
     },
     {
       "gameId": "ligue-2-2026-11-23-sochaux-usl-dunkerque-xr3yn4",
@@ -4199,7 +4199,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T21:50:07Z"
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
     },
     {
       "gameId": "ligue-2-2026-11-23-sochaux-usl-dunkerque-xr3yn4",
@@ -4214,7 +4214,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T21:50:07Z"
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
     },
     {
       "gameId": "ligue-2-2026-11-23-sochaux-usl-dunkerque-xr3yn4",
@@ -4229,7 +4229,7 @@
       "deltaPct": 0.74,
       "movement": "drifting",
       "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-22T21:50:07Z"
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
     },
     {
       "gameId": "ligue-2-2026-11-23-sochaux-usl-dunkerque-xr3yn4",
@@ -4244,7 +4244,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T21:50:07Z"
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
     },
     {
       "gameId": "ligue-2-2026-11-23-sochaux-usl-dunkerque-xr3yn4",
@@ -4259,7 +4259,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T21:50:07Z"
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
     },
     {
       "gameId": "ligue-2-2026-11-23-sochaux-usl-dunkerque-xr3yn4",
@@ -4274,7 +4274,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T21:50:07Z"
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
     },
     {
       "gameId": "ligue-2-2026-11-23-sochaux-usl-dunkerque-xr3yn4",
@@ -4284,12 +4284,12 @@
       "outcome": "yes",
       "line": null,
       "book": "betano",
-      "decimal": 1.62,
+      "decimal": 1.65,
       "openingDecimal": 1.62,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T20:21:00Z"
+      "deltaPct": 1.85,
+      "movement": "drifting",
+      "movementSignal": "DRIFTING",
+      "capturedAtUtc": "2026-11-23T14:20:27Z"
     },
     {
       "gameId": "ligue-2-2026-11-23-sochaux-usl-dunkerque-xr3yn4",
@@ -4304,7 +4304,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T20:21:00Z"
+      "capturedAtUtc": "2026-11-23T14:20:27Z"
     },
     {
       "gameId": "ligue-2-2026-11-23-sochaux-usl-dunkerque-xr3yn4",
@@ -4314,12 +4314,12 @@
       "outcome": "yes",
       "line": null,
       "book": "unibet",
-      "decimal": 1.62,
+      "decimal": 1.65,
       "openingDecimal": 1.62,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T20:21:00Z"
+      "deltaPct": 1.85,
+      "movement": "drifting",
+      "movementSignal": "DRIFTING",
+      "capturedAtUtc": "2026-11-23T14:20:27Z"
     },
     {
       "gameId": "ligue-2-2026-11-23-sochaux-usl-dunkerque-xr3yn4",
@@ -4329,12 +4329,12 @@
       "outcome": "yes",
       "line": null,
       "book": "novibet",
-      "decimal": 1.63,
+      "decimal": 1.65,
       "openingDecimal": 1.63,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T20:21:00Z"
+      "deltaPct": 1.23,
+      "movement": "drifting",
+      "movementSignal": "DRIFTING",
+      "capturedAtUtc": "2026-11-23T14:20:27Z"
     },
     {
       "gameId": "ligue-2-2026-11-23-sochaux-usl-dunkerque-xr3yn4",
@@ -4349,7 +4349,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T20:21:00Z"
+      "capturedAtUtc": "2026-11-23T14:20:27Z"
     },
     {
       "gameId": "ligue-2-2026-11-23-sochaux-usl-dunkerque-xr3yn4",
@@ -4364,7 +4364,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T20:21:00Z"
+      "capturedAtUtc": "2026-11-23T14:20:27Z"
     },
     {
       "gameId": "ligue-2-2026-11-23-sochaux-usl-dunkerque-xr3yn4",
@@ -4379,7 +4379,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T20:21:00Z"
+      "capturedAtUtc": "2026-11-23T14:20:27Z"
     },
     {
       "gameId": "ligue-2-2026-11-23-sochaux-usl-dunkerque-xr3yn4",
@@ -4394,7 +4394,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T20:21:00Z"
+      "capturedAtUtc": "2026-11-23T14:20:27Z"
     },
     {
       "gameId": "ligue-2-2026-11-23-sochaux-usl-dunkerque-xr3yn4",
@@ -4409,7 +4409,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T21:50:07Z"
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
     },
     {
       "gameId": "ligue-2-2026-11-23-sochaux-usl-dunkerque-xr3yn4",
@@ -4424,7 +4424,7 @@
       "deltaPct": -0.42,
       "movement": "shortening",
       "movementSignal": "SHORTENING",
-      "capturedAtUtc": "2026-11-22T21:50:07Z"
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
     },
     {
       "gameId": "ligue-2-2026-11-23-sochaux-usl-dunkerque-xr3yn4",
@@ -4439,7 +4439,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T20:21:00Z"
+      "capturedAtUtc": "2026-11-23T14:20:27Z"
     },
     {
       "gameId": "ligue-2-2026-11-23-sochaux-usl-dunkerque-xr3yn4",
@@ -4454,7 +4454,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T21:50:07Z"
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
     },
     {
       "gameId": "ligue-2-2026-11-23-sochaux-usl-dunkerque-xr3yn4",
@@ -4469,7 +4469,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T20:21:00Z"
+      "capturedAtUtc": "2026-11-23T14:20:27Z"
     },
     {
       "gameId": "ligue-2-2026-11-23-sochaux-usl-dunkerque-xr3yn4",
@@ -4484,7 +4484,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T20:21:00Z"
+      "capturedAtUtc": "2026-11-23T14:20:27Z"
     },
     {
       "gameId": "ligue-2-2026-11-23-sochaux-usl-dunkerque-xr3yn4",
@@ -4499,7 +4499,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T21:50:07Z"
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
     },
     {
       "gameId": "ligue-2-2026-11-23-sochaux-usl-dunkerque-xr3yn4",
@@ -4514,7 +4514,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T20:21:00Z"
+      "capturedAtUtc": "2026-11-23T14:20:27Z"
     },
     {
       "gameId": "ligue-2-2026-11-23-sochaux-usl-dunkerque-xr3yn4",
@@ -4529,7 +4529,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T20:21:00Z"
+      "capturedAtUtc": "2026-11-23T14:20:27Z"
     },
     {
       "gameId": "ligue-2-2026-11-23-sochaux-usl-dunkerque-xr3yn4",
@@ -4544,7 +4544,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T20:21:00Z"
+      "capturedAtUtc": "2026-11-23T14:20:27Z"
     },
     {
       "gameId": "ligue-2-2026-11-23-sochaux-usl-dunkerque-xr3yn4",
@@ -4554,12 +4554,12 @@
       "outcome": "HOME",
       "line": null,
       "book": "novibet",
-      "decimal": 1.67,
+      "decimal": 1.69,
       "openingDecimal": 1.67,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T20:21:00Z"
+      "deltaPct": 1.2,
+      "movement": "drifting",
+      "movementSignal": "DRIFTING",
+      "capturedAtUtc": "2026-11-23T14:20:27Z"
     },
     {
       "gameId": "ligue-2-2026-11-23-sochaux-usl-dunkerque-xr3yn4",
@@ -4574,7 +4574,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T20:21:00Z"
+      "capturedAtUtc": "2026-11-23T14:20:27Z"
     },
     {
       "gameId": "ligue-2-2026-11-23-sochaux-usl-dunkerque-xr3yn4",
@@ -4589,7 +4589,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T20:21:00Z"
+      "capturedAtUtc": "2026-11-23T14:20:27Z"
     },
     {
       "gameId": "ligue-2-2026-11-23-sochaux-usl-dunkerque-xr3yn4",
@@ -4599,12 +4599,12 @@
       "outcome": "HOME",
       "line": null,
       "book": "betway",
-      "decimal": 1.7,
+      "decimal": 1.667,
       "openingDecimal": 1.7,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T20:21:00Z"
+      "deltaPct": -1.94,
+      "movement": "shortening",
+      "movementSignal": "SHORTENING",
+      "capturedAtUtc": "2026-11-23T14:20:27Z"
     },
     {
       "gameId": "ligue-2-2026-11-23-sochaux-usl-dunkerque-xr3yn4",
@@ -4619,7 +4619,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T20:21:00Z"
+      "capturedAtUtc": "2026-11-23T14:20:27Z"
     },
     {
       "gameId": "ligue-2-2026-11-23-sochaux-usl-dunkerque-xr3yn4",
@@ -4634,7 +4634,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T20:21:00Z"
+      "capturedAtUtc": "2026-11-23T14:20:27Z"
     },
     {
       "gameId": "ligue-2-2026-11-23-sochaux-usl-dunkerque-xr3yn4",
@@ -4644,12 +4644,12 @@
       "outcome": "HOME",
       "line": null,
       "book": "bet365",
-      "decimal": 1.667,
+      "decimal": 1.727,
       "openingDecimal": 1.667,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T20:21:00Z"
+      "deltaPct": 3.6,
+      "movement": "drifting",
+      "movementSignal": "DRIFTING",
+      "capturedAtUtc": "2026-11-23T14:20:27Z"
     },
     {
       "gameId": "ligue-2-2026-11-23-sochaux-usl-dunkerque-xr3yn4",
@@ -4664,7 +4664,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T20:21:00Z"
+      "capturedAtUtc": "2026-11-23T14:20:27Z"
     },
     {
       "gameId": "ligue-2-2026-11-23-sochaux-usl-dunkerque-xr3yn4",
@@ -4679,7 +4679,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T20:21:00Z"
+      "capturedAtUtc": "2026-11-23T14:20:27Z"
     },
     {
       "gameId": "ligue-2-2026-11-23-sochaux-usl-dunkerque-xr3yn4",
@@ -4694,7 +4694,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T20:21:00Z"
+      "capturedAtUtc": "2026-11-23T14:20:27Z"
     },
     {
       "gameId": "ligue-2-2026-11-23-sochaux-usl-dunkerque-xr3yn4",
@@ -4709,7 +4709,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T20:21:00Z"
+      "capturedAtUtc": "2026-11-23T14:20:27Z"
     },
     {
       "gameId": "ligue-2-2026-11-23-sochaux-usl-dunkerque-xr3yn4",
@@ -4724,7 +4724,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T20:21:00Z"
+      "capturedAtUtc": "2026-11-23T14:20:27Z"
     },
     {
       "gameId": "ligue-2-2026-11-23-sochaux-usl-dunkerque-xr3yn4",
@@ -4734,12 +4734,12 @@
       "outcome": "AWAY",
       "line": null,
       "book": "novibet",
-      "decimal": 2.1,
+      "decimal": 2.08,
       "openingDecimal": 2.1,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T20:21:00Z"
+      "deltaPct": -0.95,
+      "movement": "shortening",
+      "movementSignal": "SHORTENING",
+      "capturedAtUtc": "2026-11-23T14:20:27Z"
     },
     {
       "gameId": "ligue-2-2026-11-23-sochaux-usl-dunkerque-xr3yn4",
@@ -4754,7 +4754,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T20:21:00Z"
+      "capturedAtUtc": "2026-11-23T14:20:27Z"
     },
     {
       "gameId": "ligue-2-2026-11-23-sochaux-usl-dunkerque-xr3yn4",
@@ -4769,7 +4769,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T20:21:00Z"
+      "capturedAtUtc": "2026-11-23T14:20:27Z"
     },
     {
       "gameId": "ligue-2-2026-11-23-sochaux-usl-dunkerque-xr3yn4",
@@ -4779,12 +4779,12 @@
       "outcome": "AWAY",
       "line": null,
       "book": "betway",
-      "decimal": 2.05,
+      "decimal": 2.1,
       "openingDecimal": 2.05,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T20:21:00Z"
+      "deltaPct": 2.44,
+      "movement": "drifting",
+      "movementSignal": "DRIFTING",
+      "capturedAtUtc": "2026-11-23T14:20:27Z"
     },
     {
       "gameId": "ligue-2-2026-11-23-sochaux-usl-dunkerque-xr3yn4",
@@ -4799,7 +4799,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T20:21:00Z"
+      "capturedAtUtc": "2026-11-23T14:20:27Z"
     },
     {
       "gameId": "ligue-2-2026-11-23-sochaux-usl-dunkerque-xr3yn4",
@@ -4814,7 +4814,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T20:21:00Z"
+      "capturedAtUtc": "2026-11-23T14:20:27Z"
     },
     {
       "gameId": "ligue-2-2026-11-23-sochaux-usl-dunkerque-xr3yn4",
@@ -4824,12 +4824,12 @@
       "outcome": "AWAY",
       "line": null,
       "book": "bet365",
-      "decimal": 2.1,
+      "decimal": 2,
       "openingDecimal": 2.1,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T20:21:00Z"
+      "deltaPct": -4.76,
+      "movement": "shortening",
+      "movementSignal": "SHORTENING",
+      "capturedAtUtc": "2026-11-23T14:20:27Z"
     },
     {
       "gameId": "ligue-2-2026-11-23-sochaux-usl-dunkerque-xr3yn4",
@@ -4844,7 +4844,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T20:21:00Z"
+      "capturedAtUtc": "2026-11-23T14:20:27Z"
     },
     {
       "gameId": "ligue-2-2026-11-23-sochaux-usl-dunkerque-xr3yn4",
@@ -4859,7 +4859,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T20:21:00Z"
+      "capturedAtUtc": "2026-11-23T14:20:27Z"
     },
     {
       "gameId": "ligue-2-2026-11-23-sochaux-usl-dunkerque-xr3yn4",
@@ -4874,7 +4874,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T20:21:00Z"
+      "capturedAtUtc": "2026-11-23T14:20:27Z"
     },
     {
       "gameId": "ligue-2-2026-11-23-sochaux-usl-dunkerque-xr3yn4",
@@ -4889,7 +4889,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T21:50:07Z"
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
     },
     {
       "gameId": "ligue-2-2026-11-23-sochaux-usl-dunkerque-xr3yn4",
@@ -4899,12 +4899,12 @@
       "outcome": "no",
       "line": null,
       "book": "betano",
-      "decimal": 2.15,
+      "decimal": 2.12,
       "openingDecimal": 2.15,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T20:21:00Z"
+      "deltaPct": -1.4,
+      "movement": "shortening",
+      "movementSignal": "SHORTENING",
+      "capturedAtUtc": "2026-11-23T14:20:27Z"
     },
     {
       "gameId": "ligue-2-2026-11-23-sochaux-usl-dunkerque-xr3yn4",
@@ -4919,7 +4919,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T20:21:00Z"
+      "capturedAtUtc": "2026-11-23T14:20:27Z"
     },
     {
       "gameId": "ligue-2-2026-11-23-sochaux-usl-dunkerque-xr3yn4",
@@ -4929,12 +4929,12 @@
       "outcome": "no",
       "line": null,
       "book": "unibet",
-      "decimal": 2.2,
+      "decimal": 2.15,
       "openingDecimal": 2.2,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T20:21:00Z"
+      "deltaPct": -2.27,
+      "movement": "shortening",
+      "movementSignal": "SHORTENING",
+      "capturedAtUtc": "2026-11-23T14:20:27Z"
     },
     {
       "gameId": "ligue-2-2026-11-23-sochaux-usl-dunkerque-xr3yn4",
@@ -4944,12 +4944,12 @@
       "outcome": "no",
       "line": null,
       "book": "novibet",
-      "decimal": 2.2,
+      "decimal": 2.15,
       "openingDecimal": 2.2,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T20:21:00Z"
+      "deltaPct": -2.27,
+      "movement": "shortening",
+      "movementSignal": "SHORTENING",
+      "capturedAtUtc": "2026-11-23T14:20:27Z"
     },
     {
       "gameId": "ligue-2-2026-11-23-sochaux-usl-dunkerque-xr3yn4",
@@ -4964,7 +4964,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T20:21:00Z"
+      "capturedAtUtc": "2026-11-23T14:20:27Z"
     },
     {
       "gameId": "ligue-2-2026-11-23-sochaux-usl-dunkerque-xr3yn4",
@@ -4979,7 +4979,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T20:21:00Z"
+      "capturedAtUtc": "2026-11-23T14:20:27Z"
     },
     {
       "gameId": "ligue-2-2026-11-23-sochaux-usl-dunkerque-xr3yn4",
@@ -4994,7 +4994,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T20:21:00Z"
+      "capturedAtUtc": "2026-11-23T14:20:27Z"
     },
     {
       "gameId": "ligue-2-2026-11-23-sochaux-usl-dunkerque-xr3yn4",
@@ -5009,7 +5009,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T20:21:00Z"
+      "capturedAtUtc": "2026-11-23T14:20:27Z"
     },
     {
       "gameId": "ligue-2-2026-11-23-sochaux-usl-dunkerque-xr3yn4",
@@ -5024,7 +5024,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T21:50:07Z"
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
     },
     {
       "gameId": "ligue-2-2026-11-23-sochaux-usl-dunkerque-xr3yn4",
@@ -5039,7 +5039,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T21:50:07Z"
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
     },
     {
       "gameId": "ligue-2-2026-11-23-sochaux-usl-dunkerque-xr3yn4",
@@ -5049,12 +5049,12 @@
       "outcome": "no",
       "line": null,
       "book": "betsson",
-      "decimal": 2.12,
+      "decimal": 2.08,
       "openingDecimal": 2.12,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T20:21:00Z"
+      "deltaPct": -1.89,
+      "movement": "shortening",
+      "movementSignal": "SHORTENING",
+      "capturedAtUtc": "2026-11-23T14:20:27Z"
     },
     {
       "gameId": "ligue-2-2026-11-23-sochaux-usl-dunkerque-xr3yn4",
@@ -5069,7 +5069,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T21:50:07Z"
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
     },
     {
       "gameId": "ligue-2-2026-11-23-sochaux-usl-dunkerque-xr3yn4",
@@ -5079,12 +5079,12 @@
       "outcome": "no",
       "line": null,
       "book": "fonbet",
-      "decimal": 2.2,
+      "decimal": 2.18,
       "openingDecimal": 2.2,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T20:21:00Z"
+      "deltaPct": -0.91,
+      "movement": "shortening",
+      "movementSignal": "SHORTENING",
+      "capturedAtUtc": "2026-11-23T14:20:27Z"
     },
     {
       "gameId": "ligue-2-2026-11-23-sochaux-usl-dunkerque-xr3yn4",
@@ -5099,7 +5099,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T20:21:00Z"
+      "capturedAtUtc": "2026-11-23T14:20:27Z"
     },
     {
       "gameId": "ligue-2-2026-11-23-sochaux-usl-dunkerque-xr3yn4",
@@ -5114,7 +5114,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T21:50:07Z"
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
     },
     {
       "gameId": "ligue-2-2026-11-23-sochaux-usl-dunkerque-xr3yn4",
@@ -5129,7 +5129,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T20:21:00Z"
+      "capturedAtUtc": "2026-11-23T14:20:27Z"
     },
     {
       "gameId": "ligue-2-2026-11-23-sochaux-usl-dunkerque-xr3yn4",
@@ -5144,7 +5144,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T21:50:07Z"
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
     },
     {
       "gameId": "ligue-2-2026-11-23-sochaux-usl-dunkerque-xr3yn4",
@@ -5159,7 +5159,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T21:50:07Z"
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
     },
     {
       "gameId": "ligue-2-2026-11-23-sochaux-usl-dunkerque-xr3yn4",
@@ -5174,7 +5174,7 @@
       "deltaPct": -1.1,
       "movement": "shortening",
       "movementSignal": "SHORTENING",
-      "capturedAtUtc": "2026-11-22T21:50:07Z"
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
     },
     {
       "gameId": "ligue-2-2026-11-23-sochaux-usl-dunkerque-xr3yn4",
@@ -5189,7 +5189,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T21:50:07Z"
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
     },
     {
       "gameId": "ligue-2-2026-11-23-sochaux-usl-dunkerque-xr3yn4",
@@ -5204,7 +5204,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T21:50:07Z"
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
     },
     {
       "gameId": "ligue-2-2026-11-23-sochaux-usl-dunkerque-xr3yn4",
@@ -5219,7 +5219,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T20:21:00Z"
+      "capturedAtUtc": "2026-11-23T14:20:27Z"
     },
     {
       "gameId": "ligue-2-2026-11-23-sochaux-usl-dunkerque-xr3yn4",
@@ -5229,12 +5229,12 @@
       "outcome": "HOME",
       "line": -0.25,
       "book": "unibet",
-      "decimal": 1.98,
+      "decimal": 2.05,
       "openingDecimal": 1.98,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T20:21:00Z"
+      "deltaPct": 3.54,
+      "movement": "drifting",
+      "movementSignal": "DRIFTING",
+      "capturedAtUtc": "2026-11-23T14:20:27Z"
     },
     {
       "gameId": "ligue-2-2026-11-23-sochaux-usl-dunkerque-xr3yn4",
@@ -5244,12 +5244,12 @@
       "outcome": "HOME",
       "line": -0.25,
       "book": "novibet",
-      "decimal": 2.01,
+      "decimal": 2.03,
       "openingDecimal": 2.01,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T20:21:00Z"
+      "deltaPct": 1,
+      "movement": "drifting",
+      "movementSignal": "DRIFTING",
+      "capturedAtUtc": "2026-11-23T14:20:27Z"
     },
     {
       "gameId": "ligue-2-2026-11-23-sochaux-usl-dunkerque-xr3yn4",
@@ -5264,7 +5264,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T20:21:00Z"
+      "capturedAtUtc": "2026-11-23T14:20:27Z"
     },
     {
       "gameId": "ligue-2-2026-11-23-sochaux-usl-dunkerque-xr3yn4",
@@ -5274,12 +5274,27 @@
       "outcome": "HOME",
       "line": -0.25,
       "book": "betsson",
-      "decimal": 1.99,
+      "decimal": 2.03,
       "openingDecimal": 1.99,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T20:21:00Z"
+      "deltaPct": 2.01,
+      "movement": "drifting",
+      "movementSignal": "DRIFTING",
+      "capturedAtUtc": "2026-11-23T14:20:27Z"
+    },
+    {
+      "gameId": "ligue-2-2026-11-23-sochaux-usl-dunkerque-xr3yn4",
+      "homeName": "Sochaux",
+      "awayName": "USL Dunkerque",
+      "market": "asian_handicap",
+      "outcome": "HOME",
+      "line": -0.25,
+      "book": "fonbet",
+      "decimal": 1.95,
+      "openingDecimal": 1.9,
+      "deltaPct": 2.63,
+      "movement": "drifting",
+      "movementSignal": "DRIFTING",
+      "capturedAtUtc": "2026-11-23T14:20:27Z"
     },
     {
       "gameId": "ligue-2-2026-11-23-sochaux-usl-dunkerque-xr3yn4",
@@ -5294,7 +5309,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T20:21:00Z"
+      "capturedAtUtc": "2026-11-23T14:20:27Z"
     },
     {
       "gameId": "ligue-2-2026-11-23-sochaux-usl-dunkerque-xr3yn4",
@@ -5309,7 +5324,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T20:21:00Z"
+      "capturedAtUtc": "2026-11-23T14:20:27Z"
     },
     {
       "gameId": "ligue-2-2026-11-23-sochaux-usl-dunkerque-xr3yn4",
@@ -5319,12 +5334,12 @@
       "outcome": "AWAY",
       "line": -0.25,
       "book": "unibet",
-      "decimal": 1.78,
+      "decimal": 1.73,
       "openingDecimal": 1.78,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T20:21:00Z"
+      "deltaPct": -2.81,
+      "movement": "shortening",
+      "movementSignal": "SHORTENING",
+      "capturedAtUtc": "2026-11-23T14:20:27Z"
     },
     {
       "gameId": "ligue-2-2026-11-23-sochaux-usl-dunkerque-xr3yn4",
@@ -5334,12 +5349,12 @@
       "outcome": "AWAY",
       "line": -0.25,
       "book": "novibet",
-      "decimal": 1.77,
+      "decimal": 1.75,
       "openingDecimal": 1.77,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T20:21:00Z"
+      "deltaPct": -1.13,
+      "movement": "shortening",
+      "movementSignal": "SHORTENING",
+      "capturedAtUtc": "2026-11-23T14:20:27Z"
     },
     {
       "gameId": "ligue-2-2026-11-23-sochaux-usl-dunkerque-xr3yn4",
@@ -5354,7 +5369,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T20:21:00Z"
+      "capturedAtUtc": "2026-11-23T14:20:27Z"
     },
     {
       "gameId": "ligue-2-2026-11-23-sochaux-usl-dunkerque-xr3yn4",
@@ -5364,12 +5379,27 @@
       "outcome": "AWAY",
       "line": -0.25,
       "book": "betsson",
-      "decimal": 1.76,
+      "decimal": 1.73,
       "openingDecimal": 1.76,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T20:21:00Z"
+      "deltaPct": -1.7,
+      "movement": "shortening",
+      "movementSignal": "SHORTENING",
+      "capturedAtUtc": "2026-11-23T14:20:27Z"
+    },
+    {
+      "gameId": "ligue-2-2026-11-23-sochaux-usl-dunkerque-xr3yn4",
+      "homeName": "Sochaux",
+      "awayName": "USL Dunkerque",
+      "market": "asian_handicap",
+      "outcome": "AWAY",
+      "line": -0.25,
+      "book": "fonbet",
+      "decimal": 1.75,
+      "openingDecimal": 1.8,
+      "deltaPct": -2.78,
+      "movement": "shortening",
+      "movementSignal": "SHORTENING",
+      "capturedAtUtc": "2026-11-23T14:20:27Z"
     },
     {
       "gameId": "ligue-2-2026-11-23-sochaux-usl-dunkerque-xr3yn4",
@@ -5384,7 +5414,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T20:21:00Z"
+      "capturedAtUtc": "2026-11-23T14:20:27Z"
     },
     {
       "gameId": "ligue-2-2026-11-23-sochaux-usl-dunkerque-xr3yn4",
@@ -5399,7 +5429,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T20:21:00Z"
+      "capturedAtUtc": "2026-11-23T14:20:27Z"
     },
     {
       "gameId": "ligue-2-2026-11-23-sochaux-usl-dunkerque-xr3yn4",
@@ -5414,7 +5444,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T20:21:00Z"
+      "capturedAtUtc": "2026-11-23T14:20:27Z"
     },
     {
       "gameId": "ligue-2-2026-11-23-sochaux-usl-dunkerque-xr3yn4",
@@ -5424,12 +5454,12 @@
       "outcome": "HOME",
       "line": -1.75,
       "book": "novibet",
-      "decimal": 5.9,
+      "decimal": 6,
       "openingDecimal": 5.9,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T20:21:00Z"
+      "deltaPct": 1.69,
+      "movement": "drifting",
+      "movementSignal": "DRIFTING",
+      "capturedAtUtc": "2026-11-23T14:20:27Z"
     },
     {
       "gameId": "ligue-2-2026-11-23-sochaux-usl-dunkerque-xr3yn4",
@@ -5444,7 +5474,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T20:21:00Z"
+      "capturedAtUtc": "2026-11-23T14:20:27Z"
     },
     {
       "gameId": "ligue-2-2026-11-23-sochaux-usl-dunkerque-xr3yn4",
@@ -5459,7 +5489,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T20:21:00Z"
+      "capturedAtUtc": "2026-11-23T14:20:27Z"
     },
     {
       "gameId": "ligue-2-2026-11-23-sochaux-usl-dunkerque-xr3yn4",
@@ -5474,7 +5504,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T20:21:00Z"
+      "capturedAtUtc": "2026-11-23T14:20:27Z"
     },
     {
       "gameId": "ligue-2-2026-11-23-sochaux-usl-dunkerque-xr3yn4",
@@ -5484,12 +5514,12 @@
       "outcome": "AWAY",
       "line": -1.75,
       "book": "novibet",
-      "decimal": 1.12,
+      "decimal": 1.11,
       "openingDecimal": 1.12,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T20:21:00Z"
+      "deltaPct": -0.89,
+      "movement": "shortening",
+      "movementSignal": "SHORTENING",
+      "capturedAtUtc": "2026-11-23T14:20:27Z"
     },
     {
       "gameId": "ligue-2-2026-11-23-sochaux-usl-dunkerque-xr3yn4",
@@ -5499,12 +5529,12 @@
       "outcome": "AWAY",
       "line": -1.75,
       "book": "bet365",
-      "decimal": 1.13,
+      "decimal": 1.125,
       "openingDecimal": 1.13,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T20:21:00Z"
+      "deltaPct": -0.44,
+      "movement": "shortening",
+      "movementSignal": "SHORTENING",
+      "capturedAtUtc": "2026-11-23T14:20:27Z"
     },
     {
       "gameId": "ligue-2-2026-11-23-sochaux-usl-dunkerque-xr3yn4",
@@ -5519,7 +5549,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T20:21:00Z"
+      "capturedAtUtc": "2026-11-23T14:20:27Z"
     },
     {
       "gameId": "ligue-2-2026-11-23-sochaux-usl-dunkerque-xr3yn4",
@@ -5529,12 +5559,12 @@
       "outcome": "HOME",
       "line": -1.25,
       "book": "unibet",
-      "decimal": 4.25,
+      "decimal": 4.5,
       "openingDecimal": 4.25,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T20:21:00Z"
+      "deltaPct": 5.88,
+      "movement": "drifting",
+      "movementSignal": "DRIFTING",
+      "capturedAtUtc": "2026-11-23T14:20:27Z"
     },
     {
       "gameId": "ligue-2-2026-11-23-sochaux-usl-dunkerque-xr3yn4",
@@ -5544,12 +5574,12 @@
       "outcome": "HOME",
       "line": -1.25,
       "book": "novibet",
-      "decimal": 4.15,
+      "decimal": 4.25,
       "openingDecimal": 4.15,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T20:21:00Z"
+      "deltaPct": 2.41,
+      "movement": "drifting",
+      "movementSignal": "DRIFTING",
+      "capturedAtUtc": "2026-11-23T14:20:27Z"
     },
     {
       "gameId": "ligue-2-2026-11-23-sochaux-usl-dunkerque-xr3yn4",
@@ -5564,7 +5594,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T20:21:00Z"
+      "capturedAtUtc": "2026-11-23T14:20:27Z"
     },
     {
       "gameId": "ligue-2-2026-11-23-sochaux-usl-dunkerque-xr3yn4",
@@ -5579,7 +5609,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T20:21:00Z"
+      "capturedAtUtc": "2026-11-23T14:20:27Z"
     },
     {
       "gameId": "ligue-2-2026-11-23-sochaux-usl-dunkerque-xr3yn4",
@@ -5594,7 +5624,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T20:21:00Z"
+      "capturedAtUtc": "2026-11-23T14:20:27Z"
     },
     {
       "gameId": "ligue-2-2026-11-23-sochaux-usl-dunkerque-xr3yn4",
@@ -5609,7 +5639,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T20:21:00Z"
+      "capturedAtUtc": "2026-11-23T14:20:27Z"
     },
     {
       "gameId": "ligue-2-2026-11-23-sochaux-usl-dunkerque-xr3yn4",
@@ -5619,12 +5649,12 @@
       "outcome": "AWAY",
       "line": -1.25,
       "book": "bet365",
-      "decimal": 1.23,
+      "decimal": 1.225,
       "openingDecimal": 1.23,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T20:21:00Z"
+      "deltaPct": -0.41,
+      "movement": "shortening",
+      "movementSignal": "SHORTENING",
+      "capturedAtUtc": "2026-11-23T14:20:27Z"
     },
     {
       "gameId": "ligue-2-2026-11-23-sochaux-usl-dunkerque-xr3yn4",
@@ -5639,7 +5669,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T20:21:00Z"
+      "capturedAtUtc": "2026-11-23T14:20:27Z"
     },
     {
       "gameId": "ligue-2-2026-11-23-sochaux-usl-dunkerque-xr3yn4",
@@ -5654,7 +5684,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T20:21:00Z"
+      "capturedAtUtc": "2026-11-23T14:20:27Z"
     },
     {
       "gameId": "ligue-2-2026-11-23-sochaux-usl-dunkerque-xr3yn4",
@@ -5669,7 +5699,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T20:21:00Z"
+      "capturedAtUtc": "2026-11-23T14:20:27Z"
     },
     {
       "gameId": "ligue-2-2026-11-23-sochaux-usl-dunkerque-xr3yn4",
@@ -5684,7 +5714,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T20:21:00Z"
+      "capturedAtUtc": "2026-11-23T14:20:27Z"
     },
     {
       "gameId": "ligue-2-2026-11-23-sochaux-usl-dunkerque-xr3yn4",
@@ -5699,7 +5729,22 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T20:21:00Z"
+      "capturedAtUtc": "2026-11-23T14:20:27Z"
+    },
+    {
+      "gameId": "ligue-2-2026-11-23-sochaux-usl-dunkerque-xr3yn4",
+      "homeName": "Sochaux",
+      "awayName": "USL Dunkerque",
+      "market": "asian_handicap",
+      "outcome": "HOME",
+      "line": -0.75,
+      "book": "fonbet",
+      "decimal": 2.8,
+      "openingDecimal": 2.8,
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-23T14:20:27Z"
     },
     {
       "gameId": "ligue-2-2026-11-23-sochaux-usl-dunkerque-xr3yn4",
@@ -5714,7 +5759,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T20:21:00Z"
+      "capturedAtUtc": "2026-11-23T14:20:27Z"
     },
     {
       "gameId": "ligue-2-2026-11-23-sochaux-usl-dunkerque-xr3yn4",
@@ -5729,7 +5774,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T20:21:00Z"
+      "capturedAtUtc": "2026-11-23T14:20:27Z"
     },
     {
       "gameId": "ligue-2-2026-11-23-sochaux-usl-dunkerque-xr3yn4",
@@ -5739,12 +5784,12 @@
       "outcome": "AWAY",
       "line": -0.75,
       "book": "novibet",
-      "decimal": 1.42,
+      "decimal": 1.41,
       "openingDecimal": 1.42,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T20:21:00Z"
+      "deltaPct": -0.7,
+      "movement": "shortening",
+      "movementSignal": "SHORTENING",
+      "capturedAtUtc": "2026-11-23T14:20:27Z"
     },
     {
       "gameId": "ligue-2-2026-11-23-sochaux-usl-dunkerque-xr3yn4",
@@ -5759,7 +5804,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T20:21:00Z"
+      "capturedAtUtc": "2026-11-23T14:20:27Z"
     },
     {
       "gameId": "ligue-2-2026-11-23-sochaux-usl-dunkerque-xr3yn4",
@@ -5769,12 +5814,27 @@
       "outcome": "AWAY",
       "line": -0.75,
       "book": "betsson",
-      "decimal": 1.43,
+      "decimal": 1.42,
       "openingDecimal": 1.43,
+      "deltaPct": -0.7,
+      "movement": "shortening",
+      "movementSignal": "SHORTENING",
+      "capturedAtUtc": "2026-11-23T14:20:27Z"
+    },
+    {
+      "gameId": "ligue-2-2026-11-23-sochaux-usl-dunkerque-xr3yn4",
+      "homeName": "Sochaux",
+      "awayName": "USL Dunkerque",
+      "market": "asian_handicap",
+      "outcome": "AWAY",
+      "line": -0.75,
+      "book": "fonbet",
+      "decimal": 1.38,
+      "openingDecimal": 1.38,
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T20:21:00Z"
+      "capturedAtUtc": "2026-11-23T14:20:27Z"
     },
     {
       "gameId": "ligue-2-2026-11-23-sochaux-usl-dunkerque-xr3yn4",
@@ -5789,7 +5849,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T20:21:00Z"
+      "capturedAtUtc": "2026-11-23T14:20:27Z"
     },
     {
       "gameId": "ligue-2-2026-11-23-sochaux-usl-dunkerque-xr3yn4",
@@ -5799,12 +5859,12 @@
       "outcome": "HOME",
       "line": 0.25,
       "book": "unibet",
-      "decimal": 1.5,
+      "decimal": 1.52,
       "openingDecimal": 1.5,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T20:21:00Z"
+      "deltaPct": 1.33,
+      "movement": "drifting",
+      "movementSignal": "DRIFTING",
+      "capturedAtUtc": "2026-11-23T14:20:27Z"
     },
     {
       "gameId": "ligue-2-2026-11-23-sochaux-usl-dunkerque-xr3yn4",
@@ -5814,12 +5874,12 @@
       "outcome": "HOME",
       "line": 0.25,
       "book": "novibet",
-      "decimal": 1.5,
+      "decimal": 1.52,
       "openingDecimal": 1.5,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T20:21:00Z"
+      "deltaPct": 1.33,
+      "movement": "drifting",
+      "movementSignal": "DRIFTING",
+      "capturedAtUtc": "2026-11-23T14:20:27Z"
     },
     {
       "gameId": "ligue-2-2026-11-23-sochaux-usl-dunkerque-xr3yn4",
@@ -5834,7 +5894,22 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T20:21:00Z"
+      "capturedAtUtc": "2026-11-23T14:20:27Z"
+    },
+    {
+      "gameId": "ligue-2-2026-11-23-sochaux-usl-dunkerque-xr3yn4",
+      "homeName": "Sochaux",
+      "awayName": "USL Dunkerque",
+      "market": "asian_handicap",
+      "outcome": "HOME",
+      "line": 0.25,
+      "book": "fonbet",
+      "decimal": 1.52,
+      "openingDecimal": 1.5,
+      "deltaPct": 1.33,
+      "movement": "drifting",
+      "movementSignal": "DRIFTING",
+      "capturedAtUtc": "2026-11-23T14:20:27Z"
     },
     {
       "gameId": "ligue-2-2026-11-23-sochaux-usl-dunkerque-xr3yn4",
@@ -5849,7 +5924,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T20:21:00Z"
+      "capturedAtUtc": "2026-11-23T14:20:27Z"
     },
     {
       "gameId": "ligue-2-2026-11-23-sochaux-usl-dunkerque-xr3yn4",
@@ -5859,12 +5934,12 @@
       "outcome": "AWAY",
       "line": 0.25,
       "book": "unibet",
-      "decimal": 2.5,
+      "decimal": 2.45,
       "openingDecimal": 2.5,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T20:21:00Z"
+      "deltaPct": -2,
+      "movement": "shortening",
+      "movementSignal": "SHORTENING",
+      "capturedAtUtc": "2026-11-23T14:20:27Z"
     },
     {
       "gameId": "ligue-2-2026-11-23-sochaux-usl-dunkerque-xr3yn4",
@@ -5874,12 +5949,12 @@
       "outcome": "AWAY",
       "line": 0.25,
       "book": "novibet",
-      "decimal": 2.55,
+      "decimal": 2.5,
       "openingDecimal": 2.55,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T20:21:00Z"
+      "deltaPct": -1.96,
+      "movement": "shortening",
+      "movementSignal": "SHORTENING",
+      "capturedAtUtc": "2026-11-23T14:20:27Z"
     },
     {
       "gameId": "ligue-2-2026-11-23-sochaux-usl-dunkerque-xr3yn4",
@@ -5894,82 +5969,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T20:21:00Z"
-    },
-    {
-      "gameId": "ligue-2-2026-11-23-sochaux-usl-dunkerque-xr3yn4",
-      "homeName": "Sochaux",
-      "awayName": "USL Dunkerque",
-      "market": "asian_handicap",
-      "outcome": "HOME",
-      "line": 0.75,
-      "book": "1xbet",
-      "decimal": 1.24,
-      "openingDecimal": 1.24,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T20:21:00Z"
-    },
-    {
-      "gameId": "ligue-2-2026-11-23-sochaux-usl-dunkerque-xr3yn4",
-      "homeName": "Sochaux",
-      "awayName": "USL Dunkerque",
-      "market": "asian_handicap",
-      "outcome": "HOME",
-      "line": 0.75,
-      "book": "unibet",
-      "decimal": 1.25,
-      "openingDecimal": 1.25,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T20:21:00Z"
-    },
-    {
-      "gameId": "ligue-2-2026-11-23-sochaux-usl-dunkerque-xr3yn4",
-      "homeName": "Sochaux",
-      "awayName": "USL Dunkerque",
-      "market": "asian_handicap",
-      "outcome": "HOME",
-      "line": 0.75,
-      "book": "novibet",
-      "decimal": 1.27,
-      "openingDecimal": 1.27,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T20:21:00Z"
-    },
-    {
-      "gameId": "ligue-2-2026-11-23-sochaux-usl-dunkerque-xr3yn4",
-      "homeName": "Sochaux",
-      "awayName": "USL Dunkerque",
-      "market": "asian_handicap",
-      "outcome": "HOME",
-      "line": 0.75,
-      "book": "bet365",
-      "decimal": 1.275,
-      "openingDecimal": 1.275,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T20:21:00Z"
-    },
-    {
-      "gameId": "ligue-2-2026-11-23-sochaux-usl-dunkerque-xr3yn4",
-      "homeName": "Sochaux",
-      "awayName": "USL Dunkerque",
-      "market": "asian_handicap",
-      "outcome": "AWAY",
-      "line": 0.75,
-      "book": "1xbet",
-      "decimal": 3.35,
-      "openingDecimal": 3.35,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T20:21:00Z"
+      "capturedAtUtc": "2026-11-23T14:20:27Z"
     }
   ]
 }

@@ -869,6 +869,7 @@
         "logoUrl": "https://sports.bzzoiro.com/img/team/55/?bg=transparent"
       },
       "venue": "Ciutat de València",
+      "referee": "Francisco Hernandez Maeso",
       "neutralSite": false
     }
   ],
@@ -1787,11 +1788,11 @@
         "referee": "Isidro Diaz de Mera Escuderos",
         "refereeStats": {
           "country": "Spain",
-          "matches": 45,
-          "avgYellow": 4.98,
-          "avgRed": 0.44,
+          "matches": 46,
+          "avgYellow": 4.93,
+          "avgRed": 0.43,
           "avgFouls": 23.6,
-          "avgGoals": 2.8
+          "avgGoals": 2.78
         }
       }
     },
@@ -4346,11 +4347,11 @@
         "referee": "Juan Martinez Munuera",
         "refereeStats": {
           "country": "Spain",
-          "matches": 60,
-          "avgYellow": 4.63,
-          "avgRed": 0.22,
+          "matches": 61,
+          "avgYellow": 4.7,
+          "avgRed": 0.23,
           "avgFouls": 26.7,
-          "avgGoals": 2.52
+          "avgGoals": 2.49
         }
       }
     },
@@ -4825,8 +4826,8 @@
         "referee": "Miguel Angel Ortiz Arias",
         "refereeStats": {
           "country": "Spain",
-          "matches": 49,
-          "avgYellow": 3.61,
+          "matches": 50,
+          "avgYellow": 3.62,
           "avgRed": 0.24,
           "avgFouls": 22.1,
           "avgGoals": 2.86
@@ -13254,7 +13255,18 @@
           "away": 15
         }
       },
-      "picksAt": "2026-11-14T14:07:39.275Z"
+      "picksAt": "2026-11-14T14:07:39.275Z",
+      "matchContext": {
+        "referee": "Francisco Hernandez Maeso",
+        "refereeStats": {
+          "country": "Spain",
+          "matches": 45,
+          "avgYellow": 4.09,
+          "avgRed": 0.18,
+          "avgFouls": 24.7,
+          "avgGoals": 2.93
+        }
+      }
     }
   },
   "standings": [

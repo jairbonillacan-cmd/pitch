@@ -1,19 +1,10 @@
 {
   "schemaVersion": 1,
   "league": "europa-league",
-  "observedAt": "2026-11-22T21:56:46.653Z",
+  "observedAt": "2026-11-23T15:07:01.408Z",
   "source": "pitchlab-availability",
   "coverageStatus": "ok",
   "entries": [
-    {
-      "teamId": "europa-league.rsc-anderlecht",
-      "player": "Giulian Biancone",
-      "position": "D",
-      "status": "Baja",
-      "detail": "yellow_card_accumulation_suspension",
-      "injuryType": "yellow_card_accumulation_suspension",
-      "reportedAt": "2026-11-22T21:56:46.653Z"
-    },
     {
       "teamId": "europa-league.rsc-anderlecht",
       "player": "Lucas Hey",
@@ -21,7 +12,7 @@
       "status": "Baja",
       "detail": "Broken Leg",
       "injuryType": "Broken Leg",
-      "reportedAt": "2026-11-22T21:56:46.653Z"
+      "reportedAt": "2026-11-23T15:07:01.408Z"
     },
     {
       "teamId": "europa-league.red-bull-salzburg",
@@ -30,7 +21,7 @@
       "status": "Baja",
       "detail": "Hip Injury",
       "injuryType": "Hip Injury",
-      "reportedAt": "2026-11-22T21:56:46.653Z"
+      "reportedAt": "2026-11-23T15:07:01.408Z"
     },
     {
       "teamId": "europa-league.red-bull-salzburg",
@@ -39,7 +30,7 @@
       "status": "Baja",
       "detail": "Knee Injury",
       "injuryType": "Knee Injury",
-      "reportedAt": "2026-11-22T21:56:46.653Z"
+      "reportedAt": "2026-11-23T15:07:01.408Z"
     },
     {
       "teamId": "europa-league.red-bull-salzburg",
@@ -48,7 +39,7 @@
       "status": "Baja",
       "detail": "Knee Injury",
       "injuryType": "Knee Injury",
-      "reportedAt": "2026-11-22T21:56:46.653Z"
+      "reportedAt": "2026-11-23T15:07:01.408Z"
     },
     {
       "teamId": "europa-league.red-bull-salzburg",
@@ -57,7 +48,7 @@
       "status": "Baja",
       "detail": "Ankle Injury",
       "injuryType": "Ankle Injury",
-      "reportedAt": "2026-11-22T21:56:46.653Z"
+      "reportedAt": "2026-11-23T15:07:01.408Z"
     },
     {
       "teamId": "europa-league.red-bull-salzburg",
@@ -66,7 +57,7 @@
       "status": "Baja",
       "detail": "Ligament Injury",
       "injuryType": "Ligament Injury",
-      "reportedAt": "2026-11-22T21:56:46.653Z"
+      "reportedAt": "2026-11-23T15:07:01.408Z"
     },
     {
       "teamId": "europa-league.red-bull-salzburg",
@@ -75,7 +66,7 @@
       "status": "Baja",
       "detail": "Hip Injury",
       "injuryType": "Hip Injury",
-      "reportedAt": "2026-11-22T21:56:46.653Z"
+      "reportedAt": "2026-11-23T15:07:01.408Z"
     },
     {
       "teamId": "europa-league.nec-nijmegen",
@@ -84,7 +75,7 @@
       "status": "Baja",
       "detail": "Ankle Injury",
       "injuryType": "Ankle Injury",
-      "reportedAt": "2026-11-22T21:56:46.653Z"
+      "reportedAt": "2026-11-23T15:07:01.408Z"
     },
     {
       "teamId": "europa-league.nec-nijmegen",
@@ -93,7 +84,16 @@
       "status": "Baja",
       "detail": "Unknown",
       "injuryType": "Unknown",
-      "reportedAt": "2026-11-22T21:56:46.653Z"
+      "reportedAt": "2026-11-23T15:07:01.408Z"
+    },
+    {
+      "teamId": "europa-league.lillestr-m",
+      "player": "Daniel Bassi",
+      "position": "F",
+      "status": "Baja",
+      "detail": "Unknown",
+      "injuryType": "Unknown",
+      "reportedAt": "2026-11-23T15:07:01.408Z"
     },
     {
       "teamId": "europa-league.lillestr-m",
@@ -102,16 +102,16 @@
       "status": "Baja",
       "detail": "Knee Injury",
       "injuryType": "Knee Injury",
-      "reportedAt": "2026-11-22T21:56:46.653Z"
+      "reportedAt": "2026-11-23T15:07:01.408Z"
     },
     {
       "teamId": "europa-league.lillestr-m",
-      "player": "Lars Ranger",
-      "position": "D",
-      "status": "Duda",
-      "detail": "Hip Injury",
-      "injuryType": "Hip Injury",
-      "reportedAt": "2026-11-22T21:56:46.653Z"
+      "player": "Ylldren Ibrahimaj",
+      "position": "M",
+      "status": "Baja",
+      "detail": "yellow_card_accumulation_suspension",
+      "injuryType": "yellow_card_accumulation_suspension",
+      "reportedAt": "2026-11-23T15:07:01.408Z"
     },
     {
       "teamId": "europa-league.viktoria-plzen",
@@ -120,7 +120,7 @@
       "status": "Baja",
       "detail": "Knee Injury",
       "injuryType": "Knee Injury",
-      "reportedAt": "2026-11-22T21:56:46.653Z"
+      "reportedAt": "2026-11-23T15:07:01.408Z"
     },
     {
       "teamId": "europa-league.levski-sofia",
@@ -129,7 +129,7 @@
       "status": "Baja",
       "detail": "Unknown",
       "injuryType": "Unknown",
-      "reportedAt": "2026-11-22T21:56:46.653Z"
+      "reportedAt": "2026-11-23T15:07:01.408Z"
     },
     {
       "teamId": "europa-league.jagiellonia-bia-ystok",
@@ -138,7 +138,7 @@
       "status": "Baja",
       "detail": "Hernia",
       "injuryType": "Hernia",
-      "reportedAt": "2026-11-22T21:56:46.653Z"
+      "reportedAt": "2026-11-23T15:07:01.408Z"
     }
   ]
 }

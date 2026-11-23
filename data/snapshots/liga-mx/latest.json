@@ -5,7 +5,7 @@
   "season": "liga-mx-2026-apertura",
   "seasonLabel": "Apertura 2026",
   "periodLabel": "Jornada 17",
-  "updatedAt": "2026-11-22T22:03:53.979Z",
+  "updatedAt": "2026-11-23T15:14:45.285Z",
   "source": "espn",
   "provenance": "derived",
   "isDemo": false,
@@ -19,8 +19,8 @@
       "forPerGame": 2.235294117647059,
       "againstPerGame": 1.411764705882353,
       "gamesPlayed": 17,
-      "adjustedFor": 2.0331367281114723,
-      "adjustedAgainst": 1.3630364090056206
+      "adjustedFor": 2.0309702442593314,
+      "adjustedAgainst": 1.3650945782270918
     },
     "liga-mx.atlante": {
       "teamId": "liga-mx.atlante",
@@ -31,8 +31,8 @@
       "forPerGame": 0.9411764705882353,
       "againstPerGame": 1.588235294117647,
       "gamesPlayed": 17,
-      "adjustedFor": 1.0174438221931719,
-      "adjustedAgainst": 1.491130631340711
+      "adjustedFor": 1.015850229324173,
+      "adjustedAgainst": 1.4928060693332486
     },
     "liga-mx.atlas": {
       "teamId": "liga-mx.atlas",
@@ -43,8 +43,8 @@
       "forPerGame": 1.7647058823529411,
       "againstPerGame": 1.9411764705882353,
       "gamesPlayed": 17,
-      "adjustedFor": 1.6882623979357643,
-      "adjustedAgainst": 1.8140180504168735
+      "adjustedFor": 1.6858041602541707,
+      "adjustedAgainst": 1.815909336968371
     },
     "liga-mx.atletico-san-luis": {
       "teamId": "liga-mx.atletico-san-luis",
@@ -55,8 +55,8 @@
       "forPerGame": 1.1764705882352942,
       "againstPerGame": 1.4705882352941178,
       "gamesPlayed": 17,
-      "adjustedFor": 1.1950638874134494,
-      "adjustedAgainst": 1.3841185602995456
+      "adjustedFor": 1.1927391062337394,
+      "adjustedAgainst": 1.3855875423928417
     },
     "liga-mx.chivas": {
       "teamId": "liga-mx.chivas",
@@ -64,11 +64,11 @@
       "shortName": "Chivas",
       "code": "GDL",
       "logoUrl": "https://sports.bzzoiro.com/img/team/320/?bg=transparent",
-      "forPerGame": 1.625,
-      "againstPerGame": 0.9375,
-      "gamesPlayed": 16,
-      "adjustedFor": 1.5041178840584617,
-      "adjustedAgainst": 1.0309551868228446
+      "forPerGame": 1.588235294117647,
+      "againstPerGame": 0.8823529411764706,
+      "gamesPlayed": 17,
+      "adjustedFor": 1.4632335561005385,
+      "adjustedAgainst": 0.9568611252961128
     },
     "liga-mx.cruz-azul": {
       "teamId": "liga-mx.cruz-azul",
@@ -76,11 +76,11 @@
       "shortName": "Cruz Azul",
       "code": "CAZ",
       "logoUrl": "https://sports.bzzoiro.com/img/team/314/?bg=transparent",
-      "forPerGame": 2.3125,
-      "againstPerGame": 1.625,
-      "gamesPlayed": 16,
-      "adjustedFor": 2.0788794695528683,
-      "adjustedAgainst": 1.5073216177764253
+      "forPerGame": 2.176470588235294,
+      "againstPerGame": 1.588235294117647,
+      "gamesPlayed": 17,
+      "adjustedFor": 2.0012660587912903,
+      "adjustedAgainst": 1.4754072367692845
     },
     "liga-mx.fc-juarez": {
       "teamId": "liga-mx.fc-juarez",
@@ -91,8 +91,8 @@
       "forPerGame": 0.9411764705882353,
       "againstPerGame": 2.176470588235294,
       "gamesPlayed": 17,
-      "adjustedFor": 1.0503581238884967,
-      "adjustedAgainst": 1.8711535810014104
+      "adjustedFor": 1.0476603153114605,
+      "adjustedAgainst": 1.872445755981772
     },
     "liga-mx.leon": {
       "teamId": "liga-mx.leon",
@@ -103,8 +103,8 @@
       "forPerGame": 1.4705882352941178,
       "againstPerGame": 1.2941176470588236,
       "gamesPlayed": 17,
-      "adjustedFor": 1.4146685222167674,
-      "adjustedAgainst": 1.2817537566615704
+      "adjustedFor": 1.4127917444167657,
+      "adjustedAgainst": 1.2836101201745191
     },
     "liga-mx.monterrey": {
       "teamId": "liga-mx.monterrey",
@@ -115,8 +115,8 @@
       "forPerGame": 1.7058823529411764,
       "againstPerGame": 1.4705882352941178,
       "gamesPlayed": 17,
-      "adjustedFor": 1.6318147710675603,
-      "adjustedAgainst": 1.3870163992431022
+      "adjustedFor": 1.630546851680945,
+      "adjustedAgainst": 1.3889529472587079
     },
     "liga-mx.necaxa": {
       "teamId": "liga-mx.necaxa",
@@ -124,11 +124,11 @@
       "shortName": "Necaxa",
       "code": "NEC",
       "logoUrl": "https://sports.bzzoiro.com/img/team/311/?bg=transparent",
-      "forPerGame": 1.0625,
-      "againstPerGame": 1.75,
-      "gamesPlayed": 16,
-      "adjustedFor": 1.1441126420530952,
-      "adjustedAgainst": 1.5782956375262782
+      "forPerGame": 1.1176470588235294,
+      "againstPerGame": 1.7647058823529411,
+      "gamesPlayed": 17,
+      "adjustedFor": 1.187433876520801,
+      "adjustedAgainst": 1.616037937890675
     },
     "liga-mx.pachuca": {
       "teamId": "liga-mx.pachuca",
@@ -139,8 +139,8 @@
       "forPerGame": 1.8235294117647058,
       "againstPerGame": 1.1764705882352942,
       "gamesPlayed": 17,
-      "adjustedFor": 1.7439360915037205,
-      "adjustedAgainst": 1.19141803760691
+      "adjustedFor": 1.74088488868701,
+      "adjustedAgainst": 1.1925123543276486
     },
     "liga-mx.puebla": {
       "teamId": "liga-mx.puebla",
@@ -151,8 +151,8 @@
       "forPerGame": 1.1764705882352942,
       "againstPerGame": 1.411764705882353,
       "gamesPlayed": 17,
-      "adjustedFor": 1.1538395186150334,
-      "adjustedAgainst": 1.3615381184436313
+      "adjustedFor": 1.1517050933035344,
+      "adjustedAgainst": 1.362317342334079
     },
     "liga-mx.pumas-unam": {
       "teamId": "liga-mx.pumas-unam",
@@ -163,8 +163,8 @@
       "forPerGame": 1.411764705882353,
       "againstPerGame": 1.6470588235294117,
       "gamesPlayed": 17,
-      "adjustedFor": 1.3816519513675736,
-      "adjustedAgainst": 1.5408947452579527
+      "adjustedFor": 1.379297582588364,
+      "adjustedAgainst": 1.5434312001466084
     },
     "liga-mx.queretaro": {
       "teamId": "liga-mx.queretaro",
@@ -172,11 +172,11 @@
       "shortName": "Querétaro",
       "code": "QRO",
       "logoUrl": "https://sports.bzzoiro.com/img/team/309/?bg=transparent",
-      "forPerGame": 1.125,
-      "againstPerGame": 1.5,
-      "gamesPlayed": 16,
-      "adjustedFor": 1.1486365077167502,
-      "adjustedAgainst": 1.415475026325659
+      "forPerGame": 1.1764705882352942,
+      "againstPerGame": 1.5294117647058822,
+      "gamesPlayed": 17,
+      "adjustedFor": 1.1782177399099398,
+      "adjustedAgainst": 1.4589346349547283
     },
     "liga-mx.santos-laguna": {
       "teamId": "liga-mx.santos-laguna",
@@ -187,8 +187,8 @@
       "forPerGame": 1.411764705882353,
       "againstPerGame": 1.2941176470588236,
       "gamesPlayed": 17,
-      "adjustedFor": 1.3737134266447324,
-      "adjustedAgainst": 1.3164084293251692
+      "adjustedFor": 1.370175508972126,
+      "adjustedAgainst": 1.3171441084280708
     },
     "liga-mx.tigres-uanl": {
       "teamId": "liga-mx.tigres-uanl",
@@ -199,8 +199,8 @@
       "forPerGame": 1.0588235294117647,
       "againstPerGame": 1.4705882352941178,
       "gamesPlayed": 17,
-      "adjustedFor": 1.1104058559775405,
-      "adjustedAgainst": 1.3452601459588691
+      "adjustedFor": 1.1087584001482893,
+      "adjustedAgainst": 1.3471844503256505
     },
     "liga-mx.tijuana": {
       "teamId": "liga-mx.tijuana",
@@ -211,8 +211,8 @@
       "forPerGame": 1.5294117647058822,
       "againstPerGame": 1.2941176470588236,
       "gamesPlayed": 17,
-      "adjustedFor": 1.4913362303016948,
-      "adjustedAgainst": 1.2769426890325464
+      "adjustedFor": 1.4877721335196892,
+      "adjustedAgainst": 1.2775139104826558
     },
     "liga-mx.toluca": {
       "teamId": "liga-mx.toluca",
@@ -223,8 +223,8 @@
       "forPerGame": 2.0588235294117645,
       "againstPerGame": 1.3529411764705883,
       "gamesPlayed": 17,
-      "adjustedFor": 1.9080238071597266,
-      "adjustedAgainst": 1.332376098350229
+      "adjustedFor": 1.9046296380837664,
+      "adjustedAgainst": 1.334370943935659
     }
   },
   "games": [
@@ -257,7 +257,7 @@
       "result": {
         "home": 1,
         "away": 1,
-        "observedAt": "2026-11-22T12:00:00.000Z",
+        "observedAt": "2026-11-23T12:00:00.000Z",
         "source": "espn"
       }
     },
@@ -290,7 +290,7 @@
       "result": {
         "home": 3,
         "away": 3,
-        "observedAt": "2026-11-22T12:00:00.000Z",
+        "observedAt": "2026-11-23T12:00:00.000Z",
         "source": "espn"
       }
     },
@@ -323,7 +323,7 @@
       "result": {
         "home": 1,
         "away": 0,
-        "observedAt": "2026-11-22T12:00:00.000Z",
+        "observedAt": "2026-11-23T12:00:00.000Z",
         "source": "espn"
       }
     },
@@ -356,7 +356,7 @@
       "result": {
         "home": 2,
         "away": 0,
-        "observedAt": "2026-11-22T12:00:00.000Z",
+        "observedAt": "2026-11-23T12:00:00.000Z",
         "source": "espn"
       }
     },
@@ -389,7 +389,7 @@
       "result": {
         "home": 1,
         "away": 2,
-        "observedAt": "2026-11-22T12:00:00.000Z",
+        "observedAt": "2026-11-23T12:00:00.000Z",
         "source": "espn"
       }
     },
@@ -422,7 +422,7 @@
       "result": {
         "home": 0,
         "away": 2,
-        "observedAt": "2026-11-22T12:00:00.000Z",
+        "observedAt": "2026-11-23T12:00:00.000Z",
         "source": "espn"
       }
     },
@@ -455,7 +455,7 @@
       "result": {
         "home": 1,
         "away": 0,
-        "observedAt": "2026-11-22T12:00:00.000Z",
+        "observedAt": "2026-11-23T12:00:00.000Z",
         "source": "espn"
       }
     },
@@ -466,7 +466,7 @@
       "week": 17,
       "round": "Jornada 17",
       "startTime": "2026-11-22T23:07Z",
-      "status": "scheduled",
+      "status": "final",
       "home": {
         "id": "liga-mx.chivas",
         "league": "liga-mx",
@@ -484,7 +484,13 @@
         "logoUrl": "https://sports.bzzoiro.com/img/team/314/?bg=transparent"
       },
       "venue": "Estadio Akron",
-      "neutralSite": false
+      "neutralSite": false,
+      "result": {
+        "home": 1,
+        "away": 0,
+        "observedAt": "2026-11-23T12:00:00.000Z",
+        "source": "espn"
+      }
     },
     {
       "id": "mx-2026-j17-queretaro-necaxa-401877046",
@@ -493,7 +499,7 @@
       "week": 17,
       "round": "Jornada 17",
       "startTime": "2026-11-23T01:10Z",
-      "status": "scheduled",
+      "status": "final",
       "home": {
         "id": "liga-mx.queretaro",
         "league": "liga-mx",
@@ -511,7 +517,13 @@
         "logoUrl": "https://sports.bzzoiro.com/img/team/311/?bg=transparent"
       },
       "venue": "Estadio Corregidora",
-      "neutralSite": false
+      "neutralSite": false,
+      "result": {
+        "home": 2,
+        "away": 2,
+        "observedAt": "2026-11-23T12:00:00.000Z",
+        "source": "espn"
+      }
     }
   ],
   "analyses": {
@@ -2014,11 +2026,11 @@
         "referee": "Adonai Escobedo Gonzalez",
         "refereeStats": {
           "country": "Mexico",
-          "matches": 49,
+          "matches": 50,
           "avgYellow": 3.88,
-          "avgRed": 0.45,
+          "avgRed": 0.44,
           "avgFouls": 21.8,
-          "avgGoals": 2.94
+          "avgGoals": 2.92
         }
       }
     },
@@ -4811,11 +4823,11 @@
         "referee": "Fernando Hernandez",
         "refereeStats": {
           "country": "Mexico",
-          "matches": 46,
-          "avgYellow": 4.33,
-          "avgRed": 0.7,
+          "matches": 47,
+          "avgYellow": 4.36,
+          "avgRed": 0.68,
           "avgFouls": 26.2,
-          "avgGoals": 2.59
+          "avgGoals": 2.64
         }
       }
     },
@@ -5565,11 +5577,11 @@
         "referee": "Guillermo Pacheco Larios",
         "refereeStats": {
           "country": "Mexico",
-          "matches": 31,
-          "avgYellow": 4.06,
-          "avgRed": 0.48,
+          "matches": 32,
+          "avgYellow": 3.94,
+          "avgRed": 0.47,
           "avgFouls": 22.3,
-          "avgGoals": 2.71
+          "avgGoals": 2.72
         }
       }
     },
@@ -6315,7 +6327,18 @@
           "away": 14
         }
       },
-      "picksAt": "2026-11-11T02:38:42.517Z"
+      "picksAt": "2026-11-11T02:38:42.517Z",
+      "matchContext": {
+        "referee": "Daniel Quintero Huitrón",
+        "refereeStats": {
+          "country": "Mexico",
+          "matches": 51,
+          "avgYellow": 4.61,
+          "avgRed": 0.29,
+          "avgFouls": 24,
+          "avgGoals": 2.57
+        }
+      }
     },
     "mx-2026-j17-queretaro-necaxa-401877046": {
       "game": "mx-2026-j17-queretaro-necaxa-401877046",
@@ -7059,29 +7082,61 @@
           "away": 16
         }
       },
-      "picksAt": "2026-11-11T02:38:42.517Z"
+      "picksAt": "2026-11-11T02:38:42.517Z",
+      "matchContext": {
+        "referee": "Salvador Perez Villalobos",
+        "refereeStats": {
+          "country": "Mexico",
+          "matches": 17,
+          "avgYellow": 3.94,
+          "avgRed": 0.35,
+          "avgFouls": 22.4,
+          "avgGoals": 3.24
+        }
+      }
     }
   },
   "standings": [
+    {
+      "teamId": "liga-mx.chivas",
+      "name": "Chivas Guadalajara",
+      "shortName": "Chivas",
+      "code": "GDL",
+      "logoUrl": "https://sports.bzzoiro.com/img/team/320/?bg=transparent",
+      "played": 17,
+      "won": 9,
+      "drawn": 6,
+      "lost": 2,
+      "goalsFor": 27,
+      "goalsAgainst": 15,
+      "points": 33,
+      "form": [
+        "W",
+        "W",
+        "W",
+        "D",
+        "W"
+      ]
+    },
     {
       "teamId": "liga-mx.cruz-azul",
       "name": "Cruz Azul",
       "shortName": "Cruz Azul",
       "code": "CAZ",
       "logoUrl": "https://sports.bzzoiro.com/img/team/314/?bg=transparent",
-      "played": 16,
+      "played": 17,
       "won": 10,
       "drawn": 2,
-      "lost": 4,
+      "lost": 5,
       "goalsFor": 37,
-      "goalsAgainst": 26,
+      "goalsAgainst": 27,
       "points": 32,
       "form": [
         "W",
         "W",
         "W",
         "W",
-        "W"
+        "L"
       ]
     },
     {
@@ -7103,27 +7158,6 @@
         "D",
         "D",
         "L"
-      ]
-    },
-    {
-      "teamId": "liga-mx.chivas",
-      "name": "Chivas Guadalajara",
-      "shortName": "Chivas",
-      "code": "GDL",
-      "logoUrl": "https://sports.bzzoiro.com/img/team/320/?bg=transparent",
-      "played": 16,
-      "won": 8,
-      "drawn": 6,
-      "lost": 2,
-      "goalsFor": 26,
-      "goalsAgainst": 15,
-      "points": 30,
-      "form": [
-        "D",
-        "W",
-        "W",
-        "W",
-        "D"
       ]
     },
     {
@@ -7295,6 +7329,27 @@
       ]
     },
     {
+      "teamId": "liga-mx.queretaro",
+      "name": "Querétaro",
+      "shortName": "Querétaro",
+      "code": "QRO",
+      "logoUrl": "https://sports.bzzoiro.com/img/team/309/?bg=transparent",
+      "played": 17,
+      "won": 6,
+      "drawn": 3,
+      "lost": 8,
+      "goalsFor": 20,
+      "goalsAgainst": 26,
+      "points": 21,
+      "form": [
+        "L",
+        "L",
+        "L",
+        "L",
+        "D"
+      ]
+    },
+    {
       "teamId": "liga-mx.puebla",
       "name": "Club Puebla",
       "shortName": "Puebla",
@@ -7337,27 +7392,6 @@
       ]
     },
     {
-      "teamId": "liga-mx.queretaro",
-      "name": "Querétaro",
-      "shortName": "Querétaro",
-      "code": "QRO",
-      "logoUrl": "https://sports.bzzoiro.com/img/team/309/?bg=transparent",
-      "played": 16,
-      "won": 6,
-      "drawn": 2,
-      "lost": 8,
-      "goalsFor": 18,
-      "goalsAgainst": 24,
-      "points": 20,
-      "form": [
-        "L",
-        "L",
-        "L",
-        "L",
-        "L"
-      ]
-    },
-    {
       "teamId": "liga-mx.tigres-uanl",
       "name": "Tigres UANL",
       "shortName": "Tigres",
@@ -7379,6 +7413,27 @@
       ]
     },
     {
+      "teamId": "liga-mx.necaxa",
+      "name": "Necaxa",
+      "shortName": "Necaxa",
+      "code": "NEC",
+      "logoUrl": "https://sports.bzzoiro.com/img/team/311/?bg=transparent",
+      "played": 17,
+      "won": 3,
+      "drawn": 5,
+      "lost": 9,
+      "goalsFor": 19,
+      "goalsAgainst": 30,
+      "points": 14,
+      "form": [
+        "L",
+        "D",
+        "L",
+        "W",
+        "D"
+      ]
+    },
+    {
       "teamId": "liga-mx.atlante",
       "name": "Atlante",
       "shortName": "Atlante",
@@ -7397,27 +7452,6 @@
         "L",
         "L",
         "L"
-      ]
-    },
-    {
-      "teamId": "liga-mx.necaxa",
-      "name": "Necaxa",
-      "shortName": "Necaxa",
-      "code": "NEC",
-      "logoUrl": "https://sports.bzzoiro.com/img/team/311/?bg=transparent",
-      "played": 16,
-      "won": 3,
-      "drawn": 4,
-      "lost": 9,
-      "goalsFor": 17,
-      "goalsAgainst": 28,
-      "points": 13,
-      "form": [
-        "L",
-        "L",
-        "D",
-        "L",
-        "W"
       ]
     },
     {

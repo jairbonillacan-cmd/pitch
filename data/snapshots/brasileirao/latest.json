@@ -4,8 +4,8 @@
   "logoUrl": "https://sports.bzzoiro.com/img/league/9/?bg=transparent",
   "season": "brasileirao-2026",
   "seasonLabel": "2026",
-  "periodLabel": "Regular season · Matchday 34",
-  "updatedAt": "2026-11-22T21:56:46.653Z",
+  "periodLabel": "Regular season · Matchday 21",
+  "updatedAt": "2026-11-23T15:07:01.408Z",
   "source": "pitchlab-football-v2",
   "provenance": "derived",
   "isDemo": false,
@@ -18,19 +18,19 @@
       "forPerGame": 0.8888888888888888,
       "againstPerGame": 1.5,
       "gamesPlayed": 18,
-      "adjustedFor": 0.9013291988445639,
-      "adjustedAgainst": 1.3792978542681273
+      "adjustedFor": 0.8999829239836863,
+      "adjustedAgainst": 1.377778417765254
     },
     "brasileirao.vasco-gama": {
       "teamId": "brasileirao.vasco-gama",
       "name": "Vasco da Gama",
       "shortName": "Vasco da Gama",
       "code": "VAS",
-      "forPerGame": 1.4705882352941178,
-      "againstPerGame": 1.2941176470588236,
-      "gamesPlayed": 17,
-      "adjustedFor": 1.3802988434308818,
-      "adjustedAgainst": 1.2051597227638124
+      "forPerGame": 1.3888888888888888,
+      "againstPerGame": 1.2777777777777777,
+      "gamesPlayed": 18,
+      "adjustedFor": 1.3184898114082242,
+      "adjustedAgainst": 1.1936346672323093
     },
     "brasileirao.botafogo": {
       "teamId": "brasileirao.botafogo",
@@ -40,8 +40,8 @@
       "forPerGame": 0.8333333333333334,
       "againstPerGame": 1.4444444444444444,
       "gamesPlayed": 18,
-      "adjustedFor": 0.835805716493568,
-      "adjustedAgainst": 1.3395751584584605
+      "adjustedFor": 0.8339084496263242,
+      "adjustedAgainst": 1.3378735079024484
     },
     "brasileirao.santos": {
       "teamId": "brasileirao.santos",
@@ -51,8 +51,8 @@
       "forPerGame": 1.4705882352941178,
       "againstPerGame": 1.1764705882352942,
       "gamesPlayed": 17,
-      "adjustedFor": 1.395773481611826,
-      "adjustedAgainst": 1.0888392092461903
+      "adjustedFor": 1.3947262548905432,
+      "adjustedAgainst": 1.0873055138322685
     },
     "brasileirao.bahia": {
       "teamId": "brasileirao.bahia",
@@ -62,8 +62,8 @@
       "forPerGame": 1.3157894736842106,
       "againstPerGame": 1.2105263157894737,
       "gamesPlayed": 19,
-      "adjustedFor": 1.2087288082379928,
-      "adjustedAgainst": 1.1552454274486608
+      "adjustedFor": 1.205595374676996,
+      "adjustedAgainst": 1.152997012330197
     },
     "brasileirao.chapecoense": {
       "teamId": "brasileirao.chapecoense",
@@ -73,19 +73,19 @@
       "forPerGame": 0.8947368421052632,
       "againstPerGame": 2.1578947368421053,
       "gamesPlayed": 19,
-      "adjustedFor": 0.90685324933505,
-      "adjustedAgainst": 1.89685800246419
+      "adjustedFor": 0.9055456749747368,
+      "adjustedAgainst": 1.8962328003280977
     },
     "brasileirao.mirassol": {
       "teamId": "brasileirao.mirassol",
       "name": "Mirassol",
       "shortName": "Mirassol",
       "code": "MIR",
-      "forPerGame": 1.1666666666666667,
-      "againstPerGame": 1.3333333333333333,
-      "gamesPlayed": 18,
-      "adjustedFor": 1.1371808728254256,
-      "adjustedAgainst": 1.2209697958768135
+      "forPerGame": 1.105263157894737,
+      "againstPerGame": 1.3157894736842106,
+      "gamesPlayed": 19,
+      "adjustedFor": 1.0896548719276422,
+      "adjustedAgainst": 1.1922540977540035
     },
     "brasileirao.gremio": {
       "teamId": "brasileirao.gremio",
@@ -95,30 +95,30 @@
       "forPerGame": 1.0588235294117647,
       "againstPerGame": 1.411764705882353,
       "gamesPlayed": 17,
-      "adjustedFor": 1.0282507074311882,
-      "adjustedAgainst": 1.2799903588593322
+      "adjustedFor": 1.0257540375231968,
+      "adjustedAgainst": 1.278161433031939
     },
     "brasileirao.fluminense": {
       "teamId": "brasileirao.fluminense",
       "name": "Fluminense",
       "shortName": "Fluminense",
       "code": "FLU",
-      "forPerGame": 1.6470588235294117,
-      "againstPerGame": 1.1176470588235294,
-      "gamesPlayed": 17,
-      "adjustedFor": 1.5141733287073036,
-      "adjustedAgainst": 1.097059139064547
+      "forPerGame": 1.6111111111111112,
+      "againstPerGame": 1.0555555555555556,
+      "gamesPlayed": 18,
+      "adjustedFor": 1.4695240260465523,
+      "adjustedAgainst": 1.041936283381041
     },
     "brasileirao.red-bull-bragantino": {
       "teamId": "brasileirao.red-bull-bragantino",
       "name": "Red Bull Bragantino",
       "shortName": "Red Bull Bragantino",
       "code": "RED",
-      "forPerGame": 1.1764705882352942,
-      "againstPerGame": 1.2941176470588236,
-      "gamesPlayed": 17,
-      "adjustedFor": 1.146155607535802,
-      "adjustedAgainst": 1.2095439121150608
+      "forPerGame": 1.1666666666666667,
+      "againstPerGame": 1.2222222222222223,
+      "gamesPlayed": 18,
+      "adjustedFor": 1.12330114385687,
+      "adjustedAgainst": 1.1406217417286713
     },
     "brasileirao.atletico-mineiro": {
       "teamId": "brasileirao.atletico-mineiro",
@@ -128,8 +128,8 @@
       "forPerGame": 1.2941176470588236,
       "againstPerGame": 1,
       "gamesPlayed": 17,
-      "adjustedFor": 1.175202376022038,
-      "adjustedAgainst": 0.9831744881436723
+      "adjustedFor": 1.1734522869185169,
+      "adjustedAgainst": 0.9796882905825831
     },
     "brasileirao.coritiba": {
       "teamId": "brasileirao.coritiba",
@@ -139,8 +139,8 @@
       "forPerGame": 0.9444444444444444,
       "againstPerGame": 1.5555555555555556,
       "gamesPlayed": 18,
-      "adjustedFor": 0.9118138892417249,
-      "adjustedAgainst": 1.4250932275421693
+      "adjustedFor": 0.9087500328223483,
+      "adjustedAgainst": 1.4237502320136848
     },
     "brasileirao.palmeiras": {
       "teamId": "brasileirao.palmeiras",
@@ -150,8 +150,8 @@
       "forPerGame": 1.8888888888888888,
       "againstPerGame": 0.7222222222222222,
       "gamesPlayed": 18,
-      "adjustedFor": 1.70764350461228,
-      "adjustedAgainst": 0.7590714007484614
+      "adjustedFor": 1.7061308089695204,
+      "adjustedAgainst": 0.7571498171829886
     },
     "brasileirao.sao-paulo": {
       "teamId": "brasileirao.sao-paulo",
@@ -161,8 +161,8 @@
       "forPerGame": 0.9411764705882353,
       "againstPerGame": 1.1764705882352942,
       "gamesPlayed": 17,
-      "adjustedFor": 0.9319810592864626,
-      "adjustedAgainst": 1.0798673038682336
+      "adjustedFor": 0.9306065281908084,
+      "adjustedAgainst": 1.0787142235860145
     },
     "brasileirao.athletico": {
       "teamId": "brasileirao.athletico",
@@ -172,8 +172,8 @@
       "forPerGame": 1.7777777777777777,
       "againstPerGame": 1.6111111111111112,
       "gamesPlayed": 18,
-      "adjustedFor": 1.646106778683708,
-      "adjustedAgainst": 1.4954861668119606
+      "adjustedFor": 1.6443020260226193,
+      "adjustedAgainst": 1.4917143587580006
     },
     "brasileirao.internacional": {
       "teamId": "brasileirao.internacional",
@@ -183,8 +183,8 @@
       "forPerGame": 1.0588235294117647,
       "againstPerGame": 1.2941176470588236,
       "gamesPlayed": 17,
-      "adjustedFor": 1.0646590029954932,
-      "adjustedAgainst": 1.187641754569791
+      "adjustedFor": 1.0601064250846741,
+      "adjustedAgainst": 1.1858147426868926
     },
     "brasileirao.cruzeiro": {
       "teamId": "brasileirao.cruzeiro",
@@ -194,8 +194,8 @@
       "forPerGame": 1.9444444444444444,
       "againstPerGame": 1.2222222222222223,
       "gamesPlayed": 18,
-      "adjustedFor": 1.767730370261337,
-      "adjustedAgainst": 1.1934297293140037
+      "adjustedFor": 1.762509385808695,
+      "adjustedAgainst": 1.1898171643759468
     },
     "brasileirao.flamengo": {
       "teamId": "brasileirao.flamengo",
@@ -205,8 +205,8 @@
       "forPerGame": 2.263157894736842,
       "againstPerGame": 0.7894736842105263,
       "gamesPlayed": 19,
-      "adjustedFor": 1.970809884587987,
-      "adjustedAgainst": 0.8354227699287778
+      "adjustedFor": 1.9713372469059063,
+      "adjustedAgainst": 0.834999220590723
     },
     "brasileirao.corinthians": {
       "teamId": "brasileirao.corinthians",
@@ -216,8 +216,8 @@
       "forPerGame": 1.2941176470588236,
       "againstPerGame": 1.3529411764705883,
       "gamesPlayed": 17,
-      "adjustedFor": 1.206711857640034,
-      "adjustedAgainst": 1.2516586846423274
+      "adjustedFor": 1.2044089350332083,
+      "adjustedAgainst": 1.2506157208741926
     },
     "brasileirao.remo": {
       "teamId": "brasileirao.remo",
@@ -227,81 +227,11 @@
       "forPerGame": 1.1111111111111112,
       "againstPerGame": 1.7777777777777777,
       "gamesPlayed": 18,
-      "adjustedFor": 1.0821429456732317,
-      "adjustedAgainst": 1.5650975654262083
+      "adjustedFor": 1.0799046822504659,
+      "adjustedAgainst": 1.5632529735553726
     }
   },
   "games": [
-    {
-      "id": "brasileirao-2026-11-06-vitoria-fluminense-1zdn9z",
-      "league": "brasileirao",
-      "season": "brasileirao-2026",
-      "week": 34,
-      "round": "Regular season · Matchday 34",
-      "phase": "Regular season",
-      "startTime": "2026-11-06T23:00:00.000Z",
-      "status": "final",
-      "home": {
-        "id": "brasileirao.vitoria",
-        "league": "brasileirao",
-        "name": "Vitória",
-        "shortName": "Vitória",
-        "code": "VIT",
-        "logoUrl": "https://sports.bzzoiro.com/img/team/157/?bg=transparent"
-      },
-      "away": {
-        "id": "brasileirao.fluminense",
-        "league": "brasileirao",
-        "name": "Fluminense",
-        "shortName": "Fluminense",
-        "code": "FLU",
-        "logoUrl": "https://sports.bzzoiro.com/img/team/153/?bg=transparent"
-      },
-      "venue": "Estádio Manoel Barradas, Salvador",
-      "referee": "Rodrigo Jose Pereira de Lima",
-      "neutralSite": false,
-      "result": {
-        "home": 0,
-        "away": 3,
-        "observedAt": "2026-11-22T21:56:46.653Z",
-        "source": "pitchlab-feed"
-      }
-    },
-    {
-      "id": "brasileirao-2026-11-14-mirassol-atletico-minei-0aqzhz",
-      "league": "brasileirao",
-      "season": "brasileirao-2026",
-      "week": 35,
-      "round": "Regular season · Matchday 35",
-      "phase": "Regular season",
-      "startTime": "2026-11-14T21:30:00.000Z",
-      "status": "final",
-      "home": {
-        "id": "brasileirao.mirassol",
-        "league": "brasileirao",
-        "name": "Mirassol",
-        "shortName": "Mirassol",
-        "code": "MIR",
-        "logoUrl": "https://sports.bzzoiro.com/img/team/151/?bg=transparent"
-      },
-      "away": {
-        "id": "brasileirao.atletico-mineiro",
-        "league": "brasileirao",
-        "name": "Atlético Mineiro",
-        "shortName": "Mineiro",
-        "code": "ATL",
-        "logoUrl": "https://sports.bzzoiro.com/img/team/155/?bg=transparent"
-      },
-      "venue": "Estádio José Maria de Campos Maia, Mirassol",
-      "referee": "Savio Pereira Sampaio",
-      "neutralSite": false,
-      "result": {
-        "home": 0,
-        "away": 0,
-        "observedAt": "2026-11-22T21:56:46.653Z",
-        "source": "pitchlab-feed"
-      }
-    },
     {
       "id": "brasileirao-2026-11-14-chapecoense-vasco-gama-399ne3",
       "league": "brasileirao",
@@ -333,7 +263,7 @@
       "result": {
         "home": 0,
         "away": 2,
-        "observedAt": "2026-11-22T21:56:46.653Z",
+        "observedAt": "2026-11-23T15:07:01.408Z",
         "source": "pitchlab-feed"
       }
     },
@@ -368,7 +298,7 @@
       "result": {
         "home": 0,
         "away": 1,
-        "observedAt": "2026-11-22T21:56:46.653Z",
+        "observedAt": "2026-11-23T15:07:01.408Z",
         "source": "pitchlab-feed"
       }
     },
@@ -403,7 +333,7 @@
       "result": {
         "home": 2,
         "away": 0,
-        "observedAt": "2026-11-22T21:56:46.653Z",
+        "observedAt": "2026-11-23T15:07:01.408Z",
         "source": "pitchlab-feed"
       }
     },
@@ -438,7 +368,7 @@
       "result": {
         "home": 2,
         "away": 1,
-        "observedAt": "2026-11-22T21:56:46.653Z",
+        "observedAt": "2026-11-23T15:07:01.408Z",
         "source": "pitchlab-feed"
       }
     },
@@ -473,7 +403,7 @@
       "result": {
         "home": 2,
         "away": 1,
-        "observedAt": "2026-11-22T21:56:46.653Z",
+        "observedAt": "2026-11-23T15:07:01.408Z",
         "source": "pitchlab-feed"
       }
     },
@@ -508,7 +438,7 @@
       "result": {
         "home": 0,
         "away": 0,
-        "observedAt": "2026-11-22T21:56:46.653Z",
+        "observedAt": "2026-11-23T15:07:01.408Z",
         "source": "pitchlab-feed"
       }
     },
@@ -543,7 +473,7 @@
       "result": {
         "home": 4,
         "away": 0,
-        "observedAt": "2026-11-22T21:56:46.653Z",
+        "observedAt": "2026-11-23T15:07:01.408Z",
         "source": "pitchlab-feed"
       }
     },
@@ -578,7 +508,7 @@
       "result": {
         "home": 2,
         "away": 1,
-        "observedAt": "2026-11-22T21:56:46.653Z",
+        "observedAt": "2026-11-23T15:07:01.408Z",
         "source": "pitchlab-feed"
       }
     },
@@ -613,7 +543,7 @@
       "result": {
         "home": 2,
         "away": 1,
-        "observedAt": "2026-11-22T21:56:46.653Z",
+        "observedAt": "2026-11-23T15:07:01.408Z",
         "source": "pitchlab-feed"
       }
     },
@@ -648,7 +578,7 @@
       "result": {
         "home": 0,
         "away": 1,
-        "observedAt": "2026-11-22T21:56:46.653Z",
+        "observedAt": "2026-11-23T15:07:01.408Z",
         "source": "pitchlab-feed"
       }
     },
@@ -683,7 +613,7 @@
       "result": {
         "home": 1,
         "away": 1,
-        "observedAt": "2026-11-22T21:56:46.653Z",
+        "observedAt": "2026-11-23T15:07:01.408Z",
         "source": "pitchlab-feed"
       }
     },
@@ -718,7 +648,7 @@
       "result": {
         "home": 0,
         "away": 1,
-        "observedAt": "2026-11-22T21:56:46.653Z",
+        "observedAt": "2026-11-23T15:07:01.408Z",
         "source": "pitchlab-feed"
       }
     },
@@ -753,7 +683,7 @@
       "result": {
         "home": 1,
         "away": 2,
-        "observedAt": "2026-11-22T21:56:46.653Z",
+        "observedAt": "2026-11-23T15:07:01.408Z",
         "source": "pitchlab-feed"
       }
     },
@@ -788,7 +718,7 @@
       "result": {
         "home": 4,
         "away": 2,
-        "observedAt": "2026-11-22T21:56:46.653Z",
+        "observedAt": "2026-11-23T15:07:01.408Z",
         "source": "pitchlab-feed"
       }
     },
@@ -800,7 +730,7 @@
       "round": "Regular season · Matchday 36",
       "phase": "Regular season",
       "startTime": "2026-11-22T21:30:00.000Z",
-      "status": "scheduled",
+      "status": "final",
       "home": {
         "id": "brasileirao.fluminense",
         "league": "brasileirao",
@@ -819,7 +749,13 @@
       },
       "venue": "Estádio do Maracanã, Rio de Janeiro",
       "referee": "Fernando Antonio Mendes de Salles Nascimento Filho",
-      "neutralSite": false
+      "neutralSite": false,
+      "result": {
+        "home": 1,
+        "away": 0,
+        "observedAt": "2026-11-23T15:07:01.408Z",
+        "source": "pitchlab-feed"
+      }
     },
     {
       "id": "brasileirao-2026-11-22-red-bull-braga-vasco-gama-h0vmy8",
@@ -829,7 +765,7 @@
       "round": "Regular season · Matchday 36",
       "phase": "Regular season",
       "startTime": "2026-11-22T22:30:00.000Z",
-      "status": "scheduled",
+      "status": "final",
       "home": {
         "id": "brasileirao.red-bull-bragantino",
         "league": "brasileirao",
@@ -848,7 +784,13 @@
       },
       "venue": "Estádio Cícero de Souza Marques, Bragança Paulista",
       "referee": "Braulio Da Silva Machado",
-      "neutralSite": false
+      "neutralSite": false,
+      "result": {
+        "home": 1,
+        "away": 0,
+        "observedAt": "2026-11-23T15:07:01.408Z",
+        "source": "pitchlab-feed"
+      }
     },
     {
       "id": "brasileirao-2026-11-23-internacional-vitoria-ym5utc",
@@ -1527,906 +1469,6 @@
     }
   ],
   "analyses": {
-    "brasileirao-2026-11-06-vitoria-fluminense-1zdn9z": {
-      "game": "brasileirao-2026-11-06-vitoria-fluminense-1zdn9z",
-      "model": {
-        "id": "pitchlab-statistical-brasileirao",
-        "version": "2.0.0",
-        "status": "candidate",
-        "label": "Modelo PitchLab · en validación"
-      },
-      "projection": {
-        "home": 1.102719752310396,
-        "away": 1.7615375753458358,
-        "total": 2.8642573276562318,
-        "margin": -0.6588178230354398
-      },
-      "x12": [
-        0.2173415734729322,
-        0.2746026775967472,
-        0.5080557489303209
-      ],
-      "probabilities": [
-        {
-          "market": "h2h",
-          "selection": "Vitória gana",
-          "p": 0.2173415734729322,
-          "fairOdds": 4.60105254609533
-        },
-        {
-          "market": "h2h",
-          "selection": "Empate",
-          "p": 0.2746026775967472,
-          "fairOdds": 3.6416250881154753
-        },
-        {
-          "market": "h2h",
-          "selection": "Fluminense gana",
-          "p": 0.5080557489303209,
-          "fairOdds": 1.9682879331755156
-        },
-        {
-          "market": "double_chance",
-          "selection": "Vitória o empate",
-          "p": 0.49194425106967943,
-          "fairOdds": 2.0327506578755794
-        },
-        {
-          "market": "double_chance",
-          "selection": "Fluminense o empate",
-          "p": 0.7826584265270682,
-          "fairOdds": 1.2776965865394858
-        },
-        {
-          "market": "double_chance",
-          "selection": "Sin empate",
-          "p": 0.725397322403253,
-          "fairOdds": 1.378554854168725
-        },
-        {
-          "market": "totals",
-          "selection": "Más de 1.5",
-          "line": 1.5,
-          "p": 0.799577178592297,
-          "fairOdds": 1.2506610078098517
-        },
-        {
-          "market": "totals",
-          "selection": "Más de 2.5",
-          "line": 2.5,
-          "p": 0.5457201418768444,
-          "fairOdds": 1.8324410687148056
-        },
-        {
-          "market": "totals",
-          "selection": "Menos de 2.5",
-          "line": 2.5,
-          "p": 0.45427985812315563,
-          "fairOdds": 2.201286238248536
-        },
-        {
-          "market": "totals",
-          "selection": "Más de 3.5",
-          "line": 3.5,
-          "p": 0.3223861568358184,
-          "fairOdds": 3.101870160353287
-        },
-        {
-          "market": "totals",
-          "selection": "Menos de 3.5",
-          "line": 3.5,
-          "p": 0.6776138431641816,
-          "fairOdds": 1.4757667808709543
-        },
-        {
-          "market": "btts",
-          "selection": "Sí",
-          "p": 0.5732164685182664,
-          "fairOdds": 1.7445416433776686
-        },
-        {
-          "market": "btts",
-          "selection": "No",
-          "p": 0.42678353148173365,
-          "fairOdds": 2.343108218182969
-        },
-        {
-          "market": "team_totals",
-          "selection": "Vitória más de 1.5",
-          "line": 1.5,
-          "p": 0.3019664409797761,
-          "fairOdds": 3.3116262746129927
-        },
-        {
-          "market": "team_totals",
-          "selection": "Vitória menos de 1.5",
-          "line": 1.5,
-          "p": 0.6980335590202239,
-          "fairOdds": 1.4325958789196658
-        },
-        {
-          "market": "team_totals",
-          "selection": "Fluminense más de 1.5",
-          "line": 1.5,
-          "p": 0.525620387543077,
-          "fairOdds": 1.902513722259385
-        },
-        {
-          "market": "team_totals",
-          "selection": "Fluminense menos de 1.5",
-          "line": 1.5,
-          "p": 0.47437961245692295,
-          "fairOdds": 2.1080163939187146
-        },
-        {
-          "market": "correct_score",
-          "selection": "1–1",
-          "p": 0.13071006780223746,
-          "fairOdds": 7.650520092400122
-        },
-        {
-          "market": "correct_score",
-          "selection": "1–2",
-          "p": 0.09756385419900133,
-          "fairOdds": 10.249697577140571
-        },
-        {
-          "market": "correct_score",
-          "selection": "0–2",
-          "p": 0.08847565666125735,
-          "fairOdds": 11.302543973520915
-        }
-      ],
-      "marketGroups": [
-        {
-          "group": "Resultado",
-          "rows": [
-            {
-              "market": "h2h",
-              "selection": "home",
-              "label": "Vitória gana",
-              "p": 0.2173415734729322,
-              "fairOdds": 4.60105254609533
-            },
-            {
-              "market": "h2h",
-              "selection": "draw",
-              "label": "Empate",
-              "p": 0.2746026775967472,
-              "fairOdds": 3.6416250881154753
-            },
-            {
-              "market": "h2h",
-              "selection": "away",
-              "label": "Fluminense gana",
-              "p": 0.5080557489303209,
-              "fairOdds": 1.9682879331755156
-            }
-          ]
-        },
-        {
-          "group": "Doble oportunidad",
-          "rows": [
-            {
-              "market": "double_chance",
-              "selection": "1x",
-              "label": "Vitória o empate",
-              "p": 0.49194425106967943,
-              "fairOdds": 2.0327506578755794
-            },
-            {
-              "market": "double_chance",
-              "selection": "x2",
-              "label": "Fluminense o empate",
-              "p": 0.7826584265270682,
-              "fairOdds": 1.2776965865394858
-            },
-            {
-              "market": "double_chance",
-              "selection": "12",
-              "label": "Sin empate",
-              "p": 0.725397322403253,
-              "fairOdds": 1.378554854168725
-            }
-          ]
-        },
-        {
-          "group": "Goles totales",
-          "rows": [
-            {
-              "market": "totals",
-              "selection": "over_1.5",
-              "label": "Más de 1.5",
-              "line": 1.5,
-              "p": 0.799577178592297,
-              "fairOdds": 1.2506610078098517
-            },
-            {
-              "market": "totals",
-              "selection": "over_2.5",
-              "label": "Más de 2.5",
-              "line": 2.5,
-              "p": 0.5457201418768444,
-              "fairOdds": 1.8324410687148056
-            },
-            {
-              "market": "totals",
-              "selection": "under_2.5",
-              "label": "Menos de 2.5",
-              "line": 2.5,
-              "p": 0.45427985812315563,
-              "fairOdds": 2.201286238248536
-            },
-            {
-              "market": "totals",
-              "selection": "over_3.5",
-              "label": "Más de 3.5",
-              "line": 3.5,
-              "p": 0.3223861568358184,
-              "fairOdds": 3.101870160353287
-            },
-            {
-              "market": "totals",
-              "selection": "under_3.5",
-              "label": "Menos de 3.5",
-              "line": 3.5,
-              "p": 0.6776138431641816,
-              "fairOdds": 1.4757667808709543
-            }
-          ]
-        },
-        {
-          "group": "Ambos anotan",
-          "rows": [
-            {
-              "market": "btts",
-              "selection": "yes",
-              "label": "Sí",
-              "p": 0.5732164685182664,
-              "fairOdds": 1.7445416433776686
-            },
-            {
-              "market": "btts",
-              "selection": "no",
-              "label": "No",
-              "p": 0.42678353148173365,
-              "fairOdds": 2.343108218182969
-            }
-          ]
-        },
-        {
-          "group": "Goles por equipo (1.5)",
-          "rows": [
-            {
-              "market": "team_totals",
-              "selection": "home_over",
-              "label": "Vitória más de 1.5",
-              "line": 1.5,
-              "p": 0.3019664409797761,
-              "fairOdds": 3.3116262746129927
-            },
-            {
-              "market": "team_totals",
-              "selection": "home_under",
-              "label": "Vitória menos de 1.5",
-              "line": 1.5,
-              "p": 0.6980335590202239,
-              "fairOdds": 1.4325958789196658
-            },
-            {
-              "market": "team_totals",
-              "selection": "away_over",
-              "label": "Fluminense más de 1.5",
-              "line": 1.5,
-              "p": 0.525620387543077,
-              "fairOdds": 1.902513722259385
-            },
-            {
-              "market": "team_totals",
-              "selection": "away_under",
-              "label": "Fluminense menos de 1.5",
-              "line": 1.5,
-              "p": 0.47437961245692295,
-              "fairOdds": 2.1080163939187146
-            }
-          ]
-        },
-        {
-          "group": "Marcador exacto (más probables)",
-          "rows": [
-            {
-              "market": "correct_score",
-              "selection": "1-1",
-              "label": "1–1",
-              "p": 0.13071006780223746,
-              "fairOdds": 7.650520092400122
-            },
-            {
-              "market": "correct_score",
-              "selection": "1-2",
-              "label": "1–2",
-              "p": 0.09756385419900133,
-              "fairOdds": 10.249697577140571
-            },
-            {
-              "market": "correct_score",
-              "selection": "0-2",
-              "label": "0–2",
-              "p": 0.08847565666125735,
-              "fairOdds": 11.302543973520915
-            }
-          ]
-        }
-      ],
-      "mostLikelyScore": {
-        "home": 1,
-        "away": 1,
-        "p": 0.13071006780223746
-      },
-      "factors": [
-        {
-          "key": "home_attack",
-          "label": "Ataque local",
-          "value": "0.81 goles/partido",
-          "detail": "30 % menos que la media · 17 partidos"
-        },
-        {
-          "key": "away_defense",
-          "label": "Defensa visitante",
-          "value": "1.15 concedidos/partido",
-          "detail": "5 % menos que la media · 16 partidos"
-        },
-        {
-          "key": "away_attack",
-          "label": "Ataque visitante",
-          "value": "1.76 goles/partido",
-          "detail": "27 % más que la media · ajustado por rival"
-        },
-        {
-          "key": "home_defense",
-          "label": "Defensa local",
-          "value": "1.39 concedidos/partido",
-          "detail": "15 % más que la media · ajustado por rival"
-        },
-        {
-          "key": "home_advantage",
-          "label": "Localía",
-          "value": "×1.37",
-          "detail": "estimada de 170 partidos"
-        },
-        {
-          "key": "uncertainty",
-          "label": "Intervalo 90%",
-          "value": "goles 2.1–4.1",
-          "detail": "local 9%–41% · 170 partidos"
-        },
-        {
-          "key": "home_position",
-          "label": "Posición local",
-          "value": "18.º · 16 pts",
-          "detail": "de 20 equipos"
-        },
-        {
-          "key": "away_position",
-          "label": "Posición visitante",
-          "value": "7.º · 26 pts",
-          "detail": "de 20 equipos"
-        },
-        {
-          "key": "home_form",
-          "label": "Forma local",
-          "value": "G-P-E-E-P · 5 pts",
-          "detail": "7 goles a favor · 6 en contra"
-        },
-        {
-          "key": "away_form",
-          "label": "Forma visitante",
-          "value": "G-P-P-P-G · 6 pts",
-          "detail": "8 goles a favor · 6 en contra"
-        }
-      ],
-      "steps": [
-        "Sincronizando Brasileirão Serie A · corte 6 nov 2026, 16:00",
-        "Fuerza ajustada por rival · VIT 0.70 / 1.15 · FLU 1.27 / 0.95",
-        "Ponderando 150.7 partidos por antigüedad y calidad del rival",
-        "Proyección de goles 1.10 – 1.76 · total 2.86",
-        "Simulando 121 marcadores con incertidumbre del ajuste",
-        "20 mercados listos · marcador proyectado 1–2"
-      ],
-      "inputsAsOf": "2026-11-06T22:00:00.000Z",
-      "publishedAt": "2026-11-06T22:00:00.000Z",
-      "source": "pitchlab-football-v2",
-      "projectedScore": {
-        "home": 1,
-        "away": 2,
-        "p": 0.09756385419900133
-      },
-      "insights": {
-        "why": [
-          "Se esperan 2.9 goles: 1.1 de Vitória y 1.8 de Fluminense.",
-          "Vitória anota 30 % menos que la media.",
-          "Fluminense anota 27 % más que la media."
-        ],
-        "restDays": {
-          "home": 6,
-          "away": 9
-        }
-      },
-      "matchContext": {
-        "referee": "Rodrigo Jose Pereira de Lima",
-        "refereeStats": {
-          "country": "Brazil",
-          "matches": 73,
-          "avgYellow": 4.73,
-          "avgRed": 0.22,
-          "avgFouls": 27.7,
-          "avgGoals": 2.38
-        },
-        "weather": {
-          "description": "unknown",
-          "temperatureC": 26,
-          "windSpeedKmh": 77
-        },
-        "travelDistanceKm": 1224,
-        "halfTimeScore": {
-          "home": 0,
-          "away": 2
-        },
-        "stageName": "Regular season",
-        "venueCity": "Salvador",
-        "venueCountry": "Brazil",
-        "venueCapacity": 34535
-      }
-    },
-    "brasileirao-2026-11-14-mirassol-atletico-minei-0aqzhz": {
-      "game": "brasileirao-2026-11-14-mirassol-atletico-minei-0aqzhz",
-      "model": {
-        "id": "pitchlab-statistical-brasileirao",
-        "version": "2.0.0",
-        "status": "candidate",
-        "label": "Modelo PitchLab · en validación"
-      },
-      "projection": {
-        "home": 1.2625610354623127,
-        "away": 1.1802410323352626,
-        "total": 2.442802067797575,
-        "margin": 0.08232000312705012
-      },
-      "x12": [
-        0.35976521330712513,
-        0.3200886018452505,
-        0.3201461848476246
-      ],
-      "probabilities": [
-        {
-          "market": "h2h",
-          "selection": "Mirassol gana",
-          "p": 0.35976521330712513,
-          "fairOdds": 2.7795905857810603
-        },
-        {
-          "market": "h2h",
-          "selection": "Empate",
-          "p": 0.3200886018452505,
-          "fairOdds": 3.1241349871104074
-        },
-        {
-          "market": "h2h",
-          "selection": "Mineiro gana",
-          "p": 0.3201461848476246,
-          "fairOdds": 3.1235730654605667
-        },
-        {
-          "market": "double_chance",
-          "selection": "Mirassol o empate",
-          "p": 0.6798538151523756,
-          "fairOdds": 1.4709044469741925
-        },
-        {
-          "market": "double_chance",
-          "selection": "Mineiro o empate",
-          "p": 0.640234786692875,
-          "fairOdds": 1.5619270005078727
-        },
-        {
-          "market": "double_chance",
-          "selection": "Sin empate",
-          "p": 0.6799113981547498,
-          "fairOdds": 1.470779873251069
-        },
-        {
-          "market": "totals",
-          "selection": "Más de 1.5",
-          "line": 1.5,
-          "p": 0.7240751641314773,
-          "fairOdds": 1.381072089662808
-        },
-        {
-          "market": "totals",
-          "selection": "Más de 2.5",
-          "line": 2.5,
-          "p": 0.4414330031414755,
-          "fairOdds": 2.265349425356646
-        },
-        {
-          "market": "totals",
-          "selection": "Menos de 2.5",
-          "line": 2.5,
-          "p": 0.5585669968585245,
-          "fairOdds": 1.7902955341510858
-        },
-        {
-          "market": "totals",
-          "selection": "Más de 3.5",
-          "line": 3.5,
-          "p": 0.23026982216516823,
-          "fairOdds": 4.342731455634333
-        },
-        {
-          "market": "totals",
-          "selection": "Menos de 3.5",
-          "line": 3.5,
-          "p": 0.7697301778348318,
-          "fairOdds": 1.2991565470550894
-        },
-        {
-          "market": "btts",
-          "selection": "Sí",
-          "p": 0.5200968492079227,
-          "fairOdds": 1.9227188196255025
-        },
-        {
-          "market": "btts",
-          "selection": "No",
-          "p": 0.47990315079207735,
-          "fairOdds": 2.0837537706295652
-        },
-        {
-          "market": "team_totals",
-          "selection": "Mirassol más de 1.5",
-          "line": 1.5,
-          "p": 0.35985691634269845,
-          "fairOdds": 2.7788822573238563
-        },
-        {
-          "market": "team_totals",
-          "selection": "Mirassol menos de 1.5",
-          "line": 1.5,
-          "p": 0.6401430836573015,
-          "fairOdds": 1.5621507527453762
-        },
-        {
-          "market": "team_totals",
-          "selection": "Mineiro más de 1.5",
-          "line": 1.5,
-          "p": 0.33021970853854377,
-          "fairOdds": 3.028286847038018
-        },
-        {
-          "market": "team_totals",
-          "selection": "Mineiro menos de 1.5",
-          "line": 1.5,
-          "p": 0.6697802914614562,
-          "fairOdds": 1.4930269115832095
-        },
-        {
-          "market": "correct_score",
-          "selection": "1–1",
-          "p": 0.1528303852805,
-          "fairOdds": 6.543201459347446
-        },
-        {
-          "market": "correct_score",
-          "selection": "0–0",
-          "p": 0.11023008584796293,
-          "fairOdds": 9.071933422779605
-        },
-        {
-          "market": "correct_score",
-          "selection": "1–0",
-          "p": 0.0864248778877584,
-          "fairOdds": 11.57074241167825
-        }
-      ],
-      "marketGroups": [
-        {
-          "group": "Resultado",
-          "rows": [
-            {
-              "market": "h2h",
-              "selection": "home",
-              "label": "Mirassol gana",
-              "p": 0.35976521330712513,
-              "fairOdds": 2.7795905857810603
-            },
-            {
-              "market": "h2h",
-              "selection": "draw",
-              "label": "Empate",
-              "p": 0.3200886018452505,
-              "fairOdds": 3.1241349871104074
-            },
-            {
-              "market": "h2h",
-              "selection": "away",
-              "label": "Mineiro gana",
-              "p": 0.3201461848476246,
-              "fairOdds": 3.1235730654605667
-            }
-          ]
-        },
-        {
-          "group": "Doble oportunidad",
-          "rows": [
-            {
-              "market": "double_chance",
-              "selection": "1x",
-              "label": "Mirassol o empate",
-              "p": 0.6798538151523756,
-              "fairOdds": 1.4709044469741925
-            },
-            {
-              "market": "double_chance",
-              "selection": "x2",
-              "label": "Mineiro o empate",
-              "p": 0.640234786692875,
-              "fairOdds": 1.5619270005078727
-            },
-            {
-              "market": "double_chance",
-              "selection": "12",
-              "label": "Sin empate",
-              "p": 0.6799113981547498,
-              "fairOdds": 1.470779873251069
-            }
-          ]
-        },
-        {
-          "group": "Goles totales",
-          "rows": [
-            {
-              "market": "totals",
-              "selection": "over_1.5",
-              "label": "Más de 1.5",
-              "line": 1.5,
-              "p": 0.7240751641314773,
-              "fairOdds": 1.381072089662808
-            },
-            {
-              "market": "totals",
-              "selection": "over_2.5",
-              "label": "Más de 2.5",
-              "line": 2.5,
-              "p": 0.4414330031414755,
-              "fairOdds": 2.265349425356646
-            },
-            {
-              "market": "totals",
-              "selection": "under_2.5",
-              "label": "Menos de 2.5",
-              "line": 2.5,
-              "p": 0.5585669968585245,
-              "fairOdds": 1.7902955341510858
-            },
-            {
-              "market": "totals",
-              "selection": "over_3.5",
-              "label": "Más de 3.5",
-              "line": 3.5,
-              "p": 0.23026982216516823,
-              "fairOdds": 4.342731455634333
-            },
-            {
-              "market": "totals",
-              "selection": "under_3.5",
-              "label": "Menos de 3.5",
-              "line": 3.5,
-              "p": 0.7697301778348318,
-              "fairOdds": 1.2991565470550894
-            }
-          ]
-        },
-        {
-          "group": "Ambos anotan",
-          "rows": [
-            {
-              "market": "btts",
-              "selection": "yes",
-              "label": "Sí",
-              "p": 0.5200968492079227,
-              "fairOdds": 1.9227188196255025
-            },
-            {
-              "market": "btts",
-              "selection": "no",
-              "label": "No",
-              "p": 0.47990315079207735,
-              "fairOdds": 2.0837537706295652
-            }
-          ]
-        },
-        {
-          "group": "Goles por equipo (1.5)",
-          "rows": [
-            {
-              "market": "team_totals",
-              "selection": "home_over",
-              "label": "Mirassol más de 1.5",
-              "line": 1.5,
-              "p": 0.35985691634269845,
-              "fairOdds": 2.7788822573238563
-            },
-            {
-              "market": "team_totals",
-              "selection": "home_under",
-              "label": "Mirassol menos de 1.5",
-              "line": 1.5,
-              "p": 0.6401430836573015,
-              "fairOdds": 1.5621507527453762
-            },
-            {
-              "market": "team_totals",
-              "selection": "away_over",
-              "label": "Mineiro más de 1.5",
-              "line": 1.5,
-              "p": 0.33021970853854377,
-              "fairOdds": 3.028286847038018
-            },
-            {
-              "market": "team_totals",
-              "selection": "away_under",
-              "label": "Mineiro menos de 1.5",
-              "line": 1.5,
-              "p": 0.6697802914614562,
-              "fairOdds": 1.4930269115832095
-            }
-          ]
-        },
-        {
-          "group": "Marcador exacto (más probables)",
-          "rows": [
-            {
-              "market": "correct_score",
-              "selection": "1-1",
-              "label": "1–1",
-              "p": 0.1528303852805,
-              "fairOdds": 6.543201459347446
-            },
-            {
-              "market": "correct_score",
-              "selection": "0-0",
-              "label": "0–0",
-              "p": 0.11023008584796293,
-              "fairOdds": 9.071933422779605
-            },
-            {
-              "market": "correct_score",
-              "selection": "1-0",
-              "label": "1–0",
-              "p": 0.0864248778877584,
-              "fairOdds": 11.57074241167825
-            }
-          ]
-        }
-      ],
-      "mostLikelyScore": {
-        "home": 1,
-        "away": 1,
-        "p": 0.1528303852805
-      },
-      "factors": [
-        {
-          "key": "home_attack",
-          "label": "Ataque local",
-          "value": "0.92 goles/partido",
-          "detail": "6 % menos que la media · 18 partidos"
-        },
-        {
-          "key": "away_defense",
-          "label": "Defensa visitante",
-          "value": "0.98 concedidos/partido",
-          "detail": "19 % menos que la media · 17 partidos"
-        },
-        {
-          "key": "away_attack",
-          "label": "Ataque visitante",
-          "value": "1.18 goles/partido",
-          "detail": "3 % menos que la media · ajustado por rival"
-        },
-        {
-          "key": "home_defense",
-          "label": "Defensa local",
-          "value": "1.22 concedidos/partido",
-          "detail": "en la media de la liga · ajustado por rival"
-        },
-        {
-          "key": "home_advantage",
-          "label": "Localía",
-          "value": "×1.37",
-          "detail": "estimada de 170 partidos"
-        },
-        {
-          "key": "uncertainty",
-          "label": "Intervalo 90%",
-          "value": "goles 1.7–3.3",
-          "detail": "local 19%–59% · 170 partidos"
-        },
-        {
-          "key": "home_position",
-          "label": "Posición local",
-          "value": "8.º · 25 pts",
-          "detail": "de 20 equipos"
-        },
-        {
-          "key": "away_position",
-          "label": "Posición visitante",
-          "value": "6.º · 27 pts",
-          "detail": "de 20 equipos"
-        },
-        {
-          "key": "home_form",
-          "label": "Forma local",
-          "value": "P-G-E-P-G · 7 pts",
-          "detail": "5 goles a favor · 5 en contra"
-        },
-        {
-          "key": "away_form",
-          "label": "Forma visitante",
-          "value": "G-G-P-P-P · 6 pts",
-          "detail": "5 goles a favor · 6 en contra"
-        }
-      ],
-      "steps": [
-        "Sincronizando Brasileirão Serie A · corte 14 nov 2026, 14:30",
-        "Fuerza ajustada por rival · MIR 0.94 / 1.01 · ATL 0.97 / 0.81",
-        "Ponderando 150.7 partidos por antigüedad y calidad del rival",
-        "Proyección de goles 1.26 – 1.18 · total 2.44",
-        "Simulando 121 marcadores con incertidumbre del ajuste",
-        "20 mercados listos · marcador proyectado 1–0"
-      ],
-      "inputsAsOf": "2026-11-14T20:30:00.000Z",
-      "publishedAt": "2026-11-14T20:30:00.000Z",
-      "source": "pitchlab-football-v2",
-      "projectedScore": {
-        "home": 1,
-        "away": 0,
-        "p": 0.0864248778877584
-      },
-      "insights": {
-        "why": [
-          "Mirassol gana en 36% de los escenarios; el empate, en 32%.",
-          "Mineiro concede 19 % menos que la media."
-        ],
-        "restDays": {
-          "home": 11,
-          "away": 9
-        }
-      },
-      "matchContext": {
-        "referee": "Savio Pereira Sampaio",
-        "refereeStats": {
-          "country": "Brazil",
-          "matches": 57,
-          "avgYellow": 4.33,
-          "avgRed": 0.21,
-          "avgFouls": 26.4,
-          "avgGoals": 2.84
-        },
-        "weather": {
-          "description": "cloudy",
-          "temperatureC": 28,
-          "windSpeedKmh": 13
-        },
-        "halfTimeScore": {
-          "home": 0,
-          "away": 0
-        },
-        "stageName": "Regular season",
-        "venueCity": "Mirassol",
-        "venueCountry": "Brazil",
-        "venueCapacity": 15000
-      }
-    },
     "brasileirao-2026-11-14-chapecoense-vasco-gama-399ne3": {
       "game": "brasileirao-2026-11-14-chapecoense-vasco-gama-399ne3",
       "model": {
@@ -3307,11 +2349,11 @@
         "referee": "Braulio Da Silva Machado",
         "refereeStats": {
           "country": "Brazil",
-          "matches": 30,
-          "avgYellow": 5.37,
-          "avgRed": 0.1,
-          "avgFouls": 24.5,
-          "avgGoals": 2.53
+          "matches": 31,
+          "avgYellow": 5.39,
+          "avgRed": 0.13,
+          "avgFouls": 24.6,
+          "avgGoals": 2.48
         },
         "weather": {
           "description": "cloudy",
@@ -5558,11 +4600,11 @@
         "referee": "Wilton Pereira Sampaio",
         "refereeStats": {
           "country": "Brazil",
-          "matches": 84,
-          "avgYellow": 4.85,
+          "matches": 85,
+          "avgYellow": 4.93,
           "avgRed": 0.21,
           "avgFouls": 26.7,
-          "avgGoals": 2.51
+          "avgGoals": 2.52
         },
         "weather": {
           "description": "cloudy",
@@ -8973,11 +8015,11 @@
         "referee": "Wilton Pereira Sampaio",
         "refereeStats": {
           "country": "Brazil",
-          "matches": 84,
-          "avgYellow": 4.85,
+          "matches": 85,
+          "avgYellow": 4.93,
           "avgRed": 0.21,
           "avgFouls": 26.7,
-          "avgGoals": 2.51
+          "avgGoals": 2.52
         },
         "halfTimeScore": {
           "home": 2,
@@ -9455,14 +8497,14 @@
         "referee": "Fernando Antonio Mendes de Salles Nascimento Filho",
         "refereeStats": {
           "country": "Brazil",
-          "matches": 41,
-          "avgYellow": 5.05,
-          "avgRed": 0.39,
-          "avgFouls": 29.5,
-          "avgGoals": 2.29
+          "matches": 42,
+          "avgYellow": 5,
+          "avgRed": 0.38,
+          "avgFouls": 29.2,
+          "avgGoals": 2.26
         },
         "weather": {
-          "description": "rain",
+          "description": "cloudy",
           "temperatureC": 25,
           "windSpeedKmh": 30
         },
@@ -9942,13 +8984,20 @@
         "referee": "Braulio Da Silva Machado",
         "refereeStats": {
           "country": "Brazil",
-          "matches": 30,
-          "avgYellow": 5.37,
-          "avgRed": 0.1,
-          "avgFouls": 24.5,
-          "avgGoals": 2.53
+          "matches": 31,
+          "avgYellow": 5.39,
+          "avgRed": 0.13,
+          "avgFouls": 24.6,
+          "avgGoals": 2.48
+        },
+        "weather": {
+          "description": "cloudy"
         },
         "travelDistanceKm": 340,
+        "halfTimeScore": {
+          "home": 0,
+          "away": 0
+        },
         "stageName": "Regular season",
         "venueCity": "Bragança Paulista",
         "venueCountry": "Brazil",
@@ -11871,6 +10920,7 @@
           "temperatureC": 25,
           "windSpeedKmh": 14
         },
+        "travelDistanceKm": 718,
         "stageName": "Regular season",
         "venueCity": "Chapecó",
         "venueCountry": "Brazil",
@@ -21478,16 +20528,16 @@
       "name": "Fluminense",
       "shortName": "Fluminense",
       "code": "FLU",
-      "played": 17,
-      "won": 8,
+      "played": 18,
+      "won": 9,
       "drawn": 5,
       "lost": 4,
-      "goalsFor": 28,
+      "goalsFor": 29,
       "goalsAgainst": 19,
-      "points": 29,
+      "points": 32,
       "form": [
         "L",
-        "L",
+        "W",
         "W",
         "W",
         "W"
@@ -21578,19 +20628,19 @@
       "name": "Vasco da Gama",
       "shortName": "Vasco da Gama",
       "code": "VAS",
-      "played": 17,
+      "played": 18,
       "won": 8,
       "drawn": 3,
-      "lost": 6,
+      "lost": 7,
       "goalsFor": 25,
-      "goalsAgainst": 22,
+      "goalsAgainst": 23,
       "points": 27,
       "form": [
-        "W",
         "L",
         "W",
         "W",
-        "W"
+        "W",
+        "L"
       ]
     },
     {
@@ -21598,19 +20648,39 @@
       "name": "Mirassol",
       "shortName": "Mirassol",
       "code": "MIR",
-      "played": 18,
+      "played": 19,
       "won": 6,
       "drawn": 7,
-      "lost": 5,
+      "lost": 6,
       "goalsFor": 21,
-      "goalsAgainst": 24,
+      "goalsAgainst": 25,
       "points": 25,
       "form": [
-        "W",
         "D",
         "L",
         "W",
-        "D"
+        "D",
+        "L"
+      ]
+    },
+    {
+      "teamId": "brasileirao.red-bull-bragantino",
+      "name": "Red Bull Bragantino",
+      "shortName": "Red Bull Bragantino",
+      "code": "RED",
+      "played": 18,
+      "won": 5,
+      "drawn": 6,
+      "lost": 7,
+      "goalsFor": 21,
+      "goalsAgainst": 22,
+      "points": 21,
+      "form": [
+        "L",
+        "W",
+        "W",
+        "L",
+        "W"
       ]
     },
     {
@@ -21691,26 +20761,6 @@
         "L",
         "L",
         "W"
-      ]
-    },
-    {
-      "teamId": "brasileirao.red-bull-bragantino",
-      "name": "Red Bull Bragantino",
-      "shortName": "Red Bull Bragantino",
-      "code": "RED",
-      "played": 17,
-      "won": 4,
-      "drawn": 6,
-      "lost": 7,
-      "goalsFor": 20,
-      "goalsAgainst": 22,
-      "points": 18,
-      "form": [
-        "D",
-        "L",
-        "W",
-        "W",
-        "L"
       ]
     },
     {

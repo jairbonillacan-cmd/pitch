@@ -1,18 +1,8 @@
 {
   "schemaVersion": 1,
   "league": "brasileirao-b",
-  "observedAt": "2026-11-22T21:56:46.653Z",
+  "observedAt": "2026-11-23T15:07:01.408Z",
   "source": "pitchlab-availability",
-  "coverageStatus": "ok",
-  "entries": [
-    {
-      "teamId": "brasileirao-b.juventude",
-      "player": "Allanzinho",
-      "position": "M",
-      "status": "Baja",
-      "detail": "Knee Injury",
-      "injuryType": "Knee Injury",
-      "reportedAt": "2026-11-22T21:56:46.653Z"
-    }
-  ]
+  "coverageStatus": "partial",
+  "entries": []
 }

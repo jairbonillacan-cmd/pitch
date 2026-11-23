@@ -1,46 +1,10 @@
 {
   "schemaVersion": 1,
   "league": "liga-argentina",
-  "observedAt": "2026-11-22T21:56:46.653Z",
+  "observedAt": "2026-11-23T15:07:01.408Z",
   "source": "pitchlab-availability",
   "coverageStatus": "ok",
   "entries": [
-    {
-      "teamId": "liga-argentina.atletico-platense",
-      "player": "Héctor Bobadilla",
-      "position": "M",
-      "status": "Baja",
-      "detail": "Sprained Knee Injury",
-      "injuryType": "Sprained Knee Injury",
-      "reportedAt": "2026-11-22T21:56:46.653Z"
-    },
-    {
-      "teamId": "liga-argentina.atletico-platense",
-      "player": "Martín Barrios",
-      "position": "M",
-      "status": "Baja",
-      "detail": "Knee Injury",
-      "injuryType": "Knee Injury",
-      "reportedAt": "2026-11-22T21:56:46.653Z"
-    },
-    {
-      "teamId": "liga-argentina.atletico-union-santa-fe",
-      "player": "Lautaro Vargas",
-      "position": "D",
-      "status": "Baja",
-      "detail": "Sprained Knee Injury",
-      "injuryType": "Sprained Knee Injury",
-      "reportedAt": "2026-11-22T21:56:46.653Z"
-    },
-    {
-      "teamId": "liga-argentina.velez-sarsfield",
-      "player": "Lucas Robertone",
-      "position": "M",
-      "status": "Baja",
-      "detail": "Muscle Injury",
-      "injuryType": "Muscle Injury",
-      "reportedAt": "2026-11-22T21:56:46.653Z"
-    },
     {
       "teamId": "liga-argentina.tigre",
       "player": "Bruno Leyes",
@@ -48,7 +12,7 @@
       "status": "Baja",
       "detail": "Shoulder Injury",
       "injuryType": "Shoulder Injury",
-      "reportedAt": "2026-11-22T21:56:46.653Z"
+      "reportedAt": "2026-11-23T15:07:01.408Z"
     },
     {
       "teamId": "liga-argentina.tigre",
@@ -57,7 +21,7 @@
       "status": "Baja",
       "detail": "Hamstring Injury",
       "injuryType": "Hamstring Injury",
-      "reportedAt": "2026-11-22T21:56:46.653Z"
+      "reportedAt": "2026-11-23T15:07:01.408Z"
     },
     {
       "teamId": "liga-argentina.tigre",
@@ -66,7 +30,7 @@
       "status": "Baja",
       "detail": "Foot Injury",
       "injuryType": "Foot Injury",
-      "reportedAt": "2026-11-22T21:56:46.653Z"
+      "reportedAt": "2026-11-23T15:07:01.408Z"
     },
     {
       "teamId": "liga-argentina.tigre",
@@ -75,7 +39,7 @@
       "status": "Baja",
       "detail": "Knee Injury",
       "injuryType": "Knee Injury",
-      "reportedAt": "2026-11-22T21:56:46.653Z"
+      "reportedAt": "2026-11-23T15:07:01.408Z"
     },
     {
       "teamId": "liga-argentina.tigre",
@@ -84,7 +48,7 @@
       "status": "Baja",
       "detail": "Hamstring Injury",
       "injuryType": "Hamstring Injury",
-      "reportedAt": "2026-11-22T21:56:46.653Z"
+      "reportedAt": "2026-11-23T15:07:01.408Z"
     },
     {
       "teamId": "liga-argentina.tigre",
@@ -93,7 +57,52 @@
       "status": "Baja",
       "detail": "Hamstring Injury",
       "injuryType": "Hamstring Injury",
-      "reportedAt": "2026-11-22T21:56:46.653Z"
+      "reportedAt": "2026-11-23T15:07:01.408Z"
+    },
+    {
+      "teamId": "liga-argentina.banfield",
+      "player": "Santiago Esquivel",
+      "position": "M",
+      "status": "Baja",
+      "detail": "Knee Injury",
+      "injuryType": "Knee Injury",
+      "reportedAt": "2026-11-23T15:07:01.408Z"
+    },
+    {
+      "teamId": "liga-argentina.gimnasia-y-esgrima-mendoza",
+      "player": "Germán Guiffrey",
+      "position": "D",
+      "status": "Baja",
+      "detail": "Physical Discomfort",
+      "injuryType": "Physical Discomfort",
+      "reportedAt": "2026-11-23T15:07:01.408Z"
+    },
+    {
+      "teamId": "liga-argentina.independiente-rivadavia",
+      "player": "Ezequiel Bonifacio",
+      "position": "D",
+      "status": "Baja",
+      "detail": "Ankle Injury",
+      "injuryType": "Ankle Injury",
+      "reportedAt": "2026-11-23T15:07:01.408Z"
+    },
+    {
+      "teamId": "liga-argentina.independiente-rivadavia",
+      "player": "José Florentín",
+      "position": "M",
+      "status": "Baja",
+      "detail": "red_card_suspension",
+      "injuryType": "red_card_suspension",
+      "reportedAt": "2026-11-23T15:07:01.408Z"
+    },
+    {
+      "teamId": "liga-argentina.independiente-rivadavia",
+      "player": "Leonard Costa",
+      "position": "D",
+      "status": "Baja",
+      "detail": "Groin Strain",
+      "injuryType": "Groin Strain",
+      "reportedAt": "2026-11-23T15:07:01.408Z"
     }
   ]
 }

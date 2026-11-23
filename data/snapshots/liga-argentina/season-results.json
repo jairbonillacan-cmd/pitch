@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "league": "liga-argentina",
   "season": "2026",
-  "updatedAt": "2026-11-22T21:56:46.653Z",
+  "updatedAt": "2026-11-23T15:07:01.408Z",
   "matches": [
     {
       "id": "liga-argentina-2026-07-23-sarmiento-argentinos-jun-q7ein3",
@@ -2685,6 +2685,28 @@
       "homeTeam": "liga-argentina.rosario-central",
       "awayTeam": "liga-argentina.gimnasia-y-esgrima-mendoza",
       "homeScore": 3,
+      "awayScore": 1,
+      "neutralSite": false
+    },
+    {
+      "id": "liga-argentina-2026-11-22-river-plate-lanus-tk1xbd",
+      "date": "2026-11-22",
+      "startTime": "2026-11-22T22:00:00.000Z",
+      "round": "Round of 16",
+      "homeTeam": "liga-argentina.river-plate",
+      "awayTeam": "liga-argentina.lanus",
+      "homeScore": 3,
+      "awayScore": 1,
+      "neutralSite": false
+    },
+    {
+      "id": "liga-argentina-2026-11-23-instituto-cord-huracan-2ehhf6",
+      "date": "2026-11-23",
+      "startTime": "2026-11-23T01:00:00.000Z",
+      "round": "Round of 16",
+      "homeTeam": "liga-argentina.instituto-cordoba",
+      "awayTeam": "liga-argentina.huracan",
+      "homeScore": 2,
       "awayScore": 1,
       "neutralSite": false
     }

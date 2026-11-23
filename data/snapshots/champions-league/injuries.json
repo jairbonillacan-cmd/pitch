@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "league": "champions-league",
-  "observedAt": "2026-11-22T21:56:46.653Z",
+  "observedAt": "2026-11-23T15:07:01.408Z",
   "source": "pitchlab-availability",
   "coverageStatus": "ok",
   "entries": [
@@ -12,7 +12,25 @@
       "status": "Duda",
       "detail": "Ankle Injury",
       "injuryType": "Ankle Injury",
-      "reportedAt": "2026-11-22T21:56:46.653Z"
+      "reportedAt": "2026-11-23T15:07:01.408Z"
+    },
+    {
+      "teamId": "champions-league.slovan-bratislava",
+      "player": "Alasana Yirajang",
+      "position": "M",
+      "status": "Baja",
+      "detail": "Unknown",
+      "injuryType": "Unknown",
+      "reportedAt": "2026-11-23T15:07:01.408Z"
+    },
+    {
+      "teamId": "champions-league.slovan-bratislava",
+      "player": "Sahmkou Camara",
+      "position": "D",
+      "status": "Baja",
+      "detail": "Abdominal Injury",
+      "injuryType": "Abdominal Injury",
+      "reportedAt": "2026-11-23T15:07:01.408Z"
     },
     {
       "teamId": "champions-league.bod-glimt",
@@ -21,7 +39,7 @@
       "status": "Baja",
       "detail": "Groin Injury",
       "injuryType": "Groin Injury",
-      "reportedAt": "2026-11-22T21:56:46.653Z"
+      "reportedAt": "2026-11-23T15:07:01.408Z"
     },
     {
       "teamId": "champions-league.bod-glimt",
@@ -30,7 +48,7 @@
       "status": "Baja",
       "detail": "Knee Injury",
       "injuryType": "Knee Injury",
-      "reportedAt": "2026-11-22T21:56:46.653Z"
+      "reportedAt": "2026-11-23T15:07:01.408Z"
     },
     {
       "teamId": "champions-league.lille",
@@ -39,7 +57,7 @@
       "status": "Baja",
       "detail": "Cruciate Ligament Injury",
       "injuryType": "Cruciate Ligament Injury",
-      "reportedAt": "2026-11-22T21:56:46.653Z"
+      "reportedAt": "2026-11-23T15:07:01.408Z"
     },
     {
       "teamId": "champions-league.lille",
@@ -48,7 +66,7 @@
       "status": "Baja",
       "detail": "Muscle Injury",
       "injuryType": "Muscle Injury",
-      "reportedAt": "2026-11-22T21:56:46.653Z"
+      "reportedAt": "2026-11-23T15:07:01.408Z"
     },
     {
       "teamId": "champions-league.lille",
@@ -57,7 +75,7 @@
       "status": "Baja",
       "detail": "Cruciate Ligament Injury",
       "injuryType": "Cruciate Ligament Injury",
-      "reportedAt": "2026-11-22T21:56:46.653Z"
+      "reportedAt": "2026-11-23T15:07:01.408Z"
     },
     {
       "teamId": "champions-league.feyenoord",
@@ -66,7 +84,7 @@
       "status": "Baja",
       "detail": "Ankle Injury",
       "injuryType": "Ankle Injury",
-      "reportedAt": "2026-11-22T21:56:46.653Z"
+      "reportedAt": "2026-11-23T15:07:01.408Z"
     },
     {
       "teamId": "champions-league.feyenoord",
@@ -75,7 +93,7 @@
       "status": "Baja",
       "detail": "Knee Injury",
       "injuryType": "Knee Injury",
-      "reportedAt": "2026-11-22T21:56:46.653Z"
+      "reportedAt": "2026-11-23T15:07:01.408Z"
     },
     {
       "teamId": "champions-league.feyenoord",
@@ -84,7 +102,7 @@
       "status": "Baja",
       "detail": "Unknown",
       "injuryType": "Unknown",
-      "reportedAt": "2026-11-22T21:56:46.653Z"
+      "reportedAt": "2026-11-23T15:07:01.408Z"
     },
     {
       "teamId": "champions-league.feyenoord",
@@ -93,16 +111,7 @@
       "status": "Baja",
       "detail": "Knee Injury",
       "injuryType": "Knee Injury",
-      "reportedAt": "2026-11-22T21:56:46.653Z"
-    },
-    {
-      "teamId": "champions-league.inter",
-      "player": "Aleksandar Stanković",
-      "position": "M",
-      "status": "Baja",
-      "detail": "Muscle Injury",
-      "injuryType": "Muscle Injury",
-      "reportedAt": "2026-11-22T21:56:46.653Z"
+      "reportedAt": "2026-11-23T15:07:01.408Z"
     },
     {
       "teamId": "champions-league.inter",
@@ -111,7 +120,16 @@
       "status": "Baja",
       "detail": "Muscle Injury",
       "injuryType": "Muscle Injury",
-      "reportedAt": "2026-11-22T21:56:46.653Z"
+      "reportedAt": "2026-11-23T15:07:01.408Z"
+    },
+    {
+      "teamId": "champions-league.inter",
+      "player": "Hakan Çalhanoğlu",
+      "position": "M",
+      "status": "Baja",
+      "detail": "Thigh Injury",
+      "injuryType": "Thigh Injury",
+      "reportedAt": "2026-11-23T15:07:01.408Z"
     },
     {
       "teamId": "champions-league.inter",
@@ -120,25 +138,16 @@
       "status": "Baja",
       "detail": "Thigh Injury",
       "injuryType": "Thigh Injury",
-      "reportedAt": "2026-11-22T21:56:46.653Z"
+      "reportedAt": "2026-11-23T15:07:01.408Z"
     },
     {
       "teamId": "champions-league.inter",
-      "player": "Manuel Akanji",
-      "position": "D",
+      "player": "Piotr Zieliński",
+      "position": "M",
       "status": "Duda",
-      "detail": "Muscle Injury",
-      "injuryType": "Muscle Injury",
-      "reportedAt": "2026-11-22T21:56:46.653Z"
-    },
-    {
-      "teamId": "champions-league.inter",
-      "player": "Marcus Thuram",
-      "position": "F",
-      "status": "Duda",
-      "detail": "Muscle Injury",
-      "injuryType": "Muscle Injury",
-      "reportedAt": "2026-11-22T21:56:46.653Z"
+      "detail": "Foot Injury",
+      "injuryType": "Foot Injury",
+      "reportedAt": "2026-11-23T15:07:01.408Z"
     },
     {
       "teamId": "champions-league.villarreal",
@@ -147,7 +156,7 @@
       "status": "Baja",
       "detail": "Muscle Injury",
       "injuryType": "Muscle Injury",
-      "reportedAt": "2026-11-22T21:56:46.653Z"
+      "reportedAt": "2026-11-23T15:07:01.408Z"
     },
     {
       "teamId": "champions-league.villarreal",
@@ -156,7 +165,7 @@
       "status": "Baja",
       "detail": "Muscle Injury",
       "injuryType": "Muscle Injury",
-      "reportedAt": "2026-11-22T21:56:46.653Z"
+      "reportedAt": "2026-11-23T15:07:01.408Z"
     },
     {
       "teamId": "champions-league.paris-saint-germain",
@@ -165,7 +174,7 @@
       "status": "Baja",
       "detail": "Cruciate Ligament Injury",
       "injuryType": "Cruciate Ligament Injury",
-      "reportedAt": "2026-11-22T21:56:46.653Z"
+      "reportedAt": "2026-11-23T15:07:01.408Z"
     },
     {
       "teamId": "champions-league.paris-saint-germain",
@@ -174,7 +183,7 @@
       "status": "Baja",
       "detail": "Cruciate Ligament Injury",
       "injuryType": "Cruciate Ligament Injury",
-      "reportedAt": "2026-11-22T21:56:46.653Z"
+      "reportedAt": "2026-11-23T15:07:01.408Z"
     }
   ]
 }

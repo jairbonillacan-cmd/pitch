@@ -5,7 +5,7 @@
   "season": "ligapro-ecuador-2026",
   "seasonLabel": "2026",
   "periodLabel": "Regular season · Matchday 5",
-  "updatedAt": "2026-11-22T21:56:46.653Z",
+  "updatedAt": "2026-11-23T15:07:01.408Z",
   "source": "pitchlab-football-v2",
   "provenance": "derived",
   "isDemo": false,
@@ -18,8 +18,8 @@
       "forPerGame": 1.4285714285714286,
       "againstPerGame": 1.0476190476190477,
       "gamesPlayed": 21,
-      "adjustedFor": 1.3882494461063377,
-      "adjustedAgainst": 0.9649509871974964
+      "adjustedFor": 1.3904028636237376,
+      "adjustedAgainst": 0.9651512950768156
     },
     "ligapro-ecuador.mushuc-runa": {
       "teamId": "ligapro-ecuador.mushuc-runa",
@@ -29,8 +29,8 @@
       "forPerGame": 1.2857142857142858,
       "againstPerGame": 1.4761904761904763,
       "gamesPlayed": 21,
-      "adjustedFor": 1.1652351398525163,
-      "adjustedAgainst": 1.445190076707772
+      "adjustedFor": 1.1633672656276084,
+      "adjustedAgainst": 1.4445680566113974
     },
     "ligapro-ecuador.macara": {
       "teamId": "ligapro-ecuador.macara",
@@ -40,19 +40,19 @@
       "forPerGame": 1.8095238095238095,
       "againstPerGame": 0.9047619047619048,
       "gamesPlayed": 21,
-      "adjustedFor": 1.7116980608268029,
-      "adjustedAgainst": 0.8472698507597284
+      "adjustedFor": 1.71241889174753,
+      "adjustedAgainst": 0.8473359531964152
     },
     "ligapro-ecuador.ldu": {
       "teamId": "ligapro-ecuador.ldu",
       "name": "LDU",
       "shortName": "LDU",
       "code": "LDU",
-      "forPerGame": 1.0476190476190477,
-      "againstPerGame": 0.9047619047619048,
-      "gamesPlayed": 21,
-      "adjustedFor": 1.0699590554715053,
-      "adjustedAgainst": 0.8742577826983827
+      "forPerGame": 1,
+      "againstPerGame": 0.9090909090909091,
+      "gamesPlayed": 22,
+      "adjustedFor": 1.0203435092956872,
+      "adjustedAgainst": 0.8779611752727368
     },
     "ligapro-ecuador.orense": {
       "teamId": "ligapro-ecuador.orense",
@@ -62,8 +62,8 @@
       "forPerGame": 1.0909090909090908,
       "againstPerGame": 1.6818181818181819,
       "gamesPlayed": 22,
-      "adjustedFor": 1.037773671120742,
-      "adjustedAgainst": 1.5921798806279903
+      "adjustedFor": 1.037918408206138,
+      "adjustedAgainst": 1.5908925703059875
     },
     "ligapro-ecuador.independiente-valle": {
       "teamId": "ligapro-ecuador.independiente-valle",
@@ -73,8 +73,8 @@
       "forPerGame": 2.45,
       "againstPerGame": 1,
       "gamesPlayed": 20,
-      "adjustedFor": 2.1764319592645145,
-      "adjustedAgainst": 0.9826229895228912
+      "adjustedFor": 2.1827766308389225,
+      "adjustedAgainst": 0.9833315153697022
     },
     "ligapro-ecuador.manta": {
       "teamId": "ligapro-ecuador.manta",
@@ -84,8 +84,8 @@
       "forPerGame": 1.0476190476190477,
       "againstPerGame": 1.6666666666666667,
       "gamesPlayed": 21,
-      "adjustedFor": 1.0018617793111901,
-      "adjustedAgainst": 1.5909848696073652
+      "adjustedFor": 1.0022988084926088,
+      "adjustedAgainst": 1.5897641627637056
     },
     "ligapro-ecuador.libertad": {
       "teamId": "ligapro-ecuador.libertad",
@@ -95,8 +95,8 @@
       "forPerGame": 1.35,
       "againstPerGame": 0.9,
       "gamesPlayed": 20,
-      "adjustedFor": 1.2629157291551065,
-      "adjustedAgainst": 0.9198615793172745
+      "adjustedFor": 1.2631664066513866,
+      "adjustedAgainst": 0.9193697597280038
     },
     "ligapro-ecuador.leones-norte": {
       "teamId": "ligapro-ecuador.leones-norte",
@@ -106,8 +106,8 @@
       "forPerGame": 1.25,
       "againstPerGame": 1.15,
       "gamesPlayed": 20,
-      "adjustedFor": 1.191178961259412,
-      "adjustedAgainst": 1.14536197891828
+      "adjustedFor": 1.1909932817012931,
+      "adjustedAgainst": 1.14464202922459
     },
     "ligapro-ecuador.barcelona-guayaquil": {
       "teamId": "ligapro-ecuador.barcelona-guayaquil",
@@ -117,8 +117,8 @@
       "forPerGame": 1.1,
       "againstPerGame": 0.95,
       "gamesPlayed": 20,
-      "adjustedFor": 1.149086161138003,
-      "adjustedAgainst": 0.9203143730309468
+      "adjustedFor": 1.1502218369215984,
+      "adjustedAgainst": 0.9226466696314126
     },
     "ligapro-ecuador.deportivo-cuenca": {
       "teamId": "ligapro-ecuador.deportivo-cuenca",
@@ -128,8 +128,8 @@
       "forPerGame": 0.7142857142857143,
       "againstPerGame": 1.2857142857142858,
       "gamesPlayed": 21,
-      "adjustedFor": 0.7270927799393877,
-      "adjustedAgainst": 1.2286121478150078
+      "adjustedFor": 0.7272418655697613,
+      "adjustedAgainst": 1.2279607621887632
     },
     "ligapro-ecuador.delfin": {
       "teamId": "ligapro-ecuador.delfin",
@@ -139,8 +139,8 @@
       "forPerGame": 1.1904761904761905,
       "againstPerGame": 1.4285714285714286,
       "gamesPlayed": 21,
-      "adjustedFor": 1.103089826018635,
-      "adjustedAgainst": 1.3882916410322763
+      "adjustedFor": 1.103067305463179,
+      "adjustedAgainst": 1.3873600873715308
     },
     "ligapro-ecuador.emelec": {
       "teamId": "ligapro-ecuador.emelec",
@@ -150,8 +150,8 @@
       "forPerGame": 0.95,
       "againstPerGame": 1.35,
       "gamesPlayed": 20,
-      "adjustedFor": 0.974795755541589,
-      "adjustedAgainst": 1.2426312691722143
+      "adjustedFor": 0.9749302463764632,
+      "adjustedAgainst": 1.2419773756182915
     },
     "ligapro-ecuador.tecnico-universitario": {
       "teamId": "ligapro-ecuador.tecnico-universitario",
@@ -161,19 +161,19 @@
       "forPerGame": 0.9523809523809523,
       "againstPerGame": 1.5714285714285714,
       "gamesPlayed": 21,
-      "adjustedFor": 0.9116176173615156,
-      "adjustedAgainst": 1.4845152814454496
+      "adjustedFor": 0.9120031189876301,
+      "adjustedAgainst": 1.4837021294359283
     },
     "ligapro-ecuador.aucas": {
       "teamId": "ligapro-ecuador.aucas",
       "name": "Aucas",
       "shortName": "Aucas",
       "code": "AUC",
-      "forPerGame": 1.05,
-      "againstPerGame": 1.3,
-      "gamesPlayed": 20,
-      "adjustedFor": 1.1130843386824874,
-      "adjustedAgainst": 1.1389839168863989
+      "forPerGame": 1.0476190476190477,
+      "againstPerGame": 1.2380952380952381,
+      "gamesPlayed": 21,
+      "adjustedFor": 1.1222338566722985,
+      "adjustedAgainst": 1.098862512640991
     },
     "ligapro-ecuador.guayaquil-city": {
       "teamId": "ligapro-ecuador.guayaquil-city",
@@ -183,46 +183,11 @@
       "forPerGame": 1.25,
       "againstPerGame": 1.25,
       "gamesPlayed": 20,
-      "adjustedFor": 1.209443726832618,
-      "adjustedAgainst": 1.2445078213298595
+      "adjustedFor": 1.2092330304730945,
+      "adjustedAgainst": 1.2441381489142667
     }
   },
   "games": [
-    {
-      "id": "ligapro-ecuador-2026-11-01-guayaquil-city-libertad-nu660e",
-      "league": "ligapro-ecuador",
-      "season": "ligapro-ecuador-2026",
-      "week": 5,
-      "round": "Regular season · Matchday 5",
-      "phase": "Regular season",
-      "startTime": "2026-11-01T21:00:00.000Z",
-      "status": "final",
-      "home": {
-        "id": "ligapro-ecuador.guayaquil-city",
-        "league": "ligapro-ecuador",
-        "name": "Guayaquil City",
-        "shortName": "Guayaquil City",
-        "code": "GUA",
-        "logoUrl": "https://sports.bzzoiro.com/img/team/4481/?bg=transparent"
-      },
-      "away": {
-        "id": "ligapro-ecuador.libertad",
-        "league": "ligapro-ecuador",
-        "name": "Libertad FC",
-        "shortName": "Libertad",
-        "code": "LIB",
-        "logoUrl": "https://sports.bzzoiro.com/img/team/767/?bg=transparent"
-      },
-      "venue": "Estadio Christian Benitez Betancourt, Guayaquil",
-      "referee": "Juan Carlos Andrade Arreaga",
-      "neutralSite": false,
-      "result": {
-        "home": 0,
-        "away": 0,
-        "observedAt": "2026-11-22T21:56:46.653Z",
-        "source": "pitchlab-feed"
-      }
-    },
     {
       "id": "ligapro-ecuador-2026-11-02-orense-tecnico-univer-05cfch",
       "league": "ligapro-ecuador",
@@ -254,7 +219,7 @@
       "result": {
         "home": 1,
         "away": 1,
-        "observedAt": "2026-11-22T21:56:46.653Z",
+        "observedAt": "2026-11-23T15:07:01.408Z",
         "source": "pitchlab-feed"
       }
     },
@@ -289,7 +254,7 @@
       "result": {
         "home": 2,
         "away": 3,
-        "observedAt": "2026-11-22T21:56:46.653Z",
+        "observedAt": "2026-11-23T15:07:01.408Z",
         "source": "pitchlab-feed"
       }
     },
@@ -324,7 +289,7 @@
       "result": {
         "home": 0,
         "away": 1,
-        "observedAt": "2026-11-22T21:56:46.653Z",
+        "observedAt": "2026-11-23T15:07:01.408Z",
         "source": "pitchlab-feed"
       }
     },
@@ -359,7 +324,7 @@
       "result": {
         "home": 1,
         "away": 1,
-        "observedAt": "2026-11-22T21:56:46.653Z",
+        "observedAt": "2026-11-23T15:07:01.408Z",
         "source": "pitchlab-feed"
       }
     },
@@ -394,7 +359,7 @@
       "result": {
         "home": 2,
         "away": 2,
-        "observedAt": "2026-11-22T21:56:46.653Z",
+        "observedAt": "2026-11-23T15:07:01.408Z",
         "source": "pitchlab-feed"
       }
     },
@@ -429,7 +394,7 @@
       "result": {
         "home": 2,
         "away": 0,
-        "observedAt": "2026-11-22T21:56:46.653Z",
+        "observedAt": "2026-11-23T15:07:01.408Z",
         "source": "pitchlab-feed"
       }
     },
@@ -464,7 +429,7 @@
       "result": {
         "home": 2,
         "away": 4,
-        "observedAt": "2026-11-22T21:56:46.653Z",
+        "observedAt": "2026-11-23T15:07:01.408Z",
         "source": "pitchlab-feed"
       }
     },
@@ -499,7 +464,7 @@
       "result": {
         "home": 1,
         "away": 1,
-        "observedAt": "2026-11-22T21:56:46.653Z",
+        "observedAt": "2026-11-23T15:07:01.408Z",
         "source": "pitchlab-feed"
       }
     },
@@ -534,7 +499,7 @@
       "result": {
         "home": 2,
         "away": 1,
-        "observedAt": "2026-11-22T21:56:46.653Z",
+        "observedAt": "2026-11-23T15:07:01.408Z",
         "source": "pitchlab-feed"
       }
     },
@@ -569,7 +534,7 @@
       "result": {
         "home": 1,
         "away": 2,
-        "observedAt": "2026-11-22T21:56:46.653Z",
+        "observedAt": "2026-11-23T15:07:01.408Z",
         "source": "pitchlab-feed"
       }
     },
@@ -604,7 +569,7 @@
       "result": {
         "home": 0,
         "away": 1,
-        "observedAt": "2026-11-22T21:56:46.653Z",
+        "observedAt": "2026-11-23T15:07:01.408Z",
         "source": "pitchlab-feed"
       }
     },
@@ -639,7 +604,7 @@
       "result": {
         "home": 2,
         "away": 0,
-        "observedAt": "2026-11-22T21:56:46.653Z",
+        "observedAt": "2026-11-23T15:07:01.408Z",
         "source": "pitchlab-feed"
       }
     },
@@ -674,7 +639,7 @@
       "result": {
         "home": 0,
         "away": 1,
-        "observedAt": "2026-11-22T21:56:46.653Z",
+        "observedAt": "2026-11-23T15:07:01.408Z",
         "source": "pitchlab-feed"
       }
     },
@@ -709,7 +674,7 @@
       "result": {
         "home": 2,
         "away": 3,
-        "observedAt": "2026-11-22T21:56:46.653Z",
+        "observedAt": "2026-11-23T15:07:01.408Z",
         "source": "pitchlab-feed"
       }
     },
@@ -744,7 +709,7 @@
       "result": {
         "home": 2,
         "away": 2,
-        "observedAt": "2026-11-22T21:56:46.653Z",
+        "observedAt": "2026-11-23T15:07:01.408Z",
         "source": "pitchlab-feed"
       }
     },
@@ -756,7 +721,7 @@
       "round": "Regular season · Matchday 7",
       "phase": "Regular season",
       "startTime": "2026-11-22T21:30:00.000Z",
-      "status": "scheduled",
+      "status": "final",
       "home": {
         "id": "ligapro-ecuador.ldu",
         "league": "ligapro-ecuador",
@@ -775,7 +740,13 @@
       },
       "venue": "Estadio Rodrigo Paz Delgado, Quito",
       "referee": "Robert Cabrera",
-      "neutralSite": false
+      "neutralSite": false,
+      "result": {
+        "home": 0,
+        "away": 1,
+        "observedAt": "2026-11-23T15:07:01.408Z",
+        "source": "pitchlab-feed"
+      }
     },
     {
       "id": "ligapro-ecuador-2026-11-29-mushuc-runa-tecnico-univer-2iq9o9",
@@ -1283,467 +1254,6 @@
     }
   ],
   "analyses": {
-    "ligapro-ecuador-2026-11-01-guayaquil-city-libertad-nu660e": {
-      "game": "ligapro-ecuador-2026-11-01-guayaquil-city-libertad-nu660e",
-      "model": {
-        "id": "pitchlab-statistical-ligapro-ecuador",
-        "version": "2.0.0",
-        "status": "candidate",
-        "label": "Modelo PitchLab · en validación"
-      },
-      "projection": {
-        "home": 1.2136031850398898,
-        "away": 1.3524446985242755,
-        "total": 2.566047883564165,
-        "margin": -0.13884151348438567
-      },
-      "x12": [
-        0.32841648323611344,
-        0.27779068251550065,
-        0.3937928342483863
-      ],
-      "probabilities": [
-        {
-          "market": "h2h",
-          "selection": "Guayaquil City gana",
-          "p": 0.32841648323611344,
-          "fairOdds": 3.044914159442645
-        },
-        {
-          "market": "h2h",
-          "selection": "Empate",
-          "p": 0.27779068251550065,
-          "fairOdds": 3.5998327623684796
-        },
-        {
-          "market": "h2h",
-          "selection": "Libertad gana",
-          "p": 0.3937928342483863,
-          "fairOdds": 2.5394062893720566
-        },
-        {
-          "market": "double_chance",
-          "selection": "Guayaquil City o empate",
-          "p": 0.6062071657516142,
-          "fairOdds": 1.6496010877075933
-        },
-        {
-          "market": "double_chance",
-          "selection": "Libertad o empate",
-          "p": 0.671583516763887,
-          "fairOdds": 1.489018081948513
-        },
-        {
-          "market": "double_chance",
-          "selection": "Sin empate",
-          "p": 0.7222093174844997,
-          "fairOdds": 1.384640125501375
-        },
-        {
-          "market": "totals",
-          "selection": "Más de 1.5",
-          "line": 1.5,
-          "p": 0.732295605708932,
-          "fairOdds": 1.3655687569392208
-        },
-        {
-          "market": "totals",
-          "selection": "Más de 2.5",
-          "line": 2.5,
-          "p": 0.47301379418255807,
-          "fairOdds": 2.1141032508960054
-        },
-        {
-          "market": "totals",
-          "selection": "Menos de 2.5",
-          "line": 2.5,
-          "p": 0.5269862058174419,
-          "fairOdds": 1.8975828759100748
-        },
-        {
-          "market": "totals",
-          "selection": "Más de 3.5",
-          "line": 3.5,
-          "p": 0.2566310121988383,
-          "fairOdds": 3.896645192768821
-        },
-        {
-          "market": "totals",
-          "selection": "Menos de 3.5",
-          "line": 3.5,
-          "p": 0.7433689878011617,
-          "fairOdds": 1.3452269551329235
-        },
-        {
-          "market": "btts",
-          "selection": "Sí",
-          "p": 0.5274124290083745,
-          "fairOdds": 1.8960493628869743
-        },
-        {
-          "market": "btts",
-          "selection": "No",
-          "p": 0.4725875709916255,
-          "fairOdds": 2.116009944784859
-        },
-        {
-          "market": "team_totals",
-          "selection": "Guayaquil City más de 1.5",
-          "line": 1.5,
-          "p": 0.34228365492503166,
-          "fairOdds": 2.921553470670471
-        },
-        {
-          "market": "team_totals",
-          "selection": "Guayaquil City menos de 1.5",
-          "line": 1.5,
-          "p": 0.6577163450749683,
-          "fairOdds": 1.5204122681275576
-        },
-        {
-          "market": "team_totals",
-          "selection": "Libertad más de 1.5",
-          "line": 1.5,
-          "p": 0.3916405748664038,
-          "fairOdds": 2.5533615875758517
-        },
-        {
-          "market": "team_totals",
-          "selection": "Libertad menos de 1.5",
-          "line": 1.5,
-          "p": 0.6083594251335962,
-          "fairOdds": 1.6437651143160956
-        },
-        {
-          "market": "correct_score",
-          "selection": "1–1",
-          "p": 0.13242354329970976,
-          "fairOdds": 7.551527281948147
-        },
-        {
-          "market": "correct_score",
-          "selection": "0–1",
-          "p": 0.09761413123757973,
-          "fairOdds": 10.244418377971668
-        },
-        {
-          "market": "correct_score",
-          "selection": "1–0",
-          "p": 0.08694573786386943,
-          "fairOdds": 11.501426344390747
-        }
-      ],
-      "marketGroups": [
-        {
-          "group": "Resultado",
-          "rows": [
-            {
-              "market": "h2h",
-              "selection": "home",
-              "label": "Guayaquil City gana",
-              "p": 0.32841648323611344,
-              "fairOdds": 3.044914159442645
-            },
-            {
-              "market": "h2h",
-              "selection": "draw",
-              "label": "Empate",
-              "p": 0.27779068251550065,
-              "fairOdds": 3.5998327623684796
-            },
-            {
-              "market": "h2h",
-              "selection": "away",
-              "label": "Libertad gana",
-              "p": 0.3937928342483863,
-              "fairOdds": 2.5394062893720566
-            }
-          ]
-        },
-        {
-          "group": "Doble oportunidad",
-          "rows": [
-            {
-              "market": "double_chance",
-              "selection": "1x",
-              "label": "Guayaquil City o empate",
-              "p": 0.6062071657516142,
-              "fairOdds": 1.6496010877075933
-            },
-            {
-              "market": "double_chance",
-              "selection": "x2",
-              "label": "Libertad o empate",
-              "p": 0.671583516763887,
-              "fairOdds": 1.489018081948513
-            },
-            {
-              "market": "double_chance",
-              "selection": "12",
-              "label": "Sin empate",
-              "p": 0.7222093174844997,
-              "fairOdds": 1.384640125501375
-            }
-          ]
-        },
-        {
-          "group": "Goles totales",
-          "rows": [
-            {
-              "market": "totals",
-              "selection": "over_1.5",
-              "label": "Más de 1.5",
-              "line": 1.5,
-              "p": 0.732295605708932,
-              "fairOdds": 1.3655687569392208
-            },
-            {
-              "market": "totals",
-              "selection": "over_2.5",
-              "label": "Más de 2.5",
-              "line": 2.5,
-              "p": 0.47301379418255807,
-              "fairOdds": 2.1141032508960054
-            },
-            {
-              "market": "totals",
-              "selection": "under_2.5",
-              "label": "Menos de 2.5",
-              "line": 2.5,
-              "p": 0.5269862058174419,
-              "fairOdds": 1.8975828759100748
-            },
-            {
-              "market": "totals",
-              "selection": "over_3.5",
-              "label": "Más de 3.5",
-              "line": 3.5,
-              "p": 0.2566310121988383,
-              "fairOdds": 3.896645192768821
-            },
-            {
-              "market": "totals",
-              "selection": "under_3.5",
-              "label": "Menos de 3.5",
-              "line": 3.5,
-              "p": 0.7433689878011617,
-              "fairOdds": 1.3452269551329235
-            }
-          ]
-        },
-        {
-          "group": "Ambos anotan",
-          "rows": [
-            {
-              "market": "btts",
-              "selection": "yes",
-              "label": "Sí",
-              "p": 0.5274124290083745,
-              "fairOdds": 1.8960493628869743
-            },
-            {
-              "market": "btts",
-              "selection": "no",
-              "label": "No",
-              "p": 0.4725875709916255,
-              "fairOdds": 2.116009944784859
-            }
-          ]
-        },
-        {
-          "group": "Goles por equipo (1.5)",
-          "rows": [
-            {
-              "market": "team_totals",
-              "selection": "home_over",
-              "label": "Guayaquil City más de 1.5",
-              "line": 1.5,
-              "p": 0.34228365492503166,
-              "fairOdds": 2.921553470670471
-            },
-            {
-              "market": "team_totals",
-              "selection": "home_under",
-              "label": "Guayaquil City menos de 1.5",
-              "line": 1.5,
-              "p": 0.6577163450749683,
-              "fairOdds": 1.5204122681275576
-            },
-            {
-              "market": "team_totals",
-              "selection": "away_over",
-              "label": "Libertad más de 1.5",
-              "line": 1.5,
-              "p": 0.3916405748664038,
-              "fairOdds": 2.5533615875758517
-            },
-            {
-              "market": "team_totals",
-              "selection": "away_under",
-              "label": "Libertad menos de 1.5",
-              "line": 1.5,
-              "p": 0.6083594251335962,
-              "fairOdds": 1.6437651143160956
-            }
-          ]
-        },
-        {
-          "group": "Marcador exacto (más probables)",
-          "rows": [
-            {
-              "market": "correct_score",
-              "selection": "1-1",
-              "label": "1–1",
-              "p": 0.13242354329970976,
-              "fairOdds": 7.551527281948147
-            },
-            {
-              "market": "correct_score",
-              "selection": "0-1",
-              "label": "0–1",
-              "p": 0.09761413123757973,
-              "fairOdds": 10.244418377971668
-            },
-            {
-              "market": "correct_score",
-              "selection": "1-0",
-              "label": "1–0",
-              "p": 0.08694573786386943,
-              "fairOdds": 11.501426344390747
-            }
-          ]
-        }
-      ],
-      "mostLikelyScore": {
-        "home": 1,
-        "away": 1,
-        "p": 0.13242354329970976
-      },
-      "factors": [
-        {
-          "key": "home_attack",
-          "label": "Ataque local",
-          "value": "0.96 goles/partido",
-          "detail": "4 % más que la media · 20 partidos"
-        },
-        {
-          "key": "away_defense",
-          "label": "Defensa visitante",
-          "value": "0.91 concedidos/partido",
-          "detail": "21 % menos que la media · 20 partidos"
-        },
-        {
-          "key": "away_attack",
-          "label": "Ataque visitante",
-          "value": "1.35 goles/partido",
-          "detail": "9 % más que la media · ajustado por rival"
-        },
-        {
-          "key": "home_defense",
-          "label": "Defensa local",
-          "value": "1.24 concedidos/partido",
-          "detail": "7 % más que la media · ajustado por rival"
-        },
-        {
-          "key": "home_advantage",
-          "label": "Localía",
-          "value": "×1.27",
-          "detail": "estimada de 160 partidos"
-        },
-        {
-          "key": "uncertainty",
-          "label": "Intervalo 90%",
-          "value": "goles 1.9–3.7",
-          "detail": "local 16%–57% · 160 partidos"
-        },
-        {
-          "key": "home_position",
-          "label": "Posición local",
-          "value": "6.º · 29 pts",
-          "detail": "de 16 equipos"
-        },
-        {
-          "key": "away_position",
-          "label": "Posición visitante",
-          "value": "3.º · 34 pts",
-          "detail": "de 16 equipos"
-        },
-        {
-          "key": "home_form",
-          "label": "Forma local",
-          "value": "G-E-G-P-G · 10 pts",
-          "detail": "8 goles a favor · 8 en contra"
-        },
-        {
-          "key": "away_form",
-          "label": "Forma visitante",
-          "value": "P-G-G-G-P · 9 pts",
-          "detail": "12 goles a favor · 8 en contra"
-        }
-      ],
-      "steps": [
-        "Sincronizando LigaPro Serie A · corte 1 nov 2026, 14:00",
-        "Fuerza ajustada por rival · GUA 1.04 / 1.07 · LIB 1.09 / 0.79",
-        "Ponderando 137.3 partidos por antigüedad y calidad del rival",
-        "Proyección de goles 1.21 – 1.35 · total 2.57",
-        "Simulando 121 marcadores con incertidumbre del ajuste",
-        "20 mercados listos · marcador proyectado 0–1"
-      ],
-      "inputsAsOf": "2026-11-01T20:00:00.000Z",
-      "publishedAt": "2026-11-01T20:00:00.000Z",
-      "source": "pitchlab-football-v2",
-      "projectedScore": {
-        "home": 0,
-        "away": 1,
-        "p": 0.09761413123757973
-      },
-      "insights": {
-        "why": [
-          "Libertad gana en 39% de los escenarios; el empate, en 28%.",
-          "Libertad concede 21 % menos que la media.",
-          "Libertad anota 9 % más que la media."
-        ],
-        "headToHead": [
-          {
-            "date": "2026-10-17",
-            "homeTeamId": "ligapro-ecuador.libertad",
-            "awayTeamId": "ligapro-ecuador.guayaquil-city",
-            "homeGoals": 4,
-            "awayGoals": 0
-          },
-          {
-            "date": "2026-08-15",
-            "homeTeamId": "ligapro-ecuador.guayaquil-city",
-            "awayTeamId": "ligapro-ecuador.libertad",
-            "homeGoals": 2,
-            "awayGoals": 2
-          }
-        ],
-        "restDays": {
-          "home": 7,
-          "away": 7
-        }
-      },
-      "matchContext": {
-        "referee": "Juan Carlos Andrade Arreaga",
-        "refereeStats": {
-          "country": "Ecuador",
-          "matches": 15,
-          "avgYellow": 3.8,
-          "avgRed": 0.33,
-          "avgFouls": 26.3,
-          "avgGoals": 2.2
-        },
-        "halfTimeScore": {
-          "home": 0,
-          "away": 0
-        },
-        "stageName": "Regular season",
-        "venueCity": "Guayaquil",
-        "venueCountry": "Ecuador",
-        "venueCapacity": 10152
-      }
-    },
     "ligapro-ecuador-2026-11-02-orense-tecnico-univer-05cfch": {
       "game": "ligapro-ecuador-2026-11-02-orense-tecnico-univer-05cfch",
       "model": {
@@ -4479,7 +3989,7 @@
         "refereeStats": {
           "country": "Ecuador",
           "matches": 37,
-          "avgYellow": 4.27,
+          "avgYellow": 4.3,
           "avgRed": 0.32,
           "avgFouls": 25,
           "avgGoals": 1.95
@@ -5861,11 +5371,11 @@
         "referee": "Robert Cabrera",
         "refereeStats": {
           "country": "Ecuador",
-          "matches": 22,
-          "avgYellow": 6.45,
-          "avgRed": 0.36,
-          "avgFouls": 24.4,
-          "avgGoals": 2.27
+          "matches": 23,
+          "avgYellow": 6.26,
+          "avgRed": 0.35,
+          "avgFouls": 23.6,
+          "avgGoals": 2.22
         },
         "halfTimeScore": {
           "home": 0,
@@ -8829,7 +8339,7 @@
         "refereeStats": {
           "country": "Ecuador",
           "matches": 37,
-          "avgYellow": 4.27,
+          "avgYellow": 4.3,
           "avgRed": 0.32,
           "avgFouls": 25,
           "avgGoals": 1.95
@@ -9325,11 +8835,11 @@
         "referee": "Robert Cabrera",
         "refereeStats": {
           "country": "Ecuador",
-          "matches": 22,
-          "avgYellow": 6.45,
-          "avgRed": 0.36,
-          "avgFouls": 24.4,
-          "avgGoals": 2.27
+          "matches": 23,
+          "avgYellow": 6.26,
+          "avgRed": 0.35,
+          "avgFouls": 23.6,
+          "avgGoals": 2.22
         },
         "halfTimeScore": {
           "home": 0,
@@ -18120,23 +17630,23 @@
       ]
     },
     {
-      "teamId": "ligapro-ecuador.ldu",
-      "name": "LDU",
-      "shortName": "LDU",
-      "code": "LDU",
+      "teamId": "ligapro-ecuador.aucas",
+      "name": "Aucas",
+      "shortName": "Aucas",
+      "code": "AUC",
       "played": 21,
-      "won": 8,
-      "drawn": 6,
-      "lost": 7,
+      "won": 9,
+      "drawn": 4,
+      "lost": 8,
       "goalsFor": 22,
-      "goalsAgainst": 19,
-      "points": 30,
+      "goalsAgainst": 26,
+      "points": 31,
       "form": [
-        "W",
         "D",
         "L",
+        "W",
         "L",
-        "D"
+        "W"
       ]
     },
     {
@@ -18157,6 +17667,26 @@
         "W",
         "W",
         "D"
+      ]
+    },
+    {
+      "teamId": "ligapro-ecuador.ldu",
+      "name": "LDU",
+      "shortName": "LDU",
+      "code": "LDU",
+      "played": 22,
+      "won": 8,
+      "drawn": 6,
+      "lost": 8,
+      "goalsFor": 22,
+      "goalsAgainst": 20,
+      "points": 30,
+      "form": [
+        "D",
+        "L",
+        "L",
+        "D",
+        "L"
       ]
     },
     {
@@ -18217,26 +17747,6 @@
         "L",
         "W",
         "W"
-      ]
-    },
-    {
-      "teamId": "ligapro-ecuador.aucas",
-      "name": "Aucas",
-      "shortName": "Aucas",
-      "code": "AUC",
-      "played": 20,
-      "won": 8,
-      "drawn": 4,
-      "lost": 8,
-      "goalsFor": 21,
-      "goalsAgainst": 26,
-      "points": 28,
-      "form": [
-        "L",
-        "D",
-        "L",
-        "W",
-        "L"
       ]
     },
     {

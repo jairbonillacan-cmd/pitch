@@ -1,100 +1,10 @@
 {
   "schemaVersion": 1,
   "league": "mls",
-  "observedAt": "2026-11-22T21:56:46.653Z",
+  "observedAt": "2026-11-23T15:07:01.408Z",
   "source": "pitchlab-availability",
   "coverageStatus": "ok",
   "entries": [
-    {
-      "teamId": "mls.new-york-red-bulls",
-      "player": "Justin Che",
-      "position": "D",
-      "status": "Baja",
-      "detail": "Muscle Injury",
-      "injuryType": "Muscle Injury",
-      "reportedAt": "2026-11-22T21:56:46.653Z"
-    },
-    {
-      "teamId": "mls.atlanta-united",
-      "player": "Enea Mihaj",
-      "position": "D",
-      "status": "Baja",
-      "detail": "Hip Injury",
-      "injuryType": "Hip Injury",
-      "reportedAt": "2026-11-22T21:56:46.653Z"
-    },
-    {
-      "teamId": "mls.philadelphia-union",
-      "player": "Japhet Sery Larsen",
-      "position": "D",
-      "status": "Baja",
-      "detail": "Concussion",
-      "injuryType": "Concussion",
-      "reportedAt": "2026-11-22T21:56:46.653Z"
-    },
-    {
-      "teamId": "mls.toronto",
-      "player": "Benjamin Kuscevic",
-      "position": "D",
-      "status": "Baja",
-      "detail": "Ankle Injury",
-      "injuryType": "Ankle Injury",
-      "reportedAt": "2026-11-22T21:56:46.653Z"
-    },
-    {
-      "teamId": "mls.toronto",
-      "player": "Kobe Franklin",
-      "position": "D",
-      "status": "Baja",
-      "detail": "Shoulder Injury",
-      "injuryType": "Shoulder Injury",
-      "reportedAt": "2026-11-22T21:56:46.653Z"
-    },
-    {
-      "teamId": "mls.toronto",
-      "player": "Nelson Palacio",
-      "position": "M",
-      "status": "Baja",
-      "detail": "Thigh Injury",
-      "injuryType": "Thigh Injury",
-      "reportedAt": "2026-11-22T21:56:46.653Z"
-    },
-    {
-      "teamId": "mls.toronto",
-      "player": "Walker Zimmerman",
-      "position": "D",
-      "status": "Baja",
-      "detail": "Ankle Injury",
-      "injuryType": "Ankle Injury",
-      "reportedAt": "2026-11-22T21:56:46.653Z"
-    },
-    {
-      "teamId": "mls.cincinnati",
-      "player": "Tah Anunga",
-      "position": "M",
-      "status": "Baja",
-      "detail": "Muscle Injury",
-      "injuryType": "Muscle Injury",
-      "reportedAt": "2026-11-22T21:56:46.653Z"
-    },
-    {
-      "teamId": "mls.cincinnati",
-      "player": "Teenage Hadebe",
-      "position": "D",
-      "status": "Baja",
-      "detail": "Leg Injury",
-      "injuryType": "Leg Injury",
-      "reportedAt": "2026-11-22T21:56:46.653Z"
-    },
-    {
-      "teamId": "mls.nashville",
-      "player": "Jeisson Palacios",
-      "position": "D",
-      "status": "Duda",
-      "detail": "Knock Injury",
-      "injuryType": "Knock Injury",
-      "reportedAt": "2026-11-22T21:56:46.653Z"
-    },
     {
       "teamId": "mls.inter-miami",
       "player": "Ezequiel Abadia-Reda",
@@ -102,7 +12,7 @@
       "status": "Baja",
       "detail": "Groin Injury",
       "injuryType": "Groin Injury",
-      "reportedAt": "2026-11-22T21:56:46.653Z"
+      "reportedAt": "2026-11-23T15:07:01.408Z"
     },
     {
       "teamId": "mls.charlotte",
@@ -111,7 +21,7 @@
       "status": "Baja",
       "detail": "Shoulder Injury",
       "injuryType": "Shoulder Injury",
-      "reportedAt": "2026-11-22T21:56:46.653Z"
+      "reportedAt": "2026-11-23T15:07:01.408Z"
     },
     {
       "teamId": "mls.charlotte",
@@ -120,7 +30,52 @@
       "status": "Baja",
       "detail": "Broken Foot",
       "injuryType": "Broken Foot",
-      "reportedAt": "2026-11-22T21:56:46.653Z"
+      "reportedAt": "2026-11-23T15:07:01.408Z"
+    },
+    {
+      "teamId": "mls.houston-dynamo",
+      "player": "Jimmy Maurer",
+      "position": "G",
+      "status": "Baja",
+      "detail": "Back Injury",
+      "injuryType": "Back Injury",
+      "reportedAt": "2026-11-23T15:07:01.408Z"
+    },
+    {
+      "teamId": "mls.houston-dynamo",
+      "player": "Marcelo Saracchi",
+      "position": "D",
+      "status": "Baja",
+      "detail": "Knock Injury",
+      "injuryType": "Knock Injury",
+      "reportedAt": "2026-11-23T15:07:01.408Z"
+    },
+    {
+      "teamId": "mls.st-louis-city",
+      "player": "Roman Bürki",
+      "position": "G",
+      "status": "Baja",
+      "detail": "Concussion",
+      "injuryType": "Concussion",
+      "reportedAt": "2026-11-23T15:07:01.408Z"
+    },
+    {
+      "teamId": "mls.sporting-kansas-city",
+      "player": "Jacob Bartlett",
+      "position": "M",
+      "status": "Baja",
+      "detail": "Ankle Injury",
+      "injuryType": "Ankle Injury",
+      "reportedAt": "2026-11-23T15:07:01.408Z"
+    },
+    {
+      "teamId": "mls.sporting-kansas-city",
+      "player": "Kwaku Agyabeng",
+      "position": "M",
+      "status": "Baja",
+      "detail": "Ankle Injury",
+      "injuryType": "Ankle Injury",
+      "reportedAt": "2026-11-23T15:07:01.408Z"
     }
   ]
 }

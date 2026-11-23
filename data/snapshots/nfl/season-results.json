@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "league": "nfl",
   "season": "nfl-2026",
-  "updatedAt": "2026-11-22T22:03:53.979Z",
+  "updatedAt": "2026-11-23T15:14:45.285Z",
   "matches": [
     {
       "id": "nfl-2026-w1-new-england-patriots-seattle-seahawks",
@@ -1741,6 +1741,50 @@
       "homeScore": 19,
       "awayScore": 16,
       "neutralSite": false
+    },
+    {
+      "id": "nfl-2026-w11-new-york-jets-los-angeles-chargers",
+      "date": "2026-11-22",
+      "startTime": "2026-11-22T21:05:00.000Z",
+      "round": "Semana 11",
+      "homeTeam": "nfl.los-angeles-chargers",
+      "awayTeam": "nfl.new-york-jets",
+      "homeScore": 24,
+      "awayScore": 27,
+      "neutralSite": false
+    },
+    {
+      "id": "nfl-2026-w11-jacksonville-jaguars-new-york-giants",
+      "date": "2026-11-22",
+      "startTime": "2026-11-22T21:25:00.000Z",
+      "round": "Semana 11",
+      "homeTeam": "nfl.new-york-giants",
+      "awayTeam": "nfl.jacksonville-jaguars",
+      "homeScore": 23,
+      "awayScore": 18,
+      "neutralSite": false
+    },
+    {
+      "id": "nfl-2026-w11-las-vegas-raiders-denver-broncos",
+      "date": "2026-11-22",
+      "startTime": "2026-11-22T21:25:00.000Z",
+      "round": "Semana 11",
+      "homeTeam": "nfl.denver-broncos",
+      "awayTeam": "nfl.las-vegas-raiders",
+      "homeScore": 38,
+      "awayScore": 24,
+      "neutralSite": false
+    },
+    {
+      "id": "nfl-2026-w11-minnesota-vikings-san-francisco-49ers",
+      "date": "2026-11-23",
+      "startTime": "2026-11-23T01:20:00.000Z",
+      "round": "Semana 11",
+      "homeTeam": "nfl.san-francisco-49ers",
+      "awayTeam": "nfl.minnesota-vikings",
+      "homeScore": 35,
+      "awayScore": 10,
+      "neutralSite": true
     }
   ]
 }

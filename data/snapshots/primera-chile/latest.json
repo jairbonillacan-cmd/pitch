@@ -4,8 +4,8 @@
   "logoUrl": "https://sports.bzzoiro.com/img/league/111/?bg=transparent",
   "season": "primera-chile-2026",
   "seasonLabel": "2026",
-  "periodLabel": "Regular season · Matchday 26",
-  "updatedAt": "2026-11-22T21:56:46.653Z",
+  "periodLabel": "Regular season · Matchday 27",
+  "updatedAt": "2026-11-23T15:07:01.408Z",
   "source": "pitchlab-football-v2",
   "provenance": "derived",
   "isDemo": false,
@@ -18,8 +18,8 @@
       "forPerGame": 0.8461538461538461,
       "againstPerGame": 1.1538461538461537,
       "gamesPlayed": 13,
-      "adjustedFor": 0.9236176232327767,
-      "adjustedAgainst": 1.0799027808436439
+      "adjustedFor": 0.9223083703727623,
+      "adjustedAgainst": 1.0785709827256724
     },
     "primera-chile.everton-vina-mar": {
       "teamId": "primera-chile.everton-vina-mar",
@@ -29,30 +29,30 @@
       "forPerGame": 1.9230769230769231,
       "againstPerGame": 1.6923076923076923,
       "gamesPlayed": 13,
-      "adjustedFor": 1.7083739228474324,
-      "adjustedAgainst": 1.512862162188459
+      "adjustedFor": 1.709825898185333,
+      "adjustedAgainst": 1.5112164477896994
     },
     "primera-chile.colo-colo": {
       "teamId": "primera-chile.colo-colo",
       "name": "Colo-Colo",
       "shortName": "Colo-Colo",
       "code": "COL",
-      "forPerGame": 2.5,
-      "againstPerGame": 1.5,
-      "gamesPlayed": 12,
-      "adjustedFor": 2.1706711224460156,
-      "adjustedAgainst": 1.462904153668199
+      "forPerGame": 2.5384615384615383,
+      "againstPerGame": 1.3846153846153846,
+      "gamesPlayed": 13,
+      "adjustedFor": 2.1828482276696413,
+      "adjustedAgainst": 1.3475896347249148
     },
     "primera-chile.deportes-limache": {
       "teamId": "primera-chile.deportes-limache",
       "name": "Deportes Limache",
       "shortName": "Deportes Limache",
       "code": "DEP",
-      "forPerGame": 1.5,
-      "againstPerGame": 1.4166666666666667,
-      "gamesPlayed": 12,
-      "adjustedFor": 1.3273967088403584,
-      "adjustedAgainst": 1.2916386072896637
+      "forPerGame": 1.4615384615384615,
+      "againstPerGame": 1.4615384615384615,
+      "gamesPlayed": 13,
+      "adjustedFor": 1.2892651464613025,
+      "adjustedAgainst": 1.3220122515246024
     },
     "primera-chile.coquimbo-unido": {
       "teamId": "primera-chile.coquimbo-unido",
@@ -62,8 +62,8 @@
       "forPerGame": 1.4615384615384615,
       "againstPerGame": 1.4615384615384615,
       "gamesPlayed": 13,
-      "adjustedFor": 1.350009031444945,
-      "adjustedAgainst": 1.304902356759349
+      "adjustedFor": 1.351751226028976,
+      "adjustedAgainst": 1.3011094398617218
     },
     "primera-chile.universidad-concepcion": {
       "teamId": "primera-chile.universidad-concepcion",
@@ -73,8 +73,8 @@
       "forPerGame": 0.8461538461538461,
       "againstPerGame": 2,
       "gamesPlayed": 13,
-      "adjustedFor": 0.9250761342353855,
-      "adjustedAgainst": 1.7085539783141361
+      "adjustedFor": 0.9245603965114737,
+      "adjustedAgainst": 1.7002025882128637
     },
     "primera-chile.huachipato": {
       "teamId": "primera-chile.huachipato",
@@ -84,8 +84,8 @@
       "forPerGame": 0.9230769230769231,
       "againstPerGame": 1.4615384615384615,
       "gamesPlayed": 13,
-      "adjustedFor": 0.9501635852936071,
-      "adjustedAgainst": 1.2741458849968168
+      "adjustedFor": 0.9510638973945981,
+      "adjustedAgainst": 1.2670749383787527
     },
     "primera-chile.cobresal": {
       "teamId": "primera-chile.cobresal",
@@ -95,30 +95,30 @@
       "forPerGame": 1.7692307692307692,
       "againstPerGame": 1.7692307692307692,
       "gamesPlayed": 13,
-      "adjustedFor": 1.606097932779455,
-      "adjustedAgainst": 1.6221761776696462
+      "adjustedFor": 1.5977950056311725,
+      "adjustedAgainst": 1.6210819703368302
     },
     "primera-chile.universidad-catolica": {
       "teamId": "primera-chile.universidad-catolica",
       "name": "Universidad Católica",
       "shortName": "Universidad Católica",
       "code": "UNI",
-      "forPerGame": 1.75,
-      "againstPerGame": 1.4166666666666667,
-      "gamesPlayed": 12,
-      "adjustedFor": 1.5564484266162812,
-      "adjustedAgainst": 1.297888730082389
+      "forPerGame": 1.6153846153846154,
+      "againstPerGame": 1.5384615384615385,
+      "gamesPlayed": 13,
+      "adjustedFor": 1.4569495848166922,
+      "adjustedAgainst": 1.3394866349807126
     },
     "primera-chile.deportes-la-serena": {
       "teamId": "primera-chile.deportes-la-serena",
       "name": "Deportes La Serena",
       "shortName": "Deportes La Serena",
       "code": "DEP",
-      "forPerGame": 1.5833333333333333,
-      "againstPerGame": 1.4166666666666667,
-      "gamesPlayed": 12,
-      "adjustedFor": 1.4456041026585627,
-      "adjustedAgainst": 1.3186929028782457
+      "forPerGame": 1.6153846153846154,
+      "againstPerGame": 1.3846153846153846,
+      "gamesPlayed": 13,
+      "adjustedFor": 1.4832103722755405,
+      "adjustedAgainst": 1.2962585543850615
     },
     "primera-chile.nublense": {
       "teamId": "primera-chile.nublense",
@@ -128,8 +128,8 @@
       "forPerGame": 1.2307692307692308,
       "againstPerGame": 1.8461538461538463,
       "gamesPlayed": 13,
-      "adjustedFor": 1.228198234677213,
-      "adjustedAgainst": 1.6137389225270857
+      "adjustedFor": 1.2302291880558562,
+      "adjustedAgainst": 1.611535540923324
     },
     "primera-chile.palestino": {
       "teamId": "primera-chile.palestino",
@@ -139,8 +139,8 @@
       "forPerGame": 1.2307692307692308,
       "againstPerGame": 1.3846153846153846,
       "gamesPlayed": 13,
-      "adjustedFor": 1.1768162687116395,
-      "adjustedAgainst": 1.2674792239868464
+      "adjustedFor": 1.1776691910225365,
+      "adjustedAgainst": 1.265747942708805
     },
     "primera-chile.audax-italiano": {
       "teamId": "primera-chile.audax-italiano",
@@ -150,8 +150,8 @@
       "forPerGame": 0.9230769230769231,
       "againstPerGame": 1.3846153846153846,
       "gamesPlayed": 13,
-      "adjustedFor": 0.9679066445181868,
-      "adjustedAgainst": 1.2720089581226899
+      "adjustedFor": 0.9658444222363262,
+      "adjustedAgainst": 1.2730777363119894
     },
     "primera-chile.universidad-chile": {
       "teamId": "primera-chile.universidad-chile",
@@ -161,8 +161,8 @@
       "forPerGame": 2.3846153846153846,
       "againstPerGame": 0.9230769230769231,
       "gamesPlayed": 13,
-      "adjustedFor": 1.8929557909860448,
-      "adjustedAgainst": 0.9360117995711869
+      "adjustedFor": 1.893047747967519,
+      "adjustedAgainst": 0.9345476188977825
     },
     "primera-chile.deportes-concepcion": {
       "teamId": "primera-chile.deportes-concepcion",
@@ -172,8 +172,8 @@
       "forPerGame": 1.2307692307692308,
       "againstPerGame": 0.5384615384615384,
       "gamesPlayed": 13,
-      "adjustedFor": 1.120619364439587,
-      "adjustedAgainst": 0.6964890710067377
+      "adjustedFor": 1.119990271592383,
+      "adjustedAgainst": 0.693128018216938
     },
     "primera-chile.o-higgins": {
       "teamId": "primera-chile.o-higgins",
@@ -183,81 +183,11 @@
       "forPerGame": 1,
       "againstPerGame": 1.6153846153846154,
       "gamesPlayed": 13,
-      "adjustedFor": 1.029881018927782,
-      "adjustedAgainst": 1.4428758533442387
+      "adjustedFor": 1.027977516130409,
+      "adjustedAgainst": 1.441459989771142
     }
   },
   "games": [
-    {
-      "id": "primera-chile-2026-11-02-deportes-limac-audax-italiano-yjewzy",
-      "league": "primera-chile",
-      "season": "primera-chile-2026",
-      "week": 26,
-      "round": "Regular season · Matchday 26",
-      "phase": "Regular season",
-      "startTime": "2026-11-02T21:00:00.000Z",
-      "status": "final",
-      "home": {
-        "id": "primera-chile.deportes-limache",
-        "league": "primera-chile",
-        "name": "Deportes Limache",
-        "shortName": "Deportes Limache",
-        "code": "DEP",
-        "logoUrl": "https://sports.bzzoiro.com/img/team/9436/?bg=transparent"
-      },
-      "away": {
-        "id": "primera-chile.audax-italiano",
-        "league": "primera-chile",
-        "name": "Audax Italiano",
-        "shortName": "Audax Italiano",
-        "code": "AUD",
-        "logoUrl": "https://sports.bzzoiro.com/img/team/745/?bg=transparent"
-      },
-      "venue": "Estadio Gustavo Ocaranza, Limache",
-      "referee": "Cristian Galaz Sepulveda",
-      "neutralSite": false,
-      "result": {
-        "home": 2,
-        "away": 0,
-        "observedAt": "2026-11-22T21:56:46.653Z",
-        "source": "pitchlab-feed"
-      }
-    },
-    {
-      "id": "primera-chile-2026-11-02-deportes-conce-palestino-ghe3h0",
-      "league": "primera-chile",
-      "season": "primera-chile-2026",
-      "week": 26,
-      "round": "Regular season · Matchday 26",
-      "phase": "Regular season",
-      "startTime": "2026-11-02T23:30:00.000Z",
-      "status": "final",
-      "home": {
-        "id": "primera-chile.deportes-concepcion",
-        "league": "primera-chile",
-        "name": "Deportes Concepción",
-        "shortName": "Deportes Concepción",
-        "code": "DEP",
-        "logoUrl": "https://sports.bzzoiro.com/img/team/4580/?bg=transparent"
-      },
-      "away": {
-        "id": "primera-chile.palestino",
-        "league": "primera-chile",
-        "name": "Palestino",
-        "shortName": "Palestino",
-        "code": "PAL",
-        "logoUrl": "https://sports.bzzoiro.com/img/team/744/?bg=transparent"
-      },
-      "venue": "Municipal de Collao, Concepción",
-      "referee": "Hector Jona",
-      "neutralSite": false,
-      "result": {
-        "home": 1,
-        "away": 0,
-        "observedAt": "2026-11-22T21:56:46.653Z",
-        "source": "pitchlab-feed"
-      }
-    },
     {
       "id": "primera-chile-2026-11-07-deportes-la-se-palestino-2pjscu",
       "league": "primera-chile",
@@ -289,7 +219,7 @@
       "result": {
         "home": 1,
         "away": 0,
-        "observedAt": "2026-11-22T21:56:46.653Z",
+        "observedAt": "2026-11-23T15:07:01.408Z",
         "source": "pitchlab-feed"
       }
     },
@@ -324,7 +254,7 @@
       "result": {
         "home": 0,
         "away": 2,
-        "observedAt": "2026-11-22T21:56:46.653Z",
+        "observedAt": "2026-11-23T15:07:01.408Z",
         "source": "pitchlab-feed"
       }
     },
@@ -359,7 +289,7 @@
       "result": {
         "home": 3,
         "away": 0,
-        "observedAt": "2026-11-22T21:56:46.653Z",
+        "observedAt": "2026-11-23T15:07:01.408Z",
         "source": "pitchlab-feed"
       }
     },
@@ -394,7 +324,7 @@
       "result": {
         "home": 0,
         "away": 1,
-        "observedAt": "2026-11-22T21:56:46.653Z",
+        "observedAt": "2026-11-23T15:07:01.408Z",
         "source": "pitchlab-feed"
       }
     },
@@ -429,7 +359,7 @@
       "result": {
         "home": 1,
         "away": 2,
-        "observedAt": "2026-11-22T21:56:46.653Z",
+        "observedAt": "2026-11-23T15:07:01.408Z",
         "source": "pitchlab-feed"
       }
     },
@@ -464,7 +394,7 @@
       "result": {
         "home": 2,
         "away": 1,
-        "observedAt": "2026-11-22T21:56:46.653Z",
+        "observedAt": "2026-11-23T15:07:01.408Z",
         "source": "pitchlab-feed"
       }
     },
@@ -499,7 +429,7 @@
       "result": {
         "home": 1,
         "away": 0,
-        "observedAt": "2026-11-22T21:56:46.653Z",
+        "observedAt": "2026-11-23T15:07:01.408Z",
         "source": "pitchlab-feed"
       }
     },
@@ -534,7 +464,7 @@
       "result": {
         "home": 3,
         "away": 2,
-        "observedAt": "2026-11-22T21:56:46.653Z",
+        "observedAt": "2026-11-23T15:07:01.408Z",
         "source": "pitchlab-feed"
       }
     },
@@ -569,7 +499,7 @@
       "result": {
         "home": 3,
         "away": 2,
-        "observedAt": "2026-11-22T21:56:46.653Z",
+        "observedAt": "2026-11-23T15:07:01.408Z",
         "source": "pitchlab-feed"
       }
     },
@@ -604,7 +534,7 @@
       "result": {
         "home": 0,
         "away": 1,
-        "observedAt": "2026-11-22T21:56:46.653Z",
+        "observedAt": "2026-11-23T15:07:01.408Z",
         "source": "pitchlab-feed"
       }
     },
@@ -639,7 +569,7 @@
       "result": {
         "home": 2,
         "away": 1,
-        "observedAt": "2026-11-22T21:56:46.653Z",
+        "observedAt": "2026-11-23T15:07:01.408Z",
         "source": "pitchlab-feed"
       }
     },
@@ -674,7 +604,7 @@
       "result": {
         "home": 0,
         "away": 1,
-        "observedAt": "2026-11-22T21:56:46.653Z",
+        "observedAt": "2026-11-23T15:07:01.408Z",
         "source": "pitchlab-feed"
       }
     },
@@ -709,7 +639,7 @@
       "result": {
         "home": 2,
         "away": 3,
-        "observedAt": "2026-11-22T21:56:46.653Z",
+        "observedAt": "2026-11-23T15:07:01.408Z",
         "source": "pitchlab-feed"
       }
     },
@@ -744,7 +674,7 @@
       "result": {
         "home": 0,
         "away": 0,
-        "observedAt": "2026-11-22T21:56:46.653Z",
+        "observedAt": "2026-11-23T15:07:01.408Z",
         "source": "pitchlab-feed"
       }
     },
@@ -756,7 +686,7 @@
       "round": "Regular season · Matchday 28",
       "phase": "Regular season",
       "startTime": "2026-11-22T21:00:00.000Z",
-      "status": "scheduled",
+      "status": "final",
       "home": {
         "id": "primera-chile.colo-colo",
         "league": "primera-chile",
@@ -775,7 +705,13 @@
       },
       "venue": "Monumental David Arellano, Santiago",
       "referee": "Jose Cabero Rebolledo",
-      "neutralSite": false
+      "neutralSite": false,
+      "result": {
+        "home": 3,
+        "away": 0,
+        "observedAt": "2026-11-23T15:07:01.408Z",
+        "source": "pitchlab-feed"
+      }
     },
     {
       "id": "primera-chile-2026-11-22-deportes-limac-deportes-la-se-qgz024",
@@ -785,7 +721,7 @@
       "round": "Regular season · Matchday 28",
       "phase": "Regular season",
       "startTime": "2026-11-22T23:30:00.000Z",
-      "status": "scheduled",
+      "status": "final",
       "home": {
         "id": "primera-chile.deportes-limache",
         "league": "primera-chile",
@@ -804,7 +740,13 @@
       },
       "venue": "Estadio Gustavo Ocaranza, Limache",
       "referee": "Mathias Riquelme",
-      "neutralSite": false
+      "neutralSite": false,
+      "result": {
+        "home": 1,
+        "away": 2,
+        "observedAt": "2026-11-23T15:07:01.408Z",
+        "source": "pitchlab-feed"
+      }
     },
     {
       "id": "primera-chile-2026-11-29-nublense-cobresal-d33fej",
@@ -1256,895 +1198,6 @@
     }
   ],
   "analyses": {
-    "primera-chile-2026-11-02-deportes-limac-audax-italiano-yjewzy": {
-      "game": "primera-chile-2026-11-02-deportes-limac-audax-italiano-yjewzy",
-      "model": {
-        "id": "pitchlab-statistical-primera-chile",
-        "version": "2.0.0",
-        "status": "candidate",
-        "label": "Modelo PitchLab · en validación"
-      },
-      "projection": {
-        "home": 1.6343251012319824,
-        "away": 0.8955869736696825,
-        "total": 2.529912074901665,
-        "margin": 0.7387381275622998
-      },
-      "x12": [
-        0.5536273464158779,
-        0.23489239396181436,
-        0.21148025962230713
-      ],
-      "probabilities": [
-        {
-          "market": "h2h",
-          "selection": "Deportes Limache gana",
-          "p": 0.5536273464158779,
-          "fairOdds": 1.8062691564531437
-        },
-        {
-          "market": "h2h",
-          "selection": "Empate",
-          "p": 0.23489239396181436,
-          "fairOdds": 4.2572685438361475
-        },
-        {
-          "market": "h2h",
-          "selection": "Audax Italiano gana",
-          "p": 0.21148025962230713,
-          "fairOdds": 4.728573729699162
-        },
-        {
-          "market": "double_chance",
-          "selection": "Deportes Limache o empate",
-          "p": 0.7885197403776922,
-          "fairOdds": 1.2681990681945527
-        },
-        {
-          "market": "double_chance",
-          "selection": "Audax Italiano o empate",
-          "p": 0.4463726535841215,
-          "fairOdds": 2.2402806085242055
-        },
-        {
-          "market": "double_chance",
-          "selection": "Sin empate",
-          "p": 0.765107606038185,
-          "fairOdds": 1.3070056971177098
-        },
-        {
-          "market": "totals",
-          "selection": "Más de 1.5",
-          "line": 1.5,
-          "p": 0.712955297172547,
-          "fairOdds": 1.4026124835116884
-        },
-        {
-          "market": "totals",
-          "selection": "Más de 2.5",
-          "line": 2.5,
-          "p": 0.46383585612260303,
-          "fairOdds": 2.1559350938485355
-        },
-        {
-          "market": "totals",
-          "selection": "Menos de 2.5",
-          "line": 2.5,
-          "p": 0.536164143877397,
-          "fairOdds": 1.8651004760748546
-        },
-        {
-          "market": "totals",
-          "selection": "Más de 3.5",
-          "line": 3.5,
-          "p": 0.24883572449445612,
-          "fairOdds": 4.018715568400144
-        },
-        {
-          "market": "totals",
-          "selection": "Menos de 3.5",
-          "line": 3.5,
-          "p": 0.7511642755055439,
-          "fairOdds": 1.33126671835796
-        },
-        {
-          "market": "btts",
-          "selection": "Sí",
-          "p": 0.47038377601107023,
-          "fairOdds": 2.1259236627592903
-        },
-        {
-          "market": "btts",
-          "selection": "No",
-          "p": 0.5296162239889297,
-          "fairOdds": 1.8881596799815983
-        },
-        {
-          "market": "team_totals",
-          "selection": "Deportes Limache más de 1.5",
-          "line": 1.5,
-          "p": 0.4860847065240784,
-          "fairOdds": 2.057254603114045
-        },
-        {
-          "market": "team_totals",
-          "selection": "Deportes Limache menos de 1.5",
-          "line": 1.5,
-          "p": 0.5139152934759216,
-          "fairOdds": 1.9458459646849426
-        },
-        {
-          "market": "team_totals",
-          "selection": "Audax Italiano más de 1.5",
-          "line": 1.5,
-          "p": 0.22590326391031645,
-          "fairOdds": 4.426673535788309
-        },
-        {
-          "market": "team_totals",
-          "selection": "Audax Italiano menos de 1.5",
-          "line": 1.5,
-          "p": 0.7740967360896835,
-          "fairOdds": 1.291828208773308
-        },
-        {
-          "market": "correct_score",
-          "selection": "1–0",
-          "p": 0.13603063432078452,
-          "fairOdds": 7.351285282121243
-        },
-        {
-          "market": "correct_score",
-          "selection": "1–1",
-          "p": 0.11077544847882986,
-          "fairOdds": 9.027271058091076
-        },
-        {
-          "market": "correct_score",
-          "selection": "2–0",
-          "p": 0.10639484810218919,
-          "fairOdds": 9.39895133869197
-        }
-      ],
-      "marketGroups": [
-        {
-          "group": "Resultado",
-          "rows": [
-            {
-              "market": "h2h",
-              "selection": "home",
-              "label": "Deportes Limache gana",
-              "p": 0.5536273464158779,
-              "fairOdds": 1.8062691564531437
-            },
-            {
-              "market": "h2h",
-              "selection": "draw",
-              "label": "Empate",
-              "p": 0.23489239396181436,
-              "fairOdds": 4.2572685438361475
-            },
-            {
-              "market": "h2h",
-              "selection": "away",
-              "label": "Audax Italiano gana",
-              "p": 0.21148025962230713,
-              "fairOdds": 4.728573729699162
-            }
-          ]
-        },
-        {
-          "group": "Doble oportunidad",
-          "rows": [
-            {
-              "market": "double_chance",
-              "selection": "1x",
-              "label": "Deportes Limache o empate",
-              "p": 0.7885197403776922,
-              "fairOdds": 1.2681990681945527
-            },
-            {
-              "market": "double_chance",
-              "selection": "x2",
-              "label": "Audax Italiano o empate",
-              "p": 0.4463726535841215,
-              "fairOdds": 2.2402806085242055
-            },
-            {
-              "market": "double_chance",
-              "selection": "12",
-              "label": "Sin empate",
-              "p": 0.765107606038185,
-              "fairOdds": 1.3070056971177098
-            }
-          ]
-        },
-        {
-          "group": "Goles totales",
-          "rows": [
-            {
-              "market": "totals",
-              "selection": "over_1.5",
-              "label": "Más de 1.5",
-              "line": 1.5,
-              "p": 0.712955297172547,
-              "fairOdds": 1.4026124835116884
-            },
-            {
-              "market": "totals",
-              "selection": "over_2.5",
-              "label": "Más de 2.5",
-              "line": 2.5,
-              "p": 0.46383585612260303,
-              "fairOdds": 2.1559350938485355
-            },
-            {
-              "market": "totals",
-              "selection": "under_2.5",
-              "label": "Menos de 2.5",
-              "line": 2.5,
-              "p": 0.536164143877397,
-              "fairOdds": 1.8651004760748546
-            },
-            {
-              "market": "totals",
-              "selection": "over_3.5",
-              "label": "Más de 3.5",
-              "line": 3.5,
-              "p": 0.24883572449445612,
-              "fairOdds": 4.018715568400144
-            },
-            {
-              "market": "totals",
-              "selection": "under_3.5",
-              "label": "Menos de 3.5",
-              "line": 3.5,
-              "p": 0.7511642755055439,
-              "fairOdds": 1.33126671835796
-            }
-          ]
-        },
-        {
-          "group": "Ambos anotan",
-          "rows": [
-            {
-              "market": "btts",
-              "selection": "yes",
-              "label": "Sí",
-              "p": 0.47038377601107023,
-              "fairOdds": 2.1259236627592903
-            },
-            {
-              "market": "btts",
-              "selection": "no",
-              "label": "No",
-              "p": 0.5296162239889297,
-              "fairOdds": 1.8881596799815983
-            }
-          ]
-        },
-        {
-          "group": "Goles por equipo (1.5)",
-          "rows": [
-            {
-              "market": "team_totals",
-              "selection": "home_over",
-              "label": "Deportes Limache más de 1.5",
-              "line": 1.5,
-              "p": 0.4860847065240784,
-              "fairOdds": 2.057254603114045
-            },
-            {
-              "market": "team_totals",
-              "selection": "home_under",
-              "label": "Deportes Limache menos de 1.5",
-              "line": 1.5,
-              "p": 0.5139152934759216,
-              "fairOdds": 1.9458459646849426
-            },
-            {
-              "market": "team_totals",
-              "selection": "away_over",
-              "label": "Audax Italiano más de 1.5",
-              "line": 1.5,
-              "p": 0.22590326391031645,
-              "fairOdds": 4.426673535788309
-            },
-            {
-              "market": "team_totals",
-              "selection": "away_under",
-              "label": "Audax Italiano menos de 1.5",
-              "line": 1.5,
-              "p": 0.7740967360896835,
-              "fairOdds": 1.291828208773308
-            }
-          ]
-        },
-        {
-          "group": "Marcador exacto (más probables)",
-          "rows": [
-            {
-              "market": "correct_score",
-              "selection": "1-0",
-              "label": "1–0",
-              "p": 0.13603063432078452,
-              "fairOdds": 7.351285282121243
-            },
-            {
-              "market": "correct_score",
-              "selection": "1-1",
-              "label": "1–1",
-              "p": 0.11077544847882986,
-              "fairOdds": 9.027271058091076
-            },
-            {
-              "market": "correct_score",
-              "selection": "2-0",
-              "label": "2–0",
-              "p": 0.10639484810218919,
-              "fairOdds": 9.39895133869197
-            }
-          ]
-        }
-      ],
-      "mostLikelyScore": {
-        "home": 1,
-        "away": 0,
-        "p": 0.13603063432078452
-      },
-      "factors": [
-        {
-          "key": "home_attack",
-          "label": "Ataque local",
-          "value": "1.21 goles/partido",
-          "detail": "4 % más que la media · 12 partidos"
-        },
-        {
-          "key": "away_defense",
-          "label": "Defensa visitante",
-          "value": "1.17 concedidos/partido",
-          "detail": "10 % menos que la media · 12 partidos"
-        },
-        {
-          "key": "away_attack",
-          "label": "Ataque visitante",
-          "value": "0.90 goles/partido",
-          "detail": "31 % menos que la media · ajustado por rival"
-        },
-        {
-          "key": "home_defense",
-          "label": "Defensa local",
-          "value": "1.29 concedidos/partido",
-          "detail": "en la media de la liga · ajustado por rival"
-        },
-        {
-          "key": "home_advantage",
-          "label": "Localía",
-          "value": "×1.35",
-          "detail": "estimada de 96 partidos"
-        },
-        {
-          "key": "uncertainty",
-          "label": "Intervalo 90%",
-          "value": "goles 1.7–4.0",
-          "detail": "local 35%–80% · 96 partidos"
-        },
-        {
-          "key": "home_position",
-          "label": "Posición local",
-          "value": "6.º · 19 pts",
-          "detail": "de 16 equipos"
-        },
-        {
-          "key": "away_position",
-          "label": "Posición visitante",
-          "value": "11.º · 14 pts",
-          "detail": "de 16 equipos"
-        },
-        {
-          "key": "home_form",
-          "label": "Forma local",
-          "value": "G-G-P-E-G · 10 pts",
-          "detail": "8 goles a favor · 3 en contra"
-        },
-        {
-          "key": "away_form",
-          "label": "Forma visitante",
-          "value": "P-G-G-E-E · 8 pts",
-          "detail": "5 goles a favor · 7 en contra"
-        }
-      ],
-      "steps": [
-        "Sincronizando Liga de Primera · corte 2 nov 2026, 14:00",
-        "Fuerza ajustada por rival · DEP 1.04 / 1.00 · AUD 0.69 / 0.90",
-        "Ponderando 84.6 partidos por antigüedad y calidad del rival",
-        "Proyección de goles 1.63 – 0.90 · total 2.53",
-        "Simulando 121 marcadores con incertidumbre del ajuste",
-        "20 mercados listos · marcador proyectado 1–0"
-      ],
-      "inputsAsOf": "2026-11-02T20:00:00.000Z",
-      "publishedAt": "2026-11-02T20:00:00.000Z",
-      "source": "pitchlab-football-v2",
-      "projectedScore": {
-        "home": 1,
-        "away": 0,
-        "p": 0.13603063432078452
-      },
-      "insights": {
-        "why": [
-          "Deportes Limache gana en 55% de los escenarios; el empate, en 23%.",
-          "Audax Italiano anota 31 % menos que la media.",
-          "Audax Italiano concede 10 % menos que la media."
-        ],
-        "restDays": {
-          "home": 8,
-          "away": 5
-        }
-      },
-      "matchContext": {
-        "referee": "Cristian Galaz Sepulveda",
-        "refereeStats": {
-          "country": "Chile",
-          "matches": 8,
-          "avgYellow": 4.62,
-          "avgRed": 0.25,
-          "avgFouls": 19,
-          "avgGoals": 3.12
-        },
-        "halfTimeScore": {
-          "home": 1,
-          "away": 0
-        },
-        "stageName": "Regular season",
-        "venueCity": "Limache",
-        "venueCountry": "Chile",
-        "venueCapacity": 3000
-      }
-    },
-    "primera-chile-2026-11-02-deportes-conce-palestino-ghe3h0": {
-      "game": "primera-chile-2026-11-02-deportes-conce-palestino-ghe3h0",
-      "model": {
-        "id": "pitchlab-statistical-primera-chile",
-        "version": "2.0.0",
-        "status": "candidate",
-        "label": "Modelo PitchLab · en validación"
-      },
-      "projection": {
-        "home": 1.5663338775456794,
-        "away": 0.7133831349292016,
-        "total": 2.279717012474881,
-        "margin": 0.8529507426164779
-      },
-      "x12": [
-        0.5838716225699515,
-        0.2413963917605751,
-        0.1747319856694734
-      ],
-      "probabilities": [
-        {
-          "market": "h2h",
-          "selection": "Deportes Concepción gana",
-          "p": 0.5838716225699515,
-          "fairOdds": 1.7127052614724287
-        },
-        {
-          "market": "h2h",
-          "selection": "Empate",
-          "p": 0.2413963917605751,
-          "fairOdds": 4.142563990732028
-        },
-        {
-          "market": "h2h",
-          "selection": "Palestino gana",
-          "p": 0.1747319856694734,
-          "fairOdds": 5.723050626183694
-        },
-        {
-          "market": "double_chance",
-          "selection": "Deportes Concepción o empate",
-          "p": 0.8252680143305267,
-          "fairOdds": 1.21172756321014
-        },
-        {
-          "market": "double_chance",
-          "selection": "Palestino o empate",
-          "p": 0.4161283774300485,
-          "fairOdds": 2.403104556761695
-        },
-        {
-          "market": "double_chance",
-          "selection": "Sin empate",
-          "p": 0.758603608239425,
-          "fairOdds": 1.3182114995746068
-        },
-        {
-          "market": "totals",
-          "selection": "Más de 1.5",
-          "line": 1.5,
-          "p": 0.6587252998316991,
-          "fairOdds": 1.5180834867819633
-        },
-        {
-          "market": "totals",
-          "selection": "Más de 2.5",
-          "line": 2.5,
-          "p": 0.3985749531810505,
-          "fairOdds": 2.508938386667151
-        },
-        {
-          "market": "totals",
-          "selection": "Menos de 2.5",
-          "line": 2.5,
-          "p": 0.6014250468189495,
-          "fairOdds": 1.6627175826633571
-        },
-        {
-          "market": "totals",
-          "selection": "Más de 3.5",
-          "line": 3.5,
-          "p": 0.19654144057129685,
-          "fairOdds": 5.08798550114037
-        },
-        {
-          "market": "totals",
-          "selection": "Menos de 3.5",
-          "line": 3.5,
-          "p": 0.8034585594287031,
-          "fairOdds": 1.2446192628914765
-        },
-        {
-          "market": "btts",
-          "selection": "Sí",
-          "p": 0.39780383505256933,
-          "fairOdds": 2.513801808541768
-        },
-        {
-          "market": "btts",
-          "selection": "No",
-          "p": 0.6021961649474307,
-          "fairOdds": 1.660588456399911
-        },
-        {
-          "market": "team_totals",
-          "selection": "Deportes Concepción más de 1.5",
-          "line": 1.5,
-          "p": 0.46412516801066894,
-          "fairOdds": 2.154591194194866
-        },
-        {
-          "market": "team_totals",
-          "selection": "Deportes Concepción menos de 1.5",
-          "line": 1.5,
-          "p": 0.5358748319893311,
-          "fairOdds": 1.866107419689211
-        },
-        {
-          "market": "team_totals",
-          "selection": "Palestino más de 1.5",
-          "line": 1.5,
-          "p": 0.1604701759734286,
-          "fairOdds": 6.2316875639594524
-        },
-        {
-          "market": "team_totals",
-          "selection": "Palestino menos de 1.5",
-          "line": 1.5,
-          "p": 0.8395298240265714,
-          "fairOdds": 1.1911429128315871
-        },
-        {
-          "market": "correct_score",
-          "selection": "1–0",
-          "p": 0.1659729175995735,
-          "fairOdds": 6.025079359107258
-        },
-        {
-          "market": "correct_score",
-          "selection": "2–0",
-          "p": 0.12550774631929684,
-          "fairOdds": 7.967635698405093
-        },
-        {
-          "market": "correct_score",
-          "selection": "1–1",
-          "p": 0.10860820323197076,
-          "fairOdds": 9.207407638115058
-        }
-      ],
-      "marketGroups": [
-        {
-          "group": "Resultado",
-          "rows": [
-            {
-              "market": "h2h",
-              "selection": "home",
-              "label": "Deportes Concepción gana",
-              "p": 0.5838716225699515,
-              "fairOdds": 1.7127052614724287
-            },
-            {
-              "market": "h2h",
-              "selection": "draw",
-              "label": "Empate",
-              "p": 0.2413963917605751,
-              "fairOdds": 4.142563990732028
-            },
-            {
-              "market": "h2h",
-              "selection": "away",
-              "label": "Palestino gana",
-              "p": 0.1747319856694734,
-              "fairOdds": 5.723050626183694
-            }
-          ]
-        },
-        {
-          "group": "Doble oportunidad",
-          "rows": [
-            {
-              "market": "double_chance",
-              "selection": "1x",
-              "label": "Deportes Concepción o empate",
-              "p": 0.8252680143305267,
-              "fairOdds": 1.21172756321014
-            },
-            {
-              "market": "double_chance",
-              "selection": "x2",
-              "label": "Palestino o empate",
-              "p": 0.4161283774300485,
-              "fairOdds": 2.403104556761695
-            },
-            {
-              "market": "double_chance",
-              "selection": "12",
-              "label": "Sin empate",
-              "p": 0.758603608239425,
-              "fairOdds": 1.3182114995746068
-            }
-          ]
-        },
-        {
-          "group": "Goles totales",
-          "rows": [
-            {
-              "market": "totals",
-              "selection": "over_1.5",
-              "label": "Más de 1.5",
-              "line": 1.5,
-              "p": 0.6587252998316991,
-              "fairOdds": 1.5180834867819633
-            },
-            {
-              "market": "totals",
-              "selection": "over_2.5",
-              "label": "Más de 2.5",
-              "line": 2.5,
-              "p": 0.3985749531810505,
-              "fairOdds": 2.508938386667151
-            },
-            {
-              "market": "totals",
-              "selection": "under_2.5",
-              "label": "Menos de 2.5",
-              "line": 2.5,
-              "p": 0.6014250468189495,
-              "fairOdds": 1.6627175826633571
-            },
-            {
-              "market": "totals",
-              "selection": "over_3.5",
-              "label": "Más de 3.5",
-              "line": 3.5,
-              "p": 0.19654144057129685,
-              "fairOdds": 5.08798550114037
-            },
-            {
-              "market": "totals",
-              "selection": "under_3.5",
-              "label": "Menos de 3.5",
-              "line": 3.5,
-              "p": 0.8034585594287031,
-              "fairOdds": 1.2446192628914765
-            }
-          ]
-        },
-        {
-          "group": "Ambos anotan",
-          "rows": [
-            {
-              "market": "btts",
-              "selection": "yes",
-              "label": "Sí",
-              "p": 0.39780383505256933,
-              "fairOdds": 2.513801808541768
-            },
-            {
-              "market": "btts",
-              "selection": "no",
-              "label": "No",
-              "p": 0.6021961649474307,
-              "fairOdds": 1.660588456399911
-            }
-          ]
-        },
-        {
-          "group": "Goles por equipo (1.5)",
-          "rows": [
-            {
-              "market": "team_totals",
-              "selection": "home_over",
-              "label": "Deportes Concepción más de 1.5",
-              "line": 1.5,
-              "p": 0.46412516801066894,
-              "fairOdds": 2.154591194194866
-            },
-            {
-              "market": "team_totals",
-              "selection": "home_under",
-              "label": "Deportes Concepción menos de 1.5",
-              "line": 1.5,
-              "p": 0.5358748319893311,
-              "fairOdds": 1.866107419689211
-            },
-            {
-              "market": "team_totals",
-              "selection": "away_over",
-              "label": "Palestino más de 1.5",
-              "line": 1.5,
-              "p": 0.1604701759734286,
-              "fairOdds": 6.2316875639594524
-            },
-            {
-              "market": "team_totals",
-              "selection": "away_under",
-              "label": "Palestino menos de 1.5",
-              "line": 1.5,
-              "p": 0.8395298240265714,
-              "fairOdds": 1.1911429128315871
-            }
-          ]
-        },
-        {
-          "group": "Marcador exacto (más probables)",
-          "rows": [
-            {
-              "market": "correct_score",
-              "selection": "1-0",
-              "label": "1–0",
-              "p": 0.1659729175995735,
-              "fairOdds": 6.025079359107258
-            },
-            {
-              "market": "correct_score",
-              "selection": "2-0",
-              "label": "2–0",
-              "p": 0.12550774631929684,
-              "fairOdds": 7.967635698405093
-            },
-            {
-              "market": "correct_score",
-              "selection": "1-1",
-              "label": "1–1",
-              "p": 0.10860820323197076,
-              "fairOdds": 9.207407638115058
-            }
-          ]
-        }
-      ],
-      "mostLikelyScore": {
-        "home": 1,
-        "away": 0,
-        "p": 0.1659729175995735
-      },
-      "factors": [
-        {
-          "key": "home_attack",
-          "label": "Ataque local",
-          "value": "1.16 goles/partido",
-          "detail": "8 % menos que la media · 12 partidos"
-        },
-        {
-          "key": "away_defense",
-          "label": "Defensa visitante",
-          "value": "1.26 concedidos/partido",
-          "detail": "3 % menos que la media · 12 partidos"
-        },
-        {
-          "key": "away_attack",
-          "label": "Ataque visitante",
-          "value": "0.71 goles/partido",
-          "detail": "3 % menos que la media · ajustado por rival"
-        },
-        {
-          "key": "home_defense",
-          "label": "Defensa local",
-          "value": "0.73 concedidos/partido",
-          "detail": "43 % menos que la media · ajustado por rival"
-        },
-        {
-          "key": "home_advantage",
-          "label": "Localía",
-          "value": "×1.35",
-          "detail": "estimada de 96 partidos"
-        },
-        {
-          "key": "uncertainty",
-          "label": "Intervalo 90%",
-          "value": "goles 1.6–3.6",
-          "detail": "local 37%–80% · 96 partidos"
-        },
-        {
-          "key": "home_position",
-          "label": "Posición local",
-          "value": "3.º · 24 pts",
-          "detail": "de 16 equipos"
-        },
-        {
-          "key": "away_position",
-          "label": "Posición visitante",
-          "value": "10.º · 14 pts",
-          "detail": "de 16 equipos"
-        },
-        {
-          "key": "home_form",
-          "label": "Forma local",
-          "value": "G-P-E-E-P · 5 pts",
-          "detail": "4 goles a favor · 6 en contra"
-        },
-        {
-          "key": "away_form",
-          "label": "Forma visitante",
-          "value": "P-G-P-E-E · 5 pts",
-          "detail": "7 goles a favor · 9 en contra"
-        }
-      ],
-      "steps": [
-        "Sincronizando Liga de Primera · corte 2 nov 2026, 16:30",
-        "Fuerza ajustada por rival · DEP 0.92 / 0.57 · PAL 0.97 / 0.97",
-        "Ponderando 84.6 partidos por antigüedad y calidad del rival",
-        "Proyección de goles 1.57 – 0.71 · total 2.28",
-        "Simulando 121 marcadores con incertidumbre del ajuste",
-        "20 mercados listos · marcador proyectado 1–0"
-      ],
-      "inputsAsOf": "2026-11-02T22:30:00.000Z",
-      "publishedAt": "2026-11-02T22:30:00.000Z",
-      "source": "pitchlab-football-v2",
-      "projectedScore": {
-        "home": 1,
-        "away": 0,
-        "p": 0.1659729175995735
-      },
-      "insights": {
-        "why": [
-          "Se esperan 2.3 goles: 1.6 de Deportes Concepción y 0.7 de Palestino.",
-          "Deportes Concepción concede 43 % menos que la media."
-        ],
-        "restDays": {
-          "home": 9,
-          "away": 8
-        }
-      },
-      "matchContext": {
-        "referee": "Hector Jona",
-        "refereeStats": {
-          "country": "Chile",
-          "matches": 16,
-          "avgYellow": 5.19,
-          "avgRed": 0.62,
-          "avgFouls": 20.4,
-          "avgGoals": 2.69
-        },
-        "halfTimeScore": {
-          "home": 1,
-          "away": 0
-        },
-        "stageName": "Regular season",
-        "venueCity": "Concepción",
-        "venueCountry": "Chile",
-        "venueCapacity": 30448
-      }
-    },
     "primera-chile-2026-11-07-deportes-la-se-palestino-2pjscu": {
       "game": "primera-chile-2026-11-07-deportes-la-se-palestino-2pjscu",
       "model": {
@@ -2573,11 +1626,11 @@
         "referee": "Jose Cabero Rebolledo",
         "refereeStats": {
           "country": "Chile",
-          "matches": 28,
-          "avgYellow": 3.46,
-          "avgRed": 0.39,
+          "matches": 29,
+          "avgYellow": 3.52,
+          "avgRed": 0.38,
           "avgFouls": 20.2,
-          "avgGoals": 2.96
+          "avgGoals": 2.97
         },
         "halfTimeScore": {
           "home": 0,
@@ -9100,14 +8153,14 @@
         "referee": "Jose Cabero Rebolledo",
         "refereeStats": {
           "country": "Chile",
-          "matches": 28,
-          "avgYellow": 3.46,
-          "avgRed": 0.39,
+          "matches": 29,
+          "avgYellow": 3.52,
+          "avgRed": 0.38,
           "avgFouls": 20.2,
-          "avgGoals": 2.96
+          "avgGoals": 2.97
         },
         "weather": {
-          "description": "cloudy",
+          "description": "clear",
           "temperatureC": 25,
           "windSpeedKmh": 41
         },
@@ -9587,11 +8640,18 @@
         "referee": "Mathias Riquelme",
         "refereeStats": {
           "country": "Chile",
-          "matches": 15,
-          "avgYellow": 4.4,
-          "avgRed": 0.6,
-          "avgFouls": 23.2,
-          "avgGoals": 3.07
+          "matches": 16,
+          "avgYellow": 4.31,
+          "avgRed": 0.56,
+          "avgFouls": 22.7,
+          "avgGoals": 3.06
+        },
+        "weather": {
+          "description": "cloudy"
+        },
+        "halfTimeScore": {
+          "home": 0,
+          "away": 0
         },
         "stageName": "Regular season",
         "venueCity": "Limache",
@@ -17179,17 +16239,17 @@
       "name": "Colo-Colo",
       "shortName": "Colo-Colo",
       "code": "COL",
-      "played": 12,
-      "won": 7,
+      "played": 13,
+      "won": 8,
       "drawn": 4,
       "lost": 1,
-      "goalsFor": 30,
+      "goalsFor": 33,
       "goalsAgainst": 18,
-      "points": 25,
+      "points": 28,
       "form": [
-        "D",
         "L",
         "D",
+        "W",
         "W",
         "W"
       ]
@@ -17219,19 +16279,19 @@
       "name": "Universidad Católica",
       "shortName": "Universidad Católica",
       "code": "UNI",
-      "played": 12,
+      "played": 13,
       "won": 7,
       "drawn": 2,
-      "lost": 3,
+      "lost": 4,
       "goalsFor": 21,
-      "goalsAgainst": 17,
+      "goalsAgainst": 20,
       "points": 23,
       "form": [
-        "W",
         "L",
         "D",
         "W",
-        "W"
+        "W",
+        "L"
       ]
     },
     {
@@ -17239,18 +16299,18 @@
       "name": "Deportes La Serena",
       "shortName": "Deportes La Serena",
       "code": "DEP",
-      "played": 12,
-      "won": 5,
+      "played": 13,
+      "won": 6,
       "drawn": 4,
       "lost": 3,
-      "goalsFor": 19,
-      "goalsAgainst": 17,
-      "points": 19,
+      "goalsFor": 21,
+      "goalsAgainst": 18,
+      "points": 22,
       "form": [
-        "L",
         "L",
         "W",
         "D",
+        "W",
         "W"
       ]
     },
@@ -17259,18 +16319,18 @@
       "name": "Deportes Limache",
       "shortName": "Deportes Limache",
       "code": "DEP",
-      "played": 12,
+      "played": 13,
       "won": 6,
       "drawn": 1,
-      "lost": 5,
-      "goalsFor": 18,
-      "goalsAgainst": 17,
+      "lost": 6,
+      "goalsFor": 19,
+      "goalsAgainst": 19,
       "points": 19,
       "form": [
-        "L",
         "D",
         "W",
         "W",
+        "L",
         "L"
       ]
     },

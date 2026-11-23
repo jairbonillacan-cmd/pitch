@@ -5,7 +5,7 @@
   "season": "bundesliga-2026-27",
   "seasonLabel": "2026/27",
   "periodLabel": "Jornada 11",
-  "updatedAt": "2026-11-22T22:03:53.979Z",
+  "updatedAt": "2026-11-23T15:14:45.285Z",
   "source": "openfootball+football-data",
   "provenance": "derived",
   "isDemo": false,
@@ -19,8 +19,8 @@
       "forPerGame": 2.3,
       "againstPerGame": 2.1,
       "gamesPlayed": 10,
-      "adjustedFor": 1.6528485553958758,
-      "adjustedAgainst": 1.648052792512615
+      "adjustedFor": 1.6527200918277587,
+      "adjustedAgainst": 1.6480526369515553
     },
     "bundesliga.bayer-leverkusen": {
       "teamId": "bundesliga.bayer-leverkusen",
@@ -31,8 +31,8 @@
       "forPerGame": 2.4,
       "againstPerGame": 1.7,
       "gamesPlayed": 10,
-      "adjustedFor": 1.9603368930532388,
-      "adjustedAgainst": 1.402021128108616
+      "adjustedFor": 1.9601196450502743,
+      "adjustedAgainst": 1.4020603017609072
     },
     "bundesliga.bayern-munchen": {
       "teamId": "bundesliga.bayern-munchen",
@@ -43,8 +43,8 @@
       "forPerGame": 3,
       "againstPerGame": 1,
       "gamesPlayed": 10,
-      "adjustedFor": 2.8417091328281106,
-      "adjustedAgainst": 1.036720501939777
+      "adjustedFor": 2.8411734386138745,
+      "adjustedAgainst": 1.0368524265695762
     },
     "bundesliga.borussia-dortmund": {
       "teamId": "bundesliga.borussia-dortmund",
@@ -55,8 +55,8 @@
       "forPerGame": 1.7,
       "againstPerGame": 0.7,
       "gamesPlayed": 10,
-      "adjustedFor": 1.7236416373810672,
-      "adjustedAgainst": 0.8709126881051077
+      "adjustedFor": 1.7235190046198916,
+      "adjustedAgainst": 0.8710977256611363
     },
     "bundesliga.borussia-monchengladbach": {
       "teamId": "bundesliga.borussia-monchengladbach",
@@ -67,8 +67,8 @@
       "forPerGame": 1.2,
       "againstPerGame": 2.6,
       "gamesPlayed": 10,
-      "adjustedFor": 1.3311346556389216,
-      "adjustedAgainst": 1.8590466561726187
+      "adjustedFor": 1.3311189522344256,
+      "adjustedAgainst": 1.8589706058380107
     },
     "bundesliga.eintracht-frankfurt": {
       "teamId": "bundesliga.eintracht-frankfurt",
@@ -79,8 +79,8 @@
       "forPerGame": 1.6,
       "againstPerGame": 2,
       "gamesPlayed": 10,
-      "adjustedFor": 1.574551831198649,
-      "adjustedAgainst": 1.6539307441233244
+      "adjustedFor": 1.5744588855875994,
+      "adjustedAgainst": 1.6538985860581108
     },
     "bundesliga.elversberg": {
       "teamId": "bundesliga.elversberg",
@@ -91,8 +91,8 @@
       "forPerGame": 1.7,
       "againstPerGame": 1.9,
       "gamesPlayed": 10,
-      "adjustedFor": 1.6195525089107146,
-      "adjustedAgainst": 1.516781967844085
+      "adjustedFor": 1.6193776861732723,
+      "adjustedAgainst": 1.5167624786235538
     },
     "bundesliga.freiburg": {
       "teamId": "bundesliga.freiburg",
@@ -103,8 +103,8 @@
       "forPerGame": 2.1,
       "againstPerGame": 1,
       "gamesPlayed": 10,
-      "adjustedFor": 1.6764591788601382,
-      "adjustedAgainst": 1.2733543124177706
+      "adjustedFor": 1.676327224900491,
+      "adjustedAgainst": 1.2734275856796609
     },
     "bundesliga.hamburger": {
       "teamId": "bundesliga.hamburger",
@@ -115,8 +115,8 @@
       "forPerGame": 1,
       "againstPerGame": 2.4,
       "gamesPlayed": 10,
-      "adjustedFor": 1.18109285479961,
-      "adjustedAgainst": 1.7793635429289407
+      "adjustedFor": 1.181138963169785,
+      "adjustedAgainst": 1.7793040729177172
     },
     "bundesliga.hoffenheim": {
       "teamId": "bundesliga.hoffenheim",
@@ -127,8 +127,8 @@
       "forPerGame": 1.6,
       "againstPerGame": 1.8,
       "gamesPlayed": 10,
-      "adjustedFor": 1.6444324596848046,
-      "adjustedAgainst": 1.5934024600197936
+      "adjustedFor": 1.6442994420334165,
+      "adjustedAgainst": 1.5933633113254213
     },
     "bundesliga.koln": {
       "teamId": "bundesliga.koln",
@@ -139,8 +139,8 @@
       "forPerGame": 1.1,
       "againstPerGame": 1.5,
       "gamesPlayed": 10,
-      "adjustedFor": 1.2142918790407886,
-      "adjustedAgainst": 1.463855614059301
+      "adjustedFor": 1.2143207784551417,
+      "adjustedAgainst": 1.4638852959016044
     },
     "bundesliga.mainz": {
       "teamId": "bundesliga.mainz",
@@ -151,8 +151,8 @@
       "forPerGame": 1.9,
       "againstPerGame": 2.2,
       "gamesPlayed": 10,
-      "adjustedFor": 1.5380486822139503,
-      "adjustedAgainst": 1.6598787827214005
+      "adjustedFor": 1.537963095926907,
+      "adjustedAgainst": 1.6598544571534428
     },
     "bundesliga.paderborn": {
       "teamId": "bundesliga.paderborn",
@@ -163,8 +163,8 @@
       "forPerGame": 0.8,
       "againstPerGame": 1.5,
       "gamesPlayed": 10,
-      "adjustedFor": 0.9330561000833645,
-      "adjustedAgainst": 1.338288827126398
+      "adjustedFor": 0.9333003611869667,
+      "adjustedAgainst": 1.338344935397632
     },
     "bundesliga.rb-leipzig": {
       "teamId": "bundesliga.rb-leipzig",
@@ -175,8 +175,8 @@
       "forPerGame": 3.2,
       "againstPerGame": 1.4,
       "gamesPlayed": 10,
-      "adjustedFor": 2.2357485524555045,
-      "adjustedAgainst": 1.3099361995029355
+      "adjustedFor": 2.2354474253471026,
+      "adjustedAgainst": 1.3100029405777849
     },
     "bundesliga.schalke": {
       "teamId": "bundesliga.schalke",
@@ -187,8 +187,8 @@
       "forPerGame": 0.5,
       "againstPerGame": 1.1,
       "gamesPlayed": 10,
-      "adjustedFor": 0.7335054576634784,
-      "adjustedAgainst": 1.0000721226005513
+      "adjustedFor": 0.7338610286290372,
+      "adjustedAgainst": 1.0003048476139054
     },
     "bundesliga.stuttgart": {
       "teamId": "bundesliga.stuttgart",
@@ -199,8 +199,8 @@
       "forPerGame": 1.5,
       "againstPerGame": 1.5,
       "gamesPlayed": 10,
-      "adjustedFor": 1.764272703581963,
-      "adjustedAgainst": 1.3608105581913248
+      "adjustedFor": 1.7640993092397357,
+      "adjustedAgainst": 1.3608481134316084
     },
     "bundesliga.union-berlin": {
       "teamId": "bundesliga.union-berlin",
@@ -211,8 +211,8 @@
       "forPerGame": 0.8,
       "againstPerGame": 2.6,
       "gamesPlayed": 10,
-      "adjustedFor": 1.1359489553520639,
-      "adjustedAgainst": 1.7490330447352231
+      "adjustedFor": 1.135990506736905,
+      "adjustedAgainst": 1.7490172816399883
     },
     "bundesliga.werder-bremen": {
       "teamId": "bundesliga.werder-bremen",
@@ -223,8 +223,8 @@
       "forPerGame": 2.1,
       "againstPerGame": 1.5,
       "gamesPlayed": 10,
-      "adjustedFor": 1.5288547333524152,
-      "adjustedAgainst": 1.4082229711638092
+      "adjustedFor": 1.5287799437053697,
+      "adjustedAgainst": 1.4082593277241748
     }
   },
   "games": [
@@ -257,7 +257,7 @@
       "result": {
         "home": 1,
         "away": 1,
-        "observedAt": "2026-11-22T22:03:56.980Z",
+        "observedAt": "2026-11-23T15:14:48.691Z",
         "source": "football-data"
       }
     },
@@ -290,7 +290,7 @@
       "result": {
         "home": 4,
         "away": 0,
-        "observedAt": "2026-11-22T22:03:56.980Z",
+        "observedAt": "2026-11-23T15:14:48.691Z",
         "source": "football-data"
       }
     },
@@ -323,7 +323,7 @@
       "result": {
         "home": 1,
         "away": 5,
-        "observedAt": "2026-11-22T22:03:56.980Z",
+        "observedAt": "2026-11-23T15:14:48.691Z",
         "source": "football-data"
       }
     },
@@ -356,7 +356,7 @@
       "result": {
         "home": 0,
         "away": 1,
-        "observedAt": "2026-11-22T22:03:56.980Z",
+        "observedAt": "2026-11-23T15:14:48.691Z",
         "source": "football-data"
       }
     },
@@ -389,7 +389,7 @@
       "result": {
         "home": 0,
         "away": 1,
-        "observedAt": "2026-11-22T22:03:56.980Z",
+        "observedAt": "2026-11-23T15:14:48.691Z",
         "source": "football-data"
       }
     },
@@ -422,7 +422,7 @@
       "result": {
         "home": 1,
         "away": 0,
-        "observedAt": "2026-11-22T22:03:56.980Z",
+        "observedAt": "2026-11-23T15:14:48.691Z",
         "source": "football-data"
       }
     },
@@ -455,7 +455,7 @@
       "result": {
         "home": 0,
         "away": 0,
-        "observedAt": "2026-11-22T22:03:56.980Z",
+        "observedAt": "2026-11-23T15:14:48.691Z",
         "source": "football-data"
       }
     },
@@ -488,7 +488,7 @@
       "result": {
         "home": 3,
         "away": 1,
-        "observedAt": "2026-11-22T22:03:56.980Z",
+        "observedAt": "2026-11-23T15:14:48.691Z",
         "source": "football-data"
       }
     },
@@ -521,7 +521,7 @@
       "result": {
         "home": 4,
         "away": 0,
-        "observedAt": "2026-11-22T22:03:56.980Z",
+        "observedAt": "2026-11-23T15:14:48.691Z",
         "source": "football-data"
       }
     },
@@ -5957,11 +5957,11 @@
         "referee": "Daniel Siebert",
         "refereeStats": {
           "country": "Germany",
-          "matches": 80,
-          "avgYellow": 4.49,
-          "avgRed": 0.23,
+          "matches": 81,
+          "avgYellow": 4.52,
+          "avgRed": 0.22,
           "avgFouls": 22.1,
-          "avgGoals": 2.96
+          "avgGoals": 2.93
         }
       }
     },
@@ -6704,9 +6704,9 @@
         "referee": "Martin Petersen",
         "refereeStats": {
           "country": "Germany",
-          "matches": 41,
-          "avgYellow": 3.34,
-          "avgRed": 0.2,
+          "matches": 42,
+          "avgYellow": 3.26,
+          "avgRed": 0.19,
           "avgFouls": 23.3,
           "avgGoals": 3.07
         }

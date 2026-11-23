@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "league": "ligapro-ecuador",
   "season": "2026",
-  "updatedAt": "2026-11-22T21:56:46.653Z",
+  "updatedAt": "2026-11-23T15:07:01.408Z",
   "matches": [
     {
       "id": "ligapro-ecuador-2026-07-01-ldu-orense-hsz276",
@@ -1817,6 +1817,17 @@
       "awayTeam": "ligapro-ecuador.delfin",
       "homeScore": 2,
       "awayScore": 2,
+      "neutralSite": false
+    },
+    {
+      "id": "ligapro-ecuador-2026-11-22-ldu-aucas-rzcyqb",
+      "date": "2026-11-22",
+      "startTime": "2026-11-22T21:30:00.000Z",
+      "round": "Regular season · Matchday 7",
+      "homeTeam": "ligapro-ecuador.ldu",
+      "awayTeam": "ligapro-ecuador.aucas",
+      "homeScore": 0,
+      "awayScore": 1,
       "neutralSite": false
     }
   ]

@@ -5,33 +5,11 @@
   "season": "brasileirao-b-2026",
   "seasonLabel": "2026",
   "periodLabel": "League phase · Matchday 37",
-  "updatedAt": "2026-11-22T21:56:46.653Z",
+  "updatedAt": "2026-11-23T15:07:01.408Z",
   "source": "pitchlab-football-v2",
   "provenance": "derived",
   "isDemo": false,
   "teamRates": {
-    "brasileirao-b.cuiaba": {
-      "teamId": "brasileirao-b.cuiaba",
-      "name": "Cuiabá",
-      "shortName": "Cuiabá",
-      "code": "CUI",
-      "forPerGame": 1.0416666666666667,
-      "againstPerGame": 1.0833333333333333,
-      "gamesPlayed": 24,
-      "adjustedFor": 0.9694364784575163,
-      "adjustedAgainst": 1.0133893816531137
-    },
-    "brasileirao-b.londrina": {
-      "teamId": "brasileirao-b.londrina",
-      "name": "Londrina",
-      "shortName": "Londrina",
-      "code": "LON",
-      "forPerGame": 1.25,
-      "againstPerGame": 1.5416666666666667,
-      "gamesPlayed": 24,
-      "adjustedFor": 1.1645753016633944,
-      "adjustedAgainst": 1.4474131021975978
-    },
     "brasileirao-b.gremio-novorizontino": {
       "teamId": "brasileirao-b.gremio-novorizontino",
       "name": "Grêmio Novorizontino",
@@ -40,19 +18,19 @@
       "forPerGame": 1.875,
       "againstPerGame": 0.7916666666666666,
       "gamesPlayed": 24,
-      "adjustedFor": 1.695596674228186,
-      "adjustedAgainst": 0.7996143822371778
+      "adjustedFor": 1.6943975275754681,
+      "adjustedAgainst": 0.7988533694386157
     },
     "brasileirao-b.vila-nova": {
       "teamId": "brasileirao-b.vila-nova",
       "name": "Vila Nova FC",
       "shortName": "Vila Nova",
       "code": "VIL",
-      "forPerGame": 1.2916666666666667,
+      "forPerGame": 1.28,
       "againstPerGame": 1,
-      "gamesPlayed": 24,
-      "adjustedFor": 1.2328203069065016,
-      "adjustedAgainst": 0.9329021613874859
+      "gamesPlayed": 25,
+      "adjustedFor": 1.2414078010781915,
+      "adjustedAgainst": 0.9324719570443863
     },
     "brasileirao-b.operario-pr": {
       "teamId": "brasileirao-b.operario-pr",
@@ -62,8 +40,8 @@
       "forPerGame": 1.375,
       "againstPerGame": 1.375,
       "gamesPlayed": 24,
-      "adjustedFor": 1.2316694659660885,
-      "adjustedAgainst": 1.2671693301984623
+      "adjustedFor": 1.2303971278776307,
+      "adjustedAgainst": 1.2660789239942563
     },
     "brasileirao-b.america-mineiro": {
       "teamId": "brasileirao-b.america-mineiro",
@@ -73,8 +51,8 @@
       "forPerGame": 0.7083333333333334,
       "againstPerGame": 1.3333333333333333,
       "gamesPlayed": 24,
-      "adjustedFor": 0.7149052709866949,
-      "adjustedAgainst": 1.2153930342985142
+      "adjustedFor": 0.715569369170074,
+      "adjustedAgainst": 1.2163205307250031
     },
     "brasileirao-b.criciuma": {
       "teamId": "brasileirao-b.criciuma",
@@ -84,8 +62,8 @@
       "forPerGame": 0.92,
       "againstPerGame": 0.84,
       "gamesPlayed": 25,
-      "adjustedFor": 0.8632674270100508,
-      "adjustedAgainst": 0.809413393314438
+      "adjustedFor": 0.8626017847554998,
+      "adjustedAgainst": 0.8084461317807604
     },
     "brasileirao-b.sao-bernardo": {
       "teamId": "brasileirao-b.sao-bernardo",
@@ -95,8 +73,8 @@
       "forPerGame": 1.4166666666666667,
       "againstPerGame": 1.375,
       "gamesPlayed": 24,
-      "adjustedFor": 1.3577667838968606,
-      "adjustedAgainst": 1.2801777442980553
+      "adjustedFor": 1.3584409446806696,
+      "adjustedAgainst": 1.279491678334278
     },
     "brasileirao-b.juventude": {
       "teamId": "brasileirao-b.juventude",
@@ -106,8 +84,8 @@
       "forPerGame": 1.5416666666666667,
       "againstPerGame": 0.75,
       "gamesPlayed": 24,
-      "adjustedFor": 1.4226938409010774,
-      "adjustedAgainst": 0.7826389473982525
+      "adjustedFor": 1.42278192554045,
+      "adjustedAgainst": 0.7820771325967175
     },
     "brasileirao-b.ceara": {
       "teamId": "brasileirao-b.ceara",
@@ -117,19 +95,19 @@
       "forPerGame": 1,
       "againstPerGame": 1.3333333333333333,
       "gamesPlayed": 24,
-      "adjustedFor": 0.9821533061898712,
-      "adjustedAgainst": 1.2150617638985326
+      "adjustedFor": 0.9816969523489399,
+      "adjustedAgainst": 1.2139266036943857
     },
     "brasileirao-b.atletico-goianiense": {
       "teamId": "brasileirao-b.atletico-goianiense",
       "name": "Atlético Goianiense",
       "shortName": "Goianiense",
       "code": "ATL",
-      "forPerGame": 1.25,
-      "againstPerGame": 0.7916666666666666,
-      "gamesPlayed": 24,
-      "adjustedFor": 1.1534659798247267,
-      "adjustedAgainst": 0.7934699230998014
+      "forPerGame": 1.24,
+      "againstPerGame": 0.8,
+      "gamesPlayed": 25,
+      "adjustedFor": 1.1458569354972807,
+      "adjustedAgainst": 0.7960186668352467
     },
     "brasileirao-b.ponte-preta": {
       "teamId": "brasileirao-b.ponte-preta",
@@ -139,8 +117,8 @@
       "forPerGame": 0.4583333333333333,
       "againstPerGame": 2.25,
       "gamesPlayed": 24,
-      "adjustedFor": 0.5542335553421103,
-      "adjustedAgainst": 1.948347135643055
+      "adjustedFor": 0.5536952989276125,
+      "adjustedAgainst": 1.947450773339727
     },
     "brasileirao-b.athletic": {
       "teamId": "brasileirao-b.athletic",
@@ -150,8 +128,8 @@
       "forPerGame": 1.2916666666666667,
       "againstPerGame": 1.2916666666666667,
       "gamesPlayed": 24,
-      "adjustedFor": 1.2207269505790046,
-      "adjustedAgainst": 1.2194567435911243
+      "adjustedFor": 1.2199418431581484,
+      "adjustedAgainst": 1.2188156314683276
     },
     "brasileirao-b.avai": {
       "teamId": "brasileirao-b.avai",
@@ -161,8 +139,8 @@
       "forPerGame": 0.9166666666666666,
       "againstPerGame": 1.125,
       "gamesPlayed": 24,
-      "adjustedFor": 0.8810441273782694,
-      "adjustedAgainst": 1.056817710475791
+      "adjustedFor": 0.8803731792164975,
+      "adjustedAgainst": 1.0559129403864698
     },
     "brasileirao-b.nautico": {
       "teamId": "brasileirao-b.nautico",
@@ -172,8 +150,8 @@
       "forPerGame": 0.8333333333333334,
       "againstPerGame": 1.375,
       "gamesPlayed": 24,
-      "adjustedFor": 0.8270763660958964,
-      "adjustedAgainst": 1.26365483633102
+      "adjustedFor": 0.8270085147259781,
+      "adjustedAgainst": 1.2639297028877214
     },
     "brasileirao-b.goias": {
       "teamId": "brasileirao-b.goias",
@@ -183,8 +161,8 @@
       "forPerGame": 1.0833333333333333,
       "againstPerGame": 0.9583333333333334,
       "gamesPlayed": 24,
-      "adjustedFor": 0.9759736844781365,
-      "adjustedAgainst": 0.9368867201119159
+      "adjustedFor": 0.9750789048437194,
+      "adjustedAgainst": 0.9359898342680012
     },
     "brasileirao-b.fortaleza": {
       "teamId": "brasileirao-b.fortaleza",
@@ -194,8 +172,8 @@
       "forPerGame": 1.16,
       "againstPerGame": 0.76,
       "gamesPlayed": 25,
-      "adjustedFor": 1.0697010475435709,
-      "adjustedAgainst": 0.7638284930329514
+      "adjustedFor": 1.0684438010531356,
+      "adjustedAgainst": 0.7630472223211872
     },
     "brasileirao-b.sport-recife": {
       "teamId": "brasileirao-b.sport-recife",
@@ -205,8 +183,8 @@
       "forPerGame": 1.5,
       "againstPerGame": 1.375,
       "gamesPlayed": 24,
-      "adjustedFor": 1.4244893193565074,
-      "adjustedAgainst": 1.2792076289047745
+      "adjustedFor": 1.4239826583552588,
+      "adjustedAgainst": 1.2781947135827094
     },
     "brasileirao-b.botafogo-sp": {
       "teamId": "brasileirao-b.botafogo-sp",
@@ -216,8 +194,8 @@
       "forPerGame": 1.2916666666666667,
       "againstPerGame": 1.1666666666666667,
       "gamesPlayed": 24,
-      "adjustedFor": 1.1714838184843372,
-      "adjustedAgainst": 1.0565501464587885
+      "adjustedFor": 1.1717622372885252,
+      "adjustedAgainst": 1.0567150848087603
     },
     "brasileirao-b.crb": {
       "teamId": "brasileirao-b.crb",
@@ -227,46 +205,33 @@
       "forPerGame": 1.4583333333333333,
       "againstPerGame": 1.1666666666666667,
       "gamesPlayed": 24,
-      "adjustedFor": 1.3385716278649755,
-      "adjustedAgainst": 1.116264209408743
+      "adjustedFor": 1.33899259136487,
+      "adjustedAgainst": 1.116628539893921
+    },
+    "brasileirao-b.cuiaba": {
+      "teamId": "brasileirao-b.cuiaba",
+      "name": "Cuiabá",
+      "shortName": "Cuiabá",
+      "code": "CUI",
+      "forPerGame": 1,
+      "againstPerGame": 1.0434782608695652,
+      "gamesPlayed": 23,
+      "adjustedFor": 0.9546759033084735,
+      "adjustedAgainst": 0.9852735439380009
+    },
+    "brasileirao-b.londrina": {
+      "teamId": "brasileirao-b.londrina",
+      "name": "Londrina",
+      "shortName": "Londrina",
+      "code": "LON",
+      "forPerGame": 1.2173913043478262,
+      "againstPerGame": 1.5217391304347827,
+      "gamesPlayed": 23,
+      "adjustedFor": 1.1304724397189034,
+      "adjustedAgainst": 1.4232349048291681
     }
   },
   "games": [
-    {
-      "id": "brasileirao-b-2026-11-07-cuiaba-juventude-mtlybb",
-      "league": "brasileirao-b",
-      "season": "brasileirao-b-2026",
-      "week": 37,
-      "round": "League phase · Matchday 37",
-      "phase": "League phase",
-      "startTime": "2026-11-07T23:00:00.000Z",
-      "status": "final",
-      "home": {
-        "id": "brasileirao-b.cuiaba",
-        "league": "brasileirao-b",
-        "name": "Cuiabá",
-        "shortName": "Cuiabá",
-        "code": "CUI",
-        "logoUrl": "https://sports.bzzoiro.com/img/team/863/?bg=transparent"
-      },
-      "away": {
-        "id": "brasileirao-b.juventude",
-        "league": "brasileirao-b",
-        "name": "Juventude",
-        "shortName": "Juventude",
-        "code": "JUV",
-        "logoUrl": "https://sports.bzzoiro.com/img/team/156/?bg=transparent"
-      },
-      "venue": "Arena Pantanal, Cuiabá",
-      "referee": "Andre Luis Skettino Policarpo Bento",
-      "neutralSite": false,
-      "result": {
-        "home": 1,
-        "away": 2,
-        "observedAt": "2026-11-22T21:56:46.653Z",
-        "source": "pitchlab-feed"
-      }
-    },
     {
       "id": "brasileirao-b-2026-11-08-nautico-crb-ol72bi",
       "league": "brasileirao-b",
@@ -298,7 +263,7 @@
       "result": {
         "home": 0,
         "away": 3,
-        "observedAt": "2026-11-22T21:56:46.653Z",
+        "observedAt": "2026-11-23T15:07:01.408Z",
         "source": "pitchlab-feed"
       }
     },
@@ -333,7 +298,7 @@
       "result": {
         "home": 2,
         "away": 3,
-        "observedAt": "2026-11-22T21:56:46.653Z",
+        "observedAt": "2026-11-23T15:07:01.408Z",
         "source": "pitchlab-feed"
       }
     },
@@ -368,7 +333,7 @@
       "result": {
         "home": 1,
         "away": 0,
-        "observedAt": "2026-11-22T21:56:46.653Z",
+        "observedAt": "2026-11-23T15:07:01.408Z",
         "source": "pitchlab-feed"
       }
     },
@@ -403,7 +368,7 @@
       "result": {
         "home": 0,
         "away": 1,
-        "observedAt": "2026-11-22T21:56:46.653Z",
+        "observedAt": "2026-11-23T15:07:01.408Z",
         "source": "pitchlab-feed"
       }
     },
@@ -438,7 +403,7 @@
       "result": {
         "home": 2,
         "away": 1,
-        "observedAt": "2026-11-22T21:56:46.653Z",
+        "observedAt": "2026-11-23T15:07:01.408Z",
         "source": "pitchlab-feed"
       }
     },
@@ -472,7 +437,7 @@
       "result": {
         "home": 0,
         "away": 2,
-        "observedAt": "2026-11-22T21:56:46.653Z",
+        "observedAt": "2026-11-23T15:07:01.408Z",
         "source": "pitchlab-feed"
       }
     },
@@ -506,7 +471,7 @@
       "result": {
         "home": 2,
         "away": 2,
-        "observedAt": "2026-11-22T21:56:46.653Z",
+        "observedAt": "2026-11-23T15:07:01.408Z",
         "source": "pitchlab-feed"
       }
     },
@@ -541,7 +506,7 @@
       "result": {
         "home": 3,
         "away": 0,
-        "observedAt": "2026-11-22T21:56:46.653Z",
+        "observedAt": "2026-11-23T15:07:01.408Z",
         "source": "pitchlab-feed"
       }
     },
@@ -576,7 +541,7 @@
       "result": {
         "home": 2,
         "away": 0,
-        "observedAt": "2026-11-22T21:56:46.653Z",
+        "observedAt": "2026-11-23T15:07:01.408Z",
         "source": "pitchlab-feed"
       }
     },
@@ -611,7 +576,7 @@
       "result": {
         "home": 1,
         "away": 0,
-        "observedAt": "2026-11-22T21:56:46.653Z",
+        "observedAt": "2026-11-23T15:07:01.408Z",
         "source": "pitchlab-feed"
       }
     },
@@ -646,7 +611,7 @@
       "result": {
         "home": 0,
         "away": 1,
-        "observedAt": "2026-11-22T21:56:46.653Z",
+        "observedAt": "2026-11-23T15:07:01.408Z",
         "source": "pitchlab-feed"
       }
     },
@@ -681,7 +646,7 @@
       "result": {
         "home": 1,
         "away": 1,
-        "observedAt": "2026-11-22T21:56:46.653Z",
+        "observedAt": "2026-11-23T15:07:01.408Z",
         "source": "pitchlab-feed"
       }
     },
@@ -716,7 +681,7 @@
       "result": {
         "home": 1,
         "away": 0,
-        "observedAt": "2026-11-22T21:56:46.653Z",
+        "observedAt": "2026-11-23T15:07:01.408Z",
         "source": "pitchlab-feed"
       }
     },
@@ -751,7 +716,7 @@
       "result": {
         "home": 0,
         "away": 2,
-        "observedAt": "2026-11-22T21:56:46.653Z",
+        "observedAt": "2026-11-23T15:07:01.408Z",
         "source": "pitchlab-feed"
       }
     },
@@ -786,7 +751,7 @@
       "result": {
         "home": 1,
         "away": 0,
-        "observedAt": "2026-11-22T21:56:46.653Z",
+        "observedAt": "2026-11-23T15:07:01.408Z",
         "source": "pitchlab-feed"
       }
     },
@@ -798,7 +763,7 @@
       "round": "Final",
       "phase": "Final",
       "startTime": "2026-11-22T21:30:00.000Z",
-      "status": "scheduled",
+      "status": "final",
       "home": {
         "id": "brasileirao-b.atletico-goianiense",
         "league": "brasileirao-b",
@@ -817,7 +782,13 @@
       },
       "venue": "Estádio Antônio Accioly, Goiânia",
       "referee": "Flavio Rodrigues De Souza",
-      "neutralSite": false
+      "neutralSite": false,
+      "result": {
+        "home": 1,
+        "away": 1,
+        "observedAt": "2026-11-23T15:07:01.408Z",
+        "source": "pitchlab-feed"
+      }
     },
     {
       "id": "brasileirao-b-2026-11-27-vila-nova-atletico-goian-gt16or",
@@ -877,466 +848,6 @@
     }
   ],
   "analyses": {
-    "brasileirao-b-2026-11-07-cuiaba-juventude-mtlybb": {
-      "game": "brasileirao-b-2026-11-07-cuiaba-juventude-mtlybb",
-      "model": {
-        "id": "pitchlab-statistical-brasileirao-b",
-        "version": "2.0.0",
-        "status": "candidate",
-        "label": "Modelo PitchLab · en validación"
-      },
-      "projection": {
-        "home": 0.9970861295819259,
-        "away": 1.3393812709441935,
-        "total": 2.3364674005261192,
-        "margin": -0.3422951413622676
-      },
-      "x12": [
-        0.28500013309868705,
-        0.26291880913463916,
-        0.4520810577666739
-      ],
-      "probabilities": [
-        {
-          "market": "h2h",
-          "selection": "Cuiabá gana",
-          "p": 0.28500013309868705,
-          "fairOdds": 3.5087702911834424
-        },
-        {
-          "market": "h2h",
-          "selection": "Empate",
-          "p": 0.26291880913463916,
-          "fairOdds": 3.803455535537231
-        },
-        {
-          "market": "h2h",
-          "selection": "Juventude gana",
-          "p": 0.4520810577666739,
-          "fairOdds": 2.2119927009109848
-        },
-        {
-          "market": "double_chance",
-          "selection": "Cuiabá o empate",
-          "p": 0.5479189422333262,
-          "fairOdds": 1.825087477216948
-        },
-        {
-          "market": "double_chance",
-          "selection": "Juventude o empate",
-          "p": 0.7149998669013131,
-          "fairOdds": 1.398601658953908
-        },
-        {
-          "market": "double_chance",
-          "selection": "Sin empate",
-          "p": 0.737081190865361,
-          "fairOdds": 1.3567026433356175
-        },
-        {
-          "market": "totals",
-          "selection": "Más de 1.5",
-          "line": 1.5,
-          "p": 0.6710136106318203,
-          "fairOdds": 1.490282736677143
-        },
-        {
-          "market": "totals",
-          "selection": "Más de 2.5",
-          "line": 2.5,
-          "p": 0.41360789086973004,
-          "fairOdds": 2.4177488439526895
-        },
-        {
-          "market": "totals",
-          "selection": "Menos de 2.5",
-          "line": 2.5,
-          "p": 0.58639210913027,
-          "fairOdds": 1.705343548164706
-        },
-        {
-          "market": "totals",
-          "selection": "Más de 3.5",
-          "line": 3.5,
-          "p": 0.20810728236703846,
-          "fairOdds": 4.8052138715468
-        },
-        {
-          "market": "totals",
-          "selection": "Menos de 3.5",
-          "line": 3.5,
-          "p": 0.7918927176329615,
-          "fairOdds": 1.262797318037082
-        },
-        {
-          "market": "btts",
-          "selection": "Sí",
-          "p": 0.45925286806278837,
-          "fairOdds": 2.177449656913806
-        },
-        {
-          "market": "btts",
-          "selection": "No",
-          "p": 0.5407471319372117,
-          "fairOdds": 1.8492932110754385
-        },
-        {
-          "market": "team_totals",
-          "selection": "Cuiabá más de 1.5",
-          "line": 1.5,
-          "p": 0.2631691589665326,
-          "fairOdds": 3.799837351485288
-        },
-        {
-          "market": "team_totals",
-          "selection": "Cuiabá menos de 1.5",
-          "line": 1.5,
-          "p": 0.7368308410334674,
-          "fairOdds": 1.357163604332055
-        },
-        {
-          "market": "team_totals",
-          "selection": "Juventude más de 1.5",
-          "line": 1.5,
-          "p": 0.387063910479734,
-          "fairOdds": 2.5835526716003616
-        },
-        {
-          "market": "team_totals",
-          "selection": "Juventude menos de 1.5",
-          "line": 1.5,
-          "p": 0.612936089520266,
-          "fairOdds": 1.6314914672142766
-        },
-        {
-          "market": "correct_score",
-          "selection": "0–1",
-          "p": 0.13593097768716694,
-          "fairOdds": 7.356674814047252
-        },
-        {
-          "market": "correct_score",
-          "selection": "1–1",
-          "p": 0.12264382497280243,
-          "fairOdds": 8.153692207673403
-        },
-        {
-          "market": "correct_score",
-          "selection": "1–0",
-          "p": 0.10284180418920831,
-          "fairOdds": 9.723672273973339
-        }
-      ],
-      "marketGroups": [
-        {
-          "group": "Resultado",
-          "rows": [
-            {
-              "market": "h2h",
-              "selection": "home",
-              "label": "Cuiabá gana",
-              "p": 0.28500013309868705,
-              "fairOdds": 3.5087702911834424
-            },
-            {
-              "market": "h2h",
-              "selection": "draw",
-              "label": "Empate",
-              "p": 0.26291880913463916,
-              "fairOdds": 3.803455535537231
-            },
-            {
-              "market": "h2h",
-              "selection": "away",
-              "label": "Juventude gana",
-              "p": 0.4520810577666739,
-              "fairOdds": 2.2119927009109848
-            }
-          ]
-        },
-        {
-          "group": "Doble oportunidad",
-          "rows": [
-            {
-              "market": "double_chance",
-              "selection": "1x",
-              "label": "Cuiabá o empate",
-              "p": 0.5479189422333262,
-              "fairOdds": 1.825087477216948
-            },
-            {
-              "market": "double_chance",
-              "selection": "x2",
-              "label": "Juventude o empate",
-              "p": 0.7149998669013131,
-              "fairOdds": 1.398601658953908
-            },
-            {
-              "market": "double_chance",
-              "selection": "12",
-              "label": "Sin empate",
-              "p": 0.737081190865361,
-              "fairOdds": 1.3567026433356175
-            }
-          ]
-        },
-        {
-          "group": "Goles totales",
-          "rows": [
-            {
-              "market": "totals",
-              "selection": "over_1.5",
-              "label": "Más de 1.5",
-              "line": 1.5,
-              "p": 0.6710136106318203,
-              "fairOdds": 1.490282736677143
-            },
-            {
-              "market": "totals",
-              "selection": "over_2.5",
-              "label": "Más de 2.5",
-              "line": 2.5,
-              "p": 0.41360789086973004,
-              "fairOdds": 2.4177488439526895
-            },
-            {
-              "market": "totals",
-              "selection": "under_2.5",
-              "label": "Menos de 2.5",
-              "line": 2.5,
-              "p": 0.58639210913027,
-              "fairOdds": 1.705343548164706
-            },
-            {
-              "market": "totals",
-              "selection": "over_3.5",
-              "label": "Más de 3.5",
-              "line": 3.5,
-              "p": 0.20810728236703846,
-              "fairOdds": 4.8052138715468
-            },
-            {
-              "market": "totals",
-              "selection": "under_3.5",
-              "label": "Menos de 3.5",
-              "line": 3.5,
-              "p": 0.7918927176329615,
-              "fairOdds": 1.262797318037082
-            }
-          ]
-        },
-        {
-          "group": "Ambos anotan",
-          "rows": [
-            {
-              "market": "btts",
-              "selection": "yes",
-              "label": "Sí",
-              "p": 0.45925286806278837,
-              "fairOdds": 2.177449656913806
-            },
-            {
-              "market": "btts",
-              "selection": "no",
-              "label": "No",
-              "p": 0.5407471319372117,
-              "fairOdds": 1.8492932110754385
-            }
-          ]
-        },
-        {
-          "group": "Goles por equipo (1.5)",
-          "rows": [
-            {
-              "market": "team_totals",
-              "selection": "home_over",
-              "label": "Cuiabá más de 1.5",
-              "line": 1.5,
-              "p": 0.2631691589665326,
-              "fairOdds": 3.799837351485288
-            },
-            {
-              "market": "team_totals",
-              "selection": "home_under",
-              "label": "Cuiabá menos de 1.5",
-              "line": 1.5,
-              "p": 0.7368308410334674,
-              "fairOdds": 1.357163604332055
-            },
-            {
-              "market": "team_totals",
-              "selection": "away_over",
-              "label": "Juventude más de 1.5",
-              "line": 1.5,
-              "p": 0.387063910479734,
-              "fairOdds": 2.5835526716003616
-            },
-            {
-              "market": "team_totals",
-              "selection": "away_under",
-              "label": "Juventude menos de 1.5",
-              "line": 1.5,
-              "p": 0.612936089520266,
-              "fairOdds": 1.6314914672142766
-            }
-          ]
-        },
-        {
-          "group": "Marcador exacto (más probables)",
-          "rows": [
-            {
-              "market": "correct_score",
-              "selection": "0-1",
-              "label": "0–1",
-              "p": 0.13593097768716694,
-              "fairOdds": 7.356674814047252
-            },
-            {
-              "market": "correct_score",
-              "selection": "1-1",
-              "label": "1–1",
-              "p": 0.12264382497280243,
-              "fairOdds": 8.153692207673403
-            },
-            {
-              "market": "correct_score",
-              "selection": "1-0",
-              "label": "1–0",
-              "p": 0.10284180418920831,
-              "fairOdds": 9.723672273973339
-            }
-          ]
-        }
-      ],
-      "mostLikelyScore": {
-        "home": 0,
-        "away": 1,
-        "p": 0.13593097768716694
-      },
-      "factors": [
-        {
-          "key": "home_attack",
-          "label": "Ataque local",
-          "value": "0.70 goles/partido",
-          "detail": "10 % menos que la media · 24 partidos"
-        },
-        {
-          "key": "away_defense",
-          "label": "Defensa visitante",
-          "value": "0.78 concedidos/partido",
-          "detail": "27 % menos que la media · 24 partidos"
-        },
-        {
-          "key": "away_attack",
-          "label": "Ataque visitante",
-          "value": "1.34 goles/partido",
-          "detail": "32 % más que la media · ajustado por rival"
-        },
-        {
-          "key": "home_defense",
-          "label": "Defensa local",
-          "value": "1.01 concedidos/partido",
-          "detail": "6 % menos que la media · ajustado por rival"
-        },
-        {
-          "key": "home_advantage",
-          "label": "Localía",
-          "value": "×1.42",
-          "detail": "estimada de 242 partidos"
-        },
-        {
-          "key": "uncertainty",
-          "label": "Intervalo 90%",
-          "value": "goles 1.8–3.3",
-          "detail": "local 14%–48% · 242 partidos"
-        },
-        {
-          "key": "home_position",
-          "label": "Posición local",
-          "value": "15.º · 28 pts",
-          "detail": "de 20 equipos"
-        },
-        {
-          "key": "away_position",
-          "label": "Posición visitante",
-          "value": "2.º · 49 pts",
-          "detail": "de 20 equipos"
-        },
-        {
-          "key": "home_form",
-          "label": "Forma local",
-          "value": "E-P-P-P-P · 1 pts",
-          "detail": "1 goles a favor · 5 en contra"
-        },
-        {
-          "key": "away_form",
-          "label": "Forma visitante",
-          "value": "G-E-E-G-E · 9 pts",
-          "detail": "12 goles a favor · 6 en contra"
-        }
-      ],
-      "steps": [
-        "Sincronizando Brasileirão Serie B · corte 7 nov 2026, 16:00",
-        "Fuerza ajustada por rival · CUI 0.90 / 0.94 · JUV 1.32 / 0.73",
-        "Ponderando 210.6 partidos por antigüedad y calidad del rival",
-        "Proyección de goles 1.00 – 1.34 · total 2.34",
-        "Simulando 121 marcadores con incertidumbre del ajuste",
-        "20 mercados listos · marcador proyectado 0–1"
-      ],
-      "inputsAsOf": "2026-11-07T22:00:00.000Z",
-      "publishedAt": "2026-11-07T22:00:00.000Z",
-      "source": "pitchlab-football-v2",
-      "projectedScore": {
-        "home": 0,
-        "away": 1,
-        "p": 0.13593097768716694
-      },
-      "insights": {
-        "why": [
-          "Se esperan 2.3 goles: 1.0 de Cuiabá y 1.3 de Juventude.",
-          "Juventude concede 27 % menos que la media.",
-          "Juventude anota 32 % más que la media."
-        ],
-        "headToHead": [
-          {
-            "date": "2026-07-17",
-            "homeTeamId": "brasileirao-b.juventude",
-            "awayTeamId": "brasileirao-b.cuiaba",
-            "homeGoals": 2,
-            "awayGoals": 0
-          }
-        ],
-        "restDays": {
-          "home": 6,
-          "away": 7
-        }
-      },
-      "matchContext": {
-        "referee": "Andre Luis Skettino Policarpo Bento",
-        "refereeStats": {
-          "country": "Brazil",
-          "matches": 22,
-          "avgYellow": 5.59,
-          "avgRed": 0.45,
-          "avgFouls": 30.5,
-          "avgGoals": 2.09
-        },
-        "weather": {
-          "description": "cloudy",
-          "temperatureC": 28,
-          "windSpeedKmh": 17
-        },
-        "travelDistanceKm": 1594,
-        "halfTimeScore": {
-          "home": 0,
-          "away": 1
-        },
-        "stageName": "League phase",
-        "venueCity": "Cuiabá",
-        "venueCountry": "Brazil",
-        "venueCapacity": 42968
-      }
-    },
     "brasileirao-b-2026-11-08-nautico-crb-ol72bi": {
       "game": "brasileirao-b-2026-11-08-nautico-crb-ol72bi",
       "model": {
@@ -2693,11 +2204,11 @@
         "referee": "Wagner do Nascimento Magalhaes",
         "refereeStats": {
           "country": "Brazil",
-          "matches": 57,
-          "avgYellow": 4.88,
-          "avgRed": 0.18,
+          "matches": 58,
+          "avgYellow": 4.95,
+          "avgRed": 0.19,
           "avgFouls": 27.4,
-          "avgGoals": 2.77
+          "avgGoals": 2.76
         },
         "weather": {
           "description": "cloudy",
@@ -6353,11 +5864,11 @@
         "referee": "Wilton Pereira Sampaio",
         "refereeStats": {
           "country": "Brazil",
-          "matches": 84,
-          "avgYellow": 4.85,
+          "matches": 85,
+          "avgYellow": 4.93,
           "avgRed": 0.21,
           "avgFouls": 26.7,
-          "avgGoals": 2.51
+          "avgGoals": 2.52
         },
         "weather": {
           "description": "clear",
@@ -7272,11 +6783,11 @@
         "referee": "Braulio Da Silva Machado",
         "refereeStats": {
           "country": "Brazil",
-          "matches": 30,
-          "avgYellow": 5.37,
-          "avgRed": 0.1,
-          "avgFouls": 24.5,
-          "avgGoals": 2.53
+          "matches": 31,
+          "avgYellow": 5.39,
+          "avgRed": 0.13,
+          "avgFouls": 24.6,
+          "avgGoals": 2.48
         },
         "weather": {
           "description": "cloudy",
@@ -8725,13 +8236,14 @@
         "referee": "Flavio Rodrigues De Souza",
         "refereeStats": {
           "country": "Brazil",
-          "matches": 60,
-          "avgYellow": 5.33,
+          "matches": 61,
+          "avgYellow": 5.26,
           "avgRed": 0.3,
-          "avgFouls": 26,
+          "avgFouls": 25.4,
           "avgGoals": 2.25
         },
         "weather": {
+          "description": "clear",
           "temperatureC": 26,
           "windSpeedKmh": 23
         },
@@ -9755,19 +9267,19 @@
       "name": "Atlético Goianiense",
       "shortName": "Goianiense",
       "code": "ATL",
-      "played": 24,
+      "played": 25,
       "won": 12,
-      "drawn": 7,
+      "drawn": 8,
       "lost": 5,
-      "goalsFor": 30,
-      "goalsAgainst": 19,
-      "points": 43,
+      "goalsFor": 31,
+      "goalsAgainst": 20,
+      "points": 44,
       "form": [
-        "D",
         "L",
         "D",
         "W",
-        "W"
+        "W",
+        "D"
       ]
     },
     {
@@ -9855,19 +9367,19 @@
       "name": "Vila Nova FC",
       "shortName": "Vila Nova",
       "code": "VIL",
-      "played": 24,
+      "played": 25,
       "won": 11,
-      "drawn": 5,
+      "drawn": 6,
       "lost": 8,
-      "goalsFor": 31,
-      "goalsAgainst": 24,
-      "points": 38,
+      "goalsFor": 32,
+      "goalsAgainst": 25,
+      "points": 39,
       "form": [
-        "D",
         "L",
         "D",
         "W",
-        "L"
+        "L",
+        "D"
       ]
     },
     {
@@ -9995,13 +9507,13 @@
       "name": "Cuiabá",
       "shortName": "Cuiabá",
       "code": "CUI",
-      "played": 24,
+      "played": 23,
       "won": 7,
-      "drawn": 7,
+      "drawn": 6,
       "lost": 10,
-      "goalsFor": 25,
-      "goalsAgainst": 26,
-      "points": 28,
+      "goalsFor": 23,
+      "goalsAgainst": 24,
+      "points": 27,
       "form": [
         "L",
         "L",
@@ -10075,13 +9587,13 @@
       "name": "Londrina",
       "shortName": "Londrina",
       "code": "LON",
-      "played": 24,
+      "played": 23,
       "won": 5,
-      "drawn": 6,
+      "drawn": 5,
       "lost": 13,
-      "goalsFor": 30,
-      "goalsAgainst": 37,
-      "points": 21,
+      "goalsFor": 28,
+      "goalsAgainst": 35,
+      "points": 20,
       "form": [
         "W",
         "L",

@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "league": "serie-a",
-  "observedAt": "2026-11-22T22:04:45.643Z",
+  "observedAt": "2026-11-23T15:15:15.858Z",
   "entries": [
     {
       "gameId": "serie-a-2026-27-md12-atalanta-bc-internazionale-milano",
@@ -145,22 +145,22 @@
       "gameId": "serie-a-2026-27-md12-monza-fiorentina",
       "source": "polymarket",
       "unit": "usd",
-      "observedAt": "2026-11-22T22:04:45.643Z",
+      "observedAt": "2026-11-23T15:15:15.858Z",
       "outcomes": [
         {
           "side": "home",
-          "volume": 182.29409900000002,
+          "volume": 2351.308442,
           "price": 0.255
         },
         {
           "side": "draw",
-          "volume": 1209.1156580000002,
+          "volume": 3270.449247,
           "price": 0.255
         },
         {
           "side": "away",
-          "volume": 602.873138,
-          "price": 0.495
+          "volume": 9891.891384,
+          "price": 0.505
         }
       ]
     },

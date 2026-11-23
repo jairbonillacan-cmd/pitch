@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "league": "championship",
   "seasonLabel": "2026/27",
-  "observedAt": "2026-11-22T21:56:46.653Z",
+  "observedAt": "2026-11-23T15:07:01.408Z",
   "teams": [
     {
       "teamId": "championship.charlton-athletic",
@@ -24,7 +24,7 @@
           "winPct": 41.7
         }
       },
-      "updatedAt": "2026-11-22T21:56:46.653Z",
+      "updatedAt": "2026-11-23T15:07:01.408Z",
       "players": [
         {
           "id": "championship.charlton-athletic.alan-mwamba",
@@ -1232,7 +1232,7 @@
           "winPct": 47.2
         }
       },
-      "updatedAt": "2026-11-22T21:56:46.653Z",
+      "updatedAt": "2026-11-23T15:07:01.408Z",
       "players": [
         {
           "id": "championship.sheffield-united.adam-davies",
@@ -1287,8 +1287,8 @@
           "nationality": "Chile",
           "nationalityCode": null,
           "photoKey": "pl-p:6230",
-          "availability": "available",
-          "injuryDetail": null,
+          "availability": "injured",
+          "injuryDetail": "club_decision",
           "expectedReturn": null,
           "stats": {
             "appearances": 0,
@@ -1546,8 +1546,8 @@
           "nationality": "England",
           "nationalityCode": null,
           "photoKey": "pl-p:6068",
-          "availability": "available",
-          "injuryDetail": null,
+          "availability": "suspended",
+          "injuryDetail": "yellow_card_accumulation_suspension",
           "expectedReturn": null,
           "stats": {
             "appearances": 0,
@@ -2255,7 +2255,7 @@
           "winPct": 42.5
         }
       },
-      "updatedAt": "2026-11-22T21:56:46.653Z",
+      "updatedAt": "2026-11-23T15:07:01.408Z",
       "players": [
         {
           "id": "championship.cardiff-city.alex-robertson",
@@ -2401,7 +2401,7 @@
             "offsides": 0,
             "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 2
+            "goalsConceded": 0
           },
           "candidatePicks": []
         },
@@ -2475,7 +2475,7 @@
             "offsides": 0,
             "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 4
+            "goalsConceded": 0
           },
           "candidatePicks": []
         },
@@ -2503,43 +2503,6 @@
             "subIns": 0,
             "goals": 0,
             "assists": 0,
-            "shots": 3,
-            "shotsOnTarget": 0,
-            "foulsCommitted": 0,
-            "foulsSuffered": 0,
-            "yellowCards": 0,
-            "redCards": 0,
-            "offsides": 0,
-            "saves": 0,
-            "shotsFaced": 0,
-            "goalsConceded": 4
-          },
-          "candidatePicks": []
-        },
-        {
-          "id": "championship.cardiff-city.dakarai-mafico",
-          "slug": "dakarai-mafico",
-          "name": "Dakarai Mafico",
-          "shortName": "D. Mafico",
-          "jersey": "22",
-          "positionGroup": "MID",
-          "positionLabel": "M",
-          "age": 19,
-          "birthDate": "2006-12-07",
-          "heightCm": null,
-          "weightKg": null,
-          "preferredFoot": "L",
-          "nationality": "Wales",
-          "nationalityCode": null,
-          "photoKey": "pl-p:30015",
-          "availability": "available",
-          "injuryDetail": null,
-          "expectedReturn": null,
-          "stats": {
-            "appearances": 0,
-            "subIns": 0,
-            "goals": 0,
-            "assists": 0,
             "shots": 0,
             "shotsOnTarget": 0,
             "foulsCommitted": 0,
@@ -2549,7 +2512,7 @@
             "offsides": 0,
             "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 0
+            "goalsConceded": 3
           },
           "candidatePicks": []
         },
@@ -2586,7 +2549,7 @@
             "offsides": 0,
             "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 0
+            "goalsConceded": 1
           },
           "candidatePicks": []
         },
@@ -2643,8 +2606,8 @@
           "nationality": "Nigeria",
           "nationalityCode": null,
           "photoKey": "pl-p:4905",
-          "availability": "available",
-          "injuryDetail": null,
+          "availability": "injured",
+          "injuryDetail": "Muscle Injury",
           "expectedReturn": null,
           "stats": {
             "appearances": 0,
@@ -2873,8 +2836,8 @@
             "subIns": 0,
             "goals": 0,
             "assists": 0,
-            "shots": 0,
-            "shotsOnTarget": 0,
+            "shots": 1,
+            "shotsOnTarget": 1,
             "foulsCommitted": 0,
             "foulsSuffered": 0,
             "yellowCards": 0,
@@ -2882,7 +2845,7 @@
             "offsides": 0,
             "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 3
+            "goalsConceded": 4
           },
           "candidatePicks": []
         },
@@ -2919,7 +2882,7 @@
             "offsides": 0,
             "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 3
+            "goalsConceded": 0
           },
           "candidatePicks": []
         },
@@ -3093,10 +3056,10 @@
           "stats": {
             "appearances": 0,
             "subIns": 0,
-            "goals": 0,
+            "goals": 1,
             "assists": 0,
-            "shots": 1,
-            "shotsOnTarget": 0,
+            "shots": 3,
+            "shotsOnTarget": 1,
             "foulsCommitted": 0,
             "foulsSuffered": 0,
             "yellowCards": 0,
@@ -3104,7 +3067,7 @@
             "offsides": 0,
             "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 3
+            "goalsConceded": 4
           },
           "candidatePicks": []
         },
@@ -3124,8 +3087,8 @@
           "nationality": "Singapore",
           "nationalityCode": null,
           "photoKey": "pl-p:26947",
-          "availability": "available",
-          "injuryDetail": null,
+          "availability": "injured",
+          "injuryDetail": "Muscle Injury",
           "expectedReturn": null,
           "stats": {
             "appearances": 0,
@@ -3215,7 +3178,7 @@
             "offsides": 0,
             "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 0
+            "goalsConceded": 1
           },
           "candidatePicks": []
         },
@@ -3243,8 +3206,8 @@
             "subIns": 0,
             "goals": 0,
             "assists": 0,
-            "shots": 3,
-            "shotsOnTarget": 1,
+            "shots": 0,
+            "shotsOnTarget": 0,
             "foulsCommitted": 0,
             "foulsSuffered": 0,
             "yellowCards": 0,
@@ -3252,7 +3215,7 @@
             "offsides": 0,
             "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 4
+            "goalsConceded": 0
           },
           "candidatePicks": []
         },
@@ -3318,7 +3281,7 @@
             "goals": 0,
             "assists": 0,
             "shots": 1,
-            "shotsOnTarget": 0,
+            "shotsOnTarget": 1,
             "foulsCommitted": 0,
             "foulsSuffered": 0,
             "yellowCards": 0,
@@ -3326,7 +3289,7 @@
             "offsides": 0,
             "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 3
+            "goalsConceded": 4
           },
           "candidatePicks": []
         },
@@ -3389,7 +3352,7 @@
           "winPct": 42.4
         }
       },
-      "updatedAt": "2026-11-22T21:56:46.653Z",
+      "updatedAt": "2026-11-23T15:07:01.408Z",
       "players": [
         {
           "id": "championship.burnley.aaron-ramsey",
@@ -4597,7 +4560,7 @@
           "winPct": 40.7
         }
       },
-      "updatedAt": "2026-11-22T21:56:46.653Z",
+      "updatedAt": "2026-11-23T15:07:01.408Z",
       "players": [
         {
           "id": "championship.blackburn-rovers.adam-forshaw",
@@ -4859,6 +4822,43 @@
           "candidatePicks": []
         },
         {
+          "id": "championship.blackburn-rovers.frank-vare",
+          "slug": "frank-vare",
+          "name": "Frank Vare",
+          "shortName": "F. Vare",
+          "jersey": "53",
+          "positionGroup": "MID",
+          "positionLabel": "M",
+          "age": 19,
+          "birthDate": "2007-09-12",
+          "heightCm": 177,
+          "weightKg": null,
+          "preferredFoot": "L",
+          "nationality": "England",
+          "nationalityCode": null,
+          "photoKey": "pl-p:13718",
+          "availability": "available",
+          "injuryDetail": null,
+          "expectedReturn": null,
+          "stats": {
+            "appearances": 0,
+            "subIns": 0,
+            "goals": 0,
+            "assists": 0,
+            "shots": 0,
+            "shotsOnTarget": 0,
+            "foulsCommitted": 0,
+            "foulsSuffered": 0,
+            "yellowCards": 0,
+            "redCards": 0,
+            "offsides": 0,
+            "saves": 0,
+            "shotsFaced": 0,
+            "goalsConceded": 0
+          },
+          "candidatePicks": []
+        },
+        {
           "id": "championship.blackburn-rovers.gady-beyuku",
           "slug": "gady-beyuku",
           "name": "Gady Beyuku",
@@ -4866,7 +4866,7 @@
           "jersey": "27",
           "positionGroup": "MID",
           "positionLabel": "D",
-          "age": 20,
+          "age": 21,
           "birthDate": "2005-11-23",
           "heightCm": 188,
           "weightKg": null,
@@ -5081,6 +5081,43 @@
           "candidatePicks": []
         },
         {
+          "id": "championship.blackburn-rovers.james-edmondson",
+          "slug": "james-edmondson",
+          "name": "James Edmondson",
+          "shortName": "J. Edmondson",
+          "jersey": "36",
+          "positionGroup": "MID",
+          "positionLabel": "M",
+          "age": 21,
+          "birthDate": "2005-11-01",
+          "heightCm": null,
+          "weightKg": null,
+          "preferredFoot": null,
+          "nationality": "England",
+          "nationalityCode": null,
+          "photoKey": "pl-p:42679",
+          "availability": "available",
+          "injuryDetail": null,
+          "expectedReturn": null,
+          "stats": {
+            "appearances": 0,
+            "subIns": 0,
+            "goals": 0,
+            "assists": 0,
+            "shots": 0,
+            "shotsOnTarget": 0,
+            "foulsCommitted": 0,
+            "foulsSuffered": 0,
+            "yellowCards": 0,
+            "redCards": 0,
+            "offsides": 0,
+            "saves": 0,
+            "shotsFaced": 0,
+            "goalsConceded": 0
+          },
+          "candidatePicks": []
+        },
+        {
           "id": "championship.blackburn-rovers.jayden-fevrier",
           "slug": "jayden-fevrier",
           "name": "Jayden Fevrier",
@@ -5244,6 +5281,43 @@
           "nationality": "England",
           "nationalityCode": null,
           "photoKey": "pl-p:6444",
+          "availability": "available",
+          "injuryDetail": null,
+          "expectedReturn": null,
+          "stats": {
+            "appearances": 0,
+            "subIns": 0,
+            "goals": 0,
+            "assists": 0,
+            "shots": 0,
+            "shotsOnTarget": 0,
+            "foulsCommitted": 0,
+            "foulsSuffered": 0,
+            "yellowCards": 0,
+            "redCards": 0,
+            "offsides": 0,
+            "saves": 0,
+            "shotsFaced": 0,
+            "goalsConceded": 0
+          },
+          "candidatePicks": []
+        },
+        {
+          "id": "championship.blackburn-rovers.michael-decandia",
+          "slug": "michael-decandia",
+          "name": "Michael Decandia",
+          "shortName": "M. Decandia",
+          "jersey": "46",
+          "positionGroup": "MID",
+          "positionLabel": "D",
+          "age": 19,
+          "birthDate": "2007-10-17",
+          "heightCm": 188,
+          "weightKg": null,
+          "preferredFoot": "R",
+          "nationality": "Italy",
+          "nationalityCode": null,
+          "photoKey": "pl-p:65718",
           "availability": "available",
           "injuryDetail": null,
           "expectedReturn": null,
@@ -5694,7 +5768,7 @@
           "winPct": 22.2
         }
       },
-      "updatedAt": "2026-11-22T21:56:46.653Z",
+      "updatedAt": "2026-11-23T15:07:01.408Z",
       "players": [
         {
           "id": "championship.west-ham-united.adama-boiro",
@@ -5786,8 +5860,8 @@
           "nationality": "France",
           "nationalityCode": null,
           "photoKey": "pl-p:1634",
-          "availability": "available",
-          "injuryDetail": null,
+          "availability": "doubtful",
+          "injuryDetail": "Muscle Injury",
           "expectedReturn": null,
           "stats": {
             "appearances": 0,
@@ -5942,8 +6016,8 @@
             "subIns": 0,
             "goals": 0,
             "assists": 0,
-            "shots": 1,
-            "shotsOnTarget": 0,
+            "shots": 2,
+            "shotsOnTarget": 1,
             "foulsCommitted": 0,
             "foulsSuffered": 0,
             "yellowCards": 0,
@@ -5951,7 +6025,7 @@
             "offsides": 0,
             "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 1
+            "goalsConceded": 0
           },
           "candidatePicks": []
         },
@@ -6053,8 +6127,8 @@
             "subIns": 0,
             "goals": 0,
             "assists": 0,
-            "shots": 3,
-            "shotsOnTarget": 0,
+            "shots": 2,
+            "shotsOnTarget": 1,
             "foulsCommitted": 0,
             "foulsSuffered": 0,
             "yellowCards": 0,
@@ -6062,7 +6136,7 @@
             "offsides": 0,
             "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 2
+            "goalsConceded": 3
           },
           "candidatePicks": []
         },
@@ -6125,10 +6199,10 @@
           "stats": {
             "appearances": 0,
             "subIns": 0,
-            "goals": 1,
+            "goals": 0,
             "assists": 0,
-            "shots": 3,
-            "shotsOnTarget": 2,
+            "shots": 2,
+            "shotsOnTarget": 1,
             "foulsCommitted": 0,
             "foulsSuffered": 0,
             "yellowCards": 0,
@@ -6136,7 +6210,7 @@
             "offsides": 0,
             "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 2
+            "goalsConceded": 0
           },
           "candidatePicks": []
         },
@@ -6173,7 +6247,7 @@
             "offsides": 0,
             "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 3
+            "goalsConceded": 2
           },
           "candidatePicks": []
         },
@@ -6275,7 +6349,7 @@
             "subIns": 0,
             "goals": 0,
             "assists": 0,
-            "shots": 2,
+            "shots": 3,
             "shotsOnTarget": 0,
             "foulsCommitted": 0,
             "foulsSuffered": 0,
@@ -6284,7 +6358,7 @@
             "offsides": 0,
             "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 3
+            "goalsConceded": 2
           },
           "candidatePicks": []
         },
@@ -6304,8 +6378,8 @@
           "nationality": "England",
           "nationalityCode": null,
           "photoKey": "pl-p:1649",
-          "availability": "available",
-          "injuryDetail": null,
+          "availability": "injured",
+          "injuryDetail": "Muscle Injury",
           "expectedReturn": null,
           "stats": {
             "appearances": 0,
@@ -6395,7 +6469,7 @@
             "offsides": 0,
             "saves": 1,
             "shotsFaced": 0,
-            "goalsConceded": 3
+            "goalsConceded": 2
           },
           "candidatePicks": []
         },
@@ -6423,7 +6497,7 @@
             "subIns": 0,
             "goals": 0,
             "assists": 0,
-            "shots": 2,
+            "shots": 0,
             "shotsOnTarget": 0,
             "foulsCommitted": 0,
             "foulsSuffered": 0,
@@ -6432,7 +6506,7 @@
             "offsides": 0,
             "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 3
+            "goalsConceded": 1
           },
           "candidatePicks": []
         },
@@ -6458,10 +6532,10 @@
           "stats": {
             "appearances": 0,
             "subIns": 0,
-            "goals": 1,
+            "goals": 0,
             "assists": 0,
             "shots": 1,
-            "shotsOnTarget": 1,
+            "shotsOnTarget": 0,
             "foulsCommitted": 0,
             "foulsSuffered": 0,
             "yellowCards": 0,
@@ -6469,7 +6543,7 @@
             "offsides": 0,
             "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 3
+            "goalsConceded": 2
           },
           "candidatePicks": []
         },
@@ -6580,7 +6654,7 @@
             "offsides": 0,
             "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 3
+            "goalsConceded": 0
           },
           "candidatePicks": []
         },
@@ -6691,7 +6765,7 @@
             "offsides": 0,
             "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 3
+            "goalsConceded": 0
           },
           "candidatePicks": []
         },
@@ -6791,7 +6865,7 @@
           "winPct": 54.5
         }
       },
-      "updatedAt": "2026-11-22T21:56:46.653Z",
+      "updatedAt": "2026-11-23T15:07:01.408Z",
       "players": [
         {
           "id": "championship.birmingham-city.alex-cochrane",
@@ -6815,10 +6889,10 @@
           "stats": {
             "appearances": 0,
             "subIns": 0,
-            "goals": 1,
+            "goals": 0,
             "assists": 0,
             "shots": 1,
-            "shotsOnTarget": 1,
+            "shotsOnTarget": 0,
             "foulsCommitted": 0,
             "foulsSuffered": 0,
             "yellowCards": 0,
@@ -6826,7 +6900,7 @@
             "offsides": 0,
             "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 0
+            "goalsConceded": 1
           },
           "candidatePicks": []
         },
@@ -7085,7 +7159,7 @@
             "offsides": 0,
             "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 1
+            "goalsConceded": 0
           },
           "candidatePicks": []
         },
@@ -7113,7 +7187,7 @@
             "subIns": 0,
             "goals": 0,
             "assists": 0,
-            "shots": 1,
+            "shots": 2,
             "shotsOnTarget": 0,
             "foulsCommitted": 0,
             "foulsSuffered": 0,
@@ -7122,7 +7196,7 @@
             "offsides": 0,
             "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 0
+            "goalsConceded": 1
           },
           "candidatePicks": []
         },
@@ -7224,7 +7298,7 @@
             "subIns": 0,
             "goals": 0,
             "assists": 0,
-            "shots": 1,
+            "shots": 3,
             "shotsOnTarget": 1,
             "foulsCommitted": 0,
             "foulsSuffered": 0,
@@ -7233,7 +7307,7 @@
             "offsides": 0,
             "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 1
+            "goalsConceded": 0
           },
           "candidatePicks": []
         },
@@ -7520,8 +7594,8 @@
             "subIns": 0,
             "goals": 0,
             "assists": 0,
-            "shots": 2,
-            "shotsOnTarget": 1,
+            "shots": 0,
+            "shotsOnTarget": 0,
             "foulsCommitted": 0,
             "foulsSuffered": 0,
             "yellowCards": 0,
@@ -7777,7 +7851,7 @@
           "winPct": 40.6
         }
       },
-      "updatedAt": "2026-11-22T21:56:46.653Z",
+      "updatedAt": "2026-11-23T15:07:01.408Z",
       "players": [
         {
           "id": "championship.swansea-city.adam-idah",
@@ -8350,8 +8424,8 @@
           "nationality": "England",
           "nationalityCode": null,
           "photoKey": "pl-p:6526",
-          "availability": "available",
-          "injuryDetail": null,
+          "availability": "suspended",
+          "injuryDetail": "yellow_card_accumulation_suspension",
           "expectedReturn": null,
           "stats": {
             "appearances": 0,

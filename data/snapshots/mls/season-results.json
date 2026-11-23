@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "league": "mls",
   "season": "2026",
-  "updatedAt": "2026-11-22T21:56:46.653Z",
+  "updatedAt": "2026-11-23T15:07:01.408Z",
   "matches": [
     {
       "id": "mls-2026-07-16-montreal-toronto-uyevum",
@@ -3264,11 +3264,44 @@
       "id": "mls-2026-11-21-inter-miami-columbus-crew-2poqfc",
       "date": "2026-11-21",
       "startTime": "2026-11-21T23:00:00.000Z",
-      "round": "Round 1",
+      "round": "League phase",
       "homeTeam": "mls.inter-miami",
       "awayTeam": "mls.columbus-crew",
       "homeScore": 0,
       "awayScore": 3,
+      "neutralSite": false
+    },
+    {
+      "id": "mls-2026-11-22-nashville-cincinnati-ck4xwp",
+      "date": "2026-11-22",
+      "startTime": "2026-11-22T21:00:00.000Z",
+      "round": "League phase",
+      "homeTeam": "mls.nashville",
+      "awayTeam": "mls.cincinnati",
+      "homeScore": 0,
+      "awayScore": 1,
+      "neutralSite": false
+    },
+    {
+      "id": "mls-2026-11-22-chicago-fire-charlotte-rk3639",
+      "date": "2026-11-22",
+      "startTime": "2026-11-22T23:30:00.000Z",
+      "round": "League phase",
+      "homeTeam": "mls.chicago-fire",
+      "awayTeam": "mls.charlotte",
+      "homeScore": 1,
+      "awayScore": 2,
+      "neutralSite": false
+    },
+    {
+      "id": "mls-2026-11-23-vancouver-whit-real-salt-lake-aknepv",
+      "date": "2026-11-23",
+      "startTime": "2026-11-23T01:30:00.000Z",
+      "round": "Round 1",
+      "homeTeam": "mls.vancouver-whitecaps",
+      "awayTeam": "mls.real-salt-lake",
+      "homeScore": 2,
+      "awayScore": 0,
       "neutralSite": false
     }
   ]

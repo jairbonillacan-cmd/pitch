@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "league": "primera-a-colombia",
-  "updatedAt": "2026-11-22T21:56:46.653Z",
+  "updatedAt": "2026-11-23T15:07:01.408Z",
   "lines": [
     {
       "gameId": "primera-a-colombia-2026-11-24-millonarios-atletico-bucar-9oarno",
@@ -16,7 +16,7 @@
       "deltaPct": 0.68,
       "movement": "drifting",
       "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-22T21:50:07Z"
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
     },
     {
       "gameId": "primera-a-colombia-2026-11-24-millonarios-atletico-bucar-9oarno",
@@ -26,12 +26,12 @@
       "outcome": "HOME",
       "line": null,
       "book": "pinnacle",
-      "decimal": 1.5,
+      "decimal": 1.51,
       "openingDecimal": 1.5,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T21:50:07Z"
+      "deltaPct": 0.67,
+      "movement": "drifting",
+      "movementSignal": "DRIFTING",
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
     },
     {
       "gameId": "primera-a-colombia-2026-11-24-millonarios-atletico-bucar-9oarno",
@@ -46,7 +46,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T21:50:07Z"
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
     },
     {
       "gameId": "primera-a-colombia-2026-11-24-millonarios-atletico-bucar-9oarno",
@@ -56,12 +56,12 @@
       "outcome": "HOME",
       "line": null,
       "book": "bwin",
-      "decimal": 1.49,
+      "decimal": 1.5,
       "openingDecimal": 1.57,
-      "deltaPct": -5.1,
+      "deltaPct": -4.46,
       "movement": "shortening",
       "movementSignal": "SHORTENING",
-      "capturedAtUtc": "2026-11-22T21:50:07Z"
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
     },
     {
       "gameId": "primera-a-colombia-2026-11-24-millonarios-atletico-bucar-9oarno",
@@ -76,7 +76,22 @@
       "deltaPct": -3.23,
       "movement": "shortening",
       "movementSignal": "SHORTENING",
-      "capturedAtUtc": "2026-11-22T21:50:07Z"
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
+    },
+    {
+      "gameId": "primera-a-colombia-2026-11-24-millonarios-atletico-bucar-9oarno",
+      "homeName": "Millonarios",
+      "awayName": "Atlético Bucaramanga",
+      "market": "1x2",
+      "outcome": "HOME",
+      "line": null,
+      "book": "bet365",
+      "decimal": 1.53,
+      "openingDecimal": 1.53,
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
     },
     {
       "gameId": "primera-a-colombia-2026-11-24-millonarios-atletico-bucar-9oarno",
@@ -91,7 +106,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T21:50:07Z"
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
     },
     {
       "gameId": "primera-a-colombia-2026-11-24-millonarios-atletico-bucar-9oarno",
@@ -106,7 +121,7 @@
       "deltaPct": -4.52,
       "movement": "shortening",
       "movementSignal": "SHORTENING",
-      "capturedAtUtc": "2026-11-22T21:50:07Z"
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
     },
     {
       "gameId": "primera-a-colombia-2026-11-24-millonarios-atletico-bucar-9oarno",
@@ -116,12 +131,12 @@
       "outcome": "HOME",
       "line": null,
       "book": "dafabet",
-      "decimal": 1.49,
+      "decimal": 1.52,
       "openingDecimal": 1.51,
-      "deltaPct": -1.32,
-      "movement": "shortening",
-      "movementSignal": "SHORTENING",
-      "capturedAtUtc": "2026-11-22T21:50:07Z"
+      "deltaPct": 0.66,
+      "movement": "drifting",
+      "movementSignal": "DRIFTING",
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
     },
     {
       "gameId": "primera-a-colombia-2026-11-24-millonarios-atletico-bucar-9oarno",
@@ -136,7 +151,7 @@
       "deltaPct": -4.52,
       "movement": "shortening",
       "movementSignal": "SHORTENING",
-      "capturedAtUtc": "2026-11-22T21:50:07Z"
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
     },
     {
       "gameId": "primera-a-colombia-2026-11-24-millonarios-atletico-bucar-9oarno",
@@ -146,12 +161,12 @@
       "outcome": "HOME",
       "line": null,
       "book": "betvictor",
-      "decimal": 1.45,
+      "decimal": 1.5,
       "openingDecimal": 1.45,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T21:50:07Z"
+      "deltaPct": 3.45,
+      "movement": "drifting",
+      "movementSignal": "DRIFTING",
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
     },
     {
       "gameId": "primera-a-colombia-2026-11-24-millonarios-atletico-bucar-9oarno",
@@ -161,12 +176,12 @@
       "outcome": "HOME",
       "line": null,
       "book": "mansionbet",
-      "decimal": 1.49,
+      "decimal": 1.5,
       "openingDecimal": 1.49,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T21:50:07Z"
+      "deltaPct": 0.67,
+      "movement": "drifting",
+      "movementSignal": "DRIFTING",
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
     },
     {
       "gameId": "primera-a-colombia-2026-11-24-millonarios-atletico-bucar-9oarno",
@@ -181,7 +196,7 @@
       "deltaPct": -1.22,
       "movement": "shortening",
       "movementSignal": "SHORTENING",
-      "capturedAtUtc": "2026-11-22T21:50:07Z"
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
     },
     {
       "gameId": "primera-a-colombia-2026-11-24-millonarios-atletico-bucar-9oarno",
@@ -191,12 +206,12 @@
       "outcome": "DRAW",
       "line": null,
       "book": "pinnacle",
-      "decimal": 4.05,
+      "decimal": 3.96,
       "openingDecimal": 4.07,
-      "deltaPct": -0.49,
+      "deltaPct": -2.7,
       "movement": "shortening",
       "movementSignal": "SHORTENING",
-      "capturedAtUtc": "2026-11-22T21:50:07Z"
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
     },
     {
       "gameId": "primera-a-colombia-2026-11-24-millonarios-atletico-bucar-9oarno",
@@ -211,7 +226,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T21:50:07Z"
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
     },
     {
       "gameId": "primera-a-colombia-2026-11-24-millonarios-atletico-bucar-9oarno",
@@ -221,12 +236,12 @@
       "outcome": "DRAW",
       "line": null,
       "book": "bwin",
-      "decimal": 4,
+      "decimal": 3.9,
       "openingDecimal": 3.75,
-      "deltaPct": 6.67,
+      "deltaPct": 4,
       "movement": "drifting",
       "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-22T21:50:07Z"
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
     },
     {
       "gameId": "primera-a-colombia-2026-11-24-millonarios-atletico-bucar-9oarno",
@@ -241,7 +256,22 @@
       "deltaPct": 2.7,
       "movement": "drifting",
       "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-22T21:50:07Z"
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
+    },
+    {
+      "gameId": "primera-a-colombia-2026-11-24-millonarios-atletico-bucar-9oarno",
+      "homeName": "Millonarios",
+      "awayName": "Atlético Bucaramanga",
+      "market": "1x2",
+      "outcome": "DRAW",
+      "line": null,
+      "book": "bet365",
+      "decimal": 3.75,
+      "openingDecimal": 3.75,
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
     },
     {
       "gameId": "primera-a-colombia-2026-11-24-millonarios-atletico-bucar-9oarno",
@@ -251,12 +281,12 @@
       "outcome": "DRAW",
       "line": null,
       "book": "betfair",
-      "decimal": 4.1,
+      "decimal": 4,
       "openingDecimal": 4,
-      "deltaPct": 2.5,
-      "movement": "drifting",
-      "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-22T21:50:07Z"
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
     },
     {
       "gameId": "primera-a-colombia-2026-11-24-millonarios-atletico-bucar-9oarno",
@@ -271,7 +301,7 @@
       "deltaPct": 5.56,
       "movement": "drifting",
       "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-22T21:50:07Z"
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
     },
     {
       "gameId": "primera-a-colombia-2026-11-24-millonarios-atletico-bucar-9oarno",
@@ -281,12 +311,12 @@
       "outcome": "DRAW",
       "line": null,
       "book": "dafabet",
-      "decimal": 4.1,
+      "decimal": 4,
       "openingDecimal": 3.9,
-      "deltaPct": 5.13,
+      "deltaPct": 2.56,
       "movement": "drifting",
       "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-22T21:50:07Z"
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
     },
     {
       "gameId": "primera-a-colombia-2026-11-24-millonarios-atletico-bucar-9oarno",
@@ -301,7 +331,7 @@
       "deltaPct": 5.56,
       "movement": "drifting",
       "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-22T21:50:07Z"
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
     },
     {
       "gameId": "primera-a-colombia-2026-11-24-millonarios-atletico-bucar-9oarno",
@@ -311,12 +341,12 @@
       "outcome": "DRAW",
       "line": null,
       "book": "betvictor",
-      "decimal": 4,
+      "decimal": 3.9,
       "openingDecimal": 4,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T21:50:07Z"
+      "deltaPct": -2.5,
+      "movement": "shortening",
+      "movementSignal": "SHORTENING",
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
     },
     {
       "gameId": "primera-a-colombia-2026-11-24-millonarios-atletico-bucar-9oarno",
@@ -326,12 +356,12 @@
       "outcome": "DRAW",
       "line": null,
       "book": "mansionbet",
-      "decimal": 3.9,
+      "decimal": 3.8,
       "openingDecimal": 3.9,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T21:50:07Z"
+      "deltaPct": -2.56,
+      "movement": "shortening",
+      "movementSignal": "SHORTENING",
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
     },
     {
       "gameId": "primera-a-colombia-2026-11-24-millonarios-atletico-bucar-9oarno",
@@ -346,7 +376,7 @@
       "deltaPct": -0.93,
       "movement": "shortening",
       "movementSignal": "SHORTENING",
-      "capturedAtUtc": "2026-11-22T21:50:07Z"
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
     },
     {
       "gameId": "primera-a-colombia-2026-11-24-millonarios-atletico-bucar-9oarno",
@@ -356,12 +386,12 @@
       "outcome": "AWAY",
       "line": null,
       "book": "pinnacle",
-      "decimal": 6.57,
+      "decimal": 6.56,
       "openingDecimal": 6.58,
-      "deltaPct": -0.15,
+      "deltaPct": -0.3,
       "movement": "shortening",
       "movementSignal": "SHORTENING",
-      "capturedAtUtc": "2026-11-22T21:50:07Z"
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
     },
     {
       "gameId": "primera-a-colombia-2026-11-24-millonarios-atletico-bucar-9oarno",
@@ -376,7 +406,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T21:50:07Z"
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
     },
     {
       "gameId": "primera-a-colombia-2026-11-24-millonarios-atletico-bucar-9oarno",
@@ -391,7 +421,7 @@
       "deltaPct": 9.09,
       "movement": "drifting",
       "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-22T21:50:07Z"
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
     },
     {
       "gameId": "primera-a-colombia-2026-11-24-millonarios-atletico-bucar-9oarno",
@@ -406,7 +436,22 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T21:50:07Z"
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
+    },
+    {
+      "gameId": "primera-a-colombia-2026-11-24-millonarios-atletico-bucar-9oarno",
+      "homeName": "Millonarios",
+      "awayName": "Atlético Bucaramanga",
+      "market": "1x2",
+      "outcome": "AWAY",
+      "line": null,
+      "book": "bet365",
+      "decimal": 7,
+      "openingDecimal": 7,
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
     },
     {
       "gameId": "primera-a-colombia-2026-11-24-millonarios-atletico-bucar-9oarno",
@@ -421,7 +466,7 @@
       "deltaPct": 8.33,
       "movement": "drifting",
       "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-22T21:50:07Z"
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
     },
     {
       "gameId": "primera-a-colombia-2026-11-24-millonarios-atletico-bucar-9oarno",
@@ -431,12 +476,12 @@
       "outcome": "AWAY",
       "line": null,
       "book": "coral",
-      "decimal": 5.75,
+      "decimal": 5.5,
       "openingDecimal": 5.25,
-      "deltaPct": 9.52,
+      "deltaPct": 4.76,
       "movement": "drifting",
       "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-22T21:50:07Z"
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
     },
     {
       "gameId": "primera-a-colombia-2026-11-24-millonarios-atletico-bucar-9oarno",
@@ -446,12 +491,12 @@
       "outcome": "AWAY",
       "line": null,
       "book": "dafabet",
-      "decimal": 6,
+      "decimal": 6.2,
       "openingDecimal": 6,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T21:50:07Z"
+      "deltaPct": 3.33,
+      "movement": "drifting",
+      "movementSignal": "DRIFTING",
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
     },
     {
       "gameId": "primera-a-colombia-2026-11-24-millonarios-atletico-bucar-9oarno",
@@ -461,12 +506,12 @@
       "outcome": "AWAY",
       "line": null,
       "book": "ladbrokes",
-      "decimal": 5.75,
+      "decimal": 5.5,
       "openingDecimal": 5.25,
-      "deltaPct": 9.52,
+      "deltaPct": 4.76,
       "movement": "drifting",
       "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-22T21:50:07Z"
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
     },
     {
       "gameId": "primera-a-colombia-2026-11-24-millonarios-atletico-bucar-9oarno",
@@ -481,7 +526,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T21:50:07Z"
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
     },
     {
       "gameId": "primera-a-colombia-2026-11-24-millonarios-atletico-bucar-9oarno",
@@ -491,12 +536,12 @@
       "outcome": "AWAY",
       "line": null,
       "book": "mansionbet",
-      "decimal": 5,
+      "decimal": 5.3,
       "openingDecimal": 5,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T21:50:07Z"
+      "deltaPct": 6,
+      "movement": "drifting",
+      "movementSignal": "DRIFTING",
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
     },
     {
       "gameId": "primera-a-colombia-2026-11-24-millonarios-atletico-bucar-9oarno",
@@ -511,7 +556,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T21:50:07Z"
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
     },
     {
       "gameId": "primera-a-colombia-2026-11-24-millonarios-atletico-bucar-9oarno",
@@ -526,7 +571,7 @@
       "deltaPct": -0.89,
       "movement": "shortening",
       "movementSignal": "SHORTENING",
-      "capturedAtUtc": "2026-11-22T21:50:07Z"
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
     },
     {
       "gameId": "primera-a-colombia-2026-11-24-millonarios-atletico-bucar-9oarno",
@@ -541,7 +586,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T21:50:07Z"
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
     },
     {
       "gameId": "primera-a-colombia-2026-11-24-millonarios-atletico-bucar-9oarno",
@@ -556,7 +601,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T21:50:07Z"
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
     },
     {
       "gameId": "primera-a-colombia-2026-11-24-millonarios-atletico-bucar-9oarno",
@@ -571,7 +616,7 @@
       "deltaPct": -1.2,
       "movement": "shortening",
       "movementSignal": "SHORTENING",
-      "capturedAtUtc": "2026-11-22T21:50:07Z"
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
     },
     {
       "gameId": "primera-a-colombia-2026-11-24-millonarios-atletico-bucar-9oarno",
@@ -586,7 +631,7 @@
       "deltaPct": 6.52,
       "movement": "drifting",
       "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-22T21:50:07Z"
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
     },
     {
       "gameId": "primera-a-colombia-2026-11-24-millonarios-atletico-bucar-9oarno",
@@ -601,7 +646,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T21:50:07Z"
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
     },
     {
       "gameId": "primera-a-colombia-2026-11-24-millonarios-atletico-bucar-9oarno",
@@ -616,7 +661,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T21:50:07Z"
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
     },
     {
       "gameId": "primera-a-colombia-2026-11-24-millonarios-atletico-bucar-9oarno",
@@ -631,7 +676,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T21:50:07Z"
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
     },
     {
       "gameId": "primera-a-colombia-2026-11-24-millonarios-atletico-bucar-9oarno",
@@ -646,7 +691,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T21:50:07Z"
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
     },
     {
       "gameId": "primera-a-colombia-2026-11-24-millonarios-atletico-bucar-9oarno",
@@ -661,7 +706,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T21:50:07Z"
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
     },
     {
       "gameId": "primera-a-colombia-2026-11-24-millonarios-atletico-bucar-9oarno",
@@ -676,7 +721,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T21:50:07Z"
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
     },
     {
       "gameId": "primera-a-colombia-2026-11-24-millonarios-atletico-bucar-9oarno",
@@ -691,7 +736,7 @@
       "deltaPct": 1.61,
       "movement": "drifting",
       "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-22T21:50:07Z"
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
     },
     {
       "gameId": "primera-a-colombia-2026-11-24-millonarios-atletico-bucar-9oarno",
@@ -701,12 +746,27 @@
       "outcome": "over",
       "line": 1.5,
       "book": "pinnacle",
-      "decimal": 1.29,
+      "decimal": 1.31,
       "openingDecimal": 1.29,
+      "deltaPct": 1.55,
+      "movement": "drifting",
+      "movementSignal": "DRIFTING",
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
+    },
+    {
+      "gameId": "primera-a-colombia-2026-11-24-millonarios-atletico-bucar-9oarno",
+      "homeName": "Millonarios",
+      "awayName": "Atlético Bucaramanga",
+      "market": "over_under_15",
+      "outcome": "over",
+      "line": 1.5,
+      "book": "betfair",
+      "decimal": 1.3,
+      "openingDecimal": 1.3,
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T21:50:07Z"
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
     },
     {
       "gameId": "primera-a-colombia-2026-11-24-millonarios-atletico-bucar-9oarno",
@@ -716,12 +776,12 @@
       "outcome": "over",
       "line": 1.5,
       "book": "betvictor",
-      "decimal": 1.3,
+      "decimal": 1.32,
       "openingDecimal": 1.3,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T21:50:07Z"
+      "deltaPct": 1.54,
+      "movement": "drifting",
+      "movementSignal": "DRIFTING",
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
     },
     {
       "gameId": "primera-a-colombia-2026-11-24-millonarios-atletico-bucar-9oarno",
@@ -736,7 +796,7 @@
       "deltaPct": -4.19,
       "movement": "shortening",
       "movementSignal": "SHORTENING",
-      "capturedAtUtc": "2026-11-22T21:50:07Z"
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
     },
     {
       "gameId": "primera-a-colombia-2026-11-24-millonarios-atletico-bucar-9oarno",
@@ -746,12 +806,27 @@
       "outcome": "under",
       "line": 1.5,
       "book": "pinnacle",
-      "decimal": 3.46,
+      "decimal": 3.33,
       "openingDecimal": 3.49,
-      "deltaPct": -0.86,
+      "deltaPct": -4.58,
       "movement": "shortening",
       "movementSignal": "SHORTENING",
-      "capturedAtUtc": "2026-11-22T21:50:07Z"
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
+    },
+    {
+      "gameId": "primera-a-colombia-2026-11-24-millonarios-atletico-bucar-9oarno",
+      "homeName": "Millonarios",
+      "awayName": "Atlético Bucaramanga",
+      "market": "over_under_15",
+      "outcome": "under",
+      "line": 1.5,
+      "book": "betfair",
+      "decimal": 3.4,
+      "openingDecimal": 3.4,
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
     },
     {
       "gameId": "primera-a-colombia-2026-11-24-millonarios-atletico-bucar-9oarno",
@@ -761,12 +836,12 @@
       "outcome": "under",
       "line": 1.5,
       "book": "betvictor",
-      "decimal": 3.1,
+      "decimal": 3,
       "openingDecimal": 3.1,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T21:50:07Z"
+      "deltaPct": -3.23,
+      "movement": "shortening",
+      "movementSignal": "SHORTENING",
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
     },
     {
       "gameId": "primera-a-colombia-2026-11-24-millonarios-atletico-bucar-9oarno",
@@ -781,7 +856,7 @@
       "deltaPct": 3.72,
       "movement": "drifting",
       "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-22T21:50:07Z"
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
     },
     {
       "gameId": "primera-a-colombia-2026-11-24-millonarios-atletico-bucar-9oarno",
@@ -791,12 +866,27 @@
       "outcome": "over",
       "line": 2.5,
       "book": "pinnacle",
-      "decimal": 1.92,
+      "decimal": 2.01,
       "openingDecimal": 1.91,
-      "deltaPct": 0.52,
+      "deltaPct": 5.24,
       "movement": "drifting",
       "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-22T21:50:07Z"
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
+    },
+    {
+      "gameId": "primera-a-colombia-2026-11-24-millonarios-atletico-bucar-9oarno",
+      "homeName": "Millonarios",
+      "awayName": "Atlético Bucaramanga",
+      "market": "over_under_25",
+      "outcome": "over",
+      "line": 2.5,
+      "book": "bet365",
+      "decimal": 2,
+      "openingDecimal": 2,
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
     },
     {
       "gameId": "primera-a-colombia-2026-11-24-millonarios-atletico-bucar-9oarno",
@@ -806,12 +896,12 @@
       "outcome": "over",
       "line": 2.5,
       "book": "betfair",
-      "decimal": 1.9,
+      "decimal": 2,
       "openingDecimal": 1.9,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T21:50:07Z"
+      "deltaPct": 5.26,
+      "movement": "drifting",
+      "movementSignal": "DRIFTING",
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
     },
     {
       "gameId": "primera-a-colombia-2026-11-24-millonarios-atletico-bucar-9oarno",
@@ -821,12 +911,12 @@
       "outcome": "over",
       "line": 2.5,
       "book": "betvictor",
-      "decimal": 1.87,
+      "decimal": 1.92,
       "openingDecimal": 1.87,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T21:50:07Z"
+      "deltaPct": 2.67,
+      "movement": "drifting",
+      "movementSignal": "DRIFTING",
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
     },
     {
       "gameId": "primera-a-colombia-2026-11-24-millonarios-atletico-bucar-9oarno",
@@ -841,7 +931,7 @@
       "deltaPct": -3.78,
       "movement": "shortening",
       "movementSignal": "SHORTENING",
-      "capturedAtUtc": "2026-11-22T21:50:07Z"
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
     },
     {
       "gameId": "primera-a-colombia-2026-11-24-millonarios-atletico-bucar-9oarno",
@@ -851,12 +941,27 @@
       "outcome": "under",
       "line": 2.5,
       "book": "pinnacle",
-      "decimal": 1.87,
+      "decimal": 1.79,
       "openingDecimal": 1.88,
-      "deltaPct": -0.53,
+      "deltaPct": -4.79,
       "movement": "shortening",
       "movementSignal": "SHORTENING",
-      "capturedAtUtc": "2026-11-22T21:50:07Z"
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
+    },
+    {
+      "gameId": "primera-a-colombia-2026-11-24-millonarios-atletico-bucar-9oarno",
+      "homeName": "Millonarios",
+      "awayName": "Atlético Bucaramanga",
+      "market": "over_under_25",
+      "outcome": "under",
+      "line": 2.5,
+      "book": "bet365",
+      "decimal": 1.8,
+      "openingDecimal": 1.8,
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
     },
     {
       "gameId": "primera-a-colombia-2026-11-24-millonarios-atletico-bucar-9oarno",
@@ -866,12 +971,12 @@
       "outcome": "under",
       "line": 2.5,
       "book": "betfair",
-      "decimal": 1.87,
+      "decimal": 1.8,
       "openingDecimal": 1.87,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T21:50:07Z"
+      "deltaPct": -3.74,
+      "movement": "shortening",
+      "movementSignal": "SHORTENING",
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
     },
     {
       "gameId": "primera-a-colombia-2026-11-24-millonarios-atletico-bucar-9oarno",
@@ -881,12 +986,12 @@
       "outcome": "under",
       "line": 2.5,
       "book": "betvictor",
-      "decimal": 1.8,
+      "decimal": 1.76,
       "openingDecimal": 1.8,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T21:50:07Z"
+      "deltaPct": -2.22,
+      "movement": "shortening",
+      "movementSignal": "SHORTENING",
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
     },
     {
       "gameId": "primera-a-colombia-2026-11-24-millonarios-atletico-bucar-9oarno",
@@ -901,7 +1006,7 @@
       "deltaPct": 6.37,
       "movement": "drifting",
       "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-22T21:50:07Z"
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
     },
     {
       "gameId": "primera-a-colombia-2026-11-24-millonarios-atletico-bucar-9oarno",
@@ -911,12 +1016,27 @@
       "outcome": "over",
       "line": 3.5,
       "book": "pinnacle",
-      "decimal": 3.24,
+      "decimal": 3.39,
       "openingDecimal": 3.21,
-      "deltaPct": 0.93,
+      "deltaPct": 5.61,
       "movement": "drifting",
       "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-22T21:50:07Z"
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
+    },
+    {
+      "gameId": "primera-a-colombia-2026-11-24-millonarios-atletico-bucar-9oarno",
+      "homeName": "Millonarios",
+      "awayName": "Atlético Bucaramanga",
+      "market": "over_under_35",
+      "outcome": "over",
+      "line": 3.5,
+      "book": "betfair",
+      "decimal": 3.5,
+      "openingDecimal": 3.5,
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
     },
     {
       "gameId": "primera-a-colombia-2026-11-24-millonarios-atletico-bucar-9oarno",
@@ -926,12 +1046,12 @@
       "outcome": "over",
       "line": 3.5,
       "book": "betvictor",
-      "decimal": 3.05,
+      "decimal": 3.2,
       "openingDecimal": 3.05,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T21:50:07Z"
+      "deltaPct": 4.92,
+      "movement": "drifting",
+      "movementSignal": "DRIFTING",
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
     },
     {
       "gameId": "primera-a-colombia-2026-11-24-millonarios-atletico-bucar-9oarno",
@@ -946,7 +1066,7 @@
       "deltaPct": -2.36,
       "movement": "shortening",
       "movementSignal": "SHORTENING",
-      "capturedAtUtc": "2026-11-22T21:50:07Z"
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
     },
     {
       "gameId": "primera-a-colombia-2026-11-24-millonarios-atletico-bucar-9oarno",
@@ -956,12 +1076,27 @@
       "outcome": "under",
       "line": 3.5,
       "book": "pinnacle",
-      "decimal": 1.32,
+      "decimal": 1.3,
       "openingDecimal": 1.33,
-      "deltaPct": -0.75,
+      "deltaPct": -2.26,
       "movement": "shortening",
       "movementSignal": "SHORTENING",
-      "capturedAtUtc": "2026-11-22T21:50:07Z"
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
+    },
+    {
+      "gameId": "primera-a-colombia-2026-11-24-millonarios-atletico-bucar-9oarno",
+      "homeName": "Millonarios",
+      "awayName": "Atlético Bucaramanga",
+      "market": "over_under_35",
+      "outcome": "under",
+      "line": 3.5,
+      "book": "betfair",
+      "decimal": 1.29,
+      "openingDecimal": 1.29,
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
     },
     {
       "gameId": "primera-a-colombia-2026-11-24-millonarios-atletico-bucar-9oarno",
@@ -971,12 +1106,12 @@
       "outcome": "under",
       "line": 3.5,
       "book": "betvictor",
-      "decimal": 1.31,
+      "decimal": 1.29,
       "openingDecimal": 1.31,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T21:50:07Z"
+      "deltaPct": -1.53,
+      "movement": "shortening",
+      "movementSignal": "SHORTENING",
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
     },
     {
       "gameId": "primera-a-colombia-2026-11-24-millonarios-atletico-bucar-9oarno",
@@ -991,7 +1126,7 @@
       "deltaPct": 3.54,
       "movement": "drifting",
       "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-22T21:50:07Z"
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
     },
     {
       "gameId": "primera-a-colombia-2026-11-24-millonarios-atletico-bucar-9oarno",
@@ -1006,7 +1141,37 @@
       "deltaPct": 2.09,
       "movement": "drifting",
       "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-22T21:50:07Z"
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
+    },
+    {
+      "gameId": "primera-a-colombia-2026-11-24-millonarios-atletico-bucar-9oarno",
+      "homeName": "Millonarios",
+      "awayName": "Atlético Bucaramanga",
+      "market": "btts",
+      "outcome": "yes",
+      "line": null,
+      "book": "bet365",
+      "decimal": 2.1,
+      "openingDecimal": 2.1,
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
+    },
+    {
+      "gameId": "primera-a-colombia-2026-11-24-millonarios-atletico-bucar-9oarno",
+      "homeName": "Millonarios",
+      "awayName": "Atlético Bucaramanga",
+      "market": "btts",
+      "outcome": "yes",
+      "line": null,
+      "book": "betfair",
+      "decimal": 2.1,
+      "openingDecimal": 2.1,
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
     },
     {
       "gameId": "primera-a-colombia-2026-11-24-millonarios-atletico-bucar-9oarno",
@@ -1016,12 +1181,12 @@
       "outcome": "yes",
       "line": null,
       "book": "betvictor",
-      "decimal": 2,
+      "decimal": 2.05,
       "openingDecimal": 2,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T21:50:07Z"
+      "deltaPct": 2.5,
+      "movement": "drifting",
+      "movementSignal": "DRIFTING",
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
     },
     {
       "gameId": "primera-a-colombia-2026-11-24-millonarios-atletico-bucar-9oarno",
@@ -1036,7 +1201,7 @@
       "deltaPct": -2.87,
       "movement": "shortening",
       "movementSignal": "SHORTENING",
-      "capturedAtUtc": "2026-11-22T21:50:07Z"
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
     },
     {
       "gameId": "primera-a-colombia-2026-11-24-millonarios-atletico-bucar-9oarno",
@@ -1051,7 +1216,37 @@
       "deltaPct": -5.76,
       "movement": "shortening",
       "movementSignal": "SHORTENING",
-      "capturedAtUtc": "2026-11-22T21:50:07Z"
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
+    },
+    {
+      "gameId": "primera-a-colombia-2026-11-24-millonarios-atletico-bucar-9oarno",
+      "homeName": "Millonarios",
+      "awayName": "Atlético Bucaramanga",
+      "market": "btts",
+      "outcome": "no",
+      "line": null,
+      "book": "bet365",
+      "decimal": 1.66,
+      "openingDecimal": 1.66,
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
+    },
+    {
+      "gameId": "primera-a-colombia-2026-11-24-millonarios-atletico-bucar-9oarno",
+      "homeName": "Millonarios",
+      "awayName": "Atlético Bucaramanga",
+      "market": "btts",
+      "outcome": "no",
+      "line": null,
+      "book": "betfair",
+      "decimal": 1.73,
+      "openingDecimal": 1.73,
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
     },
     {
       "gameId": "primera-a-colombia-2026-11-24-millonarios-atletico-bucar-9oarno",
@@ -1061,12 +1256,27 @@
       "outcome": "no",
       "line": null,
       "book": "betvictor",
-      "decimal": 1.7,
+      "decimal": 1.67,
       "openingDecimal": 1.7,
+      "deltaPct": -1.76,
+      "movement": "shortening",
+      "movementSignal": "SHORTENING",
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
+    },
+    {
+      "gameId": "primera-a-colombia-2026-11-24-millonarios-atletico-bucar-9oarno",
+      "homeName": "Millonarios",
+      "awayName": "Atlético Bucaramanga",
+      "market": "over_under_05",
+      "outcome": "over",
+      "line": 0.5,
+      "book": "betfair",
+      "decimal": 1.05,
+      "openingDecimal": 1.05,
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T21:50:07Z"
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
     },
     {
       "gameId": "primera-a-colombia-2026-11-24-millonarios-atletico-bucar-9oarno",
@@ -1081,7 +1291,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T21:50:07Z"
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
     },
     {
       "gameId": "primera-a-colombia-2026-11-24-millonarios-atletico-bucar-9oarno",
@@ -1096,7 +1306,22 @@
       "deltaPct": 0.52,
       "movement": "drifting",
       "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-22T21:50:07Z"
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
+    },
+    {
+      "gameId": "primera-a-colombia-2026-11-24-millonarios-atletico-bucar-9oarno",
+      "homeName": "Millonarios",
+      "awayName": "Atlético Bucaramanga",
+      "market": "over_under_05",
+      "outcome": "under",
+      "line": 0.5,
+      "book": "betfair",
+      "decimal": 10,
+      "openingDecimal": 10,
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
     },
     {
       "gameId": "primera-a-colombia-2026-11-24-millonarios-atletico-bucar-9oarno",
@@ -1106,12 +1331,12 @@
       "outcome": "under",
       "line": 0.5,
       "book": "betvictor",
-      "decimal": 10,
+      "decimal": 9.5,
       "openingDecimal": 10,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T21:50:07Z"
+      "deltaPct": -5,
+      "movement": "shortening",
+      "movementSignal": "SHORTENING",
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
     },
     {
       "gameId": "primera-a-colombia-2026-11-24-millonarios-atletico-bucar-9oarno",
@@ -1121,12 +1346,12 @@
       "outcome": "over",
       "line": 7.5,
       "book": "1xbet",
-      "decimal": 1.38,
+      "decimal": 1.41,
       "openingDecimal": 1.38,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T21:50:07Z"
+      "deltaPct": 2.17,
+      "movement": "drifting",
+      "movementSignal": "DRIFTING",
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
     },
     {
       "gameId": "primera-a-colombia-2026-11-24-millonarios-atletico-bucar-9oarno",
@@ -1136,12 +1361,12 @@
       "outcome": "under",
       "line": 7.5,
       "book": "1xbet",
-      "decimal": 2.71,
+      "decimal": 2.58,
       "openingDecimal": 2.68,
-      "deltaPct": 1.12,
-      "movement": "drifting",
-      "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-22T21:50:07Z"
+      "deltaPct": -3.73,
+      "movement": "shortening",
+      "movementSignal": "SHORTENING",
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
     },
     {
       "gameId": "primera-a-colombia-2026-11-24-millonarios-atletico-bucar-9oarno",
@@ -1151,12 +1376,12 @@
       "outcome": "over",
       "line": 8.5,
       "book": "1xbet",
-      "decimal": 1.7,
+      "decimal": 1.76,
       "openingDecimal": 1.71,
-      "deltaPct": -0.58,
-      "movement": "shortening",
-      "movementSignal": "SHORTENING",
-      "capturedAtUtc": "2026-11-22T21:50:07Z"
+      "deltaPct": 2.92,
+      "movement": "drifting",
+      "movementSignal": "DRIFTING",
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
     },
     {
       "gameId": "primera-a-colombia-2026-11-24-millonarios-atletico-bucar-9oarno",
@@ -1166,12 +1391,12 @@
       "outcome": "under",
       "line": 8.5,
       "book": "1xbet",
-      "decimal": 2.03,
+      "decimal": 1.95,
       "openingDecimal": 2.01,
-      "deltaPct": 1,
-      "movement": "drifting",
-      "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-22T21:50:07Z"
+      "deltaPct": -2.99,
+      "movement": "shortening",
+      "movementSignal": "SHORTENING",
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
     },
     {
       "gameId": "primera-a-colombia-2026-11-24-millonarios-atletico-bucar-9oarno",
@@ -1181,12 +1406,12 @@
       "outcome": "over",
       "line": 9.5,
       "book": "1xbet",
-      "decimal": 2.14,
+      "decimal": 2.23,
       "openingDecimal": 2.16,
-      "deltaPct": -0.93,
-      "movement": "shortening",
-      "movementSignal": "SHORTENING",
-      "capturedAtUtc": "2026-11-22T21:50:07Z"
+      "deltaPct": 3.24,
+      "movement": "drifting",
+      "movementSignal": "DRIFTING",
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
     },
     {
       "gameId": "primera-a-colombia-2026-11-24-millonarios-atletico-bucar-9oarno",
@@ -1196,12 +1421,12 @@
       "outcome": "under",
       "line": 9.5,
       "book": "1xbet",
-      "decimal": 1.62,
+      "decimal": 1.57,
       "openingDecimal": 1.61,
-      "deltaPct": 0.62,
-      "movement": "drifting",
-      "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-22T21:50:07Z"
+      "deltaPct": -2.48,
+      "movement": "shortening",
+      "movementSignal": "SHORTENING",
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
     },
     {
       "gameId": "primera-a-colombia-2026-11-24-millonarios-atletico-bucar-9oarno",
@@ -1211,12 +1436,12 @@
       "outcome": "over",
       "line": 10.5,
       "book": "1xbet",
-      "decimal": 2.84,
+      "decimal": 3,
       "openingDecimal": 2.87,
-      "deltaPct": -1.05,
-      "movement": "shortening",
-      "movementSignal": "SHORTENING",
-      "capturedAtUtc": "2026-11-22T21:50:07Z"
+      "deltaPct": 4.53,
+      "movement": "drifting",
+      "movementSignal": "DRIFTING",
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
     },
     {
       "gameId": "primera-a-colombia-2026-11-24-millonarios-atletico-bucar-9oarno",
@@ -1226,12 +1451,12 @@
       "outcome": "under",
       "line": 10.5,
       "book": "1xbet",
-      "decimal": 1.34,
+      "decimal": 1.3,
       "openingDecimal": 1.33,
-      "deltaPct": 0.75,
-      "movement": "drifting",
-      "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-22T21:50:07Z"
+      "deltaPct": -2.26,
+      "movement": "shortening",
+      "movementSignal": "SHORTENING",
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
     },
     {
       "gameId": "primera-a-colombia-2026-11-24-millonarios-atletico-bucar-9oarno",
@@ -1241,12 +1466,12 @@
       "outcome": "over",
       "line": 11.5,
       "book": "1xbet",
-      "decimal": 4.04,
+      "decimal": 4.33,
       "openingDecimal": 4.09,
-      "deltaPct": -1.22,
-      "movement": "shortening",
-      "movementSignal": "SHORTENING",
-      "capturedAtUtc": "2026-11-22T21:50:07Z"
+      "deltaPct": 5.87,
+      "movement": "drifting",
+      "movementSignal": "DRIFTING",
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
     },
     {
       "gameId": "primera-a-colombia-2026-11-24-millonarios-atletico-bucar-9oarno",
@@ -1256,12 +1481,12 @@
       "outcome": "under",
       "line": 11.5,
       "book": "1xbet",
-      "decimal": 1.16,
+      "decimal": 1.13,
       "openingDecimal": 1.15,
-      "deltaPct": 0.87,
-      "movement": "drifting",
-      "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-22T21:50:07Z"
+      "deltaPct": -1.74,
+      "movement": "shortening",
+      "movementSignal": "SHORTENING",
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
     },
     {
       "gameId": "primera-a-colombia-2026-11-25-america-cali-deportivo-cali-7b0fr4",
@@ -1276,7 +1501,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T21:50:07Z"
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
     },
     {
       "gameId": "primera-a-colombia-2026-11-25-america-cali-deportivo-cali-7b0fr4",
@@ -1291,7 +1516,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T21:50:07Z"
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
     },
     {
       "gameId": "primera-a-colombia-2026-11-25-america-cali-deportivo-cali-7b0fr4",
@@ -1306,7 +1531,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T21:50:07Z"
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
     },
     {
       "gameId": "primera-a-colombia-2026-11-25-america-cali-deportivo-cali-7b0fr4",
@@ -1321,7 +1546,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T21:50:07Z"
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
     },
     {
       "gameId": "primera-a-colombia-2026-11-25-america-cali-deportivo-cali-7b0fr4",
@@ -1336,7 +1561,22 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T21:50:07Z"
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
+    },
+    {
+      "gameId": "primera-a-colombia-2026-11-25-america-cali-deportivo-cali-7b0fr4",
+      "homeName": "América de Cali",
+      "awayName": "Deportivo Cali",
+      "market": "1x2",
+      "outcome": "HOME",
+      "line": null,
+      "book": "bet365",
+      "decimal": 1.95,
+      "openingDecimal": 1.95,
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
     },
     {
       "gameId": "primera-a-colombia-2026-11-25-america-cali-deportivo-cali-7b0fr4",
@@ -1351,7 +1591,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T21:50:07Z"
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
     },
     {
       "gameId": "primera-a-colombia-2026-11-25-america-cali-deportivo-cali-7b0fr4",
@@ -1366,7 +1606,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T21:50:07Z"
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
     },
     {
       "gameId": "primera-a-colombia-2026-11-25-america-cali-deportivo-cali-7b0fr4",
@@ -1381,7 +1621,7 @@
       "deltaPct": 2.53,
       "movement": "drifting",
       "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-22T21:50:07Z"
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
     },
     {
       "gameId": "primera-a-colombia-2026-11-25-america-cali-deportivo-cali-7b0fr4",
@@ -1396,7 +1636,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T21:50:07Z"
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
     },
     {
       "gameId": "primera-a-colombia-2026-11-25-america-cali-deportivo-cali-7b0fr4",
@@ -1411,7 +1651,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T21:50:07Z"
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
     },
     {
       "gameId": "primera-a-colombia-2026-11-25-america-cali-deportivo-cali-7b0fr4",
@@ -1426,7 +1666,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T21:50:07Z"
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
     },
     {
       "gameId": "primera-a-colombia-2026-11-25-america-cali-deportivo-cali-7b0fr4",
@@ -1441,7 +1681,7 @@
       "deltaPct": 0.61,
       "movement": "drifting",
       "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-22T21:50:07Z"
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
     },
     {
       "gameId": "primera-a-colombia-2026-11-25-america-cali-deportivo-cali-7b0fr4",
@@ -1456,7 +1696,7 @@
       "deltaPct": 0.32,
       "movement": "drifting",
       "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-22T21:50:07Z"
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
     },
     {
       "gameId": "primera-a-colombia-2026-11-25-america-cali-deportivo-cali-7b0fr4",
@@ -1471,7 +1711,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T21:50:07Z"
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
     },
     {
       "gameId": "primera-a-colombia-2026-11-25-america-cali-deportivo-cali-7b0fr4",
@@ -1486,7 +1726,7 @@
       "deltaPct": 3.23,
       "movement": "drifting",
       "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-22T21:50:07Z"
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
     },
     {
       "gameId": "primera-a-colombia-2026-11-25-america-cali-deportivo-cali-7b0fr4",
@@ -1501,7 +1741,22 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T21:50:07Z"
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
+    },
+    {
+      "gameId": "primera-a-colombia-2026-11-25-america-cali-deportivo-cali-7b0fr4",
+      "homeName": "América de Cali",
+      "awayName": "Deportivo Cali",
+      "market": "1x2",
+      "outcome": "DRAW",
+      "line": null,
+      "book": "bet365",
+      "decimal": 3.4,
+      "openingDecimal": 3.4,
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
     },
     {
       "gameId": "primera-a-colombia-2026-11-25-america-cali-deportivo-cali-7b0fr4",
@@ -1516,7 +1771,7 @@
       "deltaPct": 3.23,
       "movement": "drifting",
       "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-22T21:50:07Z"
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
     },
     {
       "gameId": "primera-a-colombia-2026-11-25-america-cali-deportivo-cali-7b0fr4",
@@ -1531,7 +1786,7 @@
       "deltaPct": 6.67,
       "movement": "drifting",
       "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-22T21:50:07Z"
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
     },
     {
       "gameId": "primera-a-colombia-2026-11-25-america-cali-deportivo-cali-7b0fr4",
@@ -1546,7 +1801,7 @@
       "deltaPct": 3.17,
       "movement": "drifting",
       "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-22T21:50:07Z"
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
     },
     {
       "gameId": "primera-a-colombia-2026-11-25-america-cali-deportivo-cali-7b0fr4",
@@ -1561,7 +1816,7 @@
       "deltaPct": 6.67,
       "movement": "drifting",
       "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-22T21:50:07Z"
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
     },
     {
       "gameId": "primera-a-colombia-2026-11-25-america-cali-deportivo-cali-7b0fr4",
@@ -1576,7 +1831,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T21:50:07Z"
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
     },
     {
       "gameId": "primera-a-colombia-2026-11-25-america-cali-deportivo-cali-7b0fr4",
@@ -1591,7 +1846,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T21:50:07Z"
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
     },
     {
       "gameId": "primera-a-colombia-2026-11-25-america-cali-deportivo-cali-7b0fr4",
@@ -1606,7 +1861,7 @@
       "deltaPct": -1.05,
       "movement": "shortening",
       "movementSignal": "SHORTENING",
-      "capturedAtUtc": "2026-11-22T21:50:07Z"
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
     },
     {
       "gameId": "primera-a-colombia-2026-11-25-america-cali-deportivo-cali-7b0fr4",
@@ -1621,7 +1876,7 @@
       "deltaPct": -0.25,
       "movement": "shortening",
       "movementSignal": "SHORTENING",
-      "capturedAtUtc": "2026-11-22T21:50:07Z"
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
     },
     {
       "gameId": "primera-a-colombia-2026-11-25-america-cali-deportivo-cali-7b0fr4",
@@ -1636,7 +1891,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T21:50:07Z"
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
     },
     {
       "gameId": "primera-a-colombia-2026-11-25-america-cali-deportivo-cali-7b0fr4",
@@ -1651,7 +1906,7 @@
       "deltaPct": -6.67,
       "movement": "shortening",
       "movementSignal": "SHORTENING",
-      "capturedAtUtc": "2026-11-22T21:50:07Z"
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
     },
     {
       "gameId": "primera-a-colombia-2026-11-25-america-cali-deportivo-cali-7b0fr4",
@@ -1666,7 +1921,22 @@
       "deltaPct": -1.33,
       "movement": "shortening",
       "movementSignal": "SHORTENING",
-      "capturedAtUtc": "2026-11-22T21:50:07Z"
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
+    },
+    {
+      "gameId": "primera-a-colombia-2026-11-25-america-cali-deportivo-cali-7b0fr4",
+      "homeName": "América de Cali",
+      "awayName": "Deportivo Cali",
+      "market": "1x2",
+      "outcome": "AWAY",
+      "line": null,
+      "book": "bet365",
+      "decimal": 4,
+      "openingDecimal": 4,
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
     },
     {
       "gameId": "primera-a-colombia-2026-11-25-america-cali-deportivo-cali-7b0fr4",
@@ -1681,7 +1951,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T21:50:07Z"
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
     },
     {
       "gameId": "primera-a-colombia-2026-11-25-america-cali-deportivo-cali-7b0fr4",
@@ -1696,7 +1966,7 @@
       "deltaPct": -8.11,
       "movement": "shortening",
       "movementSignal": "STEAM",
-      "capturedAtUtc": "2026-11-22T21:50:07Z"
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
     },
     {
       "gameId": "primera-a-colombia-2026-11-25-america-cali-deportivo-cali-7b0fr4",
@@ -1711,7 +1981,7 @@
       "deltaPct": -7.69,
       "movement": "shortening",
       "movementSignal": "SHORTENING",
-      "capturedAtUtc": "2026-11-22T21:50:07Z"
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
     },
     {
       "gameId": "primera-a-colombia-2026-11-25-america-cali-deportivo-cali-7b0fr4",
@@ -1726,7 +1996,7 @@
       "deltaPct": -8.11,
       "movement": "shortening",
       "movementSignal": "STEAM",
-      "capturedAtUtc": "2026-11-22T21:50:07Z"
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
     },
     {
       "gameId": "primera-a-colombia-2026-11-25-america-cali-deportivo-cali-7b0fr4",
@@ -1741,7 +2011,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T21:50:07Z"
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
     },
     {
       "gameId": "primera-a-colombia-2026-11-25-america-cali-deportivo-cali-7b0fr4",
@@ -1756,7 +2026,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T21:50:07Z"
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
     },
     {
       "gameId": "primera-a-colombia-2026-11-25-america-cali-deportivo-cali-7b0fr4",
@@ -1771,7 +2041,7 @@
       "deltaPct": 0.82,
       "movement": "drifting",
       "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-22T21:50:07Z"
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
     },
     {
       "gameId": "primera-a-colombia-2026-11-25-america-cali-deportivo-cali-7b0fr4",
@@ -1786,7 +2056,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T21:50:07Z"
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
     },
     {
       "gameId": "primera-a-colombia-2026-11-25-america-cali-deportivo-cali-7b0fr4",
@@ -1801,7 +2071,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T21:50:07Z"
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
     },
     {
       "gameId": "primera-a-colombia-2026-11-25-america-cali-deportivo-cali-7b0fr4",
@@ -1816,7 +2086,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T21:50:07Z"
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
     },
     {
       "gameId": "primera-a-colombia-2026-11-25-america-cali-deportivo-cali-7b0fr4",
@@ -1831,7 +2101,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T21:50:07Z"
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
     },
     {
       "gameId": "primera-a-colombia-2026-11-25-america-cali-deportivo-cali-7b0fr4",
@@ -1846,7 +2116,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T21:50:07Z"
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
     },
     {
       "gameId": "primera-a-colombia-2026-11-25-america-cali-deportivo-cali-7b0fr4",
@@ -1861,7 +2131,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T21:50:07Z"
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
     },
     {
       "gameId": "primera-a-colombia-2026-11-25-america-cali-deportivo-cali-7b0fr4",
@@ -1871,12 +2141,12 @@
       "outcome": "X2",
       "line": null,
       "book": "betvictor",
-      "decimal": 1.7,
+      "decimal": 1.73,
       "openingDecimal": 1.7,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T21:50:07Z"
+      "deltaPct": 1.76,
+      "movement": "drifting",
+      "movementSignal": "DRIFTING",
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
     },
     {
       "gameId": "primera-a-colombia-2026-11-25-america-cali-deportivo-cali-7b0fr4",
@@ -1891,7 +2161,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T21:50:07Z"
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
     },
     {
       "gameId": "primera-a-colombia-2026-11-25-america-cali-deportivo-cali-7b0fr4",
@@ -1906,7 +2176,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T21:50:07Z"
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
     },
     {
       "gameId": "primera-a-colombia-2026-11-25-america-cali-deportivo-cali-7b0fr4",
@@ -1921,7 +2191,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T21:50:07Z"
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
     },
     {
       "gameId": "primera-a-colombia-2026-11-25-america-cali-deportivo-cali-7b0fr4",
@@ -1931,12 +2201,12 @@
       "outcome": "12",
       "line": null,
       "book": "betvictor",
-      "decimal": 1.3,
+      "decimal": 1.29,
       "openingDecimal": 1.3,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T21:50:07Z"
+      "deltaPct": -0.77,
+      "movement": "shortening",
+      "movementSignal": "SHORTENING",
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
     },
     {
       "gameId": "primera-a-colombia-2026-11-25-america-cali-deportivo-cali-7b0fr4",
@@ -1951,7 +2221,7 @@
       "deltaPct": -0.74,
       "movement": "shortening",
       "movementSignal": "SHORTENING",
-      "capturedAtUtc": "2026-11-22T21:50:07Z"
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
     },
     {
       "gameId": "primera-a-colombia-2026-11-25-america-cali-deportivo-cali-7b0fr4",
@@ -1966,7 +2236,7 @@
       "deltaPct": -0.72,
       "movement": "shortening",
       "movementSignal": "SHORTENING",
-      "capturedAtUtc": "2026-11-22T21:50:07Z"
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
     },
     {
       "gameId": "primera-a-colombia-2026-11-25-america-cali-deportivo-cali-7b0fr4",
@@ -1981,7 +2251,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T21:50:07Z"
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
     },
     {
       "gameId": "primera-a-colombia-2026-11-25-america-cali-deportivo-cali-7b0fr4",
@@ -1996,7 +2266,7 @@
       "deltaPct": 1.46,
       "movement": "drifting",
       "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-22T21:50:07Z"
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
     },
     {
       "gameId": "primera-a-colombia-2026-11-25-america-cali-deportivo-cali-7b0fr4",
@@ -2011,7 +2281,7 @@
       "deltaPct": 1.03,
       "movement": "drifting",
       "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-22T21:50:07Z"
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
     },
     {
       "gameId": "primera-a-colombia-2026-11-25-america-cali-deportivo-cali-7b0fr4",
@@ -2026,7 +2296,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T21:50:07Z"
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
     },
     {
       "gameId": "primera-a-colombia-2026-11-25-america-cali-deportivo-cali-7b0fr4",
@@ -2041,7 +2311,7 @@
       "deltaPct": -1.82,
       "movement": "shortening",
       "movementSignal": "SHORTENING",
-      "capturedAtUtc": "2026-11-22T21:50:07Z"
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
     },
     {
       "gameId": "primera-a-colombia-2026-11-25-america-cali-deportivo-cali-7b0fr4",
@@ -2056,7 +2326,22 @@
       "deltaPct": -0.89,
       "movement": "shortening",
       "movementSignal": "SHORTENING",
-      "capturedAtUtc": "2026-11-22T21:50:07Z"
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
+    },
+    {
+      "gameId": "primera-a-colombia-2026-11-25-america-cali-deportivo-cali-7b0fr4",
+      "homeName": "América de Cali",
+      "awayName": "Deportivo Cali",
+      "market": "over_under_25",
+      "outcome": "over",
+      "line": 2.5,
+      "book": "bet365",
+      "decimal": 2.2,
+      "openingDecimal": 2.2,
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
     },
     {
       "gameId": "primera-a-colombia-2026-11-25-america-cali-deportivo-cali-7b0fr4",
@@ -2071,7 +2356,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T21:50:07Z"
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
     },
     {
       "gameId": "primera-a-colombia-2026-11-25-america-cali-deportivo-cali-7b0fr4",
@@ -2086,7 +2371,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T21:50:07Z"
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
     },
     {
       "gameId": "primera-a-colombia-2026-11-25-america-cali-deportivo-cali-7b0fr4",
@@ -2101,7 +2386,7 @@
       "deltaPct": 1.23,
       "movement": "drifting",
       "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-22T21:50:07Z"
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
     },
     {
       "gameId": "primera-a-colombia-2026-11-25-america-cali-deportivo-cali-7b0fr4",
@@ -2116,7 +2401,22 @@
       "deltaPct": 0.61,
       "movement": "drifting",
       "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-22T21:50:07Z"
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
+    },
+    {
+      "gameId": "primera-a-colombia-2026-11-25-america-cali-deportivo-cali-7b0fr4",
+      "homeName": "América de Cali",
+      "awayName": "Deportivo Cali",
+      "market": "over_under_25",
+      "outcome": "under",
+      "line": 2.5,
+      "book": "bet365",
+      "decimal": 1.65,
+      "openingDecimal": 1.65,
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
     },
     {
       "gameId": "primera-a-colombia-2026-11-25-america-cali-deportivo-cali-7b0fr4",
@@ -2131,7 +2431,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T21:50:07Z"
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
     },
     {
       "gameId": "primera-a-colombia-2026-11-25-america-cali-deportivo-cali-7b0fr4",
@@ -2141,12 +2441,12 @@
       "outcome": "under",
       "line": 2.5,
       "book": "betvictor",
-      "decimal": 1.62,
+      "decimal": 1.63,
       "openingDecimal": 1.62,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T21:50:07Z"
+      "deltaPct": 0.62,
+      "movement": "drifting",
+      "movementSignal": "DRIFTING",
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
     },
     {
       "gameId": "primera-a-colombia-2026-11-25-america-cali-deportivo-cali-7b0fr4",
@@ -2161,7 +2461,7 @@
       "deltaPct": -2.28,
       "movement": "shortening",
       "movementSignal": "SHORTENING",
-      "capturedAtUtc": "2026-11-22T21:50:07Z"
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
     },
     {
       "gameId": "primera-a-colombia-2026-11-25-america-cali-deportivo-cali-7b0fr4",
@@ -2176,7 +2476,7 @@
       "deltaPct": -0.74,
       "movement": "shortening",
       "movementSignal": "SHORTENING",
-      "capturedAtUtc": "2026-11-22T21:50:07Z"
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
     },
     {
       "gameId": "primera-a-colombia-2026-11-25-america-cali-deportivo-cali-7b0fr4",
@@ -2191,7 +2491,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T21:50:07Z"
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
     },
     {
       "gameId": "primera-a-colombia-2026-11-25-america-cali-deportivo-cali-7b0fr4",
@@ -2206,7 +2506,7 @@
       "deltaPct": 0.85,
       "movement": "drifting",
       "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-22T21:50:07Z"
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
     },
     {
       "gameId": "primera-a-colombia-2026-11-25-america-cali-deportivo-cali-7b0fr4",
@@ -2221,7 +2521,7 @@
       "deltaPct": 0.82,
       "movement": "drifting",
       "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-22T21:50:07Z"
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
     },
     {
       "gameId": "primera-a-colombia-2026-11-25-america-cali-deportivo-cali-7b0fr4",
@@ -2236,7 +2536,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T21:50:07Z"
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
     },
     {
       "gameId": "primera-a-colombia-2026-11-25-america-cali-deportivo-cali-7b0fr4",
@@ -2251,7 +2551,7 @@
       "deltaPct": -1.03,
       "movement": "shortening",
       "movementSignal": "SHORTENING",
-      "capturedAtUtc": "2026-11-22T21:50:07Z"
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
     },
     {
       "gameId": "primera-a-colombia-2026-11-25-america-cali-deportivo-cali-7b0fr4",
@@ -2266,7 +2566,22 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T21:50:07Z"
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
+    },
+    {
+      "gameId": "primera-a-colombia-2026-11-25-america-cali-deportivo-cali-7b0fr4",
+      "homeName": "América de Cali",
+      "awayName": "Deportivo Cali",
+      "market": "btts",
+      "outcome": "yes",
+      "line": null,
+      "book": "bet365",
+      "decimal": 1.9,
+      "openingDecimal": 1.9,
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
     },
     {
       "gameId": "primera-a-colombia-2026-11-25-america-cali-deportivo-cali-7b0fr4",
@@ -2281,7 +2596,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T21:50:07Z"
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
     },
     {
       "gameId": "primera-a-colombia-2026-11-25-america-cali-deportivo-cali-7b0fr4",
@@ -2296,7 +2611,7 @@
       "deltaPct": 1.14,
       "movement": "drifting",
       "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-22T21:50:07Z"
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
     },
     {
       "gameId": "primera-a-colombia-2026-11-25-america-cali-deportivo-cali-7b0fr4",
@@ -2311,7 +2626,22 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T21:50:07Z"
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
+    },
+    {
+      "gameId": "primera-a-colombia-2026-11-25-america-cali-deportivo-cali-7b0fr4",
+      "homeName": "América de Cali",
+      "awayName": "Deportivo Cali",
+      "market": "btts",
+      "outcome": "no",
+      "line": null,
+      "book": "bet365",
+      "decimal": 1.8,
+      "openingDecimal": 1.8,
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
     },
     {
       "gameId": "primera-a-colombia-2026-11-25-america-cali-deportivo-cali-7b0fr4",
@@ -2326,7 +2656,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T21:50:07Z"
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
     },
     {
       "gameId": "primera-a-colombia-2026-11-25-america-cali-deportivo-cali-7b0fr4",
@@ -2341,7 +2671,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T21:50:07Z"
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
     },
     {
       "gameId": "primera-a-colombia-2026-11-25-america-cali-deportivo-cali-7b0fr4",
@@ -2356,7 +2686,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T21:50:07Z"
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
     },
     {
       "gameId": "primera-a-colombia-2026-11-25-america-cali-deportivo-cali-7b0fr4",
@@ -2371,7 +2701,7 @@
       "deltaPct": 2.6,
       "movement": "drifting",
       "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-22T21:50:07Z"
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
     },
     {
       "gameId": "primera-a-colombia-2026-11-25-america-cali-deportivo-cali-7b0fr4",
@@ -2386,7 +2716,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T21:50:07Z"
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
     },
     {
       "gameId": "primera-a-colombia-2026-11-25-america-cali-deportivo-cali-7b0fr4",
@@ -2396,12 +2726,12 @@
       "outcome": "over",
       "line": 7.5,
       "book": "1xbet",
-      "decimal": 1.36,
+      "decimal": 1.5,
       "openingDecimal": 1.36,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T21:50:07Z"
+      "deltaPct": 10.29,
+      "movement": "drifting",
+      "movementSignal": "DRIFTING",
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
     },
     {
       "gameId": "primera-a-colombia-2026-11-25-america-cali-deportivo-cali-7b0fr4",
@@ -2411,12 +2741,12 @@
       "outcome": "under",
       "line": 7.5,
       "book": "1xbet",
-      "decimal": 2.78,
+      "decimal": 2.37,
       "openingDecimal": 2.78,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T21:50:07Z"
+      "deltaPct": -14.75,
+      "movement": "shortening",
+      "movementSignal": "STEAM",
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
     },
     {
       "gameId": "primera-a-colombia-2026-11-25-america-cali-deportivo-cali-7b0fr4",
@@ -2426,12 +2756,12 @@
       "outcome": "over",
       "line": 8.5,
       "book": "1xbet",
-      "decimal": 1.67,
+      "decimal": 1.87,
       "openingDecimal": 1.67,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T21:50:07Z"
+      "deltaPct": 11.98,
+      "movement": "drifting",
+      "movementSignal": "DRIFTING",
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
     },
     {
       "gameId": "primera-a-colombia-2026-11-25-america-cali-deportivo-cali-7b0fr4",
@@ -2441,12 +2771,12 @@
       "outcome": "under",
       "line": 8.5,
       "book": "1xbet",
-      "decimal": 2.07,
+      "decimal": 1.83,
       "openingDecimal": 2.07,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T21:50:07Z"
+      "deltaPct": -11.59,
+      "movement": "shortening",
+      "movementSignal": "STEAM",
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
     },
     {
       "gameId": "primera-a-colombia-2026-11-25-america-cali-deportivo-cali-7b0fr4",
@@ -2456,12 +2786,12 @@
       "outcome": "over",
       "line": 9.5,
       "book": "1xbet",
-      "decimal": 2.1,
+      "decimal": 2.42,
       "openingDecimal": 2.1,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T21:50:07Z"
+      "deltaPct": 15.24,
+      "movement": "drifting",
+      "movementSignal": "DRIFTING",
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
     },
     {
       "gameId": "primera-a-colombia-2026-11-25-america-cali-deportivo-cali-7b0fr4",
@@ -2471,12 +2801,12 @@
       "outcome": "under",
       "line": 9.5,
       "book": "1xbet",
-      "decimal": 1.65,
+      "decimal": 1.48,
       "openingDecimal": 1.65,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T21:50:07Z"
+      "deltaPct": -10.3,
+      "movement": "shortening",
+      "movementSignal": "STEAM",
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
     },
     {
       "gameId": "primera-a-colombia-2026-11-25-america-cali-deportivo-cali-7b0fr4",
@@ -2486,12 +2816,12 @@
       "outcome": "over",
       "line": 10.5,
       "book": "1xbet",
-      "decimal": 2.76,
+      "decimal": 3.34,
       "openingDecimal": 2.76,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T21:50:07Z"
+      "deltaPct": 21.01,
+      "movement": "drifting",
+      "movementSignal": "DRIFTING",
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
     },
     {
       "gameId": "primera-a-colombia-2026-11-25-america-cali-deportivo-cali-7b0fr4",
@@ -2501,12 +2831,12 @@
       "outcome": "under",
       "line": 10.5,
       "book": "1xbet",
-      "decimal": 1.36,
+      "decimal": 1.24,
       "openingDecimal": 1.36,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T21:50:07Z"
+      "deltaPct": -8.82,
+      "movement": "shortening",
+      "movementSignal": "STEAM",
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
     },
     {
       "gameId": "primera-a-colombia-2026-11-25-america-cali-deportivo-cali-7b0fr4",
@@ -2516,12 +2846,12 @@
       "outcome": "over",
       "line": 11.5,
       "book": "1xbet",
-      "decimal": 3.9,
+      "decimal": 4.97,
       "openingDecimal": 3.9,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T21:50:07Z"
+      "deltaPct": 27.44,
+      "movement": "drifting",
+      "movementSignal": "DRIFTING",
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
     },
     {
       "gameId": "primera-a-colombia-2026-11-25-america-cali-deportivo-cali-7b0fr4",
@@ -2531,12 +2861,12 @@
       "outcome": "under",
       "line": 11.5,
       "book": "1xbet",
-      "decimal": 1.17,
+      "decimal": 1.09,
       "openingDecimal": 1.17,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T21:50:07Z"
+      "deltaPct": -6.84,
+      "movement": "shortening",
+      "movementSignal": "STEAM",
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
     },
     {
       "gameId": "primera-a-colombia-2026-11-25-independiente--once-caldas-0k7duh",
@@ -2546,12 +2876,12 @@
       "outcome": "HOME",
       "line": null,
       "book": "1xbet",
-      "decimal": 2.13,
+      "decimal": 2.14,
       "openingDecimal": 2.13,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T21:50:07Z"
+      "deltaPct": 0.47,
+      "movement": "drifting",
+      "movementSignal": "DRIFTING",
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
     },
     {
       "gameId": "primera-a-colombia-2026-11-25-independiente--once-caldas-0k7duh",
@@ -2566,7 +2896,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T21:50:07Z"
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
     },
     {
       "gameId": "primera-a-colombia-2026-11-25-independiente--once-caldas-0k7duh",
@@ -2581,7 +2911,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T21:50:07Z"
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
     },
     {
       "gameId": "primera-a-colombia-2026-11-25-independiente--once-caldas-0k7duh",
@@ -2596,7 +2926,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T21:50:07Z"
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
     },
     {
       "gameId": "primera-a-colombia-2026-11-25-independiente--once-caldas-0k7duh",
@@ -2611,7 +2941,22 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T21:50:07Z"
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
+    },
+    {
+      "gameId": "primera-a-colombia-2026-11-25-independiente--once-caldas-0k7duh",
+      "homeName": "Independiente Santa Fe",
+      "awayName": "Once Caldas",
+      "market": "1x2",
+      "outcome": "HOME",
+      "line": null,
+      "book": "bet365",
+      "decimal": 2.15,
+      "openingDecimal": 2.15,
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
     },
     {
       "gameId": "primera-a-colombia-2026-11-25-independiente--once-caldas-0k7duh",
@@ -2626,7 +2971,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T21:50:07Z"
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
     },
     {
       "gameId": "primera-a-colombia-2026-11-25-independiente--once-caldas-0k7duh",
@@ -2641,7 +2986,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T21:50:07Z"
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
     },
     {
       "gameId": "primera-a-colombia-2026-11-25-independiente--once-caldas-0k7duh",
@@ -2656,7 +3001,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T21:50:07Z"
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
     },
     {
       "gameId": "primera-a-colombia-2026-11-25-independiente--once-caldas-0k7duh",
@@ -2671,7 +3016,22 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T21:50:07Z"
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
+    },
+    {
+      "gameId": "primera-a-colombia-2026-11-25-independiente--once-caldas-0k7duh",
+      "homeName": "Independiente Santa Fe",
+      "awayName": "Once Caldas",
+      "market": "1x2",
+      "outcome": "HOME",
+      "line": null,
+      "book": "betvictor",
+      "decimal": 2.15,
+      "openingDecimal": 2.15,
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
     },
     {
       "gameId": "primera-a-colombia-2026-11-25-independiente--once-caldas-0k7duh",
@@ -2686,7 +3046,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T21:50:07Z"
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
     },
     {
       "gameId": "primera-a-colombia-2026-11-25-independiente--once-caldas-0k7duh",
@@ -2701,7 +3061,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T21:50:07Z"
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
     },
     {
       "gameId": "primera-a-colombia-2026-11-25-independiente--once-caldas-0k7duh",
@@ -2716,7 +3076,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T21:50:07Z"
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
     },
     {
       "gameId": "primera-a-colombia-2026-11-25-independiente--once-caldas-0k7duh",
@@ -2731,7 +3091,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T21:50:07Z"
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
     },
     {
       "gameId": "primera-a-colombia-2026-11-25-independiente--once-caldas-0k7duh",
@@ -2746,7 +3106,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T21:50:07Z"
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
     },
     {
       "gameId": "primera-a-colombia-2026-11-25-independiente--once-caldas-0k7duh",
@@ -2761,7 +3121,22 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T21:50:07Z"
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
+    },
+    {
+      "gameId": "primera-a-colombia-2026-11-25-independiente--once-caldas-0k7duh",
+      "homeName": "Independiente Santa Fe",
+      "awayName": "Once Caldas",
+      "market": "1x2",
+      "outcome": "DRAW",
+      "line": null,
+      "book": "bet365",
+      "decimal": 3.3,
+      "openingDecimal": 3.3,
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
     },
     {
       "gameId": "primera-a-colombia-2026-11-25-independiente--once-caldas-0k7duh",
@@ -2776,7 +3151,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T21:50:07Z"
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
     },
     {
       "gameId": "primera-a-colombia-2026-11-25-independiente--once-caldas-0k7duh",
@@ -2791,7 +3166,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T21:50:07Z"
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
     },
     {
       "gameId": "primera-a-colombia-2026-11-25-independiente--once-caldas-0k7duh",
@@ -2806,7 +3181,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T21:50:07Z"
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
     },
     {
       "gameId": "primera-a-colombia-2026-11-25-independiente--once-caldas-0k7duh",
@@ -2821,7 +3196,22 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T21:50:07Z"
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
+    },
+    {
+      "gameId": "primera-a-colombia-2026-11-25-independiente--once-caldas-0k7duh",
+      "homeName": "Independiente Santa Fe",
+      "awayName": "Once Caldas",
+      "market": "1x2",
+      "outcome": "DRAW",
+      "line": null,
+      "book": "betvictor",
+      "decimal": 3.25,
+      "openingDecimal": 3.25,
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
     },
     {
       "gameId": "primera-a-colombia-2026-11-25-independiente--once-caldas-0k7duh",
@@ -2836,7 +3226,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T21:50:07Z"
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
     },
     {
       "gameId": "primera-a-colombia-2026-11-25-independiente--once-caldas-0k7duh",
@@ -2846,12 +3236,12 @@
       "outcome": "AWAY",
       "line": null,
       "book": "1xbet",
-      "decimal": 3.24,
+      "decimal": 3.22,
       "openingDecimal": 3.24,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T21:50:07Z"
+      "deltaPct": -0.62,
+      "movement": "shortening",
+      "movementSignal": "SHORTENING",
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
     },
     {
       "gameId": "primera-a-colombia-2026-11-25-independiente--once-caldas-0k7duh",
@@ -2866,7 +3256,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T21:50:07Z"
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
     },
     {
       "gameId": "primera-a-colombia-2026-11-25-independiente--once-caldas-0k7duh",
@@ -2881,7 +3271,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T21:50:07Z"
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
     },
     {
       "gameId": "primera-a-colombia-2026-11-25-independiente--once-caldas-0k7duh",
@@ -2896,7 +3286,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T21:50:07Z"
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
     },
     {
       "gameId": "primera-a-colombia-2026-11-25-independiente--once-caldas-0k7duh",
@@ -2911,7 +3301,22 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T21:50:07Z"
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
+    },
+    {
+      "gameId": "primera-a-colombia-2026-11-25-independiente--once-caldas-0k7duh",
+      "homeName": "Independiente Santa Fe",
+      "awayName": "Once Caldas",
+      "market": "1x2",
+      "outcome": "AWAY",
+      "line": null,
+      "book": "bet365",
+      "decimal": 3.2,
+      "openingDecimal": 3.2,
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
     },
     {
       "gameId": "primera-a-colombia-2026-11-25-independiente--once-caldas-0k7duh",
@@ -2926,7 +3331,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T21:50:07Z"
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
     },
     {
       "gameId": "primera-a-colombia-2026-11-25-independiente--once-caldas-0k7duh",
@@ -2941,7 +3346,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T21:50:07Z"
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
     },
     {
       "gameId": "primera-a-colombia-2026-11-25-independiente--once-caldas-0k7duh",
@@ -2956,7 +3361,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T21:50:07Z"
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
     },
     {
       "gameId": "primera-a-colombia-2026-11-25-independiente--once-caldas-0k7duh",
@@ -2971,7 +3376,22 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T21:50:07Z"
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
+    },
+    {
+      "gameId": "primera-a-colombia-2026-11-25-independiente--once-caldas-0k7duh",
+      "homeName": "Independiente Santa Fe",
+      "awayName": "Once Caldas",
+      "market": "1x2",
+      "outcome": "AWAY",
+      "line": null,
+      "book": "betvictor",
+      "decimal": 3.2,
+      "openingDecimal": 3.2,
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
     },
     {
       "gameId": "primera-a-colombia-2026-11-25-independiente--once-caldas-0k7duh",
@@ -2986,7 +3406,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T21:50:07Z"
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
     },
     {
       "gameId": "primera-a-colombia-2026-11-25-independiente--once-caldas-0k7duh",
@@ -3001,7 +3421,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T21:50:07Z"
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
     },
     {
       "gameId": "primera-a-colombia-2026-11-25-independiente--once-caldas-0k7duh",
@@ -3016,7 +3436,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T21:50:07Z"
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
     },
     {
       "gameId": "primera-a-colombia-2026-11-25-independiente--once-caldas-0k7duh",
@@ -3031,7 +3451,22 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T21:50:07Z"
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
+    },
+    {
+      "gameId": "primera-a-colombia-2026-11-25-independiente--once-caldas-0k7duh",
+      "homeName": "Independiente Santa Fe",
+      "awayName": "Once Caldas",
+      "market": "double_chance",
+      "outcome": "1X",
+      "line": null,
+      "book": "betvictor",
+      "decimal": 1.3,
+      "openingDecimal": 1.3,
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
     },
     {
       "gameId": "primera-a-colombia-2026-11-25-independiente--once-caldas-0k7duh",
@@ -3041,12 +3476,12 @@
       "outcome": "X2",
       "line": null,
       "book": "1xbet",
-      "decimal": 1.64,
+      "decimal": 1.63,
       "openingDecimal": 1.64,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T21:50:07Z"
+      "deltaPct": -0.61,
+      "movement": "shortening",
+      "movementSignal": "SHORTENING",
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
     },
     {
       "gameId": "primera-a-colombia-2026-11-25-independiente--once-caldas-0k7duh",
@@ -3061,7 +3496,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T21:50:07Z"
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
     },
     {
       "gameId": "primera-a-colombia-2026-11-25-independiente--once-caldas-0k7duh",
@@ -3076,7 +3511,22 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T21:50:07Z"
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
+    },
+    {
+      "gameId": "primera-a-colombia-2026-11-25-independiente--once-caldas-0k7duh",
+      "homeName": "Independiente Santa Fe",
+      "awayName": "Once Caldas",
+      "market": "double_chance",
+      "outcome": "X2",
+      "line": null,
+      "book": "betvictor",
+      "decimal": 1.6,
+      "openingDecimal": 1.6,
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
     },
     {
       "gameId": "primera-a-colombia-2026-11-25-independiente--once-caldas-0k7duh",
@@ -3091,7 +3541,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T21:50:07Z"
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
     },
     {
       "gameId": "primera-a-colombia-2026-11-25-independiente--once-caldas-0k7duh",
@@ -3106,7 +3556,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T21:50:07Z"
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
     },
     {
       "gameId": "primera-a-colombia-2026-11-25-independiente--once-caldas-0k7duh",
@@ -3121,7 +3571,22 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T21:50:07Z"
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
+    },
+    {
+      "gameId": "primera-a-colombia-2026-11-25-independiente--once-caldas-0k7duh",
+      "homeName": "Independiente Santa Fe",
+      "awayName": "Once Caldas",
+      "market": "double_chance",
+      "outcome": "12",
+      "line": null,
+      "book": "betvictor",
+      "decimal": 1.3,
+      "openingDecimal": 1.3,
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
     },
     {
       "gameId": "primera-a-colombia-2026-11-25-independiente--once-caldas-0k7duh",
@@ -3136,7 +3601,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T21:50:07Z"
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
     },
     {
       "gameId": "primera-a-colombia-2026-11-25-independiente--once-caldas-0k7duh",
@@ -3151,7 +3616,22 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T21:50:07Z"
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
+    },
+    {
+      "gameId": "primera-a-colombia-2026-11-25-independiente--once-caldas-0k7duh",
+      "homeName": "Independiente Santa Fe",
+      "awayName": "Once Caldas",
+      "market": "over_under_15",
+      "outcome": "over",
+      "line": 1.5,
+      "book": "betvictor",
+      "decimal": 1.34,
+      "openingDecimal": 1.34,
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
     },
     {
       "gameId": "primera-a-colombia-2026-11-25-independiente--once-caldas-0k7duh",
@@ -3166,7 +3646,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T21:50:07Z"
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
     },
     {
       "gameId": "primera-a-colombia-2026-11-25-independiente--once-caldas-0k7duh",
@@ -3181,7 +3661,22 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T21:50:07Z"
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
+    },
+    {
+      "gameId": "primera-a-colombia-2026-11-25-independiente--once-caldas-0k7duh",
+      "homeName": "Independiente Santa Fe",
+      "awayName": "Once Caldas",
+      "market": "over_under_15",
+      "outcome": "under",
+      "line": 1.5,
+      "book": "betvictor",
+      "decimal": 2.91,
+      "openingDecimal": 2.91,
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
     },
     {
       "gameId": "primera-a-colombia-2026-11-25-independiente--once-caldas-0k7duh",
@@ -3196,7 +3691,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T21:50:07Z"
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
     },
     {
       "gameId": "primera-a-colombia-2026-11-25-independiente--once-caldas-0k7duh",
@@ -3211,7 +3706,52 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T21:50:07Z"
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
+    },
+    {
+      "gameId": "primera-a-colombia-2026-11-25-independiente--once-caldas-0k7duh",
+      "homeName": "Independiente Santa Fe",
+      "awayName": "Once Caldas",
+      "market": "over_under_25",
+      "outcome": "over",
+      "line": 2.5,
+      "book": "bet365",
+      "decimal": 2.05,
+      "openingDecimal": 2.05,
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
+    },
+    {
+      "gameId": "primera-a-colombia-2026-11-25-independiente--once-caldas-0k7duh",
+      "homeName": "Independiente Santa Fe",
+      "awayName": "Once Caldas",
+      "market": "over_under_25",
+      "outcome": "over",
+      "line": 2.5,
+      "book": "betfair",
+      "decimal": 2.1,
+      "openingDecimal": 2.1,
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
+    },
+    {
+      "gameId": "primera-a-colombia-2026-11-25-independiente--once-caldas-0k7duh",
+      "homeName": "Independiente Santa Fe",
+      "awayName": "Once Caldas",
+      "market": "over_under_25",
+      "outcome": "over",
+      "line": 2.5,
+      "book": "betvictor",
+      "decimal": 1.98,
+      "openingDecimal": 1.98,
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
     },
     {
       "gameId": "primera-a-colombia-2026-11-25-independiente--once-caldas-0k7duh",
@@ -3226,7 +3766,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T21:50:07Z"
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
     },
     {
       "gameId": "primera-a-colombia-2026-11-25-independiente--once-caldas-0k7duh",
@@ -3241,7 +3781,52 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T21:50:07Z"
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
+    },
+    {
+      "gameId": "primera-a-colombia-2026-11-25-independiente--once-caldas-0k7duh",
+      "homeName": "Independiente Santa Fe",
+      "awayName": "Once Caldas",
+      "market": "over_under_25",
+      "outcome": "under",
+      "line": 2.5,
+      "book": "bet365",
+      "decimal": 1.75,
+      "openingDecimal": 1.75,
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
+    },
+    {
+      "gameId": "primera-a-colombia-2026-11-25-independiente--once-caldas-0k7duh",
+      "homeName": "Independiente Santa Fe",
+      "awayName": "Once Caldas",
+      "market": "over_under_25",
+      "outcome": "under",
+      "line": 2.5,
+      "book": "betfair",
+      "decimal": 1.73,
+      "openingDecimal": 1.73,
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
+    },
+    {
+      "gameId": "primera-a-colombia-2026-11-25-independiente--once-caldas-0k7duh",
+      "homeName": "Independiente Santa Fe",
+      "awayName": "Once Caldas",
+      "market": "over_under_25",
+      "outcome": "under",
+      "line": 2.5,
+      "book": "betvictor",
+      "decimal": 1.71,
+      "openingDecimal": 1.71,
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
     },
     {
       "gameId": "primera-a-colombia-2026-11-25-independiente--once-caldas-0k7duh",
@@ -3256,7 +3841,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T21:50:07Z"
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
     },
     {
       "gameId": "primera-a-colombia-2026-11-25-independiente--once-caldas-0k7duh",
@@ -3271,7 +3856,22 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T21:50:07Z"
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
+    },
+    {
+      "gameId": "primera-a-colombia-2026-11-25-independiente--once-caldas-0k7duh",
+      "homeName": "Independiente Santa Fe",
+      "awayName": "Once Caldas",
+      "market": "over_under_35",
+      "outcome": "over",
+      "line": 3.5,
+      "book": "betvictor",
+      "decimal": 3.3,
+      "openingDecimal": 3.3,
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
     },
     {
       "gameId": "primera-a-colombia-2026-11-25-independiente--once-caldas-0k7duh",
@@ -3286,7 +3886,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T21:50:07Z"
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
     },
     {
       "gameId": "primera-a-colombia-2026-11-25-independiente--once-caldas-0k7duh",
@@ -3301,7 +3901,22 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T21:50:07Z"
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
+    },
+    {
+      "gameId": "primera-a-colombia-2026-11-25-independiente--once-caldas-0k7duh",
+      "homeName": "Independiente Santa Fe",
+      "awayName": "Once Caldas",
+      "market": "over_under_35",
+      "outcome": "under",
+      "line": 3.5,
+      "book": "betvictor",
+      "decimal": 1.27,
+      "openingDecimal": 1.27,
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
     },
     {
       "gameId": "primera-a-colombia-2026-11-25-independiente--once-caldas-0k7duh",
@@ -3311,12 +3926,12 @@
       "outcome": "yes",
       "line": null,
       "book": "1xbet",
-      "decimal": 1.8,
+      "decimal": 1.79,
       "openingDecimal": 1.8,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T21:50:07Z"
+      "deltaPct": -0.56,
+      "movement": "shortening",
+      "movementSignal": "SHORTENING",
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
     },
     {
       "gameId": "primera-a-colombia-2026-11-25-independiente--once-caldas-0k7duh",
@@ -3331,7 +3946,37 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T21:50:07Z"
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
+    },
+    {
+      "gameId": "primera-a-colombia-2026-11-25-independiente--once-caldas-0k7duh",
+      "homeName": "Independiente Santa Fe",
+      "awayName": "Once Caldas",
+      "market": "btts",
+      "outcome": "yes",
+      "line": null,
+      "book": "bet365",
+      "decimal": 1.83,
+      "openingDecimal": 1.83,
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
+    },
+    {
+      "gameId": "primera-a-colombia-2026-11-25-independiente--once-caldas-0k7duh",
+      "homeName": "Independiente Santa Fe",
+      "awayName": "Once Caldas",
+      "market": "btts",
+      "outcome": "yes",
+      "line": null,
+      "book": "betvictor",
+      "decimal": 1.78,
+      "openingDecimal": 1.78,
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
     },
     {
       "gameId": "primera-a-colombia-2026-11-25-independiente--once-caldas-0k7duh",
@@ -3341,12 +3986,12 @@
       "outcome": "no",
       "line": null,
       "book": "1xbet",
-      "decimal": 1.9,
+      "decimal": 1.92,
       "openingDecimal": 1.9,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T21:50:07Z"
+      "deltaPct": 1.05,
+      "movement": "drifting",
+      "movementSignal": "DRIFTING",
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
     },
     {
       "gameId": "primera-a-colombia-2026-11-25-independiente--once-caldas-0k7duh",
@@ -3361,7 +4006,52 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T21:50:07Z"
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
+    },
+    {
+      "gameId": "primera-a-colombia-2026-11-25-independiente--once-caldas-0k7duh",
+      "homeName": "Independiente Santa Fe",
+      "awayName": "Once Caldas",
+      "market": "btts",
+      "outcome": "no",
+      "line": null,
+      "book": "bet365",
+      "decimal": 1.83,
+      "openingDecimal": 1.83,
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
+    },
+    {
+      "gameId": "primera-a-colombia-2026-11-25-independiente--once-caldas-0k7duh",
+      "homeName": "Independiente Santa Fe",
+      "awayName": "Once Caldas",
+      "market": "btts",
+      "outcome": "no",
+      "line": null,
+      "book": "betvictor",
+      "decimal": 1.93,
+      "openingDecimal": 1.93,
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
+    },
+    {
+      "gameId": "primera-a-colombia-2026-11-25-independiente--once-caldas-0k7duh",
+      "homeName": "Independiente Santa Fe",
+      "awayName": "Once Caldas",
+      "market": "over_under_05",
+      "outcome": "over",
+      "line": 0.5,
+      "book": "betvictor",
+      "decimal": 1.04,
+      "openingDecimal": 1.04,
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
     },
     {
       "gameId": "primera-a-colombia-2026-11-25-independiente--once-caldas-0k7duh",
@@ -3376,7 +4066,172 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T21:50:07Z"
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
+    },
+    {
+      "gameId": "primera-a-colombia-2026-11-25-independiente--once-caldas-0k7duh",
+      "homeName": "Independiente Santa Fe",
+      "awayName": "Once Caldas",
+      "market": "over_under_05",
+      "outcome": "under",
+      "line": 0.5,
+      "book": "betvictor",
+      "decimal": 9,
+      "openingDecimal": 9,
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
+    },
+    {
+      "gameId": "primera-a-colombia-2026-11-25-independiente--once-caldas-0k7duh",
+      "homeName": "Independiente Santa Fe",
+      "awayName": "Once Caldas",
+      "market": "total_corners",
+      "outcome": "over",
+      "line": 7.5,
+      "book": "1xbet",
+      "decimal": 1.29,
+      "openingDecimal": 1.29,
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
+    },
+    {
+      "gameId": "primera-a-colombia-2026-11-25-independiente--once-caldas-0k7duh",
+      "homeName": "Independiente Santa Fe",
+      "awayName": "Once Caldas",
+      "market": "total_corners",
+      "outcome": "under",
+      "line": 7.5,
+      "book": "1xbet",
+      "decimal": 3.04,
+      "openingDecimal": 3.04,
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
+    },
+    {
+      "gameId": "primera-a-colombia-2026-11-25-independiente--once-caldas-0k7duh",
+      "homeName": "Independiente Santa Fe",
+      "awayName": "Once Caldas",
+      "market": "total_corners",
+      "outcome": "over",
+      "line": 8.5,
+      "book": "1xbet",
+      "decimal": 1.58,
+      "openingDecimal": 1.58,
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
+    },
+    {
+      "gameId": "primera-a-colombia-2026-11-25-independiente--once-caldas-0k7duh",
+      "homeName": "Independiente Santa Fe",
+      "awayName": "Once Caldas",
+      "market": "total_corners",
+      "outcome": "under",
+      "line": 8.5,
+      "book": "1xbet",
+      "decimal": 2.22,
+      "openingDecimal": 2.22,
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
+    },
+    {
+      "gameId": "primera-a-colombia-2026-11-25-independiente--once-caldas-0k7duh",
+      "homeName": "Independiente Santa Fe",
+      "awayName": "Once Caldas",
+      "market": "total_corners",
+      "outcome": "over",
+      "line": 9.5,
+      "book": "1xbet",
+      "decimal": 1.96,
+      "openingDecimal": 1.96,
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
+    },
+    {
+      "gameId": "primera-a-colombia-2026-11-25-independiente--once-caldas-0k7duh",
+      "homeName": "Independiente Santa Fe",
+      "awayName": "Once Caldas",
+      "market": "total_corners",
+      "outcome": "under",
+      "line": 9.5,
+      "book": "1xbet",
+      "decimal": 1.75,
+      "openingDecimal": 1.75,
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
+    },
+    {
+      "gameId": "primera-a-colombia-2026-11-25-independiente--once-caldas-0k7duh",
+      "homeName": "Independiente Santa Fe",
+      "awayName": "Once Caldas",
+      "market": "total_corners",
+      "outcome": "over",
+      "line": 10.5,
+      "book": "1xbet",
+      "decimal": 2.53,
+      "openingDecimal": 2.53,
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
+    },
+    {
+      "gameId": "primera-a-colombia-2026-11-25-independiente--once-caldas-0k7duh",
+      "homeName": "Independiente Santa Fe",
+      "awayName": "Once Caldas",
+      "market": "total_corners",
+      "outcome": "under",
+      "line": 10.5,
+      "book": "1xbet",
+      "decimal": 1.43,
+      "openingDecimal": 1.43,
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
+    },
+    {
+      "gameId": "primera-a-colombia-2026-11-25-independiente--once-caldas-0k7duh",
+      "homeName": "Independiente Santa Fe",
+      "awayName": "Once Caldas",
+      "market": "total_corners",
+      "outcome": "over",
+      "line": 11.5,
+      "book": "1xbet",
+      "decimal": 3.48,
+      "openingDecimal": 3.48,
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
+    },
+    {
+      "gameId": "primera-a-colombia-2026-11-25-independiente--once-caldas-0k7duh",
+      "homeName": "Independiente Santa Fe",
+      "awayName": "Once Caldas",
+      "market": "total_corners",
+      "outcome": "under",
+      "line": 11.5,
+      "book": "1xbet",
+      "decimal": 1.22,
+      "openingDecimal": 1.22,
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
     },
     {
       "gameId": "primera-a-colombia-2026-11-26-atletico-nacio-independiente--gladtk",
@@ -3391,7 +4246,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T21:50:07Z"
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
     },
     {
       "gameId": "primera-a-colombia-2026-11-26-atletico-nacio-independiente--gladtk",
@@ -3406,7 +4261,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T21:50:07Z"
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
     },
     {
       "gameId": "primera-a-colombia-2026-11-26-atletico-nacio-independiente--gladtk",
@@ -3421,7 +4276,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T21:50:07Z"
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
     },
     {
       "gameId": "primera-a-colombia-2026-11-26-atletico-nacio-independiente--gladtk",
@@ -3436,7 +4291,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T21:50:07Z"
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
     },
     {
       "gameId": "primera-a-colombia-2026-11-26-atletico-nacio-independiente--gladtk",
@@ -3451,7 +4306,22 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T21:50:07Z"
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
+    },
+    {
+      "gameId": "primera-a-colombia-2026-11-26-atletico-nacio-independiente--gladtk",
+      "homeName": "Atlético Nacional",
+      "awayName": "Independiente Medellín",
+      "market": "1x2",
+      "outcome": "HOME",
+      "line": null,
+      "book": "bet365",
+      "decimal": 1.75,
+      "openingDecimal": 1.75,
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
     },
     {
       "gameId": "primera-a-colombia-2026-11-26-atletico-nacio-independiente--gladtk",
@@ -3466,7 +4336,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T21:50:07Z"
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
     },
     {
       "gameId": "primera-a-colombia-2026-11-26-atletico-nacio-independiente--gladtk",
@@ -3481,7 +4351,22 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T21:50:07Z"
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
+    },
+    {
+      "gameId": "primera-a-colombia-2026-11-26-atletico-nacio-independiente--gladtk",
+      "homeName": "Atlético Nacional",
+      "awayName": "Independiente Medellín",
+      "market": "1x2",
+      "outcome": "HOME",
+      "line": null,
+      "book": "dafabet",
+      "decimal": 1.76,
+      "openingDecimal": 1.76,
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
     },
     {
       "gameId": "primera-a-colombia-2026-11-26-atletico-nacio-independiente--gladtk",
@@ -3496,7 +4381,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T21:50:07Z"
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
     },
     {
       "gameId": "primera-a-colombia-2026-11-26-atletico-nacio-independiente--gladtk",
@@ -3511,7 +4396,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T21:50:07Z"
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
     },
     {
       "gameId": "primera-a-colombia-2026-11-26-atletico-nacio-independiente--gladtk",
@@ -3526,7 +4411,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T21:50:07Z"
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
     },
     {
       "gameId": "primera-a-colombia-2026-11-26-atletico-nacio-independiente--gladtk",
@@ -3536,12 +4421,12 @@
       "outcome": "DRAW",
       "line": null,
       "book": "pinnacle",
-      "decimal": 3.71,
+      "decimal": 3.69,
       "openingDecimal": 3.71,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T21:50:07Z"
+      "deltaPct": -0.54,
+      "movement": "shortening",
+      "movementSignal": "SHORTENING",
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
     },
     {
       "gameId": "primera-a-colombia-2026-11-26-atletico-nacio-independiente--gladtk",
@@ -3556,7 +4441,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T21:50:07Z"
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
     },
     {
       "gameId": "primera-a-colombia-2026-11-26-atletico-nacio-independiente--gladtk",
@@ -3566,12 +4451,12 @@
       "outcome": "DRAW",
       "line": null,
       "book": "bwin",
-      "decimal": 3.6,
+      "decimal": 3.5,
       "openingDecimal": 3.6,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T21:50:07Z"
+      "deltaPct": -2.78,
+      "movement": "shortening",
+      "movementSignal": "SHORTENING",
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
     },
     {
       "gameId": "primera-a-colombia-2026-11-26-atletico-nacio-independiente--gladtk",
@@ -3586,7 +4471,22 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T21:50:07Z"
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
+    },
+    {
+      "gameId": "primera-a-colombia-2026-11-26-atletico-nacio-independiente--gladtk",
+      "homeName": "Atlético Nacional",
+      "awayName": "Independiente Medellín",
+      "market": "1x2",
+      "outcome": "DRAW",
+      "line": null,
+      "book": "bet365",
+      "decimal": 3.8,
+      "openingDecimal": 3.8,
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
     },
     {
       "gameId": "primera-a-colombia-2026-11-26-atletico-nacio-independiente--gladtk",
@@ -3601,7 +4501,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T21:50:07Z"
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
     },
     {
       "gameId": "primera-a-colombia-2026-11-26-atletico-nacio-independiente--gladtk",
@@ -3611,12 +4511,27 @@
       "outcome": "DRAW",
       "line": null,
       "book": "coral",
-      "decimal": 3.5,
+      "decimal": 3.4,
       "openingDecimal": 3.5,
+      "deltaPct": -2.86,
+      "movement": "shortening",
+      "movementSignal": "SHORTENING",
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
+    },
+    {
+      "gameId": "primera-a-colombia-2026-11-26-atletico-nacio-independiente--gladtk",
+      "homeName": "Atlético Nacional",
+      "awayName": "Independiente Medellín",
+      "market": "1x2",
+      "outcome": "DRAW",
+      "line": null,
+      "book": "dafabet",
+      "decimal": 3.7,
+      "openingDecimal": 3.7,
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T21:50:07Z"
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
     },
     {
       "gameId": "primera-a-colombia-2026-11-26-atletico-nacio-independiente--gladtk",
@@ -3626,12 +4541,12 @@
       "outcome": "DRAW",
       "line": null,
       "book": "ladbrokes",
-      "decimal": 3.5,
+      "decimal": 3.4,
       "openingDecimal": 3.5,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T21:50:07Z"
+      "deltaPct": -2.86,
+      "movement": "shortening",
+      "movementSignal": "SHORTENING",
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
     },
     {
       "gameId": "primera-a-colombia-2026-11-26-atletico-nacio-independiente--gladtk",
@@ -3646,7 +4561,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T21:50:07Z"
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
     },
     {
       "gameId": "primera-a-colombia-2026-11-26-atletico-nacio-independiente--gladtk",
@@ -3661,7 +4576,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T21:50:07Z"
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
     },
     {
       "gameId": "primera-a-colombia-2026-11-26-atletico-nacio-independiente--gladtk",
@@ -3676,7 +4591,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T21:50:07Z"
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
     },
     {
       "gameId": "primera-a-colombia-2026-11-26-atletico-nacio-independiente--gladtk",
@@ -3691,7 +4606,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T21:50:07Z"
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
     },
     {
       "gameId": "primera-a-colombia-2026-11-26-atletico-nacio-independiente--gladtk",
@@ -3706,7 +4621,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T21:50:07Z"
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
     },
     {
       "gameId": "primera-a-colombia-2026-11-26-atletico-nacio-independiente--gladtk",
@@ -3721,7 +4636,22 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T21:50:07Z"
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
+    },
+    {
+      "gameId": "primera-a-colombia-2026-11-26-atletico-nacio-independiente--gladtk",
+      "homeName": "Atlético Nacional",
+      "awayName": "Independiente Medellín",
+      "market": "1x2",
+      "outcome": "AWAY",
+      "line": null,
+      "book": "bet365",
+      "decimal": 4.33,
+      "openingDecimal": 4.33,
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
     },
     {
       "gameId": "primera-a-colombia-2026-11-26-atletico-nacio-independiente--gladtk",
@@ -3736,7 +4666,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T21:50:07Z"
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
     },
     {
       "gameId": "primera-a-colombia-2026-11-26-atletico-nacio-independiente--gladtk",
@@ -3751,7 +4681,22 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T21:50:07Z"
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
+    },
+    {
+      "gameId": "primera-a-colombia-2026-11-26-atletico-nacio-independiente--gladtk",
+      "homeName": "Atlético Nacional",
+      "awayName": "Independiente Medellín",
+      "market": "1x2",
+      "outcome": "AWAY",
+      "line": null,
+      "book": "dafabet",
+      "decimal": 4.1,
+      "openingDecimal": 4.1,
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
     },
     {
       "gameId": "primera-a-colombia-2026-11-26-atletico-nacio-independiente--gladtk",
@@ -3766,7 +4711,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T21:50:07Z"
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
     },
     {
       "gameId": "primera-a-colombia-2026-11-26-atletico-nacio-independiente--gladtk",
@@ -3781,7 +4726,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T21:50:07Z"
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
     },
     {
       "gameId": "primera-a-colombia-2026-11-26-atletico-nacio-independiente--gladtk",
@@ -3796,7 +4741,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T21:50:07Z"
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
     },
     {
       "gameId": "primera-a-colombia-2026-11-26-atletico-nacio-independiente--gladtk",
@@ -3811,7 +4756,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T21:50:07Z"
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
     },
     {
       "gameId": "primera-a-colombia-2026-11-26-atletico-nacio-independiente--gladtk",
@@ -3826,7 +4771,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T21:50:07Z"
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
     },
     {
       "gameId": "primera-a-colombia-2026-11-26-atletico-nacio-independiente--gladtk",
@@ -3841,7 +4786,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T21:50:07Z"
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
     },
     {
       "gameId": "primera-a-colombia-2026-11-26-atletico-nacio-independiente--gladtk",
@@ -3856,7 +4801,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T21:50:07Z"
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
     },
     {
       "gameId": "primera-a-colombia-2026-11-26-atletico-nacio-independiente--gladtk",
@@ -3871,7 +4816,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T21:50:07Z"
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
     },
     {
       "gameId": "primera-a-colombia-2026-11-26-atletico-nacio-independiente--gladtk",
@@ -3886,7 +4831,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T21:50:07Z"
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
     },
     {
       "gameId": "primera-a-colombia-2026-11-26-atletico-nacio-independiente--gladtk",
@@ -3901,7 +4846,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T21:50:07Z"
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
     },
     {
       "gameId": "primera-a-colombia-2026-11-26-atletico-nacio-independiente--gladtk",
@@ -3916,7 +4861,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T21:50:07Z"
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
     },
     {
       "gameId": "primera-a-colombia-2026-11-26-atletico-nacio-independiente--gladtk",
@@ -3931,7 +4876,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T21:50:07Z"
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
     },
     {
       "gameId": "primera-a-colombia-2026-11-26-atletico-nacio-independiente--gladtk",
@@ -3941,12 +4886,12 @@
       "outcome": "over",
       "line": 1.5,
       "book": "pinnacle",
-      "decimal": 1.27,
+      "decimal": 1.28,
       "openingDecimal": 1.27,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T21:50:07Z"
+      "deltaPct": 0.79,
+      "movement": "drifting",
+      "movementSignal": "DRIFTING",
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
     },
     {
       "gameId": "primera-a-colombia-2026-11-26-atletico-nacio-independiente--gladtk",
@@ -3961,7 +4906,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T21:50:07Z"
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
     },
     {
       "gameId": "primera-a-colombia-2026-11-26-atletico-nacio-independiente--gladtk",
@@ -3971,12 +4916,12 @@
       "outcome": "under",
       "line": 1.5,
       "book": "pinnacle",
-      "decimal": 3.58,
+      "decimal": 3.5,
       "openingDecimal": 3.58,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T21:50:07Z"
+      "deltaPct": -2.23,
+      "movement": "shortening",
+      "movementSignal": "SHORTENING",
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
     },
     {
       "gameId": "primera-a-colombia-2026-11-26-atletico-nacio-independiente--gladtk",
@@ -3991,7 +4936,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T21:50:07Z"
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
     },
     {
       "gameId": "primera-a-colombia-2026-11-26-atletico-nacio-independiente--gladtk",
@@ -4001,12 +4946,27 @@
       "outcome": "over",
       "line": 2.5,
       "book": "pinnacle",
-      "decimal": 1.88,
+      "decimal": 1.91,
       "openingDecimal": 1.88,
+      "deltaPct": 1.6,
+      "movement": "drifting",
+      "movementSignal": "DRIFTING",
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
+    },
+    {
+      "gameId": "primera-a-colombia-2026-11-26-atletico-nacio-independiente--gladtk",
+      "homeName": "Atlético Nacional",
+      "awayName": "Independiente Medellín",
+      "market": "over_under_25",
+      "outcome": "over",
+      "line": 2.5,
+      "book": "bet365",
+      "decimal": 1.9,
+      "openingDecimal": 1.9,
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T21:50:07Z"
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
     },
     {
       "gameId": "primera-a-colombia-2026-11-26-atletico-nacio-independiente--gladtk",
@@ -4021,7 +4981,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T21:50:07Z"
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
     },
     {
       "gameId": "primera-a-colombia-2026-11-26-atletico-nacio-independiente--gladtk",
@@ -4031,12 +4991,27 @@
       "outcome": "under",
       "line": 2.5,
       "book": "pinnacle",
-      "decimal": 1.91,
+      "decimal": 1.88,
       "openingDecimal": 1.91,
+      "deltaPct": -1.57,
+      "movement": "shortening",
+      "movementSignal": "SHORTENING",
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
+    },
+    {
+      "gameId": "primera-a-colombia-2026-11-26-atletico-nacio-independiente--gladtk",
+      "homeName": "Atlético Nacional",
+      "awayName": "Independiente Medellín",
+      "market": "over_under_25",
+      "outcome": "under",
+      "line": 2.5,
+      "book": "bet365",
+      "decimal": 1.9,
+      "openingDecimal": 1.9,
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T21:50:07Z"
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
     },
     {
       "gameId": "primera-a-colombia-2026-11-26-atletico-nacio-independiente--gladtk",
@@ -4051,7 +5026,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T21:50:07Z"
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
     },
     {
       "gameId": "primera-a-colombia-2026-11-26-atletico-nacio-independiente--gladtk",
@@ -4061,12 +5036,12 @@
       "outcome": "over",
       "line": 3.5,
       "book": "pinnacle",
-      "decimal": 3.12,
+      "decimal": 3.18,
       "openingDecimal": 3.12,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T21:50:07Z"
+      "deltaPct": 1.92,
+      "movement": "drifting",
+      "movementSignal": "DRIFTING",
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
     },
     {
       "gameId": "primera-a-colombia-2026-11-26-atletico-nacio-independiente--gladtk",
@@ -4081,7 +5056,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T21:50:07Z"
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
     },
     {
       "gameId": "primera-a-colombia-2026-11-26-atletico-nacio-independiente--gladtk",
@@ -4091,12 +5066,12 @@
       "outcome": "under",
       "line": 3.5,
       "book": "pinnacle",
-      "decimal": 1.34,
+      "decimal": 1.33,
       "openingDecimal": 1.34,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T21:50:07Z"
+      "deltaPct": -0.75,
+      "movement": "shortening",
+      "movementSignal": "SHORTENING",
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
     },
     {
       "gameId": "primera-a-colombia-2026-11-26-atletico-nacio-independiente--gladtk",
@@ -4111,7 +5086,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T21:50:07Z"
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
     },
     {
       "gameId": "primera-a-colombia-2026-11-26-atletico-nacio-independiente--gladtk",
@@ -4126,7 +5101,22 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T21:50:07Z"
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
+    },
+    {
+      "gameId": "primera-a-colombia-2026-11-26-atletico-nacio-independiente--gladtk",
+      "homeName": "Atlético Nacional",
+      "awayName": "Independiente Medellín",
+      "market": "btts",
+      "outcome": "yes",
+      "line": null,
+      "book": "bet365",
+      "decimal": 1.8,
+      "openingDecimal": 1.8,
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
     },
     {
       "gameId": "primera-a-colombia-2026-11-26-atletico-nacio-independiente--gladtk",
@@ -4141,7 +5131,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T21:50:07Z"
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
     },
     {
       "gameId": "primera-a-colombia-2026-11-26-atletico-nacio-independiente--gladtk",
@@ -4156,7 +5146,22 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T21:50:07Z"
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
+    },
+    {
+      "gameId": "primera-a-colombia-2026-11-26-atletico-nacio-independiente--gladtk",
+      "homeName": "Atlético Nacional",
+      "awayName": "Independiente Medellín",
+      "market": "btts",
+      "outcome": "no",
+      "line": null,
+      "book": "bet365",
+      "decimal": 1.9,
+      "openingDecimal": 1.9,
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
     },
     {
       "gameId": "primera-a-colombia-2026-11-26-atletico-nacio-independiente--gladtk",
@@ -4171,7 +5176,157 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T21:50:07Z"
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
+    },
+    {
+      "gameId": "primera-a-colombia-2026-11-26-atletico-nacio-independiente--gladtk",
+      "homeName": "Atlético Nacional",
+      "awayName": "Independiente Medellín",
+      "market": "total_corners",
+      "outcome": "over",
+      "line": 7.5,
+      "book": "1xbet",
+      "decimal": 1.19,
+      "openingDecimal": 1.19,
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
+    },
+    {
+      "gameId": "primera-a-colombia-2026-11-26-atletico-nacio-independiente--gladtk",
+      "homeName": "Atlético Nacional",
+      "awayName": "Independiente Medellín",
+      "market": "total_corners",
+      "outcome": "under",
+      "line": 7.5,
+      "book": "1xbet",
+      "decimal": 3.73,
+      "openingDecimal": 3.73,
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
+    },
+    {
+      "gameId": "primera-a-colombia-2026-11-26-atletico-nacio-independiente--gladtk",
+      "homeName": "Atlético Nacional",
+      "awayName": "Independiente Medellín",
+      "market": "total_corners",
+      "outcome": "over",
+      "line": 8.5,
+      "book": "1xbet",
+      "decimal": 1.41,
+      "openingDecimal": 1.41,
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
+    },
+    {
+      "gameId": "primera-a-colombia-2026-11-26-atletico-nacio-independiente--gladtk",
+      "homeName": "Atlético Nacional",
+      "awayName": "Independiente Medellín",
+      "market": "total_corners",
+      "outcome": "under",
+      "line": 8.5,
+      "book": "1xbet",
+      "decimal": 2.6,
+      "openingDecimal": 2.6,
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
+    },
+    {
+      "gameId": "primera-a-colombia-2026-11-26-atletico-nacio-independiente--gladtk",
+      "homeName": "Atlético Nacional",
+      "awayName": "Independiente Medellín",
+      "market": "total_corners",
+      "outcome": "over",
+      "line": 9.5,
+      "book": "1xbet",
+      "decimal": 1.73,
+      "openingDecimal": 1.73,
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
+    },
+    {
+      "gameId": "primera-a-colombia-2026-11-26-atletico-nacio-independiente--gladtk",
+      "homeName": "Atlético Nacional",
+      "awayName": "Independiente Medellín",
+      "market": "total_corners",
+      "outcome": "under",
+      "line": 9.5,
+      "book": "1xbet",
+      "decimal": 1.99,
+      "openingDecimal": 1.99,
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
+    },
+    {
+      "gameId": "primera-a-colombia-2026-11-26-atletico-nacio-independiente--gladtk",
+      "homeName": "Atlético Nacional",
+      "awayName": "Independiente Medellín",
+      "market": "total_corners",
+      "outcome": "over",
+      "line": 10.5,
+      "book": "1xbet",
+      "decimal": 2.16,
+      "openingDecimal": 2.16,
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
+    },
+    {
+      "gameId": "primera-a-colombia-2026-11-26-atletico-nacio-independiente--gladtk",
+      "homeName": "Atlético Nacional",
+      "awayName": "Independiente Medellín",
+      "market": "total_corners",
+      "outcome": "under",
+      "line": 10.5,
+      "book": "1xbet",
+      "decimal": 1.61,
+      "openingDecimal": 1.61,
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
+    },
+    {
+      "gameId": "primera-a-colombia-2026-11-26-atletico-nacio-independiente--gladtk",
+      "homeName": "Atlético Nacional",
+      "awayName": "Independiente Medellín",
+      "market": "total_corners",
+      "outcome": "over",
+      "line": 11.5,
+      "book": "1xbet",
+      "decimal": 2.82,
+      "openingDecimal": 2.82,
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
+    },
+    {
+      "gameId": "primera-a-colombia-2026-11-26-atletico-nacio-independiente--gladtk",
+      "homeName": "Atlético Nacional",
+      "awayName": "Independiente Medellín",
+      "market": "total_corners",
+      "outcome": "under",
+      "line": 11.5,
+      "book": "1xbet",
+      "decimal": 1.34,
+      "openingDecimal": 1.34,
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-23T15:05:05Z"
     }
   ]
 }

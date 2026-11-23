@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "league": "serie-b",
   "seasonLabel": "2026/27",
-  "observedAt": "2026-11-22T21:56:46.653Z",
+  "observedAt": "2026-11-23T15:07:01.408Z",
   "teams": [
     {
       "teamId": "serie-b.cesena",
@@ -24,7 +24,7 @@
           "winPct": 32.9
         }
       },
-      "updatedAt": "2026-11-22T21:56:46.653Z",
+      "updatedAt": "2026-11-23T15:07:01.408Z",
       "players": [
         {
           "id": "serie-b.cesena.alessandro-debenedetti",
@@ -133,7 +133,7 @@
             "offsides": 0,
             "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 1
+            "goalsConceded": 0
           },
           "candidatePicks": []
         },
@@ -198,7 +198,7 @@
             "subIns": 0,
             "goals": 0,
             "assists": 0,
-            "shots": 1,
+            "shots": 2,
             "shotsOnTarget": 0,
             "foulsCommitted": 0,
             "foulsSuffered": 0,
@@ -207,7 +207,7 @@
             "offsides": 0,
             "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 1
+            "goalsConceded": 0
           },
           "candidatePicks": []
         },
@@ -233,9 +233,9 @@
           "stats": {
             "appearances": 0,
             "subIns": 0,
-            "goals": 0,
+            "goals": 1,
             "assists": 0,
-            "shots": 2,
+            "shots": 3,
             "shotsOnTarget": 1,
             "foulsCommitted": 0,
             "foulsSuffered": 0,
@@ -244,7 +244,7 @@
             "offsides": 0,
             "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 0
+            "goalsConceded": 1
           },
           "candidatePicks": []
         },
@@ -568,8 +568,8 @@
             "subIns": 0,
             "goals": 0,
             "assists": 0,
-            "shots": 1,
-            "shotsOnTarget": 1,
+            "shots": 3,
+            "shotsOnTarget": 0,
             "foulsCommitted": 0,
             "foulsSuffered": 0,
             "yellowCards": 0,
@@ -679,8 +679,8 @@
             "subIns": 0,
             "goals": 0,
             "assists": 0,
-            "shots": 1,
-            "shotsOnTarget": 1,
+            "shots": 3,
+            "shotsOnTarget": 3,
             "foulsCommitted": 0,
             "foulsSuffered": 0,
             "yellowCards": 0,
@@ -862,10 +862,10 @@
           "stats": {
             "appearances": 0,
             "subIns": 0,
-            "goals": 1,
+            "goals": 0,
             "assists": 0,
-            "shots": 1,
-            "shotsOnTarget": 1,
+            "shots": 0,
+            "shotsOnTarget": 0,
             "foulsCommitted": 0,
             "foulsSuffered": 0,
             "yellowCards": 0,
@@ -975,7 +975,7 @@
             "subIns": 0,
             "goals": 0,
             "assists": 0,
-            "shots": 2,
+            "shots": 0,
             "shotsOnTarget": 0,
             "foulsCommitted": 0,
             "foulsSuffered": 0,
@@ -984,7 +984,7 @@
             "offsides": 0,
             "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 1
+            "goalsConceded": 0
           },
           "candidatePicks": []
         },
@@ -1195,7 +1195,7 @@
           "winPct": 43.5
         }
       },
-      "updatedAt": "2026-11-22T21:56:46.653Z",
+      "updatedAt": "2026-11-23T15:07:01.408Z",
       "players": [
         {
           "id": "serie-b.catanzaro.alejo-garnica",
@@ -1619,7 +1619,7 @@
           "preferredFoot": null,
           "nationality": "Chad",
           "nationalityCode": null,
-          "photoKey": "pl-p:228723",
+          "photoKey": "pl-p:54711",
           "availability": "available",
           "injuryDetail": null,
           "expectedReturn": null,
@@ -1628,8 +1628,8 @@
             "subIns": 0,
             "goals": 0,
             "assists": 0,
-            "shots": 0,
-            "shotsOnTarget": 0,
+            "shots": 2,
+            "shotsOnTarget": 1,
             "foulsCommitted": 0,
             "foulsSuffered": 0,
             "yellowCards": 0,
@@ -1642,8 +1642,8 @@
           "candidatePicks": []
         },
         {
-          "id": "serie-b.catanzaro.franky-tchaouna-3",
-          "slug": "franky-tchaouna-3",
+          "id": "serie-b.catanzaro.franky-tchaouna-94",
+          "slug": "franky-tchaouna-94",
           "name": "Franky Tchaouna",
           "shortName": "F. Tchaouna",
           "jersey": "28",
@@ -1656,7 +1656,7 @@
           "preferredFoot": null,
           "nationality": "Chad",
           "nationalityCode": null,
-          "photoKey": "pl-p:54711",
+          "photoKey": "pl-p:228723",
           "availability": "available",
           "injuryDetail": null,
           "expectedReturn": null,
@@ -1665,8 +1665,8 @@
             "subIns": 0,
             "goals": 0,
             "assists": 0,
-            "shots": 2,
-            "shotsOnTarget": 1,
+            "shots": 0,
+            "shotsOnTarget": 0,
             "foulsCommitted": 0,
             "foulsSuffered": 0,
             "yellowCards": 0,
@@ -2306,43 +2306,6 @@
             "goalsConceded": 0
           },
           "candidatePicks": []
-        },
-        {
-          "id": "serie-b.catanzaro.solomon-loubao",
-          "slug": "solomon-loubao",
-          "name": "Solomon Loubao",
-          "shortName": "S. Loubao",
-          "jersey": "22",
-          "positionGroup": "MID",
-          "positionLabel": "M",
-          "age": 20,
-          "birthDate": "2005-12-03",
-          "heightCm": 181,
-          "weightKg": null,
-          "preferredFoot": "R",
-          "nationality": "France",
-          "nationalityCode": null,
-          "photoKey": "pl-p:37806",
-          "availability": "available",
-          "injuryDetail": null,
-          "expectedReturn": null,
-          "stats": {
-            "appearances": 0,
-            "subIns": 0,
-            "goals": 0,
-            "assists": 0,
-            "shots": 0,
-            "shotsOnTarget": 0,
-            "foulsCommitted": 0,
-            "foulsSuffered": 0,
-            "yellowCards": 0,
-            "redCards": 0,
-            "offsides": 0,
-            "saves": 0,
-            "shotsFaced": 0,
-            "goalsConceded": 0
-          },
-          "candidatePicks": []
         }
       ]
     },
@@ -2366,7 +2329,7 @@
           "winPct": 34.2
         }
       },
-      "updatedAt": "2026-11-22T21:56:46.653Z",
+      "updatedAt": "2026-11-23T15:07:01.408Z",
       "players": [
         {
           "id": "serie-b.mantova.alessio-castellini",
@@ -2392,8 +2355,8 @@
             "subIns": 0,
             "goals": 0,
             "assists": 0,
-            "shots": 3,
-            "shotsOnTarget": 2,
+            "shots": 1,
+            "shotsOnTarget": 0,
             "foulsCommitted": 0,
             "foulsSuffered": 0,
             "yellowCards": 0,
@@ -2401,7 +2364,7 @@
             "offsides": 0,
             "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 1
+            "goalsConceded": 0
           },
           "candidatePicks": []
         },
@@ -2762,7 +2725,7 @@
             "subIns": 0,
             "goals": 0,
             "assists": 0,
-            "shots": 1,
+            "shots": 0,
             "shotsOnTarget": 0,
             "foulsCommitted": 0,
             "foulsSuffered": 0,
@@ -2947,8 +2910,8 @@
             "subIns": 0,
             "goals": 0,
             "assists": 0,
-            "shots": 1,
-            "shotsOnTarget": 1,
+            "shots": 0,
+            "shotsOnTarget": 0,
             "foulsCommitted": 0,
             "foulsSuffered": 0,
             "yellowCards": 0,
@@ -3400,7 +3363,7 @@
             "offsides": 0,
             "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 1
+            "goalsConceded": 0
           },
           "candidatePicks": []
         },
@@ -3537,7 +3500,7 @@
           "winPct": 35.6
         }
       },
-      "updatedAt": "2026-11-22T21:56:46.653Z",
+      "updatedAt": "2026-11-23T15:07:01.408Z",
       "players": [
         {
           "id": "serie-b.hellas-verona.abdou-harroui",
@@ -3598,10 +3561,10 @@
           "stats": {
             "appearances": 0,
             "subIns": 0,
-            "goals": 1,
+            "goals": 0,
             "assists": 0,
-            "shots": 2,
-            "shotsOnTarget": 1,
+            "shots": 1,
+            "shotsOnTarget": 0,
             "foulsCommitted": 0,
             "foulsSuffered": 0,
             "yellowCards": 0,
@@ -3822,7 +3785,7 @@
             "subIns": 0,
             "goals": 0,
             "assists": 0,
-            "shots": 2,
+            "shots": 1,
             "shotsOnTarget": 0,
             "foulsCommitted": 0,
             "foulsSuffered": 0,
@@ -3970,7 +3933,7 @@
             "subIns": 0,
             "goals": 0,
             "assists": 0,
-            "shots": 1,
+            "shots": 0,
             "shotsOnTarget": 0,
             "foulsCommitted": 0,
             "foulsSuffered": 0,
@@ -4745,7 +4708,7 @@
           "winPct": 50
         }
       },
-      "updatedAt": "2026-11-22T21:56:46.653Z",
+      "updatedAt": "2026-11-23T15:07:01.408Z",
       "players": [
         {
           "id": "serie-b.benevento.angelo-talia",
@@ -5141,8 +5104,8 @@
             "subIns": 0,
             "goals": 0,
             "assists": 0,
-            "shots": 5,
-            "shotsOnTarget": 3,
+            "shots": 1,
+            "shotsOnTarget": 0,
             "foulsCommitted": 0,
             "foulsSuffered": 0,
             "yellowCards": 0,
@@ -5511,7 +5474,7 @@
             "subIns": 0,
             "goals": 0,
             "assists": 0,
-            "shots": 0,
+            "shots": 1,
             "shotsOnTarget": 0,
             "foulsCommitted": 0,
             "foulsSuffered": 0,
@@ -5890,7 +5853,7 @@
             "offsides": 0,
             "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 0
+            "goalsConceded": 1
           },
           "candidatePicks": []
         },
@@ -5953,7 +5916,7 @@
           "winPct": 48.1
         }
       },
-      "updatedAt": "2026-11-22T21:56:46.653Z",
+      "updatedAt": "2026-11-23T15:07:01.408Z",
       "players": [
         {
           "id": "serie-b.avellino.alessandro-di-bitonto",
@@ -6016,7 +5979,7 @@
             "subIns": 0,
             "goals": 0,
             "assists": 0,
-            "shots": 0,
+            "shots": 1,
             "shotsOnTarget": 0,
             "foulsCommitted": 0,
             "foulsSuffered": 0,
@@ -6460,7 +6423,7 @@
             "subIns": 0,
             "goals": 0,
             "assists": 0,
-            "shots": 1,
+            "shots": 0,
             "shotsOnTarget": 0,
             "foulsCommitted": 0,
             "foulsSuffered": 0,
@@ -6828,9 +6791,9 @@
           "stats": {
             "appearances": 0,
             "subIns": 0,
-            "goals": 0,
+            "goals": 1,
             "assists": 0,
-            "shots": 2,
+            "shots": 3,
             "shotsOnTarget": 1,
             "foulsCommitted": 0,
             "foulsSuffered": 0,
@@ -6839,7 +6802,7 @@
             "offsides": 0,
             "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 1
+            "goalsConceded": 0
           },
           "candidatePicks": []
         },
@@ -7087,7 +7050,7 @@
           "winPct": 36.4
         }
       },
-      "updatedAt": "2026-11-22T21:56:46.653Z",
+      "updatedAt": "2026-11-23T15:07:01.408Z",
       "players": [
         {
           "id": "serie-b.virtus-entella.andrea-franzoni",
@@ -8221,7 +8184,7 @@
           "winPct": 40.2
         }
       },
-      "updatedAt": "2026-11-22T21:56:46.653Z",
+      "updatedAt": "2026-11-23T15:07:01.408Z",
       "players": [
         {
           "id": "serie-b.modena.abdullah-laidani",
@@ -8284,8 +8247,8 @@
             "subIns": 0,
             "goals": 0,
             "assists": 0,
-            "shots": 2,
-            "shotsOnTarget": 1,
+            "shots": 0,
+            "shotsOnTarget": 0,
             "foulsCommitted": 0,
             "foulsSuffered": 0,
             "yellowCards": 0,
@@ -8356,10 +8319,10 @@
           "stats": {
             "appearances": 0,
             "subIns": 0,
-            "goals": 0,
+            "goals": 1,
             "assists": 0,
-            "shots": 0,
-            "shotsOnTarget": 0,
+            "shots": 3,
+            "shotsOnTarget": 1,
             "foulsCommitted": 0,
             "foulsSuffered": 0,
             "yellowCards": 0,
@@ -8469,7 +8432,7 @@
             "subIns": 0,
             "goals": 0,
             "assists": 0,
-            "shots": 0,
+            "shots": 3,
             "shotsOnTarget": 0,
             "foulsCommitted": 0,
             "foulsSuffered": 0,
@@ -8478,7 +8441,7 @@
             "offsides": 0,
             "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 0
+            "goalsConceded": 1
           },
           "candidatePicks": []
         },
@@ -8737,7 +8700,7 @@
             "offsides": 0,
             "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 1
+            "goalsConceded": 0
           },
           "candidatePicks": []
         },
@@ -8876,7 +8839,7 @@
             "subIns": 0,
             "goals": 0,
             "assists": 0,
-            "shots": 3,
+            "shots": 2,
             "shotsOnTarget": 1,
             "foulsCommitted": 0,
             "foulsSuffered": 0,
@@ -8885,7 +8848,7 @@
             "offsides": 0,
             "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 1
+            "goalsConceded": 0
           },
           "candidatePicks": []
         },
@@ -8987,7 +8950,7 @@
             "subIns": 0,
             "goals": 0,
             "assists": 0,
-            "shots": 0,
+            "shots": 1,
             "shotsOnTarget": 0,
             "foulsCommitted": 0,
             "foulsSuffered": 0,
@@ -9329,7 +9292,7 @@
             "offsides": 0,
             "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 1
+            "goalsConceded": 0
           },
           "candidatePicks": []
         },
