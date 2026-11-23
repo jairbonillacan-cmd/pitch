@@ -5,7 +5,7 @@
   "season": "libertadores-2026",
   "seasonLabel": "2026",
   "periodLabel": "Round of 16",
-  "updatedAt": "2026-11-23T15:07:01.408Z",
+  "updatedAt": "2026-11-23T22:28:20.377Z",
   "source": "pitchlab-football-v2",
   "provenance": "derived",
   "isDemo": false,
@@ -18,8 +18,8 @@
       "forPerGame": 1,
       "againstPerGame": 0.8333333333333334,
       "gamesPlayed": 6,
-      "adjustedFor": 0.8802834356288464,
-      "adjustedAgainst": 0.7957656357016184
+      "adjustedFor": 0.8643495520548407,
+      "adjustedAgainst": 0.8102860055326865
     },
     "libertadores.independiente-rivadavia": {
       "teamId": "libertadores.independiente-rivadavia",
@@ -29,8 +29,8 @@
       "forPerGame": 0.5,
       "againstPerGame": 0.5,
       "gamesPlayed": 2,
-      "adjustedFor": 0.7009055022377378,
-      "adjustedAgainst": 0.6831013400106939
+      "adjustedFor": 0.7635881444200979,
+      "adjustedAgainst": 0.7581119024158017
     },
     "libertadores.deportes-tolima": {
       "teamId": "libertadores.deportes-tolima",
@@ -40,8 +40,8 @@
       "forPerGame": 0.5,
       "againstPerGame": 2,
       "gamesPlayed": 2,
-      "adjustedFor": 0.6758107263718798,
-      "adjustedAgainst": 1.0702144916850898
+      "adjustedFor": 0.7565013700346731,
+      "adjustedAgainst": 0.9631661384901044
     },
     "libertadores.independiente-valle": {
       "teamId": "libertadores.independiente-valle",
@@ -51,8 +51,8 @@
       "forPerGame": 1.25,
       "againstPerGame": 1,
       "gamesPlayed": 4,
-      "adjustedFor": 0.9769541494341974,
-      "adjustedAgainst": 0.8909762130863274
+      "adjustedFor": 0.9128797237709032,
+      "adjustedAgainst": 0.8579018640692795
     },
     "libertadores.estudiantes-la-plata": {
       "teamId": "libertadores.estudiantes-la-plata",
@@ -62,8 +62,8 @@
       "forPerGame": 1,
       "againstPerGame": 0.3333333333333333,
       "gamesPlayed": 6,
-      "adjustedFor": 0.8911226736614988,
-      "adjustedAgainst": 0.5174454510429889
+      "adjustedFor": 0.8640235927709229,
+      "adjustedAgainst": 0.6390440444369215
     },
     "libertadores.universidad-catolica": {
       "teamId": "libertadores.universidad-catolica",
@@ -73,8 +73,8 @@
       "forPerGame": 0.5,
       "againstPerGame": 2,
       "gamesPlayed": 2,
-      "adjustedFor": 0.7795316118970554,
-      "adjustedAgainst": 1.1007007818706556
+      "adjustedFor": 0.7866736430610284,
+      "adjustedAgainst": 0.9698473058754531
     },
     "libertadores.atletico-platense": {
       "teamId": "libertadores.atletico-platense",
@@ -84,8 +84,8 @@
       "forPerGame": 0.75,
       "againstPerGame": 1,
       "gamesPlayed": 4,
-      "adjustedFor": 0.7858789693507336,
-      "adjustedAgainst": 0.8916571169321756
+      "adjustedFor": 0.7975283075881047,
+      "adjustedAgainst": 0.8572226508574676
     },
     "libertadores.coquimbo-unido": {
       "teamId": "libertadores.coquimbo-unido",
@@ -95,8 +95,8 @@
       "forPerGame": 0.5,
       "againstPerGame": 0.5,
       "gamesPlayed": 2,
-      "adjustedFor": 0.674814396426119,
-      "adjustedAgainst": 0.7050787099760744
+      "adjustedFor": 0.7562191168788543,
+      "adjustedAgainst": 0.766159870162983
     },
     "libertadores.palmeiras": {
       "teamId": "libertadores.palmeiras",
@@ -106,8 +106,8 @@
       "forPerGame": 1.1666666666666667,
       "againstPerGame": 1,
       "gamesPlayed": 6,
-      "adjustedFor": 0.9693552291138722,
-      "adjustedAgainst": 0.8915758926973706
+      "adjustedFor": 0.918701309470045,
+      "adjustedAgainst": 0.8682342658065938
     },
     "libertadores.cerro-porteno": {
       "teamId": "libertadores.cerro-porteno",
@@ -117,8 +117,8 @@
       "forPerGame": 0.5,
       "againstPerGame": 1,
       "gamesPlayed": 2,
-      "adjustedFor": 0.6748340663641862,
-      "adjustedAgainst": 0.7968172288836748
+      "adjustedFor": 0.7547444449931752,
+      "adjustedAgainst": 0.8200928056024583
     },
     "libertadores.cruzeiro": {
       "teamId": "libertadores.cruzeiro",
@@ -128,8 +128,8 @@
       "forPerGame": 1,
       "againstPerGame": 1.5,
       "gamesPlayed": 2,
-      "adjustedFor": 0.927184899939838,
-      "adjustedAgainst": 0.9616528778907003
+      "adjustedFor": 0.8551583087148876,
+      "adjustedAgainst": 0.8989950047142496
     },
     "libertadores.flamengo": {
       "teamId": "libertadores.flamengo",
@@ -139,8 +139,8 @@
       "forPerGame": 1,
       "againstPerGame": 0.5,
       "gamesPlayed": 6,
-      "adjustedFor": 0.8868128136821586,
-      "adjustedAgainst": 0.5545829393115863
+      "adjustedFor": 0.8643460684711378,
+      "adjustedAgainst": 0.6725674894021155
     },
     "libertadores.mirassol": {
       "teamId": "libertadores.mirassol",
@@ -150,8 +150,8 @@
       "forPerGame": 0.5,
       "againstPerGame": 0.5,
       "gamesPlayed": 2,
-      "adjustedFor": 0.6802964235713386,
-      "adjustedAgainst": 0.6795403828793732
+      "adjustedFor": 0.7570676296869409,
+      "adjustedAgainst": 0.7580730163091959
     },
     "libertadores.ldu": {
       "teamId": "libertadores.ldu",
@@ -161,8 +161,8 @@
       "forPerGame": 1,
       "againstPerGame": 1,
       "gamesPlayed": 4,
-      "adjustedFor": 0.8860146462891868,
-      "adjustedAgainst": 0.8686364797903133
+      "adjustedFor": 0.8561574354225661,
+      "adjustedAgainst": 0.8505072998467321
     },
     "libertadores.rosario-central": {
       "teamId": "libertadores.rosario-central",
@@ -172,8 +172,8 @@
       "forPerGame": 0,
       "againstPerGame": 0.5,
       "gamesPlayed": 2,
-      "adjustedFor": 0.5801038811033322,
-      "adjustedAgainst": 0.7235129614186835
+      "adjustedFor": 0.7008795060165672,
+      "adjustedAgainst": 0.7732711356778844
     },
     "libertadores.corinthians": {
       "teamId": "libertadores.corinthians",
@@ -183,8 +183,8 @@
       "forPerGame": 0.5,
       "againstPerGame": 0.5,
       "gamesPlayed": 4,
-      "adjustedFor": 0.7240500577408232,
-      "adjustedAgainst": 0.6804654852369397
+      "adjustedFor": 0.7519782791287207,
+      "adjustedAgainst": 0.7376657429707738
     }
   },
   "games": [
@@ -219,7 +219,7 @@
       "result": {
         "home": 2,
         "away": 1,
-        "observedAt": "2026-11-23T15:07:01.408Z",
+        "observedAt": "2026-11-23T22:28:20.377Z",
         "source": "pitchlab-feed"
       }
     },
@@ -254,7 +254,7 @@
       "result": {
         "home": 0,
         "away": 0,
-        "observedAt": "2026-11-23T15:07:01.408Z",
+        "observedAt": "2026-11-23T22:28:20.377Z",
         "source": "pitchlab-feed"
       }
     },
@@ -289,7 +289,7 @@
       "result": {
         "home": 1,
         "away": 0,
-        "observedAt": "2026-11-23T15:07:01.408Z",
+        "observedAt": "2026-11-23T22:28:20.377Z",
         "source": "pitchlab-feed"
       }
     },
@@ -324,7 +324,7 @@
       "result": {
         "home": 3,
         "away": 1,
-        "observedAt": "2026-11-23T15:07:01.408Z",
+        "observedAt": "2026-11-23T22:28:20.377Z",
         "source": "pitchlab-feed"
       }
     },
@@ -359,7 +359,7 @@
       "result": {
         "home": 2,
         "away": 0,
-        "observedAt": "2026-11-23T15:07:01.408Z",
+        "observedAt": "2026-11-23T22:28:20.377Z",
         "source": "pitchlab-feed"
       }
     },
@@ -394,7 +394,7 @@
       "result": {
         "home": 1,
         "away": 0,
-        "observedAt": "2026-11-23T15:07:01.408Z",
+        "observedAt": "2026-11-23T22:28:20.377Z",
         "source": "pitchlab-feed"
       }
     },
@@ -429,7 +429,7 @@
       "result": {
         "home": 1,
         "away": 1,
-        "observedAt": "2026-11-23T15:07:01.408Z",
+        "observedAt": "2026-11-23T22:28:20.377Z",
         "source": "pitchlab-feed"
       }
     },
@@ -464,7 +464,7 @@
       "result": {
         "home": 0,
         "away": 2,
-        "observedAt": "2026-11-23T15:07:01.408Z",
+        "observedAt": "2026-11-23T22:28:20.377Z",
         "source": "pitchlab-feed"
       }
     },
@@ -499,7 +499,7 @@
       "result": {
         "home": 2,
         "away": 1,
-        "observedAt": "2026-11-23T15:07:01.408Z",
+        "observedAt": "2026-11-23T22:28:20.377Z",
         "source": "pitchlab-feed"
       }
     },
@@ -534,7 +534,7 @@
       "result": {
         "home": 3,
         "away": 2,
-        "observedAt": "2026-11-23T15:07:01.408Z",
+        "observedAt": "2026-11-23T22:28:20.377Z",
         "source": "pitchlab-feed"
       }
     },
@@ -569,7 +569,7 @@
       "result": {
         "home": 0,
         "away": 1,
-        "observedAt": "2026-11-23T15:07:01.408Z",
+        "observedAt": "2026-11-23T22:28:20.377Z",
         "source": "pitchlab-feed"
       }
     },
@@ -604,7 +604,7 @@
       "result": {
         "home": 1,
         "away": 1,
-        "observedAt": "2026-11-23T15:07:01.408Z",
+        "observedAt": "2026-11-23T22:28:20.377Z",
         "source": "pitchlab-feed"
       }
     },
@@ -639,7 +639,7 @@
       "result": {
         "home": 1,
         "away": 2,
-        "observedAt": "2026-11-23T15:07:01.408Z",
+        "observedAt": "2026-11-23T22:28:20.377Z",
         "source": "pitchlab-feed"
       }
     },
@@ -674,7 +674,7 @@
       "result": {
         "home": 0,
         "away": 0,
-        "observedAt": "2026-11-23T15:07:01.408Z",
+        "observedAt": "2026-11-23T22:28:20.377Z",
         "source": "pitchlab-feed"
       }
     },
@@ -709,7 +709,7 @@
       "result": {
         "home": 0,
         "away": 1,
-        "observedAt": "2026-11-23T15:07:01.408Z",
+        "observedAt": "2026-11-23T22:28:20.377Z",
         "source": "pitchlab-feed"
       }
     },
@@ -744,7 +744,7 @@
       "result": {
         "home": 0,
         "away": 0,
-        "observedAt": "2026-11-23T15:07:01.408Z",
+        "observedAt": "2026-11-23T22:28:20.377Z",
         "source": "pitchlab-feed"
       }
     },

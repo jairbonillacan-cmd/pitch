@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "league": "liga-f",
   "season": "2026/27",
-  "updatedAt": "2026-11-23T15:07:01.408Z",
+  "updatedAt": "2026-11-23T22:28:20.377Z",
   "matches": [
     {
       "id": "liga-f-2026-08-29-real-sociedad-logrono-united-3z20hf",
@@ -1035,6 +1035,17 @@
       "homeTeam": "liga-f.barcelona",
       "awayTeam": "liga-f.athletic",
       "homeScore": 6,
+      "awayScore": 0,
+      "neutralSite": false
+    },
+    {
+      "id": "liga-f-2026-11-23-espanyol-barce-valencia-6y90m8",
+      "date": "2026-11-23",
+      "startTime": "2026-11-23T19:00:00.000Z",
+      "round": "Regular season · Matchday 12",
+      "homeTeam": "liga-f.espanyol-barcelona",
+      "awayTeam": "liga-f.valencia",
+      "homeScore": 2,
       "awayScore": 0,
       "neutralSite": false
     }

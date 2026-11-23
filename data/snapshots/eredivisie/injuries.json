@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "league": "eredivisie",
-  "observedAt": "2026-11-23T15:07:01.408Z",
+  "observedAt": "2026-11-23T22:28:20.377Z",
   "source": "pitchlab-availability",
   "coverageStatus": "ok",
   "entries": [
@@ -12,7 +12,25 @@
       "status": "Baja",
       "detail": "Unknown",
       "injuryType": "Unknown",
-      "reportedAt": "2026-11-23T15:07:01.408Z"
+      "reportedAt": "2026-11-23T22:28:20.377Z"
+    },
+    {
+      "teamId": "eredivisie.ado-den-haag",
+      "player": "Matteo Waem",
+      "position": "D",
+      "status": "Baja",
+      "detail": "red_card_suspension",
+      "injuryType": "red_card_suspension",
+      "reportedAt": "2026-11-23T22:28:20.377Z"
+    },
+    {
+      "teamId": "eredivisie.sparta-rotterdam",
+      "player": "Bruno Martins Indi",
+      "position": "D",
+      "status": "Baja",
+      "detail": "yellow_or_red_card_suspension",
+      "injuryType": "yellow_or_red_card_suspension",
+      "reportedAt": "2026-11-23T22:28:20.377Z"
     },
     {
       "teamId": "eredivisie.sparta-rotterdam",
@@ -21,7 +39,7 @@
       "status": "Baja",
       "detail": "Unknown",
       "injuryType": "Unknown",
-      "reportedAt": "2026-11-23T15:07:01.408Z"
+      "reportedAt": "2026-11-23T22:28:20.377Z"
     },
     {
       "teamId": "eredivisie.sparta-rotterdam",
@@ -30,7 +48,7 @@
       "status": "Baja",
       "detail": "Unknown",
       "injuryType": "Unknown",
-      "reportedAt": "2026-11-23T15:07:01.408Z"
+      "reportedAt": "2026-11-23T22:28:20.377Z"
     },
     {
       "teamId": "eredivisie.sparta-rotterdam",
@@ -39,7 +57,7 @@
       "status": "Baja",
       "detail": "Unknown",
       "injuryType": "Unknown",
-      "reportedAt": "2026-11-23T15:07:01.408Z"
+      "reportedAt": "2026-11-23T22:28:20.377Z"
     },
     {
       "teamId": "eredivisie.go-ahead-eagles",
@@ -48,7 +66,7 @@
       "status": "Baja",
       "detail": "Knee Injury",
       "injuryType": "Knee Injury",
-      "reportedAt": "2026-11-23T15:07:01.408Z"
+      "reportedAt": "2026-11-23T22:28:20.377Z"
     },
     {
       "teamId": "eredivisie.heerenveen",
@@ -57,7 +75,7 @@
       "status": "Baja",
       "detail": "Unknown",
       "injuryType": "Unknown",
-      "reportedAt": "2026-11-23T15:07:01.408Z"
+      "reportedAt": "2026-11-23T22:28:20.377Z"
     },
     {
       "teamId": "eredivisie.feyenoord",
@@ -66,7 +84,7 @@
       "status": "Baja",
       "detail": "Ankle Injury",
       "injuryType": "Ankle Injury",
-      "reportedAt": "2026-11-23T15:07:01.408Z"
+      "reportedAt": "2026-11-23T22:28:20.377Z"
     },
     {
       "teamId": "eredivisie.feyenoord",
@@ -75,7 +93,7 @@
       "status": "Baja",
       "detail": "Knee Injury",
       "injuryType": "Knee Injury",
-      "reportedAt": "2026-11-23T15:07:01.408Z"
+      "reportedAt": "2026-11-23T22:28:20.377Z"
     },
     {
       "teamId": "eredivisie.feyenoord",
@@ -84,7 +102,7 @@
       "status": "Baja",
       "detail": "Unknown",
       "injuryType": "Unknown",
-      "reportedAt": "2026-11-23T15:07:01.408Z"
+      "reportedAt": "2026-11-23T22:28:20.377Z"
     },
     {
       "teamId": "eredivisie.feyenoord",
@@ -93,7 +111,7 @@
       "status": "Baja",
       "detail": "Knee Injury",
       "injuryType": "Knee Injury",
-      "reportedAt": "2026-11-23T15:07:01.408Z"
+      "reportedAt": "2026-11-23T22:28:20.377Z"
     },
     {
       "teamId": "eredivisie.ajax",
@@ -102,7 +120,7 @@
       "status": "Baja",
       "detail": "Knee Injury",
       "injuryType": "Knee Injury",
-      "reportedAt": "2026-11-23T15:07:01.408Z"
+      "reportedAt": "2026-11-23T22:28:20.377Z"
     },
     {
       "teamId": "eredivisie.ajax",
@@ -111,7 +129,7 @@
       "status": "Baja",
       "detail": "Groin Injury",
       "injuryType": "Groin Injury",
-      "reportedAt": "2026-11-23T15:07:01.408Z"
+      "reportedAt": "2026-11-23T22:28:20.377Z"
     },
     {
       "teamId": "eredivisie.ajax",
@@ -120,7 +138,7 @@
       "status": "Baja",
       "detail": "Unknown",
       "injuryType": "Unknown",
-      "reportedAt": "2026-11-23T15:07:01.408Z"
+      "reportedAt": "2026-11-23T22:28:20.377Z"
     }
   ]
 }

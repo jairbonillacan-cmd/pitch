@@ -5,7 +5,7 @@
   "season": "ligapro-ecuador-2026",
   "seasonLabel": "2026",
   "periodLabel": "Regular season · Matchday 5",
-  "updatedAt": "2026-11-23T15:07:01.408Z",
+  "updatedAt": "2026-11-23T22:28:20.377Z",
   "source": "pitchlab-football-v2",
   "provenance": "derived",
   "isDemo": false,
@@ -18,8 +18,8 @@
       "forPerGame": 1.4285714285714286,
       "againstPerGame": 1.0476190476190477,
       "gamesPlayed": 21,
-      "adjustedFor": 1.3904028636237376,
-      "adjustedAgainst": 0.9651512950768156
+      "adjustedFor": 1.2407145046333041,
+      "adjustedAgainst": 0.9203164639409463
     },
     "ligapro-ecuador.mushuc-runa": {
       "teamId": "ligapro-ecuador.mushuc-runa",
@@ -29,8 +29,8 @@
       "forPerGame": 1.2857142857142858,
       "againstPerGame": 1.4761904761904763,
       "gamesPlayed": 21,
-      "adjustedFor": 1.1633672656276084,
-      "adjustedAgainst": 1.4445680566113974
+      "adjustedFor": 1.0888132668138264,
+      "adjustedAgainst": 1.278385824693257
     },
     "ligapro-ecuador.macara": {
       "teamId": "ligapro-ecuador.macara",
@@ -40,8 +40,8 @@
       "forPerGame": 1.8095238095238095,
       "againstPerGame": 0.9047619047619048,
       "gamesPlayed": 21,
-      "adjustedFor": 1.71241889174753,
-      "adjustedAgainst": 0.8473359531964152
+      "adjustedFor": 1.4918995980164464,
+      "adjustedAgainst": 0.8313780159292742
     },
     "ligapro-ecuador.ldu": {
       "teamId": "ligapro-ecuador.ldu",
@@ -51,8 +51,8 @@
       "forPerGame": 1,
       "againstPerGame": 0.9090909090909091,
       "gamesPlayed": 22,
-      "adjustedFor": 1.0203435092956872,
-      "adjustedAgainst": 0.8779611752727368
+      "adjustedFor": 0.9583587986239142,
+      "adjustedAgainst": 0.8640763180869071
     },
     "ligapro-ecuador.orense": {
       "teamId": "ligapro-ecuador.orense",
@@ -62,8 +62,8 @@
       "forPerGame": 1.0909090909090908,
       "againstPerGame": 1.6818181818181819,
       "gamesPlayed": 22,
-      "adjustedFor": 1.037918408206138,
-      "adjustedAgainst": 1.5908925703059875
+      "adjustedFor": 0.9856389484304151,
+      "adjustedAgainst": 1.4037077782526306
     },
     "ligapro-ecuador.independiente-valle": {
       "teamId": "ligapro-ecuador.independiente-valle",
@@ -73,8 +73,8 @@
       "forPerGame": 2.45,
       "againstPerGame": 1,
       "gamesPlayed": 20,
-      "adjustedFor": 2.1827766308389225,
-      "adjustedAgainst": 0.9833315153697022
+      "adjustedFor": 1.8468137328664094,
+      "adjustedAgainst": 0.9488782784891372
     },
     "ligapro-ecuador.manta": {
       "teamId": "ligapro-ecuador.manta",
@@ -84,8 +84,8 @@
       "forPerGame": 1.0476190476190477,
       "againstPerGame": 1.6666666666666667,
       "gamesPlayed": 21,
-      "adjustedFor": 1.0022988084926088,
-      "adjustedAgainst": 1.5897641627637056
+      "adjustedFor": 0.9594538176721438,
+      "adjustedAgainst": 1.3977915321773158
     },
     "ligapro-ecuador.libertad": {
       "teamId": "ligapro-ecuador.libertad",
@@ -95,8 +95,8 @@
       "forPerGame": 1.35,
       "againstPerGame": 0.9,
       "gamesPlayed": 20,
-      "adjustedFor": 1.2631664066513866,
-      "adjustedAgainst": 0.9193697597280038
+      "adjustedFor": 1.1563350031362398,
+      "adjustedAgainst": 0.9000675404412228
     },
     "ligapro-ecuador.leones-norte": {
       "teamId": "ligapro-ecuador.leones-norte",
@@ -106,8 +106,8 @@
       "forPerGame": 1.25,
       "againstPerGame": 1.15,
       "gamesPlayed": 20,
-      "adjustedFor": 1.1909932817012931,
-      "adjustedAgainst": 1.14464202922459
+      "adjustedFor": 1.0996753343946564,
+      "adjustedAgainst": 1.064125160627331
     },
     "ligapro-ecuador.barcelona-guayaquil": {
       "teamId": "ligapro-ecuador.barcelona-guayaquil",
@@ -117,8 +117,8 @@
       "forPerGame": 1.1,
       "againstPerGame": 0.95,
       "gamesPlayed": 20,
-      "adjustedFor": 1.1502218369215984,
-      "adjustedAgainst": 0.9226466696314126
+      "adjustedFor": 1.057377802716877,
+      "adjustedAgainst": 0.8958652665309971
     },
     "ligapro-ecuador.deportivo-cuenca": {
       "teamId": "ligapro-ecuador.deportivo-cuenca",
@@ -128,8 +128,8 @@
       "forPerGame": 0.7142857142857143,
       "againstPerGame": 1.2857142857142858,
       "gamesPlayed": 21,
-      "adjustedFor": 0.7272418655697613,
-      "adjustedAgainst": 1.2279607621887632
+      "adjustedFor": 0.7411712768184207,
+      "adjustedAgainst": 1.1163314080757087
     },
     "ligapro-ecuador.delfin": {
       "teamId": "ligapro-ecuador.delfin",
@@ -139,8 +139,8 @@
       "forPerGame": 1.1904761904761905,
       "againstPerGame": 1.4285714285714286,
       "gamesPlayed": 21,
-      "adjustedFor": 1.103067305463179,
-      "adjustedAgainst": 1.3873600873715308
+      "adjustedFor": 1.0403934521192164,
+      "adjustedAgainst": 1.238633904692422
     },
     "ligapro-ecuador.emelec": {
       "teamId": "ligapro-ecuador.emelec",
@@ -150,8 +150,8 @@
       "forPerGame": 0.95,
       "againstPerGame": 1.35,
       "gamesPlayed": 20,
-      "adjustedFor": 0.9749302463764632,
-      "adjustedAgainst": 1.2419773756182915
+      "adjustedFor": 0.9294661808915526,
+      "adjustedAgainst": 1.1286574542869598
     },
     "ligapro-ecuador.tecnico-universitario": {
       "teamId": "ligapro-ecuador.tecnico-universitario",
@@ -161,8 +161,8 @@
       "forPerGame": 0.9523809523809523,
       "againstPerGame": 1.5714285714285714,
       "gamesPlayed": 21,
-      "adjustedFor": 0.9120031189876301,
-      "adjustedAgainst": 1.4837021294359283
+      "adjustedFor": 0.8882855998886608,
+      "adjustedAgainst": 1.3184378141889137
     },
     "ligapro-ecuador.aucas": {
       "teamId": "ligapro-ecuador.aucas",
@@ -172,8 +172,8 @@
       "forPerGame": 1.0476190476190477,
       "againstPerGame": 1.2380952380952381,
       "gamesPlayed": 21,
-      "adjustedFor": 1.1222338566722985,
-      "adjustedAgainst": 1.098862512640991
+      "adjustedFor": 1.0313423638997683,
+      "adjustedAgainst": 1.049853016882838
     },
     "ligapro-ecuador.guayaquil-city": {
       "teamId": "ligapro-ecuador.guayaquil-city",
@@ -183,8 +183,8 @@
       "forPerGame": 1.25,
       "againstPerGame": 1.25,
       "gamesPlayed": 20,
-      "adjustedFor": 1.2092330304730945,
-      "adjustedAgainst": 1.2441381489142667
+      "adjustedFor": 1.1109380464764373,
+      "adjustedAgainst": 1.1343710990128983
     }
   },
   "games": [
@@ -219,7 +219,7 @@
       "result": {
         "home": 1,
         "away": 1,
-        "observedAt": "2026-11-23T15:07:01.408Z",
+        "observedAt": "2026-11-23T22:28:20.377Z",
         "source": "pitchlab-feed"
       }
     },
@@ -254,7 +254,7 @@
       "result": {
         "home": 2,
         "away": 3,
-        "observedAt": "2026-11-23T15:07:01.408Z",
+        "observedAt": "2026-11-23T22:28:20.377Z",
         "source": "pitchlab-feed"
       }
     },
@@ -289,7 +289,7 @@
       "result": {
         "home": 0,
         "away": 1,
-        "observedAt": "2026-11-23T15:07:01.408Z",
+        "observedAt": "2026-11-23T22:28:20.377Z",
         "source": "pitchlab-feed"
       }
     },
@@ -324,7 +324,7 @@
       "result": {
         "home": 1,
         "away": 1,
-        "observedAt": "2026-11-23T15:07:01.408Z",
+        "observedAt": "2026-11-23T22:28:20.377Z",
         "source": "pitchlab-feed"
       }
     },
@@ -359,7 +359,7 @@
       "result": {
         "home": 2,
         "away": 2,
-        "observedAt": "2026-11-23T15:07:01.408Z",
+        "observedAt": "2026-11-23T22:28:20.377Z",
         "source": "pitchlab-feed"
       }
     },
@@ -394,7 +394,7 @@
       "result": {
         "home": 2,
         "away": 0,
-        "observedAt": "2026-11-23T15:07:01.408Z",
+        "observedAt": "2026-11-23T22:28:20.377Z",
         "source": "pitchlab-feed"
       }
     },
@@ -429,7 +429,7 @@
       "result": {
         "home": 2,
         "away": 4,
-        "observedAt": "2026-11-23T15:07:01.408Z",
+        "observedAt": "2026-11-23T22:28:20.377Z",
         "source": "pitchlab-feed"
       }
     },
@@ -464,7 +464,7 @@
       "result": {
         "home": 1,
         "away": 1,
-        "observedAt": "2026-11-23T15:07:01.408Z",
+        "observedAt": "2026-11-23T22:28:20.377Z",
         "source": "pitchlab-feed"
       }
     },
@@ -499,7 +499,7 @@
       "result": {
         "home": 2,
         "away": 1,
-        "observedAt": "2026-11-23T15:07:01.408Z",
+        "observedAt": "2026-11-23T22:28:20.377Z",
         "source": "pitchlab-feed"
       }
     },
@@ -534,7 +534,7 @@
       "result": {
         "home": 1,
         "away": 2,
-        "observedAt": "2026-11-23T15:07:01.408Z",
+        "observedAt": "2026-11-23T22:28:20.377Z",
         "source": "pitchlab-feed"
       }
     },
@@ -569,7 +569,7 @@
       "result": {
         "home": 0,
         "away": 1,
-        "observedAt": "2026-11-23T15:07:01.408Z",
+        "observedAt": "2026-11-23T22:28:20.377Z",
         "source": "pitchlab-feed"
       }
     },
@@ -604,7 +604,7 @@
       "result": {
         "home": 2,
         "away": 0,
-        "observedAt": "2026-11-23T15:07:01.408Z",
+        "observedAt": "2026-11-23T22:28:20.377Z",
         "source": "pitchlab-feed"
       }
     },
@@ -639,7 +639,7 @@
       "result": {
         "home": 0,
         "away": 1,
-        "observedAt": "2026-11-23T15:07:01.408Z",
+        "observedAt": "2026-11-23T22:28:20.377Z",
         "source": "pitchlab-feed"
       }
     },
@@ -674,7 +674,7 @@
       "result": {
         "home": 2,
         "away": 3,
-        "observedAt": "2026-11-23T15:07:01.408Z",
+        "observedAt": "2026-11-23T22:28:20.377Z",
         "source": "pitchlab-feed"
       }
     },
@@ -709,7 +709,7 @@
       "result": {
         "home": 2,
         "away": 2,
-        "observedAt": "2026-11-23T15:07:01.408Z",
+        "observedAt": "2026-11-23T22:28:20.377Z",
         "source": "pitchlab-feed"
       }
     },
@@ -744,7 +744,7 @@
       "result": {
         "home": 0,
         "away": 1,
-        "observedAt": "2026-11-23T15:07:01.408Z",
+        "observedAt": "2026-11-23T22:28:20.377Z",
         "source": "pitchlab-feed"
       }
     },

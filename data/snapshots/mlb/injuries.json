@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "league": "mlb",
-  "observedAt": "2026-11-23T15:06:56.513Z",
+  "observedAt": "2026-11-23T22:27:27.560Z",
   "source": "espn-public-mlb",
   "coverageStatus": "ok",
   "entries": [
@@ -664,16 +664,6 @@
       "injuryType": "Elbow",
       "returnDate": "2027-04-01",
       "reportedAt": "2026-11-18T16:37:00.000Z"
-    },
-    {
-      "teamId": "mlb.kansas-city-royals",
-      "player": "Nick Mears",
-      "position": "RP",
-      "status": "Baja",
-      "detail": "Hombro",
-      "injuryType": "Shoulder",
-      "returnDate": "2027-04-01",
-      "reportedAt": "2026-11-17T21:20:00.000Z"
     },
     {
       "teamId": "mlb.kansas-city-royals",

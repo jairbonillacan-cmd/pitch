@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "league": "super-lig",
   "season": "2026/27",
-  "updatedAt": "2026-11-23T15:07:01.408Z",
+  "updatedAt": "2026-11-23T22:28:20.377Z",
   "matches": [
     {
       "id": "super-lig-2026-08-14-galatasaray-corum-55kt5k",
@@ -1179,6 +1179,17 @@
       "awayTeam": "super-lig.eyupspor",
       "homeScore": 1,
       "awayScore": 0,
+      "neutralSite": false
+    },
+    {
+      "id": "super-lig-2026-11-23-basaksehir-corum-1l9yft",
+      "date": "2026-11-23",
+      "startTime": "2026-11-23T17:00:00.000Z",
+      "round": "Regular season · Matchday 12",
+      "homeTeam": "super-lig.basaksehir",
+      "awayTeam": "super-lig.corum",
+      "homeScore": 4,
+      "awayScore": 2,
       "neutralSite": false
     }
   ]

@@ -5,7 +5,7 @@
   "season": "brasileirao-2026",
   "seasonLabel": "2026",
   "periodLabel": "Regular season · Matchday 21",
-  "updatedAt": "2026-11-23T15:07:01.408Z",
+  "updatedAt": "2026-11-23T22:28:20.377Z",
   "source": "pitchlab-football-v2",
   "provenance": "derived",
   "isDemo": false,
@@ -18,8 +18,8 @@
       "forPerGame": 0.8888888888888888,
       "againstPerGame": 1.5,
       "gamesPlayed": 18,
-      "adjustedFor": 0.8999829239836863,
-      "adjustedAgainst": 1.377778417765254
+      "adjustedFor": 0.8572519843454901,
+      "adjustedAgainst": 1.2295072491973136
     },
     "brasileirao.vasco-gama": {
       "teamId": "brasileirao.vasco-gama",
@@ -29,8 +29,8 @@
       "forPerGame": 1.3888888888888888,
       "againstPerGame": 1.2777777777777777,
       "gamesPlayed": 18,
-      "adjustedFor": 1.3184898114082242,
-      "adjustedAgainst": 1.1936346672323093
+      "adjustedFor": 1.165982297597817,
+      "adjustedAgainst": 1.0652795127286732
     },
     "brasileirao.botafogo": {
       "teamId": "brasileirao.botafogo",
@@ -40,8 +40,8 @@
       "forPerGame": 0.8333333333333334,
       "againstPerGame": 1.4444444444444444,
       "gamesPlayed": 18,
-      "adjustedFor": 0.8339084496263242,
-      "adjustedAgainst": 1.3378735079024484
+      "adjustedFor": 0.8079800231173425,
+      "adjustedAgainst": 1.1933006280114375
     },
     "brasileirao.santos": {
       "teamId": "brasileirao.santos",
@@ -51,8 +51,8 @@
       "forPerGame": 1.4705882352941178,
       "againstPerGame": 1.1764705882352942,
       "gamesPlayed": 17,
-      "adjustedFor": 1.3947262548905432,
-      "adjustedAgainst": 1.0873055138322685
+      "adjustedFor": 1.2178722033851226,
+      "adjustedAgainst": 0.9911182218930116
     },
     "brasileirao.bahia": {
       "teamId": "brasileirao.bahia",
@@ -62,8 +62,8 @@
       "forPerGame": 1.3157894736842106,
       "againstPerGame": 1.2105263157894737,
       "gamesPlayed": 19,
-      "adjustedFor": 1.205595374676996,
-      "adjustedAgainst": 1.152997012330197
+      "adjustedFor": 1.0841203827817454,
+      "adjustedAgainst": 1.031286200764986
     },
     "brasileirao.chapecoense": {
       "teamId": "brasileirao.chapecoense",
@@ -73,8 +73,8 @@
       "forPerGame": 0.8947368421052632,
       "againstPerGame": 2.1578947368421053,
       "gamesPlayed": 19,
-      "adjustedFor": 0.9055456749747368,
-      "adjustedAgainst": 1.8962328003280977
+      "adjustedFor": 0.8581489821358558,
+      "adjustedAgainst": 1.6024575643542487
     },
     "brasileirao.mirassol": {
       "teamId": "brasileirao.mirassol",
@@ -84,8 +84,8 @@
       "forPerGame": 1.105263157894737,
       "againstPerGame": 1.3157894736842106,
       "gamesPlayed": 19,
-      "adjustedFor": 1.0896548719276422,
-      "adjustedAgainst": 1.1922540977540035
+      "adjustedFor": 0.9903065338133716,
+      "adjustedAgainst": 1.0595558392312254
     },
     "brasileirao.gremio": {
       "teamId": "brasileirao.gremio",
@@ -95,8 +95,8 @@
       "forPerGame": 1.0588235294117647,
       "againstPerGame": 1.411764705882353,
       "gamesPlayed": 17,
-      "adjustedFor": 1.0257540375231968,
-      "adjustedAgainst": 1.278161433031939
+      "adjustedFor": 0.9512976225719884,
+      "adjustedAgainst": 1.152575115808112
     },
     "brasileirao.fluminense": {
       "teamId": "brasileirao.fluminense",
@@ -106,8 +106,8 @@
       "forPerGame": 1.6111111111111112,
       "againstPerGame": 1.0555555555555556,
       "gamesPlayed": 18,
-      "adjustedFor": 1.4695240260465523,
-      "adjustedAgainst": 1.041936283381041
+      "adjustedFor": 1.2767145186437512,
+      "adjustedAgainst": 0.9578962364532738
     },
     "brasileirao.red-bull-bragantino": {
       "teamId": "brasileirao.red-bull-bragantino",
@@ -117,8 +117,8 @@
       "forPerGame": 1.1666666666666667,
       "againstPerGame": 1.2222222222222223,
       "gamesPlayed": 18,
-      "adjustedFor": 1.12330114385687,
-      "adjustedAgainst": 1.1406217417286713
+      "adjustedFor": 1.0224674570116414,
+      "adjustedAgainst": 1.0322491452629259
     },
     "brasileirao.atletico-mineiro": {
       "teamId": "brasileirao.atletico-mineiro",
@@ -128,8 +128,8 @@
       "forPerGame": 1.2941176470588236,
       "againstPerGame": 1,
       "gamesPlayed": 17,
-      "adjustedFor": 1.1734522869185169,
-      "adjustedAgainst": 0.9796882905825831
+      "adjustedFor": 1.060482866627056,
+      "adjustedAgainst": 0.919896051310645
     },
     "brasileirao.coritiba": {
       "teamId": "brasileirao.coritiba",
@@ -139,8 +139,8 @@
       "forPerGame": 0.9444444444444444,
       "againstPerGame": 1.5555555555555556,
       "gamesPlayed": 18,
-      "adjustedFor": 0.9087500328223483,
-      "adjustedAgainst": 1.4237502320136848
+      "adjustedFor": 0.8635556988888765,
+      "adjustedAgainst": 1.2551063769548838
     },
     "brasileirao.palmeiras": {
       "teamId": "brasileirao.palmeiras",
@@ -150,8 +150,8 @@
       "forPerGame": 1.8888888888888888,
       "againstPerGame": 0.7222222222222222,
       "gamesPlayed": 18,
-      "adjustedFor": 1.7061308089695204,
-      "adjustedAgainst": 0.7571498171829886
+      "adjustedFor": 1.4473474891599032,
+      "adjustedAgainst": 0.7512499546565234
     },
     "brasileirao.sao-paulo": {
       "teamId": "brasileirao.sao-paulo",
@@ -161,8 +161,8 @@
       "forPerGame": 0.9411764705882353,
       "againstPerGame": 1.1764705882352942,
       "gamesPlayed": 17,
-      "adjustedFor": 0.9306065281908084,
-      "adjustedAgainst": 1.0787142235860145
+      "adjustedFor": 0.8798218033943023,
+      "adjustedAgainst": 1.0069760211123713
     },
     "brasileirao.athletico": {
       "teamId": "brasileirao.athletico",
@@ -172,8 +172,8 @@
       "forPerGame": 1.7777777777777777,
       "againstPerGame": 1.6111111111111112,
       "gamesPlayed": 18,
-      "adjustedFor": 1.6443020260226193,
-      "adjustedAgainst": 1.4917143587580006
+      "adjustedFor": 1.3987367254338923,
+      "adjustedAgainst": 1.281333523054757
     },
     "brasileirao.internacional": {
       "teamId": "brasileirao.internacional",
@@ -183,8 +183,8 @@
       "forPerGame": 1.0588235294117647,
       "againstPerGame": 1.2941176470588236,
       "gamesPlayed": 17,
-      "adjustedFor": 1.0601064250846741,
-      "adjustedAgainst": 1.1858147426868926
+      "adjustedFor": 0.9752717015632262,
+      "adjustedAgainst": 1.0638390169970633
     },
     "brasileirao.cruzeiro": {
       "teamId": "brasileirao.cruzeiro",
@@ -194,8 +194,8 @@
       "forPerGame": 1.9444444444444444,
       "againstPerGame": 1.2222222222222223,
       "gamesPlayed": 18,
-      "adjustedFor": 1.762509385808695,
-      "adjustedAgainst": 1.1898171643759468
+      "adjustedFor": 1.4905397593055731,
+      "adjustedAgainst": 1.062543465908271
     },
     "brasileirao.flamengo": {
       "teamId": "brasileirao.flamengo",
@@ -205,8 +205,8 @@
       "forPerGame": 2.263157894736842,
       "againstPerGame": 0.7894736842105263,
       "gamesPlayed": 19,
-      "adjustedFor": 1.9713372469059063,
-      "adjustedAgainst": 0.834999220590723
+      "adjustedFor": 1.6519984214862946,
+      "adjustedAgainst": 0.8056098400515771
     },
     "brasileirao.corinthians": {
       "teamId": "brasileirao.corinthians",
@@ -216,8 +216,8 @@
       "forPerGame": 1.2941176470588236,
       "againstPerGame": 1.3529411764705883,
       "gamesPlayed": 17,
-      "adjustedFor": 1.2044089350332083,
-      "adjustedAgainst": 1.2506157208741926
+      "adjustedFor": 1.084536757515901,
+      "adjustedAgainst": 1.1211270725849205
     },
     "brasileirao.remo": {
       "teamId": "brasileirao.remo",
@@ -227,8 +227,8 @@
       "forPerGame": 1.1111111111111112,
       "againstPerGame": 1.7777777777777777,
       "gamesPlayed": 18,
-      "adjustedFor": 1.0799046822504659,
-      "adjustedAgainst": 1.5632529735553726
+      "adjustedFor": 0.9888517160344258,
+      "adjustedAgainst": 1.338458815801424
     }
   },
   "games": [
@@ -263,7 +263,7 @@
       "result": {
         "home": 0,
         "away": 2,
-        "observedAt": "2026-11-23T15:07:01.408Z",
+        "observedAt": "2026-11-23T22:28:20.377Z",
         "source": "pitchlab-feed"
       }
     },
@@ -298,7 +298,7 @@
       "result": {
         "home": 0,
         "away": 1,
-        "observedAt": "2026-11-23T15:07:01.408Z",
+        "observedAt": "2026-11-23T22:28:20.377Z",
         "source": "pitchlab-feed"
       }
     },
@@ -333,7 +333,7 @@
       "result": {
         "home": 2,
         "away": 0,
-        "observedAt": "2026-11-23T15:07:01.408Z",
+        "observedAt": "2026-11-23T22:28:20.377Z",
         "source": "pitchlab-feed"
       }
     },
@@ -368,7 +368,7 @@
       "result": {
         "home": 2,
         "away": 1,
-        "observedAt": "2026-11-23T15:07:01.408Z",
+        "observedAt": "2026-11-23T22:28:20.377Z",
         "source": "pitchlab-feed"
       }
     },
@@ -403,7 +403,7 @@
       "result": {
         "home": 2,
         "away": 1,
-        "observedAt": "2026-11-23T15:07:01.408Z",
+        "observedAt": "2026-11-23T22:28:20.377Z",
         "source": "pitchlab-feed"
       }
     },
@@ -438,7 +438,7 @@
       "result": {
         "home": 0,
         "away": 0,
-        "observedAt": "2026-11-23T15:07:01.408Z",
+        "observedAt": "2026-11-23T22:28:20.377Z",
         "source": "pitchlab-feed"
       }
     },
@@ -473,7 +473,7 @@
       "result": {
         "home": 4,
         "away": 0,
-        "observedAt": "2026-11-23T15:07:01.408Z",
+        "observedAt": "2026-11-23T22:28:20.377Z",
         "source": "pitchlab-feed"
       }
     },
@@ -508,7 +508,7 @@
       "result": {
         "home": 2,
         "away": 1,
-        "observedAt": "2026-11-23T15:07:01.408Z",
+        "observedAt": "2026-11-23T22:28:20.377Z",
         "source": "pitchlab-feed"
       }
     },
@@ -543,7 +543,7 @@
       "result": {
         "home": 2,
         "away": 1,
-        "observedAt": "2026-11-23T15:07:01.408Z",
+        "observedAt": "2026-11-23T22:28:20.377Z",
         "source": "pitchlab-feed"
       }
     },
@@ -578,7 +578,7 @@
       "result": {
         "home": 0,
         "away": 1,
-        "observedAt": "2026-11-23T15:07:01.408Z",
+        "observedAt": "2026-11-23T22:28:20.377Z",
         "source": "pitchlab-feed"
       }
     },
@@ -613,7 +613,7 @@
       "result": {
         "home": 1,
         "away": 1,
-        "observedAt": "2026-11-23T15:07:01.408Z",
+        "observedAt": "2026-11-23T22:28:20.377Z",
         "source": "pitchlab-feed"
       }
     },
@@ -648,7 +648,7 @@
       "result": {
         "home": 0,
         "away": 1,
-        "observedAt": "2026-11-23T15:07:01.408Z",
+        "observedAt": "2026-11-23T22:28:20.377Z",
         "source": "pitchlab-feed"
       }
     },
@@ -683,7 +683,7 @@
       "result": {
         "home": 1,
         "away": 2,
-        "observedAt": "2026-11-23T15:07:01.408Z",
+        "observedAt": "2026-11-23T22:28:20.377Z",
         "source": "pitchlab-feed"
       }
     },
@@ -718,7 +718,7 @@
       "result": {
         "home": 4,
         "away": 2,
-        "observedAt": "2026-11-23T15:07:01.408Z",
+        "observedAt": "2026-11-23T22:28:20.377Z",
         "source": "pitchlab-feed"
       }
     },
@@ -753,7 +753,7 @@
       "result": {
         "home": 1,
         "away": 0,
-        "observedAt": "2026-11-23T15:07:01.408Z",
+        "observedAt": "2026-11-23T22:28:20.377Z",
         "source": "pitchlab-feed"
       }
     },
@@ -788,7 +788,7 @@
       "result": {
         "home": 1,
         "away": 0,
-        "observedAt": "2026-11-23T15:07:01.408Z",
+        "observedAt": "2026-11-23T22:28:20.377Z",
         "source": "pitchlab-feed"
       }
     },

@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "league": "liga-portugal",
-  "observedAt": "2026-11-23T15:07:01.408Z",
+  "observedAt": "2026-11-23T22:28:20.377Z",
   "source": "pitchlab-availability",
   "coverageStatus": "ok",
   "entries": [
@@ -12,7 +12,7 @@
       "status": "Baja",
       "detail": "Muscle Injury",
       "injuryType": "Muscle Injury",
-      "reportedAt": "2026-11-23T15:07:01.408Z"
+      "reportedAt": "2026-11-23T22:28:20.377Z"
     },
     {
       "teamId": "liga-portugal.moreirense",
@@ -21,7 +21,7 @@
       "status": "Baja",
       "detail": "Muscle Injury",
       "injuryType": "Muscle Injury",
-      "reportedAt": "2026-11-23T15:07:01.408Z"
+      "reportedAt": "2026-11-23T22:28:20.377Z"
     },
     {
       "teamId": "liga-portugal.porto",
@@ -30,7 +30,16 @@
       "status": "Baja",
       "detail": "Unknown",
       "injuryType": "Unknown",
-      "reportedAt": "2026-11-23T15:07:01.408Z"
+      "reportedAt": "2026-11-23T22:28:20.377Z"
+    },
+    {
+      "teamId": "liga-portugal.porto",
+      "player": "Gabriel Mec",
+      "position": "M",
+      "status": "Baja",
+      "detail": "Unknown",
+      "injuryType": "Unknown",
+      "reportedAt": "2026-11-23T22:28:20.377Z"
     },
     {
       "teamId": "liga-portugal.porto",
@@ -39,7 +48,7 @@
       "status": "Baja",
       "detail": "Meniscus Injury",
       "injuryType": "Meniscus Injury",
-      "reportedAt": "2026-11-23T15:07:01.408Z"
+      "reportedAt": "2026-11-23T22:28:20.377Z"
     },
     {
       "teamId": "liga-portugal.estoril-praia",
@@ -48,7 +57,7 @@
       "status": "Baja",
       "detail": "Ligament Injury",
       "injuryType": "Ligament Injury",
-      "reportedAt": "2026-11-23T15:07:01.408Z"
+      "reportedAt": "2026-11-23T22:28:20.377Z"
     },
     {
       "teamId": "liga-portugal.nacional",
@@ -57,7 +66,7 @@
       "status": "Baja",
       "detail": "Broken Ankle",
       "injuryType": "Broken Ankle",
-      "reportedAt": "2026-11-23T15:07:01.408Z"
+      "reportedAt": "2026-11-23T22:28:20.377Z"
     },
     {
       "teamId": "liga-portugal.santa-clara",
@@ -66,7 +75,7 @@
       "status": "Baja",
       "detail": "Unknown",
       "injuryType": "Unknown",
-      "reportedAt": "2026-11-23T15:07:01.408Z"
+      "reportedAt": "2026-11-23T22:28:20.377Z"
     },
     {
       "teamId": "liga-portugal.santa-clara",
@@ -75,7 +84,7 @@
       "status": "Baja",
       "detail": "Unknown",
       "injuryType": "Unknown",
-      "reportedAt": "2026-11-23T15:07:01.408Z"
+      "reportedAt": "2026-11-23T22:28:20.377Z"
     },
     {
       "teamId": "liga-portugal.santa-clara",
@@ -84,7 +93,7 @@
       "status": "Baja",
       "detail": "red_card_suspension",
       "injuryType": "red_card_suspension",
-      "reportedAt": "2026-11-23T15:07:01.408Z"
+      "reportedAt": "2026-11-23T22:28:20.377Z"
     }
   ]
 }

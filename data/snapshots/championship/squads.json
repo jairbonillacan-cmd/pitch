@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "league": "championship",
   "seasonLabel": "2026/27",
-  "observedAt": "2026-11-23T15:07:01.408Z",
+  "observedAt": "2026-11-23T22:28:20.377Z",
   "teams": [
     {
       "teamId": "championship.charlton-athletic",
@@ -24,7 +24,7 @@
           "winPct": 41.7
         }
       },
-      "updatedAt": "2026-11-23T15:07:01.408Z",
+      "updatedAt": "2026-11-23T22:28:20.377Z",
       "players": [
         {
           "id": "championship.charlton-athletic.alan-mwamba",
@@ -1232,7 +1232,7 @@
           "winPct": 47.2
         }
       },
-      "updatedAt": "2026-11-23T15:07:01.408Z",
+      "updatedAt": "2026-11-23T22:28:20.377Z",
       "players": [
         {
           "id": "championship.sheffield-united.adam-davies",
@@ -2255,7 +2255,7 @@
           "winPct": 42.5
         }
       },
-      "updatedAt": "2026-11-23T15:07:01.408Z",
+      "updatedAt": "2026-11-23T22:28:20.377Z",
       "players": [
         {
           "id": "championship.cardiff-city.alex-robertson",
@@ -2401,7 +2401,7 @@
             "offsides": 0,
             "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 0
+            "goalsConceded": 2
           },
           "candidatePicks": []
         },
@@ -2475,7 +2475,7 @@
             "offsides": 0,
             "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 0
+            "goalsConceded": 4
           },
           "candidatePicks": []
         },
@@ -2836,8 +2836,8 @@
             "subIns": 0,
             "goals": 0,
             "assists": 0,
-            "shots": 1,
-            "shotsOnTarget": 1,
+            "shots": 0,
+            "shotsOnTarget": 0,
             "foulsCommitted": 0,
             "foulsSuffered": 0,
             "yellowCards": 0,
@@ -2845,7 +2845,7 @@
             "offsides": 0,
             "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 4
+            "goalsConceded": 3
           },
           "candidatePicks": []
         },
@@ -3206,8 +3206,8 @@
             "subIns": 0,
             "goals": 0,
             "assists": 0,
-            "shots": 0,
-            "shotsOnTarget": 0,
+            "shots": 3,
+            "shotsOnTarget": 1,
             "foulsCommitted": 0,
             "foulsSuffered": 0,
             "yellowCards": 0,
@@ -3215,7 +3215,7 @@
             "offsides": 0,
             "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 0
+            "goalsConceded": 4
           },
           "candidatePicks": []
         },
@@ -3281,7 +3281,7 @@
             "goals": 0,
             "assists": 0,
             "shots": 1,
-            "shotsOnTarget": 1,
+            "shotsOnTarget": 0,
             "foulsCommitted": 0,
             "foulsSuffered": 0,
             "yellowCards": 0,
@@ -3289,7 +3289,7 @@
             "offsides": 0,
             "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 4
+            "goalsConceded": 3
           },
           "candidatePicks": []
         },
@@ -3352,7 +3352,7 @@
           "winPct": 42.4
         }
       },
-      "updatedAt": "2026-11-23T15:07:01.408Z",
+      "updatedAt": "2026-11-23T22:28:20.377Z",
       "players": [
         {
           "id": "championship.burnley.aaron-ramsey",
@@ -4560,7 +4560,7 @@
           "winPct": 40.7
         }
       },
-      "updatedAt": "2026-11-23T15:07:01.408Z",
+      "updatedAt": "2026-11-23T22:28:20.377Z",
       "players": [
         {
           "id": "championship.blackburn-rovers.adam-forshaw",
@@ -5768,7 +5768,7 @@
           "winPct": 22.2
         }
       },
-      "updatedAt": "2026-11-23T15:07:01.408Z",
+      "updatedAt": "2026-11-23T22:28:20.377Z",
       "players": [
         {
           "id": "championship.west-ham-united.adama-boiro",
@@ -5940,9 +5940,9 @@
           "stats": {
             "appearances": 0,
             "subIns": 0,
-            "goals": 1,
+            "goals": 0,
             "assists": 0,
-            "shots": 1,
+            "shots": 2,
             "shotsOnTarget": 1,
             "foulsCommitted": 0,
             "foulsSuffered": 0,
@@ -5951,7 +5951,7 @@
             "offsides": 0,
             "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 3
+            "goalsConceded": 2
           },
           "candidatePicks": []
         },
@@ -6053,7 +6053,7 @@
             "subIns": 0,
             "goals": 0,
             "assists": 0,
-            "shots": 0,
+            "shots": 1,
             "shotsOnTarget": 0,
             "foulsCommitted": 0,
             "foulsSuffered": 0,
@@ -6062,7 +6062,7 @@
             "offsides": 0,
             "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 2
+            "goalsConceded": 0
           },
           "candidatePicks": []
         },
@@ -6247,7 +6247,7 @@
             "offsides": 0,
             "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 2
+            "goalsConceded": 3
           },
           "candidatePicks": []
         },
@@ -6469,7 +6469,7 @@
             "offsides": 0,
             "saves": 1,
             "shotsFaced": 0,
-            "goalsConceded": 2
+            "goalsConceded": 3
           },
           "candidatePicks": []
         },
@@ -6765,7 +6765,7 @@
             "offsides": 0,
             "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 0
+            "goalsConceded": 3
           },
           "candidatePicks": []
         },
@@ -6865,7 +6865,7 @@
           "winPct": 54.5
         }
       },
-      "updatedAt": "2026-11-23T15:07:01.408Z",
+      "updatedAt": "2026-11-23T22:28:20.377Z",
       "players": [
         {
           "id": "championship.birmingham-city.alex-cochrane",
@@ -6889,10 +6889,10 @@
           "stats": {
             "appearances": 0,
             "subIns": 0,
-            "goals": 0,
+            "goals": 1,
             "assists": 0,
             "shots": 1,
-            "shotsOnTarget": 0,
+            "shotsOnTarget": 1,
             "foulsCommitted": 0,
             "foulsSuffered": 0,
             "yellowCards": 0,
@@ -6900,7 +6900,7 @@
             "offsides": 0,
             "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 1
+            "goalsConceded": 0
           },
           "candidatePicks": []
         },
@@ -7048,7 +7048,7 @@
             "offsides": 0,
             "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 1
+            "goalsConceded": 0
           },
           "candidatePicks": []
         },
@@ -7159,7 +7159,7 @@
             "offsides": 0,
             "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 0
+            "goalsConceded": 1
           },
           "candidatePicks": []
         },
@@ -7187,7 +7187,7 @@
             "subIns": 0,
             "goals": 0,
             "assists": 0,
-            "shots": 2,
+            "shots": 1,
             "shotsOnTarget": 0,
             "foulsCommitted": 0,
             "foulsSuffered": 0,
@@ -7196,7 +7196,7 @@
             "offsides": 0,
             "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 1
+            "goalsConceded": 0
           },
           "candidatePicks": []
         },
@@ -7259,10 +7259,10 @@
           "stats": {
             "appearances": 0,
             "subIns": 0,
-            "goals": 1,
+            "goals": 2,
             "assists": 0,
-            "shots": 5,
-            "shotsOnTarget": 4,
+            "shots": 6,
+            "shotsOnTarget": 3,
             "foulsCommitted": 0,
             "foulsSuffered": 0,
             "yellowCards": 0,
@@ -7270,7 +7270,7 @@
             "offsides": 0,
             "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 0
+            "goalsConceded": 1
           },
           "candidatePicks": []
         },
@@ -7298,7 +7298,7 @@
             "subIns": 0,
             "goals": 0,
             "assists": 0,
-            "shots": 3,
+            "shots": 1,
             "shotsOnTarget": 1,
             "foulsCommitted": 0,
             "foulsSuffered": 0,
@@ -7307,7 +7307,7 @@
             "offsides": 0,
             "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 0
+            "goalsConceded": 1
           },
           "candidatePicks": []
         },
@@ -7640,7 +7640,7 @@
             "offsides": 0,
             "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 1
+            "goalsConceded": 0
           },
           "candidatePicks": []
         },
@@ -7677,7 +7677,7 @@
             "offsides": 0,
             "saves": 3,
             "shotsFaced": 0,
-            "goalsConceded": 1
+            "goalsConceded": 0
           },
           "candidatePicks": []
         },
@@ -7851,7 +7851,7 @@
           "winPct": 40.6
         }
       },
-      "updatedAt": "2026-11-23T15:07:01.408Z",
+      "updatedAt": "2026-11-23T22:28:20.377Z",
       "players": [
         {
           "id": "championship.swansea-city.adam-idah",

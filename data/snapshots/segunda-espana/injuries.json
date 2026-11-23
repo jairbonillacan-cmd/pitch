@@ -1,64 +1,10 @@
 {
   "schemaVersion": 1,
   "league": "segunda-espana",
-  "observedAt": "2026-11-23T15:07:01.408Z",
+  "observedAt": "2026-11-23T22:28:20.377Z",
   "source": "pitchlab-availability",
   "coverageStatus": "ok",
   "entries": [
-    {
-      "teamId": "segunda-espana.real-oviedo",
-      "player": "Alberto Reina",
-      "position": "M",
-      "status": "Baja",
-      "detail": "Muscle Injury",
-      "injuryType": "Muscle Injury",
-      "reportedAt": "2026-11-23T15:07:01.408Z"
-    },
-    {
-      "teamId": "segunda-espana.real-oviedo",
-      "player": "Chris Ramos",
-      "position": "F",
-      "status": "Baja",
-      "detail": "Cruciate Ligament Injury",
-      "injuryType": "Cruciate Ligament Injury",
-      "reportedAt": "2026-11-23T15:07:01.408Z"
-    },
-    {
-      "teamId": "segunda-espana.real-oviedo",
-      "player": "Dani Calvo",
-      "position": "D",
-      "status": "Baja",
-      "detail": "Knee Injury",
-      "injuryType": "Knee Injury",
-      "reportedAt": "2026-11-23T15:07:01.408Z"
-    },
-    {
-      "teamId": "segunda-espana.real-oviedo",
-      "player": "Pablo Sáenz",
-      "position": "F",
-      "status": "Baja",
-      "detail": "Calf Injury",
-      "injuryType": "Calf Injury",
-      "reportedAt": "2026-11-23T15:07:01.408Z"
-    },
-    {
-      "teamId": "segunda-espana.girona",
-      "player": "Bryan Gil",
-      "position": "M",
-      "status": "Baja",
-      "detail": "Muscle Injury",
-      "injuryType": "Muscle Injury",
-      "reportedAt": "2026-11-23T15:07:01.408Z"
-    },
-    {
-      "teamId": "segunda-espana.girona",
-      "player": "Mauro Furtado",
-      "position": "D",
-      "status": "Baja",
-      "detail": "Cruciate Ligament Injury",
-      "injuryType": "Cruciate Ligament Injury",
-      "reportedAt": "2026-11-23T15:07:01.408Z"
-    },
     {
       "teamId": "segunda-espana.ad-ceuta",
       "player": "Edgar Sevikyan",
@@ -66,7 +12,7 @@
       "status": "Duda",
       "detail": "Muscle Injury",
       "injuryType": "Muscle Injury",
-      "reportedAt": "2026-11-23T15:07:01.408Z"
+      "reportedAt": "2026-11-23T22:28:20.377Z"
     },
     {
       "teamId": "segunda-espana.granada",
@@ -75,7 +21,7 @@
       "status": "Baja",
       "detail": "national_team",
       "injuryType": "national_team",
-      "reportedAt": "2026-11-23T15:07:01.408Z"
+      "reportedAt": "2026-11-23T22:28:20.377Z"
     },
     {
       "teamId": "segunda-espana.las-palmas",
@@ -84,7 +30,7 @@
       "status": "Baja",
       "detail": "Meniscus Injury",
       "injuryType": "Meniscus Injury",
-      "reportedAt": "2026-11-23T15:07:01.408Z"
+      "reportedAt": "2026-11-23T22:28:20.377Z"
     },
     {
       "teamId": "segunda-espana.las-palmas",
@@ -93,7 +39,7 @@
       "status": "Baja",
       "detail": "national_team",
       "injuryType": "national_team",
-      "reportedAt": "2026-11-23T15:07:01.408Z"
+      "reportedAt": "2026-11-23T22:28:20.377Z"
     },
     {
       "teamId": "segunda-espana.eibar",
@@ -102,7 +48,7 @@
       "status": "Baja",
       "detail": "Calf Injury",
       "injuryType": "Calf Injury",
-      "reportedAt": "2026-11-23T15:07:01.408Z"
+      "reportedAt": "2026-11-23T22:28:20.377Z"
     },
     {
       "teamId": "segunda-espana.cadiz",
@@ -111,7 +57,7 @@
       "status": "Baja",
       "detail": "Muscle Injury",
       "injuryType": "Muscle Injury",
-      "reportedAt": "2026-11-23T15:07:01.408Z"
+      "reportedAt": "2026-11-23T22:28:20.377Z"
     },
     {
       "teamId": "segunda-espana.cadiz",
@@ -120,7 +66,7 @@
       "status": "Baja",
       "detail": "Muscle Injury",
       "injuryType": "Muscle Injury",
-      "reportedAt": "2026-11-23T15:07:01.408Z"
+      "reportedAt": "2026-11-23T22:28:20.377Z"
     },
     {
       "teamId": "segunda-espana.cadiz",
@@ -129,7 +75,34 @@
       "status": "Duda",
       "detail": "Muscle Injury",
       "injuryType": "Muscle Injury",
-      "reportedAt": "2026-11-23T15:07:01.408Z"
+      "reportedAt": "2026-11-23T22:28:20.377Z"
+    },
+    {
+      "teamId": "segunda-espana.eldense",
+      "player": "Jesús Clemente",
+      "position": "D",
+      "status": "Duda",
+      "detail": "Muscle Injury",
+      "injuryType": "Muscle Injury",
+      "reportedAt": "2026-11-23T22:28:20.377Z"
+    },
+    {
+      "teamId": "segunda-espana.ce-sabadell",
+      "player": "Arthur Bonaldo",
+      "position": "D",
+      "status": "Duda",
+      "detail": "Muscle Injury",
+      "injuryType": "Muscle Injury",
+      "reportedAt": "2026-11-23T22:28:20.377Z"
+    },
+    {
+      "teamId": "segunda-espana.ce-sabadell",
+      "player": "Nicholas Gioacchini",
+      "position": "F",
+      "status": "Baja",
+      "detail": "Cruciate Ligament Injury",
+      "injuryType": "Cruciate Ligament Injury",
+      "reportedAt": "2026-11-23T22:28:20.377Z"
     }
   ]
 }

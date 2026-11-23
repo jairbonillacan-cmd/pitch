@@ -4,8 +4,8 @@
   "logoUrl": "https://sports.bzzoiro.com/img/league/36/?bg=transparent",
   "season": "liga-f-2026-27",
   "seasonLabel": "2026/27",
-  "periodLabel": "Regular season · Matchday 10",
-  "updatedAt": "2026-11-23T15:07:01.408Z",
+  "periodLabel": "Regular season · Matchday 11",
+  "updatedAt": "2026-11-23T22:28:20.377Z",
   "source": "pitchlab-football-v2",
   "provenance": "derived",
   "isDemo": false,
@@ -18,8 +18,8 @@
       "forPerGame": 1.25,
       "againstPerGame": 1.5833333333333333,
       "gamesPlayed": 12,
-      "adjustedFor": 1.2572495560711812,
-      "adjustedAgainst": 1.4393435039110807
+      "adjustedFor": 1.289141690652611,
+      "adjustedAgainst": 1.4414587444817466
     },
     "liga-f.logrono-united": {
       "teamId": "liga-f.logrono-united",
@@ -29,8 +29,8 @@
       "forPerGame": 1.4166666666666667,
       "againstPerGame": 1.4166666666666667,
       "gamesPlayed": 12,
-      "adjustedFor": 1.394843619253106,
-      "adjustedAgainst": 1.3345825186499989
+      "adjustedFor": 1.387867872439492,
+      "adjustedAgainst": 1.3571881412948548
     },
     "liga-f.real-deportivo-a-coruna": {
       "teamId": "liga-f.real-deportivo-a-coruna",
@@ -40,8 +40,8 @@
       "forPerGame": 1.0833333333333333,
       "againstPerGame": 1.3333333333333333,
       "gamesPlayed": 12,
-      "adjustedFor": 1.1258297636493904,
-      "adjustedAgainst": 1.2325891337285542
+      "adjustedFor": 1.1984606986222206,
+      "adjustedAgainst": 1.2955824337543353
     },
     "liga-f.sevilla": {
       "teamId": "liga-f.sevilla",
@@ -51,8 +51,8 @@
       "forPerGame": 1,
       "againstPerGame": 1.5833333333333333,
       "gamesPlayed": 12,
-      "adjustedFor": 1.0817513363164228,
-      "adjustedAgainst": 1.3418537171182963
+      "adjustedFor": 1.1646818796515317,
+      "adjustedAgainst": 1.374890505472873
     },
     "liga-f.sd-eibar": {
       "teamId": "liga-f.sd-eibar",
@@ -62,19 +62,19 @@
       "forPerGame": 1,
       "againstPerGame": 1.5,
       "gamesPlayed": 12,
-      "adjustedFor": 1.0464247217276934,
-      "adjustedAgainst": 1.4805588428447725
+      "adjustedFor": 1.1416889268259987,
+      "adjustedAgainst": 1.4547141293864616
     },
     "liga-f.espanyol-barcelona": {
       "teamId": "liga-f.espanyol-barcelona",
       "name": "RCD Espanyol de Barcelona",
       "shortName": "Espanyol de Barcelona",
       "code": "ESP",
-      "forPerGame": 1.3636363636363635,
-      "againstPerGame": 1.2727272727272727,
-      "gamesPlayed": 11,
-      "adjustedFor": 1.2827307702455064,
-      "adjustedAgainst": 1.287803745041214
+      "forPerGame": 1.4166666666666667,
+      "againstPerGame": 1.1666666666666667,
+      "gamesPlayed": 12,
+      "adjustedFor": 1.3396283426877964,
+      "adjustedAgainst": 1.2642929425222325
     },
     "liga-f.madrid-cff": {
       "teamId": "liga-f.madrid-cff",
@@ -84,8 +84,8 @@
       "forPerGame": 1.75,
       "againstPerGame": 2,
       "gamesPlayed": 12,
-      "adjustedFor": 1.6885218940251934,
-      "adjustedAgainst": 1.7698165053620856
+      "adjustedFor": 1.5848035009227495,
+      "adjustedAgainst": 1.6566498800382825
     },
     "liga-f.granada": {
       "teamId": "liga-f.granada",
@@ -95,8 +95,8 @@
       "forPerGame": 0.8333333333333334,
       "againstPerGame": 1.75,
       "gamesPlayed": 12,
-      "adjustedFor": 0.944658033816466,
-      "adjustedAgainst": 1.4821768308533831
+      "adjustedFor": 1.0672977011069555,
+      "adjustedAgainst": 1.4764012832706424
     },
     "liga-f.athletic": {
       "teamId": "liga-f.athletic",
@@ -106,8 +106,8 @@
       "forPerGame": 1.4166666666666667,
       "againstPerGame": 1.5,
       "gamesPlayed": 12,
-      "adjustedFor": 1.3582018424294495,
-      "adjustedAgainst": 1.3071040157065492
+      "adjustedFor": 1.3666666269527774,
+      "adjustedAgainst": 1.3475575529887347
     },
     "liga-f.badalona-women": {
       "teamId": "liga-f.badalona-women",
@@ -117,8 +117,8 @@
       "forPerGame": 1.1666666666666667,
       "againstPerGame": 2,
       "gamesPlayed": 12,
-      "adjustedFor": 1.246423305422929,
-      "adjustedAgainst": 1.652274654655911
+      "adjustedFor": 1.2756301150027831,
+      "adjustedAgainst": 1.5965820330952751
     },
     "liga-f.deportivo-alaves": {
       "teamId": "liga-f.deportivo-alaves",
@@ -128,19 +128,19 @@
       "forPerGame": 0.8181818181818182,
       "againstPerGame": 1.5454545454545454,
       "gamesPlayed": 11,
-      "adjustedFor": 0.980834453844741,
-      "adjustedAgainst": 1.4238792742646766
+      "adjustedFor": 1.0946641407621647,
+      "adjustedAgainst": 1.4192298681088302
     },
     "liga-f.valencia": {
       "teamId": "liga-f.valencia",
       "name": "Valencia",
       "shortName": "Valencia",
       "code": "VAL",
-      "forPerGame": 0.7272727272727273,
-      "againstPerGame": 1.7272727272727273,
-      "gamesPlayed": 11,
-      "adjustedFor": 0.8769787497631428,
-      "adjustedAgainst": 1.5343235884022064
+      "forPerGame": 0.6666666666666666,
+      "againstPerGame": 1.75,
+      "gamesPlayed": 12,
+      "adjustedFor": 0.9823266044990918,
+      "adjustedAgainst": 1.5063773761791177
     },
     "liga-f.barcelona": {
       "teamId": "liga-f.barcelona",
@@ -150,8 +150,8 @@
       "forPerGame": 4,
       "againstPerGame": 0.5,
       "gamesPlayed": 12,
-      "adjustedFor": 3.142430398893711,
-      "adjustedAgainst": 0.7017908228798951
+      "adjustedFor": 2.6691468540842975,
+      "adjustedAgainst": 0.8921081669426222
     },
     "liga-f.costa-adeje-tenerife": {
       "teamId": "liga-f.costa-adeje-tenerife",
@@ -161,8 +161,8 @@
       "forPerGame": 1.5454545454545454,
       "againstPerGame": 1.6363636363636365,
       "gamesPlayed": 11,
-      "adjustedFor": 1.4791045698276442,
-      "adjustedAgainst": 1.4054495708941075
+      "adjustedFor": 1.4529749494801636,
+      "adjustedAgainst": 1.4106307433073026
     },
     "liga-f.real-madrid": {
       "teamId": "liga-f.real-madrid",
@@ -172,8 +172,8 @@
       "forPerGame": 2.5833333333333335,
       "againstPerGame": 1.8333333333333333,
       "gamesPlayed": 12,
-      "adjustedFor": 2.2896960086295963,
-      "adjustedAgainst": 1.6513591274932504
+      "adjustedFor": 2.020284465635257,
+      "adjustedAgainst": 1.5732435926786463
     },
     "liga-f.atletico-madrid": {
       "teamId": "liga-f.atletico-madrid",
@@ -183,46 +183,11 @@
       "forPerGame": 2.25,
       "againstPerGame": 1.1666666666666667,
       "gamesPlayed": 12,
-      "adjustedFor": 1.9679669053059836,
-      "adjustedAgainst": 1.1419913380244362
+      "adjustedFor": 1.8094146970718206,
+      "adjustedAgainst": 1.2027919534760043
     }
   },
   "games": [
-    {
-      "id": "liga-f-2026-11-09-real-deportivo-valencia-bjyfdz",
-      "league": "liga-f",
-      "season": "liga-f-2026-27",
-      "week": 10,
-      "round": "Regular season · Matchday 10",
-      "phase": "Regular season",
-      "startTime": "2026-11-09T20:00:00.000Z",
-      "status": "final",
-      "home": {
-        "id": "liga-f.real-deportivo-a-coruna",
-        "league": "liga-f",
-        "name": "Real Club Deportivo de A Coruña",
-        "shortName": "Real de A Coruña",
-        "code": "REA",
-        "logoUrl": "https://sports.bzzoiro.com/img/team/915/?bg=transparent"
-      },
-      "away": {
-        "id": "liga-f.valencia",
-        "league": "liga-f",
-        "name": "Valencia",
-        "shortName": "Valencia",
-        "code": "VAL",
-        "logoUrl": "https://sports.bzzoiro.com/img/team/3885/?bg=transparent"
-      },
-      "venue": "Cidade Deportiva de Abegondo, Abegondo",
-      "referee": "Ainara Andrea Acevedo Dudley",
-      "neutralSite": false,
-      "result": {
-        "home": 0,
-        "away": 2,
-        "observedAt": "2026-11-23T15:07:01.408Z",
-        "source": "pitchlab-feed"
-      }
-    },
     {
       "id": "liga-f-2026-11-14-espanyol-barce-costa-adeje-te-3dn7fu",
       "league": "liga-f",
@@ -254,7 +219,7 @@
       "result": {
         "home": 1,
         "away": 3,
-        "observedAt": "2026-11-23T15:07:01.408Z",
+        "observedAt": "2026-11-23T22:28:20.377Z",
         "source": "pitchlab-feed"
       }
     },
@@ -288,7 +253,7 @@
       "result": {
         "home": 2,
         "away": 1,
-        "observedAt": "2026-11-23T15:07:01.408Z",
+        "observedAt": "2026-11-23T22:28:20.377Z",
         "source": "pitchlab-feed"
       }
     },
@@ -323,7 +288,7 @@
       "result": {
         "home": 3,
         "away": 3,
-        "observedAt": "2026-11-23T15:07:01.408Z",
+        "observedAt": "2026-11-23T22:28:20.377Z",
         "source": "pitchlab-feed"
       }
     },
@@ -358,7 +323,7 @@
       "result": {
         "home": 1,
         "away": 4,
-        "observedAt": "2026-11-23T15:07:01.408Z",
+        "observedAt": "2026-11-23T22:28:20.377Z",
         "source": "pitchlab-feed"
       }
     },
@@ -393,7 +358,7 @@
       "result": {
         "home": 2,
         "away": 3,
-        "observedAt": "2026-11-23T15:07:01.408Z",
+        "observedAt": "2026-11-23T22:28:20.377Z",
         "source": "pitchlab-feed"
       }
     },
@@ -428,7 +393,7 @@
       "result": {
         "home": 1,
         "away": 2,
-        "observedAt": "2026-11-23T15:07:01.408Z",
+        "observedAt": "2026-11-23T22:28:20.377Z",
         "source": "pitchlab-feed"
       }
     },
@@ -463,7 +428,7 @@
       "result": {
         "home": 1,
         "away": 1,
-        "observedAt": "2026-11-23T15:07:01.408Z",
+        "observedAt": "2026-11-23T22:28:20.377Z",
         "source": "pitchlab-feed"
       }
     },
@@ -497,7 +462,7 @@
       "result": {
         "home": 0,
         "away": 0,
-        "observedAt": "2026-11-23T15:07:01.408Z",
+        "observedAt": "2026-11-23T22:28:20.377Z",
         "source": "pitchlab-feed"
       }
     },
@@ -532,7 +497,7 @@
       "result": {
         "home": 2,
         "away": 1,
-        "observedAt": "2026-11-23T15:07:01.408Z",
+        "observedAt": "2026-11-23T22:28:20.377Z",
         "source": "pitchlab-feed"
       }
     },
@@ -567,7 +532,7 @@
       "result": {
         "home": 1,
         "away": 3,
-        "observedAt": "2026-11-23T15:07:01.408Z",
+        "observedAt": "2026-11-23T22:28:20.377Z",
         "source": "pitchlab-feed"
       }
     },
@@ -602,7 +567,7 @@
       "result": {
         "home": 3,
         "away": 1,
-        "observedAt": "2026-11-23T15:07:01.408Z",
+        "observedAt": "2026-11-23T22:28:20.377Z",
         "source": "pitchlab-feed"
       }
     },
@@ -637,7 +602,7 @@
       "result": {
         "home": 1,
         "away": 0,
-        "observedAt": "2026-11-23T15:07:01.408Z",
+        "observedAt": "2026-11-23T22:28:20.377Z",
         "source": "pitchlab-feed"
       }
     },
@@ -672,7 +637,7 @@
       "result": {
         "home": 1,
         "away": 5,
-        "observedAt": "2026-11-23T15:07:01.408Z",
+        "observedAt": "2026-11-23T22:28:20.377Z",
         "source": "pitchlab-feed"
       }
     },
@@ -707,7 +672,7 @@
       "result": {
         "home": 0,
         "away": 3,
-        "observedAt": "2026-11-23T15:07:01.408Z",
+        "observedAt": "2026-11-23T22:28:20.377Z",
         "source": "pitchlab-feed"
       }
     },
@@ -741,7 +706,7 @@
       "result": {
         "home": 6,
         "away": 0,
-        "observedAt": "2026-11-23T15:07:01.408Z",
+        "observedAt": "2026-11-23T22:28:20.377Z",
         "source": "pitchlab-feed"
       }
     },
@@ -753,7 +718,7 @@
       "round": "Regular season · Matchday 12",
       "phase": "Regular season",
       "startTime": "2026-11-23T19:00:00.000Z",
-      "status": "scheduled",
+      "status": "final",
       "home": {
         "id": "liga-f.espanyol-barcelona",
         "league": "liga-f",
@@ -772,7 +737,13 @@
       },
       "venue": "Ciutat Esportiva Dani Jarque, San Adrian de Besos",
       "referee": "Beatriz Cuesta",
-      "neutralSite": false
+      "neutralSite": false,
+      "result": {
+        "home": 2,
+        "away": 0,
+        "observedAt": "2026-11-23T22:28:20.377Z",
+        "source": "pitchlab-feed"
+      }
     },
     {
       "id": "liga-f-2026-12-08-athletic-deportivo-alav-lb13j7",
@@ -1249,455 +1220,6 @@
     }
   ],
   "analyses": {
-    "liga-f-2026-11-09-real-deportivo-valencia-bjyfdz": {
-      "game": "liga-f-2026-11-09-real-deportivo-valencia-bjyfdz",
-      "model": {
-        "id": "pitchlab-statistical-liga-f",
-        "version": "2.0.0",
-        "status": "candidate",
-        "label": "Modelo PitchLab · en validación"
-      },
-      "projection": {
-        "home": 1.4245688653464978,
-        "away": 0.7725953443280452,
-        "total": 2.197164209674543,
-        "margin": 0.6519735210184526
-      },
-      "x12": [
-        0.5270633373243504,
-        0.2678087897261495,
-        0.20512787294950016
-      ],
-      "probabilities": [
-        {
-          "market": "h2h",
-          "selection": "Real de A Coruña gana",
-          "p": 0.5270633373243504,
-          "fairOdds": 1.8973051798224552
-        },
-        {
-          "market": "h2h",
-          "selection": "Empate",
-          "p": 0.2678087897261495,
-          "fairOdds": 3.734007390207617
-        },
-        {
-          "market": "h2h",
-          "selection": "Valencia gana",
-          "p": 0.20512787294950016,
-          "fairOdds": 4.875007894447319
-        },
-        {
-          "market": "double_chance",
-          "selection": "Real de A Coruña o empate",
-          "p": 0.7948721270504999,
-          "fairOdds": 1.2580639903812703
-        },
-        {
-          "market": "double_chance",
-          "selection": "Valencia o empate",
-          "p": 0.4729366626756497,
-          "fairOdds": 2.1144480411869058
-        },
-        {
-          "market": "double_chance",
-          "selection": "Sin empate",
-          "p": 0.7321912102738506,
-          "fairOdds": 1.365763459009546
-        },
-        {
-          "market": "totals",
-          "selection": "Más de 1.5",
-          "line": 1.5,
-          "p": 0.6429034971789791,
-          "fairOdds": 1.5554433976295639
-        },
-        {
-          "market": "totals",
-          "selection": "Más de 2.5",
-          "line": 2.5,
-          "p": 0.37652554396810867,
-          "fairOdds": 2.6558623074048304
-        },
-        {
-          "market": "totals",
-          "selection": "Menos de 2.5",
-          "line": 2.5,
-          "p": 0.6234744560318913,
-          "fairOdds": 1.6039149484399229
-        },
-        {
-          "market": "totals",
-          "selection": "Más de 3.5",
-          "line": 3.5,
-          "p": 0.1800899649066905,
-          "fairOdds": 5.552780248017302
-        },
-        {
-          "market": "totals",
-          "selection": "Menos de 3.5",
-          "line": 3.5,
-          "p": 0.8199100350933095,
-          "fairOdds": 1.2196460065111845
-        },
-        {
-          "market": "btts",
-          "selection": "Sí",
-          "p": 0.4068581799561263,
-          "fairOdds": 2.4578589033353966
-        },
-        {
-          "market": "btts",
-          "selection": "No",
-          "p": 0.5931418200438737,
-          "fairOdds": 1.6859374372321811
-        },
-        {
-          "market": "team_totals",
-          "selection": "Real de A Coruña más de 1.5",
-          "line": 1.5,
-          "p": 0.41661901138364976,
-          "fairOdds": 2.400274525828432
-        },
-        {
-          "market": "team_totals",
-          "selection": "Real de A Coruña menos de 1.5",
-          "line": 1.5,
-          "p": 0.5833809886163502,
-          "fairOdds": 1.7141456775473216
-        },
-        {
-          "market": "team_totals",
-          "selection": "Valencia más de 1.5",
-          "line": 1.5,
-          "p": 0.1813925178201068,
-          "fairOdds": 5.5129065521419935
-        },
-        {
-          "market": "team_totals",
-          "selection": "Valencia menos de 1.5",
-          "line": 1.5,
-          "p": 0.8186074821798932,
-          "fairOdds": 1.2215866844230052
-        },
-        {
-          "market": "correct_score",
-          "selection": "1–0",
-          "p": 0.16012950837163917,
-          "fairOdds": 6.244945170749752
-        },
-        {
-          "market": "correct_score",
-          "selection": "1–1",
-          "p": 0.12046353942182644,
-          "fairOdds": 8.301266962597754
-        },
-        {
-          "market": "correct_score",
-          "selection": "2–0",
-          "p": 0.11275109149933492,
-          "fairOdds": 8.869093741818887
-        }
-      ],
-      "marketGroups": [
-        {
-          "group": "Resultado",
-          "rows": [
-            {
-              "market": "h2h",
-              "selection": "home",
-              "label": "Real de A Coruña gana",
-              "p": 0.5270633373243504,
-              "fairOdds": 1.8973051798224552
-            },
-            {
-              "market": "h2h",
-              "selection": "draw",
-              "label": "Empate",
-              "p": 0.2678087897261495,
-              "fairOdds": 3.734007390207617
-            },
-            {
-              "market": "h2h",
-              "selection": "away",
-              "label": "Valencia gana",
-              "p": 0.20512787294950016,
-              "fairOdds": 4.875007894447319
-            }
-          ]
-        },
-        {
-          "group": "Doble oportunidad",
-          "rows": [
-            {
-              "market": "double_chance",
-              "selection": "1x",
-              "label": "Real de A Coruña o empate",
-              "p": 0.7948721270504999,
-              "fairOdds": 1.2580639903812703
-            },
-            {
-              "market": "double_chance",
-              "selection": "x2",
-              "label": "Valencia o empate",
-              "p": 0.4729366626756497,
-              "fairOdds": 2.1144480411869058
-            },
-            {
-              "market": "double_chance",
-              "selection": "12",
-              "label": "Sin empate",
-              "p": 0.7321912102738506,
-              "fairOdds": 1.365763459009546
-            }
-          ]
-        },
-        {
-          "group": "Goles totales",
-          "rows": [
-            {
-              "market": "totals",
-              "selection": "over_1.5",
-              "label": "Más de 1.5",
-              "line": 1.5,
-              "p": 0.6429034971789791,
-              "fairOdds": 1.5554433976295639
-            },
-            {
-              "market": "totals",
-              "selection": "over_2.5",
-              "label": "Más de 2.5",
-              "line": 2.5,
-              "p": 0.37652554396810867,
-              "fairOdds": 2.6558623074048304
-            },
-            {
-              "market": "totals",
-              "selection": "under_2.5",
-              "label": "Menos de 2.5",
-              "line": 2.5,
-              "p": 0.6234744560318913,
-              "fairOdds": 1.6039149484399229
-            },
-            {
-              "market": "totals",
-              "selection": "over_3.5",
-              "label": "Más de 3.5",
-              "line": 3.5,
-              "p": 0.1800899649066905,
-              "fairOdds": 5.552780248017302
-            },
-            {
-              "market": "totals",
-              "selection": "under_3.5",
-              "label": "Menos de 3.5",
-              "line": 3.5,
-              "p": 0.8199100350933095,
-              "fairOdds": 1.2196460065111845
-            }
-          ]
-        },
-        {
-          "group": "Ambos anotan",
-          "rows": [
-            {
-              "market": "btts",
-              "selection": "yes",
-              "label": "Sí",
-              "p": 0.4068581799561263,
-              "fairOdds": 2.4578589033353966
-            },
-            {
-              "market": "btts",
-              "selection": "no",
-              "label": "No",
-              "p": 0.5931418200438737,
-              "fairOdds": 1.6859374372321811
-            }
-          ]
-        },
-        {
-          "group": "Goles por equipo (1.5)",
-          "rows": [
-            {
-              "market": "team_totals",
-              "selection": "home_over",
-              "label": "Real de A Coruña más de 1.5",
-              "line": 1.5,
-              "p": 0.41661901138364976,
-              "fairOdds": 2.400274525828432
-            },
-            {
-              "market": "team_totals",
-              "selection": "home_under",
-              "label": "Real de A Coruña menos de 1.5",
-              "line": 1.5,
-              "p": 0.5833809886163502,
-              "fairOdds": 1.7141456775473216
-            },
-            {
-              "market": "team_totals",
-              "selection": "away_over",
-              "label": "Valencia más de 1.5",
-              "line": 1.5,
-              "p": 0.1813925178201068,
-              "fairOdds": 5.5129065521419935
-            },
-            {
-              "market": "team_totals",
-              "selection": "away_under",
-              "label": "Valencia menos de 1.5",
-              "line": 1.5,
-              "p": 0.8186074821798932,
-              "fairOdds": 1.2215866844230052
-            }
-          ]
-        },
-        {
-          "group": "Marcador exacto (más probables)",
-          "rows": [
-            {
-              "market": "correct_score",
-              "selection": "1-0",
-              "label": "1–0",
-              "p": 0.16012950837163917,
-              "fairOdds": 6.244945170749752
-            },
-            {
-              "market": "correct_score",
-              "selection": "1-1",
-              "label": "1–1",
-              "p": 0.12046353942182644,
-              "fairOdds": 8.301266962597754
-            },
-            {
-              "market": "correct_score",
-              "selection": "2-0",
-              "label": "2–0",
-              "p": 0.11275109149933492,
-              "fairOdds": 8.869093741818887
-            }
-          ]
-        }
-      ],
-      "mostLikelyScore": {
-        "home": 1,
-        "away": 0,
-        "p": 0.16012950837163917
-      },
-      "factors": [
-        {
-          "key": "home_attack",
-          "label": "Ataque local",
-          "value": "1.30 goles/partido",
-          "detail": "15 % menos que la media · 11 partidos"
-        },
-        {
-          "key": "away_defense",
-          "label": "Defensa visitante",
-          "value": "1.54 concedidos/partido",
-          "detail": "15 % más que la media · 11 partidos"
-        },
-        {
-          "key": "away_attack",
-          "label": "Ataque visitante",
-          "value": "0.77 goles/partido",
-          "detail": "35 % menos que la media · ajustado por rival"
-        },
-        {
-          "key": "home_defense",
-          "label": "Defensa local",
-          "value": "1.18 concedidos/partido",
-          "detail": "12 % menos que la media · ajustado por rival"
-        },
-        {
-          "key": "home_advantage",
-          "label": "Localía",
-          "value": "×1.10",
-          "detail": "estimada de 87 partidos"
-        },
-        {
-          "key": "uncertainty",
-          "label": "Intervalo 90%",
-          "value": "goles 1.5–3.5",
-          "detail": "local 31%–79% · 87 partidos"
-        },
-        {
-          "key": "home_position",
-          "label": "Posición local",
-          "value": "10.º · 12 pts",
-          "detail": "de 16 equipos"
-        },
-        {
-          "key": "away_position",
-          "label": "Posición visitante",
-          "value": "16.º · 7 pts",
-          "detail": "de 16 equipos"
-        },
-        {
-          "key": "home_form",
-          "label": "Forma local",
-          "value": "E-P-G-G-P · 7 pts",
-          "detail": "8 goles a favor · 8 en contra"
-        },
-        {
-          "key": "away_form",
-          "label": "Forma visitante",
-          "value": "P-P-P-P-G · 3 pts",
-          "detail": "3 goles a favor · 9 en contra"
-        }
-      ],
-      "steps": [
-        "Sincronizando Liga F · corte 9 nov 2026, 13:00",
-        "Fuerza ajustada por rival · REA 0.85 / 0.88 · VAL 0.65 / 1.15",
-        "Ponderando 80.2 partidos por antigüedad y calidad del rival",
-        "Proyección de goles 1.42 – 0.77 · total 2.20",
-        "Simulando 121 marcadores con incertidumbre del ajuste",
-        "20 mercados listos · marcador proyectado 1–0"
-      ],
-      "inputsAsOf": "2026-11-09T19:00:00.000Z",
-      "publishedAt": "2026-11-09T19:00:00.000Z",
-      "source": "pitchlab-football-v2",
-      "projectedScore": {
-        "home": 1,
-        "away": 0,
-        "p": 0.16012950837163917
-      },
-      "insights": {
-        "why": [
-          "Se esperan 2.2 goles: 1.4 de Real de A Coruña y 0.8 de Valencia.",
-          "Valencia anota 35 % menos que la media.",
-          "Real de A Coruña anota 15 % menos que la media."
-        ],
-        "restDays": {
-          "home": 9,
-          "away": 9
-        }
-      },
-      "matchContext": {
-        "referee": "Ainara Andrea Acevedo Dudley",
-        "refereeStats": {
-          "country": "Spain",
-          "matches": 26,
-          "avgYellow": 3.96,
-          "avgRed": 0.27,
-          "avgFouls": 20.4,
-          "avgGoals": 2.88
-        },
-        "weather": {
-          "description": "rain"
-        },
-        "travelDistanceKm": 780,
-        "halfTimeScore": {
-          "home": 0,
-          "away": 0
-        },
-        "stageName": "Regular season",
-        "venueCity": "Abegondo",
-        "venueCountry": "Spain",
-        "venueCapacity": 1000
-      }
-    },
     "liga-f-2026-11-14-espanyol-barce-costa-adeje-te-3dn7fu": {
       "game": "liga-f-2026-11-14-espanyol-barce-costa-adeje-te-3dn7fu",
       "model": {
@@ -4360,11 +3882,11 @@
         "referee": "Beatriz Cuesta",
         "refereeStats": {
           "country": "Spain",
-          "matches": 8,
-          "avgYellow": 4.12,
-          "avgRed": 0.12,
-          "avgFouls": 18.6,
-          "avgGoals": 3
+          "matches": 9,
+          "avgYellow": 4.22,
+          "avgRed": 0.22,
+          "avgFouls": 19.1,
+          "avgGoals": 2.89
         },
         "weather": {
           "description": "clear"
@@ -9128,13 +8650,20 @@
         "referee": "Beatriz Cuesta",
         "refereeStats": {
           "country": "Spain",
-          "matches": 8,
-          "avgYellow": 4.12,
-          "avgRed": 0.12,
-          "avgFouls": 18.6,
-          "avgGoals": 3
+          "matches": 9,
+          "avgYellow": 4.22,
+          "avgRed": 0.22,
+          "avgFouls": 19.1,
+          "avgGoals": 2.89
+        },
+        "weather": {
+          "description": "clear"
         },
         "travelDistanceKm": 309,
+        "halfTimeScore": {
+          "home": 0,
+          "away": 0
+        },
         "stageName": "Regular season",
         "venueCity": "San Adrian de Besos",
         "venueCountry": "Spain",
@@ -17197,6 +16726,26 @@
       ]
     },
     {
+      "teamId": "liga-f.espanyol-barcelona",
+      "name": "RCD Espanyol de Barcelona",
+      "shortName": "Espanyol de Barcelona",
+      "code": "ESP",
+      "played": 12,
+      "won": 5,
+      "drawn": 3,
+      "lost": 4,
+      "goalsFor": 17,
+      "goalsAgainst": 14,
+      "points": 18,
+      "form": [
+        "D",
+        "W",
+        "W",
+        "L",
+        "W"
+      ]
+    },
+    {
       "teamId": "liga-f.costa-adeje-tenerife",
       "name": "Costa Adeje Tenerife",
       "shortName": "Costa Adeje Tenerife",
@@ -17254,26 +16803,6 @@
         "W",
         "L",
         "W"
-      ]
-    },
-    {
-      "teamId": "liga-f.espanyol-barcelona",
-      "name": "RCD Espanyol de Barcelona",
-      "shortName": "Espanyol de Barcelona",
-      "code": "ESP",
-      "played": 11,
-      "won": 4,
-      "drawn": 3,
-      "lost": 4,
-      "goalsFor": 15,
-      "goalsAgainst": 14,
-      "points": 15,
-      "form": [
-        "L",
-        "D",
-        "W",
-        "W",
-        "L"
       ]
     },
     {
@@ -17401,19 +16930,19 @@
       "name": "Valencia",
       "shortName": "Valencia",
       "code": "VAL",
-      "played": 11,
+      "played": 12,
       "won": 2,
       "drawn": 1,
-      "lost": 8,
+      "lost": 9,
       "goalsFor": 8,
-      "goalsAgainst": 19,
+      "goalsAgainst": 21,
       "points": 7,
       "form": [
         "L",
-        "L",
         "W",
         "W",
-        "D"
+        "D",
+        "L"
       ]
     }
   ]

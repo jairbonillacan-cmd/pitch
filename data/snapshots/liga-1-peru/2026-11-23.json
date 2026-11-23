@@ -5,7 +5,7 @@
   "season": "liga-1-peru-2026",
   "seasonLabel": "2026",
   "periodLabel": "Regular season · Matchday 16",
-  "updatedAt": "2026-11-23T15:07:01.408Z",
+  "updatedAt": "2026-11-23T22:28:20.377Z",
   "source": "pitchlab-football-v2",
   "provenance": "derived",
   "isDemo": false,
@@ -18,8 +18,8 @@
       "forPerGame": 1.3529411764705883,
       "againstPerGame": 2.4705882352941178,
       "gamesPlayed": 17,
-      "adjustedFor": 1.2705110615044228,
-      "adjustedAgainst": 2.1561811063249525
+      "adjustedFor": 1.112536108363433,
+      "adjustedAgainst": 1.7448806336060911
     },
     "liga-1-peru.acd-juan-pablo-ii": {
       "teamId": "liga-1-peru.acd-juan-pablo-ii",
@@ -29,8 +29,8 @@
       "forPerGame": 1.6470588235294117,
       "againstPerGame": 1.2352941176470589,
       "gamesPlayed": 17,
-      "adjustedFor": 1.5426951473295114,
-      "adjustedAgainst": 1.1952919064351664
+      "adjustedFor": 1.3013841614179449,
+      "adjustedAgainst": 1.0468082326328467
     },
     "liga-1-peru.sporting-cristal": {
       "teamId": "liga-1-peru.sporting-cristal",
@@ -40,8 +40,8 @@
       "forPerGame": 2.2941176470588234,
       "againstPerGame": 1.1176470588235294,
       "gamesPlayed": 17,
-      "adjustedFor": 1.9933255167367332,
-      "adjustedAgainst": 1.1373374612063412
+      "adjustedFor": 1.6307262805459806,
+      "adjustedAgainst": 1.0308244986486776
     },
     "liga-1-peru.deportivo-garcilaso": {
       "teamId": "liga-1-peru.deportivo-garcilaso",
@@ -51,8 +51,8 @@
       "forPerGame": 1.8235294117647058,
       "againstPerGame": 1.1176470588235294,
       "gamesPlayed": 17,
-      "adjustedFor": 1.6432570615773243,
-      "adjustedAgainst": 1.1382598506795627
+      "adjustedFor": 1.3819310086159304,
+      "adjustedAgainst": 1.0116720590561752
     },
     "liga-1-peru.cienciano": {
       "teamId": "liga-1-peru.cienciano",
@@ -62,8 +62,8 @@
       "forPerGame": 1.2352941176470589,
       "againstPerGame": 1.6470588235294117,
       "gamesPlayed": 17,
-      "adjustedFor": 1.217531554746415,
-      "adjustedAgainst": 1.5029735578290313
+      "adjustedFor": 1.0770195288340627,
+      "adjustedAgainst": 1.2713775047265916
     },
     "liga-1-peru.melgar": {
       "teamId": "liga-1-peru.melgar",
@@ -73,8 +73,8 @@
       "forPerGame": 1.6470588235294117,
       "againstPerGame": 1.1176470588235294,
       "gamesPlayed": 17,
-      "adjustedFor": 1.5194046963181476,
-      "adjustedAgainst": 1.1072795281547916
+      "adjustedFor": 1.289899115777191,
+      "adjustedAgainst": 0.9981389598234496
     },
     "liga-1-peru.moquegua": {
       "teamId": "liga-1-peru.moquegua",
@@ -84,8 +84,8 @@
       "forPerGame": 0.7058823529411765,
       "againstPerGame": 1.4705882352941178,
       "gamesPlayed": 17,
-      "adjustedFor": 0.7822387543088464,
-      "adjustedAgainst": 1.3502651542607444
+      "adjustedFor": 0.7713733919432871,
+      "adjustedAgainst": 1.1823073521013605
     },
     "liga-1-peru.comerciantes-unidos": {
       "teamId": "liga-1-peru.comerciantes-unidos",
@@ -95,8 +95,8 @@
       "forPerGame": 1.7058823529411764,
       "againstPerGame": 1.7647058823529411,
       "gamesPlayed": 17,
-      "adjustedFor": 1.5878599966793305,
-      "adjustedAgainst": 1.6001367305575023
+      "adjustedFor": 1.3345007656946886,
+      "adjustedAgainst": 1.3345520677492813
     },
     "liga-1-peru.asociacion-deportiva-tarma": {
       "teamId": "liga-1-peru.asociacion-deportiva-tarma",
@@ -106,8 +106,8 @@
       "forPerGame": 0.9411764705882353,
       "againstPerGame": 1.7058823529411764,
       "gamesPlayed": 17,
-      "adjustedFor": 0.9976422050909126,
-      "adjustedAgainst": 1.522386869612999
+      "adjustedFor": 0.9233391382232282,
+      "adjustedAgainst": 1.288791248751928
     },
     "liga-1-peru.universitario-deportes": {
       "teamId": "liga-1-peru.universitario-deportes",
@@ -117,8 +117,8 @@
       "forPerGame": 2.1176470588235294,
       "againstPerGame": 1.6470588235294117,
       "gamesPlayed": 17,
-      "adjustedFor": 1.9357857619448446,
-      "adjustedAgainst": 1.5544968142423428
+      "adjustedFor": 1.5764445886556901,
+      "adjustedAgainst": 1.3047948460095362
     },
     "liga-1-peru.atletico-grau": {
       "teamId": "liga-1-peru.atletico-grau",
@@ -128,8 +128,8 @@
       "forPerGame": 1.2352941176470589,
       "againstPerGame": 1.4705882352941178,
       "gamesPlayed": 17,
-      "adjustedFor": 1.1681984753880736,
-      "adjustedAgainst": 1.3880729866843307
+      "adjustedFor": 1.0455003946149093,
+      "adjustedAgainst": 1.2075561779382753
     },
     "liga-1-peru.universidad-tecnica-cajamarca": {
       "teamId": "liga-1-peru.universidad-tecnica-cajamarca",
@@ -139,8 +139,8 @@
       "forPerGame": 1.2941176470588236,
       "againstPerGame": 2.0588235294117645,
       "gamesPlayed": 17,
-      "adjustedFor": 1.2723489141022306,
-      "adjustedAgainst": 1.8031221770156434
+      "adjustedFor": 1.1160996535986412,
+      "adjustedAgainst": 1.5079560901890623
     },
     "liga-1-peru.cusco": {
       "teamId": "liga-1-peru.cusco",
@@ -150,8 +150,8 @@
       "forPerGame": 1.588235294117647,
       "againstPerGame": 1.4705882352941178,
       "gamesPlayed": 17,
-      "adjustedFor": 1.4463410558375507,
-      "adjustedAgainst": 1.3822972045473012
+      "adjustedFor": 1.2357696924096666,
+      "adjustedAgainst": 1.2017813761591363
     },
     "liga-1-peru.alianza-atletico-sullana": {
       "teamId": "liga-1-peru.alianza-atletico-sullana",
@@ -161,8 +161,8 @@
       "forPerGame": 1.7647058823529411,
       "againstPerGame": 1.8235294117647058,
       "gamesPlayed": 17,
-      "adjustedFor": 1.5829935697339885,
-      "adjustedAgainst": 1.649087129199684
+      "adjustedFor": 1.336096112533507,
+      "adjustedAgainst": 1.4081647630376906
     },
     "liga-1-peru.los-chankas-cyc": {
       "teamId": "liga-1-peru.los-chankas-cyc",
@@ -172,8 +172,8 @@
       "forPerGame": 1.0588235294117647,
       "againstPerGame": 2.1176470588235294,
       "gamesPlayed": 17,
-      "adjustedFor": 1.0862996809092993,
-      "adjustedAgainst": 1.8607989011531842
+      "adjustedFor": 0.9838045838636292,
+      "adjustedAgainst": 1.516241126336012
     },
     "liga-1-peru.sport-boys": {
       "teamId": "liga-1-peru.sport-boys",
@@ -183,8 +183,8 @@
       "forPerGame": 1.4705882352941178,
       "againstPerGame": 1.1176470588235294,
       "gamesPlayed": 17,
-      "adjustedFor": 1.3719874445993934,
-      "adjustedAgainst": 1.119814512956418
+      "adjustedFor": 1.1889938755115654,
+      "adjustedAgainst": 1.002524206570326
     },
     "liga-1-peru.alianza-lima": {
       "teamId": "liga-1-peru.alianza-lima",
@@ -194,8 +194,8 @@
       "forPerGame": 1.7058823529411764,
       "againstPerGame": 0.9411764705882353,
       "gamesPlayed": 17,
-      "adjustedFor": 1.5144821775868178,
-      "adjustedAgainst": 0.9659342577019964
+      "adjustedFor": 1.2938594145600293,
+      "adjustedAgainst": 0.9072664743556269
     },
     "liga-1-peru.sport-huancayo": {
       "teamId": "liga-1-peru.sport-huancayo",
@@ -205,8 +205,8 @@
       "forPerGame": 1.8235294117647058,
       "againstPerGame": 1.1176470588235294,
       "gamesPlayed": 17,
-      "adjustedFor": 1.6326848859764458,
-      "adjustedAgainst": 1.0958559798388747
+      "adjustedFor": 1.3737853382826786,
+      "adjustedAgainst": 0.998159827310399
     }
   },
   "games": [
@@ -240,7 +240,7 @@
       "result": {
         "home": 2,
         "away": 0,
-        "observedAt": "2026-11-23T15:07:01.408Z",
+        "observedAt": "2026-11-23T22:28:20.377Z",
         "source": "pitchlab-feed"
       }
     },
@@ -275,7 +275,7 @@
       "result": {
         "home": 2,
         "away": 1,
-        "observedAt": "2026-11-23T15:07:01.408Z",
+        "observedAt": "2026-11-23T22:28:20.377Z",
         "source": "pitchlab-feed"
       }
     },
@@ -310,7 +310,7 @@
       "result": {
         "home": 1,
         "away": 2,
-        "observedAt": "2026-11-23T15:07:01.408Z",
+        "observedAt": "2026-11-23T22:28:20.377Z",
         "source": "pitchlab-feed"
       }
     },
@@ -345,7 +345,7 @@
       "result": {
         "home": 1,
         "away": 1,
-        "observedAt": "2026-11-23T15:07:01.408Z",
+        "observedAt": "2026-11-23T22:28:20.377Z",
         "source": "pitchlab-feed"
       }
     },
@@ -380,7 +380,7 @@
       "result": {
         "home": 0,
         "away": 0,
-        "observedAt": "2026-11-23T15:07:01.408Z",
+        "observedAt": "2026-11-23T22:28:20.377Z",
         "source": "pitchlab-feed"
       }
     },
@@ -415,7 +415,7 @@
       "result": {
         "home": 0,
         "away": 0,
-        "observedAt": "2026-11-23T15:07:01.408Z",
+        "observedAt": "2026-11-23T22:28:20.377Z",
         "source": "pitchlab-feed"
       }
     },
@@ -450,7 +450,7 @@
       "result": {
         "home": 2,
         "away": 2,
-        "observedAt": "2026-11-23T15:07:01.408Z",
+        "observedAt": "2026-11-23T22:28:20.377Z",
         "source": "pitchlab-feed"
       }
     },
@@ -485,7 +485,7 @@
       "result": {
         "home": 3,
         "away": 3,
-        "observedAt": "2026-11-23T15:07:01.408Z",
+        "observedAt": "2026-11-23T22:28:20.377Z",
         "source": "pitchlab-feed"
       }
     },
@@ -519,7 +519,7 @@
       "result": {
         "home": 2,
         "away": 2,
-        "observedAt": "2026-11-23T15:07:01.408Z",
+        "observedAt": "2026-11-23T22:28:20.377Z",
         "source": "pitchlab-feed"
       }
     },
@@ -554,7 +554,7 @@
       "result": {
         "home": 5,
         "away": 3,
-        "observedAt": "2026-11-23T15:07:01.408Z",
+        "observedAt": "2026-11-23T22:28:20.377Z",
         "source": "pitchlab-feed"
       }
     },
@@ -588,7 +588,7 @@
       "result": {
         "home": 2,
         "away": 1,
-        "observedAt": "2026-11-23T15:07:01.408Z",
+        "observedAt": "2026-11-23T22:28:20.377Z",
         "source": "pitchlab-feed"
       }
     },
@@ -623,7 +623,7 @@
       "result": {
         "home": 2,
         "away": 2,
-        "observedAt": "2026-11-23T15:07:01.408Z",
+        "observedAt": "2026-11-23T22:28:20.377Z",
         "source": "pitchlab-feed"
       }
     },
@@ -658,7 +658,7 @@
       "result": {
         "home": 1,
         "away": 1,
-        "observedAt": "2026-11-23T15:07:01.408Z",
+        "observedAt": "2026-11-23T22:28:20.377Z",
         "source": "pitchlab-feed"
       }
     },
@@ -693,7 +693,7 @@
       "result": {
         "home": 5,
         "away": 0,
-        "observedAt": "2026-11-23T15:07:01.408Z",
+        "observedAt": "2026-11-23T22:28:20.377Z",
         "source": "pitchlab-feed"
       }
     },
@@ -728,7 +728,7 @@
       "result": {
         "home": 4,
         "away": 1,
-        "observedAt": "2026-11-23T15:07:01.408Z",
+        "observedAt": "2026-11-23T22:28:20.377Z",
         "source": "pitchlab-feed"
       }
     },
@@ -763,7 +763,7 @@
       "result": {
         "home": 4,
         "away": 1,
-        "observedAt": "2026-11-23T15:07:01.408Z",
+        "observedAt": "2026-11-23T22:28:20.377Z",
         "source": "pitchlab-feed"
       }
     }

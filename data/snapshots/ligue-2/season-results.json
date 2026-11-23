@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "league": "ligue-2",
   "season": "2026/27",
-  "updatedAt": "2026-11-23T15:07:01.408Z",
+  "updatedAt": "2026-11-23T22:28:20.377Z",
   "matches": [
     {
       "id": "ligue-2-2026-08-08-usl-dunkerque-grenoble-foot-mzlpsj",
@@ -1267,6 +1267,28 @@
       "awayTeam": "ligue-2.saint-etienne",
       "homeScore": 0,
       "awayScore": 1,
+      "neutralSite": false
+    },
+    {
+      "id": "ligue-2-2026-11-23-nantes-grenoble-foot-ato2x7",
+      "date": "2026-11-23",
+      "startTime": "2026-11-23T19:45:00.000Z",
+      "round": "Regular season · Matchday 13",
+      "homeTeam": "ligue-2.nantes",
+      "awayTeam": "ligue-2.grenoble-foot",
+      "homeScore": 1,
+      "awayScore": 0,
+      "neutralSite": false
+    },
+    {
+      "id": "ligue-2-2026-11-23-sochaux-usl-dunkerque-xr3yn4",
+      "date": "2026-11-23",
+      "startTime": "2026-11-23T19:45:00.000Z",
+      "round": "Regular season · Matchday 13",
+      "homeTeam": "ligue-2.sochaux",
+      "awayTeam": "ligue-2.usl-dunkerque",
+      "homeScore": 2,
+      "awayScore": 3,
       "neutralSite": false
     }
   ]

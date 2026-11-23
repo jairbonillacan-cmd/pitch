@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "league": "segunda-espana",
   "season": "2026/27",
-  "updatedAt": "2026-11-23T15:07:01.408Z",
+  "updatedAt": "2026-11-23T22:28:20.377Z",
   "matches": [
     {
       "id": "segunda-espana-2026-08-14-real-sociedad--castellon-ifica8",
@@ -1773,6 +1773,17 @@
       "awayTeam": "segunda-espana.albacete-balompie",
       "homeScore": 1,
       "awayScore": 0,
+      "neutralSite": false
+    },
+    {
+      "id": "segunda-espana-2026-11-23-ad-ceuta-almeria-4g5ft2",
+      "date": "2026-11-23",
+      "startTime": "2026-11-23T19:30:00.000Z",
+      "round": "Regular season · Matchday 15",
+      "homeTeam": "segunda-espana.ad-ceuta",
+      "awayTeam": "segunda-espana.almeria",
+      "homeScore": 2,
+      "awayScore": 3,
       "neutralSite": false
     }
   ]

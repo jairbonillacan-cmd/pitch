@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "league": "nhl",
-  "observedAt": "2026-11-23T15:06:56.513Z",
+  "observedAt": "2026-11-23T22:27:27.560Z",
   "source": "espn-public-nhl",
   "coverageStatus": "ok",
   "entries": [
@@ -89,11 +89,11 @@
       "teamId": "nhl.calgary-flames",
       "player": "Martin Pospisil",
       "position": "C",
-      "status": "Duda",
+      "status": "Baja",
       "detail": "Upper Body",
       "injuryType": "Upper Body",
-      "returnDate": "2026-11-23",
-      "reportedAt": "2026-11-21T22:54:00.000Z"
+      "returnDate": "2026-11-28",
+      "reportedAt": "2026-11-23T16:46:00.000Z"
     },
     {
       "teamId": "nhl.calgary-flames",
@@ -102,7 +102,7 @@
       "status": "Baja",
       "detail": "Cadera",
       "injuryType": "Hip",
-      "returnDate": "2026-11-25",
+      "returnDate": "2026-12-01",
       "reportedAt": "2026-11-19T04:00:00.000Z"
     },
     {
@@ -387,13 +387,23 @@
     },
     {
       "teamId": "nhl.los-angeles-kings",
-      "player": "Artemi Panarin",
-      "position": "LW",
+      "player": "Erik Gustafsson",
+      "position": "D",
+      "status": "Baja",
+      "detail": "Hand",
+      "injuryType": "Hand",
+      "returnDate": "2026-12-20",
+      "reportedAt": "2026-11-23T22:00:00.000Z"
+    },
+    {
+      "teamId": "nhl.los-angeles-kings",
+      "player": "Joel Edmundson",
+      "position": "D",
       "status": "Duda",
-      "detail": "Personal",
-      "injuryType": "Personal",
+      "detail": "Parte médico reservado",
+      "injuryType": "Undisclosed",
       "returnDate": "2026-11-23",
-      "reportedAt": "2026-11-22T13:40:00.000Z"
+      "reportedAt": "2026-11-23T18:37:00.000Z"
     },
     {
       "teamId": "nhl.los-angeles-kings",
@@ -403,17 +413,7 @@
       "detail": "Parte médico reservado",
       "injuryType": "Undisclosed",
       "returnDate": "2026-11-23",
-      "reportedAt": "2026-11-22T13:40:00.000Z"
-    },
-    {
-      "teamId": "nhl.los-angeles-kings",
-      "player": "Erik Gustafsson",
-      "position": "D",
-      "status": "Duda",
-      "detail": "Upper Body",
-      "injuryType": "Upper Body",
-      "returnDate": "2026-11-23",
-      "reportedAt": "2026-11-22T02:05:00.000Z"
+      "reportedAt": "2026-11-23T18:31:00.000Z"
     },
     {
       "teamId": "nhl.los-angeles-kings",
@@ -432,18 +432,8 @@
       "status": "Baja",
       "detail": "Upper Body",
       "injuryType": "Upper Body",
-      "returnDate": "2026-11-25",
-      "reportedAt": "2026-11-21T18:43:00.000Z"
-    },
-    {
-      "teamId": "nhl.minnesota-wild",
-      "player": "Filip Gustavsson",
-      "position": "G",
-      "status": "Baja",
-      "detail": "Cadera",
-      "injuryType": "Hip",
-      "returnDate": "2026-11-23",
-      "reportedAt": "2026-11-19T20:31:00.000Z"
+      "returnDate": "2026-11-27",
+      "reportedAt": "2026-11-23T19:43:00.000Z"
     },
     {
       "teamId": "nhl.minnesota-wild",
@@ -549,11 +539,11 @@
       "teamId": "nhl.new-york-islanders",
       "player": "Ryan Pulock",
       "position": "D",
-      "status": "Duda",
-      "detail": "Lower Body",
-      "injuryType": "Lower Body",
-      "returnDate": "2026-11-23",
-      "reportedAt": "2026-11-22T13:40:00.000Z"
+      "status": "Baja",
+      "detail": "Hombro",
+      "injuryType": "Shoulder",
+      "returnDate": "2026-11-25",
+      "reportedAt": "2026-11-23T16:34:00.000Z"
     },
     {
       "teamId": "nhl.new-york-islanders",
@@ -639,11 +629,11 @@
       "teamId": "nhl.ottawa-senators",
       "player": "Hayden Hodgson",
       "position": "RW",
-      "status": "Duda",
+      "status": "Baja",
       "detail": "Ingle",
       "injuryType": "Groin",
-      "returnDate": "2026-11-23",
-      "reportedAt": "2026-11-22T13:40:00.000Z"
+      "returnDate": "2026-11-28",
+      "reportedAt": "2026-11-23T15:48:00.000Z"
     },
     {
       "teamId": "nhl.ottawa-senators",
@@ -747,13 +737,23 @@
     },
     {
       "teamId": "nhl.san-jose-sharks",
+      "player": "Jacob Trouba",
+      "position": "D",
+      "status": "Baja",
+      "detail": "Lower Body",
+      "injuryType": "Lower Body",
+      "returnDate": "2026-12-01",
+      "reportedAt": "2026-11-23T19:34:00.000Z"
+    },
+    {
+      "teamId": "nhl.san-jose-sharks",
       "player": "Kiefer Sherwood",
       "position": "LW",
       "status": "Baja",
       "detail": "Upper Body",
       "injuryType": "Upper Body",
       "returnDate": "2026-12-01",
-      "reportedAt": "2026-11-17T19:39:00.000Z"
+      "reportedAt": "2026-11-23T17:45:00.000Z"
     },
     {
       "teamId": "nhl.san-jose-sharks",
@@ -877,6 +877,16 @@
     },
     {
       "teamId": "nhl.toronto-maple-leafs",
+      "player": "Jack Roslovic",
+      "position": "C",
+      "status": "Duda",
+      "detail": "Upper Body",
+      "injuryType": "Upper Body",
+      "returnDate": "2026-11-23",
+      "reportedAt": "2026-11-23T18:03:00.000Z"
+    },
+    {
+      "teamId": "nhl.toronto-maple-leafs",
       "player": "Colton Sissons",
       "position": "C",
       "status": "Baja",
@@ -887,22 +897,12 @@
     },
     {
       "teamId": "nhl.toronto-maple-leafs",
-      "player": "Jack Roslovic",
-      "position": "C",
-      "status": "Duda",
-      "detail": "Upper Body",
-      "injuryType": "Upper Body",
-      "returnDate": "2026-11-23",
-      "reportedAt": "2026-11-22T17:15:00.000Z"
-    },
-    {
-      "teamId": "nhl.toronto-maple-leafs",
       "player": "Kirill Marchenko",
       "position": "RW",
       "status": "Baja",
       "detail": "Lower Body",
       "injuryType": "Lower Body",
-      "returnDate": "2026-11-23",
+      "returnDate": "2026-11-27",
       "reportedAt": "2026-11-21T15:14:00.000Z"
     },
     {
@@ -987,33 +987,23 @@
     },
     {
       "teamId": "nhl.utah-mammoth",
-      "player": "Clayton Keller",
-      "position": "RW",
-      "status": "Duda",
-      "detail": "Enfermedad",
-      "injuryType": "Illness",
-      "returnDate": "2026-11-23",
-      "reportedAt": "2026-11-22T13:40:00.000Z"
-    },
-    {
-      "teamId": "nhl.utah-mammoth",
       "player": "John Marino",
       "position": "D",
       "status": "Baja",
       "detail": "Upper Body",
       "injuryType": "Upper Body",
-      "returnDate": "2026-11-23",
-      "reportedAt": "2026-11-20T20:04:00.000Z"
+      "returnDate": "2026-11-30",
+      "reportedAt": "2026-11-23T18:57:00.000Z"
     },
     {
       "teamId": "nhl.utah-mammoth",
-      "player": "Dylan Guenther",
-      "position": "RW",
+      "player": "Michael Carcone",
+      "position": "LW",
       "status": "Baja",
       "detail": "Upper Body",
       "injuryType": "Upper Body",
-      "returnDate": "2026-11-23",
-      "reportedAt": "2026-11-20T19:59:00.000Z"
+      "returnDate": "2027-03-21",
+      "reportedAt": "2026-11-23T17:53:00.000Z"
     },
     {
       "teamId": "nhl.utah-mammoth",
@@ -1097,6 +1087,16 @@
     },
     {
       "teamId": "nhl.washington-capitals",
+      "player": "Jordan Kyrou",
+      "position": "RW",
+      "status": "Baja",
+      "detail": "Upper Body",
+      "injuryType": "Upper Body",
+      "returnDate": "2026-12-01",
+      "reportedAt": "2026-11-23T17:14:00.000Z"
+    },
+    {
+      "teamId": "nhl.washington-capitals",
       "player": "Vincent Desharnais",
       "position": "D",
       "status": "Baja",
@@ -1132,7 +1132,7 @@
       "status": "Baja",
       "detail": "Parte médico reservado",
       "injuryType": "Undisclosed",
-      "returnDate": "2026-11-23",
+      "returnDate": "2026-11-27",
       "reportedAt": "2026-11-17T15:15:00.000Z"
     },
     {

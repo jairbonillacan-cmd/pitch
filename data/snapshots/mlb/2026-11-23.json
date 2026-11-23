@@ -5,7 +5,7 @@
   "season": "mlb-2026",
   "seasonLabel": "Temporada 2026",
   "periodLabel": "Serie Mundial 2026",
-  "updatedAt": "2026-11-23T15:06:56.513Z",
+  "updatedAt": "2026-11-23T22:27:27.560Z",
   "source": "mlb_statsapi",
   "provenance": "derived",
   "isDemo": false,
@@ -31,8 +31,8 @@
       "forPerGame": 4.944444444444445,
       "againstPerGame": 3.7037037037037037,
       "gamesPlayed": 162,
-      "adjustedFor": 4.2830967116137355,
-      "adjustedAgainst": 3.2651989028352926
+      "adjustedFor": 4.331012862548929,
+      "adjustedAgainst": 3.6693792868429402
     },
     "mlb.tampa-bay-rays": {
       "teamId": "mlb.tampa-bay-rays",
@@ -55,8 +55,8 @@
       "forPerGame": 4.580246913580247,
       "againstPerGame": 3.8641975308641974,
       "gamesPlayed": 162,
-      "adjustedFor": 3.889768123836058,
-      "adjustedAgainst": 3.683222134359742
+      "adjustedFor": 4.0753492804934375,
+      "adjustedAgainst": 3.941094387333832
     },
     "mlb.new-york-yankees": {
       "teamId": "mlb.new-york-yankees",
@@ -400,7 +400,7 @@
       "result": {
         "home": 5,
         "away": 2,
-        "observedAt": "2026-11-23T15:06:56.513Z",
+        "observedAt": "2026-11-23T22:27:27.560Z",
         "source": "mlb_statsapi"
       }
     },
@@ -432,7 +432,7 @@
       "result": {
         "home": 1,
         "away": 3,
-        "observedAt": "2026-11-23T15:06:56.513Z",
+        "observedAt": "2026-11-23T22:27:27.560Z",
         "source": "mlb_statsapi"
       }
     },
@@ -464,7 +464,7 @@
       "result": {
         "home": 4,
         "away": 3,
-        "observedAt": "2026-11-23T15:06:56.513Z",
+        "observedAt": "2026-11-23T22:27:27.560Z",
         "source": "mlb_statsapi"
       }
     },
@@ -496,7 +496,7 @@
       "result": {
         "home": 3,
         "away": 9,
-        "observedAt": "2026-11-23T15:06:56.513Z",
+        "observedAt": "2026-11-23T22:27:27.560Z",
         "source": "mlb_statsapi"
       }
     },
@@ -528,7 +528,7 @@
       "result": {
         "home": 1,
         "away": 4,
-        "observedAt": "2026-11-23T15:06:56.513Z",
+        "observedAt": "2026-11-23T22:27:27.560Z",
         "source": "mlb_statsapi"
       }
     },
@@ -560,7 +560,7 @@
       "result": {
         "home": 3,
         "away": 4,
-        "observedAt": "2026-11-23T15:06:56.513Z",
+        "observedAt": "2026-11-23T22:27:27.560Z",
         "source": "mlb_statsapi"
       }
     },
@@ -592,7 +592,7 @@
       "result": {
         "home": 1,
         "away": 3,
-        "observedAt": "2026-11-23T15:06:56.513Z",
+        "observedAt": "2026-11-23T22:27:27.560Z",
         "source": "mlb_statsapi"
       }
     },
@@ -624,7 +624,7 @@
       "result": {
         "home": 5,
         "away": 9,
-        "observedAt": "2026-11-23T15:06:56.513Z",
+        "observedAt": "2026-11-23T22:27:27.560Z",
         "source": "mlb_statsapi"
       }
     },
@@ -656,7 +656,7 @@
       "result": {
         "home": 2,
         "away": 0,
-        "observedAt": "2026-11-23T15:06:56.513Z",
+        "observedAt": "2026-11-23T22:27:27.560Z",
         "source": "mlb_statsapi"
       }
     },
@@ -688,7 +688,7 @@
       "result": {
         "home": 2,
         "away": 1,
-        "observedAt": "2026-11-23T15:06:56.513Z",
+        "observedAt": "2026-11-23T22:27:27.560Z",
         "source": "mlb_statsapi"
       }
     },
@@ -720,7 +720,7 @@
       "result": {
         "home": 7,
         "away": 4,
-        "observedAt": "2026-11-23T15:06:56.513Z",
+        "observedAt": "2026-11-23T22:27:27.560Z",
         "source": "mlb_statsapi"
       }
     },
@@ -752,7 +752,7 @@
       "result": {
         "home": 3,
         "away": 7,
-        "observedAt": "2026-11-23T15:06:56.513Z",
+        "observedAt": "2026-11-23T22:27:27.560Z",
         "source": "mlb_statsapi"
       }
     },
@@ -784,7 +784,7 @@
       "result": {
         "home": 3,
         "away": 1,
-        "observedAt": "2026-11-23T15:06:56.513Z",
+        "observedAt": "2026-11-23T22:27:27.560Z",
         "source": "mlb_statsapi"
       }
     },
@@ -816,7 +816,7 @@
       "result": {
         "home": 2,
         "away": 6,
-        "observedAt": "2026-11-23T15:06:56.513Z",
+        "observedAt": "2026-11-23T22:27:27.560Z",
         "source": "mlb_statsapi"
       }
     },
@@ -848,7 +848,7 @@
       "result": {
         "home": 3,
         "away": 2,
-        "observedAt": "2026-11-23T15:06:56.513Z",
+        "observedAt": "2026-11-23T22:27:27.560Z",
         "source": "mlb_statsapi"
       }
     },
@@ -880,7 +880,7 @@
       "result": {
         "home": 4,
         "away": 6,
-        "observedAt": "2026-11-23T15:06:56.513Z",
+        "observedAt": "2026-11-23T22:27:27.560Z",
         "source": "mlb_statsapi"
       }
     },
@@ -912,7 +912,7 @@
       "result": {
         "home": 3,
         "away": 7,
-        "observedAt": "2026-11-23T15:06:56.513Z",
+        "observedAt": "2026-11-23T22:27:27.560Z",
         "source": "mlb_statsapi"
       }
     },
@@ -944,7 +944,7 @@
       "result": {
         "home": 1,
         "away": 3,
-        "observedAt": "2026-11-23T15:06:56.513Z",
+        "observedAt": "2026-11-23T22:27:27.560Z",
         "source": "mlb_statsapi"
       }
     },
@@ -976,7 +976,7 @@
       "result": {
         "home": 7,
         "away": 3,
-        "observedAt": "2026-11-23T15:06:56.513Z",
+        "observedAt": "2026-11-23T22:27:27.560Z",
         "source": "mlb_statsapi"
       }
     },
@@ -1008,7 +1008,7 @@
       "result": {
         "home": 3,
         "away": 2,
-        "observedAt": "2026-11-23T15:06:56.513Z",
+        "observedAt": "2026-11-23T22:27:27.560Z",
         "source": "mlb_statsapi"
       }
     },
@@ -1040,7 +1040,7 @@
       "result": {
         "home": 5,
         "away": 4,
-        "observedAt": "2026-11-23T15:06:56.513Z",
+        "observedAt": "2026-11-23T22:27:27.560Z",
         "source": "mlb_statsapi"
       }
     },
@@ -1073,7 +1073,7 @@
       "result": {
         "home": 1,
         "away": 10,
-        "observedAt": "2026-11-23T15:06:56.513Z",
+        "observedAt": "2026-11-23T22:27:27.560Z",
         "source": "mlb_statsapi"
       }
     },
@@ -1105,7 +1105,7 @@
       "result": {
         "home": 4,
         "away": 3,
-        "observedAt": "2026-11-23T15:06:56.513Z",
+        "observedAt": "2026-11-23T22:27:27.560Z",
         "source": "mlb_statsapi"
       }
     },
@@ -1137,7 +1137,7 @@
       "result": {
         "home": 1,
         "away": 4,
-        "observedAt": "2026-11-23T15:06:56.513Z",
+        "observedAt": "2026-11-23T22:27:27.560Z",
         "source": "mlb_statsapi"
       }
     },
@@ -1506,29 +1506,29 @@
       "neutralSite": false
     },
     {
-      "id": "mlb-2027-03-26-boston-red-sox-seattle-mariners",
+      "id": "mlb-2027-03-26-atlanta-braves-los-angeles-dodgers",
       "league": "mlb",
       "season": "mlb-2027",
       "round": "Temporada regular",
-      "startTime": "2027-03-26T02:10:00.000Z",
+      "startTime": "2027-03-26T10:33:00.000Z",
       "status": "scheduled",
       "home": {
-        "id": "mlb.seattle-mariners",
+        "id": "mlb.los-angeles-dodgers",
         "league": "mlb",
-        "name": "Seattle Mariners",
-        "shortName": "Mariners",
-        "code": "SEA",
-        "logoUrl": "/brand/official/mlb/seattle-mariners.png"
+        "name": "Los Angeles Dodgers",
+        "shortName": "Dodgers",
+        "code": "LAD",
+        "logoUrl": "/brand/official/mlb/los-angeles-dodgers.png"
       },
       "away": {
-        "id": "mlb.boston-red-sox",
+        "id": "mlb.atlanta-braves",
         "league": "mlb",
-        "name": "Boston Red Sox",
-        "shortName": "Red Sox",
-        "code": "BOS",
-        "logoUrl": "/brand/official/mlb/boston-red-sox.png"
+        "name": "Atlanta Braves",
+        "shortName": "Braves",
+        "code": "ATL",
+        "logoUrl": "/brand/official/mlb/atlanta-braves.png"
       },
-      "venue": "T-Mobile Park",
+      "venue": "UNIQLO Field at Dodger Stadium",
       "neutralSite": false
     },
     {
@@ -11761,8 +11761,8 @@
         ]
       }
     },
-    "mlb-2027-03-26-boston-red-sox-seattle-mariners": {
-      "game": "mlb-2027-03-26-boston-red-sox-seattle-mariners",
+    "mlb-2027-03-26-atlanta-braves-los-angeles-dodgers": {
+      "game": "mlb-2027-03-26-atlanta-braves-los-angeles-dodgers",
       "model": {
         "id": "pitchlab-kepler-mlb",
         "version": "1.0.0",
@@ -11770,84 +11770,84 @@
         "label": "Modelo PitchLab · MLB"
       },
       "projection": {
-        "home": 4.053324252776582,
-        "away": 4.102622465136594,
-        "total": 8.155946717913176,
-        "margin": -0.04929821236001253
+        "home": 4.049894780037883,
+        "away": 3.265709663049711,
+        "total": 7.315604443087594,
+        "margin": 0.7841851169881724
       },
       "x12": [
-        0.4932552449124187,
+        0.6178682619140584,
         0,
-        0.5067447550875813
+        0.3821317380859416
       ],
       "probabilities": [
         {
           "market": "h2h",
-          "selection": "Mariners gana",
-          "p": 0.4932552449124187,
-          "fairOdds": 2.0273479305375814
+          "selection": "Dodgers gana",
+          "p": 0.6178682619140584,
+          "fairOdds": 1.6184679836154032
         },
         {
           "market": "h2h",
-          "selection": "Red Sox gana",
-          "p": 0.5067447550875813,
-          "fairOdds": 1.9733800694733756
+          "selection": "Braves gana",
+          "p": 0.3821317380859416,
+          "fairOdds": 2.616898572751106
         },
         {
           "market": "spreads",
-          "selection": "SEA cubre",
-          "line": 1.5,
-          "p": 0.6979927337851154,
-          "fairOdds": 1.432679670713966
-        },
-        {
-          "market": "spreads",
-          "selection": "BOS cubre",
+          "selection": "LAD cubre",
           "line": -1.5,
-          "p": 0.3020072662148846,
-          "fairOdds": 3.3111786101480045
+          "p": 0.39063931171713834,
+          "fairOdds": 2.5599062101668335
+        },
+        {
+          "market": "spreads",
+          "selection": "ATL cubre",
+          "line": 1.5,
+          "p": 0.6093606882828617,
+          "fairOdds": 1.6410641828863857
         },
         {
           "market": "totals",
-          "selection": "Más de 8.5 carreras",
-          "line": 8.5,
-          "p": 0.46731519189439225,
-          "fairOdds": 2.1398833535589152
+          "selection": "Más de 7.5 carreras",
+          "line": 7.5,
+          "p": 0.44820325011522333,
+          "fairOdds": 2.2311306304515233
         },
         {
           "market": "totals",
-          "selection": "Menos de 8.5 carreras",
-          "line": 8.5,
-          "p": 0.5326848081056077,
-          "fairOdds": 1.877282747289734
+          "selection": "Menos de 7.5 carreras",
+          "line": 7.5,
+          "p": 0.5517967498847767,
+          "fairOdds": 1.8122614897764708
         },
         {
           "market": "team_totals",
-          "selection": "SEA más de 4.5",
+          "selection": "LAD más de 4.5",
           "line": 4.5,
-          "p": 0.4004083780391476,
-          "fairOdds": 2.4974502404198717
+          "p": 0.4023860588214939,
+          "fairOdds": 2.485175562316434
         },
         {
           "market": "team_totals",
-          "selection": "SEA menos de 4.5",
+          "selection": "LAD menos de 4.5",
           "line": 4.5,
-          "p": 0.5995916219608524,
-          "fairOdds": 1.667801822730089
+          "p": 0.5976139411785061,
+          "fairOdds": 1.6733210708371042
         },
         {
           "market": "team_totals",
-          "selection": "BOS más de 4.5",
-          "line": 4.5,
-          "p": 0.4104800434672213,
-          "fairOdds": 2.43617202812895
+          "selection": "ATL más de 3.5",
+          "line": 3.5,
+          "p": 0.4288342481795161,
+          "fairOdds": 2.3319033035378878
         },
         {
           "market": "team_totals",
-          "selection": "BOS menos de 4.5",
-          "line": 4.5,
-          "p": 0.5895199565327787,
-          "fairOdds": 1.6962954161576338
+          "selection": "ATL menos de 3.5",
+          "line": 3.5,
+          "p": 0.5711657518204839,
+          "fairOdds": 1.7508052554143647
         }
       ],
       "marketGroups": [
@@ -11857,58 +11857,58 @@
             {
               "market": "h2h",
               "selection": "home",
-              "label": "Mariners gana",
-              "p": 0.4932552449124187,
-              "fairOdds": 2.0273479305375814
+              "label": "Dodgers gana",
+              "p": 0.6178682619140584,
+              "fairOdds": 1.6184679836154032
             },
             {
               "market": "h2h",
               "selection": "away",
-              "label": "Red Sox gana",
-              "p": 0.5067447550875813,
-              "fairOdds": 1.9733800694733756
+              "label": "Braves gana",
+              "p": 0.3821317380859416,
+              "fairOdds": 2.616898572751106
             }
           ]
         },
         {
-          "group": "Run line SEA +1.5",
+          "group": "Run line LAD -1.5",
           "rows": [
             {
               "market": "spreads",
               "selection": "home",
-              "label": "SEA cubre",
-              "line": 1.5,
-              "p": 0.6979927337851154,
-              "fairOdds": 1.432679670713966
+              "label": "LAD cubre",
+              "line": -1.5,
+              "p": 0.39063931171713834,
+              "fairOdds": 2.5599062101668335
             },
             {
               "market": "spreads",
               "selection": "away",
-              "label": "BOS cubre",
-              "line": -1.5,
-              "p": 0.3020072662148846,
-              "fairOdds": 3.3111786101480045
+              "label": "ATL cubre",
+              "line": 1.5,
+              "p": 0.6093606882828617,
+              "fairOdds": 1.6410641828863857
             }
           ]
         },
         {
-          "group": "Total 8.5 carreras",
+          "group": "Total 7.5 carreras",
           "rows": [
             {
               "market": "totals",
               "selection": "over",
-              "label": "Más de 8.5 carreras",
-              "line": 8.5,
-              "p": 0.46731519189439225,
-              "fairOdds": 2.1398833535589152
+              "label": "Más de 7.5 carreras",
+              "line": 7.5,
+              "p": 0.44820325011522333,
+              "fairOdds": 2.2311306304515233
             },
             {
               "market": "totals",
               "selection": "under",
-              "label": "Menos de 8.5 carreras",
-              "line": 8.5,
-              "p": 0.5326848081056077,
-              "fairOdds": 1.877282747289734
+              "label": "Menos de 7.5 carreras",
+              "line": 7.5,
+              "p": 0.5517967498847767,
+              "fairOdds": 1.8122614897764708
             }
           ]
         },
@@ -11918,34 +11918,34 @@
             {
               "market": "team_totals",
               "selection": "home_over",
-              "label": "SEA más de 4.5",
+              "label": "LAD más de 4.5",
               "line": 4.5,
-              "p": 0.4004083780391476,
-              "fairOdds": 2.4974502404198717
+              "p": 0.4023860588214939,
+              "fairOdds": 2.485175562316434
             },
             {
               "market": "team_totals",
               "selection": "home_under",
-              "label": "SEA menos de 4.5",
+              "label": "LAD menos de 4.5",
               "line": 4.5,
-              "p": 0.5995916219608524,
-              "fairOdds": 1.667801822730089
+              "p": 0.5976139411785061,
+              "fairOdds": 1.6733210708371042
             },
             {
               "market": "team_totals",
               "selection": "away_over",
-              "label": "BOS más de 4.5",
-              "line": 4.5,
-              "p": 0.4104800434672213,
-              "fairOdds": 2.43617202812895
+              "label": "ATL más de 3.5",
+              "line": 3.5,
+              "p": 0.4288342481795161,
+              "fairOdds": 2.3319033035378878
             },
             {
               "market": "team_totals",
               "selection": "away_under",
-              "label": "BOS menos de 4.5",
-              "line": 4.5,
-              "p": 0.5895199565327787,
-              "fairOdds": 1.6962954161576338
+              "label": "ATL menos de 3.5",
+              "line": 3.5,
+              "p": 0.5711657518204839,
+              "fairOdds": 1.7508052554143647
             }
           ]
         }
@@ -11954,64 +11954,63 @@
         {
           "key": "home_projection",
           "label": "Local",
-          "value": "4.1 car proyectadas",
+          "value": "4.0 car proyectadas",
           "detail": "162 juegos esta temporada"
         },
         {
           "key": "away_projection",
           "label": "Visitante",
-          "value": "4.1 car proyectadas",
-          "detail": "162 juegos esta temporada"
+          "value": "3.3 car proyectadas",
+          "detail": "163 juegos esta temporada"
         },
         {
           "key": "rest",
           "label": "Descanso",
-          "value": "SEA: 179 días de descanso",
-          "detail": "BOS: 175 días de descanso"
+          "value": "LAD: 160 días de descanso",
+          "detail": "ATL: 169 días de descanso"
         }
       ],
       "steps": [
-        "Sincronizando MLB · corte 18 nov 2026, 19:44",
+        "Sincronizando MLB · corte 23 nov 2026, 22:27",
         "Ofensiva y pitcheo actualizados partido a partido (2470 encuentros)",
         "Expectativa de carreras ajustada por localía y abridor",
-        "Proyección 4.1 – 4.1 carreras · margen -0.0",
+        "Proyección 4.0 – 3.3 carreras · margen +0.8",
         "Simulando 9 entradas y desempate de entradas extra",
         "10 mercados calculados"
       ],
-      "inputsAsOf": "2026-11-19T01:44:47.629Z",
-      "publishedAt": "2026-11-19T01:44:47.629Z",
+      "inputsAsOf": "2026-11-23T22:27:27.560Z",
+      "publishedAt": "2026-11-23T22:27:27.560Z",
       "source": "mlb_statsapi",
       "picks": [
         {
           "profile": "intermedia",
-          "market": "spreads",
+          "market": "h2h",
           "selection": "home",
-          "label": "SEA cubre",
-          "line": 1.5,
-          "p": 0.6979927337851154,
-          "fairOdds": 1.432679670713966
+          "label": "Dodgers gana",
+          "p": 0.6178682619140584,
+          "fairOdds": 1.6184679836154032
         },
         {
           "profile": "arriesgada",
-          "market": "h2h",
-          "selection": "away",
-          "label": "Red Sox gana",
-          "p": 0.5067447550875813,
-          "fairOdds": 1.9733800694733756
+          "market": "totals",
+          "selection": "over",
+          "label": "Más de 7.5 carreras",
+          "line": 7.5,
+          "p": 0.44820325011522333,
+          "fairOdds": 2.2311306304515233
         }
       ],
       "confidence": {
-        "score": 30,
-        "level": "baja",
+        "score": 53,
+        "level": "media",
         "reasons": [
-          "Partido parejo",
           "Muestra suficiente"
         ]
       },
       "insights": {
         "why": [
-          "Red Sox gana en 51 % de las simulaciones en 9 entradas y entradas extra.",
-          "Carreras esperadas: 8.2 totales (4.1 de Mariners y 4.1 de Red Sox)."
+          "Dodgers gana en 62 % de las simulaciones en 9 entradas y entradas extra.",
+          "Carreras esperadas: 7.3 totales (4.0 de Dodgers y 3.3 de Braves)."
         ]
       }
     },

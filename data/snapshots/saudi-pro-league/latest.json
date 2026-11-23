@@ -5,7 +5,7 @@
   "season": "saudi-pro-league-2026-27",
   "seasonLabel": "2026/27",
   "periodLabel": "Regular season · Matchday 11",
-  "updatedAt": "2026-11-23T15:07:01.408Z",
+  "updatedAt": "2026-11-23T22:28:20.377Z",
   "source": "pitchlab-football-v2",
   "provenance": "derived",
   "isDemo": false,
@@ -18,8 +18,8 @@
       "forPerGame": 0.6363636363636364,
       "againstPerGame": 1.7272727272727273,
       "gamesPlayed": 11,
-      "adjustedFor": 0.8672634897412348,
-      "adjustedAgainst": 1.462776391631307
+      "adjustedFor": 1.0486286300730014,
+      "adjustedAgainst": 1.4916620929615108
     },
     "saudi-pro-league.al-hazem": {
       "teamId": "saudi-pro-league.al-hazem",
@@ -29,8 +29,8 @@
       "forPerGame": 1.1666666666666667,
       "againstPerGame": 1.6666666666666667,
       "gamesPlayed": 12,
-      "adjustedFor": 1.2412815354354345,
-      "adjustedAgainst": 1.5729160919160772
+      "adjustedFor": 1.30314870800227,
+      "adjustedAgainst": 1.5493855983578617
     },
     "saudi-pro-league.al-shabab": {
       "teamId": "saudi-pro-league.al-shabab",
@@ -40,8 +40,8 @@
       "forPerGame": 1.8181818181818181,
       "againstPerGame": 1.3636363636363635,
       "gamesPlayed": 11,
-      "adjustedFor": 1.593663307145743,
-      "adjustedAgainst": 1.2772096122716574
+      "adjustedFor": 1.5826660112257434,
+      "adjustedAgainst": 1.359355266904803
     },
     "saudi-pro-league.al-qadsiah": {
       "teamId": "saudi-pro-league.al-qadsiah",
@@ -51,8 +51,8 @@
       "forPerGame": 2.6666666666666665,
       "againstPerGame": 1,
       "gamesPlayed": 12,
-      "adjustedFor": 2.299756550127148,
-      "adjustedAgainst": 1.064315458596734
+      "adjustedFor": 2.0695995350266814,
+      "adjustedAgainst": 1.1891148173580308
     },
     "saudi-pro-league.diriyah": {
       "teamId": "saudi-pro-league.diriyah",
@@ -62,8 +62,8 @@
       "forPerGame": 0.8333333333333334,
       "againstPerGame": 1.0833333333333333,
       "gamesPlayed": 12,
-      "adjustedFor": 0.9361749359000517,
-      "adjustedAgainst": 1.1160962672795263
+      "adjustedFor": 1.0943738210233396,
+      "adjustedAgainst": 1.2311514682072133
     },
     "saudi-pro-league.al-ahli": {
       "teamId": "saudi-pro-league.al-ahli",
@@ -73,8 +73,8 @@
       "forPerGame": 2.5833333333333335,
       "againstPerGame": 1.6666666666666667,
       "gamesPlayed": 12,
-      "adjustedFor": 2.1847020738720224,
-      "adjustedAgainst": 1.5117166124030543
+      "adjustedFor": 2.0050731267602955,
+      "adjustedAgainst": 1.516060578447528
     },
     "saudi-pro-league.neom": {
       "teamId": "saudi-pro-league.neom",
@@ -84,8 +84,8 @@
       "forPerGame": 1.5,
       "againstPerGame": 0.8333333333333334,
       "gamesPlayed": 12,
-      "adjustedFor": 1.4151212512813778,
-      "adjustedAgainst": 0.9477502210074227
+      "adjustedFor": 1.441290498069538,
+      "adjustedAgainst": 1.1027976214383144
     },
     "saudi-pro-league.al-fayha": {
       "teamId": "saudi-pro-league.al-fayha",
@@ -95,8 +95,8 @@
       "forPerGame": 1.3333333333333333,
       "againstPerGame": 1.6666666666666667,
       "gamesPlayed": 12,
-      "adjustedFor": 1.3111166040786209,
-      "adjustedAgainst": 1.5244336694705194
+      "adjustedFor": 1.3653286194133158,
+      "adjustedAgainst": 1.5250173865749277
     },
     "saudi-pro-league.al-hilal": {
       "teamId": "saudi-pro-league.al-hilal",
@@ -106,8 +106,8 @@
       "forPerGame": 2.909090909090909,
       "againstPerGame": 0.8181818181818182,
       "gamesPlayed": 11,
-      "adjustedFor": 2.4089496688326317,
-      "adjustedAgainst": 0.9320342748909233
+      "adjustedFor": 2.134468696806558,
+      "adjustedAgainst": 1.1021713972242508
     },
     "saudi-pro-league.al-faisaly": {
       "teamId": "saudi-pro-league.al-faisaly",
@@ -117,8 +117,8 @@
       "forPerGame": 1.0833333333333333,
       "againstPerGame": 2,
       "gamesPlayed": 12,
-      "adjustedFor": 1.1763174909474137,
-      "adjustedAgainst": 1.6456620496664998
+      "adjustedFor": 1.2617753039393351,
+      "adjustedAgainst": 1.6362596609638826
     },
     "saudi-pro-league.al-ettifaq": {
       "teamId": "saudi-pro-league.al-ettifaq",
@@ -128,8 +128,8 @@
       "forPerGame": 1.5,
       "againstPerGame": 1.4166666666666667,
       "gamesPlayed": 12,
-      "adjustedFor": 1.419027022657901,
-      "adjustedAgainst": 1.410993661865084
+      "adjustedFor": 1.4418715488022007,
+      "adjustedAgainst": 1.4263942034802044
     },
     "saudi-pro-league.al-riyadh": {
       "teamId": "saudi-pro-league.al-riyadh",
@@ -139,8 +139,8 @@
       "forPerGame": 1,
       "againstPerGame": 2.272727272727273,
       "gamesPlayed": 11,
-      "adjustedFor": 1.1031586867119978,
-      "adjustedAgainst": 1.8559461194591347
+      "adjustedFor": 1.2158547722354256,
+      "adjustedAgainst": 1.7732327571337536
     },
     "saudi-pro-league.al-taawoun": {
       "teamId": "saudi-pro-league.al-taawoun",
@@ -150,8 +150,8 @@
       "forPerGame": 0.5,
       "againstPerGame": 1.6666666666666667,
       "gamesPlayed": 12,
-      "adjustedFor": 0.7173820275851072,
-      "adjustedAgainst": 1.4669534521654335
+      "adjustedFor": 0.9358255182018616,
+      "adjustedAgainst": 1.495999242835931
     },
     "saudi-pro-league.al-khaleej": {
       "teamId": "saudi-pro-league.al-khaleej",
@@ -161,8 +161,8 @@
       "forPerGame": 1.1666666666666667,
       "againstPerGame": 1.5833333333333333,
       "gamesPlayed": 12,
-      "adjustedFor": 1.2200530600290629,
-      "adjustedAgainst": 1.4620529069216943
+      "adjustedFor": 1.3002038225580888,
+      "adjustedAgainst": 1.4824537299180185
     },
     "saudi-pro-league.al-nassr": {
       "teamId": "saudi-pro-league.al-nassr",
@@ -172,8 +172,8 @@
       "forPerGame": 2.4166666666666665,
       "againstPerGame": 1.1666666666666667,
       "gamesPlayed": 12,
-      "adjustedFor": 2.0167829760703375,
-      "adjustedAgainst": 1.2878481848920502
+      "adjustedFor": 1.8870835077271335,
+      "adjustedAgainst": 1.329912673287022
     },
     "saudi-pro-league.al-fateh": {
       "teamId": "saudi-pro-league.al-fateh",
@@ -183,8 +183,8 @@
       "forPerGame": 0.8333333333333334,
       "againstPerGame": 2.0833333333333335,
       "gamesPlayed": 12,
-      "adjustedFor": 1.0266691068655565,
-      "adjustedAgainst": 1.756427970920102
+      "adjustedFor": 1.150123716357098,
+      "adjustedAgainst": 1.71036500857671
     },
     "saudi-pro-league.al-ittihad": {
       "teamId": "saudi-pro-league.al-ittihad",
@@ -194,8 +194,8 @@
       "forPerGame": 1.9090909090909092,
       "againstPerGame": 1,
       "gamesPlayed": 11,
-      "adjustedFor": 1.714573166167429,
-      "adjustedAgainst": 1.0495221592077744
+      "adjustedFor": 1.65552117378603,
+      "adjustedAgainst": 1.185025326727965
     },
     "saudi-pro-league.al-kholood": {
       "teamId": "saudi-pro-league.al-kholood",
@@ -205,8 +205,8 @@
       "forPerGame": 1.5454545454545454,
       "againstPerGame": 2.3636363636363638,
       "gamesPlayed": 11,
-      "adjustedFor": 1.4774779461939633,
-      "adjustedAgainst": 1.9554256442747273
+      "adjustedFor": 1.4803227959273926,
+      "adjustedAgainst": 1.846906987289292
     }
   },
   "games": [
@@ -241,7 +241,7 @@
       "result": {
         "home": 2,
         "away": 3,
-        "observedAt": "2026-11-23T15:07:01.408Z",
+        "observedAt": "2026-11-23T22:28:20.377Z",
         "source": "pitchlab-feed"
       }
     },
@@ -276,7 +276,7 @@
       "result": {
         "home": 4,
         "away": 1,
-        "observedAt": "2026-11-23T15:07:01.408Z",
+        "observedAt": "2026-11-23T22:28:20.377Z",
         "source": "pitchlab-feed"
       }
     },
@@ -311,7 +311,7 @@
       "result": {
         "home": 2,
         "away": 0,
-        "observedAt": "2026-11-23T15:07:01.408Z",
+        "observedAt": "2026-11-23T22:28:20.377Z",
         "source": "pitchlab-feed"
       }
     },
@@ -346,7 +346,7 @@
       "result": {
         "home": 0,
         "away": 3,
-        "observedAt": "2026-11-23T15:07:01.408Z",
+        "observedAt": "2026-11-23T22:28:20.377Z",
         "source": "pitchlab-feed"
       }
     },
@@ -381,7 +381,7 @@
       "result": {
         "home": 2,
         "away": 1,
-        "observedAt": "2026-11-23T15:07:01.408Z",
+        "observedAt": "2026-11-23T22:28:20.377Z",
         "source": "pitchlab-feed"
       }
     },
@@ -416,7 +416,7 @@
       "result": {
         "home": 0,
         "away": 1,
-        "observedAt": "2026-11-23T15:07:01.408Z",
+        "observedAt": "2026-11-23T22:28:20.377Z",
         "source": "pitchlab-feed"
       }
     },
@@ -451,7 +451,7 @@
       "result": {
         "home": 4,
         "away": 2,
-        "observedAt": "2026-11-23T15:07:01.408Z",
+        "observedAt": "2026-11-23T22:28:20.377Z",
         "source": "pitchlab-feed"
       }
     },
@@ -486,7 +486,7 @@
       "result": {
         "home": 0,
         "away": 6,
-        "observedAt": "2026-11-23T15:07:01.408Z",
+        "observedAt": "2026-11-23T22:28:20.377Z",
         "source": "pitchlab-feed"
       }
     },
@@ -521,7 +521,7 @@
       "result": {
         "home": 5,
         "away": 3,
-        "observedAt": "2026-11-23T15:07:01.408Z",
+        "observedAt": "2026-11-23T22:28:20.377Z",
         "source": "pitchlab-feed"
       }
     },
@@ -556,7 +556,7 @@
       "result": {
         "home": 1,
         "away": 1,
-        "observedAt": "2026-11-23T15:07:01.408Z",
+        "observedAt": "2026-11-23T22:28:20.377Z",
         "source": "pitchlab-feed"
       }
     },
@@ -591,7 +591,7 @@
       "result": {
         "home": 1,
         "away": 2,
-        "observedAt": "2026-11-23T15:07:01.408Z",
+        "observedAt": "2026-11-23T22:28:20.377Z",
         "source": "pitchlab-feed"
       }
     },
@@ -626,7 +626,7 @@
       "result": {
         "home": 6,
         "away": 1,
-        "observedAt": "2026-11-23T15:07:01.408Z",
+        "observedAt": "2026-11-23T22:28:20.377Z",
         "source": "pitchlab-feed"
       }
     },
@@ -661,7 +661,7 @@
       "result": {
         "home": 1,
         "away": 1,
-        "observedAt": "2026-11-23T15:07:01.408Z",
+        "observedAt": "2026-11-23T22:28:20.377Z",
         "source": "pitchlab-feed"
       }
     },
@@ -696,7 +696,7 @@
       "result": {
         "home": 4,
         "away": 1,
-        "observedAt": "2026-11-23T15:07:01.408Z",
+        "observedAt": "2026-11-23T22:28:20.377Z",
         "source": "pitchlab-feed"
       }
     },
@@ -731,7 +731,7 @@
       "result": {
         "home": 2,
         "away": 0,
-        "observedAt": "2026-11-23T15:07:01.408Z",
+        "observedAt": "2026-11-23T22:28:20.377Z",
         "source": "pitchlab-feed"
       }
     },
@@ -766,7 +766,7 @@
       "result": {
         "home": 3,
         "away": 1,
-        "observedAt": "2026-11-23T15:07:01.408Z",
+        "observedAt": "2026-11-23T22:28:20.377Z",
         "source": "pitchlab-feed"
       }
     },

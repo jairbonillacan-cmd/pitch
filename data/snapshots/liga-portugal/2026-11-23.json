@@ -5,7 +5,7 @@
   "season": "liga-portugal-2026-27",
   "seasonLabel": "2026/27",
   "periodLabel": "Regular season · Matchday 10",
-  "updatedAt": "2026-11-23T15:07:01.408Z",
+  "updatedAt": "2026-11-23T22:28:20.377Z",
   "source": "pitchlab-football-v2",
   "provenance": "derived",
   "isDemo": false,
@@ -18,8 +18,8 @@
       "forPerGame": 0.5,
       "againstPerGame": 1.9,
       "gamesPlayed": 10,
-      "adjustedFor": 0.7107915735099654,
-      "adjustedAgainst": 1.6044900233912691
+      "adjustedFor": 0.9225033360475483,
+      "adjustedAgainst": 1.5686607265420391
     },
     "liga-portugal.famalicao": {
       "teamId": "liga-portugal.famalicao",
@@ -29,8 +29,8 @@
       "forPerGame": 1.3636363636363635,
       "againstPerGame": 1.2727272727272727,
       "gamesPlayed": 11,
-      "adjustedFor": 1.2418290431364059,
-      "adjustedAgainst": 1.2802673887187592
+      "adjustedFor": 1.3108627793831016,
+      "adjustedAgainst": 1.3123791877893787
     },
     "liga-portugal.cs-maritimo": {
       "teamId": "liga-portugal.cs-maritimo",
@@ -40,8 +40,8 @@
       "forPerGame": 0.9,
       "againstPerGame": 2.1,
       "gamesPlayed": 10,
-      "adjustedFor": 1.061355630556586,
-      "adjustedAgainst": 1.7036375940257813
+      "adjustedFor": 1.1487440820270776,
+      "adjustedAgainst": 1.6477885005079638
     },
     "liga-portugal.casa-pia": {
       "teamId": "liga-portugal.casa-pia",
@@ -51,8 +51,8 @@
       "forPerGame": 0.5454545454545454,
       "againstPerGame": 1.8181818181818181,
       "gamesPlayed": 11,
-      "adjustedFor": 0.7427524193654037,
-      "adjustedAgainst": 1.4525337990902067
+      "adjustedFor": 0.935825568244895,
+      "adjustedAgainst": 1.478365256196881
     },
     "liga-portugal.vitoria": {
       "teamId": "liga-portugal.vitoria",
@@ -62,8 +62,8 @@
       "forPerGame": 1,
       "againstPerGame": 1.0909090909090908,
       "gamesPlayed": 11,
-      "adjustedFor": 1.0911299766781306,
-      "adjustedAgainst": 1.0317789548428447
+      "adjustedFor": 1.1797299333821185,
+      "adjustedAgainst": 1.1567288715930568
     },
     "liga-portugal.arouca": {
       "teamId": "liga-portugal.arouca",
@@ -73,8 +73,8 @@
       "forPerGame": 1.1818181818181819,
       "againstPerGame": 0.7272727272727273,
       "gamesPlayed": 11,
-      "adjustedFor": 1.0962954934595202,
-      "adjustedAgainst": 0.8148111760269914
+      "adjustedFor": 1.2030032465091762,
+      "adjustedAgainst": 0.9929868583725056
     },
     "liga-portugal.estrela-amadora": {
       "teamId": "liga-portugal.estrela-amadora",
@@ -84,8 +84,8 @@
       "forPerGame": 1.5454545454545454,
       "againstPerGame": 2,
       "gamesPlayed": 11,
-      "adjustedFor": 1.3650428704719157,
-      "adjustedAgainst": 1.6918169294863226
+      "adjustedFor": 1.3935017190721348,
+      "adjustedAgainst": 1.6298868114208285
     },
     "liga-portugal.sporting-cp": {
       "teamId": "liga-portugal.sporting-cp",
@@ -95,8 +95,8 @@
       "forPerGame": 2.1818181818181817,
       "againstPerGame": 1,
       "gamesPlayed": 11,
-      "adjustedFor": 1.7383255039094694,
-      "adjustedAgainst": 1.0876335745019083
+      "adjustedFor": 1.6794587886674093,
+      "adjustedAgainst": 1.171557810841603
     },
     "liga-portugal.porto": {
       "teamId": "liga-portugal.porto",
@@ -106,8 +106,8 @@
       "forPerGame": 2.4545454545454546,
       "againstPerGame": 0.45454545454545453,
       "gamesPlayed": 11,
-      "adjustedFor": 1.979599537240296,
-      "adjustedAgainst": 0.6984726351665262
+      "adjustedFor": 1.8432305471571735,
+      "adjustedAgainst": 0.902217170486988
     },
     "liga-portugal.alverca": {
       "teamId": "liga-portugal.alverca",
@@ -117,8 +117,8 @@
       "forPerGame": 1.2727272727272727,
       "againstPerGame": 1.3636363636363635,
       "gamesPlayed": 11,
-      "adjustedFor": 1.2235426424147924,
-      "adjustedAgainst": 1.183609237412917
+      "adjustedFor": 1.285881836433056,
+      "adjustedAgainst": 1.2716335989174774
     },
     "liga-portugal.moreirense": {
       "teamId": "liga-portugal.moreirense",
@@ -128,8 +128,8 @@
       "forPerGame": 1.1818181818181819,
       "againstPerGame": 1.6363636363636365,
       "gamesPlayed": 11,
-      "adjustedFor": 1.182831844131095,
-      "adjustedAgainst": 1.3967474697130304
+      "adjustedFor": 1.2506279681773294,
+      "adjustedAgainst": 1.422704319408397
     },
     "liga-portugal.sporting-braga": {
       "teamId": "liga-portugal.sporting-braga",
@@ -139,8 +139,8 @@
       "forPerGame": 1.1818181818181819,
       "againstPerGame": 1,
       "gamesPlayed": 11,
-      "adjustedFor": 1.0969408345334986,
-      "adjustedAgainst": 1.057769590970261
+      "adjustedFor": 1.205949732210052,
+      "adjustedAgainst": 1.1579375891569619
     },
     "liga-portugal.gil-vicente": {
       "teamId": "liga-portugal.gil-vicente",
@@ -150,8 +150,8 @@
       "forPerGame": 0.9090909090909091,
       "againstPerGame": 0.7272727272727273,
       "gamesPlayed": 11,
-      "adjustedFor": 0.9788822898041591,
-      "adjustedAgainst": 0.8129750724313629
+      "adjustedFor": 1.1056041356879829,
+      "adjustedAgainst": 0.9922637922787276
     },
     "liga-portugal.rio-ave": {
       "teamId": "liga-portugal.rio-ave",
@@ -161,8 +161,8 @@
       "forPerGame": 0.8181818181818182,
       "againstPerGame": 2.1818181818181817,
       "gamesPlayed": 11,
-      "adjustedFor": 0.9315671309026223,
-      "adjustedAgainst": 1.8004663279708686
+      "adjustedFor": 1.0719454059531646,
+      "adjustedAgainst": 1.7112578156009395
     },
     "liga-portugal.benfica": {
       "teamId": "liga-portugal.benfica",
@@ -172,8 +172,8 @@
       "forPerGame": 2.727272727272727,
       "againstPerGame": 0.9090909090909091,
       "gamesPlayed": 11,
-      "adjustedFor": 2.175247530602889,
-      "adjustedAgainst": 0.9904065329115967
+      "adjustedFor": 1.9767128670784937,
+      "adjustedAgainst": 1.1138823072153783
     },
     "liga-portugal.academico-viseu": {
       "teamId": "liga-portugal.academico-viseu",
@@ -183,8 +183,8 @@
       "forPerGame": 1.3636363636363635,
       "againstPerGame": 1.1818181818181819,
       "gamesPlayed": 11,
-      "adjustedFor": 1.2445668377730497,
-      "adjustedAgainst": 1.0934220170066689
+      "adjustedFor": 1.3107683980559532,
+      "adjustedAgainst": 1.2022483612089638
     },
     "liga-portugal.santa-clara": {
       "teamId": "liga-portugal.santa-clara",
@@ -194,8 +194,8 @@
       "forPerGame": 1.4545454545454546,
       "againstPerGame": 0.7272727272727273,
       "gamesPlayed": 11,
-      "adjustedFor": 1.3175039965176192,
-      "adjustedAgainst": 0.8758348793225884
+      "adjustedFor": 1.3576680761317792,
+      "adjustedAgainst": 1.0288867468018545
     },
     "liga-portugal.nacional": {
       "teamId": "liga-portugal.nacional",
@@ -205,8 +205,8 @@
       "forPerGame": 1,
       "againstPerGame": 1.7272727272727273,
       "gamesPlayed": 11,
-      "adjustedFor": 1.019041617081488,
-      "adjustedAgainst": 1.5428914980340274
+      "adjustedFor": 1.138654331841408,
+      "adjustedAgainst": 1.5064360845921159
     }
   },
   "games": [
@@ -241,7 +241,7 @@
       "result": {
         "home": 2,
         "away": 1,
-        "observedAt": "2026-11-23T15:07:01.408Z",
+        "observedAt": "2026-11-23T22:28:20.377Z",
         "source": "pitchlab-feed"
       }
     },
@@ -276,7 +276,7 @@
       "result": {
         "home": 4,
         "away": 0,
-        "observedAt": "2026-11-23T15:07:01.408Z",
+        "observedAt": "2026-11-23T22:28:20.377Z",
         "source": "pitchlab-feed"
       }
     },
@@ -311,7 +311,7 @@
       "result": {
         "home": 1,
         "away": 0,
-        "observedAt": "2026-11-23T15:07:01.408Z",
+        "observedAt": "2026-11-23T22:28:20.377Z",
         "source": "pitchlab-feed"
       }
     },
@@ -346,7 +346,7 @@
       "result": {
         "home": 0,
         "away": 2,
-        "observedAt": "2026-11-23T15:07:01.408Z",
+        "observedAt": "2026-11-23T22:28:20.377Z",
         "source": "pitchlab-feed"
       }
     },
@@ -381,7 +381,7 @@
       "result": {
         "home": 2,
         "away": 1,
-        "observedAt": "2026-11-23T15:07:01.408Z",
+        "observedAt": "2026-11-23T22:28:20.377Z",
         "source": "pitchlab-feed"
       }
     },
@@ -416,7 +416,7 @@
       "result": {
         "home": 3,
         "away": 0,
-        "observedAt": "2026-11-23T15:07:01.408Z",
+        "observedAt": "2026-11-23T22:28:20.377Z",
         "source": "pitchlab-feed"
       }
     },
@@ -451,7 +451,7 @@
       "result": {
         "home": 0,
         "away": 0,
-        "observedAt": "2026-11-23T15:07:01.408Z",
+        "observedAt": "2026-11-23T22:28:20.377Z",
         "source": "pitchlab-feed"
       }
     },
@@ -486,7 +486,7 @@
       "result": {
         "home": 1,
         "away": 0,
-        "observedAt": "2026-11-23T15:07:01.408Z",
+        "observedAt": "2026-11-23T22:28:20.377Z",
         "source": "pitchlab-feed"
       }
     },
@@ -521,7 +521,7 @@
       "result": {
         "home": 1,
         "away": 0,
-        "observedAt": "2026-11-23T15:07:01.408Z",
+        "observedAt": "2026-11-23T22:28:20.377Z",
         "source": "pitchlab-feed"
       }
     },
@@ -556,7 +556,7 @@
       "result": {
         "home": 1,
         "away": 1,
-        "observedAt": "2026-11-23T15:07:01.408Z",
+        "observedAt": "2026-11-23T22:28:20.377Z",
         "source": "pitchlab-feed"
       }
     },
@@ -591,7 +591,7 @@
       "result": {
         "home": 1,
         "away": 0,
-        "observedAt": "2026-11-23T15:07:01.408Z",
+        "observedAt": "2026-11-23T22:28:20.377Z",
         "source": "pitchlab-feed"
       }
     },
@@ -626,7 +626,7 @@
       "result": {
         "home": 1,
         "away": 2,
-        "observedAt": "2026-11-23T15:07:01.408Z",
+        "observedAt": "2026-11-23T22:28:20.377Z",
         "source": "pitchlab-feed"
       }
     },
@@ -661,7 +661,7 @@
       "result": {
         "home": 1,
         "away": 0,
-        "observedAt": "2026-11-23T15:07:01.408Z",
+        "observedAt": "2026-11-23T22:28:20.377Z",
         "source": "pitchlab-feed"
       }
     },
@@ -696,7 +696,7 @@
       "result": {
         "home": 1,
         "away": 2,
-        "observedAt": "2026-11-23T15:07:01.408Z",
+        "observedAt": "2026-11-23T22:28:20.377Z",
         "source": "pitchlab-feed"
       }
     },
@@ -731,7 +731,7 @@
       "result": {
         "home": 0,
         "away": 1,
-        "observedAt": "2026-11-23T15:07:01.408Z",
+        "observedAt": "2026-11-23T22:28:20.377Z",
         "source": "pitchlab-feed"
       }
     },
@@ -766,7 +766,7 @@
       "result": {
         "home": 2,
         "away": 3,
-        "observedAt": "2026-11-23T15:07:01.408Z",
+        "observedAt": "2026-11-23T22:28:20.377Z",
         "source": "pitchlab-feed"
       }
     },

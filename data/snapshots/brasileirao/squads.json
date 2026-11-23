@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "league": "brasileirao",
   "seasonLabel": "2026",
-  "observedAt": "2026-11-23T15:07:01.408Z",
+  "observedAt": "2026-11-23T22:28:20.377Z",
   "teams": [
     {
       "teamId": "brasileirao.chapecoense",
@@ -24,7 +24,7 @@
           "winPct": 42.1
         }
       },
-      "updatedAt": "2026-11-23T15:07:01.408Z",
+      "updatedAt": "2026-11-23T22:28:20.377Z",
       "players": [
         {
           "id": "brasileirao.chapecoense.anderson",
@@ -170,7 +170,7 @@
             "offsides": 0,
             "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 2
+            "goalsConceded": 0
           },
           "candidatePicks": []
         },
@@ -538,7 +538,7 @@
             "yellowCards": 0,
             "redCards": 0,
             "offsides": 0,
-            "saves": 3,
+            "saves": 6,
             "shotsFaced": 0,
             "goalsConceded": 2
           },
@@ -680,7 +680,7 @@
             "goals": 0,
             "assists": 0,
             "shots": 2,
-            "shotsOnTarget": 0,
+            "shotsOnTarget": 1,
             "foulsCommitted": 0,
             "foulsSuffered": 0,
             "yellowCards": 0,
@@ -688,7 +688,7 @@
             "offsides": 0,
             "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 2
+            "goalsConceded": 1
           },
           "candidatePicks": []
         },
@@ -1123,8 +1123,8 @@
             "subIns": 0,
             "goals": 0,
             "assists": 0,
-            "shots": 1,
-            "shotsOnTarget": 0,
+            "shots": 2,
+            "shotsOnTarget": 1,
             "foulsCommitted": 0,
             "foulsSuffered": 0,
             "yellowCards": 0,
@@ -1132,7 +1132,7 @@
             "offsides": 0,
             "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 2
+            "goalsConceded": 1
           },
           "candidatePicks": []
         },
@@ -1232,7 +1232,7 @@
           "winPct": 38.2
         }
       },
-      "updatedAt": "2026-11-23T15:07:01.408Z",
+      "updatedAt": "2026-11-23T22:28:20.377Z",
       "players": [
         {
           "id": "brasileirao.vasco-gama.adson",
@@ -2440,7 +2440,7 @@
           "winPct": 25
         }
       },
-      "updatedAt": "2026-11-23T15:07:01.408Z",
+      "updatedAt": "2026-11-23T22:28:20.377Z",
       "players": [
         {
           "id": "brasileirao.coritiba.benassi",
@@ -3648,7 +3648,7 @@
           "winPct": 34.4
         }
       },
-      "updatedAt": "2026-11-23T15:07:01.408Z",
+      "updatedAt": "2026-11-23T22:28:20.377Z",
       "players": [
         {
           "id": "brasileirao.santos.alexis-duarte",
@@ -4856,7 +4856,7 @@
           "winPct": 35.1
         }
       },
-      "updatedAt": "2026-11-23T15:07:01.408Z",
+      "updatedAt": "2026-11-23T22:28:20.377Z",
       "players": [
         {
           "id": "brasileirao.remo.andres-gonzalez",
@@ -4919,7 +4919,7 @@
             "subIns": 0,
             "goals": 0,
             "assists": 0,
-            "shots": 0,
+            "shots": 1,
             "shotsOnTarget": 0,
             "foulsCommitted": 0,
             "foulsSuffered": 0,
@@ -4993,7 +4993,7 @@
             "subIns": 0,
             "goals": 0,
             "assists": 0,
-            "shots": 2,
+            "shots": 3,
             "shotsOnTarget": 0,
             "foulsCommitted": 0,
             "foulsSuffered": 0,
@@ -5002,7 +5002,7 @@
             "offsides": 0,
             "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 6
+            "goalsConceded": 0
           },
           "candidatePicks": []
         },
@@ -5474,8 +5474,8 @@
             "subIns": 0,
             "goals": 0,
             "assists": 0,
-            "shots": 1,
-            "shotsOnTarget": 1,
+            "shots": 0,
+            "shotsOnTarget": 0,
             "foulsCommitted": 0,
             "foulsSuffered": 0,
             "yellowCards": 0,
@@ -5483,7 +5483,7 @@
             "offsides": 0,
             "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 4
+            "goalsConceded": 0
           },
           "candidatePicks": []
         },
@@ -5594,7 +5594,7 @@
             "offsides": 0,
             "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 0
+            "goalsConceded": 6
           },
           "candidatePicks": []
         },
@@ -5622,8 +5622,8 @@
             "subIns": 0,
             "goals": 0,
             "assists": 0,
-            "shots": 0,
-            "shotsOnTarget": 0,
+            "shots": 1,
+            "shotsOnTarget": 1,
             "foulsCommitted": 0,
             "foulsSuffered": 0,
             "yellowCards": 0,
@@ -5631,7 +5631,7 @@
             "offsides": 0,
             "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 4
+            "goalsConceded": 0
           },
           "candidatePicks": []
         },
@@ -5844,7 +5844,7 @@
             "subIns": 0,
             "goals": 0,
             "assists": 0,
-            "shots": 1,
+            "shots": 0,
             "shotsOnTarget": 0,
             "foulsCommitted": 0,
             "foulsSuffered": 0,
@@ -6027,10 +6027,10 @@
           "stats": {
             "appearances": 0,
             "subIns": 0,
-            "goals": 0,
+            "goals": 1,
             "assists": 0,
-            "shots": 0,
-            "shotsOnTarget": 0,
+            "shots": 3,
+            "shotsOnTarget": 2,
             "foulsCommitted": 0,
             "foulsSuffered": 0,
             "yellowCards": 0,
@@ -6038,7 +6038,7 @@
             "offsides": 0,
             "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 0
+            "goalsConceded": 6
           },
           "candidatePicks": []
         }
@@ -6064,7 +6064,7 @@
           "winPct": 62.7
         }
       },
-      "updatedAt": "2026-11-23T15:07:01.408Z",
+      "updatedAt": "2026-11-23T22:28:20.377Z",
       "players": [
         {
           "id": "brasileirao.flamengo.agustin-rossi",
@@ -7272,7 +7272,7 @@
           "winPct": 43.8
         }
       },
-      "updatedAt": "2026-11-23T15:07:01.408Z",
+      "updatedAt": "2026-11-23T22:28:20.377Z",
       "players": [
         {
           "id": "brasileirao.athletico.adriano-oliveira-farias",
@@ -8480,7 +8480,7 @@
           "winPct": 48.1
         }
       },
-      "updatedAt": "2026-11-23T15:07:01.408Z",
+      "updatedAt": "2026-11-23T22:28:20.377Z",
       "players": [
         {
           "id": "brasileirao.cruzeiro.bruno-rodrigues",

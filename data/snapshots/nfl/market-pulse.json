@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "league": "nfl",
-  "observedAt": "2026-11-23T15:15:15.858Z",
+  "observedAt": "2026-11-23T22:36:35.450Z",
   "entries": [
     {
       "gameId": "nfl-2026-w11-arizona-cardinals-kansas-city-chiefs",
@@ -43,16 +43,16 @@
       "gameId": "nfl-2026-w11-cincinnati-bengals-washington-commanders",
       "source": "kalshi",
       "unit": "contracts",
-      "observedAt": "2026-11-23T15:15:15.858Z",
+      "observedAt": "2026-11-23T22:36:35.450Z",
       "outcomes": [
         {
           "side": "home",
-          "volume": 350542.95,
+          "volume": 852087.95,
           "price": 0.28
         },
         {
           "side": "away",
-          "volume": 1368240.87,
+          "volume": 2354356.46,
           "price": 0.73
         }
       ]

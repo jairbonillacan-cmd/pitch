@@ -5,7 +5,7 @@
   "season": "j1-league-2026",
   "seasonLabel": "2026",
   "periodLabel": "Regular season · Matchday 14",
-  "updatedAt": "2026-11-23T15:07:01.408Z",
+  "updatedAt": "2026-11-23T22:28:20.377Z",
   "source": "pitchlab-football-v2",
   "provenance": "derived",
   "isDemo": false,
@@ -18,8 +18,8 @@
       "forPerGame": 1.5333333333333334,
       "againstPerGame": 1.1333333333333333,
       "gamesPlayed": 15,
-      "adjustedFor": 1.4096788430633724,
-      "adjustedAgainst": 1.1129023543514587
+      "adjustedFor": 1.3523987019618278,
+      "adjustedAgainst": 1.1217782859164025
     },
     "j1-league.kashima-antlers": {
       "teamId": "j1-league.kashima-antlers",
@@ -29,8 +29,8 @@
       "forPerGame": 2,
       "againstPerGame": 1.6666666666666667,
       "gamesPlayed": 15,
-      "adjustedFor": 1.7103114913760653,
-      "adjustedAgainst": 1.554072452632777
+      "adjustedFor": 1.5814658820165348,
+      "adjustedAgainst": 1.4505627440820426
     },
     "j1-league.gamba-osaka": {
       "teamId": "j1-league.gamba-osaka",
@@ -40,8 +40,8 @@
       "forPerGame": 1.0666666666666667,
       "againstPerGame": 1.6666666666666667,
       "gamesPlayed": 15,
-      "adjustedFor": 1.0798763483844265,
-      "adjustedAgainst": 1.5213044369747772
+      "adjustedFor": 1.1002223833804983,
+      "adjustedAgainst": 1.4321221445529937
     },
     "j1-league.urawa-red-diamonds": {
       "teamId": "j1-league.urawa-red-diamonds",
@@ -51,8 +51,8 @@
       "forPerGame": 1.6,
       "againstPerGame": 2.066666666666667,
       "gamesPlayed": 15,
-      "adjustedFor": 1.5440466859223314,
-      "adjustedAgainst": 1.7669107201418313
+      "adjustedFor": 1.4369547784322267,
+      "adjustedAgainst": 1.603467487433466
     },
     "j1-league.nagoya-grampus": {
       "teamId": "j1-league.nagoya-grampus",
@@ -62,8 +62,8 @@
       "forPerGame": 1,
       "againstPerGame": 1.5333333333333334,
       "gamesPlayed": 15,
-      "adjustedFor": 1.0684647175621123,
-      "adjustedAgainst": 1.3549019731331602
+      "adjustedFor": 1.0857651986710433,
+      "adjustedAgainst": 1.3052355396342512
     },
     "j1-league.shimizu-s-pulse": {
       "teamId": "j1-league.shimizu-s-pulse",
@@ -73,8 +73,8 @@
       "forPerGame": 0.7333333333333333,
       "againstPerGame": 1.6,
       "gamesPlayed": 15,
-      "adjustedFor": 0.8405291237856493,
-      "adjustedAgainst": 1.4556625054193353
+      "adjustedFor": 0.9184839615675926,
+      "adjustedAgainst": 1.3916023488349818
     },
     "j1-league.kashiwa-reysol": {
       "teamId": "j1-league.kashiwa-reysol",
@@ -84,8 +84,8 @@
       "forPerGame": 2.066666666666667,
       "againstPerGame": 1.4,
       "gamesPlayed": 15,
-      "adjustedFor": 1.8158608266347795,
-      "adjustedAgainst": 1.310259460382321
+      "adjustedFor": 1.6525490565147136,
+      "adjustedAgainst": 1.2782336526262703
     },
     "j1-league.mito-hollyhock": {
       "teamId": "j1-league.mito-hollyhock",
@@ -95,8 +95,8 @@
       "forPerGame": 0.9333333333333333,
       "againstPerGame": 1.8,
       "gamesPlayed": 15,
-      "adjustedFor": 0.9830795060885924,
-      "adjustedAgainst": 1.5400023494658532
+      "adjustedFor": 1.0265992186495883,
+      "adjustedAgainst": 1.458511650039278
     },
     "j1-league.tokyo": {
       "teamId": "j1-league.tokyo",
@@ -106,8 +106,8 @@
       "forPerGame": 2.4,
       "againstPerGame": 0.5333333333333333,
       "gamesPlayed": 15,
-      "adjustedFor": 2.025437374323438,
-      "adjustedAgainst": 0.6727286873737962
+      "adjustedFor": 1.8257580950200514,
+      "adjustedAgainst": 0.799287921771582
     },
     "j1-league.machida-zelvia": {
       "teamId": "j1-league.machida-zelvia",
@@ -117,8 +117,8 @@
       "forPerGame": 2,
       "againstPerGame": 0.6666666666666666,
       "gamesPlayed": 15,
-      "adjustedFor": 1.7240630986570558,
-      "adjustedAgainst": 0.7500437256578965
+      "adjustedFor": 1.5858425295083554,
+      "adjustedAgainst": 0.8572015246618989
     },
     "j1-league.cerezo-osaka": {
       "teamId": "j1-league.cerezo-osaka",
@@ -128,8 +128,8 @@
       "forPerGame": 1.0666666666666667,
       "againstPerGame": 1.8666666666666667,
       "gamesPlayed": 15,
-      "adjustedFor": 1.1066468793876159,
-      "adjustedAgainst": 1.6796654489094296
+      "adjustedFor": 1.1171734203293404,
+      "adjustedAgainst": 1.558919116148107
     },
     "j1-league.fagiano-okayama": {
       "teamId": "j1-league.fagiano-okayama",
@@ -139,8 +139,8 @@
       "forPerGame": 1.1333333333333333,
       "againstPerGame": 1.4666666666666666,
       "gamesPlayed": 15,
-      "adjustedFor": 1.1261000420757827,
-      "adjustedAgainst": 1.3962920256866702
+      "adjustedFor": 1.1356013809845529,
+      "adjustedAgainst": 1.333581868684661
     },
     "j1-league.avispa-fukuoka": {
       "teamId": "j1-league.avispa-fukuoka",
@@ -150,8 +150,8 @@
       "forPerGame": 0.9333333333333333,
       "againstPerGame": 1.7333333333333334,
       "gamesPlayed": 15,
-      "adjustedFor": 0.9369476572428175,
-      "adjustedAgainst": 1.6079788651794524
+      "adjustedFor": 0.9950146223645786,
+      "adjustedAgainst": 1.494973154163368
     },
     "j1-league.vissel-kobe": {
       "teamId": "j1-league.vissel-kobe",
@@ -161,8 +161,8 @@
       "forPerGame": 1.6,
       "againstPerGame": 1.0666666666666667,
       "gamesPlayed": 15,
-      "adjustedFor": 1.4566646214732515,
-      "adjustedAgainst": 1.0844685448574631
+      "adjustedFor": 1.3869874919662641,
+      "adjustedAgainst": 1.110245930234925
     },
     "j1-league.sanfrecce-hiroshima": {
       "teamId": "j1-league.sanfrecce-hiroshima",
@@ -172,8 +172,8 @@
       "forPerGame": 2.2666666666666666,
       "againstPerGame": 0.8,
       "gamesPlayed": 15,
-      "adjustedFor": 1.90070539967006,
-      "adjustedAgainst": 0.9570437426006481
+      "adjustedFor": 1.731633228607429,
+      "adjustedAgainst": 0.9976772250091028
     },
     "j1-league.jef-united-chiba": {
       "teamId": "j1-league.jef-united-chiba",
@@ -183,8 +183,8 @@
       "forPerGame": 1.1333333333333333,
       "againstPerGame": 1.6,
       "gamesPlayed": 15,
-      "adjustedFor": 1.1494561965927759,
-      "adjustedAgainst": 1.4325187544311737
+      "adjustedFor": 1.152520492992851,
+      "adjustedAgainst": 1.356639104120082
     },
     "j1-league.tokyo-verdy": {
       "teamId": "j1-league.tokyo-verdy",
@@ -194,8 +194,8 @@
       "forPerGame": 0.8,
       "againstPerGame": 1.4666666666666666,
       "gamesPlayed": 15,
-      "adjustedFor": 0.8825553200573761,
-      "adjustedAgainst": 1.3283168804364567
+      "adjustedFor": 0.9519216153429995,
+      "adjustedAgainst": 1.3086775757914184
     },
     "j1-league.kawasaki-frontale": {
       "teamId": "j1-league.kawasaki-frontale",
@@ -205,8 +205,8 @@
       "forPerGame": 1.9333333333333333,
       "againstPerGame": 1.6,
       "gamesPlayed": 15,
-      "adjustedFor": 1.7175531527167986,
-      "adjustedAgainst": 1.5148779513695074
+      "adjustedFor": 1.5790359575906623,
+      "adjustedAgainst": 1.420737366116486
     },
     "j1-league.v-varen-nagasaki": {
       "teamId": "j1-league.v-varen-nagasaki",
@@ -216,8 +216,8 @@
       "forPerGame": 1.1333333333333333,
       "againstPerGame": 1.4666666666666666,
       "gamesPlayed": 15,
-      "adjustedFor": 1.1392698195587716,
-      "adjustedAgainst": 1.312825476814972
+      "adjustedFor": 1.1435623459577375,
+      "adjustedAgainst": 1.2744943910722333
     },
     "j1-league.kyoto-sanga": {
       "teamId": "j1-league.kyoto-sanga",
@@ -227,8 +227,8 @@
       "forPerGame": 1.4,
       "againstPerGame": 1.6,
       "gamesPlayed": 15,
-      "adjustedFor": 1.346170056416726,
-      "adjustedAgainst": 1.4059995119841742
+      "adjustedFor": 1.3006130536696818,
+      "adjustedAgainst": 1.3485892678709381
     }
   },
   "games": [
@@ -263,7 +263,7 @@
       "result": {
         "home": 1,
         "away": 1,
-        "observedAt": "2026-11-23T15:07:01.408Z",
+        "observedAt": "2026-11-23T22:28:20.377Z",
         "source": "pitchlab-feed"
       }
     },
@@ -298,7 +298,7 @@
       "result": {
         "home": 2,
         "away": 1,
-        "observedAt": "2026-11-23T15:07:01.408Z",
+        "observedAt": "2026-11-23T22:28:20.377Z",
         "source": "pitchlab-feed"
       }
     },
@@ -333,7 +333,7 @@
       "result": {
         "home": 2,
         "away": 2,
-        "observedAt": "2026-11-23T15:07:01.408Z",
+        "observedAt": "2026-11-23T22:28:20.377Z",
         "source": "pitchlab-feed"
       }
     },
@@ -368,7 +368,7 @@
       "result": {
         "home": 0,
         "away": 0,
-        "observedAt": "2026-11-23T15:07:01.408Z",
+        "observedAt": "2026-11-23T22:28:20.377Z",
         "source": "pitchlab-feed"
       }
     },
@@ -403,7 +403,7 @@
       "result": {
         "home": 2,
         "away": 3,
-        "observedAt": "2026-11-23T15:07:01.408Z",
+        "observedAt": "2026-11-23T22:28:20.377Z",
         "source": "pitchlab-feed"
       }
     },
@@ -438,7 +438,7 @@
       "result": {
         "home": 1,
         "away": 0,
-        "observedAt": "2026-11-23T15:07:01.408Z",
+        "observedAt": "2026-11-23T22:28:20.377Z",
         "source": "pitchlab-feed"
       }
     },
@@ -473,7 +473,7 @@
       "result": {
         "home": 1,
         "away": 2,
-        "observedAt": "2026-11-23T15:07:01.408Z",
+        "observedAt": "2026-11-23T22:28:20.377Z",
         "source": "pitchlab-feed"
       }
     },
@@ -508,7 +508,7 @@
       "result": {
         "home": 0,
         "away": 1,
-        "observedAt": "2026-11-23T15:07:01.408Z",
+        "observedAt": "2026-11-23T22:28:20.377Z",
         "source": "pitchlab-feed"
       }
     },
@@ -543,7 +543,7 @@
       "result": {
         "home": 1,
         "away": 1,
-        "observedAt": "2026-11-23T15:07:01.408Z",
+        "observedAt": "2026-11-23T22:28:20.377Z",
         "source": "pitchlab-feed"
       }
     },
@@ -578,7 +578,7 @@
       "result": {
         "home": 0,
         "away": 0,
-        "observedAt": "2026-11-23T15:07:01.408Z",
+        "observedAt": "2026-11-23T22:28:20.377Z",
         "source": "pitchlab-feed"
       }
     },
@@ -613,7 +613,7 @@
       "result": {
         "home": 2,
         "away": 2,
-        "observedAt": "2026-11-23T15:07:01.408Z",
+        "observedAt": "2026-11-23T22:28:20.377Z",
         "source": "pitchlab-feed"
       }
     },
@@ -648,7 +648,7 @@
       "result": {
         "home": 0,
         "away": 0,
-        "observedAt": "2026-11-23T15:07:01.408Z",
+        "observedAt": "2026-11-23T22:28:20.377Z",
         "source": "pitchlab-feed"
       }
     },
@@ -683,7 +683,7 @@
       "result": {
         "home": 2,
         "away": 1,
-        "observedAt": "2026-11-23T15:07:01.408Z",
+        "observedAt": "2026-11-23T22:28:20.377Z",
         "source": "pitchlab-feed"
       }
     },
@@ -718,7 +718,7 @@
       "result": {
         "home": 1,
         "away": 0,
-        "observedAt": "2026-11-23T15:07:01.408Z",
+        "observedAt": "2026-11-23T22:28:20.377Z",
         "source": "pitchlab-feed"
       }
     },
@@ -753,7 +753,7 @@
       "result": {
         "home": 0,
         "away": 3,
-        "observedAt": "2026-11-23T15:07:01.408Z",
+        "observedAt": "2026-11-23T22:28:20.377Z",
         "source": "pitchlab-feed"
       }
     },
@@ -788,7 +788,7 @@
       "result": {
         "home": 0,
         "away": 1,
-        "observedAt": "2026-11-23T15:07:01.408Z",
+        "observedAt": "2026-11-23T22:28:20.377Z",
         "source": "pitchlab-feed"
       }
     },

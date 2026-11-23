@@ -5,7 +5,7 @@
   "season": "nhl-2026-27",
   "seasonLabel": "Temporada 2026-27",
   "periodLabel": "22 nov – 25 nov",
-  "updatedAt": "2026-11-23T15:06:56.513Z",
+  "updatedAt": "2026-11-23T22:27:27.560Z",
   "source": "bzzoiro",
   "provenance": "derived",
   "isDemo": false,
@@ -384,12 +384,11 @@
         "shortName": "Hurricanes",
         "code": "CAR"
       },
-      "referee": "Graham Skilliter",
       "neutralSite": false,
       "result": {
         "home": 2,
         "away": 5,
-        "observedAt": "2026-11-23T15:06:44.080Z",
+        "observedAt": "2026-11-23T22:26:35.762Z",
         "source": "bzzoiro"
       }
     },
@@ -417,7 +416,7 @@
       "result": {
         "home": 2,
         "away": 6,
-        "observedAt": "2026-11-23T15:06:44.080Z",
+        "observedAt": "2026-11-23T22:26:35.762Z",
         "source": "bzzoiro"
       }
     },
@@ -441,12 +440,11 @@
         "shortName": "Oilers",
         "code": "EDM"
       },
-      "referee": "Frederick L'Ecuyer",
       "neutralSite": false,
       "result": {
         "home": 5,
         "away": 4,
-        "observedAt": "2026-11-23T15:06:44.080Z",
+        "observedAt": "2026-11-23T22:26:35.762Z",
         "source": "bzzoiro"
       }
     },
@@ -470,12 +468,11 @@
         "shortName": "Penguins",
         "code": "PIT"
       },
-      "referee": "Kyle Rehman",
       "neutralSite": false,
       "result": {
         "home": 1,
         "away": 0,
-        "observedAt": "2026-11-23T15:06:44.080Z",
+        "observedAt": "2026-11-23T22:26:35.762Z",
         "source": "bzzoiro"
       }
     },
@@ -499,12 +496,11 @@
         "shortName": "Blackhawks",
         "code": "CHI"
       },
-      "referee": "Michael Markovic",
       "neutralSite": false,
       "result": {
         "home": 3,
         "away": 6,
-        "observedAt": "2026-11-23T15:06:44.080Z",
+        "observedAt": "2026-11-23T22:26:35.762Z",
         "source": "bzzoiro"
       }
     },
@@ -572,6 +568,7 @@
         "shortName": "Maple Leafs",
         "code": "TOR"
       },
+      "referee": "Riley Brace",
       "neutralSite": false
     },
     {
@@ -616,6 +613,7 @@
         "shortName": "Flames",
         "code": "CGY"
       },
+      "referee": "Francois St. Laurent",
       "neutralSite": false
     },
     {
@@ -3099,6 +3097,9 @@
           "Islanders gana en 61 % de los escenarios.",
           "Se esperan 6.23 goles: 3.46 de Islanders y 2.76 de Maple Leafs."
         ]
+      },
+      "matchContext": {
+        "referee": "Riley Brace"
       }
     },
     "nhl-2026-11-24-uta-wpg": {
@@ -3627,6 +3628,9 @@
           "Senators gana en 67 % de los escenarios.",
           "Se esperan 5.69 goles: 3.39 de Senators y 2.30 de Flames."
         ]
+      },
+      "matchContext": {
+        "referee": "Francois St. Laurent"
       }
     },
     "nhl-2026-11-24-ana-sea": {
