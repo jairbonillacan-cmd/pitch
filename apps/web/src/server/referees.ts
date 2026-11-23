@@ -19,6 +19,10 @@ import {
   resolveSnapshotsRoot,
   type ProductLeague,
 } from "./snapshots";
+import {
+  resolveOfficialPriorServerV6,
+  type ResolvedOfficialPriorV6,
+} from "./spacetime-v6";
 
 export const REFEREE_EB_KAPPA = 15;
 export const MAX_REFEREE_RECENT_MATCHES = 20;
@@ -34,6 +38,38 @@ const MAX_DATED_SNAPSHOTS_PER_LEAGUE = 16;
 const DIRECTORY_TTL_MS = 5 * 60 * 1000;
 
 export type RefereeProfileTier = "estricto" | "promedio" | "permisivo";
+
+export interface RefereeOfficialPriorSummary {
+  readonly source: "historial_verificado" | "base_competicion";
+  readonly historicalGames: number;
+  readonly yellowMultiplier: number;
+  readonly redMultiplier: number;
+  readonly foulsMultiplier: number;
+  readonly bookingPointsExpected: number | null;
+  readonly pRedCardOver05: number | null;
+  readonly pBookingPointsOver355: number | null;
+  readonly pBookingPointsOver455: number | null;
+  readonly pBookingPointsOver555: number | null;
+}
+
+export interface RefereeOfficialPriorLookup {
+  readonly league: ProductLeague;
+  readonly sport: string;
+  readonly refereeName: string | null;
+  readonly source: "historial_verificado" | "base_competicion" | "neutral_us";
+  readonly historicalGames: number;
+  readonly yellowMultiplier: number;
+  readonly redMultiplier: number;
+  readonly foulsMultiplier: number;
+  readonly yellowRatePrior: number | null;
+  readonly redCardRatePrior: number | null;
+  readonly foulsRatePrior: number | null;
+  readonly bookingPointsExpected: number | null;
+  readonly pRedCardOver05: number | null;
+  readonly pBookingPointsOver355: number | null;
+  readonly pBookingPointsOver455: number | null;
+  readonly pBookingPointsOver555: number | null;
+}
 
 export interface RefereeLastMatchSummary {
   readonly matchSlug: string;
@@ -94,6 +130,7 @@ export interface LeagueRefereeRankingItem {
   readonly totalInLeague: number;
   readonly lastMatch: RefereeLastMatchSummary | null;
   readonly nextAssignment: RefereeNextAssignment | null;
+  readonly officialPrior?: RefereeOfficialPriorSummary | null;
 }
 
 export interface LeagueRefereeRankingResponse {
@@ -178,6 +215,7 @@ export interface RefereeProfilePayload {
   readonly competitionBreakdown: readonly RefereeCompetitionBreakdownItem[];
   readonly nextAssignment: RefereeNextAssignment | null;
   readonly bookablePlayers: readonly RefereeBookablePlayer[];
+  readonly officialPrior?: RefereeOfficialPriorSummary | null;
 }
 
 export interface RefereeSearchHit {
@@ -357,6 +395,74 @@ export function resetRefereesCacheForTests(): void {
 
 function round2(value: number): number {
   return Math.round(value * 100) / 100;
+}
+
+function round4(value: number): number {
+  return Math.round(value * 10_000) / 10_000;
+}
+
+function toOfficialPriorSummary(
+  prior: ResolvedOfficialPriorV6,
+): RefereeOfficialPriorSummary | null {
+  if (prior.provenance === "non_soccer_umpire_neutral") return null;
+  return {
+    source:
+      prior.provenance === "empirical_tm_verified" ? "historial_verificado" : "base_competicion",
+    historicalGames: prior.historicalGames,
+    yellowMultiplier: round4(prior.yellowMult),
+    redMultiplier: round4(prior.redMult),
+    foulsMultiplier: round4(prior.foulsMult),
+    bookingPointsExpected:
+      prior.bookingPointsExpected !== null ? round2(prior.bookingPointsExpected) : null,
+    pRedCardOver05: prior.pRedCardOver05 !== null ? round4(prior.pRedCardOver05) : null,
+    pBookingPointsOver355:
+      prior.pBookingPointsOver355 !== null ? round4(prior.pBookingPointsOver355) : null,
+    pBookingPointsOver455:
+      prior.pBookingPointsOver455 !== null ? round4(prior.pBookingPointsOver455) : null,
+    pBookingPointsOver555:
+      prior.pBookingPointsOver555 !== null ? round4(prior.pBookingPointsOver555) : null,
+  };
+}
+
+export function resolveRefereeOfficialPrior(
+  refereeName: string | null | undefined,
+  league: string,
+): RefereeOfficialPriorLookup | null {
+  const normalizedLeague = league.trim().toLowerCase();
+  if (!isProductLeagueKey(normalizedLeague)) return null;
+  const safeName = sanitizeOptionalLabel(refereeName);
+  const resolved = resolveOfficialPriorServerV6({
+    refereeName: safeName,
+    league: normalizedLeague,
+  });
+  return {
+    league: normalizedLeague,
+    sport: resolved.sport,
+    refereeName: safeName,
+    source:
+      resolved.provenance === "non_soccer_umpire_neutral"
+        ? "neutral_us"
+        : resolved.provenance === "empirical_tm_verified"
+          ? "historial_verificado"
+          : "base_competicion",
+    historicalGames: resolved.historicalGames,
+    yellowMultiplier: round4(resolved.yellowMult),
+    redMultiplier: round4(resolved.redMult),
+    foulsMultiplier: round4(resolved.foulsMult),
+    yellowRatePrior: resolved.yellowRatePrior !== null ? round2(resolved.yellowRatePrior) : null,
+    redCardRatePrior:
+      resolved.redCardRatePrior !== null ? round2(resolved.redCardRatePrior) : null,
+    foulsRatePrior: resolved.foulsRatePrior !== null ? round2(resolved.foulsRatePrior) : null,
+    bookingPointsExpected:
+      resolved.bookingPointsExpected !== null ? round2(resolved.bookingPointsExpected) : null,
+    pRedCardOver05: resolved.pRedCardOver05 !== null ? round4(resolved.pRedCardOver05) : null,
+    pBookingPointsOver355:
+      resolved.pBookingPointsOver355 !== null ? round4(resolved.pBookingPointsOver355) : null,
+    pBookingPointsOver455:
+      resolved.pBookingPointsOver455 !== null ? round4(resolved.pBookingPointsOver455) : null,
+    pBookingPointsOver555:
+      resolved.pBookingPointsOver555 !== null ? round4(resolved.pBookingPointsOver555) : null,
+  };
 }
 
 function normalizeSearchText(raw: string): string {
@@ -755,13 +861,44 @@ function buildLeagueRefereeData(
   const accList = Array.from(accumulators.values());
   if (accList.length === 0) return null;
 
+  const priorBySlug = new Map<string, ResolvedOfficialPriorV6>();
+  for (const acc of accList) {
+    const resolvedPrior = resolveOfficialPriorServerV6({ refereeName: acc.name, league });
+    priorBySlug.set(acc.slug, resolvedPrior);
+    if (
+      acc.avgYellow === null &&
+      resolvedPrior.provenance === "empirical_tm_verified" &&
+      resolvedPrior.historicalGames > 0 &&
+      resolvedPrior.yellowRatePrior !== null
+    ) {
+      acc.avgYellow = round2(resolvedPrior.yellowRatePrior);
+      acc.matches = Math.max(acc.matches, resolvedPrior.historicalGames);
+      if (acc.avgRed === null && resolvedPrior.redCardRatePrior !== null) {
+        acc.avgRed = round2(resolvedPrior.redCardRatePrior);
+      }
+      if (acc.avgFouls === null && resolvedPrior.foulsRatePrior !== null) {
+        acc.avgFouls = round2(resolvedPrior.foulsRatePrior);
+      }
+    }
+  }
+
+  const leagueOfficialPrior = resolveOfficialPriorServerV6({ league });
+  const fallbackPriorYellow =
+    leagueOfficialPrior.yellowRatePrior !== null
+      ? round2(leagueOfficialPrior.yellowRatePrior)
+      : DEFAULT_PRIOR_YELLOW;
+  const fallbackPriorRed =
+    leagueOfficialPrior.redCardRatePrior !== null
+      ? round2(leagueOfficialPrior.redCardRatePrior)
+      : DEFAULT_PRIOR_RED;
+
   const leagueMeanYellow = weightedLeaguePrior(
     accList.map((a) => ({ value: a.avgYellow, matches: a.matches })),
-    DEFAULT_PRIOR_YELLOW,
+    fallbackPriorYellow,
   );
   const leagueMeanRed = weightedLeaguePrior(
     accList.map((a) => ({ value: a.avgRed, matches: a.matches })),
-    DEFAULT_PRIOR_RED,
+    fallbackPriorRed,
   );
   const leagueMeanPenalties = weightedLeaguePrior(
     accList.map((a) => ({ value: a.avgPenalties, matches: a.matches })),
@@ -831,6 +968,7 @@ function buildLeagueRefereeData(
     );
     const { lastMatch, nextAssignment } = pickLastAndNext(entry.observedMatches);
     matchesBySlug.set(entry.acc.slug, entry.observedMatches);
+    const officialPrior = priorBySlug.get(entry.acc.slug);
 
     return {
       slug: entry.acc.slug,
@@ -859,6 +997,7 @@ function buildLeagueRefereeData(
       totalInLeague: total,
       lastMatch,
       nextAssignment,
+      officialPrior: officialPrior ? toOfficialPriorSummary(officialPrior) : null,
     };
   });
 
@@ -1196,6 +1335,7 @@ export function loadRefereeProfile(
     competitionBreakdown,
     nextAssignment,
     bookablePlayers,
+    officialPrior: primaryItem.officialPrior ?? null,
   };
 }
 

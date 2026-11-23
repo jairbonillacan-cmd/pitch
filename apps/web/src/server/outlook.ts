@@ -20,6 +20,13 @@ import {
   annotatePublishedRows,
   buildDerivedOutlookExtras,
 } from "./outlook-derived-rows";
+import {
+  calibratePlayableOddsV6,
+  isSoccer57LeagueV6,
+  recalibrateSoccer57MatchServerV6,
+  type Soccer57PrekickoffRecalibratedOutlookV60,
+  type VennAbersPlayableEvaluationV60,
+} from "./spacetime-v6";
 
 interface OutlookSnapshot {
   generated_at?: string;
@@ -469,10 +476,300 @@ function sel(o: MatchOutlook, key: string, selection: string) {
 }
 
 const COUNT_MARKETS = new Set(["corners_total", "fouls_total", "yellow_total"]);
+const CORE_V6_SOCCER_MARKETS = new Set([
+  "h2h",
+  "1x2",
+  "double_chance",
+  "totals",
+  "btts",
+  "dnb",
+  "correct_score",
+]);
 
 function preserveCountGroups(groups: readonly AnalysisMarketGroup[] | undefined): AnalysisMarketGroup[] {
   if (!groups || groups.length === 0) return [];
   return groups.filter((group) => group.rows.some((r) => COUNT_MARKETS.has(r.market)));
+}
+
+function preserveNonCoreSoccerGroups(
+  groups: readonly AnalysisMarketGroup[] | undefined,
+): AnalysisMarketGroup[] {
+  if (!groups || groups.length === 0) return [];
+  return groups.filter((group) => group.rows.some((r) => !CORE_V6_SOCCER_MARKETS.has(r.market)));
+}
+
+export interface SoccerV6OutlookEnrichment {
+  readonly league: string;
+  readonly recalibrated: Soccer57PrekickoffRecalibratedOutlookV60;
+  readonly playableVennAbers: Soccer57PrekickoffRecalibratedOutlookV60["playableVennAbers"];
+}
+
+export function calibrateOutlookPlayableProbV6(
+  pRaw: number,
+  league: string,
+): VennAbersPlayableEvaluationV60 {
+  return calibratePlayableOddsV6({ pRaw, league });
+}
+
+export function recalibrateSoccerOutlookV6(
+  match: Pick<MatchAnalysis, "sport" | "league" | "x12" | "projection">,
+): SoccerV6OutlookEnrichment | null {
+  if (match.sport !== "football") return null;
+  const league = String(match.league);
+  if (!isSoccer57LeagueV6(league)) return null;
+  if (!match.x12 || !match.projection) return null;
+  const [rawH, rawD, rawA] = match.x12;
+  const sum = rawH + rawD + rawA;
+  if (
+    !Number.isFinite(sum) ||
+    sum <= 0 ||
+    !Number.isFinite(match.projection.home) ||
+    !Number.isFinite(match.projection.away) ||
+    match.projection.home <= 0 ||
+    match.projection.away <= 0
+  ) {
+    return null;
+  }
+  const recalibrated = recalibrateSoccer57MatchServerV6({
+    league,
+    rawProjHome: match.projection.home,
+    rawProjAway: match.projection.away,
+    rawX12: [rawH, rawD, rawA],
+  });
+  if (!recalibrated) return null;
+  return {
+    league: recalibrated.league,
+    recalibrated,
+    playableVennAbers: recalibrated.playableVennAbers,
+  };
+}
+
+function resolveV6PlayableBinaryTotals25(rec: Soccer57PrekickoffRecalibratedOutlookV60): {
+  readonly over: number;
+  readonly under: number;
+} {
+  const vaOver = rec.playableVennAbers.over25;
+  const vaUnder = rec.playableVennAbers.under25;
+  const minOver = Math.min(0.995, rec.markets.totals_3_5.over + 0.002);
+  const maxOver = Math.max(minOver, rec.markets.totals_1_5.over - 0.002);
+  let pOver = rec.markets.totals_2_5.over;
+  if (vaOver.inPlayableZone) {
+    pOver = Math.max(minOver, Math.min(maxOver, vaOver.pCalibrated));
+  } else if (vaUnder.inPlayableZone) {
+    pOver = Math.max(minOver, Math.min(maxOver, 1 - vaUnder.pCalibrated));
+  }
+  const pOverClamped = Math.max(0.002, Math.min(0.998, pOver));
+  return { over: round4(pOverClamped), under: round4(1 - pOverClamped) };
+}
+
+function resolveV6PlayableBtts(rec: Soccer57PrekickoffRecalibratedOutlookV60): {
+  readonly yes: number;
+  readonly no: number;
+} {
+  const vaYes = rec.playableVennAbers.bttsYes;
+  const pYes = vaYes.inPlayableZone ? vaYes.pCalibrated : rec.markets.btts.yes;
+  const pYesClamped = Math.max(0.002, Math.min(0.998, pYes));
+  return { yes: round4(pYesClamped), no: round4(1 - pYesClamped) };
+}
+
+function footballGroupsFromV6(
+  rec: Soccer57PrekickoffRecalibratedOutlookV60,
+  match: MatchAnalysis,
+): AnalysisMarketGroup[] {
+  const m = rec.markets;
+  const tot25 = resolveV6PlayableBinaryTotals25(rec);
+  const btts = resolveV6PlayableBtts(rec);
+  const groups: AnalysisMarketGroup[] = [
+    {
+      group: "Resultado",
+      rows: [
+        row("h2h", "home", `${match.home.name} gana`, round4(m["1x2"].home), fairOddsOf(m["1x2"].home).decimal),
+        row("h2h", "draw", "Empate", round4(m["1x2"].draw), fairOddsOf(m["1x2"].draw).decimal),
+        row("h2h", "away", `${match.away.name} gana`, round4(m["1x2"].away), fairOddsOf(m["1x2"].away).decimal),
+      ],
+    },
+    {
+      group: "Doble oportunidad",
+      rows: [
+        row(
+          "double_chance",
+          "1x",
+          `${match.home.name} o empate`,
+          round4(m.double_chance["1X"]),
+          fairOddsOf(m.double_chance["1X"]).decimal,
+        ),
+        row(
+          "double_chance",
+          "x2",
+          `${match.away.name} o empate`,
+          round4(m.double_chance.X2),
+          fairOddsOf(m.double_chance.X2).decimal,
+        ),
+        row(
+          "double_chance",
+          "12",
+          "Sin empate",
+          round4(m.double_chance["12"]),
+          fairOddsOf(m.double_chance["12"]).decimal,
+        ),
+      ],
+    },
+    {
+      group: "Goles totales",
+      rows: [
+        row("totals", "over_1.5", "Más de 1.5 goles", round4(m.totals_1_5.over), fairOddsOf(m.totals_1_5.over).decimal, 1.5),
+        row("totals", "under_1.5", "Menos de 1.5 goles", round4(m.totals_1_5.under), fairOddsOf(m.totals_1_5.under).decimal, 1.5),
+        row("totals", "over_2.5", "Más de 2.5 goles", tot25.over, fairOddsOf(tot25.over).decimal, 2.5),
+        row("totals", "under_2.5", "Menos de 2.5 goles", tot25.under, fairOddsOf(tot25.under).decimal, 2.5),
+        row("totals", "over_3.5", "Más de 3.5 goles", round4(m.totals_3_5.over), fairOddsOf(m.totals_3_5.over).decimal, 3.5),
+        row("totals", "under_3.5", "Menos de 3.5 goles", round4(m.totals_3_5.under), fairOddsOf(m.totals_3_5.under).decimal, 3.5),
+      ],
+    },
+    {
+      group: "Ambos anotan",
+      rows: [
+        row("btts", "yes", "Sí", btts.yes, fairOddsOf(btts.yes).decimal),
+        row("btts", "no", "No", btts.no, fairOddsOf(btts.no).decimal),
+      ],
+    },
+    {
+      group: "Empate no acción",
+      rows: [
+        row("dnb", "home", match.home.name, round4(m.dnb.home), fairOddsOf(m.dnb.home).decimal),
+        row("dnb", "away", match.away.name, round4(m.dnb.away), fairOddsOf(m.dnb.away).decimal),
+      ],
+    },
+    {
+      group: "Marcador exacto (más probables)",
+      rows: m.topScorelines.map((s) =>
+        row(
+          "correct_score",
+          `${s.homeGoals}-${s.awayGoals}`,
+          `${s.homeGoals}–${s.awayGoals}`,
+          round4(s.probability),
+          s.fairOdds.decimal,
+        ),
+      ),
+    },
+  ];
+  return groups;
+}
+
+export function buildV6SoccerOutlookDetail(
+  game: OutlookGameInput & {
+    readonly x12?: readonly [number, number, number] | null;
+    readonly projection?: { readonly home: number; readonly away: number; readonly total: number } | null;
+    readonly kickoffUtc?: string | null;
+  },
+): OutlookDetail | null {
+  if (!isSoccer57LeagueV6(game.league)) return null;
+  if (!game.x12 || !game.projection) return null;
+  const [rawH, rawD, rawA] = game.x12;
+  const sum = rawH + rawD + rawA;
+  if (
+    !Number.isFinite(sum) ||
+    sum <= 0 ||
+    !Number.isFinite(game.projection.home) ||
+    !Number.isFinite(game.projection.away) ||
+    game.projection.home <= 0 ||
+    game.projection.away <= 0
+  ) {
+    return null;
+  }
+  const rec = recalibrateSoccer57MatchServerV6({
+    league: game.league,
+    rawProjHome: game.projection.home,
+    rawProjAway: game.projection.away,
+    rawX12: [rawH, rawD, rawA],
+  });
+  if (!rec) return null;
+  const m = rec.markets;
+  const tot25 = resolveV6PlayableBinaryTotals25(rec);
+  const btts = resolveV6PlayableBtts(rec);
+  const makeRow = (
+    group: string,
+    market: string,
+    selection: string,
+    label: string,
+    p: number,
+    cardCategory: NonNullable<PlatformMarketRow["cardCategory"]>,
+    cardTitle: string,
+    isMostLikely: boolean,
+    line?: number,
+  ): PlatformMarketRow => {
+    const fair = fairOddsOf(Math.max(0.002, Math.min(0.998, p)));
+    return {
+      group,
+      market,
+      selection,
+      label,
+      ...(line !== undefined ? { line } : {}),
+      p: round4(p),
+      fairDecimal: fair.decimal,
+      fairAmerican: fair.american,
+      openDecimal: null,
+      currentDecimal: null,
+      quoteBookLabel: null,
+      quoteCapturedAtUtc: null,
+      edgePts: null,
+      isDerived: false,
+      cardCategory,
+      cardTitle,
+      isMostLikely,
+    };
+  };
+
+  const pH = m["1x2"].home;
+  const pD = m["1x2"].draw;
+  const pA = m["1x2"].away;
+  const top1x2 = pH >= pD && pH >= pA ? "home" : pA >= pD ? "away" : "draw";
+
+  const markets: PlatformMarketRow[] = [
+    makeRow("Resultado 1X2", "1x2", "home", `Gana ${game.home.name}`, pH, "resultado", "Resultado 1X2", top1x2 === "home"),
+    makeRow("Resultado 1X2", "1x2", "draw", "Empate", pD, "resultado", "Resultado 1X2", top1x2 === "draw"),
+    makeRow("Resultado 1X2", "1x2", "away", `Gana ${game.away.name}`, pA, "resultado", "Resultado 1X2", top1x2 === "away"),
+    makeRow("Doble oportunidad", "double_chance", "1X", `${game.home.name} o empate`, m.double_chance["1X"], "resultado", "Doble oportunidad", m.double_chance["1X"] >= m.double_chance.X2 && m.double_chance["1X"] >= m.double_chance["12"]),
+    makeRow("Doble oportunidad", "double_chance", "12", "Sin empate", m.double_chance["12"], "resultado", "Doble oportunidad", m.double_chance["12"] > m.double_chance["1X"] && m.double_chance["12"] >= m.double_chance.X2),
+    makeRow("Doble oportunidad", "double_chance", "X2", `${game.away.name} o empate`, m.double_chance.X2, "resultado", "Doble oportunidad", m.double_chance.X2 > m.double_chance["1X"] && m.double_chance.X2 > m.double_chance["12"]),
+    makeRow("Total de goles", "totals", "over", "Más de 1.5 goles", m.totals_1_5.over, "goles", "Total de goles (1.5)", m.totals_1_5.over >= m.totals_1_5.under, 1.5),
+    makeRow("Total de goles", "totals", "under", "Menos de 1.5 goles", m.totals_1_5.under, "goles", "Total de goles (1.5)", m.totals_1_5.under > m.totals_1_5.over, 1.5),
+    makeRow("Total de goles", "totals", "over", "Más de 2.5 goles", tot25.over, "goles", "Total de goles (2.5)", tot25.over >= tot25.under, 2.5),
+    makeRow("Total de goles", "totals", "under", "Menos de 2.5 goles", tot25.under, "goles", "Total de goles (2.5)", tot25.under > tot25.over, 2.5),
+    makeRow("Total de goles", "totals", "over", "Más de 3.5 goles", m.totals_3_5.over, "goles", "Total de goles (3.5)", m.totals_3_5.over >= m.totals_3_5.under, 3.5),
+    makeRow("Total de goles", "totals", "under", "Menos de 3.5 goles", m.totals_3_5.under, "goles", "Total de goles (3.5)", m.totals_3_5.under > m.totals_3_5.over, 3.5),
+    makeRow("Ambos anotan", "btts", "yes", "Sí", btts.yes, "goles", "Ambos anotan", btts.yes >= btts.no),
+    makeRow("Ambos anotan", "btts", "no", "No", btts.no, "goles", "Ambos anotan", btts.no > btts.yes),
+    makeRow("Empate no acción", "dnb", "home", game.home.name, m.dnb.home, "resultado", "Empate no acción", m.dnb.home >= m.dnb.away),
+    makeRow("Empate no acción", "dnb", "away", game.away.name, m.dnb.away, "resultado", "Empate no acción", m.dnb.away > m.dnb.home),
+  ];
+
+  const mostLikely =
+    top1x2 === "home"
+      ? { label: `Gana ${game.home.name}`, p: round4(pH), fairDecimal: m["1x2"].fairOddsHome.decimal }
+      : top1x2 === "away"
+        ? { label: `Gana ${game.away.name}`, p: round4(pA), fairDecimal: m["1x2"].fairOddsAway.decimal }
+        : { label: "Empate", p: round4(pD), fairDecimal: m["1x2"].fairOddsDraw.decimal };
+
+  const isActive = rec.competitionStatus === "causal_walk_forward_2026_active";
+  return {
+    markets,
+    outlook: {
+      generatedAtUtc: game.generatedAt ?? game.kickoffUtc ?? new Date().toISOString(),
+      mostLikely,
+      scorelines: m.topScorelines.map((s) => ({
+        home: s.homeGoals,
+        away: s.awayGoals,
+        p: round4(s.probability),
+        fairDecimal: s.fairOdds.decimal,
+      })),
+      quality: {
+        flag: isActive ? "ok" : "fallback_base_rate",
+        coveragePct: isActive ? 92 : 75,
+      },
+      hasRecentQuote: false,
+      latestQuote: null,
+    },
+  };
 }
 
 function footballGroups(o: MatchOutlook, match: MatchAnalysis): AnalysisMarketGroup[] {
@@ -839,7 +1136,52 @@ export function applyOutlook(
 ): OutlookApplied {
   if (match.status === "FT") return { match, signal };
   const o = findOutlook(match);
-  if (!o) return { match, signal };
+  if (!o) {
+    const v6 = recalibrateSoccerOutlookV6(match);
+    if (!v6) return { match, signal };
+    const rec = v6.recalibrated;
+    const x12Probs = rec.markets["1x2"];
+    const pHome = round4(x12Probs.home);
+    const pDraw = round4(x12Probs.draw);
+    const pAway = round4(x12Probs.away);
+    const top = rec.markets.topScorelines[0];
+    const projection = {
+      home: round4(rec.muHome),
+      away: round4(rec.muAway),
+      total: round4(rec.expectedTotalImplied),
+      margin: round4(rec.muHome - rec.muAway),
+    };
+    const outcomeP: Record<string, number> = {
+      home: x12Probs.home,
+      draw: x12Probs.draw,
+      away: x12Probs.away,
+    };
+    const updatedMatch: MatchAnalysis = {
+      ...match,
+      x12: [pHome, pDraw, pAway],
+      projection,
+      mostLikelyScore: top
+        ? { home: top.homeGoals, away: top.awayGoals, p: round4(top.probability) }
+        : match.mostLikelyScore,
+      marketGroups: [
+        ...footballGroupsFromV6(rec, match),
+        ...preserveNonCoreSoccerGroups(match.marketGroups),
+      ],
+      outcomes: match.outcomes.map((oc) =>
+        outcomeP[oc.key] !== undefined
+          ? {
+              ...oc,
+              probability: round4(outcomeP[oc.key]!),
+              fairOdds: fairOddsOf(outcomeP[oc.key]!),
+            }
+          : oc,
+      ),
+    };
+    return {
+      match: updatedMatch,
+      signal: alignSignalToLocalMatch(updatedMatch, signal, nowMs),
+    };
+  }
   const matchGeneratedAtMs = resolveGameGeneratedAtMs(match, snapshotGeneratedAt);
   const outlookGeneratedAtMs = resolveOutlookGeneratedAtMs(o);
   const localOver35 = extractMatchOver35Prob(match.marketGroups);
