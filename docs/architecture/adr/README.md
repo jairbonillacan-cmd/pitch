@@ -65,3 +65,4 @@
 | [ADR-059](ADR-059-maestro-detalle-inicio-y-screener-bet-lab-picks.md) | Maestro-Detalle en Inicio (`/app`) y Screener + Bet Lab interactivo en Picks (`/app/picks`) | Aceptada |
 | [ADR-060](ADR-060-sistema-iconos-webp-logos-oficiales-anti-slop-ligas-wcag253.md) | Sistema de íconos WebP dual (`0-404`), logos oficiales, anti-slop visual, hub `/app/[league]` editorial y disciplina WCAG 2.5.3 | Aceptada |
 | [ADR-061](ADR-061-calibracion-dixon-coles-anti-ev-parlays-6-y-endurecimiento-adr057.md) | Calibración Dixon-Coles IPF, blindaje Anti-EV, contrato de parlays (`<= 6`), CLV creíble y cierre 100 % de `ADR-057` | Aceptada |
+| [ADR-062](ADR-062-ficha-partido-picks-jugadores-alineaciones-y-bordes-nativos.md) | Ficha de Partido (`P2`), Inicio (`P1`), picks de jugadores, alineaciones interactivas, enfrentamientos, lesiones, bordes nativos (`.glass-ring`) y blindaje multi-deporte Q1–Q6 | Aceptada |
