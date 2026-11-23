@@ -18,10 +18,10 @@ function resolvePlaywrightWorkers(): number {
       ? os.availableParallelism()
       : os.cpus().length;
   const memGb = Math.round(os.totalmem() / 1024 ** 3);
-  if (threads >= 8 && memGb >= 16) {
+  if (threads >= 8 && memGb >= 24) {
     return 3;
   }
-  if (threads >= 4 && memGb >= 8) {
+  if (threads >= 4 && memGb > 16) {
     return 2;
   }
   return 1;
