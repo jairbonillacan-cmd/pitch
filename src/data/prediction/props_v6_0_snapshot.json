@@ -1,0 +1,4562 @@
+{
+  "schema_version": "props_v6_0_parity_snapshot_1.0.0",
+  "status": "candidate",
+  "production_activated": false,
+  "holdout_sealed_untouched": true,
+  "total_parity_vectors": 88,
+  "coupled_shots_multiline_cases": [
+    {
+      "caseId": "shots_v6_00",
+      "input": {
+        "metric": "shots",
+        "positionGroup": "FW_CF",
+        "seasonCount": 11,
+        "seasonShotsTotal": null,
+        "appearances": 9,
+        "subIns": 4,
+        "teamExpectedShots": 9.2,
+        "teamExpectedSoT": 3.0,
+        "oppDefenseFactor": 0.85,
+        "expectedMinutesStarter": null,
+        "lineupStatus": "confirmed_starter",
+        "availability": "available",
+        "injuryStatus": null,
+        "contextWeight": 1.0
+      },
+      "expected": {
+        "metric": "shots",
+        "positionGroup": "FW_CF",
+        "lineupStatus": "confirmed_starter",
+        "eligible": true,
+        "blockedByInjury": false,
+        "blockedByMinutesGuard": false,
+        "ebRatePer90": 2.3851501668520583,
+        "naivePerAppearanceRate": 1.2222222222222223,
+        "freshLegsSubRatePer90": 3.2489999999999997,
+        "effectiveExposure90": 5.488888888888889,
+        "expectedMinutes": 78.24592,
+        "matchCouplingMultiplier": 0.7227295812003929,
+        "muProjected": 1.4986863422025638,
+        "rEffective": 4.468456947996589,
+        "calibrationSource": "coupled_player_match_barycentric_logit_pava_v6",
+        "lines": [
+          {
+            "line": 0.5,
+            "pOverRaw": 0.7156798430666287,
+            "pOverCalibrated": 0.8177025570548656,
+            "pUnderCalibrated": 0.1822974429451344,
+            "pOverSubCover": 0.8651304482143453,
+            "subCoverLift": 0.04742789115947965,
+            "fairOverDecimal": 1.2229,
+            "fairUnderDecimal": 5.4855,
+            "fairOverSubCoverDecimal": 1.1559
+          },
+          {
+            "line": 1.5,
+            "pOverRaw": 0.41364756441819556,
+            "pOverCalibrated": 0.5145286853547967,
+            "pUnderCalibrated": 0.4854713146452033,
+            "pOverSubCover": 0.5895710801235923,
+            "subCoverLift": 0.0750423947687956,
+            "fairOverDecimal": 1.9435,
+            "fairUnderDecimal": 2.0599,
+            "fairOverSubCoverDecimal": 1.6961
+          },
+          {
+            "line": 2.5,
+            "pOverRaw": 0.20796789870290353,
+            "pOverCalibrated": 0.23754902968234107,
+            "pUnderCalibrated": 0.762450970317659,
+            "pOverSubCover": 0.3223453373414787,
+            "subCoverLift": 0.08479630765913762,
+            "fairOverDecimal": 4.2097,
+            "fairUnderDecimal": 1.3116,
+            "fairOverSubCoverDecimal": 3.1023
+          },
+          {
+            "line": 3.5,
+            "pOverRaw": 0.09488924994428702,
+            "pOverCalibrated": 0.09488924994428702,
+            "pUnderCalibrated": 0.905110750055713,
+            "pOverSubCover": 0.13852149991122892,
+            "subCoverLift": 0.0436322499669419,
+            "fairOverDecimal": 10.5386,
+            "fairUnderDecimal": 1.1048,
+            "fairOverSubCoverDecimal": 7.2191
+          }
+        ]
+      }
+    },
+    {
+      "caseId": "shots_v6_01",
+      "input": {
+        "metric": "shots_on_target",
+        "positionGroup": "FW_W",
+        "seasonCount": 3,
+        "seasonShotsTotal": 8,
+        "appearances": 9,
+        "subIns": 0,
+        "teamExpectedShots": 16.5,
+        "teamExpectedSoT": 5.4,
+        "oppDefenseFactor": 0.88,
+        "expectedMinutesStarter": null,
+        "lineupStatus": "projected_starter",
+        "availability": "available",
+        "injuryStatus": null,
+        "contextWeight": 1.0
+      },
+      "expected": {
+        "metric": "shots_on_target",
+        "positionGroup": "FW_W",
+        "lineupStatus": "projected_starter",
+        "eligible": true,
+        "blockedByInjury": false,
+        "blockedByMinutesGuard": false,
+        "ebRatePer90": 0.5641447368421052,
+        "naivePerAppearanceRate": 0.3333333333333333,
+        "freshLegsSubRatePer90": 0.9949899999999999,
+        "effectiveExposure90": 7.920000000000001,
+        "expectedMinutes": 72.33848000000002,
+        "matchCouplingMultiplier": 1.1626997887087476,
+        "muProjected": 0.5272116565451134,
+        "rEffective": 3.4359078959296525,
+        "calibrationSource": "coupled_player_match_barycentric_logit_pava_v6",
+        "lines": [
+          {
+            "line": 0.5,
+            "pOverRaw": 0.3823398186673378,
+            "pOverCalibrated": 0.4298007343722304,
+            "pUnderCalibrated": 0.5701992656277697,
+            "pOverSubCover": 0.5257036612934587,
+            "subCoverLift": 0.09590292692122832,
+            "fairOverDecimal": 2.3267,
+            "fairUnderDecimal": 1.7538,
+            "fairOverSubCoverDecimal": 1.9022
+          },
+          {
+            "line": 1.5,
+            "pOverRaw": 0.10988273104024446,
+            "pOverCalibrated": 0.10975367502981481,
+            "pUnderCalibrated": 0.8902463249701852,
+            "pOverSubCover": 0.1655516389051158,
+            "subCoverLift": 0.05579796387530098,
+            "fairOverDecimal": 9.1113,
+            "fairUnderDecimal": 1.1233,
+            "fairOverSubCoverDecimal": 6.0404
+          },
+          {
+            "line": 2.5,
+            "pOverRaw": 0.02721943360263793,
+            "pOverCalibrated": 0.0196017353986175,
+            "pUnderCalibrated": 0.9803982646013825,
+            "pOverSubCover": 0.03700191048539388,
+            "subCoverLift": 0.017400175086776378,
+            "fairOverDecimal": 51.0159,
+            "fairUnderDecimal": 1.02,
+            "fairOverSubCoverDecimal": 27.0256
+          },
+          {
+            "line": 3.5,
+            "pOverRaw": 0.006142792595247504,
+            "pOverCalibrated": 0.0027789910704636555,
+            "pUnderCalibrated": 0.9972210089295364,
+            "pOverSubCover": 0.006686217813660861,
+            "subCoverLift": 0.003907226743197206,
+            "fairOverDecimal": 359.8428,
+            "fairUnderDecimal": 1.0028,
+            "fairOverSubCoverDecimal": 149.5614
+          }
+        ]
+      }
+    },
+    {
+      "caseId": "shots_v6_02",
+      "input": {
+        "metric": "shots",
+        "positionGroup": "MF_AM",
+        "seasonCount": 10,
+        "seasonShotsTotal": null,
+        "appearances": 7,
+        "subIns": 4,
+        "teamExpectedShots": 13.8,
+        "teamExpectedSoT": 4.3,
+        "oppDefenseFactor": 0.91,
+        "expectedMinutesStarter": null,
+        "lineupStatus": "doubt",
+        "availability": "available",
+        "injuryStatus": null,
+        "contextWeight": 1.0
+      },
+      "expected": {
+        "metric": "shots",
+        "positionGroup": "MF_AM",
+        "lineupStatus": "doubt",
+        "eligible": true,
+        "blockedByInjury": false,
+        "blockedByMinutesGuard": false,
+        "ebRatePer90": 2.2653840997452743,
+        "naivePerAppearanceRate": 1.4285714285714286,
+        "freshLegsSubRatePer90": 2.223,
+        "effectiveExposure90": 3.7877777777777775,
+        "expectedMinutes": 54.886,
+        "matchCouplingMultiplier": 0.9967789891545473,
+        "muProjected": 1.377081978504193,
+        "rEffective": 4.253861997940268,
+        "calibrationSource": "coupled_player_match_barycentric_logit_pava_v6",
+        "lines": [
+          {
+            "line": 0.5,
+            "pOverRaw": 0.6510133571147337,
+            "pOverCalibrated": 0.766046016024008,
+            "pUnderCalibrated": 0.23395398397599199,
+            "pOverSubCover": 0.9021551271267219,
+            "subCoverLift": 0.13610911110271384,
+            "fairOverDecimal": 1.3054,
+            "fairUnderDecimal": 4.2743,
+            "fairOverSubCoverDecimal": 1.1085
+          },
+          {
+            "line": 1.5,
+            "pOverRaw": 0.3638354312691292,
+            "pOverCalibrated": 0.4683426393238638,
+            "pUnderCalibrated": 0.5316573606761362,
+            "pOverSubCover": 0.679536869651996,
+            "subCoverLift": 0.21119423032813223,
+            "fairOverDecimal": 2.1352,
+            "fairUnderDecimal": 1.8809,
+            "fairOverSubCoverDecimal": 1.4716
+          },
+          {
+            "line": 2.5,
+            "pOverRaw": 0.18910332600757324,
+            "pOverCalibrated": 0.20588859806535373,
+            "pUnderCalibrated": 0.7941114019346462,
+            "pOverSubCover": 0.4147462125634004,
+            "subCoverLift": 0.20885761449804666,
+            "fairOverDecimal": 4.857,
+            "fairUnderDecimal": 1.2593,
+            "fairOverSubCoverDecimal": 2.4111
+          },
+          {
+            "line": 3.5,
+            "pOverRaw": 0.09334795586922034,
+            "pOverCalibrated": 0.09334795586922034,
+            "pUnderCalibrated": 0.9066520441307797,
+            "pOverSubCover": 0.2179985971898326,
+            "subCoverLift": 0.12465064132061227,
+            "fairOverDecimal": 10.7126,
+            "fairUnderDecimal": 1.103,
+            "fairOverSubCoverDecimal": 4.5872
+          }
+        ]
+      }
+    },
+    {
+      "caseId": "shots_v6_03",
+      "input": {
+        "metric": "shots_on_target",
+        "positionGroup": "MF_CM",
+        "seasonCount": 9,
+        "seasonShotsTotal": 20,
+        "appearances": 6,
+        "subIns": 2,
+        "teamExpectedShots": 15.0,
+        "teamExpectedSoT": 6.0,
+        "oppDefenseFactor": 0.94,
+        "expectedMinutesStarter": null,
+        "lineupStatus": "confirmed_starter",
+        "availability": "available",
+        "injuryStatus": null,
+        "contextWeight": 1.0
+      },
+      "expected": {
+        "metric": "shots_on_target",
+        "positionGroup": "MF_CM",
+        "lineupStatus": "confirmed_starter",
+        "eligible": true,
+        "blockedByInjury": false,
+        "blockedByMinutesGuard": false,
+        "ebRatePer90": 1.2590333091962345,
+        "naivePerAppearanceRate": 1.5,
+        "freshLegsSubRatePer90": 0.49756799999999995,
+        "effectiveExposure90": 4.206666666666667,
+        "expectedMinutes": 79.83568000000001,
+        "matchCouplingMultiplier": 1.2813382914276505,
+        "muProjected": 1.431052425517931,
+        "rEffective": 4.164649144625929,
+        "calibrationSource": "coupled_player_match_barycentric_logit_pava_v6",
+        "lines": [
+          {
+            "line": 0.5,
+            "pOverRaw": 0.6983910188606887,
+            "pOverCalibrated": 0.706353451040859,
+            "pUnderCalibrated": 0.293646548959141,
+            "pOverSubCover": 0.7299870981362923,
+            "subCoverLift": 0.023633647095433252,
+            "fairOverDecimal": 1.4157,
+            "fairUnderDecimal": 3.4055,
+            "fairOverSubCoverDecimal": 1.3699
+          },
+          {
+            "line": 1.5,
+            "pOverRaw": 0.39344957973247424,
+            "pOverCalibrated": 0.34839853825110867,
+            "pUnderCalibrated": 0.6516014617488913,
+            "pOverSubCover": 0.3666324018412168,
+            "subCoverLift": 0.018233863590108146,
+            "fairOverDecimal": 2.8703,
+            "fairUnderDecimal": 1.5347,
+            "fairOverSubCoverDecimal": 2.7275
+          },
+          {
+            "line": 2.5,
+            "pOverRaw": 0.19338558743648193,
+            "pOverCalibrated": 0.12622980344468457,
+            "pUnderCalibrated": 0.8737701965553154,
+            "pOverSubCover": 0.13940559305722108,
+            "subCoverLift": 0.013175789612536515,
+            "fairOverDecimal": 7.9221,
+            "fairUnderDecimal": 1.1445,
+            "fairOverSubCoverDecimal": 7.1733
+          },
+          {
+            "line": 3.5,
+            "pOverRaw": 0.08656037923777297,
+            "pOverCalibrated": 0.039559041819339405,
+            "pUnderCalibrated": 0.9604409581806606,
+            "pOverSubCover": 0.04541124752897383,
+            "subCoverLift": 0.005852205709634427,
+            "fairOverDecimal": 25.2787,
+            "fairUnderDecimal": 1.0412,
+            "fairOverSubCoverDecimal": 22.021
+          }
+        ]
+      }
+    },
+    {
+      "caseId": "shots_v6_04",
+      "input": {
+        "metric": "shots",
+        "positionGroup": "DF_FB",
+        "seasonCount": 1,
+        "seasonShotsTotal": null,
+        "appearances": 5,
+        "subIns": 2,
+        "teamExpectedShots": 15.2,
+        "teamExpectedSoT": 6.1,
+        "oppDefenseFactor": 0.97,
+        "expectedMinutesStarter": null,
+        "lineupStatus": "projected_starter",
+        "availability": "available",
+        "injuryStatus": null,
+        "contextWeight": 1.0
+      },
+      "expected": {
+        "metric": "shots",
+        "positionGroup": "DF_FB",
+        "lineupStatus": "projected_starter",
+        "eligible": true,
+        "blockedByInjury": false,
+        "blockedByMinutesGuard": false,
+        "ebRatePer90": 0.627318718381113,
+        "naivePerAppearanceRate": 0.2,
+        "freshLegsSubRatePer90": 0.8448,
+        "effectiveExposure90": 3.4066666666666667,
+        "expectedMinutes": 78.78492,
+        "matchCouplingMultiplier": 1.172395728884905,
+        "muProjected": 0.643817923544622,
+        "rEffective": 2.6080305927342256,
+        "calibrationSource": "coupled_player_match_barycentric_logit_pava_v6",
+        "lines": [
+          {
+            "line": 0.5,
+            "pOverRaw": 0.43038093038775166,
+            "pOverCalibrated": 0.5885767294793781,
+            "pUnderCalibrated": 0.4114232705206219,
+            "pOverSubCover": 0.6391066371372812,
+            "subCoverLift": 0.050529907657903106,
+            "fairOverDecimal": 1.699,
+            "fairUnderDecimal": 2.4306,
+            "fairOverSubCoverDecimal": 1.5647
+          },
+          {
+            "line": 1.5,
+            "pOverRaw": 0.14886568640780368,
+            "pOverCalibrated": 0.14880601858353815,
+            "pUnderCalibrated": 0.8511939814164619,
+            "pOverSubCover": 0.20300340082230106,
+            "subCoverLift": 0.054197382238762914,
+            "fairOverDecimal": 6.7202,
+            "fairUnderDecimal": 1.1748,
+            "fairOverSubCoverDecimal": 4.926
+          },
+          {
+            "line": 2.5,
+            "pOverRaw": 0.04615193591850847,
+            "pOverCalibrated": 0.04615193591850848,
+            "pUnderCalibrated": 0.9538480640814915,
+            "pOverSubCover": 0.063145203410076,
+            "subCoverLift": 0.016993267491567515,
+            "fairOverDecimal": 21.6676,
+            "fairUnderDecimal": 1.0484,
+            "fairOverSubCoverDecimal": 15.8365
+          },
+          {
+            "line": 3.5,
+            "pOverRaw": 0.013374269792068499,
+            "pOverCalibrated": 0.013374269792068502,
+            "pUnderCalibrated": 0.9866257302079315,
+            "pOverSubCover": 0.01980753798792746,
+            "subCoverLift": 0.0064332681958589565,
+            "fairOverDecimal": 74.7704,
+            "fairUnderDecimal": 1.0136,
+            "fairOverSubCoverDecimal": 50.4858
+          }
+        ]
+      }
+    },
+    {
+      "caseId": "shots_v6_05",
+      "input": {
+        "metric": "shots_on_target",
+        "positionGroup": "FWD",
+        "seasonCount": 4,
+        "seasonShotsTotal": 9,
+        "appearances": 9,
+        "subIns": 1,
+        "teamExpectedShots": 10.1,
+        "teamExpectedSoT": 4.2,
+        "oppDefenseFactor": 1.0,
+        "expectedMinutesStarter": null,
+        "lineupStatus": "doubt",
+        "availability": "available",
+        "injuryStatus": null,
+        "contextWeight": 1.0
+      },
+      "expected": {
+        "metric": "shots_on_target",
+        "positionGroup": "FWD",
+        "lineupStatus": "doubt",
+        "eligible": true,
+        "blockedByInjury": false,
+        "blockedByMinutesGuard": false,
+        "ebRatePer90": 0.7117181883537024,
+        "naivePerAppearanceRate": 0.4444444444444444,
+        "freshLegsSubRatePer90": 1.1136,
+        "effectiveExposure90": 7.364444444444444,
+        "expectedMinutes": 54.76,
+        "matchCouplingMultiplier": 0.9424714914684813,
+        "muProjected": 0.40812877613296505,
+        "rEffective": 3.567567567567568,
+        "calibrationSource": "coupled_player_match_barycentric_logit_pava_v6",
+        "lines": [
+          {
+            "line": 0.5,
+            "pOverRaw": 0.3086369688374675,
+            "pOverCalibrated": 0.36126683372619567,
+            "pUnderCalibrated": 0.6387331662738043,
+            "pOverSubCover": 0.5489521702643795,
+            "subCoverLift": 0.1876853365381838,
+            "fairOverDecimal": 2.768,
+            "fairUnderDecimal": 1.5656,
+            "fairOverSubCoverDecimal": 1.8217
+          },
+          {
+            "line": 1.5,
+            "pOverRaw": 0.07719805639722901,
+            "pOverCalibrated": 0.07894813032190298,
+            "pUnderCalibrated": 0.921051869678097,
+            "pOverSubCover": 0.1821458850244057,
+            "subCoverLift": 0.10319775470250273,
+            "fairOverDecimal": 12.6665,
+            "fairUnderDecimal": 1.0857,
+            "fairOverSubCoverDecimal": 5.4901
+          },
+          {
+            "line": 2.5,
+            "pOverRaw": 0.017586965457158,
+            "pOverCalibrated": 0.013693489842161314,
+            "pUnderCalibrated": 0.9863065101578387,
+            "pOverSubCover": 0.04293957614421141,
+            "subCoverLift": 0.02924608630205009,
+            "fairOverDecimal": 73.0274,
+            "fairUnderDecimal": 1.0139,
+            "fairOverSubCoverDecimal": 23.2885
+          },
+          {
+            "line": 3.5,
+            "pOverRaw": 0.00375781996771668,
+            "pOverCalibrated": 0.001897946673997437,
+            "pUnderCalibrated": 0.9981020533260025,
+            "pOverSubCover": 0.00805707729533931,
+            "subCoverLift": 0.0061591306213418726,
+            "fairOverDecimal": 526.8852,
+            "fairUnderDecimal": 1.0019,
+            "fairOverSubCoverDecimal": 124.1145
+          }
+        ]
+      }
+    },
+    {
+      "caseId": "shots_v6_06",
+      "input": {
+        "metric": "shots",
+        "positionGroup": "MID",
+        "seasonCount": 10,
+        "seasonShotsTotal": null,
+        "appearances": 8,
+        "subIns": 0,
+        "teamExpectedShots": 15.8,
+        "teamExpectedSoT": 4.7,
+        "oppDefenseFactor": 1.03,
+        "expectedMinutesStarter": null,
+        "lineupStatus": "confirmed_starter",
+        "availability": "available",
+        "injuryStatus": null,
+        "contextWeight": 1.0
+      },
+      "expected": {
+        "metric": "shots",
+        "positionGroup": "MID",
+        "lineupStatus": "confirmed_starter",
+        "eligible": true,
+        "blockedByInjury": false,
+        "blockedByMinutesGuard": false,
+        "ebRatePer90": 1.4017436380772856,
+        "naivePerAppearanceRate": 1.25,
+        "freshLegsSubRatePer90": 1.4789999999999999,
+        "effectiveExposure90": 7.288888888888889,
+        "expectedMinutes": 79.41999999999999,
+        "matchCouplingMultiplier": 1.168659319228548,
+        "muProjected": 1.4455858668944337,
+        "rEffective": 4.126560726447219,
+        "calibrationSource": "coupled_player_match_barycentric_logit_pava_v6",
+        "lines": [
+          {
+            "line": 0.5,
+            "pOverRaw": 0.7010322852072924,
+            "pOverCalibrated": 0.8063351407662389,
+            "pUnderCalibrated": 0.1936648592337611,
+            "pOverSubCover": 0.8436752484287179,
+            "subCoverLift": 0.03734010766247897,
+            "fairOverDecimal": 1.2402,
+            "fairUnderDecimal": 5.1636,
+            "fairOverSubCoverDecimal": 1.1853
+          },
+          {
+            "line": 1.5,
+            "pOverRaw": 0.39728729659206297,
+            "pOverCalibrated": 0.49978002899532337,
+            "pUnderCalibrated": 0.5002199710046766,
+            "pOverSubCover": 0.5517726183501394,
+            "subCoverLift": 0.05199258935481599,
+            "fairOverDecimal": 2.0009,
+            "fairUnderDecimal": 1.9991,
+            "fairOverSubCoverDecimal": 1.8123
+          },
+          {
+            "line": 2.5,
+            "pOverRaw": 0.1967208268406646,
+            "pOverCalibrated": 0.21855475543496855,
+            "pUnderCalibrated": 0.7814452445650315,
+            "pOverSubCover": 0.2873343184223069,
+            "subCoverLift": 0.06877956298733834,
+            "fairOverDecimal": 4.5755,
+            "fairUnderDecimal": 1.2797,
+            "fairOverSubCoverDecimal": 3.4803
+          },
+          {
+            "line": 3.5,
+            "pOverRaw": 0.08879936644788416,
+            "pOverCalibrated": 0.08879936644788418,
+            "pUnderCalibrated": 0.9112006335521158,
+            "pOverSubCover": 0.1150593026007245,
+            "subCoverLift": 0.02625993615284032,
+            "fairOverDecimal": 11.2613,
+            "fairUnderDecimal": 1.0975,
+            "fairOverSubCoverDecimal": 8.6912
+          }
+        ]
+      }
+    },
+    {
+      "caseId": "shots_v6_07",
+      "input": {
+        "metric": "shots_on_target",
+        "positionGroup": "DEF",
+        "seasonCount": 2,
+        "seasonShotsTotal": 5,
+        "appearances": 4,
+        "subIns": 0,
+        "teamExpectedShots": 8.0,
+        "teamExpectedSoT": 2.5,
+        "oppDefenseFactor": 1.06,
+        "expectedMinutesStarter": null,
+        "lineupStatus": "projected_starter",
+        "availability": "available",
+        "injuryStatus": null,
+        "contextWeight": 1.0
+      },
+      "expected": {
+        "metric": "shots_on_target",
+        "positionGroup": "DEF",
+        "lineupStatus": "projected_starter",
+        "eligible": true,
+        "blockedByInjury": false,
+        "blockedByMinutesGuard": false,
+        "ebRatePer90": 0.36690918213748125,
+        "naivePerAppearanceRate": 0.5,
+        "freshLegsSubRatePer90": 0.24,
+        "effectiveExposure90": 3.8577777777777778,
+        "expectedMinutes": 79.336,
+        "matchCouplingMultiplier": 0.6338266245833062,
+        "muProjected": 0.20500141060688518,
+        "rEffective": 2.1666666666666665,
+        "calibrationSource": "coupled_player_match_barycentric_logit_pava_v6",
+        "lines": [
+          {
+            "line": 0.5,
+            "pOverRaw": 0.17658512138727797,
+            "pOverCalibrated": 0.23259359380298075,
+            "pUnderCalibrated": 0.7674064061970193,
+            "pOverSubCover": 0.2463287987195021,
+            "subCoverLift": 0.01373520491652136,
+            "fairOverDecimal": 4.2993,
+            "fairUnderDecimal": 1.3031,
+            "fairOverSubCoverDecimal": 4.0596
+          },
+          {
+            "line": 1.5,
+            "pOverRaw": 0.024829432191853695,
+            "pOverCalibrated": 0.024715947837860144,
+            "pUnderCalibrated": 0.9752840521621399,
+            "pOverSubCover": 0.027644147482792814,
+            "subCoverLift": 0.002928199644932669,
+            "fairOverDecimal": 40.4597,
+            "fairUnderDecimal": 1.0253,
+            "fairOverSubCoverDecimal": 36.174
+          },
+          {
+            "line": 2.5,
+            "pOverRaw": 0.003158204393169211,
+            "pOverCalibrated": 0.0021735916988723826,
+            "pUnderCalibrated": 0.9978264083011276,
+            "pOverSubCover": 0.0025368908654236884,
+            "subCoverLift": 0.0003632991665513058,
+            "fairOverDecimal": 460.068,
+            "fairUnderDecimal": 1.0022,
+            "fairOverSubCoverDecimal": 394.1833
+          },
+          {
+            "line": 3.5,
+            "pOverRaw": 0.0003792101508934742,
+            "pOverCalibrated": 0.001,
+            "pUnderCalibrated": 0.999,
+            "pOverSubCover": 0.001,
+            "subCoverLift": 0.0,
+            "fairOverDecimal": 1000.0,
+            "fairUnderDecimal": 1.001,
+            "fairOverSubCoverDecimal": 1000.0
+          }
+        ]
+      }
+    },
+    {
+      "caseId": "shots_v6_08",
+      "input": {
+        "metric": "shots",
+        "positionGroup": "FW_CF",
+        "seasonCount": 1,
+        "seasonShotsTotal": null,
+        "appearances": 5,
+        "subIns": 0,
+        "teamExpectedShots": 8.0,
+        "teamExpectedSoT": 2.5,
+        "oppDefenseFactor": 1.09,
+        "expectedMinutesStarter": null,
+        "lineupStatus": "doubt",
+        "availability": "available",
+        "injuryStatus": null,
+        "contextWeight": 1.0
+      },
+      "expected": {
+        "metric": "shots",
+        "positionGroup": "FW_CF",
+        "lineupStatus": "doubt",
+        "eligible": true,
+        "blockedByInjury": false,
+        "blockedByMinutesGuard": false,
+        "ebRatePer90": 1.5380098887515452,
+        "naivePerAppearanceRate": 0.2,
+        "freshLegsSubRatePer90": 3.2489999999999997,
+        "effectiveExposure90": 4.488888888888889,
+        "expectedMinutes": 55.08634,
+        "matchCouplingMultiplier": 0.7479135962031461,
+        "muProjected": 0.7040637183572707,
+        "rEffective": 3.9346701164294955,
+        "calibrationSource": "coupled_player_match_barycentric_logit_pava_v6",
+        "lines": [
+          {
+            "line": 0.5,
+            "pOverRaw": 0.45192102305370146,
+            "pOverCalibrated": 0.6074417285245896,
+            "pUnderCalibrated": 0.39255827147541045,
+            "pOverSubCover": 0.8344372584807893,
+            "subCoverLift": 0.22699552995619976,
+            "fairOverDecimal": 1.6462,
+            "fairUnderDecimal": 2.5474,
+            "fairOverSubCoverDecimal": 1.1984
+          },
+          {
+            "line": 1.5,
+            "pOverRaw": 0.16844365510538117,
+            "pOverCalibrated": 0.17266405851355598,
+            "pUnderCalibrated": 0.8273359414864441,
+            "pOverSubCover": 0.54385778782941,
+            "subCoverLift": 0.371193729315854,
+            "fairOverDecimal": 5.7916,
+            "fairUnderDecimal": 1.2087,
+            "fairOverSubCoverDecimal": 1.8387
+          },
+          {
+            "line": 2.5,
+            "pOverRaw": 0.05742820839019592,
+            "pOverCalibrated": 0.057428208390195905,
+            "pUnderCalibrated": 0.9425717916098041,
+            "pOverSubCover": 0.28673396569872395,
+            "subCoverLift": 0.22930575730852804,
+            "fairOverDecimal": 17.413,
+            "fairUnderDecimal": 1.0609,
+            "fairOverSubCoverDecimal": 3.4876
+          },
+          {
+            "line": 3.5,
+            "pOverRaw": 0.018387613827198255,
+            "pOverCalibrated": 0.018387613827198255,
+            "pUnderCalibrated": 0.9816123861728018,
+            "pOverSubCover": 0.11944929171472533,
+            "subCoverLift": 0.10106167788752708,
+            "fairOverDecimal": 54.3844,
+            "fairUnderDecimal": 1.0187,
+            "fairOverSubCoverDecimal": 8.3718
+          }
+        ]
+      }
+    },
+    {
+      "caseId": "shots_v6_09",
+      "input": {
+        "metric": "shots_on_target",
+        "positionGroup": "FW_W",
+        "seasonCount": 0,
+        "seasonShotsTotal": 1,
+        "appearances": 4,
+        "subIns": 3,
+        "teamExpectedShots": 8.0,
+        "teamExpectedSoT": 2.5,
+        "oppDefenseFactor": 1.12,
+        "expectedMinutesStarter": null,
+        "lineupStatus": "confirmed_starter",
+        "availability": "available",
+        "injuryStatus": null,
+        "contextWeight": 1.0
+      },
+      "expected": {
+        "metric": "shots_on_target",
+        "positionGroup": "FW_W",
+        "lineupStatus": "confirmed_starter",
+        "eligible": true,
+        "blockedByInjury": false,
+        "blockedByMinutesGuard": false,
+        "ebRatePer90": 0.6452482447342026,
+        "naivePerAppearanceRate": 0.0,
+        "freshLegsSubRatePer90": 0.9949899999999999,
+        "effectiveExposure90": 1.6466666666666665,
+        "expectedMinutes": 76.72624,
+        "matchCouplingMultiplier": 0.6543943327338515,
+        "muProjected": 0.3599712099853525,
+        "rEffective": 2.583883675124551,
+        "calibrationSource": "coupled_player_match_barycentric_logit_pava_v6",
+        "lines": [
+          {
+            "line": 0.5,
+            "pOverRaw": 0.284223188882574,
+            "pOverCalibrated": 0.3369693705484446,
+            "pUnderCalibrated": 0.6630306294515553,
+            "pOverSubCover": 0.39313446704514393,
+            "subCoverLift": 0.05616509649669932,
+            "fairOverDecimal": 2.9676,
+            "fairUnderDecimal": 1.5082,
+            "fairOverSubCoverDecimal": 2.5437
+          },
+          {
+            "line": 1.5,
+            "pOverRaw": 0.06150282389863432,
+            "pOverCalibrated": 0.06336799416234927,
+            "pUnderCalibrated": 0.9366320058376507,
+            "pOverSubCover": 0.08981597367708523,
+            "subCoverLift": 0.02644797951473596,
+            "fairOverDecimal": 15.7808,
+            "fairUnderDecimal": 1.0677,
+            "fairOverSubCoverDecimal": 11.1339
+          },
+          {
+            "line": 2.5,
+            "pOverRaw": 0.011739786016062499,
+            "pOverCalibrated": 0.009374177512626198,
+            "pUnderCalibrated": 0.9906258224873739,
+            "pOverSubCover": 0.01521334672853107,
+            "subCoverLift": 0.005839169215904872,
+            "fairOverDecimal": 106.676,
+            "fairUnderDecimal": 1.0095,
+            "fairOverSubCoverDecimal": 65.7318
+          },
+          {
+            "line": 3.5,
+            "pOverRaw": 0.0020838968067255757,
+            "pOverCalibrated": 0.001,
+            "pUnderCalibrated": 0.999,
+            "pOverSubCover": 0.0020583921434456413,
+            "subCoverLift": 0.0010583921434456412,
+            "fairOverDecimal": 1000.0,
+            "fairUnderDecimal": 1.001,
+            "fairOverSubCoverDecimal": 485.8161
+          }
+        ]
+      }
+    },
+    {
+      "caseId": "shots_v6_10",
+      "input": {
+        "metric": "shots",
+        "positionGroup": "MF_AM",
+        "seasonCount": 7,
+        "seasonShotsTotal": null,
+        "appearances": 6,
+        "subIns": 3,
+        "teamExpectedShots": 8.0,
+        "teamExpectedSoT": 2.5,
+        "oppDefenseFactor": 0.85,
+        "expectedMinutesStarter": null,
+        "lineupStatus": "projected_starter",
+        "availability": "available",
+        "injuryStatus": null,
+        "contextWeight": 1.0
+      },
+      "expected": {
+        "metric": "shots",
+        "positionGroup": "MF_AM",
+        "lineupStatus": "projected_starter",
+        "eligible": true,
+        "blockedByInjury": false,
+        "blockedByMinutesGuard": false,
+        "ebRatePer90": 1.9694132334581773,
+        "naivePerAppearanceRate": 1.1666666666666667,
+        "freshLegsSubRatePer90": 2.223,
+        "effectiveExposure90": 3.51,
+        "expectedMinutes": 73.35600000000001,
+        "matchCouplingMultiplier": 0.6474511943919727,
+        "muProjected": 1.0392906510535747,
+        "rEffective": 4.0781433607520565,
+        "calibrationSource": "coupled_player_match_barycentric_logit_pava_v6",
+        "lines": [
+          {
+            "line": 0.5,
+            "pOverRaw": 0.5916270407274468,
+            "pOverCalibrated": 0.721870951686395,
+            "pUnderCalibrated": 0.27812904831360497,
+            "pOverSubCover": 0.7878113231700128,
+            "subCoverLift": 0.06594037148361775,
+            "fairOverDecimal": 1.3853,
+            "fairUnderDecimal": 3.5955,
+            "fairOverSubCoverDecimal": 1.2693
+          },
+          {
+            "line": 1.5,
+            "pOverRaw": 0.27539243933642654,
+            "pOverCalibrated": 0.35589078075138486,
+            "pUnderCalibrated": 0.6441092192486151,
+            "pOverSubCover": 0.46382133550024734,
+            "subCoverLift": 0.10793055474886248,
+            "fairOverDecimal": 2.8099,
+            "fairUnderDecimal": 1.5525,
+            "fairOverSubCoverDecimal": 2.156
+          },
+          {
+            "line": 2.5,
+            "pOverRaw": 0.11111422054296119,
+            "pOverCalibrated": 0.1111061420452632,
+            "pUnderCalibrated": 0.8888938579547367,
+            "pOverSubCover": 0.16398119706065883,
+            "subCoverLift": 0.05287505501539563,
+            "fairOverDecimal": 9.0004,
+            "fairUnderDecimal": 1.125,
+            "fairOverSubCoverDecimal": 6.0983
+          },
+          {
+            "line": 3.5,
+            "pOverRaw": 0.04070886060191031,
+            "pOverCalibrated": 0.04070886060191031,
+            "pUnderCalibrated": 0.9592911393980896,
+            "pOverSubCover": 0.06665661099634443,
+            "subCoverLift": 0.025947750394434116,
+            "fairOverDecimal": 24.5647,
+            "fairUnderDecimal": 1.0424,
+            "fairOverSubCoverDecimal": 15.0023
+          }
+        ]
+      }
+    },
+    {
+      "caseId": "shots_v6_11",
+      "input": {
+        "metric": "shots_on_target",
+        "positionGroup": "MF_CM",
+        "seasonCount": 1,
+        "seasonShotsTotal": 1,
+        "appearances": 5,
+        "subIns": 0,
+        "teamExpectedShots": 8.0,
+        "teamExpectedSoT": 2.5,
+        "oppDefenseFactor": 0.88,
+        "expectedMinutesStarter": null,
+        "lineupStatus": "doubt",
+        "availability": "available",
+        "injuryStatus": null,
+        "contextWeight": 1.0
+      },
+      "expected": {
+        "metric": "shots_on_target",
+        "positionGroup": "MF_CM",
+        "lineupStatus": "doubt",
+        "eligible": true,
+        "blockedByInjury": false,
+        "blockedByMinutesGuard": false,
+        "ebRatePer90": 0.37498259860788863,
+        "naivePerAppearanceRate": 0.2,
+        "freshLegsSubRatePer90": 0.49756799999999995,
+        "effectiveExposure90": 4.5777777777777775,
+        "expectedMinutes": 55.78186,
+        "matchCouplingMultiplier": 0.5689747926766331,
+        "muProjected": 0.13223749769034554,
+        "rEffective": 2.313308229698261,
+        "calibrationSource": "coupled_player_match_barycentric_logit_pava_v6",
+        "lines": [
+          {
+            "line": 0.5,
+            "pOverRaw": 0.11860993352198539,
+            "pOverCalibrated": 0.17134214761576627,
+            "pUnderCalibrated": 0.8286578523842337,
+            "pOverSubCover": 0.2581591931069041,
+            "subCoverLift": 0.08681704549113783,
+            "fairOverDecimal": 5.8363,
+            "fairUnderDecimal": 1.2068,
+            "fairOverSubCoverDecimal": 3.8736
+          },
+          {
+            "line": 1.5,
+            "pOverRaw": 0.012280273970971346,
+            "pOverCalibrated": 0.012280273970971345,
+            "pUnderCalibrated": 0.9877197260290287,
+            "pOverSubCover": 0.03094123395446003,
+            "subCoverLift": 0.018660959983488684,
+            "fairOverDecimal": 81.4314,
+            "fairUnderDecimal": 1.0124,
+            "fairOverSubCoverDecimal": 32.3193
+          },
+          {
+            "line": 2.5,
+            "pOverRaw": 0.001217924684351135,
+            "pOverCalibrated": 0.0011044677318520464,
+            "pUnderCalibrated": 0.998895532268148,
+            "pOverSubCover": 0.0030490480148823934,
+            "subCoverLift": 0.001944580283030347,
+            "fairOverDecimal": 905.4135,
+            "fairUnderDecimal": 1.0011,
+            "fairOverSubCoverDecimal": 327.9712
+          },
+          {
+            "line": 3.5,
+            "pOverRaw": 0.00011723187241023947,
+            "pOverCalibrated": 0.001,
+            "pUnderCalibrated": 0.999,
+            "pOverSubCover": 0.001,
+            "subCoverLift": 0.0,
+            "fairOverDecimal": 1000.0,
+            "fairUnderDecimal": 1.001,
+            "fairOverSubCoverDecimal": 1000.0
+          }
+        ]
+      }
+    },
+    {
+      "caseId": "shots_v6_12",
+      "input": {
+        "metric": "shots",
+        "positionGroup": "DF_FB",
+        "seasonCount": 5,
+        "seasonShotsTotal": null,
+        "appearances": 5,
+        "subIns": 0,
+        "teamExpectedShots": 8.0,
+        "teamExpectedSoT": 2.5,
+        "oppDefenseFactor": 0.91,
+        "expectedMinutesStarter": null,
+        "lineupStatus": "confirmed_starter",
+        "availability": "available",
+        "injuryStatus": null,
+        "contextWeight": 1.0
+      },
+      "expected": {
+        "metric": "shots",
+        "positionGroup": "DF_FB",
+        "lineupStatus": "confirmed_starter",
+        "eligible": true,
+        "blockedByInjury": false,
+        "blockedByMinutesGuard": false,
+        "ebRatePer90": 0.9645933014354069,
+        "naivePerAppearanceRate": 1.0,
+        "freshLegsSubRatePer90": 0.8448,
+        "effectiveExposure90": 4.788888888888889,
+        "expectedMinutes": 83.45295999999999,
+        "matchCouplingMultiplier": 0.6735782682387388,
+        "muProjected": 0.6024646154003862,
+        "rEffective": 3.408022130013831,
+        "calibrationSource": "coupled_player_match_barycentric_logit_pava_v6",
+        "lines": [
+          {
+            "line": 0.5,
+            "pOverRaw": 0.4219971669115244,
+            "pOverCalibrated": 0.5811005436432107,
+            "pUnderCalibrated": 0.41889945635678927,
+            "pOverSubCover": 0.6041114770587492,
+            "subCoverLift": 0.023010933415538504,
+            "fairOverDecimal": 1.7209,
+            "fairUnderDecimal": 2.3872,
+            "fairOverSubCoverDecimal": 1.6553
+          },
+          {
+            "line": 1.5,
+            "pOverRaw": 0.13301597671061435,
+            "pOverCalibrated": 0.13297917307227786,
+            "pUnderCalibrated": 0.8670208269277222,
+            "pOverSubCover": 0.14705931053634075,
+            "subCoverLift": 0.014080137464062892,
+            "fairOverDecimal": 7.52,
+            "fairUnderDecimal": 1.1534,
+            "fairOverSubCoverDecimal": 6.8
+          },
+          {
+            "line": 2.5,
+            "pOverRaw": 0.035984312325554955,
+            "pOverCalibrated": 0.03598431232555496,
+            "pUnderCalibrated": 0.964015687674445,
+            "pOverSubCover": 0.04092984384465947,
+            "subCoverLift": 0.0049455315191045054,
+            "fairOverDecimal": 27.7899,
+            "fairUnderDecimal": 1.0373,
+            "fairOverSubCoverDecimal": 24.4321
+          },
+          {
+            "line": 3.5,
+            "pOverRaw": 0.008854164815606901,
+            "pOverCalibrated": 0.008854164815606904,
+            "pUnderCalibrated": 0.9911458351843931,
+            "pOverSubCover": 0.01027255225162381,
+            "subCoverLift": 0.001418387436016905,
+            "fairOverDecimal": 112.9412,
+            "fairUnderDecimal": 1.0089,
+            "fairOverSubCoverDecimal": 97.3468
+          }
+        ]
+      }
+    },
+    {
+      "caseId": "shots_v6_13",
+      "input": {
+        "metric": "shots_on_target",
+        "positionGroup": "FWD",
+        "seasonCount": 0,
+        "seasonShotsTotal": 3,
+        "appearances": 4,
+        "subIns": 0,
+        "teamExpectedShots": 8.0,
+        "teamExpectedSoT": 2.5,
+        "oppDefenseFactor": 0.94,
+        "expectedMinutesStarter": null,
+        "lineupStatus": "projected_starter",
+        "availability": "available",
+        "injuryStatus": null,
+        "contextWeight": 1.0
+      },
+      "expected": {
+        "metric": "shots_on_target",
+        "positionGroup": "FWD",
+        "lineupStatus": "projected_starter",
+        "eligible": true,
+        "blockedByInjury": false,
+        "blockedByMinutesGuard": false,
+        "ebRatePer90": 0.561038961038961,
+        "naivePerAppearanceRate": 0.0,
+        "freshLegsSubRatePer90": 1.1136,
+        "effectiveExposure90": 3.5555555555555554,
+        "expectedMinutes": 73.08000000000001,
+        "matchCouplingMultiplier": 0.5911629824229242,
+        "muProjected": 0.2693123579561598,
+        "rEffective": 2.6666666666666665,
+        "calibrationSource": "coupled_player_match_barycentric_logit_pava_v6",
+        "lines": [
+          {
+            "line": 0.5,
+            "pOverRaw": 0.22434404042197048,
+            "pOverCalibrated": 0.2767138987785918,
+            "pUnderCalibrated": 0.7232861012214082,
+            "pOverSubCover": 0.3582556650369121,
+            "subCoverLift": 0.08154176625832027,
+            "fairOverDecimal": 3.6138,
+            "fairUnderDecimal": 1.3826,
+            "fairOverSubCoverDecimal": 2.7913
+          },
+          {
+            "line": 1.5,
+            "pOverRaw": 0.03828861750713665,
+            "pOverCalibrated": 0.03812630605637139,
+            "pUnderCalibrated": 0.9618736939436286,
+            "pOverSubCover": 0.07192588509331369,
+            "subCoverLift": 0.03379957903694229,
+            "fairOverDecimal": 26.2286,
+            "fairUnderDecimal": 1.0396,
+            "fairOverSubCoverDecimal": 13.9032
+          },
+          {
+            "line": 2.5,
+            "pOverRaw": 0.0057551152804973475,
+            "pOverCalibrated": 0.004414482818342701,
+            "pUnderCalibrated": 0.9955855171816573,
+            "pOverSubCover": 0.011174845719567377,
+            "subCoverLift": 0.006760362901224676,
+            "fairOverDecimal": 226.5271,
+            "fairUnderDecimal": 1.0044,
+            "fairOverSubCoverDecimal": 89.4867
+          },
+          {
+            "line": 3.5,
+            "pOverRaw": 0.0008024859594663081,
+            "pOverCalibrated": 0.001,
+            "pUnderCalibrated": 0.999,
+            "pOverSubCover": 0.0013767690772312753,
+            "subCoverLift": 0.0003767690772312753,
+            "fairOverDecimal": 1000.0,
+            "fairUnderDecimal": 1.001,
+            "fairOverSubCoverDecimal": 726.3382
+          }
+        ]
+      }
+    },
+    {
+      "caseId": "shots_v6_14",
+      "input": {
+        "metric": "shots",
+        "positionGroup": "MID",
+        "seasonCount": 3,
+        "seasonShotsTotal": null,
+        "appearances": 4,
+        "subIns": 0,
+        "teamExpectedShots": 8.0,
+        "teamExpectedSoT": 2.5,
+        "oppDefenseFactor": 0.97,
+        "expectedMinutesStarter": null,
+        "lineupStatus": "doubt",
+        "availability": "available",
+        "injuryStatus": null,
+        "contextWeight": 1.0
+      },
+      "expected": {
+        "metric": "shots",
+        "positionGroup": "MID",
+        "lineupStatus": "doubt",
+        "eligible": true,
+        "blockedByInjury": false,
+        "blockedByMinutesGuard": false,
+        "ebRatePer90": 1.1695088676671213,
+        "naivePerAppearanceRate": 0.75,
+        "freshLegsSubRatePer90": 1.4789999999999999,
+        "effectiveExposure90": 3.6444444444444444,
+        "expectedMinutes": 55.6,
+        "matchCouplingMultiplier": 0.6989911310115787,
+        "muProjected": 0.5050187081479153,
+        "rEffective": 3.4866888519134775,
+        "calibrationSource": "coupled_player_match_barycentric_logit_pava_v6",
+        "lines": [
+          {
+            "line": 0.5,
+            "pOverRaw": 0.35934328841720653,
+            "pOverCalibrated": 0.5105132429769528,
+            "pUnderCalibrated": 0.4894867570230472,
+            "pOverSubCover": 0.6899577963063716,
+            "subCoverLift": 0.17944455332941878,
+            "fairOverDecimal": 1.9588,
+            "fairUnderDecimal": 2.043,
+            "fairOverSubCoverDecimal": 1.4494
+          },
+          {
+            "line": 1.5,
+            "pOverRaw": 0.10663153811162843,
+            "pOverCalibrated": 0.10662884697959725,
+            "pUnderCalibrated": 0.8933711530204027,
+            "pOverSubCover": 0.27695429064214655,
+            "subCoverLift": 0.17032544366254931,
+            "fairOverDecimal": 9.3783,
+            "fairUnderDecimal": 1.1194,
+            "fairOverSubCoverDecimal": 3.6107
+          },
+          {
+            "line": 2.5,
+            "pOverRaw": 0.02911769935193569,
+            "pOverCalibrated": 0.02911769935193569,
+            "pUnderCalibrated": 0.9708823006480644,
+            "pOverSubCover": 0.08215391717501687,
+            "subCoverLift": 0.05303621782308118,
+            "fairOverDecimal": 34.3434,
+            "fairUnderDecimal": 1.03,
+            "fairOverSubCoverDecimal": 12.1723
+          },
+          {
+            "line": 3.5,
+            "pOverRaw": 0.007505760879987907,
+            "pOverCalibrated": 0.00748022536183172,
+            "pUnderCalibrated": 0.9925197746381683,
+            "pOverSubCover": 0.02665477638052405,
+            "subCoverLift": 0.01917455101869233,
+            "fairOverDecimal": 133.6858,
+            "fairUnderDecimal": 1.0075,
+            "fairOverSubCoverDecimal": 37.5167
+          }
+        ]
+      }
+    },
+    {
+      "caseId": "shots_v6_15",
+      "input": {
+        "metric": "shots_on_target",
+        "positionGroup": "DEF",
+        "seasonCount": 1,
+        "seasonShotsTotal": 6,
+        "appearances": 4,
+        "subIns": 0,
+        "teamExpectedShots": 8.0,
+        "teamExpectedSoT": 2.5,
+        "oppDefenseFactor": 1.0,
+        "expectedMinutesStarter": null,
+        "lineupStatus": "confirmed_starter",
+        "availability": "available",
+        "injuryStatus": null,
+        "contextWeight": 1.0
+      },
+      "expected": {
+        "metric": "shots_on_target",
+        "positionGroup": "DEF",
+        "lineupStatus": "confirmed_starter",
+        "eligible": true,
+        "blockedByInjury": false,
+        "blockedByMinutesGuard": false,
+        "ebRatePer90": 0.2540140491721024,
+        "naivePerAppearanceRate": 0.25,
+        "freshLegsSubRatePer90": 0.24,
+        "effectiveExposure90": 3.8577777777777778,
+        "expectedMinutes": 84.02799999999999,
+        "matchCouplingMultiplier": 0.6127637656550472,
+        "muProjected": 0.14532232291274486,
+        "rEffective": 1.6714285714285715,
+        "calibrationSource": "coupled_player_match_barycentric_logit_pava_v6",
+        "lines": [
+          {
+            "line": 0.5,
+            "pOverRaw": 0.1296332760801606,
+            "pOverCalibrated": 0.18368713797790825,
+            "pUnderCalibrated": 0.8163128620220917,
+            "pOverSubCover": 0.19456359695527087,
+            "subCoverLift": 0.010876458977362613,
+            "fairOverDecimal": 5.444,
+            "fairUnderDecimal": 1.225,
+            "fairOverSubCoverDecimal": 5.1397
+          },
+          {
+            "line": 1.5,
+            "pOverRaw": 0.014100010230026789,
+            "pOverCalibrated": 0.014100010230026785,
+            "pUnderCalibrated": 0.9858999897699732,
+            "pOverSubCover": 0.015870255406604646,
+            "subCoverLift": 0.0017702451765778601,
+            "fairOverDecimal": 70.9219,
+            "fairUnderDecimal": 1.0143,
+            "fairOverSubCoverDecimal": 63.011
+          },
+          {
+            "line": 2.5,
+            "pOverRaw": 0.0014334788936717468,
+            "pOverCalibrated": 0.0012352741706366307,
+            "pUnderCalibrated": 0.9987647258293634,
+            "pOverSubCover": 0.00136762734045691,
+            "subCoverLift": 0.00013235316982027935,
+            "fairOverDecimal": 809.5369,
+            "fairUnderDecimal": 1.0012,
+            "fairOverSubCoverDecimal": 731.1933
+          },
+          {
+            "line": 3.5,
+            "pOverRaw": 0.0001406433225548964,
+            "pOverCalibrated": 0.001,
+            "pUnderCalibrated": 0.999,
+            "pOverSubCover": 0.001,
+            "subCoverLift": 0.0,
+            "fairOverDecimal": 1000.0,
+            "fairUnderDecimal": 1.001,
+            "fairOverSubCoverDecimal": 1000.0
+          }
+        ]
+      }
+    },
+    {
+      "caseId": "shots_v6_16",
+      "input": {
+        "metric": "shots",
+        "positionGroup": "FW_CF",
+        "seasonCount": 1,
+        "seasonShotsTotal": null,
+        "appearances": 4,
+        "subIns": 4,
+        "teamExpectedShots": 8.0,
+        "teamExpectedSoT": 3.3,
+        "oppDefenseFactor": 1.03,
+        "expectedMinutesStarter": null,
+        "lineupStatus": "projected_starter",
+        "availability": "available",
+        "injuryStatus": null,
+        "contextWeight": 1.0
+      },
+      "expected": {
+        "metric": "shots",
+        "positionGroup": "FW_CF",
+        "lineupStatus": "projected_starter",
+        "eligible": true,
+        "blockedByInjury": false,
+        "blockedByMinutesGuard": false,
+        "ebRatePer90": 2.5136363636363637,
+        "naivePerAppearanceRate": 0.25,
+        "freshLegsSubRatePer90": 3.2489999999999997,
+        "effectiveExposure90": 1.0,
+        "expectedMinutes": 73.79484000000001,
+        "matchCouplingMultiplier": 0.7693357511802026,
+        "muProjected": 1.5856299894715375,
+        "rEffective": 3.9346701164294955,
+        "calibrationSource": "coupled_player_match_barycentric_logit_pava_v6",
+        "lines": [
+          {
+            "line": 0.5,
+            "pOverRaw": 0.719116257181669,
+            "pOverCalibrated": 0.820341617745694,
+            "pUnderCalibrated": 0.17965838225430597,
+            "pOverSubCover": 0.8830468019388544,
+            "subCoverLift": 0.0627051841931604,
+            "fairOverDecimal": 1.219,
+            "fairUnderDecimal": 5.5661,
+            "fairOverSubCoverDecimal": 1.1324
+          },
+          {
+            "line": 1.5,
+            "pOverRaw": 0.4311774736579873,
+            "pOverCalibrated": 0.5301149204423875,
+            "pUnderCalibrated": 0.4698850795576125,
+            "pOverSubCover": 0.6348846107723918,
+            "subCoverLift": 0.10476969033000427,
+            "fairOverDecimal": 1.8864,
+            "fairUnderDecimal": 2.1282,
+            "fairOverSubCoverDecimal": 1.5751
+          },
+          {
+            "line": 2.5,
+            "pOverRaw": 0.23011716699068685,
+            "pOverCalibrated": 0.2757788843131085,
+            "pUnderCalibrated": 0.7242211156868915,
+            "pOverSubCover": 0.3716537433317194,
+            "subCoverLift": 0.09587485901861093,
+            "fairOverDecimal": 3.6261,
+            "fairUnderDecimal": 1.3808,
+            "fairOverSubCoverDecimal": 2.6907
+          },
+          {
+            "line": 3.5,
+            "pOverRaw": 0.1131244310214349,
+            "pOverCalibrated": 0.11311387755286759,
+            "pUnderCalibrated": 0.8868861224471324,
+            "pOverSubCover": 0.1810382288963784,
+            "subCoverLift": 0.06792435134351082,
+            "fairOverDecimal": 8.8406,
+            "fairUnderDecimal": 1.1275,
+            "fairOverSubCoverDecimal": 5.5237
+          }
+        ]
+      }
+    },
+    {
+      "caseId": "shots_v6_17",
+      "input": {
+        "metric": "shots_on_target",
+        "positionGroup": "FW_W",
+        "seasonCount": 2,
+        "seasonShotsTotal": 7,
+        "appearances": 4,
+        "subIns": 1,
+        "teamExpectedShots": 8.0,
+        "teamExpectedSoT": 2.5,
+        "oppDefenseFactor": 1.06,
+        "expectedMinutesStarter": null,
+        "lineupStatus": "doubt",
+        "availability": "available",
+        "injuryStatus": null,
+        "contextWeight": 1.0
+      },
+      "expected": {
+        "metric": "shots_on_target",
+        "positionGroup": "FW_W",
+        "lineupStatus": "doubt",
+        "eligible": true,
+        "blockedByInjury": false,
+        "blockedByMinutesGuard": false,
+        "ebRatePer90": 0.7964924007880665,
+        "naivePerAppearanceRate": 0.5,
+        "freshLegsSubRatePer90": 0.9949899999999999,
+        "effectiveExposure90": 2.8955555555555557,
+        "expectedMinutes": 54.421479999999995,
+        "matchCouplingMultiplier": 0.6338266245833062,
+        "muProjected": 0.3052670668067647,
+        "rEffective": 3.1963151207115628,
+        "calibrationSource": "coupled_player_match_barycentric_logit_pava_v6",
+        "lines": [
+          {
+            "line": 0.5,
+            "pOverRaw": 0.24532816875958136,
+            "pOverCalibrated": 0.29743009413368965,
+            "pUnderCalibrated": 0.7025699058663104,
+            "pOverSubCover": 0.4457558893692317,
+            "subCoverLift": 0.14832579523554207,
+            "fairOverDecimal": 3.3621,
+            "fairUnderDecimal": 1.4233,
+            "fairOverSubCoverDecimal": 2.2434
+          },
+          {
+            "line": 1.5,
+            "pOverRaw": 0.04906792070073413,
+            "pOverCalibrated": 0.0497471627242497,
+            "pUnderCalibrated": 0.9502528372757503,
+            "pOverSubCover": 0.11545149839440669,
+            "subCoverLift": 0.06570433567015699,
+            "fairOverDecimal": 20.1016,
+            "fairUnderDecimal": 1.0524,
+            "fairOverSubCoverDecimal": 8.6616
+          },
+          {
+            "line": 2.5,
+            "pOverRaw": 0.009004261493221009,
+            "pOverCalibrated": 0.007311807656340767,
+            "pUnderCalibrated": 0.9926881923436592,
+            "pOverSubCover": 0.02074469643114409,
+            "subCoverLift": 0.013432888774803323,
+            "fairOverDecimal": 136.7651,
+            "fairUnderDecimal": 1.0074,
+            "fairOverSubCoverDecimal": 48.2051
+          },
+          {
+            "line": 3.5,
+            "pOverRaw": 0.0015592707195637035,
+            "pOverCalibrated": 0.001,
+            "pUnderCalibrated": 0.999,
+            "pOverSubCover": 0.0029387703452643105,
+            "subCoverLift": 0.0019387703452643104,
+            "fairOverDecimal": 1000.0,
+            "fairUnderDecimal": 1.001,
+            "fairOverSubCoverDecimal": 340.2784
+          }
+        ]
+      }
+    },
+    {
+      "caseId": "shots_v6_18",
+      "input": {
+        "metric": "shots",
+        "positionGroup": "MF_AM",
+        "seasonCount": 1,
+        "seasonShotsTotal": null,
+        "appearances": 3,
+        "subIns": 3,
+        "teamExpectedShots": 8.0,
+        "teamExpectedSoT": 2.5,
+        "oppDefenseFactor": 1.09,
+        "expectedMinutesStarter": null,
+        "lineupStatus": "confirmed_starter",
+        "availability": "available",
+        "injuryStatus": null,
+        "contextWeight": 1.0
+      },
+      "expected": {
+        "metric": "shots",
+        "positionGroup": "MF_AM",
+        "lineupStatus": "confirmed_starter",
+        "eligible": true,
+        "blockedByInjury": false,
+        "blockedByMinutesGuard": false,
+        "ebRatePer90": 1.8328125000000002,
+        "naivePerAppearanceRate": 0.3333333333333333,
+        "freshLegsSubRatePer90": 2.223,
+        "effectiveExposure90": 0.8333333333333334,
+        "expectedMinutes": 77.788,
+        "matchCouplingMultiplier": 0.7479135962031461,
+        "muProjected": 1.1847850418326604,
+        "rEffective": 3.5196399345335516,
+        "calibrationSource": "coupled_player_match_barycentric_logit_pava_v6",
+        "lines": [
+          {
+            "line": 0.5,
+            "pOverRaw": 0.6318820882348369,
+            "pOverCalibrated": 0.7516379927962689,
+            "pUnderCalibrated": 0.24836200720373114,
+            "pOverSubCover": 0.8010982383478832,
+            "subCoverLift": 0.049460245551614324,
+            "fairOverDecimal": 1.3304,
+            "fairUnderDecimal": 4.0264,
+            "fairOverSubCoverDecimal": 1.2483
+          },
+          {
+            "line": 1.5,
+            "pOverRaw": 0.3191562669816255,
+            "pOverCalibrated": 0.42475499807815215,
+            "pUnderCalibrated": 0.5752450019218478,
+            "pOverSubCover": 0.49014951265753043,
+            "subCoverLift": 0.06539451457937828,
+            "fairOverDecimal": 2.3543,
+            "fairUnderDecimal": 1.7384,
+            "fairOverSubCoverDecimal": 2.0402
+          },
+          {
+            "line": 2.5,
+            "pOverRaw": 0.14151736926238181,
+            "pOverCalibrated": 0.14146849115446325,
+            "pUnderCalibrated": 0.8585315088455368,
+            "pOverSubCover": 0.20448960508898392,
+            "subCoverLift": 0.06302111393452067,
+            "fairOverDecimal": 7.0687,
+            "fairUnderDecimal": 1.1648,
+            "fairOverSubCoverDecimal": 4.8902
+          },
+          {
+            "line": 3.5,
+            "pOverRaw": 0.05763052971918958,
+            "pOverCalibrated": 0.05763052971918959,
+            "pUnderCalibrated": 0.9423694702808104,
+            "pOverSubCover": 0.08367900894955217,
+            "subCoverLift": 0.026048479230362583,
+            "fairOverDecimal": 17.3519,
+            "fairUnderDecimal": 1.0612,
+            "fairOverSubCoverDecimal": 11.9504
+          }
+        ]
+      }
+    },
+    {
+      "caseId": "shots_v6_19",
+      "input": {
+        "metric": "shots_on_target",
+        "positionGroup": "MF_CM",
+        "seasonCount": 0,
+        "seasonShotsTotal": 3,
+        "appearances": 3,
+        "subIns": 0,
+        "teamExpectedShots": 8.0,
+        "teamExpectedSoT": 2.5,
+        "oppDefenseFactor": 1.12,
+        "expectedMinutesStarter": null,
+        "lineupStatus": "projected_starter",
+        "availability": "available",
+        "injuryStatus": null,
+        "contextWeight": 1.0
+      },
+      "expected": {
+        "metric": "shots_on_target",
+        "positionGroup": "MF_CM",
+        "lineupStatus": "projected_starter",
+        "eligible": true,
+        "blockedByInjury": false,
+        "blockedByMinutesGuard": false,
+        "ebRatePer90": 0.33453098106712564,
+        "naivePerAppearanceRate": 0.0,
+        "freshLegsSubRatePer90": 0.49756799999999995,
+        "effectiveExposure90": 2.746666666666667,
+        "expectedMinutes": 75.31836000000001,
+        "matchCouplingMultiplier": 0.6543943327338515,
+        "muProjected": 0.18320369106863882,
+        "rEffective": 1.8528020678655883,
+        "calibrationSource": "coupled_player_match_barycentric_logit_pava_v6",
+        "lines": [
+          {
+            "line": 0.5,
+            "pOverRaw": 0.15920014942005586,
+            "pOverCalibrated": 0.21560436744605868,
+            "pUnderCalibrated": 0.7843956325539413,
+            "pOverSubCover": 0.25384780761844444,
+            "subCoverLift": 0.03824344017238576,
+            "fairOverDecimal": 4.6381,
+            "fairUnderDecimal": 1.2749,
+            "fairOverSubCoverDecimal": 3.9394
+          },
+          {
+            "line": 1.5,
+            "pOverRaw": 0.021073377859928976,
+            "pOverCalibrated": 0.021025906272181396,
+            "pUnderCalibrated": 0.9789740937278186,
+            "pOverSubCover": 0.03149152374626299,
+            "subCoverLift": 0.010465617474081593,
+            "fairOverDecimal": 47.5604,
+            "fairUnderDecimal": 1.0215,
+            "fairOverSubCoverDecimal": 31.7546
+          },
+          {
+            "line": 2.5,
+            "pOverRaw": 0.002586494897856402,
+            "pOverCalibrated": 0.0018529795520562749,
+            "pUnderCalibrated": 0.9981470204479437,
+            "pOverSubCover": 0.0034103654433521756,
+            "subCoverLift": 0.0015573858912959007,
+            "fairOverDecimal": 539.6714,
+            "fairUnderDecimal": 1.0019,
+            "fairOverSubCoverDecimal": 293.2237
+          },
+          {
+            "line": 3.5,
+            "pOverRaw": 0.000304371835735684,
+            "pOverCalibrated": 0.001,
+            "pUnderCalibrated": 0.999,
+            "pOverSubCover": 0.001,
+            "subCoverLift": 0.0,
+            "fairOverDecimal": 1000.0,
+            "fairUnderDecimal": 1.001,
+            "fairOverSubCoverDecimal": 1000.0
+          }
+        ]
+      }
+    },
+    {
+      "caseId": "shots_v6_20",
+      "input": {
+        "metric": "shots",
+        "positionGroup": "DF_FB",
+        "seasonCount": 1,
+        "seasonShotsTotal": null,
+        "appearances": 3,
+        "subIns": 0,
+        "teamExpectedShots": 8.0,
+        "teamExpectedSoT": 2.5,
+        "oppDefenseFactor": 0.85,
+        "expectedMinutesStarter": null,
+        "lineupStatus": "bench",
+        "availability": "available",
+        "injuryStatus": null,
+        "contextWeight": 1.0
+      },
+      "expected": {
+        "metric": "shots",
+        "positionGroup": "DF_FB",
+        "lineupStatus": "bench",
+        "eligible": false,
+        "blockedByInjury": false,
+        "blockedByMinutesGuard": true,
+        "ebRatePer90": 0.6726943942133816,
+        "naivePerAppearanceRate": 0.3333333333333333,
+        "freshLegsSubRatePer90": 0.8448,
+        "effectiveExposure90": 2.8733333333333335,
+        "expectedMinutes": 25.4,
+        "matchCouplingMultiplier": 0.6474511943919727,
+        "muProjected": 0.0,
+        "rEffective": 2.6080305927342256,
+        "calibrationSource": "coupled_player_match_barycentric_logit_pava_v6",
+        "lines": []
+      }
+    },
+    {
+      "caseId": "shots_v6_21",
+      "input": {
+        "metric": "shots_on_target",
+        "positionGroup": "FWD",
+        "seasonCount": 1,
+        "seasonShotsTotal": 1,
+        "appearances": 3,
+        "subIns": 2,
+        "teamExpectedShots": 10.8,
+        "teamExpectedSoT": 3.6,
+        "oppDefenseFactor": 0.88,
+        "expectedMinutesStarter": null,
+        "lineupStatus": "bench",
+        "availability": "available",
+        "injuryStatus": null,
+        "contextWeight": 1.0
+      },
+      "expected": {
+        "metric": "shots_on_target",
+        "positionGroup": "FWD",
+        "lineupStatus": "bench",
+        "eligible": false,
+        "blockedByInjury": false,
+        "blockedByMinutesGuard": true,
+        "ebRatePer90": 0.9068797776233496,
+        "naivePerAppearanceRate": 0.3333333333333333,
+        "freshLegsSubRatePer90": 1.1136,
+        "effectiveExposure90": 1.3955555555555554,
+        "expectedMinutes": 25.4,
+        "matchCouplingMultiplier": 0.7913124962919955,
+        "muProjected": 0.0,
+        "rEffective": 2.9491525423728815,
+        "calibrationSource": "coupled_player_match_barycentric_logit_pava_v6",
+        "lines": []
+      }
+    },
+    {
+      "caseId": "shots_v6_guard_00",
+      "input": {
+        "metric": "shots",
+        "positionGroup": "FW_CF",
+        "seasonCount": 18,
+        "seasonShotsTotal": null,
+        "appearances": 10,
+        "subIns": 1,
+        "teamExpectedShots": 13.8,
+        "teamExpectedSoT": 4.9,
+        "oppDefenseFactor": 1.05,
+        "expectedMinutesStarter": 80.0,
+        "lineupStatus": "projected_starter",
+        "availability": "out",
+        "injuryStatus": null,
+        "contextWeight": 1.0
+      },
+      "expected": {
+        "metric": "shots",
+        "positionGroup": "FW_CF",
+        "lineupStatus": "projected_starter",
+        "eligible": false,
+        "blockedByInjury": true,
+        "blockedByMinutesGuard": false,
+        "ebRatePer90": 2.4025720966484805,
+        "naivePerAppearanceRate": 1.8,
+        "freshLegsSubRatePer90": 3.2489999999999997,
+        "effectiveExposure90": 8.33,
+        "expectedMinutes": 73.08000000000001,
+        "matchCouplingMultiplier": 1.1146146279090434,
+        "muProjected": 0.0,
+        "rEffective": 4.667240192704749,
+        "calibrationSource": "coupled_player_match_barycentric_logit_pava_v6",
+        "lines": []
+      }
+    },
+    {
+      "caseId": "shots_v6_guard_01",
+      "input": {
+        "metric": "shots",
+        "positionGroup": "FW_CF",
+        "seasonCount": 18,
+        "seasonShotsTotal": null,
+        "appearances": 10,
+        "subIns": 1,
+        "teamExpectedShots": 13.8,
+        "teamExpectedSoT": 4.9,
+        "oppDefenseFactor": 1.05,
+        "expectedMinutesStarter": 80.0,
+        "lineupStatus": "projected_starter",
+        "availability": "available",
+        "injuryStatus": "Baja",
+        "contextWeight": 1.0
+      },
+      "expected": {
+        "metric": "shots",
+        "positionGroup": "FW_CF",
+        "lineupStatus": "projected_starter",
+        "eligible": false,
+        "blockedByInjury": true,
+        "blockedByMinutesGuard": false,
+        "ebRatePer90": 2.4025720966484805,
+        "naivePerAppearanceRate": 1.8,
+        "freshLegsSubRatePer90": 3.2489999999999997,
+        "effectiveExposure90": 8.33,
+        "expectedMinutes": 73.08000000000001,
+        "matchCouplingMultiplier": 1.1146146279090434,
+        "muProjected": 0.0,
+        "rEffective": 4.667240192704749,
+        "calibrationSource": "coupled_player_match_barycentric_logit_pava_v6",
+        "lines": []
+      }
+    },
+    {
+      "caseId": "shots_v6_guard_02",
+      "input": {
+        "metric": "shots",
+        "positionGroup": "FW_CF",
+        "seasonCount": 18,
+        "seasonShotsTotal": null,
+        "appearances": 10,
+        "subIns": 1,
+        "teamExpectedShots": 13.8,
+        "teamExpectedSoT": 4.9,
+        "oppDefenseFactor": 1.05,
+        "expectedMinutesStarter": 32.0,
+        "lineupStatus": "projected_starter",
+        "availability": "available",
+        "injuryStatus": null,
+        "contextWeight": 1.0
+      },
+      "expected": {
+        "metric": "shots",
+        "positionGroup": "FW_CF",
+        "lineupStatus": "projected_starter",
+        "eligible": false,
+        "blockedByInjury": false,
+        "blockedByMinutesGuard": true,
+        "ebRatePer90": 2.4025720966484805,
+        "naivePerAppearanceRate": 1.8,
+        "freshLegsSubRatePer90": 3.2489999999999997,
+        "effectiveExposure90": 8.33,
+        "expectedMinutes": 32.0,
+        "matchCouplingMultiplier": 1.1146146279090434,
+        "muProjected": 0.0,
+        "rEffective": 4.667240192704749,
+        "calibrationSource": "coupled_player_match_barycentric_logit_pava_v6",
+        "lines": []
+      }
+    }
+  ],
+  "goalkeeper_saves_multiline_cases": [
+    {
+      "caseId": "gk_saves_v6_00",
+      "input": {
+        "playerSlug": "frederik-ronnow",
+        "saves": 35,
+        "shotsFaced": 53,
+        "goalsConceded": 18,
+        "appearances": 8,
+        "subIns": 0,
+        "oppExpectedSoT": 3.2,
+        "expectedMinutes": 90.0,
+        "availability": "available",
+        "injuryStatus": null
+      },
+      "expected": {
+        "eligible": true,
+        "blockedByInjury": false,
+        "blockedByMinutesGuard": false,
+        "ebSaveRate": 0.6734647887323943,
+        "effectiveExposure90": 7.964444444444444,
+        "expectedMinutes": 90.0,
+        "oppExpectedSoT": 3.2,
+        "expectedSaves": 2.155087323943662,
+        "rDispersionSoT": 9.2,
+        "lines": [
+          {
+            "line": 1.5,
+            "pOverRaw": 0.6038975062083308,
+            "pOverCalibrated": 0.6332097680031669,
+            "pUnderCalibrated": 0.36679023199683314,
+            "fairOverDecimal": 1.5793,
+            "fairUnderDecimal": 2.7264
+          },
+          {
+            "line": 2.5,
+            "pOverRaw": 0.3601150763029545,
+            "pOverCalibrated": 0.3641577638729908,
+            "pUnderCalibrated": 0.6358422361270092,
+            "fairOverDecimal": 2.7461,
+            "fairUnderDecimal": 1.5727
+          },
+          {
+            "line": 3.5,
+            "pOverRaw": 0.18738277325636643,
+            "pOverCalibrated": 0.18738277325636643,
+            "pUnderCalibrated": 0.8126172267436336,
+            "fairOverDecimal": 5.3367,
+            "fairUnderDecimal": 1.2306
+          },
+          {
+            "line": 4.5,
+            "pOverRaw": 0.08739479274683937,
+            "pOverCalibrated": 0.08739479274683934,
+            "pUnderCalibrated": 0.9126052072531606,
+            "fairOverDecimal": 11.4423,
+            "fairUnderDecimal": 1.0958
+          }
+        ]
+      }
+    },
+    {
+      "caseId": "gk_saves_v6_01",
+      "input": {
+        "playerSlug": "karl-hein",
+        "saves": 31,
+        "shotsFaced": 46,
+        "goalsConceded": 15,
+        "appearances": 9,
+        "subIns": 0,
+        "oppExpectedSoT": 3.45,
+        "expectedMinutes": null,
+        "availability": "available",
+        "injuryStatus": null
+      },
+      "expected": {
+        "eligible": true,
+        "blockedByInjury": false,
+        "blockedByMinutesGuard": false,
+        "ebSaveRate": 0.684625,
+        "effectiveExposure90": 8.959999999999999,
+        "expectedMinutes": 89.59999999999998,
+        "oppExpectedSoT": 3.45,
+        "expectedSaves": 2.3514586666666664,
+        "rDispersionSoT": 9.2,
+        "lines": [
+          {
+            "line": 1.5,
+            "pOverRaw": 0.6460901974267685,
+            "pOverCalibrated": 0.6702339188260285,
+            "pUnderCalibrated": 0.32976608117397155,
+            "fairOverDecimal": 1.492,
+            "fairUnderDecimal": 3.0325
+          },
+          {
+            "line": 2.5,
+            "pOverRaw": 0.4065666391732863,
+            "pOverCalibrated": 0.4126569320547886,
+            "pUnderCalibrated": 0.5873430679452114,
+            "fairOverDecimal": 2.4233,
+            "fairUnderDecimal": 1.7026
+          },
+          {
+            "line": 3.5,
+            "pOverRaw": 0.22453556853530743,
+            "pOverCalibrated": 0.22453556853530746,
+            "pUnderCalibrated": 0.7754644314646926,
+            "fairOverDecimal": 4.4536,
+            "fairUnderDecimal": 1.2895
+          },
+          {
+            "line": 4.5,
+            "pOverRaw": 0.11151801979379405,
+            "pOverCalibrated": 0.11131788039759272,
+            "pUnderCalibrated": 0.8886821196024073,
+            "fairOverDecimal": 8.9833,
+            "fairUnderDecimal": 1.1253
+          }
+        ]
+      }
+    },
+    {
+      "caseId": "gk_saves_v6_02",
+      "input": {
+        "playerSlug": "denyor-cicilia",
+        "saves": 18,
+        "shotsFaced": 32,
+        "goalsConceded": 14,
+        "appearances": 5,
+        "subIns": 1,
+        "oppExpectedSoT": 3.7,
+        "expectedMinutes": null,
+        "availability": "available",
+        "injuryStatus": null
+      },
+      "expected": {
+        "eligible": true,
+        "blockedByInjury": false,
+        "blockedByMinutesGuard": false,
+        "ebSaveRate": 0.61632,
+        "effectiveExposure90": 4.337777777777777,
+        "expectedMinutes": 78.08,
+        "oppExpectedSoT": 3.7,
+        "expectedSaves": 1.978359808,
+        "rDispersionSoT": 9.2,
+        "lines": [
+          {
+            "line": 1.5,
+            "pOverRaw": 0.5620419126868406,
+            "pOverCalibrated": 0.5961837951155093,
+            "pUnderCalibrated": 0.40381620488449066,
+            "fairOverDecimal": 1.6773,
+            "fairUnderDecimal": 2.4764
+          },
+          {
+            "line": 2.5,
+            "pOverRaw": 0.3171457224457068,
+            "pOverCalibrated": 0.3181112042645815,
+            "pUnderCalibrated": 0.6818887957354185,
+            "fairOverDecimal": 3.1436,
+            "fairUnderDecimal": 1.4665
+          },
+          {
+            "line": 3.5,
+            "pOverRaw": 0.15533548587722512,
+            "pOverCalibrated": 0.1553354858772251,
+            "pUnderCalibrated": 0.8446645141227749,
+            "fairOverDecimal": 6.4377,
+            "fairUnderDecimal": 1.1839
+          },
+          {
+            "line": 4.5,
+            "pOverRaw": 0.06799149571697649,
+            "pOverCalibrated": 0.0679914957169765,
+            "pUnderCalibrated": 0.9320085042830235,
+            "fairOverDecimal": 14.7077,
+            "fairUnderDecimal": 1.073
+          }
+        ]
+      }
+    },
+    {
+      "caseId": "gk_saves_v6_03",
+      "input": {
+        "playerSlug": "frankie-beckles",
+        "saves": 11,
+        "shotsFaced": 22,
+        "goalsConceded": 11,
+        "appearances": 4,
+        "subIns": 0,
+        "oppExpectedSoT": 3.95,
+        "expectedMinutes": 90.0,
+        "availability": "available",
+        "injuryStatus": null
+      },
+      "expected": {
+        "eligible": true,
+        "blockedByInjury": false,
+        "blockedByMinutesGuard": false,
+        "ebSaveRate": 0.5953999999999999,
+        "effectiveExposure90": 3.982222222222222,
+        "expectedMinutes": 90.0,
+        "oppExpectedSoT": 3.95,
+        "expectedSaves": 2.3518299999999996,
+        "rDispersionSoT": 9.2,
+        "lines": [
+          {
+            "line": 1.5,
+            "pOverRaw": 0.6461658390652251,
+            "pOverCalibrated": 0.6702929148678817,
+            "pUnderCalibrated": 0.3297070851321183,
+            "fairOverDecimal": 1.4919,
+            "fairUnderDecimal": 3.033
+          },
+          {
+            "line": 2.5,
+            "pOverRaw": 0.4066528728261998,
+            "pOverCalibrated": 0.41273768205398315,
+            "pUnderCalibrated": 0.5872623179460168,
+            "fairOverDecimal": 2.4228,
+            "fairUnderDecimal": 1.7028
+          },
+          {
+            "line": 3.5,
+            "pOverRaw": 0.22460695948989495,
+            "pOverCalibrated": 0.22460695948989498,
+            "pUnderCalibrated": 0.775393040510105,
+            "fairOverDecimal": 4.4522,
+            "fairUnderDecimal": 1.2897
+          },
+          {
+            "line": 4.5,
+            "pOverRaw": 0.11156598043261567,
+            "pOverCalibrated": 0.11136446915301508,
+            "pUnderCalibrated": 0.8886355308469849,
+            "fairOverDecimal": 8.9795,
+            "fairUnderDecimal": 1.1253
+          }
+        ]
+      }
+    },
+    {
+      "caseId": "gk_saves_v6_04",
+      "input": {
+        "playerSlug": "denzil-smith",
+        "saves": 15,
+        "shotsFaced": 20,
+        "goalsConceded": 5,
+        "appearances": 4,
+        "subIns": 0,
+        "oppExpectedSoT": 4.2,
+        "expectedMinutes": null,
+        "availability": "available",
+        "injuryStatus": null
+      },
+      "expected": {
+        "eligible": true,
+        "blockedByInjury": false,
+        "blockedByMinutesGuard": false,
+        "ebSaveRate": 0.732,
+        "effectiveExposure90": 3.982222222222222,
+        "expectedMinutes": 89.6,
+        "oppExpectedSoT": 4.2,
+        "expectedSaves": 3.0607360000000003,
+        "rDispersionSoT": 9.2,
+        "lines": [
+          {
+            "line": 1.5,
+            "pOverRaw": 0.7652690777037175,
+            "pOverCalibrated": 0.7682421403542522,
+            "pUnderCalibrated": 0.2317578596457478,
+            "fairOverDecimal": 1.3017,
+            "fairUnderDecimal": 4.3148
+          },
+          {
+            "line": 2.5,
+            "pOverRaw": 0.5570730224722346,
+            "pOverCalibrated": 0.5586899504636804,
+            "pUnderCalibrated": 0.4413100495363196,
+            "fairOverDecimal": 1.7899,
+            "fairUnderDecimal": 2.266
+          },
+          {
+            "line": 3.5,
+            "pOverRaw": 0.36303868373390025,
+            "pOverCalibrated": 0.35255429369032415,
+            "pUnderCalibrated": 0.6474457063096759,
+            "fairOverDecimal": 2.8364,
+            "fairUnderDecimal": 1.5445
+          },
+          {
+            "line": 4.5,
+            "pOverRaw": 0.21530219778978776,
+            "pOverCalibrated": 0.20218356516325578,
+            "pUnderCalibrated": 0.7978164348367442,
+            "fairOverDecimal": 4.946,
+            "fairUnderDecimal": 1.2534
+          }
+        ]
+      }
+    },
+    {
+      "caseId": "gk_saves_v6_05",
+      "input": {
+        "playerSlug": "ernani",
+        "saves": 15,
+        "shotsFaced": 22,
+        "goalsConceded": 7,
+        "appearances": 3,
+        "subIns": 0,
+        "oppExpectedSoT": 4.45,
+        "expectedMinutes": null,
+        "availability": "available",
+        "injuryStatus": null
+      },
+      "expected": {
+        "eligible": true,
+        "blockedByInjury": false,
+        "blockedByMinutesGuard": false,
+        "ebSaveRate": 0.6954,
+        "effectiveExposure90": 2.9866666666666664,
+        "expectedMinutes": 89.59999999999998,
+        "oppExpectedSoT": 4.45,
+        "expectedSaves": 3.080776533333333,
+        "rDispersionSoT": 9.2,
+        "lines": [
+          {
+            "line": 1.5,
+            "pOverRaw": 0.7679794816022698,
+            "pOverCalibrated": 0.7706936489800214,
+            "pUnderCalibrated": 0.22930635101997865,
+            "fairOverDecimal": 1.2975,
+            "fairUnderDecimal": 4.361
+          },
+          {
+            "line": 2.5,
+            "pOverRaw": 0.5608713611388307,
+            "pOverCalibrated": 0.5625049215846183,
+            "pUnderCalibrated": 0.4374950784153817,
+            "fairOverDecimal": 1.7778,
+            "fairUnderDecimal": 2.2857
+          },
+          {
+            "line": 3.5,
+            "pOverRaw": 0.36690417566722566,
+            "pOverCalibrated": 0.3559736849299347,
+            "pUnderCalibrated": 0.6440263150700654,
+            "fairOverDecimal": 2.8092,
+            "fairUnderDecimal": 1.5527
+          },
+          {
+            "line": 4.5,
+            "pOverRaw": 0.21849441245495693,
+            "pOverCalibrated": 0.204666346884459,
+            "pUnderCalibrated": 0.795333653115541,
+            "fairOverDecimal": 4.886,
+            "fairUnderDecimal": 1.2573
+          }
+        ]
+      }
+    },
+    {
+      "caseId": "gk_saves_v6_06",
+      "input": {
+        "playerSlug": "camilo-vargas",
+        "saves": 15,
+        "shotsFaced": 58,
+        "goalsConceded": 3,
+        "appearances": 6,
+        "subIns": 0,
+        "oppExpectedSoT": 4.7,
+        "expectedMinutes": 90.0,
+        "availability": "available",
+        "injuryStatus": null
+      },
+      "expected": {
+        "eligible": true,
+        "blockedByInjury": false,
+        "blockedByMinutesGuard": false,
+        "ebSaveRate": 0.52,
+        "effectiveExposure90": 5.973333333333333,
+        "expectedMinutes": 90.0,
+        "oppExpectedSoT": 4.7,
+        "expectedSaves": 2.4440000000000004,
+        "rDispersionSoT": 9.2,
+        "lines": [
+          {
+            "line": 1.5,
+            "pOverRaw": 0.6644736573568799,
+            "pOverCalibrated": 0.6845847009002662,
+            "pUnderCalibrated": 0.31541529909973376,
+            "fairOverDecimal": 1.4607,
+            "fairUnderDecimal": 3.1704
+          },
+          {
+            "line": 2.5,
+            "pOverRaw": 0.4278469206960386,
+            "pOverCalibrated": 0.4325646526967264,
+            "pUnderCalibrated": 0.5674353473032736,
+            "fairOverDecimal": 2.3118,
+            "fairUnderDecimal": 1.7623
+          },
+          {
+            "line": 3.5,
+            "pOverRaw": 0.242425635419791,
+            "pOverCalibrated": 0.24184342262947248,
+            "pUnderCalibrated": 0.7581565773705276,
+            "fairOverDecimal": 4.1349,
+            "fairUnderDecimal": 1.319
+          },
+          {
+            "line": 4.5,
+            "pOverRaw": 0.12372352749242888,
+            "pOverCalibrated": 0.12316002233615361,
+            "pUnderCalibrated": 0.8768399776638464,
+            "fairOverDecimal": 8.1195,
+            "fairUnderDecimal": 1.1405
+          }
+        ]
+      }
+    },
+    {
+      "caseId": "gk_saves_v6_07",
+      "input": {
+        "playerSlug": "luca-zidane",
+        "saves": 8,
+        "shotsFaced": 14,
+        "goalsConceded": 6,
+        "appearances": 3,
+        "subIns": 0,
+        "oppExpectedSoT": 4.95,
+        "expectedMinutes": null,
+        "availability": "available",
+        "injuryStatus": null
+      },
+      "expected": {
+        "eligible": true,
+        "blockedByInjury": false,
+        "blockedByMinutesGuard": false,
+        "ebSaveRate": 0.6505,
+        "effectiveExposure90": 2.9866666666666664,
+        "expectedMinutes": 89.59999999999998,
+        "oppExpectedSoT": 4.95,
+        "expectedSaves": 3.205663999999999,
+        "rDispersionSoT": 9.2,
+        "lines": [
+          {
+            "line": 1.5,
+            "pOverRaw": 0.7841685133041806,
+            "pOverCalibrated": 0.7853707495150654,
+            "pUnderCalibrated": 0.21462925048493464,
+            "fairOverDecimal": 1.2733,
+            "fairUnderDecimal": 4.6592
+          },
+          {
+            "line": 2.5,
+            "pOverRaw": 0.5839529404562628,
+            "pOverCalibrated": 0.5853964178558352,
+            "pUnderCalibrated": 0.4146035821441648,
+            "fairOverDecimal": 1.7082,
+            "fairUnderDecimal": 2.4119
+          },
+          {
+            "line": 3.5,
+            "pOverRaw": 0.390803876552307,
+            "pOverCalibrated": 0.37710859587414064,
+            "pUnderCalibrated": 0.6228914041258593,
+            "fairOverDecimal": 2.6518,
+            "fairUnderDecimal": 1.6054
+          },
+          {
+            "line": 4.5,
+            "pOverRaw": 0.2385773167799835,
+            "pOverCalibrated": 0.22154113976082138,
+            "pUnderCalibrated": 0.7784588602391787,
+            "fairOverDecimal": 4.5138,
+            "fairUnderDecimal": 1.2846
+          }
+        ]
+      }
+    },
+    {
+      "caseId": "gk_saves_v6_08",
+      "input": {
+        "playerSlug": "dominik-livakovic",
+        "saves": 10,
+        "shotsFaced": 17,
+        "goalsConceded": 7,
+        "appearances": 4,
+        "subIns": 0,
+        "oppExpectedSoT": 5.2,
+        "expectedMinutes": null,
+        "availability": "available",
+        "injuryStatus": null
+      },
+      "expected": {
+        "eligible": true,
+        "blockedByInjury": false,
+        "blockedByMinutesGuard": false,
+        "ebSaveRate": 0.6518857142857143,
+        "effectiveExposure90": 3.982222222222222,
+        "expectedMinutes": 89.6,
+        "oppExpectedSoT": 5.2,
+        "expectedSaves": 3.3747399111111114,
+        "rDispersionSoT": 9.2,
+        "lines": [
+          {
+            "line": 1.5,
+            "pOverRaw": 0.8042656142889428,
+            "pOverCalibrated": 0.8035887229489951,
+            "pUnderCalibrated": 0.19641127705100492,
+            "fairOverDecimal": 1.2444,
+            "fairUnderDecimal": 5.0914
+          },
+          {
+            "line": 2.5,
+            "pOverRaw": 0.6135888796944428,
+            "pOverCalibrated": 0.61476155334188,
+            "pUnderCalibrated": 0.38523844665812,
+            "fairOverDecimal": 1.6266,
+            "fairUnderDecimal": 2.5958
+          },
+          {
+            "line": 3.5,
+            "pOverRaw": 0.4225438381233506,
+            "pOverCalibrated": 0.408980119857655,
+            "pUnderCalibrated": 0.591019880142345,
+            "fairOverDecimal": 2.4451,
+            "fairUnderDecimal": 1.692
+          },
+          {
+            "line": 4.5,
+            "pOverRaw": 0.2661653873513794,
+            "pOverCalibrated": 0.2481203997712484,
+            "pUnderCalibrated": 0.7518796002287516,
+            "fairOverDecimal": 4.0303,
+            "fairUnderDecimal": 1.33
+          }
+        ]
+      }
+    },
+    {
+      "caseId": "gk_saves_v6_09",
+      "input": {
+        "playerSlug": "yazeed-abulaila",
+        "saves": 8,
+        "shotsFaced": 16,
+        "goalsConceded": 8,
+        "appearances": 3,
+        "subIns": 0,
+        "oppExpectedSoT": 5.45,
+        "expectedMinutes": 90.0,
+        "availability": "available",
+        "injuryStatus": null
+      },
+      "expected": {
+        "eligible": true,
+        "blockedByInjury": false,
+        "blockedByMinutesGuard": false,
+        "ebSaveRate": 0.612235294117647,
+        "effectiveExposure90": 2.9866666666666664,
+        "expectedMinutes": 90.0,
+        "oppExpectedSoT": 5.45,
+        "expectedSaves": 3.336682352941176,
+        "rDispersionSoT": 9.2,
+        "lines": [
+          {
+            "line": 1.5,
+            "pOverRaw": 0.7999160320182244,
+            "pOverCalibrated": 0.7997119388471384,
+            "pUnderCalibrated": 0.20028806115286157,
+            "fairOverDecimal": 1.2505,
+            "fairUnderDecimal": 4.9928
+          },
+          {
+            "line": 2.5,
+            "pOverRaw": 0.6070790276313274,
+            "pOverCalibrated": 0.6083114681571078,
+            "pUnderCalibrated": 0.3916885318428922,
+            "fairOverDecimal": 1.6439,
+            "fairUnderDecimal": 2.553
+          },
+          {
+            "line": 3.5,
+            "pOverRaw": 0.41546849123702445,
+            "pOverCalibrated": 0.4016788859250248,
+            "pUnderCalibrated": 0.5983211140749751,
+            "fairOverDecimal": 2.4896,
+            "fairUnderDecimal": 1.6713
+          },
+          {
+            "line": 4.5,
+            "pOverRaw": 0.25992513405950657,
+            "pOverCalibrated": 0.24209431213814328,
+            "pUnderCalibrated": 0.7579056878618567,
+            "fairOverDecimal": 4.1306,
+            "fairUnderDecimal": 1.3194
+          }
+        ]
+      }
+    },
+    {
+      "caseId": "gk_saves_v6_10",
+      "input": {
+        "playerSlug": "gregor-kobel",
+        "saves": 20,
+        "shotsFaced": 26,
+        "goalsConceded": 6,
+        "appearances": 6,
+        "subIns": 0,
+        "oppExpectedSoT": 5.7,
+        "expectedMinutes": null,
+        "availability": "available",
+        "injuryStatus": null
+      },
+      "expected": {
+        "eligible": true,
+        "blockedByInjury": false,
+        "blockedByMinutesGuard": false,
+        "ebSaveRate": 0.7458181818181818,
+        "effectiveExposure90": 5.973333333333333,
+        "expectedMinutes": 89.59999999999998,
+        "oppExpectedSoT": 5.7,
+        "expectedSaves": 4.232269575757575,
+        "rDispersionSoT": 9.2,
+        "lines": [
+          {
+            "line": 1.5,
+            "pOverRaw": 0.8801053892341034,
+            "pOverCalibrated": 0.873409266239379,
+            "pUnderCalibrated": 0.12659073376062102,
+            "fairOverDecimal": 1.1449,
+            "fairUnderDecimal": 7.8995
+          },
+          {
+            "line": 2.5,
+            "pOverRaw": 0.7368604165340328,
+            "pOverCalibrated": 0.7309032381239783,
+            "pUnderCalibrated": 0.2690967618760217,
+            "fairOverDecimal": 1.3682,
+            "fairUnderDecimal": 3.7161
+          },
+          {
+            "line": 3.5,
+            "pOverRaw": 0.5683603486465636,
+            "pOverCalibrated": 0.5699443625815928,
+            "pUnderCalibrated": 0.43005563741840724,
+            "fairOverDecimal": 1.7546,
+            "fairUnderDecimal": 2.3253
+          },
+          {
+            "line": 4.5,
+            "pOverRaw": 0.40643164361469974,
+            "pOverCalibrated": 0.39236465670641174,
+            "pUnderCalibrated": 0.6076353432935883,
+            "fairOverDecimal": 2.5486,
+            "fairUnderDecimal": 1.6457
+          }
+        ]
+      }
+    },
+    {
+      "caseId": "gk_saves_v6_11",
+      "input": {
+        "playerSlug": "carlos-rodriguez",
+        "saves": 0,
+        "shotsFaced": 0,
+        "goalsConceded": 2,
+        "appearances": 3,
+        "subIns": 3,
+        "oppExpectedSoT": 5.95,
+        "expectedMinutes": null,
+        "availability": "available",
+        "injuryStatus": null
+      },
+      "expected": {
+        "eligible": false,
+        "blockedByInjury": false,
+        "blockedByMinutesGuard": true,
+        "ebSaveRate": 0.6407999999999999,
+        "effectiveExposure90": 1.0666666666666667,
+        "expectedMinutes": 32.0,
+        "oppExpectedSoT": 5.95,
+        "expectedSaves": 0.0,
+        "rDispersionSoT": 9.2,
+        "lines": []
+      }
+    },
+    {
+      "caseId": "gk_saves_v6_12",
+      "input": {
+        "playerSlug": "unai-simon",
+        "saves": 15,
+        "shotsFaced": 53,
+        "goalsConceded": 3,
+        "appearances": 6,
+        "subIns": 0,
+        "oppExpectedSoT": 3.2,
+        "expectedMinutes": 90.0,
+        "availability": "available",
+        "injuryStatus": null
+      },
+      "expected": {
+        "eligible": true,
+        "blockedByInjury": false,
+        "blockedByMinutesGuard": false,
+        "ebSaveRate": 0.52,
+        "effectiveExposure90": 5.973333333333333,
+        "expectedMinutes": 90.0,
+        "oppExpectedSoT": 3.2,
+        "expectedSaves": 1.6640000000000001,
+        "rDispersionSoT": 9.2,
+        "lines": [
+          {
+            "line": 1.5,
+            "pOverRaw": 0.47808151665176046,
+            "pOverCalibrated": 0.4971253936793954,
+            "pUnderCalibrated": 0.5028746063206047,
+            "fairOverDecimal": 2.0116,
+            "fairUnderDecimal": 1.9886
+          },
+          {
+            "line": 2.5,
+            "pOverRaw": 0.23961501462920154,
+            "pOverCalibrated": 0.23966047224936995,
+            "pUnderCalibrated": 0.7603395277506301,
+            "fairOverDecimal": 4.1726,
+            "fairUnderDecimal": 1.3152
+          },
+          {
+            "line": 3.5,
+            "pOverRaw": 0.10325478804310595,
+            "pOverCalibrated": 0.10325478804310595,
+            "pUnderCalibrated": 0.896745211956894,
+            "fairOverDecimal": 9.6848,
+            "fairUnderDecimal": 1.1151
+          },
+          {
+            "line": 4.5,
+            "pOverRaw": 0.0395530739442701,
+            "pOverCalibrated": 0.039553073944270094,
+            "pUnderCalibrated": 0.9604469260557299,
+            "fairOverDecimal": 25.2825,
+            "fairUnderDecimal": 1.0412
+          }
+        ]
+      }
+    },
+    {
+      "caseId": "gk_saves_v6_13",
+      "input": {
+        "playerSlug": "unai-simon",
+        "saves": 34,
+        "shotsFaced": 45,
+        "goalsConceded": 11,
+        "appearances": 12,
+        "subIns": 0,
+        "oppExpectedSoT": 3.45,
+        "expectedMinutes": null,
+        "availability": "available",
+        "injuryStatus": null
+      },
+      "expected": {
+        "eligible": true,
+        "blockedByInjury": false,
+        "blockedByMinutesGuard": false,
+        "ebSaveRate": 0.7431111111111112,
+        "effectiveExposure90": 11.946666666666665,
+        "expectedMinutes": 89.59999999999998,
+        "oppExpectedSoT": 3.45,
+        "expectedSaves": 2.552338962962963,
+        "rDispersionSoT": 9.2,
+        "lines": [
+          {
+            "line": 1.5,
+            "pOverRaw": 0.6848333519636963,
+            "pOverCalibrated": 0.7005219924487462,
+            "pUnderCalibrated": 0.29947800755125376,
+            "fairOverDecimal": 1.4275,
+            "fairUnderDecimal": 3.3391
+          },
+          {
+            "line": 2.5,
+            "pOverRaw": 0.45219010250000824,
+            "pOverCalibrated": 0.45529886123715857,
+            "pUnderCalibrated": 0.5447011387628414,
+            "fairOverDecimal": 2.1964,
+            "fairUnderDecimal": 1.8359
+          },
+          {
+            "line": 3.5,
+            "pOverRaw": 0.26356422873947294,
+            "pOverCalibrated": 0.2618145033761497,
+            "pUnderCalibrated": 0.7381854966238504,
+            "fairOverDecimal": 3.8195,
+            "fairUnderDecimal": 1.3547
+          },
+          {
+            "line": 4.5,
+            "pOverRaw": 0.13862030361575994,
+            "pOverCalibrated": 0.13757883431362672,
+            "pUnderCalibrated": 0.8624211656863733,
+            "fairOverDecimal": 7.2686,
+            "fairUnderDecimal": 1.1595
+          }
+        ]
+      }
+    },
+    {
+      "caseId": "gk_saves_v6_14",
+      "input": {
+        "playerSlug": "marko-dmitrovic",
+        "saves": 22,
+        "shotsFaced": 32,
+        "goalsConceded": 10,
+        "appearances": 7,
+        "subIns": 0,
+        "oppExpectedSoT": 3.7,
+        "expectedMinutes": null,
+        "availability": "available",
+        "injuryStatus": null
+      },
+      "expected": {
+        "eligible": true,
+        "blockedByInjury": false,
+        "blockedByMinutesGuard": false,
+        "ebSaveRate": 0.69632,
+        "effectiveExposure90": 6.9688888888888885,
+        "expectedMinutes": 89.6,
+        "oppExpectedSoT": 3.7,
+        "expectedSaves": 2.564933404444445,
+        "rDispersionSoT": 9.2,
+        "lines": [
+          {
+            "line": 1.5,
+            "pOverRaw": 0.6871211953035977,
+            "pOverCalibrated": 0.7023167647526947,
+            "pUnderCalibrated": 0.29768323524730533,
+            "fairOverDecimal": 1.4239,
+            "fairUnderDecimal": 3.3593
+          },
+          {
+            "line": 2.5,
+            "pOverRaw": 0.4549779226868612,
+            "pOverCalibrated": 0.45790039565741464,
+            "pUnderCalibrated": 0.5420996043425854,
+            "fairOverDecimal": 2.1839,
+            "fairUnderDecimal": 1.8447
+          },
+          {
+            "line": 3.5,
+            "pOverRaw": 0.2660311445022384,
+            "pOverCalibrated": 0.2641418901113091,
+            "pUnderCalibrated": 0.7358581098886909,
+            "fairOverDecimal": 3.7858,
+            "fairUnderDecimal": 1.359
+          },
+          {
+            "line": 4.5,
+            "pOverRaw": 0.1403917164306201,
+            "pOverCalibrated": 0.13929118960998932,
+            "pUnderCalibrated": 0.8607088103900107,
+            "fairOverDecimal": 7.1792,
+            "fairUnderDecimal": 1.1618
+          }
+        ]
+      }
+    },
+    {
+      "caseId": "gk_saves_v6_15",
+      "input": {
+        "playerSlug": "raul-rangel",
+        "saves": 49,
+        "shotsFaced": 62,
+        "goalsConceded": 13,
+        "appearances": 15,
+        "subIns": 0,
+        "oppExpectedSoT": 3.95,
+        "expectedMinutes": 90.0,
+        "availability": "available",
+        "injuryStatus": null
+      },
+      "expected": {
+        "eligible": true,
+        "blockedByInjury": false,
+        "blockedByMinutesGuard": false,
+        "ebSaveRate": 0.7727,
+        "effectiveExposure90": 14.933333333333334,
+        "expectedMinutes": 90.0,
+        "oppExpectedSoT": 3.95,
+        "expectedSaves": 3.0521650000000005,
+        "rDispersionSoT": 9.2,
+        "lines": [
+          {
+            "line": 1.5,
+            "pOverRaw": 0.7641001154918867,
+            "pOverCalibrated": 0.7671853085860194,
+            "pUnderCalibrated": 0.2328146914139806,
+            "fairOverDecimal": 1.3035,
+            "fairUnderDecimal": 4.2953
+          },
+          {
+            "line": 2.5,
+            "pOverRaw": 0.5554405693680043,
+            "pOverCalibrated": 0.5570502794710317,
+            "pUnderCalibrated": 0.4429497205289683,
+            "fairOverDecimal": 1.7952,
+            "fairUnderDecimal": 2.2576
+          },
+          {
+            "line": 3.5,
+            "pOverRaw": 0.36138317427997335,
+            "pOverCalibrated": 0.3510896768499827,
+            "pUnderCalibrated": 0.6489103231500173,
+            "fairOverDecimal": 2.8483,
+            "fairUnderDecimal": 1.541
+          },
+          {
+            "line": 4.5,
+            "pOverRaw": 0.2139398181628689,
+            "pOverCalibrated": 0.2011227698708558,
+            "pUnderCalibrated": 0.7988772301291442,
+            "fairOverDecimal": 4.9721,
+            "fairUnderDecimal": 1.2518
+          }
+        ]
+      }
+    },
+    {
+      "caseId": "gk_saves_v6_16",
+      "input": {
+        "playerSlug": "keylor-navas",
+        "saves": 47,
+        "shotsFaced": 73,
+        "goalsConceded": 26,
+        "appearances": 16,
+        "subIns": 0,
+        "oppExpectedSoT": 4.2,
+        "expectedMinutes": null,
+        "availability": "available",
+        "injuryStatus": null
+      },
+      "expected": {
+        "eligible": true,
+        "blockedByInjury": false,
+        "blockedByMinutesGuard": false,
+        "ebSaveRate": 0.6573186813186813,
+        "effectiveExposure90": 15.928888888888888,
+        "expectedMinutes": 89.6,
+        "oppExpectedSoT": 4.2,
+        "expectedSaves": 2.7484685128205126,
+        "rDispersionSoT": 9.2,
+        "lines": [
+          {
+            "line": 1.5,
+            "pOverRaw": 0.7186757034778415,
+            "pOverCalibrated": 0.7271800797737128,
+            "pUnderCalibrated": 0.2728199202262872,
+            "fairOverDecimal": 1.3752,
+            "fairUnderDecimal": 3.6654
+          },
+          {
+            "line": 2.5,
+            "pOverRaw": 0.4945506426764599,
+            "pOverCalibrated": 0.4958647983518537,
+            "pUnderCalibrated": 0.5041352016481463,
+            "fairOverDecimal": 2.0167,
+            "fairUnderDecimal": 1.9836
+          },
+          {
+            "line": 3.5,
+            "pOverRaw": 0.30207946181287715,
+            "pOverCalibrated": 0.29809062508692147,
+            "pUnderCalibrated": 0.7019093749130785,
+            "fairOverDecimal": 3.3547,
+            "fairUnderDecimal": 1.4247
+          },
+          {
+            "line": 4.5,
+            "pOverRaw": 0.16704516951281745,
+            "pOverCalibrated": 0.16407045967261147,
+            "pUnderCalibrated": 0.8359295403273885,
+            "fairOverDecimal": 6.0949,
+            "fairUnderDecimal": 1.1963
+          }
+        ]
+      }
+    },
+    {
+      "caseId": "gk_saves_v6_17",
+      "input": {
+        "playerSlug": "nicolas-kocik",
+        "saves": 29,
+        "shotsFaced": 44,
+        "goalsConceded": 15,
+        "appearances": 8,
+        "subIns": 0,
+        "oppExpectedSoT": 4.45,
+        "expectedMinutes": null,
+        "availability": "available",
+        "injuryStatus": null
+      },
+      "expected": {
+        "eligible": true,
+        "blockedByInjury": false,
+        "blockedByMinutesGuard": false,
+        "ebSaveRate": 0.6744516129032259,
+        "effectiveExposure90": 7.964444444444444,
+        "expectedMinutes": 89.6,
+        "oppExpectedSoT": 4.45,
+        "expectedSaves": 2.9879705232974914,
+        "rDispersionSoT": 9.2,
+        "lines": [
+          {
+            "line": 1.5,
+            "pOverRaw": 0.7551557640724234,
+            "pOverCalibrated": 0.7591078851574242,
+            "pUnderCalibrated": 0.24089211484257578,
+            "fairOverDecimal": 1.3173,
+            "fairUnderDecimal": 4.1512
+          },
+          {
+            "line": 2.5,
+            "pOverRaw": 0.543062436301788,
+            "pOverCalibrated": 0.5446160991693685,
+            "pUnderCalibrated": 0.4553839008306315,
+            "fairOverDecimal": 1.8362,
+            "fairUnderDecimal": 2.1959
+          },
+          {
+            "line": 3.5,
+            "pOverRaw": 0.3489431491467495,
+            "pOverCalibrated": 0.3400800901822153,
+            "pUnderCalibrated": 0.6599199098177847,
+            "fairOverDecimal": 2.9405,
+            "fairUnderDecimal": 1.5153
+          },
+          {
+            "line": 4.5,
+            "pOverRaw": 0.20379435213514974,
+            "pOverCalibrated": 0.19319937563107287,
+            "pUnderCalibrated": 0.8068006243689272,
+            "fairOverDecimal": 5.176,
+            "fairUnderDecimal": 1.2395
+          }
+        ]
+      }
+    },
+    {
+      "caseId": "gk_saves_v6_18",
+      "input": {
+        "playerSlug": "caoimhin-kelleher",
+        "saves": 31,
+        "shotsFaced": 42,
+        "goalsConceded": 11,
+        "appearances": 10,
+        "subIns": 0,
+        "oppExpectedSoT": 4.7,
+        "expectedMinutes": 90.0,
+        "availability": "available",
+        "injuryStatus": null
+      },
+      "expected": {
+        "eligible": true,
+        "blockedByInjury": false,
+        "blockedByMinutesGuard": false,
+        "ebSaveRate": 0.7302666666666667,
+        "effectiveExposure90": 9.955555555555556,
+        "expectedMinutes": 90.0,
+        "oppExpectedSoT": 4.7,
+        "expectedSaves": 3.4322533333333336,
+        "rDispersionSoT": 9.2,
+        "lines": [
+          {
+            "line": 1.5,
+            "pOverRaw": 0.8106548810832807,
+            "pOverCalibrated": 0.8091429470978637,
+            "pUnderCalibrated": 0.19085705290213628,
+            "fairOverDecimal": 1.2359,
+            "fairUnderDecimal": 5.2395
+          },
+          {
+            "line": 2.5,
+            "pOverRaw": 0.6232506345774973,
+            "pOverCalibrated": 0.6243344544172353,
+            "pUnderCalibrated": 0.37566554558276466,
+            "fairOverDecimal": 1.6017,
+            "fairUnderDecimal": 2.6619
+          },
+          {
+            "line": 3.5,
+            "pOverRaw": 0.4331538791502966,
+            "pOverCalibrated": 0.4199426376186144,
+            "pUnderCalibrated": 0.5800573623813856,
+            "fairOverDecimal": 2.3813,
+            "fairUnderDecimal": 1.724
+          },
+          {
+            "line": 4.5,
+            "pOverRaw": 0.2756203318072419,
+            "pOverCalibrated": 0.25726624964486894,
+            "pUnderCalibrated": 0.742733750355131,
+            "fairOverDecimal": 3.887,
+            "fairUnderDecimal": 1.3464
+          }
+        ]
+      }
+    },
+    {
+      "caseId": "gk_saves_v6_19",
+      "input": {
+        "playerSlug": "alisson-becker",
+        "saves": 25,
+        "shotsFaced": 35,
+        "goalsConceded": 10,
+        "appearances": 10,
+        "subIns": 0,
+        "oppExpectedSoT": 4.95,
+        "expectedMinutes": null,
+        "availability": "Baja",
+        "injuryStatus": null
+      },
+      "expected": {
+        "eligible": false,
+        "blockedByInjury": true,
+        "blockedByMinutesGuard": false,
+        "ebSaveRate": 0.7135094339622642,
+        "effectiveExposure90": 9.955555555555556,
+        "expectedMinutes": 89.6,
+        "oppExpectedSoT": 4.95,
+        "expectedSaves": 0.0,
+        "rDispersionSoT": 9.2,
+        "lines": []
+      }
+    }
+  ],
+  "goalkeeper_linked_sgp_cases": [
+    {
+      "caseId": "gk_sgp_v6_00",
+      "input": {
+        "savesLine": 1.5,
+        "ebSaveRate": 0.64,
+        "oppExpectedSoT": 3.1,
+        "teamExpectedGoals": 1.05,
+        "opponentExpectedGoals": 0.88,
+        "matchOutcome": "clean_sheet",
+        "expectedMinutes": 90.0,
+        "rDispersionSoT": 9.2,
+        "dixonColesRho": -0.105,
+        "siegeOwnGoalDampening": 0.0,
+        "offeredCombinedDecimalOdds": 3.1
+      },
+      "expected": {
+        "savesLine": 1.5,
+        "matchOutcome": "clean_sheet",
+        "expectedSaves": 1.9840000000000002,
+        "effectiveRivalSoT": 2.8640000000000003,
+        "pSavesOverMarginal": 0.5634363279087891,
+        "pMatchOutcomeMarginal": 0.43153012300587257,
+        "independentProbability": 0.24313974788845688,
+        "jointProbability": 0.22388591559078824,
+        "frechetLowerBound": 0.0,
+        "frechetUpperBound": 0.43153012300587257,
+        "structuralMultiplier": 0.9208116629844432,
+        "correlationDirection": "negatively_correlated",
+        "fairCombinedDecimal": 4.4666,
+        "bookQuoteAudit": {
+          "offeredCombinedDecimalOdds": 3.1,
+          "impliedBookProbability": 0.3225806451612903,
+          "fairCombinedDecimalOdds": 4.466560557689431,
+          "effectiveHoldPct": 30.59536616685564,
+          "taxFlag": "severe_sgp_tax"
+        }
+      }
+    },
+    {
+      "caseId": "gk_sgp_v6_01",
+      "input": {
+        "savesLine": 2.5,
+        "ebSaveRate": 0.652,
+        "oppExpectedSoT": 3.42,
+        "teamExpectedGoals": 1.19,
+        "opponentExpectedGoals": 1.33,
+        "matchOutcome": "under_2_5",
+        "expectedMinutes": 90.0,
+        "rDispersionSoT": 9.2,
+        "dixonColesRho": -0.105,
+        "siegeOwnGoalDampening": 0.0,
+        "offeredCombinedDecimalOdds": null
+      },
+      "expected": {
+        "savesLine": 2.5,
+        "matchOutcome": "under_2_5",
+        "expectedSaves": 2.22984,
+        "effectiveRivalSoT": 3.55984,
+        "pSavesOverMarginal": 0.37798604984174605,
+        "pMatchOutcomeMarginal": 0.5438563181985141,
+        "independentProbability": 0.20557010139733206,
+        "jointProbability": 0.1868969166486846,
+        "frechetLowerBound": 0.0,
+        "frechetUpperBound": 0.37798604984174605,
+        "structuralMultiplier": 0.9091639074859658,
+        "correlationDirection": "negatively_correlated",
+        "fairCombinedDecimal": 5.3505,
+        "bookQuoteAudit": null
+      }
+    },
+    {
+      "caseId": "gk_sgp_v6_02",
+      "input": {
+        "savesLine": 3.5,
+        "ebSaveRate": 0.664,
+        "oppExpectedSoT": 3.74,
+        "teamExpectedGoals": 1.33,
+        "opponentExpectedGoals": 1.78,
+        "matchOutcome": "team_win",
+        "expectedMinutes": 90.0,
+        "rDispersionSoT": 9.2,
+        "dixonColesRho": -0.105,
+        "siegeOwnGoalDampening": 0.0,
+        "offeredCombinedDecimalOdds": 3.8
+      },
+      "expected": {
+        "savesLine": 3.5,
+        "matchOutcome": "team_win",
+        "expectedSaves": 2.4833600000000002,
+        "effectiveRivalSoT": 4.2633600000000005,
+        "pSavesOverMarginal": 0.2500840385331791,
+        "pMatchOutcomeMarginal": 0.288051234710428,
+        "independentProbability": 0.0720370160808525,
+        "jointProbability": 0.058790824905308084,
+        "frechetLowerBound": 0.0,
+        "frechetUpperBound": 0.2500840385331791,
+        "structuralMultiplier": 0.8161196576954655,
+        "correlationDirection": "negatively_correlated",
+        "fairCombinedDecimal": 17.0095,
+        "bookQuoteAudit": {
+          "offeredCombinedDecimalOdds": 3.8,
+          "impliedBookProbability": 0.2631578947368421,
+          "fairCombinedDecimalOdds": 17.009456860159013,
+          "effectiveHoldPct": 77.65948653598294,
+          "taxFlag": "severe_sgp_tax"
+        }
+      }
+    },
+    {
+      "caseId": "gk_sgp_v6_03",
+      "input": {
+        "savesLine": 4.5,
+        "ebSaveRate": 0.676,
+        "oppExpectedSoT": 4.06,
+        "teamExpectedGoals": 1.47,
+        "opponentExpectedGoals": 0.88,
+        "matchOutcome": "over_2_5",
+        "expectedMinutes": 84.0,
+        "rDispersionSoT": 9.2,
+        "dixonColesRho": -0.105,
+        "siegeOwnGoalDampening": 0.0,
+        "offeredCombinedDecimalOdds": null
+      },
+      "expected": {
+        "savesLine": 4.5,
+        "matchOutcome": "over_2_5",
+        "expectedSaves": 2.561589333333333,
+        "effectiveRivalSoT": 3.441589333333333,
+        "pSavesOverMarginal": 0.1399205975383022,
+        "pMatchOutcomeMarginal": 0.4154074926384126,
+        "independentProbability": 0.058124064591854555,
+        "jointProbability": 0.0668838970238419,
+        "frechetLowerBound": 0.0,
+        "frechetUpperBound": 0.1399205975383022,
+        "structuralMultiplier": 1.1507092198988256,
+        "correlationDirection": "positively_correlated",
+        "fairCombinedDecimal": 14.9513,
+        "bookQuoteAudit": null
+      }
+    },
+    {
+      "caseId": "gk_sgp_v6_04",
+      "input": {
+        "savesLine": 1.5,
+        "ebSaveRate": 0.688,
+        "oppExpectedSoT": 4.38,
+        "teamExpectedGoals": 1.61,
+        "opponentExpectedGoals": 1.33,
+        "matchOutcome": "team_win_or_draw",
+        "expectedMinutes": 90.0,
+        "rDispersionSoT": 9.2,
+        "dixonColesRho": -0.105,
+        "siegeOwnGoalDampening": 0.0,
+        "offeredCombinedDecimalOdds": 4.5
+      },
+      "expected": {
+        "savesLine": 1.5,
+        "matchOutcome": "team_win_or_draw",
+        "expectedSaves": 3.0134399999999997,
+        "effectiveRivalSoT": 4.343439999999999,
+        "pSavesOverMarginal": 0.758744708981244,
+        "pMatchOutcomeMarginal": 0.6977380951284387,
+        "independentProbability": 0.5294050879333547,
+        "jointProbability": 0.5147792488841013,
+        "frechetLowerBound": 0.45648280410968267,
+        "frechetUpperBound": 0.6977380951284387,
+        "structuralMultiplier": 0.9723730667071061,
+        "correlationDirection": "near_independent",
+        "fairCombinedDecimal": 1.9426,
+        "bookQuoteAudit": {
+          "offeredCombinedDecimalOdds": 4.5,
+          "impliedBookProbability": 0.2222222222222222,
+          "fairCombinedDecimalOdds": 1.9425802461302057,
+          "effectiveHoldPct": 0.0,
+          "taxFlag": "fair_or_low_vig"
+        }
+      }
+    },
+    {
+      "caseId": "gk_sgp_v6_05",
+      "input": {
+        "savesLine": 2.5,
+        "ebSaveRate": 0.7,
+        "oppExpectedSoT": 4.7,
+        "teamExpectedGoals": 1.75,
+        "opponentExpectedGoals": 1.78,
+        "matchOutcome": "clean_sheet",
+        "expectedMinutes": 90.0,
+        "rDispersionSoT": 9.2,
+        "dixonColesRho": -0.105,
+        "siegeOwnGoalDampening": 0.0,
+        "offeredCombinedDecimalOdds": null
+      },
+      "expected": {
+        "savesLine": 2.5,
+        "matchOutcome": "clean_sheet",
+        "expectedSaves": 3.29,
+        "effectiveRivalSoT": 5.07,
+        "pSavesOverMarginal": 0.5989653068183888,
+        "pMatchOutcomeMarginal": 0.19647530844666072,
+        "independentProbability": 0.11768189340599171,
+        "jointProbability": 0.09750422485082312,
+        "frechetLowerBound": 0.0,
+        "frechetUpperBound": 0.19647530844666072,
+        "structuralMultiplier": 0.8285405853765669,
+        "correlationDirection": "negatively_correlated",
+        "fairCombinedDecimal": 10.256,
+        "bookQuoteAudit": null
+      }
+    },
+    {
+      "caseId": "gk_sgp_v6_06",
+      "input": {
+        "savesLine": 3.5,
+        "ebSaveRate": 0.712,
+        "oppExpectedSoT": 5.02,
+        "teamExpectedGoals": 1.89,
+        "opponentExpectedGoals": 0.88,
+        "matchOutcome": "under_2_5",
+        "expectedMinutes": 90.0,
+        "rDispersionSoT": 9.2,
+        "dixonColesRho": -0.105,
+        "siegeOwnGoalDampening": 0.0,
+        "offeredCombinedDecimalOdds": 3.45
+      },
+      "expected": {
+        "savesLine": 3.5,
+        "matchOutcome": "under_2_5",
+        "expectedSaves": 3.5742399999999996,
+        "effectiveRivalSoT": 4.4542399999999995,
+        "pSavesOverMarginal": 0.45889341249811344,
+        "pMatchOutcomeMarginal": 0.47947630190413637,
+        "independentProbability": 0.22002851639276483,
+        "jointProbability": 0.20567354708914595,
+        "frechetLowerBound": 0.0,
+        "frechetUpperBound": 0.45889341249811344,
+        "structuralMultiplier": 0.9347585961176308,
+        "correlationDirection": "negatively_correlated",
+        "fairCombinedDecimal": 4.8621,
+        "bookQuoteAudit": {
+          "offeredCombinedDecimalOdds": 3.45,
+          "impliedBookProbability": 0.2898550724637681,
+          "fairCombinedDecimalOdds": 4.862073971849019,
+          "effectiveHoldPct": 29.04262625424464,
+          "taxFlag": "severe_sgp_tax"
+        }
+      }
+    },
+    {
+      "caseId": "gk_sgp_v6_07",
+      "input": {
+        "savesLine": 4.5,
+        "ebSaveRate": 0.724,
+        "oppExpectedSoT": 5.34,
+        "teamExpectedGoals": 2.03,
+        "opponentExpectedGoals": 1.33,
+        "matchOutcome": "team_win",
+        "expectedMinutes": 84.0,
+        "rDispersionSoT": 9.2,
+        "dixonColesRho": -0.105,
+        "siegeOwnGoalDampening": 0.0,
+        "offeredCombinedDecimalOdds": null
+      },
+      "expected": {
+        "savesLine": 4.5,
+        "matchOutcome": "team_win",
+        "expectedSaves": 3.608416,
+        "effectiveRivalSoT": 4.938416,
+        "pSavesOverMarginal": 0.3046882368074054,
+        "pMatchOutcomeMarginal": 0.5312465449644043,
+        "independentProbability": 0.16186457309523036,
+        "jointProbability": 0.14453241071142933,
+        "frechetLowerBound": 0.0,
+        "frechetUpperBound": 0.3046882368074054,
+        "structuralMultiplier": 0.8929218293270144,
+        "correlationDirection": "negatively_correlated",
+        "fairCombinedDecimal": 6.9189,
+        "bookQuoteAudit": null
+      }
+    },
+    {
+      "caseId": "gk_sgp_v6_08",
+      "input": {
+        "savesLine": 1.5,
+        "ebSaveRate": 0.736,
+        "oppExpectedSoT": 5.66,
+        "teamExpectedGoals": 2.17,
+        "opponentExpectedGoals": 1.78,
+        "matchOutcome": "over_2_5",
+        "expectedMinutes": 90.0,
+        "rDispersionSoT": 9.2,
+        "dixonColesRho": -0.105,
+        "siegeOwnGoalDampening": 0.0,
+        "offeredCombinedDecimalOdds": 4.15
+      },
+      "expected": {
+        "savesLine": 1.5,
+        "matchOutcome": "over_2_5",
+        "expectedSaves": 4.16576,
+        "effectiveRivalSoT": 5.94576,
+        "pSavesOverMarginal": 0.8755121419317218,
+        "pMatchOutcomeMarginal": 0.7423469914738071,
+        "independentProbability": 0.6499338045618025,
+        "jointProbability": 0.6588027553242098,
+        "frechetLowerBound": 0.617859133405529,
+        "frechetUpperBound": 0.7423469914738071,
+        "structuralMultiplier": 1.013645929324121,
+        "correlationDirection": "near_independent",
+        "fairCombinedDecimal": 1.5179,
+        "bookQuoteAudit": {
+          "offeredCombinedDecimalOdds": 4.15,
+          "impliedBookProbability": 0.24096385542168672,
+          "fairCombinedDecimalOdds": 1.5179050055852912,
+          "effectiveHoldPct": 0.0,
+          "taxFlag": "fair_or_low_vig"
+        }
+      }
+    },
+    {
+      "caseId": "gk_sgp_v6_09",
+      "input": {
+        "savesLine": 2.5,
+        "ebSaveRate": 0.748,
+        "oppExpectedSoT": 5.98,
+        "teamExpectedGoals": 1.05,
+        "opponentExpectedGoals": 0.88,
+        "matchOutcome": "team_win_or_draw",
+        "expectedMinutes": 90.0,
+        "rDispersionSoT": 9.2,
+        "dixonColesRho": -0.105,
+        "siegeOwnGoalDampening": 0.0,
+        "offeredCombinedDecimalOdds": null
+      },
+      "expected": {
+        "savesLine": 2.5,
+        "matchOutcome": "team_win_or_draw",
+        "expectedSaves": 4.47304,
+        "effectiveRivalSoT": 5.35304,
+        "pSavesOverMarginal": 0.7641502180251672,
+        "pMatchOutcomeMarginal": 0.7186484231413888,
+        "independentProbability": 0.5491553492269349,
+        "jointProbability": 0.5349638599189641,
+        "frechetLowerBound": 0.48279864116655613,
+        "frechetUpperBound": 0.7186484231413888,
+        "structuralMultiplier": 0.9741576052606087,
+        "correlationDirection": "near_independent",
+        "fairCombinedDecimal": 1.8693,
+        "bookQuoteAudit": null
+      }
+    },
+    {
+      "caseId": "gk_sgp_v6_10",
+      "input": {
+        "savesLine": 3.5,
+        "ebSaveRate": 0.76,
+        "oppExpectedSoT": 3.1,
+        "teamExpectedGoals": 1.19,
+        "opponentExpectedGoals": 1.33,
+        "matchOutcome": "clean_sheet",
+        "expectedMinutes": 90.0,
+        "rDispersionSoT": 9.2,
+        "dixonColesRho": -0.105,
+        "siegeOwnGoalDampening": 0.0,
+        "offeredCombinedDecimalOdds": 3.1
+      },
+      "expected": {
+        "savesLine": 3.5,
+        "matchOutcome": "clean_sheet",
+        "expectedSaves": 2.3560000000000003,
+        "effectiveRivalSoT": 3.6860000000000004,
+        "pSavesOverMarginal": 0.2254088179864628,
+        "pMatchOutcomeMarginal": 0.2887400826282908,
+        "independentProbability": 0.06508456073055664,
+        "jointProbability": 0.0489865846423413,
+        "frechetLowerBound": 0.0,
+        "frechetUpperBound": 0.2254088179864628,
+        "structuralMultiplier": 0.7526606017230523,
+        "correlationDirection": "negatively_correlated",
+        "fairCombinedDecimal": 20.4138,
+        "bookQuoteAudit": {
+          "offeredCombinedDecimalOdds": 3.1,
+          "impliedBookProbability": 0.3225806451612903,
+          "fairCombinedDecimalOdds": 20.41375219973297,
+          "effectiveHoldPct": 84.8141587608742,
+          "taxFlag": "severe_sgp_tax"
+        }
+      }
+    },
+    {
+      "caseId": "gk_sgp_v6_11",
+      "input": {
+        "savesLine": 4.5,
+        "ebSaveRate": 0.772,
+        "oppExpectedSoT": 3.42,
+        "teamExpectedGoals": 1.33,
+        "opponentExpectedGoals": 1.78,
+        "matchOutcome": "under_2_5",
+        "expectedMinutes": 84.0,
+        "rDispersionSoT": 9.2,
+        "dixonColesRho": -0.105,
+        "siegeOwnGoalDampening": 0.0,
+        "offeredCombinedDecimalOdds": null
+      },
+      "expected": {
+        "savesLine": 4.5,
+        "matchOutcome": "under_2_5",
+        "expectedSaves": 2.4642239999999997,
+        "effectiveRivalSoT": 4.244224,
+        "pSavesOverMarginal": 0.12645490207981716,
+        "pMatchOutcomeMarginal": 0.4116834702458966,
+        "independentProbability": 0.052059392917824174,
+        "jointProbability": 0.039592971859870645,
+        "frechetLowerBound": 0.0,
+        "frechetUpperBound": 0.12645490207981716,
+        "structuralMultiplier": 0.7605346440049389,
+        "correlationDirection": "negatively_correlated",
+        "fairCombinedDecimal": 25.257,
+        "bookQuoteAudit": null
+      }
+    },
+    {
+      "caseId": "gk_sgp_v6_12",
+      "input": {
+        "savesLine": 1.5,
+        "ebSaveRate": 0.784,
+        "oppExpectedSoT": 3.74,
+        "teamExpectedGoals": 1.47,
+        "opponentExpectedGoals": 0.88,
+        "matchOutcome": "team_win",
+        "expectedMinutes": 90.0,
+        "rDispersionSoT": 9.2,
+        "dixonColesRho": -0.105,
+        "siegeOwnGoalDampening": 0.0,
+        "offeredCombinedDecimalOdds": 3.8
+      },
+      "expected": {
+        "savesLine": 1.5,
+        "matchOutcome": "team_win",
+        "expectedSaves": 2.93216,
+        "effectiveRivalSoT": 3.81216,
+        "pSavesOverMarginal": 0.7471021969601495,
+        "pMatchOutcomeMarginal": 0.500291662452578,
+        "independentProbability": 0.3737690001391665,
+        "jointProbability": 0.36395702186809165,
+        "frechetLowerBound": 0.2473938594127274,
+        "frechetUpperBound": 0.500291662452578,
+        "structuralMultiplier": 0.9737485498598827,
+        "correlationDirection": "near_independent",
+        "fairCombinedDecimal": 2.7476,
+        "bookQuoteAudit": {
+          "offeredCombinedDecimalOdds": 3.8,
+          "impliedBookProbability": 0.2631578947368421,
+          "fairCombinedDecimalOdds": 2.7475771586086566,
+          "effectiveHoldPct": 0.0,
+          "taxFlag": "fair_or_low_vig"
+        }
+      }
+    },
+    {
+      "caseId": "gk_sgp_v6_13",
+      "input": {
+        "savesLine": 2.5,
+        "ebSaveRate": 0.796,
+        "oppExpectedSoT": 4.06,
+        "teamExpectedGoals": 1.61,
+        "opponentExpectedGoals": 1.33,
+        "matchOutcome": "over_2_5",
+        "expectedMinutes": 90.0,
+        "rDispersionSoT": 9.2,
+        "dixonColesRho": -0.105,
+        "siegeOwnGoalDampening": 0.0,
+        "offeredCombinedDecimalOdds": null
+      },
+      "expected": {
+        "savesLine": 2.5,
+        "matchOutcome": "over_2_5",
+        "expectedSaves": 3.23176,
+        "effectiveRivalSoT": 4.56176,
+        "pSavesOverMarginal": 0.5886477968337432,
+        "pMatchOutcomeMarginal": 0.556315809909179,
+        "independentProbability": 0.3274740758468177,
+        "jointProbability": 0.3460499892312217,
+        "frechetLowerBound": 0.1449636067429223,
+        "frechetUpperBound": 0.556315809909179,
+        "structuralMultiplier": 1.0567248364206188,
+        "correlationDirection": "positively_correlated",
+        "fairCombinedDecimal": 2.8898,
+        "bookQuoteAudit": null
+      }
+    },
+    {
+      "caseId": "gk_sgp_v6_14",
+      "input": {
+        "savesLine": 3.5,
+        "ebSaveRate": 0.808,
+        "oppExpectedSoT": 4.38,
+        "teamExpectedGoals": 1.75,
+        "opponentExpectedGoals": 1.78,
+        "matchOutcome": "team_win_or_draw",
+        "expectedMinutes": 90.0,
+        "rDispersionSoT": 9.2,
+        "dixonColesRho": -0.105,
+        "siegeOwnGoalDampening": 0.0,
+        "offeredCombinedDecimalOdds": 4.5
+      },
+      "expected": {
+        "savesLine": 3.5,
+        "matchOutcome": "team_win_or_draw",
+        "expectedSaves": 3.53904,
+        "effectiveRivalSoT": 5.31904,
+        "pSavesOverMarginal": 0.4525735274582888,
+        "pMatchOutcomeMarginal": 0.6204260358239099,
+        "independentProbability": 0.28078839955978957,
+        "jointProbability": 0.2541889410984248,
+        "frechetLowerBound": 0.0729995632821987,
+        "frechetUpperBound": 0.4525735274582888,
+        "structuralMultiplier": 0.9052686702760283,
+        "correlationDirection": "negatively_correlated",
+        "fairCombinedDecimal": 3.9341,
+        "bookQuoteAudit": {
+          "offeredCombinedDecimalOdds": 4.5,
+          "impliedBookProbability": 0.2222222222222222,
+          "fairCombinedDecimalOdds": 3.9340814579843926,
+          "effectiveHoldPct": 0.0,
+          "taxFlag": "fair_or_low_vig"
+        }
+      }
+    },
+    {
+      "caseId": "gk_sgp_v6_15",
+      "input": {
+        "savesLine": 4.5,
+        "ebSaveRate": 0.64,
+        "oppExpectedSoT": 4.7,
+        "teamExpectedGoals": 1.89,
+        "opponentExpectedGoals": 0.88,
+        "matchOutcome": "clean_sheet",
+        "expectedMinutes": 84.0,
+        "rDispersionSoT": 9.2,
+        "dixonColesRho": -0.105,
+        "siegeOwnGoalDampening": 0.0,
+        "offeredCombinedDecimalOdds": null
+      },
+      "expected": {
+        "savesLine": 4.5,
+        "matchOutcome": "clean_sheet",
+        "expectedSaves": 2.8074666666666666,
+        "effectiveRivalSoT": 3.6874666666666664,
+        "pSavesOverMarginal": 0.17591388622648224,
+        "pMatchOutcomeMarginal": 0.4315301230183904,
+        "independentProbability": 0.07591214096395701,
+        "jointProbability": 0.060427414464347365,
+        "frechetLowerBound": 0.0,
+        "frechetUpperBound": 0.17591388622648224,
+        "structuralMultiplier": 0.7960177871025693,
+        "correlationDirection": "negatively_correlated",
+        "fairCombinedDecimal": 16.5488,
+        "bookQuoteAudit": null
+      }
+    },
+    {
+      "caseId": "gk_sgp_v6_16",
+      "input": {
+        "savesLine": 1.5,
+        "ebSaveRate": 0.652,
+        "oppExpectedSoT": 5.02,
+        "teamExpectedGoals": 2.03,
+        "opponentExpectedGoals": 1.33,
+        "matchOutcome": "under_2_5",
+        "expectedMinutes": 90.0,
+        "rDispersionSoT": 9.2,
+        "dixonColesRho": -0.105,
+        "siegeOwnGoalDampening": 0.0,
+        "offeredCombinedDecimalOdds": 3.45
+      },
+      "expected": {
+        "savesLine": 1.5,
+        "matchOutcome": "under_2_5",
+        "expectedSaves": 3.27304,
+        "effectiveRivalSoT": 4.60304,
+        "pSavesOverMarginal": 0.7924191886098226,
+        "pMatchOutcomeMarginal": 0.3549435637202348,
+        "independentProbability": 0.2812640907654673,
+        "jointProbability": 0.27015176611329234,
+        "frechetLowerBound": 0.14736275233005736,
+        "frechetUpperBound": 0.3549435637202348,
+        "structuralMultiplier": 0.960491491743818,
+        "correlationDirection": "negatively_correlated",
+        "fairCombinedDecimal": 3.7016,
+        "bookQuoteAudit": {
+          "offeredCombinedDecimalOdds": 3.45,
+          "impliedBookProbability": 0.2898550724637681,
+          "fairCombinedDecimalOdds": 3.701623033553053,
+          "effectiveHoldPct": 6.797640690914141,
+          "taxFlag": "fair_or_low_vig"
+        }
+      }
+    },
+    {
+      "caseId": "gk_sgp_v6_17",
+      "input": {
+        "savesLine": 2.5,
+        "ebSaveRate": 0.664,
+        "oppExpectedSoT": 5.34,
+        "teamExpectedGoals": 2.17,
+        "opponentExpectedGoals": 1.78,
+        "matchOutcome": "team_win",
+        "expectedMinutes": 90.0,
+        "rDispersionSoT": 9.2,
+        "dixonColesRho": -0.105,
+        "siegeOwnGoalDampening": 0.0,
+        "offeredCombinedDecimalOdds": null
+      },
+      "expected": {
+        "savesLine": 2.5,
+        "matchOutcome": "team_win",
+        "expectedSaves": 3.54576,
+        "effectiveRivalSoT": 5.32576,
+        "pSavesOverMarginal": 0.6417016687278968,
+        "pMatchOutcomeMarginal": 0.4728399390975612,
+        "independentProbability": 0.3034221779601021,
+        "jointProbability": 0.283518214460877,
+        "frechetLowerBound": 0.11454160782545797,
+        "frechetUpperBound": 0.4728399390975612,
+        "structuralMultiplier": 0.9344017512726365,
+        "correlationDirection": "negatively_correlated",
+        "fairCombinedDecimal": 3.5271,
+        "bookQuoteAudit": null
+      }
+    },
+    {
+      "caseId": "gk_sgp_v6_18",
+      "input": {
+        "savesLine": 3.5,
+        "ebSaveRate": 0.676,
+        "oppExpectedSoT": 5.66,
+        "teamExpectedGoals": 1.05,
+        "opponentExpectedGoals": 0.88,
+        "matchOutcome": "over_2_5",
+        "expectedMinutes": 90.0,
+        "rDispersionSoT": 9.2,
+        "dixonColesRho": -0.105,
+        "siegeOwnGoalDampening": 0.0,
+        "offeredCombinedDecimalOdds": 4.15
+      },
+      "expected": {
+        "savesLine": 3.5,
+        "matchOutcome": "over_2_5",
+        "expectedSaves": 3.8261600000000002,
+        "effectiveRivalSoT": 4.706160000000001,
+        "pSavesOverMarginal": 0.5028090223719826,
+        "pMatchOutcomeMarginal": 0.30455038053200756,
+        "independentProbability": 0.153130679098314,
+        "jointProbability": 0.16960480370233805,
+        "frechetLowerBound": 0.0,
+        "frechetUpperBound": 0.30455038053200756,
+        "structuralMultiplier": 1.1075821298581667,
+        "correlationDirection": "positively_correlated",
+        "fairCombinedDecimal": 5.8961,
+        "bookQuoteAudit": {
+          "offeredCombinedDecimalOdds": 4.15,
+          "impliedBookProbability": 0.24096385542168672,
+          "fairCombinedDecimalOdds": 5.896059416778269,
+          "effectiveHoldPct": 29.61400646352971,
+          "taxFlag": "severe_sgp_tax"
+        }
+      }
+    },
+    {
+      "caseId": "gk_sgp_v6_19",
+      "input": {
+        "savesLine": 4.5,
+        "ebSaveRate": 0.688,
+        "oppExpectedSoT": 5.98,
+        "teamExpectedGoals": 1.19,
+        "opponentExpectedGoals": 1.33,
+        "matchOutcome": "team_win_or_draw",
+        "expectedMinutes": 84.0,
+        "rDispersionSoT": 9.2,
+        "dixonColesRho": -0.105,
+        "siegeOwnGoalDampening": 0.0,
+        "offeredCombinedDecimalOdds": null
+      },
+      "expected": {
+        "savesLine": 4.5,
+        "matchOutcome": "team_win_or_draw",
+        "expectedSaves": 3.839957333333333,
+        "effectiveRivalSoT": 5.169957333333333,
+        "pSavesOverMarginal": 0.34286580747505374,
+        "pMatchOutcomeMarginal": 0.6205330943261048,
+        "independentProbability": 0.21275958045111362,
+        "jointProbability": 0.1891139881818496,
+        "frechetLowerBound": 0.0,
+        "frechetUpperBound": 0.34286580747505374,
+        "structuralMultiplier": 0.8888623853312347,
+        "correlationDirection": "negatively_correlated",
+        "fairCombinedDecimal": 5.2878,
+        "bookQuoteAudit": null
+      }
+    }
+  ],
+  "us_normalizer_cases": [
+    {
+      "caseId": "us_norm_nba_full_11cols",
+      "input": {
+        "sport": "nba",
+        "availability": "available",
+        "injuryStatus": null,
+        "enforceMinutesGuard": true,
+        "columns": [
+          {
+            "label": "MIN",
+            "value": "34:30"
+          },
+          {
+            "label": "FG",
+            "value": "9-18"
+          },
+          {
+            "label": "%TC",
+            "value": "50.0"
+          },
+          {
+            "label": "3PT",
+            "value": "4-9"
+          },
+          {
+            "label": "%3P",
+            "value": "44.4"
+          },
+          {
+            "label": "FT",
+            "value": "5-6"
+          },
+          {
+            "label": "REB",
+            "value": "7"
+          },
+          {
+            "label": "AST",
+            "value": "8"
+          },
+          {
+            "label": "STL",
+            "value": "2"
+          },
+          {
+            "label": "BLK",
+            "value": "1"
+          },
+          {
+            "label": "PTS",
+            "value": "27"
+          }
+        ]
+      },
+      "expected": {
+        "sport": "nba",
+        "blockedByInjury": false,
+        "blockedByMinutesGuard": false,
+        "eligibleForProjection": true,
+        "rawColumnCount": 11,
+        "extractedCount": 14,
+        "metrics": {
+          "MIN": 34.5,
+          "FGM": 9.0,
+          "FGA": 18.0,
+          "FG_PCT": 50.0,
+          "3PM": 4.0,
+          "3PA": 9.0,
+          "FG3_PCT": 44.4,
+          "FTM": 5.0,
+          "FTA": 6.0,
+          "REB": 7.0,
+          "AST": 8.0,
+          "STL": 2.0,
+          "BLK": 1.0,
+          "PTS": 27.0
+        }
+      }
+    },
+    {
+      "caseId": "us_norm_nba_low_minutes_guard",
+      "input": {
+        "sport": "nba",
+        "availability": "available",
+        "injuryStatus": null,
+        "enforceMinutesGuard": true,
+        "columns": [
+          {
+            "label": "MIN",
+            "value": "14"
+          },
+          {
+            "label": "PTS",
+            "value": "6"
+          },
+          {
+            "label": "REB",
+            "value": "2"
+          },
+          {
+            "label": "AST",
+            "value": "1"
+          },
+          {
+            "label": "3PM",
+            "value": "1"
+          },
+          {
+            "label": "STL",
+            "value": "0"
+          }
+        ]
+      },
+      "expected": {
+        "sport": "nba",
+        "blockedByInjury": false,
+        "blockedByMinutesGuard": true,
+        "eligibleForProjection": false,
+        "rawColumnCount": 6,
+        "extractedCount": 6,
+        "metrics": {
+          "MIN": 14.0,
+          "PTS": 6.0,
+          "REB": 2.0,
+          "AST": 1.0,
+          "3PM": 1.0,
+          "STL": 0.0
+        }
+      }
+    },
+    {
+      "caseId": "us_norm_nba_hard_injury_baja",
+      "input": {
+        "sport": "nba",
+        "availability": "available",
+        "injuryStatus": "Baja",
+        "enforceMinutesGuard": true,
+        "columns": [
+          {
+            "label": "MIN",
+            "value": "35"
+          },
+          {
+            "label": "PTS",
+            "value": "28"
+          },
+          {
+            "label": "REB",
+            "value": "9"
+          },
+          {
+            "label": "AST",
+            "value": "7"
+          },
+          {
+            "label": "3PM",
+            "value": "4"
+          }
+        ]
+      },
+      "expected": {
+        "sport": "nba",
+        "blockedByInjury": true,
+        "blockedByMinutesGuard": false,
+        "eligibleForProjection": false,
+        "rawColumnCount": 5,
+        "extractedCount": 0,
+        "metrics": {}
+      }
+    },
+    {
+      "caseId": "us_norm_mlb_pitcher_9cols_outs_ip",
+      "input": {
+        "sport": "mlb",
+        "availability": "available",
+        "injuryStatus": null,
+        "enforceMinutesGuard": true,
+        "columns": [
+          {
+            "label": "GS",
+            "value": "1"
+          },
+          {
+            "label": "CG",
+            "value": "0"
+          },
+          {
+            "label": "SHO",
+            "value": "0"
+          },
+          {
+            "label": "IP",
+            "value": "6.2"
+          },
+          {
+            "label": "H",
+            "value": "4"
+          },
+          {
+            "label": "ER",
+            "value": "2"
+          },
+          {
+            "label": "BB",
+            "value": "1"
+          },
+          {
+            "label": "HR",
+            "value": "1"
+          },
+          {
+            "label": "SO",
+            "value": "9"
+          }
+        ]
+      },
+      "expected": {
+        "sport": "mlb",
+        "blockedByInjury": false,
+        "blockedByMinutesGuard": false,
+        "eligibleForProjection": true,
+        "rawColumnCount": 9,
+        "extractedCount": 9,
+        "metrics": {
+          "GS": 1.0,
+          "CG": 0.0,
+          "SHO": 0.0,
+          "IP": 6.666666666666667,
+          "H": 4.0,
+          "ER": 2.0,
+          "BB": 1.0,
+          "HR": 1.0,
+          "SO": 9.0
+        }
+      }
+    },
+    {
+      "caseId": "us_norm_mlb_batter_8cols",
+      "input": {
+        "sport": "mlb",
+        "availability": "available",
+        "injuryStatus": null,
+        "enforceMinutesGuard": true,
+        "columns": [
+          {
+            "label": "AB",
+            "value": "4"
+          },
+          {
+            "label": "R",
+            "value": "2"
+          },
+          {
+            "label": "H",
+            "value": "3"
+          },
+          {
+            "label": "HR",
+            "value": "1"
+          },
+          {
+            "label": "RBI",
+            "value": "3"
+          },
+          {
+            "label": "BB",
+            "value": "1"
+          },
+          {
+            "label": "SO",
+            "value": "0"
+          },
+          {
+            "label": "TB",
+            "value": "7"
+          }
+        ]
+      },
+      "expected": {
+        "sport": "mlb",
+        "blockedByInjury": false,
+        "blockedByMinutesGuard": false,
+        "eligibleForProjection": true,
+        "rawColumnCount": 8,
+        "extractedCount": 8,
+        "metrics": {
+          "AB": 4.0,
+          "R": 2.0,
+          "H": 3.0,
+          "HR": 1.0,
+          "RBI": 3.0,
+          "BB": 1.0,
+          "SO": 0.0,
+          "TB": 7.0
+        }
+      }
+    },
+    {
+      "caseId": "us_norm_nhl_skater_8cols_spanish_tiros",
+      "input": {
+        "sport": "nhl",
+        "availability": "available",
+        "injuryStatus": null,
+        "enforceMinutesGuard": true,
+        "columns": [
+          {
+            "label": "G",
+            "value": "1"
+          },
+          {
+            "label": "A",
+            "value": "2"
+          },
+          {
+            "label": "PTS",
+            "value": "3"
+          },
+          {
+            "label": "+/-",
+            "value": "2"
+          },
+          {
+            "label": "PIM",
+            "value": "2"
+          },
+          {
+            "key": "s",
+            "label": "Tiros",
+            "value": "5"
+          },
+          {
+            "label": "TOI",
+            "value": "20:15"
+          }
+        ]
+      },
+      "expected": {
+        "sport": "nhl",
+        "blockedByInjury": false,
+        "blockedByMinutesGuard": false,
+        "eligibleForProjection": true,
+        "rawColumnCount": 7,
+        "extractedCount": 7,
+        "metrics": {
+          "G": 1.0,
+          "A": 2.0,
+          "PTS": 3.0,
+          "PLUS_MINUS": 2.0,
+          "PIM": 2.0,
+          "SOG": 5.0,
+          "TOI": 20.25
+        }
+      }
+    },
+    {
+      "caseId": "us_norm_nfl_qb_and_skill_spanish_int_dot",
+      "input": {
+        "sport": "nfl",
+        "availability": "available",
+        "injuryStatus": null,
+        "enforceMinutesGuard": true,
+        "columns": [
+          {
+            "key": "cmp",
+            "label": "CMP",
+            "value": "24"
+          },
+          {
+            "key": "att",
+            "label": "INT.",
+            "value": "35"
+          },
+          {
+            "key": "yds",
+            "label": "YDS",
+            "value": "286"
+          },
+          {
+            "key": "td",
+            "label": "TD",
+            "value": "3"
+          },
+          {
+            "key": "int",
+            "label": "INT",
+            "value": "1"
+          },
+          {
+            "key": "car",
+            "label": "ACAR",
+            "value": "4"
+          },
+          {
+            "label": "REC",
+            "value": "0"
+          },
+          {
+            "label": "TGTS",
+            "value": "0"
+          }
+        ]
+      },
+      "expected": {
+        "sport": "nfl",
+        "blockedByInjury": false,
+        "blockedByMinutesGuard": false,
+        "eligibleForProjection": true,
+        "rawColumnCount": 8,
+        "extractedCount": 8,
+        "metrics": {
+          "CMP": 24.0,
+          "ATT": 35.0,
+          "YDS": 286.0,
+          "TD": 3.0,
+          "INT": 1.0,
+          "CAR": 4.0,
+          "REC": 0.0,
+          "TGTS": 0.0
+        }
+      }
+    },
+    {
+      "caseId": "us_norm_football_guard_sub45",
+      "input": {
+        "sport": "football",
+        "availability": "available",
+        "injuryStatus": null,
+        "enforceMinutesGuard": true,
+        "columns": [
+          {
+            "label": "MIN",
+            "value": "28"
+          },
+          {
+            "label": "SH",
+            "value": "2"
+          },
+          {
+            "label": "SOT",
+            "value": "1"
+          },
+          {
+            "label": "G",
+            "value": "0"
+          }
+        ]
+      },
+      "expected": {
+        "sport": "football",
+        "blockedByInjury": false,
+        "blockedByMinutesGuard": true,
+        "eligibleForProjection": false,
+        "rawColumnCount": 4,
+        "extractedCount": 4,
+        "metrics": {
+          "MIN": 28.0,
+          "SH": 2.0,
+          "SOT": 1.0,
+          "G": 0.0
+        }
+      }
+    }
+  ],
+  "us_prop_projection_cases": [
+    {
+      "caseId": "us_prop_v6_00",
+      "input": {
+        "sport": "nba",
+        "positionLabel": "G",
+        "metric": "PTS",
+        "sampleSum": 318.0,
+        "sampleGames": 15.0,
+        "line": 20.5,
+        "prematchMinutes": 33.5,
+        "sampleVariance": 38.0,
+        "oppFactor": 1.04,
+        "availability": "available",
+        "injuryStatus": null
+      },
+      "expected": {
+        "sport": "nba",
+        "role": "G",
+        "metric": "PTS",
+        "distributionFamily": "normal_overdispersed",
+        "line": 20.5,
+        "muAdjusted": 22.82849523809524,
+        "sdEffective": 7.190282092185664,
+        "pOverCalibrated": 0.626970044955977,
+        "pUnderCalibrated": 0.37302995504402303,
+        "pPush": 0.0,
+        "fairOverDecimal": 1.595,
+        "fairUnderDecimal": 2.6807
+      }
+    },
+    {
+      "caseId": "us_prop_v6_01",
+      "input": {
+        "sport": "nba",
+        "positionLabel": "C",
+        "metric": "REB",
+        "sampleSum": 142.0,
+        "sampleGames": 15.0,
+        "line": 8.5,
+        "prematchMinutes": 31.0,
+        "sampleVariance": 11.2,
+        "oppFactor": 1.02,
+        "availability": "available",
+        "injuryStatus": null
+      },
+      "expected": {
+        "sport": "nba",
+        "role": "C",
+        "metric": "REB",
+        "distributionFamily": "negbin",
+        "line": 8.5,
+        "muAdjusted": 10.494194235033259,
+        "sdEffective": 3.584484244689174,
+        "pOverCalibrated": 0.6946814448333984,
+        "pUnderCalibrated": 0.30531855516660156,
+        "pPush": 0.0,
+        "fairOverDecimal": 1.4395,
+        "fairUnderDecimal": 3.2753
+      }
+    },
+    {
+      "caseId": "us_prop_v6_02",
+      "input": {
+        "sport": "nba",
+        "positionLabel": "G",
+        "metric": "AST",
+        "sampleSum": 108.0,
+        "sampleGames": 15.0,
+        "line": 6.5,
+        "prematchMinutes": 34.0,
+        "sampleVariance": 7.5,
+        "oppFactor": 1.0,
+        "availability": "available",
+        "injuryStatus": null
+      },
+      "expected": {
+        "sport": "nba",
+        "role": "G",
+        "metric": "AST",
+        "distributionFamily": "negbin",
+        "line": 6.5,
+        "muAdjusted": 7.4606504065040635,
+        "sdEffective": 3.693946371303638,
+        "pOverCalibrated": 0.5579711815486776,
+        "pUnderCalibrated": 0.44202881845132236,
+        "pPush": 0.0,
+        "fairOverDecimal": 1.7922,
+        "fairUnderDecimal": 2.2623
+      }
+    },
+    {
+      "caseId": "us_prop_v6_03",
+      "input": {
+        "sport": "nba",
+        "positionLabel": "F",
+        "metric": "3PM",
+        "sampleSum": 41.0,
+        "sampleGames": 14.0,
+        "line": 2.5,
+        "prematchMinutes": 32.0,
+        "sampleVariance": 2.9,
+        "oppFactor": 1.05,
+        "availability": "doubtful",
+        "injuryStatus": "Duda"
+      },
+      "expected": {
+        "sport": "nba",
+        "role": "F",
+        "metric": "3PM",
+        "distributionFamily": "negbin",
+        "line": 2.5,
+        "muAdjusted": 2.513096651508888,
+        "sdEffective": 1.7474023642696297,
+        "pOverCalibrated": 0.4466068155637749,
+        "pUnderCalibrated": 0.5533931844362251,
+        "pPush": 0.0,
+        "fairOverDecimal": 2.2391,
+        "fairUnderDecimal": 1.807
+      }
+    },
+    {
+      "caseId": "us_prop_v6_04",
+      "input": {
+        "sport": "nba",
+        "positionLabel": "G",
+        "metric": "PTS",
+        "sampleSum": 65.0,
+        "sampleGames": 12.0,
+        "line": 12.5,
+        "prematchMinutes": 15.5,
+        "sampleVariance": null,
+        "oppFactor": 1.0,
+        "availability": "available",
+        "injuryStatus": null
+      },
+      "expected": null
+    },
+    {
+      "caseId": "us_prop_v6_05",
+      "input": {
+        "sport": "nba",
+        "positionLabel": "F",
+        "metric": "PTS",
+        "sampleSum": 240.0,
+        "sampleGames": 12.0,
+        "line": 19.5,
+        "prematchMinutes": 34.0,
+        "sampleVariance": null,
+        "oppFactor": 1.0,
+        "availability": "out",
+        "injuryStatus": "Baja"
+      },
+      "expected": null
+    },
+    {
+      "caseId": "us_prop_v6_06",
+      "input": {
+        "sport": "mlb",
+        "positionLabel": "SP",
+        "metric": "SO",
+        "sampleSum": 68.0,
+        "sampleGames": 11.0,
+        "line": 5.5,
+        "prematchMinutes": null,
+        "sampleVariance": 6.8,
+        "oppFactor": 1.08,
+        "availability": "available",
+        "injuryStatus": null
+      },
+      "expected": {
+        "sport": "mlb",
+        "role": "SP",
+        "metric": "SO",
+        "distributionFamily": "negbin",
+        "line": 5.5,
+        "muAdjusted": 6.4125000000000005,
+        "sdEffective": 2.822710977897952,
+        "pOverCalibrated": 0.5956695207585336,
+        "pUnderCalibrated": 0.40433047924146637,
+        "pPush": 0.0,
+        "fairOverDecimal": 1.6788,
+        "fairUnderDecimal": 2.4732
+      }
+    },
+    {
+      "caseId": "us_prop_v6_07",
+      "input": {
+        "sport": "mlb",
+        "positionLabel": "SP",
+        "metric": "IP",
+        "sampleSum": 62.666666666666664,
+        "sampleGames": 11.0,
+        "line": 5.5,
+        "prematchMinutes": null,
+        "sampleVariance": 1.35,
+        "oppFactor": 0.98,
+        "availability": "available",
+        "injuryStatus": null
+      },
+      "expected": {
+        "sport": "mlb",
+        "role": "SP",
+        "metric": "IP",
+        "distributionFamily": "normal_overdispersed",
+        "line": 5.5,
+        "muAdjusted": 5.476770833333332,
+        "sdEffective": 1.1977911698231476,
+        "pOverCalibrated": 0.49226362371335464,
+        "pUnderCalibrated": 0.5077363762866454,
+        "pPush": 0.0,
+        "fairOverDecimal": 2.0314,
+        "fairUnderDecimal": 1.9695
+      }
+    },
+    {
+      "caseId": "us_prop_v6_08",
+      "input": {
+        "sport": "mlb",
+        "positionLabel": "RF",
+        "metric": "TB",
+        "sampleSum": 44.0,
+        "sampleGames": 24.0,
+        "line": 1.5,
+        "prematchMinutes": null,
+        "sampleVariance": 2.8,
+        "oppFactor": 1.06,
+        "availability": "available",
+        "injuryStatus": null
+      },
+      "expected": {
+        "sport": "mlb",
+        "role": "BAT",
+        "metric": "TB",
+        "distributionFamily": "negbin",
+        "line": 1.5,
+        "muAdjusted": 1.855,
+        "sdEffective": 1.6493227630969611,
+        "pOverCalibrated": 0.5058700936215851,
+        "pUnderCalibrated": 0.4941299063784149,
+        "pPush": 0.0,
+        "fairOverDecimal": 1.9768,
+        "fairUnderDecimal": 2.0238
+      }
+    },
+    {
+      "caseId": "us_prop_v6_09",
+      "input": {
+        "sport": "mlb",
+        "positionLabel": "DH",
+        "metric": "HR",
+        "sampleSum": 9.0,
+        "sampleGames": 32.0,
+        "line": 0.5,
+        "prematchMinutes": null,
+        "sampleVariance": null,
+        "oppFactor": 1.1,
+        "availability": "available",
+        "injuryStatus": null
+      },
+      "expected": {
+        "sport": "mlb",
+        "role": "BAT",
+        "metric": "HR",
+        "distributionFamily": "negbin",
+        "line": 0.5,
+        "muAdjusted": 0.25344,
+        "sdEffective": 0.5213366977847836,
+        "pOverCalibrated": 0.21704827997793208,
+        "pUnderCalibrated": 0.7829517200220679,
+        "pPush": 0.0,
+        "fairOverDecimal": 4.6073,
+        "fairUnderDecimal": 1.2772
+      }
+    },
+    {
+      "caseId": "us_prop_v6_10",
+      "input": {
+        "sport": "nhl",
+        "positionLabel": "C",
+        "metric": "SOG",
+        "sampleSum": 64.0,
+        "sampleGames": 21.0,
+        "line": 2.5,
+        "prematchMinutes": 19.8,
+        "sampleVariance": 3.4,
+        "oppFactor": 1.05,
+        "availability": "available",
+        "injuryStatus": null
+      },
+      "expected": {
+        "sport": "nhl",
+        "role": "FWD",
+        "metric": "SOG",
+        "distributionFamily": "negbin",
+        "line": 2.5,
+        "muAdjusted": 3.4246800000000004,
+        "sdEffective": 2.2199831687511646,
+        "pOverCalibrated": 0.6155425917299207,
+        "pUnderCalibrated": 0.38445740827007935,
+        "pPush": 0.0,
+        "fairOverDecimal": 1.6246,
+        "fairUnderDecimal": 2.6011
+      }
+    },
+    {
+      "caseId": "us_prop_v6_11",
+      "input": {
+        "sport": "nhl",
+        "positionLabel": "RW",
+        "metric": "PTS",
+        "sampleSum": 24.0,
+        "sampleGames": 21.0,
+        "line": 0.5,
+        "prematchMinutes": 18.5,
+        "sampleVariance": 0.95,
+        "oppFactor": 1.03,
+        "availability": "available",
+        "injuryStatus": null
+      },
+      "expected": {
+        "sport": "nhl",
+        "role": "FWD",
+        "metric": "PTS",
+        "distributionFamily": "negbin",
+        "line": 0.5,
+        "muAdjusted": 1.1381526753246753,
+        "sdEffective": 1.1778227488461193,
+        "pOverCalibrated": 0.642717811768587,
+        "pUnderCalibrated": 0.357282188231413,
+        "pPush": 0.0,
+        "fairOverDecimal": 1.5559,
+        "fairUnderDecimal": 2.7989
+      }
+    },
+    {
+      "caseId": "us_prop_v6_12",
+      "input": {
+        "sport": "nfl",
+        "positionLabel": "QB",
+        "metric": "YDS",
+        "sampleSum": 2480.0,
+        "sampleGames": 10.0,
+        "line": 240.0,
+        "prematchMinutes": null,
+        "sampleVariance": 3100.0,
+        "oppFactor": 1.04,
+        "availability": "available",
+        "injuryStatus": null
+      },
+      "expected": {
+        "sport": "nfl",
+        "role": "QB",
+        "metric": "YDS",
+        "distributionFamily": "normal_overdispersed",
+        "line": 240.0,
+        "muAdjusted": 249.60000000000002,
+        "sdEffective": 63.978089360516414,
+        "pOverCalibrated": 0.5600061481080185,
+        "pUnderCalibrated": 0.4399938518919815,
+        "pPush": 0.006165727763662643,
+        "fairOverDecimal": 1.7857,
+        "fairUnderDecimal": 2.2728
+      }
+    },
+    {
+      "caseId": "us_prop_v6_13",
+      "input": {
+        "sport": "nfl",
+        "positionLabel": "WR",
+        "metric": "REC",
+        "sampleSum": 58.0,
+        "sampleGames": 10.0,
+        "line": 5.5,
+        "prematchMinutes": null,
+        "sampleVariance": 5.4,
+        "oppFactor": 1.06,
+        "availability": "available",
+        "injuryStatus": null
+      },
+      "expected": {
+        "sport": "nfl",
+        "role": "WR",
+        "metric": "REC",
+        "distributionFamily": "negbin",
+        "line": 5.5,
+        "muAdjusted": 5.639200000000001,
+        "sdEffective": 3.1431317002845005,
+        "pOverCalibrated": 0.4639390761712694,
+        "pUnderCalibrated": 0.5360609238287306,
+        "pPush": 0.0,
+        "fairOverDecimal": 2.1555,
+        "fairUnderDecimal": 1.8655
+      }
+    },
+    {
+      "caseId": "us_prop_v6_14",
+      "input": {
+        "sport": "nfl",
+        "positionLabel": "RB",
+        "metric": "CAR",
+        "sampleSum": 156.0,
+        "sampleGames": 10.0,
+        "line": 14.5,
+        "prematchMinutes": null,
+        "sampleVariance": 16.0,
+        "oppFactor": 0.96,
+        "availability": "available",
+        "injuryStatus": null
+      },
+      "expected": {
+        "sport": "nfl",
+        "role": "RB",
+        "metric": "CAR",
+        "distributionFamily": "negbin",
+        "line": 14.5,
+        "muAdjusted": 13.8624,
+        "sdEffective": 4.208282764140759,
+        "pOverCalibrated": 0.41612702970047655,
+        "pUnderCalibrated": 0.5838729702995235,
+        "pPush": 0.0,
+        "fairOverDecimal": 2.4031,
+        "fairUnderDecimal": 1.7127
+      }
+    }
+  ]
+}
