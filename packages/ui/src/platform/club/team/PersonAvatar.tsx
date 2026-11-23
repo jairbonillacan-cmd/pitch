@@ -30,12 +30,6 @@ export interface PersonAvatarProps {
   className?: string;
 }
 
-/**
- * Retrato circular verificado para jugador o entrenador.
- * Prueba la URL primaria (`resolvePersonPhotoUrl`), detecta marcadores de posición 1×1
- * o errores de red, intenta la URL secundaria si existe y cae con elegancia al glifo
- * temático de PitchLab (`user` o `coach`).
- */
 export function PersonAvatar({
   photoKey,
   fallbackPhotoKey,
@@ -104,7 +98,6 @@ export function PersonAvatar({
           alt=""
           width={glyphSize}
           height={glyphSize}
-          {...(priority ? {} : { loading: "lazy" as const })}
           decoding="async"
           draggable={false}
           className="pl-person-avatar-glyph"
