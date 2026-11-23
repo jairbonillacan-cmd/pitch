@@ -35,7 +35,9 @@ import {
   extractStrictAvgMinutesFromSquadPlayer,
   PROPS_V6_SHARP_EV_CAP_PCT,
   PROPS_V6_SOFT_EV_CAP_PCT,
+  readLeagueInjuriesMap,
 } from "./props-explorer";
+import { resolveSnapshotsRoot } from "./snapshots";
 
 export interface EnrichmentTeamRate {
   readonly teamId: string;
@@ -932,8 +934,28 @@ function selectPlayableLine<
   return best;
 }
 
+function collectTeamSlugAliases(
+  gameSlug: string,
+  squad: TeamSquadEntry | null,
+): readonly string[] {
+  const raw = [
+    cleanTeamRouteSlug(gameSlug),
+    gameSlug.trim().toLowerCase(),
+    ...(squad
+      ? [
+          cleanTeamRouteSlug(squad.teamSlug),
+          squad.teamSlug.trim().toLowerCase(),
+          cleanTeamRouteSlug(squad.teamId),
+        ]
+      : []),
+  ];
+  return Array.from(new Set(raw.filter((s) => s.length > 0)));
+}
+
 function buildInjuryStatusIndex(params: {
   readonly game: PlatformGame;
+  readonly homeSquad: TeamSquadEntry | null;
+  readonly awaySquad: TeamSquadEntry | null;
   readonly leagueInjuries?: readonly TeamInjuryEntry[];
 }): {
   readonly bySidePlayer: ReadonlyMap<string, string>;
@@ -941,33 +963,70 @@ function buildInjuryStatusIndex(params: {
 } {
   const bySidePlayer = new Map<string, string>();
   const byTeamSlugPlayer = new Map<string, string>();
-  const homeCanon = cleanTeamRouteSlug(params.game.home.slug);
-  const awayCanon = cleanTeamRouteSlug(params.game.away.slug);
+  const homeSlugs = collectTeamSlugAliases(params.game.home.slug, params.homeSquad);
+  const awaySlugs = collectTeamSlugAliases(params.game.away.slug, params.awaySquad);
+  const homeSet = new Set(homeSlugs);
+  const awaySet = new Set(awaySlugs);
 
-  for (const entry of params.leagueInjuries ?? []) {
-    const pNorm = normalizeToken(entry.player);
-    if (!pNorm) continue;
-    const entryCanon = cleanTeamRouteSlug(entry.teamId);
-    const side: "home" | "away" | null =
-      entryCanon === homeCanon ? "home" : entryCanon === awayCanon ? "away" : null;
-    if (side) {
-      bySidePlayer.set(`${side}|${pNorm}`, entry.status);
+  const registerSideInjury = (
+    side: "home" | "away",
+    pNorm: string,
+    status: string,
+    override: boolean,
+  ): void => {
+    const sideKey = `${side}|${pNorm}`;
+    if (override || !bySidePlayer.has(sideKey)) {
+      bySidePlayer.set(sideKey, status);
     }
-    byTeamSlugPlayer.set(`${entryCanon}|${pNorm}`, entry.status);
+    const targetSlugs = side === "home" ? homeSlugs : awaySlugs;
+    for (const slug of targetSlugs) {
+      const slugKey = `${slug}|${pNorm}`;
+      if (override || !byTeamSlugPlayer.has(slugKey)) {
+        byTeamSlugPlayer.set(slugKey, status);
+      }
+    }
+  };
+
+  if (params.leagueInjuries !== undefined) {
+    for (const entry of params.leagueInjuries) {
+      const pNorm = normalizeToken(entry.player);
+      if (!pNorm) continue;
+      const entryCanon = cleanTeamRouteSlug(entry.teamId);
+      const entryRaw = entry.teamId.trim().toLowerCase();
+      const side: "home" | "away" | null =
+        homeSet.has(entryCanon) || homeSet.has(entryRaw)
+          ? "home"
+          : awaySet.has(entryCanon) || awaySet.has(entryRaw)
+            ? "away"
+            : null;
+      if (side) {
+        registerSideInjury(side, pNorm, entry.status, true);
+      }
+      if (entryCanon) {
+        byTeamSlugPlayer.set(`${entryCanon}|${pNorm}`, entry.status);
+      }
+    }
+  } else {
+    const diskMap = readLeagueInjuriesMap(resolveSnapshotsRoot(), String(params.game.league));
+    for (const [key, entry] of diskMap.entries()) {
+      const sepIdx = key.indexOf("|");
+      if (sepIdx <= 0) continue;
+      const teamPart = key.slice(0, sepIdx);
+      const pNorm = key.slice(sepIdx + 1);
+      if (!pNorm) continue;
+      const teamCanon = cleanTeamRouteSlug(teamPart);
+      if (homeSet.has(teamPart) || homeSet.has(teamCanon)) {
+        registerSideInjury("home", pNorm, entry.status, false);
+      } else if (awaySet.has(teamPart) || awaySet.has(teamCanon)) {
+        registerSideInjury("away", pNorm, entry.status, false);
+      }
+    }
   }
 
   for (const abs of params.game.preGame?.absences ?? []) {
     const pNorm = normalizeToken(abs.player);
     if (!pNorm) continue;
-    const sideKey = `${abs.teamSide}|${pNorm}`;
-    if (!bySidePlayer.has(sideKey)) {
-      bySidePlayer.set(sideKey, abs.status);
-    }
-    const slug = abs.teamSide === "home" ? homeCanon : awayCanon;
-    const slugKey = `${slug}|${pNorm}`;
-    if (!byTeamSlugPlayer.has(slugKey)) {
-      byTeamSlugPlayer.set(slugKey, abs.status);
-    }
+    registerSideInjury(abs.teamSide, pNorm, abs.status, false);
   }
 
   return { bySidePlayer, byTeamSlugPlayer };
@@ -991,6 +1050,8 @@ export function buildMatchPlayerPicks(params: {
 
   const injuryIdx = buildInjuryStatusIndex({
     game,
+    homeSquad,
+    awaySquad,
     leagueInjuries: params.leagueInjuries,
   });
 
@@ -1005,6 +1066,7 @@ export function buildMatchPlayerPicks(params: {
         !isSafePublicLabel(meta.playerName) ||
         !isSafePublicLabel(item.label) ||
         !isSafePublicLabel(meta.teamName) ||
+        !isSafePublicLabel(meta.statLabel) ||
         !hasNumericSelectionUnit(item.label)
       ) {
         return;
@@ -1238,30 +1300,28 @@ export function buildMatchPlayerPicks(params: {
               allowFull: true,
             });
             const matched = pickNearestLine(coupled.lines, cp.line ?? 0.5);
-            if (
-              coupled.eligible &&
-              matched &&
-              matched.pOver !== null &&
-              matched.fairOverDecimal !== null &&
-              direction !== "under"
-            ) {
-              resolvedP = matched.pOver;
-              resolvedFairDecimal = matched.fairOverDecimal;
-              resolvedFairAmerican = decimalToAmericanOdds(matched.fairOverDecimal);
-              resolvedEngineName = "PitchLab Spacetime v6.0";
-            } else if (
-              coupled.eligible &&
-              matched &&
-              matched.pUnder !== null &&
-              matched.fairUnderDecimal !== null &&
-              direction === "under"
-            ) {
+            if (!coupled.eligible || !matched) {
+              continue;
+            }
+            if (direction === "under") {
+              if (matched.pUnder === null || matched.fairUnderDecimal === null) {
+                continue;
+              }
               resolvedP = matched.pUnder;
               resolvedFairDecimal = matched.fairUnderDecimal;
               resolvedFairAmerican = decimalToAmericanOdds(matched.fairUnderDecimal);
               resolvedEngineName = "PitchLab Spacetime v6.0";
+            } else {
+              if (matched.pOver === null || matched.fairOverDecimal === null) {
+                continue;
+              }
+              resolvedP = matched.pOver;
+              resolvedFairDecimal = matched.fairOverDecimal;
+              resolvedFairAmerican = decimalToAmericanOdds(matched.fairOverDecimal);
+              resolvedEngineName = "PitchLab Spacetime v6.0";
             }
           } else if (cp.marketKey === "player_saves") {
+            emittedSavesForPlayer = true;
             const gkEval = evaluateGoalkeeperSavesV6({
               playerName: player.name,
               saves: player.stats.saves,
@@ -1277,24 +1337,22 @@ export function buildMatchPlayerPicks(params: {
               allowFull: true,
             });
             const matched = pickNearestLine(gkEval.lines, cp.line ?? 2.5);
-            if (
-              gkEval.eligible &&
-              matched &&
-              matched.pOver !== null &&
-              matched.fairOverDecimal !== null
-            ) {
-              resolvedP = direction === "under" && matched.pUnder !== null ? matched.pUnder : matched.pOver;
-              resolvedFairDecimal =
-                direction === "under" && matched.fairUnderDecimal !== null
-                  ? matched.fairUnderDecimal
-                  : matched.fairOverDecimal;
-              resolvedFairAmerican = decimalToAmericanOdds(resolvedFairDecimal);
-              resolvedEngineName = "PitchLab Spacetime v6.0";
-              if (gkEval.expectedSaves !== null) {
-                resolvedRationale = `${player.stats.saves} atajadas en ${player.stats.appearances} PJ · proyección ${gkEval.expectedSaves.toFixed(2)} atajadas.`;
-              }
+            if (!gkEval.eligible || !matched) {
+              continue;
             }
-            emittedSavesForPlayer = true;
+            const sideP = direction === "under" ? matched.pUnder : matched.pOver;
+            const sideDec =
+              direction === "under" ? matched.fairUnderDecimal : matched.fairOverDecimal;
+            if (sideP === null || sideDec === null) {
+              continue;
+            }
+            resolvedP = sideP;
+            resolvedFairDecimal = sideDec;
+            resolvedFairAmerican = decimalToAmericanOdds(sideDec);
+            resolvedEngineName = "PitchLab Spacetime v6.0";
+            if (gkEval.expectedSaves !== null) {
+              resolvedRationale = `${player.stats.saves} atajadas en ${player.stats.appearances} PJ · proyección ${gkEval.expectedSaves.toFixed(2)} atajadas.`;
+            }
           }
 
           seen.add(exactKey);

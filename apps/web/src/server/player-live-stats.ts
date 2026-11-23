@@ -1038,6 +1038,8 @@ function mapSeedToGuardedProp(
   const pOver = evalOverProbability(seed.projectionMean, seed.projectionSd, seed.baseLine);
   const pUnder = clampProb(1 - pOver);
   const isDoubt = isDoubtfulAvailabilityV6(explicitAvailability, injury?.status);
+  const safeInjuryNote =
+    isDoubt && injury?.detail && isSafePublicLabel(injury.detail) ? injury.detail : undefined;
   return {
     player: seed.player,
     teamSlug: normalizeTeamSlug(seed.teamSlug),
@@ -1056,7 +1058,7 @@ function mapSeedToGuardedProp(
     pUnder,
     fairUnderDecimal: toFairDecimal(pUnder),
     availabilityStatus: isDoubt ? "doubtful" : "available",
-    ...(isDoubt && injury?.detail ? { injuryNote: injury.detail } : {}),
+    ...(safeInjuryNote ? { injuryNote: safeInjuryNote } : {}),
   };
 }
 
@@ -1247,6 +1249,8 @@ export function loadNbaInjuriesBridge(options?: {
           const parsed: NbaRealInjuryBridgeItem[] = [];
           for (const e of raw.entries ?? []) {
             if (!e?.player?.trim() || !e.teamId?.trim()) continue;
+            const rawDetail = (e.detail ?? "Reporte oficial NBA").trim().slice(0, 200);
+            const safeDetail = isSafePublicLabel(rawDetail) ? rawDetail : "Reporte oficial NBA";
             parsed.push({
               teamSlug: normalizeTeamSlug(e.teamId),
               player: e.player.trim().slice(0, 120),
@@ -1256,7 +1260,7 @@ export function loadNbaInjuriesBridge(options?: {
                 : e.status === "Duda" || isDoubtfulAvailabilityV6(null, e.status)
                   ? "Duda"
                   : "Baja",
-              detail: (e.detail ?? "Reporte oficial NBA").trim().slice(0, 200),
+              detail: safeDetail,
               ...(e.injuryType?.trim() ? { injuryType: e.injuryType.trim().slice(0, 120) } : {}),
               ...(e.returnDate?.trim() ? { returnDate: e.returnDate.trim().slice(0, 60) } : {}),
               ...(e.reportedAt?.trim() ? { reportedAt: e.reportedAt.trim() } : {}),
