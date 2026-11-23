@@ -1034,7 +1034,7 @@ export function MatchContextPanel({
                 El reporte detallado de bajas y plantilla fuera está disponible con Pase PitchLab Ultra.
               </p>
             ) : absences.length > 0 ? (
-              <ul className="pl-ctx-absences" role="list">
+              <ul className="pl-ctx-absences" role="list" tabIndex={0}>
                 {absences.map((item, idx) => (
                   <li key={`${item.player}-${idx}`} className="pl-ctx-absence-row">
                     <div className="min-w-0">

@@ -1883,7 +1883,7 @@ function ClubWorkspaceShellImpl({
         ) : null}
       </header>
 
-      <div className="app-frame" data-shell-context={shellContext}>
+      <div key={isHomeRoute ? "home" : "club"} className="app-frame" data-shell-context={shellContext}>
         <main id="main" tabIndex={-1} className="min-w-0 space-y-6">
           <div key={activePath} className="pl-page-enter space-y-6">
             {children}
