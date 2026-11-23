@@ -1,11 +1,11 @@
 # Estado del proyecto PitchLab
 
 > **Propósito:** que cualquier sesión retome el trabajo sin reconstruir el contexto. Se actualiza al cerrar cada fase.
-> **Última actualización:** 2026-11-22 · **Rama:** `gemini-dos` (**Handoff multi-PC listo y subido en `origin/gemini-dos` tras `d48e899b`**: Olas 0A–8, Preparación Fases 1–2, Q1–Q6 + `ADR-062` `13/13` PASS, Tareas 1–5 + `ab03b672`, overhaul de boletos/telemetría en vivo `a024118e` y fixes E2E + `playwright.config.ts` a `3` workers `d48e899b`).
+> **Última actualización:** 2026-11-22 · **Rama:** `gemini-dos` (**Handoff multi-PC listo en `gemini-dos` tras `d48e899b`**: Olas 0A–8, Preparación Fases 1–2, Q1–Q6 + `ADR-062` `13/13` PASS, Tareas 1–5 + `ab03b672`, overhaul de boletos/telemetría en vivo `a024118e` y fixes E2E + `playwright.config.ts` a `3` workers `d48e899b`).
 
 ## Estado actual
 
-- **Handoff Multi-PC (`604bbe57`..`d48e899b`, 2026-11-22):** ✅ cambios en `origin/gemini-dos` y validados en corto antes del `git push`:
+- **Handoff Multi-PC (`604bbe57`..`d48e899b`, 2026-11-22):** ✅ commits locales listos en `gemini-dos` y validados en corto (bloqueado en `git push origin gemini-dos` únicamente por rechazo de alcance OAuth `workflow` sobre `.github/workflows/ci.yml` en `362ea83f`):
   - **Olas 0A–8 + Preparación Fases 1 y 2 (`730b0091`..`1b0de35c`):** ✅ cerradas (`13/13` PASS).
   - **Ola Q1–Q6 + `ADR-062` (`228079e3`..`c15c3dd0`):** ✅ `13/13` PASS certificado.
   - **Tareas 1–5 + Error Boundary (`604bbe57`..`ab03b672`):** ✅ superficies secundarias del club (`604bbe57`), alineación CI + paridad de migraciones `0000..0027` PGlite y runbook Go/No-Go (`362ea83f`), extracción *Deep Modules* en `platform-provider` y `standings-brackets` (`c33ce4ab`), ergonomía de teclado/WAI-ARIA `Cmd+K` combobox (`3ebed30d`), poda *Software Garden* + reducción de *ratchet* (`5c4b52b3`) y regiones enfocables `320px-safe` (`ab03b672`).
