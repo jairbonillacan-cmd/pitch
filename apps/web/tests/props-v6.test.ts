@@ -2,9 +2,12 @@ import { describe, expect, it } from "vitest";
 import {
   asLeagueId,
   asTeamId,
+  cleanTeamRouteSlug,
   type SquadPlayerEntry,
   type TeamSquadEntry,
 } from "@pitchlab/contracts";
+import { isHardBlockedAvailabilityV6 } from "@pitchlab/spacetime/v6";
+import type { MatchPicksCatalog } from "@pitchlab/ui/picks-catalog";
 import type { PlatformGame } from "@pitchlab/ui/types";
 import {
   buildEnrichedMatchLineups,
@@ -25,8 +28,11 @@ import {
   evaluateFootballPropV6,
   evaluateGoalkeeperSavesSgpComboV6,
   evaluateGoalkeeperSavesV6,
+  loadPlayerPropStreakCards,
   loadStructuredPlayerProps,
+  readLeagueInjuriesMap,
 } from "../src/server/props-explorer";
+import { resolveSnapshotsRoot } from "../src/server/snapshots";
 
 function collectAllKeys(node: unknown, out: Set<string> = new Set<string>()): Set<string> {
   if (Array.isArray(node)) {
@@ -1047,6 +1053,7 @@ describe("Spacetime v6.0 Props Engine · Lossless US normalization, Hard Block, 
       catalog: null,
       homeSquad: nbaHomeSquad,
       awaySquad: null,
+      leagueInjuries: [],
       sanitizePhotoKey: (raw) => raw ?? null,
     });
     expect(nbaMatchPicks.some((p) => p.playerName === "Jayson Tatum" && p.marketKey === "nba_pts")).toBe(true);
@@ -1068,5 +1075,375 @@ describe("Spacetime v6.0 Props Engine · Lossless US normalization, Hard Block, 
         allowFull: false,
       }),
     ).toEqual([]);
+  });
+
+  it("blocks injuries.json hard-blocked players across all leagues, prevents legacy fall-through, canonicalizes team-slug aliases, requires attributed GK SGP books, fails closed in evaluateFootballPropV6, and sanitizes FD-16 notes/labels", () => {
+    const root = resolveSnapshotsRoot();
+    const nflInj = readLeagueInjuriesMap(root, "nfl");
+    const nhlInj = readLeagueInjuriesMap(root, "nhl");
+    const mlbInj = readLeagueInjuriesMap(root, "mlb");
+    expect(nflInj.size).toBeGreaterThan(0);
+    expect(nhlInj.size).toBeGreaterThan(0);
+    expect(mlbInj.size).toBeGreaterThan(0);
+
+    const normalizePlayerToken = (raw: string): string =>
+      raw
+        .normalize("NFD")
+        .replace(/[\u0300-\u036f]/g, "")
+        .toLowerCase()
+        .replace(/[^a-z0-9\s]/g, " ")
+        .replace(/\s+/g, " ")
+        .trim();
+
+    const streakCards = loadPlayerPropStreakCards(48);
+    for (const card of streakCards) {
+      const injMap = readLeagueInjuriesMap(root, String(card.league));
+      const hit = injMap.get(`${cleanTeamRouteSlug(card.teamSlug)}|${normalizePlayerToken(card.playerName)}`);
+      expect(isHardBlockedAvailabilityV6(null, hit?.status)).toBe(false);
+    }
+
+    const structuredProps = loadStructuredPlayerProps({ fullAccess: true, maxItems: 120 });
+    for (const item of structuredProps) {
+      const injMap = readLeagueInjuriesMap(root, String(item.league));
+      const hit = injMap.get(`${cleanTeamRouteSlug(item.teamSlug)}|${normalizePlayerToken(item.player)}`);
+      expect(isHardBlockedAvailabilityV6(null, hit?.status)).toBe(false);
+    }
+
+    const footballGame = makePlatformGame();
+    const benchMinutesSquad: TeamSquadEntry = {
+      teamId: asTeamId("laliga.real-madrid"),
+      teamSlug: "real-madrid",
+      teamName: "Real Madrid",
+      coachName: "Carlo Ancelotti",
+      updatedAt: "2026-11-23T10:00:00Z",
+      players: [
+        makeSquadPlayer({
+          id: "15",
+          slug: "arda-guler",
+          name: "Arda Güler",
+          shortName: "A. Güler",
+          recentGames: [
+            {
+              dateIso: "2026-11-18",
+              opponent: "Sevilla",
+              isHome: true,
+              score: "2-0",
+              result: "W",
+              stats: [{ label: "MIN", value: "48" }],
+            },
+          ],
+          candidatePicks: [
+            {
+              id: "guler-sot-05",
+              marketKey: "player_sot",
+              marketLabel: "Tiros a puerta",
+              selectionLabel: "Más de 0.5 tiros a puerta",
+              line: 0.5,
+              projectionMean: 0.85,
+              projectionSd: 0.6,
+              p: 0.58,
+              fairDecimal: 1.72,
+              fairAmerican: -139,
+              rationale: "Legado que no debe filtrarse cuando v6 bloquea por banca.",
+            },
+          ],
+        }),
+      ],
+    };
+    const benchPicks = buildMatchPlayerPicks({
+      game: footballGame,
+      allowFull: true,
+      catalog: null,
+      homeSquad: benchMinutesSquad,
+      awaySquad: null,
+      leagueInjuries: [],
+      sanitizePhotoKey: (raw) => raw ?? null,
+    });
+    expect(benchPicks).toEqual([]);
+
+    const aliasedNbaGame = makePlatformGame({
+      id: "nba-2026-alias-test",
+      league: asLeagueId("nba"),
+      leagueLabel: "NBA",
+      sport: "basketball",
+      home: {
+        slug: "celtics",
+        name: "Boston Celtics",
+        shortName: "Boston",
+        code: "BOS",
+        record: "14-4",
+      },
+      away: {
+        slug: "warriors",
+        name: "Golden State Warriors",
+        shortName: "Warriors",
+        code: "GSW",
+        record: "12-6",
+      },
+      preGame: {
+        cortexSynthesis: "",
+        tacticalKeys: [],
+        lineupStatusLabel: "Por confirmar",
+        lineupsConfirmed60m: false,
+        absences: [
+          {
+            teamSide: "home",
+            player: "Jayson Tatum",
+            role: "SF",
+            status: "Baja",
+            impactNote: "Descanso médico",
+          },
+        ],
+        moneyFlow: null,
+      },
+    });
+    const aliasedHomeSquad: TeamSquadEntry = {
+      teamId: asTeamId("nba.boston-celtics"),
+      teamSlug: "nba.boston-celtics",
+      teamName: "Boston Celtics",
+      coachName: "Joe Mazzulla",
+      updatedAt: "2026-11-23T10:00:00Z",
+      players: [
+        makeSquadPlayer({
+          id: "0",
+          slug: "jayson-tatum",
+          name: "Jayson Tatum",
+          shortName: "J. Tatum",
+          positionGroup: "FWD",
+          positionLabel: "SF",
+          seasonMetrics: [
+            { key: "gp", label: "JJ", value: "16" },
+            { key: "min", label: "MIN", value: "35.2" },
+            { key: "pts", label: "PTS", value: "28.4" },
+          ],
+          recentGames: [
+            {
+              dateIso: "2026-11-20",
+              opponent: "Miami Heat",
+              isHome: true,
+              score: "118-110",
+              result: "W",
+              stats: [{ label: "MIN", value: "36" }, { label: "PTS", value: "30" }],
+            },
+          ],
+        }),
+      ],
+    };
+    const aliasedAwaySquad: TeamSquadEntry = {
+      teamId: asTeamId("nba.golden-state-warriors"),
+      teamSlug: "golden-state-warriors",
+      teamName: "Golden State Warriors",
+      coachName: "Steve Kerr",
+      updatedAt: "2026-11-23T10:00:00Z",
+      players: [
+        makeSquadPlayer({
+          id: "30",
+          slug: "stephen-curry",
+          name: "Stephen Curry",
+          shortName: "S. Curry",
+          positionGroup: "MID",
+          positionLabel: "G",
+          seasonMetrics: [
+            { key: "gp", label: "JJ", value: "14" },
+            { key: "min", label: "MIN", value: "33.5" },
+            { key: "pts", label: "PTS", value: "26.2" },
+          ],
+          recentGames: [
+            {
+              dateIso: "2026-11-18",
+              opponent: "Clippers",
+              isHome: true,
+              score: "115-108",
+              result: "W",
+              stats: [{ label: "MIN", value: "34" }, { label: "PTS", value: "27" }],
+            },
+          ],
+        }),
+      ],
+    };
+    const aliasedPicks = buildMatchPlayerPicks({
+      game: aliasedNbaGame,
+      allowFull: true,
+      catalog: null,
+      homeSquad: aliasedHomeSquad,
+      awaySquad: aliasedAwaySquad,
+      sanitizePhotoKey: (raw) => raw ?? null,
+    });
+    expect(aliasedPicks.some((p) => p.playerName === "Jayson Tatum")).toBe(false);
+    expect(aliasedPicks.some((p) => p.playerName === "Stephen Curry")).toBe(false);
+
+    const prefixedInjuryMap = new Map<string, string>([
+      ["nba.boston-celtics|jayson tatum", "out"],
+    ]);
+    expect(
+      deriveMatchPlayerPropsV6({
+        gameId: aliasedNbaGame.id,
+        league: "nba",
+        sport: "basketball",
+        homeTeamName: aliasedNbaGame.home.name,
+        homeTeamSlug: "celtics",
+        awayTeamName: aliasedNbaGame.away.name,
+        awayTeamSlug: "warriors",
+        homeSquad: aliasedHomeSquad,
+        awaySquad: null,
+        injuryStatusByTeamPlayer: prefixedInjuryMap,
+        allowFull: true,
+      }),
+    ).toEqual([]);
+
+    for (const invalidBook of [undefined, "", "   ", "Betfair", "https://evil.test/odds"]) {
+      const unattributedSgp = evaluateGoalkeeperSavesSgpComboV6({
+        playerName: "Thibaut Courtois",
+        savesLine: 2.5,
+        matchOutcome: "clean_sheet",
+        saves: 48,
+        shotsFaced: 62,
+        goalsConceded: 14,
+        appearances: 16,
+        subIns: 0,
+        avgMinutes: 90,
+        oppExpectedSoT: 4.4,
+        teamExpectedGoals: 1.75,
+        opponentExpectedGoals: 0.95,
+        offeredCombinedDecimalOdds: 4.2,
+        offeredBookLabel: invalidBook,
+        allowFull: true,
+      });
+      expect(unattributedSgp.eligible).toBe(true);
+      expect(unattributedSgp.offeredCombinedDecimal).toBeNull();
+      expect(unattributedSgp.offeredBookLabel).toBeNull();
+      expect(unattributedSgp.evPct).toBeNull();
+      expect(unattributedSgp.bookQuoteAudit).toBeNull();
+    }
+
+    const defaultClosedV6 = evaluateFootballPropV6({
+      playerName: "Kylian Mbappé",
+      statLabel: "Tiros totales",
+      line: 2.5,
+      projectionMean: 3.4,
+      projectionSd: 1.5,
+      league: "laliga",
+      positionGroup: "FWD",
+      positionLabel: "Delantero centro",
+      avgMinutes: 85,
+      sampleGames: 16,
+    });
+    expect(defaultClosedV6.isRedacted).toBe(true);
+    expect(defaultClosedV6.pOver).toBeNull();
+    expect(defaultClosedV6.pUnder).toBeNull();
+    expect(defaultClosedV6.fairOverDecimal).toBeNull();
+    expect(defaultClosedV6.fairUnderDecimal).toBeNull();
+
+    const doubtfulFd16Bridge = buildNbaPropsBridgeFromPlayerGames({
+      player: "Jayson Tatum",
+      teamSlug: "boston-celtics",
+      teamName: "Boston Celtics",
+      games: [
+        { game_date: "2026-11-18T01:00:00Z", minutes: "34:00", points: 28, rebounds: 8, assists: 6, three_pointers_made: 4 },
+        { game_date: "2026-11-16T01:00:00Z", minutes: "35:00", points: 26, rebounds: 7, assists: 5, three_pointers_made: 3 },
+        { game_date: "2026-11-14T01:00:00Z", minutes: "36:00", points: 30, rebounds: 9, assists: 7, three_pointers_made: 5 },
+      ],
+      injuries: [
+        {
+          teamSlug: "boston-celtics",
+          player: "Jayson Tatum",
+          status: "Duda",
+          detail: "https://sports.bzzoiro.com/injury/999",
+        },
+      ],
+    });
+    expect(doubtfulFd16Bridge.length).toBeGreaterThan(0);
+    expect(doubtfulFd16Bridge.every((p) => p.injuryNote === undefined)).toBe(true);
+
+    const toxicStatCatalog: MatchPicksCatalog = {
+      gameId: footballGame.id,
+      league: asLeagueId("laliga"),
+      sport: "football",
+      gameStatus: "NS",
+      generatedAtUtc: "2026-11-23T10:00:00Z",
+      engineVersion: "spacetime-v5.1",
+      isRedactedForVisitor: false,
+      totalPicks: 1,
+      availableFamilies: ["player_props_football"],
+      familyCounts: { player_props_football: 1 },
+      picks: [
+        {
+          id: "cat-toxic-stat-label",
+          gameId: footballGame.id,
+          league: asLeagueId("laliga"),
+          leagueLabel: "LaLiga",
+          sport: "football",
+          matchLabel: "Real Madrid vs Barcelona",
+          kickoffUtc: "2026-11-23T20:00:00Z",
+          kickoffLocal: "14:00",
+          gameStatus: "NS",
+          family: "player_props_football",
+          familyLabel: "Tiros a puerta",
+          category: "player_props",
+          axis: "player_prop",
+          direction: "over",
+          line: 0.5,
+          label: "Más de 0.5 tiros a puerta",
+          selectionKey: "player_sot:kylian-mbappe:0.5",
+          conflictGroup: "independent",
+          settlement: "pending",
+          engineName: "PitchLab Spacetime v6.0",
+          isPrimaryModelPick: false,
+          isDerived: true,
+          recommendationScore: 70,
+          isRedacted: false,
+          pricing: {
+            p: 0.62,
+            fairOdds: 1.61,
+            fairAmerican: -164,
+            marketDecimal: null,
+            marketAmerican: null,
+            marketBookLabel: null,
+            marketCapturedAtUtc: null,
+            deVigMarketProb: null,
+            deVigMethod: "none",
+            overroundPct: null,
+            evPct: null,
+            edgePts: null,
+            noVigEdgePts: null,
+            valueLabel: null,
+            hasPositiveValue: false,
+          },
+          evidence: {
+            windows: [],
+            xgSignal: null,
+            refereeSignal: null,
+            bullets: [],
+            avgObservedRatePct: null,
+          },
+          playerMeta: {
+            playerName: "Kylian Mbappé",
+            playerSlug: "kylian-mbappe",
+            teamSide: "home",
+            teamName: "Real Madrid",
+            teamSlug: "real-madrid",
+            position: "FWD",
+            statKey: "shots_on_target",
+            statLabel: "Bzzoiro internal sot",
+            minMinutesGuard: 45,
+            qualifyingMatches: 5,
+            avgMinutes: 85,
+            lineupStatus: "probable",
+            projectionMean: 1.6,
+            projectionSd: 0.9,
+          },
+        },
+      ],
+    };
+    const filteredToxicPicks = buildMatchPlayerPicks({
+      game: footballGame,
+      allowFull: true,
+      catalog: toxicStatCatalog,
+      homeSquad: null,
+      awaySquad: null,
+      leagueInjuries: [],
+      sanitizePhotoKey: (raw) => raw ?? null,
+    });
+    expect(filteredToxicPicks).toEqual([]);
   });
 });

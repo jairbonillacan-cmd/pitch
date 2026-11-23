@@ -6,6 +6,7 @@ import {
   LeagueSquadsFileSchema,
   asLeagueId,
   canonicalPlayerHref,
+  cleanTeamRouteSlug,
   isKnockoutCupCompetition,
   isPermittedMarketQuoteBook,
   isSafePublicLabel,
@@ -1200,7 +1201,7 @@ export function evaluateGoalkeeperSavesSgpComboV6(
   const rawBook = input.offeredBookLabel?.trim() ?? "";
   const hasBookLabel = rawBook.length > 0;
   const bookPermitted =
-    !hasBookLabel || (isSafePublicLabel(rawBook) && isPermittedMarketQuoteBook(rawBook));
+    hasBookLabel && isSafePublicLabel(rawBook) && isPermittedMarketQuoteBook(rawBook);
   const rawOfferedDec = input.offeredCombinedDecimalOdds;
   const hasValidOfferedDec =
     bookPermitted &&
@@ -1312,7 +1313,7 @@ function selectNearestLineEntry<T extends { readonly line: number }>(
 export function evaluateFootballPropV6(
   input: FootballPropEvaluationInputV6,
 ): FootballPropEvaluationResultV6 {
-  const allowFull = input.allowFull ?? true;
+  const allowFull = input.allowFull ?? false;
   const posCluster = resolveSoccerPositionClusterV5(input.positionGroup, input.positionLabel);
   const effectiveAvailability = input.availability ?? input.availabilityStatus ?? null;
   const strictGuard = checkStrictPlayerMinutesAndAvailabilityGuardV6({
@@ -1605,11 +1606,28 @@ export function deriveMatchPlayerPropsV6(
     return [];
   }
 
+  const canonicalInjuryMap = new Map<string, string>();
+  if (params.injuryStatusByTeamPlayer) {
+    for (const [rawKey, status] of params.injuryStatusByTeamPlayer.entries()) {
+      const sepIdx = rawKey.indexOf("|");
+      if (sepIdx <= 0) continue;
+      const rawTeamPart = rawKey.slice(0, sepIdx);
+      const rawPlayerPart = rawKey.slice(sepIdx + 1);
+      const pNorm = normKey(rawPlayerPart);
+      if (!pNorm) continue;
+      const canonTeam = cleanTeamRouteSlug(rawTeamPart);
+      const lowerTeam = rawTeamPart.trim().toLowerCase();
+      if (canonTeam) canonicalInjuryMap.set(`${canonTeam}|${pNorm}`, status);
+      if (lowerTeam) canonicalInjuryMap.set(`${lowerTeam}|${pNorm}`, status);
+    }
+  }
+
   const out: DerivedMatchPlayerPropV6[] = [];
   const sides: ReadonlyArray<{
     readonly side: "home" | "away";
     readonly teamName: string;
     readonly teamSlug: string;
+    readonly rawTeamSlug: string;
     readonly squad: TeamSquadEntry | null;
     readonly teamProjGoals: number | null;
     readonly oppProjGoals: number | null;
@@ -1622,6 +1640,7 @@ export function deriveMatchPlayerPropsV6(
       side: "home",
       teamName: params.homeTeamName,
       teamSlug: params.homeSquad?.teamSlug ?? params.homeTeamSlug,
+      rawTeamSlug: params.homeTeamSlug,
       squad: params.homeSquad,
       teamProjGoals: params.homeProjectedGoals ?? null,
       oppProjGoals: params.awayProjectedGoals ?? null,
@@ -1634,6 +1653,7 @@ export function deriveMatchPlayerPropsV6(
       side: "away",
       teamName: params.awayTeamName,
       teamSlug: params.awaySquad?.teamSlug ?? params.awayTeamSlug,
+      rawTeamSlug: params.awayTeamSlug,
       squad: params.awaySquad,
       teamProjGoals: params.awayProjectedGoals ?? null,
       oppProjGoals: params.homeProjectedGoals ?? null,
@@ -1648,12 +1668,29 @@ export function deriveMatchPlayerPropsV6(
 
   for (const s of sides) {
     if (!s.squad || !isSafePublicLabel(s.teamName)) continue;
-    const slugLower = s.teamSlug.toLowerCase();
+    const teamLookupSlugs = Array.from(
+      new Set(
+        [
+          cleanTeamRouteSlug(s.teamSlug),
+          s.teamSlug.trim().toLowerCase(),
+          cleanTeamRouteSlug(s.rawTeamSlug),
+          s.rawTeamSlug.trim().toLowerCase(),
+          cleanTeamRouteSlug(s.squad.teamId),
+        ].filter((v) => v.length > 0),
+      ),
+    );
 
     for (const player of s.squad.players) {
       if (!isSafePublicLabel(player.name)) continue;
-      const injKey = `${slugLower}|${normKey(player.name)}`;
-      const reportedInjury = params.injuryStatusByTeamPlayer?.get(injKey) ?? null;
+      const pNorm = normKey(player.name);
+      let reportedInjury: string | null = null;
+      for (const slugCandidate of teamLookupSlugs) {
+        const hit = canonicalInjuryMap.get(`${slugCandidate}|${pNorm}`);
+        if (hit) {
+          reportedInjury = hit;
+          break;
+        }
+      }
 
       if (isHardBlockedAvailabilityV6(player.availability, reportedInjury)) {
         continue;
@@ -1975,6 +2012,94 @@ function readSquadsFile(root: string, league: string): LeagueSquadsFile | null {
     void err;
     return null;
   }
+}
+
+export interface LeagueInjuryLookupEntry {
+  readonly status: string;
+  readonly detail: string | null;
+}
+
+const leagueInjuriesCache = new Map<
+  string,
+  { readonly mtimeMs: number; readonly map: ReadonlyMap<string, LeagueInjuryLookupEntry> }
+>();
+
+function safeOptionalPublicLabel(raw?: string | null): string | null {
+  if (!raw) return null;
+  const trimmed = raw.trim();
+  if (!trimmed || !isSafePublicLabel(trimmed)) return null;
+  return trimmed;
+}
+
+export function readLeagueInjuriesMap(
+  root: string,
+  league: string,
+): ReadonlyMap<string, LeagueInjuryLookupEntry> {
+  const injPath = path.join(root, league, "injuries.json");
+  if (!fs.existsSync(injPath)) {
+    return new Map<string, LeagueInjuryLookupEntry>();
+  }
+  try {
+    const mtimeMs = fs.statSync(injPath).mtimeMs;
+    const cached = leagueInjuriesCache.get(injPath);
+    if (cached && cached.mtimeMs === mtimeMs) {
+      return cached.map;
+    }
+    const raw = JSON.parse(fs.readFileSync(injPath, "utf8")) as {
+      entries?: Array<{
+        teamId?: string;
+        player?: string;
+        status?: string;
+        detail?: string;
+      }>;
+    };
+    const map = new Map<string, LeagueInjuryLookupEntry>();
+    for (const entry of raw.entries ?? []) {
+      const playerName = entry?.player?.trim();
+      const teamId = entry?.teamId?.trim();
+      const status = entry?.status?.trim();
+      if (!playerName || !teamId || !status) continue;
+      const pNorm = normKey(playerName);
+      if (!pNorm) continue;
+      const record: LeagueInjuryLookupEntry = {
+        status,
+        detail: safeOptionalPublicLabel(entry.detail),
+      };
+      const canonTeam = cleanTeamRouteSlug(teamId);
+      const rawTeam = teamSlugFromId(teamId);
+      if (canonTeam) map.set(`${canonTeam}|${pNorm}`, record);
+      if (rawTeam) map.set(`${rawTeam}|${pNorm}`, record);
+    }
+    leagueInjuriesCache.set(injPath, { mtimeMs, map });
+    return map;
+  } catch (err) {
+    void err;
+    return new Map<string, LeagueInjuryLookupEntry>();
+  }
+}
+
+function lookupLeagueInjury(
+  injMap: ReadonlyMap<string, LeagueInjuryLookupEntry>,
+  teamSlugs: readonly (string | null | undefined)[],
+  playerName: string,
+): LeagueInjuryLookupEntry | undefined {
+  if (injMap.size === 0) return undefined;
+  const pNorm = normKey(playerName);
+  if (!pNorm) return undefined;
+  for (const rawTeam of teamSlugs) {
+    if (!rawTeam) continue;
+    const canon = cleanTeamRouteSlug(rawTeam);
+    if (canon) {
+      const hit = injMap.get(`${canon}|${pNorm}`);
+      if (hit) return hit;
+    }
+    const lower = teamSlugFromId(rawTeam);
+    if (lower) {
+      const hit = injMap.get(`${lower}|${pNorm}`);
+      if (hit) return hit;
+    }
+  }
+  return undefined;
 }
 
 function readSnapshotFile(root: string, league: string): LeagueSnapshot | null {
@@ -2307,15 +2432,26 @@ export function loadPlayerPropStreakCards(maxCards = 36): ExplorerStreakCard[] {
     const leagueLabel = COMPETITION_BY_ID[lg]?.label ?? lg;
     const prefLabels = METRIC_PRIORITY[sport] ?? [];
 
+    const leagueInjMap = readLeagueInjuriesMap(root, lg);
+
     for (const team of squads.teams) {
       if (!isSafePublicLabel(team.teamName)) continue;
       for (const player of team.players) {
         if (!isSafePublicLabel(player.name)) continue;
+        const leagueInj = lookupLeagueInjury(
+          leagueInjMap,
+          [team.teamSlug, team.teamId],
+          player.name,
+        );
         const nbaInj =
           lg === "nba"
             ? nbaInjuryByKey.get(`${team.teamSlug.toLowerCase()}|${normKey(player.name)}`)
             : undefined;
-        if (isHardBlockedAvailabilityV6(player.availability, nbaInj?.status)) {
+        const reportedStatus = nbaInj?.status ?? leagueInj?.status ?? null;
+        if (
+          isHardBlockedAvailabilityV6(player.availability, reportedStatus) ||
+          isHardBlockedAvailabilityV6(null, leagueInj?.status)
+        ) {
           continue;
         }
 
@@ -2412,7 +2548,7 @@ export function loadPlayerPropStreakCards(maxCards = 36): ExplorerStreakCard[] {
           playerHref: canonicalPlayerHref(leagueId, team.teamSlug, player.slug),
           avgMinutes: minutesMeta.avgMinutes,
           minMinutesGuard: minutesMeta.minMinutesGuard,
-          availabilityStatus: isDoubtfulAvailabilityV6(player.availability, nbaInj?.status)
+          availabilityStatus: isDoubtfulAvailabilityV6(player.availability, reportedStatus)
             ? "doubtful"
             : "available",
         });
@@ -2554,7 +2690,7 @@ export function loadStructuredPlayerProps(options: {
       sampleGames: bp.sampleGames,
       minMinutesGuard: true,
       availabilityStatus: bp.availabilityStatus,
-      injuryNote: bp.injuryNote ?? null,
+      injuryNote: safeOptionalPublicLabel(bp.injuryNote),
       playerHref: canonicalPlayerHref(nbaLeagueId, bp.teamSlug, pSlug),
     });
   }
@@ -2607,7 +2743,7 @@ export function loadStructuredPlayerProps(options: {
             positionLabel: player.positionLabel,
             availability: player.availability,
             injuryStatus: inj?.status ?? null,
-            injuryNote: inj?.detail ?? player.injuryDetail ?? null,
+            injuryNote: safeOptionalPublicLabel(inj?.detail ?? player.injuryDetail),
             seasonMetrics: (player.seasonMetrics ?? []).map((m) => ({
               key: m.key,
               label: m.label,
@@ -2692,25 +2828,35 @@ export function loadStructuredPlayerProps(options: {
       .slice(0, 10);
     if (upcomingGames.length === 0) continue;
 
+    const leagueInjMap = readLeagueInjuriesMap(root, cfg.league);
     const leagueId = asLeagueId(cfg.league);
     const leagueLabel = COMPETITION_BY_ID[cfg.league]?.label ?? cfg.league.toUpperCase();
     let leagueAdded = 0;
 
     for (const game of upcomingGames) {
       const sides = [
-        { slug: teamSlugFromId(game.home.id), opponent: game.away.shortName },
-        { slug: teamSlugFromId(game.away.id), opponent: game.home.shortName },
+        { slug: teamSlugFromId(game.home.id), rawId: game.home.id, opponent: game.away.shortName },
+        { slug: teamSlugFromId(game.away.id), rawId: game.away.id, opponent: game.home.shortName },
       ];
       const matchLabel = `${game.away.shortName} @ ${game.home.shortName}`;
       const kickoffLocal = formatKickoffMx(game.startTime);
 
       for (const side of sides) {
-        const teamEntry = squads.teams.find((t) => t.teamSlug.toLowerCase() === side.slug);
+        const teamEntry = squads.teams.find(
+          (t) =>
+            t.teamSlug.toLowerCase() === side.slug ||
+            cleanTeamRouteSlug(t.teamSlug) === cleanTeamRouteSlug(side.slug),
+        );
         if (!teamEntry || !isSafePublicLabel(teamEntry.teamName)) continue;
 
         for (const player of teamEntry.players.slice(0, 6)) {
           if (!isSafePublicLabel(player.name)) continue;
-          if (isHardBlockedAvailabilityV6(player.availability, null)) continue;
+          const leagueInj = lookupLeagueInjury(
+            leagueInjMap,
+            [teamEntry.teamSlug, teamEntry.teamId, side.slug, side.rawId],
+            player.name,
+          );
+          if (isHardBlockedAvailabilityV6(player.availability, leagueInj?.status)) continue;
 
           const v6Props = evaluateGuardedUsPlayerPropsV6({
             sport: cfg.league,
@@ -2720,7 +2866,8 @@ export function loadStructuredPlayerProps(options: {
             teamName: teamEntry.teamName,
             positionLabel: player.positionLabel,
             availability: player.availability,
-            injuryNote: player.injuryDetail ?? null,
+            injuryStatus: leagueInj?.status ?? null,
+            injuryNote: safeOptionalPublicLabel(leagueInj?.detail ?? player.injuryDetail),
             seasonMetrics: (player.seasonMetrics ?? []).map((m) => ({
               key: m.key,
               label: m.label,
@@ -2783,6 +2930,7 @@ export function loadStructuredPlayerProps(options: {
 
   const squadsByLeague = new Map<string, LeagueSquadsFile | null>();
   const snapshotByLeague = new Map<string, LeagueSnapshot | null>();
+  const injuriesByLeague = new Map<string, ReadonlyMap<string, LeagueInjuryLookupEntry>>();
 
   for (const rawProp of options.baseProps ?? []) {
     if (!isSafePublicLabel(rawProp.player) || !isSafePublicLabel(rawProp.statLabel)) continue;
@@ -2803,14 +2951,26 @@ export function loadStructuredPlayerProps(options: {
       snapshot = readSnapshotFile(root, lgKey);
       snapshotByLeague.set(lgKey, snapshot);
     }
+    let leagueInjMap = injuriesByLeague.get(lgKey);
+    if (leagueInjMap === undefined) {
+      leagueInjMap = readLeagueInjuriesMap(root, lgKey);
+      injuriesByLeague.set(lgKey, leagueInjMap);
+    }
 
     const teamEntry = squads?.teams.find(
-      (t) => t.teamSlug.toLowerCase() === rawProp.teamSlug.toLowerCase(),
+      (t) =>
+        t.teamSlug.toLowerCase() === rawProp.teamSlug.toLowerCase() ||
+        cleanTeamRouteSlug(t.teamSlug) === cleanTeamRouteSlug(rawProp.teamSlug),
     );
     const matchedPlayer = teamEntry?.players.find(
       (p) => normKey(p.name) === normKey(rawProp.player),
     );
-    if (matchedPlayer && isHardBlockedAvailabilityV6(matchedPlayer.availability, null)) {
+    const leagueInj = lookupLeagueInjury(
+      leagueInjMap,
+      [rawProp.teamSlug, teamEntry?.teamSlug, teamEntry?.teamId],
+      matchedPlayer?.name ?? rawProp.player,
+    );
+    if (isHardBlockedAvailabilityV6(matchedPlayer?.availability, leagueInj?.status)) {
       continue;
     }
 
@@ -2833,7 +2993,7 @@ export function loadStructuredPlayerProps(options: {
         : null;
     const availabilityStatus: "available" | "doubtful" = isDoubtfulAvailabilityV6(
       matchedPlayer?.availability,
-      null,
+      leagueInj?.status,
     )
       ? "doubtful"
       : "available";
@@ -2881,6 +3041,7 @@ export function loadStructuredPlayerProps(options: {
         lineupStatus,
         availabilityStatus,
         availability: matchedPlayer?.availability ?? availabilityStatus,
+        injuryStatus: leagueInj?.status ?? null,
         refereeName: snapGame?.referee ?? matchCtx?.referee ?? refereeSummary?.name ?? null,
         refereeAvgYellow: refereeSummary?.avgYellow ?? null,
         round: snapGame?.round ?? null,
@@ -2928,7 +3089,7 @@ export function loadStructuredPlayerProps(options: {
       minMinutesGuard: minutesMeta.minMinutesGuard,
       lineupStatus,
       availabilityStatus,
-      injuryNote: matchedPlayer?.injuryDetail ?? null,
+      injuryNote: safeOptionalPublicLabel(leagueInj?.detail ?? matchedPlayer?.injuryDetail),
       playerHref: matchedPlayer
         ? canonicalPlayerHref(rawProp.league, rawProp.teamSlug, matchedPlayer.slug)
         : null,
