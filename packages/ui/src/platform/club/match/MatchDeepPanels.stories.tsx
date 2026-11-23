@@ -31,9 +31,9 @@ const SAMPLE_PLAYER_PICKS: readonly MatchPlayerPickItem[] = [
     line: 0.5,
     p: 0.62,
     fairDecimal: 1.61,
-    marketDecimal: 2.1,
+    marketDecimal: 1.75,
     marketBookLabel: "Bet365",
-    evPct: 30.2,
+    evPct: 8.4,
     evidenceBullets: [
       { label: "4/5 con KOE de local", ratePct: 80, tone: "green" },
       { label: "4/9 en torneo", ratePct: 44, tone: "red" },
@@ -63,10 +63,10 @@ const SAMPLE_PLAYER_PICKS: readonly MatchPlayerPickItem[] = [
       p: 0.62,
       fairDecimal: 1.61,
       fairAmerican: -164,
-      marketDecimal: 2.1,
-      marketAmerican: 110,
+      marketDecimal: 1.75,
+      marketAmerican: -133,
       marketBookLabel: "Bet365",
-      edgePts: 14.4,
+      edgePts: 5.2,
       confidenceScore: 62,
       suggestedUnits: 0.75,
     },
@@ -406,5 +406,178 @@ export const InjuriesLight: StoryObj = {
       awayName="Real Madrid"
       awaySlug="real-madrid"
     />
+  ),
+};
+
+const SAMPLE_NBA_PLAYER_PICKS: readonly MatchPlayerPickItem[] = [
+  {
+    id: "pp-nba-lebron-pts",
+    playerName: "LeBron James",
+    playerSlug: "lebron-james",
+    teamSide: "home",
+    teamName: "LA Lakers",
+    teamSlug: "lal",
+    positionLabel: "SF",
+    photoKey: null,
+    fallbackPhotoKey: null,
+    playerHref: "/app/nba/t/lal/p/lebron-james",
+    marketKey: "nba_pts",
+    marketLabel: "Puntos",
+    direction: "over",
+    selectionLabel: "Más de 24.5 puntos",
+    line: 24.5,
+    p: 0.57,
+    fairDecimal: 1.75,
+    marketDecimal: 1.87,
+    marketBookLabel: "Pinnacle",
+    evPct: 7.2,
+    evidenceBullets: [
+      { label: "4/5 con LAL en casa", ratePct: 80, tone: "green" },
+      { label: "7/10 recientes", ratePct: 70, tone: "green" },
+      { label: "13/20 en temporada", ratePct: 65, tone: "green" },
+    ],
+    pick: {
+      id: "pp-nba-lebron-pts",
+      gameId: "nba-2026-test",
+      league: asLeagueId("nba"),
+      leagueLabel: "NBA",
+      matchLabel: "LA Lakers vs Phoenix Suns",
+      kickoffLocal: "21:30",
+      gameStatus: "NS",
+      slotIndex: 50,
+      category: "tactico",
+      categoryLabel: "Props NBA",
+      risk: "medio",
+      engineKey: "tachyon",
+      engineName: "PitchLab Tachyon v5.1",
+      marketGroup: "Puntos",
+      selectionKey: "nba_pts:lebron-james:24.5",
+      market: "nba_pts",
+      line: 24.5,
+      conflictGroup: "independent",
+      label: "L. James · Más de 24.5 puntos",
+      rationale: "7/10 superando 24.5 puntos",
+      p: 0.57,
+      fairDecimal: 1.75,
+      fairAmerican: -133,
+      marketDecimal: 1.87,
+      marketAmerican: -115,
+      marketBookLabel: "Pinnacle",
+      edgePts: 3.5,
+      confidenceScore: 57,
+      suggestedUnits: 0.75,
+    },
+  },
+];
+
+const SAMPLE_NBA_ENFRENTAMIENTOS: MatchEnfrentamientosData = {
+  rankings: {
+    leagueSize: 30,
+    attack: [
+      {
+        key: "for_per_game",
+        label: "Puntos anotados / PJ",
+        unit: "pts",
+        homeValue: 117.4,
+        homeRank: 5,
+        awayValue: 114.8,
+        awayRank: 11,
+        higherIsBetter: true,
+      },
+    ],
+    defense: [
+      {
+        key: "against_per_game",
+        label: "Puntos recibidos / PJ",
+        unit: "pts",
+        homeValue: 111.2,
+        homeRank: 8,
+        awayValue: 115.6,
+        awayRank: 19,
+        higherIsBetter: false,
+      },
+    ],
+  },
+  h2h: [
+    {
+      id: "h2h-nba-1",
+      dateIso: "2026-10-25",
+      competitionLabel: "NBA",
+      isSameCompetition: true,
+      homeTeam: "LA Lakers",
+      awayTeam: "Phoenix Suns",
+      homeSlug: "lal",
+      awaySlug: "phx",
+      homeScore: 121,
+      awayScore: 116,
+      isHomeForFocus: true,
+      resultForFocus: "W",
+    },
+  ],
+  homeRecent: [],
+  awayRecent: [],
+};
+
+export const EnfrentamientosNbaDark: StoryObj = {
+  globals: { theme: "dark" },
+  render: () => (
+    <MatchEnfrentamientosPanel
+      enfrentamientos={SAMPLE_NBA_ENFRENTAMIENTOS}
+      league="nba"
+      homeName="LA Lakers"
+      homeSlug="lal"
+      awayName="Phoenix Suns"
+      awaySlug="phx"
+    />
+  ),
+};
+
+export const PlayerPicksNbaLight: StoryObj = {
+  globals: { theme: "light" },
+  render: () => (
+    <MatchPlayerPicksBoard
+      picks={SAMPLE_NBA_PLAYER_PICKS}
+      allowFull
+      oddsFormat="american"
+      homeLabel="LA Lakers"
+      awayLabel="Phoenix Suns"
+    />
+  ),
+};
+
+export const PlayerPicksVisitorLockedDark: StoryObj = {
+  globals: { theme: "dark" },
+  render: () => (
+    <MatchPlayerPicksBoard
+      picks={SAMPLE_PLAYER_PICKS}
+      allowFull={false}
+      oddsFormat="american"
+      homeLabel="FC Köln"
+      awayLabel="Elversberg"
+    />
+  ),
+};
+
+export const EmptyStatesDark: StoryObj = {
+  globals: { theme: "dark" },
+  render: () => (
+    <div style={{ display: "grid", gap: "16px" }}>
+      <MatchPlayerPicksBoard
+        picks={[]}
+        allowFull
+        oddsFormat="decimal"
+        homeLabel="LA Lakers"
+        awayLabel="Phoenix Suns"
+      />
+      <MatchLineupsPanel lineups={null} />
+      <MatchInjuriesPanel
+        injuries={[]}
+        league="nba"
+        homeName="LA Lakers"
+        homeSlug="lal"
+        awayName="Phoenix Suns"
+        awaySlug="phx"
+      />
+    </div>
   ),
 };
