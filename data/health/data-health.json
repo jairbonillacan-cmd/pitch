@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "generatedAtUtc": "2026-11-22T22:03:53.979Z",
+  "generatedAtUtc": "2026-11-23T00:25:36Z",
   "overallStatus": "critical",
   "thresholdsHours": {
     "calendario": 30,
@@ -16,9 +16,9 @@
       "label": "Momios automáticos",
       "workflowFile": ".github/workflows/odds-refresh.yml",
       "status": "ok",
-      "lastRunAtUtc": "2026-11-22T18:37:59Z",
-      "lastSuccessAtUtc": "2026-11-22T18:37:59Z",
-      "durationMs": 11744,
+      "lastRunAtUtc": "2026-11-23T00:25:36Z",
+      "lastSuccessAtUtc": "2026-11-23T00:25:36Z",
+      "durationMs": 12840,
       "cadenceLabel": "Multi-régimen: cada 90–120 min en jornada y pre-partido · 3×/día entre semana",
       "lastError": null
     },
@@ -46,7 +46,7 @@
           "dataType": "calendario",
           "status": "ok",
           "updatedAtUtc": "2026-11-22T22:03:53.979Z",
-          "ageHours": 0,
+          "ageHours": 2.4,
           "maxHours": 30,
           "sourceLabel": "nflverse",
           "recordsCount": 13,
@@ -57,7 +57,7 @@
           "dataType": "bajas",
           "status": "ok",
           "updatedAtUtc": "2026-11-22T22:03:53.979Z",
-          "ageHours": 0,
+          "ageHours": 2.4,
           "maxHours": 36,
           "sourceLabel": "nflverse-cc-by-4.0",
           "recordsCount": 143,
@@ -67,8 +67,8 @@
         "momios": {
           "dataType": "momios",
           "status": "ok",
-          "updatedAtUtc": "2026-11-22T18:37:59Z",
-          "ageHours": 3.4,
+          "updatedAtUtc": "2026-11-23T00:25:36Z",
+          "ageHours": 0,
           "maxHours": 36,
           "sourceLabel": "Bzzoiro / The Odds API / Betfair",
           "recordsCount": 0,
@@ -96,7 +96,7 @@
           "dataType": "calendario",
           "status": "error",
           "updatedAtUtc": "2026-11-21T13:02:18.077Z",
-          "ageHours": 33,
+          "ageHours": 35.4,
           "maxHours": 12,
           "sourceLabel": "football-data",
           "recordsCount": 20,
@@ -111,7 +111,7 @@
           "dataType": "bajas",
           "status": "ok",
           "updatedAtUtc": "2026-11-22T22:03:53.979Z",
-          "ageHours": 0,
+          "ageHours": 2.4,
           "maxHours": 36,
           "sourceLabel": "espn-public-eng.1",
           "recordsCount": 0,
@@ -121,12 +121,12 @@
         "momios": {
           "dataType": "momios",
           "status": "ok",
-          "updatedAtUtc": "2026-11-22T15:55:23Z",
-          "ageHours": 6.1,
+          "updatedAtUtc": "2026-11-23T00:25:36Z",
+          "ageHours": 0,
           "maxHours": 36,
           "sourceLabel": "bet365, bwin",
-          "recordsCount": 869,
-          "note": "869 cuotas vigentes (< 72 h)",
+          "recordsCount": 944,
+          "note": "944 cuotas vigentes (< 72 h)",
           "lastError": null
         },
         "alineaciones": {
@@ -150,7 +150,7 @@
           "dataType": "calendario",
           "status": "error",
           "updatedAtUtc": "2026-11-20T19:06:37.907Z",
-          "ageHours": 51,
+          "ageHours": 53.3,
           "maxHours": 12,
           "sourceLabel": "openfootball+football-data",
           "recordsCount": 20,
@@ -165,7 +165,7 @@
           "dataType": "bajas",
           "status": "ok",
           "updatedAtUtc": "2026-11-22T22:03:53.979Z",
-          "ageHours": 0,
+          "ageHours": 2.4,
           "maxHours": 36,
           "sourceLabel": "espn-public-esp.1",
           "recordsCount": 0,
@@ -175,12 +175,12 @@
         "momios": {
           "dataType": "momios",
           "status": "ok",
-          "updatedAtUtc": "2026-11-22T18:37:59Z",
-          "ageHours": 3.4,
+          "updatedAtUtc": "2026-11-23T00:25:36Z",
+          "ageHours": 0,
           "maxHours": 36,
           "sourceLabel": "bet365, bwin",
-          "recordsCount": 924,
-          "note": "924 cuotas vigentes (< 72 h)",
+          "recordsCount": 994,
+          "note": "994 cuotas vigentes (< 72 h)",
           "lastError": null
         },
         "alineaciones": {
@@ -204,7 +204,7 @@
           "dataType": "calendario",
           "status": "error",
           "updatedAtUtc": "2026-11-22T22:03:53.979Z",
-          "ageHours": 0,
+          "ageHours": 2.4,
           "maxHours": 30,
           "sourceLabel": "openfootball+football-data",
           "recordsCount": 18,
@@ -219,7 +219,7 @@
           "dataType": "bajas",
           "status": "ok",
           "updatedAtUtc": "2026-11-22T22:03:53.979Z",
-          "ageHours": 0,
+          "ageHours": 2.4,
           "maxHours": 36,
           "sourceLabel": "espn-public-ger.1",
           "recordsCount": 0,
@@ -230,7 +230,7 @@
           "dataType": "momios",
           "status": "ok",
           "updatedAtUtc": "2026-11-22T15:55:23Z",
-          "ageHours": 6.1,
+          "ageHours": 8.5,
           "maxHours": 36,
           "sourceLabel": "bet365, bwin",
           "recordsCount": 963,
@@ -258,7 +258,7 @@
           "dataType": "calendario",
           "status": "error",
           "updatedAtUtc": "2026-11-21T13:02:18.077Z",
-          "ageHours": 33,
+          "ageHours": 35.4,
           "maxHours": 12,
           "sourceLabel": "openfootball+football-data",
           "recordsCount": 20,
@@ -273,7 +273,7 @@
           "dataType": "bajas",
           "status": "ok",
           "updatedAtUtc": "2026-11-22T22:03:53.979Z",
-          "ageHours": 0,
+          "ageHours": 2.4,
           "maxHours": 36,
           "sourceLabel": "espn-public-ita.1",
           "recordsCount": 0,
@@ -283,12 +283,12 @@
         "momios": {
           "dataType": "momios",
           "status": "ok",
-          "updatedAtUtc": "2026-11-22T18:37:59Z",
-          "ageHours": 3.4,
+          "updatedAtUtc": "2026-11-23T00:25:36Z",
+          "ageHours": 0,
           "maxHours": 36,
           "sourceLabel": "bet365, bwin",
-          "recordsCount": 984,
-          "note": "984 cuotas vigentes (< 72 h)",
+          "recordsCount": 1063,
+          "note": "1063 cuotas vigentes (< 72 h)",
           "lastError": null
         },
         "alineaciones": {
@@ -312,7 +312,7 @@
           "dataType": "calendario",
           "status": "error",
           "updatedAtUtc": "2026-11-22T22:03:53.979Z",
-          "ageHours": 0,
+          "ageHours": 2.4,
           "maxHours": 30,
           "sourceLabel": "openfootball+football-data",
           "recordsCount": 18,
@@ -327,7 +327,7 @@
           "dataType": "bajas",
           "status": "ok",
           "updatedAtUtc": "2026-11-22T22:03:53.979Z",
-          "ageHours": 0,
+          "ageHours": 2.4,
           "maxHours": 36,
           "sourceLabel": "espn-public-fra.1",
           "recordsCount": 0,
@@ -338,7 +338,7 @@
           "dataType": "momios",
           "status": "ok",
           "updatedAtUtc": "2026-11-22T18:37:59Z",
-          "ageHours": 3.4,
+          "ageHours": 5.8,
           "maxHours": 36,
           "sourceLabel": "bet365, bwin",
           "recordsCount": 1067,
@@ -366,7 +366,7 @@
           "dataType": "calendario",
           "status": "ok",
           "updatedAtUtc": "2026-11-22T22:03:53.979Z",
-          "ageHours": 0,
+          "ageHours": 2.4,
           "maxHours": 30,
           "sourceLabel": "espn",
           "recordsCount": 9,
@@ -377,7 +377,7 @@
           "dataType": "bajas",
           "status": "ok",
           "updatedAtUtc": "2026-11-22T22:03:53.979Z",
-          "ageHours": 0,
+          "ageHours": 2.4,
           "maxHours": 36,
           "sourceLabel": "espn-public-mex.1",
           "recordsCount": 0,
@@ -387,8 +387,8 @@
         "momios": {
           "dataType": "momios",
           "status": "ok",
-          "updatedAtUtc": "2026-11-22T18:37:59Z",
-          "ageHours": 3.4,
+          "updatedAtUtc": "2026-11-23T00:25:36Z",
+          "ageHours": 0,
           "maxHours": 36,
           "sourceLabel": "bet365, bwin",
           "recordsCount": 1000,
@@ -420,9 +420,9 @@
       "workflowId": "pre-mvp-snapshot",
       "message": "EMPTY_OR_REGRESSED_SNAPSHOT: El candidato perdió marcadores finales en Jornada 13 (9 < 10).",
       "failingSinceUtc": "2026-11-20T23:27:09.374Z",
-      "lastSeenAtUtc": "2026-11-22T22:03:53.979Z",
+      "lastSeenAtUtc": "2026-11-23T00:25:36Z",
       "emailedAtUtc": null,
-      "occurrences": 19
+      "occurrences": 20
     },
     {
       "incidentKey": "validation::calendario::bundesliga",
@@ -434,9 +434,9 @@
       "workflowId": "pre-mvp-snapshot",
       "message": "EMPTY_OR_REGRESSED_SNAPSHOT: El candidato perdió marcadores finales en Jornada 10 (7 < 9).",
       "failingSinceUtc": "2026-11-20T23:27:09.374Z",
-      "lastSeenAtUtc": "2026-11-22T22:03:53.979Z",
+      "lastSeenAtUtc": "2026-11-23T00:25:36Z",
       "emailedAtUtc": null,
-      "occurrences": 19
+      "occurrences": 20
     },
     {
       "incidentKey": "validation::calendario::ligue-1",
@@ -448,9 +448,9 @@
       "workflowId": "pre-mvp-snapshot",
       "message": "EMPTY_OR_REGRESSED_SNAPSHOT: El candidato perdió marcadores finales en Jornada 11 (6 < 9).",
       "failingSinceUtc": "2026-11-20T23:27:09.374Z",
-      "lastSeenAtUtc": "2026-11-22T22:03:53.979Z",
+      "lastSeenAtUtc": "2026-11-23T00:25:36Z",
       "emailedAtUtc": null,
-      "occurrences": 19
+      "occurrences": 20
     },
     {
       "incidentKey": "validation::calendario::premier-league",
@@ -462,9 +462,9 @@
       "workflowId": "pre-mvp-snapshot",
       "message": "EMPTY_OR_REGRESSED_SNAPSHOT: El candidato perdió marcadores finales en Jornada 11 (9 < 10).",
       "failingSinceUtc": "2026-11-21T17:59:10.304Z",
-      "lastSeenAtUtc": "2026-11-22T22:03:53.979Z",
+      "lastSeenAtUtc": "2026-11-23T00:25:36Z",
       "emailedAtUtc": null,
-      "occurrences": 12
+      "occurrences": 13
     },
     {
       "incidentKey": "validation::calendario::serie-a",
@@ -476,9 +476,9 @@
       "workflowId": "pre-mvp-snapshot",
       "message": "EMPTY_OR_REGRESSED_SNAPSHOT: El candidato perdió marcadores finales en Jornada 12 (9 < 10).",
       "failingSinceUtc": "2026-11-21T17:59:10.304Z",
-      "lastSeenAtUtc": "2026-11-22T22:03:53.979Z",
+      "lastSeenAtUtc": "2026-11-23T00:25:36Z",
       "emailedAtUtc": null,
-      "occurrences": 12
+      "occurrences": 13
     }
   ]
 }
