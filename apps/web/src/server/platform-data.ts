@@ -55,6 +55,7 @@ import type {
   PlatformGame,
   PlatformGameDetail,
   PlatformMarketRow,
+  PlayerPropItem,
   ViewerRole,
   ViewerVia,
 } from "@pitchlab/ui/types";
@@ -73,10 +74,7 @@ import {
   enrichDatasetWithBookQuotes,
   enrichMarketRowsWithBookQuotes,
 } from "./book-quotes";
-import {
-  buildServerMatchPicksCatalog,
-  buildServerMatchPicksCatalogsBatch,
-} from "./picks-catalog";
+import { buildServerMatchPicksCatalog } from "./picks-catalog";
 import { loadLeagueRefereeRanking, slugifyRefereeName } from "./referees";
 import { buildLeagueStandingsSplits } from "./standings-brackets";
 import {
@@ -179,8 +177,14 @@ interface DatasetMemoBundle {
   slimVisitorShell: PlatformDataset | null;
   initialMemberShell: PlatformDataset | null;
   initialVisitorShell: PlatformDataset | null;
-  screenerMemberCatalogs: Record<string, MatchPicksCatalog> | null;
-  screenerVisitorCatalogs: Record<string, MatchPicksCatalog> | null;
+  shellPlayerPropsMember: PlayerPropItem[] | null;
+  playerPropsByGameId: Map<string, readonly PlayerPropItem[]> | null;
+  screenerMemberCatalogsByMaxGames: Map<number, Record<string, MatchPicksCatalog>>;
+  screenerVisitorCatalogsByMaxGames: Map<number, Record<string, MatchPicksCatalog>>;
+  memberLeagueHubGamesByLeague: Map<string, readonly PlatformGame[]>;
+  visitorLeagueHubGamesByLeague: Map<string, readonly PlatformGame[]>;
+  standingsByLeague: Map<string, StandingRow[]>;
+  teamHistoryIndexByLeague: Map<string, Map<string, readonly CachedTeamHistoryEntry[]>>;
   enrichedMarketsByGameId: Map<string, EnrichedGameMarketsBundle>;
   memberCompactCatalogByGameId: Map<string, MatchPicksCatalog>;
   visitorCompactCatalogByGameId: Map<string, MatchPicksCatalog>;
@@ -480,18 +484,18 @@ function buildTeamLabelLookup(
   return map;
 }
 
-function loadTeamHistoryForGame(
+function getOrBuildLeagueHistoryIndex(
   bundle: DatasetMemoBundle,
   league: string,
-  teamSlug: string,
-  maxRecords = 20,
-): readonly CachedTeamHistoryEntry[] {
-  const targetCanon = canonicalTeamSlugKey(teamSlug);
+): Map<string, readonly CachedTeamHistoryEntry[]> {
+  const existing = bundle.teamHistoryIndexByLeague.get(league);
+  if (existing) return existing;
+
   const leagueLabel =
     LEAGUE_LABELS[league as ProductLeague] ??
     COMPETITION_BY_ID[league]?.label ??
     league;
-  const dedup = new Map<string, CachedTeamHistoryEntry>();
+  const dedupByTeam = new Map<string, Map<string, CachedTeamHistoryEntry>>();
 
   const resolveTeamMeta = (rawTeamId: string) => {
     const slug = cleanTeamRouteSlug(rawTeamId);
@@ -502,26 +506,52 @@ function loadTeamHistoryForGame(
     return { slug, name: label, shortName: label };
   };
 
+  const putEntry = (
+    teamCanon: string,
+    key: string,
+    entry: CachedTeamHistoryEntry,
+  ) => {
+    let teamMap = dedupByTeam.get(teamCanon);
+    if (!teamMap) {
+      teamMap = new Map<string, CachedTeamHistoryEntry>();
+      dedupByTeam.set(teamCanon, teamMap);
+    }
+    teamMap.set(key, entry);
+  };
+
   const ingestRow = (row: RawSeasonResultRow) => {
     const homeCanon = canonicalTeamSlugKey(row.homeTeam);
     const awayCanon = canonicalTeamSlugKey(row.awayTeam);
-    if (homeCanon !== targetCanon && awayCanon !== targetCanon) return;
-    const isHome = homeCanon === targetCanon;
-    const oppMeta = resolveTeamMeta(isHome ? row.awayTeam : row.homeTeam);
     const dayKey = row.date.slice(0, 10);
     const dateIso = row.startTime ?? `${dayKey}T12:00:00.000Z`;
     const key = `${dayKey}|${homeCanon}|${awayCanon}`;
-    dedup.set(key, {
-      id: `${league}:${dayKey}:${homeCanon}:${awayCanon}`,
+    const id = `${league}:${dayKey}:${homeCanon}:${awayCanon}`;
+    const awayMeta = resolveTeamMeta(row.awayTeam);
+    putEntry(homeCanon, key, {
+      id,
       dateIso,
       leagueLabel,
-      isHome,
-      opponentSlug: oppMeta.slug,
-      opponentName: oppMeta.name,
-      opponentShort: oppMeta.shortName,
-      goalsFor: isHome ? row.homeScore : row.awayScore,
-      goalsAgainst: isHome ? row.awayScore : row.homeScore,
+      isHome: true,
+      opponentSlug: awayMeta.slug,
+      opponentName: awayMeta.name,
+      opponentShort: awayMeta.shortName,
+      goalsFor: row.homeScore,
+      goalsAgainst: row.awayScore,
     });
+    if (awayCanon !== homeCanon) {
+      const homeMeta = resolveTeamMeta(row.homeTeam);
+      putEntry(awayCanon, key, {
+        id,
+        dateIso,
+        leagueLabel,
+        isHome: false,
+        opponentSlug: homeMeta.slug,
+        opponentName: homeMeta.name,
+        opponentShort: homeMeta.shortName,
+        goalsFor: row.awayScore,
+        goalsAgainst: row.homeScore,
+      });
+    }
   };
 
   for (const row of loadCachedHistoryJsonlRows(league)) {
@@ -543,9 +573,27 @@ function loadTeamHistoryForGame(
     });
   }
 
-  return Array.from(dedup.values())
-    .sort((a, b) => b.dateIso.localeCompare(a.dateIso))
-    .slice(0, maxRecords);
+  const sortedByTeam = new Map<string, readonly CachedTeamHistoryEntry[]>();
+  for (const [teamCanon, entries] of dedupByTeam.entries()) {
+    sortedByTeam.set(
+      teamCanon,
+      Array.from(entries.values()).sort((a, b) => b.dateIso.localeCompare(a.dateIso)),
+    );
+  }
+  bundle.teamHistoryIndexByLeague.set(league, sortedByTeam);
+  return sortedByTeam;
+}
+
+function loadTeamHistoryForGame(
+  bundle: DatasetMemoBundle,
+  league: string,
+  teamSlug: string,
+  maxRecords = 20,
+): readonly CachedTeamHistoryEntry[] {
+  const targetCanon = canonicalTeamSlugKey(teamSlug);
+  const leagueIndex = getOrBuildLeagueHistoryIndex(bundle, league);
+  const entries = leagueIndex.get(targetCanon);
+  return entries ? entries.slice(0, maxRecords) : [];
 }
 
 function findSquadTeamEntry(
@@ -988,8 +1036,14 @@ function getDatasetMemoBundle(): DatasetMemoBundle {
     slimVisitorShell: null,
     initialMemberShell: null,
     initialVisitorShell: null,
-    screenerMemberCatalogs: null,
-    screenerVisitorCatalogs: null,
+    shellPlayerPropsMember: null,
+    playerPropsByGameId: null,
+    screenerMemberCatalogsByMaxGames: new Map(),
+    screenerVisitorCatalogsByMaxGames: new Map(),
+    memberLeagueHubGamesByLeague: new Map(),
+    visitorLeagueHubGamesByLeague: new Map(),
+    standingsByLeague: new Map(),
+    teamHistoryIndexByLeague: new Map(),
     enrichedMarketsByGameId: new Map(),
     memberCompactCatalogByGameId: new Map(),
     visitorCompactCatalogByGameId: new Map(),
@@ -1383,14 +1437,41 @@ async function redactedForViewer(): Promise<PlatformDataset> {
   return (await hasAuthenticatedBetaSession()) ? bundle.value : getRedactedMemo(bundle).dataset;
 }
 
+function getGamePlayerProps(
+  bundle: DatasetMemoBundle,
+  gameId: string,
+): readonly PlayerPropItem[] {
+  if (!bundle.playerPropsByGameId) {
+    const index = new Map<string, PlayerPropItem[]>();
+    for (const prop of bundle.value.playerProps ?? []) {
+      const list = index.get(prop.gameId);
+      if (list) list.push(prop);
+      else index.set(prop.gameId, [prop]);
+    }
+    bundle.playerPropsByGameId = index;
+  }
+  return bundle.playerPropsByGameId.get(gameId) ?? [];
+}
+
 export function loadLeagueStandings(league: ProductLeague): StandingRow[] {
-  const full = buildServerRawPlatformDataset();
-  return full.leagues.find((l) => l.league === league)?.standings ?? [];
+  const bundle = getDatasetMemoBundle();
+  const existing = bundle.standingsByLeague.get(league);
+  if (existing) return existing;
+  const rows = bundle.value.leagues.find((l) => l.league === league)?.standings ?? [];
+  bundle.standingsByLeague.set(league, rows);
+  return rows;
 }
 
 export async function loadLeagueHubGames(league: ProductLeague): Promise<PlatformGame[]> {
-  const dataset = await redactedForViewer();
-  return dataset.games
+  const bundle = getDatasetMemoBundle();
+  const hasSession = await hasAuthenticatedBetaSession();
+  const cacheMap = hasSession
+    ? bundle.memberLeagueHubGamesByLeague
+    : bundle.visitorLeagueHubGamesByLeague;
+  const existing = cacheMap.get(league);
+  if (existing) return existing.slice();
+  const dataset = hasSession ? bundle.value : getRedactedMemo(bundle).dataset;
+  const games = dataset.games
     .filter((g) => g.league === league)
     .map((g) => ({
       ...g,
@@ -1398,6 +1479,8 @@ export async function loadLeagueHubGames(league: ProductLeague): Promise<Platfor
       headToHead: [],
       factors: [],
     }));
+  cacheMap.set(league, games);
+  return games.slice();
 }
 
 export async function loadFinishedGames(league?: string): Promise<PlatformGame[]> {
@@ -1417,11 +1500,15 @@ export async function loadGameSummary(gameId: string): Promise<PlatformGame | nu
   return game ? { ...game, markets: [], headToHead: [], factors: [] } : null;
 }
 
-export function loadShellPlayerProps(options?: { fullAccess?: boolean }) {
+export function loadShellPlayerProps(options?: { fullAccess?: boolean }): PlayerPropItem[] {
   if (options && options.fullAccess === false) {
     return [];
   }
-  return buildServerRawPlatformDataset().playerProps ?? [];
+  const bundle = getDatasetMemoBundle();
+  if (!bundle.shellPlayerPropsMember) {
+    bundle.shellPlayerPropsMember = bundle.value.playerProps ?? [];
+  }
+  return bundle.shellPlayerPropsMember;
 }
 
 function projectShellPick(
@@ -1680,9 +1767,7 @@ function getOrBuildEnrichedCatalogForGame(
   const awayHistory = loadTeamHistoryForGame(bundle, game.league, game.away.slug, 20);
   const footballPlayers = allowFull ? extractFootballCandidatesForGame(game) : [];
   const nbaPlayers = allowFull ? extractNbaCandidatesForGame(game) : [];
-  const gamePlayerProps = allowFull
-    ? (bundle.value.playerProps ?? []).filter((prop) => prop.gameId === game.id)
-    : [];
+  const gamePlayerProps = allowFull ? getGamePlayerProps(bundle, game.id) : [];
 
   const catalog = buildServerMatchPicksCatalog(game, {
     fullAccess,
@@ -1764,54 +1849,20 @@ function buildScreenerCatalogsRecord(
     targetGames = upcomingGames.slice(0, capLimit);
   }
 
-  const detailsByGameId = new Map<
-    string,
-    {
-      readonly markets?: readonly PlatformMarketRow[];
-      readonly v5?: MatchIntelligenceV5View | null;
-      readonly homeHistory?: readonly TeamMatchEvidenceRecord[];
-      readonly awayHistory?: readonly TeamMatchEvidenceRecord[];
-      readonly footballPlayers?: readonly FootballPlayerPropCandidateInput[];
-      readonly nbaPlayers?: readonly NbaPlayerPropCandidateInput[];
-    }
-  >();
-
-  for (const game of targetGames) {
-    const allowFull = fullAccess || game.status === "FT";
-    const enriched = allowFull ? getOrBuildEnrichedGameMarkets(bundle, game) : null;
-    detailsByGameId.set(game.id, {
-      markets: enriched?.markets ?? game.markets,
-      v5: enriched?.v5 ?? null,
-      homeHistory: loadTeamHistoryForGame(bundle, game.league, game.home.slug, 20),
-      awayHistory: loadTeamHistoryForGame(bundle, game.league, game.away.slug, 20),
-      footballPlayers: allowFull ? extractFootballCandidatesForGame(game) : [],
-      nbaPlayers: allowFull ? extractNbaCandidatesForGame(game) : [],
-    });
-  }
-
-  const batch = buildServerMatchPicksCatalogsBatch(targetGames, {
-    fullAccess,
-    playerProps: fullAccess ? bundle.value.playerProps : [],
-    unlockedPickIds: collectOpenPromoPickIds(bundle.value),
-    detailsByGameId,
-    maxPicksPerFamily: 2,
-    maxTotalPicks: 14,
-    compact: true,
-  });
-
   const catalogs: Record<string, MatchPicksCatalog> = {};
   let accumulatedBytes = 2;
   let includedCount = 0;
 
-  for (const [gameId, catalog] of batch) {
+  for (const game of targetGames) {
+    const catalog = getOrBuildEnrichedCatalogForGame(bundle, game, fullAccess, true);
     const entryBytes =
-      Buffer.byteLength(JSON.stringify(gameId), "utf8") +
+      Buffer.byteLength(JSON.stringify(game.id), "utf8") +
       Buffer.byteLength(JSON.stringify(catalog), "utf8") +
       (includedCount > 0 ? 2 : 1);
     if (accumulatedBytes + entryBytes > SCREENER_INITIAL_MAX_BYTES) {
       break;
     }
-    catalogs[gameId] = catalog;
+    catalogs[game.id] = catalog;
     accumulatedBytes += entryBytes;
     includedCount += 1;
   }
@@ -1819,37 +1870,34 @@ function buildScreenerCatalogsRecord(
   return catalogs;
 }
 
+const MAX_SCREENER_MEMO_BUCKETS = 32;
+
 export async function loadServerPicksCatalogsForScreener(options?: {
   readonly fullAccess?: boolean;
   readonly maxGames?: number;
 }): Promise<Record<string, MatchPicksCatalog>> {
   const bundle = getDatasetMemoBundle();
   const fullAccess = options?.fullAccess ?? (await hasAuthenticatedBetaSession());
-  const maxGames = options?.maxGames;
+  const rawMax = options?.maxGames;
+  const effectiveMaxGames =
+    typeof rawMax === "number" && Number.isFinite(rawMax)
+      ? Math.max(1, Math.floor(rawMax))
+      : DEFAULT_SCREENER_CATALOG_MAX_GAMES;
+  const cacheMap = fullAccess
+    ? bundle.screenerMemberCatalogsByMaxGames
+    : bundle.screenerVisitorCatalogsByMaxGames;
+  const existing = cacheMap.get(effectiveMaxGames);
+  if (existing) return existing;
 
-  if (maxGames !== undefined) {
-    return buildScreenerCatalogsRecord(bundle, fullAccess, maxGames);
-  }
-
-  if (fullAccess) {
-    if (!bundle.screenerMemberCatalogs) {
-      bundle.screenerMemberCatalogs = buildScreenerCatalogsRecord(
-        bundle,
-        true,
-        DEFAULT_SCREENER_CATALOG_MAX_GAMES,
-      );
+  const built = buildScreenerCatalogsRecord(bundle, fullAccess, effectiveMaxGames);
+  if (cacheMap.size >= MAX_SCREENER_MEMO_BUCKETS) {
+    const oldestKey = cacheMap.keys().next().value;
+    if (oldestKey !== undefined) {
+      cacheMap.delete(oldestKey);
     }
-    return bundle.screenerMemberCatalogs;
   }
-
-  if (!bundle.screenerVisitorCatalogs) {
-    bundle.screenerVisitorCatalogs = buildScreenerCatalogsRecord(
-      bundle,
-      false,
-      DEFAULT_SCREENER_CATALOG_MAX_GAMES,
-    );
-  }
-  return bundle.screenerVisitorCatalogs;
+  cacheMap.set(effectiveMaxGames, built);
+  return built;
 }
 
 export function loadScreenerApiPage(params: {
@@ -2492,9 +2540,7 @@ async function loadGameDetailForAccess(
   const enriched = getOrBuildEnrichedGameMarkets(bundle, game);
   const frozenMainPick =
     game.status !== "FT" ? await resolveServerFrozenMainPick(game) : null;
-  const gamePlayerProps = (bundle.value.playerProps ?? []).filter(
-    (prop) => prop.gameId === rawGame.id,
-  );
+  const gamePlayerProps = getGamePlayerProps(bundle, rawGame.id);
   const footballPlayers = extractFootballCandidatesForGame(rawGame);
   const nbaPlayers = extractNbaCandidatesForGame(rawGame);
 
