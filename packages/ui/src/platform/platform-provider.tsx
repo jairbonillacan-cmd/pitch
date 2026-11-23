@@ -11,14 +11,13 @@ import React, {
   useState,
   useSyncExternalStore,
 } from "react";
-import { parseStrictFiniteNumber, type LeagueId } from "@pitchlab/contracts";
+import { type LeagueId } from "@pitchlab/contracts";
 import { getTeamColors } from "@pitchlab/sports-assets";
 import {
   containsExternalLink,
   journalRecord,
   redactDatasetForVisitor,
 } from "./access-guard";
-import { sanitizeCsvCell } from "./club/account/account-helpers";
 import {
   buildParlayMatchSummary,
   buildParlayPickSummary,
@@ -26,209 +25,44 @@ import {
   sanitizeJournalDisplayNote,
 } from "./club/record/record-audit-helpers";
 import { sanitizeInternalHref } from "./navigation-helpers";
-import { isCredibleClvPct, isParlayClvEntry } from "./record-stats";
+import {
+  buildJournalCsvContent,
+  DEFAULT_FOLLOW_ALERTS,
+  formatClvBadge,
+  isJournalEntry,
+  isOwnSocialPost,
+  MAX_PARLAY_LEGS,
+  mergeSupplementalDataset,
+  ownHandleFor,
+  readStoredArray,
+  sanitizeFollowAlerts,
+  socialScopeKey,
+  STORAGE_KEYS,
+  writeStored,
+  type FollowAlerts,
+  type PinUnlockResult,
+  type ShareTicketLegItem,
+  type ShareTicketPayload,
+  type SocialFeedPageState,
+  type SocialFeedScope,
+  type ToastMessage,
+  type ToastOptions,
+  type ViewerIdentity,
+} from "./platform-storage";
+import {
+  buildSocialFeedQueryParams,
+  fromServerRow,
+  getJson,
+  postJson,
+  SEAL_ERRORS,
+  sealOnServer,
+  type ServerJournalRow,
+} from "./platform-sync-client";
 import type {
   DaySelection,
   LeagueFilter,
   SportFilter,
 } from "./club/home/home-model";
-
-const STORAGE_KEYS = {
-  journal: "pl-journal-v1",
-  watchlist: "pl-watchlist-v1",
-  followAlerts: "pl-follow-alerts-v1",
-  ownPosts: "pl-own-posts-v1",
-} as const;
-
-const MAX_PARLAY_LEGS = 6;
-
-function readStoredArray<T>(key: string, isItem: (v: unknown) => v is T): T[] {
-  try {
-    const raw = window.localStorage.getItem(key);
-    if (!raw) return [];
-    const parsed: unknown = JSON.parse(raw);
-    return Array.isArray(parsed) ? parsed.filter(isItem) : [];
-  } catch (err) {
-    void err;
-    return [];
-  }
-}
-
-function writeStored(key: string, value: unknown): void {
-  try {
-    window.localStorage.setItem(key, JSON.stringify(value));
-  } catch (err) {
-    void err;
-  }
-}
-
-function isJournalEntry(v: unknown): v is JournalEntry {
-  const e = v as Partial<JournalEntry> | null;
-  return (
-    !!e &&
-    typeof e === "object" &&
-    typeof e.id === "string" &&
-    typeof e.pickId === "string" &&
-    typeof e.gameId === "string" &&
-    typeof e.leagueLabel === "string" &&
-    typeof e.matchLabel === "string" &&
-    typeof e.pickLabel === "string" &&
-    typeof e.units === "number" &&
-    Number.isFinite(e.units) &&
-    typeof e.userDecimal === "number" &&
-    Number.isFinite(e.userDecimal) &&
-    (e.fairDecimal === undefined ||
-      (typeof e.fairDecimal === "number" && Number.isFinite(e.fairDecimal))) &&
-    (e.status === "pending" || e.status === "won" || e.status === "lost" || e.status === "void")
-  );
-}
-
-function isOwnSocialPost(v: unknown): v is SocialPost {
-  const p = v as Partial<SocialPost> | null;
-  return (
-    !!p &&
-    typeof p === "object" &&
-    typeof p.id === "string" &&
-    typeof p.body === "string" &&
-    typeof p.authorHandle === "string" &&
-    typeof p.authorName === "string" &&
-    !p.isExample &&
-    Array.isArray(p.comments)
-  );
-}
-
-interface ServerJournalRow {
-  id: string;
-  pickId: string;
-  gameId: string;
-  leagueLabel: string;
-  matchLabel: string;
-  pickLabel: string;
-  origin: string;
-  units: string;
-  userDecimal: string;
-  fairDecimal: string;
-  clvPct: string | null;
-  closingDecimal?: string | null;
-  status: string;
-  pickKind?: string | null;
-  parlayLegs?: JournalEntry["parlayLegs"] | null;
-  parlayLegResults?: JournalEntry["parlayLegResults"] | null;
-  note: string | null;
-  sealedAt: string;
-  settledAt?: string | null;
-}
-
-const SEAL_ERRORS: Record<string, string> = {
-  partido_iniciado: "El partido ya empezó: no se puede sellar.",
-  unidades_invalidas: "Las unidades deben estar entre 0.25u y 5u.",
-  momio_invalido: "Momio inválido.",
-  ya_sellado: "Ese pick ya estaba sellado en Mi récord.",
-  parlay_invalido: "Las selecciones de este parlay ya no son compatibles o faltan en cartelera.",
-};
-
-function fromServerRow(row: ServerJournalRow): JournalEntry {
-  const origins: JournalEntry["origin"][] = ["Spacetime Suite", "Parlay Combinado", "Player Prop", "Propio"];
-  const status: JournalEntry["status"] =
-    row.status === "won" || row.status === "lost" || row.status === "void" ? row.status : "pending";
-  return {
-    id: row.id,
-    pickId: row.pickId,
-    gameId: row.gameId,
-    leagueLabel: row.leagueLabel,
-    matchLabel: row.matchLabel,
-    pickLabel: row.pickLabel,
-    origin: origins.includes(row.origin as JournalEntry["origin"]) ? (row.origin as JournalEntry["origin"]) : "Propio",
-    units: parseStrictFiniteNumber(row.units) ?? 0,
-    userDecimal: parseStrictFiniteNumber(row.userDecimal) ?? 0,
-    fairDecimal: parseStrictFiniteNumber(row.fairDecimal) ?? 0,
-    clvPct:
-      row.clvPct === null ? undefined : (parseStrictFiniteNumber(row.clvPct) ?? undefined),
-    closingDecimal: row.closingDecimal ? parseStrictFiniteNumber(row.closingDecimal) : null,
-    status,
-    pickKind: row.pickKind === "parlay" ? "parlay" : "single",
-    ...(Array.isArray(row.parlayLegs) ? { parlayLegs: row.parlayLegs } : {}),
-    ...(Array.isArray(row.parlayLegResults) ? { parlayLegResults: row.parlayLegResults } : {}),
-    sealedAt: new Date(row.sealedAt).toLocaleString("es-MX", { dateStyle: "short", timeStyle: "short" }),
-    sealedAtIso: new Date(row.sealedAt).toISOString(),
-    settledAtIso: row.settledAt ? new Date(row.settledAt).toISOString() : null,
-    note: row.note ?? undefined,
-  };
-}
-
-export interface FollowAlerts {
-  kickoff: boolean;
-  goals: boolean;
-  final: boolean;
-}
-
-export const DEFAULT_FOLLOW_ALERTS: FollowAlerts = { kickoff: true, goals: true, final: true };
-
-function sanitizeFollowAlerts(raw: Record<string, unknown>): Record<string, FollowAlerts> {
-  const out: Record<string, FollowAlerts> = {};
-  for (const [gameId, value] of Object.entries(raw)) {
-    if (!/^[a-zA-Z0-9._-]{1,128}$/.test(gameId) || !value || typeof value !== "object") continue;
-    const v = value as Record<string, unknown>;
-    out[gameId] = {
-      kickoff: v.kickoff !== false,
-      goals: v.goals !== false,
-      final: v.final !== false,
-    };
-  }
-  return out;
-}
-
-async function getJson<T>(url: string): Promise<T | null> {
-  try {
-    const res = await fetch(url, { credentials: "same-origin" });
-    return res.ok ? ((await res.json()) as T) : null;
-  } catch (err) {
-    void err;
-    return null;
-  }
-}
-
-async function postJson(url: string, body: unknown): Promise<Response | null> {
-  try {
-    return await fetch(url, {
-      method: "POST",
-      credentials: "same-origin",
-      headers: { "content-type": "application/json" },
-      body: JSON.stringify(body),
-    });
-  } catch (err) {
-    void err;
-    return null;
-  }
-}
-
-async function sealOnServer(entry: JournalEntry): Promise<{ ok: boolean; id?: string; reason?: string }> {
-  const res = await postJson("/api/me/journal", {
-    pickId: entry.pickId,
-    gameId: entry.gameId,
-    leagueLabel: entry.leagueLabel,
-    matchLabel: entry.matchLabel,
-    pickLabel: entry.pickLabel,
-    origin: entry.origin,
-    units: entry.units,
-    userDecimal: entry.userDecimal,
-    fairDecimal: entry.fairDecimal,
-    pickKind: entry.pickKind ?? "single",
-    ...(entry.pickKind === "parlay" && entry.parlayLegs
-      ? { parlayLegs: entry.parlayLegs.map((l) => ({ gameId: l.gameId, pickId: l.pickId })) }
-      : {}),
-    note: entry.note,
-  });
-  if (!res) return { ok: false };
-  if (res.status === 401 || res.status === 503) return { ok: false, reason: "sin_sesion" };
-  const json = (await res.json().catch(() => ({}))) as { ok?: boolean; id?: string; reason?: string };
-  return { ok: Boolean(json.ok), id: json.id, reason: json.reason };
-}
-
-function formatClvBadge(avgClvPct: number | null): string {
-  if (avgClvPct === null) return "Ventaja —";
-  return `Ventaja ${avgClvPct >= 0 ? "+" : ""}${avgClvPct.toFixed(1)} %`;
-}
 import {
   fromServerComment,
   fromServerPost,
@@ -279,91 +113,20 @@ import type {
   ViewerVia,
 } from "./types";
 
-export interface ShareTicketLegItem {
-  label: string;
-  matchLabel: string;
-  p: number;
-  fairDecimal: number;
-  marketDecimal?: number | null;
-  kickoffLocal?: string;
-}
-
-export interface ShareTicketPayload {
-  kind: "pick" | "parlay" | "tipster";
-  title: string;
-  subtitle: string;
-  leagueLabel: string;
-  pickLabel: string;
-  probability: number;
-  fairDecimal: number;
-  marketDecimal: number;
-  units: number;
-  gameStatus: "NS" | "FT" | "LIVE";
-  legs?: ShareTicketLegItem[];
-  revealLegs?: boolean;
-  promoCode?: string;
-  tipsterHandle?: string;
-  originBadge?: string;
-  pickSlug?: string;
-}
-
-export interface ToastMessage {
-  id: string;
-  tone: "default" | "success" | "warning" | "danger";
-  text: string;
-  actionLabel?: string;
-  onAction?: () => void;
-}
-
-export interface ToastOptions {
-  actionLabel?: string;
-  onAction?: () => void;
-  durationMs?: number;
-}
-
-export interface PinUnlockResult {
-  ok: boolean;
-  error?: string;
-  redirectTo?: string;
-}
-
-export interface ViewerIdentity {
-  handle: string;
-  displayName: string;
-  initials: string;
-  referralCode: string | null;
-  avatarUrl?: string | null;
-}
-
-export function ownHandleFor(identity: ViewerIdentity | null, role: ViewerRole): string {
-  if (identity) return identity.handle;
-  return role === "tipster" ? "sofia_nfl" : "socio_pl";
-}
-
-export interface SocialFeedScope {
-  following?: boolean;
-  author?: string;
-  gameId?: string;
-  leagueLabel?: string;
-  openPickOnly?: boolean;
-  sort?: "recent" | "most_commented";
-}
-
-export interface SocialFeedPageState {
-  cursor: string | null;
-  hasMore: boolean;
-  loading: boolean;
-}
-
-export function socialScopeKey(scope?: SocialFeedScope): string {
-  if (scope?.author) return `author:${scope.author.trim().toLowerCase()}`;
-  if (scope?.gameId) return `game:${scope.gameId.trim()}`;
-  if (scope?.following) return "following";
-  if (scope?.leagueLabel || scope?.openPickOnly || scope?.sort === "most_commented") {
-    return `feed:${scope.leagueLabel ?? "all"}:${scope.openPickOnly ? "open" : "all"}:${scope.sort ?? "recent"}`;
-  }
-  return "feed";
-}
+export {
+  DEFAULT_FOLLOW_ALERTS,
+  ownHandleFor,
+  socialScopeKey,
+  type FollowAlerts,
+  type PinUnlockResult,
+  type ShareTicketLegItem,
+  type ShareTicketPayload,
+  type SocialFeedPageState,
+  type SocialFeedScope,
+  type ToastMessage,
+  type ToastOptions,
+  type ViewerIdentity,
+} from "./platform-storage";
 
 export interface PlatformContextValue {
   rawDataset: PlatformDataset;
@@ -1633,27 +1396,7 @@ export function PlatformProvider({
   );
 
   const exportJournalCsv = useCallback((): string => {
-    const header =
-      "Fecha,Liga,Partido,Seleccion,Origen,Unidades,CuotaUsuario,CuotaJusta,Ventaja_Pts,Estado";
-    const lines = journal.map((j) => {
-      const rawClv = j.clvPct;
-      const clvCell = isCredibleClvPct(rawClv, isParlayClvEntry(j))
-        ? rawClv.toFixed(1)
-        : "";
-      return [
-        `"${sanitizeCsvCell(j.sealedAt)}"`,
-        `"${sanitizeCsvCell(j.leagueLabel)}"`,
-        `"${sanitizeCsvCell(j.matchLabel)}"`,
-        `"${sanitizeCsvCell(j.pickLabel)}"`,
-        `"${sanitizeCsvCell(j.origin)}"`,
-        j.units.toFixed(2),
-        j.userDecimal.toFixed(2),
-        j.fairDecimal.toFixed(2),
-        clvCell,
-        `"${sanitizeCsvCell(j.status)}"`,
-      ].join(",");
-    });
-    const csv = [header, ...lines].join("\n");
+    const csv = buildJournalCsvContent(journal);
     try {
       const blob = new Blob([csv], { type: "text/csv;charset=utf-8;" });
       const url = URL.createObjectURL(blob);
@@ -2189,17 +1932,11 @@ export function PlatformProvider({
     [socialPosts, pushToast],
   );
 
-  const buildFeedParams = useCallback((limit: number, scope?: SocialFeedScope, before?: string | null) => {
-    const params = new URLSearchParams({ limit: String(limit) });
-    if (before) params.set("before", before);
-    if (scope?.following) params.set("following", "1");
-    if (scope?.author) params.set("author", scope.author.trim().toLowerCase());
-    if (scope?.gameId) params.set("gameId", scope.gameId.trim());
-    if (scope?.leagueLabel && scope.leagueLabel !== "all") params.set("league", scope.leagueLabel);
-    if (scope?.openPickOnly) params.set("openPick", "1");
-    if (scope?.sort === "most_commented") params.set("sort", "most_commented");
-    return params;
-  }, []);
+  const buildFeedParams = useCallback(
+    (limit: number, scope?: SocialFeedScope, before?: string | null) =>
+      buildSocialFeedQueryParams(limit, scope, before),
+    [],
+  );
 
   const refreshSocialFeed = useCallback(
     (scope?: SocialFeedScope) => {
@@ -3018,61 +2755,8 @@ export function PlatformGamesSupplement({
   const core = usePlatformCore();
 
   const merge = useCallback(
-    (base: PlatformDataset, applyTz: boolean): PlatformDataset => {
-      if (games.length === 0) return base;
-      const incomingById = new Map<string, PlatformGame>();
-      for (const g of games) {
-        const localized =
-          applyTz && core.userTimezone && core.userTimezone !== DEFAULT_STORED_PREFS_V1.timezone
-            ? (() => {
-                const ko = formatKickoffByTimezone(g.kickoffUtc, g.kickoffLocal, core.userTimezone);
-                return ko === g.kickoffLocal
-                  ? g
-                  : {
-                      ...g,
-                      kickoffLocal: ko,
-                      picks: g.picks.map((p) => ({ ...p, kickoffLocal: ko })),
-                      ...(g.parlayCandidates
-                        ? { parlayCandidates: g.parlayCandidates.map((p) => ({ ...p, kickoffLocal: ko })) }
-                        : {}),
-                    };
-              })()
-            : g;
-        incomingById.set(g.id, localized);
-      }
-
-      let changed = false;
-      const seen = new Set<string>();
-      const mergedGames = base.games.map((existing) => {
-        seen.add(existing.id);
-        const incoming = incomingById.get(existing.id);
-        if (!incoming) return existing;
-        const hasRicherPreGame = Boolean(
-          (incoming.spacetime && !existing.spacetime) ||
-            (incoming.confidenceDetail && !existing.confidenceDetail) ||
-            (incoming.picks.length > existing.picks.length) ||
-            (incoming.picks.some((p) => p.rationale) && !existing.picks.some((p) => p.rationale)) ||
-            (incoming.preGame &&
-              ((incoming.preGame.absences?.length ?? 0) > (existing.preGame?.absences?.length ?? 0) ||
-                (incoming.preGame.cortexSynthesis && !existing.preGame?.cortexSynthesis) ||
-                (incoming.preGame.tacticalKeys?.length ?? 0) > (existing.preGame?.tacticalKeys?.length ?? 0) ||
-                (incoming.preGame.probableLineups && !existing.preGame?.probableLineups) ||
-                (incoming.preGame.matchContext?.weather && !existing.preGame?.matchContext?.weather))),
-        );
-        if (!hasRicherPreGame) return existing;
-        changed = true;
-        return incoming;
-      });
-
-      const extras: PlatformGame[] = [];
-      for (const [id, g] of incomingById) {
-        if (!seen.has(id)) {
-          extras.push(g);
-          changed = true;
-        }
-      }
-      return changed ? { ...base, games: extras.length > 0 ? [...mergedGames, ...extras] : mergedGames } : base;
-    },
+    (base: PlatformDataset, applyTz: boolean): PlatformDataset =>
+      mergeSupplementalDataset(base, games, applyTz, core.userTimezone),
     [core.userTimezone, games],
   );
 
