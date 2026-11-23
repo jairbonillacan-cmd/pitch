@@ -1,13 +1,21 @@
 import { describe, expect, it } from "vitest";
-import { asLeagueId, getLeagueCapability, isPermittedMarketQuoteBook } from "@pitchlab/contracts";
+import {
+  asLeagueId,
+  asTeamId,
+  getLeagueCapability,
+  isPermittedMarketQuoteBook,
+  probabilityToFairOdds,
+  type TeamSquadEntry,
+} from "@pitchlab/contracts";
 import type {
   CatalogPickItem,
   FootballPlayerPropCandidateInput,
+  MatchFinalCountStats,
   NbaPlayerPropCandidateInput,
   TeamMatchEvidenceRecord,
 } from "@pitchlab/ui/picks-catalog";
 import { MAX_PARLAY_LEGS, buildSmartAutoParlay } from "@pitchlab/ui/parlay";
-import type { PlatformGame, PlatformMarketRow } from "@pitchlab/ui/types";
+import type { PlatformGame, PlatformMarketRow, PlayerPropItem } from "@pitchlab/ui/types";
 import {
   CANONICAL_GK_SAVES_LINES_V6,
   CANONICAL_SHOT_LINES_V6,
@@ -18,11 +26,15 @@ import {
   buildMatchPlayerPropsCatalogV6,
   buildServerMatchPicksCatalog,
   buildSuggestedMatchSgpCombosV6,
+  calibrateVennAbersBinaryPartitionV6,
+  calibrateVennAbersThreeWayPartitionV6,
   compactCatalogPayload,
   evaluateServerBetBuilderSgpV6,
   isHardAnomalousCatalogPick,
   isSoccer57LeagueV6,
   redactCatalogPickForVisitor,
+  resolveFootballBasePlayerPropV6,
+  resolveNbaBasePlayerPropV6,
   type GoalkeeperCatalogCandidateInputV6,
   type UsPlayerCatalogCandidateInputV6,
 } from "../src/server/picks-catalog";
@@ -1321,5 +1333,715 @@ describe("picks-catalog Spacetime v6.0 · Cero-Fuga, isPermittedMarketQuoteBook,
     const ftAnomalousHome = ftAll.picks.find((p) => p.family === "1x2" && p.selectionKey === "home");
     expect(ftAnomalousHome).toBeDefined();
     expect(ftAnomalousHome!.settlement).toBe("hit");
+  });
+});
+
+function makeEmptySquadStats(
+  overrides: Partial<TeamSquadEntry["players"][number]["stats"]> = {},
+): TeamSquadEntry["players"][number]["stats"] {
+  return {
+    appearances: 14,
+    subIns: 0,
+    goals: 4,
+    assists: 2,
+    shots: 42,
+    shotsOnTarget: 18,
+    foulsCommitted: 10,
+    foulsSuffered: 12,
+    yellowCards: 2,
+    redCards: 0,
+    offsides: 5,
+    saves: 0,
+    shotsFaced: 0,
+    goalsConceded: 0,
+    ...overrides,
+  };
+}
+
+describe("picks-catalog Spacetime v6.0 · Regresiones Error-Driven Block 4A (pstack)", () => {
+  it("ALTO #2: aísla mapas multi-equipo, preserva precedencia de Baja y aplica fallback de injuries.json en disco", () => {
+    const footballGame = makeFootballGame({ id: "epl-inj-isolation-v6" });
+    const salah = makeFootballPlayer();
+
+    const unrelatedTeamMap = new Map<string, string>([
+      ["chelsea|mohamed salah", "Baja"],
+      ["manchester-city|mohamed salah", "out"],
+    ]);
+    const unaffectedCat = buildServerMatchPicksCatalog(footballGame, {
+      fullAccess: true,
+      footballPlayers: [salah],
+      injuryStatusByTeamPlayer: unrelatedTeamMap,
+      preserveAll: true,
+      compact: false,
+      nowIso: FIXED_NOW_ISO,
+    });
+    expect(
+      unaffectedCat.picks.some(
+        (p) => p.family === "player_props_football" && p.playerMeta?.playerName === "Mohamed Salah",
+      ),
+    ).toBe(true);
+
+    const precedenceMaps = [
+      new Map<string, string>([
+        ["liverpool|mohamed salah", "Baja"],
+        ["home|mohamed salah", "active"],
+      ]),
+      new Map<string, string>([
+        ["home|mohamed salah", "active"],
+        ["liverpool|mohamed salah", "out"],
+      ]),
+    ];
+    for (const map of precedenceMaps) {
+      const blockedCat = buildServerMatchPicksCatalog(footballGame, {
+        fullAccess: true,
+        footballPlayers: [salah],
+        injuryStatusByTeamPlayer: map,
+        preserveAll: true,
+        compact: false,
+        nowIso: FIXED_NOW_ISO,
+      });
+      expect(
+        blockedCat.picks.filter(
+          (p) => p.family === "player_props_football" && p.playerMeta?.playerName === "Mohamed Salah",
+        ),
+      ).toHaveLength(0);
+    }
+
+    const absencesSquad: TeamSquadEntry = {
+      teamId: asTeamId("premier-league.liverpool"),
+      teamSlug: "liverpool",
+      teamName: "Liverpool",
+      coachName: "Arne Slot",
+      updatedAt: FIXED_NOW_ISO,
+      players: [
+        {
+          id: "pl-salah",
+          slug: "mohamed-salah",
+          name: "Mohamed Salah",
+          shortName: "M. Salah",
+          jersey: "11",
+          positionGroup: "FWD",
+          positionLabel: "FWD",
+          age: 34,
+          heightCm: 175,
+          weightKg: 71,
+          nationality: "Egipto",
+          nationalityCode: "EGY",
+          availability: "available",
+          stats: makeEmptySquadStats(),
+          seasonMetrics: [{ key: "min", label: "MIN", value: "88" }],
+          candidatePicks: [],
+        },
+        {
+          id: "pl-diaz",
+          slug: "luis-diaz",
+          name: "Luis Diaz",
+          shortName: "L. Diaz",
+          jersey: "7",
+          positionGroup: "FWD",
+          positionLabel: "FWD",
+          age: 29,
+          heightCm: 178,
+          weightKg: 65,
+          nationality: "Colombia",
+          nationalityCode: "COL",
+          availability: "available",
+          stats: makeEmptySquadStats({ appearances: 14, shots: 36, shotsOnTarget: 15 }),
+          seasonMetrics: [{ key: "min", label: "MIN", value: "84" }],
+          candidatePicks: [],
+        },
+      ],
+    };
+    const absencesGame = makeFootballGame({
+      id: "epl-absences-squad-v6",
+      preGame: {
+        cortexSynthesis: "",
+        tacticalKeys: [],
+        lineupStatusLabel: "XI probable",
+        lineupsConfirmed60m: false,
+        matchContext: { referee: "Michael Oliver" },
+        absences: [{ teamSide: "home", player: "Mohamed Salah", status: "Baja" }],
+        moneyFlow: null,
+      },
+    });
+    const absencesCat = buildServerMatchPicksCatalog(absencesGame, {
+      fullAccess: true,
+      homeSquad: absencesSquad,
+      preserveAll: true,
+      compact: false,
+      nowIso: FIXED_NOW_ISO,
+    });
+    expect(
+      absencesCat.picks.filter(
+        (p) => p.family === "player_props_football" && p.playerMeta?.playerName === "Mohamed Salah",
+      ),
+    ).toHaveLength(0);
+    expect(
+      absencesCat.picks.some(
+        (p) => p.family === "player_props_football" && p.playerMeta?.playerName === "Luis Diaz",
+      ),
+    ).toBe(true);
+
+    const nbaGame = makeUsGame("basketball", { id: "nba-disk-injuries-fallback-v6" });
+    const reavesCand: NbaPlayerPropCandidateInput = {
+      playerName: "Austin Reaves",
+      playerSlug: "austin-reaves",
+      teamSide: "away",
+      teamName: "Los Angeles Lakers",
+      position: "G",
+      avgMinutes: 35,
+      matchLogs: [
+        { minutesPlayed: 35, PTS: 21, REB: 5, AST: 6, "3PM": 3 },
+        { minutesPlayed: 36, PTS: 23, REB: 4, AST: 5, "3PM": 2 },
+        { minutesPlayed: 34, PTS: 19, REB: 5, AST: 7, "3PM": 3 },
+      ],
+    };
+    const brownBostonCand: NbaPlayerPropCandidateInput = {
+      playerName: "Jaylen Brown",
+      playerSlug: "jaylen-brown",
+      teamSide: "home",
+      teamName: "Boston Celtics",
+      position: "F",
+      avgMinutes: 35,
+      matchLogs: [
+        { minutesPlayed: 35, PTS: 26, REB: 6, AST: 4, "3PM": 2 },
+        { minutesPlayed: 36, PTS: 25, REB: 5, AST: 3, "3PM": 3 },
+        { minutesPlayed: 34, PTS: 27, REB: 7, AST: 5, "3PM": 2 },
+      ],
+    };
+    const lakersSquad: TeamSquadEntry = {
+      teamId: asTeamId("nba.los-angeles-lakers"),
+      teamSlug: "los-angeles-lakers",
+      teamName: "Los Angeles Lakers",
+      coachName: "JJ Redick",
+      updatedAt: FIXED_NOW_ISO,
+      players: [
+        {
+          id: "nba-reaves",
+          slug: "austin-reaves",
+          name: "Austin Reaves",
+          shortName: "A. Reaves",
+          jersey: "15",
+          positionGroup: "MID",
+          positionLabel: "SG",
+          age: 28,
+          heightCm: 196,
+          weightKg: 89,
+          nationality: "Estados Unidos",
+          nationalityCode: "USA",
+          availability: "available",
+          stats: makeEmptySquadStats({ appearances: 20, shots: 0, shotsOnTarget: 0 }),
+          seasonMetrics: [
+            { key: "gp", label: "JJ", value: "20" },
+            { key: "min", label: "MIN", value: "35" },
+            { key: "pts", label: "PTS", value: "21.5" },
+          ],
+          recentGames: [
+            { dateIso: "2026-11-15", opponent: "BOS", stats: [{ label: "MIN", value: "35" }, { label: "PTS", value: "22" }] },
+            { dateIso: "2026-11-13", opponent: "DEN", stats: [{ label: "MIN", value: "36" }, { label: "PTS", value: "24" }] },
+            { dateIso: "2026-11-11", opponent: "PHX", stats: [{ label: "MIN", value: "34" }, { label: "PTS", value: "19" }] },
+          ],
+          candidatePicks: [],
+        },
+      ],
+    };
+    const celticsSquad: TeamSquadEntry = {
+      teamId: asTeamId("nba.boston-celtics"),
+      teamSlug: "boston-celtics",
+      teamName: "Boston Celtics",
+      coachName: "Joe Mazzulla",
+      updatedAt: FIXED_NOW_ISO,
+      players: [
+        {
+          id: "nba-brown",
+          slug: "jaylen-brown",
+          name: "Jaylen Brown",
+          shortName: "J. Brown",
+          jersey: "7",
+          positionGroup: "FWD",
+          positionLabel: "SF",
+          age: 30,
+          heightCm: 198,
+          weightKg: 101,
+          nationality: "Estados Unidos",
+          nationalityCode: "USA",
+          availability: "available",
+          stats: makeEmptySquadStats({ appearances: 20, shots: 0, shotsOnTarget: 0 }),
+          seasonMetrics: [
+            { key: "gp", label: "JJ", value: "20" },
+            { key: "min", label: "MIN", value: "35" },
+            { key: "pts", label: "PTS", value: "26.0" },
+          ],
+          recentGames: [
+            { dateIso: "2026-11-15", opponent: "LAL", stats: [{ label: "MIN", value: "35" }, { label: "PTS", value: "26" }] },
+            { dateIso: "2026-11-13", opponent: "NYK", stats: [{ label: "MIN", value: "36" }, { label: "PTS", value: "25" }] },
+            { dateIso: "2026-11-11", opponent: "MIA", stats: [{ label: "MIN", value: "34" }, { label: "PTS", value: "27" }] },
+          ],
+          candidatePicks: [],
+        },
+      ],
+    };
+
+    const diskFallbackCat = buildServerMatchPicksCatalog(nbaGame, {
+      fullAccess: true,
+      nbaPlayers: [reavesCand, brownBostonCand],
+      homeSquad: celticsSquad,
+      awaySquad: lakersSquad,
+      preserveAll: true,
+      compact: false,
+      nowIso: FIXED_NOW_ISO,
+    });
+    const emittedNbaNames = new Set(
+      diskFallbackCat.picks
+        .filter((p) => p.family === "nba_player_props")
+        .map((p) => p.playerMeta?.playerName),
+    );
+    expect(emittedNbaNames.has("Austin Reaves")).toBe(false);
+    expect(emittedNbaNames.has("Jaylen Brown")).toBe(true);
+
+    const diskFallbackProps = buildMatchPlayerPropsCatalogV6(nbaGame, {
+      fullAccess: true,
+      homeSquad: celticsSquad,
+      awaySquad: lakersSquad,
+    });
+    expect(diskFallbackProps.props.some((p) => p.playerName === "Austin Reaves")).toBe(false);
+    expect(diskFallbackProps.props.some((p) => p.playerName === "Jaylen Brown")).toBe(true);
+
+    const hawksGame = makeUsGame("basketball", {
+      id: "nba-hawks-disk-inj-v6",
+      home: { slug: "atlanta-hawks", name: "Atlanta Hawks", shortName: "Hawks", code: "ATL", record: "9G-8P" },
+    });
+    const mccollumCand: NbaPlayerPropCandidateInput = {
+      playerName: "CJ McCollum",
+      playerSlug: "cj-mccollum",
+      teamSide: "home",
+      teamName: "Atlanta Hawks",
+      position: "G",
+      avgMinutes: 33,
+      matchLogs: [
+        { minutesPlayed: 33, PTS: 20, REB: 4, AST: 5, "3PM": 3 },
+        { minutesPlayed: 34, PTS: 22, REB: 3, AST: 4, "3PM": 4 },
+        { minutesPlayed: 32, PTS: 18, REB: 4, AST: 6, "3PM": 2 },
+      ],
+    };
+    const hawksCat = buildServerMatchPicksCatalog(hawksGame, {
+      fullAccess: true,
+      nbaPlayers: [mccollumCand],
+      preserveAll: true,
+      compact: false,
+      nowIso: FIXED_NOW_ISO,
+    });
+    expect(
+      hawksCat.picks.filter(
+        (p) => p.family === "nba_player_props" && p.playerMeta?.playerName === "CJ McCollum",
+      ),
+    ).toHaveLength(0);
+  });
+
+  it("ALTO #3: liquida FT de player_saves sin usar shots_on_target = 0 como falso miss", () => {
+    const ftGame = makeFootballGame({
+      id: "epl-gk-saves-ft-v6",
+      status: "FT",
+      score: { home: 2, away: 1 },
+    });
+    const gk = makeGoalkeeper();
+
+    const noSavesStatCat = buildServerMatchPicksCatalog(ftGame, {
+      fullAccess: true,
+      footballGoalkeepers: [gk],
+      finalStats: {
+        playerStats: {
+          "alisson-becker": { shots_on_target: 0 },
+        },
+      },
+      preserveAll: true,
+      compact: false,
+      nowIso: FIXED_NOW_ISO,
+    });
+    const gkPicksNoSaves = noSavesStatCat.picks.filter(
+      (p) => p.family === "player_props_football" && p.selectionKey.includes("_player_saves_"),
+    );
+    expect(gkPicksNoSaves.length).toBeGreaterThan(0);
+    expect(gkPicksNoSaves.every((p) => p.settlement === "pending")).toBe(true);
+    expect(gkPicksNoSaves.some((p) => p.settlement === "miss")).toBe(false);
+
+    const gkStatsWithSaves = { shots_on_target: 0, saves: 5 };
+    const playerStatsWithSaves: NonNullable<MatchFinalCountStats["playerStats"]> = {
+      "alisson-becker": gkStatsWithSaves,
+    };
+    const withSavesCat = buildServerMatchPicksCatalog(ftGame, {
+      fullAccess: true,
+      footballGoalkeepers: [gk],
+      finalStats: {
+        playerStats: playerStatsWithSaves,
+      },
+      preserveAll: true,
+      compact: false,
+      nowIso: FIXED_NOW_ISO,
+    });
+    const gkPicksWithSaves = withSavesCat.picks.filter(
+      (p) => p.family === "player_props_football" && p.selectionKey.includes("_player_saves_"),
+    );
+    expect(gkPicksWithSaves.length).toBeGreaterThan(0);
+    expect(
+      gkPicksWithSaves.filter((p) => p.line !== null && p.line < 5).every((p) => p.settlement === "hit"),
+    ).toBe(true);
+    expect(gkPicksWithSaves.some((p) => p.settlement === "miss")).toBe(false);
+  });
+
+  it("ALTO #4: preserva coherencia de particiones Venn-Abers en bordes 0.645/0.355 (Liga MX y Premier League)", () => {
+    for (const league of ["liga-mx", "premier-league"] as const) {
+      const binDirect = calibrateVennAbersBinaryPartitionV6(0.645, 0.355, league, true);
+      const binSwapped = calibrateVennAbersBinaryPartitionV6(0.355, 0.645, league, true);
+      expect(Math.abs(binDirect.first + binDirect.second - 1)).toBeLessThan(1e-3);
+      expect(Math.abs(binSwapped.first + binSwapped.second - 1)).toBeLessThan(1e-3);
+      expect(binDirect.first).toBe(binSwapped.second);
+      expect(binDirect.second).toBe(binSwapped.first);
+      expect(binDirect.first).toBeLessThan(0.64);
+
+      const tri = calibrateVennAbersThreeWayPartitionV6(0.645, 0.2, 0.155, league, true);
+      expect(Math.abs(tri.home + tri.draw + tri.away - 1)).toBeLessThan(1e-3);
+      expect(Math.abs(tri.home + tri.dcx2 - 1)).toBeLessThan(1e-3);
+      expect(Math.abs(tri.away + tri.dc1x - 1)).toBeLessThan(1e-3);
+      expect(Math.abs(tri.draw + tri.dc12 - 1)).toBeLessThan(1e-3);
+
+      const boundaryGame = makeFootballGame({
+        id: `boundary-va-${league}`,
+        league: asLeagueId(league),
+        leagueLabel: league === "liga-mx" ? "Liga MX" : "Premier League",
+        x12: [0.645, 0.2, 0.155],
+        projection: { home: 2.32, away: 1.0, total: 3.32 },
+        goalLine: { line: 2.5, pOver: 0.645 },
+      });
+      const cat = buildServerMatchPicksCatalog(boundaryGame, {
+        fullAccess: true,
+        preserveAll: true,
+        compact: false,
+        nowIso: FIXED_NOW_ISO,
+      });
+
+      const pHome = cat.picks.find((p) => p.family === "1x2" && p.selectionKey === "home")!;
+      const pDraw = cat.picks.find((p) => p.family === "1x2" && p.selectionKey === "draw")!;
+      const pAway = cat.picks.find((p) => p.family === "1x2" && p.selectionKey === "away")!;
+      const dc1x = cat.picks.find((p) => p.family === "double_chance" && p.selectionKey === "1x")!;
+      const dcx2 = cat.picks.find((p) => p.family === "double_chance" && p.selectionKey === "x2")!;
+      const dc12 = cat.picks.find((p) => p.family === "double_chance" && p.selectionKey === "12")!;
+      expect(Math.abs(pHome.pricing.p + pDraw.pricing.p + pAway.pricing.p - 1)).toBeLessThan(1e-3);
+      expect(Math.abs(pHome.pricing.p + dcx2.pricing.p - 1)).toBeLessThan(1e-3);
+      expect(Math.abs(pAway.pricing.p + dc1x.pricing.p - 1)).toBeLessThan(1e-3);
+      expect(Math.abs(pDraw.pricing.p + dc12.pricing.p - 1)).toBeLessThan(1e-3);
+
+      const totalsLines = Array.from(
+        new Set(
+          cat.picks
+            .filter((p) => p.family === "totals" && p.line !== null)
+            .map((p) => p.line!),
+        ),
+      );
+      expect(totalsLines).toContain(2.5);
+      for (const ln of totalsLines) {
+        const over = cat.picks.find((p) => p.family === "totals" && p.direction === "over" && p.line === ln);
+        const under = cat.picks.find((p) => p.family === "totals" && p.direction === "under" && p.line === ln);
+        expect(over && under).toBeTruthy();
+        expect(Math.abs(over!.pricing.p + under!.pricing.p - 1)).toBeLessThan(1e-3);
+      }
+
+      const bttsYes = cat.picks.find((p) => p.family === "btts" && p.direction === "yes")!;
+      const bttsNo = cat.picks.find((p) => p.family === "btts" && p.direction === "no")!;
+      expect(Math.abs(bttsYes.pricing.p + bttsNo.pricing.p - 1)).toBeLessThan(1e-3);
+
+      const dnbHome = cat.picks.find((p) => p.family === "dnb" && p.selectionKey === "home")!;
+      const dnbAway = cat.picks.find((p) => p.family === "dnb" && p.selectionKey === "away")!;
+      expect(Math.abs(dnbHome.pricing.p + dnbAway.pricing.p - 1)).toBeLessThan(1e-3);
+
+      const ahHomePicks = cat.picks.filter(
+        (p) => p.family === "asian_handicap" && p.direction === "home" && p.line !== null,
+      );
+      expect(ahHomePicks.length).toBeGreaterThan(0);
+      for (const ahH of ahHomePicks) {
+        const expectedAwayLine = ahH.line === 0 ? 0 : -ahH.line!;
+        const ahA = cat.picks.find(
+          (p) =>
+            p.family === "asian_handicap" &&
+            p.direction === "away" &&
+            p.line !== null &&
+            Math.abs(p.line - expectedAwayLine) < 0.01,
+        );
+        if (ahA) {
+          expect(Math.abs(ahH.pricing.p + ahA.pricing.p - 1)).toBeLessThan(1e-3);
+        }
+      }
+
+      for (const pick of cat.picks) {
+        expect(Number.isFinite(pick.pricing.fairOdds)).toBe(true);
+        expect(pick.pricing.fairOdds).toBeGreaterThanOrEqual(1.01);
+        expect(pick.pricing.fairOdds).toBe(
+          Math.max(1.01, probabilityToFairOdds(pick.pricing.p).decimal),
+        );
+      }
+    }
+  });
+
+  it("ALTO #5: bloquea fuga de extremos 0.08..0.92, elimina fallback legacy en shots/SoT y descarta props sin playerMeta", () => {
+    const game = makeFootballGame({ id: "epl-alto5-guards-v6" });
+
+    const ultraHighShooter = makeFootballPlayer({
+      playerName: "Erling Haaland",
+      playerSlug: "erling-haaland",
+      position: "FWD",
+      avgMinutes: 90,
+      matchLogs: [
+        { minutesPlayed: 90, isHome: true, shots: 9, shotsOnTarget: 5, goals: 2, assists: 0, foulsCommitted: 1, yellowCards: 0 },
+        { minutesPlayed: 90, isHome: false, shots: 8, shotsOnTarget: 4, goals: 1, assists: 0, foulsCommitted: 0, yellowCards: 0 },
+        { minutesPlayed: 90, isHome: true, shots: 10, shotsOnTarget: 5, goals: 2, assists: 0, foulsCommitted: 1, yellowCards: 0 },
+        { minutesPlayed: 90, isHome: true, shots: 8, shotsOnTarget: 4, goals: 1, assists: 1, foulsCommitted: 0, yellowCards: 0 },
+        { minutesPlayed: 90, isHome: false, shots: 9, shotsOnTarget: 5, goals: 2, assists: 0, foulsCommitted: 1, yellowCards: 0 },
+      ],
+      marketQuotes: {
+        shots: { line: 0.5 },
+      },
+    });
+    const zeroShotsPlayer = makeFootballPlayer({
+      playerName: "Virgil van Dijk",
+      playerSlug: "virgil-van-dijk",
+      position: "DEF",
+      avgMinutes: 90,
+      matchLogs: [
+        { minutesPlayed: 90, isHome: true, shots: 0, shotsOnTarget: 0, goals: 0, assists: 0, foulsCommitted: 1, yellowCards: 0 },
+        { minutesPlayed: 90, isHome: false, shots: 0, shotsOnTarget: 0, goals: 0, assists: 0, foulsCommitted: 1, yellowCards: 0 },
+        { minutesPlayed: 90, isHome: true, shots: 0, shotsOnTarget: 0, goals: 0, assists: 0, foulsCommitted: 0, yellowCards: 0 },
+        { minutesPlayed: 90, isHome: true, shots: 0, shotsOnTarget: 0, goals: 0, assists: 0, foulsCommitted: 1, yellowCards: 0 },
+        { minutesPlayed: 90, isHome: false, shots: 0, shotsOnTarget: 0, goals: 0, assists: 0, foulsCommitted: 0, yellowCards: 0 },
+      ],
+    });
+    const lowVolumeDefender = makeFootballPlayer({
+      playerName: "Ibrahima Konate",
+      playerSlug: "ibrahima-konate",
+      position: "DEF",
+      avgMinutes: 90,
+      matchLogs: [
+        { minutesPlayed: 90, isHome: true, shots: 1, shotsOnTarget: 0, goals: 0, assists: 0, foulsCommitted: 1, yellowCards: 0 },
+        { minutesPlayed: 90, isHome: false, shots: 0, shotsOnTarget: 0, goals: 0, assists: 0, foulsCommitted: 1, yellowCards: 0 },
+        { minutesPlayed: 90, isHome: true, shots: 0, shotsOnTarget: 0, goals: 0, assists: 0, foulsCommitted: 0, yellowCards: 0 },
+        { minutesPlayed: 90, isHome: true, shots: 0, shotsOnTarget: 0, goals: 0, assists: 0, foulsCommitted: 1, yellowCards: 0 },
+        { minutesPlayed: 90, isHome: false, shots: 0, shotsOnTarget: 0, goals: 0, assists: 0, foulsCommitted: 0, yellowCards: 0 },
+      ],
+      marketQuotes: {
+        shots: { line: 3.5 },
+      },
+    });
+    const outOfRangeLinePlayer = makeFootballPlayer({
+      playerName: "Cody Gakpo",
+      playerSlug: "cody-gakpo",
+      position: "FWD",
+      avgMinutes: 84,
+      marketQuotes: {
+        shots: { line: 4.5 },
+      },
+    });
+
+    const legacyPlayerProp: PlayerPropItem & {
+      readonly minutesPlayed: readonly number[];
+      readonly avgMinutes: number;
+    } = {
+      id: "legacy-shot-prop-1",
+      league: asLeagueId("premier-league"),
+      leagueLabel: "Premier League",
+      gameId: game.id,
+      matchLabel: "Liverpool vs Arsenal",
+      kickoffLocal: "12:00",
+      player: "Bukayo Saka",
+      teamSlug: "arsenal",
+      teamName: "Arsenal",
+      position: "FWD",
+      statLabel: "Tiros",
+      baseLine: 1.5,
+      step: 0.5,
+      minLine: 0.5,
+      maxLine: 3.5,
+      projectionMean: 2.6,
+      projectionSd: 1.4,
+      engineName: "Legacy",
+      marketOverDecimal: 1.85,
+      marketUnderDecimal: 1.95,
+      last10: [3, 2, 4, 2, 3],
+      contextNote: "Legacy test prop",
+      minutesPlayed: [90, 88, 90, 86, 90],
+      avgMinutes: 88.8,
+    };
+
+    const guardedCat = buildServerMatchPicksCatalog(game, {
+      fullAccess: true,
+      footballPlayers: [ultraHighShooter, zeroShotsPlayer, lowVolumeDefender, outOfRangeLinePlayer],
+      playerProps: [legacyPlayerProp],
+      preserveAll: true,
+      compact: false,
+      nowIso: FIXED_NOW_ISO,
+    });
+
+    const shotAndSotPicks = guardedCat.picks.filter(
+      (p) =>
+        p.family === "player_props_football" &&
+        (p.playerMeta?.statKey === "shots" || p.playerMeta?.statKey === "shots_on_target"),
+    );
+    expect(shotAndSotPicks.length).toBeGreaterThan(0);
+    expect(shotAndSotPicks.every((p) => p.pricing.p >= 0.08 && p.pricing.p <= 0.92)).toBe(true);
+    expect(
+      shotAndSotPicks.some(
+        (p) => p.playerMeta?.playerName === "Ibrahima Konate" && p.line === 3.5,
+      ),
+    ).toBe(false);
+    expect(
+      shotAndSotPicks.some((p) => p.playerMeta?.playerName === "Virgil van Dijk"),
+    ).toBe(false);
+    expect(
+      shotAndSotPicks.some((p) => p.playerMeta?.playerName === "Bukayo Saka"),
+    ).toBe(false);
+    expect(
+      shotAndSotPicks.some(
+        (p) => p.playerMeta?.playerName === "Cody Gakpo" && p.line === 4.5,
+      ),
+    ).toBe(false);
+
+    const sampleFootballProp = shotAndSotPicks[0]!;
+    const emptyLookup = {
+      bySidePlayer: new Map<string, string>(),
+      byPlayer: new Map<string, string>(),
+    };
+    expect(
+      resolveFootballBasePlayerPropV6({
+        item: { ...sampleFootballProp, playerMeta: null },
+        injuryLookup: emptyLookup,
+        coupledShotsByPlayerLine: new Map(),
+        rejectedCoupledPlayerMetrics: new Set(),
+      }),
+    ).toBeNull();
+    expect(
+      resolveFootballBasePlayerPropV6({
+        item: { ...sampleFootballProp, playerMeta: undefined },
+        injuryLookup: emptyLookup,
+        coupledShotsByPlayerLine: new Map(),
+        rejectedCoupledPlayerMetrics: new Set(),
+      }),
+    ).toBeNull();
+    expect(
+      resolveFootballBasePlayerPropV6({
+        item: sampleFootballProp,
+        injuryLookup: emptyLookup,
+        coupledShotsByPlayerLine: new Map(),
+        rejectedCoupledPlayerMetrics: new Set(),
+      }),
+    ).toBeNull();
+
+    const nbaGame = makeUsGame("basketball", { id: "nba-meta-guard-v6" });
+    const nbaCat = buildServerMatchPicksCatalog(nbaGame, {
+      fullAccess: true,
+      nbaPlayers: [
+        {
+          playerName: "Jayson Tatum",
+          playerSlug: "jayson-tatum",
+          teamSide: "home",
+          teamName: "Boston Celtics",
+          position: "F",
+          avgMinutes: 36,
+          matchLogs: [
+            { minutesPlayed: 36, PTS: 28, REB: 9, AST: 5, "3PM": 3 },
+            { minutesPlayed: 35, PTS: 30, REB: 8, AST: 6, "3PM": 4 },
+            { minutesPlayed: 37, PTS: 26, REB: 10, AST: 4, "3PM": 3 },
+          ],
+        },
+      ],
+      preserveAll: true,
+      compact: false,
+      nowIso: FIXED_NOW_ISO,
+    });
+    const sampleNbaProp = nbaCat.picks.find((p) => p.family === "nba_player_props")!;
+    expect(sampleNbaProp).toBeDefined();
+    expect(
+      resolveNbaBasePlayerPropV6({
+        item: { ...sampleNbaProp, playerMeta: null },
+        injuryLookup: emptyLookup,
+        nbaCandidatesBySlug: new Map(),
+      }),
+    ).toBeNull();
+    expect(
+      resolveNbaBasePlayerPropV6({
+        item: { ...sampleNbaProp, playerMeta: undefined },
+        injuryLookup: emptyLookup,
+        nbaCandidatesBySlug: new Map(),
+      }),
+    ).toBeNull();
+
+    const strippedCatalog = compactCatalogPayload(
+      {
+        ...guardedCat,
+        picks: [
+          { ...sampleFootballProp, id: "missing-meta-fb", playerMeta: null },
+          { ...sampleNbaProp, id: "missing-meta-nba", playerMeta: null },
+        ],
+      },
+      { preserveAll: true, compact: false },
+    );
+    expect(strippedCatalog.picks).toHaveLength(0);
+  });
+
+  it("MEDIO #6: evaluateServerBetBuilderSgpV6 modo player_linked exige >= 2 piernas", () => {
+    const singleLegNull = evaluateServerBetBuilderSgpV6({
+      mode: "player_linked",
+      fullAccess: true,
+      playerName: "Mohamed Salah",
+      pPlayerAnytimeGoal: 0.44,
+      teamExpectedGoals: 1.85,
+      opponentExpectedGoals: 1.0,
+      teamOutcome: "any",
+      matchTotalOverLine: null,
+      expectedMinutes: 88,
+    });
+    expect(singleLegNull.ok).toBe(false);
+    expect(singleLegNull.blockedReason).toBe("minimo_dos_piernas");
+    expect(singleLegNull.legsCount).toBe(0);
+    expect(singleLegNull.jointProbability).toBeNull();
+
+    const singleLegOmitted = evaluateServerBetBuilderSgpV6({
+      mode: "player_linked",
+      fullAccess: true,
+      playerName: "Mohamed Salah",
+      pPlayerAnytimeGoal: 0.44,
+      teamExpectedGoals: 1.85,
+      opponentExpectedGoals: 1.0,
+      teamOutcome: "any",
+      expectedMinutes: 88,
+    });
+    expect(singleLegOmitted.ok).toBe(false);
+    expect(singleLegOmitted.blockedReason).toBe("minimo_dos_piernas");
+    expect(singleLegOmitted.legsCount).toBe(0);
+
+    const twoLegsWithTotal = evaluateServerBetBuilderSgpV6({
+      mode: "player_linked",
+      fullAccess: true,
+      playerName: "Mohamed Salah",
+      pPlayerAnytimeGoal: 0.44,
+      teamExpectedGoals: 1.85,
+      opponentExpectedGoals: 1.0,
+      teamOutcome: "any",
+      matchTotalOverLine: 2.5,
+      expectedMinutes: 88,
+    });
+    expect(twoLegsWithTotal.ok).toBe(true);
+    expect(twoLegsWithTotal.legsCount).toBe(2);
+
+    const twoLegsWithOutcome = evaluateServerBetBuilderSgpV6({
+      mode: "player_linked",
+      fullAccess: true,
+      playerName: "Mohamed Salah",
+      pPlayerAnytimeGoal: 0.44,
+      teamExpectedGoals: 1.85,
+      opponentExpectedGoals: 1.0,
+      teamOutcome: "team_win",
+      matchTotalOverLine: null,
+      expectedMinutes: 88,
+    });
+    expect(twoLegsWithOutcome.ok).toBe(true);
+    expect(twoLegsWithOutcome.legsCount).toBe(2);
   });
 });

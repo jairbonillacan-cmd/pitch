@@ -5,12 +5,14 @@ import {
   isPermittedMarketQuoteBook,
   isSafePublicLabel,
   parseStrictFiniteNumber,
+  probabilityToFairOdds,
   slugifyPlayerName,
   type TeamSquadEntry,
 } from "@pitchlab/contracts";
 import {
   buildMatchEpistemicSummaryV5,
   computeConformalEpistemicBandV5,
+  isDoubtfulAvailabilityV6,
   isHardBlockedAvailabilityV6,
   projectUsPlayerPropV6,
   soccer57NormalCdfV60,
@@ -50,6 +52,7 @@ import {
   type NbaPlayerPropCandidateInput,
   type PickAxisKey,
   type PickDirection,
+  type PickSettlementStatus,
   type PlayerPropMeta,
   type TeamMatchEvidenceRecord,
 } from "@pitchlab/ui/picks-catalog";
@@ -78,15 +81,17 @@ import {
   evaluateGuardedPropMarketQuoteV6,
   evaluateGuardedUsPlayerPropsV6,
   getPropsV6ModelArtifact,
+  isGoalkeeperSavesLabel,
+  readLeagueInjuriesMap,
   resolveFootballTeamExpectedVolumeV6,
   type DerivedMatchPlayerPropV6,
   type GoalkeeperSavesSgpEvalResultV6,
 } from "./props-explorer";
+import { resolveSnapshotsRoot } from "./snapshots";
 import {
   PLAYABLE_ODDS_MAX_V60,
   PLAYABLE_ODDS_MIN_V60,
   calibratePlayableOddsV6,
-  computeBookingPointsServerV6,
   deriveAsianHandicapFromMatrixV6,
   evaluateGoalkeeperSavesSgpServerV6,
   evaluateNflAltSpreadV6,
@@ -344,7 +349,8 @@ export function applyVennAbersPlayableCalibrationV6(
   const safeRaw = round4(clampProb(pRaw));
   const va = calibratePlayableOddsV6({ pRaw: safeRaw, league });
   const chosenP = va.inPlayableZone ? round4(clampProb(va.pCalibrated)) : safeRaw;
-  const fairOdds = Math.max(1.01, round2(1 / chosenP));
+  const fair = probabilityToFairOdds(chosenP);
+  const fairOdds = Math.max(1.01, fair.decimal);
   return Object.freeze({
     pRaw: safeRaw,
     pCalibrated: chosenP,
@@ -352,6 +358,98 @@ export function applyVennAbersPlayableCalibrationV6(
     inPlayableZone: va.inPlayableZone,
     applied: va.inPlayableZone,
     vennAbers: va,
+  });
+}
+
+export function calibrateVennAbersBinaryPartitionV6(
+  pFirstRaw: number,
+  pSecondRaw: number,
+  league: string,
+  applyVa: boolean = true,
+): { readonly first: number; readonly second: number } {
+  const safeA = Number.isFinite(pFirstRaw) ? Math.max(0, pFirstRaw) : 0.5;
+  const safeB = Number.isFinite(pSecondRaw) ? Math.max(0, pSecondRaw) : 0.5;
+  const rawSum = safeA + safeB;
+  const normA = rawSum > 0 ? clampProb(safeA / rawSum) : 0.5;
+  const normB = clampProb(1 - normA);
+
+  if (!applyVa) {
+    const first = round4(normA);
+    const second = round4(clampProb(1 - first));
+    return Object.freeze({ first, second });
+  }
+
+  const high = Math.max(normA, normB);
+  const low = clampProb(1 - high);
+  const vaHigh = applyVennAbersPlayableCalibrationV6(high, league);
+  const vaLow = applyVennAbersPlayableCalibrationV6(low, league);
+
+  let calibratedHigh: number;
+  if (vaHigh.inPlayableZone && vaLow.inPlayableZone) {
+    const calSum = vaHigh.pCalibrated + vaLow.pCalibrated;
+    calibratedHigh = calSum > 0 ? vaHigh.pCalibrated / calSum : high;
+  } else if (vaHigh.inPlayableZone) {
+    calibratedHigh = vaHigh.pCalibrated;
+  } else if (vaLow.inPlayableZone) {
+    calibratedHigh = 1 - vaLow.pCalibrated;
+  } else {
+    calibratedHigh = high;
+  }
+
+  const pHigh = round4(clampProb(calibratedHigh));
+  const pLow = round4(clampProb(1 - pHigh));
+  return normA >= normB
+    ? Object.freeze({ first: pHigh, second: pLow })
+    : Object.freeze({ first: pLow, second: pHigh });
+}
+
+export function calibrateVennAbersThreeWayPartitionV6(
+  pHomeRaw: number,
+  pDrawRaw: number,
+  pAwayRaw: number,
+  league: string,
+  applyVa: boolean = true,
+): {
+  readonly home: number;
+  readonly draw: number;
+  readonly away: number;
+  readonly dc1x: number;
+  readonly dcx2: number;
+  readonly dc12: number;
+} {
+  const sH = Number.isFinite(pHomeRaw) ? Math.max(0, pHomeRaw) : 0.42;
+  const sD = Number.isFinite(pDrawRaw) ? Math.max(0, pDrawRaw) : 0.27;
+  const sA = Number.isFinite(pAwayRaw) ? Math.max(0, pAwayRaw) : 0.31;
+  const rawSum = Math.max(sH + sD + sA, 1e-9);
+  const nH = clampProb(sH / rawSum);
+  const nD = clampProb(sD / rawSum);
+  const nA = clampProb(sA / rawSum);
+
+  const cH = applyVa ? applyVennAbersPlayableCalibrationV6(nH, league).pCalibrated : nH;
+  const cD = applyVa ? applyVennAbersPlayableCalibrationV6(nD, league).pCalibrated : nD;
+  const cA = applyVa ? applyVennAbersPlayableCalibrationV6(nA, league).pCalibrated : nA;
+  const calSum = Math.max(cH + cD + cA, 1e-9);
+
+  let home = round4(clamp(cH / calSum, 0.01, 0.98));
+  let draw = round4(clamp(cD / calSum, 0.01, 0.98));
+  let away = round4(1 - home - draw);
+  if (away < 0.01) {
+    const excess = 0.01 - away;
+    if (home >= draw) {
+      home = round4(Math.max(0.01, home - excess));
+    } else {
+      draw = round4(Math.max(0.01, draw - excess));
+    }
+    away = round4(Math.max(0.01, 1 - home - draw));
+  }
+
+  return Object.freeze({
+    home,
+    draw,
+    away,
+    dc1x: round4(clampProb(home + draw)),
+    dcx2: round4(clampProb(draw + away)),
+    dc12: round4(clampProb(home + away)),
   });
 }
 
@@ -645,8 +743,9 @@ function repriceCatalogPickWithV6Prob(
   } = {},
 ): CatalogPickItem {
   const safeP = round4(clampProb(pV6));
-  const fairOdds = Math.max(1.01, round2(1 / safeP));
-  const fairAmerican = decimalToAmericanOdds(fairOdds);
+  const fair = probabilityToFairOdds(safeP);
+  const fairOdds = Math.max(1.01, fair.decimal);
+  const fairAmerican = fair.american;
 
   const rawBookLabel = item.pricing.marketBookLabel;
   const bookPermitted = isPermittedBookLabelV6(rawBookLabel);
@@ -739,53 +838,148 @@ function repriceCatalogPickWithV6Prob(
   };
 }
 
+interface GameInjuryLookupV6 {
+  readonly bySidePlayer: ReadonlyMap<string, string>;
+  readonly byPlayer: ReadonlyMap<string, string>;
+  readonly resolvedMap: ReadonlyMap<string, string>;
+}
+
+function injurySeverityRank(status: string): number {
+  if (isHardBlockedAvailabilityV6(null, status)) return 3;
+  if (isDoubtfulAvailabilityV6(null, status)) return 2;
+  return 1;
+}
+
+function setInjuryWithPrecedence(
+  target: Map<string, string>,
+  key: string,
+  status: string,
+): void {
+  const cleanStatus = status.trim();
+  if (!cleanStatus) return;
+  const existing = target.get(key);
+  if (existing !== undefined && injurySeverityRank(existing) >= injurySeverityRank(cleanStatus)) {
+    return;
+  }
+  target.set(key, cleanStatus);
+}
+
+function collectTeamSlugTokens(rawValues: readonly (string | null | undefined)[]): Set<string> {
+  const tokens = new Set<string>();
+  for (const raw of rawValues) {
+    if (!raw) continue;
+    const lower = raw.trim().toLowerCase();
+    if (lower) tokens.add(lower);
+    const cleaned = cleanTeamRouteSlug(raw);
+    if (cleaned) tokens.add(cleaned);
+    if (lower.includes(".")) {
+      const afterDot = lower.split(".").slice(1).join(".");
+      if (afterDot) tokens.add(afterDot);
+    }
+  }
+  return tokens;
+}
+
 function buildInjuryLookupForGame(
   game: PlatformGame,
   externalMap?: ReadonlyMap<string, string>,
-): {
-  readonly bySidePlayer: ReadonlyMap<string, string>;
-  readonly byPlayer: ReadonlyMap<string, string>;
-} {
+  squads?: {
+    readonly homeSquad?: TeamSquadEntry | null;
+    readonly awaySquad?: TeamSquadEntry | null;
+  },
+): GameInjuryLookupV6 {
   const bySidePlayer = new Map<string, string>();
   const byPlayer = new Map<string, string>();
-  const homeSlug = game.home.slug.trim().toLowerCase();
-  const awaySlug = game.away.slug.trim().toLowerCase();
-  const homeClean = cleanTeamRouteSlug(homeSlug);
-  const awayClean = cleanTeamRouteSlug(awaySlug);
+  const unprefixedByPlayer = new Map<string, string>();
+
+  const homeConcreteSlugs = collectTeamSlugTokens([
+    game.home.slug,
+    squads?.homeSquad?.teamSlug,
+    squads?.homeSquad?.teamId,
+  ]);
+  const awayConcreteSlugs = collectTeamSlugTokens([
+    game.away.slug,
+    squads?.awaySquad?.teamSlug,
+    squads?.awaySquad?.teamId,
+  ]);
+  const homeMatchTokens = new Set<string>(["home", ...homeConcreteSlugs]);
+  const awayMatchTokens = new Set<string>(["away", ...awayConcreteSlugs]);
 
   for (const abs of game.preGame?.absences ?? []) {
     const pKey = normalizeToken(abs.player);
     if (!pKey) continue;
-    bySidePlayer.set(`${abs.teamSide}|${pKey}`, abs.status);
-    if (!byPlayer.has(pKey)) byPlayer.set(pKey, abs.status);
+    setInjuryWithPrecedence(bySidePlayer, `${abs.teamSide}|${pKey}`, abs.status);
+    setInjuryWithPrecedence(byPlayer, pKey, abs.status);
   }
 
-  if (externalMap) {
-    for (const [rawKey, status] of externalMap.entries()) {
-      const pipeIdx = rawKey.indexOf("|");
-      if (pipeIdx >= 0) {
-        const prefix = rawKey.slice(0, pipeIdx).trim().toLowerCase();
-        const prefixClean = cleanTeamRouteSlug(prefix);
-        const pKey = normalizeToken(rawKey.slice(pipeIdx + 1));
-        if (!pKey) continue;
-        if (prefix === "home" || prefix === homeSlug || (homeClean && prefixClean === homeClean)) {
-          bySidePlayer.set(`home|${pKey}`, status);
-        } else if (
-          prefix === "away" ||
-          prefix === awaySlug ||
-          (awayClean && prefixClean === awayClean)
-        ) {
-          bySidePlayer.set(`away|${pKey}`, status);
-        }
-        byPlayer.set(pKey, status);
-      } else {
-        const pKey = normalizeToken(rawKey);
-        if (pKey) byPlayer.set(pKey, status);
+  const ingestKeyStatus = (rawKey: string, status: string) => {
+    const cleanStatus = status.trim();
+    if (!cleanStatus) return;
+    const pipeIdx = rawKey.indexOf("|");
+    if (pipeIdx >= 0) {
+      const prefix = rawKey.slice(0, pipeIdx).trim().toLowerCase();
+      const prefixClean = cleanTeamRouteSlug(prefix);
+      const prefixAfterDot = prefix.includes(".") ? prefix.split(".").slice(1).join(".") : "";
+      const pKey = normalizeToken(rawKey.slice(pipeIdx + 1));
+      if (!pKey) return;
+
+      const matchesHome =
+        homeMatchTokens.has(prefix) ||
+        (prefixClean.length > 0 && homeMatchTokens.has(prefixClean)) ||
+        (prefixAfterDot.length > 0 && homeMatchTokens.has(prefixAfterDot));
+      const matchesAway =
+        awayMatchTokens.has(prefix) ||
+        (prefixClean.length > 0 && awayMatchTokens.has(prefixClean)) ||
+        (prefixAfterDot.length > 0 && awayMatchTokens.has(prefixAfterDot));
+
+      if (matchesHome) {
+        setInjuryWithPrecedence(bySidePlayer, `home|${pKey}`, cleanStatus);
+        setInjuryWithPrecedence(byPlayer, pKey, cleanStatus);
       }
+      if (matchesAway) {
+        setInjuryWithPrecedence(bySidePlayer, `away|${pKey}`, cleanStatus);
+        setInjuryWithPrecedence(byPlayer, pKey, cleanStatus);
+      }
+    } else {
+      const pKey = normalizeToken(rawKey);
+      if (!pKey) return;
+      setInjuryWithPrecedence(byPlayer, pKey, cleanStatus);
+      setInjuryWithPrecedence(unprefixedByPlayer, pKey, cleanStatus);
+    }
+  };
+
+  if (externalMap !== undefined) {
+    for (const [rawKey, status] of externalMap.entries()) {
+      ingestKeyStatus(rawKey, status);
+    }
+  } else {
+    const diskInjuries = readLeagueInjuriesMap(resolveSnapshotsRoot(), String(game.league));
+    for (const [rawKey, entry] of diskInjuries.entries()) {
+      ingestKeyStatus(rawKey, entry.status);
     }
   }
 
-  return { bySidePlayer, byPlayer };
+  const resolvedMap = new Map<string, string>();
+  for (const [sidePlayerKey, status] of bySidePlayer.entries()) {
+    const sep = sidePlayerKey.indexOf("|");
+    if (sep <= 0) continue;
+    const side = sidePlayerKey.slice(0, sep);
+    const pKey = sidePlayerKey.slice(sep + 1);
+    const slugs = side === "home" ? homeConcreteSlugs : awayConcreteSlugs;
+    for (const slug of slugs) {
+      setInjuryWithPrecedence(resolvedMap, `${slug}|${pKey}`, status);
+    }
+  }
+  for (const [pKey, status] of unprefixedByPlayer.entries()) {
+    for (const slug of homeConcreteSlugs) {
+      setInjuryWithPrecedence(resolvedMap, `${slug}|${pKey}`, status);
+    }
+    for (const slug of awayConcreteSlugs) {
+      setInjuryWithPrecedence(resolvedMap, `${slug}|${pKey}`, status);
+    }
+  }
+
+  return { bySidePlayer, byPlayer, resolvedMap };
 }
 
 function lookupPlayerInjuryStatus(
@@ -972,6 +1166,76 @@ function buildUsV6IntelligenceView(
   };
 }
 
+function isGoalkeeperSavesPick(params: {
+  readonly selectionKey: string;
+  readonly label?: string;
+  readonly playerMeta?: PlayerPropMeta | null;
+}): boolean {
+  const selLower = params.selectionKey.trim().toLowerCase();
+  if (selLower.includes("_player_saves_") || selLower.includes("player_saves")) {
+    return true;
+  }
+  const statLabel = params.playerMeta?.statLabel ?? "";
+  if (statLabel && isGoalkeeperSavesLabel(statLabel, params.selectionKey)) {
+    return true;
+  }
+  if (params.label && isGoalkeeperSavesLabel(params.label, params.selectionKey)) {
+    return true;
+  }
+  return false;
+}
+
+function readGoalkeeperSavesFromFinalStats(
+  finalStats: MatchFinalCountStats | null | undefined,
+  playerKeys: readonly (string | null | undefined)[],
+): number | null {
+  const playerStats = finalStats?.playerStats;
+  if (!playerStats) return null;
+  for (const key of playerKeys) {
+    if (!key) continue;
+    const record = playerStats[key];
+    if (!record) continue;
+    for (const [entryKey, entryVal] of Object.entries(record)) {
+      const normStat = entryKey.trim().toLowerCase();
+      if (
+        (normStat === "saves" || normStat === "player_saves") &&
+        typeof entryVal === "number" &&
+        Number.isFinite(entryVal)
+      ) {
+        return entryVal;
+      }
+    }
+  }
+  return null;
+}
+
+function gradeGoalkeeperSavesPick(params: {
+  readonly game: PlatformGame;
+  readonly selectionKey: string;
+  readonly line: number | null;
+  readonly finalStats?: MatchFinalCountStats | null;
+  readonly playerMeta?: PlayerPropMeta | null;
+}): PickSettlementStatus {
+  if (
+    params.game.status !== "FT" ||
+    !params.game.score ||
+    params.line === null ||
+    !Number.isFinite(params.line)
+  ) {
+    return "pending";
+  }
+  const savesVal = readGoalkeeperSavesFromFinalStats(params.finalStats, [
+    params.playerMeta?.playerSlug,
+    params.playerMeta?.playerName,
+  ]);
+  if (savesVal === null) return "pending";
+  if (savesVal === params.line) return "push";
+  const sel = params.selectionKey.trim().toLowerCase();
+  if (sel.includes("over")) return savesVal > params.line ? "hit" : "miss";
+  if (sel.includes("under")) return savesVal < params.line ? "hit" : "miss";
+  return "pending";
+}
+
 function buildNewCatalogPickItem(params: {
   readonly game: PlatformGame;
   readonly family: MarketFamilyId;
@@ -1029,16 +1293,28 @@ function buildNewCatalogPickItem(params: {
     contextBullets: params.contextBullets,
   });
 
-  const settlement = gradeCatalogPick({
-    game: params.game,
-    family: params.family,
+  const settlement: PickSettlementStatus = isGoalkeeperSavesPick({
     selectionKey: params.selectionKey,
-    line: params.line,
-    f5Score: params.f5Score ?? null,
-    finalStats: params.finalStats ?? null,
-    playerKey: params.playerMeta?.playerSlug ?? params.playerMeta?.playerName ?? null,
-    playerStatKey: params.playerMeta?.statKey ?? null,
-  });
+    label: params.label,
+    playerMeta: params.playerMeta,
+  })
+    ? gradeGoalkeeperSavesPick({
+        game: params.game,
+        selectionKey: params.selectionKey,
+        line: params.line,
+        finalStats: params.finalStats,
+        playerMeta: params.playerMeta,
+      })
+    : gradeCatalogPick({
+        game: params.game,
+        family: params.family,
+        selectionKey: params.selectionKey,
+        line: params.line,
+        f5Score: params.f5Score ?? null,
+        finalStats: params.finalStats ?? null,
+        playerKey: params.playerMeta?.playerSlug ?? params.playerMeta?.playerName ?? null,
+        playerStatKey: params.playerMeta?.statKey ?? null,
+      });
 
   const lineTag = params.line !== null ? `__${params.line}` : "";
   const id = `${params.game.id}__cat__${params.family}__${params.selectionKey}${lineTag}`;
@@ -1093,6 +1369,136 @@ function buildNewCatalogPickItem(params: {
   };
 }
 
+export function resolveFootballBasePlayerPropV6(params: {
+  readonly item: CatalogPickItem;
+  readonly injuryLookup: {
+    readonly bySidePlayer: ReadonlyMap<string, string>;
+    readonly byPlayer: ReadonlyMap<string, string>;
+  };
+  readonly coupledShotsByPlayerLine: ReadonlyMap<string, number>;
+  readonly rejectedCoupledPlayerMetrics: ReadonlySet<string>;
+}): CatalogPickItem | null {
+  const { item, injuryLookup, coupledShotsByPlayerLine, rejectedCoupledPlayerMetrics } = params;
+  if (!item.playerMeta) {
+    return null;
+  }
+  const reportedInjury = lookupPlayerInjuryStatus(
+    injuryLookup,
+    item.playerMeta.teamSide,
+    item.playerMeta.playerName,
+  );
+  const guard = checkStrictPlayerMinutesAndAvailabilityGuardV6({
+    sport: "football",
+    avgMinutes: item.playerMeta.avgMinutes,
+    injuryStatus: reportedInjury,
+  });
+  if (!guard.eligible || !isSafePublicLabel(item.playerMeta.playerName)) {
+    return null;
+  }
+  if (!hasExplicitSpanishUnit(item.label)) {
+    return null;
+  }
+  const slug = item.playerMeta.playerSlug ?? slugifyPlayerName(item.playerMeta.playerName);
+  const statKey = item.playerMeta.statKey;
+  if (rejectedCoupledPlayerMetrics.has(`${slug}|${statKey}`)) {
+    return null;
+  }
+  const isCoupledShotStat = statKey === "shots" || statKey === "shots_on_target";
+  let nextP = item.pricing.p;
+  if (isCoupledShotStat) {
+    if (item.line === null) {
+      return null;
+    }
+    const coupledKey = `${slug}|${statKey}|${item.line.toFixed(1)}`;
+    const coupledP = coupledShotsByPlayerLine.get(coupledKey);
+    if (coupledP === undefined) {
+      return null;
+    }
+    nextP = coupledP;
+  }
+  return repriceCatalogPickWithV6Prob(item, nextP, {
+    engineName: "PitchLab Spacetime v6.0",
+  });
+}
+
+export function resolveNbaBasePlayerPropV6(params: {
+  readonly item: CatalogPickItem;
+  readonly injuryLookup: {
+    readonly bySidePlayer: ReadonlyMap<string, string>;
+    readonly byPlayer: ReadonlyMap<string, string>;
+  };
+  readonly nbaCandidatesBySlug: ReadonlyMap<string, NbaPlayerPropCandidateInput>;
+}): CatalogPickItem | null {
+  const { item, injuryLookup, nbaCandidatesBySlug } = params;
+  if (!item.playerMeta) {
+    return null;
+  }
+  const reportedInjury = lookupPlayerInjuryStatus(
+    injuryLookup,
+    item.playerMeta.teamSide,
+    item.playerMeta.playerName,
+  );
+  const guard = checkStrictPlayerMinutesAndAvailabilityGuardV6({
+    sport: "nba",
+    avgMinutes: item.playerMeta.avgMinutes,
+    injuryStatus: reportedInjury,
+  });
+  if (!guard.eligible || !isSafePublicLabel(item.playerMeta.playerName)) {
+    return null;
+  }
+
+  const slug = item.playerMeta.playerSlug ?? slugifyPlayerName(item.playerMeta.playerName);
+  const cand = nbaCandidatesBySlug.get(slug);
+  let updatedP = item.pricing.p;
+  if (cand && item.line !== null) {
+    const statCode = item.playerMeta.statKey;
+    const qualLogs = (cand.matchLogs ?? []).filter(
+      (l) => Number.isFinite(l.minutesPlayed) && l.minutesPlayed >= NBA_PROP_DEFAULT_MIN_MINUTES,
+    );
+    const vals = qualLogs
+      .map((l) =>
+        statCode === "PTS" || statCode === "REB" || statCode === "AST" || statCode === "3PM"
+          ? l[statCode]
+          : undefined,
+      )
+      .filter((v): v is number => typeof v === "number" && Number.isFinite(v));
+    const proj =
+      statCode === "PTS" || statCode === "REB" || statCode === "AST" || statCode === "3PM"
+        ? cand.statProjections?.[statCode]
+        : undefined;
+    const sampleGames = vals.length > 0 ? vals.length : Math.max(3, item.playerMeta.qualifyingMatches);
+    const sampleSum =
+      vals.length > 0
+        ? vals.reduce((acc, v) => acc + v, 0)
+        : (proj?.mean ?? item.playerMeta.projectionMean) * sampleGames;
+    let sampleVariance: number | null = null;
+    if (vals.length >= 3) {
+      const meanV = sampleSum / vals.length;
+      sampleVariance =
+        vals.reduce((acc, v) => acc + (v - meanV) * (v - meanV), 0) / (vals.length - 1);
+    }
+    const v6Prop = projectUsPlayerPropV6({
+      sport: "nba",
+      positionLabel: cand.position,
+      metric: statCode,
+      sampleSum,
+      sampleGames,
+      line: item.line,
+      prematchMinutes: item.playerMeta.avgMinutes,
+      sampleVariance,
+      injuryStatus: reportedInjury,
+      artifact: getPropsV6ModelArtifact(),
+    });
+    if (v6Prop) {
+      updatedP = item.direction === "under" ? v6Prop.pUnderCalibrated : v6Prop.pOverCalibrated;
+    }
+  }
+
+  return repriceCatalogPickWithV6Prob(item, updatedP, {
+    engineName: "PitchLab Spacetime v6.0",
+  });
+}
+
 function enrichFootballCatalogWithV6(params: {
   readonly game: PlatformGame;
   readonly baseCatalog: MatchPicksCatalog;
@@ -1109,24 +1515,85 @@ function enrichFootballCatalogWithV6(params: {
   const leagueSlug = String(game.league);
   const applyVa = options.enableVennAbersPlayable !== false;
   const epistemicArtifact = getUnifiedArtifactsBundleV6().epistemicArtifactV51;
-  const injuryLookup = buildInjuryLookupForGame(game, options.injuryStatusByTeamPlayer);
+  const injuryLookup = buildInjuryLookupForGame(game, options.injuryStatusByTeamPlayer, {
+    homeSquad: options.homeSquad,
+    awaySquad: options.awaySquad,
+  });
 
   const calProb = (rawP: number): number =>
     applyVa ? applyVennAbersPlayableCalibrationV6(rawP, leagueSlug).pCalibrated : clampProb(rawP);
 
+  const x12Partition = calibrateVennAbersThreeWayPartitionV6(
+    socEval.markets["1x2"].home,
+    socEval.markets["1x2"].draw,
+    socEval.markets["1x2"].away,
+    leagueSlug,
+    applyVa,
+  );
+  const dnbPair = calibrateVennAbersBinaryPartitionV6(
+    socEval.markets.dnb.home,
+    socEval.markets.dnb.away,
+    leagueSlug,
+    applyVa,
+  );
+  const tot15Pair = calibrateVennAbersBinaryPartitionV6(
+    socEval.markets.totals_1_5.over,
+    socEval.markets.totals_1_5.under,
+    leagueSlug,
+    applyVa,
+  );
+  const tot25Pair = calibrateVennAbersBinaryPartitionV6(
+    socEval.markets.totals_2_5.over,
+    socEval.markets.totals_2_5.under,
+    leagueSlug,
+    applyVa,
+  );
+  const tot35Pair = calibrateVennAbersBinaryPartitionV6(
+    socEval.markets.totals_3_5.over,
+    socEval.markets.totals_3_5.under,
+    leagueSlug,
+    applyVa,
+  );
+  const bttsPair = calibrateVennAbersBinaryPartitionV6(
+    socEval.markets.btts.yes,
+    socEval.markets.btts.no,
+    leagueSlug,
+    applyVa,
+  );
+
   const ahMap = new Map<string, { readonly pHome: number; readonly pAway: number; readonly pPush: number }>();
   for (const row of socEval.asianHandicap) {
+    const ahPair = calibrateVennAbersBinaryPartitionV6(
+      row.pHomeCoverNoPush,
+      row.pAwayCoverNoPush,
+      leagueSlug,
+      applyVa,
+    );
     ahMap.set(row.lineHome.toFixed(1), {
-      pHome: row.pHomeCoverNoPush,
-      pAway: row.pAwayCoverNoPush,
+      pHome: ahPair.first,
+      pAway: ahPair.second,
       pPush: row.pPush,
     });
   }
 
-  const bookingPts = computeBookingPointsServerV6({
-    yellowRatePrior: socEval.microMarkets.metrics.yellow_cards.muTotal,
-    redCardRatePrior: socEval.officialPrior.redCardRatePrior,
-  });
+  const buildHalfPartition = (familyId: "half_time_result" | "second_half_result") => {
+    const prefix = familyId === "half_time_result" ? "ht_" : "2h_";
+    const pH = baseCatalog.picks.find(
+      (p) => p.family === familyId && p.selectionKey === `${prefix}home`,
+    )?.pricing.p;
+    const pD = baseCatalog.picks.find(
+      (p) => p.family === familyId && p.selectionKey === `${prefix}draw`,
+    )?.pricing.p;
+    const pA = baseCatalog.picks.find(
+      (p) => p.family === familyId && p.selectionKey === `${prefix}away`,
+    )?.pricing.p;
+    if (pH === undefined || pD === undefined || pA === undefined) return null;
+    return calibrateVennAbersThreeWayPartitionV6(pH, pD, pA, leagueSlug, applyVa);
+  };
+  const htPartition = buildHalfPartition("half_time_result");
+  const shPartition = buildHalfPartition("second_half_result");
+
+  const bookingPts = socEval.microMarkets.bookingPoints;
   const redProb = socEval.microMarkets.redCards.pRedCardMatch;
 
   const over25Band = computeConformalEpistemicBandV5({
@@ -1250,12 +1717,11 @@ function enrichFootballCatalogWithV6(params: {
         }
 
         for (const ln of coupled.lines) {
-          if (ln.pOver === null) continue;
+          if (ln.pOver === null || ln.pOver < 0.08 || ln.pOver > 0.92) continue;
           coupledShotsByPlayerLine.set(
             `${playerSlug}|${spec.statKey}|${ln.line.toFixed(1)}`,
             ln.pOver,
           );
-          if (ln.pOver < 0.08 || ln.pOver > 0.92) continue;
 
           const matchedQuote =
             quoteObj && Math.abs(quoteObj.line - ln.line) < 0.01 ? quoteObj : undefined;
@@ -1470,7 +1936,7 @@ function enrichFootballCatalogWithV6(params: {
         awayExpectedShots: socEval.microMarkets.metrics.shots.muAway,
         homeExpectedSoT: socEval.microMarkets.metrics.shots_on_target.muHome,
         awayExpectedSoT: socEval.microMarkets.metrics.shots_on_target.muAway,
-        injuryStatusByTeamPlayer: options.injuryStatusByTeamPlayer,
+        injuryStatusByTeamPlayer: injuryLookup.resolvedMap,
         allowFull: true,
       });
 
@@ -1546,39 +2012,19 @@ function enrichFootballCatalogWithV6(params: {
   const seenKeys = new Set<string>();
 
   for (const item of baseCatalog.picks) {
-    if (item.family === "player_props_football" && item.playerMeta) {
-      const reportedInjury = lookupPlayerInjuryStatus(
+    if (item.family === "player_props_football") {
+      const updatedProp = resolveFootballBasePlayerPropV6({
+        item,
         injuryLookup,
-        item.playerMeta.teamSide,
-        item.playerMeta.playerName,
-      );
-      const guard = checkStrictPlayerMinutesAndAvailabilityGuardV6({
-        sport: "football",
-        avgMinutes: item.playerMeta.avgMinutes,
-        injuryStatus: reportedInjury,
+        coupledShotsByPlayerLine,
+        rejectedCoupledPlayerMetrics,
       });
-      if (!guard.eligible || !isSafePublicLabel(item.playerMeta.playerName)) {
-        continue;
-      }
-      if (!hasExplicitSpanishUnit(item.label)) {
-        continue;
-      }
-      const slug = item.playerMeta.playerSlug ?? slugifyPlayerName(item.playerMeta.playerName);
-      if (rejectedCoupledPlayerMetrics.has(`${slug}|${item.playerMeta.statKey}`)) {
-        continue;
-      }
-      const coupledKey =
-        item.line !== null
-          ? `${slug}|${item.playerMeta.statKey}|${item.line.toFixed(1)}`
-          : "";
-      const coupledP = coupledShotsByPlayerLine.get(coupledKey);
-      const updated = repriceCatalogPickWithV6Prob(item, coupledP ?? item.pricing.p, {
-        engineName: "PitchLab Spacetime v6.0",
-      });
-      const dedupKey = `${updated.family}|${updated.selectionKey.toLowerCase()}|${updated.line ?? ""}`;
-      if (!seenKeys.has(dedupKey)) {
-        seenKeys.add(dedupKey);
-        enrichedPicks.push(updated);
+      if (updatedProp) {
+        const dedupKey = `${updatedProp.family}|${updatedProp.selectionKey.toLowerCase()}|${updatedProp.line ?? ""}`;
+        if (!seenKeys.has(dedupKey)) {
+          seenKeys.add(dedupKey);
+          enrichedPicks.push(updatedProp);
+        }
       }
       continue;
     }
@@ -1586,18 +2032,18 @@ function enrichFootballCatalogWithV6(params: {
     let updated = item;
     if (item.family === "1x2") {
       if (item.selectionKey === "home") {
-        updated = repriceCatalogPickWithV6Prob(item, calProb(socEval.markets["1x2"].home), {
+        updated = repriceCatalogPickWithV6Prob(item, x12Partition.home, {
           extraBullets: [
             formatConformal90BulletEs(params.homeBand),
             `Pago anticipado +2 goles: ${(ep2.pHomeEarlyPayoutWin * 100).toFixed(1)} % (+${(ep2.homeEarlyPayoutLift * 100).toFixed(1)} pts)`,
           ],
         });
       } else if (item.selectionKey === "draw") {
-        updated = repriceCatalogPickWithV6Prob(item, calProb(socEval.markets["1x2"].draw), {
+        updated = repriceCatalogPickWithV6Prob(item, x12Partition.draw, {
           extraBullets: params.drawBand ? [formatConformal90BulletEs(params.drawBand)] : undefined,
         });
       } else if (item.selectionKey === "away") {
-        updated = repriceCatalogPickWithV6Prob(item, calProb(socEval.markets["1x2"].away), {
+        updated = repriceCatalogPickWithV6Prob(item, x12Partition.away, {
           extraBullets: [
             formatConformal90BulletEs(params.awayBand),
             `Pago anticipado +2 goles: ${(ep2.pAwayEarlyPayoutWin * 100).toFixed(1)} % (+${(ep2.awayEarlyPayoutLift * 100).toFixed(1)} pts)`,
@@ -1606,52 +2052,95 @@ function enrichFootballCatalogWithV6(params: {
       }
     } else if (item.family === "double_chance") {
       if (item.selectionKey === "1x") {
-        updated = repriceCatalogPickWithV6Prob(item, calProb(socEval.markets.double_chance["1X"]));
+        updated = repriceCatalogPickWithV6Prob(item, x12Partition.dc1x);
       } else if (item.selectionKey === "x2") {
-        updated = repriceCatalogPickWithV6Prob(item, calProb(socEval.markets.double_chance.X2));
+        updated = repriceCatalogPickWithV6Prob(item, x12Partition.dcx2);
       } else if (item.selectionKey === "12") {
-        updated = repriceCatalogPickWithV6Prob(item, calProb(socEval.markets.double_chance["12"]));
+        updated = repriceCatalogPickWithV6Prob(item, x12Partition.dc12);
       }
     } else if (item.family === "dnb") {
       if (item.selectionKey === "home") {
-        updated = repriceCatalogPickWithV6Prob(item, calProb(socEval.markets.dnb.home));
+        updated = repriceCatalogPickWithV6Prob(item, dnbPair.first);
       } else if (item.selectionKey === "away") {
-        updated = repriceCatalogPickWithV6Prob(item, calProb(socEval.markets.dnb.away));
+        updated = repriceCatalogPickWithV6Prob(item, dnbPair.second);
       }
     } else if (item.family === "totals" && item.line !== null) {
       if (Math.abs(item.line - 1.5) < 0.01) {
-        const rawP =
-          item.direction === "over" ? socEval.markets.totals_1_5.over : socEval.markets.totals_1_5.under;
-        updated = repriceCatalogPickWithV6Prob(item, calProb(rawP));
+        updated = repriceCatalogPickWithV6Prob(
+          item,
+          item.direction === "over" ? tot15Pair.first : tot15Pair.second,
+        );
       } else if (Math.abs(item.line - 2.5) < 0.01) {
-        const rawP =
-          item.direction === "over" ? socEval.markets.totals_2_5.over : socEval.markets.totals_2_5.under;
-        updated = repriceCatalogPickWithV6Prob(item, calProb(rawP), {
-          extraBullets:
-            item.direction === "over" ? [formatConformal90BulletEs(over25Band)] : undefined,
-        });
+        updated = repriceCatalogPickWithV6Prob(
+          item,
+          item.direction === "over" ? tot25Pair.first : tot25Pair.second,
+          {
+            extraBullets:
+              item.direction === "over" ? [formatConformal90BulletEs(over25Band)] : undefined,
+          },
+        );
       } else if (Math.abs(item.line - 3.5) < 0.01) {
-        const rawP =
-          item.direction === "over" ? socEval.markets.totals_3_5.over : socEval.markets.totals_3_5.under;
-        updated = repriceCatalogPickWithV6Prob(item, calProb(rawP));
+        updated = repriceCatalogPickWithV6Prob(
+          item,
+          item.direction === "over" ? tot35Pair.first : tot35Pair.second,
+        );
       } else {
-        updated = repriceCatalogPickWithV6Prob(item, calProb(item.pricing.p));
+        const pair = calibrateVennAbersBinaryPartitionV6(
+          item.pricing.p,
+          1 - item.pricing.p,
+          leagueSlug,
+          applyVa,
+        );
+        updated = repriceCatalogPickWithV6Prob(item, pair.first);
       }
     } else if (item.family === "btts") {
-      const rawP = item.direction === "yes" ? socEval.markets.btts.yes : socEval.markets.btts.no;
-      updated = repriceCatalogPickWithV6Prob(item, calProb(rawP), {
-        extraBullets:
-          item.direction === "yes" ? [formatConformal90BulletEs(bttsYesBand)] : undefined,
-      });
+      updated = repriceCatalogPickWithV6Prob(
+        item,
+        item.direction === "yes" ? bttsPair.first : bttsPair.second,
+        {
+          extraBullets:
+            item.direction === "yes" ? [formatConformal90BulletEs(bttsYesBand)] : undefined,
+        },
+      );
     } else if (item.family === "asian_handicap" && item.line !== null) {
       const homeLine = item.direction === "away" ? normalizeZero(-item.line) : normalizeZero(item.line);
       const ah = ahMap.get(homeLine.toFixed(1));
       if (ah) {
-        const rawP = item.direction === "away" ? ah.pAway : ah.pHome;
-        updated = repriceCatalogPickWithV6Prob(item, calProb(rawP));
+        const pCal = item.direction === "away" ? ah.pAway : ah.pHome;
+        updated = repriceCatalogPickWithV6Prob(item, pCal);
       } else {
-        updated = repriceCatalogPickWithV6Prob(item, calProb(item.pricing.p));
+        const pair = calibrateVennAbersBinaryPartitionV6(
+          item.pricing.p,
+          1 - item.pricing.p,
+          leagueSlug,
+          applyVa,
+        );
+        updated = repriceCatalogPickWithV6Prob(item, pair.first);
       }
+    } else if (item.family === "team_totals" || item.family === "clean_sheet" || item.family === "corners_team") {
+      const pair = calibrateVennAbersBinaryPartitionV6(
+        item.pricing.p,
+        1 - item.pricing.p,
+        leagueSlug,
+        applyVa,
+      );
+      updated = repriceCatalogPickWithV6Prob(item, pair.first);
+    } else if (item.family === "half_time_result" && htPartition) {
+      const pCal =
+        item.selectionKey === "ht_home"
+          ? htPartition.home
+          : item.selectionKey === "ht_draw"
+            ? htPartition.draw
+            : htPartition.away;
+      updated = repriceCatalogPickWithV6Prob(item, pCal);
+    } else if (item.family === "second_half_result" && shPartition) {
+      const pCal =
+        item.selectionKey === "2h_home"
+          ? shPartition.home
+          : item.selectionKey === "2h_draw"
+            ? shPartition.draw
+            : shPartition.away;
+      updated = repriceCatalogPickWithV6Prob(item, pCal);
     } else if (item.family === "corners_total") {
       const mp = microLineLookup("corners", item.line, item.direction);
       updated = repriceCatalogPickWithV6Prob(item, mp ?? item.pricing.p);
@@ -1721,7 +2210,10 @@ function enrichUsCatalogWithV6(params: {
   const away = game.away.shortName || game.away.name;
   const deVigPref = options.deVigPreference ?? "auto";
   const projectedScoreLabel = baseCatalog.picks[0]?.projectedScoreLabel ?? null;
-  const injuryLookup = buildInjuryLookupForGame(game, options.injuryStatusByTeamPlayer);
+  const injuryLookup = buildInjuryLookupForGame(game, options.injuryStatusByTeamPlayer, {
+    homeSquad: options.homeSquad,
+    awaySquad: options.awaySquad,
+  });
 
   const rawX12 = game.x12;
   const hasExplicitX12 = Boolean(rawX12 && rawX12[0] + rawX12[2] > 0);
@@ -1820,81 +2312,23 @@ function enrichUsCatalogWithV6(params: {
     const slug = cand.playerSlug ?? slugifyPlayerName(cand.playerName);
     nbaCandidatesBySlug.set(slug, cand);
   }
-  const propsArtifact = getPropsV6ModelArtifact();
 
   const enrichedPicks: CatalogPickItem[] = [];
   const seenKeys = new Set<string>();
 
   for (const item of baseCatalog.picks) {
-    if (item.family === "nba_player_props" && item.playerMeta) {
-      const reportedInjury = lookupPlayerInjuryStatus(
+    if (item.family === "nba_player_props") {
+      const updatedProp = resolveNbaBasePlayerPropV6({
+        item,
         injuryLookup,
-        item.playerMeta.teamSide,
-        item.playerMeta.playerName,
-      );
-      const guard = checkStrictPlayerMinutesAndAvailabilityGuardV6({
-        sport: "nba",
-        avgMinutes: item.playerMeta.avgMinutes,
-        injuryStatus: reportedInjury,
+        nbaCandidatesBySlug,
       });
-      if (!guard.eligible || !isSafePublicLabel(item.playerMeta.playerName)) {
-        continue;
-      }
-
-      const slug = item.playerMeta.playerSlug ?? slugifyPlayerName(item.playerMeta.playerName);
-      const cand = nbaCandidatesBySlug.get(slug);
-      let updatedP = item.pricing.p;
-      if (cand && item.line !== null) {
-        const statCode = item.playerMeta.statKey;
-        const qualLogs = (cand.matchLogs ?? []).filter(
-          (l) => Number.isFinite(l.minutesPlayed) && l.minutesPlayed >= NBA_PROP_DEFAULT_MIN_MINUTES,
-        );
-        const vals = qualLogs
-          .map((l) =>
-            statCode === "PTS" || statCode === "REB" || statCode === "AST" || statCode === "3PM"
-              ? l[statCode]
-              : undefined,
-          )
-          .filter((v): v is number => typeof v === "number" && Number.isFinite(v));
-        const proj =
-          statCode === "PTS" || statCode === "REB" || statCode === "AST" || statCode === "3PM"
-            ? cand.statProjections?.[statCode]
-            : undefined;
-        const sampleGames = vals.length > 0 ? vals.length : Math.max(3, item.playerMeta.qualifyingMatches);
-        const sampleSum =
-          vals.length > 0
-            ? vals.reduce((acc, v) => acc + v, 0)
-            : (proj?.mean ?? item.playerMeta.projectionMean) * sampleGames;
-        let sampleVariance: number | null = null;
-        if (vals.length >= 3) {
-          const meanV = sampleSum / vals.length;
-          sampleVariance =
-            vals.reduce((acc, v) => acc + (v - meanV) * (v - meanV), 0) / (vals.length - 1);
+      if (updatedProp) {
+        const dedupKey = `${updatedProp.family}|${updatedProp.selectionKey.toLowerCase()}|${updatedProp.line ?? ""}`;
+        if (!seenKeys.has(dedupKey)) {
+          seenKeys.add(dedupKey);
+          enrichedPicks.push(updatedProp);
         }
-        const v6Prop = projectUsPlayerPropV6({
-          sport: "nba",
-          positionLabel: cand.position,
-          metric: statCode,
-          sampleSum,
-          sampleGames,
-          line: item.line,
-          prematchMinutes: item.playerMeta.avgMinutes,
-          sampleVariance,
-          injuryStatus: reportedInjury,
-          artifact: propsArtifact,
-        });
-        if (v6Prop) {
-          updatedP = item.direction === "under" ? v6Prop.pUnderCalibrated : v6Prop.pOverCalibrated;
-        }
-      }
-
-      const updated = repriceCatalogPickWithV6Prob(item, updatedP, {
-        engineName: "PitchLab Spacetime v6.0",
-      });
-      const dedupKey = `${updated.family}|${updated.selectionKey.toLowerCase()}|${updated.line ?? ""}`;
-      if (!seenKeys.has(dedupKey)) {
-        seenKeys.add(dedupKey);
-        enrichedPicks.push(updated);
       }
       continue;
     }
@@ -2195,7 +2629,7 @@ function enrichUsCatalogWithV6(params: {
       awayTeamSlug: game.away.slug,
       homeSquad: options.homeSquad ?? null,
       awaySquad: options.awaySquad ?? null,
-      injuryStatusByTeamPlayer: options.injuryStatusByTeamPlayer,
+      injuryStatusByTeamPlayer: injuryLookup.resolvedMap,
       allowFull: true,
     });
     for (const dp of derivedNbaProps) {
@@ -2359,10 +2793,16 @@ export function compactCatalogPayload(
   } = {},
 ): MatchPicksCatalog {
   const compactMode = options.compact ?? true;
+  const guardedPicks = catalog.picks.filter(
+    (item) =>
+      Boolean(item.isRedacted) ||
+      (item.family !== "player_props_football" && item.family !== "nba_player_props") ||
+      Boolean(item.playerMeta),
+  );
 
   if (options.preserveAll === true) {
     const preserved = compactMode
-      ? catalog.picks.map((item) => ({
+      ? guardedPicks.map((item) => ({
           ...item,
           evidence: {
             ...item.evidence,
@@ -2373,7 +2813,7 @@ export function compactCatalogPayload(
             ? { bookQuotes: item.bookQuotes.slice(0, 2) }
             : {}),
         }))
-      : catalog.picks;
+      : guardedPicks;
     return rebuildCatalogSummary(catalog, preserved, catalog.isRedactedForVisitor);
   }
 
@@ -2382,8 +2822,8 @@ export function compactCatalogPayload(
 
   const sourcePicks =
     catalog.gameStatus === "FT"
-      ? catalog.picks
-      : catalog.picks.filter(
+      ? guardedPicks
+      : guardedPicks.filter(
           (item) =>
             !isHardAnomalousCatalogPick(item) ||
             Boolean(item.isDailyOpenPromo) ||
@@ -2775,7 +3215,10 @@ export function buildMatchPlayerPropsCatalogV6(
     });
   }
 
-  const injuryLookup = buildInjuryLookupForGame(game, options.injuryStatusByTeamPlayer);
+  const injuryLookup = buildInjuryLookupForGame(game, options.injuryStatusByTeamPlayer, {
+    homeSquad: options.homeSquad,
+    awaySquad: options.awaySquad,
+  });
   const props: ServerPlayerPropCatalogEntryV6[] = [];
   const seen = new Set<string>();
   const gkCombos: GoalkeeperSavesSgpEvalResultV6[] = [];
@@ -2802,7 +3245,7 @@ export function buildMatchPlayerPropsCatalogV6(
       awaySquad: options.awaySquad ?? null,
       homeProjectedGoals: game.projection?.home ?? null,
       awayProjectedGoals: game.projection?.away ?? null,
-      injuryStatusByTeamPlayer: options.injuryStatusByTeamPlayer,
+      injuryStatusByTeamPlayer: injuryLookup.resolvedMap,
       allowFull: true,
     });
 
@@ -3413,6 +3856,16 @@ export function evaluateServerBetBuilderSgpV6(
       );
     }
 
+    const hasMatchTotalLeg =
+      typeof req.matchTotalOverLine === "number" &&
+      Number.isFinite(req.matchTotalOverLine) &&
+      req.matchTotalOverLine > 0;
+    const requestedLegsCount =
+      1 + (req.teamOutcome !== "any" ? 1 : 0) + (hasMatchTotalLeg ? 1 : 0);
+    if (requestedLegsCount < 2) {
+      return blockedResponse("football", "minimo_dos_piernas", false);
+    }
+
     const rawOffer =
       typeof req.offeredCombinedDecimalOdds === "number" &&
       Number.isFinite(req.offeredCombinedDecimalOdds) &&
@@ -3430,16 +3883,19 @@ export function evaluateServerBetBuilderSgpV6(
       offeredCombinedDecimalOdds: rawOffer,
     });
 
+    const legsCount =
+      1 +
+      (req.teamOutcome !== "any" ? 1 : 0) +
+      (evaluated.pTotalOutcomeMarginal !== null ? 1 : 0);
+    if (legsCount < 2) {
+      return blockedResponse("football", "minimo_dos_piernas", false);
+    }
+
     const offer = evaluatePermittedSgpOffer({
       jointProbability: evaluated.jointProbability,
       offeredCombinedDecimalOdds: rawOffer,
       offeredBookLabel: req.offeredBookLabel,
     });
-
-    const legsCount =
-      1 +
-      (req.teamOutcome !== "any" ? 1 : 0) +
-      (evaluated.pTotalOutcomeMarginal !== null ? 1 : 0);
 
     return Object.freeze({
       ok: true,

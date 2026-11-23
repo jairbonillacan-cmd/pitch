@@ -50,25 +50,33 @@ describe("Paridad US/MLB, despachador Push y shell-index (ADR-045 / ADR-047)", (
 
   it("detecta alertas prepartido (45-75 min) y movimientos de línea ≥ 5 % para Web Push", () => {
     const nowMs = Date.parse("2026-11-20T18:00:00Z");
-    const game = {
+    const game: PlatformGame = {
       id: "liga-mx-2026-11-20-america-chivas-abc123",
       league: asLeagueId("liga-mx"),
       leagueLabel: "Liga MX",
       sport: "football",
       round: "Jornada 17",
-      day: "2026-11-20",
+      dayId: "2026-11-20",
       dayLabel: "viernes",
-      kickoffUtc: "2026-11-20T19:00:00Z", // +60 min exactos
+      kickoffUtc: "2026-11-20T19:00:00Z",
       kickoffLocal: "13:00",
       venue: "Estadio Azteca",
       status: "NS",
       home: { slug: "america", name: "Club América", shortName: "América", code: "AME", record: "9G" },
       away: { slug: "chivas", name: "Guadalajara", shortName: "Chivas", code: "GDL", record: "6G" },
+      x12: [0.62, 0.22, 0.16],
+      projection: { home: 1.85, away: 0.95, total: 2.8 },
+      confidenceScore: 72,
+      confidenceLevel: "alta",
       picks: [],
       factors: [],
       headToHead: [],
       preGame: {
-        injuries: [],
+        cortexSynthesis: "",
+        tacticalKeys: [],
+        lineupStatusLabel: "XI probable",
+        lineupsConfirmed60m: false,
+        absences: [],
         moneyFlow: null,
         probableLineups: null,
         confirmedLineups: null,
@@ -90,7 +98,9 @@ describe("Paridad US/MLB, despachador Push y shell-index (ADR-045 / ADR-047)", (
           edgePts: 5.8,
         },
       ],
-    } as unknown as PlatformGame;
+      updatedAtLabel: "2026-11-20",
+      spacetime: null,
+    };
 
     const dataset: PlatformDataset = {
       generatedAt: "2026-11-20T17:50:00Z",
@@ -133,10 +143,8 @@ describe("Paridad US/MLB, despachador Push y shell-index (ADR-045 / ADR-047)", (
       expect(mlbEnvelope.data).toBeDefined();
 
       const mlbData = mlbEnvelope.data!;
-      const rawGamesWithPitchers = mlbData.games.filter(
-        (g) =>
-          g.hasForecast !== false &&
-          g.factors.some((f) => f.label === "Abridores"),
+      const rawGamesWithPitchers = mlbData.games.filter((g) =>
+        g.factors.some((f) => f.label === "Abridores"),
       );
       expect(rawGamesWithPitchers.length).toBeGreaterThan(0);
 
@@ -148,7 +156,18 @@ describe("Paridad US/MLB, despachador Push y shell-index (ADR-045 / ADR-047)", (
         targetPlatformGame!.factors.some((f) => f.label === "Abridores"),
       ).toBe(true);
 
-      const outlook = platformGameToSportOutlook(targetPlatformGame!);
+      if (targetPlatformGame!.hasForecast === false) {
+        expect(platformGameToSportOutlook(targetPlatformGame!)).toBeNull();
+      }
+
+      const forecastEnabledGame: PlatformGame = {
+        ...targetPlatformGame!,
+        hasForecast: true,
+        projection: targetPlatformGame!.projection ?? { home: 4.5, away: 4.1, total: 8.6 },
+        x12: targetPlatformGame!.x12 ?? [0.54, 0, 0.46],
+      };
+
+      const outlook = platformGameToSportOutlook(forecastEnabledGame);
       expect(outlook).not.toBeNull();
       expect(outlook!.sport).toBe("mlb");
 
