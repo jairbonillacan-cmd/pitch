@@ -54,6 +54,10 @@ test("Salud de datos y bajas reales: resguardo 403/404 en prod, bajas NFL en fic
     const href = await nflGameLink.getAttribute("href");
     if (href) {
       await page.goto(href);
+      const resumenTab = page.locator('[data-section-tab="resumen"]');
+      if ((await resumenTab.count()) > 0) {
+        await resumenTab.click();
+      }
       const preMatch = page.locator("[data-pre-match-module]");
       if ((await preMatch.count()) > 0) {
         await expect(preMatch).toBeVisible();

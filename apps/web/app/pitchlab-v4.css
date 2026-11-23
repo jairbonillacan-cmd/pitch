@@ -352,7 +352,7 @@ dialog.pl-native-dialog .glass-lens {
 /* ---------- Candado Cero-Fuga y Marca de Agua por sesión ---------- */
 .locked-redact {
   filter: blur(6px);
-  opacity: 0.44;
+  opacity: 0.72;
   user-select: none;
   pointer-events: none;
 }
@@ -11498,8 +11498,8 @@ dialog.pl-native-dialog.pl-home-fmodal-dialog[open] {
   border-radius: 999px;
   font-size: 0.6875rem;
   font-weight: 750;
-  background: color-mix(in srgb, var(--pl-brand) 18%, transparent);
-  color: var(--pl-brand);
+  background: var(--pl-pill-brand-bg);
+  color: var(--pl-pill-brand-fg);
 }
 .pl-mkt-row-metrics {
   display: inline-flex;
