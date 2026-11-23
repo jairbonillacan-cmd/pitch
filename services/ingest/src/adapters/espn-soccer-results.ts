@@ -104,7 +104,7 @@ export async function fetchEspnSoccerEvents(options: {
   const byId = new Map<string, EspnSoccerEvent>();
   for (const day of days) {
     const file = resolveSafeEspnCachePath(cacheRoot, `${day}.json`);
-    const closed = Number(todayKey) - Number(day) > 1;
+    const closed = Number.parseInt(todayKey, 10) - Number.parseInt(day, 10) > 1;
     let payload: unknown;
     if (closed && existsSync(file)) {
       payload = JSON.parse(readFileSync(file, "utf8"));
@@ -162,9 +162,9 @@ export function espnEventsToFootballData(
     }
     if (!best || best.score < 1) continue;
     const status = statusOf(ev.status.type.name);
-    const num = (s?: string) => (s !== undefined && /^\d+$/.test(s) ? Number(s) : null);
+    const num = (s?: string) => (s !== undefined && /^\d+$/.test(s) ? Number.parseInt(s, 10) : null);
     matches.push({
-      id: Number(ev.id),
+      id: Number.parseInt(ev.id, 10),
       utcDate: ev.date,
       status,
       matchday: best.week,

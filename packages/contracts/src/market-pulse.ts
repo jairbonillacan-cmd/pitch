@@ -1,10 +1,3 @@
-/**
- * Volumen por resultado en mercados de predicción con API pública (FD-20).
- *
- * Vive en un archivo aparte por liga (`data/snapshots/<liga>/market-pulse.json`) para poder
- * actualizarse sin tocar los análisis publicados, que nunca se recalculan. No es dinero de casas
- * mexicanas: es la actividad de mercados internacionales y se presenta como sentimiento.
- */
 import { z } from "zod";
 
 export const MarketPulseSideSchema = z.enum(["home", "draw", "away"]);
@@ -12,9 +5,7 @@ export type MarketPulseSide = z.infer<typeof MarketPulseSideSchema>;
 
 export const MarketPulseEntrySchema = z.object({
   gameId: z.string().min(1),
-  /** Proveedor; nunca se muestra en la UI (FD-16). */
   source: z.enum(["polymarket", "kalshi"]),
-  /** `usd`: volumen en dólares. `contracts`: contratos de hasta US$1. */
   unit: z.enum(["usd", "contracts"]),
   observedAt: z.string().min(10),
   outcomes: z
@@ -22,7 +13,6 @@ export const MarketPulseEntrySchema = z.object({
       z.object({
         side: MarketPulseSideSchema,
         volume: z.number().nonnegative(),
-        /** Precio del «sí» (0-1): probabilidad implícita del mercado. */
         price: z.number().min(0).max(1).nullable(),
       }),
     )
@@ -39,22 +29,18 @@ export const MarketPulseFileSchema = z.object({
 });
 export type MarketPulseFile = z.infer<typeof MarketPulseFileSchema>;
 
-/** Debajo de este volumen el reparto no significa nada y la UI no lo interpreta. */
 export const MARKET_PULSE_MIN_VOLUME = { usd: 5_000, contracts: 10_000 } as const;
 
-/** Diferencia (puntos de probabilidad) a partir de la cual el mercado se considera cargado. */
 export const MARKET_PULSE_LEAN_GAP = 0.12;
 
 export interface MarketPulseView {
   unit: "usd" | "contracts";
   observedAt: string;
   totalVolume: number;
-  /** El volumen total es menor al mínimo: se muestra sin lectura. */
   thin: boolean;
   sides: Array<{
     side: MarketPulseSide;
     volume: number;
-    /** Parte del volumen total (0-1). */
     share: number;
     price: number | null;
   }>;
@@ -79,10 +65,6 @@ export function toMarketPulseView(entry: MarketPulseEntry): MarketPulseView {
   };
 }
 
-/**
- * Lado donde el volumen supera con más holgura a la probabilidad del modelo.
- * Devuelve `null` si el mercado es delgado o ningún lado pasa de `MARKET_PULSE_LEAN_GAP`.
- */
 export function marketPulseLean(
   view: MarketPulseView,
   model: Partial<Record<MarketPulseSide, number>>,

@@ -367,16 +367,36 @@ export function slugifyIntlName(raw: string): string {
     .replace(/\s+/g, " ");
 }
 
+const STRICT_FINITE_NUMBER_RE = /^[+-]?(?:\d+\.?\d*|\.\d+)(?:[eE][+-]?\d+)?$/;
+
+function parseFiniteNumber(raw: unknown): number | null {
+  if (typeof raw === "number") return Number.isFinite(raw) ? raw : null;
+  if (typeof raw === "string") {
+    const trimmed = raw.trim();
+    if (!STRICT_FINITE_NUMBER_RE.test(trimmed)) return null;
+    const parsed = Number.parseFloat(trimmed);
+    return Number.isFinite(parsed) ? parsed : null;
+  }
+  return null;
+}
+
 function dateIsoToUtcDayNumber(dateIso: string): number {
   const s = String(dateIso).trim().slice(0, 10);
   const parts = s.split("-");
   if (parts.length !== 3) {
     throw new Error(`Fecha ISO inválida en intl_soccer: ${dateIso}`);
   }
-  const y = Number(parts[0]);
-  const m = Number(parts[1]);
-  const d = Number(parts[2]);
-  if (!Number.isInteger(y) || !Number.isInteger(m) || !Number.isInteger(d)) {
+  const y = parseFiniteNumber(parts[0]);
+  const m = parseFiniteNumber(parts[1]);
+  const d = parseFiniteNumber(parts[2]);
+  if (
+    y === null ||
+    m === null ||
+    d === null ||
+    !Number.isInteger(y) ||
+    !Number.isInteger(m) ||
+    !Number.isInteger(d)
+  ) {
     throw new Error(`Fecha ISO inválida en intl_soccer: ${dateIso}`);
   }
   return Math.round(Date.UTC(y, m - 1, d) / 86_400_000);
@@ -887,28 +907,175 @@ const CITY_VENUE_OVERRIDES: Readonly<Record<string, CityVenueOverride>> = Object
   sydney: { lat: -33.8471, lon: 151.0634, elevM: 15.0, country: "AUS", diasporaCodes: [] },
 });
 
+function isJsonRecord(value: unknown): value is Record<string, unknown> {
+  return value !== null && typeof value === "object" && !Array.isArray(value);
+}
+
+function isModelArtifact(value: unknown): value is ModelArtifact {
+  return (
+    isJsonRecord(value) &&
+    typeof value.type === "string" &&
+    typeof value.version === "string" &&
+    typeof value.n_features_base === "number" &&
+    Array.isArray(value.features) &&
+    Array.isArray(value.div_levels) &&
+    Array.isArray(value.coef) &&
+    Array.isArray(value.intercept) &&
+    Array.isArray(value.classes) &&
+    isJsonRecord(value.imputer) &&
+    isJsonRecord(value.scaler)
+  );
+}
+
+function isIntlCausalStateArtifact(value: unknown): value is IntlCausalStateArtifact {
+  return (
+    isJsonRecord(value) &&
+    typeof value.schema_version === "string" &&
+    typeof value.n_federations === "number" &&
+    isJsonRecord(value.teams)
+  );
+}
+
+function isOutlookCalibrationArtifact(value: unknown): value is OutlookCalibrationArtifact {
+  return (
+    isJsonRecord(value) &&
+    typeof value.schema_version === "string" &&
+    typeof value.eval_split === "string" &&
+    typeof value.holdout_cut_utc === "string" &&
+    typeof value.holdout_sealed_untouched === "boolean" &&
+    typeof value.bootstrap_samples === "number" &&
+    typeof value.max_sharp_age_minutes === "number" &&
+    isJsonRecord(value.segments)
+  );
+}
+
+function isGbmArtifact(value: unknown): value is GbmArtifact {
+  return (
+    isJsonRecord(value) &&
+    typeof value.schema_version === "string" &&
+    value.type === "hist_gradient_boosting_multiclass" &&
+    typeof value.n_features_base === "number" &&
+    Array.isArray(value.features) &&
+    Array.isArray(value.div_levels) &&
+    Array.isArray(value.trees)
+  );
+}
+
+function isHorizonGoalsModelArtifact(value: unknown): value is HorizonGoalsModelArtifact {
+  return (
+    isJsonRecord(value) &&
+    typeof value.schema_version === "string" &&
+    value.type === "poisson_log_link_3param_dc" &&
+    typeof value.n_features_base === "number" &&
+    Array.isArray(value.features) &&
+    Array.isArray(value.div_levels) &&
+    Array.isArray(value.coef) &&
+    typeof value.intercept === "number"
+  );
+}
+
+function parseModelArtifact(raw: unknown, label: string): ModelArtifact {
+  if (!isModelArtifact(raw)) {
+    throw new Error(`Invalid ModelArtifact JSON: ${label}`);
+  }
+  return raw;
+}
+
+function parseIntlCausalStateArtifact(raw: unknown, label: string): IntlCausalStateArtifact {
+  if (!isIntlCausalStateArtifact(raw)) {
+    throw new Error(`Invalid IntlCausalStateArtifact JSON: ${label}`);
+  }
+  return raw;
+}
+
+function parseOutlookCalibrationArtifact(raw: unknown, label: string): OutlookCalibrationArtifact {
+  if (!isOutlookCalibrationArtifact(raw)) {
+    throw new Error(`Invalid OutlookCalibrationArtifact JSON: ${label}`);
+  }
+  return raw;
+}
+
+function parseGbmArtifact(raw: unknown, label: string): GbmArtifact {
+  if (!isGbmArtifact(raw)) {
+    throw new Error(`Invalid GbmArtifact JSON: ${label}`);
+  }
+  return raw;
+}
+
+function parseHorizonGoalsModelArtifact(raw: unknown, label: string): HorizonGoalsModelArtifact {
+  if (!isHorizonGoalsModelArtifact(raw)) {
+    throw new Error(`Invalid HorizonGoalsModelArtifact JSON: ${label}`);
+  }
+  return raw;
+}
+
+const DEFAULT_INTL_MODEL_ARTIFACT = parseModelArtifact(
+  defaultIntlModelJson,
+  "model_intl_soccer_v2.json",
+);
+const DEFAULT_INTL_CAUSAL_STATE_ARTIFACT = parseIntlCausalStateArtifact(
+  defaultIntlCausalStateJson,
+  "intl_soccer_causal_state_v2.json",
+);
+const DEFAULT_INTL_CALIBRATION_ARTIFACT = parseOutlookCalibrationArtifact(
+  defaultIntlCalibrationJson,
+  "intl_outlook_calibration_v2.json",
+);
+const MERIDIAN_V1_MODEL_ARTIFACT = parseModelArtifact(
+  defaultIntlModelV1Json,
+  "model_intl_soccer_v1.json",
+);
+const MERIDIAN_V1_CAUSAL_STATE_ARTIFACT = parseIntlCausalStateArtifact(
+  defaultIntlCausalStateV1Json,
+  "intl_soccer_causal_state.json",
+);
+const MERIDIAN_V1_CALIBRATION_ARTIFACT = parseOutlookCalibrationArtifact(
+  defaultIntlCalibrationV1Json,
+  "intl_outlook_calibration_v1.json",
+);
+const MERIDIAN_V3_MODEL_ARTIFACT = parseModelArtifact(
+  defaultIntlModelV3Json,
+  "model_intl_soccer_v3.json",
+);
+const MERIDIAN_V3_CAUSAL_STATE_ARTIFACT = parseIntlCausalStateArtifact(
+  defaultIntlCausalStateV3Json,
+  "intl_soccer_causal_state_v3.json",
+);
+const MERIDIAN_V3_CALIBRATION_ARTIFACT = parseOutlookCalibrationArtifact(
+  defaultIntlCalibrationV3Json,
+  "intl_outlook_calibration_v3.json",
+);
+const DEFAULT_INTL_V35_GBM_ARTIFACT = parseGbmArtifact(
+  defaultGbmIntlV35Json,
+  "gbm_intl_soccer_v3_5_candidate.json",
+);
+const DEFAULT_INTL_HORIZON_GOALS_V35_ARTIFACT = parseHorizonGoalsModelArtifact(
+  defaultIntlGoalsV35Json,
+  "model_intl_goals_v3_5_candidate.json",
+);
+
 export function getDefaultIntlModelArtifact(): ModelArtifact {
-  return defaultIntlModelJson as unknown as ModelArtifact;
+  return DEFAULT_INTL_MODEL_ARTIFACT;
 }
 
 export function getDefaultIntlCausalStateArtifact(): IntlCausalStateArtifact {
-  return defaultIntlCausalStateJson as unknown as IntlCausalStateArtifact;
+  return DEFAULT_INTL_CAUSAL_STATE_ARTIFACT;
 }
 
 export function getDefaultIntlCalibrationArtifact(): OutlookCalibrationArtifact {
-  return defaultIntlCalibrationJson as unknown as OutlookCalibrationArtifact;
+  return DEFAULT_INTL_CALIBRATION_ARTIFACT;
 }
 
 export function getMeridianV1ModelArtifact(): ModelArtifact {
-  return defaultIntlModelV1Json as unknown as ModelArtifact;
+  return MERIDIAN_V1_MODEL_ARTIFACT;
 }
 
 export function getMeridianV1CausalStateArtifact(): IntlCausalStateArtifact {
-  return defaultIntlCausalStateV1Json as unknown as IntlCausalStateArtifact;
+  return MERIDIAN_V1_CAUSAL_STATE_ARTIFACT;
 }
 
 export function getMeridianV1CalibrationArtifact(): OutlookCalibrationArtifact {
-  return defaultIntlCalibrationV1Json as unknown as OutlookCalibrationArtifact;
+  return MERIDIAN_V1_CALIBRATION_ARTIFACT;
 }
 
 export function getMeridianV1Artifacts(): IntlEngineArtifacts {
@@ -920,15 +1087,15 @@ export function getMeridianV1Artifacts(): IntlEngineArtifacts {
 }
 
 export function getMeridianV3ModelArtifact(): ModelArtifact {
-  return defaultIntlModelV3Json as unknown as ModelArtifact;
+  return MERIDIAN_V3_MODEL_ARTIFACT;
 }
 
 export function getMeridianV3CausalStateArtifact(): IntlCausalStateArtifact {
-  return defaultIntlCausalStateV3Json as unknown as IntlCausalStateArtifact;
+  return MERIDIAN_V3_CAUSAL_STATE_ARTIFACT;
 }
 
 export function getMeridianV3CalibrationArtifact(): OutlookCalibrationArtifact {
-  return defaultIntlCalibrationV3Json as unknown as OutlookCalibrationArtifact;
+  return MERIDIAN_V3_CALIBRATION_ARTIFACT;
 }
 
 export function getMeridianV3Artifacts(): IntlEngineArtifacts {
@@ -1383,7 +1550,7 @@ export function synthesizeIntlMatchSnapshotRow(params: {
     const tmPoolCovMin = Math.min(stH.tm_has_pool ?? 0.0, stA.tm_has_pool ?? 0.0);
 
     const fifaSumDiff = ((stH.fifa_sum_pts ?? eloH) - (stA.fifa_sum_pts ?? eloA)) / 100.0;
-    const matchMonth = Number(matchDateIso.slice(5, 7));
+    const matchMonth = parseFiniteNumber(matchDateIso.slice(5, 7)) ?? Number.NaN;
     const thermalClimateAdv = computeThermalClimateMismatch({
       homeBaseLat: stH.base_lat,
       awayBaseLat: stA.base_lat,
@@ -1790,11 +1957,11 @@ export function buildIntlMatchOutlook(
 export const MERIDIAN_V35_CODENAME = "PitchLab Meridian v3.5 Ensemble" as const;
 
 export function getDefaultIntlV35GbmArtifact(): GbmArtifact {
-  return defaultGbmIntlV35Json as unknown as GbmArtifact;
+  return DEFAULT_INTL_V35_GBM_ARTIFACT;
 }
 
 export function getDefaultIntlHorizonGoalsV35Artifact(): HorizonGoalsModelArtifact {
-  return defaultIntlGoalsV35Json as unknown as HorizonGoalsModelArtifact;
+  return DEFAULT_INTL_HORIZON_GOALS_V35_ARTIFACT;
 }
 
 /**
@@ -1806,18 +1973,18 @@ export function extractIntlHorizonGoalsFeaturesFromV2(
   goalsArtifact: HorizonGoalsModelArtifact = getDefaultIntlHorizonGoalsV35Artifact(),
 ): readonly number[] {
   const srcIdx = goalsArtifact.source_v2_feature_indices ?? [];
-  const srcVals = srcIdx.map((idx) => Number(v2Features[idx] ?? 0.0));
+  const srcVals = srcIdx.map((idx) => parseFiniteNumber(v2Features[idx]) ?? 0.0);
   const idxAbsMm = INTL_V2_49_FEATURES.indexOf("abs_elo_mismatch");
   const idxAttH = INTL_V2_49_FEATURES.indexOf("att_strength_home");
   const idxDefH = INTL_V2_49_FEATURES.indexOf("def_strength_home");
   const idxAttA = INTL_V2_49_FEATURES.indexOf("att_strength_away");
   const idxDefA = INTL_V2_49_FEATURES.indexOf("def_strength_away");
 
-  const absMm = Number(v2Features[idxAbsMm] ?? 0.0);
-  const attH = Number(v2Features[idxAttH] ?? 1.0);
-  const defH = Number(v2Features[idxDefH] ?? 1.0);
-  const attA = Number(v2Features[idxAttA] ?? 1.0);
-  const defA = Number(v2Features[idxDefA] ?? 1.0);
+  const absMm = parseFiniteNumber(v2Features[idxAbsMm]) ?? 0.0;
+  const attH = parseFiniteNumber(v2Features[idxAttH]) ?? 1.0;
+  const defH = parseFiniteNumber(v2Features[idxDefH]) ?? 1.0;
+  const attA = parseFiniteNumber(v2Features[idxAttA]) ?? 1.0;
+  const defA = parseFiniteNumber(v2Features[idxDefA]) ?? 1.0;
 
   const mmSq = Math.min(absMm * absMm, 16.0);
   const attDefSum = attH + defA + (attA + defH);
@@ -1895,14 +2062,14 @@ export function buildMeridianV35MatchOutlook(
   const goalsArt = artifacts?.goals ?? getDefaultIntlHorizonGoalsV35Artifact();
   const stateArt =
     artifacts?.causalState ??
-    ((gbmArt.n_features_base === 53
-      ? defaultIntlCausalStateV3Json
-      : defaultIntlCausalStateJson) as unknown as IntlCausalStateArtifact);
+    (gbmArt.n_features_base === 53
+      ? getMeridianV3CausalStateArtifact()
+      : getDefaultIntlCausalStateArtifact());
   const calArt =
     artifacts?.calibration ??
-    ((gbmArt.n_features_base === 53
-      ? defaultIntlCalibrationV3Json
-      : defaultIntlCalibrationJson) as unknown as OutlookCalibrationArtifact);
+    (gbmArt.n_features_base === 53
+      ? getMeridianV3CalibrationArtifact()
+      : getDefaultIntlCalibrationArtifact());
 
   const nBase: 38 | 49 | 53 =
     gbmArt.n_features_base === 53 ? 53 : gbmArt.n_features_base === 38 ? 38 : 49;

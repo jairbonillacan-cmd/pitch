@@ -6,6 +6,21 @@
 
 const SCROLL_STORAGE_KEY = "pl-route-scroll-v1";
 const MAX_SCROLL_ENTRIES = 40;
+const CONTROL_CHAR_RE = /[\u0000-\u001f\u007f]/;
+
+export function sanitizeInternalHref(raw: string | null | undefined): string | null {
+  if (typeof raw !== "string") return null;
+  const trimmed = raw.trim();
+  if (
+    !trimmed.startsWith("/") ||
+    trimmed.startsWith("//") ||
+    trimmed.includes("\\") ||
+    CONTROL_CHAR_RE.test(trimmed)
+  ) {
+    return null;
+  }
+  return trimmed;
+}
 
 type ScrollMap = Record<string, number>;
 
@@ -197,4 +212,54 @@ export function triggerHaptic(pattern: number | number[] = 8): boolean {
     void err;
     return false;
   }
+}
+
+export function handleRovingTablistKeyDown<K extends string>(
+  event: {
+    key: string;
+    preventDefault: () => void;
+    currentTarget: HTMLButtonElement;
+  },
+  keys: readonly K[],
+  currentKey: K,
+  onSelect: (nextKey: K) => void,
+  focusTargetByKey?: (nextKey: K) => HTMLButtonElement | null | undefined,
+): void {
+  if (keys.length === 0) return;
+  const idx = keys.indexOf(currentKey);
+  if (idx < 0) return;
+  const listEl = event.currentTarget.closest<HTMLElement>('[role="tablist"]');
+  const isRtl =
+    listEl !== null &&
+    typeof window !== "undefined" &&
+    window.getComputedStyle(listEl).direction === "rtl";
+  const nextArrow = isRtl ? "ArrowLeft" : "ArrowRight";
+  const prevArrow = isRtl ? "ArrowRight" : "ArrowLeft";
+  let targetIdx = -1;
+  if (event.key === nextArrow) {
+    targetIdx = (idx + 1) % keys.length;
+  } else if (event.key === prevArrow) {
+    targetIdx = (idx - 1 + keys.length) % keys.length;
+  } else if (event.key === "Home") {
+    targetIdx = 0;
+  } else if (event.key === "End") {
+    targetIdx = keys.length - 1;
+  }
+  if (targetIdx < 0) return;
+  event.preventDefault();
+  const next = keys[targetIdx];
+  if (next === undefined) return;
+  onSelect(next);
+  if (focusTargetByKey) {
+    focusTargetByKey(next)?.focus();
+    return;
+  }
+  const tabNodes = listEl
+    ? Array.from(
+        listEl.querySelectorAll<HTMLButtonElement>(
+          '[role="tab"]:not(:disabled):not([aria-disabled="true"])',
+        ),
+      )
+    : [];
+  tabNodes[targetIdx]?.focus();
 }

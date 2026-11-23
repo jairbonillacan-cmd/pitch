@@ -1,6 +1,3 @@
-/**
- * Cliente Web Push nativo de Node (RFC 8291 `aes128gcm` + ES256 VAPID) sin dependencias externas.
- */
 import {
   createCipheriv,
   createECDH,
@@ -35,11 +32,6 @@ const ALLOWED_WEB_PUSH_HOST_SUFFIXES = [
 const SUBDOMAIN_PREFIX_RE =
   /^[a-z0-9](?:[a-z0-9-]*[a-z0-9])?(?:\.[a-z0-9](?:[a-z0-9-]*[a-z0-9])?)*$/;
 
-/**
- * Valida y normaliza un endpoint Web Push contra una allowlist estricta de proveedores
- * reales (FCM, Mozilla Autopush, Apple Web Push, Windows WNS), bloqueando SSRF hacia
- * IPs literales, hosts locales/internos, credenciales embebidas o puertos no estándar.
- */
 export function parseAllowedWebPushEndpoint(raw: unknown): string | null {
   if (typeof raw !== "string") return null;
   const trimmed = raw.trim();
@@ -117,7 +109,6 @@ export function isWebPushConfigured(env: NodeJS.ProcessEnv = process.env): boole
   return vapidConfigFromEnv(env) !== null;
 }
 
-/** Firma un JWT ES256 VAPID (`Authorization: vapid t=..., k=...`) conforme a RFC 8292. */
 export function buildVapidHeaders(
   endpoint: string,
   vapid: VapidConfig,
@@ -159,9 +150,6 @@ export function buildVapidHeaders(
   };
 }
 
-/**
- * Cifra un payload JSON según RFC 8291 (`aes128gcm`) para el endpoint de un navegador.
- */
 export function encryptWebPushPayload(
   plaintext: Buffer | string,
   uaPublicKeyB64Url: string,

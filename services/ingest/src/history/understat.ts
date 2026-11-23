@@ -11,6 +11,7 @@
  */
 import { existsSync, mkdirSync, readFileSync, writeFileSync } from "node:fs";
 import { dirname, join } from "node:path";
+import { parseStrictFiniteNumber } from "@pitchlab/contracts";
 import type { HistoryLeagueConfig } from "./leagues.js";
 import { slugifyTeamName } from "./teams.js";
 
@@ -258,9 +259,11 @@ export function parseUnderstatLeagueHtml(html: string): UnderstatMatch[] | null 
   const matches: UnderstatMatch[] = [];
   for (const row of parsed) {
     if (!row.isResult) continue;
-    const homeXg = row.xG?.h === null || row.xG?.h === undefined ? null : Number(row.xG.h);
-    const awayXg = row.xG?.a === null || row.xG?.a === undefined ? null : Number(row.xG.a);
-    if (homeXg === null || awayXg === null || !Number.isFinite(homeXg) || !Number.isFinite(awayXg)) {
+    const homeXg = parseStrictFiniteNumber(row.xG?.h);
+    const awayXg = parseStrictFiniteNumber(row.xG?.a);
+    const homeGoals = parseStrictFiniteNumber(row.goals.h);
+    const awayGoals = parseStrictFiniteNumber(row.goals.a);
+    if (homeXg === null || awayXg === null || homeGoals === null || awayGoals === null) {
       continue;
     }
     matches.push({
@@ -268,8 +271,8 @@ export function parseUnderstatLeagueHtml(html: string): UnderstatMatch[] | null 
       datetime: row.datetime,
       homeTitle: row.h.title,
       awayTitle: row.a.title,
-      homeGoals: Number(row.goals.h),
-      awayGoals: Number(row.goals.a),
+      homeGoals,
+      awayGoals,
       homeXg,
       awayXg,
     });

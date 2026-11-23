@@ -8,10 +8,12 @@
 import { sql } from "drizzle-orm";
 import {
   type AnyPgColumn,
+  bigint,
   boolean,
   char,
   check,
   date,
+  doublePrecision,
   index,
   integer,
   jsonb,
@@ -144,6 +146,21 @@ export const watchlist = pgTable(
   (t) => [primaryKey({ columns: [t.userId, t.gameId] }), index("watchlist_game_idx").on(t.gameId)],
 );
 
+export interface SavedScreenerViewRecord {
+  id: string;
+  name: string;
+  sport: string;
+  league: string;
+  band: string;
+  kind: string;
+  sort: string;
+  onlyPositiveEdge: boolean;
+  minOddsStep: number;
+  maxOddsStep: number;
+  window: string;
+  pinToHomeHub: boolean;
+}
+
 export const userPreferences = pgTable(
   "user_preferences",
   {
@@ -178,8 +195,9 @@ export const userPreferences = pgTable(
     followedTopics: jsonb("followed_topics")
       .notNull()
       .default(sql`'{"leagues":[],"teams":[]}'::jsonb`),
-    /** Hasta 3 insignias destacadas en el perfil; la app vuelve a validarlas al leer. */
     featuredBadges: text("featured_badges").array().notNull().default(sql`'{}'::text[]`),
+    preferredBookmakers: text("preferred_bookmakers").array().notNull().default(sql`'{}'::text[]`),
+    savedViews: jsonb("saved_views").$type<SavedScreenerViewRecord[]>().notNull().default(sql`'[]'::jsonb`),
     updatedAt: ts("updated_at").notNull().defaultNow(),
   },
   (t) => [
@@ -1227,3 +1245,94 @@ export const funnelEvents = pgTable(
     ),
   ],
 );
+
+export const securityRateBuckets = pgTable(
+  "security_rate_buckets",
+  {
+    bucket: text("bucket").notNull(),
+    subjectKey: text("subject_key").notNull(),
+    windowStart: bigint("window_start", { mode: "number" }).notNull(),
+    hits: integer("hits").notNull().default(1),
+    expiresAt: ts("expires_at").notNull(),
+  },
+  (t) => [
+    primaryKey({ name: "security_rate_buckets_pk", columns: [t.bucket, t.subjectKey, t.windowStart] }),
+    index("security_rate_buckets_expires_idx").on(t.expiresAt),
+  ],
+);
+
+export const securityAbuseEvents = pgTable(
+  "security_abuse_events",
+  {
+    id: uuid("id").primaryKey().defaultRandom(),
+    userId: uuid("user_id").references(() => users.id, { onDelete: "set null" }),
+    ipHash: text("ip_hash").notNull(),
+    route: text("route").notNull(),
+    kind: text("kind").notNull(),
+    severity: text("severity").notNull(),
+    details: jsonb("details").$type<Record<string, unknown>>().notNull().default(sql`'{}'::jsonb`),
+    createdAt: createdAt(),
+  },
+  (t) => [
+    index("security_abuse_events_created_idx").on(t.createdAt.desc()),
+    index("security_abuse_events_user_created_idx").on(t.userId, t.createdAt.desc()),
+    check(
+      "security_abuse_events_kind_ck",
+      sql`${t.kind} IN ('rate_limit', 'scraping_velocity', 'session_revoked', 'csrf_rejected', 'idor_attempt')`,
+    ),
+    check(
+      "security_abuse_events_severity_ck",
+      sql`${t.severity} IN ('low', 'medium', 'high', 'critical')`,
+    ),
+  ],
+);
+
+export const marketAlerts = pgTable(
+  "market_alerts",
+  {
+    id: text("id").primaryKey(),
+    userId: uuid("user_id")
+      .notNull()
+      .references(() => users.id, { onDelete: "cascade" }),
+    name: text("name").notNull(),
+    trigger: text("trigger").notNull(),
+    league: text("league"),
+    marketFamily: text("market_family"),
+    selection: text("selection"),
+    thresholdEvPct: doublePrecision("threshold_ev_pct"),
+    minDecimal: doublePrecision("min_decimal"),
+    maxDecimal: doublePrecision("max_decimal"),
+    direction: text("direction"),
+    bookmaker: text("bookmaker"),
+    cooldownMinutes: integer("cooldown_minutes").notNull().default(60),
+    channel: text("channel").notNull().default("push"),
+    active: boolean("active").notNull().default(true),
+    lastFiredAt: ts("last_fired_at"),
+    lastFiredHash: text("last_fired_hash"),
+    firedCount: integer("fired_count").notNull().default(0),
+    createdAt: createdAt(),
+    updatedAt: ts("updated_at").notNull().defaultNow(),
+  },
+  (t) => [
+    index("market_alerts_user_active_created_idx").on(t.userId, t.active, t.createdAt.desc()),
+    index("market_alerts_trigger_active_idx").on(t.trigger, t.active),
+    check(
+      "market_alerts_trigger_ck",
+      sql`${t.trigger} IN ('market_opened', 'sharp_steam', 'stale_line_ev', 'lineup_confirmed', 'schedule_change')`,
+    ),
+    check(
+      "market_alerts_direction_ck",
+      sql`${t.direction} IS NULL OR ${t.direction} IN ('any', 'over', 'under', 'home', 'away', 'draw')`,
+    ),
+    check("market_alerts_cooldown_ck", sql`${t.cooldownMinutes} BETWEEN 5 AND 1440`),
+    check("market_alerts_channel_ck", sql`${t.channel} IN ('push', 'in_app', 'both')`),
+    check("market_alerts_fired_count_ck", sql`${t.firedCount} >= 0`),
+    check(
+      "market_alerts_decimals_ck",
+      sql`(${t.minDecimal} IS NULL OR ${t.minDecimal} > 1) AND (${t.maxDecimal} IS NULL OR ${t.maxDecimal} > 1) AND (${t.minDecimal} IS NULL OR ${t.maxDecimal} IS NULL OR ${t.minDecimal} <= ${t.maxDecimal})`,
+    ),
+  ],
+);
+
+export type MarketAlertRow = typeof marketAlerts.$inferSelect;
+export type NewMarketAlertRow = typeof marketAlerts.$inferInsert;

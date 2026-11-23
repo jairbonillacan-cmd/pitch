@@ -1,26 +1,42 @@
 import { NextResponse } from "next/server";
+import { createSanitizedErrorPayload } from "@pitchlab/contracts";
 import { deleteSocialComment } from "@pitchlab/db";
-import { verifySameOriginMutation } from "../../../../../../../src/server/request-security";
-import { requireMember } from "../../../../../../../src/server/session-user";
+import { z } from "zod";
+import { withMemberMutation, type MemberMutationContext } from "../../../../../../../src/server/api-guards";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
 
-/** Borra un comentario propio dentro de una publicación. */
-export async function DELETE(
-  request: Request,
-  { params }: { params: Promise<{ id: string; commentId: string }> },
-): Promise<NextResponse> {
-  const originErr = verifySameOriginMutation(request, { requireJson: false });
-  if (originErr) return originErr;
-  const member = await requireMember(request);
-  if ("error" in member) return member.error;
-  const { id, commentId } = await params;
-  if (!/^[0-9a-f-]{36}$/i.test(id) || !/^[0-9a-f-]{36}$/i.test(commentId)) {
-    return NextResponse.json({ error: "Comentario inválido." }, { status: 400 });
-  }
-  const deleted = await deleteSocialComment(member.db, member.userId, commentId, id);
-  return deleted
-    ? NextResponse.json({ ok: true })
-    : NextResponse.json({ error: "No puedes borrar ese comentario." }, { status: 404 });
-}
+type CommentParams = { id: string; commentId: string };
+
+const UUID_RE = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
+
+const CommentParamsSchema = z.object({
+  id: z.string().regex(UUID_RE),
+  commentId: z.string().regex(UUID_RE),
+});
+
+export const DELETE = withMemberMutation(
+  {
+    bucket: "social-comment-delete",
+    limit: 30,
+    windowMs: 60_000,
+    requireJson: false,
+  },
+  async ({ params, user }: MemberMutationContext<CommentParams>) => {
+    const parsedParams = CommentParamsSchema.safeParse(params);
+    if (!parsedParams.success) {
+      const err = createSanitizedErrorPayload("INVALID_COMMENT_ID", "Comentario inválido.");
+      return NextResponse.json({ ok: false, error: err.message, code: err.code }, { status: 400 });
+    }
+    const deleted = await deleteSocialComment(
+      user.db,
+      user.userId,
+      parsedParams.data.commentId,
+      parsedParams.data.id,
+    );
+    return deleted
+      ? NextResponse.json({ ok: true })
+      : NextResponse.json({ ok: false, error: "No puedes borrar ese comentario." }, { status: 404 });
+  },
+);

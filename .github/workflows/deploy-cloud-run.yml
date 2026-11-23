@@ -11,6 +11,7 @@ on:
       - "**/*.md"
       - "apps/web/e2e/**"
       - "packages/ui/stories/**"
+      - "**/*.stories.tsx"
   # Los commits automáticos de snapshots/momios hechos con GITHUB_TOKEN no disparan `on: push`;
   # este disparador detecta cuando esos pipelines sí actualizaron `main` y despliega el nuevo snapshot.
   workflow_run:

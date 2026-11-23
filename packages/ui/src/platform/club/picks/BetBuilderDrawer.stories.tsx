@@ -1,7 +1,9 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useRef, useState } from "react";
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { asLeagueId } from "@pitchlab/contracts";
+import { SofascoreCard } from "../../../components/ui/primitives";
 import { EmblemSurfaceProvider } from "../../../sports";
+import { useSafeEffect } from "../../hooks";
 import { PlatformProvider, usePlatformActions } from "../../platform-provider";
 import type {
   BookQuoteItem,
@@ -119,7 +121,8 @@ const PICK_HOME_WIN: MatchPick = {
   market: "h2h",
   conflictGroup: "home_side",
   label: "América gana",
-  rationale: "América acumula 4 triunfos en 5 partidos y mantiene superioridad en goles esperados como local.",
+  rationale:
+    "América acumula 4 triunfos en 5 partidos y mantiene superioridad en goles esperados como local.",
   p: 0.584,
   fairDecimal: 1.71,
   fairAmerican: -140,
@@ -153,7 +156,8 @@ const PICK_OVER_25: MatchPick = {
   line: 2.5,
   conflictGroup: "over_total",
   label: "Más de 2.5 goles",
-  rationale: "Proyección conjunta de 3.06 xG y 3 de los últimos 4 cruces directos superaron los 2.5 goles.",
+  rationale:
+    "Proyección conjunta de 3.06 xG y 3 de los últimos 4 cruces directos superaron los 2.5 goles.",
   p: 0.575,
   fairDecimal: 1.74,
   fairAmerican: -135,
@@ -354,9 +358,30 @@ const STORY_GAME: PlatformGame = {
     { date: "2024-09-21", home: "Tigres", away: "América", homeGoals: 1, awayGoals: 1 },
   ],
   counts: {
-    corners: { home: 5.8, away: 4.6, total: 10.4, line: 9.5, pOver: 0.59, sample: { home: 15, away: 15 } },
-    fouls: { home: 11.4, away: 12.1, total: 23.5, line: 22.5, pOver: 0.56, sample: { home: 15, away: 15 } },
-    yellow: { home: 2.3, away: 2.7, total: 5.0, line: 4.5, pOver: 0.61, sample: { home: 15, away: 15 } },
+    corners: {
+      home: 5.8,
+      away: 4.6,
+      total: 10.4,
+      line: 9.5,
+      pOver: 0.59,
+      sample: { home: 15, away: 15 },
+    },
+    fouls: {
+      home: 11.4,
+      away: 12.1,
+      total: 23.5,
+      line: 22.5,
+      pOver: 0.56,
+      sample: { home: 15, away: 15 },
+    },
+    yellow: {
+      home: 2.3,
+      away: 2.7,
+      total: 5.0,
+      line: 4.5,
+      pOver: 0.61,
+      sample: { home: 15, away: 15 },
+    },
   },
   updatedAtLabel: "Actualizado hace 6 min",
   spacetime: null,
@@ -403,7 +428,7 @@ function DrawerHarness({
   const seedKey = `${focalPick.id}:${String(initialAllowSgp)}:${initialOddsFormat}:${initialLegs.map((l) => l.id).join(",")}`;
   const lastSeedRef = useRef<string | null>(null);
 
-  useEffect(() => {
+  useSafeEffect(() => {
     if (lastSeedRef.current === seedKey) return;
     lastSeedRef.current = seedKey;
     setOddsFormat(initialOddsFormat);
@@ -426,14 +451,17 @@ function DrawerHarness({
 
   return (
     <div className="pl-stage" style={{ minHeight: "100vh", padding: 24 }}>
-      <div className="glass-card glass-ring rounded-2xl p-5" style={{ maxWidth: 520, display: "grid", gap: 12 }}>
-        <strong className="text-sm">{caption}</strong>
-        <p className="m-0 text-xs" style={{ color: "var(--pl-text-muted)" }}>
-          Si cierras el cajón lateral, vuelve a abrirlo con el botón rápido de Bet Builder.
-        </p>
-        <div>
-          <BetBuilderQuickButton pick={focalPick} onInspect={() => setOpen(true)} />
-        </div>
+      <div style={{ maxWidth: 520 }}>
+        <SofascoreCard title={caption} meta="Bet Builder · Editorial Kit">
+          <div className="flex flex-col gap-3">
+            <p className="m-0 text-xs" style={{ color: "var(--pl-text-muted)" }}>
+              Si cierras el cajón lateral, vuelve a abrirlo con el botón rápido de Bet Builder.
+            </p>
+            <div>
+              <BetBuilderQuickButton pick={focalPick} onInspect={() => setOpen(true)} />
+            </div>
+          </div>
+        </SofascoreCard>
       </div>
 
       <BetBuilderDrawer

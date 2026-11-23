@@ -1,13 +1,3 @@
-/**
- * Despacho de correos para el ciclo de transferencia SPEI, cupones de acceso, rechazos y
- * liquidaciones manuales a tipsters (COBRO-SPEI-2).
- *
- * - Al confirmar el pago SPEI en `/app/admin`, se envía el cupón personal de un solo uso con
- *   vigencia desde `noreply@pitchlab.mx` (`sendTransferApprovedEmails`).
- * - Al canjear ese cupón en `/canjear` (`POST /api/me/redeem`), se envía el recibo de activación,
- *   se programan los avisos de renovación/vencimiento (respetando la ventana de 28 días de Resend)
- *   y se notifican recompensas de referidos y comisiones de tipster (`sendTransferRedeemedEmails`).
- */
 import {
   accessUntil,
   and,
@@ -34,6 +24,7 @@ import { cancelTrialEmails } from "./account-emails";
 import { firstName, formatLongDate } from "./email-format";
 import { paymentMode } from "./billing/payment-mode";
 import type { Mailer } from "./mailer";
+import { logSecurityEvent } from "./safe-logger";
 
 const DAY_MS = 86_400_000;
 const SCHEDULE_THRESHOLD_MS = 60_000;
@@ -63,7 +54,13 @@ async function cancelPreviousCycleEmails(db: Db, mailer: Mailer, userId: string)
       if (row.providerId) await mailer.cancel(row.providerId);
       await markEmail(db, row.id, { status: "canceled" });
     } catch (error) {
-      console.error(`[correo] no se pudo cancelar ${row.kind} (${row.cycleKey}):`, error);
+      logSecurityEvent("error", "transfer_email_cancel_failed", {
+        kind: row.kind,
+        cycleKey: row.cycleKey,
+        rowId: row.id,
+        userId,
+        error,
+      });
     }
   }
 }
@@ -92,7 +89,6 @@ async function reserveOrScheduleEmail(
   if (!rowId) return;
 
   const deltaMs = input.sendAt.getTime() - input.now.getTime();
-  // Si falta más de 28 días (p. ej. pase anual), queda guardado como `pending` para que el cron diario lo tome luego.
   if (deltaMs > RESEND_WINDOW_MS) {
     return;
   }
@@ -112,15 +108,16 @@ async function reserveOrScheduleEmail(
     });
     await markEmail(db, rowId, { status: shouldSchedule ? "scheduled" : "sent", providerId: id });
   } catch (error) {
-    console.error(`[correo] error enviando/programando ${input.kind}:`, error);
+    logSecurityEvent("error", "transfer_email_dispatch_failed", {
+      kind: input.kind,
+      cycleKey: input.cycleKey,
+      userId: input.userId,
+      error,
+    });
     await releaseEmail(db, rowId).catch((err) => void err);
   }
 }
 
-/**
- * Paso 3 del flujo SPEI: al confirmar el pago en la consola, envía al socio su cupón personal de un
- * solo uso con vigencia desde `noreply@pitchlab.mx` para que lo canjee en `/canjear`.
- */
 export async function sendTransferApprovedEmails(
   _db: Db,
   mailer: Mailer,
@@ -160,14 +157,14 @@ export async function sendTransferApprovedEmails(
       tags: [{ name: "tipo", value: "transfer_coupon" }],
     });
   } catch (error) {
-    console.error("[correo] error enviando cupón de transferencia SPEI:", error);
+    logSecurityEvent("error", "transfer_coupon_email_failed", {
+      requestId: request.id,
+      userId: user.id,
+      error,
+    });
   }
 }
 
-/**
- * Paso 4 del flujo SPEI: cuando el socio canjea en `/canjear` el cupón de su transferencia,
- * emite el recibo de activación, programa recordatorios de vencimiento y notifica a referidos/tipsters.
- */
 export async function sendTransferRedeemedEmails(
   db: Db,
   mailer: Mailer,
@@ -188,11 +185,9 @@ export async function sendTransferRedeemedEmails(
   const name = firstName(user.displayName);
   const cycleKey = `transfer:${request.id}`;
 
-  // 1. Cancelar avisos de prueba y ciclos previos antes de emitir los del nuevo ciclo activo.
   await cancelTrialEmails(db, mailer, user.id);
   await cancelPreviousCycleEmails(db, mailer, user.id);
 
-  // 2. Recibo de activación.
   const endsAt =
     newAccessUntil ??
     new Date(now.getTime() + (request.planInterval === "annual" ? 365 : 30) * DAY_MS);
@@ -217,7 +212,6 @@ export async function sendTransferRedeemedEmails(
       }),
   });
 
-  // 3. Recordatorio 3 días antes de vencer (si aún no estamos a menos de 1 hora).
   const reminderAt = new Date(endsAt.getTime() - 3 * DAY_MS);
   if (reminderAt.getTime() - now.getTime() > 3_600_000) {
     await reserveOrScheduleEmail(db, mailer, {
@@ -242,7 +236,6 @@ export async function sendTransferRedeemedEmails(
     });
   }
 
-  // 4. Aviso al vencer el pase.
   await reserveOrScheduleEmail(db, mailer, {
     userId: user.id,
     email: user.email,
@@ -259,7 +252,6 @@ export async function sendTransferRedeemedEmails(
       }),
   });
 
-  // 5. Avisos de referido bilateral y embajador (si este fue el primer pago elegible).
   if (paidEffects.referralRewarded) {
     try {
       const ref = await lookupReferrerByReferredUserId(db, user.id);
@@ -303,11 +295,14 @@ export async function sendTransferRedeemedEmails(
         }
       }
     } catch (error) {
-      console.error("[correo] error enviando aviso de referido:", error);
+      logSecurityEvent("error", "transfer_referral_email_failed", {
+        requestId: request.id,
+        userId: user.id,
+        error,
+      });
     }
   }
 
-  // 6. Aviso al tipster si se registró comisión.
   if (paidEffects.commissionCentavos !== null) {
     try {
       const [tip] = await db
@@ -346,7 +341,11 @@ export async function sendTransferRedeemedEmails(
         });
       }
     } catch (error) {
-      console.error("[correo] error enviando aviso al tipster:", error);
+      logSecurityEvent("error", "transfer_tipster_notice_email_failed", {
+        requestId: request.id,
+        userId: user.id,
+        error,
+      });
     }
   }
 }
@@ -379,7 +378,11 @@ export async function sendTransferRejectedEmail(
       tags: [{ name: "tipo", value: "transfer_rejected" }],
     });
   } catch (error) {
-    console.error("[correo] error enviando aviso de rechazo SPEI:", error);
+    logSecurityEvent("error", "transfer_rejected_email_failed", {
+      requestId: request.id,
+      userId: user.id,
+      error,
+    });
   }
 }
 
@@ -411,14 +414,10 @@ export async function sendTipsterManualPayoutEmail(
       tags: [{ name: "tipo", value: "tipster_payout" }],
     });
   } catch (error) {
-    console.error("[correo] error enviando liquidación manual a tipster:", error);
+    logSecurityEvent("error", "tipster_manual_payout_email_failed", { error });
   }
 }
 
-/**
- * Toma correos en `scheduled_emails` con `status = 'pending'` que ya entraron a la ventana de
- * 28 días de Resend y los programa o envía en el momento.
- */
 export async function dispatchDueScheduledEmails(
   db: Db,
   mailer: Mailer,
@@ -471,7 +470,12 @@ export async function dispatchDueScheduledEmails(
       await markEmail(db, row.id, { status: shouldSchedule ? "scheduled" : "sent", providerId: id });
       dispatched += 1;
     } catch (error) {
-      console.error(`[cron correos] fallo en ${row.id} (${row.kind}):`, error);
+      logSecurityEvent("error", "scheduled_email_cron_dispatch_failed", {
+        rowId: row.id,
+        kind: row.kind,
+        userId: row.userId,
+        error,
+      });
       await markEmail(db, row.id, { status: "failed" }).catch((err) => void err);
     }
   }

@@ -2,11 +2,8 @@ import { siteUrl } from "../brand";
 import { Cta, Eyebrow, Facts, FallbackLink, greeting, Notice, P, Steps, Title } from "../components";
 import { EmailLayout } from "../layout";
 
-/* 1 · Enlace de acceso ------------------------------------------------------------------ */
-
 export interface MagicLinkProps {
   url: string;
-  /** Minutos de vigencia del enlace. */
   minutes?: number;
 }
 
@@ -27,11 +24,8 @@ export function MagicLinkEmail({ url, minutes = 15 }: MagicLinkProps) {
   );
 }
 
-/* 2 · Bienvenida (día 0) ---------------------------------------------------------------- */
-
 export interface WelcomeProps {
   name?: string;
-  /** Días de prueba. `null` si la persona no recibió prueba (ya la usó antes). */
   trialDays?: number | null;
   appUrl?: string;
 }
@@ -53,7 +47,7 @@ export function WelcomeEmail({ name, trialDays = 7, appUrl = `${siteUrl()}/app` 
         items={[
           "Abre un partido y revisa su resultado más probable.",
           "Compara el momio justo con el de tu casa: si tu casa paga más, hay valor.",
-          "Guarda tu pick en la bitácora y mira cómo le fue contra el cierre.",
+          "Guarda tu pick en tu récord y mira cómo le fue contra el cierre.",
         ]}
       />
       <Cta href={appUrl}>Ir a mis partidos</Cta>
@@ -61,17 +55,13 @@ export function WelcomeEmail({ name, trialDays = 7, appUrl = `${siteUrl()}/app` 
   );
 }
 
-/* 3 · Quedan 2 días (día 5) ------------------------------------------------------------- */
-
 export interface TrialEndingProps {
   name?: string;
   daysLeft?: number;
   planName: string;
-  /** Ya con IVA, por ejemplo «$299 MXN al mes, IVA incluido». */
   priceLabel: string;
   endsOn: string;
   manageUrl: string;
-  /** Si no hay tarjeta guardada no se cobra nada: el correo lo dice. */
   hasCard?: boolean;
 }
 
@@ -110,13 +100,10 @@ export function TrialEndingEmail({
   );
 }
 
-/* 4 · Fin de la prueba (día 7) ---------------------------------------------------------- */
-
 export interface TrialEndedProps {
   name?: string;
   outcome: "free" | "renewed";
   planName: string;
-  /** Solo si `outcome` es «renewed». */
   chargedLabel?: string;
   nextChargeOn?: string;
   manageUrl: string;
@@ -145,11 +132,11 @@ export function TrialEndedEmail({ name, outcome, planName, chargedLabel, nextCha
     );
   }
   return (
-    <EmailLayout preview="Tu periodo de prueba terminó. Tu bitácora y tu historial se quedan contigo.">
+    <EmailLayout preview="Tu periodo de prueba terminó. Tu récord y tu historial se quedan contigo.">
       <Eyebrow>Tu prueba</Eyebrow>
       <Title>Tu prueba terminó</Title>
       <P>
-        {greeting(name)} Tu periodo de prueba terminó y no se te cobró nada. Tu bitácora y tu historial se quedan
+        {greeting(name)} Tu periodo de prueba terminó y no se te cobró nada. Tu récord y tu historial se quedan
         contigo.
       </P>
       <P>Si quieres recuperar el acceso completo, activa tu plan cuando quieras.</P>
@@ -158,12 +145,9 @@ export function TrialEndedEmail({ name, outcome, planName, chargedLabel, nextCha
   );
 }
 
-/* 15 · Aviso de seguridad --------------------------------------------------------------- */
-
 export interface SecurityNoticeProps {
   name?: string;
   kind: "new-device" | "account-linked" | "account-unlinked";
-  /** «Google» o «X», para los avisos de cuentas vinculadas. */
   provider?: string;
   device?: string;
   location?: string;

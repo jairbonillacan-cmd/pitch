@@ -161,7 +161,7 @@ export const LIGUE_1_CONFIG: OpenFootballLeagueConfig = {
 
 function parseMatchdayNumber(round: string): number {
   const m = round.match(/(\d+)/);
-  return m && m[1] ? Number(m[1]) : 1;
+  return m && m[1] ? Number.parseInt(m[1], 10) : 1;
 }
 
 export interface NormalizedOpenFootballSeason {

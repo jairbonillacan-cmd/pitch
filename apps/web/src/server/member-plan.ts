@@ -120,10 +120,6 @@ export interface MemberPlanSummary {
   latestApprovedTransfer: TransferRequestSummary | null;
 }
 
-/**
- * Consulta del estado del pase de un socio y su referencia SPEI permanente (`users.spei_reference_code`,
- * generada perezosamente una sola vez si era nula).
- */
 export async function loadMemberPlanSummary(
   db: Db,
   userId: string,
@@ -209,7 +205,6 @@ export async function loadMemberPlanSummary(
       planState = "sin_renovacion";
     } else if (
       sub.status === "trialing_no_card" ||
-      // Si Stripe está «en prueba» solo porque se recorrió el cobro por días ganados, el socio sigue en su plan.
       (sub.status === "trialing_card" && !giftedRenewal)
     ) {
       planState = "prueba";

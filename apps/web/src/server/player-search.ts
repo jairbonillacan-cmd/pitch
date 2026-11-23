@@ -5,6 +5,7 @@ import {
   isNationalCompetition,
   LeagueSquadsFileSchema,
 } from "@pitchlab/contracts";
+import { resolvePersonPhotoUrl } from "@pitchlab/sports-assets";
 import {
   LEAGUE_LABELS,
   PRODUCT_LEAGUES,
@@ -84,8 +85,11 @@ export function getPlayerSearchIndex(): readonly PlayerSearchItem[] {
             teamName: team.teamName,
             league,
             leagueLabel,
-            photoKey: p.photoKey ?? null,
-            fallbackPhotoKey: p.fallbackPhotoKey ?? null,
+            photoKey: p.photoKey && resolvePersonPhotoUrl(p.photoKey) ? p.photoKey : null,
+            fallbackPhotoKey:
+              p.fallbackPhotoKey && resolvePersonPhotoUrl(p.fallbackPhotoKey)
+                ? p.fallbackPhotoKey
+                : null,
             href: canonicalPlayerHref(league, team.teamSlug, p.slug),
             isNational: isNat,
             searchHaystack,

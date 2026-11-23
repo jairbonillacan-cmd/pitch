@@ -26,10 +26,14 @@
     "history:espn": "pnpm --filter @pitchlab/ingest history:espn",
     "data:catalog": "node scripts/data-catalog.mjs",
     "verify:data": "node scripts/data-catalog.mjs --verify",
-    "ai:simulate": "node services/ai-eval/simulate-usage.mjs"
+    "check:data-integrity": "node scripts/check-data-integrity.mjs",
+    "ai:simulate": "node services/ai-eval/simulate-usage.mjs",
+    "eval:cortex": "tsx services/ai-eval/eval-cortex.ts",
+    "eval:alerts": "tsx services/ai-eval/eval-alerts.ts"
   },
   "devDependencies": {
     "@types/node": "26.6.6",
+    "fast-check": "^4.1.1",
     "tsx": "4.23.15",
     "turbo": "2.11.10",
     "typescript": "5.9.3",

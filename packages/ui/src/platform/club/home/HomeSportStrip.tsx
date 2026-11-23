@@ -1,10 +1,11 @@
 "use client";
 
-import React, { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import React, { useCallback, useMemo, useRef, useState } from "react";
 import { usePackIconBase } from "../../../pack-icon-theme";
 import { LeagueBadge } from "../../../sports";
 import { LeagueCategorySheet } from "../../components/LeagueCategorySheet";
 import { MaestroIcon } from "../../components/MaestroPrimitives";
+import { useSafeEffect } from "../../hooks";
 import type { PlatformGame } from "../../types";
 import {
   ALL,
@@ -15,28 +16,25 @@ import {
 } from "./home-model";
 
 export type HomeSportKey = SportFilter | "mlb";
-type SportAssetKey =
-  | "football"
-  | "american-football"
-  | "basketball"
-  | "hockey"
-  | "baseball";
+type SportAssetKey = "football";
+type OfficialLeagueSportKey = "nfl" | "nba" | "nhl" | "mlb";
 
 export interface HomeSportDef {
   id: HomeSportKey;
   label: string;
   a11yName: string;
   iconKey?: SportAssetKey;
+  officialLeague?: OfficialLeagueSportKey;
   soon?: boolean;
 }
 
 export const HOME_SPORTS: readonly HomeSportDef[] = [
   { id: ALL, label: "Todos", a11yName: "Todos los deportes" },
   { id: "futbol", label: "Fútbol", a11yName: "Fútbol", iconKey: "football" },
-  { id: "nfl", label: "NFL", a11yName: "NFL · Fútbol americano", iconKey: "american-football" },
-  { id: "nba", label: "NBA", a11yName: "NBA · Basquetbol", iconKey: "basketball" },
-  { id: "nhl", label: "NHL", a11yName: "NHL · Hockey", iconKey: "hockey" },
-  { id: "mlb", label: "MLB", a11yName: "MLB · Béisbol", iconKey: "baseball" },
+  { id: "nfl", label: "NFL", a11yName: "NFL · Fútbol americano", officialLeague: "nfl" },
+  { id: "nba", label: "NBA", a11yName: "NBA · Basquetbol", officialLeague: "nba" },
+  { id: "nhl", label: "NHL", a11yName: "NHL · Hockey", officialLeague: "nhl" },
+  { id: "mlb", label: "MLB", a11yName: "MLB · Béisbol", officialLeague: "mlb" },
 ];
 
 function countLabel(n: number, one: string, many: string): string {
@@ -48,10 +46,6 @@ export interface OrderedHomeSport {
   readonly count: number;
 }
 
-/**
- * Ordena la tira de deportes: «Todos» siempre primero, luego los deportes con
- * partidos en el día seleccionado (mayor actividad primero) y al final los que están en 0.
- */
 export function orderHomeSports(
   dayGames: readonly PlatformGame[],
   selectedSport: SportFilter,
@@ -90,12 +84,6 @@ export interface PartitionedHomeLeagues {
   readonly playingTodayCount: number;
 }
 
-/**
- * Muestra en la tira rápida horizontal únicamente ligas que tienen partidos en el día
- * seleccionado (más la liga elegida si el usuario filtró explícitamente una en 0),
- * ordenadas primero por actividad del día, luego favoritas activas y cantidad de partidos.
- * El resto de competiciones vigentes (próximos 30 días) vive dentro de «Más ligas».
- */
 export function partitionHomeLeagues(
   leagues: readonly HomeSportLeagueItem[],
   selectedLeague: LeagueFilter,
@@ -129,8 +117,25 @@ export function partitionHomeLeagues(
   };
 }
 
-export function SportThumb({ def }: { def: HomeSportDef }): React.JSX.Element {
+export function SportThumb({
+  def,
+  size = 20,
+}: {
+  def: HomeSportDef;
+  size?: number;
+}): React.JSX.Element {
   const iconBase = usePackIconBase();
+  if (def.officialLeague) {
+    return (
+      <LeagueBadge
+        league={def.officialLeague}
+        label={def.label}
+        size={size}
+        decorative
+        eager
+      />
+    );
+  }
   if (!def.iconKey) {
     return (
       <span className="pl-home-sport-gridbox">
@@ -144,15 +149,14 @@ export function SportThumb({ def }: { def: HomeSportDef }): React.JSX.Element {
       srcSet={`${iconBase}/32/deportes/${def.iconKey}.webp 1x, ${iconBase}/64/deportes/${def.iconKey}.webp 2x`}
       alt=""
       aria-hidden="true"
-      width={24}
-      height={24}
+      width={size}
+      height={size}
       decoding="async"
       draggable={false}
     />
   );
 }
 
-/** Pista horizontal con flechas discretas `<` `>` solo cuando las pestañas rebasan el ancho. */
 function HeaderScrollTrack({
   roleLabel,
   dataAttr,
@@ -185,13 +189,13 @@ function HeaderScrollTrack({
     );
   }, []);
 
-  useEffect(() => {
+  useSafeEffect(() => {
     const el = scrollerRef.current;
     if (!el) return;
     el.scrollLeft = 0;
   }, [depsKey]);
 
-  useEffect(() => {
+  useSafeEffect(() => {
     const el = scrollerRef.current;
     const frame =
       typeof requestAnimationFrame === "function" ? requestAnimationFrame(syncScroll) : 0;
@@ -271,10 +275,6 @@ function HeaderScrollTrack({
   );
 }
 
-/**
- * Tira horizontal de deportes compartida entre la cabecera de `/app`
- * (`variant="header"`) y el encabezado de filtros autónomo (`variant="filterbar"`).
- */
 export function HomeSportStrip({
   dayGames,
   sport,
@@ -313,7 +313,14 @@ export function HomeSportStrip({
     const isEmpty = !def.soon && def.id !== ALL && count === 0;
     const badgeText = def.soon ? "Pronto" : String(count);
     const subtext = def.soon ? "Pronto" : countLabel(count, "partido", "partidos");
+    const countUnit = count === 1 ? "partido" : "partidos";
     const aria = `${def.a11yName}, ${subtext}`;
+    const srSuffixAfterLabel =
+      def.id === ALL
+        ? " los deportes, "
+        : def.a11yName.startsWith(`${def.label} · `)
+          ? ` · ${def.a11yName.slice(def.label.length + 3)}, `
+          : ", ";
     return (
       <button
         key={def.id}
@@ -321,7 +328,7 @@ export function HomeSportStrip({
         disabled={def.soon}
         className={`${classes.tab} ${on ? "is-on" : ""} ${isEmpty ? "is-empty" : ""} ${def.soon ? "is-soon" : ""}`.trim()}
         aria-pressed={def.soon ? undefined : on}
-        aria-label={aria}
+        aria-label={isHeader ? undefined : aria}
         data-sport-filter={def.id}
         onClick={(e) => {
           if (def.soon) return;
@@ -340,10 +347,12 @@ export function HomeSportStrip({
         }}
       >
         <span className={classes.icon} aria-hidden="true">
-          <SportThumb def={def} />
+          <SportThumb def={def} size={isHeader ? 20 : 22} />
         </span>
         <strong className={classes.label}>{def.label}</strong>
+        {isHeader ? <span className="sr-only">{srSuffixAfterLabel}</span> : null}
         <span className={`${classes.count} num`}>{badgeText}</span>
+        {isHeader && !def.soon ? <span className="sr-only">{` ${countUnit}`}</span> : null}
       </button>
     );
   });
@@ -368,7 +377,6 @@ export function HomeSportStrip({
   );
 }
 
-/** Tira de ligas dentro del header de `/app`, con curaduría inicial + bottom-sheet por región (ADR-043). */
 export function HomeLeagueStrip({
   leagues,
   sportDayGamesCount,
@@ -442,7 +450,14 @@ export function HomeLeagueStrip({
               }}
             >
               <span className="pl-astro-sport-icon pl-header-league-emblem" aria-hidden="true">
-                <LeagueBadge league={lg.league} label={lg.label} logoUrl={lg.logoUrl} size={18} />
+                <LeagueBadge
+                  league={lg.league}
+                  label={lg.label}
+                  logoUrl={lg.logoUrl}
+                  size={18}
+                  decorative
+                  eager
+                />
               </span>
               <strong className="pl-astro-sport-label">{lg.label}</strong>
               <span className="pl-astro-sport-count num">{lg.dayCount}</span>
@@ -459,7 +474,7 @@ export function HomeLeagueStrip({
           >
             <span className="pl-astro-sport-icon" aria-hidden="true">
               <span className="pl-home-sport-gridbox">
-                <MaestroIcon name="grid" size={13} />
+                <MaestroIcon name="all-leagues" size={13} />
               </span>
             </span>
             <strong className="pl-astro-sport-label">

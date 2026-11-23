@@ -10,6 +10,7 @@
  */
 import { mkdirSync, writeFileSync } from "node:fs";
 import { dirname, resolve } from "node:path";
+import { parseStrictFiniteNumber } from "@pitchlab/contracts";
 import {
   renderHistoryBacktestReport,
   runHistoryBacktest,
@@ -33,8 +34,8 @@ interface CliOptions {
 }
 
 function parsePositiveInt(raw: string, flag: string): number {
-  const value = Number(raw);
-  if (!Number.isInteger(value) || value <= 0) {
+  const value = parseStrictFiniteNumber(raw);
+  if (value === null || !Number.isInteger(value) || value <= 0) {
     throw new Error(`${flag} debe ser un entero positivo: '${raw}'.`);
   }
   return value;

@@ -11,6 +11,7 @@
 import { randomInt } from "node:crypto";
 import { and, asc, desc, eq, ilike, inArray, isNull, or, sql } from "drizzle-orm";
 import type { Db } from "./billing";
+import { withDbTransaction } from "./client";
 import { recordAdminAudit } from "./admin";
 import {
   accessCoupons,
@@ -260,8 +261,7 @@ export async function createTransferRequest(
   }
 
   try {
-    return await db.transaction(async (tx) => {
-      const t = tx as unknown as Db;
+    return await withDbTransaction(db, async (t) => {
       const [existingPending] = await t
         .select()
         .from(transferPaymentRequests)
@@ -362,8 +362,7 @@ export async function submitTransferReceipt(
     }
   }
 
-  return db.transaction(async (tx) => {
-    const t = tx as unknown as Db;
+  return withDbTransaction(db, async (t) => {
     const [row] = await t
       .select()
       .from(transferPaymentRequests)
@@ -452,7 +451,7 @@ export async function listUserTransferRequests(
     )
     .where(eq(transferPaymentRequests.userId, userId))
     .orderBy(desc(transferPaymentRequests.createdAt))
-    .limit(limit);
+    .limit(Math.min(40, Math.max(1, Number.isFinite(limit) ? Math.trunc(limit) : 20)));
 
   return rows.map((r) => ({
     ...r.request,
@@ -517,7 +516,17 @@ export async function listAdminTransferRequests(
       sql`CASE WHEN ${transferPaymentRequests.status} = 'pending_review' THEN 0 ELSE 1 END`,
       asc(transferPaymentRequests.createdAt),
     )
-    .limit(opts?.limit ?? 60);
+    .limit(
+      Math.min(
+        40,
+        Math.max(
+          1,
+          typeof opts?.limit === "number" && Number.isFinite(opts.limit)
+            ? Math.trunc(opts.limit)
+            : 40,
+        ),
+      ),
+    );
 
   return rows.map((r) => ({
     ...r.request,
@@ -551,8 +560,7 @@ export async function approveTransferRequest(
     ipSubnetHash?: string | null;
   },
 ): Promise<ApproveTransferResult> {
-  return db.transaction(async (tx) => {
-    const t = tx as unknown as Db;
+  return withDbTransaction(db, async (t) => {
     const [row] = await t
       .select()
       .from(transferPaymentRequests)
@@ -692,8 +700,7 @@ export async function rejectTransferRequest(
     return { ok: false, reason: "motivo_requerido" };
   }
 
-  return db.transaction(async (tx) => {
-    const t = tx as unknown as Db;
+  return withDbTransaction(db, async (t) => {
     const [row] = await t
       .select()
       .from(transferPaymentRequests)

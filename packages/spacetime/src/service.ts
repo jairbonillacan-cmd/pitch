@@ -185,16 +185,69 @@ export interface ResolvedSegmentGate {
   readonly modelPicksEnabledDev: boolean;
 }
 
+function isJsonRecord(value: unknown): value is Record<string, unknown> {
+  return value !== null && typeof value === "object" && !Array.isArray(value);
+}
+
+function isProductionSegmentsArtifact(value: unknown): value is ProductionSegmentsArtifact {
+  return (
+    isJsonRecord(value) &&
+    typeof value.schema_version === "string" &&
+    isJsonRecord(value.segments)
+  );
+}
+
+function isBlendWeightsArtifact(value: unknown): value is BlendWeightsArtifact {
+  return (
+    isJsonRecord(value) &&
+    typeof value.schema_version === "string" &&
+    typeof value.n0_shrinkage === "number" &&
+    isJsonRecord(value.global_summary) &&
+    isJsonRecord(value.segments)
+  );
+}
+
+function isServiceConstantsArtifact(value: unknown): value is ServiceConstantsArtifact {
+  return (
+    isJsonRecord(value) &&
+    typeof value.schema_version === "string" &&
+    typeof value.generated_at_utc === "string" &&
+    typeof value.description === "string" &&
+    isJsonRecord(value.constants)
+  );
+}
+
+function parseProductionSegmentsArtifact(raw: unknown, label: string): ProductionSegmentsArtifact {
+  if (!isProductionSegmentsArtifact(raw)) {
+    throw new Error(`Invalid ProductionSegmentsArtifact JSON: ${label}`);
+  }
+  return raw;
+}
+
+function parseBlendWeightsArtifact(raw: unknown, label: string): BlendWeightsArtifact {
+  if (!isBlendWeightsArtifact(raw)) {
+    throw new Error(`Invalid BlendWeightsArtifact JSON: ${label}`);
+  }
+  return raw;
+}
+
+function parseServiceConstantsArtifact(raw: unknown, label: string): ServiceConstantsArtifact {
+  if (!isServiceConstantsArtifact(raw)) {
+    throw new Error(`Invalid ServiceConstantsArtifact JSON: ${label}`);
+  }
+  return raw;
+}
+
 export const DEFAULT_PRODUCTION_SEGMENTS_V3_1 = Object.freeze(
-  productionSegmentsV31Json as unknown as ProductionSegmentsArtifact,
+  parseProductionSegmentsArtifact(productionSegmentsV31Json, "production_segments_v3_1.json"),
 );
 
 export const DEFAULT_BLEND_WEIGHTS_V3_1 = Object.freeze(
-  blendWeightsV31Json as unknown as BlendWeightsArtifact,
+  parseBlendWeightsArtifact(blendWeightsV31Json, "blend_weights_v3_1.json"),
 );
 
 export const SERVICE_CONSTANTS_V3_2 = Object.freeze(
-  serviceConstantsV32Json as unknown as ServiceConstantsArtifact,
+  parseServiceConstantsArtifact(serviceConstantsV32Json, "service_constants_v3_2.json"),
 );
 
 const SOCCER_LEAGUE_TO_DIV: Readonly<Record<string, string>> = {
@@ -1199,16 +1252,22 @@ function slugToken(raw: string | null | undefined): string {
     .trim();
 }
 
-function finiteOr(v: unknown, fallback: number): number {
-  if (v === null || v === undefined || typeof v === "boolean") return fallback;
-  const f = Number(v);
-  return Number.isFinite(f) ? f : fallback;
-}
+const STRICT_FINITE_NUMBER_RE = /^[+-]?(?:\d+\.?\d*|\.\d+)(?:[eE][+-]?\d+)?$/;
 
 function finiteOrNull(v: unknown): number | null {
-  if (v === null || v === undefined || typeof v === "boolean") return null;
-  const f = Number(v);
-  return Number.isFinite(f) ? f : null;
+  if (typeof v === "number") return Number.isFinite(v) ? v : null;
+  if (typeof v === "string") {
+    const trimmed = v.trim();
+    if (!STRICT_FINITE_NUMBER_RE.test(trimmed)) return null;
+    const f = Number.parseFloat(trimmed);
+    return Number.isFinite(f) ? f : null;
+  }
+  return null;
+}
+
+function finiteOr(v: unknown, fallback: number): number {
+  const f = finiteOrNull(v);
+  return f !== null ? f : fallback;
 }
 
 function barometricPressureHpa(elevM: number): number {

@@ -53,7 +53,7 @@ export const CORE_DEVIG_METHODS = ["proportional", "power", "shin"] as const;
 
 /** Rejilla canónica de 21 puntos `[0.00, 0.05, 0.10, ..., 1.00]`. */
 export const BLEND_WEIGHT_GRID: readonly number[] = Object.freeze(
-  Array.from({ length: 21 }, (_, idx) => Number((idx * 0.05).toFixed(2))),
+  Array.from({ length: 21 }, (_, idx) => Number.parseFloat((idx * 0.05).toFixed(2))),
 );
 
 export type CoreDevigMethod = (typeof CORE_DEVIG_METHODS)[number];
@@ -350,6 +350,21 @@ export function devig2WayOdds(
   return [res.pHome, res.pAway];
 }
 
+const STRICT_FINITE_NUMBER_RE = /^[+-]?(?:\d+\.?\d*|\.\d+)(?:[eE][+-]?\d+)?$/;
+
+function parseFiniteOrNaN(raw: unknown): number {
+  if (typeof raw === "number") {
+    return Number.isFinite(raw) ? raw : Number.NaN;
+  }
+  if (typeof raw === "string") {
+    const trimmed = raw.trim();
+    if (!STRICT_FINITE_NUMBER_RE.test(trimmed)) return Number.NaN;
+    const parsed = Number.parseFloat(trimmed);
+    return Number.isFinite(parsed) ? parsed : Number.NaN;
+  }
+  return Number.NaN;
+}
+
 function extractOrderedValues(
   input: readonly number[] | Readonly<Record<string, number>>,
   market: string,
@@ -362,7 +377,7 @@ function extractOrderedValues(
         `${label}: se esperaban ${sels.length} valores para mercado "${market}", recibido ${input.length}`,
       );
     }
-    return input.map((v) => Number(v));
+    return input.map((v) => parseFiniteOrNaN(v));
   }
   if (input !== null && typeof input === "object") {
     const rec = input as Readonly<Record<string, number>>;
@@ -371,7 +386,7 @@ function extractOrderedValues(
       if (val === undefined) {
         throw new BlendValidationError(`${label}: falta la selección "${sel}" para mercado "${market}"`);
       }
-      return Number(val);
+      return parseFiniteOrNaN(val);
     });
   }
   throw new BlendValidationError(`${label}: formato de entrada inválido`);
@@ -569,7 +584,7 @@ export function roundWeightToStep(value: number, step = BLEND_WEIGHT_STEP): numb
   }
   const stepsCount = Math.floor(w / step + 0.5 + 1e-12);
   const rounded = Math.min(1, Math.max(0, stepsCount * step));
-  return Number(rounded.toFixed(6));
+  return Number.parseFloat(rounded.toFixed(6));
 }
 
 /**

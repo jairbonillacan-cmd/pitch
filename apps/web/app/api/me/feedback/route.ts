@@ -1,17 +1,24 @@
 import { NextResponse } from "next/server";
+import { z } from "zod";
+import { createSanitizedErrorPayload } from "@pitchlab/contracts";
 import { eq, recordMemberInboxMessage, users } from "@pitchlab/db";
 import { supportEmail } from "@pitchlab/emails";
+import { withMemberMutation } from "../../../../src/server/api-guards";
 import { getMailer } from "../../../../src/server/mailer";
-import {
-  checkEndpointRateLimit,
-  rateLimitResponse,
-  verifySameOriginMutation,
-} from "../../../../src/server/request-security";
-import { requireMember } from "../../../../src/server/session-user";
+import { logSecurityEvent } from "../../../../src/server/safe-logger";
 import { trialHashes } from "../../../../src/server/signup";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
+
+const FeedbackBodySchema = z
+  .object({
+    kind: z.enum(["feedback", "support"]).optional(),
+    category: z.string().max(120).nullable().optional(),
+    subject: z.string().max(200).nullable().optional(),
+    message: z.string().max(3_000),
+  })
+  .strict();
 
 function escapeHtml(raw: string): string {
   return raw
@@ -22,83 +29,83 @@ function escapeHtml(raw: string): string {
     .replace(/'/g, "&#39;");
 }
 
-/** POST /api/me/feedback — registra Feedback e ideas o Contactar con soporte en bandeja Admin + correo. */
-export async function POST(request: Request): Promise<NextResponse> {
-  const csrfError = verifySameOriginMutation(request);
-  if (csrfError) return csrfError;
+export const POST = withMemberMutation(
+  { bucket: "me-feedback", limit: 10, windowMs: 3_600_000 },
+  async ({ request, user }) => {
+    const raw = await request.json().catch(() => null);
+    const parsed = FeedbackBodySchema.safeParse(raw);
+    if (!parsed.success) {
+      const sanitized = createSanitizedErrorPayload(
+        "VALIDATION_ERROR",
+        "Cuéntanos con un poco más de detalle (al menos 6 caracteres).",
+      );
+      return NextResponse.json(
+        { ok: false, error: sanitized.message, code: sanitized.code },
+        { status: 400 },
+      );
+    }
 
-  const member = await requireMember(request);
-  if ("error" in member) return member.error;
+    const kind = parsed.data.kind ?? "feedback";
+    const category = parsed.data.category?.trim().slice(0, 60) || null;
+    const subject = parsed.data.subject?.trim().slice(0, 120) || null;
+    const message = parsed.data.message.trim().slice(0, 1_500);
 
-  const rl = await checkEndpointRateLimit({
-    bucket: "me-feedback",
-    key: member.userId,
-    limit: 10,
-    windowMs: 3_600_000,
-  });
-  if (!rl.allowed) return rateLimitResponse(rl.retryAfterSeconds);
+    if (message.length < 6) {
+      const sanitized = createSanitizedErrorPayload(
+        "VALIDATION_ERROR",
+        "Cuéntanos con un poco más de detalle (al menos 6 caracteres).",
+      );
+      return NextResponse.json(
+        { ok: false, error: sanitized.message, code: sanitized.code },
+        { status: 400 },
+      );
+    }
 
-  const body = (await request.json().catch(() => null)) as {
-    kind?: unknown;
-    category?: unknown;
-    subject?: unknown;
-    message?: unknown;
-  } | null;
+    const [profile] = await user.db
+      .select({ handle: users.handle, displayName: users.displayName })
+      .from(users)
+      .where(eq(users.id, user.userId))
+      .limit(1);
 
-  const kind = body?.kind === "support" ? "support" : "feedback";
-  const category = typeof body?.category === "string" ? body.category.trim().slice(0, 60) : null;
-  const subject = typeof body?.subject === "string" ? body.subject.trim().slice(0, 120) : null;
-  const message = typeof body?.message === "string" ? body.message.trim().slice(0, 1500) : "";
+    const { ipSubnetHash } = trialHashes(request.headers, process.env.BETTER_AUTH_SECRET ?? "");
+    const saved = await recordMemberInboxMessage(user.db, {
+      userId: user.userId,
+      email: user.email,
+      handle: profile?.handle ?? null,
+      displayName: profile?.displayName ?? null,
+      kind,
+      category,
+      subject,
+      message,
+      ipSubnetHash,
+    });
 
-  if (message.length < 6) {
-    return NextResponse.json(
-      { error: "Cuéntanos con un poco más de detalle (al menos 6 caracteres)." },
-      { status: 400 },
-    );
-  }
+    const adminRecipient = process.env.PITCHLAB_SUPPORT_EMAIL?.trim() || supportEmail();
+    const handleText = profile?.handle ? `@${profile.handle}` : user.email;
+    const label = kind === "feedback" ? "Feedback e ideas" : "Soporte PitchLab";
 
-  const [user] = await member.db
-    .select({ handle: users.handle, displayName: users.displayName })
-    .from(users)
-    .where(eq(users.id, member.userId))
-    .limit(1);
-
-  const { ipSubnetHash } = trialHashes(request.headers, process.env.BETTER_AUTH_SECRET ?? "");
-  const saved = await recordMemberInboxMessage(member.db, {
-    userId: member.userId,
-    email: member.email,
-    handle: user?.handle ?? null,
-    displayName: user?.displayName ?? null,
-    kind,
-    category,
-    subject,
-    message,
-    ipSubnetHash,
-  });
-
-  const adminRecipient = process.env.PITCHLAB_SUPPORT_EMAIL?.trim() || supportEmail();
-  const handleText = user?.handle ? `@${user.handle}` : member.email;
-  const label = kind === "feedback" ? "Feedback e ideas" : "Soporte PitchLab";
-
-  try {
-    await getMailer().send({
-      to: adminRecipient,
-      replyTo: member.email,
-      subject: `[${label}] ${subject || handleText}`,
-      html: `<p><strong>${escapeHtml(label)}</strong> de ${escapeHtml(handleText)} (${escapeHtml(member.email)})</p>
+    try {
+      await getMailer().send({
+        to: adminRecipient,
+        replyTo: user.email,
+        subject: `[${label}] ${subject || handleText}`,
+        html: `<p><strong>${escapeHtml(label)}</strong> de ${escapeHtml(handleText)} (${escapeHtml(user.email)})</p>
 ${category ? `<p><strong>Categoría:</strong> ${escapeHtml(category)}</p>` : ""}
 ${subject ? `<p><strong>Asunto:</strong> ${escapeHtml(subject)}</p>` : ""}
 <p>${escapeHtml(message).replace(/\n/g, "<br/>")}</p>`,
-      text: `${label} — ${handleText} (${member.email})\n${category ? `Categoría: ${category}\n` : ""}${subject ? `Asunto: ${subject}\n` : ""}\n${message}`,
-      idempotencyKey: `inbox:${saved.id}`,
-      tags: [{ name: "tipo", value: kind }],
-    });
-  } catch (err) {
-    console.error("[correo] no se pudo notificar mensaje de bandeja:", err);
-  }
+        text: `${label} — ${handleText} (${user.email})\n${category ? `Categoría: ${category}\n` : ""}${subject ? `Asunto: ${subject}\n` : ""}\n${message}`,
+        idempotencyKey: `inbox:${saved.id}`,
+        tags: [{ name: "tipo", value: kind }],
+      });
+    } catch (err) {
+      logSecurityEvent("warn", "feedback_email_failed", {
+        userId: user.userId,
+        kind,
+        error: err,
+      });
+    }
 
-  return NextResponse.json(
-    {
+    return NextResponse.json({
       ok: true,
       id: saved.id,
       createdAtIso: saved.createdAt.toISOString(),
@@ -106,7 +113,6 @@ ${subject ? `<p><strong>Asunto:</strong> ${escapeHtml(subject)}</p>` : ""}
         kind === "feedback"
           ? "¡Gracias! Tu idea llegó directo al equipo de PitchLab."
           : "Recibimos tu mensaje. El equipo de PitchLab te responderá pronto.",
-    },
-    { headers: { "Cache-Control": "no-store" } },
-  );
-}
+    });
+  },
+);

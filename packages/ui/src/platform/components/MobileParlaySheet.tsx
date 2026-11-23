@@ -1,22 +1,34 @@
 "use client";
 
-import React, { useCallback, useEffect, useId, useMemo, useRef, useState } from "react";
+import React, { useCallback, useId, useMemo, useRef, useState } from "react";
+import { Button } from "../../components/ui/primitives";
 import { formatOddsValue } from "../access-guard";
-import { computeParlaySummary } from "../parlay-engine";
+import { useSafeEffect } from "../hooks";
+import { assessParlayRisk, computeParlaySummary } from "../parlay-engine";
 import {
   useParlayState,
   usePlatformActions,
   usePlatformCore,
 } from "../platform-provider";
+import type { SgpCopulaAuditView } from "../types";
 import { MaestroIcon } from "./MaestroPrimitives";
 import { SgpCopulaAuditCard } from "./SgpCopulaAuditCard";
 import { useSheetSwipeDismiss } from "./use-sheet-swipe-dismiss";
+
+export interface MobileParlaySheetProps {
+  readonly variant?: "global" | "builder";
+  readonly offeredCombinedDecimalOdds?: number | null;
+}
 
 let cachedCanTransitionDisplay: boolean | undefined;
 
 function canTransitionDisplay(): boolean {
   if (cachedCanTransitionDisplay !== undefined) return cachedCanTransitionDisplay;
-  if (typeof window === "undefined" || !window.CSS?.supports?.("transition-behavior", "allow-discrete") || !document.body) {
+  if (
+    typeof window === "undefined" ||
+    !window.CSS?.supports?.("transition-behavior", "allow-discrete") ||
+    !document.body
+  ) {
     return false;
   }
   const probe = document.createElement("div");
@@ -30,24 +42,103 @@ function canTransitionDisplay(): boolean {
 }
 
 function supportsTopLayerExit(): boolean {
-  return typeof window !== "undefined" && Boolean(window.CSS?.supports?.("overlay", "auto")) && canTransitionDisplay();
+  return (
+    typeof window !== "undefined" &&
+    Boolean(window.CSS?.supports?.("overlay", "auto")) &&
+    canTransitionDisplay()
+  );
 }
 
-/**
- * Píldora flotante en móvil sobre el tab bar + Bottom-Sheet nativo `<dialog closedby="any">`
- * para revisar, editar o guardar tu Parlay con una mano desde cualquier pantalla del Club.
- */
-export function MobileParlaySheet(): React.JSX.Element | null {
+const MAX_PARLAY_LEGS = 6;
+const FAB_DBLCLICK_GUARD_MS = 450;
+
+function formatSheetOdds(decimalOdds: number | null | undefined, format: "american" | "decimal"): string {
+  if (decimalOdds == null || !Number.isFinite(decimalOdds) || decimalOdds <= 1.01) {
+    return "—";
+  }
+  return formatOddsValue(decimalOdds, format);
+}
+
+function computeSlipProbBounds(
+  legs: readonly { readonly pick: { readonly gameId: string; readonly p: number } }[],
+): { readonly lower: number; readonly upper: number } {
+  if (legs.length === 0) return { lower: 0, upper: 0 };
+  const byGame = new Map<string, number[]>();
+  for (const leg of legs) {
+    const p = Math.min(0.99, Math.max(0.01, leg.pick.p));
+    const list = byGame.get(leg.pick.gameId) ?? [];
+    list.push(p);
+    byGame.set(leg.pick.gameId, list);
+  }
+  let lower = 1;
+  let upper = 1;
+  for (const probs of byGame.values()) {
+    if (probs.length === 1) {
+      lower *= probs[0] ?? 0.5;
+      upper *= probs[0] ?? 0.5;
+    } else {
+      const sumP = probs.reduce((acc, v) => acc + v, 0);
+      const minP = probs.reduce((acc, v) => Math.min(acc, v), 1);
+      const lo = Math.max(0.0001, sumP - (probs.length - 1));
+      lower *= lo;
+      upper *= Math.max(lo, minP);
+    }
+  }
+  return {
+    lower: Math.max(0.0001, Math.min(0.99, lower)),
+    upper: Math.max(0.0001, Math.min(0.99, upper)),
+  };
+}
+
+export function MobileParlaySheet({
+  variant = "global",
+  offeredCombinedDecimalOdds = null,
+}: MobileParlaySheetProps = {}): React.JSX.Element | null {
   const { oddsFormat } = usePlatformCore();
-  const { removePickFromParlay, clearParlay, sealParlayToJournal, navigateTo } = usePlatformActions();
-  const { parlayLegs } = useParlayState();
+  const { removePickFromParlay, clearParlay, sealParlayToJournal, navigateTo } =
+    usePlatformActions();
+  const { parlayLegs, parlayStakeUnits } = useParlayState();
 
   const [open, setOpen] = useState(false);
   const [confirmClear, setConfirmClear] = useState(false);
+  const [resolvedAudit, setResolvedAudit] = useState<SgpCopulaAuditView | null>(null);
   const dialogRef = useRef<HTMLDialogElement | null>(null);
   const listRef = useRef<HTMLUListElement | null>(null);
+  const prevCountRef = useRef<number>(0);
+  const fabMountedAtRef = useRef<number>(0);
   const titleId = useId();
-  const summary = useMemo(() => computeParlaySummary(parlayLegs), [parlayLegs]);
+  const summary = useMemo(
+    () => computeParlaySummary(parlayLegs, parlayStakeUnits),
+    [parlayLegs, parlayStakeUnits],
+  );
+  const probBounds = useMemo(() => computeSlipProbBounds(parlayLegs), [parlayLegs]);
+
+  const effectiveProb = useMemo(() => {
+    if (parlayLegs.length === 0) return 0;
+    const raw =
+      summary.hasSgpCorrelation && resolvedAudit && resolvedAudit.nLegs === parlayLegs.length
+        ? resolvedAudit.jointProbability
+        : summary.combinedProbability;
+    return Math.min(probBounds.upper, Math.max(probBounds.lower, raw));
+  }, [probBounds.lower, probBounds.upper, parlayLegs.length, resolvedAudit, summary]);
+
+  const effectiveFairDecimal = useMemo(() => {
+    if (parlayLegs.length === 0) return 0;
+    if (
+      summary.hasSgpCorrelation &&
+      resolvedAudit &&
+      resolvedAudit.nLegs === parlayLegs.length &&
+      resolvedAudit.fairCombinedDecimal > 1.01
+    ) {
+      return resolvedAudit.fairCombinedDecimal;
+    }
+    return Math.max(1.02, Math.round((1 / Math.max(effectiveProb, 0.0001)) * 100) / 100);
+  }, [effectiveProb, parlayLegs.length, resolvedAudit, summary.hasSgpCorrelation]);
+
+  const risk = useMemo(
+    () => assessParlayRisk({ ...summary, combinedProbability: effectiveProb }),
+    [effectiveProb, summary],
+  );
 
   const closeSheet = useCallback(async () => {
     setConfirmClear(false);
@@ -68,6 +159,7 @@ export function MobileParlaySheet(): React.JSX.Element | null {
       if (!dialog.hasAttribute("data-closing")) return;
       dialog.removeAttribute("data-closing");
     }
+    dialog.returnValue = "";
     dialog.close();
     setOpen(false);
   }, []);
@@ -80,19 +172,54 @@ export function MobileParlaySheet(): React.JSX.Element | null {
     scrollContainerRef: listRef,
   });
 
-  useEffect(() => {
+  const hasLegs = parlayLegs.length > 0;
+
+  useSafeEffect(() => {
+    const prev = prevCountRef.current;
+    if (prev === 0 && parlayLegs.length > 0) {
+      fabMountedAtRef.current = Date.now();
+    } else if (parlayLegs.length === 0) {
+      fabMountedAtRef.current = 0;
+    }
+    prevCountRef.current = parlayLegs.length;
+  }, [parlayLegs.length]);
+
+  const handleFabClick = useCallback((event: React.MouseEvent<HTMLButtonElement>) => {
+    const mountedAt = fabMountedAtRef.current;
+    if (event.detail >= 2 && (mountedAt === 0 || Date.now() - mountedAt < FAB_DBLCLICK_GUARD_MS)) {
+      event.preventDefault();
+      return;
+    }
+    setOpen(true);
+  }, []);
+
+  useSafeEffect(() => {
     const dialog = dialogRef.current;
+    if (!hasLegs) {
+      if (dialog?.open) {
+        dialog.returnValue = "";
+        dialog.close();
+      }
+      if (open) {
+        setOpen(false);
+      }
+      return;
+    }
     if (!dialog) return;
     if (open && !dialog.open) {
       dialog.removeAttribute("data-closing");
-      dialog.showModal();
+      if (typeof dialog.showModal === "function") {
+        dialog.showModal();
+      } else {
+        dialog.setAttribute("open", "");
+      }
     } else if (!open && dialog.open) {
+      dialog.returnValue = "";
       dialog.close();
     }
-  }, [open]);
+  }, [open, hasLegs]);
 
-  // Cierre animado en Esc/light-dismiss + fallback de clic fuera para Safari sin `closedby`.
-  useEffect(() => {
+  useSafeEffect(() => {
     const dialog = dialogRef.current;
     if (!dialog) return;
 
@@ -100,15 +227,21 @@ export function MobileParlaySheet(): React.JSX.Element | null {
       event.preventDefault();
       void closeSheet();
     };
-    const onClose = () => setOpen(false);
+    const onClose = () => {
+      dialog.returnValue = "";
+      setOpen(false);
+    };
     dialog.addEventListener("cancel", onCancel);
     dialog.addEventListener("close", onClose);
 
-    const hasClosedBy = typeof HTMLDialogElement !== "undefined" && "closedBy" in HTMLDialogElement.prototype;
+    const hasClosedBy =
+      typeof HTMLDialogElement !== "undefined" && "closedBy" in HTMLDialogElement.prototype;
     let pressedOutside = false;
     const isOutside = (e: PointerEvent) => {
       const r = dialog.getBoundingClientRect();
-      return e.clientX < r.left || e.clientX > r.right || e.clientY < r.top || e.clientY > r.bottom;
+      return (
+        e.clientX < r.left || e.clientX > r.right || e.clientY < r.top || e.clientY > r.bottom
+      );
     };
     const onPointerDown = (e: PointerEvent) => {
       pressedOutside = isOutside(e);
@@ -131,11 +264,13 @@ export function MobileParlaySheet(): React.JSX.Element | null {
         dialog.removeEventListener("pointerup", onPointerUp);
       }
     };
-  }, [closeSheet]);
+  }, [closeSheet, hasLegs]);
 
-  if (parlayLegs.length === 0) return null;
+  if (!hasLegs) return null;
 
-  const oddsText = formatOddsValue(summary.fairDecimal, oddsFormat);
+  const exceedsMaxLegs = parlayLegs.length > MAX_PARLAY_LEGS;
+  const canSeal = parlayLegs.length >= 2 && !exceedsMaxLegs;
+  const oddsText = formatSheetOdds(effectiveFairDecimal, oddsFormat);
 
   return (
     <>
@@ -145,63 +280,99 @@ export function MobileParlaySheet(): React.JSX.Element | null {
           className="pl-parlay-fab"
           aria-haspopup="dialog"
           aria-expanded={open}
-          onClick={() => setOpen(true)}
+          onClick={handleFabClick}
         >
           <span className="pl-parlay-fab-badge num">{parlayLegs.length}</span>
           <span className="pl-parlay-fab-label">
             Tu parlay · <strong className="num">{oddsText}</strong>
           </span>
-          <span className="pl-parlay-fab-prob num">{(summary.combinedProbability * 100).toFixed(0)} %</span>
+          <span className="pl-parlay-fab-prob num">{(effectiveProb * 100).toFixed(0)} %</span>
         </button>
       </div>
 
       <dialog
         ref={dialogRef}
-        className="pl-bottom-sheet-dialog"
+        className="pl-bottom-sheet-dialog pl-mps-dialog"
         aria-labelledby={titleId}
-        {...({ closedby: "any" } as Record<string, string>)}
+        {...({ closedby: "any" } as React.DialogHTMLAttributes<HTMLDialogElement>)}
         data-mobile-parlay-sheet=""
       >
-        <div className="pl-bottom-sheet-inner" style={sheetSwipe.sheetStyle}>
+        <div className="pl-bottom-sheet-inner pl-mps-inner" style={sheetSwipe.sheetStyle}>
           <div className="pl-sheet-drag-zone" {...sheetSwipe.handleProps}>
             <div className="pl-bottom-sheet-handle" aria-hidden="true" />
             <header className="pl-bottom-sheet-head">
-              <div>
+              <div className="min-w-0">
                 <h2 id={titleId} className="m-0 text-base font-extrabold">
                   Tu parlay ({parlayLegs.length})
                 </h2>
                 <p className="m-0 text-xs num" style={{ color: "var(--pl-text-muted)" }}>
-                  Probabilidad {(summary.combinedProbability * 100).toFixed(1)} % · Momio justo {oddsText}
+                  Probabilidad {(effectiveProb * 100).toFixed(1)} % · Momio justo {oddsText} ·{" "}
+                  {risk.shortLabel}
                 </p>
               </div>
-              <button
-                type="button"
-                className="pl-icon-btn"
+              <Button
+                variant="ghost"
+                size="icon"
                 aria-label="Cerrar boleto de parlay"
                 onClick={() => void closeSheet()}
               >
                 <MaestroIcon name="x" size={18} />
-              </button>
+              </Button>
             </header>
           </div>
 
-          <ul ref={listRef} className="pl-bottom-sheet-legs" role="list">
+          {parlayLegs.length === 1 ? (
+            <div
+              className="rounded-lg p-2.5 text-xs font-semibold"
+              role="status"
+              style={{
+                background: "var(--pl-pill-info-bg)",
+                border: "1px solid var(--pl-pill-info-border)",
+                color: "var(--pl-pill-info-fg)",
+              }}
+            >
+              Agrega al menos 1 selección compatible más para poder sellar tu parlay.
+            </div>
+          ) : null}
+
+          {exceedsMaxLegs ? (
+            <div
+              className="rounded-lg p-2.5 text-xs font-semibold"
+              role="alert"
+              style={{
+                background: "var(--pl-pill-danger-bg)",
+                border: "1px solid var(--pl-pill-danger-border)",
+                color: "var(--pl-pill-danger-fg)",
+              }}
+            >
+              Máximo {MAX_PARLAY_LEGS} selecciones por boleto. Quita{" "}
+              {parlayLegs.length - MAX_PARLAY_LEGS}{" "}
+              {parlayLegs.length - MAX_PARLAY_LEGS === 1 ? "selección" : "selecciones"} para
+              poder sellar en Mi récord.
+            </div>
+          ) : null}
+
+          <ul ref={listRef} className="pl-bottom-sheet-legs pl-mps-scroll" role="list">
             {parlayLegs.map((leg) => (
               <li key={leg.pick.id} className="pl-bottom-sheet-leg">
                 <div className="min-w-0 flex-1">
                   <strong className="block text-sm truncate">{leg.pick.label}</strong>
-                  <span className="block text-xs truncate" style={{ color: "var(--pl-text-muted)" }}>
-                    {leg.pick.matchLabel} · {(leg.pick.p * 100).toFixed(0)} % · {formatOddsValue(leg.pick.fairDecimal, oddsFormat)}
+                  <span
+                    className="block text-xs truncate num"
+                    style={{ color: "var(--pl-text-muted)" }}
+                  >
+                    {leg.pick.matchLabel} · {(leg.pick.p * 100).toFixed(0)} % ·{" "}
+                    {formatSheetOdds(leg.pick.fairDecimal, oddsFormat)}
                   </span>
                 </div>
-                <button
-                  type="button"
-                  className="pl-icon-btn"
+                <Button
+                  variant="ghost"
+                  size="icon"
                   aria-label={`Quitar ${leg.pick.label} del parlay`}
                   onClick={() => removePickFromParlay(leg.pick.id)}
                 >
                   <MaestroIcon name="x" size={15} />
-                </button>
+                </Button>
               </li>
             ))}
           </ul>
@@ -210,17 +381,19 @@ export function MobileParlaySheet(): React.JSX.Element | null {
             <SgpCopulaAuditCard
               legs={parlayLegs}
               oddsFormat={oddsFormat}
+              offeredCombinedDecimalOdds={offeredCombinedDecimalOdds}
+              onAuditResolved={setResolvedAudit}
               compact
             />
           ) : null}
 
           {confirmClear ? (
             <div
-              className="rounded-2xl p-3 flex flex-wrap items-center justify-between gap-2"
+              className="rounded-xl p-3 flex flex-wrap items-center justify-between gap-2"
               role="alertdialog"
               aria-label="Confirmar vaciado de parlay"
               style={{
-                background: "var(--pl-surface-hover)",
+                background: "var(--pl-surface-elevated)",
                 border: "1px solid var(--pl-border)",
               }}
             >
@@ -228,17 +401,18 @@ export function MobileParlaySheet(): React.JSX.Element | null {
                 ¿Vaciar las {parlayLegs.length} selecciones del boleto?
               </span>
               <div className="flex items-center gap-2">
-                <button
-                  type="button"
+                <Button
+                  variant="secondary"
+                  size="default"
                   autoFocus
-                  className="pl-btn-glass min-h-11 px-3 text-xs font-bold"
                   onClick={() => setConfirmClear(false)}
                 >
                   Cancelar
-                </button>
-                <button
-                  type="button"
-                  className="pl-btn-danger min-h-11 px-3 text-xs font-bold"
+                </Button>
+                <Button
+                  variant="secondary"
+                  tone="danger"
+                  size="default"
                   onClick={() => {
                     setConfirmClear(false);
                     clearParlay();
@@ -246,35 +420,38 @@ export function MobileParlaySheet(): React.JSX.Element | null {
                   }}
                 >
                   Sí, vaciar
-                </button>
+                </Button>
               </div>
             </div>
           ) : (
             <footer className="pl-bottom-sheet-actions">
-              <button
-                type="button"
-                className="pl-btn-primary pl-bottom-sheet-primary min-h-11 text-sm"
-                disabled={parlayLegs.length < 2}
+              <Button
+                variant="primary"
+                size="default"
+                className="pl-bottom-sheet-primary"
+                disabled={!canSeal}
                 onClick={() => {
-                  sealParlayToJournal();
+                  sealParlayToJournal(undefined, offeredCombinedDecimalOdds);
                   void closeSheet();
                 }}
               >
-                Guardar en Mi récord
-              </button>
-              <button
-                type="button"
-                className="pl-btn-glass min-h-11 px-3 text-sm"
-                onClick={() => {
-                  void closeSheet();
-                  navigateTo("/app/parlays");
-                }}
-              >
-                Abrir Parlays
-              </button>
-              <button
-                type="button"
-                className="pl-btn-glass min-h-11 px-3 text-xs"
+                {variant === "builder" ? "Guardar boleto" : "Guardar en Mi récord"}
+              </Button>
+              {variant === "global" ? (
+                <Button
+                  variant="secondary"
+                  size="default"
+                  onClick={() => {
+                    void closeSheet();
+                    navigateTo("/app/parlays");
+                  }}
+                >
+                  Abrir Parlays
+                </Button>
+              ) : null}
+              <Button
+                variant="ghost"
+                size="default"
                 onClick={() => {
                   if (parlayLegs.length >= 2) {
                     setConfirmClear(true);
@@ -285,7 +462,7 @@ export function MobileParlaySheet(): React.JSX.Element | null {
                 }}
               >
                 Limpiar
-              </button>
+              </Button>
             </footer>
           )}
         </div>

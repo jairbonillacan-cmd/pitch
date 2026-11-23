@@ -11,6 +11,7 @@ import {
   asLeagueId,
   asSeasonId,
   findNationalTeamDef,
+  parseStrictFiniteNumber,
   type GameDTO,
   type NationalCompetitionId,
   type Team,
@@ -276,7 +277,11 @@ const defaultFetchJson: JsonFetcher = async (url) => {
 
 function expandDateRange(startYmd: string, endYmd: string): string[] {
   const parseYmd = (s: string) =>
-    Date.UTC(Number(s.slice(0, 4)), Number(s.slice(4, 6)) - 1, Number(s.slice(6, 8)));
+    Date.UTC(
+      Number.parseInt(s.slice(0, 4), 10),
+      Number.parseInt(s.slice(4, 6), 10) - 1,
+      Number.parseInt(s.slice(6, 8), 10),
+    );
   const start = parseYmd(startYmd);
   const end = parseYmd(endYmd);
   const days: string[] = [];
@@ -540,7 +545,7 @@ export async function fetchNationalCompetition(options: {
     const days = [...daySet].sort();
     await runPool(days, 8, async (day) => {
       const dayFile = resolveSafeEspnCachePath(slugCache, `${day}.json`);
-      const closed = day < todayKey && Number(todayKey) - Number(day) > 1;
+      const closed = day < todayKey && Number.parseInt(todayKey, 10) - Number.parseInt(day, 10) > 1;
       try {
         const payload = await fetchCachedEspnJson({
           cacheFile: dayFile,
@@ -606,8 +611,8 @@ export async function fetchNationalCompetition(options: {
     const isPostponed = statusName === "STATUS_POSTPONED";
     if (isCanceled || isPostponed) continue;
 
-    const hs = Number(homeComp.score);
-    const as = Number(awayComp.score);
+    const hs = parseStrictFiniteNumber(homeComp.score) ?? Number.NaN;
+    const as = parseStrictFiniteNumber(awayComp.score) ?? Number.NaN;
     const hasScore = isFinal && Number.isFinite(hs) && Number.isFinite(as) && hs >= 0 && as >= 0;
 
     const startMs = Date.parse(event.date);

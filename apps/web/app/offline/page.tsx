@@ -1,7 +1,8 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { BrandLogo } from "@pitchlab/ui/brand-logo";
+import { useSafeEffect } from "@pitchlab/ui/hooks";
 
 /**
  * Pantalla pública ligera para navegación sin conexión (ADR-053).
@@ -10,7 +11,7 @@ import { BrandLogo } from "@pitchlab/ui/brand-logo";
 export default function OfflinePage(): React.JSX.Element {
   const [reconnecting, setReconnecting] = useState<boolean>(false);
 
-  useEffect(() => {
+  useSafeEffect(() => {
     if (typeof window === "undefined") return;
     const handleOnline = () => {
       setReconnecting(true);

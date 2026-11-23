@@ -1,7 +1,12 @@
+import { asLeagueId, asMarketKey, type MatchAnalysis } from "@pitchlab/contracts";
+import type { SpacetimeSignal } from "@pitchlab/ui/types";
 import { describe, expect, it } from "vitest";
 import {
+  applyOutlook,
   applyOutlookWithMatchOutlook,
   findOutlook,
+  isStaleInflatedFootballOutlook,
+  OUTLOOK_SNAPSHOT_GENERATED_AT,
   outlookDetailFor,
   outlookDetailFromMatchOutlook,
 } from "../src/server/outlook";
@@ -23,7 +28,6 @@ describe("panorama v3.2 en la ficha del partido", () => {
 
   it("mapea Premier League al código del motor", () => {
     const o = findOutlook({ league: "premier-league", home: { name: "Arsenal" }, away: { name: "Chelsea" } });
-    // Puede no haber Arsenal–Chelsea esta jornada; si lo hay, debe venir de la liga epl.
     if (o) expect(o.league).toBe("epl");
   });
 
@@ -46,7 +50,6 @@ describe("panorama v3.2 en la ficha del partido", () => {
     expect(x12.reduce((s, r) => s + r.p, 0)).toBeCloseTo(1, 6);
     expect(rows.some((r) => r.group === "Doble oportunidad")).toBe(true);
     expect(rows.some((r) => r.group === "Hándicap asiático")).toBe(true);
-    // Mercados derivados de Punto 5: goles por equipo, 1er tiempo y top 6 de marcadores.
     expect(rows.some((r) => r.market === "team_goals_home" && r.isDerived)).toBe(true);
     expect(rows.some((r) => r.market === "team_goals_away" && r.isDerived)).toBe(true);
     expect(rows.some((r) => r.market === "ht_1x2" && r.isDerived)).toBe(true);
@@ -63,7 +66,6 @@ describe("panorama v3.2 en la ficha del partido", () => {
     expect(outlook.quality.coveragePct).toBeGreaterThanOrEqual(0);
     expect(outlook.quality.coveragePct).toBeLessThanOrEqual(100);
     expect(["ok", "low_coverage", "fallback_base_rate"]).toContain(outlook.quality.flag);
-    // Sin captura legal < 72 h, ningún mercado trae cuota de casa.
     expect(outlook.hasRecentQuote).toBe(false);
   });
 
@@ -98,12 +100,18 @@ describe("panorama v3.2 en la ficha del partido", () => {
 });
 
 describe("dataset del Club sobre el panorama v3.2", () => {
-  it("Inicio, Picks y landing leen las probabilidades v3.2 del partido", async () => {
+  it("Inicio, Picks y landing leen las probabilidades v3.2 cuando no está obsoleto ni inflado", async () => {
     const { buildServerRawPlatformDataset } = await import("../src/server/platform-data");
     const { findOutlook: find } = await import("../src/server/outlook");
-    const games = buildServerRawPlatformDataset().games.filter((g) => g.status !== "FT");
-    const football = games.filter((g) => g.sport === "football" && find(g));
-    // Cuántos hay depende de la jornada en los snapshots; lo que importa es que cada uno use v3.2.
+    const dataset = buildServerRawPlatformDataset();
+    const leagueGeneratedAtById = new Map(dataset.leagues.map((l) => [l.league, l.generatedAt]));
+    const games = dataset.games.filter((g) => g.status !== "FT");
+    const football = games.filter(
+      (g) =>
+        g.sport === "football" &&
+        find(g) &&
+        outlookDetailFor(g, undefined, leagueGeneratedAtById.get(g.league)) !== null,
+    );
     expect(football.length).toBeGreaterThan(0);
     for (const g of football) {
       const o = find(g)!;
@@ -117,7 +125,6 @@ describe("dataset del Club sobre el panorama v3.2", () => {
       if (!o.marketsByKey["1x2"]?.market) {
         expect(g.spacetime?.market ?? null).toBeNull();
       }
-      // Cada pick usa una probabilidad publicada por v3.2 para ese mercado.
       const published = new Set(
         o.markets.flatMap((m) => m.selections.map((s) => s.p.toFixed(6))).concat(o.topScorelines.map((s) => s.p.toFixed(6))),
       );
@@ -153,7 +160,6 @@ describe("dataset del Club sobre el panorama v3.2", () => {
       }
     }
 
-    // Verificación determinista independiente de la rotación semanal entre snapshots v2 y v3.2.
     const nflSample = snapGames.find((g) => g.status !== "FT" && g.x12 && g.x12[0] > 0 && g.x12[2] > 0);
     const baseOutlook = find({
       league: "nfl",
@@ -199,13 +205,13 @@ describe("dataset del Club sobre el panorama v3.2", () => {
 
 describe("confianza sobre el panorama v3.2", () => {
   it("se explica por factor y el puntaje sale de esos factores", async () => {
-    const { outlookConfidence, findOutlook } = await import("../src/server/outlook");
+    const { outlookConfidence, findOutlook: find } = await import("../src/server/outlook");
     const game = {
       league: "bundesliga",
       home: { name: "1. FC Union Berlin", record: "11 PJ · 1.3 goles/p" },
       away: { name: "RB Leipzig", record: "11 PJ · 1.9 goles/p" },
     };
-    const o = findOutlook(game)!;
+    const o = find(game)!;
     const c = outlookConfidence(o, game as never, 0.444);
     expect(c.factors).toHaveLength(3);
     const weighted = c.factors!.reduce((s, f) => s + f.value * f.weight, 0);
@@ -219,8 +225,8 @@ describe("vigencia < 72 h y hora de captura en panorama v3.2", () => {
   it("expone cuota y hora de captura cuando la cotización tiene menos de 72 h y la oculta al vencer", async () => {
     const baseOutlook = findOutlook(unionLeipzig)!;
     const capturedAtUtc = "2026-11-14T18:20:00Z";
-    const freshNowMs = Date.parse("2026-11-14T18:50:00Z"); // 30 min después (< 72 h)
-    const expiredNowMs = Date.parse("2026-11-17T19:00:00Z"); // > 72 h después
+    const freshNowMs = Date.parse("2026-11-14T18:50:00Z");
+    const expiredNowMs = Date.parse("2026-11-17T19:00:00Z");
 
     const marketQuote = {
       book: "pinnacle",
@@ -366,5 +372,195 @@ describe("vigencia < 72 h y hora de captura en panorama v3.2", () => {
     expect(markets).toContain("fouls_total");
     expect(markets).toContain("yellow_total");
     expect(enriched.match.counts?.corners?.total).toBeCloseTo(9.7, 2);
+  });
+});
+
+describe("guardia de frescura y anti-inflación sobre live_matchday_v3_snapshot.json", () => {
+  const tottenhamIpswichRefit: MatchAnalysis = {
+    id: "pl-test-tottenham-ipswich",
+    league: asLeagueId("premier-league"),
+    leagueLabel: "Premier League",
+    sport: "football",
+    round: "Jornada 11",
+    day: "2026-11-22",
+    dayLabel: "domingo",
+    kickoffUtc: "2026-11-22T14:00:00Z",
+    kickoffLocal: "08:00",
+    venue: "Tottenham Hotspur Stadium",
+    status: "NS",
+    home: {
+      slug: "tottenham-hotspur",
+      name: "Tottenham Hotspur",
+      shortName: "Tottenham",
+      code: "TOT",
+      record: "11 PJ · 1.7 goles/p",
+    },
+    away: {
+      slug: "ipswich-town",
+      name: "Ipswich Town",
+      shortName: "Ipswich",
+      code: "IPS",
+      record: "11 PJ · 1.2 goles/p",
+    },
+    projection: { home: 1.75, away: 1.26, total: 3.01, margin: 0.49 },
+    x12: [0.5395, 0.2255, 0.235],
+    outcomes: [
+      { key: "home", label: "Tottenham gana", probability: 0.5395 },
+      { key: "draw", label: "Empate", probability: 0.2255 },
+      { key: "away", label: "Ipswich gana", probability: 0.235 },
+    ],
+    marketGroups: [
+      {
+        group: "Goles totales",
+        rows: [
+          {
+            market: asMarketKey("totals"),
+            selection: "over_3.5",
+            label: "Más de 3.5 goles",
+            line: 3.5,
+            p: 0.358,
+            fairOdds: 2.79,
+          },
+        ],
+      },
+    ],
+    factors: [],
+    trace: [],
+  };
+
+  const baseSignal: SpacetimeSignal = {
+    engineName: "PitchLab Tachyon v3.0",
+    sportsEngineName: "PitchLab Tachyon v3.0",
+    probs: { home: 0.6228, draw: 0.1668, away: 0.2104 },
+    market: null,
+    value: [],
+    expectedTotal: 4.72,
+    expectedMargin: 1.4,
+    drivers: [],
+    availability: {
+      homeInjured: 0,
+      awayInjured: 0,
+      homeMissingValuePct: null,
+      awayMissingValuePct: null,
+    },
+    stadium: { name: null, elevationM: null },
+  };
+
+  it("preserva la proyección local refiteada cuando v3 es más viejo (> 24 h) e infla > +0.35 goles (Tottenham vs Ipswich)", () => {
+    const v3Outlook = findOutlook(tottenhamIpswichRefit)!;
+    expect(v3Outlook).not.toBeNull();
+    const outlookMs = Date.parse(OUTLOOK_SNAPSHOT_GENERATED_AT ?? v3Outlook.tsDecision);
+    const refitGeneratedAt = "2026-11-22T04:33:15.743Z";
+    const refitMs = Date.parse(refitGeneratedAt);
+
+    expect(isStaleInflatedFootballOutlook(v3Outlook, 3.01, refitMs, outlookMs)).toBe(true);
+    expect(isStaleInflatedFootballOutlook(v3Outlook, 3.01, refitMs, outlookMs, 0.358)).toBe(true);
+
+    const applied = applyOutlook(tottenhamIpswichRefit, baseSignal, refitMs, refitGeneratedAt);
+    expect(applied.match.projection?.total).toBeCloseTo(3.01, 2);
+    expect(applied.match.x12?.[0]).toBeCloseTo(0.5395, 4);
+    expect(applied.signal?.expectedTotal).toBeCloseTo(3.01, 2);
+    expect(applied.signal?.probs.home).toBeCloseTo(0.5395, 4);
+    expect(applied.signal?.outlookDriven).toBe(true);
+    const over35Row = (applied.match.marketGroups ?? [])
+      .flatMap((g) => g.rows)
+      .find((r) => r.market === "totals" && r.selection === "over_3.5");
+    expect(over35Row?.p).toBeCloseTo(0.358, 3);
+
+    const detail = outlookDetailFor(
+      {
+        league: "premier-league",
+        home: { name: "Tottenham Hotspur" },
+        away: { name: "Ipswich Town" },
+        generatedAt: refitGeneratedAt,
+        projection: { total: 3.01 },
+        markets: [{ market: "totals", selection: "over_3.5", line: 3.5, p: 0.358 }],
+      },
+      refitMs,
+    );
+    expect(detail).toBeNull();
+  });
+
+  it("aplica v3.2 normalmente cuando el snapshot v3 es fresco (<= 24 h) o cuando no está inflado", () => {
+    const tottenhamOutlook = findOutlook(tottenhamIpswichRefit)!;
+    const outlookMs = Date.parse(OUTLOOK_SNAPSHOT_GENERATED_AT ?? tottenhamOutlook.tsDecision);
+    const sameDayIso = new Date(outlookMs + 6 * 3_600_000).toISOString();
+    const sameDayMs = Date.parse(sameDayIso);
+
+    expect(isStaleInflatedFootballOutlook(tottenhamOutlook, 3.01, sameDayMs, outlookMs)).toBe(false);
+
+    const appliedFresh = applyOutlook(tottenhamIpswichRefit, baseSignal, sameDayMs, sameDayIso);
+    const v3Total =
+      tottenhamOutlook.dixonColesParams!.lamHome + tottenhamOutlook.dixonColesParams!.lamAway;
+    expect(appliedFresh.match.projection?.total).toBeCloseTo(v3Total, 2);
+    const detailFresh = outlookDetailFor(
+      {
+        league: "premier-league",
+        home: { name: "Tottenham Hotspur" },
+        away: { name: "Ipswich Town" },
+        generatedAt: sameDayIso,
+        projection: { total: 3.01 },
+        markets: [{ market: "totals", selection: "over_3.5", line: 3.5, p: 0.358 }],
+      },
+      sameDayMs,
+    );
+    expect(detailFresh).not.toBeNull();
+
+    const unionOutlook = findOutlook(unionLeipzig)!;
+    const refitGeneratedAt = "2026-11-22T04:33:15.743Z";
+    const refitMs = Date.parse(refitGeneratedAt);
+    expect(isStaleInflatedFootballOutlook(unionOutlook, 3.34, refitMs, outlookMs, 0.428)).toBe(false);
+
+    const unionMatch: MatchAnalysis = {
+      ...tottenhamIpswichRefit,
+      id: "bl-test-union-leipzig",
+      league: asLeagueId("bundesliga"),
+      leagueLabel: "Bundesliga",
+      home: {
+        slug: "union-berlin",
+        name: "1. FC Union Berlin",
+        shortName: "Union Berlin",
+        code: "FCU",
+        record: "11 PJ · 1.5 goles/p",
+      },
+      away: {
+        slug: "rb-leipzig",
+        name: "RB Leipzig",
+        shortName: "Leipzig",
+        code: "RBL",
+        record: "11 PJ · 1.8 goles/p",
+      },
+      projection: { home: 1.72, away: 1.62, total: 3.34, margin: 0.1 },
+      marketGroups: [
+        {
+          group: "Goles totales",
+          rows: [
+            {
+              market: asMarketKey("totals"),
+              selection: "over_3.5",
+              label: "Más de 3.5 goles",
+              line: 3.5,
+              p: 0.428,
+              fairOdds: 2.34,
+            },
+          ],
+        },
+      ],
+    };
+    const unionApplied = applyOutlook(unionMatch, baseSignal, refitMs, refitGeneratedAt);
+    const unionV3Total =
+      unionOutlook.dixonColesParams!.lamHome + unionOutlook.dixonColesParams!.lamAway;
+    expect(unionApplied.match.projection?.total).toBeCloseTo(unionV3Total, 2);
+
+    const unionDetail = outlookDetailFor(
+      {
+        ...unionLeipzig,
+        generatedAt: refitGeneratedAt,
+        projection: { total: 3.34 },
+        markets: [{ market: "totals", selection: "over_3.5", line: 3.5, p: 0.428 }],
+      },
+      refitMs,
+    );
+    expect(unionDetail).not.toBeNull();
   });
 });

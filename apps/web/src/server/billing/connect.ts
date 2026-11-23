@@ -1,7 +1,3 @@
-/**
- * Stripe Connect Express para tipsters (MX): alta de la cuenta, enlace de alta y
- * transferencias de comisión. Usa la API REST de Stripe (sin SDK).
- */
 import {
   claimPayableTransfers,
   markCommissionPaid,
@@ -9,6 +5,7 @@ import {
   releaseCommissionClaim,
   type Db,
 } from "@pitchlab/db";
+import { logSecurityEvent } from "../safe-logger";
 import { stripeHeaders, stripeRequest } from "./stripe-api";
 
 const STRIPE_API = "https://api.stripe.com/v1";
@@ -34,12 +31,15 @@ async function stripePost(
     headers,
     body: params.toString(),
   });
-  const json = (await res.json().catch(() => ({}))) as Record<string, unknown> & { error?: { message?: string } };
-  if (!res.ok) throw new StripeApiError(json.error?.message ?? `Stripe respondió ${res.status}`, res.status);
+  const json = (await res.json().catch(() => ({}))) as Record<string, unknown> & {
+    error?: { message?: string };
+  };
+  if (!res.ok) {
+    throw new StripeApiError(json.error?.message ?? `Stripe respondió ${res.status}`, res.status);
+  }
   return json;
 }
 
-/** Crea la cuenta Express del tipster en México, solo con capacidad de recibir transferencias. */
 export async function createExpressAccount(
   secretKey: string,
   input: { email: string; tipsterUserId: string; handle: string },
@@ -57,11 +57,12 @@ export async function createExpressAccount(
     idempotencyKey: `connect-account:${input.tipsterUserId}`,
     fetchImpl,
   });
-  if (typeof json.id !== "string") throw new StripeApiError("Stripe no devolvió el id de la cuenta", 502);
+  if (typeof json.id !== "string") {
+    throw new StripeApiError("Stripe no devolvió el id de la cuenta", 502);
+  }
   return json.id;
 }
 
-/** Enlace de alta (o de actualización de datos) de la cuenta conectada. */
 export async function createOnboardingLink(
   secretKey: string,
   input: { accountId: string; baseUrl: string },
@@ -73,7 +74,9 @@ export async function createOnboardingLink(
   p.set("refresh_url", `${input.baseUrl}/app/tipster?connect=reintentar`);
   p.set("return_url", `${input.baseUrl}/app/tipster?connect=listo`);
   const json = await stripePost(secretKey, "/account_links", p, { fetchImpl });
-  if (typeof json.url !== "string") throw new StripeApiError("Stripe no devolvió el enlace de alta", 502);
+  if (typeof json.url !== "string") {
+    throw new StripeApiError("Stripe no devolvió el enlace de alta", 502);
+  }
   return json.url;
 }
 
@@ -97,7 +100,6 @@ interface StripeTransferList {
   }>;
 }
 
-/** Transferencia en MXN a la cuenta del tipster; la clave de idempotencia es el asiento. */
 export function stripeTransferCreator(secretKey: string, fetchImpl?: typeof fetch): CreateTransfer {
   return async ({ ledgerId, destination, amountCentavos, stripeInvoiceId }) => {
     const p = new URLSearchParams();
@@ -107,17 +109,21 @@ export function stripeTransferCreator(secretKey: string, fetchImpl?: typeof fetc
     p.set("transfer_group", stripeInvoiceId);
     p.set("description", "Comisión PitchLab · Tipster Oficial");
     p.set("metadata[ledger_id]", ledgerId);
-    const json = await stripePost(secretKey, "/transfers", p, { idempotencyKey: `tipster-payout:${ledgerId}`, fetchImpl });
-    if (typeof json.id !== "string") throw new StripeApiError("Stripe no devolvió el id de la transferencia", 502);
+    const json = await stripePost(secretKey, "/transfers", p, {
+      idempotencyKey: `tipster-payout:${ledgerId}`,
+      fetchImpl,
+    });
+    if (typeof json.id !== "string") {
+      throw new StripeApiError("Stripe no devolvió el id de la transferencia", 502);
+    }
     return json.id;
   };
 }
 
-/**
- * Reconcilia si Stripe ya ejecutó una transferencia no revertida para este asiento
- * (protege contra doble pago cuando un reintento ocurre > 24 h después de una caída).
- */
-export function stripeTransferFinder(secretKey: string, fetchImpl?: typeof fetch): FindExistingTransfer {
+export function stripeTransferFinder(
+  secretKey: string,
+  fetchImpl?: typeof fetch,
+): FindExistingTransfer {
   return async ({ ledgerId, stripeInvoiceId }) => {
     const list = await stripeRequest<StripeTransferList>(
       secretKey,
@@ -143,11 +149,6 @@ export interface PayoutRunResult {
   failed: Array<{ ledgerId: string; error: string }>;
 }
 
-/**
- * Corrida diaria: libera comisiones que cumplieron 14 días, reclama de forma atómica las
- * pagables (`FOR UPDATE SKIP LOCKED`), reconcilia transferencias previas y ejecuta las nuevas.
- * Un error en un asiento libera el reclamo sin detener a los demás.
- */
 export async function runTipsterPayouts(
   db: Db,
   deps: { createTransfer: CreateTransfer; findExistingTransfer?: FindExistingTransfer; now: Date },
@@ -161,7 +162,10 @@ export async function runTipsterPayouts(
   for (const t of await claimPayableTransfers(db, deps.now)) {
     try {
       const existingTransferId = deps.findExistingTransfer
-        ? await deps.findExistingTransfer({ ledgerId: t.ledgerId, stripeInvoiceId: t.stripeInvoiceId })
+        ? await deps.findExistingTransfer({
+            ledgerId: t.ledgerId,
+            stripeInvoiceId: t.stripeInvoiceId,
+          })
         : null;
       const transferId =
         existingTransferId ??
@@ -176,10 +180,17 @@ export async function runTipsterPayouts(
         result.paidCentavos += t.amountCentavos;
       }
     } catch (err) {
-      await releaseCommissionClaim(db, t.ledgerId).catch((releaseErr) => {
-        console.error("[tipster-payouts] no se pudo liberar el asiento reclamado:", t.ledgerId, releaseErr);
+      logSecurityEvent("warn", "tipster_payout_transfer_failed", {
+        ledgerId: t.ledgerId,
+        error: err,
       });
-      result.failed.push({ ledgerId: t.ledgerId, error: err instanceof Error ? err.message : String(err) });
+      await releaseCommissionClaim(db, t.ledgerId).catch((releaseErr) => {
+        logSecurityEvent("error", "tipster_payout_release_failed", {
+          ledgerId: t.ledgerId,
+          error: releaseErr,
+        });
+      });
+      result.failed.push({ ledgerId: t.ledgerId, error: "transfer_failed" });
     }
   }
   return result;

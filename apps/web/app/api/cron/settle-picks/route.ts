@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { requireCronAuth } from "../../../../src/server/cron-auth";
+import { withCronSecret } from "../../../../src/server/api-guards";
 import { getMailer } from "../../../../src/server/mailer";
 import { runPickSettlement } from "../../../../src/server/settlement";
 import { serverDb } from "../../../../src/server/session-user";
@@ -7,14 +7,7 @@ import { serverDb } from "../../../../src/server/session-user";
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
 
-/**
- * Liquida picks simples y parlays pendientes cuyos partidos ya tienen marcador final,
- * captura las cuotas de cierre pre-kickoff reales, calcula CLV y dispara correo / Web Push.
- */
-async function handleSettlePicks(request: Request): Promise<NextResponse> {
-  const authError = requireCronAuth(request);
-  if (authError) return authError;
-
+const handleSettlePicks = withCronSecret({ bucket: "cron-settle-picks" }, async () => {
   const db = serverDb();
   if (!db) {
     return NextResponse.json({ error: "Base de datos no disponible" }, { status: 503 });
@@ -28,12 +21,7 @@ async function handleSettlePicks(request: Request): Promise<NextResponse> {
     ranAtUtc: now.toISOString(),
     ...summary,
   });
-}
+});
 
-export async function GET(request: Request): Promise<NextResponse> {
-  return handleSettlePicks(request);
-}
-
-export async function POST(request: Request): Promise<NextResponse> {
-  return handleSettlePicks(request);
-}
+export const GET = handleSettlePicks;
+export const POST = handleSettlePicks;

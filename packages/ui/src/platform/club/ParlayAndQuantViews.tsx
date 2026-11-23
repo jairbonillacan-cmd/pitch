@@ -1,18 +1,35 @@
 "use client";
 
-import React, { useEffect, useId, useMemo, useState } from "react";
-import { OddsCompareClubView } from "./OddsCompareView";
-import { ALL, SPORTS, shortDateLabel, sportOf, type SportFilter } from "./home/home-model";
-import { sportForLeague, type LeagueId, type PlatformSport } from "@pitchlab/contracts";
+import React, { Suspense, lazy, memo, useCallback, useId, useMemo, useState } from "react";
+import {
+  parseStrictFiniteNumber,
+  sportForLeague,
+  sportScoringUnit,
+  type LeagueId,
+  type PlatformSport,
+} from "@pitchlab/contracts";
 import { Switch } from "@heroui/react";
+import {
+  Button,
+  SofascoreCard,
+  SofascoreEmptyState,
+  SofascoreFilterBar,
+  SofascoreKpiStrip,
+  SofascoreSignalPair,
+  SofascoreTable,
+  SofascoreTabs,
+  SofascoreValueCell,
+  type SofascoreKpiItem,
+  type SofascoreTabItem,
+  type SofascoreTableColumn,
+} from "../../components/ui/primitives";
 import { LeagueBadge, TeamBadge, parseUserOdds } from "../../sports";
 import {
-  decimalToAmericanInt,
-  formatEdgePts,
   formatOddsValue,
   isPickUnlocked,
   pickReferenceDecimal,
 } from "../access-guard";
+import { resolvePreferredBookQuote } from "../bookmakers";
 import {
   buildPersonalQuickParlay,
   DAILY_PARLAY_STYLE_SPECS,
@@ -21,21 +38,15 @@ import {
   type PersonalParlayScope,
 } from "../daily-parlay";
 import { MaestroIcon } from "../components/MaestroPrimitives";
+import { MobileParlaySheet } from "../components/MobileParlaySheet";
+import { MarketCategoryIcon } from "../components/PackSportIcons";
 import { ConfirmActionDialog } from "../components/PlatformOverlays";
-import {
-  PlayerPropStreakCard,
-  type PlayerPropStreakCardProps,
-} from "../components/PlayerPropStreakCard";
 import { SgpCopulaAuditCard } from "../components/SgpCopulaAuditCard";
 import {
   AtmosphereStage,
   ClubWorkspaceShell,
 } from "../components/ShellChrome";
-import { SportEventIcon } from "../components/SportEventIcons";
-import {
-  buildPlayerPropsCatalog,
-  evaluatePropLineProbability,
-} from "../match-picks-engine";
+import { useMediaQuery, useSafeEffect } from "../hooks";
 import {
   assessParlayRisk,
   checkParlayCompatibility,
@@ -43,20 +54,161 @@ import {
   type ParlayCompatibilityResult,
 } from "../parlay-engine";
 import {
-  useJournalEntries,
+  evaluateBetBuilder,
+  matchPickToBetBuilderLeg,
+} from "../picks-catalog/bet-builder-math";
+import {
+  useIsPickInParlay,
   useParlayState,
   usePlatformActions,
   usePlatformCore,
 } from "../platform-provider";
-import { resolveMatchRefereeAnalytics } from "../referee-stats";
-import type { MatchPick, PlayerPropItem, RiskBand, SgpCopulaAuditView } from "../types";
+import type {
+  MatchPick,
+  OddsFormat,
+  PlatformGame,
+  RiskBand,
+  SgpCopulaAuditView,
+} from "../types";
+import { ALL, SPORTS, shortDateLabel, sportOf, type SportFilter } from "./home/home-model";
+import { OddsCompareClubView } from "./OddsCompareView";
 import {
-  MIN_SAMPLE_GUARD_LABEL,
-  NBA_STAT_CODE_ORDER,
-  resolveNbaPropStatCode,
-  resolvePlayerLineupSignal,
-  type NbaStructuredStatCode,
-} from "./team/props-context-helpers";
+  classifyOddsMovement,
+  computeExpectedValuePct,
+} from "./picks/BookmakerComparePill";
+
+const loadParlayBetBuilderDrawer = () =>
+  import("./picks/BetBuilderDrawer").then((mod) => ({
+    default: mod.BetBuilderDrawer,
+  }));
+const LazyBetBuilderDrawer = lazy(loadParlayBetBuilderDrawer);
+
+function prefetchParlayBetBuilderDrawer(): void {
+  void loadParlayBetBuilderDrawer();
+}
+
+const ParlayBetBuilderButton = memo(function ParlayBetBuilderButton({
+  pick,
+  game,
+  onInspect,
+  compact = false,
+}: {
+  readonly pick: MatchPick;
+  readonly game: PlatformGame;
+  readonly onInspect: (pick: MatchPick, game: PlatformGame) => void;
+  readonly compact?: boolean;
+}): React.JSX.Element {
+  const inParlay = useIsPickInParlay(pick.id);
+  const handleClick = useCallback(() => {
+    onInspect(pick, game);
+  }, [game, onInspect, pick]);
+  return (
+    <Button
+      variant={inParlay ? "secondary" : "ghost"}
+      size="sm"
+      className={`pl-scr-builder-btn min-w-11 ${compact ? "is-compact" : ""} ${inParlay ? "is-in-slip" : ""}`.trim()}
+      data-open-bet-builder={pick.id}
+      aria-label={`Abrir Bet Builder para ${pick.label}`}
+      onPointerEnter={prefetchParlayBetBuilderDrawer}
+      onFocus={prefetchParlayBetBuilderDrawer}
+      onClick={handleClick}
+    >
+      <MaestroIcon name="layers" size={13} />
+      <span>{inParlay ? "En boleto" : "Builder"}</span>
+    </Button>
+  );
+});
+
+type ManualCategoryFilter = "all" | "principal" | "totales" | "valor" | "tactico";
+
+interface PickerRow {
+  readonly id: string;
+  readonly game: PlatformGame;
+  readonly pick: MatchPick;
+  readonly completeLabel: string;
+  readonly marketFamily: string;
+  readonly unlocked: boolean;
+  readonly inSlip: boolean;
+  readonly atMaxLegs: boolean;
+  readonly sameGameExists: boolean;
+  readonly compat: ParlayCompatibilityResult;
+  readonly bestBookLabel: string | null;
+  readonly bestOddsDecimal: number | null;
+  readonly evPct: number | null;
+  readonly movement: "steam" | "shortening" | "drifting" | "stable" | null;
+}
+
+interface InlineSlipAlert {
+  readonly tone: "danger" | "warning" | "info";
+  readonly title: string;
+  readonly detail: string;
+  readonly code?:
+    | ParlayCompatibilityResult["code"]
+    | "sgp_hold"
+    | "invalid_odds_input"
+    | "max_legs";
+}
+
+const MAX_PARLAY_LEGS = 6;
+const LEG_COUNT_PRESETS = [2, 3, 4, 5, 6] as const;
+const INITIAL_MANUAL_ROWS = 12;
+const MANUAL_PAGE_STEP = 12;
+const AUTO_PREVIEW_LIMIT = 6;
+const LEAGUE_CHIP_LIMIT = 7;
+const MAX_DISPLAY_LEG_EV_PCT = 20;
+const MAX_DISPLAY_SLIP_EV_PCT = 50;
+
+const HAS_UNIT_RE =
+  /\b(goles|gol|puntos|punto|pts|carreras|carrera|córners|corners|esquinas|faltas|tarjetas|amarillas|tiros|remates|rebotes|asistencias|triples)\b/i;
+const BARE_TOTAL_RE = /^(?:más|menos)\s+de\s+\d+(?:[.,]\d+)?$/i;
+
+const CATEGORY_TABS: readonly SofascoreTabItem[] = [
+  { id: "all", label: "Todos" },
+  { id: "principal", label: "Resultado" },
+  { id: "totales", label: "Totales" },
+  { id: "valor", label: "Ambos / Valor" },
+  { id: "tactico", label: "Táctico" },
+];
+
+function formatSafeOdds(
+  decimalOdds: number | null | undefined,
+  format: OddsFormat,
+): string {
+  if (decimalOdds == null || !Number.isFinite(decimalOdds) || decimalOdds <= 1.01) {
+    return "—";
+  }
+  return formatOddsValue(decimalOdds, format);
+}
+
+function formatCompletePickLabel(pick: MatchPick, sport: PlatformSport): string {
+  const raw = pick.label.trim();
+  if (!raw || HAS_UNIT_RE.test(raw)) return raw;
+  const market = (pick.market ?? "").toLowerCase();
+  const isTotalLine =
+    BARE_TOTAL_RE.test(raw) ||
+    market === "totals" ||
+    market === "team_totals" ||
+    market.includes("total");
+  if (!isTotalLine) return raw;
+  if (market.includes("corner")) return `${raw} córners`;
+  if (market.includes("card") || market.includes("yellow") || market.includes("booking")) {
+    return `${raw} tarjetas`;
+  }
+  if (market.includes("foul")) return `${raw} faltas`;
+  if (market.includes("sot") || market.includes("shots_on_target")) {
+    return `${raw} tiros a puerta`;
+  }
+  if (market.includes("shot")) return `${raw} remates`;
+  return `${raw} ${sportScoringUnit(sport).plural}`;
+}
+
+function resolvePickMarketFamily(pick: MatchPick, sport: PlatformSport): string {
+  const leg = matchPickToBetBuilderLeg(pick, sport);
+  if (leg.family !== "other" && leg.family !== "correct_score") {
+    return leg.family;
+  }
+  return pick.market ?? pick.categoryLabel ?? pick.label;
+}
 
 function riskToneCss(tone: "success" | "info" | "warning" | "danger"): string {
   if (tone === "success") return "var(--pl-success)";
@@ -69,51 +221,307 @@ function getCompactBlockReason(
   sameGameExists: boolean,
   allowSgp: boolean,
   compat: ParlayCompatibilityResult,
+  atMaxLegs: boolean,
 ): string {
-  if (compat.code === "live") {
-    return "Partido en vivo (cerrado)";
-  }
-  if (compat.code === "finished") {
-    return "Partido finalizado";
-  }
-  if (compat.code === "invalid_odds") {
-    return "Línea cerrada para parlay";
-  }
+  if (atMaxLegs) return `Máx. ${MAX_PARLAY_LEGS}`;
+  if (compat.code === "live") return "En vivo";
+  if (compat.code === "finished") return "Finalizado";
+  if (compat.code === "duplicate") return "En boleto";
+  if (compat.code === "invalid_odds") return "Línea cerrada";
   if ((compat.code === "same_game_disabled" || sameGameExists) && !allowSgp) {
-    return "Mismo partido: activa el interruptor";
+    return "Activar SGP";
   }
-  if (compat.code === "sgp_limit") {
-    return "Máx. 2 selecciones por partido";
-  }
-  if (compat.code === "exact_score_sgp") {
-    return "Marcador exacto: no combinable en SGP";
-  }
-  if (compat.code === "logical_contradiction") {
-    return "Contradicción lógica en el partido";
-  }
-  if (compat.code === "same_axis") {
-    return "Mismo eje de mercado (opuesto o redundante)";
-  }
-  const rawReason = compat.reason;
-  if (!rawReason) {
-    return "Mercado contradictorio";
-  }
-  const lower = rawReason.toLowerCase();
-  if (lower.includes("mismo partido") && !allowSgp) {
-    return "Mismo partido: activa el interruptor";
-  }
-  if (lower.includes("contradic") || lower.includes("opuest") || lower.includes("choca")) {
-    return "Mercado contradictorio";
-  }
-  if (lower.includes("máximo 2") || lower.includes("2 selecciones")) {
-    return "Máx. 2 selecciones por partido";
-  }
-  return rawReason;
+  if (compat.code === "sgp_limit") return "Máx. 2 SGP";
+  if (compat.code === "exact_score_sgp") return "Exacto no SGP";
+  if (compat.code === "logical_contradiction") return "Contradicción";
+  if (compat.code === "same_axis") return "Mismo eje";
+  return "No combinable";
 }
 
+function computeSlipProbabilityBounds(
+  legs: readonly { readonly pick: MatchPick }[],
+): { readonly lower: number; readonly upper: number } {
+  if (legs.length === 0) return { lower: 0, upper: 0 };
+  const byGame = new Map<string, number[]>();
+  for (const { pick } of legs) {
+    const p = Math.min(0.99, Math.max(0.01, pick.p));
+    const list = byGame.get(pick.gameId) ?? [];
+    list.push(p);
+    byGame.set(pick.gameId, list);
+  }
+  let lower = 1;
+  let upper = 1;
+  for (const probs of byGame.values()) {
+    if (probs.length === 1) {
+      const p = probs[0] ?? 0.5;
+      lower *= p;
+      upper *= p;
+    } else {
+      const sumP = probs.reduce((acc, v) => acc + v, 0);
+      const minP = probs.reduce((acc, v) => Math.min(acc, v), 1);
+      const lo = Math.max(0.0001, sumP - (probs.length - 1));
+      lower *= lo;
+      upper *= Math.max(lo, minP);
+    }
+  }
+  return {
+    lower: Math.max(0.0001, Math.min(0.99, lower)),
+    upper: Math.max(0.0001, Math.min(0.99, upper)),
+  };
+}
+
+function isManualCategoryFilter(value: string): value is ManualCategoryFilter {
+  return (
+    value === "all" ||
+    value === "principal" ||
+    value === "totales" ||
+    value === "valor" ||
+    value === "tactico"
+  );
+}
+
+interface SlipLegViewItem {
+  readonly pick: MatchPick;
+  readonly game: PlatformGame | undefined;
+  readonly fullLabel: string;
+  readonly family: string;
+  readonly isSgpLeg: boolean;
+}
+
+const AutoPreviewRowItem = memo(function AutoPreviewRowItem({
+  row,
+  allowSgp,
+  oddsFormat,
+  hasAccountSession,
+  upgradeHref,
+  onInspect,
+  onPickAction,
+  onNavigateUpgrade,
+}: {
+  readonly row: PickerRow;
+  readonly allowSgp: boolean;
+  readonly oddsFormat: OddsFormat;
+  readonly hasAccountSession: boolean;
+  readonly upgradeHref: string;
+  readonly onInspect: (pick: MatchPick, game: PlatformGame) => void;
+  readonly onPickAction: (row: PickerRow) => void;
+  readonly onNavigateUpgrade: (e: React.MouseEvent<HTMLAnchorElement>) => void;
+}): React.JSX.Element {
+  const isBlocked = !row.inSlip && (row.atMaxLegs || !row.compat.allowed);
+  const blockedLabel = isBlocked
+    ? getCompactBlockReason(row.sameGameExists, allowSgp, row.compat, row.atMaxLegs)
+    : null;
+  const toggleLabel = row.inSlip
+    ? "En boleto"
+    : isBlocked
+      ? (blockedLabel ?? "Bloqueado")
+      : "Agregar";
+
+  const handleToggle = useCallback(() => {
+    onPickAction(row);
+  }, [onPickAction, row]);
+
+  return (
+    <li
+      className={`pl-pb-preview-item ${row.inSlip ? "is-in-slip" : ""}`.trim()}
+      data-preview-in-slip={row.inSlip ? "true" : undefined}
+    >
+      <div className="pl-pb-preview-main">
+        <div className="pl-pb-preview-head">
+          <LeagueBadge
+            league={row.game.league}
+            label={row.game.leagueLabel}
+            logoUrl={row.game.leagueLogoUrl || undefined}
+            size={14}
+          />
+          <span className="pl-pb-preview-league">
+            {row.game.leagueLabel} · {shortDateLabel(row.game.dayId)} {row.game.kickoffLocal}
+          </span>
+          {row.inSlip ? (
+            <span className="pl-pb-in-slip-badge">
+              <MaestroIcon name="check" size={11} />
+              <span>En tu boleto</span>
+            </span>
+          ) : null}
+        </div>
+
+        <div className="pl-pb-preview-match">
+          <span className="pl-pb-crest-pair">
+            <TeamBadge
+              league={row.game.league}
+              slug={row.game.home.slug}
+              name={row.game.home.name}
+              logoUrl={row.game.home.logoUrl || undefined}
+              size={18}
+            />
+            <strong>{row.game.home.shortName}</strong>
+            <span className="pl-pb-vs" aria-hidden="true">
+              vs
+            </span>
+            <TeamBadge
+              league={row.game.league}
+              slug={row.game.away.slug}
+              name={row.game.away.name}
+              logoUrl={row.game.away.logoUrl || undefined}
+              size={18}
+            />
+            <strong>{row.game.away.shortName}</strong>
+          </span>
+        </div>
+
+        <div className="pl-pb-preview-pick">
+          <MarketCategoryIcon family={row.marketFamily} size={16} />
+          <span className="pl-pb-preview-pick-text">
+            {row.unlocked ? row.completeLabel : "Selección reservada Pase PitchLab Ultra"}
+          </span>
+        </div>
+      </div>
+
+      <div className="pl-pb-preview-side">
+        {row.unlocked ? (
+          <div className="pl-pb-preview-metrics num">
+            <strong className="pl-pb-preview-prob">{(row.pick.p * 100).toFixed(1)} %</strong>
+            <span className="pl-pb-preview-odds">
+              Justo {formatSafeOdds(row.pick.fairDecimal, oddsFormat)}
+              {row.bestOddsDecimal !== null
+                ? ` · ${row.bestBookLabel ?? "Casa"} ${formatSafeOdds(row.bestOddsDecimal, oddsFormat)}`
+                : ""}
+            </span>
+            {row.evPct !== null && row.evPct > 0 ? (
+              <SofascoreSignalPair evPct={row.evPct} movement={row.movement} compact />
+            ) : null}
+          </div>
+        ) : null}
+
+        <div className="pl-pb-row-actions">
+          {row.unlocked ? (
+            <>
+              <ParlayBetBuilderButton
+                pick={row.pick}
+                game={row.game}
+                onInspect={onInspect}
+                compact
+              />
+              <Button
+                variant={isBlocked ? "ghost" : "secondary"}
+                tone={isBlocked ? "danger" : "default"}
+                size="sm"
+                className={`min-w-11 pl-pb-toggle-btn ${row.inSlip ? "is-selected" : ""}`.trim()}
+                aria-pressed={!isBlocked ? row.inSlip : undefined}
+                aria-label={`${toggleLabel}: ${row.completeLabel} (${row.game.home.shortName} vs ${row.game.away.shortName})`}
+                data-pick-toggle={row.pick.id}
+                data-pick-blocked={
+                  isBlocked
+                    ? row.atMaxLegs
+                      ? "max_legs"
+                      : (row.compat.code ?? "blocked")
+                    : undefined
+                }
+                onClick={handleToggle}
+              >
+                <MaestroIcon
+                  name={row.inSlip ? "check" : isBlocked ? "alert-warning" : "plus"}
+                  size={13}
+                />
+                <span>{toggleLabel}</span>
+              </Button>
+            </>
+          ) : (
+            <a href={upgradeHref} onClick={onNavigateUpgrade} className="pl-pb-locked-link">
+              <MaestroIcon name="lock" size={12} />
+              <span>{hasAccountSession ? "Activar Pase" : "Pase Ultra"}</span>
+            </a>
+          )}
+        </div>
+      </div>
+    </li>
+  );
+});
+
+const ParlaySlipLegRow = memo(function ParlaySlipLegRow({
+  item,
+  oddsFormat,
+  onRemove,
+}: {
+  readonly item: SlipLegViewItem;
+  readonly oddsFormat: OddsFormat;
+  readonly onRemove: (pickId: string) => void;
+}): React.JSX.Element {
+  const { pick, game: gm, fullLabel, family, isSgpLeg } = item;
+  const handleRemove = useCallback(() => {
+    onRemove(pick.id);
+  }, [onRemove, pick.id]);
+
+  return (
+    <li className="pl-pb-leg-row">
+      <div className="pl-pb-leg-copy">
+        <span className="pl-pb-leg-meta">
+          <LeagueBadge
+            league={pick.league}
+            label={pick.leagueLabel}
+            logoUrl={gm?.leagueLogoUrl || undefined}
+            size={13}
+          />
+          {gm ? (
+            <span className="pl-pb-crest-pair">
+              <TeamBadge
+                league={gm.league}
+                slug={gm.home.slug}
+                name={gm.home.name}
+                logoUrl={gm.home.logoUrl || undefined}
+                size={14}
+              />
+              <span className="truncate">{gm.home.shortName}</span>
+              <span className="pl-pb-vs" aria-hidden="true">
+                vs
+              </span>
+              <TeamBadge
+                league={gm.league}
+                slug={gm.away.slug}
+                name={gm.away.name}
+                logoUrl={gm.away.logoUrl || undefined}
+                size={14}
+              />
+              <span className="truncate">{gm.away.shortName}</span>
+            </span>
+          ) : (
+            <span className="truncate">{pick.matchLabel}</span>
+          )}
+        </span>
+        <span className="pl-pb-leg-pick-line">
+          <MarketCategoryIcon family={family} size={15} />
+          <strong className="pl-pb-leg-title">{fullLabel}</strong>
+        </span>
+        <span className="pl-pb-leg-odds num">
+          <span>
+            {(pick.p * 100).toFixed(1)} % · {formatSafeOdds(pickReferenceDecimal(pick), oddsFormat)}
+            {gm ? ` · ${shortDateLabel(gm.dayId)} ${gm.kickoffLocal}` : ` · ${pick.kickoffLocal}`}
+          </span>
+          {isSgpLeg ? <span className="pl-pb-sgp-tag">SGP</span> : null}
+        </span>
+      </div>
+      <Button
+        variant="ghost"
+        size="icon-sm"
+        aria-label={`Quitar ${fullLabel}`}
+        onClick={handleRemove}
+      >
+        <MaestroIcon name="x" size={14} />
+      </Button>
+    </li>
+  );
+});
+
 export function ParlayBuilderClubView(): React.JSX.Element {
-  const { dataset, viewerRole, hasAccountSession, upgradeHref, oddsFormat, riskPreference } =
-    usePlatformCore();
+  const {
+    dataset,
+    viewerRole,
+    hasAccountSession,
+    upgradeHref,
+    oddsFormat,
+    riskPreference,
+    preferredBooks,
+  } = usePlatformCore();
   const {
     setAllowSgp,
     setParlayStakeUnits,
@@ -129,33 +537,55 @@ export function ParlayBuilderClubView(): React.JSX.Element {
   } = usePlatformActions();
   const { parlayLegs, allowSgp, parlayStakeUnits, parlaySummary } = useParlayState();
 
-  useEffect(() => {
+  useSafeEffect(() => {
     void requestFullShell();
   }, [requestFullShell]);
 
+  const isCompactViewport = useMediaQuery("(max-width: 1023px)", false);
   const leagueSelectId = useId();
+  const bookOddsInputId = useId();
+  const bookOddsErrorId = useId();
+
   const [builderMode, setBuilderMode] = useState<"auto" | "manual">("auto");
   const [sportFilter, setSportFilter] = useState<SportFilter>(ALL);
   const [leagueFilter, setLeagueFilter] = useState<LeagueId | typeof ALL>(ALL);
+  const [categoryFilter, setCategoryFilter] = useState<ManualCategoryFilter>("all");
   const [manualQuery, setManualQuery] = useState<string>("");
   const [autoRisk, setAutoRisk] = useState<RiskBand>(riskPreference);
   const [targetPreset, setTargetPreset] = useState<ParlayTargetPresetId>("libre");
   const [autoLegCount, setAutoLegCount] = useState<number>(3);
-  const [catalogLimit, setCatalogLimit] = useState<number>(12);
+  const [catalogLimit, setCatalogLimit] = useState<number>(INITIAL_MANUAL_ROWS);
   const [bookParlayOddsRaw, setBookParlayOddsRaw] = useState<string>("");
   const [resolvedSgpAudit, setResolvedSgpAudit] = useState<SgpCopulaAuditView | null>(null);
   const [confirmClearOpen, setConfirmClearOpen] = useState<boolean>(false);
+  const [inlineAlert, setInlineAlert] = useState<InlineSlipAlert | null>(null);
+  const [inspectedRow, setInspectedRow] = useState<{
+    readonly pick: MatchPick;
+    readonly game: PlatformGame;
+  } | null>(null);
 
-  const parsedBookParlayDec = useMemo(
-    () => (bookParlayOddsRaw.trim() ? parseUserOdds(bookParlayOddsRaw) : null),
-    [bookParlayOddsRaw],
-  );
+  const parsedBookParlayDec = useMemo(() => {
+    const trimmed = bookParlayOddsRaw.trim();
+    if (!trimmed) return null;
+    const parsed = parseUserOdds(trimmed);
+    const strict = parseStrictFiniteNumber(parsed);
+    return strict !== null && strict > 1.01 ? strict : null;
+  }, [bookParlayOddsRaw]);
 
-  // Solo partidos abiertos (excluye FT y LIVE)
+  const bookOddsInvalid = bookParlayOddsRaw.trim().length > 0 && parsedBookParlayDec === null;
+
   const openGamesAll = useMemo(
     () => dataset.games.filter((g) => g.status !== "FT" && g.status !== "LIVE"),
     [dataset.games],
   );
+
+  const gamesById = useMemo(() => {
+    const map = new Map<string, PlatformGame>();
+    for (const g of dataset.games) {
+      map.set(g.id, g);
+    }
+    return map;
+  }, [dataset.games]);
 
   const sportCounts = useMemo(() => {
     const counts: Record<string, number> = { [ALL]: openGamesAll.length };
@@ -166,16 +596,23 @@ export function ParlayBuilderClubView(): React.JSX.Element {
     return counts;
   }, [openGamesAll]);
 
-  // Solo ligas con partidos abiertos para el deporte seleccionado (evita muro de 57 ligas)
   const activeLeagues = useMemo(() => {
     const countsByLeague = new Map<LeagueId, number>();
+    const logoByLeague = new Map<LeagueId, string>();
     for (const g of openGamesAll) {
       if (sportFilter !== ALL && sportOf(g) !== sportFilter) continue;
       countsByLeague.set(g.league, (countsByLeague.get(g.league) ?? 0) + 1);
+      if (g.leagueLogoUrl && !logoByLeague.has(g.league)) {
+        logoByLeague.set(g.league, g.leagueLogoUrl);
+      }
     }
     return dataset.leagues
       .filter((l) => countsByLeague.has(l.league))
-      .map((l) => ({ ...l, openCount: countsByLeague.get(l.league) ?? 0 }))
+      .map((l) => ({
+        ...l,
+        logoUrl: l.logoUrl || logoByLeague.get(l.league),
+        openCount: countsByLeague.get(l.league) ?? 0,
+      }))
       .sort((a, b) => b.openCount - a.openCount || a.label.localeCompare(b.label, "es-MX"));
   }, [dataset.leagues, openGamesAll, sportFilter]);
 
@@ -183,6 +620,20 @@ export function ParlayBuilderClubView(): React.JSX.Element {
     if (leagueFilter === ALL) return ALL;
     return activeLeagues.some((l) => l.league === leagueFilter) ? leagueFilter : ALL;
   }, [activeLeagues, leagueFilter]);
+
+  const visibleLeagueChips = useMemo(() => {
+    const base = activeLeagues.slice(0, LEAGUE_CHIP_LIMIT);
+    if (
+      effectiveLeague !== ALL &&
+      !base.some((lg) => lg.league === effectiveLeague)
+    ) {
+      const selected = activeLeagues.find((lg) => lg.league === effectiveLeague);
+      if (selected) {
+        return [...base.slice(0, LEAGUE_CHIP_LIMIT - 1), selected];
+      }
+    }
+    return base;
+  }, [activeLeagues, effectiveLeague]);
 
   const scopedLeagueIds = useMemo<LeagueId[]>(() => {
     if (effectiveLeague !== ALL) return [effectiveLeague];
@@ -201,19 +652,24 @@ export function ParlayBuilderClubView(): React.JSX.Element {
       if (sportFilter !== ALL && sportOf(g) !== sportFilter) return false;
       if (effectiveLeague !== ALL && g.league !== effectiveLeague) return false;
       if (q) {
-        const hay = `${g.home.name} ${g.away.name} ${g.home.shortName} ${g.away.shortName} ${g.leagueLabel}`.toLowerCase();
-        if (!hay.includes(q)) return false;
+        const hay =
+          `${g.home.name} ${g.away.name} ${g.home.shortName} ${g.away.shortName} ${g.leagueLabel}`.toLowerCase();
+        if (hay.includes(q)) return true;
+        return g.picks.some((pk) => {
+          const unlocked = isPickUnlocked(pk, g.status, viewerRole);
+          const fullLabel = formatCompletePickLabel(pk, g.sport);
+          return (
+            pk.categoryLabel.toLowerCase().includes(q) ||
+            (unlocked && fullLabel.toLowerCase().includes(q))
+          );
+        });
       }
       return true;
     });
-  }, [effectiveLeague, manualQuery, openGamesAll, sportFilter]);
+  }, [effectiveLeague, manualQuery, openGamesAll, sportFilter, viewerRole]);
 
-  const candidateGames = useMemo(
-    () => allOpenGames.slice(0, catalogLimit),
-    [allOpenGames, catalogLimit],
-  );
-
-  const maxAutoLegs = Math.max(2, allowSgp ? allOpenGames.length * 2 : allOpenGames.length);
+  const availableAutoSlots = allowSgp ? allOpenGames.length * 2 : allOpenGames.length;
+  const maxAutoLegs = Math.min(MAX_PARLAY_LEGS, Math.max(2, availableAutoSlots));
   const effectiveAutoLegCount = Math.min(maxAutoLegs, Math.max(2, autoLegCount));
 
   const autoPreview = useMemo(
@@ -233,862 +689,1422 @@ export function ParlayBuilderClubView(): React.JSX.Element {
   const activePresetSpec =
     PARLAY_TARGET_PRESETS.find((p) => p.id === targetPreset) ?? PARLAY_TARGET_PRESETS[0]!;
 
+  const buildPickerRow = useMemo(() => {
+    return (game: PlatformGame, pick: MatchPick): PickerRow => {
+      const unlocked = isPickUnlocked(pick, game.status, viewerRole);
+      const inSlip = parlayLegs.some((l) => l.pick.id === pick.id);
+      const atMaxLegs = !inSlip && parlayLegs.length >= MAX_PARLAY_LEGS;
+      const sameGameExists = parlayLegs.some(
+        (l) => l.pick.gameId === pick.gameId && l.pick.id !== pick.id,
+      );
+      const compat = checkParlayCompatibility(parlayLegs, pick, allowSgp);
+      const prefQuote = resolvePreferredBookQuote(pick.bookQuotes, preferredBooks);
+      const bestOddsDecimal = prefQuote?.decimal ?? pick.marketDecimal ?? null;
+      const bestBookLabel = prefQuote?.bookLabel ?? pick.marketBookLabel ?? null;
+      const rawEvPct = computeExpectedValuePct(pick.p, bestOddsDecimal);
+      const evPct =
+        rawEvPct !== null && rawEvPct <= MAX_DISPLAY_LEG_EV_PCT ? rawEvPct : null;
+      const movementInfo = classifyOddsMovement(
+        prefQuote?.openingDecimal ?? null,
+        bestOddsDecimal,
+        prefQuote?.movementDirection ?? null,
+      );
+      return {
+        id: pick.id,
+        game,
+        pick,
+        completeLabel: formatCompletePickLabel(pick, game.sport),
+        marketFamily: resolvePickMarketFamily(pick, game.sport),
+        unlocked,
+        inSlip,
+        atMaxLegs,
+        sameGameExists,
+        compat,
+        bestBookLabel,
+        bestOddsDecimal,
+        evPct,
+        movement: movementInfo?.kind ?? null,
+      };
+    };
+  }, [allowSgp, parlayLegs, preferredBooks, viewerRole]);
+
+  const manualPickerRowsAll = useMemo<PickerRow[]>(() => {
+    const q = manualQuery.trim().toLowerCase();
+    const rows: PickerRow[] = [];
+    for (const game of allOpenGames) {
+      for (const pick of game.picks.slice(0, 4)) {
+        if (categoryFilter !== "all" && pick.category !== categoryFilter) {
+          if (!(categoryFilter === "principal" && pick.category === "conservador")) {
+            continue;
+          }
+        }
+        if (q) {
+          const unlocked = isPickUnlocked(pick, game.status, viewerRole);
+          const fullLabel = formatCompletePickLabel(pick, game.sport);
+          const matchHay =
+            `${game.home.name} ${game.away.name} ${game.home.shortName} ${game.away.shortName} ${game.leagueLabel}`.toLowerCase();
+          const pickHay = unlocked
+            ? `${fullLabel} ${pick.categoryLabel}`.toLowerCase()
+            : pick.categoryLabel.toLowerCase();
+          if (!matchHay.includes(q) && !pickHay.includes(q)) continue;
+        }
+        rows.push(buildPickerRow(game, pick));
+      }
+    }
+    return rows;
+  }, [allOpenGames, buildPickerRow, categoryFilter, manualQuery, viewerRole]);
+
+  const visibleManualRows = useMemo(
+    () => manualPickerRowsAll.slice(0, catalogLimit),
+    [catalogLimit, manualPickerRowsAll],
+  );
+
+  const autoPreviewRows = useMemo<PickerRow[]>(() => {
+    if (autoPreview.status !== "insufficient" && autoPreview.legs.length > 0) {
+      const previewRows: PickerRow[] = [];
+      for (const leg of autoPreview.legs.slice(0, AUTO_PREVIEW_LIMIT)) {
+        const game = gamesById.get(leg.pick.gameId);
+        if (game) {
+          previewRows.push(buildPickerRow(game, leg.pick));
+        }
+      }
+      if (previewRows.length > 0) return previewRows;
+    }
+    const fallback: PickerRow[] = [];
+    for (const game of allOpenGames.slice(0, AUTO_PREVIEW_LIMIT)) {
+      const topPick = game.picks[0];
+      if (topPick) {
+        fallback.push(buildPickerRow(game, topPick));
+      }
+    }
+    return fallback;
+  }, [allOpenGames, autoPreview.legs, autoPreview.status, buildPickerRow, gamesById]);
+
+  const hasAutoProposal = autoPreview.status !== "insufficient" && autoPreview.legs.length >= 2;
+  const autoPreviewInSlipCount = useMemo(
+    () => autoPreviewRows.filter((row) => row.inSlip).length,
+    [autoPreviewRows],
+  );
+  const allAutoPreviewInSlip =
+    hasAutoProposal &&
+    autoPreviewRows.length > 0 &&
+    autoPreviewInSlipCount === autoPreviewRows.length;
+
+  const hasSlipLegs = parlaySummary.legs.length > 0;
+  const exceedsMaxLegs = parlaySummary.legs.length > MAX_PARLAY_LEGS;
+  const canSealParlay = parlaySummary.legs.length >= 2 && !exceedsMaxLegs;
+
+  const sgpGameIds = useMemo(() => {
+    const counts = new Map<string, number>();
+    for (const { pick } of parlaySummary.legs) {
+      counts.set(pick.gameId, (counts.get(pick.gameId) ?? 0) + 1);
+    }
+    const ids = new Set<string>();
+    for (const [gameId, cnt] of counts.entries()) {
+      if (cnt >= 2) ids.add(gameId);
+    }
+    return ids;
+  }, [parlaySummary.legs]);
+
+  const betBuilderEval = useMemo(() => {
+    if (!hasSlipLegs) return null;
+    const adapted = parlaySummary.legs.map(({ pick }) =>
+      matchPickToBetBuilderLeg(pick, sportForLeague(pick.league)),
+    );
+    return evaluateBetBuilder(adapted, { offeredBookDecimal: parsedBookParlayDec });
+  }, [hasSlipLegs, parlaySummary.legs, parsedBookParlayDec]);
+
+  const probabilityBounds = useMemo(
+    () => computeSlipProbabilityBounds(parlaySummary.legs),
+    [parlaySummary.legs],
+  );
+
+  const activeSgpAudit =
+    hasSlipLegs && parlaySummary.hasSgpCorrelation ? resolvedSgpAudit : null;
+
+  const effectiveSlipProb = useMemo(() => {
+    if (!hasSlipLegs) return 0;
+    let candidate = betBuilderEval?.jointProbability ?? parlaySummary.combinedProbability;
+    if (activeSgpAudit) {
+      if (parlaySummary.legs.length === activeSgpAudit.nLegs) {
+        candidate = activeSgpAudit.jointProbability;
+      } else {
+        const localMult = parlaySummary.sgpCorrelationMultiplier ?? 1;
+        candidate =
+          (parlaySummary.combinedProbability / Math.max(localMult, 0.05)) *
+          activeSgpAudit.correlationMultiplier;
+      }
+    }
+    return Math.min(probabilityBounds.upper, Math.max(probabilityBounds.lower, candidate));
+  }, [
+    activeSgpAudit,
+    betBuilderEval,
+    hasSlipLegs,
+    parlaySummary,
+    probabilityBounds.lower,
+    probabilityBounds.upper,
+  ]);
+
+  const effectiveSlipFairDec = useMemo<number | null>(() => {
+    if (!hasSlipLegs || effectiveSlipProb <= 0) return null;
+    if (
+      activeSgpAudit &&
+      parlaySummary.legs.length === activeSgpAudit.nLegs &&
+      activeSgpAudit.fairCombinedDecimal > 1.01
+    ) {
+      return activeSgpAudit.fairCombinedDecimal;
+    }
+    return Math.max(1.02, Math.round((1 / Math.max(effectiveSlipProb, 0.0001)) * 100) / 100);
+  }, [activeSgpAudit, effectiveSlipProb, hasSlipLegs, parlaySummary.legs.length]);
+
+  const effectiveSlipBookDec = useMemo<number | null>(() => {
+    if (!hasSlipLegs) return null;
+    if (parsedBookParlayDec !== null && parsedBookParlayDec > 1.01) {
+      return parsedBookParlayDec;
+    }
+    if (
+      parlaySummary.bookDecimal != null &&
+      Number.isFinite(parlaySummary.bookDecimal) &&
+      parlaySummary.bookDecimal > 1.01
+    ) {
+      return parlaySummary.bookDecimal;
+    }
+    return effectiveSlipFairDec;
+  }, [effectiveSlipFairDec, hasSlipLegs, parlaySummary.bookDecimal, parsedBookParlayDec]);
+
+  const effectiveSlipEvPct = useMemo<number | null>(() => {
+    if (!hasSlipLegs || effectiveSlipBookDec === null || effectiveSlipProb <= 0) {
+      return null;
+    }
+    const raw = Math.round((effectiveSlipProb * effectiveSlipBookDec - 1) * 1000) / 10;
+    if (!Number.isFinite(raw) || raw > MAX_DISPLAY_SLIP_EV_PCT) {
+      return null;
+    }
+    return raw;
+  }, [effectiveSlipBookDec, effectiveSlipProb, hasSlipLegs]);
+
+  const effectiveReturnUnits =
+    hasSlipLegs && effectiveSlipBookDec !== null
+      ? Math.round(parlaySummary.stakeUnits * effectiveSlipBookDec * 100) / 100
+      : 0;
+
+  const slipRisk = useMemo(
+    () =>
+      hasSlipLegs
+        ? assessParlayRisk({
+            ...parlaySummary,
+            combinedProbability: effectiveSlipProb,
+          })
+        : null,
+    [effectiveSlipProb, hasSlipLegs, parlaySummary],
+  );
+
+  const sgpHoldAlert = useMemo<InlineSlipAlert | null>(() => {
+    if (bookOddsInvalid) {
+      return {
+        tone: "warning",
+        title: "Formato de momio no reconocido",
+        detail: "Captura un momio decimal (> 1.01, ej. 4.40) o americano (ej. +340, -110).",
+        code: "invalid_odds_input",
+      };
+    }
+    if (!hasSlipLegs) return null;
+    if (activeSgpAudit?.bookQuoteAudit?.taxFlag === "severe_sgp_tax") {
+      return {
+        tone: "danger",
+        title: `Sobrecargo alto SGP (${activeSgpAudit.bookQuoteAudit.effectiveHoldPct.toFixed(1)} % margen)`,
+        detail: `Tu casa paga ${formatSafeOdds(activeSgpAudit.bookQuoteAudit.offeredDecimal, oddsFormat)} frente al justo calibrado ${formatSafeOdds(activeSgpAudit.bookQuoteAudit.fairCombinedDecimal, oddsFormat)}.`,
+        code: "sgp_hold",
+      };
+    }
+    if (
+      betBuilderEval &&
+      betBuilderEval.effectiveHoldPct !== null &&
+      betBuilderEval.effectiveHoldPct > 15
+    ) {
+      return {
+        tone: "danger",
+        title: `Margen oculto elevado (${betBuilderEval.effectiveHoldPct.toFixed(1)} pts)`,
+        detail: "Compara contra el momio justo calibrado antes de sellar el boleto.",
+        code: "sgp_hold",
+      };
+    }
+    return null;
+  }, [activeSgpAudit, betBuilderEval, bookOddsInvalid, hasSlipLegs, oddsFormat]);
+
+  const visibleSports = useMemo(
+    () => SPORTS.filter((sp) => (sportCounts[sp.id] ?? 0) > 0),
+    [sportCounts],
+  );
+
+  const slipLegItems = useMemo<readonly SlipLegViewItem[]>(
+    () =>
+      parlaySummary.legs.map(({ pick }) => {
+        const game = gamesById.get(pick.gameId);
+        const sport = game ? game.sport : sportForLeague(pick.league);
+        return {
+          pick,
+          game,
+          fullLabel: formatCompletePickLabel(pick, sport),
+          family: resolvePickMarketFamily(pick, sport),
+          isSgpLeg: sgpGameIds.has(pick.gameId),
+        };
+      }),
+    [gamesById, parlaySummary.legs, sgpGameIds],
+  );
+
+  const handleSelectLeague = useCallback(
+    (rawValue: string) => {
+      if (rawValue === ALL) {
+        setLeagueFilter(ALL);
+      } else {
+        const matched = activeLeagues.find((lg) => lg.league === rawValue);
+        setLeagueFilter(matched ? matched.league : ALL);
+      }
+      setCatalogLimit(INITIAL_MANUAL_ROWS);
+    },
+    [activeLeagues],
+  );
+
+  const handleModeChange = useCallback((nextId: string) => {
+    if (nextId === "auto" || nextId === "manual") {
+      setBuilderMode(nextId);
+      setInlineAlert(null);
+    }
+  }, []);
+
+  const handleCategoryChange = useCallback((nextId: string) => {
+    if (isManualCategoryFilter(nextId)) {
+      setCategoryFilter(nextId);
+      setCatalogLimit(INITIAL_MANUAL_ROWS);
+    }
+  }, []);
+
+  const handleInspectRow = useCallback((pick: MatchPick, game: PlatformGame) => {
+    setInspectedRow({ pick, game });
+  }, []);
+
+  const handleCloseInspect = useCallback(() => {
+    setInspectedRow(null);
+  }, []);
+
+  const handleNavigateUpgrade = useCallback(
+    (e: React.MouseEvent<HTMLAnchorElement>) => {
+      e.preventDefault();
+      navigateTo(upgradeHref);
+    },
+    [navigateTo, upgradeHref],
+  );
+
+  const handleManualQueryChange = useCallback((next: string) => {
+    setManualQuery(next);
+    setCatalogLimit(INITIAL_MANUAL_ROWS);
+  }, []);
+
+  const handleResetManualFilters = useCallback(() => {
+    setSportFilter(ALL);
+    setLeagueFilter(ALL);
+    setCategoryFilter("all");
+    setManualQuery("");
+    setCatalogLimit(INITIAL_MANUAL_ROWS);
+  }, []);
+
+  const handlePickAction = useCallback(
+    (row: PickerRow) => {
+      if (row.inSlip) {
+        setInlineAlert(null);
+        removePickFromParlay(row.pick.id);
+        return;
+      }
+      if (row.atMaxLegs) {
+        setInlineAlert({
+          tone: "warning",
+          title: `Máximo ${MAX_PARLAY_LEGS} selecciones por boleto`,
+          detail: `Quita una selección antes de agregar otra para poder sellar en Mi récord.`,
+          code: "max_legs",
+        });
+        return;
+      }
+      if (!row.compat.allowed) {
+        setInlineAlert({
+          tone: row.compat.code === "same_game_disabled" ? "warning" : "danger",
+          title: getCompactBlockReason(row.sameGameExists, allowSgp, row.compat, false),
+          detail:
+            row.compat.reason ?? "Esta selección es incompatible con tu boleto combinado actual.",
+          code: row.compat.code,
+        });
+        return;
+      }
+      setInlineAlert(null);
+      const added = addPickToParlay(row.pick);
+      if (!added) {
+        const check = checkParlayCompatibility(parlayLegs, row.pick, allowSgp);
+        setInlineAlert({
+          tone: "danger",
+          title: getCompactBlockReason(row.sameGameExists, allowSgp, check, false),
+          detail: check.reason ?? "No se pudo agregar esta selección al boleto.",
+          code: check.code,
+        });
+      }
+    },
+    [addPickToParlay, allowSgp, parlayLegs, removePickFromParlay],
+  );
+
   const handleGenerateAuto = () => {
-    if (targetPreset !== "libre" && autoPreview.legs.length > 0) {
+    setInlineAlert(null);
+    if (hasAutoProposal) {
       const styleLabel = DAILY_PARLAY_STYLE_SPECS[autoRisk].label;
       loadParlayPicks(
-        autoPreview.legs.map((l) => l.pick),
+        autoPreview.legs.slice(0, MAX_PARLAY_LEGS).map((l) => l.pick),
         {
           allowSgp,
-          label: `Parlay automático (${activePresetSpec.label} · ${styleLabel})`,
+          label:
+            targetPreset === "libre"
+              ? `Parlay automático (${styleLabel})`
+              : `Parlay automático (${activePresetSpec.label} · ${styleLabel})`,
         },
       );
       return;
     }
-    generateAutoParlay({
+    const count = generateAutoParlay({
       leagues: scopedLeagueIds.length > 0 ? scopedLeagueIds : dataset.leagues.map((l) => l.league),
       risk: autoRisk,
-      legCount: effectiveAutoLegCount,
+      legCount: Math.min(MAX_PARLAY_LEGS, effectiveAutoLegCount),
       allowSgp,
       games: allOpenGames,
     });
+    if (count === 0) {
+      setInlineAlert({
+        tone: "warning",
+        title: "Sin combinaciones suficientes",
+        detail:
+          "Amplía el deporte, cambia a «Todas las ligas» o baja el número de selecciones.",
+      });
+    }
   };
 
-  // Cuando la Cópula Student-t v5.1 (/api/parlays/sgp) responde, alinea el resumen del boleto
-  // para que Prob. Conjunta Real, Momio justo y Nivel de riesgo coincidan exactamente.
-  const activeSgpAudit = parlaySummary.hasSgpCorrelation ? resolvedSgpAudit : null;
-  const effectiveSlipProb = useMemo(() => {
-    if (!activeSgpAudit || parlaySummary.legs.length === 0) {
-      return parlaySummary.combinedProbability;
+  const handleShareParlay = () => {
+    if (!canSealParlay || effectiveSlipFairDec === null || effectiveSlipBookDec === null) {
+      return;
     }
-    if (parlaySummary.legs.length === activeSgpAudit.nLegs) {
-      return activeSgpAudit.jointProbability;
-    }
-    const localMult = parlaySummary.sgpCorrelationMultiplier ?? 1;
-    const adjusted =
-      (parlaySummary.combinedProbability / Math.max(localMult, 0.05)) *
-      activeSgpAudit.correlationMultiplier;
-    return Math.min(0.92, Math.max(0.0001, adjusted));
-  }, [activeSgpAudit, parlaySummary]);
+    const formattedLegs = parlaySummary.legs.map(({ pick }) => {
+      const gm = gamesById.get(pick.gameId);
+      const sport = gm ? gm.sport : sportForLeague(pick.league);
+      const fullLabel = formatCompletePickLabel(pick, sport);
+      const matchName = gm
+        ? `${gm.home.shortName} vs ${gm.away.shortName}`
+        : pick.matchLabel;
+      return {
+        label: fullLabel,
+        matchLabel: gm
+          ? `${matchName} · ${shortDateLabel(gm.dayId)} ${gm.kickoffLocal}`
+          : `${matchName} · ${pick.kickoffLocal}`,
+        summaryLine: `${matchName}: ${fullLabel}`,
+        p: pick.p,
+        fairDecimal: pick.fairDecimal,
+        marketDecimal: pick.marketDecimal,
+        kickoffLocal: pick.kickoffLocal,
+      };
+    });
+    const uniqueLeagues = Array.from(
+      new Set(parlaySummary.legs.map((l) => l.pick.leagueLabel)),
+    );
+    openShareTicket({
+      kind: "parlay",
+      title: `Parlay · ${parlaySummary.legs.length} selecciones`,
+      subtitle: parlaySummary.hasSgpCorrelation
+        ? "Mismo partido · Ajuste por correlación"
+        : "Combinada calibrada · PitchLab",
+      leagueLabel: uniqueLeagues.length === 1 ? uniqueLeagues[0]! : "Multi-Liga",
+      pickLabel: formattedLegs.map((l) => l.summaryLine).join(" · "),
+      legs: formattedLegs.map((l) => ({
+        label: l.label,
+        matchLabel: l.matchLabel,
+        p: l.p,
+        fairDecimal: l.fairDecimal,
+        marketDecimal: l.marketDecimal,
+        kickoffLocal: l.kickoffLocal,
+        status: "pending",
+      })),
+      revealLegs: true,
+      settlementStatus: "pending",
+      probability: effectiveSlipProb,
+      fairDecimal: effectiveSlipFairDec,
+      marketDecimal: effectiveSlipBookDec,
+      units: parlaySummary.stakeUnits,
+      gameStatus: "NS",
+    });
+  };
 
-  const effectiveSlipFairDec = useMemo(() => {
-    if (
-      activeSgpAudit &&
-      parlaySummary.legs.length === activeSgpAudit.nLegs &&
-      activeSgpAudit.fairCombinedDecimal > 1
-    ) {
-      return activeSgpAudit.fairCombinedDecimal;
-    }
-    return parlaySummary.legs.length > 0
-      ? Math.max(1.05, Math.round((1 / Math.max(effectiveSlipProb, 0.0001)) * 100) / 100)
-      : parlaySummary.fairDecimal;
-  }, [activeSgpAudit, effectiveSlipProb, parlaySummary.fairDecimal, parlaySummary.legs.length]);
-
-  const slipRisk = useMemo(
-    () =>
-      assessParlayRisk({
-        ...parlaySummary,
-        combinedProbability: effectiveSlipProb,
-      }),
-    [effectiveSlipProb, parlaySummary],
+  const pickerColumns = useMemo<readonly SofascoreTableColumn<PickerRow>[]>(
+    () => [
+      {
+        key: "match",
+        header: "Partido · Selección",
+        sticky: true,
+        render: (row) => (
+          <div className="pl-pb-match-cell">
+            <span className="pl-pb-match-meta">
+              <LeagueBadge
+                league={row.game.league}
+                label={row.game.leagueLabel}
+                logoUrl={row.game.leagueLogoUrl || undefined}
+                size={14}
+              />
+              <span className="pl-pb-crest-pair">
+                <TeamBadge
+                  league={row.game.league}
+                  slug={row.game.home.slug}
+                  name={row.game.home.name}
+                  logoUrl={row.game.home.logoUrl || undefined}
+                  size={15}
+                />
+                <span className="truncate">{row.game.home.shortName}</span>
+                <span className="pl-pb-vs" aria-hidden="true">
+                  vs
+                </span>
+                <TeamBadge
+                  league={row.game.league}
+                  slug={row.game.away.slug}
+                  name={row.game.away.name}
+                  logoUrl={row.game.away.logoUrl || undefined}
+                  size={15}
+                />
+                <span className="truncate">{row.game.away.shortName}</span>
+              </span>
+            </span>
+            <span className="pl-pb-pick-line">
+              <MarketCategoryIcon family={row.marketFamily} size={16} />
+              <span className="pl-pb-pick-label">
+                {row.unlocked ? row.completeLabel : "Selección reservada Pase PitchLab Ultra"}
+              </span>
+            </span>
+            <span className="pl-pb-pick-cat">
+              {shortDateLabel(row.game.dayId)} {row.game.kickoffLocal} · {row.pick.categoryLabel}
+            </span>
+          </div>
+        ),
+      },
+      {
+        key: "value",
+        header: "Prob · Justo · Casa",
+        align: "end",
+        numeric: true,
+        render: (row) =>
+          row.unlocked ? (
+            <SofascoreValueCell
+              probPct={row.pick.p * 100}
+              fairLabel={formatSafeOdds(row.pick.fairDecimal, oddsFormat)}
+              bestBookLabel={row.bestBookLabel}
+              bestOddsLabel={
+                row.bestOddsDecimal !== null
+                  ? formatSafeOdds(row.bestOddsDecimal, oddsFormat)
+                  : null
+              }
+              evPct={null}
+            />
+          ) : (
+            <span className="text-xs font-semibold" style={{ color: "var(--pl-text-muted)" }}>
+              Reservado
+            </span>
+          ),
+      },
+      {
+        key: "signals",
+        header: "Señal",
+        render: (row) => {
+          if (!row.unlocked) {
+            return (
+              <span className="pl-sf-signal-pill is-compact is-neutral">
+                Pase Ultra
+              </span>
+            );
+          }
+          const hasSignal = row.evPct !== null || (row.movement && row.movement !== "stable");
+          return hasSignal ? (
+            <SofascoreSignalPair evPct={row.evPct} movement={row.movement} compact />
+          ) : (
+            <span className="pl-sf-signal-pill is-compact is-neutral num">
+              {formatSafeOdds(pickReferenceDecimal(row.pick), oddsFormat)}
+            </span>
+          );
+        },
+      },
+      {
+        key: "action",
+        header: "Boleto",
+        align: "end",
+        render: (row) => {
+          if (!row.unlocked) {
+            return (
+              <a
+                href={upgradeHref}
+                onClick={(e) => {
+                  e.preventDefault();
+                  navigateTo(upgradeHref);
+                }}
+                className="pl-pb-locked-link"
+              >
+                <MaestroIcon name="lock" size={12} />
+                <span>{hasAccountSession ? "Activar Pase" : "Pase Ultra"}</span>
+              </a>
+            );
+          }
+          const isBlocked = !row.inSlip && (row.atMaxLegs || !row.compat.allowed);
+          const blockedLabel = isBlocked
+            ? getCompactBlockReason(row.sameGameExists, allowSgp, row.compat, row.atMaxLegs)
+            : null;
+          const visibleLabel = row.inSlip
+            ? "En boleto"
+            : isBlocked
+              ? (blockedLabel ?? "Bloqueado")
+              : "Agregar";
+          return (
+            <div className="pl-pb-row-actions">
+              <ParlayBetBuilderButton
+                pick={row.pick}
+                game={row.game}
+                onInspect={handleInspectRow}
+                compact
+              />
+              <Button
+                variant={isBlocked ? "ghost" : "secondary"}
+                tone={isBlocked ? "danger" : "default"}
+                size="sm"
+                className={`min-w-11 pl-pb-toggle-btn ${row.inSlip ? "is-selected" : ""}`.trim()}
+                aria-pressed={!isBlocked ? row.inSlip : undefined}
+                aria-label={`${visibleLabel}: ${row.completeLabel} (${row.game.home.shortName} vs ${row.game.away.shortName})`}
+                data-pick-toggle={row.pick.id}
+                data-pick-blocked={
+                  isBlocked ? (row.atMaxLegs ? "max_legs" : (row.compat.code ?? "blocked")) : undefined
+                }
+                title={
+                  row.atMaxLegs
+                    ? `Máximo ${MAX_PARLAY_LEGS} selecciones por boleto`
+                    : blockedLabel
+                      ? row.compat.reason
+                      : undefined
+                }
+                onClick={() => handlePickAction(row)}
+              >
+                <MaestroIcon
+                  name={row.inSlip ? "check" : isBlocked ? "alert-warning" : "plus"}
+                  size={13}
+                />
+                <span>{visibleLabel}</span>
+              </Button>
+            </div>
+          );
+        },
+      },
+    ],
+    [
+      allowSgp,
+      handleInspectRow,
+      handlePickAction,
+      hasAccountSession,
+      navigateTo,
+      oddsFormat,
+      upgradeHref,
+    ],
   );
 
-  const effectiveSlipBookDec =
-    parsedBookParlayDec && parsedBookParlayDec > 1
-      ? parsedBookParlayDec
-      : parlaySummary.bookDecimal;
-  const effectiveSlipEdgePts =
-    parlaySummary.legs.length > 0 && effectiveSlipBookDec > 1
-      ? (effectiveSlipProb - 1 / effectiveSlipBookDec) * 100
-      : parlaySummary.edgePts;
-  const effectiveReturnUnits =
-    parlaySummary.legs.length > 0
-      ? Math.round(parlaySummary.stakeUnits * effectiveSlipBookDec * 100) / 100
-      : 0;
+  const slipKpiItems = useMemo<readonly SofascoreKpiItem[]>(
+    () => [
+      {
+        id: "prob",
+        label: "Probabilidad",
+        value: !hasSlipLegs
+          ? "—"
+          : effectiveSlipProb * 100 < 0.1
+            ? "< 0.1 %"
+            : `${(effectiveSlipProb * 100).toFixed(1)} %`,
+        tone: hasSlipLegs ? "brand" : "default",
+      },
+      {
+        id: "book",
+        label: parsedBookParlayDec ? "Tu momio total" : "Momio combinado",
+        value: hasSlipLegs ? formatSafeOdds(effectiveSlipBookDec, oddsFormat) : "—",
+      },
+      {
+        id: "fair",
+        label: "Momio justo",
+        value: hasSlipLegs ? formatSafeOdds(effectiveSlipFairDec, oddsFormat) : "—",
+      },
+      {
+        id: "ev",
+        label: "EV",
+        value:
+          hasSlipLegs && effectiveSlipEvPct !== null
+            ? `${effectiveSlipEvPct >= 0 ? "+" : ""}${effectiveSlipEvPct.toFixed(1)} %`
+            : "—",
+        delta:
+          hasSlipLegs && effectiveReturnUnits > 0
+            ? `Ret. ${effectiveReturnUnits.toFixed(2)}u`
+            : undefined,
+        tone:
+          !hasSlipLegs || effectiveSlipEvPct === null
+            ? "default"
+            : effectiveSlipEvPct >= 0
+              ? "positive"
+              : "negative",
+      },
+    ],
+    [
+      effectiveReturnUnits,
+      effectiveSlipBookDec,
+      effectiveSlipEvPct,
+      effectiveSlipFairDec,
+      effectiveSlipProb,
+      hasSlipLegs,
+      oddsFormat,
+      parsedBookParlayDec,
+    ],
+  );
+
+  const modeTabs = useMemo<readonly SofascoreTabItem[]>(
+    () => [
+      { id: "auto", label: "Automático" },
+      { id: "manual", label: "Armar a mano", count: openGamesAll.length },
+    ],
+    [openGamesAll.length],
+  );
+
+  const activeAlert = inlineAlert ?? sgpHoldAlert;
+  const riskStyleLabel = DAILY_PARLAY_STYLE_SPECS[autoRisk].label;
+  const autoPreviewCount = hasAutoProposal ? autoPreview.legs.length : effectiveAutoLegCount;
 
   return (
     <AtmosphereStage activePath="/app/parlays">
       <ClubWorkspaceShell activePath="/app/parlays">
-        <section className="flex flex-wrap items-end justify-between gap-3">
-          <div className="space-y-1.5 min-w-0">
-            <h1 className="m-0 text-2xl sm:text-3xl font-extrabold">
-              Armar parlay
-            </h1>
-            <p className="m-0 text-sm" style={{ color: "var(--pl-text-secondary)" }}>
-              Genera una combinada calibrada al instante o elige piernas manualmente con bloqueo en vivo de mercados contradictorios.
-            </p>
-          </div>
+        <div className="pl-pb-page">
+          <header className="pl-pb-header">
+            <div className="pl-pb-header-copy">
+              <h1 className="pl-pb-title">Armar parlay</h1>
+              <p className="pl-pb-subtitle">
+                Genera una combinada calibrada en segundos o elige entre 2 y {MAX_PARLAY_LEGS}{" "}
+                selecciones partido por partido.
+              </p>
+            </div>
 
-          <div
-            className="seg-well"
-            role="tablist"
-            aria-label="Modo del armador de parlays"
-            data-parlay-mode-tabs=""
-            {...({ focusgroup: "tablist nomemory" } as React.HTMLAttributes<HTMLDivElement>)}
-          >
-            <button
-              type="button"
-              role="tab"
-              aria-selected={builderMode === "auto"}
-              className="seg-btn text-xs min-h-11 sm:min-h-10 px-4 inline-flex items-center gap-1.5"
-              data-parlay-tab="auto"
-              onClick={() => setBuilderMode("auto")}
-              {...(builderMode === "auto"
-                ? ({ focusgroupstart: "" } as React.ButtonHTMLAttributes<HTMLButtonElement>)
-                : {})}
-            >
-              <MaestroIcon name="bolt" size={13} />
-              <span>Automático</span>
-            </button>
-            <button
-              type="button"
-              role="tab"
-              aria-selected={builderMode === "manual"}
-              className="seg-btn text-xs min-h-11 sm:min-h-10 px-4 inline-flex items-center gap-1.5"
-              data-parlay-tab="manual"
-              onClick={() => setBuilderMode("manual")}
-              {...(builderMode === "manual"
-                ? ({ focusgroupstart: "" } as React.ButtonHTMLAttributes<HTMLButtonElement>)
-                : {})}
-            >
-              <MaestroIcon name="layers" size={13} />
-              <span>Armar a mano</span>
-            </button>
-          </div>
-        </section>
+            <div className="pl-pb-mode-wrap" data-parlay-mode-tabs="">
+              <SofascoreTabs
+                variant="segmented"
+                ariaLabel="Modo del armador de parlays"
+                items={modeTabs}
+                value={builderMode}
+                onChange={handleModeChange}
+              />
+            </div>
+          </header>
 
-        <div className="pl-parlay-grid grid grid-cols-1 lg:grid-cols-12 gap-5 lg:gap-6 items-start">
-          {/* Columna izquierda: Un solo flujo limpio (Automático o Armar a mano) */}
-          <div className="lg:col-span-7 space-y-4 min-w-0">
-            {/* Filtro compacto Deporte + Liga activa (cero muro de 57 ligas) */}
-            <section
-              className="glass-card glass-ring rounded-2xl p-4 space-y-3"
-              aria-label="Filtrar deporte y liga"
-              data-parlay-scope-bar=""
-            >
-              <div className="flex flex-wrap items-center justify-between gap-2.5">
-                <div className="flex flex-wrap items-center gap-1.5 min-w-0" role="group" aria-label="Elegir deporte">
-                  <button
-                    type="button"
-                    className="seg-btn text-xs min-h-11 sm:min-h-9 px-3 num"
-                    aria-pressed={sportFilter === ALL}
-                    onClick={() => {
-                      setSportFilter(ALL);
-                      setLeagueFilter(ALL);
-                      setCatalogLimit(12);
-                    }}
-                  >
-                    Todos ({sportCounts[ALL] ?? 0})
-                  </button>
-                  {SPORTS.filter((sp) => (sportCounts[sp.id] ?? 0) > 0).map((sp) => (
-                    <button
-                      key={sp.id}
-                      type="button"
-                      className="seg-btn text-xs min-h-11 sm:min-h-9 px-3 num"
-                      aria-pressed={sportFilter === sp.id}
-                      onClick={() => {
-                        setSportFilter(sp.id);
-                        setLeagueFilter(ALL);
-                        setCatalogLimit(12);
-                      }}
-                    >
-                      {sp.label} ({sportCounts[sp.id] ?? 0})
-                    </button>
-                  ))}
-                </div>
-
-                <div className="flex items-center gap-2 min-w-0 w-full sm:w-auto">
-                  <label htmlFor={leagueSelectId} className="sr-only">
-                    Liga activa
-                  </label>
-                  <select
-                    id={leagueSelectId}
-                    value={effectiveLeague}
-                    onChange={(e) => {
-                      setLeagueFilter(e.target.value as LeagueId | typeof ALL);
-                      setCatalogLimit(12);
-                    }}
-                    className="glass-input text-base sm:text-xs font-semibold min-h-11 sm:min-h-10 px-3 rounded-xl w-full sm:w-auto sm:max-w-[240px]"
-                  >
-                    <option value={ALL}>
-                      Todas las ligas ({activeLeagues.length})
-                    </option>
-                    {activeLeagues.map((lg) => (
-                      <option key={lg.league} value={lg.league}>
-                        {lg.label} ({lg.openCount})
-                      </option>
-                    ))}
-                  </select>
-                </div>
-              </div>
-            </section>
-
-            {builderMode === "auto" ? (
-              <section
-                className="glass-card glass-ring rounded-2xl p-4 sm:p-6 space-y-5"
-                role="tabpanel"
-                aria-label="Generador automático de parlay"
-                data-parlay-auto-panel=""
-              >
-                <div className="flex flex-wrap items-center justify-between gap-2">
-                  <div className="min-w-0">
-                    <h2 className="m-0 text-lg font-extrabold">
-                      Generador automático
-                    </h2>
-                    <p className="m-0 text-xs" style={{ color: "var(--pl-text-muted)" }}>
-                      Elige cuota meta, nivel de riesgo y número de selecciones sin contradicciones.
-                    </p>
-                  </div>
-                  {autoPreview.status !== "insufficient" && autoPreview.legs.length > 0 ? (
-                    <span className="pl-pill pl-pill--info num text-xs">
-                      Vista previa: {autoPreview.legs.length} picks ·{" "}
-                      {autoPreview.combinedProbability * 100 < 0.1
-                        ? "< 0.1 %"
-                        : `${(autoPreview.combinedProbability * 100).toFixed(1)} %`}{" "}
-                      · {formatOddsValue(autoPreview.fairDecimal, oddsFormat)}
-                    </span>
-                  ) : null}
-                </div>
-
-                {/* Cuota meta */}
-                <div className="space-y-2">
-                  <span className="text-xs font-extrabold block" style={{ color: "var(--pl-text-secondary)" }}>
-                    Cuota meta
-                  </span>
-                  <div className="seg-well w-full flex-wrap" role="group" aria-label="Cuota meta">
-                    {PARLAY_TARGET_PRESETS.map((preset) => (
-                      <button
-                        key={preset.id}
-                        type="button"
-                        className="seg-btn flex-1 justify-center num text-xs min-h-11 sm:min-h-10"
-                        aria-pressed={targetPreset === preset.id}
-                        data-quick-target={preset.id}
-                        onClick={() => setTargetPreset(preset.id)}
-                      >
-                        {preset.label}
-                      </button>
-                    ))}
-                  </div>
-                </div>
-
-                {/* Riesgo + Selecciones */}
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  <div className="space-y-2">
-                    <span className="text-xs font-extrabold block" style={{ color: "var(--pl-text-secondary)" }}>
-                      Estilo de riesgo
-                    </span>
-                    <div className="seg-well w-full" role="group" aria-label="Estilo de riesgo">
-                      {(["conservador", "medio", "arriesgado"] as const).map((r) => (
-                        <button
-                          key={r}
-                          type="button"
-                          className="seg-btn flex-1 justify-center text-xs min-h-11 sm:min-h-10"
-                          aria-pressed={autoRisk === r}
-                          onClick={() => setAutoRisk(r)}
+          <div className="pl-pb-workspace" data-parlay-workspace="">
+            <div className="pl-pb-main">
+              <div className="pl-pb-scope-bar" data-parlay-scope-bar="">
+                <SofascoreFilterBar
+                  className={builderMode === "auto" ? "pl-pb-filter-bar is-auto" : "pl-pb-filter-bar"}
+                  searchValue={builderMode === "manual" ? manualQuery : undefined}
+                  onSearchChange={builderMode === "manual" ? handleManualQueryChange : undefined}
+                  searchPlaceholder="Buscar equipo, liga o mercado…"
+                  resultCount={
+                    builderMode === "manual" ? manualPickerRowsAll.length : allOpenGames.length
+                  }
+                  trailing={
+                    activeLeagues.length > LEAGUE_CHIP_LIMIT ? (
+                      <div className="pl-pb-league-select-wrap">
+                        <label htmlFor={leagueSelectId} className="sr-only">
+                          Más ligas disponibles
+                        </label>
+                        <select
+                          id={leagueSelectId}
+                          value={effectiveLeague}
+                          onChange={(e) => handleSelectLeague(e.target.value)}
+                          className="pl-pb-select pl-pb-select-league"
                         >
-                          {r === "conservador"
-                            ? "Conservador"
-                            : r === "medio"
-                              ? "Medio"
-                              : "Arriesgado"}
-                        </button>
-                      ))}
-                    </div>
-                  </div>
-
-                  <div className="space-y-2">
-                    <span className="text-xs font-extrabold block num" style={{ color: "var(--pl-text-secondary)" }}>
-                      Selecciones ({effectiveAutoLegCount} de {maxAutoLegs} disp.)
-                    </span>
-                    <div className="flex flex-wrap items-center gap-2">
-                      <div className="seg-well flex-wrap" role="group" aria-label="Número de selecciones">
-                        {[2, 3, 4, 5, 6, 8, 10].map((cnt) => (
-                          <button
-                            key={cnt}
-                            type="button"
-                            disabled={cnt > maxAutoLegs}
-                            className="seg-btn num text-xs justify-center px-2 min-h-11 min-w-11 sm:min-h-9 sm:min-w-9"
-                            aria-pressed={effectiveAutoLegCount === cnt}
-                            onClick={() => setAutoLegCount(cnt)}
-                          >
-                            {cnt}
-                          </button>
-                        ))}
+                          <option value={ALL}>
+                            Todas las ligas ({activeLeagues.length})
+                          </option>
+                          {activeLeagues.map((lg) => (
+                            <option key={lg.league} value={lg.league}>
+                              {lg.label} ({lg.openCount})
+                            </option>
+                          ))}
+                        </select>
                       </div>
-                      <div className="sl-stepper" role="group" aria-label="Ajustar número de selecciones">
-                        <button
-                          type="button"
-                          className="min-h-11 min-w-11 sm:min-h-9 sm:min-w-9"
-                          aria-label="Menos selecciones"
-                          disabled={effectiveAutoLegCount <= 2}
-                          onClick={() => setAutoLegCount(Math.max(2, effectiveAutoLegCount - 1))}
-                        >
-                          −
-                        </button>
-                        <span className="num">{effectiveAutoLegCount}</span>
-                        <button
-                          type="button"
-                          className="min-h-11 min-w-11 sm:min-h-9 sm:min-w-9"
-                          aria-label="Más selecciones"
-                          disabled={effectiveAutoLegCount >= maxAutoLegs}
-                          onClick={() => setAutoLegCount(Math.min(maxAutoLegs, effectiveAutoLegCount + 1))}
-                        >
-                          +
-                        </button>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-                {/* Mismo partido (SGP) */}
-                <div className="pl-parlay-surface-tile rounded-xl p-3.5 flex flex-wrap items-center justify-between gap-3">
-                  <div className="space-y-0.5 min-w-0 flex-1">
-                    <span className="text-xs font-extrabold block" style={{ color: "var(--pl-text)" }}>
-                      Mismo partido (SGP)
-                    </span>
-                    <span className="text-xs" style={{ color: "var(--pl-text-secondary)" }}>
-                      Permite hasta 2 selecciones de distinto eje del mismo partido con ajuste de correlación Student-t.
-                    </span>
-                  </div>
-
-                  <Switch isSelected={allowSgp} onChange={setAllowSgp}>
-                    <Switch.Control>
-                      <Switch.Thumb />
-                    </Switch.Control>
-                    <Switch.Content>
-                      <span className="text-xs font-bold">
-                        {allowSgp ? "Activado" : "Desactivado"}
-                      </span>
-                    </Switch.Content>
-                  </Switch>
-                </div>
-
-                <button
-                  type="button"
-                  className="pl-btn-primary pl-btn-wrap w-full min-h-11 text-sm inline-flex items-center justify-center gap-2"
-                  data-generate-parlay=""
-                  onClick={handleGenerateAuto}
-                >
-                  <MaestroIcon name="sparkles" size={15} />
-                  <span>
-                    Generar parlay ({effectiveAutoLegCount} selecciones · {autoRisk}
-                    {targetPreset !== "libre" ? ` · ${activePresetSpec.label}` : ""})
-                  </span>
-                </button>
-              </section>
-            ) : (
-              /* Panel: Armar a mano con protección anti-contradicción */
-              <section
-                className="space-y-3"
-                role="tabpanel"
-                aria-label="Armar parlay a mano"
-                data-parlay-manual-panel=""
-              >
-                <div className="glass-card glass-ring rounded-2xl p-3.5 flex flex-wrap items-center justify-between gap-3">
-                  <div className="flex items-center gap-2 flex-1 min-w-0">
-                    <MaestroIcon name="search" size={15} style={{ color: "var(--pl-text-muted)" }} />
-                    <input
-                      type="search"
-                      inputMode="search"
-                      enterKeyHint="search"
-                      autoCorrect="off"
-                      spellCheck={false}
-                      value={manualQuery}
-                      onChange={(e) => {
-                        setManualQuery(e.target.value);
-                        setCatalogLimit(12);
-                      }}
-                      placeholder="Buscar equipo o liga…"
-                      aria-label="Buscar equipo o liga para armar parlay"
-                      className="glass-input text-base sm:text-xs min-h-11 sm:min-h-10 px-3 rounded-xl flex-1 min-w-0"
-                    />
-                  </div>
-                  <Switch isSelected={allowSgp} onChange={setAllowSgp}>
-                    <Switch.Control>
-                      <Switch.Thumb />
-                    </Switch.Control>
-                    <Switch.Content>
-                      <span className="text-xs font-bold">Mismo partido</span>
-                    </Switch.Content>
-                  </Switch>
-                </div>
-
-                {candidateGames.length === 0 ? (
-                  <div className="glass-card glass-ring rounded-2xl p-6 text-center space-y-2">
-                    <p className="m-0 text-sm font-bold">Sin partidos abiertos con ese filtro</p>
-                    <p className="m-0 text-xs" style={{ color: "var(--pl-text-muted)" }}>
-                      Prueba con otro deporte, liga o limpia la búsqueda.
-                    </p>
-                  </div>
-                ) : (
-                  candidateGames.map((g) => (
-                    <div
-                      key={g.id}
-                      className="glass-card glass-ring rounded-2xl p-4 space-y-3"
-                    >
-                      <div className="flex items-center justify-between gap-2 text-xs">
-                        <span className="inline-flex items-center gap-2 font-bold min-w-0">
-                          <LeagueBadge league={g.league} label={g.leagueLabel} logoUrl={g.leagueLogoUrl} size={16} />
-                          <span className="truncate">
-                            {g.leagueLabel} · {g.home.shortName} vs {g.away.shortName}
-                          </span>
-                        </span>
-                        <span className="num shrink-0" style={{ color: "var(--pl-text-muted)" }}>
-                          {shortDateLabel(g.dayId)} · {g.kickoffLocal}
-                        </span>
-                      </div>
-
-                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
-                        {g.picks.slice(0, 4).map((pk) => {
-                          const unlocked = isPickUnlocked(pk, g.status, viewerRole);
-                          const inSlip = parlayLegs.some((l) => l.pick.id === pk.id);
-                          const sameGameExists = parlayLegs.some(
-                            (l) => l.pick.gameId === pk.gameId && l.pick.id !== pk.id,
-                          );
-                          const compat = checkParlayCompatibility(
-                            parlayLegs,
-                            pk,
-                            allowSgp,
-                          );
-
-                          if (!unlocked) {
-                            return (
-                              <a
-                                key={pk.id}
-                                href={upgradeHref}
-                                onClick={(e) => {
-                                  e.preventDefault();
-                                  navigateTo(upgradeHref);
-                                }}
-                                className="rounded-xl p-2.5 text-xs flex items-center justify-between gap-2 no-underline"
-                                style={{
-                                  background: "var(--pl-surface)",
-                                  color: "var(--pl-text-secondary)",
-                                }}
-                              >
-                                <span className="inline-flex items-center gap-1.5 font-semibold truncate">
-                                  <MaestroIcon name="lock" size={12} />
-                                  <span className="truncate">{pk.categoryLabel}</span>
-                                </span>
-                                <span className="pl-pill text-[11px] shrink-0">
-                                  {hasAccountSession ? "Activar Pase Ultra" : "Pase PitchLab Ultra"}
-                                </span>
-                              </a>
-                            );
-                          }
-
-                          const blockedReason =
-                            !inSlip && !compat.allowed
-                              ? getCompactBlockReason(
-                                  sameGameExists,
-                                  allowSgp,
-                                  compat,
-                                )
-                              : null;
-
-                          return (
-                            <button
-                              key={pk.id}
-                              type="button"
-                              onClick={() =>
-                                inSlip
-                                  ? removePickFromParlay(pk.id)
-                                  : addPickToParlay(pk)
-                              }
-                              disabled={!inSlip && !compat.allowed}
-                              title={blockedReason ?? undefined}
-                              className="rounded-xl p-3 text-left text-xs cursor-pointer transition-opacity disabled:opacity-60 disabled:cursor-not-allowed space-y-1 min-h-11"
-                              style={{
-                                background: inSlip
-                                  ? "var(--pl-surface-active)"
-                                  : "var(--pl-surface)",
-                                border: inSlip
-                                  ? "1.5px solid var(--pl-brand)"
-                                  : "1px solid var(--pl-border)",
-                              }}
-                            >
-                              <div className="flex items-center justify-between gap-1.5 font-bold">
-                                <span className="truncate">{pk.label}</span>
-                                <span className="num shrink-0">
-                                  {formatOddsValue(pickReferenceDecimal(pk), oddsFormat)}
-                                </span>
-                              </div>
-                              <div className="flex items-center justify-between gap-1.5 num">
-                                <span style={{ color: "var(--pl-text-muted)" }}>
-                                  {(pk.p * 100).toFixed(0)} % · {pk.categoryLabel}
-                                </span>
-                                {inSlip ? (
-                                  <span
-                                    className="inline-flex items-center gap-1 font-extrabold shrink-0"
-                                    style={{ color: "var(--pl-brand)" }}
-                                  >
-                                    <MaestroIcon name="check" size={11} />
-                                    <span>En boleto</span>
-                                  </span>
-                                ) : compat.allowed ? (
-                                  <span
-                                    className="inline-flex items-center gap-1 font-bold shrink-0"
-                                    style={{ color: "var(--pl-success)" }}
-                                  >
-                                    <MaestroIcon name="plus" size={11} />
-                                    <span>Agregar</span>
-                                  </span>
-                                ) : (
-                                  <span
-                                    className="inline-flex items-center gap-1 font-bold shrink-0"
-                                    style={{ color: "var(--pl-warning)" }}
-                                  >
-                                    <MaestroIcon name="x" size={11} />
-                                    <span>{blockedReason}</span>
-                                  </span>
-                                )}
-                              </div>
-                            </button>
-                          );
-                        })}
-                      </div>
-                    </div>
-                  ))
-                )}
-
-                {allOpenGames.length > catalogLimit ? (
-                  <div className="flex justify-center pt-1">
-                    <button
-                      type="button"
-                      className="pl-btn-glass text-xs min-h-11 px-4 num"
-                      onClick={() => setCatalogLimit((c) => c + 12)}
-                    >
-                      Ver más partidos ({allOpenGames.length - catalogLimit} restantes)
-                    </button>
-                  </div>
-                ) : null}
-              </section>
-            )}
-          </div>
-
-          {/* Columna derecha: Boleto Combinado PitchLab (plano, sin brillos decorativos) */}
-          <aside className="lg:col-span-5 glass-card glass-ring rounded-2xl p-4 sm:p-6 space-y-4 lg:sticky lg:top-20 lg:max-h-[calc(100dvh-6rem)] lg:overflow-y-auto overflow-x-hidden min-w-0">
-            <div className="space-y-4">
-              <div className="flex items-center justify-between gap-2">
-                <div className="min-w-0">
-                  <span
-                    className="text-xs font-extrabold inline-flex items-center gap-1.5"
-                    style={{ color: "var(--pl-brand)" }}
-                  >
-                    <MaestroIcon name="ticket" size={13} />
-                    <span>Boleto combinado</span>
-                  </span>
-                  <h2 className="m-0 text-xl font-extrabold num">
-                    {parlaySummary.legs.length} {parlaySummary.legs.length === 1 ? "selección activa" : "selecciones activas"}
-                  </h2>
-                </div>
-                {parlaySummary.legs.length > 0 ? (
-                  <button
-                    type="button"
-                    className="pl-btn-glass text-xs min-h-11 sm:min-h-10 px-3 inline-flex items-center gap-1 shrink-0"
-                    onClick={() => {
-                      if (parlaySummary.legs.length >= 2) {
-                        setConfirmClearOpen(true);
-                      } else {
-                        clearParlay();
-                      }
-                    }}
-                  >
-                    <MaestroIcon name="x" size={12} />
-                    <span>Limpiar</span>
-                  </button>
-                ) : null}
-              </div>
-
-              <div className="ticket-perf" />
-
-              {parlaySummary.legs.length === 0 ? (
-                <div className="py-6 text-center space-y-2">
-                  <p className="m-0 text-sm font-semibold" style={{ color: "var(--pl-text-secondary)" }}>
-                    Tu boleto combinado está vacío
-                  </p>
-                  <p className="m-0 text-xs" style={{ color: "var(--pl-text-muted)" }}>
-                    Usa el generador automático o cambia a «Armar a mano» para elegir piernas compatibles (mínimo 2 para sellar).
-                  </p>
-                </div>
-              ) : (
-                <div className="space-y-2">
-                  {parlaySummary.legs.map(({ pick }) => {
-                    const gm = dataset.games.find((g) => g.id === pick.gameId);
-                    return (
-                    <div
-                      key={pick.id}
-                      className="pl-parlay-surface-tile rounded-xl p-3 flex items-start justify-between gap-2"
-                    >
-                      <div className="min-w-0">
-                        <span
-                          className="block text-[11px] truncate"
-                          style={{ color: "var(--pl-text-muted)" }}
-                        >
-                          {pick.leagueLabel} · {pick.matchLabel}
-                          {gm ? ` · ${shortDateLabel(gm.dayId)} · ${gm.kickoffLocal}` : ` · ${pick.kickoffLocal}`}
-                        </span>
-                        <strong className="block text-sm truncate">{pick.label}</strong>
-                        <span
-                          className="text-xs num font-bold"
-                          style={{ color: "var(--pl-brand)" }}
-                        >
-                          {(pick.p * 100).toFixed(1)} % ·{" "}
-                          {formatOddsValue(pickReferenceDecimal(pick), oddsFormat)}
-                        </span>
-                      </div>
-                      <button
-                        type="button"
-                        aria-label={`Quitar ${pick.label}`}
-                        onClick={() => removePickFromParlay(pick.id)}
-                        className="pl-btn-glass px-2.5 min-h-11 min-w-11 sm:min-h-10 sm:min-w-10 text-xs inline-flex items-center justify-center shrink-0"
-                      >
-                        <MaestroIcon name="x" size={12} />
-                      </button>
-                    </div>
-                  );
-                  })}
-                </div>
-              )}
-
-              <div
-                className="rounded-xl p-3.5 space-y-2"
-                style={{
-                  background: "var(--pl-surface)",
-                  border: `1px solid color-mix(in srgb, ${riskToneCss(slipRisk.tone)} 38%, var(--pl-border))`,
-                }}
-                data-parlay-risk-meter={slipRisk.level}
-              >
-                <div className="flex items-center justify-between gap-2">
-                  <span className="text-xs font-bold" style={{ color: "var(--pl-text-muted)" }}>
-                    Nivel de riesgo del boleto
-                  </span>
-                  <span
-                    className="text-xs font-extrabold num"
-                    style={{ color: riskToneCss(slipRisk.tone) }}
-                  >
-                    {slipRisk.label}
-                  </span>
-                </div>
-                {parlaySummary.legs.length > 0 ? (
-                  <div
-                    className="h-1.5 rounded-full overflow-hidden"
-                    style={{ background: "var(--pl-surface-hover)" }}
-                    aria-hidden="true"
-                  >
-                    <div
-                      className="h-full rounded-full"
-                      style={{
-                        width: `${slipRisk.meterPct}%`,
-                        background: riskToneCss(slipRisk.tone),
-                      }}
-                    />
-                  </div>
-                ) : null}
-                <p className="m-0 text-xs font-semibold num" style={{ color: "var(--pl-text)" }}>
-                  {slipRisk.headline}
-                </p>
-                <p className="m-0 text-[11px] leading-snug" style={{ color: "var(--pl-text-muted)" }}>
-                  {slipRisk.guidance}
-                </p>
-                {slipRisk.warnings.length > 0 ? (
-                  <ul className="m-0 pl-4 space-y-1 text-[11px] font-semibold" style={{ color: riskToneCss(slipRisk.tone) }}>
-                    {slipRisk.warnings.map((w) => (
-                      <li key={w}>{w}</li>
-                    ))}
-                  </ul>
-                ) : null}
-              </div>
-
-              <div className="ticket-perf" />
-
-              <div className="space-y-3 text-sm">
-                <div className="flex items-center justify-between gap-2">
-                  <span className="text-xs font-bold">Unidades simuladas</span>
-                  <div
-                    className="sl-stepper"
-                    role="group"
-                    aria-label="Unidades del boleto combinado"
-                  >
-                    <button
-                      type="button"
-                      className="min-h-11 min-w-11 sm:min-h-9 sm:min-w-9"
-                      aria-label="Restar unidades al parlay"
-                      onClick={() =>
-                        setParlayStakeUnits(
-                          Math.max(
-                            0.5,
-                            Math.round((parlayStakeUnits - 0.5) * 100) / 100,
-                          ),
-                        )
-                      }
-                    >
-                      −
-                    </button>
-                    <span className="num">{parlayStakeUnits.toFixed(2)}u</span>
-                    <button
-                      type="button"
-                      className="min-h-11 min-w-11 sm:min-h-9 sm:min-w-9"
-                      aria-label="Sumar unidades al parlay"
-                      onClick={() =>
-                        setParlayStakeUnits(
-                          Math.min(
-                            5,
-                            Math.round((parlayStakeUnits + 0.5) * 100) / 100,
-                          ),
-                        )
-                      }
-                    >
-                      +
-                    </button>
-                  </div>
-                </div>
-
-                {/* Calculadora de momio total de casa */}
-                <div className="flex flex-wrap items-center justify-between gap-2">
-                  <label
-                    htmlFor="parlay-book-odds-input"
-                    className="text-xs font-bold"
-                  >
-                    Momio total en tu casa:
-                  </label>
-                  <input
-                    id="parlay-book-odds-input"
-                    type="text"
-                    inputMode="decimal"
-                    autoCorrect="off"
-                    spellCheck={false}
-                    value={bookParlayOddsRaw}
-                    onChange={(e) => setBookParlayOddsRaw(e.target.value)}
-                    placeholder="Opcional (+340 / 4.40)"
-                    className="glass-input px-2.5 py-1 text-base sm:text-xs font-bold num min-h-11 sm:min-h-9 w-full sm:w-40 text-right"
-                  />
-                </div>
-
-                {parlaySummary.hasSgpCorrelation ? (
-                  <SgpCopulaAuditCard
-                    legs={parlaySummary.legs}
-                    oddsFormat={oddsFormat}
-                    offeredCombinedDecimalOdds={parsedBookParlayDec}
-                    onAuditResolved={setResolvedSgpAudit}
-                  />
-                ) : null}
-
-                <div className="grid grid-cols-2 gap-2.5 num">
-                  <div className="pl-parlay-surface-tile rounded-xl p-3">
-                    <span
-                      className="block text-xs"
-                      style={{ color: "var(--pl-text-muted)" }}
-                    >
-                      Prob. Conjunta Real
-                    </span>
-                    <strong className="text-base font-extrabold">
-                      {effectiveSlipProb * 100 < 0.1 && parlaySummary.legs.length > 0
-                        ? "< 0.1 %"
-                        : `${(effectiveSlipProb * 100).toFixed(1)} %`}
-                    </strong>
-                  </div>
-                  <div className="pl-parlay-surface-tile rounded-xl p-3">
-                    <span
-                      className="block text-xs"
-                      style={{ color: "var(--pl-text-muted)" }}
-                    >
-                      {parsedBookParlayDec ? "Tu Momio Total" : "Momio Combinado"}
-                    </span>
-                    <strong className="text-base font-extrabold">
-                      {formatOddsValue(effectiveSlipBookDec, oddsFormat)}
-                    </strong>
-                  </div>
-                  <div className="pl-parlay-surface-tile rounded-xl p-3">
-                    <span
-                      className="block text-xs"
-                      style={{ color: "var(--pl-text-muted)" }}
-                    >
-                      Momio justo
-                    </span>
-                    <strong className="text-base font-bold">
-                      {formatOddsValue(effectiveSlipFairDec, oddsFormat)}
-                    </strong>
-                  </div>
-                  <div className="pl-parlay-surface-tile rounded-xl p-3">
-                    <span
-                      className="block text-xs"
-                      style={{ color: "var(--pl-text-muted)" }}
-                    >
-                      Retorno ({effectiveSlipEdgePts >= 0 ? `+${effectiveSlipEdgePts.toFixed(1)}` : effectiveSlipEdgePts.toFixed(1)} pts)
-                    </span>
-                    <strong
-                      className="text-base font-extrabold"
-                      style={{ color: "var(--pl-success)" }}
-                    >
-                      {effectiveReturnUnits.toFixed(2)}u
-                    </strong>
-                  </div>
-                </div>
-              </div>
-
-              <div className="grid grid-cols-2 gap-2 pt-1">
-                <button
-                  type="button"
-                  disabled={parlaySummary.legs.length < 2}
-                  className="pl-btn-glass min-h-11 text-xs inline-flex items-center justify-center gap-1.5"
-                  onClick={() =>
-                    openShareTicket({
-                      kind: "parlay",
-                      title: `Parlay PitchLab (${parlaySummary.legs.length} picks)`,
-                      subtitle: "Armador Inteligente · Spacetime Suite v5.1",
-                      leagueLabel: "Multi-Liga",
-                      pickLabel: parlaySummary.legs
-                        .map((l) => l.pick.label)
-                        .join(" + "),
-                      legs: parlaySummary.legs.map(({ pick }) => ({
-                        label: pick.label,
-                        matchLabel: `${pick.matchLabel} · ${pick.kickoffLocal}`,
-                        p: pick.p,
-                        fairDecimal: pick.fairDecimal,
-                        marketDecimal: pick.marketDecimal,
-                        kickoffLocal: pick.kickoffLocal,
-                      })),
-                      probability: parlaySummary.combinedProbability,
-                      fairDecimal: parlaySummary.fairDecimal,
-                      marketDecimal: effectiveSlipBookDec,
-                      units: parlaySummary.stakeUnits,
-                      gameStatus: "NS",
-                    })
+                    ) : undefined
                   }
                 >
-                  <MaestroIcon name="share" size={13} />
-                  <span>Exportar boleto</span>
-                </button>
-                <button
-                  type="button"
-                  disabled={parlaySummary.legs.length < 2}
-                  className="pl-btn-primary min-h-11 text-xs inline-flex items-center justify-center gap-1.5"
-                  onClick={() => sealParlayToJournal()}
+                  <div className="pl-pb-chip-row" role="group" aria-label="Elegir deporte">
+                    <button
+                      type="button"
+                      className="pl-pb-chip num"
+                      aria-pressed={sportFilter === ALL}
+                      onClick={() => {
+                        setSportFilter(ALL);
+                        setLeagueFilter(ALL);
+                        setCatalogLimit(INITIAL_MANUAL_ROWS);
+                      }}
+                    >
+                      Todos ({sportCounts[ALL] ?? 0})
+                    </button>
+                    {visibleSports.map((sp) => (
+                      <button
+                        key={sp.id}
+                        type="button"
+                        className="pl-pb-chip num"
+                        aria-pressed={sportFilter === sp.id}
+                        onClick={() => {
+                          setSportFilter(sp.id);
+                          setLeagueFilter(ALL);
+                          setCatalogLimit(INITIAL_MANUAL_ROWS);
+                        }}
+                      >
+                        {sp.label} ({sportCounts[sp.id] ?? 0})
+                      </button>
+                    ))}
+                  </div>
+                </SofascoreFilterBar>
+
+                <div
+                  className="pl-pb-league-strip"
+                  role="group"
+                  aria-label="Filtrar por liga"
+                  aria-hidden={visibleLeagueChips.length === 0 ? true : undefined}
+                  data-parlay-league-chips=""
                 >
-                  <MaestroIcon name="ticket" size={13} />
-                  <span>Sellar en Mi récord ({parlaySummary.stakeUnits.toFixed(1)}u)</span>
-                </button>
+                  {visibleLeagueChips.length > 0 ? (
+                    <>
+                      <button
+                        type="button"
+                        className="pl-pb-league-chip num"
+                        aria-pressed={effectiveLeague === ALL}
+                        data-parlay-league-chip="all"
+                        onClick={() => handleSelectLeague(ALL)}
+                      >
+                        <span>Todas las ligas</span>
+                      </button>
+                      {visibleLeagueChips.map((lg) => (
+                        <button
+                          key={lg.league}
+                          type="button"
+                          className="pl-pb-league-chip num"
+                          aria-pressed={effectiveLeague === lg.league}
+                          data-parlay-league-chip={lg.league}
+                          onClick={() => handleSelectLeague(lg.league)}
+                        >
+                          <LeagueBadge
+                            league={lg.league}
+                            label={lg.label}
+                            logoUrl={lg.logoUrl || undefined}
+                            size={16}
+                          />
+                          <span className="pl-pb-league-chip-name">{lg.label}</span>
+                          <span className="pl-pb-league-chip-count">{lg.openCount}</span>
+                        </button>
+                      ))}
+                    </>
+                  ) : null}
+                </div>
               </div>
 
-              <details
-                className="pl-parlay-surface-tile rounded-xl p-3.5"
-                data-parlay-rules=""
-              >
-                <summary className="text-xs font-extrabold cursor-pointer" style={{ color: "var(--pl-text)" }}>
-                  Qué no se puede combinar en parlay
-                </summary>
-                <ul className="m-0 mt-2 pl-4 space-y-1 text-[11px] leading-snug" style={{ color: "var(--pl-text-muted)" }}>
-                  {PARLAY_NON_COMBINABLE_RULES.map((rule) => (
-                    <li key={rule.title}>
-                      <strong style={{ color: "var(--pl-text-secondary)" }}>{rule.title}:</strong> {rule.detail}
-                    </li>
-                  ))}
-                </ul>
-              </details>
+              {activeAlert ? (
+                <div
+                  className={`pl-pb-alert is-${activeAlert.tone}`}
+                  role="alert"
+                  data-parlay-inline-alert={activeAlert.code ?? "notice"}
+                >
+                  <div className="pl-pb-alert-body">
+                    <MaestroIcon name="alert-warning" size={16} />
+                    <div className="pl-pb-alert-text">
+                      <strong>{activeAlert.title}</strong>
+                      <p>{activeAlert.detail}</p>
+                    </div>
+                  </div>
+                  <div className="pl-pb-alert-actions">
+                    {activeAlert.code === "same_game_disabled" ? (
+                      <Button
+                        variant="secondary"
+                        size="sm"
+                        onClick={() => {
+                          setAllowSgp(true);
+                          setInlineAlert(null);
+                        }}
+                      >
+                        Activar SGP
+                      </Button>
+                    ) : null}
+                    {inlineAlert ? (
+                      <Button
+                        variant="ghost"
+                        size="icon-sm"
+                        aria-label="Descartar aviso"
+                        onClick={() => setInlineAlert(null)}
+                      >
+                        <MaestroIcon name="x" size={14} />
+                      </Button>
+                    ) : null}
+                  </div>
+                </div>
+              ) : null}
+
+              {builderMode === "auto" ? (
+                <div
+                  className="pl-pb-main"
+                  role="tabpanel"
+                  aria-label="Generador automático de parlay"
+                  data-parlay-auto-panel=""
+                >
+                  <SofascoreCard
+                    title="Generador automático"
+                    className="pl-pb-auto-card"
+                    meta={
+                      hasAutoProposal ? (
+                        <span className="pl-pb-preview-pill num">
+                          {autoPreview.legs.length} selecciones ·{" "}
+                          {autoPreview.combinedProbability * 100 < 0.1
+                            ? "< 0.1 %"
+                            : `${(autoPreview.combinedProbability * 100).toFixed(1)} %`}{" "}
+                          · Justo {formatSafeOdds(autoPreview.fairDecimal, oddsFormat)}
+                        </span>
+                      ) : (
+                        <span>Ajusta tus filtros</span>
+                      )
+                    }
+                  >
+                    <div className="pl-pb-auto-stack">
+                      <div className="pl-pb-decisions-grid">
+                        <div className="pl-pb-field">
+                          <span className="pl-pb-field-label">1. Riesgo</span>
+                          <div
+                            className="pl-pb-chip-row"
+                            role="group"
+                            aria-label="Estilo de riesgo"
+                          >
+                            {(["conservador", "medio", "arriesgado"] as const).map((r) => (
+                              <button
+                                key={r}
+                                type="button"
+                                className="pl-pb-chip is-grow"
+                                aria-pressed={autoRisk === r}
+                                onClick={() => setAutoRisk(r)}
+                              >
+                                {DAILY_PARLAY_STYLE_SPECS[r].label}
+                              </button>
+                            ))}
+                          </div>
+                        </div>
+
+                        <div className="pl-pb-field">
+                          <span className="pl-pb-field-label num">
+                            2. Selecciones (2–{MAX_PARLAY_LEGS})
+                          </span>
+                          <div
+                            className="pl-pb-chip-row"
+                            role="group"
+                            aria-label="Número de selecciones"
+                          >
+                            {LEG_COUNT_PRESETS.map((cnt) => (
+                              <button
+                                key={cnt}
+                                type="button"
+                                disabled={cnt > availableAutoSlots}
+                                className="pl-pb-chip is-count num"
+                                aria-pressed={effectiveAutoLegCount === cnt}
+                                onClick={() => setAutoLegCount(cnt)}
+                              >
+                                {cnt}
+                              </button>
+                            ))}
+                          </div>
+                        </div>
+
+                        <div className="pl-pb-field pl-pb-field-full">
+                          <span className="pl-pb-field-label">3. Cuota meta</span>
+                          <div className="pl-pb-chip-row" role="group" aria-label="Cuota meta">
+                            {PARLAY_TARGET_PRESETS.map((preset) => (
+                              <button
+                                key={preset.id}
+                                type="button"
+                                className="pl-pb-chip is-grow num"
+                                aria-pressed={targetPreset === preset.id}
+                                data-quick-target={preset.id}
+                                onClick={() => setTargetPreset(preset.id)}
+                              >
+                                {preset.label}
+                              </button>
+                            ))}
+                          </div>
+                        </div>
+                      </div>
+
+                      <div className="pl-pb-sgp-bar">
+                        <div className="pl-pb-sgp-copy">
+                          <span className="pl-pb-sgp-title">Mismo partido (SGP)</span>
+                          <span className="pl-pb-sgp-desc">
+                            Hasta 2 selecciones compatibles del mismo encuentro. Ajuste automático
+                            por correlación dentro del mismo partido.
+                          </span>
+                        </div>
+                        <div className="pl-pb-switch-wrap">
+                          <Switch isSelected={allowSgp} onChange={setAllowSgp}>
+                            <Switch.Control>
+                              <Switch.Thumb />
+                            </Switch.Control>
+                            <Switch.Content>
+                              <span className="text-xs font-bold">
+                                {allowSgp ? "Activado" : "Desactivado"}
+                              </span>
+                            </Switch.Content>
+                          </Switch>
+                        </div>
+                      </div>
+
+                      {autoPreview.status === "insufficient" && autoPreview.message ? (
+                        <div className="pl-pb-alert is-warning" role="status">
+                          <div className="pl-pb-alert-body">
+                            <MaestroIcon name="alert-warning" size={15} />
+                            <div className="pl-pb-alert-text">
+                              <strong>Sin combinación completa con esa regla</strong>
+                              <p>{autoPreview.message}</p>
+                            </div>
+                          </div>
+                          {targetPreset !== "libre" ? (
+                            <Button
+                              variant="secondary"
+                              size="sm"
+                              onClick={() => setTargetPreset("libre")}
+                            >
+                              Usar Libre
+                            </Button>
+                          ) : null}
+                        </div>
+                      ) : null}
+
+                      <div className="pl-pb-auto-cta-row">
+                        <Button
+                          variant={
+                            allAutoPreviewInSlip || parlaySummary.legs.length >= 2
+                              ? "secondary"
+                              : "primary"
+                          }
+                          size="default"
+                          className="w-full"
+                          data-generate-parlay=""
+                          onClick={handleGenerateAuto}
+                        >
+                          <MaestroIcon
+                            name={
+                              allAutoPreviewInSlip
+                                ? "verified-seal"
+                                : hasSlipLegs
+                                  ? "refresh-sync"
+                                  : "target-picks"
+                            }
+                            size={16}
+                          />
+                          <span>
+                            {allAutoPreviewInSlip
+                              ? `Ya cargada en tu boleto (${autoPreviewCount} selecciones)`
+                              : hasSlipLegs
+                                ? `Reemplazar boleto (${autoPreviewCount} selecciones · ${riskStyleLabel}${targetPreset !== "libre" ? ` · ${activePresetSpec.label}` : ""})`
+                                : `Cargar al boleto (${autoPreviewCount} selecciones · ${riskStyleLabel}${targetPreset !== "libre" ? ` · ${activePresetSpec.label}` : ""})`}
+                          </span>
+                        </Button>
+
+                        {autoPreviewInSlipCount > 0 && !allAutoPreviewInSlip ? (
+                          <p className="pl-pb-sync-note num" role="status">
+                            {autoPreviewInSlipCount} de {autoPreviewRows.length} selecciones
+                            propuestas ya están en tu boleto.
+                          </p>
+                        ) : null}
+                      </div>
+                    </div>
+                  </SofascoreCard>
+
+                  <SofascoreCard
+                    title={
+                      hasAutoProposal
+                        ? "Vista previa de tu combinada"
+                        : "Cartelera abierta elegible"
+                    }
+                    meta={`${autoPreviewRows.length} ${autoPreviewRows.length === 1 ? "selección" : "selecciones"}`}
+                    density="compact"
+                  >
+                    {autoPreviewRows.length === 0 ? (
+                      <SofascoreEmptyState
+                        title="Sin partidos abiertos con ese filtro"
+                        description="Prueba con otro deporte o selecciona Todas las ligas."
+                        actionLabel="Ver todos los deportes"
+                        onAction={() => {
+                          setSportFilter(ALL);
+                          setLeagueFilter(ALL);
+                        }}
+                      />
+                    ) : (
+                      <ul
+                        className="pl-pb-preview-list"
+                        role="list"
+                        data-parlay-auto-preview=""
+                      >
+                        {autoPreviewRows.map((row) => (
+                          <AutoPreviewRowItem
+                            key={row.id}
+                            row={row}
+                            allowSgp={allowSgp}
+                            oddsFormat={oddsFormat}
+                            hasAccountSession={hasAccountSession}
+                            upgradeHref={upgradeHref}
+                            onInspect={handleInspectRow}
+                            onPickAction={handlePickAction}
+                            onNavigateUpgrade={handleNavigateUpgrade}
+                          />
+                        ))}
+                      </ul>
+                    )}
+                  </SofascoreCard>
+                </div>
+              ) : (
+                <div
+                  className="pl-pb-main"
+                  role="tabpanel"
+                  aria-label="Armar parlay a mano"
+                  data-parlay-manual-panel=""
+                >
+                  <SofascoreCard
+                    title="Selector de selecciones"
+                    density="compact"
+                    meta={
+                      <div className="pl-pb-switch-wrap">
+                        <Switch isSelected={allowSgp} onChange={setAllowSgp}>
+                          <Switch.Control>
+                            <Switch.Thumb />
+                          </Switch.Control>
+                          <Switch.Content>
+                            <span className="text-xs font-bold">Mismo partido (SGP)</span>
+                          </Switch.Content>
+                        </Switch>
+                      </div>
+                    }
+                  >
+                    <div className="pl-pb-auto-stack">
+                      <SofascoreTabs
+                        variant="underline"
+                        ariaLabel="Filtrar mercado en selector manual"
+                        items={CATEGORY_TABS}
+                        value={categoryFilter}
+                        onChange={handleCategoryChange}
+                      />
+
+                      <SofascoreTable
+                        caption="Catálogo abierto de selecciones para parlay manual"
+                        columns={pickerColumns}
+                        rows={visibleManualRows}
+                        rowKey={(row) => row.id}
+                        density="compact"
+                        className="pl-pb-table-wrap"
+                        emptyState={
+                          <SofascoreEmptyState
+                            title="Sin selecciones abiertas con ese filtro"
+                            description="Prueba con otro deporte, mercado o limpia la búsqueda."
+                            actionLabel="Restablecer filtros"
+                            onAction={handleResetManualFilters}
+                          />
+                        }
+                      />
+
+                      {manualPickerRowsAll.length > catalogLimit ? (
+                        <div className="pl-pb-pager">
+                          <Button
+                            variant="secondary"
+                            size="sm"
+                            className="num"
+                            onClick={() => setCatalogLimit((c) => c + MANUAL_PAGE_STEP)}
+                          >
+                            Ver más selecciones ({manualPickerRowsAll.length - catalogLimit}{" "}
+                            restantes)
+                          </Button>
+                        </div>
+                      ) : null}
+                    </div>
+                  </SofascoreCard>
+                </div>
+              )}
             </div>
-          </aside>
+
+            <aside className="pl-pb-slip-col" aria-label="Boleto combinado activo">
+              <SofascoreCard
+                title="Boleto combinado"
+                className="pl-pb-slip-card"
+                meta={
+                  <div className="pl-pb-slip-head-meta">
+                    <span className="num">
+                      {parlaySummary.legs.length} / {MAX_PARLAY_LEGS}
+                    </span>
+                    {hasSlipLegs ? (
+                      <Button
+                        variant="ghost"
+                        size="sm"
+                        onClick={() => {
+                          if (parlaySummary.legs.length >= 2) {
+                            setConfirmClearOpen(true);
+                          } else {
+                            clearParlay();
+                          }
+                        }}
+                      >
+                        Limpiar
+                      </Button>
+                    ) : null}
+                  </div>
+                }
+              >
+                <div className="pl-pb-slip-stack">
+                  {!hasSlipLegs ? (
+                    <SofascoreEmptyState
+                      title="Tu boleto combinado está vacío"
+                      description={`Usa el generador automático o elige entre 2 y ${MAX_PARLAY_LEGS} selecciones compatibles.`}
+                    />
+                  ) : (
+                    <ul className="pl-pb-legs" role="list">
+                      {slipLegItems.map((item) => (
+                        <ParlaySlipLegRow
+                          key={item.pick.id}
+                          item={item}
+                          oddsFormat={oddsFormat}
+                          onRemove={removePickFromParlay}
+                        />
+                      ))}
+                    </ul>
+                  )}
+
+                  {parlaySummary.legs.length === 1 ? (
+                    <div className="pl-pb-alert is-info" role="status">
+                      <div className="pl-pb-alert-body">
+                        <MaestroIcon name="layers" size={14} />
+                        <div className="pl-pb-alert-text">
+                          <strong>Falta 1 selección para sellar</strong>
+                          <p>
+                            Agrega al menos 1 selección compatible más (2 a {MAX_PARLAY_LEGS}{" "}
+                            selecciones).
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+                  ) : null}
+
+                  {exceedsMaxLegs ? (
+                    <div className="pl-pb-alert is-danger" role="alert">
+                      <div className="pl-pb-alert-body">
+                        <MaestroIcon name="alert-warning" size={15} />
+                        <div className="pl-pb-alert-text">
+                          <strong>Máximo {MAX_PARLAY_LEGS} selecciones para sellar</strong>
+                          <p>
+                            Quita {parlaySummary.legs.length - MAX_PARLAY_LEGS}{" "}
+                            {parlaySummary.legs.length - MAX_PARLAY_LEGS === 1
+                              ? "selección"
+                              : "selecciones"}{" "}
+                            para guardar tu boleto en Mi récord.
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+                  ) : null}
+
+                  {hasSlipLegs && slipRisk ? (
+                    <div
+                      className="pl-pb-risk-box"
+                      style={{
+                        borderColor: `color-mix(in srgb, ${riskToneCss(slipRisk.tone)} 38%, var(--pl-border))`,
+                      }}
+                      data-parlay-risk-meter={slipRisk.level}
+                    >
+                      <div className="pl-pb-risk-head">
+                        <span style={{ color: "var(--pl-text-muted)", fontWeight: 700 }}>
+                          Nivel de riesgo del boleto
+                        </span>
+                        <span
+                          className="font-extrabold num"
+                          style={{ color: riskToneCss(slipRisk.tone) }}
+                        >
+                          {slipRisk.label}
+                        </span>
+                      </div>
+                      <div className="pl-pb-risk-track" aria-hidden="true">
+                        <div
+                          className="pl-pb-risk-fill"
+                          style={{
+                            width: `${slipRisk.meterPct}%`,
+                            background: riskToneCss(slipRisk.tone),
+                          }}
+                        />
+                      </div>
+                      <p className="pl-pb-risk-headline num">{slipRisk.headline}</p>
+                      <p className="pl-pb-risk-guidance">{slipRisk.guidance}</p>
+                      {slipRisk.warnings.length > 0 ? (
+                        <ul
+                          className="pl-pb-risk-warnings"
+                          style={{ color: riskToneCss(slipRisk.tone) }}
+                        >
+                          {slipRisk.warnings.map((w) => (
+                            <li key={w}>{w}</li>
+                          ))}
+                        </ul>
+                      ) : null}
+                    </div>
+                  ) : null}
+
+                  {hasSlipLegs && parlaySummary.hasSgpCorrelation ? (
+                    <SgpCopulaAuditCard
+                      legs={parlaySummary.legs}
+                      oddsFormat={oddsFormat}
+                      offeredCombinedDecimalOdds={parsedBookParlayDec}
+                      onAuditResolved={setResolvedSgpAudit}
+                    />
+                  ) : null}
+
+                  <div className="pl-pb-slip-controls">
+                    <SofascoreKpiStrip items={slipKpiItems} />
+
+                    {hasSlipLegs ? (
+                      <>
+                        <div className="pl-pb-slip-row">
+                          <span className="pl-pb-slip-label">Unidades simuladas</span>
+                          <div
+                            className="pl-pb-stepper"
+                            role="group"
+                            aria-label="Unidades del boleto combinado"
+                          >
+                            <button
+                              type="button"
+                              className="pl-pb-stepper-btn"
+                              aria-label="Restar unidades al parlay"
+                              onClick={() =>
+                                setParlayStakeUnits(
+                                  Math.max(
+                                    0.5,
+                                    Math.round((parlayStakeUnits - 0.5) * 100) / 100,
+                                  ),
+                                )
+                              }
+                            >
+                              −
+                            </button>
+                            <span className="pl-pb-stepper-val num">
+                              {parlayStakeUnits.toFixed(2)}u
+                            </span>
+                            <button
+                              type="button"
+                              className="pl-pb-stepper-btn"
+                              aria-label="Sumar unidades al parlay"
+                              onClick={() =>
+                                setParlayStakeUnits(
+                                  Math.min(
+                                    5,
+                                    Math.round((parlayStakeUnits + 0.5) * 100) / 100,
+                                  ),
+                                )
+                              }
+                            >
+                              +
+                            </button>
+                          </div>
+                        </div>
+
+                        <div className="pl-pb-slip-row">
+                          <label htmlFor={bookOddsInputId} className="pl-pb-slip-label">
+                            Momio total en tu casa
+                          </label>
+                          <div className="pl-pb-odds-field">
+                            <input
+                              id={bookOddsInputId}
+                              type="text"
+                              inputMode="decimal"
+                              autoCorrect="off"
+                              spellCheck={false}
+                              value={bookParlayOddsRaw}
+                              onChange={(e) => setBookParlayOddsRaw(e.target.value)}
+                              placeholder="Opcional (+340 / 4.40)"
+                              aria-invalid={bookOddsInvalid || undefined}
+                              aria-describedby={bookOddsInvalid ? bookOddsErrorId : undefined}
+                              className="pl-pb-input pl-pb-input-odds num"
+                            />
+                            {bookOddsInvalid ? (
+                              <span
+                                id={bookOddsErrorId}
+                                className="pl-pb-input-error"
+                                role="alert"
+                              >
+                                Usa decimal (&gt; 1.01) o americano (+340 / -110).
+                              </span>
+                            ) : null}
+                          </div>
+                        </div>
+                      </>
+                    ) : null}
+                  </div>
+
+                  <div className="pl-pb-slip-actions">
+                    <Button
+                      variant="secondary"
+                      size="default"
+                      className="w-full"
+                      disabled={!canSealParlay}
+                      onClick={handleShareParlay}
+                    >
+                      <MaestroIcon name="share" size={14} />
+                      <span>Compartir</span>
+                    </Button>
+                    <Button
+                      variant="primary"
+                      size="default"
+                      className="w-full num"
+                      disabled={!canSealParlay}
+                      onClick={() => sealParlayToJournal(undefined, parsedBookParlayDec)}
+                    >
+                      <MaestroIcon name="verified-seal" size={15} />
+                      <span>Sellar en Mi récord ({parlaySummary.stakeUnits.toFixed(1)}u)</span>
+                    </Button>
+                  </div>
+
+                  <details className="pl-pb-rules" data-parlay-rules="">
+                    <summary className="pl-pb-rules-summary">
+                      Qué no se puede combinar en parlay
+                    </summary>
+                    <ul className="pl-pb-rules-list">
+                      {PARLAY_NON_COMBINABLE_RULES.map((rule) => (
+                        <li key={rule.title}>
+                          <strong>{rule.title}:</strong> {rule.detail}
+                        </li>
+                      ))}
+                      <li>
+                        <strong>Límite por boleto:</strong> Puedes combinar de 2 a{" "}
+                        {MAX_PARLAY_LEGS} selecciones por boleto sellado.
+                      </li>
+                    </ul>
+                  </details>
+                </div>
+              </SofascoreCard>
+            </aside>
+          </div>
         </div>
+
+        {isCompactViewport && parlayLegs.length > 0 ? (
+          <MobileParlaySheet
+            variant="builder"
+            offeredCombinedDecimalOdds={parsedBookParlayDec}
+          />
+        ) : null}
+
+        {inspectedRow ? (
+          <Suspense fallback={null}>
+            <LazyBetBuilderDrawer
+              open
+              pick={inspectedRow.pick}
+              game={inspectedRow.game}
+              onClose={handleCloseInspect}
+            />
+          </Suspense>
+        ) : null}
 
         <ConfirmActionDialog
           open={confirmClearOpen}
@@ -1103,1082 +2119,15 @@ export function ParlayBuilderClubView(): React.JSX.Element {
   );
 }
 
-export type NbaPropStatCode = NbaStructuredStatCode;
+export {
+  PropsLabClubView,
+  type NbaPropStatCode,
+  type PropsLabClubViewProps,
+  type PropsLabPlayerPropItem,
+  type PropsLabRefereeSummary,
+  type PropsStreakExplorerItem,
+} from "./PropsLabClubView";
 
-export interface PropsStreakExplorerItem extends PlayerPropStreakCardProps {
-  readonly id: string;
-  readonly sport: string;
-  readonly leagueLabel: string;
-  readonly avgMinutes?: number | null;
-  readonly minMinutesGuard?: boolean;
-  readonly availabilityStatus?: "available" | "doubtful";
-}
-
-export interface PropsLabRefereeSummary {
-  readonly name: string;
-  readonly avgYellow: number | null;
-  readonly avgFouls: number | null;
-  readonly rigorLabel?: string | null;
-}
-
-export interface PropsLabPlayerPropItem extends PlayerPropItem {
-  readonly sport?: PlatformSport;
-  readonly statCode?: NbaPropStatCode | string | null;
-  readonly avgMinutes?: number | null;
-  readonly sampleGames?: number | null;
-  readonly minMinutesGuard?: boolean;
-  readonly lineupStatus?: "confirmed" | "probable" | null;
-  readonly availabilityStatus?: "available" | "doubtful";
-  readonly injuryNote?: string | null;
-  readonly playerHref?: string | null;
-  readonly hasVerifiedMarketQuote?: boolean;
-  readonly refereeSummary?: PropsLabRefereeSummary | null;
-}
-
-export interface PropsLabClubViewProps {
-  streakCards?: readonly PropsStreakExplorerItem[];
-  playerProps?: readonly PropsLabPlayerPropItem[];
-}
-
-const INITIAL_STREAK_PAGE_SIZE = 8;
-const INITIAL_CATALOG_PAGE_SIZE = 10;
-
-const PROPS_SPORT_LABELS: Readonly<Record<string, string>> = {
-  basketball: "NBA",
-  football: "Fútbol",
-  "american-football": "NFL",
-  "ice-hockey": "NHL",
-  baseball: "MLB",
-};
-
-const PROPS_SPORT_ORDER: readonly string[] = [
-  "basketball",
-  "football",
-  "american-football",
-  "ice-hockey",
-  "baseball",
-];
-
-export function PropsLabClubView({
-  streakCards = [],
-  playerProps,
-}: PropsLabClubViewProps = {}): React.JSX.Element {
-  const { dataset, viewerRole, hasAccountSession, upgradeHref, oddsFormat } = usePlatformCore();
-  const { sealPickToJournal, navigateTo } = usePlatformActions();
-  const journal = useJournalEntries();
-  const effectivePlayerProps = (playerProps ?? dataset.playerProps) as
-    | readonly PropsLabPlayerPropItem[]
-    | undefined;
-  const rawCatalog = useMemo(
-    () => buildPlayerPropsCatalog(dataset.games, effectivePlayerProps) as PropsLabPlayerPropItem[],
-    [dataset.games, effectivePlayerProps],
-  );
-  const [lineOffsets, setLineOffsets] = useState<Record<string, number>>({});
-  const [propOddsInputs, setPropOddsInputs] = useState<Record<string, string>>(
-    {},
-  );
-  const [activeSport, setActiveSport] = useState<string>("all");
-  const [nbaStatFilter, setNbaStatFilter] = useState<NbaPropStatCode | "all">("all");
-  const [onlyMinMinutesGuard, setOnlyMinMinutesGuard] = useState<boolean>(false);
-  const [onlyLineupSignal, setOnlyLineupSignal] = useState<boolean>(false);
-  const [searchQuery, setSearchQuery] = useState<string>("");
-  const [streakVisibleCount, setStreakVisibleCount] = useState<number>(INITIAL_STREAK_PAGE_SIZE);
-  const [catalogVisibleCount, setCatalogVisibleCount] = useState<number>(INITIAL_CATALOG_PAGE_SIZE);
-
-  const gamesById = useMemo(() => {
-    const map = new Map<string, (typeof dataset.games)[number]>();
-    for (const g of dataset.games) {
-      map.set(g.id, g);
-    }
-    return map;
-  }, [dataset.games]);
-
-  const enrichedCatalog = useMemo(() => {
-    return rawCatalog
-      .map((prop) => {
-        const sport: PlatformSport = prop.sport ?? sportForLeague(prop.league);
-        const statCode =
-          prop.statCode ?? (sport === "basketball" ? resolveNbaPropStatCode(prop.statLabel) : null);
-        const lineupSignal = resolvePlayerLineupSignal(dataset.games, {
-          league: prop.league,
-          teamSlug: prop.teamSlug,
-          playerName: prop.player,
-          gameId: prop.gameId,
-          sport,
-          explicitStatus: prop.lineupStatus ?? null,
-        });
-        if (lineupSignal?.status === "ruled_out") return null;
-
-        let refereeSummary: PropsLabRefereeSummary | null = prop.refereeSummary ?? null;
-        if (!refereeSummary && sport === "football") {
-          const matchedGame = gamesById.get(prop.gameId);
-          if (matchedGame) {
-            const refAnalytics = resolveMatchRefereeAnalytics(matchedGame, dataset.games);
-            if (
-              refAnalytics &&
-              (refAnalytics.avgYellow !== null || refAnalytics.avgFouls !== null)
-            ) {
-              refereeSummary = {
-                name: refAnalytics.name,
-                avgYellow: refAnalytics.avgYellow,
-                avgFouls: refAnalytics.avgFouls,
-                rigorLabel: refAnalytics.rigorLabel,
-              };
-            }
-          }
-        }
-
-        const minMinutesMet =
-          prop.minMinutesGuard === true ||
-          (prop.minMinutesGuard !== false &&
-            (sport === "basketball"
-              ? (prop.avgMinutes == null || prop.avgMinutes >= 18) &&
-                (prop.sampleGames == null || prop.sampleGames >= 3)
-              : true));
-
-        return {
-          prop,
-          sport,
-          statCode,
-          lineupSignal,
-          refereeSummary,
-          minMinutesMet,
-        };
-      })
-      .filter((item): item is NonNullable<typeof item> => item !== null);
-  }, [dataset.games, gamesById, rawCatalog]);
-
-  const availableSports = useMemo(() => {
-    const counts = new Map<string, number>();
-    for (const item of enrichedCatalog) {
-      counts.set(item.sport, (counts.get(item.sport) ?? 0) + 1);
-    }
-    for (const card of streakCards) {
-      if (!counts.has(card.sport)) {
-        counts.set(card.sport, 0);
-      }
-    }
-    const keys = Array.from(counts.keys()).sort((a, b) => {
-      const ia = PROPS_SPORT_ORDER.indexOf(a);
-      const ib = PROPS_SPORT_ORDER.indexOf(b);
-      return (ia === -1 ? 99 : ia) - (ib === -1 ? 99 : ib);
-    });
-    return keys.map((id) => ({
-      id,
-      label: PROPS_SPORT_LABELS[id] ?? id,
-      propCount: counts.get(id) ?? 0,
-      streakCount: streakCards.filter((c) => c.sport === id).length,
-    }));
-  }, [enrichedCatalog, streakCards]);
-
-  const nbaStatCounts = useMemo(() => {
-    const counts: Record<NbaPropStatCode, number> = { PTS: 0, REB: 0, AST: 0, "3PM": 0 };
-    for (const item of enrichedCatalog) {
-      if (item.sport !== "basketball") continue;
-      if (
-        item.statCode === "PTS" ||
-        item.statCode === "REB" ||
-        item.statCode === "AST" ||
-        item.statCode === "3PM"
-      ) {
-        counts[item.statCode] += 1;
-      }
-    }
-    return counts;
-  }, [enrichedCatalog]);
-
-  const totalNbaProps =
-    nbaStatCounts.PTS + nbaStatCounts.REB + nbaStatCounts.AST + nbaStatCounts["3PM"];
-
-  const hasAnyLineupSignal = useMemo(
-    () =>
-      enrichedCatalog.some(
-        (item) =>
-          item.lineupSignal?.status === "confirmed" || item.lineupSignal?.status === "probable",
-      ),
-    [enrichedCatalog],
-  );
-
-  const hasAnyMinGuardDiff = useMemo(
-    () =>
-      enrichedCatalog.some((item) => item.minMinutesMet) ||
-      streakCards.some((c) => c.minMinutesGuard),
-    [enrichedCatalog, streakCards],
-  );
-
-  const filteredCatalog = useMemo(() => {
-    const q = searchQuery.trim().toLowerCase();
-    return enrichedCatalog.filter((item) => {
-      if (activeSport !== "all" && item.sport !== activeSport) return false;
-      if (nbaStatFilter !== "all") {
-        if (item.sport !== "basketball" || item.statCode !== nbaStatFilter) return false;
-      }
-      if (onlyMinMinutesGuard && !item.minMinutesMet) return false;
-      if (
-        onlyLineupSignal &&
-        item.lineupSignal?.status !== "confirmed" &&
-        item.lineupSignal?.status !== "probable"
-      ) {
-        return false;
-      }
-      if (!q) return true;
-      return (
-        item.prop.player.toLowerCase().includes(q) ||
-        item.prop.teamName.toLowerCase().includes(q) ||
-        item.prop.leagueLabel.toLowerCase().includes(q) ||
-        item.prop.statLabel.toLowerCase().includes(q) ||
-        (item.statCode ? item.statCode.toLowerCase().includes(q) : false)
-      );
-    });
-  }, [
-    activeSport,
-    enrichedCatalog,
-    nbaStatFilter,
-    onlyLineupSignal,
-    onlyMinMinutesGuard,
-    searchQuery,
-  ]);
-
-  const filteredStreaks = useMemo(() => {
-    const q = searchQuery.trim().toLowerCase();
-    return streakCards.filter((card) => {
-      if (activeSport !== "all" && card.sport !== activeSport) return false;
-      if (onlyMinMinutesGuard && card.minMinutesGuard === false) return false;
-      if (!q) return true;
-      return (
-        card.playerName.toLowerCase().includes(q) ||
-        card.teamName.toLowerCase().includes(q) ||
-        card.leagueLabel.toLowerCase().includes(q)
-      );
-    });
-  }, [activeSport, onlyMinMinutesGuard, searchQuery, streakCards]);
-
-  const handleSealProp = (
-    prop: PropsLabPlayerPropItem,
-    activeLine: number,
-    pOver: number,
-    fairOverDecimal: number,
-    userDecimal: number,
-  ) => {
-    const propPickId = `${prop.id}-over-${activeLine.toFixed(1)}`;
-    const syntheticPropPick: MatchPick = {
-      id: propPickId,
-      gameId: prop.gameId,
-      league: prop.league,
-      leagueLabel: prop.leagueLabel,
-      matchLabel: prop.matchLabel,
-      kickoffLocal: prop.kickoffLocal,
-      gameStatus: "NS",
-      slotIndex: 99,
-      category: "valor",
-      categoryLabel: `Player Prop · ${prop.statLabel}`,
-      risk: pOver >= 0.66 ? "conservador" : pOver >= 0.52 ? "medio" : "arriesgado",
-      engineKey: prop.league === "nfl" ? "minkowski" : "tachyon",
-      engineName: prop.engineName,
-      marketGroup: "Player Props",
-      selectionKey: `over_${activeLine.toFixed(1)}`,
-      conflictGroup: "independent",
-      label: `${prop.player} · Más de ${activeLine.toFixed(1)} ${prop.statLabel}`,
-      rationale: prop.contextNote,
-      p: pOver,
-      fairDecimal: fairOverDecimal,
-      fairAmerican: decimalToAmericanInt(fairOverDecimal),
-      marketDecimal: userDecimal,
-      marketAmerican: decimalToAmericanInt(userDecimal),
-      edgePts: (pOver - 1 / userDecimal) * 100,
-      confidenceScore: Math.round(Math.min(94, Math.max(55, pOver * 100 + 8))),
-      suggestedUnits: 1.0,
-    };
-
-    sealPickToJournal(
-      syntheticPropPick,
-      1.0,
-      userDecimal,
-      `Props de jugadores · Media proyectada ${prop.projectionMean.toFixed(1)}`,
-    );
-  };
-
-  return (
-    <AtmosphereStage activePath="/app/props">
-      <ClubWorkspaceShell activePath="/app/props">
-        <section className="flex flex-wrap items-end justify-between gap-3">
-          <div className="space-y-1.5 min-w-0">
-            <span className="pl-pill pl-pill--brand pl-pill--wrap inline-flex items-center gap-1.5">
-              <MaestroIcon name="sliders" size={12} />
-              <span>Líneas alternativas · Spacetime</span>
-            </span>
-            <h1 className="m-0 text-2xl sm:text-3xl font-extrabold">
-              Tendencias y props de jugadores
-            </h1>
-            <p className="m-0 text-sm" style={{ color: "var(--pl-text-secondary)" }}>
-              Props NBA (PTS, REB, AST, 3PM) y fútbol ligados a proyección Spacetime, momio justo y guardia de muestra mínima.
-            </p>
-          </div>
-
-          {viewerRole !== "visitor" && (enrichedCatalog.length > 0 || streakCards.length > 0) ? (
-            <div className="flex flex-wrap items-center gap-1.5 num shrink-0">
-              {enrichedCatalog.length > 0 ? (
-                <span className="pl-pill text-xs font-semibold">
-                  {enrichedCatalog.length} props activos
-                </span>
-              ) : null}
-              {totalNbaProps > 0 ? (
-                <span className="pl-pill pl-pill--info text-xs font-semibold">
-                  NBA {totalNbaProps}
-                </span>
-              ) : null}
-              {hasAnyMinGuardDiff ? (
-                <span className="pl-pill pl-pill--success text-xs font-semibold">
-                  {MIN_SAMPLE_GUARD_LABEL}
-                </span>
-              ) : null}
-            </div>
-          ) : null}
-        </section>
-
-        {viewerRole === "visitor" ? (
-          <div
-            className="glass-card glass-ring rounded-2xl p-6 space-y-3"
-            data-cero-fuga-lock="props-lab"
-          >
-            <h2 className="m-0 text-xl font-extrabold inline-flex items-center gap-2">
-              <MaestroIcon name="lock" size={18} style={{ color: "var(--pl-brand)" }} />
-              <span>Props de jugadores para Pase PitchLab Ultra</span>
-            </h2>
-            <p className="m-0 text-sm" style={{ color: "var(--pl-text-secondary)" }}>
-              {hasAccountSession
-                ? "Activa tu Pase PitchLab Ultra para explorar proyecciones individuales calibradas de NBA, fútbol y ligas principales."
-                : "Activa tus 7 días gratis para explorar proyecciones individuales calibradas de NBA, fútbol y ligas principales."}
-            </p>
-            <a
-              href={upgradeHref}
-              onClick={(e) => {
-                e.preventDefault();
-                navigateTo(upgradeHref);
-              }}
-              className="pl-btn-primary text-xs min-h-11 sm:min-h-9 px-4 inline-flex items-center gap-1.5 no-underline"
-            >
-              <span>{hasAccountSession ? "Activar Pase Ultra" : "Activar prueba gratis"}</span>
-              <MaestroIcon name="arrowRight" size={13} />
-            </a>
-          </div>
-        ) : enrichedCatalog.length === 0 && streakCards.length === 0 ? (
-          <div className="glass-card glass-ring rounded-2xl p-6 space-y-2" data-props-empty="">
-            <h2 className="m-0 text-xl font-extrabold">Props de jugadores: próximamente</h2>
-            <p className="m-0 text-sm" style={{ color: "var(--pl-text-secondary)" }}>
-              Spacetime Suite v5.1 todavía no proyecta estadísticas individuales para este filtro. Cuando el motor
-              de jugadores publique líneas validadas, aquí verás proyección y ventaja contra tu casa.
-            </p>
-          </div>
-        ) : (
-          <>
-            {/* Barra unificada de filtros planos (Deporte · Mercados NBA · Muestra ≥ 45 min · Búsqueda) */}
-            <section
-              className="glass-card glass-ring rounded-2xl p-4 space-y-3"
-              aria-label="Filtrar props y tendencias de jugadores"
-              data-props-filter-bar=""
-            >
-              <div className="flex flex-wrap items-center justify-between gap-2.5">
-                <div
-                  className="flex flex-wrap items-center gap-1.5 min-w-0"
-                  role="group"
-                  aria-label="Filtrar por deporte"
-                >
-                  <button
-                    type="button"
-                    className="seg-btn text-xs min-h-11 sm:min-h-9 px-3 num"
-                    aria-pressed={activeSport === "all"}
-                    onClick={() => {
-                      setActiveSport("all");
-                      setNbaStatFilter("all");
-                      setCatalogVisibleCount(INITIAL_CATALOG_PAGE_SIZE);
-                      setStreakVisibleCount(INITIAL_STREAK_PAGE_SIZE);
-                    }}
-                  >
-                    Todos ({enrichedCatalog.length + streakCards.length})
-                  </button>
-                  {availableSports.map((sp) => (
-                    <button
-                      key={sp.id}
-                      type="button"
-                      className="seg-btn text-xs min-h-11 sm:min-h-9 px-3 num"
-                      aria-pressed={activeSport === sp.id}
-                      onClick={() => {
-                        setActiveSport(sp.id);
-                        if (sp.id !== "basketball") setNbaStatFilter("all");
-                        setCatalogVisibleCount(INITIAL_CATALOG_PAGE_SIZE);
-                        setStreakVisibleCount(INITIAL_STREAK_PAGE_SIZE);
-                      }}
-                    >
-                      {sp.label} ({sp.propCount > 0 ? sp.propCount : sp.streakCount})
-                    </button>
-                  ))}
-                </div>
-
-                <div className="flex items-center gap-2 w-full sm:w-auto min-w-0">
-                  <input
-                    type="search"
-                    inputMode="search"
-                    enterKeyHint="search"
-                    autoCorrect="off"
-                    spellCheck={false}
-                    value={searchQuery}
-                    onChange={(e) => {
-                      setSearchQuery(e.target.value);
-                      setCatalogVisibleCount(INITIAL_CATALOG_PAGE_SIZE);
-                      setStreakVisibleCount(INITIAL_STREAK_PAGE_SIZE);
-                    }}
-                    placeholder="Buscar jugador, equipo o liga…"
-                    aria-label="Buscar jugador, equipo o liga en props"
-                    className="glass-input text-base sm:text-xs min-h-11 sm:min-h-9 px-3 rounded-xl w-full sm:w-64"
-                  />
-                </div>
-              </div>
-
-              {totalNbaProps > 0 || hasAnyMinGuardDiff || hasAnyLineupSignal ? (
-                <div className="flex flex-wrap items-center justify-between gap-2 pt-1 hairline-t">
-                  {totalNbaProps > 0 && (activeSport === "all" || activeSport === "basketball") ? (
-                    <div
-                      className="flex flex-wrap items-center gap-1.5"
-                      role="group"
-                      aria-label="Filtrar mercado NBA"
-                      data-nba-stat-filter=""
-                    >
-                      <span
-                        className="text-[11px] font-bold uppercase tracking-wide pr-1"
-                        style={{ color: "var(--pl-text-muted)" }}
-                      >
-                        NBA:
-                      </span>
-                      <button
-                        type="button"
-                        className="seg-btn text-xs min-h-11 sm:min-h-9 px-2.5 num"
-                        aria-pressed={nbaStatFilter === "all"}
-                        onClick={() => {
-                          setNbaStatFilter("all");
-                          setCatalogVisibleCount(INITIAL_CATALOG_PAGE_SIZE);
-                        }}
-                      >
-                        Todos
-                      </button>
-                      {NBA_STAT_CODE_ORDER.map((code) => {
-                        const count = nbaStatCounts[code];
-                        if (count === 0) return null;
-                        return (
-                          <button
-                            key={code}
-                            type="button"
-                            className="seg-btn text-xs min-h-11 sm:min-h-9 px-2.5 num font-bold"
-                            aria-pressed={nbaStatFilter === code}
-                            onClick={() => {
-                              setActiveSport("basketball");
-                              setNbaStatFilter(code);
-                              setCatalogVisibleCount(INITIAL_CATALOG_PAGE_SIZE);
-                            }}
-                          >
-                            {code} ({count})
-                          </button>
-                        );
-                      })}
-                    </div>
-                  ) : (
-                    <span />
-                  )}
-
-                  <div className="flex flex-wrap items-center gap-1.5">
-                    {hasAnyMinGuardDiff ? (
-                      <button
-                        type="button"
-                        className="seg-btn text-xs min-h-11 sm:min-h-9 px-3 font-semibold"
-                        aria-pressed={onlyMinMinutesGuard}
-                        data-props-min-minutes-toggle=""
-                        onClick={() => {
-                          setOnlyMinMinutesGuard((v) => !v);
-                          setCatalogVisibleCount(INITIAL_CATALOG_PAGE_SIZE);
-                        }}
-                      >
-                        {MIN_SAMPLE_GUARD_LABEL}
-                      </button>
-                    ) : null}
-
-                    {hasAnyLineupSignal ? (
-                      <button
-                        type="button"
-                        className="seg-btn text-xs min-h-11 sm:min-h-9 px-3 font-semibold"
-                        aria-pressed={onlyLineupSignal}
-                        data-props-lineup-toggle=""
-                        onClick={() => {
-                          setOnlyLineupSignal((v) => !v);
-                          setCatalogVisibleCount(INITIAL_CATALOG_PAGE_SIZE);
-                        }}
-                      >
-                        Titular confirmado / probable
-                      </button>
-                    ) : null}
-                  </div>
-                </div>
-              ) : null}
-            </section>
-
-            {/* Catálogo principal de Props calibrados con Spacetime + Momio justo */}
-            {enrichedCatalog.length > 0 ? (
-              <section className="space-y-4" aria-label="Props calibrados por partido">
-                <div className="flex flex-wrap items-center justify-between gap-2">
-                  <h2 className="m-0 text-base sm:text-lg font-extrabold">
-                    Proyecciones individuales calibradas
-                  </h2>
-                  <span className="text-xs num" style={{ color: "var(--pl-text-muted)" }}>
-                    {filteredCatalog.length}{" "}
-                    {filteredCatalog.length === 1 ? "prop disponible" : "props disponibles"}
-                  </span>
-                </div>
-
-                {filteredCatalog.length === 0 ? (
-                  <div className="glass-card glass-ring rounded-2xl p-5 text-xs" style={{ color: "var(--pl-text-muted)" }}>
-                    No hay proyecciones individuales que coincidan con este filtro. Prueba quitando algún criterio o cambiando de deporte.
-                  </div>
-                ) : (
-                  <>
-                    <div className="grid grid-cols-1 lg:grid-cols-2 gap-5">
-                      {filteredCatalog.slice(0, catalogVisibleCount).map((entry) => {
-                        const { prop, statCode, lineupSignal, refereeSummary, minMinutesMet } = entry;
-                        const offset = lineOffsets[prop.id] ?? 0;
-                        const activeLine = Math.min(
-                          prop.maxLine,
-                          Math.max(prop.minLine, prop.baseLine + offset * prop.step),
-                        );
-                        const evalRes = evaluatePropLineProbability(
-                          prop.projectionMean,
-                          prop.projectionSd,
-                          activeLine,
-                        );
-                        const l10Hits = prop.last10.filter((v) => v > activeLine).length;
-                        const l5Sample = prop.last10.slice(-5);
-                        const l5Hits = l5Sample.filter((v) => v > activeLine).length;
-                        const maxVal = Math.max(...prop.last10, activeLine * 1.2, 1);
-
-                        const rawOddsText = propOddsInputs[prop.id] ?? "";
-                        const parsedCustomDec = rawOddsText.trim()
-                          ? parseUserOdds(rawOddsText)
-                          : null;
-                        const hasUserOdds = Boolean(parsedCustomDec && parsedCustomDec > 1.01);
-                        const hasComparableMarketOdds =
-                          hasUserOdds || prop.hasVerifiedMarketQuote === true;
-                        const activeBookOverDec =
-                          hasUserOdds && parsedCustomDec
-                            ? parsedCustomDec
-                            : prop.hasVerifiedMarketQuote
-                              ? prop.marketOverDecimal
-                              : evalRes.fairOverDecimal;
-                        const liveEdgePts = (evalRes.pOver - 1 / activeBookOverDec) * 100;
-
-                        const propPickId = `${prop.id}-over-${activeLine.toFixed(1)}`;
-                        const alreadySealed = journal.some((j) => j.pickId === propPickId);
-                        const isDoubtful =
-                          prop.availabilityStatus === "doubtful" ||
-                          lineupSignal?.status === "doubtful";
-
-                        return (
-                          <article
-                            key={prop.id}
-                            className="glass-card glass-ring rounded-2xl p-5 space-y-4"
-                            data-prop-card={prop.id}
-                          >
-                            <div className="space-y-4">
-                              <div className="flex flex-wrap items-start justify-between gap-2">
-                                <div className="flex items-center gap-3 min-w-0 flex-1">
-                                  <span
-                                    className="inline-flex items-center justify-center rounded-xl size-10 shrink-0"
-                                    style={{
-                                      background: "var(--pl-surface)",
-                                      border: "1px solid var(--pl-border)",
-                                    }}
-                                  >
-                                    <TeamBadge
-                                      league={prop.league}
-                                      slug={prop.teamSlug}
-                                      name={prop.teamName}
-                                      size={28}
-                                    />
-                                  </span>
-                                  <div className="min-w-0">
-                                    <span
-                                      className="text-xs font-bold block truncate num"
-                                      style={{ color: "var(--pl-brand)" }}
-                                    >
-                                      {prop.leagueLabel} · {prop.matchLabel}
-                                      {prop.kickoffLocal ? ` · ${prop.kickoffLocal}` : ""}
-                                    </span>
-                                    <h3 className="m-0 text-base sm:text-lg font-extrabold truncate">
-                                      {prop.playerHref ? (
-                                        <a
-                                          href={prop.playerHref}
-                                          onClick={(e) => {
-                                            if (
-                                              e.metaKey ||
-                                              e.ctrlKey ||
-                                              e.shiftKey ||
-                                              e.altKey ||
-                                              e.button !== 0
-                                            ) {
-                                              return;
-                                            }
-                                            e.preventDefault();
-                                            navigateTo(prop.playerHref!);
-                                          }}
-                                          className="pl-team-link"
-                                        >
-                                          {prop.player}
-                                        </a>
-                                      ) : (
-                                        prop.player
-                                      )}{" "}
-                                      · {prop.statLabel}
-                                    </h3>
-                                  </div>
-                                </div>
-                                <div className="flex flex-wrap items-center gap-1.5 shrink-0">
-                                  {statCode ? (
-                                    <span className="pl-pill pl-pill--info text-[11px] font-extrabold num">
-                                      {statCode}
-                                    </span>
-                                  ) : null}
-                                  <span className="pl-pill text-[11px]">{prop.position}</span>
-                                </div>
-                              </div>
-
-                              {/* Señales limpias de muestra mínima, alineación y disponibilidad */}
-                              {minMinutesMet || lineupSignal || isDoubtful ? (
-                                <div className="flex flex-wrap items-center gap-1.5 text-[11px] num">
-                                  {minMinutesMet ? (
-                                    <span
-                                      className="pl-pill pl-pill--success font-semibold"
-                                      data-prop-sample-guard="met"
-                                    >
-                                      {MIN_SAMPLE_GUARD_LABEL}
-                                      {prop.avgMinutes != null
-                                        ? ` · ${prop.avgMinutes.toFixed(1)} min/p`
-                                        : ""}
-                                    </span>
-                                  ) : null}
-                                  {lineupSignal &&
-                                  (lineupSignal.status === "confirmed" ||
-                                    lineupSignal.status === "probable") ? (
-                                    <span
-                                      className={`pl-pill font-semibold ${
-                                        lineupSignal.status === "confirmed"
-                                          ? "pl-pill--success"
-                                          : "pl-pill--info"
-                                      }`}
-                                      data-prop-lineup-signal={lineupSignal.status}
-                                    >
-                                      {lineupSignal.label}
-                                    </span>
-                                  ) : null}
-                                  {isDoubtful ? (
-                                    <span className="pl-pill pl-pill--warning font-semibold">
-                                      En duda
-                                    </span>
-                                  ) : null}
-                                </div>
-                              ) : null}
-
-                              {/* Scrubber interactivo − / + con botón Base */}
-                              <div className="pl-parlay-surface-tile rounded-xl p-3.5 flex flex-wrap items-center justify-between gap-3">
-                                <div>
-                                  <span
-                                    className="block text-xs"
-                                    style={{ color: "var(--pl-text-muted)" }}
-                                  >
-                                    Línea evaluada ({prop.engineName})
-                                  </span>
-                                  <div className="flex flex-wrap items-baseline gap-2">
-                                    <strong
-                                      className="num text-xl font-extrabold"
-                                      data-prop-line={prop.id}
-                                    >
-                                      {activeLine.toFixed(1)}
-                                    </strong>
-                                    <span
-                                      className="text-xs num font-bold"
-                                      style={{ color: "var(--pl-success)" }}
-                                    >
-                                      Proy. Spacetime: {prop.projectionMean.toFixed(1)}
-                                    </span>
-                                  </div>
-                                </div>
-
-                                <div className="flex items-center gap-2">
-                                  <button
-                                    type="button"
-                                    disabled={offset === 0}
-                                    onClick={() =>
-                                      setLineOffsets((prev) => ({
-                                        ...prev,
-                                        [prop.id]: 0,
-                                      }))
-                                    }
-                                    className="pl-btn-glass text-xs min-h-11 sm:min-h-9 px-2.5 num"
-                                  >
-                                    Base ({prop.baseLine.toFixed(1)})
-                                  </button>
-
-                                  <div
-                                    className="sl-stepper"
-                                    role="group"
-                                    aria-label={`Ajustar línea de ${prop.player}`}
-                                  >
-                                    <button
-                                      type="button"
-                                      className="min-h-11 min-w-11 sm:min-h-9 sm:min-w-9"
-                                      aria-label={`Bajar línea de ${prop.player}`}
-                                      onClick={() =>
-                                        setLineOffsets((prev) => ({
-                                          ...prev,
-                                          [prop.id]: (prev[prop.id] ?? 0) - 1,
-                                        }))
-                                      }
-                                    >
-                                      −
-                                    </button>
-                                    <span className="num">Línea</span>
-                                    <button
-                                      type="button"
-                                      className="min-h-11 min-w-11 sm:min-h-9 sm:min-w-9"
-                                      aria-label={`Subir línea de ${prop.player}`}
-                                      onClick={() =>
-                                        setLineOffsets((prev) => ({
-                                          ...prev,
-                                          [prop.id]: (prev[prop.id] ?? 0) + 1,
-                                        }))
-                                      }
-                                    >
-                                      +
-                                    </button>
-                                  </div>
-                                </div>
-                              </div>
-
-                              {/* Barras L10 planas o resumen de proyección */}
-                              {prop.last10.length > 0 ? (
-                                <div className="space-y-1.5">
-                                  <div className="flex items-center justify-between text-xs num">
-                                    <span style={{ color: "var(--pl-text-muted)" }}>
-                                      Últimos {prop.last10.length} juegos vs línea {activeLine.toFixed(1)}
-                                    </span>
-                                    <strong>
-                                      {l5Sample.length > 0 ? `L${l5Sample.length}: ${l5Hits}/${l5Sample.length} · ` : ""}
-                                      L{prop.last10.length}: {l10Hits}/{prop.last10.length}
-                                    </strong>
-                                  </div>
-                                  <div
-                                    className="grid gap-1.5 items-end h-20 pt-2"
-                                    style={{
-                                      gridTemplateColumns: `repeat(${Math.max(1, prop.last10.length)}, minmax(0, 1fr))`,
-                                    }}
-                                  >
-                                    {prop.last10.map((val, idx) => {
-                                      const hit = val > activeLine;
-                                      const pct = Math.max(
-                                        16,
-                                        Math.round((val / maxVal) * 100),
-                                      );
-                                      return (
-                                        <div
-                                          key={idx}
-                                          className="flex flex-col items-center gap-1 h-full justify-end"
-                                        >
-                                          <div
-                                            className="w-full rounded-t-md transition-[background-color]"
-                                            style={{
-                                              height: `${pct}%`,
-                                              background: hit
-                                                ? "var(--pl-success)"
-                                                : "var(--pl-surface-hover)",
-                                            }}
-                                          />
-                                          <span
-                                            className="text-[10px] num"
-                                            style={{ color: "var(--pl-text-muted)" }}
-                                          >
-                                            {val}
-                                          </span>
-                                        </div>
-                                      );
-                                    })}
-                                  </div>
-                                </div>
-                              ) : (
-                                <div
-                                  className="rounded-xl px-3 py-2 text-xs num flex items-center justify-between gap-2"
-                                  style={{
-                                    background: "var(--pl-surface-soft)",
-                                    border: "1px solid var(--pl-border-subtle)",
-                                    color: "var(--pl-text-muted)",
-                                  }}
-                                >
-                                  <span>Distribución Spacetime por aparición</span>
-                                  <strong style={{ color: "var(--pl-text)" }}>
-                                    {prop.projectionMean.toFixed(2)} ± {prop.projectionSd.toFixed(2)}
-                                  </strong>
-                                </div>
-                              )}
-
-                              <div className="grid grid-cols-2 gap-2.5 text-xs num">
-                                <div
-                                  className="rounded-xl p-3"
-                                  style={{ background: "var(--pl-surface)" }}
-                                >
-                                  <span
-                                    className="block"
-                                    style={{ color: "var(--pl-text-muted)" }}
-                                  >
-                                    Más de {activeLine.toFixed(1)}
-                                  </span>
-                                  <strong
-                                    className="text-sm sm:text-base font-extrabold"
-                                    style={{ color: "var(--pl-brand)" }}
-                                  >
-                                    {(evalRes.pOver * 100).toFixed(1)} % · Justo{" "}
-                                    {formatOddsValue(evalRes.fairOverDecimal, oddsFormat)}
-                                  </strong>
-                                </div>
-                                <div
-                                  className="rounded-xl p-3"
-                                  style={{ background: "var(--pl-surface)" }}
-                                >
-                                  <span
-                                    className="block"
-                                    style={{ color: "var(--pl-text-muted)" }}
-                                  >
-                                    Menos de {activeLine.toFixed(1)}
-                                  </span>
-                                  <strong className="text-sm sm:text-base font-extrabold">
-                                    {(evalRes.pUnder * 100).toFixed(1)} % · Justo{" "}
-                                    {formatOddsValue(evalRes.fairUnderDecimal, oddsFormat)}
-                                  </strong>
-                                </div>
-                              </div>
-
-                              {/* Contexto arbitral cuando el partido tiene datos del silbante */}
-                              {refereeSummary ? (
-                                <div
-                                  className="rounded-xl px-3 py-2 flex flex-wrap items-center justify-between gap-2 text-xs num"
-                                  style={{
-                                    background: "var(--pl-surface)",
-                                    border: "1px solid var(--pl-row-rule)",
-                                  }}
-                                  data-prop-referee-context=""
-                                >
-                                  <span className="inline-flex items-center gap-1.5 min-w-0 font-semibold">
-                                    <MaestroIcon name="whistle" size={12} />
-                                    <span className="truncate">{refereeSummary.name}</span>
-                                  </span>
-                                  <span
-                                    className="inline-flex flex-wrap items-center gap-2"
-                                    style={{ color: "var(--pl-text-secondary)" }}
-                                  >
-                                    {refereeSummary.avgYellow !== null ? (
-                                      <span className="inline-flex items-center gap-1">
-                                        <SportEventIcon kind="yellow" size={11} />
-                                        <span>{refereeSummary.avgYellow.toFixed(1)} amar./p</span>
-                                      </span>
-                                    ) : null}
-                                    {refereeSummary.avgFouls !== null ? (
-                                      <span>{refereeSummary.avgFouls.toFixed(1)} faltas/p</span>
-                                    ) : null}
-                                    {refereeSummary.rigorLabel ? (
-                                      <span className="pl-pill text-[10px] font-bold">
-                                        {refereeSummary.rigorLabel}
-                                      </span>
-                                    ) : null}
-                                  </span>
-                                </div>
-                              ) : null}
-
-                              {/* Comparador Geodesic contra el momio del usuario */}
-                              <div
-                                className="rounded-2xl p-3 flex flex-wrap items-center justify-between gap-2 text-xs"
-                                style={{ background: "var(--pl-surface)" }}
-                              >
-                                <div className="flex flex-wrap items-center gap-2">
-                                  <label
-                                    htmlFor={`prop-odds-${prop.id}`}
-                                    className="font-bold inline-flex items-center gap-1"
-                                  >
-                                    <MaestroIcon
-                                      name="activity"
-                                      size={13}
-                                      style={{ color: "var(--pl-brand)" }}
-                                    />
-                                    <span>Tu momio Over:</span>
-                                  </label>
-                                  <input
-                                    id={`prop-odds-${prop.id}`}
-                                    type="text"
-                                    inputMode="decimal"
-                                    autoCorrect="off"
-                                    spellCheck={false}
-                                    value={rawOddsText}
-                                    onChange={(e) =>
-                                      setPropOddsInputs((prev) => ({
-                                        ...prev,
-                                        [prop.id]: e.target.value,
-                                      }))
-                                    }
-                                    placeholder={formatOddsValue(
-                                      evalRes.fairOverDecimal,
-                                      oddsFormat,
-                                    )}
-                                    className="glass-input px-2.5 py-1 text-base sm:text-xs font-bold num min-h-11 sm:min-h-9 w-28"
-                                  />
-                                </div>
-
-                                {hasComparableMarketOdds ? (
-                                  <span
-                                    className={`pl-pill num ${
-                                      liveEdgePts >= 0
-                                        ? "pl-pill--success"
-                                        : "pl-pill--warning"
-                                    }`}
-                                  >
-                                    Ventaja:{" "}
-                                    {liveEdgePts >= 0
-                                      ? `+${liveEdgePts.toFixed(1)}`
-                                      : liveEdgePts.toFixed(1)}{" "}
-                                    pts
-                                  </span>
-                                ) : (
-                                  <span className="pl-pill num">
-                                    Momio justo {formatOddsValue(evalRes.fairOverDecimal, oddsFormat)}
-                                  </span>
-                                )}
-                              </div>
-
-                              <p
-                                className="m-0 text-xs leading-relaxed"
-                                style={{ color: "var(--pl-text-secondary)" }}
-                              >
-                                {prop.contextNote}
-                                {prop.injuryNote ? ` · Nota médica: ${prop.injuryNote}` : ""}
-                              </p>
-
-                              <div className="flex flex-wrap items-center justify-between gap-2 pt-1 hairline-t">
-                                <span
-                                  className="text-xs num"
-                                  style={{ color: "var(--pl-text-muted)" }}
-                                >
-                                  1.00u ·{" "}
-                                  {hasComparableMarketOdds
-                                    ? `Casa ${formatOddsValue(activeBookOverDec, oddsFormat)}`
-                                    : `Justo ${formatOddsValue(evalRes.fairOverDecimal, oddsFormat)}`}
-                                </span>
-                                <button
-                                  type="button"
-                                  className="pl-btn-primary text-xs min-h-11 sm:min-h-9 px-3.5 inline-flex items-center gap-1.5"
-                                  onClick={() =>
-                                    handleSealProp(
-                                      prop,
-                                      activeLine,
-                                      evalRes.pOver,
-                                      evalRes.fairOverDecimal,
-                                      activeBookOverDec,
-                                    )
-                                  }
-                                >
-                                  <MaestroIcon
-                                    name={alreadySealed ? "check" : "ticket"}
-                                    size={13}
-                                  />
-                                  <span>
-                                    {alreadySealed
-                                      ? "Prop sellado en Bitácora"
-                                      : "Sellar Prop en mi Bitácora"}
-                                  </span>
-                                </button>
-                              </div>
-                            </div>
-                          </article>
-                        );
-                      })}
-                    </div>
-
-                    {filteredCatalog.length > catalogVisibleCount ? (
-                      <div className="flex justify-center pt-2">
-                        <button
-                          type="button"
-                          className="pl-btn-glass min-h-11 sm:min-h-9 px-5 text-xs font-bold num"
-                          onClick={() =>
-                            setCatalogVisibleCount((c) => c + INITIAL_CATALOG_PAGE_SIZE)
-                          }
-                        >
-                          Mostrar más props ({filteredCatalog.length - catalogVisibleCount} restantes)
-                        </button>
-                      </div>
-                    ) : null}
-                  </>
-                )}
-              </section>
-            ) : null}
-
-            {/* Explorador de tendencias contra línea deslizable */}
-            {streakCards.length > 0 ? (
-              <section className="space-y-4" aria-label="Tendencias de jugadores contra línea">
-                <div className="flex flex-wrap items-center justify-between gap-2">
-                  <div className="min-w-0">
-                    <h2 className="m-0 text-base sm:text-lg font-extrabold">
-                      Rachas verificadas contra línea deslizable
-                    </h2>
-                    <p className="m-0 text-xs" style={{ color: "var(--pl-text-muted)" }}>
-                      Últimos 5, 10 o 20 juegos reales con probabilidad ajustada y momio justo calibrado.
-                    </p>
-                  </div>
-                  <span className="pl-pill text-xs num">
-                    {filteredStreaks.length} jugadores
-                  </span>
-                </div>
-
-                {filteredStreaks.length > 0 ? (
-                  <>
-                    <div className="pl-props-grid">
-                      {filteredStreaks.slice(0, streakVisibleCount).map((card) => (
-                        <PlayerPropStreakCard
-                          key={card.id}
-                          {...card}
-                          oddsFormat={oddsFormat}
-                          onNavigate={navigateTo}
-                        />
-                      ))}
-                    </div>
-                    {filteredStreaks.length > streakVisibleCount ? (
-                      <div className="flex justify-center pt-2">
-                        <button
-                          type="button"
-                          className="pl-btn-glass min-h-11 sm:min-h-9 px-5 text-xs font-bold num"
-                          onClick={() =>
-                            setStreakVisibleCount((c) => c + INITIAL_STREAK_PAGE_SIZE)
-                          }
-                        >
-                          Mostrar más tendencias ({filteredStreaks.length - streakVisibleCount} restantes)
-                        </button>
-                      </div>
-                    ) : null}
-                  </>
-                ) : (
-                  <p className="m-0 text-xs" style={{ color: "var(--pl-text-muted)" }}>
-                    Ningún jugador en tendencias coincide con el filtro actual.
-                  </p>
-                )}
-              </section>
-            ) : null}
-          </>
-        )}
-      </ClubWorkspaceShell>
-    </AtmosphereStage>
-  );
-}
-
-/** /app/momios: compara tu momio contra el justo (ver OddsCompareView). */
 export function MomiosExplorerClubView(): React.JSX.Element {
   return <OddsCompareClubView />;
 }

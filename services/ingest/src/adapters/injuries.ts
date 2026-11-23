@@ -13,6 +13,7 @@ import { dirname, resolve } from "node:path";
 import {
   asLeagueId,
   asTeamId,
+  parseStrictFiniteNumber,
   type InjuryStatus,
   type LeagueInjuriesFile,
   type LeagueSnapshot,
@@ -150,15 +151,15 @@ export function parseNflverseInjuriesCsv(params: {
   if (targetWeek === null) {
     let maxW = 0;
     for (const r of rows) {
-      const w = Number(r.week ?? 0);
-      if (Number.isFinite(w) && w > maxW) maxW = w;
+      const w = parseStrictFiniteNumber(r.week) ?? 0;
+      if (w > maxW) maxW = w;
     }
     targetWeek = maxW > 0 ? maxW : null;
   }
 
   const dedup = new Map<string, TeamInjuryEntry>();
   for (const r of rows) {
-    if (targetWeek !== null && Number(r.week ?? 0) !== targetWeek) continue;
+    if (targetWeek !== null && (parseStrictFiniteNumber(r.week) ?? 0) !== targetWeek) continue;
     const rawTeam = (r.team ?? "").trim();
     const player = (r.full_name ?? r.player_name ?? "").trim();
     const reportStatus = (r.report_status ?? r.game_status ?? "").trim();
@@ -321,7 +322,7 @@ function readActiveNflWeek(snapshotsRoot: string): { seasonYear: number; week: n
   try {
     const snap = JSON.parse(readFileSync(latestPath, "utf8")) as LeagueSnapshot;
     const yearMatch = /^(\d{4})/.exec(String(snap.season));
-    const seasonYear = yearMatch ? Number(yearMatch[1]) : 2026;
+    const seasonYear = yearMatch ? Number.parseInt(yearMatch[1]!, 10) : 2026;
     const upcomingWeeks = snap.games
       .filter((g) => g.status !== "final" && typeof g.week === "number")
       .map((g) => g.week!);

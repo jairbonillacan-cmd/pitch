@@ -1,5 +1,6 @@
 import React from "react";
 import type { Meta, StoryObj } from "@storybook/react-vite";
+import { SofascoreCard } from "../../../components/ui/primitives";
 import type { BookQuoteItem } from "../../types";
 import { BookmakerComparePill } from "./BookmakerComparePill";
 
@@ -254,59 +255,63 @@ export const FormatoAmericanoYCompactoClaro: Story = {
 export const VarianteInlineMercadosOscuro: Story = {
   globals: { theme: "dark" },
   render: () => (
-    <div className="glass-card glass-ring rounded-2xl p-4" style={{ display: "grid", gap: 12, maxWidth: 820 }}>
-      <div style={{ display: "flex", flexWrap: "wrap", alignItems: "center", justifyContent: "space-between", gap: 8 }}>
-        <strong className="text-sm">América gana (1X2)</strong>
-        <BookmakerComparePill
-          probability={0.58}
-          fairDecimal={1.72}
-          houseDecimal={1.94}
-          houseBookLabel="Caliente"
-          openingDecimal={2.12}
-          movementSignal="STEAM"
-          capturedAtUtc={CAPTURED_UTC}
-          bookQuotes={QUOTES_STEAM_MX}
-          oddsFormat="decimal"
-          variant="inline"
-          showMultiBookQuotes
-          showCaptureStamp
-        />
-      </div>
+    <div style={{ maxWidth: 820 }}>
+      <SofascoreCard title="Mercados en línea" meta="Comparativa MX">
+        <div style={{ display: "grid", gap: 12 }}>
+          <div style={{ display: "flex", flexWrap: "wrap", alignItems: "center", justifyContent: "space-between", gap: 8 }}>
+            <strong className="text-sm">América gana (1X2)</strong>
+            <BookmakerComparePill
+              probability={0.58}
+              fairDecimal={1.72}
+              houseDecimal={1.94}
+              houseBookLabel="Caliente"
+              openingDecimal={2.12}
+              movementSignal="STEAM"
+              capturedAtUtc={CAPTURED_UTC}
+              bookQuotes={QUOTES_STEAM_MX}
+              oddsFormat="decimal"
+              variant="inline"
+              showMultiBookQuotes
+              showCaptureStamp
+            />
+          </div>
 
-      <div style={{ display: "flex", flexWrap: "wrap", alignItems: "center", justifyContent: "space-between", gap: 8 }}>
-        <strong className="text-sm">Más de 2.5 goles</strong>
-        <BookmakerComparePill
-          probability={0.52}
-          fairDecimal={1.92}
-          houseDecimal={2.08}
-          houseBookLabel="Bet365"
-          openingDecimal={2.16}
-          movementSignal="SHORTENING"
-          capturedAtUtc={CAPTURED_UTC}
-          bookQuotes={QUOTES_SHORTENING_MX}
-          oddsFormat="decimal"
-          variant="inline"
-          showCasaPrefix
-          showMultiBookQuotes
-        />
-      </div>
+          <div style={{ display: "flex", flexWrap: "wrap", alignItems: "center", justifyContent: "space-between", gap: 8 }}>
+            <strong className="text-sm">Más de 2.5 goles</strong>
+            <BookmakerComparePill
+              probability={0.52}
+              fairDecimal={1.92}
+              houseDecimal={2.08}
+              houseBookLabel="Bet365"
+              openingDecimal={2.16}
+              movementSignal="SHORTENING"
+              capturedAtUtc={CAPTURED_UTC}
+              bookQuotes={QUOTES_SHORTENING_MX}
+              oddsFormat="decimal"
+              variant="inline"
+              showCasaPrefix
+              showMultiBookQuotes
+            />
+          </div>
 
-      <div style={{ display: "flex", flexWrap: "wrap", alignItems: "center", justifyContent: "space-between", gap: 8 }}>
-        <strong className="text-sm">Ambos anotan: Sí</strong>
-        <BookmakerComparePill
-          probability={0.49}
-          fairDecimal={2.04}
-          houseDecimal={2.25}
-          houseBookLabel="Codere"
-          openingDecimal={2.08}
-          movementSignal="DRIFTING"
-          capturedAtUtc={CAPTURED_UTC}
-          bookQuotes={QUOTES_DRIFTING_MX}
-          oddsFormat="american"
-          variant="inline"
-          showMultiBookQuotes
-        />
-      </div>
+          <div style={{ display: "flex", flexWrap: "wrap", alignItems: "center", justifyContent: "space-between", gap: 8 }}>
+            <strong className="text-sm">Ambos anotan: Sí</strong>
+            <BookmakerComparePill
+              probability={0.49}
+              fairDecimal={2.04}
+              houseDecimal={2.25}
+              houseBookLabel="Codere"
+              openingDecimal={2.08}
+              movementSignal="DRIFTING"
+              capturedAtUtc={CAPTURED_UTC}
+              bookQuotes={QUOTES_DRIFTING_MX}
+              oddsFormat="american"
+              variant="inline"
+              showMultiBookQuotes
+            />
+          </div>
+        </div>
+      </SofascoreCard>
     </div>
   ),
 };

@@ -1,4 +1,4 @@
-import type { LeagueId } from "@pitchlab/contracts";
+import { parseStrictFiniteNumber, type LeagueId } from "@pitchlab/contracts";
 import {
   DEFAULT_PREFERRED_BOOKS,
   formatCanonicalBookLabel,
@@ -18,8 +18,37 @@ export const SHORT_INVITE_HOST = "pitchlab.mx";
 export const REFERRAL_CODE_REGEX = /^[A-Z0-9-]{4,24}$/i;
 export const PREFS_STORAGE_KEY = "pl-prefs-v1";
 export const CFDI_STORAGE_KEY = "pl-cfdi-v1";
+export const MAX_PREFERRED_BOOKMAKERS_PREF = 12;
+export const MAX_SAVED_VIEWS_PREF = 20;
+export const ACCOUNT_SAVED_VIEWS_STORAGE_KEY = "pl-screener-views-v1";
 
-/** Valida y normaliza en mayúsculas un código de invitación; devuelve null si no es válido. */
+export type AccountSavedViewSport = "all" | "futbol" | "nfl" | "nba" | "nhl" | "mlb";
+export type AccountSavedViewBand = "all" | "alta" | "media" | "baja";
+export type AccountSavedViewKind =
+  | "all"
+  | "resultado"
+  | "goles"
+  | "conteos"
+  | "ambos"
+  | "handicap";
+export type AccountSavedViewSort = "p" | "hora" | "momio" | "ventaja" | "relevancia";
+export type AccountSavedViewWindow = "all" | "today" | "next48h";
+
+export interface AccountSavedView {
+  readonly id: string;
+  readonly name: string;
+  readonly sport: AccountSavedViewSport;
+  readonly league: string;
+  readonly band: AccountSavedViewBand;
+  readonly kind: AccountSavedViewKind;
+  readonly sort: AccountSavedViewSort;
+  readonly onlyPositiveEdge: boolean;
+  readonly minOddsStep: number;
+  readonly maxOddsStep: number;
+  readonly window: AccountSavedViewWindow;
+  readonly pinToHomeHub: boolean;
+}
+
 export function normalizeReferralCode(raw: string | null | undefined): string | null {
   if (typeof raw !== "string") return null;
   const trimmed = raw.trim();
@@ -31,18 +60,15 @@ export function isValidReferralCode(raw: string | null | undefined): boolean {
   return normalizeReferralCode(raw) !== null;
 }
 
-/** Enlace corto visible sin protocolo: pitchlab.mx/i/{CÓDIGO}. */
 export function formatShortInviteDisplay(code: string): string {
   const normalized = normalizeReferralCode(code) ?? code.trim().toUpperCase();
   return `${SHORT_INVITE_HOST}/i/${normalized}`;
 }
 
-/** Enlace corto completo para compartir: https://pitchlab.mx/i/{CÓDIGO}. */
 export function formatShortInviteUrl(code: string): string {
   return `https://${formatShortInviteDisplay(code)}`;
 }
 
-/** Mensaje para compartir en WhatsApp, X o portapapeles usando cifras de MEMBERSHIP_SPEC. */
 export function buildInviteShareMessage(code: string): string {
   const url = formatShortInviteUrl(code);
   return `Te invito a PitchLab: ${MEMBERSHIP_SPEC.referralTrialDays} días sin costo y $${MEMBERSHIP_SPEC.referralFriendFirstMonthMxn} MXN en tu primer mes. Cuando pagas tu primer mes, los dos recibimos +${MEMBERSHIP_SPEC.referralBothRewardDays} días.\n${url}`;
@@ -56,10 +82,6 @@ export function buildXShareHref(code: string): string {
   return `https://x.com/intent/post?text=${encodeURIComponent(buildInviteShareMessage(code))}`;
 }
 
-/**
- * Código de ejemplo determinístico derivado del @usuario cuando accountsEnabled es false.
- * Para @jair produce JAIR-2611.
- */
 export function deriveExampleReferralCode(handle: string): string {
   const clean = handle
     .replace(/^@/, "")
@@ -105,7 +127,6 @@ function computeInitials(displayName: string | null | undefined, cleanHandle: st
   return cleanHandle.replace(/[^a-zA-Z0-9]/g, "").slice(0, 2).toUpperCase() || "PL";
 }
 
-/** Resuelve @usuario e iniciales desde la sesión real o desde el rol activo de la beta. */
 export function resolveSessionIdentity(
   viewerRole: ViewerRole,
   serverProfile?: ServerProfileSummary | null,
@@ -151,7 +172,6 @@ export function resolveSessionIdentity(
   };
 }
 
-/** Valida que quede al menos una liga activa al alternar una liga en Preferencias. */
 export function toggleLeagueSelection(
   current: readonly LeagueId[],
   target: LeagueId,
@@ -195,6 +215,7 @@ export interface StoredAccountPrefsV1 {
   recordPrivacy: RecordPrivacy;
   bankrollStartMxn: number | null;
   preferredBooks: string[];
+  savedViews?: AccountSavedView[];
 }
 
 export const DEFAULT_STORED_PREFS_V1: StoredAccountPrefsV1 = {
@@ -206,7 +227,7 @@ export const DEFAULT_STORED_PREFS_V1: StoredAccountPrefsV1 = {
   alerts: {
     valueAlerts: true,
     beforeMatch: true,
-    pickSettled: true,
+    pickSettled: false,
     billingReminder: true,
     weeklyDigest: false,
     monthlyRecord: false,
@@ -222,6 +243,7 @@ export const DEFAULT_STORED_PREFS_V1: StoredAccountPrefsV1 = {
   recordPrivacy: structuredClone(DEFAULT_RECORD_PRIVACY),
   bankrollStartMxn: null,
   preferredBooks: [...DEFAULT_PREFERRED_BOOKS],
+  savedViews: [],
 };
 
 function isValidIanaTimeZone(tz: string): boolean {
@@ -232,6 +254,191 @@ function isValidIanaTimeZone(tz: string): boolean {
     void err;
     return false;
   }
+}
+
+export function sanitizePreferredBookmakersPref(raw: unknown): string[] {
+  return sanitizePreferredBooks(raw).slice(0, MAX_PREFERRED_BOOKMAKERS_PREF);
+}
+
+const VALID_SAVED_SPORTS = new Set<AccountSavedViewSport>([
+  "all",
+  "futbol",
+  "nfl",
+  "nba",
+  "nhl",
+  "mlb",
+]);
+const VALID_SAVED_BANDS = new Set<AccountSavedViewBand>(["all", "alta", "media", "baja"]);
+const VALID_SAVED_KINDS = new Set<AccountSavedViewKind>([
+  "all",
+  "resultado",
+  "goles",
+  "conteos",
+  "ambos",
+  "handicap",
+]);
+const VALID_SAVED_SORTS = new Set<AccountSavedViewSort>([
+  "p",
+  "hora",
+  "momio",
+  "ventaja",
+  "relevancia",
+]);
+const VALID_SAVED_WINDOWS = new Set<AccountSavedViewWindow>(["all", "today", "next48h"]);
+
+function stripControlText(raw: unknown, maxLen: number): string {
+  if (typeof raw !== "string") return "";
+  let out = "";
+  for (const ch of raw) {
+    const code = ch.charCodeAt(0);
+    if (code < 32 || code === 127 || ch === "<" || ch === ">") continue;
+    out += ch;
+  }
+  return out.trim().slice(0, maxLen);
+}
+
+export function sanitizeAccountSavedViews(raw: unknown): AccountSavedView[] {
+  if (!Array.isArray(raw)) return [];
+  const out: AccountSavedView[] = [];
+  const seenIds = new Set<string>();
+
+  for (const item of raw) {
+    if (!item || typeof item !== "object" || Array.isArray(item)) continue;
+    const obj = item as Record<string, unknown>;
+    const id = stripControlText(obj.id, 48);
+    const name = stripControlText(obj.name, 40);
+    if (id.length < 2 || name.length < 2 || seenIds.has(id)) continue;
+    seenIds.add(id);
+
+    const rawSport = stripControlText(obj.sport, 24).toLowerCase() as AccountSavedViewSport;
+    const sport: AccountSavedViewSport = VALID_SAVED_SPORTS.has(rawSport) ? rawSport : "all";
+    const rawLeague = stripControlText(obj.league, 48);
+    const league = rawLeague.length > 0 ? rawLeague : "all";
+    const rawBand = stripControlText(obj.band, 24).toLowerCase() as AccountSavedViewBand;
+    const band: AccountSavedViewBand = VALID_SAVED_BANDS.has(rawBand) ? rawBand : "all";
+    const rawKind = stripControlText(obj.kind, 24).toLowerCase() as AccountSavedViewKind;
+    const kind: AccountSavedViewKind = VALID_SAVED_KINDS.has(rawKind) ? rawKind : "all";
+    const rawSort = stripControlText(obj.sort, 24).toLowerCase() as AccountSavedViewSort;
+    const sort: AccountSavedViewSort = VALID_SAVED_SORTS.has(rawSort) ? rawSort : "p";
+    const rawWindow = stripControlText(obj.window, 24) as AccountSavedViewWindow;
+    const windowVal: AccountSavedViewWindow = VALID_SAVED_WINDOWS.has(rawWindow)
+      ? rawWindow
+      : "all";
+
+    const parsedMin = parseStrictFiniteNumber(obj.minOddsStep);
+    const parsedMax = parseStrictFiniteNumber(obj.maxOddsStep);
+    const rawMin = parsedMin !== null ? Math.max(0, Math.min(99, Math.round(parsedMin))) : 0;
+    const rawMax = parsedMax !== null ? Math.max(1, Math.min(100, Math.round(parsedMax))) : 100;
+    const minOddsStep = Math.min(rawMin, rawMax - 1);
+    const maxOddsStep = Math.max(rawMax, minOddsStep + 1);
+
+    out.push({
+      id,
+      name,
+      sport,
+      league,
+      band,
+      kind,
+      sort,
+      onlyPositiveEdge: Boolean(obj.onlyPositiveEdge),
+      minOddsStep,
+      maxOddsStep,
+      window: windowVal,
+      pinToHomeHub: Boolean(obj.pinToHomeHub),
+    });
+
+    if (out.length >= MAX_SAVED_VIEWS_PREF) break;
+  }
+
+  return out;
+}
+
+export function serializeSavedViewsForApi(
+  views: readonly AccountSavedView[],
+): AccountSavedView[] {
+  return sanitizeAccountSavedViews(views).map((v) => ({
+    id: v.id,
+    name: v.name,
+    sport: v.sport,
+    league: v.league,
+    band: v.band,
+    kind: v.kind,
+    sort: v.sort,
+    onlyPositiveEdge: v.onlyPositiveEdge,
+    minOddsStep: v.minOddsStep,
+    maxOddsStep: v.maxOddsStep,
+    window: v.window,
+    pinToHomeHub: v.pinToHomeHub,
+  }));
+}
+
+export function readAccountSavedViews(): AccountSavedView[] {
+  if (typeof window === "undefined") return [];
+  try {
+    const prefsViews = sanitizeAccountSavedViews(readStoredPrefs().savedViews);
+    const rawScreener = window.localStorage.getItem(ACCOUNT_SAVED_VIEWS_STORAGE_KEY);
+    const screenerViews = rawScreener
+      ? sanitizeAccountSavedViews(JSON.parse(rawScreener))
+      : [];
+    const byId = new Map<string, AccountSavedView>();
+    for (const item of screenerViews) {
+      byId.set(item.id, item);
+    }
+    for (const item of prefsViews) {
+      byId.set(item.id, item);
+    }
+    return Array.from(byId.values()).slice(0, MAX_SAVED_VIEWS_PREF);
+  } catch (err) {
+    void err;
+    return [];
+  }
+}
+
+export function writeAccountSavedViews(views: readonly AccountSavedView[]): void {
+  if (typeof window === "undefined") return;
+  const clean = serializeSavedViewsForApi(views);
+  try {
+    window.localStorage.setItem(ACCOUNT_SAVED_VIEWS_STORAGE_KEY, JSON.stringify(clean));
+  } catch (err) {
+    void err;
+  }
+  const currentPrefs = readStoredPrefs();
+  writeStoredPrefs({ ...currentPrefs, savedViews: clean });
+}
+
+const SPORT_LABELS_ES: Readonly<Record<AccountSavedViewSport, string>> = {
+  all: "Todos los deportes",
+  futbol: "Fútbol",
+  nfl: "NFL",
+  nba: "NBA",
+  nhl: "NHL",
+  mlb: "MLB",
+};
+
+const BAND_LABELS_ES: Readonly<Record<AccountSavedViewBand, string>> = {
+  all: "",
+  alta: "Prob. alta",
+  media: "Prob. media",
+  baja: "Cuota alta",
+};
+
+const WINDOW_LABELS_ES: Readonly<Record<AccountSavedViewWindow, string>> = {
+  all: "",
+  today: "Hoy",
+  next48h: "Próximas 48 h",
+};
+
+export function describeSavedViewFilters(view: AccountSavedView): string {
+  const parts: string[] = [SPORT_LABELS_ES[view.sport] ?? "Todos los deportes"];
+  if (view.league !== "all") {
+    parts.push(view.league);
+  }
+  const bandLabel = BAND_LABELS_ES[view.band];
+  if (bandLabel) parts.push(bandLabel);
+  if (view.onlyPositiveEdge) parts.push("Solo EV+");
+  const windowLabel = WINDOW_LABELS_ES[view.window];
+  if (windowLabel) parts.push(windowLabel);
+  return parts.join(" · ");
 }
 
 export function readStoredPrefs(): StoredAccountPrefsV1 {
@@ -341,8 +548,9 @@ export function readStoredPrefs(): StoredAccountPrefsV1 {
           : null,
       preferredBooks:
         parsed.preferredBooks !== undefined
-          ? sanitizePreferredBooks(parsed.preferredBooks)
+          ? sanitizePreferredBookmakersPref(parsed.preferredBooks)
           : [...DEFAULT_PREFERRED_BOOKS],
+      savedViews: sanitizeAccountSavedViews(parsed.savedViews),
     };
   } catch (err) {
     void err;
@@ -377,11 +585,6 @@ export const DEFAULT_CFDI_DRAFT_V1: StoredCfdiDraftV1 = {
   cpFiscal: "",
 };
 
-/**
- * Por seguridad (SEC-15), los datos fiscales (RFC, razón social, CP) NO se persisten en
- * `localStorage` en texto plano. Esta lectura purga cualquier rastro heredado de `pl-cfdi-v1`
- * y devuelve siempre el borrador limpio en memoria.
- */
 export function readStoredCfdiDraft(): StoredCfdiDraftV1 {
   if (typeof window !== "undefined") {
     try {
@@ -411,14 +614,19 @@ const RFC_PERSONA_FISICA_REGEX =
 
 function hasValidRfcCalendarDate(match: RegExpExecArray | null): boolean {
   if (!match) return false;
-  const fullYear = 2000 + Number(match[1]);
-  const month = Number(match[2]);
-  const day = Number(match[3]);
+  const yearPart = parseStrictFiniteNumber(match[1]);
+  const month = parseStrictFiniteNumber(match[2]);
+  const day = parseStrictFiniteNumber(match[3]);
+  if (yearPart === null || month === null || day === null) return false;
+  const fullYear = 2000 + yearPart;
   const dt = new Date(Date.UTC(fullYear, month - 1, day));
-  return dt.getUTCFullYear() === fullYear && dt.getUTCMonth() === month - 1 && dt.getUTCDate() === day;
+  return (
+    dt.getUTCFullYear() === fullYear &&
+    dt.getUTCMonth() === month - 1 &&
+    dt.getUTCDate() === day
+  );
 }
 
-/** Valida estructura SAT de RFC (12 caracteres persona moral, 13 persona física), fecha calendario y coherencia con régimen. */
 export function validateMexicanRfc(
   rawRfc: string,
   regimenFiscal?: string,
@@ -440,7 +648,7 @@ export function validateMexicanRfc(
     if (!hasValidRfcCalendarDate(RFC_PERSONA_FISICA_REGEX.exec(cleaned))) {
       return {
         valid: false,
-        error: "Para persona física, el RFC debe tener 13 caracteres válidos (p. ej. ABCD890123XYZ).",
+        error: "Para persona física, el RFC debe tener 13 caracteres válidos ante el SAT.",
       };
     }
     return { valid: true };
@@ -457,7 +665,6 @@ export function validateMexicanRfc(
   return { valid: true };
 }
 
-/** Formatea la hora de inicio (HH:MM) en la zona horaria elegida por el socio. */
 export function formatKickoffByTimezone(
   kickoffUtc: string | null | undefined,
   fallbackLocal: string,
@@ -488,13 +695,11 @@ export function formatKickoffByTimezone(
   }
 }
 
-/** Neutraliza inyección de fórmulas en celdas de texto al exportar CSV para Excel / Sheets (SEC-18). */
 export function sanitizeCsvCell(raw: string): string {
   const escaped = raw.replace(/"/g, '""');
   return /^[=+\-@\t\r]/.test(escaped.trimStart()) ? `'${escaped}` : escaped;
 }
 
-/** Convierte un saldo en unidades a referencia privada en MXN. */
 export function formatUnitsAsMxn(units: number, unitMxn: number): string {
   const safeUnit = Number.isFinite(unitMxn) && unitMxn > 0 ? unitMxn : 250;
   const safeUnits = Number.isFinite(units) ? units : 0;
@@ -503,10 +708,6 @@ export function formatUnitsAsMxn(units: number, unitMxn: number): string {
   return `${sign}$${amount.toLocaleString("es-MX")} MXN`;
 }
 
-/**
- * Casas de apuestas prioritarias para México y línea sharp de referencia
- * (en orden exacto de visualización en Preferencias y comparadores).
- */
 export const PRIORITY_MX_BOOKMAKER_IDS = [
   "pinnacle",
   "bet365",
@@ -530,10 +731,6 @@ export interface PartitionedBookmakers {
   readonly others: readonly BookmakerOption[];
 }
 
-/**
- * Separa y ordena las casas prioritarias MX (`Pinnacle`, `Bet365`, `Codere`, `Betcris`, `Caliente`)
- * del resto del catálogo manteniendo estable el orden del resto.
- */
 export function partitionPriorityBookmakers(
   options: readonly BookmakerOption[],
 ): PartitionedBookmakers {
@@ -554,7 +751,6 @@ export function partitionPriorityBookmakers(
   return { priorityMx, others };
 }
 
-/** Resumen corto y legible de casas seleccionadas (priorizando el orden MX). */
 export function formatPreferredBooksSummary(bookIds: readonly string[]): string {
   if (bookIds.length === 0) return "Sin casas";
   const ordered = [...bookIds].sort((a, b) => {
@@ -567,7 +763,6 @@ export function formatPreferredBooksSummary(bookIds: readonly string[]): string 
   return extra > 0 ? `${firstTwo.join(", ")} +${extra}` : firstTwo.join(", ");
 }
 
-/** Vista previa tabular para el selector de formato de momios (Americano MX vs Decimal). */
 export function getOddsFormatPreview(format: OddsFormat): {
   readonly label: string;
   readonly shortExample: string;
@@ -589,4 +784,3 @@ export function getOddsFormatPreview(format: OddsFormat): {
     sampleFair: "56.0 % → −127",
   };
 }
-

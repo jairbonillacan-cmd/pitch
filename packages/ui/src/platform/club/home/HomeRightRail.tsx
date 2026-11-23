@@ -26,10 +26,12 @@ const TopPickRailItem = React.memo(function TopPickRailItem({
   rank,
   game,
   pick,
+  onSelectGame,
 }: {
   readonly rank: number;
   readonly game: PlatformGame;
   readonly pick: MatchPick;
+  readonly onSelectGame?: (game: PlatformGame) => void;
 }): React.JSX.Element {
   const { oddsFormat, userTimezone } = usePlatformCore();
   const { addPickToParlay, removePickFromParlay, navigateTo, prefetchRoute } = usePlatformActions();
@@ -45,11 +47,20 @@ const TopPickRailItem = React.memo(function TopPickRailItem({
           onPointerEnter={() => prefetchRoute(studioHref)}
           onTouchStart={() => prefetchRoute(studioHref)}
           onClick={(e) => {
+            if (e.metaKey || e.ctrlKey || e.shiftKey || e.altKey || e.button !== 0) return;
             e.preventDefault();
+            const isDesktopViewport =
+              typeof window !== "undefined" &&
+              typeof window.matchMedia === "function" &&
+              window.matchMedia("(min-width: 1024px)").matches;
+            if (isDesktopViewport && onSelectGame) {
+              onSelectGame(game);
+              return;
+            }
             setActiveSharedTransition(e.currentTarget.closest("article"), "pl-match-hero");
             navigateTo(studioHref);
           }}
-          className="inline-flex items-center gap-1.5 min-w-0 no-underline"
+          className="inline-flex items-center gap-1.5 min-w-0 min-h-11 [@media(min-width:768px)_and_(pointer:fine)]:min-h-0 no-underline"
           style={{ color: "var(--pl-text-secondary)" }}
         >
           <span className="pl-rail-rank num">#{rank}</span>
@@ -96,11 +107,13 @@ const TopPickRailItem = React.memo(function TopPickRailItem({
           type="button"
           className={`pl-home-parlay-btn is-sm ${inParlay ? "is-on" : ""}`.trim()}
           aria-pressed={inParlay}
-          aria-label={`${inParlay ? "Quitar del parlay" : "Agregar al parlay"}: ${pick.label}`}
           onClick={() => (inParlay ? removePickFromParlay(pick.id) : addPickToParlay(pick))}
         >
           <MaestroIcon name={inParlay ? "check" : "plus"} size={13} />
-          <span>{inParlay ? "En parlay" : "+ Parlay"}</span>
+          <span>{inParlay ? "En parlay" : "Parlay"}</span>
+          <span className="sr-only">
+            {` — ${inParlay ? "quitar" : "agregar"} ${pick.label}`}
+          </span>
         </button>
       </div>
     </article>
@@ -109,8 +122,10 @@ const TopPickRailItem = React.memo(function TopPickRailItem({
 
 function TopPicksRail({
   items,
+  onSelectGame,
 }: {
   readonly items: ReadonlyArray<{ game: PlatformGame; pick: MatchPick }>;
+  readonly onSelectGame?: (game: PlatformGame) => void;
 }): React.JSX.Element | null {
   if (items.length === 0) return null;
   return (
@@ -132,7 +147,13 @@ function TopPicksRail({
       </div>
       <div className="flex flex-col gap-2.5">
         {items.map(({ game, pick }, idx) => (
-          <TopPickRailItem key={pick.id} rank={idx + 1} game={game} pick={pick} />
+          <TopPickRailItem
+            key={pick.id}
+            rank={idx + 1}
+            game={game}
+            pick={pick}
+            onSelectGame={onSelectGame}
+          />
         ))}
       </div>
     </section>
@@ -141,8 +162,10 @@ function TopPicksRail({
 
 function ValueRail({
   items,
+  onSelectGame,
 }: {
   readonly items: ReadonlyArray<{ game: PlatformGame; pick: MatchPick }>;
+  readonly onSelectGame?: (game: PlatformGame) => void;
 }): React.JSX.Element | null {
   const { oddsFormat } = usePlatformCore();
   const { navigateTo, prefetchRoute } = usePlatformActions();
@@ -166,7 +189,16 @@ function ValueRail({
             onPointerEnter={() => prefetchRoute(href)}
             onTouchStart={() => prefetchRoute(href)}
             onClick={(e) => {
+              if (e.metaKey || e.ctrlKey || e.shiftKey || e.altKey || e.button !== 0) return;
               e.preventDefault();
+              const isDesktopViewport =
+                typeof window !== "undefined" &&
+                typeof window.matchMedia === "function" &&
+                window.matchMedia("(min-width: 1024px)").matches;
+              if (isDesktopViewport && onSelectGame) {
+                onSelectGame(game);
+                return;
+              }
               navigateTo(href);
             }}
             className="pl-home-value no-underline"
@@ -230,7 +262,7 @@ function LabRail(): React.JSX.Element {
             e.preventDefault();
             navigateTo("/app/lab");
           }}
-          className="text-sm font-bold min-h-11 sm:min-h-8 inline-flex items-center px-1"
+          className="text-sm font-bold min-h-11 min-w-11 justify-center [@media(min-width:768px)_and_(pointer:fine)]:min-h-8 [@media(min-width:768px)_and_(pointer:fine)]:min-w-0 inline-flex items-center px-1"
         >
           Abrir
         </a>
@@ -270,9 +302,11 @@ export interface HomeRightRailProps {
   readonly activeLeague: LeagueId | null;
   readonly topPicks: ReadonlyArray<{ game: PlatformGame; pick: MatchPick }>;
   readonly valuePicks: ReadonlyArray<{ game: PlatformGame; pick: MatchPick }>;
+  readonly compactParlayOnly?: boolean;
+  readonly embedded?: boolean;
+  readonly onSelectGame?: (game: PlatformGame) => void;
 }
 
-/** Columna lateral editorial de Inicio: Centro de Parlays, Picks probables, Valor y Mi récord. */
 export function HomeRightRail({
   visibleGames,
   allGames,
@@ -282,9 +316,12 @@ export function HomeRightRail({
   activeLeague,
   topPicks,
   valuePicks,
+  compactParlayOnly = false,
+  embedded = false,
+  onSelectGame,
 }: HomeRightRailProps): React.JSX.Element {
-  return (
-    <aside aria-label="Centro de parlays, picks con mayor probabilidad y récord" className="pl-home-rail">
+  const railContent = (
+    <>
       <HomeParlayHubCard
         visibleGames={visibleGames}
         allGames={allGames}
@@ -293,9 +330,34 @@ export function HomeRightRail({
         isPastDay={isPastDay}
         activeLeague={activeLeague}
       />
-      <TopPicksRail items={topPicks} />
-      <ValueRail items={valuePicks} />
-      <LabRail />
+      {!compactParlayOnly ? (
+        <>
+          <TopPicksRail items={topPicks} onSelectGame={onSelectGame} />
+          <ValueRail items={valuePicks} onSelectGame={onSelectGame} />
+          <LabRail />
+        </>
+      ) : null}
+    </>
+  );
+
+  if (embedded) {
+    return (
+      <div
+        className="pl-home-rail pl-home-rail--embedded"
+        data-home-parlay-rail=""
+      >
+        {railContent}
+      </div>
+    );
+  }
+
+  return (
+    <aside
+      aria-label="Centro de parlays, picks con mayor probabilidad y récord"
+      className="pl-home-rail"
+      data-home-parlay-rail=""
+    >
+      {railContent}
     </aside>
   );
 }

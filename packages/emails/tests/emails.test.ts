@@ -17,6 +17,52 @@ describe("correos de PitchLab", () => {
     expect(html).toContain("PitchLab no acepta apuestas");
     expect(text).toContain("Solo mayores de 18");
     expect(text).not.toMatch(/<[a-z]+/i);
+    expect(text).not.toContain("&nbsp;");
+  });
+
+  it.each(ids)("%s: cumple contrato editorial 27/27 (rutas canónicas, preheader, alt, sin bitácora ni FD-16)", async (id) => {
+    const { html, text } = await renderEmail(id, EMAIL_TEMPLATES[id].sample as never);
+    const previewMatch = html.match(/id="__react-email-preview"[^>]*>([\s\S]*?)<\/div>/)
+      ?? html.match(/display:none;overflow:hidden;line-height:1px;opacity:0[^>]*>([\s\S]*?)<\/div>/);
+    const previewText = (previewMatch?.[1] ?? "")
+      .replace(/<[^>]+>/g, "")
+      .replace(/&\w+;|&#\d+;/g, "")
+      .replace(/\u00a0/g, "")
+      .trim();
+    expect(previewText.length).toBeGreaterThanOrEqual(12);
+
+    const imgTags = Array.from(html.matchAll(/<img\b[^>]*>/gi), (m) => m[0]);
+    expect(imgTags.length).toBeGreaterThanOrEqual(1);
+    for (const imgTag of imgTags) {
+      expect(imgTag).toMatch(/\balt="[^"]+"/i);
+    }
+
+    const obsoleteRouteRe =
+      /\/pricing\b|\/plans\b|\/tipstar\b|\/app\/bitacora\b|\/app\/cuenta\b|\/metodologia\b|\/estadisticas\/|\/partidos\//i;
+    expect(html).not.toMatch(obsoleteRouteRe);
+    expect(text).not.toMatch(obsoleteRouteRe);
+
+    const visible = html.replace(/<style[\s\S]*?<\/style>/g, "").replace(/<[^>]+>/g, " ");
+    expect(visible).not.toMatch(/\bbit[aá]cora\b|del Club\b|\bConfianza\s+\d/i);
+    expect(text).not.toMatch(/\bbit[aá]cora\b|del Club\b|\bConfianza\s+\d/i);
+    expect(visible).not.toMatch(
+      /\b(sofascore|bzzoiro|sportmonks|api-football|understat|polymarket|kalshi|fr[eé]chet|hoeffding|student-t|geodesic)\b/i,
+    );
+  });
+
+  it("las muestras de invitación y tipster usan la ruta canónica corta /i/ y los CTAs usan Ver mi récord", async () => {
+    const invite = await renderEmail("invite", EMAIL_TEMPLATES.invite.sample);
+    expect(invite.html).toContain("https://pitchlab.mx/i/SOFIA5");
+    expect(invite.text).toContain("https://pitchlab.mx/i/SOFIA5");
+
+    const tipster = await renderEmail("tipster-activated", EMAIL_TEMPLATES["tipster-activated"].sample);
+    expect(tipster.html).toContain("pitchlab.mx/i/SOFIA5");
+
+    const graded = await renderEmail("pick-graded", EMAIL_TEMPLATES["pick-graded"].sample);
+    expect(graded.html).toContain("Ver mi récord");
+
+    const monthly = await renderEmail("monthly-record", EMAIL_TEMPLATES["monthly-record"].sample);
+    expect(monthly.html).toContain("Ver mi récord");
   });
 
   it.each(ids)("%s: no usa lenguaje prohibido (seguro, fijo, candado, garantizado)", async (id) => {

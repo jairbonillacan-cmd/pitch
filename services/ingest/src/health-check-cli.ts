@@ -6,7 +6,7 @@
  * y notifique por Resend (sin repetir correos para fallas ya abiertas).
  */
 import { resolve } from "node:path";
-import type { DataWorkflowId } from "@pitchlab/contracts";
+import { parseStrictFiniteNumber, type DataWorkflowId } from "@pitchlab/contracts";
 import { loadRootEnvFiles } from "./env.js";
 import { evaluateAndReportDataHealth } from "./health/health-monitor.js";
 
@@ -33,8 +33,8 @@ function parseArgs(argv: readonly string[]): {
     } else if (arg.startsWith("--workflow-outcome=")) {
       workflowOutcome = arg.slice("--workflow-outcome=".length).trim();
     } else if (arg.startsWith("--duration-ms=")) {
-      const parsed = Number(arg.slice("--duration-ms=".length));
-      if (Number.isFinite(parsed) && parsed >= 0) durationMs = parsed;
+      const parsed = parseStrictFiniteNumber(arg.slice("--duration-ms=".length));
+      if (parsed !== null && parsed >= 0) durationMs = parsed;
     }
   }
 

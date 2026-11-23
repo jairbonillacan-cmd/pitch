@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
+import { Button } from "../../../components/ui/primitives";
 import { MaestroIcon } from "../../components/MaestroPrimitives";
 import {
   MAX_SAVED_SCREENER_VIEWS,
@@ -11,27 +12,17 @@ export interface SavedViewsBarProps {
   readonly views: readonly SavedScreenerView[];
   readonly activeViewId: string | null;
   readonly maxViews?: number;
+  readonly compact?: boolean;
   readonly onApply: (view: SavedScreenerView) => void;
-  /**
-   * Crea y guarda la vista con `cleanName`. Debe devolver `true` si se guardó
-   * para cerrar el formulario inline.
-   */
   readonly onSave: (cleanName: string) => boolean;
-  /**
-   * Elimina la vista por `id` (ADR-054: el contenedor debe ofrecer toast `Deshacer`).
-   */
   readonly onDelete: (viewId: string) => void;
 }
 
-/**
- * Barra compacta horizontal para aplicar, guardar y borrar vistas personalizadas de filtros.
- * Política dual ADR-054: borrar dispara toast reversible `Deshacer`.
- * Inputs móviles con `font-size >= 16 px` (anti-zoom iOS) y objetivos táctiles `>= 44 px`.
- */
 export function SavedViewsBar({
   views,
   activeViewId,
   maxViews = MAX_SAVED_SCREENER_VIEWS,
+  compact = false,
   onApply,
   onSave,
   onDelete,
@@ -53,7 +44,7 @@ export function SavedViewsBar({
 
   return (
     <section
-      className="pl-scr-saved-bar"
+      className={`pl-scr-saved-bar ${compact ? "is-compact" : ""}`.trim()}
       aria-label="Vistas guardadas de filtros"
       data-saved-views-bar=""
     >
@@ -135,12 +126,13 @@ export function SavedViewsBar({
               enterKeyHint="done"
               className="pl-scr-save-input"
             />
-            <button type="submit" className="pl-btn-primary text-xs min-h-11 px-3.5 shrink-0">
+            <Button type="submit" variant="primary" size="sm">
               Guardar
-            </button>
-            <button
+            </Button>
+            <Button
               type="button"
-              className="pl-btn-glass text-xs min-h-11 px-2.5 shrink-0"
+              variant="secondary"
+              size="icon-sm"
               aria-label="Cancelar guardado de vista"
               onClick={() => {
                 setSaveOpen(false);
@@ -148,7 +140,7 @@ export function SavedViewsBar({
               }}
             >
               <MaestroIcon name="x" size={14} />
-            </button>
+            </Button>
           </form>
         )}
       </div>

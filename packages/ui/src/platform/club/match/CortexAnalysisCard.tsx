@@ -146,7 +146,7 @@ export function CortexAnalysisCard({
             <div className="pt-1">
               <button
                 type="button"
-                className="pl-btn-primary text-xs min-h-10 px-4 inline-flex items-center gap-1.5"
+                className="pl-btn-primary text-xs min-h-11 [@media(min-width:768px)_and_(pointer:fine)]:min-h-10 px-4 inline-flex items-center gap-1.5"
                 onClick={onUpgrade}
               >
                 <MaestroIcon name="sparkles" size={13} />
@@ -365,8 +365,8 @@ export function CortexAnalysisCard({
                     type="button"
                     className={
                       isMainPickInParlay
-                        ? "pl-btn-primary text-xs min-h-9 px-3 shrink-0"
-                        : "pl-btn-glass text-xs min-h-9 px-3 shrink-0"
+                        ? "pl-btn-primary text-xs min-w-11 min-h-11 [@media(min-width:768px)_and_(pointer:fine)]:min-w-0 [@media(min-width:768px)_and_(pointer:fine)]:min-h-9 px-3 shrink-0"
+                        : "pl-btn-glass text-xs min-w-11 min-h-11 [@media(min-width:768px)_and_(pointer:fine)]:min-w-0 [@media(min-width:768px)_and_(pointer:fine)]:min-h-9 px-3 shrink-0"
                     }
                     onClick={() => onAddPickToParlay(mainPick)}
                   >

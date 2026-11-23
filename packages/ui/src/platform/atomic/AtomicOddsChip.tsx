@@ -13,10 +13,6 @@ export interface ResolvedOddsMovement {
   readonly ariaLabel: string | null;
 }
 
-/**
- * Resuelve la dirección del movimiento de mercado entre cuota de apertura y cuota actual.
- * Una caída brusca (≥ 7 % o ≥ 0.18 en decimal) se señaliza como `steam` (`↓ Steam`).
- */
 export function resolveOddsMovement(opts: {
   readonly marketDecimal?: number | null;
   readonly openingDecimal?: number | null;
@@ -89,28 +85,27 @@ export function resolveOddsMovement(opts: {
 }
 
 export interface AtomicOddsChipProps {
-  /** Momio justo calculado por PitchLab (`1 / p`). Obligatorio por licencia/FD-16. */
   readonly fairDecimal: number;
-  /** Cuota vigente de casa verificada (opcional). */
   readonly marketDecimal?: number | null;
-  /** Cuota de apertura para detectar caída/subida o Steam (opcional). */
   readonly openingDecimal?: number | null;
-  /** Dirección explícita si ya viene calculada desde el servidor. */
   readonly movement?: OddsMovementDirection | null;
   readonly oddsFormat?: OddsFormat;
-  /** Etiqueta superior opcional (p. ej. "Momio justo" o nombre de selección). */
   readonly label?: string;
-  /** Porcentaje de valor esperado positivo (`Valor +X.X %`). Solo se muestra si es > 0. */
   readonly valuePct?: number | null;
   readonly highlight?: boolean;
   readonly compact?: boolean;
+  readonly variant?: "chip" | "cell";
   readonly className?: string;
 }
 
-/**
- * Chip compacto de cuota editorial PitchLab:
- * siempre anclado a `Momio justo`, con cuota de casa opcional y delta direccional (`↓`, `↑`, `Steam`) en `.num`.
- */
+interface CellIndicator {
+  readonly key: string;
+  readonly className: string;
+  readonly text: string;
+  readonly symbol?: string;
+  readonly ariaLabel?: string;
+}
+
 export function AtomicOddsChip({
   fairDecimal,
   marketDecimal = null,
@@ -121,6 +116,7 @@ export function AtomicOddsChip({
   valuePct = null,
   highlight = false,
   compact = false,
+  variant = "chip",
   className = "",
 }: AtomicOddsChipProps): React.JSX.Element {
   const safeFair = Number.isFinite(fairDecimal) && fairDecimal > 1 ? fairDecimal : 1.02;
@@ -135,10 +131,63 @@ export function AtomicOddsChip({
   const marketFormatted = hasMarket ? formatOddsValue(marketDecimal!, oddsFormat) : null;
   const showValue = valuePct != null && Number.isFinite(valuePct) && valuePct > 0.4;
 
+  if (variant === "cell") {
+    const indicators: CellIndicator[] = [];
+    if (showValue) {
+      indicators.push({
+        key: "ev",
+        className: "pl-atom-odds-value",
+        text: `+${valuePct!.toFixed(1)}%`,
+        ariaLabel: `Valor positivo +${valuePct!.toFixed(1)} por ciento`,
+      });
+    }
+    if (resolved.symbol) {
+      indicators.push({
+        key: "movement",
+        className: `pl-atom-odds-delta is-${resolved.direction}`,
+        symbol: resolved.symbol,
+        text: resolved.tag ?? "",
+        ariaLabel: resolved.ariaLabel ?? undefined,
+      });
+    }
+    const cappedIndicators = indicators.slice(0, 2);
+
+    return (
+      <span
+        className={`pl-atom-odds pl-atom-odds--cell num${compact ? " is-compact" : ""}${highlight ? " is-highlight" : ""} ${className}`.trim()}
+        data-atomic-odds=""
+        data-variant="cell"
+        data-movement={resolved.direction}
+        data-indicator-count={cappedIndicators.length}
+      >
+        {label ? <span className="pl-atom-odds-label">{label}</span> : null}
+        <span className="pl-atom-odds-cell-main">
+          <strong className="pl-atom-odds-cell-primary">
+            {marketFormatted ?? fairFormatted}
+          </strong>
+          {cappedIndicators.length > 0 ? (
+            <span className="pl-atom-odds-cell-indicators">
+              {cappedIndicators.map((ind) => (
+                <span key={ind.key} className={ind.className} aria-label={ind.ariaLabel}>
+                  {ind.symbol ? <span aria-hidden="true">{ind.symbol}</span> : null}
+                  {ind.text ? <span>{ind.text}</span> : null}
+                </span>
+              ))}
+            </span>
+          ) : null}
+        </span>
+        <span className="pl-atom-odds-cell-fair">
+          {marketFormatted ? `Justo ${fairFormatted}` : "Momio justo"}
+        </span>
+      </span>
+    );
+  }
+
   return (
     <span
-      className={`pl-atom-odds num${compact ? " is-compact" : ""}${highlight ? " is-highlight" : ""} ${className}`.trim()}
+      className={`pl-atom-odds pl-atom-odds--chip num${compact ? " is-compact" : ""}${highlight ? " is-highlight" : ""} ${className}`.trim()}
       data-atomic-odds=""
+      data-variant="chip"
       data-movement={resolved.direction}
     >
       {label ? <span className="pl-atom-odds-label">{label}</span> : null}

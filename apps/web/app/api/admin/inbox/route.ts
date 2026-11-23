@@ -1,59 +1,82 @@
 import { NextResponse } from "next/server";
+import { z } from "zod";
+import { createSanitizedErrorPayload, parseStrictFiniteNumber } from "@pitchlab/contracts";
 import { listAdminInbox, markAdminInboxResolved } from "@pitchlab/db";
-import {
-  checkEndpointRateLimit,
-  rateLimitResponse,
-  verifySameOriginMutation,
-} from "../../../../src/server/request-security";
-import { requireAdmin } from "../../../../src/server/session-user";
+import { withAdminMutation } from "../../../../src/server/api-guards";
 import { trialHashes } from "../../../../src/server/signup";
+import { UUID_RE } from "../../../../src/server/transfer-helpers";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
 
-/** GET /api/admin/inbox — bandeja de Feedback, Soporte y Solicitudes de eliminación de cuenta. */
-export async function GET(request: Request): Promise<NextResponse> {
-  const admin = await requireAdmin(request);
-  if ("error" in admin) return admin.error;
+const MAX_ADMIN_LIST_LIMIT = 40;
 
-  const items = await listAdminInbox(admin.db, 80);
-  return NextResponse.json({ items }, { headers: { "Cache-Control": "no-store" } });
+function parseBoundedLimit(request: Request, defaultLimit: number): number {
+  const raw = new URL(request.url).searchParams.get("limit");
+  if (raw === null || raw.trim() === "") return defaultLimit;
+  const parsed = parseStrictFiniteNumber(raw);
+  if (parsed === null || !Number.isInteger(parsed)) return defaultLimit;
+  return Math.max(1, Math.min(MAX_ADMIN_LIST_LIMIT, parsed));
 }
 
-/** PATCH /api/admin/inbox — marca como atendido un mensaje de la bandeja. */
-export async function PATCH(request: Request): Promise<NextResponse> {
-  const csrfError = verifySameOriginMutation(request);
-  if (csrfError) return csrfError;
-
-  const admin = await requireAdmin(request);
-  if ("error" in admin) return admin.error;
-
-  const rl = await checkEndpointRateLimit({
-    bucket: "admin-inbox-resolve",
-    key: admin.userId,
-    limit: 60,
-    windowMs: 60_000,
-  });
-  if (!rl.allowed) return rateLimitResponse(rl.retryAfterSeconds);
-
-  const body = (await request.json().catch(() => null)) as { itemId?: unknown; note?: unknown } | null;
-  const itemId = typeof body?.itemId === "string" ? body.itemId.trim() : "";
-  const note = typeof body?.note === "string" ? body.note.trim().slice(0, 280) : null;
-  if (!itemId) {
-    return NextResponse.json({ error: "Falta el identificador del mensaje." }, { status: 400 });
-  }
-
-  const { ipSubnetHash } = trialHashes(request.headers, process.env.BETTER_AUTH_SECRET ?? "");
-  const res = await markAdminInboxResolved(admin.db, {
-    adminUserId: admin.userId,
-    adminEmail: admin.email,
-    itemId,
-    note,
-    ipSubnetHash,
-  });
-  if (!res.ok) {
-    return NextResponse.json({ error: "Mensaje no encontrado." }, { status: 404 });
-  }
-
-  return NextResponse.json({ ok: true }, { headers: { "Cache-Control": "no-store" } });
+function invalidInputResponse(code: string, message: string, status = 400): NextResponse {
+  const payload = createSanitizedErrorPayload(code, message);
+  return NextResponse.json(
+    { ok: false, error: payload.message, code: payload.code, message: payload.message },
+    { status },
+  );
 }
+
+async function readJsonBody(request: Request): Promise<unknown> {
+  try {
+    return await request.json();
+  } catch (err) {
+    void err;
+    return null;
+  }
+}
+
+const resolveInboxBodySchema = z
+  .object({
+    itemId: z.string().trim().regex(UUID_RE),
+    note: z.string().max(1000).nullable().optional(),
+  })
+  .strict();
+
+export const GET = withAdminMutation(
+  { bucket: "admin-inbox-read", allowGet: true, limit: 60 },
+  async ({ request, user }) => {
+    const limit = parseBoundedLimit(request, MAX_ADMIN_LIST_LIMIT);
+    const items = await listAdminInbox(user.db, limit);
+    return NextResponse.json({ items });
+  },
+);
+
+export const PATCH = withAdminMutation(
+  { bucket: "admin-inbox", limit: 60 },
+  async ({ request, user }) => {
+    const rawBody = await readJsonBody(request);
+    const parsed = resolveInboxBodySchema.safeParse(rawBody);
+    if (!parsed.success) {
+      return invalidInputResponse(
+        "INVALID_INBOX_ITEM",
+        "Falta un identificador válido del mensaje.",
+      );
+    }
+
+    const note = parsed.data.note ? parsed.data.note.trim().slice(0, 280) || null : null;
+    const { ipSubnetHash } = trialHashes(request.headers, process.env.BETTER_AUTH_SECRET ?? "");
+    const res = await markAdminInboxResolved(user.db, {
+      adminUserId: user.userId,
+      adminEmail: user.email,
+      itemId: parsed.data.itemId,
+      note,
+      ipSubnetHash,
+    });
+    if (!res.ok) {
+      return invalidInputResponse("INBOX_ITEM_NOT_FOUND", "Mensaje no encontrado.", 404);
+    }
+
+    return NextResponse.json({ ok: true });
+  },
+);

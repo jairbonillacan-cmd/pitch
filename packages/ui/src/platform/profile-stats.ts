@@ -5,7 +5,7 @@ export interface RecordablePick {
   status: "pending" | "won" | "lost" | "void";
   units: number;
   userDecimal: number;
-  clvPct: number;
+  clvPct?: number | null;
 }
 
 export interface ProfileRecord {
@@ -32,8 +32,17 @@ export function profileRecord(entries: ReadonlyArray<RecordablePick>): ProfileRe
   let open = 0;
   let netUnits = 0;
   let clvSum = 0;
+  let clvCount = 0;
   for (const entry of entries) {
-    clvSum += entry.clvPct;
+    if (
+      typeof entry.clvPct === "number" &&
+      Number.isFinite(entry.clvPct) &&
+      entry.clvPct <= 50 &&
+      entry.clvPct >= -60
+    ) {
+      clvSum += entry.clvPct;
+      clvCount += 1;
+    }
     if (entry.status === "pending") {
       open += 1;
       continue;
@@ -49,7 +58,7 @@ export function profileRecord(entries: ReadonlyArray<RecordablePick>): ProfileRe
     won,
     hitRatePct: settled > 0 ? (won / settled) * 100 : null,
     netUnits,
-    avgClvPct: entries.length > 0 ? clvSum / entries.length : null,
+    avgClvPct: clvCount > 0 ? clvSum / clvCount : null,
     open,
   };
 }

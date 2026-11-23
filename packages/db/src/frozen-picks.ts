@@ -5,6 +5,20 @@ import { matchFrozenPicks } from "./schema";
 export const MATCH_PICK_FREEZE_OFFSET_MS = 60 * 60_000;
 
 const GAME_ID_RE = /^[a-zA-Z0-9._-]{1,128}$/;
+const STRICT_CANONICAL_NUMBER_RE = /^[+-]?(?:\d+\.?\d*|\.\d+)(?:[eE][+-]?\d+)?$/;
+
+function parseStrictDbNumber(raw: unknown): number | null {
+  if (typeof raw === "number") {
+    return Number.isFinite(raw) ? (raw === 0 ? 0 : raw) : null;
+  }
+  if (typeof raw === "string") {
+    const trimmed = raw.trim();
+    if (!STRICT_CANONICAL_NUMBER_RE.test(trimmed)) return null;
+    const parsed = Number.parseFloat(trimmed);
+    return Number.isFinite(parsed) ? (parsed === 0 ? 0 : parsed) : null;
+  }
+  return null;
+}
 
 export interface FrozenPickCandidate {
   gameId: string;
@@ -42,8 +56,8 @@ function mapFrozenRow(row: typeof matchFrozenPicks.$inferSelect): StoredFrozenPi
     categoryLabel: row.categoryLabel,
     marketGroup: row.marketGroup,
     selectionKey: row.selectionKey,
-    probability: Number(row.probability),
-    fairDecimal: Number(row.fairDecimal),
+    probability: parseStrictDbNumber(row.probability) ?? 0,
+    fairDecimal: parseStrictDbNumber(row.fairDecimal) ?? 0,
     fairAmerican: row.fairAmerican,
     kickoffAtIso: row.kickoffAt.toISOString(),
     freezeAtIso: row.freezeAt.toISOString(),

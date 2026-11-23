@@ -9,11 +9,10 @@ export function setSessionDbForTests(instance: Db | null): void {
   db = instance;
 }
 
-/** Devuelve la instancia única de Drizzle/Neon (o la inyectada en pruebas). */
 export function serverDb(url: string | undefined = process.env.DATABASE_URL): Db | null {
   if (db) return db;
   if (!url) return null;
-  db = createDb(url) as unknown as Db;
+  db = createDb(url);
   return db;
 }
 
@@ -25,10 +24,6 @@ export interface AuthenticatedMember {
   authUserId: string;
 }
 
-/**
- * Sesión válida de paso 1 (exclusivamente para `GET`/`POST /api/me/signup`, antes de haber
- * confirmado +18, usuario y términos). Ningún otro endpoint de socio debe usar esta función.
- */
 export async function requireStep1Member(
   request: Request,
 ): Promise<AuthenticatedMember | { error: NextResponse }> {
@@ -39,7 +34,7 @@ export async function requireStep1Member(
   }
   const session = await auth.api.getSession({ headers: request.headers });
   if (!session) return { error: NextResponse.json({ error: "Inicia sesión" }, { status: 401 }) };
-  db ??= createDb(url) as unknown as Db;
+  db ??= createDb(url);
   const userId = await profileIdForAuthUser(db, session.user.id);
   if (!userId) return { error: NextResponse.json({ error: "Perfil no encontrado" }, { status: 404 }) };
   return {
@@ -51,16 +46,12 @@ export async function requireStep1Member(
   };
 }
 
-/**
- * Obtiene conexión de solo lectura opcional y, si hay sesión activa, el `userId` interno.
- * Útil en endpoints públicos que personalizan respuesta si el socio ya inició sesión (p. ej. `/api/me/coupons/preview`).
- */
 export async function optionalPublicDbSession(
   request: Request,
 ): Promise<{ db: Db; userId: string | null } | null> {
   const url = process.env.DATABASE_URL;
   if (!db && !url) return null;
-  db ??= createDb(url!) as unknown as Db;
+  db ??= createDb(url!);
   let userId: string | null = null;
   const auth = getAuth();
   if (auth) {
@@ -72,11 +63,6 @@ export async function optionalPublicDbSession(
   return { db, userId };
 }
 
-/**
- * Socio con sesión activa y paso 2 completado (+18, términos aceptados y @usuario elegido).
- * Rechaza con 403 `registro_incompleto` cualquier sesión que se quedó en el paso 1 o fue
- * rechazada por minoría de edad.
- */
 export async function requireMember(
   request: Request,
 ): Promise<AuthenticatedMember | { error: NextResponse }> {
@@ -88,10 +74,6 @@ export async function requireMember(
   return member;
 }
 
-/**
- * Socio con paso 2 completado y Pase Total vigente (prueba, concesión, suscripción activa o admin verificado).
- * Se exige en escrituras exclusivas del Club (sellar bitácora y vigilancia).
- */
 export async function requireActivePaseMember(
   request: Request,
 ): Promise<AuthenticatedMember | { error: NextResponse }> {
@@ -104,7 +86,6 @@ export async function requireActivePaseMember(
   return member;
 }
 
-/** Correos con acceso a la consola del fundador (PITCHLAB_ADMIN_EMAILS, separados por coma). */
 export function isAdminEmail(email: string | null | undefined): boolean {
   if (!email) return false;
   const admins = (process.env.PITCHLAB_ADMIN_EMAILS ?? "")
@@ -114,10 +95,6 @@ export function isAdminEmail(email: string | null | undefined): boolean {
   return admins.includes(email.trim().toLowerCase());
 }
 
-/**
- * Exige sesión activa, correo verificado (`emailVerified === true`), presencia en
- * `PITCHLAB_ADMIN_EMAILS` y paso 2 completado.
- */
 export async function requireAdmin(
   request: Request,
 ): Promise<{ db: Db; userId: string; email: string } | { error: NextResponse }> {

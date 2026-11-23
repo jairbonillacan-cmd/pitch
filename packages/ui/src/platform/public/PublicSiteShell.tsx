@@ -61,7 +61,7 @@ export function PublicSiteShell({
         Saltar al contenido principal
       </a>
       <PublicNavBarClient activePath={activePath} hasSession={hasSession} />
-      <main id="main">{children}</main>
+      <main id="main" tabIndex={-1}>{children}</main>
       <footer className="pl-clean-footer">
         <div className="pl-lp-wrap">
           <nav aria-label="Pie" className="pl-clean-footer-links">

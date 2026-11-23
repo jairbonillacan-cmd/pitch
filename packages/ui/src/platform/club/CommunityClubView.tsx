@@ -1,6 +1,14 @@
 "use client";
 
-import React, { useCallback, useEffect, useId, useMemo, useRef, useState } from "react";
+import React, { memo, useCallback, useId, useMemo, useState } from "react";
+import { parseStrictFiniteNumber } from "@pitchlab/contracts";
+import {
+  Button,
+  SofascoreCard,
+  SofascoreEmptyState,
+  SofascoreTable,
+  type SofascoreTableColumn,
+} from "../../components/ui/primitives";
 import { LeagueBadge, TeamBadge } from "../../sports";
 import { formatOddsValue } from "../access-guard";
 import { getExampleAnalystSpec } from "../community-examples";
@@ -17,12 +25,11 @@ import {
 } from "../community-stats";
 import { ExampleBadge, MaestroIcon, VerifiedSeal } from "../components/MaestroPrimitives";
 import { TopLayerModalDialog } from "../components/PlatformOverlays";
-import { PlSelect } from "../components/PlSelect";
 import { AtmosphereStage, ClubWorkspaceShell } from "../components/ShellChrome";
+import { useAbortableJson, useSafeEffect } from "../hooks";
 import {
   socialScopeKey,
   type SocialFeedScope,
-  type usePlatform,
   usePlatformActions,
   usePlatformCore,
   useSocialState,
@@ -30,9 +37,9 @@ import {
 import {
   LEADERBOARD_MIN_SETTLED,
   entriesInWindow,
-  leaderboardMinSettled,
   formatSignedPct,
   formatUnits,
+  leaderboardMinSettled,
   monthLongLabel,
   profileRecord,
   rankAnalysts,
@@ -40,7 +47,14 @@ import {
   type LeaderboardWindow,
   type RankedAnalyst,
 } from "../profile-stats";
-import type { JournalEntry, MatchPick, PlatformGame, SocialPost } from "../types";
+import type {
+  JournalEntry,
+  MatchPick,
+  OddsFormat,
+  PlatformDataset,
+  PlatformGame,
+  SocialPost,
+} from "../types";
 import {
   SOCIAL_POST_MAX_CHARS,
   SocialPostCard,
@@ -62,10 +76,10 @@ import {
   resolveEntryGame,
   teamTopicKey,
   useFollowedTopics,
-  type FollowedTopics,
   useFollowing,
   useLeaderboardRows,
   useUrlTab,
+  type FollowedTopics,
   type OwnIdentity,
   type SocialReportTarget,
   type TabDef,
@@ -115,10 +129,6 @@ function capitalize(text: string): string {
   return text.charAt(0).toUpperCase() + text.slice(1);
 }
 
-/* ===========================================================================
-   Vista
-   ========================================================================= */
-
 export function SocialVipClubView(): React.JSX.Element {
   const { viewerRole, hasAccountSession, upgradeHref } = usePlatformCore();
   const { navigateTo } = usePlatformActions();
@@ -128,25 +138,34 @@ export function SocialVipClubView(): React.JSX.Element {
       <AtmosphereStage>
         <ClubWorkspaceShell activePath="/app/social">
           <div className="pl-com">
-            <h1 className="pl-com-title">Comunidad</h1>
-            <section className="pl-com-gate glass-lens glass-ring" aria-label="Acceso">
-              <p className="pl-com-gate-title">
-                {hasAccountSession
-                  ? "Activa tu Pase PitchLab Ultra para participar en la comunidad."
-                  : "La comunidad es para socios."}
-              </p>
-              <a
-                href={upgradeHref}
-                className="pl-prof-btn pl-prof-btn--primary"
-                onClick={(e) => {
-                  if (!isPlainClick(e)) return;
-                  e.preventDefault();
-                  navigateTo(upgradeHref);
-                }}
-              >
-                {hasAccountSession ? "Activar Pase Ultra" : "Probar 7 días gratis"}
-              </a>
-            </section>
+            <header className="pl-com-header">
+              <h1 className="pl-com-title">Comunidad</h1>
+            </header>
+            <SofascoreCard as="section" className="pl-com-gate-card">
+              <div className="pl-com-gate">
+                <p className="pl-com-gate-title">
+                  {hasAccountSession
+                    ? "Activa tu Pase PitchLab Ultra para participar en la comunidad."
+                    : "La comunidad es para socios."}
+                </p>
+                <Button
+                  variant="primary"
+                  size="default"
+                  render={
+                    <a
+                      href={upgradeHref}
+                      onClick={(e) => {
+                        if (!isPlainClick(e)) return;
+                        e.preventDefault();
+                        navigateTo(upgradeHref);
+                      }}
+                    />
+                  }
+                >
+                  {hasAccountSession ? "Activar Pase Ultra" : "Probar 7 días gratis"}
+                </Button>
+              </div>
+            </SofascoreCard>
           </div>
         </ClubWorkspaceShell>
       </AtmosphereStage>
@@ -163,36 +182,43 @@ export function SocialVipClubView(): React.JSX.Element {
 }
 
 function CommunityContent(): React.JSX.Element {
+  const uid = useId();
   const { dataset, oddsFormat, hasAccountSessionAuth } = usePlatformCore();
-  const { publishSocialPost, addSocialComment, deleteSocialComment, toggleSocialCommentHelpful, loadAllPostComments, recordSocialPostCopy, toggleSocialLike, deleteSocialPost, refreshSocialFeed, ensureSocialPostLoaded, sealPickToJournal, addPickToParlay, pushToast, navigateTo } = usePlatformActions();
+  const {
+    publishSocialPost,
+    addSocialComment,
+    deleteSocialComment,
+    toggleSocialCommentHelpful,
+    loadAllPostComments,
+    recordSocialPostCopy,
+    toggleSocialLike,
+    deleteSocialPost,
+    refreshSocialFeed,
+    ensureSocialPostLoaded,
+    sealPickToJournal,
+    addPickToParlay,
+    pushToast,
+    navigateTo,
+  } = usePlatformActions();
   const { socialPosts } = useSocialState();
   const [tab, setTab] = useUrlTab<CommunityTab>(TAB_KEYS, "para-ti");
-  const [voteTallies, setVoteTallies] = useState<WinnerVoteTally[]>([]);
-  // Votos de «¿Quién gana?» para el consenso (solo con cuenta: con PIN no se guardan votos).
-  useEffect(() => {
-    if (!hasAccountSessionAuth) return;
-    let alive = true;
-    fetch("/api/social/consensus", { credentials: "same-origin" })
-      .then((r) => (r.ok ? r.json() : null))
-      .then((data: { tallies?: WinnerVoteTally[] } | null) => {
-        if (alive && Array.isArray(data?.tallies)) setVoteTallies(data.tallies);
-      })
-      .catch((err: unknown) => {
-        void err;
-      });
-    return () => {
-      alive = false;
-    };
-  }, [hasAccountSessionAuth]);
+  const consensusQuery = useAbortableJson<{ tallies?: WinnerVoteTally[] }>(
+    "/api/social/consensus",
+    { enabled: hasAccountSessionAuth },
+  );
+  const voteTallies = useMemo(
+    () => (Array.isArray(consensusQuery.data?.tallies) ? consensusQuery.data.tallies : []),
+    [consensusQuery.data],
+  );
   const [highlightedPostId, setHighlightedPostId] = useState<string | null>(null);
   const [reportTarget, setReportTarget] = useState<SocialReportTarget | null>(null);
-  // Al abrir Comunidad se trae lo último que publicaron los demás.
-  useEffect(() => {
+
+  useSafeEffect(() => {
     refreshSocialFeed();
   }, [refreshSocialFeed]);
 
-  // Enlace directo a una publicación (`/app/social?post=<id>`, p. ej. desde la campana).
-  useEffect(() => {
+  useSafeEffect(() => {
+    if (typeof window === "undefined") return;
     const syncPostParam = () => {
       try {
         const postId = new URLSearchParams(window.location.search).get("post")?.trim() || null;
@@ -209,6 +235,7 @@ function CommunityContent(): React.JSX.Element {
     window.addEventListener("popstate", syncPostParam);
     return () => window.removeEventListener("popstate", syncPostParam);
   }, [ensureSocialPostLoaded, setTab]);
+
   const { rows, own, today, source, ownJournal } = useLeaderboardRows();
   const follows = useFollowing();
   const monthName = monthLongLabel(today.getMonth());
@@ -227,37 +254,64 @@ function CommunityContent(): React.JSX.Element {
   );
 
   const authorOf = useMemo(
-    () => (post: SocialPost): SocialPostAuthor => resolvePostAuthor(post, own, seasonRanked),
+    () =>
+      (post: SocialPost): SocialPostAuthor =>
+        resolvePostAuthor(post, own, seasonRanked),
     [own, seasonRanked],
   );
 
-  const goProfile = (handle: string) => (e: React.MouseEvent<HTMLAnchorElement>) => {
-    if (!isPlainClick(e)) return;
-    e.preventDefault();
-    navigateTo(`/app/u/${handle}`);
-  };
+  const goProfile = useCallback(
+    (handle: string) => (e: React.MouseEvent<HTMLAnchorElement>) => {
+      if (!isPlainClick(e)) return;
+      e.preventDefault();
+      navigateTo(`/app/u/${handle}`);
+    },
+    [navigateTo],
+  );
 
-  const onToggleFollow = (handle: string): void => {
-    const now = follows.toggle(handle);
-    pushToast(now ? `Ahora sigues a @${handle}.` : `Dejaste de seguir a @${handle}.`, "default");
-  };
+  const toggleFollow = follows.toggle;
 
-  const onCopy = (post: SocialPost): void =>
-    copyPostPickToJournal(post, {
-      dataset,
-      sealPickToJournal,
-      recordSocialPostCopy,
-      pushToast,
-    });
+  const onToggleFollow = useCallback(
+    (handle: string): void => {
+      const now = toggleFollow(handle);
+      pushToast(
+        now ? `Ahora sigues a @${handle}.` : `Dejaste de seguir a @${handle}.`,
+        "default",
+      );
+    },
+    [pushToast, toggleFollow],
+  );
 
-  const onCopyToParlay = (post: SocialPost): void =>
-    copyPostPickToParlay(post, {
-      dataset,
-      addPickToParlay,
-      pushToast,
-    });
+  const onCopy = useCallback(
+    (post: SocialPost): void =>
+      copyPostPickToJournal(post, {
+        dataset,
+        sealPickToJournal,
+        recordSocialPostCopy,
+        pushToast,
+      }),
+    [dataset, pushToast, recordSocialPostCopy, sealPickToJournal],
+  );
 
-  const onShare = (post: SocialPost): void => shareSocialPost(post, pushToast);
+  const onCopyToParlay = useCallback(
+    (post: SocialPost): void =>
+      copyPostPickToParlay(post, {
+        dataset,
+        addPickToParlay,
+        pushToast,
+      }),
+    [addPickToParlay, dataset, pushToast],
+  );
+
+  const onShare = useCallback(
+    (post: SocialPost): void => shareSocialPost(post, pushToast),
+    [pushToast],
+  );
+
+  const handleOpenRanking = useCallback(() => setTab("ranking"), [setTab]);
+  const handleOpenConsensus = useCallback(() => setTab("consenso"), [setTab]);
+  const handleOpenPrivacy = useCallback(() => navigateTo("/app/lab?tab=privacidad"), [navigateTo]);
+  const handleCloseReport = useCallback(() => setReportTarget(null), []);
 
   const [forYouLeague, setForYouLeague] = useState<string>("all");
   const [forYouOpenOnly, setForYouOpenOnly] = useState(false);
@@ -272,7 +326,7 @@ function CommunityContent(): React.JSX.Element {
     };
   }, [forYouLeague, forYouOpenOnly, forYouSort]);
 
-  useEffect(() => {
+  useSafeEffect(() => {
     if (!forYouScope) return;
     refreshSocialFeed(forYouScope);
   }, [forYouScope, refreshSocialFeed]);
@@ -292,31 +346,32 @@ function CommunityContent(): React.JSX.Element {
     [socialPosts],
   );
 
-  const forYouLeagueOptions = useMemo(() => {
-    const ordered = [...dataset.leagues].sort((a, b) => {
+  const orderedLeagues = useMemo(() => {
+    const seen = new Set<string>();
+    const list: Array<{ label: string; count: number }> = [];
+    const sortedDataset = [...dataset.leagues].sort((a, b) => {
       const ca = postCountByLeague.get(a.label) ?? 0;
       const cb = postCountByLeague.get(b.label) ?? 0;
-      if (cb !== ca) return cb - ca;
-      return 0;
+      return cb - ca;
     });
-    return [
-      {
-        value: "all",
-        label: "Todas las ligas",
-        triggerLabel: "Todas las ligas",
-        icon: <MaestroIcon name="layers" size={14} />,
-      },
-      ...ordered.map((l) => {
-        const count = postCountByLeague.get(l.label) ?? 0;
-        return {
-          value: l.label,
-          label: count > 0 ? `${l.label} (${count})` : l.label,
-          triggerLabel: l.label,
-          icon: <LeagueBadge league={l.league} label={l.label} logoUrl={l.logoUrl} size={16} />,
-        };
-      }),
-    ];
+    for (const lg of sortedDataset) {
+      if (seen.has(lg.label)) continue;
+      seen.add(lg.label);
+      list.push({ label: lg.label, count: postCountByLeague.get(lg.label) ?? 0 });
+    }
+    for (const [label, count] of postCountByLeague.entries()) {
+      if (!seen.has(label)) {
+        seen.add(label);
+        list.push({ label, count });
+      }
+    }
+    return list;
   }, [dataset.leagues, postCountByLeague]);
+
+  const activeLeagueChips = useMemo(
+    () => orderedLeagues.filter((item) => item.count > 0).slice(0, 5),
+    [orderedLeagues],
+  );
 
   const filteredForYouPosts = useMemo(() => {
     const filtered = socialPosts.filter((p) => {
@@ -333,28 +388,51 @@ function CommunityContent(): React.JSX.Element {
     });
   }, [forYouLeague, forYouOpenOnly, forYouSort, socialPosts]);
 
-  const feedProps: FeedSharedProps = {
-    authorOf,
-    own,
-    dataset,
-    journal: ownJournal,
-    oddsFormat,
-    follows,
-    onToggleFollow,
-    onCopy,
-    onCopyToParlay,
-    onShare,
-    toggleSocialLike,
-    addSocialComment,
-    deleteSocialComment,
-    toggleSocialCommentHelpful,
-    loadAllPostComments,
-    onDelete: deleteSocialPost,
-    onOpenReport: setReportTarget,
-    navigateTo,
-    goProfile,
-    highlightedPostId,
-  };
+  const feedProps = useMemo<FeedSharedProps>(
+    () => ({
+      authorOf,
+      own,
+      dataset,
+      journal: ownJournal,
+      oddsFormat,
+      follows,
+      onToggleFollow,
+      onCopy,
+      onCopyToParlay,
+      onShare,
+      toggleSocialLike,
+      addSocialComment,
+      deleteSocialComment,
+      toggleSocialCommentHelpful,
+      loadAllPostComments,
+      onDelete: deleteSocialPost,
+      onOpenReport: setReportTarget,
+      navigateTo,
+      goProfile,
+      highlightedPostId,
+    }),
+    [
+      addSocialComment,
+      authorOf,
+      dataset,
+      deleteSocialComment,
+      deleteSocialPost,
+      follows,
+      goProfile,
+      highlightedPostId,
+      loadAllPostComments,
+      navigateTo,
+      oddsFormat,
+      onCopy,
+      onCopyToParlay,
+      onShare,
+      onToggleFollow,
+      own,
+      ownJournal,
+      toggleSocialCommentHelpful,
+      toggleSocialLike,
+    ],
+  );
 
   return (
     <div className="pl-com">
@@ -384,82 +462,128 @@ function CommunityContent(): React.JSX.Element {
                 publish={publishSocialPost}
               />
               <MobileTop ranked={monthRanked} monthName={monthName} goProfile={goProfile} />
-              <div className="pl-com-filter-bar" role="region" aria-label="Filtros de Para ti">
-                <div className="pl-com-filter-controls">
-                  <div
-                    className="pl-com-seg pl-com-seg--compact max-w-full overflow-x-auto"
-                    role="group"
-                    aria-label="Tipo de publicaciones"
-                  >
-                    <button
-                      type="button"
-                      className="min-h-11 sm:min-h-8"
-                      aria-pressed={!forYouOpenOnly}
-                      onClick={() => setForYouOpenOnly(false)}
+              <div className="pl-com-filter-panel" role="region" aria-label="Filtros de Para ti">
+                <div className="pl-com-filter-bar">
+                  <div className="pl-com-filter-controls">
+                    <div
+                      className="pl-com-seg pl-com-seg--compact max-w-full overflow-x-auto"
+                      role="group"
+                      aria-label="Tipo de publicaciones"
                     >
-                      Todo
-                    </button>
-                    <button
-                      type="button"
-                      className="min-h-11 sm:min-h-8"
-                      aria-pressed={forYouOpenOnly}
-                      onClick={() => setForYouOpenOnly(true)}
-                    >
-                      <span>Con pick abierto</span>
-                      {openPostsCount > 0 ? (
-                        <span className="pl-com-inline-count num">{openPostsCount}</span>
-                      ) : null}
-                    </button>
+                      <button
+                        type="button"
+                        aria-pressed={!forYouOpenOnly}
+                        onClick={() => setForYouOpenOnly(false)}
+                      >
+                        Todo
+                      </button>
+                      <button
+                        type="button"
+                        aria-pressed={forYouOpenOnly}
+                        onClick={() => setForYouOpenOnly(true)}
+                      >
+                        <span>Con pick abierto</span>
+                        {openPostsCount > 0 ? (
+                          <span className="pl-com-inline-count num">{openPostsCount}</span>
+                        ) : null}
+                      </button>
+                    </div>
+
+                    <div className="pl-com-select-wrap">
+                      <label htmlFor={`${uid}-league-filter`} className="sr-only">
+                        Filtrar publicaciones por liga
+                      </label>
+                      <select
+                        id={`${uid}-league-filter`}
+                        className="pl-com-select"
+                        value={forYouLeague}
+                        onChange={(e) => setForYouLeague(e.target.value)}
+                      >
+                        <option value="all">Todas las ligas</option>
+                        {orderedLeagues.map((lg) => (
+                          <option key={lg.label} value={lg.label}>
+                            {lg.count > 0 ? `${lg.label} (${lg.count})` : lg.label}
+                          </option>
+                        ))}
+                      </select>
+                    </div>
+
+                    {forYouLeague !== "all" || forYouOpenOnly ? (
+                      <button
+                        type="button"
+                        className="pl-com-reset-btn"
+                        onClick={() => {
+                          setForYouLeague("all");
+                          setForYouOpenOnly(false);
+                        }}
+                      >
+                        Limpiar
+                      </button>
+                    ) : null}
                   </div>
 
-                  <PlSelect
-                    variant="glass"
-                    size="sm"
-                    ariaLabel="Filtrar publicaciones por liga"
-                    value={forYouLeague}
-                    onChange={(next) => setForYouLeague(next)}
-                    options={forYouLeagueOptions}
-                    className="pl-com-league-select min-w-0 max-w-full"
-                  />
+                  <div className="pl-com-filter-end">
+                    <span className="pl-com-result-count num" role="status" aria-live="polite">
+                      {filteredForYouPosts.length}{" "}
+                      {filteredForYouPosts.length === 1 ? "publicación" : "publicaciones"}
+                    </span>
+                    <div
+                      className="pl-com-seg pl-com-seg--compact max-w-full overflow-x-auto"
+                      role="group"
+                      aria-label="Ordenar publicaciones"
+                    >
+                      <button
+                        type="button"
+                        aria-pressed={forYouSort === "recent"}
+                        onClick={() => setForYouSort("recent")}
+                      >
+                        Recientes
+                      </button>
+                      <button
+                        type="button"
+                        aria-pressed={forYouSort === "most_commented"}
+                        onClick={() => setForYouSort("most_commented")}
+                      >
+                        Más comentados
+                      </button>
+                    </div>
+                  </div>
+                </div>
 
-                  {forYouLeague !== "all" || forYouOpenOnly ? (
+                {activeLeagueChips.length > 0 ? (
+                  <div
+                    className="pl-com-league-chips"
+                    role="group"
+                    aria-label="Acceso rápido por liga"
+                  >
                     <button
                       type="button"
-                      className="pl-com-reset-btn min-h-11 sm:min-h-9"
-                      onClick={() => {
-                        setForYouLeague("all");
-                        setForYouOpenOnly(false);
-                      }}
+                      className="pl-prof-chip"
+                      aria-pressed={forYouLeague === "all"}
+                      onClick={() => setForYouLeague("all")}
                     >
-                      Limpiar
+                      Todas
                     </button>
-                  ) : null}
-                </div>
-
-                <div
-                  className="pl-com-seg pl-com-seg--compact max-w-full overflow-x-auto"
-                  role="group"
-                  aria-label="Ordenar publicaciones"
-                >
-                  <button
-                    type="button"
-                    className="min-h-11 sm:min-h-8"
-                    aria-pressed={forYouSort === "recent"}
-                    onClick={() => setForYouSort("recent")}
-                  >
-                    Recientes
-                  </button>
-                  <button
-                    type="button"
-                    className="min-h-11 sm:min-h-8"
-                    aria-pressed={forYouSort === "most_commented"}
-                    onClick={() => setForYouSort("most_commented")}
-                  >
-                    Más comentados
-                  </button>
-                </div>
+                    {activeLeagueChips.map((item) => (
+                      <button
+                        key={item.label}
+                        type="button"
+                        className="pl-prof-chip num"
+                        aria-pressed={forYouLeague === item.label}
+                        onClick={() =>
+                          setForYouLeague((cur) => (cur === item.label ? "all" : item.label))
+                        }
+                      >
+                        <span>{item.label}</span>
+                        <span className="pl-com-inline-count">{item.count}</span>
+                      </button>
+                    ))}
+                  </div>
+                ) : null}
               </div>
+
               <Feed
+                key={`${forYouLeague}:${forYouOpenOnly ? "open" : "all"}:${forYouSort}`}
                 posts={filteredForYouPosts}
                 scope={forYouScope}
                 emptyText={
@@ -471,12 +595,24 @@ function CommunityContent(): React.JSX.Element {
               />
             </div>
             <aside className="pl-com-aside" aria-label="Resumen de Comunidad">
-              <YourMonthCard own={own} ranked={monthRanked} monthName={monthName} goProfile={goProfile} />
-              <TopCard ranked={monthRanked} monthName={monthName} onRanking={() => setTab("ranking")} goProfile={goProfile} />
-              {consensus[0] ? <HotCard item={consensus[0]} onConsensus={() => setTab("consenso")} /> : null}
+              <YourMonthCard
+                own={own}
+                ranked={monthRanked}
+                monthName={monthName}
+                goProfile={goProfile}
+              />
+              <TopCard
+                ranked={monthRanked}
+                monthName={monthName}
+                onRanking={handleOpenRanking}
+                goProfile={goProfile}
+              />
+              {consensus[0] ? (
+                <HotCard item={consensus[0]} onConsensus={handleOpenConsensus} />
+              ) : null}
               <a
                 href="/app/account?tab=referrals"
-                className="pl-com-invite glass-card glass-ring"
+                className="pl-com-invite"
                 onClick={(e) => {
                   if (!isPlainClick(e)) return;
                   e.preventDefault();
@@ -497,11 +633,7 @@ function CommunityContent(): React.JSX.Element {
         ) : null}
 
         {tab === "siguiendo" ? (
-          <FollowingTab
-            posts={socialPosts}
-            seasonRanked={seasonRanked}
-            {...feedProps}
-          />
+          <FollowingTab posts={socialPosts} seasonRanked={seasonRanked} {...feedProps} />
         ) : null}
 
         {tab === "consenso" ? <ConsensusTab items={consensus} /> : null}
@@ -516,18 +648,14 @@ function CommunityContent(): React.JSX.Element {
             follows={follows}
             onToggleFollow={onToggleFollow}
             goProfile={goProfile}
-            onPrivacy={() => navigateTo("/app/lab?tab=privacidad")}
+            onPrivacy={handleOpenPrivacy}
           />
         ) : null}
       </TabPanel>
-      <SocialReportDialog target={reportTarget} onClose={() => setReportTarget(null)} />
+      <SocialReportDialog target={reportTarget} onClose={handleCloseReport} />
     </div>
   );
 }
-
-/* ===========================================================================
-   Publicar
-   ========================================================================= */
 
 interface AttachedPick {
   matchPick: MatchPick;
@@ -573,6 +701,8 @@ function entryToMatchPick(entry: JournalEntry, games: readonly PlatformGame[]): 
   };
 }
 
+type PublishSocialFn = ReturnType<typeof usePlatformActions>["publishSocialPost"];
+
 function Composer({
   own,
   games,
@@ -583,8 +713,8 @@ function Composer({
   own: OwnIdentity | null;
   games: readonly PlatformGame[];
   journal: readonly JournalEntry[];
-  oddsFormat: ReturnType<typeof usePlatform>["oddsFormat"];
-  publish: ReturnType<typeof usePlatform>["publishSocialPost"];
+  oddsFormat: OddsFormat;
+  publish: PublishSocialFn;
 }): React.JSX.Element {
   const uid = useId();
   const [body, setBody] = useState("");
@@ -625,9 +755,21 @@ function Composer({
   const nearLimit = body.length >= Math.round(SOCIAL_POST_MAX_CHARS * 0.7);
 
   const form = (inSheet: boolean): React.JSX.Element => (
-    <form className={`pl-com-composer ${inSheet ? "" : "glass-lens glass-ring"}`} aria-label="Publicar" onSubmit={submit} noValidate>
+    <form
+      className={`pl-com-composer${inSheet ? " is-in-sheet" : ""}`}
+      aria-label="Publicar"
+      onSubmit={submit}
+      noValidate
+    >
       <div className="pl-com-composer-top">
-        {own ? <Avatar initials={own.avatarInitials} avatarUrl={own.avatarUrl} gradVar={own.avatarGradVar} size={40} /> : null}
+        {own ? (
+          <Avatar
+            initials={own.avatarInitials}
+            avatarUrl={own.avatarUrl}
+            gradVar={own.avatarGradVar}
+            size={40}
+          />
+        ) : null}
         <div className="pl-com-composer-field">
           <label htmlFor={`${uid}-${inSheet ? "s" : "d"}-body`} className="sr-only">
             Escribe tu publicación
@@ -646,20 +788,21 @@ function Composer({
             }}
           />
           {attached ? (
-            <div
-              className="pl-com-attached"
-              style={{
-                background: "var(--pl-surface-elevated)",
-                border: "1px solid var(--pl-border)",
-              }}
-            >
+            <div className="pl-com-attached">
               {meta ? <LeagueBadge league={meta.league} size={18} /> : null}
               <div className="pl-com-attached-main">
                 <span className="pl-com-attached-copy">
                   <strong>{attached.matchPick.label}</strong>{" "}
                   <span>
-                    · {attached.matchPick.matchLabel} · <span className="num">{attached.units.toFixed(1)}u</span>{" "}
-                    · <span className="num">{formatOddsValue(attached.userDecimal, oddsFormat)}</span>
+                    · {attached.matchPick.matchLabel} ·{" "}
+                    <span className="num">{attached.units.toFixed(1)}u</span> ·{" "}
+                    <span className="num">
+                      {formatOddsValue(attached.userDecimal, oddsFormat)}
+                    </span>{" "}
+                    ·{" "}
+                    <span className="pl-com-fair-inline num">
+                      Justo {formatOddsValue(attached.matchPick.fairDecimal, oddsFormat)}
+                    </span>
                   </span>
                 </span>
                 {attached.sealedEntryId ? (
@@ -670,11 +813,11 @@ function Composer({
                       <span>Unidades</span>
                       <select
                         aria-label="Unidades del pick"
-                        className="min-h-11 sm:min-h-9 text-base sm:text-[13px] min-w-0 num"
+                        className="pl-com-attached-input num"
                         value={String(attached.units)}
                         onChange={(e) => {
-                          const val = Number(e.target.value);
-                          if (Number.isFinite(val)) {
+                          const val = parseStrictFiniteNumber(e.target.value);
+                          if (val !== null) {
                             setAttached((prev) => (prev ? { ...prev, units: val } : null));
                           }
                         }}
@@ -695,13 +838,13 @@ function Composer({
                         max="100"
                         inputMode="decimal"
                         aria-label="Momio decimal del pick"
-                        className="min-h-11 sm:min-h-9 text-base sm:text-[13px] min-w-0 num"
+                        className="pl-com-attached-input num"
                         value={oddsDraft}
                         onChange={(e) => {
                           const raw = e.target.value;
                           setOddsDraft(raw);
-                          const parsed = Number(raw);
-                          if (Number.isFinite(parsed) && parsed >= 1.05 && parsed <= 100) {
+                          const parsed = parseStrictFiniteNumber(raw);
+                          if (parsed !== null && parsed >= 1.05 && parsed <= 100) {
                             setAttached((prev) => (prev ? { ...prev, userDecimal: parsed } : null));
                           }
                         }}
@@ -710,9 +853,10 @@ function Composer({
                   </div>
                 )}
               </div>
-              <button
+              <Button
                 type="button"
-                className="pl-com-icon-btn min-h-11 min-w-11 sm:min-h-9 sm:min-w-9"
+                variant="ghost"
+                size="icon-sm"
                 aria-label="Quitar pick adjunto"
                 onClick={() => {
                   setAttached(null);
@@ -720,29 +864,33 @@ function Composer({
                 }}
               >
                 <MaestroIcon name="x" size={14} />
-              </button>
+              </Button>
             </div>
           ) : null}
         </div>
       </div>
       <div id={`${uid}-err`} className="pl-com-error-slot" aria-live="polite">
-        {error && inSheet === sheetOpen ? <p className="pl-com-error" role="alert">{error}</p> : null}
+        {error && inSheet === sheetOpen ? (
+          <p className="pl-com-error" role="alert">
+            {error}
+          </p>
+        ) : null}
       </div>
       <div className="pl-com-composer-bar">
         <div className="pl-com-composer-tools">
-          <button
+          <Button
             type="button"
-            className="pl-prof-btn pl-prof-btn--ghost pl-prof-btn--sm min-h-11 sm:min-h-9"
+            variant="secondary"
+            size="sm"
             onClick={() => setPickerOpen(true)}
           >
             <MaestroIcon name="plus" size={14} />
-            {attached ? "Cambiar pick" : "Adjuntar pick"}
-          </button>
+            <span>{attached ? "Cambiar pick" : "Adjuntar pick"}</span>
+          </Button>
           {attached ? (
             <div className="pl-com-seg max-w-full" role="group" aria-label="Origen del pick">
               <button
                 type="button"
-                className="min-h-11 sm:min-h-8"
                 aria-pressed={origin === "Spacetime Suite"}
                 onClick={() => setOrigin("Spacetime Suite")}
               >
@@ -750,7 +898,6 @@ function Composer({
               </button>
               <button
                 type="button"
-                className="min-h-11 sm:min-h-8"
                 aria-pressed={origin === "Bitácora Propia"}
                 onClick={() => setOrigin("Bitácora Propia")}
               >
@@ -765,12 +912,9 @@ function Composer({
               {body.length}/{SOCIAL_POST_MAX_CHARS}
             </span>
           ) : null}
-          <button
-            type="submit"
-            className="pl-prof-btn pl-prof-btn--primary pl-prof-btn--sm min-h-11 sm:min-h-9"
-          >
+          <Button type="submit" variant="primary" size="sm">
             Publicar
-          </button>
+          </Button>
         </div>
       </div>
     </form>
@@ -779,30 +923,39 @@ function Composer({
   return (
     <>
       <div className="pl-com-composer-desktop">{form(false)}</div>
-      <button
-        type="button"
-        className="pl-com-composer-row glass-lens glass-ring"
-        onClick={() => setSheetOpen(true)}
-      >
-        {own ? <Avatar initials={own.avatarInitials} avatarUrl={own.avatarUrl} gradVar={own.avatarGradVar} size={36} /> : null}
+      <button type="button" className="pl-com-composer-row" onClick={() => setSheetOpen(true)}>
+        {own ? (
+          <Avatar
+            initials={own.avatarInitials}
+            avatarUrl={own.avatarUrl}
+            gradVar={own.avatarGradVar}
+            size={36}
+          />
+        ) : null}
         <span className="pl-com-composer-row-text">Comparte un pick…</span>
-        <span className="pl-prof-btn pl-prof-btn--primary pl-prof-btn--sm" aria-hidden="true">
+        <span className="pl-com-composer-row-cta" aria-hidden="true">
           Publicar
         </span>
       </button>
       {sheetOpen ? (
-        <TopLayerModalDialog open={sheetOpen} onClose={() => setSheetOpen(false)} ariaLabel="Publicar" variant="drawer">
+        <TopLayerModalDialog
+          open={sheetOpen}
+          onClose={() => setSheetOpen(false)}
+          ariaLabel="Publicar"
+          variant="drawer"
+        >
           <div className="pl-com-sheet">
             <div className="pl-com-sheet-head">
               <p className="pl-com-sheet-title">Publicar</p>
-              <button
+              <Button
                 type="button"
-                className="pl-com-icon-btn min-h-11 min-w-11 sm:min-h-9 sm:min-w-9"
+                variant="ghost"
+                size="icon-sm"
                 aria-label="Cerrar"
                 onClick={() => setSheetOpen(false)}
               >
                 <MaestroIcon name="x" size={16} />
-              </button>
+              </Button>
             </div>
             {form(true)}
           </div>
@@ -845,7 +998,7 @@ function PickPicker({
   journal: readonly JournalEntry[];
   origin: "Spacetime Suite" | "Bitácora Propia";
   onOriginChange: (origin: "Spacetime Suite" | "Bitácora Propia") => void;
-  oddsFormat: ReturnType<typeof usePlatform>["oddsFormat"];
+  oddsFormat: OddsFormat;
   onClose: () => void;
   onPick: (picked: AttachedPick) => void;
 }): React.JSX.Element {
@@ -890,19 +1043,19 @@ function PickPicker({
           <h2 id={`${uid}-title`} className="pl-com-sheet-title">
             Adjuntar pick
           </h2>
-          <button
+          <Button
             type="button"
-            className="pl-com-icon-btn min-h-11 min-w-11 sm:min-h-9 sm:min-w-9"
+            variant="ghost"
+            size="icon-sm"
             aria-label="Cerrar"
             onClick={onClose}
           >
             <MaestroIcon name="x" size={16} />
-          </button>
+          </Button>
         </div>
         <div className="pl-com-seg pl-com-picker-mode max-w-full" role="group" aria-label="Fuente del pick">
           <button
             type="button"
-            className="min-h-11 sm:min-h-8"
             aria-pressed={origin === "Spacetime Suite"}
             onClick={() => onOriginChange("Spacetime Suite")}
           >
@@ -910,7 +1063,6 @@ function PickPicker({
           </button>
           <button
             type="button"
-            className="min-h-11 sm:min-h-8"
             aria-pressed={origin === "Bitácora Propia"}
             onClick={() => onOriginChange("Bitácora Propia")}
           >
@@ -922,9 +1074,13 @@ function PickPicker({
         </label>
         <input
           id={`${uid}-q`}
-          className="pl-com-search text-base"
+          className="pl-com-search"
           type="search"
-          placeholder={origin === "Bitácora Propia" ? "Buscar en tu bitácora o partido" : "Buscar equipo o liga"}
+          placeholder={
+            origin === "Bitácora Propia"
+              ? "Buscar en tu bitácora o partido"
+              : "Buscar equipo o liga"
+          }
           value={query}
           onChange={(e) => setQuery(e.target.value)}
         />
@@ -935,8 +1091,8 @@ function PickPicker({
                 <p className="pl-com-picker-heading">Ya sellados en tu bitácora</p>
                 {journalMatches.length === 0 ? (
                   <p className="pl-prof-empty-line">
-                    No tienes picks sellados con esa búsqueda. Puedes elegir uno de la cartelera abajo y fijar tus
-                    unidades y momio.
+                    No tienes picks sellados con esa búsqueda. Puedes elegir uno de la cartelera
+                    abajo y fijar tus unidades y momio.
                   </p>
                 ) : (
                   <ul className="pl-com-picker-journal">
@@ -947,7 +1103,7 @@ function PickPicker({
                         <li key={entry.id}>
                           <button
                             type="button"
-                            className="pl-com-picker-pick py-2 min-w-0"
+                            className="pl-com-picker-pick"
                             onClick={() =>
                               onPick({
                                 matchPick: mp,
@@ -958,10 +1114,12 @@ function PickPicker({
                             }
                           >
                             <span className="min-w-0 truncate">
-                              {entry.pickLabel} · <small className="pl-prof-muted">{entry.matchLabel}</small>
+                              {entry.pickLabel} ·{" "}
+                              <small className="pl-prof-muted">{entry.matchLabel}</small>
                             </span>
                             <span className="num pl-prof-muted shrink-0">
-                              {entry.units.toFixed(1)}u @ {formatOddsValue(entry.userDecimal, oddsFormat)}
+                              {entry.units.toFixed(1)}u @{" "}
+                              {formatOddsValue(entry.userDecimal, oddsFormat)}
                             </span>
                           </button>
                         </li>
@@ -971,7 +1129,9 @@ function PickPicker({
                 )}
               </div>
               {upcoming.length > 0 ? (
-                <p className="pl-com-picker-heading">Cartelera próxima (ajusta unidades y momio al adjuntar)</p>
+                <p className="pl-com-picker-heading">
+                  Cartelera próxima (ajusta unidades y momio al adjuntar)
+                </p>
               ) : null}
             </>
           ) : null}
@@ -981,13 +1141,20 @@ function PickPicker({
             ) : null
           ) : (
             upcoming.map((game) => (
-              <section key={game.id} className="pl-com-picker-game" aria-label={`${game.home.name} vs ${game.away.name}`}>
+              <section
+                key={game.id}
+                className="pl-com-picker-game"
+                aria-label={`${game.home.name} vs ${game.away.name}`}
+              >
                 <p className="pl-com-picker-match">
                   <LeagueBadge league={game.league} size={16} />
                   <span>
-                    {game.home.shortName || game.home.name} vs {game.away.shortName || game.away.name}
+                    {game.home.shortName || game.home.name} vs{" "}
+                    {game.away.shortName || game.away.name}
                   </span>
-                  <span className="pl-prof-muted num">· {kickoffLabel(game.kickoffUtc, userTimezone)}</span>
+                  <span className="pl-prof-muted num">
+                    · {kickoffLabel(game.kickoffUtc, userTimezone)}
+                  </span>
                 </p>
                 <ul>
                   {[...game.picks]
@@ -997,18 +1164,22 @@ function PickPicker({
                       <li key={pick.id}>
                         <button
                           type="button"
-                          className="pl-com-picker-pick py-2 min-w-0"
+                          className="pl-com-picker-pick"
                           onClick={() =>
                             onPick({
                               matchPick: pick,
-                              units: Math.max(0.5, Math.min(5, Math.round((pick.suggestedUnits || 1) * 2) / 2)),
+                              units: Math.max(
+                                0.5,
+                                Math.min(5, Math.round((pick.suggestedUnits || 1) * 2) / 2),
+                              ),
                               userDecimal: pick.marketDecimal ?? pick.fairDecimal,
                             })
                           }
                         >
                           <span className="min-w-0 truncate">{pick.label}</span>
                           <span className="num pl-prof-muted shrink-0">
-                            {formatOddsValue(pick.marketDecimal ?? pick.fairDecimal, oddsFormat)} · modelo{" "}
+                            {formatOddsValue(pick.marketDecimal ?? pick.fairDecimal, oddsFormat)} ·
+                            justo {formatOddsValue(pick.fairDecimal, oddsFormat)} ·{" "}
                             {(pick.p * 100).toFixed(1)} %
                           </span>
                         </button>
@@ -1024,26 +1195,24 @@ function PickPicker({
   );
 }
 
-/* ===========================================================================
-   Feed
-   ========================================================================= */
+type PlatformActions = ReturnType<typeof usePlatformActions>;
 
 interface FeedSharedProps {
   authorOf: (post: SocialPost) => SocialPostAuthor;
   own: OwnIdentity | null;
-  dataset: ReturnType<typeof usePlatform>["dataset"];
+  dataset: PlatformDataset;
   journal: readonly JournalEntry[];
-  oddsFormat: ReturnType<typeof usePlatform>["oddsFormat"];
+  oddsFormat: OddsFormat;
   follows: ReturnType<typeof useFollowing>;
   onToggleFollow: (handle: string) => void;
   onCopy: (post: SocialPost) => void;
   onCopyToParlay: (post: SocialPost) => void;
   onShare: (post: SocialPost) => void;
   toggleSocialLike: (postId: string) => void;
-  addSocialComment: ReturnType<typeof usePlatform>["addSocialComment"];
-  deleteSocialComment: ReturnType<typeof usePlatform>["deleteSocialComment"];
-  toggleSocialCommentHelpful: ReturnType<typeof usePlatform>["toggleSocialCommentHelpful"];
-  loadAllPostComments: ReturnType<typeof usePlatform>["loadAllPostComments"];
+  addSocialComment: PlatformActions["addSocialComment"];
+  deleteSocialComment: PlatformActions["deleteSocialComment"];
+  toggleSocialCommentHelpful: PlatformActions["toggleSocialCommentHelpful"];
+  loadAllPostComments: PlatformActions["loadAllPostComments"];
   onDelete: (postId: string) => void;
   onOpenReport: (target: SocialReportTarget) => void;
   navigateTo: (href: string) => void;
@@ -1051,7 +1220,9 @@ interface FeedSharedProps {
   highlightedPostId?: string | null;
 }
 
-function Feed({
+const MemoSocialPostItem = memo(SocialPostCard);
+
+const Feed = memo(function Feed({
   posts,
   scope,
   emptyText = "Todavía no hay publicaciones.",
@@ -1070,7 +1241,6 @@ function Feed({
 
   const realPosts = useMemo(() => posts.filter((p) => !p.isExample), [posts]);
   const examplePosts = useMemo(() => posts.filter((p) => p.isExample), [posts]);
-  // Mientras sigan quedando publicaciones reales en el servidor, las de ejemplo esperan al final.
   const displayPool = useMemo(
     () => (hasMoreServer ? realPosts : [...realPosts, ...examplePosts]),
     [hasMoreServer, realPosts, examplePosts],
@@ -1079,38 +1249,45 @@ function Feed({
   const targetIdx = shared.highlightedPostId
     ? displayPool.findIndex((p) => p.id === shared.highlightedPostId)
     : -1;
-  useEffect(() => {
-    if (targetIdx >= limit) {
-      setLimit(targetIdx + FEED_PAGE);
-    }
-  }, [targetIdx, limit]);
+  const effectiveLimit = targetIdx >= limit ? targetIdx + FEED_PAGE : limit;
 
-  if (displayPool.length === 0 && !hasMoreServer && !loadingOlder) {
-    return <p className="pl-prof-empty-line">{emptyText}</p>;
-  }
+  const resolvedVisiblePosts = useMemo(
+    () =>
+      displayPool.slice(0, effectiveLimit).map((post) => ({
+        post,
+        author: shared.authorOf(post),
+        following: shared.follows.isFollowing(post.authorHandle),
+      })),
+    [displayPool, effectiveLimit, shared.authorOf, shared.follows],
+  );
 
-  const canShowMore = displayPool.length > limit || hasMoreServer || loadingOlder;
-  const onShowMore = (): void => {
+  const onShowMore = useCallback((): void => {
     if (loadingOlder) return;
-    const nextLimit = limit + FEED_PAGE;
+    const nextLimit = effectiveLimit + FEED_PAGE;
     setLimit(nextLimit);
     if (hasMoreServer && nextLimit >= realPosts.length) {
       void loadOlderSocialPosts(scope);
     }
-  };
+  }, [effectiveLimit, hasMoreServer, loadOlderSocialPosts, loadingOlder, realPosts.length, scope]);
+
+  if (displayPool.length === 0 && !hasMoreServer && !loadingOlder) {
+    return <SofascoreEmptyState title={emptyText} />;
+  }
+
+  const canShowMore = displayPool.length > effectiveLimit || hasMoreServer || loadingOlder;
 
   return (
     <div className="pl-com-feed">
-      {displayPool.slice(0, limit).map((post) => (
-        <SocialPostCard
+      {resolvedVisiblePosts.map(({ post, author, following }) => (
+        <MemoSocialPostItem
           key={post.id}
           post={post}
-          author={shared.authorOf(post)}
+          author={author}
           own={shared.own}
           dataset={shared.dataset}
           journal={shared.journal}
           oddsFormat={shared.oddsFormat}
-          following={shared.follows.isFollowing(post.authorHandle)}
+          following={following}
           onToggleFollow={shared.onToggleFollow}
           onCopy={shared.onCopy}
           onCopyToParlay={shared.onCopyToParlay}
@@ -1129,25 +1306,22 @@ function Feed({
       ))}
       {canShowMore ? (
         <div className="pl-prof-more">
-          <button
+          <Button
             type="button"
-            className="pl-prof-btn pl-prof-btn--ghost"
+            variant="secondary"
+            size="sm"
             disabled={loadingOlder}
             onClick={onShowMore}
           >
             {loadingOlder ? "Cargando…" : "Ver más"}
-          </button>
+          </Button>
         </div>
       ) : null}
     </div>
   );
-}
+});
 
-/* ===========================================================================
-   Columna derecha
-   ========================================================================= */
-
-function YourMonthCard({
+const YourMonthCard = memo(function YourMonthCard({
   own,
   ranked,
   monthName,
@@ -1162,42 +1336,44 @@ function YourMonthCard({
   const me = ranked.find((r) => r.handle === own.handle);
   const tenth = ranked[TOP_N - 1];
   return (
-    <section className="pl-com-card glass-lens glass-ring" aria-labelledby="pl-com-mine">
-      <h2 id="pl-com-mine" className="pl-prof-eyebrow">
-        Tu {monthName}
-      </h2>
-      {me ? (
-        <>
-          <div className="pl-com-mine num">
-            <p className="pl-com-mine-rank">#{me.rank}</p>
-            <p>
-              <strong className={me.record.netUnits >= 0 ? "pl-prof-pos" : "pl-prof-neg"}>
-                {formatUnits(me.record.netUnits)}
-              </strong>{" "}
-              · {me.record.settled} picks
-            </p>
-          </div>
-          {me.rank > TOP_N && tenth ? (
-            <p className="pl-com-card-note num">
-              Te faltan {Math.max(0.1, tenth.record.netUnits - me.record.netUnits).toFixed(1)}u para el top 10.
-            </p>
-          ) : null}
-        </>
-      ) : (
-        <p className="pl-com-card-note">Registra {LEADERBOARD_MIN_SETTLED} picks para entrar al ranking.</p>
-      )}
-      <a
-        href={`/app/u/${own.handle}`}
-        className="pl-prof-link inline-flex items-center min-h-11 sm:min-h-8"
-        onClick={goProfile(own.handle)}
-      >
-        Ver mi perfil
-      </a>
-    </section>
+    <SofascoreCard id="pl-com-mine" title={`Tu ${monthName}`} density="compact">
+      <div className="pl-com-card-stack">
+        {me ? (
+          <>
+            <div className="pl-com-mine num">
+              <p className="pl-com-mine-rank">#{me.rank}</p>
+              <p>
+                <strong className={me.record.netUnits >= 0 ? "pl-prof-pos" : "pl-prof-neg"}>
+                  {formatUnits(me.record.netUnits)}
+                </strong>{" "}
+                · {me.record.settled} picks
+              </p>
+            </div>
+            {me.rank > TOP_N && tenth ? (
+              <p className="pl-com-card-note num">
+                Te faltan {Math.max(0.1, tenth.record.netUnits - me.record.netUnits).toFixed(1)}u
+                para el top 10.
+              </p>
+            ) : null}
+          </>
+        ) : (
+          <p className="pl-com-card-note">
+            Registra {LEADERBOARD_MIN_SETTLED} picks para entrar al ranking.
+          </p>
+        )}
+        <a
+          href={`/app/u/${own.handle}`}
+          className="pl-prof-link pl-com-inline-link"
+          onClick={goProfile(own.handle)}
+        >
+          Ver mi perfil
+        </a>
+      </div>
+    </SofascoreCard>
   );
-}
+});
 
-function TopCard({
+const TopCard = memo(function TopCard({
   ranked,
   monthName,
   onRanking,
@@ -1209,27 +1385,36 @@ function TopCard({
   goProfile: (handle: string) => (e: React.MouseEvent<HTMLAnchorElement>) => void;
 }): React.JSX.Element {
   return (
-    <section className="pl-com-card glass-lens glass-ring" aria-labelledby="pl-com-top">
-      <div className="pl-com-card-head">
-        <h2 id="pl-com-top" className="pl-prof-eyebrow">
-          Top de {monthName}
-        </h2>
-        <button type="button" className="pl-com-text-btn min-h-11 sm:min-h-8" onClick={onRanking}>
+    <SofascoreCard
+      id="pl-com-top"
+      title={`Top de ${monthName}`}
+      density="compact"
+      meta={
+        <button type="button" className="pl-com-text-btn" onClick={onRanking}>
           Ver ranking
         </button>
-      </div>
+      }
+    >
       {ranked.length === 0 ? (
-        <p className="pl-com-card-note">Aún nadie llega a {LEADERBOARD_MIN_SETTLED} picks este mes.</p>
+        <p className="pl-com-card-note">
+          Aún nadie llega a {LEADERBOARD_MIN_SETTLED} picks este mes.
+        </p>
       ) : (
         <ol className="pl-com-top">
           {ranked.slice(0, 5).map((r) => (
             <li key={r.handle}>
               <span className="pl-com-top-rank num">{r.rank}</span>
-              <Avatar initials={r.avatarInitials} avatarUrl={r.avatarUrl} gradVar={r.avatarGradVar} size={28} loading="lazy" />
+              <Avatar
+                initials={r.avatarInitials}
+                avatarUrl={r.avatarUrl}
+                gradVar={r.avatarGradVar}
+                size={28}
+                loading="lazy"
+              />
               <a
                 href={`/app/u/${r.handle}`}
                 onClick={goProfile(r.handle)}
-                className="pl-com-top-name inline-flex items-center min-h-11 sm:min-h-9"
+                className="pl-com-top-name"
               >
                 {r.name}
               </a>
@@ -1240,35 +1425,58 @@ function TopCard({
           ))}
         </ol>
       )}
-    </section>
+    </SofascoreCard>
   );
-}
+});
 
-function HotCard({ item, onConsensus }: { item: ConsensusGame; onConsensus: () => void }): React.JSX.Element {
+const HotCard = memo(function HotCard({
+  item,
+  onConsensus,
+}: {
+  item: ConsensusGame;
+  onConsensus: () => void;
+}): React.JSX.Element {
   const g = item.game;
   return (
-    <section className="pl-com-card glass-lens glass-ring" aria-labelledby="pl-com-hot">
-      <h2 id="pl-com-hot" className="pl-prof-eyebrow">
-        Más comentado hoy
-      </h2>
-      <p className="pl-com-hot-match flex-wrap min-w-0">
-        <TeamBadge league={g.league} slug={g.home.slug} name={g.home.name} size={22} decorative />
-        {g.home.shortName || g.home.name} vs {g.away.shortName || g.away.name}
-        <TeamBadge league={g.league} slug={g.away.slug} name={g.away.name} size={22} decorative />
-      </p>
-      <BarsPair label={item.top.label} fans={item.top.fansPct} model={item.top.modelPct} />
-      <button type="button" className="pl-com-text-btn min-h-11 sm:min-h-8" onClick={onConsensus}>
-        Ver consenso
-      </button>
-    </section>
+    <SofascoreCard
+      id="pl-com-hot"
+      title="Más comentado hoy"
+      density="compact"
+      meta={
+        <button type="button" className="pl-com-text-btn" onClick={onConsensus}>
+          Ver consenso
+        </button>
+      }
+    >
+      <div className="pl-com-card-stack">
+        <p className="pl-com-hot-match flex-wrap min-w-0">
+          <TeamBadge league={g.league} slug={g.home.slug} name={g.home.name} size={22} decorative />
+          {g.home.shortName || g.home.name} vs {g.away.shortName || g.away.name}
+          <TeamBadge league={g.league} slug={g.away.slug} name={g.away.name} size={22} decorative />
+        </p>
+        <BarsPair label={item.top.label} fans={item.top.fansPct} model={item.top.modelPct} />
+      </div>
+    </SofascoreCard>
   );
-}
+});
 
-function BarsPair({ label, fans, model }: { label: string; fans: number; model: number }): React.JSX.Element {
+const BarsPair = memo(function BarsPair({
+  label,
+  fans,
+  model,
+}: {
+  label: string;
+  fans: number;
+  model: number;
+}): React.JSX.Element {
   const fansWidth = Math.max(0, Math.min(100, fans));
   const modelWidth = Math.max(0, Math.min(100, model));
   return (
-    <div className="pl-com-bars num" role="img" aria-label={`${label}: socios ${fans} %, modelo ${model} %`}>
+    <div
+      className="pl-com-bars num"
+      role="img"
+      aria-label={`${label}: socios ${fans} %, modelo ${model} %`}
+    >
       <span className="pl-com-bars-name">Socios</span>
       <span className="pl-com-bar" aria-hidden="true">
         <span className="pl-com-bar-fill pl-com-bar-fill--fans" style={{ width: `${fansWidth}%` }} />
@@ -1276,14 +1484,17 @@ function BarsPair({ label, fans, model }: { label: string; fans: number; model: 
       <strong>{fans} %</strong>
       <span className="pl-com-bars-name">Modelo</span>
       <span className="pl-com-bar" aria-hidden="true">
-        <span className="pl-com-bar-fill pl-com-bar-fill--model" style={{ width: `${modelWidth}%` }} />
+        <span
+          className="pl-com-bar-fill pl-com-bar-fill--model"
+          style={{ width: `${modelWidth}%` }}
+        />
       </span>
       <strong>{model} %</strong>
     </div>
   );
-}
+});
 
-function MobileTop({
+const MobileTop = memo(function MobileTop({
   ranked,
   monthName,
   goProfile,
@@ -1301,9 +1512,18 @@ function MobileTop({
       <ol className="pl-com-mtop-list">
         {ranked.slice(0, 10).map((r) => (
           <li key={r.handle}>
-            <a href={`/app/u/${r.handle}`} onClick={goProfile(r.handle)} className="pl-com-mtop-card glass-card glass-ring">
+            <a
+              href={`/app/u/${r.handle}`}
+              onClick={goProfile(r.handle)}
+              className="pl-com-mtop-card"
+            >
               <span className="pl-com-mtop-rank num">#{r.rank}</span>
-              <Avatar initials={r.avatarInitials} avatarUrl={r.avatarUrl} gradVar={r.avatarGradVar} size={40} />
+              <Avatar
+                initials={r.avatarInitials}
+                avatarUrl={r.avatarUrl}
+                gradVar={r.avatarGradVar}
+                size={40}
+              />
               <span className="pl-com-mtop-name">{r.name.split(" ")[0]}</span>
               <span className={`num ${r.record.netUnits >= 0 ? "pl-prof-pos" : "pl-prof-neg"}`}>
                 {formatUnits(r.record.netUnits)}
@@ -1314,19 +1534,20 @@ function MobileTop({
       </ol>
     </section>
   );
-}
-
-/* ===========================================================================
-   Siguiendo
-   ========================================================================= */
+});
 
 type FollowFilter = "all" | "tipsters" | "socios" | "open";
 
-function FollowingTab({
+const FOLLOWING_FEED_SCOPE = { following: true } as const;
+
+const FollowingTab = memo(function FollowingTab({
   posts,
   seasonRanked,
   ...shared
-}: FeedSharedProps & { posts: readonly SocialPost[]; seasonRanked: readonly RankedAnalyst[] }): React.JSX.Element {
+}: FeedSharedProps & {
+  posts: readonly SocialPost[];
+  seasonRanked: readonly RankedAnalyst[];
+}): React.JSX.Element {
   const { loadFollowingSocialPosts } = usePlatformActions();
   const [filter, setFilter] = useState<FollowFilter>("all");
   const { follows, dataset, onToggleFollow, goProfile } = shared;
@@ -1338,7 +1559,7 @@ function FollowingTab({
     [dataset, followed, topics],
   );
 
-  useEffect(() => {
+  useSafeEffect(() => {
     if (followed.length > 0 || topicCount > 0) {
       loadFollowingSocialPosts();
     }
@@ -1350,7 +1571,9 @@ function FollowingTab({
         const spec = getExampleAnalystSpec(handle);
         const matchingPost = posts.find((p) => p.authorHandle === handle);
         const postTipster = posts.some(
-          (p) => p.authorHandle === handle && (p.authorIsTipster || p.roleBadge === "Tipster Oficial"),
+          (p) =>
+            p.authorHandle === handle &&
+            (p.authorIsTipster || p.roleBadge === "Tipster Oficial"),
         );
         return {
           handle,
@@ -1363,7 +1586,10 @@ function FollowingTab({
       }),
     [followed, posts],
   );
-  const tipsters = followedInfo.filter((f) => f.isTipster).length;
+  const tipsters = useMemo(
+    () => followedInfo.filter((f) => f.isTipster).length,
+    [followedInfo],
+  );
 
   const followedPosts = useMemo(() => {
     const base = posts.filter(isFollowedPost);
@@ -1379,7 +1605,10 @@ function FollowingTab({
   }, [filter, isFollowedPost, posts]);
 
   const openPicks = useMemo(() => {
-    const groups = new Map<string, { label: string; gameId: string; names: string[]; kickoff?: string; league?: string }>();
+    const groups = new Map<
+      string,
+      { label: string; gameId: string; names: string[]; kickoff?: string; league?: string }
+    >();
     for (const p of posts) {
       if (!isFollowedPost(p) || p.pick?.status !== "open") continue;
       const meta = resolveEntryGame(p.pick.gameId, dataset);
@@ -1390,14 +1619,19 @@ function FollowingTab({
         kickoff: meta?.kickoffIso,
         league: meta?.leagueLabel ?? p.leagueLabel,
       };
-      g.names.push(p.authorName.split(" ")[0]!);
+      g.names.push(p.authorName.split(" ")[0] ?? p.authorName);
       groups.set(p.pick.pickId, g);
     }
-    return [...groups.values()].sort((a, b) => (a.kickoff ?? "").localeCompare(b.kickoff ?? "")).slice(0, 5);
+    return [...groups.values()]
+      .sort((a, b) => (a.kickoff ?? "").localeCompare(b.kickoff ?? ""))
+      .slice(0, 5);
   }, [dataset, isFollowedPost, posts]);
 
   const suggestions = useMemo(
-    () => seasonRanked.filter((r) => !followed.includes(r.handle) && r.handle !== shared.own?.handle).slice(0, 3),
+    () =>
+      seasonRanked
+        .filter((r) => !followed.includes(r.handle) && r.handle !== shared.own?.handle)
+        .slice(0, 3),
     [followed, seasonRanked, shared.own?.handle],
   );
 
@@ -1405,7 +1639,13 @@ function FollowingTab({
     <ul className="pl-com-suggest">
       {suggestions.map((r) => (
         <li key={r.handle}>
-          <Avatar initials={r.avatarInitials} avatarUrl={r.avatarUrl} gradVar={r.avatarGradVar} size={36} loading="lazy" />
+          <Avatar
+            initials={r.avatarInitials}
+            avatarUrl={r.avatarUrl}
+            gradVar={r.avatarGradVar}
+            size={36}
+            loading="lazy"
+          />
           <span className="pl-com-suggest-who">
             <a href={`/app/u/${r.handle}`} onClick={goProfile(r.handle)}>
               {r.name}
@@ -1415,15 +1655,17 @@ function FollowingTab({
               {formatUnits(r.record.netUnits)} · {r.record.settled} picks
             </span>
           </span>
-          <button
+          <Button
             type="button"
-            className="pl-prof-btn pl-prof-btn--primary pl-prof-btn--sm min-h-11 sm:min-h-9 shrink-0"
+            variant="primary"
+            size="sm"
+            className="shrink-0"
             aria-pressed={false}
             aria-label={`Seguir a ${r.name}`}
             onClick={() => onToggleFollow(r.handle)}
           >
             Seguir
-          </button>
+          </Button>
         </li>
       ))}
     </ul>
@@ -1442,11 +1684,14 @@ function FollowingTab({
   if (followed.length === 0 && topicCount === 0) {
     return (
       <div className="pl-com-main">
-        <div className="pl-com-empty glass-lens glass-ring">
-          <p className="pl-com-empty-title">Aún no sigues a nadie.</p>
-          <p className="pl-com-card-note">Sigue a socios o elige ligas y equipos: sus publicaciones aparecen aquí.</p>
-          {suggestionList}
-        </div>
+        <SofascoreCard title="Aún no sigues a nadie">
+          <div className="pl-com-card-stack">
+            <p className="pl-com-card-note">
+              Sigue a socios o elige ligas y equipos: sus publicaciones aparecen aquí.
+            </p>
+            {suggestionList}
+          </div>
+        </SofascoreCard>
         {topicsPicker}
       </div>
     );
@@ -1455,13 +1700,22 @@ function FollowingTab({
   return (
     <div className="pl-com-cols">
       <div className="pl-com-main">
-        <section className="pl-com-strip glass-lens glass-ring" aria-label="A quién sigues">
+        <section className="pl-com-strip" aria-label="A quién sigues">
           <span className="pl-com-stack" aria-hidden="true">
             {followedInfo.slice(0, 5).map((f) => (
-              <Avatar key={f.handle} initials={f.initials} avatarUrl={f.avatarUrl} gradVar={f.gradVar} size={32} loading="lazy" />
+              <Avatar
+                key={f.handle}
+                initials={f.initials}
+                avatarUrl={f.avatarUrl}
+                gradVar={f.gradVar}
+                size={32}
+                loading="lazy"
+              />
             ))}
           </span>
-          <p className="pl-com-strip-copy num">{followSummary(followed.length, tipsters, topics)}</p>
+          <p className="pl-com-strip-copy num">
+            {followSummary(followed.length, tipsters, topics)}
+          </p>
         </section>
 
         {topicsPicker}
@@ -1478,7 +1732,7 @@ function FollowingTab({
             <button
               key={key}
               type="button"
-              className="pl-prof-chip min-h-11 sm:min-h-9"
+              className="pl-prof-chip"
               aria-pressed={filter === key}
               onClick={() => setFilter(key)}
             >
@@ -1490,13 +1744,7 @@ function FollowingTab({
         {openPicks.length > 0 ? (
           <ol className="pl-com-open-strip" aria-label="Picks abiertos de quienes sigues">
             {openPicks.map((p) => (
-              <li
-                key={`${p.gameId}-${p.label}`}
-                style={{
-                  background: "var(--pl-surface)",
-                  border: "1px solid var(--pl-border)",
-                }}
-              >
+              <li key={`${p.gameId}-${p.label}`} className="pl-com-open-strip-item">
                 <p className="pl-prof-row-sub num">
                   {capitalize(kickoffLabel(p.kickoff))} · {p.league}
                 </p>
@@ -1508,17 +1756,15 @@ function FollowingTab({
         ) : null}
 
         <Feed
+          key={`following:${filter}`}
           posts={followedPosts}
-          scope={{ following: true }}
+          scope={FOLLOWING_FEED_SCOPE}
           emptyText="Nada de quienes sigues ni de tus ligas y equipos con este filtro."
           {...shared}
         />
       </div>
       <aside className="pl-com-aside" aria-label="De quienes sigues">
-        <section className="pl-com-card glass-lens glass-ring" aria-labelledby="pl-com-open">
-          <h2 id="pl-com-open" className="pl-prof-eyebrow">
-            Picks abiertos · próximos
-          </h2>
+        <SofascoreCard id="pl-com-open" title="Picks abiertos · próximos" density="compact">
           {openPicks.length === 0 ? (
             <p className="pl-com-card-note">Sin picks abiertos de quienes sigues.</p>
           ) : (
@@ -1534,23 +1780,19 @@ function FollowingTab({
               ))}
             </ol>
           )}
-        </section>
+        </SofascoreCard>
         {suggestions.length > 0 ? (
-          <section className="pl-com-card glass-lens glass-ring" aria-labelledby="pl-com-suggest">
-            <h2 id="pl-com-suggest" className="pl-prof-eyebrow">
-              Para seguir
-            </h2>
+          <SofascoreCard id="pl-com-suggest" title="Para seguir" density="compact">
             {suggestionList}
-          </section>
+          </SofascoreCard>
         ) : null}
       </aside>
     </div>
   );
-}
+});
 
 const plural = (n: number, one: string, many: string): string => `${n} ${n === 1 ? one : many}`;
 
-/** «Sigues a 3 (1 tipster, 2 socios) · 2 ligas y 1 equipo», sin partes en cero. */
 function followSummary(people: number, tipsters: number, topics: FollowedTopics): string {
   const parts: string[] = [];
   if (people > 0) {
@@ -1564,11 +1806,13 @@ function followSummary(people: number, tipsters: number, topics: FollowedTopics)
     topics.leagues.length > 0 ? plural(topics.leagues.length, "liga", "ligas") : "",
     topics.teams.length > 0 ? plural(topics.teams.length, "equipo", "equipos") : "",
   ].filter(Boolean);
-  if (topicParts.length > 0) parts.push(`${people > 0 ? "" : "Sigues "}${topicParts.join(" y ")}`);
+  if (topicParts.length > 0) {
+    parts.push(`${people > 0 ? "" : "Sigues "}${topicParts.join(" y ")}`);
+  }
   return parts.join(" · ");
 }
 
-function TopicsPicker({
+const TopicsPicker = memo(function TopicsPicker({
   games,
   topics,
   onToggleLeague,
@@ -1586,10 +1830,18 @@ function TopicsPicker({
   const leagues = useMemo(() => {
     const map = new Map<
       string,
-      { league: PlatformGame["league"]; label: string; teams: Map<string, { slug: string; name: string }> }
+      {
+        league: PlatformGame["league"];
+        label: string;
+        teams: Map<string, { slug: string; name: string }>;
+      }
     >();
     for (const g of games) {
-      const entry = map.get(g.league) ?? { league: g.league, label: g.leagueLabel, teams: new Map() };
+      const entry = map.get(g.league) ?? {
+        league: g.league,
+        label: g.leagueLabel,
+        teams: new Map(),
+      };
       entry.teams.set(g.home.slug, { slug: g.home.slug, name: g.home.shortName || g.home.name });
       entry.teams.set(g.away.slug, { slug: g.away.slug, name: g.away.shortName || g.away.name });
       map.set(g.league, entry);
@@ -1616,10 +1868,19 @@ function TopicsPicker({
   const matchingTeams = useMemo(() => {
     if (!normalizedQuery) {
       return activeLeague
-        ? activeLeague.teams.map((t) => ({ ...t, league: activeLeague.league, leagueLabel: activeLeague.label }))
+        ? activeLeague.teams.map((t) => ({
+            ...t,
+            league: activeLeague.league,
+            leagueLabel: activeLeague.label,
+          }))
         : [];
     }
-    const hits: Array<{ slug: string; name: string; league: PlatformGame["league"]; leagueLabel: string }> = [];
+    const hits: Array<{
+      slug: string;
+      name: string;
+      league: PlatformGame["league"];
+      leagueLabel: string;
+    }> = [];
     for (const l of leagues) {
       for (const t of l.teams) {
         const hay = `${t.name} ${l.label}`
@@ -1637,10 +1898,12 @@ function TopicsPicker({
   const count = topics.leagues.length + topics.teams.length;
   if (leagues.length === 0) return null;
 
-  const isFollowingActiveLeague = activeLeague ? topics.leagues.includes(activeLeague.league) : false;
+  const isFollowingActiveLeague = activeLeague
+    ? topics.leagues.includes(activeLeague.league)
+    : false;
 
   return (
-    <details className="pl-com-topics glass-lens glass-ring" open={defaultOpen}>
+    <details className="pl-com-topics" open={defaultOpen}>
       <summary className="pl-com-topics-summary">
         <span>Ligas y equipos que sigues</span>
         <span className="pl-prof-muted num">{count === 0 ? "Elegir" : `${count} activos`}</span>
@@ -1658,7 +1921,7 @@ function TopicsPicker({
                 <button
                   key={`followed-lg-${lgId}`}
                   type="button"
-                  className="pl-prof-chip min-h-11 sm:min-h-9"
+                  className="pl-prof-chip"
                   aria-pressed={true}
                   onClick={() => onToggleLeague(lgId)}
                 >
@@ -1677,11 +1940,17 @@ function TopicsPicker({
                 <button
                   key={`followed-tm-${key}`}
                   type="button"
-                  className="pl-prof-chip min-h-11 sm:min-h-9"
+                  className="pl-prof-chip"
                   aria-pressed={true}
                   onClick={() => onToggleTeam(key)}
                 >
-                  <TeamBadge league={lgId} slug={slug} name={teamObj?.name ?? slug} size={15} decorative />
+                  <TeamBadge
+                    league={lgId}
+                    slug={slug}
+                    name={teamObj?.name ?? slug}
+                    size={15}
+                    decorative
+                  />
                   <span>{teamObj?.name ?? slug}</span>
                   <MaestroIcon name="x" size={12} />
                 </button>
@@ -1691,32 +1960,40 @@ function TopicsPicker({
         ) : null}
 
         <div className="pl-com-topics-toolbar">
-          <PlSelect
-            variant="glass"
-            size="sm"
-            ariaLabel="Elegir liga para explorar equipos"
-            value={activeLeagueKey}
-            onChange={(next) => {
-              setSelectedLeagueKey(next);
-              setQuery("");
-            }}
-            options={leagues.map((l) => ({
-              value: l.league,
-              label: l.label,
-              icon: <LeagueBadge league={l.league} size={16} />,
-            }))}
-            className="pl-com-league-select min-w-0 max-w-full"
-          />
+          <div className="pl-com-select-wrap">
+            <label htmlFor={`${uid}-topic-league`} className="sr-only">
+              Elegir liga para explorar equipos
+            </label>
+            <select
+              id={`${uid}-topic-league`}
+              className="pl-com-select"
+              value={activeLeagueKey}
+              onChange={(e) => {
+                setSelectedLeagueKey(e.target.value);
+                setQuery("");
+              }}
+            >
+              {leagues.map((l) => (
+                <option key={l.league} value={l.league}>
+                  {l.label}
+                </option>
+              ))}
+            </select>
+          </div>
 
           {activeLeague && !normalizedQuery ? (
             <button
               type="button"
-              className="pl-prof-chip min-h-11 sm:min-h-9"
+              className="pl-prof-chip"
               aria-pressed={isFollowingActiveLeague}
               onClick={() => onToggleLeague(activeLeague.league)}
             >
               <LeagueBadge league={activeLeague.league} size={15} />
-              <span>{isFollowingActiveLeague ? `Siguiendo ${activeLeague.label}` : `Seguir toda ${activeLeague.label}`}</span>
+              <span>
+                {isFollowingActiveLeague
+                  ? `Siguiendo ${activeLeague.label}`
+                  : `Seguir toda ${activeLeague.label}`}
+              </span>
             </button>
           ) : null}
 
@@ -1724,9 +2001,9 @@ function TopicsPicker({
             type="search"
             value={query}
             onChange={(e) => setQuery(e.target.value)}
-            placeholder="Buscar equipo..."
+            placeholder="Buscar equipo…"
             aria-label="Buscar equipo para seguir"
-            className="glass-input text-base sm:text-xs px-3 min-h-11 sm:min-h-9 rounded-xl flex-1 min-w-0 w-full sm:w-auto sm:min-w-[160px]"
+            className="pl-com-search pl-com-topics-search"
           />
         </div>
 
@@ -1748,11 +2025,17 @@ function TopicsPicker({
                   <button
                     key={key}
                     type="button"
-                    className="pl-prof-chip min-h-11 sm:min-h-9"
+                    className="pl-prof-chip"
                     aria-pressed={topics.teams.includes(key)}
                     onClick={() => onToggleTeam(key)}
                   >
-                    <TeamBadge league={t.league} slug={t.slug} name={t.name} size={16} decorative />
+                    <TeamBadge
+                      league={t.league}
+                      slug={t.slug}
+                      name={t.name}
+                      size={16}
+                      decorative
+                    />
                     <span>{t.name}</span>
                   </button>
                 );
@@ -1763,11 +2046,7 @@ function TopicsPicker({
       </div>
     </details>
   );
-}
-
-/* ===========================================================================
-   Consenso
-   ========================================================================= */
+});
 
 type ConsensusSort = "diff" | "picks" | "soon";
 
@@ -1778,38 +2057,100 @@ function diffClass(diff: number): string {
   return "pl-com-diff";
 }
 
-/** «12 picks · 8 votos», lo que exista. */
 function sampleLabel(item: ConsensusGame): string {
   const parts: string[] = [];
-  if (item.totalPicks > 0) parts.push(`${item.totalPicks} ${item.totalPicks === 1 ? "pick" : "picks"}`);
-  if (item.votes) parts.push(`${item.votes.total} ${item.votes.total === 1 ? "voto" : "votos"}`);
+  if (item.totalPicks > 0) {
+    parts.push(`${item.totalPicks} ${item.totalPicks === 1 ? "pick" : "picks"}`);
+  }
+  if (item.votes) {
+    parts.push(`${item.votes.total} ${item.votes.total === 1 ? "voto" : "votos"}`);
+  }
   return parts.join(" · ");
 }
 
 const sampleSize = (item: ConsensusGame): number => item.totalPicks + (item.votes?.total ?? 0);
 
-function ConsensusTab({ items }: { items: readonly ConsensusGame[] }): React.JSX.Element {
+const ConsensusTab = memo(function ConsensusTab({
+  items,
+}: {
+  items: readonly ConsensusGame[];
+}): React.JSX.Element {
   const { userTimezone } = usePlatformCore();
-  const sortLabelId = useId();
+  const sortId = useId();
   const [league, setLeague] = useState("all");
   const [sort, setSort] = useState<ConsensusSort>("diff");
   const leagues = useMemo(() => [...new Set(items.map((i) => i.game.leagueLabel))], [items]);
   const list = useMemo(() => {
-    const filtered = league === "all" ? [...items] : items.filter((i) => i.game.leagueLabel === league);
+    const filtered =
+      league === "all" ? [...items] : items.filter((i) => i.game.leagueLabel === league);
     if (sort === "picks") filtered.sort((a, b) => sampleSize(b) - sampleSize(a));
-    if (sort === "soon") filtered.sort((a, b) => a.game.kickoffUtc.localeCompare(b.game.kickoffUtc));
+    if (sort === "soon") {
+      filtered.sort((a, b) => a.game.kickoffUtc.localeCompare(b.game.kickoffUtc));
+    }
     return filtered;
   }, [items, league, sort]);
+
+  const consensusColumns = useMemo<readonly SofascoreTableColumn<ConsensusGame>[]>(
+    () => [
+      {
+        key: "match",
+        header: "Partido",
+        sticky: true,
+        render: (i) => (
+          <div className="pl-com-crow-match">
+            <LeagueBadge league={i.game.league} size={18} />
+            <div>
+              <p className="pl-prof-row-title">
+                {i.game.home.shortName || i.game.home.name} vs{" "}
+                {i.game.away.shortName || i.game.away.name}
+              </p>
+              <p className="pl-prof-row-sub">{kickoffLabel(i.game.kickoffUtc, userTimezone)}</p>
+            </div>
+          </div>
+        ),
+      },
+      {
+        key: "top",
+        header: "Más elegido",
+        render: (i) => <span>{i.top.label}</span>,
+      },
+      {
+        key: "fans",
+        header: "Socios",
+        numeric: true,
+        render: (i) => <strong className="num">{i.top.fansPct} %</strong>,
+      },
+      {
+        key: "model",
+        header: "Modelo",
+        numeric: true,
+        render: (i) => <span className="pl-prof-muted num">{i.top.modelPct} %</span>,
+      },
+      {
+        key: "diff",
+        header: "Diferencia",
+        align: "end",
+        render: (i) => (
+          <span className={`${diffClass(i.top.diffPts)} num`}>{formatDiffPts(i.top.diffPts)}</span>
+        ),
+      },
+      {
+        key: "sample",
+        header: "Muestra",
+        align: "end",
+        render: (i) => <span className="pl-prof-muted num">{sampleLabel(i)}</span>,
+      },
+    ],
+    [userTimezone],
+  );
 
   if (items.length === 0) {
     return (
       <div className="pl-com-consensus">
-        <div className="pl-com-empty glass-lens glass-ring">
-          <p className="pl-com-empty-title">Todavía no hay partidos con suficientes picks o votos de socios.</p>
-          <p className="pl-com-card-note">
-            Publica tu pick con «Adjuntar pick» o vota «¿Quién gana?» en la ficha del partido: los dos cuentan.
-          </p>
-        </div>
+        <SofascoreEmptyState
+          title="Todavía no hay partidos con suficientes picks o votos de socios"
+          description="Publica tu pick con «Adjuntar pick» o vota «¿Quién gana?» en la ficha del partido: los dos cuentan."
+        />
         <ConsensusNote />
       </div>
     );
@@ -1822,7 +2163,7 @@ function ConsensusTab({ items }: { items: readonly ConsensusGame[] }): React.JSX
         <div className="pl-com-filters" role="group" aria-label="Liga">
           <button
             type="button"
-            className="pl-prof-chip min-h-11 sm:min-h-9"
+            className="pl-prof-chip"
             aria-pressed={league === "all"}
             onClick={() => setLeague("all")}
           >
@@ -1832,7 +2173,7 @@ function ConsensusTab({ items }: { items: readonly ConsensusGame[] }): React.JSX
             <button
               key={l}
               type="button"
-              className="pl-prof-chip min-h-11 sm:min-h-9"
+              className="pl-prof-chip"
               aria-pressed={league === l}
               onClick={() => setLeague(l)}
             >
@@ -1841,61 +2182,63 @@ function ConsensusTab({ items }: { items: readonly ConsensusGame[] }): React.JSX
           ))}
         </div>
         <div className="pl-com-sort">
-          <span id={sortLabelId}>Ordenar</span>
-          <PlSelect
-            variant="pill"
-            size="sm"
-            ariaLabelledBy={sortLabelId}
+          <label htmlFor={sortId}>Ordenar</label>
+          <select
+            id={sortId}
+            className="pl-com-select"
             value={sort}
-            onChange={(next) => setSort(next as ConsensusSort)}
-            options={[
-              {
-                value: "diff",
-                label: "Mayor diferencia",
-                description: "Brecha modelo vs. consenso",
-              },
-              {
-                value: "picks",
-                label: "Más picks",
-                description: "Mayor participación de socios",
-              },
-              {
-                value: "soon",
-                label: "Próximos",
-                description: "Por hora de inicio",
-              },
-            ]}
-          />
+            onChange={(e) => {
+              const v = e.target.value;
+              if (v === "diff" || v === "picks" || v === "soon") setSort(v);
+            }}
+          >
+            <option value="diff">Mayor diferencia</option>
+            <option value="picks">Más picks</option>
+            <option value="soon">Próximos</option>
+          </select>
         </div>
       </div>
 
       {featured ? (
-        <article className="pl-com-featured glass-lens glass-ring" aria-labelledby="pl-com-featured-title">
-          <p className="pl-prof-eyebrow">{sort === "diff" ? "Mayor diferencia hoy" : "Destacado"}</p>
+        <SofascoreCard
+          as="article"
+          title={sort === "diff" ? "Mayor diferencia hoy" : "Destacado"}
+          meta={sampleLabel(featured)}
+          className="pl-com-featured-card"
+        >
           <h2 id="pl-com-featured-title" className="pl-com-featured-title">
-            <TeamBadge league={featured.game.league} slug={featured.game.home.slug} name={featured.game.home.name} size={26} decorative />
-            {featured.game.home.shortName || featured.game.home.name} vs {featured.game.away.shortName || featured.game.away.name}
-            <TeamBadge league={featured.game.league} slug={featured.game.away.slug} name={featured.game.away.name} size={26} decorative />
+            <TeamBadge
+              league={featured.game.league}
+              slug={featured.game.home.slug}
+              name={featured.game.home.name}
+              size={24}
+              decorative
+            />
+            {featured.game.home.shortName || featured.game.home.name} vs{" "}
+            {featured.game.away.shortName || featured.game.away.name}
+            <TeamBadge
+              league={featured.game.league}
+              slug={featured.game.away.slug}
+              name={featured.game.away.name}
+              size={24}
+              decorative
+            />
           </h2>
           <p className="pl-com-card-note num">
-            {featured.game.leagueLabel} · {kickoffLabel(featured.game.kickoffUtc, userTimezone)} · {sampleLabel(featured)}
+            {featured.game.leagueLabel} · {kickoffLabel(featured.game.kickoffUtc, userTimezone)} ·{" "}
+            {sampleLabel(featured)}
           </p>
           {featured.outcomes.length > 0 ? (
             <>
               <h3 className="pl-com-consensus-sub">Picks publicados</h3>
               <div className="pl-com-outcomes">
                 {featured.outcomes.slice(0, 3).map((o) => (
-                  <div
-                    key={o.pickId}
-                    className="pl-com-outcome"
-                    style={{
-                      background: "var(--pl-surface-elevated)",
-                      border: "1px solid var(--pl-border)",
-                    }}
-                  >
+                  <div key={o.pickId} className="pl-com-outcome">
                     <div className="pl-com-outcome-head">
                       <p>{o.label}</p>
-                      <span className={`${diffClass(o.diffPts)} num`}>{formatDiffPts(o.diffPts)}</span>
+                      <span className={`${diffClass(o.diffPts)} num`}>
+                        {formatDiffPts(o.diffPts)}
+                      </span>
                     </div>
                     <BarsPair label={o.label} fans={o.fansPct} model={o.modelPct} />
                   </div>
@@ -1905,20 +2248,17 @@ function ConsensusTab({ items }: { items: readonly ConsensusGame[] }): React.JSX
           ) : null}
           {featured.votes ? (
             <>
-              <h3 className="pl-com-consensus-sub num">¿Quién gana? · {featured.votes.total} votos</h3>
+              <h3 className="pl-com-consensus-sub num">
+                ¿Quién gana? · {featured.votes.total} votos
+              </h3>
               <div className="pl-com-outcomes">
                 {featured.votes.outcomes.map((o) => (
-                  <div
-                    key={o.pickId}
-                    className="pl-com-outcome"
-                    style={{
-                      background: "var(--pl-surface-elevated)",
-                      border: "1px solid var(--pl-border)",
-                    }}
-                  >
+                  <div key={o.pickId} className="pl-com-outcome">
                     <div className="pl-com-outcome-head">
                       <p>{o.label}</p>
-                      <span className={`${diffClass(o.diffPts)} num`}>{formatDiffPts(o.diffPts)}</span>
+                      <span className={`${diffClass(o.diffPts)} num`}>
+                        {formatDiffPts(o.diffPts)}
+                      </span>
                     </div>
                     <BarsPair label={o.label} fans={o.fansPct} model={o.modelPct} />
                   </div>
@@ -1927,65 +2267,34 @@ function ConsensusTab({ items }: { items: readonly ConsensusGame[] }): React.JSX
             </>
           ) : null}
           <p className="pl-com-reading">{consensusReading(featured.top)}</p>
-        </article>
+        </SofascoreCard>
       ) : null}
 
       {rest.length > 0 ? (
-        <section className="pl-com-clist glass-lens glass-ring" aria-labelledby="pl-com-clist-title">
-          <h2 id="pl-com-clist-title" className="sr-only">
-            Todos los partidos
-          </h2>
-          <div className="pl-com-crow pl-com-crow--head" aria-hidden="true">
-            <span>Partido</span>
-            <span className="pl-com-hide-md">Más elegido por socios</span>
-            <span className="pl-com-hide-md pl-com-right">Socios</span>
-            <span className="pl-com-hide-md pl-com-right">Modelo</span>
-            <span className="pl-com-right">Diferencia</span>
-            <span className="pl-com-hide-md pl-com-right">Muestra</span>
-          </div>
-          {rest.map((i) => (
-            <div key={i.game.id} className="pl-com-crow num">
-              <div className="pl-com-crow-match">
-                <LeagueBadge league={i.game.league} size={20} />
-                <div>
-                  <p className="pl-prof-row-title">
-                    {i.game.home.shortName || i.game.home.name} vs {i.game.away.shortName || i.game.away.name}
-                  </p>
-                  <p className="pl-prof-row-sub">{kickoffLabel(i.game.kickoffUtc, userTimezone)}</p>
-                </div>
-              </div>
-              <span className="pl-com-hide-md">{i.top.label}</span>
-              <span className="pl-com-hide-md pl-com-right">
-                <strong>{i.top.fansPct} %</strong>
-              </span>
-              <span className="pl-com-hide-md pl-com-right pl-prof-muted">{i.top.modelPct} %</span>
-              <span className="pl-com-right">
-                <span className={diffClass(i.top.diffPts)}>{formatDiffPts(i.top.diffPts)}</span>
-              </span>
-              <span className="pl-com-hide-md pl-com-right pl-prof-muted">{sampleLabel(i)}</span>
-            </div>
-          ))}
-        </section>
+        <SofascoreTable
+          caption="Consenso de socios frente al modelo"
+          columns={consensusColumns}
+          rows={rest}
+          rowKey={(i) => i.game.id}
+          density="compact"
+        />
       ) : null}
       <ConsensusNote />
     </div>
   );
-}
+});
 
-function ConsensusNote(): React.JSX.Element {
+const ConsensusNote = memo(function ConsensusNote(): React.JSX.Element {
   return (
     <p className="pl-com-footnote">
-      Socios: % de picks publicados por resultado, o % de votos de «¿Quién gana?». Modelo: probabilidad del
-      partido. Entran partidos con {CONSENSUS_MIN_PICKS} picks o {CONSENSUS_MIN_VOTES} votos.
+      Socios: % de picks publicados por resultado, o % de votos de «¿Quién gana?». Modelo:
+      probabilidad del partido. Entran partidos con {CONSENSUS_MIN_PICKS} picks o{" "}
+      {CONSENSUS_MIN_VOTES} votos.
     </p>
   );
-}
+});
 
-/* ===========================================================================
-   Ranking
-   ========================================================================= */
-
-function RankingTab({
+const RankingTab = memo(function RankingTab({
   rows,
   own,
   ownJournal,
@@ -2007,22 +2316,33 @@ function RankingTab({
   onPrivacy: () => void;
 }): React.JSX.Element {
   const { hasAccountSessionAuth } = usePlatformCore();
-  const [window, setWindow] = useState<LeaderboardWindow>("30d");
+  const [windowKey, setWindowKey] = useState<LeaderboardWindow>("30d");
   const [sort, setSort] = useState<LeaderboardSort>("units");
-  const minSettled = leaderboardMinSettled(window);
-  const ranked = useMemo(() => rankAnalysts(rows, { window, sort, today }), [rows, window, sort, today]);
-  const top = ranked.slice(0, TOP_N);
-  const podium = top.slice(0, 3);
-  const tableRows = top.slice(3);
-  const me = own ? ranked.find((r) => r.handle === own.handle) ?? null : null;
+  const minSettled = leaderboardMinSettled(windowKey);
+  const ranked = useMemo(
+    () => rankAnalysts(rows, { window: windowKey, sort, today }),
+    [rows, windowKey, sort, today],
+  );
+  const top = useMemo(() => ranked.slice(0, TOP_N), [ranked]);
+  const podium = useMemo(() => top.slice(0, 3), [top]);
+  const tableRows = useMemo(() => top.slice(3), [top]);
+  const me = useMemo(
+    () => (own ? (ranked.find((r) => r.handle === own.handle) ?? null) : null),
+    [own, ranked],
+  );
   const meInTop = me !== null && me.rank <= TOP_N;
-  const ownSettled = own ? profileRecord(entriesInWindow(ownJournal, window, today)).settled : 0;
+  const ownSettled = useMemo(
+    () => (own ? profileRecord(entriesInWindow(ownJournal, windowKey, today)).settled : 0),
+    [own, ownJournal, today, windowKey],
+  );
   const tenth = top[TOP_N - 1];
-  const windowLabel = window === "7d" ? "últimos 7 días" : "últimos 30 días";
-  const sortLabel = sort === "units" ? "saldo" : sort === "clv" ? "ventaja contra el cierre" : "cumplidos";
+  const windowLabel = windowKey === "7d" ? "últimos 7 días" : "últimos 30 días";
+  const sortLabel =
+    sort === "units" ? "saldo" : sort === "clv" ? "ventaja contra el cierre" : "cumplidos";
 
   const hit = (r: RankedAnalyst): string => `${Math.round(r.record.hitRatePct ?? 0)} %`;
-  const clv = (r: RankedAnalyst): string => (r.record.avgClvPct === null ? "—" : formatSignedPct(r.record.avgClvPct));
+  const clv = (r: RankedAnalyst): string =>
+    r.record.avgClvPct === null ? "—" : formatSignedPct(r.record.avgClvPct);
   const sub = (r: RankedAnalyst): string => `${r.roleLabel} · ${r.specialty}`;
 
   const meNote = me
@@ -2032,6 +2352,7 @@ function RankingTab({
     : hasAccountSessionAuth && ownSettled >= minSettled
       ? "Activa «Aparecer en el ranking» en Privacidad para entrar"
       : `Registra ${Math.max(0, minSettled - ownSettled)} picks más para entrar`;
+
   const nameOf = (r: RankedAnalyst): React.ReactNode => (
     <>
       <a href={`/app/u/${r.handle}`} onClick={goProfile(r.handle)}>
@@ -2047,44 +2368,27 @@ function RankingTab({
         <div className="pl-com-seg max-w-full" role="group" aria-label="Periodo">
           <button
             type="button"
-            className="min-h-11 sm:min-h-9"
-            aria-pressed={window === "7d"}
-            onClick={() => setWindow("7d")}
+            aria-pressed={windowKey === "7d"}
+            onClick={() => setWindowKey("7d")}
           >
             Semana
           </button>
           <button
             type="button"
-            className="min-h-11 sm:min-h-9"
-            aria-pressed={window === "30d"}
-            onClick={() => setWindow("30d")}
+            aria-pressed={windowKey === "30d"}
+            onClick={() => setWindowKey("30d")}
           >
             Mes
           </button>
         </div>
         <div className="pl-com-seg max-w-full overflow-x-auto" role="group" aria-label="Ordenar por">
-          <button
-            type="button"
-            className="min-h-11 sm:min-h-9"
-            aria-pressed={sort === "units"}
-            onClick={() => setSort("units")}
-          >
+          <button type="button" aria-pressed={sort === "units"} onClick={() => setSort("units")}>
             Saldo
           </button>
-          <button
-            type="button"
-            className="min-h-11 sm:min-h-9"
-            aria-pressed={sort === "clv"}
-            onClick={() => setSort("clv")}
-          >
+          <button type="button" aria-pressed={sort === "clv"} onClick={() => setSort("clv")}>
             Contra el cierre
           </button>
-          <button
-            type="button"
-            className="min-h-11 sm:min-h-9"
-            aria-pressed={sort === "hits"}
-            onClick={() => setSort("hits")}
-          >
+          <button type="button" aria-pressed={sort === "hits"} onClick={() => setSort("hits")}>
             Cumplidos
           </button>
         </div>
@@ -2100,7 +2404,9 @@ function RankingTab({
       ) : null}
 
       {ranked.length === 0 ? (
-        <p className="pl-prof-empty-line">Aún nadie llega a {minSettled} picks cerrados en este periodo.</p>
+        <SofascoreEmptyState
+          title={`Aún nadie llega a ${minSettled} picks cerrados en este periodo`}
+        />
       ) : (
         <>
           <ol className="pl-com-podium" aria-label="Primeros tres lugares">
@@ -2110,17 +2416,25 @@ function RankingTab({
               return (
                 <li
                   key={r.handle}
-                  className={`pl-com-podium-card glass-lens glass-ring ${r.rank === 1 ? "is-first" : ""}`}
+                  className={`pl-com-podium-card${r.rank === 1 ? " is-first" : ""}`}
                   data-rank={r.rank}
                 >
                   <span className="pl-com-podium-rank num">#{r.rank}</span>
-                  <Avatar initials={r.avatarInitials} avatarUrl={r.avatarUrl} gradVar={r.avatarGradVar} size={r.rank === 1 ? 64 : 56} className="pl-com-podium-avatar" />
+                  <Avatar
+                    initials={r.avatarInitials}
+                    avatarUrl={r.avatarUrl}
+                    gradVar={r.avatarGradVar}
+                    size={r.rank === 1 ? 60 : 52}
+                    className="pl-com-podium-avatar"
+                  />
                   <p className="pl-com-podium-name flex-wrap">
                     {nameOf(r)}
                     {r.isTipster ? <VerifiedSeal size={16} /> : null}
                   </p>
                   <p className="pl-com-podium-sub">{sub(r)}</p>
-                  <p className={`pl-com-podium-units num ${r.record.netUnits >= 0 ? "pl-prof-pos" : "pl-prof-neg"}`}>
+                  <p
+                    className={`pl-com-podium-units num ${r.record.netUnits >= 0 ? "pl-prof-pos" : "pl-prof-neg"}`}
+                  >
                     {formatUnits(r.record.netUnits)}
                   </p>
                   <div className="pl-com-podium-stats num">
@@ -2135,17 +2449,17 @@ function RankingTab({
                     </span>
                   </div>
                   {!isMe ? (
-                    <button
+                    <Button
                       type="button"
-                      className={`pl-prof-btn pl-prof-btn--sm min-h-11 sm:min-h-9 pl-com-podium-follow ${
-                        following ? "pl-prof-btn--ghost" : "pl-prof-btn--primary"
-                      }`}
+                      variant={following ? "secondary" : "primary"}
+                      size="sm"
+                      className="pl-com-podium-follow"
                       aria-pressed={following}
                       aria-label={`${following ? "Siguiendo" : "Seguir"} a ${r.name}`}
                       onClick={() => onToggleFollow(r.handle)}
                     >
                       {following ? "Siguiendo" : "Seguir"}
-                    </button>
+                    </Button>
                   ) : null}
                 </li>
               );
@@ -2153,32 +2467,54 @@ function RankingTab({
           </ol>
 
           <div
-            className="pl-com-table-wrap glass-lens glass-ring"
+            className="pl-com-table-wrap pl-sf-table-wrap"
             tabIndex={0}
             role="region"
             aria-labelledby="pl-com-ranking-caption"
           >
-            <table className="pl-com-table num">
+            <table className="pl-com-table pl-com-ranking-table pl-sf-table num">
               <caption id="pl-com-ranking-caption" className="sr-only">
-                Ranking de Comunidad, {windowLabel}, ordenado por {sortLabel}, del 4.º lugar en adelante
+                Ranking de Comunidad, {windowLabel}, ordenado por {sortLabel}, del 4.º lugar en
+                adelante
               </caption>
               <thead>
                 <tr>
-                  <th scope="col">#</th>
-                  <th scope="col">Analista</th>
-                  <th scope="col">Saldo</th>
-                  <th scope="col">Cumplidos</th>
-                  <th scope="col">Contra el cierre</th>
-                  <th scope="col">Picks</th>
+                  <th scope="col" className="pl-sf-th">
+                    #
+                  </th>
+                  <th scope="col" className="pl-sf-th is-sticky-col">
+                    Analista
+                  </th>
+                  <th scope="col" className="pl-sf-th is-end">
+                    Saldo
+                  </th>
+                  <th scope="col" className="pl-sf-th is-end">
+                    Cumplidos
+                  </th>
+                  <th scope="col" className="pl-sf-th is-end">
+                    Contra el cierre
+                  </th>
+                  <th scope="col" className="pl-sf-th is-end">
+                    Picks
+                  </th>
                 </tr>
               </thead>
               <tbody>
                 {tableRows.map((r) => (
-                  <tr key={r.handle} className={own?.handle === r.handle ? "is-me" : undefined}>
-                    <td className="pl-prof-muted">{r.rank}</td>
-                    <td>
+                  <tr
+                    key={r.handle}
+                    className={own?.handle === r.handle ? "pl-sf-tr is-me" : "pl-sf-tr"}
+                  >
+                    <td className="pl-sf-td pl-prof-muted">{r.rank}</td>
+                    <th scope="row" className="pl-sf-td is-sticky-col">
                       <span className="pl-com-table-who">
-                        <Avatar initials={r.avatarInitials} avatarUrl={r.avatarUrl} gradVar={r.avatarGradVar} size={32} loading="lazy" />
+                        <Avatar
+                          initials={r.avatarInitials}
+                          avatarUrl={r.avatarUrl}
+                          gradVar={r.avatarGradVar}
+                          size={30}
+                          loading="lazy"
+                        />
                         <span>
                           <span className="pl-com-table-name">
                             {nameOf(r)}
@@ -2187,31 +2523,43 @@ function RankingTab({
                           <span className="pl-com-table-sub">{sub(r)}</span>
                         </span>
                       </span>
-                    </td>
-                    <td className={r.record.netUnits >= 0 ? "pl-prof-pos pl-com-strong" : "pl-prof-neg pl-com-strong"}>
+                    </th>
+                    <td
+                      className={`pl-sf-td is-end ${r.record.netUnits >= 0 ? "pl-prof-pos pl-com-strong" : "pl-prof-neg pl-com-strong"}`}
+                    >
                       {formatUnits(r.record.netUnits)}
                     </td>
-                    <td>{hit(r)}</td>
-                    <td>{clv(r)}</td>
-                    <td className="pl-prof-muted">{r.record.settled}</td>
+                    <td className="pl-sf-td is-end">{hit(r)}</td>
+                    <td className="pl-sf-td is-end">{clv(r)}</td>
+                    <td className="pl-sf-td is-end pl-prof-muted">{r.record.settled}</td>
                   </tr>
                 ))}
                 {own && !meInTop ? (
-                  <tr className="is-me">
-                    <td className="pl-com-strong">{me ? me.rank : "—"}</td>
-                    <td>
+                  <tr className="pl-sf-tr is-me">
+                    <td className="pl-sf-td pl-com-strong">{me ? me.rank : "—"}</td>
+                    <th scope="row" className="pl-sf-td is-sticky-col">
                       <span className="pl-com-table-who">
-                        <Avatar initials={own.avatarInitials} avatarUrl={own.avatarUrl} gradVar={own.avatarGradVar} size={32} loading="lazy" />
+                        <Avatar
+                          initials={own.avatarInitials}
+                          avatarUrl={own.avatarUrl}
+                          gradVar={own.avatarGradVar}
+                          size={30}
+                          loading="lazy"
+                        />
                         <span>
                           <span className="pl-com-table-name">Tú</span>
                           <span className="pl-com-table-sub">{meNote}</span>
                         </span>
                       </span>
+                    </th>
+                    <td className="pl-sf-td is-end pl-com-strong">
+                      {me ? formatUnits(me.record.netUnits) : "—"}
                     </td>
-                    <td className="pl-com-strong">{me ? formatUnits(me.record.netUnits) : "—"}</td>
-                    <td>{me ? hit(me) : "—"}</td>
-                    <td>{me ? clv(me) : "—"}</td>
-                    <td className="pl-prof-muted">{me ? me.record.settled : ownSettled}</td>
+                    <td className="pl-sf-td is-end">{me ? hit(me) : "—"}</td>
+                    <td className="pl-sf-td is-end">{me ? clv(me) : "—"}</td>
+                    <td className="pl-sf-td is-end pl-prof-muted">
+                      {me ? me.record.settled : ownSettled}
+                    </td>
                   </tr>
                 ) : null}
               </tbody>
@@ -2222,23 +2570,37 @@ function RankingTab({
             {tableRows.map((r) => (
               <li key={r.handle}>
                 <span className="pl-com-top-rank num">{r.rank}</span>
-                <Avatar initials={r.avatarInitials} avatarUrl={r.avatarUrl} gradVar={r.avatarGradVar} size={36} loading="lazy" />
+                <Avatar
+                  initials={r.avatarInitials}
+                  avatarUrl={r.avatarUrl}
+                  gradVar={r.avatarGradVar}
+                  size={36}
+                  loading="lazy"
+                />
                 <span className="pl-com-mlist-who">
                   <span>{nameOf(r)}</span>
                   <span className="pl-prof-muted num">
                     {hit(r)} cumplidos · {r.record.settled} picks
                   </span>
                 </span>
-                <span className={`num pl-com-strong ${r.record.netUnits >= 0 ? "pl-prof-pos" : "pl-prof-neg"}`}>
+                <span
+                  className={`num pl-com-strong ${r.record.netUnits >= 0 ? "pl-prof-pos" : "pl-prof-neg"}`}
+                >
                   {formatUnits(r.record.netUnits)}
                 </span>
               </li>
             ))}
           </ol>
           {own && !meInTop ? (
-            <div className="pl-com-mme glass-lens glass-ring num">
+            <div className="pl-com-mme num">
               <span className="pl-com-top-rank">{me ? me.rank : "—"}</span>
-              <Avatar initials={own.avatarInitials} avatarUrl={own.avatarUrl} gradVar={own.avatarGradVar} size={36} loading="lazy" />
+              <Avatar
+                initials={own.avatarInitials}
+                avatarUrl={own.avatarUrl}
+                gradVar={own.avatarGradVar}
+                size={36}
+                loading="lazy"
+              />
               <span className="pl-com-mlist-who">
                 <strong>Tú</strong>
                 <span className="pl-prof-muted">{meNote}</span>
@@ -2257,7 +2619,6 @@ function RankingTab({
       </p>
     </div>
   );
-}
+});
 
-/** Para Storybook: piezas de Comunidad con datos de ejemplo. */
 export { ConsensusTab as CommunityConsensusTab, TopicsPicker as CommunityTopicsPicker };

@@ -1,18 +1,19 @@
 import { NextResponse } from "next/server";
+import { withSessionRead } from "../../../../src/server/api-guards";
 import { loadMemberPlanSummary } from "../../../../src/server/member-plan";
-import { requireMember } from "../../../../src/server/session-user";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
 
-export async function GET(request: Request): Promise<NextResponse> {
-  const member = await requireMember(request);
-  if ("error" in member) return member.error;
-
-  const summary = await loadMemberPlanSummary(
-    member.db,
-    member.userId,
-    new Date(),
-  );
-  return NextResponse.json(summary);
-}
+export const GET = withSessionRead(
+  {
+    bucket: "me-plan",
+    allowBeta: false,
+    limit: 60,
+    windowMs: 60_000,
+  },
+  async ({ user }) => {
+    const summary = await loadMemberPlanSummary(user.db, user.userId, new Date());
+    return NextResponse.json(summary);
+  },
+);

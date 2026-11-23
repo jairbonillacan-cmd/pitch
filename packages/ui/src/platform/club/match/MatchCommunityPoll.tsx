@@ -1,8 +1,9 @@
 "use client";
 
-import React, { useCallback, useEffect, useId, useState } from "react";
+import React, { useCallback, useId, useState } from "react";
 import { sportHasDraw } from "@pitchlab/contracts";
 import { MaestroIcon } from "../../components/MaestroPrimitives";
+import { useSafeEffect } from "../../hooks";
 import { usePlatformCore } from "../../platform-provider";
 import type { PlatformGame } from "../../types";
 import { parseKickoffUtcMs } from "./pre-match-logic";
@@ -57,7 +58,7 @@ export function MatchCommunityPoll({
         ? { label: rawMainPick.label, p: rawMainPick.p }
         : null;
   const [clientNowMs, setClientNowMs] = useState<number | null>(null);
-  useEffect(() => {
+  useSafeEffect(() => {
     if (nowOverride !== undefined) return;
     setClientNowMs(Date.now());
   }, [nowOverride]);
@@ -73,10 +74,14 @@ export function MatchCommunityPoll({
     (nowMs !== null && Number.isFinite(kickoffMs) && kickoffMs <= nowMs);
   const HeadingTag = headingLevel === 3 ? "h3" : "h2";
 
-  useEffect(() => {
+  useSafeEffect(() => {
     if (!hasAccountSession) return;
     let alive = true;
-    fetch(`/api/social/votes?gameId=${encodeURIComponent(game.id)}`, { credentials: "same-origin" })
+    const controller = new AbortController();
+    fetch(`/api/social/votes?gameId=${encodeURIComponent(game.id)}`, {
+      credentials: "same-origin",
+      signal: controller.signal,
+    })
       .then((r) => (r.ok ? r.json() : null))
       .then((data: { tally?: Tally } | null) => {
         if (alive && data?.tally) setTally(data.tally);
@@ -84,6 +89,7 @@ export function MatchCommunityPoll({
       .catch(() => undefined);
     return () => {
       alive = false;
+      controller.abort();
     };
   }, [game.id, hasAccountSession]);
 

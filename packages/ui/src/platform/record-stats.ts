@@ -1,22 +1,53 @@
-/**
- * Mi récord: estadísticas de los picks sellados y su privacidad.
- *
- * Módulo puro (sin "use client"): lo usan la pantalla de Mi récord, el perfil público que
- * arma el servidor y, después, los rankings y las insignias. Todo se calcula en unidades;
- * los pesos solo se muestran al propio socio y nunca salen en la vista pública.
- */
-
 export interface RecordEntry {
   status: "pending" | "won" | "lost" | "void";
   units: number;
   userDecimal: number;
   fairDecimal: number;
-  clvPct: number;
+  clvPct?: number;
   leagueLabel: string;
   pickLabel: string;
   origin: string;
   sealedAtIso?: string;
   settledAtIso?: string | null;
+  isParlay?: boolean;
+  pickKind?: "single" | "parlay";
+  parlayLegs?: ReadonlyArray<unknown>;
+  pickId?: string;
+}
+
+export const PARLAY_ORIGIN_LABEL = "Parlay Combinado";
+
+export const MAX_CREDIBLE_SINGLE_CLV_PCT = 25;
+export const MAX_CREDIBLE_PARLAY_CLV_PCT = 50;
+export const MIN_CREDIBLE_CLV_PCT = -60;
+
+export interface ParlayClassifiableEntry {
+  readonly isParlay?: boolean;
+  readonly pickKind?: "single" | "parlay" | string;
+  readonly origin?: string | null;
+  readonly parlayLegs?: ReadonlyArray<unknown> | null;
+  readonly pickId?: string | null;
+}
+
+export function isParlayClvEntry(entry: ParlayClassifiableEntry): boolean {
+  return Boolean(
+    entry.isParlay ||
+      entry.pickKind === "parlay" ||
+      entry.origin === PARLAY_ORIGIN_LABEL ||
+      (Array.isArray(entry.parlayLegs) && entry.parlayLegs.length > 1) ||
+      (typeof entry.pickId === "string" && entry.pickId.startsWith("parlay:")),
+  );
+}
+
+export function isCredibleClvPct(
+  clvPct: number | null | undefined,
+  isParlay: boolean = false,
+): clvPct is number {
+  if (typeof clvPct !== "number" || !Number.isFinite(clvPct)) {
+    return false;
+  }
+  const maxCredible = isParlay ? MAX_CREDIBLE_PARLAY_CLV_PCT : MAX_CREDIBLE_SINGLE_CLV_PCT;
+  return clvPct <= maxCredible && clvPct >= MIN_CREDIBLE_CLV_PCT;
 }
 
 export interface RateRow {
@@ -34,7 +65,6 @@ export interface MonthResult {
 }
 
 export interface CurvePoint {
-  /** Día AAAA-MM-DD. */
   day: string;
   balance: number;
 }
@@ -47,9 +77,7 @@ export interface RecordStats {
   hitRatePct: number | null;
   netUnits: number;
   stakedUnits: number;
-  /** Rendimiento sobre las unidades jugadas, en %. */
   yieldPct: number | null;
-  /** Rendimiento sobre la banca inicial, en %; requiere banca inicial. */
   roiPct: number | null;
   avgClvPct: number | null;
   avgOddsDecimal: number | null;
@@ -65,9 +93,6 @@ export interface RecordStats {
 
 const MONTHS = ["ene", "feb", "mar", "abr", "may", "jun", "jul", "ago", "sep", "oct", "nov", "dic"] as const;
 
-export const PARLAY_ORIGIN_LABEL = "Parlay Combinado";
-
-/** Tipo de mercado legible a partir de la etiqueta del pick. */
 export function marketKindOf(entry: Pick<RecordEntry, "pickLabel" | "origin">): { key: string; label: string } {
   if (entry.origin === PARLAY_ORIGIN_LABEL) return { key: "parlay", label: "Parlays" };
   const l = entry.pickLabel.toLowerCase();
@@ -116,10 +141,6 @@ const byTotal = (m: Map<string, RateRow>) =>
     .sort((a, b) => b.total - a.total);
 const round2 = (v: number) => Math.round(v * 100) / 100;
 
-/**
- * Estadísticas del récord. Las rachas y la curva siguen el orden de cierre (o de sello si
- * no hay fecha de cierre). `startingUnits` es la banca inicial convertida a unidades.
- */
 export function computeRecordStats(entries: ReadonlyArray<RecordEntry>, startingUnits: number | null = null): RecordStats {
   const settledEntries = entries
     .filter((e) => e.status === "won" || e.status === "lost")
@@ -166,12 +187,24 @@ export function computeRecordStats(entries: ReadonlyArray<RecordEntry>, starting
 
   const settled = settledEntries.length;
   const open = entries.filter((e) => e.status === "pending").length;
-  const clvAll = entries.length > 0 ? entries.reduce((s, e) => s + e.clvPct, 0) / entries.length : null;
-  const monthRows: MonthResult[] = Array.from(months.entries()).map(([key, value]) => ({
-    key,
-    label: `${MONTHS[Number(key.slice(5, 7)) - 1]} ${key.slice(0, 4)}`,
-    netUnits: round2(value),
-  }));
+  let clvSum = 0;
+  let clvCount = 0;
+  for (const e of entries) {
+    const rawClv = e.clvPct;
+    if (isCredibleClvPct(rawClv, isParlayClvEntry(e))) {
+      clvSum += rawClv;
+      clvCount += 1;
+    }
+  }
+  const clvAll = clvCount > 0 ? clvSum / clvCount : null;
+  const monthRows: MonthResult[] = Array.from(months.entries()).map(([key, value]) => {
+    const monthIndex = Number.parseInt(key.slice(5, 7), 10) - 1;
+    return {
+      key,
+      label: `${MONTHS[monthIndex] ?? key.slice(5, 7)} ${key.slice(0, 4)}`,
+      netUnits: round2(value),
+    };
+  });
   const sortedMonths = [...monthRows].sort((a, b) => b.netUnits - a.netUnits);
 
   return {
@@ -196,8 +229,6 @@ export function computeRecordStats(entries: ReadonlyArray<RecordEntry>, starting
     worstMonth: sortedMonths.length >= 2 ? sortedMonths[sortedMonths.length - 1]! : null,
   };
 }
-
-// ── Privacidad por bloque y por dato ──────────────────────────────────────────────────────
 
 export const RECORD_PRIVACY_BLOCKS = {
   record: {
@@ -251,7 +282,6 @@ export const DEFAULT_RECORD_PRIVACY: RecordPrivacy = {
   history: { enabled: true, fields: { settledPicks: true } },
 };
 
-/** Normaliza lo que llega de la base o del cliente: cualquier dato ausente toma su valor por defecto. */
 export function normalizeRecordPrivacy(raw: unknown): RecordPrivacy {
   const src = (raw && typeof raw === "object" ? raw : {}) as Record<string, { enabled?: unknown; fields?: Record<string, unknown> }>;
   const out = structuredClone(DEFAULT_RECORD_PRIVACY) as RecordPrivacy;
@@ -276,7 +306,6 @@ export function isShared<B extends RecordPrivacyBlock>(
   return privacy[block].enabled && Boolean((privacy[block].fields as Record<string, boolean>)[field as string]);
 }
 
-/** Lo que otros ven de tu récord: solo lo que activaste. Nunca pesos ni picks abiertos. */
 export interface PublicRecordView {
   wonLost: { won: number; lost: number; settled: number } | null;
   hitRatePct: number | null;
@@ -304,6 +333,9 @@ export function publicRecordView(
   maxPicks = 50,
 ): PublicRecordView {
   const on = <B extends RecordPrivacyBlock>(b: B, f: keyof RecordPrivacy[B]["fields"]) => isShared(privacy, b, f);
+  const hasCredibleParlayClv = entries.some(
+    (e) => isParlayClvEntry(e) && isCredibleClvPct(e.clvPct, true),
+  );
   return {
     wonLost: on("record", "wonLost") ? { won: stats.won, lost: stats.lost, settled: stats.settled } : null,
     hitRatePct: on("record", "hitRate") ? stats.hitRatePct : null,
@@ -312,7 +344,10 @@ export function publicRecordView(
     streaks: on("record", "streaks") ? { current: stats.currentStreak, bestWin: stats.bestWinStreak } : null,
     yieldPct: on("performance", "yield") ? stats.yieldPct : null,
     roiPct: on("performance", "roi") ? stats.roiPct : null,
-    avgClvPct: on("performance", "clv") ? stats.avgClvPct : null,
+    avgClvPct:
+      on("performance", "clv") && isCredibleClvPct(stats.avgClvPct, hasCredibleParlayClv)
+        ? stats.avgClvPct
+        : null,
     avgOddsDecimal: on("performance", "avgOdds") ? stats.avgOddsDecimal : null,
     months: on("performance", "months") ? { best: stats.bestMonth, worst: stats.worstMonth } : null,
     netUnits: on("bank", "netUnits") ? stats.netUnits : null,
@@ -332,8 +367,6 @@ export function publicRecordView(
       : null,
   };
 }
-
-// ── Calendario mensual de resultados diarios (Mi récord y Resultados del motor) ──────────
 
 export interface DailyCalendarEntryItem {
   readonly id: string;
@@ -413,15 +446,26 @@ export function formatCalendarDayIso(
 }
 
 function addUtcDays(dateIso: string, deltaDays: number): string {
-  const [y, m, d] = dateIso.split("-").map(Number);
-  const dt = new Date(Date.UTC(y!, (m ?? 1) - 1, (d ?? 1) + deltaDays));
+  const parts = dateIso.split("-");
+  const y = Number.parseInt(parts[0] ?? "", 10);
+  const m = Number.parseInt(parts[1] ?? "", 10);
+  const d = Number.parseInt(parts[2] ?? "", 10);
+  const dt = new Date(
+    Date.UTC(
+      Number.isFinite(y) ? y : 2026,
+      (Number.isFinite(m) ? m : 1) - 1,
+      (Number.isFinite(d) ? d : 1) + deltaDays,
+    ),
+  );
   return dt.toISOString().slice(0, 10);
 }
 
 export function shiftYearMonth(yearMonth: string, deltaMonths: number): string {
-  const [rawY, rawM] = yearMonth.split("-").map(Number);
-  const baseY = Number.isFinite(rawY) ? rawY! : 2026;
-  const baseM = Number.isFinite(rawM) ? rawM! : 1;
+  const parts = yearMonth.split("-");
+  const rawY = Number.parseInt(parts[0] ?? "", 10);
+  const rawM = Number.parseInt(parts[1] ?? "", 10);
+  const baseY = Number.isFinite(rawY) ? rawY : 2026;
+  const baseM = Number.isFinite(rawM) ? rawM : 1;
   const dt = new Date(Date.UTC(baseY, baseM - 1 + deltaMonths, 1));
   const y = dt.getUTCFullYear();
   const m = String(dt.getUTCMonth() + 1).padStart(2, "0");
@@ -443,13 +487,17 @@ function buildEmptyGridShell(
     }
   >,
 ): MonthlyCalendarGrid {
-  const [rawY, rawM] = yearMonth.split("-").map(Number);
-  const year = Number.isFinite(rawY) ? rawY! : Number(todayIso.slice(0, 4));
-  const month = Number.isFinite(rawM) && rawM! >= 1 && rawM! <= 12 ? rawM! : Number(todayIso.slice(5, 7));
+  const parts = yearMonth.split("-");
+  const rawY = Number.parseInt(parts[0] ?? "", 10);
+  const rawM = Number.parseInt(parts[1] ?? "", 10);
+  const year = Number.isFinite(rawY) ? rawY : Number.parseInt(todayIso.slice(0, 4), 10);
+  const month =
+    Number.isFinite(rawM) && rawM >= 1 && rawM <= 12
+      ? rawM
+      : Number.parseInt(todayIso.slice(5, 7), 10);
   const ym = `${year}-${String(month).padStart(2, "0")}`;
   const firstIso = `${ym}-01`;
   const firstUtc = new Date(Date.UTC(year, month - 1, 1));
-  // Lunes = 0 ... Domingo = 6
   const mondayOffset = (firstUtc.getUTCDay() + 6) % 7;
   const daysInMonth = new Date(Date.UTC(year, month, 0)).getUTCDate();
   const totalCells = Math.ceil((mondayOffset + daysInMonth) / 7) * 7;
@@ -466,7 +514,7 @@ function buildEmptyGridShell(
   for (let i = 0; i < totalCells; i += 1) {
     const cellIso = addUtcDays(startIso, i);
     const inMonth = cellIso.slice(0, 7) === ym;
-    const dayNumber = Number(cellIso.slice(8, 10));
+    const dayNumber = Number.parseInt(cellIso.slice(8, 10), 10);
     const bucket = bucketMap.get(cellIso);
     const cell: DailyCalendarCell = {
       dateIso: cellIso,

@@ -16,6 +16,7 @@ const meta = {
     valuePct: 6.6,
     highlight: true,
     compact: false,
+    variant: "chip",
   },
   render: (args: AtomicOddsChipProps) => (
     <div style={{ maxWidth: 420 }}>
@@ -34,7 +35,6 @@ const ITEM_STYLE: React.CSSProperties = {
   gap: 6,
 };
 
-/** Matriz completa: Momio justo + Casa, EV positivo y negativo, y flechas Steam / Shortening / Drifting (tema oscuro). */
 export const MatrizMovimientosYValorOscuro: Story = {
   globals: { theme: "dark" },
   render: () => (
@@ -122,23 +122,87 @@ export const MatrizMovimientosYValorOscuro: Story = {
   ),
 };
 
-/** Matriz completa de momios y movimientos en tema claro. */
 export const MatrizMovimientosYValorClaro: Story = {
   globals: { theme: "light" },
   render: MatrizMovimientosYValorOscuro.render,
 };
 
-/** Chip individual destacado con valor positivo y señal Steam (tema oscuro). */
+export const VarianteCeldaTabularOscuro: Story = {
+  globals: { theme: "dark" },
+  render: () => (
+    <section
+      className="pl-atom-card"
+      style={{ maxWidth: 680 }}
+      aria-label="Variante tabular compacta de momios para matrices de mercado"
+    >
+      <div
+        style={{
+          display: "grid",
+          gridTemplateColumns: "repeat(auto-fit, minmax(180px, 1fr))",
+          gap: 10,
+        }}
+      >
+        <AtomicOddsChip
+          variant="cell"
+          label="Local · 1"
+          fairDecimal={1.74}
+          marketDecimal={1.92}
+          openingDecimal={2.12}
+          movement="steam"
+          valuePct={10.3}
+          highlight
+        />
+        <AtomicOddsChip
+          variant="cell"
+          label="Empate · X"
+          fairDecimal={3.45}
+          marketDecimal={3.3}
+          openingDecimal={3.18}
+          movement="drifting"
+          valuePct={-4.3}
+        />
+        <AtomicOddsChip
+          variant="cell"
+          label="Visita · 2"
+          fairDecimal={4.85}
+          marketDecimal={5.1}
+          openingDecimal={5.28}
+          movement="shortening"
+          valuePct={5.2}
+        />
+        <AtomicOddsChip
+          variant="cell"
+          label="Más de 2.5"
+          fairDecimal={1.78}
+          marketDecimal={1.86}
+          openingDecimal={1.86}
+          movement="stable"
+          oddsFormat="american"
+          valuePct={4.5}
+        />
+        <AtomicOddsChip
+          variant="cell"
+          label="Solo justo"
+          fairDecimal={2.05}
+        />
+      </div>
+    </section>
+  ),
+};
+
+export const VarianteCeldaTabularClaro: Story = {
+  globals: { theme: "light" },
+  render: VarianteCeldaTabularOscuro.render,
+};
+
 export const SteamConValorPositivoOscuro: Story = {
   globals: { theme: "dark" },
 };
 
-/** Chip individual destacado con valor positivo y señal Steam en tema claro. */
 export const SteamConValorPositivoClaro: Story = {
   globals: { theme: "light" },
 };
 
-/** Chip con cuota subiendo (`drifting`) y EV negativo, sin mostrar falso valor positivo (tema oscuro). */
 export const SubiendoSinValorOscuro: Story = {
   globals: { theme: "dark" },
   args: {
@@ -152,7 +216,6 @@ export const SubiendoSinValorOscuro: Story = {
   },
 };
 
-/** Chip con cuota subiendo (`drifting`) y EV negativo en tema claro. */
 export const SubiendoSinValorClaro: Story = {
   globals: { theme: "light" },
   args: {

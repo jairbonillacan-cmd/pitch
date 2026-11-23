@@ -53,11 +53,14 @@ const fakeMailer: Mailer = {
 beforeAll(async () => {
   pgClient = new PGlite();
   await applyMigrations((sqlText) => pgClient.exec(sqlText));
+  await pgClient.exec("SET pitchlab.allow_historical_seed = 'on'");
   db = drizzle(pgClient) as unknown as Db;
 });
 
 beforeEach(async () => {
-  await pgClient.exec("TRUNCATE TABLE users, closing_odds, match_results, push_subscriptions, funnel_events CASCADE");
+  await pgClient.exec(
+    "TRUNCATE TABLE users, closing_odds, match_results, push_subscriptions, funnel_events, security_rate_buckets, security_abuse_events CASCADE",
+  );
   sent.length = 0;
   mockPlatformState.dataset = null;
   resetAuthForTests(undefined);

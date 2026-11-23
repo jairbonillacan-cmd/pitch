@@ -5,8 +5,24 @@
 import { createHash } from "node:crypto";
 import { and, countDistinct, eq, gte, inArray, isNotNull, ne, sql } from "drizzle-orm";
 import { grantDays, type Db } from "./billing";
+import { withDbTransaction } from "./client";
 import { referralGrants, tipsterAttributions, tipsterProfiles, trialFingerprints, users } from "./schema";
 import { ensureUserSpeiReference } from "./transfers";
+
+const STRICT_CANONICAL_NUMBER_RE = /^[+-]?(?:\d+\.?\d*|\.\d+)(?:[eE][+-]?\d+)?$/;
+
+function parseStrictDbNumber(raw: unknown): number | null {
+  if (typeof raw === "number") {
+    return Number.isFinite(raw) ? (raw === 0 ? 0 : raw) : null;
+  }
+  if (typeof raw === "string") {
+    const trimmed = raw.trim();
+    if (!STRICT_CANONICAL_NUMBER_RE.test(trimmed)) return null;
+    const parsed = Number.parseFloat(trimmed);
+    return Number.isFinite(parsed) ? (parsed === 0 ? 0 : parsed) : null;
+  }
+  return null;
+}
 
 export const TRIAL_M1_DAYS = 7;
 export const MIN_SIGNUP_AGE = 18;
@@ -234,7 +250,7 @@ export const sha256Hex = (value: string): string => createHash("sha256").update(
 export function ageFromIsoDate(iso: string, today: Date): number | null {
   const m = /^(\d{4})-(\d{2})-(\d{2})$/.exec(iso);
   if (!m) return null;
-  const [y, mo, d] = [Number(m[1]), Number(m[2]), Number(m[3])];
+  const [y, mo, d] = [Number.parseInt(m[1], 10), Number.parseInt(m[2], 10), Number.parseInt(m[3], 10)];
   const date = new Date(Date.UTC(y, mo - 1, d));
   if (date.getUTCFullYear() !== y || date.getUTCMonth() !== mo - 1 || date.getUTCDate() !== d) return null;
   let age = today.getUTCFullYear() - y;
@@ -294,7 +310,7 @@ export async function completeSignup(db: Db, input: CompleteSignupInput): Promis
     return { ok: false, reason: handleCheck.reason === "reservado" ? "usuario_reservado" : "usuario_invalido" };
   }
   try {
-    return await db.transaction(async (tx): Promise<CompleteSignupResult> => {
+    return await withDbTransaction(db, async (tx): Promise<CompleteSignupResult> => {
       const [current] = await tx
         .select({
           birthDate: users.birthDate,
@@ -340,7 +356,7 @@ export async function completeSignup(db: Db, input: CompleteSignupInput): Promis
         })
         .where(eq(users.id, input.userId));
 
-      await ensureUserSpeiReference(tx as unknown as Db, input.userId);
+      await ensureUserSpeiReference(tx, input.userId);
 
       const referral = await attributeReferral(tx, input.userId, input.referralCode, current.referralCode);
       return grantSignupTrial(tx, input, referral);
@@ -384,7 +400,7 @@ async function grantSignupTrial(
             ne(trialFingerprints.userId, input.userId),
           ),
         );
-      if (Number(devRow?.n ?? 0) >= MAX_TRIALS_PER_DEVICE) {
+      if ((parseStrictDbNumber(devRow?.n) ?? 0) >= MAX_TRIALS_PER_DEVICE) {
         await db
           .insert(trialFingerprints)
           .values({
@@ -417,7 +433,7 @@ async function grantSignupTrial(
             ne(trialFingerprints.userId, input.userId),
           ),
         );
-      if (Number(subRow?.n ?? 0) >= MAX_TRIALS_PER_SUBNET_24H) {
+      if ((parseStrictDbNumber(subRow?.n) ?? 0) >= MAX_TRIALS_PER_SUBNET_24H) {
         await db
           .insert(trialFingerprints)
           .values({

@@ -66,9 +66,17 @@ function buildSecurityHeaders(isDev) {
   ].join("; ");
 
   return [
+    ...(!isDev
+      ? [
+          {
+            key: "Strict-Transport-Security",
+            value: "max-age=63072000; includeSubDomains; preload",
+          },
+        ]
+      : []),
     {
-      key: "Strict-Transport-Security",
-      value: "max-age=63072000; includeSubDomains; preload",
+      key: "Cross-Origin-Opener-Policy",
+      value: "same-origin-allow-popups",
     },
     {
       key: "X-Content-Type-Options",
@@ -93,7 +101,6 @@ function buildSecurityHeaders(isDev) {
   ];
 }
 
-/** @type {import('next').NextConfig} */
 const baseConfig = {
   poweredByHeader: false,
   compress: true,
@@ -113,7 +120,6 @@ const baseConfig = {
   eslint: {
     ignoreDuringBuilds: true,
   },
-  // El blog lee `content/blog/*.md` en tiempo de ejecución: estas rutas deben llevar los archivos.
   outputFileTracingIncludes: {
     "/blog": ["./content/blog/**/*"],
     "/blog/[slug]": ["./content/blog/**/*"],
@@ -122,10 +128,7 @@ const baseConfig = {
     "/blog/rss.xml": ["./content/blog/**/*"],
     "/sitemap.xml": ["./content/blog/**/*"],
   },
-  // Empaquetado autónomo estándar para cualquier contenedor OCI / Node / VPS (Docker, Fly.io, Railway,
-  // Render, AWS ECS, Coolify, Cloud Run; activado con PITCHLAB_STANDALONE=1 sin alterar `next start` ni E2E).
   ...(process.env.PITCHLAB_STANDALONE === "1" ? { output: "standalone" } : {}),
-  // Cada página importa solo lo que usa de estos paquetes (no el barril completo).
   experimental: {
     optimizePackageImports: ["@pitchlab/ui", "@heroui/react"],
   },
@@ -143,8 +146,6 @@ export default function config(phase) {
   const securityHeaders = buildSecurityHeaders(isDev);
   const nextConfig = {
     ...baseConfig,
-    // En desarrollo, Next descarta las páginas compiladas tras 60 s sin visitas y las recompila al
-    // volver (la «traba» al navegar). Se conservan 1 h y hasta 50 páginas en memoria.
     ...(isDev ? { onDemandEntries: { maxInactiveAge: 60 * 60 * 1000, pagesBufferLength: 50 } } : {}),
     async headers() {
       return [
@@ -178,8 +179,12 @@ export default function config(phase) {
             { key: "Cache-Control", value: "public, max-age=86400, stale-while-revalidate=604800" },
           ],
         },
-        // Caché HTTP estándar independiente de proveedor (ADR-050/ADR-053) para rutas públicas
-        // sin datos de sesión ni cookies personalizadas. Nunca aplica a `/precio`, `/app/*` ni `/api/*`.
+        {
+          source: "/icons-dark/:path*",
+          headers: [
+            { key: "Cache-Control", value: "public, max-age=86400, stale-while-revalidate=604800" },
+          ],
+        },
         ...(!isDev
           ? [
               {
@@ -190,6 +195,12 @@ export default function config(phase) {
               },
               {
                 source: "/resultados",
+                headers: [
+                  { key: "Cache-Control", value: "public, max-age=0, s-maxage=300, stale-while-revalidate=3600" },
+                ],
+              },
+              {
+                source: "/verificacion",
                 headers: [
                   { key: "Cache-Control", value: "public, max-age=0, s-maxage=300, stale-while-revalidate=3600" },
                 ],
@@ -236,7 +247,6 @@ export default function config(phase) {
     },
   };
 
-  // Build y start de producción en otra carpeta, para medir sin pisar la de `next dev`.
   if (process.env.PITCHLAB_DIST_DIR) {
     return { ...nextConfig, distDir: process.env.PITCHLAB_DIST_DIR };
   }

@@ -7,7 +7,7 @@ export default function manifest(): MetadataRoute.Manifest {
     name: "PitchLab",
     short_name: "PitchLab",
     description:
-      "Probabilidad estimada antes del partido, momio justo, armador de parlays y bitácora sellada.",
+      "Probabilidad estimada antes del partido, momio justo, armador de parlays y récord sellado.",
     start_url: "/app",
     scope: "/",
     display: "standalone",

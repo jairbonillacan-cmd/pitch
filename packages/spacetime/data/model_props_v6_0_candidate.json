@@ -1,0 +1,1272 @@
+{
+  "schema_version": "props_v6_0_candidate_1.0.0",
+  "codename": "PitchLab Complete Player Props, Goalkeeper SGP & US Multi-Sport Engine v6.0 Candidate",
+  "version": "6.0.0-candidate",
+  "status": "candidate",
+  "production_activated": false,
+  "holdout_cut_utc": "2025-02-02T17:30:00Z",
+  "holdout_sealed_untouched": true,
+  "coupled_shots_v6": {
+    "calibration_source": "coupled_player_match_barycentric_logit_pava_v6",
+    "remediated_finding": "D7_empirical_bayes_nb_no_player_match_log_spline_closed",
+    "league_team_shots_anchor": 12.45,
+    "league_team_sot_anchor": 4.3,
+    "team_shots_exponent": 0.72,
+    "cross_quality_exponent": 0.22,
+    "team_sot_exponent": 0.74,
+    "cross_volume_exponent": 0.2,
+    "opp_defense_exponent": 0.58,
+    "min_guard_minutes_football": 45.0,
+    "canonical_lines": [
+      0.5,
+      1.5,
+      2.5,
+      3.5
+    ],
+    "positions": {
+      "GK": {
+        "mean_starter_minutes": 89.603,
+        "metrics": {
+          "shots": {
+            "prior_rate_per90": 0.02,
+            "prior_beta_90": 4.5,
+            "phi_dispersion": 5.5,
+            "fresh_legs_sub_multiplier": 0.96
+          },
+          "shots_on_target": {
+            "prior_rate_per90": 0.008,
+            "prior_beta_90": 5.0,
+            "phi_dispersion": 6.5,
+            "fresh_legs_sub_multiplier": 0.96
+          }
+        }
+      },
+      "DF_CB": {
+        "mean_starter_minutes": 87.497,
+        "metrics": {
+          "shots": {
+            "prior_rate_per90": 0.62,
+            "prior_beta_90": 4.5,
+            "phi_dispersion": 5.5,
+            "fresh_legs_sub_multiplier": 0.96
+          },
+          "shots_on_target": {
+            "prior_rate_per90": 0.2263,
+            "prior_beta_90": 5.0,
+            "phi_dispersion": 6.5,
+            "fresh_legs_sub_multiplier": 0.96
+          }
+        }
+      },
+      "DF_FB": {
+        "mean_starter_minutes": 86.201,
+        "metrics": {
+          "shots": {
+            "prior_rate_per90": 0.88,
+            "prior_beta_90": 4.5,
+            "phi_dispersion": 5.5,
+            "fresh_legs_sub_multiplier": 0.96
+          },
+          "shots_on_target": {
+            "prior_rate_per90": 0.3212,
+            "prior_beta_90": 5.0,
+            "phi_dispersion": 6.5,
+            "fresh_legs_sub_multiplier": 0.96
+          }
+        }
+      },
+      "MF_DM": {
+        "mean_starter_minutes": 84.241,
+        "metrics": {
+          "shots": {
+            "prior_rate_per90": 1.05,
+            "prior_beta_90": 4.5,
+            "phi_dispersion": 5.5,
+            "fresh_legs_sub_multiplier": 0.96
+          },
+          "shots_on_target": {
+            "prior_rate_per90": 0.38325,
+            "prior_beta_90": 5.0,
+            "phi_dispersion": 6.5,
+            "fresh_legs_sub_multiplier": 0.96
+          }
+        }
+      },
+      "MF_CM": {
+        "mean_starter_minutes": 82.433,
+        "metrics": {
+          "shots": {
+            "prior_rate_per90": 1.42,
+            "prior_beta_90": 4.5,
+            "phi_dispersion": 5.5,
+            "fresh_legs_sub_multiplier": 0.96
+          },
+          "shots_on_target": {
+            "prior_rate_per90": 0.5183,
+            "prior_beta_90": 5.0,
+            "phi_dispersion": 6.5,
+            "fresh_legs_sub_multiplier": 0.96
+          }
+        }
+      },
+      "MF_AM": {
+        "mean_starter_minutes": 80.3,
+        "metrics": {
+          "shots": {
+            "prior_rate_per90": 1.95,
+            "prior_beta_90": 4.5,
+            "phi_dispersion": 5.5,
+            "fresh_legs_sub_multiplier": 1.14
+          },
+          "shots_on_target": {
+            "prior_rate_per90": 0.71175,
+            "prior_beta_90": 5.0,
+            "phi_dispersion": 6.5,
+            "fresh_legs_sub_multiplier": 1.16
+          }
+        }
+      },
+      "FW_W": {
+        "mean_starter_minutes": 79.194,
+        "metrics": {
+          "shots": {
+            "prior_rate_per90": 2.35,
+            "prior_beta_90": 4.5,
+            "phi_dispersion": 5.5,
+            "fresh_legs_sub_multiplier": 1.14
+          },
+          "shots_on_target": {
+            "prior_rate_per90": 0.85775,
+            "prior_beta_90": 5.0,
+            "phi_dispersion": 6.5,
+            "fresh_legs_sub_multiplier": 1.16
+          }
+        }
+      },
+      "FW_CF": {
+        "mean_starter_minutes": 80.777,
+        "metrics": {
+          "shots": {
+            "prior_rate_per90": 2.85,
+            "prior_beta_90": 4.5,
+            "phi_dispersion": 5.5,
+            "fresh_legs_sub_multiplier": 1.14
+          },
+          "shots_on_target": {
+            "prior_rate_per90": 1.04025,
+            "prior_beta_90": 5.0,
+            "phi_dispersion": 6.5,
+            "fresh_legs_sub_multiplier": 1.16
+          }
+        }
+      },
+      "FWD": {
+        "mean_starter_minutes": 80.0,
+        "metrics": {
+          "shots": {
+            "prior_rate_per90": 2.62,
+            "prior_beta_90": 4.5,
+            "phi_dispersion": 5.2,
+            "fresh_legs_sub_multiplier": 1.14
+          },
+          "shots_on_target": {
+            "prior_rate_per90": 0.96,
+            "prior_beta_90": 5.0,
+            "phi_dispersion": 6.0,
+            "fresh_legs_sub_multiplier": 1.16
+          }
+        }
+      },
+      "MID": {
+        "mean_starter_minutes": 82.0,
+        "metrics": {
+          "shots": {
+            "prior_rate_per90": 1.45,
+            "prior_beta_90": 4.5,
+            "phi_dispersion": 5.5,
+            "fresh_legs_sub_multiplier": 1.02
+          },
+          "shots_on_target": {
+            "prior_rate_per90": 0.51,
+            "prior_beta_90": 5.0,
+            "phi_dispersion": 6.4,
+            "fresh_legs_sub_multiplier": 1.04
+          }
+        }
+      },
+      "DEF": {
+        "mean_starter_minutes": 86.8,
+        "metrics": {
+          "shots": {
+            "prior_rate_per90": 0.74,
+            "prior_beta_90": 4.5,
+            "phi_dispersion": 5.6,
+            "fresh_legs_sub_multiplier": 0.96
+          },
+          "shots_on_target": {
+            "prior_rate_per90": 0.25,
+            "prior_beta_90": 5.0,
+            "phi_dispersion": 6.5,
+            "fresh_legs_sub_multiplier": 0.96
+          }
+        }
+      }
+    },
+    "multi_line_logit_splines": {
+      "shots": {
+        "0.5": {
+          "eta_knots": [
+            -7.0,
+            -5.8,
+            -4.8,
+            -4.0,
+            -3.3,
+            -2.7,
+            -2.15,
+            -1.65,
+            -1.2,
+            -0.8,
+            -0.42,
+            -0.08,
+            0.25,
+            0.6,
+            0.98,
+            1.4,
+            1.9,
+            2.5,
+            3.2
+          ],
+          "zeta_knots": [
+            -7.0,
+            -5.8,
+            -4.8,
+            -4.0,
+            -3.3,
+            -2.7,
+            -2.15,
+            -1.65057937,
+            -0.94381034,
+            -0.22504983,
+            0.23260823,
+            0.53798508,
+            0.84445008,
+            1.16143674,
+            1.56059391,
+            2.00015983,
+            2.50309883,
+            3.10135765,
+            3.80272359
+          ],
+          "calibration_source": "coupled_player_match_barycentric_logit_pava_v6",
+          "n_val_2018_2019": 87176
+        },
+        "1.5": {
+          "eta_knots": [
+            -7.0,
+            -5.8,
+            -4.8,
+            -4.0,
+            -3.3,
+            -2.7,
+            -2.15,
+            -1.65,
+            -1.2,
+            -0.8,
+            -0.42,
+            -0.08,
+            0.25,
+            0.6,
+            0.98,
+            1.4,
+            1.9,
+            2.5,
+            3.2
+          ],
+          "zeta_knots": [
+            -7.0,
+            -5.8,
+            -4.8,
+            -4.0,
+            -3.3,
+            -2.7,
+            -2.15,
+            -1.65057937,
+            -0.94381034,
+            -0.34085972,
+            -0.00367858,
+            0.29192309,
+            0.62071326,
+            0.99230423,
+            1.32890595,
+            1.70060275,
+            2.11348933,
+            2.4921478,
+            3.20187269
+          ],
+          "calibration_source": "coupled_player_match_barycentric_logit_pava_v6",
+          "n_val_2018_2019": 87176
+        },
+        "2.5": {
+          "eta_knots": [
+            -7.0,
+            -5.8,
+            -4.8,
+            -4.0,
+            -3.3,
+            -2.7,
+            -2.15,
+            -1.65,
+            -1.2,
+            -0.8,
+            -0.42,
+            -0.08,
+            0.25,
+            0.6,
+            0.98,
+            1.4,
+            1.9,
+            2.5,
+            3.2
+          ],
+          "zeta_knots": [
+            -7.0,
+            -5.84061072,
+            -4.8,
+            -4.0,
+            -3.3,
+            -2.7,
+            -2.15,
+            -1.65057937,
+            -0.95364996,
+            -0.59610512,
+            -0.25210485,
+            0.07558292,
+            0.34138305,
+            0.64394094,
+            1.0638278,
+            1.38558455,
+            1.88537456,
+            2.4921478,
+            3.2
+          ],
+          "calibration_source": "coupled_player_match_barycentric_logit_pava_v6",
+          "n_val_2018_2019": 87176
+        },
+        "3.5": {
+          "eta_knots": [
+            -7.0,
+            -5.8,
+            -4.8,
+            -4.0,
+            -3.3,
+            -2.7,
+            -2.15,
+            -1.65,
+            -1.2,
+            -0.8,
+            -0.42,
+            -0.08,
+            0.25,
+            0.6,
+            0.98,
+            1.4,
+            1.9,
+            2.5,
+            3.2
+          ],
+          "zeta_knots": [
+            -7.54746776,
+            -5.84061072,
+            -4.8,
+            -4.0,
+            -3.3,
+            -2.7,
+            -2.15,
+            -1.65057937,
+            -1.17128539,
+            -0.81004488,
+            -0.4853579,
+            -0.18517441,
+            0.27335264,
+            0.48221656,
+            0.91383426,
+            1.38558455,
+            1.88537456,
+            2.4921478,
+            3.2
+          ],
+          "calibration_source": "coupled_player_match_barycentric_logit_pava_v6",
+          "n_val_2018_2019": 87176
+        }
+      },
+      "shots_on_target": {
+        "0.5": {
+          "eta_knots": [
+            -7.0,
+            -5.8,
+            -4.8,
+            -4.0,
+            -3.3,
+            -2.7,
+            -2.15,
+            -1.65,
+            -1.2,
+            -0.8,
+            -0.42,
+            -0.08,
+            0.25,
+            0.6,
+            0.98,
+            1.4,
+            1.9,
+            2.5,
+            3.2
+          ],
+          "zeta_knots": [
+            -7.0,
+            -5.8,
+            -4.8,
+            -4.0,
+            -3.30998181,
+            -2.59393479,
+            -1.69647866,
+            -1.27963728,
+            -0.92926522,
+            -0.56393393,
+            -0.23031328,
+            0.05993224,
+            0.34484771,
+            0.61198642,
+            1.03337973,
+            1.32152255,
+            1.87113782,
+            2.48849581,
+            3.2
+          ],
+          "calibration_source": "coupled_player_match_barycentric_logit_pava_v6",
+          "n_val_2018_2019": 87176
+        },
+        "1.5": {
+          "eta_knots": [
+            -7.0,
+            -5.8,
+            -4.8,
+            -4.0,
+            -3.3,
+            -2.7,
+            -2.15,
+            -1.65,
+            -1.2,
+            -0.8,
+            -0.42,
+            -0.08,
+            0.25,
+            0.6,
+            0.98,
+            1.4,
+            1.9,
+            2.5,
+            3.2
+          ],
+          "zeta_knots": [
+            -7.0068681,
+            -6.05812892,
+            -4.8,
+            -4.0,
+            -3.30998181,
+            -2.66630042,
+            -2.1398732,
+            -1.73845103,
+            -1.36022124,
+            -0.97839795,
+            -0.61377036,
+            -0.32285779,
+            -0.07322901,
+            0.4502298,
+            0.95037954,
+            1.32152255,
+            1.87113782,
+            2.48849581,
+            3.2
+          ],
+          "calibration_source": "coupled_player_match_barycentric_logit_pava_v6",
+          "n_val_2018_2019": 87176
+        },
+        "2.5": {
+          "eta_knots": [
+            -7.0,
+            -5.8,
+            -4.8,
+            -4.0,
+            -3.3,
+            -2.7,
+            -2.15,
+            -1.65,
+            -1.2,
+            -0.8,
+            -0.42,
+            -0.08,
+            0.25,
+            0.6,
+            0.98,
+            1.4,
+            1.9,
+            2.5,
+            3.2
+          ],
+          "zeta_knots": [
+            -7.0068681,
+            -6.18275229,
+            -5.0034506,
+            -4.25568504,
+            -3.688539,
+            -3.1760895,
+            -2.68477449,
+            -2.21840979,
+            -1.64293543,
+            -1.17454514,
+            -0.72861377,
+            -0.32285779,
+            -0.07322901,
+            0.4502298,
+            0.95037954,
+            1.32152255,
+            1.87113782,
+            2.48849581,
+            3.2
+          ],
+          "calibration_source": "coupled_player_match_barycentric_logit_pava_v6",
+          "n_val_2018_2019": 87176
+        },
+        "3.5": {
+          "eta_knots": [
+            -7.0,
+            -5.8,
+            -4.8,
+            -4.0,
+            -3.3,
+            -2.7,
+            -2.15,
+            -1.65,
+            -1.2,
+            -0.8,
+            -0.42,
+            -0.08,
+            0.25,
+            0.6,
+            0.98,
+            1.4,
+            1.9,
+            2.5,
+            3.2
+          ],
+          "zeta_knots": [
+            -8.01748793,
+            -6.43523167,
+            -5.66129572,
+            -4.92800166,
+            -4.36361762,
+            -3.71996352,
+            -2.87107016,
+            -2.302671,
+            -1.64293543,
+            -1.17454514,
+            -0.72861377,
+            -0.32285779,
+            -0.07322901,
+            0.4502298,
+            0.95037954,
+            1.32152255,
+            1.87113782,
+            2.48849581,
+            3.2
+          ],
+          "calibration_source": "coupled_player_match_barycentric_logit_pava_v6",
+          "n_val_2018_2019": 87176
+        }
+      }
+    }
+  },
+  "goalkeeper_saves_v6": {
+    "calibration_source": "historical_boxscore_barycentric_logit_pava_val_le_2019",
+    "prior_save_rate": 0.712,
+    "prior_shots_faced": 18.0,
+    "min_save_rate": 0.52,
+    "max_save_rate": 0.88,
+    "r_dispersion_sot": 9.2,
+    "dixon_coles_rho": -0.105,
+    "canonical_lines": [
+      1.5,
+      2.5,
+      3.5,
+      4.5
+    ],
+    "multi_line_logit_splines": {
+      "1.5": {
+        "eta_knots": [
+          -7.0,
+          -5.8,
+          -4.8,
+          -4.0,
+          -3.3,
+          -2.7,
+          -2.15,
+          -1.65,
+          -1.2,
+          -0.8,
+          -0.42,
+          -0.08,
+          0.25,
+          0.6,
+          0.98,
+          1.4,
+          1.9,
+          2.5,
+          3.2
+        ],
+        "zeta_knots": [
+          -7.0,
+          -5.8,
+          -4.8,
+          -4.0,
+          -3.3,
+          -2.7,
+          -2.15,
+          -1.65,
+          -1.2,
+          -0.79779266,
+          -0.38949962,
+          -0.00270447,
+          0.39024025,
+          0.70771253,
+          1.01433053,
+          1.39747663,
+          1.83025103,
+          2.48012032,
+          3.11115833
+        ],
+        "calibration_source": "historical_boxscore_barycentric_logit_pava_val_le_2019",
+        "n_val_2018_2019": 21794
+      },
+      "2.5": {
+        "eta_knots": [
+          -7.0,
+          -5.8,
+          -4.8,
+          -4.0,
+          -3.3,
+          -2.7,
+          -2.15,
+          -1.65,
+          -1.2,
+          -0.8,
+          -0.42,
+          -0.08,
+          0.25,
+          0.6,
+          0.98,
+          1.4,
+          1.9,
+          2.5,
+          3.2
+        ],
+        "zeta_knots": [
+          -7.0,
+          -5.8,
+          -4.8,
+          -4.0,
+          -3.3,
+          -2.7,
+          -2.15,
+          -1.65,
+          -1.2,
+          -0.79779266,
+          -0.39197816,
+          -0.07504387,
+          0.25666266,
+          0.60383872,
+          0.94573961,
+          1.39747663,
+          1.83025103,
+          2.48012032,
+          3.11115833
+        ],
+        "calibration_source": "historical_boxscore_barycentric_logit_pava_val_le_2019",
+        "n_val_2018_2019": 21794
+      },
+      "3.5": {
+        "eta_knots": [
+          -7.0,
+          -5.8,
+          -4.8,
+          -4.0,
+          -3.3,
+          -2.7,
+          -2.15,
+          -1.65,
+          -1.2,
+          -0.8,
+          -0.42,
+          -0.08,
+          0.25,
+          0.6,
+          0.98,
+          1.4,
+          1.9,
+          2.5,
+          3.2
+        ],
+        "zeta_knots": [
+          -7.0,
+          -5.8,
+          -4.8,
+          -4.0,
+          -3.3,
+          -2.7,
+          -2.15,
+          -1.65,
+          -1.2,
+          -0.82095134,
+          -0.48038854,
+          -0.12603586,
+          0.25666266,
+          0.60383872,
+          0.94573961,
+          1.39747663,
+          1.83025103,
+          2.48012032,
+          3.11115833
+        ],
+        "calibration_source": "historical_boxscore_barycentric_logit_pava_val_le_2019",
+        "n_val_2018_2019": 21794
+      },
+      "4.5": {
+        "eta_knots": [
+          -7.0,
+          -5.8,
+          -4.8,
+          -4.0,
+          -3.3,
+          -2.7,
+          -2.15,
+          -1.65,
+          -1.2,
+          -0.8,
+          -0.42,
+          -0.08,
+          0.25,
+          0.6,
+          0.98,
+          1.4,
+          1.9,
+          2.5,
+          3.2
+        ],
+        "zeta_knots": [
+          -7.0,
+          -5.8,
+          -4.8,
+          -4.02460575,
+          -3.3,
+          -2.7,
+          -2.15,
+          -1.66353609,
+          -1.29667601,
+          -0.89198425,
+          -0.48038854,
+          -0.12603586,
+          0.25666266,
+          0.60341057,
+          0.94573961,
+          1.39747663,
+          1.83025103,
+          2.48012032,
+          3.11115833
+        ],
+        "calibration_source": "historical_boxscore_barycentric_logit_pava_val_le_2019",
+        "n_val_2018_2019": 21794
+      }
+    },
+    "siege_own_goal_dampening": 0.0
+  },
+  "us_props_v6": {
+    "nba": {
+      "min_guard_minutes": 18.0,
+      "roles": {
+        "G": {
+          "PTS": {
+            "family": "normal_overdispersed",
+            "prior_mean": 15.8,
+            "prior_games": 6.0,
+            "canonical_line": 15.5,
+            "anchor_minutes": 30.0,
+            "min_sd": 4.8,
+            "var_mean_ratio": 1.85,
+            "cv_sd": 0.24
+          },
+          "REB": {
+            "family": "negbin",
+            "prior_mean": 3.8,
+            "prior_games": 5.5,
+            "canonical_line": 4.5,
+            "anchor_minutes": 30.0,
+            "r_dispersion": 11.5
+          },
+          "AST": {
+            "family": "negbin",
+            "prior_mean": 4.9,
+            "prior_games": 5.5,
+            "canonical_line": 4.5,
+            "anchor_minutes": 30.0,
+            "r_dispersion": 9.0
+          },
+          "3PM": {
+            "family": "negbin",
+            "prior_mean": 2.1,
+            "prior_games": 6.5,
+            "canonical_line": 2.5,
+            "anchor_minutes": 30.0,
+            "r_dispersion": 5.2
+          }
+        },
+        "F": {
+          "PTS": {
+            "family": "normal_overdispersed",
+            "prior_mean": 15.2,
+            "prior_games": 6.0,
+            "canonical_line": 15.5,
+            "anchor_minutes": 29.5,
+            "min_sd": 4.7,
+            "var_mean_ratio": 1.8,
+            "cv_sd": 0.24
+          },
+          "REB": {
+            "family": "negbin",
+            "prior_mean": 5.6,
+            "prior_games": 5.5,
+            "canonical_line": 5.5,
+            "anchor_minutes": 29.5,
+            "r_dispersion": 11.5
+          },
+          "AST": {
+            "family": "negbin",
+            "prior_mean": 3.1,
+            "prior_games": 5.5,
+            "canonical_line": 2.5,
+            "anchor_minutes": 29.5,
+            "r_dispersion": 9.0
+          },
+          "3PM": {
+            "family": "negbin",
+            "prior_mean": 1.6,
+            "prior_games": 6.5,
+            "canonical_line": 1.5,
+            "anchor_minutes": 29.5,
+            "r_dispersion": 5.2
+          }
+        },
+        "C": {
+          "PTS": {
+            "family": "normal_overdispersed",
+            "prior_mean": 13.8,
+            "prior_games": 6.0,
+            "canonical_line": 13.5,
+            "anchor_minutes": 27.5,
+            "min_sd": 4.5,
+            "var_mean_ratio": 1.7,
+            "cv_sd": 0.23
+          },
+          "REB": {
+            "family": "negbin",
+            "prior_mean": 8.2,
+            "prior_games": 5.5,
+            "canonical_line": 7.5,
+            "anchor_minutes": 27.5,
+            "r_dispersion": 12.0
+          },
+          "AST": {
+            "family": "negbin",
+            "prior_mean": 2.4,
+            "prior_games": 5.5,
+            "canonical_line": 2.5,
+            "anchor_minutes": 27.5,
+            "r_dispersion": 8.5
+          },
+          "3PM": {
+            "family": "negbin",
+            "prior_mean": 0.7,
+            "prior_games": 7.0,
+            "canonical_line": 0.5,
+            "anchor_minutes": 27.5,
+            "r_dispersion": 4.5
+          }
+        }
+      }
+    },
+    "mlb": {
+      "min_guard_minutes": 0.0,
+      "roles": {
+        "SP": {
+          "SO": {
+            "family": "negbin",
+            "prior_mean": 5.4,
+            "prior_games": 5.0,
+            "canonical_line": 5.5,
+            "anchor_minutes": 0.0,
+            "r_dispersion": 8.5
+          },
+          "IP": {
+            "family": "normal_overdispersed",
+            "prior_mean": 5.35,
+            "prior_games": 5.0,
+            "canonical_line": 5.5,
+            "anchor_minutes": 0.0,
+            "min_sd": 1.05,
+            "var_mean_ratio": 0.16,
+            "cv_sd": 0.15
+          },
+          "H": {
+            "family": "negbin",
+            "prior_mean": 5.1,
+            "prior_games": 5.5,
+            "canonical_line": 4.5,
+            "anchor_minutes": 0.0,
+            "r_dispersion": 9.5
+          },
+          "ER": {
+            "family": "negbin",
+            "prior_mean": 2.45,
+            "prior_games": 6.0,
+            "canonical_line": 2.5,
+            "anchor_minutes": 0.0,
+            "r_dispersion": 4.8
+          },
+          "BB": {
+            "family": "negbin",
+            "prior_mean": 1.85,
+            "prior_games": 6.0,
+            "canonical_line": 1.5,
+            "anchor_minutes": 0.0,
+            "r_dispersion": 5.5
+          }
+        },
+        "RP": {
+          "SO": {
+            "family": "negbin",
+            "prior_mean": 1.12,
+            "prior_games": 8.0,
+            "canonical_line": 1.5,
+            "anchor_minutes": 0.0,
+            "r_dispersion": 6.5
+          },
+          "IP": {
+            "family": "normal_overdispersed",
+            "prior_mean": 1.02,
+            "prior_games": 8.0,
+            "canonical_line": 0.5,
+            "anchor_minutes": 0.0,
+            "min_sd": 0.42,
+            "var_mean_ratio": 0.08,
+            "cv_sd": 0.18
+          },
+          "H": {
+            "family": "negbin",
+            "prior_mean": 0.88,
+            "prior_games": 8.0,
+            "canonical_line": 0.5,
+            "anchor_minutes": 0.0,
+            "r_dispersion": 6.5
+          },
+          "ER": {
+            "family": "negbin",
+            "prior_mean": 0.44,
+            "prior_games": 8.0,
+            "canonical_line": 0.5,
+            "anchor_minutes": 0.0,
+            "r_dispersion": 4.2
+          },
+          "BB": {
+            "family": "negbin",
+            "prior_mean": 0.42,
+            "prior_games": 8.0,
+            "canonical_line": 0.5,
+            "anchor_minutes": 0.0,
+            "r_dispersion": 4.8
+          }
+        },
+        "BAT": {
+          "H": {
+            "family": "negbin",
+            "prior_mean": 0.92,
+            "prior_games": 12.0,
+            "canonical_line": 0.5,
+            "anchor_minutes": 0.0,
+            "r_dispersion": 9.0
+          },
+          "HR": {
+            "family": "negbin",
+            "prior_mean": 0.14,
+            "prior_games": 18.0,
+            "canonical_line": 0.5,
+            "anchor_minutes": 0.0,
+            "r_dispersion": 3.5
+          },
+          "TB": {
+            "family": "negbin",
+            "prior_mean": 1.55,
+            "prior_games": 10.0,
+            "canonical_line": 1.5,
+            "anchor_minutes": 0.0,
+            "r_dispersion": 4.6
+          },
+          "RBI": {
+            "family": "negbin",
+            "prior_mean": 0.52,
+            "prior_games": 12.0,
+            "canonical_line": 0.5,
+            "anchor_minutes": 0.0,
+            "r_dispersion": 4.2
+          },
+          "BB": {
+            "family": "negbin",
+            "prior_mean": 0.36,
+            "prior_games": 12.0,
+            "canonical_line": 0.5,
+            "anchor_minutes": 0.0,
+            "r_dispersion": 5.5
+          },
+          "SO": {
+            "family": "negbin",
+            "prior_mean": 0.94,
+            "prior_games": 10.0,
+            "canonical_line": 0.5,
+            "anchor_minutes": 0.0,
+            "r_dispersion": 7.5
+          }
+        }
+      }
+    },
+    "nhl": {
+      "min_guard_minutes": 0.0,
+      "roles": {
+        "FWD": {
+          "SOG": {
+            "family": "negbin",
+            "prior_mean": 2.35,
+            "prior_games": 6.5,
+            "canonical_line": 2.5,
+            "anchor_minutes": 17.5,
+            "r_dispersion": 7.8
+          },
+          "G": {
+            "family": "negbin",
+            "prior_mean": 0.29,
+            "prior_games": 8.0,
+            "canonical_line": 0.5,
+            "anchor_minutes": 17.5,
+            "r_dispersion": 5.0
+          },
+          "A": {
+            "family": "negbin",
+            "prior_mean": 0.44,
+            "prior_games": 7.5,
+            "canonical_line": 0.5,
+            "anchor_minutes": 17.5,
+            "r_dispersion": 5.5
+          },
+          "PTS": {
+            "family": "negbin",
+            "prior_mean": 0.73,
+            "prior_games": 6.5,
+            "canonical_line": 0.5,
+            "anchor_minutes": 17.5,
+            "r_dispersion": 5.2
+          }
+        },
+        "D": {
+          "SOG": {
+            "family": "negbin",
+            "prior_mean": 1.65,
+            "prior_games": 6.5,
+            "canonical_line": 1.5,
+            "anchor_minutes": 20.5,
+            "r_dispersion": 7.5
+          },
+          "G": {
+            "family": "negbin",
+            "prior_mean": 0.09,
+            "prior_games": 10.0,
+            "canonical_line": 0.5,
+            "anchor_minutes": 20.5,
+            "r_dispersion": 4.5
+          },
+          "A": {
+            "family": "negbin",
+            "prior_mean": 0.34,
+            "prior_games": 8.0,
+            "canonical_line": 0.5,
+            "anchor_minutes": 20.5,
+            "r_dispersion": 5.2
+          },
+          "PTS": {
+            "family": "negbin",
+            "prior_mean": 0.43,
+            "prior_games": 7.5,
+            "canonical_line": 0.5,
+            "anchor_minutes": 20.5,
+            "r_dispersion": 5.0
+          }
+        }
+      }
+    },
+    "nfl": {
+      "min_guard_minutes": 0.0,
+      "roles": {
+        "QB": {
+          "CMP": {
+            "family": "negbin",
+            "prior_mean": 19.8,
+            "prior_games": 2.5,
+            "canonical_line": 19.5,
+            "anchor_minutes": 0.0,
+            "r_dispersion": 16.0
+          },
+          "ATT": {
+            "family": "negbin",
+            "prior_mean": 30.5,
+            "prior_games": 2.5,
+            "canonical_line": 30.5,
+            "anchor_minutes": 0.0,
+            "r_dispersion": 20.0
+          },
+          "YDS": {
+            "family": "normal_overdispersed",
+            "prior_mean": 208.0,
+            "prior_games": 2.5,
+            "canonical_line": 214.5,
+            "anchor_minutes": 0.0,
+            "min_sd": 48.0,
+            "var_mean_ratio": 4.5,
+            "cv_sd": 0.26
+          },
+          "TD": {
+            "family": "negbin",
+            "prior_mean": 1.42,
+            "prior_games": 3.5,
+            "canonical_line": 1.5,
+            "anchor_minutes": 0.0,
+            "r_dispersion": 5.5
+          }
+        },
+        "RB": {
+          "CAR": {
+            "family": "negbin",
+            "prior_mean": 9.8,
+            "prior_games": 2.5,
+            "canonical_line": 10.5,
+            "anchor_minutes": 0.0,
+            "r_dispersion": 10.0
+          },
+          "YDS": {
+            "family": "normal_overdispersed",
+            "prior_mean": 38.0,
+            "prior_games": 2.2,
+            "canonical_line": 39.5,
+            "anchor_minutes": 0.0,
+            "min_sd": 20.0,
+            "var_mean_ratio": 3.5,
+            "cv_sd": 0.45
+          },
+          "REC": {
+            "family": "negbin",
+            "prior_mean": 2.2,
+            "prior_games": 3.0,
+            "canonical_line": 2.5,
+            "anchor_minutes": 0.0,
+            "r_dispersion": 7.0
+          },
+          "TD": {
+            "family": "negbin",
+            "prior_mean": 0.44,
+            "prior_games": 4.0,
+            "canonical_line": 0.5,
+            "anchor_minutes": 0.0,
+            "r_dispersion": 4.8
+          }
+        },
+        "WR": {
+          "REC": {
+            "family": "negbin",
+            "prior_mean": 3.4,
+            "prior_games": 2.5,
+            "canonical_line": 3.5,
+            "anchor_minutes": 0.0,
+            "r_dispersion": 7.5
+          },
+          "TGTS": {
+            "family": "negbin",
+            "prior_mean": 5.4,
+            "prior_games": 2.5,
+            "canonical_line": 5.5,
+            "anchor_minutes": 0.0,
+            "r_dispersion": 9.0
+          },
+          "YDS": {
+            "family": "normal_overdispersed",
+            "prior_mean": 39.0,
+            "prior_games": 2.2,
+            "canonical_line": 39.5,
+            "anchor_minutes": 0.0,
+            "min_sd": 20.0,
+            "var_mean_ratio": 3.8,
+            "cv_sd": 0.48
+          },
+          "TD": {
+            "family": "negbin",
+            "prior_mean": 0.32,
+            "prior_games": 4.5,
+            "canonical_line": 0.5,
+            "anchor_minutes": 0.0,
+            "r_dispersion": 4.5
+          }
+        },
+        "TE": {
+          "REC": {
+            "family": "negbin",
+            "prior_mean": 2.6,
+            "prior_games": 2.5,
+            "canonical_line": 2.5,
+            "anchor_minutes": 0.0,
+            "r_dispersion": 7.5
+          },
+          "TGTS": {
+            "family": "negbin",
+            "prior_mean": 3.9,
+            "prior_games": 2.5,
+            "canonical_line": 3.5,
+            "anchor_minutes": 0.0,
+            "r_dispersion": 9.0
+          },
+          "YDS": {
+            "family": "normal_overdispersed",
+            "prior_mean": 26.0,
+            "prior_games": 2.2,
+            "canonical_line": 25.5,
+            "anchor_minutes": 0.0,
+            "min_sd": 16.0,
+            "var_mean_ratio": 3.4,
+            "cv_sd": 0.48
+          },
+          "TD": {
+            "family": "negbin",
+            "prior_mean": 0.25,
+            "prior_games": 4.5,
+            "canonical_line": 0.5,
+            "anchor_minutes": 0.0,
+            "r_dispersion": 4.5
+          }
+        }
+      }
+    }
+  }
+}

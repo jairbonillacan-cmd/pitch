@@ -1,7 +1,8 @@
 "use client";
 
-import React, { useEffect, useRef, useState } from "react";
+import React, { useRef, useState } from "react";
 import { UltraTag } from "../components/MaestroPrimitives";
+import { useSafeEffect } from "../hooks";
 import { MEMBERSHIP_SPEC } from "../spacetime-catalog";
 
 const PL_ISOTYPE_PATH =
@@ -793,9 +794,9 @@ export function ReferralCard3D({
   );
   const effectiveFlipped = flipped ?? internalFlipped;
 
-  useEffect(() => {
+  useSafeEffect(() => {
     const canvas = canvasRef.current;
-    if (!canvas) return;
+    if (!canvas || typeof window === "undefined") return;
 
     const gl = canvas.getContext("webgl", {
       antialias: true,
@@ -1397,7 +1398,7 @@ export function ReferralCard3D({
     asDecorativeChild,
   ]);
 
-  useEffect(() => {
+  useSafeEffect(() => {
     if (typeof flipped !== "boolean") return;
     setInternalFlipped(flipped);
     setFlippedFaceRef.current?.(flipped);

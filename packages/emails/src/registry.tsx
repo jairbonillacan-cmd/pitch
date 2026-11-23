@@ -95,9 +95,7 @@ import {
   type DataHealthAlertProps,
 } from "./templates/ops";
 
-/** Cada correo: componente, asunto y datos de ejemplo (para la vista previa y las pruebas). */
 interface Definition<P> {
-  /** Fase de construcción: A cuentas y prueba · B referidos · C cobro · D producto y seguridad · E Tipster y comunidad. */
   phase: "A" | "B" | "C" | "D" | "E";
   label: string;
   Component: (props: P) => ReactElement;
@@ -111,7 +109,43 @@ function define<P>(def: Definition<P>): Definition<P> {
 
 const EXAMPLE_URL = "https://pitchlab.mx/ejemplo";
 
-export const EMAIL_TEMPLATES = {
+type EmailTemplatePropsMap = {
+  "magic-link": MagicLinkProps;
+  welcome: WelcomeProps;
+  "trial-ending": TrialEndingProps;
+  "trial-ended": TrialEndedProps;
+  "referral-signed-up": ReferralSignedUpProps;
+  "referral-rewarded": ReferralRewardedProps;
+  invite: InviteProps;
+  "payment-receipt": PaymentReceiptProps;
+  "transfer-coupon": TransferCouponProps;
+  "transfer-rejected": TransferRejectedProps;
+  "payment-failed": PaymentFailedProps;
+  "cfdi-invoice": CfdiInvoiceProps;
+  refund: RefundProps;
+  "subscription-canceled": SubscriptionCanceledProps;
+  "tipster-payout": TipsterPayoutProps;
+  "renewal-reminder": RenewalReminderProps;
+  "access-expired": AccessExpiredProps;
+  "referral-ambassador": ReferralAmbassadorProps;
+  "referral-reversed": ReferralReversedProps;
+  "pick-graded": PickGradedProps;
+  "monthly-record": MonthlyRecordProps;
+  "tipster-activated": TipsterActivatedProps;
+  "tipster-new-subscriber": TipsterNewSubscriberProps;
+  "content-removed": ContentRemovedProps;
+  "weekly-digest": WeeklyDigestProps;
+  "security-notice": SecurityNoticeProps;
+  "data-health-alert": DataHealthAlertProps;
+};
+
+export type EmailTemplateId = keyof EmailTemplatePropsMap;
+
+type EmailTemplateRegistry = {
+  readonly [K in EmailTemplateId]: Definition<EmailTemplatePropsMap[K]>;
+};
+
+export const EMAIL_TEMPLATES: EmailTemplateRegistry = {
   "magic-link": define<MagicLinkProps>({
     phase: "A",
     label: "Enlace de acceso",
@@ -175,7 +209,7 @@ export const EMAIL_TEMPLATES = {
       inviterName: "Sofía",
       planName: "Pase PitchLab Ultra",
       days: 7,
-      inviteUrl: "https://pitchlab.mx/pricing/referral?code=SOFIA5",
+      inviteUrl: "https://pitchlab.mx/i/SOFIA5",
       expiresOn: "30 de noviembre",
     },
   }),
@@ -367,7 +401,7 @@ export const EMAIL_TEMPLATES = {
       promoCode: "SOFIA5",
       trialDays: 5,
       commissionPct: 25,
-      shareUrl: "https://pitchlab.mx/pricing/referral?code=SOFIA5",
+      shareUrl: "https://pitchlab.mx/i/SOFIA5",
       dashboardUrl: EXAMPLE_URL,
     },
   }),
@@ -461,11 +495,9 @@ export const EMAIL_TEMPLATES = {
       ],
     },
   }),
-} as const;
+};
 
-export type EmailTemplateId = keyof typeof EMAIL_TEMPLATES;
-
-type PropsOf<K extends EmailTemplateId> = (typeof EMAIL_TEMPLATES)[K] extends Definition<infer P> ? P : never;
+type PropsOf<K extends EmailTemplateId> = EmailTemplatePropsMap[K];
 
 export interface RenderedEmail {
   subject: string;
@@ -473,12 +505,10 @@ export interface RenderedEmail {
   text: string;
 }
 
-/** Genera asunto, HTML y texto plano de un correo. */
 export async function renderEmail<K extends EmailTemplateId>(id: K, props: PropsOf<K>): Promise<RenderedEmail> {
-  const def = EMAIL_TEMPLATES[id] as unknown as Definition<PropsOf<K>>;
+  const def = EMAIL_TEMPLATES[id];
   const element = def.Component(props);
   const [rawHtml, text] = await Promise.all([render(element), render(element, { plainText: true })]);
-  // React 19 agrega <link rel="preload"> para las imágenes: en un correo no sirve y estorba.
   const html = rawHtml.replace(/<link rel="preload"[^>]*\/?>/g, "");
   return { subject: def.subject(props), html, text };
 }

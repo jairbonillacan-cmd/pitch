@@ -26,6 +26,7 @@ import {
   asSeasonId,
   asTeamId,
   opaqueShortCode,
+  parseStrictFiniteNumber,
   slugifyPlayerName,
   type CompetitionMeta,
   type GameDTO,
@@ -46,7 +47,11 @@ import {
   getOfficialEspnLeagueLogoUrl,
 } from "@pitchlab/sports-assets";
 import { loadRootEnvFiles } from "./env.js";
-import { classifyLineMovement, type LineMovementSignal } from "./odds/bzzoiro-odds.js";
+import {
+  BZZOIRO_TIER1_CUP_ODDS_LEAGUES,
+  classifyLineMovement,
+  type LineMovementSignal,
+} from "./odds/bzzoiro-odds.js";
 import {
   buildFootballSnapshot,
   loadPreviousSnapshot,
@@ -233,7 +238,7 @@ class BzzoiroClient {
           signal: AbortSignal.timeout(15_000),
         });
         if (res.status === 429) {
-          const waitSec = Number(res.headers.get("retry-after") ?? "2");
+          const waitSec = parseStrictFiniteNumber(res.headers.get("retry-after")) ?? 2;
           await sleep(Math.min(10_000, Math.max(1_000, waitSec * 1_000)));
           continue;
         }
@@ -616,15 +621,28 @@ async function ingestBzzoiroCompetition(
       if (ctx) contextByGameId.set(gameId, ctx);
       if (Array.isArray(ev.head_to_head) && ev.head_to_head.length > 0) {
         const parsedH2h = ev.head_to_head
-          .filter((h) => h.home_team && h.away_team && typeof h.home_score === "number" && typeof h.away_score === "number")
-          .slice(0, 6)
-          .map((h) => ({
-            date: String(h.event_date ?? h.date ?? "").slice(0, 10) || todayIso,
-            homeTeamId: `${league}.${slugifyTeamName(String(h.home_team))}`,
-            awayTeamId: `${league}.${slugifyTeamName(String(h.away_team))}`,
-            homeGoals: Number(h.home_score),
-            awayGoals: Number(h.away_score),
-          }));
+          .flatMap((h) => {
+            if (
+              !h.home_team ||
+              !h.away_team ||
+              typeof h.home_score !== "number" ||
+              !Number.isFinite(h.home_score) ||
+              typeof h.away_score !== "number" ||
+              !Number.isFinite(h.away_score)
+            ) {
+              return [];
+            }
+            return [
+              {
+                date: String(h.event_date ?? h.date ?? "").slice(0, 10) || todayIso,
+                homeTeamId: `${league}.${slugifyTeamName(String(h.home_team))}`,
+                awayTeamId: `${league}.${slugifyTeamName(String(h.away_team))}`,
+                homeGoals: h.home_score,
+                awayGoals: h.away_score,
+              },
+            ];
+          })
+          .slice(0, 6);
         if (parsedH2h.length > 0) h2hByGameId.set(gameId, parsedH2h);
       } else if (client.unlimited && status !== "final") {
         const remoteH2h = await client.fetchEventH2h(ev.id, ev.home_team, ev.away_team);
@@ -1045,8 +1063,8 @@ async function ingestConcacafEspnCompetition(
     const status: GameDTO["status"] =
       state === "post" || ev.status?.type?.completed ? "final" : state === "in" ? "in_progress" : "scheduled";
 
-    const homeScore = Number(homeComp.score);
-    const awayScore = Number(awayComp.score);
+    const homeScore = parseStrictFiniteNumber(homeComp.score);
+    const awayScore = parseStrictFiniteNumber(awayComp.score);
 
     allGames.push({
       id: asGameId(makeOpaqueGameId(league, ev.date, homeSlug, awaySlug, ev.id ?? homeSlug)),
@@ -1065,7 +1083,7 @@ async function ingestConcacafEspnCompetition(
           }
         : {}),
       neutralSite: Boolean(comp?.neutralSite),
-      ...(status === "final" && Number.isFinite(homeScore) && Number.isFinite(awayScore)
+      ...(status === "final" && homeScore !== null && awayScore !== null
         ? { result: { home: homeScore, away: awayScore, observedAt: updatedAt, source: "pitchlab-concacaf" } }
         : {}),
     });
@@ -1183,10 +1201,10 @@ async function hydrateRefereesForCoreFootballLeagues(client: BzzoiroClient, now:
             refereeStats: {
               ...(ref.country ? { country: ref.country } : {}),
               ...(typeof ref.matches === "number" ? { matches: ref.matches } : {}),
-              ...(typeof ref.avg_yellow_per_match === "number" ? { avgYellow: Number(ref.avg_yellow_per_match.toFixed(2)) } : {}),
-              ...(typeof ref.avg_red_per_match === "number" ? { avgRed: Number(ref.avg_red_per_match.toFixed(2)) } : {}),
-              ...(typeof ref.avg_fouls_per_match === "number" ? { avgFouls: Number(ref.avg_fouls_per_match.toFixed(1)) } : {}),
-              ...(typeof ref.avg_goals_per_match === "number" ? { avgGoals: Number(ref.avg_goals_per_match.toFixed(2)) } : {}),
+              ...(typeof ref.avg_yellow_per_match === "number" ? { avgYellow: Number.parseFloat(ref.avg_yellow_per_match.toFixed(2)) } : {}),
+              ...(typeof ref.avg_red_per_match === "number" ? { avgRed: Number.parseFloat(ref.avg_red_per_match.toFixed(2)) } : {}),
+              ...(typeof ref.avg_fouls_per_match === "number" ? { avgFouls: Number.parseFloat(ref.avg_fouls_per_match.toFixed(1)) } : {}),
+              ...(typeof ref.avg_goals_per_match === "number" ? { avgGoals: Number.parseFloat(ref.avg_goals_per_match.toFixed(2)) } : {}),
             },
           };
         }
@@ -1283,8 +1301,8 @@ async function hydrateOfficialsForUsLeagues(now: Date): Promise<number> {
               const hit = prob?.statistics?.find((s) =>
                 names.includes((s.name ?? "").toLowerCase()),
               );
-              const n = hit?.displayValue ? Number(hit.displayValue) : NaN;
-              return Number.isFinite(n) && n >= 0 ? n : undefined;
+              const n = parseStrictFiniteNumber(hit?.displayValue);
+              return n !== null && n >= 0 ? n : undefined;
             };
             const rawHand = prob?.athlete?.throws?.abbreviation?.trim().toUpperCase();
             const throwingHand: "R" | "L" | "S" | undefined =
@@ -1391,7 +1409,7 @@ async function collectCompactOddsForEvents(
       const rawOpen = q.opening_decimal_odds ?? q.opening_odds;
       const openingDecimal =
         typeof rawOpen === "number" && Number.isFinite(rawOpen) && rawOpen > 1.01
-          ? Number(rawOpen.toFixed(3))
+          ? Number.parseFloat(rawOpen.toFixed(3))
           : undefined;
       const classified = classifyLineMovement({
         openingDecimal: openingDecimal ?? null,
@@ -1407,7 +1425,7 @@ async function collectCompactOddsForEvents(
         outcome: String(q.outcome),
         line: typeof q.line === "number" ? q.line : null,
         book,
-        decimal: Number(q.decimal_odds.toFixed(3)),
+        decimal: Number.parseFloat(q.decimal_odds.toFixed(3)),
         ...(openingDecimal !== undefined ? { openingDecimal } : {}),
         ...(classified.deltaPct !== null ? { deltaPct: classified.deltaPct } : {}),
         ...(hasMovement ? { movement: classified.legacyDirection, movementSignal: classified.signal } : {}),
@@ -1419,16 +1437,46 @@ async function collectCompactOddsForEvents(
   return compactOdds;
 }
 
+const TIER1_CUP_ODDS_ORDER: ReadonlyMap<string, number> = new Map(
+  BZZOIRO_TIER1_CUP_ODDS_LEAGUES.map((id, idx) => [id, idx]),
+);
+
+export function selectExpansionOddsTargets(
+  options: {
+    readonly tier1CupsOnly?: boolean;
+    readonly leaguesFilter?: ReadonlySet<string> | null;
+  } = {},
+): CompetitionMeta[] {
+  const filtered = BZZOIRO_EXPANSION_COMPETITIONS.filter((meta) => {
+    if (options.tier1CupsOnly && !TIER1_CUP_ODDS_ORDER.has(meta.id)) {
+      return false;
+    }
+    if (options.leaguesFilter && !options.leaguesFilter.has(meta.id)) {
+      return false;
+    }
+    return typeof meta.bzzoiroId === "number";
+  });
+
+  const nonTier1Rank = BZZOIRO_TIER1_CUP_ODDS_LEAGUES.length;
+  return [...filtered].sort((a, b) => {
+    const aRank = TIER1_CUP_ODDS_ORDER.get(a.id) ?? nonTier1Rank;
+    const bRank = TIER1_CUP_ODDS_ORDER.get(b.id) ?? nonTier1Rank;
+    return aRank - bRank;
+  });
+}
+
 async function hydrateOddsOnlyForExpansion(
   client: BzzoiroClient,
   targets: readonly CompetitionMeta[],
   now: Date,
-): Promise<{ leaguesWithOdds: number; totalLines: number }> {
+  snapshotsRoot: string = SNAPSHOTS_ROOT,
+): Promise<{ leaguesWithOdds: number; totalLines: number; updatedLeagues: string[] }> {
   const dateFrom = now.toISOString().slice(0, 10);
   const dateTo = new Date(now.getTime() + 10 * 86_400_000).toISOString().slice(0, 10);
   const updatedAt = now.toISOString();
   let leaguesWithOdds = 0;
   let totalLines = 0;
+  const updatedLeagues: string[] = [];
 
   for (const meta of targets) {
     if (!meta.bzzoiroId) continue;
@@ -1442,7 +1490,7 @@ async function hydrateOddsOnlyForExpansion(
     const lines = await collectCompactOddsForEvents(client, meta.id, upcoming, updatedAt);
     if (lines.length === 0) continue;
 
-    const dir = join(SNAPSHOTS_ROOT, meta.id);
+    const dir = join(snapshotsRoot, meta.id);
     mkdirSync(dir, { recursive: true });
     writeFileSync(
       join(dir, "market-lines.json"),
@@ -1450,9 +1498,35 @@ async function hydrateOddsOnlyForExpansion(
     );
     leaguesWithOdds += 1;
     totalLines += lines.length;
+    updatedLeagues.push(meta.id);
     console.log(`[expansion:odds] ${meta.id}: ${lines.length} líneas en ${new Set(lines.map((l) => l.gameId)).size} partidos`);
   }
-  return { leaguesWithOdds, totalLines };
+  return { leaguesWithOdds, totalLines, updatedLeagues };
+}
+
+export async function hydrateOddsOnlyForLeagues(options: {
+  readonly token: string;
+  readonly unlimited?: boolean;
+  readonly tier1CupsOnly?: boolean;
+  readonly leaguesFilter?: ReadonlySet<string> | null;
+  readonly now?: Date;
+  readonly snapshotsRoot?: string;
+}): Promise<{ leaguesWithOdds: number; totalLines: number; updatedLeagues: string[]; totalRequests: number }> {
+  const client = new BzzoiroClient(options.token, Boolean(options.unlimited));
+  const targets = selectExpansionOddsTargets({
+    tier1CupsOnly: options.tier1CupsOnly,
+    leaguesFilter: options.leaguesFilter,
+  });
+  const summary = await hydrateOddsOnlyForExpansion(
+    client,
+    targets,
+    options.now ?? new Date(),
+    options.snapshotsRoot ?? SNAPSHOTS_ROOT,
+  );
+  return {
+    ...summary,
+    totalRequests: client.totalRequests,
+  };
 }
 
 async function main(): Promise<void> {
@@ -1460,10 +1534,18 @@ async function main(): Promise<void> {
   const args = process.argv.slice(2);
   const refereesOnly = args.includes("--referees-only");
   const oddsOnly = args.includes("--odds-only");
+  const tier1CupsOnly = args.includes("--tier1-cups-only");
   const skipSquads = args.includes("--skip-squads");
   const leaguesArg = args.find((a) => a.startsWith("--leagues="))?.slice("--leagues=".length);
-  const maxSquadTeamsArg = Number(args.find((a) => a.startsWith("--max-squad-teams="))?.slice("--max-squad-teams=".length) ?? "8");
-  const maxSquadTeams = Number.isFinite(maxSquadTeamsArg) && maxSquadTeamsArg > 0 ? maxSquadTeamsArg : 8;
+  const parsedMaxSquadTeams = parseStrictFiniteNumber(
+    args.find((a) => a.startsWith("--max-squad-teams="))?.slice("--max-squad-teams=".length) ?? "8",
+  );
+  const maxSquadTeams = parsedMaxSquadTeams !== null && parsedMaxSquadTeams > 0 ? parsedMaxSquadTeams : 8;
+
+  if (process.env.PITCHLAB_OFFLINE === "1") {
+    console.log("[expansion] PITCHLAB_OFFLINE=1; se omiten consultas remotas.");
+    return;
+  }
 
   const filterSet = leaguesArg
     ? new Set(leaguesArg.split(",").map((s) => s.trim()).filter(Boolean))
@@ -1485,10 +1567,13 @@ async function main(): Promise<void> {
       console.warn("[expansion:odds] BZZOIRO_API_KEY ausente; omitiendo.");
       return;
     }
-    const bzTargets = BZZOIRO_EXPANSION_COMPETITIONS.filter((m) => !filterSet || filterSet.has(m.id));
+    const bzTargets = selectExpansionOddsTargets({
+      tier1CupsOnly,
+      leaguesFilter: filterSet,
+    });
     const summary = await hydrateOddsOnlyForExpansion(client, bzTargets, now);
     console.log(
-      `[expansion:odds] Completado: ${summary.leaguesWithOdds} ligas con momios reales (${summary.totalLines} líneas, ${client.totalRequests} solicitudes).`,
+      `[expansion:odds] Completado (${tier1CupsOnly ? "copas Tier 1" : "copas Tier 1 + expansión"}): ${summary.leaguesWithOdds} ligas con momios reales (${summary.totalLines} líneas, ${client.totalRequests} solicitudes).`,
     );
     return;
   }

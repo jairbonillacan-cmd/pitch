@@ -18,9 +18,7 @@ export interface AtomicShotItem {
   readonly side: LiveSide;
   readonly outcome: AtomicShotOutcome;
   readonly xg: number | null;
-  /** Coordenada 0..100 hacia la portería rival. */
   readonly x: number | null;
-  /** Coordenada 0..100 a lo ancho de la cancha. */
   readonly y: number | null;
   readonly player?: string | null;
   readonly situation?: string | null;
@@ -30,11 +28,10 @@ export interface AtomicShotmapPitchProps {
   readonly shots: readonly AtomicShotItem[];
   readonly homeLabel: string;
   readonly awayLabel: string;
-  /** `"auto"` usa campo completo para ambos equipos y media cancha al filtrar por un equipo. */
   readonly view?: "auto" | "full" | "half";
   readonly title?: string;
-  /** Muestra estado vacío discreto cuando no hay tiros; por defecto omite el bloque (`null`). */
   readonly showEmpty?: boolean;
+  readonly onSelectShot?: (shot: AtomicShotItem | null) => void;
   readonly className?: string;
 }
 
@@ -48,7 +45,6 @@ export function normalizeShotBucket(outcome: AtomicShotOutcome): CanonicalShotBu
   return "miss";
 }
 
-/** Escala el radio del marcador de tiro de forma proporcional a la raíz del xG (r ∈ [4.8, 12.6]). */
 export function computeShotRadius(xg: number | null | undefined): number {
   const safe = xg != null && Number.isFinite(xg) && xg > 0 ? xg : 0.05;
   const clamped = Math.max(0.015, Math.min(0.95, safe));
@@ -81,12 +77,6 @@ function formatShotMinute(shot: AtomicShotItem): string {
   return `${Math.round(shot.minute)}${shot.addedTime ? `+${shot.addedTime}` : ""}'`;
 }
 
-/**
- * Mapa de tiros atómico plano editorial:
- * - Cancha SVG limpia (campo completo o media cancha ofensiva) sobre tokens `--pl-*`.
- * - Círculos escalados por xG con codificación visual redundante (relleno, borde y patrón).
- * - Toggles por equipo y resultado, resumen `xG Local vs Visita` en `.num` y tabla `<details>` accesible.
- */
 export function AtomicShotmapPitch({
   shots,
   homeLabel,
@@ -94,6 +84,7 @@ export function AtomicShotmapPitch({
   view = "auto",
   title = "Mapa de tiros",
   showEmpty = false,
+  onSelectShot,
   className = "",
 }: AtomicShotmapPitchProps): React.JSX.Element | null {
   const uid = useId().replace(/:/g, "");
@@ -136,7 +127,13 @@ export function AtomicShotmapPitch({
   const plottedShots = useMemo(() => {
     return filteredShots
       .map((shot, idx) => ({ shot, idx, bucket: normalizeShotBucket(shot.outcome) }))
-      .filter((item) => item.shot.x != null && item.shot.y != null && Number.isFinite(item.shot.x) && Number.isFinite(item.shot.y))
+      .filter(
+        (item) =>
+          item.shot.x != null &&
+          item.shot.y != null &&
+          Number.isFinite(item.shot.x) &&
+          Number.isFinite(item.shot.y),
+      )
       .sort((a, b) => BUCKET_PAINT_ORDER[a.bucket] - BUCKET_PAINT_ORDER[b.bucket]);
   }, [filteredShots]);
 
@@ -155,9 +152,14 @@ export function AtomicShotmapPitch({
     view === "auto" ? (teamFilter === "all" ? "full" : "half") : view;
 
   const activeShot =
-    selectedIdx !== null && selectedIdx < filteredShots.length ? filteredShots[selectedIdx] : null;
+    selectedIdx !== null && selectedIdx < filteredShots.length ? filteredShots[selectedIdx]! : null;
 
-  // Dimensiones SVG limpias para campo completo (horizontal) o media cancha (ofensiva hacia arriba)
+  const selectShotIndex = (nextIdx: number | null) => {
+    setSelectedIdx(nextIdx);
+    const nextShot = nextIdx !== null && nextIdx < filteredShots.length ? filteredShots[nextIdx]! : null;
+    onSelectShot?.(nextShot);
+  };
+
   const fullW = 360;
   const fullH = 224;
   const fullPad = 10;
@@ -175,20 +177,72 @@ export function AtomicShotmapPitch({
     const rawY = clampCoord(shot.y ?? 50);
 
     if (effectiveView === "half") {
-      // Portería rival arriba (y = halfPad), mediocampo abajo (y = halfH - halfPad)
       const depth = Math.max(0, Math.min(50, 100 - rawX));
       const cy = halfPad + (depth / 50) * halfInnerH;
       const cx = halfPad + (rawY / 100) * halfInnerW;
       return { cx: Math.round(cx * 10) / 10, cy: Math.round(cy * 10) / 10 };
     }
 
-    // Campo completo: Local ataca izquierda → derecha, Visita ataca derecha → izquierda
     const normX = shot.side === "home" ? rawX : 100 - rawX;
     const normY = shot.side === "home" ? rawY : 100 - rawY;
     const cx = fullPad + (normX / 100) * fullInnerW;
     const cy = fullPad + (normY / 100) * fullInnerH;
     return { cx: Math.round(cx * 10) / 10, cy: Math.round(cy * 10) / 10 };
   };
+
+  const renderShotMarkers = () =>
+    plottedShots.map(({ shot, idx, bucket }) => {
+      const { cx, cy } = projectPoint(shot);
+      const r = computeShotRadius(shot.xg);
+      const isSelected = selectedIdx === idx;
+      const isPost = shot.outcome === "post";
+      const teamName = shot.side === "home" ? homeLabel : awayLabel;
+      const shotLabel = `${shot.player ?? teamName} · ${shot.minute}'${shot.xg != null ? ` · xG ${shot.xg.toFixed(2)}` : ""}`;
+      const toggleSelection = () => selectShotIndex(isSelected ? null : idx);
+
+      return (
+        <g
+          key={shot.id ?? `${shot.side}-${shot.minute}-${idx}`}
+          role="button"
+          tabIndex={0}
+          aria-pressed={isSelected}
+          aria-label={shotLabel}
+          className={`pl-atom-shot pl-atom-shot--${shot.side} pl-atom-shot--${bucket}${isPost ? " is-post" : ""}${isSelected ? " is-selected" : ""}`}
+          onClick={toggleSelection}
+          onKeyDown={(e) => {
+            if (e.key === "Enter") {
+              e.preventDefault();
+              toggleSelection();
+            } else if (e.key === " ") {
+              e.preventDefault();
+            } else if (e.key === "Escape" && isSelected) {
+              e.preventDefault();
+              selectShotIndex(null);
+            }
+          }}
+          onKeyUp={(e) => {
+            if (e.key === " ") {
+              toggleSelection();
+            }
+          }}
+        >
+          {isSelected ? <circle cx={cx} cy={cy} r={r + 4} className="pl-atom-shot-focus" /> : null}
+          {bucket === "goal" ? (
+            <circle cx={cx} cy={cy} r={r + 2.2} className="pl-atom-shot-goal-ring" />
+          ) : null}
+          <circle cx={cx} cy={cy} r={r} className="pl-atom-shot-dot" />
+          {bucket === "goal" ? (
+            <circle cx={cx} cy={cy} r={Math.max(1.8, r * 0.28)} className="pl-atom-shot-goal-core" />
+          ) : null}
+          {bucket === "blocked" ? (
+            <path
+              d={`M ${cx - 2.3} ${cy - 2.3} L ${cx + 2.3} ${cy + 2.3} M ${cx + 2.3} ${cy - 2.3} L ${cx - 2.3} ${cy + 2.3}`}
+              className="pl-atom-shot-block-x"
+            />
+          ) : null}
+        </g>
+      );
+    });
 
   const unplottedCount = filteredShots.length - plottedShots.length;
 
@@ -201,16 +255,21 @@ export function AtomicShotmapPitch({
     >
       <figcaption className="pl-atom-shotmap-head">
         <div className="pl-atom-shotmap-title-row">
-          <span id={`${uid}-title`} className="pl-atom-title">
+          <span id={`${uid}-title`} className="pl-atom-title pl-atom-shotmap-title">
             {title}
           </span>
-          <div className="pl-atom-shotmap-xg num" aria-label={`xG ${homeLabel} ${summary.homeXg.toFixed(2)} contra ${awayLabel} ${summary.awayXg.toFixed(2)}`}>
+          <div
+            className="pl-atom-shotmap-xg num"
+            aria-label={`xG ${homeLabel} ${summary.homeXg.toFixed(2)} contra ${awayLabel} ${summary.awayXg.toFixed(2)}`}
+          >
             <span className="pl-atom-team-dot is-home" aria-hidden="true" />
-            <span>{homeLabel}</span>
+            <span className="pl-atom-shotmap-team">{homeLabel}</span>
             <strong>{summary.homeXg.toFixed(2)}</strong>
-            <span className="pl-atom-sep" aria-hidden="true">vs</span>
+            <span className="pl-atom-sep" aria-hidden="true">
+              vs
+            </span>
             <strong>{summary.awayXg.toFixed(2)}</strong>
-            <span>{awayLabel}</span>
+            <span className="pl-atom-shotmap-team">{awayLabel}</span>
             <span className="pl-atom-team-dot is-away" aria-hidden="true" />
           </div>
         </div>
@@ -231,7 +290,7 @@ export function AtomicShotmapPitch({
                 aria-pressed={teamFilter === key}
                 onClick={() => {
                   setTeamFilter(key);
-                  setSelectedIdx(null);
+                  selectShotIndex(null);
                 }}
               >
                 {label}
@@ -256,7 +315,7 @@ export function AtomicShotmapPitch({
                 aria-pressed={outcomeFilter === key}
                 onClick={() => {
                   setOutcomeFilter(key);
-                  setSelectedIdx(null);
+                  selectShotIndex(null);
                 }}
               >
                 {label}
@@ -274,7 +333,6 @@ export function AtomicShotmapPitch({
             role="group"
             aria-label={`${title}: ${homeLabel} ${summary.homeCount} tiros (${summary.homeXg.toFixed(2)} xG), ${awayLabel} ${summary.awayCount} tiros (${summary.awayXg.toFixed(2)} xG).`}
           >
-            {/* Superficie y líneas reglamentarias campo completo */}
             <rect
               x={fullPad}
               y={fullPad}
@@ -293,19 +351,22 @@ export function AtomicShotmapPitch({
             <circle cx={fullW / 2} cy={fullH / 2} r="28" className="pl-atom-pitch-line" />
             <circle cx={fullW / 2} cy={fullH / 2} r="2" className="pl-atom-pitch-spot" />
 
-            {/* Área izquierda (portería que ataca Visita) */}
             <rect x={fullPad} y={fullH / 2 - 58} width="54" height="116" className="pl-atom-pitch-line" />
             <rect x={fullPad} y={fullH / 2 - 26} width="18" height="52" className="pl-atom-pitch-line" />
             <circle cx={fullPad + 36} cy={fullH / 2} r="1.8" className="pl-atom-pitch-spot" />
-            <path d={`M ${fullPad + 54} ${fullH / 2 - 24} A 28 28 0 0 1 ${fullPad + 54} ${fullH / 2 + 24}`} className="pl-atom-pitch-line" />
+            <path
+              d={`M ${fullPad + 54} ${fullH / 2 - 24} A 28 28 0 0 1 ${fullPad + 54} ${fullH / 2 + 24}`}
+              className="pl-atom-pitch-line"
+            />
 
-            {/* Área derecha (portería que ataca Local) */}
             <rect x={fullW - fullPad - 54} y={fullH / 2 - 58} width="54" height="116" className="pl-atom-pitch-line" />
             <rect x={fullW - fullPad - 18} y={fullH / 2 - 26} width="18" height="52" className="pl-atom-pitch-line" />
             <circle cx={fullW - fullPad - 36} cy={fullH / 2} r="1.8" className="pl-atom-pitch-spot" />
-            <path d={`M ${fullW - fullPad - 54} ${fullH / 2 - 24} A 28 28 0 0 0 ${fullW - fullPad - 54} ${fullH / 2 + 24}`} className="pl-atom-pitch-line" />
+            <path
+              d={`M ${fullW - fullPad - 54} ${fullH / 2 - 24} A 28 28 0 0 0 ${fullW - fullPad - 54} ${fullH / 2 + 24}`}
+              className="pl-atom-pitch-line"
+            />
 
-            {/* Indicadores discretos de ataque */}
             <text x={fullPad + 8} y={fullH - fullPad - 6} className="pl-atom-pitch-hint">
               ← {awayLabel}
             </text>
@@ -313,49 +374,7 @@ export function AtomicShotmapPitch({
               {homeLabel} →
             </text>
 
-            {/* Marcadores de tiro */}
-            {plottedShots.map(({ shot, idx, bucket }) => {
-              const { cx, cy } = projectPoint(shot);
-              const r = computeShotRadius(shot.xg);
-              const isSelected = selectedIdx === idx;
-              const isPost = shot.outcome === "post";
-              const teamName = shot.side === "home" ? homeLabel : awayLabel;
-              const shotLabel = `${shot.player ?? teamName} · ${shot.minute}'${shot.xg != null ? ` · xG ${shot.xg.toFixed(2)}` : ""}`;
-              return (
-                <g
-                  key={shot.id ?? `${shot.side}-${shot.minute}-${idx}`}
-                  role="button"
-                  tabIndex={0}
-                  aria-pressed={isSelected}
-                  aria-label={shotLabel}
-                  className={`pl-atom-shot pl-atom-shot--${shot.side} pl-atom-shot--${bucket}${isPost ? " is-post" : ""}${isSelected ? " is-selected" : ""}`}
-                  onClick={() => setSelectedIdx(isSelected ? null : idx)}
-                  onKeyDown={(e) => {
-                    if (e.key === "Enter" || e.key === " ") {
-                      e.preventDefault();
-                      setSelectedIdx(isSelected ? null : idx);
-                    }
-                  }}
-                >
-                  {isSelected ? (
-                    <circle cx={cx} cy={cy} r={r + 4} className="pl-atom-shot-focus" />
-                  ) : null}
-                  {bucket === "goal" ? (
-                    <circle cx={cx} cy={cy} r={r + 2.2} className="pl-atom-shot-goal-ring" />
-                  ) : null}
-                  <circle cx={cx} cy={cy} r={r} className="pl-atom-shot-dot" />
-                  {bucket === "goal" ? (
-                    <circle cx={cx} cy={cy} r={Math.max(1.8, r * 0.28)} className="pl-atom-shot-goal-core" />
-                  ) : null}
-                  {bucket === "blocked" ? (
-                    <path
-                      d={`M ${cx - 2.3} ${cy - 2.3} L ${cx + 2.3} ${cy + 2.3} M ${cx + 2.3} ${cy - 2.3} L ${cx - 2.3} ${cy + 2.3}`}
-                      className="pl-atom-shot-block-x"
-                    />
-                  ) : null}
-                </g>
-              );
-            })}
+            {renderShotMarkers()}
           </svg>
         ) : (
           <svg
@@ -364,7 +383,6 @@ export function AtomicShotmapPitch({
             role="group"
             aria-label={`${title} en media cancha (${teamFilter === "home" ? homeLabel : teamFilter === "away" ? awayLabel : `${homeLabel} y ${awayLabel}`}).`}
           >
-            {/* Media cancha ofensiva (portería arriba) */}
             <rect
               x={halfPad}
               y={halfPad}
@@ -377,56 +395,20 @@ export function AtomicShotmapPitch({
             <rect x={halfW / 2 - 88} y={halfPad} width="176" height="64" className="pl-atom-pitch-line" />
             <rect x={halfW / 2 - 42} y={halfPad} width="84" height="22" className="pl-atom-pitch-line" />
             <circle cx={halfW / 2} cy={halfPad + 44} r="2" className="pl-atom-pitch-spot" />
-            <path d={`M ${halfW / 2 - 30} ${halfPad + 64} A 34 34 0 0 0 ${halfW / 2 + 30} ${halfPad + 64}`} className="pl-atom-pitch-line" />
-            <path d={`M ${halfW / 2 - 38} ${halfH - halfPad} A 38 38 0 0 1 ${halfW / 2 + 38} ${halfH - halfPad}`} className="pl-atom-pitch-line" />
+            <path
+              d={`M ${halfW / 2 - 30} ${halfPad + 64} A 34 34 0 0 0 ${halfW / 2 + 30} ${halfPad + 64}`}
+              className="pl-atom-pitch-line"
+            />
+            <path
+              d={`M ${halfW / 2 - 38} ${halfH - halfPad} A 38 38 0 0 1 ${halfW / 2 + 38} ${halfH - halfPad}`}
+              className="pl-atom-pitch-line"
+            />
 
-            {plottedShots.map(({ shot, idx, bucket }) => {
-              const { cx, cy } = projectPoint(shot);
-              const r = computeShotRadius(shot.xg);
-              const isSelected = selectedIdx === idx;
-              const isPost = shot.outcome === "post";
-              const teamName = shot.side === "home" ? homeLabel : awayLabel;
-              const shotLabel = `${shot.player ?? teamName} · ${shot.minute}'${shot.xg != null ? ` · xG ${shot.xg.toFixed(2)}` : ""}`;
-              return (
-                <g
-                  key={shot.id ?? `${shot.side}-${shot.minute}-${idx}`}
-                  role="button"
-                  tabIndex={0}
-                  aria-pressed={isSelected}
-                  aria-label={shotLabel}
-                  className={`pl-atom-shot pl-atom-shot--${shot.side} pl-atom-shot--${bucket}${isPost ? " is-post" : ""}${isSelected ? " is-selected" : ""}`}
-                  onClick={() => setSelectedIdx(isSelected ? null : idx)}
-                  onKeyDown={(e) => {
-                    if (e.key === "Enter" || e.key === " ") {
-                      e.preventDefault();
-                      setSelectedIdx(isSelected ? null : idx);
-                    }
-                  }}
-                >
-                  {isSelected ? (
-                    <circle cx={cx} cy={cy} r={r + 4} className="pl-atom-shot-focus" />
-                  ) : null}
-                  {bucket === "goal" ? (
-                    <circle cx={cx} cy={cy} r={r + 2.2} className="pl-atom-shot-goal-ring" />
-                  ) : null}
-                  <circle cx={cx} cy={cy} r={r} className="pl-atom-shot-dot" />
-                  {bucket === "goal" ? (
-                    <circle cx={cx} cy={cy} r={Math.max(1.8, r * 0.28)} className="pl-atom-shot-goal-core" />
-                  ) : null}
-                  {bucket === "blocked" ? (
-                    <path
-                      d={`M ${cx - 2.3} ${cy - 2.3} L ${cx + 2.3} ${cy + 2.3} M ${cx + 2.3} ${cy - 2.3} L ${cx - 2.3} ${cy + 2.3}`}
-                      className="pl-atom-shot-block-x"
-                    />
-                  ) : null}
-                </g>
-              );
-            })}
+            {renderShotMarkers()}
           </svg>
         )}
       </div>
 
-      {/* Lectura interactiva de tiro elegido + leyenda de codificación */}
       <div className="pl-atom-shotmap-foot">
         {activeShot ? (
           <div className="pl-atom-shot-readout num" role="status" aria-live="polite">
@@ -455,15 +437,14 @@ export function AtomicShotmapPitch({
         )}
         {unplottedCount > 0 ? (
           <span className="pl-atom-shot-note num">
-            {unplottedCount} {unplottedCount === 1 ? "tiro sin coordenada en mapa" : "tiros sin coordenada en mapa"}
+            {unplottedCount}{" "}
+            {unplottedCount === 1 ? "tiro sin coordenada en mapa" : "tiros sin coordenada en mapa"}
           </span>
         ) : null}
       </div>
 
       <details className="pl-atom-disclosure">
-        <summary className="num">
-          Ver tiros como tabla ({filteredShots.length})
-        </summary>
+        <summary className="num">Ver tiros como tabla ({filteredShots.length})</summary>
         <div
           className="pl-atom-table-wrap"
           role="region"
@@ -480,7 +461,9 @@ export function AtomicShotmapPitch({
                 <th scope="col">Equipo</th>
                 {hasPlayers ? <th scope="col">Jugador</th> : null}
                 <th scope="col">Resultado</th>
-                <th scope="col" className="num">xG</th>
+                <th scope="col" className="num">
+                  xG
+                </th>
               </tr>
             </thead>
             <tbody>
@@ -490,9 +473,7 @@ export function AtomicShotmapPitch({
                     {formatShotMinute(shot)}
                   </th>
                   <td data-label="Equipo">{shot.side === "home" ? homeLabel : awayLabel}</td>
-                  {hasPlayers ? (
-                    <td data-label="Jugador">{shot.player ?? "—"}</td>
-                  ) : null}
+                  {hasPlayers ? <td data-label="Jugador">{shot.player ?? "—"}</td> : null}
                   <td data-label="Resultado">{OUTCOME_LABEL_ES[shot.outcome]}</td>
                   <td className="num" data-label="xG">
                     {shot.xg != null && Number.isFinite(shot.xg) ? shot.xg.toFixed(2) : "—"}

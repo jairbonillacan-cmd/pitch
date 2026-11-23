@@ -1,31 +1,47 @@
-/**
- * Despachador programado de alertas Web Push (RFC 8291 + VAPID):
- * 1) Partidos seguidos que arrancan en la ventana de 45–75 min (aviso 1 h antes).
- * 2) Movimientos fuertes de línea (≥ 5 % respecto a apertura) en partidos próximos con valor real.
- *
- * Incluye deduplicación en `live_feed_cache` para evitar reenvíos repetidos en ejecuciones consecutivas.
- */
-import { canonicalGameHref } from "@pitchlab/contracts";
+import { createHash } from "node:crypto";
 import {
+  canonicalGameHref,
+  type LiveMatchDetail,
+  type LiveScoreboard,
+} from "@pitchlab/contracts";
+import {
+  and,
   authUser,
+  claimLiveCacheSlotOnce,
+  desc,
   eq,
   hasActivePaseTotal,
+  inArray,
   listLiveGameWatchers,
   listPushAlertRecipients,
-  readLiveCache,
+  sealedPicks,
   users,
-  writeLiveCache,
   type Db,
 } from "@pitchlab/db";
 import type { PlatformDataset, PlatformGame } from "@pitchlab/ui/types";
+import { getLiveScoreboard, type LiveDeps } from "./live";
+import {
+  loadUserLiveTrackedPicks,
+  type LivePickMilestoneKind,
+  type LiveTrackedPickItem,
+} from "./live-pick-tracker";
 import { buildServerRawPlatformDataset } from "./platform-data";
 import { isAdminEmail } from "./session-user";
-import { isWebPushConfigured, sendPushToUsers } from "./web-push";
+import {
+  isWebPushConfigured,
+  sendPushToUsers,
+  type WebPushMessagePayload,
+} from "./web-push";
+
+export type { LivePickMilestoneKind };
 
 const PREMATCH_MIN_MS = 45 * 60_000;
 const PREMATCH_MAX_MS = 75 * 60_000;
 const LINE_MOVE_MIN_RATIO = 0.05;
 const DEDUPE_TTL_MS = 6 * 3_600_000;
+const LIVE_PICK_DEDUPE_TTL_MS = 24 * 3_600_000;
+const MAX_MILESTONE_USERS = 40;
+const MILESTONE_HASH_LENGTH = 12;
 
 export interface DetectedLineMoveAlert {
   game: PlatformGame;
@@ -47,10 +63,44 @@ export interface PushAlertsRunReport {
   prunedSubscriptions: number;
 }
 
-/**
- * Encuentra partidos próximos con movimiento real de línea ≥ 5 % respecto a la cuota de apertura
- * (con ventaja del modelo o acortamiento claro en una casa verificada).
- */
+export interface LivePickMilestonePushReport {
+  readonly configured: boolean;
+  readonly usersChecked: number;
+  readonly picksEvaluated: number;
+  readonly milestonesDetected: number;
+  readonly pushesSent: number;
+  readonly duplicatesSkipped: number;
+  readonly prunedSubscriptions: number;
+}
+
+export interface DispatchLivePickMilestonePushesOptions {
+  readonly now?: Date;
+  readonly userIds?: readonly string[];
+  readonly liveDeps?: LiveDeps;
+  readonly scoreboard?: LiveScoreboard;
+  readonly matchDetails?:
+    | ReadonlyMap<string, LiveMatchDetail>
+    | Readonly<Record<string, LiveMatchDetail>>;
+  readonly loadMatchDetail?: (gameId: string) => Promise<LiveMatchDetail | null>;
+  readonly dataset?: PlatformDataset | null;
+  readonly fetchImpl?: typeof fetch;
+  readonly sendPushImpl?: typeof sendPushToUsers;
+  readonly forceConfiguredCheck?: boolean;
+  readonly maxUsers?: number;
+}
+
+export function buildLivePickMilestoneHash(
+  pickId: string,
+  milestone: LivePickMilestoneKind,
+  valueKey: string,
+): string {
+  const canonical = `${pickId.trim()}|${milestone}|${valueKey.trim()}`;
+  return createHash("sha256")
+    .update(canonical)
+    .digest("hex")
+    .slice(0, MILESTONE_HASH_LENGTH);
+}
+
 export function detectSignificantLineMoves(
   dataset: PlatformDataset,
   nowMs: number = Date.now(),
@@ -84,7 +134,6 @@ export function detectSignificantLineMoves(
         typeof row.edgePts === "number"
           ? row.edgePts
           : Math.round((row.p - 1 / row.currentDecimal) * 1000) / 10;
-      // Solo avisamos movimientos con valor positivo o acortamiento significativo (dinero hacia la selección).
       if (edgePts < 1.5 && row.movementDirection !== "shortening") continue;
 
       const candidate: DetectedLineMoveAlert = {
@@ -107,7 +156,6 @@ export function detectSignificantLineMoves(
   return alerts.sort((a, b) => b.shiftPct - a.shiftPct).slice(0, 12);
 }
 
-/** Partidos que inician dentro de la ventana de aviso previo (45 a 75 min antes del saque). */
 export function findPreMatchPushGames(
   dataset: PlatformDataset,
   nowMs: number = Date.now(),
@@ -123,14 +171,81 @@ export function findPreMatchPushGames(
 
 async function claimAlertOnce(db: Db, cacheKey: string, now: Date): Promise<boolean> {
   try {
-    const existing = await readLiveCache(db, cacheKey, now);
-    if (existing?.fresh) return false;
-    await writeLiveCache(db, cacheKey, { sentAt: now.toISOString() }, now, DEDUPE_TTL_MS);
-    return true;
+    return await claimLiveCacheSlotOnce(
+      db,
+      cacheKey,
+      { sentAt: now.toISOString() },
+      now,
+      DEDUPE_TTL_MS,
+    );
   } catch (err) {
     void err;
     return true;
   }
+}
+
+async function claimLivePickMilestoneOnce(
+  db: Db,
+  cacheKey: string,
+  meta: {
+    readonly sentAt: string;
+    readonly pickId: string;
+    readonly milestone: LivePickMilestoneKind;
+    readonly hash: string;
+  },
+  now: Date,
+): Promise<boolean> {
+  return claimLiveCacheSlotOnce(db, cacheKey, meta, now, LIVE_PICK_DEDUPE_TTL_MS);
+}
+
+function sanitizeCacheSegment(raw: string): string {
+  const cleaned = raw
+    .trim()
+    .toLowerCase()
+    .replace(/[^a-z0-9._-]+/g, "_");
+  return cleaned.slice(0, 64) || "user";
+}
+
+function buildMilestonePushPayload(
+  item: LiveTrackedPickItem,
+  milestone: LivePickMilestoneKind,
+  hash: string,
+): WebPushMessagePayload {
+  const baseHref = (item.href.split("#")[0] ?? "").trim() || "/app/historial";
+  const url = `${baseHref}#pick-${hash}`;
+  const tag = `live-pick-${hash}`;
+
+  if (milestone === "hit_locked") {
+    return {
+      title: `Pick asegurado · ${item.matchLabel}`,
+      body: `${item.pickLabel} superó la línea (${item.actualValue}/${item.targetLine} ${item.unitLabel}).`,
+      url,
+      tag,
+    };
+  }
+  if (milestone === "half_way") {
+    return {
+      title: `A mitad de camino · ${item.matchLabel}`,
+      body: `${item.pickLabel}: ${item.actualValue}/${item.targetLine} ${item.unitLabel} (proy. ${item.projectedFinal}).`,
+      url,
+      tag,
+    };
+  }
+  if (milestone === "starter_on_bench") {
+    return {
+      title: `Alerta de alineación · ${item.matchLabel}`,
+      body: item.starterAlertDetail ?? `${item.pickLabel}: jugador figura en banca.`,
+      url,
+      tag,
+    };
+  }
+  const suffix = item.asianLabel ? ` · ${item.asianLabel}` : "";
+  return {
+    title: `Pick cerrado · ${item.matchLabel}`,
+    body: `${item.pickLabel} finalizó (${item.actualValue}/${item.targetLine} ${item.unitLabel}${suffix}).`,
+    url,
+    tag,
+  };
 }
 
 async function hasActivePushAlertAccess(
@@ -170,6 +285,157 @@ async function filterActivePaseUserIds(
   return allowed;
 }
 
+export async function dispatchLivePickMilestonePushes(
+  db: Db,
+  opts: DispatchLivePickMilestonePushesOptions = {},
+): Promise<LivePickMilestonePushReport> {
+  const now = opts.now ?? new Date();
+  const configured = opts.forceConfiguredCheck ?? isWebPushConfigured();
+  if (!configured) {
+    return {
+      configured: false,
+      usersChecked: 0,
+      picksEvaluated: 0,
+      milestonesDetected: 0,
+      pushesSent: 0,
+      duplicatesSkipped: 0,
+      prunedSubscriptions: 0,
+    };
+  }
+
+  const maxUsers =
+    typeof opts.maxUsers === "number" && Number.isFinite(opts.maxUsers)
+      ? Math.max(1, Math.min(MAX_MILESTONE_USERS, Math.trunc(opts.maxUsers)))
+      : MAX_MILESTONE_USERS;
+
+  let candidateUserIds: string[];
+  if (opts.userIds) {
+    candidateUserIds = Array.from(
+      new Set(opts.userIds.map((id) => id.trim()).filter((id) => id.length > 0)),
+    ).slice(0, maxUsers);
+  } else {
+    const liveRecipients = await listPushAlertRecipients(db, "live");
+    const recipientIds = liveRecipients.map((recipient) => recipient.userId);
+    if (recipientIds.length === 0) {
+      return {
+        configured: true,
+        usersChecked: 0,
+        picksEvaluated: 0,
+        milestonesDetected: 0,
+        pushesSent: 0,
+        duplicatesSkipped: 0,
+        prunedSubscriptions: 0,
+      };
+    }
+    const pendingUserRows = await db
+      .select({ userId: sealedPicks.userId })
+      .from(sealedPicks)
+      .where(
+        and(eq(sealedPicks.status, "pending"), inArray(sealedPicks.userId, recipientIds)),
+      )
+      .orderBy(desc(sealedPicks.kickoffAt))
+      .limit(maxUsers * 5);
+    candidateUserIds = Array.from(new Set(pendingUserRows.map((row) => row.userId))).slice(
+      0,
+      maxUsers,
+    );
+  }
+
+  const paseAccessCache = new Map<string, boolean>();
+  const activeUserIds = await filterActivePaseUserIds(db, candidateUserIds, now, paseAccessCache);
+  if (activeUserIds.length === 0) {
+    return {
+      configured: true,
+      usersChecked: 0,
+      picksEvaluated: 0,
+      milestonesDetected: 0,
+      pushesSent: 0,
+      duplicatesSkipped: 0,
+      prunedSubscriptions: 0,
+    };
+  }
+
+  let sharedScoreboard: LiveScoreboard;
+  if (opts.scoreboard) {
+    sharedScoreboard = opts.scoreboard;
+  } else {
+    try {
+      sharedScoreboard = await getLiveScoreboard(opts.liveDeps);
+    } catch (err) {
+      void err;
+      sharedScoreboard = {
+        generatedAt: now.toISOString(),
+        sourceFetchedAt: null,
+        active: false,
+        nextPollSeconds: null,
+        notice: null,
+        entries: [],
+      };
+    }
+  }
+
+  const sendPush = opts.sendPushImpl ?? sendPushToUsers;
+  let picksEvaluated = 0;
+  let milestonesDetected = 0;
+  let pushesSent = 0;
+  let duplicatesSkipped = 0;
+  let prunedSubscriptions = 0;
+
+  for (const userId of activeUserIds) {
+    const tracked = await loadUserLiveTrackedPicks(db, userId, {
+      now,
+      scoreboard: sharedScoreboard,
+      liveDeps: opts.liveDeps,
+      matchDetails: opts.matchDetails,
+      loadMatchDetail: opts.loadMatchDetail,
+      dataset: opts.dataset,
+    });
+    picksEvaluated += tracked.items.length;
+
+    const userSegment = sanitizeCacheSegment(userId);
+    for (const item of tracked.items) {
+      for (const candidate of item.milestoneCandidates) {
+        milestonesDetected += 1;
+        const hash = buildLivePickMilestoneHash(
+          item.pickId,
+          candidate.milestone,
+          candidate.valueKey,
+        );
+        const cacheKey = `push:livepick:${userSegment}:${hash}`;
+        const claimed = await claimLivePickMilestoneOnce(
+          db,
+          cacheKey,
+          {
+            sentAt: now.toISOString(),
+            pickId: item.pickId,
+            milestone: candidate.milestone,
+            hash,
+          },
+          now,
+        );
+        if (!claimed) {
+          duplicatesSkipped += 1;
+          continue;
+        }
+        const payload = buildMilestonePushPayload(item, candidate.milestone, hash);
+        const delivery = await sendPush(db, [userId], "live", payload, opts.fetchImpl);
+        pushesSent += delivery.sent;
+        prunedSubscriptions += delivery.pruned;
+      }
+    }
+  }
+
+  return {
+    configured: true,
+    usersChecked: activeUserIds.length,
+    picksEvaluated,
+    milestonesDetected,
+    pushesSent,
+    duplicatesSkipped,
+    prunedSubscriptions,
+  };
+}
+
 export async function runScheduledPushAlerts(
   db: Db,
   options: {
@@ -201,7 +467,6 @@ export async function runScheduledPushAlerts(
   let prunedSubscriptions = 0;
   const paseAccessCache = new Map<string, boolean>();
 
-  // 1) Alertas 60 min antes para usuarios con Pase Total vigente que vigilan el partido
   if (prematchGames.length > 0) {
     const watchers = await listLiveGameWatchers(
       db,
@@ -237,7 +502,6 @@ export async function runScheduledPushAlerts(
     }
   }
 
-  // 2) Alertas de movimiento de línea ≥ 5 % a favor del modelo (solo socios con Pase Total vigente)
   if (lineMoves.length > 0) {
     const allRecipients = await listPushAlertRecipients(db, "picks");
     const activeRecipientIds = new Set(

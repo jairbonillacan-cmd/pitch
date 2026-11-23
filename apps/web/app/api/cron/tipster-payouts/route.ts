@@ -1,10 +1,10 @@
-import { createHash, timingSafeEqual } from "node:crypto";
 import { NextResponse } from "next/server";
 import {
   FLAG_TIPSTER_PAYOUTS,
   getBoolFlag,
   promoteClearedCommissions,
 } from "@pitchlab/db";
+import { withCronSecret } from "../../../../src/server/api-guards";
 import {
   runTipsterPayouts,
   stripeTransferCreator,
@@ -12,31 +12,14 @@ import {
 } from "../../../../src/server/billing/connect";
 import { paymentMode } from "../../../../src/server/billing/payment-mode";
 import { getMailer } from "../../../../src/server/mailer";
+import { logSecurityEvent } from "../../../../src/server/safe-logger";
 import { serverDb } from "../../../../src/server/session-user";
 import { dispatchDueScheduledEmails } from "../../../../src/server/transfer-emails";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
 
-function verifyBearerSecret(authorization: string | null, secret: string | undefined): boolean {
-  const expectedSecret = secret?.trim();
-  if (!expectedSecret || !authorization) return false;
-  const expectedHeader = `Bearer ${expectedSecret}`;
-  const gotDigest = createHash("sha256").update(authorization).digest();
-  const expectedDigest = createHash("sha256").update(expectedHeader).digest();
-  return timingSafeEqual(gotDigest, expectedDigest);
-}
-
-/**
- * Corrida diaria (Vercel Cron, ver vercel.json).
- * Exige `Authorization: Bearer ${CRON_SECRET}` y respeta `tipster_payouts_enabled`.
- * En modo `transfer`, promueve comisiones maduras a `payable` para liquidación manual del
- * fundador sin requerir llaves de Stripe.
- */
-export async function GET(request: Request): Promise<NextResponse> {
-  if (!verifyBearerSecret(request.headers.get("authorization"), process.env.CRON_SECRET)) {
-    return NextResponse.json({ error: "No autorizado" }, { status: 401 });
-  }
+export const GET = withCronSecret({ bucket: "cron-tipster-payouts" }, async () => {
   const db = serverDb();
   if (!db) return NextResponse.json({ error: "Base de datos no configurada" }, { status: 503 });
 
@@ -69,16 +52,26 @@ export async function GET(request: Request): Promise<NextResponse> {
       failed: [],
     });
   }
+
   const result = await runTipsterPayouts(db, {
     createTransfer: stripeTransferCreator(apiKey),
     findExistingTransfer: stripeTransferFinder(apiKey),
     now: new Date(),
   });
   if (result.failed.length) {
-    console.warn(
-      "[tipster-payouts] asientos con fallo:",
-      result.failed.map((item) => item.ledgerId),
-    );
+    logSecurityEvent("warn", "tipster_payouts_failed_entries", {
+      failedCount: result.failed.length,
+      ledgerIds: result.failed.map((item) => item.ledgerId),
+    });
   }
-  return NextResponse.json({ mode: "stripe", ...result });
-}
+  return NextResponse.json({
+    mode: "stripe",
+    promoted: result.promoted,
+    paid: result.paid,
+    paidCentavos: result.paidCentavos,
+    failed: result.failed.map((item) => ({
+      ledgerId: item.ledgerId,
+      error: "transfer_failed",
+    })),
+  });
+});

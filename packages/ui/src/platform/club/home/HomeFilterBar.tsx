@@ -1,18 +1,20 @@
 "use client";
 
-import React, { useCallback, useEffect, useId, useMemo, useRef, useState } from "react";
+import React, { useCallback, useId, useMemo, useRef, useState } from "react";
 import {
   canonicalGameHref,
-  isLivePhaseActive,
   type LiveScoreboardEntry,
 } from "@pitchlab/contracts";
 import { usePackIconBase } from "../../../pack-icon-theme";
 import { LeagueBadge, TeamBadge } from "../../../sports";
 import { MaestroIcon } from "../../components/MaestroPrimitives";
+import { useSafeEffect } from "../../hooks";
+import { handleRovingTablistKeyDown } from "../../navigation-helpers";
 import { usePlatformActions, usePlatformCore } from "../../platform-provider";
 import type { PlatformGame } from "../../types";
 import {
   ALL,
+  addDays,
   buildDayOptions,
   filterGames,
   gamesForSelection,
@@ -27,12 +29,17 @@ import {
 import { HomeSportStrip } from "./HomeSportStrip";
 import {
   CAL_WEEKDAYS_ES,
+  CAL_WEEKDAYS_FULL_ES,
   FULL_MONTHS_ES,
-  buildCalendarMonthCells,
+  buildCalendarMonthWeeks,
+  clampIsoToMonth,
+  dayNumOfIso,
   formatCenterDayParts,
   formatGameKickoffTime,
   formatJumpDayLabel,
   formatLiveChipPhase,
+  formatMonthHeading,
+  isEffectiveLiveGame,
   leagueLabelOf,
   leagueLogoOf,
   parseIsoYearMonth,
@@ -55,7 +62,9 @@ export function LiveSportBallIcon({
         ? "american-football"
         : sport === "ice-hockey"
           ? "hockey"
-          : "football";
+          : sport === "baseball"
+            ? "baseball"
+            : "football";
   return (
     <img
       src={`${iconBase}/32/deportes/${key}.webp`}
@@ -104,11 +113,13 @@ function MatchChipButton({
       data-match-chip={game.id}
       data-chip-league={game.league}
       data-chip-live={live ? "true" : undefined}
-      aria-label={`${live ? `En vivo (${livePhaseLabel})` : time}: ${game.home.shortName} contra ${game.away.shortName}${scoreText ? `, ${scoreText}` : ""}`}
       onPointerEnter={() => onPrefetch?.(matchHref)}
       onTouchStart={() => onPrefetch?.(matchHref)}
       onClick={() => onSelect(game)}
     >
+      <span className="sr-only">
+        {`${live ? `En vivo (${livePhaseLabel})` : time}: ${game.home.shortName} contra ${game.away.shortName}${scoreText ? `, ${scoreText}` : ""} · `}
+      </span>
       {live ? (
         <>
           <span className="pl-home-live-sport" aria-hidden="true">
@@ -201,12 +212,12 @@ function useHorizontalChipsScroll(depsKey: string) {
     );
   }, []);
 
-  useEffect(() => {
+  useSafeEffect(() => {
     const el = chipsRef.current;
     if (el) el.scrollLeft = 0;
   }, [depsKey]);
 
-  useEffect(() => {
+  useSafeEffect(() => {
     const el = chipsRef.current;
     const frame = typeof requestAnimationFrame === "function" ? requestAnimationFrame(syncChipsScroll) : 0;
     syncChipsScroll();
@@ -246,10 +257,6 @@ function useHorizontalChipsScroll(depsKey: string) {
   return { chipsRef, chipsScroll, syncChipsScroll, scrollChipsBy };
 }
 
-/**
- * Encabezado unificado de filtros del Inicio (exportado por compatibilidad y pruebas):
- * Franja 1 (deportes) → Franja 2 (ligas) → Franja 3 (control de día + tira de partidos).
- */
 export function HomeFilterHeader({
   allGames,
   dayGames,
@@ -301,7 +308,7 @@ export function HomeFilterHeader({
     return visibleGames
       .map((game) => {
         const entry = liveByGameId.get(game.id);
-        const live = (entry ? isLivePhaseActive(entry.phase) : false) || String(game.status) === "LIVE";
+        const live = isEffectiveLiveGame(game, today, entry);
         const score = entry?.score ?? game.score ?? null;
         return { game, live, score, entry };
       })
@@ -309,7 +316,7 @@ export function HomeFilterHeader({
         if (a.live !== b.live) return a.live ? -1 : 1;
         return a.game.kickoffUtc.localeCompare(b.game.kickoffUtc) || a.game.id.localeCompare(b.game.id);
       });
-  }, [visibleGames, liveByGameId]);
+  }, [visibleGames, liveByGameId, today]);
 
   const emptyJumpTarget = useMemo<{ dayId: string; resetFilters: boolean } | null>(() => {
     if (orderedChips.length > 0) return null;
@@ -330,7 +337,8 @@ export function HomeFilterHeader({
   }, [orderedChips.length, dayOptions, day, allGames, today, sport, league]);
 
   const centerParts = formatCenterDayParts(day, today);
-  const centerAria = day === today ? "Hoy, día actual" : `${centerParts.top}, volver a hoy`;
+  const centerText = centerParts.sub ? `${centerParts.top} ${centerParts.sub}` : centerParts.top;
+  const centerAria = day === today ? `${centerText}, día actual` : `${centerText}, volver a hoy`;
   const { chipsRef, chipsScroll, syncChipsScroll, scrollChipsBy } = useHorizontalChipsScroll(
     `${sport}|${league}|${day}|${orderedChips.length}`,
   );
@@ -486,7 +494,6 @@ export function HomeFilterHeader({
   );
 }
 
-/** Barra superior de tendencias y chips rápidos en `/app`. */
 export function HomeTrendingStrip({
   orderedChips,
   day,
@@ -496,6 +503,7 @@ export function HomeTrendingStrip({
   emptyJumpTarget,
   onPickDay,
   onJumpDay,
+  onSelectMatch,
 }: {
   readonly orderedChips: readonly MatchChipEntry[];
   readonly day: string;
@@ -505,6 +513,7 @@ export function HomeTrendingStrip({
   readonly emptyJumpTarget: { dayId: string; resetFilters: boolean } | null;
   readonly onPickDay: (d: DaySelection) => void;
   readonly onJumpDay: (targetDay: string, resetFilters: boolean) => void;
+  readonly onSelectMatch?: (game: PlatformGame) => void;
 }): React.JSX.Element {
   const { userTimezone } = usePlatformCore();
   const { prefetchRoute } = usePlatformActions();
@@ -549,6 +558,13 @@ export function HomeTrendingStrip({
                   userTimezone={userTimezone}
                   onPrefetch={prefetchRoute}
                   onSelect={(game) => {
+                    const isDesktopViewport =
+                      typeof window !== "undefined" &&
+                      typeof window.matchMedia === "function" &&
+                      window.matchMedia("(min-width: 1024px)").matches;
+                    if (isDesktopViewport && onSelectMatch) {
+                      onSelectMatch(game);
+                    }
                     if (game.dayId !== day) {
                       onPickDay(game.dayId);
                       if (typeof window !== "undefined") {
@@ -609,10 +625,9 @@ export interface CalendarEventDaysSummary {
     fav: number;
     leagues: Set<string>;
   } | null;
-  readonly legendLabel: string;
+  readonly legendLabel?: string;
 }
 
-/** Barra de control del tablero de partidos: pestañas de vista, selector de fecha + calendario, estado, filtros y momios. */
 export function HomeBoardBar({
   boardView,
   onBoardViewChange,
@@ -631,6 +646,9 @@ export function HomeBoardBar({
   showOdds,
   onShowOddsChange,
   onRequestFullShell,
+  parlayCount,
+  parlayActive = false,
+  onOpenParlay,
 }: {
   readonly boardView: HomeBoardView;
   readonly onBoardViewChange: (v: HomeBoardView) => void;
@@ -649,82 +667,207 @@ export function HomeBoardBar({
   readonly showOdds: boolean;
   readonly onShowOddsChange: (show: boolean) => void;
   readonly onRequestFullShell: () => void;
+  readonly parlayCount?: number;
+  readonly parlayActive?: boolean;
+  readonly onOpenParlay?: () => void;
 }): React.JSX.Element {
   const [calendarOpen, setCalendarOpen] = useState<boolean>(false);
   const [calMonth, setCalMonth] = useState<{ year: number; monthIndex: number }>(() =>
     parseIsoYearMonth(day),
   );
+  const [focusedIso, setFocusedIso] = useState<string>(day);
   const datePickerWrapRef = useRef<HTMLDivElement | null>(null);
   const dateCenterBtnRef = useRef<HTMLButtonElement | null>(null);
   const calendarGridRef = useRef<HTMLDivElement | null>(null);
+  const pendingFocusIsoRef = useRef<string | null>(null);
   const calendarPopoverId = useId();
+  const calendarHeadingId = useId();
   const oddsSwitchId = useId();
 
   const centerParts = formatCenterDayParts(day, today);
-  const centerAria = day === today ? "Hoy, abrir calendario" : `${centerParts.top}, abrir calendario`;
+  const centerText =
+    day === today
+      ? "Hoy"
+      : centerParts.sub
+        ? `${centerParts.top} ${centerParts.sub}`
+        : centerParts.top;
+  const centerAria = `${centerText}, abrir calendario`;
 
-  useEffect(() => {
+  const closeCalendar = useCallback((returnFocus: boolean) => {
+    setCalendarOpen(false);
+    pendingFocusIsoRef.current = null;
+    if (returnFocus) {
+      dateCenterBtnRef.current?.focus();
+    }
+  }, []);
+
+  useSafeEffect(() => {
     if (!calendarOpen) return;
-    const onPointerDown = (ev: MouseEvent) => {
-      if (datePickerWrapRef.current && !datePickerWrapRef.current.contains(ev.target as Node)) {
-        setCalendarOpen(false);
+    const onPointerDown = (ev: PointerEvent) => {
+      if (
+        ev.target instanceof Node &&
+        datePickerWrapRef.current &&
+        !datePickerWrapRef.current.contains(ev.target)
+      ) {
+        closeCalendar(false);
       }
     };
     const onKeyDown = (ev: KeyboardEvent) => {
       if (ev.key === "Escape") {
-        setCalendarOpen(false);
-        dateCenterBtnRef.current?.focus();
+        ev.preventDefault();
+        closeCalendar(true);
       }
     };
-    document.addEventListener("mousedown", onPointerDown);
+    document.addEventListener("pointerdown", onPointerDown);
     document.addEventListener("keydown", onKeyDown);
     return () => {
-      document.removeEventListener("mousedown", onPointerDown);
+      document.removeEventListener("pointerdown", onPointerDown);
       document.removeEventListener("keydown", onKeyDown);
     };
-  }, [calendarOpen]);
+  }, [calendarOpen, closeCalendar]);
 
-  const calendarCells = useMemo(
-    () => buildCalendarMonthCells(calMonth.year, calMonth.monthIndex),
+  useSafeEffect(() => {
+    if (!calendarOpen) return;
+    const targetIso = pendingFocusIsoRef.current;
+    if (!targetIso) return;
+    const focusCell = () => {
+      const gridEl = calendarGridRef.current;
+      if (!gridEl) return;
+      const targetBtn =
+        gridEl.querySelector<HTMLButtonElement>(`button[data-cal-iso="${targetIso}"]`) ??
+        gridEl.querySelector<HTMLButtonElement>("button[data-cal-iso]");
+      if (targetBtn) {
+        targetBtn.focus();
+      }
+      pendingFocusIsoRef.current = null;
+    };
+    if (typeof requestAnimationFrame === "function") {
+      const frame = requestAnimationFrame(focusCell);
+      return () => cancelAnimationFrame(frame);
+    }
+    focusCell();
+  }, [calendarOpen, calMonth.year, calMonth.monthIndex]);
+
+  const calendarWeeks = useMemo(
+    () => buildCalendarMonthWeeks(calMonth.year, calMonth.monthIndex),
     [calMonth.monthIndex, calMonth.year],
   );
 
-  const stepCalendarMonth = (delta: -1 | 1) => {
-    setCalMonth((prev) => {
-      const nextDate = new Date(Date.UTC(prev.year, prev.monthIndex + delta, 1));
-      return {
-        year: nextDate.getUTCFullYear(),
-        monthIndex: nextDate.getUTCMonth(),
-      };
-    });
-  };
+  const monthHeading = useMemo(
+    () => formatMonthHeading(calMonth.year, calMonth.monthIndex),
+    [calMonth.monthIndex, calMonth.year],
+  );
+
+  const monthPrefix = useMemo(
+    () => `${calMonth.year}-${String(calMonth.monthIndex + 1).padStart(2, "0")}-`,
+    [calMonth.monthIndex, calMonth.year],
+  );
+
+  const activeTabIso = useMemo(() => {
+    if (focusedIso.startsWith(monthPrefix)) return focusedIso;
+    if (day.startsWith(monthPrefix)) return day;
+    if (today.startsWith(monthPrefix)) return today;
+    for (const week of calendarWeeks) {
+      for (const cell of week) {
+        if (cell) return cell.iso;
+      }
+    }
+    return "";
+  }, [calendarWeeks, day, focusedIso, monthPrefix, today]);
+
+  const todayParts = useMemo(() => parseIsoYearMonth(today), [today]);
+  const isOnTodayView =
+    day === today &&
+    calMonth.year === todayParts.year &&
+    calMonth.monthIndex === todayParts.monthIndex;
+
+  const selectedTotal = calendarEventDays.selectedStats?.total ?? 0;
+  const selectedLive = day >= today ? (calendarEventDays.selectedStats?.live ?? 0) : 0;
+  const showNextAction = selectedTotal === 0 && calendarEventDays.nextActionDay !== null;
+  const footSummaryText =
+    selectedTotal > 0
+      ? `${selectedTotal} ${selectedTotal === 1 ? "partido" : "partidos"}${selectedLive > 0 ? ` · ${selectedLive} en vivo` : ""}`
+      : "Sin partidos";
+
+  const stepCalendarMonth = useCallback(
+    (delta: -1 | 1, focusAfterStep: boolean) => {
+      const nextDate = new Date(Date.UTC(calMonth.year, calMonth.monthIndex + delta, 1));
+      const nextYear = nextDate.getUTCFullYear();
+      const nextMonthIndex = nextDate.getUTCMonth();
+      const nextIso = clampIsoToMonth(nextYear, nextMonthIndex, dayNumOfIso(focusedIso));
+      setCalMonth({ year: nextYear, monthIndex: nextMonthIndex });
+      setFocusedIso(nextIso);
+      if (focusAfterStep) {
+        pendingFocusIsoRef.current = nextIso;
+      }
+    },
+    [calMonth.monthIndex, calMonth.year, focusedIso],
+  );
+
+  const moveFocusToIso = useCallback(
+    (targetIso: string) => {
+      setFocusedIso(targetIso);
+      if (targetIso.startsWith(monthPrefix)) {
+        const gridEl = calendarGridRef.current;
+        const btn = gridEl?.querySelector<HTMLButtonElement>(`button[data-cal-iso="${targetIso}"]`);
+        btn?.focus();
+        return;
+      }
+      pendingFocusIsoRef.current = targetIso;
+      setCalMonth(parseIsoYearMonth(targetIso));
+    },
+    [monthPrefix],
+  );
 
   const handleCalendarGridKeyDown = (e: React.KeyboardEvent<HTMLDivElement>) => {
     const gridEl = calendarGridRef.current;
     if (!gridEl) return;
     const buttons = [...gridEl.querySelectorAll<HTMLButtonElement>("button[data-cal-iso]")];
     if (buttons.length === 0) return;
-    const currentIdx = buttons.findIndex((b) => b === document.activeElement);
-    if (currentIdx < 0) return;
-    let nextIdx = -1;
-    if (e.key === "ArrowRight") nextIdx = Math.min(buttons.length - 1, currentIdx + 1);
-    else if (e.key === "ArrowLeft") nextIdx = Math.max(0, currentIdx - 1);
-    else if (e.key === "ArrowDown") nextIdx = Math.min(buttons.length - 1, currentIdx + 7);
-    else if (e.key === "ArrowUp") nextIdx = Math.max(0, currentIdx - 7);
-    else if (e.key === "Home") nextIdx = 0;
-    else if (e.key === "End") nextIdx = buttons.length - 1;
-    else if (e.key === "PageUp") {
+    const activeButton = buttons.find((b) => b === document.activeElement);
+    const currentIso = activeButton?.dataset.calIso ?? activeTabIso;
+    if (!currentIso) return;
+
+    if (e.key === "ArrowRight") {
       e.preventDefault();
-      stepCalendarMonth(-1);
-      return;
-    } else if (e.key === "PageDown") {
-      e.preventDefault();
-      stepCalendarMonth(1);
+      moveFocusToIso(addDays(currentIso, 1));
       return;
     }
-    if (nextIdx >= 0 && buttons[nextIdx]) {
+    if (e.key === "ArrowLeft") {
       e.preventDefault();
-      buttons[nextIdx]!.focus();
+      moveFocusToIso(addDays(currentIso, -1));
+      return;
+    }
+    if (e.key === "ArrowDown") {
+      e.preventDefault();
+      moveFocusToIso(addDays(currentIso, 7));
+      return;
+    }
+    if (e.key === "ArrowUp") {
+      e.preventDefault();
+      moveFocusToIso(addDays(currentIso, -7));
+      return;
+    }
+    if (e.key === "Home") {
+      e.preventDefault();
+      const firstIso = buttons[0]?.dataset.calIso;
+      if (firstIso) moveFocusToIso(firstIso);
+      return;
+    }
+    if (e.key === "End") {
+      e.preventDefault();
+      const lastIso = buttons[buttons.length - 1]?.dataset.calIso;
+      if (lastIso) moveFocusToIso(lastIso);
+      return;
+    }
+    if (e.key === "PageUp") {
+      e.preventDefault();
+      stepCalendarMonth(-1, true);
+      return;
+    }
+    if (e.key === "PageDown") {
+      e.preventDefault();
+      stepCalendarMonth(1, true);
     }
   };
 
@@ -739,6 +882,7 @@ export function HomeBoardBar({
           className="pl-home-board-tabs"
           role="tablist"
           aria-label="Vista de partidos"
+          aria-orientation="horizontal"
           {...({ focusgroup: "tablist nomemory" } as React.HTMLAttributes<HTMLDivElement>)}
         >
           {(
@@ -755,8 +899,17 @@ export function HomeBoardBar({
                 type="button"
                 role="tab"
                 aria-selected={selected}
+                tabIndex={selected ? 0 : -1}
                 className={`pl-home-board-tab ${selected ? "is-active" : ""}`.trim()}
                 onClick={() => onBoardViewChange(tabItem.id)}
+                onKeyDown={(e) =>
+                  handleRovingTablistKeyDown(
+                    e,
+                    ["all", "favorites", "competitions"] as const,
+                    tabItem.id,
+                    onBoardViewChange,
+                  )
+                }
                 {...(selected
                   ? ({ focusgroupstart: "" } as React.ButtonHTMLAttributes<HTMLButtonElement>)
                   : {})}
@@ -775,7 +928,12 @@ export function HomeBoardBar({
               aria-label="Día anterior"
               disabled={!prevDayOption}
               data-day-prev=""
-              onClick={() => prevDayOption && onPickDay(prevDayOption.key)}
+              onClick={() => {
+                if (!prevDayOption) return;
+                onPickDay(prevDayOption.key);
+                setCalMonth(parseIsoYearMonth(prevDayOption.key));
+                setFocusedIso(prevDayOption.key);
+              }}
             >
               <MaestroIcon name="chevronLeft" size={15} />
             </button>
@@ -784,6 +942,7 @@ export function HomeBoardBar({
               type="button"
               className={`pl-home-date-center ${day === today ? "is-today" : ""}`.trim()}
               aria-label={centerAria}
+              aria-haspopup="dialog"
               aria-expanded={calendarOpen}
               aria-controls={calendarPopoverId}
               data-day-center=""
@@ -792,6 +951,10 @@ export function HomeBoardBar({
                 setCalendarOpen((prev) => {
                   if (!prev) {
                     setCalMonth(parseIsoYearMonth(day));
+                    setFocusedIso(day);
+                    pendingFocusIsoRef.current = day;
+                  } else {
+                    pendingFocusIsoRef.current = null;
                   }
                   return !prev;
                 });
@@ -818,7 +981,12 @@ export function HomeBoardBar({
               aria-label="Día siguiente"
               disabled={!nextDayOption}
               data-day-next=""
-              onClick={() => nextDayOption && onPickDay(nextDayOption.key)}
+              onClick={() => {
+                if (!nextDayOption) return;
+                onPickDay(nextDayOption.key);
+                setCalMonth(parseIsoYearMonth(nextDayOption.key));
+                setFocusedIso(nextDayOption.key);
+              }}
             >
               <MaestroIcon name="chevronRight" size={15} />
             </button>
@@ -828,9 +996,9 @@ export function HomeBoardBar({
             <div
               id={calendarPopoverId}
               role="dialog"
-              aria-label="Calendario de partidos"
+              aria-labelledby={calendarHeadingId}
               data-home-calendar-popover=""
-              className="pl-home-cal-popover glass-ring"
+              className="pl-home-cal-popover"
             >
               <div className="pl-home-cal-head">
                 <div className="pl-home-cal-month-nav">
@@ -838,20 +1006,22 @@ export function HomeBoardBar({
                     type="button"
                     className="pl-home-cal-nav"
                     aria-label="Mes anterior"
-                    onClick={() => stepCalendarMonth(-1)}
+                    onClick={() => stepCalendarMonth(-1, false)}
                   >
                     <MaestroIcon name="chevronLeft" size={16} />
                   </button>
-                  <strong className="pl-home-cal-title">
-                    {FULL_MONTHS_ES[calMonth.monthIndex]!.charAt(0).toUpperCase() +
-                      FULL_MONTHS_ES[calMonth.monthIndex]!.slice(1)}{" "}
-                    {calMonth.year}
-                  </strong>
+                  <h2
+                    id={calendarHeadingId}
+                    className="pl-home-cal-title"
+                    aria-live="polite"
+                  >
+                    {monthHeading}
+                  </h2>
                   <button
                     type="button"
                     className="pl-home-cal-nav"
                     aria-label="Mes siguiente"
-                    onClick={() => stepCalendarMonth(1)}
+                    onClick={() => stepCalendarMonth(1, false)}
                   >
                     <MaestroIcon name="chevronRight" size={16} />
                   </button>
@@ -860,154 +1030,152 @@ export function HomeBoardBar({
                   type="button"
                   className="pl-home-cal-close"
                   aria-label="Cerrar calendario"
-                  onClick={() => {
-                    setCalendarOpen(false);
-                    dateCenterBtnRef.current?.focus();
-                  }}
+                  onClick={() => closeCalendar(true)}
                 >
                   <MaestroIcon name="x" size={14} />
                 </button>
-              </div>
-
-              <div className="pl-home-cal-weekdays" aria-hidden="true">
-                {CAL_WEEKDAYS_ES.map((wd) => (
-                  <span key={wd}>{wd}</span>
-                ))}
               </div>
 
               <div
                 ref={calendarGridRef}
                 className="pl-home-cal-grid"
                 role="grid"
-                aria-label={`${FULL_MONTHS_ES[calMonth.monthIndex]} de ${calMonth.year}`}
+                aria-labelledby={calendarHeadingId}
                 onKeyDown={handleCalendarGridKeyDown}
               >
-                {calendarCells.map((cell, idx) => {
-                  if (!cell) {
-                    return <span key={`empty-${idx}`} className="pl-home-cal-empty" aria-hidden="true" />;
-                  }
-                  const isSelected = cell.iso === day;
-                  const isTodayCell = cell.iso === today;
-                  const isPastCell = cell.iso < today;
-                  const dayMeta = calendarEventDays.countsByDay.get(cell.iso);
-                  const hasGames = Boolean(dayMeta && dayMeta.total > 0);
-                  const hasLive = Boolean(dayMeta && dayMeta.live > 0);
-                  const isFinishedOnly = Boolean(
-                    dayMeta && dayMeta.total > 0 && dayMeta.upcoming === 0 && dayMeta.live === 0,
-                  );
-                  const isBusy = Boolean(dayMeta && dayMeta.total >= 6);
-                  const countText = dayMeta
-                    ? `, ${dayMeta.total} ${dayMeta.total === 1 ? "partido" : "partidos"}${dayMeta.live > 0 ? `, ${dayMeta.live} en vivo` : ""}`
-                    : "";
-                  const leaguePreview =
-                    dayMeta && dayMeta.leagues.size > 0
-                      ? ` · ${[...dayMeta.leagues].slice(0, 3).join(", ")}`
-                      : "";
-                  return (
-                    <button
-                      key={cell.iso}
-                      type="button"
-                      data-cal-iso={cell.iso}
-                      aria-pressed={isSelected}
-                      aria-current={isTodayCell ? "date" : undefined}
-                      aria-label={`${cell.dayNum} de ${FULL_MONTHS_ES[calMonth.monthIndex]} de ${calMonth.year}${countText}`}
-                      title={
-                        hasGames
-                          ? `${dayMeta!.total} ${dayMeta!.total === 1 ? "partido" : "partidos"}${leaguePreview}`
-                          : undefined
-                      }
-                      className={[
-                        "pl-home-cal-day num",
-                        isSelected ? "is-selected" : "",
-                        isTodayCell ? "is-today" : "",
-                        isPastCell && !hasGames ? "is-past-empty" : "",
-                        hasGames ? "has-games" : "",
-                        hasLive ? "has-live" : "",
-                        isFinishedOnly ? "is-finished-only" : "",
-                        isBusy ? "is-busy" : "",
-                      ]
-                        .filter(Boolean)
-                        .join(" ")}
-                      onClick={() => {
-                        onPickDay(cell.iso);
-                        setCalendarOpen(false);
-                        dateCenterBtnRef.current?.focus();
-                      }}
+                <div className="pl-home-cal-weekdays" role="row">
+                  {CAL_WEEKDAYS_ES.map((wd, idx) => (
+                    <span
+                      key={wd}
+                      role="columnheader"
+                      aria-label={CAL_WEEKDAYS_FULL_ES[idx]}
                     >
-                      <span className="pl-home-cal-num">{cell.dayNum}</span>
-                      {hasGames ? (
-                        <span className="pl-home-cal-meta" aria-hidden="true">
-                          {hasLive ? <i className="pl-home-cal-live-dot" /> : null}
-                          <span className="pl-home-cal-count">{dayMeta!.total}</span>
-                        </span>
-                      ) : (
-                        <i className="pl-home-cal-dot" aria-hidden="true" />
-                      )}
-                    </button>
-                  );
-                })}
-              </div>
-
-              <div className="pl-home-cal-summary">
-                <div className="pl-home-cal-summary-day num">
-                  <span className="pl-home-cal-summary-date">
-                    {day === today
-                      ? "Hoy"
-                      : `${centerParts.top}${centerParts.sub ? ` ${centerParts.sub}` : ""}`}
-                  </span>
-                  <span className="pl-home-cal-summary-count">
-                    {calendarEventDays.selectedStats
-                      ? `${calendarEventDays.selectedStats.total} ${calendarEventDays.selectedStats.total === 1 ? "partido" : "partidos"}${calendarEventDays.selectedStats.live > 0 ? ` · ${calendarEventDays.selectedStats.live} en vivo` : ""}`
-                      : "Sin partidos"}
-                  </span>
+                      {wd}
+                    </span>
+                  ))}
                 </div>
-                {calendarEventDays.selectedStats && calendarEventDays.selectedStats.leagues.size > 0 ? (
-                  <p className="pl-home-cal-summary-leagues">
-                    {[...calendarEventDays.selectedStats.leagues].slice(0, 4).join(" · ")}
-                    {calendarEventDays.selectedStats.leagues.size > 4
-                      ? ` +${calendarEventDays.selectedStats.leagues.size - 4}`
-                      : ""}
-                  </p>
-                ) : null}
-                <div className="pl-home-cal-legend">
-                  <span className="pl-home-cal-legend-item">
-                    <i className="pl-home-cal-legend-pill" aria-hidden="true" />
-                    <span>{calendarEventDays.legendLabel}</span>
-                  </span>
-                  <span className="pl-home-cal-legend-item is-live">
-                    <i className="pl-home-cal-legend-dot" aria-hidden="true" />
-                    <span>En vivo</span>
-                  </span>
+
+                <div className="pl-home-cal-weeks" role="rowgroup">
+                  {calendarWeeks.map((week, weekIdx) => (
+                    <div key={`week-${weekIdx}`} className="pl-home-cal-week" role="row">
+                      {week.map((cell, dayIdx) => {
+                        if (!cell) {
+                          return (
+                            <span
+                              key={`empty-${weekIdx}-${dayIdx}`}
+                              role="gridcell"
+                              aria-disabled="true"
+                              className="pl-home-cal-empty"
+                            />
+                          );
+                        }
+                        const isSelected = cell.iso === day;
+                        const isTodayCell = cell.iso === today;
+                        const isPastCell = cell.iso < today;
+                        const dayMeta = calendarEventDays.countsByDay.get(cell.iso);
+                        const hasGames = Boolean(dayMeta && dayMeta.total > 0);
+                        const hasLive = !isPastCell && Boolean(dayMeta && dayMeta.live > 0);
+                        const isFinishedOnly = Boolean(
+                          hasGames && (isPastCell || (dayMeta!.upcoming === 0 && !hasLive)),
+                        );
+                        const isBusy = Boolean(dayMeta && dayMeta.total >= 6);
+                        const liveText = hasLive ? `, ${dayMeta!.live} en vivo` : "";
+                        const todayText = isTodayCell ? ", hoy" : "";
+                        const isFocusable = cell.iso === activeTabIso;
+
+                        return (
+                          <span
+                            key={cell.iso}
+                            role="gridcell"
+                            aria-selected={isSelected}
+                            className="pl-home-cal-cell"
+                          >
+                            <button
+                              type="button"
+                              tabIndex={isFocusable ? 0 : -1}
+                              data-cal-iso={cell.iso}
+                              aria-pressed={isSelected}
+                              aria-current={isTodayCell ? "date" : undefined}
+                              className={[
+                                "pl-home-cal-day num",
+                                isSelected ? "is-selected" : "",
+                                isTodayCell ? "is-today" : "",
+                                !hasGames ? "is-empty" : "",
+                                isPastCell && !hasGames ? "is-past-empty" : "",
+                                hasGames ? "has-games" : "",
+                                hasLive ? "has-live" : "",
+                                isFinishedOnly ? "is-finished-only" : "",
+                                isBusy ? "is-busy" : "",
+                              ]
+                                .filter(Boolean)
+                                .join(" ")}
+                              onFocus={() => setFocusedIso(cell.iso)}
+                              onClick={() => {
+                                onPickDay(cell.iso);
+                                setFocusedIso(cell.iso);
+                                closeCalendar(true);
+                              }}
+                            >
+                              <span className="pl-home-cal-num">{cell.dayNum}</span>
+                              <span className="sr-only">
+                                {` de ${FULL_MONTHS_ES[calMonth.monthIndex]} de ${calMonth.year}${todayText}`}
+                              </span>
+                              {hasGames ? (
+                                <span className="pl-home-cal-meta">
+                                  {hasLive ? <i className="pl-home-cal-live-dot" aria-hidden="true" /> : null}
+                                  <span className="pl-home-cal-count">{dayMeta!.total}</span>
+                                  <span className="sr-only">
+                                    {` ${dayMeta!.total === 1 ? "partido" : "partidos"}${liveText}`}
+                                  </span>
+                                </span>
+                              ) : (
+                                <span className="sr-only">, sin partidos</span>
+                              )}
+                            </button>
+                          </span>
+                        );
+                      })}
+                    </div>
+                  ))}
                 </div>
               </div>
 
               <div className="pl-home-cal-foot">
-                <button
-                  type="button"
-                  className={`pl-home-cal-today-btn ${day === today ? "is-current" : ""}`.trim()}
-                  onClick={() => {
-                    onPickDay(today);
-                    setCalMonth(parseIsoYearMonth(today));
-                    setCalendarOpen(false);
-                  }}
-                >
-                  Hoy
-                </button>
-                {calendarEventDays.nextActionDay ? (
+                <span className="pl-home-cal-foot-status num">
+                  {day === today ? `Hoy · ${footSummaryText}` : footSummaryText}
+                </span>
+                <div className="pl-home-cal-foot-actions">
                   <button
                     type="button"
-                    className="pl-home-cal-next-btn num"
+                    className={`pl-home-cal-today-btn ${isOnTodayView ? "is-current" : ""}`.trim()}
+                    disabled={isOnTodayView}
                     onClick={() => {
-                      const target = calendarEventDays.nextActionDay!;
-                      onPickDay(target);
-                      setCalMonth(parseIsoYearMonth(target));
-                      setCalendarOpen(false);
+                      onPickDay(today);
+                      setCalMonth(parseIsoYearMonth(today));
+                      setFocusedIso(today);
+                      closeCalendar(true);
                     }}
                   >
-                    <span>Ir a {shortDateLabel(calendarEventDays.nextActionDay)}</span>
-                    <MaestroIcon name="arrowRight" size={12} />
+                    Hoy
                   </button>
-                ) : null}
+                  {showNextAction ? (
+                    <button
+                      type="button"
+                      className="pl-home-cal-next-btn"
+                      aria-label={`Próxima jornada: ${shortDateLabel(calendarEventDays.nextActionDay!)}`}
+                      onClick={() => {
+                        const target = calendarEventDays.nextActionDay!;
+                        onPickDay(target);
+                        setCalMonth(parseIsoYearMonth(target));
+                        setFocusedIso(target);
+                        closeCalendar(true);
+                      }}
+                    >
+                      <span>Próxima jornada</span>
+                      <MaestroIcon name="arrowRight" size={12} />
+                    </button>
+                  ) : null}
+                </div>
               </div>
             </div>
           ) : null}
@@ -1018,7 +1186,7 @@ export function HomeBoardBar({
         <div className="pl-home-board-pills" role="group" aria-label="Estado de los partidos">
           <button
             type="button"
-            className={`pl-home-status-pill min-h-11 sm:min-h-9 is-live-pill ${liveVisibleCount > 0 ? "has-live" : ""} ${statusFilter === "live" ? "is-on" : ""}`.trim()}
+            className={`pl-home-status-pill min-h-11 [@media(min-width:768px)_and_(pointer:fine)]:min-h-9 is-live-pill ${liveVisibleCount > 0 ? "has-live" : ""} ${statusFilter === "live" ? "is-on" : ""}`.trim()}
             aria-pressed={statusFilter === "live"}
             onClick={() => onStatusFilterChange(statusFilter === "live" ? "all" : "live")}
           >
@@ -1026,7 +1194,7 @@ export function HomeBoardBar({
           </button>
           <button
             type="button"
-            className={`pl-home-status-pill min-h-11 sm:min-h-9 ${statusFilter === "finished" ? "is-on" : ""}`.trim()}
+            className={`pl-home-status-pill min-h-11 [@media(min-width:768px)_and_(pointer:fine)]:min-h-9 ${statusFilter === "finished" ? "is-on" : ""}`.trim()}
             aria-pressed={statusFilter === "finished"}
             onClick={() => onStatusFilterChange(statusFilter === "finished" ? "all" : "finished")}
           >
@@ -1034,7 +1202,7 @@ export function HomeBoardBar({
           </button>
           <button
             type="button"
-            className={`pl-home-status-pill min-h-11 sm:min-h-9 ${statusFilter === "upcoming" ? "is-on" : ""}`.trim()}
+            className={`pl-home-status-pill min-h-11 [@media(min-width:768px)_and_(pointer:fine)]:min-h-9 ${statusFilter === "upcoming" ? "is-on" : ""}`.trim()}
             aria-pressed={statusFilter === "upcoming"}
             onClick={() => onStatusFilterChange(statusFilter === "upcoming" ? "all" : "upcoming")}
           >
@@ -1043,7 +1211,7 @@ export function HomeBoardBar({
 
           <button
             type="button"
-            className={`pl-home-filter-btn min-h-11 sm:min-h-9 ${activeModalFilterCount > 0 ? "is-active" : ""}`.trim()}
+            className={`pl-home-filter-btn min-h-11 [@media(min-width:768px)_and_(pointer:fine)]:min-h-9 ${activeModalFilterCount > 0 ? "is-active" : ""}`.trim()}
             aria-haspopup="dialog"
             aria-expanded={filtersOpen}
             data-home-filters-trigger=""
@@ -1060,18 +1228,32 @@ export function HomeBoardBar({
           </button>
         </div>
 
-        <label htmlFor={oddsSwitchId} className="pl-home-odds-toggle">
-          <span className="pl-home-odds-label">Momios</span>
-          <input
-            id={oddsSwitchId}
-            type="checkbox"
-            {...({ switch: "" } as React.InputHTMLAttributes<HTMLInputElement>)}
-            role="switch"
-            checked={showOdds}
-            onChange={(e) => onShowOddsChange(e.target.checked)}
-            className="pl-home-switch"
-          />
-        </label>
+        <div className="pl-home-md-board-right">
+          {onOpenParlay && typeof parlayCount === "number" ? (
+            <button
+              type="button"
+              className={`pl-home-md-parlay-chip min-h-11 [@media(min-width:768px)_and_(pointer:fine)]:min-h-9 ${parlayActive ? "is-active" : ""} ${parlayCount > 0 ? "has-legs" : ""}`.trim()}
+              aria-pressed={parlayActive}
+              data-home-parlay-shortcut=""
+              onClick={onOpenParlay}
+            >
+              <MaestroIcon name="ticket" size={13} />
+              <span className="num">Tu parlay ({parlayCount})</span>
+            </button>
+          ) : null}
+
+          <label htmlFor={oddsSwitchId} className="pl-home-odds-toggle">
+            <span className="pl-home-odds-label">Momios</span>
+            <input
+              id={oddsSwitchId}
+              type="checkbox"
+              role="switch"
+              checked={showOdds}
+              onChange={(e) => onShowOddsChange(e.target.checked)}
+              className="pl-home-switch"
+            />
+          </label>
+        </div>
       </div>
     </section>
   );

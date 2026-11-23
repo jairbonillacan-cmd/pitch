@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useId, useMemo, useRef, useState } from "react";
+import React, { useId, useMemo, useRef, useState } from "react";
 import {
   COMPETITION_BY_ID,
   LEAGUE_REGIONS,
@@ -8,13 +8,14 @@ import {
   type LeagueRegionKey,
 } from "@pitchlab/contracts";
 import { LeagueBadge } from "../../sports";
+import { useSafeEffect } from "../hooks";
 import { MaestroIcon } from "./MaestroPrimitives";
 import { useSheetSwipeDismiss } from "./use-sheet-swipe-dismiss";
 
 export interface LeaguePickerEntry {
   league: LeagueId;
   label: string;
-  logoUrl?: string;
+  logoUrl?: string | null;
   activeCount: number;
   dayCount?: number;
   isFavorite?: boolean;
@@ -30,15 +31,9 @@ export interface LeagueCategorySheetProps {
   onSelect: (league: LeagueId | "all") => void;
   includeAllOption?: boolean;
   allCount?: number;
-  /** Permite mostrar u ocultar competencias sin partidos en los próximos 30 días. */
   allowShowInactive?: boolean;
 }
 
-/**
- * Selector escalable de competiciones agrupado por región/categoría (ADR-043).
- * En móvil se presenta como bottom-sheet nativo `<dialog closedby="any">`;
- * en escritorio como modal compacto con buscador instantáneo.
- */
 export function LeagueCategorySheet({
   open,
   onClose,
@@ -67,7 +62,7 @@ export function LeagueCategorySheet({
   const [query, setQuery] = useState("");
   const [showInactive, setShowInactive] = useState(false);
 
-  useEffect(() => {
+  useSafeEffect(() => {
     const dialog = dialogRef.current;
     if (!dialog) return;
     if (open && !dialog.open) {
@@ -82,7 +77,7 @@ export function LeagueCategorySheet({
     }
   }, [open]);
 
-  useEffect(() => {
+  useSafeEffect(() => {
     const dialog = dialogRef.current;
     if (!dialog) return;
 
@@ -96,6 +91,7 @@ export function LeagueCategorySheet({
       typeof HTMLDialogElement !== "undefined" && !("closedBy" in HTMLDialogElement.prototype);
     let pressedOutside = false;
     const isOutside = (e: PointerEvent) => {
+      if (e.target !== dialog) return false;
       const r = dialog.getBoundingClientRect();
       return e.clientX < r.left || e.clientX > r.right || e.clientY < r.top || e.clientY > r.bottom;
     };
@@ -238,7 +234,7 @@ export function LeagueCategorySheet({
         ) : null}
       </div>
 
-      <div ref={bodyRef} className="pl-native-modal-body pl-sheet-body">
+      <div ref={bodyRef} tabIndex={0} className="pl-native-modal-body pl-sheet-body" aria-label="Lista de competiciones">
         {includeAllOption && !query.trim() ? (
           <button
             type="button"
@@ -247,7 +243,7 @@ export function LeagueCategorySheet({
             onClick={() => choose("all")}
           >
             <span className="pl-sheet-item-left">
-              <MaestroIcon name="grid" size={16} />
+              <MaestroIcon name="all-leagues" size={16} />
               <strong>Todas las ligas activas</strong>
             </span>
             {typeof allCount === "number" ? (
@@ -282,6 +278,8 @@ export function LeagueCategorySheet({
                         label={item.label}
                         logoUrl={item.logoUrl}
                         size={22}
+                        decorative
+                        eager
                       />
                       <span className="pl-sheet-item-copy">
                         <strong>{item.label}</strong>
@@ -330,6 +328,7 @@ export function LeagueCategorySheet({
                           label={item.label}
                           logoUrl={item.logoUrl}
                           size={22}
+                          decorative
                         />
                         <span className="pl-sheet-item-copy">
                           <strong>{item.label}</strong>

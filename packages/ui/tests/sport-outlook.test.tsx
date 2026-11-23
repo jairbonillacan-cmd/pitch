@@ -1,20 +1,29 @@
 import React from "react";
 import { renderToStaticMarkup } from "react-dom/server";
 import { describe, expect, it } from "vitest";
+import { asLeagueId } from "@pitchlab/contracts";
 import { SportOutlookCard } from "../src/platform/club/match/sport-outlook/SportOutlookCard";
 import {
   DRIVER_COPY,
+  SPORT_LABEL,
   confirmationViews,
+  isSafeDriverLabel,
   isValidOutlook,
   lineViews,
   marginText,
+  nflSpecialViews,
   restNotes,
   topDrivers,
   winnerSegments,
 } from "../src/platform/club/match/sport-outlook/sport-outlook-logic";
 import { platformGameToSportOutlook } from "../src/platform/club/match/sport-outlook/sport-outlook-mapper";
 import type { SportOutlookInput } from "../src/platform/club/match/sport-outlook/sport-outlook-types";
-import type { PlatformGame } from "../src/platform/types";
+import type {
+  PlatformGame,
+  PlatformGameDetail,
+  PlatformMarketRow,
+  SpacetimeSignal,
+} from "../src/platform/types";
 
 const NHL: SportOutlookInput = {
   sport: "nhl",
@@ -45,8 +54,47 @@ const NHL: SportOutlookInput = {
   generatedAtUtc: "2026-11-14T17:10:00Z",
 };
 
-/** Etiquetas técnicas del motor que nunca deben llegar a la UI (FD-16). */
-const JARGON = /Corsi|Fenwick|Pythag|FIP|wOBA|SRS|Four Factors|Open-Meteo|Log5|xG%/;
+const JARGON =
+  /Corsi|Fenwick|Pythag|FIP|wOBA|SRS|Four Factors|Open-Meteo|Log5|xG%|SumerSports|Ourlads|NFLPenalties|\bEPA\b/;
+
+function makeMarketRow(
+  overrides: Partial<PlatformMarketRow> &
+    Pick<PlatformMarketRow, "market" | "selection" | "p">,
+): PlatformMarketRow {
+  return {
+    group: "Mercado",
+    label: overrides.selection,
+    fairDecimal: Math.round((1 / Math.max(overrides.p, 0.01)) * 100) / 100,
+    fairAmerican: overrides.p >= 0.5 ? -110 : 110,
+    openDecimal: null,
+    currentDecimal: null,
+    edgePts: null,
+    ...overrides,
+  };
+}
+
+function makeSpacetimeSignal(
+  overrides: Partial<SpacetimeSignal> = {},
+): SpacetimeSignal {
+  return {
+    engineName: "PitchLab Spacetime",
+    sportsEngineName: "PitchLab Spacetime",
+    probs: { home: 0.55, draw: 0, away: 0.45 },
+    market: null,
+    value: [],
+    expectedTotal: null,
+    expectedMargin: null,
+    drivers: [],
+    availability: {
+      homeInjured: null,
+      awayInjured: null,
+      homeMissingValuePct: null,
+      awayMissingValuePct: null,
+    },
+    stadium: { name: null, elevationM: null },
+    ...overrides,
+  };
+}
 
 describe("isValidOutlook", () => {
   it("acepta un panorama coherente", () => {
@@ -74,6 +122,7 @@ describe("winnerSegments", () => {
   it("vuelve a dos segmentos si el reparto regular no cuadra", () => {
     expect(winnerSegments({ ...NHL, pOtReg: 0.6 })).toHaveLength(2);
     expect(winnerSegments({ ...NHL, sport: "nba" })).toHaveLength(2);
+    expect(winnerSegments({ ...NHL, sport: "nfl" })).toHaveLength(2);
   });
 });
 
@@ -84,6 +133,15 @@ describe("textos", () => {
     expect(
       marginText({ ...NHL, sport: "mlb", expectedHome: 3, expectedAway: 4 }),
     ).toBe("Vancouver por 1.0 carrera");
+    expect(
+      marginText({ ...NHL, sport: "nfl", expectedHome: 25.4, expectedAway: 22.1 }),
+    ).toBe("Edmonton por 3.3 puntos");
+    expect(
+      marginText({ ...NHL, sport: "nfl", expectedHome: 22, expectedAway: 21 }),
+    ).toBe("Edmonton por 1.0 punto");
+    expect(
+      marginText({ ...NHL, sport: "nfl", expectedHome: 21.2, expectedAway: 21 }),
+    ).toBe("Partido parejo");
   });
 
   it("ordena los factores por impacto y nunca muestra la etiqueta técnica", () => {
@@ -128,6 +186,33 @@ describe("textos", () => {
   it("avisa del segundo partido en dos noches y omite descansos normales", () => {
     expect(restNotes(NHL)).toEqual(["Vancouver juega su segundo partido en dos noches"]);
   });
+
+  it("expone etiqueta NFL y escenarios clave de OT y margen ±3/±7 solo en NFL", () => {
+    expect(SPORT_LABEL.nfl).toBe("Futbol americano · NFL");
+    const nflOutlook: SportOutlookInput = {
+      ...NHL,
+      sport: "nfl",
+      nflSpecials: {
+        expectedMargin: 3.3,
+        pOvertime: 0.068,
+        fairOvertimeDecimal: 14.71,
+        pExactPlus3: 0.094,
+        pExactMinus3: 0.061,
+        pExactPlus7: 0.062,
+        pExactMinus7: 0.039,
+      },
+    };
+    const specials = nflSpecialViews(nflOutlook);
+    expect(specials.map((s) => s.key)).toEqual([
+      "overtime",
+      "key_margin_3",
+      "key_margin_7",
+    ]);
+    expect(specials[0]!.title).toBe("Tiempo extra (OT)");
+    expect(specials[1]!.subtitle).toBe("+3 (9.4 %) · −3 (6.1 %)");
+    expect(specials[2]!.subtitle).toBe("+7 (6.2 %) · −7 (3.9 %)");
+    expect(nflSpecialViews({ ...nflOutlook, sport: "nba" })).toEqual([]);
+  });
 });
 
 describe("SportOutlookCard", () => {
@@ -168,9 +253,9 @@ describe("SportOutlookCard", () => {
   });
 });
 
-const SAMPLE_NBA_GAME = {
+const SAMPLE_NBA_GAME: PlatformGame = {
   id: "nba-den-bos",
-  league: "nba",
+  league: asLeagueId("nba"),
   leagueLabel: "NBA",
   sport: "basketball",
   hasForecast: true,
@@ -179,6 +264,8 @@ const SAMPLE_NBA_GAME = {
   away: { slug: "bos", name: "Boston Celtics", shortName: "Celtics", code: "BOS", record: "" },
   x12: [0.54, 0, 0.46],
   projection: { home: 114.2, away: 111.8, total: 226.0 },
+  confidenceScore: null,
+  confidenceLevel: null,
   restDays: { home: 3, away: 0 },
   preGame: {
     cortexSynthesis: "",
@@ -227,7 +314,7 @@ const SAMPLE_NBA_GAME = {
   kickoffUtc: "2030-11-15T23:00:00Z",
   kickoffLocal: "18:00",
   venue: "Ball Arena",
-} as unknown as PlatformGame;
+};
 
 describe("platformGameToSportOutlook", () => {
   it("mapea partidos NBA reales con líneas, descanso y Cero-Fuga", () => {
@@ -250,17 +337,244 @@ describe("platformGameToSportOutlook", () => {
     expect(html).toContain("Boston Celtics juega su segundo partido en dos noches");
   });
 
+  it("mapea NBA con mercados derivados sin campo line, expectedPace y drivers reales", () => {
+    const nbaDerivedGame: PlatformGame = {
+      ...SAMPLE_NBA_GAME,
+      markets: [],
+      factors: [
+        { label: "Ritmo (Pace)", value: "98.7", sub: "Posesiones por 48 minutos" },
+      ],
+      spacetime: makeSpacetimeSignal({
+        probs: { home: 0.54, draw: 0, away: 0.46 },
+        drivers: [
+          { label: "Localía y altura", impactLogit: 0.27 },
+          { label: "net_rtg_srs_four_factors", impactLogit: -0.19 },
+          { label: "Corsi% + Fenwick%", impactLogit: 0.08 },
+        ],
+      }),
+    };
+    const nbaDetail: PlatformGameDetail = {
+      markets: [
+        makeMarketRow({ market: "totals", selection: "over_221.5", p: 0.61, isDerived: true }),
+        makeMarketRow({ market: "totals", selection: "over_226.5", p: 0.502, isDerived: true }),
+        makeMarketRow({ market: "totals", selection: "over_231.5", p: 0.39, isDerived: true }),
+        makeMarketRow({ market: "spread", selection: "home_-5.5", p: 0.41, isDerived: true }),
+        makeMarketRow({ market: "spread", selection: "home_-2.5", p: 0.495, isDerived: true }),
+        makeMarketRow({ market: "spread", selection: "home_+0.5", p: 0.58, isDerived: true }),
+      ],
+      headToHead: [],
+      factors: nbaDerivedGame.factors,
+    };
+
+    const mapped = platformGameToSportOutlook(nbaDerivedGame, nbaDetail);
+    expect(mapped).not.toBeNull();
+    expect(mapped?.expectedPace).toBe(98.7);
+    expect(mapped?.lines).toEqual([
+      { kind: "total", line: 226.5, p: 0.502 },
+      { kind: "spread", line: -2.5, p: 0.495 },
+    ]);
+    expect(mapped?.drivers.map((d) => d.factor)).toEqual([
+      "nba_hca_and_altitude",
+      "net_rtg_srs_four_factors",
+      "model_factor_2",
+    ]);
+    expect(JSON.stringify(mapped)).not.toMatch(JARGON);
+
+    const html = renderToStaticMarkup(
+      <SportOutlookCard outlook={mapped!} oddsFormat="american" />,
+    );
+    expect(html).toContain("99 posesiones por equipo");
+    expect(html).toContain("Más de 226.5 puntos");
+    expect(html).toContain("Denver Nuggets −2.5");
+    expect(html).toContain("Nivel de juego en la temporada");
+    expect(html).toContain("Otro factor del modelo");
+    expect(html).not.toMatch(JARGON);
+  });
+
+  it("mapea partidos NFL con líneas de producción, drivers y nflSpecials v5", () => {
+    const nflGame: PlatformGame = {
+      ...SAMPLE_NBA_GAME,
+      id: "nfl-kc-buf",
+      league: asLeagueId("nfl"),
+      leagueLabel: "NFL",
+      sport: "american-football",
+      home: { slug: "kc", name: "Kansas City Chiefs", shortName: "Chiefs", code: "KC", record: "9-2" },
+      away: { slug: "buf", name: "Buffalo Bills", shortName: "Bills", code: "BUF", record: "8-3" },
+      x12: [0.562, 0, 0.438],
+      projection: { home: 25.4, away: 22.1, total: 47.5 },
+      markets: [],
+      restDays: { home: 7, away: 7 },
+      spacetime: makeSpacetimeSignal({
+        probs: { home: 0.562, draw: 0, away: 0.438 },
+        drivers: [
+          { label: "Eficiencia por jugada", impactLogit: 0.24 },
+          { label: "Lesiones (QB y titulares)", impactLogit: -0.09 },
+          { label: "Clima y estadio", impactLogit: 0.11 },
+        ],
+      }),
+    };
+    const nflDetail: PlatformGameDetail = {
+      markets: [
+        makeMarketRow({ market: "spread", selection: "home_-3.5", p: 0.482, isDerived: true }),
+        makeMarketRow({ market: "totals", selection: "over_47.5", p: 0.514, isDerived: true }),
+      ],
+      headToHead: [],
+      factors: [],
+      v5: {
+        epistemic: {
+          home: {
+            pPoint: 0.562,
+            pLower90: 0.51,
+            pUpper90: 0.61,
+            halfWidth90: 0.05,
+            conservativeFairDecimal: 1.96,
+            grade: "high",
+          },
+          away: {
+            pPoint: 0.438,
+            pLower90: 0.39,
+            pUpper90: 0.49,
+            halfWidth90: 0.05,
+            conservativeFairDecimal: 2.56,
+            grade: "high",
+          },
+        },
+        nflSpecials: {
+          expectedMargin: 3.3,
+          pExactPlus3: 0.094,
+          pExactMinus3: 0.061,
+          pOvertime: 0.068,
+          fairOvertimeDecimal: 14.71,
+        },
+        verifiedSummaryEs: "Resumen verificado",
+        guardrailPassed: true,
+      },
+    };
+
+    const mapped = platformGameToSportOutlook(nflGame, nflDetail);
+    expect(mapped).not.toBeNull();
+    expect(mapped?.sport).toBe("nfl");
+    expect(mapped?.lines).toEqual([
+      { kind: "total", line: 47.5, p: 0.514 },
+      { kind: "spread", line: -3.5, p: 0.482 },
+    ]);
+    expect(mapped?.nflSpecials).toEqual({
+      expectedMargin: 3.3,
+      pOvertime: 0.068,
+      fairOvertimeDecimal: 14.71,
+      pExactPlus3: 0.094,
+      pExactMinus3: 0.061,
+    });
+    expect(mapped?.drivers.map((d) => d.factor)).toEqual([
+      "sumersports_epa_success",
+      "injuries_qb_depth",
+      "weather_stadium_physics",
+    ]);
+
+    const html = renderToStaticMarkup(
+      <SportOutlookCard outlook={mapped!} oddsFormat="decimal" />,
+    );
+    expect(html).toContain("Futbol americano · NFL");
+    expect(html).toContain("Escenarios clave de NFL");
+    expect(html).toContain("Tiempo extra (OT)");
+    expect(html).toContain("Margen clave ±3 puntos");
+    expect(html).toContain("Más de 47.5 puntos");
+    expect(html).toContain("Kansas City Chiefs −3.5");
+    expect(html).toContain("Eficiencia por jugada");
+    expect(html).not.toMatch(JARGON);
+  });
+
+  it("mapea partidos MLB con runline, F5 ganador/total y abridores probables", () => {
+    const mlbGame: PlatformGame = {
+      ...SAMPLE_NBA_GAME,
+      id: "mlb-lad-sd",
+      league: asLeagueId("mlb"),
+      leagueLabel: "MLB",
+      sport: "baseball",
+      home: { slug: "lad", name: "Los Angeles Dodgers", shortName: "Dodgers", code: "LAD", record: "" },
+      away: { slug: "sd", name: "San Diego Padres", shortName: "Padres", code: "SD", record: "" },
+      x12: [0.561, 0, 0.439],
+      projection: { home: 4.6, away: 3.9, total: 8.5 },
+      markets: [],
+      restDays: undefined,
+      preGame: {
+        ...SAMPLE_NBA_GAME.preGame,
+        matchContext: {
+          probablePitchers: {
+            home: { name: "Yoshinobu Yamamoto", throwingHand: "R", era: 2.91 },
+          },
+        },
+      },
+    };
+    const mlbDetail: PlatformGameDetail = {
+      markets: [
+        makeMarketRow({ market: "mlb_runline", selection: "home_-1.5", p: 0.364, isDerived: true }),
+        makeMarketRow({ market: "totals", selection: "over_8.5", p: 0.493, isDerived: true }),
+        makeMarketRow({ market: "f5_moneyline", selection: "f5_home", p: 0.552, isDerived: true }),
+        makeMarketRow({ market: "f5_totals", selection: "f5_over_4.5", p: 0.471, isDerived: true }),
+      ],
+      headToHead: [],
+      factors: [],
+    };
+
+    const mapped = platformGameToSportOutlook(mlbGame, mlbDetail);
+    expect(mapped).not.toBeNull();
+    expect(mapped?.sport).toBe("mlb");
+    expect(mapped?.lines).toEqual([
+      { kind: "total", line: 8.5, p: 0.493 },
+      { kind: "spread", line: -1.5, p: 0.364 },
+      { kind: "first5_winner", line: 0, p: 0.552 },
+      { kind: "first5_total", line: 4.5, p: 0.471 },
+    ]);
+    expect(mapped?.confirmations).toEqual([
+      {
+        kind: "starting_pitcher",
+        team: "home",
+        status: "probable",
+        playerName: "Yoshinobu Yamamoto",
+      },
+      { kind: "starting_pitcher", team: "away", status: "pending" },
+    ]);
+
+    const html = renderToStaticMarkup(
+      <SportOutlookCard outlook={mapped!} oddsFormat="american" />,
+    );
+    expect(html).toContain("Primeras 5 entradas · ganador");
+    expect(html).toContain("Primeras 5 entradas · carreras");
+    expect(html).toContain("Más de 4.5 carreras");
+    expect(html).toContain("Abridor probable: Yoshinobu Yamamoto");
+    expect(html).toContain("Abridor por confirmar");
+
+    const mlb3WayDetail: PlatformGameDetail = {
+      markets: [
+        makeMarketRow({ market: "mlb_f5", selection: "home", p: 0.44, isDerived: true }),
+        makeMarketRow({ market: "mlb_f5", selection: "tie", p: 0.18, isDerived: true }),
+        makeMarketRow({ market: "mlb_f5", selection: "away", p: 0.38, isDerived: true }),
+      ],
+      headToHead: [],
+      factors: [],
+    };
+    const mapped3Way = platformGameToSportOutlook(mlbGame, mlb3WayDetail);
+    expect(mapped3Way?.lines).toEqual([
+      { kind: "first5_winner", line: 0, p: 0.44, pTie: 0.18, pAway: 0.38 },
+    ]);
+    const html3Way = renderToStaticMarkup(
+      <SportOutlookCard outlook={mapped3Way!} oddsFormat="decimal" />,
+    );
+    expect(html3Way).toContain("Empate");
+  });
+
   it("mapea partidos NHL sin líneas y reparte tiempo extra solo cuando existe", () => {
-    const nhl = {
+    const nhl: PlatformGame = {
       ...SAMPLE_NBA_GAME,
       id: "nhl-edm-van",
-      league: "nhl",
+      league: asLeagueId("nhl"),
       sport: "ice-hockey",
       x12: [0.47, 0.21, 0.32],
       projection: { home: 3.4, away: 2.9, total: 6.3 },
       markets: [],
       restDays: undefined,
-    } as unknown as PlatformGame;
+    };
     const mapped = platformGameToSportOutlook(nhl);
     expect(mapped?.sport).toBe("nhl");
     expect(mapped?.pHomeReg).toBe(0.47);
@@ -268,27 +582,186 @@ describe("platformGameToSportOutlook", () => {
     expect(mapped?.pAwayReg).toBe(0.32);
     expect(mapped?.lines).toBeUndefined();
     expect(mapped?.rest).toBeUndefined();
+    expect(mapped?.confirmations).toEqual([
+      { kind: "goalie", team: "home", status: "pending" },
+      { kind: "goalie", team: "away", status: "pending" },
+    ]);
+  });
+
+  it("mapea nhl_puckline y porteros confirmados vs pendientes en NHL", () => {
+    const nhl: PlatformGame = {
+      ...SAMPLE_NBA_GAME,
+      id: "nhl-edm-van-live",
+      league: asLeagueId("nhl"),
+      leagueLabel: "NHL",
+      sport: "ice-hockey",
+      home: { slug: "edm", name: "Edmonton Oilers", shortName: "Oilers", code: "EDM", record: "" },
+      away: { slug: "van", name: "Vancouver Canucks", shortName: "Canucks", code: "VAN", record: "" },
+      x12: [0.468, 0.212, 0.32],
+      projection: { home: 3.4, away: 2.9, total: 6.3 },
+      markets: [],
+      preGame: {
+        ...SAMPLE_NBA_GAME.preGame,
+        lineupsConfirmed60m: true,
+        confirmedLineups: {
+          sourceLabel: "Oficial",
+          verifiedAtUtc: "2026-11-14T17:05:00Z",
+          homeStarters: [{ name: "Stuart Skinner", position: "G" }],
+          awayStarters: [],
+        },
+      },
+    };
+    const nhlDetail: PlatformGameDetail = {
+      markets: [
+        makeMarketRow({ market: "nhl_puckline", selection: "home_-1.5", p: 0.318, isDerived: true }),
+        makeMarketRow({ market: "totals", selection: "over_6.5", p: 0.462, isDerived: true }),
+      ],
+      headToHead: [],
+      factors: [],
+    };
+    const mapped = platformGameToSportOutlook(nhl, nhlDetail);
+    expect(mapped?.lines).toEqual([
+      { kind: "total", line: 6.5, p: 0.462 },
+      { kind: "spread", line: -1.5, p: 0.318 },
+    ]);
+    expect(mapped?.confirmations).toEqual([
+      {
+        kind: "goalie",
+        team: "home",
+        status: "confirmed",
+        playerName: "Stuart Skinner",
+        updatedAtUtc: "2026-11-14T17:05:00Z",
+      },
+      { kind: "goalie", team: "away", status: "pending" },
+    ]);
   });
 
   it("devuelve null en fútbol o sin pronóstico", () => {
     expect(
       platformGameToSportOutlook({
         ...SAMPLE_NBA_GAME,
-        league: "liga-mx",
+        league: asLeagueId("liga-mx"),
         sport: "football",
-      } as unknown as PlatformGame),
+      }),
     ).toBeNull();
     expect(
       platformGameToSportOutlook({
         ...SAMPLE_NBA_GAME,
         hasForecast: false,
-      } as unknown as PlatformGame),
+      }),
     ).toBeNull();
     expect(
       platformGameToSportOutlook({
         ...SAMPLE_NBA_GAME,
         projection: null,
-      } as unknown as PlatformGame),
+      }),
     ).toBeNull();
+  });
+});
+
+describe("FD-16 · isSafeDriverLabel y blindaje en SportOutlookCard", () => {
+  it("acepta todas las etiquetas curadas de DRIVER_COPY y etiquetas limpias", () => {
+    for (const label of Object.values(DRIVER_COPY)) {
+      expect(isSafeDriverLabel(label), label).toBe(true);
+    }
+    expect(isSafeDriverLabel("Ritmo ofensivo reciente")).toBe(true);
+    expect(isSafeDriverLabel("Ventaja en rebotes defensivos")).toBe(true);
+    expect(isSafeDriverLabel("Hielo local y descanso")).toBe(true);
+  });
+
+  it("rechaza toda la matriz FD-16 de proveedores, algoritmos, URLs, IDs crudos y jerga editorial", () => {
+    const forbiddenLabels = [
+      undefined,
+      "",
+      "   ",
+      "snake_case_driver",
+      "Bzzoiro",
+      "SportMonks",
+      "SofaScore",
+      "ESPN",
+      "Odds API",
+      "The Odds API",
+      "API-Football",
+      "ScoutPicks",
+      "Astra Análisis",
+      "nflverse",
+      "openfootball",
+      "Polymarket",
+      "Kalshi",
+      "Understat",
+      "Betfair",
+      "FlashScore",
+      "WhoScored",
+      "FBref",
+      "Dixon-Coles",
+      "DixonColes",
+      "Poisson",
+      "LightGBM",
+      "Platt",
+      "Pitágoras",
+      "Pitagoras",
+      "Venn-Abers",
+      "CatBoost",
+      "XGBoost",
+      "Elo",
+      "Rating Elo",
+      "Brier",
+      "log-loss",
+      "ECE",
+      "mc ",
+      "Monte Carlo",
+      "HGB",
+      "PAVA",
+      "Diferencia de xG",
+      "xG%",
+      "Corsi",
+      "Fenwick",
+      "EPA",
+      "https://sports.bzzoiro.com/events/602407",
+      "http://example.com",
+      "www.datos.org",
+      "modelo.io",
+      "radar.app",
+      "cuotas.net",
+      "Evento 602407",
+      "12345",
+      "Confianza 85",
+      "Datos completos",
+      "Datos parciales",
+    ];
+
+    for (const label of forbiddenLabels) {
+      expect(isSafeDriverLabel(label), String(label)).toBe(false);
+    }
+  });
+
+  it("sanitiza drivers hostiles FD-16 antes de renderizar SportOutlookCard", () => {
+    const hostileGame: PlatformGame = {
+      ...SAMPLE_NBA_GAME,
+      spacetime: makeSpacetimeSignal({
+        probs: { home: 0.54, draw: 0, away: 0.46 },
+        drivers: [
+          { label: "Modelo Dixon-Coles", impactLogit: 0.31 },
+          { label: "The Odds API https://sports.bzzoiro.com/602407", impactLogit: -0.25 },
+          { label: "Diferencia de xG y Pitágoras", impactLogit: 0.22 },
+          { label: "Confianza 88 · Datos parciales", impactLogit: 0.19 },
+          { label: "Ritmo ofensivo reciente", impactLogit: 0.14 },
+        ],
+      }),
+    };
+
+    const mapped = platformGameToSportOutlook(hostileGame);
+    expect(mapped).not.toBeNull();
+    const views = topDrivers(mapped!, 5);
+    expect(views.slice(0, 4).every((v) => v.label === "Otro factor del modelo")).toBe(true);
+    expect(views[4]?.label).toBe("Ritmo ofensivo reciente");
+
+    const html = renderToStaticMarkup(
+      <SportOutlookCard outlook={mapped!} oddsFormat="decimal" />,
+    );
+    expect(html).not.toMatch(
+      /Dixon-Coles|Odds API|bzzoiro|602407|Pitágoras|Confianza 88|Datos parciales|\bxG\b|https?:\/\//i,
+    );
+    expect(html).toContain("Otro factor del modelo");
   });
 });

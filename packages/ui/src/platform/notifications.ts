@@ -1,16 +1,9 @@
-/**
- * Avisos de la campana (Fase 1, sin backend).
- *
- * Se derivan de lo que el shell ya tiene cargado: partidos con su señal, la watchlist y la
- * bitácora. Cada aviso tiene un id estable para que «leído» sobreviva a recargas aunque el
- * contenido se recalcule. Funciones puras: `now` entra como argumento.
- */
 import { formatOddsValue } from "./access-guard";
 import { canonicalGameHref, type LeagueId, type LiveScoreboardEntry } from "@pitchlab/contracts";
+import { isCredibleClvPct, isParlayClvEntry } from "./record-stats";
 import type { JournalEntry, OddsFormat, PlatformGame } from "./types";
 
 export type NotificationKind = "partidos" | "cuotas" | "picks" | "comunidad" | "resumen";
-/** `urgent` interrumpe (icono ámbar), `normal` suma al contador, `digest` no suma. */
 export type NotificationPriority = "urgent" | "normal" | "digest";
 
 export type SocialNotificationIcon = "message" | "users-plus" | "heart";
@@ -19,19 +12,13 @@ export interface PlatformNotification {
   id: string;
   kind: NotificationKind;
   priority: NotificationPriority;
-  /** El dato: qué cambió, con cifras. */
   title: string;
-  /** Contexto en una línea; `lead` es la cifra líder (va en Pulso). */
   context: { lead?: string; text: string };
-  /** Momento del aviso (ISO). Nunca en el futuro. */
   atIso: string;
-  /** Casa o fuente de la cifra, si aplica. */
   source?: string;
   actionLabel: string;
   href: string;
-  /** Icono específico dentro de un mismo tipo (p. ej. comentario vs seguidor). */
   icon?: SocialNotificationIcon;
-  /** Id de la fila en la tabla `notifications` del servidor, si viene de ella. */
   serverId?: string;
 }
 
@@ -52,11 +39,9 @@ export interface BuildNotificationsInput {
   games: readonly PlatformGame[];
   watchlistGameIds: readonly string[];
   journal: readonly JournalEntry[];
-  /** Ligas para el resumen de cierre, además de las de los partidos vigilados. */
   favoriteLeagues?: readonly LeagueId[];
   oddsFormat: OddsFormat;
   now: Date;
-  /** Hora de los datos; se usa cuando el mercado no trae la suya. */
   generatedAtIso?: string;
 }
 
@@ -82,7 +67,6 @@ function gameDurationMs(g: PlatformGame): number {
   return 2 * HOUR;
 }
 
-/** Lo más probable del 1X2: etiqueta y probabilidad. Null si el partido no tiene x12. */
 export function mostLikelyOutcome(
   g: PlatformGame,
 ): { side: 0 | 1 | 2; label: string; p: number } | null {
@@ -127,7 +111,6 @@ export function buildNotifications(input: BuildNotificationsInput): PlatformNoti
       ? { lead: `${fav.label} ${formatPctEs(fav.p)}`, text: ` · cuota justa ${fairOdds(fav.p, fmt)}` }
       : null;
 
-    // Partidos: aviso previo e inicio.
     if (g.status !== "FT" && now >= kickoff - KICKOFF_NOTICE_MS) {
       const started = g.status === "LIVE" || now >= kickoff;
       const mins = Math.max(1, Math.round((kickoff - now) / MIN));
@@ -145,7 +128,6 @@ export function buildNotifications(input: BuildNotificationsInput): PlatformNoti
       });
     }
 
-    // Partidos: resultado final.
     if (g.status === "FT" && g.score) {
       const happened = fav !== null && outcomeFromScore(g.score) === fav.side;
       out.push({
@@ -168,7 +150,6 @@ export function buildNotifications(input: BuildNotificationsInput): PlatformNoti
       });
     }
 
-    // Cuotas: la casa paga más que la cuota justa (Geodesic contra momio vigente) y movimientos de línea.
     if (g.status === "NS") {
       const market = g.spacetime?.market ?? null;
       const asOf = market?.asOfUtc ?? input.generatedAtIso ?? g.kickoffUtc;
@@ -179,13 +160,16 @@ export function buildNotifications(input: BuildNotificationsInput): PlatformNoti
       );
       if (pick && pick.marketDecimal !== null) {
         const label = pick.isRedacted ? `Selección para socios en ${matchTitle(g)}` : pick.label;
+        const displayEngine = /geodesic/i.test(pick.engineName)
+          ? "Motor Spacetime"
+          : pick.engineName;
         out.push({
           id: `value:${pick.id}`,
           kind: "cuotas",
           priority: kickoff - now <= URGENT_VALUE_MS ? "urgent" : "normal",
           title: `${label}: la casa paga ${formatOddsValue(pick.marketDecimal, fmt)}, la cuota justa es ${formatOddsValue(pick.fairDecimal, fmt)}`,
           context: {
-            lead: `${pick.engineName} estima ${formatPctEs(pick.p)}`,
+            lead: `${displayEngine} estima ${formatPctEs(pick.p)}`,
             text: `; el momio de la casa implica ${formatPctEs(1 / pick.marketDecimal)}.`,
           },
           atIso: clampToNow(Number.isNaN(asOfMs) ? now : asOfMs, now),
@@ -195,7 +179,6 @@ export function buildNotifications(input: BuildNotificationsInput): PlatformNoti
         });
       }
 
-      // Alerta de movimiento de línea significativo (apertura -> cuota actual) en partidos vigilados.
       for (const pk of g.picks) {
         const quote = pk.bookQuotes?.find(
           (q) =>
@@ -234,7 +217,6 @@ export function buildNotifications(input: BuildNotificationsInput): PlatformNoti
     }
   }
 
-  // Tus picks: bloqueo al iniciar y calificación.
   for (const e of input.journal) {
     const g = byId.get(e.gameId);
     const sealedMs = e.sealedAtIso ? Date.parse(e.sealedAtIso) : NaN;
@@ -242,7 +224,10 @@ export function buildNotifications(input: BuildNotificationsInput): PlatformNoti
       const settledMs = g ? Date.parse(g.kickoffUtc) + gameDurationMs(g) : sealedMs;
       const at = Math.max(Number.isNaN(settledMs) ? 0 : settledMs, Number.isNaN(sealedMs) ? 0 : sealedMs);
       if (!at) continue;
-      const clv = `${e.clvPct >= 0 ? "+" : ""}${e.clvPct.toFixed(1)} pts`;
+      const rawClv = e.clvPct;
+      const clv = isCredibleClvPct(rawClv, isParlayClvEntry(e))
+        ? `${rawClv >= 0 ? "+" : ""}${rawClv.toFixed(1)} pts`
+        : null;
       out.push({
         id: `graded:${e.id}`,
         kind: "picks",
@@ -250,7 +235,9 @@ export function buildNotifications(input: BuildNotificationsInput): PlatformNoti
         title: `Pick calificado: ${e.pickLabel}`,
         context: {
           lead: e.status === "won" ? "Cumplido" : "No cumplido",
-          text: ` · ${clv} frente a la cuota justa. Registraste ${formatOddsValue(e.userDecimal, fmt)}.`,
+          text: clv
+            ? ` · ${clv} frente a la cuota justa. Registraste ${formatOddsValue(e.userDecimal, fmt)}.`
+            : ` · Registraste ${formatOddsValue(e.userDecimal, fmt)}.`,
         },
         atIso: clampToNow(at, now),
         actionLabel: "Ver bitácora",
@@ -276,7 +263,6 @@ export function buildNotifications(input: BuildNotificationsInput): PlatformNoti
     });
   }
 
-  // Resumen: cierre de la última jornada terminada de cada liga que te interesa.
   const digestLeagues = new Set<LeagueId>(input.favoriteLeagues ?? []);
   for (const id of watched) {
     const g = byId.get(id);
@@ -321,7 +307,6 @@ export function buildNotifications(input: BuildNotificationsInput): PlatformNoti
     .slice(0, NOTIFICATION_LIMIT);
 }
 
-/** No leídas que cuentan para la campana (los resúmenes no suman). */
 export function unreadCount(
   items: readonly PlatformNotification[],
   readIds: ReadonlySet<string>,
@@ -343,7 +328,6 @@ export function notificationGroup(atIso: string, now: Date): NotificationGroup {
 
 const SHORT_DATE = new Intl.DateTimeFormat("es-MX", { day: "numeric", month: "short" });
 
-/** «hace 4 min», «hace 2 h» o «10 nov». */
 export function formatNotificationTime(atIso: string, now: Date): string {
   const diff = Math.max(0, now.getTime() - Date.parse(atIso));
   if (diff < MIN) return "ahora";
@@ -352,7 +336,6 @@ export function formatNotificationTime(atIso: string, now: Date): string {
   return SHORT_DATE.format(new Date(atIso)).replace(".", "");
 }
 
-/** Convierte un aviso social del servidor al formato unificado de la bandeja. */
 export function fromServerSocialNotification(
   row: ServerSocialNotification,
   now: Date,
@@ -426,7 +409,6 @@ export function fromServerSocialNotification(
   };
 }
 
-/** Mezcla avisos locales (partidos/bitácora) con avisos sociales del servidor ordenados por fecha. */
 export function mergePlatformNotifications(
   derived: readonly PlatformNotification[],
   social: readonly ServerSocialNotification[],
@@ -445,9 +427,6 @@ export function mergePlatformNotifications(
   return { items, serverReadIds };
 }
 
-/* ---------- Avisos en vivo de «Siguiendo» (EN-VIVO-1) ---------- */
-
-/** Fila de `GET /api/live/alerts` (momentos detectados por el lector en vivo del servidor). */
 export interface LiveAlertRow {
   id: string;
   gameId: string;
@@ -466,14 +445,12 @@ export interface LiveAlertPrefs {
 }
 
 export interface BuildLiveNotificationsInput {
-  /** Avisos del servidor (socios con cuenta). `null` = derivarlos del marcador (PIN de beta). */
   alerts: readonly LiveAlertRow[] | null;
   entries: readonly LiveScoreboardEntry[];
   games: readonly PlatformGame[];
   watchlistGameIds: readonly string[];
   followAlerts: Readonly<Record<string, LiveAlertPrefs>>;
   now: Date;
-  /** Hora de la última lectura del marcador (para fechar lo derivado). */
   observedAtIso?: string | null;
 }
 
@@ -497,12 +474,6 @@ function allowed(kind: LiveAlertRow["kind"], prefs: LiveAlertPrefs): boolean {
   return prefs.goals;
 }
 
-/**
- * Avisos de inicio, gol, medio tiempo y final de los partidos seguidos. Con cuenta vienen del
- * servidor (funcionan en cualquier dispositivo); con el PIN de beta se derivan del marcador.
- * El id es el mismo en ambos casos (`live:<partido>:<momento>:<marcador>`) para que «leído» no se
- * duplique al pasar de uno a otro.
- */
 export function buildLiveNotifications(input: BuildLiveNotificationsInput): PlatformNotification[] {
   const now = input.now.getTime();
   const byId = new Map(input.games.map((g) => [g.id, g]));

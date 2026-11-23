@@ -20,11 +20,6 @@ export interface PublicShareProfileData {
   badges: { public: BadgeView[]; featured: BadgeView[] } | null;
 }
 
-/**
- * Carga el perfil público verificable de un socio para `/u/[handle]` (sin sesión).
- * Exige `publicProfile === true` y aplica estrictamente `publicRecordVisible` +
- * `recordPrivacy`. Nunca expone cuentas privadas, pendientes ni perfiles demo.
- */
 export async function loadPublicShareProfile(
   rawHandle: string,
   customDb?: Db,

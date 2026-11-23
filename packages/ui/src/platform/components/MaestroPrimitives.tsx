@@ -1,12 +1,43 @@
 "use client";
 
 import React from "react";
-import { usePackIconBase } from "../../pack-icon-theme";
+import { buildPackIconSources, usePackIconBase } from "../../pack-icon-theme";
 import {
   usePlatformActions,
   usePlatformCore,
 } from "../platform-provider";
 import type { ViewerRole } from "../types";
+
+export type MaestroNewInterfaceIconName =
+  | "alert-market"
+  | "alert-warning"
+  | "bankroll-wallet"
+  | "bracket-playoff"
+  | "compare-h2h"
+  | "expand-fullscreen"
+  | "info-circle"
+  | "live-pulse"
+  | "player-props"
+  | "push-void"
+  | "refresh-sync"
+  | "target-picks"
+  | "verified-seal";
+
+export const MAESTRO_NEW_INTERFACE_ICONS: readonly MaestroNewInterfaceIconName[] = Object.freeze([
+  "alert-market",
+  "alert-warning",
+  "bankroll-wallet",
+  "bracket-playoff",
+  "compare-h2h",
+  "expand-fullscreen",
+  "info-circle",
+  "live-pulse",
+  "player-props",
+  "push-void",
+  "refresh-sync",
+  "target-picks",
+  "verified-seal",
+]);
 
 export type MaestroIconName =
   | "sparkles"
@@ -76,7 +107,8 @@ export type MaestroIconName =
   | "attach-file"
   | "bookmark"
   | "settings"
-  | "responsible-play";
+  | "responsible-play"
+  | MaestroNewInterfaceIconName;
 
 const MAESTRO_ICON_PACK_SLUGS: Readonly<Record<MaestroIconName, string>> = {
   sparkles: "sparkles",
@@ -147,32 +179,53 @@ const MAESTRO_ICON_PACK_SLUGS: Readonly<Record<MaestroIconName, string>> = {
   bookmark: "bookmark",
   settings: "settings",
   "responsible-play": "responsible-play",
+  "alert-market": "alert-market",
+  "alert-warning": "alert-warning",
+  "bankroll-wallet": "bankroll-wallet",
+  "bracket-playoff": "bracket-playoff",
+  "compare-h2h": "compare-h2h",
+  "expand-fullscreen": "expand-fullscreen",
+  "info-circle": "info-circle",
+  "live-pulse": "live-pulse",
+  "player-props": "player-props",
+  "push-void": "push-void",
+  "refresh-sync": "refresh-sync",
+  "target-picks": "target-picks",
+  "verified-seal": "verified-seal",
 };
+
+export const MAESTRO_INTERFACE_PACK_SLUGS: readonly string[] = Object.freeze(
+  Array.from(new Set(Object.values(MAESTRO_ICON_PACK_SLUGS))).sort(),
+);
 
 export function MaestroIcon({
   name,
   size = 16,
   className,
   style,
+  label,
 }: {
-  name: MaestroIconName;
-  size?: number;
-  className?: string;
-  style?: React.CSSProperties;
+  readonly name: MaestroIconName;
+  readonly size?: number;
+  readonly className?: string;
+  readonly style?: React.CSSProperties;
+  readonly label?: string;
 }): React.JSX.Element {
   const slug = MAESTRO_ICON_PACK_SLUGS[name];
   const iconBase = usePackIconBase();
+  const sources = buildPackIconSources(iconBase, `interfaz/${slug}`);
+  const accessibleLabel = label?.trim() ?? "";
   return (
     <img
-      src={`${iconBase}/32/interfaz/${slug}.webp`}
-      srcSet={`${iconBase}/32/interfaz/${slug}.webp 1x, ${iconBase}/64/interfaz/${slug}.webp 2x`}
+      src={sources.src}
+      srcSet={sources.srcSet}
       width={size}
       height={size}
-      alt=""
-      aria-hidden="true"
+      alt={accessibleLabel}
+      aria-hidden={accessibleLabel ? undefined : true}
       decoding="async"
       draggable={false}
-      className={["pl-maestro-icon inline-block shrink-0", className].filter(Boolean).join(" ")}
+      className={["pl-maestro-icon", "pl-pack-icon", "inline-block", "shrink-0", className].filter(Boolean).join(" ")}
       style={style}
     />
   );
@@ -523,7 +576,6 @@ export function RoleSwitcherPill({
         typeof window !== "undefined"
           ? window.location.pathname + window.location.search
           : "/";
-      // Sin sesión: el PIN lo escribe la persona; nunca va en el código del cliente.
       openBetaPin(nextTarget);
       return;
     }
@@ -540,7 +592,6 @@ export function RoleSwitcherPill({
     );
   };
 
-  // Herramienta de revisión: solo con sesión y con las herramientas de preview activas.
   if (!allowRoleSimulation) return null;
 
   return (
@@ -569,10 +620,6 @@ export function RoleSwitcherPill({
   );
 }
 
-/**
- * Etiqueta para contenido de demostración (tipsters y publicaciones ficticias).
- * Mientras no haya tipsters ni comunidad reales, todo perfil de ejemplo debe llevarla.
- */
 export function ExampleBadge({ className }: { className?: string }): React.JSX.Element {
   return (
     <span
@@ -585,7 +632,6 @@ export function ExampleBadge({ className }: { className?: string }): React.JSX.E
   );
 }
 
-/** Aviso de vista con contenido de demostración. */
 export function ExampleNotice({
   children,
   className,
@@ -606,9 +652,6 @@ export function ExampleNotice({
   );
 }
 
-/* ---------- Insignias de usuario ---------- */
-
-/** Etiqueta de suscriptor Pase PitchLab Ultra: píldora oscura con borde de luz arcoíris. */
 export function UltraTag({ className }: { className?: string }): React.JSX.Element {
   return (
     <span className={`pl-ultra-tag ${className ?? ""}`.trim()} title="Pase PitchLab Ultra">
@@ -617,7 +660,6 @@ export function UltraTag({ className }: { className?: string }): React.JSX.Eleme
   );
 }
 
-/** Sello de cuenta verificada (récord comprobado por PitchLab). */
 export function VerifiedBadge({
   size = 16,
   className,
@@ -626,23 +668,21 @@ export function VerifiedBadge({
   className?: string;
 }): React.JSX.Element {
   const iconBase = usePackIconBase();
+  const sources = buildPackIconSources(iconBase, "insignias/tipster-verificado");
   return (
     <img
-      src={`${iconBase}/32/insignias/tipster-verificado.webp`}
-      srcSet={`${iconBase}/32/insignias/tipster-verificado.webp 1x, ${iconBase}/64/insignias/tipster-verificado.webp 2x`}
-      className={`pl-verified pl-maestro-icon inline-block shrink-0 ${className ?? ""}`.trim()}
+      src={sources.src}
+      srcSet={sources.srcSet}
+      className={["pl-verified", "pl-maestro-icon", "pl-pack-icon", "inline-block", "shrink-0", className].filter(Boolean).join(" ")}
       width={size}
       height={size}
       alt="Verificado"
-      title="Verificado"
-      loading="lazy"
       decoding="async"
       draggable={false}
     />
   );
 }
 
-/** Insignia de tipster oficial: corona y nombre del rol. */
 export function TipsterBadge({ className }: { className?: string }): React.JSX.Element {
   return (
     <span className={`pl-tipster-badge ${className ?? ""}`.trim()}>
@@ -652,35 +692,32 @@ export function TipsterBadge({ className }: { className?: string }): React.JSX.E
   );
 }
 
-/** Sello lila de tipster verificado (roseta con palomita). Solo tipsters verificados. */
 export function VerifiedSeal({
   size = 20,
   decorative = false,
   className,
 }: {
   size?: number;
-  /** `true` cuando el texto «Tipster verificado» ya está junto al sello. */
   decorative?: boolean;
   className?: string;
 }): React.JSX.Element {
   const iconBase = usePackIconBase();
+  const sources = buildPackIconSources(iconBase, "insignias/tipster-verificado");
   return (
     <img
-      src={`${iconBase}/32/insignias/tipster-verificado.webp`}
-      srcSet={`${iconBase}/32/insignias/tipster-verificado.webp 1x, ${iconBase}/64/insignias/tipster-verificado.webp 2x`}
-      className={["pl-seal pl-maestro-icon inline-block shrink-0", className].filter(Boolean).join(" ")}
+      src={sources.src}
+      srcSet={sources.srcSet}
+      className={["pl-seal", "pl-maestro-icon", "pl-pack-icon", "inline-block", "shrink-0", className].filter(Boolean).join(" ")}
       width={size}
       height={size}
       alt={decorative ? "" : "Verificado"}
-      aria-hidden={decorative ? "true" : undefined}
-      loading="lazy"
+      aria-hidden={decorative ? true : undefined}
       decoding="async"
       draggable={false}
     />
   );
 }
 
-/** Ficha de vidrio lila «Tipster verificado» con el sello pequeño. */
 export function TipsterVerifiedBadge({ className }: { className?: string }): React.JSX.Element {
   return (
     <span className={["pl-vbadge", className].filter(Boolean).join(" ")}>
@@ -690,10 +727,6 @@ export function TipsterVerifiedBadge({ className }: { className?: string }): Rea
   );
 }
 
-/**
- * Traduce el texto de rol que guardan las publicaciones y perfiles («Tipster Oficial»,
- * «Socio Pase PitchLab Ultra», «Verificado»…) a las insignias visuales.
- */
 export function UserBadges({
   roleLabel,
   verified,

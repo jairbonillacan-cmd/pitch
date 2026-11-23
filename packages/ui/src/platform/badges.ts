@@ -155,7 +155,20 @@ export function computeBadges(facts: BadgeFacts, now: Date = new Date()): BadgeS
     const t = settledAt(e);
     return t !== null && t >= since && t <= now.getTime();
   });
-  const recentClv = recent.length > 0 ? recent.reduce((s, e) => s + e.clvPct, 0) / recent.length : 0;
+  let recentClvSum = 0;
+  let recentClvCount = 0;
+  for (const e of recent) {
+    if (
+      typeof e.clvPct === "number" &&
+      Number.isFinite(e.clvPct) &&
+      e.clvPct <= 50 &&
+      e.clvPct >= -60
+    ) {
+      recentClvSum += e.clvPct;
+      recentClvCount += 1;
+    }
+  }
+  const recentClv = recentClvCount > 0 ? recentClvSum / recentClvCount : 0;
   out.push({
     id: "contra-el-cierre",
     family: "precision",

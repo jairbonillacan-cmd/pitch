@@ -1,8 +1,33 @@
 import fs from "node:fs";
 import path from "node:path";
+import { Writable } from "node:stream";
 import React from "react";
-import { renderToStaticMarkup } from "react-dom/server";
+import { renderToPipeableStream, renderToStaticMarkup } from "react-dom/server";
 import { describe, expect, it } from "vitest";
+
+async function renderHtmlAsync(element: React.ReactElement): Promise<string> {
+  return new Promise((resolve, reject) => {
+    const chunks: Buffer[] = [];
+    const writable = new Writable({
+      write(chunk, _enc, cb) {
+        chunks.push(Buffer.isBuffer(chunk) ? chunk : Buffer.from(chunk));
+        cb();
+      },
+    });
+    const { pipe } = renderToPipeableStream(element, {
+      onAllReady() {
+        pipe(writable);
+      },
+      onError(err) {
+        reject(err);
+      },
+    });
+    writable.on("finish", () =>
+      resolve(Buffer.concat(chunks).toString("utf8").replace(/<!--\s*-->/g, "")),
+    );
+    writable.on("error", reject);
+  });
+}
 import {
   LeagueSnapshotSchema,
   snapshotToMatchAnalyses,
@@ -110,8 +135,8 @@ describe("Mi cuenta · Fase A (Invitar amigos y helpers)", () => {
     expect(lastAttempt.next).toEqual([nfl]);
   });
 
-  it("marks all sample data with Ejemplo when accountsEnabled is false and hides simulator by default", () => {
-    const html = renderToStaticMarkup(
+  it("marks all sample data with Ejemplo when accountsEnabled is false and hides simulator by default", async () => {
+    const html = await renderHtmlAsync(
       <PlatformProvider
         dataset={dataset}
         initialRole="member"
@@ -139,8 +164,8 @@ describe("Mi cuenta · Fase A (Invitar amigos y helpers)", () => {
     expect(html).not.toContain("sku=ultra");
   });
 
-  it("renders role simulator only inside Simulador block when allowRoleSimulation is true", () => {
-    const html = renderToStaticMarkup(
+  it("renders role simulator only inside Simulador block when allowRoleSimulation is true", async () => {
+    const html = await renderHtmlAsync(
       <PlatformProvider
         dataset={dataset}
         initialRole="member"
@@ -155,8 +180,8 @@ describe("Mi cuenta · Fase A (Invitar amigos y helpers)", () => {
     expect(html).toContain("Simular pago de un amigo");
   });
 
-  it("shows honest states when accountsEnabled is true (generating code vs empty real account)", () => {
-    const generatingHtml = renderToStaticMarkup(
+  it("shows honest states when accountsEnabled is true (generating code vs empty real account)", async () => {
+    const generatingHtml = await renderHtmlAsync(
       <PlatformProvider dataset={dataset} initialRole="member" accountsEnabled={true}>
         <AccountReferralsClubView
           initialTab="referrals"
@@ -176,7 +201,7 @@ describe("Mi cuenta · Fase A (Invitar amigos y helpers)", () => {
     expect(generatingHtml).toContain("Generando tu código…");
     expect(generatingHtml).not.toContain("JAIR-2611");
 
-    const emptyRealHtml = renderToStaticMarkup(
+    const emptyRealHtml = await renderHtmlAsync(
       <PlatformProvider dataset={dataset} initialRole="member" accountsEnabled={true}>
         <AccountReferralsClubView
           initialTab="referrals"
@@ -346,8 +371,8 @@ describe("Mi cuenta · Fase A (Invitar amigos y helpers)", () => {
     expect(formatUnitsAsMxn(0, 250)).toBe("$0 MXN");
   });
 
-  it("renders Preferencias with all 6 groups, Example badge on sample MXN preview without accounts, and zero forbidden copy", () => {
-    const prefsNoAccountsHtml = renderToStaticMarkup(
+  it("renders Preferencias with all 6 groups, Example badge on sample MXN preview without accounts, and zero forbidden copy", async () => {
+    const prefsNoAccountsHtml = await renderHtmlAsync(
       <PlatformProvider dataset={dataset} initialRole="member" accountsEnabled={false}>
         <AccountReferralsClubView
           initialTab="prefs"
@@ -385,7 +410,7 @@ describe("Mi cuenta · Fase A (Invitar amigos y helpers)", () => {
     expect(resolveAccountTab("preferencias")).toBe("prefs");
     expect(resolveAccountTab("cfdi")).toBe("plan");
 
-    const prefsWithAccountsPausedHtml = renderToStaticMarkup(
+    const prefsWithAccountsPausedHtml = await renderHtmlAsync(
       <PlatformProvider dataset={dataset} initialRole="member" accountsEnabled={true}>
         <AccountReferralsClubView
           initialTab="prefs"

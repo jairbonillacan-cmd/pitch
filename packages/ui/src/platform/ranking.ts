@@ -10,11 +10,10 @@
 import {
   LEADERBOARD_MIN_SETTLED,
   LEADERBOARD_MIN_SETTLED_WEEK,
-  entriesInWindow,
+  entryDate,
   profileRecord,
   type ProfileRecord,
 } from "./profile-stats";
-import type { JournalEntry } from "./types";
 
 export { LEADERBOARD_MIN_SETTLED, LEADERBOARD_MIN_SETTLED_WEEK };
 
@@ -35,19 +34,30 @@ export interface RankingRowPayload {
   windows: Record<"7d" | "30d", ProfileRecord>;
 }
 
-const asJournal = (entries: ReadonlyArray<RankingPick>) => entries as unknown as JournalEntry[];
+const DAY_MS = 86_400_000;
+const WEEK_MS = 7 * DAY_MS;
+export const RANKING_TOP_N = 10;
+
+function rankingEntriesInWindow(
+  entries: ReadonlyArray<RankingPick>,
+  days: number,
+  today: Date,
+): RankingPick[] {
+  const to = today.getTime();
+  const from = to - days * DAY_MS;
+  return entries.filter((e) => {
+    const d = entryDate(e);
+    return d !== null && d.getTime() >= from && d.getTime() <= to;
+  });
+}
 
 /** Récord de las ventanas de 7 y 30 días. */
 export function rankingWindows(entries: ReadonlyArray<RankingPick>, now: Date): Record<"7d" | "30d", ProfileRecord> {
   return {
-    "7d": profileRecord(entriesInWindow(asJournal(entries), "7d", now)),
-    "30d": profileRecord(entriesInWindow(asJournal(entries), "30d", now)),
+    "7d": profileRecord(rankingEntriesInWindow(entries, 7, now)),
+    "30d": profileRecord(rankingEntriesInWindow(entries, 30, now)),
   };
 }
-
-const DAY_MS = 86_400_000;
-const WEEK_MS = 7 * DAY_MS;
-export const RANKING_TOP_N = 10;
 
 /** Número de semana con inicio en lunes 00:00 UTC (1970-01-01 fue jueves). */
 export function weekNumber(t: number): number {

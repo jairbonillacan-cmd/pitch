@@ -2,6 +2,7 @@ import { afterEach, describe, expect, it, vi } from "vitest";
 import { PATCH } from "../app/api/me/profile/route";
 import { GET as getPublicProfile } from "../app/api/u/[handle]/route";
 import { parseProfileChanges } from "../src/server/profile";
+import { resetRateLimitsForTests } from "../src/server/request-security";
 
 const mocks = vi.hoisted(() => ({
   requireMember: vi.fn(),
@@ -9,13 +10,24 @@ const mocks = vi.hoisted(() => ({
   updateMemberProfile: vi.fn(),
   publicProfileByHandle: vi.fn(),
 }));
-vi.mock("../src/server/session-user", () => ({ requireMember: mocks.requireMember }));
+vi.mock("../src/server/session-user", async (importOriginal) => ({
+  ...(await importOriginal<typeof import("../src/server/session-user")>()),
+  requireMember: mocks.requireMember,
+}));
 vi.mock("@pitchlab/db", async (importOriginal) => ({
   ...await importOriginal<typeof import("@pitchlab/db")>(),
   createDb: mocks.createDb,
   updateMemberProfile: mocks.updateMemberProfile,
   publicProfileByHandle: mocks.publicProfileByHandle,
 }));
+
+const fakeMember = {
+  db: {},
+  userId: "socio",
+  email: "socio@example.com",
+  emailVerified: true,
+  authUserId: "auth_socio",
+};
 
 const profileRequest = (body: unknown) => new Request("http://localhost:9990/api/me/profile", {
   method: "PATCH",
@@ -24,6 +36,7 @@ const profileRequest = (body: unknown) => new Request("http://localhost:9990/api
 });
 
 afterEach(() => {
+  resetRateLimitsForTests();
   vi.resetAllMocks();
   vi.unstubAllEnvs();
 });
@@ -44,7 +57,7 @@ describe("edición de perfil", () => {
     [{ bio: "Canal t.me/ejemplo" }, "bio_con_enlace"],
     [{ xUsername: "cuenta_ajena" }, "datos_invalidos"],
   ])("rechaza %o", async (body, error) => {
-    mocks.requireMember.mockResolvedValue({ db: {}, userId: "socio" });
+    mocks.requireMember.mockResolvedValue(fakeMember);
     const response = await PATCH(profileRequest(body));
     expect(response.status).toBe(400);
     expect(await response.json()).toEqual({ error });
@@ -52,7 +65,7 @@ describe("edición de perfil", () => {
   });
 
   it("responde 409 cuando el usuario ya está ocupado", async () => {
-    mocks.requireMember.mockResolvedValue({ db: {}, userId: "socio" });
+    mocks.requireMember.mockResolvedValue(fakeMember);
     mocks.updateMemberProfile.mockResolvedValue({ status: "taken" });
     const response = await PATCH(profileRequest({ handle: "@Prueba_Local" }));
     expect(response.status).toBe(409);

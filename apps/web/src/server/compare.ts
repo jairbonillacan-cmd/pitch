@@ -6,11 +6,13 @@ import {
   COMPETITION_CATALOG,
   isLeagueActiveInWindow,
   LeagueSquadsFileSchema,
+  parseStrictFiniteNumber,
   sportForLeague,
   sportHasDraw,
   sportScoringUnit,
   type LeagueId,
 } from "@pitchlab/contracts";
+import { resolvePersonPhotoUrl } from "@pitchlab/sports-assets";
 import type {
   CompareH2HMatchRow,
   CompareLeagueCatalog,
@@ -103,12 +105,17 @@ export function listComparePlayersForLeague(leagueRaw: string): ComparePlayerOpt
     const items: Array<ComparePlayerOption & { priority: number }> = [];
     for (const team of parsed.data.teams) {
       for (const p of team.players) {
+        const safePhotoKey = p.photoKey && resolvePersonPhotoUrl(p.photoKey) ? p.photoKey : null;
+        const safeFallbackPhotoKey =
+          p.fallbackPhotoKey && resolvePersonPhotoUrl(p.fallbackPhotoKey)
+            ? p.fallbackPhotoKey
+            : null;
         const hasMetrics = (p.seasonMetrics?.length ?? 0) > 0;
         const score =
           (hasMetrics ? 100 : 0) +
           (p.stats.appearances > 0 ? 50 + Math.min(30, p.stats.appearances) : 0) +
           (p.stats.goals + p.stats.assists) * 3 +
-          (p.photoKey ? 10 : 0);
+          (safePhotoKey ? 10 : 0);
         items.push({
           ref: `${team.teamSlug}:${p.slug}`,
           name: p.name,
@@ -117,8 +124,8 @@ export function listComparePlayersForLeague(leagueRaw: string): ComparePlayerOpt
           teamName: team.teamName,
           positionLabel: p.positionLabel,
           jersey: p.jersey,
-          photoKey: p.photoKey ?? null,
-          fallbackPhotoKey: p.fallbackPhotoKey ?? null,
+          photoKey: safePhotoKey,
+          fallbackPhotoKey: safeFallbackPhotoKey,
           priority: score,
         });
       }
@@ -157,7 +164,10 @@ function toTeamCard(profile: NonNullable<ReturnType<typeof loadTeamProfile>>): C
     pointsLabel,
     streak: profile.recentAverages.streak.slice(-5),
     coachName: profile.squad?.coach?.name ?? profile.squad?.coachName ?? null,
-    coachPhotoKey: profile.squad?.coach?.photoKey ?? null,
+    coachPhotoKey:
+      profile.squad?.coach?.photoKey && resolvePersonPhotoUrl(profile.squad.coach.photoKey)
+        ? profile.squad.coach.photoKey
+        : null,
     href: canonicalTeamHref(profile.league, profile.team.slug),
   };
 }
@@ -289,8 +299,7 @@ export function loadTeamComparison(
 
 function parseNumericMetric(raw: string): number | null {
   const cleaned = raw.replace(/[,%]/g, "").trim();
-  const n = Number(cleaned);
-  return Number.isFinite(n) ? n : null;
+  return parseStrictFiniteNumber(cleaned);
 }
 
 function toPlayerCard(
@@ -309,8 +318,11 @@ function toPlayerCard(
     heightCm: p.heightCm,
     weightKg: p.weightKg,
     nationality: p.nationality,
-    photoKey: p.photoKey ?? null,
-    fallbackPhotoKey: p.fallbackPhotoKey ?? null,
+    photoKey: p.photoKey && resolvePersonPhotoUrl(p.photoKey) ? p.photoKey : null,
+    fallbackPhotoKey:
+      p.fallbackPhotoKey && resolvePersonPhotoUrl(p.fallbackPhotoKey)
+        ? p.fallbackPhotoKey
+        : null,
     href: canonicalPlayerHref(profile.league, profile.team.slug, p.slug),
   };
 }

@@ -9,6 +9,7 @@
  *   --quiet                        sin progreso
  */
 import { resolve } from "node:path";
+import { parseStrictFiniteNumber } from "@pitchlab/contracts";
 import { loadRootEnvFiles } from "../env.js";
 import { buildResearchDataset } from "./research.js";
 
@@ -52,8 +53,8 @@ function parseArgs(argv: readonly string[]): CliOptions {
         options.seasons = parseList(value!);
         break;
       case "concurrency": {
-        const parsed = Number(value);
-        if (!Number.isInteger(parsed) || parsed < 1) {
+        const parsed = parseStrictFiniteNumber(value);
+        if (parsed === null || !Number.isInteger(parsed) || parsed < 1) {
           throw new Error(`--concurrency debe ser un entero positivo: '${value}'.`);
         }
         options.concurrency = parsed;

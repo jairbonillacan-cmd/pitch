@@ -14,7 +14,7 @@ on:
   workflow_dispatch:
     inputs:
       mode:
-        description: "Qué recolectar (all | schedule,injuries | schedule | injuries)"
+        description: "Qué recolectar (all | schedule,injuries | schedule | injuries | odds)"
         required: false
         default: "all"
         type: choice
@@ -23,6 +23,7 @@ on:
           - schedule,injuries
           - schedule
           - injuries
+          - odds
       matchday_only:
         description: "Limitar a ligas con partidos en la ventana activa"
         required: false
@@ -97,10 +98,10 @@ jobs:
         run: |
           pnpm --filter @pitchlab/ingest history:odds --leagues=premier-league,la-liga,bundesliga,serie-a,ligue-1             --seasons=2022-23,2023-24,2024-25,2025-26,2026-27 --quiet --report-dir="$RUNNER_TEMP/fd-report"             || echo "::warning title=Sin conteos europeos::football-data.co.uk no respondió; los análisis salen sin córners ni faltas."
 
-      # NBA y NHL: motor de ratings (docs/architecture/PLAN_MOTORES_Y_FUENTES_2026_11.md §8).
-      # ~7 peticiones por deporte y corte (cuota gratis: 100 al día por deporte). Si falla o no
-      # pasa el validador, se conserva el snapshot anterior.
-      - name: Corte NBA y NHL
+      # NBA y NHL: motor de ratings + NBA rich Bzzoiro (standings, pregame, odds y player-props.json).
+      # Si falla o no pasa el validador, se conserva el snapshot anterior.
+      - name: Corte NBA y NHL (incluye props y momios NBA Bzzoiro)
+        if: inputs.mode != 'injuries'
         continue-on-error: true
         env:
           BZZOIRO_API_KEY: ${{ secrets.BZZOIRO_API_KEY }}
@@ -112,24 +113,31 @@ jobs:
           fi
           pnpm --filter @pitchlab/ingest snapshot:us
 
-      # Standings oficiales US (NFL, NBA, NHL, MLB), resultados de temporada (`season-results.json`),
-      # modelo MLB y bajas médicas ESPN/nflverse en un solo paso.
-      - name: Standings US, MLB, resultados de temporada y bajas
-        if: inputs.mode != 'injuries'
+      # Standings oficiales US (NFL, NBA vía Bzzoiro con respaldo ESPN + player-props.json, NHL, MLB),
+      # resultados de temporada (`season-results.json`), modelo MLB y bajas médicas en un solo paso.
+      - name: Standings US, MLB, NBA rich props, resultados de temporada y bajas
+        if: inputs.mode != 'injuries' && inputs.mode != 'odds'
         continue-on-error: true
         env:
           BZZOIRO_API_KEY: ${{ secrets.BZZOIRO_API_KEY }}
           BZZOIRO_UNLIMITED: ${{ vars.BZZOIRO_UNLIMITED }}
         run: pnpm --filter @pitchlab/ingest snapshot:us-standings --leagues=nfl,nba,nhl,mlb
 
-      # Expansión de fútbol (+37 competiciones Bzzoiro/CONCACAF) y árbitros en ligas principales y US.
-      - name: Expansión fútbol clubes y árbitros
+      # Expansión de fútbol (+37 competiciones Bzzoiro/CONCACAF), copas Tier 1 (--odds-only en cortes rápidos) y árbitros.
+      - name: Expansión fútbol clubes, copas Tier 1 y árbitros
         if: inputs.mode != 'injuries'
         continue-on-error: true
         env:
           BZZOIRO_API_KEY: ${{ secrets.BZZOIRO_API_KEY }}
           BZZOIRO_UNLIMITED: ${{ vars.BZZOIRO_UNLIMITED }}
-        run: pnpm --filter @pitchlab/ingest snapshot:expansion --max-squad-teams=8
+        run: |
+          if [ "${{ inputs.mode }}" = "odds" ]; then
+            pnpm --filter @pitchlab/ingest snapshot:expansion --odds-only
+          elif [ "${{ github.event_name }}" = "schedule" ] && [ "${{ github.event.schedule }}" != "0 11 * * *" ]; then
+            pnpm --filter @pitchlab/ingest snapshot:expansion --odds-only --tier1-cups-only
+          else
+            pnpm --filter @pitchlab/ingest snapshot:expansion --max-squad-teams=8
+          fi
 
       - name: Guardar caché de Bzzoiro
         if: always()
@@ -140,6 +148,7 @@ jobs:
           key: bzzoiro-raw-${{ github.run_id }}
 
       - name: Recolectar calendario, resultados y bajas (validados por Parte 3)
+        if: inputs.mode != 'odds'
         id: ingest
         env:
           BZZOIRO_API_KEY: ${{ secrets.BZZOIRO_API_KEY }}

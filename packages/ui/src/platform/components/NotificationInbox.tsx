@@ -1,11 +1,5 @@
 "use client";
 
-/**
- * Bandeja de notificaciones: campana con contador de no leídas y un popover nativo que en
- * escritorio cuelga bajo la campana y en móvil sube como hoja (mismo patrón que el menú de
- * cuenta). Con cuentas activas mezcla los avisos locales (partidos/bitácora) con los avisos
- * sociales reales del servidor (`/api/me/notifications`).
- */
 import React, { useEffect, useId, useMemo, useRef, useState, useSyncExternalStore } from "react";
 import {
   buildLiveNotifications,
@@ -30,8 +24,7 @@ import {
   useWatchlistGameIds,
 } from "../platform-provider";
 import { MaestroIcon, type MaestroIconName } from "./MaestroPrimitives";
-
-/* ---------- Leídas locales: almacén compartido (conviven dos encabezados durante la carga) ---------- */
+import { useSheetSwipeDismiss } from "./use-sheet-swipe-dismiss";
 
 const READ_KEY = "pl-notif-read-v1";
 const READ_CAP = 300;
@@ -104,8 +97,6 @@ function subscribeRead(fn: () => void): () => void {
 function useReadIds(): ReadonlySet<string> {
   return useSyncExternalStore(subscribeRead, loadRead, () => EMPTY_SET);
 }
-
-/* ---------- Avisos sociales del servidor: almacén compartido sin sondeo constante ---------- */
 
 const EMPTY_SOCIAL: readonly ServerSocialNotification[] = [];
 let socialSnapshot: readonly ServerSocialNotification[] = EMPTY_SOCIAL;
@@ -190,8 +181,6 @@ function useSocialNotifications(enabled: boolean): readonly ServerSocialNotifica
   return enabled ? rows : EMPTY_SOCIAL;
 }
 
-/* ---------- Avisos en vivo de «Siguiendo» ---------- */
-
 let liveAlertsSnapshot: readonly LiveAlertRow[] | null = null;
 let liveAlertsPromise: Promise<void> | null = null;
 const liveAlertsListeners = new Set<() => void>();
@@ -222,10 +211,6 @@ function subscribeLiveAlerts(fn: () => void): () => void {
   };
 }
 
-/**
- * Con cuenta, los avisos vienen del servidor. Se vuelven a pedir solo cuando el marcador
- * compartido trae una lectura nueva y hay un partido seguido en juego (sin sondeo propio).
- */
 function useLiveAlerts(enabled: boolean, trigger: string | null): readonly LiveAlertRow[] | null {
   const rows = useSyncExternalStore(subscribeLiveAlerts, () => liveAlertsSnapshot, () => null);
   useEffect(() => {
@@ -234,7 +219,6 @@ function useLiveAlerts(enabled: boolean, trigger: string | null): readonly LiveA
   return enabled ? rows : null;
 }
 
-/** Reloj por minuto; `null` en el servidor y antes de montar (evita desajustes de hidratación). */
 function useMinuteClock(): Date | null {
   const [now, setNow] = useState<Date | null>(null);
   useEffect(() => {
@@ -244,8 +228,6 @@ function useMinuteClock(): Date | null {
   }, []);
   return now;
 }
-
-/* ---------- Panel (presentacional) ---------- */
 
 const KIND_ICON: Record<NotificationKind, MaestroIconName> = {
   partidos: "calendar",
@@ -274,14 +256,13 @@ export interface NotificationInboxPanelProps {
   items: readonly PlatformNotification[];
   readIds: ReadonlySet<string>;
   now: Date;
-  /** Hay partidos vigilados: cambia el texto del estado vacío. */
   hasWatchlist: boolean;
-  /** Con cuentas activas muestra también el chip «Comunidad». */
   showCommunityFilter?: boolean;
   onOpenItem: (item: PlatformNotification) => void;
   onMarkAllRead: () => void;
   onBrowse: () => void;
   titleId?: string;
+  listRef?: React.RefObject<HTMLDivElement | null>;
 }
 
 export function NotificationInboxPanel({
@@ -294,13 +275,13 @@ export function NotificationInboxPanel({
   onMarkAllRead,
   onBrowse,
   titleId,
+  listRef,
 }: NotificationInboxPanelProps): React.JSX.Element {
   const [filter, setFilter] = useState<NotificationKind | "todas">("todas");
   const total = unreadCount(items, readIds);
   const allRead = items.every((n) => readIds.has(n.id));
   const hasSocial = showCommunityFilter || items.some((i) => i.kind === "comunidad");
   const filters = hasSocial ? COMMUNITY_FILTERS : BASE_FILTERS;
-  // El resumen de jornada no tiene filtro propio: solo aparece en «Todas».
   const shown = filter === "todas" ? items : items.filter((n) => n.kind === filter);
   let lastGroup: NotificationGroup | null = null;
 
@@ -338,7 +319,7 @@ export function NotificationInboxPanel({
         </div>
       ) : null}
 
-      <div className="pl-notif-list">
+      <div ref={listRef} className="pl-notif-list">
         {items.length === 0 ? (
           <div className="pl-notif-empty">
             <MaestroIcon name="bell" size={20} />
@@ -424,8 +405,6 @@ export function NotificationInboxPanel({
   );
 }
 
-/* ---------- Campana + popover (contenedor) ---------- */
-
 export function NotificationBell(): React.JSX.Element {
   const { dataset, oddsFormat, favoriteLeagues, hasAccountSessionAuth, viewerIdentity } = usePlatformCore();
   const { navigateTo, pushToast } = usePlatformActions();
@@ -436,7 +415,6 @@ export function NotificationBell(): React.JSX.Element {
   const now = useMinuteClock();
   const localReadIds = useReadIds();
   const socialRows = useSocialNotifications(socialEnabled);
-  // El marcador compartido solo se escucha si sigues algún partido (cero sondeo si no).
   const board = useLiveScoreboard(watchlistGameIds.length > 0);
   const followedLive = (board.data?.entries ?? []).some(
     (e) => watchlistGameIds.includes(e.gameId) && e.phase !== "scheduled",
@@ -444,6 +422,7 @@ export function NotificationBell(): React.JSX.Element {
   const liveAlerts = useLiveAlerts(socialEnabled && watchlistGameIds.length > 0, followedLive ? board.data?.sourceFetchedAt ?? null : null);
   const triggerRef = useRef<HTMLButtonElement>(null);
   const menuRef = useRef<HTMLDivElement>(null);
+  const listRef = useRef<HTMLDivElement>(null);
   const uid = useId().replace(/:/g, "");
   const menuId = `pl-notif-menu${uid}`;
   const titleId = `${menuId}-title`;
@@ -477,7 +456,6 @@ export function NotificationBell(): React.JSX.Element {
     const liveGames = new Set(live.map((n) => n.href));
     const derived = [
       ...live,
-      // El aviso «ya empezó» por reloj sobra cuando ya hay avisos en vivo de ese partido.
       ...buildNotifications({
         games: dataset.games,
         watchlistGameIds,
@@ -512,7 +490,6 @@ export function NotificationBell(): React.JSX.Element {
 
   const count = unreadCount(items, effectiveReadIds);
 
-  // Sincroniza el contador de avisos sin leer con el ícono de la PWA (App Badging API, ADR-053).
   useEffect(() => {
     if (typeof navigator === "undefined") return;
     const nav = navigator as Navigator & {
@@ -537,6 +514,12 @@ export function NotificationBell(): React.JSX.Element {
       void err;
     }
   };
+
+  const notifSwipe = useSheetSwipeDismiss({
+    onDismiss: close,
+    disabled: !open,
+    scrollContainerRef: listRef,
+  });
 
   return (
     <>
@@ -575,8 +558,20 @@ export function NotificationBell(): React.JSX.Element {
         className="pl-profile-menu pl-notif-menu"
         role="dialog"
         aria-labelledby={titleId}
+        style={notifSwipe.sheetStyle}
+        {...notifSwipe.handleProps}
       >
-        <span className="pl-profile-menu-grab" aria-hidden="true" />
+        <div className="pl-profile-menu-sheet-top">
+          <span className="pl-profile-menu-grab" aria-hidden="true" />
+          <button
+            type="button"
+            className="pl-profile-menu-close"
+            aria-label="Cerrar notificaciones"
+            onClick={close}
+          >
+            <MaestroIcon name="x" size={16} />
+          </button>
+        </div>
         {open && now ? (
           <NotificationInboxPanel
             items={items}
@@ -585,6 +580,7 @@ export function NotificationBell(): React.JSX.Element {
             hasWatchlist={watchlistGameIds.length > 0}
             showCommunityFilter={socialEnabled}
             titleId={titleId}
+            listRef={listRef}
             onOpenItem={(n) => {
               markRead([n.id]);
               if (n.serverId) markSocialServerRead([n.serverId]);

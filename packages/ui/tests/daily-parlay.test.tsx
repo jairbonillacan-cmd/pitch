@@ -15,6 +15,7 @@ import {
 import { PlatformProvider } from "../src/platform/platform-provider";
 import { redactDatasetForVisitor } from "../src/platform/access-guard";
 import { ShareTicketModal } from "../src/platform/components/PlatformOverlays";
+import { winningContentFromEntry } from "../src/platform/components/WinningTicketDialog";
 import { HomeClubView } from "../src/platform/club/home/HomeClubView";
 import { OfficialDailyParlayCard } from "../src/platform/club/home/OfficialDailyParlayCard";
 import { HistorialClubView } from "../src/platform/club/HistorialClubView";
@@ -767,6 +768,101 @@ describe("Parlay oficial del día y generador personal (Punto 4)", () => {
     );
     expect(sealedPickHtml).toContain("data-sealed-prekickoff");
     expect(sealedPickHtml).not.toContain("Kansas City gana");
+
+    const settledLostParlayHtml = renderToStaticMarkup(
+      <PlatformProvider
+        dataset={sundayDataset}
+        initialRole="member"
+        initialShareTicket={{
+          kind: "parlay",
+          title: "Parlay · 2 selecciones",
+          subtitle: "Parlay liquidado · Mi récord PitchLab",
+          leagueLabel: "Multi-Liga",
+          pickLabel: "SF -3.5 · DET Over 47.5",
+          legs: [
+            {
+              label: "San Francisco -3.5",
+              matchLabel: "SF vs MIN · FT 24–20",
+              p: null,
+              fairDecimal: null,
+              status: "won",
+              scoreLabel: "24–20",
+            },
+            {
+              label: "Más de 47.5 pts",
+              matchLabel: "DET vs TB · FT 16–20",
+              p: null,
+              fairDecimal: null,
+              status: "lost",
+              scoreLabel: "16–20",
+            },
+          ],
+          revealLegs: true,
+          settlementStatus: "lost",
+          netUnits: -1,
+          legSummaryLabel: "1/2 cumplidas",
+          sealedAtLabel: "22 nov",
+          bookLabel: "Bet365",
+          probability: 0.38,
+          fairDecimal: 2.63,
+          marketDecimal: 2.75,
+          units: 1,
+          gameStatus: "FT",
+        }}
+      >
+        <ShareTicketModal />
+      </PlatformProvider>,
+    );
+    expect(settledLostParlayHtml).toContain("data-share-multi-legs");
+    expect(settledLostParlayHtml).toContain("Perdido");
+    expect(settledLostParlayHtml).toContain("Cumplida");
+    expect(settledLostParlayHtml).toContain("Fallada");
+    expect(settledLostParlayHtml).toContain("−1.00u");
+    expect(settledLostParlayHtml).not.toContain("NaN");
+    expect(settledLostParlayHtml).not.toContain("null");
+    expect(settledLostParlayHtml).not.toContain("Resultado final verificado");
+
+    const wonParlayWinning = winningContentFromEntry(
+      {
+        id: "j-parlay-won",
+        pickId: "p-parlay-won",
+        gameId: "g1",
+        leagueLabel: "Multi-Liga",
+        matchLabel: "Parlay · 2 selecciones",
+        pickLabel: "SF -3.5 · Over 47.5 pts",
+        origin: "Propio",
+        pickKind: "parlay",
+        parlayLegs: [
+          {
+            gameId: "g1",
+            pickId: "p1",
+            leagueLabel: "NFL",
+            matchLabel: "SF vs MIN · FT 24–14",
+            pickLabel: "San Francisco -3.5",
+          },
+          {
+            gameId: "g2",
+            pickId: "p2",
+            leagueLabel: "NBA",
+            matchLabel: "BOS vs NYK · FT 118–110",
+            pickLabel: "Más de 218.5 pts",
+          },
+        ],
+        units: 1,
+        userDecimal: 3.1,
+        fairDecimal: 2.9,
+        status: "won",
+        sealedAt: "22 nov",
+      },
+      "9:16",
+      "socio",
+      "REF12",
+    );
+    expect(wonParlayWinning.kind).toBe("parlay");
+    expect(wonParlayWinning.legs).toEqual([
+      "SF vs MIN · FT 24–14: San Francisco -3.5",
+      "BOS vs NYK · FT 118–110: Más de 218.5 pts",
+    ]);
 
     expect(redactDatasetForVisitor(sundayDataset).games[3]?.parlayCandidates ?? []).toEqual([]);
   });

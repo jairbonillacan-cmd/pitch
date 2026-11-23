@@ -1,8 +1,3 @@
-/**
- * Comunidad: quién puede escribir y validación del texto que llega del navegador.
- * Las reglas que necesitan la base (límite por hora, repetidos, récord) viven en
- * `@pitchlab/db` (`social.ts`).
- */
 import { headers } from "next/headers";
 import { NextResponse } from "next/server";
 import { containsExternalLink } from "@pitchlab/contracts";
@@ -26,7 +21,6 @@ let socialDb: Db | undefined;
 
 type Member = Exclude<Awaited<ReturnType<typeof requireMember>>, { error: NextResponse }>;
 
-/** Socio con sesión, registro completo y Pase vigente (la Comunidad es para socios). */
 export async function requireSocialMember(request: Request): Promise<Member | { error: NextResponse }> {
   const member = await requireMember(request);
   if ("error" in member) return member;
@@ -64,7 +58,6 @@ export function checkSocialText(raw: unknown, kind: "post" | "comment"): TextChe
 const finite = (v: unknown): v is number => typeof v === "number" && Number.isFinite(v);
 const shortText = (v: unknown, max = 120): string => (typeof v === "string" ? v.trim().slice(0, max) : "");
 
-/** Pick adjunto: solo números y textos razonables; si no cuadra, se publica sin pick. */
 export function parseSocialPick(raw: unknown): SocialPickSnapshot | null {
   if (!raw || typeof raw !== "object") return null;
   const p = raw as Record<string, unknown>;
@@ -127,17 +120,13 @@ export function reasonResponse(reason: string): NextResponse {
   return NextResponse.json({ error: r.error, reason }, { status: r.status });
 }
 
-/**
- * Seguidores y seguidos de un perfil, y si quien mira ya lo sigue. Sin base o sin sesión,
- * devuelve lo que se pueda (sin `viewerFollows`).
- */
 export async function loadFollowInfo(
   handle: string,
 ): Promise<{ followers: number; following: number; viewerFollows: boolean } | null> {
   const url = process.env.DATABASE_URL;
   const auth = getAuth();
   if (!url) return null;
-  socialDb ??= createDb(url) as unknown as Db;
+  socialDb ??= createDb(url);
   const db = socialDb;
   const [target] = await db.select({ id: users.id }).from(users).where(eq(users.handle, handle.toLowerCase()));
   if (!target) return null;

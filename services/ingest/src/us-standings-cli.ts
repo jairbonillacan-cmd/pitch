@@ -1,20 +1,12 @@
-/**
- * `pnpm --filter @pitchlab/ingest snapshot:us-standings [--leagues=nfl,nba,nhl,mlb]`
- *
- * Actualiza:
- *  - `nfl`: calendario, resultados y tabla de posiciones AFC/NFC desde `nflverse` (CC-BY 4.0)
- *  - `nba`: tabla de posiciones Este/Oeste actualizada (preserva pronósticos vigentes)
- *  - `nhl`: tabla de posiciones Este/Oeste desde NHL Web API (preserva pronósticos vigentes)
- *  - `mlb`: calendario 2026 + postemporada + apertura 2027, tasas reales, pronósticos walk-forward,
- *           clasificación AL/NL, historial `season-results.json` y bajas médicas desde MLB Stats API
- */
 import { resolve } from "node:path";
+import { fileURLToPath } from "node:url";
 import {
   LeagueSnapshotSchema,
   asGameId,
   asLeagueId,
   asSeasonId,
   asTeamId,
+  parseStrictFiniteNumber,
   type GameDTO,
   type LeagueSnapshot,
   type StandingFormToken,
@@ -33,8 +25,21 @@ import {
   writeSeasonResultsFile,
   writeSnapshotFiles,
 } from "./pipeline.js";
+import {
+  collectBzzoiroNbaRichBundle,
+  fetchBzzoiroNbaStandings,
+  type NbaRichCollectionResult,
+  type NbaRichEventTarget,
+} from "./providers/bzzoiro-nba-rich.js";
+import { collectUsSeason, usSeasonOf } from "./providers/bzzoiro-us.js";
 import { readProviderConfigs } from "./providers/config.js";
+import { createProviderClient } from "./providers/http.js";
 import { divisionMetaForTeam, finalizeConferenceStandings } from "./us-divisions.js";
+import {
+  applyNbaRichEnrichmentToSnapshot,
+  writeNbaRichSidecarFiles,
+} from "./us-snapshot-cli.js";
+import { usTeam } from "./us-snapshot.js";
 import { validateLeagueSnapshotCandidate } from "./validation/snapshot-validator.js";
 
 const ROOT = resolve(import.meta.dirname, "..", "..", "..");
@@ -66,7 +71,6 @@ function resolveSnapshotTeamByRaw(
   );
   if (byExact) return byExact;
 
-  // Caso especial comunes (e.g. LA Clippers vs Los Angeles Clippers)
   const lastWord = target.split(" ").at(-1) ?? "";
   if (lastWord.length >= 4) {
     const byNickname = candidates.find((c) => normKey(c.name).endsWith(` ${lastWord}`) || normKey(c.shortName) === lastWord);
@@ -96,7 +100,7 @@ interface NhlStandingsItem {
 
 function nhlStreakForm(item: NhlStandingsItem): StandingFormToken[] {
   const code = (item.streakCode ?? "").toUpperCase();
-  const count = Number(item.streakCount ?? 0);
+  const count = parseStrictFiniteNumber(item.streakCount) ?? 0;
   if (count < 5) return [];
   const tok: StandingFormToken = code === "W" ? "W" : "L";
   return Array.from({ length: 5 }, () => tok);
@@ -262,15 +266,19 @@ async function fetchNbaSeasonGames(
       if (!res.ok) return;
       const payload = (await res.json()) as EspnTeamSchedulePayload;
       for (const ev of payload.events ?? []) {
-        if (ev.seasonType?.type === 1) continue; // omitir pretemporada
+        if (ev.seasonType?.type === 1) continue;
         const comp = ev.competitions?.[0];
         if (!comp?.status?.type?.completed) continue;
         const hComp = comp.competitors?.find((c) => c.homeAway === "home");
         const aComp = comp.competitors?.find((c) => c.homeAway === "away");
         if (!hComp || !aComp) continue;
-        const rawH = typeof hComp.score === "object" ? (hComp.score?.value ?? Number(hComp.score?.displayValue)) : Number(hComp.score);
-        const rawA = typeof aComp.score === "object" ? (aComp.score?.value ?? Number(aComp.score?.displayValue)) : Number(aComp.score);
-        if (!Number.isFinite(rawH) || !Number.isFinite(rawA)) continue;
+        const rawH = parseStrictFiniteNumber(
+          typeof hComp.score === "object" ? (hComp.score?.value ?? hComp.score?.displayValue) : hComp.score,
+        );
+        const rawA = parseStrictFiniteNumber(
+          typeof aComp.score === "object" ? (aComp.score?.value ?? aComp.score?.displayValue) : aComp.score,
+        );
+        if (rawH === null || rawA === null) continue;
         const home = resolveSnapshotTeamByRaw(prev, hComp.team?.displayName ?? "", hComp.team?.abbreviation);
         const away = resolveSnapshotTeamByRaw(prev, aComp.team?.displayName ?? "", aComp.team?.abbreviation);
         if (!home || !away || home.teamId === away.teamId) continue;
@@ -445,30 +453,36 @@ function statStr(
   return typeof found?.displayValue === "string" && found.displayValue.trim() ? found.displayValue.trim() : undefined;
 }
 
-async function hydrateNbaStandings(now: Date): Promise<void> {
-  const prev = loadPreviousSnapshot(SNAPSHOTS, "nba");
-  if (!prev) {
-    console.warn("[standings:nba] No existe latest.json previo; omitido.");
-    return;
+export async function resolveNbaStandingsWithFallback(params: {
+  readonly fetchBzzoiro?: () => Promise<StandingRow[]>;
+  readonly fetchEspn: () => Promise<StandingRow[]>;
+  readonly minBzzoiroTeams?: number;
+}): Promise<{ readonly source: "bzzoiro" | "espn"; readonly standings: StandingRow[] }> {
+  const minTeams = params.minBzzoiroTeams ?? 10;
+  if (params.fetchBzzoiro) {
+    try {
+      const bzRows = await params.fetchBzzoiro();
+      if (bzRows.length >= minTeams) {
+        return { source: "bzzoiro", standings: bzRows };
+      }
+    } catch (err) {
+      void err;
+    }
   }
-  const updatedAt = now.toISOString();
+  const espnRows = await params.fetchEspn();
+  return { source: "espn", standings: espnRows };
+}
+
+async function fetchEspnNbaStandingsRows(
+  prev: LeagueSnapshot,
+  realFormByTeam: ReadonlyMap<string, StandingFormToken[]>,
+): Promise<StandingRow[]> {
   const res = await fetch(
     "https://site.api.espn.com/apis/v2/sports/basketball/nba/standings?season=2027",
     { signal: AbortSignal.timeout(15_000) },
   );
   if (!res.ok) throw new Error(`Standings NBA respondió HTTP ${res.status}`);
   const payload = (await res.json()) as EspnStandingsResponse;
-
-  const seasonGames = await fetchNbaSeasonGames(prev, updatedAt);
-  const realFormByTeam = computeFormFromGames(seasonGames);
-  if (seasonGames.length > 0) {
-    writeSeasonResultsFile(SNAPSHOTS, {
-      league: "nba",
-      season: String(prev.season),
-      updatedAt,
-      games: seasonGames,
-    });
-  }
 
   const rows: StandingRow[] = [];
   for (const child of payload.children ?? []) {
@@ -490,11 +504,12 @@ async function hydrateNbaStandings(now: Date): Promise<void> {
       const gb = statStr(entry.stats, "gamesBehind");
       const seedRaw = statNum(entry.stats, "playoffSeed");
       const streakRaw = statStr(entry.stats, "streak");
+      const streakLen = streakRaw ? parseStrictFiniteNumber(streakRaw.slice(1)) : null;
       const realForm = realFormByTeam.get(matched.teamId) ?? [];
       const form: StandingFormToken[] =
         realForm.length > 0
           ? realForm
-          : streakRaw && /^[WL](\d+)$/i.test(streakRaw) && Number(streakRaw.slice(1)) >= 5
+          : streakRaw && /^[WL](\d+)$/i.test(streakRaw) && streakLen !== null && streakLen >= 5
             ? Array.from({ length: 5 }, () => (streakRaw[0]!.toUpperCase() === "W" ? "W" : "L"))
             : [];
       const logoUrl = matched.logoUrl ?? getBzzoiroTeamEmblemUrl("nba", slug) ?? undefined;
@@ -521,25 +536,143 @@ async function hydrateNbaStandings(now: Date): Promise<void> {
       });
     }
   }
+  return finalizeConferenceStandings("nba", rows, { computeGamesBehind: true });
+}
 
-  const standings = finalizeConferenceStandings("nba", rows, { computeGamesBehind: true });
-  const candidate = LeagueSnapshotSchema.parse({
+export async function hydrateNbaStandings(
+  now: Date,
+  env: Readonly<Record<string, string | undefined>> = process.env,
+): Promise<void> {
+  if (env.PITCHLAB_OFFLINE === "1") {
+    console.log("[standings:nba] PITCHLAB_OFFLINE=1; se omiten consultas remotas y se conserva snapshot previo.");
+    return;
+  }
+  const prev = loadPreviousSnapshot(SNAPSHOTS, "nba");
+  if (!prev) {
+    console.warn("[standings:nba] No existe latest.json previo; omitido.");
+    return;
+  }
+  const updatedAt = now.toISOString();
+  const bzzoiroCfg = readProviderConfigs(env).bzzoiro;
+  const bzzoiroAvailable = bzzoiroCfg.enabled;
+  const bzClient = bzzoiroAvailable
+    ? createProviderClient(
+        { ...bzzoiroCfg, baseUrl: bzzoiroCfg.baseUrl.replace(/\/api\/v2$/, "") },
+        {
+          cacheDir: resolve(ROOT, "data", "history", "raw"),
+          minIntervalMs: bzzoiroCfg.unlimitedQuota ? 150 : 1_000,
+          maxRequests: bzzoiroCfg.unlimitedQuota ? 300 : 50,
+          offline: false,
+          log: (m) => console.log(`[standings:nba:bzzoiro] ${m}`),
+        },
+      )
+    : null;
+
+  const seasonGames = await fetchNbaSeasonGames(prev, updatedAt);
+  const realFormByTeam = computeFormFromGames(seasonGames);
+  if (seasonGames.length > 0) {
+    writeSeasonResultsFile(SNAPSHOTS, {
+      league: "nba",
+      season: String(prev.season),
+      updatedAt,
+      games: seasonGames,
+    });
+  }
+
+  const resolvedStandings = await resolveNbaStandingsWithFallback({
+    ...(bzClient
+      ? {
+          fetchBzzoiro: async () => {
+            const bzRows = await fetchBzzoiroNbaStandings(bzClient);
+            return bzRows.map((row) => {
+              const slug = row.teamId.includes(".") ? row.teamId.split(".").slice(1).join(".") : row.teamId;
+              const rateMatch = prev.teamRates[row.teamId];
+              const logoUrl = row.logoUrl ?? rateMatch?.logoUrl ?? getBzzoiroTeamEmblemUrl("nba", slug) ?? undefined;
+              const form = realFormByTeam.get(row.teamId) ?? row.form ?? [];
+              return {
+                ...row,
+                ...(logoUrl ? { logoUrl } : {}),
+                ...(form.length > 0 ? { form } : {}),
+              };
+            });
+          },
+        }
+      : {}),
+    fetchEspn: () => fetchEspnNbaStandingsRows(prev, realFormByTeam),
+  });
+
+  let candidate = LeagueSnapshotSchema.parse({
     ...prev,
     updatedAt,
-    standings,
+    standings: resolvedStandings.standings,
   });
+
+  let nbaRich: NbaRichCollectionResult | null = null;
+  if (bzClient) {
+    try {
+      const startYear = parseStrictFiniteNumber(usSeasonOf(updatedAt).slice(0, 4)) ?? now.getUTCFullYear();
+      const seasonRows = await collectUsSeason(bzClient, "nba", startYear, true);
+      const upcomingIds = new Set<string>(
+        candidate.games.filter((g) => g.status !== "final").map((g) => g.id),
+      );
+      const seenTargets = new Set<string>();
+      const upcomingEvents: NbaRichEventTarget[] = [];
+      for (const row of seasonRows) {
+        if (!row.kickoffUtc) continue;
+        const ms = Date.parse(row.kickoffUtc);
+        if (!Number.isFinite(ms)) continue;
+        const home = usTeam("nba", row.home);
+        const away = usTeam("nba", row.away);
+        const gameId = asGameId(`nba-${row.kickoffUtc.slice(0, 10)}-${away.code}-${home.code}`.toLowerCase());
+        if (!upcomingIds.has(gameId) || seenTargets.has(gameId)) continue;
+        seenTargets.add(gameId);
+        upcomingEvents.push({
+          providerMatchId: row.providerMatchId,
+          gameId,
+          homeTeamId: home.id,
+          homeTeamName: home.name,
+          homeProviderTeamId: row.home.providerTeamId,
+          awayTeamId: away.id,
+          awayTeamName: away.name,
+          awayProviderTeamId: row.away.providerTeamId,
+          kickoffUtc: new Date(ms).toISOString(),
+        });
+      }
+      if (upcomingEvents.length > 0) {
+        nbaRich = await collectBzzoiroNbaRichBundle({
+          client: bzClient,
+          upcomingEvents,
+          nowIso: updatedAt,
+          includeStandings: false,
+          maxEvents: bzzoiroCfg.unlimitedQuota ? 16 : 6,
+          maxTeamsForProps: bzzoiroCfg.unlimitedQuota ? 20 : 6,
+          maxPlayersPerTeam: bzzoiroCfg.unlimitedQuota ? 8 : 4,
+        });
+        candidate = applyNbaRichEnrichmentToSnapshot(candidate, nbaRich);
+      }
+    } catch (richErr) {
+      console.warn(
+        "[standings:nba] Bzzoiro rich NBA omitido por error (respaldo ESPN activo):",
+        richErr instanceof Error ? richErr.message : richErr,
+      );
+    }
+  }
+
   const validation = validateLeagueSnapshotCandidate(candidate, prev, { nowMs: now.getTime() });
   if (!validation.ok) {
     throw new Error(validation.issues.map((i) => `${i.code}: ${i.message}`).join(" | "));
   }
-  const { latestPath } = writeSnapshotFiles(SNAPSHOTS, validation.value ?? candidate, now.toISOString().slice(0, 10));
+  const { latestPath } = writeSnapshotFiles(SNAPSHOTS, validation.value ?? candidate, updatedAt.slice(0, 10));
+  const sidecars = nbaRich
+    ? writeNbaRichSidecarFiles(SNAPSHOTS, nbaRich, updatedAt)
+    : { wroteMarketLines: false, wrotePlayerProps: false };
   const injRes = await collectAndWriteLeagueInjuries({
     snapshotsRoot: SNAPSHOTS,
     league: "nba",
     observedAtIso: updatedAt,
   });
   console.log(
-    `[standings:nba] ${standings.length} equipos · ${seasonGames.length} resultados · ${injRes.entriesCount} bajas → ${latestPath}`,
+    `[standings:nba] fuente=${resolvedStandings.source} · ${resolvedStandings.standings.length} equipos · ${seasonGames.length} resultados · ${injRes.entriesCount} bajas · props=${nbaRich?.propSeeds.length ?? 0}${sidecars.wrotePlayerProps ? " (player-props.json)" : ""} · líneas=${nbaRich?.marketLines.length ?? 0}${sidecars.wroteMarketLines ? " (market-lines.json)" : ""} → ${latestPath}`,
   );
 }
 
@@ -633,18 +766,39 @@ async function buildAndPublishMlb(now: Date): Promise<void> {
   );
 }
 
-async function main(): Promise<void> {
-  loadRootEnvFiles(ROOT);
-  const arg = process.argv.find((a) => a.startsWith("--leagues="))?.slice(10);
-  const selected = new Set(arg ? arg.split(",").map((s) => s.trim()) : ["nfl", "nba", "nhl", "mlb"]);
-  const now = new Date();
+export interface RunUsStandingsCliOptions {
+  readonly env?: Readonly<Record<string, string | undefined>>;
+  readonly argv?: readonly string[];
+  readonly now?: Date;
+}
+
+export interface RunUsStandingsCliResult {
+  readonly skippedOffline: boolean;
+  readonly failures: number;
+}
+
+export async function runUsStandingsCli(
+  options: RunUsStandingsCliOptions = {},
+): Promise<RunUsStandingsCliResult> {
+  const env = options.env ?? process.env;
+  const argv = options.argv ?? process.argv.slice(2);
+  if (env.PITCHLAB_OFFLINE === "1" || argv.includes("--offline")) {
+    console.log("[us-standings] PITCHLAB_OFFLINE=1; se omiten consultas remotas y se conservan snapshots previos.");
+    return { skippedOffline: true, failures: 0 };
+  }
+
+  const arg = argv.find((a) => a.startsWith("--leagues="))?.slice(10);
+  const selected = new Set(
+    arg ? arg.split(",").map((s) => s.trim()).filter(Boolean) : ["nfl", "nba", "nhl", "mlb"],
+  );
+  const now = options.now ?? new Date();
   let failures = 0;
 
   for (const league of selected) {
     try {
       if (league === "nfl") await updateNflWithStandings(now);
       else if (league === "nhl") await hydrateNhlStandings(now);
-      else if (league === "nba") await hydrateNbaStandings(now);
+      else if (league === "nba") await hydrateNbaStandings(now, env);
       else if (league === "mlb") await buildAndPublishMlb(now);
       else throw new Error(`Liga no soportada: ${league}`);
     } catch (err) {
@@ -653,7 +807,25 @@ async function main(): Promise<void> {
     }
   }
 
-  if (failures > 0) process.exitCode = 1;
+  return { skippedOffline: false, failures };
 }
 
-await main();
+async function main(): Promise<void> {
+  loadRootEnvFiles(ROOT);
+  const result = await runUsStandingsCli({
+    env: process.env,
+    argv: process.argv.slice(2),
+  });
+  if (result.failures > 0) process.exitCode = 1;
+}
+
+const isDirectEntry =
+  typeof process.argv[1] === "string" &&
+  resolve(process.argv[1]) === resolve(fileURLToPath(import.meta.url));
+
+if (isDirectEntry) {
+  main().catch((err) => {
+    console.error("[us-standings] Error fatal:", err);
+    process.exit(1);
+  });
+}

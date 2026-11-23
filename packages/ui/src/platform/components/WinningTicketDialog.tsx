@@ -13,20 +13,37 @@ function americanLabel(decimal: number): string {
   return a > 0 ? `+${a}` : `−${Math.abs(a)}`;
 }
 
-/** Contenido del boleto a partir de una entrada ganada de la bitácora. */
 export function winningContentFromEntry(
   entry: JournalEntry,
   aspect: WinningAspect,
   handle: string,
   referralCode: string | null,
 ): WinningTicketContent {
-  const isParlay = entry.origin === "Parlay Combinado";
+  const isParlay =
+    entry.origin === "Parlay Combinado" ||
+    entry.pickKind === "parlay" ||
+    (Array.isArray(entry.parlayLegs) && entry.parlayLegs.length > 1);
+  const richLegs =
+    isParlay && Array.isArray(entry.parlayLegs) && entry.parlayLegs.length > 0
+      ? entry.parlayLegs
+          .map((leg) => {
+            const match = leg.matchLabel?.trim() ?? "";
+            const pick = (leg.pickLabel ?? leg.selection ?? leg.pickId).trim();
+            return match ? `${match}: ${pick}` : pick;
+          })
+          .filter(Boolean)
+      : null;
   return {
     aspect,
     kind: isParlay ? "parlay" : "pick",
-    leagueLabel: isParlay ? "Parlay" : entry.leagueLabel,
+    leagueLabel: entry.leagueLabel || (isParlay ? "Parlay" : ""),
     matchLabel: entry.matchLabel,
-    legs: isParlay ? entry.pickLabel.split(" + ").filter(Boolean) : [entry.pickLabel],
+    legs:
+      richLegs && richLegs.length > 0
+        ? richLegs
+        : isParlay
+          ? entry.pickLabel.split(/\s+(?:\+|·)\s+/).filter(Boolean)
+          : [entry.pickLabel],
     decimal: entry.userDecimal,
     american: americanLabel(entry.userDecimal),
     units: entry.units,
@@ -39,10 +56,6 @@ export function winningContentFromEntry(
   };
 }
 
-/**
- * Comparte un pick o parlay ganado como boleto PNG. La vista previa es el mismo PNG que se
- * descarga o comparte (no una aproximación en HTML).
- */
 export function WinningTicketDialog({
   entry,
   onClose,
@@ -82,7 +95,11 @@ export function WinningTicketDialog({
   }, [entry, aspect, handle, viewerIdentity?.referralCode]);
 
   if (!entry) return null;
-  const fileName = `pitchlab-${entry.origin === "Parlay Combinado" ? "parlay" : "pick"}-ganado.png`;
+  const isWinningParlay =
+    entry.origin === "Parlay Combinado" ||
+    entry.pickKind === "parlay" ||
+    (Array.isArray(entry.parlayLegs) && entry.parlayLegs.length > 1);
+  const fileName = `pitchlab-${isWinningParlay ? "parlay" : "pick"}-ganado.png`;
   const file = blob ? new File([blob], fileName, { type: "image/png" }) : null;
   const canShareFile =
     typeof navigator !== "undefined" && Boolean(file && navigator.canShare?.({ files: [file] }));
@@ -118,22 +135,27 @@ export function WinningTicketDialog({
               Una imagen lista para Instagram, X o WhatsApp.
             </p>
           </div>
-          <button type="button" className="pl-btn-glass min-h-9 px-2.5" onClick={onClose} aria-label="Cerrar">
+          <button
+            type="button"
+            className="pl-btn-glass min-h-11 min-w-11 px-2.5 shrink-0 inline-flex items-center justify-center"
+            onClick={onClose}
+            aria-label="Cerrar"
+          >
             <MaestroIcon name="x" size={14} />
           </button>
         </div>
 
-        <div className="seg-well" role="group" aria-label="Formato de la imagen">
+        <div className="seg-well w-fit" role="group" aria-label="Formato de la imagen">
           {(
             [
-              { id: "4:5", label: "Publicación" },
-              { id: "9:16", label: "Historia" },
+              { id: "4:5", label: "4:5 · Publicación" },
+              { id: "9:16", label: "9:16 · Historia" },
             ] as const
           ).map((o) => (
             <button
               key={o.id}
               type="button"
-              className="seg-btn text-xs"
+              className="seg-btn !min-h-[44px] sm:!min-h-[34px] !px-3 text-xs"
               aria-pressed={aspect === o.id}
               onClick={() => setAspect(o.id)}
             >
@@ -157,12 +179,12 @@ export function WinningTicketDialog({
         </div>
 
         <div className="flex flex-wrap justify-end gap-2">
-          <button type="button" className="pl-btn-glass text-sm min-h-10 px-4 inline-flex items-center gap-1.5" onClick={download} disabled={!url}>
+          <button type="button" className="pl-btn-glass text-sm min-h-11 sm:min-h-10 px-4 inline-flex items-center gap-1.5" onClick={download} disabled={!url}>
             <MaestroIcon name="download" size={14} />
             <span>Descargar PNG</span>
           </button>
           {canShareFile ? (
-            <button type="button" className="pl-btn-primary text-sm min-h-10 px-4 inline-flex items-center gap-1.5" onClick={share}>
+            <button type="button" className="pl-btn-primary text-sm min-h-11 sm:min-h-10 px-4 inline-flex items-center gap-1.5" onClick={share}>
               <MaestroIcon name="share" size={14} />
               <span>Compartir</span>
             </button>

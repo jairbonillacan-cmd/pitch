@@ -31,16 +31,97 @@ import type { MatchOutlook, OutlookCalibrationArtifact } from "./outlook";
 export const TACHYON_CLUB_V35_CODENAME = "PitchLab Tachyon v3.5 Live-Ensemble" as const;
 export const TACHYON_GOALS_V35_CODENAME = "PitchLab Horizon-Goals v3.5" as const;
 
+function isJsonRecord(value: unknown): value is Record<string, unknown> {
+  return value !== null && typeof value === "object" && !Array.isArray(value);
+}
+
+function isGbmArtifact(value: unknown): value is GbmArtifact {
+  return (
+    isJsonRecord(value) &&
+    typeof value.schema_version === "string" &&
+    value.type === "hist_gradient_boosting_multiclass" &&
+    typeof value.n_features_base === "number" &&
+    Array.isArray(value.features) &&
+    Array.isArray(value.div_levels) &&
+    Array.isArray(value.trees)
+  );
+}
+
+function isHorizonGoalsModelArtifact(value: unknown): value is HorizonGoalsModelArtifact {
+  return (
+    isJsonRecord(value) &&
+    typeof value.schema_version === "string" &&
+    value.type === "poisson_log_link_3param_dc" &&
+    typeof value.n_features_base === "number" &&
+    Array.isArray(value.features) &&
+    Array.isArray(value.div_levels) &&
+    Array.isArray(value.coef) &&
+    typeof value.intercept === "number"
+  );
+}
+
+function isClubFreeOpenStateV35Artifact(value: unknown): value is ClubFreeOpenStateV35Artifact {
+  return (
+    isJsonRecord(value) &&
+    typeof value.schema_version === "string" &&
+    typeof value.n_active_clubs === "number" &&
+    Array.isArray(value.live_base_38_features) &&
+    Array.isArray(value.free_open_14_features) &&
+    Array.isArray(value.v3_5_extra_6_features) &&
+    Array.isArray(value.horizon_goals_13_features) &&
+    isJsonRecord(value.div_ewm_log_val) &&
+    isJsonRecord(value.div_ewm_xi_val) &&
+    isJsonRecord(value.clubs)
+  );
+}
+
+function parseGbmArtifact(raw: unknown, label: string): GbmArtifact {
+  if (!isGbmArtifact(raw)) {
+    throw new Error(`Invalid GbmArtifact JSON: ${label}`);
+  }
+  return raw;
+}
+
+function parseHorizonGoalsModelArtifact(raw: unknown, label: string): HorizonGoalsModelArtifact {
+  if (!isHorizonGoalsModelArtifact(raw)) {
+    throw new Error(`Invalid HorizonGoalsModelArtifact JSON: ${label}`);
+  }
+  return raw;
+}
+
+function parseClubFreeOpenStateV35Artifact(
+  raw: unknown,
+  label: string,
+): ClubFreeOpenStateV35Artifact {
+  if (!isClubFreeOpenStateV35Artifact(raw)) {
+    throw new Error(`Invalid ClubFreeOpenStateV35Artifact JSON: ${label}`);
+  }
+  return raw;
+}
+
+const DEFAULT_CLUB_V35_GBM_ARTIFACT = parseGbmArtifact(
+  defaultGbmClubV35Json,
+  "gbm_club_v3_5_live_candidate.json",
+);
+const DEFAULT_CLUB_HORIZON_GOALS_V35_ARTIFACT = parseHorizonGoalsModelArtifact(
+  defaultClubGoalsV35Json,
+  "model_club_goals_v3_5_candidate.json",
+);
+const DEFAULT_CLUB_FREE_OPEN_STATE_V35_ARTIFACT = parseClubFreeOpenStateV35Artifact(
+  defaultClubStateV35Json,
+  "club_free_open_state_v3_5.json",
+);
+
 export function getDefaultClubV35GbmArtifact(): GbmArtifact {
-  return defaultGbmClubV35Json as unknown as GbmArtifact;
+  return DEFAULT_CLUB_V35_GBM_ARTIFACT;
 }
 
 export function getDefaultClubHorizonGoalsV35Artifact(): HorizonGoalsModelArtifact {
-  return defaultClubGoalsV35Json as unknown as HorizonGoalsModelArtifact;
+  return DEFAULT_CLUB_HORIZON_GOALS_V35_ARTIFACT;
 }
 
 export function getDefaultClubFreeOpenStateV35Artifact(): ClubFreeOpenStateV35Artifact {
-  return defaultClubStateV35Json as unknown as ClubFreeOpenStateV35Artifact;
+  return DEFAULT_CLUB_FREE_OPEN_STATE_V35_ARTIFACT;
 }
 
 export function buildDefaultClubV35Outlook(

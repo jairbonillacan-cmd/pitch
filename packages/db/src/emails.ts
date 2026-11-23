@@ -6,6 +6,21 @@ import { and, asc, desc, eq, gte, inArray, isNotNull, lt, lte } from "drizzle-or
 import type { Db } from "./billing";
 import { scheduledEmails, sealedPicks, userPreferences, users, watchlist } from "./schema";
 
+const STRICT_CANONICAL_NUMBER_RE = /^[+-]?(?:\d+\.?\d*|\.\d+)(?:[eE][+-]?\d+)?$/;
+
+function parseStrictDbNumber(raw: unknown): number | null {
+  if (typeof raw === "number") {
+    return Number.isFinite(raw) ? (raw === 0 ? 0 : raw) : null;
+  }
+  if (typeof raw === "string") {
+    const trimmed = raw.trim();
+    if (!STRICT_CANONICAL_NUMBER_RE.test(trimmed)) return null;
+    const parsed = Number.parseFloat(trimmed);
+    return Number.isFinite(parsed) ? (parsed === 0 ? 0 : parsed) : null;
+  }
+  return null;
+}
+
 export type ScheduledEmailKind =
   | "welcome"
   | "trial_ending"
@@ -289,9 +304,9 @@ export async function listSettledPicksBetween(
     id: r.id,
     leagueLabel: r.leagueLabel,
     status: (r.status === "won" || r.status === "lost" ? r.status : "void") as "won" | "lost" | "void",
-    units: Number(r.units),
-    userDecimal: Number(r.userDecimal),
-    clvPct: r.clvPct == null ? null : Number(r.clvPct),
+    units: parseStrictDbNumber(r.units) ?? 0,
+    userDecimal: parseStrictDbNumber(r.userDecimal) ?? 0,
+    clvPct: r.clvPct == null ? null : parseStrictDbNumber(r.clvPct),
     settledAt: r.settledAt,
   }));
 }

@@ -1,8 +1,9 @@
 "use client";
 
-import React, { Suspense, lazy, useEffect, useId, useRef, useState } from "react";
-import { asLeagueId } from "@pitchlab/contracts";
+import React, { Suspense, lazy, useId, useRef, useState } from "react";
+import { asLeagueId, parseStrictFiniteNumber } from "@pitchlab/contracts";
 import { LeagueBadge, ProbSplit, TeamBadge } from "../../sports";
+import { useMediaQuery, useSafeEffect } from "../hooks";
 import {
   MEMBERSHIP_SPEC,
   PRECISION_BUCKETS,
@@ -81,8 +82,8 @@ export function compareUserOddsInput(
     };
   }
 
-  const value = Number(normalized);
-  if (!Number.isFinite(value)) {
+  const value = parseStrictFiniteNumber(normalized);
+  if (value === null) {
     return {
       kind: "invalid",
       tone: "muted",
@@ -185,18 +186,8 @@ export function HeroMatchDemoIsland({
   const visibleCards = cards.length > 0 ? cards.slice(0, maxLeagues) : [FALLBACK_DEMO_CARD];
   const [selectedIndex, setSelectedIndex] = useState(0);
   const [oddsInput, setOddsInput] = useState("-200");
-  const [teamBadgeSize, setTeamBadgeSize] = useState(48);
-
-  useEffect(() => {
-    if (typeof window === "undefined" || typeof window.matchMedia !== "function") {
-      return;
-    }
-    const mq = window.matchMedia("(max-width: 720px)");
-    const syncSize = () => setTeamBadgeSize(mq.matches ? 36 : 48);
-    syncSize();
-    mq.addEventListener("change", syncSize);
-    return () => mq.removeEventListener("change", syncSize);
-  }, []);
+  const isCompactViewport = useMediaQuery("(max-width: 720px)", false);
+  const teamBadgeSize = isCompactViewport ? 36 : 48;
 
   const safeIndex = selectedIndex < visibleCards.length ? selectedIndex : 0;
   const active = visibleCards[safeIndex] ?? FALLBACK_DEMO_CARD;
@@ -1239,7 +1230,7 @@ export function AccessibleCopyButton({
   const [copied, setCopied] = useState(false);
   const timerRef = useRef<number | null>(null);
 
-  useEffect(() => {
+  useSafeEffect(() => {
     return () => {
       if (timerRef.current !== null && typeof window !== "undefined") {
         window.clearTimeout(timerRef.current);
@@ -1342,7 +1333,7 @@ export function SpeiTransferPricingIsland({
   const bankInputId = useId();
   const trackingInputId = useId();
 
-  useEffect(() => {
+  useSafeEffect(() => {
     if (typeof window === "undefined") return;
     const onCycle = (ev: Event) => {
       const detail = (ev as CustomEvent<"monthly" | "annual">).detail;
@@ -1354,9 +1345,9 @@ export function SpeiTransferPricingIsland({
     return () => window.removeEventListener("pitchlab:pricing-cycle", onCycle);
   }, [activePending]);
 
-  // Hidratación del almacén de vista previa cuando la app corre con PIN de beta (!accountsEnabled)
-  useEffect(() => {
+  useSafeEffect(() => {
     if (context.viewerState !== "beta_preview" || context.accountsEnabled) return;
+    if (typeof window === "undefined") return;
     const syncFromPreview = () => {
       const st = readPreviewSpeiState();
       setSpeiRef(st.speiReferenceCode);

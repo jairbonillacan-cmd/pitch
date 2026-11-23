@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import { usePackIconBase } from "./pack-icon-theme";
+import { buildPackIconSources, usePackIconBase } from "./pack-icon-theme";
 
 export type IconName =
   | "games"
@@ -17,6 +17,7 @@ export type IconName =
   | "chevron"
   | "soccer"
   | "football"
+  | "basketball"
   | "hockey"
   | "baseball"
   | "model"
@@ -26,17 +27,31 @@ export type IconName =
   | "competition"
   | "simulation"
   | "radar"
+  | "target"
   | "shield"
   | "lock"
   | "arrow"
   | "check"
   | "sun"
   | "moon"
-  | "backspace";
+  | "backspace"
+  | "alert-market"
+  | "alert-warning"
+  | "bankroll-wallet"
+  | "bracket-playoff"
+  | "compare-h2h"
+  | "expand-fullscreen"
+  | "info-circle"
+  | "live-pulse"
+  | "player-props"
+  | "push-void"
+  | "refresh-sync"
+  | "target-picks"
+  | "verified-seal";
 
-const ICON_PACK_PATHS: Readonly<Record<IconName, string>> = {
+export const ICON_PACK_PATHS: Readonly<Record<IconName, string>> = {
   games: "interfaz/calendar",
-  info: "interfaz/sparkles",
+  info: "interfaz/info-circle",
   close: "interfaz/x",
   trend: "interfaz/chart",
   panel: "interfaz/grid",
@@ -48,15 +63,17 @@ const ICON_PACK_PATHS: Readonly<Record<IconName, string>> = {
   chevron: "interfaz/chevron-right",
   soccer: "deportes/football",
   football: "deportes/american-football",
+  basketball: "deportes/basketball",
   hockey: "deportes/hockey",
   baseball: "deportes/baseball",
   model: "interfaz/cpu",
-  probability: "interfaz/chart",
+  probability: "mercados/expected-value",
   sources: "interfaz/receipt",
-  compare: "interfaz/activity",
+  compare: "interfaz/compare-h2h",
   competition: "interfaz/trophy",
   simulation: "interfaz/cpu",
-  radar: "interfaz/eye",
+  radar: "mercados/xg-radar",
+  target: "interfaz/target-picks",
   shield: "interfaz/shield",
   lock: "interfaz/lock",
   arrow: "interfaz/arrow-right",
@@ -64,27 +81,44 @@ const ICON_PACK_PATHS: Readonly<Record<IconName, string>> = {
   sun: "interfaz/sun",
   moon: "interfaz/moon",
   backspace: "interfaz/arrow-left",
+  "alert-market": "interfaz/alert-market",
+  "alert-warning": "interfaz/alert-warning",
+  "bankroll-wallet": "interfaz/bankroll-wallet",
+  "bracket-playoff": "interfaz/bracket-playoff",
+  "compare-h2h": "interfaz/compare-h2h",
+  "expand-fullscreen": "interfaz/expand-fullscreen",
+  "info-circle": "interfaz/info-circle",
+  "live-pulse": "interfaz/live-pulse",
+  "player-props": "interfaz/player-props",
+  "push-void": "interfaz/push-void",
+  "refresh-sync": "interfaz/refresh-sync",
+  "target-picks": "interfaz/target-picks",
+  "verified-seal": "interfaz/verified-seal",
 };
 
 export function Icon({
   name,
+  size = 18,
   className = "icon",
   label,
 }: {
-  name: IconName;
-  className?: string;
-  label?: string;
+  readonly name: IconName;
+  readonly size?: number;
+  readonly className?: string;
+  readonly label?: string;
 }): React.JSX.Element {
   const asset = ICON_PACK_PATHS[name];
   const iconBase = usePackIconBase();
+  const sources = buildPackIconSources(iconBase, asset);
+  const accessibleLabel = label?.trim() ?? "";
   return (
     <img
-      src={`${iconBase}/32/${asset}.webp`}
-      srcSet={`${iconBase}/32/${asset}.webp 1x, ${iconBase}/64/${asset}.webp 2x`}
-      width={18}
-      height={18}
-      alt={label ?? ""}
-      aria-hidden={label ? undefined : true}
+      src={sources.src}
+      srcSet={sources.srcSet}
+      width={size}
+      height={size}
+      alt={accessibleLabel}
+      aria-hidden={accessibleLabel ? undefined : true}
       decoding="async"
       draggable={false}
       className={`pl-maestro-icon inline-block shrink-0 ${className} ${name}`}

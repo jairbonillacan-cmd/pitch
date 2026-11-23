@@ -8,7 +8,7 @@ let cachedDb: Db | null = null;
 function getReadOnlyDb(): Db | null {
   const url = process.env.DATABASE_URL;
   if (!url) return null;
-  cachedDb ??= createDb(url) as unknown as Db;
+  cachedDb ??= createDb(url);
   return cachedDb;
 }
 

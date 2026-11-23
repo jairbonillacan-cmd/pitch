@@ -577,14 +577,19 @@ test.describe("PitchLab v4 Liquid Glass & Spacetime Suite E2E", () => {
     await expect(page.locator("[data-picks]")).toBeVisible();
     // Socio con Pase PitchLab Ultra ve los picks desbloqueados (cero candados)
     expect(await page.locator("[data-locked-pick]").count()).toBe(0);
-    await expect(page.locator("[data-summary-factors]")).toBeVisible();
 
     // Pestañas accesibles (role=tablist, flechas + Enter, sincronizadas con ?tab=)
-    const resumenTab = page.locator("[data-section-tab='resumen']");
-    await expect(resumenTab).toHaveAttribute("aria-selected", "true");
-    await resumenTab.focus();
+    const picksTab = page.locator("[data-section-tab='picks']");
+    await expect(picksTab).toHaveAttribute("aria-selected", "true");
+    await picksTab.focus();
     await page.keyboard.press("ArrowRight");
     await page.keyboard.press("Enter");
+    await expect(page.locator("[data-section-tab='resumen']")).toHaveAttribute("aria-selected", "true");
+    await expect(page).toHaveURL(/\?tab=resumen$/);
+    await expect(page.locator("[data-summary-factors]")).toBeVisible();
+    await expect(page.locator("[data-ctx-standings]")).toBeVisible();
+
+    await page.locator("[data-section-tab='ia']").click();
     await expect(page.locator("[data-section-tab='ia']")).toHaveAttribute("aria-selected", "true");
     await expect(page).toHaveURL(/\?tab=ia$/);
     await expect(page.locator("body")).toContainText("Cortex IA");
@@ -600,12 +605,6 @@ test.describe("PitchLab v4 Liquid Glass & Spacetime Suite E2E", () => {
     await expect(page).toHaveURL(/\?tab=dinero$/);
     await expect(page.locator("[data-market-pulse]")).toBeVisible();
     await expect(page.locator("[data-market-pulse]")).not.toContainText(/polymarket|kalshi/i);
-
-    await page.locator("[data-section-tab='contexto']").click();
-    await expect(page.locator("[data-section-tab='contexto']")).toHaveAttribute("aria-selected", "true");
-    await expect(page).toHaveURL(/\?tab=contexto$/);
-    await expect(page.locator("body")).toContainText("Contexto del partido");
-    await expect(page.locator("[data-ctx-standings]")).toBeVisible();
 
     await page.screenshot({
       path: path.join(SCREENSHOT_DIR, `studio-pl-${testInfo.project.name}-dark.png`),
@@ -666,14 +665,22 @@ test.describe("PitchLab v4 Liquid Glass & Spacetime Suite E2E", () => {
     await expect(page.locator(".standings")).toContainText(/pts/i);
 
     // Respaldo automático si un escudo de Bzzoiro falla (404 -> iniciales, sin ícono roto)
-    await page.route("https://sports.bzzoiro.com/img/league/**", (route) =>
-      route.fulfill({ status: 404, body: "" }),
-    );
+    const premierLogoRoutes = [
+      "https://sports.bzzoiro.com/img/league/**",
+      "**/brand/official/premier-league/**",
+      "**/brand/official/**/premier-league*",
+      "**/brand/sports/premier-league/**",
+    ] as const;
+    for (const pattern of premierLogoRoutes) {
+      await page.route(pattern, (route) => route.fulfill({ status: 404, body: "" }));
+    }
     await page.goto("/app/premier-league");
     await expect(
       page.locator('.badge-fallback[data-emblem-league="premier-league"]:visible').first(),
     ).toBeVisible();
-    await page.unroute("https://sports.bzzoiro.com/img/league/**");
+    for (const pattern of premierLogoRoutes) {
+      await page.unroute(pattern);
+    }
 
     // PROFILE-2: perfil de tipster con récord calculado y pestañas por teclado
     await page.goto("/app/u/sofia_nfl");

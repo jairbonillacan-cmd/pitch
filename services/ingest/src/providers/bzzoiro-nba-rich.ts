@@ -1,22 +1,17 @@
-/**
- * NBA enriquecido desde Bzzoiro Basketball API (`/basketball/api/v2/`).
- *
- * Cubre los recursos adicionales disponibles en la cuenta (`BZZOIRO_UNLIMITED=1`):
- *  - `/basketball/api/v2/standings/?league=1` -> clasificación oficial Este/Oeste
- *  - `/basketball/api/v2/events/{id}/box-score/` y `/team-stats/` -> métricas de equipo y box score por jugador
- *  - `/basketball/api/v2/events/{id}/odds/` -> cuotas NBA (`moneyline`, `spread`, `totals`) con apertura, delta% y `SHORTENING`/`DRIFTING`/`STEAM`
- *  - `/basketball/api/v2/events/{id}/pregame/` -> contexto prepartido (árbitros, descanso, B2B, bajas reales)
- *  - `/basketball/api/v2/players/{id}/games/` -> bitácora de últimos juegos para props de jugador NBA con guardia `minMinutes`
- *
- * Cumple licencia Bzzoiro v4.0 + `FD-16`: salidas normalizadas sin IDs crudos de proveedor ni URLs externas.
- */
-import type { StandingRow } from "@pitchlab/contracts";
+import {
+  isBlockedMarketQuoteBook,
+  isPermittedMarketQuoteBook,
+  parseStrictFiniteNumber,
+  type SpacetimeAnchoredQuote,
+  type StandingRow,
+} from "@pitchlab/contracts";
 import type { OddsLineMovement, OddsSnapshotRow } from "@pitchlab/spacetime";
 import { normalizeLine } from "@pitchlab/spacetime";
 import { resolveCanonicalTeam } from "../mappings.js";
 import {
   BZZOIRO_COMPARISON_BOOK_META,
   classifyLineMovement,
+  toSpacetimeAnchoredQuote,
   type ComparisonBookQuote,
   type LineMovementSignal,
 } from "../odds/bzzoiro-odds.js";
@@ -244,10 +239,11 @@ export interface NbaSelectionOddsComparison {
   readonly currentConsensusDecimal: number;
   readonly deltaPct: number | null;
   readonly signal: LineMovementSignal;
-  readonly modelProb: number | null;
-  readonly fairOdds: number | null;
+  readonly modelProb: number;
+  readonly fairOdds: number;
   readonly edgePts: number | null;
   readonly evPct: number | null;
+  readonly anchoredQuote: SpacetimeAnchoredQuote;
   readonly books: readonly ComparisonBookQuote[];
 }
 
@@ -313,10 +309,7 @@ export interface NbaPlayerPropSeed {
 }
 
 function num(v: unknown): number | null {
-  if (v === null || v === undefined || typeof v === "boolean") return null;
-  if (typeof v === "string" && v.trim() === "") return null;
-  const n = typeof v === "number" ? v : Number(v);
-  return Number.isFinite(n) ? n : null;
+  return parseStrictFiniteNumber(v);
 }
 
 function round2(v: number): number {
@@ -327,7 +320,6 @@ function round3(v: number): number {
   return Math.round(v * 1000) / 1000;
 }
 
-/** Convierte minutos NBA numéricos (`34.5`) o reloj `"34:30"` a minutos decimales finitos. */
 export function parseNbaMinutes(raw: number | string | null | undefined): number | null {
   if (raw === null || raw === undefined) return null;
   if (typeof raw === "number") {
@@ -337,15 +329,15 @@ export function parseNbaMinutes(raw: number | string | null | undefined): number
   if (!s) return null;
   const clockMatch = /^(\d{1,2}):(\d{1,2})$/.exec(s);
   if (clockMatch) {
-    const mins = Number(clockMatch[1]);
-    const secs = Number(clockMatch[2]);
-    if (Number.isFinite(mins) && Number.isFinite(secs) && secs < 60 && mins <= 70) {
+    const mins = parseStrictFiniteNumber(clockMatch[1]);
+    const secs = parseStrictFiniteNumber(clockMatch[2]);
+    if (mins !== null && secs !== null && secs < 60 && mins <= 70) {
       return round2(mins + secs / 60);
     }
     return null;
   }
-  const direct = Number(s);
-  return Number.isFinite(direct) && direct >= 0 && direct <= 70 ? round2(direct) : null;
+  const direct = parseStrictFiniteNumber(s);
+  return direct !== null && direct >= 0 && direct <= 70 ? round2(direct) : null;
 }
 
 function mapConferenceEs(raw: string | null | undefined, fallback?: string): string | undefined {
@@ -359,7 +351,6 @@ function teamSlugOf(teamId: string): string {
   return teamId.includes(".") ? teamId.split(".").slice(1).join(".") : teamId;
 }
 
-/** Convierte `/basketball/api/v2/standings/?league=1` a `StandingRow[]` canónicos NBA. */
 export function parseBzzoiroNbaStandings(
   raw: BzList<BzNbaStandingRowRaw> | { east?: BzNbaStandingRowRaw[]; west?: BzNbaStandingRowRaw[] } | null,
 ): StandingRow[] {
@@ -446,7 +437,6 @@ function parseNbaSideBox(raw: BzNbaTeamBoxRaw | null | undefined): NbaBoxTeamMet
   };
 }
 
-/** Interpreta `/basketball/api/v2/events/{id}/box-score/` y `/team-stats/` (métricas por equipo). */
 export function parseBzzoiroNbaBoxScore(
   raw: BzNbaBoxScoreRaw | null | undefined,
 ): BzNbaBoxScoreSummary | null {
@@ -488,7 +478,6 @@ function parseNbaPlayerBoxRows(
   return out.sort((a, b) => (b.minutes ?? 0) - (a.minutes ?? 0) || b.points - a.points);
 }
 
-/** Extrae box score completo (equipo + líneas individuales por jugador) sin IDs crudos (`FD-16`). */
 export function parseBzzoiroNbaBoxScoreDetail(
   raw: BzNbaBoxScoreRaw | null | undefined,
 ): NormalizedNbaBoxScoreDetail {
@@ -566,9 +555,6 @@ function parseNbaInjurySide(rows: readonly BzNbaInjuryRaw[] | undefined): Normal
   return out;
 }
 
-/**
- * Normaliza `/basketball/api/v2/events/{id}/pregame/` (árbitros, descanso, B2B y bajas reales) sin IDs crudos (`FD-16`).
- */
 export function parseBzzoiroNbaPregame(raw: BzNbaPregameRaw | null | undefined): NormalizedNbaPregame | null {
   if (!raw || typeof raw !== "object") return null;
 
@@ -690,7 +676,6 @@ function mapNbaMarket(row: BzNbaOddsRowRaw): {
   return null;
 }
 
-/** Interpreta `/basketball/api/v2/events/{id}/odds/` en filas `OddsSnapshotRow` canónicas para NBA. */
 export function parseBzzoiroNbaOdds(params: {
   homeTeamRaw: string;
   awayTeamRaw: string;
@@ -759,14 +744,42 @@ export function parseBzzoiroNbaOdds(params: {
   return out;
 }
 
-/**
- * Comparativa multi-casa NBA con detección de `SHORTENING`/`DRIFTING`/`STEAM` y anclaje Spacetime (`FD-16`).
- */
+const MAX_NBA_ODDS_AGE_MS = 72 * 3_600_000;
+const MAX_NBA_FUTURE_SKEW_MS = 6 * 3_600_000;
+const NBA_STRICT_ISO_TS_RE =
+  /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(?:\.\d{1,9})?(?:Z|[+-]\d{2}:\d{2})$/;
+
+function normalizeNbaCapturedAtIso(raw: unknown): string | undefined {
+  if (typeof raw !== "string") return undefined;
+  const trimmed = raw.trim();
+  if (!trimmed) return undefined;
+  const ms = Date.parse(trimmed);
+  if (!Number.isFinite(ms)) return undefined;
+  return NBA_STRICT_ISO_TS_RE.test(trimmed) ? trimmed : new Date(ms).toISOString();
+}
+
+function isFreshNbaTimestamp(
+  capturedAtIso: string | undefined,
+  nowMs: number,
+): capturedAtIso is string {
+  if (!capturedAtIso || !Number.isFinite(nowMs)) return false;
+  const ms = Date.parse(capturedAtIso);
+  if (!Number.isFinite(ms)) return false;
+  const ageMs = nowMs - ms;
+  return ageMs >= -MAX_NBA_FUTURE_SKEW_MS && ageMs <= MAX_NBA_ODDS_AGE_MS;
+}
+
 export function parseBzzoiroNbaOddsComparison(
   odds: readonly BzNbaOddsRowRaw[] | null | undefined,
-  options: { modelProbsByKey?: ReadonlyMap<string, number> | Readonly<Record<string, number>> } = {},
+  options: {
+    modelProbsByKey?: ReadonlyMap<string, number> | Readonly<Record<string, number>>;
+    capturedAtUtc?: string;
+    nowMs?: number;
+    requireSpacetimeAnchor?: boolean;
+  } = {},
 ): NbaSelectionOddsComparison[] {
   if (!odds || odds.length === 0) return [];
+  const nowMs = options.nowMs ?? Date.now();
   const grouped = new Map<
     string,
     {
@@ -782,7 +795,7 @@ export function parseBzzoiroNbaOddsComparison(
           openingDecimal: number | null;
           currentDecimal: number;
           rawMovement: string | null;
-          capturedAtUtc?: string;
+          capturedAtUtc: string;
         }
       >;
     }
@@ -794,12 +807,15 @@ export function parseBzzoiroNbaOddsComparison(
       .trim()
       .toLowerCase()
       .replace(/\s+/g, "_");
+    if (!slug || isBlockedMarketQuoteBook(slug)) continue;
     const bookMeta = BZZOIRO_COMPARISON_BOOK_META[slug] ?? BZZOIRO_COMPARISON_BOOK_META[slug.replace(/_/g, "-")];
-    if (!bookMeta) continue;
+    if (!bookMeta || !isPermittedMarketQuoteBook(bookMeta.canonical, bookMeta.label)) continue;
     const mapped = mapNbaMarket(row);
     if (!mapped) continue;
     const price = num(row.decimal_odds ?? row.odds);
     if (price === null || price < 1.01 || price > 1000) continue;
+    const capturedAtUtc = normalizeNbaCapturedAtIso(row.updated_at ?? options.capturedAtUtc);
+    if (!isFreshNbaTimestamp(capturedAtUtc, nowMs)) continue;
     const openRaw = num(row.opening_odds ?? row.opening_decimal_odds ?? row.opening_price);
     const openingDecimal = openRaw !== null && openRaw >= 1.01 && openRaw <= 1000 ? round3(openRaw) : null;
     const rawMovement =
@@ -812,12 +828,10 @@ export function parseBzzoiroNbaOddsComparison(
       bucket = { ...mapped, byBook: new Map() };
       grouped.set(key, bucket);
     }
-    const capturedAtUtc =
-      row.updated_at && Number.isFinite(Date.parse(row.updated_at)) ? row.updated_at : undefined;
     const existing = bucket.byBook.get(bookMeta.canonical);
     if (existing?.capturedAtUtc) {
       const existingMs = Date.parse(existing.capturedAtUtc);
-      const incomingMs = capturedAtUtc ? Date.parse(capturedAtUtc) : Number.NaN;
+      const incomingMs = Date.parse(capturedAtUtc);
       if (Number.isFinite(existingMs) && (!Number.isFinite(incomingMs) || existingMs > incomingMs)) {
         continue;
       }
@@ -829,7 +843,7 @@ export function parseBzzoiroNbaOddsComparison(
       openingDecimal,
       currentDecimal: round3(price),
       rawMovement,
-      ...(capturedAtUtc ? { capturedAtUtc } : {}),
+      capturedAtUtc,
     });
   }
 
@@ -897,16 +911,75 @@ export function parseBzzoiroNbaOddsComparison(
         ? options.modelProbsByKey.get(key)
         : (options.modelProbsByKey as Readonly<Record<string, number>>)[key]
       : undefined;
-    const modelProb =
+    const validRawProb =
       typeof rawProb === "number" && Number.isFinite(rawProb) && rawProb > 0.001 && rawProb < 0.999
-        ? round3(rawProb)
+        ? rawProb
         : null;
+    if (validRawProb === null) continue;
+    const bestCapturedAtIso = sorted[0]!.capturedAtUtc;
+    if (!isFreshNbaTimestamp(bestCapturedAtIso, nowMs)) continue;
+    const modelProb = round3(validRawProb);
+    const anchoredQuote = toSpacetimeAnchoredQuote({
+      bookLabel: sorted[0]!.bookLabel,
+      marketKey: bucket.market,
+      selection: bucket.selection,
+      line: bucket.line,
+      bookDecimal: bestDecimal,
+      modelProb: validRawProb,
+      movement: consensusMv.signal,
+      capturedAtIso: bestCapturedAtIso,
+    });
+
+    const sharpPriority = ["pinnacle", "betcris", "betonline", "betonlineag"];
+    const oppKey =
+      bucket.market === "moneyline"
+        ? `moneyline|null|${bucket.selection === "home" ? "away" : "home"}`
+        : bucket.market === "totals" && bucket.line !== null
+          ? `totals|${bucket.line}|${bucket.selection === "over" ? "under" : "over"}`
+          : bucket.market === "spread" && bucket.line !== null
+            ? `spread|${bucket.line === 0 ? 0 : -bucket.line}|${bucket.selection === "home" ? "away" : "home"}`
+            : null;
+    let deVigProb: number | null = null;
+    if (oppKey) {
+      const oppBucket = grouped.get(oppKey);
+      if (oppBucket) {
+        const common: string[] = [];
+        for (const bk of bucket.byBook.keys()) {
+          if (oppBucket.byBook.has(bk)) common.push(bk);
+        }
+        if (common.length > 0) {
+          common.sort((a, b) => {
+            const pa = sharpPriority.findIndex((t) => a.includes(t));
+            const pb = sharpPriority.findIndex((t) => b.includes(t));
+            const ra = pa >= 0 ? pa : 99;
+            const rb = pb >= 0 ? pb : 99;
+            if (ra !== rb) return ra - rb;
+            return a.localeCompare(b);
+          });
+          const chosenBook = common[0]!;
+          const dSelf = bucket.byBook.get(chosenBook)!.currentDecimal;
+          const dOpp = oppBucket.byBook.get(chosenBook)!.currentDecimal;
+          const sumQ = 1 / dSelf + 1 / dOpp;
+          if (sumQ >= 0.92 && sumQ <= 1.32) {
+            deVigProb = 1 / dSelf / sumQ;
+          }
+        }
+      }
+    }
+
+    const bestBookKey = sorted[0]!.book;
+    const isSharpBest = sharpPriority.some((t) => bestBookKey.includes(t));
+    const evLimit = isSharpBest ? 18 : 22;
+    const rawEdgePts = round2((validRawProb - 1 / bestDecimal) * 100);
+    const rawEvPct = round2((validRawProb * bestDecimal - 1) * 100);
+    const probDivergent = deVigProb !== null && Math.abs(validRawProb - deVigProb) > 0.12;
+    const isAnomalous = probDivergent || rawEvPct > evLimit;
 
     out.push({
       market: bucket.market,
       selection: bucket.selection,
       line: bucket.line,
-      bestBook: sorted[0]!.book,
+      bestBook: bestBookKey,
       bestBookLabel: sorted[0]!.bookLabel,
       bestDecimal,
       pinnacleDecimal: books.find((b) => b.book === "pinnacle")?.currentDecimal ?? null,
@@ -915,9 +988,10 @@ export function parseBzzoiroNbaOddsComparison(
       deltaPct: consensusMv.deltaPct,
       signal: consensusMv.signal,
       modelProb,
-      fairOdds: modelProb !== null ? round3(1 / modelProb) : null,
-      edgePts: modelProb !== null ? round2((modelProb - 1 / bestDecimal) * 100) : null,
-      evPct: modelProb !== null ? round2((modelProb * bestDecimal - 1) * 100) : null,
+      fairOdds: round3(1 / validRawProb),
+      edgePts: isAnomalous ? null : rawEdgePts,
+      evPct: isAnomalous ? null : rawEvPct,
+      anchoredQuote,
       books,
     });
   }
@@ -925,7 +999,6 @@ export function parseBzzoiroNbaOddsComparison(
   return out;
 }
 
-/** Normaliza `/basketball/api/v2/players/{id}/games/` sin IDs crudos ni URLs (`FD-16`). */
 export function parseBzzoiroNbaPlayerGames(
   raw: readonly BzNbaPlayerGameRaw[] | BzList<BzNbaPlayerGameRaw> | null | undefined,
 ): NormalizedNbaPlayerGame[] {
@@ -983,20 +1056,13 @@ function roundHalfLine(mean: number): number {
   return Math.max(0.5, Math.floor(mean) + 0.5);
 }
 
-/**
- * Construye seeds de props NBA (`PTS`, `REB`, `AST`, `3PM`, `P+R+A`) a partir de
- * `/basketball/api/v2/players/{id}/games/`, con soporte opcional de guardia `minMinutes`
- * y exclusión de bajas reales (`availabilityStatus`).
- */
 export function buildNbaPlayerPropSeeds(params: {
   player: string;
   teamSlug: string;
   teamName: string;
   position?: string;
   games: readonly BzNbaPlayerGameRaw[];
-  /** Mínimo de minutos por partido para admitir la muestra (p. ej. `18` en producción). */
   minMinutes?: number;
-  /** Mínimo de promedio de minutos en la ventana reciente. */
   minAvgMinutes?: number;
   minSampleGames?: number;
   availabilityStatus?: string | null;
@@ -1055,7 +1121,9 @@ export function buildNbaPlayerPropSeeds(params: {
     },
   ];
 
-  const cleanPlayer = sanitizeClientText(params.player) ?? params.player.trim();
+  const cleanPlayer = sanitizeClientText(params.player);
+  if (!cleanPlayer) return [];
+  const cleanTeamName = sanitizeClientText(params.teamName)?.slice(0, 120) ?? "Equipo NBA";
   const seeds: NbaPlayerPropSeed[] = [];
   for (const d of defs) {
     const vals = recent.map(d.extract).filter((v): v is number => v !== null && v >= 0);
@@ -1065,7 +1133,7 @@ export function buildNbaPlayerPropSeeds(params: {
     seeds.push({
       player: cleanPlayer.slice(0, 120),
       teamSlug: params.teamSlug,
-      teamName: sanitizeClientText(params.teamName) ?? params.teamName,
+      teamName: cleanTeamName,
       position: sanitizeClientText(params.position) ?? "NBA",
       statKey: d.key,
       statLabel: d.label,
@@ -1080,7 +1148,6 @@ export function buildNbaPlayerPropSeeds(params: {
   return seeds;
 }
 
-/** Atajo estricto para producción NBA: aplica guardia `minMinutes >= 18` y filtra bajas reales. */
 export function buildGuardedNbaPlayerPropSeeds(params: {
   player: string;
   teamSlug: string;
@@ -1100,7 +1167,6 @@ export function buildGuardedNbaPlayerPropSeeds(params: {
   });
 }
 
-/** Fetchers de alto nivel sobre `ProviderClient` (`/basketball/api/v2/`). */
 export async function fetchBzzoiroNbaStandings(client: ProviderClient): Promise<StandingRow[]> {
   const raw = await client.get<BzList<BzNbaStandingRowRaw> | { east?: BzNbaStandingRowRaw[]; west?: BzNbaStandingRowRaw[] }>(
     `/basketball/api/v2/standings/?league=${NBA_LEAGUE_ID}`,
@@ -1151,7 +1217,9 @@ export async function fetchBzzoiroNbaOdds(
     awayTeamRaw: string;
     kickoffUtc: string;
     capturedAtUtc?: string;
+    nowMs?: number;
     modelProbsByKey?: ReadonlyMap<string, number> | Readonly<Record<string, number>>;
+    requireSpacetimeAnchor?: boolean;
   },
 ): Promise<{
   snapshotRows: OddsSnapshotRow[];
@@ -1171,7 +1239,12 @@ export async function fetchBzzoiroNbaOdds(
       capturedAtUtc,
       odds: listRaw,
     }),
-    comparison: parseBzzoiroNbaOddsComparison(listRaw, { modelProbsByKey: params.modelProbsByKey }),
+    comparison: parseBzzoiroNbaOddsComparison(listRaw, {
+      modelProbsByKey: params.modelProbsByKey,
+      capturedAtUtc,
+      ...(params.nowMs !== undefined ? { nowMs: params.nowMs } : {}),
+      requireSpacetimeAnchor: true,
+    }),
   };
 }
 
@@ -1185,4 +1258,290 @@ export async function fetchBzzoiroNbaPlayerGames(
   );
   if (!raw) return [];
   return Array.isArray(raw) ? raw : (raw.results ?? []);
+}
+
+export interface BzNbaPlayerListItemRaw {
+  id?: number | null;
+  player_id?: number | null;
+  name?: string | null;
+  player_name?: string | null;
+  position?: string | null;
+  status?: string | null;
+  availability?: string | null;
+}
+
+export interface NormalizedNbaRosterPlayer {
+  readonly providerPlayerId: number;
+  readonly name: string;
+  readonly position: string;
+  readonly availabilityStatus: string | null;
+}
+
+export function parseBzzoiroNbaTeamPlayers(
+  raw:
+    | readonly BzNbaPlayerListItemRaw[]
+    | BzList<BzNbaPlayerListItemRaw>
+    | { players?: readonly BzNbaPlayerListItemRaw[] }
+    | null
+    | undefined,
+): NormalizedNbaRosterPlayer[] {
+  if (!raw) return [];
+  const list: readonly BzNbaPlayerListItemRaw[] = Array.isArray(raw)
+    ? raw
+    : "results" in raw && Array.isArray(raw.results)
+      ? raw.results
+      : "players" in raw && Array.isArray(raw.players)
+        ? raw.players
+        : [];
+  const seen = new Set<number>();
+  const out: NormalizedNbaRosterPlayer[] = [];
+  for (const item of list) {
+    if (!item || typeof item !== "object") continue;
+    const pid = num(item.id ?? item.player_id);
+    if (pid === null || !Number.isInteger(pid) || pid <= 0 || seen.has(pid)) continue;
+    const name = sanitizeClientText(item.name ?? item.player_name);
+    if (!name) continue;
+    seen.add(pid);
+    const position = sanitizeClientText(item.position)?.slice(0, 16) ?? "NBA";
+    const availabilityStatus = sanitizeClientText(item.availability ?? item.status) ?? null;
+    out.push({
+      providerPlayerId: pid,
+      name: name.slice(0, 120),
+      position,
+      availabilityStatus,
+    });
+  }
+  return out;
+}
+
+export async function fetchBzzoiroNbaTeamPlayers(
+  client: ProviderClient,
+  providerTeamId: number,
+): Promise<NormalizedNbaRosterPlayer[]> {
+  const raw = await client.get<
+    BzList<BzNbaPlayerListItemRaw> | { players?: readonly BzNbaPlayerListItemRaw[] }
+  >(`/basketball/api/v2/players/?team_id=${providerTeamId}&limit=30`, { cache: false });
+  return parseBzzoiroNbaTeamPlayers(raw);
+}
+
+export interface NbaPlayerPropsSnapshotFile {
+  readonly schemaVersion: 1;
+  readonly league: "nba";
+  readonly updatedAt: string;
+  readonly minMinutesGuard: number;
+  readonly seeds: readonly NbaPlayerPropSeed[];
+}
+
+export function buildNbaPlayerPropsSnapshotFile(
+  seeds: readonly NbaPlayerPropSeed[],
+  updatedAtIso: string,
+  minMinutesGuard: number = DEFAULT_NBA_PROP_MIN_MINUTES,
+): NbaPlayerPropsSnapshotFile {
+  return {
+    schemaVersion: 1,
+    league: "nba",
+    updatedAt: updatedAtIso,
+    minMinutesGuard,
+    seeds: [...seeds],
+  };
+}
+
+export interface NbaCompactMarketLine {
+  readonly gameId: string;
+  readonly homeName: string;
+  readonly awayName: string;
+  readonly market: string;
+  readonly outcome: string;
+  readonly line: number | null;
+  readonly book: string;
+  readonly decimal: number;
+  readonly openingDecimal?: number;
+  readonly movement?: OddsLineMovement;
+  readonly capturedAtUtc: string;
+}
+
+export interface NbaRichEventTarget {
+  readonly providerMatchId: number;
+  readonly gameId: string;
+  readonly homeTeamId: string;
+  readonly homeTeamName: string;
+  readonly homeProviderTeamId: number;
+  readonly awayTeamId: string;
+  readonly awayTeamName: string;
+  readonly awayProviderTeamId: number;
+  readonly kickoffUtc: string;
+}
+
+export interface CollectNbaRichOptions {
+  readonly client: ProviderClient;
+  readonly upcomingEvents: readonly NbaRichEventTarget[];
+  readonly nowIso: string;
+  readonly includeStandings?: boolean;
+  readonly includePregame?: boolean;
+  readonly includeOdds?: boolean;
+  readonly includePlayerProps?: boolean;
+  readonly maxEvents?: number;
+  readonly maxTeamsForProps?: number;
+  readonly maxPlayersPerTeam?: number;
+  readonly minMinutes?: number;
+}
+
+export interface NbaRichCollectionResult {
+  readonly standings: StandingRow[];
+  readonly standingsOk: boolean;
+  readonly pregameByGameId: ReadonlyMap<string, NormalizedNbaPregame>;
+  readonly marketLines: NbaCompactMarketLine[];
+  readonly propSeeds: NbaPlayerPropSeed[];
+}
+
+export async function collectBzzoiroNbaRichBundle(
+  options: CollectNbaRichOptions,
+): Promise<NbaRichCollectionResult> {
+  const { client, upcomingEvents, nowIso } = options;
+  const maxEvents = Math.max(0, options.maxEvents ?? 12);
+  const maxTeamsForProps = Math.max(0, options.maxTeamsForProps ?? 16);
+  const maxPlayersPerTeam = Math.max(0, options.maxPlayersPerTeam ?? 8);
+  const minMinutes = options.minMinutes ?? DEFAULT_NBA_PROP_MIN_MINUTES;
+
+  let standings: StandingRow[] = [];
+  let standingsOk = false;
+  if (options.includeStandings !== false) {
+    try {
+      const fetched = await fetchBzzoiroNbaStandings(client);
+      if (fetched.length > 0) {
+        standings = fetched;
+        standingsOk = true;
+      }
+    } catch (err) {
+      void err;
+    }
+  }
+
+  const pregameByGameId = new Map<string, NormalizedNbaPregame>();
+  const injuryStatusByTeamPlayer = new Map<string, NbaInjuryRawStatus>();
+  const marketLines: NbaCompactMarketLine[] = [];
+  const seenLineKeys = new Set<string>();
+  const targetEvents = upcomingEvents.slice(0, maxEvents);
+
+  for (const ev of targetEvents) {
+    if (options.includePregame !== false) {
+      try {
+        const pregame = await fetchBzzoiroNbaPregame(client, ev.providerMatchId);
+        if (pregame) {
+          pregameByGameId.set(ev.gameId, pregame);
+          const homeSlug = teamSlugOf(ev.homeTeamId);
+          const awaySlug = teamSlugOf(ev.awayTeamId);
+          for (const inj of pregame.injuries.home) {
+            injuryStatusByTeamPlayer.set(`${homeSlug}|${inj.playerName.toLowerCase()}`, inj.rawStatus);
+          }
+          for (const inj of pregame.injuries.away) {
+            injuryStatusByTeamPlayer.set(`${awaySlug}|${inj.playerName.toLowerCase()}`, inj.rawStatus);
+          }
+        }
+      } catch (err) {
+        void err;
+      }
+    }
+
+    if (options.includeOdds !== false) {
+      try {
+        const { snapshotRows } = await fetchBzzoiroNbaOdds(client, {
+          providerEventId: ev.providerMatchId,
+          homeTeamRaw: ev.homeTeamName,
+          awayTeamRaw: ev.awayTeamName,
+          kickoffUtc: ev.kickoffUtc,
+          capturedAtUtc: nowIso,
+        });
+        for (const row of snapshotRows) {
+          const dedupKey = `${ev.gameId}|${row.market}|${row.selection}|${row.line ?? ""}|${row.book}`;
+          if (seenLineKeys.has(dedupKey)) continue;
+          seenLineKeys.add(dedupKey);
+          marketLines.push({
+            gameId: ev.gameId,
+            homeName: ev.homeTeamName,
+            awayName: ev.awayTeamName,
+            market: row.market,
+            outcome: row.selection,
+            line: row.line,
+            book: row.book,
+            decimal: row.price_decimal,
+            ...(row.opening_price != null ? { openingDecimal: row.opening_price } : {}),
+            ...(row.movement_direction != null ? { movement: row.movement_direction } : {}),
+            capturedAtUtc: row.ts_captured,
+          });
+        }
+      } catch (err) {
+        void err;
+      }
+    }
+  }
+
+  const propSeeds: NbaPlayerPropSeed[] = [];
+  if (options.includePlayerProps !== false && maxTeamsForProps > 0 && maxPlayersPerTeam > 0) {
+    const activeTeams = new Map<
+      number,
+      { providerTeamId: number; teamSlug: string; teamName: string }
+    >();
+    for (const ev of upcomingEvents) {
+      if (ev.homeProviderTeamId > 0 && !activeTeams.has(ev.homeProviderTeamId)) {
+        activeTeams.set(ev.homeProviderTeamId, {
+          providerTeamId: ev.homeProviderTeamId,
+          teamSlug: teamSlugOf(ev.homeTeamId),
+          teamName: ev.homeTeamName,
+        });
+      }
+      if (ev.awayProviderTeamId > 0 && !activeTeams.has(ev.awayProviderTeamId)) {
+        activeTeams.set(ev.awayProviderTeamId, {
+          providerTeamId: ev.awayProviderTeamId,
+          teamSlug: teamSlugOf(ev.awayTeamId),
+          teamName: ev.awayTeamName,
+        });
+      }
+    }
+
+    for (const team of [...activeTeams.values()].slice(0, maxTeamsForProps)) {
+      let roster: NormalizedNbaRosterPlayer[] = [];
+      try {
+        roster = await fetchBzzoiroNbaTeamPlayers(client, team.providerTeamId);
+      } catch (err) {
+        void err;
+        continue;
+      }
+
+      let processedForTeam = 0;
+      for (const player of roster) {
+        if (processedForTeam >= maxPlayersPerTeam) break;
+        const pregameStatus = injuryStatusByTeamPlayer.get(
+          `${team.teamSlug}|${player.name.toLowerCase()}`,
+        );
+        const effectiveAvailability = pregameStatus ?? player.availabilityStatus;
+        if (mapNbaInjuryStatus(effectiveAvailability) === "out") continue;
+
+        processedForTeam += 1;
+        try {
+          const games = await fetchBzzoiroNbaPlayerGames(client, player.providerPlayerId);
+          const seeds = buildGuardedNbaPlayerPropSeeds({
+            player: player.name,
+            teamSlug: team.teamSlug,
+            teamName: team.teamName,
+            position: player.position,
+            games,
+            minMinutes,
+            availabilityStatus: effectiveAvailability,
+          });
+          propSeeds.push(...seeds);
+        } catch (err) {
+          void err;
+        }
+      }
+    }
+  }
+
+  return {
+    standings,
+    standingsOk,
+    pregameByGameId,
+    marketLines,
+    propSeeds,
+  };
 }

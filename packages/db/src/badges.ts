@@ -43,6 +43,20 @@ export interface BadgeUserFacts {
 
 /** Estados de referido que ya cuentan como amigo con pago. */
 const PAID_REFERRAL_STATUSES = ["qualified_paid", "rewarded_bilateral"] as const;
+const STRICT_CANONICAL_NUMBER_RE = /^[+-]?(?:\d+\.?\d*|\.\d+)(?:[eE][+-]?\d+)?$/;
+
+function parseStrictDbNumber(raw: unknown): number | null {
+  if (typeof raw === "number") {
+    return Number.isFinite(raw) ? (raw === 0 ? 0 : raw) : null;
+  }
+  if (typeof raw === "string") {
+    const trimmed = raw.trim();
+    if (!STRICT_CANONICAL_NUMBER_RE.test(trimmed)) return null;
+    const parsed = Number.parseFloat(trimmed);
+    return Number.isFinite(parsed) ? (parsed === 0 ? 0 : parsed) : null;
+  }
+  return null;
+}
 
 export async function loadBadgeFacts(
   db: Db,
@@ -119,8 +133,8 @@ export async function loadBadgeFacts(
     db.select().from(userPreferences).where(inArray(userPreferences.userId, userIds)),
   ]);
 
-  const likes = new Map(likeRows.map((r) => [r.userId, Number(r.likes)]));
-  const referrals = new Map(referralRows.map((r) => [r.userId, Number(r.paid)]));
+  const likes = new Map(likeRows.map((r) => [r.userId, parseStrictDbNumber(r.likes) ?? 0]));
+  const referrals = new Map(referralRows.map((r) => [r.userId, parseStrictDbNumber(r.paid) ?? 0]));
   const prefsById = new Map(prefs.map((r) => [r.userId, r]));
   const picksById = new Map<string, BadgeSealedPick[]>();
   for (const r of pickRows) {
@@ -128,10 +142,10 @@ export async function loadBadgeFacts(
     const list = picksById.get(r.userId) ?? [];
     list.push({
       status: r.status,
-      units: Number(r.units),
-      userDecimal: Number(r.userDecimal),
-      fairDecimal: Number(r.fairDecimal),
-      clvPct: r.clvPct === null ? 0 : Number(r.clvPct),
+      units: parseStrictDbNumber(r.units) ?? 0,
+      userDecimal: parseStrictDbNumber(r.userDecimal) ?? 0,
+      fairDecimal: parseStrictDbNumber(r.fairDecimal) ?? 0,
+      clvPct: r.clvPct === null ? 0 : (parseStrictDbNumber(r.clvPct) ?? 0),
       leagueLabel: r.leagueLabel,
       pickLabel: r.pickLabel,
       origin: r.origin,

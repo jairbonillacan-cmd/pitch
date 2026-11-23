@@ -11,6 +11,7 @@
  */
 import { existsSync, readdirSync, readFileSync, statSync } from "node:fs";
 import path from "node:path";
+import { runDataIntegrityAudit } from "./check-data-integrity.mjs";
 
 const ROOT = process.cwd();
 const warnings = [];
@@ -120,6 +121,17 @@ for (const { group, vars } of prodEnvGroups) {
     okItems.push(`Env [${group}]: completo en el entorno actual`);
   } else {
     warnings.push(`Env [${group}] faltante en entorno local (configurar en tu plataforma de producción): ${missing.join(", ")}`);
+  }
+}
+
+const dataIntegrity = runDataIntegrityAudit(ROOT);
+if (dataIntegrity.ok) {
+  okItems.push(
+    `Integridad 57 ligas + assets: ${dataIntegrity.summary.leaguesChecked} ligas, ${dataIntegrity.summary.gamesChecked} partidos, ${dataIntegrity.summary.webpAssetsChecked} WebP, ${dataIntegrity.summary.brandAssetsChecked} brand (${dataIntegrity.summary.durationMs} ms)`,
+  );
+} else {
+  for (const err of dataIntegrity.errors.slice(0, 20)) {
+    errors.push(err);
   }
 }
 

@@ -16,3 +16,4 @@ export * from "./sgp_copula";
 export * from "./soccer_micro_markets";
 export * from "./unified_outlook_v4";
 export * from "./unified_outlook_v5";
+export * from "./v5_2_live_feedback";

@@ -1,12 +1,6 @@
-/**
- * Comunidad compartida: publicaciones, comentarios, «me gusta» y seguidos.
- *
- * El texto ya llega validado (largo y sin enlaces externos) desde la ruta; aquí viven las
- * reglas que necesitan la base: límite por hora, texto repetido, récord verificado del autor
- * (se calcula de su bitácora sellada, nunca lo manda el navegador) y quién puede borrar qué.
- */
 import { and, asc, desc, eq, gte, inArray, isNotNull, isNull, lt, ne, or, sql } from "drizzle-orm";
 import type { Db } from "./billing";
+import { withDbTransaction } from "./client";
 import { sanitizeFollowedTopics } from "./preferences";
 import {
   notifications,
@@ -31,8 +25,12 @@ export const SOCIAL_LIMITS = {
   commentsPerHour: 60,
   reportsPerHour: 10,
   autoHideReportThreshold: 3,
-  feedPageMax: 50,
+  feedPageMax: 40,
   commentsPerPost: 30,
+  commentsPageMax: 40,
+  notificationsPageMax: 40,
+  followingPageMax: 40,
+  moderationPageMax: 40,
 } as const;
 
 export const SOCIAL_REPORT_REASONS = [
@@ -48,7 +46,6 @@ export function isSocialReportReason(value: unknown): value is SocialReportReaso
   return typeof value === "string" && (SOCIAL_REPORT_REASONS as readonly string[]).includes(value);
 }
 
-/** Pick adjunto a una publicación, como lo ve quien la lee. */
 export interface SocialPickSnapshot {
   pickId: string;
   gameId: string;
@@ -66,9 +63,7 @@ export interface NewSocialPost {
   pickBadge: string;
   originType: "Spacetime Suite" | "Bitácora Propia";
   pick?: SocialPickSnapshot | null;
-  /** Partido del que se habla (debate de un partido sin pick adjunto). */
   gameId?: string | null;
-  /** Pick ya sellado en bitácora (opcional; si falta, se busca por `(userId, pickId)`). */
   sealedJournalEntryId?: string | null;
 }
 
@@ -122,7 +117,18 @@ function unitsLabel(n: number): string {
   return `${n >= 0 ? "+" : ""}${n.toFixed(1)}u`;
 }
 
-/** Récord del autor desde su bitácora sellada (mismo formato que la app). */
+function parseDecimalField(raw: string | number | null | undefined): number {
+  if (typeof raw === "number") return Number.isFinite(raw) ? raw : 0;
+  if (typeof raw !== "string") return 0;
+  const parsed = Number.parseFloat(raw.trim());
+  return Number.isFinite(parsed) ? parsed : 0;
+}
+
+function clampPageLimit(raw: number | undefined, fallback: number, max: number): number {
+  const candidate = typeof raw === "number" && Number.isFinite(raw) ? Math.trunc(raw) : fallback;
+  return Math.min(Math.max(candidate, 1), max);
+}
+
 export async function authorRecord(db: Db, userId: string): Promise<{ record: string; clv: string }> {
   const rows = await db
     .select({
@@ -139,13 +145,13 @@ export async function authorRecord(db: Db, userId: string): Promise<{ record: st
   let clvCount = 0;
   for (const row of rows) {
     if (row.clvPct !== null) {
-      clvSum += Number(row.clvPct);
+      clvSum += parseDecimalField(row.clvPct);
       clvCount += 1;
     }
-    const units = Number(row.units);
+    const units = parseDecimalField(row.units);
     if (row.status === "won") {
       settled += 1;
-      net += units * (Number(row.userDecimal) - 1);
+      net += units * (parseDecimalField(row.userDecimal) - 1);
     } else if (row.status === "lost") {
       settled += 1;
       net -= units;
@@ -306,7 +312,6 @@ export async function addSocialComment(
     if (!parentRow || parentRow.postId !== postId || parentRow.hidden) {
       return { ok: false, reason: "no_existe" };
     }
-    // Conservamos el padre directo para soportar hilos multinivel reales.
     resolvedParentId = parentRow.id;
     parentAuthorUserId = parentRow.authorUserId;
     replyToHandle = parentRow.authorHandle ?? null;
@@ -401,7 +406,6 @@ export async function addSocialComment(
   };
 }
 
-/** Solo el autor borra su comentario; las respuestas hijas suben al padre anterior para no romper el hilo. */
 export async function deleteSocialComment(
   db: Db,
   userId: string,
@@ -440,7 +444,6 @@ export async function deleteSocialComment(
   return deleted.length > 0;
 }
 
-/** Marca o quita «Útil» en un comentario; devuelve el total actualizado. */
 export async function setSocialCommentHelpful(
   db: Db,
   userId: string,
@@ -478,7 +481,6 @@ export async function setSocialCommentHelpful(
   return { ok: true, helpfulCount: count, helpfulByMe: helpful };
 }
 
-/** Registra que otro socio copió a su bitácora el pick adjunto. */
 export async function recordSocialPostPickCopy(
   db: Db,
   userId: string,
@@ -503,7 +505,6 @@ export async function recordSocialPostPickCopy(
   return { ok: true, copiesCount: updated?.copiesCount ?? post.copiesCount + 1 };
 }
 
-/** Pone o quita el «me gusta»; devuelve el total actualizado. */
 export async function setSocialLike(
   db: Db,
   userId: string,
@@ -587,7 +588,6 @@ export async function setSocialLike(
   return { ok: true, likes: count };
 }
 
-/** Solo el autor borra su publicación (los comentarios y «me gusta» se van con ella). */
 export async function deleteSocialPost(db: Db, userId: string, postId: string): Promise<boolean> {
   const deleted = await db
     .delete(socialPosts)
@@ -598,23 +598,14 @@ export async function deleteSocialPost(db: Db, userId: string, postId: string): 
 
 export interface FeedQuery {
   limit?: number;
-  /** Publicaciones anteriores a esta fecha (paginación). */
   before?: Date;
-  /** Solo de quienes sigue `viewerUserId` (socios, ligas y equipos). */
   following?: boolean;
-  /** Solo de este @usuario. */
   authorHandle?: string;
-  /** Solo publicaciones ligadas a este partido (`gameId` o pick del partido). */
   gameId?: string;
-  /** Orden del feed: recientes o con más conversación. */
   sort?: "recent" | "most_commented";
-  /** Filtrar por liga (`leagueLabel` o identificador canonico). */
   leagueLabel?: string;
-  /** Solo publicaciones con pick abierto (no liquidado). */
   openPickOnly?: boolean;
-  /** Tope de comentarios devueltos por publicación (default `SOCIAL_LIMITS.commentsPerPost`). */
   commentsLimit?: number;
-  /** Una sola publicación por id (p. ej. al abrir un aviso de comentario). */
   postId?: string;
 }
 
@@ -704,49 +695,41 @@ async function resolvePostPickStatuses(
   return result;
 }
 
-async function loadFeedCommentsForPosts(
+interface RawFeedCommentRow {
+  id: string;
+  postId: string;
+  parentCommentId: string | null;
+  authorUserId: string;
+  authorHandle: string | null;
+  authorName: string | null;
+  authorAvatarUrl: string | null;
+  record: string;
+  body: string;
+  createdAt: Date;
+}
+
+async function hydrateFeedComments(
   db: Db,
   viewerUserId: string | null,
-  postIds: readonly string[],
-  perPostLimit: number,
-): Promise<{ commentsByPost: Map<string, FeedComment[]>; totalByPost: Map<string, number> }> {
+  rows: readonly RawFeedCommentRow[],
+): Promise<Map<string, FeedComment[]>> {
   const commentsByPost = new Map<string, FeedComment[]>();
-  const totalByPost = new Map<string, number>();
-  if (postIds.length === 0) return { commentsByPost, totalByPost };
+  if (rows.length === 0) return commentsByPost;
 
-  const notPausedForViewer = viewerUserId
-    ? or(eq(users.socialPauseEnabled, false), eq(users.id, viewerUserId))!
-    : eq(users.socialPauseEnabled, false);
+  const commentIds = rows.map((c) => c.id);
+  const authorHandleByCommentId = new Map<string, string>();
+  for (const c of rows) {
+    if (c.authorHandle) authorHandleByCommentId.set(c.id, c.authorHandle);
+  }
+  const missingParentIds = Array.from(
+    new Set(
+      rows
+        .map((c) => c.parentCommentId)
+        .filter((id): id is string => typeof id === "string" && id.length > 0 && !authorHandleByCommentId.has(id)),
+    ),
+  );
 
-  const comments = await db
-    .select({
-      id: socialComments.id,
-      postId: socialComments.postId,
-      parentCommentId: socialComments.parentCommentId,
-      authorUserId: socialComments.authorUserId,
-      authorHandle: users.handle,
-      authorName: users.displayName,
-      authorAvatarUrl: users.avatarUrl,
-      record: socialComments.authorRecordSnapshot,
-      body: socialComments.body,
-      createdAt: socialComments.createdAt,
-    })
-    .from(socialComments)
-    .innerJoin(users, eq(users.id, socialComments.authorUserId))
-    .where(
-      and(
-        inArray(socialComments.postId, [...postIds]),
-        eq(socialComments.isHiddenByModeration, false),
-        isNotNull(users.handle),
-        notPausedForViewer,
-      ),
-    )
-    .orderBy(asc(socialComments.createdAt), asc(socialComments.id));
-
-  if (comments.length === 0) return { commentsByPost, totalByPost };
-
-  const commentIds = comments.map((c) => c.id);
-  const [helpfulRows, viewerHelpfulRows] = await Promise.all([
+  const [helpfulRows, viewerHelpfulRows, parentHandleRows] = await Promise.all([
     db
       .select({
         commentId: socialCommentLikes.commentId,
@@ -754,22 +737,36 @@ async function loadFeedCommentsForPosts(
       })
       .from(socialCommentLikes)
       .where(inArray(socialCommentLikes.commentId, commentIds))
-      .groupBy(socialCommentLikes.commentId),
+      .groupBy(socialCommentLikes.commentId)
+      .limit(commentIds.length),
     viewerUserId
       ? db
           .select({ commentId: socialCommentLikes.commentId })
           .from(socialCommentLikes)
           .where(and(eq(socialCommentLikes.userId, viewerUserId), inArray(socialCommentLikes.commentId, commentIds)))
+          .limit(commentIds.length)
       : Promise.resolve([] as { commentId: string }[]),
+    missingParentIds.length > 0
+      ? db
+          .select({
+            id: socialComments.id,
+            authorHandle: users.handle,
+          })
+          .from(socialComments)
+          .innerJoin(users, eq(users.id, socialComments.authorUserId))
+          .where(and(inArray(socialComments.id, missingParentIds), isNotNull(users.handle)))
+          .limit(missingParentIds.length)
+      : Promise.resolve([] as { id: string; authorHandle: string | null }[]),
   ]);
 
+  for (const p of parentHandleRows) {
+    if (p.authorHandle) authorHandleByCommentId.set(p.id, p.authorHandle);
+  }
   const helpfulCountMap = new Map(helpfulRows.map((h) => [h.commentId, h.count]));
   const helpfulByMeSet = new Set(viewerHelpfulRows.map((h) => h.commentId));
-  const authorHandleByCommentId = new Map(comments.map((c) => [c.id, c.authorHandle!]));
 
-  const allByPost = new Map<string, FeedComment[]>();
-  for (const c of comments) {
-    const list = allByPost.get(c.postId) ?? [];
+  for (const c of rows) {
+    const list = commentsByPost.get(c.postId) ?? [];
     list.push({
       id: c.id,
       parentCommentId: c.parentCommentId ?? null,
@@ -784,41 +781,160 @@ async function loadFeedCommentsForPosts(
       helpfulCount: helpfulCountMap.get(c.id) ?? 0,
       helpfulByMe: helpfulByMeSet.has(c.id),
     });
-    allByPost.set(c.postId, list);
+    commentsByPost.set(c.postId, list);
   }
 
-  for (const [postId, list] of allByPost) {
-    totalByPost.set(postId, list.length);
-    commentsByPost.set(postId, list.length > perPostLimit ? list.slice(-perPostLimit) : list);
-  }
-  return { commentsByPost, totalByPost };
+  return commentsByPost;
 }
 
-/** Todos los comentarios visibles de una publicación (sin el corte de 30 del feed). */
+async function loadFeedCommentsForPosts(
+  db: Db,
+  viewerUserId: string | null,
+  postIds: readonly string[],
+  perPostLimit: number,
+): Promise<{ commentsByPost: Map<string, FeedComment[]>; totalByPost: Map<string, number> }> {
+  const commentsByPost = new Map<string, FeedComment[]>();
+  const totalByPost = new Map<string, number>();
+  const uniquePostIds = Array.from(new Set(postIds)).slice(0, SOCIAL_LIMITS.feedPageMax);
+  if (uniquePostIds.length === 0) return { commentsByPost, totalByPost };
+
+  const safePerPostLimit = clampPageLimit(perPostLimit, SOCIAL_LIMITS.commentsPerPost, SOCIAL_LIMITS.commentsPageMax);
+  const notPausedForViewer = viewerUserId
+    ? or(eq(users.socialPauseEnabled, false), eq(users.id, viewerUserId))!
+    : eq(users.socialPauseEnabled, false);
+  const visibleCommentsWhere = and(
+    inArray(socialComments.postId, uniquePostIds),
+    eq(socialComments.isHiddenByModeration, false),
+    isNotNull(users.handle),
+    notPausedForViewer,
+  );
+
+  const ranked = db
+    .select({
+      id: socialComments.id,
+      postId: socialComments.postId,
+      parentCommentId: socialComments.parentCommentId,
+      authorUserId: socialComments.authorUserId,
+      authorHandle: users.handle,
+      authorName: users.displayName,
+      authorAvatarUrl: users.avatarUrl,
+      record: socialComments.authorRecordSnapshot,
+      body: socialComments.body,
+      createdAt: socialComments.createdAt,
+      rn: sql<number>`row_number() over (partition by ${socialComments.postId} order by ${socialComments.createdAt} desc, ${socialComments.id} desc)::int`.as(
+        "rn",
+      ),
+    })
+    .from(socialComments)
+    .innerJoin(users, eq(users.id, socialComments.authorUserId))
+    .where(visibleCommentsWhere)
+    .as("ranked_comments");
+
+  const [countRows, boundedComments] = await Promise.all([
+    db
+      .select({
+        postId: socialComments.postId,
+        count: sql<number>`count(*)::int`,
+      })
+      .from(socialComments)
+      .innerJoin(users, eq(users.id, socialComments.authorUserId))
+      .where(visibleCommentsWhere)
+      .groupBy(socialComments.postId)
+      .limit(uniquePostIds.length),
+    db
+      .select({
+        id: ranked.id,
+        postId: ranked.postId,
+        parentCommentId: ranked.parentCommentId,
+        authorUserId: ranked.authorUserId,
+        authorHandle: ranked.authorHandle,
+        authorName: ranked.authorName,
+        authorAvatarUrl: ranked.authorAvatarUrl,
+        record: ranked.record,
+        body: ranked.body,
+        createdAt: ranked.createdAt,
+      })
+      .from(ranked)
+      .where(sql`${ranked.rn} <= ${safePerPostLimit}`)
+      .orderBy(asc(ranked.createdAt), asc(ranked.id))
+      .limit(uniquePostIds.length * safePerPostLimit),
+  ]);
+
+  for (const row of countRows) {
+    totalByPost.set(row.postId, row.count);
+  }
+  if (boundedComments.length === 0) return { commentsByPost, totalByPost };
+
+  const hydrated = await hydrateFeedComments(db, viewerUserId, boundedComments);
+  return { commentsByPost: hydrated, totalByPost };
+}
+
 export async function listPostComments(
   db: Db,
   viewerUserId: string | null,
   postId: string,
-  limit = 200,
+  limit: number = SOCIAL_LIMITS.commentsPageMax,
 ): Promise<{ ok: true; comments: FeedComment[]; commentsCount: number } | { ok: false; reason: "no_existe" }> {
   if (!UUID_PATTERN.test(postId)) return { ok: false, reason: "no_existe" };
   const [post] = await db
     .select({ id: socialPosts.id })
     .from(socialPosts)
-    .where(and(eq(socialPosts.id, postId), eq(socialPosts.isHiddenByModeration, false)));
+    .where(and(eq(socialPosts.id, postId), eq(socialPosts.isHiddenByModeration, false)))
+    .limit(1);
   if (!post) return { ok: false, reason: "no_existe" };
-  const safeLimit = Math.min(Math.max(limit, 1), 200);
-  const { commentsByPost, totalByPost } = await loadFeedCommentsForPosts(db, viewerUserId, [postId], safeLimit);
+  const safeLimit = clampPageLimit(limit, SOCIAL_LIMITS.commentsPageMax, SOCIAL_LIMITS.commentsPageMax);
+  const notPausedForViewer = viewerUserId
+    ? or(eq(users.socialPauseEnabled, false), eq(users.id, viewerUserId))!
+    : eq(users.socialPauseEnabled, false);
+  const visiblePostCommentsWhere = and(
+    eq(socialComments.postId, postId),
+    eq(socialComments.isHiddenByModeration, false),
+    isNotNull(users.handle),
+    notPausedForViewer,
+  );
+
+  const [countRows, newestComments] = await Promise.all([
+    db
+      .select({ count: sql<number>`count(*)::int` })
+      .from(socialComments)
+      .innerJoin(users, eq(users.id, socialComments.authorUserId))
+      .where(visiblePostCommentsWhere),
+    db
+      .select({
+        id: socialComments.id,
+        postId: socialComments.postId,
+        parentCommentId: socialComments.parentCommentId,
+        authorUserId: socialComments.authorUserId,
+        authorHandle: users.handle,
+        authorName: users.displayName,
+        authorAvatarUrl: users.avatarUrl,
+        record: socialComments.authorRecordSnapshot,
+        body: socialComments.body,
+        createdAt: socialComments.createdAt,
+      })
+      .from(socialComments)
+      .innerJoin(users, eq(users.id, socialComments.authorUserId))
+      .where(visiblePostCommentsWhere)
+      .orderBy(desc(socialComments.createdAt), desc(socialComments.id))
+      .limit(safeLimit),
+  ]);
+
+  const orderedComments = [...newestComments].reverse();
+  const hydrated = await hydrateFeedComments(db, viewerUserId, orderedComments);
   return {
     ok: true,
-    comments: commentsByPost.get(postId) ?? [],
-    commentsCount: totalByPost.get(postId) ?? 0,
+    comments: hydrated.get(postId) ?? [],
+    commentsCount: countRows[0]?.count ?? 0,
   };
 }
 
 export async function listSocialFeed(db: Db, viewerUserId: string | null, query: FeedQuery = {}): Promise<FeedPost[]> {
-  const limit = Math.min(Math.max(query.limit ?? 30, 1), SOCIAL_LIMITS.feedPageMax);
-  const commentsLimit = Math.min(Math.max(query.commentsLimit ?? SOCIAL_LIMITS.commentsPerPost, 1), 200);
+  const limit = clampPageLimit(query.limit, 30, SOCIAL_LIMITS.feedPageMax);
+  const commentsLimit = clampPageLimit(
+    query.commentsLimit,
+    SOCIAL_LIMITS.commentsPerPost,
+    SOCIAL_LIMITS.commentsPageMax,
+  );
   const notPausedForViewer = viewerUserId
     ? or(eq(users.socialPauseEnabled, false), eq(users.id, viewerUserId))!
     : eq(users.socialPauseEnabled, false);
@@ -975,7 +1091,6 @@ export type FollowResult =
   | { ok: true; following: boolean }
   | { ok: false; reason: "no_existe" | "propio" };
 
-/** Seguir o dejar de seguir a un socio por su @usuario. */
 export async function setSocialFollow(
   db: Db,
   followerUserId: string,
@@ -1022,7 +1137,11 @@ export async function getSocialPostById(
   viewerUserId: string | null,
   postId: string,
 ): Promise<FeedPost | null> {
-  const [post] = await listSocialFeed(db, viewerUserId, { postId, limit: 1, commentsLimit: 200 });
+  const [post] = await listSocialFeed(db, viewerUserId, {
+    postId,
+    limit: 1,
+    commentsLimit: SOCIAL_LIMITS.commentsPageMax,
+  });
   return post ?? null;
 }
 
@@ -1036,7 +1155,6 @@ export interface SocialNotificationRow {
   postId: string | null;
   commentId: string | null;
   postExcerpt: string | null;
-  /** Cantidad de otros socios a quienes les gustó esa publicación (solo para `kind === "like"`). */
   likeCount: number;
   createdAt: string;
   readAt: string | null;
@@ -1049,13 +1167,12 @@ function excerptOf(body: string | null): string | null {
   return clean.length > 90 ? `${clean.slice(0, 89).trimEnd()}…` : clean;
 }
 
-/** Últimos avisos sociales del socio (comentarios, respuestas, menciones, seguidos y «me gusta» agrupados). */
 export async function listSocialNotifications(
   db: Db,
   userId: string,
-  limit = 50,
+  limit: number = SOCIAL_LIMITS.notificationsPageMax,
 ): Promise<SocialNotificationRow[]> {
-  const safeLimit = Math.min(Math.max(limit, 1), 50);
+  const safeLimit = clampPageLimit(limit, SOCIAL_LIMITS.notificationsPageMax, SOCIAL_LIMITS.notificationsPageMax);
   const rows = await db
     .select({
       id: notifications.id,
@@ -1105,7 +1222,6 @@ export async function listSocialNotifications(
     }));
 }
 
-/** Marca como leídos todos los avisos pendientes del socio o solo los `ids` recibidos. */
 export async function markSocialNotificationsRead(
   db: Db,
   userId: string,
@@ -1113,7 +1229,7 @@ export async function markSocialNotificationsRead(
   now: Date = new Date(),
 ): Promise<number> {
   if (ids !== undefined && ids !== null) {
-    const validIds = ids.filter((id) => UUID_PATTERN.test(id));
+    const validIds = ids.filter((id) => UUID_PATTERN.test(id)).slice(0, 100);
     if (validIds.length === 0) return 0;
     const updated = await db
       .update(notifications)
@@ -1130,17 +1246,22 @@ export async function markSocialNotificationsRead(
   return updated.length;
 }
 
-/** @usuarios que sigue el socio. */
-export async function listFollowing(db: Db, userId: string): Promise<string[]> {
+export async function listFollowing(
+  db: Db,
+  userId: string,
+  limit: number = SOCIAL_LIMITS.followingPageMax,
+): Promise<string[]> {
+  const safeLimit = clampPageLimit(limit, SOCIAL_LIMITS.followingPageMax, SOCIAL_LIMITS.followingPageMax);
   const rows = await db
     .select({ handle: users.handle })
     .from(socialFollows)
     .innerJoin(users, eq(users.id, socialFollows.followedUserId))
-    .where(and(eq(socialFollows.followerUserId, userId), isNotNull(users.handle)));
+    .where(and(eq(socialFollows.followerUserId, userId), isNotNull(users.handle)))
+    .orderBy(desc(socialFollows.createdAt))
+    .limit(safeLimit);
   return rows.map((r) => r.handle!);
 }
 
-/** Seguidores y seguidos de un socio. */
 export async function followCounts(db: Db, userId: string): Promise<{ followers: number; following: number }> {
   const [row] = await db
     .select({
@@ -1159,11 +1280,6 @@ export type ReportSocialResult =
       reason: "motivo_invalido" | "no_existe" | "propio_reporte" | "ya_reportado" | "limite" | "sin_usuario";
     };
 
-/**
- * Reporta una publicación o comentario ajeno. Un socio no puede reportar dos veces lo mismo,
- * tiene límite por hora y, al llegar a 3 reportes de personas distintas, el contenido se oculta
- * solo mientras el equipo fundador lo revisa.
- */
 export async function reportSocialContent(
   db: Db,
   reporterUserId: string,
@@ -1173,6 +1289,7 @@ export async function reportSocialContent(
   if (!isSocialReportReason(input.reason)) {
     return { ok: false, reason: "motivo_invalido" };
   }
+  const reason: SocialReportReason = input.reason;
   const postId = typeof input.postId === "string" && UUID_PATTERN.test(input.postId.trim()) ? input.postId.trim() : null;
   const commentId =
     typeof input.commentId === "string" && UUID_PATTERN.test(input.commentId.trim()) ? input.commentId.trim() : null;
@@ -1225,43 +1342,69 @@ export async function reportSocialContent(
     return { ok: false, reason: "limite" };
   }
 
-  const inserted = await db
-    .insert(socialReports)
-    .values({
-      reporterUserId,
-      postId,
-      commentId,
-      reason: input.reason,
-      status: "pending",
-      createdAt: now,
-    })
-    .onConflictDoNothing()
-    .returning({ id: socialReports.id });
-  if (inserted.length === 0) {
-    return { ok: false, reason: "ya_reportado" };
-  }
-
-  const [{ reporterCount }] = await db
-    .select({ reporterCount: sql<number>`count(distinct ${socialReports.reporterUserId})::int` })
-    .from(socialReports)
-    .where(and(eq(socialReports.status, "pending"), targetMatch));
-
-  let autoHidden = false;
-  if (reporterCount >= SOCIAL_LIMITS.autoHideReportThreshold && !targetAlreadyHidden) {
-    if (postId) {
-      await db.update(socialPosts).set({ isHiddenByModeration: true }).where(eq(socialPosts.id, postId));
-    } else {
-      await db.update(socialComments).set({ isHiddenByModeration: true }).where(eq(socialComments.id, commentId!));
+  return withDbTransaction(db, async (t) => {
+    const targetLock = postId
+      ? t
+          .select({ hidden: socialPosts.isHiddenByModeration })
+          .from(socialPosts)
+          .where(eq(socialPosts.id, postId))
+          .for("update")
+      : t
+          .select({ hidden: socialComments.isHiddenByModeration })
+          .from(socialComments)
+          .where(eq(socialComments.id, commentId!))
+          .for("update");
+    const [lockedTarget] = await targetLock;
+    if (!lockedTarget) {
+      return { ok: false, reason: "no_existe" } as const;
     }
-    await db.insert(socialModerationLogs).values({
-      userId: targetAuthorId,
-      reason: `auto_ocultar:${postId ? `post:${postId}` : `comment:${commentId}`}:${reporterCount}_reportes`,
-      createdAt: now,
-    });
-    autoHidden = true;
-  }
 
-  return { ok: true, id: inserted[0]!.id, autoHidden };
+    const inserted = await t
+      .insert(socialReports)
+      .values({
+        reporterUserId,
+        postId,
+        commentId,
+        reason,
+        status: "pending",
+        createdAt: now,
+      })
+      .onConflictDoNothing()
+      .returning({ id: socialReports.id });
+    if (inserted.length === 0) {
+      return { ok: false, reason: "ya_reportado" } as const;
+    }
+
+    const [{ reporterCount }] = await t
+      .select({ reporterCount: sql<number>`count(distinct ${socialReports.reporterUserId})::int` })
+      .from(socialReports)
+      .where(and(eq(socialReports.status, "pending"), targetMatch));
+
+    let autoHidden = false;
+    if (reporterCount >= SOCIAL_LIMITS.autoHideReportThreshold && !lockedTarget.hidden && !targetAlreadyHidden) {
+      const hiddenRows = postId
+        ? await t
+            .update(socialPosts)
+            .set({ isHiddenByModeration: true })
+            .where(and(eq(socialPosts.id, postId), eq(socialPosts.isHiddenByModeration, false)))
+            .returning({ id: socialPosts.id })
+        : await t
+            .update(socialComments)
+            .set({ isHiddenByModeration: true })
+            .where(and(eq(socialComments.id, commentId!), eq(socialComments.isHiddenByModeration, false)))
+            .returning({ id: socialComments.id });
+      if (hiddenRows.length > 0) {
+        await t.insert(socialModerationLogs).values({
+          userId: targetAuthorId,
+          reason: `auto_ocultar:${postId ? `post:${postId}` : `comment:${commentId}`}:${reporterCount}_reportes`,
+          createdAt: now,
+        });
+        autoHidden = true;
+      }
+    }
+
+    return { ok: true, id: inserted[0]!.id, autoHidden } as const;
+  });
 }
 
 export interface ModerationQueueItem {
@@ -1304,7 +1447,6 @@ export interface ModerationPanelData {
   pausedMembers: PausedSocialMember[];
 }
 
-/** Cola de reportes pendientes, contenido oculto y socios pausados para `/app/admin`. */
 export async function listModerationPanelData(db: Db): Promise<ModerationPanelData> {
   const pendingRows = await db
     .select({
@@ -1317,7 +1459,7 @@ export async function listModerationPanelData(db: Db): Promise<ModerationPanelDa
     .from(socialReports)
     .where(eq(socialReports.status, "pending"))
     .orderBy(desc(socialReports.createdAt))
-    .limit(250);
+    .limit(SOCIAL_LIMITS.moderationPageMax);
 
   type Bucket = {
     targetType: "post" | "comment";
@@ -1422,7 +1564,8 @@ export async function listModerationPanelData(db: Db): Promise<ModerationPanelDa
       })
       .from(users)
       .where(eq(users.socialPauseEnabled, true))
-      .orderBy(asc(users.email)),
+      .orderBy(asc(users.email))
+      .limit(SOCIAL_LIMITS.moderationPageMax),
   ]);
 
   const postMap = new Map(postTargets.map((p) => [p.id, p]));
@@ -1525,7 +1668,6 @@ export type ModerationActionResult =
   | { ok: true }
   | { ok: false; reason: "accion_invalida" | "no_existe" };
 
-/** Ejecuta una acción del panel de moderación y la registra en `social_moderation_logs`. */
 export async function applyModerationAction(
   db: Db,
   adminUserId: string,
@@ -1607,7 +1749,6 @@ export async function applyModerationAction(
   return { ok: true };
 }
 
-/** Obtiene el usuario autor de una publicación o comentario moderado para avisarle por correo. */
 export async function findModerationTargetAuthor(
   db: Db,
   targetType: "post" | "comment",

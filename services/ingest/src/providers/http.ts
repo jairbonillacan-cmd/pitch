@@ -8,6 +8,7 @@
 import { createHash } from "node:crypto";
 import { existsSync, mkdirSync, readFileSync, writeFileSync } from "node:fs";
 import { join } from "node:path";
+import { parseStrictFiniteNumber } from "@pitchlab/contracts";
 import type { ProviderConfig } from "./config.js";
 
 export class ProviderBudgetExhaustedError extends Error {
@@ -68,8 +69,8 @@ export function cacheFileFor(cacheDir: string, providerId: string, pathWithQuery
 
 function retryAfterMs(header: string | null, fallbackMs: number): number {
   if (!header) return fallbackMs;
-  const seconds = Number(header);
-  if (Number.isFinite(seconds) && seconds >= 0) return Math.min(seconds * 1000, 15 * 60_000);
+  const seconds = parseStrictFiniteNumber(header);
+  if (seconds !== null && seconds >= 0) return Math.min(seconds * 1000, 15 * 60_000);
   const date = Date.parse(header);
   if (Number.isFinite(date)) return Math.max(0, Math.min(date - Date.now(), 15 * 60_000));
   return fallbackMs;

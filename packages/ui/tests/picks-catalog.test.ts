@@ -2,8 +2,11 @@ import fs from "node:fs";
 import path from "node:path";
 import { describe, expect, it } from "vitest";
 import {
+  MARKET_FAMILY_COUNT as CONTRACT_MARKET_FAMILY_COUNT,
+  MARKET_FAMILY_IDS as CONTRACT_MARKET_FAMILY_IDS,
   asLeagueId,
   asMarketKey,
+  getLeagueCapability,
   type MatchAnalysis,
   type PlatformSport,
 } from "@pitchlab/contracts";
@@ -24,11 +27,16 @@ import {
   buildCatalogPickEvidence,
   buildMatchPicksCatalog,
   buildNumericSeriesEvidenceWindows,
+  catalogCategoryToEvidenceGroup,
+  catalogCategoryToLegacyFilter,
+  catalogEvidenceToWindowItems,
+  catalogPickItemToMatchPick,
   catalogPickToBetBuilderLeg,
   checkBetBuilderCompatibility,
   checkBetBuilderPairCompatibility,
   computeAdaptiveDeVig,
   computePickPricing,
+  computePowerDeVig,
   computeProportionalDeVig,
   computeShinDeVig,
   evaluateBetBuilder,
@@ -41,6 +49,7 @@ import {
   toneForObservedRate,
   type BetBuilderLegInput,
   type FootballPlayerPropCandidateInput,
+  type MarketFamilyId,
   type MatchFinalCountStats,
   type NbaPlayerPropCandidateInput,
   type TeamMatchEvidenceRecord,
@@ -380,6 +389,26 @@ describe("Catálogo de Picks Multi-Deporte · 34 familias (20 Fútbol + 14 US)",
     for (const id of MARKET_FAMILY_IDS) {
       expect(emittedUnion.has(id)).toBe(true);
     }
+    expect(MARKET_FAMILY_IDS).toBe(CONTRACT_MARKET_FAMILY_IDS);
+    expect(MARKET_FAMILY_COUNT).toBe(CONTRACT_MARKET_FAMILY_COUNT);
+
+    const restricted = buildMatchPicksCatalog(footballGame, {
+      footballPlayers: [qualifiedPlayer],
+      allowedFamilies: new Set<MarketFamilyId>(["1x2", "totals", "btts"]),
+    });
+    expect(new Set(restricted.availableFamilies)).toEqual(new Set(["1x2", "totals", "btts"]));
+    expect(restricted.picks.every((p) => ["1x2", "totals", "btts"].includes(p.family))).toBe(true);
+
+    const wcCap = getLeagueCapability("copa-del-mundo");
+    const wcAllowed = new Set<MarketFamilyId>(wcCap.supportedMarketFamilies);
+    const wcCat = buildMatchPicksCatalog(footballGame, {
+      footballPlayers: [qualifiedPlayer],
+      allowedFamilies: wcAllowed,
+    });
+    expect(wcCat.availableFamilies).not.toContain("player_props_football");
+    expect(wcCat.availableFamilies).not.toContain("corners_total");
+    expect(wcCat.availableFamilies).not.toContain("cards_total");
+    expect(wcCat.availableFamilies.every((f) => wcAllowed.has(f))).toBe(true);
   });
 });
 
@@ -418,6 +447,42 @@ describe("Valoración financiera (de-vig proporcional/Shin, fairOdds y EV+)", ()
     expect(computeProportionalDeVig([1.9])).toBeNull();
     expect(computeShinDeVig([1.0, 2.0])).toBeNull();
     expect(computeProportionalDeVig([1.1, 1.1])).toBeNull();
+    expect(computePowerDeVig([1.9])).toBeNull();
+    expect(computePowerDeVig([1.0, 2.0])).toBeNull();
+    expect(computePowerDeVig([1.1, 1.1])).toBeNull();
+
+    const symPower = computePowerDeVig([1.91, 1.91]);
+    expect(symPower).not.toBeNull();
+    expect(symPower!.method).toBe("power");
+    expect(symPower!.probs[0]).toBeCloseTo(0.5, 6);
+    expect(symPower!.probs[1]).toBeCloseTo(0.5, 6);
+    expect(symPower!.powerAlpha).toBeGreaterThan(1);
+
+    const threeWayPower = computePowerDeVig([1.5, 3.8, 6.5]);
+    expect(threeWayPower).not.toBeNull();
+    expect(threeWayPower!.method).toBe("power");
+    expect(threeWayPower!.probs.reduce((a, b) => a + b, 0)).toBeCloseTo(1, 6);
+    expect(threeWayPower!.probs[0]!).toBeGreaterThan(threeWayProp!.probs[0]!);
+    expect(threeWayPower!.probs[2]!).toBeLessThan(threeWayProp!.probs[2]!);
+    expect(threeWayPower!.probs[0]!).toBeGreaterThan(threeWayPower!.probs[1]!);
+    expect(threeWayPower!.probs[1]!).toBeGreaterThan(threeWayPower!.probs[2]!);
+
+    const adaptivePower = computeAdaptiveDeVig([1.5, 3.8, 6.5], "power");
+    expect(adaptivePower?.method).toBe("power");
+    expect(adaptivePower?.probs[0]).toBeCloseTo(threeWayPower!.probs[0]!, 6);
+
+    const powerPricing = computePickPricing({
+      calibratedProb: 0.6,
+      marketDecimal: 1.85,
+      companionMarketDecimals: [1.85, 1.95],
+      companionIndex: 0,
+      marketBookLabel: "Pinnacle",
+      marketCapturedAtUtc: "2030-11-14T15:00:00Z",
+      nowIso: "2030-11-14T18:00:00Z",
+      deVigPreference: "power",
+    });
+    expect(powerPricing.deVigMethod).toBe("power");
+    expect(powerPricing.deVigMarketProb).not.toBeNull();
   });
 
   it("calcula fairOdds = 1/p, EV+, edgePts, noVigEdgePts y respeta ausencia de cuota real", () => {
@@ -428,6 +493,7 @@ describe("Valoración financiera (de-vig proporcional/Shin, fairOdds y EV+)", ()
       companionIndex: 0,
       marketBookLabel: "Pinnacle",
       marketCapturedAtUtc: "2030-11-14T15:00:00Z",
+      nowIso: "2030-11-14T18:00:00Z",
     });
     expect(pos.p).toBe(0.6);
     expect(pos.fairOdds).toBe(1.67);
@@ -445,6 +511,9 @@ describe("Valoración financiera (de-vig proporcional/Shin, fairOdds y EV+)", ()
       marketDecimal: 2.0,
       companionMarketDecimals: [2.0, 1.9],
       companionIndex: 0,
+      marketBookLabel: "Pinnacle",
+      marketCapturedAtUtc: "2030-11-14T15:00:00Z",
+      nowIso: "2030-11-14T18:00:00Z",
     });
     expect(neg.fairOdds).toBe(2.22);
     expect(neg.evPct).toBe(-10);
@@ -458,10 +527,87 @@ describe("Valoración financiera (de-vig proporcional/Shin, fairOdds y EV+)", ()
     expect(noMarket.evPct).toBeNull();
     expect(noMarket.valueLabel).toBeNull();
 
-    // Nunca emite fairOdds = 1.00 ni probabilidad fuera de (0.01, 0.99)
     const extreme = computePickPricing({ calibratedProb: 1.0 });
     expect(extreme.p).toBe(0.99);
     expect(extreme.fairOdds).toBeGreaterThanOrEqual(1.01);
+  });
+
+  it("descarta fail-closed cuotas sin casa permitida, sin timestamp, con skew futuro +7h, caducas >72h o >1000", () => {
+    const fixedNow = "2030-11-14T18:00:00Z";
+
+    const nullBook = computePickPricing({
+      calibratedProb: 0.6,
+      marketDecimal: 1.91,
+      companionMarketDecimals: [1.91, 1.91],
+      companionIndex: 0,
+      marketBookLabel: null,
+      marketCapturedAtUtc: "2030-11-14T15:00:00Z",
+      nowIso: fixedNow,
+    });
+    expect(nullBook.marketDecimal).toBeNull();
+    expect(nullBook.evPct).toBeNull();
+    expect(nullBook.deVigMethod).toBe("none");
+    expect(nullBook.hasPositiveValue).toBe(false);
+
+    const nullTimestamp = computePickPricing({
+      calibratedProb: 0.6,
+      marketDecimal: 1.91,
+      companionMarketDecimals: [1.91, 1.91],
+      companionIndex: 0,
+      marketBookLabel: "Pinnacle",
+      marketCapturedAtUtc: null,
+      nowIso: fixedNow,
+    });
+    expect(nullTimestamp.marketDecimal).toBeNull();
+    expect(nullTimestamp.evPct).toBeNull();
+    expect(nullTimestamp.deVigMethod).toBe("none");
+
+    const futurePlus7h = computePickPricing({
+      calibratedProb: 0.6,
+      marketDecimal: 1.91,
+      companionMarketDecimals: [1.91, 1.91],
+      companionIndex: 0,
+      marketBookLabel: "Pinnacle",
+      marketCapturedAtUtc: "2030-11-15T01:00:00Z",
+      nowIso: fixedNow,
+    });
+    expect(futurePlus7h.marketDecimal).toBeNull();
+    expect(futurePlus7h.evPct).toBeNull();
+    expect(futurePlus7h.deVigMethod).toBe("none");
+
+    const staleOver72h = computePickPricing({
+      calibratedProb: 0.6,
+      marketDecimal: 1.91,
+      companionMarketDecimals: [1.91, 1.91],
+      companionIndex: 0,
+      marketBookLabel: "Pinnacle",
+      marketCapturedAtUtc: "2030-11-11T17:00:00Z",
+      nowIso: fixedNow,
+    });
+    expect(staleOver72h.marketDecimal).toBeNull();
+    expect(staleOver72h.evPct).toBeNull();
+
+    const blockedBook = computePickPricing({
+      calibratedProb: 0.6,
+      marketDecimal: 1.91,
+      companionMarketDecimals: [1.91, 1.91],
+      companionIndex: 0,
+      marketBookLabel: "Caliente MX",
+      marketCapturedAtUtc: "2030-11-14T15:00:00Z",
+      nowIso: fixedNow,
+    });
+    expect(blockedBook.marketDecimal).toBeNull();
+    expect(blockedBook.evPct).toBeNull();
+
+    const overMaxOdds = computePickPricing({
+      calibratedProb: 0.6,
+      marketDecimal: 1200,
+      marketBookLabel: "Pinnacle",
+      marketCapturedAtUtc: "2030-11-14T15:00:00Z",
+      nowIso: fixedNow,
+    });
+    expect(overMaxOdds.marketDecimal).toBeNull();
+    expect(overMaxOdds.evPct).toBeNull();
   });
 });
 
@@ -639,6 +785,73 @@ describe("Liquidación FT (hit/miss/push/pending), ventanas de evidencia y guard
     expect(toneForObservedRate(72)).toBe("high");
     expect(toneForObservedRate(55)).toBe("mid");
     expect(toneForObservedRate(30)).toBe("low");
+
+    const adaptedWindows = catalogEvidenceToWindowItems(ev, "football");
+    expect(adaptedWindows.map((w) => w.key)).toEqual([
+      "l5",
+      "l10",
+      "l20",
+      "home_away",
+      "h2h",
+      "xg",
+    ]);
+    const splitPill = adaptedWindows.find((w) => w.key === "home_away")!;
+    expect(splitPill.label).toBe("Local");
+    expect(splitPill.value).toBe("80 %");
+
+    const fullCatalog = buildMatchPicksCatalog(game, { homeHistory });
+    const samplePick = fullCatalog.picks.find((p) => p.family === "1x2" && p.selectionKey === "home")!;
+    const legacyPick = catalogPickItemToMatchPick(samplePick, game, 0);
+    expect(legacyPick.id).toBe(samplePick.id);
+    expect(legacyPick.market).toBe("1x2");
+    expect(legacyPick.p).toBe(samplePick.pricing.p);
+    expect(legacyPick.fairDecimal).toBe(samplePick.pricing.fairOdds);
+    expect(legacyPick.isRedacted).toBe(false);
+
+    const redactedLegacy = catalogPickItemToMatchPick(
+      {
+        ...samplePick,
+        selectionKey: "locked",
+        label: "Selección reservada Pase PitchLab Ultra",
+        line: null,
+        pricing: {
+          ...samplePick.pricing,
+          p: 0,
+          fairOdds: 0,
+          fairAmerican: 0,
+          marketDecimal: null,
+          marketAmerican: null,
+          edgePts: null,
+          evPct: null,
+        },
+        isRedacted: true,
+      },
+      game,
+      1,
+    );
+    expect(redactedLegacy.isRedacted).toBe(true);
+    expect(redactedLegacy.p).toBe(0);
+    expect(redactedLegacy.fairDecimal).toBe(0);
+    expect(redactedLegacy.marketDecimal).toBeNull();
+    expect(redactedLegacy.edgePts).toBeNull();
+    expect(redactedLegacy.selectionKey).toBe("locked");
+
+    expect(catalogCategoryToLegacyFilter("resultado", "football")).toBe("resultado");
+    expect(catalogCategoryToLegacyFilter("resultado", "basketball")).toBe("nba");
+    expect(catalogCategoryToLegacyFilter("resultado", "baseball")).toBe("mlb");
+    expect(catalogCategoryToLegacyFilter("resultado", "ice-hockey")).toBe("nhl");
+    expect(catalogCategoryToLegacyFilter("resultado", "american-football")).toBe("nfl");
+    expect(catalogCategoryToLegacyFilter("goles_totales", "football")).toBe("goles");
+    expect(catalogCategoryToLegacyFilter("ambos_porteria", "football")).toBe("ambos");
+    expect(catalogCategoryToLegacyFilter("handicap_combos", "football")).toBe("handicap");
+    expect(catalogCategoryToLegacyFilter("conteos_arbitro", "football")).toBe("conteos");
+    expect(catalogCategoryToLegacyFilter("player_props", "football")).toBe("props");
+    expect(catalogCategoryToEvidenceGroup("resultado")).toBe("resultado");
+    expect(catalogCategoryToEvidenceGroup("goles_totales")).toBe("goles");
+    expect(catalogCategoryToEvidenceGroup("ambos_porteria")).toBe("ambos");
+    expect(catalogCategoryToEvidenceGroup("conteos_arbitro")).toBe("conteos");
+    expect(catalogCategoryToEvidenceGroup("handicap_combos")).toBe("otros");
+    expect(catalogCategoryToEvidenceGroup("player_props")).toBe("otros");
   });
 
   it("impone guardia estricta minMinutes >= 45 en player props de fútbol y descarta bajas", () => {

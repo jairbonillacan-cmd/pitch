@@ -1,11 +1,13 @@
 "use client";
 
-import React, { useEffect, useMemo, useRef, useState } from "react";
+import React, { useMemo, useRef, useState } from "react";
 import type { LeagueId } from "@pitchlab/contracts";
 import { LeagueBadge } from "../../../sports";
 import { formatOddsValue } from "../../access-guard";
 import { MaestroIcon } from "../../components/MaestroPrimitives";
 import { ConfirmActionDialog } from "../../components/PlatformOverlays";
+import { useSafeEffect } from "../../hooks";
+import { handleRovingTablistKeyDown } from "../../navigation-helpers";
 import {
   assessParlayRisk,
   buildSmartAutoParlay,
@@ -70,14 +72,14 @@ export function HomeParlayHubCard({
   const dailyPanelRef = useRef<HTMLDivElement | null>(null);
   const riskHint = RISKS.find((r) => r.id === risk)?.hint ?? "";
 
-  useEffect(() => {
+  useSafeEffect(() => {
     if (legs.length > prevLegCountRef.current) {
       setActiveTab("custom");
     }
     prevLegCountRef.current = legs.length;
   }, [legs.length]);
 
-  useEffect(() => {
+  useSafeEffect(() => {
     const customEl = customPanelRef.current;
     const dailyEl = dailyPanelRef.current;
     const onCustomMatch = () => setActiveTab("custom");
@@ -89,6 +91,19 @@ export function HomeParlayHubCard({
       dailyEl?.removeEventListener("beforematch", onDailyMatch);
     };
   }, []);
+
+  useSafeEffect(() => {
+    const customEl = customPanelRef.current;
+    const dailyEl = dailyPanelRef.current;
+    if (customEl) {
+      if (activeTab !== "custom") customEl.setAttribute("hidden", "until-found");
+      else customEl.removeAttribute("hidden");
+    }
+    if (dailyEl) {
+      if (activeTab !== "daily") dailyEl.setAttribute("hidden", "until-found");
+      else dailyEl.removeAttribute("hidden");
+    }
+  }, [activeTab]);
 
   const openGamesCount = useMemo(
     () => visibleGames.filter((g) => g.status !== "FT" && g.status !== "LIVE").length,
@@ -131,7 +146,7 @@ export function HomeParlayHubCard({
           <button
             key={r.id}
             type="button"
-            className="seg-btn flex-1 min-h-11 sm:min-h-9"
+            className="seg-btn flex-1 min-h-11 [@media(min-width:768px)_and_(pointer:fine)]:min-h-9"
             aria-pressed={risk === r.id}
             onClick={() => setRisk(r.id)}
           >
@@ -148,7 +163,7 @@ export function HomeParlayHubCard({
               disabled={cnt > maxAutoLegs}
               aria-pressed={effectiveAutoCount === cnt}
               onClick={() => setAutoCount(cnt)}
-              className="seg-btn num text-xs px-2 min-h-11 min-w-11 sm:min-h-9 sm:min-w-8 justify-center"
+              className="seg-btn num text-xs px-2 min-h-11 min-w-11 [@media(min-width:768px)_and_(pointer:fine)]:min-h-9 [@media(min-width:768px)_and_(pointer:fine)]:min-w-8 justify-center"
               style={{
                 background:
                   effectiveAutoCount === cnt ? "var(--pl-surface-active)" : "var(--pl-surface)",
@@ -162,7 +177,7 @@ export function HomeParlayHubCard({
         <div className="sl-stepper" role="group" aria-label="Cantidad de selecciones del parlay">
           <button
             type="button"
-            className="min-h-11 min-w-11 sm:min-h-9 sm:min-w-9"
+            className="min-h-11 min-w-11 [@media(min-width:768px)_and_(pointer:fine)]:min-h-9 [@media(min-width:768px)_and_(pointer:fine)]:min-w-9"
             aria-label="Menos selecciones"
             disabled={effectiveAutoCount <= 2}
             onClick={() => setAutoCount(Math.max(2, effectiveAutoCount - 1))}
@@ -172,7 +187,7 @@ export function HomeParlayHubCard({
           <span className="num text-xs font-bold px-1.5">{effectiveAutoCount}</span>
           <button
             type="button"
-            className="min-h-11 min-w-11 sm:min-h-9 sm:min-w-9"
+            className="min-h-11 min-w-11 [@media(min-width:768px)_and_(pointer:fine)]:min-h-9 [@media(min-width:768px)_and_(pointer:fine)]:min-w-9"
             aria-label="Más selecciones"
             disabled={effectiveAutoCount >= maxAutoLegs}
             onClick={() => setAutoCount(Math.min(maxAutoLegs, effectiveAutoCount + 1))}
@@ -212,6 +227,7 @@ export function HomeParlayHubCard({
       <div
         role="tablist"
         aria-label="Opciones de parlay"
+        aria-orientation="horizontal"
         className="pl-parlay-hub-tabs"
         {...({ focusgroup: "tablist nomemory" } as React.HTMLAttributes<HTMLDivElement>)}
       >
@@ -220,8 +236,12 @@ export function HomeParlayHubCard({
           role="tab"
           id="parlay-hub-tab-custom"
           aria-selected={activeTab === "custom"}
-          className="pl-parlay-hub-tab min-h-11 sm:min-h-9"
+          tabIndex={activeTab === "custom" ? 0 : -1}
+          className="pl-parlay-hub-tab min-h-11 [@media(min-width:768px)_and_(pointer:fine)]:min-h-9"
           onClick={() => setActiveTab("custom")}
+          onKeyDown={(e) =>
+            handleRovingTablistKeyDown(e, ["custom", "daily"] as const, "custom", setActiveTab)
+          }
           {...(activeTab === "custom"
             ? ({ focusgroupstart: "" } as React.ButtonHTMLAttributes<HTMLButtonElement>)
             : {})}
@@ -234,8 +254,12 @@ export function HomeParlayHubCard({
           role="tab"
           id="parlay-hub-tab-daily"
           aria-selected={activeTab === "daily"}
-          className="pl-parlay-hub-tab min-h-11 sm:min-h-9"
+          tabIndex={activeTab === "daily" ? 0 : -1}
+          className="pl-parlay-hub-tab min-h-11 [@media(min-width:768px)_and_(pointer:fine)]:min-h-9"
           onClick={() => setActiveTab("daily")}
+          onKeyDown={(e) =>
+            handleRovingTablistKeyDown(e, ["custom", "daily"] as const, "daily", setActiveTab)
+          }
           {...(activeTab === "daily"
             ? ({ focusgroupstart: "" } as React.ButtonHTMLAttributes<HTMLButtonElement>)
             : {})}
@@ -250,9 +274,7 @@ export function HomeParlayHubCard({
         role="tabpanel"
         aria-labelledby="parlay-hub-tab-custom"
         className="pl-parlay-hub-panel"
-        {...(activeTab !== "custom"
-          ? ({ hidden: "until-found" } as unknown as React.HTMLAttributes<HTMLDivElement>)
-          : {})}
+        hidden={activeTab !== "custom"}
       >
         <div className="pl-parlay-hub-panel-body">
           <div className="flex items-center justify-between gap-2">
@@ -438,9 +460,7 @@ export function HomeParlayHubCard({
         role="tabpanel"
         aria-labelledby="parlay-hub-tab-daily"
         className="pl-parlay-hub-panel"
-        {...(activeTab !== "daily"
-          ? ({ hidden: "until-found" } as unknown as React.HTMLAttributes<HTMLDivElement>)
-          : {})}
+        hidden={activeTab !== "daily"}
       >
         <div className="pl-parlay-hub-panel-body">
           <OfficialDailyParlayCard

@@ -1,7 +1,12 @@
 "use client";
 
 import React, { useMemo } from "react";
-import { canonicalPlayerHref, type LeagueId, type PlatformSport } from "@pitchlab/contracts";
+import {
+  canonicalPlayerHref,
+  parseStrictFiniteNumber,
+  type LeagueId,
+  type PlatformSport,
+} from "@pitchlab/contracts";
 import {
   resolveThemedPackSrcSet,
   resolveThemedPackUrl,
@@ -135,7 +140,10 @@ function formatBirthDateSlash(iso?: string | null): string | null {
   if (!iso) return null;
   const m = /^(\d{4})-(\d{2})-(\d{2})/.exec(iso.trim());
   if (!m) return null;
-  return `${Number(m[3])}/${Number(m[2])}/${m[1]}`;
+  const dayNum = parseStrictFiniteNumber(m[3]);
+  const monthNum = parseStrictFiniteNumber(m[2]);
+  if (dayNum === null || monthNum === null) return null;
+  return `${dayNum}/${monthNum}/${m[1]}`;
 }
 
 function findPlayerInjury(

@@ -8,7 +8,9 @@ export function ClubTechView(): React.JSX.Element {
   return (
     <AtmosphereStage>
       <ClubWorkspaceShell activePath="/app/tech">
-        <TechPrecisionSection inClub />
+        <div className="pl-ed-club-wrap">
+          <TechPrecisionSection inClub />
+        </div>
       </ClubWorkspaceShell>
     </AtmosphereStage>
   );

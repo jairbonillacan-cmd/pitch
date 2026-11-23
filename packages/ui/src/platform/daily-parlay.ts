@@ -1,4 +1,9 @@
-import { asMarketKey, type LeagueId } from "@pitchlab/contracts";
+import {
+  asMarketKey,
+  isTier1League,
+  sportScoringUnit,
+  type LeagueId,
+} from "@pitchlab/contracts";
 import {
   decimalToAmericanInt,
   isPickUnlocked,
@@ -7,7 +12,11 @@ import {
 import { sportOf, UPCOMING, type SportId } from "./club/home/home-model";
 import {
   checkParlayCompatibility,
+  clampParlayEdgePts,
   computeParlaySummary,
+  isParlayPickOutlier,
+  maxSameMarketLegsFor,
+  parlayMarketDiversityKey,
 } from "./parlay-engine";
 import type {
   MatchPick,
@@ -221,9 +230,9 @@ function summarizeIndependentLegs(legs: readonly ParlayLeg[]): {
   if (legs.length === 0) {
     return {
       combinedProbability: 0,
-      fairDecimal: 1,
-      fairAmerican: 100,
-      bookDecimal: 1,
+      fairDecimal: 0,
+      fairAmerican: 0,
+      bookDecimal: 0,
       hasCapturedBookOdds: false,
     };
   }
@@ -237,11 +246,11 @@ function summarizeIndependentLegs(legs: readonly ParlayLeg[]): {
       hasCapturedBookOdds = true;
     }
   }
-  const fairDecimal = combinedProbability > 0 ? roundDecimal(1 / combinedProbability) : 1;
+  const fairDecimal = combinedProbability > 0 ? roundDecimal(1 / combinedProbability) : 0;
   return {
     combinedProbability,
     fairDecimal,
-    fairAmerican: decimalToAmericanInt(fairDecimal),
+    fairAmerican: fairDecimal > 0 ? decimalToAmericanInt(fairDecimal) : 0,
     bookDecimal: roundDecimal(bookDecimal),
     hasCapturedBookOdds,
   };
@@ -254,11 +263,17 @@ interface CandidateItem {
 }
 
 function scoreDailyPick(game: PlatformGame, pick: MatchPick, risk: RiskBand): number {
+  const boundedEdge = clampParlayEdgePts(pick.edgePts);
+  const tier1Bonus = isTier1League(game.league) ? 4 : 0;
+  const calibratedBonus = game.spacetime?.outlookDriven ? 3 : 0;
+  const primaryBonus = pick.category === "principal" ? 5 : 0;
   if (risk === "conservador") {
     return (
       pick.p * 100 +
       (pick.category === "conservador" || pick.category === "principal" ? 3 : 0) +
-      (pick.edgePts ?? 0) * 0.4 +
+      boundedEdge * 0.4 +
+      tier1Bonus * 0.5 +
+      calibratedBonus * 0.5 +
       (pick.confidenceScore ?? 0) * 0.02
     );
   }
@@ -267,8 +282,11 @@ function scoreDailyPick(game: PlatformGame, pick: MatchPick, risk: RiskBand): nu
       pick.risk === "medio" ? 18 : pick.risk === "conservador" ? 9 : 0;
     return (
       bandBonus +
+      primaryBonus +
+      tier1Bonus +
+      calibratedBonus +
       pick.p * 32 +
-      (pick.edgePts ?? 0) * 2.5 +
+      boundedEdge * 2.5 +
       (pick.confidenceScore ?? 0) * 0.1
     );
   }
@@ -276,8 +294,11 @@ function scoreDailyPick(game: PlatformGame, pick: MatchPick, risk: RiskBand): nu
     pick.risk === "arriesgado" ? 24 : pick.risk === "medio" ? 10 : 0;
   return (
     bandBonus +
+    primaryBonus +
+    tier1Bonus +
+    calibratedBonus +
     (1 - Math.abs(0.46 - pick.p)) * 24 +
-    (pick.edgePts ?? 0) * 3.8 +
+    boundedEdge * 3.8 +
     (pick.confidenceScore ?? 0) * 0.12
   );
 }
@@ -332,6 +353,28 @@ function conflictGroupFromRow(row: PlatformMarketRow): MatchPick["conflictGroup"
   return "independent";
 }
 
+const FALLBACK_TOTAL_UNIT_RE =
+  /\b(goles?|puntos?|carreras?|c[oó]rners?|faltas?|tarjetas?|tiros?|remates?)\b/i;
+
+function normalizeFallbackRowLabel(game: PlatformGame, row: PlatformMarketRow): string {
+  const m = row.market.toLowerCase();
+  if (
+    m !== "totals" &&
+    m !== "team_totals" &&
+    !m.startsWith("totals_") &&
+    !m.endsWith("_totals")
+  ) {
+    return row.label;
+  }
+  const trimmed = row.label.trim();
+  if (FALLBACK_TOTAL_UNIT_RE.test(trimmed)) return trimmed;
+  const unit = sportScoringUnit(game.sport).plural;
+  if (/^(más|menos)$/i.test(trimmed) && typeof row.line === "number" && Number.isFinite(row.line)) {
+    return `${trimmed} de ${row.line} ${unit}`;
+  }
+  return `${trimmed} ${unit}`;
+}
+
 function fallbackPickFromMarketRow(game: PlatformGame, row: PlatformMarketRow, idx: number): MatchPick {
   const fairDecimal = Math.max(1.01, roundDecimal(row.fairDecimal || 1 / Math.max(0.01, row.p)));
   const marketDecimal =
@@ -357,7 +400,7 @@ function fallbackPickFromMarketRow(game: PlatformGame, row: PlatformMarketRow, i
     market: asMarketKey(row.market),
     ...(row.line !== undefined ? { line: row.line } : {}),
     conflictGroup: conflictGroupFromRow(row),
-    label: row.label,
+    label: normalizeFallbackRowLabel(game, row),
     rationale: `Línea del partido (${row.group}): ${Math.round(row.p * 100)} % de probabilidad.`,
     p: row.p,
     fairDecimal,
@@ -388,6 +431,7 @@ function selectTopGameCandidates(
   const pushIfEligible = (pick: MatchPick) => {
     if (pick.isRedacted || !isPickUnlocked(pick, game.status, viewerRole)) return;
     if (pick.market === "correct_score") return;
+    if (isParlayPickOutlier(pick)) return;
     if (!Number.isFinite(pick.p) || pick.p < minLegProbability || pick.p >= 0.99) return;
     const refDec = pickReferenceDecimal(pick);
     if (!Number.isFinite(refDec) || refDec < minLegDecimal) return;
@@ -420,7 +464,7 @@ function selectTopGameCandidates(
 
   const sortedByProb = [...pool].sort((a, b) => {
     if (Math.abs(b.p - a.p) > 1e-6) return b.p - a.p;
-    const edgeDiff = (b.edgePts ?? 0) - (a.edgePts ?? 0);
+    const edgeDiff = clampParlayEdgePts(b.edgePts) - clampParlayEdgePts(a.edgePts);
     if (Math.abs(edgeDiff) > 1e-6) return edgeDiff;
     const distDiff =
       Math.abs(pickReferenceDecimal(a) - idealLegDecimal) -
@@ -512,9 +556,9 @@ export function buildTargetOddsParlay(
       targetRange,
       legs: [],
       combinedProbability: 0,
-      fairDecimal: 1,
-      fairAmerican: 100,
-      bookDecimal: 1,
+      fairDecimal: 0,
+      fairAmerican: 0,
+      bookDecimal: 0,
       hasCapturedBookOdds: false,
       eligibleGamesCount,
       emptyReason: `Solo ${eligibleGamesCount} ${eligibleGamesCount === 1 ? "partido cumple" : "partidos cumplen"} ≥ ${minPct} % con momio ≥ ${minLegDecimal.toFixed(2)}; se necesitan ${legCount}.`,
@@ -554,12 +598,22 @@ export function buildTargetOddsParlay(
         return;
       }
       const avgEdgePts =
-        chosen.reduce((acc, l) => acc + (l.pick.edgePts ?? 0), 0) / chosen.length;
+        chosen.reduce((acc, l) => acc + clampParlayEdgePts(l.pick.edgePts), 0) / chosen.length;
       const distToTarget = Math.abs(refDecimal - targetRange.target);
+      const sigCounts = new Map<string, number>();
+      let excessRepeats = 0;
+      const cap = maxSameMarketLegsFor(legCount);
+      for (const leg of chosen) {
+        const key = parlayMarketDiversityKey(leg.pick);
+        const next = (sigCounts.get(key) ?? 0) + 1;
+        sigCounts.set(key, next);
+        if (next > cap) excessRepeats += 1;
+      }
       const score =
         Math.log(Math.max(1e-6, metrics.combinedProbability)) * 100 -
         distToTarget * 2.5 +
-        avgEdgePts * 0.4;
+        avgEdgePts * 0.4 -
+        excessRepeats * 18;
       const tieKey = chosen
         .map((l) => l.pick.id)
         .sort()
@@ -619,9 +673,9 @@ export function buildTargetOddsParlay(
       targetRange,
       legs: [],
       combinedProbability: 0,
-      fairDecimal: 1,
-      fairAmerican: 100,
-      bookDecimal: 1,
+      fairDecimal: 0,
+      fairAmerican: 0,
+      bookDecimal: 0,
       hasCapturedBookOdds: false,
       eligibleGamesCount,
       emptyReason: `Ninguna combinación de ${legCount} partidos con ≥ ${minPct} % alcanza la cuota objetivo ${targetRange.min.toFixed(1)}–${targetRange.max.toFixed(1)}.${rangeNote}`,
@@ -773,6 +827,9 @@ export function buildOfficialDailyParlay(options: {
       if (pick.isRedacted || !isPickUnlocked(pick, game.status, viewerRole)) {
         continue;
       }
+      if (isParlayPickOutlier(pick)) {
+        continue;
+      }
       if (!Number.isFinite(pick.p) || pick.p <= 0 || pick.p < spec.minProbability) {
         continue;
       }
@@ -787,10 +844,37 @@ export function buildOfficialDailyParlay(options: {
   candidates.sort((a, b) => compareCandidatesDeterministic(a, b, risk));
 
   const legs: ParlayLeg[] = [];
+  const diversityCap = maxSameMarketLegsFor(spec.maxLegs);
+  const diversityCounts = new Map<string, number>();
+
   for (const item of candidates) {
     if (legs.length >= spec.maxLegs) break;
+    const key = parlayMarketDiversityKey(item.pick);
+    if ((diversityCounts.get(key) ?? 0) >= 1) continue;
     if (canAddSinglePerGame(legs, item.pick)) {
       legs.push({ pick: item.pick });
+      diversityCounts.set(key, (diversityCounts.get(key) ?? 0) + 1);
+    }
+  }
+
+  if (legs.length < spec.maxLegs && diversityCap > 1) {
+    for (const item of candidates) {
+      if (legs.length >= spec.maxLegs) break;
+      const key = parlayMarketDiversityKey(item.pick);
+      if ((diversityCounts.get(key) ?? 0) >= diversityCap) continue;
+      if (canAddSinglePerGame(legs, item.pick)) {
+        legs.push({ pick: item.pick });
+        diversityCounts.set(key, (diversityCounts.get(key) ?? 0) + 1);
+      }
+    }
+  }
+
+  if (legs.length < spec.maxLegs) {
+    for (const item of candidates) {
+      if (legs.length >= spec.maxLegs) break;
+      if (canAddSinglePerGame(legs, item.pick)) {
+        legs.push({ pick: item.pick });
+      }
     }
   }
 
@@ -809,9 +893,9 @@ export function buildOfficialDailyParlay(options: {
       minProbability: spec.minProbability,
       legs: [],
       combinedProbability: 0,
-      fairDecimal: 1,
-      fairAmerican: 100,
-      bookDecimal: 1,
+      fairDecimal: 0,
+      fairAmerican: 0,
+      bookDecimal: 0,
       hasCapturedBookOdds: false,
       emptyReason: reason,
     };
@@ -977,6 +1061,9 @@ export function buildPersonalQuickParlay(options: {
       if (pick.isRedacted || !isPickUnlocked(pick, game.status, viewerRole)) {
         continue;
       }
+      if (isParlayPickOutlier(pick)) {
+        continue;
+      }
       if (!Number.isFinite(pick.p) || pick.p <= 0) continue;
       candidates.push({
         game,
@@ -989,10 +1076,37 @@ export function buildPersonalQuickParlay(options: {
   candidates.sort((a, b) => compareCandidatesDeterministic(a, b, risk));
 
   const legs: ParlayLeg[] = [];
+  const diversityCap = maxSameMarketLegsFor(requestedCount);
+  const diversityCounts = new Map<string, number>();
+
   for (const item of candidates) {
     if (legs.length >= requestedCount) break;
+    const key = parlayMarketDiversityKey(item.pick);
+    if ((diversityCounts.get(key) ?? 0) >= 1) continue;
     if (checkParlayCompatibility(legs, item.pick, allowSgp).allowed) {
       legs.push({ pick: item.pick });
+      diversityCounts.set(key, (diversityCounts.get(key) ?? 0) + 1);
+    }
+  }
+
+  if (legs.length < requestedCount && diversityCap > 1) {
+    for (const item of candidates) {
+      if (legs.length >= requestedCount) break;
+      const key = parlayMarketDiversityKey(item.pick);
+      if ((diversityCounts.get(key) ?? 0) >= diversityCap) continue;
+      if (checkParlayCompatibility(legs, item.pick, allowSgp).allowed) {
+        legs.push({ pick: item.pick });
+        diversityCounts.set(key, (diversityCounts.get(key) ?? 0) + 1);
+      }
+    }
+  }
+
+  if (legs.length < requestedCount) {
+    for (const item of candidates) {
+      if (legs.length >= requestedCount) break;
+      if (checkParlayCompatibility(legs, item.pick, allowSgp).allowed) {
+        legs.push({ pick: item.pick });
+      }
     }
   }
 
@@ -1004,9 +1118,9 @@ export function buildPersonalQuickParlay(options: {
       requestedCount,
       legs: [],
       combinedProbability: 0,
-      fairDecimal: 1,
-      fairAmerican: 100,
-      bookDecimal: 1,
+      fairDecimal: 0,
+      fairAmerican: 0,
+      bookDecimal: 0,
       hasCapturedBookOdds: false,
       message:
         "No hay suficientes partidos abiertos con ese filtro para armar un parlay de al menos 2 selecciones.",

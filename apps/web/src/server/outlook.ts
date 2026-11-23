@@ -1,10 +1,16 @@
 import {
   asMarketKey,
+  isPermittedMarketQuoteBook,
+  parseStrictFiniteNumber,
   type AnalysisMarketGroup,
   type AnalysisMarketRow,
   type MatchAnalysis,
 } from "@pitchlab/contracts";
-import type { MatchOutlook, MarketOutlook } from "@pitchlab/spacetime";
+import {
+  probabilityToFairOdds,
+  type MarketOutlook,
+  type MatchOutlook,
+} from "@pitchlab/spacetime";
 import liveSnapshotJson from "@pitchlab/spacetime/data/live_matchday_v3_snapshot.json";
 import type { MatchOutlookSummary, PlatformMarketRow, SpacetimeSignal } from "@pitchlab/ui/types";
 import {
@@ -18,23 +24,67 @@ import {
   annotatePublishedRows,
   buildDerivedOutlookExtras,
 } from "./outlook-derived-rows";
-
-/**
- * Panorama por mercado del motor v3.2 (`MatchOutlook`) para la ficha del partido.
- *
- * Reglas de v3.2 (SYNC_NOTES §5): solo probabilidad y momio justo (1 / p); cero stake,
- * Kelly o EV; la cuota de casa solo existe con captura real de menos de 72 h. El snapshot
- * de hoy no trae ninguna (`market: null`), así que la columna «Casa» queda vacía.
- */
+import {
+  calibratePlayableOddsV6,
+  getLiveFeedbackArtifactV52,
+  getSoccer57CompetitionSpecV6,
+  isSoccer57LeagueV6,
+  recalibrateSoccer57MatchServerV6,
+  type Soccer57PrekickoffRecalibratedOutlookV60,
+  type VennAbersPlayableEvaluationV60,
+} from "./spacetime-v6";
 
 interface OutlookSnapshot {
+  generated_at?: string;
   outlooks_meta?: { generated_at_utc?: string };
   outlooks?: MatchOutlook[];
 }
 
-const snapshot = liveSnapshotJson as unknown as OutlookSnapshot;
+function parseOutlookSnapshot(raw: unknown): OutlookSnapshot {
+  if (!raw || typeof raw !== "object") return {};
+  const obj = raw as {
+    generated_at?: unknown;
+    outlooks_meta?: unknown;
+    outlooks?: unknown;
+  };
+  const meta =
+    obj.outlooks_meta && typeof obj.outlooks_meta === "object"
+      ? (obj.outlooks_meta as { generated_at_utc?: unknown })
+      : null;
+  return {
+    ...(typeof obj.generated_at === "string" ? { generated_at: obj.generated_at } : {}),
+    ...(meta && typeof meta.generated_at_utc === "string"
+      ? { outlooks_meta: { generated_at_utc: meta.generated_at_utc } }
+      : {}),
+    ...(Array.isArray(obj.outlooks) ? { outlooks: obj.outlooks as MatchOutlook[] } : {}),
+  };
+}
 
-/** Grupo visible y clave de mercado para la tabla de la ficha (los filtros leen ambos). */
+const snapshot = parseOutlookSnapshot(liveSnapshotJson);
+
+export const OUTLOOK_SNAPSHOT_GENERATED_AT: string | null =
+  snapshot.generated_at ?? snapshot.outlooks_meta?.generated_at_utc ?? null;
+
+const STALE_OUTLOOK_DELTA_MS = 24 * 3_600_000;
+const MAX_OUTLOOK_TOTAL_INFLATION = 0.35;
+const MAX_OUTLOOK_OVER35_INFLATION = 0.06;
+
+const ES_SHORT_MONTH_INDEX: Readonly<Record<string, number>> = {
+  ene: 0,
+  feb: 1,
+  mar: 2,
+  abr: 3,
+  may: 4,
+  jun: 5,
+  jul: 6,
+  ago: 7,
+  sep: 8,
+  sept: 8,
+  oct: 9,
+  nov: 10,
+  dic: 11,
+};
+
 const MARKET_GROUPS: Readonly<Record<string, { group: string; market: string }>> = {
   "1x2": { group: "Resultado 1X2", market: "1x2" },
   moneyline: { group: "Ganador", market: "moneyline" },
@@ -58,6 +108,23 @@ interface TeamNames {
   away: { name: string };
 }
 
+interface TotalRowLike {
+  readonly market: string;
+  readonly selection: string;
+  readonly line?: number | null;
+  readonly p: number;
+}
+
+export interface OutlookGameInput extends TeamNames {
+  projection?: { total: number } | null;
+  markets?: readonly TotalRowLike[];
+  marketGroups?: readonly AnalysisMarketGroup[];
+  generatedAt?: string | null;
+  inputsAsOf?: string | null;
+  updatedAt?: string | null;
+  updatedAtLabel?: string | null;
+}
+
 let byLeague: Map<string, MatchOutlook[]> | null = null;
 
 function outlooksByLeague(): Map<string, MatchOutlook[]> {
@@ -71,9 +138,15 @@ function outlooksByLeague(): Map<string, MatchOutlook[]> {
   return byLeague;
 }
 
-/** Panorama del partido, emparejado por liga y nombres de equipo; `null` si no está. */
+const FIND_OUTLOOK_MEMO_MAX = 4_000;
+const findOutlookMemo = new Map<string, MatchOutlook | null>();
+
 export function findOutlook(game: TeamNames): MatchOutlook | null {
   if (game.league === "nba" || game.league === "nhl" || game.league === "mlb") return null;
+  const key = `${game.league}|${game.home.name}|${game.away.name}`;
+  if (findOutlookMemo.has(key)) {
+    return findOutlookMemo.get(key) ?? null;
+  }
   const league = LEAGUE_TO_V3[game.league] ?? game.league;
   let top: MatchOutlook | null = null;
   let topScore = 0;
@@ -86,12 +159,179 @@ export function findOutlook(game: TeamNames): MatchOutlook | null {
       topScore = score;
     }
   }
+  if (findOutlookMemo.size >= FIND_OUTLOOK_MEMO_MAX) {
+    const oldestKey = findOutlookMemo.keys().next().value;
+    if (oldestKey !== undefined) {
+      findOutlookMemo.delete(oldestKey);
+    }
+  }
+  findOutlookMemo.set(key, top);
   return top;
 }
 
-/** Cambia los nombres de equipo del motor por los de la app en una etiqueta. */
+function parseTimestampMs(raw: string | null | undefined): number | null {
+  if (typeof raw !== "string") return null;
+  const trimmed = raw.trim();
+  if (!trimmed) return null;
+  const direct = Date.parse(trimmed);
+  if (Number.isFinite(direct)) return direct;
+  const esMatch =
+    /^(\d{1,2})\s+([a-záéíóúñ]+)\.?\s+(?:de\s+)?(\d{4})(?:,?\s+(\d{1,2}):(\d{2}))?/i.exec(trimmed);
+  if (!esMatch) return null;
+  const day = Number.parseInt(esMatch[1] ?? "", 10);
+  const monthKey = (esMatch[2] ?? "").toLowerCase();
+  const month = ES_SHORT_MONTH_INDEX[monthKey];
+  const year = Number.parseInt(esMatch[3] ?? "", 10);
+  const hour = esMatch[4] ? Number.parseInt(esMatch[4], 10) : 0;
+  const minute = esMatch[5] ? Number.parseInt(esMatch[5], 10) : 0;
+  if (
+    month === undefined ||
+    !Number.isFinite(day) ||
+    !Number.isFinite(year) ||
+    !Number.isFinite(hour) ||
+    !Number.isFinite(minute)
+  ) {
+    return null;
+  }
+  return Date.UTC(year, month, day, hour + 6, minute);
+}
+
+function resolveOutlookGeneratedAtMs(o: MatchOutlook): number | null {
+  const candidates = [
+    o.tsDecision,
+    snapshot.generated_at,
+    snapshot.outlooks_meta?.generated_at_utc,
+  ];
+  for (const iso of candidates) {
+    const parsed = parseTimestampMs(iso);
+    if (parsed !== null) return parsed;
+  }
+  return null;
+}
+
+function resolveGameGeneratedAtMs(
+  game: OutlookGameInput,
+  snapshotGeneratedAt?: string | null,
+): number | null {
+  const candidates = [
+    snapshotGeneratedAt,
+    game.generatedAt,
+    game.inputsAsOf,
+    game.updatedAt,
+    game.updatedAtLabel,
+  ];
+  for (const candidate of candidates) {
+    const parsed = parseTimestampMs(candidate);
+    if (parsed !== null) return parsed;
+  }
+  return null;
+}
+
+function isOver35Row(row: TotalRowLike): boolean {
+  const market = row.market.toLowerCase();
+  const selection = row.selection.toLowerCase();
+  if (market === "totals_3_5") {
+    return selection === "over" || selection === "over_3.5" || selection === "over_3_5";
+  }
+  if (market !== "totals") return false;
+  if (selection === "over_3.5" || selection === "over_3_5") return true;
+  return (selection === "over" || selection.startsWith("over_")) && row.line === 3.5;
+}
+
+function extractLocalOver35Prob(rows: readonly TotalRowLike[] | undefined): number | null {
+  if (!rows || rows.length === 0) return null;
+  for (const r of rows) {
+    if (isOver35Row(r) && typeof r.p === "number" && Number.isFinite(r.p)) {
+      return r.p;
+    }
+  }
+  return null;
+}
+
+function extractMatchOver35Prob(
+  groups: readonly AnalysisMarketGroup[] | undefined,
+): number | null {
+  if (!groups || groups.length === 0) return null;
+  for (const grp of groups) {
+    const found = extractLocalOver35Prob(grp.rows);
+    if (found !== null) return found;
+  }
+  return null;
+}
+
+const clamp01 = (v: number) => (v < 0 ? 0 : v > 1 ? 1 : v);
+
+function poissonOver35(totalGoals: number): number {
+  if (!Number.isFinite(totalGoals) || totalGoals <= 0) return 0;
+  const expNeg = Math.exp(-totalGoals);
+  const pLe3 =
+    expNeg *
+    (1 + totalGoals + (totalGoals * totalGoals) / 2 + (totalGoals * totalGoals * totalGoals) / 6);
+  return clamp01(1 - pLe3);
+}
+
+function outlookOver35Prob(outlook: MatchOutlook): number | null {
+  const fromKey = sel(outlook, "totals_3_5", "over")?.p;
+  if (typeof fromKey === "number" && Number.isFinite(fromKey)) return fromKey;
+  const fromMarkets = outlook.markets
+    .find((m) => m.marketKey === "totals_3_5")
+    ?.selections.find((s) => s.selection === "over")?.p;
+  return typeof fromMarkets === "number" && Number.isFinite(fromMarkets) ? fromMarkets : null;
+}
+
+export function isStaleInflatedFootballOutlook(
+  outlook: MatchOutlook,
+  matchTotalGoals: number | null | undefined,
+  matchGeneratedAtMs: number | null | undefined,
+  outlookGeneratedAtMs: number | null | undefined,
+  localOver35Prob?: number | null,
+): boolean {
+  if (outlook.sport !== "football" || !outlook.dixonColesParams) return false;
+  if (
+    typeof matchGeneratedAtMs !== "number" ||
+    !Number.isFinite(matchGeneratedAtMs) ||
+    typeof outlookGeneratedAtMs !== "number" ||
+    !Number.isFinite(outlookGeneratedAtMs)
+  ) {
+    return false;
+  }
+  if (matchGeneratedAtMs - outlookGeneratedAtMs <= STALE_OUTLOOK_DELTA_MS) {
+    return false;
+  }
+  if (
+    typeof matchTotalGoals !== "number" ||
+    !Number.isFinite(matchTotalGoals) ||
+    matchTotalGoals <= 0.5
+  ) {
+    return false;
+  }
+  const outlookTotal = outlook.dixonColesParams.lamHome + outlook.dixonColesParams.lamAway;
+  if (!Number.isFinite(outlookTotal)) return false;
+  if (outlookTotal - matchTotalGoals > MAX_OUTLOOK_TOTAL_INFLATION) {
+    return true;
+  }
+  const over35Outlook = outlookOver35Prob(outlook);
+  if (over35Outlook === null) return false;
+  const baselineOver35 =
+    typeof localOver35Prob === "number" &&
+    Number.isFinite(localOver35Prob) &&
+    localOver35Prob >= 0 &&
+    localOver35Prob <= 1
+      ? localOver35Prob
+      : poissonOver35(matchTotalGoals);
+  return over35Outlook - baselineOver35 > MAX_OUTLOOK_OVER35_INFLATION;
+}
+
 function relabel(label: string, o: MatchOutlook, game: TeamNames): string {
   return label.split(o.homeTeam).join(game.home.name).split(o.awayTeam).join(game.away.name);
+}
+
+function isPermittedFreshMarketBlock(
+  market: MarketOutlook["market"],
+  nowMs: number,
+): market is NonNullable<MarketOutlook["market"]> {
+  if (!market || !isMarketFresh(market.tsCaptured, nowMs)) return false;
+  return isPermittedMarketQuoteBook(market.book, formatBookLabel(market.book));
 }
 
 function rowsOf(
@@ -102,17 +342,28 @@ function rowsOf(
 ): PlatformMarketRow[] {
   const meta = MARKET_GROUPS[m.marketKey];
   if (!meta) return [];
-  const freshQuote = m.market && isMarketFresh(m.market.tsCaptured, nowMs) ? m.market : null;
+  const freshQuote = isPermittedFreshMarketBlock(m.market, nowMs) ? m.market : null;
   const quoteBookLabel = freshQuote ? formatBookLabel(freshQuote.book) : null;
+  const baseLine = typeof m.line === "number" && Number.isFinite(m.line) ? m.line : undefined;
   return m.selections.map((s) => {
     const rawPrice = freshQuote?.oddsBySelection?.[s.selection];
     const currentDecimal =
       typeof rawPrice === "number" && Number.isFinite(rawPrice) && rawPrice > 1 ? rawPrice : null;
+    const rowLine =
+      baseLine === undefined
+        ? undefined
+        : (meta.market === "handicap" || meta.market === "spread") &&
+            s.selection.toLowerCase() === "away"
+          ? baseLine === 0
+            ? 0
+            : -baseLine
+          : baseLine;
     return {
       group: meta.group,
       market: meta.market,
       selection: s.selection,
       label: relabel(s.label, o, game),
+      ...(rowLine !== undefined ? { line: rowLine } : {}),
       p: s.p,
       fairDecimal: s.fairOdds.decimal,
       fairAmerican: s.fairOdds.american,
@@ -130,7 +381,6 @@ export interface OutlookDetail {
   outlook: MatchOutlookSummary;
 }
 
-/** Construye filas de mercado y resumen del panorama v3.2 desde un `MatchOutlook` resuelto. */
 export function outlookDetailFromMatchOutlook(
   o: MatchOutlook,
   game: TeamNames,
@@ -150,11 +400,9 @@ export function outlookDetailFromMatchOutlook(
   const markets = [...publishedMarkets, ...derivedExtras.rows];
 
   const result = o.marketsByKey["1x2"] ?? o.marketsByKey.moneyline ?? null;
-  const freshBlocks = o.markets.filter(
-    (m) => m.market !== null && isMarketFresh(m.market.tsCaptured, nowMs),
-  );
+  const freshBlocks = o.markets.filter((m) => isPermittedFreshMarketBlock(m.market, nowMs));
   const preferredFresh =
-    result?.market && isMarketFresh(result.market.tsCaptured, nowMs)
+    result?.market && isPermittedFreshMarketBlock(result.market, nowMs)
       ? result.market
       : freshBlocks[0]?.market ?? null;
 
@@ -190,21 +438,36 @@ export function outlookDetailFromMatchOutlook(
   };
 }
 
-/** Filas de mercado y resumen del panorama v3.2 para la ficha, o `null` si no hay. */
-export function outlookDetailFor(game: TeamNames, nowMs: number = Date.now()): OutlookDetail | null {
+export function outlookDetailFor(
+  game: OutlookGameInput,
+  nowMs: number = Date.now(),
+  snapshotGeneratedAt?: string | null,
+): OutlookDetail | null {
   const o = findOutlook(game);
   if (!o) return null;
+  const matchGeneratedAtMs = resolveGameGeneratedAtMs(game, snapshotGeneratedAt);
+  const outlookGeneratedAtMs = resolveOutlookGeneratedAtMs(o);
+  const localOver35 =
+    extractLocalOver35Prob(game.markets) ?? extractMatchOver35Prob(game.marketGroups);
+  if (
+    isStaleInflatedFootballOutlook(
+      o,
+      game.projection?.total,
+      matchGeneratedAtMs,
+      outlookGeneratedAtMs,
+      localOver35,
+    )
+  ) {
+    return null;
+  }
   return outlookDetailFromMatchOutlook(o, game, { nowMs });
 }
 
-// ── Dataset del Club (Inicio, Picks, landing) sobre el panorama v3.2 ─────────────────────
-
 const round4 = (v: number) => Math.round(v * 10_000) / 10_000;
 
-/** Momio justo (1 / p) en decimal y americano, redondeado como en el resto del Club. */
 function fairOddsOf(p: number): { decimal: number; american: number } {
-  const decimal = Math.round((1 / p) * 100) / 100;
-  const american = decimal >= 2 ? Math.round((decimal - 1) * 100) : Math.round(-100 / (decimal - 1));
+  const safeP = Number.isFinite(p) ? Math.max(0.01, Math.min(0.99, p)) : 0.5;
+  const { decimal, american } = probabilityToFairOdds(safeP);
   return { decimal, american };
 }
 
@@ -226,7 +489,6 @@ function row(
   };
 }
 
-/** Selección de un mercado del panorama, o `undefined` si no está. */
 function sel(o: MatchOutlook, key: string, selection: string) {
   return o.marketsByKey[key as keyof MatchOutlook["marketsByKey"]]?.selections.find(
     (s) => s.selection === selection,
@@ -234,18 +496,375 @@ function sel(o: MatchOutlook, key: string, selection: string) {
 }
 
 const COUNT_MARKETS = new Set(["corners_total", "fouls_total", "yellow_total"]);
+const CORE_V6_SOCCER_MARKETS = new Set([
+  "h2h",
+  "1x2",
+  "double_chance",
+  "totals",
+  "btts",
+  "dnb",
+  "correct_score",
+]);
 
 function preserveCountGroups(groups: readonly AnalysisMarketGroup[] | undefined): AnalysisMarketGroup[] {
   if (!groups || groups.length === 0) return [];
   return groups.filter((group) => group.rows.some((r) => COUNT_MARKETS.has(r.market)));
 }
 
-/**
- * Grupos de mercado del partido desde el panorama v3.2, con las mismas claves que el
- * snapshot (`h2h`, `double_chance`, `totals`, `btts`, `correct_score`) para que el armado de
- * picks, el parlay y la calificación sigan funcionando igual. Hándicap asiático y empate no
- * acción solo viven en la ficha (`outlookDetailFor`): su liquidación tiene reembolsos.
- */
+function preserveNonCoreSoccerGroups(
+  groups: readonly AnalysisMarketGroup[] | undefined,
+): AnalysisMarketGroup[] {
+  if (!groups || groups.length === 0) return [];
+  return groups.filter((group) => group.rows.some((r) => !CORE_V6_SOCCER_MARKETS.has(r.market)));
+}
+
+export interface SoccerV6OutlookEnrichment {
+  readonly league: string;
+  readonly recalibrated: Soccer57PrekickoffRecalibratedOutlookV60;
+  readonly playableVennAbers: Soccer57PrekickoffRecalibratedOutlookV60["playableVennAbers"];
+}
+
+export function calibrateOutlookPlayableProbV6(
+  pRaw: number,
+  league: string,
+): VennAbersPlayableEvaluationV60 {
+  return calibratePlayableOddsV6({ pRaw, league });
+}
+
+const V6_OUTLOOK_MEMO_MAX = 4_000;
+const v6OutlookMemo = new Map<string, SoccerV6OutlookEnrichment | null>();
+
+function normalizeV6LeagueSlug(league: string): string {
+  const clean = league.trim().toLowerCase();
+  return clean === "la-liga" ? "laliga" : clean;
+}
+
+function resolveCausalEnvKeyV6(normLeague: string): number {
+  const compSpec = getSoccer57CompetitionSpecV6(normLeague);
+  if (
+    compSpec &&
+    typeof compSpec.causal_env_goals_final === "number" &&
+    Number.isFinite(compSpec.causal_env_goals_final)
+  ) {
+    return compSpec.causal_env_goals_final;
+  }
+  const feedback = getLiveFeedbackArtifactV52().league_scoring_environments_2026;
+  const fromFeedback = Object.prototype.hasOwnProperty.call(feedback, normLeague)
+    ? feedback[normLeague]?.shrunk_env_goals
+    : undefined;
+  return typeof fromFeedback === "number" && Number.isFinite(fromFeedback) ? fromFeedback : 2.7;
+}
+
+function deepFreezeObject(value: object): void {
+  if (!Object.isFrozen(value)) {
+    Object.freeze(value);
+  }
+  for (const child of Object.values(value)) {
+    if (child !== null && typeof child === "object" && !Object.isFrozen(child)) {
+      deepFreezeObject(child);
+    }
+  }
+}
+
+function getOrComputeV6SoccerOutlook(
+  league: string,
+  projHome: number,
+  projAway: number,
+  rawH: number,
+  rawD: number,
+  rawA: number,
+): SoccerV6OutlookEnrichment | null {
+  const normLeague = normalizeV6LeagueSlug(league);
+  const causalEnv = resolveCausalEnvKeyV6(normLeague);
+  const key = `${normLeague}|${projHome}|${projAway}|${rawH}|${rawD}|${rawA}|${causalEnv}`;
+  if (v6OutlookMemo.has(key)) {
+    return v6OutlookMemo.get(key) ?? null;
+  }
+  const recalibrated = recalibrateSoccer57MatchServerV6({
+    league: normLeague,
+    rawProjHome: projHome,
+    rawProjAway: projAway,
+    rawX12: [rawH, rawD, rawA],
+  });
+  let result: SoccerV6OutlookEnrichment | null = null;
+  if (recalibrated) {
+    result = {
+      league: recalibrated.league,
+      recalibrated,
+      playableVennAbers: recalibrated.playableVennAbers,
+    };
+    deepFreezeObject(result);
+  }
+  if (v6OutlookMemo.size >= V6_OUTLOOK_MEMO_MAX) {
+    const oldestKey = v6OutlookMemo.keys().next().value;
+    if (oldestKey !== undefined) {
+      v6OutlookMemo.delete(oldestKey);
+    }
+  }
+  v6OutlookMemo.set(key, result);
+  return result;
+}
+
+export function recalibrateSoccerOutlookV6(
+  match: Pick<MatchAnalysis, "sport" | "league" | "x12" | "projection">,
+): SoccerV6OutlookEnrichment | null {
+  if (match.sport !== "football") return null;
+  const league = String(match.league);
+  if (!isSoccer57LeagueV6(league)) return null;
+  if (!match.x12 || !match.projection) return null;
+  const [rawH, rawD, rawA] = match.x12;
+  const sum = rawH + rawD + rawA;
+  if (
+    !Number.isFinite(sum) ||
+    sum <= 0 ||
+    !Number.isFinite(match.projection.home) ||
+    !Number.isFinite(match.projection.away) ||
+    match.projection.home <= 0 ||
+    match.projection.away <= 0
+  ) {
+    return null;
+  }
+  return getOrComputeV6SoccerOutlook(
+    league,
+    match.projection.home,
+    match.projection.away,
+    rawH,
+    rawD,
+    rawA,
+  );
+}
+
+function resolveV6PlayableBinaryTotals25(rec: Soccer57PrekickoffRecalibratedOutlookV60): {
+  readonly over: number;
+  readonly under: number;
+} {
+  const vaOver = rec.playableVennAbers.over25;
+  const vaUnder = rec.playableVennAbers.under25;
+  const minOver = Math.min(0.995, rec.markets.totals_3_5.over + 0.002);
+  const maxOver = Math.max(minOver, rec.markets.totals_1_5.over - 0.002);
+  let pOver = rec.markets.totals_2_5.over;
+  if (vaOver.inPlayableZone) {
+    pOver = Math.max(minOver, Math.min(maxOver, vaOver.pCalibrated));
+  } else if (vaUnder.inPlayableZone) {
+    pOver = Math.max(minOver, Math.min(maxOver, 1 - vaUnder.pCalibrated));
+  }
+  const pOverClamped = Math.max(0.002, Math.min(0.998, pOver));
+  return { over: round4(pOverClamped), under: round4(1 - pOverClamped) };
+}
+
+function resolveV6PlayableBtts(rec: Soccer57PrekickoffRecalibratedOutlookV60): {
+  readonly yes: number;
+  readonly no: number;
+} {
+  const vaYes = rec.playableVennAbers.bttsYes;
+  const pYes = vaYes.inPlayableZone ? vaYes.pCalibrated : rec.markets.btts.yes;
+  const pYesClamped = Math.max(0.002, Math.min(0.998, pYes));
+  return { yes: round4(pYesClamped), no: round4(1 - pYesClamped) };
+}
+
+function footballGroupsFromV6(
+  rec: Soccer57PrekickoffRecalibratedOutlookV60,
+  match: MatchAnalysis,
+): AnalysisMarketGroup[] {
+  const m = rec.markets;
+  const tot25 = resolveV6PlayableBinaryTotals25(rec);
+  const btts = resolveV6PlayableBtts(rec);
+  const groups: AnalysisMarketGroup[] = [
+    {
+      group: "Resultado",
+      rows: [
+        row("h2h", "home", `${match.home.name} gana`, round4(m["1x2"].home), fairOddsOf(m["1x2"].home).decimal),
+        row("h2h", "draw", "Empate", round4(m["1x2"].draw), fairOddsOf(m["1x2"].draw).decimal),
+        row("h2h", "away", `${match.away.name} gana`, round4(m["1x2"].away), fairOddsOf(m["1x2"].away).decimal),
+      ],
+    },
+    {
+      group: "Doble oportunidad",
+      rows: [
+        row(
+          "double_chance",
+          "1x",
+          `${match.home.name} o empate`,
+          round4(m.double_chance["1X"]),
+          fairOddsOf(m.double_chance["1X"]).decimal,
+        ),
+        row(
+          "double_chance",
+          "x2",
+          `${match.away.name} o empate`,
+          round4(m.double_chance.X2),
+          fairOddsOf(m.double_chance.X2).decimal,
+        ),
+        row(
+          "double_chance",
+          "12",
+          "Sin empate",
+          round4(m.double_chance["12"]),
+          fairOddsOf(m.double_chance["12"]).decimal,
+        ),
+      ],
+    },
+    {
+      group: "Goles totales",
+      rows: [
+        row("totals", "over_1.5", "Más de 1.5 goles", round4(m.totals_1_5.over), fairOddsOf(m.totals_1_5.over).decimal, 1.5),
+        row("totals", "under_1.5", "Menos de 1.5 goles", round4(m.totals_1_5.under), fairOddsOf(m.totals_1_5.under).decimal, 1.5),
+        row("totals", "over_2.5", "Más de 2.5 goles", tot25.over, fairOddsOf(tot25.over).decimal, 2.5),
+        row("totals", "under_2.5", "Menos de 2.5 goles", tot25.under, fairOddsOf(tot25.under).decimal, 2.5),
+        row("totals", "over_3.5", "Más de 3.5 goles", round4(m.totals_3_5.over), fairOddsOf(m.totals_3_5.over).decimal, 3.5),
+        row("totals", "under_3.5", "Menos de 3.5 goles", round4(m.totals_3_5.under), fairOddsOf(m.totals_3_5.under).decimal, 3.5),
+      ],
+    },
+    {
+      group: "Ambos anotan",
+      rows: [
+        row("btts", "yes", "Sí", btts.yes, fairOddsOf(btts.yes).decimal),
+        row("btts", "no", "No", btts.no, fairOddsOf(btts.no).decimal),
+      ],
+    },
+    {
+      group: "Empate no acción",
+      rows: [
+        row("dnb", "home", match.home.name, round4(m.dnb.home), fairOddsOf(m.dnb.home).decimal),
+        row("dnb", "away", match.away.name, round4(m.dnb.away), fairOddsOf(m.dnb.away).decimal),
+      ],
+    },
+    {
+      group: "Marcador exacto (más probables)",
+      rows: m.topScorelines.map((s) =>
+        row(
+          "correct_score",
+          `${s.homeGoals}-${s.awayGoals}`,
+          `${s.homeGoals}–${s.awayGoals}`,
+          round4(s.probability),
+          s.fairOdds.decimal,
+        ),
+      ),
+    },
+  ];
+  return groups;
+}
+
+export function buildV6SoccerOutlookDetail(
+  game: OutlookGameInput & {
+    readonly x12?: readonly [number, number, number] | null;
+    readonly projection?: { readonly home: number; readonly away: number; readonly total: number } | null;
+    readonly kickoffUtc?: string | null;
+  },
+): OutlookDetail | null {
+  if (!isSoccer57LeagueV6(game.league)) return null;
+  if (!game.x12 || !game.projection) return null;
+  const [rawH, rawD, rawA] = game.x12;
+  const sum = rawH + rawD + rawA;
+  if (
+    !Number.isFinite(sum) ||
+    sum <= 0 ||
+    !Number.isFinite(game.projection.home) ||
+    !Number.isFinite(game.projection.away) ||
+    game.projection.home <= 0 ||
+    game.projection.away <= 0
+  ) {
+    return null;
+  }
+  const v6 = getOrComputeV6SoccerOutlook(
+    game.league,
+    game.projection.home,
+    game.projection.away,
+    rawH,
+    rawD,
+    rawA,
+  );
+  if (!v6) return null;
+  const rec = v6.recalibrated;
+  const m = rec.markets;
+  const tot25 = resolveV6PlayableBinaryTotals25(rec);
+  const btts = resolveV6PlayableBtts(rec);
+  const makeRow = (
+    group: string,
+    market: string,
+    selection: string,
+    label: string,
+    p: number,
+    cardCategory: NonNullable<PlatformMarketRow["cardCategory"]>,
+    cardTitle: string,
+    isMostLikely: boolean,
+    line?: number,
+  ): PlatformMarketRow => {
+    const fair = fairOddsOf(p);
+    return {
+      group,
+      market,
+      selection,
+      label,
+      ...(line !== undefined ? { line } : {}),
+      p: round4(p),
+      fairDecimal: fair.decimal,
+      fairAmerican: fair.american,
+      openDecimal: null,
+      currentDecimal: null,
+      quoteBookLabel: null,
+      quoteCapturedAtUtc: null,
+      edgePts: null,
+      isDerived: false,
+      cardCategory,
+      cardTitle,
+      isMostLikely,
+    };
+  };
+
+  const pH = m["1x2"].home;
+  const pD = m["1x2"].draw;
+  const pA = m["1x2"].away;
+  const top1x2 = pH >= pD && pH >= pA ? "home" : pA >= pD ? "away" : "draw";
+
+  const markets: PlatformMarketRow[] = [
+    makeRow("Resultado 1X2", "1x2", "home", `Gana ${game.home.name}`, pH, "resultado", "Resultado 1X2", top1x2 === "home"),
+    makeRow("Resultado 1X2", "1x2", "draw", "Empate", pD, "resultado", "Resultado 1X2", top1x2 === "draw"),
+    makeRow("Resultado 1X2", "1x2", "away", `Gana ${game.away.name}`, pA, "resultado", "Resultado 1X2", top1x2 === "away"),
+    makeRow("Doble oportunidad", "double_chance", "1X", `${game.home.name} o empate`, m.double_chance["1X"], "resultado", "Doble oportunidad", m.double_chance["1X"] >= m.double_chance.X2 && m.double_chance["1X"] >= m.double_chance["12"]),
+    makeRow("Doble oportunidad", "double_chance", "12", "Sin empate", m.double_chance["12"], "resultado", "Doble oportunidad", m.double_chance["12"] > m.double_chance["1X"] && m.double_chance["12"] >= m.double_chance.X2),
+    makeRow("Doble oportunidad", "double_chance", "X2", `${game.away.name} o empate`, m.double_chance.X2, "resultado", "Doble oportunidad", m.double_chance.X2 > m.double_chance["1X"] && m.double_chance.X2 > m.double_chance["12"]),
+    makeRow("Total de goles", "totals", "over", "Más de 1.5 goles", m.totals_1_5.over, "goles", "Total de goles (1.5)", m.totals_1_5.over >= m.totals_1_5.under, 1.5),
+    makeRow("Total de goles", "totals", "under", "Menos de 1.5 goles", m.totals_1_5.under, "goles", "Total de goles (1.5)", m.totals_1_5.under > m.totals_1_5.over, 1.5),
+    makeRow("Total de goles", "totals", "over", "Más de 2.5 goles", tot25.over, "goles", "Total de goles (2.5)", tot25.over >= tot25.under, 2.5),
+    makeRow("Total de goles", "totals", "under", "Menos de 2.5 goles", tot25.under, "goles", "Total de goles (2.5)", tot25.under > tot25.over, 2.5),
+    makeRow("Total de goles", "totals", "over", "Más de 3.5 goles", m.totals_3_5.over, "goles", "Total de goles (3.5)", m.totals_3_5.over >= m.totals_3_5.under, 3.5),
+    makeRow("Total de goles", "totals", "under", "Menos de 3.5 goles", m.totals_3_5.under, "goles", "Total de goles (3.5)", m.totals_3_5.under > m.totals_3_5.over, 3.5),
+    makeRow("Ambos anotan", "btts", "yes", "Sí", btts.yes, "goles", "Ambos anotan", btts.yes >= btts.no),
+    makeRow("Ambos anotan", "btts", "no", "No", btts.no, "goles", "Ambos anotan", btts.no > btts.yes),
+    makeRow("Empate no acción", "dnb", "home", game.home.name, m.dnb.home, "resultado", "Empate no acción", m.dnb.home >= m.dnb.away),
+    makeRow("Empate no acción", "dnb", "away", game.away.name, m.dnb.away, "resultado", "Empate no acción", m.dnb.away > m.dnb.home),
+  ];
+
+  const mostLikely =
+    top1x2 === "home"
+      ? { label: `Gana ${game.home.name}`, p: round4(pH), fairDecimal: m["1x2"].fairOddsHome.decimal }
+      : top1x2 === "away"
+        ? { label: `Gana ${game.away.name}`, p: round4(pA), fairDecimal: m["1x2"].fairOddsAway.decimal }
+        : { label: "Empate", p: round4(pD), fairDecimal: m["1x2"].fairOddsDraw.decimal };
+
+  const isActive = rec.competitionStatus === "causal_walk_forward_2026_active";
+  return {
+    markets,
+    outlook: {
+      generatedAtUtc: game.generatedAt ?? game.kickoffUtc ?? new Date().toISOString(),
+      mostLikely,
+      scorelines: m.topScorelines.map((s) => ({
+        home: s.homeGoals,
+        away: s.awayGoals,
+        p: round4(s.probability),
+        fairDecimal: s.fairOdds.decimal,
+      })),
+      quality: {
+        flag: isActive ? "ok" : "fallback_base_rate",
+        coveragePct: isActive ? 92 : 75,
+      },
+      hasRecentQuote: false,
+      latestQuote: null,
+    },
+  };
+}
+
 function footballGroups(o: MatchOutlook, match: MatchAnalysis): AnalysisMarketGroup[] {
   const groups: AnalysisMarketGroup[] = [];
   const home = sel(o, "1x2", "home");
@@ -272,13 +891,31 @@ function footballGroups(o: MatchOutlook, match: MatchAnalysis): AnalysisMarketGr
   });
   if (dcRows.length > 0) groups.push({ group: "Doble oportunidad", rows: dcRows });
 
-  const totals = (["1_5", "2_5", "3_5"] as const).flatMap((k) => {
-    const line = Number(k.replace("_", "."));
+  const totals = (
+    [
+      ["1_5", 1.5],
+      ["2_5", 2.5],
+      ["3_5", 3.5],
+    ] as const
+  ).flatMap(([k, line]) => {
     const over = sel(o, `totals_${k}`, "over");
     const under = sel(o, `totals_${k}`, "under");
     return [
-      ...(over ? [row("totals", `over_${line}`, `Más de ${line}`, over.p, over.fairOdds.decimal, line)] : []),
-      ...(under ? [row("totals", `under_${line}`, `Menos de ${line}`, under.p, under.fairOdds.decimal, line)] : []),
+      ...(over
+        ? [row("totals", `over_${line}`, `Más de ${line} goles`, over.p, over.fairOdds.decimal, line)]
+        : []),
+      ...(under
+        ? [
+            row(
+              "totals",
+              `under_${line}`,
+              `Menos de ${line} goles`,
+              under.p,
+              under.fairOdds.decimal,
+              line,
+            ),
+          ]
+        : []),
     ];
   });
   if (totals.length > 0) groups.push({ group: "Goles totales", rows: totals });
@@ -314,15 +951,11 @@ function footballGroups(o: MatchOutlook, match: MatchAnalysis): AnalysisMarketGr
 
 const CONF_ALTA = 62;
 const CONF_MEDIA = 45;
-const clamp01 = (v: number) => (v < 0 ? 0 : v > 1 ? 1 : v);
-const gamesPlayed = (record: string) => Number(/(\d+)\s*PJ/i.exec(record)?.[1] ?? NaN);
+const gamesPlayed = (record: string): number | null => {
+  const raw = /(\d+)\s*PJ/i.exec(record)?.[1];
+  return raw ? parseStrictFiniteNumber(raw) : null;
+};
 
-/**
- * Confianza sobre el panorama v3.2, explicable por factor:
- * - qué tan claro es el favorito (50 %), con la misma escala que el índice del snapshot;
- * - qué parte de los datos del modelo hay para este partido (30 %, `dataQuality.coverageRatio`);
- * - cuántos partidos lleva el equipo con menos juegos esta temporada (20 %, tope en 10).
- */
 export function outlookConfidence(
   o: MatchOutlook,
   match: MatchAnalysis,
@@ -333,8 +966,11 @@ export function outlookConfidence(
   const ceil = isNfl ? 0.85 : 0.75;
   const fav = clamp01((favorite - floor) / (ceil - floor));
   const coverage = clamp01(o.dataQuality.coverageRatio);
-  const minGames = Math.min(gamesPlayed(match.home.record), gamesPlayed(match.away.record));
-  const sample = Number.isFinite(minGames) ? clamp01(minGames / 10) : 0.5;
+  const homeGames = gamesPlayed(match.home.record);
+  const awayGames = gamesPlayed(match.away.record);
+  const minGames =
+    homeGames !== null && awayGames !== null ? Math.min(homeGames, awayGames) : null;
+  const sample = minGames !== null ? clamp01(minGames / 10) : 0.5;
   const score = Math.round(100 * (0.5 * fav + 0.3 * coverage + 0.2 * sample));
   const level = score >= CONF_ALTA ? "alta" : score >= CONF_MEDIA ? "media" : "baja";
   const pct = (v: number) => `${Math.round(v * 100)} %`;
@@ -371,9 +1007,10 @@ export function outlookConfidence(
         label: "Partidos jugados",
         value: sample,
         weight: 0.2,
-        detail: Number.isFinite(minGames)
-          ? `El equipo con menos juegos lleva ${minGames} esta temporada; con 10 o más la muestra es suficiente.`
-          : "No hay registro de partidos jugados esta temporada.",
+        detail:
+          minGames !== null
+            ? `El equipo con menos juegos lleva ${minGames} esta temporada; con 10 o más la muestra es suficiente.`
+            : "No hay registro de partidos jugados esta temporada.",
       },
     ],
   };
@@ -390,7 +1027,7 @@ function freshSignalMarket(
   nowMs: number,
 ): NonNullable<SpacetimeSignal["market"]> | null {
   const mkt = isNfl ? o.marketsByKey.moneyline?.market : o.marketsByKey["1x2"]?.market;
-  if (!mkt || !isMarketFresh(mkt.tsCaptured, nowMs) || !mkt.oddsBySelection) {
+  if (!mkt || !isPermittedFreshMarketBlock(mkt, nowMs) || !mkt.oddsBySelection) {
     return null;
   }
   const homeOdds = mkt.oddsBySelection.home;
@@ -432,10 +1069,31 @@ function freshSignalMarket(
   };
 }
 
-/**
- * Aplica un `MatchOutlook` resuelto sobre el partido y su señal Spacetime.
- * Solo adjunta `signal.market` si existe captura legal vigente (< 72 h); `value` siempre queda vacío.
- */
+function alignSignalToLocalMatch(
+  match: MatchAnalysis,
+  signal: SpacetimeSignal | null,
+  nowMs: number,
+): SpacetimeSignal | null {
+  if (!signal) return null;
+  const freshMarket =
+    signal.market && isMarketFresh(signal.market.asOfUtc, nowMs) ? signal.market : null;
+  return {
+    ...signal,
+    outlookDriven: true,
+    probs: match.x12
+      ? { home: match.x12[0], draw: match.x12[1], away: match.x12[2] }
+      : signal.probs,
+    market: freshMarket,
+    value: [],
+    expectedTotal: match.projection?.total ?? signal.expectedTotal,
+    expectedMargin:
+      match.projection?.margin ??
+      (match.projection
+        ? match.projection.home - match.projection.away
+        : signal.expectedMargin),
+  };
+}
+
 export function applyOutlookWithMatchOutlook(
   match: MatchAnalysis,
   signal: SpacetimeSignal | null,
@@ -505,7 +1163,6 @@ export function applyOutlookWithMatchOutlook(
         ...match,
         x12: [round4(pHome), 0, round4(pAway)],
         marketGroups,
-        /* Descarta picks h2h previos del snapshot cuando Cortex v3.2 recalcula moneyline NFL. */
         picks: [],
         confidence: outlookConfidence(o, match, Math.max(pHome, pAway)),
         outcomes: match.outcomes.map((oc) =>
@@ -564,20 +1221,77 @@ export function applyOutlookWithMatchOutlook(
   };
 }
 
-/**
- * Pasa un partido por jugar al panorama v3.2: probabilidades 1X2, mercados, marcador más
- * probable y proyección (lambdas de Dixon-Coles). Los picks del snapshot se descartan para
- * que el armador elija sobre los mercados v3.2. En NFL el panorama solo trae ganador: se
- * reemplaza ese mercado y el resto (spread, totales) sigue del snapshot.
- * Sin panorama, o con el partido terminado, todo queda igual.
- */
 export function applyOutlook(
-  match: MatchAnalysis,
+  match: MatchAnalysis & { generatedAt?: string | null; inputsAsOf?: string | null },
   signal: SpacetimeSignal | null,
   nowMs: number = Date.now(),
+  snapshotGeneratedAt?: string | null,
 ): OutlookApplied {
   if (match.status === "FT") return { match, signal };
   const o = findOutlook(match);
-  if (!o) return { match, signal };
+  if (!o) {
+    const v6 = recalibrateSoccerOutlookV6(match);
+    if (!v6) return { match, signal };
+    const rec = v6.recalibrated;
+    const x12Probs = rec.markets["1x2"];
+    const pHome = round4(x12Probs.home);
+    const pDraw = round4(x12Probs.draw);
+    const pAway = round4(x12Probs.away);
+    const top = rec.markets.topScorelines[0];
+    const projection = {
+      home: round4(rec.muHome),
+      away: round4(rec.muAway),
+      total: round4(rec.expectedTotalImplied),
+      margin: round4(rec.muHome - rec.muAway),
+    };
+    const outcomeP: Record<string, number> = {
+      home: x12Probs.home,
+      draw: x12Probs.draw,
+      away: x12Probs.away,
+    };
+    const updatedMatch: MatchAnalysis = {
+      ...match,
+      x12: [pHome, pDraw, pAway],
+      projection,
+      picks: [],
+      mostLikelyScore: top
+        ? { home: top.homeGoals, away: top.awayGoals, p: round4(top.probability) }
+        : match.mostLikelyScore,
+      marketGroups: [
+        ...footballGroupsFromV6(rec, match),
+        ...preserveNonCoreSoccerGroups(match.marketGroups),
+      ],
+      outcomes: match.outcomes.map((oc) =>
+        outcomeP[oc.key] !== undefined
+          ? {
+              ...oc,
+              probability: round4(outcomeP[oc.key]!),
+              fairOdds: fairOddsOf(outcomeP[oc.key]!),
+            }
+          : oc,
+      ),
+    };
+    return {
+      match: updatedMatch,
+      signal: alignSignalToLocalMatch(updatedMatch, signal, nowMs),
+    };
+  }
+  const matchGeneratedAtMs = resolveGameGeneratedAtMs(match, snapshotGeneratedAt);
+  const outlookGeneratedAtMs = resolveOutlookGeneratedAtMs(o);
+  const localOver35 = extractMatchOver35Prob(match.marketGroups);
+  if (
+    isStaleInflatedFootballOutlook(
+      o,
+      match.projection?.total,
+      matchGeneratedAtMs,
+      outlookGeneratedAtMs,
+      localOver35,
+    )
+  ) {
+    return {
+      match,
+      signal: alignSignalToLocalMatch(match, signal, nowMs),
+    };
+  }
   return applyOutlookWithMatchOutlook(match, signal, o, nowMs);
 }

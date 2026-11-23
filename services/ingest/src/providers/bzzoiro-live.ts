@@ -11,24 +11,26 @@
  *
  * Licencia: se muestran resultados derivados; el JSON crudo no se reenvía al navegador.
  */
-import type {
-  LiveCommentaryItem,
-  LiveIncident,
-  LiveMatchDetail,
-  LiveMomentumPoint,
-  LivePhase,
-  LivePlayerStatRow,
-  LiveScore,
-  LiveScoreboardEntry,
-  LiveShot,
-  LiveTeamStats,
-  LiveXgPoint,
+import {
+  parseStrictFiniteNumber,
+  type LiveAveragePosition,
+  type LiveCommentaryItem,
+  type LiveIncident,
+  type LiveMatchDetail,
+  type LiveMomentumPoint,
+  type LivePhase,
+  type LivePlayerStatRow,
+  type LiveScore,
+  type LiveScoreboardEntry,
+  type LiveShot,
+  type LiveTeamStats,
+  type LiveXgPoint,
 } from "@pitchlab/contracts";
 import { BZZOIRO_LEAGUES, type BzTeamStatsRaw } from "./bzzoiro.js";
 import { slugifyTeamName } from "../team-slug.js";
 import { teamSimilarity } from "./link.js";
 
-export const BZZOIRO_ATTRIBUTION = "Datos en vivo: Bzzoiro Sports Data";
+export const BZZOIRO_ATTRIBUTION = "Datos en vivo · PitchLab";
 
 // ---------- Formas de la API (tolerantes: solo lo que usamos) ----------
 
@@ -205,9 +207,7 @@ export function list<T>(raw: BzList<T> | null | undefined): T[] {
 }
 
 function num(value: unknown): number | null {
-  if (typeof value === "number" && Number.isFinite(value)) return value;
-  if (typeof value === "string" && value.trim() !== "" && Number.isFinite(Number(value))) return Number(value);
-  return null;
+  return parseStrictFiniteNumber(value);
 }
 
 export interface ParsedFootballMinute {
@@ -230,14 +230,14 @@ export function parseFootballMinute(raw: unknown): ParsedFootballMinute | null {
 
   const plusMatch = /^(\d+(?:\.\d+)?)\s*\+\s*(\d+(?:\.\d+)?)$/.exec(cleaned);
   if (plusMatch?.[1] && plusMatch[2]) {
-    const base = Number(plusMatch[1]);
-    const extra = Number(plusMatch[2]);
+    const base = Number.parseFloat(plusMatch[1]);
+    const extra = Number.parseFloat(plusMatch[2]);
     if (!Number.isFinite(base) || !Number.isFinite(extra) || base < 0 || extra < 0) return null;
     return { minute: base, addedTime: extra > 0 ? Math.round(extra) : null };
   }
 
   if (!/^\d+(?:\.\d+)?$/.test(cleaned)) return null;
-  const base = Number(cleaned);
+  const base = Number.parseFloat(cleaned);
   if (!Number.isFinite(base) || base < 0) return null;
   return { minute: base, addedTime: null };
 }
@@ -834,6 +834,26 @@ function detectUnitCoordScale(pairs: readonly { x: number; y: number }[]): boole
   return maxAbs <= 1.15 && anyFractional;
 }
 
+function isGoalOriginShotmapAxis(xs: readonly number[]): boolean {
+  if (xs.length === 0) return false;
+  const sorted = xs.slice().sort((a, b) => a - b);
+  const maxX = sorted[sorted.length - 1];
+  if (maxX !== undefined && maxX <= 50) return true;
+  const mid = Math.floor(sorted.length / 2);
+  const median =
+    sorted.length % 2 === 1
+      ? (sorted[mid] ?? 50)
+      : ((sorted[mid - 1] ?? 50) + (sorted[mid] ?? 50)) / 2;
+  return median < 50;
+}
+
+export function normalizeShotmapAxisX(xs: readonly number[]): number[] {
+  if (!isGoalOriginShotmapAxis(xs)) {
+    return xs.slice();
+  }
+  return xs.map((x) => round2(Math.max(0, Math.min(100, 100 - x))));
+}
+
 /** Normaliza resultado de disparo Bzzoiro a `goal | saved | blocked | miss | post`. */
 export function normalizeShotOutcome(raw: unknown): NormalizedShotOutcome | null {
   const s = String(raw ?? "")
@@ -999,9 +1019,10 @@ export function parseBzzoiroShotmap(
   }
 
   const unitScale = detectUnitCoordScale(preliminary.map((p) => ({ x: p.rawX, y: p.rawY })));
+  const normalizedXs = normalizeShotmapAxisX(preliminary.map((p) => clampCoord(p.rawX, unitScale)));
   const shots: NormalizedShot[] = preliminary
-    .map((p) => ({
-      x: clampCoord(p.rawX, unitScale),
+    .map((p, idx) => ({
+      x: normalizedXs[idx] ?? clampCoord(p.rawX, unitScale),
       y: clampCoord(p.rawY, unitScale),
       minute: p.minute,
       ...(p.addedTime !== undefined ? { addedTime: p.addedTime } : {}),
@@ -1290,6 +1311,49 @@ export function extractBzzoiroMatchTelemetry(
   };
 }
 
+export function normalizedShotToLiveShot(shot: NormalizedShot): LiveShot {
+  const cleanPlayer = sanitizeClientText(shot.playerName);
+  return {
+    minute: shot.minute,
+    ...(shot.addedTime !== undefined ? { addedTime: shot.addedTime } : {}),
+    side: shot.side,
+    outcome: toLegacyLiveShotOutcome(shot.outcome),
+    xg: Number.isFinite(shot.xg) ? shot.xg : null,
+    x: Number.isFinite(shot.x) ? shot.x : null,
+    y: Number.isFinite(shot.y) ? shot.y : null,
+    ...(cleanPlayer ? { player: cleanPlayer } : {}),
+    ...(shot.bodyPart ? { bodyPart: shot.bodyPart } : {}),
+  };
+}
+
+export function normalizedAvgPositionsToLive(
+  pos: NormalizedTeamAveragePositions,
+): LiveAveragePosition[] {
+  const mapSide = (
+    side: "home" | "away",
+    entries: readonly NormalizedAveragePosition[],
+  ): LiveAveragePosition[] => {
+    const out: LiveAveragePosition[] = [];
+    for (const entry of entries) {
+      const cleanName = sanitizeClientText(entry.playerName);
+      if (!cleanName) continue;
+      const cleanPosition = sanitizeClientText(entry.position);
+      out.push({
+        side,
+        name: cleanName,
+        number: entry.jerseyNumber,
+        position: cleanPosition,
+        x: entry.x,
+        y: entry.y,
+        touches: entry.touches,
+        ...(entry.rating !== undefined ? { rating: entry.rating } : {}),
+      });
+    }
+    return out;
+  };
+  return [...mapSide("home", pos.home), ...mapSide("away", pos.away)];
+}
+
 export function parseLiveStats(raw: BzLiveStats | null): Pick<
   LiveMatchDetail,
   "stats" | "xgEstimated" | "momentum" | "xgTimeline" | "shots"
@@ -1346,16 +1410,24 @@ export function parseLiveStats(raw: BzLiveStats | null): Pick<
       .filter((p): p is typeof p & { rawX: number; rawY: number } => p.rawX !== null && p.rawY !== null)
       .map((p) => ({ x: p.rawX, y: p.rawY })),
   );
-  const shots: LiveShot[] = preliminaryShots
-    .sort((a, b) => a.order - b.order)
-    .map((p) => ({
+  const orderedShots = preliminaryShots.slice().sort((a, b) => a.order - b.order);
+  const scaledXs = orderedShots.map((p) => (p.rawX !== null ? clampCoord(p.rawX, unitScale) : null));
+  const normalizedValidXs = normalizeShotmapAxisX(
+    scaledXs.filter((x): x is number => x !== null),
+  );
+  let validXIndex = 0;
+  const shots: LiveShot[] = orderedShots.map((p, idx) => {
+    const scaledX = scaledXs[idx] ?? null;
+    const x = scaledX !== null ? (normalizedValidXs[validXIndex++] ?? scaledX) : null;
+    return {
       minute: p.minute,
       side: p.side,
       outcome: p.outcome,
       xg: p.xg,
-      x: p.rawX !== null ? clampCoord(p.rawX, unitScale) : null,
+      x,
       y: p.rawY !== null ? clampCoord(p.rawY, unitScale) : null,
-    }));
+    };
+  });
   const home = raw.stats?.home;
   const away = raw.stats?.away;
   return {

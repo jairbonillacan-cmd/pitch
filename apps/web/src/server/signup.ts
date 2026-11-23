@@ -1,7 +1,3 @@
-/**
- * Paso 2 del registro en el servidor: valida lo que manda /onboarding y arma las huellas
- * anónimas del escudo de la prueba (nunca se guarda la IP ni el navegador en claro).
- */
 import { createHash } from "node:crypto";
 import { SIGNUP_CONSENT_VERSION } from "@pitchlab/db";
 import { trustedClientIp } from "./request-security";
@@ -18,7 +14,6 @@ export interface SignupBody {
   turnstileToken?: string | null;
 }
 
-/** Valida el cuerpo de `POST /api/me/signup`; null si no tiene la forma esperada o versión vigente. */
 export function parseSignupBody(raw: unknown): SignupBody | null {
   if (!raw || typeof raw !== "object") return null;
   const b = raw as Record<string, unknown>;
@@ -44,12 +39,10 @@ export function parseSignupBody(raw: unknown): SignupBody | null {
   };
 }
 
-/** IP confiable del cliente detrás de Cloudflare / Vercel / proxy reverso. */
 export function clientIp(headers: Headers): string {
   return trustedClientIp(headers);
 }
 
-/** Subred de la IP: /24 en IPv4 y /48 en IPv6. */
 export function ipSubnet(ip: string): string {
   if (/^\d{1,3}(\.\d{1,3}){3}$/.test(ip)) return ip.split(".").slice(0, 3).join(".") + ".0/24";
   if (ip.includes(":")) return ip.toLowerCase().split(":").slice(0, 3).join(":") + "::/48";
@@ -59,7 +52,6 @@ export function ipSubnet(ip: string): string {
 const hmac = (salt: string, value: string): string =>
   createHash("sha256").update(`${salt}|${value}`).digest("hex");
 
-/** Huellas con sal (BETTER_AUTH_SECRET) para el escudo de la prueba. */
 export function trialHashes(
   headers: Headers,
   salt: string,

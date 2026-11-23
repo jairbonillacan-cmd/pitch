@@ -1,15 +1,24 @@
 "use client";
 
-import React, { useEffect, useId, useRef, useState, useSyncExternalStore } from "react";
-import { Button, Drawer, Input, Label, Modal, Switch, TextArea, TextField } from "@heroui/react";
-import { containsExternalLink, MAX_PROFILE_BIO_LENGTH, profileBioLength } from "@pitchlab/contracts";
-import { normalizeSignupHandle, useHandleAvailability } from "../public/use-handle-availability";
-import type { LeagueId } from "@pitchlab/contracts";
+import React, { useId, useRef, useState } from "react";
+import { Drawer, Input, Label, Modal, Switch, TextArea, TextField } from "@heroui/react";
+import {
+  containsExternalLink,
+  MAX_PROFILE_BIO_LENGTH,
+  profileBioLength,
+  type LeagueId,
+} from "@pitchlab/contracts";
+import { Button } from "../../components/ui/primitives";
 import { LeagueBadge } from "../../sports";
+import { useMediaQuery, useSafeEffect } from "../hooks";
+import { sanitizeInternalHref } from "../navigation-helpers";
+import { normalizeSignupHandle, useHandleAvailability } from "../public/use-handle-availability";
 import { Avatar } from "./community-ui";
 
-/** Ligas que se pueden marcar como favoritas, agrupadas por deporte. */
-const FAVORITE_GROUPS: ReadonlyArray<{ sport: string; leagues: ReadonlyArray<{ id: LeagueId; label: string }> }> = [
+const FAVORITE_GROUPS: ReadonlyArray<{
+  sport: string;
+  leagues: ReadonlyArray<{ id: LeagueId; label: string }>;
+}> = [
   {
     sport: "Fútbol",
     leagues: [
@@ -48,16 +57,9 @@ export interface EditableProfile {
 
 const ALLOWED_AVATAR_MIME = new Set(["image/jpeg", "image/png", "image/webp"]);
 const MAX_AVATAR_BYTES = 2 * 1024 * 1024;
-
 const MOBILE_QUERY = "(max-width: 767px)";
 
-function subscribeToViewport(callback: () => void) {
-  const query = window.matchMedia(MOBILE_QUERY);
-  query.addEventListener("change", callback);
-  return () => query.removeEventListener("change", callback);
-}
-
-const profileErrors: Record<string, string> = {
+const PROFILE_ERRORS: Readonly<Record<string, string>> = {
   nombre_invalido: "Escribe un nombre de 2 a 40 caracteres.",
   usuario_invalido: "Usa de 3 a 20 caracteres y empieza con una letra.",
   usuario_reservado: "Ese usuario está reservado.",
@@ -66,7 +68,7 @@ const profileErrors: Record<string, string> = {
   bio_con_enlace: "Quita el enlace de tu bio.",
 };
 
-const avatarErrors: Record<string, string> = {
+const AVATAR_ERRORS: Readonly<Record<string, string>> = {
   almacenamiento_no_disponible: "La foto de perfil estará disponible pronto.",
   almacenamiento_no_configurado: "La foto de perfil estará disponible pronto.",
   archivo_muy_grande: "Elige una imagen de hasta 2 MB.",
@@ -98,11 +100,7 @@ export function EditProfileDialog({
   initialOpen?: boolean;
   checkHandle?: boolean;
 }): React.JSX.Element {
-  const isMobile = useSyncExternalStore(
-    subscribeToViewport,
-    () => window.matchMedia(MOBILE_QUERY).matches,
-    () => false,
-  );
+  const isMobile = useMediaQuery(MOBILE_QUERY, false);
   const [open, setOpen] = useState(initialOpen);
   const [pending, setPending] = useState(false);
   const [displayName, setDisplayName] = useState(profile.displayName);
@@ -119,7 +117,7 @@ export function EditProfileDialog({
   const fileInputRef = useRef<HTMLInputElement | null>(null);
   const id = useId();
 
-  useEffect(() => {
+  useSafeEffect(() => {
     return () => {
       if (previewUrl) URL.revokeObjectURL(previewUrl);
     };
@@ -127,21 +125,36 @@ export function EditProfileDialog({
 
   const cleanHandle = normalizeSignupHandle(handle);
   const handleStatus = useHandleAvailability(handle, open && checkHandle, profile.handle);
-  const handleInvalid = handleStatus === "invalid" || handleStatus === "reserved" ||
-    handleStatus === "taken" || saveIssue === "usuario_ocupado";
-  const handleText = saveIssue === "usuario_ocupado" ? profileErrors.usuario_ocupado : {
-    idle: "Minúsculas, números y guion bajo.",
-    checking: "Revisando…",
-    free: `@${cleanHandle} está libre.`,
-    taken: `@${cleanHandle} ya está ocupado.`,
-    reserved: "Ese usuario está reservado.",
-    invalid: "Usa de 3 a 20 caracteres y empieza con una letra.",
-  }[handleStatus];
+  const handleInvalid =
+    handleStatus === "invalid" ||
+    handleStatus === "reserved" ||
+    handleStatus === "taken" ||
+    saveIssue === "usuario_ocupado";
+  const handleText =
+    saveIssue === "usuario_ocupado"
+      ? PROFILE_ERRORS.usuario_ocupado
+      : {
+          idle: "Minúsculas, números y guion bajo.",
+          checking: "Revisando…",
+          free: `@${cleanHandle} está libre.`,
+          taken: `@${cleanHandle} ya está ocupado.`,
+          reserved: "Ese usuario está reservado.",
+          invalid: "Usa de 3 a 20 caracteres y empieza con una letra.",
+        }[handleStatus];
   const bioLength = profileBioLength(bio);
-  const bioError = bioLength > MAX_PROFILE_BIO_LENGTH ? profileErrors.bio_invalida :
-    containsExternalLink(bio) ? profileErrors.bio_con_enlace : null;
-  const ready = !pending && displayName.trim().length >= 2 && Boolean(cleanHandle) &&
-    !handleInvalid && handleStatus !== "checking" && !bioError;
+  const bioError =
+    bioLength > MAX_PROFILE_BIO_LENGTH
+      ? PROFILE_ERRORS.bio_invalida
+      : containsExternalLink(bio)
+        ? PROFILE_ERRORS.bio_con_enlace
+        : null;
+  const ready =
+    !pending &&
+    displayName.trim().length >= 2 &&
+    Boolean(cleanHandle) &&
+    !handleInvalid &&
+    handleStatus !== "checking" &&
+    !bioError;
 
   const effectiveAvatarUrl = removePhoto ? null : (previewUrl ?? savedAvatarUrl);
   const avatarInitials =
@@ -165,9 +178,8 @@ export function EditProfileDialog({
     setError("");
     setSaveIssue("");
     setOpen(true);
-    // Ligas favoritas y privacidad viven en las preferencias del servidor.
     setPrivacyLoaded(false);
-    fetch("/api/me/preferences", { credentials: "same-origin" })
+    void fetch("/api/me/preferences", { credentials: "same-origin" })
       .then((r) => (r.ok ? r.json() : null))
       .then((data: ({ preferences?: Partial<ProfilePrivacy> } & Partial<ProfilePrivacy>) | null) => {
         const p = data?.preferences ?? data;
@@ -182,7 +194,9 @@ export function EditProfileDialog({
           });
         }
       })
-      .catch(() => undefined)
+      .catch((err: unknown) => {
+        void err;
+      })
       .finally(() => setPrivacyLoaded(true));
   };
 
@@ -192,7 +206,9 @@ export function EditProfileDialog({
       if (has && prev.favoriteLeagues.length === 1) return prev;
       return {
         ...prev,
-        favoriteLeagues: has ? prev.favoriteLeagues.filter((l) => l !== league) : [...prev.favoriteLeagues, league],
+        favoriteLeagues: has
+          ? prev.favoriteLeagues.filter((l) => l !== league)
+          : [...prev.favoriteLeagues, league],
       };
     });
   };
@@ -201,12 +217,12 @@ export function EditProfileDialog({
     const file = event.target.files?.[0];
     if (!file) return;
     if (!ALLOWED_AVATAR_MIME.has(file.type)) {
-      setError(avatarErrors.formato_invalido!);
+      setError(AVATAR_ERRORS.formato_invalido ?? "Usa una imagen JPG, PNG o WebP.");
       event.target.value = "";
       return;
     }
     if (file.size > MAX_AVATAR_BYTES) {
-      setError(avatarErrors.archivo_muy_grande!);
+      setError(AVATAR_ERRORS.archivo_muy_grande ?? "Elige una imagen de hasta 2 MB.");
       event.target.value = "";
       return;
     }
@@ -243,7 +259,10 @@ export function EditProfileDialog({
         });
         if (!uploadRes.ok) {
           const uploadErr = (await uploadRes.json().catch(() => ({}))) as { error?: string };
-          setError(avatarErrors[uploadErr.error ?? ""] ?? "No pudimos subir tu foto. Intenta de nuevo.");
+          setError(
+            AVATAR_ERRORS[uploadErr.error ?? ""] ??
+              "No pudimos subir tu foto. Intenta de nuevo.",
+          );
           return;
         }
         const uploaded = (await uploadRes.json()) as { avatarUrl?: string | null };
@@ -276,8 +295,13 @@ export function EditProfileDialog({
             body: JSON.stringify(privacy),
           });
           if (!prefRes.ok) {
-            setError("Guardamos tu perfil, pero no tus ligas ni tu privacidad. Intenta de nuevo.");
-            onChange({ ...patched, avatarUrl: patched.avatarUrl !== undefined ? patched.avatarUrl : nextAvatarUrl });
+            setError(
+              "Guardamos tu perfil, pero no tus ligas ni tu privacidad. Intenta de nuevo.",
+            );
+            onChange({
+              ...patched,
+              avatarUrl: patched.avatarUrl !== undefined ? patched.avatarUrl : nextAvatarUrl,
+            });
             return;
           }
         }
@@ -291,8 +315,9 @@ export function EditProfileDialog({
       const result = (await response.json()) as { error?: string };
       const issue = result.error ?? "";
       setSaveIssue(issue);
-      setError(profileErrors[issue] ?? "No pudimos guardar tu perfil. Intenta de nuevo.");
-    } catch {
+      setError(PROFILE_ERRORS[issue] ?? "No pudimos guardar tu perfil. Intenta de nuevo.");
+    } catch (err: unknown) {
+      void err;
       setError("No pudimos guardar tu perfil. Intenta de nuevo.");
     } finally {
       setPending(false);
@@ -307,15 +332,45 @@ export function EditProfileDialog({
       const response = await fetch("/api/me/profile/x", {
         method: profile.xUsername ? "DELETE" : "POST",
       });
-      if (!response.ok) throw new Error();
+      if (!response.ok) throw new Error(String(response.status));
       if (profile.xUsername) {
         onChange({ ...profile, xUsername: null });
       } else {
         const result = (await response.json()) as { url?: string };
-        if (!result.url) throw new Error();
-        window.location.assign(result.url);
+        const safeAuthUrl = (() => {
+          const internal = sanitizeInternalHref(result.url);
+          if (internal) return internal;
+          if (typeof result.url !== "string") return null;
+          const trimmed = result.url.trim();
+          if (!trimmed || /[\u0000-\u001f\u007f]/.test(trimmed)) return null;
+          try {
+            const parsed = new URL(trimmed);
+            const host = parsed.hostname.toLowerCase();
+            if (
+              parsed.protocol !== "https:" ||
+              parsed.port !== "" ||
+              parsed.username ||
+              parsed.password ||
+              !(
+                host === "x.com" ||
+                host.endsWith(".x.com") ||
+                host === "twitter.com" ||
+                host.endsWith(".twitter.com")
+              )
+            ) {
+              return null;
+            }
+            return parsed.toString();
+          } catch (err) {
+            void err;
+            return null;
+          }
+        })();
+        if (!safeAuthUrl) throw new Error("invalid_redirect_url");
+        window.location.assign(safeAuthUrl);
       }
-    } catch {
+    } catch (err: unknown) {
+      void err;
       setError(profile.xUsername ? "No pudimos desconectar X." : "No pudimos conectar X.");
     } finally {
       setPending(false);
@@ -350,13 +405,13 @@ export function EditProfileDialog({
               />
               <label
                 htmlFor={`${id}-avatar`}
-                className={`pl-profile-editor-file-btn ${pending ? "is-disabled" : ""}`}
+                className={`pl-profile-editor-file-btn ${pending ? "is-disabled" : ""}`.trim()}
               >
                 {effectiveAvatarUrl ? "Cambiar" : "Elegir foto"}
               </label>
             </>
           ) : (
-            <Button type="button" variant="secondary" isDisabled>
+            <Button type="button" variant="secondary" size="sm" disabled>
               Subir foto
             </Button>
           )}
@@ -364,8 +419,9 @@ export function EditProfileDialog({
             <Button
               type="button"
               variant="secondary"
-              isDisabled={pending}
-              onPress={handleRemoveAvatar}
+              size="sm"
+              disabled={pending}
+              onClick={handleRemoveAvatar}
             >
               Quitar
             </Button>
@@ -373,16 +429,25 @@ export function EditProfileDialog({
         </div>
       </div>
 
-      <TextField className="pl-profile-editor-field" isRequired value={displayName} onChange={setDisplayName}>
+      <TextField
+        className="pl-profile-editor-field"
+        isRequired
+        value={displayName}
+        onChange={setDisplayName}
+      >
         <Label>Nombre</Label>
         <Input autoComplete="nickname" maxLength={40} />
       </TextField>
+
       <TextField
         className="pl-profile-editor-field"
         isRequired
         isInvalid={handleInvalid}
         value={handle}
-        onChange={(value) => { setHandle(value); setSaveIssue(""); }}
+        onChange={(value) => {
+          setHandle(value);
+          setSaveIssue("");
+        }}
       >
         <Label>Usuario</Label>
         <Input
@@ -392,22 +457,43 @@ export function EditProfileDialog({
           maxLength={21}
           aria-describedby={`${id}-handle`}
         />
-        <p id={`${id}-handle`} className="pl-profile-editor-hint" aria-live="polite">{handleText}</p>
+        <p id={`${id}-handle`} className="pl-profile-editor-hint" aria-live="polite">
+          {handleText}
+        </p>
       </TextField>
-      <TextField className="pl-profile-editor-field" value={bio} onChange={setBio} isInvalid={Boolean(bioError)}>
+
+      <TextField
+        className="pl-profile-editor-field"
+        value={bio}
+        onChange={setBio}
+        isInvalid={Boolean(bioError)}
+      >
         <Label>Bio</Label>
-        <TextArea rows={3} maxLength={MAX_PROFILE_BIO_LENGTH * 2} aria-describedby={`${id}-bio`} />
+        <TextArea
+          rows={3}
+          maxLength={MAX_PROFILE_BIO_LENGTH * 2}
+          aria-describedby={`${id}-bio`}
+        />
         <div className="pl-profile-editor-bio-hint" id={`${id}-bio`}>
           <span>{bioError ?? "Opcional"}</span>
-          <span className="num">{bioLength}/{MAX_PROFILE_BIO_LENGTH}</span>
+          <span className="num">
+            {bioLength}/{MAX_PROFILE_BIO_LENGTH}
+          </span>
         </div>
       </TextField>
 
       <section className="pl-profile-editor-section" aria-labelledby={`${id}-leagues`}>
         <h3 id={`${id}-leagues`}>Ligas y deportes favoritos</h3>
-        <p className="pl-profile-editor-hint">Se muestran en tu perfil y ordenan tu Inicio. Elige al menos una.</p>
+        <p className="pl-profile-editor-hint">
+          Se muestran en tu perfil y ordenan tu Inicio. Elige al menos una.
+        </p>
         {FAVORITE_GROUPS.map((group) => (
-          <div key={group.sport} className="pl-profile-editor-leagues" role="group" aria-label={group.sport}>
+          <div
+            key={group.sport}
+            className="pl-profile-editor-leagues"
+            role="group"
+            aria-label={group.sport}
+          >
             <span className="pl-profile-editor-sport">{group.sport}</span>
             <div className="pl-profile-editor-chips">
               {group.leagues.map((l) => {
@@ -443,12 +529,17 @@ export function EditProfileDialog({
             </span>
           </div>
           <Switch
+            className="pl-acct-switch"
             aria-labelledby={`${id}-public`}
             aria-describedby={`${id}-public-desc`}
             isSelected={privacy.publicRecordVisible}
             isDisabled={pending || !privacyLoaded}
             onChange={(next) =>
-              setPrivacy((prev) => ({ ...prev, publicRecordVisible: next, showInRanking: next ? prev.showInRanking : false }))
+              setPrivacy((prev) => ({
+                ...prev,
+                publicRecordVisible: next,
+                showInRanking: next ? prev.showInRanking : false,
+              }))
             }
           >
             <Switch.Control className="pl-acct-switch-control">
@@ -466,6 +557,7 @@ export function EditProfileDialog({
             </span>
           </div>
           <Switch
+            className="pl-acct-switch"
             aria-labelledby={`${id}-ranking`}
             aria-describedby={`${id}-ranking-desc`}
             isSelected={privacy.showInRanking}
@@ -490,21 +582,34 @@ export function EditProfileDialog({
           <Button
             type="button"
             variant="secondary"
+            size="sm"
             aria-label={profile.xUsername ? "Desconectar X" : "Conectar X"}
-            isDisabled={pending || (!xEnabled && !profile.xUsername)}
-            onPress={() => void updateX()}
+            disabled={pending || (!xEnabled && !profile.xUsername)}
+            onClick={() => void updateX()}
           >
             {profile.xUsername ? "Desconectar" : "Conectar"}
           </Button>
         </div>
       </section>
 
-      {error ? <p className="pl-profile-editor-error" role="alert">{error}</p> : null}
+      {error ? (
+        <p className="pl-profile-editor-error" role="alert">
+          {error}
+        </p>
+      ) : null}
       <div className="pl-profile-editor-actions">
-        <Button type="button" variant="secondary" isDisabled={pending} onPress={() => setOpen(false)}>
+        <Button
+          type="button"
+          variant="secondary"
+          size="sm"
+          disabled={pending}
+          onClick={() => setOpen(false)}
+        >
           Cancelar
         </Button>
-        <Button type="submit" variant="primary" isDisabled={!ready}>Guardar</Button>
+        <Button type="submit" variant="primary" size="sm" disabled={!ready}>
+          Guardar
+        </Button>
       </div>
     </form>
   );
@@ -520,9 +625,9 @@ export function EditProfileDialog({
 
   return (
     <>
-      <button type="button" className="pl-prof-btn pl-prof-btn--primary" onClick={openEditor}>
+      <Button type="button" variant="primary" size="sm" onClick={openEditor}>
         Editar perfil
-      </button>
+      </Button>
       {isMobile ? (
         <Drawer.Backdrop {...overlayProps}>
           <Drawer.Content placement="bottom" className="pl-profile-editor-drawer">

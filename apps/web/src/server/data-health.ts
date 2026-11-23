@@ -6,6 +6,9 @@ import {
   DATA_FRESHNESS_THRESHOLDS_HOURS,
   DataHealthReportSchema,
   evaluateFreshnessStatus,
+  getLeagueCapability,
+  isLeagueHealthyForUi,
+  isTier1League,
   LeagueInjuriesFileSchema,
   LeagueSnapshotSchema,
   LINEUPS_COLLECTION_ENABLED,
@@ -14,15 +17,17 @@ import {
   type DataHealthWorkflowStatus,
   type LeagueDataHealthRow,
   type LeagueDataTypeCell,
+  type LeagueTier,
+  type UiVisibilityPolicy,
 } from "@pitchlab/contracts";
 import {
   LEAGUE_LABELS,
   PRODUCT_LEAGUES,
   resolveSnapshotsRoot,
   type ProductLeague,
-} from "./snapshots";
+} from "./snapshots-config";
 
-const V3_MODEL_LEAGUES = new Set<ProductLeague>([
+const V3_LIVE_SNAPSHOT_LEAGUES = new Set<ProductLeague>([
   "liga-mx",
   "premier-league",
   "laliga",
@@ -32,13 +37,19 @@ const V3_MODEL_LEAGUES = new Set<ProductLeague>([
   "nfl",
 ]);
 
-const SNAPSHOT_ONLY_LEAGUES = new Set<ProductLeague>(
-  PRODUCT_LEAGUES.filter((lg) => !V3_MODEL_LEAGUES.has(lg)),
-);
-
 const APP_LEAGUE_TO_V3: Record<ProductLeague, string> = Object.fromEntries(
   PRODUCT_LEAGUES.map((lg) => [lg, lg === "premier-league" ? "epl" : lg]),
 ) as Record<ProductLeague, string>;
+
+export interface LeagueUiVisibilityEntry {
+  readonly league: ProductLeague;
+  readonly tier: LeagueTier;
+  readonly policy: UiVisibilityPolicy;
+  readonly visibleInUi: boolean;
+  readonly calendarioStatus: LeagueDataTypeCell["status"];
+  readonly ageHours: number | null;
+  readonly maxFreshnessHours: number;
+}
 
 function resolveRepoRoot(): string {
   const snapshotsRoot = resolveSnapshotsRoot();
@@ -83,6 +94,62 @@ interface LiveSnapshotMini {
   outlooks?: LiveOutlookMini[];
 }
 
+function resolveTierCalendarioThresholds(
+  leagueKey: ProductLeague,
+  hasOverdueUnfinished: boolean,
+): { readonly warningHours: number; readonly staleHours: number } {
+  const capability = getLeagueCapability(leagueKey);
+  const tierStaleHours = Math.max(
+    DATA_FRESHNESS_THRESHOLDS_HOURS.calendario.staleHours,
+    capability.minFreshnessHours,
+  );
+  if (hasOverdueUnfinished) {
+    const matchdayMax = isTier1League(leagueKey)
+      ? DATA_FRESHNESS_THRESHOLDS_HOURS.calendario.matchdayPendingResultHours
+      : Math.min(
+          tierStaleHours,
+          DATA_FRESHNESS_THRESHOLDS_HOURS.calendario.matchdayPendingResultHours * 2,
+        );
+    const matchdayWarn = isTier1League(leagueKey)
+      ? Math.max(6, matchdayMax - 3)
+      : Math.max(6, matchdayMax - 6);
+    return { warningHours: matchdayWarn, staleHours: matchdayMax };
+  }
+  const tierWarnHours = isTier1League(leagueKey)
+    ? Math.min(
+        DATA_FRESHNESS_THRESHOLDS_HOURS.calendario.warningHours,
+        Math.max(6, tierStaleHours - 6),
+      )
+    : Math.max(
+        DATA_FRESHNESS_THRESHOLDS_HOURS.calendario.warningHours,
+        Math.round(tierStaleHours * 0.75),
+      );
+  return { warningHours: tierWarnHours, staleHours: tierStaleHours };
+}
+
+function resolveTierMomiosThresholds(
+  leagueKey: ProductLeague,
+): { readonly warningHours: number; readonly staleHours: number } {
+  const capability = getLeagueCapability(leagueKey);
+  if (isTier1League(leagueKey)) {
+    return {
+      warningHours: DATA_FRESHNESS_THRESHOLDS_HOURS.momios.warningHours,
+      staleHours: DATA_FRESHNESS_THRESHOLDS_HOURS.momios.staleHours,
+    };
+  }
+  const staleHours = Math.max(
+    DATA_FRESHNESS_THRESHOLDS_HOURS.momios.staleHours,
+    capability.minFreshnessHours,
+  );
+  return {
+    warningHours: Math.max(
+      DATA_FRESHNESS_THRESHOLDS_HOURS.momios.warningHours,
+      Math.round(staleHours * 0.6),
+    ),
+    staleHours,
+  };
+}
+
 function defaultWorkflows(): DataHealthWorkflowStatus[] {
   return [
     {
@@ -110,11 +177,6 @@ function defaultWorkflows(): DataHealthWorkflowStatus[] {
   ];
 }
 
-/**
- * Construye el reporte en vivo de «Salud de datos» para la Consola del Fundador:
- * fusiona el último estado persistido de workflows/incidentes (`data/health/data-health.json`)
- * con la antigüedad real al instante (`nowMs`) de cada liga y tipo de dato.
- */
 export function loadServerDataHealthReport(nowMs: number = Date.now()): DataHealthReport {
   const repoRoot = resolveRepoRoot();
   const snapshotsRoot = path.join(repoRoot, "data", "snapshots");
@@ -155,7 +217,7 @@ export function loadServerDataHealthReport(nowMs: number = Date.now()): DataHeal
     if (!prev || Date.parse(tick.ts_captured) > Date.parse(prev.updatedAtUtc)) {
       latestOddsByV3.set(v3League, {
         updatedAtUtc: tick.ts_captured,
-        sourceLabel: tick.book ?? tick.source_id ?? "the_odds_api",
+        sourceLabel: tick.book ?? "Flujo de mercado PitchLab",
         count: nextCount,
       });
     } else {
@@ -185,9 +247,10 @@ export function loadServerDataHealthReport(nowMs: number = Date.now()): DataHeal
   const leagues: LeagueDataHealthRow[] = PRODUCT_LEAGUES.map((leagueKey) => {
     const league = asLeagueId(leagueKey);
     const leagueLabel = LEAGUE_LABELS[leagueKey];
+    const capability = getLeagueCapability(leagueKey);
     const prevRow = persistedByLeague.get(leagueKey);
+    const isV3SnapshotLeague = V3_LIVE_SNAPSHOT_LEAGUES.has(leagueKey);
 
-    // 1. Calendario y resultados
     const latestFile = path.join(snapshotsRoot, leagueKey, "latest.json");
     const snapRaw = readJsonIfExists<unknown>(latestFile);
     const snapParsed = snapRaw ? LeagueSnapshotSchema.safeParse(snapRaw) : null;
@@ -199,26 +262,24 @@ export function loadServerDataHealthReport(nowMs: number = Date.now()): DataHeal
         const ko = Date.parse(g.startTime);
         return Number.isFinite(ko) && nowMs - ko > 4 * 3_600_000;
       });
-      const maxHours = hasOverdueUnfinished
-        ? DATA_FRESHNESS_THRESHOLDS_HOURS.calendario.matchdayPendingResultHours
-        : DATA_FRESHNESS_THRESHOLDS_HOURS.calendario.staleHours;
-      const warnHours = hasOverdueUnfinished
-        ? Math.max(6, maxHours - 3)
-        : DATA_FRESHNESS_THRESHOLDS_HOURS.calendario.warningHours;
+      const { warningHours, staleHours } = resolveTierCalendarioThresholds(
+        leagueKey,
+        hasOverdueUnfinished,
+      );
       const ageHours = computeDataAgeHours(snap.updatedAt, nowMs);
       const prevErr = prevRow?.cells.calendario.lastError ?? null;
       calendarioCell = {
         dataType: "calendario",
         status: evaluateFreshnessStatus({
           ageHours,
-          warningHours: warnHours,
-          staleHours: maxHours,
+          warningHours,
+          staleHours,
           hasError: Boolean(prevErr),
         }),
         updatedAtUtc: snap.updatedAt,
         ageHours,
-        maxHours,
-        sourceLabel: snap.source || "espn",
+        maxHours: staleHours,
+        sourceLabel: snap.source || capability.providers.schedule,
         recordsCount: snap.games.length,
         ...(hasOverdueUnfinished
           ? { note: "Partidos iniciados hace >4 h pendientes de marcador final" }
@@ -226,12 +287,13 @@ export function loadServerDataHealthReport(nowMs: number = Date.now()): DataHeal
         lastError: prevErr,
       };
     } else {
+      const { staleHours } = resolveTierCalendarioThresholds(leagueKey, false);
       calendarioCell = {
         dataType: "calendario",
         status: "error",
         updatedAtUtc: null,
         ageHours: null,
-        maxHours: DATA_FRESHNESS_THRESHOLDS_HOURS.calendario.staleHours,
+        maxHours: staleHours,
         sourceLabel: "sin archivo válido",
         recordsCount: 0,
         lastError: prevRow?.cells.calendario.lastError ?? {
@@ -241,7 +303,6 @@ export function loadServerDataHealthReport(nowMs: number = Date.now()): DataHeal
       };
     }
 
-    // 2. Bajas y lesiones
     const injuriesFile = path.join(snapshotsRoot, leagueKey, "injuries.json");
     const injRaw = readJsonIfExists<unknown>(injuriesFile);
     const injParsed = injRaw ? LeagueInjuriesFileSchema.safeParse(injRaw) : null;
@@ -272,7 +333,7 @@ export function loadServerDataHealthReport(nowMs: number = Date.now()): DataHeal
           : {}),
         lastError: prevErr,
       };
-    } else if (SNAPSHOT_ONLY_LEAGUES.has(leagueKey)) {
+    } else if (!isV3SnapshotLeague) {
       bajasCell = {
         dataType: "bajas",
         status: prevRow?.cells.bajas.lastError ? "error" : "pending_source",
@@ -281,7 +342,9 @@ export function loadServerDataHealthReport(nowMs: number = Date.now()): DataHeal
         maxHours: DATA_FRESHNESS_THRESHOLDS_HOURS.bajas.staleHours,
         sourceLabel: "solo snapshot (latest.json)",
         recordsCount: 0,
-        note: "Liga cubierta por snapshot (latest.json); sin pipeline separado de bajas todavía.",
+        note: isTier1League(leagueKey)
+          ? "Liga cubierta por snapshot (latest.json); sin pipeline separado de bajas todavía."
+          : "Liga Tier 2 cubierta por snapshot; módulo de bajas oculto hasta contar con fuente.",
         lastError: prevRow?.cells.bajas.lastError ?? null,
       };
     } else {
@@ -298,10 +361,10 @@ export function loadServerDataHealthReport(nowMs: number = Date.now()): DataHeal
       };
     }
 
-    // 3. Momios
     const v3League = APP_LEAGUE_TO_V3[leagueKey];
     const oddsEntry = latestOddsByV3.get(v3League);
     const prevOddsErr = prevRow?.cells.momios.lastError ?? null;
+    const momiosThresholds = resolveTierMomiosThresholds(leagueKey);
     let momiosCell: LeagueDataTypeCell;
     if (oddsEntry) {
       const ageHours = computeDataAgeHours(oddsEntry.updatedAtUtc, nowMs);
@@ -309,27 +372,41 @@ export function loadServerDataHealthReport(nowMs: number = Date.now()): DataHeal
         dataType: "momios",
         status: evaluateFreshnessStatus({
           ageHours,
-          warningHours: DATA_FRESHNESS_THRESHOLDS_HOURS.momios.warningHours,
-          staleHours: DATA_FRESHNESS_THRESHOLDS_HOURS.momios.staleHours,
+          warningHours: momiosThresholds.warningHours,
+          staleHours: momiosThresholds.staleHours,
           hasError: Boolean(prevOddsErr),
         }),
         updatedAtUtc: oddsEntry.updatedAtUtc,
         ageHours,
-        maxHours: DATA_FRESHNESS_THRESHOLDS_HOURS.momios.staleHours,
+        maxHours: momiosThresholds.staleHours,
         sourceLabel: oddsEntry.sourceLabel,
         recordsCount: oddsEntry.count,
         lastError: prevOddsErr,
       };
-    } else if (SNAPSHOT_ONLY_LEAGUES.has(leagueKey)) {
+    } else if (!capability.hasOddsIngest) {
       momiosCell = {
         dataType: "momios",
         status: prevOddsErr ? "error" : "pending_source",
         updatedAtUtc: null,
         ageHours: null,
-        maxHours: DATA_FRESHNESS_THRESHOLDS_HOURS.momios.staleHours,
+        maxHours: momiosThresholds.staleHours,
+        sourceLabel: "sin ingesta de momios",
+        recordsCount: 0,
+        note: "Competencia sin ingesta de momios configurada en su contrato de capacidades.",
+        lastError: prevOddsErr,
+      };
+    } else if (!isV3SnapshotLeague) {
+      momiosCell = {
+        dataType: "momios",
+        status: prevOddsErr ? "error" : "pending_source",
+        updatedAtUtc: null,
+        ageHours: null,
+        maxHours: momiosThresholds.staleHours,
         sourceLabel: "solo snapshot (latest.json)",
         recordsCount: 0,
-        note: "Liga cubierta por snapshot (latest.json); aún sin captura de momios en LIVE_LEAGUES.",
+        note: isTier1League(leagueKey)
+          ? "Liga Tier 1 esperando captura reciente de momios en el pipeline."
+          : "Liga Tier 2 cubierta por snapshot; módulo de momios oculto hasta captura fresca.",
         lastError: prevOddsErr,
       };
     } else {
@@ -340,21 +417,19 @@ export function loadServerDataHealthReport(nowMs: number = Date.now()): DataHeal
         dataType: "momios",
         status: prevOddsErr
           ? "error"
-          : fallbackAge !== null &&
-              fallbackAge > DATA_FRESHNESS_THRESHOLDS_HOURS.momios.staleHours
+          : fallbackAge !== null && fallbackAge > momiosThresholds.staleHours
             ? "stale"
             : "pending_source",
         updatedAtUtc: fallbackOddsTs,
         ageHours: fallbackAge,
-        maxHours: DATA_FRESHNESS_THRESHOLDS_HOURS.momios.staleHours,
-        sourceLabel: "bzzoiro / the_odds_api / betfair",
+        maxHours: momiosThresholds.staleHours,
+        sourceLabel: "Flujo de mercado PitchLab",
         recordsCount: 0,
-        note: "Sin captura legal < 72 h activa (configura THE_ODDS_API_KEY o Betfair en Actions).",
+        note: "Sin captura legal < 72 h activa",
         lastError: prevOddsErr,
       };
     }
 
-    // 4. Alineaciones (preparada pero APAGADA)
     const alineacionesCell: LeagueDataTypeCell = {
       dataType: "alineaciones",
       status: LINEUPS_COLLECTION_ENABLED ? "pending_source" : "disabled",
@@ -367,7 +442,7 @@ export function loadServerDataHealthReport(nowMs: number = Date.now()): DataHeal
       lastError: null,
     };
 
-    return {
+    const row: LeagueDataHealthRow = {
       league,
       leagueLabel,
       cells: {
@@ -377,18 +452,42 @@ export function loadServerDataHealthReport(nowMs: number = Date.now()): DataHeal
         alineaciones: alineacionesCell,
       },
     };
+
+    if (
+      capability.uiVisibilityPolicy === "only_when_healthy" &&
+      !isLeagueHealthyForUi(leagueKey, row) &&
+      !row.cells.calendario.note
+    ) {
+      return {
+        ...row,
+        cells: {
+          ...row.cells,
+          calendario: {
+            ...row.cells.calendario,
+            note: "Oculta en UI (Tier 2 incompleta o vencida)",
+          },
+        },
+      };
+    }
+
+    return row;
   });
 
   const workflows = persisted?.workflows?.length ? persisted.workflows : defaultWorkflows();
   const activeIncidents = persisted?.activeIncidents ?? [];
-  const counts = summarizeDataHealthCells(leagues);
+  const tier1Counts = summarizeDataHealthCells(
+    leagues.filter((row) => isTier1League(row.league)),
+  );
+  const allCounts = summarizeDataHealthCells(leagues);
   const hasFailedWorkflow = workflows.some((w) => w.status === "failed");
   const hasCriticalIncident = activeIncidents.some((i) => i.severity === "critical");
 
   const overallStatus: DataHealthReport["overallStatus"] =
-    counts.staleOrErrorCells > 0 || hasFailedWorkflow || hasCriticalIncident
+    tier1Counts.staleOrErrorCells > 0 || hasFailedWorkflow || hasCriticalIncident
       ? "critical"
-      : counts.warningCells > 0 || activeIncidents.length > 0
+      : allCounts.staleOrErrorCells > 0 ||
+          allCounts.warningCells > 0 ||
+          activeIncidents.length > 0
         ? "degraded"
         : "ok";
 
@@ -409,4 +508,41 @@ export function loadServerDataHealthReport(nowMs: number = Date.now()): DataHeal
     leagues,
     activeIncidents,
   };
+}
+
+export function evaluateLeagueUiVisibility(
+  report: DataHealthReport,
+): Readonly<Record<ProductLeague, LeagueUiVisibilityEntry>> {
+  const rowsByLeague = new Map<string, LeagueDataHealthRow>(
+    report.leagues.map((row) => [row.league, row]),
+  );
+  const entries = PRODUCT_LEAGUES.map((leagueKey): [ProductLeague, LeagueUiVisibilityEntry] => {
+    const capability = getLeagueCapability(leagueKey);
+    const row = rowsByLeague.get(leagueKey) ?? null;
+    const visibleInUi = isLeagueHealthyForUi(leagueKey, row);
+    return [
+      leagueKey,
+      {
+        league: leagueKey,
+        tier: capability.tier,
+        policy: capability.uiVisibilityPolicy,
+        visibleInUi,
+        calendarioStatus: row?.cells.calendario.status ?? "error",
+        ageHours: row?.cells.calendario.ageHours ?? null,
+        maxFreshnessHours: capability.minFreshnessHours,
+      },
+    ];
+  });
+  return Object.fromEntries(entries) as Record<ProductLeague, LeagueUiVisibilityEntry>;
+}
+
+export function loadServerLeagueUiVisibility(
+  nowMs: number = Date.now(),
+): Readonly<Record<ProductLeague, LeagueUiVisibilityEntry>> {
+  return evaluateLeagueUiVisibility(loadServerDataHealthReport(nowMs));
+}
+
+export function listUiVisibleLeagues(nowMs: number = Date.now()): readonly ProductLeague[] {
+  const visibility = loadServerLeagueUiVisibility(nowMs);
+  return PRODUCT_LEAGUES.filter((leagueKey) => visibility[leagueKey].visibleInUi);
 }

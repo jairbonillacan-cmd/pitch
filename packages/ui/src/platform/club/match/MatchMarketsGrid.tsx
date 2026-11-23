@@ -203,7 +203,7 @@ function buildPickFromMarketRow(
     categoryLabel: row.group,
     risk: row.p >= 0.68 ? "conservador" : row.p >= 0.54 ? "medio" : "arriesgado",
     engineKey: "geodesic",
-    engineName: "PitchLab Geodesic v2.0",
+    engineName: "Motor Spacetime",
     marketGroup: row.group,
     selectionKey: row.selection,
     market: row.market,
@@ -242,7 +242,7 @@ function MarketRowParlayControls({
     <span className="pl-mkt-builder-group">
       <button
         type="button"
-        className={`pl-home-parlay-btn is-sm min-h-11 sm:min-h-9 ${inParlay ? "is-on" : ""}`.trim()}
+        className={`pl-home-parlay-btn is-sm min-h-11 [@media(min-width:768px)_and_(pointer:fine)]:min-h-9 ${inParlay ? "is-on" : ""}`.trim()}
         aria-pressed={inParlay}
         aria-label={`${inParlay ? "Quitar del parlay" : "Agregar al parlay"}: ${pick.label}`}
         onClick={() => (inParlay ? removePickFromParlay(pick.id) : addPickToParlay(pick))}

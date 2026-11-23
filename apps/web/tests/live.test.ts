@@ -2,9 +2,17 @@ import { readFileSync } from "node:fs";
 import { join } from "node:path";
 import { PGlite } from "@electric-sql/pglite";
 import { drizzle } from "drizzle-orm/pglite";
-import { beforeEach, describe, expect, it } from "vitest";
+import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
+import {
+  LIVE_CAPABLE_BZZOIRO_LEAGUES,
+  LiveAveragePositionSchema,
+  LiveMatchDetailSchema,
+  LiveShotSchema,
+  LiveShotmapSummarySchema,
+} from "@pitchlab/contracts";
 import { applyMigrations, type Db } from "@pitchlab/db";
 import {
+  LIVE_LEAGUES,
   dbLiveStore,
   getLiveMatchDetail,
   getLiveScoreboard,
@@ -14,10 +22,41 @@ import {
   type LiveDeps,
   type LiveFetch,
 } from "../src/server/live";
+import { resetScrapingVelocityForTests } from "../src/server/api-guards";
+import { resetAuthForTests, type PitchLabAuth } from "../src/server/auth";
+import { resetRateLimitsForTests } from "../src/server/request-security";
+import type { ViewerAccess } from "../src/server/viewer-access";
+import { GET as alertsGET } from "../app/api/live/alerts/route";
 import { GET as scoreboardGET } from "../app/api/live/scoreboard/route";
 import { GET as gameGET } from "../app/api/live/games/[gameId]/route";
+import { GET as searchPlayersGET } from "../app/api/search/players/route";
 
-// Respuestas reales de Bzzoiro (2026-11-14), recortadas; las comparte la prueba del adaptador.
+const mocks = vi.hoisted(() => ({
+  getViewerAccess: vi.fn(),
+}));
+
+vi.mock("../src/server/viewer-access", () => ({
+  getViewerAccess: mocks.getViewerAccess,
+}));
+
+const ACCESS_NONE: ViewerAccess = {
+  via: "none",
+  signupComplete: false,
+  fullAccess: false,
+  isAdmin: false,
+  isTipster: false,
+  profile: null,
+};
+
+const ACCESS_BETA: ViewerAccess = {
+  via: "beta",
+  signupComplete: true,
+  fullAccess: true,
+  isAdmin: false,
+  isTipster: false,
+  profile: null,
+};
+
 const FIX = join(import.meta.dirname, "..", "..", "..", "services", "ingest", "tests", "fixtures", "bzzoiro-live");
 const fixture = (name: string): unknown => JSON.parse(readFileSync(join(FIX, name), "utf8"));
 
@@ -30,7 +69,6 @@ const candidate = {
   awayName: "Rayados de Monterrey",
 };
 
-/** Proveedor falso: cuenta las peticiones y responde con los fixtures. */
 function fakeProvider(overrides: Record<string, unknown> = {}) {
   const calls: string[] = [];
   const routes: Record<string, unknown> = {
@@ -57,10 +95,17 @@ function deps(at: string, fetch: LiveFetch | null, extra: Partial<LiveDeps> = {}
     now: () => new Date(clock),
     candidates: () => [candidate],
     ...extra,
-    // Permite adelantar el reloj en la prueba.
     ...({ advance: (ms: number) => (clock += ms) } as object),
   } as LiveDeps;
 }
+
+afterEach(() => {
+  vi.unstubAllEnvs();
+  mocks.getViewerAccess.mockReset();
+  resetAuthForTests();
+  resetRateLimitsForTests();
+  resetScrapingVelocityForTests();
+});
 
 describe("marcador del día (un solo lector)", () => {
   it("no consulta al proveedor si ningún partido puede estar en juego y le dice al navegador que no pregunte", async () => {
@@ -81,7 +126,6 @@ describe("marcador del día (un solo lector)", () => {
     expect(p.calls).toEqual(["/events/live/"]);
     expect(first.entries[0]).toMatchObject({ phase: "live", clock: "34", score: { home: 0, away: 1 } });
     expect(first.nextPollSeconds).toBe(15);
-    // Nunca sale el id del proveedor.
     expect(JSON.stringify(first)).not.toContain("602407");
   });
 
@@ -105,7 +149,7 @@ describe("marcador del día (un solo lector)", () => {
     expect(first.entries[0]?.phase).toBe("live");
     d.advance(21_000);
     const second = await getLiveScoreboard(d);
-    expect(calls).toHaveLength(1); // ya no gasta: quedan 250 y la reserva es 300
+    expect(calls).toHaveLength(1);
     expect(second.entries[0]?.phase).toBe("live");
     expect(second.notice).toMatch(/cuidar la cuota/);
   });
@@ -137,8 +181,8 @@ describe("ficha en vivo", () => {
     expect(detail?.momentum.length).toBeGreaterThan(80);
     expect(detail?.xgTimeline.at(-1)?.home).toBeCloseTo(1.815);
     expect(detail?.nextPollSeconds).toBe(20);
-    expect(detail?.attribution).toMatch(/Bzzoiro/);
-    // live + incidentes + stats; el enlace salió de la lista en vivo (sin pedir la liga del día).
+    expect(detail?.attribution).toBe("Datos en vivo · PitchLab");
+    expect(detail?.attribution ?? "").not.toMatch(/bzzoiro/i);
     expect(p.calls.sort()).toEqual(["/events/602407/incidents/", "/events/602407/stats/", "/events/live/"]);
   });
 
@@ -156,7 +200,7 @@ describe("ficha en vivo", () => {
     expect(detail?.nextPollSeconds).toBeNull();
     const firstCalls = p.calls.length;
     await getLiveMatchDetail(QRO_MTY, d);
-    expect(p.calls.length).toBe(firstCalls); // todo sale de la caché
+    expect(p.calls.length).toBe(firstCalls);
   });
 
   it("en modo ilimitado (`BZZOIRO_UNLIMITED`) omite topes de cuota y carga narración incremental, player-stats y TV MX", async () => {
@@ -213,7 +257,7 @@ describe("ficha en vivo", () => {
         return {
           status: 200,
           body: { results: pollCycle === 1 ? baseCommentary : extraCommentary },
-          remaining: 10, // bajo respecto a reserva, pero modo ilimitado lo permite
+          remaining: 10,
         };
       }
       const res = await p.fetch(path);
@@ -239,18 +283,31 @@ describe("ficha en vivo", () => {
     expect(second?.commentary?.map((c) => c.id)).toEqual(["10", "11"]);
   });
 
-  it("partido desconocido: 404", async () => {
+  it("anónimo sin sesión recibe 401 con private, no-store", async () => {
+    mocks.getViewerAccess.mockResolvedValueOnce(ACCESS_NONE);
+    const res = await gameGET(new Request("http://localhost/api/live/games/no-existe"), {
+      params: Promise.resolve({ gameId: "no-existe" }),
+    });
+    expect(res.status).toBe(401);
+    expect(res.headers.get("cache-control")).toBe("private, no-store");
+  });
+
+  it("partido desconocido con sesión: 404 privado", async () => {
+    mocks.getViewerAccess.mockResolvedValueOnce(ACCESS_BETA);
     const res = await gameGET(new Request("http://localhost/api/live/games/no-existe"), {
       params: Promise.resolve({ gameId: "no-existe" }),
     });
     expect(res.status).toBe(404);
+    expect(res.headers.get("cache-control")).toBe("private, no-store");
   });
 
-  it("id con caracteres raros: 400", async () => {
+  it("id con caracteres raros con sesión: 400 privado", async () => {
+    mocks.getViewerAccess.mockResolvedValueOnce(ACCESS_BETA);
     const res = await gameGET(new Request("http://localhost/api/live/games/x"), {
       params: Promise.resolve({ gameId: "x;drop" }),
     });
     expect(res.status).toBe(400);
+    expect(res.headers.get("cache-control")).toBe("private, no-store");
   });
 });
 
@@ -271,13 +328,11 @@ describe("caché compartida en Neon (dos instancias)", () => {
     const fromB = await getLiveScoreboard(b);
     expect(p.calls).toEqual(["/events/live/"]);
     expect(fromB.entries[0]?.score).toEqual({ home: 0, away: 1 });
-    // Arranque en frío sobre partido ya iniciado (34', 0-1) no debe emitir goles retroactivos falsos.
     const coldRows = (await db.execute(
       "SELECT kind, home_score, away_score FROM live_match_events ORDER BY kind" as never,
     )) as unknown as { rows: { kind: string }[] };
     expect(coldRows.rows).toEqual([]);
 
-    // Al ocurrir un gol real posterior (0-1 -> 1-1 tras vencer el caché), sí se registra el evento `goal`.
     const liveNext = structuredClone(fixture("live.json")) as {
       events: Array<{ id: number; home_score: number; away_score: number; current_minute: number }>;
     };
@@ -299,7 +354,7 @@ describe("caché compartida en Neon (dos instancias)", () => {
   });
 });
 
-describe("cabeceras y cuota", () => {
+describe("cabeceras, cuota y cierre anti-scraping en rutas live/search", () => {
   it("lee lo restante del `RateLimit` de Bzzoiro", () => {
     expect(parseRateLimitRemaining('"football";r=7213;t=52800')).toBe(7213);
     expect(parseRateLimitRemaining(null)).toBeNull();
@@ -311,11 +366,281 @@ describe("cabeceras y cuota", () => {
     expect(liveCacheControl(null, false)).toMatch(/s-maxage=120/);
   });
 
-  it("la ruta del marcador responde con `Cache-Control` para el CDN", async () => {
-    const res = await scoreboardGET();
+  it("GET /api/live/scoreboard devuelve 401 anónimo y 200 privado con private, no-store", async () => {
+    mocks.getViewerAccess.mockResolvedValueOnce(ACCESS_NONE);
+    const unauth = await scoreboardGET(new Request("http://localhost/api/live/scoreboard"));
+    expect(unauth.status).toBe(401);
+    expect(unauth.headers.get("cache-control")).toBe("private, no-store");
+
+    mocks.getViewerAccess.mockResolvedValueOnce(ACCESS_BETA);
+    const res = await scoreboardGET(new Request("http://localhost/api/live/scoreboard"));
     expect(res.status).toBe(200);
-    expect(res.headers.get("cache-control")).toMatch(/^public, s-maxage=/);
+    expect(res.headers.get("cache-control")).toBe("private, no-store");
+    expect(res.headers.get("x-content-type-options")).toBe("nosniff");
     const body = (await res.json()) as { entries: unknown[] };
     expect(Array.isArray(body.entries)).toBe(true);
+  });
+
+  it("GET /api/live/alerts devuelve 401 sin sesión con private, no-store", async () => {
+    vi.stubEnv("DATABASE_URL", "postgresql://local/test");
+    resetAuthForTests({
+      api: {
+        getSession: async () => null,
+      },
+    } as unknown as PitchLabAuth);
+    const res = await alertsGET(new Request("http://localhost/api/live/alerts"));
+    expect(res.status).toBe(401);
+    expect(res.headers.get("cache-control")).toBe("private, no-store");
+    expect(res.headers.get("x-content-type-options")).toBe("nosniff");
+  });
+
+  it("GET /api/search/players devuelve 401 anónimo, exige q.length >= 2 y responde private, no-store", async () => {
+    mocks.getViewerAccess.mockResolvedValueOnce(ACCESS_NONE);
+    const unauth = await searchPlayersGET(
+      new Request("http://localhost/api/search/players?q=ohtani&league=mlb"),
+    );
+    expect(unauth.status).toBe(401);
+    expect(unauth.headers.get("cache-control")).toBe("private, no-store");
+
+    mocks.getViewerAccess.mockResolvedValueOnce(ACCESS_BETA);
+    const shortQuery = await searchPlayersGET(
+      new Request("http://localhost/api/search/players?q=a&league=mlb"),
+    );
+    expect(shortQuery.status).toBe(200);
+    expect(shortQuery.headers.get("cache-control")).toBe("private, no-store");
+    expect(await shortQuery.json()).toEqual({ items: [] });
+
+    mocks.getViewerAccess.mockResolvedValueOnce(ACCESS_BETA);
+    const ok = await searchPlayersGET(
+      new Request("http://localhost/api/search/players?q=al&limit=99"),
+    );
+    expect(ok.status).toBe(200);
+    expect(ok.headers.get("cache-control")).toBe("private, no-store");
+    const body = (await ok.json()) as { items: unknown[] };
+    expect(Array.isArray(body.items)).toBe(true);
+    expect(body.items.length).toBeLessThanOrEqual(40);
+  });
+});
+
+describe("telemetría Bzzoiro en vivo (LIVE_LEAGUES, shotmap, posiciones medias y FD-16)", () => {
+  it("LIVE_LEAGUES se deriva directamente desde LIVE_CAPABLE_BZZOIRO_LEAGUES de @pitchlab/contracts", () => {
+    expect(LIVE_LEAGUES).toBe(LIVE_CAPABLE_BZZOIRO_LEAGUES);
+    expect(LIVE_LEAGUES["liga-mx"]).toEqual([19, 20]);
+    expect(LIVE_LEAGUES["champions-league"]).toEqual([7]);
+    expect(LIVE_LEAGUES["nba"]).toBeUndefined();
+  });
+
+  it("en modo estándar puebla shots normalizados, xgTimeline y shotmapSummary desde stats.json sin duplicar requests", async () => {
+    const p = fakeProvider();
+    const d = deps("2026-11-14T23:34:00Z", p.fetch);
+    const first = await getLiveMatchDetail(QRO_MTY, d);
+    const second = await getLiveMatchDetail(QRO_MTY, d);
+
+    expect(p.calls.filter((c) => c === "/events/602407/stats/")).toHaveLength(1);
+    expect(first?.shots).toHaveLength(6);
+    expect(first?.shots.map((s) => s.minute)).toEqual([71, 73, 75, 81, 82, 84]);
+    expect(first?.shots.find((s) => s.minute === 81)?.outcome).toBe("save");
+    expect(first?.shots.find((s) => s.minute === 84)?.outcome).toBe("goal");
+    expect(first?.shotmapSummary).toEqual({
+      xgHome: 1.81,
+      xgAway: 0.35,
+      shotsHome: 20,
+      shotsAway: 8,
+    });
+    expect(first?.xgTimeline.at(-1)).toEqual({ minute: 84, home: 1.815, away: 0.348 });
+    expect(second?.shots).toEqual(first?.shots);
+    expect(() => LiveMatchDetailSchema.parse(first)).not.toThrow();
+
+    const serialized = JSON.stringify(first);
+    expect(serialized).not.toContain("602407");
+    expect(serialized).not.toContain("654339");
+  });
+
+  it("en modo enriquecido reutiliza statsRaw y playerStatsRaw sin duplicar requests, puebla shotmap + averagePositions y cumple FD-16", async () => {
+    const p = fakeProvider({
+      "/events/602407/stats/": {
+        event_id: 602407,
+        xg_estimated: false,
+        shotmap: [
+          {
+            min: 24,
+            added_time: 2,
+            home: true,
+            type: "save",
+            xg: 0.312,
+            pos: { x: 0.88, y: 0.49 },
+            player_id: 88776655,
+            body_part: "right_foot",
+          },
+          {
+            minute: 41,
+            is_home: false,
+            outcome: "block",
+            expected_goals: 0.145,
+            coordinates: { x: 0.78, y: 0.54 },
+            player: {
+              id: 77665544,
+              name: "Sergio Canales https://sports.bzzoiro.com/img/player/77665544/",
+            },
+            bodyPart: "head",
+          },
+        ],
+        average_positions: {
+          home: [
+            {
+              id: 88776656,
+              player_id: 88776656,
+              external_id: "ext-secret-602407",
+              player: {
+                id: 88776656,
+                name: "Álvaro Fidalgo https://sports.bzzoiro.com/img/player/88776656/",
+                shirt_number: 8,
+              },
+              average_x: 56.4,
+              average_y: 41.2,
+              touches: 78,
+              photo_url: "https://sports.bzzoiro.com/img/player/88776656/",
+            },
+          ],
+          away: [],
+        },
+      },
+      "/events/602407/player-stats/": {
+        home: [
+          {
+            player_id: 88776655,
+            player: { id: 88776655, name: "Henry Martín" },
+            position: "ST",
+            minutes_played: 41,
+            rating: 8.1,
+            photo_url: "https://a.espncdn.com/headshots/88776655.png",
+          },
+          {
+            player_id: 88776656,
+            player: { id: 88776656, name: "Álvaro Fidalgo" },
+            position: "CM",
+            minutes_played: 41,
+            rating: 8.35,
+            touches: 78,
+          },
+        ],
+        away: [
+          {
+            player_id: 77665544,
+            player: {
+              id: 77665544,
+              name: "Sergio Canales www.bzzoiro.com/player/77665544",
+              jersey_number: 10,
+            },
+            position: "AM",
+            minutes_played: 41,
+            avg_x: 64.5,
+            avg_y: 53.1,
+            touches: 69,
+            rating: 7.9,
+            image_url: "https://sports.bzzoiro.com/img/player/77665544/",
+          },
+        ],
+      },
+      "/events/602407/commentary/": { results: [] },
+      "/events/602407/broadcasts/": { results: [] },
+    });
+
+    const d = deps("2026-11-14T23:34:00Z", p.fetch, {
+      budget: { dailyMax: 0, reserve: 0, unlimited: true },
+      includeRich: true,
+    });
+
+    const detail = await getLiveMatchDetail(QRO_MTY, d);
+    await getLiveMatchDetail(QRO_MTY, d);
+
+    expect(p.calls.filter((c) => c === "/events/602407/stats/")).toHaveLength(1);
+    expect(p.calls.filter((c) => c === "/events/602407/player-stats/")).toHaveLength(1);
+
+    expect(detail?.shots).toEqual([
+      {
+        minute: 24,
+        addedTime: 2,
+        side: "home",
+        outcome: "save",
+        xg: 0.312,
+        x: 88,
+        y: 49,
+        player: "Henry Martín",
+        bodyPart: "right_foot",
+      },
+      {
+        minute: 41,
+        side: "away",
+        outcome: "block",
+        xg: 0.145,
+        x: 78,
+        y: 54,
+        player: "Sergio Canales",
+        bodyPart: "head",
+      },
+    ]);
+    expect(detail?.xgTimeline).toEqual([
+      { minute: 24, home: 0.312, away: 0 },
+      { minute: 41, home: 0.312, away: 0.145 },
+    ]);
+    expect(detail?.shotmapSummary).toEqual({
+      xgHome: 0.312,
+      xgAway: 0.145,
+      shotsHome: 1,
+      shotsAway: 1,
+    });
+    expect(detail?.averagePositions).toEqual([
+      {
+        side: "home",
+        name: "Álvaro Fidalgo",
+        number: 8,
+        position: "CM",
+        x: 56.4,
+        y: 41.2,
+        touches: 78,
+        rating: 8.35,
+      },
+      {
+        side: "away",
+        name: "Sergio Canales",
+        number: 10,
+        position: "AM",
+        x: 64.5,
+        y: 53.1,
+        touches: 69,
+        rating: 7.9,
+      },
+    ]);
+
+    expect(() => LiveMatchDetailSchema.parse(detail)).not.toThrow();
+    for (const shot of detail?.shots ?? []) {
+      expect(() => LiveShotSchema.parse(shot)).not.toThrow();
+    }
+    for (const pos of detail?.averagePositions ?? []) {
+      expect(() => LiveAveragePositionSchema.parse(pos)).not.toThrow();
+    }
+    expect(() => LiveShotmapSummarySchema.parse(detail?.shotmapSummary)).not.toThrow();
+
+    const serialized = JSON.stringify(detail);
+    for (const forbidden of [
+      "602407",
+      "88776655",
+      "88776656",
+      "77665544",
+      "ext-secret-602407",
+      "bzzoiro.com",
+      "espncdn",
+      "https://",
+      "http://",
+      "www.",
+      "photo_url",
+      "image_url",
+      "player_id",
+      "external_id",
+      "event_id",
+    ]) {
+      expect(serialized).not.toContain(forbidden);
+    }
   });
 });

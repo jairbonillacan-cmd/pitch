@@ -114,8 +114,10 @@ describe("ADR-053 · navigation-helpers y gestos táctiles", () => {
 
   it("decide el cierre de bottom sheet por distancia o velocidad hacia abajo (shouldDismissSheetSwipe)", () => {
     expect(shouldDismissSheetSwipe(120, 0.1)).toBe(true);
+    expect(shouldDismissSheetSwipe(92, 0)).toBe(true);
     expect(shouldDismissSheetSwipe(48, 0.72)).toBe(true);
     expect(shouldDismissSheetSwipe(40, 0.15)).toBe(false);
+    expect(shouldDismissSheetSwipe(0, 0.9)).toBe(false);
     expect(shouldDismissSheetSwipe(-30, 0.9)).toBe(false);
   });
 

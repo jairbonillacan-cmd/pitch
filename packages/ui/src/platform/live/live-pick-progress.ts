@@ -1,13 +1,11 @@
-/**
- * Progreso en vivo de picks abiertos del socio (cero peticiones extra: consume el marcador
- * y las estadísticas en vivo ya sincronizados por `/api/live/*`).
- */
 import {
   canonicalGameHref,
   isLivePhaseActive,
+  parseStrictFiniteNumber,
   type LiveMatchDetail,
   type LiveScoreboardEntry,
 } from "@pitchlab/contracts";
+import type { LiveAsianPickState } from "../atomic";
 import type { JournalEntry, PlatformGame } from "../types";
 
 export interface LivePickProgressItem {
@@ -19,12 +17,13 @@ export interface LivePickProgressItem {
   readonly clockLabel: string;
   readonly scoreLabel: string;
   readonly statusText: string;
-  /** Lectura compacta `actual / línea` (ej. `2 / 2.5 goles` o `+1.0 margen`). */
   readonly progressRatioLabel?: string;
-  /** `true` cuando un mercado Over ya cruzó su línea en vivo (provisional hasta FT). */
   readonly lineReached?: boolean;
   readonly currentValue: number | null;
   readonly targetValue: number | null;
+  readonly rawActual?: number | null;
+  readonly rawLine?: number | null;
+  readonly asianState?: LiveAsianPickState | null;
   readonly tone: "brand" | "success" | "warning";
   readonly href?: string;
 }
@@ -36,10 +35,14 @@ export type AsianHandicapLiveState =
   | "losing_half"
   | "not_covering";
 
-/**
- * Evalúa un hándicap asiático o spread (incluyendo cuartos `.0`, `.25`, `.5`, `.75`)
- * respecto al margen actual `(equipo elegido − rival)`.
- */
+function mapAsianHandicapToLiveState(state: AsianHandicapLiveState): LiveAsianPickState {
+  if (state === "covering_full") return "won_full";
+  if (state === "covering_half") return "won_half";
+  if (state === "push") return "push";
+  if (state === "losing_half") return "lost_half";
+  return "lost_full";
+}
+
 export function evaluateAsianHandicapLive(
   teamMargin: number,
   handicapLine: number,
@@ -66,8 +69,8 @@ function parseHandicapTarget(
 ): { side: "home" | "away"; line: number } | null {
   const m = /([+-]\d+(?:\.(?:0|25|5|75))?)\b/.exec(label);
   if (!m?.[1]) return null;
-  const line = Number(m[1]);
-  if (!Number.isFinite(line)) return null;
+  const line = parseStrictFiniteNumber(m[1]);
+  if (line === null) return null;
   const lower = label.toLowerCase();
   if (lower.includes("local") || (game && lower.includes(game.home.shortName.toLowerCase()))) {
     return { side: "home", line };
@@ -90,8 +93,8 @@ function parseThresholdTarget(label: string): {
 
   const numMatch = /(\d+(?:\.\d+)?)/.exec(lower);
   if (!numMatch?.[1]) return null;
-  const line = Number(numMatch[1]);
-  if (!Number.isFinite(line) || line <= 0) return null;
+  const line = parseStrictFiniteNumber(numMatch[1]);
+  if (line === null || line <= 0) return null;
 
   let metric: "goals" | "corners" | "cards" | "shots" | "sot" = "goals";
   if (lower.includes("córner") || lower.includes("corner") || lower.includes("esquina")) {
@@ -188,7 +191,7 @@ export function computeLivePickProgress(params: {
           clockLabel,
           scoreLabel,
           statusText: met
-            ? `Línea cumplida (provisional hasta FT)`
+            ? "Línea cumplida (provisional hasta FT)"
             : remaining === 1
               ? `Falta 1 ${unitSingular}`
               : `Faltan ${remaining} ${unitWord}`,
@@ -196,6 +199,9 @@ export function computeLivePickProgress(params: {
           lineReached: met,
           currentValue: Math.min(currentMetric, needed),
           targetValue: needed,
+          rawActual: currentMetric,
+          rawLine: parsedTotal.line,
+          asianState: null,
           tone: met ? "success" : "brand",
           ...(href ? { href } : {}),
         };
@@ -217,6 +223,9 @@ export function computeLivePickProgress(params: {
         lineReached: false,
         currentValue: Math.min(currentMetric, Math.max(1, maxAllowed + 1)),
         targetValue: Math.max(1, maxAllowed + 1),
+        rawActual: currentMetric,
+        rawLine: parsedTotal.line,
+        asianState: null,
         tone: busted ? "warning" : "brand",
         ...(href ? { href } : {}),
       };
@@ -243,6 +252,9 @@ export function computeLivePickProgress(params: {
       lineReached: hcp.state === "covering_full",
       currentValue: null,
       targetValue: null,
+      rawActual: teamMargin,
+      rawLine: parsedHandicap.line,
+      asianState: mapAsianHandicapToLiveState(hcp.state),
       tone: hcp.tone,
       ...(href ? { href } : {}),
     };
@@ -267,6 +279,9 @@ export function computeLivePickProgress(params: {
         lineReached: met,
         currentValue: scoredTeams,
         targetValue: 2,
+        rawActual: scoredTeams,
+        rawLine: 1.5,
+        asianState: null,
         tone: met ? "success" : "brand",
         ...(href ? { href } : {}),
       };
@@ -284,6 +299,9 @@ export function computeLivePickProgress(params: {
     statusText: `Marcador parcial ${scoreLabel}`,
     currentValue: null,
     targetValue: null,
+    rawActual: null,
+    rawLine: null,
+    asianState: null,
     tone: "brand",
     ...(href ? { href } : {}),
   };

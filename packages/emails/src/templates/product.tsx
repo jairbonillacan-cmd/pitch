@@ -2,18 +2,14 @@ import { siteUrl } from "../brand";
 import { Cta, Eyebrow, Facts, greeting, P, Stat, StatGrid, TextLink, Title } from "../components";
 import { EmailLayout } from "../layout";
 
-/* 16 · Pick calificado ------------------------------------------------------------------ */
-
 export interface PickGradedProps {
   name?: string;
   result: "won" | "lost" | "void";
   matchLabel: string;
   leagueLabel: string;
   pickLabel: string;
-  /** Ya formateados, en el formato de momios del usuario: «-110». */
   userOddsLabel: string;
   fairOddsLabel: string;
-  /** Contra el cierre: «+3.2 pts». Solo si hay momio de cierre. */
   clvLabel?: string;
   journalUrl?: string;
   settingsUrl: string;
@@ -46,12 +42,12 @@ export function PickGradedEmail({
       preview={`${matchLabel}: ${r.stat.toLowerCase()}.`}
       footerNote={
         <>
-          Recibes este aviso porque activaste los resultados de tu bitácora.{" "}
+          Recibes este aviso porque activaste los resultados de tu récord.{" "}
           <TextLink href={settingsUrl}>Cambiar avisos</TextLink>
         </>
       }
     >
-      <Eyebrow>Bitácora · {leagueLabel}</Eyebrow>
+      <Eyebrow>Récord · {leagueLabel}</Eyebrow>
       <Title>{r.title}</Title>
       <P>{greeting(name)} Calificamos tu pick de {matchLabel}.</P>
       <Stat value={r.stat} tone={r.tone} />
@@ -63,24 +59,18 @@ export function PickGradedEmail({
           ...(clvLabel ? ([["Contra el cierre", clvLabel]] as const) : []),
         ]}
       />
-      <Cta href={journalUrl}>Ver mi bitácora</Cta>
+      <Cta href={journalUrl}>Ver mi récord</Cta>
     </EmailLayout>
   );
 }
 
-/* 17 · Tu mes en PitchLab --------------------------------------------------------------- */
-
 export interface MonthlyRecordProps {
   name?: string;
   monthLabel: string;
-  /** «+4.5 u» o «−2.0 u». */
   balanceLabel: string;
   balancePositive: boolean;
-  /** «12 de 20». */
   hitsLabel: string;
-  /** «+1.8 pts». */
   clvLabel: string;
-  /** «#41». */
   rankLabel: string;
   bestLeague?: { name: string; record: string };
   journalUrl?: string;
@@ -112,7 +102,7 @@ export function MonthlyRecordEmail({
     >
       <Eyebrow>Tu mes · {monthLabel}</Eyebrow>
       <Title>Tu mes en PitchLab</Title>
-      <P>{greeting(name)} Así quedó tu bitácora este mes.</P>
+      <P>{greeting(name)} Así quedó tu récord este mes.</P>
       <StatGrid
         items={[
           { label: "Saldo", value: balanceLabel, tone: balancePositive ? "success" : "danger" },
@@ -122,7 +112,7 @@ export function MonthlyRecordEmail({
         ]}
       />
       {bestLeague ? <Facts rows={[["Tu mejor liga", `${bestLeague.name} · ${bestLeague.record}`]]} /> : null}
-      <Cta href={journalUrl}>Ver mi bitácora</Cta>
+      <Cta href={journalUrl}>Ver mi récord</Cta>
     </EmailLayout>
   );
 }

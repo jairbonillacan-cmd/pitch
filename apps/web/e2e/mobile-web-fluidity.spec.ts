@@ -92,6 +92,17 @@ test.describe("Integración web y fluidez móvil multi-breakpoint", () => {
     await expect(profMenu).toHaveCount(0);
 
     if (testInfo.project.name === "mobile") {
+      await page.locator("[data-profile-menu-trigger]:visible").first().click();
+      await expect(profMenu).toBeVisible();
+      const topBar = profMenu.locator(".pl-profile-menu-sheet-top").first();
+      const box = await topBar.boundingBox();
+      expect(box).not.toBeNull();
+      await page.mouse.move(box!.x + 40, box!.y + 12);
+      await page.mouse.down();
+      await page.mouse.move(box!.x + 40, box!.y + 165, { steps: 6 });
+      await page.mouse.up();
+      await expect(profMenu).toHaveCount(0);
+
       const moreTrigger = page.locator("[data-mobile-more-trigger]:visible");
       await expect(moreTrigger).toBeVisible();
       await moreTrigger.click();

@@ -1,17 +1,12 @@
 "use client";
 
-/**
- * EN-VIVO-1 · Match Center: marcador del día, ficha en vivo y «Siguiendo».
- *
- * Los componentes de presentación (`LiveMatchPanelView`, `LiveScoreboardView`) reciben los datos
- * por props para Storybook y pruebas; los contenedores (`LiveMatchPanel`, `LiveScoreboardStrip`)
- * los leen del sondeo compartido (`live-store.ts`).
- */
-import React, { useEffect } from "react";
+import React, { useMemo, useState } from "react";
 import {
   canonicalGameHref,
+  canonicalTeamHref,
   LIVE_PHASE_LABEL_ES,
   isLivePhaseActive,
+  type LiveAveragePosition,
   type LiveIncident,
   type LiveMatchDetail,
   type LiveScoreboard,
@@ -22,13 +17,16 @@ import {
   AtomicAveragePositionsPitch,
   type AtomicAveragePositionPlayer,
 } from "../atomic/AtomicAveragePositionsPitch";
-import { AtomicShotmapPitch } from "../atomic/AtomicShotmapPitch";
+import { AtomicShotmapPitch, type AtomicShotItem } from "../atomic/AtomicShotmapPitch";
 import { MaestroIcon } from "../components/MaestroPrimitives";
 import { SportEventIcon } from "../components/SportEventIcons";
+import { useSafeEffect } from "../hooks";
+import { handleRovingTablistKeyDown, sanitizeInternalHref } from "../navigation-helpers";
 import {
   DEFAULT_FOLLOW_ALERTS,
   type FollowAlerts,
   useFollowAlerts,
+  useOptionalPlatformActions,
   useOptionalPlatformCore,
   usePlatformActions,
   usePlatformCore,
@@ -36,10 +34,35 @@ import {
 } from "../platform-provider";
 import type { PlatformGame } from "../types";
 import { LiveStatBars, MomentumChart, XgRaceChart } from "./live-charts";
+import { LiveScoreTelemetry } from "./LiveScoreTelemetry";
 import { LiveWinProbBar } from "./LiveWinProbBar";
 import { useLiveMatch, useLiveScoreboard } from "./live-store";
 
-// ---------- Piezas ----------
+const LIVE_SHOT_OUTCOME_ES: Record<AtomicShotItem["outcome"], string> = {
+  goal: "Gol",
+  save: "Atajado",
+  saved: "Atajado",
+  on_target: "A puerta",
+  block: "Bloqueado",
+  blocked: "Bloqueado",
+  post: "Al poste",
+  miss: "Desviado",
+};
+
+function formatLivePhaseText(
+  entry: LiveScoreboardEntry,
+  kickoffLocal?: string,
+  short = false,
+): string {
+  if (entry.phase === "live" && entry.clock) {
+    return entry.clock.includes(":") || entry.clock.includes("'")
+      ? entry.clock
+      : `${entry.clock}'`;
+  }
+  if (entry.phase === "scheduled" && kickoffLocal) return kickoffLocal;
+  if (short && entry.phase === "halftime") return "MT";
+  return LIVE_PHASE_LABEL_ES[entry.phase];
+}
 
 export function LivePhaseBadge({
   entry,
@@ -48,18 +71,10 @@ export function LivePhaseBadge({
 }: {
   entry: LiveScoreboardEntry;
   kickoffLocal?: string;
-  /** Rótulo corto para filas angostas («MT» en vez de «Medio tiempo»). */
   short?: boolean;
 }): React.JSX.Element {
   const active = isLivePhaseActive(entry.phase);
-  const text =
-    entry.phase === "live" && entry.clock
-      ? `${entry.clock}'`
-      : entry.phase === "scheduled" && kickoffLocal
-        ? kickoffLocal
-        : short && entry.phase === "halftime"
-          ? "MT"
-          : LIVE_PHASE_LABEL_ES[entry.phase];
+  const text = formatLivePhaseText(entry, kickoffLocal, short);
   return (
     <span className={`pl-live-phase pl-live-phase--${entry.phase}`}>
       {active ? <span className="pl-live-pulse" aria-hidden="true" /> : null}
@@ -95,7 +110,6 @@ function incidentText(i: LiveIncident): { title: string; detail: string | null }
   }
 }
 
-/** Línea de tiempo: lo más reciente arriba. */
 export function LiveTimeline({
   incidents,
   homeLabel,
@@ -144,7 +158,6 @@ export function LiveTimeline({
   );
 }
 
-/** «Siguiendo»: seguir el partido y elegir qué avisos llegan a la campana. */
 export function FollowControl({ gameId, compact = false }: { gameId: string; compact?: boolean }): React.JSX.Element {
   const { toggleWatchlistGame, setFollowAlerts } = usePlatformActions();
   const watchlistGameIds = useWatchlistGameIds();
@@ -154,7 +167,7 @@ export function FollowControl({ gameId, compact = false }: { gameId: string; com
   const [pulseSeq, setPulseSeq] = React.useState(0);
   const prevFollowingRef = React.useRef(following);
 
-  React.useEffect(() => {
+  useSafeEffect(() => {
     if (prevFollowingRef.current && !following && !compact) {
       setClosingAlerts(true);
       const t = window.setTimeout(() => setClosingAlerts(false), 230);
@@ -225,22 +238,15 @@ export function FollowControl({ gameId, compact = false }: { gameId: string; com
   );
 }
 
-// ---------- Ficha en vivo ----------
-
 export interface LiveMatchPanelViewProps {
   game: Pick<PlatformGame, "id" | "league" | "home" | "away" | "kickoffLocal">;
   detail: LiveMatchDetail | null;
   loading?: boolean;
   error?: boolean;
-  /** Oculta el control «Siguiendo» (Storybook sin proveedor). */
   showFollow?: boolean;
-  /** Oculta la gráfica de momentum cuando ya vive en la columna lateral de la ficha. */
   hideMomentum?: boolean;
-  /** Oculta el marcador duplicado cuando el hero principal ya lo muestra arriba. */
   hideScoreboard?: boolean;
-  /** Oculta la línea de tiempo duplicada cuando ya vive por tiempos en el riel lateral. */
   hideTimeline?: boolean;
-  /** Posiciones medias reales opcionales (0..100); se omite la cancha cuando faltan datos. */
   averagePositions?: readonly AtomicAveragePositionPlayer[];
 }
 
@@ -278,25 +284,15 @@ function LiveDetailRightColumn({
     );
   }
 
-  const handleTabKeyDown = (e: React.KeyboardEvent<HTMLDivElement>) => {
-    const idx = tabs.findIndex((t) => t.key === currentTab);
-    if (idx < 0) return;
-    if (e.key === "ArrowRight") {
-      e.preventDefault();
-      setActiveTab(tabs[(idx + 1) % tabs.length]!.key);
-    } else if (e.key === "ArrowLeft") {
-      e.preventDefault();
-      setActiveTab(tabs[(idx - 1 + tabs.length) % tabs.length]!.key);
-    }
-  };
+  const tabKeys = tabs.map((t) => t.key);
 
   return (
     <div className="pl-live-col">
       <div
         role="tablist"
         aria-label="Detalle del partido en vivo"
+        aria-orientation="horizontal"
         className="pl-live-tabs"
-        onKeyDown={handleTabKeyDown}
       >
         {tabs.map((t) => {
           const selected = currentTab === t.key;
@@ -311,6 +307,18 @@ function LiveDetailRightColumn({
               tabIndex={selected ? 0 : -1}
               className="pl-live-tab"
               onClick={() => setActiveTab(t.key)}
+              onKeyDown={(e) =>
+                handleRovingTablistKeyDown(
+                  e,
+                  tabKeys,
+                  t.key,
+                  setActiveTab,
+                  (nextKey) => {
+                    const btn = document.getElementById(`${uid}-tab-${nextKey}`);
+                    return btn instanceof HTMLButtonElement ? btn : null;
+                  },
+                )
+              }
             >
               {t.label}
             </button>
@@ -414,6 +422,23 @@ function LiveDetailRightColumn({
   );
 }
 
+function toAtomicAveragePositions(
+  positions: readonly LiveAveragePosition[] | undefined,
+): readonly AtomicAveragePositionPlayer[] {
+  if (!positions || positions.length === 0) return [];
+  return positions.map((p) => ({
+    side: p.side,
+    name: p.name,
+    ...(p.shortName ? { shortName: p.shortName } : {}),
+    number: p.number ?? null,
+    position: p.position ?? null,
+    x: p.x,
+    y: p.y,
+    touches: p.touches ?? null,
+    rating: p.rating ?? null,
+  }));
+}
+
 export function LiveMatchPanelView({
   game,
   detail,
@@ -426,14 +451,19 @@ export function LiveMatchPanelView({
   averagePositions,
 }: LiveMatchPanelViewProps): React.JSX.Element | null {
   const platformCore = useOptionalPlatformCore();
+  const platformActions = useOptionalPlatformActions();
+  const [selectedShot, setSelectedShot] = useState<AtomicShotItem | null>(null);
+  const [selectedAvgPlayer, setSelectedAvgPlayer] = useState<AtomicAveragePositionPlayer | null>(null);
   const oddsFormat = platformCore?.oddsFormat ?? "american";
   const home = game.home.shortName;
   const away = game.away.shortName;
   const live = Boolean(detail && isLivePhaseActive(detail.entry.phase));
+  const effectiveAveragePositions = useMemo<readonly AtomicAveragePositionPlayer[]>(() => {
+    if (averagePositions !== undefined) return averagePositions;
+    return toAtomicAveragePositions(detail?.averagePositions);
+  }, [averagePositions, detail?.averagePositions]);
 
-  // Screen Wake Lock opcional: mantiene la pantalla encendida solo mientras el partido en vivo
-  // esté activo y visible, liberando el bloqueo al cambiar de pestaña/app o desmontar (ADR-053).
-  useEffect(() => {
+  useSafeEffect(() => {
     if (!live || typeof navigator === "undefined" || typeof document === "undefined") return;
     const nav = navigator as Navigator & {
       wakeLock?: {
@@ -515,12 +545,26 @@ export function LiveMatchPanelView({
             />
             <span>{home}</span>
           </span>
-          <strong className="pl-live-score-value num">
-            {entry.score ? `${entry.score.home} – ${entry.score.away}` : "–"}
-            <span className="sr-only">
-              {entry.score ? `${home} ${entry.score.home}, ${away} ${entry.score.away}` : ""}
-            </span>
-          </strong>
+          <div className="pl-live-score-center">
+            <strong className={`pl-live-score-value num${live ? " is-live" : ""}`}>
+              {entry.score ? `${entry.score.home} – ${entry.score.away}` : "–"}
+              <span className="sr-only">
+                {entry.score ? `${home} ${entry.score.home}, ${away} ${entry.score.away}` : ""}
+              </span>
+            </strong>
+            {live ? (
+              <span className="pl-live-score-clock num">
+                {formatLivePhaseText(entry, game.kickoffLocal, true)}
+              </span>
+            ) : null}
+            {live ? (
+              <LiveScoreTelemetry
+                stats={detail.stats}
+                shotmapSummary={detail.shotmapSummary}
+                compact
+              />
+            ) : null}
+          </div>
           <span className="pl-live-score-team pl-live-score-team--away">
             <span>{away}</span>
             <TeamBadge
@@ -593,15 +637,118 @@ export function LiveMatchPanelView({
           )}
           <XgRaceChart points={detail.xgTimeline} homeLabel={home} awayLabel={away} estimated={detail.xgEstimated} />
           {detail.shots.length > 0 ? (
-            <AtomicShotmapPitch shots={detail.shots} homeLabel={home} awayLabel={away} />
-          ) : null}
-          {averagePositions && averagePositions.length > 0 ? (
-            <AtomicAveragePositionsPitch
-              players={averagePositions}
+            <AtomicShotmapPitch
+              shots={detail.shots}
               homeLabel={home}
               awayLabel={away}
+              onSelectShot={(shot) => {
+                if (shot) setSelectedAvgPlayer(null);
+                setSelectedShot(shot);
+              }}
             />
           ) : null}
+          {effectiveAveragePositions.length > 0 ? (
+            <AtomicAveragePositionsPitch
+              players={effectiveAveragePositions}
+              homeLabel={home}
+              awayLabel={away}
+              onSelectPlayer={(player) => {
+                setSelectedShot(null);
+                setSelectedAvgPlayer(player);
+              }}
+            />
+          ) : null}
+          {selectedAvgPlayer ? (() => {
+            const sideTeam = selectedAvgPlayer.side === "home" ? game.home : game.away;
+            const safePlayerHref = sanitizeInternalHref(selectedAvgPlayer.playerHref);
+            const targetHref =
+              safePlayerHref ?? `${canonicalTeamHref(game.league, sideTeam.slug)}?tab=plantilla`;
+            return (
+              <div
+                className="pl-live-inspector-bar"
+                role="status"
+                aria-live="polite"
+                data-live-player-inspector=""
+              >
+                <div className="pl-live-inspector-meta num">
+                  <strong>
+                    {selectedAvgPlayer.number != null ? `#${selectedAvgPlayer.number} ` : ""}
+                    {selectedAvgPlayer.name}
+                  </strong>
+                  <span style={{ color: "var(--pl-text-muted)" }}>{sideTeam.shortName}</span>
+                  {selectedAvgPlayer.position ? (
+                    <span className="pl-pill text-[11px]">{selectedAvgPlayer.position}</span>
+                  ) : null}
+                  <span className="text-xs" style={{ color: "var(--pl-text-secondary)" }}>
+                    Altura {Math.round(selectedAvgPlayer.x)} %
+                  </span>
+                  {selectedAvgPlayer.touches != null ? (
+                    <span className="text-xs" style={{ color: "var(--pl-text-secondary)" }}>
+                      {selectedAvgPlayer.touches} toques
+                    </span>
+                  ) : null}
+                  {selectedAvgPlayer.rating != null ? (
+                    <span className="pl-pill text-[11px]">
+                      Nota {selectedAvgPlayer.rating.toFixed(1)}
+                    </span>
+                  ) : null}
+                </div>
+                <div className="pl-live-inspector-actions">
+                  <a
+                    href={targetHref}
+                    onClick={(e) => {
+                      if (!platformActions) return;
+                      e.preventDefault();
+                      platformActions.navigateTo(targetHref);
+                    }}
+                    className="pl-live-inspector-link"
+                  >
+                    {safePlayerHref ? "Ver jugador" : `Plantilla ${sideTeam.shortName}`}
+                  </a>
+                  <button
+                    type="button"
+                    className="pl-live-inspector-close"
+                    aria-label="Cerrar detalle del jugador"
+                    onClick={() => setSelectedAvgPlayer(null)}
+                  >
+                    <MaestroIcon name="x" size={13} />
+                  </button>
+                </div>
+              </div>
+            );
+          })() : null}
+          {selectedShot ? (() => {
+            const sideTeam = selectedShot.side === "home" ? game.home : game.away;
+            const minuteLabel = `${selectedShot.minute}${selectedShot.addedTime ? `+${selectedShot.addedTime}` : ""}'`;
+            return (
+              <div
+                className="pl-live-inspector-bar"
+                data-live-shot-inspector=""
+              >
+                <div className="pl-live-inspector-meta num">
+                  <strong>{minuteLabel}</strong>
+                  <span>{sideTeam.shortName}</span>
+                  {selectedShot.player ? <strong>{selectedShot.player}</strong> : null}
+                  <span className="pl-pill text-[11px]">
+                    {LIVE_SHOT_OUTCOME_ES[selectedShot.outcome]}
+                  </span>
+                  {selectedShot.xg != null ? (
+                    <span className="text-xs" style={{ color: "var(--pl-text-secondary)" }}>
+                      xG {selectedShot.xg.toFixed(2)}
+                    </span>
+                  ) : null}
+                </div>
+                <button
+                  type="button"
+                  className="pl-live-inspector-close"
+                  aria-label="Cerrar detalle del remate"
+                  onClick={() => setSelectedShot(null)}
+                >
+                  <MaestroIcon name="x" size={13} />
+                </button>
+              </div>
+            );
+          })() : null}
           {detail.stats ? <LiveStatBars stats={detail.stats} homeLabel={home} awayLabel={away} /> : null}
         </div>
         {hideTimeline ? null : (
@@ -628,7 +775,6 @@ export function LiveMatchPanelView({
   );
 }
 
-/** Contenedor de la ficha: se conecta al sondeo solo cerca del inicio, en juego o ya jugado. */
 export function LiveMatchPanel({
   game,
   hideMomentum = false,
@@ -641,7 +787,6 @@ export function LiveMatchPanel({
   const supported = game.sport !== "american-football" && game.league !== "nfl";
   const snap = useLiveMatch(game.id, supported);
   if (!supported) return null;
-  // En la ficha, «Siguiendo» ya está en la barra superior: aquí no se repite.
   return (
     <LiveMatchPanelView
       game={game}
@@ -654,8 +799,6 @@ export function LiveMatchPanel({
     />
   );
 }
-
-// ---------- Marcador del día ----------
 
 export interface LiveScoreboardViewProps {
   board: LiveScoreboard | null;

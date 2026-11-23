@@ -1,8 +1,15 @@
 "use client";
 
 import React from "react";
-import { canonicalGameHref, canonicalTeamHref, formatOddsCaptureEs, sportHasDraw, sportScoringUnit } from "@pitchlab/contracts";
+import {
+  canonicalGameHref,
+  canonicalTeamHref,
+  formatOddsCaptureEs,
+  sportHasDraw,
+  sportScoringUnit,
+} from "@pitchlab/contracts";
 import { getTeamColors } from "@pitchlab/sports-assets";
+import { Button, buttonVariants } from "../../components/ui/primitives";
 import { LeagueBadge, ProbSplit, TeamBadge } from "../../sports";
 import {
   formatEdgePts,
@@ -18,12 +25,8 @@ import {
   usePlatformCore,
 } from "../platform-provider";
 import type { MatchPick, PlatformGame } from "../types";
-import {
-  CrestPedestal,
-  MaestroIcon,
-} from "./MaestroPrimitives";
+import { CrestPedestal, MaestroIcon } from "./MaestroPrimitives";
 
-/** Memorizada: solo se redibuja si cambian sus props, su estado en el parlay o la bitácora. */
 export const MultiPickRow = React.memo(function MultiPickRow({
   pick,
   gameStatus,
@@ -36,7 +39,8 @@ export const MultiPickRow = React.memo(function MultiPickRow({
   userDecimalOverride?: number | null;
 }): React.JSX.Element {
   const { viewerRole, oddsFormat, hasAccountSession, upgradeHref } = usePlatformCore();
-  const { addPickToParlay, removePickFromParlay, openComposer, openShareTicket, navigateTo } = usePlatformActions();
+  const { addPickToParlay, removePickFromParlay, openComposer, openShareTicket, navigateTo } =
+    usePlatformActions();
   const journal = useJournalEntries();
   const inParlay = useIsPickInParlay(pick.id);
 
@@ -45,10 +49,7 @@ export const MultiPickRow = React.memo(function MultiPickRow({
   if (!unlocked) {
     return (
       <div
-        className="rounded-2xl p-3.5 flex flex-wrap items-center justify-between gap-3 hairline-t"
-        style={{
-          background: "var(--pl-surface)",
-        }}
+        className="pl-ticket-pick-row flex flex-wrap items-center justify-between gap-3"
         data-locked-pick=""
       >
         <div className="space-y-1 min-w-0">
@@ -73,7 +74,7 @@ export const MultiPickRow = React.memo(function MultiPickRow({
             e.preventDefault();
             navigateTo(upgradeHref);
           }}
-          className="pl-btn-accent text-xs min-h-8 px-3 inline-flex items-center gap-1.5"
+          className={buttonVariants({ variant: "primary", size: "sm" })}
         >
           <MaestroIcon name="unlock" size={13} />
           <span>{hasAccountSession ? "Activar Pase Ultra" : "Desbloquear 7d gratis"}</span>
@@ -95,24 +96,21 @@ export const MultiPickRow = React.memo(function MultiPickRow({
     typeof userDecimalOverride === "number" &&
     Number.isFinite(userDecimalOverride) &&
     userDecimalOverride > 1;
-  const effectiveMarketDecimal = hasLiveUserOdds
-    ? userDecimalOverride
-    : pick.marketDecimal;
+  const effectiveMarketDecimal = hasLiveUserOdds ? userDecimalOverride : pick.marketDecimal;
   const effectiveEdgePts = hasLiveUserOdds
     ? (pick.p - 1 / userDecimalOverride) * 100
     : pick.edgePts;
 
   return (
     <div
-      className="rounded-2xl p-3.5 space-y-2.5 relative overflow-hidden"
-      style={{
-        background: "var(--pl-surface)",
-      }}
+      className="pl-ticket-pick-row space-y-2.5"
       data-unlocked-pick={pick.id}
     >
       <div className="flex flex-wrap items-center justify-between gap-2">
         <div className="flex flex-wrap items-center gap-1.5">
-          <span className={riskBadgeClass} title={pick.engineName}>{pick.categoryLabel}</span>
+          <span className={riskBadgeClass} title={pick.engineName}>
+            {pick.categoryLabel}
+          </span>
           {pick.isDailyOpenPromo ? (
             <span className="pl-pill pl-pill--info inline-flex items-center gap-1">
               <MaestroIcon name="sparkles" size={11} />
@@ -128,9 +126,7 @@ export const MultiPickRow = React.memo(function MultiPickRow({
           {gameStatus === "FT" && pick.result ? (
             <span
               className={`inline-flex items-center gap-1 ${
-                pick.result === "hit"
-                  ? "pl-pill pl-pill--success"
-                  : "pl-pill pl-pill--danger"
+                pick.result === "hit" ? "pl-pill pl-pill--success" : "pl-pill pl-pill--danger"
               }`}
             >
               <MaestroIcon name={pick.result === "hit" ? "check" : "x"} size={11} />
@@ -153,7 +149,9 @@ export const MultiPickRow = React.memo(function MultiPickRow({
           ) : null}
         </div>
 
-        <div className={`flex items-center gap-3.5 num ${compact ? "w-full justify-between" : "shrink-0"}`}>
+        <div
+          className={`flex items-center gap-3.5 num ${compact ? "w-full justify-between" : "shrink-0"}`}
+        >
           <div className="text-right">
             <span className="block text-[11px]" style={{ color: "var(--pl-text-muted)" }}>
               Probabilidad
@@ -164,7 +162,11 @@ export const MultiPickRow = React.memo(function MultiPickRow({
           </div>
           <div className="text-right">
             <span className="block text-[11px]" style={{ color: "var(--pl-text-muted)" }}>
-              {hasLiveUserOdds ? "Justa / Tu momio" : effectiveMarketDecimal === null ? "Momio justo" : "Justa / Casa"}
+              {hasLiveUserOdds
+                ? "Justa / Tu momio"
+                : effectiveMarketDecimal === null
+                  ? "Momio justo"
+                  : "Justa / Casa"}
             </span>
             <strong className="text-sm font-bold">
               {formatOddsValue(pick.fairDecimal, oddsFormat)}
@@ -172,9 +174,7 @@ export const MultiPickRow = React.memo(function MultiPickRow({
                 <> / {formatOddsValue(effectiveMarketDecimal, oddsFormat)}</>
               )}
             </strong>
-            {!hasLiveUserOdds &&
-            effectiveMarketDecimal !== null &&
-            pick.marketCapturedAtUtc ? (
+            {!hasLiveUserOdds && effectiveMarketDecimal !== null && pick.marketCapturedAtUtc ? (
               <time
                 dateTime={pick.marketCapturedAtUtc}
                 className="block text-[11px] leading-tight"
@@ -185,7 +185,6 @@ export const MultiPickRow = React.memo(function MultiPickRow({
               </time>
             ) : null}
           </div>
-          {/* Sin momio de casa no hay ventaja que mostrar: la columna no aparece. */}
           {effectiveEdgePts !== null ? (
             <div className="text-right">
               <span className="block text-[11px]" style={{ color: "var(--pl-text-muted)" }}>
@@ -205,32 +204,31 @@ export const MultiPickRow = React.memo(function MultiPickRow({
       </div>
 
       {gameStatus !== "FT" ? (
-        // v3.2: el modelo no sugiere monto (sin stake ni Kelly); la decisión y el monto son del socio.
         <div className="flex flex-wrap items-center justify-end gap-2 pt-1.5 hairline-t">
           <div className="flex flex-wrap items-center gap-1.5">
             {gameStatus !== "LIVE" ? (
-              <button
-                type="button"
-                className="pl-btn-glass text-xs min-h-8 px-2.5 inline-flex items-center gap-1"
+              <Button
+                variant="secondary"
+                size="sm"
                 aria-pressed={inParlay}
                 onClick={() => (inParlay ? removePickFromParlay(pick.id) : addPickToParlay(pick))}
                 data-add-parlay={pick.id}
               >
                 <MaestroIcon name={inParlay ? "check" : "plus"} size={12} />
                 <span>{inParlay ? "En Parlay" : "Parlay"}</span>
-              </button>
+              </Button>
             ) : null}
-            <button
-              type="button"
-              className="pl-btn-glass text-xs min-h-8 px-2.5 inline-flex items-center gap-1"
+            <Button
+              variant="secondary"
+              size="sm"
               onClick={() => openComposer(pick)}
             >
               <MaestroIcon name={isSealed ? "check" : "ticket"} size={12} />
               <span>{isSealed ? "Sellado" : "Sellar"}</span>
-            </button>
-            <button
-              type="button"
-              className="pl-btn-glass text-xs min-h-8 px-2.5 inline-flex items-center gap-1"
+            </Button>
+            <Button
+              variant="secondary"
+              size="sm"
               aria-label={`Compartir boleto de ${pick.label}`}
               onClick={() =>
                 openShareTicket({
@@ -251,7 +249,7 @@ export const MultiPickRow = React.memo(function MultiPickRow({
             >
               <MaestroIcon name="share" size={12} />
               <span>Boleto</span>
-            </button>
+            </Button>
           </div>
         </div>
       ) : null}
@@ -276,9 +274,7 @@ export const MatchTicketCard = React.memo(function MatchTicketCard({
   const hasForecast = game.hasForecast !== false && Boolean(game.x12 && game.projection);
   const isFinished = game.status === "FT" && game.score !== undefined;
   const mainPick = game.picks[0];
-  const unlockedMain = mainPick
-    ? isPickUnlocked(mainPick, game.status, viewerRole)
-    : false;
+  const unlockedMain = mainPick ? isPickUnlocked(mainPick, game.status, viewerRole) : false;
   const studioHref = canonicalGameHref(game.league, game);
 
   const homeColors = getTeamColors(game.league, game.home.slug);
@@ -316,14 +312,11 @@ export const MatchTicketCard = React.memo(function MatchTicketCard({
 
   return (
     <article
-      className={`${
-        featured ? "glass-lens glass-ring glass-ring--featured" : "glass-card glass-ring"
-      } rounded-2xl p-4 flex flex-col justify-between gap-3.5 relative overflow-hidden hover-lift`}
+      className={`pl-ticket-card ${featured ? "is-featured" : ""}`.trim()}
       data-game-card={game.id}
       onMouseEnter={() => setAuraFromGame(game)}
     >
-      <div className="space-y-3 relative z-10">
-        {/* Meta de liga, motor y nivel de confianza */}
+      <div className="space-y-3 min-w-0">
         <div className="flex flex-wrap items-center justify-between gap-1.5 text-xs">
           <span
             className="inline-flex items-center gap-1.5 font-bold min-w-0 truncate"
@@ -336,7 +329,8 @@ export const MatchTicketCard = React.memo(function MatchTicketCard({
               size={15}
             />
             <span className="truncate">
-              {game.leagueLabel} · {shortDateLabel(game.dayId)} · {isFinished ? "Finalizado FT" : game.kickoffLocal}
+              {game.leagueLabel} · {shortDateLabel(game.dayId)} ·{" "}
+              {isFinished ? "Finalizado FT" : game.kickoffLocal}
             </span>
           </span>
 
@@ -348,9 +342,7 @@ export const MatchTicketCard = React.memo(function MatchTicketCard({
             {isFinished && mainPick?.result ? (
               <span
                 className={`inline-flex items-center gap-1 ${
-                  mainPick.result === "hit"
-                    ? "pl-pill pl-pill--success"
-                    : "pl-pill pl-pill--danger"
+                  mainPick.result === "hit" ? "pl-pill pl-pill--success" : "pl-pill pl-pill--danger"
                 }`}
               >
                 <MaestroIcon name={mainPick.result === "hit" ? "check" : "x"} size={11} />
@@ -360,7 +352,6 @@ export const MatchTicketCard = React.memo(function MatchTicketCard({
           </div>
         </div>
 
-        {/* Equipos con CrestPedestal y marcador proyectado */}
         <div className="space-y-2">
           <div className="flex items-center justify-between gap-2">
             <div className="flex items-center gap-2.5 min-w-0">
@@ -433,7 +424,6 @@ export const MatchTicketCard = React.memo(function MatchTicketCard({
           </div>
         </div>
 
-        {/* Pill de marcador proyectado + barra de probabilidad */}
         {hasForecast && game.projection ? (
           <div className="space-y-2">
             {!isFinished ? (
@@ -452,9 +442,7 @@ export const MatchTicketCard = React.memo(function MatchTicketCard({
                     <span>Solo socios</span>
                   </span>
                 )}
-                <span style={{ color: "var(--pl-text-muted)" }}>
-                  {game.picks.length} picks
-                </span>
+                <span style={{ color: "var(--pl-text-muted)" }}>{game.picks.length} picks</span>
               </div>
             ) : null}
 
@@ -540,11 +528,11 @@ export const MatchTicketCard = React.memo(function MatchTicketCard({
         )}
       </div>
 
-      <div className="flex flex-wrap items-center justify-between gap-2 pt-1.5 hairline-t relative z-10">
+      <div className="flex flex-wrap items-center justify-between gap-2 pt-2 hairline-t">
         <a
           href={studioHref}
           onClick={handleOpenStudio}
-          className="pl-btn-glass text-xs min-h-8 px-3 inline-flex items-center gap-1.5"
+          className={buttonVariants({ variant: "secondary", size: "sm" })}
         >
           <span>Ver partido ({game.picks.length} picks)</span>
           <MaestroIcon name="arrowRight" size={13} />
@@ -552,22 +540,22 @@ export const MatchTicketCard = React.memo(function MatchTicketCard({
 
         {!isFinished && mainPick && unlockedMain ? (
           <div className="flex flex-wrap items-center gap-1.5">
-            <button
-              type="button"
-              className="pl-btn-glass text-xs min-h-8 px-2.5 inline-flex items-center gap-1"
+            <Button
+              variant="secondary"
+              size="sm"
               onClick={() => addPickToParlay(mainPick)}
             >
               <MaestroIcon name={inParlay ? "check" : "plus"} size={12} />
               <span>{inParlay ? "En Parlay" : "Parlay"}</span>
-            </button>
-            <button
-              type="button"
-              className="pl-btn-primary text-xs min-h-8 px-2.5 inline-flex items-center gap-1"
+            </Button>
+            <Button
+              variant="primary"
+              size="sm"
               onClick={() => openComposer(mainPick)}
             >
               <MaestroIcon name="ticket" size={12} />
               <span>Sellar</span>
-            </button>
+            </Button>
           </div>
         ) : !isFinished && mainPick && !unlockedMain ? (
           <a
@@ -576,7 +564,7 @@ export const MatchTicketCard = React.memo(function MatchTicketCard({
               e.preventDefault();
               navigateTo(upgradeHref);
             }}
-            className="pl-btn-accent text-xs min-h-8 px-2.5 inline-flex items-center gap-1"
+            className={buttonVariants({ variant: "primary", size: "sm" })}
           >
             <MaestroIcon name="unlock" size={12} />
             <span>{hasAccountSession ? "Activar Pase Ultra" : "7d gratis"}</span>

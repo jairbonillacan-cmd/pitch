@@ -103,7 +103,7 @@ Siempre sigue este orden cuando haya cambios de base de datos: **primero migrar 
    powershell -ExecutionPolicy Bypass -File scripts/migrate-prod.ps1
    ```
 
-2. El script consulta la rama `main` de Neon sin mostrar la cadena de conexión y enlista qué archivos de `packages/db/migrations` faltan frente a `drizzle.__drizzle_migrations` (incluyendo hasta `0024_liquidacion_parlays_push_embudo`). Si ya está al día, avisa y termina sin tocar nada.
+2. El script consulta la rama `main` de PostgreSQL sin mostrar la cadena de conexión y enlista qué archivos de `packages/db/migrations` faltan frente a `drizzle.__drizzle_migrations` (rango `0000..0027`, incluyendo hasta `0027_sealed_picks_insert_status_guard`). Si ya está al día, avisa y termina sin tocar nada.
 3. Revisa la lista, escribe `MIGRAR` (en mayúsculas) para confirmar y espera el mensaje verde `Migraciones aplicadas en produccion (rama main).`.
 4. Recién cuando la migración termine sin errores, haz `git push` o **Deploy / Redeploy** en Vercel.
 
@@ -294,3 +294,42 @@ En GitHub, abre **Settings → Secrets and variables → Actions → New reposit
 3. **`FOOTBALL_DATA_API_KEY`** (opcional, gratis en football-data.org): respaldo de calendario para Premier League.
 4. **`VERCEL_DEPLOY_HOOK_URL`**: en Vercel abre **Settings → Git → Deploy Hooks**, crea un hook llamado `github-data-pipeline` apuntando a `main` y pega la URL HTTPS.
 5. **`RESEND_API_KEY`**, **`EMAIL_FROM`** (`PitchLab <hola@pitchlab.mx>`) y **`PITCHLAB_ADMIN_EMAILS`** (tu correo): permiten que GitHub Actions te mande alerta inmediata cuando falle un workflow, se descarte un snapshot inválido o una liga supere su umbral de frescura (`30 h` calendario / `12 h` en jornada, `36 h` bajas, `36 h` momios).
+
+## Checklist Go/No-Go de Producción (ADR-050 · ADR-057)
+
+Antes de abrir tráfico en un servidor Node.js/OCI (`Dockerfile` con `PITCHLAB_STANDALONE=1`) o plataforma compatible, confirma cada punto en orden:
+
+### 1. Variables de entorno portables (cero lock-in de proveedor)
+
+- [ ] **Base de datos y autenticación:** `DATABASE_URL` (PostgreSQL 15+ estándar), `BETTER_AUTH_URL` (`https://pitchlab.mx`, sin `/` final), `BETTER_AUTH_SECRET`, `GOOGLE_CLIENT_ID` y `GOOGLE_CLIENT_SECRET`.
+- [ ] **Crons HTTP y seguridad:** `CRON_SECRET` (mínimo 32 caracteres aleatorios), `PITCHLAB_HOSTED=1` y `PITCHLAB_CAPTCHA_PROVIDER=turnstile|none` (si usas Turnstile, configura `TURNSTILE_SITE_KEY` / `TURNSTILE_SECRET_KEY`).
+- [ ] **Media, avatares S3-compatible y despliegue:** `PITCHLAB_MEDIA_ORIGINS`, `AVATAR_PUBLIC_BASE_URL`, `S3_AVATAR_ENDPOINT` / `S3_AVATAR_BUCKET` / `S3_AVATAR_REGION` / `S3_AVATAR_ACCESS_KEY_ID` / `S3_AVATAR_SECRET_ACCESS_KEY`, y `DEPLOY_HOOK_URL` (genérico; los adaptadores de plataforma son opt-in).
+- [ ] **Modo demo desactivado:** `PITCHLAB_PREVIEW_TOOLS` sin definir o `"0"`, `PITCHLAB_PAYMENTS_MODE=transfer|stripe` según etapa y `NEXT_PUBLIC_PITCHLAB_ENV=production`.
+
+### 2. Base de datos y migraciones (`0000..0027`)
+
+- [ ] Corre `node scripts/check-prod-readiness.mjs` en local o CI para validar migraciones, endpoints cron y snapshots sin exponer secretos.
+- [ ] Ejecuta primero el migrador antes de desplegar código nuevo:
+
+  ```powershell
+  powershell -ExecutionPolicy Bypass -File scripts/migrate-prod.ps1
+  ```
+
+- [ ] Confirma que las 28 migraciones (`0000_inicial` .. `0027_sealed_picks_insert_status_guard`) figuren en `drizzle.__drizzle_migrations`, que `security_rate_buckets` sea `UNLOGGED` (`relpersistence = 'u'`) y que el trigger `sealed_picks_immutability_trg` esté activo en `sealed_picks`.
+
+### 3. Smoke checks posteriores al despliegue
+
+- [ ] Salud HTTP estándar (`GET /api/health`): responde `200 OK` sin errores de conexión a PostgreSQL.
+- [ ] Endpoints cron autenticados con cabecera bearer estándar (sin secretos en URL ni `-S` en `curl`):
+
+  ```sh
+  curl -fsS -H "Authorization: Bearer $CRON_SECRET" "https://pitchlab.mx/api/cron/settle-picks"
+  ```
+
+  Verifica respuesta `200` en `/api/cron/settle-picks`, `/api/cron/push-alerts`, `/api/cron/tipster-payouts`, `/api/cron/weekly-digest` y `/api/cron/monthly-record`.
+- [ ] Verifica en navegación privada: `/` carga sin errores `5xx`, `/u/sofia_nfl` devuelve `404` cuando no existe fila pública real (`Cero-Fuga`), `/api/live/games/<id>` devuelve `Cache-Control: private, no-store`, y el rate limit PG (`0025`) está operativo.
+
+### 4. Plan de rollback seguro
+
+- **Rollback de aplicación:** regresa el tráfico a la imagen OCI / despliegue anterior antes de investigar. El esquema de `0000..0027` es aditivo (`IF NOT EXISTS`, nuevas columnas anulables o triggers idempotentes en `sealed_picks`), por lo que la versión previa sigue operando sin pérdida de datos.
+- **No revertir migraciones destructivamente:** jamás ejecutes `DROP TABLE` ni desactives `sealed_picks_immutability_trg` en producción; si un cron falla, pausa temporalmente su disparador programado o ajusta `PITCHLAB_CAPTCHA_PROVIDER` / variables de entorno sin tocar la integridad de `sealed_picks`.

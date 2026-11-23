@@ -13,6 +13,7 @@
  */
 import { existsSync, mkdirSync, readFileSync, writeFileSync } from "node:fs";
 import { dirname } from "node:path";
+import { parseStrictFiniteNumber } from "@pitchlab/contracts";
 import { normalizeLine, type OddsSnapshotRow } from "@pitchlab/spacetime";
 import type { CanonicalLeague } from "../mappings.js";
 import { validateOddsTickBatch } from "../validation/snapshot-validator.js";
@@ -166,7 +167,7 @@ export function parseTheOddsApiEvents(params: {
               line: null,
               selection: sel,
               book: canonBook,
-              price_decimal: Number(out.price),
+              price_decimal: parseStrictFiniteNumber(out.price) ?? Number.NaN,
               ts_captured: capturedIso,
               ts_event_start: resolvedEvent.tsEventStart,
               source: "scraped_ws",
@@ -180,13 +181,13 @@ export function parseTheOddsApiEvents(params: {
           for (const out of outcomes) {
             const oName = String(out.name ?? "").trim();
             const oSlug = resolveOddsTeamSlug(params.appLeague, oName);
-            const pt = normalizeLine(Number(out.point));
+            const pt = normalizeLine(parseStrictFiniteNumber(out.point));
             if (oSlug === resolvedEvent.homeSlug) {
               if (pt !== null) homeLine = pt;
-              mappedSides.push({ sel: "home", price: Number(out.price) });
+              mappedSides.push({ sel: "home", price: parseStrictFiniteNumber(out.price) ?? Number.NaN });
             } else if (oSlug === resolvedEvent.awaySlug) {
               if (homeLine === null && pt !== null) homeLine = normalizeLine(-pt);
-              mappedSides.push({ sel: "away", price: Number(out.price) });
+              mappedSides.push({ sel: "away", price: parseStrictFiniteNumber(out.price) ?? Number.NaN });
             }
           }
           if (homeLine === null) continue;
@@ -209,7 +210,7 @@ export function parseTheOddsApiEvents(params: {
           for (const out of outcomes) {
             const oLow = String(out.name ?? "").trim().toLowerCase();
             if (oLow !== "over" && oLow !== "under") continue;
-            const pt = normalizeLine(Number(out.point));
+            const pt = normalizeLine(parseStrictFiniteNumber(out.point));
             if (pt === null) continue;
             candidates.push({
               event_id: resolvedEvent.eventId,
@@ -219,7 +220,7 @@ export function parseTheOddsApiEvents(params: {
               line: pt,
               selection: oLow,
               book: canonBook,
-              price_decimal: Number(out.price),
+              price_decimal: parseStrictFiniteNumber(out.price) ?? Number.NaN,
               ts_captured: capturedIso,
               ts_event_start: resolvedEvent.tsEventStart,
               source: "scraped_ws",
@@ -237,7 +238,7 @@ export function parseTheOddsApiEvents(params: {
               line: null,
               selection: oLow,
               book: canonBook,
-              price_decimal: Number(out.price),
+              price_decimal: parseStrictFiniteNumber(out.price) ?? Number.NaN,
               ts_captured: capturedIso,
               ts_event_start: resolvedEvent.tsEventStart,
               source: "scraped_ws",
@@ -285,8 +286,8 @@ function readEnvNumber(
 ): number {
   const raw = env[name]?.trim();
   if (!raw) return fallback;
-  const parsed = Number(raw);
-  if (!Number.isFinite(parsed)) {
+  const parsed = parseStrictFiniteNumber(raw);
+  if (parsed === null) {
     throw new Error(`${name} debe ser numérico; se recibió '${raw}'.`);
   }
   return parsed;
@@ -301,8 +302,8 @@ function csvCount(value: string): number {
 
 function parseIntHeader(value: string | undefined): number | null {
   if (!value) return null;
-  const parsed = Number(value);
-  return Number.isFinite(parsed) ? Math.trunc(parsed) : null;
+  const parsed = parseStrictFiniteNumber(value);
+  return parsed !== null ? Math.trunc(parsed) : null;
 }
 
 function utcMonthKey(ms: number): string {
@@ -346,11 +347,11 @@ export class OddsApiBudget {
     if (path && existsSync(path)) {
       const raw = JSON.parse(readFileSync(path, "utf8")) as Record<string, unknown>;
       budget.month = typeof raw.month === "string" ? raw.month : "";
-      budget.creditsUsed = Number(raw.credits_used ?? 0) || 0;
+      budget.creditsUsed = parseStrictFiniteNumber(raw.credits_used) ?? 0;
       if (raw.by_day && typeof raw.by_day === "object") {
         for (const [k, v] of Object.entries(raw.by_day as Record<string, unknown>)) {
-          const n = Number(v);
-          if (Number.isFinite(n)) budget.byDay[k] = n;
+          const n = parseStrictFiniteNumber(v);
+          if (n !== null) budget.byDay[k] = n;
         }
       }
       if (raw.last_call_by_league && typeof raw.last_call_by_league === "object") {
@@ -359,8 +360,8 @@ export class OddsApiBudget {
         }
       }
       if (raw.remaining_header !== null && raw.remaining_header !== undefined) {
-        const rem = Number(raw.remaining_header);
-        budget.remainingHeader = Number.isFinite(rem) ? Math.trunc(rem) : null;
+        const rem = parseStrictFiniteNumber(raw.remaining_header);
+        budget.remainingHeader = rem !== null ? Math.trunc(rem) : null;
       }
     }
     return budget;

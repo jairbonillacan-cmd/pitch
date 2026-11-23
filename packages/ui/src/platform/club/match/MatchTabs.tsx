@@ -1,6 +1,7 @@
 "use client";
 
-import React, { useCallback, useEffect, useRef, useState } from "react";
+import React, { useCallback, useRef, useState } from "react";
+import { useSafeEffect } from "../../hooks";
 import type { MatchTabKey } from "../../types";
 import { normalizeMatchTab, VALID_MATCH_TABS } from "./match-tab";
 
@@ -10,19 +11,16 @@ export interface MatchTabDef {
   readonly count?: number;
 }
 
-/**
- * Sincroniza la pestaña activa de la ficha con el parámetro `?tab=` en la URL sin recargar.
- */
 export function useMatchUrlTab(
-  initialTab: MatchTabKey = "resumen",
+  initialTab: MatchTabKey = "picks",
 ): [MatchTabKey, (next: MatchTabKey) => void] {
   const [active, setActive] = useState<MatchTabKey>(initialTab);
 
-  useEffect(() => {
+  useSafeEffect(() => {
     setActive(initialTab);
   }, [initialTab]);
 
-  useEffect(() => {
+  useSafeEffect(() => {
     if (typeof window === "undefined") return;
     const syncFromLocation = () => {
       const raw = new URLSearchParams(window.location.search).get("tab");
@@ -32,7 +30,7 @@ export function useMatchUrlTab(
           setActive(normalized);
         }
       } else {
-        setActive("resumen");
+        setActive("picks");
       }
     };
     const param = new URLSearchParams(window.location.search).get("tab");
@@ -73,11 +71,6 @@ function scrollTabIntoView(el: HTMLButtonElement | null): void {
   }
 }
 
-/**
- * Barra de 5 pestañas accesibles de la ficha («Resumen», «Análisis IA», «Números», «¿Dónde está el dinero?», «Contexto»).
- * Usa selección por activación para no reescribir la URL al recorrerlas con flechas,
- * evita `aria-controls` y mantiene las 5 pestañas en una sola fila desplazable en móvil.
- */
 export function MatchTabs({
   idPrefix,
   tabs,
@@ -90,6 +83,8 @@ export function MatchTabs({
   readonly onSelect: (key: MatchTabKey) => void;
 }): React.JSX.Element {
   const refs = useRef<Array<HTMLButtonElement | null>>([]);
+  const tabsRef = useRef(tabs);
+  tabsRef.current = tabs;
   const didMountRef = useRef(false);
   const [focusedIndex, setFocusedIndex] = useState<number>(() =>
     Math.max(
@@ -98,8 +93,8 @@ export function MatchTabs({
     ),
   );
 
-  useEffect(() => {
-    const idx = tabs.findIndex((t) => t.key === active);
+  useSafeEffect(() => {
+    const idx = tabsRef.current.findIndex((t) => t.key === active);
     if (idx >= 0) {
       setFocusedIndex(idx);
       if (didMountRef.current) {
@@ -107,9 +102,6 @@ export function MatchTabs({
       }
     }
     didMountRef.current = true;
-    // Solo resincronizar el foco roving cuando cambia la pestaña activa; evitar
-    // depender de la referencia de `tabs` que cambia en cada render del padre.
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [active]);
 
   const moveFocus = (nextIdx: number) => {
@@ -187,7 +179,7 @@ export function MatchTabs({
               onSelect(tab.key);
             }}
             onKeyDown={(e) => handleKeyDown(e, index)}
-            className="pl-match-tab min-h-11 sm:min-h-9 shrink-0 touch-manipulation"
+            className="pl-match-tab min-h-11 [@media(min-width:768px)_and_(pointer:fine)]:min-h-9 shrink-0 touch-manipulation"
             style={{ scrollSnapAlign: "start" }}
           >
             <span>{tab.label}</span>
@@ -201,10 +193,6 @@ export function MatchTabs({
   );
 }
 
-/**
- * Contenedor de panel de pestaña: mantiene los 3 paneles en HTML con `hidden`
- * cuando están inactivos y coloca espaciado visual en un wrapper interior.
- */
 export function MatchTabPanel({
   idPrefix,
   tabKey,

@@ -14,6 +14,7 @@ import {
   asGameId,
   asLeagueId,
   asSeasonId,
+  parseStrictFiniteNumber,
   type GameDTO,
   type StandingFormToken,
   type StandingRow,
@@ -259,7 +260,11 @@ export async function fetchMlbStandings(
       const played = tr.gamesPlayed ?? won + lost;
       const runsScored = tr.runsScored ?? 0;
       const runsAllowed = tr.runsAllowed ?? 0;
-      const rawPct = tr.winningPercentage ? Number(tr.winningPercentage) : played > 0 ? won / played : 0;
+      const rawPct = tr.winningPercentage
+        ? (parseStrictFiniteNumber(tr.winningPercentage) ?? Number.NaN)
+        : played > 0
+          ? won / played
+          : 0;
       const winPct = Number.isFinite(rawPct) ? Math.round(rawPct * 1000) / 1000 : 0;
       const gb = tr.gamesBack?.trim() || "-";
       const form = (recentFormByTeam.get(team.id) ?? []).slice(-5);

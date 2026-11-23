@@ -1,4 +1,6 @@
 import { NextResponse } from "next/server";
+import { z } from "zod";
+import { createSanitizedErrorPayload } from "@pitchlab/contracts";
 import {
   FLAG_AI_ENABLED,
   FLAG_MONTH1_NO_CARD,
@@ -6,35 +8,57 @@ import {
   recordAdminAudit,
   setBoolFlag,
 } from "@pitchlab/db";
-import { verifySameOriginMutation } from "../../../../src/server/request-security";
-import { requireAdmin } from "../../../../src/server/session-user";
+import { withAdminMutation } from "../../../../src/server/api-guards";
 import { trialHashes } from "../../../../src/server/signup";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
 
-const EDITABLE_FLAGS = new Set([FLAG_MONTH1_NO_CARD, FLAG_TIPSTER_PAYOUTS, FLAG_AI_ENABLED]);
+const EDITABLE_FLAG_KEYS = [FLAG_MONTH1_NO_CARD, FLAG_TIPSTER_PAYOUTS, FLAG_AI_ENABLED] as const;
 
-/** POST { key, value } — cambia una bandera operativa para toda la plataforma y deja rastro en auditoría. */
-export async function POST(request: Request): Promise<NextResponse> {
-  const csrfError = verifySameOriginMutation(request);
-  if (csrfError) return csrfError;
+const updateFlagBodySchema = z
+  .object({
+    key: z.enum(EDITABLE_FLAG_KEYS),
+    value: z.boolean(),
+  })
+  .strict();
 
-  const admin = await requireAdmin(request);
-  if ("error" in admin) return admin.error;
-  const body = (await request.json().catch(() => null)) as { key?: unknown; value?: unknown } | null;
-  if (!body || typeof body.key !== "string" || !EDITABLE_FLAGS.has(body.key) || typeof body.value !== "boolean") {
-    return NextResponse.json({ error: "Bandera no editable" }, { status: 400 });
-  }
-  await setBoolFlag(admin.db, body.key, body.value, admin.userId);
-  const { ipSubnetHash } = trialHashes(request.headers, process.env.BETTER_AUTH_SECRET ?? "");
-  await recordAdminAudit(admin.db, {
-    actorUserId: admin.userId,
-    actorEmail: admin.email,
-    action: "flag.set",
-    targetKey: body.key,
-    payloadJson: { value: body.value },
-    ipSubnetHash,
-  });
-  return NextResponse.json({ key: body.key, value: body.value });
+function invalidInputResponse(code: string, message: string, status = 400): NextResponse {
+  const payload = createSanitizedErrorPayload(code, message);
+  return NextResponse.json(
+    { ok: false, error: payload.message, code: payload.code, message: payload.message },
+    { status },
+  );
 }
+
+async function readJsonBody(request: Request): Promise<unknown> {
+  try {
+    return await request.json();
+  } catch (err) {
+    void err;
+    return null;
+  }
+}
+
+export const POST = withAdminMutation(
+  { bucket: "admin-flags", limit: 30 },
+  async ({ request, user }) => {
+    const rawBody = await readJsonBody(request);
+    const parsed = updateFlagBodySchema.safeParse(rawBody);
+    if (!parsed.success) {
+      return invalidInputResponse("INVALID_FLAG", "Bandera no editable");
+    }
+
+    await setBoolFlag(user.db, parsed.data.key, parsed.data.value, user.userId);
+    const { ipSubnetHash } = trialHashes(request.headers, process.env.BETTER_AUTH_SECRET ?? "");
+    await recordAdminAudit(user.db, {
+      actorUserId: user.userId,
+      actorEmail: user.email,
+      action: "flag.set",
+      targetKey: parsed.data.key,
+      payloadJson: { value: parsed.data.value },
+      ipSubnetHash,
+    });
+    return NextResponse.json({ key: parsed.data.key, value: parsed.data.value });
+  },
+);

@@ -349,11 +349,58 @@ export const FALLBACK_OUTLOOK_CALIBRATION_ARTIFACT: OutlookCalibrationArtifact =
   segments: Object.freeze({}),
 });
 
+function isJsonRecord(value: unknown): value is Record<string, unknown> {
+  return value !== null && typeof value === "object" && !Array.isArray(value);
+}
+
+function isOutlookCalibrationArtifact(value: unknown): value is OutlookCalibrationArtifact {
+  return (
+    isJsonRecord(value) &&
+    typeof value.schema_version === "string" &&
+    typeof value.eval_split === "string" &&
+    typeof value.holdout_cut_utc === "string" &&
+    typeof value.holdout_sealed_untouched === "boolean" &&
+    typeof value.bootstrap_samples === "number" &&
+    typeof value.max_sharp_age_minutes === "number" &&
+    isJsonRecord(value.segments)
+  );
+}
+
+function isBlendWeightsArtifact(value: unknown): value is BlendWeightsArtifact {
+  return (
+    isJsonRecord(value) &&
+    typeof value.schema_version === "string" &&
+    typeof value.n0_shrinkage === "number" &&
+    isJsonRecord(value.global_summary) &&
+    isJsonRecord(value.segments)
+  );
+}
+
+function isMarkets2WayConfigArtifact(value: unknown): value is Markets2WayConfigArtifact {
+  return (
+    isJsonRecord(value) &&
+    typeof value.schema_version === "string" &&
+    isJsonRecord(value.segments)
+  );
+}
+
+function parseBlendWeightsArtifact(raw: unknown, label: string): BlendWeightsArtifact {
+  if (!isBlendWeightsArtifact(raw)) {
+    throw new Error(`Invalid BlendWeightsArtifact JSON: ${label}`);
+  }
+  return raw;
+}
+
+function parseMarkets2WayConfigArtifact(raw: unknown, label: string): Markets2WayConfigArtifact {
+  if (!isMarkets2WayConfigArtifact(raw)) {
+    throw new Error(`Invalid Markets2WayConfigArtifact JSON: ${label}`);
+  }
+  return raw;
+}
+
 const LOADED_OUTLOOK_CALIBRATION_ARTIFACT: OutlookCalibrationArtifact =
-  defaultOutlookCalibrationJson !== null &&
-  typeof defaultOutlookCalibrationJson === "object" &&
-  "segments" in defaultOutlookCalibrationJson
-    ? (defaultOutlookCalibrationJson as unknown as OutlookCalibrationArtifact)
+  isOutlookCalibrationArtifact(defaultOutlookCalibrationJson)
+    ? defaultOutlookCalibrationJson
     : FALLBACK_OUTLOOK_CALIBRATION_ARTIFACT;
 
 let registeredDefaultCalibrationArtifact: OutlookCalibrationArtifact =
@@ -367,9 +414,14 @@ export function getDefaultOutlookCalibrationArtifact(): OutlookCalibrationArtifa
   return registeredDefaultCalibrationArtifact;
 }
 
-const DEFAULT_BLEND_WEIGHTS_ARTIFACT = defaultBlendWeightsJson as unknown as BlendWeightsArtifact;
-const DEFAULT_MARKETS_2WAY_CONFIG =
-  defaultMarkets2WayConfigJson as unknown as Markets2WayConfigArtifact;
+const DEFAULT_BLEND_WEIGHTS_ARTIFACT = parseBlendWeightsArtifact(
+  defaultBlendWeightsJson,
+  "blend_weights_v3_1.json",
+);
+const DEFAULT_MARKETS_2WAY_CONFIG = parseMarkets2WayConfigArtifact(
+  defaultMarkets2WayConfigJson,
+  "markets_2way_config.json",
+);
 
 const SHARP_BOOKS = new Set<string>(SHARP_SCRAPED_FALLBACK_ORDER);
 
@@ -581,8 +633,8 @@ export function resolveCalibrationBucket(
   }
 
   const binIndex = Math.min(9, Math.max(0, Math.floor(pSafe * 10)));
-  const pMin = Number((binIndex / 10).toFixed(1));
-  const pMax = Number(((binIndex + 1) / 10).toFixed(1));
+  const pMin = Number.parseFloat((binIndex / 10).toFixed(1));
+  const pMax = Number.parseFloat(((binIndex + 1) / 10).toFixed(1));
   return Object.freeze({
     segmentKey: "THEORETICAL_FALLBACK",
     binIndex,

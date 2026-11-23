@@ -1,5 +1,6 @@
 import { createHash, createHmac, randomBytes } from "node:crypto";
 import sharp from "sharp";
+import { parseStrictFiniteNumber } from "@pitchlab/contracts";
 
 export const AVATAR_MAX_BYTES = 2 * 1024 * 1024;
 export const AVATAR_SIZE_PX = 256;
@@ -85,10 +86,6 @@ function configuredVercelBlob(): boolean {
   return Boolean(process.env.BLOB_READ_WRITE_TOKEN?.trim());
 }
 
-/**
- * Resuelve el adaptador activo de almacenamiento de avatares sin acoplar la app a un solo proveedor (ADR-050).
- * Prioridad automática: S3-compatible (AWS S3 / Backblaze B2 / MinIO / DO Spaces / Hetzner / R2) → GCS → Vercel Blob.
- */
 export function resolveAvatarStorageProvider(): AvatarStorageProviderName | null {
   const explicit = process.env.AVATAR_STORAGE_PROVIDER?.trim().toLowerCase();
   if (explicit === "s3") return configuredS3Avatar() ? "s3" : null;
@@ -104,7 +101,6 @@ export function isAvatarStorageEnabled(): boolean {
   return resolveAvatarStorageProvider() !== null;
 }
 
-/** Detecta el formato real por firma binaria (evita archivos renombrados o SVG). */
 export function detectAvatarMime(bytes: Uint8Array): AllowedAvatarMime | null {
   if (bytes.length >= 3 && bytes[0] === 0xff && bytes[1] === 0xd8 && bytes[2] === 0xff) {
     return "image/jpeg";
@@ -138,7 +134,6 @@ export function detectAvatarMime(bytes: Uint8Array): AllowedAvatarMime | null {
   return null;
 }
 
-/** Valida tipo (`jpeg`, `png`, `webp`), tamaño (<= 2 MB) y reduce a un cuadrado de 256 px. */
 export async function prepareAvatarImage(
   file: File | null,
 ): Promise<{ ok: true; buffer: Buffer; contentType: "image/webp" } | { ok: false; error: AvatarProcessError }> {
@@ -200,7 +195,7 @@ async function resolveGcsAccessToken(): Promise<string> {
   if (!data.access_token) {
     throw new Error("Respuesta inválida del servidor de metadatos de Google Cloud.");
   }
-  const ttlSec = Math.max(120, Number(data.expires_in ?? 3000));
+  const ttlSec = Math.max(120, parseStrictFiniteNumber(data.expires_in) ?? 3000);
   cachedMetadataToken = {
     token: data.access_token,
     expiresAtMs: now + ttlSec * 1000,
@@ -297,7 +292,6 @@ function encodeS3PathSegment(segment: string): string {
   return encodeURIComponent(segment).replace(/[!'()*]/g, (c) => `%${c.charCodeAt(0).toString(16).toUpperCase()}`);
 }
 
-/** Firma estándar AWS Signature Version 4 (compatible con S3, MinIO, Backblaze B2, Spaces, Hetzner, Tigris, R2). */
 function signS3Request(input: {
   method: "PUT" | "DELETE";
   endpoint: string;
@@ -453,7 +447,6 @@ const vercelBlobUploader: AvatarBlobUploader = {
 
 let testUploaderOverride: AvatarBlobUploader | null = null;
 
-/** Permite sustituir la subida real en pruebas sin tocar ningún proveedor externo. */
 export function setAvatarUploaderForTests(uploader: AvatarBlobUploader | null): void {
   testUploaderOverride = uploader;
   cachedMetadataToken = null;

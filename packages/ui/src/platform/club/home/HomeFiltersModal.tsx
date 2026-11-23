@@ -1,10 +1,11 @@
 "use client";
 
-import React, { useEffect, useId, useMemo, useState } from "react";
+import React, { useId, useMemo, useState } from "react";
 import type { LeagueId } from "@pitchlab/contracts";
 import { LeagueBadge } from "../../../sports";
 import { MaestroIcon } from "../../components/MaestroPrimitives";
 import { TopLayerModalDialog } from "../../components/PlatformOverlays";
+import { useSafeEffect } from "../../hooks";
 import type {
   HomeFilterModalOptionLeague,
   MatchStatusFilter,
@@ -46,7 +47,7 @@ export function HomeFiltersModal({
   const [draftLeagues, setDraftLeagues] = useState<LeagueId[]>([...selectedLeagues]);
   const [search, setSearch] = useState<string>("");
 
-  useEffect(() => {
+  useSafeEffect(() => {
     if (!open) return;
     setDraftStatus(statusFilter);
     setDraftSignal(signalFilter);

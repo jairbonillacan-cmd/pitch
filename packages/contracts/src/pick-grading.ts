@@ -1,9 +1,3 @@
-/** Calificación de selecciones con el marcador final (compartida por modelo y UI). */
-
-/**
- * ¿Se cumple la selección con este marcador? Sirve para calificar picks y para
- * comprobar que dos selecciones pueden darse a la vez.
- */
 export function selectionHolds(
   pick: { market: string; selection: string; line?: number },
   home: number,
@@ -38,7 +32,6 @@ export function selectionHolds(
       if (selection === "away_under") return away < line;
       return null;
     case "spreads":
-      // `line` es el hándicap aplicado al equipo de la selección.
       if (selection.startsWith("home")) return home + line > away;
       if (selection.startsWith("away")) return away + line > home;
       return null;

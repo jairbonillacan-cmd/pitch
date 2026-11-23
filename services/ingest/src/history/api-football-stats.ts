@@ -8,6 +8,7 @@
  */
 import { existsSync, mkdirSync, readFileSync, readdirSync, writeFileSync } from "node:fs";
 import { dirname, join } from "node:path";
+import { parseStrictFiniteNumber } from "@pitchlab/contracts";
 import {
   API_FOOTBALL_BASE_URL,
   API_FOOTBALL_DAILY_LIMIT,
@@ -48,10 +49,7 @@ export interface ApiFootballStatsItem {
 function numeric(value: number | string | null): number | null {
   if (value === null) return null;
   if (typeof value === "number") return Number.isFinite(value) ? value : null;
-  const trimmed = value.trim().replace("%", "");
-  if (trimmed === "") return null;
-  const parsed = Number(trimmed);
-  return Number.isFinite(parsed) ? parsed : null;
+  return parseStrictFiniteNumber(value.trim().replace("%", ""));
 }
 
 function statValue(

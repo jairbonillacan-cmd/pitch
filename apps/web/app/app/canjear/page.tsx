@@ -28,7 +28,7 @@ export default async function ClubCanjearPage({
   let initialPreview: CouponPreviewState | null = null;
   if (cleanCode && process.env.DATABASE_URL) {
     try {
-      cachedDb ??= createDb(process.env.DATABASE_URL) as unknown as Db;
+      cachedDb ??= createDb(process.env.DATABASE_URL);
       const accountUserId = await getViewerAccountUserId();
       const res = await validateCouponPreview(cachedDb, {
         code: cleanCode,
@@ -50,16 +50,17 @@ export default async function ClubCanjearPage({
             valid: false,
             reason: res.reason,
             error: COUPON_ERROR_COPY[res.reason]?.message ?? "Cupón no disponible.",
-            coupon: res.coupon
-              ? {
-                  code: res.coupon.code,
-                  days: res.coupon.days,
-                  maxRedemptions: res.coupon.maxRedemptions,
-                  expiresAtIso: res.coupon.expiresAt ? res.coupon.expiresAt.toISOString() : null,
-                  isTransferCoupon: res.coupon.isTransferCoupon,
-                  isPersonal: res.coupon.isPersonal,
-                }
-              : null,
+            coupon:
+              res.reason === "cuenta_distinta" || !res.coupon
+                ? null
+                : {
+                    code: res.coupon.code,
+                    days: res.coupon.days,
+                    maxRedemptions: res.coupon.maxRedemptions,
+                    expiresAtIso: res.coupon.expiresAt ? res.coupon.expiresAt.toISOString() : null,
+                    isTransferCoupon: res.coupon.isTransferCoupon,
+                    isPersonal: res.coupon.isPersonal,
+                  },
           };
     } catch (err) {
       void err;

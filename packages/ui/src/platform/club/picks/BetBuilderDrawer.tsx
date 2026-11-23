@@ -1,11 +1,14 @@
 "use client";
 
-import React, { useEffect, useId, useMemo, useRef, useState } from "react";
+import React, { useId, useMemo, useRef, useState } from "react";
+import { Button, SofascoreKpiStrip } from "../../../components/ui/primitives";
 import { PBar } from "../../../sports";
 import { formatOddsValue, isPickUnlocked } from "../../access-guard";
 import { resolvePreferredBookQuote } from "../../bookmakers";
 import { MaestroIcon } from "../../components/MaestroPrimitives";
+import { SgpCopulaAuditCard } from "../../components/SgpCopulaAuditCard";
 import { useSheetSwipeDismiss } from "../../components/use-sheet-swipe-dismiss";
+import { useMediaQuery, useSafeEffect } from "../../hooks";
 import {
   assessParlayRisk,
   checkParlayCompatibility,
@@ -17,9 +20,11 @@ import {
   usePlatformActions,
   usePlatformCore,
 } from "../../platform-provider";
-import type { MatchPick, PlatformGame } from "../../types";
+import type { MatchPick, PlatformGame, SgpCopulaAuditView } from "../../types";
 import { BookmakerComparePill } from "./BookmakerComparePill";
 import { EvidenceWindowPills, extractEvidenceWindows } from "./EvidenceWindowPills";
+
+const MAX_PARLAY_LEGS = 6;
 
 export interface BetBuilderQuickButtonProps {
   readonly pick: MatchPick;
@@ -27,10 +32,6 @@ export interface BetBuilderQuickButtonProps {
   readonly compact?: boolean;
 }
 
-/**
- * Botón táctil 1-clic (`>= 44 px` en móvil) para abrir el inspector rápido
- * de Bet Builder / Combinadas sobre un pick concreto.
- */
 export function BetBuilderQuickButton({
   pick,
   onInspect,
@@ -38,16 +39,17 @@ export function BetBuilderQuickButton({
 }: BetBuilderQuickButtonProps): React.JSX.Element {
   const inParlay = useIsPickInParlay(pick.id);
   return (
-    <button
-      type="button"
-      className={`pl-scr-builder-btn ${compact ? "is-compact" : ""} ${inParlay ? "is-in-slip" : ""}`.trim()}
+    <Button
+      variant={inParlay ? "secondary" : "ghost"}
+      size="sm"
+      className={`pl-scr-builder-btn min-w-11 ${compact ? "is-compact" : ""} ${inParlay ? "is-in-slip" : ""}`.trim()}
       data-open-bet-builder={pick.id}
       aria-label={`Abrir Bet Builder para ${pick.label}`}
       onClick={() => onInspect(pick)}
     >
       <MaestroIcon name="layers" size={13} />
       <span>{inParlay ? "En boleto" : "Builder"}</span>
-    </button>
+    </Button>
   );
 }
 
@@ -58,12 +60,37 @@ export interface BetBuilderDrawerProps {
   readonly onClose: () => void;
 }
 
-/**
- * Hoja / cajón nativo `<dialog>` para inspeccionar un pick y armar combinadas (Parlay / SGP)
- * en 1 clic directo al boleto (`useParlayState` / `usePlatformActions`), con diagnóstico real
- * de compatibilidad e incompatibilidad (`checkParlayCompatibility`), sugerencias del mismo
- * partido y física táctil *swipe-to-dismiss* en móvil (`useSheetSwipeDismiss`).
- */
+function computeDrawerFrechetBounds(
+  legs: readonly { readonly pick: { readonly gameId: string; readonly p: number } }[],
+): { readonly lower: number; readonly upper: number } {
+  if (legs.length === 0) return { lower: 0, upper: 0 };
+  const byGame = new Map<string, number[]>();
+  for (const leg of legs) {
+    const p = Math.min(0.99, Math.max(0.01, leg.pick.p));
+    const list = byGame.get(leg.pick.gameId) ?? [];
+    list.push(p);
+    byGame.set(leg.pick.gameId, list);
+  }
+  let lower = 1;
+  let upper = 1;
+  for (const probs of byGame.values()) {
+    if (probs.length === 1) {
+      lower *= probs[0] ?? 0.5;
+      upper *= probs[0] ?? 0.5;
+    } else {
+      const sumP = probs.reduce((acc, v) => acc + v, 0);
+      const minP = probs.reduce((acc, v) => Math.min(acc, v), 1);
+      const lo = Math.max(0.0001, sumP - (probs.length - 1));
+      lower *= lo;
+      upper *= Math.max(lo, minP);
+    }
+  }
+  return {
+    lower: Math.max(0.0001, Math.min(0.99, lower)),
+    upper: Math.max(0.0001, Math.min(0.99, upper)),
+  };
+}
+
 export function BetBuilderDrawer({
   open,
   pick,
@@ -88,16 +115,9 @@ export function BetBuilderDrawer({
   const onCloseRef = useRef(onClose);
   onCloseRef.current = onClose;
 
-  const [isMobileViewport, setIsMobileViewport] = useState(false);
-
-  useEffect(() => {
-    if (typeof window === "undefined" || typeof window.matchMedia !== "function") return;
-    const mq = window.matchMedia("(max-width: 767px)");
-    const sync = () => setIsMobileViewport(mq.matches);
-    sync();
-    mq.addEventListener("change", sync);
-    return () => mq.removeEventListener("change", sync);
-  }, []);
+  const isMobileViewport = useMediaQuery("(max-width: 767px)", false);
+  const [resolvedAudit, setResolvedAudit] = useState<SgpCopulaAuditView | null>(null);
+  const [inlineNotice, setInlineNotice] = useState<string | null>(null);
 
   const swipe = useSheetSwipeDismiss({
     onDismiss: () => onCloseRef.current(),
@@ -107,7 +127,7 @@ export function BetBuilderDrawer({
 
   const pickId = pick?.id ?? null;
 
-  useEffect(() => {
+  useSafeEffect(() => {
     const dialog = dialogRef.current;
     if (!dialog) return undefined;
 
@@ -172,7 +192,6 @@ export function BetBuilderDrawer({
     };
     window.addEventListener("keydown", handleEscape);
 
-    // Respaldo de light-dismiss cuando <dialog closedby="any"> no existe (Safari)
     let cleanupLightDismiss: (() => void) | undefined;
     if (
       typeof HTMLDialogElement !== "undefined" &&
@@ -196,6 +215,7 @@ export function BetBuilderDrawer({
         if (pressedOutside && isOutside(e)) {
           if (typeof dialog.close === "function" && dialog.open) {
             try {
+              dialog.returnValue = "";
               dialog.close();
               return;
             } catch (err) {
@@ -261,7 +281,10 @@ export function BetBuilderDrawer({
         inSlip: parlayLegs.some((l) => l.pick.id === candidate.id),
         check: checkParlayCompatibility(simulatedLegs, candidate, true),
       }))
-      .sort((a, b) => Number(b.check.allowed) - Number(a.check.allowed) || b.candidate.p - a.candidate.p)
+      .sort(
+        (a, b) =>
+          (b.check.allowed ? 1 : 0) - (a.check.allowed ? 1 : 0) || b.candidate.p - a.candidate.p,
+      )
       .slice(0, 5);
   }, [inParlay, parlayLegs, pick, resolvedGame, viewerRole]);
 
@@ -270,21 +293,85 @@ export function BetBuilderDrawer({
     return extractEvidenceWindows({ game: resolvedGame, pick });
   }, [pick, resolvedGame]);
 
+  const frechetBounds = useMemo(() => computeDrawerFrechetBounds(parlayLegs), [parlayLegs]);
+
+  const effectiveJointProb = useMemo(() => {
+    if (parlayLegs.length === 0) return 0;
+    const raw =
+      parlaySummary.hasSgpCorrelation &&
+      resolvedAudit &&
+      resolvedAudit.nLegs === parlayLegs.length
+        ? resolvedAudit.jointProbability
+        : parlaySummary.combinedProbability;
+    return Math.min(frechetBounds.upper, Math.max(frechetBounds.lower, raw));
+  }, [frechetBounds.lower, frechetBounds.upper, parlayLegs.length, parlaySummary, resolvedAudit]);
+
+  const effectiveFairDecimal = useMemo(() => {
+    if (parlayLegs.length === 0) return 1;
+    if (
+      parlaySummary.hasSgpCorrelation &&
+      resolvedAudit &&
+      resolvedAudit.nLegs === parlayLegs.length &&
+      resolvedAudit.fairCombinedDecimal > 1
+    ) {
+      return resolvedAudit.fairCombinedDecimal;
+    }
+    return Math.max(1.01, Math.round((1 / Math.max(effectiveJointProb, 0.0001)) * 100) / 100);
+  }, [effectiveJointProb, parlayLegs.length, parlaySummary.hasSgpCorrelation, resolvedAudit]);
+
   if (!open || !pick) return null;
 
   const prefQuote = resolvePreferredBookQuote(pick.bookQuotes, preferredBooks);
   const houseDecimal = prefQuote?.decimal ?? pick.marketDecimal;
   const houseBookLabel = prefQuote?.bookLabel ?? pick.marketBookLabel ?? null;
-  const risk = assessParlayRisk(parlaySummary);
+  const risk = assessParlayRisk({ ...parlaySummary, combinedProbability: effectiveJointProb });
   const isFinished = pick.gameStatus === "FT";
   const isLive = pick.gameStatus === "LIVE";
+  const exceedsMaxLegs = parlayLegs.length > MAX_PARLAY_LEGS;
+  const atMaxLegs = parlayLegs.length >= MAX_PARLAY_LEGS;
+  const canSealSlip = parlayLegs.length >= 2 && parlayLegs.length <= MAX_PARLAY_LEGS;
 
   const handleEnableSgpAndAdd = () => {
+    if (parlayLegs.length >= MAX_PARLAY_LEGS) {
+      setInlineNotice(
+        `El máximo por parlay es de ${MAX_PARLAY_LEGS} selecciones. Quita una para agregar esta.`,
+      );
+      return;
+    }
+    setInlineNotice(null);
     setAllowSgp(true);
     loadParlayPicks([...parlayLegs.map((l) => l.pick), pick], {
       allowSgp: true,
       label: pick.label,
     });
+  };
+
+  const handleToggleSuggestion = (
+    candidate: MatchPick,
+    inSlip: boolean,
+    check: ParlayCompatibilityResult,
+  ) => {
+    if (inSlip) {
+      setInlineNotice(null);
+      removePickFromParlay(candidate.id);
+      return;
+    }
+    if (parlayLegs.length >= MAX_PARLAY_LEGS) {
+      setInlineNotice(
+        `El máximo por parlay es de ${MAX_PARLAY_LEGS} selecciones. Quita una para agregar esta.`,
+      );
+      return;
+    }
+    if (!allowSgp) {
+      setInlineNotice("Activa el interruptor SGP para combinar mercados del mismo partido.");
+      return;
+    }
+    if (!check.allowed) {
+      setInlineNotice(check.reason ?? "Selección incompatible con tu boleto actual.");
+      return;
+    }
+    setInlineNotice(null);
+    addPickToParlay(candidate);
   };
 
   return (
@@ -312,20 +399,19 @@ export function BetBuilderDrawer({
                 {pick.leagueLabel} · {pick.matchLabel} · {pick.kickoffLocal}
               </p>
             </div>
-            <button
-              type="button"
-              className="pl-btn-glass pl-bb-close-btn"
+            <Button
+              variant="ghost"
+              size="icon"
               aria-label="Cerrar Bet Builder"
               autoFocus
               onClick={onClose}
             >
               <MaestroIcon name="x" size={16} />
-            </button>
+            </Button>
           </header>
         </div>
 
         <div ref={bodyScrollRef} className="pl-bb-body">
-          {/* Bloque 1: Inspección del pick seleccionado */}
           <section className="pl-bb-focal" aria-label="Detalle del pick seleccionado">
             <div className="pl-bb-focal-top">
               <div className="pl-bb-prob-block num">
@@ -354,16 +440,26 @@ export function BetBuilderDrawer({
               <EvidenceWindowPills windows={evidenceWindows} size="sm" />
             ) : null}
 
-            {/* Estado de compatibilidad / aviso de incompatibilidad */}
             {inParlay ? (
               <div className="pl-bb-compat is-ok" role="status" data-builder-compat="in_parlay">
                 <MaestroIcon name="check" size={14} />
                 <span>Esta selección ya forma parte de tu boleto combinado.</span>
               </div>
+            ) : atMaxLegs ? (
+              <div className="pl-bb-compat is-warn" role="alert" data-builder-compat="max_legs">
+                <MaestroIcon name="shield" size={14} />
+                <div className="pl-bb-compat-copy">
+                  <strong>Límite de {MAX_PARLAY_LEGS} selecciones alcanzado</strong>
+                  <p>
+                    Los parlays aceptan hasta {MAX_PARLAY_LEGS} selecciones. Quita una del boleto
+                    para agregar otra.
+                  </p>
+                </div>
+              </div>
             ) : !compat.allowed && compat.reason ? (
               <div
                 className={`pl-bb-compat ${compat.code === "same_game_disabled" ? "is-warn" : "is-conflict"}`}
-                role="status"
+                role="alert"
                 data-builder-compat={compat.code ?? "conflict"}
               >
                 <MaestroIcon name="shield" size={14} />
@@ -376,7 +472,7 @@ export function BetBuilderDrawer({
               <div className="pl-bb-compat is-ready" role="status" data-builder-compat="allowed">
                 <MaestroIcon name="layers" size={14} />
                 <span>
-                  Compatible con tu boleto actual ({parlayLegs.length}{" "}
+                  Compatible con tu boleto actual ({parlayLegs.length}/{MAX_PARLAY_LEGS}{" "}
                   {parlayLegs.length === 1 ? "selección" : "selecciones"}).
                 </span>
               </div>
@@ -384,86 +480,77 @@ export function BetBuilderDrawer({
 
             <div className="pl-bb-focal-actions">
               {inParlay ? (
-                <button
-                  type="button"
-                  className="pl-btn-glass pl-bb-action-main"
-                  onClick={() => removePickFromParlay(pick.id)}
+                <Button
+                  variant="secondary"
+                  size="default"
+                  className="pl-bb-action-main"
+                  onClick={() => {
+                    setInlineNotice(null);
+                    removePickFromParlay(pick.id);
+                  }}
                 >
                   <MaestroIcon name="minus" size={14} />
                   <span>Quitar del boleto</span>
-                </button>
-              ) : compat.allowed ? (
-                <button
-                  type="button"
-                  className="pl-btn-primary pl-bb-action-main"
-                  data-builder-add-primary=""
-                  onClick={() => addPickToParlay(pick)}
+                </Button>
+              ) : atMaxLegs ? (
+                <Button
+                  variant="secondary"
+                  size="default"
+                  className="pl-bb-action-main"
+                  disabled
                 >
-                  <svg
-                    width={14}
-                    height={14}
-                    viewBox="0 0 16 16"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth={2.2}
-                    strokeLinecap="round"
-                    aria-hidden="true"
-                    className="pl-bb-cta-icon shrink-0"
-                  >
-                    <path d="M8 3.25v9.5M3.25 8h9.5" />
-                  </svg>
+                  <span>Máximo {MAX_PARLAY_LEGS} picks</span>
+                </Button>
+              ) : compat.allowed ? (
+                <Button
+                  variant={canSealSlip ? "secondary" : "primary"}
+                  size="default"
+                  className="pl-bb-action-main"
+                  data-builder-add-primary=""
+                  onClick={() => {
+                    setInlineNotice(null);
+                    addPickToParlay(pick);
+                  }}
+                >
+                  <MaestroIcon name="plus" size={14} />
                   <span>Agregar al boleto</span>
-                </button>
+                </Button>
               ) : compat.code === "same_game_disabled" && compatWithSgp?.allowed ? (
-                <button
-                  type="button"
-                  className="pl-btn-primary pl-bb-action-main"
+                <Button
+                  variant={canSealSlip ? "secondary" : "primary"}
+                  size="default"
+                  className="pl-bb-action-main"
                   onClick={handleEnableSgpAndAdd}
                 >
-                  <svg
-                    width={14}
-                    height={14}
-                    viewBox="0 0 16 16"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth={1.8}
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    aria-hidden="true"
-                    className="pl-bb-cta-icon shrink-0"
-                  >
-                    <path d="M8 2.25 2.25 5.25 8 8.25l5.75-3L8 2.25Z" />
-                    <path d="M2.25 8.25 8 11.25l5.75-3" />
-                    <path d="M2.25 11.25 8 14.25l5.75-3" />
-                  </svg>
+                  <MaestroIcon name="layers" size={14} />
                   <span>Activar SGP y agregar</span>
-                </button>
+                </Button>
               ) : (
-                <button
-                  type="button"
-                  className="pl-btn-glass pl-bb-action-main"
+                <Button
+                  variant="secondary"
+                  size="default"
+                  className="pl-bb-action-main"
                   disabled
                 >
                   <span>No combinable</span>
-                </button>
+                </Button>
               )}
 
               {!isFinished && !isLive ? (
-                <button
-                  type="button"
-                  className="pl-btn-glass pl-bb-action-sec"
+                <Button
+                  variant="secondary"
+                  size="default"
                   onClick={() => {
                     onClose();
                     openComposer(pick);
                   }}
                 >
                   Sellar simple
-                </button>
+                </Button>
               ) : null}
             </div>
           </section>
 
-          {/* Bloque 2: Combinar en el mismo partido (SGP) */}
           {sgpSuggestions.length > 0 ? (
             <section className="pl-bb-section" aria-label="Otros mercados de este partido">
               <div className="pl-bb-section-head">
@@ -472,14 +559,25 @@ export function BetBuilderDrawer({
                   <input
                     type="checkbox"
                     checked={allowSgp}
-                    onChange={(e) => setAllowSgp(e.target.checked)}
+                    onChange={(e) => {
+                      setInlineNotice(null);
+                      setAllowSgp(e.target.checked);
+                    }}
                   />
                   <span>SGP {allowSgp ? "activo" : "desactivado"}</span>
                 </label>
               </div>
+
+              {inlineNotice ? (
+                <div className="pl-bb-compat is-warn" role="alert">
+                  <MaestroIcon name="shield" size={14} />
+                  <span>{inlineNotice}</span>
+                </div>
+              ) : null}
+
               <ul className="pl-bb-sgp-list">
                 {sgpSuggestions.map(({ candidate, inSlip, check }) => {
-                  const canAdd = inSlip || (allowSgp && check.allowed);
+                  const canAdd = inSlip || (allowSgp && check.allowed && !atMaxLegs);
                   return (
                     <li key={candidate.id} className="pl-bb-sgp-row">
                       <div className="min-w-0">
@@ -487,29 +585,42 @@ export function BetBuilderDrawer({
                         <span className="pl-bb-sgp-meta num">
                           {(candidate.p * 100).toFixed(1)} % · Justo{" "}
                           {formatOddsValue(candidate.fairDecimal, oddsFormat)}
-                          {!check.allowed && !inSlip ? " · Conflicto de eje" : ""}
+                          {!inSlip && atMaxLegs
+                            ? ` · Máx. ${MAX_PARLAY_LEGS} picks`
+                            : !check.allowed && !inSlip
+                              ? check.code === "sgp_limit"
+                                ? " · Máx. 2 SGP"
+                                : " · Conflicto de eje"
+                              : ""}
                         </span>
                       </div>
-                      <button
-                        type="button"
-                        className={`pl-home-parlay-btn is-sm min-h-11 ${inSlip ? "is-on" : ""}`.trim()}
-                        disabled={!canAdd}
+                      <Button
+                        variant={inSlip ? "secondary" : "ghost"}
+                        size="sm"
+                        className="min-w-11"
+                        disabled={!canAdd && (allowSgp || atMaxLegs)}
                         title={
-                          !allowSgp && !inSlip
-                            ? "Activa SGP para combinar del mismo partido"
-                            : check.reason
+                          !inSlip && atMaxLegs
+                            ? `Máximo ${MAX_PARLAY_LEGS} selecciones por parlay`
+                            : !allowSgp && !inSlip
+                              ? "Activa SGP para combinar del mismo partido"
+                              : check.reason
                         }
-                        onClick={() => {
-                          if (inSlip) {
-                            removePickFromParlay(candidate.id);
-                          } else {
-                            addPickToParlay(candidate);
-                          }
-                        }}
+                        onClick={() => handleToggleSuggestion(candidate, inSlip, check)}
                       >
                         <MaestroIcon name={inSlip ? "check" : "plus"} size={13} />
-                        <span>{inSlip ? "En boleto" : check.allowed ? "Unir" : "Choca"}</span>
-                      </button>
+                        <span>
+                          {inSlip
+                            ? "En boleto"
+                            : atMaxLegs
+                              ? "Límite"
+                              : check.allowed
+                                ? "Unir"
+                                : check.code === "sgp_limit"
+                                  ? "Límite"
+                                  : "Choca"}
+                        </span>
+                      </Button>
                     </li>
                   );
                 })}
@@ -517,7 +628,6 @@ export function BetBuilderDrawer({
             </section>
           ) : null}
 
-          {/* Bloque 3: Resumen del boleto combinado actual */}
           <section className="pl-bb-section" aria-label="Resumen de tu boleto actual">
             <div className="pl-bb-section-head">
               <h3 className="pl-bb-section-title">
@@ -525,7 +635,7 @@ export function BetBuilderDrawer({
                 {parlayLegs.length === 1 ? "selección" : "selecciones"})
               </h3>
               {parlayLegs.length > 0 ? (
-                <span className={`pl-pill text-[11px] num pl-bb-risk--${risk.tone}`}>
+                <span className={`pl-sf-signal-pill is-compact num pl-bb-risk--${risk.tone}`}>
                   {risk.shortLabel}
                 </span>
               ) : null}
@@ -533,29 +643,56 @@ export function BetBuilderDrawer({
 
             {parlayLegs.length === 0 ? (
               <p className="pl-bb-empty">
-                Aún no tienes selecciones en tu boleto. Agrega 2 o más picks compatibles para armar tu combinada.
+                Aún no tienes selecciones en tu boleto. Agrega 2 o más picks compatibles para armar
+                tu combinada.
               </p>
             ) : (
               <>
-                <div className="pl-bb-summary-grid num">
-                  <div className="pl-bb-stat-cell">
-                    <span>Prob. conjunta</span>
-                    <strong>{(parlaySummary.combinedProbability * 100).toFixed(1)} %</strong>
+                <SofascoreKpiStrip
+                  items={[
+                    {
+                      id: "prob",
+                      label: "Prob. conjunta",
+                      value: `${(effectiveJointProb * 100).toFixed(1)} %`,
+                      tone: "brand",
+                    },
+                    {
+                      id: "fair",
+                      label: "Momio justo",
+                      value: formatOddsValue(effectiveFairDecimal, oddsFormat),
+                    },
+                    {
+                      id: "book",
+                      label: "Cuota ref.",
+                      value: formatOddsValue(parlaySummary.bookDecimal, oddsFormat),
+                    },
+                  ]}
+                />
+
+                {exceedsMaxLegs ? (
+                  <div
+                    className="pl-bb-compat is-conflict"
+                    role="alert"
+                    data-builder-max-legs-alert=""
+                  >
+                    <MaestroIcon name="shield" size={14} />
+                    <div className="pl-bb-compat-copy">
+                      <strong>Máximo {MAX_PARLAY_LEGS} selecciones por parlay</strong>
+                      <p>
+                        Tienes {parlayLegs.length} selecciones en tu boleto. Quita{" "}
+                        {parlayLegs.length - MAX_PARLAY_LEGS} para poder sellarlo.
+                      </p>
+                    </div>
                   </div>
-                  <div className="pl-bb-stat-cell">
-                    <span>Momio justo</span>
-                    <strong>{formatOddsValue(parlaySummary.fairDecimal, oddsFormat)}</strong>
-                  </div>
-                  <div className="pl-bb-stat-cell">
-                    <span>Cuota ref.</span>
-                    <strong>{formatOddsValue(parlaySummary.bookDecimal, oddsFormat)}</strong>
-                  </div>
-                </div>
+                ) : null}
 
                 {parlaySummary.hasSgpCorrelation ? (
-                  <p className="pl-bb-sgp-note">
-                    Incluye correlación de mismo partido (SGP): probabilidad ajustada automáticamente.
-                  </p>
+                  <SgpCopulaAuditCard
+                    legs={parlayLegs}
+                    oddsFormat={oddsFormat}
+                    onAuditResolved={setResolvedAudit}
+                    compact
+                  />
                 ) : null}
 
                 <ul className="pl-bb-legs-list">
@@ -567,14 +704,14 @@ export function BetBuilderDrawer({
                           {leg.matchLabel} · {(leg.p * 100).toFixed(1)} %
                         </span>
                       </div>
-                      <button
-                        type="button"
-                        className="pl-bb-leg-remove"
+                      <Button
+                        variant="ghost"
+                        size="icon-sm"
                         aria-label={`Quitar ${leg.label} del boleto`}
                         onClick={() => removePickFromParlay(leg.id)}
                       >
                         <MaestroIcon name="x" size={14} />
-                      </button>
+                      </Button>
                     </li>
                   ))}
                 </ul>
@@ -584,45 +721,44 @@ export function BetBuilderDrawer({
         </div>
 
         <footer className="pl-bb-footer">
-          <button
-            type="button"
-            className="pl-btn-glass pl-bb-footer-btn"
+          <Button
+            variant="secondary"
+            size="default"
+            className="pl-bb-footer-btn"
             onClick={() => {
               onClose();
               navigateTo("/app/parlays");
             }}
           >
             Abrir Parlays
-          </button>
-          <button
-            type="button"
-            className="pl-btn-primary pl-bb-footer-btn num"
-            disabled={parlayLegs.length < 2}
+          </Button>
+          <Button
+            variant={canSealSlip ? "primary" : "secondary"}
+            size="default"
+            className="pl-bb-footer-btn num"
+            disabled={!canSealSlip}
             onClick={() => {
+              if (!canSealSlip) {
+                setInlineNotice(
+                  exceedsMaxLegs
+                    ? `Reduce tu boleto a máximo ${MAX_PARLAY_LEGS} selecciones para sellar.`
+                    : "Agrega al menos 2 selecciones compatibles para sellar.",
+                );
+                return;
+              }
               sealParlayToJournal();
               onClose();
             }}
           >
-            <svg
-              width={14}
-              height={14}
-              viewBox="0 0 16 16"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth={2.2}
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              aria-hidden="true"
-              className="pl-bb-cta-icon shrink-0"
-            >
-              <path d="M3.25 8.5 6.5 11.75 12.75 4.75" />
-            </svg>
+            <MaestroIcon name="check" size={14} />
             <span>
-              {parlayLegs.length >= 2
-                ? `Sellar (${parlayLegs.length})`
-                : "Agrega 2+ picks"}
+              {exceedsMaxLegs
+                ? `Máx. ${MAX_PARLAY_LEGS} (${parlayLegs.length})`
+                : canSealSlip
+                  ? `Sellar (${parlayLegs.length})`
+                  : "Agrega 2+ picks"}
             </span>
-          </button>
+          </Button>
         </footer>
       </div>
     </dialog>

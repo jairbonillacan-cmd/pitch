@@ -89,6 +89,56 @@ export function selectPicks(
  * Candidatos a partir de los grupos de mercado publicados. La etiqueta se completa para
  * que el pick se entienda fuera de su tabla («Ambos anotan: Sí», «Más de 44.5 puntos»).
  */
+const TOTAL_UNIT_RE = /\b(goles?|puntos?|carreras?|c[oó]rners?|faltas?|tarjetas?|tiros?|remates?)\b/i;
+
+function inferTotalUnitFromGroup(
+  groupName: string,
+  market: string,
+  line: number | undefined,
+  allGroupNames: string,
+): string {
+  const m = market.toLowerCase();
+  if (m.includes("corner")) return "córners";
+  if (m.includes("foul")) return "faltas";
+  if (m.includes("card") || m.includes("yellow")) return "tarjetas";
+  if (m.includes("shot")) return "tiros";
+  const g = groupName.toLowerCase();
+  if (g.includes("carrera") || g.includes("run")) return "carreras";
+  if (g.includes("gol")) return "goles";
+  if (g.includes("punto") || g.includes("pts")) return "puntos";
+  if (g.includes("córner") || g.includes("corner")) return "córners";
+  if (g.includes("falta")) return "faltas";
+  if (g.includes("tarjeta")) return "tarjetas";
+  if (allGroupNames.includes("carrera") || allGroupNames.includes("run line")) return "carreras";
+  if (
+    allGroupNames.includes("puck") ||
+    allGroupNames.includes("ambos anotan") ||
+    allGroupNames.includes("gol")
+  ) {
+    return "goles";
+  }
+  if (typeof line === "number" && Number.isFinite(line) && line <= 6.5) return "goles";
+  if (typeof line === "number" && Number.isFinite(line) && line <= 14.5) return "carreras";
+  return "puntos";
+}
+
+function normalizeTotalCandidateLabel(
+  label: string,
+  line: number | undefined,
+  unit: string,
+): string {
+  const trimmed = label.trim();
+  if (trimmed === "Más" || trimmed === "Menos") {
+    return line !== undefined && Number.isFinite(line)
+      ? `${trimmed} de ${line} ${unit}`
+      : `${trimmed} ${unit}`;
+  }
+  if (TOTAL_UNIT_RE.test(trimmed)) return trimmed;
+  if (/\d/.test(trimmed)) return `${trimmed} ${unit}`;
+  if (line !== undefined && Number.isFinite(line)) return `${trimmed} ${line} ${unit}`;
+  return `${trimmed} ${unit}`;
+}
+
 export function candidatesFromGroups(
   groups: ReadonlyArray<{
     group: string;
@@ -102,12 +152,25 @@ export function candidatesFromGroups(
     }>;
   }>,
 ): PickCandidate[] {
+  const allGroupNames = groups.map((g) => g.group.toLowerCase()).join(" ");
   return groups.flatMap((group) =>
     group.rows.map((row) => {
       let label = row.label;
-      if (row.market === "btts") label = `Ambos anotan: ${row.label}`;
-      else if (row.market === "totals" && (row.label === "Más" || row.label === "Menos")) {
-        label = `${row.label} de ${row.line} puntos`;
+      const isTotalLike =
+        row.market === "totals" ||
+        row.market === "team_totals" ||
+        row.market.startsWith("totals_") ||
+        row.market === "corners_total" ||
+        row.market === "fouls_total" ||
+        row.market === "cards_total" ||
+        row.market === "yellow_total";
+      if (row.market === "btts") {
+        label = row.label.toLowerCase().startsWith("ambos anotan")
+          ? row.label
+          : `Ambos anotan: ${row.label}`;
+      } else if (isTotalLike) {
+        const unit = inferTotalUnitFromGroup(group.group, row.market, row.line, allGroupNames);
+        label = normalizeTotalCandidateLabel(row.label, row.line, unit);
       }
       return {
         market: row.market,
@@ -157,6 +220,7 @@ export interface Confidence {
 export const CONFIDENCE_THRESHOLDS = { alta: 62, media: 45 } as const;
 
 function clamp01(x: number): number {
+  if (!Number.isFinite(x)) return 0;
   return x < 0 ? 0 : x > 1 ? 1 : x;
 }
 
@@ -169,14 +233,19 @@ export function confidenceIndex(input: ConfidenceInputs): Confidence {
     { w: 0.5, v: fav },
     { w: 0.2, v: sample },
   ];
-  if (input.intervalWidth !== undefined) {
-    parts.push({ w: 0.15, v: clamp01(1 - (input.intervalWidth - 0.15) / 0.35) });
+  const hasInterval =
+    typeof input.intervalWidth === "number" && Number.isFinite(input.intervalWidth);
+  const hasDisagreement =
+    typeof input.disagreement === "number" && Number.isFinite(input.disagreement);
+  if (hasInterval) {
+    parts.push({ w: 0.15, v: clamp01(1 - (input.intervalWidth! - 0.15) / 0.35) });
   }
-  if (input.disagreement !== undefined) {
-    parts.push({ w: 0.15, v: clamp01(1 - input.disagreement / 0.2) });
+  if (hasDisagreement) {
+    parts.push({ w: 0.15, v: clamp01(1 - input.disagreement! / 0.2) });
   }
   const weight = parts.reduce((acc, p) => acc + p.w, 0);
-  const score = Math.round((100 * parts.reduce((acc, p) => acc + p.w * p.v, 0)) / weight);
+  const rawScore = weight > 0 ? (100 * parts.reduce((acc, p) => acc + p.w * p.v, 0)) / weight : 0;
+  const score = Number.isFinite(rawScore) ? Math.round(rawScore) : 0;
   const level: ConfidenceLevel =
     score >= CONFIDENCE_THRESHOLDS.alta ? "alta" : score >= CONFIDENCE_THRESHOLDS.media ? "media" : "baja";
 
@@ -185,11 +254,11 @@ export function confidenceIndex(input: ConfidenceInputs): Confidence {
   else if (fav <= 0.2) reasons.push("Partido parejo");
   if (sample < 0.5) reasons.push("Poca muestra esta temporada");
   else if (sample >= 1) reasons.push("Muestra suficiente");
-  if (input.disagreement !== undefined) {
-    if (input.disagreement >= 0.12) reasons.push("La temporada y la historia no coinciden");
-    else if (input.disagreement <= 0.05) reasons.push("Temporada e historia coinciden");
+  if (hasDisagreement) {
+    if (input.disagreement! >= 0.12) reasons.push("La temporada y la historia no coinciden");
+    else if (input.disagreement! <= 0.05) reasons.push("Temporada e historia coinciden");
   }
-  if (input.intervalWidth !== undefined && input.intervalWidth >= 0.4) {
+  if (hasInterval && input.intervalWidth! >= 0.4) {
     reasons.push("Rango de incertidumbre amplio");
   }
   return { score, level, reasons: reasons.slice(0, 3) };

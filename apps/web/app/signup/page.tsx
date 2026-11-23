@@ -16,6 +16,7 @@ export const dynamic = "force-dynamic";
 export const metadata: Metadata = {
   title: "Crea tu cuenta · PitchLab",
   description: "7 días gratis, sin tarjeta. Al terminar decides si sigues.",
+  robots: { index: false, follow: false },
 };
 
 export default async function SignupPage({
@@ -36,7 +37,6 @@ export default async function SignupPage({
     loadPublicPlatformState(),
     loadLoginPreviewData(),
   ]);
-  // Con sesión (Google o al volver desde /app): nombre y usuario ya escritos.
   const profile = access.via === "account" ? access.profile : null;
 
   const previewSlot = previewData.primaryCard ? (

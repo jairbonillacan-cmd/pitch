@@ -7,6 +7,7 @@
  */
 import { and, desc, eq, inArray, isNull, lte, or, sql } from "drizzle-orm";
 import type { Db } from "./billing";
+import { withDbTransaction } from "./client";
 import { recordAdminAudit } from "./admin";
 import { tipsterCommissionLedger, tipsterProfiles, users } from "./schema";
 
@@ -63,8 +64,7 @@ export async function payableTransfers(db: Db): Promise<PendingTransfer[]> {
  * y corridas paralelas del cron.
  */
 export async function claimPayableTransfers(db: Db, now: Date): Promise<PendingTransfer[]> {
-  return db.transaction(async (tx) => {
-    const t = tx as unknown as Db;
+  return withDbTransaction(db, async (t) => {
     const staleCutoff = new Date(now.getTime() - PAYOUT_CLAIM_TIMEOUT_MS);
     const candidates = await t
       .select({
@@ -263,7 +263,17 @@ export async function listTipsterCommissionsForAdmin(
     .innerJoin(tipsterProfiles, eq(tipsterProfiles.userId, tipsterCommissionLedger.tipsterUserId))
     .innerJoin(users, eq(users.id, tipsterProfiles.userId))
     .orderBy(desc(tipsterCommissionLedger.createdAt))
-    .limit(opts?.limit ?? 100);
+    .limit(
+      Math.min(
+        40,
+        Math.max(
+          1,
+          typeof opts?.limit === "number" && Number.isFinite(opts.limit)
+            ? Math.trunc(opts.limit)
+            : 40,
+        ),
+      ),
+    );
 
   const byTipster = new Map<string, AdminTipsterSummaryRow>();
   for (const r of rows) {
@@ -316,8 +326,7 @@ export async function markCommissionPaidManually(
   const cleanNote = input.note?.trim().slice(0, 200) || null;
   const transferKey = `manual:${cleanRef}:${input.ledgerId.slice(0, 8)}`;
 
-  return db.transaction(async (tx) => {
-    const t = tx as unknown as Db;
+  return withDbTransaction(db, async (t) => {
     const [updated] = await t
       .update(tipsterCommissionLedger)
       .set({

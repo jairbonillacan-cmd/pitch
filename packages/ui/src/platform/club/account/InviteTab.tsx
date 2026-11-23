@@ -1,7 +1,17 @@
 "use client";
 
-import React, { useCallback, useEffect, useMemo, useRef, useState } from "react";
-import { ExampleBadge, ExampleNotice, MaestroIcon } from "../../components/MaestroPrimitives";
+import React, { useCallback, useMemo, useRef, useState } from "react";
+import {
+  Button,
+  SofascoreCard,
+  SofascoreEmptyState,
+  SofascoreKpiStrip,
+  SofascoreTable,
+  type SofascoreKpiItem,
+  type SofascoreTableColumn,
+} from "../../../components/ui/primitives";
+import { ExampleBadge, MaestroIcon } from "../../components/MaestroPrimitives";
+import { useMediaQuery, useSafeEffect } from "../../hooks";
 import { triggerHaptic } from "../../navigation-helpers";
 import { usePlatformActions, usePlatformCore } from "../../platform-provider";
 import { MEMBERSHIP_SPEC, referralEarnedDays } from "../../spacetime-catalog";
@@ -31,14 +41,14 @@ export interface InviteTabStoryOverride {
 }
 
 interface ExampleFriendRow {
-  id: string;
-  name: string;
-  handle: string;
-  initials: string;
-  gradVar: string;
-  paid: boolean;
-  statusLabel: string;
-  dateLabel: string;
+  readonly id: string;
+  readonly name: string;
+  readonly handle: string;
+  readonly initials: string;
+  readonly gradVar: string;
+  readonly paid: boolean;
+  readonly statusLabel: string;
+  readonly dateLabel: string;
 }
 
 const EXAMPLE_PAID_FRIENDS_POOL: ReadonlyArray<{
@@ -85,10 +95,15 @@ const EXAMPLE_PAID_FRIENDS_POOL: ReadonlyArray<{
   },
 ];
 
-/** Logotipo oficial de WhatsApp (simple-icons, CC0). */
 function WhatsAppIcon(): React.JSX.Element {
   return (
-    <svg width="16" height="16" viewBox="0 0 24 24" aria-hidden="true" style={{ color: "var(--social-whatsapp)" }}>
+    <svg
+      width="16"
+      height="16"
+      viewBox="0 0 24 24"
+      aria-hidden="true"
+      className="text-[var(--social-whatsapp)]"
+    >
       <path
         fill="currentColor"
         d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"
@@ -97,7 +112,6 @@ function WhatsAppIcon(): React.JSX.Element {
   );
 }
 
-/** Logotipo oficial de X (simple-icons, CC0). */
 function XBrandIcon(): React.JSX.Element {
   return (
     <svg width="14" height="14" viewBox="0 0 24 24" aria-hidden="true">
@@ -115,11 +129,59 @@ function ShareSheetIcon(): React.JSX.Element {
 
 function CheckMarkIcon(): React.JSX.Element {
   return (
-    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2.5} strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+    <svg
+      width="15"
+      height="15"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth={2.5}
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      aria-hidden="true"
+    >
       <path d="m5 12 5 5L20 7" />
     </svg>
   );
 }
+
+const EXAMPLE_FRIEND_COLUMNS: readonly SofascoreTableColumn<ExampleFriendRow>[] = [
+  {
+    key: "friend",
+    header: "Amigo",
+    render: (row) => (
+      <div className="pl-acct-invite-cell">
+        <span
+          className="pl-acct-invite-avatar"
+          style={{ background: row.gradVar }}
+          aria-hidden="true"
+        >
+          {row.initials}
+        </span>
+        <div className="pl-acct-invite-meta">
+          <span className="pl-acct-invite-name">
+            {row.name} <small>{row.handle}</small>
+          </span>
+          <span className="pl-acct-invite-date num">{row.dateLabel}</span>
+        </div>
+      </div>
+    ),
+  },
+  {
+    key: "status",
+    header: "Estado",
+    align: "end",
+    render: (row) => (
+      <span
+        className={`pl-pick-status num ${
+          row.paid ? "pl-pick-status--won" : "pl-pick-status--open"
+        }`}
+      >
+        {row.statusLabel}
+      </span>
+    ),
+  },
+];
 
 export function InviteTab({
   identity,
@@ -142,34 +204,24 @@ export function InviteTab({
 
   const accountsEnabled = storyOverride?.accountsEnabled ?? hasAccountSessionAuth;
   const isLoading = storyOverride?.loading ?? referralsLoading;
+  const isMobileLayout = useMediaQuery("(max-width: 639px)");
 
   const [flipped, setFlipped] = useState(false);
   const [copiedTarget, setCopiedTarget] = useState<"input" | "msg" | "code" | null>(null);
   const [liveStatus, setLiveStatus] = useState("");
   const [canNativeShare, setCanNativeShare] = useState(false);
-  const [isMobileLayout, setIsMobileLayout] = useState(false);
   const copyTimerRef = useRef<number | null>(null);
 
-  useEffect(() => {
+  useSafeEffect(() => {
     setCanNativeShare(
       typeof navigator !== "undefined" && typeof navigator.share === "function",
     );
-    if (typeof window === "undefined" || typeof window.matchMedia !== "function") return;
-    const mql = window.matchMedia("(max-width: 639px)");
-    setIsMobileLayout(mql.matches);
-    const onChange = (ev: MediaQueryListEvent) => setIsMobileLayout(ev.matches);
-    mql.addEventListener?.("change", onChange);
-    return () => mql.removeEventListener?.("change", onChange);
-  }, []);
-
-  useEffect(
-    () => () => {
-      if (copyTimerRef.current !== null) {
+    return () => {
+      if (copyTimerRef.current !== null && typeof window !== "undefined") {
         window.clearTimeout(copyTimerRef.current);
       }
-    },
-    [],
-  );
+    };
+  }, []);
 
   const activeCode = useMemo<string | null>(() => {
     if (accountsEnabled) {
@@ -195,7 +247,12 @@ export function InviteTab({
       return Math.max(0, serverReferrals?.paidFriends ?? 0);
     }
     return 2 + Math.max(0, referralPaidFriends);
-  }, [accountsEnabled, referralPaidFriends, serverReferrals?.paidFriends, storyOverride?.paidFriends]);
+  }, [
+    accountsEnabled,
+    referralPaidFriends,
+    serverReferrals?.paidFriends,
+    storyOverride?.paidFriends,
+  ]);
 
   const pendingCount = useMemo<number>(() => {
     if (typeof storyOverride?.pendingFriends === "number") {
@@ -220,6 +277,46 @@ export function InviteTab({
   const remainingForAmbassador = Math.max(0, threshold - paidCount);
   const isAmbassador = paidCount >= threshold;
   const tierLabel = identity.isTipster ? "ULTRA · TIPSTER" : "ULTRA";
+
+  const rewardKpis = useMemo<readonly SofascoreKpiItem[]>(
+    () => [
+      {
+        id: "friend",
+        label: "Para tu amigo",
+        value: `${trialDays} días + $${firstMonthMxn}`,
+        tone: "default",
+      },
+      {
+        id: "both",
+        label: "Cuando paga",
+        value: `+${bothDays} días c/u`,
+        tone: "positive",
+      },
+      {
+        id: "ambassador",
+        label: `Meta ${threshold} amigos`,
+        value: `+${bonusDays} días extra`,
+        tone: "brand",
+      },
+    ],
+    [bonusDays, bothDays, firstMonthMxn, threshold, trialDays],
+  );
+
+  const inviteMetrics = useMemo<readonly SofascoreKpiItem[]>(() => {
+    const items: SofascoreKpiItem[] = [
+      { id: "paid", label: "Pagaron", value: String(paidCount), tone: "positive" },
+      { id: "pending", label: "En prueba", value: String(pendingCount), tone: "default" },
+    ];
+    if (!accountsEnabled) {
+      items.push({
+        id: "opens",
+        label: "Veces que abrieron tu enlace",
+        value: String(exampleOpensCount),
+        tone: "brand",
+      });
+    }
+    return items;
+  }, [accountsEnabled, exampleOpensCount, paidCount, pendingCount]);
 
   const copyText = useCallback(
     async (text: string, target: "input" | "msg" | "code", announceLabel: string) => {
@@ -248,7 +345,7 @@ export function InviteTab({
           void err;
         }
       }
-      if (copyTimerRef.current !== null) {
+      if (copyTimerRef.current !== null && typeof window !== "undefined") {
         window.clearTimeout(copyTimerRef.current);
       }
       if (copied) {
@@ -258,11 +355,13 @@ export function InviteTab({
         setCopiedTarget(null);
         setLiveStatus("No se pudo copiar automáticamente; selecciona el enlace para copiarlo.");
       }
-      copyTimerRef.current = window.setTimeout(() => {
-        setCopiedTarget(null);
-        setLiveStatus("");
-        copyTimerRef.current = null;
-      }, 2000);
+      if (typeof window !== "undefined") {
+        copyTimerRef.current = window.setTimeout(() => {
+          setCopiedTarget(null);
+          setLiveStatus("");
+          copyTimerRef.current = null;
+        }, 2000);
+      }
     },
     [],
   );
@@ -315,9 +414,11 @@ export function InviteTab({
   if (accountsEnabled && (isLoading || !activeCode)) {
     return (
       <div className="pl-acct-stack">
-        <section className="pl-acct-card glass-card glass-ring" aria-live="polite">
-          <p className="pl-acct-generating">Generando tu código…</p>
-        </section>
+        <SofascoreCard as="section">
+          <p className="pl-acct-generating" aria-live="polite">
+            Generando tu código…
+          </p>
+        </SofascoreCard>
       </div>
     );
   }
@@ -330,46 +431,52 @@ export function InviteTab({
   const xHref = buildXShareHref(ensuredCode);
 
   const moreShareButton = canNativeShare ? (
-    <button
+    <Button
       key="more"
       type="button"
-      className="pl-acct-btn pl-acct-btn--ghost pl-acct-share-btn min-h-11 sm:min-h-10"
+      variant="secondary"
+      size="sm"
+      className="pl-acct-share-btn"
       onClick={handleNativeShare}
     >
       <ShareSheetIcon />
       <span>Más</span>
-    </button>
+    </Button>
   ) : null;
 
   const coreShareButtons = [
-    <a
+    <Button
       key="whatsapp"
-      href={whatsAppHref}
-      target="_blank"
-      rel="noopener noreferrer"
-      className="pl-acct-btn pl-acct-btn--ghost pl-acct-share-btn min-h-11 sm:min-h-10"
+      variant="secondary"
+      size="sm"
+      nativeButton={false}
+      className="pl-acct-share-btn"
+      render={<a href={whatsAppHref} target="_blank" rel="noopener noreferrer" />}
     >
       <WhatsAppIcon />
       <span>WhatsApp</span>
-    </a>,
-    <a
+    </Button>,
+    <Button
       key="x"
-      href={xHref}
-      target="_blank"
-      rel="noopener noreferrer"
-      className="pl-acct-btn pl-acct-btn--ghost pl-acct-share-btn min-h-11 sm:min-h-10"
+      variant="secondary"
+      size="sm"
+      nativeButton={false}
+      className="pl-acct-share-btn"
+      render={<a href={xHref} target="_blank" rel="noopener noreferrer" />}
     >
       <XBrandIcon />
       <span>X</span>
-    </a>,
-    <button
+    </Button>,
+    <Button
       key="copy-msg"
       type="button"
-      className="pl-acct-btn pl-acct-btn--ghost pl-acct-share-btn min-h-11 sm:min-h-10"
-      onClick={() => copyText(shareMessage, "msg", "Copiado")}
+      variant="secondary"
+      size="sm"
+      className="pl-acct-share-btn"
+      onClick={() => void copyText(shareMessage, "msg", "Copiado")}
     >
       <span>{copiedTarget === "msg" ? "Copiado" : "Copiar mensaje"}</span>
-    </button>,
+    </Button>,
   ];
 
   const orderedShareButtons =
@@ -384,12 +491,20 @@ export function InviteTab({
       </span>
 
       {!accountsEnabled ? (
-        <ExampleNotice>
-          Código, avance e invitaciones de muestra. Tus datos reales aparecen al activar las cuentas.
-        </ExampleNotice>
+        <div className="pl-acct-example-notice">
+          <div className="pl-acct-example-head">
+            <span className="pl-acct-example-badge">
+              <MaestroIcon name="eye" size={13} />
+              <span>Ejemplo</span>
+            </span>
+            <strong className="pl-acct-example-title">Contenido de ejemplo</strong>
+          </div>
+          <p className="pl-acct-example-body">
+            Código, avance e invitaciones de muestra. Tus datos reales aparecen al activar las cuentas.
+          </p>
+        </div>
       ) : null}
 
-      {/* Hero: Tarjeta 3D + Oferta y Compartir */}
       <div className="pl-acct-hero-grid">
         <section className="pl-acct-card-stage" aria-label="Tu tarjeta de invitación">
           <div className="pl-acct-card-stage-top">
@@ -397,7 +512,7 @@ export function InviteTab({
             <div className="pl-acct-flip-seg" role="group" aria-label="Cara de la tarjeta">
               <button
                 type="button"
-                className="min-h-11 sm:min-h-8"
+                className="pl-acct-flip-btn"
                 aria-pressed={!flipped}
                 onClick={() => setFlipped(false)}
               >
@@ -405,7 +520,7 @@ export function InviteTab({
               </button>
               <button
                 type="button"
-                className="min-h-11 sm:min-h-8"
+                className="pl-acct-flip-btn"
                 aria-pressed={flipped}
                 onClick={() => setFlipped(true)}
               >
@@ -418,9 +533,11 @@ export function InviteTab({
             type="button"
             className="pl-acct-cardbtn"
             data-referrals-card=""
-            aria-label={`Tarjeta de invitación de ${identity.atHandle}, código ${ensuredCode}. Voltear`}
             onClick={() => setFlipped((prev) => !prev)}
           >
+            <span className="sr-only">
+              {`Tarjeta de invitación de ${identity.atHandle}, código ${ensuredCode}. Voltear`}
+            </span>
             <LazyReferralCard3D
               code={ensuredCode}
               bottomLeftLabel={identity.atHandle}
@@ -438,253 +555,205 @@ export function InviteTab({
           </div>
         </section>
 
-        <section className="pl-acct-card glass-card glass-ring pl-acct-offer-card" aria-labelledby="pl-acct-offer-h">
-          <div className="pl-acct-offer-head">
-            <h2 id="pl-acct-offer-h" className="pl-acct-h2">
-              Regala {trialDays} días de Ultra. Suma +{bothDays} días cuando tu amigo pague.
-            </h2>
+        <SofascoreCard as="section" className="pl-acct-offer-card">
+          <div className="pl-acct-offer-inner">
+            <div className="pl-acct-offer-head">
+              <h2 id="pl-acct-offer-h" className="pl-acct-h2">
+                Regala {trialDays} días de Ultra. Suma +{bothDays} días cuando tu amigo pague.
+              </h2>
 
-            <dl className="pl-acct-perk-strip num" aria-label="Resumen de recompensas">
-              <div className="pl-acct-perk-tile">
-                <dt>Para tu amigo</dt>
-                <dd>{trialDays} días + ${firstMonthMxn}</dd>
-              </div>
-              <div className="pl-acct-perk-tile">
-                <dt>Cuando paga</dt>
-                <dd>+{bothDays} días c/u</dd>
-              </div>
-              <div className="pl-acct-perk-tile is-accent">
-                <dt>Meta {threshold} amigos</dt>
-                <dd>+{bonusDays} días extra</dd>
-              </div>
-            </dl>
+              <SofascoreKpiStrip items={rewardKpis} className="pl-acct-perk-kpis" />
 
-            <ul className="pl-acct-offer-lines" role="list">
-              <li>
-                <span>Tu amigo recibe </span>
-                <strong className="num">{trialDays} días sin costo</strong>
-                <span> y paga </span>
-                <strong className="num">${firstMonthMxn} MXN</strong>
-                <span> su primer mes en vez de </span>
-                <span className="num">${regularMonthlyMxn}</span>.
-              </li>
-              <li>
-                <span>Cuando paga su primer mes, </span>
-                <strong className="num">los dos reciben +{bothDays} días</strong>.
-              </li>
-              <li>
-                <span>Con </span>
-                <strong className="num">{threshold} amigos que pagan</strong>
-                <span>, recibes </span>
-                <strong className="num">+{bonusDays} días extra</strong>.
-              </li>
-            </ul>
-          </div>
+              <ul className="pl-acct-offer-lines" role="list">
+                <li>
+                  <span>Tu amigo recibe </span>
+                  <strong className="num">{trialDays} días sin costo</strong>
+                  <span> y paga </span>
+                  <strong className="num">${firstMonthMxn} MXN</strong>
+                  <span> su primer mes en vez de </span>
+                  <span className="num">${regularMonthlyMxn}</span>.
+                </li>
+                <li>
+                  <span>Cuando paga su primer mes, </span>
+                  <strong className="num">los dos reciben +{bothDays} días</strong>.
+                </li>
+                <li>
+                  <span>Con </span>
+                  <strong className="num">{threshold} amigos que pagan</strong>
+                  <span>, recibes </span>
+                  <strong className="num">+{bonusDays} días extra</strong>.
+                </li>
+              </ul>
+            </div>
 
-          <div className="pl-acct-link-box min-w-0">
-            <label htmlFor="pl-acct-ref-link" className="pl-acct-field-label">
-              Tu enlace
-            </label>
-            <div className="pl-acct-link-row">
-              <input
-                id="pl-acct-ref-link"
-                type="text"
-                readOnly
-                value={shortDisplay}
-                className="pl-acct-input num text-base sm:text-sm min-h-11"
-                onFocus={(e) => e.currentTarget.select()}
-              />
-              <button
-                type="button"
-                className="pl-acct-btn pl-acct-btn--primary"
-                data-copy-short-link=""
-                onClick={() => copyText(shortUrl, "input", "Copiado")}
-              >
-                {copiedTarget === "input" ? "Copiado" : "Copiar"}
-              </button>
+            <div className="pl-acct-link-box min-w-0">
+              <label htmlFor="pl-acct-ref-link" className="pl-acct-field-label">
+                Tu enlace
+              </label>
+              <div className="pl-acct-link-row">
+                <input
+                  id="pl-acct-ref-link"
+                  type="text"
+                  readOnly
+                  value={shortDisplay}
+                  className="pl-acct-input num"
+                  onFocus={(e) => e.currentTarget.select()}
+                />
+                <Button
+                  type="button"
+                  variant="primary"
+                  data-copy-short-link=""
+                  onClick={() => void copyText(shortUrl, "input", "Copiado")}
+                >
+                  {copiedTarget === "input" ? "Copiado" : "Copiar"}
+                </Button>
+              </div>
+            </div>
+
+            <div className="pl-acct-share-grid" role="group" aria-label="Compartir invitación">
+              {orderedShareButtons}
+            </div>
+
+            <div className="pl-acct-code-row min-w-0">
+              <span>Tu código</span>
+              <div className="pl-acct-code-actions">
+                {!accountsEnabled ? <ExampleBadge /> : null}
+                <button
+                  type="button"
+                  className="pl-acct-code-pill num"
+                  onClick={() => void copyText(ensuredCode, "code", "Copiado")}
+                >
+                  {copiedTarget === "code" ? "Copiado" : ensuredCode}
+                </button>
+              </div>
             </div>
           </div>
-
-          <div className="pl-acct-share-grid" role="group" aria-label="Compartir invitación">
-            {orderedShareButtons}
-          </div>
-
-          <div className="pl-acct-code-row min-w-0">
-            <span>Tu código</span>
-            <div className="pl-acct-code-actions">
-              {!accountsEnabled ? <ExampleBadge /> : null}
-              <button
-                type="button"
-                className="pl-acct-code-pill num min-h-11 sm:min-h-10"
-                onClick={() => copyText(ensuredCode, "code", "Copiado")}
-              >
-                {copiedTarget === "code" ? "Copiado" : ensuredCode}
-              </button>
-            </div>
-          </div>
-        </section>
+        </SofascoreCard>
       </div>
 
-      {/* Avance hacia embajador + Tus invitaciones */}
       <div className="pl-acct-bottom-grid">
-        <section
-          className="pl-acct-card glass-card glass-ring pl-acct-ambassador-card"
-          aria-labelledby="pl-acct-avance-h"
+        <SofascoreCard
+          id="pl-acct-avance"
+          title="Avance hacia embajador"
+          meta={!accountsEnabled ? <ExampleBadge /> : undefined}
+          className="pl-acct-ambassador-card"
         >
-          <div className="pl-acct-row-between">
-            <h3 id="pl-acct-avance-h" className="pl-acct-h3">
-              Avance hacia embajador
-            </h3>
-            {!accountsEnabled ? <ExampleBadge /> : null}
-          </div>
-
-          <div className="pl-acct-ambassador-track">
-            <div
-              className="pl-acct-slots"
-              role="img"
-              aria-label={`${paidCount} de ${threshold} amigos pagaron`}
-            >
-              {Array.from({ length: threshold }, (_, idx) => {
-                const filled = idx < paidCount;
-                const isGoal = idx === threshold - 1;
-                return (
-                  <div
-                    key={idx}
-                    aria-hidden="true"
-                    className={`pl-acct-milestone ${filled ? "is-filled" : ""} ${isGoal ? "is-goal" : ""}`.trim()}
-                  >
-                    <span
-                      className={`pl-acct-slot num ${filled ? "pl-acct-slot--filled" : "pl-acct-slot--empty"}`}
+          <div className="pl-acct-ambassador-inner">
+            <div className="pl-acct-ambassador-track">
+              <div
+                className="pl-acct-slots"
+                role="img"
+                aria-label={`${paidCount} de ${threshold} amigos pagaron`}
+              >
+                {Array.from({ length: threshold }, (_, idx) => {
+                  const filled = idx < paidCount;
+                  const isGoal = idx === threshold - 1;
+                  return (
+                    <div
+                      key={idx}
+                      aria-hidden="true"
+                      className={`pl-acct-milestone ${filled ? "is-filled" : ""} ${isGoal ? "is-goal" : ""}`.trim()}
                     >
-                      {filled ? <CheckMarkIcon /> : idx + 1}
-                    </span>
-                    <span className="pl-acct-milestone-label num">
-                      {isGoal ? `+${bonusDays} d` : `+${bothDays} d`}
-                    </span>
-                  </div>
-                );
-              })}
-            </div>
-
-            <div className="pl-acct-progress-bar" aria-hidden="true">
-              <span
-                className="pl-acct-progress-fill"
-                style={{ width: `${Math.min(100, Math.round((paidCount / threshold) * 100))}%` }}
-              />
-            </div>
-
-            <p className="pl-acct-progress-copy num" data-referral-friends="">
-              {isAmbassador
-                ? `Eres embajador · desbloqueaste +${bonusDays} días extra`
-                : `${paidCount} de ${threshold} · ${
-                    remainingForAmbassador === 1
-                      ? "te falta 1 amigo"
-                      : `te faltan ${remainingForAmbassador} amigos`
-                  } para el bono de +${bonusDays} días`}
-            </p>
-          </div>
-
-          <dl className="pl-acct-earned-row num">
-            <div>
-              <dt>Días ganados</dt>
-              <dd data-referral-days="">+{earnedDays} días</dd>
-            </div>
-            <div>
-              <dt>Meta embajador ({threshold}/5)</dt>
-              <dd className="pl-acct-earned-bonus">+{bonusDays} días extra</dd>
-            </div>
-          </dl>
-        </section>
-
-        <section
-          className="pl-acct-card glass-card glass-ring"
-          aria-labelledby="pl-acct-invites-h"
-        >
-          <div className="pl-acct-row-between">
-            <h3 id="pl-acct-invites-h" className="pl-acct-h3">
-              Tus invitaciones
-            </h3>
-            {!accountsEnabled ? <ExampleBadge /> : null}
-          </div>
-
-          <dl
-            className={`pl-acct-metrics num ${
-              accountsEnabled ? "pl-acct-metrics--two" : "pl-acct-metrics--three"
-            }`}
-          >
-            <div>
-              <dt>Pagaron</dt>
-              <dd>{paidCount}</dd>
-            </div>
-            <div>
-              <dt>En prueba</dt>
-              <dd>{pendingCount}</dd>
-            </div>
-            {!accountsEnabled ? (
-              <div>
-                <dt>Veces que abrieron tu enlace</dt>
-                <dd>{exampleOpensCount}</dd>
+                      <span
+                        className={`pl-acct-slot num ${filled ? "pl-acct-slot--filled" : "pl-acct-slot--empty"}`}
+                      >
+                        {filled ? <CheckMarkIcon /> : idx + 1}
+                      </span>
+                      <span className="pl-acct-milestone-label num">
+                        {isGoal ? `+${bonusDays} d` : `+${bothDays} d`}
+                      </span>
+                    </div>
+                  );
+                })}
               </div>
-            ) : null}
-          </dl>
 
-          {accountsEnabled ? (
-            paidCount === 0 && pendingCount === 0 ? (
-              <p className="pl-acct-empty-line">
-                Aún no invitas a nadie. Comparte tu enlace.
+              <div
+                className="pl-acct-progress-bar"
+                role="progressbar"
+                aria-label="Progreso hacia embajador"
+                aria-valuenow={Math.min(paidCount, threshold)}
+                aria-valuemin={0}
+                aria-valuemax={threshold}
+              >
+                <span
+                  className="pl-acct-progress-fill"
+                  style={{ width: `${Math.min(100, Math.round((paidCount / threshold) * 100))}%` }}
+                />
+              </div>
+
+              <p className="pl-acct-progress-copy num" data-referral-friends="">
+                {isAmbassador
+                  ? `Eres embajador · desbloqueaste +${bonusDays} días extra`
+                  : `${paidCount} de ${threshold} · ${
+                      remainingForAmbassador === 1
+                        ? "te falta 1 amigo"
+                        : `te faltan ${remainingForAmbassador} amigos`
+                    } para el bono de +${bonusDays} días`}
               </p>
+            </div>
+
+            <dl className="pl-acct-earned-row num">
+              <div>
+                <dt>Días ganados</dt>
+                <dd data-referral-days="">+{earnedDays} días</dd>
+              </div>
+              <div>
+                <dt>Meta embajador ({threshold}/5)</dt>
+                <dd className="pl-acct-earned-bonus">+{bonusDays} días extra</dd>
+              </div>
+            </dl>
+          </div>
+        </SofascoreCard>
+
+        <SofascoreCard
+          id="pl-acct-invites"
+          title="Tus invitaciones"
+          meta={!accountsEnabled ? <ExampleBadge /> : undefined}
+        >
+          <div className="space-y-4">
+            <SofascoreKpiStrip items={inviteMetrics} />
+
+            {accountsEnabled ? (
+              <SofascoreEmptyState
+                title={
+                  paidCount === 0 && pendingCount === 0
+                    ? "Aún no invitas a nadie. Comparte tu enlace."
+                    : "Pronto verás aquí a cada amigo."
+                }
+              />
             ) : (
-              <p className="pl-acct-empty-line">Pronto verás aquí a cada amigo.</p>
-            )
-          ) : (
-            <ul className="pl-acct-invite-list" role="list">
-              {exampleRows.map((row) => (
-                <li key={row.id} className="pl-acct-invite-item">
-                  <span
-                    className="pl-acct-invite-avatar"
-                    style={{ background: row.gradVar }}
-                    aria-hidden="true"
-                  >
-                    {row.initials}
-                  </span>
-                  <div className="pl-acct-invite-meta">
-                    <span className="pl-acct-invite-name">
-                      {row.name} <small>{row.handle}</small>
-                    </span>
-                    <span className="pl-acct-invite-date num">{row.dateLabel}</span>
-                  </div>
-                  <span
-                    className={`pl-pick-status num ${
-                      row.paid ? "pl-pick-status--won" : "pl-pick-status--open"
-                    }`}
-                  >
-                    {row.statusLabel}
-                  </span>
-                </li>
-              ))}
-            </ul>
-          )}
-        </section>
+              <SofascoreTable
+                caption="Historial de invitaciones de muestra"
+                columns={EXAMPLE_FRIEND_COLUMNS}
+                rows={exampleRows}
+                rowKey={(row) => row.id}
+                density="compact"
+              />
+            )}
+          </div>
+        </SofascoreCard>
       </div>
 
       <p className="pl-acct-legal-foot">
-        Los días se suman cuando tu amigo paga su primer mes; si cancela durante la prueba, no cuenta. Información para decidir, no una garantía. Solo mayores de 18.
+        Los días se suman cuando tu amigo paga su primer mes; si cancela durante la prueba, no
+        cuenta. Información para decidir, no una garantía. Solo mayores de 18.
       </p>
 
       {allowRoleSimulation ? (
-        <aside className="pl-acct-simulator glass-card glass-ring" aria-label="Simulador">
+        <aside className="pl-acct-simulator" aria-label="Simulador">
           <div className="pl-acct-simulator-copy">
             <span className="pl-acct-sim-badge">Simulador</span>
             <span>Prueba de desarrollo para sumar un amigo con primer mes pagado.</span>
           </div>
-          <button
+          <Button
             type="button"
-            className="pl-acct-btn pl-acct-btn--ghost"
+            variant="secondary"
+            size="sm"
             data-simulate-referral=""
             onClick={simulateFriendFirstPayment}
           >
             Simular pago de un amigo
-          </button>
+          </Button>
         </aside>
       ) : null}
     </div>

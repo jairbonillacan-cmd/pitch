@@ -10,6 +10,7 @@ import {
   isValidOutlook,
   lineViews,
   marginText,
+  nflSpecialViews,
   pctText,
   projectedScore,
   restNotes,
@@ -23,7 +24,6 @@ import type { SportOutlookInput } from "./sport-outlook-types";
 export interface SportOutlookCardProps {
   readonly outlook: SportOutlookInput;
   readonly oddsFormat: OddsFormat;
-  /** Marca la tarjeta como contenido de demostración (stories y vistas previas). */
   readonly isExample?: boolean;
 }
 
@@ -46,11 +46,6 @@ function updatedAt(iso: string): string | null {
   return Number.isNaN(d.getTime()) ? null : timeFmt.format(d);
 }
 
-/**
- * Panorama de un partido de NHL, MLB, NBA o NCAAF: quién gana, marcador esperado,
- * líneas del motor, confirmaciones previas (portero, abridor, bajas) y los factores que
- * más pesan. Solo muestra lo que el motor manda; lo que falta queda fuera o «por confirmar».
- */
 export function SportOutlookCard({
   outlook,
   oddsFormat,
@@ -81,6 +76,7 @@ export function SportOutlookCard({
   const segments = winnerSegments(outlook);
   const score = projectedScore(outlook);
   const lines = lineViews(outlook);
+  const nflSpecials = nflSpecialViews(outlook);
   const confirmations = confirmationViews(outlook);
   const rest = restNotes(outlook);
   const drivers = topDrivers(outlook);
@@ -127,6 +123,7 @@ export function SportOutlookCard({
           />
           <ul
             className="pl-so-legend"
+            role="list"
             aria-label={otSegment ? "Cómo termina el partido" : "Probabilidad de cada equipo"}
           >
             {segments.map((s) => (
@@ -162,7 +159,9 @@ export function SportOutlookCard({
           </div>
           <p className="pl-so-note num">
             {marginText(outlook)} · {totalText(outlook)}
-            {outlook.sport === "nba" && typeof outlook.expectedPace === "number"
+            {outlook.sport === "nba" &&
+            typeof outlook.expectedPace === "number" &&
+            Number.isFinite(outlook.expectedPace)
               ? ` · ${Math.round(outlook.expectedPace)} posesiones por equipo`
               : null}
           </p>
@@ -174,11 +173,16 @@ export function SportOutlookCard({
           <h4 className="pl-so-label">Líneas del partido</h4>
           <div className="pl-so-lines">
             {lines.map((line) => {
-              const leadIdx = line.options[0]!.p >= line.options[1]!.p ? 0 : 1;
+              let leadIdx = 0;
+              for (let i = 1; i < line.options.length; i += 1) {
+                if (line.options[i]!.p > line.options[leadIdx]!.p) {
+                  leadIdx = i;
+                }
+              }
               return (
                 <article key={`${line.kind}-${line.title}`} className="pl-so-line">
                   <h5 className="pl-so-line-title">{line.title}</h5>
-                  <ul className="pl-so-line-options">
+                  <ul className="pl-so-line-options" role="list">
                     {line.options.map((opt, idx) => (
                       <li
                         key={opt.label}
@@ -205,6 +209,39 @@ export function SportOutlookCard({
         </div>
       ) : null}
 
+      {nflSpecials.length > 0 ? (
+        <div className="pl-so-section" data-block="nfl-specials">
+          <h4 className="pl-so-label">Escenarios clave de NFL</h4>
+          <div className="pl-so-lines">
+            {nflSpecials.map((special) => (
+              <article
+                key={special.key}
+                className="pl-so-line"
+                data-nfl-special={special.key}
+              >
+                <h5 className="pl-so-line-title">{special.title}</h5>
+                <ul className="pl-so-line-options" role="list">
+                  <li className="pl-so-option" data-lead="true">
+                    <span className="pl-so-option-label">{special.subtitle}</span>
+                    <span className="pl-so-option-value num">
+                      <strong>{pctText(special.p)}</strong>
+                      {special.fairDecimal !== null ? (
+                        <span className="pl-so-option-fair">
+                          justo {formatOddsValue(special.fairDecimal, oddsFormat)}
+                        </span>
+                      ) : null}
+                    </span>
+                    <span className="pl-so-option-bar" aria-hidden="true">
+                      <span style={{ inlineSize: `${(special.p * 100).toFixed(1)}%` }} />
+                    </span>
+                  </li>
+                </ul>
+              </article>
+            ))}
+          </div>
+        </div>
+      ) : null}
+
       {confirmations.length > 0 || rest.length > 0 || drivers.length > 0 ? (
         <div
           className={
@@ -216,7 +253,7 @@ export function SportOutlookCard({
           {confirmations.length > 0 || rest.length > 0 ? (
             <div className="pl-so-section" data-block="confirmations">
               <h4 className="pl-so-label">Antes del partido</h4>
-              <ul className="pl-so-checks">
+              <ul className="pl-so-checks" role="list">
                 {confirmations.map((c) => (
                   <li key={c.key} className="pl-so-check" data-tone={c.tone}>
                     <span className="pl-so-check-icon" aria-hidden="true">
@@ -245,9 +282,13 @@ export function SportOutlookCard({
           {drivers.length > 0 ? (
             <div className="pl-so-section" data-block="drivers">
               <h4 className="pl-so-label">Qué inclina el partido</h4>
-              <ul className="pl-so-drivers">
-                {drivers.map((d) => (
-                  <li key={d.factor} className="pl-so-driver" data-favors={d.favors ?? "none"}>
+              <ul className="pl-so-drivers" role="list">
+                {drivers.map((d, idx) => (
+                  <li
+                    key={`${d.factor}-${idx}`}
+                    className="pl-so-driver"
+                    data-favors={d.favors ?? "none"}
+                  >
                     <span>{d.label}</span>
                     <span className="pl-so-driver-value num">{d.text}</span>
                   </li>

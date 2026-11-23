@@ -90,7 +90,10 @@ function main(): void {
       });
       writeJsonl(join(RESEARCH, "extended", `${corpusLeague}.jsonl`), extension);
       for (const game of extension) {
-        byId.set(game.id, { id: game.id, bzzoiro: Number(game.sourceId.slice("bzzoiro:".length)) });
+        const providerId = Number.parseInt(game.sourceId.slice("bzzoiro:".length), 10);
+        if (Number.isFinite(providerId)) {
+          byId.set(game.id, { id: game.id, bzzoiro: providerId });
+        }
       }
       const seasons = [...new Set(extension.map((g) => g.season))].sort().join(", ");
       console.log(`[link] ${corpusLeague}: extensión research-only con ${extension.length} partidos (${seasons})`);

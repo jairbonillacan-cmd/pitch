@@ -202,6 +202,7 @@ const derivedAndLightCss = `
   --share-card-accent: #C4B5FD;
   --share-card-success: #6EE7B7;
   --share-card-warning: #FCD34D;
+  --share-card-danger: #FDA4AF;
 
   /* Gradientes de avatar verificados */
   --avatar-grad-1: linear-gradient(135deg, #6D28D9, #2563EB);

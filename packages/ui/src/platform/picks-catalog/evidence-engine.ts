@@ -1,18 +1,10 @@
-/**
- * Motor puro de valoración financiera (de-vig proporcional/Shin, EV+, edge, fairOdds),
- * evidencia real multi-ventana (L5 / L10 / L20 / Local-Visita / H2H), señal de xG,
- * ajuste bayesiano de rigor arbitral y liquidación exacta en partidos `FT`.
- *
- * Principios:
- * - Cero números inventados: cada ventana de evidencia sale estrictamente de datos reales
- *   presentes en el partido o en los registros pasados al contexto.
- * - Cero hit-rate ingenuo: la frecuencia observada nunca sustituye a `p` calibrada de
- *   Spacetime v5.1 ni genera `fairOdds = 1.00`.
- * - Cero borrado en `FT`: todo pick en partido finalizado conserva su liquidación auditable
- *   (`hit | miss | push | pending`).
- */
-import { sportScoringUnit } from "@pitchlab/contracts";
-import { decimalToAmericanInt } from "../access-guard";
+import {
+  MAX_POSITIVE_DECIMAL_ODDS,
+  isBlockedMarketQuoteBook,
+  isPermittedMarketQuoteBook,
+  sportScoringUnit,
+} from "@pitchlab/contracts";
+import { decimalToAmericanInt, formatOddsValue } from "../access-guard";
 import {
   REFEREE_EB_PRIOR_WEIGHT,
   classifyRefereeRigor,
@@ -25,6 +17,7 @@ import type {
 import type {
   CatalogEvidenceBullet,
   CatalogPickEvidence,
+  CatalogPickItem,
   DeVigMethod,
   EvidenceTone,
   EvidenceWindowStat,
@@ -32,6 +25,8 @@ import type {
   MatchFinalCountStats,
   PickDirection,
   PickPricingMetrics,
+  PickRecommendationScoreResult,
+  PickRecommendationTier,
   PickSettlementStatus,
   PlayerPropStatKey,
   RefereeEvidenceSignal,
@@ -46,6 +41,30 @@ const DEFAULT_LEAGUE_FOULS_PRIOR = 23.8;
 const MIN_DE_VIG_IMPLIED_SUM = 0.92;
 const MAX_DE_VIG_IMPLIED_SUM = 1.32;
 const AUTO_SHIN_OVERROUND_THRESHOLD_PCT = 3.5;
+const MAX_QUOTE_FRESHNESS_MS = 72 * 3_600_000;
+const MAX_QUOTE_FUTURE_SKEW_MS = 6 * 3_600_000;
+const TRIVIAL_ODDS_THRESHOLD = 1.25;
+const OPTIMAL_ODDS_MIN = 1.45;
+const OPTIMAL_ODDS_MAX = 2.8;
+const CONVERGENCE_RATE_THRESHOLD_PCT = 65;
+const MAX_DEVIG_PROB_DIVERGENCE = 0.12;
+const MAX_SHARP_EV_PCT = 18;
+const MAX_SOFT_EV_PCT = 22;
+const SHARP_BOOK_TOKENS = ["pinnacle", "betcris", "betonline"] as const;
+
+const MATCH_LEVEL_EVIDENCE_FAMILIES: ReadonlySet<MarketFamilyId> = new Set([
+  "totals",
+  "btts",
+  "corners_total",
+  "shots_total",
+  "shots_on_target",
+  "fouls_total",
+  "cards_total",
+  "nba_totals",
+  "mlb_totals",
+  "nhl_totals",
+  "nfl_totals",
+]);
 
 function round1(v: number): number {
   return Math.round(v * 10) / 10;
@@ -71,6 +90,39 @@ function normalizeText(value: string): string {
     .trim();
 }
 
+export function isMarketQuoteFreshWithin72h(
+  capturedAtUtc?: string | null,
+  referenceNowIso?: string | null,
+): boolean {
+  if (!capturedAtUtc || capturedAtUtc.trim().length === 0) return false;
+  const capturedMs = Date.parse(capturedAtUtc);
+  const nowMs =
+    referenceNowIso && referenceNowIso.trim().length > 0
+      ? Date.parse(referenceNowIso)
+      : Date.now();
+  if (!Number.isFinite(capturedMs) || !Number.isFinite(nowMs)) return false;
+  const ageMs = nowMs - capturedMs;
+  return ageMs >= -MAX_QUOTE_FUTURE_SKEW_MS && ageMs <= MAX_QUOTE_FRESHNESS_MS;
+}
+
+export function isMarketBookLabelPermitted(bookLabel?: string | null): boolean {
+  if (bookLabel == null) return false;
+  const trimmed = bookLabel.trim();
+  if (trimmed.length === 0) return false;
+  const primary = trimmed.split(/[·|]/)[0]?.trim() ?? trimmed;
+  return (
+    !isBlockedMarketQuoteBook(primary, trimmed) &&
+    isPermittedMarketQuoteBook(primary, trimmed)
+  );
+}
+
+export function isSharpBookLabel(bookLabel?: string | null): boolean {
+  if (!bookLabel) return false;
+  const norm = normalizeText(bookLabel);
+  if (norm.length === 0) return false;
+  return SHARP_BOOK_TOKENS.some((token) => norm.includes(token));
+}
+
 export function toneForObservedRate(ratePct: number): EvidenceTone {
   if (ratePct >= 70) return "high";
   if (ratePct >= 48) return "mid";
@@ -82,13 +134,9 @@ export interface DeVigComputationResult {
   readonly method: Exclude<DeVigMethod, "none">;
   readonly overroundPct: number;
   readonly shinZ?: number;
+  readonly powerAlpha?: number;
 }
 
-/**
- * Remoción proporcional (multiplicativa) del margen de casa sobre cuotas decimales (2 o 3 vías).
- * Para mercados cuyas probabilidades teóricas suman `2.0` (Doble Oportunidad `1X + X2 + 12`),
- * pasar `targetProbSum = 2` normaliza contra `sum / 2`.
- */
 export function computeProportionalDeVig(
   decimals: readonly number[],
   targetProbSum = 1,
@@ -116,10 +164,6 @@ export function computeProportionalDeVig(
   };
 }
 
-/**
- * Solucionador determinista de Shin (1993) por bisección para mercados de 2 o 3 vías.
- * Corrige el sesgo favorito-underdog propio de casas recreativas con overround elevado.
- */
 export function computeShinDeVig(
   decimals: readonly number[],
   tolerance = 1e-10,
@@ -174,22 +218,82 @@ export function computeShinDeVig(
   if (!Number.isFinite(normSum) || normSum <= 0) return null;
 
   return {
-    probs: rawProbs.map((p) => round4(p / normSum)),
+    probs: rawProbs.map((p) => p / normSum),
     method: "shin",
     overroundPct,
     shinZ: round4(z),
   };
 }
 
-/**
- * Selecciona el método de de-vig óptimo:
- * - `"auto"`: Shin cuando el overround es >= 3.5 % (casas recreativas) y proporcional en
- *   mercados sharp (< 3.5 %). Para mercados con suma teórica distinta de 1 (p. ej. Doble
- *   Oportunidad con `targetProbSum = 2`), aplica siempre normalización proporcional.
- */
+export function computePowerDeVig(
+  decimals: readonly number[],
+  tolerance = 1e-12,
+): DeVigComputationResult | null {
+  if (decimals.length < 2) return null;
+  const q: number[] = [];
+  let sumQ = 0;
+  for (const d of decimals) {
+    if (!Number.isFinite(d) || d < 1.01) return null;
+    const qi = 1 / d;
+    q.push(qi);
+    sumQ += qi;
+  }
+  if (sumQ < MIN_DE_VIG_IMPLIED_SUM || sumQ > MAX_DE_VIG_IMPLIED_SUM) return null;
+
+  const overroundPct = round2((sumQ - 1) * 100);
+  if (Math.abs(sumQ - 1) <= 1e-12) {
+    const probs = q.map((qi) => qi / sumQ);
+    if (probs.some((p) => !Number.isFinite(p) || p <= 0 || p >= 1)) return null;
+    return {
+      probs,
+      method: "power",
+      overroundPct,
+      powerAlpha: 1,
+    };
+  }
+
+  const evalSum = (alpha: number): number => {
+    let acc = 0;
+    for (const qi of q) {
+      acc += Math.pow(qi, alpha);
+    }
+    return acc;
+  };
+
+  let lo = 1e-6;
+  let hi = 5;
+  while (evalSum(hi) > 1 && hi < 64) {
+    hi *= 2;
+  }
+  let alpha = 1;
+  for (let iter = 0; iter < 120; iter += 1) {
+    alpha = (lo + hi) * 0.5;
+    const total = evalSum(alpha);
+    if (Math.abs(total - 1) <= tolerance) {
+      break;
+    }
+    if (total > 1) lo = alpha;
+    else hi = alpha;
+  }
+
+  const rawProbs = q.map((qi) => Math.pow(qi, alpha));
+  const normSum = rawProbs.reduce((acc, v) => acc + v, 0);
+  if (!Number.isFinite(normSum) || normSum <= 0) return null;
+
+  const probs = rawProbs.map((p) => p / normSum);
+  if (probs.some((p) => !Number.isFinite(p) || p <= 0 || p >= 1)) return null;
+
+  return {
+    probs,
+    method: "power",
+    overroundPct,
+    powerAlpha: round4(alpha),
+  };
+}
+
 export function computeAdaptiveDeVig(
   decimals: readonly number[],
-  preference: "auto" | "proportional" | "shin" = "auto",
+  preference: "auto" | "proportional" | "shin" | "power" = "auto",
   targetProbSum = 1,
 ): DeVigComputationResult | null {
   if (decimals.length < 2) return null;
@@ -198,6 +302,7 @@ export function computeAdaptiveDeVig(
   }
   if (preference === "proportional") return computeProportionalDeVig(decimals);
   if (preference === "shin") return computeShinDeVig(decimals) ?? computeProportionalDeVig(decimals);
+  if (preference === "power") return computePowerDeVig(decimals) ?? computeProportionalDeVig(decimals);
 
   const prop = computeProportionalDeVig(decimals);
   if (!prop) return null;
@@ -212,33 +317,53 @@ export interface ComputePickPricingInput {
   readonly marketDecimal?: number | null;
   readonly companionMarketDecimals?: readonly number[] | null;
   readonly companionIndex?: number;
-  /** Suma teórica de probabilidades de las vías compañeras (`1` por defecto; `2` para `double_chance`). */
   readonly companionProbSum?: number;
   readonly marketBookLabel?: string | null;
   readonly marketCapturedAtUtc?: string | null;
-  readonly deVigPreference?: "auto" | "proportional" | "shin";
+  readonly nowIso?: string | null;
+  readonly deVigPreference?: "auto" | "proportional" | "shin" | "power";
 }
 
-/**
- * Calcula el bloque completo de valoración de un pick:
- * `p` calibrada, `fairOdds = 1 / p`, de-vig proporcional/Shin, `evPct`, `edgePts` y
- * etiqueta limpia `"Valor +X.X %"` únicamente cuando existe valor esperado positivo real.
- */
 export function computePickPricing(input: ComputePickPricingInput): PickPricingMetrics {
-  const safeP = round4(
-    clamp(
-      Number.isFinite(input.calibratedProb) ? input.calibratedProb : 0.5,
-      MIN_CALIBRATED_PROB,
-      MAX_CALIBRATED_PROB,
-    ),
-  );
+  const rawProb = input.calibratedProb;
+  const probIsFinite = typeof rawProb === "number" && Number.isFinite(rawProb);
+  const hasValidSpacetimeAnchor = probIsFinite && rawProb > 0.005 && rawProb < 0.995;
+
+  if (!probIsFinite) {
+    return {
+      p: 0,
+      fairOdds: 0,
+      fairAmerican: 0,
+      marketDecimal: null,
+      marketAmerican: null,
+      marketBookLabel: null,
+      marketCapturedAtUtc: null,
+      deVigMarketProb: null,
+      deVigMethod: "none",
+      overroundPct: null,
+      evPct: null,
+      edgePts: null,
+      noVigEdgePts: null,
+      valueLabel: null,
+      hasPositiveValue: false,
+    };
+  }
+
+  const safeP = round4(clamp(rawProb, MIN_CALIBRATED_PROB, MAX_CALIBRATED_PROB));
   const fairOdds = Math.max(1.01, round2(1 / safeP));
   const fairAmerican = decimalToAmericanInt(fairOdds);
 
+  const bookLabelSafe = isMarketBookLabelPermitted(input.marketBookLabel);
+  const freshMarket = isMarketQuoteFreshWithin72h(input.marketCapturedAtUtc, input.nowIso);
+
   const validMarket =
+    hasValidSpacetimeAnchor &&
+    bookLabelSafe &&
+    freshMarket &&
     typeof input.marketDecimal === "number" &&
     Number.isFinite(input.marketDecimal) &&
-    input.marketDecimal >= 1.01
+    input.marketDecimal >= 1.01 &&
+    input.marketDecimal <= MAX_POSITIVE_DECIMAL_ODDS
       ? round2(input.marketDecimal)
       : null;
 
@@ -264,12 +389,22 @@ export function computePickPricing(input: ComputePickPricingInput): PickPricingM
     }
   }
 
-  const evPct = validMarket !== null ? round1((safeP * validMarket - 1) * 100) : null;
-  const edgePts = validMarket !== null ? round1((safeP - 1 / validMarket) * 100) : null;
+  const rawEvPct = validMarket !== null ? round1((safeP * validMarket - 1) * 100) : null;
+  const rawEdgePts = validMarket !== null ? round1((safeP - 1 / validMarket) * 100) : null;
   const noVigEdgePts =
     deVigMarketProb !== null ? round1((safeP - deVigMarketProb) * 100) : null;
-  const hasPositiveValue = evPct !== null && evPct > 0;
-  const valueLabel = hasPositiveValue ? `Valor +${evPct.toFixed(1)} %` : null;
+
+  const isSharpBook = isSharpBookLabel(input.marketBookLabel);
+  const evLimit = isSharpBook ? MAX_SHARP_EV_PCT : MAX_SOFT_EV_PCT;
+  const probDivergenceAnomalous =
+    deVigMarketProb !== null && Math.abs(safeP - deVigMarketProb) > MAX_DEVIG_PROB_DIVERGENCE;
+  const evAnomalous = rawEvPct !== null && rawEvPct > evLimit;
+  const isAnomalous = probDivergenceAnomalous || evAnomalous;
+
+  const evPct = isAnomalous ? null : rawEvPct;
+  const edgePts = isAnomalous ? null : rawEdgePts;
+  const hasPositiveValue = !isAnomalous && evPct !== null && evPct > 0;
+  const valueLabel = hasPositiveValue && evPct !== null ? `Valor +${evPct.toFixed(1)} %` : null;
 
   return {
     p: safeP,
@@ -290,10 +425,6 @@ export function computePickPricing(input: ComputePickPricingInput): PickPricingM
   };
 }
 
-/**
- * Extrae la señal real de xG / producción ofensiva proyectada presente en el partido.
- * Devuelve `null` si el partido no contiene proyección real.
- */
 export function resolveXgEvidenceSignal(
   game: PlatformGame,
   v5?: MatchIntelligenceV5View | null,
@@ -346,11 +477,6 @@ export function resolveXgEvidenceSignal(
   };
 }
 
-/**
- * Resuelve el perfil arbitral del partido con contracción Empirical Bayes (κ = 15).
- * Prioriza el perfil verificado de Spacetime v5.1 (`official_priors_v5_1`) y recurre a
- * `matchContext.refereeStats` cuando existe muestra real del colegiado.
- */
 export function resolveRefereeEvidenceSignal(
   game: PlatformGame,
   v5?: MatchIntelligenceV5View | null,
@@ -443,10 +569,6 @@ function parseFormLetters(raw: string | undefined): Array<"G" | "E" | "P"> {
     .map((ch) => (ch === "W" || ch === "G" ? "G" : ch === "D" || ch === "E" ? "E" : "P"));
 }
 
-/**
- * Evalúa si un marcador `(teamGoals, oppGoals)` cumple una selección de mercado.
- * Devuelve `"hit"`, `"miss"`, `"push"` o `null` si el registro no aplica al mercado.
- */
 function gradeScoreOutcome(params: {
   readonly family: MarketFamilyId;
   readonly selectionKey: string;
@@ -689,10 +811,6 @@ function gradeScoreOutcome(params: {
   }
 }
 
-/**
- * Liquida un pick en partidos `FT` devolviendo `"hit" | "miss" | "push" | "pending"`.
- * Preserva todos los picks en partidos terminados sin ocultar ni inventar resultados.
- */
 export function gradeCatalogPick(params: {
   readonly game: PlatformGame;
   readonly family: MarketFamilyId;
@@ -938,10 +1056,6 @@ function evaluateFactorFormL5Window(
   };
 }
 
-/**
- * Evalúa ventanas reales de evidencia sobre una serie numérica de valores observados
- * (por ejemplo, apariciones de jugador filtradas por `minMinutes >= 45` o `last10` de NBA).
- */
 export function buildNumericSeriesEvidenceWindows(params: {
   readonly values: readonly number[];
   readonly homeAwayValues?: readonly number[];
@@ -1017,32 +1131,50 @@ export interface BuildCatalogEvidenceInput {
   readonly contextBullets?: readonly string[];
 }
 
-/**
- * Ensambla la evidencia verificable multi-ventana (`L5 / L10 / L20 / Local-Visita / H2H`),
- * señal de xG real y perfil arbitral Empirical Bayes para un pick concreto.
- */
+function formatWindowBulletLabel(w: EvidenceWindowStat): string {
+  const effective = Math.max(1, w.sample - w.pushes);
+  return w.label.includes("(") ? w.label : `${w.hits}/${effective} · ${w.label}`;
+}
+
 export function buildCatalogPickEvidence(
   input: BuildCatalogEvidenceInput,
 ): CatalogPickEvidence {
   const { game, family, selectionKey, line, xgSignal, refereeSignal } = input;
   const windows: EvidenceWindowStat[] = [];
+  let companionAwayBullet: CatalogEvidenceBullet | null = null;
 
   if (input.precomputedWindows && input.precomputedWindows.length > 0) {
     windows.push(...input.precomputedWindows);
   } else {
     const sel = selectionKey.toLowerCase();
     const prefersAway =
-      sel.startsWith("away") || sel === "2" || sel === "x2" || sel === "dnb_away";
+      sel.startsWith("away") ||
+      sel === "2" ||
+      sel === "x2" ||
+      sel.startsWith("x2_") ||
+      sel === "dnb_away" ||
+      sel === "ht_away" ||
+      sel === "2h_away" ||
+      sel === "f5_away";
     const teamPerspective: "home" | "away" = prefersAway ? "away" : "home";
-    const teamRecords = prefersAway ? input.awayHistory : input.homeHistory;
-    const teamName = prefersAway ? game.away.shortName : game.home.shortName;
+    const primaryRecords = prefersAway ? input.awayHistory : input.homeHistory;
+    const teamRecords =
+      primaryRecords && primaryRecords.length >= 3
+        ? primaryRecords
+        : MATCH_LEVEL_EVIDENCE_FAMILIES.has(family) && input.awayHistory && input.awayHistory.length >= 3
+          ? input.awayHistory
+          : primaryRecords;
+    const effectivePerspective: "home" | "away" =
+      teamRecords === input.awayHistory ? "away" : teamPerspective;
+    const teamName =
+      effectivePerspective === "away" ? game.away.shortName : game.home.shortName;
 
     if (teamRecords && teamRecords.length >= 3) {
       const l5 = evaluateRecordListWindow({
         window: "L5",
         label: `L5 ${teamName}`,
         records: teamRecords.slice(0, 5),
-        perspective: teamPerspective,
+        perspective: effectivePerspective,
         family,
         selectionKey,
         line,
@@ -1054,7 +1186,7 @@ export function buildCatalogPickEvidence(
           window: "L10",
           label: `L10 ${teamName}`,
           records: teamRecords.slice(0, 10),
-          perspective: teamPerspective,
+          perspective: effectivePerspective,
           family,
           selectionKey,
           line,
@@ -1067,7 +1199,7 @@ export function buildCatalogPickEvidence(
           window: "L20",
           label: `L20 ${teamName}`,
           records: teamRecords.slice(0, 20),
-          perspective: teamPerspective,
+          perspective: effectivePerspective,
           family,
           selectionKey,
           line,
@@ -1076,18 +1208,48 @@ export function buildCatalogPickEvidence(
       }
 
       const venueRecords = teamRecords.filter((r) =>
-        teamPerspective === "home" ? r.isHome : !r.isHome,
+        effectivePerspective === "home" ? r.isHome : !r.isHome,
       );
       const split = evaluateRecordListWindow({
         window: "home_away",
-        label: `${teamPerspective === "home" ? "Local" : "Visita"} ${teamName}`,
+        label: `${effectivePerspective === "home" ? "Local" : "Visita"} ${teamName}`,
         records: venueRecords.slice(0, 10),
-        perspective: teamPerspective,
+        perspective: effectivePerspective,
         family,
         selectionKey,
         line,
       });
       if (split) windows.push(split);
+
+      if (
+        MATCH_LEVEL_EVIDENCE_FAMILIES.has(family) &&
+        effectivePerspective === "home" &&
+        input.awayHistory &&
+        input.awayHistory.length >= 3
+      ) {
+        const awayVenue = input.awayHistory.filter((r) => !r.isHome);
+        const awayTarget = awayVenue.length >= 3 ? awayVenue.slice(0, 10) : input.awayHistory.slice(0, 10);
+        const awayLabel =
+          awayVenue.length >= 3
+            ? `Visita ${game.away.shortName}`
+            : `L${Math.min(10, awayTarget.length)} ${game.away.shortName}`;
+        const awayStat = evaluateRecordListWindow({
+          window: "home_away",
+          label: awayLabel,
+          records: awayTarget,
+          perspective: "away",
+          family,
+          selectionKey,
+          line,
+        });
+        if (awayStat) {
+          companionAwayBullet = {
+            label: formatWindowBulletLabel(awayStat),
+            ratePct: awayStat.ratePct,
+            tone: awayStat.tone,
+          };
+        }
+      }
     } else {
       const formL5 = evaluateFactorFormL5Window(game, family, selectionKey);
       if (formL5) windows.push(formL5);
@@ -1098,13 +1260,22 @@ export function buildCatalogPickEvidence(
   }
 
   const bullets: CatalogEvidenceBullet[] = [];
-  for (const w of windows.slice(0, 2)) {
+  for (const w of windows.slice(0, 3)) {
     bullets.push({
-      label: w.label.includes("(")
-        ? w.label
-        : `${w.hits}/${w.sample - w.pushes} · ${w.label}`,
+      label: formatWindowBulletLabel(w),
       ratePct: w.ratePct,
       tone: w.tone,
+    });
+  }
+
+  if (companionAwayBullet && bullets.length < 4) {
+    bullets.push(companionAwayBullet);
+  } else if (windows.length >= 4 && bullets.length < 4) {
+    const fourth = windows[3]!;
+    bullets.push({
+      label: formatWindowBulletLabel(fourth),
+      ratePct: fourth.ratePct,
+      tone: fourth.tone,
     });
   }
 
@@ -1114,7 +1285,7 @@ export function buildCatalogPickEvidence(
     (family === "player_props_football" &&
       (selectionKey.includes("cards") || selectionKey.includes("fouls")));
 
-  if (refRelevant && refereeSignal) {
+  if (refRelevant && refereeSignal && bullets.length < 5) {
     bullets.push({
       label: refereeSignal.summary,
       ratePct: null,
@@ -1124,14 +1295,14 @@ export function buildCatalogPickEvidence(
 
   if (input.contextBullets) {
     for (const text of input.contextBullets) {
-      if (bullets.length >= 4) break;
+      if (bullets.length >= 5) break;
       if (text.trim()) {
         bullets.push({ label: text.trim(), ratePct: null, tone: "neutral" });
       }
     }
   }
 
-  if (bullets.length < 3 && xgSignal && !refRelevant) {
+  if (bullets.length < 5 && xgSignal && !refRelevant) {
     bullets.push({
       label: xgSignal.summary,
       ratePct: null,
@@ -1148,7 +1319,297 @@ export function buildCatalogPickEvidence(
     windows,
     xgSignal,
     refereeSignal: refRelevant ? refereeSignal : null,
-    bullets: bullets.slice(0, 4),
+    bullets: bullets.slice(0, 5),
     avgObservedRatePct,
   };
+}
+
+function resolveEffectiveOdds(item: CatalogPickItem): number {
+  const m = item.pricing.marketDecimal;
+  if (typeof m === "number" && Number.isFinite(m) && m >= 1.01) {
+    return m;
+  }
+  return item.pricing.fairOdds;
+}
+
+function computeOddsPlayabilityScore(odds: number): number {
+  if (!Number.isFinite(odds) || odds < TRIVIAL_ODDS_THRESHOLD) return 0;
+  if (odds < OPTIMAL_ODDS_MIN) {
+    return 10 + ((odds - TRIVIAL_ODDS_THRESHOLD) / (OPTIMAL_ODDS_MIN - TRIVIAL_ODDS_THRESHOLD)) * 14;
+  }
+  if (odds <= 2.3) return 26;
+  if (odds <= OPTIMAL_ODDS_MAX) {
+    return 26 - ((odds - 2.3) / (OPTIMAL_ODDS_MAX - 2.3)) * 4;
+  }
+  if (odds <= 3.8) {
+    return 22 - ((odds - OPTIMAL_ODDS_MAX) / (3.8 - OPTIMAL_ODDS_MAX)) * 12;
+  }
+  return Math.max(2, 10 - (odds - 3.8) * 2);
+}
+
+export function computeMinValueDecimal(calibratedProb: number): number {
+  const safeP = clamp(calibratedProb, MIN_CALIBRATED_PROB, MAX_CALIBRATED_PROB);
+  return Math.max(1.02, Math.ceil((1 / safeP) * 100 + 1) / 100);
+}
+
+export function formatValueThresholdLabel(
+  calibratedProb: number,
+  oddsFormat: "decimal" | "american" = "decimal",
+): string {
+  const minValueOdds = computeMinValueDecimal(calibratedProb);
+  return `Tiene valor si tu casa paga ${formatOddsValue(minValueOdds, oddsFormat)} o más`;
+}
+
+export function isCatalogPickPricingAnomalous(item: CatalogPickItem): boolean {
+  const { p, marketDecimal, deVigMarketProb, noVigEdgePts, evPct, edgePts, marketBookLabel } =
+    item.pricing;
+  const evLimit = isSharpBookLabel(marketBookLabel) ? MAX_SHARP_EV_PCT : MAX_SOFT_EV_PCT;
+  if (
+    deVigMarketProb !== null &&
+    Number.isFinite(deVigMarketProb) &&
+    Math.abs(p - deVigMarketProb) > MAX_DEVIG_PROB_DIVERGENCE
+  ) {
+    return true;
+  }
+  if (
+    noVigEdgePts !== null &&
+    Number.isFinite(noVigEdgePts) &&
+    Math.abs(noVigEdgePts) > MAX_DEVIG_PROB_DIVERGENCE * 100
+  ) {
+    return true;
+  }
+  if (evPct !== null && Number.isFinite(evPct) && evPct > evLimit) {
+    return true;
+  }
+  if (
+    edgePts !== null &&
+    Number.isFinite(edgePts) &&
+    edgePts > MAX_DEVIG_PROB_DIVERGENCE * 100
+  ) {
+    return true;
+  }
+  if (marketDecimal !== null && Number.isFinite(marketDecimal) && marketDecimal >= 1.01) {
+    const rawEv = (p * marketDecimal - 1) * 100;
+    if (rawEv > evLimit) return true;
+  }
+  return false;
+}
+
+export interface ScoreRecommendedCatalogPickOptions {
+  readonly oddsFormat?: "decimal" | "american";
+}
+
+export function scoreRecommendedCatalogPick(
+  item: CatalogPickItem,
+  options: ScoreRecommendedCatalogPickOptions = {},
+): PickRecommendationScoreResult {
+  if (
+    item.isRedacted ||
+    !Number.isFinite(item.pricing.p) ||
+    item.pricing.p <= 0 ||
+    !Number.isFinite(item.pricing.fairOdds) ||
+    item.pricing.fairOdds < 1.01
+  ) {
+    return {
+      score: 0,
+      tier: "playable",
+      isRecommended: false,
+      convergenceCount: 0,
+      valueThresholdLabel: null,
+    };
+  }
+
+  const p = clamp(item.pricing.p, MIN_CALIBRATED_PROB, MAX_CALIBRATED_PROB);
+  const effectiveOdds = resolveEffectiveOdds(item);
+  const isTrivialOdds =
+    effectiveOdds < TRIVIAL_ODDS_THRESHOLD ||
+    (item.pricing.marketDecimal !== null && item.pricing.marketDecimal < TRIVIAL_ODDS_THRESHOLD);
+
+  const alignedWindows = new Set<string>();
+  for (const w of item.evidence.windows) {
+    if (w.sample - w.pushes >= 2 && w.ratePct >= CONVERGENCE_RATE_THRESHOLD_PCT) {
+      alignedWindows.add(w.window);
+    }
+  }
+  const convergenceCount = alignedWindows.size;
+
+  const valueThresholdLabel = isTrivialOdds
+    ? null
+    : formatValueThresholdLabel(p, options.oddsFormat ?? "decimal");
+
+  const probScore = clamp(34 * Math.exp(-Math.pow((p - 0.62) / 0.24, 2)), 4, 34);
+  const oddsScore = computeOddsPlayabilityScore(effectiveOdds);
+  const pricingAnomalous = isCatalogPickPricingAnomalous(item);
+
+  let evScore = 7;
+  if (pricingAnomalous) {
+    evScore = 0;
+  } else if (item.pricing.evPct !== null && Number.isFinite(item.pricing.evPct)) {
+    if (item.pricing.evPct > 0) {
+      evScore = Math.min(24, 10 + Math.min(item.pricing.evPct, MAX_SHARP_EV_PCT) * 1.4);
+    } else if (item.pricing.evPct >= -2.5) {
+      evScore = 6 + ((item.pricing.evPct + 2.5) / 2.5) * 4;
+    } else {
+      evScore = Math.max(0, 6 + (item.pricing.evPct + 2.5) * 0.8);
+    }
+  }
+
+  const evidenceBonus =
+    Math.min(14, convergenceCount * 3.5) +
+    (item.evidence.xgSignal !== null || item.evidence.refereeSignal !== null ? 2 : 0);
+  const primaryBonus = !isTrivialOdds && !pricingAnomalous && item.isPrimaryModelPick ? 4 : 0;
+
+  let score = Math.round(clamp(probScore + oddsScore + evScore + evidenceBonus + primaryBonus, 0, 100));
+  let tier: PickRecommendationTier;
+  let isRecommended: boolean;
+
+  const hasMarketEv =
+    item.pricing.marketDecimal !== null &&
+    item.pricing.evPct !== null &&
+    Number.isFinite(item.pricing.evPct);
+  const rawMarketEvPct =
+    item.pricing.marketDecimal !== null &&
+    Number.isFinite(item.pricing.marketDecimal) &&
+    item.pricing.marketDecimal >= 1.01
+      ? round1((p * item.pricing.marketDecimal - 1) * 100)
+      : null;
+  const marketEvPct = hasMarketEv ? item.pricing.evPct! : rawMarketEvPct;
+  const hasNegativeMarketEv = marketEvPct !== null && marketEvPct < 0;
+
+  if (isTrivialOdds) {
+    score = Math.min(score, 24);
+    tier = "trivial_odds";
+    isRecommended = false;
+  } else if (pricingAnomalous) {
+    score = Math.min(score, 42);
+    tier = "playable";
+    isRecommended = false;
+  } else if (hasNegativeMarketEv) {
+    score = Math.min(score, 54);
+    tier = "playable";
+    isRecommended = false;
+  } else if (
+    score >= 76 &&
+    effectiveOdds >= OPTIMAL_ODDS_MIN &&
+    effectiveOdds <= OPTIMAL_ODDS_MAX &&
+    (item.pricing.hasPositiveValue || item.isPrimaryModelPick || convergenceCount >= 2)
+  ) {
+    tier = "top_pick";
+    isRecommended = true;
+  } else if (
+    item.pricing.hasPositiveValue &&
+    (item.pricing.evPct ?? 0) >= 2.0 &&
+    effectiveOdds >= 1.3 &&
+    effectiveOdds <= 3.6
+  ) {
+    tier = "value";
+    isRecommended = true;
+  } else if (score >= 58 && effectiveOdds >= 1.3 && effectiveOdds <= 3.4) {
+    tier = "recommended";
+    isRecommended = true;
+  } else {
+    tier = "playable";
+    isRecommended = false;
+  }
+
+  return {
+    score,
+    tier,
+    isRecommended,
+    convergenceCount,
+    valueThresholdLabel,
+  };
+}
+
+function potdEvPriorityRank(item: CatalogPickItem): number {
+  if (item.pricing.hasPositiveValue) return 2;
+  if (
+    item.pricing.marketDecimal !== null &&
+    item.pricing.evPct !== null &&
+    Number.isFinite(item.pricing.evPct)
+  ) {
+    return item.pricing.evPct >= 0 ? 1 : 0;
+  }
+  return 1;
+}
+
+export function selectPicksOfTheDay(
+  picks: readonly CatalogPickItem[],
+  limit = 3,
+): readonly CatalogPickItem[] {
+  const maxItems = Math.max(0, Math.min(3, Math.floor(limit)));
+  if (maxItems === 0 || picks.length === 0) return [];
+
+  const eligible: Array<{
+    readonly item: CatalogPickItem;
+    readonly scored: PickRecommendationScoreResult;
+  }> = [];
+
+  for (const item of picks) {
+    if (item.gameStatus === "FT" || item.isRedacted) continue;
+    if (!Number.isFinite(item.pricing.p) || item.pricing.p <= 0) continue;
+    if (isCatalogPickPricingAnomalous(item)) continue;
+    const effectiveOdds = resolveEffectiveOdds(item);
+    if (
+      !Number.isFinite(effectiveOdds) ||
+      effectiveOdds < OPTIMAL_ODDS_MIN ||
+      effectiveOdds > OPTIMAL_ODDS_MAX
+    ) {
+      continue;
+    }
+    if (
+      item.pricing.fairOdds < TRIVIAL_ODDS_THRESHOLD ||
+      (item.pricing.marketDecimal !== null && item.pricing.marketDecimal < TRIVIAL_ODDS_THRESHOLD)
+    ) {
+      continue;
+    }
+    const hasMarketEv =
+      item.pricing.marketDecimal !== null &&
+      item.pricing.evPct !== null &&
+      Number.isFinite(item.pricing.evPct);
+    if (hasMarketEv && item.pricing.evPct! < 0) continue;
+    if (
+      item.pricing.marketDecimal !== null &&
+      Number.isFinite(item.pricing.marketDecimal) &&
+      item.pricing.p * item.pricing.marketDecimal - 1 < 0
+    ) {
+      continue;
+    }
+    const scored = scoreRecommendedCatalogPick(item);
+    if (!scored.isRecommended || scored.tier === "trivial_odds") continue;
+    eligible.push({ item, scored });
+  }
+
+  eligible.sort((a, b) => {
+    const evRankDiff = potdEvPriorityRank(b.item) - potdEvPriorityRank(a.item);
+    if (evRankDiff !== 0) return evRankDiff;
+    const scoreDiff = b.scored.score - a.scored.score;
+    if (scoreDiff !== 0) return scoreDiff;
+    const evDiff = (b.item.pricing.evPct ?? -999) - (a.item.pricing.evPct ?? -999);
+    if (evDiff !== 0) return evDiff;
+    const convDiff = b.scored.convergenceCount - a.scored.convergenceCount;
+    if (convDiff !== 0) return convDiff;
+    const primaryDiff = (b.item.isPrimaryModelPick ? 1 : 0) - (a.item.isPrimaryModelPick ? 1 : 0);
+    if (primaryDiff !== 0) return primaryDiff;
+    return a.item.id.localeCompare(b.item.id);
+  });
+
+  const chosen: CatalogPickItem[] = [];
+  const usedGameIds = new Set<string>();
+
+  for (const entry of eligible) {
+    if (chosen.length >= maxItems) break;
+    if (usedGameIds.has(entry.item.gameId)) continue;
+    usedGameIds.add(entry.item.gameId);
+    chosen.push({
+      ...entry.item,
+      recommendationScore: entry.scored.score,
+      recommendationTier: entry.scored.tier,
+      isRecommendedByModel: entry.scored.isRecommended,
+      convergenceCount: entry.scored.convergenceCount,
+      pickOfTheDayReason: entry.item.pickOfTheDayReason ?? entry.scored.valueThresholdLabel,
+    });
+  }
+
+  return chosen;
 }

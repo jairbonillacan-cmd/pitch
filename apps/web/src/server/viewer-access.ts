@@ -1,12 +1,3 @@
-/**
- * Quién está viendo y qué puede ver, una sola vez por petición.
- *
- * Dos llaves conviven:
- * - El PIN de la beta (cookie `pl_beta`): acceso completo en modo preview.
- * - La cuenta (Better Auth): acceso completo si completó el paso 2 del registro y tiene el
- *   Pase vigente (prueba, días a favor o suscripción). Los correos verificados de
- *   `PITCHLAB_ADMIN_EMAILS` tienen privilegios de administración.
- */
 import { cache } from "react";
 import { cookies, headers } from "next/headers";
 import {
@@ -21,31 +12,24 @@ import {
 import { getAuth } from "./auth";
 import { getBetaCookieName, isBetaPinEnabled, verifyBetaCookieToken } from "./beta-auth";
 import { profileIdForAuthUser } from "./member-data";
+import { logSecurityEvent } from "./safe-logger";
 import { isAdminEmail } from "./session-user";
 
 export interface ViewerAccess {
-  /** Por dónde entró: PIN de la beta, cuenta o nadie. */
   via: "beta" | "account" | "none";
-  /** Con cuenta: ya guardó nombre, usuario, fecha de nacimiento y términos. */
   signupComplete: boolean;
-  /** Puede ver todo (PIN, Pase vigente o administrador verificado). */
   fullAccess: boolean;
-  /** Cuenta verificada perteneciente a `PITCHLAB_ADMIN_EMAILS` con registro completo. */
   isAdmin: boolean;
-  /** Cuenta con perfil activo en `tipster_profiles` y registro completo. */
   isTipster: boolean;
-  /** Con cuenta: quién es (para la interfaz). Con PIN o sin sesión, null. */
   profile: AccountProfile | null;
 }
 
-/** Lo que la interfaz muestra del socio con cuenta. Nunca la fecha de nacimiento. */
 export interface AccountProfile {
   handle: string | null;
   displayName: string;
   initials: string;
   avatarUrl: string | null;
   referralCode: string | null;
-  /** Sugerencia para el campo «Usuario» del paso 2 cuando aún no eligió uno. */
   suggestedHandle: string | null;
 }
 
@@ -73,7 +57,6 @@ async function hasValidBetaCookie(): Promise<boolean> {
     const token = (await cookies()).get(getBetaCookieName())?.value;
     return await verifyBetaCookieToken(token);
   } catch (err) {
-    // Sin PITCHLAB_BETA_CODE en producción no hay acceso por PIN, pero las cuentas siguen.
     void err;
     return false;
   }
@@ -86,7 +69,7 @@ export const getViewerAccountUserId = cache(async (): Promise<string | null> => 
   try {
     const session = await auth.api.getSession({ headers: await headers() });
     if (!session) return null;
-    db ??= createDb(url) as unknown as Db;
+    db ??= createDb(url);
     return await profileIdForAuthUser(db, session.user.id);
   } catch (err) {
     void err;
@@ -101,7 +84,7 @@ export const getViewerAccess = cache(async (): Promise<ViewerAccess> => {
     try {
       const session = await auth.api.getSession({ headers: await headers() });
       if (session) {
-        db ??= createDb(url) as unknown as Db;
+        db ??= createDb(url);
         const userId = await profileIdForAuthUser(db, session.user.id);
         if (!userId) {
           return {
@@ -141,7 +124,7 @@ export const getViewerAccess = cache(async (): Promise<ViewerAccess> => {
         };
       }
     } catch (err) {
-      console.warn("[acceso] no se pudo leer la sesión:", err);
+      logSecurityEvent("warn", "viewer_access_session_read_failed", { error: err });
     }
   }
 

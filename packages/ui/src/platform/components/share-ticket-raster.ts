@@ -1,10 +1,5 @@
-/**
- * Descarga real de boletos compartibles como PNG (1080×1350 feed 4:5, 1080×1920 stories 9:16).
- * Dibuja en <canvas> con los colores de los tokens `--share-card-*` leídos del propio boleto
- * en pantalla, así no hay colores escritos a mano fuera de @pitchlab/tokens.
- */
-
 export type TicketAspect = "4:5" | "9:16";
+export type TicketTone = "success" | "warning" | "danger" | "neutral";
 
 export interface TicketRasterLeg {
   rank: number;
@@ -13,6 +8,7 @@ export interface TicketRasterLeg {
   probLabel: string;
   oddsLabel: string;
   highlight?: boolean;
+  status?: "won" | "lost" | "push" | "pending";
 }
 
 export interface TicketRasterContent {
@@ -20,19 +16,17 @@ export interface TicketRasterContent {
   leagueLabel: string;
   title: string;
   subtitle: string;
-  /** Línea de estado sobre la selección (p. ej. "PICK ABIERTO DE LA SEMANA"). */
   badge: string;
-  badgeTone: "success" | "warning";
+  badgeTone: TicketTone;
   units: string;
-  /** Selección o texto de sellado. */
   mainLine: string;
   detailLine: string;
-  /** Patas detalladas para parlays multi-pata compartibles (opcional). */
   legs?: TicketRasterLeg[];
   summaryLeftLabel?: string;
   summaryLeftValue?: string;
   summaryRightLabel?: string;
   summaryRightValue?: string;
+  summaryTone?: TicketTone;
   footerLine: string;
   footerSub: string;
   watermark: string;
@@ -42,6 +36,27 @@ const SIZES: Record<TicketAspect, { width: number; height: number }> = {
   "4:5": { width: 1080, height: 1350 },
   "9:16": { width: 1080, height: 1920 },
 };
+
+type RasterColors = Record<
+  | "bg"
+  | "surface"
+  | "fg"
+  | "secondary"
+  | "muted"
+  | "border"
+  | "accent"
+  | "success"
+  | "warning"
+  | "danger",
+  string
+>;
+
+function resolveToneColor(tone: TicketTone, c: RasterColors): string {
+  if (tone === "success") return c.success;
+  if (tone === "danger") return c.danger;
+  if (tone === "warning") return c.warning;
+  return c.secondary;
+}
 
 function token(el: Element, name: string, fallbackVar: string): string {
   const style = getComputedStyle(el);
@@ -66,6 +81,18 @@ function wrapLines(ctx: CanvasRenderingContext2D, text: string, maxWidth: number
   return lines;
 }
 
+function truncateTextToWidth(
+  ctx: CanvasRenderingContext2D,
+  rawText: string,
+  maxWidth: number,
+): string {
+  let out = rawText;
+  while (out.length > 4 && ctx.measureText(out).width > maxWidth) {
+    out = `${out.slice(0, -2)}…`;
+  }
+  return out;
+}
+
 function roundRect(
   ctx: CanvasRenderingContext2D,
   x: number,
@@ -86,7 +113,7 @@ function roundRect(
 function drawLegListTicket(
   ctx: CanvasRenderingContext2D,
   content: TicketRasterContent,
-  c: Record<"bg" | "surface" | "fg" | "secondary" | "muted" | "border" | "accent" | "success" | "warning", string>,
+  c: RasterColors,
   font: (weight: number, size: number) => string,
   width: number,
   height: number,
@@ -98,72 +125,114 @@ function drawLegListTicket(
   const legs = (content.legs ?? []).slice(0, 6);
   const footerHeight = 148;
   const footY = height - pad - footerHeight;
-  const summaryH = tall ? 146 : 132;
-  const summaryGap = tall ? 26 : 18;
-  const availableForLegs = footY - summaryGap - summaryH - startY - (tall ? 20 : 12);
-
+  const statusBarH = 54;
+  const statusGap = tall ? 22 : 14;
+  const summaryH = tall ? 148 : 132;
+  const summaryGap = tall ? 24 : 18;
+  const maxBodySpan = footY - 24 - startY;
   const count = Math.max(1, legs.length);
-  const gap = Math.max(10, Math.min(20, Math.floor((availableForLegs - count * 88) / Math.max(1, count))));
-  const rowH = Math.max(82, Math.min(138, Math.floor((availableForLegs - gap * (count - 1)) / count)));
+  const rowH = Math.max(
+    92,
+    Math.min(tall ? 168 : 134, Math.floor((maxBodySpan - statusBarH - statusGap - summaryH - summaryGap) / count) - 14),
+  );
+  const gap = Math.max(12, Math.min(20, count > 1 ? 16 : 0));
+  const stackHeight = statusBarH + statusGap + count * rowH + (count - 1) * gap + summaryGap + summaryH;
+  const slack = Math.max(0, maxBodySpan - stackHeight);
+  let y = startY + (tall ? Math.min(180, Math.round(slack * 0.34)) : Math.min(48, Math.round(slack * 0.25)));
 
-  let y = startY;
+  const statusTone = resolveToneColor(content.badgeTone, c);
+  ctx.fillStyle = c.surface;
+  roundRect(ctx, pad, y, inner, statusBarH, 27);
+  ctx.fill();
+  ctx.fillStyle = statusTone;
+  ctx.font = font(800, 24);
+  ctx.fillText(content.badge, pad + 26, y + 14);
+  ctx.fillStyle = c.fg;
+  ctx.font = font(800, 24);
+  const unitsW = ctx.measureText(content.units).width;
+  ctx.fillText(content.units, pad + inner - 26 - unitsW, y + 14);
+  y += statusBarH + statusGap;
+
   for (const leg of legs) {
+    const legTone =
+      leg.status === "won"
+        ? c.success
+        : leg.status === "lost"
+          ? c.danger
+          : leg.status === "push"
+            ? c.muted
+            : leg.highlight
+              ? c.success
+              : c.accent;
+
     ctx.fillStyle = c.surface;
     roundRect(ctx, pad, y, inner, rowH, 28);
     ctx.fill();
 
-    ctx.strokeStyle = leg.highlight ? c.success : c.border;
-    ctx.lineWidth = leg.highlight ? 2.5 : 1.5;
+    ctx.strokeStyle =
+      leg.status === "lost"
+        ? c.danger
+        : leg.status === "won" || leg.highlight
+          ? c.success
+          : c.border;
+    ctx.lineWidth = leg.highlight || leg.status === "won" || leg.status === "lost" ? 2.5 : 1.5;
     roundRect(ctx, pad, y, inner, rowH, 28);
     ctx.stroke();
 
-    // Círculo numerado 1..N
     const badgeR = rowH >= 110 ? 22 : 18;
     const badgeCx = pad + 26 + badgeR;
     const badgeCy = y + rowH / 2;
-    ctx.fillStyle = leg.highlight ? c.success : c.accent;
+    ctx.fillStyle = legTone;
     ctx.beginPath();
     ctx.arc(badgeCx, badgeCy, badgeR, 0, Math.PI * 2);
     ctx.fill();
 
     ctx.fillStyle = c.bg;
     ctx.font = font(800, rowH >= 110 ? 26 : 22);
-    const rankStr = String(leg.rank);
-    const rankW = ctx.measureText(rankStr).width;
+    const rankMark =
+      leg.status === "won"
+        ? "✓"
+        : leg.status === "lost"
+          ? "✕"
+          : leg.status === "push"
+            ? "—"
+            : String(leg.rank);
+    const rankW = ctx.measureText(rankMark).width;
     ctx.textBaseline = "middle";
-    ctx.fillText(rankStr, badgeCx - rankW / 2, badgeCy + 1);
+    ctx.fillText(rankMark, badgeCx - rankW / 2, badgeCy + 1);
     ctx.textBaseline = "top";
 
-    // Columna derecha (probabilidad + momio)
-    ctx.font = font(800, rowH >= 110 ? 34 : 29);
+    const hasOddsSub = leg.oddsLabel.trim().length > 0;
+    ctx.font = font(800, rowH >= 110 ? 32 : 28);
     const probW = ctx.measureText(leg.probLabel).width;
-    ctx.font = font(600, rowH >= 110 ? 24 : 21);
-    const oddsW = ctx.measureText(leg.oddsLabel).width;
+    ctx.font = font(600, rowH >= 110 ? 23 : 20);
+    const oddsW = hasOddsSub ? ctx.measureText(leg.oddsLabel).width : 0;
     const rightColW = Math.max(probW, oddsW);
     const rightEdge = pad + inner - 26;
 
-    ctx.fillStyle = leg.highlight ? c.success : c.accent;
-    ctx.font = font(800, rowH >= 110 ? 34 : 29);
-    ctx.fillText(leg.probLabel, rightEdge - probW, y + Math.max(16, Math.round(rowH * 0.2)));
+    ctx.fillStyle = legTone;
+    ctx.font = font(800, rowH >= 110 ? 32 : 28);
+    if (hasOddsSub) {
+      ctx.fillText(leg.probLabel, rightEdge - probW, y + Math.max(16, Math.round(rowH * 0.2)));
+      ctx.fillStyle = c.muted;
+      ctx.font = font(600, rowH >= 110 ? 23 : 20);
+      ctx.fillText(leg.oddsLabel, rightEdge - oddsW, y + Math.max(52, Math.round(rowH * 0.58)));
+    } else {
+      ctx.textBaseline = "middle";
+      ctx.fillText(leg.probLabel, rightEdge - probW, badgeCy);
+      ctx.textBaseline = "top";
+    }
 
-    ctx.fillStyle = c.muted;
-    ctx.font = font(600, rowH >= 110 ? 24 : 21);
-    ctx.fillText(leg.oddsLabel, rightEdge - oddsW, y + Math.max(50, Math.round(rowH * 0.57)));
-
-    // Columna central (selección + badge Más probable + partido/hora)
     const textX = badgeCx + badgeR + 20;
     const maxTextW = Math.max(160, rightEdge - rightColW - 24 - textX);
-    const topY = y + Math.max(15, Math.round(rowH * 0.19));
+    const topY = y + Math.max(16, Math.round(rowH * 0.2));
 
     ctx.fillStyle = c.fg;
     ctx.font = font(800, rowH >= 110 ? 32 : 27);
-    let label = leg.label;
-    while (label.length > 6 && ctx.measureText(label).width > maxTextW) {
-      label = `${label.slice(0, -2)}…`;
-    }
+    const label = truncateTextToWidth(ctx, leg.label, maxTextW);
     ctx.fillText(label, textX, topY);
 
-    if (leg.highlight) {
+    if (leg.highlight && leg.status !== "lost" && leg.status !== "won") {
       const labelW = ctx.measureText(label).width;
       const chipText = "MÁS PROBABLE";
       ctx.font = font(800, 17);
@@ -185,21 +254,18 @@ function drawLegListTicket(
 
     ctx.fillStyle = c.muted;
     ctx.font = font(500, rowH >= 110 ? 24 : 21);
-    let sub = leg.subLabel;
-    while (sub.length > 6 && ctx.measureText(sub).width > maxTextW) {
-      sub = `${sub.slice(0, -2)}…`;
-    }
-    ctx.fillText(sub, textX, y + Math.max(48, Math.round(rowH * 0.56)));
+    const sub = truncateTextToWidth(ctx, leg.subLabel, maxTextW);
+    ctx.fillText(sub, textX, y + Math.max(50, Math.round(rowH * 0.58)));
 
     y += rowH + gap;
   }
 
-  // Bloque resumen combinado con tokens del tema (sin degradados genéricos)
-  const summaryY = footY - summaryGap - summaryH;
+  const summaryY = y - gap + summaryGap;
+  const summaryTone = resolveToneColor(content.summaryTone ?? content.badgeTone, c);
   ctx.fillStyle = c.surface;
   roundRect(ctx, pad, summaryY, inner, summaryH, 32);
   ctx.fill();
-  ctx.strokeStyle = c.accent;
+  ctx.strokeStyle = content.summaryTone ? summaryTone : c.accent;
   ctx.lineWidth = 2.5;
   roundRect(ctx, pad, summaryY, inner, summaryH, 32);
   ctx.stroke();
@@ -208,8 +274,8 @@ function drawLegListTicket(
   ctx.font = font(700, 22);
   ctx.fillText(content.summaryLeftLabel ?? "MOMIO JUSTO COMBINADO", pad + 32, summaryY + 24);
   ctx.fillStyle = c.fg;
-  ctx.font = font(800, 44);
-  ctx.fillText(content.summaryLeftValue ?? content.mainLine, pad + 32, summaryY + 56);
+  ctx.font = font(800, 42);
+  ctx.fillText(content.summaryLeftValue ?? content.mainLine, pad + 32, summaryY + 58);
 
   const rightSummaryLabel = content.summaryRightLabel ?? "PROBABILIDAD";
   const rightSummaryVal = content.summaryRightValue ?? "";
@@ -217,13 +283,12 @@ function drawLegListTicket(
   const rLblW = ctx.measureText(rightSummaryLabel).width;
   ctx.fillStyle = c.muted;
   ctx.fillText(rightSummaryLabel, pad + inner - 32 - rLblW, summaryY + 24);
-  ctx.font = font(800, 44);
+  ctx.font = font(800, 42);
   const rValW = ctx.measureText(rightSummaryVal).width;
-  ctx.fillStyle = c.success;
-  ctx.fillText(rightSummaryVal, pad + inner - 32 - rValW, summaryY + 56);
+  ctx.fillStyle = content.summaryTone ? summaryTone : c.success;
+  ctx.fillText(rightSummaryVal, pad + inner - 32 - rValW, summaryY + 58);
 }
 
-/** Dibuja el boleto y devuelve el PNG. `colorSource` es el boleto en pantalla. */
 export async function renderTicketPng(
   content: TicketRasterContent,
   colorSource: Element,
@@ -235,7 +300,7 @@ export async function renderTicketPng(
   const ctx = canvas.getContext("2d");
   if (!ctx) throw new Error("Canvas 2D no disponible");
 
-  const c = {
+  const c: RasterColors = {
     bg: token(colorSource, "--share-card-bg", "--pl-stage-bg"),
     surface: token(colorSource, "--share-card-surface", "--pl-surface"),
     fg: token(colorSource, "--share-card-fg", "--pl-text"),
@@ -245,6 +310,7 @@ export async function renderTicketPng(
     accent: token(colorSource, "--share-card-accent", "--pl-brand"),
     success: token(colorSource, "--share-card-success", "--pl-success"),
     warning: token(colorSource, "--share-card-warning", "--pl-warning"),
+    danger: token(colorSource, "--share-card-danger", "--pl-danger"),
   };
   const fontFamily = getComputedStyle(colorSource).fontFamily || "sans-serif";
   const font = (weight: number, size: number) => `${weight} ${size}px ${fontFamily}`;
@@ -261,10 +327,9 @@ export async function renderTicketPng(
   roundRect(ctx, 24, 24, width - 48, height - 48, 56);
   ctx.stroke();
 
-  let y = pad + (tall ? (hasLegs ? 42 : 80) : 14);
+  let y = pad + (tall ? (hasLegs ? 42 : 76) : 14);
   ctx.textBaseline = "top";
 
-  // Marca y liga
   ctx.fillStyle = c.fg;
   ctx.font = font(800, 50);
   ctx.fillText("PitchLab", pad, y);
@@ -280,12 +345,11 @@ export async function renderTicketPng(
   ctx.fillText(content.leagueLabel, width - pad - leagueW + 22, y + 14);
   y += hasLegs ? 124 : 152;
 
-  // Título y subtítulo
   ctx.fillStyle = c.fg;
-  ctx.font = font(800, hasLegs ? 50 : 62);
+  ctx.font = font(800, hasLegs ? 50 : 60);
   for (const line of wrapLines(ctx, content.title, inner).slice(0, 2)) {
     ctx.fillText(line, pad, y);
-    y += hasLegs ? 60 : 76;
+    y += hasLegs ? 60 : 74;
   }
   ctx.fillStyle = c.muted;
   ctx.font = font(500, hasLegs ? 28 : 34);
@@ -304,33 +368,32 @@ export async function renderTicketPng(
       height,
       pad,
       inner,
-      y + (tall ? 34 : 22),
+      y + (tall ? 28 : 20),
     );
   } else {
-    y += tall ? 120 : 60;
+    y += tall ? 96 : 56;
 
-    // Bloque de selección única
-    ctx.font = font(800, 54);
+    ctx.font = font(800, 52);
     const mainLines = wrapLines(ctx, content.mainLine, inner - 80).slice(0, 3);
     ctx.font = font(500, 32);
     const detailLines = wrapLines(ctx, content.detailLine, inner - 80).slice(0, 3);
-    const boxH = 120 + mainLines.length * 66 + detailLines.length * 44 + 40;
+    const boxH = 120 + mainLines.length * 64 + detailLines.length * 44 + 40;
     ctx.fillStyle = c.surface;
     roundRect(ctx, pad, y, inner, boxH, 36);
     ctx.fill();
 
     let by = y + 40;
-    ctx.fillStyle = content.badgeTone === "success" ? c.success : c.warning;
+    ctx.fillStyle = resolveToneColor(content.badgeTone, c);
     ctx.font = font(800, 30);
     ctx.fillText(content.badge, pad + 40, by);
     ctx.fillStyle = c.fg;
     const unitsW = ctx.measureText(content.units).width;
     ctx.fillText(content.units, pad + inner - 40 - unitsW, by);
     by += 72;
-    ctx.font = font(800, 54);
+    ctx.font = font(800, 52);
     for (const line of mainLines) {
       ctx.fillText(line, pad + 40, by);
-      by += 66;
+      by += 64;
     }
     ctx.fillStyle = c.secondary;
     ctx.font = font(500, 32);
@@ -340,30 +403,27 @@ export async function renderTicketPng(
     }
   }
 
-  // Pie: código y marca de agua
   const footY = height - pad - 148;
   ctx.fillStyle = c.surface;
   roundRect(ctx, pad, footY, inner, 148, 32);
   ctx.fill();
   ctx.fillStyle = c.fg;
-  ctx.font = font(800, 32);
-  ctx.fillText(content.footerLine, pad + 34, footY + 30);
+  ctx.font = font(800, 31);
+  ctx.fillText(truncateTextToWidth(ctx, content.footerLine, inner - 68), pad + 34, footY + 30);
   ctx.fillStyle = c.muted;
-  ctx.font = font(500, 26);
-  ctx.fillText(content.footerSub, pad + 34, footY + 84);
-  ctx.font = font(700, 26);
-  const wmW = ctx.measureText(content.watermark).width;
-  ctx.fillText(content.watermark, pad + inner - 34 - wmW, footY + 84);
+  ctx.font = font(700, 25);
+  const wmText = truncateTextToWidth(ctx, content.watermark, 320);
+  const wmW = ctx.measureText(wmText).width;
+  ctx.fillText(wmText, pad + inner - 34 - wmW, footY + 86);
+  ctx.font = font(500, 25);
+  const subMaxW = inner - 68 - wmW - 24;
+  ctx.fillText(truncateTextToWidth(ctx, content.footerSub, subMaxW), pad + 34, footY + 86);
 
   return new Promise<Blob>((resolve, reject) => {
     canvas.toBlob((blob) => (blob ? resolve(blob) : reject(new Error("No se pudo generar el PNG"))), "image/png");
   });
 }
 
-/**
- * Genera el PNG del boleto y lo comparte vía hoja nativa del sistema (`navigator.share({ files })`)
- * cuando el dispositivo lo soporta, con respaldo automático a descarga PNG en escritorio (ADR-053).
- */
 export async function downloadTicketPng(
   content: TicketRasterContent,
   colorSource: Element,
@@ -391,7 +451,6 @@ export async function downloadTicketPng(
       if (err instanceof DOMException && err.name === "AbortError") {
         return "shared";
       }
-      // Continúa con descarga PNG si Web Share no completó
     }
   }
 

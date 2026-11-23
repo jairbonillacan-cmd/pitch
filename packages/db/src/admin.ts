@@ -1,9 +1,7 @@
-/**
- * Consultas de la consola del fundador (/app/admin) y de banderas operativas.
- */
 import { randomUUID } from "node:crypto";
-import { and, count, desc, eq, ilike, inArray, isNull, or, sql } from "drizzle-orm";
+import { and, count, desc, eq, ilike, inArray, or, sql } from "drizzle-orm";
 import { accessUntil, grantDays, revokeGrant, type Db } from "./billing";
+import { withDbTransaction, type DbExecutor } from "./client";
 import {
   adminAuditLogs,
   entitlementGrants,
@@ -18,6 +16,22 @@ import {
 } from "./schema";
 import { checkHandleFormat, isHandleAvailable } from "./signup";
 
+const MAX_ADMIN_LIST_LIMIT = 40;
+
+function parseNumericField(raw: unknown): number {
+  if (typeof raw === "number") return Number.isFinite(raw) ? raw : 0;
+  if (typeof raw === "string") {
+    const parsed = Number.parseFloat(raw.trim());
+    return Number.isFinite(parsed) ? parsed : 0;
+  }
+  return 0;
+}
+
+function clampAdminLimit(raw: number | undefined, fallback: number, max: number): number {
+  const candidate = typeof raw === "number" && Number.isFinite(raw) ? Math.trunc(raw) : fallback;
+  return Math.min(Math.max(candidate, 1), max);
+}
+
 export const FLAG_MONTH1_NO_CARD = "month1_no_card_mode";
 export const FLAG_TIPSTER_PAYOUTS = "tipster_payouts_enabled";
 export const FLAG_AI_ENABLED = "ai.enabled";
@@ -31,7 +45,7 @@ export interface AdminAuditInput {
   ipSubnetHash?: string | null;
 }
 
-export async function recordAdminAudit(db: Db, entry: AdminAuditInput): Promise<void> {
+export async function recordAdminAudit(db: DbExecutor, entry: AdminAuditInput): Promise<void> {
   await db.insert(adminAuditLogs).values({
     actorUserId: entry.actorUserId,
     actorEmail: entry.actorEmail.trim().toLowerCase(),
@@ -77,8 +91,6 @@ export interface AdminOverview {
   moderationBlocks: number;
 }
 
-const num = (v: unknown) => Number(v ?? 0);
-
 export async function adminOverview(db: Db): Promise<AdminOverview> {
   const [[m], [s], [t], [r], [c], [b]] = await Promise.all([
     db.select({ n: count() }).from(users),
@@ -98,12 +110,12 @@ export async function adminOverview(db: Db): Promise<AdminOverview> {
     db.select({ n: count() }).from(socialModerationLogs),
   ]);
   return {
-    members: num(m?.n),
-    activeSubscriptions: num(s?.n),
-    freeTrialsGranted: num(t?.n),
-    referralsRewarded: num(r?.n),
-    commissionsPayableCentavos: num(c?.n),
-    moderationBlocks: num(b?.n),
+    members: parseNumericField(m?.n),
+    activeSubscriptions: parseNumericField(s?.n),
+    freeTrialsGranted: parseNumericField(t?.n),
+    referralsRewarded: parseNumericField(r?.n),
+    commissionsPayableCentavos: parseNumericField(c?.n),
+    moderationBlocks: parseNumericField(b?.n),
   };
 }
 
@@ -117,41 +129,67 @@ export interface TipsterCodeRow {
   pendingCommissionCentavos: number;
 }
 
-export async function listTipsterCodes(db: Db): Promise<TipsterCodeRow[]> {
-  const profiles = await db.select().from(tipsterProfiles).where(eq(tipsterProfiles.isActive, true));
-  const rows: TipsterCodeRow[] = [];
-  for (const p of profiles) {
-    const [[a], [c]] = await Promise.all([
-      db
-        .select({ n: count() })
-        .from(tipsterAttributions)
-        .where(and(eq(tipsterAttributions.tipsterUserId, p.userId), eq(tipsterAttributions.status, "active_paying"))),
-      db
-        .select({ n: sql<number>`coalesce(sum(${tipsterCommissionLedger.commissionCentavosMxn}), 0)` })
-        .from(tipsterCommissionLedger)
-        .where(
-          and(
-            eq(tipsterCommissionLedger.tipsterUserId, p.userId),
-            sql`${tipsterCommissionLedger.status} IN ('pending_clearance', 'payable', 'processing_payout')`,
-          ),
+export async function listTipsterCodes(
+  db: Db,
+  limit: number = MAX_ADMIN_LIST_LIMIT,
+): Promise<TipsterCodeRow[]> {
+  const safeLimit = clampAdminLimit(limit, MAX_ADMIN_LIST_LIMIT, MAX_ADMIN_LIST_LIMIT);
+  const profiles = await db
+    .select()
+    .from(tipsterProfiles)
+    .where(eq(tipsterProfiles.isActive, true))
+    .orderBy(desc(tipsterProfiles.createdAt), tipsterProfiles.promoCode)
+    .limit(safeLimit);
+  if (profiles.length === 0) return [];
+
+  const tipsterUserIds = profiles.map((p) => p.userId);
+  const [attributionRows, commissionRows] = await Promise.all([
+    db
+      .select({
+        tipsterUserId: tipsterAttributions.tipsterUserId,
+        n: count(),
+      })
+      .from(tipsterAttributions)
+      .where(
+        and(
+          inArray(tipsterAttributions.tipsterUserId, tipsterUserIds),
+          eq(tipsterAttributions.status, "active_paying"),
         ),
-    ]);
-    rows.push({
-      code: p.promoCode,
-      handle: p.handle,
-      name: p.displayName,
-      freeDays: p.freeTrialDays,
-      commissionPct: p.commissionBps / 100,
-      activeReferrals: num(a?.n),
-      pendingCommissionCentavos: num(c?.n),
-    });
-  }
-  return rows;
+      )
+      .groupBy(tipsterAttributions.tipsterUserId)
+      .limit(tipsterUserIds.length),
+    db
+      .select({
+        tipsterUserId: tipsterCommissionLedger.tipsterUserId,
+        n: sql<number>`coalesce(sum(${tipsterCommissionLedger.commissionCentavosMxn}), 0)`,
+      })
+      .from(tipsterCommissionLedger)
+      .where(
+        and(
+          inArray(tipsterCommissionLedger.tipsterUserId, tipsterUserIds),
+          sql`${tipsterCommissionLedger.status} IN ('pending_clearance', 'payable', 'processing_payout')`,
+        ),
+      )
+      .groupBy(tipsterCommissionLedger.tipsterUserId)
+      .limit(tipsterUserIds.length),
+  ]);
+
+  const activeByTipster = new Map(attributionRows.map((r) => [r.tipsterUserId, parseNumericField(r.n)]));
+  const pendingByTipster = new Map(commissionRows.map((r) => [r.tipsterUserId, parseNumericField(r.n)]));
+
+  return profiles.map((p) => ({
+    code: p.promoCode,
+    handle: p.handle,
+    name: p.displayName,
+    freeDays: p.freeTrialDays,
+    commissionPct: p.commissionBps / 100,
+    activeReferrals: activeByTipster.get(p.userId) ?? 0,
+    pendingCommissionCentavos: pendingByTipster.get(p.userId) ?? 0,
+  }));
 }
 
 export type CreateTipsterResult = { ok: true } | { ok: false; reason: "codigo_invalido" | "handle_invalido" | "duplicado" };
 
-/** Da de alta a un tipster: liga (o crea) su usuario por correo y registra su código. */
 export async function createTipsterCode(
   db: Db,
   input: { email: string; handle: string; displayName: string; promoCode: string; specialty: string },
@@ -194,7 +232,6 @@ export interface TipsterCreatedRecord {
   commissionPct: number;
 }
 
-/** Busca el perfil recién creado de tipster oficial junto con su correo para notificaciones. */
 export async function findTipsterByPromoCode(db: Db, promoCode: string): Promise<TipsterCreatedRecord | null> {
   const code = promoCode.trim().toUpperCase();
   if (!code) return null;
@@ -267,13 +304,13 @@ export interface AdminMemberWithGrants {
   grants: AdminMemberGrantRow[];
 }
 
-/** Busca socios por correo o `@usuario` y lista su acceso vigente e historial de concesiones. */
 export async function adminFindMembersWithGrants(
   db: Db,
   query: string,
   now: Date,
-  limit = 25,
+  limit: number = 25,
 ): Promise<AdminMemberWithGrants[]> {
+  const safeLimit = clampAdminLimit(limit, 25, MAX_ADMIN_LIST_LIMIT);
   const raw = query.trim();
   const cleanHandle = raw.replace(/^@+/, "");
   const matchedUsers = raw
@@ -295,7 +332,7 @@ export async function adminFindMembersWithGrants(
           ),
         )
         .orderBy(desc(users.createdAt))
-        .limit(limit)
+        .limit(safeLimit)
     : await db
         .select({
           id: users.id,
@@ -307,28 +344,49 @@ export async function adminFindMembersWithGrants(
         })
         .from(users)
         .orderBy(desc(users.createdAt))
-        .limit(limit);
+        .limit(safeLimit);
 
   if (matchedUsers.length === 0) return [];
   const userIds = matchedUsers.map((u) => u.id);
 
+  const rankedGrants = db
+    .select({
+      id: entitlementGrants.id,
+      userId: entitlementGrants.userId,
+      sourceKind: entitlementGrants.sourceKind,
+      daysGranted: entitlementGrants.daysGranted,
+      startsAt: entitlementGrants.startsAt,
+      endsAt: entitlementGrants.endsAt,
+      revokedAt: entitlementGrants.revokedAt,
+      revokeReason: entitlementGrants.revokeReason,
+      note: entitlementGrants.note,
+      createdAt: entitlementGrants.createdAt,
+      rn: sql<number>`row_number() over (partition by ${entitlementGrants.userId} order by ${entitlementGrants.endsAt} desc, ${entitlementGrants.createdAt} desc, ${entitlementGrants.id} desc)::int`.as(
+        "rn",
+      ),
+    })
+    .from(entitlementGrants)
+    .where(inArray(entitlementGrants.userId, userIds))
+    .as("ranked_member_grants");
+
   const [allGrants, activeSubs] = await Promise.all([
     db
       .select({
-        id: entitlementGrants.id,
-        userId: entitlementGrants.userId,
-        sourceKind: entitlementGrants.sourceKind,
-        daysGranted: entitlementGrants.daysGranted,
-        startsAt: entitlementGrants.startsAt,
-        endsAt: entitlementGrants.endsAt,
-        revokedAt: entitlementGrants.revokedAt,
-        revokeReason: entitlementGrants.revokeReason,
-        note: entitlementGrants.note,
-        createdAt: entitlementGrants.createdAt,
+        id: rankedGrants.id,
+        userId: rankedGrants.userId,
+        sourceKind: rankedGrants.sourceKind,
+        daysGranted: rankedGrants.daysGranted,
+        startsAt: rankedGrants.startsAt,
+        endsAt: rankedGrants.endsAt,
+        revokedAt: rankedGrants.revokedAt,
+        revokeReason: rankedGrants.revokeReason,
+        note: rankedGrants.note,
+        createdAt: rankedGrants.createdAt,
       })
-      .from(entitlementGrants)
-      .where(inArray(entitlementGrants.userId, userIds))
-      .orderBy(desc(entitlementGrants.endsAt), desc(entitlementGrants.createdAt)),
+      .from(rankedGrants)
+      .where(sql`${rankedGrants.rn} <= ${MAX_ADMIN_LIST_LIMIT}`)
+      .orderBy(desc(rankedGrants.endsAt), desc(rankedGrants.createdAt))
+      .limit(userIds.length * MAX_ADMIN_LIST_LIMIT),
     db
       .select({
         userId: subscriptions.userId,
@@ -337,7 +395,8 @@ export async function adminFindMembersWithGrants(
         graceUntil: subscriptions.graceUntil,
       })
       .from(subscriptions)
-      .where(inArray(subscriptions.userId, userIds)),
+      .where(inArray(subscriptions.userId, userIds))
+      .limit(userIds.length),
   ]);
 
   const grantsByUser = new Map<string, AdminMemberGrantRow[]>();
@@ -401,7 +460,6 @@ export type AdminGrantResult =
   | { ok: true; grantId: string; newAccessUntil: Date | null }
   | { ok: false; reason: "dias_invalidos" | "motivo_requerido" | "usuario_no_encontrado" };
 
-/** Concede días manuales (`admin_grant`) desde la consola y registra la auditoría en la misma transacción. */
 export async function adminGrantAccessDays(
   db: Db,
   input: {
@@ -419,12 +477,11 @@ export async function adminGrantAccessDays(
   const cleanReason = input.reason.trim().replace(/\s+/g, " ").slice(0, 280);
   if (cleanReason.length < 3) return { ok: false, reason: "motivo_requerido" };
 
-  return db.transaction(async (tx) => {
-    const t = tx as unknown as Db;
-    const [target] = await t.select({ id: users.id, email: users.email }).from(users).where(eq(users.id, input.targetUserId));
+  return withDbTransaction(db, async (tx) => {
+    const [target] = await tx.select({ id: users.id, email: users.email }).from(users).where(eq(users.id, input.targetUserId));
     if (!target) return { ok: false, reason: "usuario_no_encontrado" } as const;
 
-    const grantId = await grantDays(t, {
+    const grantId = await grantDays(tx, {
       userId: target.id,
       sourceKind: "admin_grant",
       days,
@@ -432,9 +489,9 @@ export async function adminGrantAccessDays(
       now: input.now,
       note: cleanReason,
     });
-    const newAccessUntil = await accessUntil(t, target.id, input.now);
+    const newAccessUntil = await accessUntil(tx, target.id, input.now);
 
-    await recordAdminAudit(t, {
+    await recordAdminAudit(tx, {
       actorUserId: input.adminUserId,
       actorEmail: input.adminEmail,
       action: "admin_grant_access",
@@ -451,7 +508,6 @@ export type AdminRevokeResult =
   | { ok: true; userId: string; removedMs: number; newAccessUntil: Date | null }
   | { ok: false; reason: "motivo_requerido" | "no_encontrada_o_revocada" };
 
-/** Revoca una concesión existente y recorre hacia atrás las concesiones encadenadas en la misma transacción. */
 export async function adminRevokeGrant(
   db: Db,
   input: {
@@ -466,13 +522,12 @@ export async function adminRevokeGrant(
   const cleanReason = input.reason.trim().replace(/\s+/g, " ").slice(0, 280);
   if (cleanReason.length < 3) return { ok: false, reason: "motivo_requerido" };
 
-  return db.transaction(async (tx) => {
-    const t = tx as unknown as Db;
-    const revoked = await revokeGrant(t, input.grantId, cleanReason, input.now);
+  return withDbTransaction(db, async (tx) => {
+    const revoked = await revokeGrant(tx, input.grantId, cleanReason, input.now);
     if (!revoked) return { ok: false, reason: "no_encontrada_o_revocada" } as const;
 
-    const newAccessUntil = await accessUntil(t, revoked.userId, input.now);
-    await recordAdminAudit(t, {
+    const newAccessUntil = await accessUntil(tx, revoked.userId, input.now);
+    await recordAdminAudit(tx, {
       actorUserId: input.adminUserId,
       actorEmail: input.adminEmail,
       action: "admin_revoke_grant",
@@ -513,7 +568,6 @@ export interface AdminAuditEntryItem {
   createdAtIso: string;
 }
 
-/** Registra un mensaje de «Feedback e ideas» o «Contactar con soporte» visible en /app/admin. */
 export async function recordMemberInboxMessage(
   db: Db,
   input: {
@@ -549,29 +603,55 @@ export async function recordMemberInboxMessage(
   return { id: inserted!.id, createdAt: inserted!.createdAt };
 }
 
-/** Lista los envíos de feedback, soporte y solicitudes de baja junto con su estado de atención. */
-export async function listAdminInbox(db: Db, limit = 80): Promise<AdminInboxItem[]> {
-  const safeLimit = Math.max(1, Math.min(200, Math.trunc(limit)));
+export async function listAdminInbox(
+  db: Db,
+  limit: number = MAX_ADMIN_LIST_LIMIT,
+): Promise<AdminInboxItem[]> {
+  const safeLimit = clampAdminLimit(limit, MAX_ADMIN_LIST_LIMIT, MAX_ADMIN_LIST_LIMIT);
   const rows = await db
-    .select()
+    .select({
+      id: adminAuditLogs.id,
+      action: adminAuditLogs.action,
+      actorUserId: adminAuditLogs.actorUserId,
+      actorEmail: adminAuditLogs.actorEmail,
+      payloadJson: adminAuditLogs.payloadJson,
+      createdAt: adminAuditLogs.createdAt,
+    })
     .from(adminAuditLogs)
     .where(inArray(adminAuditLogs.action, ["member_feedback", "member_support_contact", "member_deletion_request"]))
-    .orderBy(desc(adminAuditLogs.createdAt))
+    .orderBy(desc(adminAuditLogs.createdAt), desc(adminAuditLogs.id))
     .limit(safeLimit);
 
   if (rows.length === 0) return [];
 
   const itemIds = rows.map((r) => r.id);
-  const resolutions = await db
-    .select()
+  const rankedResolutions = db
+    .select({
+      targetKey: adminAuditLogs.targetKey,
+      actorEmail: adminAuditLogs.actorEmail,
+      payloadJson: adminAuditLogs.payloadJson,
+      createdAt: adminAuditLogs.createdAt,
+      rn: sql<number>`row_number() over (partition by ${adminAuditLogs.targetKey} order by ${adminAuditLogs.createdAt} desc, ${adminAuditLogs.id} desc)::int`.as(
+        "rn",
+      ),
+    })
     .from(adminAuditLogs)
     .where(and(eq(adminAuditLogs.action, "admin_inbox_resolved"), inArray(adminAuditLogs.targetKey, itemIds)))
-    .orderBy(desc(adminAuditLogs.createdAt));
+    .as("ranked_inbox_resolutions");
 
-  const resByTarget = new Map<string, (typeof resolutions)[number]>();
-  for (const r of resolutions) {
-    if (!resByTarget.has(r.targetKey)) resByTarget.set(r.targetKey, r);
-  }
+  const resolutions = await db
+    .select({
+      targetKey: rankedResolutions.targetKey,
+      actorEmail: rankedResolutions.actorEmail,
+      payloadJson: rankedResolutions.payloadJson,
+      createdAt: rankedResolutions.createdAt,
+    })
+    .from(rankedResolutions)
+    .where(sql`${rankedResolutions.rn} = 1`)
+    .orderBy(desc(rankedResolutions.createdAt))
+    .limit(itemIds.length);
+
+  const resByTarget = new Map(resolutions.map((r) => [r.targetKey, r]));
 
   return rows.map((r) => {
     const payload = (r.payloadJson ?? {}) as Record<string, unknown>;
@@ -606,7 +686,6 @@ export async function listAdminInbox(db: Db, limit = 80): Promise<AdminInboxItem
   });
 }
 
-/** Marca un elemento de la bandeja administrativa como atendido con trazabilidad. */
 export async function markAdminInboxResolved(
   db: Db,
   input: {
@@ -635,13 +714,22 @@ export async function markAdminInboxResolved(
   return { ok: true };
 }
 
-/** Devuelve los últimos registros administrativos de seguridad y operación. */
-export async function listAdminAuditLogs(db: Db, limit = 60): Promise<AdminAuditEntryItem[]> {
-  const safeLimit = Math.max(1, Math.min(200, Math.trunc(limit)));
+export async function listAdminAuditLogs(
+  db: Db,
+  limit: number = MAX_ADMIN_LIST_LIMIT,
+): Promise<AdminAuditEntryItem[]> {
+  const safeLimit = clampAdminLimit(limit, MAX_ADMIN_LIST_LIMIT, MAX_ADMIN_LIST_LIMIT);
   const rows = await db
-    .select()
+    .select({
+      id: adminAuditLogs.id,
+      action: adminAuditLogs.action,
+      actorEmail: adminAuditLogs.actorEmail,
+      targetKey: adminAuditLogs.targetKey,
+      payloadJson: adminAuditLogs.payloadJson,
+      createdAt: adminAuditLogs.createdAt,
+    })
     .from(adminAuditLogs)
-    .orderBy(desc(adminAuditLogs.createdAt))
+    .orderBy(desc(adminAuditLogs.createdAt), desc(adminAuditLogs.id))
     .limit(safeLimit);
 
   return rows.map((r) => ({

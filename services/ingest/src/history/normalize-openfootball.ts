@@ -59,7 +59,7 @@ export function isPostseasonStage(stage: string | null): boolean {
 export function parseMatchdayNumber(round: string): number | null {
   const match = round.match(/(\d+)/);
   if (!match || !match[1]) return null;
-  const value = Number(match[1]);
+  const value = Number.parseInt(match[1], 10);
   return Number.isInteger(value) && value > 0 ? value : null;
 }
 

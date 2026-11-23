@@ -1,20 +1,33 @@
 import { NextResponse } from "next/server";
 import { recordSocialPostPickCopy } from "@pitchlab/db";
-import { verifySameOriginMutation } from "../../../../../../src/server/request-security";
-import { reasonResponse, requireSocialMember } from "../../../../../../src/server/social";
+import { z } from "zod";
+import { withActivePaseMutation, type ActivePaseMutationContext } from "../../../../../../src/server/api-guards";
+import { reasonResponse } from "../../../../../../src/server/social";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
 
-/** Incrementa el conteo de socios que siguieron este pick en su bitácora. */
-export async function POST(request: Request, { params }: { params: Promise<{ id: string }> }): Promise<NextResponse> {
-  const originErr = verifySameOriginMutation(request, { requireJson: false });
-  if (originErr) return originErr;
-  const member = await requireSocialMember(request);
-  if ("error" in member) return member.error;
-  const { id } = await params;
-  if (!/^[0-9a-f-]{36}$/i.test(id)) return reasonResponse("no_existe");
-  const result = await recordSocialPostPickCopy(member.db, member.userId, id);
-  if (!result.ok) return reasonResponse(result.reason);
-  return NextResponse.json({ copiesCount: result.copiesCount });
-}
+type PostIdParams = { id: string };
+
+const UUID_RE = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
+
+const PostIdParamSchema = z.object({
+  id: z.string().regex(UUID_RE),
+});
+
+export const POST = withActivePaseMutation(
+  {
+    bucket: "social-post-copy",
+    limit: 40,
+    windowMs: 60_000,
+    requireSocialHandle: true,
+    requireJson: false,
+  },
+  async ({ params, user }: ActivePaseMutationContext<PostIdParams>) => {
+    const parsedParams = PostIdParamSchema.safeParse(params);
+    if (!parsedParams.success) return reasonResponse("no_existe");
+    const result = await recordSocialPostPickCopy(user.db, user.userId, parsedParams.data.id);
+    if (!result.ok) return reasonResponse(result.reason);
+    return NextResponse.json({ copiesCount: result.copiesCount });
+  },
+);

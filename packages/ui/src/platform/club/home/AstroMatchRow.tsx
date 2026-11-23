@@ -1,28 +1,25 @@
 "use client";
 
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useCallback, useMemo, useState } from "react";
 import {
   canonicalGameHref,
-  canonicalTeamHref,
+  getLeagueCapability,
+  isLeagueHealthyForUi,
   isLivePhaseActive,
   sportHasDraw,
-  sportScoringUnit,
   type LeagueId,
   type LiveScoreboardEntry,
 } from "@pitchlab/contracts";
-import { LeagueBadge, PBar, ProbSplit, TeamBadge } from "../../../sports";
-import { formatOddsValue, isPickUnlocked, isPreGameIntelUnlocked } from "../../access-guard";
+import { LeagueBadge, TeamBadge } from "../../../sports";
+import { formatOddsValue, isPickUnlocked } from "../../access-guard";
+import { AtomicFormStrip, parseAtomicForm } from "../../atomic";
 import { MaestroIcon } from "../../components/MaestroPrimitives";
-import {
-  ParlayPickButton,
-  formatCountsHint,
-  formatGoalLineHint,
-} from "../../components/MatchList";
+import { ParlayPickButton } from "../../components/MatchList";
 import { setActiveSharedTransition } from "../../navigation-helpers";
+import { selectHeadlineMatchPick } from "../../pick-quality-ranker";
 import { usePlatformActions, usePlatformCore } from "../../platform-provider";
 import type { PlatformGame } from "../../types";
 import {
-  alternativePick,
   groupMatchesByDayAndLeague,
   mostLikelyOutcome,
   shortDateLabel,
@@ -36,28 +33,95 @@ import {
 } from "./home-view-helpers";
 import { LiveSportBallIcon } from "./HomeFilterBar";
 
-export const INITIAL_HOME_CARDS_LIMIT = 14;
+export const INITIAL_HOME_CARDS_LIMIT = 10;
 
-/**
- * Fila plana editorial de partido dentro del bloque de su competición:
- * conserva la claridad escaneable (equipos, proyección/marcador, ProbSplit 1·X·2,
- * pick principal con PBar, momio justo y acciones) sin cajas anidadas ni micro-etiquetas decorativas.
- */
+function resolveFactorForm(
+  game: PlatformGame,
+  side: "home" | "away",
+): string | null {
+  const matcher = side === "home" ? /forma\s+local/i : /forma\s+visit/i;
+  const hit = game.factors.find((factor) => matcher.test(factor.label));
+  return hit?.value ?? null;
+}
+
+function resolveValidForm(
+  explicit: readonly string[] | string | null | undefined,
+  game: PlatformGame,
+  side: "home" | "away",
+): readonly string[] | string | null {
+  const candidate = explicit ?? game[side].form ?? resolveFactorForm(game, side);
+  if (!candidate) return null;
+  const parsed = parseAtomicForm(candidate, { sport: game.sport, max: 5 });
+  return parsed.length > 0 ? candidate : null;
+}
+
+function isDesktopViewportNow(): boolean {
+  return (
+    typeof window !== "undefined" &&
+    typeof window.matchMedia === "function" &&
+    window.matchMedia("(min-width: 1024px)").matches
+  );
+}
+
+export interface AstroMatchRowProps {
+  readonly game: PlatformGame;
+  readonly liveEntry?: LiveScoreboardEntry;
+  readonly showOdds?: boolean;
+  readonly isSelected?: boolean;
+  readonly onSelectGame?: (game: PlatformGame) => void;
+  readonly homeForm?: readonly string[] | string | null;
+  readonly awayForm?: readonly string[] | string | null;
+  readonly isWatched?: boolean;
+  readonly onToggleWatchlist?: (gameId: string) => void;
+  readonly showLeagueTag?: boolean;
+}
+
+function renderRowFormDashes(
+  entries: readonly ReturnType<typeof parseAtomicForm>[number][],
+  teamName: string,
+): React.JSX.Element {
+  if (entries.length === 0) {
+    return (
+      <span className="pl-home-md-score is-empty" aria-hidden="true">
+        —
+      </span>
+    );
+  }
+  const summary = entries.map((entry) => entry.glyph).join(" ");
+  return (
+    <span
+      className="pl-home-md-form-dashes"
+      data-row-form-dashes=""
+      aria-label={`Forma últimos ${entries.length} partidos de ${teamName}: ${summary}`}
+      title={`${teamName}: ${summary}`}
+    >
+      {entries.map((entry, idx) => (
+        <span
+          key={`${entry.glyph}-${idx}`}
+          className={`pl-home-md-form-dash is-${entry.outcome}`}
+          aria-hidden="true"
+        />
+      ))}
+    </span>
+  );
+}
+
 export const AstroMatchRow = React.memo(function AstroMatchRow({
   game,
   liveEntry,
   showOdds = false,
-}: {
-  readonly game: PlatformGame;
-  readonly liveEntry?: LiveScoreboardEntry;
-  readonly showOdds?: boolean;
-}): React.JSX.Element {
+  isSelected = false,
+  onSelectGame,
+  homeForm,
+  awayForm,
+  isWatched = false,
+  onToggleWatchlist,
+  showLeagueTag = false,
+}: AstroMatchRowProps): React.JSX.Element {
   const { viewerRole, oddsFormat, hasAccountSession, upgradeHref, userTimezone } = usePlatformCore();
-  const { setAuraFromGame, navigateTo, prefetchRoute } = usePlatformActions();
+  const { setAuraFromGame, navigateTo, prefetchRoute, toggleWatchlistGame } = usePlatformActions();
 
   const hasDraw = sportHasDraw(game.sport);
-  const unit = sportScoringUnit(game.sport);
-  const decimals = unit.decimals;
   const hasForecast = game.hasForecast !== false && Boolean(game.x12 && game.projection);
   const live =
     (liveEntry ? isLivePhaseActive(liveEntry.phase) : false) || String(game.status) === "LIVE";
@@ -68,19 +132,36 @@ export const AstroMatchRow = React.memo(function AstroMatchRow({
   const activeScore = live
     ? (liveEntry?.score ?? game.score ?? null)
     : (game.score ?? liveEntry?.score ?? null);
-  const mainPick = game.picks[0];
+  const mainPick = selectHeadlineMatchPick(game.picks) ?? game.picks[0];
   const unlocked = mainPick ? isPickUnlocked(mainPick, game.status, viewerRole) : false;
-  const intelUnlocked = isFinished || isPreGameIntelUnlocked(game, viewerRole);
-  const alt = unlocked ? alternativePick(game) : null;
   const outcome = hasForecast ? mostLikelyOutcome(game) : null;
-  const goalHint = hasForecast ? formatGoalLineHint(game, intelUnlocked) : null;
-  const countsHint = hasForecast ? formatCountsHint(game, intelUnlocked) : null;
   const [ph, pd, pa] = game.x12 ?? [0, 0, 0];
   const studioHref = canonicalGameHref(game.league, game);
-  const homeHref = canonicalTeamHref(game.league, game.home.slug);
-  const awayHref = canonicalTeamHref(game.league, game.away.slug);
   const matchLabel = `${game.home.name} contra ${game.away.name}`;
   const time = formatGameKickoffTime(game, userTimezone);
+
+  const resolvedHomeForm = useMemo(
+    () => resolveValidForm(homeForm, game, "home"),
+    [homeForm, game],
+  );
+  const resolvedAwayForm = useMemo(
+    () => resolveValidForm(awayForm, game, "away"),
+    [awayForm, game],
+  );
+  const homeFormDashes = useMemo(
+    () =>
+      resolvedHomeForm
+        ? parseAtomicForm(resolvedHomeForm, { sport: game.sport, max: 5 })
+        : [],
+    [game.sport, resolvedHomeForm],
+  );
+  const awayFormDashes = useMemo(
+    () =>
+      resolvedAwayForm
+        ? parseAtomicForm(resolvedAwayForm, { sport: game.sport, max: 5 })
+        : [],
+    [game.sport, resolvedAwayForm],
+  );
 
   const homeStrong = isFinished
     ? (activeScore?.home ?? 0) > (activeScore?.away ?? 0)
@@ -90,344 +171,281 @@ export const AstroMatchRow = React.memo(function AstroMatchRow({
     : outcome?.side === "away";
 
   const showRealScore = live || isFinished;
-  const homeVal = showRealScore
-    ? (activeScore?.home ?? "—")
-    : unlocked && game.projection
-      ? game.projection.home.toFixed(decimals)
-      : "—";
-  const awayVal = showRealScore
-    ? (activeScore?.away ?? "—")
-    : unlocked && game.projection
-      ? game.projection.away.toFixed(decimals)
-      : "—";
+  const homeVal = showRealScore ? (activeScore?.home ?? "—") : null;
+  const awayVal = showRealScore ? (activeScore?.away ?? "—") : null;
 
-  const scoreCaption = live
-    ? "en vivo"
-    : isFinished
-      ? "final"
-      : unlocked && game.projection
-        ? `${unit.short} proy.`
-        : "";
-
-  const openStudio = (e: React.MouseEvent<HTMLAnchorElement>) => {
+  const handleActivateMatch = (e: React.MouseEvent<HTMLAnchorElement>) => {
+    if (e.metaKey || e.ctrlKey || e.shiftKey || e.altKey || e.button !== 0) {
+      return;
+    }
     e.preventDefault();
-    setActiveSharedTransition(e.currentTarget.closest("article"), "pl-match-hero");
     setAuraFromGame(game);
+    if (isDesktopViewportNow() && onSelectGame) {
+      onSelectGame(game);
+      return;
+    }
+    setActiveSharedTransition(e.currentTarget.closest("article"), "pl-match-hero");
     navigateTo(studioHref);
   };
 
-  const openTeam = (href: string) => (e: React.MouseEvent<HTMLAnchorElement>) => {
+  const handleCardSurfaceClick = (e: React.MouseEvent<HTMLElement>) => {
+    if (e.metaKey || e.ctrlKey || e.shiftKey || e.altKey || e.button !== 0) {
+      return;
+    }
+    const target = e.target;
+    if (target instanceof Element && target.closest("a, button")) {
+      return;
+    }
+    setAuraFromGame(game);
+    if (isDesktopViewportNow() && onSelectGame) {
+      onSelectGame(game);
+      return;
+    }
+    setActiveSharedTransition(e.currentTarget, "pl-match-hero");
+    navigateTo(studioHref);
+  };
+
+  const handleToggleStar = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
     e.stopPropagation();
-    setActiveSharedTransition(
-      e.currentTarget.closest(".pl-astro-team-line") as HTMLElement | null,
-      "pl-team-hero",
-    );
-    setAuraFromGame(game);
-    navigateTo(href);
+    if (onToggleWatchlist) {
+      onToggleWatchlist(game.id);
+      return;
+    }
+    toggleWatchlistGame(game.id);
   };
+
+  const liveProgressText =
+    live && mainPick && unlocked && activeScore
+      ? `${mainPick.label} · ${activeScore.home}–${activeScore.away}`
+      : null;
 
   return (
     <article
-      className={`pl-astro-row ${live ? "is-live" : ""} ${isFinished ? "is-finished" : ""}`.trim()}
+      className={`pl-astro-row pl-home-md-row ${live ? "is-live" : ""} ${isFinished ? "is-finished" : ""} ${isSelected ? "is-selected" : ""}`.trim()}
       data-game-card={game.id}
+      data-game-id={game.id}
+      data-selected={isSelected ? "true" : "false"}
+      onClick={handleCardSurfaceClick}
       onMouseEnter={() => setAuraFromGame(game)}
     >
-      <div className="pl-astro-row-top">
+      <div className="pl-home-md-row-grid">
         <a
           href={studioHref}
           onPointerEnter={() => prefetchRoute(studioHref)}
           onTouchStart={() => prefetchRoute(studioHref)}
-          onClick={openStudio}
+          onClick={handleActivateMatch}
           data-card-open=""
-          aria-label={`Ver partido ${matchLabel}`}
-          className="pl-astro-row-meta num no-underline"
+          aria-current={isSelected ? "true" : undefined}
+          className="pl-home-md-row-trigger no-underline"
         >
-          {live ? (
-            <span className="pl-astro-live-pill pl-home-card-live">
-              <span className="pl-home-live-sport" aria-hidden="true">
-                <LiveSportBallIcon sport={game.sport} />
+          <span className="sr-only">{`Ver partido · ${matchLabel}${live ? " · en vivo" : ""} · `}</span>
+          <span className="pl-home-md-row-time num">
+            {live ? (
+              <span className="pl-home-md-live-chip pl-home-card-live">
+                <span className="pl-home-live-sport" aria-hidden="true">
+                  <LiveSportBallIcon sport={game.sport} />
+                </span>
+                <span className="pl-home-live-dot" aria-hidden="true" />
+                <span>{formatLiveChipPhase(liveEntry)}</span>
               </span>
-              <span className="pl-home-live-dot" aria-hidden="true" />
-              <span>{formatLiveChipPhase(liveEntry)}</span>
-            </span>
-          ) : (
-            <span className="pl-astro-time-badge">
-              <strong className="pl-astro-clock">
-                {shortDateLabel(game.dayId)} · {time}
-              </strong>
-              <span className="pl-astro-status">{isFinished ? "Final" : "Por jugar"}</span>
-            </span>
-          )}
-          <span className="pl-astro-venue-meta truncate">
-            {game.round}
-            {game.venue ? ` · ${game.venue}` : ""}
+            ) : (
+              <>
+                <strong className="pl-home-md-clock">{time}</strong>
+                <span className={`pl-home-md-status ${isFinished ? "is-ft" : ""}`.trim()}>
+                  {isFinished ? "FT" : shortDateLabel(game.dayId)}
+                </span>
+              </>
+            )}
           </span>
-        </a>
-      </div>
 
-      <div className="pl-astro-row-body">
-        <div className="pl-astro-matchup-box">
-          <div className="pl-astro-col-teams">
-            <div className="pl-astro-team-line">
+          <span className="pl-home-md-row-teams">
+            {showLeagueTag ? (
+              <span className="pl-home-md-row-league">
+                <LeagueBadge
+                  league={game.league}
+                  label={game.leagueLabel}
+                  logoUrl={game.leagueLogoUrl}
+                  size={14}
+                  decorative
+                />
+                <span className="truncate">{game.leagueLabel}</span>
+              </span>
+            ) : null}
+
+            <span className="pl-home-md-team-line">
               <TeamBadge
                 league={game.league}
                 slug={game.home.slug}
                 name={game.home.name}
                 logoUrl={game.home.logoUrl}
-                size={24}
+                size={20}
               />
-              <div className="pl-astro-team-info">
-                <a
-                  href={homeHref}
-                  onPointerEnter={() => prefetchRoute(homeHref)}
-                  onTouchStart={() => prefetchRoute(homeHref)}
-                  onClick={openTeam(homeHref)}
-                  className={`pl-team-link pl-astro-team-name ${homeStrong ? "is-strong" : ""}`.trim()}
-                >
-                  {game.home.name}
-                </a>
-                <div className="pl-astro-team-sub">
-                  {!game.neutralSite ? <span className="pl-side-tag is-home">Local</span> : null}
-                  {game.home.record ? (
-                    <span className="pl-astro-team-rec num">{game.home.record}</span>
-                  ) : null}
-                </div>
-              </div>
-              <a
-                href={studioHref}
-                onClick={openStudio}
-                tabIndex={-1}
-                aria-hidden="true"
-                className={`pl-astro-team-score num no-underline ${homeStrong ? "is-strong" : ""}`.trim()}
+              <span
+                className={`pl-team-link pl-home-md-team-name ${homeStrong ? "is-strong" : ""}`.trim()}
               >
-                {homeVal}
-              </a>
-            </div>
+                {game.home.shortName || game.home.name}
+              </span>
+              {showRealScore && resolvedHomeForm ? (
+                <span className="pl-home-md-form-strip" data-home-form-strip="">
+                  <AtomicFormStrip
+                    form={resolvedHomeForm}
+                    sport={game.sport}
+                    max={5}
+                    size="xs"
+                    teamName={game.home.shortName || game.home.name}
+                    emptyFallback={null}
+                  />
+                </span>
+              ) : null}
+              {showRealScore ? (
+                <strong
+                  className={`pl-home-md-score num ${homeStrong ? "is-strong" : ""} ${live ? "is-live" : ""}`.trim()}
+                >
+                  {homeVal}
+                </strong>
+              ) : (
+                renderRowFormDashes(homeFormDashes, game.home.shortName || game.home.name)
+              )}
+            </span>
 
-            <div className="pl-astro-team-line">
+            <span className="pl-home-md-team-line">
               <TeamBadge
                 league={game.league}
                 slug={game.away.slug}
                 name={game.away.name}
                 logoUrl={game.away.logoUrl}
-                size={24}
+                size={20}
               />
-              <div className="pl-astro-team-info">
-                <a
-                  href={awayHref}
-                  onPointerEnter={() => prefetchRoute(awayHref)}
-                  onTouchStart={() => prefetchRoute(awayHref)}
-                  onClick={openTeam(awayHref)}
-                  className={`pl-team-link pl-astro-team-name ${awayStrong ? "is-strong" : ""}`.trim()}
-                >
-                  {game.away.name}
-                </a>
-                <div className="pl-astro-team-sub">
-                  {!game.neutralSite ? <span className="pl-side-tag">Visita</span> : null}
-                  {game.away.record ? (
-                    <span className="pl-astro-team-rec num">{game.away.record}</span>
-                  ) : null}
-                </div>
-              </div>
-              <a
-                href={studioHref}
-                onClick={openStudio}
-                tabIndex={-1}
-                aria-hidden="true"
-                className={`pl-astro-team-score num no-underline ${awayStrong ? "is-strong" : ""}`.trim()}
+              <span
+                className={`pl-team-link pl-home-md-team-name ${awayStrong ? "is-strong" : ""}`.trim()}
               >
-                {awayVal}
-              </a>
-            </div>
-          </div>
-
-          {scoreCaption ? (
-            <div className="pl-astro-score-caption num">
-              <span>{scoreCaption}</span>
-            </div>
-          ) : null}
-        </div>
-
-        {!isFinished && hasForecast && outcome ? (
-          <div className="pl-astro-prob-box">
-            <ProbSplit
-              probabilities={hasDraw ? [ph, pd, pa] : [ph, pa]}
-              labels={
-                hasDraw
-                  ? [game.home.shortName, "Empate", game.away.shortName]
-                  : [game.home.shortName, game.away.shortName]
-              }
-              showLabels
-            />
-
-            {showOdds && unlocked ? (
-              <div className="pl-astro-odds-strip num" aria-label="Momios justos por resultado">
-                <span className={`pl-astro-odd-pill ${outcome.side === "home" ? "is-best" : ""}`.trim()}>
-                  <small>1</small>
-                  <strong>{ph > 0.01 ? formatOddsValue(1 / ph, oddsFormat) : "—"}</strong>
-                </span>
-                {hasDraw ? (
-                  <span
-                    className={`pl-astro-odd-pill ${outcome.side === "draw" ? "is-best" : ""}`.trim()}
-                  >
-                    <small>X</small>
-                    <strong>{pd > 0.01 ? formatOddsValue(1 / pd, oddsFormat) : "—"}</strong>
-                  </span>
-                ) : null}
-                <span className={`pl-astro-odd-pill ${outcome.side === "away" ? "is-best" : ""}`.trim()}>
-                  <small>2</small>
-                  <strong>{pa > 0.01 ? formatOddsValue(1 / pa, oddsFormat) : "—"}</strong>
-                </span>
-              </div>
-            ) : null}
-
-            <div className="pl-astro-outcome-strip num">
-              <strong className="pl-astro-outcome-name truncate">{outcome.label}</strong>
-              <span className="pl-astro-outcome-summary shrink-0">
-                <strong className="pl-astro-outcome-pct">{(outcome.p * 100).toFixed(1)} %</strong>
-                <span className="pl-astro-outcome-fair">
-                  justo {formatOddsValue(1 / Math.max(outcome.p, 0.0001), oddsFormat)}
-                </span>
+                {game.away.shortName || game.away.name}
               </span>
-            </div>
-          </div>
-        ) : null}
+              {showRealScore && resolvedAwayForm ? (
+                <span className="pl-home-md-form-strip" data-home-form-strip="">
+                  <AtomicFormStrip
+                    form={resolvedAwayForm}
+                    sport={game.sport}
+                    max={5}
+                    size="xs"
+                    teamName={game.away.shortName || game.away.name}
+                    emptyFallback={null}
+                  />
+                </span>
+              ) : null}
+              {showRealScore ? (
+                <strong
+                  className={`pl-home-md-score num ${awayStrong ? "is-strong" : ""} ${live ? "is-live" : ""}`.trim()}
+                >
+                  {awayVal}
+                </strong>
+              ) : (
+                renderRowFormDashes(awayFormDashes, game.away.shortName || game.away.name)
+              )}
+            </span>
+          </span>
+        </a>
+
+        <div className="pl-home-md-row-side">
+          <button
+            type="button"
+            className={`pl-home-md-star-btn ${isWatched ? "is-fav" : ""}`.trim()}
+            aria-pressed={isWatched}
+            aria-label={
+              isWatched
+                ? `Quitar ${matchLabel} de favoritos`
+                : `Seguir ${matchLabel}`
+            }
+            title={isWatched ? "Siguiendo partido" : "Seguir partido"}
+            onClick={handleToggleStar}
+          >
+            <MaestroIcon name="star" size={14} />
+          </button>
+        </div>
       </div>
 
-      <div className="pl-astro-row-foot">
+      {showOdds && !isFinished && hasForecast && unlocked && outcome ? (
+        <div className="pl-home-md-odds-inline num" aria-label="Momios justos por resultado">
+          <span className={`pl-home-md-odd-cell ${outcome.side === "home" ? "is-best" : ""}`.trim()}>
+            <small>1</small>
+            <strong>{ph > 0.01 ? formatOddsValue(1 / ph, oddsFormat) : "—"}</strong>
+          </span>
+          {hasDraw ? (
+            <span className={`pl-home-md-odd-cell ${outcome.side === "draw" ? "is-best" : ""}`.trim()}>
+              <small>X</small>
+              <strong>{pd > 0.01 ? formatOddsValue(1 / pd, oddsFormat) : "—"}</strong>
+            </span>
+          ) : null}
+          <span className={`pl-home-md-odd-cell ${outcome.side === "away" ? "is-best" : ""}`.trim()}>
+            <small>2</small>
+            <strong>{pa > 0.01 ? formatOddsValue(1 / pa, oddsFormat) : "—"}</strong>
+          </span>
+        </div>
+      ) : null}
+
+      <div className="pl-home-md-row-foot">
         {isFinished ? (
-          <div className="pl-astro-ft-wrap">
+          <span className="pl-home-md-pick-badge is-ft num">
             {mainPick ? (
-              <span className="pl-astro-ft-pick num">
-                <span>Pick publicado:</span>
-                <strong>{mainPick.label}</strong>
-                <span>({(mainPick.p * 100).toFixed(0)} %)</span>
-              </span>
+              <>
+                <span className="truncate">{mainPick.label}</span>
+                {mainPick.result ? (
+                  <strong
+                    className={`pl-home-md-pick-res is-${mainPick.result}`.trim()}
+                  >
+                    {mainPick.result === "hit" ? "Acertado" : "Fallado"}
+                  </strong>
+                ) : null}
+              </>
             ) : (
-              <span className="pl-astro-ft-pick">Partido finalizado</span>
+              <span>Partido finalizado</span>
             )}
-            <a
-              href={studioHref}
-              onPointerEnter={() => prefetchRoute(studioHref)}
-              onTouchStart={() => prefetchRoute(studioHref)}
-              onClick={openStudio}
-              className="pl-btn-glass text-xs min-h-11 sm:min-h-9 px-3 inline-flex items-center gap-1.5 no-underline"
-            >
-              <span>Ver partido</span>
-              <MaestroIcon name="arrowRight" size={12} />
-            </a>
-          </div>
+          </span>
         ) : !hasForecast ? (
-          <div className="pl-astro-ft-wrap" data-empty-forecast="">
-            <span className="pl-mlist-chip">Sin pronóstico publicado</span>
-            <a
-              href={studioHref}
-              onPointerEnter={() => prefetchRoute(studioHref)}
-              onTouchStart={() => prefetchRoute(studioHref)}
-              onClick={openStudio}
-              className="pl-btn-glass text-xs min-h-11 sm:min-h-9 px-3 inline-flex items-center gap-1.5 no-underline"
-            >
-              <span>Ver partido</span>
-              <MaestroIcon name="arrowRight" size={12} />
-            </a>
-          </div>
+          <span className="pl-home-md-pick-badge" data-empty-forecast="">
+            Sin pronóstico publicado
+          </span>
         ) : mainPick && unlocked ? (
-          <div className="pl-astro-pick-card">
-            <div className="pl-astro-pick-main">
-              <div className="pl-astro-pick-headline">
-                <strong className="pl-astro-pick-label">{mainPick.label}</strong>
-                <strong className="pl-astro-pick-prob num">{(mainPick.p * 100).toFixed(1)} %</strong>
-              </div>
-
-              <PBar p={mainPick.p} lead />
-
-              <div className="pl-astro-pick-sub num">
-                <span className="pl-astro-pick-odds-inline">
-                  <span>
-                    Momio justo{" "}
-                    <strong style={{ color: "var(--pl-text)" }}>
-                      {formatOddsValue(mainPick.fairDecimal, oddsFormat)}
-                    </strong>
-                  </span>
-                  {showOdds && mainPick.marketDecimal ? (
-                    <span>
-                      · Casa{" "}
-                      <strong style={{ color: "var(--pl-brand)" }}>
-                        {formatOddsValue(mainPick.marketDecimal, oddsFormat)}
-                      </strong>
-                    </span>
-                  ) : null}
+          <>
+            <span className={`pl-home-md-pick-badge num ${live ? "is-live" : ""}`.trim()}>
+              <strong className="truncate">
+                {liveProgressText ?? mainPick.label}
+              </strong>
+              {!live ? (
+                <span className="pl-home-md-pick-meta">
+                  {(mainPick.p * 100).toFixed(0)} % · {formatOddsValue(mainPick.fairDecimal, oddsFormat)}
                 </span>
-                {goalHint || countsHint ? (
-                  <span className="pl-astro-pick-hints">
-                    {goalHint ? (
-                      <span className="pl-mlist-chip is-goals num" data-goal-line="">
-                        {goalHint}
-                      </span>
-                    ) : null}
-                    {countsHint ? (
-                      <span className="pl-mlist-chip is-counts num" data-counts-hint="">
-                        {countsHint}
-                      </span>
-                    ) : null}
-                  </span>
-                ) : null}
-                {alt ? (
-                  <span className="truncate">
-                    También: <strong style={{ color: "var(--pl-text)" }}>{alt.label}</strong> ·{" "}
-                    {(alt.p * 100).toFixed(0)} %
-                  </span>
-                ) : null}
-              </div>
-            </div>
-
-            <div className="pl-astro-pick-actions">
-              {!live ? <ParlayPickButton pick={mainPick} matchLabel={matchLabel} /> : null}
-              <a
-                href={studioHref}
-                onPointerEnter={() => prefetchRoute(studioHref)}
-                onTouchStart={() => prefetchRoute(studioHref)}
-                onClick={openStudio}
-                className="pl-btn-glass text-xs min-h-11 px-3 inline-flex items-center justify-center gap-1.5 no-underline"
+              ) : null}
+            </span>
+            {!live ? (
+              <span
+                className="pl-home-md-parlay-wrap"
+                onClick={(e) => e.stopPropagation()}
               >
-                <span>Ver partido · {countLabel(game.picks.length, "pick", "picks")}</span>
-                <MaestroIcon name="arrowRight" size={13} />
-              </a>
-            </div>
-          </div>
-        ) : (
-          <div className="pl-astro-ft-wrap" data-card-locked="">
-            <div className="flex items-center gap-2 min-w-0">
-              <MaestroIcon name="lock" size={13} />
-              <span className="text-xs font-bold" style={{ color: "var(--pl-brand)" }}>
-                Pick principal y marcador proyectado
+                <ParlayPickButton
+                  pick={mainPick}
+                  matchLabel={matchLabel}
+                  className="pl-home-parlay-btn is-sm pl-home-md-parlay-btn"
+                />
               </span>
-            </div>
-            <div className="flex items-center gap-2">
-              <a
-                href={upgradeHref}
-                onClick={(e) => {
-                  e.preventDefault();
-                  navigateTo(upgradeHref);
-                }}
-                className="pl-btn-accent text-xs min-h-11 sm:min-h-10 px-3 inline-flex items-center gap-1.5 no-underline"
-              >
-                <MaestroIcon name="unlock" size={12} />
-                <span>{hasAccountSession ? "Activar Pase Ultra" : "Pase PitchLab Ultra"}</span>
-              </a>
-              <a
-                href={studioHref}
-                onPointerEnter={() => prefetchRoute(studioHref)}
-                onTouchStart={() => prefetchRoute(studioHref)}
-                onClick={openStudio}
-                className="pl-btn-glass text-xs min-h-11 sm:min-h-10 px-3 inline-flex items-center gap-1.5 no-underline"
-              >
-                <span>Ver partido</span>
-                <MaestroIcon name="arrowRight" size={12} />
-              </a>
-            </div>
-          </div>
+            ) : null}
+          </>
+        ) : (
+          <span className="pl-home-md-pick-badge is-locked" data-card-locked="">
+            <MaestroIcon name="lock" size={12} />
+            <a
+              href={upgradeHref}
+              onClick={(e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                navigateTo(upgradeHref);
+              }}
+              className="pl-home-md-lock-link no-underline"
+            >
+              {hasAccountSession ? "Activar Pase Ultra" : "Pick Pase PitchLab Ultra"}
+            </a>
+          </span>
         )}
       </div>
     </article>
@@ -444,6 +462,13 @@ export function HomeMatchCardsSection({
   onResetFilters,
   hasActiveFilters = false,
   resetKey,
+  selectedGameId = null,
+  onSelectGame,
+  teamFormLookup,
+  watchlistSet,
+  onToggleWatchlist,
+  recommendedGames,
+  showRecommendedAccordion = false,
 }: {
   readonly groups: ReturnType<typeof groupMatchesByDayAndLeague>;
   readonly today: string;
@@ -455,15 +480,25 @@ export function HomeMatchCardsSection({
   readonly onResetFilters?: () => void;
   readonly hasActiveFilters?: boolean;
   readonly resetKey?: string;
+  readonly selectedGameId?: string | null;
+  readonly onSelectGame?: (game: PlatformGame) => void;
+  readonly teamFormLookup?: ReadonlyMap<string, readonly string[]>;
+  readonly watchlistSet?: ReadonlySet<string>;
+  readonly onToggleWatchlist?: (gameId: string) => void;
+  readonly recommendedGames?: readonly PlatformGame[];
+  readonly showRecommendedAccordion?: boolean;
 }): React.JSX.Element {
   const { navigateTo, prefetchRoute } = usePlatformActions();
-  const totalGames = groups.reduce((sum, d) => sum + d.count, 0);
-  const [limit, setLimit] = useState<number>(INITIAL_HOME_CARDS_LIMIT);
+  const [limitState, setLimitState] = useState<{
+    readonly key: string | undefined;
+    readonly limit: number;
+  }>(() => ({
+    key: resetKey,
+    limit: INITIAL_HOME_CARDS_LIMIT,
+  }));
+  const limit = limitState.key === resetKey ? limitState.limit : INITIAL_HOME_CARDS_LIMIT;
   const [collapsedLeagues, setCollapsedLeagues] = useState<ReadonlySet<string>>(() => new Set());
-
-  useEffect(() => {
-    setLimit(INITIAL_HOME_CARDS_LIMIT);
-  }, [resetKey]);
+  const [recommendedOpen, setRecommendedOpen] = useState<boolean>(true);
 
   const toggleCollapseLeague = useCallback((lg: string) => {
     setCollapsedLeagues((prev) => {
@@ -474,7 +509,68 @@ export function HomeMatchCardsSection({
     });
   }, []);
 
-  if (groups.length === 0) {
+  const activeRecommended = useMemo<readonly PlatformGame[]>(() => {
+    if (!showRecommendedAccordion || !recommendedGames || recommendedGames.length === 0) {
+      return [];
+    }
+    return recommendedGames;
+  }, [recommendedGames, showRecommendedAccordion]);
+
+  const recommendedIdSet = useMemo(
+    () => new Set(activeRecommended.map((g) => g.id)),
+    [activeRecommended],
+  );
+
+  const healthyLeagues = useMemo(() => {
+    const out: Array<
+      ReturnType<typeof groupMatchesByDayAndLeague>[number]["leagues"][number]
+    > = [];
+    for (const dayGroup of groups) {
+      for (const leagueGroup of dayGroup.leagues) {
+        const capability = getLeagueCapability(leagueGroup.league);
+        if (
+          capability &&
+          !isLeagueHealthyForUi(leagueGroup.league, {
+            hasValidSnapshot: true,
+            gamesCount: leagueGroup.count,
+          })
+        ) {
+          continue;
+        }
+        const filteredGames =
+          recommendedIdSet.size > 0
+            ? leagueGroup.games.filter((g) => !recommendedIdSet.has(g.id))
+            : leagueGroup.games;
+        if (filteredGames.length > 0) {
+          out.push({
+            ...leagueGroup,
+            count: filteredGames.length,
+            games: filteredGames,
+          });
+        }
+      }
+    }
+    return out;
+  }, [groups, recommendedIdSet]);
+
+  const totalLeagueGames = healthyLeagues.reduce((sum, lg) => sum + lg.games.length, 0);
+  const totalGames = totalLeagueGames + activeRecommended.length;
+
+  const lookupTeamForm = useCallback(
+    (game: PlatformGame, side: "home" | "away"): readonly string[] | null => {
+      if (!teamFormLookup) return null;
+      const team = side === "home" ? game.home : game.away;
+      return (
+        teamFormLookup.get(`${game.league}::${team.slug.toLowerCase()}`) ??
+        teamFormLookup.get(`${game.league}::${team.code.toLowerCase()}`) ??
+        teamFormLookup.get(`${game.league}::${team.shortName.toLowerCase()}`) ??
+        null
+      );
+    },
+    [teamFormLookup],
+  );
+
+  if (totalGames === 0) {
     return (
       <div
         className="glass-card glass-ring rounded-2xl p-7 text-center text-sm space-y-3"
@@ -500,28 +596,78 @@ export function HomeMatchCardsSection({
     );
   }
 
-  let remaining = limit;
-  const visibleLeagues: Array<
-    ReturnType<typeof groupMatchesByDayAndLeague>[number]["leagues"][number]
-  > = [];
-  for (const dayGroup of groups) {
-    for (const leagueGroup of dayGroup.leagues) {
-      if (remaining <= 0) break;
-      const take = leagueGroup.games.slice(0, remaining);
-      remaining -= take.length;
-      if (take.length > 0) {
-        visibleLeagues.push({ ...leagueGroup, games: take });
-      }
+  let remaining = Math.max(1, limit - activeRecommended.length);
+  const visibleLeagues: typeof healthyLeagues = [];
+  for (const leagueGroup of healthyLeagues) {
+    if (remaining <= 0) break;
+    const take = leagueGroup.games.slice(0, remaining);
+    remaining -= take.length;
+    if (take.length > 0) {
+      visibleLeagues.push({ ...leagueGroup, games: take });
     }
   }
 
   return (
     <div className="pl-home-cards pl-astro-leagues">
+      {activeRecommended.length > 0 ? (
+        <section
+          aria-label="Recomendados para ti"
+          className="pl-astro-league-block pl-home-md-recommended glass-card glass-ring"
+          data-home-recommended=""
+        >
+          <header
+            className={`pl-astro-league-head pl-home-md-rec-head ${!recommendedOpen ? "is-collapsed" : ""}`.trim()}
+          >
+            <h2 className="pl-home-md-rec-heading">
+              <button
+                type="button"
+                className="pl-home-md-rec-toggle"
+                aria-expanded={recommendedOpen}
+                onClick={() => setRecommendedOpen((open) => !open)}
+              >
+                <span className="pl-home-md-rec-title-wrap">
+                  <MaestroIcon name="sparkles" size={14} />
+                  <span className="pl-astro-league-title">Recomendados para ti</span>
+                </span>
+                <span className="pl-home-md-rec-meta">
+                  <span className="pl-astro-league-count num">{activeRecommended.length}</span>
+                  <MaestroIcon
+                    name="chevronDown"
+                    size={15}
+                    className={`pl-home-md-chevron ${!recommendedOpen ? "is-collapsed" : ""}`.trim()}
+                  />
+                </span>
+              </button>
+            </h2>
+          </header>
+
+          {recommendedOpen ? (
+            <div className="pl-astro-rows">
+              {activeRecommended.map((g) => (
+                <AstroMatchRow
+                  key={g.id}
+                  game={g}
+                  liveEntry={liveByGameId.get(g.id)}
+                  showOdds={showOdds}
+                  isSelected={selectedGameId === g.id}
+                  onSelectGame={onSelectGame}
+                  homeForm={lookupTeamForm(g, "home")}
+                  awayForm={lookupTeamForm(g, "away")}
+                  isWatched={watchlistSet ? watchlistSet.has(g.id) : false}
+                  onToggleWatchlist={onToggleWatchlist}
+                  showLeagueTag
+                />
+              ))}
+            </div>
+          ) : null}
+        </section>
+      ) : null}
+
       {visibleLeagues.map((leagueGroup) => {
         const region = leagueRegionOf(leagueGroup.league);
         const leagueHref = `/app/${leagueGroup.league}`;
         const isFav = favoriteLeagueSet.has(leagueGroup.league);
-        const isCollapsed = boardView === "competitions" && collapsedLeagues.has(leagueGroup.league);
+        const isCollapsed = collapsedLeagues.has(leagueGroup.league);
         const liveInLeague = leagueGroup.games.reduce((acc, g) => {
           const entry = liveByGameId.get(g.id);
           const isLive =
@@ -551,7 +697,7 @@ export function HomeMatchCardsSection({
                   league={leagueGroup.league}
                   label={leagueGroup.label}
                   logoUrl={leagueGroup.logoUrl}
-                  size={26}
+                  size={24}
                 />
                 <div className="min-w-0 flex-1">
                   <h2 className="pl-astro-league-title">{leagueGroup.label}</h2>
@@ -583,21 +729,19 @@ export function HomeMatchCardsSection({
                 >
                   <MaestroIcon name="star" size={14} />
                 </button>
-                {boardView === "competitions" ? (
-                  <button
-                    type="button"
-                    className={`pl-astro-collapse-btn ${isCollapsed ? "is-collapsed" : ""}`.trim()}
-                    aria-expanded={!isCollapsed}
-                    aria-label={
-                      isCollapsed
-                        ? `Mostrar partidos de ${leagueGroup.label}`
-                        : `Contraer ${leagueGroup.label}`
-                    }
-                    onClick={() => toggleCollapseLeague(leagueGroup.league)}
-                  >
-                    <MaestroIcon name="chevronDown" size={15} />
-                  </button>
-                ) : null}
+                <button
+                  type="button"
+                  className={`pl-astro-collapse-btn ${isCollapsed ? "is-collapsed" : ""}`.trim()}
+                  aria-expanded={!isCollapsed}
+                  aria-label={
+                    isCollapsed
+                      ? `Mostrar partidos de ${leagueGroup.label}`
+                      : `Contraer ${leagueGroup.label}`
+                  }
+                  onClick={() => toggleCollapseLeague(leagueGroup.league)}
+                >
+                  <MaestroIcon name="chevronDown" size={15} />
+                </button>
               </div>
             </header>
 
@@ -609,6 +753,12 @@ export function HomeMatchCardsSection({
                     game={g}
                     liveEntry={liveByGameId.get(g.id)}
                     showOdds={showOdds}
+                    isSelected={selectedGameId === g.id}
+                    onSelectGame={onSelectGame}
+                    homeForm={lookupTeamForm(g, "home")}
+                    awayForm={lookupTeamForm(g, "away")}
+                    isWatched={watchlistSet ? watchlistSet.has(g.id) : false}
+                    onToggleWatchlist={onToggleWatchlist}
                   />
                 ))}
               </div>
@@ -622,7 +772,12 @@ export function HomeMatchCardsSection({
           <button
             type="button"
             className="pl-btn-glass text-xs min-h-11 px-4 num"
-            onClick={() => setLimit((c) => c + INITIAL_HOME_CARDS_LIMIT)}
+            onClick={() =>
+              setLimitState({
+                key: resetKey,
+                limit: limit + INITIAL_HOME_CARDS_LIMIT,
+              })
+            }
           >
             Ver más partidos ({totalGames - limit})
           </button>

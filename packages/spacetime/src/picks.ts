@@ -391,12 +391,12 @@ export function parseIsoUtcMicros(isoTimestamp: unknown): number | null {
   }
   const m = ISO_UTC_REGEX.exec(s);
   if (m) {
-    const year = Number(m[1]);
-    const month = Number(m[2]);
-    const day = Number(m[3]);
-    const hour = Number(m[4]);
-    const minute = Number(m[5]);
-    const second = Number(m[6]);
+    const year = Number.parseInt(m[1]!, 10);
+    const month = Number.parseInt(m[2]!, 10);
+    const day = Number.parseInt(m[3]!, 10);
+    const hour = Number.parseInt(m[4]!, 10);
+    const minute = Number.parseInt(m[5]!, 10);
+    const second = Number.parseInt(m[6]!, 10);
     const fracRaw = m[7] ?? "";
     const tzRaw = m[8] ?? "Z";
 
@@ -417,14 +417,14 @@ export function parseIsoUtcMicros(isoTimestamp: unknown): number | null {
     }
 
     const frac6 = fracRaw.slice(0, 6).padEnd(6, "0");
-    const micros = frac6.length > 0 ? Number(frac6) : 0;
+    const micros = frac6.length > 0 ? Number.parseInt(frac6, 10) : 0;
 
     let offsetMinutes = 0;
     if (tzRaw.toUpperCase() !== "Z") {
       const sign = tzRaw.startsWith("-") ? -1 : 1;
       const cleanTz = tzRaw.slice(1).replace(":", "");
-      const tzH = Number(cleanTz.slice(0, 2));
-      const tzM = Number(cleanTz.slice(2, 4));
+      const tzH = Number.parseInt(cleanTz.slice(0, 2), 10);
+      const tzM = Number.parseInt(cleanTz.slice(2, 4), 10);
       if (tzH > 23 || tzM > 59) {
         return null;
       }

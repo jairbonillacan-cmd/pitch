@@ -7,6 +7,7 @@
  *   --quiet           sin progreso
  */
 import { resolve } from "node:path";
+import { parseStrictFiniteNumber } from "@pitchlab/contracts";
 import { loadRootEnvFiles } from "../env.js";
 import { buildLigaMxStatsDataset, fetchLigaMxStats } from "./api-football-stats.js";
 
@@ -32,10 +33,19 @@ async function main(): Promise<void> {
     if (!match) throw new Error(`Argumento no reconocido: '${arg}'.`);
     const [, key, value] = match;
     if (key === "max") {
-      max = Number(value);
-      if (!Number.isInteger(max) || max < 1) throw new Error(`--max inválido: '${value}'.`);
+      const parsedMax = parseStrictFiniteNumber(value);
+      if (parsedMax === null || !Number.isInteger(parsedMax) || parsedMax < 1) {
+        throw new Error(`--max inválido: '${value}'.`);
+      }
+      max = parsedMax;
     } else if (key === "seasons") {
-      seasons = value!.split(",").map((item) => Number(item.trim()));
+      seasons = value!.split(",").map((item) => {
+        const parsedYear = parseStrictFiniteNumber(item);
+        if (parsedYear === null || !Number.isInteger(parsedYear)) {
+          throw new Error(`--seasons inválido: '${value}'.`);
+        }
+        return parsedYear;
+      });
     } else {
       throw new Error(`Flag desconocida: '--${key}'.`);
     }

@@ -1,6 +1,8 @@
 "use client";
 
 import React, { useId, useMemo, useState } from "react";
+import { parseStrictFiniteNumber } from "@pitchlab/contracts";
+import { handleRovingTablistKeyDown } from "../navigation-helpers";
 import type { ConfirmedLineupPlayer, VerifiedMatchLineups } from "../types";
 
 export interface TacticalPitchSvgProps {
@@ -19,8 +21,8 @@ export function parseFormationRows(formation?: string | null, totalPlayers = 11)
   const clean = (formation ?? "").trim();
   const parts = clean
     .split(/[^0-9]+/)
-    .map((s) => Number(s))
-    .filter((n) => Number.isInteger(n) && n > 0 && n <= 6);
+    .map((s) => parseStrictFiniteNumber(s))
+    .filter((n): n is number => n !== null && Number.isInteger(n) && n > 0 && n <= 6);
 
   if (parts.length >= 2) {
     const sum = parts.reduce((acc, n) => acc + n, 0);
@@ -163,7 +165,12 @@ export function TacticalPitchSvg({
       data-pitch-mode={mode}
       data-mobile-side={mobileSide}
     >
-      <div className="pl-pitch-mobile-tabs" role="tablist" aria-labelledby={groupId}>
+      <div
+        className="pl-pitch-mobile-tabs"
+        role="tablist"
+        aria-orientation="horizontal"
+        aria-labelledby={groupId}
+      >
         <span id={groupId} className="sr-only">
           Elegir equipo en cancha táctica
         </span>
@@ -171,8 +178,12 @@ export function TacticalPitchSvg({
           type="button"
           role="tab"
           aria-selected={mobileSide === "home"}
+          tabIndex={mobileSide === "home" ? 0 : -1}
           className={`pl-pitch-tab ${mobileSide === "home" ? "is-active" : ""}`.trim()}
           onClick={() => setMobileSide("home")}
+          onKeyDown={(e) =>
+            handleRovingTablistKeyDown(e, ["home", "away"] as const, "home", setMobileSide)
+          }
         >
           {homeName}
           {lineups.homeFormation ? ` · ${lineups.homeFormation}` : ""}
@@ -181,8 +192,12 @@ export function TacticalPitchSvg({
           type="button"
           role="tab"
           aria-selected={mobileSide === "away"}
+          tabIndex={mobileSide === "away" ? 0 : -1}
           className={`pl-pitch-tab ${mobileSide === "away" ? "is-active" : ""}`.trim()}
           onClick={() => setMobileSide("away")}
+          onKeyDown={(e) =>
+            handleRovingTablistKeyDown(e, ["home", "away"] as const, "away", setMobileSide)
+          }
         >
           {awayName}
           {lineups.awayFormation ? ` · ${lineups.awayFormation}` : ""}

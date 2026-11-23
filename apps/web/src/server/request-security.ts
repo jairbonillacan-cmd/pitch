@@ -1,10 +1,7 @@
-/**
- * Guardas transversales de seguridad HTTP (SEC-12):
- * - Extracción confiable de IP detrás de Cloudflare / Vercel / proxy reverso.
- * - Verificación estricta de mismo origen (`Origin` + `Sec-Fetch-Site` + `Content-Type`) contra CSRF.
- * - Limitador de tasa atómico en Upstash Redis (`/pipeline` con `INCR` + `PEXPIRE NX`) y respaldo acotado en memoria.
- */
 import { NextResponse } from "next/server";
+import { createDb, incrementPgRateBucket, type Db } from "@pitchlab/db";
+import { logSecurityEvent } from "./safe-logger";
+import { serverDb } from "./session-user";
 
 interface MemoryRateEntry {
   count: number;
@@ -12,12 +9,49 @@ interface MemoryRateEntry {
 }
 
 const MAX_MEMORY_ENTRIES = 5_000;
+const FAIL_CLOSED_RETRY_SECONDS = 30;
+const LOCAL_LOOPBACK_ORIGIN_RE = /^https?:\/\/(localhost|127\.0\.0\.1|\[::1\])(:\d+)?(\/|$)/i;
 const memoryStore = new Map<string, MemoryRateEntry>();
 let warnedMemoryFallback = false;
+let rateLimitDbOverride: Db | null = null;
+let cachedPgDb: Db | null = null;
+let cachedPgDbUrl = "";
+
+export function setRateLimitDbForTests(instance: Db | null): void {
+  rateLimitDbOverride = instance;
+}
 
 export function resetRateLimitsForTests(): void {
   memoryStore.clear();
   warnedMemoryFallback = false;
+  cachedPgDb = null;
+  cachedPgDbUrl = "";
+}
+
+function parseFiniteNumericResult(raw: unknown, fallback: number): number {
+  if (typeof raw === "number" && Number.isFinite(raw)) {
+    return raw;
+  }
+  if (typeof raw === "string") {
+    const parsed = Number.parseFloat(raw.trim());
+    if (Number.isFinite(parsed)) {
+      return parsed;
+    }
+  }
+  return fallback;
+}
+
+function resolvePgRateLimitDb(explicitDb: Db | undefined, databaseUrl: string): Db | null {
+  if (explicitDb) return explicitDb;
+  if (rateLimitDbOverride) return rateLimitDbOverride;
+  const existingSessionDb = serverDb("");
+  if (existingSessionDb) return existingSessionDb;
+  if (!databaseUrl) return null;
+  if (!cachedPgDb || cachedPgDbUrl !== databaseUrl) {
+    cachedPgDb = createDb(databaseUrl);
+    cachedPgDbUrl = databaseUrl;
+  }
+  return cachedPgDb;
 }
 
 function sanitizeIpCandidate(raw: string | null | undefined): string {
@@ -35,7 +69,6 @@ function parseRfc7239ForwardedFor(header: string | null): string {
   if (!match) return "";
   let raw = (match[1] ?? match[2] ?? "").trim();
   if (!raw || raw.startsWith("_")) return "";
-  // IPv6 entre corchetes opcionalmente con puerto: "[2001:db8::1]:4711" -> "2001:db8::1"
   if (raw.startsWith("[")) {
     const endBracket = raw.indexOf("]");
     if (endBracket <= 1) return "";
@@ -58,16 +91,6 @@ function parseXForwardedForLast(header: string | null): string {
   return "";
 }
 
-/**
- * Extrae la IP real del cliente detrás de cualquier borde o proxy reverso (Nginx, Caddy,
- * Traefik, AWS ALB, Fly.io, Fastly, Cloudflare, Vercel, Cloud Run) evitando que un cliente
- * falsifique su IP para saltar cuotas (ADR-050).
- *
- * Cuando `PITCHLAB_TRUSTED_PROXY` está configurado (`cloudflare` | `fly` | `vercel` | `xff-last`),
- * SOLO confía en la cabecera correspondiente a ese proxy para impedir suplantación (p. ej.
- * `CF-Connecting-IP` inyectado por el cliente en Cloud Run / OCI). Sin configurar o en `auto`,
- * mantiene la cascada compatible de autodetección.
- */
 export function trustedClientIp(
   headers: Headers,
   proxyMode: string | undefined = process.env.PITCHLAB_TRUSTED_PROXY,
@@ -112,10 +135,6 @@ export function trustedClientIp(
   return forwardedFirst;
 }
 
-/**
- * Rechaza mutaciones cross-site autenticadas por cookie (`POST`, `PUT`, `PATCH`, `DELETE`).
- * Devuelve `null` si la solicitud es legítima o un `NextResponse` 403/415 listo para retornar.
- */
 export function verifySameOriginMutation(
   request: Request,
   options: { requireJson?: boolean } = {},
@@ -138,9 +157,6 @@ export function verifySameOriginMutation(
     return NextResponse.json({ error: "origen_invalido" }, { status: 403 });
   }
 
-  // `next start` arma `request.url` con `localhost` aunque el navegador entre por 127.0.0.1;
-  // el `Host` que manda el navegador sí coincide con su `Origin`.
-  // Detrás de Cloud Run, el contenedor escucha en HTTP pero el balanceador termina TLS y envía `x-forwarded-proto: https`.
   const host = request.headers.get("host")?.trim();
   if (host) {
     try {
@@ -148,7 +164,11 @@ export function verifySameOriginMutation(
     } catch (err) {
       void err;
     }
-    const forwardedProto = request.headers.get("x-forwarded-proto")?.split(",")[0]?.trim().toLowerCase();
+    const forwardedProto = request.headers
+      .get("x-forwarded-proto")
+      ?.split(",")[0]
+      ?.trim()
+      .toLowerCase();
     if (forwardedProto === "https" || forwardedProto === "http") {
       try {
         allowedOrigins.add(new URL(`${forwardedProto}://${host}`).origin);
@@ -181,10 +201,6 @@ export function verifySameOriginMutation(
   return null;
 }
 
-/**
- * Origen público confiable para URLs de retorno de pasarelas externas (Stripe Checkout / Connect).
- * En producción exige `BETTER_AUTH_URL` y nunca confía en `request.url` ni en `X-Forwarded-Host`.
- */
 export function trustedAppBaseUrl(request: Request): string {
   const configured = process.env.BETTER_AUTH_URL?.trim();
   if (configured) {
@@ -198,7 +214,10 @@ export function trustedAppBaseUrl(request: Request): string {
     throw new Error("BETTER_AUTH_URL es obligatoria en producción para generar URLs de retorno.");
   }
   const reqOrigin = new URL(request.url).origin;
-  if (/^http:\/\/(localhost|127\.0\.0\.1)(:\d+)?$/.test(reqOrigin) || reqOrigin === "https://pitchlab.mx") {
+  if (
+    /^http:\/\/(localhost|127\.0\.0\.1)(:\d+)?$/.test(reqOrigin) ||
+    reqOrigin === "https://pitchlab.mx"
+  ) {
     return reqOrigin;
   }
   throw new Error("Origen de solicitud no autorizado para URLs de retorno sin BETTER_AUTH_URL.");
@@ -217,6 +236,41 @@ function pruneMemoryStore(nowMs: number): void {
   }
 }
 
+function isHostedRemoteEnvironment(): boolean {
+  const explicit = process.env.PITCHLAB_HOSTED?.trim().toLowerCase();
+  if (explicit === "1" || explicit === "true") return true;
+  if (explicit === "0" || explicit === "false") return false;
+  return Boolean(
+    process.env.VERCEL ||
+      process.env.K_SERVICE ||
+      process.env.FLY_APP_NAME ||
+      process.env.RAILWAY_ENVIRONMENT ||
+      process.env.RAILWAY_PROJECT_ID ||
+      process.env.RENDER ||
+      process.env.AWS_EXECUTION_ENV ||
+      process.env.ECS_CONTAINER_METADATA_URI ||
+      process.env.ECS_CONTAINER_METADATA_URI_V4 ||
+      process.env.CONTAINER_APP_NAME ||
+      process.env.WEBSITE_SITE_NAME ||
+      process.env.DO_APP_PLATFORM ||
+      process.env.COOLIFY_APP_ID,
+  );
+}
+
+function allowLocalLoopbackMemoryRateLimit(
+  hasRedisConfigured: boolean,
+  hasDatabaseConfigured: boolean,
+): boolean {
+  if (process.env.PITCHLAB_LOCAL_MEMORY_RATE_LIMIT !== "1") return false;
+  if (isHostedRemoteEnvironment()) return false;
+  if (hasRedisConfigured || hasDatabaseConfigured) return false;
+  const configuredAuthUrl = process.env.BETTER_AUTH_URL?.trim();
+  if (configuredAuthUrl && !LOCAL_LOOPBACK_ORIGIN_RE.test(configuredAuthUrl)) {
+    return false;
+  }
+  return true;
+}
+
 export interface RateLimitCheckOptions {
   bucket: string;
   key: string;
@@ -224,23 +278,23 @@ export interface RateLimitCheckOptions {
   windowMs: number;
   nowMs?: number;
   fetchImpl?: typeof fetch;
+  failClosed?: boolean;
+  db?: Db;
 }
 
 export interface RateLimitCheckResult {
   allowed: boolean;
   remaining: number;
   retryAfterSeconds: number;
+  storeUnavailable?: boolean;
 }
 
-/**
- * Incrementa y consulta de forma atómica el contador de ventana fija en Upstash (`/pipeline`),
- * o en un almacén local acotado si Upstash no está configurado o no responde.
- */
 export async function checkEndpointRateLimit(
   options: RateLimitCheckOptions,
 ): Promise<RateLimitCheckResult> {
   const nowMs = options.nowMs ?? Date.now();
-  const safeKey = `pl:rl:${options.bucket}:${(options.key || "unknown").slice(0, 128)}`;
+  const subjectKey = (options.key || "unknown").slice(0, 128);
+  const safeKey = `pl:rl:${options.bucket}:${subjectKey}`;
   const upstashUrl = process.env.UPSTASH_REDIS_REST_URL?.trim();
   const upstashToken = process.env.UPSTASH_REDIS_REST_TOKEN?.trim();
 
@@ -260,10 +314,9 @@ export async function checkEndpointRateLimit(
         ]),
       });
       if (res.ok) {
-        const rows = (await res.json()) as Array<{ result?: number }>;
-        const count = Number(rows?.[0]?.result ?? 1);
-        const ttlMs = Number(rows?.[2]?.result ?? options.windowMs);
-        // Si una llave antigua quedó sin expiración (PTTL = -1), forzamos PEXPIRE de inmediato.
+        const rows = (await res.json()) as Array<{ result?: unknown }>;
+        const count = parseFiniteNumericResult(rows?.[0]?.result, 1);
+        const ttlMs = parseFiniteNumericResult(rows?.[2]?.result, options.windowMs);
         if (ttlMs < 0) {
           await (options.fetchImpl ?? fetch)(endpoint, {
             method: "POST",
@@ -282,16 +335,72 @@ export async function checkEndpointRateLimit(
           retryAfterSeconds: allowed ? 0 : Math.max(1, Math.ceil(effectiveTtlMs / 1000)),
         };
       }
+      logSecurityEvent("warn", "rate_limit_redis_http_error", {
+        bucket: options.bucket,
+        status: res.status,
+      });
     } catch (err) {
-      void err;
+      logSecurityEvent("warn", "rate_limit_redis_error", {
+        bucket: options.bucket,
+        error: err,
+      });
     }
+  }
+
+  const databaseUrl = process.env.DATABASE_URL?.trim() ?? "";
+  if (!options.fetchImpl && (options.db || rateLimitDbOverride || databaseUrl)) {
+    try {
+      const pgDb = resolvePgRateLimitDb(options.db, databaseUrl);
+      if (pgDb) {
+        const pgResult = await incrementPgRateBucket(pgDb, {
+          bucket: options.bucket,
+          subjectKey,
+          windowMs: options.windowMs,
+          nowMs,
+        });
+        const hits = parseFiniteNumericResult(pgResult.hits, 1);
+        const resetAtMs = parseFiniteNumericResult(pgResult.resetAtMs, nowMs + options.windowMs);
+        const allowed = hits <= options.limit;
+        return {
+          allowed,
+          remaining: Math.max(0, options.limit - hits),
+          retryAfterSeconds: allowed ? 0 : Math.max(1, Math.ceil((resetAtMs - nowMs) / 1000)),
+        };
+      }
+    } catch (err) {
+      logSecurityEvent("warn", "rate_limit_pg_error", {
+        bucket: options.bucket,
+        error: err,
+      });
+    }
+  }
+
+  const hasRedisConfigured = Boolean(upstashUrl && upstashToken);
+  const hasDatabaseConfigured = Boolean(databaseUrl);
+
+  if (
+    process.env.NODE_ENV === "production" &&
+    options.failClosed === true &&
+    !allowLocalLoopbackMemoryRateLimit(hasRedisConfigured, hasDatabaseConfigured)
+  ) {
+    logSecurityEvent("error", "rate_limit_fail_closed", {
+      bucket: options.bucket,
+      hasRedis: hasRedisConfigured,
+      hasDatabase: hasDatabaseConfigured,
+    });
+    return {
+      allowed: false,
+      remaining: 0,
+      retryAfterSeconds: FAIL_CLOSED_RETRY_SECONDS,
+      storeUnavailable: true,
+    };
   }
 
   if (process.env.NODE_ENV === "production" && !warnedMemoryFallback) {
     warnedMemoryFallback = true;
-    console.warn(
-      "[rate-limit] Usando almacén en memoria: configura UPSTASH_REDIS_REST_URL y UPSTASH_REDIS_REST_TOKEN en producción.",
-    );
+    logSecurityEvent("warn", "rate_limit_memory_fallback", {
+      bucket: options.bucket,
+    });
   }
 
   const existing = memoryStore.get(safeKey);
@@ -301,7 +410,8 @@ export async function checkEndpointRateLimit(
     return {
       allowed: 1 <= options.limit,
       remaining: Math.max(0, options.limit - 1),
-      retryAfterSeconds: 1 <= options.limit ? 0 : Math.max(1, Math.ceil(options.windowMs / 1000)),
+      retryAfterSeconds:
+        1 <= options.limit ? 0 : Math.max(1, Math.ceil(options.windowMs / 1000)),
     };
   }
 
@@ -323,8 +433,26 @@ export function rateLimitResponse(
     {
       status: 429,
       headers: {
-        "Retry-After": String(Math.max(1, retryAfterSeconds)),
+        "Retry-After": String(Math.max(1, Math.ceil(retryAfterSeconds))),
         "Cache-Control": "no-store",
+        "X-Content-Type-Options": "nosniff",
+      },
+    },
+  );
+}
+
+export function serviceUnavailableRateLimitResponse(
+  retryAfterSeconds: number = FAIL_CLOSED_RETRY_SECONDS,
+  message: string = "Servicio temporalmente no disponible. Intenta de nuevo en unos momentos.",
+): NextResponse {
+  return NextResponse.json(
+    { ok: false, error: message },
+    {
+      status: 503,
+      headers: {
+        "Retry-After": String(Math.max(1, Math.ceil(retryAfterSeconds))),
+        "Cache-Control": "no-store",
+        "X-Content-Type-Options": "nosniff",
       },
     },
   );

@@ -70,39 +70,6 @@ export function canRevealPickOnShare(
   return false;
 }
 
-function pickVisitorHeroShowcaseIds(games: readonly PlatformGame[]): Set<string> {
-  const byLeague = new Map<string, PlatformGame[]>();
-  for (const g of games) {
-    const bucket = byLeague.get(g.league);
-    if (bucket) bucket.push(g);
-    else byLeague.set(g.league, [g]);
-  }
-  const ids = new Set<string>();
-  for (const [league, leagueGames] of byLeague) {
-    const upcoming = leagueGames.filter((g) => g.status !== "FT");
-    const pool = upcoming.length > 0 ? upcoming : leagueGames;
-    let chosen: PlatformGame | undefined;
-    if (league === "liga-mx") {
-      chosen = pool.find(
-        (g) =>
-          (g.home.slug.includes("queretaro") || g.home.name.includes("Querétaro")) &&
-          (g.away.slug.includes("monterrey") || g.away.name.includes("Monterrey")),
-      );
-    } else if (league === "nfl") {
-      chosen = pool.find(
-        (g) =>
-          (g.home.slug.includes("giants") || g.home.name.includes("Giants")) &&
-          (g.away.slug.includes("commanders") ||
-            g.away.slug.includes("washington") ||
-            g.away.name.includes("Washington")),
-      );
-    }
-    chosen ??= pool[0];
-    if (chosen) ids.add(chosen.id);
-  }
-  return ids;
-}
-
 /**
  * Redacta en servidor (o en modo Visitante) todos los picks y radiografías bloqueados
  * para que ningún dato sensible (probabilidad, momio justo/mercado, ventaja, lado o señal
@@ -113,7 +80,6 @@ export function redactDatasetForVisitor(
   extraUnlockedPickIds: ReadonlySet<string> = new Set(),
   extraTipsterSlugsByPickId?: ReadonlyMap<string, string>,
 ): PlatformDataset {
-  const heroShowcaseIds = pickVisitorHeroShowcaseIds(dataset.games);
   const games: PlatformGame[] = dataset.games.map((game) => {
     if (game.status === "FT") {
       return game;
@@ -121,7 +87,7 @@ export function redactDatasetForVisitor(
     const hasPromoOpenPick = game.picks.some(
       (p) => Boolean(p.isDailyOpenPromo) || Boolean(p.isTipsterWeeklyOpen),
     );
-    const keepHeroProjection = hasPromoOpenPick || heroShowcaseIds.has(game.id);
+    const keepHeroProjection = hasPromoOpenPick;
     return {
       id: game.id,
       league: game.league,
@@ -231,6 +197,7 @@ export function redactDatasetForVisitor(
 
   return {
     generatedAt: dataset.generatedAt,
+    ...(dataset.serverNowUtc ? { serverNowUtc: dataset.serverNowUtc } : {}),
     leagues: dataset.leagues,
     games,
     playerProps: [],
@@ -338,7 +305,12 @@ export function formatEdgePts(edgePts: number | null): string {
 
 /** Récord real de la Bitácora: unidades netas y picks liquidados. */
 export function journalRecord(
-  journal: ReadonlyArray<{ status: "pending" | "won" | "lost" | "void"; units: number; userDecimal: number; clvPct: number }>,
+  journal: ReadonlyArray<{
+    status: "pending" | "won" | "lost" | "void";
+    units: number;
+    userDecimal: number;
+    clvPct?: number | null;
+  }>,
 ): { settled: number; netUnits: number; avgClvPct: number | null; label: string } {
   const { settled, netUnits, avgClvPct } = profileRecord(journal);
   const units = `${netUnits >= 0 ? "+" : ""}${netUnits.toFixed(1)}u`;

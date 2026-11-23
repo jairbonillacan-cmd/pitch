@@ -19,8 +19,8 @@
 | [ADR-013](ADR-013-pitchlab-ai-openrouter-modelo-barato-w5.md) | PitchLab AI vía OpenRouter con un modelo barato y herramientas tipadas (W5) | Aceptada (rev. 2; concretada para `Cortex IA` por ADR-034) |
 | [ADR-014](ADR-014-fuentes-de-datos-gratuitas-en-la-fase-inicial.md) | Fuentes de datos gratuitas en la fase inicial | Aceptada (extendida por ADR-029 y ADR-030) |
 | [ADR-015](ADR-015-i18n-con-next-intl-es-mx-por-defecto.md) | i18n con next-intl, es-MX por defecto | Aceptada |
-| [ADR-016](ADR-016-iconografia-iconos-de-marca-lucide-para-los-generi.md) | Iconografía: iconos de marca + Lucide para los genéricos | Aceptada con cambio: set propio MaestroIcon (2026-11-11) |
-| [ADR-017](ADR-017-registro-de-emblemas-deportivos-con-fallback.md) | Registro de emblemas deportivos con fallback | Aceptada |
+| [ADR-016](ADR-016-iconografia-iconos-de-marca-lucide-para-los-generi.md) | Iconografía: iconos de marca + Lucide para los genéricos | Aceptada con cambio: set propio MaestroIcon (2026-11-11); extendida por ADR-040 y ADR-060 |
+| [ADR-017](ADR-017-registro-de-emblemas-deportivos-con-fallback.md) | Registro de emblemas deportivos con fallback | Aceptada (extendida por ADR-060) |
 | [ADR-018](ADR-018-archivar-la-reconstruccion-de-touchiq-y-reutilizar.md) | Archivar la reconstrucción de TouchIQ y reutilizar su dominio como Baseline 0 | Aceptada |
 | [ADR-019](ADR-019-shadcn-ui-mira-base-ui-con-tokens-pitchlab.md) | Primitivas shadcn/ui (Mira, Base UI) con los tokens de PitchLab | Aceptada (extendida por ADR-028; `@base-ui/react` retirado por ADR-055) |
 | [ADR-020](ADR-020-sistema-visual-liquid-glass-v4-y-aislamiento-de-tokens.md) | Sistema visual Liquid Glass v4, aislamiento de tokens duales y diálogos nativos Top Layer | Aceptada (en parte reemplazada por ADR-023 y ADR-035) |
@@ -43,7 +43,7 @@
 | [ADR-037](ADR-037-reputacion-por-saldo-picks-adjuntos-y-umbrales-comunidad.md) | Reputación pública por `Saldo` en unidades, picks adjuntos verificables en Comunidad y umbrales mínimos de muestra | Aceptada |
 | [ADR-038](ADR-038-tarjeta-invitacion-3d-webgl-sdf-y-enlaces-cortos-referido.md) | Tarjeta de invitación 3D en WebGL 1.0 por raymarching SDF (`ReferralCard3D`) y embudo de enlaces cortos `/i/[code]` con OpenGraph estático | Aceptada (en implementación para `/i/[code]` y `Mi cuenta`) |
 | [ADR-039](ADR-039-perfiles-equipo-jugador-retratos-y-resultados-temporada.md) | Perfiles multi-deporte de equipo/jugador, retratos opacos con respaldo (`<PersonAvatar>`) y resultados de temporada separados del corpus canónico | Aceptada |
-| [ADR-040](ADR-040-bordes-planos-iconos-tematicos-webp-y-microinteracciones.md) | Bordes planos por token dedicado (`--pl-card-border`), paquete dual de iconos WebP y micro-interacciones CSS sin `backdrop-filter` | Aceptada |
+| [ADR-040](ADR-040-bordes-planos-iconos-tematicos-webp-y-microinteracciones.md) | Bordes planos por token dedicado (`--pl-card-border`), paquete dual de iconos WebP y micro-interacciones CSS sin `backdrop-filter` | Aceptada (extendida por ADR-060) |
 | [ADR-041](ADR-041-bzzoiro-fase1-mlb-standings-us-perfiles-y-pwa.md) | Bzzoiro Fase 1, MLB y standings US por conferencia, retratos/estadísticas de jugadores, búsqueda global, comparador H2H y PWA/Push | Aceptada |
 | [ADR-042](ADR-042-urls-cortas-canonicas-en-ingles-y-redirecciones-308.md) | URLs cortas canónicas en inglés (`/g/`, `/t/`, `/p/`) y redirecciones permanentes `308` | Aceptada |
 | [ADR-043](ADR-043-expansion-catalogo-futbol-arbitros-y-navegacion-categorizada.md) | Expansión de +37 competencias de fútbol, árbitros verificados, filtro de 30 días y navegación categorizada por región | Aceptada |
@@ -59,3 +59,10 @@
 | [ADR-053](ADR-053-app-nativa-gestos-pwa-offline-y-shell-progresivo.md) | Sensación 100 % App Nativa, gestos táctiles, PWA `/offline`, shell RSC progresivo en 2 etapas y caché público ISR | Aceptada |
 | [ADR-054](ADR-054-pulido-nativo-diseno-plano-scoutpicks-parlays-e-insignias.md) | Pulido 100 % App Nativa, diseño plano editorial, evidencia de picks (ScoutPicks/Bzzoiro), parlays unificados, récord pierna por pierna e insignias animadas | Aceptada |
 | [ADR-055](ADR-055-catalogo-picks-bzzoiro-unlimited-ui-atomica-sofascore.md) | Catálogo de picks de 34 familias, Bzzoiro Unlimited, UI atómica Sofascore, retiro de `@base-ui/react` y blindaje Cero-Fuga | Aceptada |
+| [ADR-056](ADR-056-arquitectura-constraint-first-ratchet-y-pstack.md) | Arquitectura *Constraint-First*, *ratchet* descendente y verificación independiente `pstack` | Aceptada |
+| [ADR-057](ADR-057-ciberseguridad-nivel-alto-sin-lock-in.md) | Ciberseguridad Nivel ALTO, anti-scraping, inmutabilidad SQL (`0025`) y observabilidad sin lock-in | Aceptada (completada al 100 % por ADR-061) |
+| [ADR-058](ADR-058-league-capability-redisenio-editorial-y-features-bzzoiro.md) | `LeagueCapabilityContract`, rediseño editorial plano (`.pl-sf-*`), frontera Zona Protegida y features Bzzoiro/Scout Picks | Aceptada (evolución P1/R2 en ADR-059; hubs `/app/[league]`, anti-slop y WCAG 2.5.3 en ADR-060) |
+| [ADR-059](ADR-059-maestro-detalle-inicio-y-screener-bet-lab-picks.md) | Maestro-Detalle en Inicio (`/app`) y Screener + Bet Lab interactivo en Picks (`/app/picks`) | Aceptada |
+| [ADR-060](ADR-060-sistema-iconos-webp-logos-oficiales-anti-slop-ligas-wcag253.md) | Sistema de íconos WebP dual (`0-404`), logos oficiales, anti-slop visual, hub `/app/[league]` editorial y disciplina WCAG 2.5.3 | Aceptada |
+| [ADR-061](ADR-061-calibracion-dixon-coles-anti-ev-parlays-6-y-endurecimiento-adr057.md) | Calibración Dixon-Coles IPF, blindaje Anti-EV, contrato de parlays (`<= 6`), CLV creíble y cierre 100 % de `ADR-057` | Aceptada |
+| [ADR-062](ADR-062-ficha-partido-picks-jugadores-alineaciones-y-bordes-nativos.md) | Ficha de Partido (`P2`), Inicio (`P1`), picks de jugadores, alineaciones interactivas, enfrentamientos, lesiones, bordes nativos (`.glass-ring`) y blindaje multi-deporte Q1–Q6 | Aceptada |

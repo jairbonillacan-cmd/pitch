@@ -178,7 +178,7 @@ function OddsMovementSparkline({
               type="button"
               aria-pressed={r.id === active.id}
               onClick={() => setSelectedId(r.id)}
-              className={`pl-pill text-[11px] min-h-11 sm:min-h-8 px-2.5 cursor-pointer ${r.id === active.id ? "pl-pill--brand" : ""}`.trim()}
+              className={`pl-pill text-[11px] min-h-11 [@media(min-width:768px)_and_(pointer:fine)]:min-h-8 px-2.5 cursor-pointer ${r.id === active.id ? "pl-pill--brand" : ""}`.trim()}
             >
               {r.label}
             </button>
@@ -458,7 +458,7 @@ export function MatchMoneyPanel({
               </span>
               <button
                 type="button"
-                className="pl-btn-glass text-xs min-h-10 px-3.5 shrink-0"
+                className="pl-btn-glass text-xs min-h-11 [@media(min-width:768px)_and_(pointer:fine)]:min-h-10 px-3.5 shrink-0"
                 onClick={onOpenNumbers}
               >
                 Probar momio en Números
@@ -520,7 +520,7 @@ export function MatchMoneyPanel({
               </p>
               <button
                 type="button"
-                className="pl-btn-glass text-xs min-h-10 px-3.5 shrink-0 inline-flex items-center gap-1.5"
+                className="pl-btn-glass text-xs min-h-11 [@media(min-width:768px)_and_(pointer:fine)]:min-h-10 px-3.5 shrink-0 inline-flex items-center gap-1.5"
                 onClick={onOpenNumbers}
               >
                 <span>Ver todos los mercados</span>
@@ -623,7 +623,7 @@ export function MatchMoneyPanel({
                           {r.pick && onAddPickToParlay && !isFinished && game.status === "NS" ? (
                             <button
                               type="button"
-                              className="pl-btn-glass text-[11px] min-h-11 sm:min-h-8 px-2.5 shrink-0"
+                              className="pl-btn-glass text-[11px] min-h-11 [@media(min-width:768px)_and_(pointer:fine)]:min-h-8 px-2.5 shrink-0"
                               aria-pressed={Boolean(inParlay)}
                               onClick={() => onAddPickToParlay(r.pick!)}
                             >
@@ -647,7 +647,7 @@ export function MatchMoneyPanel({
                           <div className="inline-flex flex-col items-end">
                             <button
                               type="button"
-                              className="inline-flex items-center justify-end min-h-11 sm:min-h-8 px-1 gap-1 underline decoration-dotted underline-offset-2 text-right"
+                              className="inline-flex items-center justify-end min-w-11 min-h-11 [@media(min-width:768px)_and_(pointer:fine)]:min-w-0 [@media(min-width:768px)_and_(pointer:fine)]:min-h-8 px-1 gap-1 underline decoration-dotted underline-offset-2 text-right"
                               title="Clic para escribir el momio de tu casa"
                               onClick={() =>
                                 setManualByRowId((prev) => ({
@@ -685,7 +685,7 @@ export function MatchMoneyPanel({
                                 [r.id]: e.target.value,
                               }))
                             }
-                            className="glass-input num text-base sm:text-xs text-right px-1.5 py-1 min-h-11 sm:min-h-8 w-[74px] sm:w-[62px] rounded-md"
+                            className="glass-input num text-base sm:text-xs text-right px-1.5 py-1 min-h-11 [@media(min-width:768px)_and_(pointer:fine)]:min-h-8 w-[74px] sm:w-[62px] rounded-md"
                           />
                         )}
                       </td>
@@ -715,7 +715,7 @@ export function MatchMoneyPanel({
           </span>
           <button
             type="button"
-            className="pl-btn-glass text-xs min-h-11 sm:min-h-9 px-3 shrink-0"
+            className="pl-btn-glass text-xs min-h-11 [@media(min-width:768px)_and_(pointer:fine)]:min-h-9 px-3 shrink-0"
             onClick={onOpenNumbers}
           >
             Abrir calculadora en Números

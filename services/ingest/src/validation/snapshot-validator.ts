@@ -133,12 +133,12 @@ export function parseStrictIsoMs(
     return null;
   }
 
-  const year = Number(match[1]);
-  const month = Number(match[2]);
-  const day = Number(match[3]);
-  const hour = match[4] !== undefined ? Number(match[4]) : 0;
-  const minute = match[5] !== undefined ? Number(match[5]) : 0;
-  const second = match[6] !== undefined ? Number(match[6]) : 0;
+  const year = Number.parseInt(match[1]!, 10);
+  const month = Number.parseInt(match[2]!, 10);
+  const day = Number.parseInt(match[3]!, 10);
+  const hour = match[4] !== undefined ? Number.parseInt(match[4], 10) : 0;
+  const minute = match[5] !== undefined ? Number.parseInt(match[5], 10) : 0;
+  const second = match[6] !== undefined ? Number.parseInt(match[6], 10) : 0;
 
   if (year < MIN_PLAUSIBLE_YEAR || year > MAX_PLAUSIBLE_YEAR) return null;
   if (month < 1 || month > 12 || day < 1 || day > 31) return null;

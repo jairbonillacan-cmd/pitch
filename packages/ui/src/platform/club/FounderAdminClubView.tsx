@@ -1,21 +1,46 @@
 "use client";
 
-import React, { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import React, { useCallback, useId, useMemo, useState } from "react";
 import { Switch } from "@heroui/react";
 import type { DataHealthReport } from "@pitchlab/contracts";
-import { LeagueBadge } from "../../sports";
-import { ExampleNotice, MaestroIcon } from "../components/MaestroPrimitives";
+import {
+  Button,
+  SofascoreCard,
+  SofascoreEmptyState,
+  SofascoreKpiStrip,
+  SofascoreTable,
+  SofascoreTabs,
+  type SofascoreKpiItem,
+  type SofascoreTabItem,
+  type SofascoreTableColumn,
+} from "../../components/ui/primitives";
+import { MaestroIcon } from "../components/MaestroPrimitives";
+import { ConfirmActionDialog } from "../components/PlatformOverlays";
 import { AtmosphereStage, ClubWorkspaceShell } from "../components/ShellChrome";
+import { useAbortableJson } from "../hooks";
 import {
   usePlatformActions,
   usePlatformCore,
   useSocialState,
 } from "../platform-provider";
-import { SPACETIME_ENGINES, SPACETIME_METRICS_HEADLINE, TIPSTER_CREATORS } from "../spacetime-catalog";
+import {
+  SPACETIME_ENGINES,
+  SPACETIME_METRICS_HEADLINE,
+  TIPSTER_CREATORS,
+} from "../spacetime-catalog";
 import type { SocialReportReason } from "../types";
 import { AdminDataHealthSection } from "./AdminDataHealthSection";
-import { AdminPaymentsCouponsSection } from "./AdminPaymentsCouponsSection";
+import {
+  AdminPaymentsCouponsSection,
+  type AdminPaymentsStoryOverride,
+} from "./AdminPaymentsCouponsSection";
+import {
+  AdminSecurityAbuseSection,
+  type AdminSecurityAbuseResponse,
+} from "./AdminSecurityAbuseSection";
 import { SOCIAL_REPORT_REASON_OPTIONS } from "./community-ui";
+
+export type AdminMainTabKey = "health" | "security" | "payments" | "members";
 
 interface ModerationQueueItem {
   targetType: "post" | "comment";
@@ -57,9 +82,15 @@ export interface ModerationPanelResponse {
   pausedMembers: PausedSocialMember[];
 }
 
-const REASON_LABELS: Record<SocialReportReason, string> = Object.fromEntries(
+const REASON_LABEL_MAP = new Map<SocialReportReason, string>(
   SOCIAL_REPORT_REASON_OPTIONS.map((opt) => [opt.value, opt.label]),
-) as Record<SocialReportReason, string>;
+);
+
+const EMPTY_MODERATION: ModerationPanelResponse = {
+  pendingQueue: [],
+  hiddenItems: [],
+  pausedMembers: [],
+};
 
 interface AdminOverviewData {
   members: number;
@@ -99,12 +130,54 @@ const DEMO_FUNNEL_SUMMARY: AdminFunnelSummary = {
   windowDays: 30,
   generatedAtIso: "2026-11-15T00:00:00.000Z",
   stages: [
-    { stage: "landing", order: 1, label: "Visita a landing", count30d: 420, conversionFromPrevPct: null, conversionFromLandingPct: 100 },
-    { stage: "signup_step1", order: 2, label: "Inicio paso 1 (cuenta)", count30d: 168, conversionFromPrevPct: 40, conversionFromLandingPct: 40 },
-    { stage: "signup_step2", order: 3, label: "Completa paso 2 (perfil)", count30d: 126, conversionFromPrevPct: 75, conversionFromLandingPct: 30 },
-    { stage: "first_sealed_pick", order: 4, label: "Primer pick sellado", count30d: 88, conversionFromPrevPct: 69.8, conversionFromLandingPct: 21 },
-    { stage: "spei_transfer", order: 5, label: "Solicitud SPEI", count30d: 31, conversionFromPrevPct: 35.2, conversionFromLandingPct: 7.4 },
-    { stage: "coupon_redeemed", order: 6, label: "Cupón canjeado", count30d: 26, conversionFromPrevPct: 83.9, conversionFromLandingPct: 6.2 },
+    {
+      stage: "landing",
+      order: 1,
+      label: "Visita a landing",
+      count30d: 420,
+      conversionFromPrevPct: null,
+      conversionFromLandingPct: 100,
+    },
+    {
+      stage: "signup_step1",
+      order: 2,
+      label: "Inicio paso 1 (cuenta)",
+      count30d: 168,
+      conversionFromPrevPct: 40,
+      conversionFromLandingPct: 40,
+    },
+    {
+      stage: "signup_step2",
+      order: 3,
+      label: "Completa paso 2 (perfil)",
+      count30d: 126,
+      conversionFromPrevPct: 75,
+      conversionFromLandingPct: 30,
+    },
+    {
+      stage: "first_sealed_pick",
+      order: 4,
+      label: "Primer pick sellado",
+      count30d: 88,
+      conversionFromPrevPct: 69.8,
+      conversionFromLandingPct: 21,
+    },
+    {
+      stage: "spei_transfer",
+      order: 5,
+      label: "Solicitud SPEI",
+      count30d: 31,
+      conversionFromPrevPct: 35.2,
+      conversionFromLandingPct: 7.4,
+    },
+    {
+      stage: "coupon_redeemed",
+      order: 6,
+      label: "Cupón canjeado",
+      count30d: 26,
+      conversionFromPrevPct: 83.9,
+      conversionFromLandingPct: 6.2,
+    },
   ],
 };
 
@@ -113,6 +186,24 @@ interface AdminOverviewResponse {
   tipsters: AdminTipsterRow[];
   month1NoCardMode: boolean;
   funnel?: AdminFunnelSummary;
+}
+
+interface AdminPromoRow {
+  code: string;
+  handle: string;
+  name: string;
+  freeDays: number;
+  commissionPct: number;
+  activeReferrals: number;
+  monthlyMxn: number;
+}
+
+interface PendingAdminConfirm {
+  readonly title: string;
+  readonly description: string;
+  readonly confirmLabel: string;
+  readonly tone: "danger" | "brand";
+  readonly onConfirm: () => void;
 }
 
 function toPromoRow(t: AdminTipsterRow): AdminPromoRow {
@@ -127,14 +218,13 @@ function toPromoRow(t: AdminTipsterRow): AdminPromoRow {
   };
 }
 
-interface AdminPromoRow {
-  code: string;
-  handle: string;
-  name: string;
-  freeDays: number;
-  commissionPct: number;
-  activeReferrals: number;
-  monthlyMxn: number;
+function isAdminMainTabKey(value: string): value is AdminMainTabKey {
+  return (
+    value === "health" ||
+    value === "security" ||
+    value === "payments" ||
+    value === "members"
+  );
 }
 
 export function FounderAdminClubView({
@@ -143,13 +233,18 @@ export function FounderAdminClubView({
   initialDataHealth = null,
   storyDataHealth = null,
   showDataHealth = true,
+  initialTab = "health",
+  storySecurityAbuse = null,
+  storyPaymentsOverride,
 }: {
   storyModeration?: ModerationPanelResponse;
   storyFunnel?: AdminFunnelSummary | null;
   initialDataHealth?: DataHealthReport | null;
   storyDataHealth?: DataHealthReport | null;
-  /** Falso en la vista previa beta sin cuentas: /api/admin/data-health responde 403 a ese visitante. */
   showDataHealth?: boolean;
+  initialTab?: AdminMainTabKey;
+  storySecurityAbuse?: AdminSecurityAbuseResponse | null;
+  storyPaymentsOverride?: AdminPaymentsStoryOverride;
 } = {}): React.JSX.Element {
   const {
     dataset,
@@ -157,88 +252,62 @@ export function FounderAdminClubView({
     referralPaidFriends,
     accountsEnabled,
     hasAccountSessionAuth,
+    viewerRole,
   } = usePlatformCore();
   const { setMonth1NoCardMode, pushToast } = usePlatformActions();
   const { blockedSpamAttempts } = useSocialState();
+  const isVerifiedAdminSession = hasAccountSessionAuth && viewerRole === "admin";
 
-  const mountedRef = useRef(true);
-  useEffect(() => {
-    mountedRef.current = true;
-    return () => {
-      mountedRef.current = false;
-    };
-  }, []);
-
+  const funnelHeadingId = useId();
+  const modHeadingId = useId();
+  const [activeTab, setActiveTab] = useState<AdminMainTabKey>(initialTab);
   const [newCreatorCode, setNewCreatorCode] = useState<string>("");
   const [newCreatorHandle, setNewCreatorHandle] = useState<string>("");
   const [newCreatorEmail, setNewCreatorEmail] = useState<string>("");
-  const [serverOverview, setServerOverview] = useState<AdminOverviewData | null>(null);
-  const [serverFunnel, setServerFunnel] = useState<AdminFunnelSummary | null>(null);
-  const [moderation, setModeration] = useState<ModerationPanelResponse>(
-    () =>
-      storyModeration ?? {
-        pendingQueue: [],
-        hiddenItems: [],
-        pausedMembers: [],
-      },
-  );
-  const [moderationLoading, setModerationLoading] = useState<boolean>(
-    hasAccountSessionAuth && !storyModeration,
-  );
-  const [moderationError, setModerationError] = useState<string | null>(null);
+  const [localPromoRows, setLocalPromoRows] = useState<AdminPromoRow[] | null>(null);
+  const [localModeration, setLocalModeration] = useState<ModerationPanelResponse | null>(null);
+  const [moderationBlockDelta, setModerationBlockDelta] = useState<number>(0);
   const [moderationBusyKey, setModerationBusyKey] = useState<string | null>(null);
+  const [pendingConfirm, setPendingConfirm] = useState<PendingAdminConfirm | null>(null);
 
-  const loadModeration = useCallback(
-    async (signal?: AbortSignal) => {
-      if (!hasAccountSessionAuth || storyModeration) {
-        if (!signal?.aborted && mountedRef.current) {
-          setModerationLoading(false);
-        }
-        return;
-      }
-      setModerationLoading(true);
-      setModerationError(null);
-      try {
-        const res = await fetch("/api/admin/moderation", {
-          credentials: "same-origin",
-          ...(signal ? { signal } : {}),
-        });
-        if (signal?.aborted || !mountedRef.current) return;
-        if (!res.ok) {
-          setModerationError(
-            res.status === 403
-              ? "Solo el equipo fundador tiene acceso al panel de moderación."
-              : "No se pudo cargar la cola de moderación.",
-          );
-          return;
-        }
-        const json = (await res.json()) as ModerationPanelResponse;
-        if (signal?.aborted || !mountedRef.current) return;
-        setModeration({
-          pendingQueue: json.pendingQueue ?? [],
-          hiddenItems: json.hiddenItems ?? [],
-          pausedMembers: json.pausedMembers ?? [],
-        });
-      } catch (err) {
-        if (signal?.aborted || !mountedRef.current) return;
-        if (err instanceof DOMException && err.name === "AbortError") return;
-        setModerationError("No se pudo conectar con el servidor de moderación.");
-      } finally {
-        if (!signal?.aborted && mountedRef.current) {
-          setModerationLoading(false);
-        }
-      }
+  const overviewReq = useAbortableJson<AdminOverviewResponse>("/api/admin/overview?limit=40", {
+    enabled: isVerifiedAdminSession,
+  });
+
+  const moderationReq = useAbortableJson<ModerationPanelResponse>(
+    "/api/admin/moderation?limit=40",
+    {
+      enabled: isVerifiedAdminSession && !storyModeration && activeTab === "members",
     },
-    [hasAccountSessionAuth, storyModeration],
   );
 
-  useEffect(() => {
-    const controller = new AbortController();
-    void loadModeration(controller.signal);
-    return () => {
-      controller.abort();
-    };
-  }, [loadModeration]);
+  const serverOverview = overviewReq.data?.overview ?? null;
+  const serverFunnel = overviewReq.data?.funnel ?? null;
+
+  const moderation: ModerationPanelResponse =
+    storyModeration ?? localModeration ?? moderationReq.data ?? EMPTY_MODERATION;
+
+  const defaultDemoPromoRows = useMemo<AdminPromoRow[]>(
+    () =>
+      accountsEnabled
+        ? []
+        : TIPSTER_CREATORS.map((c) => ({
+            code: c.promoCode,
+            handle: c.handle,
+            name: c.name,
+            freeDays: c.freeDays,
+            commissionPct: c.commissionPct,
+            activeReferrals: c.activeReferrals,
+            monthlyMxn: c.monthlyCommissionMxn,
+          })),
+    [accountsEnabled],
+  );
+
+  const promoRows = useMemo<AdminPromoRow[]>(() => {
+    if (localPromoRows) return localPromoRows;
+    if (overviewReq.data?.tipsters) return overviewReq.data.tipsters.map(toPromoRow);
+    return defaultDemoPromoRows;
+  }, [defaultDemoPromoRows, localPromoRows, overviewReq.data?.tipsters]);
 
   const runModerationAction = useCallback(
     async (
@@ -251,7 +320,12 @@ export function FounderAdminClubView({
       },
       successMsg: string,
     ) => {
-      if (!hasAccountSessionAuth || moderationBusyKey) return;
+      if (!isVerifiedAdminSession || moderationBusyKey) {
+        if (!isVerifiedAdminSession) {
+          pushToast(`${successMsg} (vista previa)`, "success");
+        }
+        return;
+      }
       setModerationBusyKey(busyId);
       try {
         const res = await fetch("/api/admin/moderation", {
@@ -267,12 +341,12 @@ export function FounderAdminClubView({
           pushToast(json?.error ?? "No se pudo aplicar la acción.", "danger");
           return;
         }
-        setModeration({
+        setLocalModeration({
           pendingQueue: json.pendingQueue ?? [],
           hiddenItems: json.hiddenItems ?? [],
           pausedMembers: json.pausedMembers ?? [],
         });
-        setServerOverview((prev) => (prev ? { ...prev, moderationBlocks: prev.moderationBlocks + 1 } : prev));
+        setModerationBlockDelta((prev) => prev + 1);
         pushToast(successMsg, "success");
       } catch (err) {
         void err;
@@ -281,61 +355,19 @@ export function FounderAdminClubView({
         setModerationBusyKey(null);
       }
     },
-    [hasAccountSessionAuth, moderationBusyKey, pushToast],
+    [isVerifiedAdminSession, moderationBusyKey, pushToast],
   );
+
   const dataCutLabel = useMemo(() => {
     const t = Date.parse(dataset.generatedAt);
     return Number.isFinite(t)
-      ? `datos al ${new Date(t).toLocaleString("es-MX", { dateStyle: "medium", timeStyle: "short" })}`
+      ? `datos al ${new Date(t).toLocaleString("es-MX", {
+          dateStyle: "medium",
+          timeStyle: "short",
+          timeZone: "America/Mexico_City",
+        })}`
       : "datos del último corte";
   }, [dataset.generatedAt]);
-  // Sin cuentas, la consola es una demostración con los tipsters de ejemplo.
-  const [promoRows, setPromoRows] = useState<AdminPromoRow[]>(() =>
-    accountsEnabled ? [] : TIPSTER_CREATORS.map((c) => ({
-      code: c.promoCode,
-      handle: c.handle,
-      name: c.name,
-      freeDays: c.freeDays,
-      commissionPct: c.commissionPct,
-      activeReferrals: c.activeReferrals,
-      monthlyMxn: c.monthlyCommissionMxn,
-    })),
-  );
-
-  useEffect(() => {
-    if (!hasAccountSessionAuth) return undefined;
-    const controller = new AbortController();
-    let cancelled = false;
-    void (async () => {
-      try {
-        const res = await fetch("/api/admin/overview", {
-          credentials: "same-origin",
-          signal: controller.signal,
-        });
-        if (cancelled || controller.signal.aborted) return;
-        if (!res.ok) {
-          pushToast(
-            res.status === 403
-              ? "Tu cuenta no es del equipo fundador."
-              : "No se pudo cargar la consola.",
-            "warning",
-          );
-          return;
-        }
-        const json = (await res.json()) as AdminOverviewResponse;
-        if (cancelled || controller.signal.aborted) return;
-        setServerOverview(json.overview);
-        setServerFunnel(json.funnel ?? null);
-        setPromoRows(json.tipsters.map(toPromoRow));
-      } catch (err) {
-        void err;
-      }
-    })();
-    return () => {
-      cancelled = true;
-      controller.abort();
-    };
-  }, [hasAccountSessionAuth, pushToast]);
 
   const totalActiveReferrals = useMemo(
     () =>
@@ -344,13 +376,63 @@ export function FounderAdminClubView({
         : promoRows.reduce((acc, r) => acc + r.activeReferrals, 0) + referralPaidFriends,
     [promoRows, referralPaidFriends, serverOverview],
   );
-  const spamBlocked = serverOverview ? serverOverview.moderationBlocks : blockedSpamAttempts;
 
-  const handleEmitCode = () => {
+  const spamBlocked =
+    (serverOverview ? serverOverview.moderationBlocks : blockedSpamAttempts) + moderationBlockDelta;
+
+  const topKpis = useMemo<readonly SofascoreKpiItem[]>(
+    () => [
+      {
+        id: "watermark",
+        label: "Sesiones con watermark",
+        value: "100 %",
+        delta: "X-PitchLab-Trace",
+        tone: "positive",
+      },
+      {
+        id: "spam-blocks",
+        label: "Bloqueos moderación",
+        value: spamBlocked.toLocaleString("es-MX"),
+        delta: "Anti-spam activo",
+        tone: spamBlocked > 0 ? "brand" : "default",
+      },
+      {
+        id: "referrals",
+        label: "Referidos activos",
+        value: totalActiveReferrals.toLocaleString("es-MX"),
+        delta: "Tipsters + Doble vía",
+        tone: "brand",
+      },
+      {
+        id: "slate",
+        label: "Partidos en cartelera",
+        value: dataset.games.length.toLocaleString("es-MX"),
+        delta: `${dataset.leagues.length} ligas`,
+      },
+    ],
+    [dataset.games.length, dataset.leagues.length, spamBlocked, totalActiveReferrals],
+  );
+
+  const mainTabs = useMemo<readonly SofascoreTabItem[]>(
+    () => [
+      { id: "health", label: "Salud de datos & Ligas" },
+      { id: "security", label: "Seguridad & Anti-Scraping" },
+      { id: "payments", label: "Pagos & Cupones" },
+      {
+        id: "members",
+        label: "Socios & Moderación",
+        count: moderation.pendingQueue.length > 0 ? moderation.pendingQueue.length : undefined,
+      },
+    ],
+    [moderation.pendingQueue.length],
+  );
+
+  const handleEmitCode = (e: React.FormEvent) => {
+    e.preventDefault();
     const cleanCode = newCreatorCode.trim().toUpperCase();
     const cleanHandle = newCreatorHandle.trim().replace(/^@/, "").toLowerCase() || "creador_pl";
     if (!cleanCode) return;
-    if (hasAccountSessionAuth) {
+    if (isVerifiedAdminSession) {
       void (async () => {
         const res = await fetch("/api/admin/tipsters", {
           method: "POST",
@@ -364,9 +446,12 @@ export function FounderAdminClubView({
             specialty: "",
           }),
         });
-        const json = (await res.json().catch(() => ({}))) as { tipsters?: AdminTipsterRow[]; error?: string };
+        const json = (await res.json().catch(() => ({}))) as {
+          tipsters?: AdminTipsterRow[];
+          error?: string;
+        };
         if (res.ok && json.tipsters) {
-          setPromoRows(json.tipsters.map(toPromoRow));
+          setLocalPromoRows(json.tipsters.map(toPromoRow));
           pushToast(`Código ${cleanCode} emitido para @${cleanHandle}.`, "success");
           setNewCreatorCode("");
           setNewCreatorHandle("");
@@ -381,8 +466,8 @@ export function FounderAdminClubView({
       pushToast(`El código ${cleanCode} ya está registrado.`, "warning");
       return;
     }
-    setPromoRows((prev) => [
-      ...prev,
+    setLocalPromoRows([
+      ...promoRows,
       {
         code: cleanCode,
         handle: cleanHandle,
@@ -400,741 +485,801 @@ export function FounderAdminClubView({
     setNewCreatorCode("");
   };
 
+  const promoColumns = useMemo<readonly SofascoreTableColumn<AdminPromoRow>[]>(
+    () => [
+      {
+        key: "code",
+        header: "Código",
+        sticky: true,
+        render: (row) => (
+          <strong className="num" style={{ color: "var(--pl-brand)" }}>
+            {row.code}
+          </strong>
+        ),
+      },
+      {
+        key: "holder",
+        header: "Titular",
+        render: (row) => (
+          <span>
+            {row.name} (@{row.handle})
+          </span>
+        ),
+      },
+      {
+        key: "trial",
+        header: "Beneficio prueba",
+        numeric: true,
+        render: (row) => `${row.freeDays} días gratis`,
+      },
+      {
+        key: "commission",
+        header: "Comisión",
+        numeric: true,
+        render: (row) => `${row.commissionPct} % recurrente`,
+      },
+      {
+        key: "referrals",
+        header: "Referidos activos",
+        align: "end",
+        numeric: true,
+        render: (row) => <strong>{row.activeReferrals}</strong>,
+      },
+      {
+        key: "payout",
+        header: "Pago mensual",
+        align: "end",
+        numeric: true,
+        render: (row) => (
+          <strong style={{ color: "var(--pl-success)" }}>
+            ${row.monthlyMxn.toLocaleString("es-MX")} MXN
+          </strong>
+        ),
+      },
+    ],
+    [],
+  );
+
+  const engineColumns = useMemo<
+    readonly SofascoreTableColumn<(typeof SPACETIME_ENGINES)[number]>[]
+  >(
+    () => [
+      {
+        key: "name",
+        header: "Motor",
+        sticky: true,
+        render: (eng) => (
+          <strong style={{ color: eng.colorVar }}>{eng.name}</strong>
+        ),
+      },
+      {
+        key: "domain",
+        header: "Pilar y dominio",
+        render: (eng) => `${eng.pillar} · ${eng.domain}`,
+      },
+      {
+        key: "cadence",
+        header: "Cadencia",
+        render: (eng) => eng.retrainCadence,
+      },
+      {
+        key: "status",
+        header: "Estado",
+        align: "end",
+        render: () => (
+          <span className="pl-ta-badge" data-tone="success">
+            En línea
+          </span>
+        ),
+      },
+    ],
+    [],
+  );
+
+  const activeFunnel =
+    storyFunnel ?? serverFunnel ?? (!accountsEnabled ? DEMO_FUNNEL_SUMMARY : null);
+  const funnelStages = activeFunnel?.stages ?? [];
+  const maxFunnelSessions = Math.max(1, ...funnelStages.map((s) => s.count30d));
+  const isDemoFunnel = !storyFunnel && !serverFunnel && !accountsEnabled;
+
+  const requestPolicySwitch = (nextValue: boolean) => {
+    setPendingConfirm({
+      title: nextValue
+        ? "Cambiar a Mes 1 (Sin tarjeta)"
+        : "Cambiar a Mes 2+ (Verificación $0.00 MXN)",
+      description: nextValue
+        ? "Los nuevos socios podrán activar la prueba sin registrar tarjeta bancaria."
+        : "Los nuevos socios deberán pasar verificación bancaria de $0.00 MXN antes de iniciar prueba.",
+      confirmLabel: "Aplicar política",
+      tone: "brand",
+      onConfirm: () => setMonth1NoCardMode(nextValue),
+    });
+  };
+
   return (
     <AtmosphereStage>
       <ClubWorkspaceShell activePath="/app/admin">
-        {!accountsEnabled ? (
-          <ExampleNotice>
-            Consola en modo demostración: sin cuentas activas, los códigos, referidos y comisiones
-            son de ejemplo y no se guardan. Con la base de datos conectada muestra cifras reales.
-          </ExampleNotice>
-        ) : null}
-        {/* Lente Destacado: Control Mes 1 vs Mes 2 + 4 KPIs de Seguridad y Crecimiento */}
-        <section className="glass-lens glass-ring glass-ring--featured relative overflow-hidden rounded-3xl p-5 sm:p-6 space-y-5">
-          <div className="relative z-10 flex flex-wrap items-center justify-between gap-3">
-            <div className="space-y-1 min-w-0 max-w-full">
-              <span className="pl-pill pl-pill--warning pl-pill--wrap">
-                <MaestroIcon name="crown" size={13} />
-                <span>Consola Operativa Founder · Configuración de Lanzamiento</span>
-              </span>
-              <h1 className="m-0 text-2xl sm:text-3xl font-extrabold tracking-tight">
-                Consola del fundador
-              </h1>
+        <div className="pl-ta-page">
+          {!accountsEnabled ? (
+            <div className="pl-ta-notice" data-tone="warning">
+              <div className="pl-ta-notice-head">
+                <div className="pl-ta-notice-identity">
+                  <span className="pl-ta-badge" data-tone="warning">
+                    <MaestroIcon name="eye" size={13} />
+                    <span>Ejemplo</span>
+                  </span>
+                  <strong className="pl-ta-notice-title">Contenido de ejemplo</strong>
+                </div>
+              </div>
+              <div className="pl-ta-notice-body">
+                Consola en modo demostración: sin cuentas activas, los códigos, referidos y
+                comisiones son de ejemplo y no se guardan. Con la base de datos conectada muestra
+                cifras reales.
+              </div>
             </div>
+          ) : null}
 
-            <span className="pl-pill pl-pill--success num">
-              <MaestroIcon name="activity" size={13} />
-              <span>5 motores Spacetime en línea</span>
-            </span>
-          </div>
-
-          {/* Switch Mes 1 (Sin Tarjeta) vs Mes 2 (Tarjeta $0 MXN) */}
-          <div
-            className="relative z-10 glass-ring rounded-2xl p-4 sm:p-5 flex flex-wrap items-center justify-between gap-4"
-            style={{ background: "var(--pl-surface)" }}
-          >
-            <div className="space-y-1 max-w-2xl">
-              <h2 className="m-0 text-base sm:text-lg font-extrabold flex flex-wrap items-center gap-2">
-                <span>Política de Prueba Gratis:</span>
-                <span
-                  style={{
-                    color: month1NoCardMode ? "var(--pl-success)" : "var(--pl-brand)",
-                  }}
-                >
-                  {month1NoCardMode
-                    ? "Mes 1 Lanzamiento · Sin pedir tarjeta ($0 OAuth)"
-                    : "Mes 2+ · Verificación bancaria $0.00 MXN"}
-                </span>
-              </h2>
-              <p className="m-0 text-xs leading-relaxed" style={{ color: "var(--pl-text-secondary)" }}>
-                Escudo anti-abuso de costo <strong>$0 MXN</strong> activo: Google OAuth,
-                normalización de alias Gmail, bloqueo de dominios desechables, Cloudflare
-                Turnstile y huella única por dispositivo.
+          <header className="pl-ta-header">
+            <div className="pl-ta-header-copy">
+              <span className="pl-ta-eyebrow">
+                Consola Operativa Founder · Configuración y auditoría
+              </span>
+              <h1 className="pl-ta-title">Consola del fundador</h1>
+              <p className="pl-ta-subtitle">
+                Operación segmentada en 4 áreas: salud de ingesta, seguridad anti-scraping, pagos
+                SPEI/cupones y moderación de socios.
               </p>
             </div>
-
-            <Switch isSelected={month1NoCardMode} onChange={setMonth1NoCardMode}>
-              <Switch.Control>
-                <Switch.Thumb />
-              </Switch.Control>
-              <Switch.Content>
-                <span className="text-xs font-bold">
-                  {month1NoCardMode
-                    ? "Mes 1: Sin tarjeta"
-                    : "Mes 2: Tarjeta $0 MXN"}
-                </span>
-              </Switch.Content>
-            </Switch>
-          </div>
-
-          {/* 4 KPIs de Seguridad y Crecimiento */}
-          <div className="relative z-10 grid grid-cols-2 lg:grid-cols-4 gap-3.5 num">
-            <div
-              className="glass-ring rounded-2xl p-4 space-y-1"
-              style={{ background: "var(--pl-surface)" }}
-            >
-              <div
-                className="flex items-center justify-between text-xs"
-                style={{ color: "var(--pl-text-muted)" }}
-              >
-                <span>Sesiones con Watermark</span>
-                <MaestroIcon
-                  name="shield"
-                  size={15}
-                  style={{ color: "var(--pl-success)" }}
-                />
-              </div>
-              <strong
-                className="block text-2xl font-extrabold"
-                style={{ color: "var(--pl-success)" }}
-              >
-                100 %
-              </strong>
-              <span className="block text-xs" style={{ color: "var(--pl-text-muted)" }}>
-                ID incrustado + share sellado pre-juego
+            <div className="pl-ta-header-actions">
+              <span className="pl-ta-badge num" data-tone="success">
+                <MaestroIcon name="activity" size={13} />
+                <span>5 motores Spacetime en línea</span>
               </span>
             </div>
+          </header>
 
-            <div
-              className="glass-ring rounded-2xl p-4 space-y-1"
-              style={{ background: "var(--pl-surface)" }}
-            >
-              <div
-                className="flex items-center justify-between text-xs"
-                style={{ color: "var(--pl-text-muted)" }}
-              >
-                <span>Links Spam Bloqueados</span>
-                <MaestroIcon
-                  name="lock"
-                  size={15}
-                  style={{ color: "var(--pl-warning)" }}
-                />
-              </div>
-              <strong
-                className="block text-2xl font-extrabold"
-                style={{ color: "var(--pl-warning)" }}
-              >
-                {spamBlocked}
-              </strong>
-              <span className="block text-xs" style={{ color: "var(--pl-text-muted)" }}>
-                Filtro t.me / wa.me / URLs activo
-              </span>
-            </div>
+          <SofascoreKpiStrip items={topKpis} />
 
-            <div
-              className="glass-ring rounded-2xl p-4 space-y-1"
-              style={{ background: "var(--pl-surface)" }}
-            >
-              <div
-                className="flex items-center justify-between text-xs"
-                style={{ color: "var(--pl-text-muted)" }}
-              >
-                <span>Referidos Activos</span>
-                <MaestroIcon
-                  name="users"
-                  size={15}
-                  style={{ color: "var(--pl-brand)" }}
-                />
-              </div>
-              <strong
-                className="block text-2xl font-extrabold"
-                style={{ color: "var(--pl-brand)" }}
-              >
-                {totalActiveReferrals}
-              </strong>
-              <span className="block text-xs" style={{ color: "var(--pl-text-muted)" }}>
-                Tipsters (25 %) + Doble Vía (+7d)
-              </span>
-            </div>
-
-            <div
-              className="glass-ring rounded-2xl p-4 space-y-1"
-              style={{ background: "var(--pl-surface)" }}
-            >
-              <div
-                className="flex items-center justify-between text-xs"
-                style={{ color: "var(--pl-text-muted)" }}
-              >
-                <span>Partidos en cartelera</span>
-                <MaestroIcon
-                  name="layers"
-                  size={15}
-                  style={{ color: "var(--pl-info)" }}
-                />
-              </div>
-              <strong className="block text-2xl font-extrabold">
-                {dataset.games.length}
-              </strong>
-              <span className="block text-xs" style={{ color: "var(--pl-text-muted)" }}>
-                {dataset.leagues.length} ligas sincronizadas
-              </span>
-            </div>
-          </div>
-        </section>
-
-        {showDataHealth ? (
-          <AdminDataHealthSection
-            dataset={dataset}
-            initialReport={initialDataHealth}
-            storyReport={storyDataHealth}
-            enableLiveFetch={!storyDataHealth}
+          <SofascoreTabs
+            items={mainTabs}
+            value={activeTab}
+            onChange={(next) => {
+              if (isAdminMainTabKey(next)) setActiveTab(next);
+            }}
+            variant="underline"
+            ariaLabel="Secciones de la Consola del fundador"
           />
-        ) : null}
 
-        <AdminPaymentsCouponsSection />
-
-        {/* Moderación de Comunidad */}
-        <section
-          className="glass-card glass-ring rounded-2xl p-5 space-y-4"
-          aria-labelledby="pl-admin-mod-title"
-        >
-          <div className="flex flex-wrap items-center justify-between gap-3">
-            <div>
-              <h2 id="pl-admin-mod-title" className="m-0 text-lg font-extrabold">
-                Moderación
-              </h2>
-              <p className="m-0 text-xs" style={{ color: "var(--pl-text-muted)" }}>
-                Cola de reportes pendientes en Comunidad. Con 3 reportes distintos el contenido se oculta solo mientras lo revisas.
-              </p>
-            </div>
-            <span className="pl-pill num">
-              <MaestroIcon name="flag" size={13} />
-              <span>
-                {moderation.pendingQueue.length}{" "}
-                {moderation.pendingQueue.length === 1 ? "pendiente" : "pendientes"}
-              </span>
-            </span>
-          </div>
-
-          {moderationLoading ? (
-            <p className="m-0 text-sm" style={{ color: "var(--pl-text-muted)" }}>
-              Cargando cola de moderación…
-            </p>
-          ) : moderationError ? (
-            <div className="pl-admin-mod-state glass-ring rounded-2xl p-4">
-              <p className="m-0 text-sm" style={{ color: "var(--pl-danger)" }} role="alert">
-                {moderationError}
-              </p>
-              <button
-                type="button"
-                className="pl-prof-btn pl-prof-btn--ghost pl-prof-btn--sm"
-                onClick={() => void loadModeration()}
-              >
-                Reintentar
-              </button>
-            </div>
-          ) : moderation.pendingQueue.length === 0 ? (
-            <div className="pl-admin-mod-empty glass-ring rounded-2xl p-4">
-              <p className="m-0 text-sm font-semibold">Sin reportes pendientes</p>
-              <p className="m-0 text-xs" style={{ color: "var(--pl-text-muted)" }}>
-                {accountsEnabled
-                  ? "Cuando un socio reporte una publicación o comentario aparecerá aquí para tu revisión."
-                  : "Activa las cuentas con base de datos para recibir reportes reales de Comunidad."}
-              </p>
-            </div>
-          ) : (
-            <ul className="pl-admin-mod-list">
-              {moderation.pendingQueue.map((item) => {
-                const key = `${item.targetType}:${item.targetId}`;
-                const busy = moderationBusyKey !== null;
-                return (
-                  <li key={key} className="pl-admin-mod-item glass-ring rounded-2xl p-4 space-y-3">
-                    <div className="pl-admin-mod-head">
-                      <div className="pl-admin-mod-who">
-                        <span className="pl-pill">
-                          {item.targetType === "post" ? "Publicación" : "Comentario"}
-                        </span>
-                        <strong>{item.authorName}</strong>
-                        <span className="num" style={{ color: "var(--pl-text-muted)" }}>
-                          @{item.authorHandle}
-                        </span>
-                        {item.authorPaused ? (
-                          <span className="pl-pill pl-pill--warning">Socio en pausa</span>
-                        ) : null}
-                      </div>
-                      <div className="pl-admin-mod-badges num">
-                        <span className="pl-pill pl-pill--warning">
-                          {item.reportCount} {item.reportCount === 1 ? "reporte" : "reportes"}
-                        </span>
-                        {item.isHiddenByModeration ? (
-                          <span className="pl-pill pl-pill--danger">Oculto en revisión</span>
-                        ) : (
-                          <span className="pl-pill pl-pill--info">Visible</span>
-                        )}
-                      </div>
-                    </div>
-
-                    <blockquote className="pl-admin-mod-quote">{item.body}</blockquote>
-
-                    <div className="pl-admin-mod-reasons" aria-label="Motivos reportados">
-                      <span className="text-xs" style={{ color: "var(--pl-text-muted)" }}>
-                        Motivos:
-                      </span>
-                      {item.reasons.map((r) => (
-                        <span key={r} className="pl-pill">
-                          {REASON_LABELS[r] ?? r}
-                        </span>
-                      ))}
-                    </div>
-
-                    <div className="pl-admin-mod-actions">
-                      <button
-                        type="button"
-                        className="pl-prof-btn pl-prof-btn--ghost pl-prof-btn--sm"
-                        disabled={busy}
-                        aria-label={`Ocultar ${item.targetType === "post" ? "publicación" : "comentario"} de @${item.authorHandle}`}
-                        onClick={() =>
-                          void runModerationAction(
-                            `${key}:hide`,
-                            { action: "hide", targetType: item.targetType, targetId: item.targetId },
-                            "Contenido ocultado de Comunidad.",
-                          )
-                        }
-                      >
-                        Ocultar
-                      </button>
-                      <button
-                        type="button"
-                        className="pl-prof-btn pl-prof-btn--ghost pl-prof-btn--sm"
-                        disabled={busy}
-                        aria-label={`Restaurar ${item.targetType === "post" ? "publicación" : "comentario"} de @${item.authorHandle}`}
-                        onClick={() =>
-                          void runModerationAction(
-                            `${key}:restore`,
-                            { action: "restore", targetType: item.targetType, targetId: item.targetId },
-                            "Contenido restaurado en Comunidad.",
-                          )
-                        }
-                      >
-                        Restaurar
-                      </button>
-                      <button
-                        type="button"
-                        className="pl-prof-btn pl-prof-btn--ghost pl-prof-btn--sm"
-                        disabled={busy}
-                        aria-label={`Descartar reporte sobre @${item.authorHandle}`}
-                        onClick={() =>
-                          void runModerationAction(
-                            `${key}:dismiss`,
-                            { action: "dismiss", targetType: item.targetType, targetId: item.targetId },
-                            "Reporte descartado.",
-                          )
-                        }
-                      >
-                        Descartar
-                      </button>
-                      <button
-                        type="button"
-                        className="pl-prof-btn pl-prof-btn--ghost pl-prof-btn--sm pl-admin-mod-pause"
-                        disabled={busy}
-                        aria-label={
-                          item.authorPaused
-                            ? `Quitar pausa en Comunidad a @${item.authorHandle}`
-                            : `Pausar a @${item.authorHandle} en Comunidad`
-                        }
-                        onClick={() =>
-                          void runModerationAction(
-                            `${key}:pause`,
-                            {
-                              action: item.authorPaused ? "unpause_user" : "pause_user",
-                              targetUserId: item.authorUserId,
-                            },
-                            item.authorPaused
-                              ? `@${item.authorHandle} puede volver a participar en Comunidad.`
-                              : `@${item.authorHandle} quedó en pausa en Comunidad.`,
-                          )
-                        }
-                      >
-                        {item.authorPaused ? "Quitar pausa en Comunidad" : "Pausar a este socio en Comunidad"}
-                      </button>
-                    </div>
-                  </li>
-                );
-              })}
-            </ul>
-          )}
-
-          {moderation.hiddenItems.length > 0 ? (
-            <div className="pl-admin-mod-sub space-y-2">
-              <h3 className="m-0 text-sm font-bold" style={{ color: "var(--pl-text-secondary)" }}>
-                Contenido oculto recientemente
-              </h3>
-              <ul className="pl-admin-mod-compact">
-                {moderation.hiddenItems.map((h) => {
-                  const key = `hidden:${h.targetType}:${h.targetId}`;
-                  return (
-                    <li key={key} className="pl-admin-mod-compact-row">
-                      <div className="pl-admin-mod-compact-copy">
-                        <strong>@{h.authorHandle}</strong>{" "}
-                        <span style={{ color: "var(--pl-text-muted)" }}>
-                          ({h.targetType === "post" ? "publicación" : "comentario"}):
-                        </span>{" "}
-                        <span>{h.body}</span>
-                      </div>
-                      <button
-                        type="button"
-                        className="pl-prof-btn pl-prof-btn--ghost pl-prof-btn--sm"
-                        disabled={moderationBusyKey !== null}
-                        aria-label={`Restaurar ${h.targetType === "post" ? "publicación" : "comentario"} de @${h.authorHandle}`}
-                        onClick={() =>
-                          void runModerationAction(
-                            key,
-                            { action: "restore", targetType: h.targetType, targetId: h.targetId },
-                            "Contenido restaurado en Comunidad.",
-                          )
-                        }
-                      >
-                        Restaurar
-                      </button>
-                    </li>
-                  );
-                })}
-              </ul>
-            </div>
-          ) : null}
-
-          {moderation.pausedMembers.length > 0 ? (
-            <div className="pl-admin-mod-sub space-y-2">
-              <h3 className="m-0 text-sm font-bold" style={{ color: "var(--pl-text-secondary)" }}>
-                Socios en pausa en Comunidad
-              </h3>
-              <ul className="pl-admin-mod-compact">
-                {moderation.pausedMembers.map((m) => (
-                  <li key={m.userId} className="pl-admin-mod-compact-row">
-                    <div className="pl-admin-mod-compact-copy">
-                      <strong>{m.displayName}</strong>{" "}
-                      <span className="num" style={{ color: "var(--pl-text-muted)" }}>
-                        {m.handle ? `@${m.handle}` : m.email}
-                      </span>
-                    </div>
-                    <button
-                      type="button"
-                      className="pl-prof-btn pl-prof-btn--ghost pl-prof-btn--sm"
-                      disabled={moderationBusyKey !== null}
-                      aria-label={`Quitar pausa en Comunidad a ${m.handle ? `@${m.handle}` : m.displayName}`}
-                      onClick={() =>
-                        void runModerationAction(
-                          `unpause:${m.userId}`,
-                          { action: "unpause_user", targetUserId: m.userId },
-                          `${m.handle ? `@${m.handle}` : m.displayName} puede volver a participar en Comunidad.`,
-                        )
-                      }
-                    >
-                      Quitar pausa
-                    </button>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          ) : null}
-        </section>
-
-        {/* Emisor de Códigos de Tipsters Oficiales */}
-        <section className="glass-card glass-ring rounded-2xl p-5 space-y-4">
-          <div className="flex flex-wrap items-center justify-between gap-3">
-            <div>
-              <h2 className="m-0 text-lg font-extrabold">
-                Códigos de Tipsters Oficiales y Campañas
-              </h2>
-              <p className="m-0 text-xs" style={{ color: "var(--pl-text-muted)" }}>
-                Cada creador recibe Pase PitchLab Ultra bonificado, 1 Pick abierto semanal y 25 % de
-                comisión recurrente.
-              </p>
-            </div>
-
-            <div className="flex flex-wrap items-center gap-2">
-              <input
-                type="text"
-                maxLength={16}
-                aria-label="Nuevo código promocional de Tipster"
-                placeholder="NUEVO5"
-                value={newCreatorCode}
-                onChange={(e) => setNewCreatorCode(e.target.value.toUpperCase())}
-                className="glass-input px-3 py-1.5 text-xs uppercase font-extrabold num w-28"
-              />
-              <input
-                type="text"
-                maxLength={24}
-                aria-label="Handle del Tipster"
-                placeholder="@handle"
-                value={newCreatorHandle}
-                onChange={(e) => setNewCreatorHandle(e.target.value)}
-                className="glass-input px-3 py-1.5 text-xs font-semibold w-36"
-              />
-              {accountsEnabled ? (
-                <input
-                  type="email"
-                  aria-label="Correo del Tipster"
-                  placeholder="correo@tipster.com"
-                  value={newCreatorEmail}
-                  onChange={(e) => setNewCreatorEmail(e.target.value)}
-                  className="glass-input px-3 py-1.5 text-xs font-semibold w-48"
+          {activeTab === "health" ? (
+            <div
+              className="pl-ta-tab-panel"
+              role="tabpanel"
+              aria-label="Salud de datos y ligas"
+            >
+              {showDataHealth ? (
+                <AdminDataHealthSection
+                  dataset={dataset}
+                  initialReport={initialDataHealth}
+                  storyReport={storyDataHealth}
+                  enableLiveFetch={isVerifiedAdminSession && !storyDataHealth}
                 />
               ) : null}
-              <button
-                type="button"
-                className="pl-btn-primary text-xs min-h-9 px-3.5"
-                onClick={handleEmitCode}
+
+              <SofascoreCard
+                id={funnelHeadingId}
+                title={`Embudo propio de conversión · ${activeFunnel?.windowDays ?? 30} días`}
+                meta={
+                  <span
+                    className="pl-ta-badge"
+                    data-tone={isDemoFunnel ? "warning" : "info"}
+                  >
+                    {isDemoFunnel ? "Ejemplo beta" : "Consentimiento propio"}
+                  </span>
+                }
               >
-                <MaestroIcon name="plus" size={14} />
-                <span>Emitir código</span>
-              </button>
-            </div>
-          </div>
-
-          <div
-            className="pl-table-region"
-            tabIndex={0}
-            role="region"
-            aria-label="Códigos de tipsters y tabla de comisiones"
-          >
-            <span className="pl-table-scroll-hint" aria-hidden="true">
-              Desliza para ver comisiones y pagos →
-            </span>
-            <table className="w-full text-left border-collapse text-sm num">
-              <caption className="sr-only">Códigos promocionales de Tipsters oficiales y comisiones</caption>
-              <thead>
-                <tr
-                  className="hairline-b text-xs"
-                  style={{ color: "var(--pl-text-muted)" }}
-                >
-                  <th scope="col" className="py-2.5 pr-3">
-                    Código
-                  </th>
-                  <th scope="col" className="py-2.5 pr-3">
-                    Titular
-                  </th>
-                  <th scope="col" className="py-2.5 px-2">
-                    Beneficio prueba
-                  </th>
-                  <th scope="col" className="py-2.5 px-2">
-                    Comisión
-                  </th>
-                  <th scope="col" className="py-2.5 px-2 text-right">
-                    Referidos activos
-                  </th>
-                  <th scope="col" className="py-2.5 pl-2 text-right">
-                    Pago mensual
-                  </th>
-                </tr>
-              </thead>
-              <tbody>
-                {promoRows.map((row) => (
-                  <tr key={row.code} className="hairline-b row-hover">
-                    <th
-                      scope="row"
-                      className="py-2.5 pr-3 font-extrabold"
-                      style={{ color: "var(--pl-brand)" }}
-                    >
-                      {row.code}
-                    </th>
-                    <td className="py-2.5 pr-3 font-semibold">
-                      {row.name} (@{row.handle})
-                    </td>
-                    <td className="py-2.5 px-2">{row.freeDays} días gratis</td>
-                    <td className="py-2.5 px-2">{row.commissionPct} % recurrente</td>
-                    <td className="py-2.5 px-2 text-right font-bold">
-                      {row.activeReferrals}
-                    </td>
-                    <td
-                      className="py-2.5 pl-2 text-right font-extrabold"
-                      style={{ color: "var(--pl-success)" }}
-                    >
-                      ${row.monthlyMxn.toLocaleString("es-MX")} MXN
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-        </section>
-
-        {/* Embudo de conversión propio (30 días · solo consentimiento) */}
-        {(() => {
-          const activeFunnel = storyFunnel ?? serverFunnel ?? (!accountsEnabled ? DEMO_FUNNEL_SUMMARY : null);
-          const stages = activeFunnel?.stages ?? [];
-          const maxSessions = Math.max(1, ...stages.map((s) => s.count30d));
-          const isDemo = !storyFunnel && !serverFunnel && !accountsEnabled;
-          return (
-            <section
-              className="glass-card glass-ring rounded-2xl p-5 space-y-4"
-              aria-labelledby="pl-admin-funnel-heading"
-            >
-              <div className="flex flex-wrap items-center justify-between gap-3">
-                <div>
-                  <h2 id="pl-admin-funnel-heading" className="m-0 text-lg font-extrabold">
-                    Embudo propio de conversión · {activeFunnel?.windowDays ?? 30} días
-                  </h2>
-                  <p className="m-0 text-xs" style={{ color: "var(--pl-text-muted)" }}>
-                    {isDemo
+                <div className="pl-ta-stack">
+                  <p className="pl-ta-muted-text">
+                    {isDemoFunnel
                       ? "Cifras ilustrativas sin cuentas activas · sin trackers externos."
                       : "Mide exclusivamente sesiones que aceptaron analítica anónima (analyticsConsent)."}
                   </p>
-                </div>
-                <span className={`pl-pill ${isDemo ? "pl-pill--warning" : "pl-pill--info"}`}>
-                  {isDemo ? "Ejemplo beta" : "Consentimiento propio"}
-                </span>
-              </div>
 
-              {stages.length === 0 ? (
-                <p className="m-0 text-xs" style={{ color: "var(--pl-text-muted)" }}>
-                  Aún no hay sesiones con analítica consentida en los últimos 30 días.
-                </p>
-              ) : (
-                <div className="overflow-x-auto">
-                  <table className="w-full text-xs border-collapse">
-                    <caption className="sr-only">
-                      Conversión por etapa del embudo en los últimos {activeFunnel?.windowDays ?? 30} días
-                    </caption>
-                    <thead>
-                      <tr style={{ color: "var(--pl-text-muted)", borderBottom: "1px solid var(--pl-border)" }}>
-                        <th scope="col" className="py-2 pr-3 text-left font-bold">
-                          Etapa
-                        </th>
-                        <th scope="col" className="py-2 px-3 text-right font-bold">
-                          Sesiones
-                        </th>
-                        <th scope="col" className="py-2 px-3 text-left font-bold min-w-[140px]">
-                          Volumen relativo
-                        </th>
-                        <th scope="col" className="py-2 px-3 text-right font-bold">
-                          Paso previo
-                        </th>
-                        <th scope="col" className="py-2 pl-3 text-right font-bold">
-                          Vs. landing
-                        </th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      {stages.map((stage) => {
-                        const widthPct = stage.count30d > 0 ? Math.max(4, Math.round((stage.count30d / maxSessions) * 100)) : 0;
-                        return (
-                          <tr
-                            key={stage.stage}
-                            style={{ borderBottom: "1px solid var(--pl-border)" }}
-                          >
-                            <th scope="row" className="py-2.5 pr-3 text-left font-semibold" style={{ color: "var(--pl-text)" }}>
-                              <span className="num mr-1.5" style={{ color: "var(--pl-text-muted)" }}>
-                                {stage.order}.
-                              </span>
-                              {stage.label}
+                  {funnelStages.length === 0 ? (
+                    <SofascoreEmptyState
+                      title="Sin sesiones consentidas en los últimos 30 días"
+                      description="Las métricas de embudo aparecerán aquí conforme existan sesiones con analyticsConsent."
+                    />
+                  ) : (
+                    <div
+                      className="pl-sf-table-wrap is-compact"
+                      tabIndex={0}
+                      role="region"
+                      aria-label="Tabla de embudo propio de conversión"
+                    >
+                      <table className="pl-sf-table">
+                        <caption className="sr-only">
+                          Conversión por etapa del embudo en los últimos {activeFunnel?.windowDays ?? 30} días
+                        </caption>
+                        <thead>
+                          <tr>
+                            <th scope="col" className="pl-sf-th is-sticky-col">
+                              Etapa
                             </th>
-                            <td className="py-2.5 px-3 text-right font-extrabold num" style={{ color: "var(--pl-text)" }}>
-                              {stage.count30d.toLocaleString("es-MX")}
-                            </td>
-                            <td className="py-2.5 px-3">
-                              <div
-                                className="h-2 w-full rounded-full overflow-hidden"
-                                style={{ background: "var(--pl-surface)" }}
-                                aria-hidden="true"
-                              >
-                                <div
-                                  className="h-full rounded-full"
-                                  style={{
-                                    width: `${widthPct}%`,
-                                    background:
-                                      stage.stage === "coupon_redeemed" || stage.stage === "spei_transfer"
-                                        ? "var(--pl-success)"
-                                        : "var(--pl-primary)",
-                                  }}
-                                />
-                              </div>
-                            </td>
-                            <td className="py-2.5 px-3 text-right num" style={{ color: "var(--pl-text-secondary)" }}>
-                              {stage.conversionFromPrevPct !== null ? `${stage.conversionFromPrevPct.toFixed(1)} %` : "—"}
-                            </td>
-                            <td
-                              className="py-2.5 pl-3 text-right font-bold num"
-                              style={{
-                                color:
-                                  stage.conversionFromLandingPct !== null
-                                    ? "var(--pl-success)"
-                                    : "var(--pl-text-muted)",
-                              }}
-                            >
-                              {stage.conversionFromLandingPct !== null ? `${stage.conversionFromLandingPct.toFixed(1)} %` : "—"}
-                            </td>
+                            <th scope="col" className="pl-sf-th is-end num">
+                              Sesiones
+                            </th>
+                            <th scope="col" className="pl-sf-th">
+                              Volumen relativo
+                            </th>
+                            <th scope="col" className="pl-sf-th is-end num">
+                              Paso previo
+                            </th>
+                            <th scope="col" className="pl-sf-th is-end num">
+                              Vs. landing
+                            </th>
                           </tr>
-                        );
-                      })}
-                    </tbody>
-                  </table>
+                        </thead>
+                        <tbody>
+                          {funnelStages.map((stage) => {
+                            const widthPct =
+                              stage.count30d > 0
+                                ? Math.max(4, Math.round((stage.count30d / maxFunnelSessions) * 100))
+                                : 0;
+                            const isSuccessStage =
+                              stage.stage === "coupon_redeemed" || stage.stage === "spei_transfer";
+                            return (
+                              <tr key={stage.stage} className="pl-sf-tr">
+                                <th scope="row" className="pl-sf-td is-sticky-col">
+                                  <span className="num" style={{ color: "var(--pl-text-muted)", marginInlineEnd: 6 }}>
+                                    {stage.order}.
+                                  </span>
+                                  {stage.label}
+                                </th>
+                                <td className="pl-sf-td is-end num">
+                                  <strong>{stage.count30d.toLocaleString("es-MX")}</strong>
+                                </td>
+                                <td className="pl-sf-td">
+                                  <div className="pl-ta-funnel-bar-track" aria-hidden="true">
+                                    <div
+                                      className="pl-ta-funnel-bar-fill"
+                                      data-tone={isSuccessStage ? "success" : undefined}
+                                      style={{ width: `${widthPct}%` }}
+                                    />
+                                  </div>
+                                </td>
+                                <td className="pl-sf-td is-end num">
+                                  {stage.conversionFromPrevPct !== null
+                                    ? `${stage.conversionFromPrevPct.toFixed(1)} %`
+                                    : "—"}
+                                </td>
+                                <td
+                                  className="pl-sf-td is-end num"
+                                  style={{
+                                    color:
+                                      stage.conversionFromLandingPct !== null
+                                        ? "var(--pl-success)"
+                                        : "var(--pl-text-muted)",
+                                    fontWeight: 700,
+                                  }}
+                                >
+                                  {stage.conversionFromLandingPct !== null
+                                    ? `${stage.conversionFromLandingPct.toFixed(1)} %`
+                                    : "—"}
+                                </td>
+                              </tr>
+                            );
+                          })}
+                        </tbody>
+                      </table>
+                    </div>
+                  )}
                 </div>
-              )}
-            </section>
-          );
-        })()}
+              </SofascoreCard>
 
-        {/* Telemetría de los 5 Motores Spacetime Suite v3.0 */}
-        <section className="glass-card glass-ring rounded-2xl p-5 space-y-4">
-          <div className="flex flex-wrap items-center justify-between gap-3">
-            <div>
-              <h2 className="m-0 text-lg font-extrabold">
-                Telemetría de los 5 Motores · PitchLab Spacetime Suite v3.0
-              </h2>
-              <p className="m-0 text-xs num" style={{ color: "var(--pl-text-muted)" }}>
-                Partidos históricos en los motores: {SPACETIME_METRICS_HEADLINE.historicalMatches} · Prueba 2024–25:{" "}
-                {SPACETIME_METRICS_HEADLINE.holdoutTestMatches} · {dataCutLabel}
-              </p>
-            </div>
-
-            <span className="text-xs max-w-xs" style={{ color: "var(--pl-text-muted)" }}>
-              Los motores se reentrenan y validan en la rama prediction-lab; esta app usa la
-              última versión sincronizada.
-            </span>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3">
-            {SPACETIME_ENGINES.map((eng) => (
-              <div
-                key={eng.key}
-                className="glass-ring rounded-2xl p-4 space-y-1.5"
-                style={{ background: "var(--pl-surface)" }}
+              <SofascoreCard
+                title="Motores Spacetime Suite · Telemetría"
+                meta={
+                  <span className="num">
+                    {SPACETIME_METRICS_HEADLINE.historicalMatches} hist. · {dataCutLabel}
+                  </span>
+                }
               >
-                <div className="flex items-center justify-between gap-2 text-xs">
-                  <strong
-                    className="font-extrabold text-sm"
-                    style={{ color: eng.colorVar }}
-                  >
-                    {eng.name}
-                  </strong>
-                  <span className="pl-pill pl-pill--success">ONLINE</span>
-                </div>
-                <div className="text-xs font-semibold" style={{ color: "var(--pl-text-secondary)" }}>
-                  {eng.pillar} · {eng.domain}
-                </div>
-                <p className="m-0 text-xs" style={{ color: "var(--pl-text-muted)" }}>
-                  {eng.retrainCadence}
-                </p>
-              </div>
-            ))}
+                <SofascoreTable
+                  caption="Estado de los 5 motores Spacetime Suite"
+                  columns={engineColumns}
+                  rows={SPACETIME_ENGINES}
+                  rowKey={(eng) => eng.key}
+                  density="compact"
+                />
+              </SofascoreCard>
+            </div>
+          ) : null}
 
-            {/* Tarjeta 6: Salud de cartelera de las 7 ligas */}
+          {activeTab === "security" ? (
             <div
-              className="glass-ring rounded-2xl p-4 space-y-2"
-              style={{ background: "var(--pl-surface)" }}
+              className="pl-ta-tab-panel"
+              role="tabpanel"
+              aria-label="Seguridad y anti-scraping"
             >
-              <div className="flex items-center justify-between text-xs">
-                <strong className="font-extrabold text-sm">
-                  Cartelera · 7 Ligas
-                </strong>
-                <span className="pl-pill pl-pill--info num">
-                  {dataset.games.length} juegos
-                </span>
-              </div>
-              <div className="flex flex-wrap gap-1.5 pt-0.5">
-                {dataset.leagues.map((lg) => (
-                  <span key={lg.league} className="pl-pill num">
-                    <LeagueBadge league={lg.league} label={lg.label} size={13} />
+              <AdminSecurityAbuseSection
+                storyData={storySecurityAbuse}
+                enableLiveFetch={!storySecurityAbuse}
+              />
+
+              <SofascoreCard
+                title="Política de prueba gratis y anti-abuso"
+                meta={
+                  <span
+                    className="pl-ta-badge"
+                    data-tone={month1NoCardMode ? "success" : "brand"}
+                  >
+                    {month1NoCardMode ? "Mes 1: Sin tarjeta" : "Mes 2+: Tarjeta $0 MXN"}
+                  </span>
+                }
+              >
+                <div className="pl-ta-row">
+                  <div className="pl-ta-header-copy">
+                    <strong style={{ fontSize: "0.875rem" }}>
+                      {month1NoCardMode
+                        ? "Mes 1 Lanzamiento · Sin pedir tarjeta ($0 OAuth)"
+                        : "Mes 2+ · Verificación bancaria $0.00 MXN"}
+                    </strong>
+                    <p className="pl-ta-muted-text">
+                      Escudo anti-abuso activo: normalización de alias Gmail, bloqueo de dominios
+                      desechables, anti-bot configurable por entorno y huella por dispositivo.
+                    </p>
+                  </div>
+                  <div className="pl-ta-switch-wrap">
+                    <Switch
+                      isSelected={month1NoCardMode}
+                      onChange={(nextVal) => requestPolicySwitch(nextVal)}
+                    >
+                      <Switch.Control>
+                        <Switch.Thumb />
+                      </Switch.Control>
+                      <Switch.Content>
+                        <span style={{ fontSize: "0.8125rem", fontWeight: 700 }}>
+                          {month1NoCardMode ? "Mes 1: Sin tarjeta" : "Mes 2: Tarjeta $0 MXN"}
+                        </span>
+                      </Switch.Content>
+                    </Switch>
+                  </div>
+                </div>
+              </SofascoreCard>
+
+              <AdminPaymentsCouponsSection
+                allowedTabs={["audit"]}
+                embedded
+                storyOverride={storyPaymentsOverride}
+              />
+            </div>
+          ) : null}
+
+          {activeTab === "payments" ? (
+            <div
+              className="pl-ta-tab-panel"
+              role="tabpanel"
+              aria-label="Pagos y cupones"
+            >
+              <AdminPaymentsCouponsSection
+                allowedTabs={["transfers", "coupons", "payouts"]}
+                embedded
+                storyOverride={storyPaymentsOverride}
+              />
+            </div>
+          ) : null}
+
+          {activeTab === "members" ? (
+            <div
+              className="pl-ta-tab-panel"
+              role="tabpanel"
+              aria-label="Socios y moderación"
+            >
+              <AdminPaymentsCouponsSection
+                allowedTabs={["members", "inbox"]}
+                embedded
+                storyOverride={storyPaymentsOverride}
+              />
+
+              <SofascoreCard
+                id={modHeadingId}
+                title="Moderación de Comunidad"
+                meta={
+                  <span className="pl-ta-badge num" data-tone={moderation.pendingQueue.length > 0 ? "warning" : "info"}>
+                    <MaestroIcon name="flag" size={13} />
                     <span>
-                      {lg.label}: {lg.totalGames}
+                      {moderation.pendingQueue.length}{" "}
+                      {moderation.pendingQueue.length === 1 ? "pendiente" : "pendientes"}
                     </span>
                   </span>
-                ))}
-              </div>
+                }
+              >
+                <div className="pl-ta-stack">
+                  <p className="pl-ta-muted-text">
+                    Cola de reportes pendientes en Comunidad. Con 3 reportes distintos el contenido
+                    se oculta automáticamente mientras lo revisas.
+                  </p>
+
+                  {moderationReq.loading ? (
+                    <p className="pl-ta-muted-text">Cargando cola de moderación…</p>
+                  ) : moderationReq.error ? (
+                    <div className="pl-ta-item-card">
+                      <p className="pl-ta-alert-text" role="alert">
+                        {moderationReq.error}
+                      </p>
+                      <div className="pl-ta-row-start">
+                        <Button variant="secondary" size="sm" onClick={moderationReq.reload}>
+                          Reintentar
+                        </Button>
+                      </div>
+                    </div>
+                  ) : moderation.pendingQueue.length === 0 ? (
+                    <SofascoreEmptyState
+                      title="Sin reportes pendientes"
+                      description={
+                        accountsEnabled
+                          ? "Cuando un socio reporte una publicación o comentario aparecerá aquí para tu revisión."
+                          : "Activa las cuentas con base de datos para recibir reportes reales de Comunidad."
+                      }
+                    />
+                  ) : (
+                    <div className="pl-ta-stack">
+                      {moderation.pendingQueue.map((item) => {
+                        const key = `${item.targetType}:${item.targetId}`;
+                        const busy = moderationBusyKey !== null;
+                        const kindLabel =
+                          item.targetType === "post" ? "publicación" : "comentario";
+                        return (
+                          <article key={key} className="pl-ta-item-card">
+                            <div className="pl-ta-row">
+                              <div className="pl-ta-row-start">
+                                <span className="pl-ta-badge">
+                                  {item.targetType === "post" ? "Publicación" : "Comentario"}
+                                </span>
+                                <strong>{item.authorName}</strong>
+                                <span className="pl-ta-muted-text num">@{item.authorHandle}</span>
+                                {item.authorPaused ? (
+                                  <span className="pl-ta-badge" data-tone="warning">
+                                    Socio en pausa
+                                  </span>
+                                ) : null}
+                              </div>
+                              <div className="pl-ta-row-start num">
+                                <span className="pl-ta-badge" data-tone="warning">
+                                  {item.reportCount}{" "}
+                                  {item.reportCount === 1 ? "reporte" : "reportes"}
+                                </span>
+                                <span
+                                  className="pl-ta-badge"
+                                  data-tone={item.isHiddenByModeration ? "danger" : "info"}
+                                >
+                                  {item.isHiddenByModeration ? "Oculto en revisión" : "Visible"}
+                                </span>
+                              </div>
+                            </div>
+
+                            <blockquote className="pl-ta-quote">{item.body}</blockquote>
+
+                            <div className="pl-ta-row-start" aria-label="Motivos reportados">
+                              <span className="pl-ta-muted-text">Motivos:</span>
+                              {item.reasons.map((r) => (
+                                <span key={r} className="pl-ta-badge">
+                                  {REASON_LABEL_MAP.get(r) ?? r}
+                                </span>
+                              ))}
+                            </div>
+
+                            <div className="pl-ta-row-start">
+                              <Button
+                                variant="secondary"
+                                tone="danger"
+                                size="sm"
+                                disabled={busy}
+                                aria-label={`Ocultar ${kindLabel} de @${item.authorHandle}`}
+                                onClick={() =>
+                                  setPendingConfirm({
+                                    title: `Ocultar ${kindLabel} de @${item.authorHandle}`,
+                                    description:
+                                      "El contenido dejará de ser visible en Comunidad y se notificará al autor.",
+                                    confirmLabel: "Ocultar contenido",
+                                    tone: "danger",
+                                    onConfirm: () =>
+                                      void runModerationAction(
+                                        `${key}:hide`,
+                                        {
+                                          action: "hide",
+                                          targetType: item.targetType,
+                                          targetId: item.targetId,
+                                        },
+                                        "Contenido ocultado de Comunidad.",
+                                      ),
+                                  })
+                                }
+                              >
+                                Ocultar
+                              </Button>
+
+                              <Button
+                                variant="secondary"
+                                size="sm"
+                                disabled={busy}
+                                aria-label={`Restaurar ${kindLabel} de @${item.authorHandle}`}
+                                onClick={() =>
+                                  setPendingConfirm({
+                                    title: `Restaurar ${kindLabel} de @${item.authorHandle}`,
+                                    description:
+                                      "El contenido volverá a mostrarse públicamente en Comunidad y se cerrarán sus reportes.",
+                                    confirmLabel: "Restaurar contenido",
+                                    tone: "brand",
+                                    onConfirm: () =>
+                                      void runModerationAction(
+                                        `${key}:restore`,
+                                        {
+                                          action: "restore",
+                                          targetType: item.targetType,
+                                          targetId: item.targetId,
+                                        },
+                                        "Contenido restaurado en Comunidad.",
+                                      ),
+                                  })
+                                }
+                              >
+                                Restaurar
+                              </Button>
+
+                              <Button
+                                variant="ghost"
+                                size="sm"
+                                disabled={busy}
+                                aria-label={`Descartar reporte sobre @${item.authorHandle}`}
+                                onClick={() =>
+                                  setPendingConfirm({
+                                    title: `Descartar reporte sobre @${item.authorHandle}`,
+                                    description:
+                                      "Se cerrarán los reportes pendientes sin modificar la visibilidad actual del contenido.",
+                                    confirmLabel: "Descartar reporte",
+                                    tone: "brand",
+                                    onConfirm: () =>
+                                      void runModerationAction(
+                                        `${key}:dismiss`,
+                                        {
+                                          action: "dismiss",
+                                          targetType: item.targetType,
+                                          targetId: item.targetId,
+                                        },
+                                        "Reporte descartado.",
+                                      ),
+                                  })
+                                }
+                              >
+                                Descartar
+                              </Button>
+
+                              <Button
+                                variant="secondary"
+                                tone={item.authorPaused ? "default" : "danger"}
+                                size="sm"
+                                disabled={busy}
+                                aria-label={
+                                  item.authorPaused
+                                    ? `Quitar pausa en Comunidad a @${item.authorHandle}`
+                                    : `Pausar a @${item.authorHandle} en Comunidad`
+                                }
+                                onClick={() =>
+                                  setPendingConfirm({
+                                    title: item.authorPaused
+                                      ? `Quitar pausa en Comunidad a @${item.authorHandle}`
+                                      : `Pausar a @${item.authorHandle} en Comunidad`,
+                                    description: item.authorPaused
+                                      ? "El socio podrá volver a publicar y comentar en Comunidad."
+                                      : "El socio no podrá publicar ni comentar en Comunidad hasta que levantes la pausa.",
+                                    confirmLabel: item.authorPaused
+                                      ? "Quitar pausa"
+                                      : "Pausar socio",
+                                    tone: item.authorPaused ? "brand" : "danger",
+                                    onConfirm: () =>
+                                      void runModerationAction(
+                                        `${key}:pause`,
+                                        {
+                                          action: item.authorPaused
+                                            ? "unpause_user"
+                                            : "pause_user",
+                                          targetUserId: item.authorUserId,
+                                        },
+                                        item.authorPaused
+                                          ? `@${item.authorHandle} puede volver a participar en Comunidad.`
+                                          : `@${item.authorHandle} quedó en pausa en Comunidad.`,
+                                      ),
+                                  })
+                                }
+                              >
+                                {item.authorPaused
+                                  ? "Quitar pausa en Comunidad"
+                                  : "Pausar a este socio en Comunidad"}
+                              </Button>
+                            </div>
+                          </article>
+                        );
+                      })}
+                    </div>
+                  )}
+
+                  {moderation.hiddenItems.length > 0 ? (
+                    <div className="pl-ta-stack-sm pl-ta-divider">
+                      <strong style={{ fontSize: "0.875rem", color: "var(--pl-text-secondary)" }}>
+                        Contenido oculto recientemente
+                      </strong>
+                      <ul className="pl-ta-mod-compact-list">
+                        {moderation.hiddenItems.map((h) => {
+                          const key = `hidden:${h.targetType}:${h.targetId}`;
+                          const kindLabel =
+                            h.targetType === "post" ? "publicación" : "comentario";
+                          return (
+                            <li key={key} className="pl-ta-mod-compact-row">
+                              <div className="pl-ta-mod-compact-copy">
+                                <strong>@{h.authorHandle}</strong>{" "}
+                                <span style={{ color: "var(--pl-text-muted)" }}>
+                                  ({kindLabel}):
+                                </span>{" "}
+                                <span>{h.body}</span>
+                              </div>
+                              <Button
+                                variant="secondary"
+                                size="sm"
+                                disabled={moderationBusyKey !== null}
+                                aria-label={`Restaurar ${kindLabel} de @${h.authorHandle}`}
+                                onClick={() =>
+                                  setPendingConfirm({
+                                    title: `Restaurar ${kindLabel} de @${h.authorHandle}`,
+                                    description:
+                                      "El contenido volverá a ser visible para la comunidad.",
+                                    confirmLabel: "Restaurar",
+                                    tone: "brand",
+                                    onConfirm: () =>
+                                      void runModerationAction(
+                                        key,
+                                        {
+                                          action: "restore",
+                                          targetType: h.targetType,
+                                          targetId: h.targetId,
+                                        },
+                                        "Contenido restaurado en Comunidad.",
+                                      ),
+                                  })
+                                }
+                              >
+                                Restaurar
+                              </Button>
+                            </li>
+                          );
+                        })}
+                      </ul>
+                    </div>
+                  ) : null}
+
+                  {moderation.pausedMembers.length > 0 ? (
+                    <div className="pl-ta-stack-sm pl-ta-divider">
+                      <strong style={{ fontSize: "0.875rem", color: "var(--pl-text-secondary)" }}>
+                        Socios en pausa en Comunidad
+                      </strong>
+                      <ul className="pl-ta-mod-compact-list">
+                        {moderation.pausedMembers.map((m) => {
+                          const memberLabel = m.handle ? `@${m.handle}` : m.displayName;
+                          return (
+                            <li key={m.userId} className="pl-ta-mod-compact-row">
+                              <div className="pl-ta-mod-compact-copy">
+                                <strong>{m.displayName}</strong>{" "}
+                                <span className="num" style={{ color: "var(--pl-text-muted)" }}>
+                                  {m.handle ? `@${m.handle}` : m.email}
+                                </span>
+                              </div>
+                              <Button
+                                variant="secondary"
+                                size="sm"
+                                disabled={moderationBusyKey !== null}
+                                aria-label={`Quitar pausa en Comunidad a ${memberLabel}`}
+                                onClick={() =>
+                                  setPendingConfirm({
+                                    title: `Quitar pausa a ${memberLabel}`,
+                                    description:
+                                      "El socio volverá a tener permisos para publicar y comentar en Comunidad.",
+                                    confirmLabel: "Quitar pausa",
+                                    tone: "brand",
+                                    onConfirm: () =>
+                                      void runModerationAction(
+                                        `unpause:${m.userId}`,
+                                        { action: "unpause_user", targetUserId: m.userId },
+                                        `${memberLabel} puede volver a participar en Comunidad.`,
+                                      ),
+                                  })
+                                }
+                              >
+                                Quitar pausa
+                              </Button>
+                            </li>
+                          );
+                        })}
+                      </ul>
+                    </div>
+                  ) : null}
+                </div>
+              </SofascoreCard>
+
+              <SofascoreCard
+                title="Códigos de Tipsters Oficiales y Campañas"
+                meta={<span className="num">{promoRows.length} activos</span>}
+              >
+                <div className="pl-ta-stack">
+                  <p className="pl-ta-muted-text">
+                    Cada creador recibe Pase PitchLab Ultra bonificado, 1 Pick abierto semanal y
+                    25 % de comisión recurrente.
+                  </p>
+
+                  <form onSubmit={handleEmitCode} className="pl-ta-form-grid-inline">
+                    <input
+                      type="text"
+                      maxLength={16}
+                      aria-label="Nuevo código promocional de Tipster"
+                      placeholder="NUEVO5"
+                      value={newCreatorCode}
+                      onChange={(e) => setNewCreatorCode(e.target.value.toUpperCase())}
+                      className="pl-ta-input pl-ta-input-upper num"
+                    />
+                    <input
+                      type="text"
+                      maxLength={24}
+                      aria-label="Handle del Tipster"
+                      placeholder="@handle"
+                      value={newCreatorHandle}
+                      onChange={(e) => setNewCreatorHandle(e.target.value)}
+                      className="pl-ta-input"
+                    />
+                    {accountsEnabled ? (
+                      <input
+                        type="email"
+                        aria-label="Correo del Tipster"
+                        placeholder="correo@tipster.com"
+                        value={newCreatorEmail}
+                        onChange={(e) => setNewCreatorEmail(e.target.value)}
+                        className="pl-ta-input"
+                      />
+                    ) : null}
+                    <Button type="submit" variant="primary" size="default">
+                      <MaestroIcon name="plus" size={14} />
+                      <span>Emitir código</span>
+                    </Button>
+                  </form>
+
+                  <SofascoreTable
+                    caption="Códigos promocionales de Tipsters oficiales y comisiones"
+                    columns={promoColumns}
+                    rows={promoRows}
+                    rowKey={(row) => row.code}
+                    density="compact"
+                    emptyState={
+                      <SofascoreEmptyState
+                        title="Sin códigos de tipster registrados"
+                        description="Emite un código promocional arriba para asignar 5 días gratis y comisión recurrente."
+                      />
+                    }
+                  />
+                </div>
+              </SofascoreCard>
             </div>
-          </div>
-        </section>
+          ) : null}
+        </div>
+
+        <ConfirmActionDialog
+          open={pendingConfirm !== null}
+          title={pendingConfirm?.title ?? ""}
+          description={pendingConfirm?.description ?? ""}
+          confirmLabel={pendingConfirm?.confirmLabel ?? "Confirmar"}
+          tone={pendingConfirm?.tone ?? "danger"}
+          onConfirm={() => {
+            pendingConfirm?.onConfirm();
+          }}
+          onCancel={() => setPendingConfirm(null)}
+        />
       </ClubWorkspaceShell>
     </AtmosphereStage>
   );

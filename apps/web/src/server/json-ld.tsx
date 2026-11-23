@@ -1,9 +1,5 @@
 import React from "react";
 
-/**
- * Datos estructurados (schema.org) y sanitización canónica FD-16 para buscadores.
- * Escapa `<` y separadores de línea Unicode para impedir romper el bloque `<script>`.
- */
 export function JsonLd({
   data,
 }: {
@@ -22,17 +18,9 @@ export function JsonLd({
   );
 }
 
-/* ------------------------------------------------------------------ */
-/* Limpieza de URLs canónicas y activos (regla FD-16)                  */
-/* ------------------------------------------------------------------ */
-
 const FORBIDDEN_PROVIDER_RE =
   /(?:sportmonks|api-sports|api-football|bzzoiro|sofascore|flagcdn|understat|polymarket|kalshi|espn|nflverse|openfootball)/i;
 
-/**
- * Detecta colas numéricas largas (>= 5 dígitos) típicas de IDs crudos de proveedor
- * (p. ej. `-69552`, `-37250424` o `/19621792`), sin rechazar años (`2026`) ni fechas `YYYY-MM-DD`.
- */
 const PROVIDER_NUMERIC_ID_RE = /(?:^|\/|[-_])\d{5,}(?=\/|\.|$)/;
 
 const PROVIDER_QUERY_KEY_RE =
@@ -51,36 +39,62 @@ const PRIVATE_OR_NON_INDEXABLE_PREFIXES = [
   "/offline",
 ] as const;
 
+const DOT_SEGMENT_RE = /(?:^|\/)\.\.?(?:\/|$)/;
+const CONTROL_CHAR_RE = /[\u0000-\u001f\u007f]/;
+
 function normalizeSiteOrigin(siteUrl: string): string {
   return siteUrl.trim().replace(/\/+$/, "");
 }
 
-/**
- * Valida que una ruta pública sea canónica, limpia y libre de IDs o referencias de proveedor (`FD-16`).
- */
-export function isCleanPublicCanonicalPath(rawPath: string): boolean {
-  const trimmed = rawPath.trim();
-  if (!trimmed.startsWith("/") || trimmed.startsWith("//")) return false;
-  if (trimmed.includes("?") || trimmed.includes("#")) return false;
-  if (FORBIDDEN_PROVIDER_RE.test(trimmed)) return false;
-  if (PROVIDER_NUMERIC_ID_RE.test(trimmed)) return false;
+function decodePathIteratively(raw: string): string | null {
+  let current = raw;
+  for (let i = 0; i < 3; i += 1) {
+    try {
+      const next = decodeURIComponent(current);
+      if (next === current) return current;
+      current = next;
+    } catch (err) {
+      void err;
+      return null;
+    }
+  }
+  return current;
+}
 
-  const lower = trimmed.toLowerCase();
+function isForbiddenCanonicalPathCandidate(candidate: string): boolean {
+  if (!candidate.startsWith("/") || candidate.startsWith("//")) return true;
+  if (candidate.includes("?") || candidate.includes("#") || candidate.includes("\\")) return true;
+  if (CONTROL_CHAR_RE.test(candidate)) return true;
+  if (DOT_SEGMENT_RE.test(candidate)) return true;
+  if (FORBIDDEN_PROVIDER_RE.test(candidate)) return true;
+  if (PROVIDER_NUMERIC_ID_RE.test(candidate)) return true;
+
+  const lower = candidate.toLowerCase();
   if (
     PRIVATE_OR_NON_INDEXABLE_PREFIXES.some(
       (prefix) => lower === prefix.replace(/\/$/, "") || lower.startsWith(prefix),
     )
   ) {
-    return false;
+    return true;
   }
+
+  return false;
+}
+
+export function isCleanPublicCanonicalPath(rawPath: string): boolean {
+  const trimmed = rawPath.trim();
+  if (isForbiddenCanonicalPathCandidate(trimmed)) return false;
+
+  const decoded = decodePathIteratively(trimmed);
+  if (decoded === null) return false;
+  if (isForbiddenCanonicalPathCandidate(decoded)) return false;
+
+  const collapsedDecoded = decoded.replace(/\/{2,}/g, "/");
+  if (isForbiddenCanonicalPathCandidate(collapsedDecoded)) return false;
 
   return true;
 }
 
-/**
- * Normaliza una ruta o URL del sitio hacia una URL canónica limpia bajo `siteUrl`.
- * Descarta query strings, hashes, orígenes externos no propios y cualquier rastro `FD-16`.
- */
 export function sanitizeCanonicalPublicUrl(
   pathOrUrl: string | null | undefined,
   siteUrl: string,
@@ -89,42 +103,76 @@ export function sanitizeCanonicalPublicUrl(
   const origin = normalizeSiteOrigin(siteUrl);
   if (!origin) return null;
 
-  let pathname: string;
-  if (/^https?:\/\//i.test(pathOrUrl.trim())) {
-    try {
-      const parsed = new URL(pathOrUrl.trim());
-      const siteParsed = new URL(origin);
-      if (parsed.origin !== siteParsed.origin) return null;
-      for (const key of parsed.searchParams.keys()) {
-        if (PROVIDER_QUERY_KEY_RE.test(key)) return null;
-      }
-      pathname = parsed.pathname;
-    } catch {
-      return null;
-    }
-  } else {
-    const rawRelative = pathOrUrl.trim();
-    const queryPart = rawRelative.split("?", 2)[1]?.split("#", 1)[0] ?? "";
-    if (queryPart) {
-      const params = new URLSearchParams(queryPart);
-      for (const key of params.keys()) {
-        if (PROVIDER_QUERY_KEY_RE.test(key)) return null;
-      }
-    }
-    pathname = rawRelative.split(/[?#]/, 1)[0] ?? "";
+  let siteParsed: URL;
+  try {
+    siteParsed = new URL(origin);
+  } catch (err) {
+    void err;
+    return null;
   }
 
-  const collapsed = pathname.replace(/\/{2,}/g, "/");
+  const trimmed = pathOrUrl.trim();
+  if (!trimmed || CONTROL_CHAR_RE.test(trimmed) || trimmed.includes("\\")) return null;
+  if (trimmed.startsWith("//")) return null;
+
+  let rawPathPart: string;
+  let parsed: URL;
+  if (/^https?:\/\//i.test(trimmed)) {
+    try {
+      parsed = new URL(trimmed);
+    } catch (err) {
+      void err;
+      return null;
+    }
+    if (parsed.origin !== siteParsed.origin) return null;
+    rawPathPart = parsed.pathname;
+  } else {
+    if (!trimmed.startsWith("/")) return null;
+    rawPathPart = trimmed.split(/[?#]/, 1)[0] ?? "";
+    if (!rawPathPart || rawPathPart.startsWith("//")) return null;
+    try {
+      parsed = new URL(trimmed, `${siteParsed.origin}/`);
+    } catch (err) {
+      void err;
+      return null;
+    }
+    if (parsed.origin !== siteParsed.origin) return null;
+  }
+
+  for (const key of parsed.searchParams.keys()) {
+    const decodedKey = decodePathIteratively(key);
+    if (
+      PROVIDER_QUERY_KEY_RE.test(key) ||
+      decodedKey === null ||
+      PROVIDER_QUERY_KEY_RE.test(decodedKey)
+    ) {
+      return null;
+    }
+  }
+
+  const rawDecoded = decodePathIteratively(rawPathPart);
+  if (rawDecoded === null) return null;
+  if (
+    rawDecoded.startsWith("//") ||
+    rawDecoded.includes("\\") ||
+    CONTROL_CHAR_RE.test(rawDecoded) ||
+    FORBIDDEN_PROVIDER_RE.test(rawPathPart) ||
+    FORBIDDEN_PROVIDER_RE.test(rawDecoded) ||
+    PROVIDER_NUMERIC_ID_RE.test(rawPathPart) ||
+    PROVIDER_NUMERIC_ID_RE.test(rawDecoded)
+  ) {
+    return null;
+  }
+
+  const resolvedPathname = parsed.pathname;
+  if (resolvedPathname.startsWith("//")) return null;
+  const collapsed = resolvedPathname.replace(/\/{2,}/g, "/");
   const cleanPath = collapsed.length > 1 ? collapsed.replace(/\/+$/, "") : collapsed || "/";
 
   if (!isCleanPublicCanonicalPath(cleanPath)) return null;
   return cleanPath === "/" ? `${origin}/` : `${origin}${cleanPath}`;
 }
 
-/**
- * Permite únicamente rutas propias de imagen/escudo bajo `siteUrl` (o rutas relativas `/brand/...`),
- * bloqueando hotlinks a CDNs de terceros (`FD-16`).
- */
 export function sanitizeFirstPartyAssetUrl(
   assetPathOrUrl: string | null | undefined,
   siteUrl: string,
@@ -160,10 +208,6 @@ export function sanitizeFirstPartyAssetUrl(
 
   return null;
 }
-
-/* ------------------------------------------------------------------ */
-/* SportsEvent JSON-LD (NS / LIVE / FT / Postponed / Cancelled)        */
-/* ------------------------------------------------------------------ */
 
 export type SportsEventMatchStatus =
   | "NS"
@@ -211,16 +255,6 @@ export type SportsEventLifecyclePhase =
 
 export interface SportsEventStatusResolution {
   phase: SportsEventLifecyclePhase;
-  /**
-   * Valor oficial de `schema.org/EventStatusType` cuando aplica.
-   *
-   * Nota Schema.org / Google Rich Results: `EventStatusType` solo define
-   * `EventScheduled`, `EventPostponed`, `EventCancelled`, `EventRescheduled` y
-   * `EventMovedOnline` (no existe `EventCompleted` en el enum oficial). Por eso
-   * los partidos finalizados (`FT`/`final`) **nunca** emiten `EventScheduled`:
-   * omiten `eventStatus` y declaran `endDate`, marcador oficial y
-   * `additionalProperty` con `EventCompleted`.
-   */
   schemaEventStatus:
     | "https://schema.org/EventScheduled"
     | "https://schema.org/EventPostponed"
@@ -317,13 +351,6 @@ function buildSportsTeamJsonLd(
   return node;
 }
 
-/**
- * Genera datos estructurados `SportsEvent` (schema.org) diferenciando explícitamente:
- * - Partidos próximos (`NS` / `scheduled`): `eventStatus: "https://schema.org/EventScheduled"`.
- * - Partidos en curso (`LIVE` / `in_progress`): `eventStatus: "https://schema.org/EventScheduled"` + señal `EventInProgress`.
- * - Partidos finalizados (`FT` / `final`): sin `EventScheduled`, con `endDate`, marcador oficial, `winner` (si hubo ganador) y `EventCompleted`.
- * - URLs canónicas y escudos estrictamente propios sin IDs de proveedor (`FD-16`).
- */
 export function buildSportsEventJsonLd(
   input: SportsEventJsonLdInput,
   siteUrl: string,
@@ -448,10 +475,6 @@ export function buildSportsEventJsonLd(
   return node;
 }
 
-/**
- * Envuelve una lista de partidos en un `ItemList` de `SportsEvent` para superficies públicas
- * (p. ej. calendario o historial de resultados).
- */
 export function buildSportsEventListJsonLd(
   events: ReadonlyArray<SportsEventJsonLdInput>,
   siteUrl: string,
@@ -475,10 +498,6 @@ export function buildSportsEventListJsonLd(
   };
 }
 
-/* ------------------------------------------------------------------ */
-/* Datos estructurados públicos para `/precio`                         */
-/* ------------------------------------------------------------------ */
-
 export interface PricingJsonLdSpec {
   readonly name: string;
   readonly monthlyMxn: number;
@@ -491,10 +510,29 @@ export interface PricingFaqItem {
   readonly answer: string;
 }
 
-/**
- * Genera el grafo JSON-LD público de `/precio` (`SoftwareApplication` con ofertas en MXN,
- * `BreadcrumbList` y `FAQPage`). Nunca incluye datos de sesión, CLABE ni referencias SPEI.
- */
+export function buildHomePageJsonLd(
+  siteUrl: string,
+): ReadonlyArray<Record<string, unknown>> {
+  const origin = normalizeSiteOrigin(siteUrl);
+  const organizationNode: Record<string, unknown> = {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    name: "PitchLab",
+    url: `${origin}/`,
+    logo: `${origin}/brand/app-icons/icon-512.png`,
+  };
+  const webSiteNode: Record<string, unknown> = {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    name: "PitchLab",
+    url: `${origin}/`,
+    inLanguage: "es-MX",
+    description:
+      "Probabilidad deportiva calculada antes del partido, momio justo sin margen, armador de parlays y récord verificable.",
+  };
+  return [organizationNode, webSiteNode];
+}
+
 export function buildPricingPageJsonLd(
   siteUrl: string,
   spec: PricingJsonLdSpec,
@@ -512,7 +550,7 @@ export function buildPricingPageJsonLd(
     url: pricingUrl,
     inLanguage: "es-MX",
     description:
-      "Probabilidad calibrada por partido, momio justo sin margen, mercados avanzados, armador de parlays y bitácora verificable. No somos casa de apuestas.",
+      "Probabilidad calibrada por partido, momio justo sin margen, mercados avanzados, armador de parlays y récord verificable. No somos casa de apuestas.",
     publisher: {
       "@type": "Organization",
       name: "PitchLab",

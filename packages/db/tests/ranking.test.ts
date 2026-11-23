@@ -50,6 +50,7 @@ async function seal(userId: string, pickId: string, sealedAt: Date) {
 beforeAll(async () => {
   client = new PGlite();
   await applyMigrations((sql) => client.exec(sql));
+  await client.exec("SET pitchlab.allow_historical_seed = 'on'");
   db = drizzle(client) as unknown as Db;
 }, 60_000);
 
@@ -82,6 +83,65 @@ describe("loadRankingParticipants", () => {
 
     const recent = await loadRankingParticipants(db, new Date("2026-10-13T00:00:00Z"));
     expect(recent[0]!.picks).toHaveLength(1);
+  });
+
+  it("acota en SQL a <=40 participantes priorizando mejor rendimiento con >45 elegibles", async () => {
+    const insertedUsers = await db
+      .insert(users)
+      .values(
+        Array.from({ length: 50 }, (_, idx) => {
+          const suffix = String(idx).padStart(2, "0");
+          const handle = `socio_${suffix}`;
+          return {
+            email: `${handle}@example.com`,
+            handle,
+            displayName: handle,
+            authUserId: `auth-${handle}`,
+            isAdult: true,
+            publicProfile: true,
+          };
+        }),
+      )
+      .returning({ id: users.id, handle: users.handle });
+
+    const orderedUsers = [...insertedUsers].sort((a, b) => a.handle!.localeCompare(b.handle!));
+    const sealedAt = new Date("2026-11-10T10:00:00Z");
+    const kickoffAt = new Date("2026-11-10T12:00:00Z");
+
+    await db.insert(sealedPicks).values(
+      orderedUsers.map((u, idx) => ({
+        userId: u.id,
+        pickId: `p-rank-${idx}`,
+        gameId: "g1",
+        leagueLabel: "Liga MX",
+        matchLabel: "A vs B",
+        pickLabel: "Local",
+        origin: "Spacetime Suite",
+        units: "1.00",
+        userDecimal: (1.1 + idx * 0.1).toFixed(3),
+        fairDecimal: "1.900",
+        clvPct: "1.50",
+        status: "won",
+        sealHash: "h".repeat(64),
+        sealedAt,
+        kickoffAt,
+      })),
+    );
+
+    const since = new Date("2026-10-13T00:00:00Z");
+    const defaultTop = await loadRankingParticipants(db, since);
+    expect(defaultTop.length).toBeLessThanOrEqual(40);
+    expect(defaultTop).toHaveLength(40);
+    expect(defaultTop[0]!.handle).toBe("socio_49");
+    expect(defaultTop[39]!.handle).toBe("socio_10");
+    expect(defaultTop.some((p) => p.handle === "socio_00")).toBe(false);
+
+    const capped = await loadRankingParticipants(db, since, 100);
+    expect(capped).toHaveLength(40);
+
+    const topTen = await loadRankingParticipants(db, since, 10);
+    expect(topTen).toHaveLength(10);
+    expect(topTen[0]!.handle).toBe("socio_49");
   });
 });
 

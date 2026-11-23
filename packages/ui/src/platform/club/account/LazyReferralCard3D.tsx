@@ -1,6 +1,7 @@
 "use client";
 
-import React, { Suspense, useEffect, useState } from "react";
+import React, { Suspense, useState } from "react";
+import { useSafeEffect } from "../../hooks";
 import type { ReferralCard3DProps } from "../../public/ReferralCard3D";
 
 const ReferralCard3DLazy = React.lazy(() =>
@@ -34,7 +35,7 @@ function ReferralCardPlaceholder({
 
 export function LazyReferralCard3D(props: ReferralCard3DProps): React.JSX.Element {
   const [mounted, setMounted] = useState(false);
-  useEffect(() => {
+  useSafeEffect(() => {
     setMounted(true);
   }, []);
 
@@ -51,13 +52,4 @@ export function LazyReferralCard3D(props: ReferralCard3DProps): React.JSX.Elemen
   }
 
   return <Suspense fallback={placeholder}><ReferralCard3DLazy {...props} /></Suspense>;
-}
-
-export async function triggerReferralStoryDownload(opts: {
-  code: string;
-  bottomLeftLabel: string;
-  tierLabel?: string;
-}): Promise<{ width: number; height: number; filename: string }> {
-  const mod = await import("../../public/ReferralCard3D");
-  return mod.downloadReferralStoryPng(opts);
 }

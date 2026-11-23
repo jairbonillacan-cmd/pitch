@@ -49,7 +49,7 @@ let profileDb: Db | undefined;
 export async function loadPublicMemberProfile(handle: string): Promise<PublicMemberProfile | null> {
   const url = process.env.DATABASE_URL;
   if (!url) return null;
-  profileDb ??= createDb(url) as unknown as Db;
+  profileDb ??= createDb(url);
   const row = await publicProfileByHandle(profileDb, handle);
   if (!row?.handle) return null;
   return {

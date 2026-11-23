@@ -81,10 +81,14 @@ export interface FeatureRow {
   market: [number, number, number] | null;
 }
 
-export interface PeriodBlock {
+export type BacktestHistoricalGame = Omit<HistoricalGame, "source"> & {
+  source: string;
+};
+
+export interface PeriodBlock<G extends BacktestHistoricalGame = HistoricalGame> {
   key: string;
   date: string;
-  games: HistoricalGame[];
+  games: G[];
 }
 
 export interface FootballBacktestResult {
@@ -207,16 +211,16 @@ export function loadHistoryGames(rootDir: string, league: string): HistoricalGam
 export function loadExtendedGames(
   rootDir: string,
   league: string,
-  corpus: readonly HistoricalGame[],
-): HistoricalGame[] {
+  corpus: readonly BacktestHistoricalGame[],
+): BacktestHistoricalGame[] {
   const path = join(rootDir, "data", "history", "research", "extended", `${league}.jsonl`);
   if (!existsSync(path)) return [];
   const known = new Set(corpus.map((g) => g.id));
   const schema = HistoricalGameSchema.extend({ source: z.string() });
-  const out: HistoricalGame[] = [];
+  const out: BacktestHistoricalGame[] = [];
   for (const line of readFileSync(path, "utf8").split(/\r?\n/)) {
     if (!line.trim()) continue;
-    const game = schema.parse(JSON.parse(line)) as unknown as HistoricalGame;
+    const game: BacktestHistoricalGame = schema.parse(JSON.parse(line));
     if (!known.has(game.id)) out.push(game);
   }
   return out;
@@ -338,8 +342,10 @@ export function loadResearchOdds(rootDir: string, league: string): Map<string, R
 }
 
 /** Agrupa partidos por jornada (temporada + torneo + número) ordenados por fecha. */
-export function groupIntoPeriods(games: readonly HistoricalGame[]): PeriodBlock[] {
-  const blocks = new Map<string, PeriodBlock>();
+export function groupIntoPeriods<G extends BacktestHistoricalGame>(
+  games: readonly G[],
+): PeriodBlock<G>[] {
+  const blocks = new Map<string, PeriodBlock<G>>();
   for (const game of games) {
     const key = `${game.season}|${game.stage ?? ""}|${game.period}`;
     const existing = blocks.get(key);
@@ -388,7 +394,7 @@ export function noVigThree(
   return [inv[0] / sum, inv[1] / sum, inv[2] / sum];
 }
 
-function outcomeOf(game: HistoricalGame): Outcome {
+function outcomeOf(game: BacktestHistoricalGame): Outcome {
   return {
     result1x2: game.homeScore > game.awayScore ? 0 : game.homeScore === game.awayScore ? 1 : 2,
     homeScore: game.homeScore,
@@ -425,7 +431,7 @@ function naiveFootball(train: readonly TrainingGame[]): NaiveFootball {
 
 function runFootballLeague(
   league: string,
-  games: readonly HistoricalGame[],
+  games: readonly BacktestHistoricalGame[],
   options: Required<Pick<HistoryBacktestOptions, "windowDays" | "minTrainRows" | "bootstrapIterations" | "includeStack">>,
   researchById: ReadonlyMap<string, ResearchGame>,
   historicalGames: readonly TrainingGame[],
@@ -1207,12 +1213,12 @@ export function fitPlatt(rows: readonly { p: number; y: number }[]): { a: number
 }
 
 function runNfl(
-  games: readonly HistoricalGame[],
+  games: readonly BacktestHistoricalGame[],
   options: Required<Pick<HistoryBacktestOptions, "windowDays" | "minTrainRows" | "bootstrapIterations">>,
   onPrediction?: (row: NflPredictionExport) => void,
 ): NflBacktestResult {
   const blocks = groupIntoPeriods(games);
-  const history: HistoricalGame[] = [];
+  const history: BacktestHistoricalGame[] = [];
   const modelRows: Array<{ prediction: NflPredictionRow; outcome: Outcome }> = [];
   const naiveRows: Array<{ prediction: NflPredictionRow; outcome: Outcome }> = [];
   const marketRows: Array<{ prediction: NflPredictionRow; outcome: Outcome }> = [];
@@ -1421,7 +1427,7 @@ export function runHistoryBacktest(options: HistoryBacktestOptions): HistoryBack
 
   for (const league of leagues) {
     const corpusGames = loadHistoryGames(options.rootDir, league);
-    const games =
+    const games: readonly BacktestHistoricalGame[] =
       options.extendCorpus === true
         ? [...corpusGames, ...loadExtendedGames(options.rootDir, league, corpusGames)].sort((a, b) =>
             `${a.date} ${a.kickoff ?? ""}`.localeCompare(`${b.date} ${b.kickoff ?? ""}`),

@@ -1,10 +1,16 @@
 import React from "react";
 import {
   asLeagueId,
+  parseStrictFiniteNumber,
   sportHasDraw,
   sportScoringUnit,
   type LeagueId,
 } from "@pitchlab/contracts";
+import {
+  EditorialCard,
+  EditorialKpiStrip,
+  type EditorialKpiItem,
+} from "../../components/ui/primitives";
 import { LeagueBadge, ProbSplit, TeamBadge } from "../../sports";
 import {
   LazyCalibrationCurveChart as CalibrationCurveChart,
@@ -36,7 +42,6 @@ import type {
 import {
   HeroMatchDemoIsland,
   PricingCardIsland,
-  ResultsFilterListIsland,
   SpeiTransferPricingIsland,
   UltraPassCardStageIsland,
 } from "./LandingClientIslands";
@@ -45,6 +50,7 @@ import {
   PublicSiteShell,
   type PublicNavPath,
 } from "./PublicSiteShell";
+import { ResultadosEditorialBoard } from "./VerificationSurface";
 
 export { ClosingCtaSection, MEMBERSHIP_SPEC, PublicSiteShell };
 export type { PublicNavPath };
@@ -219,7 +225,6 @@ function buildTeamNote(
   return `${side === "home" ? "Local" : "Visitante"} · proy. ${projVal.toFixed(1)} ${unit.short}`;
 }
 
-/** Etiqueta que se entiende sin la tabla: «Ambos anotan: Sí», «Más de 2.5 goles». */
 function readableMarketLabel(row: { group: string; market: string; label: string; selection: string }): string {
   const label = row.label.trim();
   if (/^(sí|si|no)$/i.test(label)) return `${row.group}: ${label}`;
@@ -246,8 +251,6 @@ function deriveOtherMarketsForGame(
         row.p >= 0.18 &&
         row.p <= 0.94,
     );
-    // Una fila por mercado (la más probable dentro del rango), en el orden de la ficha, para
-    // que la tarjeta muestre variedad y no tres opciones del mismo mercado.
     const bestByMarket = new Map<string, (typeof filtered)[number]>();
     for (const row of filtered) {
       const current = bestByMarket.get(row.market);
@@ -372,7 +375,11 @@ function pickPreferredHeroGame(
   leagueGames: readonly PlatformGame[],
 ): PlatformGame | undefined {
   const withForecast = leagueGames.filter(
-    (game) => game.hasForecast !== false && game.x12 !== null && game.projection !== null,
+    (game) =>
+      game.hasForecast !== false &&
+      game.x12 !== null &&
+      game.x12[0] + game.x12[1] + game.x12[2] > 0 &&
+      game.projection !== null,
   );
   if (withForecast.length === 0) return undefined;
   const upcoming = withForecast.filter((game) => game.status !== "FT");
@@ -401,11 +408,6 @@ function pickPreferredHeroGame(
   return pool[0];
 }
 
-/**
- * Construye las tarjetas interactivas del comparador por liga de la portada (`/#hoy`).
- * Regla del fundador: «Lo más probable» es el resultado con mayor `p` del grupo `h2h`,
- * y su momio justo es `1 / p` en americano (con signo `−` tipográfico o `+`) y decimal.
- */
 export function buildHeroLeagueCards(
   games: readonly PlatformGame[],
   leagues?: readonly PlatformLeagueSummary[],
@@ -488,9 +490,6 @@ export function buildHeroLeagueCards(
   return cards;
 }
 
-/**
- * Califica los partidos finalizados (`FT`) con su marcador final y su pick principal publicado.
- */
 export function buildFinishedResultItems(
   finishedGames: readonly PlatformGame[],
   limit?: number,
@@ -601,7 +600,7 @@ function buildOpposingSyntheticPick(
     conflictGroup,
     label,
     p,
-    fairDecimal: Number(formatFairDecimalFromProb(p)),
+    fairDecimal: parseStrictFiniteNumber(formatFairDecimalFromProb(p)) ?? 2,
     isRedacted: false,
   };
 }
@@ -694,10 +693,6 @@ function buildExampleParlayFallback(): LandingParlayDemoData {
   };
 }
 
-/**
- * Construye la demostración del armador de parlays usando `checkParlayCompatibility` y
- * `computeParlaySummary` sobre un partido próximo real con 2 picks compatibles + 1 opuesto bloqueado.
- */
 export function buildParlayDemoData(
   games: readonly PlatformGame[],
 ): LandingParlayDemoData {
@@ -809,9 +804,6 @@ const DEFAULT_FEATURED_COMMUNITY_PICK: LandingFeaturedCommunityPick = {
   fairAmerican: "\u2212177",
 };
 
-/**
- * Selecciona el pick ligero de muestra para la publicación de Sofía Méndez en Comunidad.
- */
 export function buildFeaturedCommunityPick(
   games: readonly PlatformGame[],
   tipsterWeeklyPickId?: string,
@@ -875,210 +867,6 @@ export function buildFeaturedCommunityPick(
   }
 
   return DEFAULT_FEATURED_COMMUNITY_PICK;
-}
-
-export function MultiAngleValidationSection({
-  heroCards = [],
-}: {
-  heroCards?: readonly LandingHeroLeagueCard[];
-} = {}): React.JSX.Element {
-  const soccerCard =
-    heroCards.find((card) => card.league === "liga-mx") ??
-    heroCards.find((card) => card.league !== "nfl") ??
-    heroCards[0];
-  const secondaryCard =
-    heroCards.find((card) => card.league === "nfl") ?? heroCards[1];
-
-  const primaryMatchTitle = soccerCard
-    ? `${soccerCard.home.name} vs ${soccerCard.away.name}`
-    : "Querétaro vs Monterrey";
-  const primaryPickLabel = soccerCard?.mostProbable.label ?? "Monterrey gana";
-  const primaryProb = soccerCard ? formatPctEs(soccerCard.mostProbable.p) : "47.0 %";
-  const primaryFair = soccerCard?.mostProbable.fairAmerican ?? "+113";
-  const primaryLeague = soccerCard?.leagueShort ?? "Liga MX";
-
-  const secondaryMatchTitle = secondaryCard
-    ? `${secondaryCard.home.name} vs ${secondaryCard.away.name}`
-    : "Chiefs vs Bills";
-  const secondaryPickLabel = secondaryCard?.mostProbable.label ?? "Kansas City gana";
-  const secondaryProb = secondaryCard ? formatPctEs(secondaryCard.mostProbable.p) : "58.2 %";
-  const secondaryFair = secondaryCard?.mostProbable.fairAmerican ?? "−139";
-  const secondaryLeague = secondaryCard?.leagueShort ?? "NFL";
-
-  const angleMetrics = [
-    { label: "Fuerza ofensiva y localía (Tachyon)", pct: 78, tone: "ok" as const },
-    { label: "Forma reciente ajustada por rival (Singularity)", pct: 71, tone: "ok" as const },
-    { label: "Descanso, altitud y calendario (Minkowski)", pct: 83, tone: "ok" as const },
-    { label: "Cruce contra cierre del mercado (Geodesic)", pct: 64, tone: "brand" as const },
-    { label: "Consenso final sin comisión (Cortex IA)", pct: 74, tone: "ok" as const },
-  ];
-
-  return (
-    <section id="cinco-angulos" className="pl-lp-section pl-lp-angles-section">
-      <div className="pl-lp-wrap pl-lp-stack">
-        <div className="pl-lp-section-head pl-lp-section-head--center">
-          <p className="pl-lp-eyebrow">Nosotros procesamos los datos por ti</p>
-          <h2 className="pl-lp-h2 text-balance">
-            Cada partido, puesto a prueba desde cinco ángulos.
-          </h2>
-          <p className="pl-lp-lede text-pretty">
-            Antes de publicar una probabilidad, nuestros modelos cruzan fuerza estructural, forma reciente,
-            descanso, movimiento del mercado y contexto en vivo.
-          </p>
-        </div>
-
-        <div className="pl-lp-angles-stage">
-          <div className="pl-lp-angle-callout pl-lp-angle-callout--tl">
-            <span>5 motores probados fuera de muestra</span>
-            <svg
-              className="pl-lp-angle-arrow"
-              width="52"
-              height="36"
-              viewBox="0 0 52 36"
-              fill="none"
-              aria-hidden="true"
-            >
-              <path
-                d="M4 6C22 6 38 14 46 31"
-                stroke="currentColor"
-                strokeWidth="1.75"
-                strokeLinecap="round"
-                strokeDasharray="4 4"
-              />
-              <path
-                d="M40 28L46.5 32L49 24.5"
-                stroke="currentColor"
-                strokeWidth="1.75"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              />
-            </svg>
-          </div>
-
-          <div className="pl-lp-angle-callout pl-lp-angle-callout--tr">
-            <span>Momio justo sin margen de la casa</span>
-            <svg
-              className="pl-lp-angle-arrow pl-lp-angle-arrow--flip"
-              width="52"
-              height="36"
-              viewBox="0 0 52 36"
-              fill="none"
-              aria-hidden="true"
-            >
-              <path
-                d="M4 6C22 6 38 14 46 31"
-                stroke="currentColor"
-                strokeWidth="1.75"
-                strokeLinecap="round"
-                strokeDasharray="4 4"
-              />
-              <path
-                d="M40 28L46.5 32L49 24.5"
-                stroke="currentColor"
-                strokeWidth="1.75"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              />
-            </svg>
-          </div>
-
-          <div className="pl-lp-angle-callout pl-lp-angle-callout--bl">
-            <span>Compara por localía, forma y calendario</span>
-            <svg
-              className="pl-lp-angle-arrow"
-              width="48"
-              height="28"
-              viewBox="0 0 48 28"
-              fill="none"
-              aria-hidden="true"
-            >
-              <path
-                d="M4 22C20 22 34 16 44 5"
-                stroke="currentColor"
-                strokeWidth="1.75"
-                strokeLinecap="round"
-                strokeDasharray="4 4"
-              />
-              <path
-                d="M36.5 5.5L44.5 4.5L43.5 12.5"
-                stroke="currentColor"
-                strokeWidth="1.75"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              />
-            </svg>
-          </div>
-
-          <div className="pl-lp-angles-cards">
-            <article className="pl-lp-card pl-lp-angle-card pl-lp-angle-card--primary glass-card glass-ring">
-              <div className="pl-lp-angle-card-head">
-                <div>
-                  <p className="pl-lp-most-kicker">{primaryLeague} · Desglose multi-ángulo</p>
-                  <h3 className="pl-lp-h3 text-balance">{primaryMatchTitle}</h3>
-                </div>
-                <span className="pl-lp-pill pl-lp-pill--brand num" data-example-badge="">Ejemplo</span>
-              </div>
-
-              <div className="pl-lp-angle-summary num">
-                <div>
-                  <span className="pl-lp-fine">Escenario principal</span>
-                  <strong className="pl-lp-angle-pick">{primaryPickLabel}</strong>
-                </div>
-                <div style={{ textAlign: "right" }}>
-                  <strong className="pl-lp-angle-prob">{primaryProb}</strong>
-                  <span className="pl-lp-fine" style={{ display: "block" }}>
-                    Justo {primaryFair}
-                  </span>
-                </div>
-              </div>
-
-              <div className="pl-lp-angle-bars">
-                {angleMetrics.map((metric) => (
-                  <div key={metric.label} className="pl-lp-angle-bar-row">
-                    <div className="pl-lp-angle-bar-top">
-                      <span>{metric.label}</span>
-                      <span className="num">{metric.pct} %</span>
-                    </div>
-                    <div className="pl-lp-angle-track" aria-hidden="true">
-                      <span
-                        className={`pl-lp-angle-fill pl-lp-angle-fill--${metric.tone}`}
-                        style={{ width: `${metric.pct}%` }}
-                      />
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </article>
-
-            <article className="pl-lp-card pl-lp-angle-card pl-lp-angle-card--secondary glass-card glass-ring">
-              <div className="pl-lp-angle-card-head">
-                <div>
-                  <p className="pl-lp-most-kicker">{secondaryLeague} · Validación cruzada</p>
-                  <p style={{ margin: "2px 0 0", fontWeight: 700, fontSize: 16 }}>
-                    {secondaryMatchTitle}
-                  </p>
-                </div>
-                <span className="pl-lp-status pl-lp-status--hit num">5 / 5 motores</span>
-              </div>
-
-              <div className="pl-lp-angle-summary pl-lp-angle-summary--compact num">
-                <span>{secondaryPickLabel}</span>
-                <strong>
-                  {secondaryProb} · justo {secondaryFair}
-                </strong>
-              </div>
-
-              <div className="pl-lp-angle-mini-chips num">
-                <span className="pl-lp-pill">Eficiencia por jugada: +6.4 %</span>
-                <span className="pl-lp-pill">Línea sin margen evaluada</span>
-                <span className="pl-lp-pill">Cero datos posteriores</span>
-              </div>
-            </article>
-          </div>
-        </div>
-      </div>
-    </section>
-  );
 }
 
 export function HowItWorksSection({
@@ -1158,147 +946,214 @@ export function EnginesSection({
 }: {
   variant?: "teaser" | "page";
 }): React.JSX.Element {
+  const kpiItems: EditorialKpiItem[] = [
+    {
+      id: "historical",
+      label: "Partidos históricos en los motores",
+      value: SPACETIME_METRICS_HEADLINE.historicalMatches,
+      delta: `${SPACETIME_METRICS_HEADLINE.holdoutTestMatches} prueba`,
+      tone: "brand",
+    },
+    {
+      id: "vars",
+      label: "Variables por partido",
+      value: SPACETIME_METRICS_HEADLINE.variablesPerMatch,
+      delta: `${SPACETIME_METRICS_HEADLINE.telemetryPoints} registros`,
+    },
+    {
+      id: "leak",
+      label: "Datos posteriores al partido",
+      value: SPACETIME_METRICS_HEADLINE.postMatchData,
+      delta: "Sin fuga temporal",
+      tone: "positive",
+    },
+    {
+      id: "calib",
+      label: variant === "page" ? "Calibración · CLV" : "Error de calibración",
+      value: SPACETIME_METRICS_HEADLINE.calibrationError,
+      delta: `CLV ${SPACETIME_METRICS_HEADLINE.closingLineBeatPct}`,
+      tone: "positive",
+    },
+  ];
+
   return (
     <section id="motores" className="pl-lp-section">
-      <div className="pl-lp-wrap pl-lp-stack">
-        <div className="pl-lp-engines-head">
-          <div className="pl-lp-section-head" style={{ maxWidth: 640 }}>
-            <p className="pl-lp-eyebrow">Los motores</p>
-            <h2 className="pl-lp-h2 text-balance">
+      <div className="pl-lp-wrap pl-ed-stack">
+        <div className="pl-ed-head-row">
+          <div className="pl-ed-head-copy">
+            <p className="pl-ed-eyebrow">Los motores</p>
+            <h2 className="pl-ed-h2">
               {variant === "page"
                 ? "Arquitectura y pruebas fuera de muestra."
                 : "Cinco motores. Cada uno probado con partidos que no vio."}
             </h2>
-            <p className="pl-lp-lede text-pretty">
-              Un tipster opina. Aquí cada pick sale de un motor que se probó contra el mercado antes de publicarse, y su prueba está a la vista.
+            <p className="pl-ed-subcopy">
+              Un tipster opina. Aquí cada pick sale de cinco motores propios probados contra el
+              mercado antes de publicarse, y su evidencia está a la vista.
             </p>
           </div>
-
-          <dl className="pl-lp-kpis">
-            <div>
-              <dt>Partidos históricos en los motores</dt>
-              <dd className="num">{SPACETIME_METRICS_HEADLINE.historicalMatches}</dd>
-            </div>
-            <div>
-              <dt>Variables por partido</dt>
-              <dd className="num">{SPACETIME_METRICS_HEADLINE.variablesPerMatch}</dd>
-            </div>
-            <div>
-              <dt>Datos posteriores al partido</dt>
-              <dd>{SPACETIME_METRICS_HEADLINE.postMatchData}</dd>
-            </div>
-            {variant === "page" ? (
-              <>
-                <div>
-                  <dt>Registros normalizados</dt>
-                  <dd className="num">{SPACETIME_METRICS_HEADLINE.telemetryPoints}</dd>
-                </div>
-                <div>
-                  <dt>Error de calibración</dt>
-                  <dd className="num">{SPACETIME_METRICS_HEADLINE.calibrationError}</dd>
-                </div>
-              </>
-            ) : null}
-          </dl>
+          <span className="pl-ed-badge pl-ed-badge--ok">
+            <span className="pl-ed-badge-dot" aria-hidden="true" />
+            <span>Validación fuera de muestra · 2024–25</span>
+          </span>
         </div>
 
-        <div className="pl-lp-card pl-lp-engines-card glass-card glass-ring">
-          {SPACETIME_ENGINES.map((engine) => (
-            <div key={engine.key} className="pl-lp-engine-row">
-              <div className="pl-lp-engine-id">
-                <span aria-hidden="true" className="pl-lp-engine-mono">
-                  {engine.mono}
-                </span>
-                <div className="pl-lp-engine-titles">
-                  <p className="pl-lp-engine-name">{engine.shortName}</p>
-                  <p className="pl-lp-engine-role">{engine.roleLabel}</p>
-                  {variant === "page" ? (
-                    <p className="pl-lp-engine-domain num">
-                      {engine.pillar} · {engine.domain}
-                    </p>
-                  ) : null}
-                </div>
-              </div>
+        <EditorialKpiStrip items={kpiItems} className="pl-ed-kpi-4" />
 
-              <div className="pl-lp-engine-reads-wrap">
-                <p className="pl-lp-engine-reads text-pretty">{engine.readsText}</p>
-                {variant === "page" ? (
-                  <p className="pl-lp-engine-cadence num text-pretty">{engine.retrainCadence}</p>
-                ) : null}
-              </div>
-
-              <div className="pl-lp-engine-proof">
-                <p
-                  className={`pl-lp-engine-fig num${
-                    engine.proofTone === "ok" ? " pl-lp-engine-fig--ok" : ""
-                  }`}
-                >
-                  {engine.proofFigure}
-                </p>
-                <p className="pl-lp-engine-cadence num">{engine.proofContext}</p>
-              </div>
-            </div>
-          ))}
-          <p className="pl-lp-engines-foot text-pretty">
-            Cifras de la temporada de prueba, con partidos que los motores no usaron para aprender. El acierto pasado no garantiza resultados.
-          </p>
-        </div>
-
-        <div className="pl-lp-engines-split">
-          <div className="pl-lp-card pl-lp-table-card glass-card glass-ring">
+        <div className="pl-ed-table-stack">
+          <EditorialCard
+            title="Cinco motores propietarios de PitchLab"
+            meta={`${SPACETIME_ENGINES.length} modelos activos`}
+          >
             <div
-              className="pl-lp-table-scroll"
+              className="pl-sf-table-wrap"
               tabIndex={0}
               role="region"
-              aria-labelledby="pl-lp-vs-caption"
+              aria-labelledby="pl-ed-engines-caption"
+              data-pl-sf-table=""
             >
-              <table className="pl-lp-vs-table">
-                <caption id="pl-lp-vs-caption">
-                  PitchLab contra un tipster típico
+              <table className="pl-sf-table">
+                <caption id="pl-ed-engines-caption" className="sr-only">
+                  Arquitectura de los cinco motores Spacetime de PitchLab y su validación fuera de
+                  muestra
                 </caption>
                 <thead>
                   <tr>
-                    <th scope="col">
-                      <span className="sr-only">Criterio</span>
+                    <th scope="col" className="pl-sf-th is-sticky-col">
+                      Motor
                     </th>
-                    <th scope="col">PitchLab</th>
-                    <th scope="col">Tipster típico</th>
+                    <th scope="col" className="pl-sf-th">
+                      Qué analiza
+                    </th>
+                    <th scope="col" className="pl-sf-th is-end num">
+                      Evidencia fuera de muestra
+                    </th>
                   </tr>
                 </thead>
                 <tbody>
-                  {SPACETIME_VS_TIPSTER_ROWS.map((row) => (
-                    <tr key={row.criterion}>
-                      <th scope="row">{row.criterion}</th>
-                      <td className="num">{row.pitchlab}</td>
-                      <td>{row.tipster}</td>
+                  {SPACETIME_ENGINES.map((engine) => (
+                    <tr key={engine.key} className="pl-sf-tr">
+                      <th scope="row" className="pl-sf-td is-sticky-col" data-label="Motor">
+                        <div className="pl-ed-engine-cell">
+                          <span aria-hidden="true" className="pl-ed-engine-mono num">
+                            {engine.mono}
+                          </span>
+                          <div className="pl-ed-engine-meta">
+                            <span className="pl-ed-engine-name">
+                              {engine.shortName}{" "}
+                              <span className="pl-ed-engine-sub num">{engine.version}</span>
+                            </span>
+                            <span className="pl-ed-engine-sub">{engine.roleLabel}</span>
+                            {variant === "page" ? (
+                              <span className="pl-ed-engine-sub num">
+                                {engine.pillar} · {engine.domain}
+                              </span>
+                            ) : null}
+                          </div>
+                        </div>
+                      </th>
+                      <td className="pl-sf-td" data-label="Qué analiza">
+                        <p className="pl-ed-engine-reads">{engine.readsText}</p>
+                        {variant === "page" ? (
+                          <p className="pl-ed-engine-cadence num">{engine.retrainCadence}</p>
+                        ) : null}
+                      </td>
+                      <td className="pl-sf-td is-end num" data-label="Evidencia">
+                        <div className="pl-ed-proof-cell">
+                          <span
+                            className={`pl-ed-proof-fig num${engine.proofTone === "ok" ? " is-ok" : ""}`}
+                          >
+                            {engine.proofFigure}
+                          </span>
+                          <span className="pl-ed-proof-ctx num">{engine.proofContext}</span>
+                        </div>
+                      </td>
                     </tr>
                   ))}
                 </tbody>
               </table>
             </div>
-          </div>
-
-          <div className="pl-lp-card pl-lp-cortex-card glass-card glass-ring">
-            <div className="pl-lp-cortex-copy">
-              <p className="pl-lp-cortex-title text-balance">
-                Cortex IA lo explica en claro
-              </p>
-              <p className="pl-lp-cortex-quote text-pretty">
-                {CORTEX_SAMPLE_QUOTE}
-              </p>
-              <p className="pl-lp-cortex-note text-pretty">
-                Solo usa números de los motores. Si falta un dato, lo dice.
+            <div className="pl-ed-table-foot">
+              <p className="pl-ed-muted">
+                Cifras de la temporada de prueba, con partidos que los motores no usaron para
+                aprender. El acierto pasado no garantiza resultados futuros.
               </p>
             </div>
-            {variant === "teaser" ? (
-              <a className="pl-lp-more" href="/motores">
-                Conoce los motores{" "}
-                <span className="pl-lp-arr" aria-hidden="true">
-                  →
-                </span>
-              </a>
-            ) : null}
+          </EditorialCard>
+        </div>
+
+        <div className="pl-ed-split">
+          <div className="pl-ed-table-stack">
+            <EditorialCard title="PitchLab contra un tipster típico" meta="Comparativa directa">
+              <div
+                className="pl-sf-table-wrap"
+                tabIndex={0}
+                role="region"
+                aria-labelledby="pl-lp-vs-caption"
+                data-pl-sf-table=""
+              >
+                <table className="pl-sf-table">
+                  <caption id="pl-lp-vs-caption" className="sr-only">
+                    Comparativa entre PitchLab y un tipster típico
+                  </caption>
+                  <thead>
+                    <tr>
+                      <th scope="col" className="pl-sf-th is-sticky-col">
+                        Criterio
+                      </th>
+                      <th scope="col" className="pl-sf-th">
+                        PitchLab
+                      </th>
+                      <th scope="col" className="pl-sf-th">
+                        Tipster típico
+                      </th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {SPACETIME_VS_TIPSTER_ROWS.map((row) => (
+                      <tr key={row.criterion} className="pl-sf-tr">
+                        <th scope="row" className="pl-sf-td is-sticky-col" data-label="Criterio">
+                          {row.criterion}
+                        </th>
+                        <td className="pl-sf-td num" data-label="PitchLab">
+                          <strong>{row.pitchlab}</strong>
+                        </td>
+                        <td className="pl-sf-td" data-label="Tipster típico">
+                          <span className="pl-ed-muted">{row.tipster}</span>
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            </EditorialCard>
           </div>
+
+          <EditorialCard title="Cortex IA lo explica en claro" meta="Cero datos inventados">
+            <div className="pl-ed-stack">
+              <blockquote className="pl-ed-quote">{CORTEX_SAMPLE_QUOTE}</blockquote>
+              <p className="pl-ed-subcopy">
+                Solo resume los números que entregan Tachyon, Singularity, Minkowski y Geodesic. Si
+                falta un dato clave o una alineación, lo indica explícitamente.
+              </p>
+              <div className="pl-ed-actions">
+                {variant === "teaser" ? (
+                  <a className="pl-ed-link-btn" href="/motores">
+                    Conoce los motores →
+                  </a>
+                ) : (
+                  <>
+                    <a className="pl-ed-link-btn" href="/resultados">
+                      Ver resultados FT
+                    </a>
+                    <a className="pl-ed-link-btn" href="/verificacion">
+                      Verificar huella SHA-256
+                    </a>
+                  </>
+                )}
+              </div>
+            </div>
+          </EditorialCard>
         </div>
       </div>
     </section>
@@ -1342,6 +1197,7 @@ export function CalibrationCard({
       return {
         id: bucket.id,
         shortLabel: bucket.shortLabel,
+        rangeLabel: bucket.rangeLabel,
         announcedPct: Math.round(meanP * 100),
         actualPct: Math.round(actualRate * 100),
         sampleCount: bandItems.length,
@@ -1351,6 +1207,7 @@ export function CalibrationCard({
     return {
       id: bucket.id,
       shortLabel: bucket.shortLabel,
+      rangeLabel: bucket.rangeLabel,
       announcedPct: Math.round(bucket.promisedMeanP * 100),
       actualPct:
         bucket.actualHitRate !== null ? Math.round(bucket.actualHitRate * 100) : null,
@@ -1362,179 +1219,70 @@ export function CalibrationCard({
   const hasPending = rows.some((row) => row.actualPct === null);
 
   return (
-    <div
-      className="pl-lp-card pl-lp-calib-card glass-card glass-ring"
-      style={{ marginTop: 8 }}
+    <EditorialCard
+      title="Probabilidad anunciada contra resultado real"
+      meta={hasObserved ? `${validResults.length} picks FT` : "Bandas calibradas"}
     >
-      <p className="pl-lp-calib-title text-balance">
-        Probabilidad anunciada contra resultado real
-      </p>
-      <p className="pl-lp-calib-desc text-pretty">
-        Si decimos 70 %, esos picks deberían cumplirse cerca de 7 de cada 10 veces.
-      </p>
+      <div className="pl-ed-stack">
+        <p className="pl-ed-subcopy">
+          Si decimos 70 %, esos picks deberían cumplirse cerca de 7 de cada 10 veces.
+        </p>
 
-      <div className="pl-lp-calib-list">
-        {rows.map((row) => (
-          <div key={row.id} className="pl-lp-calib-row">
-            <span className="pl-lp-calib-label">{row.shortLabel}</span>
-            <div className="pl-lp-calib-bars">
-              <div className="pl-lp-calib-bar" aria-hidden="true">
-                <div
-                  className="pl-lp-calib-fill"
+        <div className="pl-ed-calib-bars">
+          {rows.map((row) => (
+            <div key={row.id} className="pl-ed-calib-row">
+              <div className="pl-ed-calib-top">
+                <span className="pl-ed-calib-name">{row.shortLabel}</span>
+                <span className="pl-ed-calib-nums num">
+                  {row.actualPct !== null && row.sampleCount !== null
+                    ? `Anunciado ${row.announcedPct} % · Real ${row.actualPct} % (${row.sampleCount})`
+                    : `Referencia ${row.announcedPct} % · Pendiente de muestra`}
+                </span>
+              </div>
+              <div className="pl-ed-flat-track" aria-hidden="true">
+                <span
+                  className="pl-ed-flat-fill"
                   style={{ width: `${row.announcedPct}%` }}
                 />
               </div>
               {row.actualPct !== null ? (
-                <div className="pl-lp-calib-bar" aria-hidden="true">
-                  <div
-                    className="pl-lp-calib-fill pl-lp-calib-fill--actual"
+                <div className="pl-ed-flat-track" aria-hidden="true">
+                  <span
+                    className="pl-ed-flat-fill pl-ed-flat-fill--actual"
                     style={{ width: `${row.actualPct}%` }}
                   />
                 </div>
               ) : (
-                <div className="pl-lp-calib-dashed" aria-hidden="true" />
+                <div className="pl-ed-flat-pending" aria-hidden="true" />
               )}
-              <span
-                className="num text-xs leading-tight"
-                style={{ color: "var(--pl-text-muted)" }}
-              >
-                {row.actualPct !== null && row.sampleCount !== null
-                  ? `Anunciado ${row.announcedPct} % · Real ${row.actualPct} % (${row.sampleCount})`
-                  : `Referencia ${row.announcedPct} % · Pendiente de muestra`}
-              </span>
             </div>
-          </div>
-        ))}
-      </div>
+          ))}
+        </div>
 
-      <div className="pl-lp-calib-legend">
-        <span className="pl-lp-calib-key">
-          <span
-            aria-hidden="true"
-            className="pl-lp-calib-swatch pl-lp-calib-swatch--solid"
-          />
-          Anunciado
-        </span>
-        {hasObserved ? (
-          <span className="pl-lp-calib-key">
-            <span
-              aria-hidden="true"
-              className="pl-lp-calib-swatch"
-              style={{ background: "var(--pl-success)" }}
-            />
-            Real cumplido
+        <div className="pl-ed-calib-legend">
+          <span className="pl-ed-calib-key">
+            <span aria-hidden="true" className="pl-ed-swatch" />
+            <span>Anunciado</span>
           </span>
-        ) : null}
-        {hasPending ? (
-          <span className="pl-lp-calib-key">
-            <span
-              aria-hidden="true"
-              className="pl-lp-calib-swatch pl-lp-calib-swatch--dashed"
-            />
-            {hasObserved
-              ? "Sin muestra en esta banda"
-              : "Real: se publica con los primeros picks auditados"}
-          </span>
-        ) : null}
-      </div>
-    </div>
-  );
-}
-
-export function IntegrityHistorySection({
-  results,
-  variant = "teaser",
-}: {
-  results: readonly LandingFinishedResultItem[];
-  variant?: "teaser" | "page";
-}): React.JSX.Element {
-  const shown = results.slice(0, 4);
-  const hitsCount = shown.filter((r) => r.hit).length;
-
-  return (
-    <section id="historial" className="pl-lp-section">
-      <div className="pl-lp-wrap pl-lp-history-grid">
-        <div className="pl-lp-history-copy">
-          <p className="pl-lp-eyebrow">Historial íntegro</p>
-          <h2 className="pl-lp-h2 text-balance">Lo que falló también se queda.</h2>
-          <p className="pl-lp-lede text-pretty">
-            Cada pick se publica antes del partido y no se edita después. Aquí van los últimos, como quedaron.
-          </p>
-          {variant === "teaser" ? (
-            <a className="pl-lp-more" href="/resultados">
-              Ver todos los resultados{" "}
-              <span className="pl-lp-arr" aria-hidden="true">
-                →
-              </span>
-            </a>
+          {hasObserved ? (
+            <span className="pl-ed-calib-key">
+              <span aria-hidden="true" className="pl-ed-swatch pl-ed-swatch--ok" />
+              <span>Real cumplido</span>
+            </span>
           ) : null}
-
-          <CalibrationCard results={results} />
-        </div>
-
-        <div className="pl-lp-card pl-lp-results-card glass-card glass-ring">
-          {shown.length === 0 ? (
-            <p className="pl-lp-results-empty text-pretty">
-              Los resultados se publican automáticamente al terminar cada encuentro.
-            </p>
-          ) : (
-            <>
-              {shown.map((item) => (
-                <div key={item.id} className="pl-lp-result-row">
-                  <div className="pl-lp-result-main">
-                    <p className="pl-lp-result-meta num">{item.metaLabel}</p>
-                    <p className="pl-lp-result-score num">{item.scoreLabel}</p>
-                    <p className="pl-lp-result-pick num">
-                      {item.pickLabel} · {formatPctEs(item.p)} · justo{" "}
-                      {item.fairAmerican}
-                    </p>
-                  </div>
-                  <span
-                    className={`pl-lp-status ${
-                      item.hit ? "pl-lp-status--hit" : "pl-lp-status--miss"
-                    }`}
-                  >
-                    {item.hit ? (
-                      <svg
-                        width="14"
-                        height="14"
-                        viewBox="0 0 24 24"
-                        fill="none"
-                        stroke="currentColor"
-                        strokeWidth="2.4"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        aria-hidden="true"
-                      >
-                        <path d="M5 12l5 5 9-10" />
-                      </svg>
-                    ) : (
-                      <svg
-                        width="14"
-                        height="14"
-                        viewBox="0 0 24 24"
-                        fill="none"
-                        stroke="currentColor"
-                        strokeWidth="2.4"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        aria-hidden="true"
-                      >
-                        <path d="M6 6l12 12M18 6L6 18" />
-                      </svg>
-                    )}
-                    <span>{item.hit ? "Se cumplió" : "No se cumplió"}</span>
-                  </span>
-                </div>
-              ))}
-              <p className="pl-lp-results-foot num">
-                Muestra real publicada antes del partido · {hitsCount} de {shown.length} cumplidos
-              </p>
-            </>
-          )}
+          {hasPending ? (
+            <span className="pl-ed-calib-key">
+              <span aria-hidden="true" className="pl-ed-swatch pl-ed-swatch--dashed" />
+              <span>
+                {hasObserved
+                  ? "Sin muestra en esta banda"
+                  : "Real: se publica con los primeros picks auditados"}
+              </span>
+            </span>
+          ) : null}
         </div>
       </div>
-    </section>
+    </EditorialCard>
   );
 }
 
@@ -1755,37 +1503,6 @@ function CommunitySampleCard({
   );
 }
 
-export function ParlaysAndCommunitySection({
-  parlayDemo,
-  featuredPick,
-}: {
-  parlayDemo: LandingParlayDemoData;
-  featuredPick?: LandingFeaturedCommunityPick;
-}): React.JSX.Element {
-  return (
-    <section id="parlays" className="pl-lp-section">
-      <div className="pl-lp-wrap pl-lp-stack">
-        <div className="pl-lp-section-head pl-lp-section-head--center">
-          <p className="pl-lp-eyebrow">Más allá de un partido</p>
-          <h2 className="pl-lp-h2 text-balance">Arma parlays que tengan sentido.</h2>
-          <p className="pl-lp-lede text-pretty">
-            Combina de 2 a 6 selecciones, también del mismo partido. Si dos se contradicen, no te deja juntarlas.
-          </p>
-        </div>
-
-        <div className="pl-lp-panels">
-          <ParlayDemoCard parlayDemo={parlayDemo} showLink />
-          <CommunitySampleCard
-            id="comunidad"
-            featuredPick={featuredPick}
-            showLink
-          />
-        </div>
-      </div>
-    </section>
-  );
-}
-
 export function PricingSection({
   variant = "teaser",
   hasSession = false,
@@ -1884,10 +1601,6 @@ export function FaqSection({ variant }: { variant?: "landing" } = {}): React.JSX
     </section>
   );
 }
-
-/* ==========================================================================
-   6 Superficies completas de las rutas del menú público
-   ========================================================================== */
 
 export function ComoFuncionaPageSurface({
   heroCards,
@@ -2023,28 +1736,100 @@ export function ComoFuncionaPageSurface({
   );
 }
 
-export function MotoresPageSurface({ hasSession = false }: { hasSession?: boolean } = {}): React.JSX.Element {
+const PUBLIC_CALIBRATION_BANDS = [
+  { minP: 0, maxP: 0.5 },
+  { minP: 0.5, maxP: 0.6 },
+  { minP: 0.6, maxP: 0.7 },
+  { minP: 0.7, maxP: 0.8 },
+  { minP: 0.8, maxP: 1.01 },
+] as const;
+
+function computePublicResultsSummary(
+  results: readonly LandingFinishedResultItem[],
+): {
+  total: number;
+  hits: number;
+  hitRatePct: string | null;
+  meanPredictedPct: string | null;
+  brierScore: number | null;
+  ece: number | null;
+  uniqueLeagues: number;
+} {
+  const valid = results.filter((item) => Number.isFinite(item.p) && item.p > 0 && item.p < 1);
+  const total = valid.length;
+  const uniqueLeagues = new Set(results.map((item) => item.league)).size;
+  if (total === 0) {
+    return {
+      total: results.length,
+      hits: results.filter((item) => item.hit).length,
+      hitRatePct: null,
+      meanPredictedPct: null,
+      brierScore: null,
+      ece: null,
+      uniqueLeagues,
+    };
+  }
+
+  let hits = 0;
+  let sumP = 0;
+  let sumBrier = 0;
+  for (const item of valid) {
+    const y = item.hit ? 1 : 0;
+    hits += y;
+    sumP += item.p;
+    sumBrier += (item.p - y) ** 2;
+  }
+
+  let weightedEce = 0;
+  for (const band of PUBLIC_CALIBRATION_BANDS) {
+    const inBand = valid.filter((item) => item.p >= band.minP && item.p < band.maxP);
+    if (inBand.length === 0) continue;
+    const bandHits = inBand.filter((item) => item.hit).length;
+    const bandMean = inBand.reduce((acc, item) => acc + item.p, 0) / inBand.length;
+    weightedEce += (inBand.length / total) * Math.abs(bandHits / inBand.length - bandMean);
+  }
+
+  return {
+    total,
+    hits,
+    hitRatePct: ((hits / total) * 100).toFixed(1),
+    meanPredictedPct: ((sumP / total) * 100).toFixed(1),
+    brierScore: Math.round((sumBrier / total) * 1000) / 1000,
+    ece: Math.round(weightedEce * 1000) / 1000,
+    uniqueLeagues,
+  };
+}
+
+export function MotoresPageSurface({
+  hasSession = false,
+}: {
+  hasSession?: boolean;
+} = {}): React.JSX.Element {
   return (
     <PublicSiteShell activePath="/motores" hasSession={hasSession}>
       <section className="pl-lp-section pl-lp-section--top">
-        <div className="pl-lp-wrap pl-lp-stack">
-          <div className="pl-lp-section-head" style={{ maxWidth: 740 }}>
-            <p className="pl-lp-eyebrow">Motores Spacetime</p>
-            <h1 className="pl-lp-h1 pl-lp-h1--page text-balance">
+        <div className="pl-lp-wrap pl-ed-page-head">
+          <div className="pl-ed-head-copy">
+            <p className="pl-ed-eyebrow">Motores Spacetime</p>
+            <h1 className="pl-ed-title">
               Cinco motores. Cada uno probado con partidos que no vio.
             </h1>
-            <p className="pl-lp-lede text-pretty">
-              Cada motor cumple una tarea distinta: medir fuerza deportiva pura, cruzarla con el mercado sin margen, filtrar ventaja real y explicarla en claro.
+            <p className="pl-ed-lede">
+              Cada motor cumple una tarea distinta: medir fuerza deportiva pura, cruzarla con el
+              mercado sin margen, filtrar ventaja real y explicarla en lenguaje claro.
             </p>
-            <div className="pl-lp-hero-ctas" style={{ marginTop: 8 }}>
-              <a className="pl-lp-btn pl-lp-btn-primary" href={hasSession ? "/app" : "/signup"}>
-                Probar 7 días gratis{" "}
-                <span className="pl-lp-arr" aria-hidden="true">
-                  →
-                </span>
+            <div className="pl-ed-actions">
+              <a
+                className="pl-ed-link-btn pl-ed-link-btn--primary"
+                href={hasSession ? "/app" : "/signup"}
+              >
+                Probar 7 días gratis →
               </a>
-              <a className="pl-lp-btn pl-lp-btn-ghost" href="/resultados">
+              <a className="pl-ed-link-btn" href="/resultados">
                 Ver resultados publicados
+              </a>
+              <a className="pl-ed-link-btn" href="/verificacion">
+                Verificar recibo SHA-256
               </a>
             </div>
           </div>
@@ -2054,21 +1839,27 @@ export function MotoresPageSurface({ hasSession = false }: { hasSession?: boolea
       <EnginesSection variant="page" />
 
       <section id="calibracion" className="pl-lp-section">
-        <div className="pl-lp-wrap pl-lp-pricing-grid">
-          <div className="pl-lp-pricing-copy">
-            <p className="pl-lp-eyebrow">Calibración</p>
-            <h2 className="pl-lp-h2 text-balance">
-              La probabilidad anunciada se mide contra la realidad.
-            </h2>
-            <p className="pl-lp-lede text-pretty">
+        <div className="pl-lp-wrap pl-ed-split pl-ed-split--even">
+          <div className="pl-ed-stack">
+            <p className="pl-ed-eyebrow">Calibración</p>
+            <h2 className="pl-ed-h2">La probabilidad anunciada se mide contra la realidad.</h2>
+            <p className="pl-ed-lede">
               {SPACETIME_METRICS_HEADLINE.retrainSchedule}. En{" "}
-              <span className="num">{SPACETIME_METRICS_HEADLINE.activeLeaguesCount}</span> ligas activas publicamos de{" "}
-              <span className="num">{SPACETIME_METRICS_HEADLINE.picksPerMatchRange}</span> picks estructurados por partido.
+              <span className="num">{SPACETIME_METRICS_HEADLINE.activeLeaguesCount}</span> ligas
+              activas publicamos de{" "}
+              <span className="num">{SPACETIME_METRICS_HEADLINE.picksPerMatchRange}</span> picks
+              estructurados por partido.
             </p>
+            <div className="pl-ed-actions">
+              <a className="pl-ed-link-btn" href="/resultados">
+                Explorar tabla pública FT
+              </a>
+              <a className="pl-ed-link-btn" href="/verificacion">
+                Abrir verificador SHA-256
+              </a>
+            </div>
           </div>
-          <div style={{ flex: "1 1 460px", minWidth: 0 }}>
-            <CalibrationCard />
-          </div>
+          <CalibrationCard />
         </div>
       </section>
 
@@ -2084,53 +1875,81 @@ export function ResultadosPageSurface({
   results: readonly LandingFinishedResultItem[];
   hasSession?: boolean;
 }): React.JSX.Element {
-  const totalSettled = results.length;
-  const totalHits = results.filter((item) => item.hit).length;
-  const hitRatePct = totalSettled > 0 ? ((totalHits / totalSettled) * 100).toFixed(1) : null;
-  const meanPredictedPct =
-    totalSettled > 0
-      ? ((results.reduce((acc, item) => acc + item.p, 0) / totalSettled) * 100).toFixed(1)
-      : null;
-  const uniqueLeaguesCount = new Set(results.map((item) => item.league)).size;
+  const stats = computePublicResultsSummary(results);
+  const kpiItems: EditorialKpiItem[] = [
+    {
+      id: "settled",
+      label: "Partidos FT auditados",
+      value: String(stats.total),
+      delta: `${stats.uniqueLeagues} ${stats.uniqueLeagues === 1 ? "liga" : "ligas"}`,
+    },
+    {
+      id: "hit-rate",
+      label: "Tasa cumplida",
+      value: stats.hitRatePct !== null ? `${stats.hitRatePct} %` : "—",
+      delta: stats.meanPredictedPct !== null ? `Est. ${stats.meanPredictedPct} %` : undefined,
+      tone: "positive",
+    },
+    {
+      id: "ece-brier",
+      label: "ECE · Brier",
+      value:
+        stats.ece !== null
+          ? `${(stats.ece * 100).toFixed(1)} pp`
+          : SPACETIME_METRICS_HEADLINE.calibrationError,
+      delta: stats.brierScore !== null ? `Brier ${stats.brierScore.toFixed(3)}` : "Prueba 2024–25",
+    },
+    {
+      id: "clv",
+      label: "CLV fuera de muestra",
+      value: SPACETIME_METRICS_HEADLINE.closingLineBeatPct,
+      delta: `${SPACETIME_METRICS_HEADLINE.holdoutTestMatches} partidos`,
+      tone: "brand",
+    },
+  ];
 
   return (
     <PublicSiteShell activePath="/resultados" hasSession={hasSession}>
       <section className="pl-lp-section pl-lp-section--top">
-        <div className="pl-lp-wrap pl-lp-stack">
-          <div className="pl-lp-engines-head">
-            <div className="pl-lp-section-head" style={{ maxWidth: 680 }}>
-              <p className="pl-lp-eyebrow">Historial íntegro</p>
-              <h1 className="pl-lp-h1 pl-lp-h1--page text-balance">
-                Lo que falló también se queda.
-              </h1>
-              <p className="pl-lp-lede text-pretty">
-                Cada pick queda registrado antes del inicio del partido y se califica con el marcador oficial al terminar. Nada se borra ni se edita después.
-              </p>
+        <div className="pl-lp-wrap pl-ed-stack">
+          <div className="pl-ed-page-head">
+            <div className="pl-ed-head-row">
+              <div className="pl-ed-head-copy">
+                <p className="pl-ed-eyebrow">Historial íntegro</p>
+                <h1 className="pl-ed-title">Lo que falló también se queda.</h1>
+                <p className="pl-ed-lede">
+                  Cada pick queda registrado antes del inicio del partido y se califica con el
+                  marcador oficial al terminar. Nada se borra ni se edita después.
+                </p>
+              </div>
+              <div className="pl-ed-actions">
+                <a className="pl-ed-link-btn pl-ed-link-btn--primary" href="/verificacion">
+                  Verificar recibo SHA-256 →
+                </a>
+                <a className="pl-ed-link-btn" href="/motores">
+                  Cómo calculamos
+                </a>
+              </div>
             </div>
 
-            {totalSettled > 0 && hitRatePct !== null && meanPredictedPct !== null ? (
-              <dl className="pl-lp-kpis" aria-label="Resumen del historial publicado">
-                <div>
-                  <dt>Partidos calificados</dt>
-                  <dd className="num">{totalSettled}</dd>
-                </div>
-                <div>
-                  <dt>Tasa cumplida</dt>
-                  <dd className="num">{hitRatePct} %</dd>
-                </div>
-                <div>
-                  <dt>Probabilidad media</dt>
-                  <dd className="num">{meanPredictedPct} %</dd>
-                </div>
-                <div>
-                  <dt>Ligas auditadas</dt>
-                  <dd className="num">{uniqueLeaguesCount}</dd>
-                </div>
-              </dl>
-            ) : null}
+            <EditorialKpiStrip items={kpiItems} className="pl-ed-kpi-4" />
           </div>
 
-          <ResultsFilterListIsland results={results} />
+          <ResultadosEditorialBoard results={results} />
+
+          <div className="pl-ed-callout">
+            <div className="pl-ed-callout-copy">
+              <h2 className="pl-ed-h3">Auditoría criptográfica local (SHA-256)</h2>
+              <p className="pl-ed-subcopy">
+                Comprueba directamente en tu navegador que un recibo registrado antes del partido
+                coincide con su huella SHA-256, sin enviar datos privados a ningún servidor.
+              </p>
+            </div>
+            <a className="pl-ed-link-btn" href="/verificacion">
+              Abrir verificador local →
+            </a>
+          </div>
+
           {results.length > 0 ? (
             <CalibrationCurveChart
               samples={results.map((r) => ({ p: r.p, hit: r.hit }))}
@@ -2138,6 +1957,7 @@ export function ResultadosPageSurface({
               subtitle="Comparación directa entre la probabilidad publicada antes del partido y el porcentaje real cumplido."
             />
           ) : null}
+
           <CalibrationHonestyLab settledCount={results.length} />
           <CalibrationCard results={results} />
         </div>

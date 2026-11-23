@@ -1,19 +1,31 @@
 import { NextResponse } from "next/server";
+import { parseStrictFiniteNumber } from "@pitchlab/contracts";
 import { listTipsterCommissionsForAdmin } from "@pitchlab/db";
-import { requireAdmin } from "../../../../src/server/session-user";
+import { withAdminMutation } from "../../../../src/server/api-guards";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
 
-/** GET /api/admin/tipster-payouts — lista comisiones de tipsters y saldos por liquidar. */
-export async function GET(request: Request): Promise<NextResponse> {
-  const admin = await requireAdmin(request);
-  if ("error" in admin) return admin.error;
+const MAX_ADMIN_PAYOUTS_LIMIT = 40;
 
-  const { ledger, totalsByTipster } = await listTipsterCommissionsForAdmin(admin.db, { limit: 120 });
+export const GET = withAdminMutation(
+  {
+    bucket: "admin-tipster-payouts-list",
+    allowGet: true,
+    limit: 60,
+    windowMs: 60_000,
+  },
+  async ({ request, user }) => {
+    const rawLimit = new URL(request.url).searchParams.get("limit");
+    const parsedLimit = parseStrictFiniteNumber(rawLimit);
+    const limit =
+      parsedLimit !== null && Number.isInteger(parsedLimit)
+        ? Math.min(MAX_ADMIN_PAYOUTS_LIMIT, Math.max(1, parsedLimit))
+        : MAX_ADMIN_PAYOUTS_LIMIT;
 
-  return NextResponse.json(
-    {
+    const { ledger, totalsByTipster } = await listTipsterCommissionsForAdmin(user.db, { limit });
+
+    return NextResponse.json({
       totalsByTipster,
       ledger: ledger.map((r) => ({
         ...r,
@@ -21,7 +33,6 @@ export async function GET(request: Request): Promise<NextResponse> {
         paidOutAtIso: r.paidOutAt ? r.paidOutAt.toISOString() : null,
         createdAtIso: r.createdAt.toISOString(),
       })),
-    },
-    { headers: { "Cache-Control": "no-store" } },
-  );
-}
+    });
+  },
+);

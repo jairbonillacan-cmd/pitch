@@ -15,6 +15,7 @@ import {
   users,
   type Db,
 } from "@pitchlab/db";
+import { resetScrapingVelocityForTests } from "../src/server/api-guards";
 import { createAuth, resetAuthForTests } from "../src/server/auth";
 import { setMailerForTests, type OutgoingEmail } from "../src/server/mailer";
 import { resetRateLimitsForTests } from "../src/server/request-security";
@@ -161,10 +162,11 @@ beforeAll(async () => {
 
 beforeEach(async () => {
   await pgClient.exec(
-    "TRUNCATE TABLE users, auth_user, auth_verification, access_coupons, tipster_profiles, scheduled_emails, platform_runtime_flags, admin_audit_logs CASCADE",
+    "TRUNCATE TABLE users, auth_user, auth_verification, access_coupons, tipster_profiles, scheduled_emails, platform_runtime_flags, admin_audit_logs, security_rate_buckets, security_abuse_events CASCADE",
   );
   sentEmails.length = 0;
   resetRateLimitsForTests();
+  resetScrapingVelocityForTests();
   resetAuthForTests();
   setSessionDbForTests(sharedDb);
   setMailerForTests({
@@ -460,15 +462,18 @@ describe("Beta 1.0 · Endpoints SPEI, cupones, preferencias, tipster y cron", ()
     expect(((await approve2.json()) as { alreadyApproved: boolean }).alreadyApproved).toBe(true);
     expect(sentEmails.length).toBe(mailsAfterApprove);
 
-    // Otra cuenta (`host`) no puede previsualizar ni canjear el cupón personal de `friend`
+    // Otra cuenta (`host`) no puede previsualizar ni canjear el cupón personal de `friend` (y no filtra metadatos)
     const wrongPreview = await getCouponPreview(
       new Request(`${ORIGIN}/api/me/coupons/preview?codigo=${approveJson1.coupon.code}`, {
         headers: { cookie: host.cookieHeader },
       }),
     );
+    expect(wrongPreview.status).toBe(200);
+    expect(wrongPreview.headers.get("cache-control")).toBe("private, no-store");
     expect(await wrongPreview.json()).toMatchObject({
       valid: false,
       reason: "cuenta_distinta",
+      coupon: null,
     });
 
     const wrongRedeem = await postRedeem(
@@ -558,12 +563,20 @@ describe("Beta 1.0 · Endpoints SPEI, cupones, preferencias, tipster y cron", ()
     expect(createRes.status).toBe(201);
     const created = (await createRes.json()) as { coupon: { id: string; code: string } };
 
-    // Previsualización pública sin sesión funciona
-    const pubPreview = await getCouponPreview(
+    // Previsualización sin sesión queda bloqueada (401); con sesión activa devuelve metadatos del cupón público
+    const anonPreview = await getCouponPreview(
       new Request(`${ORIGIN}/api/me/coupons/preview?codigo=BETA1`),
     );
-    expect(pubPreview.status).toBe(200);
-    expect(await pubPreview.json()).toMatchObject({
+    expect(anonPreview.status).toBe(401);
+
+    const authPreview = await getCouponPreview(
+      new Request(`${ORIGIN}/api/me/coupons/preview?codigo=BETA1`, {
+        headers: { cookie: member1.cookieHeader },
+      }),
+    );
+    expect(authPreview.status).toBe(200);
+    expect(authPreview.headers.get("cache-control")).toBe("private, no-store");
+    expect(await authPreview.json()).toMatchObject({
       valid: true,
       coupon: { code: "BETA1", days: 15 },
     });

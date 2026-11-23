@@ -143,7 +143,10 @@ function teamsOf(facts: CortexFacts): [string, string] {
   return [keys[0]!, keys[1]!];
 }
 
-const num = (s: unknown) => Number(String(s ?? "").match(/\d+(?:\.\d+)?/)?.[0] ?? NaN);
+const num = (s: unknown) => {
+  const matched = String(s ?? "").match(/\d+(?:\.\d+)?/)?.[0];
+  return matched ? Number.parseFloat(matched) : Number.NaN;
+};
 
 /** Cifras que acompañan cada sección (salen del motor, nunca del LLM). */
 export function sectionStats(key: CortexSectionKey, facts: CortexFacts): CortexStat[] | undefined {

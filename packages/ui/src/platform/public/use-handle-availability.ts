@@ -1,6 +1,7 @@
 "use client";
 
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useMemo, useRef, useState } from "react";
+import { useSafeEffect } from "../hooks";
 
 /** Mismas reglas de formato que checkHandleFormat en @pitchlab/db. */
 export const SIGNUP_HANDLE_PATTERN = /^[a-z][a-z0-9_]{2,19}$/;
@@ -122,8 +123,8 @@ export function useHandleAvailability(raw: string, accountsEnabled: boolean, own
   const needsLookup = accountsEnabled && valid && handle !== ownHandle;
   const [result, setResult] = useState<{ handle: string; status: HandleStatus } | null>(null);
 
-  useEffect(() => {
-    if (!needsLookup) return;
+  useSafeEffect(() => {
+    if (!needsLookup || typeof window === "undefined") return;
     const controller = new AbortController();
     const timer = window.setTimeout(async () => {
       let status: HandleStatus = "idle";
@@ -136,8 +137,8 @@ export function useHandleAvailability(raw: string, accountsEnabled: boolean, own
           status = data.ok ? "free" : data.reason === "reservado" ? "reserved" :
             data.reason === "ocupado" ? "taken" : "invalid";
         }
-      } catch {
-        // The server will validate the handle again on submit.
+      } catch (err) {
+        void err;
       }
       if (!controller.signal.aborted) setResult({ handle, status });
     }, 450);
@@ -186,8 +187,8 @@ export function useHandleSuggestions({
     failed: boolean;
   } | null>(null);
 
-  useEffect(() => {
-    if (!enabled || !accountsEnabled) return;
+  useSafeEffect(() => {
+    if (!enabled || !accountsEnabled || typeof window === "undefined") return;
     const controller = new AbortController();
     const delayMs = hasFetchedRef.current ? 380 : 100;
     const timer = window.setTimeout(async () => {

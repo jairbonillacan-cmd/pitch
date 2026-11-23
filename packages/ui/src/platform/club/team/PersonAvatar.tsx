@@ -1,9 +1,25 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { resolvePersonPhotoUrl } from "@pitchlab/sports-assets";
 import { usePackIconBase } from "../../../pack-icon-theme";
+import { useEmblemSurface } from "../../../sports";
 import { ProgressiveImage } from "../../components/ProgressiveImage";
+import { useSafeEffect } from "../../hooks";
+
+const EXTERNAL_BZZOIRO_IMG_RE = /^https:\/\/sports\.bzzoiro\.com\/img\//i;
+
+function resolveSurfacePersonPhotoUrl(
+  photoKey: string | null | undefined,
+  surface: "public" | "app",
+): string | null {
+  const url = resolvePersonPhotoUrl(photoKey);
+  if (!url) return null;
+  if (surface !== "app" && EXTERNAL_BZZOIRO_IMG_RE.test(url)) {
+    return null;
+  }
+  return url;
+}
 
 export interface PersonAvatarProps {
   photoKey?: string | null;
@@ -14,12 +30,6 @@ export interface PersonAvatarProps {
   className?: string;
 }
 
-/**
- * Retrato circular verificado para jugador o entrenador.
- * Prueba la URL primaria (`resolvePersonPhotoUrl`), detecta marcadores de posición 1×1
- * o errores de red, intenta la URL secundaria si existe y cae con elegancia al glifo
- * temático de PitchLab (`user` o `coach`).
- */
 export function PersonAvatar({
   photoKey,
   fallbackPhotoKey,
@@ -29,14 +39,15 @@ export function PersonAvatar({
   className,
 }: PersonAvatarProps): React.JSX.Element {
   const iconBase = usePackIconBase();
-  const primaryUrl = resolvePersonPhotoUrl(photoKey);
-  const secondaryUrl = resolvePersonPhotoUrl(fallbackPhotoKey);
+  const surface = useEmblemSurface();
+  const primaryUrl = resolveSurfacePersonPhotoUrl(photoKey, surface);
+  const secondaryUrl = resolveSurfacePersonPhotoUrl(fallbackPhotoKey, surface);
 
   const [stage, setStage] = useState<"primary" | "secondary" | "icon">(() =>
     primaryUrl ? "primary" : secondaryUrl ? "secondary" : "icon",
   );
 
-  useEffect(() => {
+  useSafeEffect(() => {
     setStage(primaryUrl ? "primary" : secondaryUrl ? "secondary" : "icon");
   }, [primaryUrl, secondaryUrl]);
 
@@ -87,7 +98,6 @@ export function PersonAvatar({
           alt=""
           width={glyphSize}
           height={glyphSize}
-          {...(priority ? {} : { loading: "lazy" as const })}
           decoding="async"
           draggable={false}
           className="pl-person-avatar-glyph"

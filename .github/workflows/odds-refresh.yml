@@ -30,6 +30,16 @@ on:
         required: false
         default: false
         type: boolean
+      include_expansion:
+        description: "Incluir momios de toda la expansión además de copas Tier 1"
+        required: false
+        default: false
+        type: boolean
+      odds_only:
+        description: "Ejecutar solo captura de momios sin notificaciones de salud"
+        required: false
+        default: false
+        type: boolean
 
 permissions:
   contents: read
@@ -42,7 +52,7 @@ jobs:
   odds-refresh:
     name: Capturar momios permitidos, validar y publicar
     runs-on: ubuntu-latest
-    timeout-minutes: 10
+    timeout-minutes: 15
     permissions:
       contents: write
     steps:
@@ -82,7 +92,27 @@ jobs:
           if [ "${{ inputs.force }}" = "true" ]; then
             FORCE_ARG="--force"
           fi
-          pnpm --filter @pitchlab/ingest odds:refresh "$WINDOW_ARG" $FORCE_ARG
+          ODDS_ONLY_ARG=""
+          if [ "${{ inputs.odds_only }}" = "true" ]; then
+            ODDS_ONLY_ARG="--odds-only"
+          fi
+          pnpm --filter @pitchlab/ingest odds:refresh "$WINDOW_ARG" $FORCE_ARG $ODDS_ONLY_ARG --skip-tier1-cups
+
+      - name: Refrescar momios de copas Tier 1 y expansión (--odds-only)
+        continue-on-error: true
+        env:
+          BZZOIRO_API_KEY: ${{ secrets.BZZOIRO_API_KEY }}
+          BZZOIRO_UNLIMITED: ${{ vars.BZZOIRO_UNLIMITED }}
+        run: |
+          if [ -z "$BZZOIRO_API_KEY" ]; then
+            echo "::notice title=Sin Bzzoiro::Falta BZZOIRO_API_KEY; se omiten momios de copas Tier 1 y expansión."
+            exit 0
+          fi
+          if [ "${{ inputs.include_expansion }}" = "true" ] || [ "$BZZOIRO_UNLIMITED" = "1" ] || [ "$BZZOIRO_UNLIMITED" = "true" ]; then
+            pnpm --filter @pitchlab/ingest snapshot:expansion --odds-only
+          else
+            pnpm --filter @pitchlab/ingest snapshot:expansion --odds-only --tier1-cups-only
+          fi
 
       - name: Respaldo de Salud de datos ante caída abrupta
         if: failure()
@@ -104,7 +134,7 @@ jobs:
           git config user.email "bot@pitchlab.app"
 
           DATA_CHANGED="false"
-          if ! git diff --quiet -- packages/spacetime/data/live_matchday_v3_snapshot.json data/odds_timeseries || [ -n "$(git ls-files --others --exclude-standard data/odds_timeseries)" ]; then
+          if ! git diff --quiet -- packages/spacetime/data/live_matchday_v3_snapshot.json data/odds_timeseries data/snapshots || [ -n "$(git ls-files --others --exclude-standard data/odds_timeseries data/snapshots)" ]; then
             DATA_CHANGED="true"
           fi
 
@@ -114,9 +144,9 @@ jobs:
           fi
 
           if [ "$DATA_CHANGED" = "true" ] || [ "$ALERT_CHANGED" = "true" ]; then
-            git add packages/spacetime/data/live_matchday_v3_snapshot.json data/odds_timeseries data/health
+            git add packages/spacetime/data/live_matchday_v3_snapshot.json data/odds_timeseries data/snapshots data/health
             if ! git diff --staged --quiet; then
-              git commit -m "datos(momios): actualizar cuotas verificadas y estado de salud"
+              git commit -m "datos(momios): actualizar cuotas verificadas, copas Tier 1, NBA rich y salud"
               git pull --rebase origin main
               git push
             fi
@@ -145,8 +175,8 @@ jobs:
           PITCHLAB_SITE_URL: ${{ secrets.PITCHLAB_SITE_URL }}
         run: |
           if [ -n "$CRON_SECRET" ] && [ -n "$PITCHLAB_SITE_URL" ]; then
-            printf 'url = "%s/api/cron/settle-picks"\nheader = "Authorization: Bearer %s"\n' "${PITCHLAB_SITE_URL%/}" "$CRON_SECRET" | curl -fsS --config - >/dev/null || echo "Aviso: cron settle-picks no respondió 200."
-            printf 'url = "%s/api/cron/push-alerts"\nheader = "Authorization: Bearer %s"\n' "${PITCHLAB_SITE_URL%/}" "$CRON_SECRET" | curl -fsS --config - >/dev/null || echo "Aviso: cron push-alerts no respondió 200."
+            printf 'url = "%s/api/cron/settle-picks"\nheader = "Authorization: Bearer %s"\n' "${PITCHLAB_SITE_URL%/}" "$CRON_SECRET" | curl -fs --config - >/dev/null || echo "Aviso: cron settle-picks no respondió 200."
+            printf 'url = "%s/api/cron/push-alerts"\nheader = "Authorization: Bearer %s"\n' "${PITCHLAB_SITE_URL%/}" "$CRON_SECRET" | curl -fs --config - >/dev/null || echo "Aviso: cron push-alerts no respondió 200."
             echo "Liquidación, cierre y alertas push sincronizados."
           else
             echo "Sin CRON_SECRET/PITCHLAB_SITE_URL; se omite."

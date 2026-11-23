@@ -1,30 +1,54 @@
 import { NextResponse } from "next/server";
+import { createSanitizedErrorPayload } from "@pitchlab/contracts";
 import { listFollowing, setSocialFollow } from "@pitchlab/db";
-import { verifySameOriginMutation } from "../../../../src/server/request-security";
-import { reasonResponse, requireSocialMember } from "../../../../src/server/social";
+import { z } from "zod";
+import { withActivePaseMutation, withSessionRead } from "../../../../src/server/api-guards";
+import { reasonResponse } from "../../../../src/server/social";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
 
-/** @usuarios que sigue el socio. */
-export async function GET(request: Request): Promise<NextResponse> {
-  const member = await requireSocialMember(request);
-  if ("error" in member) return member.error;
-  return NextResponse.json({ handles: await listFollowing(member.db, member.userId) });
-}
+const FOLLOWING_LIMIT = 40;
 
-/** `{ handle, follow }`: seguir o dejar de seguir. */
-export async function POST(request: Request): Promise<NextResponse> {
-  const originErr = verifySameOriginMutation(request, { requireJson: true });
-  if (originErr) return originErr;
-  const member = await requireSocialMember(request);
-  if ("error" in member) return member.error;
-  const body = (await request.json().catch(() => null)) as Record<string, unknown> | null;
-  const handle = typeof body?.handle === "string" ? body.handle.replace(/^@/, "").trim() : "";
-  if (!handle || typeof body?.follow !== "boolean") {
-    return NextResponse.json({ error: "Faltan datos" }, { status: 400 });
-  }
-  const result = await setSocialFollow(member.db, member.userId, handle, body.follow);
-  if (!result.ok) return reasonResponse(result.reason);
-  return NextResponse.json({ following: result.following });
-}
+const FollowPayloadSchema = z
+  .object({
+    handle: z
+      .string()
+      .transform((value) => value.replace(/^@/, "").trim())
+      .refine((value) => value.length >= 1 && value.length <= 32, "invalid_handle"),
+    follow: z.boolean(),
+  })
+  .strict();
+
+export const GET = withSessionRead(
+  {
+    bucket: "social-follows-read",
+    limit: 60,
+    windowMs: 60_000,
+    requireSocialHandle: true,
+  },
+  async ({ user }) => {
+    const handles = await listFollowing(user.db, user.userId, FOLLOWING_LIMIT);
+    return NextResponse.json({ handles });
+  },
+);
+
+export const POST = withActivePaseMutation(
+  {
+    bucket: "social-follows-write",
+    limit: 30,
+    windowMs: 60_000,
+    requireSocialHandle: true,
+  },
+  async ({ request, user }) => {
+    const raw = await request.json().catch(() => null);
+    const parsed = FollowPayloadSchema.safeParse(raw);
+    if (!parsed.success) {
+      const err = createSanitizedErrorPayload("INVALID_INPUT", "Faltan datos.");
+      return NextResponse.json({ ok: false, error: err.message, code: err.code }, { status: 400 });
+    }
+    const result = await setSocialFollow(user.db, user.userId, parsed.data.handle, parsed.data.follow);
+    if (!result.ok) return reasonResponse(result.reason);
+    return NextResponse.json({ following: result.following });
+  },
+);

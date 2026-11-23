@@ -9,6 +9,7 @@
  * - La columna `ftn` (CC-BY-SA 4.0) se descarta en `parseCsv` y no se usa.
  */
 import { z } from "zod";
+import { parseStrictFiniteNumber } from "@pitchlab/contracts";
 import { parseCsv } from "../adapters/nflverse.js";
 import type { HistoricalClosingOdds, HistoricalGame } from "./schema.js";
 import { nflTeamKey } from "./teams.js";
@@ -54,10 +55,7 @@ export interface NflverseHistoryResult {
 }
 
 function numberOrNull(raw: string): number | null {
-  const trimmed = raw.trim();
-  if (trimmed === "") return null;
-  const value = Number(trimmed);
-  return Number.isFinite(value) ? value : null;
+  return parseStrictFiniteNumber(raw);
 }
 
 function closingOdds(row: z.infer<typeof NflverseHistoryRowSchema>): HistoricalClosingOdds | undefined {
@@ -115,9 +113,14 @@ export function normalizeNflverseHistory(
       skipped.withoutScore++;
       continue;
     }
-    const homeScore = Number(row.home_score);
-    const awayScore = Number(row.away_score);
-    if (!Number.isInteger(homeScore) || !Number.isInteger(awayScore)) {
+    const homeScore = parseStrictFiniteNumber(row.home_score);
+    const awayScore = parseStrictFiniteNumber(row.away_score);
+    if (
+      homeScore === null ||
+      awayScore === null ||
+      !Number.isInteger(homeScore) ||
+      !Number.isInteger(awayScore)
+    ) {
       skipped.withoutScore++;
       continue;
     }

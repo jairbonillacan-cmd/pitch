@@ -1,0 +1,860 @@
+import { describe, expect, it } from "vitest";
+import { asLeagueId, asMarketKey, type MatchAnalysis } from "@pitchlab/contracts";
+import { buildPlatformDataset } from "../src/platform/match-picks-engine";
+import { buildOfficialDailyParlay } from "../src/platform/daily-parlay";
+import {
+  MAX_PARLAY_LEGS,
+  buildSmartAutoParlay,
+  checkParlayCompatibility,
+  computeParlaySummary,
+  parlayMarketDiversityKey,
+} from "../src/platform/parlay-engine";
+import {
+  buildMatchPicksCatalog,
+  computePickPricing,
+  scoreRecommendedCatalogPick,
+  selectPicksOfTheDay,
+  type CatalogPickItem,
+  type EvidenceWindowStat,
+} from "../src/platform/picks-catalog/index";
+import { formatValueThresholdLabel } from "../src/platform/picks-catalog/evidence-engine";
+import { buildQuoteIndex } from "../src/platform/picks-catalog/market-families";
+import type { MatchPick, PlatformGame } from "../src/platform/types";
+
+const FIXED_CAPTURED_AT = "2026-11-21T16:00:00Z";
+const FIXED_NOW_ISO = "2026-11-21T18:00:00Z";
+const FORBIDDEN_COPY_RE =
+  /confianza|datos\s+completos|datos\s+parciales|scoutpicks|sofascore|bzzoiro|espn|poisson|dixon/i;
+
+function makeWindow(
+  window: EvidenceWindowStat["window"],
+  label: string,
+  hits: number,
+  sample: number,
+): EvidenceWindowStat {
+  const ratePct = sample > 0 ? Math.round((hits / sample) * 100) : 0;
+  const tone = ratePct >= 65 ? "high" : ratePct >= 45 ? "mid" : "low";
+  return {
+    window,
+    label,
+    hits,
+    sample,
+    pushes: 0,
+    ratePct,
+    meanValue: null,
+    tone,
+  };
+}
+
+function makeCatalogPick(params: {
+  readonly id: string;
+  readonly gameId: string;
+  readonly p: number;
+  readonly marketDecimal?: number | null;
+  readonly companionMarketDecimals?: readonly number[];
+  readonly gameStatus?: "NS" | "FT" | "LIVE";
+  readonly settlement?: "hit" | "miss" | "push" | "pending";
+  readonly isRedacted?: boolean;
+  readonly windows?: readonly EvidenceWindowStat[];
+  readonly label?: string;
+  readonly selectionKey?: string;
+  readonly isPrimaryModelPick?: boolean;
+  readonly recommendationScore?: number;
+}): CatalogPickItem {
+  const windows = params.windows ?? [];
+  const avgObservedRatePct =
+    windows.length > 0
+      ? Math.round(windows.reduce((acc, w) => acc + w.ratePct, 0) / windows.length)
+      : null;
+
+  const pricing = params.isRedacted
+    ? {
+        p: 0,
+        fairOdds: 0,
+        fairAmerican: 0,
+        marketDecimal: null,
+        marketAmerican: null,
+        marketBookLabel: null,
+        marketCapturedAtUtc: null,
+        deVigMarketProb: null,
+        deVigMethod: "none" as const,
+        overroundPct: null,
+        evPct: null,
+        edgePts: null,
+        noVigEdgePts: null,
+        valueLabel: null,
+        hasPositiveValue: false,
+      }
+    : computePickPricing({
+        calibratedProb: params.p,
+        marketDecimal: params.marketDecimal ?? null,
+        companionMarketDecimals: params.companionMarketDecimals,
+        companionIndex: 0,
+        marketBookLabel: params.marketDecimal ? "Pinnacle" : null,
+        marketCapturedAtUtc: params.marketDecimal ? FIXED_CAPTURED_AT : null,
+        nowIso: FIXED_NOW_ISO,
+      });
+
+  return {
+    id: params.id,
+    gameId: params.gameId,
+    league: asLeagueId("premier-league"),
+    leagueLabel: "Premier League",
+    sport: "football",
+    matchLabel: "Liverpool vs Arsenal",
+    kickoffUtc: "2026-11-22T18:00:00Z",
+    kickoffLocal: "12:00",
+    gameStatus: params.gameStatus ?? "NS",
+    family: "totals",
+    familyLabel: "Total de goles",
+    category: "goles_totales",
+    axis: "goals_total",
+    selectionKey: params.selectionKey ?? "over_2.5",
+    label: params.label ?? "Más de 2.5 goles",
+    line: 2.5,
+    direction: "over",
+    pricing,
+    evidence: {
+      windows,
+      xgSignal: null,
+      refereeSignal: null,
+      bullets: windows.map((w) => ({
+        label: `${w.label} (${w.hits}/${w.sample})`,
+        ratePct: w.ratePct,
+        tone: w.tone,
+      })),
+      avgObservedRatePct,
+    },
+    settlement: params.settlement ?? "pending",
+    engineName: "PitchLab Spacetime v5.1",
+    isPrimaryModelPick: params.isPrimaryModelPick ?? false,
+    isDerived: false,
+    conflictGroup: "over_total",
+    isRedacted: params.isRedacted ?? false,
+    ...(params.recommendationScore !== undefined
+      ? { recommendationScore: params.recommendationScore }
+      : {}),
+  };
+}
+
+describe("Ola 6 · scoreRecommendedCatalogPick y selectPicksOfTheDay", () => {
+  it("marca cuotas triviales < 1.25 como trivial_odds con isRecommended=false aunque tengan 5/5 histórico", () => {
+    const hotWindows = [
+      makeWindow("L5", "Últimos 5", 5, 5),
+      makeWindow("L10", "Últimos 10", 10, 10),
+      makeWindow("L20", "Últimos 20", 19, 20),
+    ];
+
+    const trivialWithMarket = makeCatalogPick({
+      id: "pick-trivial-market",
+      gameId: "g-trivial-1",
+      p: 0.88,
+      marketDecimal: 1.15,
+      companionMarketDecimals: [1.15, 5.4],
+      windows: hotWindows,
+    });
+    const trivialFairOnly = makeCatalogPick({
+      id: "pick-trivial-fair",
+      gameId: "g-trivial-2",
+      p: 0.86,
+      marketDecimal: null,
+      windows: hotWindows,
+    });
+    const trivialEdgeBoundary = makeCatalogPick({
+      id: "pick-trivial-122",
+      gameId: "g-trivial-3",
+      p: 0.85,
+      marketDecimal: 1.22,
+      companionMarketDecimals: [1.22, 4.4],
+      windows: hotWindows,
+    });
+
+    for (const pick of [trivialWithMarket, trivialFairOnly, trivialEdgeBoundary]) {
+      const scored = scoreRecommendedCatalogPick(pick);
+      expect(scored.tier).toBe("trivial_odds");
+      expect(scored.isRecommended).toBe(false);
+      expect(scored.score).toBeGreaterThanOrEqual(0);
+      expect(scored.score).toBeLessThanOrEqual(100);
+    }
+  });
+
+  it("prioriza valor real Spacetime (EV+ > 0 en 1.55–2.40) sobre hit-rate ingenuo 5/5 sin ventaja real", () => {
+    const spacetimeValuePick = makeCatalogPick({
+      id: "pick-spacetime-ev-plus",
+      gameId: "g-ev-1",
+      p: 0.61,
+      marketDecimal: 1.85,
+      companionMarketDecimals: [1.85, 1.95],
+      windows: [
+        makeWindow("L5", "Últimos 5", 4, 5),
+        makeWindow("L10", "Últimos 10", 7, 10),
+        makeWindow("L20", "Últimos 20", 14, 20),
+      ],
+    });
+
+    const naiveFiveOfFivePick = makeCatalogPick({
+      id: "pick-naive-5-of-5",
+      gameId: "g-ev-2",
+      p: 0.43,
+      marketDecimal: 1.85,
+      companionMarketDecimals: [1.85, 1.95],
+      windows: [
+        makeWindow("L5", "Últimos 5", 5, 5),
+        makeWindow("L10", "Últimos 10", 9, 10),
+        makeWindow("L20", "Últimos 20", 17, 20),
+        makeWindow("home_away", "Local", 9, 10),
+      ],
+    });
+
+    expect(spacetimeValuePick.pricing.hasPositiveValue).toBe(true);
+    expect(spacetimeValuePick.pricing.evPct).toBeGreaterThan(0);
+    expect(naiveFiveOfFivePick.pricing.hasPositiveValue).toBe(false);
+    expect(naiveFiveOfFivePick.pricing.evPct).toBeLessThan(0);
+
+    const valueScore = scoreRecommendedCatalogPick(spacetimeValuePick);
+    const naiveScore = scoreRecommendedCatalogPick(naiveFiveOfFivePick);
+
+    expect(valueScore.isRecommended).toBe(true);
+    expect(valueScore.tier).not.toBe("trivial_odds");
+    expect(["top_pick", "recommended", "value"]).toContain(valueScore.tier);
+    expect(valueScore.score).toBeGreaterThan(naiveScore.score);
+    expect(valueScore.score).toBeGreaterThanOrEqual(0);
+    expect(valueScore.score).toBeLessThanOrEqual(100);
+    expect(valueScore.convergenceCount).toBe(3);
+
+    expect(valueScore.valueThresholdLabel).not.toBeNull();
+    expect(valueScore.valueThresholdLabel!).toMatch(/valor/i);
+    expect(valueScore.valueThresholdLabel!).toMatch(/\d+\.\d{2}/);
+    expect(valueScore.valueThresholdLabel!).not.toMatch(FORBIDDEN_COPY_RE);
+  });
+
+  it("calcula convergenceCount por ventanas alineadas >= 65% y rechaza picks redactados", () => {
+    const noAligned = makeCatalogPick({
+      id: "pick-conv-0",
+      gameId: "g-conv-0",
+      p: 0.58,
+      marketDecimal: 1.9,
+      companionMarketDecimals: [1.9, 1.9],
+      windows: [
+        makeWindow("L5", "Últimos 5", 2, 5),
+        makeWindow("L10", "Últimos 10", 5, 10),
+        makeWindow("L20", "Últimos 20", 11, 20),
+      ],
+    });
+    const twoAligned = makeCatalogPick({
+      id: "pick-conv-2",
+      gameId: "g-conv-2",
+      p: 0.58,
+      marketDecimal: 1.9,
+      companionMarketDecimals: [1.9, 1.9],
+      windows: [
+        makeWindow("L5", "Últimos 5", 4, 5),
+        makeWindow("L10", "Últimos 10", 7, 10),
+        makeWindow("L20", "Últimos 20", 11, 20),
+        makeWindow("home_away", "Local", 6, 10),
+      ],
+    });
+    const fourAligned = makeCatalogPick({
+      id: "pick-conv-4",
+      gameId: "g-conv-4",
+      p: 0.58,
+      marketDecimal: 1.9,
+      companionMarketDecimals: [1.9, 1.9],
+      windows: [
+        makeWindow("L5", "Últimos 5", 4, 5),
+        makeWindow("L10", "Últimos 10", 7, 10),
+        makeWindow("L20", "Últimos 20", 15, 20),
+        makeWindow("home_away", "Local", 7, 10),
+        makeWindow("h2h", "H2H", 2, 4),
+      ],
+    });
+
+    const s0 = scoreRecommendedCatalogPick(noAligned);
+    const s2 = scoreRecommendedCatalogPick(twoAligned);
+    const s4 = scoreRecommendedCatalogPick(fourAligned);
+
+    expect(s0.convergenceCount).toBe(0);
+    expect(s2.convergenceCount).toBe(2);
+    expect(s4.convergenceCount).toBe(4);
+    expect(s4.score).toBeGreaterThanOrEqual(s2.score);
+    expect(s2.score).toBeGreaterThanOrEqual(s0.score);
+
+    expect(scoreRecommendedCatalogPick(fourAligned)).toEqual(s4);
+
+    const redacted = makeCatalogPick({
+      id: "pick-redacted",
+      gameId: "g-redacted",
+      p: 0,
+      isRedacted: true,
+    });
+    const redactedScore = scoreRecommendedCatalogPick(redacted);
+    expect(redactedScore.isRecommended).toBe(false);
+    expect(redactedScore.valueThresholdLabel).toBeNull();
+  });
+
+  it("selectPicksOfTheDay elige máx. 1 por partido en 1.45–2.80, excluye FT/isRedacted/<1.25 y es determinista", () => {
+    const strongWindows = [
+      makeWindow("L5", "Últimos 5", 4, 5),
+      makeWindow("L10", "Últimos 10", 7, 10),
+      makeWindow("L20", "Últimos 20", 14, 20),
+    ];
+
+    const g1Best = makeCatalogPick({
+      id: "g1-best",
+      gameId: "game-1",
+      p: 0.62,
+      marketDecimal: 1.88,
+      companionMarketDecimals: [1.88, 1.92],
+      windows: strongWindows,
+    });
+    const g1Second = makeCatalogPick({
+      id: "g1-second",
+      gameId: "game-1",
+      p: 0.54,
+      marketDecimal: 1.95,
+      companionMarketDecimals: [1.95, 1.85],
+      windows: strongWindows.slice(0, 1),
+    });
+    const g1Trivial = makeCatalogPick({
+      id: "g1-trivial",
+      gameId: "game-1",
+      p: 0.89,
+      marketDecimal: 1.14,
+      companionMarketDecimals: [1.14, 6.0],
+      windows: strongWindows,
+    });
+    const g2Playable = makeCatalogPick({
+      id: "g2-playable",
+      gameId: "game-2",
+      p: 0.53,
+      marketDecimal: 2.15,
+      companionMarketDecimals: [2.15, 1.72],
+      windows: strongWindows,
+    });
+    const g3LivePlayable = makeCatalogPick({
+      id: "g3-live",
+      gameId: "game-3",
+      gameStatus: "LIVE",
+      p: 0.64,
+      marketDecimal: 1.72,
+      companionMarketDecimals: [1.72, 2.12],
+      windows: strongWindows,
+    });
+    const g4Fourth = makeCatalogPick({
+      id: "g4-fourth",
+      gameId: "game-4",
+      p: 0.48,
+      marketDecimal: 2.35,
+      companionMarketDecimals: [2.35, 1.62],
+      windows: strongWindows.slice(0, 2),
+    });
+    const g5FinishedFt = makeCatalogPick({
+      id: "g5-ft",
+      gameId: "game-5",
+      gameStatus: "FT",
+      settlement: "hit",
+      p: 0.68,
+      marketDecimal: 2.0,
+      companionMarketDecimals: [2.0, 1.82],
+      windows: strongWindows,
+      recommendationScore: 99,
+    });
+    const g6Redacted = makeCatalogPick({
+      id: "g6-redacted",
+      gameId: "game-6",
+      p: 0,
+      isRedacted: true,
+      recommendationScore: 99,
+    });
+    const g7TooShort = makeCatalogPick({
+      id: "g7-short-135",
+      gameId: "game-7",
+      p: 0.76,
+      marketDecimal: 1.35,
+      companionMarketDecimals: [1.35, 3.2],
+      windows: strongWindows,
+    });
+    const g8TooLong = makeCatalogPick({
+      id: "g8-long-420",
+      gameId: "game-8",
+      p: 0.32,
+      marketDecimal: 4.2,
+      companionMarketDecimals: [4.2, 1.25],
+      windows: strongWindows,
+    });
+
+    const pool: readonly CatalogPickItem[] = [
+      g1Second,
+      g5FinishedFt,
+      g6Redacted,
+      g1Trivial,
+      g7TooShort,
+      g8TooLong,
+      g4Fourth,
+      g2Playable,
+      g1Best,
+      g3LivePlayable,
+    ];
+
+    const top3 = selectPicksOfTheDay(pool, 3);
+    expect(top3.length).toBeGreaterThanOrEqual(1);
+    expect(top3.length).toBeLessThanOrEqual(3);
+
+    const top1 = selectPicksOfTheDay(pool, 1);
+    expect(top1).toHaveLength(1);
+    expect(top1[0]!.id).toBe(top3[0]!.id);
+
+    const gameIds = top3.map((p) => p.gameId);
+    expect(new Set(gameIds).size).toBe(top3.length);
+
+    for (const pick of top3) {
+      expect(pick.gameStatus).not.toBe("FT");
+      expect(pick.isRedacted).not.toBe(true);
+      const effectiveOdds = pick.pricing.marketDecimal ?? pick.pricing.fairOdds;
+      expect(effectiveOdds).toBeGreaterThanOrEqual(1.45);
+      expect(effectiveOdds).toBeLessThanOrEqual(2.8);
+      expect(effectiveOdds).toBeGreaterThanOrEqual(1.25);
+    }
+
+    const pickedIds = top3.map((p) => p.id);
+    expect(pickedIds).not.toContain("g1-second");
+    expect(pickedIds).not.toContain("g1-trivial");
+    expect(pickedIds).not.toContain("g5-ft");
+    expect(pickedIds).not.toContain("g6-redacted");
+    expect(pickedIds).not.toContain("g7-short-135");
+    expect(pickedIds).not.toContain("g8-long-420");
+    expect(pickedIds).toContain("g1-best");
+
+    const top3ReversedInput = selectPicksOfTheDay(pool.slice().reverse(), 3);
+    expect(top3ReversedInput.map((p) => p.id)).toEqual(pickedIds);
+
+    const onlyExcluded = selectPicksOfTheDay(
+      [g1Trivial, g5FinishedFt, g6Redacted, g7TooShort, g8TooLong],
+      3,
+    );
+    expect(onlyExcluded).toEqual([]);
+  });
+
+  it("prohíbe top_pick con EV negativo, marca isRecommended=false si evPct < -2.5 y prioriza EV+ en selectPicksOfTheDay", () => {
+    const fourAlignedWindows = [
+      makeWindow("L5", "Últimos 5", 5, 5),
+      makeWindow("L10", "Últimos 10", 9, 10),
+      makeWindow("L20", "Últimos 20", 17, 20),
+      makeWindow("home_away", "Local", 9, 10),
+    ];
+
+    const mildNegEv = makeCatalogPick({
+      id: "pick-neg-ev-mild",
+      gameId: "game-neg-1",
+      p: 0.6,
+      marketDecimal: 1.65,
+      companionMarketDecimals: [1.65, 2.25],
+      windows: fourAlignedWindows,
+      isPrimaryModelPick: true,
+    });
+    const deepNegEv = makeCatalogPick({
+      id: "pick-neg-ev-deep",
+      gameId: "game-neg-2",
+      p: 0.6,
+      marketDecimal: 1.54,
+      companionMarketDecimals: [1.54, 2.48],
+      windows: fourAlignedWindows,
+      isPrimaryModelPick: true,
+    });
+    const negBelowMinus2 = makeCatalogPick({
+      id: "pick-neg-ev-minus-26",
+      gameId: "game-neg-3",
+      p: 0.56,
+      marketDecimal: 1.74,
+      companionMarketDecimals: [1.74, 2.1],
+      windows: fourAlignedWindows,
+      isPrimaryModelPick: true,
+    });
+    const positiveEv = makeCatalogPick({
+      id: "pick-pos-ev-priority",
+      gameId: "game-pos-4",
+      p: 0.55,
+      marketDecimal: 1.92,
+      companionMarketDecimals: [1.92, 1.92],
+      windows: fourAlignedWindows.slice(0, 2),
+      isPrimaryModelPick: false,
+    });
+
+    expect(mildNegEv.pricing.evPct).toBeLessThan(0);
+    expect(mildNegEv.pricing.evPct).toBeGreaterThan(-2.5);
+    expect(deepNegEv.pricing.evPct).toBeLessThan(-2.5);
+    expect(negBelowMinus2.pricing.evPct).toBeLessThan(-2.0);
+    expect(positiveEv.pricing.hasPositiveValue).toBe(true);
+    expect(positiveEv.pricing.evPct).toBeGreaterThan(0);
+
+    const mildScored = scoreRecommendedCatalogPick(mildNegEv);
+    expect(mildScored.tier).not.toBe("top_pick");
+    expect(mildScored.tier).toBe("playable");
+    expect(mildScored.isRecommended).toBe(false);
+
+    const deepScored = scoreRecommendedCatalogPick(deepNegEv);
+    expect(deepScored.tier).not.toBe("top_pick");
+    expect(deepScored.tier).toBe("playable");
+    expect(deepScored.isRecommended).toBe(false);
+
+    expect(selectPicksOfTheDay([deepNegEv, negBelowMinus2, mildNegEv], 3)).toEqual([]);
+
+    const selected = selectPicksOfTheDay([deepNegEv, negBelowMinus2, mildNegEv, positiveEv], 3);
+    expect(selected.length).toBeGreaterThanOrEqual(1);
+    expect(selected[0]!.id).toBe(positiveEv.id);
+    const selectedIds = selected.map((p) => p.id);
+    expect(selectedIds).not.toContain(mildNegEv.id);
+    expect(selectedIds).not.toContain(deepNegEv.id);
+    expect(selectedIds).not.toContain(negBelowMinus2.id);
+  });
+
+  it("descalifica divergencias anómalas (> 12% vs de-vig o EV > 18% sharp) y soporta formato americano", () => {
+    const hallucinated = makeCatalogPick({
+      id: "pick-hallucinated-ev",
+      gameId: "game-anom-1",
+      p: 0.728,
+      marketDecimal: 2.17,
+      companionMarketDecimals: [2.17, 1.72],
+      windows: [
+        makeWindow("L5", "Últimos 5", 5, 5),
+        makeWindow("L10", "Últimos 10", 9, 10),
+      ],
+      isPrimaryModelPick: true,
+    });
+
+    expect(hallucinated.pricing.hasPositiveValue).toBe(false);
+    expect(hallucinated.pricing.evPct).toBeNull();
+    expect(hallucinated.pricing.edgePts).toBeNull();
+    expect(hallucinated.pricing.valueLabel).toBeNull();
+
+    const anomScored = scoreRecommendedCatalogPick(hallucinated);
+    expect(anomScored.isRecommended).toBe(false);
+    expect(anomScored.tier).toBe("playable");
+    expect(selectPicksOfTheDay([hallucinated], 3)).toEqual([]);
+
+    const healthy = makeCatalogPick({
+      id: "pick-american-fmt",
+      gameId: "game-am-1",
+      p: 0.6,
+      marketDecimal: 1.85,
+      companionMarketDecimals: [1.85, 1.95],
+      windows: [makeWindow("L5", "Últimos 5", 4, 5)],
+    });
+    const americanScored = scoreRecommendedCatalogPick(healthy, { oddsFormat: "american" });
+    expect(americanScored.valueThresholdLabel).toMatch(/-\d{3}\s+o\s+más/);
+    expect(formatValueThresholdLabel(0.45, "american")).toMatch(/\+\d{3}\s+o\s+más/);
+  });
+
+  it("evita -5000 en 0 piernas, bloquea cruces de línea en buildQuoteIndex y garantiza diversidad en parlays", () => {
+    const empty = computeParlaySummary([]);
+    expect(empty.fairDecimal).toBe(0);
+    expect(empty.bookDecimal).toBe(0);
+    expect(empty.fairAmerican).toBe(0);
+    expect(empty.bookAmerican).toBe(0);
+
+    const baseGame: PlatformGame = {
+      id: "g-idx-1",
+      league: asLeagueId("premier-league"),
+      leagueLabel: "Premier League",
+      sport: "football",
+      hasForecast: true,
+      round: "J12",
+      dayId: "2026-11-21",
+      dayLabel: "sábado",
+      kickoffUtc: "2026-11-21T18:00:00Z",
+      kickoffLocal: "12:00",
+      venue: "Anfield",
+      status: "NS",
+      home: { slug: "liv", name: "Liverpool", shortName: "Liverpool", code: "LIV", record: "8-2" },
+      away: { slug: "ars", name: "Arsenal", shortName: "Arsenal", code: "ARS", record: "7-3" },
+      x12: [0.5, 0.25, 0.25],
+      projection: { home: 1.6, away: 1.1, total: 2.7 },
+      goalLine: { line: 2.5, pOver: 0.55 },
+      confidenceScore: 76,
+      confidenceLevel: "alta",
+      picks: [],
+      preGame: {
+        cortexSynthesis: "",
+        tacticalKeys: [],
+        lineupStatusLabel: "Pendiente",
+        lineupsConfirmed60m: false,
+        absences: [],
+        moneyFlow: null,
+      },
+      markets: [],
+      factors: [],
+      headToHead: [],
+      updatedAtLabel: "2026-11-21",
+      spacetime: null,
+    };
+
+    const quoteIdx = buildQuoteIndex(
+      baseGame,
+      [
+        {
+          group: "Goles totales",
+          market: "totals",
+          selection: "over",
+          label: "Más de 2.5 goles",
+          line: 2.5,
+          p: 0.55,
+          fairDecimal: 1.82,
+          fairAmerican: -122,
+          openDecimal: 1.9,
+          currentDecimal: 1.9,
+          quoteBookLabel: "Pinnacle",
+          quoteCapturedAtUtc: FIXED_CAPTURED_AT,
+          edgePts: 2.4,
+        },
+        {
+          group: "Goles totales",
+          market: "totals",
+          selection: "over",
+          label: "Sin línea",
+          p: 0.6,
+          fairDecimal: 1.67,
+          fairAmerican: -149,
+          openDecimal: 2.4,
+          currentDecimal: 2.4,
+          quoteBookLabel: "Pinnacle",
+          quoteCapturedAtUtc: FIXED_CAPTURED_AT,
+          edgePts: 18,
+        },
+      ],
+      FIXED_NOW_ISO,
+    );
+
+    expect(quoteIdx.has("totals|over")).toBe(false);
+    expect(quoteIdx.get("totals|over|2.5")?.decimal).toBe(1.9);
+    expect(quoteIdx.has("totals|over|3.5")).toBe(false);
+
+    const makePick = (
+      gameId: string,
+      suffix: string,
+      market: string,
+      selectionKey: string,
+      label: string,
+      p: number,
+      marketDecimal: number,
+      line?: number,
+    ): MatchPick => ({
+      id: `${gameId}__${suffix}`,
+      gameId,
+      league: asLeagueId("premier-league"),
+      leagueLabel: "Premier League",
+      matchLabel: "Liverpool vs Arsenal",
+      kickoffLocal: "12:00",
+      gameStatus: "NS",
+      slotIndex: 1,
+      category: market === "1x2" ? "principal" : "totales",
+      categoryLabel: market,
+      risk: "medio",
+      engineKey: "tachyon",
+      engineName: "PitchLab Spacetime v5.1",
+      marketGroup: market,
+      selectionKey,
+      market: asMarketKey(market),
+      ...(line !== undefined ? { line } : {}),
+      conflictGroup:
+        market === "totals"
+          ? "over_total"
+          : market === "btts"
+            ? "btts_yes"
+            : "home_side",
+      label,
+      rationale: "Prueba",
+      p,
+      fairDecimal: Math.round((1 / p) * 100) / 100,
+      fairAmerican: -120,
+      marketDecimal,
+      marketAmerican: -110,
+      marketBookLabel: "Pinnacle",
+      marketCapturedAtUtc: FIXED_CAPTURED_AT,
+      edgePts: Math.round((p - 1 / marketDecimal) * 1000) / 10,
+      confidenceScore: 76,
+      suggestedUnits: 1,
+      result: null,
+    });
+
+    const threeGames: PlatformGame[] = [1, 2, 3].map((idx) => {
+      const gid = `div-g-${idx}`;
+      return {
+        ...baseGame,
+        id: gid,
+        kickoffUtc: `2026-11-21T1${idx}:00:00Z`,
+        picks: [
+          makePick(gid, "anom", "totals", "over_3.5", "Más de 3.5 goles", 0.72, 2.2, 3.5),
+          makePick(gid, "o35", "totals", "over_3.5", "Más de 3.5 goles", 0.58, 1.9, 3.5),
+          makePick(gid, "h2h", "1x2", "home", "Gana Liverpool", 0.58, 1.85),
+          makePick(gid, "btts", "btts", "yes", "Ambos anotan: Sí", 0.57, 1.85),
+        ],
+      };
+    });
+
+    const autoLegs = buildSmartAutoParlay(threeGames, {
+      leagues: [],
+      risk: "medio",
+      legCount: 3,
+      allowSgp: false,
+      viewerRole: "member",
+    });
+    expect(autoLegs).toHaveLength(3);
+    expect(autoLegs.every((l) => !l.pick.id.endsWith("__anom"))).toBe(true);
+    expect(new Set(autoLegs.map((l) => parlayMarketDiversityKey(l.pick))).size).toBe(3);
+
+    const official = buildOfficialDailyParlay({
+      dayId: "2026-11-21",
+      games: threeGames,
+      risk: "medio",
+      viewerRole: "member",
+    });
+    expect(official.status).toBe("ready");
+    expect(official.legs.every((l) => !l.pick.id.endsWith("__anom"))).toBe(true);
+    expect(new Set(official.legs.map((l) => parlayMarketDiversityKey(l.pick))).size).toBe(3);
+
+    const legacyMatch: MatchAnalysis = {
+      id: "legacy-unit-1",
+      league: asLeagueId("premier-league"),
+      leagueLabel: "Premier League",
+      sport: "football",
+      round: "J12",
+      day: "2026-11-21",
+      dayLabel: "sábado",
+      kickoffUtc: "2026-11-21T20:00:00Z",
+      kickoffLocal: "14:00",
+      venue: "Anfield",
+      status: "NS",
+      home: { slug: "liv", name: "Liverpool", shortName: "Liverpool", code: "LIV", record: "8-2" },
+      away: { slug: "ars", name: "Arsenal", shortName: "Arsenal", code: "ARS", record: "7-3" },
+      projection: { home: 1.7, away: 1.1, total: 2.8 },
+      x12: [0.52, 0.25, 0.23],
+      outcomes: [],
+      marketGroups: [
+        {
+          group: "Tarjetas",
+          rows: [
+            {
+              market: asMarketKey("yellow_total"),
+              selection: "over_4.5",
+              label: "Más de 4.5",
+              line: 4.5,
+              p: 0.65,
+              fairOdds: 1.54,
+            },
+          ],
+        },
+        {
+          group: "Goles totales",
+          rows: [
+            {
+              market: asMarketKey("totals"),
+              selection: "over_3.5",
+              label: "Más de 3.5",
+              line: 3.5,
+              p: 0.56,
+              fairOdds: 1.79,
+            },
+          ],
+        },
+      ],
+      factors: [],
+      trace: [],
+      confidence: { score: 74, level: "alta", reasons: [] },
+    };
+    const ds = buildPlatformDataset([
+      {
+        league: asLeagueId("premier-league"),
+        leagueLabel: "Premier League",
+        sport: "football",
+        season: "2026",
+        roundLabel: "J12",
+        generatedAt: FIXED_NOW_ISO,
+        games: [legacyMatch],
+      },
+    ]);
+    const totalSlot = ds.games[0]!.picks.find((p) => p.category === "totales" || p.market === "totals");
+    expect(totalSlot).toBeDefined();
+    expect(totalSlot!.market).toBe("totals");
+    expect(totalSlot!.label).toBe("Más de 3.5 goles");
+
+    const sharpOver18 = computePickPricing({
+      calibratedProb: 0.56,
+      marketDecimal: 2.15,
+      companionMarketDecimals: [2.15, 3.55, 3.6],
+      companionIndex: 0,
+      marketBookLabel: "Pinnacle",
+      marketCapturedAtUtc: FIXED_CAPTURED_AT,
+      nowIso: FIXED_NOW_ISO,
+    });
+    expect(sharpOver18.evPct).toBeNull();
+    expect(sharpOver18.edgePts).toBeNull();
+    expect(sharpOver18.hasPositiveValue).toBe(false);
+
+    const softWithin22 = computePickPricing({
+      calibratedProb: 0.56,
+      marketDecimal: 2.14,
+      companionMarketDecimals: [2.14, 3.55, 3.6],
+      companionIndex: 0,
+      marketBookLabel: "Bet365",
+      marketCapturedAtUtc: FIXED_CAPTURED_AT,
+      nowIso: FIXED_NOW_ISO,
+    });
+    expect(softWithin22.evPct).toBeGreaterThan(18);
+    expect(softWithin22.evPct).toBeLessThanOrEqual(22);
+    expect(softWithin22.hasPositiveValue).toBe(true);
+
+    const crossBookGame: PlatformGame = {
+      ...baseGame,
+      markets: [
+        {
+          group: "Goles totales",
+          market: "totals",
+          selection: "over",
+          label: "Más de 2.5 goles",
+          line: 2.5,
+          p: 0.55,
+          fairDecimal: 1.82,
+          fairAmerican: -122,
+          openDecimal: 1.9,
+          currentDecimal: 1.9,
+          quoteBookLabel: "Pinnacle",
+          quoteCapturedAtUtc: FIXED_CAPTURED_AT,
+          edgePts: 2.4,
+        },
+        {
+          group: "Goles totales",
+          market: "totals",
+          selection: "under",
+          label: "Menos de 2.5 goles",
+          line: 2.5,
+          p: 0.45,
+          fairDecimal: 2.22,
+          fairAmerican: 122,
+          openDecimal: 1.95,
+          currentDecimal: 1.95,
+          quoteBookLabel: "Bet365",
+          quoteCapturedAtUtc: FIXED_CAPTURED_AT,
+          edgePts: -6.3,
+        },
+      ],
+    };
+    const crossCatalog = buildMatchPicksCatalog(crossBookGame, {
+      nowIso: FIXED_NOW_ISO,
+      allowedFamilies: new Set(["totals"]),
+    });
+    const crossOver25 = crossCatalog.picks.find((p) => p.line === 2.5 && p.direction === "over");
+    expect(crossOver25?.pricing.deVigMarketProb).toBeNull();
+
+    const sixLegs = [1, 2, 3, 4, 5, 6].map((n) => ({
+      pick: makePick(`cap-g-${n}`, "h2h", "1x2", "home", "Gana Liverpool", 0.58, 1.85),
+    }));
+    expect(MAX_PARLAY_LEGS).toBe(6);
+    const seventh = checkParlayCompatibility(
+      sixLegs,
+      makePick("cap-g-7", "h2h", "1x2", "home", "Gana Liverpool", 0.58, 1.85),
+      false,
+    );
+    expect(seventh.allowed).toBe(false);
+    expect(seventh.code).toBe("max_legs");
+  });
+});

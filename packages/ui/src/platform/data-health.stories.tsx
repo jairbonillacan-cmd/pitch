@@ -6,13 +6,85 @@ import {
   type LeagueDataHealthRow,
 } from "@pitchlab/contracts";
 import { AdminDataHealthSection } from "./club/AdminDataHealthSection";
+import {
+  AdminSecurityAbuseSection,
+  type AdminSecurityAbuseResponse,
+} from "./club/AdminSecurityAbuseSection";
+import { TipsterPortalClubView } from "./club/SocialAndTipsterViews";
 import { MatchMarketsGrid } from "./club/match/MatchMarketsGrid";
 import { MatchOutlookStrip } from "./components/MatchOutlookStrip";
 import { buildPlatformDataset } from "./match-picks-engine";
+import { PlatformProvider } from "./platform-provider";
 import type { MatchOutlookSummary, PlatformMarketRow } from "./types";
 
-/* Datos ilustrativos para Storybook (no corresponden a cifras en vivo). */
 const STORY_DATASET = buildPlatformDataset([]);
+
+const STORY_SECURITY_ABUSE: AdminSecurityAbuseResponse = {
+  generatedAtIso: "2026-11-21T18:30:00Z",
+  windowHours: 24,
+  summary: {
+    total24h: 14,
+    critical24h: 1,
+    high24h: 3,
+    revocations24h: 1,
+    scraping24h: 5,
+    rateLimit24h: 6,
+    csrf24h: 1,
+    idor24h: 1,
+  },
+  events: [
+    {
+      id: "sec-evt-1",
+      kind: "session_revoked",
+      severity: "critical",
+      route: "/api/shell/extend",
+      ipHashPrefix: "a94f02c81b3e",
+      userRef: "u:9f24a11c",
+      summaryDetail: "cubeta shell-extend · 76 recursos · 5 min",
+      createdAtIso: "2026-11-21T18:12:00Z",
+    },
+    {
+      id: "sec-evt-2",
+      kind: "scraping_velocity",
+      severity: "high",
+      route: "/api/live/games/liga-mx-04",
+      ipHashPrefix: "a94f02c81b3e",
+      userRef: "u:9f24a11c",
+      summaryDetail: "cubeta live-game · 52 recursos · 5 min",
+      createdAtIso: "2026-11-21T18:08:00Z",
+    },
+    {
+      id: "sec-evt-3",
+      kind: "idor_attempt",
+      severity: "high",
+      route: "/api/alerts",
+      ipHashPrefix: "7c10e44b902d",
+      userRef: "u:3e18b70d",
+      summaryDetail: "cubeta market-alerts · HTTP 404",
+      createdAtIso: "2026-11-21T16:45:00Z",
+    },
+    {
+      id: "sec-evt-4",
+      kind: "csrf_rejected",
+      severity: "medium",
+      route: "/api/parlays/sgp",
+      ipHashPrefix: "5b81d9a22f10",
+      userRef: null,
+      summaryDetail: "cubeta parlay-sgp · HTTP 403",
+      createdAtIso: "2026-11-21T15:20:00Z",
+    },
+    {
+      id: "sec-evt-5",
+      kind: "rate_limit",
+      severity: "low",
+      route: "/api/search/referees",
+      ipHashPrefix: "31de90c418aa",
+      userRef: "u:71a0c42e",
+      summaryDetail: "cubeta search-referees",
+      createdAtIso: "2026-11-21T14:05:00Z",
+    },
+  ],
+};
 
 const LEAGUES_META = [
   { id: "nfl", label: "NFL", scheduleSource: "nflverse", injuriesSource: "nflverse-cc-by-4.0", injuriesCount: 160, games: 14 },
@@ -311,5 +383,35 @@ export const MercadosConHoraDeCaptura = {
 };
 export const MercadosConHoraDeCapturaClaro = {
   ...MercadosConHoraDeCaptura,
+  globals: { theme: "light" },
+};
+
+function SecurityStoryFrame(): React.JSX.Element {
+  return (
+    <PlatformProvider dataset={STORY_DATASET} initialRole="admin" accountsEnabled={true}>
+      <div style={{ maxWidth: 1160, margin: "0 auto", padding: 16 }}>
+        <AdminSecurityAbuseSection storyData={STORY_SECURITY_ABUSE} enableLiveFetch={false} />
+      </div>
+    </PlatformProvider>
+  );
+}
+
+export const SeguridadAntiScrapingOscuro = {
+  render: () => <SecurityStoryFrame />,
+};
+export const SeguridadAntiScrapingClaro = {
+  ...SeguridadAntiScrapingOscuro,
+  globals: { theme: "light" },
+};
+
+export const PortalTipsterOscuro = {
+  render: () => (
+    <PlatformProvider dataset={STORY_DATASET} initialRole="tipster" accountsEnabled={false}>
+      <TipsterPortalClubView />
+    </PlatformProvider>
+  ),
+};
+export const PortalTipsterClaro = {
+  ...PortalTipsterOscuro,
   globals: { theme: "light" },
 };

@@ -1,15 +1,24 @@
 "use client";
 
-import React, { useEffect, useId, useRef, useState } from "react";
+import React, { useId, useRef, useState } from "react";
 import { canonicalGameHref, LEAGUE_CATALOG, type LeagueId } from "@pitchlab/contracts";
+import { Button, SofascoreSignalPair } from "../../components/ui/primitives";
 import { LeagueBadge, TeamBadge } from "../../sports";
 import { formatOddsValue } from "../access-guard";
 import { getExampleAnalystSpec } from "../community-examples";
 import { ExampleBadge, MaestroIcon, VerifiedSeal } from "../components/MaestroPrimitives";
 import { ConfirmActionDialog } from "../components/PlatformOverlays";
+import { useSafeEffect } from "../hooks";
 import type { RankedAnalyst } from "../profile-stats";
 import { formatUnits } from "../profile-stats";
-import type { JournalEntry, MatchPick, OddsFormat, PlatformDataset, SocialComment, SocialPost } from "../types";
+import type {
+  JournalEntry,
+  MatchPick,
+  OddsFormat,
+  PlatformDataset,
+  SocialComment,
+  SocialPost,
+} from "../types";
 import { BadgeChip } from "./badges/ProfileBadges";
 import { buildCommentTree, type CommentTreeNode } from "./comment-tree";
 import {
@@ -95,13 +104,20 @@ export function resolvePostAuthor(
 
   return {
     handle: post.authorHandle,
-    name: isOwnPost && !spec ? own!.name : post.authorName,
+    name: isOwnPost && !spec && own ? own.name : post.authorName,
     initials:
       spec?.avatarInitials ??
-      (isOwnPost ? own!.avatarInitials : post.authorName.split(/\s+/).map((w) => w[0]).join("").slice(0, 2)),
+      (isOwnPost && own
+        ? own.avatarInitials
+        : post.authorName
+            .split(/\s+/)
+            .map((w) => w[0])
+            .join("")
+            .slice(0, 2)),
     gradVar: spec?.avatarGradVar ?? post.avatarGradVar,
     avatarUrl,
-    isTipster: spec?.isTipster ?? Boolean(post.authorIsTipster || post.roleBadge === "Tipster Oficial"),
+    isTipster:
+      spec?.isTipster ?? Boolean(post.authorIsTipster || post.roleBadge === "Tipster Oficial"),
     saldo,
   };
 }
@@ -146,7 +162,10 @@ function resolveEffectivePickStatus(
   return "open";
 }
 
-function commentAvatarFor(comment: SocialComment, own: OwnIdentity | null): string | null | undefined {
+function commentAvatarFor(
+  comment: SocialComment,
+  own: OwnIdentity | null,
+): string | null | undefined {
   return own?.handle === comment.authorHandle
     ? (own.avatarUrl ?? comment.authorAvatarUrl)
     : comment.authorAvatarUrl;
@@ -208,7 +227,9 @@ export function copyPostPickToParlay(
     deps.pushToast("Ese partido ya no está disponible para tu parlay.", "warning");
     return;
   }
-  if (deps.addPickToParlay(pick)) deps.pushToast(`Agregamos «${pick.label}» a tu parlay.`, "success");
+  if (deps.addPickToParlay(pick)) {
+    deps.pushToast(`Agregamos «${pick.label}» a tu parlay.`, "success");
+  }
 }
 
 export const SocialPostCard = React.memo(function SocialPostCard({
@@ -243,7 +264,10 @@ export const SocialPostCard = React.memo(function SocialPostCard({
   const [threadOpen, setThreadOpen] = useState(highlighted);
   const [confirmDeletePost, setConfirmDeletePost] = useState(false);
   const [confirmDeleteCommentId, setConfirmDeleteCommentId] = useState<string | null>(null);
-  const [inlineReplyTarget, setInlineReplyTarget] = useState<{ commentId: string; handle: string } | null>(null);
+  const [inlineReplyTarget, setInlineReplyTarget] = useState<{
+    commentId: string;
+    handle: string;
+  } | null>(null);
   const [inlineReply, setInlineReply] = useState("");
   const [inlineReplyError, setInlineReplyError] = useState("");
   const [collapsedThreads, setCollapsedThreads] = useState<Set<string>>(() => new Set());
@@ -252,13 +276,13 @@ export const SocialPostCard = React.memo(function SocialPostCard({
   const [loadingComments, setLoadingComments] = useState(false);
   const [shareCopied, setShareCopied] = useState(false);
 
-  useEffect(() => {
+  useSafeEffect(() => {
     if (!highlighted) return;
     setThreadOpen(true);
     cardRef.current?.scrollIntoView?.({ behavior: "smooth", block: "center" });
   }, [highlighted]);
 
-  useEffect(() => {
+  useSafeEffect(() => {
     if (!shareCopied) return;
     const t = window.setTimeout(() => setShareCopied(false), 1800);
     return () => window.clearTimeout(t);
@@ -289,25 +313,37 @@ export const SocialPostCard = React.memo(function SocialPostCard({
           : null
       : null;
 
-  const pickMeta =
+  const pickEvPct =
+    pick &&
+    pickStatus === "open" &&
+    Number.isFinite(pick.modelProbability) &&
+    pick.modelProbability > 0 &&
+    pick.modelProbability < 1 &&
+    Number.isFinite(pick.userDecimal) &&
+    pick.userDecimal > 1
+      ? Math.round((pick.modelProbability * pick.userDecimal - 1) * 1000) / 10
+      : null;
+
+  const pickContextSub =
     pick && pickStatus
       ? pickStatus === "open"
-        ? [
-            meta?.leagueLabel ?? post.leagueLabel,
-            kickoffShortLabel(meta?.kickoffIso),
-            formatOddsValue(pick.userDecimal, oddsFormat),
-            `justo ${formatOddsValue(pick.fairDecimal, oddsFormat)}`,
-            `modelo ${(pick.modelProbability * 100).toFixed(1)} %`,
-          ]
+        ? [meta?.leagueLabel ?? post.leagueLabel, kickoffShortLabel(meta?.kickoffIso)]
+            .filter(Boolean)
+            .join(" · ")
         : [
             meta?.leagueLabel ?? post.leagueLabel,
-            meta?.score ? `${meta.home.name} ${meta.score.home}–${meta.score.away} ${meta.away.name}` : post.matchLabel,
-            formatOddsValue(pick.userDecimal, oddsFormat),
+            meta?.score
+              ? `${meta.home.name} ${meta.score.home}–${meta.score.away} ${meta.away.name}`
+              : post.matchLabel,
           ]
-      : [];
+            .filter(Boolean)
+            .join(" · ")
+      : "";
 
   const totalComments = Math.max(post.commentsCount ?? 0, post.comments.length);
-  const authorLatestReply = [...post.comments].reverse().find((c) => c.authorHandle === post.authorHandle);
+  const authorLatestReply = [...post.comments]
+    .reverse()
+    .find((c) => c.authorHandle === post.authorHandle);
   const previewComment = authorLatestReply ?? post.comments.at(-1);
   const commentTree = buildCommentTree(post.comments);
 
@@ -322,7 +358,9 @@ export const SocialPostCard = React.memo(function SocialPostCard({
     setInlineReply("");
     setInlineReplyError("");
     if (restoreFocusForId) {
-      window.requestAnimationFrame(() => replyTriggerRefs.current.get(restoreFocusForId)?.focus());
+      window.requestAnimationFrame(() =>
+        replyTriggerRefs.current.get(restoreFocusForId)?.focus(),
+      );
     }
   };
 
@@ -389,7 +427,9 @@ export const SocialPostCard = React.memo(function SocialPostCard({
             <Avatar
               initials={commentInitialsFor(comment)}
               avatarUrl={commentAvatarFor(comment, own)}
-              gradVar={getExampleAnalystSpec(comment.authorHandle)?.avatarGradVar ?? "var(--avatar-grad-3)"}
+              gradVar={
+                getExampleAnalystSpec(comment.authorHandle)?.avatarGradVar ?? "var(--avatar-grad-3)"
+              }
               size={isReply ? 22 : 26}
               loading="lazy"
             />
@@ -434,7 +474,7 @@ export const SocialPostCard = React.memo(function SocialPostCard({
               {canToggleHelpful ? (
                 <button
                   type="button"
-                  className={`pl-com-comment-act min-h-11 sm:min-h-7${comment.helpfulByMe ? " is-on" : ""}`}
+                  className={`pl-com-comment-act${comment.helpfulByMe ? " is-on" : ""}`}
                   aria-pressed={Boolean(comment.helpfulByMe)}
                   aria-label={`Útil al comentario de ${comment.authorName}${helpfulCount > 0 ? `, ${helpfulCount}` : ""}`}
                   onClick={() => onToggleCommentHelpful!(post.id, comment.id)}
@@ -450,7 +490,7 @@ export const SocialPostCard = React.memo(function SocialPostCard({
                   else replyTriggerRefs.current.delete(comment.id);
                 }}
                 type="button"
-                className={`pl-com-comment-act min-h-11 sm:min-h-7${isReplyingHere ? " is-on" : ""}`}
+                className={`pl-com-comment-act${isReplyingHere ? " is-on" : ""}`}
                 disabled={isPending}
                 aria-expanded={isReplyingHere}
                 aria-controls={isReplyingHere ? inlineFormId : undefined}
@@ -462,7 +502,7 @@ export const SocialPostCard = React.memo(function SocialPostCard({
               {descendantCount > 0 ? (
                 <button
                   type="button"
-                  className="pl-com-comment-act min-h-11 sm:min-h-7"
+                  className="pl-com-comment-act"
                   aria-expanded={!isBranchCollapsed}
                   aria-controls={branchListId}
                   aria-label={`${isBranchCollapsed ? "Ver" : "Ocultar"} ${descendantCount} ${descendantCount === 1 ? "respuesta" : "respuestas"} al comentario de ${comment.authorName}`}
@@ -476,7 +516,7 @@ export const SocialPostCard = React.memo(function SocialPostCard({
               {canDeleteComment ? (
                 <button
                   type="button"
-                  className="pl-com-comment-act min-h-11 sm:min-h-7"
+                  className="pl-com-comment-act"
                   aria-label={`Borrar comentario de ${comment.authorName}`}
                   onClick={() => setConfirmDeleteCommentId(comment.id)}
                 >
@@ -493,7 +533,7 @@ export const SocialPostCard = React.memo(function SocialPostCard({
                   </span>
                   <button
                     type="button"
-                    className="pl-com-comment-act min-h-11 sm:min-h-7"
+                    className="pl-com-comment-act"
                     onClick={() => closeInlineReply(comment.id)}
                   >
                     Cancelar
@@ -531,7 +571,7 @@ export const SocialPostCard = React.memo(function SocialPostCard({
                     maxLength={SOCIAL_COMMENT_MAX_CHARS}
                     enterKeyHint="send"
                     placeholder={`Responde a @${comment.authorHandle}…`}
-                    className="min-h-11 sm:min-h-10 text-base sm:text-sm min-w-0"
+                    className="pl-com-reply-input"
                     aria-invalid={inlineReplyError ? true : undefined}
                     aria-describedby={inlineReplyError ? inlineErrId : undefined}
                     onKeyDown={(e) => {
@@ -550,12 +590,9 @@ export const SocialPostCard = React.memo(function SocialPostCard({
                       {inlineReply.length}/{SOCIAL_COMMENT_MAX_CHARS}
                     </span>
                   ) : null}
-                  <button
-                    type="submit"
-                    className="pl-prof-btn pl-prof-btn--primary pl-prof-btn--sm min-h-11 sm:min-h-9"
-                  >
+                  <Button type="submit" variant="primary" size="sm">
                     Responder
-                  </button>
+                  </Button>
                 </form>
                 <div id={inlineErrId} aria-live="polite">
                   {inlineReplyError ? (
@@ -580,8 +617,6 @@ export const SocialPostCard = React.memo(function SocialPostCard({
 
   const articleClasses = [
     "pl-com-post",
-    "glass-lens",
-    "glass-ring",
     variant === "profile" ? "pl-prof-post" : "",
     variant === "compact" ? "pl-com-post--compact" : "",
   ]
@@ -589,6 +624,59 @@ export const SocialPostCard = React.memo(function SocialPostCard({
     .join(" ");
 
   const copiesCount = post.copiesCount ?? 0;
+
+  const pickBody =
+    pick && pickStatus ? (
+      <>
+        <div className="pl-com-pick-top">
+          {meta ? (
+            <span className="pl-prof-teams" aria-hidden="true">
+              <TeamBadge
+                league={meta.league}
+                slug={meta.home.slug}
+                name={meta.home.name}
+                size={26}
+                decorative
+              />
+              <span className="pl-prof-teams-away">
+                <TeamBadge
+                  league={meta.league}
+                  slug={meta.away.slug}
+                  name={meta.away.name}
+                  size={26}
+                  decorative
+                />
+              </span>
+            </span>
+          ) : null}
+          <div className="pl-com-pick-copy">
+            <p className="pl-prof-row-title">
+              {pick.label} · <span className="num">{pick.units.toFixed(1)}u</span>
+            </p>
+            {pickContextSub ? <p className="pl-prof-row-sub num">{pickContextSub}</p> : null}
+          </div>
+          <PickStatus
+            status={pickStatus}
+            detail={units === null ? undefined : formatUnits(units)}
+          />
+        </div>
+
+        <div className="pl-com-pick-metrics num">
+          <span className="pl-com-pick-odds-chip">
+            Tomado <strong>{formatOddsValue(pick.userDecimal, oddsFormat)}</strong>
+          </span>
+          <span className="pl-com-fair-pill" data-post-fair-odds="">
+            Momio justo <strong>{formatOddsValue(pick.fairDecimal, oddsFormat)}</strong>
+          </span>
+          {pickStatus === "open" ? (
+            <span className="pl-com-pick-prob">
+              Modelo <strong>{(pick.modelProbability * 100).toFixed(1)} %</strong>
+            </span>
+          ) : null}
+          {pickEvPct !== null ? <SofascoreSignalPair evPct={pickEvPct} compact /> : null}
+        </div>
+      </>
+    ) : null;
 
   return (
     <article
@@ -643,17 +731,23 @@ export const SocialPostCard = React.memo(function SocialPostCard({
               initials={author.initials}
               avatarUrl={author.avatarUrl}
               gradVar={author.gradVar}
-              size={variant === "compact" ? 34 : 42}
+              size={variant === "compact" ? 34 : 40}
               loading="lazy"
             />
           </a>
           <div className="pl-com-post-who">
             <p className="pl-com-post-name flex-wrap">
-              <a id={`${uid}-author`} href={`/app/u/${post.authorHandle}`} onClick={goProfile(post.authorHandle)}>
+              <a
+                id={`${uid}-author`}
+                href={`/app/u/${post.authorHandle}`}
+                onClick={goProfile(post.authorHandle)}
+              >
                 {author.name}
               </a>
               {author.isTipster ? <VerifiedSeal size={16} /> : null}
-              {post.authorBadge ? <BadgeChip badge={post.authorBadge} size="sm" className="pl-com-post-badge" /> : null}
+              {post.authorBadge ? (
+                <BadgeChip badge={post.authorBadge} size="sm" className="pl-com-post-badge" />
+              ) : null}
               {post.isExample ? <ExampleBadge className="pl-com-example" /> : null}
             </p>
             <p className="pl-com-post-sub num">
@@ -662,15 +756,17 @@ export const SocialPostCard = React.memo(function SocialPostCard({
             </p>
           </div>
           {!isMine && onToggleFollow ? (
-            <button
+            <Button
               type="button"
-              className={`pl-prof-btn pl-prof-btn--sm min-h-11 sm:min-h-9 shrink-0 ${following ? "pl-prof-btn--ghost" : "pl-prof-btn--primary"} pl-com-follow`}
+              variant={following ? "secondary" : "primary"}
+              size="sm"
+              className="pl-com-follow shrink-0"
               aria-pressed={following}
               aria-label={`${following ? "Siguiendo" : "Seguir"} a ${author.name}`}
               onClick={() => onToggleFollow(post.authorHandle)}
             >
               {following ? "Siguiendo" : "Seguir"}
-            </button>
+            </Button>
           ) : null}
           {canReportPost ? (
             <SocialReportMenu
@@ -690,71 +786,29 @@ export const SocialPostCard = React.memo(function SocialPostCard({
 
       <p className="pl-com-post-body">{post.body}</p>
 
-      {pick && pickStatus ? (
+      {pickBody ? (
         gameHref ? (
           <a
             href={gameHref}
             onClick={handleLinkClick(gameHref)}
             className="pl-com-pick pl-com-pick--link"
-            style={{
-              background: "var(--pl-surface-elevated)",
-              border: "1px solid var(--pl-border)",
-            }}
           >
-            {meta ? (
-              <span className="pl-prof-teams" aria-hidden="true">
-                <TeamBadge league={meta.league} slug={meta.home.slug} name={meta.home.name} size={28} decorative />
-                <span className="pl-prof-teams-away">
-                  <TeamBadge league={meta.league} slug={meta.away.slug} name={meta.away.name} size={28} decorative />
-                </span>
-              </span>
-            ) : null}
-            <div className="pl-com-pick-copy">
-              <p className="pl-prof-row-title">
-                {pick.label} · <span className="num">{pick.units.toFixed(1)}u</span>
-              </p>
-              <p className="pl-prof-row-sub num">{pickMeta.filter(Boolean).join(" · ")}</p>
-            </div>
-            <PickStatus status={pickStatus} detail={units === null ? undefined : formatUnits(units)} />
+            {pickBody}
           </a>
         ) : (
-          <div
-            className="pl-com-pick"
-            style={{
-              background: "var(--pl-surface-elevated)",
-              border: "1px solid var(--pl-border)",
-            }}
-          >
-            {meta ? (
-              <span className="pl-prof-teams" aria-hidden="true">
-                <TeamBadge league={meta.league} slug={meta.home.slug} name={meta.home.name} size={28} decorative />
-                <span className="pl-prof-teams-away">
-                  <TeamBadge league={meta.league} slug={meta.away.slug} name={meta.away.name} size={28} decorative />
-                </span>
-              </span>
-            ) : null}
-            <div className="pl-com-pick-copy">
-              <p className="pl-prof-row-title">
-                {pick.label} · <span className="num">{pick.units.toFixed(1)}u</span>
-              </p>
-              <p className="pl-prof-row-sub num">{pickMeta.filter(Boolean).join(" · ")}</p>
-            </div>
-            <PickStatus status={pickStatus} detail={units === null ? undefined : formatUnits(units)} />
-          </div>
+          <div className="pl-com-pick">{pickBody}</div>
         )
       ) : gameHref && post.matchLabel && variant !== "compact" ? (
         <a
           href={gameHref}
           onClick={handleLinkClick(gameHref)}
-          className="pl-com-match-chip min-h-11 sm:min-h-8 min-w-0"
-          style={{
-            background: "var(--pl-surface-elevated)",
-            border: "1px solid var(--pl-border)",
-          }}
+          className="pl-com-match-chip min-w-0"
         >
           {resolvedLeague ? <LeagueBadge league={resolvedLeague} size={15} /> : null}
           <span className="truncate">{post.matchLabel}</span>
-          {post.pickBadge ? <span className="pl-prof-muted truncate">· {post.pickBadge}</span> : null}
+          {post.pickBadge ? (
+            <span className="pl-prof-muted truncate">· {post.pickBadge}</span>
+          ) : null}
         </a>
       ) : null}
 
@@ -767,7 +821,7 @@ export const SocialPostCard = React.memo(function SocialPostCard({
       <div className="pl-com-actions num">
         <button
           type="button"
-          className={`pl-com-act min-h-11 sm:min-h-9 ${post.likedByMe ? "is-on" : ""}`}
+          className={`pl-com-act${post.likedByMe ? " is-on" : ""}`}
           aria-pressed={Boolean(post.likedByMe)}
           aria-label={`Me gusta, ${post.likes}`}
           onClick={() => toggleSocialLike(post.id)}
@@ -777,7 +831,7 @@ export const SocialPostCard = React.memo(function SocialPostCard({
         </button>
         <button
           type="button"
-          className="pl-com-act min-h-11 sm:min-h-9"
+          className="pl-com-act"
           aria-expanded={threadOpen}
           aria-controls={`${uid}-thread`}
           aria-label={`Comentarios, ${totalComments}`}
@@ -789,29 +843,30 @@ export const SocialPostCard = React.memo(function SocialPostCard({
         {pick && !isMine && onCopy ? (
           <button
             type="button"
-            className="pl-com-act min-h-11 sm:min-h-9"
+            className="pl-com-act"
             aria-label="Copiar a mi récord"
             onClick={() => onCopy(post)}
           >
             <MaestroIcon name="copy" size={15} />
-            A mi récord
+            <span>A mi récord</span>
           </button>
         ) : null}
         {pick && pickStatus === "open" && onCopyToParlay ? (
           <button
             type="button"
-            className="pl-com-act min-h-11 sm:min-h-9"
+            className="pl-com-act pl-com-act--parlay"
+            data-copy-to-parlay=""
             aria-label="Copiar a mi parlay"
             onClick={() => onCopyToParlay(post)}
           >
             <MaestroIcon name="layers" size={15} />
-            A mi parlay
+            <span>Copiar a mi parlay</span>
           </button>
         ) : null}
         {canDeletePost ? (
           <button
             type="button"
-            className="pl-com-act pl-com-act--end min-h-11 sm:min-h-9"
+            className="pl-com-act pl-com-act--end"
             aria-label="Borrar publicación"
             onClick={() => setConfirmDeletePost(true)}
           >
@@ -820,7 +875,7 @@ export const SocialPostCard = React.memo(function SocialPostCard({
         ) : null}
         <button
           type="button"
-          className={`pl-com-act min-h-11 sm:min-h-9 ${canDeletePost ? "" : "pl-com-act--end"}`}
+          className={`pl-com-act ${canDeletePost ? "" : "pl-com-act--end"}`.trim()}
           aria-label={shareCopied ? "Compartir, enlace copiado" : "Compartir"}
           onClick={() => {
             setShareCopied(true);
@@ -844,7 +899,10 @@ export const SocialPostCard = React.memo(function SocialPostCard({
               <Avatar
                 initials={commentInitialsFor(previewComment)}
                 avatarUrl={commentAvatarFor(previewComment, own)}
-                gradVar={getExampleAnalystSpec(previewComment.authorHandle)?.avatarGradVar ?? "var(--avatar-grad-3)"}
+                gradVar={
+                  getExampleAnalystSpec(previewComment.authorHandle)?.avatarGradVar ??
+                  "var(--avatar-grad-3)"
+                }
                 size={28}
                 loading="lazy"
               />
@@ -860,8 +918,11 @@ export const SocialPostCard = React.memo(function SocialPostCard({
                     <strong>{previewComment.authorName}</strong>{" "}
                     <span className="pl-prof-muted">@{previewComment.authorHandle}</span>
                   </a>
-                  {previewComment.verifiedBadge && previewComment.verifiedBadge !== "Sin picks liquidados" ? (
-                    <span className="pl-com-comment-record num">· {previewComment.verifiedBadge}</span>
+                  {previewComment.verifiedBadge &&
+                  previewComment.verifiedBadge !== "Sin picks liquidados" ? (
+                    <span className="pl-com-comment-record num">
+                      · {previewComment.verifiedBadge}
+                    </span>
                   ) : null}
                 </p>
                 {!(previewComment.isMine || own?.handle === previewComment.authorHandle) &&
@@ -883,16 +944,22 @@ export const SocialPostCard = React.memo(function SocialPostCard({
               </div>
               <button
                 type="button"
-                className="pl-com-preview-btn min-h-11 sm:min-h-8"
+                className="pl-com-preview-btn"
                 onClick={() => setThreadOpen(true)}
-                aria-label={`Abrir conversación con ${previewComment.authorName}`}
               >
+                <span className="sr-only">
+                  {`Abrir conversación con ${previewComment.authorName}: `}
+                </span>
                 {previewComment.replyToHandle ? (
-                  <span className="pl-com-replying-tag">En respuesta a @{previewComment.replyToHandle}</span>
+                  <span className="pl-com-replying-tag">
+                    En respuesta a @{previewComment.replyToHandle}
+                  </span>
                 ) : null}
                 <span>{previewComment.body}</span>
                 {totalComments > 1 ? (
-                  <span className="pl-com-more-comments">Ver los {totalComments} comentarios</span>
+                  <span className="pl-com-more-comments">
+                    Ver los {totalComments} comentarios
+                  </span>
                 ) : null}
               </button>
             </div>
@@ -905,7 +972,7 @@ export const SocialPostCard = React.memo(function SocialPostCard({
               <div className="pl-com-thread-more">
                 <button
                   type="button"
-                  className="pl-com-more-comments min-h-11 sm:min-h-9"
+                  className="pl-com-more-comments"
                   disabled={loadingComments}
                   onClick={handleLoadMoreComments}
                 >
@@ -944,7 +1011,7 @@ export const SocialPostCard = React.memo(function SocialPostCard({
                 maxLength={SOCIAL_COMMENT_MAX_CHARS}
                 enterKeyHint="send"
                 placeholder="Escribe un comentario…"
-                className="min-h-11 sm:min-h-10 text-base sm:text-sm min-w-0"
+                className="pl-com-reply-input"
                 aria-invalid={replyError ? true : undefined}
                 aria-describedby={replyError ? `${uid}-reply-err` : undefined}
                 onChange={(e) => {
@@ -957,12 +1024,9 @@ export const SocialPostCard = React.memo(function SocialPostCard({
                   {reply.length}/{SOCIAL_COMMENT_MAX_CHARS}
                 </span>
               ) : null}
-              <button
-                type="submit"
-                className="pl-prof-btn pl-prof-btn--ghost pl-prof-btn--sm min-h-11 sm:min-h-9"
-              >
+              <Button type="submit" variant="secondary" size="sm">
                 Comentar
-              </button>
+              </Button>
             </form>
             <div id={`${uid}-reply-err`} aria-live="polite">
               {replyError ? (

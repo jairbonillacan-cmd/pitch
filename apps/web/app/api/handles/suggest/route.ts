@@ -1,57 +1,59 @@
 import { NextResponse } from "next/server";
 import { suggestHandles } from "@pitchlab/db";
+import { withPublicRead } from "../../../../src/server/api-guards";
+import { sanitizeQueryText } from "../../../../src/server/query-params";
 import { getAuth } from "../../../../src/server/auth";
 import { profileIdForAuthUser } from "../../../../src/server/member-data";
 import {
   checkEndpointRateLimit,
   rateLimitResponse,
-  trustedClientIp,
 } from "../../../../src/server/request-security";
 import { serverDb } from "../../../../src/server/session-user";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
 
-/**
- * Sugiere 3 `@usuario` válidos y libres: `GET /api/handles/suggest?name=…`
- * Nunca lee correo de la URL; solo toma el correo o nombre de la sesión activa.
- */
-export async function GET(request: Request): Promise<NextResponse> {
-  const auth = getAuth();
-  const session = auth
-    ? await auth.api.getSession({ headers: request.headers }).catch(() => null)
-    : null;
-
-  const rateKey = session?.user?.id
-    ? `user:${session.user.id}`
-    : `ip:${trustedClientIp(request.headers) || "local"}`;
-
-  const rl = await checkEndpointRateLimit({
+export const GET = withPublicRead(
+  {
     bucket: "handles-suggest",
-    key: rateKey,
     limit: 20,
     windowMs: 60_000,
-  });
-  if (!rl.allowed) return rateLimitResponse(rl.retryAfterSeconds);
+    cacheControl: "no-store",
+  },
+  async ({ request }) => {
+    const db = serverDb();
+    if (!db) {
+      return NextResponse.json({ error: "Cuentas no configuradas" }, { status: 503 });
+    }
 
-  const db = serverDb();
-  if (!db) {
-    return NextResponse.json({ error: "Cuentas no configuradas" }, { status: 503 });
-  }
+    const auth = getAuth();
+    const session = auth
+      ? await auth.api.getSession({ headers: request.headers }).catch(() => null)
+      : null;
 
-  const rawName = new URL(request.url).searchParams.get("name")?.slice(0, 60) ?? "";
-  const bases = [rawName, session?.user?.name ?? "", session?.user?.email ?? ""]
-    .map((value) => value.trim())
-    .filter(Boolean);
+    if (session?.user?.id) {
+      const userRl = await checkEndpointRateLimit({
+        bucket: "handles-suggest:user",
+        key: session.user.id,
+        limit: 20,
+        windowMs: 60_000,
+        db,
+      });
+      if (!userRl.allowed) {
+        return rateLimitResponse(userRl.retryAfterSeconds);
+      }
+    }
 
-  const ownId = session?.user?.id
-    ? ((await profileIdForAuthUser(db, session.user.id)) ?? undefined)
-    : undefined;
+    const rawName = sanitizeQueryText(new URL(request.url).searchParams.get("name"), 60);
+    const bases = [rawName, session?.user?.name ?? "", session?.user?.email ?? ""]
+      .map((value) => value.trim())
+      .filter(Boolean);
 
-  const suggestions = await suggestHandles(db, bases, 3, { exceptUserId: ownId });
+    const ownId = session?.user?.id
+      ? ((await profileIdForAuthUser(db, session.user.id)) ?? undefined)
+      : undefined;
 
-  return NextResponse.json(
-    { suggestions },
-    { headers: { "Cache-Control": "no-store" } },
-  );
-}
+    const suggestions = await suggestHandles(db, bases, 3, { exceptUserId: ownId });
+    return NextResponse.json({ suggestions });
+  },
+);

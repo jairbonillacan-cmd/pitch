@@ -17,6 +17,7 @@ import { CrestPedestal, MaestroIcon } from "../../components/MaestroPrimitives";
 import { SportEventIcon } from "../../components/SportEventIcons";
 import { shareMatchStoryCard } from "../../components/share-story-card";
 import { FollowControl, LivePhaseBadge } from "../../live/LiveMatchCenter";
+import { LiveScoreTelemetry } from "../../live/LiveScoreTelemetry";
 import { MomentumChart } from "../../live/live-charts";
 import {
   usePlatformActions,
@@ -321,7 +322,7 @@ export function MatchHeroScoreboard({
         <div className="pl-match-hero-actions">
           <button
             type="button"
-            className="pl-btn-glass text-xs min-h-11 sm:min-h-9 px-3 sm:px-2.5 inline-flex items-center gap-1.5"
+            className="pl-btn-glass pl-match-share-btn text-xs min-w-11 min-h-11 justify-center [@media(min-width:768px)_and_(pointer:fine)]:min-w-0 [@media(min-width:768px)_and_(pointer:fine)]:min-h-9 px-3 [@media(min-width:768px)_and_(pointer:fine)]:px-2.5 inline-flex items-center gap-1.5"
             aria-label="Compartir tarjeta 9:16 del partido"
             data-share-match-story=""
             onClick={() => {
@@ -389,7 +390,7 @@ export function MatchHeroScoreboard({
 
           {resolvedScore && (isFinished || liveActive || liveEntry?.phase === "final") ? (
             <>
-              <strong className="pl-match-hero-score num">
+              <strong className={`pl-match-hero-score num${liveActive ? " is-live" : ""}`}>
                 {resolvedScore.home} <span aria-hidden="true">–</span> {resolvedScore.away}
               </strong>
               {liveEntry?.htScore ? (
@@ -404,6 +405,12 @@ export function MatchHeroScoreboard({
               ) : isFinished && !hasForecast ? (
                 <span className="pl-match-hero-sub">Sin pronóstico previo publicado</span>
               ) : null}
+              {liveActive && liveDetail ? (
+                <LiveScoreTelemetry
+                  stats={liveDetail.stats}
+                  shotmapSummary={liveDetail.shotmapSummary}
+                />
+              ) : null}
             </>
           ) : !hasForecast || !game.projection ? (
             <>
@@ -417,13 +424,20 @@ export function MatchHeroScoreboard({
             </>
           ) : intelUnlocked ? (
             <>
-              <strong className="pl-match-hero-score pl-match-hero-score--proj num">
-                Proy. {game.projection.home.toFixed(unit.decimals)} –{" "}
-                {game.projection.away.toFixed(unit.decimals)}
+              <strong className="pl-match-hero-score num">
+                {game.kickoffLocal}
               </strong>
-              <span className="pl-match-hero-sub num">
-                {unit.plural === "puntos" ? "Puntos" : "Goles"} esperados:{" "}
-                {game.projection.total.toFixed(unit.decimals)}
+              <span className="pl-match-hero-sub">Inicio</span>
+              <span
+                className="pl-pill pl-pill--wrap text-[11px] inline-flex items-center justify-center gap-1 mt-1 max-w-full num"
+                data-match-hero-expected=""
+              >
+                <span>
+                  {unit.plural === "puntos" ? "Puntos" : "Goles"} esperados:{" "}
+                  {game.projection.home.toFixed(unit.decimals)} –{" "}
+                  {game.projection.away.toFixed(unit.decimals)} · Total{" "}
+                  {game.projection.total.toFixed(unit.decimals)}
+                </span>
               </span>
             </>
           ) : (
@@ -607,7 +621,6 @@ export function MatchLeftRail({
 
   return (
     <aside className="pl-match-rail" aria-label="Panel rápido del partido">
-      {/* 1. Hasta arriba: Momento del partido */}
       <section
         className="pl-match-rail-card"
         aria-labelledby="rail-momentum-heading"
@@ -659,13 +672,14 @@ export function MatchLeftRail({
             <span>
               {isFinished
                 ? "Este encuentro no reporta curva minuto a minuto en la ventana actual."
-                : "La curva de empuje minuto a minuto aparece aquí en cuanto ruede el balón."}
+                : game.sport === "football"
+                  ? "La curva de empuje minuto a minuto aparece aquí en cuanto ruede el balón."
+                  : "La curva de empuje aparece aquí en cuanto comience el encuentro."}
             </span>
           </div>
         )}
       </section>
 
-      {/* 2. Eventos por periodo (1.º tiempo, 2.º tiempo, goles/tarjetas) y cruce de eliminatoria */}
       <section
         className="pl-match-rail-card"
         aria-labelledby="rail-events-heading"
@@ -679,7 +693,7 @@ export function MatchLeftRail({
           {totalSubs > 0 ? (
             <button
               type="button"
-              className="pl-pill text-[11px] cursor-pointer num min-h-11 sm:min-h-7 px-3 sm:px-2.5"
+              className="pl-pill text-[11px] cursor-pointer num min-w-11 min-h-11 [@media(min-width:768px)_and_(pointer:fine)]:min-w-0 [@media(min-width:768px)_and_(pointer:fine)]:min-h-7 px-3 [@media(min-width:768px)_and_(pointer:fine)]:px-2.5"
               aria-pressed={showSubsInRail}
               onClick={() => setShowSubsInRail((prev) => !prev)}
             >
@@ -788,13 +802,18 @@ export function MatchLeftRail({
             <span>
               {isFinished
                 ? "No se registraron incidencias por tiempo en el feed en vivo."
-                : "Aquí aparecen goles, tarjetas y marcador por tiempo en cuanto inicie el juego."}
+                : game.sport === "football"
+                  ? "Aquí aparecen goles, tarjetas y marcador por tiempo en cuanto inicie el juego."
+                  : game.sport === "ice-hockey"
+                    ? "Aquí aparecen goles, periodos y marcador parcial en cuanto inicie el encuentro."
+                    : game.sport === "baseball"
+                      ? "Aquí aparecen carreras, entradas y marcador parcial en cuanto inicie el encuentro."
+                      : "Aquí aparecen puntos, parciales por cuarto y jugadas clave en cuanto inicie el encuentro."}
             </span>
           </div>
         )}
       </section>
 
-      {/* 3. Forma reciente, TV MX y accesos directos (sin repetir Picks ni 1·X·2 del Hero/workspace) */}
       <section className="pl-match-rail-card" aria-labelledby="rail-context-heading">
         <div className="pl-match-rail-head">
           <h2 id="rail-context-heading" className="pl-match-rail-title inline-flex items-center gap-1.5">
@@ -861,7 +880,7 @@ export function MatchLeftRail({
           <p className="m-0 text-xs leading-relaxed" style={{ color: "var(--pl-text-muted)" }}>
             {flow
               ? flow.sharpNote
-              : "Revisa descanso, historial directo, sede y tabla en la pestaña de Contexto."}
+              : "Revisa descanso, historial directo, sede y tabla en Enfrentamientos o Resumen."}
           </p>
         )}
 
@@ -885,9 +904,9 @@ export function MatchLeftRail({
           <button
             type="button"
             className="pl-match-rail-link"
-            onClick={() => onSelectTab("contexto")}
+            onClick={() => onSelectTab("enfrentamientos")}
           >
-            <span>Contexto y H2H</span>
+            <span>Enfrentamientos y H2H</span>
             <MaestroIcon name="arrowRight" size={12} />
           </button>
         </div>

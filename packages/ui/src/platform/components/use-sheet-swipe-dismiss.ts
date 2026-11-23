@@ -4,15 +4,10 @@ import { useCallback, useRef, useState } from "react";
 import { prefersReducedMotion } from "../navigation-helpers";
 
 export interface SheetSwipeDismissOptions {
-  /** Llamado cuando el usuario supera el umbral de arrastre o velocidad hacia abajo. */
   readonly onDismiss: () => void;
-  /** Distancia mínima en px para cerrar al soltar (default: 92 px). */
   readonly thresholdPx?: number;
-  /** Velocidad mínima en px/ms hacia abajo para cerrar con flick corto (default: 0.55). */
   readonly velocityPxPerMs?: number;
-  /** Desactiva el gesto temporalmente (p. ej. escritorio o sheet bloqueado). */
   readonly disabled?: boolean;
-  /** Contenedor desplazable opcional: solo inicia arrastre si `scrollTop <= 0`. */
   readonly scrollContainerRef?: React.RefObject<HTMLElement | null>;
 }
 
@@ -26,10 +21,6 @@ const INTERACTIVE_SWIPE_SELECTOR =
 
 const DRAG_ACTIVATION_SLOP_PX = 8;
 
-/**
- * Evita que el gesto *swipe-to-dismiss* capture clics o toques sobre controles interactivos
- * (botones, enlaces, entradas, pestañas) montados dentro de la hoja o su cabecera.
- */
 export function isInteractiveSwipeTarget(target: EventTarget | null): boolean {
   if (!target || typeof target !== "object") return false;
   const candidate =
@@ -42,9 +33,6 @@ export function isInteractiveSwipeTarget(target: EventTarget | null): boolean {
   return candidate.closest(INTERACTIVE_SWIPE_SELECTOR) !== null;
 }
 
-/**
- * Decisión pura para pruebas unitarias: determina si un arrastre hacia abajo cierra la hoja.
- */
 export function shouldDismissSheetSwipe(
   offsetY: number,
   velocityPxPerMs: number,
@@ -59,11 +47,6 @@ export function shouldDismissSheetSwipe(
   return false;
 }
 
-/**
- * Hook reutilizable de física táctil *swipe-to-dismiss* para bottom sheets móviles (ADR-053).
- * Mueve el panel en GPU vía `transform: translateY(...)` siguiendo el dedo, cierra al superar
- * distancia o velocidad y vuelve con resorte suave si el usuario cancela.
- */
 export function useSheetSwipeDismiss({
   onDismiss,
   thresholdPx = 92,
@@ -138,7 +121,6 @@ export function useSheetSwipeDismiss({
           }
         }
       }
-      // Permite ligera resistencia hacia arriba (hasta 0) y arrastre 1:1 hacia abajo
       const clamped = delta > 0 ? Math.min(delta, 420) : 0;
       setState((prev) =>
         prev.offsetY === clamped && prev.dragging ? prev : { offsetY: clamped, dragging: true },
@@ -177,12 +159,16 @@ export function useSheetSwipeDismiss({
     }
   }, [releaseCapture]);
 
+  const touchActiveRef = useRef<boolean>(false);
+
   const onTouchStart = useCallback(
     (e: React.TouchEvent<HTMLElement>) => {
       if (disabled || isInteractiveSwipeTarget(e.target)) return;
       const touch = e.touches[0];
       if (!touch) return;
-      begin(touch.clientY);
+      if (begin(touch.clientY)) {
+        touchActiveRef.current = true;
+      }
     },
     [begin, disabled],
   );
@@ -196,11 +182,20 @@ export function useSheetSwipeDismiss({
     [move],
   );
 
+  const onTouchEndWrapped = useCallback(() => {
+    touchActiveRef.current = false;
+    finish();
+  }, [finish]);
+
+  const onTouchCancelWrapped = useCallback(() => {
+    touchActiveRef.current = false;
+    cancel();
+  }, [cancel]);
+
   const onPointerDown = useCallback(
     (e: React.PointerEvent<HTMLElement>) => {
-      if (disabled) return;
-      if (e.pointerType === "touch") return; // Ya lo manejan onTouch*
-      if (e.button !== 0) return;
+      if (disabled || touchActiveRef.current) return;
+      if (e.button !== 0 && e.pointerType === "mouse") return;
       if (isInteractiveSwipeTarget(e.target)) return;
       if (!begin(e.clientY)) return;
       activePointerIdRef.current = e.pointerId;
@@ -210,14 +205,14 @@ export function useSheetSwipeDismiss({
 
   const onPointerMove = useCallback(
     (e: React.PointerEvent<HTMLElement>) => {
-      if (activePointerIdRef.current !== e.pointerId) return;
+      if (touchActiveRef.current || activePointerIdRef.current !== e.pointerId) return;
       move(e.clientY, e);
     },
     [move],
   );
 
   const onPointerUp = useCallback(() => {
-    if (activePointerIdRef.current === null) return;
+    if (touchActiveRef.current || activePointerIdRef.current === null) return;
     finish();
   }, [finish]);
 
@@ -229,9 +224,7 @@ export function useSheetSwipeDismiss({
           transition: state.dragging || reduced ? "none" : "transform 220ms cubic-bezier(0.22, 1, 0.36, 1)",
           willChange: state.dragging ? "transform" : undefined,
         }
-      : {
-          transition: reduced ? "none" : "transform 220ms cubic-bezier(0.22, 1, 0.36, 1)",
-        };
+      : {};
 
   return {
     offsetY: state.offsetY,
@@ -240,8 +233,8 @@ export function useSheetSwipeDismiss({
     handleProps: {
       onTouchStart,
       onTouchMove,
-      onTouchEnd: finish,
-      onTouchCancel: cancel,
+      onTouchEnd: onTouchEndWrapped,
+      onTouchCancel: onTouchCancelWrapped,
       onPointerDown,
       onPointerMove,
       onPointerUp,

@@ -143,16 +143,116 @@ export function canonicalNflFranchise(teamAbbr: string): string {
   return NFL_TEAM_ALIASES[clean] ?? clean;
 }
 
+function isJsonRecord(value: unknown): value is Record<string, unknown> {
+  return value !== null && typeof value === "object" && !Array.isArray(value);
+}
+
+function isGbmArtifact(value: unknown): value is GbmArtifact {
+  return (
+    isJsonRecord(value) &&
+    typeof value.schema_version === "string" &&
+    value.type === "hist_gradient_boosting_multiclass" &&
+    typeof value.n_features_base === "number" &&
+    Array.isArray(value.features) &&
+    Array.isArray(value.div_levels) &&
+    Array.isArray(value.trees)
+  );
+}
+
+function isNflTotalsV35Artifact(value: unknown): value is NFLTotalsV35Artifact {
+  return (
+    isJsonRecord(value) &&
+    typeof value.schema_version === "string" &&
+    value.sport === "nfl" &&
+    value.type === "ridge_linear_expected_total" &&
+    typeof value.n_features === "number" &&
+    Array.isArray(value.features) &&
+    Array.isArray(value.coef) &&
+    typeof value.intercept === "number"
+  );
+}
+
+function isNflCausalStateV35Artifact(value: unknown): value is NFLCausalStateV35Artifact {
+  return (
+    isJsonRecord(value) &&
+    typeof value.schema_version === "string" &&
+    typeof value.n_franchises === "number" &&
+    Array.isArray(value.selected_features) &&
+    Array.isArray(value.totals_features) &&
+    isJsonRecord(value.franchise_base_state) &&
+    isJsonRecord(value.franchise_epa_state) &&
+    isJsonRecord(value.franchise_v35_state)
+  );
+}
+
+function isOutlookCalibrationArtifact(value: unknown): value is OutlookCalibrationArtifact {
+  return (
+    isJsonRecord(value) &&
+    typeof value.schema_version === "string" &&
+    typeof value.eval_split === "string" &&
+    typeof value.holdout_cut_utc === "string" &&
+    typeof value.holdout_sealed_untouched === "boolean" &&
+    typeof value.bootstrap_samples === "number" &&
+    typeof value.max_sharp_age_minutes === "number" &&
+    isJsonRecord(value.segments)
+  );
+}
+
+function parseGbmArtifact(raw: unknown, label: string): GbmArtifact {
+  if (!isGbmArtifact(raw)) {
+    throw new Error(`Invalid GbmArtifact JSON: ${label}`);
+  }
+  return raw;
+}
+
+function parseNflTotalsV35Artifact(raw: unknown, label: string): NFLTotalsV35Artifact {
+  if (!isNflTotalsV35Artifact(raw)) {
+    throw new Error(`Invalid NFLTotalsV35Artifact JSON: ${label}`);
+  }
+  return raw;
+}
+
+function parseNflCausalStateV35Artifact(raw: unknown, label: string): NFLCausalStateV35Artifact {
+  if (!isNflCausalStateV35Artifact(raw)) {
+    throw new Error(`Invalid NFLCausalStateV35Artifact JSON: ${label}`);
+  }
+  return raw;
+}
+
+function parseOutlookCalibrationArtifact(raw: unknown, label: string): OutlookCalibrationArtifact {
+  if (!isOutlookCalibrationArtifact(raw)) {
+    throw new Error(`Invalid OutlookCalibrationArtifact JSON: ${label}`);
+  }
+  return raw;
+}
+
+const DEFAULT_NFL_V35_GBM_ARTIFACT = parseGbmArtifact(
+  defaultGbmNflV35Json,
+  "gbm_nfl_v3_5_candidate.json",
+);
+const DEFAULT_NFL_TOTALS_V35_ARTIFACT = parseNflTotalsV35Artifact(
+  defaultTotalsNflV35Json,
+  "model_nfl_totals_v3_5_candidate.json",
+);
+const DEFAULT_NFL_CAUSAL_STATE_V35_ARTIFACT = parseNflCausalStateV35Artifact(
+  defaultNflStateV35Json,
+  "nfl_causal_state_v3_5.json",
+);
+const DEFAULT_NFL_OUTLOOK_CALIBRATION_ARTIFACT = parseOutlookCalibrationArtifact(
+  defaultOutlookCalibrationJson,
+  "outlook_calibration_v3_2.json",
+);
+
 export function getDefaultNflV35GbmArtifact(): GbmArtifact {
-  return defaultGbmNflV35Json as unknown as GbmArtifact;
+  return DEFAULT_NFL_V35_GBM_ARTIFACT;
 }
 
 export function getDefaultNflTotalsV35Artifact(): NFLTotalsV35Artifact {
-  return defaultTotalsNflV35Json as unknown as NFLTotalsV35Artifact;
+  return DEFAULT_NFL_TOTALS_V35_ARTIFACT;
 }
 
 export function getDefaultNflCausalStateV35Artifact(): NFLCausalStateV35Artifact {
-  return defaultNflStateV35Json as unknown as NFLCausalStateV35Artifact;
+  return DEFAULT_NFL_CAUSAL_STATE_V35_ARTIFACT;
 }
 
 /**
@@ -452,9 +552,7 @@ export function buildNflV35CandidateOutlook(
   const gbmArt = artifacts?.gbm ?? getDefaultNflV35GbmArtifact();
   const totArt = artifacts?.totals ?? getDefaultNflTotalsV35Artifact();
   const stateArt = artifacts?.state ?? getDefaultNflCausalStateV35Artifact();
-  const calArt =
-    artifacts?.calibration ??
-    (defaultOutlookCalibrationJson as unknown as OutlookCalibrationArtifact);
+  const calArt = artifacts?.calibration ?? DEFAULT_NFL_OUTLOOK_CALIBRATION_ARTIFACT;
 
   const synth = synthesizeNflV35LiveVectors({ ...input, stateArtifact: stateArt });
   const pred = evaluateMinkowskiV35CompactRow(

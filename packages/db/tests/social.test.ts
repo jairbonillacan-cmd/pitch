@@ -24,6 +24,7 @@ import {
   setSocialFollow,
   setSocialLike,
   SOCIAL_LIMITS,
+  socialComments,
   socialModerationLogs,
   upsertUserPreferences,
   users,
@@ -56,6 +57,7 @@ const post = (body: string, extra: Partial<NewSocialPost> = {}): NewSocialPost =
 beforeAll(async () => {
   client = new PGlite();
   await applyMigrations((sql) => client.exec(sql));
+  await client.exec("SET pitchlab.allow_historical_seed = 'on'");
   db = drizzle(client) as unknown as Db;
 }, 60_000);
 
@@ -620,9 +622,107 @@ describe("comunidad compartida", () => {
     expect((await listSocialFeed(db, beto.id, { leagueLabel: "NBA" })).map((r) => r.id)).toEqual([p2Id]);
     expect((await listSocialFeed(db, beto.id, { sort: "most_commented" })).map((r) => r.id)).toEqual([p1Id, p2Id]);
 
-    // Temas seguidos en preferencias (`followedTopics`) aparecen en `following: true` aunque no siga al autor.
     await upsertUserPreferences(db, beto.id, { followedTopics: { leagues: ["Liga MX"], teams: [] } }, now);
     const followingFeed = await listSocialFeed(db, beto.id, { following: true });
     expect(followingFeed.map((r) => r.id)).toEqual([p1Id]);
+  });
+
+  it("acota en SQL a <=40 comentarios por publicación en listPostComments y listSocialFeed con >50 sembrados", async () => {
+    const ana = await member("ana_mx", "Ana López");
+    const beto = await member("beto_nfl", "Beto Ruiz");
+    const carla = await member("carla_nba", "Carla Díaz");
+
+    const p1 = await createSocialPost(db, ana.id, post("Hilo largo principal con más de sesenta respuestas."), now);
+    const p2 = await createSocialPost(
+      db,
+      beto.id,
+      post("Segundo hilo largo para validar ventana multi-post."),
+      new Date(now.getTime() + MIN),
+    );
+    expect(p1.ok).toBe(true);
+    expect(p2.ok).toBe(true);
+    const p1Id = p1.ok ? p1.id : "";
+    const p2Id = p2.ok ? p2.id : "";
+
+    const [firstComment] = await db
+      .insert(socialComments)
+      .values({
+        postId: p1Id,
+        authorUserId: beto.id,
+        body: "Comentario hilo 1",
+        authorRecordSnapshot: "Sin picks liquidados",
+        createdAt: new Date(now.getTime() + 1 * MIN),
+      })
+      .returning({ id: socialComments.id });
+    const firstCommentId = firstComment!.id;
+
+    await db.insert(socialComments).values([
+      ...Array.from({ length: 60 }, (_, idx) => {
+        const n = idx + 2;
+        return {
+          postId: p1Id,
+          authorUserId: n % 2 === 0 ? carla.id : beto.id,
+          body: `Comentario hilo ${n}`,
+          authorRecordSnapshot: "Sin picks liquidados",
+          createdAt: new Date(now.getTime() + n * MIN),
+        };
+      }),
+      {
+        postId: p1Id,
+        parentCommentId: firstCommentId,
+        authorUserId: carla.id,
+        body: "Comentario hilo 62",
+        authorRecordSnapshot: "Sin picks liquidados",
+        createdAt: new Date(now.getTime() + 62 * MIN),
+      },
+      ...Array.from({ length: 55 }, (_, idx) => {
+        const n = idx + 1;
+        return {
+          postId: p2Id,
+          authorUserId: n % 2 === 0 ? ana.id : carla.id,
+          body: `Post2 comentario ${n}`,
+          authorRecordSnapshot: "Sin picks liquidados",
+          createdAt: new Date(now.getTime() + n * MIN),
+        };
+      }),
+    ]);
+
+    const single = await listPostComments(db, ana.id, p1Id, 200);
+    expect(single.ok).toBe(true);
+    if (single.ok) {
+      expect(single.commentsCount).toBe(62);
+      expect(single.comments.length).toBeLessThanOrEqual(40);
+      expect(single.comments).toHaveLength(40);
+      expect(single.comments[0]?.body).toBe("Comentario hilo 23");
+      expect(single.comments[39]?.body).toBe("Comentario hilo 62");
+      expect(single.comments[39]?.parentCommentId).toBe(firstCommentId);
+      expect(single.comments[39]?.replyToHandle).toBe("beto_nfl");
+    }
+
+    const narrow = await listPostComments(db, ana.id, p1Id, 12);
+    expect(narrow.ok).toBe(true);
+    if (narrow.ok) {
+      expect(narrow.commentsCount).toBe(62);
+      expect(narrow.comments).toHaveLength(12);
+      expect(narrow.comments[0]?.body).toBe("Comentario hilo 51");
+      expect(narrow.comments[11]?.body).toBe("Comentario hilo 62");
+    }
+
+    const feed = await listSocialFeed(db, ana.id, { commentsLimit: 200 });
+    expect(feed).toHaveLength(2);
+    const row1 = feed.find((item) => item.id === p1Id);
+    const row2 = feed.find((item) => item.id === p2Id);
+    expect(row1?.commentsCount).toBe(62);
+    expect(row1?.comments.length).toBeLessThanOrEqual(40);
+    expect(row1?.comments).toHaveLength(40);
+    expect(row1?.comments[0]?.body).toBe("Comentario hilo 23");
+    expect(row1?.comments[39]?.body).toBe("Comentario hilo 62");
+    expect(row1?.comments[39]?.replyToHandle).toBe("beto_nfl");
+
+    expect(row2?.commentsCount).toBe(55);
+    expect(row2?.comments.length).toBeLessThanOrEqual(40);
+    expect(row2?.comments).toHaveLength(40);
+    expect(row2?.comments[0]?.body).toBe("Post2 comentario 16");
+    expect(row2?.comments[39]?.body).toBe("Post2 comentario 55");
   });
 });

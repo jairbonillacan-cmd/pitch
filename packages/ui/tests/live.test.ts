@@ -314,5 +314,12 @@ describe("LiveMatchPanelView enriquecido (Bzzoiro Fase 1)", () => {
     expect(html).toContain('tabindex="0"');
     expect(html).toContain("Sergio Canales");
     expect(html).toContain("TV México: Caliente TV · TUDN");
+    expect(html).toContain("data-live-telemetry");
+    expect(html).toContain("0.92");
+    expect(html).toContain("1.24");
+    expect(html).toContain("54%");
+    expect(html).toContain("46%");
+    expect(html).toContain("Tiros a puerta");
+    expect(html).toContain("Posesión");
   });
 });

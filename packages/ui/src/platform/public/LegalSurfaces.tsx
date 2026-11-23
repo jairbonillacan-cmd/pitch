@@ -1,11 +1,9 @@
 import React from "react";
 import { ClosingCtaSection, PublicSiteShell } from "./PublicSiteShell";
-
-/**
- * Documentos legales (`/legal/*`) con el mismo lenguaje visual que los artículos del blog:
- * encabezado con ruta de navegación, índice lateral y cuerpo de lectura (`blog.css`).
- * El contenido legal llega como JSX desde cada página; este componente solo lo presenta.
- */
+export {
+  ResponsiblePlayControls,
+  type ResponsiblePlayControlsProps,
+} from "./ResponsiblePlayControls";
 
 export type LegalDocSlug = "terminos" | "privacidad" | "juego-responsable" | "creditos";
 
@@ -17,7 +15,6 @@ export const LEGAL_DOCS: ReadonlyArray<{ slug: LegalDocSlug; label: string; href
 ];
 
 export interface LegalSection {
-  /** Ancla de la sección (se conserva para enlaces existentes, p. ej. `#comunidad`). */
   id: string;
   title: string;
   body: React.ReactNode;
@@ -30,6 +27,7 @@ export function LegalDocumentSurface({
   lede,
   lastUpdated,
   intro,
+  actionPanel,
   sections,
   hasSession = false,
 }: {
@@ -37,10 +35,9 @@ export function LegalDocumentSurface({
   eyebrow: string;
   title: string;
   lede: string;
-  /** Fecha legible de última revisión del documento. */
   lastUpdated?: string;
-  /** Párrafos antes de la primera sección. */
   intro?: React.ReactNode;
+  actionPanel?: React.ReactNode;
   sections: readonly LegalSection[];
   hasSession?: boolean;
 }): React.JSX.Element {
@@ -94,6 +91,8 @@ export function LegalDocumentSurface({
           ) : null}
 
           <div className="pl-blog-body">
+            {actionPanel}
+
             <div className="pl-blog-prose">
               {intro}
               {sections.map((section) => (

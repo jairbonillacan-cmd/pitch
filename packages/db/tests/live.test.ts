@@ -7,6 +7,7 @@ import {
   getProviderLinks,
   listFollowedGames,
   listLiveAlertsForUser,
+  liveMatchEvents,
   providerQuotaToday,
   readLiveCache,
   recordLiveMoments,
@@ -36,7 +37,7 @@ async function member(handle: string) {
 beforeAll(async () => {
   client = new PGlite();
   await applyMigrations((sql) => client.exec(sql));
-  db = drizzle(client) as unknown as Db;
+  db = drizzle(client);
 }, 120_000);
 
 beforeEach(async () => {
@@ -144,5 +145,37 @@ describe("«Siguiendo» y avisos", () => {
     // Dejar de seguir apaga los avisos.
     await setFollowedGame(db, ana.id, GAME, false);
     expect(await listLiveAlertsForUser(db, ana.id, since)).toEqual([]);
+  });
+
+  it("acota listLiveAlertsForUser a un máximo de 40 alertas aunque existan más de 50", async () => {
+    const fan = await member("fan_alerts");
+    await setFollowedGame(db, fan.id, GAME, true, { kickoff: true, goals: true, final: true });
+
+    const totalAlerts = 55;
+    await db.insert(liveMatchEvents).values(
+      Array.from({ length: totalAlerts }, (_, i) => ({
+        gameId: GAME,
+        kind: "goal",
+        side: "home",
+        minute: i + 1,
+        homeScore: i + 1,
+        awayScore: 0,
+        dedupeKey: `${GAME}:goal:${i + 1}-0`,
+        occurredAt: new Date(t0.getTime() + (i + 1) * 1_000),
+      })),
+    );
+
+    const since = new Date(t0.getTime() - 60_000);
+    const defaultAlerts = await listLiveAlertsForUser(db, fan.id, since);
+    expect(defaultAlerts).toHaveLength(40);
+    expect(defaultAlerts[0]?.homeScore).toBe(totalAlerts);
+    expect(defaultAlerts[39]?.homeScore).toBe(totalAlerts - 39);
+
+    const cappedAlerts = await listLiveAlertsForUser(db, fan.id, since, 100);
+    expect(cappedAlerts).toHaveLength(40);
+    expect(cappedAlerts[0]?.homeScore).toBe(totalAlerts);
+
+    const smallAlerts = await listLiveAlertsForUser(db, fan.id, since, 10);
+    expect(smallAlerts).toHaveLength(10);
   });
 });

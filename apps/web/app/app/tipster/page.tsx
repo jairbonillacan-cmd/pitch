@@ -1,3 +1,4 @@
+import "../../tipster-admin.css";
 import React from "react";
 import { redirect } from "next/navigation";
 import { TipsterPortalClubView } from "@pitchlab/ui/tipster";

@@ -1,0 +1,297 @@
+{
+  "schemaVersion": "1.0.0",
+  "suite": "pitchlab-alerts-nl-golden",
+  "allowedTriggers": [
+    "market_opened",
+    "sharp_steam",
+    "stale_line_ev",
+    "lineup_confirmed",
+    "schedule_change"
+  ],
+  "scenarios": [
+    {
+      "id": "alert-01-open-corners-ligamx",
+      "category": "market_opening",
+      "promptEs": "Avísame cuando abran las líneas de córners totales en Liga MX para partidos del América con al menos +4 % de valor esperado.",
+      "expectedOutcome": "accept",
+      "expectedRule": {
+        "trigger": "market_opened",
+        "sport": "football",
+        "league": "liga-mx",
+        "marketFamily": "corners_total",
+        "teamQuery": "América",
+        "playerQuery": null,
+        "direction": null,
+        "line": null,
+        "minEvPct": 4,
+        "minDeltaNoVigPp": null,
+        "preferredBook": null,
+        "recurring": false
+      }
+    },
+    {
+      "id": "alert-02-open-cards-premier",
+      "category": "market_opening",
+      "promptEs": "Quiero alerta en cuanto salga el mercado de más de 4.5 tarjetas amarillas en Premier League.",
+      "expectedOutcome": "accept",
+      "expectedRule": {
+        "trigger": "market_opened",
+        "sport": "football",
+        "league": "premier-league",
+        "marketFamily": "cards_total",
+        "teamQuery": null,
+        "playerQuery": null,
+        "direction": "over",
+        "line": 4.5,
+        "minEvPct": null,
+        "minDeltaNoVigPp": null,
+        "preferredBook": null,
+        "recurring": false
+      }
+    },
+    {
+      "id": "alert-03-open-nba-player-pts",
+      "category": "market_opening",
+      "promptEs": "Notifícame al abrir el prop de puntos de Nikola Jokic en NBA si la línea queda en más de 26.5.",
+      "expectedOutcome": "accept",
+      "expectedRule": {
+        "trigger": "market_opened",
+        "sport": "basketball",
+        "league": "nba",
+        "marketFamily": "nba_player_props",
+        "teamQuery": null,
+        "playerQuery": "Nikola Jokic",
+        "playerStatKey": "PTS",
+        "direction": "over",
+        "line": 26.5,
+        "minEvPct": null,
+        "minDeltaNoVigPp": null,
+        "preferredBook": null,
+        "recurring": false
+      }
+    },
+    {
+      "id": "alert-04-open-nba-totals",
+      "category": "market_opening",
+      "promptEs": "Alerta cuando publiquen los totales de puntos de Boston Celtics en NBA con valor mínimo de +3 %.",
+      "expectedOutcome": "accept",
+      "expectedRule": {
+        "trigger": "market_opened",
+        "sport": "basketball",
+        "league": "nba",
+        "marketFamily": "nba_totals",
+        "teamQuery": "Boston Celtics",
+        "playerQuery": null,
+        "direction": null,
+        "line": null,
+        "minEvPct": 3,
+        "minDeltaNoVigPp": null,
+        "preferredBook": null,
+        "recurring": false
+      }
+    },
+    {
+      "id": "alert-05-sharp-steam-pinnacle-ucl",
+      "category": "sharp_steam",
+      "promptEs": "Avísame si hay movimiento sharp en Pinnacle de al menos 3.5 puntos porcentuales no-vig en el 1X2 de Champions League.",
+      "expectedOutcome": "accept",
+      "expectedRule": {
+        "trigger": "sharp_steam",
+        "sport": "football",
+        "league": "champions-league",
+        "marketFamily": "1x2",
+        "teamQuery": null,
+        "playerQuery": null,
+        "direction": null,
+        "line": null,
+        "minEvPct": null,
+        "minDeltaNoVigPp": 3.5,
+        "preferredBook": "pinnacle",
+        "recurring": false
+      }
+    },
+    {
+      "id": "alert-06-sharp-steam-pinnacle-nfl",
+      "category": "sharp_steam",
+      "promptEs": "Dispara una alerta si el spread de NFL de Kansas City Chiefs se mueve 4 puntos porcentuales o más en Pinnacle.",
+      "expectedOutcome": "accept",
+      "expectedRule": {
+        "trigger": "sharp_steam",
+        "sport": "american-football",
+        "league": "nfl",
+        "marketFamily": "nfl_spread",
+        "teamQuery": "Kansas City Chiefs",
+        "playerQuery": null,
+        "direction": null,
+        "line": null,
+        "minEvPct": null,
+        "minDeltaNoVigPp": 4,
+        "preferredBook": "pinnacle",
+        "recurring": false
+      }
+    },
+    {
+      "id": "alert-07-sharp-steam-laliga-totals",
+      "category": "sharp_steam",
+      "promptEs": "Detecta steam sharp de Pinnacle de 3.5 pp o más en Más de 2.5 goles de LaLiga.",
+      "expectedOutcome": "accept",
+      "expectedRule": {
+        "trigger": "sharp_steam",
+        "sport": "football",
+        "league": "laliga",
+        "marketFamily": "totals",
+        "teamQuery": null,
+        "playerQuery": null,
+        "direction": "over",
+        "line": 2.5,
+        "minEvPct": null,
+        "minDeltaNoVigPp": 3.5,
+        "preferredBook": "pinnacle",
+        "recurring": false
+      }
+    },
+    {
+      "id": "alert-08-stale-line-btts-premier",
+      "category": "stale_line",
+      "promptEs": "Avísame cuando Bet365 quede rezagada con al menos +5 % EV en Ambos anotan de Premier League.",
+      "expectedOutcome": "accept",
+      "expectedRule": {
+        "trigger": "stale_line_ev",
+        "sport": "football",
+        "league": "premier-league",
+        "marketFamily": "btts",
+        "teamQuery": null,
+        "playerQuery": null,
+        "direction": null,
+        "line": null,
+        "minEvPct": 5,
+        "minDeltaNoVigPp": null,
+        "preferredBook": "bet365",
+        "recurring": false
+      }
+    },
+    {
+      "id": "alert-09-stale-line-mlb-f5",
+      "category": "stale_line",
+      "promptEs": "Quiero aviso de línea rezagada con +4.5 % EV en primeras 5 entradas (F5) de Los Angeles Dodgers en MLB.",
+      "expectedOutcome": "accept",
+      "expectedRule": {
+        "trigger": "stale_line_ev",
+        "sport": "baseball",
+        "league": "mlb",
+        "marketFamily": "mlb_f5",
+        "teamQuery": "Los Angeles Dodgers",
+        "playerQuery": null,
+        "direction": null,
+        "line": null,
+        "minEvPct": 4.5,
+        "minDeltaNoVigPp": null,
+        "preferredBook": null,
+        "recurring": false
+      }
+    },
+    {
+      "id": "alert-10-recurring-player-football-lineup",
+      "category": "recurring_player",
+      "promptEs": "Cada jornada que Mohamed Salah salga confirmado como titular en Premier League, avísame para su prop de remates a puerta.",
+      "expectedOutcome": "accept",
+      "expectedRule": {
+        "trigger": "lineup_confirmed",
+        "sport": "football",
+        "league": "premier-league",
+        "marketFamily": "player_props_football",
+        "teamQuery": null,
+        "playerQuery": "Mohamed Salah",
+        "playerStatKey": "shots_on_target",
+        "direction": "over",
+        "line": null,
+        "minEvPct": null,
+        "minDeltaNoVigPp": null,
+        "preferredBook": null,
+        "recurring": true
+      }
+    },
+    {
+      "id": "alert-11-recurring-player-nba-3pm",
+      "category": "recurring_player",
+      "promptEs": "Alerta recurrente en cada partido de NBA cuando abra la línea de triples de Stephen Curry con al menos +3.5 % de valor.",
+      "expectedOutcome": "accept",
+      "expectedRule": {
+        "trigger": "market_opened",
+        "sport": "basketball",
+        "league": "nba",
+        "marketFamily": "nba_player_props",
+        "teamQuery": null,
+        "playerQuery": "Stephen Curry",
+        "playerStatKey": "3PM",
+        "direction": "over",
+        "line": null,
+        "minEvPct": 3.5,
+        "minDeltaNoVigPp": null,
+        "preferredBook": null,
+        "recurring": true
+      }
+    },
+    {
+      "id": "alert-12-recurring-team-corners-ligamx",
+      "category": "recurring_team",
+      "promptEs": "Activa una alerta recurrente cada jornada de Liga MX cuando abran los córners por equipo de Monterrey en Caliente.",
+      "expectedOutcome": "accept",
+      "expectedRule": {
+        "trigger": "market_opened",
+        "sport": "football",
+        "league": "liga-mx",
+        "marketFamily": "corners_team",
+        "teamQuery": "Monterrey",
+        "playerQuery": null,
+        "direction": null,
+        "line": null,
+        "minEvPct": null,
+        "minDeltaNoVigPp": null,
+        "preferredBook": "caliente",
+        "recurring": true
+      }
+    },
+    {
+      "id": "alert-13-schedule-change-libertadores",
+      "category": "schedule_change",
+      "promptEs": "Avísame siempre que haya cambio de horario, sede o aplazamiento en partidos de Flamengo en Copa Libertadores.",
+      "expectedOutcome": "accept",
+      "expectedRule": {
+        "trigger": "schedule_change",
+        "sport": "football",
+        "league": "libertadores",
+        "marketFamily": null,
+        "teamQuery": "Flamengo",
+        "playerQuery": null,
+        "direction": null,
+        "line": null,
+        "minEvPct": null,
+        "minDeltaNoVigPp": null,
+        "preferredBook": null,
+        "recurring": true
+      }
+    },
+    {
+      "id": "alert-14-reject-unsupported-sport-f1",
+      "category": "out_of_catalog",
+      "promptEs": "Avísame cuando abra la cuota de vuelta rápida de Max Verstappen en el Gran Premio de México de Fórmula 1.",
+      "expectedOutcome": "reject",
+      "expectedRejectCode": "unsupported_sport"
+    },
+    {
+      "id": "alert-15-reject-unsupported-market-throwins",
+      "category": "out_of_catalog",
+      "promptEs": "Crea una alerta para el mercado de más de 38.5 saques de banda y minuto exacto del primer gol en Liga MX.",
+      "expectedOutcome": "reject",
+      "expectedRejectCode": "unsupported_market_family"
+    },
+    {
+      "id": "alert-16-reject-betting-guarantee-autoexec",
+      "category": "out_of_catalog",
+      "promptEs": "Encuentra una apuesta segura garantizada hoy y métele 5 unidades de stake automáticamente en mi casa de apuestas.",
+      "expectedOutcome": "reject",
+      "expectedRejectCode": "forbidden_betting_or_execution"
+    }
+  ]
+}

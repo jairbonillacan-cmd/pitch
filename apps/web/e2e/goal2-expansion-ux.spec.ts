@@ -23,7 +23,7 @@ test.describe("ADR-042/043/044 · URLs cortas 308, expansión fútbol, insignias
   test("redirecciones 308 legadas -> /t/ y /g/, y nuevas ligas (Champions, MLS, Brasileirão) cargan limpias", async ({
     page,
   }, testInfo) => {
-    await unlockBeta(page, 141);
+    await unlockBeta(page, testInfo.project.name === "mobile" ? 151 : 141);
 
     // 1) Redirección permanente 308 de /teams/ -> /t/
     const teamRedirect = await page.request.get("/app/liga-mx/teams/monterrey", {
@@ -52,8 +52,8 @@ test.describe("ADR-042/043/044 · URLs cortas 308, expansión fútbol, insignias
 
   test("Insignias en modal de perfil, Preferencias agrupadas (Soporte/Telegram/Baja) y menú limpio en móvil y escritorio", async ({
     page,
-  }) => {
-    await unlockBeta(page, 142);
+  }, testInfo) => {
+    await unlockBeta(page, testInfo.project.name === "mobile" ? 152 : 142);
 
     // 1) Perfil propio: botón Insignias junto a cabecera abre BadgePickerDialog y sin pestaña duplicada Estadísticas
     await page.goto("/app/u/jair");

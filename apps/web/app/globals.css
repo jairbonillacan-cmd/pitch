@@ -32,6 +32,7 @@
    por ruta en su layout.tsx/page.tsx (ADR-051) y todas en Storybook preview.ts. */
 @import "./pitchlab-v4.css" layer(components);
 @import "./badges.css" layer(components);
+@import "./sofascore-kit.css" layer(components);
 
 @source "../../../packages/ui/src";
 @source "../../../packages/ui/node_modules/@heroui/react/dist";
@@ -339,6 +340,9 @@ input {
   position: absolute;
   left: -999px;
   top: 8px;
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
   background: var(--brand-primary);
   color: var(--on-primary);
   padding: 8px 12px;
@@ -351,6 +355,11 @@ input {
 .skip-link:focus-visible {
   left: 8px;
 }
+
+main#main:focus:not(:focus-visible) {
+  outline: none;
+}
+
 .only-dark {
   display: block;
 }

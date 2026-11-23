@@ -1,8 +1,9 @@
 "use client";
 
-import React, { useEffect, useId, useMemo, useRef } from "react";
+import React, { useId, useMemo } from "react";
+import { parseStrictFiniteNumber } from "@pitchlab/contracts";
 import { formatOddsValue } from "../../access-guard";
-import { oddsToSliderStep, sliderStepToOdds } from "../../screener-views";
+import { oddsToSliderStep, sliderStepToOdds, smoothOddsWeight } from "../../screener-views";
 import type { OddsFormat } from "../../types";
 
 export interface OddsRangePreset {
@@ -12,7 +13,6 @@ export interface OddsRangePreset {
   readonly maxDecimal: number | null;
 }
 
-/** Atajos táctiles de rango de momios alineados a la escala no lineal (`1.10..10.00+`). */
 export const NON_LINEAR_ODDS_PRESETS: readonly OddsRangePreset[] = [
   { id: "all", label: "Todos", minDecimal: null, maxDecimal: null },
   { id: "safe", label: "1.10–1.65", minDecimal: 1.1, maxDecimal: 1.65 },
@@ -22,6 +22,12 @@ export const NON_LINEAR_ODDS_PRESETS: readonly OddsRangePreset[] = [
 ];
 
 const SCALE_TICKS_DECIMAL = [1.1, 1.5, 2.0, 3.0, 6.0, 10.0] as const;
+
+type SliderCustomStyle = React.CSSProperties & {
+  readonly "--attr-min": string;
+  readonly "--attr-max": string;
+  readonly "--control-value": string;
+};
 
 export function formatOddsStepBound(
   step: number,
@@ -48,23 +54,13 @@ function formatPresetChipLabel(preset: OddsRangePreset, oddsFormat: OddsFormat):
 }
 
 export interface NonLinearOddsSliderProps {
-  /** Paso mínimo `0..99` de la escala no lineal (`screener-views`). */
   readonly minStep: number;
-  /** Paso máximo `1..100` (`100` = sin tope superior `10.00+`). */
   readonly maxStep: number;
   readonly oddsFormat: OddsFormat;
   readonly onChange: (nextMinStep: number, nextMaxStep: number) => void;
-  /** Densidad compacta dentro de hojas inferiores móviles. */
   readonly compact?: boolean;
 }
 
-/**
- * Control táctil accesible de rango de momios con escala no lineal precisa (`1.10..10.00+`
- * en decimal o equivalente americano según `oddsFormat`).
- * Sigue `modern-web-guidance/slider`: `<input type="range">` nativos con etiquetas visibles,
- * `aria-valuetext`, sincronización `--attr-min`/`--attr-max`/`--control-value` (respaldo Safari)
- * y objetivos táctiles `>= 44 px`.
- */
 export function NonLinearOddsSlider({
   minStep,
   maxStep,
@@ -74,8 +70,6 @@ export function NonLinearOddsSlider({
 }: NonLinearOddsSliderProps): React.JSX.Element {
   const minSliderId = useId();
   const maxSliderId = useId();
-  const minRef = useRef<HTMLInputElement | null>(null);
-  const maxRef = useRef<HTMLInputElement | null>(null);
 
   const safeMin = Math.max(0, Math.min(99, Math.round(minStep)));
   const safeMax = Math.max(safeMin + 1, Math.min(100, Math.round(maxStep)));
@@ -89,21 +83,23 @@ export function NonLinearOddsSlider({
     [safeMax, oddsFormat],
   );
 
-  useEffect(() => {
-    const el = minRef.current;
-    if (!el) return;
-    el.style.setProperty("--attr-min", "0");
-    el.style.setProperty("--attr-max", "99");
-    el.style.setProperty("--control-value", String(safeMin));
-  }, [safeMin]);
+  const midpointLiquidityPct = useMemo(() => {
+    const midStep = Math.round((safeMin + safeMax) / 2);
+    const midOdds = sliderStepToOdds(midStep) ?? 10.0;
+    return Math.round(smoothOddsWeight(midOdds) * 100);
+  }, [safeMin, safeMax]);
 
-  useEffect(() => {
-    const el = maxRef.current;
-    if (!el) return;
-    el.style.setProperty("--attr-min", "1");
-    el.style.setProperty("--attr-max", "100");
-    el.style.setProperty("--control-value", String(safeMax));
-  }, [safeMax]);
+  const minSliderStyle: SliderCustomStyle = {
+    "--attr-min": "0",
+    "--attr-max": "99",
+    "--control-value": String(safeMin),
+  };
+
+  const maxSliderStyle: SliderCustomStyle = {
+    "--attr-min": "1",
+    "--attr-max": "100",
+    "--control-value": String(safeMax),
+  };
 
   const isUnrestricted = safeMin === 0 && safeMax === 100;
 
@@ -115,10 +111,15 @@ export function NonLinearOddsSlider({
       <div className="pl-nlos-head">
         <div className="pl-nlos-title-wrap">
           <span className="pl-nlos-title">Rango de momios</span>
-          <span className="pl-nlos-sub">Escala fina 1.10–3.00 · amplia hasta 10.00+</span>
+          {!compact ? (
+            <span className="pl-nlos-sub">
+              Curva C¹ · precisión 1.30–3.00 · amplia hasta 10.00+
+              {!isUnrestricted ? ` · liquidez ${midpointLiquidityPct} %` : ""}
+            </span>
+          ) : null}
         </div>
         <div className="pl-nlos-readout-row">
-          <span className="pl-pill text-xs num" data-odds-range-readout="">
+          <span className="pl-nlos-readout num" data-odds-range-readout="">
             {isUnrestricted ? "Sin límite" : `${minLabel} — ${maxLabel}`}
           </span>
           {!isUnrestricted ? (
@@ -133,9 +134,9 @@ export function NonLinearOddsSlider({
         </div>
       </div>
 
-      {/* Barra visual unificada del segmento seleccionado + marcas no lineales */}
       <div className="pl-nlos-visual" aria-hidden="true">
         <div className="pl-nlos-bar-track">
+          <span className="pl-nlos-sweet-zone" />
           <span
             className="pl-nlos-bar-fill"
             style={{
@@ -166,7 +167,6 @@ export function NonLinearOddsSlider({
         </div>
       </div>
 
-      {/* Presets táctiles rápidos (>= 44 px en móvil) */}
       <div className="pl-nlos-presets" role="group" aria-label="Atajos de rango de momios">
         {NON_LINEAR_ODDS_PRESETS.map((preset) => {
           const targetMin = preset.minDecimal === null ? 0 : oddsToSliderStep(preset.minDecimal);
@@ -186,7 +186,6 @@ export function NonLinearOddsSlider({
         })}
       </div>
 
-      {/* Dos controles nativos <input type="range"> accesibles sin colisión de thumbs */}
       <div className="pl-nlos-inputs">
         <div className="pl-nlos-field">
           <div className="pl-nlos-field-head">
@@ -196,10 +195,10 @@ export function NonLinearOddsSlider({
             <strong className="pl-nlos-val num">{minLabel}</strong>
           </div>
           <input
-            ref={minRef}
             id={minSliderId}
             type="range"
             className="pl-scr-slider"
+            style={minSliderStyle}
             min={0}
             max={99}
             step={1}
@@ -207,8 +206,9 @@ export function NonLinearOddsSlider({
             aria-label="Momio mínimo"
             aria-valuetext={`Momio mínimo ${minLabel}`}
             onChange={(e) => {
-              const next = Number(e.target.value);
-              onChange(Math.min(next, safeMax - 1), safeMax);
+              const parsed = parseStrictFiniteNumber(e.target.value);
+              if (parsed === null) return;
+              onChange(Math.min(Math.round(parsed), safeMax - 1), safeMax);
             }}
           />
         </div>
@@ -223,21 +223,24 @@ export function NonLinearOddsSlider({
             </strong>
           </div>
           <input
-            ref={maxRef}
             id={maxSliderId}
             type="range"
             className="pl-scr-slider"
+            style={maxSliderStyle}
             min={1}
             max={100}
             step={1}
             value={safeMax}
             aria-label="Momio máximo"
             aria-valuetext={
-              safeMax >= 100 ? `Momio máximo sin tope (${maxLabel})` : `Momio máximo ${maxLabel}`
+              safeMax >= 100
+                ? `Momio máximo sin tope (${maxLabel})`
+                : `Momio máximo ${maxLabel}`
             }
             onChange={(e) => {
-              const next = Number(e.target.value);
-              onChange(safeMin, Math.max(next, safeMin + 1));
+              const parsed = parseStrictFiniteNumber(e.target.value);
+              if (parsed === null) return;
+              onChange(safeMin, Math.max(Math.round(parsed), safeMin + 1));
             }}
           />
         </div>

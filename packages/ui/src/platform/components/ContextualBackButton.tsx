@@ -5,12 +5,6 @@ import { MaestroIcon } from "./MaestroPrimitives";
 import { usePlatformActions } from "../platform-provider";
 import { runWithViewTransition } from "../navigation-helpers";
 
-/**
- * Botón contextual accesible `← Atrás` (`>= 44×44 px`) para vistas de detalle (`/g/`, `/t/`, `/p/`).
- * Vuelve con `window.history.back()` (disparando restauración de scroll en `ClubShellBridge`)
- * si el usuario navegó dentro del mismo origen, o cae con seguridad a `fallbackHref` (liga o `/app`)
- * cuando entró por enlace directo (ADR-053).
- */
 export function ContextualBackButton({
   fallbackHref,
   label = "Atrás",
@@ -22,8 +16,15 @@ export function ContextualBackButton({
 
   const handleBack = () => {
     if (typeof window !== "undefined") {
-      const sameOriginReferrer =
-        Boolean(document.referrer) && document.referrer.startsWith(window.location.origin);
+      let sameOriginReferrer = false;
+      if (document.referrer) {
+        try {
+          sameOriginReferrer = new URL(document.referrer).origin === window.location.origin;
+        } catch (err) {
+          void err;
+          sameOriginReferrer = false;
+        }
+      }
       const canUseHistoryBack = window.history.length > 1 && (sameOriginReferrer || window.history.state !== null);
       if (canUseHistoryBack) {
         runWithViewTransition(() => {
@@ -41,12 +42,12 @@ export function ContextualBackButton({
       onClick={handleBack}
       onPointerEnter={() => prefetchRoute(fallbackHref)}
       onTouchStart={() => prefetchRoute(fallbackHref)}
-      aria-label="Volver a la pantalla anterior"
       data-contextual-back=""
       className="pl-back-btn"
     >
       <MaestroIcon name="arrowLeft" size={14} />
       <span>{label}</span>
+      <span className="sr-only"> · volver a la pantalla anterior</span>
     </button>
   );
 }

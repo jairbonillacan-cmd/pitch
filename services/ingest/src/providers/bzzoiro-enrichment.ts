@@ -16,6 +16,7 @@ import {
   TeamInjuryEntrySchema,
   asGameId,
   asTeamId,
+  parseStrictFiniteNumber,
   type GameId,
   type LeagueId,
   type LeagueSnapshot,
@@ -114,22 +115,16 @@ export interface BzPredictionRaw {
 }
 
 function normProb(raw: unknown): number | null {
-  if (raw == null || typeof raw === "boolean" || (typeof raw === "string" && raw.trim() === "")) {
-    return null;
-  }
-  const n = typeof raw === "number" ? raw : Number(raw);
-  if (!Number.isFinite(n) || n < 0) return null;
+  const n = parseStrictFiniteNumber(raw);
+  if (n === null || n < 0) return null;
   if (n > 1 && n <= 100) return Math.min(0.999, Math.max(0.001, n / 100));
   if (n <= 1) return Math.min(0.999, Math.max(0.001, n));
   return null;
 }
 
 function positiveIntId(raw: unknown): number | null {
-  if (raw == null || typeof raw === "boolean" || (typeof raw === "string" && raw.trim() === "")) {
-    return null;
-  }
-  const n = typeof raw === "number" ? raw : Number(raw);
-  return Number.isFinite(n) && Number.isInteger(n) && n > 0 ? n : null;
+  const n = parseStrictFiniteNumber(raw);
+  return n !== null && Number.isInteger(n) && n > 0 ? n : null;
 }
 
 function mapAvailabilityStatus(raw: string | null | undefined): "Baja" | "Duda" | null {
@@ -424,11 +419,8 @@ export interface NormalizedRefereeRigor {
 }
 
 function finiteNonNeg(raw: unknown): number | null {
-  if (raw == null || typeof raw === "boolean" || (typeof raw === "string" && raw.trim() === "")) {
-    return null;
-  }
-  const n = typeof raw === "number" ? raw : Number(raw);
-  return Number.isFinite(n) && n >= 0 ? n : null;
+  const n = parseStrictFiniteNumber(raw);
+  return n !== null && n >= 0 ? n : null;
 }
 
 function clampRound3(v: number, min: number, max: number): number {

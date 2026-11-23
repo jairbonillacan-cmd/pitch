@@ -6,7 +6,7 @@
  * perfil, las estadísticas y el ranking cuadren entre sí. Nada de esto se usa
  * para perfiles reales: esos salen del journal de cada persona.
  */
-import type { LeagueId } from "@pitchlab/contracts";
+import { parseStrictFiniteNumber, type LeagueId } from "@pitchlab/contracts";
 import type { LeaderboardAnalyst } from "./profile-stats";
 import { TIPSTER_CREATORS } from "./spacetime-catalog";
 import { formatOddsValue } from "./access-guard";
@@ -521,7 +521,7 @@ function bestPickOf(game: PlatformGame): MatchPick | null {
 
 function unitsFromBadge(badge: string): number {
   const m = badge.match(/(\d+(?:\.\d+)?)u/);
-  return m ? Number(m[1]) : 1;
+  return m ? (parseStrictFiniteNumber(m[1]) ?? 1) : 1;
 }
 
 function pct(p: number): string {

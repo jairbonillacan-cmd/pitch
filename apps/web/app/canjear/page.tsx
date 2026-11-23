@@ -45,7 +45,7 @@ export default async function PublicCanjearPage({
   let initialPreview: CouponPreviewState | null = null;
   if (cleanCode && process.env.DATABASE_URL) {
     try {
-      cachedDb ??= createDb(process.env.DATABASE_URL) as unknown as Db;
+      cachedDb ??= createDb(process.env.DATABASE_URL);
       const res = await validateCouponPreview(cachedDb, { code: cleanCode, userId: null });
       initialPreview = res.valid
         ? {

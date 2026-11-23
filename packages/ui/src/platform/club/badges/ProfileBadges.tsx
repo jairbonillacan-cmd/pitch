@@ -9,6 +9,7 @@ import {
   type BadgeState,
   type BadgeView,
 } from "../../badges";
+import { useAbortableJson, useSafeEffect } from "../../hooks";
 
 const VALID_BADGE_SLUGS = new Set([
   "ojo-fino",
@@ -28,7 +29,10 @@ const VALID_BADGE_SLUGS = new Set([
   "top-10-mensual",
 ]);
 
-function resolveBadgePackSlug(badgeId: string | undefined, family: BadgeFamily | string): string {
+function resolveBadgePackSlug(
+  badgeId: string | undefined,
+  family: BadgeFamily | string,
+): string {
   if (badgeId) {
     if (badgeId.startsWith("especialista")) return "especialista";
     if (VALID_BADGE_SLUGS.has(badgeId)) return badgeId;
@@ -49,7 +53,6 @@ function resolveBadgePackSlug(badgeId: string | undefined, family: BadgeFamily |
   }
 }
 
-/** Glifo por insignia o familia del paquete oficial de iconos PitchLab. */
 export function BadgeGlyph({
   family,
   badgeId,
@@ -77,7 +80,6 @@ export function BadgeGlyph({
   );
 }
 
-/** Píldora corta junto al nombre (perfil y publicaciones). */
 export function BadgeChip({
   badge,
   size = "md",
@@ -88,7 +90,10 @@ export function BadgeChip({
   className?: string;
 }): React.JSX.Element {
   return (
-    <span className={`pl-badge-chip pl-badge-chip--${size}${className ? ` ${className}` : ""}`} title={badge.criterion}>
+    <span
+      className={`pl-badge-chip pl-badge-chip--${size}${className ? ` ${className}` : ""}`}
+      title={badge.criterion}
+    >
       <BadgeGlyph family={badge.family} badgeId={badge.id} size={size === "sm" ? 14 : 16} />
       <span>
         <span className="sr-only">Insignia: </span>
@@ -98,14 +103,18 @@ export function BadgeChip({
   );
 }
 
-/** Insignias destacadas junto al nombre del perfil con transición suave al equipar/quitar. */
-export function FeaturedBadgeRow({ badges }: { badges: readonly BadgeView[] }): React.JSX.Element | null {
+export function FeaturedBadgeRow({
+  badges,
+}: {
+  badges: readonly BadgeView[];
+}): React.JSX.Element | null {
+  const capped = React.useMemo(() => badges.slice(0, BADGE_RULES.maxFeatured), [badges]);
   const [rendered, setRendered] = React.useState<Array<BadgeView & { closing?: boolean }>>(
-    () => badges.map((b) => ({ ...b })),
+    () => capped.map((b) => ({ ...b })),
   );
 
-  React.useEffect(() => {
-    const activeIds = new Set(badges.map((b) => b.id));
+  useSafeEffect(() => {
+    const activeIds = new Set(capped.map((b) => b.id));
     let hasNewlyClosing = false;
 
     setRendered((prev) => {
@@ -114,8 +123,8 @@ export function FeaturedBadgeRow({ badges }: { badges: readonly BadgeView[] }): 
 
       for (const item of prev) {
         if (activeIds.has(item.id)) {
-          const fresh = badges.find((b) => b.id === item.id)!;
-          next.push({ ...fresh, closing: false });
+          const fresh = capped.find((b) => b.id === item.id);
+          if (fresh) next.push({ ...fresh, closing: false });
         } else if (!item.closing) {
           hasNewlyClosing = true;
           next.push({ ...item, closing: true });
@@ -124,7 +133,7 @@ export function FeaturedBadgeRow({ badges }: { badges: readonly BadgeView[] }): 
         }
       }
 
-      for (const b of badges) {
+      for (const b of capped) {
         if (!prevMap.has(b.id)) {
           next.push({ ...b, closing: false });
         }
@@ -138,7 +147,7 @@ export function FeaturedBadgeRow({ badges }: { badges: readonly BadgeView[] }): 
       setRendered((prev) => prev.filter((item) => !item.closing));
     }, 220);
     return () => window.clearTimeout(timer);
-  }, [badges]);
+  }, [capped]);
 
   if (rendered.length === 0) return null;
   return (
@@ -160,16 +169,10 @@ export interface OwnBadgesState {
   all: readonly BadgeState[];
   publicIds: readonly string[];
   featuredIds: readonly string[];
-  /** false sin cuenta real (modo PIN o ejemplo): no se puede guardar la selección. */
   canFeature: boolean;
   saving: boolean;
 }
 
-/**
- * Sección «Insignias» del perfil.
- * - Visitante: solo las ganadas que el socio comparte.
- * - Propio: ganadas (con «Destacar», máximo 3) y las que faltan con su avance.
- */
 export function ProfileBadgesSection({
   isOwn,
   publicBadges,
@@ -192,7 +195,7 @@ export function ProfileBadgesSection({
   const [openTipId, setOpenTipId] = React.useState<string | null>(null);
   const [dismissedTipId, setDismissedTipId] = React.useState<string | null>(null);
 
-  React.useEffect(() => {
+  useSafeEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.key === "Escape") {
         setOpenTipId(null);
@@ -232,7 +235,7 @@ export function ProfileBadgesSection({
   if (!isOwn || !own) {
     if (publicBadges.length === 0) return null;
     return (
-      <section ref={sectionRef} className="pl-badges glass-lens glass-ring" aria-labelledby={titleId}>
+      <section ref={sectionRef} className="pl-badges" aria-labelledby={titleId}>
         <header className="pl-badges-head">
           <h2 id={titleId} className="pl-badges-title">
             Insignias <span className="pl-badges-count num">{publicBadges.length}</span>
@@ -280,7 +283,7 @@ export function ProfileBadgesSection({
   return (
     <section
       ref={sectionRef}
-      className="pl-badges glass-lens glass-ring"
+      className="pl-badges"
       aria-labelledby={titleId}
       aria-describedby={hintId}
     >
@@ -328,7 +331,11 @@ export function ProfileBadgesSection({
                   {isPublic ? (
                     <span className="pl-badge-state">Pública</span>
                   ) : (
-                    <a className="pl-badge-state pl-badge-state--private" href={privacyHref} onClick={onNavigate}>
+                    <a
+                      className="pl-badge-state pl-badge-state--private"
+                      href={privacyHref}
+                      onClick={onNavigate}
+                    >
                       Privada
                     </a>
                   )}
@@ -391,7 +398,11 @@ export function ProfileBadgesSection({
                   />
                   {b.progress ? (
                     <div className="pl-badge-progress">
-                      <progress max={b.progress.target} value={b.progress.current} aria-label={`Avance de ${b.label}`} />
+                      <progress
+                        max={b.progress.target}
+                        value={b.progress.current}
+                        aria-label={`Avance de ${b.label}`}
+                      />
                       <span className="num">
                         {b.progress.current}/{b.progress.target}
                       </span>
@@ -409,7 +420,9 @@ export function ProfileBadgesSection({
           Con tu cuenta también cuentan: {soon.map((b) => b.label).join(", ")}.
         </p>
       ) : null}
-      <p className="pl-badges-foot">Nunca damos insignias por volumen de apuesta ni por rachas de conexión.</p>
+      <p className="pl-badges-foot">
+        Nunca damos insignias por volumen de apuesta ni por rachas de conexión.
+      </p>
     </section>
   );
 }
@@ -458,10 +471,12 @@ function BadgeTileBody({
   );
 }
 
-/**
- * Tus insignias desde el servidor (`/api/me/badges`) y el guardado de destacadas.
- * Sin cuenta real (o si la API falla) se calculan con tu récord local, sin poder destacar.
- */
+interface ServerBadgesResponse {
+  readonly badges?: BadgeState[];
+  readonly publicIds?: string[];
+  readonly featuredIds?: string[];
+}
+
 export function useOwnBadges({
   enabled,
   serverBacked,
@@ -473,34 +488,30 @@ export function useOwnBadges({
   localBadges: readonly BadgeState[];
   onError: (message: string) => void;
 }): { own: OwnBadgesState | null; featured: BadgeView[]; toggle: (id: string) => void } {
-  const [server, setServer] = React.useState<{ all: BadgeState[]; publicIds: string[]; featuredIds: string[] } | null>(
-    null,
-  );
+  const badgesQuery = useAbortableJson<ServerBadgesResponse>("/api/me/badges", {
+    enabled: enabled && serverBacked,
+  });
+  const [server, setServer] = React.useState<{
+    all: BadgeState[];
+    publicIds: string[];
+    featuredIds: string[];
+  } | null>(null);
   const [saving, setSaving] = React.useState(false);
   const serverRef = React.useRef(server);
   serverRef.current = server;
   const seqRef = React.useRef(0);
 
-  React.useEffect(() => {
-    if (!enabled || !serverBacked) return;
-    let cancelled = false;
-    void fetch("/api/me/badges", { credentials: "same-origin", cache: "no-store" })
-      .then(async (res) => (res.ok ? ((await res.json().catch(() => null)) as Record<string, unknown> | null) : null))
-      .then((data) => {
-        if (cancelled || !data || !Array.isArray(data.badges)) return;
-        setServer({
-          all: data.badges as BadgeState[],
-          publicIds: (data.publicIds as string[]) ?? [],
-          featuredIds: (data.featuredIds as string[]) ?? [],
-        });
-      })
-      .catch((err: unknown) => {
-        void err;
-      });
-    return () => {
-      cancelled = true;
-    };
-  }, [enabled, serverBacked]);
+  useSafeEffect(() => {
+    const data = badgesQuery.data;
+    if (!data || !Array.isArray(data.badges)) return;
+    setServer({
+      all: data.badges,
+      publicIds: Array.isArray(data.publicIds) ? data.publicIds : [],
+      featuredIds: Array.isArray(data.featuredIds)
+        ? data.featuredIds.slice(0, BADGE_RULES.maxFeatured)
+        : [],
+    });
+  }, [badgesQuery.data]);
 
   const toggle = React.useCallback(
     (id: string) => {
@@ -511,7 +522,6 @@ export function useOwnBadges({
         ? prev.filter((x) => x !== id)
         : [...prev, id].slice(0, BADGE_RULES.maxFeatured);
       if (next.length === prev.length && next.every((v, i) => v === prev[i])) return;
-      // Actualización optimista instantánea (0 ms) sin bloquear clics consecutivos (Regla 2 · ADR-054).
       const seq = ++seqRef.current;
       setServer({ ...current, featuredIds: next });
       setSaving(true);
@@ -542,6 +552,7 @@ export function useOwnBadges({
   if (server) {
     const byId = new Map(server.all.map((b) => [b.id, b]));
     const featured = server.featuredIds
+      .slice(0, BADGE_RULES.maxFeatured)
       .map((fid) => byId.get(fid))
       .filter((b): b is BadgeState => Boolean(b))
       .map(({ id, family, label, criterion }) => ({ id, family, label, criterion }));

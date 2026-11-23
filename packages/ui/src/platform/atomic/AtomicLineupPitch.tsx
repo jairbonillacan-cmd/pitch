@@ -2,15 +2,22 @@
 
 import React, { useId, useMemo, useState } from "react";
 import type { LiveIncident, LiveSide } from "@pitchlab/contracts";
+import { PersonAvatar } from "../club/team/PersonAvatar";
 import { SportEventIcon, type SportEventIconKind } from "../components/SportEventIcons";
+import { sanitizeInternalHref } from "../navigation-helpers";
 
 export interface AtomicLineupPlayer {
+  readonly id?: string;
   readonly name: string;
   readonly number?: number | null;
   readonly position?: string | null;
   readonly rating?: number | null;
   readonly isCaptain?: boolean;
   readonly events?: readonly SportEventIconKind[];
+  readonly playerHref?: string | null;
+  readonly photoKey?: string | null;
+  readonly fallbackPhotoKey?: string | null;
+  readonly metricChip?: string | null;
 }
 
 export interface AtomicLineupPitchProps {
@@ -23,10 +30,11 @@ export interface AtomicLineupPitchProps {
   readonly status: "confirmed" | "probable";
   readonly homeCoach?: string | null;
   readonly awayCoach?: string | null;
-  /** Incidencias en vivo opcionales para enlazar goles, tarjetas y cambios automáticamente. */
   readonly incidents?: readonly LiveIncident[];
-  /** Mapa opcional de calificación por nombre de jugador. */
   readonly playerRatings?: Readonly<Record<string, number>>;
+  readonly selectedPlayerId?: string | null;
+  readonly preferSelectButton?: boolean;
+  readonly onSelectPlayer?: (player: AtomicLineupPlayer, side: LiveSide) => void;
   readonly className?: string;
 }
 
@@ -39,10 +47,6 @@ interface PositionedLineupNode {
   readonly events: readonly SportEventIconKind[];
 }
 
-/**
- * Convierte una cadena de formación (`"4-2-3-1"`, `"4-3-3"`, `"3-4-2-1"`)
- * en líneas de portero hacia delanteros `[1, ...outfield]`.
- */
 export function parseLineupFormationRows(
   formation?: string | null,
   totalPlayers = 11,
@@ -50,7 +54,8 @@ export function parseLineupFormationRows(
   const clean = (formation ?? "").trim();
   const parts = clean
     .split(/[^0-9]+/)
-    .map((s) => Number(s))
+    .filter((segment) => segment.length > 0)
+    .map((segment) => Number.parseInt(segment, 10))
     .filter((n) => Number.isInteger(n) && n > 0 && n <= 6);
 
   if (parts.length >= 2) {
@@ -134,7 +139,7 @@ function layoutLineupNodes(
     const remaining = players.length - cursor;
     const isLast = r === rows.length - 1;
     const countInRow = isLast ? remaining : Math.min(rows[r]!, remaining);
-    const yPct = rows.length === 1 ? 50 : 14 + (r / Math.max(1, rows.length - 1)) * 71;
+    const yPct = rows.length === 1 ? 50 : 12 + (r / Math.max(1, rows.length - 1)) * 75;
 
     for (let i = 0; i < countInRow && cursor < players.length; i += 1) {
       const player = players[cursor]!;
@@ -170,13 +175,22 @@ function HalfLineupPane({
   coach,
   nodes,
   side,
+  selectedPlayerId,
+  preferSelectButton = false,
+  onSelectPlayer,
 }: {
   readonly teamName: string;
   readonly formation?: string | null;
   readonly coach?: string | null;
   readonly nodes: readonly PositionedLineupNode[];
   readonly side: LiveSide;
+  readonly selectedPlayerId?: string | null;
+  readonly preferSelectButton?: boolean;
+  readonly onSelectPlayer?: (player: AtomicLineupPlayer, side: LiveSide) => void;
 }): React.JSX.Element {
+  const hasInteractiveNodes =
+    Boolean(onSelectPlayer) || nodes.some((n) => sanitizeInternalHref(n.player.playerHref) !== null);
+
   return (
     <div className={`pl-atom-lineup-half is-${side}`} data-lineup-side={side}>
       <div className="pl-atom-lineup-half-head">
@@ -189,56 +203,125 @@ function HalfLineupPane({
 
       <div
         className="pl-atom-lineup-canvas"
-        role="img"
+        role={hasInteractiveNodes ? "group" : "img"}
         aria-label={`Alineación de ${teamName}${formation ? ` (${formation})` : ""}: ${nodes.map((n) => `${n.player.number ?? ""} ${n.player.name}`.trim()).join(", ")}`}
       >
-        <svg viewBox="0 0 320 272" className="pl-atom-pitch-svg" aria-hidden="true">
-          <rect x="8" y="8" width="304" height="256" rx="10" className="pl-atom-pitch-grass" />
-          <line x1="8" y1="264" x2="312" y2="264" className="pl-atom-pitch-line" />
-          <path d="M 118 264 A 42 42 0 0 1 202 264" className="pl-atom-pitch-line" />
-          <rect x="70" y="8" width="180" height="58" className="pl-atom-pitch-line" />
-          <rect x="116" y="8" width="88" height="22" className="pl-atom-pitch-line" />
-          <path d="M 130 66 A 32 32 0 0 0 190 66" className="pl-atom-pitch-line" />
+        <svg viewBox="0 0 320 380" className="pl-atom-pitch-svg" aria-hidden="true">
+          <rect x="8" y="8" width="304" height="364" rx="10" className="pl-atom-pitch-grass" />
+          <line x1="8" y1="372" x2="312" y2="372" className="pl-atom-pitch-line" />
+          <path d="M 118 372 A 42 42 0 0 1 202 372" className="pl-atom-pitch-line" />
+          <rect x="70" y="8" width="180" height="66" className="pl-atom-pitch-line" />
+          <rect x="116" y="8" width="88" height="24" className="pl-atom-pitch-line" />
+          <path d="M 130 74 A 32 32 0 0 0 190 74" className="pl-atom-pitch-line" />
         </svg>
 
         <ol className="pl-atom-pitch-nodes" role="list">
-          {nodes.map((node, idx) => (
-            <li
-              key={`${side}-${node.player.name}-${idx}`}
-              className="pl-atom-lineup-node"
-              style={{ left: `${node.xPct}%`, top: `${node.yPct}%` }}
-            >
-              <span className="pl-atom-lineup-anchor">
-                <span className={`pl-atom-jersey is-${side} num`}>
-                  {node.player.number ?? idx + 1}
+          {nodes.map((node, idx) => {
+            const safeHref = sanitizeInternalHref(node.player.playerHref);
+            const jerseyNumber = node.player.number ?? idx + 1;
+            const nodeAriaLabel = `${node.player.name}, dorsal ${jerseyNumber}${node.rating !== null ? `, nota ${node.rating.toFixed(1)}` : ""}`;
+            const isSelected =
+              selectedPlayerId != null &&
+              (node.player.id === selectedPlayerId || node.player.name === selectedPlayerId);
+            const hasPortrait = Boolean(node.player.photoKey || node.player.fallbackPhotoKey);
+            const nodeContent = (
+              <>
+                <span className="pl-atom-lineup-anchor">
+                  {hasPortrait ? (
+                    <span className="pl-atom-node-avatar">
+                      <PersonAvatar
+                        photoKey={node.player.photoKey}
+                        fallbackPhotoKey={node.player.fallbackPhotoKey}
+                        role="player"
+                        size={26}
+                      />
+                    </span>
+                  ) : (
+                    <span className={`pl-atom-jersey is-${side} num`}>{jerseyNumber}</span>
+                  )}
+
+                  {node.rating !== null ? (
+                    <span
+                      className={`pl-atom-rating is-${ratingTier(node.rating)} num`}
+                      aria-label={`Nota ${node.rating.toFixed(1)}`}
+                    >
+                      {node.rating.toFixed(1)}
+                    </span>
+                  ) : null}
+
+                  {node.events.length > 0 ? (
+                    <span className="pl-atom-node-events" aria-hidden="true">
+                      {node.events.map((evKind, evIdx) => (
+                        <span key={`${evKind}-${evIdx}`} className="pl-atom-node-evt">
+                          <SportEventIcon kind={evKind} size={11} />
+                        </span>
+                      ))}
+                    </span>
+                  ) : null}
                 </span>
 
-                {node.rating !== null ? (
-                  <span
-                    className={`pl-atom-rating is-${ratingTier(node.rating)} num`}
-                    aria-label={`Nota ${node.rating.toFixed(1)}`}
+                <span className="pl-atom-player-tag">
+                  {node.player.isCaptain ? (
+                    <abbr title="Capitán" className="pl-atom-cap">
+                      C
+                    </abbr>
+                  ) : null}
+                  <span>{node.shortLabel}</span>
+                </span>
+                {node.player.metricChip ? (
+                  <span className="pl-atom-node-metric num">{node.player.metricChip}</span>
+                ) : null}
+              </>
+            );
+
+            return (
+              <li
+                key={`${side}-${node.player.name}-${idx}`}
+                className="pl-atom-lineup-node"
+                style={{ left: `${node.xPct}%`, top: `${node.yPct}%` }}
+              >
+                {safeHref ? (
+                  <a
+                    href={safeHref}
+                    className={`pl-atom-node-trigger ${isSelected ? "is-selected" : ""}`.trim()}
+                    aria-label={nodeAriaLabel}
+                    aria-current={isSelected ? "true" : undefined}
+                    onClick={
+                      onSelectPlayer
+                        ? (e) => {
+                            if (
+                              preferSelectButton &&
+                              !e.metaKey &&
+                              !e.ctrlKey &&
+                              !e.shiftKey &&
+                              !e.altKey &&
+                              e.button === 0
+                            ) {
+                              e.preventDefault();
+                            }
+                            onSelectPlayer(node.player, side);
+                          }
+                        : undefined
+                    }
                   >
-                    {node.rating.toFixed(1)}
-                  </span>
-                ) : null}
-
-                {node.events.length > 0 ? (
-                  <span className="pl-atom-node-events" aria-hidden="true">
-                    {node.events.map((evKind, evIdx) => (
-                      <span key={`${evKind}-${evIdx}`} className="pl-atom-node-evt">
-                        <SportEventIcon kind={evKind} size={11} />
-                      </span>
-                    ))}
-                  </span>
-                ) : null}
-              </span>
-
-              <span className="pl-atom-player-tag">
-                {node.player.isCaptain ? <abbr title="Capitán" className="pl-atom-cap">C</abbr> : null}
-                <span>{node.shortLabel}</span>
-              </span>
-            </li>
-          ))}
+                    {nodeContent}
+                  </a>
+                ) : onSelectPlayer ? (
+                  <button
+                    type="button"
+                    className={`pl-atom-node-trigger ${isSelected ? "is-selected" : ""}`.trim()}
+                    aria-label={nodeAriaLabel}
+                    aria-pressed={isSelected}
+                    onClick={() => onSelectPlayer(node.player, side)}
+                  >
+                    {nodeContent}
+                  </button>
+                ) : (
+                  nodeContent
+                )}
+              </li>
+            );
+          })}
         </ol>
       </div>
 
@@ -252,11 +335,6 @@ function HalfLineupPane({
   );
 }
 
-/**
- * Cancha táctica de alineación editorial (`confirmed` / `probable`):
- * - Dorsales, nota opcional e iconos vectoriales `<SportEventIcon />` de goles, tarjetas y cambios.
- * - Responsiva con `@container` queries: pestañas Local/Visita en 375 px, doble cancha en 1440 px.
- */
 export function AtomicLineupPitch({
   homeName,
   awayName,
@@ -269,6 +347,9 @@ export function AtomicLineupPitch({
   awayCoach,
   incidents,
   playerRatings,
+  selectedPlayerId,
+  preferSelectButton = false,
+  onSelectPlayer,
   className = "",
 }: AtomicLineupPitchProps): React.JSX.Element | null {
   const [mobileSide, setMobileSide] = useState<LiveSide>("home");
@@ -331,6 +412,9 @@ export function AtomicLineupPitch({
             coach={homeCoach}
             nodes={homeNodes}
             side="home"
+            selectedPlayerId={selectedPlayerId}
+            preferSelectButton={preferSelectButton}
+            onSelectPlayer={onSelectPlayer}
           />
         </div>
         <div className={`pl-atom-lineup-pane${mobileSide === "away" ? " is-mobile-visible" : ""}`}>
@@ -340,6 +424,9 @@ export function AtomicLineupPitch({
             coach={awayCoach}
             nodes={awayNodes}
             side="away"
+            selectedPlayerId={selectedPlayerId}
+            preferSelectButton={preferSelectButton}
+            onSelectPlayer={onSelectPlayer}
           />
         </div>
       </div>

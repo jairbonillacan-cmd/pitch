@@ -1,8 +1,33 @@
 import fs from "node:fs";
 import path from "node:path";
+import { Writable } from "node:stream";
 import React from "react";
-import { renderToStaticMarkup } from "react-dom/server";
+import { renderToPipeableStream, renderToStaticMarkup } from "react-dom/server";
 import { describe, expect, it } from "vitest";
+
+async function renderHtmlAsync(element: React.ReactElement): Promise<string> {
+  return new Promise((resolve, reject) => {
+    const chunks: Buffer[] = [];
+    const writable = new Writable({
+      write(chunk, _enc, cb) {
+        chunks.push(Buffer.isBuffer(chunk) ? chunk : Buffer.from(chunk));
+        cb();
+      },
+    });
+    const { pipe } = renderToPipeableStream(element, {
+      onAllReady() {
+        pipe(writable);
+      },
+      onError(err) {
+        reject(err);
+      },
+    });
+    writable.on("finish", () =>
+      resolve(Buffer.concat(chunks).toString("utf8").replace(/<!--\s*-->/g, "")),
+    );
+    writable.on("error", reject);
+  });
+}
 import {
   LeagueSnapshotSchema,
   snapshotToMatchAnalyses,
@@ -47,7 +72,7 @@ function loadSnapshot(leagueKey: "liga-mx" | "nfl"): RawLeagueInput {
 const dataset = buildPlatformDataset([loadSnapshot("liga-mx"), loadSnapshot("nfl")]);
 
 describe("Mi récord (/app/lab) y Récord público en perfil", () => {
-  it("renderiza las 3 pestañas de Mi récord con banca privada, 7 estadísticas y vista previa de privacidad", () => {
+  it("renderiza las 3 pestañas de Mi récord con banca privada, 7 estadísticas y vista previa de privacidad", async () => {
     const picksHtml = renderToStaticMarkup(
       <PlatformProvider dataset={dataset} initialRole="member" accountsEnabled={false}>
         <BitacoraClubView initialTab="picks" />
@@ -62,7 +87,7 @@ describe("Mi récord (/app/lab) y Récord público en perfil", () => {
     expect(picksHtml).not.toContain("Récord Verificado");
     expect(picksHtml.toLowerCase()).not.toContain("cortex ia");
 
-    const bancaHtml = renderToStaticMarkup(
+    const bancaHtml = await renderHtmlAsync(
       <PlatformProvider dataset={dataset} initialRole="member" accountsEnabled={false}>
         <BitacoraClubView
           initialTab="banca"
@@ -81,7 +106,7 @@ describe("Mi récord (/app/lab) y Récord público en perfil", () => {
     expect(bancaHtml).toContain("Acierto por mercado");
     expect(bancaHtml).toContain("Acierto por tipo de pick");
 
-    const privHtml = renderToStaticMarkup(
+    const privHtml = await renderHtmlAsync(
       <PlatformProvider dataset={dataset} initialRole="member" accountsEnabled={false}>
         <BitacoraClubView
           initialTab="privacidad"

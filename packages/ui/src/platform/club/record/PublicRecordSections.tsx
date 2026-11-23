@@ -1,6 +1,11 @@
 "use client";
 
 import React, { useCallback, useId, useState } from "react";
+import {
+  SofascoreCard,
+  SofascoreTabs,
+  type SofascoreTabItem,
+} from "../../../components/ui/primitives";
 import { formatOddsValue } from "../../access-guard";
 import { DailyResultsCalendar } from "../../components/DailyResultsCalendar";
 import { MaestroIcon } from "../../components/MaestroPrimitives";
@@ -23,6 +28,11 @@ export interface AuditRateDisplayRow extends RateRow {
   readonly avgClvPct?: number | null;
 }
 
+const PUBLIC_VIEW_TABS: readonly SofascoreTabItem[] = [
+  { id: "list", label: "Lista" },
+  { id: "calendar", label: "Calendario" },
+];
+
 export function formatSignedUnits(u: number): string {
   if (Object.is(u, -0) || u === 0) return "0.00u";
   return u > 0 ? `+${u.toFixed(2)}u` : `−${Math.abs(u).toFixed(2)}u`;
@@ -42,9 +52,6 @@ export function formatShortIsoDay(day: string | null | undefined): string {
     .replace(".", "");
 }
 
-/**
- * Gráfica SVG plana y accesible de la curva de saldo en unidades con tabla equivalente para lectores de pantalla.
- */
 export function BalanceCurveFigure({
   curve,
   startingUnits,
@@ -66,9 +73,10 @@ export function BalanceCurveFigure({
   }
 
   const base = startingUnits ?? 0;
+  const firstPoint = curve[0];
   const points: CurvePoint[] =
-    curve.length === 1
-      ? [{ day: curve[0]!.day, balance: base }, curve[0]!]
+    curve.length === 1 && firstPoint
+      ? [{ day: firstPoint.day, balance: base }, firstPoint]
       : [...curve];
 
   const values = [base, ...points.map((p) => p.balance)];
@@ -100,12 +108,20 @@ export function BalanceCurveFigure({
     balance: p.balance,
   }));
 
+  const first = coords[0];
+  const last = coords[coords.length - 1];
+  if (!first || !last) {
+    return (
+      <p className="pl-rec-hint [text-wrap:pretty]">
+        Cuando se liquide tu primer pick aparecerá aquí tu curva de saldo día por día.
+      </p>
+    );
+  }
+
   const linePath = coords
     .map((c, i) => `${i === 0 ? "M" : "L"}${c.x},${c.y}`)
     .join(" ");
   const baselineY = Math.round(yOf(base) * 10) / 10;
-  const first = coords[0]!;
-  const last = coords[coords.length - 1]!;
   const areaPath = `${linePath} L${last.x},${baselineY} L${first.x},${baselineY} Z`;
   const netDelta = Math.round((last.balance - base) * 100) / 100;
   const strokeVar = netDelta >= 0 ? "var(--pl-success)" : "var(--pl-danger)";
@@ -153,12 +169,7 @@ export function BalanceCurveFigure({
         />
         <circle cx={last.x} cy={last.y} r="4.5" fill={strokeVar} />
 
-        <text
-          x={left}
-          y={height - 4}
-          fill="var(--pl-text-muted)"
-          fontSize="11"
-        >
+        <text x={left} y={height - 4} fill="var(--pl-text-muted)" fontSize="11">
           {formatShortIsoDay(first.day)}
         </text>
         <text
@@ -203,9 +214,6 @@ export function BalanceCurveFigure({
   );
 }
 
-/**
- * Barras horizontales planas y accesibles para acierto por liga, familia de mercado o tipo de pick.
- */
 export function RateBreakdownList({
   rows,
   emptyText = "Sin picks cerrados todavía.",
@@ -296,10 +304,6 @@ export function RateBreakdownList({
   );
 }
 
-/**
- * Resumen y secciones del récord público filtrado por `PublicRecordView`.
- * Se usa tanto en la vista previa en vivo de «Privacidad» como en el perfil público de otro socio.
- */
 export function PublicRecordPreviewCard({
   handle,
   hidden,
@@ -342,23 +346,29 @@ export function PublicRecordPreviewCard({
 
   if (hidden || !view) {
     return (
-      <div className="pl-rec-card glass-card glass-ring" data-public-record-state="hidden">
-        <div className="pl-rec-card-head">
-          <h3 className="pl-rec-card-title [text-wrap:balance]">
-            {isPreview ? "Así ven los demás tu récord" : "Récord privado"}
-          </h3>
-          <span className="pl-pill">Privado</span>
-        </div>
-        <p className="pl-rec-hint [text-wrap:pretty]">
-          {isPreview
-            ? `Con el interruptor principal apagado, nadie ve el récord ni los picks de @${handle} en su perfil.`
-            : `@${handle} eligió mantener su récord en privado.`}
-        </p>
+      <div data-public-record-state="hidden">
+        <SofascoreCard
+          as="div"
+          title={isPreview ? "Así ven los demás tu récord" : "Récord privado"}
+          meta={<span className="pl-pill">Privado</span>}
+        >
+          <p className="pl-rec-hint [text-wrap:pretty]">
+            {isPreview
+              ? `Con el interruptor principal apagado, nadie ve el récord ni los picks de @${handle} en su perfil.`
+              : `@${handle} eligió mantener su récord en privado.`}
+          </p>
+        </SofascoreCard>
       </div>
     );
   }
 
-  const statItems: Array<{ key: string; label: string; value: string; sub: string; tone?: "pos" | "neg" }> = [];
+  const statItems: Array<{
+    key: string;
+    label: string;
+    value: string;
+    sub: string;
+    tone?: "pos" | "neg";
+  }> = [];
 
   if (view.netUnits !== null) {
     statItems.push({
@@ -448,165 +458,173 @@ export function PublicRecordPreviewCard({
       (view.settledPicks && view.settledPicks.length > 0);
 
   return (
-    <div className="pl-rec-card glass-card glass-ring" data-public-record-state="visible">
-      <div className="pl-rec-card-head">
-        <div className="min-w-0">
-          <h3 className="pl-rec-card-title [text-wrap:balance]">
-            {isPreview ? "Así ven los demás tu récord" : `Récord público de @${handle}`}
-          </h3>
+    <div data-public-record-state="visible">
+      <SofascoreCard
+        as="div"
+        title={isPreview ? "Así ven los demás tu récord" : `Récord público de @${handle}`}
+        meta={<span className="pl-pill pl-pill--success">Público</span>}
+      >
+        <div className="space-y-3.5">
           <p className="pl-rec-card-meta">
-            @{handle} · {settled} {settled === 1 ? "pick cerrado" : "picks cerrados"} · cero montos en pesos
+            @{handle} · {settled} {settled === 1 ? "pick cerrado" : "picks cerrados"} · cero montos
+            en pesos
           </p>
-        </div>
-        <span className="pl-pill pl-pill--success">Público</span>
-      </div>
 
-      {!hasAnyBlock ? (
-        <p className="pl-rec-hint [text-wrap:pretty]">
-          {settled === 0
-            ? "Todavía no hay picks cerrados para mostrar."
-            : isPreview
-              ? "Apagaste todos los datos individuales: tu perfil se ve activo, pero sin cifras del récord."
-              : `@${handle} mantiene estas cifras en privado.`}
-        </p>
-      ) : null}
+          {!hasAnyBlock ? (
+            <p className="pl-rec-hint [text-wrap:pretty]">
+              {settled === 0
+                ? "Todavía no hay picks cerrados para mostrar."
+                : isPreview
+                  ? "Apagaste todos los datos individuales: tu perfil se ve activo, pero sin cifras del récord."
+                  : `@${handle} mantiene estas cifras en privado.`}
+            </p>
+          ) : null}
 
-      {statItems.length > 0 ? (
-        <dl className="pl-rec-pub-grid num">
-          {statItems.map((item) => (
-            <div key={item.key} className="pl-rec-pub-stat">
-              <dt className="pl-rec-pub-dt">{item.label}</dt>
-              <dd
-                className={[
-                  "pl-rec-pub-dd",
-                  item.tone === "pos" ? "pl-rec-pos" : item.tone === "neg" ? "pl-rec-neg" : "",
-                ]
-                  .filter(Boolean)
-                  .join(" ")}
-              >
-                {item.value}
-              </dd>
-              <dd className="pl-rec-pub-sub">{item.sub}</dd>
-            </div>
-          ))}
-        </dl>
-      ) : null}
+          {statItems.length > 0 ? (
+            <dl className="pl-rec-pub-grid num">
+              {statItems.map((item) => (
+                <div key={item.key} className="pl-rec-pub-stat">
+                  <dt className="pl-rec-pub-dt">{item.label}</dt>
+                  <dd
+                    className={[
+                      "pl-rec-pub-dd",
+                      item.tone === "pos"
+                        ? "pl-rec-pos"
+                        : item.tone === "neg"
+                          ? "pl-rec-neg"
+                          : "",
+                    ]
+                      .filter(Boolean)
+                      .join(" ")}
+                  >
+                    {item.value}
+                  </dd>
+                  <dd className="pl-rec-pub-sub">{item.sub}</dd>
+                </div>
+              ))}
+            </dl>
+          ) : null}
 
-      {!summaryOnly && hasMonths && view.months ? (
-        <div className="pl-rec-metric-pair num">
-          {view.months.best ? (
-            <div className="pl-rec-pub-stat">
-              <span className="pl-rec-pub-dt">Mejor mes</span>
-              <strong className="pl-rec-pub-dd pl-rec-pos">
-                {formatSignedUnits(view.months.best.netUnits)}
-              </strong>
-              <span className="pl-rec-pub-sub">{view.months.best.label}</span>
+          {!summaryOnly && hasMonths && view.months ? (
+            <div className="pl-rec-metric-pair num">
+              {view.months.best ? (
+                <div className="pl-rec-pub-stat">
+                  <span className="pl-rec-pub-dt">Mejor mes</span>
+                  <strong className="pl-rec-pub-dd pl-rec-pos">
+                    {formatSignedUnits(view.months.best.netUnits)}
+                  </strong>
+                  <span className="pl-rec-pub-sub">{view.months.best.label}</span>
+                </div>
+              ) : null}
+              {view.months.worst ? (
+                <div className="pl-rec-pub-stat">
+                  <span className="pl-rec-pub-dt">Peor mes</span>
+                  <strong
+                    className={`pl-rec-pub-dd ${view.months.worst.netUnits >= 0 ? "pl-rec-pos" : "pl-rec-neg"}`}
+                  >
+                    {formatSignedUnits(view.months.worst.netUnits)}
+                  </strong>
+                  <span className="pl-rec-pub-sub">{view.months.worst.label}</span>
+                </div>
+              ) : null}
             </div>
           ) : null}
-          {view.months.worst ? (
-            <div className="pl-rec-pub-stat">
-              <span className="pl-rec-pub-dt">Peor mes</span>
-              <strong
-                className={`pl-rec-pub-dd ${view.months.worst.netUnits >= 0 ? "pl-rec-pos" : "pl-rec-neg"}`}
-              >
-                {formatSignedUnits(view.months.worst.netUnits)}
-              </strong>
-              <span className="pl-rec-pub-sub">{view.months.worst.label}</span>
+
+          {!summaryOnly && view.curve && view.curve.length > 0 ? (
+            <div className="space-y-2">
+              <h3 className="m-0 text-xs font-bold" style={{ color: "var(--pl-text-secondary)" }}>
+                Curva de saldo (unidades)
+              </h3>
+              <BalanceCurveFigure curve={view.curve} compact />
             </div>
           ) : null}
-        </div>
-      ) : null}
 
-      {!summaryOnly && view.curve && view.curve.length > 0 ? (
-        <div className="space-y-2">
-          <h4 className="m-0 text-xs font-bold" style={{ color: "var(--pl-text-secondary)" }}>
-            Curva de saldo (unidades)
-          </h4>
-          <BalanceCurveFigure curve={view.curve} compact />
-        </div>
-      ) : null}
+          {!summaryOnly && view.byLeague && view.byLeague.length > 0 ? (
+            <div className="space-y-2">
+              <h3 className="m-0 text-xs font-bold" style={{ color: "var(--pl-text-secondary)" }}>
+                Acierto por liga
+              </h3>
+              <RateBreakdownList
+                rows={view.byLeague.slice(0, 4)}
+                showNetUnits={view.netUnits !== null}
+              />
+            </div>
+          ) : null}
 
-      {!summaryOnly && view.byLeague && view.byLeague.length > 0 ? (
-        <div className="space-y-2">
-          <h4 className="m-0 text-xs font-bold" style={{ color: "var(--pl-text-secondary)" }}>
-            Acierto por liga
-          </h4>
-          <RateBreakdownList rows={view.byLeague.slice(0, 4)} showNetUnits={view.netUnits !== null} />
-        </div>
-      ) : null}
+          {!summaryOnly && view.byMarket && view.byMarket.length > 0 ? (
+            <div className="space-y-2">
+              <h3 className="m-0 text-xs font-bold" style={{ color: "var(--pl-text-secondary)" }}>
+                Acierto por mercado
+              </h3>
+              <RateBreakdownList
+                rows={view.byMarket.slice(0, 4)}
+                showNetUnits={view.netUnits !== null}
+              />
+            </div>
+          ) : null}
 
-      {!summaryOnly && view.byMarket && view.byMarket.length > 0 ? (
-        <div className="space-y-2">
-          <h4 className="m-0 text-xs font-bold" style={{ color: "var(--pl-text-secondary)" }}>
-            Acierto por mercado
-          </h4>
-          <RateBreakdownList rows={view.byMarket.slice(0, 4)} showNetUnits={view.netUnits !== null} />
-        </div>
-      ) : null}
-
-      {!summaryOnly && view.settledPicks && view.settledPicks.length > 0 ? (
-        <div className="space-y-2.5">
-          <div className="flex flex-wrap items-center justify-between gap-2">
-            <h4 className="m-0 text-xs font-bold" style={{ color: "var(--pl-text-secondary)" }}>
-              Últimos picks cerrados ({view.settledPicks.length})
-            </h4>
-            {!isPreview ? (
-              <div
-                className="seg-well"
-                role="group"
-                aria-label="Vista de picks públicos"
-                data-public-record-view-toggle=""
-              >
-                <button
-                  type="button"
-                  className="seg-btn text-xs min-h-11 sm:min-h-9"
-                  aria-pressed={picksViewMode === "list"}
-                  onClick={() => setPicksViewMode("list")}
-                >
-                  Lista
-                </button>
-                <button
-                  type="button"
-                  className="seg-btn text-xs min-h-11 sm:min-h-9"
-                  aria-pressed={picksViewMode === "calendar"}
-                  onClick={() => setPicksViewMode("calendar")}
-                >
-                  Calendario
-                </button>
+          {!summaryOnly && view.settledPicks && view.settledPicks.length > 0 ? (
+            <div className="space-y-2.5">
+              <div className="flex flex-wrap items-center justify-between gap-2">
+                <h3 className="m-0 text-xs font-bold" style={{ color: "var(--pl-text-secondary)" }}>
+                  Últimos picks cerrados ({view.settledPicks.length})
+                </h3>
+                {!isPreview ? (
+                  <div data-public-record-view-toggle="">
+                    <SofascoreTabs
+                      items={PUBLIC_VIEW_TABS}
+                      value={picksViewMode}
+                      onChange={(next) =>
+                        setPicksViewMode(next === "calendar" ? "calendar" : "list")
+                      }
+                      variant="segmented"
+                      ariaLabel="Vista de picks públicos"
+                    />
+                  </div>
+                ) : null}
               </div>
-            ) : null}
-          </div>
-          {!isPreview && picksViewMode === "calendar" ? (
-            <DailyResultsCalendar
-              buildMonth={buildPublicCalendarMonth}
-              mode={showPublicUnits ? "units" : "counts"}
-            />
-          ) : (
-            <ul className="pl-rec-pub-picks num" role="list">
-              {view.settledPicks.slice(0, isPreview ? 4 : 15).map((p, idx) => {
-                const statusMeta = getAuditStatusMeta(auditStatusFromJournal(p.status));
-                const family = classifyMarketFamily({ pickLabel: p.pickLabel });
-                return (
-                  <li key={`${p.pickLabel}-${p.day ?? idx}-${idx}`} className="pl-rec-pub-pick">
-                    <div className="min-w-0">
-                      <strong className="block text-xs font-bold truncate">{p.pickLabel}</strong>
-                      <span className="block text-xs truncate" style={{ color: "var(--pl-text-muted)" }}>
-                        {p.leagueLabel} · {family.shortLabel}
-                        {p.day ? ` · ${formatShortIsoDay(p.day)}` : ""} · {p.units.toFixed(2)}u ·{" "}
-                        {formatOddsValue(p.userDecimal, oddsFormat)}
-                      </span>
-                    </div>
-                    <span className={`${statusMeta.pillClass} shrink-0`} data-audit-status={statusMeta.status}>
-                      <MaestroIcon name={statusMeta.icon} size={11} />
-                      <span>{statusMeta.label}</span>
-                    </span>
-                  </li>
-                );
-              })}
-            </ul>
-          )}
+              {!isPreview && picksViewMode === "calendar" ? (
+                <DailyResultsCalendar
+                  buildMonth={buildPublicCalendarMonth}
+                  mode={showPublicUnits ? "units" : "counts"}
+                />
+              ) : (
+                <ul className="pl-rec-pub-picks num" role="list">
+                  {view.settledPicks.slice(0, isPreview ? 4 : 15).map((p, idx) => {
+                    const statusMeta = getAuditStatusMeta(auditStatusFromJournal(p.status));
+                    const family = classifyMarketFamily({ pickLabel: p.pickLabel });
+                    return (
+                      <li key={`${p.pickLabel}-${p.day ?? idx}-${idx}`} className="pl-rec-pub-pick">
+                        <div className="min-w-0">
+                          <strong className="block text-xs font-bold truncate">
+                            {p.pickLabel}
+                          </strong>
+                          <span
+                            className="block text-xs truncate"
+                            style={{ color: "var(--pl-text-muted)" }}
+                          >
+                            {p.leagueLabel} · {family.shortLabel}
+                            {p.day ? ` · ${formatShortIsoDay(p.day)}` : ""} · {p.units.toFixed(2)}u
+                            {" · "}
+                            {formatOddsValue(p.userDecimal, oddsFormat)}
+                          </span>
+                        </div>
+                        <span
+                          className={`${statusMeta.pillClass} shrink-0`}
+                          data-audit-status={statusMeta.status}
+                        >
+                          <MaestroIcon name={statusMeta.icon} size={11} />
+                          <span>{statusMeta.label}</span>
+                        </span>
+                      </li>
+                    );
+                  })}
+                </ul>
+              )}
+            </div>
+          ) : null}
         </div>
-      ) : null}
+      </SofascoreCard>
     </div>
   );
 }

@@ -3,6 +3,7 @@ import {
   BZZOIRO_EXPANSION_COMPETITIONS,
   COMPETITION_BY_ID,
   COMPETITION_CATALOG,
+  LEAGUE_CAPABILITY_LIST,
   LEAGUE_REGIONS,
   MatchPreGameContextSchema,
   VALID_LEAGUES,
@@ -40,7 +41,6 @@ describe("ADR-042 · URLs cortas canónicas en inglés y opacas", () => {
 
     expect(resolveGameBySlugOrId(games, shortSlug)?.id).toBe(sampleGame.id);
     expect(resolveGameBySlugOrId(games, sampleGame.id)?.id).toBe(sampleGame.id);
-    // Resuelve también por código corto final si cambia el apodo del club
     expect(resolveGameBySlugOrId(games, `ame-vs-chi-${opaqueShortCode(sampleGame.id)}`)?.id).toBe(
       sampleGame.id,
     );
@@ -49,10 +49,11 @@ describe("ADR-042 · URLs cortas canónicas en inglés y opacas", () => {
 });
 
 describe("ADR-043 · Catálogo de 57 competencias, filtro 30d y árbitros", () => {
-  it("registra las 57 competencias homogéneas con regiones y MLB en mayúsculas", () => {
+  it("registra las 57 competencias homogéneas con regiones, capacidades y MLB en mayúsculas", () => {
     expect(VALID_LEAGUES.length).toBeGreaterThanOrEqual(57);
     expect(COMPETITION_CATALOG).toHaveLength(57);
-    expect(BZZOIRO_EXPANSION_COMPETITIONS.length).toBeGreaterThanOrEqual(35);
+    expect(LEAGUE_CAPABILITY_LIST).toHaveLength(57);
+    expect(BZZOIRO_EXPANSION_COMPETITIONS).toHaveLength(35);
     expect(COMPETITION_BY_ID["mlb"]?.label).toBe("MLB");
     expect(COMPETITION_BY_ID["champions-league"]?.bzzoiroId).toBe(7);
     expect(COMPETITION_BY_ID["mls"]?.bzzoiroId).toBe(18);

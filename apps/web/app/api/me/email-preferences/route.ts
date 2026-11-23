@@ -1,38 +1,54 @@
 import { NextResponse } from "next/server";
+import { z } from "zod";
+import { createSanitizedErrorPayload } from "@pitchlab/contracts";
 import { getEmailPreferences, setEmailPreferences } from "@pitchlab/db";
-import { verifySameOriginMutation } from "../../../../src/server/request-security";
-import { requireMember } from "../../../../src/server/session-user";
+import { withMemberMutation, withSessionRead } from "../../../../src/server/api-guards";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
 
-/** Avisos por correo de la persona (hoy: «avisarme cuando se califique un pick»). Apagado por defecto. */
-export async function GET(request: Request): Promise<NextResponse> {
-  const member = await requireMember(request);
-  if ("error" in member) return member.error;
-  return NextResponse.json(await getEmailPreferences(member.db, member.userId), {
-    headers: { "Cache-Control": "no-store" },
-  });
-}
+const EmailPreferencesPatchSchema = z
+  .object({
+    pickResults: z.boolean().optional(),
+    weeklyDigest: z.boolean().optional(),
+    monthlyRecord: z.boolean().optional(),
+  })
+  .strict();
 
-export async function PUT(request: Request): Promise<NextResponse> {
-  const csrfError = verifySameOriginMutation(request);
-  if (csrfError) return csrfError;
+export const GET = withSessionRead(
+  { bucket: "me-email-preferences", allowBeta: false },
+  async ({ user }) => {
+    return NextResponse.json(await getEmailPreferences(user.db, user.userId));
+  },
+);
 
-  const member = await requireMember(request);
-  if ("error" in member) return member.error;
-  const body = (await request.json().catch(() => null)) as {
-    pickResults?: unknown;
-    weeklyDigest?: unknown;
-    monthlyRecord?: unknown;
-  } | null;
-  const patch: { pickResults?: boolean; weeklyDigest?: boolean; monthlyRecord?: boolean } = {};
-  if (typeof body?.pickResults === "boolean") patch.pickResults = body.pickResults;
-  if (typeof body?.weeklyDigest === "boolean") patch.weeklyDigest = body.weeklyDigest;
-  if (typeof body?.monthlyRecord === "boolean") patch.monthlyRecord = body.monthlyRecord;
-  if (Object.keys(patch).length === 0) {
-    return NextResponse.json({ error: "Datos incompletos" }, { status: 400 });
-  }
-  await setEmailPreferences(member.db, member.userId, patch);
-  return NextResponse.json(await getEmailPreferences(member.db, member.userId));
-}
+export const PUT = withMemberMutation(
+  { bucket: "me-email-preferences" },
+  async ({ request, user }) => {
+    const raw = await request.json().catch(() => null);
+    const parsed = EmailPreferencesPatchSchema.safeParse(raw);
+    if (!parsed.success) {
+      const sanitized = createSanitizedErrorPayload("VALIDATION_ERROR", "Datos incompletos");
+      return NextResponse.json(
+        { ok: false, error: sanitized.message, code: sanitized.code },
+        { status: 400 },
+      );
+    }
+
+    const patch: { pickResults?: boolean; weeklyDigest?: boolean; monthlyRecord?: boolean } = {};
+    if (parsed.data.pickResults !== undefined) patch.pickResults = parsed.data.pickResults;
+    if (parsed.data.weeklyDigest !== undefined) patch.weeklyDigest = parsed.data.weeklyDigest;
+    if (parsed.data.monthlyRecord !== undefined) patch.monthlyRecord = parsed.data.monthlyRecord;
+
+    if (Object.keys(patch).length === 0) {
+      const sanitized = createSanitizedErrorPayload("VALIDATION_ERROR", "Datos incompletos");
+      return NextResponse.json(
+        { ok: false, error: sanitized.message, code: sanitized.code },
+        { status: 400 },
+      );
+    }
+
+    await setEmailPreferences(user.db, user.userId, patch);
+    return NextResponse.json(await getEmailPreferences(user.db, user.userId));
+  },
+);

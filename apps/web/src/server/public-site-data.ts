@@ -1,6 +1,4 @@
 import { asLeagueId, type LeagueId } from "@pitchlab/contracts";
-// Importación por archivo: el barril `@pitchlab/ui/platform` mete toda la librería (Club,
-// cuenta, tarjeta 3D) en el JavaScript de las páginas públicas.
 import { redactDatasetForVisitor } from "@pitchlab/ui/access-guard";
 import {
   buildFeaturedCommunityPick,
@@ -66,8 +64,6 @@ export async function loadLandingViewProps(): Promise<{
 }> {
   const raw = buildServerRawPlatformDataset();
   const dataset = redactDatasetForVisitor(raw);
-  // Las tarjetas del hero publican solo el 1X2 y 3 mercados: se arman con los mercados reales
-  // (panorama v3.2) en vez de aproximarlos desde x12. Lo demás sigue redactado.
   const allHeroCards = buildHeroLeagueCards(raw.games, raw.leagues);
   const heroCards = selectHeroMainCards(allHeroCards);
   const finished = loadPublicFinishedGames();

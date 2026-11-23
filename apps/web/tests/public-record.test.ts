@@ -6,13 +6,18 @@ import { GET as getPreferences, PUT as putPreferences } from "../app/api/me/pref
 import { GET as getPublicRecordRoute } from "../app/api/u/[handle]/record/route";
 import { sealPick } from "../src/server/member-data";
 import { loadPublicRecord } from "../src/server/public-record";
+import { resetRateLimitsForTests } from "../src/server/request-security";
+import { setSessionDbForTests } from "../src/server/session-user";
 
 const mocks = vi.hoisted(() => ({
   requireMember: vi.fn(),
   createDb: vi.fn(),
 }));
 
-vi.mock("../src/server/session-user", () => ({ requireMember: mocks.requireMember }));
+vi.mock("../src/server/session-user", async (importOriginal) => ({
+  ...(await importOriginal<typeof import("../src/server/session-user")>()),
+  requireMember: mocks.requireMember,
+}));
 vi.mock("@pitchlab/db", async (importOriginal) => ({
   ...(await importOriginal<typeof import("@pitchlab/db")>()),
   createDb: mocks.createDb,
@@ -25,11 +30,12 @@ let userId: string;
 beforeAll(async () => {
   client = new PGlite();
   await applyMigrations((sql) => client.exec(sql));
+  await client.exec("SET pitchlab.allow_historical_seed = 'on'");
   db = drizzle(client) as unknown as Db;
 });
 
 beforeEach(async () => {
-  await client.exec("TRUNCATE TABLE users CASCADE;");
+  await client.exec("TRUNCATE TABLE users, security_rate_buckets, security_abuse_events CASCADE;");
   const [u] = await db
     .insert(users)
     .values({
@@ -42,12 +48,22 @@ beforeEach(async () => {
     })
     .returning();
   userId = u!.id;
-  mocks.requireMember.mockResolvedValue({ db, userId });
+  mocks.requireMember.mockResolvedValue({
+    db,
+    userId,
+    email: "ana@example.com",
+    emailVerified: true,
+    authUserId: "auth_ana",
+  });
   mocks.createDb.mockReturnValue(db);
+  setSessionDbForTests(db);
+  resetRateLimitsForTests();
   vi.stubEnv("DATABASE_URL", "postgres://stub");
 });
 
 afterEach(() => {
+  setSessionDbForTests(null);
+  resetRateLimitsForTests();
   vi.resetAllMocks();
   vi.unstubAllEnvs();
 });
@@ -216,11 +232,110 @@ describe("Mi récord: preferencias, banca privada y récord público", () => {
     await putPreferences(prefsPutRequest({ publicRecordVisible: false }));
     expect(await loadPublicRecord("ana_mx", db)).toEqual({ hidden: true });
 
-    // Usuario inexistente responde 404.
     const missing = await getPublicRecordRoute(
       new Request("http://localhost:9990/api/u/no_existe/record"),
       { params: Promise.resolve({ handle: "no_existe" }) },
     );
     expect(missing.status).toBe(404);
+  });
+
+  it("acota en SQL el listado de picks a <=40 con >50 sellados manteniendo métricas agregadas consistentes", async () => {
+    const baseMs = Date.UTC(2026, 9, 1, 10, 0, 0);
+    const settledRows = Array.from({ length: 55 }, (_, i) => {
+      const isWon = i < 35;
+      return {
+        userId,
+        pickId: `bulk-settled-${i}`,
+        gameId: `g-${i}`,
+        leagueLabel: isWon ? "Liga MX" : "NFL",
+        matchLabel: isWon ? "América vs Toluca" : "KC vs BUF",
+        pickLabel: isWon ? "América gana" : "KC -2.5",
+        origin: "Spacetime Suite",
+        units: "1.00",
+        userDecimal: "2.000",
+        fairDecimal: "1.900",
+        clvPct: "2.00",
+        status: isWon ? "won" : "lost",
+        sealHash: "h".repeat(64),
+        sealedAt: new Date(baseMs + i * 3_600_000),
+        kickoffAt: new Date(baseMs + (i + 1) * 3_600_000),
+        settledAt: new Date(baseMs + (i + 2) * 3_600_000),
+      };
+    });
+    const pendingRows = Array.from({ length: 3 }, (_, idx) => {
+      const i = 55 + idx;
+      return {
+        userId,
+        pickId: `bulk-pending-${idx}`,
+        gameId: `g-${i}`,
+        leagueLabel: "Premier League",
+        matchLabel: "Arsenal vs Chelsea",
+        pickLabel: "Más de 2.5 goles",
+        origin: "Spacetime Suite",
+        units: "1.00",
+        userDecimal: "2.000",
+        fairDecimal: "1.900",
+        clvPct: "2.00",
+        status: "pending",
+        sealHash: "h".repeat(64),
+        sealedAt: new Date(baseMs + i * 3_600_000),
+        kickoffAt: new Date(baseMs + (i + 1) * 3_600_000),
+        settledAt: null,
+      };
+    });
+
+    await db.insert(sealedPicks).values([...settledRows, ...pendingRows]);
+
+    await putPreferences(
+      prefsPutRequest({
+        unitMxn: 100,
+        bankrollStartMxn: 10_000,
+        recordPrivacy: {
+          bank: { enabled: true, fields: { netUnits: true, curve: true } },
+          performance: { enabled: true, fields: { roi: true } },
+        },
+      }),
+    );
+
+    const record = await loadPublicRecord("ana_mx", db, 200);
+    expect(record && !record.hidden).toBe(true);
+    if (!record || record.hidden) throw new Error("expected visible public record");
+
+    expect(record.settled).toBe(55);
+    expect(record.view.wonLost).toEqual({ won: 35, lost: 20, settled: 55 });
+    expect(record.view.netUnits).toBe(15);
+    expect(record.view.roiPct).toBeCloseTo(15, 5);
+    expect(record.view.hitRatePct).toBeCloseTo((35 / 55) * 100, 5);
+    expect(record.view.yieldPct).toBeCloseTo((15 / 55) * 100, 5);
+    expect(record.view.avgClvPct).toBeCloseTo(2, 5);
+    expect(record.view.avgOddsDecimal).toBeCloseTo(2, 5);
+    expect(record.view.byLeague).toEqual([
+      { key: "Liga MX", label: "Liga MX", won: 35, total: 35, netUnits: 35 },
+      { key: "NFL", label: "NFL", won: 0, total: 20, netUnits: -20 },
+    ]);
+    expect(record.view.byMarket).toEqual([
+      { key: "result", label: "Resultado", won: 35, total: 35, netUnits: 35 },
+      { key: "handicap", label: "Hándicap", won: 0, total: 20, netUnits: -20 },
+    ]);
+    expect(record.view.curve?.[record.view.curve.length - 1]?.balance).toBe(115);
+    expect(record.view.settledPicks).toHaveLength(40);
+    expect(record.view.settledPicks!.length).toBeLessThanOrEqual(40);
+    expect(record.view.settledPicks!.every((p) => p.status !== "pending")).toBe(true);
+    expect(record.view.settledPicks![0]).toMatchObject({ leagueLabel: "NFL", status: "lost" });
+    expect(record.view.settledPicks![39]).toMatchObject({ leagueLabel: "Liga MX", status: "won" });
+
+    const routeRes = await getPublicRecordRoute(
+      new Request("http://localhost:9990/api/u/ana_mx/record?limit=200"),
+      { params: Promise.resolve({ handle: "ana_mx" }) },
+    );
+    expect(routeRes.status).toBe(200);
+    const routeBody = (await routeRes.json()) as Awaited<ReturnType<typeof loadPublicRecord>>;
+    expect(routeBody && !routeBody.hidden).toBe(true);
+    if (!routeBody || routeBody.hidden) throw new Error("expected visible route record");
+    expect(routeBody.settled).toBe(55);
+    expect(routeBody.view.wonLost).toEqual({ won: 35, lost: 20, settled: 55 });
+    expect(routeBody.view.netUnits).toBe(15);
+    expect(routeBody.view.settledPicks).toHaveLength(40);
+    expect(routeBody.view.settledPicks!.length).toBeLessThanOrEqual(40);
   });
 });

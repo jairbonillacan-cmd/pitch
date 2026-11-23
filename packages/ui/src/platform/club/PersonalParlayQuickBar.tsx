@@ -1,9 +1,16 @@
 "use client";
 
 import React, { useId, useMemo, useState } from "react";
-import type { LeagueId } from "@pitchlab/contracts";
+import {
+  sportForLeague,
+  sportScoringUnit,
+  type LeagueId,
+  type PlatformSport,
+} from "@pitchlab/contracts";
+import { Button, SofascoreCard } from "../../components/ui/primitives";
 import { formatOddsValue } from "../access-guard";
 import { MaestroIcon } from "../components/MaestroPrimitives";
+import { MarketCategoryIcon } from "../components/PackSportIcons";
 import {
   buildPersonalQuickParlay,
   DAILY_PARLAY_STYLE_SPECS,
@@ -12,21 +19,70 @@ import {
   type ParlayTargetPresetId,
   type PersonalParlayScope,
 } from "../daily-parlay";
-import { ALL, SPORTS, sportOf, type SportFilter } from "./home/home-model";
 import { assessParlayRisk } from "../parlay-engine";
+import { matchPickToBetBuilderLeg } from "../picks-catalog/bet-builder-math";
 import {
   usePlatformActions,
   usePlatformCore,
 } from "../platform-provider";
-import type { RiskBand } from "../types";
+import type { MatchPick, OddsFormat, RiskBand } from "../types";
+import { ALL, SPORTS, sportOf, type SportFilter } from "./home/home-model";
 
-const QUICK_LEG_COUNTS = [2, 3, 4, 5, 6, 8, 10] as const;
+const MAX_QUICK_LEGS = 6;
+const QUICK_LEG_COUNTS = [2, 3, 4, 5, 6] as const;
+
+const HAS_UNIT_RE =
+  /\b(goles|gol|puntos|punto|pts|carreras|carrera|córners|corners|esquinas|faltas|tarjetas|amarillas|tiros|remates|rebotes|asistencias|triples)\b/i;
+const BARE_TOTAL_RE = /^(?:más|menos)\s+de\s+\d+(?:[.,]\d+)?$/i;
+
+function formatQuickOdds(
+  decimalOdds: number | null | undefined,
+  format: OddsFormat,
+): string {
+  if (decimalOdds == null || !Number.isFinite(decimalOdds) || decimalOdds <= 1.01) {
+    return "—";
+  }
+  return formatOddsValue(decimalOdds, format);
+}
+
+function formatQuickPickLabel(pick: MatchPick, sport: PlatformSport): string {
+  const raw = pick.label.trim();
+  if (!raw || HAS_UNIT_RE.test(raw)) return raw;
+  const market = (pick.market ?? "").toLowerCase();
+  const isTotalLine =
+    BARE_TOTAL_RE.test(raw) ||
+    market === "totals" ||
+    market === "team_totals" ||
+    market.includes("total");
+  if (!isTotalLine) return raw;
+  if (market.includes("corner")) return `${raw} córners`;
+  if (market.includes("card") || market.includes("yellow")) return `${raw} tarjetas`;
+  if (market.includes("foul")) return `${raw} faltas`;
+  if (market.includes("sot")) return `${raw} tiros a puerta`;
+  if (market.includes("shot")) return `${raw} remates`;
+  return `${raw} ${sportScoringUnit(sport).plural}`;
+}
+
+function quickMarketFamily(pick: MatchPick, sport: PlatformSport): string {
+  const leg = matchPickToBetBuilderLeg(pick, sport);
+  if (leg.family !== "other" && leg.family !== "correct_score") {
+    return leg.family;
+  }
+  return pick.market ?? pick.categoryLabel ?? pick.label;
+}
+
+function riskBadgeColor(tone: "success" | "info" | "warning" | "danger"): string {
+  if (tone === "success") return "var(--pl-success)";
+  if (tone === "warning") return "var(--pl-warning)";
+  if (tone === "danger") return "var(--pl-danger)";
+  return "var(--pl-brand)";
+}
 
 export function PersonalParlayQuickBar(): React.JSX.Element {
   const { dataset, viewerRole, oddsFormat, riskPreference } = usePlatformCore();
   const { loadParlayPicks } = usePlatformActions();
   const leagueSelectId = useId();
-  const [legCount, setLegCount] = useState<number>(4);
+  const [legCount, setLegCount] = useState<number>(3);
   const [risk, setRisk] = useState<RiskBand>(riskPreference);
   const [targetPreset, setTargetPreset] = useState<ParlayTargetPresetId>("libre");
   const [sport, setSport] = useState<SportFilter>(ALL);
@@ -62,15 +118,17 @@ export function PersonalParlayQuickBar(): React.JSX.Element {
     return { kind: "all" };
   }, [effectiveLeague, sport]);
 
-  const maxScopedGames = useMemo(() => {
-    const count = openGames.filter((g) => {
-      if (effectiveLeague !== ALL) return g.league === effectiveLeague;
-      if (sport !== ALL) return sportOf(g) === sport;
-      return true;
-    }).length;
-    return Math.max(2, count);
-  }, [openGames, effectiveLeague, sport]);
+  const scopedOpenCount = useMemo(
+    () =>
+      openGames.filter((g) => {
+        if (effectiveLeague !== ALL) return g.league === effectiveLeague;
+        if (sport !== ALL) return sportOf(g) === sport;
+        return true;
+      }).length,
+    [openGames, effectiveLeague, sport],
+  );
 
+  const maxScopedGames = Math.min(MAX_QUICK_LEGS, Math.max(2, scopedOpenCount));
   const effectiveLegCount = Math.min(maxScopedGames, Math.max(2, legCount));
 
   const preview = useMemo(
@@ -87,15 +145,19 @@ export function PersonalParlayQuickBar(): React.JSX.Element {
     [dataset.games, effectiveLegCount, risk, targetPreset, scope, viewerRole],
   );
 
+  const hasPreviewLegs = preview.status !== "insufficient" && preview.legs.length > 0;
+
   const previewRisk = useMemo(
     () =>
-      assessParlayRisk({
-        legs: preview.legs,
-        combinedProbability: preview.combinedProbability,
-        hasSgpCorrelation: false,
-        sgpPairsCount: 0,
-      }),
-    [preview.legs, preview.combinedProbability],
+      hasPreviewLegs
+        ? assessParlayRisk({
+            legs: preview.legs,
+            combinedProbability: preview.combinedProbability,
+            hasSgpCorrelation: false,
+            sgpPairsCount: 0,
+          })
+        : null,
+    [hasPreviewLegs, preview.legs, preview.combinedProbability],
   );
 
   const activePresetSpec =
@@ -106,244 +168,230 @@ export function PersonalParlayQuickBar(): React.JSX.Element {
     setLeague(ALL);
   };
 
+  const handleSelectLeague = (rawValue: string) => {
+    if (rawValue === ALL) {
+      setLeague(ALL);
+      return;
+    }
+    const matched = availableLeagues.find((lg) => lg.league === rawValue);
+    setLeague(matched ? matched.league : ALL);
+  };
+
   const handleApply = () => {
-    if (preview.legs.length === 0) return;
+    if (!hasPreviewLegs) return;
     const styleLabel = DAILY_PARLAY_STYLE_SPECS[risk].label;
     const parlayTitle =
       targetPreset === "libre"
         ? `Parlay personal (${styleLabel})`
         : `Parlay personal (${activePresetSpec.label} · ${styleLabel})`;
     loadParlayPicks(
-      preview.legs.map((l) => l.pick),
+      preview.legs.slice(0, MAX_QUICK_LEGS).map((l) => l.pick),
       { allowSgp: false, label: parlayTitle },
     );
   };
 
+  const cardMeta = hasPreviewLegs
+    ? `${preview.legs.length} ${preview.legs.length === 1 ? "selección" : "selecciones"}`
+    : "Sin combinación";
+
   return (
-    <section
-      aria-labelledby="quick-parlay-title"
-      className="pl-quickbar glass-card glass-ring"
-      data-personal-parlay-quickbar=""
-    >
-      <div className="pl-quickbar-head">
-        <div className="min-w-0 flex flex-col gap-0.5">
-          <div className="flex flex-wrap items-center gap-2">
-            <span className="pl-pill pl-pill--brand">
-              <MaestroIcon name="bolt" size={12} />
-              <span>Generador personal</span>
-            </span>
+    <div className="pl-pb-quickbar" data-personal-parlay-quickbar="">
+      <SofascoreCard title="Arma tu parlay en un toque" meta={cardMeta}>
+        <div className="pl-pb-quickbar-body">
+          <div className="pl-pb-quickbar-preview num">
+            {!hasPreviewLegs ? (
+              <span className="pl-sf-signal-pill is-compact is-neutral">
+                Probabilidad — · Momio justo —
+              </span>
+            ) : (
+              <>
+                <span className="pl-sf-signal-pill is-compact is-shortening">
+                  {preview.legs.length}{" "}
+                  {preview.legs.length === 1 ? "selección" : "selecciones"} ·{" "}
+                  {preview.combinedProbability * 100 < 0.1
+                    ? "< 0.1 %"
+                    : `${(preview.combinedProbability * 100).toFixed(1)} %`}{" "}
+                  · Justo {formatQuickOdds(preview.fairDecimal, oddsFormat)}
+                  {preview.hasCapturedBookOdds && preview.bookDecimal > 1.01
+                    ? ` · Casa ${formatQuickOdds(preview.bookDecimal, oddsFormat)}`
+                    : ""}
+                </span>
+                {previewRisk ? (
+                  <span
+                    className="pl-sf-signal-pill is-compact"
+                    data-quick-risk-badge={previewRisk.level}
+                    style={{ color: riskBadgeColor(previewRisk.tone) }}
+                  >
+                    {previewRisk.shortLabel} (~1/{previewRisk.oneIn})
+                  </span>
+                ) : null}
+              </>
+            )}
           </div>
-          <h2 id="quick-parlay-title" className="m-0 text-base sm:text-lg font-extrabold">
-            Arma tu parlay en un toque
-          </h2>
-        </div>
 
-        <div className="pl-quickbar-preview flex flex-wrap items-center gap-2">
-          {preview.status === "insufficient" ? (
-            <span className="text-xs font-semibold" style={{ color: "var(--pl-text-muted)" }}>
-              Sin combinación válida con esa regla
-            </span>
-          ) : (
-            <>
-              <span className="pl-pill pl-pill--info num">
-                {preview.legs.length} {preview.legs.length === 1 ? "pick" : "picks"} ·{" "}
-                {preview.combinedProbability * 100 < 0.1
-                  ? "< 0.1 %"
-                  : `${(preview.combinedProbability * 100).toFixed(1)} %`}{" "}
-                · {formatOddsValue(preview.fairDecimal, oddsFormat)}
-                {preview.hasCapturedBookOdds
-                  ? ` (casa ~${formatOddsValue(preview.bookDecimal, oddsFormat)})`
-                  : ""}
-              </span>
-              <span
-                className="pl-pill num text-xs font-extrabold"
-                data-quick-risk-badge={previewRisk.level}
-                style={{
-                  color:
-                    previewRisk.tone === "success"
-                      ? "var(--pl-success)"
-                      : previewRisk.tone === "warning"
-                        ? "var(--pl-warning)"
-                        : previewRisk.tone === "danger"
-                          ? "var(--pl-danger)"
-                          : "var(--pl-brand)",
-                }}
-              >
-                {previewRisk.shortLabel} (~1/{previewRisk.oneIn})
-              </span>
-            </>
-          )}
-        </div>
-      </div>
+          {hasPreviewLegs ? (
+            <ul className="pl-pb-quickbar-legs" role="list">
+              {preview.legs.slice(0, MAX_QUICK_LEGS).map(({ pick }) => {
+                const sportId = sportForLeague(pick.league);
+                const fullLabel = formatQuickPickLabel(pick, sportId);
+                return (
+                  <li key={pick.id} className="pl-pb-quickbar-leg">
+                    <MarketCategoryIcon family={quickMarketFamily(pick, sportId)} size={14} />
+                    <span className="pl-pb-quickbar-leg-match">{pick.matchLabel}</span>
+                    <strong className="pl-pb-quickbar-leg-pick">{fullLabel}</strong>
+                  </li>
+                );
+              })}
+            </ul>
+          ) : null}
 
-      <div className="pl-quickbar-controls">
-        <div className="pl-quickbar-field">
-          <span className="pl-quickbar-label">
-            Selecciones ({effectiveLegCount} de {maxScopedGames})
-          </span>
-          <div className="flex flex-wrap items-center gap-1.5">
-            <div className="seg-well pl-quickbar-well" role="group" aria-label="Picks en tu parlay">
-              {QUICK_LEG_COUNTS.map((cnt) => (
+          <div className="pl-pb-quickbar-controls">
+            <div className="pl-pb-field">
+              <span className="pl-pb-field-label num">
+                Selecciones (2–{MAX_QUICK_LEGS})
+              </span>
+              <div className="pl-pb-chip-row" role="group" aria-label="Picks en tu parlay">
+                {QUICK_LEG_COUNTS.map((cnt) => (
+                  <button
+                    key={cnt}
+                    type="button"
+                    disabled={cnt > scopedOpenCount}
+                    className="pl-pb-chip num"
+                    aria-pressed={effectiveLegCount === cnt}
+                    data-quick-count={cnt}
+                    onClick={() => setLegCount(cnt)}
+                  >
+                    {cnt}
+                  </button>
+                ))}
+              </div>
+            </div>
+
+            <div className="pl-pb-field">
+              <span className="pl-pb-field-label">Estilo de riesgo</span>
+              <div className="pl-pb-chip-row" role="group" aria-label="Estilo de riesgo">
+                {DAILY_PARLAY_STYLES.map((styleId) => (
+                  <button
+                    key={styleId}
+                    type="button"
+                    className="pl-pb-chip is-grow"
+                    aria-pressed={risk === styleId}
+                    data-quick-risk={styleId}
+                    onClick={() => setRisk(styleId)}
+                  >
+                    {DAILY_PARLAY_STYLE_SPECS[styleId].label}
+                  </button>
+                ))}
+              </div>
+            </div>
+
+            <div className="pl-pb-field">
+              <span className="pl-pb-field-label">Cuota meta</span>
+              <div className="pl-pb-chip-row" role="group" aria-label="Cuota meta">
+                {PARLAY_TARGET_PRESETS.map((preset) => (
+                  <button
+                    key={preset.id}
+                    type="button"
+                    className="pl-pb-chip is-grow num"
+                    aria-pressed={targetPreset === preset.id}
+                    data-quick-target={preset.id}
+                    onClick={() => setTargetPreset(preset.id)}
+                  >
+                    {preset.label}
+                  </button>
+                ))}
+              </div>
+            </div>
+
+            <div className="pl-pb-field">
+              <span className="pl-pb-field-label">Deporte</span>
+              <div className="pl-pb-chip-row" role="group" aria-label="Filtrar por deporte">
                 <button
-                  key={cnt}
                   type="button"
-                  disabled={cnt > maxScopedGames}
-                  className="seg-btn pl-quickbar-count num"
-                  aria-pressed={effectiveLegCount === cnt}
-                  data-quick-count={cnt}
-                  onClick={() => setLegCount(cnt)}
+                  className="pl-pb-chip is-grow"
+                  aria-pressed={sport === ALL}
+                  data-quick-sport="all"
+                  onClick={() => handleSelectSport(ALL)}
                 >
-                  {cnt}
+                  Todo
                 </button>
-              ))}
+                {SPORTS.map((sp) => (
+                  <button
+                    key={sp.id}
+                    type="button"
+                    className="pl-pb-chip is-grow"
+                    aria-pressed={sport === sp.id}
+                    data-quick-sport={sp.id}
+                    onClick={() => handleSelectSport(sp.id)}
+                  >
+                    {sp.shortLabel}
+                  </button>
+                ))}
+              </div>
             </div>
-            <div className="sl-stepper" role="group" aria-label="Ajustar selecciones del generador">
-              <button
-                type="button"
-                aria-label="Menos selecciones en generador"
-                disabled={effectiveLegCount <= 2}
-                onClick={() => setLegCount(Math.max(2, effectiveLegCount - 1))}
+
+            <div className="pl-pb-field">
+              <label htmlFor={leagueSelectId} className="pl-pb-field-label">
+                Liga
+              </label>
+              <select
+                id={leagueSelectId}
+                className="pl-pb-select"
+                value={effectiveLeague}
+                onChange={(e) => handleSelectLeague(e.target.value)}
+                data-quick-league=""
               >
-                −
-              </button>
-              <span className="num text-xs font-bold px-1.5">{effectiveLegCount}</span>
-              <button
-                type="button"
-                aria-label="Más selecciones en generador"
-                disabled={effectiveLegCount >= maxScopedGames}
-                onClick={() => setLegCount(Math.min(maxScopedGames, effectiveLegCount + 1))}
+                <option value={ALL}>Todas las ligas</option>
+                {availableLeagues.map((lg) => (
+                  <option key={lg.league} value={lg.league}>
+                    {lg.label}
+                  </option>
+                ))}
+              </select>
+            </div>
+
+            <div className="pl-pb-field">
+              <Button
+                variant="primary"
+                size="default"
+                className="w-full"
+                disabled={!hasPreviewLegs}
+                onClick={handleApply}
+                data-quick-generate-parlay=""
               >
-                +
-              </button>
+                <MaestroIcon name="target-picks" size={15} />
+                <span>
+                  {!hasPreviewLegs
+                    ? "Sin suficientes picks"
+                    : `Cargar ${preview.legs.length} selecciones`}
+                </span>
+              </Button>
             </div>
           </div>
-        </div>
 
-        <div className="pl-quickbar-field">
-          <span className="pl-quickbar-label">Cuota meta</span>
-          <div className="seg-well pl-quickbar-well" role="group" aria-label="Cuota meta">
-            {PARLAY_TARGET_PRESETS.map((preset) => (
-              <button
-                key={preset.id}
-                type="button"
-                className="seg-btn pl-quickbar-pill--compact num"
-                aria-pressed={targetPreset === preset.id}
-                data-quick-target={preset.id}
-                onClick={() => setTargetPreset(preset.id)}
-              >
-                {preset.label}
-              </button>
-            ))}
-          </div>
-        </div>
+          {targetPreset !== "libre" && hasPreviewLegs ? (
+            <p className="m-0 text-xs num" style={{ color: "var(--pl-text-muted)" }}>
+              Regla activa: ≥ {risk === "conservador" ? 60 : 52} % por selección (momio mín.{" "}
+              {formatQuickOdds(activePresetSpec.minLegDecimal, oddsFormat)}), máximo 1 por partido
+              {activePresetSpec.range
+                ? ` dentro del rango ${formatQuickOdds(activePresetSpec.range.min, oddsFormat)}–${formatQuickOdds(activePresetSpec.range.max, oddsFormat)}`
+                : ""}
+              .
+            </p>
+          ) : null}
 
-        <div className="pl-quickbar-field">
-          <span className="pl-quickbar-label">Estilo de riesgo</span>
-          <div className="seg-well pl-quickbar-well" role="group" aria-label="Estilo de riesgo">
-            {DAILY_PARLAY_STYLES.map((styleId) => (
-              <button
-                key={styleId}
-                type="button"
-                className="seg-btn pl-quickbar-pill"
-                aria-pressed={risk === styleId}
-                data-quick-risk={styleId}
-                onClick={() => setRisk(styleId)}
-              >
-                {DAILY_PARLAY_STYLE_SPECS[styleId].label}
-              </button>
-            ))}
-          </div>
-        </div>
-
-        <div className="pl-quickbar-field">
-          <span className="pl-quickbar-label">Deporte</span>
-          <div className="seg-well pl-quickbar-well" role="group" aria-label="Filtrar por deporte">
-            <button
-              type="button"
-              className="seg-btn pl-quickbar-pill"
-              aria-pressed={sport === ALL}
-              data-quick-sport="all"
-              onClick={() => handleSelectSport(ALL)}
-            >
-              Todo
-            </button>
-            {SPORTS.map((sp) => (
-              <button
-                key={sp.id}
-                type="button"
-                className="seg-btn pl-quickbar-pill"
-                aria-pressed={sport === sp.id}
-                data-quick-sport={sp.id}
-                onClick={() => handleSelectSport(sp.id)}
-              >
-                {sp.shortLabel}
-              </button>
-            ))}
-          </div>
-        </div>
-
-        <div className="pl-quickbar-field">
-          <label htmlFor={leagueSelectId} className="pl-quickbar-label">
-            Liga
-          </label>
-          <select
-            id={leagueSelectId}
-            className="glass-input pl-quickbar-select"
-            value={effectiveLeague}
-            onChange={(e) => setLeague(e.target.value as LeagueId | typeof ALL)}
-            data-quick-league=""
-          >
-            <option value={ALL}>Todas las ligas</option>
-            {availableLeagues.map((lg) => (
-              <option key={lg.league} value={lg.league}>
-                {lg.label}
-              </option>
-            ))}
-          </select>
-        </div>
-
-        <div className="pl-quickbar-action">
-          <button
-            type="button"
-            className="pl-btn-primary pl-quickbar-submit text-sm inline-flex items-center justify-center gap-2"
-            disabled={preview.status === "insufficient"}
-            onClick={handleApply}
-            data-quick-generate-parlay=""
-          >
-            <MaestroIcon name="sparkles" size={15} />
-            <span>
-              {preview.status === "insufficient"
-                ? "Sin suficientes picks"
-                : `Armar ${preview.legs.length} picks`}
-            </span>
-          </button>
-        </div>
-      </div>
-
-      {targetPreset !== "libre" && preview.status !== "insufficient" ? (
-        <p className="m-0 text-xs" style={{ color: "var(--pl-text-muted)" }}>
-          Regla activa: ≥ {risk === "conservador" ? 60 : 52} % por selección (momio mín.{" "}
-          {activePresetSpec.minLegDecimal.toFixed(2)}), máximo 1 por partido dentro del rango{" "}
-          {activePresetSpec.range?.min.toFixed(1)}–{activePresetSpec.range?.max.toFixed(1)} sin inventar cuotas.
-        </p>
-      ) : null}
-
-      {preview.message ? (
-        <div className="flex flex-wrap items-center justify-between gap-2" role="status">
-          <p className="m-0 text-xs" style={{ color: "var(--pl-text-muted)" }}>
-            {preview.message}
-          </p>
-          {preview.status === "insufficient" && targetPreset !== "libre" ? (
-            <button
-              type="button"
-              className="pl-btn-glass min-h-11 px-3 text-xs"
-              onClick={() => setTargetPreset("libre")}
-            >
-              Cambiar a Libre
-            </button>
+          {preview.message ? (
+            <div className="pl-pb-quickbar-foot" role="status">
+              <p className="m-0">{preview.message}</p>
+              {preview.status === "insufficient" && targetPreset !== "libre" ? (
+                <Button variant="secondary" size="sm" onClick={() => setTargetPreset("libre")}>
+                  Cambiar a Libre
+                </Button>
+              ) : null}
+            </div>
           ) : null}
         </div>
-      ) : null}
-    </section>
+      </SofascoreCard>
+    </div>
   );
 }

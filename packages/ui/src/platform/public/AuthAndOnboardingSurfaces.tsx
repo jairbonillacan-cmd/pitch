@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useMemo, useState } from "react";
 import { formatOddsCaptureEs, type LeagueId } from "@pitchlab/contracts";
 import { getTeamColors } from "@pitchlab/sports-assets";
 import { LeagueBadge, TeamBadge } from "../../sports";
@@ -11,6 +11,7 @@ import {
   MaestroIcon,
   ExampleBadge,
 } from "../components/MaestroPrimitives";
+import { useSafeEffect } from "../hooks";
 import {
   usePlatformActions,
   usePlatformCore,
@@ -64,10 +65,8 @@ export function OnboardingSurfaceV4({
   const { rawDataset, dataset, favoriteLeagues, riskPreference, oddsFormat, unitMxn, hasAccountSession, viewerRole, accountsEnabled } = usePlatformCore();
   const { setFavoriteLeagues, setRiskPreference, setOddsFormat, setUnitMxn, openBetaPin, navigateTo, pushToast } = usePlatformActions();
 
-  // Con cuentas, aquí llega el enlace mágico (o la vuelta de Google): se guardan la fecha de
-  // nacimiento y los consentimientos del paso 2, y con eso se activa la prueba.
-  useEffect(() => {
-    if (!accountsEnabled) return;
+  useSafeEffect(() => {
+    if (!accountsEnabled || typeof window === "undefined") return;
     let cancelled = false;
     const finishSignup = async () => {
       try {
@@ -76,8 +75,8 @@ export function OnboardingSurfaceV4({
         if (trial === "concedida" || trial === "ya_usada" || trial === "apagada") {
           return { status: "saved", trial } as const;
         }
-      } catch {
-        // Continue without a message if browser storage is unavailable.
+      } catch (err) {
+        void err;
       }
       return flushSignupDetails();
     };
@@ -544,7 +543,7 @@ export function PublicSharedPickSurface({
                       "success",
                     );
                   }}
-                  className="inline-flex items-center gap-1.5 rounded-xl px-3.5 py-2 text-xs font-bold cursor-pointer"
+                  className="inline-flex min-h-11 sm:min-h-0 items-center gap-1.5 rounded-xl px-3.5 py-2 text-xs font-bold cursor-pointer"
                   style={{
                     background: "var(--share-card-surface)",
                     border: "1px solid var(--share-card-border)",

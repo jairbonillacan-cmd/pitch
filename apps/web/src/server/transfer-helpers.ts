@@ -1,6 +1,7 @@
 /**
  * Validaciones compartidas y mensajes en `es-MX` para endpoints de SPEI y cupones (Beta 1.0).
  */
+import { parseStrictFiniteNumber } from "@pitchlab/contracts";
 import type { CouponErrorReason, TransferRequestRow } from "@pitchlab/db";
 import type { AdminTransferRequestItem } from "@pitchlab/db";
 import { serializeTransferRequest } from "./member-plan";
@@ -54,8 +55,8 @@ export function parseTransferReceiptFields(
     if (body.reportedAmountCentavosMxn === null || body.reportedAmountCentavosMxn === "") {
       fields.reportedAmountCentavosMxn = null;
     } else {
-      const val = Number(body.reportedAmountCentavosMxn);
-      if (!Number.isInteger(val) || val <= 0 || val > 50_000_000) {
+      const val = parseStrictFiniteNumber(body.reportedAmountCentavosMxn);
+      if (val === null || !Number.isInteger(val) || val <= 0 || val > 50_000_000) {
         return { ok: false, error: "El monto transferido debe ser mayor a $0 MXN." };
       }
       fields.reportedAmountCentavosMxn = val;
@@ -64,8 +65,8 @@ export function parseTransferReceiptFields(
     if (body.reportedAmountMxn === null || body.reportedAmountMxn === "") {
       fields.reportedAmountCentavosMxn = null;
     } else {
-      const pesos = Number(body.reportedAmountMxn);
-      if (!Number.isFinite(pesos) || pesos <= 0 || pesos > 500_000) {
+      const pesos = parseStrictFiniteNumber(body.reportedAmountMxn);
+      if (pesos === null || pesos <= 0 || pesos > 500_000) {
         return { ok: false, error: "El monto transferido debe ser mayor a $0 MXN." };
       }
       fields.reportedAmountCentavosMxn = Math.round(pesos * 100);

@@ -12,6 +12,7 @@
  */
 import { existsSync, mkdirSync, readFileSync, readdirSync, statSync, writeFileSync } from "node:fs";
 import { dirname, join, resolve, sep } from "node:path";
+import { parseStrictFiniteNumber } from "@pitchlab/contracts";
 import { sha256 } from "./http.js";
 
 export const ESPN_LIGA_MX_BASE = "https://site.api.espn.com/apis/site/v2/sports/soccer/mex.1";
@@ -93,8 +94,7 @@ function statNumber(team: EspnBoxTeam | undefined, name: string): number | null 
   const found = team?.statistics?.find((stat) => stat.name === name);
   if (!found) return null;
   if (typeof found.value === "number") return Number.isFinite(found.value) ? found.value : null;
-  const parsed = Number((found.displayValue ?? "").replace("%", ""));
-  return Number.isFinite(parsed) ? parsed : null;
+  return parseStrictFiniteNumber((found.displayValue ?? "").replace("%", ""));
 }
 
 export interface EspnTeamStats {

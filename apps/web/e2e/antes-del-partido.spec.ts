@@ -70,6 +70,11 @@ test("Ficha del partido: módulo «Antes del partido» (bajas, pick congelado, v
   await page.goto(pickScheduledGameRoute());
   await expect(page.locator("[data-match-studio]")).toBeVisible();
 
+  const resumenTab = page.locator('[data-section-tab="resumen"]');
+  await expect(resumenTab).toBeVisible();
+  await resumenTab.click();
+  await expect(resumenTab).toHaveAttribute("aria-selected", "true");
+
   const moduleSection = page.locator("[data-pre-match-module]");
   await expect(moduleSection).toBeVisible();
   await expect(moduleSection.getByRole("heading", { name: "Antes del partido" })).toBeVisible();

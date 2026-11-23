@@ -1,6 +1,7 @@
 "use client";
 
-import React, { useEffect, useId, useMemo, useRef, useState } from "react";
+import React, { useId, useMemo, useRef, useState } from "react";
+import { parseStrictFiniteNumber } from "@pitchlab/contracts";
 import { BrandLogo } from "../../primitives";
 import { isDisposableEmailDomain, normalizeTrialEmail } from "../access-guard";
 import { MaestroIcon } from "../components/MaestroPrimitives";
@@ -11,6 +12,8 @@ import {
   sendConsentGatedFunnelStage,
   syncLocalAnalyticsConsent,
 } from "../funnel-consent";
+import { useMediaQuery, useSafeEffect } from "../hooks";
+import { useCountdownSeconds } from "../hooks/usePublicSurfaceEffects";
 import {
   usePlatformActions,
   usePlatformCore,
@@ -173,12 +176,21 @@ export function checkBirthDate(
   today: Date = new Date(),
 ): BirthDateCheck {
   if (!day || !month || !year) return { ok: false, reason: "incomplete" };
-  const d = Number(day);
-  const m = Number(month);
-  const y = Number(year);
+  const d = parseStrictFiniteNumber(day);
+  const m = parseStrictFiniteNumber(month);
+  const y = parseStrictFiniteNumber(year);
+  if (
+    d === null ||
+    m === null ||
+    y === null ||
+    !Number.isInteger(d) ||
+    !Number.isInteger(m) ||
+    !Number.isInteger(y)
+  ) {
+    return { ok: false, reason: "invalid" };
+  }
   const date = new Date(y, m - 1, d);
   if (
-    !Number.isInteger(d) ||
     date.getFullYear() !== y ||
     date.getMonth() !== m - 1 ||
     date.getDate() !== d
@@ -263,18 +275,6 @@ function isPlainLeftClick(event: React.MouseEvent<HTMLAnchorElement>): boolean {
   );
 }
 
-function useNarrowViewport(): boolean {
-  const [narrow, setNarrow] = useState(false);
-  useEffect(() => {
-    const mq = window.matchMedia("(max-width: 640px)");
-    const update = (): void => setNarrow(mq.matches);
-    update();
-    mq.addEventListener("change", update);
-    return () => mq.removeEventListener("change", update);
-  }, []);
-  return narrow;
-}
-
 function GoogleMark(): React.JSX.Element {
   return (
     <svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
@@ -346,7 +346,7 @@ export function SignupSurfaceV4({
 }: SignupSurfaceV4Props): React.JSX.Element {
   const { accountsEnabled } = usePlatformCore();
   const { openBetaPin, navigateTo } = usePlatformActions();
-  const narrow = useNarrowViewport();
+  const narrow = useMediaQuery("(max-width: 640px)", false);
   const uid = useId();
   const ids = {
     title: `${uid}-title`,
@@ -376,8 +376,11 @@ export function SignupSurfaceV4({
   const [emailErrorIsDisposable, setEmailErrorIsDisposable] = useState(false);
   const [betaNotice, setBetaNotice] = useState("");
   const [displayName, setDisplayName] = useState(initialDisplayName);
-  const [handle, setHandle] = useState(initialHandle);
+  const [customHandle, setCustomHandle] = useState(initialHandle);
   const [handleTouched, setHandleTouched] = useState(Boolean(initialHandle));
+  const handle = handleTouched
+    ? customHandle
+    : suggestSignupHandle(displayName) || suggestSignupHandle(email);
   const handleStatus = useHandleAvailability(handle, accountsEnabled);
   const handleSuggestions = useHandleSuggestions({
     name: displayName,
@@ -395,7 +398,7 @@ export function SignupSurfaceV4({
   const [dobError, setDobError] = useState("");
   const [submitError, setSubmitError] = useState("");
   const [submitting, setSubmitting] = useState(false);
-  const [resendSecondsLeft, setResendSecondsLeft] = useState(0);
+  const [resendSecondsLeft, setResendSecondsLeft] = useCountdownSeconds(0);
   const [resendNotice, setResendNotice] = useState("");
 
   const emailInputRef = useRef<HTMLInputElement | null>(null);
@@ -417,16 +420,16 @@ export function SignupSurfaceV4({
     () => setStep("expired"),
   );
 
-  useEffect(() => {
-    if (!confirmedSession) return;
+  useSafeEffect(() => {
+    if (!confirmedSession || typeof window === "undefined") return;
     let active = true;
+    const controller = new AbortController();
     void flushSignupDetails(confirmedSession.email).then(async (result) => {
       if (!active) return;
       if (result.status === "saved") {
         try {
           window.sessionStorage.setItem("pitchlab.signup.trial", result.trial);
         } catch (err) {
-          // The confirmation can continue if browser storage is unavailable.
           void err;
         }
       }
@@ -439,9 +442,11 @@ export function SignupSurfaceV4({
         setDestination(postSignupDest);
         return;
       }
-      // The other tab may have saved and removed the draft after our initial session check.
-      const latest = await fetch("/api/me/signup", { cache: "no-store" })
-        .then((response) => response.ok ? response.json() as Promise<ConfirmedSession> : null)
+      const latest = await fetch("/api/me/signup", {
+        cache: "no-store",
+        signal: controller.signal,
+      })
+        .then((response) => (response.ok ? (response.json() as Promise<ConfirmedSession>) : null))
         .catch(() => null);
       if (!active) return;
       const completedHere = latest?.completed && latest.email === confirmedSession.email;
@@ -451,8 +456,9 @@ export function SignupSurfaceV4({
     });
     return () => {
       active = false;
+      controller.abort();
     };
-  }, [confirmedSession]);
+  }, [confirmedSession, nextPath]);
 
   useContinueAfterConfirmation(destination);
 
@@ -472,34 +478,19 @@ export function SignupSurfaceV4({
               ? `@${shownHandle} está libre. Así te verán en Comunidad.`
               : "Así te verán en Comunidad.";
 
-  useEffect(() => {
+  useSafeEffect(() => {
     if (step === "method" && hasLocalAnalyticsConsent()) {
       sendConsentGatedFunnelStage("signup_step1", "/signup");
     }
   }, [step]);
 
-  useEffect(() => {
+  useSafeEffect(() => {
     if (!didMountRef.current) {
       didMountRef.current = true;
       return;
     }
     titleRef.current?.focus({ preventScroll: true });
   }, [step]);
-
-  useEffect(() => {
-    if (resendSecondsLeft <= 0) return;
-    const timer = window.setTimeout(() => {
-      setResendSecondsLeft((prev) => Math.max(0, prev - 1));
-    }, 1000);
-    return () => window.clearTimeout(timer);
-  }, [resendSecondsLeft]);
-
-  // Mientras no lo edite a mano, el usuario se sugiere del nombre (o del correo).
-  useEffect(() => {
-    if (handleTouched) return;
-    const suggestion = suggestSignupHandle(displayName) || suggestSignupHandle(email);
-    setHandle(suggestion);
-  }, [displayName, email, handleTouched]);
 
   const referenceToday = useMemo(() => today ?? new Date(), [today]);
   const years = useMemo(() => {
@@ -587,6 +578,7 @@ export function SignupSurfaceV4({
       identityOk = false;
     }
     if (!SIGNUP_HANDLE_PATTERN.test(cleanHandle)) {
+      setCustomHandle(cleanHandle);
       setHandleTouched(true);
       identityOk = false;
     } else if (handleStatus === "taken" || handleStatus === "reserved") {
@@ -770,7 +762,7 @@ export function SignupSurfaceV4({
         </p>
       </header>
 
-      <main id="main" className="pl-auth-main">
+      <main id="main" tabIndex={-1} className="pl-auth-main">
         <div
           className={[
             "pl-auth-sheet glass-lens glass-ring",
@@ -940,7 +932,7 @@ export function SignupSurfaceV4({
                         aria-describedby={ids.handleHint}
                         onChange={(e) => {
                           setHandleTouched(true);
-                          setHandle(normalizeSignupHandle(e.target.value));
+                          setCustomHandle(normalizeSignupHandle(e.target.value));
                         }}
                       />
                       <div id={ids.handleHint} aria-live="polite" aria-atomic="true">
@@ -976,7 +968,7 @@ export function SignupSurfaceV4({
                                 aria-pressed={shownHandle === candidate}
                                 onClick={() => {
                                   setHandleTouched(true);
-                                  setHandle(candidate);
+                                  setCustomHandle(candidate);
                                   handleInputRef.current?.focus();
                                 }}
                               >

@@ -21,6 +21,20 @@ export interface MatchVoteTally {
 }
 
 const GAME_ID_RE = /^[a-zA-Z0-9._-]{1,128}$/;
+const STRICT_CANONICAL_NUMBER_RE = /^[+-]?(?:\d+\.?\d*|\.\d+)(?:[eE][+-]?\d+)?$/;
+
+function parseStrictDbNumber(raw: unknown): number | null {
+  if (typeof raw === "number") {
+    return Number.isFinite(raw) ? (raw === 0 ? 0 : raw) : null;
+  }
+  if (typeof raw === "string") {
+    const trimmed = raw.trim();
+    if (!STRICT_CANONICAL_NUMBER_RE.test(trimmed)) return null;
+    const parsed = Number.parseFloat(trimmed);
+    return Number.isFinite(parsed) ? (parsed === 0 ? 0 : parsed) : null;
+  }
+  return null;
+}
 
 export function isValidMatchVote(question: unknown, choice: unknown): question is MatchVoteQuestion {
   if (question !== "ganador" && question !== "pick") return false;
@@ -59,10 +73,10 @@ export async function matchVoteTally(db: Db, gameId: string, viewerUserId: strin
     .where(eq(matchVotes.gameId, gameId))
     .groupBy(matchVotes.question, matchVotes.choice);
   for (const r of rows) {
-    if (r.question === "ganador" && r.choice in tally.ganador) {
-      tally.ganador[r.choice as keyof MatchVoteTally["ganador"]] = Number(r.n);
-    } else if (r.question === "pick" && r.choice in tally.pick) {
-      tally.pick[r.choice as keyof MatchVoteTally["pick"]] = Number(r.n);
+    if (r.question === "ganador" && (r.choice === "home" || r.choice === "draw" || r.choice === "away")) {
+      tally.ganador[r.choice] = parseStrictDbNumber(r.n) ?? 0;
+    } else if (r.question === "pick" && (r.choice === "si" || r.choice === "no")) {
+      tally.pick[r.choice] = parseStrictDbNumber(r.n) ?? 0;
     }
   }
   if (viewerUserId) {

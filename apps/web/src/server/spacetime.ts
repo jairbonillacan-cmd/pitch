@@ -1,4 +1,8 @@
-import type { MatchAnalysis } from "@pitchlab/contracts";
+import {
+  isPermittedMarketQuoteBook,
+  parseStrictFiniteNumber,
+  type MatchAnalysis,
+} from "@pitchlab/contracts";
 import {
   buildTeamMasterIndex,
   predictLiveMatchup,
@@ -13,37 +17,36 @@ import multisportModelJson from "@pitchlab/spacetime/data/model_multisport.json"
 import nflModelJson from "@pitchlab/spacetime/data/model_nfl.json";
 import liveSnapshotJson from "@pitchlab/spacetime/data/live_matchday_v3_snapshot.json";
 import type { SpacetimeSignal } from "@pitchlab/ui/types";
-
-/**
- * Corre PitchLab Spacetime Suite v3.0 sobre los partidos de los snapshots de la app.
- *
- * - Si el partido está en la matriz en vivo de v3.0 (con momios reales), se usa ese registro:
- *   probabilidad final con mercado, momios de casa y evaluación de valor de Geodesic v2.0.
- * - Si no, se construye el registro desde las fichas de equipo y se obtiene solo la
- *   probabilidad deportiva (sin momios ni valor).
- * - Si algún equipo no tiene ficha en v3.0, el partido se queda sin señal y la UI usa el
- *   modelo del snapshot.
- */
+import { logSecurityEvent } from "./safe-logger";
 
 interface LiveSnapshot {
   generated_at: string;
-  edge_matrix_records: LiveMatchupEdgeRecord[];
-  team_master_records: TeamMasterFeatureRecord[];
+  edge_matrix_records: readonly LiveMatchupEdgeRecord[];
+  team_master_records: readonly TeamMasterFeatureRecord[];
 }
 
-const snapshot = liveSnapshotJson as unknown as LiveSnapshot;
-const artifacts = {
+const snapshot: LiveSnapshot = liveSnapshotJson;
+const artifacts: LiveInferenceArtifacts = {
   footballModel: footballModelJson,
-  nflModel: nflModelJson,
-  multisportModel: multisportModelJson,
-} as unknown as LiveInferenceArtifacts;
+  nflModel: {
+    ...nflModelJson,
+    sport: "nfl",
+  },
+  multisportModel: {
+    ...multisportModelJson,
+    sports: {
+      nhl: { ...multisportModelJson.sports.nhl, sport: "nhl" },
+      mlb: { ...multisportModelJson.sports.mlb, sport: "mlb" },
+      nba: { ...multisportModelJson.sports.nba, sport: "nba" },
+      ncaaf: { ...multisportModelJson.sports.ncaaf, sport: "ncaaf" },
+    },
+  },
+};
 
-/** Liga de la app → liga en la matriz de v3.0. */
 export const LEAGUE_TO_V3: Readonly<Record<string, string>> = {
   "premier-league": "epl",
 };
 
-/** Nombres completos de la app que no se parecen al de la ficha de v3.0. */
 const TEAM_ALIASES: Record<string, string> = {
   "chivas guadalajara": "guadalajara",
   chivas: "guadalajara",
@@ -51,7 +54,6 @@ const TEAM_ALIASES: Record<string, string> = {
   "racing santander": "real racing",
 };
 
-/** v3.0 usa nombres en español: palabra de la app → palabra de la ficha. */
 const TOKEN_ALIASES: Record<string, string> = {
   munchen: "munich",
   koln: "colonia",
@@ -71,7 +73,6 @@ const TOKEN_ALIASES: Record<string, string> = {
   juventus: "juventus",
 };
 
-/** Palabras genéricas que no distinguen equipos. */
 const GENERIC_TOKENS = new Set([
   "fc", "cf", "cd", "ac", "as", "afc", "sv", "vfl", "vfb", "rc", "rcd", "ssc", "us", "club",
   "de", "del", "la", "calcio", "sc", "ca", "ud", "sd", "ogc", "tsg", "bv", "bsc", "fsv", "1",
@@ -79,7 +80,6 @@ const GENERIC_TOKENS = new Set([
   "and", "es", "estac", "osc", "losc", "bc", "alsace",
 ]);
 
-/** Factores del motor → etiqueta propia (regla FD-16: sin nombres de proveedores ni jerga). */
 const DRIVER_LABELS: Record<string, string> = {
   clubelo_and_xg_elo: "Fuerza estructural y xG",
   lineup_availability_delta: "Disponibilidad de la plantilla",
@@ -90,11 +90,8 @@ const DRIVER_LABELS: Record<string, string> = {
   weather_stadium_physics: "Clima y estadio",
 };
 
-/** Fuente de momios → nombre de casa visible. Las fuentes de señales no son casas. */
 const BOOK_LABELS: Record<string, string> = {
-  caliente_mx: "Caliente",
   pinnacle: "Pinnacle",
-  betfair_exchange: "Betfair Exchange",
   smarkets: "Smarkets",
   matchbook: "Matchbook",
   bet365: "Bet365",
@@ -109,6 +106,10 @@ const BOOK_LABELS: Record<string, string> = {
   williamhill: "William Hill",
   william_hill: "William Hill",
   unibet: "Unibet",
+  betrivers: "BetRivers",
+  novibet: "Novibet",
+  betway: "Betway",
+  playdoit: "Playdoit",
 };
 
 export function formatBookLabel(book: string): string {
@@ -140,10 +141,6 @@ function aliasTokens(raw: string): string[] {
   return alias ? tokens(alias) : t;
 }
 
-/**
- * Parecido entre dos nombres: 0 si las palabras distintivas del más corto no están todas en
- * el otro; si lo están, la fracción del más largo que cubren (1 = mismos nombres).
- */
 export function teamScore(a: string, b: string): number {
   const ta = aliasTokens(a);
   const tb = aliasTokens(b);
@@ -175,7 +172,6 @@ let cache: {
   teamIndex: TeamMasterIndex;
   byLeague: Map<string, LeagueIndex>;
   signals: Map<string, SpacetimeSignal | null>;
-  /** Hora en que se llenó el caché: la vigencia de los momios depende del reloj. */
   hourBucket: number;
 } | null = null;
 
@@ -238,20 +234,19 @@ function recordFor(game: MatchAnalysis, v3League: string, index: LeagueIndex): L
   } as LiveMatchupEdgeRecord;
 }
 
-/**
- * Antigüedad máxima de un momio para mostrarlo como vigente (horas). Pasado ese plazo el
- * partido se muestra sin momios y con la probabilidad deportiva pura, no la mezclada con
- * un mercado viejo. Configurable con PITCHLAB_MAX_ODDS_AGE_HOURS.
- */
 export function maxOddsAgeHours(): number {
-  const raw = Number(process.env.PITCHLAB_MAX_ODDS_AGE_HOURS);
-  return Number.isFinite(raw) && raw > 0 ? raw : 72;
+  const raw = parseStrictFiniteNumber(process.env.PITCHLAB_MAX_ODDS_AGE_HOURS);
+  return raw !== null && raw > 0 ? raw : 72;
 }
+
+const MAX_FUTURE_SKEW_MS = 6 * 3_600_000;
 
 export function isMarketFresh(asOfUtc: string | null | undefined, nowMs: number = Date.now()): boolean {
   if (!asOfUtc) return false;
   const t = Date.parse(asOfUtc);
-  return Number.isFinite(t) && nowMs - t <= maxOddsAgeHours() * 3_600_000;
+  if (!Number.isFinite(t)) return false;
+  const ageMs = nowMs - t;
+  return ageMs >= -MAX_FUTURE_SKEW_MS && ageMs <= maxOddsAgeHours() * 3_600_000;
 }
 
 const OD_DATE = new Intl.DateTimeFormat("es-MX", {
@@ -260,7 +255,6 @@ const OD_DATE = new Intl.DateTimeFormat("es-MX", {
   timeZone: "America/Mexico_City",
 });
 
-/** "Caliente · 9 nov": la casa y el día del corte de momios. */
 export function bookLabelWithDate(book: string, asOfUtc: string | null | undefined): string {
   if (!asOfUtc || !Number.isFinite(Date.parse(asOfUtc))) return book;
   return `${book} · ${OD_DATE.format(new Date(asOfUtc)).replace(".", "")}`;
@@ -277,7 +271,10 @@ function toSignal(
   homeTeam: TeamMasterFeatureRecord | null,
   awayTeam: TeamMasterFeatureRecord | null,
 ): SpacetimeSignal {
-  const source = (rec.market_sources ?? []).find((s) => BOOK_LABELS[s]);
+  const source = (rec.market_sources ?? []).find((s) => {
+    const label = BOOK_LABELS[s];
+    return Boolean(label) && isPermittedMarketQuoteBook(s, label);
+  });
   const gate = pred.geodesicV2;
   const oddsBySide = new Map((gate?.outcomes ?? []).map((o) => [o.side, o.decimalOdds]));
   const homeOdds = oddsBySide.get("home");
@@ -285,7 +282,6 @@ function toSignal(
   const hasMarket = Boolean(
     pred.marketProbsAdaptive && source && homeOdds && awayOdds && isMarketFresh(rec.as_of_utc),
   );
-  // Sin mercado vigente, la probabilidad es la deportiva (no la mezclada con momios viejos).
   const probs = hasMarket ? pred.finalProbs : pred.sportsProbs;
 
   const missingPct = (t: TeamMasterFeatureRecord | null) =>
@@ -349,7 +345,6 @@ function toSignal(
   };
 }
 
-/** Señal de Spacetime v3.0 para un partido, o `null` si v3.0 no cubre a ambos equipos. */
 export function spacetimeSignalFor(game: MatchAnalysis): SpacetimeSignal | null {
   if (game.sport !== "football" && game.sport !== "american-football") {
     return null;
@@ -371,7 +366,11 @@ export function spacetimeSignalFor(game: MatchAnalysis): SpacetimeSignal | null 
           signal = toSignal(rec, pred, findTeam(index, rec.home_team), findTeam(index, rec.away_team));
         }
       } catch (err) {
-        console.warn(`[spacetime] sin señal para ${game.id}:`, err);
+        logSecurityEvent("warn", "spacetime_signal_failed", {
+          gameId: game.id,
+          league: game.league,
+          error: err,
+        });
       }
     }
   }
@@ -392,7 +391,6 @@ export function buildSpacetimeSignals(
 
 export const SPACETIME_SNAPSHOT_GENERATED_AT = snapshot.generated_at;
 
-/** Busca la ficha maestra v3.0 de un equipo reutilizando los alias oficiales de Spacetime. */
 export function findSpacetimeTeamRecord(
   league: string,
   teamName: string,
