@@ -375,7 +375,11 @@ function pickPreferredHeroGame(
   leagueGames: readonly PlatformGame[],
 ): PlatformGame | undefined {
   const withForecast = leagueGames.filter(
-    (game) => game.hasForecast !== false && game.x12 !== null && game.projection !== null,
+    (game) =>
+      game.hasForecast !== false &&
+      game.x12 !== null &&
+      game.x12[0] + game.x12[1] + game.x12[2] > 0 &&
+      game.projection !== null,
   );
   if (withForecast.length === 0) return undefined;
   const upcoming = withForecast.filter((game) => game.status !== "FT");

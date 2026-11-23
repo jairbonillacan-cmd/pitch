@@ -364,6 +364,11 @@ describe("book-quotes · Integración de las 9 casas Bzzoiro desde quotes_latest
   });
 
   it("ancla cuotas con SpacetimeAnchoredQuote y descarta filas sin probabilidad Spacetime válida (Licencia v4.0)", () => {
+    const nowAnchorMs = Date.now();
+    const recentBaseIso = new Date(nowAnchorMs - 3_600_000).toISOString();
+    const recentPlus5mIso = new Date(nowAnchorMs - 3_300_000).toISOString();
+    const recentPlus10mIso = new Date(nowAnchorMs - 3_000_000).toISOString();
+
     const comparisons = parseBzzoiroComparisonPayload(
       {
         comparisons: [
@@ -374,7 +379,7 @@ describe("book-quotes · Integración de las 9 casas Bzzoiro desde quotes_latest
             bookmaker_slug: "pinnacle",
             decimal_odds: 1.94,
             opening_odds: 2.15,
-            updated_at: "2026-11-20T15:00:00Z",
+            updated_at: recentBaseIso,
           },
           {
             market: "1x2",
@@ -383,7 +388,7 @@ describe("book-quotes · Integración de las 9 casas Bzzoiro desde quotes_latest
             bookmaker_slug: "bet365",
             decimal_odds: 2.02,
             opening_odds: 2.18,
-            updated_at: "2026-11-20T15:05:00Z",
+            updated_at: recentPlus5mIso,
           },
         ],
       },
@@ -404,7 +409,7 @@ describe("book-quotes · Integración de las 9 casas Bzzoiro desde quotes_latest
       edgePts: 6.5,
       evPct: 13.1,
       movement: "STEAM",
-      capturedAtIso: "2026-11-20T15:05:00Z",
+      capturedAtIso: recentPlus5mIso,
     });
     expect(anchored!.fairDecimal).toBeCloseTo(1 / 0.56, 4);
 
@@ -422,7 +427,7 @@ describe("book-quotes · Integración de las 9 casas Bzzoiro desde quotes_latest
                 bookmaker_slug: "pinnacle",
                 decimal_odds: 1.98,
                 opening_odds: 2.08,
-                updated_at: "2026-11-20T15:10:00Z",
+                updated_at: recentPlus10mIso,
               },
             },
           },
@@ -438,7 +443,7 @@ describe("book-quotes · Integración de las 9 casas Bzzoiro desde quotes_latest
       line: 2.5,
       bookDecimal: 1.98,
       modelProb: 0.55,
-      capturedAtIso: "2026-11-20T15:10:00Z",
+      capturedAtIso: recentPlus10mIso,
     });
 
     const validRowComp = buildMarketRowComparison({
@@ -458,7 +463,7 @@ describe("book-quotes · Integración de las 9 casas Bzzoiro desde quotes_latest
           bookLabel: "Bet365",
           decimal: 1.94,
           openingDecimal: 2.12,
-          capturedAtUtc: "2026-11-20T15:05:00Z",
+          capturedAtUtc: recentPlus5mIso,
         },
       ],
     });
@@ -469,7 +474,7 @@ describe("book-quotes · Integración de las 9 casas Bzzoiro desde quotes_latest
       bookDecimal: 1.94,
       modelProb: 0.57,
       movement: "STEAM",
-      capturedAtIso: "2026-11-20T15:05:00Z",
+      capturedAtIso: recentPlus5mIso,
     });
 
     for (const invalidP of [0, 0.001, 0.999, 1, Number.NaN]) {
@@ -490,7 +495,7 @@ describe("book-quotes · Integración de las 9 casas Bzzoiro desde quotes_latest
               book: "pinnacle",
               bookLabel: "Pinnacle",
               decimal: 2.05,
-              capturedAtUtc: "2026-11-20T15:05:00Z",
+              capturedAtUtc: recentPlus5mIso,
             },
           ],
         }),

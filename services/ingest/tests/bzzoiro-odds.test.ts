@@ -274,9 +274,11 @@ describe("Momios de fútbol desde Bzzoiro", () => {
     expect(parseBzzoiroBestOdds(rawBest)).toEqual([]);
     expect(parseBzzoiroBestOdds(rawBest, { requireSpacetimeAnchor: false })).toEqual([]);
 
+    const recentCapturedAtUtc = new Date(Date.now() - 3_600_000).toISOString();
+
     const compAnchored = parseBzzoiroOddsComparison(rawComparison, {
       modelProbsByKey: { "1x2|null|home": 0.55 },
-      capturedAtUtc: "2026-11-20T15:00:00Z",
+      capturedAtUtc: recentCapturedAtUtc,
       requireSpacetimeAnchor: false,
     });
     expect(compAnchored).toHaveLength(1);
@@ -299,7 +301,7 @@ describe("Momios de fútbol desde Bzzoiro", () => {
 
     const bestAnchored = parseBzzoiroBestOdds(rawBest, {
       modelProbsByKey: { "1x2|null|home": 0.55 },
-      capturedAtUtc: "2026-11-20T15:00:00Z",
+      capturedAtUtc: recentCapturedAtUtc,
       requireSpacetimeAnchor: false,
     });
     expect(bestAnchored).toHaveLength(1);
