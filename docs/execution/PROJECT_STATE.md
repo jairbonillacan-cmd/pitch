@@ -1,9 +1,25 @@
 # Estado del proyecto PitchLab
 
 > **Propósito:** que cualquier sesión retome el trabajo sin reconstruir el contexto. Se actualiza al cerrar cada fase.
-> **Última actualización:** 2026-11-23 · **Rama:** `gemini-dos` (**Integración completa `PitchLab Spacetime v6.0 Candidate` desde `origin/prediction-lab` (`a802a477`) cerrada y certificada `13/13` PASS**: `@pitchlab/spacetime/v6`, `57/57` ligas, spreads/totales alternativos NFL sobre PMF discreta, SGP con cópulas/porteros, props US sin truncamiento de 5 columnas, causalidad pre-kickoff estricta + preservación `FT`, Power De-Vig misma-casa + liquidación/CLV, memoización SSR, fixes CLS/a11y, `playwright.config.ts` `>= 24 GB` para `3` workers y `1` worker en `<= 16 GB`).
+> **Última actualización:** 2026-11-23 · **Rama:** `gemini-dos` (**Despliegue a producción `https://pitchlab.mx` completado en `main` (`36c6e149` + `79c81f9a`) con Neon `28/28` migraciones, `PitchLab Spacetime v6.0` y `outputFileTracingExcludes` `< 250 MB` en Vercel**).
+> **Siguiente paso prioritario (trabajo en casa — GitHub Issue `#4`):** optimizar velocidad/tiempos de carga en producción (`TTFB`, `LCP`, SSR, `/api/shell/extend`, `/resultados`) y reemplazar la aparición brusca «de golpe» de datos por streaming RSC `<Suspense>`, esqueletos geométricos (`CLS ≈ 0`), `startTransition` y transiciones suaves (`opacity`/`transform`).
+
+## Siguiente paso prioritario · Rendimiento en producción y carga progresiva suave (Issue `#4`)
+
+- **Contexto del reporte en producción (`https://pitchlab.mx`):** la carga inicial y la navegación entre vistas se perciben lentas en Vercel, y los datos llegan después y aparecen «de golpe» en lugar de revelarse de forma progresiva y fluida.
+- **Referencia en GitHub:** `https://github.com/jairbonillacan-cmd/pitch/issues/4`
+- **Focos concretos a atacar al retomar en casa:**
+  1. **Medición real antes/después (`Server-Timing` / profiling):** medir TTFB, LCP, INP, CLS y tiempo por etapa en `/`, `/resultados` (`670.7 KB` HTML en sonda), `/app`, `/app/picks`, `/app/[league]` y `/app/[league]/g/[gameSlug]` (cold start vs warm).
+  2. **Velocidad SSR/API:** perfilar y reducir trabajo síncrono por request en `platform-data.ts`, `snapshots.ts`, `spacetime-v6.ts`, `picks-catalog.ts` y `props-explorer.ts`; paralelizar consultas Neon (`Promise.all`) en `app/app/layout.tsx` y `/api/*`; indexar en memoria `shell-index.json` (`10.6 MB`) y diferir cálculo fuera del primer pliegue; añadir caché corta en cliente (SWR/memo) para Maestro-Detalle (`GET /api/games/[gameId]/preview`), pestañas y hubs.
+  3. **Aparición progresiva y suave (cero «de golpe»):** introducir Streaming RSC (`<Suspense>`) por sección con esqueletos de geometría fiel (`CLS = 0`), aplicar `startTransition` al hidratar `/api/shell/extend` en `PlatformProvider` y añadir entradas suaves (`opacity`/`transform` en `@layer components`, respetando `prefers-reduced-motion`, cero `backdrop-filter` y cero transición en `box-shadow`).
+  4. **Higiene CI opcional en el mismo bloque:** desacoplar los 2 tests de `packages/ui` dependientes de fechas en vivo (`tests/nba-nhl-platform.test.tsx` y `tests/platform-v4.test.tsx`) para que CI en `main` quede verde cualquier día de la semana.
 
 ## Estado actual
+
+- **Despliegue a Producción `main` / `https://pitchlab.mx` (`e2ad4b13`..`79c81f9a`, 2026-11-23):** ✅ publicado y verificado en vivo:
+  - **Neon Producción (`lively-cloud-08121218` / `neondb`):** aplicadas `0025`–`0027` (`28/28` migraciones activas; `security_rate_buckets` `UNLOGGED`, `market_alerts`, `sealed_picks_immutability_trg`).
+  - **Vercel Serverless `< 250 MB` (`64fb26e4` → `36c6e149`):** `apps/web/next.config.mjs` excluye `data/snapshots/**/20[0-9][0-9]-[0-9][0-9]-[0-9][0-9].json` y `data/history/**` vía `outputFileTracingExcludes` (recorte permanente de ~`130.7 MB` por función serverless) y `packages/spacetime/derived/outlook_derived.test.ts` soporta partidos con `sharpMarketAvailable: true`.
+  - **Índice fresco en `main` (`79c81f9a`):** `data/snapshots/shell-index.json` recompilado con los `57` snapshots vigentes (`1,827` partidos), desplegado en verde (`BPbxy5YfRwoeVJWDKNEMeNpkMgoL`) y validado en `https://pitchlab.mx` (`/api/health` `200`, `Cero-Fuga`, `FD-16`, CSP/HSTS/XFO).
 
 - **Integración `PitchLab Spacetime v6.0 Candidate` (`6550c90b`..HEAD, 2026-11-23):** ✅ completada en `gemini-dos` en 5 bloques auditados por verificadores `pstack` independientes (`0 CRÍTICO / 0 ALTO`) y certificada con **`13/13` compuertas en verde**:
   - **Bloque 1 · `@pitchlab/spacetime` v6.0 (`6550c90b`):** sincronizado contra `origin/prediction-lab` (`a802a477`, `183` archivos en `SOURCE.json`), preservando parches retrocompatibles (`src/odds.ts`, `src/outlook.ts`, `src/sgp_copula.ts` cota inferior de Fréchet `9178814d`, `data/live_matchday_v3_snapshot.json` local más reciente y `tests/v5_1_production_invariants.test.ts`), omitiendo únicamente `15` pruebas research-only de `v5_2`/`v6_0` (`354 passed | 39 skipped | 0 failed`) y exponiendo `"./v6": "./src/v6_index.ts"` + `export * as spacetimeV6`.
