@@ -896,4 +896,62 @@
       padding: 8px 9px;
     }
   }
+
+  @media (max-width: 768px), (pointer: coarse) {
+    .pl-mdp-switcher-btn,
+    .pl-mdp-rail-btn,
+    .pl-mdp-mode-btn,
+    .pl-mdp-check-label,
+    .pl-mdp-sub-btn,
+    .pl-mdp-pp-actions button {
+      min-block-size: 44px;
+      min-inline-size: 44px;
+    }
+
+    .pl-mdp-mode-btn {
+      padding: 8px 10px;
+    }
+  }
+
+  @media (max-width: 560px) {
+    .pl-mdp-card {
+      padding: 11px 10px;
+    }
+
+    .pl-mdp-rank-table {
+      table-layout: fixed;
+    }
+
+    .pl-mdp-rank-table th,
+    .pl-mdp-rank-table td {
+      padding: 7px 3px;
+      font-size: 0.72rem;
+    }
+
+    .pl-mdp-rank-table thead th:nth-child(2),
+    .pl-mdp-rank-table tbody th {
+      inline-size: 36%;
+    }
+
+    .pl-mdp-rank-cell {
+      flex-direction: column;
+      gap: 3px;
+    }
+
+    .pl-mdp-mode-toggle {
+      flex-direction: column;
+      gap: 3px;
+      inline-size: 100%;
+    }
+
+    .pl-mdp-mode-btn {
+      padding: 6px 4px;
+      font-size: 0.68rem;
+      inline-size: 100%;
+    }
+
+    .pl-mdp-rank-table thead th .truncate {
+      max-inline-size: 58px;
+    }
+  }
 }

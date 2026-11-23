@@ -665,7 +665,9 @@ export function MatchLeftRail({
             <span>
               {isFinished
                 ? "Este encuentro no reporta curva minuto a minuto en la ventana actual."
-                : "La curva de empuje minuto a minuto aparece aquí en cuanto ruede el balón."}
+                : game.sport === "football"
+                  ? "La curva de empuje minuto a minuto aparece aquí en cuanto ruede el balón."
+                  : "La curva de empuje aparece aquí en cuanto comience el encuentro."}
             </span>
           </div>
         )}
@@ -793,7 +795,13 @@ export function MatchLeftRail({
             <span>
               {isFinished
                 ? "No se registraron incidencias por tiempo en el feed en vivo."
-                : "Aquí aparecen goles, tarjetas y marcador por tiempo en cuanto inicie el juego."}
+                : game.sport === "football"
+                  ? "Aquí aparecen goles, tarjetas y marcador por tiempo en cuanto inicie el juego."
+                  : game.sport === "ice-hockey"
+                    ? "Aquí aparecen goles, periodos y marcador parcial en cuanto inicie el encuentro."
+                    : game.sport === "baseball"
+                      ? "Aquí aparecen carreras, entradas y marcador parcial en cuanto inicie el encuentro."
+                      : "Aquí aparecen puntos, parciales por cuarto y jugadas clave en cuanto inicie el encuentro."}
             </span>
           </div>
         )}
