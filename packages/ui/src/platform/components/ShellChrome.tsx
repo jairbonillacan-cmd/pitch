@@ -1838,16 +1838,20 @@ function ClubWorkspaceShellImpl({
         </div>
         </div>
 
-        {isHomeRoute && homeNav ? (
+        {isHomeRoute ? (
           <div className="pl-header-sportband">
             <div className="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-7">
-              <HomeSportStrip
-                dayGames={homeDayGames}
-                sport={homeSport}
-                onSelectSport={homeNav.pickSport}
-                variant="header"
-                scrollToTopOnSelect
-              />
+              {homeNav ? (
+                <HomeSportStrip
+                  dayGames={homeDayGames}
+                  sport={homeSport}
+                  onSelectSport={homeNav.pickSport}
+                  variant="header"
+                  scrollToTopOnSelect
+                />
+              ) : (
+                <div className="h-[44px]" aria-hidden="true" />
+              )}
             </div>
           </div>
         ) : null}
