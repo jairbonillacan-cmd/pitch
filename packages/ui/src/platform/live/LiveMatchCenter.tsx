@@ -34,6 +34,7 @@ import {
 } from "../platform-provider";
 import type { PlatformGame } from "../types";
 import { LiveStatBars, MomentumChart, XgRaceChart } from "./live-charts";
+import { LiveScoreTelemetry } from "./LiveScoreTelemetry";
 import { LiveWinProbBar } from "./LiveWinProbBar";
 import { useLiveMatch, useLiveScoreboard } from "./live-store";
 
@@ -48,6 +49,21 @@ const LIVE_SHOT_OUTCOME_ES: Record<AtomicShotItem["outcome"], string> = {
   miss: "Desviado",
 };
 
+function formatLivePhaseText(
+  entry: LiveScoreboardEntry,
+  kickoffLocal?: string,
+  short = false,
+): string {
+  if (entry.phase === "live" && entry.clock) {
+    return entry.clock.includes(":") || entry.clock.includes("'")
+      ? entry.clock
+      : `${entry.clock}'`;
+  }
+  if (entry.phase === "scheduled" && kickoffLocal) return kickoffLocal;
+  if (short && entry.phase === "halftime") return "MT";
+  return LIVE_PHASE_LABEL_ES[entry.phase];
+}
+
 export function LivePhaseBadge({
   entry,
   kickoffLocal,
@@ -58,14 +74,7 @@ export function LivePhaseBadge({
   short?: boolean;
 }): React.JSX.Element {
   const active = isLivePhaseActive(entry.phase);
-  const text =
-    entry.phase === "live" && entry.clock
-      ? `${entry.clock}'`
-      : entry.phase === "scheduled" && kickoffLocal
-        ? kickoffLocal
-        : short && entry.phase === "halftime"
-          ? "MT"
-          : LIVE_PHASE_LABEL_ES[entry.phase];
+  const text = formatLivePhaseText(entry, kickoffLocal, short);
   return (
     <span className={`pl-live-phase pl-live-phase--${entry.phase}`}>
       {active ? <span className="pl-live-pulse" aria-hidden="true" /> : null}
@@ -536,12 +545,26 @@ export function LiveMatchPanelView({
             />
             <span>{home}</span>
           </span>
-          <strong className="pl-live-score-value num">
-            {entry.score ? `${entry.score.home} – ${entry.score.away}` : "–"}
-            <span className="sr-only">
-              {entry.score ? `${home} ${entry.score.home}, ${away} ${entry.score.away}` : ""}
-            </span>
-          </strong>
+          <div className="pl-live-score-center">
+            <strong className={`pl-live-score-value num${live ? " is-live" : ""}`}>
+              {entry.score ? `${entry.score.home} – ${entry.score.away}` : "–"}
+              <span className="sr-only">
+                {entry.score ? `${home} ${entry.score.home}, ${away} ${entry.score.away}` : ""}
+              </span>
+            </strong>
+            {live ? (
+              <span className="pl-live-score-clock num">
+                {formatLivePhaseText(entry, game.kickoffLocal, true)}
+              </span>
+            ) : null}
+            {live ? (
+              <LiveScoreTelemetry
+                stats={detail.stats}
+                shotmapSummary={detail.shotmapSummary}
+                compact
+              />
+            ) : null}
+          </div>
           <span className="pl-live-score-team pl-live-score-team--away">
             <span>{away}</span>
             <TeamBadge

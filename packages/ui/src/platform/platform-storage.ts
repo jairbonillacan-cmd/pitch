@@ -36,10 +36,12 @@ export const DEFAULT_FOLLOW_ALERTS: FollowAlerts = {
 export interface ShareTicketLegItem {
   label: string;
   matchLabel: string;
-  p: number;
-  fairDecimal: number;
+  p: number | null;
+  fairDecimal: number | null;
   marketDecimal?: number | null;
   kickoffLocal?: string;
+  status?: "won" | "lost" | "push" | "pending";
+  scoreLabel?: string | null;
 }
 
 export interface ShareTicketPayload {
@@ -55,6 +57,11 @@ export interface ShareTicketPayload {
   gameStatus: "NS" | "FT" | "LIVE";
   legs?: ShareTicketLegItem[];
   revealLegs?: boolean;
+  settlementStatus?: "pending" | "won" | "lost" | "push";
+  netUnits?: number | null;
+  sealedAtLabel?: string | null;
+  bookLabel?: string | null;
+  legSummaryLabel?: string | null;
   promoCode?: string;
   tipsterHandle?: string;
   originBadge?: string;

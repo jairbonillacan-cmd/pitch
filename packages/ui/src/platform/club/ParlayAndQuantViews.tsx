@@ -1111,9 +1111,9 @@ export function ParlayBuilderClubView(): React.JSX.Element {
     );
     openShareTicket({
       kind: "parlay",
-      title: `Parlay PitchLab (${parlaySummary.legs.length} selecciones)`,
+      title: `Parlay · ${parlaySummary.legs.length} selecciones`,
       subtitle: parlaySummary.hasSgpCorrelation
-        ? "Ajuste automático por correlación dentro del mismo partido"
+        ? "Mismo partido · Ajuste por correlación"
         : "Combinada calibrada · PitchLab",
       leagueLabel: uniqueLeagues.length === 1 ? uniqueLeagues[0]! : "Multi-Liga",
       pickLabel: formattedLegs.map((l) => l.summaryLine).join(" · "),
@@ -1124,7 +1124,10 @@ export function ParlayBuilderClubView(): React.JSX.Element {
         fairDecimal: l.fairDecimal,
         marketDecimal: l.marketDecimal,
         kickoffLocal: l.kickoffLocal,
+        status: "pending",
       })),
+      revealLegs: true,
+      settlementStatus: "pending",
       probability: effectiveSlipProb,
       fairDecimal: effectiveSlipFairDec,
       marketDecimal: effectiveSlipBookDec,

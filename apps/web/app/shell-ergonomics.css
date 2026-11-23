@@ -1688,8 +1688,8 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    gap: 4px;
-    min-inline-size: 92px;
+    gap: 5px;
+    min-inline-size: 112px;
     text-align: center;
   }
 

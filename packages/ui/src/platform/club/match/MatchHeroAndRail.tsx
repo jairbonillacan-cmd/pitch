@@ -17,6 +17,7 @@ import { CrestPedestal, MaestroIcon } from "../../components/MaestroPrimitives";
 import { SportEventIcon } from "../../components/SportEventIcons";
 import { shareMatchStoryCard } from "../../components/share-story-card";
 import { FollowControl, LivePhaseBadge } from "../../live/LiveMatchCenter";
+import { LiveScoreTelemetry } from "../../live/LiveScoreTelemetry";
 import { MomentumChart } from "../../live/live-charts";
 import {
   usePlatformActions,
@@ -389,7 +390,7 @@ export function MatchHeroScoreboard({
 
           {resolvedScore && (isFinished || liveActive || liveEntry?.phase === "final") ? (
             <>
-              <strong className="pl-match-hero-score num">
+              <strong className={`pl-match-hero-score num${liveActive ? " is-live" : ""}`}>
                 {resolvedScore.home} <span aria-hidden="true">–</span> {resolvedScore.away}
               </strong>
               {liveEntry?.htScore ? (
@@ -403,6 +404,12 @@ export function MatchHeroScoreboard({
                 </span>
               ) : isFinished && !hasForecast ? (
                 <span className="pl-match-hero-sub">Sin pronóstico previo publicado</span>
+              ) : null}
+              {liveActive && liveDetail ? (
+                <LiveScoreTelemetry
+                  stats={liveDetail.stats}
+                  shotmapSummary={liveDetail.shotmapSummary}
+                />
               ) : null}
             </>
           ) : !hasForecast || !game.projection ? (

@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useEffect, useRef, useState } from "react";
-import { parseStrictFiniteNumber } from "@pitchlab/contracts";
+import { parseStrictFiniteNumber, sportForLeague } from "@pitchlab/contracts";
 import { getLogoPath } from "@pitchlab/sports-assets";
 import {
   canRevealPickOnShare,
@@ -9,6 +9,7 @@ import {
   getSessionWatermark,
   pickReferenceDecimal,
 } from "../access-guard";
+import { normalizePickLabelWithUnit } from "../club/record/record-audit-helpers";
 import {
   useOverlayState,
   useParlayState,
@@ -16,9 +17,10 @@ import {
   usePlatformCore,
 } from "../platform-provider";
 import { assessParlayRisk } from "../parlay-engine";
-import { downloadTicketPng, type TicketRasterContent } from "./share-ticket-raster";
+import { downloadTicketPng, type TicketRasterContent, type TicketTone } from "./share-ticket-raster";
 import { triggerHaptic } from "../navigation-helpers";
-import type { ViewerRole } from "../types";
+import type { ShareTicketLegItem, ShareTicketPayload } from "../platform-storage";
+import type { OddsFormat, ViewerRole } from "../types";
 import { MaestroIcon } from "./MaestroPrimitives";
 import { useSheetSwipeDismiss } from "./use-sheet-swipe-dismiss";
 
@@ -259,7 +261,7 @@ export function TopLayerModalDialog({
 }
 
 export function ParlayFloatingDock(): React.JSX.Element | null {
-  const { oddsFormat } = usePlatformCore();
+  const { dataset, oddsFormat } = usePlatformCore();
   const { clearParlay, sealParlayToJournal, openShareTicket, navigateTo } = usePlatformActions();
   const { parlaySummary } = useParlayState();
   const [confirmClearOpen, setConfirmClearOpen] = useState(false);
@@ -343,24 +345,63 @@ export function ParlayFloatingDock(): React.JSX.Element | null {
             <button
               type="button"
               className="pl-btn-glass text-xs inline-flex items-center gap-1.5"
-              onClick={() =>
+              onClick={() => {
+                const gamesById = new Map(dataset.games.map((g) => [g.id, g]));
+                const formattedLegs = parlaySummary.legs.map(({ pick }) => {
+                  const gm = gamesById.get(pick.gameId);
+                  const sport = gm ? gm.sport : sportForLeague(pick.league);
+                  const fullLabel = normalizePickLabelWithUnit({
+                    pickLabel: pick.label,
+                    market: pick.market,
+                    leagueLabel: pick.leagueLabel,
+                    sport,
+                  });
+                  const matchName = gm
+                    ? `${gm.home.shortName} vs ${gm.away.shortName}`
+                    : pick.matchLabel;
+                  return {
+                    label: fullLabel,
+                    matchLabel: `${matchName} · ${pick.kickoffLocal}`,
+                    summaryLine: `${matchName}: ${fullLabel}`,
+                    p: pick.p,
+                    fairDecimal: pick.fairDecimal,
+                    marketDecimal: pick.marketDecimal,
+                    kickoffLocal: pick.kickoffLocal,
+                    status: "pending" as const,
+                  };
+                });
+                const uniqueLeagues = Array.from(
+                  new Set(parlaySummary.legs.map((l) => l.pick.leagueLabel)),
+                );
                 openShareTicket({
                   kind: "parlay",
-                  title: `Combinada PitchLab (${parlaySummary.legs.length} picks)`,
+                  title:
+                    parlaySummary.legs.length === 1
+                      ? "Parlay · 1 selección"
+                      : `Parlay · ${parlaySummary.legs.length} selecciones`,
                   subtitle: parlaySummary.hasSgpCorrelation
-                    ? "Mismo partido, con ajuste por correlación"
-                    : "Multi-liga calibrada con Spacetime Suite",
-                  leagueLabel: "Parlay Inteligente",
-                  pickLabel: parlaySummary.legs
-                    .map((l) => l.pick.label)
-                    .join(" + "),
+                    ? "Mismo partido · Ajuste por correlación"
+                    : "Combinada calibrada · PitchLab",
+                  leagueLabel: uniqueLeagues.length === 1 ? uniqueLeagues[0]! : "Multi-Liga",
+                  pickLabel: formattedLegs.map((l) => l.summaryLine).join(" · "),
+                  legs: formattedLegs.map((l) => ({
+                    label: l.label,
+                    matchLabel: l.matchLabel,
+                    p: l.p,
+                    fairDecimal: l.fairDecimal,
+                    marketDecimal: l.marketDecimal,
+                    kickoffLocal: l.kickoffLocal,
+                    status: l.status,
+                  })),
+                  revealLegs: true,
+                  settlementStatus: "pending",
                   probability: parlaySummary.combinedProbability,
                   fairDecimal: parlaySummary.fairDecimal,
                   marketDecimal: parlaySummary.bookDecimal,
                   units: parlaySummary.stakeUnits,
                   gameStatus: "NS",
-                })
-              }
+                });
+              }}
             >
               <MaestroIcon name="share" size={13} />
               Compartir
@@ -751,6 +792,108 @@ export function PickComposerModal(): React.JSX.Element | null {
   );
 }
 
+function formatSignedUnitsLabel(units: number): string {
+  const clean = Math.round(units * 100) / 100;
+  return `${clean >= 0 ? "+" : "−"}${Math.abs(clean).toFixed(2)}u`;
+}
+
+function resolveToneCssColor(tone: TicketTone): string {
+  if (tone === "success") return "var(--share-card-success)";
+  if (tone === "danger") return "var(--share-card-danger)";
+  if (tone === "warning") return "var(--share-card-warning)";
+  return "var(--share-card-secondary)";
+}
+
+function resolveShareTicketStatus(
+  ticket: ShareTicketPayload,
+  showExpandedLegs: boolean,
+  revealSelection: boolean,
+  isTipsterPromo: boolean,
+): { label: string; shortPill: string; tone: TicketTone; icon: "check" | "x" | "push-void" | "shield" | "lock" } {
+  const st = ticket.settlementStatus;
+  if (st === "won") {
+    return {
+      label: showExpandedLegs ? "Parlay ganado · Verificado" : "Pick ganado · Verificado",
+      shortPill: "Ganado",
+      tone: "success",
+      icon: "check",
+    };
+  }
+  if (st === "lost") {
+    return {
+      label: showExpandedLegs
+        ? ticket.legSummaryLabel
+          ? `Parlay perdido · ${ticket.legSummaryLabel}`
+          : "Parlay perdido"
+        : "Pick cerrado · Perdido",
+      shortPill: "Perdido",
+      tone: "danger",
+      icon: "x",
+    };
+  }
+  if (st === "push") {
+    return {
+      label: showExpandedLegs ? "Parlay empatado · Push" : "Pick cerrado · Push",
+      shortPill: "Push",
+      tone: "neutral",
+      icon: "push-void",
+    };
+  }
+  if (showExpandedLegs) {
+    return {
+      label: ticket.legSummaryLabel ? `Parlay · ${ticket.legSummaryLabel}` : "Parlay · PitchLab",
+      shortPill: ticket.gameStatus === "LIVE" ? "En vivo" : "Activo",
+      tone: "success",
+      icon: "shield",
+    };
+  }
+  if (revealSelection) {
+    return {
+      label: isTipsterPromo
+        ? (ticket.originBadge ?? "Pick abierto de la semana")
+        : "Resultado final verificado",
+      shortPill: isTipsterPromo ? "Abierto" : "Verificado",
+      tone: "success",
+      icon: "shield",
+    };
+  }
+  return {
+    label: "Protección prepartido",
+    shortPill: "Sellado",
+    tone: "warning",
+    icon: "lock",
+  };
+}
+
+function formatTicketLegMetrics(
+  leg: ShareTicketLegItem,
+  oddsFormat: OddsFormat,
+): { probLabel: string; oddsLabel: string; tone: TicketTone } {
+  const statusTone: TicketTone =
+    leg.status === "won"
+      ? "success"
+      : leg.status === "lost"
+        ? "danger"
+        : leg.status === "push"
+          ? "neutral"
+          : "success";
+  const probLabel =
+    leg.p !== null && Number.isFinite(leg.p)
+      ? `${(leg.p * 100).toFixed(1)} %`
+      : leg.status === "won"
+        ? "Cumplida"
+        : leg.status === "lost"
+          ? "Fallada"
+          : leg.status === "push"
+            ? "Push"
+            : "Activa";
+  const oddsLabel =
+    leg.fairDecimal !== null && Number.isFinite(leg.fairDecimal) && leg.fairDecimal > 1
+      ? `Justo ${formatOddsValue(leg.fairDecimal, oddsFormat)}`
+      : "";
+  return { probLabel, oddsLabel, tone: statusTone };
+}
+
 export function ShareTicketModal(): React.JSX.Element | null {
   const { shareTicket } = useOverlayState();
   const {
@@ -785,12 +928,28 @@ export function ShareTicketModal(): React.JSX.Element | null {
     if (!showExpandedLegs || !shareTicket.legs || shareTicket.legs.length < 3) {
       return new Set<number>();
     }
-    const highlightCount = shareTicket.legs.length >= 4 ? 2 : 1;
     const ranked = shareTicket.legs
       .map((leg, idx) => ({ idx, p: leg.p }))
-      .sort((a, b) => b.p - a.p || a.idx - b.idx);
+      .filter(
+        (item): item is { idx: number; p: number } =>
+          item.p !== null && Number.isFinite(item.p),
+      );
+    if (ranked.length < 3) {
+      return new Set<number>();
+    }
+    const highlightCount = shareTicket.legs.length >= 4 ? 2 : 1;
+    ranked.sort((a, b) => b.p - a.p || a.idx - b.idx);
     return new Set(ranked.slice(0, highlightCount).map((r) => r.idx));
   })();
+  const isSettledTicket = Boolean(
+    shareTicket.settlementStatus && shareTicket.settlementStatus !== "pending",
+  );
+  const statusInfo = resolveShareTicketStatus(
+    shareTicket,
+    showExpandedLegs,
+    revealSelection,
+    isTipsterPromo,
+  );
   const watermark = getSessionWatermark(viewerRole, viewerIdentity);
   const slug = shareTicket.pickSlug || (isTipsterPromo ? "sofia-sem" : "");
   const codeParam =
@@ -829,6 +988,20 @@ export function ShareTicketModal(): React.JSX.Element | null {
     }
   };
 
+  const settledSummaryLeft =
+    shareTicket.marketDecimal > 1
+      ? formatOddsValue(shareTicket.marketDecimal, oddsFormat)
+      : formatOddsValue(shareTicket.fairDecimal, oddsFormat);
+  const settledSummaryRight =
+    shareTicket.netUnits !== null && shareTicket.netUnits !== undefined
+      ? formatSignedUnitsLabel(shareTicket.netUnits)
+      : (shareTicket.legSummaryLabel ?? `${shareTicket.legs?.length ?? 0}`);
+  const pendingFairValue =
+    oddsFormat === "american"
+      ? `${formatOddsValue(shareTicket.fairDecimal, "american")} (${shareTicket.fairDecimal.toFixed(2)})`
+      : `${shareTicket.fairDecimal.toFixed(2)} (${formatOddsValue(shareTicket.fairDecimal, "american")})`;
+  const pendingProbValue = `${(shareTicket.probability * 100).toFixed(1)} %`;
+
   const handleDownloadTicket = () => {
     const card = ticketRef.current;
     if (!card) return;
@@ -851,42 +1024,55 @@ export function ShareTicketModal(): React.JSX.Element | null {
     const content: TicketRasterContent = showExpandedLegs && shareTicket.legs
       ? {
           ...base,
-          badge: "Parlay verificado PitchLab",
-          badgeTone: "success",
-          mainLine: `${formatOddsValue(shareTicket.fairDecimal, oddsFormat)}`,
-          detailLine: `Probabilidad ${(shareTicket.probability * 100).toFixed(1)} %`,
-          summaryLeftLabel: "MOMIO JUSTO COMBINADO",
-          summaryLeftValue:
-            oddsFormat === "american"
-              ? `${formatOddsValue(shareTicket.fairDecimal, "american")} (${shareTicket.fairDecimal.toFixed(2)})`
-              : `${shareTicket.fairDecimal.toFixed(2)} (${formatOddsValue(shareTicket.fairDecimal, "american")})`,
-          summaryRightLabel: "PROBABILIDAD",
-          summaryRightValue: `${(shareTicket.probability * 100).toFixed(1)} %`,
-          legs: shareTicket.legs.map((leg, idx) => ({
-            rank: idx + 1,
-            label: leg.label,
-            subLabel: leg.matchLabel,
-            probLabel: `${(leg.p * 100).toFixed(1)} %`,
-            oddsLabel: `Justo ${formatOddsValue(leg.fairDecimal, oddsFormat)}`,
-            highlight: topLegIndices.has(idx),
-          })),
+          badge: statusInfo.label,
+          badgeTone: statusInfo.tone,
+          mainLine: isSettledTicket
+            ? settledSummaryLeft
+            : `${formatOddsValue(shareTicket.fairDecimal, oddsFormat)}`,
+          detailLine: isSettledTicket
+            ? `Balance ${settledSummaryRight}`
+            : `Probabilidad ${pendingProbValue}`,
+          summaryLeftLabel: isSettledTicket ? "CUOTA SELLADA" : "MOMIO JUSTO",
+          summaryLeftValue: isSettledTicket ? settledSummaryLeft : pendingFairValue,
+          summaryRightLabel: isSettledTicket
+            ? shareTicket.netUnits !== null && shareTicket.netUnits !== undefined
+              ? "RESULTADO"
+              : "SELECCIONES"
+            : "PROBABILIDAD",
+          summaryRightValue: isSettledTicket ? settledSummaryRight : pendingProbValue,
+          summaryTone: isSettledTicket ? statusInfo.tone : undefined,
+          legs: shareTicket.legs.map((leg, idx) => {
+            const metrics = formatTicketLegMetrics(leg, oddsFormat);
+            return {
+              rank: idx + 1,
+              label: leg.label,
+              subLabel: leg.matchLabel,
+              probLabel: metrics.probLabel,
+              oddsLabel: metrics.oddsLabel,
+              highlight: topLegIndices.has(idx),
+              status: leg.status,
+            };
+          }),
         }
       : revealSelection
       ? {
           ...base,
-          badge: isTipsterPromo
-            ? (shareTicket.originBadge ?? "Pick abierto de la semana")
-            : "Resultado final verificado",
-          badgeTone: "success",
+          badge: statusInfo.label,
+          badgeTone: statusInfo.tone,
           mainLine: shareTicket.pickLabel,
-          detailLine: `Probabilidad ${(shareTicket.probability * 100).toFixed(1)} % · Momio ${formatOddsValue(shareTicket.marketDecimal, oddsFormat)} (justo ${formatOddsValue(shareTicket.fairDecimal, oddsFormat)})`,
+          detailLine:
+            isSettledTicket &&
+            shareTicket.netUnits !== null &&
+            shareTicket.netUnits !== undefined
+              ? `Cuota ${formatOddsValue(shareTicket.marketDecimal, oddsFormat)} · ${formatSignedUnitsLabel(shareTicket.netUnits)}`
+              : `Probabilidad ${pendingProbValue} · Momio ${formatOddsValue(shareTicket.marketDecimal, oddsFormat)} (justo ${formatOddsValue(shareTicket.fairDecimal, oddsFormat)})`,
         }
       : {
           ...base,
-          badge: "Selección oculta hasta el inicio",
+          badge: "Protección prepartido",
           badgeTone: "warning",
           mainLine: `Pick registrado en PitchLab · ${(shareTicket.probability * 100).toFixed(0)} % de probabilidad`,
-          detailLine: "La selección exacta se revela al inicio del partido.",
+          detailLine: "La selección exacta se desbloquea en el inicio.",
         };
     const fileName = `pitchlab-boleto-${aspect === "9:16" ? "9x16" : "4x5"}.png`;
     downloadTicketPng(content, card, fileName).then(
@@ -903,6 +1089,18 @@ export function ShareTicketModal(): React.JSX.Element | null {
     );
   };
 
+  const modalSubtitle = showExpandedLegs
+    ? [
+        `${shareTicket.legs?.length ?? 0} selecciones`,
+        shareTicket.leagueLabel,
+        shareTicket.legSummaryLabel,
+      ]
+        .filter(Boolean)
+        .join(" · ")
+    : !revealSelection
+      ? "Oculta la selección hasta el inicio del partido."
+      : shareTicket.subtitle;
+
   return (
     <TopLayerModalDialog
       open={Boolean(shareTicket)}
@@ -910,333 +1108,391 @@ export function ShareTicketModal(): React.JSX.Element | null {
       ariaLabelledBy="share-modal-title"
       maxWidth="34rem"
     >
-      <div className="glass-lens glass-ring glass-ring--featured relative overflow-hidden w-full rounded-2xl p-5">
-        <div className="relative z-10 space-y-4">
-          <div className="flex flex-wrap items-center justify-between gap-2">
-            <div>
-              <h2 id="share-modal-title" className="m-0 text-base font-bold">
-                Comparte tu boleto
-              </h2>
-              <p
-                className="m-0 text-xs"
-                style={{ color: "var(--pl-text-muted)" }}
-              >
-                La selección se oculta hasta que empieza el partido.
-              </p>
-            </div>
-            <div className="flex items-center gap-2">
-              <div
-                className="seg-well glass-ring"
-                role="group"
-                aria-label="Formato de historia"
-              >
-                <button
-                  type="button"
-                  className="seg-btn !min-h-[44px] sm:!min-h-[32px] !px-3 text-xs"
-                  aria-pressed={aspect === "4:5"}
-                  onClick={() => setAspect("4:5")}
+      <div className="pl-share-modal">
+        <div className="flex items-start justify-between gap-3">
+          <div className="min-w-0">
+            <h2 id="share-modal-title" className="m-0 text-base font-extrabold">
+              Comparte tu boleto
+            </h2>
+            <p
+              className="m-0 text-xs mt-0.5 truncate"
+              style={{ color: "var(--pl-text-muted)" }}
+            >
+              {modalSubtitle}
+            </p>
+          </div>
+          <button
+            type="button"
+            className="pl-btn-glass min-h-11 min-w-11 px-2.5 shrink-0 inline-flex items-center justify-center"
+            aria-label="Cerrar vista de boleto"
+            onClick={closeShareTicket}
+          >
+            <MaestroIcon name="x" size={15} />
+          </button>
+        </div>
+
+        <div className="seg-well w-fit" role="group" aria-label="Formato de historia">
+          <button
+            type="button"
+            className="seg-btn !min-h-[44px] sm:!min-h-[34px] !px-3.5 text-xs"
+            aria-pressed={aspect === "4:5"}
+            onClick={() => setAspect("4:5")}
+          >
+            4:5 · Publicación
+          </button>
+          <button
+            type="button"
+            className="seg-btn !min-h-[44px] sm:!min-h-[34px] !px-3.5 text-xs"
+            aria-pressed={aspect === "9:16"}
+            onClick={() => setAspect("9:16")}
+          >
+            9:16 · Historia
+          </button>
+        </div>
+
+        <div
+          className={`share-ticket-card pl-share-ticket ${aspect === "9:16" ? "is-tall" : ""}`.trim()}
+          data-share-ticket=""
+          data-share-aspect={aspect}
+          ref={ticketRef}
+        >
+          <div className="flex items-center justify-between gap-2">
+            <img
+              src={getLogoPath("horizontal", "dark")}
+              alt="PitchLab"
+              loading="lazy"
+              decoding="async"
+              className="h-5 w-auto object-contain"
+            />
+            <div className="flex items-center gap-1.5 min-w-0">
+              {isSettledTicket ? (
+                <span
+                  className="rounded-full px-2 py-0.5 text-[10px] font-extrabold whitespace-nowrap"
+                  style={{
+                    background: `color-mix(in oklab, ${resolveToneCssColor(statusInfo.tone)} 16%, transparent)`,
+                    color: resolveToneCssColor(statusInfo.tone),
+                  }}
                 >
-                  4:5 · Publicación
-                </button>
-                <button
-                  type="button"
-                  className="seg-btn !min-h-[44px] sm:!min-h-[32px] !px-3 text-xs"
-                  aria-pressed={aspect === "9:16"}
-                  onClick={() => setAspect("9:16")}
-                >
-                  9:16 · Historia
-                </button>
-              </div>
-              <button
-                type="button"
-                className="pl-btn-glass min-h-11 min-w-11 sm:min-h-9 sm:min-w-9 px-2.5 inline-flex items-center justify-center"
-                aria-label="Cerrar vista de boleto"
-                onClick={closeShareTicket}
+                  {statusInfo.shortPill}
+                </span>
+              ) : null}
+              <span
+                className="rounded-full px-2.5 py-0.5 text-[11px] font-bold num truncate"
+                style={{
+                  background: "var(--share-card-surface)",
+                  color: "var(--share-card-fg)",
+                }}
               >
-                <MaestroIcon name="x" size={15} />
-              </button>
+                {shareTicket.leagueLabel}
+              </span>
             </div>
           </div>
 
-          <div
-            className={`share-ticket-card relative overflow-hidden mx-auto flex flex-col justify-between transition-[transform,opacity] duration-200 ${
-              aspect === "9:16" ? "px-5 py-7" : "p-5"
-            }`}
-            style={{
-              maxWidth: aspect === "9:16" ? 306 : 382,
-              minHeight: aspect === "9:16" ? 476 : 368,
-            }}
-            data-share-ticket=""
-            data-share-aspect={aspect}
-            ref={ticketRef}
-          >
-            <div className="relative z-10 space-y-3.5">
-              <div className="flex items-center justify-between gap-2">
-                <div className="flex items-center gap-2">
-                  <img
-                    src={getLogoPath("horizontal", "dark")}
-                    alt="PitchLab"
-                    loading="lazy"
-                    decoding="async"
-                    className="h-5 w-auto object-contain"
-                  />
-                </div>
-                <span
-                  className="rounded-full px-2.5 py-0.5 text-[11px] font-bold num"
-                  style={{
-                    background: "var(--share-card-surface)",
-                    color: "var(--share-card-fg)",
-                  }}
-                >
-                  {shareTicket.leagueLabel}
-                </span>
-              </div>
-
-              {shareTicket.tipsterHandle ? (
-                <div className="inline-flex items-center gap-1.5 rounded-full px-2.5 py-1 text-[11px] font-bold"
-                  style={{
-                    background: "var(--share-card-surface)",
-                    color: "var(--share-card-accent)",
-                  }}
-                >
-                  <MaestroIcon name="crown" size={12} />
-                  <span>@{shareTicket.tipsterHandle} · Perfil de ejemplo</span>
-                </div>
-              ) : null}
-
-              <div>
-                <h3 className="m-0 text-lg font-extrabold leading-snug">
-                  {shareTicket.title}
-                </h3>
-                <p
-                  className="m-0 text-xs mt-1 leading-relaxed"
-                  style={{ color: "var(--share-card-muted)" }}
-                >
-                  {shareTicket.subtitle}
-                </p>
-              </div>
-
-              <div className="ticket-perf" />
-
-              {showExpandedLegs && shareTicket.legs ? (
-                <div className="space-y-2.5" data-share-multi-legs="">
-                  <ol className="pl-share-legs" role="list" aria-label="Selecciones del boleto">
-                    {shareTicket.legs.map((leg, idx) => {
-                      const isTop = topLegIndices.has(idx);
-                      return (
-                        <li
-                          key={`${idx}-${leg.label}`}
-                          className={isTop ? "pl-share-leg is-most-likely" : "pl-share-leg"}
-                        >
-                          <span
-                            className={isTop ? "pl-share-leg-rank is-top num" : "pl-share-leg-rank num"}
-                            aria-hidden="true"
-                          >
-                            {idx + 1}
-                          </span>
-                          <div className="min-w-0 flex-1">
-                            <div className="flex flex-wrap items-center gap-1.5">
-                              <strong className="text-xs font-extrabold truncate">{leg.label}</strong>
-                              {isTop ? (
-                                <span
-                                  className="inline-flex items-center gap-1 rounded-full px-1.5 py-0.5 text-[10px] font-extrabold"
-                                  style={{
-                                    background: "color-mix(in oklab, var(--share-card-success) 18%, transparent)",
-                                    color: "var(--share-card-success)",
-                                  }}
-                                >
-                                  <MaestroIcon name="check" size={10} />
-                                  <span>Más probable</span>
-                                </span>
-                              ) : null}
-                            </div>
-                            <span
-                              className="block text-[11px] truncate"
-                              style={{ color: "var(--share-card-muted)" }}
-                            >
-                              {leg.matchLabel}
-                            </span>
-                          </div>
-                          <div className="text-right shrink-0 num">
-                            <span
-                              className="block text-xs font-extrabold"
-                              style={{ color: isTop ? "var(--share-card-success)" : "var(--share-card-accent)" }}
-                            >
-                              {(leg.p * 100).toFixed(1)} %
-                            </span>
-                            <span
-                              className="block text-[10px]"
-                              style={{ color: "var(--share-card-muted)" }}
-                            >
-                              Justo {formatOddsValue(leg.fairDecimal, oddsFormat)}
-                            </span>
-                          </div>
-                        </li>
-                      );
-                    })}
-                  </ol>
-
-                  <div
-                    className="rounded-xl p-3 flex items-center justify-between gap-2 num"
-                    style={{
-                      background: "var(--share-card-surface)",
-                      border: "1px solid var(--share-card-accent)",
-                    }}
-                  >
-                    <div>
-                      <span
-                        className="block text-[10px] font-bold uppercase tracking-wide"
-                        style={{ color: "var(--share-card-muted)" }}
-                      >
-                        Momio justo
-                      </span>
-                      <strong className="text-base font-extrabold">
-                        {oddsFormat === "american"
-                          ? `${formatOddsValue(shareTicket.fairDecimal, "american")} (${shareTicket.fairDecimal.toFixed(2)})`
-                          : `${shareTicket.fairDecimal.toFixed(2)} (${formatOddsValue(shareTicket.fairDecimal, "american")})`}
-                      </strong>
-                    </div>
-                    <div className="text-right">
-                      <span
-                        className="block text-[10px] font-bold uppercase tracking-wide"
-                        style={{ color: "var(--share-card-muted)" }}
-                      >
-                        Probabilidad
-                      </span>
-                      <strong
-                        className="text-base font-extrabold"
-                        style={{ color: "var(--share-card-success)" }}
-                      >
-                        {(shareTicket.probability * 100).toFixed(1)} %
-                      </strong>
-                    </div>
-                  </div>
-                </div>
-              ) : revealSelection ? (
-                <div
-                  className="rounded-xl p-3.5 space-y-1.5"
-                  style={{ background: "var(--share-card-surface)" }}
-                >
-                  <div className="flex items-center justify-between text-xs">
-                    <span
-                      style={{ color: "var(--share-card-success)" }}
-                      className="font-bold inline-flex items-center gap-1.5"
-                    >
-                      <MaestroIcon name="shield" size={13} />
-                      {isTipsterPromo
-                        ? shareTicket.originBadge ?? "Pick abierto de la semana"
-                        : "Resultado final verificado"}
-                    </span>
-                    <span className="num font-extrabold">
-                      {shareTicket.units.toFixed(1)}u
-                    </span>
-                  </div>
-                  <p className="m-0 text-base font-extrabold">
-                    {shareTicket.pickLabel}
-                  </p>
-                  <p
-                    className="m-0 text-xs num"
-                    style={{ color: "var(--share-card-secondary)" }}
-                  >
-                    Probabilidad {(shareTicket.probability * 100).toFixed(1)} % · Momio{" "}
-                    {formatOddsValue(shareTicket.marketDecimal, oddsFormat)}{" "}
-                    (justo {formatOddsValue(shareTicket.fairDecimal, oddsFormat)}
-                    )
-                  </p>
-                </div>
-              ) : (
-                <div
-                  className="rounded-xl p-3.5 space-y-1.5"
-                  style={{ background: "var(--share-card-surface)" }}
-                  data-sealed-prekickoff=""
-                >
-                  <div className="flex items-center justify-between text-xs">
-                    <span
-                      style={{ color: "var(--share-card-warning)" }}
-                      className="font-bold inline-flex items-center gap-1.5"
-                    >
-                      <MaestroIcon name="lock" size={13} />
-                      Selección oculta hasta el inicio
-                    </span>
-                    <span className="num font-extrabold">
-                      {shareTicket.units.toFixed(1)}u
-                    </span>
-                  </div>
-                  <p className="m-0 text-sm font-bold">
-                    Pick registrado en PitchLab ·{" "}
-                    {(shareTicket.probability * 100).toFixed(0)} % de probabilidad
-                  </p>
-                  <p
-                    className="m-0 text-xs leading-relaxed"
-                    style={{ color: "var(--share-card-muted)" }}
-                  >
-                    La selección se muestra cuando empiece el partido.
-                  </p>
-                </div>
-              )}
+          {shareTicket.tipsterHandle ? (
+            <div
+              className="inline-flex w-fit items-center gap-1.5 rounded-full px-2.5 py-1 text-[11px] font-bold"
+              style={{
+                background: "var(--share-card-surface)",
+                color: "var(--share-card-accent)",
+              }}
+            >
+              <MaestroIcon name="crown" size={12} />
+              <span>@{shareTicket.tipsterHandle} · Perfil oficial</span>
             </div>
+          ) : null}
 
-            <div className="relative z-10 space-y-2.5 pt-4">
-              <div className="ticket-perf" />
+          <div>
+            <h3 className="m-0 text-base font-extrabold leading-snug">
+              {shareTicket.title}
+            </h3>
+            <p
+              className="m-0 text-xs mt-1 leading-relaxed"
+              style={{ color: "var(--share-card-muted)" }}
+            >
+              {shareTicket.legSummaryLabel && shareTicket.sealedAtLabel
+                ? `${shareTicket.legSummaryLabel} · ${shareTicket.sealedAtLabel}`
+                : shareTicket.subtitle}
+            </p>
+          </div>
+
+          <div className="ticket-perf pl-ticket-perf" />
+
+          {showExpandedLegs && shareTicket.legs ? (
+            <div className="space-y-2.5" data-share-multi-legs="">
+              <ol className="pl-share-legs" role="list" aria-label="Selecciones del boleto">
+                {shareTicket.legs.map((leg, idx) => {
+                  const isTop = topLegIndices.has(idx);
+                  const metrics = formatTicketLegMetrics(leg, oddsFormat);
+                  const isWonLeg = leg.status === "won";
+                  const isLostLeg = leg.status === "lost";
+                  const isPushLeg = leg.status === "push";
+                  const legClass = isWonLeg
+                    ? "pl-share-leg is-won"
+                    : isLostLeg
+                      ? "pl-share-leg is-lost"
+                      : isPushLeg
+                        ? "pl-share-leg is-push"
+                        : isTop
+                          ? "pl-share-leg is-most-likely"
+                          : "pl-share-leg";
+                  const rankClass = isWonLeg
+                    ? "pl-share-leg-rank is-won num"
+                    : isLostLeg
+                      ? "pl-share-leg-rank is-lost num"
+                      : isPushLeg
+                        ? "pl-share-leg-rank is-push num"
+                        : isTop
+                          ? "pl-share-leg-rank is-top num"
+                          : "pl-share-leg-rank num";
+                  const rightColor = isWonLeg
+                    ? "var(--share-card-success)"
+                    : isLostLeg
+                      ? "var(--share-card-danger)"
+                      : isPushLeg
+                        ? "var(--share-card-muted)"
+                        : isTop
+                          ? "var(--share-card-success)"
+                          : "var(--share-card-accent)";
+
+                  return (
+                    <li key={`${idx}-${leg.label}`} className={legClass}>
+                      <span className={rankClass} aria-hidden="true">
+                        {isWonLeg ? (
+                          <MaestroIcon name="check" size={12} />
+                        ) : isLostLeg ? (
+                          <MaestroIcon name="x" size={12} />
+                        ) : isPushLeg ? (
+                          "—"
+                        ) : (
+                          idx + 1
+                        )}
+                      </span>
+                      <div className="min-w-0 flex-1">
+                        <div className="flex flex-wrap items-center gap-1.5">
+                          <strong className="text-xs font-extrabold truncate">{leg.label}</strong>
+                          {isTop ? (
+                            <span
+                              className="inline-flex items-center gap-1 rounded-full px-1.5 py-0.5 text-[10px] font-extrabold"
+                              style={{
+                                background:
+                                  "color-mix(in oklab, var(--share-card-success) 18%, transparent)",
+                                color: "var(--share-card-success)",
+                              }}
+                            >
+                              <MaestroIcon name="check" size={10} />
+                              <span>Más probable</span>
+                            </span>
+                          ) : null}
+                        </div>
+                        <span
+                          className="block text-[11px] truncate"
+                          style={{ color: "var(--share-card-muted)" }}
+                        >
+                          {leg.matchLabel}
+                        </span>
+                      </div>
+                      <div className="text-right shrink-0 num">
+                        <span
+                          className="block text-xs font-extrabold"
+                          style={{ color: rightColor }}
+                        >
+                          {metrics.probLabel}
+                        </span>
+                        {metrics.oddsLabel ? (
+                          <span
+                            className="block text-[10px]"
+                            style={{ color: "var(--share-card-muted)" }}
+                          >
+                            {metrics.oddsLabel}
+                          </span>
+                        ) : null}
+                      </div>
+                    </li>
+                  );
+                })}
+              </ol>
+
               <div
-                className="rounded-xl px-3 py-2 flex items-center justify-between gap-2 text-xs"
-                style={{ background: "var(--share-card-surface)" }}
+                className="pl-share-summary num"
+                style={{
+                  borderColor: isSettledTicket
+                    ? resolveToneCssColor(statusInfo.tone)
+                    : "var(--share-card-accent)",
+                }}
               >
                 <div>
                   <span
-                    className="block font-extrabold"
-                    style={{ color: "var(--share-card-fg)" }}
+                    className="block text-[10px] font-bold uppercase tracking-wide"
+                    style={{ color: "var(--share-card-muted)" }}
                   >
-                    {shareTicket.promoCode
-                      ? `Código ${shareTicket.promoCode} · 5 días gratis`
-                      : "Prueba PitchLab 7 días gratis"}
+                    {isSettledTicket ? "Cuota · Stake" : "Momio justo"}
                   </span>
-                  <span style={{ color: "var(--share-card-muted)" }}>
-                    pitchlab.mx · Solo +18 · Unidades simuladas
-                  </span>
+                  <strong className="text-base font-extrabold">
+                    {isSettledTicket
+                      ? `${settledSummaryLeft} · ${shareTicket.units.toFixed(1)}u`
+                      : pendingFairValue}
+                  </strong>
                 </div>
-                <span className="num font-bold opacity-70">{watermark}</span>
+                <div className="text-right">
+                  <span
+                    className="block text-[10px] font-bold uppercase tracking-wide"
+                    style={{ color: "var(--share-card-muted)" }}
+                  >
+                    {isSettledTicket
+                      ? shareTicket.netUnits !== null && shareTicket.netUnits !== undefined
+                        ? "Balance"
+                        : "Estado"
+                      : "Probabilidad"}
+                  </span>
+                  <strong
+                    className="text-base font-extrabold"
+                    style={{
+                      color: isSettledTicket
+                        ? resolveToneCssColor(statusInfo.tone)
+                        : "var(--share-card-success)",
+                    }}
+                  >
+                    {isSettledTicket ? settledSummaryRight : pendingProbValue}
+                  </strong>
+                </div>
               </div>
             </div>
-          </div>
-
-          <div className="flex flex-wrap items-center justify-between gap-2">
-            <span
-              className="text-xs"
-              style={{ color: copyState === "error" ? "var(--pl-warning)" : "var(--pl-text-muted)" }}
-              role={copyState === "error" ? "status" : undefined}
+          ) : revealSelection ? (
+            <div
+              className="rounded-xl p-3.5 space-y-1.5"
+              style={{
+                background: "var(--share-card-surface)",
+                border: `1px solid ${resolveToneCssColor(statusInfo.tone)}`,
+              }}
             >
-              {copyState === "error"
-                ? `No se pudo acceder al portapapeles. Enlace: pitchlab.mx${sharePath}`
-                : showExpandedLegs
-                  ? "Tarjeta lista para compartir con probabilidades claras y enlace de socio."
-                  : revealSelection
-                    ? "Selección visible: el partido ya terminó o es el pick abierto de la semana."
-                    : "La selección queda oculta porque el partido aún no empieza."}
-            </span>
-            <div className="flex items-center gap-2">
-              <button
-                type="button"
-                className="pl-btn-glass min-h-11 sm:min-h-9 text-xs inline-flex items-center gap-1.5"
-                onClick={handleDownloadTicket}
+              <div className="flex items-center justify-between gap-2 text-xs">
+                <span
+                  style={{ color: resolveToneCssColor(statusInfo.tone) }}
+                  className="font-bold inline-flex items-center gap-1.5"
+                >
+                  <MaestroIcon name={statusInfo.icon} size={13} />
+                  {statusInfo.label}
+                </span>
+                <span className="num font-extrabold">
+                  {shareTicket.units.toFixed(1)}u
+                </span>
+              </div>
+              <p className="m-0 text-base font-extrabold">
+                {shareTicket.pickLabel}
+              </p>
+              <p
+                className="m-0 text-xs num"
+                style={{ color: "var(--share-card-secondary)" }}
               >
-                <MaestroIcon name="download" size={14} />
-                Descargar PNG
-              </button>
-              <button
-                type="button"
-                autoFocus
-                className="pl-btn-primary min-h-11 sm:min-h-9 text-xs inline-flex items-center gap-1.5"
-                onClick={() => void handleCopyShareLink()}
-              >
-                <MaestroIcon name={copyState === "copied" ? "check" : "copy"} size={14} />
-                {copyState === "copied"
-                  ? "Enlace copiado"
-                  : codeParam
-                    ? "Copiar enlace con código"
-                    : "Copiar enlace"}
-              </button>
+                {isSettledTicket &&
+                shareTicket.netUnits !== null &&
+                shareTicket.netUnits !== undefined
+                  ? `Cuota ${formatOddsValue(shareTicket.marketDecimal, oddsFormat)} · Balance ${formatSignedUnitsLabel(shareTicket.netUnits)}`
+                  : `Probabilidad ${pendingProbValue} · Momio ${formatOddsValue(shareTicket.marketDecimal, oddsFormat)} (justo ${formatOddsValue(shareTicket.fairDecimal, oddsFormat)})`}
+              </p>
             </div>
+          ) : (
+            <div
+              className="rounded-xl p-3.5 space-y-1.5"
+              style={{
+                background: "var(--share-card-surface)",
+                border: "1px solid var(--share-card-border)",
+              }}
+              data-sealed-prekickoff=""
+            >
+              <div className="flex items-center justify-between gap-2 text-xs">
+                <span
+                  style={{ color: "var(--share-card-warning)" }}
+                  className="font-bold inline-flex items-center gap-1.5"
+                >
+                  <MaestroIcon name="lock" size={13} />
+                  Selección protegida
+                </span>
+                <span className="num font-extrabold">
+                  {shareTicket.units.toFixed(1)}u
+                </span>
+              </div>
+              <p className="m-0 text-sm font-bold">
+                Pick registrado en PitchLab · {(shareTicket.probability * 100).toFixed(0)} % de probabilidad
+              </p>
+              <p
+                className="m-0 text-xs leading-relaxed"
+                style={{ color: "var(--share-card-muted)" }}
+              >
+                Visible automáticamente al arranque.
+              </p>
+            </div>
+          )}
+
+          {aspect === "9:16" && (shareTicket.bookLabel || shareTicket.sealedAtLabel) ? (
+            <div
+              className="flex items-center justify-between gap-2 px-3 py-2 rounded-xl text-[11px] num"
+              style={{
+                background: "var(--share-card-surface)",
+                color: "var(--share-card-secondary)",
+              }}
+            >
+              <span>{shareTicket.bookLabel ? `Casa · ${shareTicket.bookLabel}` : "Registro PitchLab"}</span>
+              <span>{shareTicket.sealedAtLabel ?? `${shareTicket.units.toFixed(1)}u`}</span>
+            </div>
+          ) : null}
+
+          <div className="ticket-perf pl-ticket-perf" />
+
+          <div className="pl-share-footer-card">
+            <div className="flex items-center justify-between gap-2">
+              <span
+                className="font-extrabold truncate"
+                style={{ color: "var(--share-card-fg)" }}
+              >
+                {shareTicket.promoCode
+                  ? `Código ${shareTicket.promoCode} · 5 días gratis`
+                  : "Prueba PitchLab 7 días gratis"}
+              </span>
+              <span className="num font-bold whitespace-nowrap shrink-0 text-[10px] opacity-80">
+                {watermark}
+              </span>
+            </div>
+            <span className="block mt-0.5 text-[11px]" style={{ color: "var(--share-card-muted)" }}>
+              pitchlab.mx · Solo +18 · Unidades simuladas
+            </span>
+          </div>
+        </div>
+
+        <div className="flex flex-wrap items-center justify-between gap-2.5 pt-1">
+          <span
+            className="text-xs"
+            style={{ color: copyState === "error" ? "var(--pl-warning)" : "var(--pl-text-muted)" }}
+            role={copyState === "error" ? "status" : undefined}
+          >
+            {copyState === "error"
+              ? `No se pudo acceder al portapapeles. Enlace: pitchlab.mx${sharePath}`
+              : copyState === "copied"
+                ? "Enlace copiado al portapapeles."
+                : "Formato 4:5 o 9:16 listo para compartir."}
+          </span>
+          <div className="flex flex-wrap items-center gap-2">
+            <button
+              type="button"
+              className="pl-btn-glass min-h-11 sm:min-h-9 text-xs inline-flex items-center gap-1.5"
+              onClick={handleDownloadTicket}
+            >
+              <MaestroIcon name="download" size={14} />
+              Descargar PNG
+            </button>
+            <button
+              type="button"
+              autoFocus
+              className="pl-btn-primary min-h-11 sm:min-h-9 text-xs inline-flex items-center gap-1.5"
+              onClick={() => void handleCopyShareLink()}
+            >
+              <MaestroIcon name={copyState === "copied" ? "check" : "copy"} size={14} />
+              {copyState === "copied"
+                ? "Enlace copiado"
+                : codeParam
+                  ? "Copiar enlace con código"
+                  : "Copiar enlace"}
+            </button>
           </div>
         </div>
       </div>

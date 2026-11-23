@@ -33,6 +33,7 @@ import {
 import { MaestroIcon } from "../../components/MaestroPrimitives";
 import { SportEventIcon } from "../../components/SportEventIcons";
 import { useAbortableJson, useMediaQuery, useSafeEffect } from "../../hooks";
+import { LiveScoreTelemetry } from "../../live/LiveScoreTelemetry";
 import { MomentumChart } from "../../live/live-charts";
 import { useLiveMatch } from "../../live/live-store";
 import { sanitizeInternalHref, setActiveSharedTransition } from "../../navigation-helpers";
@@ -1451,6 +1452,13 @@ export function HomeMatchDetailPanel({
                     "Finalizado"
                   )}
                 </span>
+                {live && liveDetail ? (
+                  <LiveScoreTelemetry
+                    stats={liveDetail.stats}
+                    shotmapSummary={liveDetail.shotmapSummary}
+                    compact
+                  />
+                ) : null}
               </>
             ) : (
               <>

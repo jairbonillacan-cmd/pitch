@@ -1636,7 +1636,6 @@ dialog.pl-native-dialog .glass-lens {
   }
 }
 
-/* Boleto oscuro de compartir 4:5 / 9:16 (consistente aún en tema claro) */
 .share-ticket-card {
   color-scheme: only dark;
   --text-primary: var(--share-card-fg);
@@ -1657,9 +1656,11 @@ dialog.pl-native-dialog .glass-lens {
   --pl-info: var(--share-card-accent);
   --pl-success: var(--share-card-success);
   --pl-warning: var(--share-card-warning);
+  --pl-danger: var(--share-card-danger);
   --pl-pill-brand-fg: var(--share-card-accent);
   --pl-pill-success-fg: var(--share-card-success);
   --pl-pill-warning-fg: var(--share-card-warning);
+  --pl-pill-danger-fg: var(--share-card-danger);
   --pl-pill-info-fg: var(--share-card-accent);
   --pl-btn-primary-bg: var(--share-card-fg);
   --pl-btn-primary-fg: var(--share-card-bg);
@@ -1671,6 +1672,47 @@ dialog.pl-native-dialog .glass-lens {
   border-radius: 20px;
   position: relative;
   overflow: hidden;
+}
+
+.pl-share-modal {
+  display: grid;
+  gap: 14px;
+  padding: 20px;
+}
+
+.pl-share-ticket {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  width: 100%;
+  max-width: 392px;
+  margin-inline: auto;
+  padding: 20px;
+}
+
+.pl-share-ticket.is-tall {
+  max-width: 324px;
+  padding: 22px 18px;
+  gap: 13px;
+}
+
+.pl-share-summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 11px 13px;
+  border-radius: 14px;
+  background: var(--share-card-surface);
+  border: 1px solid var(--share-card-accent);
+}
+
+.pl-share-footer-card {
+  border-radius: 13px;
+  padding: 10px 12px;
+  background: var(--share-card-surface);
+  border: 1px solid var(--share-card-border);
+  font-size: 12px;
 }
 
 .share-ticket-card h1,
@@ -11734,20 +11776,27 @@ dialog.pl-native-dialog.pl-home-fmodal-dialog[open] {
   margin: 0;
   padding: 0;
   display: grid;
-  gap: 6px;
+  gap: 7px;
 }
 .pl-share-leg {
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 9px;
   padding: 8px 10px;
   border-radius: 12px;
   background: var(--share-card-surface);
-  box-shadow: inset 0 0 0 1px var(--share-card-border);
+  border: 1px solid var(--share-card-border);
   min-width: 0;
 }
-.pl-share-leg.is-most-likely {
-  box-shadow: inset 0 0 0 1px color-mix(in oklab, var(--share-card-success) 52%, var(--share-card-border));
+.pl-share-leg.is-most-likely,
+.pl-share-leg.is-won {
+  border-color: color-mix(in oklab, var(--share-card-success) 56%, var(--share-card-border));
+}
+.pl-share-leg.is-lost {
+  border-color: color-mix(in oklab, var(--share-card-danger) 56%, var(--share-card-border));
+}
+.pl-share-leg.is-push {
+  border-color: var(--share-card-border);
 }
 .pl-share-leg-rank {
   width: 22px;
@@ -11761,9 +11810,18 @@ dialog.pl-native-dialog.pl-home-fmodal-dialog[open] {
   background: var(--share-card-border);
   color: var(--share-card-fg);
 }
-.pl-share-leg-rank.is-top {
+.pl-share-leg-rank.is-top,
+.pl-share-leg-rank.is-won {
   background: color-mix(in oklab, var(--share-card-success) 24%, transparent);
   color: var(--share-card-success);
+}
+.pl-share-leg-rank.is-lost {
+  background: color-mix(in oklab, var(--share-card-danger) 24%, transparent);
+  color: var(--share-card-danger);
+}
+.pl-share-leg-rank.is-push {
+  background: var(--share-card-border);
+  color: var(--share-card-muted);
 }
 .pl-daily-empty {
   border-radius: 16px;
@@ -12349,6 +12407,9 @@ dialog.pl-native-dialog.pl-home-fmodal-dialog[open] {
   line-height: 1.05;
   letter-spacing: -0.025em;
   color: var(--pl-text);
+}
+.pl-match-hero-score.is-live {
+  color: var(--pl-danger);
 }
 .pl-match-hero-score--proj {
   font-size: clamp(1.3rem, 2.3vw, 1.75rem);

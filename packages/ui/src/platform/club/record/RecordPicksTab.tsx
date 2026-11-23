@@ -1036,32 +1036,134 @@ export function RecordPicksTab({
   );
 
   const openTicketAction = useCallback(
-    (entry: JournalEntry, isParlay: boolean, displayMatchLabel: string, displayPickLabel: string) => {
+    (input: {
+      entry: JournalEntry;
+      isParlay: boolean;
+      displayMatchLabel: string;
+      displayPickLabel: string;
+      legs: readonly ResolvedLegDisplay[];
+      auditStatus: AuditPickStatus;
+      netUnits: number | null;
+      bookLabel: string | null;
+      linkedGame?: PlatformGame;
+    }) => {
+      const {
+        entry,
+        isParlay,
+        displayMatchLabel,
+        displayPickLabel,
+        legs,
+        auditStatus,
+        netUnits,
+        bookLabel,
+        linkedGame,
+      } = input;
+      const mappedParlayLegs =
+        isParlay && legs.length > 0
+          ? legs.map((leg) => ({
+              gameId: leg.gameId ?? "",
+              pickId: leg.pickId ?? leg.key,
+              leagueLabel: leg.leagueLabel,
+              matchLabel: leg.scoreLabel
+                ? `${leg.shortMatchLabel} · FT ${leg.scoreLabel}`
+                : leg.shortMatchLabel,
+              pickLabel: leg.pickLabel,
+              p: leg.p ?? undefined,
+              fairDecimal: leg.fairDecimal ?? undefined,
+            }))
+          : entry.parlayLegs;
+      const uniqueLegLeagues = Array.from(
+        new Set(legs.map((leg) => leg.leagueLabel.trim()).filter(Boolean)),
+      );
+      const resolvedLeagueLabel =
+        isParlay && uniqueLegLeagues.length > 1
+          ? "Multi-Liga"
+          : isParlay && uniqueLegLeagues.length === 1
+            ? uniqueLegLeagues[0]!
+            : entry.leagueLabel;
+      const resolvedMatchLabel = isParlay
+        ? `Parlay · ${Math.max(legs.length, 2)} selecciones`
+        : displayMatchLabel;
       const normalizedEntry: JournalEntry = {
         ...entry,
-        matchLabel: displayMatchLabel,
+        leagueLabel: resolvedLeagueLabel,
+        matchLabel: resolvedMatchLabel,
         pickLabel: displayPickLabel,
+        pickKind: isParlay ? "parlay" : entry.pickKind,
+        parlayLegs: mappedParlayLegs,
         note: sanitizeJournalDisplayNote(entry.note) ?? undefined,
       };
       if (entry.status === "won") {
         onOpenWinningEntry(normalizedEntry);
         return;
       }
+      const wonLegs = legs.filter((leg) => leg.status === "won").length;
+      const safeFair =
+        Number.isFinite(entry.fairDecimal) && entry.fairDecimal > 1 ? entry.fairDecimal : 2;
+      const rawProb = Math.min(0.95, Math.max(0.01, 1 / safeFair));
+      const anyLiveGame =
+        linkedGame?.status === "LIVE" ||
+        legs.some((leg) => (leg.gameId ? gameById.get(leg.gameId)?.status === "LIVE" : false));
+      const resolvedGameStatus: "NS" | "FT" | "LIVE" =
+        auditStatus !== "pending" ? "FT" : anyLiveGame ? "LIVE" : "NS";
+
+      if (isParlay && legs.length > 0) {
+        onOpenShareTicket({
+          kind: "parlay",
+          title: `Parlay · ${legs.length} selecciones`,
+          subtitle:
+            auditStatus === "lost"
+              ? "Parlay liquidado · Mi récord PitchLab"
+              : auditStatus === "push"
+                ? "Parlay empatado · Mi récord PitchLab"
+                : "Combinada sellada · Mi récord PitchLab",
+          leagueLabel: resolvedLeagueLabel,
+          pickLabel: displayPickLabel,
+          legs: legs.map((leg) => ({
+            label: leg.pickLabel,
+            matchLabel: leg.scoreLabel
+              ? `${leg.shortMatchLabel} · FT ${leg.scoreLabel}`
+              : leg.shortMatchLabel,
+            p: leg.p,
+            fairDecimal: leg.fairDecimal,
+            status: leg.status,
+            scoreLabel: leg.scoreLabel,
+          })),
+          revealLegs: true,
+          settlementStatus: auditStatus,
+          netUnits,
+          bookLabel,
+          sealedAtLabel: entry.sealedAt,
+          legSummaryLabel: `${wonLegs}/${legs.length} cumplidas`,
+          probability: rawProb,
+          fairDecimal: safeFair,
+          marketDecimal: entry.userDecimal,
+          units: entry.units,
+          gameStatus: resolvedGameStatus,
+          pickSlug: entry.pickId,
+        });
+        return;
+      }
+
       onOpenShareTicket({
-        kind: isParlay ? "parlay" : "pick",
+        kind: "pick",
         title: displayMatchLabel,
         subtitle: `${entry.leagueLabel} · Mi récord PitchLab`,
         leagueLabel: entry.leagueLabel,
         pickLabel: displayPickLabel,
-        probability: Math.min(0.88, Math.max(0.05, 1 / entry.fairDecimal)),
-        fairDecimal: entry.fairDecimal,
+        settlementStatus: auditStatus,
+        netUnits,
+        bookLabel,
+        sealedAtLabel: entry.sealedAt,
+        probability: rawProb,
+        fairDecimal: safeFair,
         marketDecimal: entry.userDecimal,
         units: entry.units,
-        gameStatus: entry.status === "pending" ? "NS" : "FT",
+        gameStatus: resolvedGameStatus,
         pickSlug: entry.pickId,
       });
     },
-    [onOpenShareTicket, onOpenWinningEntry],
+    [gameById, onOpenShareTicket, onOpenWinningEntry],
   );
 
   const handleConfirmClearWatchlist = useCallback(() => {
@@ -1693,12 +1795,17 @@ export function RecordPicksTab({
                                 size="sm"
                                 aria-label={`Compartir boleto ${displayPickLabel}`}
                                 onClick={() =>
-                                  openTicketAction(
-                                    item,
+                                  openTicketAction({
+                                    entry: item,
                                     isParlay,
                                     displayMatchLabel,
                                     displayPickLabel,
-                                  )
+                                    legs,
+                                    auditStatus,
+                                    netUnits,
+                                    bookLabel,
+                                    linkedGame,
+                                  })
                                 }
                               >
                                 <MaestroIcon name="share" size={13} />

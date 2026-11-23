@@ -18,6 +18,7 @@ import {
   MomentumChart,
   computeStatBarWidths,
 } from "../src/platform/live/live-charts";
+import { LiveScoreTelemetry } from "../src/platform/live/LiveScoreTelemetry";
 import {
   MatchHeroScoreboard,
   MatchLeftRail,
@@ -303,5 +304,41 @@ describe("ADR-054 · Barras estadísticas planas, métricas negativas, iconos y 
     expect(html).toContain("pl-live-now-line");
     expect(html).toContain("pl-live-now-dot");
     expect(html).toContain("pl-live-goal");
+  });
+
+  it("LiveScoreTelemetry renderiza xG, tiros a puerta y posesión con SVGs accesibles y omite métricas faltantes sin inventar ceros", () => {
+    const fullHtml = renderToStaticMarkup(
+      <LiveScoreTelemetry
+        stats={{
+          home: { ...EMPTY_STATS, xg: 0.19, shotsOnTarget: 6, possessionPct: 28 },
+          away: { ...EMPTY_STATS, xg: 0.93, shotsOnTarget: 6, possessionPct: 72 },
+        }}
+      />,
+    );
+    expect(fullHtml).toContain("data-live-telemetry");
+    expect(fullHtml).toContain("0.19");
+    expect(fullHtml).toContain("0.93");
+    expect(fullHtml).toContain("xG");
+    expect(fullHtml).toContain("28%");
+    expect(fullHtml).toContain("72%");
+    expect(fullHtml).toContain('aria-hidden="true"');
+    expect(fullHtml).not.toMatch(/#[0-9a-fA-F]{3,6}\b/);
+
+    const partialHtml = renderToStaticMarkup(
+      <LiveScoreTelemetry
+        stats={{
+          home: { ...EMPTY_STATS, shotsOnTarget: 4 },
+          away: { ...EMPTY_STATS, shotsOnTarget: 2 },
+        }}
+        shotmapSummary={{ xgHome: 0.44, xgAway: 0.31, shotsHome: 5, shotsAway: 3 }}
+      />,
+    );
+    expect(partialHtml).toContain("0.44");
+    expect(partialHtml).toContain("0.31");
+    expect(partialHtml).toContain('data-telemetry-metric="sot"');
+    expect(partialHtml).not.toContain('data-telemetry-metric="possession"');
+
+    const emptyHtml = renderToStaticMarkup(<LiveScoreTelemetry stats={null} />);
+    expect(emptyHtml).toBe("");
   });
 });

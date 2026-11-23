@@ -2,6 +2,7 @@ import React from "react";
 import type { LiveMatchDetail, LiveScoreboard, LiveScoreboardEntry } from "@pitchlab/contracts";
 import { asLeagueId } from "@pitchlab/contracts";
 import { FollowControl, LiveMatchPanelView, LiveScoreboardView } from "./live/LiveMatchCenter";
+import { LiveScoreTelemetry } from "./live/LiveScoreTelemetry";
 import {
   STORY_BROADCASTS_MX,
   STORY_COMMENTARY,
@@ -12,9 +13,6 @@ import {
 import { buildPlatformDataset } from "./match-picks-engine";
 import { PlatformProvider } from "./platform-provider";
 import type { PlatformGame } from "./types";
-
-/* Ejemplos para Storybook (EN-VIVO-1). Las cifras del partido vienen de un partido real de otra
-   liga con equipos y jugadores sustituidos; los marcadores del día son ilustrativos. */
 
 const team = (slug: string, name: string, shortName: string, code: string) => ({ slug, name, shortName, code, record: "" });
 
@@ -207,3 +205,31 @@ export const Siguiendo = {
   ),
 };
 export const SiguiendoClaro = { ...Siguiendo, ...light };
+
+export const TelemetriaEnVivo = {
+  render: () => (
+    <Stage width={360}>
+      <div className="pl-live-score-center">
+        <strong className="pl-live-score-value num is-live">0 – 1</strong>
+        <span className="pl-live-score-clock num">54:16</span>
+        <LiveScoreTelemetry
+          stats={{
+            home: {
+              ...STORY_STATS.stats!.home,
+              xg: 0.19,
+              shotsOnTarget: 6,
+              possessionPct: 28,
+            },
+            away: {
+              ...STORY_STATS.stats!.away,
+              xg: 0.93,
+              shotsOnTarget: 6,
+              possessionPct: 72,
+            },
+          }}
+        />
+      </div>
+    </Stage>
+  ),
+};
+export const TelemetriaEnVivoClaro = { ...TelemetriaEnVivo, ...light };
