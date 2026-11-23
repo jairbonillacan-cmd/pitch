@@ -413,7 +413,8 @@ describe("spacetime-v6 · Artefactos runtime y cobertura 53 ligas de fútbol", (
       expect(row.fairDecimal).toBeGreaterThanOrEqual(1.01);
       expect(row.fairDecimal).toBeLessThanOrEqual(100);
     }
-    expect(extremeFavDetail!.outlook.mostLikely.fairDecimal).toBeGreaterThanOrEqual(1.01);
+    expect(extremeFavDetail!.outlook.mostLikely).not.toBeNull();
+    expect(extremeFavDetail!.outlook.mostLikely!.fairDecimal).toBeGreaterThanOrEqual(1.01);
 
     const extremeFavMatch = makeNonV3SoccerMatch("premier-league", "Premier League", {
       home: {

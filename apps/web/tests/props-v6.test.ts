@@ -1097,6 +1097,7 @@ describe("Spacetime v6.0 Props Engine · Lossless US normalization, Hard Block, 
 
     const streakCards = loadPlayerPropStreakCards(48);
     for (const card of streakCards) {
+      if (!card.teamSlug) continue;
       const injMap = readLeagueInjuriesMap(root, String(card.league));
       const hit = injMap.get(`${cleanTeamRouteSlug(card.teamSlug)}|${normalizePlayerToken(card.playerName)}`);
       expect(isHardBlockedAvailabilityV6(null, hit?.status)).toBe(false);

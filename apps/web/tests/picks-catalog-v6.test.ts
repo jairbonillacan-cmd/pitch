@@ -395,6 +395,14 @@ function makeUsGame(
     confidenceScore: 74,
     confidenceLevel: "alta",
     picks: [],
+    preGame: {
+      cortexSynthesis: "",
+      tacticalKeys: [],
+      lineupStatusLabel: "XI probable",
+      lineupsConfirmed60m: false,
+      absences: [],
+      moneyFlow: null,
+    },
     markets: [],
     factors: [],
     headToHead: [],
@@ -757,7 +765,15 @@ describe("picks-catalog Spacetime v6.0 · Props acoplados, atajadas de portero, 
         lineupStatusLabel: "XI probable",
         lineupsConfirmed60m: false,
         matchContext: { referee: "Michael Oliver" },
-        absences: [{ teamSide: "home", player: "Mohamed Salah", status: "Baja" }],
+        absences: [
+          {
+            teamSide: "home",
+            player: "Mohamed Salah",
+            role: "FWD",
+            status: "Baja",
+            impactNote: "Baja confirmada",
+          },
+        ],
         moneyFlow: null,
       },
     });
@@ -1460,7 +1476,15 @@ describe("picks-catalog Spacetime v6.0 · Regresiones Error-Driven Block 4A (pst
         lineupStatusLabel: "XI probable",
         lineupsConfirmed60m: false,
         matchContext: { referee: "Michael Oliver" },
-        absences: [{ teamSide: "home", player: "Mohamed Salah", status: "Baja" }],
+        absences: [
+          {
+            teamSide: "home",
+            player: "Mohamed Salah",
+            role: "FWD",
+            status: "Baja",
+            impactNote: "Baja confirmada",
+          },
+        ],
         moneyFlow: null,
       },
     });

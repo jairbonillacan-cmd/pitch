@@ -4012,7 +4012,7 @@ export function evaluateServerBetBuilderSgpV6(
     }
   }
 
-  const bbEval = evaluateBetBuilder(accepted, rawOffer);
+  const bbEval = evaluateBetBuilder(accepted, { offeredBookDecimal: rawOffer });
   const boundedJoint = round4(clamp(bbEval.jointProbability, lowerBound, upperBound));
   const safeFair = Math.max(1.01, round2(1 / Math.max(0.0005, boundedJoint)));
   const offer = evaluatePermittedSgpOffer({

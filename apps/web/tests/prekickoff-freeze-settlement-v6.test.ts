@@ -98,7 +98,7 @@ vi.mock("@pitchlab/db", async (importOriginal) => {
     ) =>
       mockFrozenDbState.enabled
         ? mockFrozenDbState.upsertReturned
-        : actual.getOrFreezeMatchMainPick(dbArg, input, nowArg),
+        : actual.getOrFreezeMatchMainPick(dbArg, input, nowArg ?? new Date()),
   };
 });
 
