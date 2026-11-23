@@ -33,11 +33,8 @@ import {
   formatEpochMsUtc,
   parseIsoUtcEpochMs,
   projectMultiSportMatchupFromStateV60,
-  projectSoccer57MatchV60,
   sealPreKickoffOutlookV6,
-  type CompetitionSpecV60,
-  type CompetitionStatusV60,
-  type ConfederationGroupV60,
+  sha256Hex,
   type MultiSportLeagueV60,
   type MultiSportModelArtifactV60,
   type PostWalkforwardTeamStateV60,
@@ -46,10 +43,8 @@ import {
   type SealPreKickoffOutcomeV6,
   type SealedPreKickoffRecordV6,
   type SnapshotCausalityObservationV6,
-  type Soccer57ModelArtifactV60,
 } from "@pitchlab/spacetime/v6";
 import multisportArtifactJson from "@pitchlab/spacetime/data/model_multisport_v6_0_candidate.json";
-import soccer57ArtifactJson from "@pitchlab/spacetime/data/model_soccer_57_v6_0_candidate.json";
 import {
   getBzzoiroLeagueEmblemUrl,
   getBzzoiroTeamEmblemUrl,
@@ -91,24 +86,8 @@ function isMultiSportLeagueV60(raw: string): raw is MultiSportLeagueV60 {
   return raw === "mlb" || raw === "nhl" || raw === "nba" || raw === "nfl";
 }
 
-function toConfederationGroupV60(raw: string): ConfederationGroupV60 {
-  if (
-    raw === "UEFA_TOP" ||
-    raw === "UEFA_SECOND_AND_CUPS" ||
-    raw === "CONMEBOL_LEAGUE_AND_CUPS" ||
-    raw === "CONCACAF_AND_MX" ||
-    raw === "AFC_CAF_EXPANSION" ||
-    raw === "INTERNATIONAL_NATIONAL_TEAMS"
-  ) {
-    return raw;
-  }
-  return "INTERNATIONAL_NATIONAL_TEAMS";
-}
-
-function toCompetitionStatusV60(raw: string): CompetitionStatusV60 {
-  return raw === "causal_walk_forward_2026_active"
-    ? "causal_walk_forward_2026_active"
-    : "confederation_prior_zero_2026_games";
+function isPlainRecord(value: unknown): value is Record<string, unknown> {
+  return typeof value === "object" && value !== null && !Array.isArray(value);
 }
 
 function buildNarrowedMultiSportArtifactV6(): MultiSportModelArtifactV60 {
@@ -170,68 +149,14 @@ function buildNarrowedMultiSportArtifactV6(): MultiSportModelArtifactV60 {
   };
 }
 
-function buildNarrowedSoccer57ArtifactV6(): Soccer57ModelArtifactV60 {
-  const competitions: Record<string, CompetitionSpecV60> = {};
-  for (const [leagueKey, spec] of Object.entries(soccer57ArtifactJson.competitions)) {
-    competitions[leagueKey] = {
-      confederation_group: toConfederationGroupV60(spec.confederation_group),
-      is_cup: spec.is_cup,
-      pre2025_goal_prior: spec.pre2025_goal_prior,
-      confederation_goal_prior: spec.confederation_goal_prior,
-      rho_prior: spec.rho_prior,
-      dispersion_r: spec.dispersion_r,
-      games_2026: spec.games_2026,
-      mean_raw_goals_2026:
-        typeof spec.mean_raw_goals_2026 === "number" ? spec.mean_raw_goals_2026 : null,
-      ewm_goals_2026: spec.ewm_goals_2026,
-      causal_env_goals_final: spec.causal_env_goals_final,
-      competition_status: toCompetitionStatusV60(spec.competition_status),
-    };
-  }
-  const winProt = soccer57ArtifactJson.holdout_window_protected;
-  return {
-    schema_version: soccer57ArtifactJson.schema_version,
-    codename: soccer57ArtifactJson.codename,
-    version: soccer57ArtifactJson.version,
-    status: toArtifactStatusV6(soccer57ArtifactJson.status),
-    production_activated: soccer57ArtifactJson.production_activated,
-    holdout_cut_utc: soccer57ArtifactJson.holdout_cut_utc,
-    holdout_window_protected: [winProt[0] ?? "2025-02-02", winProt[1] ?? "2026-11-08"] as const,
-    holdout_sealed_untouched: soccer57ArtifactJson.holdout_sealed_untouched,
-    hyperparameter_tuning_on_holdout: soccer57ArtifactJson.hyperparameter_tuning_on_holdout,
-    non_football_leagues_excluded: soccer57ArtifactJson.non_football_leagues_excluded,
-    total_platform_leagues: soccer57ArtifactJson.total_platform_leagues,
-    total_football_competitions: soccer57ArtifactJson.total_football_competitions,
-    confederation_groups: {
-      UEFA_TOP: soccer57ArtifactJson.confederation_groups.UEFA_TOP,
-      UEFA_SECOND_AND_CUPS: soccer57ArtifactJson.confederation_groups.UEFA_SECOND_AND_CUPS,
-      CONMEBOL_LEAGUE_AND_CUPS:
-        soccer57ArtifactJson.confederation_groups.CONMEBOL_LEAGUE_AND_CUPS,
-      CONCACAF_AND_MX: soccer57ArtifactJson.confederation_groups.CONCACAF_AND_MX,
-      AFC_CAF_EXPANSION: soccer57ArtifactJson.confederation_groups.AFC_CAF_EXPANSION,
-      INTERNATIONAL_NATIONAL_TEAMS:
-        soccer57ArtifactJson.confederation_groups.INTERNATIONAL_NATIONAL_TEAMS,
-    },
-    confederation_priors: {
-      UEFA_TOP: soccer57ArtifactJson.confederation_priors.UEFA_TOP,
-      UEFA_SECOND_AND_CUPS: soccer57ArtifactJson.confederation_priors.UEFA_SECOND_AND_CUPS,
-      CONMEBOL_LEAGUE_AND_CUPS:
-        soccer57ArtifactJson.confederation_priors.CONMEBOL_LEAGUE_AND_CUPS,
-      CONCACAF_AND_MX: soccer57ArtifactJson.confederation_priors.CONCACAF_AND_MX,
-      AFC_CAF_EXPANSION: soccer57ArtifactJson.confederation_priors.AFC_CAF_EXPANSION,
-      INTERNATIONAL_NATIONAL_TEAMS:
-        soccer57ArtifactJson.confederation_priors.INTERNATIONAL_NATIONAL_TEAMS,
-    },
-    prekickoff_recalibration: soccer57ArtifactJson.prekickoff_recalibration,
-    venn_abers_playable_calibrator: soccer57ArtifactJson.venn_abers_playable_calibrator,
-    competitions,
-  };
-}
-
 const MULTISPORT_ARTIFACT_V6: MultiSportModelArtifactV60 = buildNarrowedMultiSportArtifactV6();
-const SOCCER_57_ARTIFACT_V6: Soccer57ModelArtifactV60 = buildNarrowedSoccer57ArtifactV6();
+const MULTISPORT_ARTIFACT_NO_NBA_INJURIES_V6: MultiSportModelArtifactV60 = {
+  ...MULTISPORT_ARTIFACT_V6,
+  nba_active_injuries_2026: undefined,
+};
 
 const preKickoffSealLedger = new Map<string, SealedPreKickoffRecordV6>();
+let preKickoffSealLedgerVersion = 0;
 const leagueCausalityAuditCache = new Map<string, PreKickoffCausalityAuditReportV6>();
 
 function resolveMultiSportAliasSafe(
@@ -250,14 +175,6 @@ function resolveMultiSportAliasSafe(
   return stMap && stMap[`${sport}::${code}`] ? code : null;
 }
 
-function causalPreKickoffAnchorUtc(kickoffMs: number): string {
-  const koDate = new Date(kickoffMs);
-  const prevDayEndMs =
-    Date.UTC(koDate.getUTCFullYear(), koDate.getUTCMonth(), koDate.getUTCDate(), 0, 0, 0) - 1000;
-  const anchorMs = Math.min(prevDayEndMs, kickoffMs - 1000);
-  return formatEpochMsUtc(anchorMs);
-}
-
 function buildMultiSportCausalBackfillV6(params: {
   readonly sport: MultiSportLeagueV60;
   readonly homeTeam: string;
@@ -271,16 +188,50 @@ function buildMultiSportCausalBackfillV6(params: {
   const aCode = resolveMultiSportAliasSafe(params.sport, params.awayTeam);
   if (!hCode || !aCode) return null;
 
+  const stMap = MULTISPORT_ARTIFACT_V6.teams_post_walkforward_state_2026;
+  const hSt = stMap?.[`${params.sport}::${hCode}`];
+  const aSt = stMap?.[`${params.sport}::${aCode}`];
+  if (!hSt || !aSt) return null;
+  if (typeof hSt.last_game_date !== "string" || typeof aSt.last_game_date !== "string") {
+    return null;
+  }
+
+  const gameDate = formatEpochMsUtc(kickoffMs).slice(0, 10);
+  if (!(hSt.last_game_date < gameDate && aSt.last_game_date < gameDate)) {
+    return null;
+  }
+
+  const latestStateDate =
+    hSt.last_game_date >= aSt.last_game_date ? hSt.last_game_date : aSt.last_game_date;
+  const stateInputsMs = parseIsoUtcEpochMs(`${latestStateDate}T23:59:59.000Z`);
+  if (stateInputsMs === null || stateInputsMs > kickoffMs) {
+    return null;
+  }
+
+  let effectiveArtifact = MULTISPORT_ARTIFACT_V6;
+  let effectiveInputsMs = stateInputsMs;
+  if (params.sport === "nba") {
+    const injObsMs = MULTISPORT_ARTIFACT_V6.nba_active_injuries_observed_at_utc
+      ? parseIsoUtcEpochMs(MULTISPORT_ARTIFACT_V6.nba_active_injuries_observed_at_utc)
+      : null;
+    if (injObsMs !== null && injObsMs <= kickoffMs) {
+      effectiveInputsMs = Math.max(stateInputsMs, injObsMs);
+    } else {
+      effectiveArtifact = MULTISPORT_ARTIFACT_NO_NBA_INJURIES_V6;
+    }
+  }
+
+  const inputsAsOfUtc = formatEpochMsUtc(effectiveInputsMs);
+
   try {
     const out = projectMultiSportMatchupFromStateV60({
       sport: params.sport,
       homeTeam: hCode,
       awayTeam: aCode,
-      gameDate: formatEpochMsUtc(kickoffMs).slice(0, 10),
+      gameDate,
       neutralSite: params.neutralSite ?? false,
-      artifact: MULTISPORT_ARTIFACT_V6,
+      artifact: effectiveArtifact,
     });
-    const inputsAsOfUtc = causalPreKickoffAnchorUtc(kickoffMs);
 
     if (out.sport === "nhl") {
       const homeProj = out.expected_goals_home_full;
@@ -341,58 +292,6 @@ function buildMultiSportCausalBackfillV6(params: {
         away: awayProj,
         total: totalProj,
         margin: marginProj,
-      },
-    };
-  } catch (err) {
-    void err;
-    return null;
-  }
-}
-
-function buildSoccer57CausalBackfillV6(params: {
-  readonly league: string;
-  readonly homeTeamId: string;
-  readonly awayTeamId: string;
-  readonly kickoffUtc: string;
-  readonly neutralSite?: boolean;
-  readonly teamRates?: LeagueSnapshot["teamRates"];
-}): PreKickoffAnalysisPayloadV6 | null {
-  const kickoffMs = parseIsoUtcEpochMs(params.kickoffUtc);
-  if (kickoffMs === null) return null;
-  const compSpec = SOCCER_57_ARTIFACT_V6.competitions[params.league];
-  if (!compSpec) return null;
-
-  const envGoals = compSpec.causal_env_goals_final;
-  const halfEnv = 0.5 * envGoals;
-  const homeRate = params.teamRates?.[params.homeTeamId];
-  const awayRate = params.teamRates?.[params.awayTeamId];
-  try {
-    const out = projectSoccer57MatchV60({
-      league: params.league,
-      homeElo: 1500,
-      awayElo: 1500,
-      homeAttEwm: homeRate?.adjustedFor ?? homeRate?.forPerGame ?? halfEnv,
-      homeDefEwm: homeRate?.adjustedAgainst ?? homeRate?.againstPerGame ?? halfEnv,
-      homeGames: homeRate?.gamesPlayed ?? 0,
-      awayAttEwm: awayRate?.adjustedFor ?? awayRate?.forPerGame ?? halfEnv,
-      awayDefEwm: awayRate?.adjustedAgainst ?? awayRate?.againstPerGame ?? halfEnv,
-      awayGames: awayRate?.gamesPlayed ?? 0,
-      leagueEnvGoals: envGoals,
-      neutralSite: Boolean(params.neutralSite),
-      artifact: SOCCER_57_ARTIFACT_V6,
-    });
-    return {
-      inputsAsOfUtc: causalPreKickoffAnchorUtc(kickoffMs),
-      probabilities: {
-        pHome: out.markets["1x2"].home,
-        pDraw: out.markets["1x2"].draw,
-        pAway: out.markets["1x2"].away,
-        pOver25: out.markets.totals_2_5.over,
-      },
-      projection: {
-        home: out.muHome,
-        away: out.muAway,
-        total: out.muHome + out.muAway,
       },
     };
   } catch (err) {
@@ -574,40 +473,496 @@ function applySealedRecordToMatch(
 const DATED_SNAPSHOT_RE = /^\d{4}-\d{2}-\d{2}\.json$/;
 const MAX_HISTORICAL_SNAPSHOTS_FOR_RESCUE = 8;
 
-function loadHistoricalSnapshotsForLeague(
+interface CompactHistoricalRescueEntryV6 {
+  readonly status: string;
+  readonly payload: PreKickoffAnalysisPayloadV6;
+}
+
+interface CachedDatedSnapshotIndexV6 {
+  readonly mtime: number;
+  readonly generatedAtMs: number | null;
+  readonly byGameId: ReadonlyMap<string, CompactHistoricalRescueEntryV6>;
+}
+
+interface LightweightGameCausalityInputV6 {
+  readonly id: string;
+  readonly startTime: string;
+  readonly status: string;
+  readonly homeTeam: string;
+  readonly awayTeam: string;
+  readonly neutralSite: boolean;
+  readonly incomingAnalysis: PreKickoffAnalysisPayloadV6 | null;
+}
+
+interface CachedLatestCausalityMetaV6 {
+  readonly mtime: number;
+  readonly games: readonly LightweightGameCausalityInputV6[];
+}
+
+interface GameReconciliationInputV6 {
+  readonly matchId: string;
+  readonly sport: string;
+  readonly league: string;
+  readonly homeTeam: string;
+  readonly awayTeam: string;
+  readonly kickoffUtc: string;
+  readonly status: string;
+  readonly neutralSite: boolean;
+  readonly incomingAnalysis: PreKickoffAnalysisPayloadV6 | null;
+  readonly rescuedHistoricalAnalysis: CompactHistoricalRescueEntryV6 | null;
+}
+
+const historicalDatedFileCache = new Map<string, CachedDatedSnapshotIndexV6>();
+const latestCausalityMetaCache = new Map<string, CachedLatestCausalityMetaV6>();
+const shellIndexReconciledCache = new Map<
+  string,
+  { readonly key: string; readonly envelope: SnapshotEnvelope }
+>();
+
+function extractSlugFromTeamId(rawId: string): string {
+  const dotIdx = rawId.indexOf(".");
+  return dotIdx >= 0 ? rawId.slice(dotIdx + 1) : rawId;
+}
+
+function extractCompactPayloadFromRawAnalysis(
+  rawAnalysis: unknown,
+  hasDraw: boolean,
+): PreKickoffAnalysisPayloadV6 | null {
+  if (!isPlainRecord(rawAnalysis)) return null;
+  const inputsAsOf = rawAnalysis.inputsAsOf;
+  if (typeof inputsAsOf !== "string" || inputsAsOf.trim().length === 0) return null;
+
+  const rawX12 = rawAnalysis.x12;
+  if (!Array.isArray(rawX12) || rawX12.length < 3) return null;
+  const pHome = parseStrictFiniteNumber(rawX12[0]);
+  const pDraw = parseStrictFiniteNumber(rawX12[1]);
+  const pAway = parseStrictFiniteNumber(rawX12[2]);
+  if (pHome === null || pDraw === null || pAway === null) return null;
+
+  const rawProj = rawAnalysis.projection;
+  if (!isPlainRecord(rawProj)) return null;
+  const projHome = parseStrictFiniteNumber(rawProj.home);
+  const projAway = parseStrictFiniteNumber(rawProj.away);
+  const projTotal = parseStrictFiniteNumber(rawProj.total);
+  if (projHome === null || projAway === null || projTotal === null) return null;
+  const projMargin =
+    rawProj.margin !== undefined ? parseStrictFiniteNumber(rawProj.margin) : null;
+
+  let pOver25: number | undefined;
+  const rawProbs = rawAnalysis.probabilities;
+  if (Array.isArray(rawProbs)) {
+    for (const row of rawProbs) {
+      if (!isPlainRecord(row)) continue;
+      if (
+        row.market === "totals" &&
+        typeof row.selection === "string" &&
+        row.selection.toLowerCase().startsWith("over") &&
+        row.line === 2.5
+      ) {
+        const parsedP = parseStrictFiniteNumber(row.p);
+        if (parsedP !== null) {
+          pOver25 = parsedP;
+          break;
+        }
+      }
+    }
+  }
+
+  return {
+    inputsAsOfUtc: inputsAsOf,
+    probabilities: {
+      pHome,
+      pDraw: hasDraw ? pDraw : null,
+      pAway,
+      ...(pOver25 !== undefined ? { pOver25 } : {}),
+    },
+    projection: {
+      home: projHome,
+      away: projAway,
+      total: projTotal,
+      ...(projMargin !== null ? { margin: projMargin } : {}),
+    },
+  };
+}
+
+function readDatedSnapshotIndexCached(
+  filePath: string,
+  hasDraw: boolean,
+): CachedDatedSnapshotIndexV6 | null {
+  const mtime = fileMtime(filePath);
+  if (mtime <= 0) {
+    historicalDatedFileCache.delete(filePath);
+    return null;
+  }
+  const cached = historicalDatedFileCache.get(filePath);
+  if (cached && cached.mtime === mtime) {
+    return cached;
+  }
+  try {
+    const raw: unknown = JSON.parse(fs.readFileSync(filePath, "utf8"));
+    if (!isPlainRecord(raw)) return null;
+    const rawUpdated =
+      typeof raw.updatedAt === "string"
+        ? raw.updatedAt
+        : typeof raw.generatedAt === "string"
+          ? raw.generatedAt
+          : null;
+    const generatedAtMs = rawUpdated ? parseIsoUtcEpochMs(rawUpdated) : null;
+    const rawGames = Array.isArray(raw.games) ? raw.games : [];
+    const rawAnalyses = isPlainRecord(raw.analyses) ? raw.analyses : null;
+    const byGameId = new Map<string, CompactHistoricalRescueEntryV6>();
+    if (rawAnalyses) {
+      for (const rawGame of rawGames) {
+        if (!isPlainRecord(rawGame) || typeof rawGame.id !== "string") continue;
+        const payload = extractCompactPayloadFromRawAnalysis(rawAnalyses[rawGame.id], hasDraw);
+        if (!payload) continue;
+        const status = typeof rawGame.status === "string" ? rawGame.status : "scheduled";
+        byGameId.set(rawGame.id, { status, payload });
+      }
+    }
+    const index: CachedDatedSnapshotIndexV6 = { mtime, generatedAtMs, byGameId };
+    historicalDatedFileCache.set(filePath, index);
+    return index;
+  } catch (err) {
+    void err;
+    return null;
+  }
+}
+
+function readLatestCausalityMetaCached(
+  latestPath: string,
+  hasDraw: boolean,
+): CachedLatestCausalityMetaV6 | null {
+  const mtime = fileMtime(latestPath);
+  if (mtime <= 0) {
+    latestCausalityMetaCache.delete(latestPath);
+    return null;
+  }
+  const cached = latestCausalityMetaCache.get(latestPath);
+  if (cached && cached.mtime === mtime) {
+    return cached;
+  }
+  try {
+    const raw: unknown = JSON.parse(fs.readFileSync(latestPath, "utf8"));
+    if (!isPlainRecord(raw)) return null;
+    const rawGames = Array.isArray(raw.games) ? raw.games : [];
+    const rawAnalyses = isPlainRecord(raw.analyses) ? raw.analyses : null;
+    const games: LightweightGameCausalityInputV6[] = [];
+    for (const rawGame of rawGames) {
+      if (!isPlainRecord(rawGame)) continue;
+      const id = typeof rawGame.id === "string" ? rawGame.id : "";
+      const startTime = typeof rawGame.startTime === "string" ? rawGame.startTime : "";
+      if (!id || !startTime) continue;
+      const status = typeof rawGame.status === "string" ? rawGame.status : "scheduled";
+      const homeRec = isPlainRecord(rawGame.home) ? rawGame.home : null;
+      const awayRec = isPlainRecord(rawGame.away) ? rawGame.away : null;
+      const homeId = homeRec && typeof homeRec.id === "string" ? homeRec.id : "";
+      const awayId = awayRec && typeof awayRec.id === "string" ? awayRec.id : "";
+      const incomingAnalysis = rawAnalyses
+        ? extractCompactPayloadFromRawAnalysis(rawAnalyses[id], hasDraw)
+        : null;
+      games.push({
+        id,
+        startTime,
+        status,
+        homeTeam: extractSlugFromTeamId(homeId),
+        awayTeam: extractSlugFromTeamId(awayId),
+        neutralSite: Boolean(rawGame.neutralSite),
+        incomingAnalysis,
+      });
+    }
+    const meta: CachedLatestCausalityMetaV6 = { mtime, games };
+    latestCausalityMetaCache.set(latestPath, meta);
+    return meta;
+  } catch (err) {
+    void err;
+    return null;
+  }
+}
+
+function findNewestCausalHistoricalRescuesFromDisk(
   leagueDir: string,
-  targetGameIds: ReadonlySet<string>,
-): LeagueSnapshot[] {
-  if (targetGameIds.size === 0 || !fs.existsSync(leagueDir)) return [];
+  targetKickoffsByGameId: ReadonlyMap<string, number>,
+  hasDraw: boolean,
+): Map<string, CompactHistoricalRescueEntryV6> {
+  const rescued = new Map<string, CompactHistoricalRescueEntryV6>();
+  if (targetKickoffsByGameId.size === 0 || !fs.existsSync(leagueDir)) return rescued;
+
   let datedFiles: string[];
   try {
     datedFiles = fs
       .readdirSync(leagueDir)
       .filter((name) => DATED_SNAPSHOT_RE.test(name))
       .sort()
-      .slice(-MAX_HISTORICAL_SNAPSHOTS_FOR_RESCUE);
+      .reverse()
+      .slice(0, MAX_HISTORICAL_SNAPSHOTS_FOR_RESCUE);
   } catch (err) {
     void err;
-    return [];
+    return rescued;
   }
 
-  const snapshots: LeagueSnapshot[] = [];
+  const remaining = new Map(targetKickoffsByGameId);
   for (const fileName of datedFiles) {
-    try {
-      const raw = JSON.parse(fs.readFileSync(path.join(leagueDir, fileName), "utf8")) as unknown;
-      const parsed = LeagueSnapshotSchema.safeParse(raw);
-      if (!parsed.success) continue;
-      const hasRelevant = parsed.data.games.some(
-        (g) => targetGameIds.has(g.id) && Boolean(parsed.data.analyses[g.id]),
-      );
-      if (hasRelevant) {
-        snapshots.push(parsed.data);
+    if (remaining.size === 0) break;
+    const idx = readDatedSnapshotIndexCached(path.join(leagueDir, fileName), hasDraw);
+    if (!idx) continue;
+    for (const [gameId, koMs] of Array.from(remaining.entries())) {
+      if (idx.generatedAtMs !== null && idx.generatedAtMs > koMs) continue;
+      const entry = idx.byGameId.get(gameId);
+      if (!entry) continue;
+      const iaoMs = parseIsoUtcEpochMs(entry.payload.inputsAsOfUtc);
+      if (iaoMs !== null && iaoMs <= koMs) {
+        rescued.set(gameId, entry);
+        remaining.delete(gameId);
       }
-    } catch (err) {
-      void err;
     }
   }
-  return snapshots;
+  return rescued;
+}
+
+function findNewestCausalHistoricalRescuesFromSnapshots(
+  historicalSnapshots: readonly LeagueSnapshot[] | undefined,
+  targetKickoffsByGameId: ReadonlyMap<string, number>,
+  hasDraw: boolean,
+): Map<string, CompactHistoricalRescueEntryV6> {
+  const rescued = new Map<string, CompactHistoricalRescueEntryV6>();
+  if (!historicalSnapshots || historicalSnapshots.length === 0 || targetKickoffsByGameId.size === 0) {
+    return rescued;
+  }
+  const ordered = historicalSnapshots
+    .slice()
+    .sort((a, b) => (parseIsoUtcEpochMs(b.updatedAt) ?? 0) - (parseIsoUtcEpochMs(a.updatedAt) ?? 0));
+  const remaining = new Map(targetKickoffsByGameId);
+  for (const hist of ordered) {
+    if (remaining.size === 0) break;
+    const histUpdatedMs = parseIsoUtcEpochMs(hist.updatedAt);
+    for (const game of hist.games) {
+      const koMs = remaining.get(game.id);
+      if (koMs === undefined) continue;
+      if (histUpdatedMs !== null && histUpdatedMs > koMs) continue;
+      const analysis = hist.analyses[game.id];
+      if (!analysis) continue;
+      const payload = toPreKickoffPayloadFromGameAnalysis(analysis, hasDraw);
+      if (!payload) continue;
+      const iaoMs = parseIsoUtcEpochMs(payload.inputsAsOfUtc);
+      if (iaoMs !== null && iaoMs <= koMs) {
+        rescued.set(game.id, { status: game.status, payload });
+        remaining.delete(game.id);
+      }
+    }
+  }
+  return rescued;
+}
+
+function reconcileGamesWithSealsV6(
+  inputs: readonly GameReconciliationInputV6[],
+  priorSeals: ReadonlyMap<string, SealedPreKickoffRecordV6>,
+): PreKickoffCausalityAuditReportV6 {
+  let hasAnyPriorSeal = false;
+  for (const item of inputs) {
+    if (priorSeals.has(`${item.league}::${item.matchId}`)) {
+      hasAnyPriorSeal = true;
+      break;
+    }
+  }
+
+  if (!hasAnyPriorSeal) {
+    const observations: SnapshotCausalityObservationV6[] = [];
+    for (const item of inputs) {
+      if (item.rescuedHistoricalAnalysis) {
+        observations.push({
+          matchId: item.matchId,
+          sport: item.sport,
+          league: item.league,
+          homeTeam: item.homeTeam,
+          awayTeam: item.awayTeam,
+          kickoffUtc: item.kickoffUtc,
+          status: item.rescuedHistoricalAnalysis.status,
+          incomingAnalysis: item.rescuedHistoricalAnalysis.payload,
+        });
+      }
+      const koMs = parseIsoUtcEpochMs(item.kickoffUtc);
+      const iaoMs = item.incomingAnalysis ? parseIsoUtcEpochMs(item.incomingAnalysis.inputsAsOfUtc) : null;
+      const needsBackfill =
+        item.rescuedHistoricalAnalysis === null &&
+        (item.incomingAnalysis === null || (koMs !== null && (iaoMs === null || iaoMs > koMs)));
+      const causalBackfillAnalysis =
+        needsBackfill && isMultiSportLeagueV60(item.league)
+          ? buildMultiSportCausalBackfillV6({
+              sport: item.league,
+              homeTeam: item.homeTeam,
+              awayTeam: item.awayTeam,
+              kickoffUtc: item.kickoffUtc,
+              neutralSite: item.neutralSite,
+            })
+          : null;
+      observations.push({
+        matchId: item.matchId,
+        sport: item.sport,
+        league: item.league,
+        homeTeam: item.homeTeam,
+        awayTeam: item.awayTeam,
+        kickoffUtc: item.kickoffUtc,
+        status: item.status,
+        incomingAnalysis: item.incomingAnalysis,
+        causalBackfillAnalysis,
+      });
+    }
+    return auditPreKickoffCausalityV6(observations);
+  }
+
+  const sealedByKey = new Map<string, SealedPreKickoffRecordV6>();
+  const latestOutcomeByKey: Record<string, SealPreKickoffOutcomeV6> = {};
+  let totalObservationsAudited = 0;
+  let rawStrictPre = 0;
+  let rawPostKoContaminated = 0;
+  let rawPostKoFt = 0;
+  let rawPostKoScheduled = 0;
+  let rawMissingOnFt = 0;
+  let rescuedFromPriorSeal = 0;
+  let recoveredFromCausalBackfill = 0;
+  let rejectedUnrecoverableContaminated = 0;
+
+  const recordOutcomeCounters = (res: SealPreKickoffOutcomeV6): void => {
+    totalObservationsAudited += 1;
+    if (res.incomingCausalityStatus === "strict_pre_kickoff") {
+      rawStrictPre += 1;
+    } else if (res.incomingCausalityStatus === "post_kickoff_contaminated") {
+      rawPostKoContaminated += 1;
+      if (res.lifecycleStatus === "FT") rawPostKoFt += 1;
+      else if (res.lifecycleStatus === "scheduled") rawPostKoScheduled += 1;
+    } else if (res.incomingCausalityStatus === "missing_analysis" && res.lifecycleStatus === "FT") {
+      rawMissingOnFt += 1;
+    }
+
+    if (
+      res.sealAction === "rejected_contaminated_preserved_seal" ||
+      res.sealAction === "preserved_seal_on_missing_upstream"
+    ) {
+      rescuedFromPriorSeal += 1;
+    } else if (
+      res.sealAction === "recovered_ft_from_causal_walkforward" ||
+      res.sealAction === "rejected_contaminated_sealed_from_causal_backfill"
+    ) {
+      recoveredFromCausalBackfill += 1;
+    } else if (res.sealAction === "rejected_post_kickoff_contaminated") {
+      rejectedUnrecoverableContaminated += 1;
+    }
+  };
+
+  for (const item of inputs) {
+    const key = `${item.league}::${item.matchId}`;
+    let existing = priorSeals.get(key) ?? sealedByKey.get(key) ?? null;
+    if (existing) {
+      sealedByKey.set(key, existing);
+    }
+
+    if (!existing && item.rescuedHistoricalAnalysis) {
+      const histRes = sealPreKickoffOutlookV6({
+        matchId: item.matchId,
+        sport: item.sport,
+        league: item.league,
+        homeTeam: item.homeTeam,
+        awayTeam: item.awayTeam,
+        kickoffUtc: item.kickoffUtc,
+        status: item.rescuedHistoricalAnalysis.status,
+        incomingAnalysis: item.rescuedHistoricalAnalysis.payload,
+        existingSealedRecord: null,
+        causalBackfillAnalysis: null,
+        allowPreKickoffRefresh: false,
+      });
+      recordOutcomeCounters(histRes);
+      if (histRes.sealedRecord) {
+        existing = histRes.sealedRecord;
+        sealedByKey.set(key, existing);
+      }
+      latestOutcomeByKey[key] = histRes;
+    }
+
+    const koMs = parseIsoUtcEpochMs(item.kickoffUtc);
+    const iaoMs = item.incomingAnalysis ? parseIsoUtcEpochMs(item.incomingAnalysis.inputsAsOfUtc) : null;
+    const needsBackfill =
+      existing === null &&
+      (item.incomingAnalysis === null || (koMs !== null && (iaoMs === null || iaoMs > koMs)));
+    const causalBackfillAnalysis =
+      needsBackfill && isMultiSportLeagueV60(item.league)
+        ? buildMultiSportCausalBackfillV6({
+            sport: item.league,
+            homeTeam: item.homeTeam,
+            awayTeam: item.awayTeam,
+            kickoffUtc: item.kickoffUtc,
+            neutralSite: item.neutralSite,
+          })
+        : null;
+
+    const res = sealPreKickoffOutlookV6({
+      matchId: item.matchId,
+      sport: item.sport,
+      league: item.league,
+      homeTeam: item.homeTeam,
+      awayTeam: item.awayTeam,
+      kickoffUtc: item.kickoffUtc,
+      status: item.status,
+      incomingAnalysis: item.incomingAnalysis,
+      existingSealedRecord: existing,
+      causalBackfillAnalysis,
+      allowPreKickoffRefresh: false,
+    });
+    recordOutcomeCounters(res);
+    if (res.sealedRecord) {
+      sealedByKey.set(key, res.sealedRecord);
+    }
+    latestOutcomeByKey[key] = res;
+  }
+
+  const sortedSealedKeys = Array.from(sealedByKey.keys()).sort();
+  const chainPairs: Array<[string, string]> = [];
+  let contaminatedAccepted = 0;
+  for (const k of sortedSealedKeys) {
+    const rec = sealedByKey.get(k);
+    if (!rec) continue;
+    chainPairs.push([k, rec.sealSha256]);
+    if (rec.inputsAsOfEpochMs > rec.kickoffEpochMs) {
+      contaminatedAccepted += 1;
+    }
+  }
+  const ledgerSha256 = sha256Hex(JSON.stringify(chainPairs));
+
+  let ftTotal = 0;
+  let ftWithForecast = 0;
+  for (const r of Object.values(latestOutcomeByKey)) {
+    if (r.lifecycleStatus === "FT") {
+      ftTotal += 1;
+      if (r.hasForecast) ftWithForecast += 1;
+    }
+  }
+
+  return Object.freeze({
+    totalObservationsAudited,
+    uniqueMatchesTracked: Object.keys(latestOutcomeByKey).length,
+    sealedMatchesCount: sealedByKey.size,
+    rawStrictPreKickoffCount: rawStrictPre,
+    rawPostKickoffContaminatedCount: rawPostKoContaminated,
+    rawPostKickoffFtCount: rawPostKoFt,
+    rawPostKickoffScheduledCount: rawPostKoScheduled,
+    rawMissingAnalysisOnFtCount: rawMissingOnFt,
+    rescuedFromPriorSealCount: rescuedFromPriorSeal,
+    recoveredFromCausalBackfillCount: recoveredFromCausalBackfill,
+    rejectedUnrecoverableContaminatedCount: rejectedUnrecoverableContaminated,
+    finalMatchesTotal: ftTotal,
+    finalMatchesWithSealedForecast: ftWithForecast,
+    contaminatedAcceptedIntoLedgerCount: contaminatedAccepted,
+    ledgerSha256,
+    outcomesByMatchKey: Object.freeze(latestOutcomeByKey),
+  });
+}
+
+function storeNewLedgerSeal(key: string, record: SealedPreKickoffRecordV6): void {
+  if (record.inputsAsOfEpochMs > record.kickoffEpochMs) return;
+  if (!preKickoffSealLedger.has(key)) {
+    preKickoffSealLedger.set(key, record);
+    preKickoffSealLedgerVersion += 1;
+  }
 }
 
 export interface SnapshotCausalityReconciliationResult {
@@ -620,6 +975,7 @@ export function applyPreKickoffCausalityToSnapshot(
   snapshot: LeagueSnapshot,
   options: {
     readonly historicalSnapshots?: readonly LeagueSnapshot[];
+    readonly rescuedHistoricalByGameId?: ReadonlyMap<string, CompactHistoricalRescueEntryV6>;
     readonly priorSeals?: ReadonlyMap<string, SealedPreKickoffRecordV6>;
   } = {},
 ): SnapshotCausalityReconciliationResult {
@@ -627,107 +983,47 @@ export function applyPreKickoffCausalityToSnapshot(
   const sportTag = toSportTagForSeal(snapshot.league);
   const hasDraw = sportHasDraw(sportForLeague(snapshot.league));
   const priorSeals = options.priorSeals ?? preKickoffSealLedger;
-  const gameIds = new Set(snapshot.games.map((g) => g.id));
-  const observations: SnapshotCausalityObservationV6[] = [];
 
+  const targetKickoffsByGameId = new Map<string, number>();
   for (const game of snapshot.games) {
     const key = `${snapshot.league}::${game.id}`;
-    const existingSeal = priorSeals.get(key);
-    if (existingSeal) {
-      observations.push({
-        matchId: existingSeal.matchId,
-        sport: existingSeal.sport,
-        league: existingSeal.league,
-        homeTeam: existingSeal.homeTeam,
-        awayTeam: existingSeal.awayTeam,
-        kickoffUtc: existingSeal.kickoffUtc,
-        status: "scheduled",
-        incomingAnalysis: {
-          inputsAsOfUtc: existingSeal.inputsAsOfUtc,
-          probabilities: existingSeal.probabilities,
-          projection: existingSeal.projection,
-        },
-      });
-    }
-  }
-
-  for (const hist of options.historicalSnapshots ?? []) {
-    for (const game of hist.games) {
-      if (!gameIds.has(game.id)) continue;
-      const analysis = hist.analyses[game.id];
-      if (!analysis) continue;
-      const homeSlug = game.home.id.includes(".") ? game.home.id.split(".")[1]! : game.home.id;
-      const awaySlug = game.away.id.includes(".") ? game.away.id.split(".")[1]! : game.away.id;
-      observations.push({
-        matchId: game.id,
-        sport: sportTag,
-        league: snapshot.league,
-        homeTeam: homeSlug,
-        awayTeam: awaySlug,
-        kickoffUtc: game.startTime,
-        status: game.status,
-        incomingAnalysis: toPreKickoffPayloadFromGameAnalysis(analysis, hasDraw),
-      });
-    }
-  }
-
-  for (const game of snapshot.games) {
+    if (priorSeals.has(key)) continue;
     const analysis = snapshot.analyses[game.id];
-    const homeSlug = game.home.id.includes(".") ? game.home.id.split(".")[1]! : game.home.id;
-    const awaySlug = game.away.id.includes(".") ? game.away.id.split(".")[1]! : game.away.id;
-    const incomingAnalysis = toPreKickoffPayloadFromGameAnalysis(analysis, hasDraw);
     const koMs = parseIsoUtcEpochMs(game.startTime);
-    const iaoMs = incomingAnalysis ? parseIsoUtcEpochMs(incomingAnalysis.inputsAsOfUtc) : null;
-    const needsBackfill =
-      incomingAnalysis === null || (koMs !== null && (iaoMs === null || iaoMs > koMs));
-
-    let causalBackfillAnalysis: PreKickoffAnalysisPayloadV6 | null = null;
-    if (needsBackfill) {
-      if (isMultiSportLeagueV60(snapshot.league)) {
-        causalBackfillAnalysis = buildMultiSportCausalBackfillV6({
-          sport: snapshot.league,
-          homeTeam: game.home.id,
-          awayTeam: game.away.id,
-          kickoffUtc: game.startTime,
-          neutralSite: game.neutralSite,
-        });
-      } else {
-        causalBackfillAnalysis = buildSoccer57CausalBackfillV6({
-          league: snapshot.league,
-          homeTeamId: game.home.id,
-          awayTeamId: game.away.id,
-          kickoffUtc: game.startTime,
-          neutralSite: game.neutralSite,
-          teamRates: snapshot.teamRates,
-        });
-      }
+    const iaoMs = analysis ? parseIsoUtcEpochMs(analysis.inputsAsOf) : null;
+    if (koMs !== null && (!analysis || iaoMs === null || iaoMs > koMs)) {
+      targetKickoffsByGameId.set(game.id, koMs);
     }
-
-    observations.push({
-      matchId: game.id,
-      sport: sportTag,
-      league: snapshot.league,
-      homeTeam: homeSlug,
-      awayTeam: awaySlug,
-      kickoffUtc: game.startTime,
-      status: game.status,
-      incomingAnalysis,
-      causalBackfillAnalysis,
-    });
   }
 
-  const audit = auditPreKickoffCausalityV6(observations);
+  const rescuedByGameId =
+    options.rescuedHistoricalByGameId ??
+    findNewestCausalHistoricalRescuesFromSnapshots(
+      options.historicalSnapshots,
+      targetKickoffsByGameId,
+      hasDraw,
+    );
+
+  const reconcileInputs: GameReconciliationInputV6[] = snapshot.games.map((game) => ({
+    matchId: game.id,
+    sport: sportTag,
+    league: snapshot.league,
+    homeTeam: extractSlugFromTeamId(game.home.id),
+    awayTeam: extractSlugFromTeamId(game.away.id),
+    kickoffUtc: game.startTime,
+    status: game.status,
+    neutralSite: Boolean(game.neutralSite),
+    incomingAnalysis: toPreKickoffPayloadFromGameAnalysis(snapshot.analyses[game.id], hasDraw),
+    rescuedHistoricalAnalysis: rescuedByGameId.get(game.id) ?? null,
+  }));
+
+  const audit = reconcileGamesWithSealsV6(reconcileInputs, priorSeals);
   const reconciledMatches = matches.map((m) => {
     const key = `${snapshot.league}::${m.id}`;
     const outcome = audit.outcomesByMatchKey[key];
     if (!outcome) return m;
-    if (
-      options.priorSeals === undefined &&
-      outcome.sealedRecord &&
-      outcome.sealedRecord.inputsAsOfEpochMs <= outcome.sealedRecord.kickoffEpochMs &&
-      !preKickoffSealLedger.has(key)
-    ) {
-      preKickoffSealLedger.set(key, outcome.sealedRecord);
+    if (options.priorSeals === undefined && outcome.sealedRecord) {
+      storeNewLedgerSeal(key, outcome.sealedRecord);
     }
     return applySealedRecordToMatch(m, outcome);
   });
@@ -735,67 +1031,83 @@ export function applyPreKickoffCausalityToSnapshot(
   return { days, matches: reconciledMatches, audit };
 }
 
-function preserveEnvelopeFinishedForecastsV6(
+function reconcileShellIndexEnvelopeV6(
   leagueKey: ProductLeague,
+  leagueDir: string,
   envelope: SnapshotEnvelope,
+  shellIndexMtime: number,
+  latestMtime: number,
 ): SnapshotEnvelope {
   if (envelope.state !== "ready" || !envelope.data) return envelope;
-  const needsRecovery = envelope.data.games.some(
-    (g) => g.status === "FT" && (g.hasForecast === false || !g.x12 || !g.projection),
-  );
-  if (!needsRecovery) return envelope;
+  const cacheKeyBefore = `${shellIndexMtime}:${latestMtime}:${preKickoffSealLedgerVersion}`;
+  const cached = shellIndexReconciledCache.get(leagueKey);
+  if (cached && cached.key === cacheKeyBefore) {
+    return cached.envelope;
+  }
+
+  const hasDraw = sportHasDraw(sportForLeague(leagueKey));
+  const latestPath = path.join(leagueDir, "latest.json");
+  const meta = readLatestCausalityMetaCached(latestPath, hasDraw);
+  if (!meta) {
+    return envelope;
+  }
 
   const sportTag = toSportTagForSeal(leagueKey);
-  const updatedGames = envelope.data.games.map((g) => {
-    if (g.status !== "FT" || (g.hasForecast !== false && g.x12 && g.projection)) {
-      return g;
-    }
+  const targetKickoffsByGameId = new Map<string, number>();
+  for (const g of meta.games) {
     const key = `${leagueKey}::${g.id}`;
-    const existingSeal = preKickoffSealLedger.get(key) ?? null;
-    const backfill =
-      existingSeal === null
-        ? isMultiSportLeagueV60(leagueKey)
-          ? buildMultiSportCausalBackfillV6({
-              sport: leagueKey,
-              homeTeam: g.home.slug,
-              awayTeam: g.away.slug,
-              kickoffUtc: g.kickoffUtc,
-              neutralSite: g.neutralSite,
-            })
-          : buildSoccer57CausalBackfillV6({
-              league: leagueKey,
-              homeTeamId: `${leagueKey}.${g.home.slug}`,
-              awayTeamId: `${leagueKey}.${g.away.slug}`,
-              kickoffUtc: g.kickoffUtc,
-              neutralSite: g.neutralSite,
-            })
-        : null;
+    if (preKickoffSealLedger.has(key)) continue;
+    const koMs = parseIsoUtcEpochMs(g.startTime);
+    const iaoMs = g.incomingAnalysis ? parseIsoUtcEpochMs(g.incomingAnalysis.inputsAsOfUtc) : null;
+    if (koMs !== null && (!g.incomingAnalysis || iaoMs === null || iaoMs > koMs)) {
+      targetKickoffsByGameId.set(g.id, koMs);
+    }
+  }
 
-    const outcome = sealPreKickoffOutlookV6({
-      matchId: g.id,
-      sport: sportTag,
-      league: leagueKey,
-      homeTeam: g.home.slug,
-      awayTeam: g.away.slug,
-      kickoffUtc: g.kickoffUtc,
-      status: "final",
-      incomingAnalysis: null,
-      existingSealedRecord: existingSeal,
-      causalBackfillAnalysis: backfill,
-    });
-    if (outcome.sealedRecord && !preKickoffSealLedger.has(key)) {
-      preKickoffSealLedger.set(key, outcome.sealedRecord);
+  const rescuedByGameId = findNewestCausalHistoricalRescuesFromDisk(
+    leagueDir,
+    targetKickoffsByGameId,
+    hasDraw,
+  );
+
+  const reconcileInputs: GameReconciliationInputV6[] = meta.games.map((g) => ({
+    matchId: g.id,
+    sport: sportTag,
+    league: leagueKey,
+    homeTeam: g.homeTeam,
+    awayTeam: g.awayTeam,
+    kickoffUtc: g.startTime,
+    status: g.status,
+    neutralSite: g.neutralSite,
+    incomingAnalysis: g.incomingAnalysis,
+    rescuedHistoricalAnalysis: rescuedByGameId.get(g.id) ?? null,
+  }));
+
+  const audit = reconcileGamesWithSealsV6(reconcileInputs, preKickoffSealLedger);
+  leagueCausalityAuditCache.set(leagueKey, audit);
+
+  const updatedGames = envelope.data.games.map((g) => {
+    const key = `${leagueKey}::${g.id}`;
+    const outcome = audit.outcomesByMatchKey[key];
+    if (!outcome) return g;
+    if (outcome.sealedRecord) {
+      storeNewLedgerSeal(key, outcome.sealedRecord);
     }
     return applySealedRecordToMatch(g, outcome);
   });
 
-  return {
+  const reconciledEnvelope: SnapshotEnvelope = {
     ...envelope,
     data: {
       ...envelope.data,
       games: updatedGames,
     },
   };
+  shellIndexReconciledCache.set(leagueKey, {
+    key: `${shellIndexMtime}:${latestMtime}:${preKickoffSealLedgerVersion}`,
+    envelope: reconciledEnvelope,
+  });
+  return reconciledEnvelope;
 }
 
 export function resolveSnapshotsRoot(): string {
@@ -913,32 +1225,41 @@ export function loadLeagueSnapshotEnvelope(leagueKey: ProductLeague): SnapshotEn
   const pulsePath = path.join(leagueDir, "market-pulse.json");
   const injuriesPath = path.join(leagueDir, "injuries.json");
   const snapshotMtime = fileMtime(latestPath);
-  const cacheKey =
+  const pulseMtime = fileMtime(pulsePath);
+  const injuriesMtime = fileMtime(injuriesPath);
+  const cacheKeyBefore =
     snapshotMtime > 0
-      ? `${snapshotMtime}:${fileMtime(pulsePath)}:${fileMtime(injuriesPath)}`
+      ? `${snapshotMtime}:${pulseMtime}:${injuriesMtime}:${preKickoffSealLedgerVersion}`
       : "";
   const cached = snapshotCache.get(leagueKey);
-  if (cached && cacheKey && cached.key === cacheKey) {
+  if (cached && cacheKeyBefore && cached.key === cacheKeyBefore) {
     return cached.envelope;
   }
 
   try {
-    const raw = JSON.parse(fs.readFileSync(latestPath, "utf8")) as unknown;
+    const raw: unknown = JSON.parse(fs.readFileSync(latestPath, "utf8"));
     const parsed = LeagueSnapshotSchema.parse(raw);
     assertNotDemoInProduction(parsed.provenance);
 
-    const gamesNeedingHistory = new Set<string>();
+    const hasDraw = sportHasDraw(sportForLeague(parsed.league));
+    const targetKickoffsByGameId = new Map<string, number>();
     for (const g of parsed.games) {
+      const key = `${parsed.league}::${g.id}`;
+      if (preKickoffSealLedger.has(key)) continue;
       const a = parsed.analyses[g.id];
       const koMs = parseIsoUtcEpochMs(g.startTime);
       const iaoMs = a ? parseIsoUtcEpochMs(a.inputsAsOf) : null;
-      if (!a || (koMs !== null && (iaoMs === null || iaoMs > koMs))) {
-        gamesNeedingHistory.add(g.id);
+      if (koMs !== null && (!a || iaoMs === null || iaoMs > koMs)) {
+        targetKickoffsByGameId.set(g.id, koMs);
       }
     }
-    const historicalSnapshots = loadHistoricalSnapshotsForLeague(leagueDir, gamesNeedingHistory);
+    const rescuedHistoricalByGameId = findNewestCausalHistoricalRescuesFromDisk(
+      leagueDir,
+      targetKickoffsByGameId,
+      hasDraw,
+    );
     const { days, matches, audit } = applyPreKickoffCausalityToSnapshot(parsed, {
-      historicalSnapshots,
+      rescuedHistoricalByGameId,
     });
     leagueCausalityAuditCache.set(leagueKey, audit);
 
@@ -997,8 +1318,11 @@ export function loadLeagueSnapshotEnvelope(leagueKey: ProductLeague): SnapshotEn
       data: clientSafe,
       generatedAt: clientSafe.generatedAt,
     };
-    if (cacheKey) {
-      snapshotCache.set(leagueKey, { key: cacheKey, envelope });
+    if (snapshotMtime > 0) {
+      snapshotCache.set(leagueKey, {
+        key: `${snapshotMtime}:${pulseMtime}:${injuriesMtime}:${preKickoffSealLedgerVersion}`,
+        envelope,
+      });
     }
     return envelope;
   } catch (err) {
@@ -1039,7 +1363,11 @@ export function clearSnapshotCausalityCachesForTests(): void {
   allSnapshotsMemo = null;
   shellIndexCache = null;
   preKickoffSealLedger.clear();
+  preKickoffSealLedgerVersion = 0;
   leagueCausalityAuditCache.clear();
+  historicalDatedFileCache.clear();
+  latestCausalityMetaCache.clear();
+  shellIndexReconciledCache.clear();
 }
 
 interface ShellIndexFile {
@@ -1099,10 +1427,16 @@ export function loadAllActiveLeagueSnapshots(): Record<ProductLeague, SnapshotEn
         const injuriesM = fileMtime(path.join(root, league, "injuries.json"));
         const pulseM = fileMtime(path.join(root, league, "market-pulse.json"));
         if (latestM <= precompiled.mtime && injuriesM <= precompiled.mtime && pulseM <= precompiled.mtime) {
-          return [league, preserveEnvelopeFinishedForecastsV6(league, pre)] as [
-            ProductLeague,
-            SnapshotEnvelope,
-          ];
+          return [
+            league,
+            reconcileShellIndexEnvelopeV6(
+              league,
+              path.join(root, league),
+              pre,
+              precompiled.mtime,
+              latestM,
+            ),
+          ] as [ProductLeague, SnapshotEnvelope];
         }
       }
     }

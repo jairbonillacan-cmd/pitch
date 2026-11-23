@@ -21,7 +21,9 @@ import {
   setEmailPreferences,
   upsertClosingOdds,
   users,
+  type ClosingOddsRow,
   type Db,
+  type StoredFrozenPick,
 } from "@pitchlab/db";
 import { solvePowerDevigExactV6, type QuoteTickInputV6 } from "@pitchlab/spacetime/v6";
 import { isCredibleClvPct } from "@pitchlab/ui/record-stats";
@@ -29,6 +31,7 @@ import type { MatchPick, PlatformDataset } from "@pitchlab/ui/types";
 import {
   computeCredibleClvPctV6,
   evaluateProspectiveClosingQuotesV6,
+  findClosingQuoteForPick,
   solveSameBookClosingPowerDevigV6,
 } from "../src/server/closing-odds";
 import {
@@ -54,11 +57,18 @@ import {
   applyPreKickoffCausalityToSnapshot,
   clearSnapshotCausalityCachesForTests,
   getCachedLeagueCausalityAuditV6,
+  getSnapshotPreKickoffSealV6,
   loadAllActiveLeagueSnapshots,
   loadLeagueSnapshotEnvelope,
 } from "../src/server/snapshots";
 
 const mockPlatformState = vi.hoisted(() => ({ dataset: null as PlatformDataset | null }));
+const mockFrozenDbState = vi.hoisted(() => ({
+  enabled: false,
+  fakeDb: null as Db | null,
+  existingStored: null as StoredFrozenPick | null,
+  upsertReturned: null as StoredFrozenPick | null,
+}));
 
 vi.mock("../src/server/platform-data", async (importOriginal) => {
   const actual = await importOriginal<typeof import("../src/server/platform-data")>();
@@ -66,6 +76,29 @@ vi.mock("../src/server/platform-data", async (importOriginal) => {
     ...actual,
     buildServerRawPlatformDataset: () =>
       mockPlatformState.dataset ?? actual.buildServerRawPlatformDataset(),
+  };
+});
+
+vi.mock("@pitchlab/db", async (importOriginal) => {
+  const actual = await importOriginal<typeof import("@pitchlab/db")>();
+  return {
+    ...actual,
+    createDb: (url: string) =>
+      mockFrozenDbState.enabled && mockFrozenDbState.fakeDb
+        ? mockFrozenDbState.fakeDb
+        : actual.createDb(url),
+    getFrozenMatchMainPick: async (dbArg: Db, gameId: string) =>
+      mockFrozenDbState.enabled
+        ? mockFrozenDbState.existingStored
+        : actual.getFrozenMatchMainPick(dbArg, gameId),
+    getOrFreezeMatchMainPick: async (
+      dbArg: Db,
+      input: Parameters<typeof actual.getOrFreezeMatchMainPick>[1],
+      nowArg?: Date,
+    ) =>
+      mockFrozenDbState.enabled
+        ? mockFrozenDbState.upsertReturned
+        : actual.getOrFreezeMatchMainPick(dbArg, input, nowArg),
   };
 });
 
@@ -175,7 +208,7 @@ function makeTestGameAnalysis(
 }
 
 function makeUsLeagueSnapshot(params: {
-  readonly league: "nba" | "nhl";
+  readonly league: "nba" | "nhl" | "mlb" | "laliga";
   readonly gameId: string;
   readonly startTime: string;
   readonly status: "scheduled" | "in_progress" | "final";
@@ -185,6 +218,7 @@ function makeUsLeagueSnapshot(params: {
   readonly awaySlug: string;
   readonly awayName: string;
   readonly awayCode: string;
+  readonly updatedAt?: string;
   readonly score?: { home: number; away: number };
   readonly analysis?: GameAnalysis;
 }): LeagueSnapshot {
@@ -196,7 +230,7 @@ function makeUsLeagueSnapshot(params: {
     season: seasonId,
     seasonLabel: "2026-27",
     periodLabel: "Temporada Regular",
-    updatedAt: "2026-11-20T23:55:00Z",
+    updatedAt: params.updatedAt ?? "2026-11-20T23:55:00Z",
     source: "test-fixture",
     provenance: "provider",
     isDemo: false,
@@ -351,6 +385,108 @@ describe("Spacetime v6.0 · Pre-kickoff Seal & Causality (frozen-picks.ts)", () 
     expect(audit.finalMatchesWithSealedForecast).toBe(1);
     expect(audit.ledgerSha256).toMatch(/^[0-9a-f]{64}$/);
   });
+
+  it("hidrata en frío desde DB sin filtrar x12/projection live o FT y cachea el sello del registro ganador en conflicto DB", async () => {
+    const prevDbUrl = process.env.DATABASE_URL;
+    const tempPg = new PGlite();
+    const kickoffUtc = "2026-11-20T23:00:00Z";
+    const storedRow: StoredFrozenPick = {
+      gameId: "nba-db-cold-1",
+      pickId: "db-stored-pick-1",
+      pickLabel: "Celtics gana",
+      categoryLabel: "Moneyline",
+      marketGroup: "Moneyline",
+      selectionKey: "home",
+      probability: 0.585,
+      fairDecimal: 1.71,
+      fairAmerican: -141,
+      kickoffAtIso: kickoffUtc,
+      freezeAtIso: "2026-11-20T22:00:00.000Z",
+      frozenAtIso: "2026-11-20T22:00:05.000Z",
+    };
+
+    try {
+      process.env.DATABASE_URL = "postgres://frozen-picks-unit-test";
+      mockFrozenDbState.enabled = true;
+      mockFrozenDbState.fakeDb = drizzle(tempPg);
+      mockFrozenDbState.existingStored = storedRow;
+      mockFrozenDbState.upsertReturned = null;
+
+      const hydrated = await resolveServerFrozenMainPick(
+        {
+          id: "nba-db-cold-1",
+          league: asLeagueId("nba"),
+          sport: "basketball",
+          kickoffUtc,
+          status: "FT",
+          home: { slug: "boston-celtics", name: "Boston Celtics", shortName: "Celtics", code: "BOS", record: "" },
+          away: { slug: "new-york-knicks", name: "New York Knicks", shortName: "Knicks", code: "NYK", record: "" },
+          x12: [0.99, 0, 0.01],
+          projection: { home: 140, away: 85, total: 225 },
+          picks: [makeTestMatchPick({ id: "ft-contaminated", gameId: "nba-db-cold-1", p: 0.99 })],
+        },
+        { now: new Date("2026-11-21T02:00:00Z") },
+      );
+
+      expect(hydrated?.pickId).toBe("db-stored-pick-1");
+      const hydratedSeal = getServerPreKickoffSealRecordV6("nba-db-cold-1");
+      expect(hydratedSeal).not.toBeNull();
+      expect(hydratedSeal?.probabilities.pMainPick).toBeCloseTo(0.585, 5);
+      expect(hydratedSeal?.probabilities.pHome).toBeUndefined();
+      expect(hydratedSeal?.projection).toEqual({});
+      expect(verifyPreKickoffSealHashV6(hydratedSeal!)).toBe(true);
+
+      clearServerFrozenPicksCacheForTests();
+      const dbConflictWinner: StoredFrozenPick = {
+        ...storedRow,
+        gameId: "nba-db-conflict-1",
+        pickId: "db-conflict-winner",
+        probability: 0.56,
+        fairDecimal: 1.79,
+        fairAmerican: -127,
+      };
+      mockFrozenDbState.existingStored = null;
+      mockFrozenDbState.upsertReturned = dbConflictWinner;
+
+      const resolvedOnConflict = await resolveServerFrozenMainPick(
+        {
+          id: "nba-db-conflict-1",
+          league: asLeagueId("nba"),
+          sport: "basketball",
+          kickoffUtc,
+          status: "NS",
+          home: { slug: "boston-celtics", name: "Boston Celtics", shortName: "Celtics", code: "BOS", record: "" },
+          away: { slug: "new-york-knicks", name: "New York Knicks", shortName: "Knicks", code: "NYK", record: "" },
+          x12: [0.64, 0, 0.36],
+          projection: { home: 118, away: 111, total: 229 },
+          picks: [makeTestMatchPick({ id: "loser-candidate", gameId: "nba-db-conflict-1", p: 0.64, fairDecimal: 1.56 })],
+        },
+        {
+          now: new Date("2026-11-20T22:15:00Z"),
+          inputsAsOfUtc: "2026-11-20T22:00:00Z",
+        },
+      );
+
+      expect(resolvedOnConflict?.pickId).toBe("db-conflict-winner");
+      const conflictSeal = getServerPreKickoffSealRecordV6("nba-db-conflict-1");
+      expect(conflictSeal?.probabilities.pMainPick).toBeCloseTo(0.56, 5);
+      expect(conflictSeal?.probabilities.pHome).toBeUndefined();
+      expect(conflictSeal?.projection).toEqual({});
+      expect(verifyPreKickoffSealHashV6(conflictSeal!)).toBe(true);
+    } finally {
+      mockFrozenDbState.enabled = false;
+      mockFrozenDbState.fakeDb = null;
+      mockFrozenDbState.existingStored = null;
+      mockFrozenDbState.upsertReturned = null;
+      if (prevDbUrl === undefined) {
+        delete process.env.DATABASE_URL;
+      } else {
+        process.env.DATABASE_URL = prevDbUrl;
+      }
+      clearServerFrozenPicksCacheForTests();
+      await tempPg.close();
+    }
+  });
 });
 
 describe("Spacetime v6.0 · Preservación de pronósticos FT en NBA y NHL (snapshots.ts)", () => {
@@ -441,6 +577,7 @@ describe("Spacetime v6.0 · Preservación de pronósticos FT en NBA y NHL (snaps
 
     expect(postNba.audit.contaminatedAcceptedIntoLedgerCount).toBe(0);
     expect(postNba.audit.rescuedFromPriorSealCount).toBe(1);
+    expect(postNba.audit.totalObservationsAudited).toBe(1);
     expect(postNba.matches[0]?.status).toBe("FT");
     expect(postNba.matches[0]?.hasForecast).toBe(true);
     expect(postNba.matches[0]?.x12?.[0]).toBeCloseTo(0.64, 4);
@@ -448,45 +585,223 @@ describe("Spacetime v6.0 · Preservación de pronósticos FT en NBA y NHL (snaps
 
     expect(postNhl.audit.contaminatedAcceptedIntoLedgerCount).toBe(0);
     expect(postNhl.audit.rescuedFromPriorSealCount).toBe(1);
+    expect(postNhl.audit.totalObservationsAudited).toBe(1);
     expect(postNhl.matches[0]?.status).toBe("FT");
     expect(postNhl.matches[0]?.hasForecast).toBe(true);
     expect(postNhl.matches[0]?.x12?.[0]).toBeCloseTo(0.585, 4);
     expect(postNhl.matches[0]?.projection?.home).toBeCloseTo(3.45, 2);
   });
 
-  it("recupera pronósticos pre-kickoff causales para todos los FT reales de NBA y NHL sin contaminar el ledger", () => {
+  it("rechaza lookahead temporal y contaminación sin estado causal, selecciona el histórico pre-kickoff más reciente y no altera sealOrigin/SHA en re-ejecución", () => {
+    const mlbContaminated = makeUsLeagueSnapshot({
+      league: "mlb",
+      gameId: "mlb-2026-10-06-nyy-tb",
+      startTime: "2026-10-06T00:00:00Z",
+      status: "final",
+      homeSlug: "tampa-bay-rays",
+      homeName: "Tampa Bay Rays",
+      homeCode: "TB",
+      awaySlug: "new-york-yankees",
+      awayName: "New York Yankees",
+      awayCode: "NYY",
+      score: { home: 5, away: 2 },
+      analysis: makeTestGameAnalysis(
+        "mlb-2026-10-06-nyy-tb",
+        "2026-11-19T01:44:47Z",
+        [0.47, 0, 0.53],
+        { home: 3.7, away: 3.9, total: 7.6, margin: -0.2 },
+      ),
+    });
+    const mlbOut = applyPreKickoffCausalityToSnapshot(mlbContaminated);
+    expect(mlbOut.matches[0]?.hasForecast).toBe(false);
+    expect(mlbOut.matches[0]?.x12).toBeUndefined();
+    expect(mlbOut.matches[0]?.projection).toBeUndefined();
+    expect(mlbOut.audit.rejectedUnrecoverableContaminatedCount).toBe(1);
+    expect(mlbOut.audit.contaminatedAcceptedIntoLedgerCount).toBe(0);
+
+    const soccerContaminated = makeUsLeagueSnapshot({
+      league: "laliga",
+      gameId: "laliga-contam-1",
+      startTime: "2026-11-20T18:00:00Z",
+      status: "scheduled",
+      homeSlug: "real-madrid",
+      homeName: "Real Madrid",
+      homeCode: "RMA",
+      awaySlug: "sevilla",
+      awayName: "Sevilla",
+      awayCode: "SEV",
+      analysis: makeTestGameAnalysis(
+        "laliga-contam-1",
+        "2026-11-22T04:33:15Z",
+        [0.68, 0.18, 0.14],
+        { home: 2.2, away: 0.9, total: 3.1 },
+      ),
+    });
+    const soccerRejected = applyPreKickoffCausalityToSnapshot(soccerContaminated, {
+      priorSeals: new Map(),
+    });
+    expect(soccerRejected.matches[0]?.hasForecast).toBe(false);
+    expect(soccerRejected.audit.rejectedUnrecoverableContaminatedCount).toBe(1);
+    expect(soccerRejected.audit.contaminatedAcceptedIntoLedgerCount).toBe(0);
+
+    const olderHist = makeUsLeagueSnapshot({
+      league: "laliga",
+      gameId: "laliga-contam-1",
+      startTime: "2026-11-20T18:00:00Z",
+      status: "scheduled",
+      homeSlug: "real-madrid",
+      homeName: "Real Madrid",
+      homeCode: "RMA",
+      awaySlug: "sevilla",
+      awayName: "Sevilla",
+      awayCode: "SEV",
+      updatedAt: "2026-11-12T10:00:00Z",
+      analysis: makeTestGameAnalysis(
+        "laliga-contam-1",
+        "2026-11-12T09:00:00Z",
+        [0.52, 0.26, 0.22],
+        { home: 1.6, away: 1.1, total: 2.7 },
+      ),
+    });
+    const newerHist = makeUsLeagueSnapshot({
+      league: "laliga",
+      gameId: "laliga-contam-1",
+      startTime: "2026-11-20T18:00:00Z",
+      status: "scheduled",
+      homeSlug: "real-madrid",
+      homeName: "Real Madrid",
+      homeCode: "RMA",
+      awaySlug: "sevilla",
+      awayName: "Sevilla",
+      awayCode: "SEV",
+      updatedAt: "2026-11-19T17:00:00Z",
+      analysis: makeTestGameAnalysis(
+        "laliga-contam-1",
+        "2026-11-19T16:30:00Z",
+        [0.61, 0.22, 0.17],
+        { home: 1.95, away: 0.95, total: 2.9 },
+      ),
+    });
+    const postKoHist = makeUsLeagueSnapshot({
+      league: "laliga",
+      gameId: "laliga-contam-1",
+      startTime: "2026-11-20T18:00:00Z",
+      status: "final",
+      homeSlug: "real-madrid",
+      homeName: "Real Madrid",
+      homeCode: "RMA",
+      awaySlug: "sevilla",
+      awayName: "Sevilla",
+      awayCode: "SEV",
+      updatedAt: "2026-11-21T02:00:00Z",
+      analysis: makeTestGameAnalysis(
+        "laliga-contam-1",
+        "2026-11-19T17:00:00Z",
+        [0.95, 0.03, 0.02],
+        { home: 3.5, away: 0.2, total: 3.7 },
+      ),
+    });
+    const rescuedNewest = applyPreKickoffCausalityToSnapshot(soccerContaminated, {
+      historicalSnapshots: [olderHist, postKoHist, newerHist],
+      priorSeals: new Map(),
+    });
+    expect(rescuedNewest.matches[0]?.hasForecast).toBe(true);
+    expect(rescuedNewest.matches[0]?.x12?.[0]).toBeCloseTo(0.61, 4);
+
+    const nbaPreStateFt = makeUsLeagueSnapshot({
+      league: "nba",
+      gameId: "nba-2026-11-15-bos-nyk-lookahead",
+      startTime: "2026-11-15T00:00:00Z",
+      status: "final",
+      homeSlug: "boston-celtics",
+      homeName: "Boston Celtics",
+      homeCode: "BOS",
+      awaySlug: "new-york-knicks",
+      awayName: "New York Knicks",
+      awayCode: "NYK",
+      score: { home: 112, away: 105 },
+    });
+    const nbaLookaheadBlocked = applyPreKickoffCausalityToSnapshot(nbaPreStateFt);
+    expect(nbaLookaheadBlocked.matches[0]?.hasForecast).toBe(false);
+    expect(nbaLookaheadBlocked.matches[0]?.x12).toBeUndefined();
+
+    const nbaCausalFutureFt = makeUsLeagueSnapshot({
+      league: "nba",
+      gameId: "nba-2026-11-22-bos-nyk-causal",
+      startTime: "2026-11-22T01:00:00Z",
+      status: "final",
+      homeSlug: "boston-celtics",
+      homeName: "Boston Celtics",
+      homeCode: "BOS",
+      awaySlug: "new-york-knicks",
+      awayName: "New York Knicks",
+      awayCode: "NYK",
+      score: { home: 118, away: 111 },
+    });
+    const firstCausalRun = applyPreKickoffCausalityToSnapshot(nbaCausalFutureFt);
+    expect(firstCausalRun.matches[0]?.hasForecast).toBe(true);
+    const firstSeal = getSnapshotPreKickoffSealV6("nba", "nba-2026-11-22-bos-nyk-causal");
+    expect(firstSeal).not.toBeNull();
+    expect(firstSeal?.sealOrigin).toBe("causal_walkforward_backfill");
+    expect(firstSeal?.inputsAsOfEpochMs).toBeLessThanOrEqual(firstSeal!.kickoffEpochMs);
+    expect(firstSeal?.inputsAsOfUtc).not.toBe("2026-11-22T00:59:59.000Z");
+
+    const secondCausalRun = applyPreKickoffCausalityToSnapshot(nbaCausalFutureFt);
+    const secondOutcome =
+      secondCausalRun.audit.outcomesByMatchKey["nba::nba-2026-11-22-bos-nyk-causal"];
+    expect(secondOutcome?.sealedRecord?.sealOrigin).toBe("causal_walkforward_backfill");
+    expect(secondOutcome?.sealedRecord?.sealSha256).toBe(firstSeal?.sealSha256);
+    expect(secondCausalRun.audit.ledgerSha256).toBe(firstCausalRun.audit.ledgerSha256);
+    expect(secondCausalRun.audit.totalObservationsAudited).toBe(1);
+  });
+
+  it("reconcilia loadAllActiveLeagueSnapshots (shell-index) de forma idéntica a loadLeagueSnapshotEnvelope sin bypass causal", () => {
+    const mlbEnv = loadLeagueSnapshotEnvelope("mlb");
+    const bundEnv = loadLeagueSnapshotEnvelope("bundesliga");
     const nbaEnv = loadLeagueSnapshotEnvelope("nba");
     const nhlEnv = loadLeagueSnapshotEnvelope("nhl");
 
+    expect(mlbEnv.state).toBe("ready");
+    expect(bundEnv.state).toBe("ready");
     expect(nbaEnv.state).toBe("ready");
     expect(nhlEnv.state).toBe("ready");
 
-    const nbaFt = (nbaEnv.data?.games ?? []).filter((g) => g.status === "FT");
-    const nhlFt = (nhlEnv.data?.games ?? []).filter((g) => g.status === "FT");
-    expect(nbaFt.length).toBeGreaterThan(0);
-    expect(nhlFt.length).toBeGreaterThan(0);
+    const mlbFtEnv = (mlbEnv.data?.games ?? []).filter((g) => g.status === "FT");
+    expect(mlbFtEnv.length).toBeGreaterThan(0);
+    expect(mlbFtEnv.every((g) => g.hasForecast === false && g.x12 === undefined)).toBe(true);
 
-    for (const game of [...nbaFt, ...nhlFt]) {
-      expect(game.hasForecast).toBe(true);
-      expect(game.x12).toBeDefined();
-      expect(game.x12?.[1]).toBe(0);
-      expect((game.x12?.[0] ?? 0) + (game.x12?.[2] ?? 0)).toBeCloseTo(1, 4);
-      expect(game.projection?.home).toBeGreaterThan(0);
-      expect(game.projection?.away).toBeGreaterThan(0);
-    }
+    const mlbAudit = getCachedLeagueCausalityAuditV6("mlb");
+    expect(mlbAudit?.contaminatedAcceptedIntoLedgerCount).toBe(0);
+    expect(mlbAudit?.rejectedUnrecoverableContaminatedCount).toBe(mlbFtEnv.length);
 
-    const nbaAudit = getCachedLeagueCausalityAuditV6("nba");
-    const nhlAudit = getCachedLeagueCausalityAuditV6("nhl");
-    expect(nbaAudit?.contaminatedAcceptedIntoLedgerCount).toBe(0);
-    expect(nhlAudit?.contaminatedAcceptedIntoLedgerCount).toBe(0);
-    expect(nbaAudit?.finalMatchesWithSealedForecast).toBe(nbaAudit?.finalMatchesTotal);
-    expect(nhlAudit?.finalMatchesWithSealedForecast).toBe(nhlAudit?.finalMatchesTotal);
-
+    clearSnapshotCausalityCachesForTests();
     const allEnvelopes = loadAllActiveLeagueSnapshots();
-    const allNbaFt = (allEnvelopes.nba.data?.games ?? []).filter((g) => g.status === "FT");
-    const allNhlFt = (allEnvelopes.nhl.data?.games ?? []).filter((g) => g.status === "FT");
-    expect(allNbaFt.every((g) => g.hasForecast === true)).toBe(true);
-    expect(allNhlFt.every((g) => g.hasForecast === true)).toBe(true);
+
+    const mlbFtAll = (allEnvelopes.mlb.data?.games ?? []).filter((g) => g.status === "FT");
+    expect(mlbFtAll.length).toBe(mlbFtEnv.length);
+    expect(mlbFtAll.every((g) => g.hasForecast === false && g.x12 === undefined)).toBe(true);
+    expect(getCachedLeagueCausalityAuditV6("mlb")?.contaminatedAcceptedIntoLedgerCount).toBe(0);
+
+    const bundByIdEnv = new Map((bundEnv.data?.games ?? []).map((g) => [g.id, g]));
+    const bundGamesAll = allEnvelopes.bundesliga.data?.games ?? [];
+    expect(bundGamesAll.length).toBeGreaterThan(0);
+    for (const g of bundGamesAll) {
+      const ref = bundByIdEnv.get(g.id);
+      expect(g.hasForecast).toBe(ref?.hasForecast);
+      if (ref?.x12) {
+        expect(g.x12?.[0]).toBeCloseTo(ref.x12[0], 5);
+      }
+    }
+    expect(getCachedLeagueCausalityAuditV6("bundesliga")?.contaminatedAcceptedIntoLedgerCount).toBe(0);
+
+    const allNbaScheduled = (allEnvelopes.nba.data?.games ?? []).filter((g) => g.status !== "FT");
+    const allNhlScheduled = (allEnvelopes.nhl.data?.games ?? []).filter((g) => g.status !== "FT");
+    expect(allNbaScheduled.length).toBeGreaterThan(0);
+    expect(allNhlScheduled.length).toBeGreaterThan(0);
+    expect(allNbaScheduled.every((g) => g.hasForecast !== false)).toBe(true);
+    expect(allNhlScheduled.every((g) => g.hasForecast !== false)).toBe(true);
+    expect(getCachedLeagueCausalityAuditV6("nba")?.contaminatedAcceptedIntoLedgerCount).toBe(0);
+    expect(getCachedLeagueCausalityAuditV6("nhl")?.contaminatedAcceptedIntoLedgerCount).toBe(0);
   });
 });
 
@@ -614,6 +929,236 @@ describe("Spacetime v6.0 · Closing Power De-Vig misma casa, CLV creíble y eval
     expect(rows.some((r) => r.market === "totals")).toBe(false);
     expect(rows.some((r) => r.book === "caliente")).toBe(false);
     expect(rows.some((r) => r.market === "h2h")).toBe(false);
+  });
+
+  it("separa Power De-Vig por jugador y estadística (0 colisión cross-player/cross-stat) y soporta booking_points, nhl_puckline y totals_2.5", () => {
+    const kickoffAt = new Date("2026-11-20T20:00:00Z");
+    const preCap = "2026-11-20T19:45:00Z";
+
+    const collided = solveSameBookClosingPowerDevigV6(
+      [
+        {
+          gameId: "laliga-p1",
+          sport: "football",
+          market: "player_saves",
+          selection: "player_saves:thibaut-courtois:3.5",
+          line: 3.5,
+          book: "pinnacle",
+          bookLabel: "Pinnacle",
+          decimalOdds: 1.88,
+          capturedAtUtc: preCap,
+          source: "test_cross_player",
+        },
+        {
+          gameId: "laliga-p1",
+          sport: "football",
+          market: "player_saves",
+          selection: "player_saves:jan-oblak:under_3.5",
+          line: 3.5,
+          book: "pinnacle",
+          bookLabel: "Pinnacle",
+          decimalOdds: 1.96,
+          capturedAtUtc: preCap,
+          source: "test_cross_player",
+        },
+        {
+          gameId: "nba-p1",
+          sport: "basketball",
+          market: "nba_player_props",
+          selection: "lebron-james_pts_over_25.5",
+          line: 25.5,
+          book: "pinnacle",
+          bookLabel: "Pinnacle",
+          decimalOdds: 1.9,
+          capturedAtUtc: preCap,
+          source: "test_cross_stat",
+        },
+        {
+          gameId: "nba-p1",
+          sport: "basketball",
+          market: "nba_player_props",
+          selection: "lebron-james_reb_under_25.5",
+          line: 25.5,
+          book: "pinnacle",
+          bookLabel: "Pinnacle",
+          decimalOdds: 1.92,
+          capturedAtUtc: preCap,
+          source: "test_cross_stat",
+        },
+      ],
+      kickoffAt,
+    );
+    expect(collided).toEqual([]);
+
+    const valid = solveSameBookClosingPowerDevigV6(
+      [
+        {
+          gameId: "laliga-p1",
+          sport: "football",
+          market: "player_saves",
+          selection: "player_saves:thibaut-courtois:3.5",
+          line: 3.5,
+          book: "pinnacle",
+          bookLabel: "Pinnacle",
+          decimalOdds: 1.88,
+          capturedAtUtc: preCap,
+          source: "test_gk",
+        },
+        {
+          gameId: "laliga-p1",
+          sport: "football",
+          market: "player_saves",
+          selection: "player_saves:thibaut-courtois:under_3.5",
+          line: 3.5,
+          book: "pinnacle",
+          bookLabel: "Pinnacle",
+          decimalOdds: 1.96,
+          capturedAtUtc: preCap,
+          source: "test_gk",
+        },
+        {
+          gameId: "nba-p1",
+          sport: "basketball",
+          market: "nba_player_props",
+          selection: "lebron-james_pts_over_25.5",
+          line: 25.5,
+          book: "pinnacle",
+          bookLabel: "Pinnacle",
+          decimalOdds: 1.9,
+          capturedAtUtc: preCap,
+          source: "test_nba_prop",
+        },
+        {
+          gameId: "nba-p1",
+          sport: "basketball",
+          market: "nba_player_props",
+          selection: "lebron-james_pts_under_25.5",
+          line: 25.5,
+          book: "pinnacle",
+          bookLabel: "Pinnacle",
+          decimalOdds: 1.92,
+          capturedAtUtc: preCap,
+          source: "test_nba_prop",
+        },
+        {
+          gameId: "laliga-p1",
+          sport: "football",
+          market: "booking_points",
+          selection: "over_45.5",
+          line: 45.5,
+          book: "bet365",
+          bookLabel: "Bet365",
+          decimalOdds: 1.91,
+          capturedAtUtc: preCap,
+          source: "test_bp",
+        },
+        {
+          gameId: "laliga-p1",
+          sport: "football",
+          market: "booking_points",
+          selection: "under_45.5",
+          line: 45.5,
+          book: "bet365",
+          bookLabel: "Bet365",
+          decimalOdds: 1.91,
+          capturedAtUtc: preCap,
+          source: "test_bp",
+        },
+        {
+          gameId: "nhl-p1",
+          sport: "ice-hockey",
+          market: "nhl_puckline",
+          selection: "home_-1.5",
+          line: -1.5,
+          book: "pinnacle",
+          bookLabel: "Pinnacle",
+          decimalOdds: 2.35,
+          capturedAtUtc: preCap,
+          source: "test_pl",
+        },
+        {
+          gameId: "nhl-p1",
+          sport: "ice-hockey",
+          market: "nhl_puckline",
+          selection: "away_+1.5",
+          line: 1.5,
+          book: "pinnacle",
+          bookLabel: "Pinnacle",
+          decimalOdds: 1.68,
+          capturedAtUtc: preCap,
+          source: "test_pl",
+        },
+        {
+          gameId: "laliga-p1",
+          sport: "football",
+          market: "totals_2.5",
+          selection: "over",
+          line: null,
+          book: "pinnacle",
+          bookLabel: "Pinnacle",
+          decimalOdds: 1.95,
+          capturedAtUtc: preCap,
+          source: "test_dot_tot",
+        },
+        {
+          gameId: "laliga-p1",
+          sport: "football",
+          market: "totals_2.5",
+          selection: "under",
+          line: null,
+          book: "pinnacle",
+          bookLabel: "Pinnacle",
+          decimalOdds: 1.95,
+          capturedAtUtc: preCap,
+          source: "test_dot_tot",
+        },
+      ],
+      kickoffAt,
+    );
+
+    expect(valid).toHaveLength(10);
+    const gkOver = valid.find(
+      (r) => r.market === "goalkeeper_saves" && r.selection === "thibaut-courtois:saves:over",
+    );
+    const expectedGkPow = solvePowerDevigExactV6([1.88, 1.96]);
+    expect(gkOver?.noVigProb).toBeCloseTo(expectedGkPow.probsNoVig[0]!, 10);
+    expect(gkOver?.lineKey).toBe("3.5");
+
+    expect(valid.some((r) => r.market === "booking_points" && r.lineKey === "45.5")).toBe(true);
+    expect(valid.some((r) => r.market === "spreads" && r.gameId === "nhl-p1" && r.lineKey === "-1.5")).toBe(true);
+    expect(valid.some((r) => r.market === "totals" && r.lineKey === "2.5")).toBe(true);
+
+    const rowsForLookup: ClosingOddsRow[] = valid.map((r) => ({
+      gameId: r.gameId,
+      market: r.market,
+      selection: r.selection,
+      lineKey: r.lineKey ?? "",
+      book: r.book,
+      decimalOdds: r.decimalOdds,
+      fairDecimal: r.fairDecimal ?? null,
+      noVigProb: r.noVigProb ?? null,
+      source: r.source,
+      kickoffAt: r.kickoffAt,
+      capturedAt: r.capturedAt,
+    }));
+
+    expect(
+      findClosingQuoteForPick(rowsForLookup, {
+        gameId: "laliga-p1",
+        market: "player_saves",
+        selection: "player_saves:thibaut-courtois:3.5",
+        line: 3.5,
+      })?.selection,
+    ).toBe("thibaut-courtois:saves:over");
+
+    expect(
+      findClosingQuoteForPick(rowsForLookup, {
+        gameId: "nba-p1",
+        market: "nba_pts",
+        selection: "nba_pts:lebron-james:25.5",
+        line: 25.5,
+      })?.selection,
+    ).toBe("lebron-james:pts:over");
   });
 
   it("filtra CLV fuera de rango creíble [-60, 25] simples y [-60, 50] parlays y ejecuta evaluación prospectiva v6.0", () => {
@@ -842,6 +1387,164 @@ describe("Spacetime v6.0 · Liquidación FT multi-deporte, SGP, Parlays, Props e
     ).toBe("void");
   });
 
+  it("califica formatos reales de props de producción (player_saves, player_shots/sot/goal, underscore y US props) y protege líneas cuarto (±0.25/±0.75)", () => {
+    const prodStats: MatchFinalStatsV6 = {
+      yellowCardsHome: 3,
+      yellowCardsAway: 2,
+      redCardsHome: 1,
+      redCardsAway: 0,
+      goalkeeperSaves: {
+        "thibaut-courtois": 4,
+        "jan-oblak": 3,
+      },
+      playerStats: {
+        "kylian-mbappe": { shots: 5, shots_on_target: 2, goals: 1, assists: 0 },
+        "lamine-yamal": { shots_on_target: 1, shots: 3, goals: 0, assists: 1 },
+        "vinicius-jr": { goals: 1, assists: 0 },
+        "lebron-james": { PTS: 28, REB: 9, AST: 8 },
+        "gerrit-cole": { SO: 8, IP: 6 },
+        "connor-mcdavid": { SOG: 4, G: 1, A: 2 },
+        "patrick-mahomes": { YDS: 292, TD: 3 },
+      },
+    };
+
+    expect(
+      gradeSelection(
+        { market: "player_saves", selection: "player_saves:thibaut-courtois:3.5", line: 3.5 },
+        2,
+        1,
+        prodStats,
+      ),
+    ).toBe("won");
+    expect(
+      gradeSelection(
+        { market: "player_saves", selection: "player_saves:jan-oblak:3.5", line: 3.5 },
+        2,
+        1,
+        prodStats,
+      ),
+    ).toBe("lost");
+    expect(
+      gradeSelection(
+        { market: "player_shots", selection: "player_shots:kylian-mbappe:2.5", line: 2.5 },
+        2,
+        1,
+        prodStats,
+      ),
+    ).toBe("won");
+    expect(
+      gradeSelection(
+        { market: "player_sot", selection: "player_sot:lamine-yamal:0.5", line: 0.5 },
+        2,
+        1,
+        prodStats,
+      ),
+    ).toBe("won");
+    expect(
+      gradeSelection(
+        { market: "player_goal", selection: "player_goal:vinicius-jr:0.5", line: 0.5 },
+        2,
+        1,
+        prodStats,
+      ),
+    ).toBe("won");
+    expect(
+      gradeSelection(
+        { market: "player_goal", selection: "player_goal:lamine-yamal:0.5", line: 0.5 },
+        2,
+        1,
+        prodStats,
+      ),
+    ).toBe("lost");
+
+    expect(
+      gradeSelection(
+        { market: "player_props_football", selection: "kylian-mbappe_shots_on_target_over_1.5", line: 1.5 },
+        2,
+        1,
+        prodStats,
+      ),
+    ).toBe("won");
+    expect(
+      gradeSelection(
+        { market: "player_props_football", selection: "vinicius-jr_goal_or_assist_over_0.5", line: 0.5 },
+        2,
+        1,
+        prodStats,
+      ),
+    ).toBe("won");
+    expect(
+      gradeSelection(
+        { market: "nba_player_props", selection: "lebron-james_pts_over_25.5", line: 25.5 },
+        118,
+        110,
+        prodStats,
+      ),
+    ).toBe("won");
+    expect(
+      gradeSelection(
+        { market: "nba_player_props", selection: "lebron-james_pts_under_25.5", line: 25.5 },
+        118,
+        110,
+        prodStats,
+      ),
+    ).toBe("lost");
+
+    expect(
+      gradeSelection(
+        { market: "nba_pts", selection: "nba_pts:lebron-james:25.5", line: 25.5 },
+        118,
+        110,
+        prodStats,
+      ),
+    ).toBe("won");
+    expect(
+      gradeSelection(
+        { market: "mlb_so", selection: "mlb_so:gerrit-cole:6.5", line: 6.5 },
+        4,
+        2,
+        prodStats,
+      ),
+    ).toBe("won");
+    expect(
+      gradeSelection(
+        { market: "nhl_sog", selection: "nhl_sog:connor-mcdavid:3.5", line: 3.5 },
+        4,
+        2,
+        prodStats,
+      ),
+    ).toBe("won");
+    expect(
+      gradeSelection(
+        { market: "nfl_yds", selection: "nfl_yds:patrick-mahomes:275.5", line: 275.5 },
+        27,
+        20,
+        prodStats,
+      ),
+    ).toBe("won");
+
+    expect(gradeSelection({ market: "booking_points", selection: "over_55.5" }, 2, 1, prodStats)).toBe("won");
+    expect(gradeSelection({ market: "nhl_puckline", selection: "home_-1.5" }, 4, 2)).toBe("won");
+    expect(gradeSelection({ market: "nhl_puckline", selection: "home_-1.5" }, 3, 2)).toBe("lost");
+    expect(gradeSelection({ market: "totals_2.5", selection: "over" }, 2, 1)).toBe("won");
+    expect(gradeSelection({ market: "totals_2.5", selection: "over" }, 1, 1)).toBe("lost");
+
+    expect(gradeSelection({ market: "asian_handicap", selection: "home_-0.25" }, 1, 1)).toBeNull();
+    expect(gradeSelection({ market: "asian_handicap", selection: "home_+0.25" }, 1, 1)).toBeNull();
+    expect(gradeSelection({ market: "asian_handicap", selection: "home_-0.75" }, 2, 1)).toBeNull();
+    expect(gradeSelection({ market: "asian_handicap", selection: "away_+0.75" }, 2, 1)).toBeNull();
+    expect(gradeSelection({ market: "asian_handicap", selection: "home_-0.25" }, 2, 1)).toBe("won");
+    expect(gradeSelection({ market: "asian_handicap", selection: "home_-0.25" }, 0, 1)).toBe("lost");
+    expect(gradeSelection({ market: "asian_handicap", selection: "home_-0.75" }, 3, 1)).toBe("won");
+    expect(gradeSelection({ market: "asian_handicap", selection: "home_-0.75" }, 1, 1)).toBe("lost");
+
+    expect(gradeSelection({ market: "totals", selection: "over_2.25" }, 1, 1)).toBeNull();
+    expect(gradeSelection({ market: "totals", selection: "under_2.25" }, 1, 1)).toBeNull();
+    expect(gradeSelection({ market: "totals", selection: "over_2.25" }, 2, 1)).toBe("won");
+    expect(gradeSelection({ market: "totals", selection: "over_2.75" }, 2, 1)).toBeNull();
+    expect(gradeSelection({ market: "totals", selection: "over_2.75" }, 3, 1)).toBe("won");
+  });
+
   it("liquida en FT singles, alt spreads, alt totals, goalkeeper saves, SGP y Daily Parlays con CLV real e inmutabilidad estricta", async () => {
     const root = mkdtempSync(path.join(tmpdir(), "pl-v6-settle-"));
     try {
@@ -889,6 +1592,19 @@ describe("Spacetime v6.0 · Liquidación FT multi-deporte, SGP, Parlays, Props e
           source: "market_book_power_devig_v6",
           kickoffAt: koNfl,
           capturedAt: new Date("2026-11-20T19:55:00Z"),
+        },
+        {
+          gameId: "laliga-g1",
+          market: "goalkeeper_saves",
+          selection: "courtois:saves:over",
+          lineKey: "3.5",
+          book: "pinnacle",
+          decimalOdds: 1.92,
+          fairDecimal: 1.98,
+          noVigProb: 1 / 1.98,
+          source: "pick_quote_power_devig_v6",
+          kickoffAt: koFootball,
+          capturedAt: new Date("2026-11-20T17:55:00Z"),
         },
       ]);
 
@@ -947,8 +1663,8 @@ describe("Spacetime v6.0 · Liquidación FT multi-deporte, SGP, Parlays, Props e
           pickLabel: "Courtois Más de 3.5 atajadas",
           origin: "Player Prop",
           pickKind: "single",
-          pickMarket: "goalkeeper_saves",
-          pickSelection: "gk_saves:courtois:over_3.5",
+          pickMarket: "player_saves",
+          pickSelection: "player_saves:courtois:3.5",
           pickLine: 3.5,
           units: 1,
           userDecimal: 2.15,
@@ -1117,6 +1833,9 @@ describe("Spacetime v6.0 · Liquidación FT multi-deporte, SGP, Parlays, Props e
 
       expect(byPickId.get("v6-single-total-push")?.status).toBe("void");
       expect(byPickId.get("v6-single-gk-saves")?.status).toBe("won");
+      expect(
+        parseStrictFiniteNumber(byPickId.get("v6-single-gk-saves")?.clvPct),
+      ).toBeCloseTo(8.59, 1);
       expect(byPickId.get("parlay:sgp-laliga-1")?.status).toBe("won");
       expect(byPickId.get("parlay:daily-v6-1")?.status).toBe("won");
       expect(byPickId.get("v6-single-noncredible-clv")?.status).toBe("lost");

@@ -57,6 +57,445 @@ function canonicalNumberKey(value: number): string {
   return String(normalized);
 }
 
+const TEAM_US_MARKETS_V6: ReadonlySet<string> = new Set([
+  "nba_moneyline",
+  "mlb_moneyline",
+  "nhl_moneyline",
+  "nfl_moneyline",
+  "nba_totals",
+  "mlb_totals",
+  "nhl_totals",
+  "nfl_totals",
+  "nba_spread",
+  "nfl_spread",
+  "mlb_run_line",
+  "mlb_f5",
+  "nhl_puck_line",
+  "nhl_puckline",
+]);
+
+const KNOWN_PROP_STAT_SUFFIXES_V6: readonly string[] = [
+  "player_goal_or_assist",
+  "player_shots_on_target",
+  "player_yellow_cards",
+  "goalkeeper_saves",
+  "shots_on_target",
+  "innings_pitched",
+  "receiving_yards",
+  "goal_or_assist",
+  "passing_yards",
+  "rushing_yards",
+  "shots_on_goal",
+  "goals_assists",
+  "player_goals",
+  "player_saves",
+  "player_shots",
+  "player_cards",
+  "yellow_cards",
+  "earned_runs",
+  "total_bases",
+  "player_goal",
+  "player_sot",
+  "strikeouts",
+  "touchdowns",
+  "receptions",
+  "home_runs",
+  "completions",
+  "gk_saves",
+  "rebounds",
+  "pass_yds",
+  "rush_yds",
+  "rec_yds",
+  "attempts",
+  "assists",
+  "targets",
+  "carries",
+  "threes",
+  "points",
+  "assist",
+  "saves",
+  "shots",
+  "goals",
+  "cards",
+  "yards",
+  "walks",
+  "hits",
+  "goal",
+  "tgts",
+  "pts",
+  "reb",
+  "ast",
+  "3pm",
+  "pra",
+  "stl",
+  "blk",
+  "sot",
+  "sog",
+  "rbi",
+  "cmp",
+  "att",
+  "yds",
+  "tds",
+  "car",
+  "rec",
+  "so",
+  "ip",
+  "hr",
+  "tb",
+  "bb",
+  "er",
+  "td",
+  "g",
+  "a",
+  "h",
+  "k",
+];
+
+function normalizeSnakeToken(raw: string): string {
+  return raw
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, "_")
+    .replace(/^_+|_+$/g, "");
+}
+
+export function normalizePropPlayerSlugV6(raw: string): string {
+  return raw
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-+|-+$/g, "");
+}
+
+export function normalizePropStatAliasV6(raw: string): string {
+  const token = normalizeSnakeToken(raw);
+  if (
+    token === "sot" ||
+    token === "shots_on_target" ||
+    token === "player_sot" ||
+    token === "player_shots_on_target" ||
+    token === "tiros_a_puerta"
+  ) {
+    return "shots_on_target";
+  }
+  if (
+    token === "shots" ||
+    token === "player_shots" ||
+    token === "tiros" ||
+    token === "tiros_totales"
+  ) {
+    return "shots";
+  }
+  if (
+    token === "saves" ||
+    token === "gk_saves" ||
+    token === "goalkeeper_saves" ||
+    token === "player_saves" ||
+    token === "atajadas"
+  ) {
+    return "saves";
+  }
+  if (
+    token === "goals_assists" ||
+    token === "goal_or_assist" ||
+    token === "player_goal_or_assist" ||
+    token === "player_goals_assists" ||
+    token === "g_a"
+  ) {
+    return "goal_or_assist";
+  }
+  if (
+    token === "goal" ||
+    token === "goals" ||
+    token === "player_goal" ||
+    token === "player_goals" ||
+    token === "g" ||
+    token === "goles"
+  ) {
+    return "goals";
+  }
+  if (
+    token === "assist" ||
+    token === "assists" ||
+    token === "player_assist" ||
+    token === "player_assists" ||
+    token === "ast" ||
+    token === "a" ||
+    token === "asistencias"
+  ) {
+    return "assists";
+  }
+  if (
+    token === "yellow_cards" ||
+    token === "cards" ||
+    token === "player_cards" ||
+    token === "player_yellow_cards" ||
+    token === "tarjetas"
+  ) {
+    return "cards";
+  }
+  if (token === "pts" || token === "points" || token === "puntos") return "pts";
+  if (token === "reb" || token === "rebounds" || token === "rebotes") return "reb";
+  if (token === "3pm" || token === "threes" || token === "triples") return "3pm";
+  if (token === "k" || token === "so" || token === "strikeouts" || token === "ponches") {
+    return "strikeouts";
+  }
+  if (token === "tb" || token === "total_bases" || token === "bases_totales") return "total_bases";
+  if (token === "sog" || token === "shots_on_goal") return "sog";
+  if (token === "h" || token === "hits" || token === "imparables") return "hits";
+  if (token === "hr" || token === "home_runs" || token === "jonrones") return "hr";
+  if (token === "rbi" || token === "carreras_impulsadas") return "rbi";
+  if (token === "bb" || token === "walks" || token === "bases_por_bola") return "bb";
+  if (token === "er" || token === "earned_runs" || token === "carreras_limpias") return "er";
+  if (token === "ip" || token === "innings_pitched" || token === "entradas") return "ip";
+  if (token === "cmp" || token === "completions" || token === "pases_completos") return "cmp";
+  if (token === "att" || token === "attempts" || token === "intentos") return "att";
+  if (token === "yds" || token === "yards" || token === "yardas") return "yds";
+  if (token === "td" || token === "tds" || token === "touchdowns") return "td";
+  if (token === "car" || token === "carries" || token === "acarreos") return "car";
+  if (token === "rec" || token === "receptions" || token === "recepciones") return "rec";
+  if (token === "tgts" || token === "targets" || token === "objetivos") return "tgts";
+  return token;
+}
+
+export interface ClassifiedPropMarketV6 {
+  readonly canonicalMarket: "goalkeeper_saves" | "player_props";
+  readonly defaultStatKey: string | null;
+}
+
+export function classifyPropMarketV6(rawMarket: string): ClassifiedPropMarketV6 | null {
+  const m = rawMarket.trim().toLowerCase();
+  if (!m || TEAM_US_MARKETS_V6.has(m)) return null;
+  if (m === "player_saves" || m === "goalkeeper_saves" || m === "gk_saves") {
+    return { canonicalMarket: "goalkeeper_saves", defaultStatKey: "saves" };
+  }
+  if (m === "player_shots") {
+    return { canonicalMarket: "player_props", defaultStatKey: "shots" };
+  }
+  if (m === "player_sot" || m === "player_shots_on_target") {
+    return { canonicalMarket: "player_props", defaultStatKey: "shots_on_target" };
+  }
+  if (m === "player_goal" || m === "player_goals") {
+    return { canonicalMarket: "player_props", defaultStatKey: "goals" };
+  }
+  if (m === "player_assist" || m === "player_assists") {
+    return { canonicalMarket: "player_props", defaultStatKey: "assists" };
+  }
+  if (m === "player_goal_or_assist" || m === "player_goals_assists") {
+    return { canonicalMarket: "player_props", defaultStatKey: "goal_or_assist" };
+  }
+  if (m === "player_cards" || m === "player_yellow_cards") {
+    return { canonicalMarket: "player_props", defaultStatKey: "cards" };
+  }
+  if (
+    m === "player_prop" ||
+    m === "player_props" ||
+    m === "player_props_football" ||
+    m === "nba_player_props" ||
+    m === "mlb_player_props" ||
+    m === "nhl_player_props" ||
+    m === "nfl_player_props"
+  ) {
+    return { canonicalMarket: "player_props", defaultStatKey: null };
+  }
+  const usMatch = /^(nba|mlb|nhl|nfl)_([a-z0-9_]+)$/.exec(m);
+  if (usMatch) {
+    const metric = usMatch[2]!;
+    const stat = normalizePropStatAliasV6(metric);
+    if (stat === "saves") {
+      return { canonicalMarket: "goalkeeper_saves", defaultStatKey: "saves" };
+    }
+    return { canonicalMarket: "player_props", defaultStatKey: stat };
+  }
+  return null;
+}
+
+export interface ParsedStructuredPropKeyV6 {
+  readonly canonicalMarket: "goalkeeper_saves" | "player_props";
+  readonly playerSlug: string;
+  readonly statKey: string;
+  readonly direction: "over" | "under";
+  readonly line: number;
+}
+
+function parsePropDirectionAndLineToken(
+  token: string,
+  fallbackLine: number | null,
+  allowBareNumeric: boolean,
+): { direction: "over" | "under"; line: number } | null {
+  const clean = token.trim().toLowerCase();
+  const withDir = /^(over|under)[_\s:-]?([+-]?\d+(?:\.\d+)?)$/.exec(clean);
+  if (withDir) {
+    const parsedLine = parseStrictFiniteNumber(withDir[2]);
+    if (parsedLine !== null) {
+      return { direction: withDir[1] === "under" ? "under" : "over", line: parsedLine };
+    }
+  }
+  if (fallbackLine !== null && Number.isFinite(fallbackLine)) {
+    if (clean === "over") return { direction: "over", line: fallbackLine };
+    if (clean === "under") return { direction: "under", line: fallbackLine };
+  }
+  if (allowBareNumeric) {
+    const bare = /^([+-]?\d+(?:\.\d+)?)$/.exec(clean);
+    if (bare) {
+      const parsedLine = parseStrictFiniteNumber(bare[1]);
+      if (parsedLine !== null) {
+        return { direction: "over", line: parsedLine };
+      }
+    }
+  }
+  return null;
+}
+
+export function parseStructuredPropKeyV6(
+  rawMarket: string,
+  rawSelection: string,
+  fallbackLine?: number | null,
+  overrides?: { readonly playerKey?: string | null; readonly playerStatKey?: string | null },
+): ParsedStructuredPropKeyV6 | null {
+  const propInfo = classifyPropMarketV6(rawMarket);
+  if (!propInfo) return null;
+
+  const lineFallback =
+    typeof fallbackLine === "number" && Number.isFinite(fallbackLine) ? fallbackLine : null;
+  const selClean = rawSelection.trim().toLowerCase();
+  let rawPlayer = overrides?.playerKey?.trim() ?? "";
+  let rawStat = overrides?.playerStatKey?.trim() ?? "";
+  let dirToken = "";
+
+  if (selClean.includes(":")) {
+    const parts = selClean
+      .split(":")
+      .map((part) => part.trim())
+      .filter((part) => part.length > 0);
+    if (parts.length >= 5 && (parts[0] === "player" || parts[0] === "prop")) {
+      rawPlayer = rawPlayer || parts[1]!;
+      rawStat = rawStat || parts[2]!;
+      dirToken = parts.slice(3).join(":");
+    } else if (parts.length === 4) {
+      if (parts[0] === "player" || parts[0] === "prop") {
+        rawPlayer = rawPlayer || parts[1]!;
+        rawStat = rawStat || parts[2]!;
+        dirToken = parts[3]!;
+      } else {
+        const prefixMarket = classifyPropMarketV6(parts[0]!);
+        if (prefixMarket) {
+          rawPlayer = rawPlayer || parts[1]!;
+          rawStat = rawStat || prefixMarket.defaultStatKey || propInfo.defaultStatKey || "";
+          dirToken = `${parts[2]}:${parts[3]}`;
+        } else {
+          rawPlayer = rawPlayer || parts[0]!;
+          rawStat = rawStat || parts[1]!;
+          dirToken = `${parts[2]}:${parts[3]}`;
+        }
+      }
+    } else if (parts.length === 3) {
+      const prefixMarket = classifyPropMarketV6(parts[0]!);
+      if (prefixMarket || parts[0] === rawMarket.trim().toLowerCase()) {
+        rawPlayer = rawPlayer || parts[1]!;
+        rawStat = rawStat || prefixMarket?.defaultStatKey || propInfo.defaultStatKey || "";
+        dirToken = parts[2]!;
+      } else if (propInfo.defaultStatKey && (parts[1] === "over" || parts[1] === "under")) {
+        rawPlayer = rawPlayer || parts[0]!;
+        rawStat = rawStat || propInfo.defaultStatKey;
+        dirToken = `${parts[1]}:${parts[2]}`;
+      } else {
+        rawPlayer = rawPlayer || parts[0]!;
+        rawStat = rawStat || parts[1]!;
+        dirToken = parts[2]!;
+      }
+    } else if (parts.length === 2 && propInfo.defaultStatKey) {
+      rawPlayer = rawPlayer || parts[0]!;
+      rawStat = rawStat || propInfo.defaultStatKey;
+      dirToken = parts[1]!;
+    }
+
+    const parsedDir = dirToken ? parsePropDirectionAndLineToken(dirToken, lineFallback, true) : null;
+    const playerSlug = normalizePropPlayerSlugV6(rawPlayer);
+    const statKey = normalizePropStatAliasV6(rawStat || propInfo.defaultStatKey || "");
+    if (playerSlug && statKey && parsedDir) {
+      return {
+        canonicalMarket: statKey === "saves" ? "goalkeeper_saves" : propInfo.canonicalMarket,
+        playerSlug,
+        statKey,
+        direction: parsedDir.direction,
+        line: parsedDir.line,
+      };
+    }
+  }
+
+  const underMatch = /^(.+)_(over|under)(?:_([+-]?\d+(?:\.\d+)?))?$/.exec(selClean);
+  if (underMatch) {
+    const prefix = underMatch[1]!;
+    const direction: "over" | "under" = underMatch[2] === "under" ? "under" : "over";
+    const parsedLine = underMatch[3] ? parseStrictFiniteNumber(underMatch[3]) : lineFallback;
+    if (parsedLine !== null) {
+      let matchedPlayer = rawPlayer;
+      let matchedStat = rawStat;
+      if (!matchedPlayer || !matchedStat) {
+        let foundKnown = false;
+        for (const suffix of KNOWN_PROP_STAT_SUFFIXES_V6) {
+          const tail = `_${suffix}`;
+          if (prefix.endsWith(tail) && prefix.length > tail.length) {
+            if (
+              propInfo.defaultStatKey !== null &&
+              normalizePropStatAliasV6(suffix) !== propInfo.defaultStatKey
+            ) {
+              continue;
+            }
+            matchedPlayer = matchedPlayer || prefix.slice(0, -tail.length);
+            matchedStat = matchedStat || suffix;
+            foundKnown = true;
+            break;
+          }
+        }
+        if (!foundKnown) {
+          if (propInfo.defaultStatKey) {
+            matchedPlayer = matchedPlayer || prefix;
+            matchedStat = matchedStat || propInfo.defaultStatKey;
+          } else {
+            const lastIdx = prefix.lastIndexOf("_");
+            if (lastIdx > 0) {
+              matchedPlayer = matchedPlayer || prefix.slice(0, lastIdx);
+              matchedStat = matchedStat || prefix.slice(lastIdx + 1);
+            }
+          }
+        }
+      }
+      const playerSlug = normalizePropPlayerSlugV6(matchedPlayer);
+      const statKey = normalizePropStatAliasV6(matchedStat || propInfo.defaultStatKey || "");
+      if (playerSlug && statKey) {
+        return {
+          canonicalMarket: statKey === "saves" ? "goalkeeper_saves" : propInfo.canonicalMarket,
+          playerSlug,
+          statKey,
+          direction,
+          line: parsedLine,
+        };
+      }
+    }
+  }
+
+  if (rawPlayer) {
+    const parsedDir = parsePropDirectionAndLineToken(selClean, lineFallback, true);
+    const playerSlug = normalizePropPlayerSlugV6(rawPlayer);
+    const statKey = normalizePropStatAliasV6(rawStat || propInfo.defaultStatKey || "");
+    if (playerSlug && statKey && parsedDir) {
+      return {
+        canonicalMarket: statKey === "saves" ? "goalkeeper_saves" : propInfo.canonicalMarket,
+        playerSlug,
+        statKey,
+        direction: parsedDir.direction,
+        line: parsedDir.line,
+      };
+    }
+  }
+
+  return null;
+}
+
 export function normalizeClosingMarketKey(market: string): string {
   const m = market.trim().toLowerCase();
   if (
@@ -98,13 +537,16 @@ export function normalizeClosingMarketKey(market: string): string {
     m === "nba_spread" ||
     m === "nfl_spread" ||
     m === "mlb_run_line" ||
-    m === "nhl_puck_line"
+    m === "nhl_puck_line" ||
+    m === "nhl_puckline"
   ) {
     return "spreads";
   }
   if (m === "dnb" || m === "draw_no_bet") return "dnb";
   if (m === "both_teams_to_score") return "btts";
-  if (m === "gk_saves") return "goalkeeper_saves";
+  if (m === "booking_pts" || m === "booking_points") return "booking_points";
+  const propInfo = classifyPropMarketV6(m);
+  if (propInfo) return propInfo.canonicalMarket;
   return m;
 }
 
@@ -113,6 +555,15 @@ export function normalizeClosingSelectionAndLine(
   selection: string,
   line?: number | null,
 ): { market: string; selection: string; lineKey: string } {
+  const parsedProp = parseStructuredPropKeyV6(market, selection, line);
+  if (parsedProp) {
+    return {
+      market: parsedProp.canonicalMarket,
+      selection: `${parsedProp.playerSlug}:${parsedProp.statKey}:${parsedProp.direction}`,
+      lineKey: canonicalNumberKey(parsedProp.line),
+    };
+  }
+
   const normMarket = normalizeClosingMarketKey(market);
   let normSel = selection.trim().toLowerCase();
   let resolvedLine = typeof line === "number" && Number.isFinite(line) ? line : null;
@@ -123,7 +574,7 @@ export function normalizeClosingSelectionAndLine(
       normSel = match[1]!;
       if (resolvedLine === null) resolvedLine = parseStrictFiniteNumber(match[2]);
     } else if (resolvedLine === null) {
-      const mLine = /^totals_(\d+_\d+)$/.exec(market.trim().toLowerCase());
+      const mLine = /^totals_(\d+(?:[._]\d+)?)$/.exec(market.trim().toLowerCase());
       if (mLine) {
         resolvedLine = parseStrictFiniteNumber(mLine[1]!.replace("_", "."));
       }
@@ -286,18 +737,32 @@ function resolveSameBookMarketGroup(
   }
 
   if (
+    (normMarket === "goalkeeper_saves" || normMarket === "player_props") &&
+    lineKey.length > 0
+  ) {
+    const propMatch = /^([a-z0-9-]+):([a-z0-9_]+):(over|under)$/.exec(normSelection);
+    if (!propMatch) return null;
+    const playerSlug = propMatch[1]!;
+    const statKey = propMatch[2]!;
+    const entity = `${playerSlug}:${statKey}`;
+    return {
+      groupKey: `${normMarket}|${playerSlug}|${statKey}|${lineKey}`,
+      requiredSelections: [`${entity}:over`, `${entity}:under`],
+      canonicalSelection: normSelection,
+      storedLineKey: lineKey,
+    };
+  }
+
+  if (
     (normSelection === "over" || normSelection === "under") &&
     lineKey.length > 0 &&
     (normMarket === "totals" ||
       normMarket === "corners_total" ||
       normMarket === "cards_total" ||
+      normMarket === "booking_points" ||
       normMarket === "shots_total" ||
       normMarket === "shots_on_target" ||
-      normMarket === "fouls_total" ||
-      normMarket === "goalkeeper_saves" ||
-      normMarket === "player_props_football" ||
-      normMarket === "nba_player_props" ||
-      normMarket === "player_props")
+      normMarket === "fouls_total")
   ) {
     return {
       groupKey: `${normMarket}|${lineKey}`,

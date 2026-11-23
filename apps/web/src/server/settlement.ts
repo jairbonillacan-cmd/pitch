@@ -21,9 +21,12 @@ import type {
 import type { PlatformDataset } from "@pitchlab/ui/types";
 import type { Mailer } from "./mailer";
 import {
+  classifyPropMarketV6,
   computeCredibleClvPctV6,
   evaluateProspectiveClosingQuotesV6,
   findClosingQuoteForPick,
+  normalizePropStatAliasV6,
+  parseStructuredPropKeyV6,
   syncPreKickoffClosingOdds,
 } from "./closing-odds";
 import { buildServerRawPlatformDataset } from "./platform-data";
@@ -189,38 +192,22 @@ function normalizeLookupToken(raw: string): string {
     .replace(/^_+|_+$/g, "");
 }
 
-function normalizePlayerStatKeyAlias(raw: string): string {
-  const token = normalizeLookupToken(raw);
-  if (token === "sot" || token === "shots_on_target" || token === "tiros_a_puerta") {
-    return "shots_on_target";
-  }
-  if (token === "saves" || token === "gk_saves" || token === "goalkeeper_saves" || token === "atajadas") {
-    return "saves";
-  }
-  if (token === "goals_assists" || token === "goal_or_assist" || token === "g_a") {
-    return "goal_or_assist";
-  }
-  if (token === "yellow_cards" || token === "cards" || token === "tarjetas") {
-    return "cards";
-  }
-  if (token === "pts" || token === "points" || token === "puntos") return "pts";
-  if (token === "reb" || token === "rebounds" || token === "rebotes") return "reb";
-  if (token === "ast" || token === "assists" || token === "asistencias") return "ast";
-  if (token === "3pm" || token === "threes" || token === "triples") return "3pm";
-  if (token === "k" || token === "so" || token === "strikeouts") return "strikeouts";
-  if (token === "tb" || token === "total_bases") return "total_bases";
-  if (token === "sog" || token === "shots_on_goal") return "sog";
-  return token;
+function isQuarterLine(line: number): boolean {
+  const scaled = Math.abs(line * 4);
+  const rounded = Math.round(scaled);
+  return Math.abs(scaled - rounded) < 1e-9 && rounded % 2 === 1;
 }
 
 function gradeOverUnderValue(
   observed: number,
   line: number,
   direction: "over" | "under",
-): PickResult {
-  if (Math.abs(observed - line) < 1e-9) return "void";
-  if (direction === "over") return observed > line ? "won" : "lost";
-  return observed < line ? "won" : "lost";
+): PickResult | null {
+  const diff = observed - line;
+  if (Math.abs(diff) < 1e-9) return "void";
+  if (isQuarterLine(line) && Math.abs(Math.abs(diff) - 0.25) < 1e-9) return null;
+  if (direction === "over") return diff > 0 ? "won" : "lost";
+  return diff < 0 ? "won" : "lost";
 }
 
 function parseDirectionAndLineFromToken(
@@ -267,7 +254,7 @@ function findPlayerStatObserved(
   statKey: string,
 ): number | null {
   if (!finalStats) return null;
-  const normStat = normalizePlayerStatKeyAlias(statKey);
+  const normStat = normalizePropStatAliasV6(statKey);
   if (normStat === "saves" && finalStats.goalkeeperSaves) {
     const directSave = findNormalizedNumericEntry(finalStats.goalkeeperSaves, playerKey);
     if (directSave !== null) return directSave;
@@ -286,10 +273,24 @@ function findPlayerStatObserved(
   if (!matchedBag) return null;
   const directVal = matchedBag[statKey];
   if (typeof directVal === "number" && Number.isFinite(directVal)) return directVal;
+  let goalsVal: number | null = null;
+  let assistsVal: number | null = null;
+  let ptsVal: number | null = null;
+  let rebVal: number | null = null;
   for (const [sKey, val] of Object.entries(matchedBag)) {
-    if (typeof val === "number" && Number.isFinite(val) && normalizePlayerStatKeyAlias(sKey) === normStat) {
-      return val;
-    }
+    if (typeof val !== "number" || !Number.isFinite(val)) continue;
+    const alias = normalizePropStatAliasV6(sKey);
+    if (alias === normStat) return val;
+    if (alias === "goals") goalsVal = val;
+    else if (alias === "assists") assistsVal = val;
+    else if (alias === "pts") ptsVal = val;
+    else if (alias === "reb") rebVal = val;
+  }
+  if (normStat === "goal_or_assist" && (goalsVal !== null || assistsVal !== null)) {
+    return (goalsVal ?? 0) + (assistsVal ?? 0);
+  }
+  if (normStat === "pra" && ptsVal !== null && rebVal !== null && assistsVal !== null) {
+    return ptsVal + rebVal + assistsVal;
   }
   return null;
 }
@@ -306,7 +307,7 @@ function isPlayerMarkedDnp(
 function normalizeMarketForGrading(
   rawMarket: string,
   selection: string,
-): { market: string; selection: string; line?: number } {
+): { market: string; selection: string; line?: number; rawPropMarket?: string } {
   const m = rawMarket.trim().toLowerCase();
   const s = selection.trim().toLowerCase();
 
@@ -355,7 +356,7 @@ function normalizeMarketForGrading(
       const line = parseStrictFiniteNumber(match[2]);
       if (line !== null) return { market: "totals", selection: `${match[1]}_${match[2]}`, line };
     }
-    const mLine = /^totals_(\d+_\d+)$/.exec(m);
+    const mLine = /^totals_(\d+(?:[._]\d+)?)$/.exec(m);
     if (mLine) {
       const line = parseStrictFiniteNumber(mLine[1]!.replace("_", "."));
       if (line !== null) return { market: "totals", selection: s, line };
@@ -375,7 +376,8 @@ function normalizeMarketForGrading(
     m === "nba_spread" ||
     m === "nfl_spread" ||
     m === "mlb_run_line" ||
-    m === "nhl_puck_line"
+    m === "nhl_puck_line" ||
+    m === "nhl_puckline"
   ) {
     const match =
       /^(?:ah_)?(home|away)[_\s]+([+-]?\d+(?:\.\d+)?)$/.exec(s) ??
@@ -403,72 +405,41 @@ function normalizeMarketForGrading(
   if (m === "correct_score") {
     return { market: "correct_score", selection: s.replace("–", "-") };
   }
-  if (m === "gk_saves" || m === "goalkeeper_saves") {
-    return { market: "goalkeeper_saves", selection: s };
-  }
-  if (
-    m === "player_prop" ||
-    m === "player_props" ||
-    m === "player_props_football" ||
-    m === "nba_player_props" ||
-    m === "mlb_player_props" ||
-    m === "nhl_player_props" ||
-    m === "nfl_player_props"
-  ) {
-    return { market: "player_props", selection: s };
+  if (m === "booking_points" || m === "booking_pts") {
+    return { market: "booking_points", selection: s };
   }
   if (m === "yellow_cards") {
     return { market: "cards_total", selection: s };
+  }
+  const propClass = classifyPropMarketV6(m);
+  if (propClass) {
+    return { market: propClass.canonicalMarket, selection: s, rawPropMarket: m };
   }
   return { market: m, selection: s };
 }
 
 function gradeStructuredPlayerOrKeeperProp(params: {
-  readonly market: string;
+  readonly rawMarket: string;
   readonly selection: string;
   readonly line?: number;
   readonly playerKey?: string | null;
   readonly playerStatKey?: string | null;
   readonly finalStats?: MatchFinalStatsV6 | null;
 }): PickResult | null {
-  const { market, selection, line, finalStats } = params;
+  const { rawMarket, selection, line, finalStats } = params;
   if (!finalStats) return null;
 
-  let resolvedPlayer = params.playerKey?.trim() ?? "";
-  let resolvedStat =
-    params.playerStatKey?.trim() ?? (market === "goalkeeper_saves" ? "saves" : "");
-  let dirToken = selection;
+  const parsed = parseStructuredPropKeyV6(rawMarket, selection, line, {
+    playerKey: params.playerKey,
+    playerStatKey: params.playerStatKey,
+  });
+  if (!parsed) return null;
 
-  const parts = selection.split(":").map((part) => part.trim()).filter(Boolean);
-  if (parts.length >= 4 && (parts[0] === "player" || parts[0] === "prop")) {
-    resolvedPlayer = resolvedPlayer || parts[1]!;
-    resolvedStat = resolvedStat || parts[2]!;
-    dirToken = parts.slice(3).join(":");
-  } else if (parts.length === 3) {
-    if (parts[0] === "gk_saves" || parts[0] === "goalkeeper_saves") {
-      resolvedPlayer = resolvedPlayer || parts[1]!;
-      resolvedStat = "saves";
-      dirToken = parts[2]!;
-    } else {
-      resolvedPlayer = resolvedPlayer || parts[0]!;
-      resolvedStat = resolvedStat || parts[1]!;
-      dirToken = parts[2]!;
-    }
-  } else if (parts.length === 2 && market === "goalkeeper_saves") {
-    resolvedPlayer = resolvedPlayer || parts[0]!;
-    resolvedStat = "saves";
-    dirToken = parts[1]!;
-  }
+  if (isPlayerMarkedDnp(finalStats, parsed.playerSlug)) return "void";
 
-  if (!resolvedPlayer || !resolvedStat) return null;
-  if (isPlayerMarkedDnp(finalStats, resolvedPlayer)) return "void";
-
-  const parsedDir = parseDirectionAndLineFromToken(dirToken, line);
-  if (!parsedDir) return null;
-
-  const observed = findPlayerStatObserved(finalStats, resolvedPlayer, resolvedStat);
+  const observed = findPlayerStatObserved(finalStats, parsed.playerSlug, parsed.statKey);
   if (observed === null) return null;
-  return gradeOverUnderValue(observed, parsedDir.line, parsedDir.direction);
+  return gradeOverUnderValue(observed, parsed.line, parsed.direction);
 }
 
 function gradeMatchMicroCountMarket(
@@ -597,9 +568,12 @@ export function gradeSelection(
 
   if (effectiveMarket === "totals") {
     if (effectiveLine === undefined) return null;
-    if (Math.abs(total - effectiveLine) < 1e-9) return "void";
-    if (effectiveSelection.startsWith("over")) return total > effectiveLine ? "won" : "lost";
-    if (effectiveSelection.startsWith("under")) return total < effectiveLine ? "won" : "lost";
+    if (effectiveSelection.startsWith("over")) {
+      return gradeOverUnderValue(total, effectiveLine, "over");
+    }
+    if (effectiveSelection.startsWith("under")) {
+      return gradeOverUnderValue(total, effectiveLine, "under");
+    }
     return null;
   }
 
@@ -619,11 +593,13 @@ export function gradeSelection(
     if (effectiveSelection.startsWith("home")) {
       const diff = home + effectiveLine - away;
       if (Math.abs(diff) < 1e-9) return "void";
+      if (isQuarterLine(effectiveLine) && Math.abs(Math.abs(diff) - 0.25) < 1e-9) return null;
       return diff > 0 ? "won" : "lost";
     }
     if (effectiveSelection.startsWith("away")) {
       const diff = away + effectiveLine - home;
       if (Math.abs(diff) < 1e-9) return "void";
+      if (isQuarterLine(effectiveLine) && Math.abs(Math.abs(diff) - 0.25) < 1e-9) return null;
       return diff > 0 ? "won" : "lost";
     }
     return null;
@@ -739,7 +715,7 @@ export function gradeSelection(
 
   if (effectiveMarket === "goalkeeper_saves" || effectiveMarket === "player_props") {
     return gradeStructuredPlayerOrKeeperProp({
-      market: effectiveMarket,
+      rawMarket: norm.rawPropMarket ?? market,
       selection: effectiveSelection,
       line: effectiveLine,
       playerKey: input.playerKey,

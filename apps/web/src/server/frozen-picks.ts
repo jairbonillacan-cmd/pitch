@@ -57,6 +57,20 @@ function mapStoredFrozenPick(stored: StoredFrozenPick): FrozenMainPickSnapshot {
   };
 }
 
+function buildFrozenOnlyAnalysisPayloadFromSnapshot(
+  snapshot: FrozenMainPickSnapshot,
+  inputsAsOfUtc: string,
+): PreKickoffAnalysisPayloadV6 {
+  return {
+    inputsAsOfUtc,
+    probabilities: {
+      pMainPick: snapshot.p,
+      fairDecimalMainPick: snapshot.fairDecimal,
+    },
+    projection: {},
+  };
+}
+
 function buildAnalysisPayloadFromSnapshot(
   game: ServerFrozenPickGameInput,
   snapshot: FrozenMainPickSnapshot,
@@ -127,8 +141,7 @@ function createExistingSealFromSnapshot(
     awayTeam: meta.awayTeam,
     kickoffUtc: formatEpochMsUtc(kickoffMs),
     status: "scheduled",
-    incomingAnalysis: buildAnalysisPayloadFromSnapshot(
-      game,
+    incomingAnalysis: buildFrozenOnlyAnalysisPayloadFromSnapshot(
       snapshot,
       formatEpochMsUtc(safeInputsMs),
     ),
@@ -256,8 +269,7 @@ export async function resolveServerFrozenMainPick(
     options.causalBackfillSnapshot &&
     typeof options.causalBackfillInputsAsOfUtc === "string" &&
     options.causalBackfillInputsAsOfUtc.trim().length > 0
-      ? buildAnalysisPayloadFromSnapshot(
-          game,
+      ? buildFrozenOnlyAnalysisPayloadFromSnapshot(
           options.causalBackfillSnapshot,
           options.causalBackfillInputsAsOfUtc,
         )
@@ -341,7 +353,19 @@ export async function resolveServerFrozenMainPick(
       if (stored) {
         const mapped = mapStoredFrozenPick(stored);
         memoryFrozenByGame.set(game.id, mapped);
-        memorySealRecordByGame.set(game.id, sealOutcome.sealedRecord);
+        const matchesCandidate =
+          mapped.pickId === resolvedSnapshot.pickId &&
+          mapped.selectionKey === resolvedSnapshot.selectionKey &&
+          Math.abs(mapped.p - resolvedSnapshot.p) < 1e-9 &&
+          Math.abs(mapped.fairDecimal - resolvedSnapshot.fairDecimal) < 1e-9;
+        if (matchesCandidate) {
+          memorySealRecordByGame.set(game.id, sealOutcome.sealedRecord);
+        } else {
+          const mappedSeal = createExistingSealFromSnapshot(game, mapped, kickoffMs);
+          if (mappedSeal) {
+            memorySealRecordByGame.set(game.id, mappedSeal);
+          }
+        }
         return mapped;
       }
     } catch (err) {
@@ -357,4 +381,5 @@ export async function resolveServerFrozenMainPick(
 export function clearServerFrozenPicksCacheForTests(): void {
   memoryFrozenByGame.clear();
   memorySealRecordByGame.clear();
+  frozenDb = null;
 }
