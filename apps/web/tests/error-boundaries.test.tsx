@@ -121,4 +121,16 @@ describe("Error boundaries de PitchLab", () => {
     const chunkHtml = renderToStaticMarkup(<GlobalError error={chunkErr} reset={vi.fn()} />);
     expect(chunkHtml).toContain("Recargar página");
   });
+
+  it("hace enfocables por teclado las regiones debug y evita recorte horizontal en 320 px", () => {
+    vi.stubEnv("NODE_ENV", "development");
+    const err = new Error("TypeError: Cannot read properties of null (reading 'enqueueModel')");
+    const clubHtml = renderToStaticMarkup(<ClubErrorPage error={err} reset={vi.fn()} />);
+    const globalHtml = renderToStaticMarkup(<GlobalError error={err} reset={vi.fn()} />);
+
+    expect(clubHtml).toContain('<pre class="pl-error-debug" tabindex="0">');
+    expect(globalHtml).toContain('<pre class="pl-ge-debug" tabindex="0">');
+    expect(globalHtml).toContain("grid-template-columns: minmax(0, 1fr);");
+    expect(globalHtml).toContain("overflow-wrap: anywhere;");
+  });
 });

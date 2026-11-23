@@ -103,7 +103,11 @@ export function ErrorBoundaryCard({
         {error?.digest ? (
           <p className="pl-error-digest num">Ref. {error.digest}</p>
         ) : null}
-        {devPreview ? <pre className="pl-error-debug">{devPreview}</pre> : null}
+        {devPreview ? (
+          <pre className="pl-error-debug" tabIndex={0}>
+            {devPreview}
+          </pre>
+        ) : null}
         <div className="pl-notfound-actions">
           <button
             type="button"

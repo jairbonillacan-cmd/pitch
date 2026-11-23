@@ -37,12 +37,14 @@ html, body {
 .pl-ge-shell {
   min-height: 100dvh;
   display: grid;
+  grid-template-columns: minmax(0, 1fr);
   place-items: center;
   padding: 20px;
 }
 .pl-ge-card {
   width: 100%;
   max-width: 440px;
+  min-width: 0;
   background: var(--pl-ge-card);
   border: 1px solid var(--pl-ge-border);
   border-radius: 24px;
@@ -93,13 +95,18 @@ html, body {
 .pl-ge-debug {
   margin: 14px 0 0;
   padding: 10px 12px;
+  max-width: 100%;
   border-radius: 12px;
   border: 1px solid var(--pl-ge-border);
   font-size: 12px;
   line-height: 1.4;
   text-align: start;
   color: var(--pl-ge-muted);
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
   overflow-x: auto;
+  overflow-y: auto;
+  max-height: 140px;
 }
 .pl-ge-actions {
   margin-top: 24px;
@@ -174,7 +181,11 @@ export default function GlobalError({
                 : "Ocurrió un error inesperado al iniciar la vista. Reintenta o vuelve a la portada."}
             </p>
             {error?.digest ? <p className="pl-ge-digest">Ref. {error.digest}</p> : null}
-            {devPreview ? <pre className="pl-ge-debug">{devPreview}</pre> : null}
+            {devPreview ? (
+              <pre className="pl-ge-debug" tabIndex={0}>
+                {devPreview}
+              </pre>
+            ) : null}
             <div className="pl-ge-actions">
               <button
                 type="button"
