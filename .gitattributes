@@ -1,0 +1,6 @@
+# Preserve exact LF byte representation for v6.0 SHA-256-sealed JSON artifacts generated in LF mode
+src/data/prediction/model_officials_freeze_v6_0_candidate.json text eol=lf
+src/data/prediction/officials_freeze_v6_0_snapshot.json text eol=lf
+research/prediction-lab/experiments/EXP_V61_officials_freeze_v6_0/artifacts/exp_v61_officials_freeze_v6_0_results.json text eol=lf
+src/data/prediction/live_matchday_v6_candidate_snapshot.json text eol=lf
+research/prediction-lab/experiments/EXP_V62_unified_v6_0/artifacts/exp_v62_unified_v6_0_results.json text eol=lf
