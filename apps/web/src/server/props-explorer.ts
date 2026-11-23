@@ -2000,16 +2000,73 @@ function formatKickoffMx(startTimeIso: string): string {
   }
 }
 
+interface TrackedFileMtime {
+  readonly filePath: string;
+  readonly mtimeMs: number;
+}
+
+const squadsFileCache = new Map<
+  string,
+  { readonly mtimeMs: number; readonly data: LeagueSquadsFile | null }
+>();
+const snapshotFileCache = new Map<
+  string,
+  { readonly mtimeMs: number; readonly data: LeagueSnapshot | null }
+>();
+
+function safeStatMtime(filePath: string): number {
+  try {
+    return fs.statSync(filePath).mtimeMs;
+  } catch (err) {
+    void err;
+    return 0;
+  }
+}
+
+function areTrackedFilesFresh(tracked: readonly TrackedFileMtime[]): boolean {
+  for (const entry of tracked) {
+    if (safeStatMtime(entry.filePath) !== entry.mtimeMs) {
+      return false;
+    }
+  }
+  return true;
+}
+
+function trackFileMtime(tracker: Map<string, number>, filePath: string): void {
+  if (!tracker.has(filePath)) {
+    tracker.set(filePath, safeStatMtime(filePath));
+  }
+}
+
+function toTrackedFiles(tracker: ReadonlyMap<string, number>): readonly TrackedFileMtime[] {
+  const out: TrackedFileMtime[] = [];
+  for (const [filePath, mtimeMs] of tracker.entries()) {
+    out.push({ filePath, mtimeMs });
+  }
+  return out;
+}
+
 function readSquadsFile(root: string, league: string): LeagueSquadsFile | null {
   const squadsPath = path.join(root, league, "squads.json");
-  if (!fs.existsSync(squadsPath)) return null;
+  const mtimeMs = safeStatMtime(squadsPath);
+  if (mtimeMs === 0) {
+    squadsFileCache.delete(squadsPath);
+    return null;
+  }
+  const cached = squadsFileCache.get(squadsPath);
+  if (cached && cached.mtimeMs === mtimeMs) {
+    return cached.data;
+  }
   try {
     const parsed = LeagueSquadsFileSchema.safeParse(
       JSON.parse(fs.readFileSync(squadsPath, "utf8")),
     );
-    return parsed.success ? parsed.data : null;
+    const data = parsed.success ? parsed.data : null;
+    squadsFileCache.set(squadsPath, { mtimeMs, data });
+    return data;
   } catch (err) {
     void err;
+    squadsFileCache.set(squadsPath, { mtimeMs, data: null });
     return null;
   }
 }
@@ -2104,14 +2161,25 @@ function lookupLeagueInjury(
 
 function readSnapshotFile(root: string, league: string): LeagueSnapshot | null {
   const snapPath = path.join(root, league, "latest.json");
-  if (!fs.existsSync(snapPath)) return null;
+  const mtimeMs = safeStatMtime(snapPath);
+  if (mtimeMs === 0) {
+    snapshotFileCache.delete(snapPath);
+    return null;
+  }
+  const cached = snapshotFileCache.get(snapPath);
+  if (cached && cached.mtimeMs === mtimeMs) {
+    return cached.data;
+  }
   try {
     const parsed = LeagueSnapshotSchema.safeParse(
       JSON.parse(fs.readFileSync(snapPath, "utf8")),
     );
-    return parsed.success ? parsed.data : null;
+    const data = parsed.success ? parsed.data : null;
+    snapshotFileCache.set(snapPath, { mtimeMs, data });
+    return data;
   } catch (err) {
     void err;
+    snapshotFileCache.set(snapPath, { mtimeMs, data: null });
     return null;
   }
 }
@@ -2308,16 +2376,32 @@ function extractRefereeSummaryFromSnapshot(
   };
 }
 
-let cachedExplorer: { at: number; items: ExplorerStreakCard[] } | null = null;
+interface ExplorerStreakCacheEntry {
+  readonly at: number;
+  readonly root: string;
+  readonly trackedFiles: readonly TrackedFileMtime[];
+  readonly items: readonly ExplorerStreakCard[];
+}
+
+let cachedExplorer: ExplorerStreakCacheEntry | null = null;
 const EXPLORER_TTL_MS = 10 * 60_000;
 
 export function loadPlayerPropStreakCards(maxCards = 36): ExplorerStreakCard[] {
   const now = Date.now();
-  if (cachedExplorer && now - cachedExplorer.at < EXPLORER_TTL_MS) {
+  const root = resolveSnapshotsRoot();
+  if (
+    cachedExplorer &&
+    cachedExplorer.root === root &&
+    now - cachedExplorer.at < EXPLORER_TTL_MS &&
+    areTrackedFilesFresh(cachedExplorer.trackedFiles)
+  ) {
     return cachedExplorer.items.slice(0, maxCards);
   }
 
-  const root = resolveSnapshotsRoot();
+  const fileTracker = new Map<string, number>();
+  trackFileMtime(fileTracker, path.join(root, "nba", "injuries.json"));
+  trackFileMtime(fileTracker, path.join(root, "nba", "player-props.json"));
+
   const cards: ExplorerStreakCard[] = [];
   const seenCardIds = new Set<string>();
 
@@ -2423,6 +2507,7 @@ export function loadPlayerPropStreakCards(maxCards = 36): ExplorerStreakCard[] {
   for (const lg of prioritizedLeagues) {
     if (seenLeagues.has(lg)) continue;
     seenLeagues.add(lg);
+    trackFileMtime(fileTracker, path.join(root, lg, "squads.json"));
     const squads = readSquadsFile(root, lg);
     if (!squads) continue;
 
@@ -2432,6 +2517,7 @@ export function loadPlayerPropStreakCards(maxCards = 36): ExplorerStreakCard[] {
     const leagueLabel = COMPETITION_BY_ID[lg]?.label ?? lg;
     const prefLabels = METRIC_PRIORITY[sport] ?? [];
 
+    trackFileMtime(fileTracker, path.join(root, lg, "injuries.json"));
     const leagueInjMap = readLeagueInjuriesMap(root, lg);
 
     for (const team of squads.teams) {
@@ -2561,7 +2647,12 @@ export function loadPlayerPropStreakCards(maxCards = 36): ExplorerStreakCard[] {
     if (cards.length >= 48) break;
   }
 
-  cachedExplorer = { at: now, items: cards };
+  cachedExplorer = {
+    at: now,
+    root,
+    trackedFiles: toTrackedFiles(fileTracker),
+    items: cards,
+  };
   return cards.slice(0, maxCards);
 }
 
@@ -2577,6 +2668,27 @@ function lineStepAndSpanForUsMetric(
   return { step: 0.5, span: 2.5 };
 }
 
+interface StructuredPropsCacheEntry {
+  readonly at: number;
+  readonly trackedFiles: readonly TrackedFileMtime[];
+  readonly items: readonly PropsLabPlayerPropItem[];
+}
+
+const STRUCTURED_PROPS_TTL_MS = 5 * 60_000;
+const MAX_STRUCTURED_ENTRIES_PER_REF = 16;
+const NO_BASE_PROPS_REF: readonly PlayerPropItem[] = Object.freeze([]);
+const structuredPropsWeakMemo = new WeakMap<
+  readonly PlayerPropItem[],
+  Map<string, StructuredPropsCacheEntry>
+>();
+
+function fingerprintBaseProps(baseProps: readonly PlayerPropItem[] | undefined): string {
+  if (!baseProps || baseProps.length === 0) return "0";
+  const first = baseProps[0]!;
+  const last = baseProps[baseProps.length - 1]!;
+  return `${baseProps.length}|${first.id}:${first.gameId}:${first.baseLine}:${first.projectionMean}:${first.projectionSd}|${last.id}:${last.gameId}:${last.baseLine}:${last.projectionMean}:${last.projectionSd}`;
+}
+
 export function loadStructuredPlayerProps(options: {
   fullAccess: boolean;
   baseProps?: readonly PlayerPropItem[];
@@ -2588,6 +2700,25 @@ export function loadStructuredPlayerProps(options: {
 
   const maxItems = options.maxItems ?? 120;
   const root = resolveSnapshotsRoot();
+  const now = Date.now();
+  const refKey = options.baseProps ?? NO_BASE_PROPS_REF;
+  const cacheKey = `${options.fullAccess ? "full" : "visitor"}|${root}|${maxItems}|${fingerprintBaseProps(options.baseProps)}`;
+  const refMap = structuredPropsWeakMemo.get(refKey);
+  const cached = refMap?.get(cacheKey);
+  if (
+    cached &&
+    now - cached.at < STRUCTURED_PROPS_TTL_MS &&
+    areTrackedFilesFresh(cached.trackedFiles)
+  ) {
+    return cached.items.slice();
+  }
+
+  const fileTracker = new Map<string, number>();
+  trackFileMtime(fileTracker, path.join(root, "nba", "latest.json"));
+  trackFileMtime(fileTracker, path.join(root, "nba", "squads.json"));
+  trackFileMtime(fileTracker, path.join(root, "nba", "injuries.json"));
+  trackFileMtime(fileTracker, path.join(root, "nba", "player-props.json"));
+
   const out: PropsLabPlayerPropItem[] = [];
   const seenIds = new Set<string>();
 
@@ -2819,6 +2950,8 @@ export function loadStructuredPlayerProps(options: {
 
   for (const cfg of extraUsLeagues) {
     if (out.length >= maxItems) break;
+    trackFileMtime(fileTracker, path.join(root, cfg.league, "squads.json"));
+    trackFileMtime(fileTracker, path.join(root, cfg.league, "latest.json"));
     const squads = readSquadsFile(root, cfg.league);
     const snapshot = readSnapshotFile(root, cfg.league);
     if (!squads || !snapshot) continue;
@@ -2828,6 +2961,7 @@ export function loadStructuredPlayerProps(options: {
       .slice(0, 10);
     if (upcomingGames.length === 0) continue;
 
+    trackFileMtime(fileTracker, path.join(root, cfg.league, "injuries.json"));
     const leagueInjMap = readLeagueInjuriesMap(root, cfg.league);
     const leagueId = asLeagueId(cfg.league);
     const leagueLabel = COMPETITION_BY_ID[cfg.league]?.label ?? cfg.league.toUpperCase();
@@ -2943,16 +3077,19 @@ export function loadStructuredPlayerProps(options: {
     const lgKey = String(rawProp.league);
     let squads = squadsByLeague.get(lgKey);
     if (squads === undefined) {
+      trackFileMtime(fileTracker, path.join(root, lgKey, "squads.json"));
       squads = readSquadsFile(root, lgKey);
       squadsByLeague.set(lgKey, squads);
     }
     let snapshot = snapshotByLeague.get(lgKey);
     if (snapshot === undefined) {
+      trackFileMtime(fileTracker, path.join(root, lgKey, "latest.json"));
       snapshot = readSnapshotFile(root, lgKey);
       snapshotByLeague.set(lgKey, snapshot);
     }
     let leagueInjMap = injuriesByLeague.get(lgKey);
     if (leagueInjMap === undefined) {
+      trackFileMtime(fileTracker, path.join(root, lgKey, "injuries.json"));
       leagueInjMap = readLeagueInjuriesMap(root, lgKey);
       injuriesByLeague.set(lgKey, leagueInjMap);
     }
@@ -3099,7 +3236,23 @@ export function loadStructuredPlayerProps(options: {
     if (out.length >= maxItems) break;
   }
 
-  return out.slice(0, maxItems);
+  const result = out.slice(0, maxItems);
+  const bucket = refMap ?? new Map<string, StructuredPropsCacheEntry>();
+  if (!refMap) {
+    structuredPropsWeakMemo.set(refKey, bucket);
+  }
+  if (bucket.size >= MAX_STRUCTURED_ENTRIES_PER_REF && !bucket.has(cacheKey)) {
+    const oldestKey = bucket.keys().next().value;
+    if (oldestKey !== undefined) {
+      bucket.delete(oldestKey);
+    }
+  }
+  bucket.set(cacheKey, {
+    at: now,
+    trackedFiles: toTrackedFiles(fileTracker),
+    items: result,
+  });
+  return result.slice();
 }
 
 export { CANONICAL_GK_SAVES_LINES_V6, CANONICAL_SHOT_LINES_V6 };

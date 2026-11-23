@@ -26,6 +26,8 @@ import {
 } from "./outlook-derived-rows";
 import {
   calibratePlayableOddsV6,
+  getLiveFeedbackArtifactV52,
+  getSoccer57CompetitionSpecV6,
   isSoccer57LeagueV6,
   recalibrateSoccer57MatchServerV6,
   type Soccer57PrekickoffRecalibratedOutlookV60,
@@ -136,8 +138,15 @@ function outlooksByLeague(): Map<string, MatchOutlook[]> {
   return byLeague;
 }
 
+const FIND_OUTLOOK_MEMO_MAX = 4_000;
+const findOutlookMemo = new Map<string, MatchOutlook | null>();
+
 export function findOutlook(game: TeamNames): MatchOutlook | null {
   if (game.league === "nba" || game.league === "nhl" || game.league === "mlb") return null;
+  const key = `${game.league}|${game.home.name}|${game.away.name}`;
+  if (findOutlookMemo.has(key)) {
+    return findOutlookMemo.get(key) ?? null;
+  }
   const league = LEAGUE_TO_V3[game.league] ?? game.league;
   let top: MatchOutlook | null = null;
   let topScore = 0;
@@ -150,6 +159,13 @@ export function findOutlook(game: TeamNames): MatchOutlook | null {
       topScore = score;
     }
   }
+  if (findOutlookMemo.size >= FIND_OUTLOOK_MEMO_MAX) {
+    const oldestKey = findOutlookMemo.keys().next().value;
+    if (oldestKey !== undefined) {
+      findOutlookMemo.delete(oldestKey);
+    }
+  }
+  findOutlookMemo.set(key, top);
   return top;
 }
 
@@ -515,6 +531,80 @@ export function calibrateOutlookPlayableProbV6(
   return calibratePlayableOddsV6({ pRaw, league });
 }
 
+const V6_OUTLOOK_MEMO_MAX = 4_000;
+const v6OutlookMemo = new Map<string, SoccerV6OutlookEnrichment | null>();
+
+function normalizeV6LeagueSlug(league: string): string {
+  const clean = league.trim().toLowerCase();
+  return clean === "la-liga" ? "laliga" : clean;
+}
+
+function resolveCausalEnvKeyV6(normLeague: string): number {
+  const compSpec = getSoccer57CompetitionSpecV6(normLeague);
+  if (
+    compSpec &&
+    typeof compSpec.causal_env_goals_final === "number" &&
+    Number.isFinite(compSpec.causal_env_goals_final)
+  ) {
+    return compSpec.causal_env_goals_final;
+  }
+  const feedback = getLiveFeedbackArtifactV52().league_scoring_environments_2026;
+  const fromFeedback = Object.prototype.hasOwnProperty.call(feedback, normLeague)
+    ? feedback[normLeague]?.shrunk_env_goals
+    : undefined;
+  return typeof fromFeedback === "number" && Number.isFinite(fromFeedback) ? fromFeedback : 2.7;
+}
+
+function deepFreezeObject(value: object): void {
+  if (!Object.isFrozen(value)) {
+    Object.freeze(value);
+  }
+  for (const child of Object.values(value)) {
+    if (child !== null && typeof child === "object" && !Object.isFrozen(child)) {
+      deepFreezeObject(child);
+    }
+  }
+}
+
+function getOrComputeV6SoccerOutlook(
+  league: string,
+  projHome: number,
+  projAway: number,
+  rawH: number,
+  rawD: number,
+  rawA: number,
+): SoccerV6OutlookEnrichment | null {
+  const normLeague = normalizeV6LeagueSlug(league);
+  const causalEnv = resolveCausalEnvKeyV6(normLeague);
+  const key = `${normLeague}|${projHome}|${projAway}|${rawH}|${rawD}|${rawA}|${causalEnv}`;
+  if (v6OutlookMemo.has(key)) {
+    return v6OutlookMemo.get(key) ?? null;
+  }
+  const recalibrated = recalibrateSoccer57MatchServerV6({
+    league: normLeague,
+    rawProjHome: projHome,
+    rawProjAway: projAway,
+    rawX12: [rawH, rawD, rawA],
+  });
+  let result: SoccerV6OutlookEnrichment | null = null;
+  if (recalibrated) {
+    result = {
+      league: recalibrated.league,
+      recalibrated,
+      playableVennAbers: recalibrated.playableVennAbers,
+    };
+    deepFreezeObject(result);
+  }
+  if (v6OutlookMemo.size >= V6_OUTLOOK_MEMO_MAX) {
+    const oldestKey = v6OutlookMemo.keys().next().value;
+    if (oldestKey !== undefined) {
+      v6OutlookMemo.delete(oldestKey);
+    }
+  }
+  v6OutlookMemo.set(key, result);
+  return result;
+}
+
 export function recalibrateSoccerOutlookV6(
   match: Pick<MatchAnalysis, "sport" | "league" | "x12" | "projection">,
 ): SoccerV6OutlookEnrichment | null {
@@ -534,18 +624,14 @@ export function recalibrateSoccerOutlookV6(
   ) {
     return null;
   }
-  const recalibrated = recalibrateSoccer57MatchServerV6({
+  return getOrComputeV6SoccerOutlook(
     league,
-    rawProjHome: match.projection.home,
-    rawProjAway: match.projection.away,
-    rawX12: [rawH, rawD, rawA],
-  });
-  if (!recalibrated) return null;
-  return {
-    league: recalibrated.league,
-    recalibrated,
-    playableVennAbers: recalibrated.playableVennAbers,
-  };
+    match.projection.home,
+    match.projection.away,
+    rawH,
+    rawD,
+    rawA,
+  );
 }
 
 function resolveV6PlayableBinaryTotals25(rec: Soccer57PrekickoffRecalibratedOutlookV60): {
@@ -680,13 +766,16 @@ export function buildV6SoccerOutlookDetail(
   ) {
     return null;
   }
-  const rec = recalibrateSoccer57MatchServerV6({
-    league: game.league,
-    rawProjHome: game.projection.home,
-    rawProjAway: game.projection.away,
-    rawX12: [rawH, rawD, rawA],
-  });
-  if (!rec) return null;
+  const v6 = getOrComputeV6SoccerOutlook(
+    game.league,
+    game.projection.home,
+    game.projection.away,
+    rawH,
+    rawD,
+    rawA,
+  );
+  if (!v6) return null;
+  const rec = v6.recalibrated;
   const m = rec.markets;
   const tot25 = resolveV6PlayableBinaryTotals25(rec);
   const btts = resolveV6PlayableBtts(rec);
