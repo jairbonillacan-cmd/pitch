@@ -449,6 +449,137 @@ export interface SgpCopulaAuditView {
   } | null;
 }
 
+export interface MatchInjuryItem {
+  readonly teamSide: "home" | "away";
+  readonly player: string;
+  readonly playerSlug?: string | null;
+  readonly position: string | null;
+  readonly status: string;
+  readonly detail: string | null;
+  readonly injuryCategory?: string | null;
+  readonly expectedReturn?: string | null;
+  readonly reportedAt?: string | null;
+  readonly photoKey?: string | null;
+  readonly fallbackPhotoKey?: string | null;
+}
+
+export interface MatchLineupPlayerRecentMatch {
+  readonly dateIso: string;
+  readonly opponent: string;
+  readonly score: string | null;
+  readonly result: "W" | "D" | "L" | null;
+  readonly statsSummary: string;
+}
+
+export interface MatchLineupPlayerDetail {
+  readonly id: string;
+  readonly name: string;
+  readonly shortName: string;
+  readonly slug: string;
+  readonly jersey: string | null;
+  readonly positionGroup: "GK" | "DEF" | "MID" | "FWD";
+  readonly positionLabel: string;
+  readonly age: number | null;
+  readonly heightCm: number | null;
+  readonly nationality: string | null;
+  readonly nationalityCode: string | null;
+  readonly photoKey: string | null;
+  readonly fallbackPhotoKey: string | null;
+  readonly rating: number | null;
+  readonly statsSummary: string;
+  readonly playerHref: string | null;
+  readonly recentMatches: readonly MatchLineupPlayerRecentMatch[];
+  readonly isStarter: boolean;
+  readonly availability: "available" | "injured" | "doubtful" | "suspended";
+}
+
+export interface MatchLineupSide {
+  readonly teamSlug: string;
+  readonly teamName: string;
+  readonly formation: string;
+  readonly coachName: string | null;
+  readonly coachPhotoKey: string | null;
+  readonly coachNationality: string | null;
+  readonly starters: readonly MatchLineupPlayerDetail[];
+  readonly substitutes: readonly MatchLineupPlayerDetail[];
+  readonly unavailable: readonly MatchLineupPlayerDetail[];
+}
+
+export interface MatchEnrichedLineups {
+  readonly status: "confirmed" | "probable";
+  readonly bannerLabel: string;
+  readonly home: MatchLineupSide;
+  readonly away: MatchLineupSide;
+}
+
+export interface TeamRankingMetricRow {
+  readonly key: string;
+  readonly label: string;
+  readonly unit: string;
+  readonly homeValue: number;
+  readonly homeRank: number;
+  readonly awayValue: number;
+  readonly awayRank: number;
+  readonly higherIsBetter: boolean;
+}
+
+export interface MatchupTeamRankings {
+  readonly leagueSize: number;
+  readonly attack: readonly TeamRankingMetricRow[];
+  readonly defense: readonly TeamRankingMetricRow[];
+}
+
+export interface MatchHistoryRow {
+  readonly id: string;
+  readonly dateIso: string;
+  readonly competitionLabel: string;
+  readonly isSameCompetition: boolean;
+  readonly homeTeam: string;
+  readonly awayTeam: string;
+  readonly homeSlug: string;
+  readonly awaySlug: string;
+  readonly homeScore: number;
+  readonly awayScore: number;
+  readonly isHomeForFocus: boolean;
+  readonly resultForFocus: "W" | "D" | "L";
+}
+
+export interface MatchEnfrentamientosData {
+  readonly rankings: MatchupTeamRankings | null;
+  readonly h2h: readonly MatchHistoryRow[];
+  readonly homeRecent: readonly MatchHistoryRow[];
+  readonly awayRecent: readonly MatchHistoryRow[];
+}
+
+export interface MatchPlayerPickItem {
+  readonly id: string;
+  readonly playerName: string;
+  readonly playerSlug: string | null;
+  readonly teamSide: "home" | "away";
+  readonly teamName: string;
+  readonly teamSlug: string | null;
+  readonly positionLabel: string | null;
+  readonly photoKey: string | null;
+  readonly fallbackPhotoKey: string | null;
+  readonly playerHref: string | null;
+  readonly marketKey: string;
+  readonly marketLabel: string;
+  readonly direction: "over" | "under" | "other";
+  readonly selectionLabel: string;
+  readonly line: number | null;
+  readonly p: number;
+  readonly fairDecimal: number;
+  readonly marketDecimal: number | null;
+  readonly marketBookLabel: string | null;
+  readonly evPct: number | null;
+  readonly evidenceBullets: readonly {
+    readonly label: string;
+    readonly ratePct: number | null;
+    readonly tone: "green" | "amber" | "red" | "neutral";
+  }[];
+  readonly pick: MatchPick;
+}
+
 /**
  * Detalle pesado de un partido (mercados, enfrentamientos previos y factores). Solo lo usa la
  * ficha del partido: el layout manda los partidos sin él y la ficha lo pide para su partido.
@@ -461,6 +592,10 @@ export type PlatformGameDetail = Pick<PlatformGame, "markets" | "headToHead" | "
   /** Pick principal congelado 60 min antes del inicio (persistido en servidor si ya cruzó el umbral). */
   frozenMainPick?: FrozenMainPickSnapshot | null;
   picksCatalog?: MatchPicksCatalog | null;
+  enrichedLineups?: MatchEnrichedLineups | null;
+  enfrentamientos?: MatchEnfrentamientosData | null;
+  playerPicks?: readonly MatchPlayerPickItem[];
+  injuries?: readonly MatchInjuryItem[];
 };
 
 /**

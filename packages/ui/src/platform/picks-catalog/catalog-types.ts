@@ -5,6 +5,7 @@ import type {
 } from "@pitchlab/contracts";
 import type {
   BookQuoteItem,
+  MatchInjuryItem,
   MatchIntelligenceV5View,
   PickConflictGroup,
   PlatformGameDetail,
@@ -514,13 +515,7 @@ export interface GamePreviewPayload {
   };
   readonly detail: PlatformGameDetail;
   readonly standings: unknown | null;
-  readonly injuries: readonly {
-    readonly teamSide: "home" | "away";
-    readonly player: string;
-    readonly position: string | null;
-    readonly status: string;
-    readonly detail: string | null;
-  }[];
+  readonly injuries: readonly MatchInjuryItem[];
 }
 
 export const FOOTBALL_PROP_MIN_MINUTES = 45;

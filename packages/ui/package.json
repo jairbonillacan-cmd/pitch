@@ -33,6 +33,7 @@
     "./games-supplement": "./src/platform/platform-provider.tsx",
     "./pre-match": "./src/platform/club/match/pre-match-logic.ts",
     "./picks-engine": "./src/platform/match-picks-engine.ts",
+    "./pick-quality-ranker": "./src/platform/pick-quality-ranker.ts",
     "./parlay": "./src/platform/parlay-engine.ts",
     "./admin": "./src/platform/club/FounderAdminClubView.tsx",
     "./data-health": "./src/platform/club/AdminDataHealthSection.tsx",

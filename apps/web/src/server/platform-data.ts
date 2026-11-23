@@ -90,10 +90,17 @@ import {
 import {
   LEAGUE_LABELS,
   loadAllActiveLeagueSnapshots,
+  loadLeagueSnapshotEnvelope,
   PRODUCT_LEAGUES,
   resolveSnapshotsRoot,
   type ProductLeague,
 } from "./snapshots";
+import {
+  buildEnrichedMatchInjuries,
+  buildEnrichedMatchLineups,
+  buildMatchEnfrentamientos,
+  buildMatchPlayerPicks,
+} from "./match-enrichment";
 import {
   buildTeamsDirectoryFromEnvelopes,
   loadLeaguePlayerProps,
@@ -2400,69 +2407,14 @@ function buildTeamFormTokens(
     .map((rec) => (rec.goalsFor > rec.goalsAgainst ? "W" : rec.goalsFor < rec.goalsAgainst ? "L" : "D"));
 }
 
-function loadGameInjuriesList(
-  game: PlatformGame,
-  allowFull: boolean,
-): GamePreviewPayload["injuries"] {
-  const homeCanon = canonicalTeamSlugKey(game.home.slug);
-  const awayCanon = canonicalTeamSlugKey(game.away.slug);
-  const seen = new Set<string>();
-  const list: Array<{
-    readonly teamSide: "home" | "away";
-    readonly player: string;
-    readonly position: string | null;
-    readonly status: string;
-    readonly detail: string | null;
-  }> = [];
-
-  for (const entry of loadCachedLeagueInjuries(game.league)) {
-    const entryCanon = canonicalTeamSlugKey(entry.teamId);
-    const teamSide: "home" | "away" | null =
-      entryCanon === homeCanon ? "home" : entryCanon === awayCanon ? "away" : null;
-    if (!teamSide) continue;
-    const playerName = entry.player.trim();
-    if (!playerName || !isSafePublicLabel(playerName)) continue;
-    const key = `${teamSide}|${normalizeSearchToken(playerName)}`;
-    if (seen.has(key)) continue;
-    seen.add(key);
-    const rawDetail = entry.detail?.trim() ?? null;
-    const safeDetail =
-      rawDetail && rawDetail.toLowerCase() !== "unknown" && isSafePublicLabel(rawDetail)
-        ? rawDetail
-        : null;
-    const rawPos = entry.position?.trim() ?? null;
-    const safePos = rawPos && isSafePublicLabel(rawPos) ? rawPos : null;
-    const safeStatus = isSafePublicLabel(entry.status) ? entry.status.trim() : "Reportado";
-    list.push({
-      teamSide,
-      player: playerName,
-      position: safePos,
-      status: safeStatus,
-      detail: safeDetail,
-    });
+function loadSafeLeagueSnapshotData(league: string) {
+  try {
+    const env = loadLeagueSnapshotEnvelope(league as ProductLeague);
+    return env?.data ?? null;
+  } catch (err) {
+    void err;
+    return null;
   }
-
-  if (allowFull) {
-    for (const abs of game.preGame?.absences ?? []) {
-      const playerName = abs.player.trim();
-      if (!playerName || !isSafePublicLabel(playerName)) continue;
-      const key = `${abs.teamSide}|${normalizeSearchToken(playerName)}`;
-      if (seen.has(key)) continue;
-      seen.add(key);
-      const rawDetail = (abs.injuryType ?? abs.impactNote)?.trim() ?? null;
-      const safeDetail = rawDetail && isSafePublicLabel(rawDetail) ? rawDetail : null;
-      const safePos = abs.role && isSafePublicLabel(abs.role) ? abs.role.trim() : null;
-      list.push({
-        teamSide: abs.teamSide,
-        player: playerName,
-        position: safePos,
-        status: abs.status,
-        detail: safeDetail,
-      });
-    }
-  }
-
-  return list.slice(0, 24);
 }
 
 async function loadGameDetailForAccess(
@@ -2478,6 +2430,38 @@ async function loadGameDetailForAccess(
 
   const homeHistory = loadTeamHistoryForGame(bundle, rawGame.league, rawGame.home.slug, 20);
   const awayHistory = loadTeamHistoryForGame(bundle, rawGame.league, rawGame.away.slug, 20);
+  const squads = loadCachedLeagueSquads(rawGame.league);
+  const homeSquad = findSquadTeamEntry(squads, rawGame.home.slug);
+  const awaySquad = findSquadTeamEntry(squads, rawGame.away.slug);
+  const leagueInjuries = loadCachedLeagueInjuries(rawGame.league);
+  const snapshot = loadSafeLeagueSnapshotData(rawGame.league);
+  const allowFull = hasSession || rawGame.status === "FT";
+
+  const enrichedLineups = buildEnrichedMatchLineups({
+    game: rawGame,
+    homeSquad,
+    awaySquad,
+    confirmedLineups: rawGame.preGame?.confirmedLineups ?? null,
+    probableLineups: rawGame.preGame?.probableLineups ?? null,
+    sanitizePhotoKey: sanitizeServerPhotoKey,
+  });
+  const enfrentamientos = buildMatchEnfrentamientos({
+    game: rawGame,
+    leagueLabel: rawGame.leagueLabel,
+    snapshot,
+    homeHistory,
+    awayHistory,
+    resolveCanonicalSlug: canonicalTeamSlugKey,
+  });
+  const injuries = buildEnrichedMatchInjuries({
+    game: rawGame,
+    allowFull,
+    leagueInjuries,
+    homeSquad,
+    awaySquad,
+    sanitizePhotoKey: sanitizeServerPhotoKey,
+    resolveCanonicalSlug: canonicalTeamSlugKey,
+  });
 
   if (!hasSession && game.status !== "FT") {
     const picksCatalog = buildServerMatchPicksCatalog(rawGame, {
@@ -2487,7 +2471,16 @@ async function loadGameDetailForAccess(
       awayHistory,
       unlockedPickIds: collectOpenPromoPickIds(bundle.value),
     });
-    return { markets: [], headToHead: game.headToHead, factors: [], picksCatalog };
+    return {
+      markets: [],
+      headToHead: game.headToHead,
+      factors: [],
+      picksCatalog,
+      enrichedLineups,
+      enfrentamientos,
+      playerPicks: [],
+      injuries,
+    };
   }
 
   const enriched = getOrBuildEnrichedGameMarkets(bundle, game);
@@ -2510,6 +2503,14 @@ async function loadGameDetailForAccess(
     playerProps: gamePlayerProps,
     unlockedPickIds: collectOpenPromoPickIds(bundle.value),
   });
+  const playerPicks = buildMatchPlayerPicks({
+    game: rawGame,
+    allowFull: true,
+    catalog: picksCatalog,
+    homeSquad,
+    awaySquad,
+    sanitizePhotoKey: sanitizeServerPhotoKey,
+  });
   return {
     markets: enriched.markets,
     headToHead: game.headToHead,
@@ -2518,6 +2519,10 @@ async function loadGameDetailForAccess(
     v5: enriched.v5,
     frozenMainPick,
     picksCatalog,
+    enrichedLineups,
+    enfrentamientos,
+    playerPicks,
+    injuries,
   };
 }
 
@@ -2597,6 +2602,10 @@ export async function loadGamePreviewPayload(
     ...(detail.v5 !== undefined ? { v5: detail.v5 } : {}),
     ...(detail.frozenMainPick !== undefined ? { frozenMainPick: detail.frozenMainPick } : {}),
     ...(detail.picksCatalog !== undefined ? { picksCatalog: detail.picksCatalog } : {}),
+    ...(detail.enrichedLineups !== undefined ? { enrichedLineups: detail.enrichedLineups } : {}),
+    ...(detail.enfrentamientos !== undefined ? { enfrentamientos: detail.enfrentamientos } : {}),
+    ...(detail.playerPicks !== undefined ? { playerPicks: detail.playerPicks } : {}),
+    ...(detail.injuries !== undefined ? { injuries: detail.injuries } : {}),
   };
 
   return {
@@ -2634,7 +2643,7 @@ export async function loadGamePreviewPayload(
     },
     detail: previewDetail,
     standings,
-    injuries: loadGameInjuriesList(rawGame, allowFull),
+    injuries: detail.injuries ?? [],
   };
 }
 
