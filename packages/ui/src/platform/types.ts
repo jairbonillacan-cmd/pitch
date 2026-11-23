@@ -210,7 +210,15 @@ export type MarketCardCategory =
   | "marcador"
   | "primer_tiempo";
 
-export type MatchTabKey = "resumen" | "ia" | "numeros" | "dinero" | "contexto";
+export type MatchTabKey =
+  | "picks"
+  | "resumen"
+  | "alineaciones"
+  | "enfrentamientos"
+  | "lesiones"
+  | "ia"
+  | "numeros"
+  | "dinero";
 
 export interface PlatformMarketRow {
   group: string;

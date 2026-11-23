@@ -12,7 +12,7 @@ export interface MatchTabDef {
 }
 
 export function useMatchUrlTab(
-  initialTab: MatchTabKey = "resumen",
+  initialTab: MatchTabKey = "picks",
 ): [MatchTabKey, (next: MatchTabKey) => void] {
   const [active, setActive] = useState<MatchTabKey>(initialTab);
 
@@ -30,7 +30,7 @@ export function useMatchUrlTab(
           setActive(normalized);
         }
       } else {
-        setActive("resumen");
+        setActive("picks");
       }
     };
     const param = new URLSearchParams(window.location.search).get("tab");

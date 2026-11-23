@@ -1,17 +1,16 @@
 import type { MatchTabKey } from "../../types";
 
 export const VALID_MATCH_TABS: readonly MatchTabKey[] = [
+  "picks",
   "resumen",
+  "alineaciones",
+  "enfrentamientos",
+  "lesiones",
   "ia",
   "numeros",
   "dinero",
-  "contexto",
 ];
 
-/**
- * Normaliza `?tab=` desde SSR o barra de direcciones a una de las 5 pestañas de la ficha.
- * Conserva compatibilidad con enlaces previos (`picks`, `analisis`, `cortex`, `mercados`, `dinero`, `comunidad`).
- */
 export function normalizeMatchTab(raw?: string | string[] | null): MatchTabKey {
   const first = Array.isArray(raw) ? raw[0] : raw;
   const val = (first ?? "")
@@ -19,6 +18,18 @@ export function normalizeMatchTab(raw?: string | string[] | null): MatchTabKey {
     .toLowerCase()
     .normalize("NFD")
     .replace(/[\u0300-\u036f]/g, "");
+  if (val === "resumen" || val === "overview" || val === "contexto" || val === "comunidad") {
+    return "resumen";
+  }
+  if (val === "alineaciones" || val === "lineups" || val === "xi") {
+    return "alineaciones";
+  }
+  if (val === "enfrentamientos" || val === "h2h") {
+    return "enfrentamientos";
+  }
+  if (val === "lesiones" || val === "bajas" || val === "injuries") {
+    return "lesiones";
+  }
   if (val === "ia" || val === "ai" || val === "cortex" || val === "analisis" || val === "analisis-ia") {
     return "ia";
   }
@@ -28,8 +39,5 @@ export function normalizeMatchTab(raw?: string | string[] | null): MatchTabKey {
   if (val === "numeros" || val === "mercados") {
     return "numeros";
   }
-  if (val === "contexto" || val === "comunidad") {
-    return "contexto";
-  }
-  return "resumen";
+  return "picks";
 }

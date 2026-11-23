@@ -53,7 +53,17 @@ import {
   useOptionalPlatformCore,
   useWatchlistGameIds,
 } from "../../platform-provider";
-import type { ConfirmedLineupPlayer, MatchPick, PlatformGame } from "../../types";
+import type {
+  ConfirmedLineupPlayer,
+  MatchEnfrentamientosData,
+  MatchInjuryItem,
+  MatchPick,
+  PlatformGame,
+} from "../../types";
+import { MatchEnfrentamientosPanel } from "../match/MatchEnfrentamientosPanel";
+import { MatchInjuriesPanel } from "../match/MatchInjuriesPanel";
+import { MatchLineupsPanel } from "../match/MatchLineupsPanel";
+import { MatchPlayerPicksBoard } from "../match/MatchPlayerPicksBoard";
 import {
   EvidenceWindowPills,
   extractEvidenceWindows,
@@ -141,7 +151,14 @@ function settlementLabelEs(status: PickSettlementStatus | "hit" | "miss" | null 
   return null;
 }
 
-type DetailTabKey = "picks" | "stats" | "timeline" | "lineups" | "h2h" | "standings_injuries";
+type DetailTabKey =
+  | "picks"
+  | "stats"
+  | "enfrentamientos"
+  | "lineups"
+  | "standings"
+  | "injuries"
+  | "timeline";
 
 interface DetailTabDef {
   readonly id: DetailTabKey;
@@ -182,14 +199,6 @@ interface DetailPickDisplayItem {
   readonly isPrimary: boolean;
   readonly isRedacted: boolean;
   readonly fromCatalog: boolean;
-}
-
-interface DetailInjuryItem {
-  readonly teamSide: "home" | "away";
-  readonly player: string;
-  readonly position: string | null;
-  readonly status: string;
-  readonly detail: string | null;
 }
 
 interface ComputedLiveBar {
@@ -757,31 +766,6 @@ function buildDisplayPicks(params: {
   });
 }
 
-function resolveH2hSummary(
-  rows: readonly HeadToHeadView[],
-  game: PlatformGame,
-): { readonly homeWins: number; readonly draws: number; readonly awayWins: number } {
-  const homeNeedle = (game.home.shortName || game.home.name).toLowerCase();
-  let homeWins = 0;
-  let draws = 0;
-  let awayWins = 0;
-  for (const row of rows) {
-    if (row.homeGoals === row.awayGoals) {
-      draws += 1;
-      continue;
-    }
-    const rowHomeMatchesCurrentHome =
-      row.home.toLowerCase().includes(homeNeedle) || homeNeedle.includes(row.home.toLowerCase());
-    const rowHomeWon = row.homeGoals > row.awayGoals;
-    if ((rowHomeMatchesCurrentHome && rowHomeWon) || (!rowHomeMatchesCurrentHome && !rowHomeWon)) {
-      homeWins += 1;
-    } else {
-      awayWins += 1;
-    }
-  }
-  return { homeWins, draws, awayWins };
-}
-
 export interface HomeMatchDetailPanelProps {
   readonly game: PlatformGame;
   readonly liveEntry?: LiveScoreboardEntry;
@@ -839,6 +823,15 @@ export function HomeMatchDetailPanel({
     gameId: game.id,
     tab: "picks",
   }));
+  const [picksModeSelection, setPicksModeSelection] = useState<{
+    readonly gameId: string;
+    readonly mode: "equipo" | "jugadores";
+  }>(() => ({
+    gameId: game.id,
+    mode: "equipo",
+  }));
+  const activePicksMode: "equipo" | "jugadores" =
+    picksModeSelection.gameId === game.id ? picksModeSelection.mode : "equipo";
 
   const previewCacheKey = `${viewerRole}:${hasAccountSession ? "1" : "0"}:${game.id}`;
   const cachedPreview = useMemo(
@@ -1198,9 +1191,51 @@ export function HomeMatchDetailPanel({
     return isLeagueStandingsSplitsData(preview?.standings) ? preview.standings : null;
   }, [capability, preview?.standings]);
 
-  const injuriesList = useMemo<readonly DetailInjuryItem[]>(() => {
-    if (preview?.injuries && preview.injuries.length > 0) {
-      return preview.injuries.filter((item) => isSafePublicLabel(item.player));
+  const enrichedLineups = preview?.detail?.enrichedLineups ?? null;
+  const playerPicksList = preview?.detail?.playerPicks ?? [];
+  const resolvedEnfrentamientos = useMemo<MatchEnfrentamientosData>(() => {
+    if (preview?.detail?.enfrentamientos) {
+      return preview.detail.enfrentamientos;
+    }
+    const homeNeedle = (game.home.shortName || game.home.name).toLowerCase();
+    return {
+      rankings: null,
+      h2h: h2hRows.map((row, idx) => {
+        const isHome =
+          row.home.toLowerCase().includes(homeNeedle) ||
+          homeNeedle.includes(row.home.toLowerCase());
+        const focusGoals = isHome ? row.homeGoals : row.awayGoals;
+        const oppGoals = isHome ? row.awayGoals : row.homeGoals;
+        return {
+          id: `md-h2h-${game.id}-${idx}`,
+          dateIso: row.date,
+          competitionLabel: game.leagueLabel,
+          isSameCompetition: true,
+          homeTeam: row.home,
+          awayTeam: row.away,
+          homeSlug: game.home.slug,
+          awaySlug: game.away.slug,
+          homeScore: row.homeGoals,
+          awayScore: row.awayGoals,
+          isHomeForFocus: isHome,
+          resultForFocus:
+            focusGoals > oppGoals ? "W" : focusGoals < oppGoals ? "L" : "D",
+        };
+      }),
+      homeRecent: [],
+      awayRecent: [],
+    };
+  }, [game.away.slug, game.home.name, game.home.shortName, game.home.slug, game.id, game.leagueLabel, h2hRows, preview?.detail?.enfrentamientos]);
+
+  const injuriesList = useMemo<readonly MatchInjuryItem[]>(() => {
+    const raw =
+      preview?.detail?.injuries && preview.detail.injuries.length > 0
+        ? preview.detail.injuries
+        : preview?.injuries && preview.injuries.length > 0
+          ? preview.injuries
+          : null;
+    if (raw) {
+      return raw.filter((item) => isSafePublicLabel(item.player));
     }
     return game.preGame.absences
       .filter((item) => item.status !== "Confirmado XI" && isSafePublicLabel(item.player))
@@ -1210,19 +1245,47 @@ export function HomeMatchDetailPanel({
         position: item.role || null,
         status: item.status,
         detail: item.injuryType ?? item.impactNote ?? null,
+        expectedReturn: item.returnDate ?? null,
       }));
-  }, [game.preGame.absences, preview?.injuries]);
+  }, [game.preGame.absences, preview?.detail?.injuries, preview?.injuries]);
+
+  const hasEnfrentamientosTab =
+    resolvedEnfrentamientos.h2h.length > 0 ||
+    resolvedEnfrentamientos.rankings !== null ||
+    resolvedEnfrentamientos.homeRecent.length > 0 ||
+    resolvedEnfrentamientos.awayRecent.length > 0;
+  const hasLineupsTab = enrichedLineups !== null || hasRealFootballLineups;
+  const hasInjuriesTab = injuriesList.length > 0 || game.sport === "football";
 
   const availableTabs = useMemo<readonly DetailTabDef[]>(() => {
     const tabs: DetailTabDef[] = [
       {
         id: "picks",
         label: "Picks",
-        count: displayPicks.length > 0 ? displayPicks.length : undefined,
+        count:
+          displayPicks.length + playerPicksList.length > 0
+            ? displayPicks.length + playerPicksList.length
+            : undefined,
       },
     ];
     if (statBlocks.length > 0 || specialHighlights.length > 0) {
       tabs.push({ id: "stats", label: "Estadísticas" });
+    }
+    if (hasEnfrentamientosTab) {
+      tabs.push({ id: "enfrentamientos", label: "Enfrentamientos" });
+    }
+    if (hasLineupsTab) {
+      tabs.push({ id: "lineups", label: "Alineaciones" });
+    }
+    if (parsedStandings !== null) {
+      tabs.push({ id: "standings", label: "Clasificación" });
+    }
+    if (hasInjuriesTab) {
+      tabs.push({
+        id: "injuries",
+        label: "Lesiones",
+        count: injuriesList.length > 0 ? injuriesList.length : undefined,
+      });
     }
     if (timelineEvents.length > 0 || momentumPoints.length > 0 || shotItems.length > 0) {
       tabs.push({
@@ -1231,29 +1294,16 @@ export function HomeMatchDetailPanel({
         count: timelineEvents.length > 0 ? timelineEvents.length : undefined,
       });
     }
-    if (hasRealFootballLineups) {
-      tabs.push({ id: "lineups", label: "Alineaciones" });
-    }
-    if (h2hRows.length > 0) {
-      tabs.push({ id: "h2h", label: "Enfrentamientos", count: h2hRows.length });
-    }
-    if (parsedStandings !== null || injuriesList.length > 0) {
-      const label =
-        parsedStandings !== null && injuriesList.length > 0
-          ? "Clasificación y lesiones"
-          : parsedStandings !== null
-            ? "Clasificación"
-            : "Lesiones";
-      tabs.push({ id: "standings_injuries", label });
-    }
     return tabs;
   }, [
     displayPicks.length,
-    h2hRows.length,
-    hasRealFootballLineups,
+    hasEnfrentamientosTab,
+    hasInjuriesTab,
+    hasLineupsTab,
     injuriesList.length,
     momentumPoints.length,
     parsedStandings,
+    playerPicksList.length,
     shotItems.length,
     specialHighlights.length,
     statBlocks.length,
@@ -1304,20 +1354,6 @@ export function HomeMatchDetailPanel({
     refereeSlug && isSafePublicLabel(refereeSlug)
       ? `/app/${encodeURIComponent(game.league)}/r/${encodeURIComponent(refereeSlug)}`
       : null;
-
-  const h2hSummary = useMemo(
-    () => (h2hRows.length > 0 ? resolveH2hSummary(h2hRows, game) : null),
-    [game, h2hRows],
-  );
-
-  const homeInjuries = useMemo(
-    () => injuriesList.filter((item) => item.teamSide === "home"),
-    [injuriesList],
-  );
-  const awayInjuries = useMemo(
-    () => injuriesList.filter((item) => item.teamSide === "away"),
-    [injuriesList],
-  );
 
   const activeTabId = `${uid}-tab-${activeTab}`;
 
@@ -1609,7 +1645,58 @@ export function HomeMatchDetailPanel({
 
         {activeTab === "picks" ? (
           <div className="pl-home-md-picks-pane">
-            {intelUnlocked && activeX12 && (activeX12[0] > 0 || activeX12[2] > 0) ? (
+            <div className="flex flex-wrap items-center justify-between gap-2">
+              <div
+                className="pl-mdp-switcher"
+                role="group"
+                aria-label="Tipo de picks en detalle"
+                data-home-md-picks-switcher=""
+              >
+                <button
+                  type="button"
+                  className={`pl-mdp-switcher-btn ${activePicksMode === "equipo" ? "is-active" : ""}`.trim()}
+                  aria-pressed={activePicksMode === "equipo"}
+                  data-home-md-picks-mode="equipo"
+                  onClick={() => setPicksModeSelection({ gameId: game.id, mode: "equipo" })}
+                >
+                  <span>Equipo</span>
+                  {displayPicks.length > 0 ? <span className="num">{displayPicks.length}</span> : null}
+                </button>
+                <button
+                  type="button"
+                  className={`pl-mdp-switcher-btn ${activePicksMode === "jugadores" ? "is-active" : ""}`.trim()}
+                  aria-pressed={activePicksMode === "jugadores"}
+                  data-home-md-picks-mode="jugadores"
+                  onClick={() => setPicksModeSelection({ gameId: game.id, mode: "jugadores" })}
+                >
+                  <span>Jugadores</span>
+                  {playerPicksList.length > 0 ? (
+                    <span className="num">{playerPicksList.length}</span>
+                  ) : null}
+                </button>
+              </div>
+            </div>
+
+            {activePicksMode === "jugadores" ? (
+              <MatchPlayerPicksBoard
+                compact
+                picks={playerPicksList}
+                allowFull={hasFullAccess}
+                homeLabel={game.home.shortName || game.home.name}
+                awayLabel={game.away.shortName || game.away.name}
+                oddsFormat={oddsFormat}
+                upgradeHref={upgradeHref}
+                hasAccountSession={hasAccountSession}
+                parlayPickIds={effectiveParlayIds}
+                sealedPickIds={sealedIds}
+                onToggleParlay={handleParlayClick}
+                onSealPick={handleSealClick}
+                onNavigate={navigateSafe}
+                onPrefetch={prefetchSafe}
+              />
+            ) : (
+              <>
+                {intelUnlocked && activeX12 && (activeX12[0] > 0 || activeX12[2] > 0) ? (
               <div className="pl-home-md-x12-strip num" aria-label="Probabilidades y momios justos 1X2">
                 <div className="pl-home-md-x12-cell">
                   <span className="pl-home-md-x12-key">1 · {game.home.shortName}</span>
@@ -1840,6 +1927,8 @@ export function HomeMatchDetailPanel({
                 <span className="pl-home-md-skel-bar is-short" />
               </div>
             ) : null}
+              </>
+            )}
           </div>
         ) : null}
 
@@ -1945,120 +2034,74 @@ export function HomeMatchDetailPanel({
           </div>
         ) : null}
 
-        {activeTab === "lineups" && hasRealFootballLineups && activeLineups ? (
-          <div className="pl-home-md-lineups-pane">
-            <AtomicLineupPitch
-              homeName={game.home.shortName || game.home.name}
-              awayName={game.away.shortName || game.away.name}
-              homeFormation={activeLineups.homeFormation ?? null}
-              awayFormation={activeLineups.awayFormation ?? null}
-              homeStarters={homeLineupPlayers}
-              awayStarters={awayLineupPlayers}
-              status={
-                activeLineups.status === "confirmed" || activeLineups.confirmed
-                  ? "confirmed"
-                  : "probable"
-              }
+        {activeTab === "lineups" ? (
+          enrichedLineups ? (
+            <MatchLineupsPanel
+              compact
+              lineups={enrichedLineups}
               incidents={liveDetail?.incidents}
+              onNavigate={navigateSafe}
+              onPrefetch={prefetchSafe}
+            />
+          ) : hasRealFootballLineups && activeLineups ? (
+            <div className="pl-home-md-lineups-pane">
+              <AtomicLineupPitch
+                homeName={game.home.shortName || game.home.name}
+                awayName={game.away.shortName || game.away.name}
+                homeFormation={activeLineups.homeFormation ?? null}
+                awayFormation={activeLineups.awayFormation ?? null}
+                homeStarters={homeLineupPlayers}
+                awayStarters={awayLineupPlayers}
+                status={
+                  activeLineups.status === "confirmed" || activeLineups.confirmed
+                    ? "confirmed"
+                    : "probable"
+                }
+                incidents={liveDetail?.incidents}
+              />
+            </div>
+          ) : null
+        ) : null}
+
+        {activeTab === "enfrentamientos" ? (
+          <MatchEnfrentamientosPanel
+            compact
+            enfrentamientos={resolvedEnfrentamientos}
+            league={game.league}
+            homeName={game.home.shortName || game.home.name}
+            homeSlug={game.home.slug}
+            homeLogoUrl={game.home.logoUrl}
+            awayName={game.away.shortName || game.away.name}
+            awaySlug={game.away.slug}
+            awayLogoUrl={game.away.logoUrl}
+          />
+        ) : null}
+
+        {activeTab === "standings" && parsedStandings ? (
+          <div className="pl-home-md-standings-pane">
+            <StandingsBracketsSection
+              league={game.league}
+              standings={parsedStandings}
+              highlightTeamSlug={game.home.slug}
+              compact
+              onNavigate={navigateSafe}
             />
           </div>
         ) : null}
 
-        {activeTab === "h2h" && h2hRows.length > 0 ? (
-          <div className="pl-home-md-h2h-pane">
-            {h2hSummary ? (
-              <div className="pl-home-md-h2h-summary num">
-                <div className="pl-home-md-h2h-kpi">
-                  <span>{game.home.shortName}</span>
-                  <strong>{h2hSummary.homeWins}</strong>
-                </div>
-                {hasDraw ? (
-                  <div className="pl-home-md-h2h-kpi">
-                    <span>Empates</span>
-                    <strong>{h2hSummary.draws}</strong>
-                  </div>
-                ) : null}
-                <div className="pl-home-md-h2h-kpi">
-                  <span>{game.away.shortName}</span>
-                  <strong>{h2hSummary.awayWins}</strong>
-                </div>
-              </div>
-            ) : null}
-
-            <ul className="pl-home-md-h2h-list" role="list">
-              {h2hRows.slice(0, 8).map((row, idx) => (
-                <li key={`${row.date}-${row.home}-${idx}`} className="pl-home-md-h2h-row">
-                  <span className="pl-home-md-h2h-date num">{row.date}</span>
-                  <span className="pl-home-md-h2h-team is-home truncate">{row.home}</span>
-                  <strong className="pl-home-md-h2h-score num">
-                    {row.homeGoals} – {row.awayGoals}
-                  </strong>
-                  <span className="pl-home-md-h2h-team is-away truncate">{row.away}</span>
-                </li>
-              ))}
-            </ul>
-          </div>
-        ) : null}
-
-        {activeTab === "standings_injuries" ? (
-          <div className="pl-home-md-standings-pane">
-            {parsedStandings ? (
-              <StandingsBracketsSection
-                league={game.league}
-                standings={parsedStandings}
-                highlightTeamSlug={game.home.slug}
-                compact
-                onNavigate={navigateSafe}
-              />
-            ) : null}
-
-            {injuriesList.length > 0 ? (
-              <section aria-label="Bajas y dudas reportadas" className="pl-home-md-stat-card">
-                <h3 className="pl-home-md-block-title">Bajas y lesiones</h3>
-                <div className="pl-home-md-injuries-grid">
-                  {homeInjuries.length > 0 ? (
-                    <div className="pl-home-md-injury-col">
-                      <h4 className="pl-home-md-injury-team">{game.home.name}</h4>
-                      <ul className="pl-home-md-injury-list" role="list">
-                        {homeInjuries.map((item, idx) => (
-                          <li key={`hi-${item.player}-${idx}`} className="pl-home-md-injury-row">
-                            <SportEventIcon kind="injury" size={14} />
-                            <div className="pl-home-md-injury-copy">
-                              <strong>{item.player}</strong>
-                              <span>
-                                {[item.position, item.detail].filter(Boolean).join(" · ")}
-                              </span>
-                            </div>
-                            <span className="pl-home-md-injury-status">{item.status}</span>
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
-                  ) : null}
-
-                  {awayInjuries.length > 0 ? (
-                    <div className="pl-home-md-injury-col">
-                      <h4 className="pl-home-md-injury-team">{game.away.name}</h4>
-                      <ul className="pl-home-md-injury-list" role="list">
-                        {awayInjuries.map((item, idx) => (
-                          <li key={`ai-${item.player}-${idx}`} className="pl-home-md-injury-row">
-                            <SportEventIcon kind="injury" size={14} />
-                            <div className="pl-home-md-injury-copy">
-                              <strong>{item.player}</strong>
-                              <span>
-                                {[item.position, item.detail].filter(Boolean).join(" · ")}
-                              </span>
-                            </div>
-                            <span className="pl-home-md-injury-status">{item.status}</span>
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
-                  ) : null}
-                </div>
-              </section>
-            ) : null}
-          </div>
+        {activeTab === "injuries" ? (
+          <MatchInjuriesPanel
+            injuries={injuriesList}
+            league={game.league}
+            homeName={game.home.name}
+            homeSlug={game.home.slug}
+            homeLogoUrl={game.home.logoUrl}
+            awayName={game.away.name}
+            awaySlug={game.away.slug}
+            awayLogoUrl={game.away.logoUrl}
+            onNavigate={navigateSafe}
+            onPrefetch={prefetchSafe}
+          />
         ) : null}
       </div>
     </section>

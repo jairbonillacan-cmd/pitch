@@ -20,12 +20,16 @@ import {
   StackedAvatars,
 } from "../components/MaestroPrimitives";
 import type { CortexSectionView } from "./match/CortexAnalysisCard";
+import { MatchEnfrentamientosPanel } from "./match/MatchEnfrentamientosPanel";
 import {
   MatchBreadcrumb,
   MatchHeroScoreboard,
   MatchLeftRail,
 } from "./match/MatchHeroAndRail";
+import { MatchInjuriesPanel } from "./match/MatchInjuriesPanel";
+import { MatchLineupsPanel } from "./match/MatchLineupsPanel";
 import { MatchPicksEvidenceBoard } from "./match/MatchPicksEvidenceBoard";
+import { MatchPlayerPicksBoard } from "./match/MatchPlayerPicksBoard";
 import { MatchTabPanel, MatchTabs, useMatchUrlTab } from "./match/MatchTabs";
 import { PreMatchModule } from "./match/PreMatchModule";
 import {
@@ -60,6 +64,7 @@ import {
   shareSocialPost,
 } from "./SocialPostCard";
 import type {
+  MatchInjuryItem,
   MatchPick,
   MatchTabKey,
   PlatformGameDetail,
@@ -130,7 +135,7 @@ export function MatchStudioClubView({
   detail,
   leagueStandings,
   liveDetailOverride,
-  initialTab = "resumen",
+  initialTab = "picks",
 }: {
   leagueId: LeagueId;
   gameId: string;
@@ -150,13 +155,14 @@ export function MatchStudioClubView({
   initialTab?: MatchTabKey;
 }): React.JSX.Element {
   const { dataset, viewerRole, viewerIdentity, hasAccountSessionAuth, oddsFormat, upgradeHref } = usePlatformCore();
-  const { setSelectedTipsterPickId, publishSocialPost, addSocialComment, deleteSocialComment, toggleSocialCommentHelpful, loadAllPostComments, deleteSocialPost, toggleSocialLike, loadMatchSocialPosts, sealPickToJournal, recordSocialPostCopy, addPickToParlay, openComposer, navigateTo, pushToast } = usePlatformActions();
+  const { setSelectedTipsterPickId, publishSocialPost, addSocialComment, deleteSocialComment, toggleSocialCommentHelpful, loadAllPostComments, deleteSocialPost, toggleSocialLike, loadMatchSocialPosts, sealPickToJournal, recordSocialPostCopy, addPickToParlay, removePickFromParlay, openComposer, navigateTo, pushToast } = usePlatformActions();
   const { parlaySummary } = useParlayState();
   const { socialPosts } = useSocialState();
   const journal = useJournalEntries();
 
   const follows = useFollowing();
   const [reportTarget, setReportTarget] = useState<SocialReportTarget | null>(null);
+  const [picksSubTab, setPicksSubTab] = useState<"equipo" | "jugadores">("equipo");
   const own = useMemo(
     () => ownIdentityFor(viewerRole, viewerIdentity),
     [viewerRole, viewerIdentity],
@@ -164,6 +170,10 @@ export function MatchStudioClubView({
   const parlayPickIds = useMemo(
     () => new Set(parlaySummary.legs.map((l) => l.pick.id)),
     [parlaySummary.legs],
+  );
+  const sealedPickIds = useMemo(
+    () => new Set(journal.map((entry) => entry.pickId)),
+    [journal],
   );
 
   const [activeTab, setActiveTab] = useMatchUrlTab(initialTab);
@@ -215,6 +225,52 @@ export function MatchStudioClubView({
   const isFinished = game.status === "FT" && game.score !== undefined;
   const hasForecast = game.hasForecast !== false && Boolean(game.x12 && game.projection);
   const intelUnlocked = isPreGameIntelUnlocked(game, viewerRole);
+  const enrichedLineups = detail?.enrichedLineups ?? null;
+  const playerPicksList = detail?.playerPicks ?? [];
+  const injuriesList: readonly MatchInjuryItem[] = useMemo(() => {
+    if (detail?.injuries) return detail.injuries;
+    return game.preGame.absences
+      .filter((item) => item.status !== "Confirmado XI")
+      .map((item) => ({
+        teamSide: item.teamSide,
+        player: item.player,
+        position: item.role || null,
+        status: item.status,
+        detail: item.injuryType ?? item.impactNote ?? null,
+        expectedReturn: item.returnDate ?? null,
+      }));
+  }, [detail?.injuries, game.preGame.absences]);
+  const hasLineupsTab = Boolean(enrichedLineups || game.sport === "football");
+  const resolvedEnfrentamientos = useMemo(
+    () =>
+      detail?.enfrentamientos ?? {
+        rankings: null,
+        h2h: game.headToHead.map((row, idx) => ({
+          id: `studio-h2h-${game.id}-${idx}`,
+          dateIso: row.date,
+          competitionLabel: game.leagueLabel,
+          isSameCompetition: true,
+          homeTeam: row.home,
+          awayTeam: row.away,
+          homeSlug: game.home.slug,
+          awaySlug: game.away.slug,
+          homeScore: row.homeGoals,
+          awayScore: row.awayGoals,
+          isHomeForFocus: row.home
+            .toLowerCase()
+            .includes((game.home.shortName || game.home.name).toLowerCase()),
+          resultForFocus:
+            row.homeGoals === row.awayGoals
+              ? ("D" as const)
+              : row.homeGoals > row.awayGoals
+                ? ("W" as const)
+                : ("L" as const),
+        })),
+        homeRecent: [],
+        awayRecent: [],
+      },
+    [detail?.enfrentamientos, game.away.slug, game.headToHead, game.home.name, game.home.shortName, game.home.slug, game.id, game.leagueLabel],
+  );
 
   const homePrimary =
     getTeamColors(game.league, game.home.slug)?.[0] ??
@@ -372,7 +428,22 @@ export function MatchStudioClubView({
               active={activeTab}
               onSelect={setActiveTab}
               tabs={[
-                { key: "resumen", label: "Resumen", count: game.picks.length },
+                {
+                  key: "picks",
+                  label: "Picks",
+                  count:
+                    game.picks.length + playerPicksList.length > 0
+                      ? game.picks.length + playerPicksList.length
+                      : undefined,
+                },
+                { key: "resumen", label: "Resumen" },
+                ...(hasLineupsTab ? [{ key: "alineaciones" as const, label: "Alineaciones" }] : []),
+                { key: "enfrentamientos", label: "Enfrentamientos" },
+                {
+                  key: "lesiones",
+                  label: "Lesiones",
+                  count: injuriesList.length > 0 ? injuriesList.length : undefined,
+                },
                 { key: "ia", label: "Análisis IA" },
                 {
                   key: "numeros",
@@ -380,11 +451,73 @@ export function MatchStudioClubView({
                   count: activeMarkets.length > 0 ? activeMarkets.length : undefined,
                 },
                 { key: "dinero", label: "¿Dónde está el dinero?" },
-                { key: "contexto", label: "Contexto" },
               ]}
             />
 
-            {/* Pestaña 1: Picks y Evidencia (tablero editorial + En vivo + Pre-Match) */}
+            <MatchTabPanel idPrefix="pl-match" tabKey="picks" active={activeTab}>
+              <div className="flex flex-wrap items-center justify-between gap-2 pb-1">
+                <div
+                  className="pl-mdp-switcher"
+                  role="group"
+                  aria-label="Tipo de picks"
+                  data-studio-picks-switcher=""
+                >
+                  <button
+                    type="button"
+                    className={`pl-mdp-switcher-btn ${picksSubTab === "equipo" ? "is-active" : ""}`.trim()}
+                    aria-pressed={picksSubTab === "equipo"}
+                    data-picks-subtab="equipo"
+                    onClick={() => setPicksSubTab("equipo")}
+                  >
+                    <span>Equipo</span>
+                    {game.picks.length > 0 ? <span className="num">{game.picks.length}</span> : null}
+                  </button>
+                  <button
+                    type="button"
+                    className={`pl-mdp-switcher-btn ${picksSubTab === "jugadores" ? "is-active" : ""}`.trim()}
+                    aria-pressed={picksSubTab === "jugadores"}
+                    data-picks-subtab="jugadores"
+                    onClick={() => setPicksSubTab("jugadores")}
+                  >
+                    <span>Jugadores</span>
+                    {playerPicksList.length > 0 ? (
+                      <span className="num">{playerPicksList.length}</span>
+                    ) : null}
+                  </button>
+                </div>
+              </div>
+
+              {picksSubTab === "equipo" ? (
+                <MatchPicksEvidenceBoard
+                  game={game}
+                  markets={activeMarkets}
+                  v5={detail?.v5 ?? null}
+                  catalog={detail?.picksCatalog ?? null}
+                />
+              ) : (
+                <MatchPlayerPicksBoard
+                  picks={playerPicksList}
+                  allowFull={intelUnlocked || isFinished}
+                  homeLabel={game.home.shortName || game.home.name}
+                  awayLabel={game.away.shortName || game.away.name}
+                  oddsFormat={oddsFormat}
+                  upgradeHref={upgradeHref}
+                  hasAccountSession={viewerIdentity !== null}
+                  parlayPickIds={parlayPickIds}
+                  sealedPickIds={sealedPickIds}
+                  onToggleParlay={(pk) => {
+                    if (parlayPickIds.has(pk.id)) {
+                      removePickFromParlay(pk.id);
+                    } else {
+                      addPickToParlay(pk);
+                    }
+                  }}
+                  onSealPick={openComposer}
+                  onNavigate={navigateTo}
+                />
+              )}
+            </MatchTabPanel>
+
             <MatchTabPanel idPrefix="pl-match" tabKey="resumen" active={activeTab}>
               {liveSupported || liveDetailOverride ? (
                 <Suspense fallback={<MatchTabFallback />}>
@@ -400,13 +533,6 @@ export function MatchStudioClubView({
                   />
                 </Suspense>
               ) : null}
-
-              <MatchPicksEvidenceBoard
-                game={game}
-                markets={activeMarkets}
-                v5={detail?.v5 ?? null}
-                catalog={detail?.picksCatalog ?? null}
-              />
 
               {isFinished ? null : <PreMatchModule game={game} detail={detail} />}
               {sportOutlook ? (
@@ -452,6 +578,204 @@ export function MatchStudioClubView({
                   </p>
                 )}
               </section>
+
+              {isTabMounted("resumen") ? (
+                <Suspense fallback={<MatchTabFallback />}>
+                  <LazyMatchContextPanel
+                    game={game}
+                    standings={
+                      leagueStandings && leagueStandings.length > 0
+                        ? [...leagueStandings]
+                        : (dataset.leagues.find((l) => l.league === game.league)?.standings ?? [])
+                    }
+                    unlocked={intelUnlocked}
+                    v5={detail?.v5 ?? null}
+                    opinionsSlot={
+                      <aside
+                        aria-label="Opiniones de socios sobre el partido"
+                        className="pl-ctx-card glass-lens glass-ring"
+                      >
+                        <div className="flex items-center justify-between gap-2">
+                          <div>
+                            <h2 className="m-0 text-lg font-extrabold">Opiniones de socios</h2>
+                          </div>
+                          {matchDebatePosts.length > 0 ? (
+                            <StackedAvatars
+                              items={matchDebatePosts.slice(0, 3).map((post, idx) => ({
+                                initials: post.authorHandle.slice(0, 2).toUpperCase(),
+                                gradVar: post.avatarGradVar || `var(--avatar-grad-${(idx % 3) + 1})`,
+                                label: `@${post.authorHandle}`,
+                              }))}
+                              extraCount={Math.max(0, matchDebatePosts.length - 3)}
+                            />
+                          ) : (
+                            <span
+                              className="text-xs font-semibold"
+                              style={{ color: "var(--pl-text-muted)" }}
+                            >
+                              0 publicaciones
+                            </span>
+                          )}
+                        </div>
+
+                        {matchDebatePosts.length > 0 ? (
+                          <div className="pl-studio-debate-list space-y-2.5 max-h-[540px] overflow-y-auto pr-1">
+                            {matchDebatePosts.map((post) => (
+                              <SocialPostCard
+                                key={post.id}
+                                variant="compact"
+                                post={post}
+                                author={resolvePostAuthor(post, own, [])}
+                                own={own}
+                                dataset={dataset}
+                                journal={journal}
+                                oddsFormat={oddsFormat}
+                                following={follows.isFollowing(post.authorHandle)}
+                                onToggleFollow={(handle) => {
+                                  const now = follows.toggle(handle);
+                                  pushToast(
+                                    now
+                                      ? `Ahora sigues a @${handle}.`
+                                      : `Dejaste de seguir a @${handle}.`,
+                                    "default",
+                                  );
+                                }}
+                                onCopy={(p) =>
+                                  copyPostPickToJournal(p, {
+                                    dataset,
+                                    sealPickToJournal,
+                                    recordSocialPostCopy,
+                                    pushToast,
+                                  })
+                                }
+                                onCopyToParlay={(p) =>
+                                  copyPostPickToParlay(p, {
+                                    dataset,
+                                    addPickToParlay,
+                                    pushToast,
+                                  })
+                                }
+                                onShare={(p) => shareSocialPost(p, pushToast)}
+                                toggleSocialLike={toggleSocialLike}
+                                addSocialComment={addSocialComment}
+                                onDeleteComment={deleteSocialComment}
+                                onToggleCommentHelpful={toggleSocialCommentHelpful}
+                                onLoadAllComments={loadAllPostComments}
+                                onDeletePost={deleteSocialPost}
+                                onOpenReport={setReportTarget}
+                                onNavigate={navigateTo}
+                                goProfile={goProfile}
+                              />
+                            ))}
+                          </div>
+                        ) : (
+                          <p
+                            className="m-0 rounded-2xl p-3.5 text-xs leading-relaxed"
+                            style={{
+                              background: "var(--pl-surface)",
+                              color: "var(--pl-text-muted)",
+                            }}
+                          >
+                            Aún no hay opiniones publicadas para este partido. Sé el primero en
+                            compartir tu lectura.
+                          </p>
+                        )}
+
+                        <form
+                          onSubmit={handlePublishDebate}
+                          noValidate
+                          className="space-y-2 pt-2 hairline-t"
+                        >
+                          <label
+                            htmlFor="studio-debate-input"
+                            className="text-xs font-bold block"
+                          >
+                            Tu opinión sobre {matchLabelShort}
+                          </label>
+                          <textarea
+                            id="studio-debate-input"
+                            rows={2}
+                            maxLength={SOCIAL_POST_MAX_CHARS}
+                            value={debateBody}
+                            onChange={(e) => {
+                              setDebateBody(e.target.value);
+                              if (debateError) setDebateError("");
+                            }}
+                            placeholder="¿Qué ves en este partido?"
+                            className="glass-input w-full p-2.5 text-xs resize-none"
+                          />
+                          {debateError ? (
+                            <p
+                              role="alert"
+                              className="m-0 text-xs font-semibold"
+                              style={{ color: "var(--pl-danger)" }}
+                            >
+                              {debateError}
+                            </p>
+                          ) : null}
+                          <div className="flex items-center justify-between gap-2">
+                            <span>
+                              {debateBody.length >= Math.round(SOCIAL_POST_MAX_CHARS * 0.7) ? (
+                                <span className="pl-com-char-count num">
+                                  {debateBody.length}/{SOCIAL_POST_MAX_CHARS}
+                                </span>
+                              ) : null}
+                            </span>
+                            <button
+                              type="submit"
+                              className="pl-btn-primary text-xs min-h-11 px-3.5 inline-flex items-center gap-1.5"
+                            >
+                              <MaestroIcon name="users" size={12} />
+                              <span>Publicar opinión</span>
+                            </button>
+                          </div>
+                        </form>
+                        <SocialReportDialog
+                          target={reportTarget}
+                          onClose={() => setReportTarget(null)}
+                        />
+                      </aside>
+                    }
+                  />
+                </Suspense>
+              ) : null}
+            </MatchTabPanel>
+
+            {hasLineupsTab ? (
+              <MatchTabPanel idPrefix="pl-match" tabKey="alineaciones" active={activeTab}>
+                <MatchLineupsPanel
+                  lineups={enrichedLineups}
+                  incidents={liveDetail?.incidents}
+                  onNavigate={navigateTo}
+                />
+              </MatchTabPanel>
+            ) : null}
+
+            <MatchTabPanel idPrefix="pl-match" tabKey="enfrentamientos" active={activeTab}>
+              <MatchEnfrentamientosPanel
+                enfrentamientos={resolvedEnfrentamientos}
+                league={game.league}
+                homeName={game.home.shortName || game.home.name}
+                homeSlug={game.home.slug}
+                homeLogoUrl={game.home.logoUrl}
+                awayName={game.away.shortName || game.away.name}
+                awaySlug={game.away.slug}
+                awayLogoUrl={game.away.logoUrl}
+              />
+            </MatchTabPanel>
+
+            <MatchTabPanel idPrefix="pl-match" tabKey="lesiones" active={activeTab}>
+              <MatchInjuriesPanel
+                injuries={injuriesList}
+                league={game.league}
+                homeName={game.home.name}
+                homeSlug={game.home.slug}
+                homeLogoUrl={game.home.logoUrl}
+                awayName={game.away.name}
+                awaySlug={game.away.slug}
+                awayLogoUrl={game.away.logoUrl}
+                onNavigate={navigateTo}
+              />
             </MatchTabPanel>
 
         {/* Pestaña 2: Análisis IA (Pronóstico estructurado de Cortex IA + Análisis editorial + Señales) */}
@@ -598,155 +922,6 @@ export function MatchStudioClubView({
                 : undefined
             }
             inParlayPickIds={parlayPickIds}
-          />
-            </Suspense>
-          ) : null}
-        </MatchTabPanel>
-
-        {/* Pestaña 5: Contexto (equipos, sede/H2H, bajas + opiniones lado a lado y tabla) */}
-        <MatchTabPanel idPrefix="pl-match" tabKey="contexto" active={activeTab}>
-          {isTabMounted("contexto") ? (
-            <Suspense fallback={<MatchTabFallback />}>
-              <LazyMatchContextPanel
-            game={game}
-            standings={
-              leagueStandings && leagueStandings.length > 0
-                ? [...leagueStandings]
-                : (dataset.leagues.find((l) => l.league === game.league)?.standings ?? [])
-            }
-            unlocked={intelUnlocked}
-            v5={detail?.v5 ?? null}
-            opinionsSlot={
-              <aside
-                aria-label="Opiniones de socios sobre el partido"
-                className="pl-ctx-card glass-lens glass-ring"
-              >
-                <div className="flex items-center justify-between gap-2">
-                  <div>
-                    <h2 className="m-0 text-lg font-extrabold">Opiniones de socios</h2>
-                  </div>
-                  {matchDebatePosts.length > 0 ? (
-                    <StackedAvatars
-                      items={matchDebatePosts.slice(0, 3).map((post, idx) => ({
-                        initials: post.authorHandle.slice(0, 2).toUpperCase(),
-                        gradVar: post.avatarGradVar || `var(--avatar-grad-${(idx % 3) + 1})`,
-                        label: `@${post.authorHandle}`,
-                      }))}
-                      extraCount={Math.max(0, matchDebatePosts.length - 3)}
-                    />
-                  ) : (
-                    <span className="text-xs font-semibold" style={{ color: "var(--pl-text-muted)" }}>
-                      0 publicaciones
-                    </span>
-                  )}
-                </div>
-
-                {matchDebatePosts.length > 0 ? (
-                  <div className="pl-studio-debate-list space-y-2.5 max-h-[540px] overflow-y-auto pr-1">
-                    {matchDebatePosts.map((post) => (
-                      <SocialPostCard
-                        key={post.id}
-                        variant="compact"
-                        post={post}
-                        author={resolvePostAuthor(post, own, [])}
-                        own={own}
-                        dataset={dataset}
-                        journal={journal}
-                        oddsFormat={oddsFormat}
-                        following={follows.isFollowing(post.authorHandle)}
-                        onToggleFollow={(handle) => {
-                          const now = follows.toggle(handle);
-                          pushToast(
-                            now ? `Ahora sigues a @${handle}.` : `Dejaste de seguir a @${handle}.`,
-                            "default",
-                          );
-                        }}
-                        onCopy={(p) =>
-                          copyPostPickToJournal(p, {
-                            dataset,
-                            sealPickToJournal,
-                            recordSocialPostCopy,
-                            pushToast,
-                          })
-                        }
-                        onCopyToParlay={(p) =>
-                          copyPostPickToParlay(p, {
-                            dataset,
-                            addPickToParlay,
-                            pushToast,
-                          })
-                        }
-                        onShare={(p) => shareSocialPost(p, pushToast)}
-                        toggleSocialLike={toggleSocialLike}
-                        addSocialComment={addSocialComment}
-                        onDeleteComment={deleteSocialComment}
-                        onToggleCommentHelpful={toggleSocialCommentHelpful}
-                        onLoadAllComments={loadAllPostComments}
-                        onDeletePost={deleteSocialPost}
-                        onOpenReport={setReportTarget}
-                        onNavigate={navigateTo}
-                        goProfile={goProfile}
-                      />
-                    ))}
-                  </div>
-                ) : (
-                  <p
-                    className="m-0 rounded-2xl p-3.5 text-xs leading-relaxed"
-                    style={{ background: "var(--pl-surface)", color: "var(--pl-text-muted)" }}
-                  >
-                    Aún no hay opiniones publicadas para este partido. Sé el primero en compartir tu
-                    lectura.
-                  </p>
-                )}
-
-                <form onSubmit={handlePublishDebate} noValidate className="space-y-2 pt-2 hairline-t">
-                  <label
-                    htmlFor="studio-debate-input"
-                    className="text-xs font-bold block"
-                  >
-                    Tu opinión sobre {matchLabelShort}
-                  </label>
-                  <textarea
-                    id="studio-debate-input"
-                    rows={2}
-                    maxLength={SOCIAL_POST_MAX_CHARS}
-                    value={debateBody}
-                    onChange={(e) => {
-                      setDebateBody(e.target.value);
-                      if (debateError) setDebateError("");
-                    }}
-                    placeholder="¿Qué ves en este partido?"
-                    className="glass-input w-full p-2.5 text-xs resize-none"
-                  />
-                  {debateError ? (
-                    <p
-                      role="alert"
-                      className="m-0 text-xs font-semibold"
-                      style={{ color: "var(--pl-danger)" }}
-                    >
-                      {debateError}
-                    </p>
-                  ) : null}
-                  <div className="flex items-center justify-between gap-2">
-                    <span>
-                      {debateBody.length >= Math.round(SOCIAL_POST_MAX_CHARS * 0.7) ? (
-                        <span className="pl-com-char-count num">
-                          {debateBody.length}/{SOCIAL_POST_MAX_CHARS}
-                        </span>
-                      ) : null}
-                    </span>
-                    <button
-                      type="submit"
-                      className="pl-btn-primary text-xs min-h-11 px-3.5 inline-flex items-center gap-1.5"
-                    >
-                      <MaestroIcon name="users" size={12} />
-                      <span>Publicar opinión</span>
-                    </button>
-                  </div>
-                </form>
-                <SocialReportDialog target={reportTarget} onClose={() => setReportTarget(null)} />
-              </aside>
-            }
           />
             </Suspense>
           ) : null}

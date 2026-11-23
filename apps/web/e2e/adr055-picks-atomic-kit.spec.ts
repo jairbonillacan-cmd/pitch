@@ -286,10 +286,10 @@ test.describe("ADR-055 / Ola 6 · Screener de Picks, Pick del día, Bet Lab, Fic
     await expect(sortSelect).toHaveValue("prob");
     await sortSelect.selectOption("recomendados");
 
-    const resumenTab = page.locator('[data-section-tab="resumen"]');
-    await expect(resumenTab).toHaveAttribute("aria-selected", "true");
+    const picksTab = page.locator('[data-section-tab="picks"]');
+    await expect(picksTab).toHaveAttribute("aria-selected", "true");
 
-    for (const tabKey of ["ia", "numeros", "dinero", "contexto"] as const) {
+    for (const tabKey of ["resumen", "enfrentamientos", "lesiones", "ia", "numeros", "dinero"] as const) {
       const tab = page.locator(`[data-section-tab="${tabKey}"]`);
       await expect(tab).toBeVisible();
       await tab.click();

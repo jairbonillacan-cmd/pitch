@@ -543,7 +543,7 @@ export const FichaContextoOscuro = {
       <MatchStudioClubView
         leagueId={asLeagueId("liga-mx")}
         gameId={GAME.id}
-        initialTab="contexto"
+        initialTab="resumen"
         cortexSections={SECTIONS}
         cortexHeadline={HEADLINE}
       />

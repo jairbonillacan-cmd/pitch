@@ -318,10 +318,14 @@ describe("propagación de counts y goalLine desde snapshots y contracts", () => 
   });
 });
 
-describe("Ficha rediseñada en 5 pestañas accesibles", () => {
-  it("normaliza ?tab= incluyendo Análisis IA, ¿Dónde está el dinero? y respaldo a enlaces previos", () => {
-    expect(normalizeMatchTab(undefined)).toBe("resumen");
+describe("Ficha rediseñada con Picks primero y pestañas separadas accesibles", () => {
+  it("normaliza ?tab= incluyendo Picks primero, Alineaciones, Enfrentamientos, Lesiones e IA", () => {
+    expect(normalizeMatchTab(undefined)).toBe("picks");
+    expect(normalizeMatchTab("picks")).toBe("picks");
     expect(normalizeMatchTab("resumen")).toBe("resumen");
+    expect(normalizeMatchTab("alineaciones")).toBe("alineaciones");
+    expect(normalizeMatchTab("enfrentamientos")).toBe("enfrentamientos");
+    expect(normalizeMatchTab("lesiones")).toBe("lesiones");
     expect(normalizeMatchTab("ia")).toBe("ia");
     expect(normalizeMatchTab("analisis")).toBe("ia");
     expect(normalizeMatchTab("cortex")).toBe("ia");
@@ -330,10 +334,10 @@ describe("Ficha rediseñada en 5 pestañas accesibles", () => {
     expect(normalizeMatchTab("mercados")).toBe("numeros");
     expect(normalizeMatchTab("dinero")).toBe("dinero");
     expect(normalizeMatchTab("money")).toBe("dinero");
-    expect(normalizeMatchTab("contexto")).toBe("contexto");
+    expect(normalizeMatchTab("contexto")).toBe("resumen");
   });
 
-  it("renderiza role=tablist con 5 pestañas sin aria-controls y carga diferida de paneles inactivos (ADR-051)", async () => {
+  it("renderiza role=tablist con Picks primero sin aria-controls y carga diferida de paneles inactivos (ADR-051)", async () => {
     const numerosHtml = await renderHtmlAsync(
       <PlatformProvider dataset={DATASET} initialRole="member">
         <MatchStudioClubView
@@ -346,21 +350,23 @@ describe("Ficha rediseñada en 5 pestañas accesibles", () => {
     const tablistHtml = numerosHtml.match(/<div class="pl-match-tabs"[^>]*>[\s\S]*?<\/div>/)?.[0] ?? "";
     expect(tablistHtml).toContain('role="tablist"');
     expect(tablistHtml).not.toContain("aria-controls=");
+    expect(numerosHtml).toContain('id="pl-match-tab-picks"');
     expect(numerosHtml).toContain('id="pl-match-tab-resumen"');
+    expect(numerosHtml).toContain('id="pl-match-tab-enfrentamientos"');
+    expect(numerosHtml).toContain('id="pl-match-tab-lesiones"');
     expect(numerosHtml).toContain('id="pl-match-tab-ia"');
     expect(numerosHtml).toContain('id="pl-match-tab-numeros"');
     expect(numerosHtml).toContain('id="pl-match-tab-dinero"');
-    expect(numerosHtml).toContain('id="pl-match-tab-contexto"');
     expect(numerosHtml).toContain('id="pl-match-panel-ia"');
     expect(numerosHtml).toContain('id="pl-match-panel-numeros"');
     expect(numerosHtml).toContain('id="pl-match-panel-dinero"');
     expect(numerosHtml).toContain('aria-selected="true"');
 
-    // Paneles resumen, ia, dinero y contexto deben estar hidden cuando initialTab="numeros"
+    // Paneles picks, resumen, ia y dinero deben estar hidden cuando initialTab="numeros"
+    expect(numerosHtml).toMatch(/id="pl-match-panel-picks"[^>]*hidden=""/);
     expect(numerosHtml).toMatch(/id="pl-match-panel-resumen"[^>]*hidden=""/);
     expect(numerosHtml).toMatch(/id="pl-match-panel-ia"[^>]*hidden=""/);
     expect(numerosHtml).toMatch(/id="pl-match-panel-dinero"[^>]*hidden=""/);
-    expect(numerosHtml).toMatch(/id="pl-match-panel-contexto"[^>]*hidden=""/);
 
     // Paneles diferidos permanecen sin montar mientras no son visitados (ADR-051)
     expect(numerosHtml).not.toContain("Comparativa de cuotas y valor");
@@ -371,7 +377,12 @@ describe("Ficha rediseñada en 5 pestañas accesibles", () => {
     expect(numerosHtml).toContain("Tiros de esquina 10.5");
 
     // Cada pestaña resuelve su contenido diferido al abrirse
-    const [resumenHtml, iaHtml, dineroHtml, contextoHtml] = await Promise.all([
+    const [picksHtml, resumenHtml, iaHtml, dineroHtml, lesionesHtml] = await Promise.all([
+      renderHtmlAsync(
+        <PlatformProvider dataset={DATASET} initialRole="member">
+          <MatchStudioClubView leagueId={asLeagueId("liga-mx")} gameId={MATCH.id} initialTab="picks" />
+        </PlatformProvider>,
+      ),
       renderHtmlAsync(
         <PlatformProvider dataset={DATASET} initialRole="member">
           <MatchStudioClubView leagueId={asLeagueId("liga-mx")} gameId={MATCH.id} initialTab="resumen" />
@@ -389,21 +400,21 @@ describe("Ficha rediseñada en 5 pestañas accesibles", () => {
       ),
       renderHtmlAsync(
         <PlatformProvider dataset={DATASET} initialRole="member">
-          <MatchStudioClubView leagueId={asLeagueId("liga-mx")} gameId={MATCH.id} initialTab="contexto" />
+          <MatchStudioClubView leagueId={asLeagueId("liga-mx")} gameId={MATCH.id} initialTab="lesiones" />
         </PlatformProvider>,
       ),
     ]);
-    expect(resumenHtml).toContain("Picks y evidencia del modelo");
+    expect(picksHtml).toContain("Picks y evidencia del modelo");
+    expect(picksHtml).toContain("data-studio-picks-switcher");
     expect(resumenHtml).toContain("Factores del partido");
+    expect(resumenHtml).toContain("Tabla de posiciones");
+    expect(resumenHtml).toContain("Monterrey llega con +1 día extra de descanso");
     expect(iaHtml).toContain("Análisis IA");
     expect(iaHtml).toContain("Cortex IA");
     expect(dineroHtml).toContain("¿Dónde está el dinero?");
     expect(dineroHtml).toContain("Comparativa de cuotas y valor");
-    expect(contextoHtml).toContain("Tabla de posiciones");
-    expect(contextoHtml).toContain("Bajas y disponibilidad");
-    expect(contextoHtml).toContain("J. Gómez");
-    expect(contextoHtml).toContain("Monterrey llega con +1 día extra de descanso");
-    for (const h of [resumenHtml, iaHtml, numerosHtml, dineroHtml, contextoHtml]) {
+    expect(lesionesHtml).toContain("J. Gómez");
+    for (const h of [picksHtml, resumenHtml, iaHtml, numerosHtml, dineroHtml, lesionesHtml]) {
       expect(h).not.toMatch(/Poisson|Dixon-Coles|sigma|matriz|tipstar/i);
     }
   });

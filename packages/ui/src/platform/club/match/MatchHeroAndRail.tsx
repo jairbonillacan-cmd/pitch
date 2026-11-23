@@ -865,7 +865,7 @@ export function MatchLeftRail({
           <p className="m-0 text-xs leading-relaxed" style={{ color: "var(--pl-text-muted)" }}>
             {flow
               ? flow.sharpNote
-              : "Revisa descanso, historial directo, sede y tabla en la pestaña de Contexto."}
+              : "Revisa descanso, historial directo, sede y tabla en Enfrentamientos o Resumen."}
           </p>
         )}
 
@@ -889,9 +889,9 @@ export function MatchLeftRail({
           <button
             type="button"
             className="pl-match-rail-link"
-            onClick={() => onSelectTab("contexto")}
+            onClick={() => onSelectTab("enfrentamientos")}
           >
-            <span>Contexto y H2H</span>
+            <span>Enfrentamientos y H2H</span>
             <MaestroIcon name="arrowRight" size={12} />
           </button>
         </div>
