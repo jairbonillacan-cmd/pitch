@@ -1508,6 +1508,8 @@ dialog.pl-native-dialog .glass-lens {
   }
 }
 .pl-page-enter {
+  min-height: 100vh;
+  min-height: 100dvh;
   @media (prefers-reduced-motion: no-preference) and (min-width: 768px) {
     animation: pl-page-enter 280ms cubic-bezier(0.2, 0.8, 0.2, 1) backwards;
   }
