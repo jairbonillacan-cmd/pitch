@@ -3,6 +3,7 @@ import "../../../../pre-match.css";
 import "../../../../sport-outlook.css";
 import "../../../../picks-screener.css";
 import "../../../../atomic-kit.css";
+import "../../../../match-deep-panels.css";
 import React from "react";
 import { notFound } from "next/navigation";
 import { asLeagueId, resolveGameBySlugOrId } from "@pitchlab/contracts";

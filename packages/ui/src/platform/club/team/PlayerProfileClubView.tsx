@@ -10,7 +10,6 @@ import {
   SofascoreSignalPair,
   SofascoreTable,
   SofascoreTabs,
-  SofascoreValueCell,
   type SofascoreKpiItem,
   type SofascoreTabItem,
   type SofascoreTableColumn,
@@ -37,10 +36,12 @@ import { resolveCircularCountryFlag } from "../../country-flags";
 import { evaluatePropLineProbability } from "../../match-picks-engine";
 import {
   useJournalEntries,
+  useParlayState,
   usePlatformActions,
   usePlatformCore,
 } from "../../platform-provider";
-import type { MatchPick } from "../../types";
+import type { MatchPick, MatchPlayerPickItem } from "../../types";
+import { MatchPlayerPicksBoard } from "../match/MatchPlayerPicksBoard";
 import { PersonAvatar } from "./PersonAvatar";
 import {
   MIN_SAMPLE_GUARD_LABEL,
@@ -71,12 +72,6 @@ export interface PlayerRivalDefenseContext {
 export interface PlayerProfileClubViewProps {
   profile: PlayerProfileData;
   nextRivalDefense?: PlayerRivalDefenseContext | null;
-}
-
-interface RangeSliderVarsStyle extends React.CSSProperties {
-  "--attr-min": string;
-  "--attr-max": string;
-  "--control-value": string;
 }
 
 interface PlayerBetLabSeries {
@@ -435,268 +430,25 @@ function BioGlyph({
   }
 }
 
-function PlayerInteractivePickCard({
-  pick,
-  profile,
-  oddsFormat,
-  journal,
-  onAddParlay,
-  onSealJournal,
-}: {
-  pick: TeamPlayerPick;
-  profile: PlayerProfileData;
-  oddsFormat: "american" | "decimal";
-  journal: ReadonlyArray<{ pickId: string }>;
-  onAddParlay: (pick: MatchPick) => boolean;
-  onSealJournal: (pick: MatchPick, units: number, userDecimal: number, note?: string) => void;
-}): React.JSX.Element {
-  const sliderId = useId();
-  const oddsInputId = useId();
-  const unitsInputId = useId();
-  const defaultLine = pick.line ?? 0.5;
-  const [lineValue, setLineValue] = useState<number>(defaultLine);
-  const [customOddsRaw, setCustomOddsRaw] = useState<string>("");
-  const [unitsInput, setUnitsInput] = useState<string>("1");
-  const [addedToSlip, setAddedToSlip] = useState<boolean>(false);
-
-  const hasModelDistribution = pick.projectionMean != null && pick.projectionSd != null;
-  const isWideScale = defaultLine >= 12;
-  const isMidScale = !isWideScale && defaultLine >= 5;
-  const lineStep = isWideScale ? 1 : 0.5;
-  const minLine = isWideScale
-    ? Math.max(0.5, defaultLine - 6)
-    : isMidScale
-      ? Math.max(0.5, defaultLine - 3)
-      : 0.5;
-  const maxLine = isWideScale
-    ? defaultLine + 6
-    : isMidScale
-      ? defaultLine + 3
-      : Math.max(defaultLine + 2, 3.5);
-
-  const liveEval = hasModelDistribution
-    ? evaluatePropLineProbability(pick.projectionMean!, pick.projectionSd!, lineValue)
-    : null;
-
-  const activeProb = liveEval ? liveEval.pOver : (pick.p ?? 0.5);
-  const activeFairDec = liveEval ? liveEval.fairOverDecimal : (pick.fairDecimal ?? 2.0);
-  const parsedCustom = parseManualBookOdds(customOddsRaw);
-  const hasCustomOdds = parsedCustom !== null;
-  const hasInvalidOdds = customOddsRaw.trim().length > 0 && !hasCustomOdds;
-  const activeBookDec = hasCustomOdds && parsedCustom !== null ? parsedCustom : activeFairDec;
-  const edgePts = (activeProb - 1 / activeBookDec) * 100;
-  const evPct = (activeProb * activeBookDec - 1) * 100;
-
-  const constructedPickId = `player-prop:${profile.league}:${profile.team.slug}:${profile.player.slug}:${pick.marketKey}:${lineValue.toFixed(1)}`;
-  const inParlay = addedToSlip;
-  const alreadySealed = journal.some((j) => j.pickId === constructedPickId);
-  const engineLabel = profile.sport === "basketball" ? "Tachyon NBA Lab" : "Tachyon Player Lab";
-
-  const sliderStyle: RangeSliderVarsStyle = {
-    "--attr-min": String(minLine),
-    "--attr-max": String(maxLine),
-    "--control-value": String(lineValue),
-  };
-
-  const buildMatchPick = (): MatchPick => {
-    const fixture = profile.nextFixture;
-    const matchLabel = fixture
-      ? fixture.isHome
-        ? `${fixture.opponent.shortName} @ ${profile.team.shortName}`
-        : `${profile.team.shortName} @ ${fixture.opponent.shortName}`
-      : `${profile.team.name} · ${profile.leagueLabel}`;
-    const gameId =
-      fixture?.id ?? `player:${profile.league}:${profile.team.slug}:${profile.player.slug}`;
-    const kickoffLocal = fixture?.dateLabel ?? profile.seasonLabel;
-
-    return {
-      id: constructedPickId,
-      gameId,
-      league: profile.league,
-      leagueLabel: profile.leagueLabel,
-      matchLabel,
-      kickoffLocal,
-      gameStatus: "NS",
-      slotIndex: 99,
-      category: "valor",
-      categoryLabel: `Jugador · ${pick.marketLabel}`,
-      risk: activeProb >= 0.66 ? "conservador" : activeProb >= 0.52 ? "medio" : "arriesgado",
-      engineKey: "tachyon",
-      engineName: engineLabel,
-      marketGroup: "Player Props",
-      selectionKey: `over_${lineValue.toFixed(1)}`,
-      conflictGroup: "independent",
-      label: `${profile.player.name} · Más de ${lineValue.toFixed(1)} ${pick.marketLabel}`,
-      rationale:
-        pick.rationale ??
-        `Proyección individual de ${profile.player.name} en ${profile.team.shortName}.`,
-      p: activeProb,
-      fairDecimal: activeFairDec,
-      fairAmerican: decimalToAmericanInt(activeFairDec),
-      marketDecimal: hasCustomOdds && parsedCustom !== null ? parsedCustom : null,
-      marketAmerican:
-        hasCustomOdds && parsedCustom !== null ? decimalToAmericanInt(parsedCustom) : null,
-      edgePts: hasCustomOdds ? edgePts : 0,
-      confidenceScore: Math.round(Math.min(94, Math.max(54, activeProb * 100 + 6))),
-      suggestedUnits: 1.0,
-    };
-  };
-
-  return (
-    <article className="pl-pb-pick-tile" data-player-pick={pick.id}>
-      <div className="pl-pb-pick-head">
-        <div className="pl-pb-pick-copy">
-          <div className="pl-pb-lab-badges">
-            {pick.statCode ? <span className="pl-pb-code num">{pick.statCode}</span> : null}
-            <span className="pl-pb-pick-market">{pick.marketLabel}</span>
-            {pick.minMinutesGuard ? (
-              <span className="pl-pb-status-pill is-guard">
-                {profile.sport === "basketball" ? "Muestra ≥ 18 min/p" : MIN_SAMPLE_GUARD_LABEL}
-              </span>
-            ) : null}
-          </div>
-          <h3 className="pl-pb-pick-title">
-            {hasModelDistribution
-              ? `Más de ${lineValue.toFixed(1)} ${pick.marketLabel.toLowerCase()}`
-              : pick.selectionLabel}
-          </h3>
-        </div>
-
-        <SofascoreValueCell
-          probPct={activeProb * 100}
-          fairLabel={formatOddsValue(activeFairDec, oddsFormat)}
-          bestBookLabel={hasCustomOdds ? "Tu casa" : null}
-          bestOddsLabel={hasCustomOdds ? formatOddsValue(activeBookDec, oddsFormat) : null}
-          evPct={hasCustomOdds ? evPct : null}
-        />
-      </div>
-
-      {hasModelDistribution ? (
-        <div className="pl-pb-streak-slider">
-          <div className="pl-pb-streak-slider-row">
-            <label htmlFor={sliderId} style={{ color: "var(--pl-text-muted)" }}>
-              Línea evaluada (<strong className="num">{lineValue.toFixed(1)}</strong>)
-            </label>
-            <span className="num font-semibold">
-              Proy. Spacetime: {pick.projectionMean!.toFixed(2)} ± {pick.projectionSd!.toFixed(2)}
-            </span>
-          </div>
-          <input
-            id={sliderId}
-            type="range"
-            min={minLine}
-            max={maxLine}
-            step={lineStep}
-            value={lineValue}
-            style={sliderStyle}
-            aria-valuetext={`Más de ${lineValue.toFixed(1)} ${pick.marketLabel} (${(activeProb * 100).toFixed(1)} por ciento)`}
-            onChange={(e) => {
-              const parsed = parseStrictFiniteNumber(e.target.value);
-              if (parsed !== null) setLineValue(parsed);
-            }}
-            className="pl-range-slider"
-          />
-        </div>
-      ) : null}
-
-      {pick.rationale ? <p className="pl-pb-context-note">{pick.rationale}</p> : null}
-
-      <div className="pl-pb-pick-inputs">
-        <div className="pl-pb-field">
-          <label htmlFor={oddsInputId} className="pl-pb-field-label">
-            Compara con tu casa (dec. o amer.)
-          </label>
-          <input
-            id={oddsInputId}
-            type="text"
-            inputMode="decimal"
-            autoCorrect="off"
-            spellCheck={false}
-            value={customOddsRaw}
-            onChange={(e) => setCustomOddsRaw(e.target.value)}
-            placeholder={formatOddsValue(activeFairDec, oddsFormat)}
-            className="pl-pb-input num"
-          />
-        </div>
-
-        <div className="pl-pb-field">
-          <label htmlFor={unitsInputId} className="pl-pb-field-label num">
-            Unidades para bitácora
-            {hasCustomOdds ? ` · Ventaja ${edgePts >= 0 ? "+" : ""}${edgePts.toFixed(1)} pts` : ""}
-          </label>
-          <input
-            id={unitsInputId}
-            type="number"
-            inputMode="decimal"
-            min={0.25}
-            max={10}
-            step={0.25}
-            value={unitsInput}
-            onChange={(e) => setUnitsInput(e.target.value)}
-            className="pl-pb-input num"
-          />
-        </div>
-      </div>
-
-      {hasInvalidOdds ? (
-        <p className="pl-pb-comparator-hint is-error" role="alert">
-          Ingresa un momio decimal mayor a 1.01 o americano válido.
-        </p>
-      ) : hasCustomOdds ? (
-        <div className="pl-pb-comparator-result num">
-          <span>
-            Justo PitchLab: <strong>{formatOddsValue(activeFairDec, oddsFormat)}</strong>
-          </span>
-          <SofascoreSignalPair evPct={evPct} compact />
-        </div>
-      ) : null}
-
-      <div className="pl-pb-pick-actions">
-        <Button
-          variant="secondary"
-          size="sm"
-          disabled={inParlay}
-          onClick={() => {
-            const ok = onAddParlay(buildMatchPick());
-            if (ok) setAddedToSlip(true);
-          }}
-        >
-          <MaestroIcon name={inParlay ? "check" : "plus"} size={12} />
-          <span>{inParlay ? "En tu boleto Parlay" : "Agregar al Parlay"}</span>
-        </Button>
-
-        <Button
-          variant="primary"
-          size="sm"
-          disabled={alreadySealed}
-          onClick={() => {
-            const parsedUnits = parseStrictFiniteNumber(unitsInput);
-            const units = Math.max(0.25, Math.min(10, parsedUnits ?? 1));
-            onSealJournal(
-              buildMatchPick(),
-              units,
-              activeBookDec,
-              `Jugador · Media ${pick.projectionMean?.toFixed(2) ?? "N/D"}`,
-            );
-          }}
-        >
-          <MaestroIcon name={alreadySealed ? "check" : "ticket"} size={12} />
-          <span>{alreadySealed ? "Registrado en Bitácora" : "Registrar en Bitácora"}</span>
-        </Button>
-      </div>
-    </article>
-  );
-}
-
 export function PlayerProfileClubView({
   profile,
   nextRivalDefense = null,
 }: PlayerProfileClubViewProps): React.JSX.Element {
   const labComparatorId = useId();
   const { dataset, viewerRole, oddsFormat, upgradeHref } = usePlatformCore();
-  const { addPickToParlay, sealPickToJournal, navigateTo } = usePlatformActions();
+  const { addPickToParlay, removePickFromParlay, openComposer, navigateTo } = usePlatformActions();
   const journal = useJournalEntries();
+  const { parlayLegs } = useParlayState();
   const iconBase = usePackIconBase();
+
+  const parlayPickIds = useMemo(
+    () => new Set<string>(parlayLegs.map((leg) => leg.pick.id)),
+    [parlayLegs],
+  );
+  const sealedPickIds = useMemo(
+    () => new Set<string>(journal.map((entry) => entry.pickId)),
+    [journal],
+  );
 
   const [selectedLabMetricKey, setSelectedLabMetricKey] = useState<string>("");
   const [labLinesByKey, setLabLinesByKey] = useState<Readonly<Record<string, number>>>({});
@@ -815,6 +567,198 @@ export function PlayerProfileClubView({
     profile.player,
     profile.sport,
     profile.team.name,
+    profile.team.slug,
+  ]);
+
+  const boardPlayerPicks = useMemo<readonly MatchPlayerPickItem[]>(() => {
+    if (isVisitorRestricted || isPlayerUnavailable) return [];
+    const fixture = profile.nextFixture;
+    const matchLabel = fixture
+      ? fixture.isHome
+        ? `${fixture.opponent.shortName} @ ${profile.team.shortName}`
+        : `${profile.team.shortName} @ ${fixture.opponent.shortName}`
+      : `${profile.team.name} · ${profile.leagueLabel}`;
+    const gameId =
+      fixture?.id ?? `player:${profile.league}:${profile.team.slug}:${profile.player.slug}`;
+    const kickoffLocal = fixture?.dateLabel ?? profile.seasonLabel;
+    const engineLabel =
+      profile.sport === "basketball" ? "Tachyon NBA Lab" : "Tachyon Player Lab";
+
+    const rows: MatchPlayerPickItem[] = [];
+    for (const pk of effectiveCandidatePicks) {
+      const pVal = pk.p ?? 0.5;
+      const fairDec = pk.fairDecimal ?? Math.round((1 / Math.max(pVal, 0.05)) * 100) / 100;
+      const lowerSel = pk.selectionLabel.toLowerCase();
+      const direction: MatchPlayerPickItem["direction"] = lowerSel.includes("menos")
+        ? "under"
+        : lowerSel.includes("más") || lowerSel.includes("mas ")
+          ? "over"
+          : "other";
+      const pickId = `player-prop:${profile.league}:${profile.team.slug}:${profile.player.slug}:${pk.marketKey}:${pk.line ?? "x"}:${direction}`;
+      const matchPick: MatchPick = {
+        id: pickId,
+        gameId,
+        league: profile.league,
+        leagueLabel: profile.leagueLabel,
+        matchLabel,
+        kickoffLocal,
+        gameStatus: "NS",
+        slotIndex: 90 + rows.length,
+        category: "tactico",
+        categoryLabel: `Jugador · ${pk.marketLabel}`,
+        risk: pVal >= 0.64 ? "conservador" : pVal >= 0.48 ? "medio" : "arriesgado",
+        engineKey: "tachyon",
+        engineName: engineLabel,
+        marketGroup: pk.marketLabel,
+        selectionKey: `${pk.marketKey}:${direction}:${pk.line ?? "0"}`,
+        market: pk.marketKey,
+        line: pk.line,
+        conflictGroup: "independent",
+        label: `${profile.player.shortName} · ${pk.selectionLabel}`,
+        rationale:
+          pk.rationale ??
+          `Proyección individual de ${profile.player.name} en ${profile.team.shortName}.`,
+        p: pVal,
+        fairDecimal: fairDec,
+        fairAmerican: pk.fairAmerican ?? decimalToAmericanInt(fairDec),
+        marketDecimal: null,
+        marketAmerican: null,
+        edgePts: null,
+        confidenceScore: Math.round(pVal * 100),
+        suggestedUnits: 0.75,
+      };
+
+      const pct = Math.round(pVal * 100);
+      rows.push({
+        id: pickId,
+        playerName: profile.player.name,
+        playerSlug: profile.player.slug,
+        teamSide: "home",
+        teamName: profile.team.shortName,
+        teamSlug: profile.team.slug,
+        positionLabel: profile.player.positionLabel,
+        photoKey: profile.player.photoKey ?? null,
+        fallbackPhotoKey: profile.player.fallbackPhotoKey ?? null,
+        playerHref: null,
+        marketKey: pk.marketKey,
+        marketLabel: pk.marketLabel,
+        direction,
+        selectionLabel: pk.selectionLabel,
+        line: pk.line,
+        p: pVal,
+        fairDecimal: fairDec,
+        marketDecimal: null,
+        marketBookLabel: null,
+        evPct: null,
+        evidenceBullets: pk.rationale
+          ? [
+              {
+                label: pk.rationale,
+                ratePct: pct,
+                tone: pct >= 62 ? "green" : pct >= 45 ? "amber" : "neutral",
+              },
+            ]
+          : [],
+        pick: matchPick,
+      });
+
+      if (
+        direction === "over" &&
+        pk.line !== null &&
+        pk.projectionMean != null &&
+        pk.projectionSd != null
+      ) {
+        const underEval = evaluatePropLineProbability(
+          pk.projectionMean,
+          pk.projectionSd,
+          pk.line,
+        );
+        if (underEval.pUnder >= 0.22 && underEval.pUnder <= 0.85) {
+          const underId = `player-prop:${profile.league}:${profile.team.slug}:${profile.player.slug}:${pk.marketKey}:${pk.line}:under`;
+          const underLabel = `Menos de ${pk.line.toFixed(1)} ${pk.marketLabel.toLowerCase()}`;
+          const underPct = Math.round(underEval.pUnder * 100);
+          const underPick: MatchPick = {
+            id: underId,
+            gameId,
+            league: profile.league,
+            leagueLabel: profile.leagueLabel,
+            matchLabel,
+            kickoffLocal,
+            gameStatus: "NS",
+            slotIndex: 90 + rows.length,
+            category: "tactico",
+            categoryLabel: `Jugador · ${pk.marketLabel}`,
+            risk: underEval.pUnder >= 0.64 ? "conservador" : "medio",
+            engineKey: "tachyon",
+            engineName: engineLabel,
+            marketGroup: pk.marketLabel,
+            selectionKey: `${pk.marketKey}:under:${pk.line}`,
+            market: pk.marketKey,
+            line: pk.line,
+            conflictGroup: "independent",
+            label: `${profile.player.shortName} · ${underLabel}`,
+            rationale: `Media proyectada ${pk.projectionMean.toFixed(2)} (${underPct} % debajo de ${pk.line}).`,
+            p: underEval.pUnder,
+            fairDecimal: underEval.fairUnderDecimal,
+            fairAmerican: decimalToAmericanInt(underEval.fairUnderDecimal),
+            marketDecimal: null,
+            marketAmerican: null,
+            edgePts: null,
+            confidenceScore: underPct,
+            suggestedUnits: 0.75,
+          };
+
+          rows.push({
+            id: underId,
+            playerName: profile.player.name,
+            playerSlug: profile.player.slug,
+            teamSide: "home",
+            teamName: profile.team.shortName,
+            teamSlug: profile.team.slug,
+            positionLabel: profile.player.positionLabel,
+            photoKey: profile.player.photoKey ?? null,
+            fallbackPhotoKey: profile.player.fallbackPhotoKey ?? null,
+            playerHref: null,
+            marketKey: pk.marketKey,
+            marketLabel: pk.marketLabel,
+            direction: "under",
+            selectionLabel: underLabel,
+            line: pk.line,
+            p: underEval.pUnder,
+            fairDecimal: underEval.fairUnderDecimal,
+            marketDecimal: null,
+            marketBookLabel: null,
+            evPct: null,
+            evidenceBullets: [
+              {
+                label: `Proyección ${pk.projectionMean.toFixed(2)} p/p`,
+                ratePct: underPct,
+                tone: underPct >= 62 ? "green" : underPct >= 45 ? "amber" : "neutral",
+              },
+            ],
+            pick: underPick,
+          });
+        }
+      }
+    }
+    return rows;
+  }, [
+    effectiveCandidatePicks,
+    isPlayerUnavailable,
+    isVisitorRestricted,
+    profile.league,
+    profile.leagueLabel,
+    profile.nextFixture,
+    profile.player.fallbackPhotoKey,
+    profile.player.name,
+    profile.player.photoKey,
+    profile.player.positionLabel,
+    profile.player.shortName,
+    profile.player.slug,
+    profile.seasonLabel,
+    profile.sport,
+    profile.team.name,
+    profile.team.shortName,
     profile.team.slug,
   ]);
 
@@ -1888,19 +1832,21 @@ export function PlayerProfileClubView({
                     }
                   />
                 ) : (
-                  <div className="pl-pb-player-picks-grid">
-                    {effectiveCandidatePicks.map((pick) => (
-                      <PlayerInteractivePickCard
-                        key={pick.id}
-                        pick={pick}
-                        profile={profile}
-                        oddsFormat={oddsFormat}
-                        journal={journal}
-                        onAddParlay={addPickToParlay}
-                        onSealJournal={sealPickToJournal}
-                      />
-                    ))}
-                  </div>
+                  <MatchPlayerPicksBoard
+                    picks={boardPlayerPicks}
+                    allowFull={!isVisitorRestricted}
+                    hideTeamFilter
+                    oddsFormat={oddsFormat}
+                    upgradeHref={upgradeHref}
+                    parlayPickIds={parlayPickIds}
+                    sealedPickIds={sealedPickIds}
+                    onToggleParlay={(pick) =>
+                      parlayPickIds.has(pick.id)
+                        ? removePickFromParlay(pick.id)
+                        : addPickToParlay(pick)
+                    }
+                    onSealPick={(pick) => openComposer(pick)}
+                  />
                 )}
               </div>
             </SofascoreCard>

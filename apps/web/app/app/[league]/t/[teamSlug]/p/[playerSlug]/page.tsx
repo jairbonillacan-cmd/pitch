@@ -1,5 +1,6 @@
 import "../../../../../../atomic-kit.css";
 import "../../../../../../props-betlab.css";
+import "../../../../../../match-deep-panels.css";
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import {

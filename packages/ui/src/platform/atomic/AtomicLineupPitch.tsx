@@ -2,10 +2,12 @@
 
 import React, { useId, useMemo, useState } from "react";
 import type { LiveIncident, LiveSide } from "@pitchlab/contracts";
+import { PersonAvatar } from "../club/team/PersonAvatar";
 import { SportEventIcon, type SportEventIconKind } from "../components/SportEventIcons";
 import { sanitizeInternalHref } from "../navigation-helpers";
 
 export interface AtomicLineupPlayer {
+  readonly id?: string;
   readonly name: string;
   readonly number?: number | null;
   readonly position?: string | null;
@@ -13,6 +15,9 @@ export interface AtomicLineupPlayer {
   readonly isCaptain?: boolean;
   readonly events?: readonly SportEventIconKind[];
   readonly playerHref?: string | null;
+  readonly photoKey?: string | null;
+  readonly fallbackPhotoKey?: string | null;
+  readonly metricChip?: string | null;
 }
 
 export interface AtomicLineupPitchProps {
@@ -27,6 +32,8 @@ export interface AtomicLineupPitchProps {
   readonly awayCoach?: string | null;
   readonly incidents?: readonly LiveIncident[];
   readonly playerRatings?: Readonly<Record<string, number>>;
+  readonly selectedPlayerId?: string | null;
+  readonly preferSelectButton?: boolean;
   readonly onSelectPlayer?: (player: AtomicLineupPlayer, side: LiveSide) => void;
   readonly className?: string;
 }
@@ -168,6 +175,8 @@ function HalfLineupPane({
   coach,
   nodes,
   side,
+  selectedPlayerId,
+  preferSelectButton = false,
   onSelectPlayer,
 }: {
   readonly teamName: string;
@@ -175,6 +184,8 @@ function HalfLineupPane({
   readonly coach?: string | null;
   readonly nodes: readonly PositionedLineupNode[];
   readonly side: LiveSide;
+  readonly selectedPlayerId?: string | null;
+  readonly preferSelectButton?: boolean;
   readonly onSelectPlayer?: (player: AtomicLineupPlayer, side: LiveSide) => void;
 }): React.JSX.Element {
   const hasInteractiveNodes =
@@ -209,10 +220,25 @@ function HalfLineupPane({
             const safeHref = sanitizeInternalHref(node.player.playerHref);
             const jerseyNumber = node.player.number ?? idx + 1;
             const nodeAriaLabel = `${node.player.name}, dorsal ${jerseyNumber}${node.rating !== null ? `, nota ${node.rating.toFixed(1)}` : ""}`;
+            const isSelected =
+              selectedPlayerId != null &&
+              (node.player.id === selectedPlayerId || node.player.name === selectedPlayerId);
+            const hasPortrait = Boolean(node.player.photoKey || node.player.fallbackPhotoKey);
             const nodeContent = (
               <>
                 <span className="pl-atom-lineup-anchor">
-                  <span className={`pl-atom-jersey is-${side} num`}>{jerseyNumber}</span>
+                  {hasPortrait ? (
+                    <span className="pl-atom-node-avatar">
+                      <PersonAvatar
+                        photoKey={node.player.photoKey}
+                        fallbackPhotoKey={node.player.fallbackPhotoKey}
+                        role="player"
+                        size={26}
+                      />
+                    </span>
+                  ) : (
+                    <span className={`pl-atom-jersey is-${side} num`}>{jerseyNumber}</span>
+                  )}
 
                   {node.rating !== null ? (
                     <span
@@ -242,6 +268,9 @@ function HalfLineupPane({
                   ) : null}
                   <span>{node.shortLabel}</span>
                 </span>
+                {node.player.metricChip ? (
+                  <span className="pl-atom-node-metric num">{node.player.metricChip}</span>
+                ) : null}
               </>
             );
 
@@ -254,17 +283,35 @@ function HalfLineupPane({
                 {safeHref ? (
                   <a
                     href={safeHref}
-                    className="pl-atom-node-trigger"
+                    className={`pl-atom-node-trigger ${isSelected ? "is-selected" : ""}`.trim()}
                     aria-label={nodeAriaLabel}
-                    onClick={onSelectPlayer ? () => onSelectPlayer(node.player, side) : undefined}
+                    aria-current={isSelected ? "true" : undefined}
+                    onClick={
+                      onSelectPlayer
+                        ? (e) => {
+                            if (
+                              preferSelectButton &&
+                              !e.metaKey &&
+                              !e.ctrlKey &&
+                              !e.shiftKey &&
+                              !e.altKey &&
+                              e.button === 0
+                            ) {
+                              e.preventDefault();
+                            }
+                            onSelectPlayer(node.player, side);
+                          }
+                        : undefined
+                    }
                   >
                     {nodeContent}
                   </a>
                 ) : onSelectPlayer ? (
                   <button
                     type="button"
-                    className="pl-atom-node-trigger"
+                    className={`pl-atom-node-trigger ${isSelected ? "is-selected" : ""}`.trim()}
                     aria-label={nodeAriaLabel}
+                    aria-pressed={isSelected}
                     onClick={() => onSelectPlayer(node.player, side)}
                   >
                     {nodeContent}
@@ -300,6 +347,8 @@ export function AtomicLineupPitch({
   awayCoach,
   incidents,
   playerRatings,
+  selectedPlayerId,
+  preferSelectButton = false,
   onSelectPlayer,
   className = "",
 }: AtomicLineupPitchProps): React.JSX.Element | null {
@@ -363,6 +412,8 @@ export function AtomicLineupPitch({
             coach={homeCoach}
             nodes={homeNodes}
             side="home"
+            selectedPlayerId={selectedPlayerId}
+            preferSelectButton={preferSelectButton}
             onSelectPlayer={onSelectPlayer}
           />
         </div>
@@ -373,6 +424,8 @@ export function AtomicLineupPitch({
             coach={awayCoach}
             nodes={awayNodes}
             side="away"
+            selectedPlayerId={selectedPlayerId}
+            preferSelectButton={preferSelectButton}
             onSelectPlayer={onSelectPlayer}
           />
         </div>

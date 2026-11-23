@@ -25,6 +25,7 @@ import "../../../apps/web/app/momios-compare.css";
 import "../../../apps/web/app/tipster-admin.css";
 import "../../../apps/web/app/editorial-verificacion.css";
 import "../../../apps/web/app/alerts-referees.css";
+import "../../../apps/web/app/match-deep-panels.css";
 
 export const globalTypes = {
   theme: {
