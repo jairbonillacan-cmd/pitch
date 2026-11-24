@@ -24,6 +24,7 @@ import {
   loadGameSummary,
   loadInitialShellDatasetForAccess,
   loadServerPicksCatalogsForScreener,
+  withoutGameDetail,
 } from "../src/server/platform-data";
 import {
   clearPropsExplorerCachesForTests,
@@ -111,7 +112,7 @@ describe("API wire compression, shell pruning, snapshot cut, props fast-scan and
     const gunzippedText = gunzipSync(compressedBytes).toString("utf8");
     const expectedMemberJson = loadExtendedShellSerializedJson(true);
     expect(gunzippedText).toBe(expectedMemberJson);
-    expect(Buffer.byteLength(expectedMemberJson, "utf8")).toBeLessThan(1_260_000);
+    expect(Buffer.byteLength(expectedMemberJson, "utf8")).toBeLessThan(1_950_000);
 
     const plainReq = new Request("http://localhost:9990/api/shell/extend");
     const plainRes = await extendGET(plainReq);
@@ -162,6 +163,56 @@ describe("API wire compression, shell pruning, snapshot cut, props fast-scan and
         }),
     );
     expect(hasParlayEligible).toBe(true);
+    const hasFourPickNsGame = memberDecoded.games.some(
+      (g) => g.status !== "FT" && g.picks.length >= 4,
+    );
+    expect(hasFourPickNsGame).toBe(true);
+
+    const templateGame = memberDecoded.games.find(
+      (g) => g.status === "NS" && g.picks.length >= 2,
+    );
+    expect(templateGame).toBeDefined();
+    const fixedNowMs = Date.parse("2026-11-22T06:00:00.000Z");
+    const freshCapturedUtc = "2026-11-22T05:30:00.000Z";
+    const syntheticDataset: PlatformDataset = {
+      ...stage1,
+      isServerRedactedForVisitor: false,
+      games: [
+        {
+          ...templateGame!,
+          picks: templateGame!.picks.slice(0, 3).map((pk, idx) => ({
+            ...pk,
+            slotIndex: idx,
+            isRedacted: false,
+            marketBookLabel: "Bet365",
+            marketCapturedAtUtc: freshCapturedUtc,
+            marketDecimal: 1.95,
+            marketAmerican: -105,
+            bookQuotes: [
+              {
+                book: "bet365",
+                bookLabel: "Bet365",
+                decimal: 1.95,
+                capturedAtUtc: freshCapturedUtc,
+                isBest: true,
+              },
+              {
+                book: "pinnacle",
+                bookLabel: "Pinnacle",
+                decimal: 1.91,
+                capturedAtUtc: freshCapturedUtc,
+              },
+            ],
+          })),
+        },
+      ],
+    };
+    const slimWithMultiQuotes = withoutGameDetail(syntheticDataset, fixedNowMs);
+    expect(slimWithMultiQuotes.games[0]?.picks.length).toBeGreaterThanOrEqual(2);
+    for (const pk of slimWithMultiQuotes.games[0]!.picks) {
+      expect(pk.bookQuotes?.length).toBe(2);
+    }
+
     const cachedWire = loadExtendedShellResponsePayload(true);
     expect(cachedWire.gzip.byteLength).toBe(compressedBytes.byteLength);
   });
@@ -226,9 +277,12 @@ describe("API wire compression, shell pruning, snapshot cut, props fast-scan and
     const summary = await loadGameSummary(targetId);
     expect(summary).not.toBeNull();
     expect(summary!.parlayCandidates).toBeUndefined();
-    expect(summary!.spacetime).toBeNull();
-    expect(summary!.preGame.absences).toEqual([]);
-    expect(summary!.preGame.confirmedLineups).toBeNull();
+    expect(summary!.markets).toEqual([]);
+    expect(summary!.headToHead).toEqual([]);
+    expect(summary!.factors).toEqual([]);
+    expect(summary!.spacetime).not.toBeNull();
+    expect(summary!.picks.length).toBeGreaterThan(0);
+    expect(summary!.picks.some((pk) => pk.rationale.length > 0)).toBe(true);
 
     const fullStage = loadAllActiveLeagueSnapshots();
     const finishedPlGame =

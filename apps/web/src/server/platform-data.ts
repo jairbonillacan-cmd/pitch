@@ -2058,28 +2058,15 @@ export async function loadGameSummary(gameId: string): Promise<PlatformGame | nu
   if (!rawGame) return null;
   ensureGameFormsForGames(bundle, [rawGame]);
   const game = hasSession ? rawGame : getRedactedMemo(bundle).gamesById.get(gameId);
-  if (!game) return null;
-  return {
-    ...game,
-    markets: [],
-    headToHead: [],
-    factors: [],
-    parlayCandidates: undefined,
-    spacetime: null,
-    preGame: game.preGame
-      ? {
-          ...game.preGame,
-          confirmedLineups: null,
-          probableLineups: undefined,
-          absences: [],
-        }
-      : game.preGame,
-    picks: game.picks.slice(0, 4).map((pk) => ({
-      ...pk,
-      rationale: pk.slotIndex === 0 ? pk.rationale : "",
-      bookQuotes: pk.slotIndex === 0 ? pk.bookQuotes?.slice(0, 2) : undefined,
-    })),
-  };
+  return game
+    ? {
+        ...game,
+        markets: [],
+        headToHead: [],
+        factors: [],
+        parlayCandidates: undefined,
+      }
+    : null;
 }
 
 export function loadShellPlayerProps(options?: { fullAccess?: boolean }): PlayerPropItem[] {
@@ -2100,6 +2087,15 @@ function roundShellPickDecimal(pk: MatchPick): number {
     : pk.fairDecimal;
 }
 
+function clampParlayEdge(edgePts: number | null | undefined): number {
+  if (typeof edgePts !== "number" || !Number.isFinite(edgePts)) return 0;
+  return Math.max(-5, Math.min(20, edgePts));
+}
+
+function parlayPickSemanticKey(pk: MatchPick): string {
+  return `${pk.market ?? ""}:${pk.selectionKey}:${pk.line ?? ""}`;
+}
+
 function selectTopParlayPair(
   pool: readonly MatchPick[],
   minLegDecimal: number,
@@ -2107,13 +2103,15 @@ function selectTopParlayPair(
 ): readonly MatchPick[] {
   const eligible = pool.filter((pk) => {
     if (pk.isRedacted || pk.market === "correct_score") return false;
-    if (!Number.isFinite(pk.p) || pk.p < 0.52) return false;
+    if (!Number.isFinite(pk.p) || pk.p < 0.52 || pk.p >= 0.99) return false;
     const dec = roundShellPickDecimal(pk);
     return Number.isFinite(dec) && dec >= minLegDecimal;
   });
   if (eligible.length === 0) return [];
   const sortedByProb = eligible.slice().sort((a, b) => {
     if (Math.abs(b.p - a.p) > 1e-6) return b.p - a.p;
+    const edgeDiff = clampParlayEdge(b.edgePts) - clampParlayEdge(a.edgePts);
+    if (Math.abs(edgeDiff) > 1e-6) return edgeDiff;
     const distDiff =
       Math.abs(roundShellPickDecimal(a) - idealLegDecimal) -
       Math.abs(roundShellPickDecimal(b) - idealLegDecimal);
@@ -2145,14 +2143,11 @@ function selectNeededParlayCandidates(
 ): MatchPick[] | undefined {
   if (extraPool.length === 0) return undefined;
   const keptIds = new Set(keptPicks.map((pk) => pk.id));
-  const keptKeys = new Set(
-    keptPicks.map((pk) => pk.selectionKey || pk.label.trim().toLowerCase()),
-  );
-  const maxExtraNeeded = 1;
+  const keptSemanticKeys = new Set(keptPicks.map(parlayPickSemanticKey));
   const combined: MatchPick[] = [...keptPicks];
-  const seenKeys = new Set(keptKeys);
+  const seenKeys = new Set(keptSemanticKeys);
   for (const cand of extraPool) {
-    const key = cand.selectionKey || cand.label.trim().toLowerCase();
+    const key = parlayPickSemanticKey(cand);
     if (keptIds.has(cand.id) || seenKeys.has(key)) continue;
     seenKeys.add(key);
     combined.push(cand);
@@ -2164,11 +2159,11 @@ function selectNeededParlayCandidates(
   const chosenIds = new Set<string>();
   for (const leg of [...pickedStandard, ...pickedTarget]) {
     if (keptIds.has(leg.id) || chosenIds.has(leg.id)) continue;
-    const key = leg.selectionKey || leg.label.trim().toLowerCase();
-    if (keptKeys.has(key)) continue;
+    const key = parlayPickSemanticKey(leg);
+    if (keptSemanticKeys.has(key)) continue;
     chosenIds.add(leg.id);
     chosenExtras.push(projectShellPick(leg, { includeQuotes: false, nowMs }));
-    if (chosenExtras.length >= maxExtraNeeded) break;
+    if (chosenExtras.length >= 2) break;
   }
   return chosenExtras.length > 0 ? chosenExtras : undefined;
 }
@@ -2177,51 +2172,23 @@ function projectExtendShellDataset(
   slim: PlatformDataset,
   nowMs: number,
 ): PlatformDataset {
-  const todayStr = mxDayId(new Date(nowMs));
-  const tomorrowStr = mxDayId(new Date(nowMs + 86_400_000));
-  const upcomingDays = Array.from(
-    new Set(
-      slim.games
-        .filter((g) => g.status !== "FT" && g.dayId)
-        .map((g) => g.dayId),
-    ),
-  ).sort();
-  const primaryDay = upcomingDays.includes(todayStr)
-    ? todayStr
-    : (upcomingDays.find((d) => d >= todayStr) ?? upcomingDays[0] ?? todayStr);
-  const secondaryDay =
-    primaryDay === todayStr
-      ? tomorrowStr
-      : (upcomingDays.find((d) => d > primaryDay) ?? tomorrowStr);
-  const twoDaysMs = nowMs + 2 * 86_400_000;
-
+  const parlayHorizonMs = nowMs + 2 * 86_400_000;
   return {
     ...slim,
     games: slim.games.map((g) => {
       const isFinished = g.status === "FT";
-      const kickoffMs = Date.parse(g.kickoffUtc);
-      const isNearDay = g.dayId
-        ? g.dayId <= secondaryDay
-        : !Number.isFinite(kickoffMs) || kickoffMs <= twoDaysMs;
-      const isWithinActiveSlate = !isFinished && isNearDay;
-      const maxPicks = isWithinActiveSlate && CORE_SHELL_LEAGUES.has(g.league) ? 2 : 1;
-      const keptPicks = g.picks.slice(0, maxPicks).map((pk, idx) =>
-        idx === 0
-          ? pk
-          : pk.bookQuotes
-            ? { ...pk, bookQuotes: undefined }
-            : pk,
-      );
+      const keptPicks = isFinished ? g.picks.slice(0, 2) : g.picks.slice(0, 4);
       const hasPromoOpenPick = keptPicks.some(
         (p) => Boolean(p.isDailyOpenPromo) || Boolean(p.isTipsterWeeklyOpen),
       );
       const lockedVisitorGame =
         slim.isServerRedactedForVisitor && !isFinished && !hasPromoOpenPick;
-      const overflowPicks = g.picks.slice(maxPicks);
+      const kickoffMs = Date.parse(g.kickoffUtc);
       const canUseParlayWindow =
-        g.status === "NS" &&
+        !isFinished &&
         !lockedVisitorGame &&
-        isWithinActiveSlate;
+        (!Number.isFinite(kickoffMs) || kickoffMs <= parlayHorizonMs);
+      const overflowPicks = g.picks.slice(keptPicks.length);
       const parlayCandidates = canUseParlayWindow
         ? selectNeededParlayCandidates(
             keptPicks,
@@ -2240,14 +2207,12 @@ function projectExtendShellDataset(
 
 function projectShellPick(
   pk: MatchPick,
-  opts: { includeQuotes: boolean; nowMs: number; pickIndex?: number },
+  opts: { includeQuotes: boolean; nowMs: number },
 ): MatchPick {
   const roundedP = roundFiniteDecimals(pk.p, 10_000);
-  const allowQuotesForPick =
-    opts.includeQuotes && (opts.pickIndex === undefined ? pk.slotIndex === 0 : opts.pickIndex === 0 || pk.slotIndex === 0);
   let compactQuotes: MatchPick["bookQuotes"] = undefined;
 
-  if (allowQuotesForPick && !pk.isRedacted && pk.bookQuotes && pk.bookQuotes.length > 0) {
+  if (opts.includeQuotes && !pk.isRedacted && pk.bookQuotes && pk.bookQuotes.length > 0) {
     const filtered = pk.bookQuotes
       .filter(
         (q) =>
@@ -2258,7 +2223,7 @@ function projectShellPick(
           isPermittedMarketQuoteBook(q.book, q.bookLabel) &&
           isMarketFresh(q.capturedAtUtc, opts.nowMs),
       )
-      .slice(0, 2)
+      .slice(0, 3)
       .map((q) => ({
         book: q.book,
         bookLabel: q.bookLabel,
@@ -2416,11 +2381,10 @@ function projectShellGame(
     ...(roundedGoalLine !== undefined ? { goalLine: roundedGoalLine } : {}),
     confidenceScore: g.confidenceScore,
     confidenceLevel: g.confidenceLevel,
-    picks: shellPicks.map((pk, idx) =>
+    picks: shellPicks.map((pk) =>
       projectShellPick(pk, {
         includeQuotes: !isFinished && !lockedVisitorGame,
         nowMs: opts.nowMs,
-        pickIndex: idx,
       }),
     ),
     ...(projectedParlayCandidates ? { parlayCandidates: projectedParlayCandidates } : {}),
