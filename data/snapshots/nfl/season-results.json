@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "league": "nfl",
   "season": "nfl-2026",
-  "updatedAt": "2026-11-24T03:29:17.514Z",
+  "updatedAt": "2026-11-24T15:06:43.292Z",
   "matches": [
     {
       "id": "nfl-2026-w1-new-england-patriots-seattle-seahawks",
@@ -1785,6 +1785,17 @@
       "homeScore": 35,
       "awayScore": 10,
       "neutralSite": true
+    },
+    {
+      "id": "nfl-2026-w11-cincinnati-bengals-washington-commanders",
+      "date": "2026-11-24",
+      "startTime": "2026-11-24T01:15:00.000Z",
+      "round": "Semana 11",
+      "homeTeam": "nfl.washington-commanders",
+      "awayTeam": "nfl.cincinnati-bengals",
+      "homeScore": 22,
+      "awayScore": 20,
+      "neutralSite": false
     }
   ]
 }

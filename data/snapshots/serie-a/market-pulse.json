@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "league": "serie-a",
-  "observedAt": "2026-11-24T03:29:48.156Z",
+  "observedAt": "2026-11-24T15:07:50.872Z",
   "entries": [
     {
       "gameId": "serie-a-2026-27-md12-atalanta-bc-internazionale-milano",
@@ -237,22 +237,22 @@
       "gameId": "serie-a-2026-27-md13-cagliari-milan",
       "source": "polymarket",
       "unit": "usd",
-      "observedAt": "2026-11-24T03:29:48.156Z",
+      "observedAt": "2026-11-24T15:07:50.872Z",
       "outcomes": [
         {
           "side": "home",
           "volume": 0,
-          "price": 0.19
+          "price": 0.185
         },
         {
           "side": "draw",
           "volume": 3.846154,
-          "price": 0.25
+          "price": 0.245
         },
         {
           "side": "away",
           "volume": 74.051723,
-          "price": 0.57
+          "price": 0.575
         }
       ]
     },
@@ -260,21 +260,21 @@
       "gameId": "serie-a-2026-27-md13-como-juventus",
       "source": "polymarket",
       "unit": "usd",
-      "observedAt": "2026-11-24T03:29:48.156Z",
+      "observedAt": "2026-11-24T15:07:50.872Z",
       "outcomes": [
         {
           "side": "home",
-          "volume": 3732.8554750000003,
+          "volume": 4754.813809,
           "price": 0.475
         },
         {
           "side": "draw",
           "volume": 3.703704,
-          "price": 0.27
+          "price": 0.265
         },
         {
           "side": "away",
-          "volume": 278.57143,
+          "volume": 282.27513400000004,
           "price": 0.265
         }
       ]
@@ -283,7 +283,7 @@
       "gameId": "serie-a-2026-27-md13-frosinone-parma",
       "source": "polymarket",
       "unit": "usd",
-      "observedAt": "2026-11-24T03:29:48.156Z",
+      "observedAt": "2026-11-24T15:07:50.872Z",
       "outcomes": [
         {
           "side": "home",
@@ -298,7 +298,7 @@
         {
           "side": "away",
           "volume": 72.98000099999999,
-          "price": 0.17
+          "price": 0.165
         }
       ]
     },
@@ -306,7 +306,7 @@
       "gameId": "serie-a-2026-27-md13-internazionale-milano-genoa-cfc",
       "source": "polymarket",
       "unit": "usd",
-      "observedAt": "2026-11-24T03:29:48.156Z",
+      "observedAt": "2026-11-24T15:07:50.872Z",
       "outcomes": [
         {
           "side": "home",
@@ -329,7 +329,7 @@
       "gameId": "serie-a-2026-27-md13-lecce-atalanta-bc",
       "source": "polymarket",
       "unit": "usd",
-      "observedAt": "2026-11-24T03:29:48.156Z",
+      "observedAt": "2026-11-24T15:07:50.872Z",
       "outcomes": [
         {
           "side": "home",
@@ -352,7 +352,7 @@
       "gameId": "serie-a-2026-27-md13-roma-monza",
       "source": "polymarket",
       "unit": "usd",
-      "observedAt": "2026-11-24T03:29:48.156Z",
+      "observedAt": "2026-11-24T15:07:50.872Z",
       "outcomes": [
         {
           "side": "home",
@@ -375,7 +375,7 @@
       "gameId": "serie-a-2026-27-md13-sassuolo-napoli",
       "source": "polymarket",
       "unit": "usd",
-      "observedAt": "2026-11-24T03:29:48.156Z",
+      "observedAt": "2026-11-24T15:07:50.872Z",
       "outcomes": [
         {
           "side": "home",
@@ -398,7 +398,7 @@
       "gameId": "serie-a-2026-27-md13-torino-lazio",
       "source": "polymarket",
       "unit": "usd",
-      "observedAt": "2026-11-24T03:29:48.156Z",
+      "observedAt": "2026-11-24T15:07:50.872Z",
       "outcomes": [
         {
           "side": "home",
@@ -412,8 +412,8 @@
         },
         {
           "side": "away",
-          "volume": 481.042974,
-          "price": 0.465
+          "volume": 991.570634,
+          "price": 0.455
         }
       ]
     },
@@ -421,7 +421,7 @@
       "gameId": "serie-a-2026-27-md13-udinese-fiorentina",
       "source": "polymarket",
       "unit": "usd",
-      "observedAt": "2026-11-24T03:29:48.156Z",
+      "observedAt": "2026-11-24T15:07:50.872Z",
       "outcomes": [
         {
           "side": "home",
@@ -435,7 +435,7 @@
         },
         {
           "side": "away",
-          "volume": 237.250001,
+          "volume": 239.630954,
           "price": 0.415
         }
       ]
@@ -444,21 +444,21 @@
       "gameId": "serie-a-2026-27-md13-venezia-bologna",
       "source": "polymarket",
       "unit": "usd",
-      "observedAt": "2026-11-24T03:29:48.156Z",
+      "observedAt": "2026-11-24T15:07:50.872Z",
       "outcomes": [
         {
           "side": "home",
-          "volume": 536.153848,
+          "volume": 843.143848,
           "price": 0.275
         },
         {
           "side": "draw",
-          "volume": 3.333334,
+          "volume": 13.333334,
           "price": 0.29
         },
         {
           "side": "away",
-          "volume": 8842.732208000001,
+          "volume": 9238.004936000001,
           "price": 0.435
         }
       ]

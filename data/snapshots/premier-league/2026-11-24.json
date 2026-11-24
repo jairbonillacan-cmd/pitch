@@ -5,7 +5,7 @@
   "season": "premier-league-2026-27",
   "seasonLabel": "2026/27",
   "periodLabel": "Jornada 12",
-  "updatedAt": "2026-11-24T03:29:17.514Z",
+  "updatedAt": "2026-11-24T15:06:43.292Z",
   "source": "football-data",
   "provenance": "derived",
   "isDemo": false,
@@ -9654,6 +9654,84 @@
     },
     "pl-2026-27-md12-manchester-united-brentford": {
       "game": "pl-2026-27-md12-manchester-united-brentford",
+      "cortex": {
+        "headline": "Man. United y Brentford, un partido de margen corto",
+        "headlineOrigin": "plantilla",
+        "sections": [
+          {
+            "key": "lectura",
+            "title": "La lectura",
+            "text": "El Brentford llega mejor: sexto con 17 puntos y diferencia de más nueve, frente al penúltimo lugar del United con 8 puntos y menos nueve. El United solo se sostiene por jugar en casa y por un día más de descanso, seis contra cinco.",
+            "origin": "ia"
+          },
+          {
+            "key": "goles",
+            "title": "Goles",
+            "text": "Se espera un partido abierto: 3.24 goles en total, con 62 % de pasar de 2.5 y 65 % de que ambos anoten. El Brentford aporta la mayor cuota ofensiva, con 1.69 esperados por 1.55 del United.",
+            "origin": "ia",
+            "stats": [
+              {
+                "label": "Goles esperados",
+                "home": 1.55,
+                "away": 1.69
+              },
+              {
+                "label": "Ambos anotan",
+                "value": "65 %"
+              },
+              {
+                "label": "Más de 2.5 goles",
+                "value": "62 %"
+              }
+            ]
+          },
+          {
+            "key": "ritmo",
+            "title": "Ritmo del partido",
+            "text": "El United empuja desde los costados con 5.9 tiros de esquina por 4.2 del Brentford, en un total de 10.1. Las faltas suman 21.4 y el Brentford corta más, con 11.5, así que el juego se traba seguido.",
+            "origin": "ia",
+            "stats": [
+              {
+                "label": "Tiros de esquina",
+                "home": 5.9,
+                "away": 4.2
+              },
+              {
+                "label": "Faltas",
+                "home": 9.9,
+                "away": 11.5
+              },
+              {
+                "label": "Amarillas",
+                "home": 1.9,
+                "away": 2.3
+              }
+            ]
+          },
+          {
+            "key": "tabla",
+            "title": "Tabla y descanso",
+            "text": "El United es decimonoveno con 8 puntos en 11 jornadas y diferencia de menos nueve. El Brentford es sexto con 17 puntos y más nueve. El descanso favorece al United: seis días por cinco del visitante.",
+            "origin": "ia",
+            "stats": [
+              {
+                "label": "Puntos",
+                "home": 8,
+                "away": 17
+              }
+            ]
+          },
+          {
+            "key": "cambia",
+            "title": "Qué podría cambiarlo",
+            "text": "Las alineaciones pueden ajustar el peso ofensivo de cada lado. El criterio del árbitro define cuánto se corta el juego con tantas faltas. El primer gol cambia el guion: el United obligado a abrirse deja espacio al Brentford.",
+            "origin": "ia"
+          }
+        ],
+        "fingerprint": "326ca82135b9abd2",
+        "generatedAt": "2026-11-24T15:07:15.945Z",
+        "version": "2"
+      },
       "counts": {
         "corners": {
           "home": 5.9,

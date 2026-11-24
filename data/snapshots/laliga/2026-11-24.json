@@ -5,7 +5,7 @@
   "season": "laliga-2026-27",
   "seasonLabel": "2026/27",
   "periodLabel": "Jornada 14",
-  "updatedAt": "2026-11-24T03:29:17.514Z",
+  "updatedAt": "2026-11-24T15:06:43.292Z",
   "source": "openfootball+football-data",
   "provenance": "derived",
   "isDemo": false,
@@ -281,7 +281,7 @@
       "result": {
         "home": 0,
         "away": 1,
-        "observedAt": "2026-11-24T03:29:19.732Z",
+        "observedAt": "2026-11-24T15:06:45.889Z",
         "source": "football-data"
       }
     },
@@ -314,7 +314,7 @@
       "result": {
         "home": 3,
         "away": 1,
-        "observedAt": "2026-11-24T03:29:19.732Z",
+        "observedAt": "2026-11-24T15:06:45.889Z",
         "source": "football-data"
       }
     },
@@ -347,7 +347,7 @@
       "result": {
         "home": 0,
         "away": 1,
-        "observedAt": "2026-11-24T03:29:19.732Z",
+        "observedAt": "2026-11-24T15:06:45.889Z",
         "source": "football-data"
       }
     },
@@ -380,7 +380,7 @@
       "result": {
         "home": 1,
         "away": 1,
-        "observedAt": "2026-11-24T03:29:19.732Z",
+        "observedAt": "2026-11-24T15:06:45.889Z",
         "source": "football-data"
       }
     },
@@ -413,7 +413,7 @@
       "result": {
         "home": 2,
         "away": 1,
-        "observedAt": "2026-11-24T03:29:19.732Z",
+        "observedAt": "2026-11-24T15:06:45.889Z",
         "source": "football-data"
       }
     },
@@ -446,7 +446,7 @@
       "result": {
         "home": 3,
         "away": 2,
-        "observedAt": "2026-11-24T03:29:19.732Z",
+        "observedAt": "2026-11-24T15:06:45.889Z",
         "source": "football-data"
       }
     },
@@ -479,7 +479,7 @@
       "result": {
         "home": 3,
         "away": 2,
-        "observedAt": "2026-11-24T03:29:19.732Z",
+        "observedAt": "2026-11-24T15:06:45.889Z",
         "source": "football-data"
       }
     },
@@ -512,7 +512,7 @@
       "result": {
         "home": 1,
         "away": 0,
-        "observedAt": "2026-11-24T03:29:19.732Z",
+        "observedAt": "2026-11-24T15:06:45.889Z",
         "source": "football-data"
       }
     },
@@ -545,7 +545,7 @@
       "result": {
         "home": 0,
         "away": 3,
-        "observedAt": "2026-11-24T03:29:19.732Z",
+        "observedAt": "2026-11-24T15:06:45.889Z",
         "source": "football-data"
       }
     },
@@ -578,7 +578,7 @@
       "result": {
         "home": 1,
         "away": 1,
-        "observedAt": "2026-11-24T03:29:19.732Z",
+        "observedAt": "2026-11-24T15:06:45.889Z",
         "source": "football-data"
       }
     },
@@ -8957,6 +8957,84 @@
     },
     "laliga-2026-27-md14-real-betis-rayo-vallecano": {
       "game": "laliga-2026-27-md14-real-betis-rayo-vallecano",
+      "cortex": {
+        "headline": "Betis favorito en casa ante un Rayo necesitado",
+        "headlineOrigin": "ia",
+        "sections": [
+          {
+            "key": "lectura",
+            "title": "La lectura",
+            "text": "El Real Betis llega cuarto con 27 puntos y una diferencia de 5, mientras el Rayo es decimosexto con 12 puntos y diferencia de -7. La probabilidad de 61 % para el local explica esa distancia: el Betis sostiene el partido en casa y el Rayo llega con urgencia abajo.",
+            "origin": "ia"
+          },
+          {
+            "key": "goles",
+            "title": "Goles",
+            "text": "El total esperado es 2.96, con 80 % de más de 1.5 y 57 % de más de 2.5. El Betis aporta 1.93 de los goles esperados y el Rayo 1.03; ambos anotan aparece con 55 %.",
+            "origin": "ia",
+            "stats": [
+              {
+                "label": "Goles esperados",
+                "home": 1.93,
+                "away": 1.03
+              },
+              {
+                "label": "Ambos anotan",
+                "value": "55 %"
+              },
+              {
+                "label": "Más de 2.5 goles",
+                "value": "57 %"
+              }
+            ]
+          },
+          {
+            "key": "ritmo",
+            "title": "Ritmo del partido",
+            "text": "Los córners suman 11.0, con 6.0 del Betis y 5.0 del Rayo: el local empuja más. Las faltas llegan a 23.2, con 12.6 del Rayo, así que el juego se corta del lado visitante.",
+            "origin": "ia",
+            "stats": [
+              {
+                "label": "Tiros de esquina",
+                "home": 6,
+                "away": 5
+              },
+              {
+                "label": "Faltas",
+                "home": 10.6,
+                "away": 12.6
+              },
+              {
+                "label": "Amarillas",
+                "home": 2,
+                "away": 2.6
+              }
+            ]
+          },
+          {
+            "key": "tabla",
+            "title": "Tabla y descanso",
+            "text": "El Betis es cuarto con 27 puntos en 13 partidos y diferencia de 5. El Rayo es decimosexto con 12 puntos en 12 partidos y diferencia de -7. Ambos llegan con 7 días de descanso.",
+            "origin": "ia",
+            "stats": [
+              {
+                "label": "Puntos",
+                "home": 27,
+                "away": 12
+              }
+            ]
+          },
+          {
+            "key": "cambia",
+            "title": "Qué podría cambiarlo",
+            "text": "Las alineaciones pueden ajustar el peso ofensivo del Betis. El criterio del árbitro importa con un Rayo que acumula faltas. Un gol temprano del visitante obligaría al local a abrirse y cambiaría el ritmo.",
+            "origin": "ia"
+          }
+        ],
+        "fingerprint": "86cfb91b5a56558f",
+        "generatedAt": "2026-11-24T15:07:26.094Z",
+        "version": "2"
+      },
       "counts": {
         "corners": {
           "home": 6.04,
@@ -15112,11 +15190,11 @@
       "goalsAgainst": 18,
       "points": 16,
       "form": [
-        "L",
         "D",
-        "L",
         "D",
-        "W"
+        "W",
+        "W",
+        "L"
       ]
     },
     {
@@ -15175,9 +15253,9 @@
       "goalsAgainst": 17,
       "points": 15,
       "form": [
+        "W",
         "D",
         "L",
-        "W",
         "D",
         "L"
       ]

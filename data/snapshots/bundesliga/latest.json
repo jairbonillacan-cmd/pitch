@@ -8206,6 +8206,84 @@
     },
     "bundesliga-2026-27-md11-koln-elversberg": {
       "game": "bundesliga-2026-27-md11-koln-elversberg",
+      "cortex": {
+        "headline": "Köln favorito por poco en casa ante un Elversberg mejor ubicado",
+        "headlineOrigin": "ia",
+        "sections": [
+          {
+            "key": "lectura",
+            "title": "La lectura",
+            "text": "Elversberg llega mejor: noveno con 13 puntos por 10 del Köln, decimocuarto. Aun así el Köln es el favorito más alto con 38 %, apenas dos puntos arriba del 36 % visitante, y juega en casa.",
+            "origin": "ia"
+          },
+          {
+            "key": "goles",
+            "title": "Goles",
+            "text": "Se ve abierto: 3.37 goles esperados en total, con 64 % de más de 2.5 y 67 % de ambos anotan. El reparto es casi parejo, 1.72 esperados para el Köln y 1.65 para el Elversberg.",
+            "origin": "ia",
+            "stats": [
+              {
+                "label": "Goles esperados",
+                "home": 1.72,
+                "away": 1.65
+              },
+              {
+                "label": "Ambos anotan",
+                "value": "67 %"
+              },
+              {
+                "label": "Más de 2.5 goles",
+                "value": "64 %"
+              }
+            ]
+          },
+          {
+            "key": "ritmo",
+            "title": "Ritmo del partido",
+            "text": "El Köln empuja más desde los costados con 6.3 tiros de esquina por 4.7 del Elversberg, 10.9 en total. Las faltas van parejas, 11.0 y 11.3, con 4.0 amarillas: partido cortado pero sin dominio de uno.",
+            "origin": "ia",
+            "stats": [
+              {
+                "label": "Tiros de esquina",
+                "home": 6.3,
+                "away": 4.7
+              },
+              {
+                "label": "Faltas",
+                "home": 11,
+                "away": 11.3
+              },
+              {
+                "label": "Amarillas",
+                "home": 1.9,
+                "away": 2.1
+              }
+            ]
+          },
+          {
+            "key": "tabla",
+            "title": "Tabla y descanso",
+            "text": "Elversberg es noveno con 13 puntos y diferencia de -2; el Köln es decimocuarto con 10 y -4. El descanso es casi igual, 8 días para el local y 7 para la visita.",
+            "origin": "ia",
+            "stats": [
+              {
+                "label": "Puntos",
+                "home": 10,
+                "away": 13
+              }
+            ]
+          },
+          {
+            "key": "cambia",
+            "title": "Qué podría cambiarlo",
+            "text": "Las alineaciones pueden inclinar el reparto ofensivo, y el árbitro define qué tan cortado se juega con ese volumen de faltas. El primer gol cambia quién empuja y quién espera.",
+            "origin": "ia"
+          }
+        ],
+        "fingerprint": "d1137d88c6e1ed3e",
+        "generatedAt": "2026-11-24T15:07:33.623Z",
+        "version": "2"
+      },
       "counts": {
         "corners": {
           "home": 6.3,
@@ -9500,6 +9578,84 @@
     },
     "bundesliga-2026-27-md11-paderborn-schalke": {
       "game": "bundesliga-2026-27-md11-paderborn-schalke",
+      "cortex": {
+        "headline": "Paderborn con la ventaja mínima ante un Schalke necesitado",
+        "headlineOrigin": "ia",
+        "sections": [
+          {
+            "key": "lectura",
+            "title": "La lectura",
+            "text": "El Paderborn llega mejor: gana 43 % de probabilidad frente al 27 % del Schalke y suma 10 puntos por 7 del visitante. Ambos con 7 días de descanso, la diferencia está en la tabla y en el empate que se lleva 30 %.",
+            "origin": "ia"
+          },
+          {
+            "key": "goles",
+            "title": "Goles",
+            "text": "Se ve cerrado: el total esperado es 1.55, con 46 % de más de 1.5 y solo 21 % de más de 2.5. El Paderborn aporta más con 0.87 por 0.68 del Schalke, y ambos anotan apenas 27 %.",
+            "origin": "ia",
+            "stats": [
+              {
+                "label": "Goles esperados",
+                "home": 0.87,
+                "away": 0.68
+              },
+              {
+                "label": "Ambos anotan",
+                "value": "27 %"
+              },
+              {
+                "label": "Más de 2.5 goles",
+                "value": "21 %"
+              }
+            ]
+          },
+          {
+            "key": "ritmo",
+            "title": "Ritmo del partido",
+            "text": "El Paderborn empuja desde los tiros de esquina con 6.0 por 4.3 del Schalke, 10.3 en total. Las faltas van parejas, 11.0 por lado y 22.0 en conjunto, con 3.5 amarillas: partido cortado y de pocas pausas largas.",
+            "origin": "ia",
+            "stats": [
+              {
+                "label": "Tiros de esquina",
+                "home": 6,
+                "away": 4.3
+              },
+              {
+                "label": "Faltas",
+                "home": 11,
+                "away": 11
+              },
+              {
+                "label": "Amarillas",
+                "home": 1.7,
+                "away": 1.8
+              }
+            ]
+          },
+          {
+            "key": "tabla",
+            "title": "Tabla y descanso",
+            "text": "El Paderborn es 15 con 10 puntos y diferencia de -7 en 10 jornadas. El Schalke es 16 con 7 puntos y -6. Los dos llegan con 7 días de descanso, sin ventaja física de un lado.",
+            "origin": "ia",
+            "stats": [
+              {
+                "label": "Puntos",
+                "home": 10,
+                "away": 7
+              }
+            ]
+          },
+          {
+            "key": "cambia",
+            "title": "Qué podría cambiarlo",
+            "text": "Las alineaciones pueden ajustar el peso ofensivo de cada lado. El criterio del árbitro define cuánto se corta el juego con faltas. El primer gol cambia el guion: el Schalke necesitado tendría que abrirse.",
+            "origin": "ia"
+          }
+        ],
+        "fingerprint": "eeb15477263fedaa",
+        "generatedAt": "2026-11-24T15:07:42.633Z",
+        "version": "2"
+      },
       "counts": {
         "corners": {
           "home": 5.99,
@@ -10158,6 +10314,84 @@
     },
     "bundesliga-2026-27-md11-hamburger-bayern-munchen": {
       "game": "bundesliga-2026-27-md11-hamburger-bayern-munchen",
+      "cortex": {
+        "headline": "Bayern con 79 % visita a un Hamburgo que concede mucho",
+        "headlineOrigin": "ia",
+        "sections": [
+          {
+            "key": "lectura",
+            "title": "La lectura",
+            "text": "El Bayern llega con 79 % de probabilidad y 22 puntos en 10 jornadas, además de 8 días de descanso frente a los 6 del Hamburgo. El local es 12º con 12 puntos y diferencia de -14, así que sostiene poco en casa ante el equipo con mejor posición.",
+            "origin": "ia"
+          },
+          {
+            "key": "goles",
+            "title": "Goles",
+            "text": "Se ve abierto: 4.66 goles esperados en total y 84 % de que se superen los 2.5. El Bayern aporta 3.52 y el Hamburgo 1.14; el 67 % de ambos anotan dice que el local también encuentra hueco.",
+            "origin": "ia",
+            "stats": [
+              {
+                "label": "Goles esperados",
+                "home": 1.14,
+                "away": 3.52
+              },
+              {
+                "label": "Ambos anotan",
+                "value": "67 %"
+              },
+              {
+                "label": "Más de 2.5 goles",
+                "value": "84 %"
+              }
+            ]
+          },
+          {
+            "key": "ritmo",
+            "title": "Ritmo del partido",
+            "text": "El Bayern empuja más con 5.9 tiros de esquina por 4.1 del Hamburgo, 10.0 en total. Las faltas suman 21.2, con 11.1 del visitante y 10.1 del local: partido cortado y con muchas pausas.",
+            "origin": "ia",
+            "stats": [
+              {
+                "label": "Tiros de esquina",
+                "home": 4.1,
+                "away": 5.9
+              },
+              {
+                "label": "Faltas",
+                "home": 10.1,
+                "away": 11.1
+              },
+              {
+                "label": "Amarillas",
+                "home": 1.8,
+                "away": 1.8
+              }
+            ]
+          },
+          {
+            "key": "tabla",
+            "title": "Tabla y descanso",
+            "text": "El Hamburgo es 12º con 12 puntos y -14 tras 10 jornadas. El Bayern es 2º con 22 puntos y +20. El descanso favorece al visitante: 8 días por 6 del local.",
+            "origin": "ia",
+            "stats": [
+              {
+                "label": "Puntos",
+                "home": 12,
+                "away": 22
+              }
+            ]
+          },
+          {
+            "key": "cambia",
+            "title": "Qué podría cambiarlo",
+            "text": "Las alineaciones pueden ajustar el peso ofensivo del Bayern. El criterio del árbitro define cuánto se corta un partido de 21.2 faltas. Un gol temprano del local obliga al Bayern a estirarse.",
+            "origin": "ia"
+          }
+        ],
+        "fingerprint": "0b9d46b78fb63883",
+        "generatedAt": "2026-11-24T15:07:50.535Z",
+        "version": "2"
+      },
       "counts": {
         "corners": {
           "home": 4.13,
