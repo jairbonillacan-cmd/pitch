@@ -69,7 +69,12 @@ const ACCESS_BETA: ViewerAccess = {
 const FORBIDDEN_CDN_RE = /espncdn|mlbstatic/i;
 const FORBIDDEN_INTERNAL_RE = /bzzoiro|scoutpicks/i;
 
-function makeTempSnapshot(league: string, gameId: string, homeName: string, awayName: string) {
+function makeTempSnapshot(
+  league: Parameters<typeof asLeagueId>[0],
+  gameId: string,
+  homeName: string,
+  awayName: string,
+) {
   const kickoff = "2026-12-01T20:00:00Z";
   const inputsAsOf = "2026-12-01T18:00:00Z";
   const leagueId = asLeagueId(league);
