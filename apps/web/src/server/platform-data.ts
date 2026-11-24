@@ -1,12 +1,12 @@
 import fs from "node:fs";
 import path from "node:path";
 import { cache } from "react";
+import { gzipSync } from "node:zlib";
 import { z } from "zod";
 import {
   COMPETITION_BY_ID,
   FORBIDDEN_PROVIDER_TOKENS,
   LeagueInjuriesFileSchema,
-  LeagueSquadsFileSchema,
   MAX_POSITIVE_DECIMAL_ODDS,
   TIER1_LEAGUE_IDS,
   canonicalGameHref,
@@ -109,6 +109,10 @@ import {
   buildTeamsDirectoryFromEnvelopes,
   loadLeaguePlayerProps,
 } from "./team-profile";
+import {
+  clearPropsExplorerCachesForTests,
+  readSquadsFile as readSharedSquadsFile,
+} from "./props-explorer";
 
 export { PRODUCT_LEAGUES, type ProductLeague };
 
@@ -197,8 +201,20 @@ interface DatasetMemoBundle {
   redactedGamesById: Map<string, PlatformGame> | null;
   slimMemberShell: PlatformDataset | null;
   slimVisitorShell: PlatformDataset | null;
+  extendMemberPayload: {
+    readonly games: PlatformGame[];
+    readonly teams: NonNullable<PlatformDataset["teams"]>;
+    readonly isRedactedForVisitor: boolean;
+  } | null;
+  extendVisitorPayload: {
+    readonly games: PlatformGame[];
+    readonly teams: NonNullable<PlatformDataset["teams"]>;
+    readonly isRedactedForVisitor: boolean;
+  } | null;
   slimMemberShellJson: string | null;
   slimVisitorShellJson: string | null;
+  slimMemberShellGzip: Buffer | null;
+  slimVisitorShellGzip: Buffer | null;
   initialMemberShell: PlatformDataset | null;
   initialVisitorShell: PlatformDataset | null;
   shellPlayerPropsMember: PlayerPropItem[] | null;
@@ -298,7 +314,6 @@ const SHORT_DATE_MX = new Intl.DateTimeFormat("es-MX", {
   month: "short",
 });
 
-const squadsFileCache = new Map<string, { readonly mtimeMs: number; readonly data: LeagueSquadsFile | null }>();
 const squadMtimeByFile = new WeakMap<LeagueSquadsFile, number>();
 const squadTeamIndexCache = new WeakMap<LeagueSquadsFile, Map<string, TeamSquadEntry>>();
 const footballTeamCandidatesMemo = new BoundedStampCache<
@@ -377,26 +392,15 @@ function formatShortDateMx(iso: string): string {
 }
 
 function loadCachedLeagueSquads(league: string): LeagueSquadsFile | null {
-  const filePath = path.join(resolveSnapshotsRoot(), league, "squads.json");
-  const mtimeMs = safeStatMtime(filePath);
-  if (mtimeMs === 0) return null;
-  const cached = squadsFileCache.get(filePath);
-  if (cached && cached.mtimeMs === mtimeMs) return cached.data;
-  try {
-    const parsed = LeagueSquadsFileSchema.safeParse(
-      JSON.parse(fs.readFileSync(filePath, "utf8")),
-    );
-    const data = parsed.success ? parsed.data : null;
-    if (data) {
+  const root = resolveSnapshotsRoot();
+  const data = readSharedSquadsFile(root, league);
+  if (data && !squadMtimeByFile.has(data)) {
+    const mtimeMs = safeStatMtime(path.join(root, league, "squads.json"));
+    if (mtimeMs > 0) {
       squadMtimeByFile.set(data, mtimeMs);
     }
-    squadsFileCache.set(filePath, { mtimeMs, data });
-    return data;
-  } catch (err) {
-    void err;
-    squadsFileCache.set(filePath, { mtimeMs, data: null });
-    return null;
   }
+  return data;
 }
 
 function loadCachedLeagueInjuries(league: string): readonly TeamInjuryEntry[] {
@@ -1173,8 +1177,12 @@ function createDatasetMemoBundle(params: {
     redactedGamesById: null,
     slimMemberShell: null,
     slimVisitorShell: null,
+    extendMemberPayload: null,
+    extendVisitorPayload: null,
     slimMemberShellJson: null,
     slimVisitorShellJson: null,
+    slimMemberShellGzip: null,
+    slimVisitorShellGzip: null,
     initialMemberShell: null,
     initialVisitorShell: null,
     shellPlayerPropsMember: null,
@@ -1202,18 +1210,22 @@ function createDatasetMemoBundle(params: {
 }
 
 let datasetMemo: DatasetMemoBundle | null = null;
+let screenerSelectiveBundleMemo: DatasetMemoBundle | null = null;
 const singleLeagueBundleCache = new BoundedStampCache<DatasetMemoBundle>(24);
 let stage1MemberSelectiveMemo: { readonly key: string; readonly at: number; readonly dataset: PlatformDataset } | null = null;
 let stage1VisitorSelectiveMemo: { readonly key: string; readonly at: number; readonly dataset: PlatformDataset } | null = null;
 const previewStaticCache = new BoundedStampCache<Omit<GamePreviewPayload, "detail" | "ok"> & { readonly staticDetail: PlatformGameDetail }>(256);
+const previewWireCache = new BoundedStampCache<{ readonly json: string; readonly gzip: Buffer }>(256);
 
 export function clearPlatformDataCachesForTests(): void {
   datasetMemo = null;
+  screenerSelectiveBundleMemo = null;
   singleLeagueBundleCache.clear();
   stage1MemberSelectiveMemo = null;
   stage1VisitorSelectiveMemo = null;
   previewStaticCache.clear();
-  squadsFileCache.clear();
+  previewWireCache.clear();
+  clearPropsExplorerCachesForTests();
   footballTeamCandidatesMemo.clear();
   nbaTeamCandidatesMemo.clear();
   injuriesFileCache.clear();
@@ -1382,14 +1394,23 @@ function mxDayId(date: Date): string {
 const INITIAL_SHELL_MAX_GAMES = 52;
 const INITIAL_SHELL_MAX_BYTES = 480 * 1024;
 
-function compareShellGamePriority(a: PlatformGame, b: PlatformGame): number {
-  const aCore = CORE_SHELL_LEAGUES.has(a.league) ? 0 : 1;
-  const bCore = CORE_SHELL_LEAGUES.has(b.league) ? 0 : 1;
+function compareLeagueKickoffPriority(
+  aLeague: string,
+  aKickoffUtc: string,
+  bLeague: string,
+  bKickoffUtc: string,
+): number {
+  const aCore = CORE_SHELL_LEAGUES.has(aLeague) ? 0 : 1;
+  const bCore = CORE_SHELL_LEAGUES.has(bLeague) ? 0 : 1;
   if (aCore !== bCore) return aCore - bCore;
-  const aTier = COMPETITION_BY_ID[a.league]?.prestigeTier ?? 4;
-  const bTier = COMPETITION_BY_ID[b.league]?.prestigeTier ?? 4;
+  const aTier = COMPETITION_BY_ID[aLeague]?.prestigeTier ?? 4;
+  const bTier = COMPETITION_BY_ID[bLeague]?.prestigeTier ?? 4;
   if (aTier !== bTier) return aTier - bTier;
-  return (a.kickoffUtc || "").localeCompare(b.kickoffUtc || "");
+  return (aKickoffUtc || "").localeCompare(bKickoffUtc || "");
+}
+
+function compareShellGamePriority(a: PlatformGame, b: PlatformGame): number {
+  return compareLeagueKickoffPriority(a.league, a.kickoffUtc, b.league, b.kickoffUtc);
 }
 
 function filterTeamsForGames(
@@ -1722,42 +1743,82 @@ export function loadInitialShellDatasetForAccess(fullAccess: boolean): PlatformD
   return fullAccess ? getInitialMemberShell(bundle) : getInitialVisitorShell(bundle);
 }
 
+function getExtendedShellBundlePayload(
+  bundle: DatasetMemoBundle,
+  fullAccess: boolean,
+): {
+  readonly games: PlatformGame[];
+  readonly teams: NonNullable<PlatformDataset["teams"]>;
+  readonly isRedactedForVisitor: boolean;
+} {
+  if (fullAccess) {
+    if (!bundle.extendMemberPayload) {
+      const slim = getSlimMemberShell(bundle);
+      const projected = projectExtendShellDataset(slim, bundle.at);
+      bundle.extendMemberPayload = {
+        games: projected.games,
+        teams: projected.teams ?? [],
+        isRedactedForVisitor: false,
+      };
+    }
+    return bundle.extendMemberPayload;
+  }
+  if (!bundle.extendVisitorPayload) {
+    const slim = getSlimVisitorShell(bundle);
+    const projected = projectExtendShellDataset(slim, bundle.at);
+    bundle.extendVisitorPayload = {
+      games: projected.games,
+      teams: projected.teams ?? [],
+      isRedactedForVisitor: true,
+    };
+  }
+  return bundle.extendVisitorPayload;
+}
+
 export function loadExtendedShellPayload(fullAccess: boolean): {
   games: PlatformGame[];
   teams: NonNullable<PlatformDataset["teams"]>;
   isRedactedForVisitor: boolean;
 } {
   const bundle = getDatasetMemoBundle();
-  const slim = fullAccess ? getSlimMemberShell(bundle) : getSlimVisitorShell(bundle);
+  return getExtendedShellBundlePayload(bundle, fullAccess);
+}
+
+export function loadExtendedShellResponsePayload(fullAccess: boolean): {
+  readonly json: string;
+  readonly gzip: Buffer;
+} {
+  const bundle = getDatasetMemoBundle();
+  if (fullAccess) {
+    if (!bundle.slimMemberShellJson) {
+      bundle.slimMemberShellJson = JSON.stringify(getExtendedShellBundlePayload(bundle, true));
+    }
+    if (!bundle.slimMemberShellGzip) {
+      bundle.slimMemberShellGzip = gzipSync(Buffer.from(bundle.slimMemberShellJson, "utf8"), {
+        level: 6,
+      });
+    }
+    return {
+      json: bundle.slimMemberShellJson,
+      gzip: bundle.slimMemberShellGzip,
+    };
+  }
+  if (!bundle.slimVisitorShellJson) {
+    bundle.slimVisitorShellJson = JSON.stringify(getExtendedShellBundlePayload(bundle, false));
+  }
+  if (!bundle.slimVisitorShellGzip) {
+    bundle.slimVisitorShellGzip = gzipSync(Buffer.from(bundle.slimVisitorShellJson, "utf8"), {
+      level: 6,
+    });
+  }
   return {
-    games: slim.games,
-    teams: slim.teams ?? [],
-    isRedactedForVisitor: !fullAccess,
+    json: bundle.slimVisitorShellJson,
+    gzip: bundle.slimVisitorShellGzip,
   };
 }
 
 export function loadExtendedShellSerializedJson(fullAccess: boolean): string {
-  const bundle = getDatasetMemoBundle();
-  if (fullAccess) {
-    if (!bundle.slimMemberShellJson) {
-      const slim = getSlimMemberShell(bundle);
-      bundle.slimMemberShellJson = JSON.stringify({
-        games: slim.games,
-        teams: slim.teams ?? [],
-        isRedactedForVisitor: false,
-      });
-    }
-    return bundle.slimMemberShellJson;
-  }
-  if (!bundle.slimVisitorShellJson) {
-    const slim = getSlimVisitorShell(bundle);
-    bundle.slimVisitorShellJson = JSON.stringify({
-      games: slim.games,
-      teams: slim.teams ?? [],
-      isRedactedForVisitor: true,
-    });
-  }
-  return bundle.slimVisitorShellJson;
+  return loadExtendedShellResponsePayload(fullAccess).json;
 }
 
 export const buildServerRawPlatformDataset = cache(function buildServerRawPlatformDatasetCached(): PlatformDataset {
@@ -1912,16 +1973,23 @@ function getGamePlayerProps(
   bundle: DatasetMemoBundle,
   gameId: string,
   singleGameFallback?: PlatformGame,
+  scopePlayerPropsToGame = false,
 ): readonly PlayerPropItem[] {
+  const cachedForGame = bundle.playerPropsByGameId?.get(gameId);
+  if (cachedForGame !== undefined) {
+    return cachedForGame;
+  }
   if (!bundle.playerPropsLoaded) {
-    if (bundle.isFullDataset) {
+    if (bundle.isFullDataset && !scopePlayerPropsToGame) {
       ensureBundlePlayerProps(bundle);
     } else if (singleGameFallback) {
       const scopedProps = loadLeaguePlayerProps([singleGameFallback]);
       if (!bundle.playerPropsByGameId) {
         bundle.playerPropsByGameId = new Map();
       }
-      bundle.playerPropsByGameId.set(gameId, scopedProps.filter((p) => p.gameId === gameId));
+      const matched = scopedProps.filter((p) => p.gameId === gameId);
+      bundle.playerPropsByGameId.set(gameId, matched);
+      return matched;
     } else {
       ensureBundlePlayerProps(bundle);
     }
@@ -1990,7 +2058,28 @@ export async function loadGameSummary(gameId: string): Promise<PlatformGame | nu
   if (!rawGame) return null;
   ensureGameFormsForGames(bundle, [rawGame]);
   const game = hasSession ? rawGame : getRedactedMemo(bundle).gamesById.get(gameId);
-  return game ? { ...game, markets: [], headToHead: [], factors: [] } : null;
+  if (!game) return null;
+  return {
+    ...game,
+    markets: [],
+    headToHead: [],
+    factors: [],
+    parlayCandidates: undefined,
+    spacetime: null,
+    preGame: game.preGame
+      ? {
+          ...game.preGame,
+          confirmedLineups: null,
+          probableLineups: undefined,
+          absences: [],
+        }
+      : game.preGame,
+    picks: game.picks.slice(0, 4).map((pk) => ({
+      ...pk,
+      rationale: pk.slotIndex === 0 ? pk.rationale : "",
+      bookQuotes: pk.slotIndex === 0 ? pk.bookQuotes?.slice(0, 2) : undefined,
+    })),
+  };
 }
 
 export function loadShellPlayerProps(options?: { fullAccess?: boolean }): PlayerPropItem[] {
@@ -2001,14 +2090,164 @@ export function loadShellPlayerProps(options?: { fullAccess?: boolean }): Player
   return ensureBundlePlayerProps(bundle);
 }
 
+function roundFiniteDecimals(value: number, scale: number): number {
+  return Math.round(value * scale) / scale;
+}
+
+function roundShellPickDecimal(pk: MatchPick): number {
+  return pk.marketDecimal !== null && Number.isFinite(pk.marketDecimal) && pk.marketDecimal > 1
+    ? pk.marketDecimal
+    : pk.fairDecimal;
+}
+
+function selectTopParlayPair(
+  pool: readonly MatchPick[],
+  minLegDecimal: number,
+  idealLegDecimal: number,
+): readonly MatchPick[] {
+  const eligible = pool.filter((pk) => {
+    if (pk.isRedacted || pk.market === "correct_score") return false;
+    if (!Number.isFinite(pk.p) || pk.p < 0.52) return false;
+    const dec = roundShellPickDecimal(pk);
+    return Number.isFinite(dec) && dec >= minLegDecimal;
+  });
+  if (eligible.length === 0) return [];
+  const sortedByProb = eligible.slice().sort((a, b) => {
+    if (Math.abs(b.p - a.p) > 1e-6) return b.p - a.p;
+    const distDiff =
+      Math.abs(roundShellPickDecimal(a) - idealLegDecimal) -
+      Math.abs(roundShellPickDecimal(b) - idealLegDecimal);
+    if (Math.abs(distDiff) > 1e-6) return distDiff;
+    return a.id.localeCompare(b.id);
+  });
+  const first = sortedByProb[0]!;
+  if (sortedByProb.length === 1) return [first];
+  const firstRef = roundShellPickDecimal(first);
+  const diverseAlt = sortedByProb
+    .slice(1)
+    .sort((a, b) => {
+      const aSpread = roundShellPickDecimal(a) >= firstRef + 0.12 ? 1 : 0;
+      const bSpread = roundShellPickDecimal(b) >= firstRef + 0.12 ? 1 : 0;
+      if (bSpread !== aSpread) return bSpread - aSpread;
+      const distA = Math.abs(roundShellPickDecimal(a) - idealLegDecimal);
+      const distB = Math.abs(roundShellPickDecimal(b) - idealLegDecimal);
+      if (Math.abs(distA - distB) > 0.08) return distA - distB;
+      if (Math.abs(b.p - a.p) > 1e-6) return b.p - a.p;
+      return a.id.localeCompare(b.id);
+    })[0];
+  return diverseAlt && diverseAlt.id !== first.id ? [first, diverseAlt] : [first];
+}
+
+function selectNeededParlayCandidates(
+  keptPicks: readonly MatchPick[],
+  extraPool: readonly MatchPick[],
+  nowMs: number,
+): MatchPick[] | undefined {
+  if (extraPool.length === 0) return undefined;
+  const keptIds = new Set(keptPicks.map((pk) => pk.id));
+  const keptKeys = new Set(
+    keptPicks.map((pk) => pk.selectionKey || pk.label.trim().toLowerCase()),
+  );
+  const maxExtraNeeded = 1;
+  const combined: MatchPick[] = [...keptPicks];
+  const seenKeys = new Set(keptKeys);
+  for (const cand of extraPool) {
+    const key = cand.selectionKey || cand.label.trim().toLowerCase();
+    if (keptIds.has(cand.id) || seenKeys.has(key)) continue;
+    seenKeys.add(key);
+    combined.push(cand);
+  }
+  const idealLegDecimal = Math.pow(5.0, 0.25);
+  const pickedStandard = selectTopParlayPair(combined, 1.35, idealLegDecimal);
+  const pickedTarget = selectTopParlayPair(combined, 1.4, Math.pow(5.0, 1 / 3));
+  const chosenExtras: MatchPick[] = [];
+  const chosenIds = new Set<string>();
+  for (const leg of [...pickedStandard, ...pickedTarget]) {
+    if (keptIds.has(leg.id) || chosenIds.has(leg.id)) continue;
+    const key = leg.selectionKey || leg.label.trim().toLowerCase();
+    if (keptKeys.has(key)) continue;
+    chosenIds.add(leg.id);
+    chosenExtras.push(projectShellPick(leg, { includeQuotes: false, nowMs }));
+    if (chosenExtras.length >= maxExtraNeeded) break;
+  }
+  return chosenExtras.length > 0 ? chosenExtras : undefined;
+}
+
+function projectExtendShellDataset(
+  slim: PlatformDataset,
+  nowMs: number,
+): PlatformDataset {
+  const todayStr = mxDayId(new Date(nowMs));
+  const tomorrowStr = mxDayId(new Date(nowMs + 86_400_000));
+  const upcomingDays = Array.from(
+    new Set(
+      slim.games
+        .filter((g) => g.status !== "FT" && g.dayId)
+        .map((g) => g.dayId),
+    ),
+  ).sort();
+  const primaryDay = upcomingDays.includes(todayStr)
+    ? todayStr
+    : (upcomingDays.find((d) => d >= todayStr) ?? upcomingDays[0] ?? todayStr);
+  const secondaryDay =
+    primaryDay === todayStr
+      ? tomorrowStr
+      : (upcomingDays.find((d) => d > primaryDay) ?? tomorrowStr);
+  const twoDaysMs = nowMs + 2 * 86_400_000;
+
+  return {
+    ...slim,
+    games: slim.games.map((g) => {
+      const isFinished = g.status === "FT";
+      const kickoffMs = Date.parse(g.kickoffUtc);
+      const isNearDay = g.dayId
+        ? g.dayId <= secondaryDay
+        : !Number.isFinite(kickoffMs) || kickoffMs <= twoDaysMs;
+      const isWithinActiveSlate = !isFinished && isNearDay;
+      const maxPicks = isWithinActiveSlate && CORE_SHELL_LEAGUES.has(g.league) ? 2 : 1;
+      const keptPicks = g.picks.slice(0, maxPicks).map((pk, idx) =>
+        idx === 0
+          ? pk
+          : pk.bookQuotes
+            ? { ...pk, bookQuotes: undefined }
+            : pk,
+      );
+      const hasPromoOpenPick = keptPicks.some(
+        (p) => Boolean(p.isDailyOpenPromo) || Boolean(p.isTipsterWeeklyOpen),
+      );
+      const lockedVisitorGame =
+        slim.isServerRedactedForVisitor && !isFinished && !hasPromoOpenPick;
+      const overflowPicks = g.picks.slice(maxPicks);
+      const canUseParlayWindow =
+        g.status === "NS" &&
+        !lockedVisitorGame &&
+        isWithinActiveSlate;
+      const parlayCandidates = canUseParlayWindow
+        ? selectNeededParlayCandidates(
+            keptPicks,
+            [...overflowPicks, ...(g.parlayCandidates ?? [])],
+            nowMs,
+          )
+        : undefined;
+      return {
+        ...g,
+        picks: keptPicks,
+        ...(parlayCandidates ? { parlayCandidates } : { parlayCandidates: undefined }),
+      };
+    }),
+  };
+}
+
 function projectShellPick(
   pk: MatchPick,
-  opts: { includeQuotes: boolean; nowMs: number },
+  opts: { includeQuotes: boolean; nowMs: number; pickIndex?: number },
 ): MatchPick {
-  const roundedP = Math.round(pk.p * 10_000) / 10_000;
+  const roundedP = roundFiniteDecimals(pk.p, 10_000);
+  const allowQuotesForPick =
+    opts.includeQuotes && (opts.pickIndex === undefined ? pk.slotIndex === 0 : opts.pickIndex === 0 || pk.slotIndex === 0);
   let compactQuotes: MatchPick["bookQuotes"] = undefined;
 
-  if (opts.includeQuotes && !pk.isRedacted && pk.bookQuotes && pk.bookQuotes.length > 0) {
+  if (allowQuotesForPick && !pk.isRedacted && pk.bookQuotes && pk.bookQuotes.length > 0) {
     const filtered = pk.bookQuotes
       .filter(
         (q) =>
@@ -2019,7 +2258,7 @@ function projectShellPick(
           isPermittedMarketQuoteBook(q.book, q.bookLabel) &&
           isMarketFresh(q.capturedAtUtc, opts.nowMs),
       )
-      .slice(0, 3)
+      .slice(0, 2)
       .map((q) => ({
         book: q.book,
         bookLabel: q.bookLabel,
@@ -2050,6 +2289,11 @@ function projectShellPick(
     !isBlockedMarketQuoteBook(topBookPrimary, topBookLabel) &&
     isPermittedMarketQuoteBook(topBookPrimary, topBookLabel) &&
     isMarketFresh(pk.marketCapturedAtUtc, opts.nowMs);
+
+  const roundedEdge =
+    topMarketAllowed && pk.edgePts !== null && Number.isFinite(pk.edgePts)
+      ? roundFiniteDecimals(pk.edgePts, 100)
+      : null;
 
   return {
     id: pk.id,
@@ -2084,10 +2328,10 @@ function projectShellPick(
       ? { marketCapturedAtUtc: pk.marketCapturedAtUtc }
       : {}),
     ...(compactQuotes ? { bookQuotes: compactQuotes } : {}),
-    edgePts: topMarketAllowed ? pk.edgePts : null,
+    edgePts: roundedEdge,
     confidenceScore: pk.confidenceScore,
     suggestedUnits: pk.suggestedUnits,
-    ...(pk.result !== undefined ? { result: pk.result } : {}),
+    ...(pk.result === "hit" || pk.result === "miss" ? { result: pk.result } : {}),
     ...(pk.isDailyOpenPromo ? { isDailyOpenPromo: true } : {}),
     ...(pk.isTipsterWeeklyOpen ? { isTipsterWeeklyOpen: true } : {}),
     ...(pk.tipsterSlug ? { tipsterSlug: pk.tipsterSlug } : {}),
@@ -2127,6 +2371,27 @@ function projectShellGame(
           g.preGame.matchContext.refereeStats),
     );
 
+  const roundedX12: [number, number, number] | null = g.x12
+    ? [
+        roundFiniteDecimals(g.x12[0], 10_000),
+        roundFiniteDecimals(g.x12[1], 10_000),
+        roundFiniteDecimals(g.x12[2], 10_000),
+      ]
+    : null;
+  const roundedProjection = g.projection
+    ? {
+        home: roundFiniteDecimals(g.projection.home, 100),
+        away: roundFiniteDecimals(g.projection.away, 100),
+        total: roundFiniteDecimals(g.projection.total, 100),
+      }
+    : null;
+  const roundedGoalLine = g.goalLine
+    ? {
+        line: g.goalLine.line,
+        pOver: roundFiniteDecimals(g.goalLine.pOver, 10_000),
+      }
+    : undefined;
+
   return {
     id: g.id,
     league: g.league,
@@ -2146,23 +2411,26 @@ function projectShellGame(
     home: g.home,
     away: g.away,
     ...(g.hasForecast !== undefined ? { hasForecast: g.hasForecast } : {}),
-    x12: g.x12,
-    projection: g.projection,
-    ...(g.goalLine !== undefined ? { goalLine: g.goalLine } : {}),
+    x12: roundedX12,
+    projection: roundedProjection,
+    ...(roundedGoalLine !== undefined ? { goalLine: roundedGoalLine } : {}),
     confidenceScore: g.confidenceScore,
     confidenceLevel: g.confidenceLevel,
-    picks: shellPicks.map((pk) =>
-      projectShellPick(pk, { includeQuotes: !isFinished && !lockedVisitorGame, nowMs: opts.nowMs }),
+    picks: shellPicks.map((pk, idx) =>
+      projectShellPick(pk, {
+        includeQuotes: !isFinished && !lockedVisitorGame,
+        nowMs: opts.nowMs,
+        pickIndex: idx,
+      }),
     ),
     ...(projectedParlayCandidates ? { parlayCandidates: projectedParlayCandidates } : {}),
     preGame: g.preGame
       ? {
-          isRedacted: g.preGame.isRedacted,
+          ...(g.preGame.isRedacted ? { isRedacted: true } : {}),
           cortexSynthesis: "",
           tacticalKeys: [],
           lineupStatusLabel: "",
           lineupsConfirmed60m: g.preGame.lineupsConfirmed60m,
-          confirmedLineups: null,
           absences: [],
           moneyFlow: null,
           ...(canKeepMatchContext && g.preGame.matchContext
@@ -2262,7 +2530,7 @@ function getOrBuildEnrichedCatalogForGame(
     : [];
   const footballPlayers = allowFull ? extractFootballCandidatesForGame(game) : [];
   const nbaPlayers = allowFull ? extractNbaCandidatesForGame(game) : [];
-  const gamePlayerProps = allowFull ? getGamePlayerProps(bundle, game.id, game) : [];
+  const gamePlayerProps = allowFull ? getGamePlayerProps(bundle, game.id, game, true) : [];
 
   const catalog = buildServerMatchPicksCatalog(game, {
     fullAccess,
@@ -2349,6 +2617,9 @@ function buildScreenerCatalogsRecord(
   let includedCount = 0;
 
   for (const game of targetGames) {
+    if (accumulatedBytes >= SCREENER_INITIAL_MAX_BYTES - 2000) {
+      break;
+    }
     const catalog = getOrBuildEnrichedCatalogForGame(bundle, game, fullAccess, true);
     const entryBytes =
       Buffer.byteLength(JSON.stringify(game.id), "utf8") +
@@ -2367,11 +2638,104 @@ function buildScreenerCatalogsRecord(
 
 const MAX_SCREENER_MEMO_BUCKETS = 32;
 
+function getOrBuildScreenerBundle(): DatasetMemoBundle {
+  const now = Date.now();
+  const stamp = getPlatformDataFilesStamp();
+  const mxDay = mxDayId(new Date(now));
+  if (isDatasetMemoFresh(datasetMemo, now, stamp, mxDay)) {
+    return datasetMemo;
+  }
+  if (isDatasetMemoFresh(screenerSelectiveBundleMemo, now, stamp, mxDay)) {
+    return screenerSelectiveBundleMemo;
+  }
+  const shellIndex = readShellIndexEntryFast();
+  if (!shellIndex) {
+    return getDatasetMemoBundle();
+  }
+
+  const selectedSet = new Set<ProductLeague>();
+  let promoCandidatesAdded = 0;
+  const liveCandidates: Array<{ readonly league: ProductLeague; readonly kickoffUtc: string }> = [];
+  const upcomingCandidates: Array<{ readonly league: ProductLeague; readonly kickoffUtc: string }> = [];
+  const finishedCandidates: Array<{ readonly league: ProductLeague; readonly kickoffUtc: string }> = [];
+
+  for (const lg of PRODUCT_LEAGUES) {
+    const data = shellIndex.leagues[lg]?.data;
+    if (!data || data.games.length === 0) continue;
+    let hasUpcoming = false;
+    for (const g of data.games) {
+      if (g.status === "FT") {
+        if (g.hasForecast !== false) {
+          finishedCandidates.push({ league: lg, kickoffUtc: g.kickoffUtc || "" });
+        }
+        continue;
+      }
+      hasUpcoming = true;
+      if (g.hasForecast === false) continue;
+      if (g.status === "LIVE") {
+        liveCandidates.push({ league: lg, kickoffUtc: g.kickoffUtc || "" });
+      } else {
+        upcomingCandidates.push({ league: lg, kickoffUtc: g.kickoffUtc || "" });
+      }
+    }
+    if (hasUpcoming && promoCandidatesAdded < 3) {
+      selectedSet.add(lg);
+      promoCandidatesAdded += 1;
+    }
+    if (lg === "nfl" && hasUpcoming) {
+      selectedSet.add(lg);
+    }
+  }
+
+  liveCandidates.sort((a, b) =>
+    compareLeagueKickoffPriority(a.league, a.kickoffUtc, b.league, b.kickoffUtc),
+  );
+  for (const item of liveCandidates.slice(0, 10)) {
+    selectedSet.add(item.league);
+  }
+  upcomingCandidates.sort((a, b) =>
+    compareLeagueKickoffPriority(a.league, a.kickoffUtc, b.league, b.kickoffUtc),
+  );
+  for (const item of upcomingCandidates.slice(0, 12)) {
+    selectedSet.add(item.league);
+  }
+  finishedCandidates.sort((a, b) => b.kickoffUtc.localeCompare(a.kickoffUtc));
+  for (const item of finishedCandidates.slice(0, 4)) {
+    selectedSet.add(item.league);
+  }
+
+  const selectedLeagues = PRODUCT_LEAGUES.filter((lg) => selectedSet.has(lg));
+  if (selectedLeagues.length === 0) {
+    return getDatasetMemoBundle();
+  }
+
+  const selectedEnvelopes = loadSelectedLeagueSnapshots(selectedLeagues);
+  const inputs = buildInputsFromEnvelopes(selectedEnvelopes, selectedLeagues);
+  const rawSelected = enrichDatasetWithBookQuotes(buildPlatformDataset(inputs));
+  const value: PlatformDataset = {
+    ...rawSelected,
+    serverNowUtc: new Date(now).toISOString(),
+    leagues: [],
+    teams: [],
+    playerProps: [],
+  };
+  const resolvedStamp = getPlatformDataFilesStamp();
+  screenerSelectiveBundleMemo = createDatasetMemoBundle({
+    value,
+    stamp: resolvedStamp,
+    mxDay,
+    isFullDataset: false,
+    envelopesByLeague: selectedEnvelopes,
+    at: now,
+  });
+  return screenerSelectiveBundleMemo;
+}
+
 export async function loadServerPicksCatalogsForScreener(options?: {
   readonly fullAccess?: boolean;
   readonly maxGames?: number;
 }): Promise<Record<string, MatchPicksCatalog>> {
-  const bundle = getDatasetMemoBundle();
+  const bundle = getOrBuildScreenerBundle();
   const fullAccess = options?.fullAccess ?? (await hasAuthenticatedBetaSession());
   const rawMax = options?.maxGames;
   const effectiveMaxGames =
@@ -3133,6 +3497,11 @@ async function loadGameDetailInternal(
     resolveCanonicalSlug: canonicalTeamSlugKey,
   });
 
+  const catalogLimitOptions =
+    rawGame.status !== "FT"
+      ? { maxPicksPerFamily: 3, maxTotalPicks: 32, compact: true }
+      : { compact: true };
+
   if (!hasSession && game.status !== "FT") {
     const picksCatalog = buildServerMatchPicksCatalog(rawGame, {
       fullAccess: false,
@@ -3140,6 +3509,7 @@ async function loadGameDetailInternal(
       homeHistory,
       awayHistory,
       unlockedPickIds: bundle.openPromoPickIds,
+      ...catalogLimitOptions,
     });
     return {
       markets: [],
@@ -3154,7 +3524,7 @@ async function loadGameDetailInternal(
   }
 
   const enriched = getOrBuildEnrichedGameMarkets(bundle, game);
-  const gamePlayerProps = getGamePlayerProps(bundle, rawGame.id, rawGame);
+  const gamePlayerProps = getGamePlayerProps(bundle, rawGame.id, rawGame, true);
   const footballPlayers = extractFootballCandidatesForGame(rawGame);
   const nbaPlayers = extractNbaCandidatesForGame(rawGame);
 
@@ -3168,6 +3538,7 @@ async function loadGameDetailInternal(
     nbaPlayers,
     playerProps: gamePlayerProps,
     unlockedPickIds: bundle.openPromoPickIds,
+    ...catalogLimitOptions,
   });
   const playerPicks = buildMatchPlayerPicks({
     game: rawGame,
@@ -3305,7 +3676,6 @@ export async function loadGamePreviewPayload(
     ...(detail.enrichedLineups !== undefined ? { enrichedLineups: detail.enrichedLineups } : {}),
     ...(detail.enfrentamientos !== undefined ? { enfrentamientos: detail.enfrentamientos } : {}),
     ...(detail.playerPicks !== undefined ? { playerPicks: detail.playerPicks } : {}),
-    ...(detail.injuries !== undefined ? { injuries: detail.injuries } : {}),
   };
 
   const staticEntry = {
@@ -3360,6 +3730,26 @@ export async function loadGamePreviewPayload(
     standings: staticEntry.standings,
     injuries: staticEntry.injuries,
   };
+}
+
+export async function loadGamePreviewResponsePayload(
+  gameId: string,
+  fullAccess: boolean,
+): Promise<{ readonly json: string; readonly gzip: Buffer } | null> {
+  const payload = await loadGamePreviewPayload(gameId, fullAccess);
+  if (!payload) return null;
+  const stamp = getPlatformDataFilesStamp();
+  const frozen = payload.detail.frozenMainPick;
+  const wireKey = `${payload.gameId}:${payload.fullAccess}:${frozen?.pickId ?? "none"}:${frozen?.freezeAtUtc ?? "none"}`;
+  const cached = previewWireCache.get(wireKey, stamp);
+  if (cached) {
+    return cached;
+  }
+  const json = JSON.stringify(payload);
+  const gzip = gzipSync(Buffer.from(json, "utf8"), { level: 6 });
+  const wire = { json, gzip };
+  previewWireCache.set(wireKey, stamp, wire);
+  return wire;
 }
 
 export async function hasAuthenticatedBetaSession(): Promise<boolean> {

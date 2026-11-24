@@ -4,7 +4,7 @@ import {
   type SessionReadContext,
 } from "../../../../../src/server/api-guards";
 import { buildServerTimingHeader, nowPerfMs } from "../../../../../src/server/perf-cache";
-import { loadGamePreviewPayload } from "../../../../../src/server/platform-data";
+import { loadGamePreviewResponsePayload } from "../../../../../src/server/platform-data";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
@@ -37,7 +37,7 @@ export const GET = withSessionRead(
     resourceKey: ({ params }: { request: Request; params: GamePreviewParams }) =>
       validateSafeId(params.gameId, 160) ?? "invalid",
   },
-  async ({ params, access }: SessionReadContext<GamePreviewParams>) => {
+  async ({ request, params, access }: SessionReadContext<GamePreviewParams>) => {
     const gameId = validateSafeId(params.gameId, 160);
     if (!gameId) {
       return NextResponse.json(
@@ -50,11 +50,11 @@ export const GET = withSessionRead(
     }
 
     const startedAt = nowPerfMs();
-    const payload = await loadGamePreviewPayload(gameId, access.fullAccess);
+    const wire = await loadGamePreviewResponsePayload(gameId, access.fullAccess);
     const serverTiming = buildServerTimingHeader([
       { stage: "preview", durationMs: nowPerfMs() - startedAt },
     ]);
-    if (!payload) {
+    if (!wire) {
       return NextResponse.json(
         { ok: false, error: "not_found" },
         {
@@ -67,8 +67,25 @@ export const GET = withSessionRead(
       );
     }
 
-    return NextResponse.json(payload, {
+    const wantsGzip = /\bgzip\b/i.test(request.headers.get("accept-encoding") ?? "");
+    if (wantsGzip) {
+      return new NextResponse(new Uint8Array(wire.gzip), {
+        status: 200,
+        headers: {
+          "Content-Type": "application/json; charset=utf-8",
+          "Content-Encoding": "gzip",
+          Vary: "Accept-Encoding",
+          "Cache-Control": "private, no-store",
+          ...(serverTiming ? { "Server-Timing": serverTiming } : {}),
+        },
+      });
+    }
+
+    return new NextResponse(wire.json, {
+      status: 200,
       headers: {
+        "Content-Type": "application/json; charset=utf-8",
+        Vary: "Accept-Encoding",
         "Cache-Control": "private, no-store",
         ...(serverTiming ? { "Server-Timing": serverTiming } : {}),
       },

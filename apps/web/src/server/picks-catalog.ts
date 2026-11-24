@@ -2807,7 +2807,7 @@ export function compactCatalogPayload(
           evidence: {
             ...item.evidence,
             windows: item.evidence.windows.slice(0, 4),
-            bullets: item.evidence.bullets.slice(0, 4),
+            bullets: item.evidence.bullets.slice(0, 3),
           },
           ...(item.bookQuotes && item.bookQuotes.length > 0
             ? { bookQuotes: item.bookQuotes.slice(0, 2) }
@@ -2894,7 +2894,7 @@ export function compactCatalogPayload(
         evidence: {
           ...item.evidence,
           windows: item.evidence.windows.slice(0, 4),
-          bullets: item.evidence.bullets.slice(0, 4),
+          bullets: item.evidence.bullets.slice(0, 3),
         },
         ...(item.bookQuotes && item.bookQuotes.length > 0
           ? { bookQuotes: item.bookQuotes.slice(0, 2) }

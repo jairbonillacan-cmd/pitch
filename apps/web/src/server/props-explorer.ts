@@ -5,6 +5,7 @@ import {
   COMPETITION_BY_ID,
   LeagueSnapshotSchema,
   LeagueSquadsFileSchema,
+  SquadPlayerEntrySchema,
   asLeagueId,
   canonicalPlayerHref,
   cleanTeamRouteSlug,
@@ -2006,9 +2007,24 @@ interface TrackedFileMtime {
   readonly mtimeMs: number;
 }
 
+interface StreakCandidateTeamRaw {
+  readonly teamId: string;
+  readonly teamSlug: string;
+  readonly teamName: string;
+  readonly rawPlayers: readonly unknown[];
+}
+
 const squadsFileCache = new Map<
   string,
   { readonly mtimeMs: number; readonly data: LeagueSquadsFile | null }
+>();
+const squadsRecentLogMetaCache = new Map<
+  string,
+  {
+    readonly mtimeMs: number;
+    readonly hasLogs: boolean;
+    readonly teams: readonly StreakCandidateTeamRaw[];
+  }
 >();
 const snapshotFileCache = new Map<
   string,
@@ -2028,9 +2044,9 @@ function areTrackedFilesFresh(tracked: readonly TrackedFileMtime[]): boolean {
   return true;
 }
 
-function trackFileMtime(tracker: Map<string, number>, filePath: string): void {
+function trackFileMtime(tracker: Map<string, number>, filePath: string, mtimeOverride?: number): void {
   if (!tracker.has(filePath)) {
-    tracker.set(filePath, safeStatMtime(filePath));
+    tracker.set(filePath, mtimeOverride ?? safeStatMtime(filePath));
   }
 }
 
@@ -2042,7 +2058,96 @@ function toTrackedFiles(tracker: ReadonlyMap<string, number>): readonly TrackedF
   return out;
 }
 
-function readSquadsFile(root: string, league: string): LeagueSquadsFile | null {
+function isRecordObject(value: unknown): value is Record<string, unknown> {
+  return typeof value === "object" && value !== null && !Array.isArray(value);
+}
+
+function readStreakCandidateTeams(
+  root: string,
+  league: string,
+  fileTracker: Map<string, number>,
+): readonly StreakCandidateTeamRaw[] {
+  const squadsPath = path.join(root, league, "squads.json");
+  const mtimeMs = safeStatMtime(squadsPath);
+  trackFileMtime(fileTracker, squadsPath, mtimeMs);
+  if (mtimeMs === 0) {
+    squadsRecentLogMetaCache.delete(squadsPath);
+    return [];
+  }
+  const fullCached = squadsFileCache.get(squadsPath);
+  if (fullCached && fullCached.mtimeMs === mtimeMs) {
+    if (!fullCached.data) return [];
+    const out: StreakCandidateTeamRaw[] = [];
+    for (const team of fullCached.data.teams) {
+      if (!isSafePublicLabel(team.teamName)) continue;
+      const withLogs = team.players.filter(
+        (p) => Array.isArray(p.recentGames) && p.recentGames.length >= 3,
+      );
+      if (withLogs.length > 0) {
+        out.push({
+          teamId: team.teamId,
+          teamSlug: team.teamSlug,
+          teamName: team.teamName,
+          rawPlayers: withLogs,
+        });
+      }
+    }
+    return out;
+  }
+  const cachedMeta = squadsRecentLogMetaCache.get(squadsPath);
+  if (cachedMeta && cachedMeta.mtimeMs === mtimeMs) {
+    return cachedMeta.hasLogs ? cachedMeta.teams : [];
+  }
+  try {
+    const rawText = fs.readFileSync(squadsPath, "utf8");
+    if (!rawText.includes('"dateIso"')) {
+      squadsRecentLogMetaCache.set(squadsPath, { mtimeMs, hasLogs: false, teams: [] });
+      return [];
+    }
+    const rawJson: unknown = JSON.parse(rawText);
+    if (!isRecordObject(rawJson) || !Array.isArray(rawJson.teams)) {
+      squadsRecentLogMetaCache.set(squadsPath, { mtimeMs, hasLogs: false, teams: [] });
+      return [];
+    }
+    const candidateTeams: StreakCandidateTeamRaw[] = [];
+    for (const rawTeam of rawJson.teams) {
+      if (!isRecordObject(rawTeam)) continue;
+      const teamName = typeof rawTeam.teamName === "string" ? rawTeam.teamName : "";
+      const teamSlug = typeof rawTeam.teamSlug === "string" ? rawTeam.teamSlug : "";
+      const teamId = typeof rawTeam.teamId === "string" ? rawTeam.teamId : "";
+      if (!teamName || !teamSlug || !teamId || !isSafePublicLabel(teamName)) continue;
+      const players = Array.isArray(rawTeam.players) ? rawTeam.players : null;
+      if (!players) continue;
+      const rawPlayersWithLogs: unknown[] = [];
+      for (const rp of players) {
+        if (!isRecordObject(rp)) continue;
+        if (Array.isArray(rp.recentGames) && rp.recentGames.length >= 3) {
+          rawPlayersWithLogs.push(rp);
+        }
+      }
+      if (rawPlayersWithLogs.length > 0) {
+        candidateTeams.push({
+          teamId,
+          teamSlug,
+          teamName,
+          rawPlayers: rawPlayersWithLogs,
+        });
+      }
+    }
+    squadsRecentLogMetaCache.set(squadsPath, {
+      mtimeMs,
+      hasLogs: candidateTeams.length > 0,
+      teams: candidateTeams,
+    });
+    return candidateTeams;
+  } catch (err) {
+    void err;
+    squadsRecentLogMetaCache.set(squadsPath, { mtimeMs, hasLogs: false, teams: [] });
+    return [];
+  }
+}
+
+export function readSquadsFile(root: string, league: string): LeagueSquadsFile | null {
   const squadsPath = path.join(root, league, "squads.json");
   const mtimeMs = safeStatMtime(squadsPath);
   if (mtimeMs === 0) {
@@ -2376,6 +2481,7 @@ function extractRefereeSummaryFromSnapshot(
 interface ExplorerStreakCacheEntry {
   readonly at: number;
   readonly root: string;
+  readonly cappedAt: number;
   readonly trackedFiles: readonly TrackedFileMtime[];
   readonly items: readonly ExplorerStreakCard[];
 }
@@ -2383,12 +2489,22 @@ interface ExplorerStreakCacheEntry {
 let cachedExplorer: ExplorerStreakCacheEntry | null = null;
 const EXPLORER_TTL_MS = 10 * 60_000;
 
+export function clearPropsExplorerCachesForTests(): void {
+  cachedExplorer = null;
+  squadsFileCache.clear();
+  squadsRecentLogMetaCache.clear();
+  snapshotFileCache.clear();
+  leagueInjuriesCache.clear();
+}
+
 export function loadPlayerPropStreakCards(maxCards = 36): ExplorerStreakCard[] {
   const now = Date.now();
   const root = resolveSnapshotsRoot();
+  const targetPoolCap = Math.max(48, maxCards);
   if (
     cachedExplorer &&
     cachedExplorer.root === root &&
+    cachedExplorer.cappedAt >= targetPoolCap &&
     now - cachedExplorer.at < EXPLORER_TTL_MS &&
     areTrackedFilesFresh(cachedExplorer.trackedFiles)
   ) {
@@ -2504,9 +2620,8 @@ export function loadPlayerPropStreakCards(maxCards = 36): ExplorerStreakCard[] {
   for (const lg of prioritizedLeagues) {
     if (seenLeagues.has(lg)) continue;
     seenLeagues.add(lg);
-    trackFileMtime(fileTracker, path.join(root, lg, "squads.json"));
-    const squads = readSquadsFile(root, lg);
-    if (!squads) continue;
+    const candidateTeams = readStreakCandidateTeams(root, lg, fileTracker);
+    if (candidateTeams.length === 0) continue;
 
     let perLeagueCount = 0;
     const leagueId: LeagueId = asLeagueId(lg);
@@ -2517,9 +2632,11 @@ export function loadPlayerPropStreakCards(maxCards = 36): ExplorerStreakCard[] {
     trackFileMtime(fileTracker, path.join(root, lg, "injuries.json"));
     const leagueInjMap = readLeagueInjuriesMap(root, lg);
 
-    for (const team of squads.teams) {
-      if (!isSafePublicLabel(team.teamName)) continue;
-      for (const player of team.players) {
+    for (const team of candidateTeams) {
+      for (const rawPlayer of team.rawPlayers) {
+        const parsedPlayer = SquadPlayerEntrySchema.safeParse(rawPlayer);
+        if (!parsedPlayer.success) continue;
+        const player = parsedPlayer.data;
         if (!isSafePublicLabel(player.name)) continue;
         const leagueInj = lookupLeagueInjury(
           leagueInjMap,
@@ -2686,12 +2803,13 @@ export function loadPlayerPropStreakCards(maxCards = 36): ExplorerStreakCard[] {
       if (perLeagueCount >= 6) break;
     }
 
-    if (cards.length >= 48) break;
+    if (cards.length >= targetPoolCap) break;
   }
 
   cachedExplorer = {
     at: now,
     root,
+    cappedAt: targetPoolCap,
     trackedFiles: toTrackedFiles(fileTracker),
     items: cards,
   };

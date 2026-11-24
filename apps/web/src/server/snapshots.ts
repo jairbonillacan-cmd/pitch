@@ -1,4 +1,5 @@
 import fs from "node:fs";
+import os from "node:os";
 import path from "node:path";
 import {
   CLIENT_MATCH_CONTEXT_FACTOR_LABELS,
@@ -659,6 +660,39 @@ function readDatedSnapshotIndexCached(
   }
 }
 
+function buildLatestCausalityGamesFromRaw(
+  raw: Record<string, unknown>,
+  hasDraw: boolean,
+): LightweightGameCausalityInputV6[] {
+  const rawGames = Array.isArray(raw.games) ? raw.games : [];
+  const rawAnalyses = isPlainRecord(raw.analyses) ? raw.analyses : null;
+  const games: LightweightGameCausalityInputV6[] = [];
+  for (const rawGame of rawGames) {
+    if (!isPlainRecord(rawGame)) continue;
+    const id = typeof rawGame.id === "string" ? rawGame.id : "";
+    const startTime = typeof rawGame.startTime === "string" ? rawGame.startTime : "";
+    if (!id || !startTime) continue;
+    const status = typeof rawGame.status === "string" ? rawGame.status : "scheduled";
+    const homeRec = isPlainRecord(rawGame.home) ? rawGame.home : null;
+    const awayRec = isPlainRecord(rawGame.away) ? rawGame.away : null;
+    const homeId = homeRec && typeof homeRec.id === "string" ? homeRec.id : "";
+    const awayId = awayRec && typeof awayRec.id === "string" ? awayRec.id : "";
+    const incomingAnalysis = rawAnalyses
+      ? extractCompactPayloadFromRawAnalysis(rawAnalyses[id], hasDraw)
+      : null;
+    games.push({
+      id,
+      startTime,
+      status,
+      homeTeam: extractSlugFromTeamId(homeId),
+      awayTeam: extractSlugFromTeamId(awayId),
+      neutralSite: Boolean(rawGame.neutralSite),
+      incomingAnalysis,
+    });
+  }
+  return games;
+}
+
 function readLatestCausalityMetaCached(
   latestPath: string,
   hasDraw: boolean,
@@ -696,32 +730,7 @@ function readLatestCausalityMetaCached(
 
     const raw: unknown = JSON.parse(fs.readFileSync(latestPath, "utf8"));
     if (!isPlainRecord(raw)) return null;
-    const rawGames = Array.isArray(raw.games) ? raw.games : [];
-    const rawAnalyses = isPlainRecord(raw.analyses) ? raw.analyses : null;
-    const games: LightweightGameCausalityInputV6[] = [];
-    for (const rawGame of rawGames) {
-      if (!isPlainRecord(rawGame)) continue;
-      const id = typeof rawGame.id === "string" ? rawGame.id : "";
-      const startTime = typeof rawGame.startTime === "string" ? rawGame.startTime : "";
-      if (!id || !startTime) continue;
-      const status = typeof rawGame.status === "string" ? rawGame.status : "scheduled";
-      const homeRec = isPlainRecord(rawGame.home) ? rawGame.home : null;
-      const awayRec = isPlainRecord(rawGame.away) ? rawGame.away : null;
-      const homeId = homeRec && typeof homeRec.id === "string" ? homeRec.id : "";
-      const awayId = awayRec && typeof awayRec.id === "string" ? awayRec.id : "";
-      const incomingAnalysis = rawAnalyses
-        ? extractCompactPayloadFromRawAnalysis(rawAnalyses[id], hasDraw)
-        : null;
-      games.push({
-        id,
-        startTime,
-        status,
-        homeTeam: extractSlugFromTeamId(homeId),
-        awayTeam: extractSlugFromTeamId(awayId),
-        neutralSite: Boolean(rawGame.neutralSite),
-        incomingAnalysis,
-      });
-    }
+    const games = buildLatestCausalityGamesFromRaw(raw, hasDraw);
     const meta: CachedLatestCausalityMetaV6 = { mtime, games };
     latestCausalityMetaCache.set(latestPath, meta);
     return meta;
@@ -739,6 +748,11 @@ function findNewestCausalHistoricalRescuesFromDisk(
   const rescued = new Map<string, CompactHistoricalRescueEntryV6>();
   if (targetKickoffsByGameId.size === 0) return rescued;
 
+  let maxTargetKoMs = Number.NEGATIVE_INFINITY;
+  for (const koMs of targetKickoffsByGameId.values()) {
+    if (koMs > maxTargetKoMs) maxTargetKoMs = koMs;
+  }
+
   let datedFiles: string[];
   try {
     datedFiles = fs
@@ -755,6 +769,14 @@ function findNewestCausalHistoricalRescuesFromDisk(
   const remaining = new Map(targetKickoffsByGameId);
   for (const fileName of datedFiles) {
     if (remaining.size === 0) break;
+    const fileDayMs = Date.parse(`${fileName.slice(0, 10)}T00:00:00.000Z`);
+    if (
+      Number.isFinite(fileDayMs) &&
+      Number.isFinite(maxTargetKoMs) &&
+      fileDayMs - 36 * 3_600_000 > maxTargetKoMs
+    ) {
+      continue;
+    }
     const idx = readDatedSnapshotIndexCached(path.join(leagueDir, fileName), hasDraw);
     if (!idx) continue;
     for (const [gameId, koMs] of Array.from(remaining.entries())) {
@@ -1084,6 +1106,46 @@ export function applyPreKickoffCausalityToSnapshot(
   return { days, matches: reconciledMatches, audit };
 }
 
+function applyCausalityAuditToPreEnvelope(
+  leagueKey: ProductLeague,
+  envelope: SnapshotEnvelope,
+  audit: PreKickoffCausalityAuditReportV6,
+  shellIndexMtime: number,
+  latestMtime: number,
+): SnapshotEnvelope {
+  if (envelope.state !== "ready" || !envelope.data) return envelope;
+  const frozenAudit = Object.isFrozen(audit)
+    ? audit
+    : Object.freeze({
+        ...audit,
+        outcomesByMatchKey: Object.freeze(audit.outcomesByMatchKey),
+      });
+  leagueCausalityAuditCache.set(leagueKey, frozenAudit);
+
+  const updatedGames = envelope.data.games.map((g) => {
+    const key = `${leagueKey}::${g.id}`;
+    const outcome = frozenAudit.outcomesByMatchKey[key];
+    if (!outcome) return g;
+    if (outcome.sealedRecord) {
+      storeNewLedgerSeal(key, outcome.sealedRecord);
+    }
+    return applySealedRecordToMatch(g, outcome);
+  });
+
+  const reconciledEnvelope: SnapshotEnvelope = {
+    ...envelope,
+    data: {
+      ...envelope.data,
+      games: updatedGames,
+    },
+  };
+  shellIndexReconciledCache.set(leagueKey, {
+    key: `${shellIndexMtime}:${latestMtime}:${getLeagueSealVersion(leagueKey)}`,
+    envelope: reconciledEnvelope,
+  });
+  return reconciledEnvelope;
+}
+
 function reconcileShellIndexEnvelopeV6(
   leagueKey: ProductLeague,
   leagueDir: string,
@@ -1137,30 +1199,13 @@ function reconcileShellIndexEnvelopeV6(
   }));
 
   const audit = reconcileGamesWithSealsV6(reconcileInputs, preKickoffSealLedger);
-  leagueCausalityAuditCache.set(leagueKey, audit);
-
-  const updatedGames = envelope.data.games.map((g) => {
-    const key = `${leagueKey}::${g.id}`;
-    const outcome = audit.outcomesByMatchKey[key];
-    if (!outcome) return g;
-    if (outcome.sealedRecord) {
-      storeNewLedgerSeal(key, outcome.sealedRecord);
-    }
-    return applySealedRecordToMatch(g, outcome);
-  });
-
-  const reconciledEnvelope: SnapshotEnvelope = {
-    ...envelope,
-    data: {
-      ...envelope.data,
-      games: updatedGames,
-    },
-  };
-  shellIndexReconciledCache.set(leagueKey, {
-    key: `${shellIndexMtime}:${latestMtime}:${getLeagueSealVersion(leagueKey)}`,
-    envelope: reconciledEnvelope,
-  });
-  return reconciledEnvelope;
+  return applyCausalityAuditToPreEnvelope(
+    leagueKey,
+    envelope,
+    audit,
+    shellIndexMtime,
+    latestMtime,
+  );
 }
 
 const snapshotCache = new Map<string, { key: string; envelope: SnapshotEnvelope }>();
@@ -1234,8 +1279,12 @@ const LEAGUE_SEASONS: Record<ProductLeague, string> = Object.fromEntries(
 
 interface PreStattedLeagueFiles {
   readonly latestM: number;
+  readonly latestSize: number;
   readonly pulseM: number;
+  readonly pulseSize: number;
   readonly injuriesM: number;
+  readonly injuriesSize: number;
+  readonly dirM: number;
 }
 
 function loadLeagueSnapshotEnvelopeInternal(
@@ -1534,12 +1583,30 @@ let allSnapshotsMemo: {
   envelopes: Record<ProductLeague, SnapshotEnvelope>;
 } | null = null;
 
+function safeStatMtimeAndSize(filePath: string): { readonly mtimeMs: number; readonly size: number } {
+  try {
+    const st = fs.statSync(filePath);
+    return { mtimeMs: st.mtimeMs, size: st.size };
+  } catch (err) {
+    void err;
+    return { mtimeMs: 0, size: 0 };
+  }
+}
+
 function statLeagueSnapshotFiles(root: string, league: ProductLeague): PreStattedLeagueFiles {
   const leagueDir = path.join(root, league);
+  const latest = safeStatMtimeAndSize(path.join(leagueDir, "latest.json"));
+  const injuries = safeStatMtimeAndSize(path.join(leagueDir, "injuries.json"));
+  const pulse = safeStatMtimeAndSize(path.join(leagueDir, "market-pulse.json"));
+  const dir = safeStatMtimeAndSize(leagueDir);
   return {
-    latestM: fileMtime(path.join(leagueDir, "latest.json")),
-    injuriesM: fileMtime(path.join(leagueDir, "injuries.json")),
-    pulseM: fileMtime(path.join(leagueDir, "market-pulse.json")),
+    latestM: latest.mtimeMs,
+    latestSize: latest.size,
+    injuriesM: injuries.mtimeMs,
+    injuriesSize: injuries.size,
+    pulseM: pulse.mtimeMs,
+    pulseSize: pulse.size,
+    dirM: dir.mtimeMs,
   };
 }
 
@@ -1554,30 +1621,230 @@ export function getSnapshotsRootStamp(leagues: readonly ProductLeague[] = PRODUC
   return parts.join("|");
 }
 
+interface CausalityCutLeagueDiskEntry {
+  readonly stamp: string;
+  readonly audit: PreKickoffCausalityAuditReportV6;
+}
+
+interface CausalityCutDiskFile {
+  readonly schemaVersion: 1;
+  readonly root: string;
+  readonly indexMtime: number;
+  readonly leagues: Record<string, CausalityCutLeagueDiskEntry>;
+}
+
+function causalityCutDiskStamp(files: PreStattedLeagueFiles): string {
+  return `${files.latestM}:${files.latestSize}:${files.injuriesM}:${files.injuriesSize}:${files.pulseM}:${files.pulseSize}:${files.dirM}`;
+}
+
+function causalityCutDiskPath(root: string): string {
+  return path.join(os.tmpdir(), `pitchlab-causality-cut-v1-${sha256Hex(root).slice(0, 16)}.json`);
+}
+
+function isValidCausalityCutAudit(value: unknown): value is PreKickoffCausalityAuditReportV6 {
+  if (!isPlainRecord(value)) return false;
+  return (
+    typeof value.totalObservationsAudited === "number" &&
+    typeof value.ledgerSha256 === "string" &&
+    isPlainRecord(value.outcomesByMatchKey)
+  );
+}
+
+function readCausalityCutDiskFile(
+  root: string,
+  indexMtime: number,
+): CausalityCutDiskFile | null {
+  if (indexMtime <= 0) return null;
+  try {
+    const raw: unknown = JSON.parse(fs.readFileSync(causalityCutDiskPath(root), "utf8"));
+    if (!isPlainRecord(raw)) return null;
+    if (raw.schemaVersion !== 1 || raw.root !== root || raw.indexMtime !== indexMtime) {
+      return null;
+    }
+    if (!isPlainRecord(raw.leagues)) return null;
+    const validLeagues: Record<string, CausalityCutLeagueDiskEntry> = {};
+    for (const [k, entry] of Object.entries(raw.leagues)) {
+      if (
+        isPlainRecord(entry) &&
+        typeof entry.stamp === "string" &&
+        isValidCausalityCutAudit(entry.audit)
+      ) {
+        validLeagues[k] = { stamp: entry.stamp, audit: entry.audit };
+      }
+    }
+    return {
+      schemaVersion: 1,
+      root,
+      indexMtime,
+      leagues: validLeagues,
+    };
+  } catch (err) {
+    void err;
+    return null;
+  }
+}
+
+function writeCausalityCutDiskFileAtomic(payload: CausalityCutDiskFile): void {
+  const target = causalityCutDiskPath(payload.root);
+  const tmp = `${target}.tmp-${process.pid}-${Date.now()}`;
+  try {
+    fs.writeFileSync(tmp, JSON.stringify(payload), "utf8");
+    fs.renameSync(tmp, target);
+  } catch (err) {
+    void err;
+    try {
+      fs.rmSync(tmp, { force: true });
+    } catch (cleanupErr) {
+      void cleanupErr;
+    }
+  }
+}
+
+function tryReusePrecompiledOnCheckoutSkew(
+  root: string,
+  league: ProductLeague,
+  precompiled: CachedShellIndexEntry,
+  pre: SnapshotEnvelope,
+  files: PreStattedLeagueFiles,
+): { readonly envelope: SnapshotEnvelope; readonly fromPre: true } | null {
+  if (!pre.data || files.latestM <= 0) return null;
+  const leagueDir = path.join(root, league);
+  const latestPath = path.join(leagueDir, "latest.json");
+  try {
+    const raw: unknown = JSON.parse(fs.readFileSync(latestPath, "utf8"));
+    if (!isPlainRecord(raw)) return null;
+    if (raw.provenance === "demo") {
+      assertNotDemoInProduction("demo");
+      return null;
+    }
+    if (typeof raw.provenance !== "string" || raw.provenance.length === 0) {
+      return null;
+    }
+    assertNotDemoInProduction("derived");
+    if (raw.updatedAt !== pre.generatedAt) return null;
+    const rawGames = Array.isArray(raw.games) ? raw.games : null;
+    if (!rawGames || rawGames.length !== pre.data.games.length) return null;
+
+    const rawAnalyses = isPlainRecord(raw.analyses) ? raw.analyses : null;
+    for (let i = 0; i < rawGames.length; i += 1) {
+      const rg = rawGames[i];
+      const pg = pre.data.games[i];
+      if (!isPlainRecord(rg) || !pg) return null;
+      if (rg.id !== pg.id || rg.status !== pg.status || rg.startTime !== pg.kickoffUtc) {
+        return null;
+      }
+      if (Boolean(rg.neutralSite) !== Boolean(pg.neutralSite)) return null;
+      const rScore = isPlainRecord(rg.score) ? rg.score : null;
+      const rHomeScore = rScore && typeof rScore.home === "number" ? rScore.home : null;
+      const rAwayScore = rScore && typeof rScore.away === "number" ? rScore.away : null;
+      const pHomeScore = pg.score ? pg.score.home : null;
+      const pAwayScore = pg.score ? pg.score.away : null;
+      if (rHomeScore !== pHomeScore || rAwayScore !== pAwayScore) return null;
+      const ra = rawAnalyses ? rawAnalyses[pg.id] : undefined;
+      const rX12 = isPlainRecord(ra) && Array.isArray(ra.x12) ? ra.x12 : null;
+      if (pg.x12) {
+        const rx0 = rX12 ? parseStrictFiniteNumber(rX12[0]) : null;
+        if (rx0 === null || Math.abs(rx0 - pg.x12[0]) > 1e-5) return null;
+      }
+    }
+
+    if (files.injuriesM > precompiled.mtime && files.injuriesM > 0) {
+      const injuriesByTeam = loadLeagueInjuries(path.join(leagueDir, "injuries.json"), files.injuriesM);
+      for (const pg of pre.data.games) {
+        const homeInj =
+          injuriesByTeam.get(`${league}.${pg.home.slug}`) ?? injuriesByTeam.get(pg.home.slug) ?? [];
+        const awayInj =
+          injuriesByTeam.get(`${league}.${pg.away.slug}`) ?? injuriesByTeam.get(pg.away.slug) ?? [];
+        const prevHome = pg.injuries?.home ?? [];
+        const prevAway = pg.injuries?.away ?? [];
+        if (
+          homeInj.length !== prevHome.length ||
+          awayInj.length !== prevAway.length ||
+          (homeInj.length > 0 && JSON.stringify(homeInj) !== JSON.stringify(prevHome)) ||
+          (awayInj.length > 0 && JSON.stringify(awayInj) !== JSON.stringify(prevAway))
+        ) {
+          return null;
+        }
+      }
+    }
+
+    if (files.pulseM > precompiled.mtime && files.pulseM > 0) {
+      const pulses = loadMarketPulse(path.join(leagueDir, "market-pulse.json"), files.pulseM);
+      for (const pg of pre.data.games) {
+        const p = pulses.get(pg.id);
+        if (JSON.stringify(p ?? null) !== JSON.stringify(pg.marketPulse ?? null)) {
+          return null;
+        }
+      }
+    }
+
+    const hasDraw = sportHasDraw(sportForLeague(league));
+    const games = buildLatestCausalityGamesFromRaw(raw, hasDraw);
+    latestCausalityMetaCache.set(latestPath, { mtime: files.latestM, games });
+
+    if (pre.state === "empty") {
+      return { envelope: pre, fromPre: true };
+    }
+    return {
+      envelope: reconcileShellIndexEnvelopeV6(
+        league,
+        leagueDir,
+        pre,
+        precompiled.mtime,
+        files.latestM,
+      ),
+      fromPre: true,
+    };
+  } catch (err) {
+    void err;
+    return null;
+  }
+}
+
+function resolveLeagueEnvelopeWithPrecompiledDetailed(
+  root: string,
+  league: ProductLeague,
+  precompiled: CachedShellIndexEntry | null,
+  files: PreStattedLeagueFiles,
+): { readonly envelope: SnapshotEnvelope; readonly fromPre: boolean } {
+  if (precompiled) {
+    const pre = precompiled.leagues[league];
+    if (pre) {
+      if (
+        files.latestM <= precompiled.mtime &&
+        files.injuriesM <= precompiled.mtime &&
+        files.pulseM <= precompiled.mtime
+      ) {
+        return {
+          envelope: reconcileShellIndexEnvelopeV6(
+            league,
+            path.join(root, league),
+            pre,
+            precompiled.mtime,
+            files.latestM,
+          ),
+          fromPre: pre.state === "ready",
+        };
+      }
+      const reused = tryReusePrecompiledOnCheckoutSkew(root, league, precompiled, pre, files);
+      if (reused) {
+        return reused;
+      }
+    }
+  }
+  return {
+    envelope: loadLeagueSnapshotEnvelopeInternal(league, files),
+    fromPre: false,
+  };
+}
+
 function resolveLeagueEnvelopeWithPrecompiled(
   root: string,
   league: ProductLeague,
   precompiled: CachedShellIndexEntry | null,
   files: PreStattedLeagueFiles,
 ): SnapshotEnvelope {
-  if (precompiled) {
-    const pre = precompiled.leagues[league];
-    if (
-      pre &&
-      files.latestM <= precompiled.mtime &&
-      files.injuriesM <= precompiled.mtime &&
-      files.pulseM <= precompiled.mtime
-    ) {
-      return reconcileShellIndexEnvelopeV6(
-        league,
-        path.join(root, league),
-        pre,
-        precompiled.mtime,
-        files.latestM,
-      );
-    }
-  }
-  return loadLeagueSnapshotEnvelopeInternal(league, files);
+  return resolveLeagueEnvelopeWithPrecompiledDetailed(root, league, precompiled, files).envelope;
 }
 
 export function loadSelectedLeagueSnapshots(
@@ -1614,13 +1881,58 @@ export function loadAllActiveLeagueSnapshots(): Record<ProductLeague, SnapshotEn
     return allSnapshotsMemo.envelopes;
   }
 
+  const diskCut = precompiled ? readCausalityCutDiskFile(root, indexMtime) : null;
+  const nextDiskLeagues: Record<string, CausalityCutLeagueDiskEntry> = diskCut
+    ? { ...diskCut.leagues }
+    : {};
+  let diskCutDirty = false;
+
   const entries = PRODUCT_LEAGUES.map((league) => {
     const files = stattedByLeague.get(league)!;
-    return [
-      league,
-      resolveLeagueEnvelopeWithPrecompiled(root, league, precompiled, files),
-    ] as [ProductLeague, SnapshotEnvelope];
+    const pre = precompiled?.leagues[league];
+    const currentCutStamp = causalityCutDiskStamp(files);
+    if (
+      precompiled &&
+      pre &&
+      pre.state === "ready" &&
+      pre.data &&
+      getLeagueSealVersion(league) === 0
+    ) {
+      const diskEntry = diskCut?.leagues[league];
+      if (diskEntry && diskEntry.stamp === currentCutStamp) {
+        return [
+          league,
+          applyCausalityAuditToPreEnvelope(
+            league,
+            pre,
+            diskEntry.audit,
+            indexMtime,
+            files.latestM,
+          ),
+        ] as [ProductLeague, SnapshotEnvelope];
+      }
+    }
+
+    const resolved = resolveLeagueEnvelopeWithPrecompiledDetailed(root, league, precompiled, files);
+    if (precompiled && resolved.fromPre) {
+      const audit = leagueCausalityAuditCache.get(league);
+      if (audit) {
+        nextDiskLeagues[league] = { stamp: currentCutStamp, audit };
+        diskCutDirty = true;
+      }
+    }
+    return [league, resolved.envelope] as [ProductLeague, SnapshotEnvelope];
   });
+
+  if (precompiled && diskCutDirty) {
+    writeCausalityCutDiskFileAtomic({
+      schemaVersion: 1,
+      root,
+      indexMtime,
+      leagues: nextDiskLeagues,
+    });
+  }
+
   const afterStampParts: string[] = [root, String(indexMtime)];
   for (const league of PRODUCT_LEAGUES) {
     const files = stattedByLeague.get(league)!;
