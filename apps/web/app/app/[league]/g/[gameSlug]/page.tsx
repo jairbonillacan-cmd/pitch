@@ -4,12 +4,13 @@ import "../../../../sport-outlook.css";
 import "../../../../picks-screener.css";
 import "../../../../atomic-kit.css";
 import "../../../../match-deep-panels.css";
-import React from "react";
+import React, { Suspense } from "react";
 import { notFound } from "next/navigation";
 import { asLeagueId, resolveGameBySlugOrId } from "@pitchlab/contracts";
 import { PlatformGamesSupplement } from "@pitchlab/ui/games-supplement";
 import { MatchStudioClubView } from "@pitchlab/ui/match-studio";
 import { normalizeMatchTab } from "@pitchlab/ui/match-tab";
+import { MatchDetailSkeleton } from "@pitchlab/ui/route-skeletons";
 import {
   loadGameDetail,
   loadGameSummary,
@@ -27,7 +28,43 @@ function isProductLeague(val: string): val is ProductLeague {
   return (PRODUCT_LEAGUES as readonly string[]).includes(val);
 }
 
-/** Ruta canónica corta de partido: `/app/<league>/g/<home>-vs-<away>-<hash6>` (ADR-042). */
+type ResolvedMatchTab = ReturnType<typeof normalizeMatchTab>;
+
+async function CanonicalMatchStreamContent({
+  league,
+  gameId,
+  initialTab,
+}: {
+  league: ProductLeague;
+  gameId: string;
+  initialTab: ResolvedMatchTab;
+}): Promise<React.JSX.Element> {
+  const writeup = loadCortexWriteup(league, gameId);
+  const [access, detail, summary, leagueStandings] = await Promise.all([
+    writeup ? getViewerAccess() : Promise.resolve(null),
+    loadGameDetail(gameId),
+    loadGameSummary(gameId),
+    Promise.resolve().then(() => loadLeagueStandings(league)),
+  ]);
+  const showCortex = Boolean(writeup && access?.fullAccess);
+  const cortexSections = showCortex && writeup ? writeup.sections : null;
+  const cortexHeadline = showCortex && writeup ? writeup.headline : null;
+
+  return (
+    <PlatformGamesSupplement games={summary ? [summary] : []}>
+      <MatchStudioClubView
+        leagueId={asLeagueId(league)}
+        gameId={gameId}
+        cortexSections={cortexSections}
+        cortexHeadline={cortexHeadline}
+        detail={detail}
+        leagueStandings={leagueStandings}
+        initialTab={initialTab}
+      />
+    </PlatformGamesSupplement>
+  );
+}
+
 export default async function CanonicalMatchPage({
   params,
   searchParams,
@@ -51,25 +88,14 @@ export default async function CanonicalMatchPage({
   }
 
   const gameId = resolvedGame.id;
-  const writeup = loadCortexWriteup(league, gameId);
-  const showCortex = writeup ? (await getViewerAccess()).fullAccess : false;
-  const cortexSections = showCortex ? writeup!.sections : null;
-  const cortexHeadline = showCortex ? writeup!.headline : null;
-
-  const [detail, summary] = await Promise.all([loadGameDetail(gameId), loadGameSummary(gameId)]);
-  const leagueStandings = loadLeagueStandings(league);
 
   return (
-    <PlatformGamesSupplement games={summary ? [summary] : []}>
-      <MatchStudioClubView
-        leagueId={asLeagueId(league)}
+    <Suspense fallback={<MatchDetailSkeleton />}>
+      <CanonicalMatchStreamContent
+        league={league}
         gameId={gameId}
-        cortexSections={cortexSections}
-        cortexHeadline={cortexHeadline}
-        detail={detail}
-        leagueStandings={leagueStandings}
         initialTab={initialTab}
       />
-    </PlatformGamesSupplement>
+    </Suspense>
   );
 }

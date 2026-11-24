@@ -3,9 +3,14 @@ import "../live.css";
 import "../atomic-kit.css";
 import "../alerts-referees.css";
 import "../match-deep-panels.css";
-import React from "react";
+import React, { Suspense } from "react";
 import { HomeClubView } from "@pitchlab/ui/home";
+import { HomeClubSkeleton } from "@pitchlab/ui/route-skeletons";
 
 export default function ClubHomePage(): React.JSX.Element {
-  return <HomeClubView />;
+  return (
+    <Suspense fallback={<HomeClubSkeleton />}>
+      <HomeClubView />
+    </Suspense>
+  );
 }

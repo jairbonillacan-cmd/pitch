@@ -32,7 +32,7 @@ import {
 } from "../../atomic";
 import { MaestroIcon } from "../../components/MaestroPrimitives";
 import { SportEventIcon } from "../../components/SportEventIcons";
-import { useAbortableJson, useMediaQuery, useSafeEffect } from "../../hooks";
+import { useClientJsonSwr, useMediaQuery, useSafeEffect } from "../../hooks";
 import { LiveScoreTelemetry } from "../../live/LiveScoreTelemetry";
 import { MomentumChart } from "../../live/live-charts";
 import { useLiveMatch } from "../../live/live-store";
@@ -76,27 +76,6 @@ import {
 } from "../StandingsBracketsSection";
 import { longDayLabel } from "./home-model";
 import { formatGameKickoffTime, formatLiveChipPhase } from "./home-view-helpers";
-
-const PREVIEW_CACHE_MAX = 16;
-const previewMemoryCache = new Map<string, GamePreviewPayload>();
-
-function touchPreviewCache(cacheKey: string, payload: GamePreviewPayload): void {
-  if (!previewMemoryCache.has(cacheKey)) return;
-  previewMemoryCache.delete(cacheKey);
-  previewMemoryCache.set(cacheKey, payload);
-}
-
-function writePreviewCache(cacheKey: string, payload: GamePreviewPayload): void {
-  if (previewMemoryCache.has(cacheKey)) {
-    previewMemoryCache.delete(cacheKey);
-  } else if (previewMemoryCache.size >= PREVIEW_CACHE_MAX) {
-    const oldest = previewMemoryCache.keys().next().value;
-    if (typeof oldest === "string") {
-      previewMemoryCache.delete(oldest);
-    }
-  }
-  previewMemoryCache.set(cacheKey, payload);
-}
 
 function isRecord(value: unknown): value is Record<string, unknown> {
   return typeof value === "object" && value !== null && !Array.isArray(value);
@@ -834,38 +813,22 @@ export function HomeMatchDetailPanel({
   const activePicksMode: "equipo" | "jugadores" =
     picksModeSelection.gameId === game.id ? picksModeSelection.mode : "equipo";
 
-  const previewCacheKey = `${viewerRole}:${hasAccountSession ? "1" : "0"}:${game.id}`;
-  const cachedPreview = useMemo(
-    () => (previewOverride === undefined ? (previewMemoryCache.get(previewCacheKey) ?? null) : null),
-    [previewCacheKey, previewOverride],
-  );
-
-  const shouldFetchPreview =
-    previewOverride === undefined && isDesktopViewport && cachedPreview === null;
-  const previewUrl =
-    previewOverride === undefined && isDesktopViewport
-      ? `/api/games/${encodeURIComponent(game.id)}/preview`
-      : null;
+  const previewCacheKey = `preview:${viewerRole}:${hasAccountSession ? "1" : "0"}:${game.id}`;
+  const shouldFetchPreview = previewOverride === undefined && isDesktopViewport;
+  const previewUrl = shouldFetchPreview
+    ? `/api/games/${encodeURIComponent(game.id)}/preview`
+    : null;
   const {
     data: fetchedPreview,
     loading: fetchingPreview,
     error: rawPreviewError,
     reload: reloadPreview,
-  } = useAbortableJson<GamePreviewPayload>(previewUrl, {
+  } = useClientJsonSwr<GamePreviewPayload>(previewUrl, {
     enabled: shouldFetchPreview,
-    initialData: cachedPreview,
+    cacheKey: previewCacheKey,
+    staleTimeMs: 30_000,
+    ttlMs: 180_000,
   });
-
-  useSafeEffect(() => {
-    if (previewOverride !== undefined) return;
-    if (cachedPreview) {
-      touchPreviewCache(previewCacheKey, cachedPreview);
-      return;
-    }
-    if (fetchedPreview && fetchedPreview.gameId === game.id) {
-      writePreviewCache(previewCacheKey, fetchedPreview);
-    }
-  }, [cachedPreview, fetchedPreview, game.id, previewCacheKey, previewOverride]);
 
   useSafeEffect(() => {
     if (fetchingPreview) {
@@ -892,7 +855,9 @@ export function HomeMatchDetailPanel({
   const preview: GamePreviewPayload | null =
     previewOverride !== undefined
       ? previewOverride
-      : cachedPreview ?? (fetchedPreview && fetchedPreview.gameId === game.id ? fetchedPreview : null);
+      : fetchedPreview && fetchedPreview.gameId === game.id
+        ? fetchedPreview
+        : null;
   const isPreviewLoading = shouldFetchPreview && preview === null && !previewError;
 
   const live =

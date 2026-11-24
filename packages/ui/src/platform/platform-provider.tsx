@@ -2,6 +2,7 @@
 
 import React, {
   createContext,
+  startTransition,
   useCallback,
   useContext,
   useEffect,
@@ -2638,15 +2639,29 @@ export function PlatformProvider({
   );
 
   const pickHomeSport = useCallback((next: SportFilter) => {
-    setHasExplicitHomeSport(true);
-    setHomeSportState(next);
-    setHomeLeagueState("all");
+    startTransition(() => {
+      setHasExplicitHomeSport(true);
+      setHomeSportState(next);
+      setHomeLeagueState("all");
+    });
+  }, []);
+  const pickHomeLeague = useCallback((next: LeagueFilter) => {
+    startTransition(() => {
+      setHomeLeagueState(next);
+    });
+  }, []);
+  const pickHomeChosenDay = useCallback((next: string | null) => {
+    startTransition(() => {
+      setHomeChosenDayState(next);
+    });
   }, []);
   const resetHomeFilters = useCallback((targetDay?: string) => {
-    if (targetDay !== undefined) setHomeChosenDayState(targetDay);
-    setHasExplicitHomeSport(true);
-    setHomeSportState("all");
-    setHomeLeagueState("all");
+    startTransition(() => {
+      if (targetDay !== undefined) setHomeChosenDayState(targetDay);
+      setHasExplicitHomeSport(true);
+      setHomeSportState("all");
+      setHomeLeagueState("all");
+    });
   }, []);
   const homeNavFilter = useMemo<HomeNavFilterValue>(
     () => ({
@@ -2656,8 +2671,8 @@ export function PlatformProvider({
       chosenDay: homeChosenDay,
       todayOverride: homeTodayOverride,
       pickSport: pickHomeSport,
-      setLeague: setHomeLeagueState,
-      setChosenDay: setHomeChosenDayState,
+      setLeague: pickHomeLeague,
+      setChosenDay: pickHomeChosenDay,
       setTodayOverride: setHomeTodayOverride,
       resetFilters: resetHomeFilters,
     }),

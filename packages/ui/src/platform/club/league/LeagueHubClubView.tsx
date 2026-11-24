@@ -602,7 +602,9 @@ export function LeagueHubClubView({
   useSafeEffect(() => () => summaryAbortRef.current?.abort(), []);
 
   const selectSection = (next: LeagueHubSectionKey) => {
-    setSection(next);
+    React.startTransition(() => {
+      setSection(next);
+    });
     if (typeof window !== "undefined") {
       const url = new URL(window.location.href);
       url.searchParams.set("vista", next);

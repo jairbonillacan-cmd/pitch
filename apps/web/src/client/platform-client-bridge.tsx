@@ -1,7 +1,15 @@
 "use client";
 
-import React, { useCallback, useEffect, useRef, useState, useTransition } from "react";
+import React, {
+  startTransition as startBackgroundTransition,
+  useCallback,
+  useEffect,
+  useRef,
+  useState,
+  useTransition,
+} from "react";
 import { usePathname, useRouter } from "next/navigation";
+import { invalidateClientJsonCache } from "@pitchlab/ui/hooks";
 import {
   isDetailRoutePath,
   runWithViewTransition,
@@ -33,7 +41,6 @@ function mergeShellExtension(
     seenGameIds.add(g.id);
     const enriched = extraById.get(g.id);
     if (!enriched) return g;
-    // Conserva parlayCandidates cuando el tramo 2 trae más detalle sin perder el estado local
     if (
       (enriched.parlayCandidates?.length ?? 0) > (g.parlayCandidates?.length ?? 0) ||
       enriched.picks.length > g.picks.length
@@ -83,7 +90,6 @@ export function PlatformClientBridge({
   children,
 }: {
   dataset: PlatformDataset;
-  /** Cuando true, el shell inicial trae la ventana inmediata (< 500 KB) y extiende el horizonte en ocioso. */
   deferredShellExtend?: boolean;
   initialRole: ViewerRole;
   allowRoleSimulation?: boolean;
@@ -102,13 +108,20 @@ export function PlatformClientBridge({
   const prefetchedRef = useRef<Set<string>>(new Set());
   const extendStartedRef = useRef<boolean>(false);
   const extendDoneRef = useRef<boolean>(!deferredShellExtend);
+  const prevViewerScopeRef = useRef<string>(
+    `${initialRole}:${viewerIdentity?.handle ?? "anon"}`,
+  );
 
-  // Sincroniza si el layout del servidor manda un dataset distinto (p. ej. cambio de sesión)
   useEffect(() => {
+    const nextScope = `${initialRole}:${viewerIdentity?.handle ?? "anon"}`;
+    if (prevViewerScopeRef.current !== nextScope) {
+      prevViewerScopeRef.current = nextScope;
+      invalidateClientJsonCache();
+    }
     setActiveDataset(dataset);
     extendStartedRef.current = false;
     extendDoneRef.current = !deferredShellExtend;
-  }, [dataset, deferredShellExtend]);
+  }, [dataset, deferredShellExtend, initialRole, viewerIdentity?.handle]);
 
   const requestFullShell = useCallback(() => {
     if (!deferredShellExtend || extendStartedRef.current || extendDoneRef.current) return;
@@ -123,7 +136,9 @@ export function PlatformClientBridge({
         extendDoneRef.current = true;
         const extraGames = Array.isArray(payload.games) ? payload.games : [];
         const extraTeams = Array.isArray(payload.teams) ? payload.teams : [];
-        setActiveDataset((prev) => mergeShellExtension(prev, extraGames, extraTeams));
+        startBackgroundTransition(() => {
+          setActiveDataset((prev) => mergeShellExtension(prev, extraGames, extraTeams));
+        });
       })
       .catch((err) => {
         void err;
@@ -131,7 +146,6 @@ export function PlatformClientBridge({
       });
   }, [deferredShellExtend]);
 
-  // Carga diferida del horizonte completo (7 días / todas las ligas) en tiempo ocioso (ADR-053)
   useEffect(() => {
     if (!deferredShellExtend || extendDoneRef.current) return;
     if (typeof window === "undefined") return;
@@ -182,7 +196,6 @@ export function PlatformClientBridge({
         const currentPath = window.location.pathname;
         const nextPath = safeHref.split("?")[0] || "/";
         if (nextPath !== currentPath) {
-          // Guarda scroll de la vista actual antes de entrar a detalle (/g/, /t/, /p/)
           if (isDetailRoutePath(nextPath) || !isDetailRoutePath(currentPath)) {
             saveRouteScroll(currentPath, window.scrollY);
           }

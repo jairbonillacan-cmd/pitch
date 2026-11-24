@@ -3136,3 +3136,83 @@
     }
   }
 }
+
+@layer components {
+  .pl-progressive-reveal,
+  .pl-home-md-panel,
+  .pl-astro-league-block,
+  .pl-scr-root,
+  .pl-lh-hero,
+  .pl-lh-grid,
+  .pl-match-workspace {
+    opacity: 1;
+    translate: none;
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .pl-progressive-reveal,
+    .pl-home-md-panel,
+    .pl-astro-league-block,
+    .pl-scr-root,
+    .pl-lh-hero,
+    .pl-lh-grid,
+    .pl-match-workspace {
+      transition:
+        opacity var(--time-mid, 200ms) cubic-bezier(0.22, 1, 0.36, 1),
+        translate var(--time-mid, 200ms) cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    @starting-style {
+      .pl-progressive-reveal,
+      .pl-home-md-panel,
+      .pl-astro-league-block,
+      .pl-scr-root,
+      .pl-lh-hero,
+      .pl-lh-grid,
+      .pl-match-workspace {
+        opacity: 0;
+        translate: 0 6px;
+      }
+    }
+
+    .pl-home-md-row {
+      opacity: 1;
+      transition: opacity var(--time-fast, 160ms) ease-out;
+    }
+
+    @starting-style {
+      .pl-home-md-row {
+        opacity: 0;
+      }
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .pl-progressive-reveal,
+    .pl-home-md-panel,
+    .pl-astro-league-block,
+    .pl-scr-root,
+    .pl-lh-hero,
+    .pl-lh-grid,
+    .pl-match-workspace,
+    .pl-home-md-row {
+      opacity: 1;
+      translate: none;
+      transition: none;
+    }
+
+    @starting-style {
+      .pl-progressive-reveal,
+      .pl-home-md-panel,
+      .pl-astro-league-block,
+      .pl-scr-root,
+      .pl-lh-hero,
+      .pl-lh-grid,
+      .pl-match-workspace,
+      .pl-home-md-row {
+        opacity: 1;
+        translate: none;
+      }
+    }
+  }
+}

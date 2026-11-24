@@ -15,3 +15,19 @@ export {
   type UsePwaInstallAndPushOptions,
   type UsePwaInstallAndPushResult,
 } from "./usePwaInstallAndPush";
+export {
+  DEFAULT_CLIENT_CACHE_STALE_MS,
+  DEFAULT_CLIENT_CACHE_TTL_MS,
+  clearClientJsonCache,
+  getClientJsonCacheStats,
+  invalidateClientJsonCache,
+  prefetchClientJson,
+  readClientJsonCache,
+  useClientJsonSwr,
+  writeClientJsonCache,
+  type ClientCacheReadResult,
+  type ClientCacheWriteOptions,
+  type PrefetchClientJsonOptions,
+  type UseClientJsonSwrOptions,
+  type UseClientJsonSwrResult,
+} from "./useClientJsonCache";

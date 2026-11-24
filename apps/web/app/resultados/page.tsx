@@ -2,7 +2,10 @@ import "../record-v2.css";
 import "../editorial-verificacion.css";
 import React from "react";
 import type { Metadata } from "next";
-import { ResultadosPageSurface } from "@pitchlab/ui/public-sections";
+import {
+  ResultadosPageSurface,
+  selectProjectedResultadosBoard,
+} from "@pitchlab/ui/public-sections";
 import { buildSportsEventListJsonLd, JsonLd } from "../../src/server/json-ld";
 import { loadResultadosViewProps } from "../../src/server/public-site-data";
 import { getSiteUrl } from "../../src/server/site-url";
@@ -32,9 +35,10 @@ export const metadata: Metadata = {
   },
 };
 
-export default async function ResultadosPage(): Promise<React.JSX.Element> {
+async function ResultadosStreamContent(): Promise<React.JSX.Element> {
   const props = await loadResultadosViewProps();
   const siteUrl = getSiteUrl();
+  const boardResults = selectProjectedResultadosBoard(props.results);
 
   const breadcrumbNode: Record<string, unknown> = {
     "@context": "https://schema.org",
@@ -76,7 +80,40 @@ export default async function ResultadosPage(): Promise<React.JSX.Element> {
   return (
     <>
       <JsonLd data={jsonLdNodes} />
-      <ResultadosPageSurface {...props} />
+      <ResultadosPageSurface results={props.results} boardResults={boardResults} />
     </>
+  );
+}
+
+export default function ResultadosPage(): React.JSX.Element {
+  return (
+    <React.Suspense
+      fallback={
+        <main className="pl-v4-main container mx-auto px-4 py-10">
+          <div className="pl-route-skel space-y-5" role="status" aria-busy="true">
+            <span className="sr-only">Cargando historial de resultados</span>
+            <div className="pl-skel-card rounded-3xl p-6 space-y-3">
+              <div className="pl-skel-bar h-7 w-72 max-w-full rounded-lg" />
+              <div className="pl-skel-bar h-4 w-96 max-w-full rounded" />
+            </div>
+            <div className="grid grid-cols-2 lg:grid-cols-4 gap-3">
+              {[0, 1, 2, 3].map((idx) => (
+                <div key={`rs-k-${idx}`} className="pl-skel-card rounded-2xl p-4 space-y-2">
+                  <div className="pl-skel-bar h-3 w-24 rounded" />
+                  <div className="pl-skel-bar h-7 w-20 rounded" />
+                </div>
+              ))}
+            </div>
+            <div className="pl-skel-card rounded-2xl p-5 space-y-3">
+              {[0, 1, 2, 3, 4].map((idx) => (
+                <div key={`rs-r-${idx}`} className="pl-skel-bar h-12 rounded-xl" />
+              ))}
+            </div>
+          </div>
+        </main>
+      }
+    >
+      <ResultadosStreamContent />
+    </React.Suspense>
   );
 }

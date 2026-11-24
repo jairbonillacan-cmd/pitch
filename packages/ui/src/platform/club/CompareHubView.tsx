@@ -23,7 +23,7 @@ import { MaestroIcon } from "../components/MaestroPrimitives";
 import { PlSelect } from "../components/PlSelect";
 import { shareH2hStoryCard } from "../components/share-story-card";
 import { AtmosphereStage, ClubWorkspaceShell } from "../components/ShellChrome";
-import { useAbortableJson } from "../hooks";
+import { useClientJsonSwr } from "../hooks";
 import { usePlatformActions } from "../platform-provider";
 import { PersonAvatar } from "./team/PersonAvatar";
 
@@ -365,8 +365,10 @@ export function CompareHubView({
     teamBSlug,
   ]);
 
-  const teamQuery = useAbortableJson<TeamCompareApiResponse>(teamFetchUrl, {
+  const teamQuery = useClientJsonSwr<TeamCompareApiResponse>(teamFetchUrl, {
     enabled: teamFetchUrl !== null,
+    staleTimeMs: 30_000,
+    ttlMs: 180_000,
   });
 
   const activeTeamComparison = useMemo<TeamComparisonPayload | null>(() => {
@@ -457,8 +459,10 @@ export function CompareHubView({
     playerBRef,
   ]);
 
-  const playerQuery = useAbortableJson<PlayerCompareApiResponse>(playerFetchUrl, {
+  const playerQuery = useClientJsonSwr<PlayerCompareApiResponse>(playerFetchUrl, {
     enabled: playerFetchUrl !== null,
+    staleTimeMs: 30_000,
+    ttlMs: 180_000,
   });
 
   const activePlayerOptions = useMemo<readonly ComparePlayerOption[]>(() => {
