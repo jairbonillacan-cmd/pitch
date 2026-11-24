@@ -362,15 +362,16 @@ function mapBzStatus(raw: string): GameDTO["status"] {
 
 function mapPositionGroup(pos: string | null | undefined): "GK" | "DEF" | "MID" | "FWD" {
   const p = (pos ?? "").trim().toUpperCase();
-  if (p.includes("GK") || p.includes("GOAL") || p.includes("POR")) return "GK";
-  if (p.includes("DEF") || p.includes("CB") || p.includes("LB") || p.includes("RB") || p.includes("WB")) return "DEF";
-  if (p.includes("FW") || p.includes("ST") || p.includes("CF") || p.includes("LW") || p.includes("RW") || p.includes("ATT")) return "FWD";
+  if (p === "G" || p.includes("GK") || p.includes("GOAL") || p.includes("POR")) return "GK";
+  if (p === "D" || p.includes("DEF") || p.includes("CB") || p.includes("LB") || p.includes("RB") || p.includes("WB")) return "DEF";
+  if (p === "F" || p.includes("FW") || p.includes("ST") || p.includes("CF") || p.includes("LW") || p.includes("RW") || p.includes("ATT")) return "FWD";
   return "MID";
 }
 
 function positionLabelEs(pos: string | null | undefined, group: "GK" | "DEF" | "MID" | "FWD"): string {
   const clean = (pos ?? "").trim();
-  if (clean) return clean.slice(0, 32);
+  const upper = clean.toUpperCase();
+  if (clean && !["G", "D", "M", "F"].includes(upper)) return clean.slice(0, 32);
   if (group === "GK") return "Portero";
   if (group === "DEF") return "Defensa";
   if (group === "FWD") return "Delantero";
@@ -1312,7 +1313,12 @@ async function hydrateOfficialsForUsLeagues(now: Date): Promise<number> {
                 ? prob.athlete.headshot
                 : prob?.athlete?.headshot?.href;
             const safePhoto =
-              rawHead && rawHead.startsWith("https://a.espncdn.com/i/headshots/") ? rawHead : undefined;
+              rawHead &&
+              (rawHead.startsWith("pl-p:") ||
+                rawHead.startsWith("pl-m:") ||
+                rawHead.startsWith("/brand/official/"))
+                ? rawHead
+                : undefined;
             const era = statVal(["era", "earnedrunaverage"]);
             const whip = statVal(["whip"]);
             const k9 = statVal(["strikeoutspernine", "k/9", "k9"]);
@@ -1529,18 +1535,317 @@ export async function hydrateOddsOnlyForLeagues(options: {
   };
 }
 
+const CUP_DEFER_TO_DOMESTIC_LEAGUES = new Set<string>([
+  "champions-league",
+  "europa-league",
+  "conference-league",
+  "fa-cup",
+  "carabao-cup",
+  "copa-del-rey",
+  "dfb-pokal",
+  "coppa-italia",
+  "coupe-de-france",
+  "copa-do-brasil",
+  "copa-colombia",
+  "libertadores",
+  "sudamericana",
+  "uefa-super-cup",
+]);
+
+function extractBzzoiroTeamIdFromLogo(logoUrl: string | undefined): number | null {
+  if (!logoUrl) return null;
+  const match = /\/img\/team\/(\d+)\//.exec(logoUrl);
+  if (!match?.[1]) return null;
+  const parsed = Number.parseInt(match[1], 10);
+  return Number.isFinite(parsed) && parsed > 0 ? parsed : null;
+}
+
+function buildSquadPlayersFromBzzoiro(
+  tid: string,
+  rawPlayers: readonly BzPlayer[],
+  rawStats: readonly BzPlayerStat[],
+  now: Date,
+): SquadPlayerEntry[] {
+  const statsByPid = new Map<number, BzPlayerStat>();
+  for (const st of rawStats) {
+    const pid =
+      typeof st.player_id === "number"
+        ? st.player_id
+        : typeof st.player === "number"
+          ? st.player
+          : st.player?.id;
+    if (typeof pid === "number") statsByPid.set(pid, st);
+  }
+
+  const players: SquadPlayerEntry[] = [];
+  const seenSlugs = new Set<string>();
+  for (const p of rawPlayers.slice(0, 32)) {
+    const name = (p.name ?? "").trim();
+    if (!name) continue;
+    let pSlug = slugifyPlayerName(name);
+    if (seenSlugs.has(pSlug)) pSlug = `${pSlug}-${p.id % 97}`;
+    seenSlugs.add(pSlug);
+
+    const group = mapPositionGroup(p.position);
+    const st = statsByPid.get(p.id);
+    const avail = mapAvailability(p.availability ?? p.status);
+    const dob = p.date_of_birth ?? p.birthdate ?? null;
+    const jerseyNum = p.shirt_number ?? p.jersey_number;
+    const heightCm = p.height_cm ?? p.height;
+    const apps = Math.max(0, Math.trunc(st?.appearances ?? st?.matches ?? 0));
+    const goals = Math.max(0, Math.trunc(st?.goals ?? 0));
+    const assists = Math.max(0, Math.trunc(st?.assists ?? 0));
+    const shots = Math.max(0, Math.trunc(st?.shots ?? st?.total_shots ?? 0));
+    const sot = Math.max(0, Math.trunc(st?.shots_on_target ?? 0));
+
+    players.push({
+      id: `${tid}.${pSlug}`,
+      slug: pSlug,
+      name,
+      shortName: (p.short_name?.trim() || name).slice(0, 28),
+      jersey: typeof jerseyNum === "number" && jerseyNum > 0 ? String(jerseyNum) : null,
+      positionGroup: group,
+      positionLabel: positionLabelEs(p.position, group),
+      age: computeAge(dob, now),
+      birthDate: dob,
+      heightCm:
+        typeof heightCm === "number" && heightCm >= 140 && heightCm <= 230
+          ? Math.round(heightCm)
+          : null,
+      weightKg:
+        typeof p.weight === "number" && p.weight >= 40 && p.weight <= 140
+          ? Math.round(p.weight)
+          : null,
+      preferredFoot: mapPreferredFoot(p.preferred_foot),
+      nationality: p.nationality ?? p.country ?? null,
+      nationalityCode: null,
+      photoKey: `pl-p:${p.id}`,
+      availability: avail,
+      injuryDetail: p.injury_type?.trim() || null,
+      expectedReturn: p.expected_return?.trim() || null,
+      stats: {
+        appearances: apps,
+        subIns: 0,
+        goals,
+        assists,
+        shots,
+        shotsOnTarget: sot,
+        foulsCommitted: Math.max(0, Math.trunc(st?.fouls_committed ?? 0)),
+        foulsSuffered: Math.max(0, Math.trunc(st?.fouls_drawn ?? 0)),
+        yellowCards: Math.max(0, Math.trunc(st?.yellow_cards ?? 0)),
+        redCards: Math.max(0, Math.trunc(st?.red_cards ?? 0)),
+        offsides: 0,
+        saves: Math.max(0, Math.trunc(st?.saves ?? 0)),
+        shotsFaced: 0,
+        goalsConceded: Math.max(0, Math.trunc(st?.goals_conceded ?? 0)),
+      },
+      ...(apps > 0
+        ? {
+            seasonMetrics: [
+              { key: "apps", label: "PJ", value: String(apps) },
+              { key: "goals", label: "Goles", value: String(goals) },
+              { key: "assists", label: "Asist.", value: String(assists) },
+              ...(shots > 0 ? [{ key: "shots", label: "Tiros", value: String(shots) }] : []),
+            ],
+          }
+        : {}),
+      candidatePicks: [],
+    });
+  }
+  return players;
+}
+
+async function hydrateSquadsOnlyForExpansion(
+  client: BzzoiroClient,
+  targets: readonly CompetitionMeta[],
+  now: Date,
+  maxPerLeague: number,
+): Promise<{ leaguesUpdated: number; teamsHydrated: number }> {
+  const updatedAt = now.toISOString();
+  const knownDomesticSlugs = new Set<string>();
+  const domesticSeedLeagues = [
+    "premier-league",
+    "laliga",
+    "bundesliga",
+    "serie-a",
+    "ligue-1",
+    "liga-mx",
+    "mls",
+    "eredivisie",
+    "liga-portugal",
+    "brasileirao",
+    "liga-argentina",
+    "championship",
+    "segunda-espana",
+    "bundesliga-2",
+    "serie-b",
+    "ligue-2",
+    "pro-league-belgica",
+    "super-lig",
+    "saudi-pro-league",
+    "j1-league",
+    "primera-a-colombia",
+    "primera-chile",
+    "ligapro-ecuador",
+    "liga-1-peru",
+    "brasileirao-b",
+  ];
+  for (const lg of domesticSeedLeagues) {
+    const sqPath = join(SNAPSHOTS_ROOT, lg, "squads.json");
+    if (!existsSync(sqPath)) continue;
+    try {
+      const parsed = LeagueSquadsFileSchema.safeParse(JSON.parse(readFileSync(sqPath, "utf8")));
+      if (!parsed.success) continue;
+      for (const t of parsed.data.teams) {
+        if (t.players.length > 0) knownDomesticSlugs.add(t.teamSlug);
+      }
+    } catch {
+      continue;
+    }
+  }
+
+  const bzTeamCache = new Map<number, { rawPlayers: BzPlayer[]; rawStats: BzPlayerStat[] }>();
+  let leaguesUpdated = 0;
+  let teamsHydrated = 0;
+
+  const orderedTargets = [...targets].sort((a, b) => {
+    const aCup = CUP_DEFER_TO_DOMESTIC_LEAGUES.has(a.id) ? 1 : 0;
+    const bCup = CUP_DEFER_TO_DOMESTIC_LEAGUES.has(b.id) ? 1 : 0;
+    return aCup - bCup;
+  });
+
+  for (const meta of orderedTargets) {
+    const league = asLeagueId(meta.id);
+    const snapPath = join(SNAPSHOTS_ROOT, league, "latest.json");
+    if (!existsSync(snapPath)) continue;
+    let rawSnap: {
+      games?: Array<{
+        home?: { id?: string; name?: string; logoUrl?: string };
+        away?: { id?: string; name?: string; logoUrl?: string };
+      }>;
+      standings?: Array<{ teamId?: string; name?: string; logoUrl?: string }>;
+    };
+    try {
+      rawSnap = JSON.parse(readFileSync(snapPath, "utf8")) as typeof rawSnap;
+    } catch (err) {
+      void err;
+      continue;
+    }
+
+    const sqPath = join(SNAPSHOTS_ROOT, league, "squads.json");
+    const existingTeams = new Map<string, TeamSquadEntry>();
+    if (existsSync(sqPath)) {
+      try {
+        const parsedSq = LeagueSquadsFileSchema.safeParse(JSON.parse(readFileSync(sqPath, "utf8")));
+        if (parsedSq.success) {
+          for (const t of parsedSq.data.teams) {
+            if (t.players.length > 0) existingTeams.set(t.teamSlug, t);
+          }
+        }
+      } catch (err) {
+        void err;
+      }
+    }
+
+    const candidates = new Map<string, { id: string; slug: string; name: string; bzId: number }>();
+    const addCandidate = (id?: string, name?: string, logoUrl?: string) => {
+      if (!id || !name) return;
+      const slug = id.includes(".") ? id.split(".").slice(1).join(".") : id;
+      if (existingTeams.has(slug)) return;
+      if (CUP_DEFER_TO_DOMESTIC_LEAGUES.has(league) && knownDomesticSlugs.has(slug)) return;
+      const bzId = extractBzzoiroTeamIdFromLogo(logoUrl);
+      if (!bzId || candidates.has(slug)) return;
+      candidates.set(slug, { id, slug, name, bzId });
+    };
+
+    for (const g of rawSnap.games ?? []) {
+      addCandidate(g.home?.id, g.home?.name, g.home?.logoUrl);
+      addCandidate(g.away?.id, g.away?.name, g.away?.logoUrl);
+    }
+    for (const row of rawSnap.standings ?? []) {
+      if (!row.teamId || !row.name) continue;
+      const slug = row.teamId.includes(".") ? row.teamId.split(".").slice(1).join(".") : row.teamId;
+      const logo = row.logoUrl ?? getBzzoiroTeamEmblemUrl(league, slug) ?? undefined;
+      addCandidate(row.teamId, row.name, logo);
+    }
+
+    const queue = Array.from(candidates.values()).slice(0, maxPerLeague);
+    if (queue.length === 0) continue;
+
+    let addedInLeague = 0;
+    const batchSize = 4;
+    for (let i = 0; i < queue.length; i += batchSize) {
+      const batch = queue.slice(i, i + batchSize);
+      const fetched = await Promise.all(
+        batch.map(async (item) => {
+          const cached = bzTeamCache.get(item.bzId);
+          if (cached) return { item, ...cached };
+          const [rawPlayers, rawStats] = await Promise.all([
+            client.fetchTeamPlayers(item.bzId),
+            client.fetchTeamPlayerStats(item.bzId),
+          ]);
+          bzTeamCache.set(item.bzId, { rawPlayers, rawStats });
+          return { item, rawPlayers, rawStats };
+        }),
+      );
+
+      for (const { item, rawPlayers, rawStats } of fetched) {
+        const players = buildSquadPlayersFromBzzoiro(item.id, rawPlayers, rawStats, now);
+        if (players.length === 0) continue;
+        existingTeams.set(item.slug, {
+          teamId: asTeamId(item.id),
+          teamSlug: item.slug,
+          teamName: item.name,
+          coachName: null,
+          coach: null,
+          updatedAt,
+          players,
+        });
+        if (!CUP_DEFER_TO_DOMESTIC_LEAGUES.has(league) && league !== "liga-f") {
+          knownDomesticSlugs.add(item.slug);
+        }
+        addedInLeague += 1;
+        teamsHydrated += 1;
+      }
+      await sleep(40);
+    }
+
+    if (addedInLeague > 0) {
+      const mergedTeams = Array.from(existingTeams.values()).sort((a, b) =>
+        a.teamSlug.localeCompare(b.teamSlug),
+      );
+      const squadsFile = LeagueSquadsFileSchema.parse({
+        schemaVersion: 1,
+        league,
+        seasonLabel: meta.season,
+        observedAt: updatedAt,
+        teams: mergedTeams,
+      });
+      mkdirSync(join(SNAPSHOTS_ROOT, league), { recursive: true });
+      writeFileSync(sqPath, JSON.stringify(squadsFile, null, 2) + "\n");
+      leaguesUpdated += 1;
+      console.log(
+        `[expansion:squads] ${league}: +${addedInLeague} equipos (total ${mergedTeams.length})`,
+      );
+    }
+  }
+
+  return { leaguesUpdated, teamsHydrated };
+}
+
 async function main(): Promise<void> {
   loadRootEnvFiles(REPO_ROOT);
   const args = process.argv.slice(2);
   const refereesOnly = args.includes("--referees-only");
   const oddsOnly = args.includes("--odds-only");
+  const squadsOnly = args.includes("--squads-only");
   const tier1CupsOnly = args.includes("--tier1-cups-only");
   const skipSquads = args.includes("--skip-squads");
   const leaguesArg = args.find((a) => a.startsWith("--leagues="))?.slice("--leagues=".length);
   const parsedMaxSquadTeams = parseStrictFiniteNumber(
-    args.find((a) => a.startsWith("--max-squad-teams="))?.slice("--max-squad-teams=".length) ?? "8",
+    args.find((a) => a.startsWith("--max-squad-teams="))?.slice("--max-squad-teams=".length) ?? "40",
   );
-  const maxSquadTeams = parsedMaxSquadTeams !== null && parsedMaxSquadTeams > 0 ? parsedMaxSquadTeams : 8;
+  const maxSquadTeams = parsedMaxSquadTeams !== null && parsedMaxSquadTeams > 0 ? parsedMaxSquadTeams : 40;
 
   if (process.env.PITCHLAB_OFFLINE === "1") {
     console.log("[expansion] PITCHLAB_OFFLINE=1; se omiten consultas remotas.");
@@ -1561,6 +1866,21 @@ async function main(): Promise<void> {
   }
 
   const client = apiKey ? new BzzoiroClient(apiKey, isUnlimited) : null;
+
+  if (squadsOnly) {
+    if (!client) {
+      console.warn("[expansion:squads] BZZOIRO_API_KEY ausente; omitiendo.");
+      return;
+    }
+    const bzTargets = Object.values(COMPETITION_BY_ID).filter(
+      (m) => typeof m.bzzoiroId === "number" && (!filterSet || filterSet.has(m.id)),
+    );
+    const summary = await hydrateSquadsOnlyForExpansion(client, bzTargets, now, maxSquadTeams);
+    console.log(
+      `[expansion:squads] Completado: ${summary.leaguesUpdated} ligas actualizadas, +${summary.teamsHydrated} plantillas (${client.totalRequests} solicitudes).`,
+    );
+    return;
+  }
 
   if (oddsOnly) {
     if (!client) {

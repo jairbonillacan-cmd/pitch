@@ -445,12 +445,13 @@ export function readStoredPrefs(): StoredAccountPrefsV1 {
   if (typeof window === "undefined") return DEFAULT_STORED_PREFS_V1;
   try {
     const rawTheme = window.localStorage.getItem("pl-theme");
+    const directTheme: ThemePreference | null =
+      rawTheme === "light" || rawTheme === "dark" || rawTheme === "system" ? rawTheme : null;
     const domTheme =
       typeof document !== "undefined" && document.documentElement.dataset.theme === "light"
         ? "light"
         : "dark";
-    const fallbackTheme: ThemePreference =
-      rawTheme === "light" ? "light" : rawTheme === "dark" ? "dark" : domTheme;
+    const fallbackTheme: ThemePreference = directTheme ?? domTheme;
     const raw = window.localStorage.getItem(PREFS_STORAGE_KEY);
     if (!raw) {
       return { ...DEFAULT_STORED_PREFS_V1, themeMode: fallbackTheme };
@@ -460,9 +461,10 @@ export function readStoredPrefs(): StoredAccountPrefsV1 {
       return { ...DEFAULT_STORED_PREFS_V1, themeMode: fallbackTheme };
     }
     const themeMode: ThemePreference =
-      parsed.themeMode === "light" || parsed.themeMode === "dark" || parsed.themeMode === "system"
+      directTheme ??
+      (parsed.themeMode === "light" || parsed.themeMode === "dark" || parsed.themeMode === "system"
         ? parsed.themeMode
-        : fallbackTheme;
+        : fallbackTheme);
     const rawTz = typeof parsed.timezone === "string" ? parsed.timezone.trim() : "";
     const timezone =
       rawTz.length > 0 && isValidIanaTimeZone(rawTz)
@@ -783,4 +785,359 @@ export function getOddsFormatPreview(format: OddsFormat): {
     detail: "Así: −130 · +131. Estándar en casas de México.",
     sampleFair: "56.0 % → −127",
   };
+}
+
+export interface WorldTimezoneOption {
+  readonly value: string;
+  readonly city: string;
+  readonly region: string;
+  readonly offsetLabel: string;
+  readonly offsetMinutes: number;
+  readonly searchIndex: string;
+}
+
+const FALLBACK_WORLD_TIMEZONES: readonly string[] = [
+  "America/Mexico_City",
+  "America/Cancun",
+  "America/Monterrey",
+  "America/Hermosillo",
+  "America/Tijuana",
+  "America/Los_Angeles",
+  "America/Denver",
+  "America/Chicago",
+  "America/New_York",
+  "America/Toronto",
+  "America/Vancouver",
+  "America/Guatemala",
+  "America/Costa_Rica",
+  "America/Panama",
+  "America/Bogota",
+  "America/Lima",
+  "America/Guayaquil",
+  "America/Caracas",
+  "America/La_Paz",
+  "America/Santiago",
+  "America/Asuncion",
+  "America/Montevideo",
+  "America/Argentina/Buenos_Aires",
+  "America/Sao_Paulo",
+  "America/Santo_Domingo",
+  "America/Puerto_Rico",
+  "America/Havana",
+  "Europe/London",
+  "Europe/Dublin",
+  "Europe/Lisbon",
+  "Europe/Madrid",
+  "Europe/Paris",
+  "Europe/Berlin",
+  "Europe/Rome",
+  "Europe/Amsterdam",
+  "Europe/Brussels",
+  "Europe/Zurich",
+  "Europe/Vienna",
+  "Europe/Warsaw",
+  "Europe/Stockholm",
+  "Europe/Athens",
+  "Europe/Istanbul",
+  "Europe/Moscow",
+  "Africa/Casablanca",
+  "Africa/Lagos",
+  "Africa/Cairo",
+  "Africa/Johannesburg",
+  "Africa/Nairobi",
+  "Asia/Riyadh",
+  "Asia/Dubai",
+  "Asia/Karachi",
+  "Asia/Kolkata",
+  "Asia/Bangkok",
+  "Asia/Singapore",
+  "Asia/Hong_Kong",
+  "Asia/Shanghai",
+  "Asia/Seoul",
+  "Asia/Tokyo",
+  "Australia/Perth",
+  "Australia/Sydney",
+  "Pacific/Auckland",
+  "Pacific/Honolulu",
+  "UTC",
+];
+
+const FRIENDLY_TIMEZONE_META: Readonly<
+  Record<string, { readonly city: string; readonly keywords?: string }>
+> = {
+  "America/Mexico_City": { city: "Ciudad de México", keywords: "mexico cdmx df centro" },
+  "America/Cancun": { city: "Cancún", keywords: "mexico quintana roo" },
+  "America/Monterrey": { city: "Monterrey", keywords: "mexico nuevo leon" },
+  "America/Hermosillo": { city: "Hermosillo", keywords: "mexico sonora" },
+  "America/Tijuana": { city: "Tijuana", keywords: "mexico baja california" },
+  "America/Mazatlan": { city: "Mazatlán", keywords: "mexico sinaloa pacifico" },
+  "America/Chihuahua": { city: "Chihuahua", keywords: "mexico" },
+  "America/Merida": { city: "Mérida", keywords: "mexico yucatan" },
+  "America/Los_Angeles": { city: "Los Ángeles", keywords: "estados unidos usa california pacifico pst pdt" },
+  "America/Denver": { city: "Denver", keywords: "estados unidos usa colorado montana mst mdt" },
+  "America/Phoenix": { city: "Phoenix", keywords: "estados unidos usa arizona" },
+  "America/Chicago": { city: "Chicago", keywords: "estados unidos usa texas central cst cdt" },
+  "America/New_York": { city: "Nueva York", keywords: "estados unidos usa miami este est edt" },
+  "America/Toronto": { city: "Toronto", keywords: "canada" },
+  "America/Vancouver": { city: "Vancouver", keywords: "canada" },
+  "America/Bogota": { city: "Bogotá", keywords: "colombia" },
+  "America/Lima": { city: "Lima", keywords: "peru" },
+  "America/Guayaquil": { city: "Guayaquil", keywords: "ecuador quito" },
+  "America/Caracas": { city: "Caracas", keywords: "venezuela" },
+  "America/Santiago": { city: "Santiago", keywords: "chile" },
+  "America/Argentina/Buenos_Aires": { city: "Buenos Aires", keywords: "argentina" },
+  "America/Sao_Paulo": { city: "São Paulo", keywords: "brasil brazil rio" },
+  "America/Montevideo": { city: "Montevideo", keywords: "uruguay" },
+  "America/Asuncion": { city: "Asunción", keywords: "paraguay" },
+  "America/La_Paz": { city: "La Paz", keywords: "bolivia" },
+  "America/Panama": { city: "Panamá", keywords: "panama" },
+  "America/Costa_Rica": { city: "San José", keywords: "costa rica" },
+  "America/Guatemala": { city: "Ciudad de Guatemala", keywords: "guatemala" },
+  "America/El_Salvador": { city: "San Salvador", keywords: "el salvador" },
+  "America/Tegucigalpa": { city: "Tegucigalpa", keywords: "honduras" },
+  "America/Managua": { city: "Managua", keywords: "nicaragua" },
+  "America/Santo_Domingo": { city: "Santo Domingo", keywords: "republica dominicana" },
+  "America/Puerto_Rico": { city: "San Juan", keywords: "puerto rico" },
+  "America/Havana": { city: "La Habana", keywords: "cuba" },
+  "Europe/London": { city: "Londres", keywords: "reino unido inglaterra uk gmt bst" },
+  "Europe/Dublin": { city: "Dublín", keywords: "irlanda" },
+  "Europe/Lisbon": { city: "Lisboa", keywords: "portugal" },
+  "Europe/Madrid": { city: "Madrid", keywords: "espana spain barcelona cet cest" },
+  "Europe/Paris": { city: "París", keywords: "francia france cet" },
+  "Europe/Berlin": { city: "Berlín", keywords: "alemania germany munich cet" },
+  "Europe/Rome": { city: "Roma", keywords: "italia italy milan cet" },
+  "Europe/Amsterdam": { city: "Ámsterdam", keywords: "paises bajos holanda" },
+  "Europe/Brussels": { city: "Bruselas", keywords: "belgica" },
+  "Europe/Zurich": { city: "Zúrich", keywords: "suiza" },
+  "Europe/Vienna": { city: "Viena", keywords: "austria" },
+  "Europe/Warsaw": { city: "Varsovia", keywords: "polonia" },
+  "Europe/Prague": { city: "Praga", keywords: "chequia republica checa" },
+  "Europe/Stockholm": { city: "Estocolmo", keywords: "suecia" },
+  "Europe/Athens": { city: "Atenas", keywords: "grecia" },
+  "Europe/Istanbul": { city: "Estambul", keywords: "turquia" },
+  "Europe/Moscow": { city: "Moscú", keywords: "rusia" },
+  "Africa/Cairo": { city: "El Cairo", keywords: "egipto" },
+  "Africa/Casablanca": { city: "Casablanca", keywords: "marruecos" },
+  "Africa/Johannesburg": { city: "Johannesburgo", keywords: "sudafrica" },
+  "Africa/Lagos": { city: "Lagos", keywords: "nigeria" },
+  "Asia/Riyadh": { city: "Riad", keywords: "arabia saudita" },
+  "Asia/Dubai": { city: "Dubái", keywords: "emiratos arabes uae" },
+  "Asia/Qatar": { city: "Doha", keywords: "catar qatar" },
+  "Asia/Kolkata": { city: "Calcuta / Nueva Delhi", keywords: "india mumbai delhi ist" },
+  "Asia/Bangkok": { city: "Bangkok", keywords: "tailandia" },
+  "Asia/Singapore": { city: "Singapur", keywords: "singapore" },
+  "Asia/Hong_Kong": { city: "Hong Kong", keywords: "china" },
+  "Asia/Shanghai": { city: "Shanghái / Pekín", keywords: "china beijing" },
+  "Asia/Seoul": { city: "Seúl", keywords: "corea del sur korea kst" },
+  "Asia/Tokyo": { city: "Tokio", keywords: "japon japan jst" },
+  "Australia/Sydney": { city: "Sídney", keywords: "australia melbourne" },
+  "Australia/Melbourne": { city: "Melbourne", keywords: "australia" },
+  "Australia/Perth": { city: "Perth", keywords: "australia" },
+  "Pacific/Auckland": { city: "Auckland", keywords: "nueva zelanda" },
+  "Pacific/Honolulu": { city: "Honolulu", keywords: "hawai estados unidos usa" },
+  UTC: { city: "Tiempo universal (UTC)", keywords: "gmt greenwich universal utc" },
+};
+
+const TIMEZONE_REGION_LABELS: Readonly<Record<string, string>> = {
+  America: "América",
+  Europe: "Europa",
+  Asia: "Asia",
+  Africa: "África",
+  Australia: "Oceanía",
+  Pacific: "Pacífico",
+  Atlantic: "Atlántico",
+  Indian: "Índico",
+  Antarctica: "Antártida",
+  Arctic: "Ártico",
+  UTC: "UTC",
+};
+
+const PRIORITY_TIMEZONE_ORDER: readonly string[] = [
+  "America/Mexico_City",
+  "America/Cancun",
+  "America/Monterrey",
+  "America/Hermosillo",
+  "America/Tijuana",
+  "America/Los_Angeles",
+  "America/Chicago",
+  "America/New_York",
+  "America/Bogota",
+  "America/Lima",
+  "America/Santiago",
+  "America/Argentina/Buenos_Aires",
+  "America/Sao_Paulo",
+  "Europe/London",
+  "Europe/Madrid",
+  "Europe/Paris",
+  "Asia/Tokyo",
+  "Australia/Sydney",
+  "UTC",
+];
+
+function normalizeTzSearch(raw: string): string {
+  return raw
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .toLowerCase()
+    .replace(/−/g, "-")
+    .trim();
+}
+
+function parseUtcOffsetFromShortOffset(rawOffset: string): {
+  readonly offsetLabel: string;
+  readonly offsetMinutes: number;
+} {
+  const clean = rawOffset.replace(/^GMT/i, "").trim();
+  if (!clean) {
+    return { offsetLabel: "UTC+0", offsetMinutes: 0 };
+  }
+  const match = /^([+-])(\d{1,2})(?::?(\d{2}))?$/.exec(clean);
+  if (!match) {
+    return { offsetLabel: `UTC${clean.replace("-", "−")}`, offsetMinutes: 0 };
+  }
+  const sign = match[1] === "-" ? -1 : 1;
+  const hours = Number.parseInt(match[2]!, 10);
+  const mins = match[3] ? Number.parseInt(match[3], 10) : 0;
+  const totalMinutes = sign * (hours * 60 + mins);
+  const signChar = sign < 0 ? "−" : "+";
+  const label = mins > 0 ? `UTC${signChar}${hours}:${String(mins).padStart(2, "0")}` : `UTC${signChar}${hours}`;
+  return { offsetLabel: label, offsetMinutes: totalMinutes };
+}
+
+function computeTimezoneOffset(
+  timeZone: string,
+  referenceDate: Date,
+): { readonly offsetLabel: string; readonly offsetMinutes: number } {
+  if (timeZone === "UTC") {
+    return { offsetLabel: "UTC+0", offsetMinutes: 0 };
+  }
+  try {
+    const parts = new Intl.DateTimeFormat("en-US", {
+      timeZone,
+      timeZoneName: "shortOffset",
+    }).formatToParts(referenceDate);
+    const tzPart = parts.find((p) => p.type === "timeZoneName")?.value ?? "";
+    return parseUtcOffsetFromShortOffset(tzPart);
+  } catch (err) {
+    void err;
+    return { offsetLabel: "UTC+0", offsetMinutes: 0 };
+  }
+}
+
+function formatIanaCityName(ianaId: string): string {
+  const friendly = FRIENDLY_TIMEZONE_META[ianaId];
+  if (friendly) return friendly.city;
+  if (ianaId === "UTC") return "Tiempo universal (UTC)";
+  const segments = ianaId.split("/");
+  const last = segments[segments.length - 1] ?? ianaId;
+  return last.replace(/_/g, " ");
+}
+
+function resolveTimezoneRegionLabel(ianaId: string): string {
+  if (ianaId === "UTC" || ianaId.startsWith("Etc/")) return "UTC";
+  const prefix = ianaId.split("/")[0] ?? "";
+  return TIMEZONE_REGION_LABELS[prefix] ?? "Otras zonas";
+}
+
+export function formatTimezoneShortLabel(timeZone: string): string {
+  const trimmed = timeZone.trim();
+  if (!trimmed) return "Ciudad de México";
+  return formatIanaCityName(trimmed);
+}
+
+export function detectDeviceTimezone(): string | null {
+  try {
+    const tz = Intl.DateTimeFormat().resolvedOptions().timeZone;
+    return typeof tz === "string" && tz.trim().length > 0 && isValidIanaTimeZone(tz) ? tz : null;
+  } catch (err) {
+    void err;
+    return null;
+  }
+}
+
+export function formatCurrentTimeInTimezone(timeZone: string, now: Date): string {
+  try {
+    const temporalApi = (
+      globalThis as {
+        Temporal?: {
+          Now?: {
+            zonedDateTimeISO?: (tz: string) => {
+              toLocaleString: (locale: string, opts: Intl.DateTimeFormatOptions) => string;
+            };
+          };
+        };
+      }
+    ).Temporal;
+    if (temporalApi?.Now?.zonedDateTimeISO) {
+      return temporalApi.Now.zonedDateTimeISO(timeZone).toLocaleString("es-MX", {
+        hour: "2-digit",
+        minute: "2-digit",
+        hourCycle: "h23",
+      });
+    }
+    return new Intl.DateTimeFormat("es-MX", {
+      timeZone,
+      hour: "2-digit",
+      minute: "2-digit",
+      hourCycle: "h23",
+    }).format(now);
+  } catch (err) {
+    void err;
+    return "";
+  }
+}
+
+export function listWorldTimezoneOptions(referenceDate: Date = new Date()): readonly WorldTimezoneOption[] {
+  const intlWithSupported = Intl as typeof Intl & {
+    supportedValuesOf?: (key: string) => string[];
+  };
+  let rawZones: string[];
+  try {
+    rawZones =
+      typeof intlWithSupported.supportedValuesOf === "function"
+        ? intlWithSupported.supportedValuesOf("timeZone")
+        : [...FALLBACK_WORLD_TIMEZONES];
+  } catch (err) {
+    void err;
+    rawZones = [...FALLBACK_WORLD_TIMEZONES];
+  }
+  const seen = new Set<string>();
+  const allIds: string[] = [];
+  for (const id of [...PRIORITY_TIMEZONE_ORDER, ...rawZones, "UTC"]) {
+    if (!id || seen.has(id) || id.startsWith("Etc/")) continue;
+    if (!isValidIanaTimeZone(id)) continue;
+    seen.add(id);
+    allIds.push(id);
+  }
+  const priorityRank = new Map<string, number>(
+    PRIORITY_TIMEZONE_ORDER.map((id, idx) => [id, idx]),
+  );
+  const options: WorldTimezoneOption[] = allIds.map((value) => {
+    const city = formatIanaCityName(value);
+    const region = resolveTimezoneRegionLabel(value);
+    const { offsetLabel, offsetMinutes } = computeTimezoneOffset(value, referenceDate);
+    const keywords = FRIENDLY_TIMEZONE_META[value]?.keywords ?? "";
+    const rawParts = value.replace(/[/_]/g, " ");
+    const searchIndex = normalizeTzSearch(
+      `${city} ${region} ${rawParts} ${offsetLabel} ${offsetLabel.replace("UTC", "GMT")} ${keywords}`,
+    );
+    return {
+      value,
+      city,
+      region,
+      offsetLabel,
+      offsetMinutes,
+      searchIndex,
+    };
+  });
+  options.sort((a, b) => {
+    const rankA = priorityRank.get(a.value);
+    const rankB = priorityRank.get(b.value);
+    if (rankA !== undefined && rankB !== undefined) return rankA - rankB;
+    if (rankA !== undefined) return -1;
+    if (rankB !== undefined) return 1;
+    if (a.offsetMinutes !== b.offsetMinutes) return a.offsetMinutes - b.offsetMinutes;
+    return a.city.localeCompare(b.city, "es");
+  });
+  return options;
 }

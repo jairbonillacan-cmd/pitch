@@ -153,7 +153,14 @@ function parsePatch(raw: unknown): {
 
   if (data.oddsFormat !== undefined) patch.oddsFormat = data.oddsFormat;
   if (data.themeMode !== undefined) patch.themeMode = data.themeMode;
-  if (data.timezone !== undefined) patch.timezone = data.timezone;
+  if (data.timezone !== undefined) {
+    try {
+      new Intl.DateTimeFormat("es-MX", { timeZone: data.timezone });
+    } catch {
+      return { error: "Zona horaria IANA no válida." };
+    }
+    patch.timezone = data.timezone;
+  }
   if (data.riskPreference !== undefined) patch.riskPreference = data.riskPreference;
 
   if (data.favoriteLeagues !== undefined) {

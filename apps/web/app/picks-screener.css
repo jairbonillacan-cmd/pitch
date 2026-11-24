@@ -514,32 +514,30 @@
   min-inline-size: 44px;
   min-block-size: 44px;
   padding: 0 12px;
-  border-radius: 999px;
-  border: 1px solid var(--pl-border);
-  background: var(--pl-surface);
+  border-radius: 8px;
+  border: 0;
+  background: var(--pl-surface-elevated);
   color: var(--pl-text-secondary);
   font: inherit;
   font-size: 0.75rem;
-  font-weight: 750;
+  font-weight: 650;
   cursor: pointer;
   white-space: nowrap;
   scroll-snap-align: start;
   transition:
     background-color var(--time-fast, 120ms) ease,
-    border-color var(--time-fast, 120ms) ease,
     color var(--time-fast, 120ms) ease;
 }
 
 .pl-scr-preset-pill:hover {
-  border-color: var(--pl-border-strong);
   background: var(--pl-surface-hover);
   color: var(--pl-text);
 }
 
 .pl-scr-preset-pill.is-active {
-  border-color: var(--pl-brand);
-  background: color-mix(in srgb, var(--pl-brand) 14%, var(--pl-surface));
+  background: var(--pl-surface-active);
   color: var(--pl-brand);
+  font-weight: 750;
 }
 
 .pl-scr-preset-pill:focus-visible {
@@ -2528,34 +2526,33 @@
   display: inline-flex;
   align-items: center;
   gap: 4px;
-  padding: 3px 7px;
-  border-radius: 7px;
-  border: 1px solid var(--pl-border);
+  padding: 2px 6px;
+  border-radius: 5px;
+  border: 0;
   background: var(--pl-surface-elevated);
   font-size: 0.72rem;
   line-height: 1.2;
 }
 
 .pl-ev-win-strip.is-sm .pl-ev-win-pill {
-  padding: 2px 6px;
+  padding: 2px 5px;
   font-size: 0.7rem;
 }
 
 .pl-ev-win-key {
-  font-weight: 700;
+  font-weight: 650;
   color: var(--pl-text-muted);
   text-transform: uppercase;
-  letter-spacing: 0.03em;
+  letter-spacing: 0.02em;
 }
 
 .pl-ev-win-val {
-  font-weight: 800;
+  font-weight: 750;
   color: var(--pl-text);
 }
 
 .pl-ev-win-pill.is-high {
-  border-color: var(--pl-pill-success-border);
-  background: var(--pl-pill-success-bg);
+  background: var(--pl-surface-elevated);
 }
 
 .pl-ev-win-pill.is-high .pl-ev-win-val {
@@ -2563,8 +2560,7 @@
 }
 
 .pl-ev-win-pill.is-mid {
-  border-color: var(--pl-pill-warning-border);
-  background: var(--pl-pill-warning-bg);
+  background: var(--pl-surface-elevated);
 }
 
 .pl-ev-win-pill.is-mid .pl-ev-win-val {
@@ -2572,8 +2568,7 @@
 }
 
 .pl-ev-win-pill.is-low {
-  border-color: var(--pl-pill-danger-border);
-  background: var(--pl-pill-danger-bg);
+  background: var(--pl-surface-elevated);
 }
 
 .pl-ev-win-pill.is-low .pl-ev-win-val {
@@ -2581,8 +2576,7 @@
 }
 
 .pl-ev-win-pill.is-info {
-  border-color: var(--pl-pill-info-border);
-  background: var(--pl-pill-info-bg);
+  background: var(--pl-surface-elevated);
 }
 
 .pl-ev-win-pill.is-info .pl-ev-win-val {
@@ -2595,7 +2589,7 @@
   gap: 4px;
   padding: 8px 10px;
   border-radius: 10px;
-  border: 1px solid var(--pl-border);
+  border: 0;
   background: var(--pl-surface-elevated);
   min-inline-size: 0;
 }
@@ -2644,21 +2638,20 @@
 .pl-bk-ev-badge {
   display: inline-flex;
   align-items: center;
-  padding: 1px 6px;
-  border-radius: 6px;
+  padding: 1px 5px;
+  border-radius: 4px;
+  border: 0;
   font-size: 0.69rem;
-  font-weight: 800;
+  font-weight: 750;
   white-space: nowrap;
 }
 
 .pl-bk-ev-badge.is-positive {
-  border: 1px solid var(--pl-pill-success-border);
   background: var(--pl-pill-success-bg);
   color: var(--pl-pill-success-fg);
 }
 
 .pl-bk-ev-badge.is-neutral {
-  border: 1px solid var(--pl-border-strong);
   background: var(--pl-surface);
   color: var(--pl-text-secondary);
 }
@@ -2676,28 +2669,24 @@
   display: inline-flex;
   align-items: center;
   gap: 3px;
-  padding: 1px 6px;
-  border-radius: 6px;
-  font-size: 0.68rem;
-  font-weight: 800;
+  padding: 0;
+  border-radius: 0;
+  border: 0;
+  background: transparent;
+  font-size: 0.69rem;
+  font-weight: 750;
   white-space: nowrap;
 }
 
 .pl-bk-move-chip.is-steam {
-  border: 1px solid var(--pl-pill-brand-border);
-  background: var(--pl-pill-brand-bg);
   color: var(--pl-pill-brand-fg);
 }
 
 .pl-bk-move-chip.is-shortening {
-  border: 1px solid var(--pl-pill-success-border);
-  background: var(--pl-pill-success-bg);
   color: var(--pl-pill-success-fg);
 }
 
 .pl-bk-move-chip.is-drifting {
-  border: 1px solid var(--pl-pill-warning-border);
-  background: var(--pl-pill-warning-bg);
   color: var(--pl-pill-warning-fg);
 }
 
@@ -2718,16 +2707,15 @@
   display: inline-flex;
   align-items: center;
   gap: 4px;
-  padding: 1px 6px;
-  border-radius: 6px;
-  border: 1px solid var(--pl-border);
+  padding: 2px 6px;
+  border-radius: 5px;
+  border: 0;
   background: var(--pl-surface);
-  font-size: 0.66rem;
+  font-size: 0.67rem;
   color: var(--pl-text-secondary);
 }
 
 .pl-bk-quote-tag.is-best {
-  border-color: var(--pl-pill-brand-border);
   background: var(--pl-pill-brand-bg);
   color: var(--pl-pill-brand-fg);
 }

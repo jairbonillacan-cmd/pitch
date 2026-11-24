@@ -7,6 +7,7 @@ import {
   usePlatformCore,
 } from "../platform-provider";
 import type { ViewerRole } from "../types";
+import { BadgeInfoTrigger } from "./BadgeInfoTrigger";
 
 export type MaestroNewInterfaceIconName =
   | "alert-market"
@@ -702,6 +703,19 @@ export function VerifiedSeal({
   className?: string;
 }): React.JSX.Element {
   const iconBase = usePackIconBase();
+  if (!decorative) {
+    return (
+      <BadgeInfoTrigger
+        badgeId="tipster-verificado"
+        family="origin"
+        label="Tipster verificado"
+        criterion="Tipster oficial de PitchLab con récord sellado antes del partido."
+        size={size}
+        className={className}
+        iconClassName="pl-seal"
+      />
+    );
+  }
   const sources = buildPackIconSources(iconBase, "insignias/tipster-verificado");
   return (
     <img
@@ -710,8 +724,8 @@ export function VerifiedSeal({
       className={["pl-seal", "pl-maestro-icon", "pl-pack-icon", "inline-block", "shrink-0", className].filter(Boolean).join(" ")}
       width={size}
       height={size}
-      alt={decorative ? "" : "Verificado"}
-      aria-hidden={decorative ? true : undefined}
+      alt=""
+      aria-hidden="true"
       decoding="async"
       draggable={false}
     />
@@ -720,10 +734,15 @@ export function VerifiedSeal({
 
 export function TipsterVerifiedBadge({ className }: { className?: string }): React.JSX.Element {
   return (
-    <span className={["pl-vbadge", className].filter(Boolean).join(" ")}>
-      <VerifiedSeal size={14} decorative className="pl-vbadge-seal" />
-      Tipster verificado
-    </span>
+    <BadgeInfoTrigger
+      badgeId="tipster-verificado"
+      family="origin"
+      label="Tipster verificado"
+      criterion="Tipster oficial de PitchLab con récord sellado antes del partido."
+      size={20}
+      className={["pl-vbadge", className].filter(Boolean).join(" ")}
+      iconClassName="pl-vbadge-seal"
+    />
   );
 }
 

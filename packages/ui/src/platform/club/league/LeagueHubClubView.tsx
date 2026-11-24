@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useId, useMemo, useRef, useState } from "react";
+import React, { Suspense, lazy, useId, useMemo, useRef, useState } from "react";
 import {
   COMPETITION_BY_ID,
   canonicalGameHref,
@@ -38,13 +38,11 @@ import {
   isPickUnlocked,
   isPreGameIntelUnlocked,
 } from "../../access-guard";
-import { AtomicFormStrip } from "../../atomic";
+import { AtomicFormStrip } from "../../atomic/AtomicFormStrip";
 import { normalizeBookKey, resolvePreferredBookQuote } from "../../bookmakers";
 import { MaestroIcon } from "../../components/MaestroPrimitives";
 import { MatchList } from "../../components/MatchList";
 import { PlLeagueSelect } from "../../components/PlSelect";
-import { TopLayerModalDialog } from "../../components/PlatformOverlays";
-import { RefereeRigorBadge } from "../../components/RefereeRigorBadge";
 import { AtmosphereStage, ClubWorkspaceShell } from "../../components/ShellChrome";
 import { resolveCircularCountryFlag } from "../../country-flags";
 import { useSafeEffect } from "../../hooks";
@@ -62,13 +60,12 @@ import type {
 import { useFollowedTopics } from "../community-ui";
 import { groupMatchesByDayAndLeague, shortDateLabel } from "../home/home-model";
 import type { LeagueRefereeRankingData, RefereeProfileTier } from "../RefereesClubView";
-import {
-  KnockoutBracketSvgPanel,
-  type LeagueAttackDefenseTeamData,
-  type LeagueKnockoutBracketData,
-  type LeagueStandingsSplitsData,
-  type StandingsSplitKey,
-  type StandingsSplitRow,
+import type {
+  LeagueAttackDefenseTeamData,
+  LeagueKnockoutBracketData,
+  LeagueStandingsSplitsData,
+  StandingsSplitKey,
+  StandingsSplitRow,
 } from "../StandingsBracketsSection";
 import {
   resolveLeagueStandingsZones,
@@ -76,6 +73,33 @@ import {
   type LeagueStandingsMeta,
   type LeagueStandingsSplitMeta,
 } from "./league-standings-zones";
+
+const LazyKnockoutBracketSvgPanel = lazy(() =>
+  import("../StandingsBracketsSection").then((m) => ({ default: m.KnockoutBracketSvgPanel })),
+);
+const LazyRefereeRigorBadge = lazy(() =>
+  import("../../components/RefereeRigorBadge").then((m) => ({ default: m.RefereeRigorBadge })),
+);
+const LazyTopLayerModalDialog = lazy(() =>
+  import("../../components/PlatformOverlays").then((m) => ({ default: m.TopLayerModalDialog })),
+);
+
+function LeagueSecondaryPanelFallback(): React.JSX.Element {
+  return (
+    <div
+      className="pl-skel-card rounded-2xl p-5 space-y-3"
+      role="status"
+      aria-busy="true"
+      aria-label="Cargando sección de la competición"
+    >
+      <div className="pl-skel-bar h-5 w-44 rounded-lg" />
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+        <div className="pl-skel-bar h-24 rounded-xl" />
+        <div className="pl-skel-bar h-24 rounded-xl" />
+      </div>
+    </div>
+  );
+}
 
 export {
   resolveLeagueStandingsZones,
@@ -602,7 +626,9 @@ export function LeagueHubClubView({
   useSafeEffect(() => () => summaryAbortRef.current?.abort(), []);
 
   const selectSection = (next: LeagueHubSectionKey) => {
-    setSection(next);
+    React.startTransition(() => {
+      setSection(next);
+    });
     if (typeof window !== "undefined") {
       const url = new URL(window.location.href);
       url.searchParams.set("vista", next);
@@ -2295,10 +2321,12 @@ export function LeagueHubClubView({
                   >
                     {effectiveSection === "eliminatorias" ? (
                       <div className="pl-lh-tabpanel-body">
-                        <KnockoutBracketSvgPanel
-                          bracket={enrichment.bracket}
-                          onNavigate={navigateTo}
-                        />
+                        <Suspense fallback={<LeagueSecondaryPanelFallback />}>
+                          <LazyKnockoutBracketSvgPanel
+                            bracket={enrichment.bracket}
+                            onNavigate={navigateTo}
+                          />
+                        </Suspense>
                       </div>
                     ) : null}
                   </div>
@@ -2977,19 +3005,21 @@ export function LeagueHubClubView({
                             </p>
                           ) : (
                             <>
-                              <div className="pl-ref-dir-grid">
-                                {(showAllReferees
-                                  ? filteredFallbackReferees
-                                  : filteredFallbackReferees.slice(0, INITIAL_REFEREE_ROWS)
-                                ).map((refItem) => (
-                                  <RefereeRigorBadge
-                                    key={refItem.name}
-                                    referee={refItem}
-                                    variant="card"
-                                    onNavigate={navigateTo}
-                                  />
-                                ))}
-                              </div>
+                              <Suspense fallback={<LeagueSecondaryPanelFallback />}>
+                                <div className="pl-ref-dir-grid">
+                                  {(showAllReferees
+                                    ? filteredFallbackReferees
+                                    : filteredFallbackReferees.slice(0, INITIAL_REFEREE_ROWS)
+                                  ).map((refItem) => (
+                                    <LazyRefereeRigorBadge
+                                      key={refItem.name}
+                                      referee={refItem}
+                                      variant="card"
+                                      onNavigate={navigateTo}
+                                    />
+                                  ))}
+                                </div>
+                              </Suspense>
 
                               {filteredFallbackReferees.length > INITIAL_REFEREE_ROWS ? (
                                 <div className="pl-lh-expand-row">
@@ -3018,34 +3048,35 @@ export function LeagueHubClubView({
           </div>
         </div>
 
-        <TopLayerModalDialog
-          open={Boolean(selectedNewsItem)}
-          onClose={closeNewsModal}
-          ariaLabelledBy={newsDialogTitleId}
-          maxWidth="38rem"
-        >
-          {selectedNewsItem ? (
-            <div className="pl-news-reader w-full p-5 sm:p-6 space-y-4">
-              <div className="flex items-start justify-between gap-3">
-                <div className="flex flex-wrap items-center gap-1.5 min-w-0">
-                  <span className="pl-pill pl-pill--info text-[11px]">
-                    {loadedNewsSummary?.categoryLabel ?? selectedNewsItem.categoryLabel}
-                  </span>
-                  {loadedNewsSummary?.byline || selectedNewsItem.badge ? (
-                    <span className="pl-pill text-[11px] num">
-                      {loadedNewsSummary?.byline ?? selectedNewsItem.badge}
+        {selectedNewsItem ? (
+          <Suspense fallback={null}>
+            <LazyTopLayerModalDialog
+              open
+              onClose={closeNewsModal}
+              ariaLabelledBy={newsDialogTitleId}
+              maxWidth="38rem"
+            >
+              <div className="pl-news-reader w-full p-5 sm:p-6 space-y-4">
+                <div className="flex items-start justify-between gap-3">
+                  <div className="flex flex-wrap items-center gap-1.5 min-w-0">
+                    <span className="pl-pill pl-pill--info text-[11px]">
+                      {loadedNewsSummary?.categoryLabel ?? selectedNewsItem.categoryLabel}
                     </span>
-                  ) : null}
-                  <span className="text-[11px] num" style={{ color: "var(--pl-text-muted)" }}>
-                    {loadedNewsSummary?.publishedAtLabel ?? selectedNewsItem.publishedAtLabel}
-                  </span>
-                </div>
-                <button
-                  type="button"
-                  autoFocus
-                  className="pl-btn-glass px-2.5 min-h-11 min-w-11 [@media(min-width:768px)_and_(pointer:fine)]:min-h-9 [@media(min-width:768px)_and_(pointer:fine)]:min-w-9 shrink-0 inline-flex items-center justify-center"
-                  aria-label="Cerrar resumen de la nota"
-                  onClick={closeNewsModal}
+                    {loadedNewsSummary?.byline || selectedNewsItem.badge ? (
+                      <span className="pl-pill text-[11px] num">
+                        {loadedNewsSummary?.byline ?? selectedNewsItem.badge}
+                      </span>
+                    ) : null}
+                    <span className="text-[11px] num" style={{ color: "var(--pl-text-muted)" }}>
+                      {loadedNewsSummary?.publishedAtLabel ?? selectedNewsItem.publishedAtLabel}
+                    </span>
+                  </div>
+                  <button
+                    type="button"
+                    autoFocus
+                    className="pl-btn-glass px-2.5 min-h-11 min-w-11 [@media(min-width:768px)_and_(pointer:fine)]:min-h-9 [@media(min-width:768px)_and_(pointer:fine)]:min-w-9 shrink-0 inline-flex items-center justify-center"
+                    aria-label="Cerrar resumen de la nota"
+                    onClick={closeNewsModal}
                 >
                   <MaestroIcon name="x" size={14} />
                 </button>
@@ -3152,8 +3183,9 @@ export function LeagueHubClubView({
                 </button>
               </div>
             </div>
-          ) : null}
-        </TopLayerModalDialog>
+            </LazyTopLayerModalDialog>
+          </Suspense>
+        ) : null}
       </ClubWorkspaceShell>
     </AtmosphereStage>
   );

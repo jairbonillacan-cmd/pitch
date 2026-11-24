@@ -118,17 +118,72 @@ const SLUG_CANONICAL_ALIASES: Readonly<Record<string, string>> = {
   "gallos-blancos": "queretaro",
   juarez: "fc-juarez",
   "uanl-tigres": "tigres-uanl",
+  tigres: "tigres-uanl",
   "deportivo-toluca": "toluca",
+  "club-america": "america",
+  "club-leon": "leon",
+  "club-pachuca": "pachuca",
+  "club-puebla": "puebla",
+  "club-tijuana": "tijuana",
+  "club-necaxa": "necaxa",
+  "pumas-unam": "pumas",
   bournemouth: "afc-bournemouth",
   athletic: "athletic-club",
+  "athletic-bilbao": "athletic-club",
   celta: "celta-vigo",
+  "rc-celta": "celta-vigo",
   "espanyol-barcelona": "espanyol",
+  "rcd-espanyol": "espanyol",
+  "deportivo-alaves": "alaves",
   "real-racing-santander": "racing-santander",
+  "atletico-de-madrid": "atletico-madrid",
+  "real-betis-balompie": "real-betis",
   atalanta: "atalanta-bc",
   inter: "internazionale-milano",
+  "inter-milan": "internazionale-milano",
+  "ac-milan": "milan",
+  "as-roma": "roma",
+  "ss-lazio": "lazio",
+  "ssc-napoli": "napoli",
+  "acf-fiorentina": "fiorentina",
   lens: "racing-lens",
+  "rc-lens": "racing-lens",
   strasbourg: "strasbourg-alsace",
+  "rc-strasbourg-alsace": "strasbourg-alsace",
   "estac-troyes": "es-troyes",
+  psg: "paris-saint-germain",
+  "olympique-de-marseille": "marseille",
+  "olympique-marseille": "marseille",
+  "olympique-lyonnais": "lyon",
+  "stade-rennais": "rennes",
+  "lille-osc": "lille",
+  "as-monaco": "monaco",
+  "ogc-nice": "nice",
+  "bayern-munchen": "bayern-munich",
+  "fc-bayern-munchen": "bayern-munich",
+  "fc-bayern-munich": "bayern-munich",
+  "bayer-04-leverkusen": "bayer-leverkusen",
+  "borussia-m-gladbach": "borussia-monchengladbach",
+  "borussia-mgladbach": "borussia-monchengladbach",
+  "1-fc-koln": "fc-koln",
+  "man-city": "manchester-city",
+  "man-united": "manchester-united",
+  "man-utd": "manchester-united",
+  wolverhampton: "wolverhampton-wanderers",
+  wolves: "wolverhampton-wanderers",
+  "brighton-hove-albion": "brighton-and-hove-albion",
+  brighton: "brighton-and-hove-albion",
+  "west-ham": "west-ham-united",
+  "nottingham-forest": "nottingham-forest",
+  "newcastle": "newcastle-united",
+  "tottenham": "tottenham-hotspur",
+  "sporting-cp": "sporting",
+  "sporting-lisbon": "sporting",
+  "sl-benfica": "benfica",
+  "fc-porto": "porto",
+  "afc-ajax": "ajax",
+  "psv-eindhoven": "psv",
+  "feyenoord-rotterdam": "feyenoord",
 };
 
 const SHORT_DATE_MX = new Intl.DateTimeFormat("es-MX", {
@@ -1458,20 +1513,169 @@ const NATIONAL_SQUAD_POOL_LEAGUES: readonly ProductLeague[] = [
   "copa-asiatica",
 ];
 
+const CLUB_SQUAD_POOL_LEAGUES: readonly ProductLeague[] = [
+  "premier-league",
+  "laliga",
+  "bundesliga",
+  "serie-a",
+  "ligue-1",
+  "liga-mx",
+  "mls",
+  "eredivisie",
+  "liga-portugal",
+  "brasileirao",
+  "liga-argentina",
+  "championship",
+  "segunda-espana",
+  "bundesliga-2",
+  "serie-b",
+  "ligue-2",
+  "pro-league-belgica",
+  "super-lig",
+  "saudi-pro-league",
+  "j1-league",
+  "primera-a-colombia",
+  "primera-chile",
+  "ligapro-ecuador",
+  "liga-1-peru",
+  "brasileirao-b",
+  "champions-league",
+  "europa-league",
+  "conference-league",
+  "libertadores",
+  "sudamericana",
+  "caf-champions",
+  "fa-cup",
+  "carabao-cup",
+  "dfb-pokal",
+  "coppa-italia",
+  "coupe-de-france",
+  "copa-do-brasil",
+];
+
+const CLUB_AFFIX_TOKENS = new Set<string>([
+  "fc",
+  "cf",
+  "sc",
+  "ac",
+  "ssc",
+  "afc",
+  "rcd",
+  "rc",
+  "as",
+  "us",
+  "ss",
+  "uc",
+  "bc",
+  "jk",
+  "sk",
+  "fk",
+  "bk",
+  "if",
+  "aif",
+  "kv",
+  "kaa",
+  "krc",
+  "rsc",
+  "aj",
+  "ogc",
+  "sv",
+  "tsv",
+  "vfb",
+  "vfl",
+  "fsv",
+  "sg",
+  "cd",
+  "ud",
+  "sd",
+  "ad",
+  "ca",
+  "cs",
+  "ec",
+  "se",
+  "cr",
+  "sl",
+  "club",
+]);
+
+function normalizeSquadLookupKey(raw: string): string {
+  return raw
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-+|-+$/g, "");
+}
+
+function stripClubAffixTokens(slug: string): string {
+  const parts = slug.split("-").filter((part) => part.length > 0 && !CLUB_AFFIX_TOKENS.has(part));
+  const stripped = parts.join("-");
+  return stripped.length >= 4 ? stripped : slug;
+}
+
+function buildSquadTeamKeys(slug: string, name: string): readonly string[] {
+  const keys = new Set<string>();
+  const addKey = (candidate: string) => {
+    const norm = normalizeSquadLookupKey(candidate);
+    if (!norm) return;
+    keys.add(norm);
+    const canon = SLUG_CANONICAL_ALIASES[norm];
+    if (canon) keys.add(canon);
+    const stripped = stripClubAffixTokens(canon ?? norm);
+    if (stripped.length >= 4) {
+      keys.add(stripped);
+      const strippedCanon = SLUG_CANONICAL_ALIASES[stripped];
+      if (strippedCanon) keys.add(strippedCanon);
+    }
+  };
+  addKey(slug);
+  if (name) addKey(name);
+  return Array.from(keys);
+}
+
+function matchTeamInSquadFile(
+  file: LeagueSquadsFile | null,
+  team: SnapshotTeamRef,
+): TeamSquadEntry | null {
+  if (!file || file.teams.length === 0) return null;
+  const withPlayers = file.teams.filter((t) => t.players.length > 0);
+  if (withPlayers.length === 0) return null;
+
+  const exact =
+    withPlayers.find((t) => t.teamSlug === team.slug || t.teamId === team.id) ?? null;
+  if (exact) return exact;
+
+  const targetKeys = new Set(buildSquadTeamKeys(team.slug, team.name));
+  for (const entry of withPlayers) {
+    const entryKeys = buildSquadTeamKeys(entry.teamSlug, entry.teamName);
+    if (entryKeys.some((k) => targetKeys.has(k))) {
+      return entry;
+    }
+  }
+  return null;
+}
+
 function findRawSquadEntry(
   leagueRaw: string,
   team: SnapshotTeamRef,
 ): TeamSquadEntry | null {
   const file = loadRawLeagueSquads(leagueRaw);
-  const directEntry =
-    file?.teams.find((t) => t.teamSlug === team.slug || t.teamId === team.id) ?? null;
+  const directEntry = matchTeamInSquadFile(file, team);
   if (directEntry) return directEntry;
 
   if (isNationalCompetition(leagueRaw)) {
     for (const poolLeague of NATIONAL_SQUAD_POOL_LEAGUES) {
       if (poolLeague === leagueRaw) continue;
-      const poolFile = loadRawLeagueSquads(poolLeague);
-      const match = poolFile?.teams.find((t) => t.teamSlug === team.slug) ?? null;
+      const match = matchTeamInSquadFile(loadRawLeagueSquads(poolLeague), team);
+      if (match) return match;
+    }
+    return null;
+  }
+
+  if (isProductLeague(leagueRaw) && sportForLeague(asLeagueId(leagueRaw)) === "football" && leagueRaw !== "liga-f") {
+    for (const poolLeague of CLUB_SQUAD_POOL_LEAGUES) {
+      if (poolLeague === leagueRaw) continue;
+      const match = matchTeamInSquadFile(loadRawLeagueSquads(poolLeague), team);
       if (match) return match;
     }
   }

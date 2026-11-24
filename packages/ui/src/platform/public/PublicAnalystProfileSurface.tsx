@@ -24,7 +24,6 @@ import { PublicRecordPreviewCard } from "../club/record/PublicRecordSections";
 import {
   MaestroIcon,
   TipsterVerifiedBadge,
-  VerifiedSeal,
 } from "../components/MaestroPrimitives";
 import {
   usePlatformActions,
@@ -112,12 +111,9 @@ export function PublicAnalystProfileSurface({
                 <div className="pl-prof-name-row">
                   <h1 id="pl-public-prof-name" className="pl-prof-name">
                     {profile.displayName}
-                    {profile.isTipster ? (
-                      <VerifiedSeal size={20} className="pl-prof-seal" />
-                    ) : null}
                   </h1>
                   {profile.isTipster ? (
-                    <TipsterVerifiedBadge />
+                    <TipsterVerifiedBadge className="pl-prof-seal" />
                   ) : (
                     <span className="pl-prof-role">Socio</span>
                   )}

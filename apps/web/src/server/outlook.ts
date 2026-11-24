@@ -11,13 +11,14 @@ import {
   type MarketOutlook,
   type MatchOutlook,
 } from "@pitchlab/spacetime";
-import liveSnapshotJson from "@pitchlab/spacetime/data/live_matchday_v3_snapshot.json";
 import type { MatchOutlookSummary, PlatformMarketRow, SpacetimeSignal } from "@pitchlab/ui/types";
 import {
   bookLabelWithDate,
   formatBookLabel,
   isMarketFresh,
   LEAGUE_TO_V3,
+  readLiveSnapshotGeneratedAtFast,
+  readSpacetimeDataJson,
   teamScore,
 } from "./spacetime";
 import {
@@ -60,10 +61,33 @@ function parseOutlookSnapshot(raw: unknown): OutlookSnapshot {
   };
 }
 
-const snapshot = parseOutlookSnapshot(liveSnapshotJson);
+function readOutlookSnapshotGeneratedAt(raw: unknown): string | null {
+  if (!raw || typeof raw !== "object") return null;
+  const obj = raw as {
+    generated_at?: unknown;
+    outlooks_meta?: unknown;
+  };
+  if (typeof obj.generated_at === "string") return obj.generated_at;
+  if (obj.outlooks_meta && typeof obj.outlooks_meta === "object") {
+    const meta = obj.outlooks_meta as { generated_at_utc?: unknown };
+    if (typeof meta.generated_at_utc === "string") return meta.generated_at_utc;
+  }
+  return null;
+}
+
+let snapshotMemo: OutlookSnapshot | null = null;
+
+function getOutlookSnapshot(): OutlookSnapshot {
+  if (!snapshotMemo) {
+    snapshotMemo = parseOutlookSnapshot(
+      readSpacetimeDataJson<unknown>("live_matchday_v3_snapshot.json"),
+    );
+  }
+  return snapshotMemo;
+}
 
 export const OUTLOOK_SNAPSHOT_GENERATED_AT: string | null =
-  snapshot.generated_at ?? snapshot.outlooks_meta?.generated_at_utc ?? null;
+  readLiveSnapshotGeneratedAtFast() ?? readOutlookSnapshotGeneratedAt(getOutlookSnapshot());
 
 const STALE_OUTLOOK_DELTA_MS = 24 * 3_600_000;
 const MAX_OUTLOOK_TOTAL_INFLATION = 0.35;
@@ -130,7 +154,7 @@ let byLeague: Map<string, MatchOutlook[]> | null = null;
 function outlooksByLeague(): Map<string, MatchOutlook[]> {
   if (byLeague) return byLeague;
   byLeague = new Map();
-  for (const o of snapshot.outlooks ?? []) {
+  for (const o of getOutlookSnapshot().outlooks ?? []) {
     const list = byLeague.get(o.league) ?? [];
     list.push(o);
     byLeague.set(o.league, list);
@@ -197,10 +221,11 @@ function parseTimestampMs(raw: string | null | undefined): number | null {
 }
 
 function resolveOutlookGeneratedAtMs(o: MatchOutlook): number | null {
+  const snap = getOutlookSnapshot();
   const candidates = [
     o.tsDecision,
-    snapshot.generated_at,
-    snapshot.outlooks_meta?.generated_at_utc,
+    snap.generated_at,
+    snap.outlooks_meta?.generated_at_utc,
   ];
   for (const iso of candidates) {
     const parsed = parseTimestampMs(iso);
@@ -409,7 +434,7 @@ export function outlookDetailFromMatchOutlook(
   return {
     markets,
     outlook: {
-      generatedAtUtc: options.generatedAtUtc ?? snapshot.outlooks_meta?.generated_at_utc ?? o.tsDecision,
+      generatedAtUtc: options.generatedAtUtc ?? getOutlookSnapshot().outlooks_meta?.generated_at_utc ?? o.tsDecision,
       mostLikely: result
         ? {
             label:
@@ -555,17 +580,6 @@ function resolveCausalEnvKeyV6(normLeague: string): number {
   return typeof fromFeedback === "number" && Number.isFinite(fromFeedback) ? fromFeedback : 2.7;
 }
 
-function deepFreezeObject(value: object): void {
-  if (!Object.isFrozen(value)) {
-    Object.freeze(value);
-  }
-  for (const child of Object.values(value)) {
-    if (child !== null && typeof child === "object" && !Object.isFrozen(child)) {
-      deepFreezeObject(child);
-    }
-  }
-}
-
 function getOrComputeV6SoccerOutlook(
   league: string,
   projHome: number,
@@ -588,12 +602,11 @@ function getOrComputeV6SoccerOutlook(
   });
   let result: SoccerV6OutlookEnrichment | null = null;
   if (recalibrated) {
-    result = {
+    result = Object.freeze({
       league: recalibrated.league,
       recalibrated,
       playableVennAbers: recalibrated.playableVennAbers,
-    };
-    deepFreezeObject(result);
+    });
   }
   if (v6OutlookMemo.size >= V6_OUTLOOK_MEMO_MAX) {
     const oldestKey = v6OutlookMemo.keys().next().value;

@@ -294,13 +294,13 @@ export function ResponsiblePlayControls({
               }
               subtitle={
                 hasSession
-                  ? "Abre /app/account?tab=prefs para ocultar montos en MXN o solicitar baja definitiva."
+                  ? "Abre Juego responsable dentro del Club para gestionar pausas, comunidad y montos en MXN."
                   : "Tus pausas ya quedan guardadas localmente en este dispositivo."
               }
               href={
                 hasSession
-                  ? "/app/account?tab=prefs#pl-prefs-descanso"
-                  : "/login?next=%2Flegal%2Fjuego-responsable"
+                  ? "/app/juego-responsable"
+                  : "/login?next=%2Fapp%2Fjuego-responsable"
               }
             />
           </SettingsGroup>

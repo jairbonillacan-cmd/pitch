@@ -3,6 +3,7 @@
 import { useEffect } from "react";
 import { usePathname } from "next/navigation";
 import { hasLocalAnalyticsConsent, sendConsentGatedFunnelStage } from "@pitchlab/ui/funnel-consent";
+import { subscribeThemeRuntime } from "@pitchlab/ui/theme-controller";
 
 const SW_UPDATE_EVENT = "pl-sw-update-available";
 const SW_APPLY_UPDATE_EVENT = "pl-sw-apply-update";
@@ -102,6 +103,10 @@ export function PwaRuntimeMount(): null {
       window.removeEventListener(SW_APPLY_UPDATE_EVENT, onApplyUpdate);
       navigator.serviceWorker.removeEventListener("controllerchange", onControllerChange);
     };
+  }, []);
+
+  useEffect(() => {
+    return subscribeThemeRuntime();
   }, []);
 
   useEffect(() => {

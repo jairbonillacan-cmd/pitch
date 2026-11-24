@@ -23,6 +23,7 @@ import {
   usePlatformCore,
   useWatchlistGameIds,
 } from "../platform-provider";
+import { handleRovingTablistKeyDown } from "../navigation-helpers";
 import { MaestroIcon, type MaestroIconName } from "./MaestroPrimitives";
 import { useSheetSwipeDismiss } from "./use-sheet-swipe-dismiss";
 
@@ -300,19 +301,39 @@ export function NotificationInboxPanel({
       </div>
 
       {items.length > 0 ? (
-        <div className="pl-notif-chips" role="group" aria-label="Filtrar por tipo">
+        <div
+          className="pl-notif-tabs"
+          role="tablist"
+          aria-label="Filtrar notificaciones por tipo"
+          aria-orientation="horizontal"
+          {...({ focusgroup: "tablist nomemory" } as React.HTMLAttributes<HTMLDivElement>)}
+        >
           {filters.map((f) => {
             const n = f.id === "todas" ? total : unreadCount(items.filter((i) => i.kind === f.id), readIds);
+            const selected = filter === f.id;
             return (
               <button
                 key={f.id}
                 type="button"
-                className="pl-notif-chip"
-                aria-pressed={filter === f.id}
+                role="tab"
+                className="pl-notif-tab"
+                aria-selected={selected}
+                tabIndex={selected ? 0 : -1}
                 onClick={() => setFilter(f.id)}
+                onKeyDown={(e) =>
+                  handleRovingTablistKeyDown(
+                    e,
+                    filters.map((item) => item.id),
+                    f.id,
+                    setFilter,
+                  )
+                }
+                {...(selected
+                  ? ({ focusgroupstart: "" } as React.ButtonHTMLAttributes<HTMLButtonElement>)
+                  : {})}
               >
-                {f.label}
-                {n > 0 ? <span className="num">{n}</span> : null}
+                <span>{f.label}</span>
+                {n > 0 ? <span className="pl-notif-tab-count num">{n}</span> : null}
               </button>
             );
           })}

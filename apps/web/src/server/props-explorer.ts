@@ -1,9 +1,11 @@
 import fs from "node:fs";
 import path from "node:path";
+import { safeStatMtimeMs } from "./perf-cache";
 import {
   COMPETITION_BY_ID,
   LeagueSnapshotSchema,
   LeagueSquadsFileSchema,
+  SquadPlayerEntrySchema,
   asLeagueId,
   canonicalPlayerHref,
   cleanTeamRouteSlug,
@@ -2005,9 +2007,24 @@ interface TrackedFileMtime {
   readonly mtimeMs: number;
 }
 
+interface StreakCandidateTeamRaw {
+  readonly teamId: string;
+  readonly teamSlug: string;
+  readonly teamName: string;
+  readonly rawPlayers: readonly unknown[];
+}
+
 const squadsFileCache = new Map<
   string,
   { readonly mtimeMs: number; readonly data: LeagueSquadsFile | null }
+>();
+const squadsRecentLogMetaCache = new Map<
+  string,
+  {
+    readonly mtimeMs: number;
+    readonly hasLogs: boolean;
+    readonly teams: readonly StreakCandidateTeamRaw[];
+  }
 >();
 const snapshotFileCache = new Map<
   string,
@@ -2015,12 +2032,7 @@ const snapshotFileCache = new Map<
 >();
 
 function safeStatMtime(filePath: string): number {
-  try {
-    return fs.statSync(filePath).mtimeMs;
-  } catch (err) {
-    void err;
-    return 0;
-  }
+  return safeStatMtimeMs(filePath);
 }
 
 function areTrackedFilesFresh(tracked: readonly TrackedFileMtime[]): boolean {
@@ -2032,9 +2044,9 @@ function areTrackedFilesFresh(tracked: readonly TrackedFileMtime[]): boolean {
   return true;
 }
 
-function trackFileMtime(tracker: Map<string, number>, filePath: string): void {
+function trackFileMtime(tracker: Map<string, number>, filePath: string, mtimeOverride?: number): void {
   if (!tracker.has(filePath)) {
-    tracker.set(filePath, safeStatMtime(filePath));
+    tracker.set(filePath, mtimeOverride ?? safeStatMtime(filePath));
   }
 }
 
@@ -2046,7 +2058,96 @@ function toTrackedFiles(tracker: ReadonlyMap<string, number>): readonly TrackedF
   return out;
 }
 
-function readSquadsFile(root: string, league: string): LeagueSquadsFile | null {
+function isRecordObject(value: unknown): value is Record<string, unknown> {
+  return typeof value === "object" && value !== null && !Array.isArray(value);
+}
+
+function readStreakCandidateTeams(
+  root: string,
+  league: string,
+  fileTracker: Map<string, number>,
+): readonly StreakCandidateTeamRaw[] {
+  const squadsPath = path.join(root, league, "squads.json");
+  const mtimeMs = safeStatMtime(squadsPath);
+  trackFileMtime(fileTracker, squadsPath, mtimeMs);
+  if (mtimeMs === 0) {
+    squadsRecentLogMetaCache.delete(squadsPath);
+    return [];
+  }
+  const fullCached = squadsFileCache.get(squadsPath);
+  if (fullCached && fullCached.mtimeMs === mtimeMs) {
+    if (!fullCached.data) return [];
+    const out: StreakCandidateTeamRaw[] = [];
+    for (const team of fullCached.data.teams) {
+      if (!isSafePublicLabel(team.teamName)) continue;
+      const withLogs = team.players.filter(
+        (p) => Array.isArray(p.recentGames) && p.recentGames.length >= 3,
+      );
+      if (withLogs.length > 0) {
+        out.push({
+          teamId: team.teamId,
+          teamSlug: team.teamSlug,
+          teamName: team.teamName,
+          rawPlayers: withLogs,
+        });
+      }
+    }
+    return out;
+  }
+  const cachedMeta = squadsRecentLogMetaCache.get(squadsPath);
+  if (cachedMeta && cachedMeta.mtimeMs === mtimeMs) {
+    return cachedMeta.hasLogs ? cachedMeta.teams : [];
+  }
+  try {
+    const rawText = fs.readFileSync(squadsPath, "utf8");
+    if (!rawText.includes('"dateIso"')) {
+      squadsRecentLogMetaCache.set(squadsPath, { mtimeMs, hasLogs: false, teams: [] });
+      return [];
+    }
+    const rawJson: unknown = JSON.parse(rawText);
+    if (!isRecordObject(rawJson) || !Array.isArray(rawJson.teams)) {
+      squadsRecentLogMetaCache.set(squadsPath, { mtimeMs, hasLogs: false, teams: [] });
+      return [];
+    }
+    const candidateTeams: StreakCandidateTeamRaw[] = [];
+    for (const rawTeam of rawJson.teams) {
+      if (!isRecordObject(rawTeam)) continue;
+      const teamName = typeof rawTeam.teamName === "string" ? rawTeam.teamName : "";
+      const teamSlug = typeof rawTeam.teamSlug === "string" ? rawTeam.teamSlug : "";
+      const teamId = typeof rawTeam.teamId === "string" ? rawTeam.teamId : "";
+      if (!teamName || !teamSlug || !teamId || !isSafePublicLabel(teamName)) continue;
+      const players = Array.isArray(rawTeam.players) ? rawTeam.players : null;
+      if (!players) continue;
+      const rawPlayersWithLogs: unknown[] = [];
+      for (const rp of players) {
+        if (!isRecordObject(rp)) continue;
+        if (Array.isArray(rp.recentGames) && rp.recentGames.length >= 3) {
+          rawPlayersWithLogs.push(rp);
+        }
+      }
+      if (rawPlayersWithLogs.length > 0) {
+        candidateTeams.push({
+          teamId,
+          teamSlug,
+          teamName,
+          rawPlayers: rawPlayersWithLogs,
+        });
+      }
+    }
+    squadsRecentLogMetaCache.set(squadsPath, {
+      mtimeMs,
+      hasLogs: candidateTeams.length > 0,
+      teams: candidateTeams,
+    });
+    return candidateTeams;
+  } catch (err) {
+    void err;
+    squadsRecentLogMetaCache.set(squadsPath, { mtimeMs, hasLogs: false, teams: [] });
+    return [];
+  }
+}
+
+export function readSquadsFile(root: string, league: string): LeagueSquadsFile | null {
   const squadsPath = path.join(root, league, "squads.json");
   const mtimeMs = safeStatMtime(squadsPath);
   if (mtimeMs === 0) {
@@ -2093,11 +2194,12 @@ export function readLeagueInjuriesMap(
   league: string,
 ): ReadonlyMap<string, LeagueInjuryLookupEntry> {
   const injPath = path.join(root, league, "injuries.json");
-  if (!fs.existsSync(injPath)) {
+  const mtimeMs = safeStatMtime(injPath);
+  if (mtimeMs === 0) {
+    leagueInjuriesCache.delete(injPath);
     return new Map<string, LeagueInjuryLookupEntry>();
   }
   try {
-    const mtimeMs = fs.statSync(injPath).mtimeMs;
     const cached = leagueInjuriesCache.get(injPath);
     if (cached && cached.mtimeMs === mtimeMs) {
       return cached.map;
@@ -2379,6 +2481,7 @@ function extractRefereeSummaryFromSnapshot(
 interface ExplorerStreakCacheEntry {
   readonly at: number;
   readonly root: string;
+  readonly cappedAt: number;
   readonly trackedFiles: readonly TrackedFileMtime[];
   readonly items: readonly ExplorerStreakCard[];
 }
@@ -2386,12 +2489,22 @@ interface ExplorerStreakCacheEntry {
 let cachedExplorer: ExplorerStreakCacheEntry | null = null;
 const EXPLORER_TTL_MS = 10 * 60_000;
 
+export function clearPropsExplorerCachesForTests(): void {
+  cachedExplorer = null;
+  squadsFileCache.clear();
+  squadsRecentLogMetaCache.clear();
+  snapshotFileCache.clear();
+  leagueInjuriesCache.clear();
+}
+
 export function loadPlayerPropStreakCards(maxCards = 36): ExplorerStreakCard[] {
   const now = Date.now();
   const root = resolveSnapshotsRoot();
+  const targetPoolCap = Math.max(48, maxCards);
   if (
     cachedExplorer &&
     cachedExplorer.root === root &&
+    cachedExplorer.cappedAt >= targetPoolCap &&
     now - cachedExplorer.at < EXPLORER_TTL_MS &&
     areTrackedFilesFresh(cachedExplorer.trackedFiles)
   ) {
@@ -2507,9 +2620,8 @@ export function loadPlayerPropStreakCards(maxCards = 36): ExplorerStreakCard[] {
   for (const lg of prioritizedLeagues) {
     if (seenLeagues.has(lg)) continue;
     seenLeagues.add(lg);
-    trackFileMtime(fileTracker, path.join(root, lg, "squads.json"));
-    const squads = readSquadsFile(root, lg);
-    if (!squads) continue;
+    const candidateTeams = readStreakCandidateTeams(root, lg, fileTracker);
+    if (candidateTeams.length === 0) continue;
 
     let perLeagueCount = 0;
     const leagueId: LeagueId = asLeagueId(lg);
@@ -2520,9 +2632,11 @@ export function loadPlayerPropStreakCards(maxCards = 36): ExplorerStreakCard[] {
     trackFileMtime(fileTracker, path.join(root, lg, "injuries.json"));
     const leagueInjMap = readLeagueInjuriesMap(root, lg);
 
-    for (const team of squads.teams) {
-      if (!isSafePublicLabel(team.teamName)) continue;
-      for (const player of team.players) {
+    for (const team of candidateTeams) {
+      for (const rawPlayer of team.rawPlayers) {
+        const parsedPlayer = SquadPlayerEntrySchema.safeParse(rawPlayer);
+        if (!parsedPlayer.success) continue;
+        const player = parsedPlayer.data;
         if (!isSafePublicLabel(player.name)) continue;
         const leagueInj = lookupLeagueInjury(
           leagueInjMap,
@@ -2552,54 +2666,99 @@ export function loadPlayerPropStreakCards(maxCards = 36): ExplorerStreakCard[] {
         const id = `${lg}:${team.teamSlug}:${player.slug}`;
         if (seenCardIds.has(id)) continue;
 
-        const allLabels = Array.from(
-          new Set(logs.flatMap((g) => g.stats.map((s) => s.label))),
-        );
-        const countingLabels = allLabels.filter(
-          (lbl) => !NON_PROP_STAT_LABELS.has(lbl.trim().toUpperCase()),
-        );
-        const statLabels = countingLabels.length > 0 ? countingLabels : allLabels;
+        const parsedLogs: Array<{
+          readonly label: string;
+          readonly opponent: string;
+          readonly date: string;
+          readonly minVal: number | null;
+          readonly xgVal: number | null;
+          readonly isHome?: boolean;
+          readonly byLabel: Map<string, number>;
+        }> = [];
+        const allLabelSet = new Set<string>();
+
+        for (let idx = logs.length - 1; idx >= 0; idx -= 1) {
+          const g = logs[idx]!;
+          let minVal: number | null = null;
+          let xgVal: number | null = null;
+          const byLabel = new Map<string, number>();
+
+          for (const st of g.stats) {
+            const rawLbl = st.label;
+            const upperLbl = rawLbl.trim().toUpperCase();
+            if (minVal === null && (upperLbl === "MIN" || upperLbl === "MINS" || upperLbl === "MINUTOS")) {
+              minVal = parseNumericStat(st.value);
+            }
+            if (sport === "football" && xgVal === null && upperLbl === "XG") {
+              xgVal = parseNumericStat(st.value);
+            }
+            const parsedVal = parseNumericStat(st.value);
+            if (parsedVal !== null) {
+              if (!byLabel.has(rawLbl)) {
+                byLabel.set(rawLbl, parsedVal);
+              }
+              if (!NON_PROP_STAT_LABELS.has(upperLbl)) {
+                allLabelSet.add(rawLbl);
+              }
+            } else if (!NON_PROP_STAT_LABELS.has(upperLbl)) {
+              allLabelSet.add(rawLbl);
+            }
+          }
+
+          if (sport === "football" && (minVal === null || minVal < FOOTBALL_MIN_MINUTES)) {
+            continue;
+          }
+          if (sport === "basketball" && (minVal === null || minVal < NBA_MIN_MINUTES_PER_GAME)) {
+            continue;
+          }
+
+          parsedLogs.push({
+            label: (g.opponentAbbr ?? g.opponent).slice(0, 8),
+            opponent: g.opponent,
+            date: g.dateIso,
+            minVal,
+            xgVal,
+            ...(g.isHome === true || g.isHome === false ? { isHome: g.isHome } : {}),
+            byLabel,
+          });
+        }
+
+        if (parsedLogs.length < 3) continue;
+
+        const statLabels = Array.from(allLabelSet);
+        const fallbackLabels =
+          statLabels.length > 0
+            ? statLabels
+            : Array.from(new Set(logs.flatMap((g) => g.stats.map((s) => s.label))));
         const orderedLabels = [
-          ...prefLabels.filter((lbl) => statLabels.includes(lbl)),
-          ...statLabels.filter((lbl) => !prefLabels.includes(lbl)),
+          ...prefLabels.filter((lbl) => fallbackLabels.includes(lbl)),
+          ...fallbackLabels.filter((lbl) => !prefLabels.includes(lbl)),
         ].slice(0, 6);
 
         const series: PropMetricSeries[] = [];
         for (const lbl of orderedLabels) {
-          const pts = logs
-            .slice()
-            .reverse()
-            .map((g) => {
-              const minHit = g.stats.find((s) => {
-                const u = s.label.trim().toUpperCase();
-                return u === "MIN" || u === "MINS" || u === "MINUTOS";
-              });
-              const minVal = minHit ? parseNumericStat(minHit.value) : null;
-              if (sport === "football" && (minVal === null || minVal < FOOTBALL_MIN_MINUTES)) {
-                return null;
-              }
-              if (sport === "basketball" && (minVal === null || minVal < NBA_MIN_MINUTES_PER_GAME)) {
-                return null;
-              }
-              const hit = g.stats.find((s) => s.label === lbl);
-              const val = hit ? parseNumericStat(hit.value) : null;
-              if (val === null) return null;
-              const xgHit =
-                sport === "football"
-                  ? g.stats.find((s) => s.label.trim().toUpperCase() === "XG")
-                  : undefined;
-              const xgVal = xgHit ? parseNumericStat(xgHit.value) : null;
-              return {
-                label: (g.opponentAbbr ?? g.opponent).slice(0, 8),
-                opponent: g.opponent,
-                date: g.dateIso,
-                value: val,
-                ...(minVal !== null ? { minutes: Math.round(minVal) } : {}),
-                ...(xgVal !== null ? { xg: xgVal } : {}),
-                ...(g.isHome === true || g.isHome === false ? { isHome: g.isHome } : {}),
-              };
-            })
-            .filter((p): p is NonNullable<typeof p> => p !== null);
+          const pts: Array<{
+            label: string;
+            opponent: string;
+            date: string;
+            value: number;
+            minutes?: number;
+            xg?: number;
+            isHome?: boolean;
+          }> = [];
+          for (const pl of parsedLogs) {
+            const val = pl.byLabel.get(lbl);
+            if (val === undefined) continue;
+            pts.push({
+              label: pl.label,
+              opponent: pl.opponent,
+              date: pl.date,
+              value: val,
+              ...(pl.minVal !== null ? { minutes: Math.round(pl.minVal) } : {}),
+              ...(pl.xgVal !== null ? { xg: pl.xgVal } : {}),
+              ...(pl.isHome !== undefined ? { isHome: pl.isHome } : {}),
+            });
+          }
 
           if (pts.length < 3) continue;
           const values = pts.map((p) => p.value);
@@ -2644,12 +2803,13 @@ export function loadPlayerPropStreakCards(maxCards = 36): ExplorerStreakCard[] {
       if (perLeagueCount >= 6) break;
     }
 
-    if (cards.length >= 48) break;
+    if (cards.length >= targetPoolCap) break;
   }
 
   cachedExplorer = {
     at: now,
     root,
+    cappedAt: targetPoolCap,
     trackedFiles: toTrackedFiles(fileTracker),
     items: cards,
   };

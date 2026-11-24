@@ -1,5 +1,22 @@
 import { PHASE_DEVELOPMENT_SERVER } from "next/constants.js";
 
+const SPACETIME_RUNTIME_DATA_FILES = [
+  "../../packages/spacetime/data/live_matchday_v3_snapshot.json",
+  "../../packages/spacetime/data/model_motor_a.json",
+  "../../packages/spacetime/data/model_multisport.json",
+  "../../packages/spacetime/data/model_nfl.json",
+  "../../packages/spacetime/data/candidate_registry_v6_0.json",
+  "../../packages/spacetime/data/model_epistemic_conformal_v5_1_candidate.json",
+  "../../packages/spacetime/data/model_inplay_early_payout_v5_0_candidate.json",
+  "../../packages/spacetime/data/model_multisport_v6_0_candidate.json",
+  "../../packages/spacetime/data/model_officials_freeze_v6_0_candidate.json",
+  "../../packages/spacetime/data/model_props_v6_0_candidate.json",
+  "../../packages/spacetime/data/model_soccer_57_v6_0_candidate.json",
+  "../../packages/spacetime/data/model_soccer_micro_v5_0_candidate.json",
+  "../../packages/spacetime/data/model_v5_2_live_feedback_candidate.json",
+  "../../packages/spacetime/data/sgp_copula_v5_0_candidate.json",
+];
+
 function extractHttpsOrigins(rawValues) {
   const origins = new Set();
   for (const raw of rawValues) {
@@ -127,6 +144,20 @@ const baseConfig = {
     "/blog/categoria/[categoria]": ["./content/blog/**/*"],
     "/blog/rss.xml": ["./content/blog/**/*"],
     "/sitemap.xml": ["./content/blog/**/*"],
+    "/": SPACETIME_RUNTIME_DATA_FILES,
+    "/resultados": SPACETIME_RUNTIME_DATA_FILES,
+    "/precio": SPACETIME_RUNTIME_DATA_FILES,
+    "/motores": SPACETIME_RUNTIME_DATA_FILES,
+    "/verificacion": SPACETIME_RUNTIME_DATA_FILES,
+    "/canjear": SPACETIME_RUNTIME_DATA_FILES,
+    "/login": SPACETIME_RUNTIME_DATA_FILES,
+    "/onboarding": SPACETIME_RUNTIME_DATA_FILES,
+    "/signup": SPACETIME_RUNTIME_DATA_FILES,
+    "/p/**": SPACETIME_RUNTIME_DATA_FILES,
+    "/u/**": SPACETIME_RUNTIME_DATA_FILES,
+    "/app": SPACETIME_RUNTIME_DATA_FILES,
+    "/app/**": SPACETIME_RUNTIME_DATA_FILES,
+    "/api/**": SPACETIME_RUNTIME_DATA_FILES,
   },
   outputFileTracingExcludes: {
     "*": [

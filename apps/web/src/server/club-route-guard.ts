@@ -12,6 +12,7 @@ const STATIC_CLUB_SEGMENTS = new Set([
   "canjear",
   "comparar",
   "historial",
+  "juego-responsable",
   "lab",
   "momios",
   "parlays",
@@ -44,6 +45,7 @@ const CLUB_ALIASES: Record<string, AliasTarget> = {
   "/app/tipstar": { pathname: "/app/tipster" },
   "/app/h2h": { pathname: "/app/comparar" },
   "/app/compare": { pathname: "/app/comparar" },
+  "/app/responsible-play": { pathname: "/app/juego-responsable" },
 };
 
 function hasFootballRefereesCapability(league: string): boolean {

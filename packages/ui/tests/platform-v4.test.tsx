@@ -1,12 +1,16 @@
-import fs from "node:fs";
-import path from "node:path";
 import { Writable } from "node:stream";
 import React from "react";
 import { renderToPipeableStream, renderToStaticMarkup } from "react-dom/server";
-import { describe, expect, it } from "vitest";
+import { afterAll, beforeAll, describe, expect, it, vi } from "vitest";
 import {
   LeagueSnapshotSchema,
+  asGameId,
+  asLeagueId,
+  asMarketKey,
+  asSeasonId,
+  asTeamId,
   snapshotToMatchAnalyses,
+  type LeagueSnapshot,
 } from "@pitchlab/contracts";
 import {
   AccountReferralsClubView,
@@ -60,14 +64,491 @@ const FORBIDDEN_UI_TERMS = [
   "espn",
 ];
 
+const FROZEN_NOW = new Date("2026-11-15T18:00:00Z");
+
+interface FixtureMatchSeed {
+  id: string;
+  startTime: string;
+  status: "final" | "scheduled";
+  round: string;
+  week: number;
+  venue: string;
+  home: { slug: string; name: string; shortName: string; code: string };
+  away: { slug: string; name: string; shortName: string; code: string };
+  score?: { home: number; away: number };
+}
+
+const LIGA_MX_MATCHES: readonly FixtureMatchSeed[] = [
+  {
+    id: "mx-2026-j16-america-chivas",
+    startTime: "2026-11-14T23:00:00.000Z",
+    status: "final",
+    round: "Jornada 16",
+    week: 16,
+    venue: "Estadio Azteca",
+    home: { slug: "america", name: "Club América", shortName: "América", code: "AME" },
+    away: { slug: "guadalajara", name: "Guadalajara", shortName: "Chivas", code: "GDL" },
+    score: { home: 2, away: 1 },
+  },
+  {
+    id: "mx-2026-j16-cruz-azul-pumas",
+    startTime: "2026-11-15T01:00:00.000Z",
+    status: "final",
+    round: "Jornada 16",
+    week: 16,
+    venue: "Estadio Ciudad de los Deportes",
+    home: { slug: "cruz-azul", name: "Cruz Azul", shortName: "Cruz Azul", code: "CAZ" },
+    away: { slug: "pumas", name: "Pumas UNAM", shortName: "Pumas", code: "PUM" },
+    score: { home: 3, away: 1 },
+  },
+  {
+    id: "mx-2026-j16-tigres-toluca",
+    startTime: "2026-11-15T03:00:00.000Z",
+    status: "final",
+    round: "Jornada 16",
+    week: 16,
+    venue: "Estadio Universitario",
+    home: { slug: "tigres", name: "Tigres UANL", shortName: "Tigres", code: "TIG" },
+    away: { slug: "toluca", name: "Toluca", shortName: "Toluca", code: "TOL" },
+    score: { home: 1, away: 1 },
+  },
+  {
+    id: "mx-2026-j17-queretaro-monterrey",
+    startTime: "2026-11-15T23:00:00.000Z",
+    status: "scheduled",
+    round: "Jornada 17",
+    week: 17,
+    venue: "Estadio Corregidora",
+    home: { slug: "queretaro", name: "Querétaro", shortName: "Querétaro", code: "QRO" },
+    away: { slug: "monterrey", name: "Monterrey", shortName: "Monterrey", code: "MTY" },
+  },
+  {
+    id: "mx-2026-j17-pachuca-leon",
+    startTime: "2026-11-16T01:00:00.000Z",
+    status: "scheduled",
+    round: "Jornada 17",
+    week: 17,
+    venue: "Estadio Hidalgo",
+    home: { slug: "pachuca", name: "Pachuca", shortName: "Pachuca", code: "PAC" },
+    away: { slug: "leon", name: "León", shortName: "León", code: "LEO" },
+  },
+  {
+    id: "mx-2026-j17-atlas-santos",
+    startTime: "2026-11-16T03:00:00.000Z",
+    status: "scheduled",
+    round: "Jornada 17",
+    week: 17,
+    venue: "Estadio Jalisco",
+    home: { slug: "atlas", name: "Atlas", shortName: "Atlas", code: "ATL" },
+    away: { slug: "santos", name: "Santos Laguna", shortName: "Santos", code: "SAN" },
+  },
+  {
+    id: "mx-2026-j17-puebla-necaxa",
+    startTime: "2026-11-16T23:00:00.000Z",
+    status: "scheduled",
+    round: "Jornada 17",
+    week: 17,
+    venue: "Estadio Cuauhtémoc",
+    home: { slug: "puebla", name: "Puebla", shortName: "Puebla", code: "PUE" },
+    away: { slug: "necaxa", name: "Necaxa", shortName: "Necaxa", code: "NEC" },
+  },
+  {
+    id: "mx-2026-j17-tijuana-juarez",
+    startTime: "2026-11-17T01:00:00.000Z",
+    status: "scheduled",
+    round: "Jornada 17",
+    week: 17,
+    venue: "Estadio Caliente",
+    home: { slug: "tijuana", name: "Xolos de Tijuana", shortName: "Tijuana", code: "TIJ" },
+    away: { slug: "juarez", name: "FC Juárez", shortName: "Juárez", code: "JUA" },
+  },
+];
+
+const NFL_MATCHES: readonly FixtureMatchSeed[] = [
+  {
+    id: "nfl-2026-w10-chiefs-raiders",
+    startTime: "2026-11-14T21:00:00.000Z",
+    status: "final",
+    round: "Semana 10",
+    week: 10,
+    venue: "Arrowhead Stadium",
+    home: { slug: "kansas-city-chiefs", name: "Kansas City Chiefs", shortName: "Kansas City", code: "KC" },
+    away: { slug: "las-vegas-raiders", name: "Las Vegas Raiders", shortName: "Las Vegas", code: "LV" },
+    score: { home: 27, away: 17 },
+  },
+  {
+    id: "nfl-2026-w10-eagles-cowboys",
+    startTime: "2026-11-15T01:15:00.000Z",
+    status: "final",
+    round: "Semana 10",
+    week: 10,
+    venue: "Lincoln Financial Field",
+    home: { slug: "philadelphia-eagles", name: "Philadelphia Eagles", shortName: "Philadelphia", code: "PHI" },
+    away: { slug: "dallas-cowboys", name: "Dallas Cowboys", shortName: "Dallas", code: "DAL" },
+    score: { home: 31, away: 24 },
+  },
+  {
+    id: "nfl-2026-w11-texans-colts",
+    startTime: "2026-11-15T19:00:00.000Z",
+    status: "scheduled",
+    round: "Semana 11",
+    week: 11,
+    venue: "NRG Stadium",
+    home: { slug: "houston-texans", name: "Houston Texans", shortName: "Houston", code: "HOU" },
+    away: { slug: "indianapolis-colts", name: "Indianapolis Colts", shortName: "Indianapolis", code: "IND" },
+  },
+  {
+    id: "nfl-2026-w11-bills-dolphins",
+    startTime: "2026-11-15T22:05:00.000Z",
+    status: "scheduled",
+    round: "Semana 11",
+    week: 11,
+    venue: "Highmark Stadium",
+    home: { slug: "buffalo-bills", name: "Buffalo Bills", shortName: "Buffalo", code: "BUF" },
+    away: { slug: "miami-dolphins", name: "Miami Dolphins", shortName: "Miami", code: "MIA" },
+  },
+  {
+    id: "nfl-2026-w11-ravens-steelers",
+    startTime: "2026-11-16T01:20:00.000Z",
+    status: "scheduled",
+    round: "Semana 11",
+    week: 11,
+    venue: "M&T Bank Stadium",
+    home: { slug: "baltimore-ravens", name: "Baltimore Ravens", shortName: "Baltimore", code: "BAL" },
+    away: { slug: "pittsburgh-steelers", name: "Pittsburgh Steelers", shortName: "Pittsburgh", code: "PIT" },
+  },
+  {
+    id: "nfl-2026-w11-bengals-commanders",
+    startTime: "2026-11-17T01:15:00.000Z",
+    status: "scheduled",
+    round: "Semana 11",
+    week: 11,
+    venue: "Northwest Stadium",
+    home: { slug: "washington-commanders", name: "Washington Commanders", shortName: "Washington", code: "WAS" },
+    away: { slug: "cincinnati-bengals", name: "Cincinnati Bengals", shortName: "Cincinnati", code: "CIN" },
+  },
+];
+
+function buildSnapshotFixture(params: {
+  leagueKey: "liga-mx" | "nfl";
+  seasonId: string;
+  seasonLabel: string;
+  periodLabel: string;
+  logoUrl?: string;
+  matches: readonly FixtureMatchSeed[];
+  forPerGameBase: number;
+  againstPerGameHome: number;
+  forPerGameAway: number;
+  againstPerGameAway: number;
+  gamesPlayed: number;
+  hasDraw: boolean;
+}): LeagueSnapshot {
+  const league = asLeagueId(params.leagueKey);
+  const season = asSeasonId(params.seasonId);
+  const h2hKey = asMarketKey("h2h");
+  const dcKey = asMarketKey("double_chance");
+  const spreadsKey = asMarketKey("spreads");
+  const totalsKey = asMarketKey("totals");
+  const bttsKey = asMarketKey("btts");
+  const teamTotalsKey = asMarketKey("team_totals");
+  const teamRates: LeagueSnapshot["teamRates"] = {};
+  const games: LeagueSnapshot["games"] = [];
+  const analyses: LeagueSnapshot["analyses"] = {};
+  const standings: NonNullable<LeagueSnapshot["standings"]> = [];
+
+  params.matches.forEach((m, idx) => {
+    const homeId = asTeamId(`${params.leagueKey}.${m.home.slug}`);
+    const awayId = asTeamId(`${params.leagueKey}.${m.away.slug}`);
+    const gameId = asGameId(m.id);
+    teamRates[homeId] = {
+      teamId: homeId,
+      name: m.home.name,
+      shortName: m.home.shortName,
+      code: m.home.code,
+      forPerGame: params.forPerGameBase + idx * 0.1,
+      againstPerGame: params.againstPerGameHome,
+      gamesPlayed: params.gamesPlayed,
+      adjustedFor: params.forPerGameBase + idx * 0.08,
+      adjustedAgainst: params.againstPerGameHome + 0.05,
+    };
+    teamRates[awayId] = {
+      teamId: awayId,
+      name: m.away.name,
+      shortName: m.away.shortName,
+      code: m.away.code,
+      forPerGame: params.forPerGameAway,
+      againstPerGame: params.againstPerGameAway,
+      gamesPlayed: params.gamesPlayed,
+      adjustedFor: params.forPerGameAway - 0.02,
+      adjustedAgainst: params.againstPerGameAway - 0.03,
+    };
+    if (standings.length < 4) {
+      standings.push({
+        teamId: homeId,
+        name: m.home.name,
+        shortName: m.home.shortName,
+        code: m.home.code,
+        played: params.gamesPlayed,
+        won: Math.max(1, params.gamesPlayed - 4 - idx),
+        drawn: params.hasDraw ? 3 : 0,
+        lost: 2 + idx,
+        goalsFor: params.hasDraw ? 28 : 254,
+        goalsAgainst: params.hasDraw ? 16 : 208,
+        points: (params.hasDraw ? 33 : 16) - idx * 2,
+        ...(params.hasDraw
+          ? {}
+          : {
+              conference: "AFC",
+              division: "AFC Este",
+              winPct: 0.8 - idx * 0.1,
+              seed: idx + 1,
+            }),
+        form: ["W", "W", params.hasDraw ? "D" : "W", "W", "L"],
+      });
+    }
+    games.push({
+      id: gameId,
+      league,
+      season,
+      week: m.week,
+      round: m.round,
+      startTime: m.startTime,
+      status: m.status,
+      home: {
+        id: homeId,
+        league,
+        name: m.home.name,
+        shortName: m.home.shortName,
+        code: m.home.code,
+      },
+      away: {
+        id: awayId,
+        league,
+        name: m.away.name,
+        shortName: m.away.shortName,
+        code: m.away.code,
+      },
+      venue: m.venue,
+      neutralSite: false,
+      ...(m.score
+        ? {
+            result: {
+              home: m.score.home,
+              away: m.score.away,
+              observedAt: "2026-11-15T12:00:00.000Z",
+              source: "pitchlab",
+            },
+          }
+        : {}),
+    });
+
+    if (params.hasDraw) {
+      const pHome = Math.min(0.62, 0.5 + idx * 0.015);
+      const pDraw = 0.25;
+      const pAway = Math.max(0.13, 1 - pHome - pDraw);
+      analyses[gameId] = {
+        game: gameId,
+        model: {
+          id: "pitchlab-statistical-liga-mx",
+          version: "2.0.0",
+          status: "candidate",
+          label: "Modelo PitchLab · en validación",
+        },
+        projection: { home: 1.68, away: 1.12, total: 2.8, margin: 0.56 },
+        x12: [pHome, pDraw, pAway],
+        probabilities: [
+          { market: h2hKey, selection: `${m.home.shortName} gana`, p: pHome, fairOdds: 1 / pHome },
+          { market: h2hKey, selection: "Empate", p: pDraw, fairOdds: 1 / pDraw },
+          { market: h2hKey, selection: `${m.away.shortName} gana`, p: pAway, fairOdds: 1 / pAway },
+        ],
+        marketGroups: [
+          {
+            group: "Resultado 1X2",
+            rows: [
+              { market: h2hKey, selection: "home", label: `${m.home.shortName} gana`, p: pHome, fairOdds: 1 / pHome },
+              { market: h2hKey, selection: "draw", label: "Empate", p: pDraw, fairOdds: 1 / pDraw },
+              { market: h2hKey, selection: "away", label: `${m.away.shortName} gana`, p: pAway, fairOdds: 1 / pAway },
+            ],
+          },
+          {
+            group: "Doble oportunidad",
+            rows: [
+              { market: dcKey, selection: "1x", label: `${m.home.shortName} o Empate`, p: pHome + pDraw, fairOdds: 1 / (pHome + pDraw) },
+              { market: dcKey, selection: "12", label: `${m.home.shortName} o ${m.away.shortName}`, p: pHome + pAway, fairOdds: 1 / (pHome + pAway) },
+              { market: dcKey, selection: "x2", label: `Empate o ${m.away.shortName}`, p: pDraw + pAway, fairOdds: 1 / (pDraw + pAway) },
+            ],
+          },
+          {
+            group: "Total de goles 2.5",
+            rows: [
+              { market: totalsKey, selection: "over_2.5", label: "Más de 2.5 goles", line: 2.5, p: 0.57, fairOdds: 1 / 0.57 },
+              { market: totalsKey, selection: "under_2.5", label: "Menos de 2.5 goles", line: 2.5, p: 0.43, fairOdds: 1 / 0.43 },
+            ],
+          },
+          {
+            group: "Ambos equipos anotan",
+            rows: [
+              { market: bttsKey, selection: "yes", label: "Ambos anotan: Sí", p: 0.55, fairOdds: 1 / 0.55 },
+              { market: bttsKey, selection: "no", label: "Ambos anotan: No", p: 0.45, fairOdds: 1 / 0.45 },
+            ],
+          },
+        ],
+        mostLikelyScore: { home: 2, away: 1, p: 0.128 },
+        factors: [
+          { key: "home_attack", label: "Ataque local", value: "1.68 goles/partido", detail: "16 partidos" },
+          { key: "away_defense", label: "Defensa visitante", value: "1.35 concedidos/partido", detail: "16 partidos" },
+        ],
+        steps: [
+          "Sincronizando Liga MX · corte 15 nov 2026, 14:00",
+          "Fuerza ajustada por rival",
+          "Ponderación por antigüedad y localía",
+          "Proyección de goles 1.68 – 1.12 · total 2.80",
+          "Simulación de marcadores con incertidumbre del ajuste",
+          "10 mercados listos · marcador proyectado 2–1",
+        ],
+        inputsAsOf: "2026-11-15T14:00:00.000Z",
+        publishedAt: "2026-11-15T14:00:00.000Z",
+        source: "pitchlab",
+        confidence: { score: 66, level: "media", reasons: ["Muestra suficiente"] },
+        insights: {
+          why: [
+            `${m.home.shortName} gana en ${Math.round(pHome * 100)} % de los escenarios.`,
+            "Se proyecta ritmo ofensivo equilibrado con total esperado de 2.80 goles.",
+          ],
+          restDays: { home: 7, away: 6 },
+        },
+      };
+      return;
+    }
+
+    const pHome = Math.min(0.66, 0.57 + idx * 0.015);
+    const pAway = 1 - pHome;
+    analyses[gameId] = {
+      game: gameId,
+      model: {
+        id: "pitchlab-statistical-nfl",
+        version: "2.0.0",
+        status: "candidate",
+        label: "Modelo PitchLab · en validación",
+      },
+      projection: { home: 26.4, away: 21.8, total: 48.2, margin: 4.6 },
+      x12: [pHome, 0, pAway],
+      probabilities: [
+        { market: h2hKey, selection: `${m.home.shortName} gana`, p: pHome, fairOdds: 1 / pHome },
+        { market: h2hKey, selection: `${m.away.shortName} gana`, p: pAway, fairOdds: 1 / pAway },
+      ],
+      marketGroups: [
+        {
+          group: "Ganador",
+          rows: [
+            { market: h2hKey, selection: "home", label: `${m.home.shortName} gana`, p: pHome, fairOdds: 1 / pHome },
+            { market: h2hKey, selection: "away", label: `${m.away.shortName} gana`, p: pAway, fairOdds: 1 / pAway },
+          ],
+        },
+        {
+          group: "Hándicap alternativo +6.5",
+          rows: [
+            { market: spreadsKey, selection: "home_6.5", label: `${m.home.code} +6.5`, line: 6.5, p: 0.75, fairOdds: 1 / 0.75 },
+            { market: spreadsKey, selection: "away_-6.5", label: `${m.away.code} -6.5`, line: -6.5, p: 0.25, fairOdds: 4.0 },
+          ],
+        },
+        {
+          group: "Total 47.5",
+          rows: [
+            { market: totalsKey, selection: "over_47.5", label: "Más de 47.5 puntos", line: 47.5, p: 0.56, fairOdds: 1 / 0.56 },
+            { market: totalsKey, selection: "under_47.5", label: "Menos de 47.5 puntos", line: 47.5, p: 0.44, fairOdds: 1 / 0.44 },
+          ],
+        },
+        {
+          group: "Puntos por equipo",
+          rows: [
+            { market: teamTotalsKey, selection: "home_over", label: `${m.home.code} más de 24.5`, line: 24.5, p: 0.55, fairOdds: 1 / 0.55 },
+            { market: teamTotalsKey, selection: "home_under", label: `${m.home.code} menos de 24.5`, line: 24.5, p: 0.45, fairOdds: 1 / 0.45 },
+            { market: teamTotalsKey, selection: "away_over", label: `${m.away.code} más de 20.5`, line: 20.5, p: 0.52, fairOdds: 1 / 0.52 },
+            { market: teamTotalsKey, selection: "away_under", label: `${m.away.code} menos de 20.5`, line: 20.5, p: 0.48, fairOdds: 1 / 0.48 },
+          ],
+        },
+      ],
+      factors: [
+        { key: "home_offense", label: "Ofensiva local", value: "26.4 pts proyectados", detail: "10 partidos" },
+        { key: "away_defense", label: "Defensa visitante", value: "23.8 pts permitidos", detail: "10 partidos" },
+      ],
+      steps: [
+        "Sincronizando NFL · corte 15 nov 2026, 14:00",
+        "Ofensiva y defensa ajustadas por rival",
+        "Fuerza de calendario incluida",
+        "Proyección 26.4 – 21.8 · margen +4.6",
+        "Simulando escenarios de margen y total",
+        "10 mercados listos",
+      ],
+      inputsAsOf: "2026-11-15T14:00:00.000Z",
+      publishedAt: "2026-11-15T14:00:00.000Z",
+      source: "pitchlab",
+      confidence: { score: 62, level: "media", reasons: ["Muestra suficiente"] },
+      insights: {
+        why: [
+          `${m.home.shortName} gana en ${Math.round(pHome * 100)} % de los escenarios.`,
+          "Se esperan 48.2 puntos totales entre ofensivas estables.",
+        ],
+        restDays: { home: 7, away: 7 },
+      },
+    };
+  });
+
+  return LeagueSnapshotSchema.parse({
+    schemaVersion: 1,
+    league,
+    ...(params.logoUrl ? { logoUrl: params.logoUrl } : {}),
+    season,
+    seasonLabel: params.seasonLabel,
+    periodLabel: params.periodLabel,
+    updatedAt: "2026-11-15T14:00:00.000Z",
+    source: "pitchlab",
+    provenance: "derived",
+    isDemo: false,
+    teamRates,
+    games,
+    analyses,
+    standings,
+  });
+}
+
+function buildFootballSnapshotFixture(): LeagueSnapshot {
+  return buildSnapshotFixture({
+    leagueKey: "liga-mx",
+    seasonId: "liga-mx-2026-apertura",
+    seasonLabel: "Apertura 2026",
+    periodLabel: "Jornada 17",
+    matches: LIGA_MX_MATCHES,
+    forPerGameBase: 1.7,
+    againstPerGameHome: 1.05,
+    forPerGameAway: 1.22,
+    againstPerGameAway: 1.35,
+    gamesPlayed: 16,
+    hasDraw: true,
+  });
+}
+
+function buildNflSnapshotFixture(): LeagueSnapshot {
+  return buildSnapshotFixture({
+    leagueKey: "nfl",
+    seasonId: "nfl-2026",
+    seasonLabel: "2026",
+    periodLabel: "Semana 11",
+    logoUrl: "/brand/official/nfl/nfl.png",
+    matches: NFL_MATCHES,
+    forPerGameBase: 25.4,
+    againstPerGameHome: 20.8,
+    forPerGameAway: 21.5,
+    againstPerGameAway: 23.8,
+    gamesPlayed: 10,
+    hasDraw: false,
+  });
+}
+
 function loadRealSnapshotInput(leagueKey: "liga-mx" | "nfl"): RawLeagueInput {
-  const file = path.resolve(
-    import.meta.dirname,
-    "../../../data/snapshots",
-    leagueKey,
-    "latest.json",
-  );
-  const parsed = LeagueSnapshotSchema.parse(JSON.parse(fs.readFileSync(file, "utf8")));
+  const parsed =
+    leagueKey === "nfl" ? buildNflSnapshotFixture() : buildFootballSnapshotFixture();
   const { matches } = snapshotToMatchAnalyses(parsed);
   return {
     league: parsed.league,
@@ -82,10 +563,20 @@ function loadRealSnapshotInput(leagueKey: "liga-mx" | "nfl"): RawLeagueInput {
 }
 
 describe("PitchLab Spacetime Suite v3.0 & Liquid Glass Platform v4", () => {
-  const dataset = buildPlatformDataset([
-    loadRealSnapshotInput("liga-mx"),
-    loadRealSnapshotInput("nfl"),
-  ]);
+  let dataset: ReturnType<typeof buildPlatformDataset>;
+
+  beforeAll(() => {
+    vi.useFakeTimers({ toFake: ["Date"] });
+    vi.setSystemTime(FROZEN_NOW);
+    dataset = buildPlatformDataset([
+      loadRealSnapshotInput("liga-mx"),
+      loadRealSnapshotInput("nfl"),
+    ]);
+  });
+
+  afterAll(() => {
+    vi.useRealTimers();
+  });
 
   it("derives up to 5 structured picks + Cortex IA pre-game intel per match from real snapshots without forbidden leaks", () => {
     expect(dataset.games.length).toBeGreaterThan(4);

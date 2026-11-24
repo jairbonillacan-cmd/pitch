@@ -43,10 +43,18 @@ describe("resolveClubRoute", () => {
       kind: "redirect",
       to: "/app/premier-league",
     });
+    expect(resolveClubRoute("/app/responsible-play", opts)).toEqual({
+      kind: "redirect",
+      to: "/app/juego-responsable",
+    });
   });
 
   it("permite rutas válidas del club, ligas, perfiles y partidos existentes", () => {
     expect(resolveClubRoute("/app", opts)).toEqual({ kind: "ok", pathname: "/app" });
+    expect(resolveClubRoute("/app/juego-responsable", opts)).toEqual({
+      kind: "ok",
+      pathname: "/app/juego-responsable",
+    });
     expect(resolveClubRoute("/app/lab?tab=pendientes", opts)).toEqual({
       kind: "ok",
       pathname: "/app/lab",

@@ -37,12 +37,18 @@ import {
   AccountReferralsClubView,
   resolveAccountTab,
 } from "../src/platform/club/AccountReferralsClubView";
+import { ClubResponsiblePlayView } from "../src/platform/club/ClubResponsiblePlayView";
+import { BadgeChip } from "../src/platform/club/badges/ProfileBadges";
+import { TipsterVerifiedBadge } from "../src/platform/components/MaestroPrimitives";
+import { resolveEffectiveTheme, shouldHydrateServerThemeMode } from "../src/theme-controller";
 import {
   annualSavingsMxn,
   buildInviteShareMessage,
   buildPlatformDataset,
   buildWhatsAppShareHref,
   buildXShareHref,
+  formatTimezoneShortLabel,
+  listWorldTimezoneOptions,
   CanjearCouponView,
   deriveExampleReferralCode,
   ExpiredPassGate,
@@ -371,7 +377,7 @@ describe("Mi cuenta · Fase A (Invitar amigos y helpers)", () => {
     expect(formatUnitsAsMxn(0, 250)).toBe("$0 MXN");
   });
 
-  it("renders Preferencias with all 6 groups, Example badge on sample MXN preview without accounts, and zero forbidden copy", async () => {
+  it("renders Preferencias with General modal rows, sport/country league groups, Juego responsable link, and zero duplicated sections", async () => {
     const prefsNoAccountsHtml = await renderHtmlAsync(
       <PlatformProvider dataset={dataset} initialRole="member" accountsEnabled={false}>
         <AccountReferralsClubView
@@ -388,12 +394,23 @@ describe("Mi cuenta · Fase A (Invitar amigos y helpers)", () => {
     );
 
     expect(prefsNoAccountsHtml).toContain("Los cambios se guardan solos");
+    expect(prefsNoAccountsHtml).toContain("General");
+    expect(prefsNoAccountsHtml).toContain('data-prefs-general-theme=""');
+    expect(prefsNoAccountsHtml).toContain('data-prefs-general-timezone=""');
+    expect(prefsNoAccountsHtml).toContain('data-prefs-general-odds=""');
+    expect(prefsNoAccountsHtml).toContain('data-prefs-general-books=""');
+    expect(prefsNoAccountsHtml).toContain('data-prefs-general-views=""');
+    expect(prefsNoAccountsHtml).toContain('data-prefs-general-alerts=""');
     expect(prefsNoAccountsHtml).toContain("Tus ligas");
-    expect(prefsNoAccountsHtml).toContain("Cómo ves los datos");
+    expect(prefsNoAccountsHtml).toContain('data-prefs-sport-tab="all"');
+    expect(prefsNoAccountsHtml).toContain('data-prefs-sport-group="football"');
+    expect(prefsNoAccountsHtml).toContain('data-prefs-country-group="México"');
+    expect(prefsNoAccountsHtml).toContain("pl-prefs-country-acc");
+    expect(prefsNoAccountsHtml).toContain("pl-prefs-country-flag");
     expect(prefsNoAccountsHtml).toContain("Picks y parlays");
-    expect(prefsNoAccountsHtml).toContain("Alertas");
     expect(prefsNoAccountsHtml).toContain("Privacidad");
     expect(prefsNoAccountsHtml).toContain("Juego responsable");
+    expect(prefsNoAccountsHtml).toContain('href="/app/juego-responsable"');
     expect(prefsNoAccountsHtml).toContain("PitchLab no sugiere cuánto apostar");
     expect(prefsNoAccountsHtml).toContain('data-example-badge=""');
     expect(prefsNoAccountsHtml).toContain("Disponible al iniciar sesión con correo");
@@ -401,6 +418,10 @@ describe("Mi cuenta · Fase A (Invitar amigos y helpers)", () => {
     expect(prefsNoAccountsHtml).toContain("Contactar con soporte");
     expect(prefsNoAccountsHtml).toContain("Zona de peligro");
 
+    expect(prefsNoAccountsHtml).not.toContain('id="pl-prefs-datos"');
+    expect(prefsNoAccountsHtml).not.toContain('id="pl-prefs-vistas"');
+    expect(prefsNoAccountsHtml).not.toContain('id="pl-prefs-alertas"');
+    expect(prefsNoAccountsHtml).not.toContain('id="pl-prefs-descanso"');
     expect(prefsNoAccountsHtml).not.toContain("Simulador de stake");
     expect(prefsNoAccountsHtml).not.toContain("Autoexclusión");
     expect(prefsNoAccountsHtml).not.toContain("Modo Pausa Social");
@@ -427,10 +448,53 @@ describe("Mi cuenta · Fase A (Invitar amigos y helpers)", () => {
       </PlatformProvider>,
     );
 
-    expect(prefsWithAccountsPausedHtml).toContain(
-      "La pausa se aplicará cuando se active tu cuenta.",
-    );
+    expect(prefsWithAccountsPausedHtml).toContain("Pausa · 7 días");
     expect(prefsWithAccountsPausedHtml).toContain("carlos@pitchlab.mx");
+
+    const clubRpHtml = renderToStaticMarkup(
+      <PlatformProvider dataset={dataset} initialRole="member">
+        <ClubResponsiblePlayView disableNetwork />
+      </PlatformProvider>,
+    );
+    expect(clubRpHtml).toContain("Juego responsable");
+    expect(clubRpHtml).toContain("24 horas");
+    expect(clubRpHtml).toContain("7 días");
+    expect(clubRpHtml).toContain("30 días");
+    expect(clubRpHtml).toContain("Pausar Comunidad");
+    expect(clubRpHtml).toContain("800 911 2000");
+    expect(clubRpHtml).toContain("55 5212 1212");
+
+    const badgeHtml = renderToStaticMarkup(
+      <div>
+        <BadgeChip
+          badge={{
+            id: "fundador",
+            label: "Fundador beta",
+            family: "comunidad",
+            criterion: "Cuenta creada durante la beta",
+          }}
+        />
+        <TipsterVerifiedBadge />
+      </div>,
+    );
+    expect(badgeHtml).toContain("pl-badge-icon-btn");
+    expect(badgeHtml).toContain("Fundador beta");
+    expect(badgeHtml).toContain("Tipster verificado");
+    expect(badgeHtml).toContain("pl-badge-icon-tip");
+
+    expect(resolveEffectiveTheme("light")).toBe("light");
+    expect(resolveEffectiveTheme("dark")).toBe("dark");
+    expect(resolveEffectiveTheme("system")).toBe("dark");
+    expect(shouldHydrateServerThemeMode(null)).toBe(true);
+
+    const worldTzs = listWorldTimezoneOptions(new Date("2026-11-24T16:00:00Z"));
+    expect(worldTzs.length).toBeGreaterThan(100);
+    expect(worldTzs.some((tz) => tz.value === "Asia/Tokyo")).toBe(true);
+    expect(worldTzs.some((tz) => tz.value === "Australia/Sydney")).toBe(true);
+    expect(worldTzs.some((tz) => tz.value === "Europe/Madrid")).toBe(true);
+    expect(worldTzs.some((tz) => tz.value === "UTC")).toBe(true);
+    expect(formatTimezoneShortLabel("Asia/Tokyo")).toBe("Tokio");
+    expect(formatTimezoneShortLabel("America/Mexico_City")).toBe("Ciudad de México");
   });
 
   it("renders Beta 1.0 transfer mode, PIN-beta isolation, ExpiredPassGate and CanjearCouponView", () => {

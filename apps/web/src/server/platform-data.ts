@@ -6,7 +6,6 @@ import {
   COMPETITION_BY_ID,
   FORBIDDEN_PROVIDER_TOKENS,
   LeagueInjuriesFileSchema,
-  LeagueSquadsFileSchema,
   MAX_POSITIVE_DECIMAL_ODDS,
   TIER1_LEAGUE_IDS,
   canonicalGameHref,
@@ -60,12 +59,13 @@ import type {
   ViewerVia,
 } from "@pitchlab/ui/types";
 import { paymentMode } from "./billing/payment-mode";
-import { getViewerAccess } from "./viewer-access";
+import { getViewerAccess, type ViewerAccess } from "./viewer-access";
 import { buildSpacetimeSignals, isMarketFresh } from "./spacetime";
 import { buildMatchDetailV5 } from "./spacetime-v5";
 import { resolveServerFrozenMainPick } from "./frozen-picks";
 import { applyOutlook, outlookDetailFor } from "./outlook";
 import { logSecurityEvent } from "./safe-logger";
+import { BoundedStampCache, safeStatMtimeMs } from "./perf-cache";
 import {
   buildDerivedFootballFallbackRows,
   buildDerivedUsSportRows,
@@ -86,12 +86,17 @@ import {
   type Db,
 } from "@pitchlab/db";
 import {
+  findLeagueForGameIdInSnapshots,
+  getSnapshotsRootStamp,
   LEAGUE_LABELS,
   loadAllActiveLeagueSnapshots,
   loadLeagueSnapshotEnvelope,
+  loadSelectedLeagueSnapshots,
   PRODUCT_LEAGUES,
+  readShellIndexEntryFast,
   resolveSnapshotsRoot,
   type ProductLeague,
+  type SnapshotEnvelope,
 } from "./snapshots";
 import {
   buildEnrichedMatchInjuries,
@@ -103,6 +108,10 @@ import {
   buildTeamsDirectoryFromEnvelopes,
   loadLeaguePlayerProps,
 } from "./team-profile";
+import {
+  clearPropsExplorerCachesForTests,
+  readSquadsFile as readSharedSquadsFile,
+} from "./props-explorer";
 
 export { PRODUCT_LEAGUES, type ProductLeague };
 
@@ -156,7 +165,7 @@ export function previewToolsEnabled(viewerIsAdmin: boolean = false): boolean {
   return process.env.PITCHLAB_PREVIEW_TOOLS === "1" && viewerIsAdmin;
 }
 
-const DATASET_TTL_MS = 5 * 60 * 1000;
+const DATASET_WINDOW_MS = 15 * 60 * 1000;
 const FOOTBALL_STARTER_MIN_MINUTES = 45;
 const NBA_STARTER_MIN_MINUTES = 18;
 const MAX_SCREENER_PAGE_SIZE = 40;
@@ -168,19 +177,52 @@ interface EnrichedGameMarketsBundle {
   readonly outlook: MatchOutlookSummary | null;
 }
 
+interface ScreenerCachedEntry {
+  readonly game: PlatformGame;
+  readonly catalog: MatchPicksCatalog;
+  readonly gameSearchToken: string;
+  readonly unlockedPickTokens: readonly string[];
+}
+
+interface ScreenerBaseIndex {
+  readonly entries: readonly ScreenerCachedEntry[];
+  readonly unfilteredPicksOfTheDay: readonly CatalogPickItem[];
+}
+
 interface DatasetMemoBundle {
   value: PlatformDataset;
+  stamp: string;
+  mxDay: string;
+  isFullDataset: boolean;
+  envelopesByLeague: Partial<Record<ProductLeague, SnapshotEnvelope>>;
   gamesById: Map<string, PlatformGame>;
   redactedValue: PlatformDataset | null;
   redactedGamesById: Map<string, PlatformGame> | null;
   slimMemberShell: PlatformDataset | null;
   slimVisitorShell: PlatformDataset | null;
+  extendMemberPayload: {
+    readonly games: PlatformGame[];
+    readonly teams: NonNullable<PlatformDataset["teams"]>;
+    readonly isRedactedForVisitor: boolean;
+  } | null;
+  extendVisitorPayload: {
+    readonly games: PlatformGame[];
+    readonly teams: NonNullable<PlatformDataset["teams"]>;
+    readonly isRedactedForVisitor: boolean;
+  } | null;
+  slimMemberShellJson: string | null;
+  slimVisitorShellJson: string | null;
   initialMemberShell: PlatformDataset | null;
   initialVisitorShell: PlatformDataset | null;
   shellPlayerPropsMember: PlayerPropItem[] | null;
+  playerPropsLoaded: boolean;
   playerPropsByGameId: Map<string, readonly PlayerPropItem[]> | null;
+  openPromoPickIds: ReadonlySet<string>;
+  openPromoGameIds: ReadonlySet<string>;
   screenerMemberCatalogsByMaxGames: Map<number, Record<string, MatchPicksCatalog>>;
   screenerVisitorCatalogsByMaxGames: Map<number, Record<string, MatchPicksCatalog>>;
+  screenerBaseIndexMember: ScreenerBaseIndex | null;
+  screenerBaseIndexVisitor: ScreenerBaseIndex | null;
   memberLeagueHubGamesByLeague: Map<string, readonly PlatformGame[]>;
   visitorLeagueHubGamesByLeague: Map<string, readonly PlatformGame[]>;
   standingsByLeague: Map<string, StandingRow[]>;
@@ -191,6 +233,7 @@ interface DatasetMemoBundle {
   memberFullCatalogByGameId: Map<string, MatchPicksCatalog>;
   visitorFullCatalogByGameId: Map<string, MatchPicksCatalog>;
   teamLabelByLeagueAndCanon: Map<string, { readonly slug: string; readonly name: string; readonly shortName: string }>;
+  teamFormResolvedKeys: Set<string>;
   at: number;
 }
 
@@ -268,18 +311,20 @@ const SHORT_DATE_MX = new Intl.DateTimeFormat("es-MX", {
   month: "short",
 });
 
-const squadsFileCache = new Map<string, { readonly mtimeMs: number; readonly data: LeagueSquadsFile | null }>();
+const squadMtimeByFile = new WeakMap<LeagueSquadsFile, number>();
+const squadTeamIndexCache = new WeakMap<LeagueSquadsFile, Map<string, TeamSquadEntry>>();
+const footballTeamCandidatesMemo = new BoundedStampCache<
+  readonly Omit<FootballPlayerPropCandidateInput, "teamSide" | "teamName">[]
+>(512);
+const nbaTeamCandidatesMemo = new BoundedStampCache<
+  readonly Omit<NbaPlayerPropCandidateInput, "teamSide" | "teamName">[]
+>(256);
 const injuriesFileCache = new Map<string, { readonly mtimeMs: number; readonly entries: readonly TeamInjuryEntry[] }>();
 const rawSeasonResultsCache = new Map<string, { readonly mtimeMs: number; readonly rows: readonly RawSeasonResultRow[] }>();
 const rawHistoryJsonlCache = new Map<string, { readonly mtimeMs: number; readonly rows: readonly RawSeasonResultRow[] }>();
 
 function safeStatMtime(filePath: string): number {
-  try {
-    return fs.statSync(filePath).mtimeMs;
-  } catch (err) {
-    void err;
-    return 0;
-  }
+  return safeStatMtimeMs(filePath);
 }
 
 function canonicalTeamSlugKey(rawTeamIdOrSlug: string): string {
@@ -344,23 +389,15 @@ function formatShortDateMx(iso: string): string {
 }
 
 function loadCachedLeagueSquads(league: string): LeagueSquadsFile | null {
-  const filePath = path.join(resolveSnapshotsRoot(), league, "squads.json");
-  const mtimeMs = safeStatMtime(filePath);
-  if (mtimeMs === 0) return null;
-  const cached = squadsFileCache.get(filePath);
-  if (cached && cached.mtimeMs === mtimeMs) return cached.data;
-  try {
-    const parsed = LeagueSquadsFileSchema.safeParse(
-      JSON.parse(fs.readFileSync(filePath, "utf8")),
-    );
-    const data = parsed.success ? parsed.data : null;
-    squadsFileCache.set(filePath, { mtimeMs, data });
-    return data;
-  } catch (err) {
-    void err;
-    squadsFileCache.set(filePath, { mtimeMs, data: null });
-    return null;
+  const root = resolveSnapshotsRoot();
+  const data = readSharedSquadsFile(root, league);
+  if (data && !squadMtimeByFile.has(data)) {
+    const mtimeMs = safeStatMtime(path.join(root, league, "squads.json"));
+    if (mtimeMs > 0) {
+      squadMtimeByFile.set(data, mtimeMs);
+    }
   }
+  return data;
 }
 
 function loadCachedLeagueInjuries(league: string): readonly TeamInjuryEntry[] {
@@ -601,14 +638,19 @@ function findSquadTeamEntry(
   teamSlug: string,
 ): TeamSquadEntry | null {
   if (!squads) return null;
+  let index = squadTeamIndexCache.get(squads);
+  if (!index) {
+    index = new Map<string, TeamSquadEntry>();
+    for (const t of squads.teams) {
+      const kSlug = canonicalTeamSlugKey(t.teamSlug);
+      const kId = canonicalTeamSlugKey(t.teamId);
+      if (kSlug && !index.has(kSlug)) index.set(kSlug, t);
+      if (kId && !index.has(kId)) index.set(kId, t);
+    }
+    squadTeamIndexCache.set(squads, index);
+  }
   const targetCanon = canonicalTeamSlugKey(teamSlug);
-  return (
-    squads.teams.find(
-      (t) =>
-        canonicalTeamSlugKey(t.teamSlug) === targetCanon ||
-        canonicalTeamSlugKey(t.teamId) === targetCanon,
-    ) ?? null
-  );
+  return index.get(targetCanon) ?? null;
 }
 
 const SAFE_ENTITY_ID_RE = /^[A-Za-z0-9._:+-]+$/;
@@ -685,6 +727,7 @@ function extractFootballCandidatesForGame(
   }
   const squads = loadCachedLeagueSquads(game.league);
   if (!squads) return [];
+  const squadsStamp = String(squadMtimeByFile.get(squads) ?? 0);
 
   const out: FootballPlayerPropCandidateInput[] = [];
   const sides = [
@@ -696,9 +739,18 @@ function extractFootballCandidatesForGame(
     const teamEntry = findSquadTeamEntry(squads, s.slug);
     if (!teamEntry) continue;
 
+    const memoKey = `${game.league}|${canonicalTeamSlugKey(teamEntry.teamSlug)}`;
+    const memoHit = footballTeamCandidatesMemo.get(memoKey, squadsStamp);
+    if (memoHit) {
+      for (const entry of memoHit) {
+        out.push({ ...entry, teamSide: s.side, teamName: s.name });
+      }
+      continue;
+    }
+
     const scoredPlayers: Array<{
       readonly rank: number;
-      readonly input: FootballPlayerPropCandidateInput;
+      readonly input: Omit<FootballPlayerPropCandidateInput, "teamSide" | "teamName">;
     }> = [];
 
     for (const player of teamEntry.players) {
@@ -753,8 +805,6 @@ function extractFootballCandidatesForGame(
             playerSlug: player.slug,
             photoKey: safePhotoKey,
             teamSlug: teamEntry.teamSlug,
-            teamSide: s.side,
-            teamName: s.name,
             position: player.positionGroup,
             minMinutes: FOOTBALL_STARTER_MIN_MINUTES,
             matchLogs: recentLogs,
@@ -792,8 +842,6 @@ function extractFootballCandidatesForGame(
           playerSlug: player.slug,
           photoKey: safePhotoKey,
           teamSlug: teamEntry.teamSlug,
-          teamSide: s.side,
-          teamName: s.name,
           position: player.positionGroup,
           minMinutes: FOOTBALL_STARTER_MIN_MINUTES,
           avgMinutes,
@@ -811,10 +859,14 @@ function extractFootballCandidatesForGame(
       });
     }
 
-    scoredPlayers
+    const topCandidates = scoredPlayers
       .sort((a, b) => b.rank - a.rank)
       .slice(0, 3)
-      .forEach((entry) => out.push(entry.input));
+      .map((entry) => entry.input);
+    footballTeamCandidatesMemo.set(memoKey, squadsStamp, topCandidates);
+    for (const entry of topCandidates) {
+      out.push({ ...entry, teamSide: s.side, teamName: s.name });
+    }
   }
 
   return out;
@@ -830,6 +882,7 @@ function extractNbaCandidatesForGame(
   }
   const squads = loadCachedLeagueSquads(game.league);
   if (!squads) return [];
+  const squadsStamp = String(squadMtimeByFile.get(squads) ?? 0);
 
   const out: NbaPlayerPropCandidateInput[] = [];
   const sides = [
@@ -851,9 +904,18 @@ function extractNbaCandidatesForGame(
     const teamEntry = findSquadTeamEntry(squads, s.slug);
     if (!teamEntry) continue;
 
+    const memoKey = `${game.league}|${canonicalTeamSlugKey(teamEntry.teamSlug)}`;
+    const memoHit = nbaTeamCandidatesMemo.get(memoKey, squadsStamp);
+    if (memoHit) {
+      for (const entry of memoHit) {
+        out.push({ ...entry, teamSide: s.side, teamName: s.name });
+      }
+      continue;
+    }
+
     const scoredPlayers: Array<{
       readonly rank: number;
-      readonly input: NbaPlayerPropCandidateInput;
+      readonly input: Omit<NbaPlayerPropCandidateInput, "teamSide" | "teamName">;
     }> = [];
 
     for (const player of teamEntry.players) {
@@ -942,8 +1004,6 @@ function extractNbaCandidatesForGame(
           playerSlug: player.slug,
           photoKey: sanitizeServerPhotoKey(player.photoKey),
           teamSlug: teamEntry.teamSlug,
-          teamSide: s.side,
-          teamName: s.name,
           position: player.positionLabel || player.positionGroup,
           minMinutes: NBA_STARTER_MIN_MINUTES,
           avgMinutes,
@@ -953,10 +1013,14 @@ function extractNbaCandidatesForGame(
       });
     }
 
-    scoredPlayers
+    const topCandidates = scoredPlayers
       .sort((a, b) => b.rank - a.rank)
       .slice(0, 3)
-      .forEach((entry) => out.push(entry.input));
+      .map((entry) => entry.input);
+    nbaTeamCandidatesMemo.set(memoKey, squadsStamp, topCandidates);
+    for (const entry of topCandidates) {
+      out.push({ ...entry, teamSide: s.side, teamName: s.name });
+    }
   }
 
   return out;
@@ -1019,27 +1083,112 @@ function getOrBuildEnrichedGameMarkets(
   return built;
 }
 
-let datasetMemo: DatasetMemoBundle | null = null;
+const PRODUCT_LEAGUE_BY_ID: ReadonlyMap<string, ProductLeague> = new Map(
+  PRODUCT_LEAGUES.map((id) => [id, id]),
+);
 
-function getDatasetMemoBundle(): DatasetMemoBundle {
-  const now = Date.now();
-  if (datasetMemo && now - datasetMemo.at < DATASET_TTL_MS) return datasetMemo;
-  const value = buildServerRawPlatformDatasetUncached();
+function toProductLeagueKey(raw: string): ProductLeague | null {
+  return PRODUCT_LEAGUE_BY_ID.get(raw) ?? null;
+}
+
+function getPlatformDataFilesStamp(leagues: readonly ProductLeague[] = PRODUCT_LEAGUES): string {
+  const snapStamp = getSnapshotsRootStamp(leagues);
+  const quotesMtime = safeStatMtime(
+    path.resolve(resolveSnapshotsRoot(), "..", "odds_timeseries", "quotes_latest.json"),
+  );
+  return `${snapStamp}|q:${quotesMtime}`;
+}
+
+function buildInputsFromEnvelopes(
+  envelopes: Readonly<Partial<Record<ProductLeague, SnapshotEnvelope>>>,
+  leaguesToBuild: readonly ProductLeague[],
+): RawLeagueInput[] {
+  const inputs: RawLeagueInput[] = [];
+  for (const leagueKey of leaguesToBuild) {
+    const env = envelopes[leagueKey];
+    if (env?.data) {
+      const snapshotGeneratedAt = env.data.generatedAt;
+      const signals = buildSpacetimeSignals(env.data.games);
+      const games = env.data.games.map((g) => {
+        const applied = applyOutlook(
+          g,
+          signals[g.id] ?? null,
+          undefined,
+          snapshotGeneratedAt,
+        );
+        if (applied.signal) signals[g.id] = applied.signal;
+        else delete signals[g.id];
+        return applied.match;
+      });
+      inputs.push({
+        league: env.data.league,
+        leagueLabel: env.data.leagueLabel,
+        leagueLogoUrl: env.data.logoUrl,
+        sport: env.data.sport,
+        season: env.data.season,
+        roundLabel: env.data.roundLabel,
+        generatedAt: env.data.generatedAt,
+        games,
+        standings: env.data.standings,
+        spacetime: signals,
+      });
+    }
+  }
+  return inputs;
+}
+
+function createDatasetMemoBundle(params: {
+  readonly value: PlatformDataset;
+  readonly stamp: string;
+  readonly mxDay: string;
+  readonly isFullDataset: boolean;
+  readonly envelopesByLeague: Partial<Record<ProductLeague, SnapshotEnvelope>>;
+  readonly at: number;
+}): DatasetMemoBundle {
   const gamesById = new Map<string, PlatformGame>();
-  for (const g of value.games) gamesById.set(g.id, g);
-  datasetMemo = {
-    value,
+  const openPromoPickIds = new Set<string>();
+  const openPromoGameIds = new Set<string>();
+  if (params.value.dailyPromoPickId) openPromoPickIds.add(params.value.dailyPromoPickId);
+  if (params.value.tipsterWeeklyPickId) openPromoPickIds.add(params.value.tipsterWeeklyPickId);
+  for (const g of params.value.games) {
+    gamesById.set(g.id, g);
+    if (
+      g.picks.some(
+        (p) =>
+          p.isDailyOpenPromo ||
+          p.isTipsterWeeklyOpen ||
+          openPromoPickIds.has(p.id),
+      )
+    ) {
+      openPromoGameIds.add(g.id);
+    }
+  }
+  return {
+    value: params.value,
+    stamp: params.stamp,
+    mxDay: params.mxDay,
+    isFullDataset: params.isFullDataset,
+    envelopesByLeague: params.envelopesByLeague,
     gamesById,
     redactedValue: null,
     redactedGamesById: null,
     slimMemberShell: null,
     slimVisitorShell: null,
+    extendMemberPayload: null,
+    extendVisitorPayload: null,
+    slimMemberShellJson: null,
+    slimVisitorShellJson: null,
     initialMemberShell: null,
     initialVisitorShell: null,
     shellPlayerPropsMember: null,
+    playerPropsLoaded: false,
     playerPropsByGameId: null,
+    openPromoPickIds,
+    openPromoGameIds,
     screenerMemberCatalogsByMaxGames: new Map(),
     screenerVisitorCatalogsByMaxGames: new Map(),
+    screenerBaseIndexMember: null,
+    screenerBaseIndexVisitor: null,
     memberLeagueHubGamesByLeague: new Map(),
     visitorLeagueHubGamesByLeague: new Map(),
     standingsByLeague: new Map(),
@@ -1049,32 +1198,92 @@ function getDatasetMemoBundle(): DatasetMemoBundle {
     visitorCompactCatalogByGameId: new Map(),
     memberFullCatalogByGameId: new Map(),
     visitorFullCatalogByGameId: new Map(),
-    teamLabelByLeagueAndCanon: buildTeamLabelLookup(value),
-    at: now,
+    teamLabelByLeagueAndCanon: buildTeamLabelLookup(params.value),
+    teamFormResolvedKeys: new Set(),
+    at: params.at,
   };
-  attachGameTeamFormsToBundle(datasetMemo);
+}
+
+let datasetMemo: DatasetMemoBundle | null = null;
+let screenerSelectiveBundleMemo: DatasetMemoBundle | null = null;
+const singleLeagueBundleCache = new BoundedStampCache<DatasetMemoBundle>(24);
+let stage1MemberSelectiveMemo: { readonly key: string; readonly at: number; readonly dataset: PlatformDataset } | null = null;
+let stage1VisitorSelectiveMemo: { readonly key: string; readonly at: number; readonly dataset: PlatformDataset } | null = null;
+const previewStaticCache = new BoundedStampCache<Omit<GamePreviewPayload, "detail" | "ok"> & { readonly staticDetail: PlatformGameDetail }>(256);
+const previewWireCache = new BoundedStampCache<string>(256);
+
+export function clearPlatformDataCachesForTests(): void {
+  datasetMemo = null;
+  screenerSelectiveBundleMemo = null;
+  singleLeagueBundleCache.clear();
+  stage1MemberSelectiveMemo = null;
+  stage1VisitorSelectiveMemo = null;
+  previewStaticCache.clear();
+  previewWireCache.clear();
+  clearPropsExplorerCachesForTests();
+  footballTeamCandidatesMemo.clear();
+  nbaTeamCandidatesMemo.clear();
+  injuriesFileCache.clear();
+  rawSeasonResultsCache.clear();
+  rawHistoryJsonlCache.clear();
+}
+
+function isDatasetMemoFresh(memo: DatasetMemoBundle | null, now: number, stamp: string, mxDay: string): memo is DatasetMemoBundle {
+  return Boolean(
+    memo &&
+      memo.stamp === stamp &&
+      memo.mxDay === mxDay &&
+      now - memo.at < DATASET_WINDOW_MS,
+  );
+}
+
+function getDatasetMemoBundle(): DatasetMemoBundle {
+  const now = Date.now();
+  const stamp = getPlatformDataFilesStamp();
+  const mxDay = mxDayId(new Date(now));
+  if (isDatasetMemoFresh(datasetMemo, now, stamp, mxDay)) return datasetMemo;
+  const built = buildServerRawPlatformDatasetUncachedWithEnvelopes();
+  const resolvedStamp = getPlatformDataFilesStamp();
+  datasetMemo = createDatasetMemoBundle({
+    value: built.dataset,
+    stamp: resolvedStamp,
+    mxDay,
+    isFullDataset: true,
+    envelopesByLeague: built.envelopes,
+    at: now,
+  });
   return datasetMemo;
 }
 
-function attachGameTeamFormsToBundle(bundle: DatasetMemoBundle): void {
+function ensureGameFormsForGames(
+  bundle: DatasetMemoBundle,
+  targetGames: readonly PlatformGame[],
+): void {
+  if (targetGames.length === 0) return;
   const formCache = new Map<string, readonly string[]>();
 
-  for (const leagueSummary of bundle.value.leagues) {
-    for (const row of leagueSummary.standings) {
-      if (!row.form || row.form.length === 0) continue;
-      const sliced = row.form.slice(0, 5);
-      const keys = [
-        canonicalTeamSlugKey(row.teamId),
-        canonicalTeamSlugKey(cleanTeamRouteSlug(row.name)),
-        canonicalTeamSlugKey(row.shortName),
-      ];
-      for (const k of keys) {
-        if (k) formCache.set(`${leagueSummary.league}|${k}`, sliced);
+  let standingsIndexed = false;
+  const ensureStandingsIndexed = () => {
+    if (standingsIndexed) return;
+    standingsIndexed = true;
+    for (const leagueSummary of bundle.value.leagues) {
+      for (const row of leagueSummary.standings) {
+        if (!row.form || row.form.length === 0) continue;
+        const sliced = row.form.slice(0, 5);
+        const keys = [
+          canonicalTeamSlugKey(row.teamId),
+          canonicalTeamSlugKey(cleanTeamRouteSlug(row.name)),
+          canonicalTeamSlugKey(row.shortName),
+        ];
+        for (const k of keys) {
+          if (k) formCache.set(`${leagueSummary.league}|${k}`, sliced);
+        }
       }
     }
-  }
+  };
 
   const resolveForm = (league: string, slug: string, shortName: string): readonly string[] | undefined => {
+    ensureStandingsIndexed();
     const canonSlug = canonicalTeamSlugKey(slug);
     const cacheKey = `${league}|${canonSlug}`;
     const existing =
@@ -1088,22 +1297,47 @@ function attachGameTeamFormsToBundle(bundle: DatasetMemoBundle): void {
     return derived.length > 0 ? derived : undefined;
   };
 
-  for (const game of bundle.value.games) {
-    const homeForm =
-      game.home.form && game.home.form.length > 0
-        ? game.home.form.slice(0, 5)
-        : resolveForm(game.league, game.home.slug, game.home.shortName);
-    const awayForm =
-      game.away.form && game.away.form.length > 0
-        ? game.away.form.slice(0, 5)
-        : resolveForm(game.league, game.away.slug, game.away.shortName);
-    if (homeForm && homeForm.length > 0) {
-      game.home = { ...game.home, form: homeForm };
+  for (const game of targetGames) {
+    const hKey = `${game.league}|${game.home.slug}`;
+    if (!bundle.teamFormResolvedKeys.has(hKey)) {
+      bundle.teamFormResolvedKeys.add(hKey);
+      const homeForm =
+        game.home.form && game.home.form.length > 0
+          ? game.home.form.slice(0, 5)
+          : resolveForm(game.league, game.home.slug, game.home.shortName);
+      if (homeForm && homeForm.length > 0) {
+        game.home = { ...game.home, form: homeForm };
+      }
     }
-    if (awayForm && awayForm.length > 0) {
-      game.away = { ...game.away, form: awayForm };
+    const aKey = `${game.league}|${game.away.slug}`;
+    if (!bundle.teamFormResolvedKeys.has(aKey)) {
+      bundle.teamFormResolvedKeys.add(aKey);
+      const awayForm =
+        game.away.form && game.away.form.length > 0
+          ? game.away.form.slice(0, 5)
+          : resolveForm(game.league, game.away.slug, game.away.shortName);
+      if (awayForm && awayForm.length > 0) {
+        game.away = { ...game.away, form: awayForm };
+      }
     }
   }
+}
+
+function ensureBundlePlayerProps(bundle: DatasetMemoBundle): PlayerPropItem[] {
+  if (!bundle.playerPropsLoaded) {
+    const items = loadLeaguePlayerProps(bundle.value.games);
+    bundle.value.playerProps = items;
+    bundle.shellPlayerPropsMember = items;
+    bundle.playerPropsLoaded = true;
+    const index = new Map<string, PlayerPropItem[]>();
+    for (const prop of items) {
+      const list = index.get(prop.gameId);
+      if (list) list.push(prop);
+      else index.set(prop.gameId, [prop]);
+    }
+    bundle.playerPropsByGameId = index;
+  }
+  return bundle.shellPlayerPropsMember ?? [];
 }
 
 function getRedactedMemo(bundle: DatasetMemoBundle): {
@@ -1122,13 +1356,16 @@ function getRedactedMemo(bundle: DatasetMemoBundle): {
 
 function getSlimMemberShell(bundle: DatasetMemoBundle): PlatformDataset {
   if (!bundle.slimMemberShell) {
-    bundle.slimMemberShell = withoutGameDetail(upcomingPlusRecentFinished(bundle.value, 12));
+    const sliced = upcomingPlusRecentFinished(bundle.value, 12);
+    ensureGameFormsForGames(bundle, sliced.games);
+    bundle.slimMemberShell = withoutGameDetail(sliced);
   }
   return bundle.slimMemberShell;
 }
 
 function getSlimVisitorShell(bundle: DatasetMemoBundle): PlatformDataset {
   if (!bundle.slimVisitorShell) {
+    ensureGameFormsForGames(bundle, upcomingPlusRecentFinished(bundle.value, 12).games);
     const { dataset } = getRedactedMemo(bundle);
     bundle.slimVisitorShell = withoutGameDetail(upcomingPlusRecentFinished(dataset, 12));
   }
@@ -1152,14 +1389,23 @@ function mxDayId(date: Date): string {
 const INITIAL_SHELL_MAX_GAMES = 52;
 const INITIAL_SHELL_MAX_BYTES = 480 * 1024;
 
-function compareShellGamePriority(a: PlatformGame, b: PlatformGame): number {
-  const aCore = CORE_SHELL_LEAGUES.has(a.league) ? 0 : 1;
-  const bCore = CORE_SHELL_LEAGUES.has(b.league) ? 0 : 1;
+function compareLeagueKickoffPriority(
+  aLeague: string,
+  aKickoffUtc: string,
+  bLeague: string,
+  bKickoffUtc: string,
+): number {
+  const aCore = CORE_SHELL_LEAGUES.has(aLeague) ? 0 : 1;
+  const bCore = CORE_SHELL_LEAGUES.has(bLeague) ? 0 : 1;
   if (aCore !== bCore) return aCore - bCore;
-  const aTier = COMPETITION_BY_ID[a.league]?.prestigeTier ?? 4;
-  const bTier = COMPETITION_BY_ID[b.league]?.prestigeTier ?? 4;
+  const aTier = COMPETITION_BY_ID[aLeague]?.prestigeTier ?? 4;
+  const bTier = COMPETITION_BY_ID[bLeague]?.prestigeTier ?? 4;
   if (aTier !== bTier) return aTier - bTier;
-  return (a.kickoffUtc || "").localeCompare(b.kickoffUtc || "");
+  return (aKickoffUtc || "").localeCompare(bKickoffUtc || "");
+}
+
+function compareShellGamePriority(a: PlatformGame, b: PlatformGame): number {
+  return compareLeagueKickoffPriority(a.league, a.kickoffUtc, b.league, b.kickoffUtc);
 }
 
 function filterTeamsForGames(
@@ -1327,9 +1573,201 @@ function getInitialVisitorShell(bundle: DatasetMemoBundle): PlatformDataset {
   return bundle.initialVisitorShell;
 }
 
+function buildStage1LeagueSummariesFromShellIndex(
+  leaguesMap: Readonly<Record<string, SnapshotEnvelope>>,
+): PlatformDataset["leagues"] {
+  const summaries: PlatformDataset["leagues"][number][] = [];
+  for (const leagueKey of PRODUCT_LEAGUES) {
+    const env = leaguesMap[leagueKey];
+    const data = env?.data;
+    if (!data) continue;
+    let upcomingCount = 0;
+    let finishedCount = 0;
+    for (const g of data.games) {
+      if (g.status === "FT") finishedCount += 1;
+      else upcomingCount += 1;
+    }
+    const leader = data.standings?.[0];
+    summaries.push({
+      league: data.league,
+      label: data.leagueLabel,
+      ...(data.logoUrl ? { logoUrl: data.logoUrl } : {}),
+      sport: data.sport,
+      season: data.season,
+      roundLabel: data.roundLabel,
+      generatedAt: data.generatedAt,
+      totalGames: upcomingCount + finishedCount,
+      upcomingCount,
+      finishedCount,
+      leaderName: leader?.name,
+      leaderPoints: leader?.points,
+      standings: [],
+    });
+  }
+  return summaries;
+}
+
+function buildSelectiveStage1ShellDataset(
+  fullAccess: boolean,
+  nowMs: number,
+  stamp: string,
+  mxDay: string,
+): PlatformDataset | null {
+  const shellIndex = readShellIndexEntryFast();
+  if (!shellIndex) return null;
+
+  const todayStr = mxDay;
+  const tomorrowStr = mxDayId(new Date(nowMs + 86_400_000));
+  const upcomingDaysSet = new Set<string>();
+  for (const lg of PRODUCT_LEAGUES) {
+    const data = shellIndex.leagues[lg]?.data;
+    if (!data) continue;
+    for (const g of data.games) {
+      if (g.status !== "FT" && g.day) {
+        upcomingDaysSet.add(g.day);
+      }
+    }
+  }
+  const upcomingDays = Array.from(upcomingDaysSet).sort();
+  const primaryDay =
+    upcomingDays.includes(todayStr)
+      ? todayStr
+      : (upcomingDays.find((d) => d >= todayStr) ?? upcomingDays[0] ?? todayStr);
+  const secondaryDay =
+    primaryDay === todayStr
+      ? tomorrowStr
+      : (upcomingDays.find((d) => d > primaryDay) ?? tomorrowStr);
+
+  const selectedLeagueSet = new Set<ProductLeague>();
+  let promoCandidatesAdded = 0;
+  let firstNonEmptyLeague: ProductLeague | null = null;
+
+  for (const lg of PRODUCT_LEAGUES) {
+    const data = shellIndex.leagues[lg]?.data;
+    if (!data || data.games.length === 0) continue;
+    if (!firstNonEmptyLeague) firstNonEmptyLeague = lg;
+    let hasUpcoming = false;
+    let hasLive = false;
+    let hasPrimary = false;
+    let hasSecondaryTier12 = false;
+    const isCoreOrTier12 =
+      CORE_SHELL_LEAGUES.has(lg) || (COMPETITION_BY_ID[lg]?.prestigeTier ?? 4) <= 2;
+
+    for (const g of data.games) {
+      if (g.status === "FT") continue;
+      hasUpcoming = true;
+      if (g.status === "LIVE") hasLive = true;
+      if (g.day === primaryDay) hasPrimary = true;
+      if (isCoreOrTier12 && g.day === secondaryDay) hasSecondaryTier12 = true;
+    }
+
+    if (hasUpcoming && promoCandidatesAdded < 3) {
+      selectedLeagueSet.add(lg);
+      promoCandidatesAdded += 1;
+    }
+    if (lg === "nfl" && hasUpcoming) {
+      selectedLeagueSet.add(lg);
+    }
+    if (hasLive || hasPrimary || hasSecondaryTier12) {
+      selectedLeagueSet.add(lg);
+    }
+  }
+
+  if (selectedLeagueSet.size === 0 && firstNonEmptyLeague) {
+    selectedLeagueSet.add(firstNonEmptyLeague);
+  }
+  if (selectedLeagueSet.size === 0) return null;
+
+  const selectedLeagues = PRODUCT_LEAGUES.filter((lg) => selectedLeagueSet.has(lg));
+  const selectedEnvelopes = loadSelectedLeagueSnapshots(selectedLeagues);
+  const inputs = buildInputsFromEnvelopes(selectedEnvelopes, selectedLeagues);
+  const rawSelected = enrichDatasetWithBookQuotes(buildPlatformDataset(inputs));
+  const stage1Base: PlatformDataset = {
+    ...rawSelected,
+    serverNowUtc: new Date(nowMs).toISOString(),
+    leagues: buildStage1LeagueSummariesFromShellIndex(shellIndex.leagues),
+    teams: buildTeamsDirectoryFromEnvelopes(selectedEnvelopes),
+    playerProps: [],
+  };
+
+  const miniBundle = createDatasetMemoBundle({
+    value: stage1Base,
+    stamp,
+    mxDay,
+    isFullDataset: false,
+    envelopesByLeague: selectedEnvelopes,
+    at: nowMs,
+  });
+  const candidateHorizon = upcomingPlusRecentFinished(stage1Base, 12);
+  ensureGameFormsForGames(miniBundle, candidateHorizon.games.slice(0, 80));
+
+  const accessDataset = fullAccess ? stage1Base : redactDatasetForVisitor(stage1Base);
+  const slim = withoutGameDetail(upcomingPlusRecentFinished(accessDataset, 12));
+  return splitInitialShellDataset(slim, nowMs);
+}
+
 export function loadInitialShellDatasetForAccess(fullAccess: boolean): PlatformDataset {
+  const now = Date.now();
+  const stamp = getPlatformDataFilesStamp();
+  const mxDay = mxDayId(new Date(now));
+  if (isDatasetMemoFresh(datasetMemo, now, stamp, mxDay)) {
+    return fullAccess ? getInitialMemberShell(datasetMemo) : getInitialVisitorShell(datasetMemo);
+  }
+  const memoKey = `${stamp}|${mxDay}`;
+  const cachedSelective = fullAccess ? stage1MemberSelectiveMemo : stage1VisitorSelectiveMemo;
+  if (
+    cachedSelective &&
+    cachedSelective.key === memoKey &&
+    now - cachedSelective.at < DATASET_WINDOW_MS
+  ) {
+    return cachedSelective.dataset;
+  }
+
+  const selective = buildSelectiveStage1ShellDataset(fullAccess, now, stamp, mxDay);
+  if (selective) {
+    const resolvedMemoKey = `${getPlatformDataFilesStamp()}|${mxDay}`;
+    if (fullAccess) {
+      stage1MemberSelectiveMemo = { key: resolvedMemoKey, at: now, dataset: selective };
+    } else {
+      stage1VisitorSelectiveMemo = { key: resolvedMemoKey, at: now, dataset: selective };
+    }
+    return selective;
+  }
+
   const bundle = getDatasetMemoBundle();
   return fullAccess ? getInitialMemberShell(bundle) : getInitialVisitorShell(bundle);
+}
+
+function getExtendedShellBundlePayload(
+  bundle: DatasetMemoBundle,
+  fullAccess: boolean,
+): {
+  readonly games: PlatformGame[];
+  readonly teams: NonNullable<PlatformDataset["teams"]>;
+  readonly isRedactedForVisitor: boolean;
+} {
+  if (fullAccess) {
+    if (!bundle.extendMemberPayload) {
+      const slim = getSlimMemberShell(bundle);
+      const projected = projectExtendShellDataset(slim, bundle.at);
+      bundle.extendMemberPayload = {
+        games: projected.games,
+        teams: projected.teams ?? [],
+        isRedactedForVisitor: false,
+      };
+    }
+    return bundle.extendMemberPayload;
+  }
+  if (!bundle.extendVisitorPayload) {
+    const slim = getSlimVisitorShell(bundle);
+    const projected = projectExtendShellDataset(slim, bundle.at);
+    bundle.extendVisitorPayload = {
+      games: projected.games,
+      teams: projected.teams ?? [],
+      isRedactedForVisitor: true,
+    };
+  }
+  return bundle.extendVisitorPayload;
 }
 
 export function loadExtendedShellPayload(fullAccess: boolean): {
@@ -1338,61 +1776,127 @@ export function loadExtendedShellPayload(fullAccess: boolean): {
   isRedactedForVisitor: boolean;
 } {
   const bundle = getDatasetMemoBundle();
-  const slim = fullAccess ? getSlimMemberShell(bundle) : getSlimVisitorShell(bundle);
-  return {
-    games: slim.games,
-    teams: slim.teams ?? [],
-    isRedactedForVisitor: !fullAccess,
-  };
+  return getExtendedShellBundlePayload(bundle, fullAccess);
+}
+
+export function loadExtendedShellSerializedJson(fullAccess: boolean): string {
+  const bundle = getDatasetMemoBundle();
+  if (fullAccess) {
+    if (!bundle.slimMemberShellJson) {
+      bundle.slimMemberShellJson = JSON.stringify(getExtendedShellBundlePayload(bundle, true));
+    }
+    return bundle.slimMemberShellJson;
+  }
+  if (!bundle.slimVisitorShellJson) {
+    bundle.slimVisitorShellJson = JSON.stringify(getExtendedShellBundlePayload(bundle, false));
+  }
+  return bundle.slimVisitorShellJson;
 }
 
 export const buildServerRawPlatformDataset = cache(function buildServerRawPlatformDatasetCached(): PlatformDataset {
   return getDatasetMemoBundle().value;
 });
 
-function buildServerRawPlatformDatasetUncached(): PlatformDataset {
+function buildServerRawPlatformDatasetUncachedWithEnvelopes(): {
+  readonly dataset: PlatformDataset;
+  readonly envelopes: Record<ProductLeague, SnapshotEnvelope>;
+} {
   const envelopes = loadAllActiveLeagueSnapshots();
-  const inputs: RawLeagueInput[] = [];
-
-  for (const leagueKey of PRODUCT_LEAGUES) {
-    const env = envelopes[leagueKey];
-    if (env?.data) {
-      const snapshotGeneratedAt = env.data.generatedAt;
-      const signals = buildSpacetimeSignals(env.data.games);
-      const games = env.data.games.map((g) => {
-        const applied = applyOutlook(
-          g,
-          signals[g.id] ?? null,
-          undefined,
-          snapshotGeneratedAt,
-        );
-        if (applied.signal) signals[g.id] = applied.signal;
-        else delete signals[g.id];
-        return applied.match;
-      });
-      inputs.push({
-        league: env.data.league,
-        leagueLabel: env.data.leagueLabel,
-        leagueLogoUrl: env.data.logoUrl,
-        sport: env.data.sport,
-        season: env.data.season,
-        roundLabel: env.data.roundLabel,
-        generatedAt: env.data.generatedAt,
-        games,
-        standings: env.data.standings,
-        spacetime: signals,
-      });
-    }
-  }
-
+  const inputs = buildInputsFromEnvelopes(envelopes, PRODUCT_LEAGUES);
   const dataset = enrichDatasetWithBookQuotes(buildPlatformDataset(inputs));
 
   return {
-    ...dataset,
-    serverNowUtc: new Date().toISOString(),
-    teams: buildTeamsDirectoryFromEnvelopes(envelopes),
-    playerProps: loadLeaguePlayerProps(dataset.games),
+    dataset: {
+      ...dataset,
+      serverNowUtc: new Date().toISOString(),
+      teams: buildTeamsDirectoryFromEnvelopes(envelopes),
+      playerProps: [],
+    },
+    envelopes,
   };
+}
+
+function getOrBuildSingleLeagueBundle(league: ProductLeague): DatasetMemoBundle {
+  const now = Date.now();
+  const fullStamp = datasetMemo ? getPlatformDataFilesStamp() : "";
+  const mxDay = mxDayId(new Date(now));
+  if (datasetMemo && isDatasetMemoFresh(datasetMemo, now, fullStamp, mxDay)) {
+    return datasetMemo;
+  }
+
+  const leagueStamp = `${getPlatformDataFilesStamp([league])}|${mxDay}`;
+  const cached = singleLeagueBundleCache.get(league, leagueStamp);
+  if (cached && now - cached.at < DATASET_WINDOW_MS) {
+    return cached;
+  }
+
+  const shellIndex = readShellIndexEntryFast();
+  if (!shellIndex) {
+    return getDatasetMemoBundle();
+  }
+
+  const promoCandidates: ProductLeague[] = [];
+  for (const lg of PRODUCT_LEAGUES) {
+    const data = shellIndex.leagues[lg]?.data;
+    if (!data) continue;
+    if (
+      data.games.some(
+        (g) => g.status !== "FT" && (g.x12 || g.projection || (g.picks?.length ?? 0) > 0),
+      )
+    ) {
+      promoCandidates.push(lg);
+      if (promoCandidates.length >= 2) break;
+    }
+  }
+  const nflHasUpcoming = Boolean(
+    shellIndex.leagues.nfl?.data?.games.some((g) => g.status !== "FT"),
+  );
+  const isPromoCandidateLeague =
+    promoCandidates.includes(league) || (league === "nfl" && nflHasUpcoming);
+
+  const leaguesToLoadSet = new Set<ProductLeague>([league]);
+  if (isPromoCandidateLeague) {
+    for (const pc of promoCandidates) leaguesToLoadSet.add(pc);
+    if (nflHasUpcoming) leaguesToLoadSet.add("nfl");
+  }
+  const leaguesToLoad = PRODUCT_LEAGUES.filter((lg) => leaguesToLoadSet.has(lg));
+  const selectedEnvelopes = loadSelectedLeagueSnapshots(leaguesToLoad);
+  const inputs = buildInputsFromEnvelopes(selectedEnvelopes, leaguesToLoad);
+  const rawBuilt = enrichDatasetWithBookQuotes(buildPlatformDataset(inputs));
+
+  const targetLeagueGames = rawBuilt.games.filter((g) => g.league === league);
+  const scopedGames = isPromoCandidateLeague
+    ? targetLeagueGames
+    : targetLeagueGames.map((g) => ({
+        ...g,
+        picks: g.picks.map((p) =>
+          p.isDailyOpenPromo || p.isTipsterWeeklyOpen
+            ? { ...p, isDailyOpenPromo: false, isTipsterWeeklyOpen: false }
+            : p,
+        ),
+      }));
+
+  const targetDataset: PlatformDataset = {
+    ...rawBuilt,
+    dailyPromoPickId: isPromoCandidateLeague ? rawBuilt.dailyPromoPickId : "",
+    tipsterWeeklyPickId: isPromoCandidateLeague ? rawBuilt.tipsterWeeklyPickId : "",
+    serverNowUtc: new Date(now).toISOString(),
+    leagues: rawBuilt.leagues.filter((l) => l.league === league),
+    games: scopedGames,
+    teams: buildTeamsDirectoryFromEnvelopes({ [league]: selectedEnvelopes[league] }),
+    playerProps: [],
+  };
+
+  const resolvedLeagueStamp = `${getPlatformDataFilesStamp([league])}|${mxDay}`;
+  const singleBundle = createDatasetMemoBundle({
+    value: targetDataset,
+    stamp: resolvedLeagueStamp,
+    mxDay,
+    isFullDataset: false,
+    envelopesByLeague: { [league]: selectedEnvelopes[league] },
+    at: now,
+  });
+  return singleLeagueBundleCache.set(league, resolvedLeagueStamp, singleBundle);
 }
 
 export function upcomingOnly(dataset: PlatformDataset): PlatformDataset {
@@ -1440,21 +1944,33 @@ async function redactedForViewer(): Promise<PlatformDataset> {
 function getGamePlayerProps(
   bundle: DatasetMemoBundle,
   gameId: string,
+  singleGameFallback?: PlatformGame,
+  scopePlayerPropsToGame = false,
 ): readonly PlayerPropItem[] {
-  if (!bundle.playerPropsByGameId) {
-    const index = new Map<string, PlayerPropItem[]>();
-    for (const prop of bundle.value.playerProps ?? []) {
-      const list = index.get(prop.gameId);
-      if (list) list.push(prop);
-      else index.set(prop.gameId, [prop]);
-    }
-    bundle.playerPropsByGameId = index;
+  const cachedForGame = bundle.playerPropsByGameId?.get(gameId);
+  if (cachedForGame !== undefined) {
+    return cachedForGame;
   }
-  return bundle.playerPropsByGameId.get(gameId) ?? [];
+  if (!bundle.playerPropsLoaded) {
+    if (bundle.isFullDataset && !scopePlayerPropsToGame) {
+      ensureBundlePlayerProps(bundle);
+    } else if (singleGameFallback) {
+      const scopedProps = loadLeaguePlayerProps([singleGameFallback]);
+      if (!bundle.playerPropsByGameId) {
+        bundle.playerPropsByGameId = new Map();
+      }
+      const matched = scopedProps.filter((p) => p.gameId === gameId);
+      bundle.playerPropsByGameId.set(gameId, matched);
+      return matched;
+    } else {
+      ensureBundlePlayerProps(bundle);
+    }
+  }
+  return bundle.playerPropsByGameId?.get(gameId) ?? [];
 }
 
 export function loadLeagueStandings(league: ProductLeague): StandingRow[] {
-  const bundle = getDatasetMemoBundle();
+  const bundle = getOrBuildSingleLeagueBundle(league);
   const existing = bundle.standingsByLeague.get(league);
   if (existing) return existing;
   const rows = bundle.value.leagues.find((l) => l.league === league)?.standings ?? [];
@@ -1463,13 +1979,17 @@ export function loadLeagueStandings(league: ProductLeague): StandingRow[] {
 }
 
 export async function loadLeagueHubGames(league: ProductLeague): Promise<PlatformGame[]> {
-  const bundle = getDatasetMemoBundle();
-  const hasSession = await hasAuthenticatedBetaSession();
+  const [bundle, hasSession] = [
+    getOrBuildSingleLeagueBundle(league),
+    await hasAuthenticatedBetaSession(),
+  ];
   const cacheMap = hasSession
     ? bundle.memberLeagueHubGamesByLeague
     : bundle.visitorLeagueHubGamesByLeague;
   const existing = cacheMap.get(league);
   if (existing) return existing.slice();
+  const leagueRawGames = bundle.value.games.filter((g) => g.league === league);
+  ensureGameFormsForGames(bundle, leagueRawGames);
   const dataset = hasSession ? bundle.value : getRedactedMemo(bundle).dataset;
   const games = dataset.games
     .filter((g) => g.league === league)
@@ -1484,6 +2004,15 @@ export async function loadLeagueHubGames(league: ProductLeague): Promise<Platfor
 }
 
 export async function loadFinishedGames(league?: string): Promise<PlatformGame[]> {
+  const leagueKey = league ? toProductLeagueKey(league) : null;
+  if (leagueKey) {
+    const bundle = getOrBuildSingleLeagueBundle(leagueKey);
+    const dataset = (await hasAuthenticatedBetaSession()) ? bundle.value : getRedactedMemo(bundle).dataset;
+    return withoutGameDetail({
+      ...dataset,
+      games: dataset.games.filter((g) => g.status === "FT" && g.league === league),
+    }).games;
+  }
   const dataset = await redactedForViewer();
   return withoutGameDetail({
     ...dataset,
@@ -1492,12 +2021,24 @@ export async function loadFinishedGames(league?: string): Promise<PlatformGame[]
 }
 
 export async function loadGameSummary(gameId: string): Promise<PlatformGame | null> {
-  const bundle = getDatasetMemoBundle();
-  const hasSession = await hasAuthenticatedBetaSession();
-  const game = hasSession
-    ? bundle.gamesById.get(gameId)
-    : getRedactedMemo(bundle).gamesById.get(gameId);
-  return game ? { ...game, markets: [], headToHead: [], factors: [] } : null;
+  const hintedLeague = findLeagueForGameIdInSnapshots(gameId);
+  const [bundle, hasSession] = await Promise.all([
+    Promise.resolve(hintedLeague ? getOrBuildSingleLeagueBundle(hintedLeague) : getDatasetMemoBundle()),
+    hasAuthenticatedBetaSession(),
+  ]);
+  const rawGame = bundle.gamesById.get(gameId);
+  if (!rawGame) return null;
+  ensureGameFormsForGames(bundle, [rawGame]);
+  const game = hasSession ? rawGame : getRedactedMemo(bundle).gamesById.get(gameId);
+  return game
+    ? {
+        ...game,
+        markets: [],
+        headToHead: [],
+        factors: [],
+        parlayCandidates: undefined,
+      }
+    : null;
 }
 
 export function loadShellPlayerProps(options?: { fullAccess?: boolean }): PlayerPropItem[] {
@@ -1505,17 +2046,142 @@ export function loadShellPlayerProps(options?: { fullAccess?: boolean }): Player
     return [];
   }
   const bundle = getDatasetMemoBundle();
-  if (!bundle.shellPlayerPropsMember) {
-    bundle.shellPlayerPropsMember = bundle.value.playerProps ?? [];
+  return ensureBundlePlayerProps(bundle);
+}
+
+function roundFiniteDecimals(value: number, scale: number): number {
+  return Math.round(value * scale) / scale;
+}
+
+function roundShellPickDecimal(pk: MatchPick): number {
+  return pk.marketDecimal !== null && Number.isFinite(pk.marketDecimal) && pk.marketDecimal > 1
+    ? pk.marketDecimal
+    : pk.fairDecimal;
+}
+
+function clampParlayEdge(edgePts: number | null | undefined): number {
+  if (typeof edgePts !== "number" || !Number.isFinite(edgePts)) return 0;
+  return Math.max(-5, Math.min(20, edgePts));
+}
+
+function parlayPickSemanticKey(pk: MatchPick): string {
+  return `${pk.market ?? ""}:${pk.selectionKey}:${pk.line ?? ""}`;
+}
+
+function selectTopParlayPair(
+  pool: readonly MatchPick[],
+  minLegDecimal: number,
+  idealLegDecimal: number,
+): readonly MatchPick[] {
+  const eligible = pool.filter((pk) => {
+    if (pk.isRedacted || pk.market === "correct_score") return false;
+    if (!Number.isFinite(pk.p) || pk.p < 0.52 || pk.p >= 0.99) return false;
+    const dec = roundShellPickDecimal(pk);
+    return Number.isFinite(dec) && dec >= minLegDecimal;
+  });
+  if (eligible.length === 0) return [];
+  const sortedByProb = eligible.slice().sort((a, b) => {
+    if (Math.abs(b.p - a.p) > 1e-6) return b.p - a.p;
+    const edgeDiff = clampParlayEdge(b.edgePts) - clampParlayEdge(a.edgePts);
+    if (Math.abs(edgeDiff) > 1e-6) return edgeDiff;
+    const distDiff =
+      Math.abs(roundShellPickDecimal(a) - idealLegDecimal) -
+      Math.abs(roundShellPickDecimal(b) - idealLegDecimal);
+    if (Math.abs(distDiff) > 1e-6) return distDiff;
+    return a.id.localeCompare(b.id);
+  });
+  const first = sortedByProb[0]!;
+  if (sortedByProb.length === 1) return [first];
+  const firstRef = roundShellPickDecimal(first);
+  const diverseAlt = sortedByProb
+    .slice(1)
+    .sort((a, b) => {
+      const aSpread = roundShellPickDecimal(a) >= firstRef + 0.12 ? 1 : 0;
+      const bSpread = roundShellPickDecimal(b) >= firstRef + 0.12 ? 1 : 0;
+      if (bSpread !== aSpread) return bSpread - aSpread;
+      const distA = Math.abs(roundShellPickDecimal(a) - idealLegDecimal);
+      const distB = Math.abs(roundShellPickDecimal(b) - idealLegDecimal);
+      if (Math.abs(distA - distB) > 0.08) return distA - distB;
+      if (Math.abs(b.p - a.p) > 1e-6) return b.p - a.p;
+      return a.id.localeCompare(b.id);
+    })[0];
+  return diverseAlt && diverseAlt.id !== first.id ? [first, diverseAlt] : [first];
+}
+
+function selectNeededParlayCandidates(
+  keptPicks: readonly MatchPick[],
+  extraPool: readonly MatchPick[],
+  nowMs: number,
+): MatchPick[] | undefined {
+  if (extraPool.length === 0) return undefined;
+  const keptIds = new Set(keptPicks.map((pk) => pk.id));
+  const keptSemanticKeys = new Set(keptPicks.map(parlayPickSemanticKey));
+  const combined: MatchPick[] = [...keptPicks];
+  const seenKeys = new Set(keptSemanticKeys);
+  for (const cand of extraPool) {
+    const key = parlayPickSemanticKey(cand);
+    if (keptIds.has(cand.id) || seenKeys.has(key)) continue;
+    seenKeys.add(key);
+    combined.push(cand);
   }
-  return bundle.shellPlayerPropsMember;
+  const idealLegDecimal = Math.pow(5.0, 0.25);
+  const pickedStandard = selectTopParlayPair(combined, 1.35, idealLegDecimal);
+  const pickedTarget = selectTopParlayPair(combined, 1.4, Math.pow(5.0, 1 / 3));
+  const chosenExtras: MatchPick[] = [];
+  const chosenIds = new Set<string>();
+  for (const leg of [...pickedStandard, ...pickedTarget]) {
+    if (keptIds.has(leg.id) || chosenIds.has(leg.id)) continue;
+    const key = parlayPickSemanticKey(leg);
+    if (keptSemanticKeys.has(key)) continue;
+    chosenIds.add(leg.id);
+    chosenExtras.push(projectShellPick(leg, { includeQuotes: false, nowMs }));
+    if (chosenExtras.length >= 2) break;
+  }
+  return chosenExtras.length > 0 ? chosenExtras : undefined;
+}
+
+function projectExtendShellDataset(
+  slim: PlatformDataset,
+  nowMs: number,
+): PlatformDataset {
+  const parlayHorizonMs = nowMs + 2 * 86_400_000;
+  return {
+    ...slim,
+    games: slim.games.map((g) => {
+      const isFinished = g.status === "FT";
+      const keptPicks = isFinished ? g.picks.slice(0, 2) : g.picks.slice(0, 4);
+      const hasPromoOpenPick = keptPicks.some(
+        (p) => Boolean(p.isDailyOpenPromo) || Boolean(p.isTipsterWeeklyOpen),
+      );
+      const lockedVisitorGame =
+        slim.isServerRedactedForVisitor && !isFinished && !hasPromoOpenPick;
+      const kickoffMs = Date.parse(g.kickoffUtc);
+      const canUseParlayWindow =
+        !isFinished &&
+        !lockedVisitorGame &&
+        (!Number.isFinite(kickoffMs) || kickoffMs <= parlayHorizonMs);
+      const overflowPicks = g.picks.slice(keptPicks.length);
+      const parlayCandidates = canUseParlayWindow
+        ? selectNeededParlayCandidates(
+            keptPicks,
+            [...overflowPicks, ...(g.parlayCandidates ?? [])],
+            nowMs,
+          )
+        : undefined;
+      return {
+        ...g,
+        picks: keptPicks,
+        ...(parlayCandidates ? { parlayCandidates } : { parlayCandidates: undefined }),
+      };
+    }),
+  };
 }
 
 function projectShellPick(
   pk: MatchPick,
   opts: { includeQuotes: boolean; nowMs: number },
 ): MatchPick {
-  const roundedP = Math.round(pk.p * 10_000) / 10_000;
+  const roundedP = roundFiniteDecimals(pk.p, 10_000);
   let compactQuotes: MatchPick["bookQuotes"] = undefined;
 
   if (opts.includeQuotes && !pk.isRedacted && pk.bookQuotes && pk.bookQuotes.length > 0) {
@@ -1561,6 +2227,11 @@ function projectShellPick(
     isPermittedMarketQuoteBook(topBookPrimary, topBookLabel) &&
     isMarketFresh(pk.marketCapturedAtUtc, opts.nowMs);
 
+  const roundedEdge =
+    topMarketAllowed && pk.edgePts !== null && Number.isFinite(pk.edgePts)
+      ? roundFiniteDecimals(pk.edgePts, 100)
+      : null;
+
   return {
     id: pk.id,
     gameId: pk.gameId,
@@ -1594,10 +2265,10 @@ function projectShellPick(
       ? { marketCapturedAtUtc: pk.marketCapturedAtUtc }
       : {}),
     ...(compactQuotes ? { bookQuotes: compactQuotes } : {}),
-    edgePts: topMarketAllowed ? pk.edgePts : null,
+    edgePts: roundedEdge,
     confidenceScore: pk.confidenceScore,
     suggestedUnits: pk.suggestedUnits,
-    ...(pk.result !== undefined ? { result: pk.result } : {}),
+    ...(pk.result === "hit" || pk.result === "miss" ? { result: pk.result } : {}),
     ...(pk.isDailyOpenPromo ? { isDailyOpenPromo: true } : {}),
     ...(pk.isTipsterWeeklyOpen ? { isTipsterWeeklyOpen: true } : {}),
     ...(pk.tipsterSlug ? { tipsterSlug: pk.tipsterSlug } : {}),
@@ -1637,6 +2308,27 @@ function projectShellGame(
           g.preGame.matchContext.refereeStats),
     );
 
+  const roundedX12: [number, number, number] | null = g.x12
+    ? [
+        roundFiniteDecimals(g.x12[0], 10_000),
+        roundFiniteDecimals(g.x12[1], 10_000),
+        roundFiniteDecimals(g.x12[2], 10_000),
+      ]
+    : null;
+  const roundedProjection = g.projection
+    ? {
+        home: roundFiniteDecimals(g.projection.home, 100),
+        away: roundFiniteDecimals(g.projection.away, 100),
+        total: roundFiniteDecimals(g.projection.total, 100),
+      }
+    : null;
+  const roundedGoalLine = g.goalLine
+    ? {
+        line: g.goalLine.line,
+        pOver: roundFiniteDecimals(g.goalLine.pOver, 10_000),
+      }
+    : undefined;
+
   return {
     id: g.id,
     league: g.league,
@@ -1656,23 +2348,25 @@ function projectShellGame(
     home: g.home,
     away: g.away,
     ...(g.hasForecast !== undefined ? { hasForecast: g.hasForecast } : {}),
-    x12: g.x12,
-    projection: g.projection,
-    ...(g.goalLine !== undefined ? { goalLine: g.goalLine } : {}),
+    x12: roundedX12,
+    projection: roundedProjection,
+    ...(roundedGoalLine !== undefined ? { goalLine: roundedGoalLine } : {}),
     confidenceScore: g.confidenceScore,
     confidenceLevel: g.confidenceLevel,
     picks: shellPicks.map((pk) =>
-      projectShellPick(pk, { includeQuotes: !isFinished && !lockedVisitorGame, nowMs: opts.nowMs }),
+      projectShellPick(pk, {
+        includeQuotes: !isFinished && !lockedVisitorGame,
+        nowMs: opts.nowMs,
+      }),
     ),
     ...(projectedParlayCandidates ? { parlayCandidates: projectedParlayCandidates } : {}),
     preGame: g.preGame
       ? {
-          isRedacted: g.preGame.isRedacted,
+          ...(g.preGame.isRedacted ? { isRedacted: true } : {}),
           cortexSynthesis: "",
           tacticalKeys: [],
           lineupStatusLabel: "",
           lineupsConfirmed60m: g.preGame.lineupsConfirmed60m,
-          confirmedLineups: null,
           absences: [],
           moneyFlow: null,
           ...(canKeepMatchContext && g.preGame.matchContext
@@ -1762,12 +2456,17 @@ function getOrBuildEnrichedCatalogForGame(
   if (existing) return existing;
 
   const allowFull = fullAccess || game.status === "FT";
+  const hasPromo = allowFull || bundle.openPromoGameIds.has(game.id);
   const enriched = allowFull ? getOrBuildEnrichedGameMarkets(bundle, game) : null;
-  const homeHistory = loadTeamHistoryForGame(bundle, game.league, game.home.slug, 20);
-  const awayHistory = loadTeamHistoryForGame(bundle, game.league, game.away.slug, 20);
+  const homeHistory = hasPromo
+    ? loadTeamHistoryForGame(bundle, game.league, game.home.slug, 20)
+    : [];
+  const awayHistory = hasPromo
+    ? loadTeamHistoryForGame(bundle, game.league, game.away.slug, 20)
+    : [];
   const footballPlayers = allowFull ? extractFootballCandidatesForGame(game) : [];
   const nbaPlayers = allowFull ? extractNbaCandidatesForGame(game) : [];
-  const gamePlayerProps = allowFull ? getGamePlayerProps(bundle, game.id) : [];
+  const gamePlayerProps = allowFull ? getGamePlayerProps(bundle, game.id, game, true) : [];
 
   const catalog = buildServerMatchPicksCatalog(game, {
     fullAccess,
@@ -1778,7 +2477,7 @@ function getOrBuildEnrichedCatalogForGame(
     footballPlayers,
     nbaPlayers,
     playerProps: gamePlayerProps,
-    unlockedPickIds: collectOpenPromoPickIds(bundle.value),
+    unlockedPickIds: bundle.openPromoPickIds,
     maxPicksPerFamily: compact ? 2 : 16,
     maxTotalPicks: compact ? 14 : 160,
     compact,
@@ -1854,6 +2553,9 @@ function buildScreenerCatalogsRecord(
   let includedCount = 0;
 
   for (const game of targetGames) {
+    if (accumulatedBytes >= SCREENER_INITIAL_MAX_BYTES - 2000) {
+      break;
+    }
     const catalog = getOrBuildEnrichedCatalogForGame(bundle, game, fullAccess, true);
     const entryBytes =
       Buffer.byteLength(JSON.stringify(game.id), "utf8") +
@@ -1872,11 +2574,104 @@ function buildScreenerCatalogsRecord(
 
 const MAX_SCREENER_MEMO_BUCKETS = 32;
 
+function getOrBuildScreenerBundle(): DatasetMemoBundle {
+  const now = Date.now();
+  const stamp = getPlatformDataFilesStamp();
+  const mxDay = mxDayId(new Date(now));
+  if (isDatasetMemoFresh(datasetMemo, now, stamp, mxDay)) {
+    return datasetMemo;
+  }
+  if (isDatasetMemoFresh(screenerSelectiveBundleMemo, now, stamp, mxDay)) {
+    return screenerSelectiveBundleMemo;
+  }
+  const shellIndex = readShellIndexEntryFast();
+  if (!shellIndex) {
+    return getDatasetMemoBundle();
+  }
+
+  const selectedSet = new Set<ProductLeague>();
+  let promoCandidatesAdded = 0;
+  const liveCandidates: Array<{ readonly league: ProductLeague; readonly kickoffUtc: string }> = [];
+  const upcomingCandidates: Array<{ readonly league: ProductLeague; readonly kickoffUtc: string }> = [];
+  const finishedCandidates: Array<{ readonly league: ProductLeague; readonly kickoffUtc: string }> = [];
+
+  for (const lg of PRODUCT_LEAGUES) {
+    const data = shellIndex.leagues[lg]?.data;
+    if (!data || data.games.length === 0) continue;
+    let hasUpcoming = false;
+    for (const g of data.games) {
+      if (g.status === "FT") {
+        if (g.hasForecast !== false) {
+          finishedCandidates.push({ league: lg, kickoffUtc: g.kickoffUtc || "" });
+        }
+        continue;
+      }
+      hasUpcoming = true;
+      if (g.hasForecast === false) continue;
+      if (g.status === "LIVE") {
+        liveCandidates.push({ league: lg, kickoffUtc: g.kickoffUtc || "" });
+      } else {
+        upcomingCandidates.push({ league: lg, kickoffUtc: g.kickoffUtc || "" });
+      }
+    }
+    if (hasUpcoming && promoCandidatesAdded < 3) {
+      selectedSet.add(lg);
+      promoCandidatesAdded += 1;
+    }
+    if (lg === "nfl" && hasUpcoming) {
+      selectedSet.add(lg);
+    }
+  }
+
+  liveCandidates.sort((a, b) =>
+    compareLeagueKickoffPriority(a.league, a.kickoffUtc, b.league, b.kickoffUtc),
+  );
+  for (const item of liveCandidates.slice(0, 10)) {
+    selectedSet.add(item.league);
+  }
+  upcomingCandidates.sort((a, b) =>
+    compareLeagueKickoffPriority(a.league, a.kickoffUtc, b.league, b.kickoffUtc),
+  );
+  for (const item of upcomingCandidates.slice(0, 12)) {
+    selectedSet.add(item.league);
+  }
+  finishedCandidates.sort((a, b) => b.kickoffUtc.localeCompare(a.kickoffUtc));
+  for (const item of finishedCandidates.slice(0, 4)) {
+    selectedSet.add(item.league);
+  }
+
+  const selectedLeagues = PRODUCT_LEAGUES.filter((lg) => selectedSet.has(lg));
+  if (selectedLeagues.length === 0) {
+    return getDatasetMemoBundle();
+  }
+
+  const selectedEnvelopes = loadSelectedLeagueSnapshots(selectedLeagues);
+  const inputs = buildInputsFromEnvelopes(selectedEnvelopes, selectedLeagues);
+  const rawSelected = enrichDatasetWithBookQuotes(buildPlatformDataset(inputs));
+  const value: PlatformDataset = {
+    ...rawSelected,
+    serverNowUtc: new Date(now).toISOString(),
+    leagues: [],
+    teams: [],
+    playerProps: [],
+  };
+  const resolvedStamp = getPlatformDataFilesStamp();
+  screenerSelectiveBundleMemo = createDatasetMemoBundle({
+    value,
+    stamp: resolvedStamp,
+    mxDay,
+    isFullDataset: false,
+    envelopesByLeague: selectedEnvelopes,
+    at: now,
+  });
+  return screenerSelectiveBundleMemo;
+}
+
 export async function loadServerPicksCatalogsForScreener(options?: {
   readonly fullAccess?: boolean;
   readonly maxGames?: number;
 }): Promise<Record<string, MatchPicksCatalog>> {
-  const bundle = getDatasetMemoBundle();
+  const bundle = getOrBuildScreenerBundle();
   const fullAccess = options?.fullAccess ?? (await hasAuthenticatedBetaSession());
   const rawMax = options?.maxGames;
   const effectiveMaxGames =
@@ -1900,6 +2695,72 @@ export async function loadServerPicksCatalogsForScreener(options?: {
   return built;
 }
 
+function buildScreenerEntryFromGame(
+  bundle: DatasetMemoBundle,
+  game: PlatformGame,
+  fullAccess: boolean,
+): ScreenerCachedEntry | null {
+  const catalog = getOrBuildEnrichedCatalogForGame(bundle, game, fullAccess, true);
+  if (catalog.picks.length === 0) return null;
+  return {
+    game,
+    catalog,
+    gameSearchToken: normalizeSearchToken(
+      `${game.home.name} ${game.home.shortName} ${game.away.name} ${game.away.shortName} ${game.leagueLabel}`,
+    ),
+    unlockedPickTokens: catalog.picks.map((pk) =>
+      pk.isRedacted
+        ? ""
+        : normalizeSearchToken(`${pk.label} ${pk.familyLabel} ${pk.playerMeta?.playerName ?? ""}`),
+    ),
+  };
+}
+
+function getOrBuildScreenerBaseIndex(
+  bundle: DatasetMemoBundle,
+  fullAccess: boolean,
+): ScreenerBaseIndex {
+  const existing = fullAccess ? bundle.screenerBaseIndexMember : bundle.screenerBaseIndexVisitor;
+  if (existing) return existing;
+
+  const baseGames = upcomingPlusRecentFinished(bundle.value, 24)
+    .games.filter((g) => g.hasForecast !== false)
+    .slice()
+    .sort((a, b) => {
+      const aRank = a.status === "LIVE" ? 0 : a.status === "NS" ? 1 : 2;
+      const bRank = b.status === "LIVE" ? 0 : b.status === "NS" ? 1 : 2;
+      if (aRank !== bRank) return aRank - bRank;
+      if (aRank === 2) return (b.kickoffUtc || "").localeCompare(a.kickoffUtc || "");
+      return compareShellGamePriority(a, b);
+    });
+
+  const entries: ScreenerCachedEntry[] = [];
+  const potdPool: CatalogPickItem[] = [];
+  for (const game of baseGames) {
+    const entry = buildScreenerEntryFromGame(bundle, game, fullAccess);
+    if (!entry) continue;
+    entries.push(entry);
+    if (game.status !== "FT") {
+      for (const pk of entry.catalog.picks) {
+        if (!pk.isRedacted && pk.recommendationTier !== "trivial_odds") {
+          potdPool.push(pk);
+        }
+      }
+    }
+  }
+
+  const built: ScreenerBaseIndex = {
+    entries,
+    unfilteredPicksOfTheDay: selectPicksOfTheDay(potdPool, 3),
+  };
+  if (fullAccess) {
+    bundle.screenerBaseIndexMember = built;
+  } else {
+    bundle.screenerBaseIndexVisitor = built;
+  }
+  return built;
+}
+
 export function loadScreenerApiPage(params: {
   readonly fullAccess: boolean;
   readonly page?: number;
@@ -1911,7 +2772,6 @@ export function loadScreenerApiPage(params: {
   readonly includeTrivial?: boolean;
   readonly q?: string;
 }): ScreenerApiResponse {
-  const bundle = getDatasetMemoBundle();
   const page =
     typeof params.page === "number" && Number.isFinite(params.page) && params.page >= 1
       ? Math.floor(params.page)
@@ -1925,65 +2785,84 @@ export function loadScreenerApiPage(params: {
   const leagueFilter = params.league?.trim().toLowerCase();
   const gameIdFilter = params.gameId?.trim();
   const qNorm = params.q ? normalizeSearchToken(params.q) : "";
+  const includeTrivial = params.includeTrivial === true;
+  const onlyRecommended = params.onlyRecommended === true;
 
-  const baseGames = gameIdFilter
-    ? bundle.value.games.filter((g) => g.id === gameIdFilter)
-    : upcomingPlusRecentFinished(bundle.value, 24).games.filter((g) => g.hasForecast !== false);
+  let entries: readonly ScreenerCachedEntry[];
+  let cachedUnfilteredPotd: readonly CatalogPickItem[] | null = null;
 
-  const prefilteredGames = baseGames
-    .filter((g) => {
-      if (sportFilter && sportFilter !== "all" && sportFilter !== "todos") {
-        if (g.sport.toLowerCase() !== sportFilter) return false;
-      }
-      if (leagueFilter && leagueFilter !== "all" && leagueFilter !== "todas") {
-        if (g.league.toLowerCase() !== leagueFilter) return false;
-      }
-      return true;
-    })
-    .slice()
-    .sort((a, b) => {
-      const aRank = a.status === "LIVE" ? 0 : a.status === "NS" ? 1 : 2;
-      const bRank = b.status === "LIVE" ? 0 : b.status === "NS" ? 1 : 2;
-      if (aRank !== bRank) return aRank - bRank;
-      if (aRank === 2) return (b.kickoffUtc || "").localeCompare(a.kickoffUtc || "");
-      return compareShellGamePriority(a, b);
-    });
+  if (gameIdFilter) {
+    const hintedLeague = findLeagueForGameIdInSnapshots(gameIdFilter);
+    const singleBundle = hintedLeague
+      ? getOrBuildSingleLeagueBundle(hintedLeague)
+      : getDatasetMemoBundle();
+    const targetGame = singleBundle.gamesById.get(gameIdFilter);
+    if (!targetGame) {
+      entries = [];
+    } else {
+      const builtEntry = buildScreenerEntryFromGame(singleBundle, targetGame, params.fullAccess);
+      entries = builtEntry ? [builtEntry] : [];
+    }
+  } else {
+    const leagueKey =
+      leagueFilter && leagueFilter !== "all" && leagueFilter !== "todas"
+        ? toProductLeagueKey(leagueFilter)
+        : null;
+    const bundle = leagueKey ? getOrBuildSingleLeagueBundle(leagueKey) : getDatasetMemoBundle();
+    const baseIndex = getOrBuildScreenerBaseIndex(bundle, params.fullAccess);
+    entries = baseIndex.entries;
+    if (
+      (!sportFilter || sportFilter === "all" || sportFilter === "todos") &&
+      (!leagueFilter || leagueFilter === "all" || leagueFilter === "todas") &&
+      !includeTrivial &&
+      !onlyRecommended &&
+      qNorm.length === 0
+    ) {
+      cachedUnfilteredPotd = baseIndex.unfilteredPicksOfTheDay;
+    }
+  }
 
   const matchedEntries: Array<{ readonly game: PlatformGame; readonly catalog: MatchPicksCatalog }> = [];
   const potdPool: CatalogPickItem[] = [];
   let totalMatchedPicks = 0;
 
-  for (const game of prefilteredGames) {
-    const gameMatchesQ =
-      qNorm.length === 0 ||
-      normalizeSearchToken(
-        `${game.home.name} ${game.home.shortName} ${game.away.name} ${game.away.shortName} ${game.leagueLabel}`,
-      ).includes(qNorm);
+  for (const entry of entries) {
+    const { game, catalog: rawCatalog } = entry;
+    if (sportFilter && sportFilter !== "all" && sportFilter !== "todos") {
+      if (game.sport.toLowerCase() !== sportFilter) continue;
+    }
+    if (leagueFilter && leagueFilter !== "all" && leagueFilter !== "todas") {
+      if (game.league.toLowerCase() !== leagueFilter) continue;
+    }
 
-    const rawCatalog = getOrBuildEnrichedCatalogForGame(bundle, game, params.fullAccess, true);
-    if (rawCatalog.picks.length === 0) continue;
+    const gameMatchesQ = qNorm.length === 0 || entry.gameSearchToken.includes(qNorm);
 
-    const includeTrivial = params.includeTrivial === true;
-    const filteredPicks = rawCatalog.picks.filter((pk) => {
-      if (pk.isRedacted) {
-        return gameMatchesQ;
-      }
-      if (pk.gameStatus !== "FT") {
-        if (!includeTrivial && pk.recommendationTier === "trivial_odds") {
-          return false;
+    let filteredPicks: readonly CatalogPickItem[];
+    if (gameMatchesQ && includeTrivial && !onlyRecommended) {
+      filteredPicks = rawCatalog.picks;
+    } else {
+      const subset: CatalogPickItem[] = [];
+      for (let i = 0; i < rawCatalog.picks.length; i += 1) {
+        const pk = rawCatalog.picks[i]!;
+        if (pk.isRedacted) {
+          if (gameMatchesQ) subset.push(pk);
+          continue;
         }
-        if (params.onlyRecommended === true && pk.isRecommendedByModel !== true) {
-          return false;
+        if (pk.gameStatus !== "FT") {
+          if (!includeTrivial && pk.recommendationTier === "trivial_odds") {
+            continue;
+          }
+          if (onlyRecommended && pk.isRecommendedByModel !== true) {
+            continue;
+          }
         }
+        if (!gameMatchesQ && !(entry.unlockedPickTokens[i] ?? "").includes(qNorm)) {
+          continue;
+        }
+        subset.push(pk);
       }
-      if (!gameMatchesQ) {
-        const hay = normalizeSearchToken(
-          `${pk.label} ${pk.familyLabel} ${pk.playerMeta?.playerName ?? ""}`,
-        );
-        return hay.includes(qNorm);
-      }
-      return true;
-    });
+      filteredPicks = subset;
+    }
 
     if (filteredPicks.length === 0) continue;
 
@@ -1995,7 +2874,7 @@ export function loadScreenerApiPage(params: {
     matchedEntries.push({ game, catalog: finalCatalog });
     totalMatchedPicks += finalCatalog.picks.length;
 
-    if (game.status !== "FT") {
+    if (!cachedUnfilteredPotd && game.status !== "FT") {
       for (const pk of finalCatalog.picks) {
         if (!pk.isRedacted) potdPool.push(pk);
       }
@@ -2010,7 +2889,7 @@ export function loadScreenerApiPage(params: {
     catalogs[entry.game.id] = entry.catalog;
   }
 
-  const picksOfTheDay = selectPicksOfTheDay(potdPool, 3);
+  const picksOfTheDay = cachedUnfilteredPotd ?? selectPicksOfTheDay(potdPool, 3);
 
   return {
     ok: true,
@@ -2180,16 +3059,36 @@ function historyToRecentRows(
   }));
 }
 
-function findGameForPickId(bundle: DatasetMemoBundle, pickId: string): PlatformGame | null {
-  const catIdx = pickId.indexOf("__cat__");
-  if (catIdx > 0) {
-    const candidateGameId = pickId.slice(0, catIdx);
-    const direct = bundle.gamesById.get(candidateGameId);
-    if (direct) return direct;
+function resolveBundleForGameId(gameId: string): DatasetMemoBundle {
+  const now = Date.now();
+  const mxDay = mxDayId(new Date(now));
+  if (datasetMemo && now - datasetMemo.at < DATASET_WINDOW_MS && datasetMemo.mxDay === mxDay) {
+    const fullStamp = getPlatformDataFilesStamp();
+    if (datasetMemo.stamp === fullStamp && datasetMemo.gamesById.has(gameId)) {
+      return datasetMemo;
+    }
   }
+  const hintedLeague = findLeagueForGameIdInSnapshots(gameId);
+  if (hintedLeague) {
+    const singleBundle = getOrBuildSingleLeagueBundle(hintedLeague);
+    if (singleBundle.gamesById.has(gameId)) {
+      return singleBundle;
+    }
+  }
+  return getDatasetMemoBundle();
+}
+
+function extractGameIdPrefixFromPickId(pickId: string): string | null {
+  const catIdx = pickId.indexOf("__cat__");
+  if (catIdx > 0) return pickId.slice(0, catIdx);
   const sepIdx = pickId.indexOf("__");
-  if (sepIdx > 0) {
-    const prefix = pickId.slice(0, sepIdx);
+  if (sepIdx > 0) return pickId.slice(0, sepIdx);
+  return null;
+}
+
+function findGameForPickId(bundle: DatasetMemoBundle, pickId: string): PlatformGame | null {
+  const prefix = extractGameIdPrefixFromPickId(pickId);
+  if (prefix) {
     const direct = bundle.gamesById.get(prefix);
     if (direct) return direct;
   }
@@ -2215,8 +3114,13 @@ export async function loadPickEvidenceLabData(
     return null;
   }
 
-  const bundle = getDatasetMemoBundle();
-  const rawGame = findGameForPickId(bundle, cleanId);
+  const prefixId = extractGameIdPrefixFromPickId(cleanId);
+  let bundle = prefixId ? resolveBundleForGameId(prefixId) : getDatasetMemoBundle();
+  let rawGame = findGameForPickId(bundle, cleanId);
+  if (!rawGame && !bundle.isFullDataset) {
+    bundle = getDatasetMemoBundle();
+    rawGame = findGameForPickId(bundle, cleanId);
+  }
   if (!rawGame) return null;
 
   const catalog = getOrBuildEnrichedCatalogForGame(bundle, rawGame, fullAccess, false);
@@ -2460,9 +3364,15 @@ function buildTeamFormTokens(
     .map((rec) => (rec.goalsFor > rec.goalsAgainst ? "W" : rec.goalsFor < rec.goalsAgainst ? "L" : "D"));
 }
 
-function loadSafeLeagueSnapshotData(league: string) {
+function loadSafeLeagueSnapshotData(league: string, bundle?: DatasetMemoBundle) {
   try {
-    const env = loadLeagueSnapshotEnvelope(league as ProductLeague);
+    const leagueKey = toProductLeagueKey(league);
+    if (!leagueKey) return null;
+    if (bundle) {
+      const fromBundle = bundle.envelopesByLeague[leagueKey];
+      if (fromBundle?.data) return fromBundle.data;
+    }
+    const env = loadLeagueSnapshotEnvelope(leagueKey);
     return env?.data ?? null;
   } catch (err) {
     void err;
@@ -2470,16 +3380,23 @@ function loadSafeLeagueSnapshotData(league: string) {
   }
 }
 
-async function loadGameDetailForAccess(
+async function loadGameDetailInternal(
+  bundle: DatasetMemoBundle,
   gameId: string,
   hasSession: boolean,
+  preResolvedFrozenPromise?: Promise<PlatformGameDetail["frozenMainPick"] | null>,
 ): Promise<PlatformGameDetail | null> {
-  const bundle = getDatasetMemoBundle();
   const rawGame = bundle.gamesById.get(gameId);
-  const game = hasSession
-    ? rawGame
-    : getRedactedMemo(bundle).gamesById.get(gameId);
-  if (!game || !rawGame) return null;
+  if (!rawGame) return null;
+  ensureGameFormsForGames(bundle, [rawGame]);
+  const game = hasSession ? rawGame : getRedactedMemo(bundle).gamesById.get(gameId);
+  if (!game) return null;
+
+  const allowFull = hasSession || rawGame.status === "FT";
+  const frozenPromise =
+    allowFull && game.status !== "FT"
+      ? (preResolvedFrozenPromise ?? resolveServerFrozenMainPick(game))
+      : Promise.resolve(null);
 
   const homeHistory = loadTeamHistoryForGame(bundle, rawGame.league, rawGame.home.slug, 20);
   const awayHistory = loadTeamHistoryForGame(bundle, rawGame.league, rawGame.away.slug, 20);
@@ -2487,8 +3404,7 @@ async function loadGameDetailForAccess(
   const homeSquad = findSquadTeamEntry(squads, rawGame.home.slug);
   const awaySquad = findSquadTeamEntry(squads, rawGame.away.slug);
   const leagueInjuries = loadCachedLeagueInjuries(rawGame.league);
-  const snapshot = loadSafeLeagueSnapshotData(rawGame.league);
-  const allowFull = hasSession || rawGame.status === "FT";
+  const snapshot = loadSafeLeagueSnapshotData(rawGame.league, bundle);
 
   const enrichedLineups = buildEnrichedMatchLineups({
     game: rawGame,
@@ -2517,13 +3433,19 @@ async function loadGameDetailForAccess(
     resolveCanonicalSlug: canonicalTeamSlugKey,
   });
 
+  const catalogLimitOptions =
+    rawGame.status !== "FT"
+      ? { maxPicksPerFamily: 3, maxTotalPicks: 32, compact: true }
+      : { compact: true };
+
   if (!hasSession && game.status !== "FT") {
     const picksCatalog = buildServerMatchPicksCatalog(rawGame, {
       fullAccess: false,
       markets: rawGame.markets,
       homeHistory,
       awayHistory,
-      unlockedPickIds: collectOpenPromoPickIds(bundle.value),
+      unlockedPickIds: bundle.openPromoPickIds,
+      ...catalogLimitOptions,
     });
     return {
       markets: [],
@@ -2538,9 +3460,7 @@ async function loadGameDetailForAccess(
   }
 
   const enriched = getOrBuildEnrichedGameMarkets(bundle, game);
-  const frozenMainPick =
-    game.status !== "FT" ? await resolveServerFrozenMainPick(game) : null;
-  const gamePlayerProps = getGamePlayerProps(bundle, rawGame.id);
+  const gamePlayerProps = getGamePlayerProps(bundle, rawGame.id, rawGame, true);
   const footballPlayers = extractFootballCandidatesForGame(rawGame);
   const nbaPlayers = extractNbaCandidatesForGame(rawGame);
 
@@ -2553,7 +3473,8 @@ async function loadGameDetailForAccess(
     footballPlayers,
     nbaPlayers,
     playerProps: gamePlayerProps,
-    unlockedPickIds: collectOpenPromoPickIds(bundle.value),
+    unlockedPickIds: bundle.openPromoPickIds,
+    ...catalogLimitOptions,
   });
   const playerPicks = buildMatchPlayerPicks({
     game: rawGame,
@@ -2563,6 +3484,7 @@ async function loadGameDetailForAccess(
     awaySquad,
     sanitizePhotoKey: sanitizeServerPhotoKey,
   });
+  const frozenMainPick = await frozenPromise;
   return {
     markets: enriched.markets,
     headToHead: game.headToHead,
@@ -2578,9 +3500,20 @@ async function loadGameDetailForAccess(
   };
 }
 
+async function loadGameDetailForAccess(
+  gameId: string,
+  hasSession: boolean,
+): Promise<PlatformGameDetail | null> {
+  const bundle = resolveBundleForGameId(gameId);
+  return loadGameDetailInternal(bundle, gameId, hasSession);
+}
+
 export async function loadGameDetail(gameId: string): Promise<PlatformGameDetail | null> {
-  const hasSession = await hasAuthenticatedBetaSession();
-  return loadGameDetailForAccess(gameId, hasSession);
+  const [bundle, access] = await Promise.all([
+    Promise.resolve(resolveBundleForGameId(gameId)),
+    getViewerAccess(),
+  ]);
+  return loadGameDetailInternal(bundle, gameId, access.fullAccess);
 }
 
 export async function loadGamePreviewPayload(
@@ -2597,12 +3530,35 @@ export async function loadGamePreviewPayload(
     return null;
   }
 
-  const bundle = getDatasetMemoBundle();
+  const bundle = resolveBundleForGameId(cleanId);
   const rawGame = bundle.gamesById.get(cleanId);
   if (!rawGame) return null;
 
   const allowFull = fullAccess || rawGame.status === "FT";
-  const detail = await loadGameDetailForAccess(cleanId, fullAccess);
+  const frozenPromise =
+    allowFull && rawGame.status !== "FT"
+      ? resolveServerFrozenMainPick(rawGame)
+      : Promise.resolve(null);
+
+  const cacheKey = `${cleanId}:${fullAccess}`;
+  const cachedStatic = previewStaticCache.get(cacheKey, bundle.stamp);
+  if (cachedStatic) {
+    const frozenMainPick = await frozenPromise;
+    return {
+      ok: true,
+      gameId: cachedStatic.gameId,
+      fullAccess: cachedStatic.fullAccess,
+      game: cachedStatic.game,
+      detail: {
+        ...cachedStatic.staticDetail,
+        ...(frozenMainPick !== undefined ? { frozenMainPick } : {}),
+      },
+      standings: cachedStatic.standings,
+      injuries: cachedStatic.injuries,
+    };
+  }
+
+  const detail = await loadGameDetailInternal(bundle, cleanId, fullAccess, frozenPromise);
   if (!detail) return null;
 
   const homeHistory = loadTeamHistoryForGame(bundle, rawGame.league, rawGame.home.slug, 5);
@@ -2647,21 +3603,18 @@ export async function loadGamePreviewPayload(
       ? { home: rawGame.projection.home, away: rawGame.projection.away }
       : null;
 
-  const previewDetail: PlatformGameDetail = {
+  const staticDetail: PlatformGameDetail = {
     markets: [],
     headToHead: detail.headToHead,
     factors: detail.factors,
     ...(detail.v5 !== undefined ? { v5: detail.v5 } : {}),
-    ...(detail.frozenMainPick !== undefined ? { frozenMainPick: detail.frozenMainPick } : {}),
     ...(detail.picksCatalog !== undefined ? { picksCatalog: detail.picksCatalog } : {}),
     ...(detail.enrichedLineups !== undefined ? { enrichedLineups: detail.enrichedLineups } : {}),
     ...(detail.enfrentamientos !== undefined ? { enfrentamientos: detail.enfrentamientos } : {}),
     ...(detail.playerPicks !== undefined ? { playerPicks: detail.playerPicks } : {}),
-    ...(detail.injuries !== undefined ? { injuries: detail.injuries } : {}),
   };
 
-  return {
-    ok: true,
+  const staticEntry = {
     gameId: rawGame.id,
     fullAccess,
     game: {
@@ -2693,10 +3646,44 @@ export async function loadGamePreviewPayload(
         form: buildTeamFormTokens(awayHistory, 5),
       },
     },
-    detail: previewDetail,
+    staticDetail,
     standings,
     injuries: detail.injuries ?? [],
   };
+  previewStaticCache.set(cacheKey, bundle.stamp, staticEntry);
+
+  const previewDetail: PlatformGameDetail = {
+    ...staticDetail,
+    ...(detail.frozenMainPick !== undefined ? { frozenMainPick: detail.frozenMainPick } : {}),
+  };
+
+  return {
+    ok: true,
+    gameId: staticEntry.gameId,
+    fullAccess: staticEntry.fullAccess,
+    game: staticEntry.game,
+    detail: previewDetail,
+    standings: staticEntry.standings,
+    injuries: staticEntry.injuries,
+  };
+}
+
+export async function loadGamePreviewSerializedJson(
+  gameId: string,
+  fullAccess: boolean,
+): Promise<string | null> {
+  const payload = await loadGamePreviewPayload(gameId, fullAccess);
+  if (!payload) return null;
+  const stamp = getPlatformDataFilesStamp();
+  const frozen = payload.detail.frozenMainPick;
+  const wireKey = `${payload.gameId}:${payload.fullAccess}:${frozen?.pickId ?? "none"}:${frozen?.freezeAtUtc ?? "none"}`;
+  const cached = previewWireCache.get(wireKey, stamp);
+  if (cached) {
+    return cached;
+  }
+  const json = JSON.stringify(payload);
+  previewWireCache.set(wireKey, stamp, json);
+  return json;
 }
 
 export async function hasAuthenticatedBetaSession(): Promise<boolean> {
@@ -2835,17 +3822,32 @@ function sanitizePublicDataset(dataset: PlatformDataset): PlatformDataset {
   };
 }
 
+function toViewerIdentity(profile: ViewerAccess["profile"]): ViewerIdentity | null {
+  if (!profile?.handle) return null;
+  return {
+    handle: profile.handle,
+    displayName: profile.displayName,
+    initials: profile.initials,
+    avatarUrl: profile.avatarUrl,
+    referralCode: profile.referralCode,
+  };
+}
+
 export async function loadPublicPlatformState(
   publicTipsterSlugOrPickId?: string,
 ): Promise<LoadedPlatformState> {
+  const [access, serverMonth1NoCardMode] = await Promise.all([
+    getViewerAccess(),
+    loadMonth1Flag(),
+  ]);
   const fullDataset = buildServerRawPlatformDataset();
-  const access = await getViewerAccess();
   const currentPaymentMode = paymentMode();
   const hasActiveSession = access.fullAccess;
   const resolvedWeekly = publicTipsterSlugOrPickId
     ? await resolvePublicWeeklyPick(fullDataset, publicTipsterSlugOrPickId)
     : null;
   const publicPickResolved = publicTipsterSlugOrPickId ? resolvedWeekly !== null : undefined;
+  const viewerIdentity = toViewerIdentity(access.profile);
 
   if (hasActiveSession) {
     if (publicTipsterSlugOrPickId && !resolvedWeekly) {
@@ -2862,8 +3864,8 @@ export async function loadPublicPlatformState(
         accountsEnabled: accountsEnabled(),
         viewerVia: access.via,
         paymentMode: currentPaymentMode,
-        serverMonth1NoCardMode: await loadMonth1Flag(),
-        viewerIdentity: await loadViewerIdentity(),
+        serverMonth1NoCardMode,
+        viewerIdentity,
         publicPickResolved: false,
       };
     }
@@ -2896,8 +3898,8 @@ export async function loadPublicPlatformState(
       accountsEnabled: accountsEnabled(),
       viewerVia: access.via,
       paymentMode: currentPaymentMode,
-      serverMonth1NoCardMode: await loadMonth1Flag(),
-      viewerIdentity: await loadViewerIdentity(),
+      serverMonth1NoCardMode,
+      viewerIdentity,
       publicPickResolved,
     };
   }
@@ -2945,36 +3947,38 @@ export async function loadPublicPlatformState(
     accountsEnabled: accountsEnabled(),
     viewerVia: access.via,
     paymentMode: currentPaymentMode,
-    serverMonth1NoCardMode: await loadMonth1Flag(),
-    viewerIdentity: await loadViewerIdentity(),
+    serverMonth1NoCardMode,
+    viewerIdentity,
     publicPickResolved,
   };
 }
 
 export async function loadClubPlatformState(
   preferredRole: ViewerRole = "member",
+  preloaded?: {
+    readonly access?: ViewerAccess;
+    readonly serverMonth1NoCardMode?: boolean | undefined;
+  },
 ): Promise<LoadedPlatformState> {
-  const bundle = getDatasetMemoBundle();
-  const [access, serverMonth1NoCardMode] = await Promise.all([
-    getViewerAccess(),
-    loadMonth1Flag(),
-  ]);
+  const [access, serverMonth1NoCardMode] =
+    preloaded?.access !== undefined && preloaded !== undefined && "serverMonth1NoCardMode" in preloaded
+      ? [preloaded.access, preloaded.serverMonth1NoCardMode]
+      : await Promise.all([
+          preloaded?.access ? Promise.resolve(preloaded.access) : getViewerAccess(),
+          preloaded && "serverMonth1NoCardMode" in preloaded
+            ? Promise.resolve(preloaded.serverMonth1NoCardMode)
+            : loadMonth1Flag(),
+        ]);
+
   const currentPaymentMode = paymentMode();
   const hasActiveSession = access.fullAccess;
-  const viewerIdentity: ViewerIdentity | null = access.profile?.handle
-    ? {
-        handle: access.profile.handle,
-        displayName: access.profile.displayName,
-        initials: access.profile.initials,
-        avatarUrl: access.profile.avatarUrl,
-        referralCode: access.profile.referralCode,
-      }
-    : null;
+  const viewerIdentity = toViewerIdentity(access.profile);
+  const initialStage1 = loadInitialShellDatasetForAccess(hasActiveSession);
 
   if (!hasActiveSession) {
     return {
       dataset: {
-        ...getInitialVisitorShell(bundle),
+        ...initialStage1,
         serverNowUtc: new Date().toISOString(),
       },
       initialRole: "visitor",
@@ -2998,7 +4002,7 @@ export async function loadClubPlatformState(
 
   return {
     dataset: {
-      ...getInitialMemberShell(bundle),
+      ...initialStage1,
       serverNowUtc: new Date().toISOString(),
     },
     initialRole: resolvedRole,

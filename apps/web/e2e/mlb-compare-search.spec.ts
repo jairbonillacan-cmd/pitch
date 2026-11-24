@@ -35,17 +35,18 @@ test.describe("MLB, Standings US por conferencia, búsqueda de jugadores y Compa
     page,
   }) => {
     await page.goto("/app/mlb");
+    await expect(page.locator('#main [data-league-hero="mlb"]:visible')).toBeVisible();
     await assertNoHorizontalOverflow(page);
 
-    const tabTabla = page.locator("#pl-league-tab-tabla");
+    const tabTabla = page.locator("#main #pl-league-tab-tabla:visible");
     if ((await tabTabla.count()) > 0) {
       await tabTabla.click();
     }
-    await expect(page.locator(".pl-st-table")).toBeVisible();
-    await expect(page.getByRole("radio", { name: "Liga Americana" })).toBeVisible();
-    await expect(page.getByRole("radio", { name: "Liga Nacional" })).toBeVisible();
-    await page.getByRole("radio", { name: "Liga Nacional" }).click();
-    await expect(page.getByRole("radio", { name: "Liga Nacional" })).toHaveAttribute(
+    await expect(page.locator("#main .pl-st-table:visible")).toBeVisible();
+    await expect(page.locator("#main").getByRole("radio", { name: "Liga Americana" })).toBeVisible();
+    await expect(page.locator("#main").getByRole("radio", { name: "Liga Nacional" })).toBeVisible();
+    await page.locator("#main").getByRole("radio", { name: "Liga Nacional" }).click();
+    await expect(page.locator("#main").getByRole("radio", { name: "Liga Nacional" })).toHaveAttribute(
       "aria-checked",
       "true",
     );
@@ -73,8 +74,8 @@ test.describe("MLB, Standings US por conferencia, búsqueda de jugadores y Compa
     await playersGroup.locator("a").first().click();
 
     await page.waitForURL(/\/app\/mlb\/t\/[^/]+\/p\//);
-    await expect(page.locator("[data-team-hero='player']")).toBeVisible();
-    await expect(page.getByRole("heading", { name: "Estadísticas de temporada" })).toBeVisible();
+    await expect(page.locator("#main [data-team-hero='player']:visible")).toBeVisible();
+    await expect(page.locator("#main").getByRole("heading", { name: "Estadísticas de temporada" })).toBeVisible();
     await assertNoHorizontalOverflow(page);
     await assertAxeClean(page);
   });
@@ -83,14 +84,14 @@ test.describe("MLB, Standings US por conferencia, búsqueda de jugadores y Compa
     page,
   }) => {
     await page.goto("/app/comparar?modo=equipos&liga=liga-mx&a=america&b=chivas");
-    await expect(page.locator("[data-compare-hub]")).toBeVisible();
-    await expect(page.getByRole("heading", { name: "Comparador H2H" })).toBeVisible();
-    await expect(page.getByText("Historial directo (H2H)")).toBeVisible();
+    await expect(page.locator("#main [data-compare-hub]:visible")).toBeVisible();
+    await expect(page.locator("#main").getByRole("heading", { name: "Comparador H2H" })).toBeVisible();
+    await expect(page.locator("#main").getByText("Historial directo (H2H)")).toBeVisible();
     await assertNoHorizontalOverflow(page);
     await assertAxeClean(page);
 
-    await page.getByRole("tab", { name: "Jugadores" }).click();
-    await expect(page.getByRole("tab", { name: "Jugadores" })).toHaveAttribute(
+    await page.locator("#main").getByRole("tab", { name: "Jugadores" }).click();
+    await expect(page.locator("#main").getByRole("tab", { name: "Jugadores" })).toHaveAttribute(
       "aria-selected",
       "true",
     );

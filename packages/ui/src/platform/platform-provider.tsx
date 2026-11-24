@@ -2,6 +2,7 @@
 
 import React, {
   createContext,
+  startTransition,
   useCallback,
   useContext,
   useEffect,
@@ -404,6 +405,117 @@ function createParlayIdStore() {
 type ParlayIdStore = ReturnType<typeof createParlayIdStore>;
 const ParlayIdStoreContext = createContext<ParlayIdStore | null>(null);
 
+interface PlatformSupplementData {
+  readonly games: readonly PlatformGame[];
+  readonly leagues?: PlatformDataset["leagues"];
+  readonly teams?: PlatformDataset["teams"];
+  readonly dailyPromoPickId?: string;
+  readonly tipsterWeeklyPickId?: string;
+  readonly tipsterWeeklySlug?: string;
+}
+
+interface ScopedPlatformSupplement extends PlatformSupplementData {
+  readonly scopeKey: string;
+}
+
+const PlatformSupplementSetterContext = createContext<
+  ((payload: ScopedPlatformSupplement) => void) | null
+>(null);
+
+function mergeSupplementIntoDataset(
+  base: PlatformDataset,
+  supplement: PlatformSupplementData,
+  applyTz: boolean,
+  userTimezone: string,
+): PlatformDataset {
+  let next = mergeSupplementalDataset(base, supplement.games, applyTz, userTimezone);
+
+  if (supplement.leagues && supplement.leagues.length > 0) {
+    const incomingById = new Map(supplement.leagues.map((lg) => [lg.league, lg]));
+    let leaguesChanged = false;
+    const seenLeagues = new Set<string>();
+    const mergedLeagues = next.leagues.map((existing) => {
+      seenLeagues.add(existing.league);
+      const incoming = incomingById.get(existing.league);
+      if (!incoming) return existing;
+      const takeCounts = incoming.totalGames > existing.totalGames;
+      const takeStandings = incoming.standings.length > 0 && existing.standings.length === 0;
+      const takeLogo = Boolean(incoming.logoUrl && !existing.logoUrl);
+      if (!takeCounts && !takeStandings && !takeLogo) return existing;
+      leaguesChanged = true;
+      return {
+        ...existing,
+        ...(takeCounts
+          ? {
+              totalGames: incoming.totalGames,
+              upcomingCount: incoming.upcomingCount,
+              finishedCount: incoming.finishedCount,
+              ...(incoming.leaderName ? { leaderName: incoming.leaderName } : {}),
+              ...(incoming.leaderPoints !== undefined
+                ? { leaderPoints: incoming.leaderPoints }
+                : {}),
+              season: incoming.season || existing.season,
+              roundLabel: incoming.roundLabel || existing.roundLabel,
+            }
+          : {}),
+        ...(takeStandings ? { standings: incoming.standings } : {}),
+        ...(takeLogo ? { logoUrl: incoming.logoUrl } : {}),
+      };
+    });
+    for (const incoming of supplement.leagues) {
+      if (!seenLeagues.has(incoming.league)) {
+        seenLeagues.add(incoming.league);
+        mergedLeagues.push(incoming);
+        leaguesChanged = true;
+      }
+    }
+    if (leaguesChanged) {
+      next = { ...next, leagues: mergedLeagues };
+    }
+  }
+
+  if (supplement.teams && supplement.teams.length > 0) {
+    const baseTeams = next.teams ?? [];
+    const seenTeamKeys = new Set(baseTeams.map((t) => `${t.league}:${t.slug}`));
+    const extraTeams = supplement.teams.filter((t) => {
+      const key = `${t.league}:${t.slug}`;
+      if (seenTeamKeys.has(key)) return false;
+      seenTeamKeys.add(key);
+      return true;
+    });
+    if (extraTeams.length > 0) {
+      next = { ...next, teams: [...baseTeams, ...extraTeams] };
+    }
+  }
+
+  const nextDaily =
+    supplement.dailyPromoPickId && !next.dailyPromoPickId
+      ? supplement.dailyPromoPickId
+      : next.dailyPromoPickId;
+  const nextWeekly =
+    supplement.tipsterWeeklyPickId && !next.tipsterWeeklyPickId
+      ? supplement.tipsterWeeklyPickId
+      : next.tipsterWeeklyPickId;
+  const nextSlug =
+    supplement.tipsterWeeklySlug && !next.tipsterWeeklySlug
+      ? supplement.tipsterWeeklySlug
+      : next.tipsterWeeklySlug;
+  if (
+    nextDaily !== next.dailyPromoPickId ||
+    nextWeekly !== next.tipsterWeeklyPickId ||
+    nextSlug !== next.tipsterWeeklySlug
+  ) {
+    next = {
+      ...next,
+      dailyPromoPickId: nextDaily,
+      tipsterWeeklyPickId: nextWeekly,
+      tipsterWeeklySlug: nextSlug,
+    };
+  }
+
+  return next;
+}
+
 function required<T>(value: T | null, hook: string): T {
   if (value === null) throw new Error(`${hook} debe usarse dentro de <PlatformProvider>.`);
   return value;
@@ -459,7 +571,7 @@ export function useIsPickInParlay(pickId: string | undefined): boolean {
 }
 
 export function PlatformProvider({
-  dataset: rawDataset,
+  dataset: incomingRawDataset,
   initialRole = "visitor",
   allowRoleSimulation = false,
   accountsEnabled = false,
@@ -497,6 +609,34 @@ export function PlatformProvider({
 }): React.JSX.Element {
   const [viewerRole, setViewerRoleState] = useState<ViewerRole>(initialRole);
   const [viewerIdentity, setViewerIdentity] = useState(initialViewerIdentity);
+  const [clientSupplement, setClientSupplement] = useState<ScopedPlatformSupplement | null>(null);
+  const currentScopeKey = `${viewerRole}:${viewerIdentity?.handle ?? "anon"}:${incomingRawDataset.isServerRedactedForVisitor ? "1" : "0"}`;
+  const registerClientSupplement = useCallback((payload: ScopedPlatformSupplement) => {
+    startTransition(() => {
+      setClientSupplement((prev) => {
+        if (!prev || prev.scopeKey !== payload.scopeKey) {
+          return payload;
+        }
+        if (
+          prev.games === payload.games &&
+          prev.leagues === payload.leagues &&
+          prev.teams === payload.teams &&
+          prev.dailyPromoPickId === payload.dailyPromoPickId &&
+          prev.tipsterWeeklyPickId === payload.tipsterWeeklyPickId &&
+          prev.tipsterWeeklySlug === payload.tipsterWeeklySlug
+        ) {
+          return prev;
+        }
+        return payload;
+      });
+    });
+  }, []);
+  const rawDataset = useMemo(() => {
+    if (!clientSupplement || clientSupplement.scopeKey !== currentScopeKey) {
+      return incomingRawDataset;
+    }
+    return mergeSupplementIntoDataset(incomingRawDataset, clientSupplement, false, "");
+  }, [clientSupplement, currentScopeKey, incomingRawDataset]);
   useEffect(() => {
     document.documentElement.dataset.plHydrated = "1";
   }, []);
@@ -510,8 +650,27 @@ export function PlatformProvider({
   const [parlayStakeUnits, setParlayStakeUnits] = useState<number>(1.0);
   const [journal, setJournal] = useState<JournalEntry[]>([]);
   const [socialPosts, setSocialPosts] = useState<SocialPost[]>(() =>
-    attachExamplePostPicks(INITIAL_SOCIAL_POSTS, rawDataset.games),
+    attachExamplePostPicks(INITIAL_SOCIAL_POSTS, incomingRawDataset.games),
   );
+  const examplePicksAttachedRef = useRef<{ ns: boolean; ft: boolean }>({
+    ns: incomingRawDataset.games.some((g) => g.status !== "FT"),
+    ft: incomingRawDataset.games.some((g) => g.status === "FT"),
+  });
+  useEffect(() => {
+    const hasNs = rawDataset.games.some((g) => g.status !== "FT");
+    const hasFt = rawDataset.games.some((g) => g.status === "FT");
+    if (
+      (!hasNs || examplePicksAttachedRef.current.ns) &&
+      (!hasFt || examplePicksAttachedRef.current.ft)
+    ) {
+      return;
+    }
+    if (hasNs) examplePicksAttachedRef.current.ns = true;
+    if (hasFt) examplePicksAttachedRef.current.ft = true;
+    startTransition(() => {
+      setSocialPosts((prev) => attachExamplePostPicks(prev, rawDataset.games));
+    });
+  }, [rawDataset.games]);
   const [socialOnServer, setSocialOnServer] = useState<boolean>(false);
   const [socialFeedPages, setSocialFeedPages] = useState<Record<string, SocialFeedPageState>>({});
   const socialFeedPagesRef = useRef<Record<string, SocialFeedPageState>>({});
@@ -597,6 +756,12 @@ export function PlatformProvider({
   const [selectedTipsterPickId, setSelectedTipsterPickId] = useState<string>(
     rawDataset.tipsterWeeklyPickId || rawDataset.dailyPromoPickId,
   );
+  useEffect(() => {
+    const nextTipsterId = rawDataset.tipsterWeeklyPickId || rawDataset.dailyPromoPickId;
+    if (!selectedTipsterPickId && nextTipsterId) {
+      setSelectedTipsterPickId(nextTipsterId);
+    }
+  }, [rawDataset.dailyPromoPickId, rawDataset.tipsterWeeklyPickId, selectedTipsterPickId]);
 
   const [composerPick, setComposerPick] = useState<MatchPick | null>(null);
   const [shareTicket, setShareTicket] = useState<ShareTicketPayload | null>(initialShareTicket);
@@ -2638,15 +2803,29 @@ export function PlatformProvider({
   );
 
   const pickHomeSport = useCallback((next: SportFilter) => {
-    setHasExplicitHomeSport(true);
-    setHomeSportState(next);
-    setHomeLeagueState("all");
+    startTransition(() => {
+      setHasExplicitHomeSport(true);
+      setHomeSportState(next);
+      setHomeLeagueState("all");
+    });
+  }, []);
+  const pickHomeLeague = useCallback((next: LeagueFilter) => {
+    startTransition(() => {
+      setHomeLeagueState(next);
+    });
+  }, []);
+  const pickHomeChosenDay = useCallback((next: string | null) => {
+    startTransition(() => {
+      setHomeChosenDayState(next);
+    });
   }, []);
   const resetHomeFilters = useCallback((targetDay?: string) => {
-    if (targetDay !== undefined) setHomeChosenDayState(targetDay);
-    setHasExplicitHomeSport(true);
-    setHomeSportState("all");
-    setHomeLeagueState("all");
+    startTransition(() => {
+      if (targetDay !== undefined) setHomeChosenDayState(targetDay);
+      setHasExplicitHomeSport(true);
+      setHomeSportState("all");
+      setHomeLeagueState("all");
+    });
   }, []);
   const homeNavFilter = useMemo<HomeNavFilterValue>(
     () => ({
@@ -2656,8 +2835,8 @@ export function PlatformProvider({
       chosenDay: homeChosenDay,
       todayOverride: homeTodayOverride,
       pickSport: pickHomeSport,
-      setLeague: setHomeLeagueState,
-      setChosenDay: setHomeChosenDayState,
+      setLeague: pickHomeLeague,
+      setChosenDay: pickHomeChosenDay,
       setTodayOverride: setHomeTodayOverride,
       resetFilters: resetHomeFilters,
     }),
@@ -2710,29 +2889,31 @@ export function PlatformProvider({
   }, [parlayIdStore, parlayLegs]);
 
   return (
-    <PlatformActionsContext.Provider value={actions}>
-      <PlatformCoreContext.Provider value={core}>
-        <ParlayIdStoreContext.Provider value={parlayIdStore}>
-          <ParlayStateContext.Provider value={parlayState}>
-            <SocialStateContext.Provider value={socialState}>
-              <OverlayStateContext.Provider value={overlayState}>
-                <JournalContext.Provider value={journal}>
-                  <WatchlistContext.Provider value={watchlistGameIds}>
-                    <FollowAlertsContext.Provider value={followAlerts}>
-                      <AuraStoreContext.Provider value={auraStore}>
-                        <HomeNavFilterContext.Provider value={homeNavFilter}>
-                          <PlatformContext.Provider value={value}>{children}</PlatformContext.Provider>
-                        </HomeNavFilterContext.Provider>
-                      </AuraStoreContext.Provider>
-                    </FollowAlertsContext.Provider>
-                  </WatchlistContext.Provider>
-                </JournalContext.Provider>
-              </OverlayStateContext.Provider>
-            </SocialStateContext.Provider>
-          </ParlayStateContext.Provider>
-        </ParlayIdStoreContext.Provider>
-      </PlatformCoreContext.Provider>
-    </PlatformActionsContext.Provider>
+    <PlatformSupplementSetterContext.Provider value={registerClientSupplement}>
+      <PlatformActionsContext.Provider value={actions}>
+        <PlatformCoreContext.Provider value={core}>
+          <ParlayIdStoreContext.Provider value={parlayIdStore}>
+            <ParlayStateContext.Provider value={parlayState}>
+              <SocialStateContext.Provider value={socialState}>
+                <OverlayStateContext.Provider value={overlayState}>
+                  <JournalContext.Provider value={journal}>
+                    <WatchlistContext.Provider value={watchlistGameIds}>
+                      <FollowAlertsContext.Provider value={followAlerts}>
+                        <AuraStoreContext.Provider value={auraStore}>
+                          <HomeNavFilterContext.Provider value={homeNavFilter}>
+                            <PlatformContext.Provider value={value}>{children}</PlatformContext.Provider>
+                          </HomeNavFilterContext.Provider>
+                        </AuraStoreContext.Provider>
+                      </FollowAlertsContext.Provider>
+                    </WatchlistContext.Provider>
+                  </JournalContext.Provider>
+                </OverlayStateContext.Provider>
+              </SocialStateContext.Provider>
+            </ParlayStateContext.Provider>
+          </ParlayIdStoreContext.Provider>
+        </PlatformCoreContext.Provider>
+      </PlatformActionsContext.Provider>
+    </PlatformSupplementSetterContext.Provider>
   );
 }
 
@@ -2746,18 +2927,68 @@ export function usePlatform(): PlatformContextValue {
 
 export function PlatformGamesSupplement({
   games,
+  leagues,
+  teams,
+  dailyPromoPickId,
+  tipsterWeeklyPickId,
+  tipsterWeeklySlug,
   children,
 }: {
   games: readonly PlatformGame[];
+  leagues?: PlatformDataset["leagues"];
+  teams?: PlatformDataset["teams"];
+  dailyPromoPickId?: string;
+  tipsterWeeklyPickId?: string;
+  tipsterWeeklySlug?: string;
   children: React.ReactNode;
 }): React.JSX.Element {
   const full = usePlatform();
   const core = usePlatformCore();
+  const registerSupplement = useContext(PlatformSupplementSetterContext);
+
+  const supplement = useMemo<PlatformSupplementData>(
+    () => ({
+      games,
+      leagues,
+      teams,
+      dailyPromoPickId,
+      tipsterWeeklyPickId,
+      tipsterWeeklySlug,
+    }),
+    [dailyPromoPickId, games, leagues, teams, tipsterWeeklyPickId, tipsterWeeklySlug],
+  );
+
+  const scopeKey = `${core.viewerRole}:${core.viewerIdentity?.handle ?? "anon"}:${core.rawDataset.isServerRedactedForVisitor ? "1" : "0"}`;
+
+  useEffect(() => {
+    if (!registerSupplement) return;
+    if (
+      games.length === 0 &&
+      (!leagues || leagues.length === 0) &&
+      (!teams || teams.length === 0) &&
+      !dailyPromoPickId &&
+      !tipsterWeeklyPickId &&
+      !tipsterWeeklySlug
+    ) {
+      return;
+    }
+    registerSupplement({ ...supplement, scopeKey });
+  }, [
+    dailyPromoPickId,
+    games.length,
+    leagues,
+    registerSupplement,
+    scopeKey,
+    supplement,
+    teams,
+    tipsterWeeklyPickId,
+    tipsterWeeklySlug,
+  ]);
 
   const merge = useCallback(
     (base: PlatformDataset, applyTz: boolean): PlatformDataset =>
-      mergeSupplementalDataset(base, games, applyTz, core.userTimezone),
-    [core.userTimezone, games],
+      mergeSupplementIntoDataset(base, supplement, applyTz, core.userTimezone),
+    [core.userTimezone, supplement],
   );
 
   const patchedCore = useMemo<PlatformCoreValue>(

@@ -1100,8 +1100,8 @@ html[data-theme="light"] .pl-atom-jersey {
   flex-direction: column;
   gap: 3px;
   padding: 6px 10px;
-  border-radius: 10px;
-  border: 1px solid var(--pl-border);
+  border-radius: 8px;
+  border: 0;
   background: var(--pl-surface-elevated);
   color: var(--pl-text);
   min-inline-size: 0;
@@ -1109,12 +1109,12 @@ html[data-theme="light"] .pl-atom-jersey {
 
 .pl-atom-odds.is-compact {
   padding: 4px 8px;
-  border-radius: 8px;
+  border-radius: 6px;
 }
 
 .pl-atom-odds.is-highlight {
-  background: var(--pl-surface-active);
-  border-color: color-mix(in oklab, var(--pl-brand) 48%, var(--pl-border));
+  background: color-mix(in srgb, var(--pl-brand) 7%, var(--pl-surface-elevated));
+  border: 0;
 }
 
 .pl-atom-odds--cell {
@@ -1122,10 +1122,16 @@ html[data-theme="light"] .pl-atom-jersey {
   flex-direction: column;
   align-items: flex-end;
   gap: 2px;
-  padding: 5px 8px;
-  border-radius: 8px;
+  padding: 4px 7px;
+  border-radius: 6px;
+  border: 0;
+  background: transparent;
   min-inline-size: 74px;
   text-align: end;
+}
+
+.pl-atom-odds--cell.is-highlight {
+  background: color-mix(in srgb, var(--pl-brand) 7%, transparent);
 }
 
 .pl-atom-odds--cell.is-compact {
@@ -1205,42 +1211,37 @@ html[data-theme="light"] .pl-atom-jersey {
   display: inline-flex;
   align-items: center;
   gap: 2px;
-  padding: 1px 6px;
-  border-radius: 999px;
-  font-size: 0.68rem;
-  font-weight: 800;
+  padding: 0;
+  border-radius: 0;
+  font-size: 0.69rem;
+  font-weight: 750;
   line-height: 1.2;
-  border: 1px solid transparent;
+  border: 0;
+  background: transparent;
 }
 
 .pl-atom-odds-delta.is-shortening {
-  background: var(--pl-pill-success-bg);
   color: var(--pl-pill-success-fg);
-  border-color: var(--pl-pill-success-border);
 }
 
 .pl-atom-odds-delta.is-drifting {
-  background: var(--pl-pill-danger-bg);
   color: var(--pl-pill-danger-fg);
-  border-color: var(--pl-pill-danger-border);
 }
 
 .pl-atom-odds-delta.is-steam {
-  background: var(--pl-pill-warning-bg);
   color: var(--pl-pill-warning-fg);
-  border-color: var(--pl-pill-warning-border);
 }
 
 .pl-atom-odds-value {
   display: inline-flex;
   align-items: center;
-  padding: 1px 6px;
-  border-radius: 999px;
-  background: var(--pl-pill-brand-bg);
-  color: var(--pl-pill-brand-fg);
-  border: 1px solid var(--pl-pill-brand-border);
-  font-size: 0.68rem;
-  font-weight: 800;
+  padding: 0;
+  border-radius: 0;
+  background: transparent;
+  color: var(--pl-pill-success-fg);
+  border: 0;
+  font-size: 0.69rem;
+  font-weight: 750;
 }
 
 .pl-atom-header {

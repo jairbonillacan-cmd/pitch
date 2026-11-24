@@ -13,10 +13,10 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  quality:
-    name: Build y pruebas
+  checks:
+    name: Seguridad, lint, evals y typecheck
     runs-on: ubuntu-latest
-    timeout-minutes: 35
+    timeout-minutes: 15
     steps:
       - uses: actions/checkout@v4
         with:
@@ -59,14 +59,147 @@ jobs:
       - name: Typecheck del monorepo
         run: pnpm -r --workspace-concurrency=1 typecheck
 
+  unit-tests:
+    name: Pruebas unitarias del monorepo
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 12.11.2
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+
+      - name: Instalar dependencias (lockfile congelado)
+        run: pnpm install --frozen-lockfile
+
       - name: Pruebas unitarias del monorepo
         run: pnpm -r --workspace-concurrency=1 test
+
+  build:
+    name: Build Next.js y paquetes
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 12.11.2
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+
+      - name: Instalar dependencias (lockfile congelado)
+        run: pnpm install --frozen-lockfile
+
+      - name: Cache de build Next.js
+        uses: actions/cache@v4
+        with:
+          path: apps/web/.next/cache
+          key: ${{ runner.os }}-nextjs-${{ hashFiles('pnpm-lock.yaml', 'apps/web/next.config.mjs', 'apps/web/package.json', 'apps/web/app/**', 'apps/web/src/**', 'packages/**/src/**') }}
+          restore-keys: |
+            ${{ runner.os }}-nextjs-${{ hashFiles('pnpm-lock.yaml') }}-
+            ${{ runner.os }}-nextjs-
 
       - name: Build (gate anti-demo + typecheck + linter)
         run: pnpm build
 
+      - name: Subir artefacto .next para E2E
+        uses: actions/upload-artifact@v4
+        with:
+          name: web-next-build
+          path: |
+            apps/web/.next
+            !apps/web/.next/cache
+            !apps/web/.next/cache/**
+          include-hidden-files: true
+          retention-days: 1
+          if-no-files-found: error
+
+  e2e:
+    name: E2E (${{ matrix.shard }}/4)
+    runs-on: ubuntu-latest
+    needs: [checks, build]
+    timeout-minutes: 20
+    strategy:
+      fail-fast: false
+      matrix:
+        shard: [1, 2, 3, 4]
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 12.11.2
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+
+      - name: Instalar dependencias (lockfile congelado)
+        run: pnpm install --frozen-lockfile
+
+      - name: Descargar artefacto .next
+        uses: actions/download-artifact@v4
+        with:
+          name: web-next-build
+          path: apps/web/.next
+
+      - name: Verificar artefacto .next
+        run: test -f apps/web/.next/BUILD_ID
+
+      - name: Restaurar cache de navegadores Playwright
+        id: playwright-cache
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/ms-playwright
+          key: ${{ runner.os }}-ms-playwright-${{ hashFiles('pnpm-lock.yaml') }}
+
+      - name: Instalar dependencias de sistema para Chromium
+        if: steps.playwright-cache.outputs.cache-hit == 'true'
+        run: pnpm --filter @pitchlab/web exec playwright install-deps chromium
+
       - name: Instalar Chromium (E2E)
+        if: steps.playwright-cache.outputs.cache-hit != 'true'
         run: pnpm --filter @pitchlab/web exec playwright install --with-deps chromium
 
       - name: E2E (Playwright, desktop y movil)
-        run: pnpm --filter @pitchlab/web e2e
+        run: pnpm --filter @pitchlab/web exec playwright test --shard=${{ matrix.shard }}/4
+
+      - name: Subir evidencia en caso de fallo E2E
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: playwright-failures-shard-${{ matrix.shard }}
+          path: apps/web/test-results
+          retention-days: 3
+          if-no-files-found: ignore
+
+  quality:
+    name: Build y pruebas
+    runs-on: ubuntu-latest
+    needs: [checks, unit-tests, build, e2e]
+    if: ${{ !cancelled() }}
+    timeout-minutes: 5
+    steps:
+      - name: Verificar resultado de todos los jobs
+        run: |
+          if [ "${{ needs.checks.result }}" != "success" ] || [ "${{ needs.unit-tests.result }}" != "success" ] || [ "${{ needs.build.result }}" != "success" ] || [ "${{ needs.e2e.result }}" != "success" ]; then
+            echo "checks=${{ needs.checks.result }} unit-tests=${{ needs.unit-tests.result }} build=${{ needs.build.result }} e2e=${{ needs.e2e.result }}"
+            exit 1
+          fi

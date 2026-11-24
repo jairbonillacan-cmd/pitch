@@ -162,25 +162,25 @@ const derivedAndLightCss = `
   --pl-locked-surface: #120F1E;
   --pl-compare-surface: #120F1E;
 
-  /* Píldoras semánticas con contraste >= 4.5:1 sobre cristal ahumado */
+  /* Etiquetas semánticas planas con contraste >= 4.5:1 (sin contornos slop) */
   --pl-pill-brand-fg: #DDD6FE;
-  --pl-pill-brand-bg: rgba(139, 92, 246, 0.16);
-  --pl-pill-brand-border: rgba(196, 181, 253, 0.30);
+  --pl-pill-brand-bg: rgba(139, 92, 246, 0.12);
+  --pl-pill-brand-border: transparent;
   --pl-pill-cortex-fg: #FBCFE8;
-  --pl-pill-cortex-bg: rgba(236, 72, 153, 0.15);
-  --pl-pill-cortex-border: rgba(249, 168, 212, 0.30);
+  --pl-pill-cortex-bg: rgba(236, 72, 153, 0.12);
+  --pl-pill-cortex-border: transparent;
   --pl-pill-success-fg: #6EE7B7;
-  --pl-pill-success-bg: rgba(16, 185, 129, 0.14);
-  --pl-pill-success-border: rgba(110, 231, 183, 0.28);
+  --pl-pill-success-bg: rgba(16, 185, 129, 0.11);
+  --pl-pill-success-border: transparent;
   --pl-pill-warning-fg: #FBBF24;
-  --pl-pill-warning-bg: rgba(245, 158, 11, 0.14);
-  --pl-pill-warning-border: rgba(251, 191, 36, 0.28);
+  --pl-pill-warning-bg: rgba(245, 158, 11, 0.11);
+  --pl-pill-warning-border: transparent;
   --pl-pill-danger-fg: #FECDD3;
-  --pl-pill-danger-bg: rgba(244, 63, 94, 0.15);
-  --pl-pill-danger-border: rgba(253, 164, 175, 0.28);
+  --pl-pill-danger-bg: rgba(244, 63, 94, 0.12);
+  --pl-pill-danger-border: transparent;
   --pl-pill-info-fg: #7DD3FC;
-  --pl-pill-info-bg: rgba(14, 165, 233, 0.14);
-  --pl-pill-info-border: rgba(125, 211, 252, 0.28);
+  --pl-pill-info-bg: rgba(14, 165, 233, 0.11);
+  --pl-pill-info-border: transparent;
 
   /* Motores PitchLab Spacetime Suite v2.1 */
   --engine-tachyon: #7DD3FC;
@@ -350,23 +350,23 @@ const derivedAndLightCss = `
   --pl-compare-surface: rgba(109, 40, 217, 0.07);
 
   --pl-pill-brand-fg: #4C1D95;
-  --pl-pill-brand-bg: rgba(109, 40, 217, 0.09);
-  --pl-pill-brand-border: rgba(109, 40, 217, 0.24);
+  --pl-pill-brand-bg: rgba(109, 40, 217, 0.07);
+  --pl-pill-brand-border: transparent;
   --pl-pill-cortex-fg: #831843;
-  --pl-pill-cortex-bg: rgba(219, 39, 119, 0.09);
-  --pl-pill-cortex-border: rgba(190, 24, 93, 0.24);
+  --pl-pill-cortex-bg: rgba(219, 39, 119, 0.07);
+  --pl-pill-cortex-border: transparent;
   --pl-pill-success-fg: #065F46;
-  --pl-pill-success-bg: rgba(5, 150, 105, 0.10);
-  --pl-pill-success-border: rgba(6, 95, 70, 0.24);
+  --pl-pill-success-bg: rgba(5, 150, 105, 0.08);
+  --pl-pill-success-border: transparent;
   --pl-pill-warning-fg: #78350F;
-  --pl-pill-warning-bg: rgba(217, 119, 6, 0.11);
-  --pl-pill-warning-border: rgba(146, 64, 14, 0.25);
+  --pl-pill-warning-bg: rgba(217, 119, 6, 0.08);
+  --pl-pill-warning-border: transparent;
   --pl-pill-danger-fg: #881337;
-  --pl-pill-danger-bg: rgba(225, 29, 72, 0.09);
-  --pl-pill-danger-border: rgba(159, 18, 57, 0.24);
+  --pl-pill-danger-bg: rgba(225, 29, 72, 0.07);
+  --pl-pill-danger-border: transparent;
   --pl-pill-info-fg: #1E3A8A;
-  --pl-pill-info-bg: rgba(37, 99, 235, 0.09);
-  --pl-pill-info-border: rgba(30, 64, 175, 0.24);
+  --pl-pill-info-bg: rgba(37, 99, 235, 0.07);
+  --pl-pill-info-border: transparent;
 
   --engine-tachyon: #075985;
   --engine-singularity: #5B21B6;

@@ -3,7 +3,8 @@ import {
   withSessionRead,
   type SessionReadContext,
 } from "../../../../../src/server/api-guards";
-import { loadGamePreviewPayload } from "../../../../../src/server/platform-data";
+import { buildServerTimingHeader, nowPerfMs } from "../../../../../src/server/perf-cache";
+import { loadGamePreviewSerializedJson } from "../../../../../src/server/platform-data";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
@@ -48,20 +49,30 @@ export const GET = withSessionRead(
       );
     }
 
-    const payload = await loadGamePreviewPayload(gameId, access.fullAccess);
-    if (!payload) {
+    const startedAt = nowPerfMs();
+    const jsonBody = await loadGamePreviewSerializedJson(gameId, access.fullAccess);
+    const serverTiming = buildServerTimingHeader([
+      { stage: "preview", durationMs: nowPerfMs() - startedAt },
+    ]);
+    if (!jsonBody) {
       return NextResponse.json(
         { ok: false, error: "not_found" },
         {
           status: 404,
-          headers: { "Cache-Control": "private, no-store" },
+          headers: {
+            "Cache-Control": "private, no-store",
+            ...(serverTiming ? { "Server-Timing": serverTiming } : {}),
+          },
         },
       );
     }
 
-    return NextResponse.json(payload, {
+    return new NextResponse(jsonBody, {
+      status: 200,
       headers: {
+        "Content-Type": "application/json; charset=utf-8",
         "Cache-Control": "private, no-store",
+        ...(serverTiming ? { "Server-Timing": serverTiming } : {}),
       },
     });
   },

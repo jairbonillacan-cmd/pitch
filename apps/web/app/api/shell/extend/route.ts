@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { withSessionRead } from "../../../../src/server/api-guards";
-import { loadExtendedShellPayload } from "../../../../src/server/platform-data";
+import { buildServerTimingHeader, nowPerfMs } from "../../../../src/server/perf-cache";
+import { loadExtendedShellSerializedJson } from "../../../../src/server/platform-data";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
@@ -13,7 +14,17 @@ export const GET = withSessionRead(
     cacheControl: "private, no-store",
   },
   ({ access }) => {
-    const payload = loadExtendedShellPayload(access.fullAccess);
-    return NextResponse.json(payload);
+    const startedAt = nowPerfMs();
+    const jsonBody = loadExtendedShellSerializedJson(access.fullAccess);
+    const serverTiming = buildServerTimingHeader([
+      { stage: "shell_extend", durationMs: nowPerfMs() - startedAt },
+    ]);
+    return new NextResponse(jsonBody, {
+      status: 200,
+      headers: {
+        "Content-Type": "application/json; charset=utf-8",
+        ...(serverTiming ? { "Server-Timing": serverTiming } : {}),
+      },
+    });
   },
 );

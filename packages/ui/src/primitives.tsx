@@ -1,12 +1,12 @@
 "use client";
 
 import React from "react";
-import { LIGHT_THEME_TOKENS, STAGE_DARK_TOKENS } from "@pitchlab/tokens";
 import { getMascotPath } from "@pitchlab/sports-assets/brand";
 export { BrandLogo } from "./brand-logo";
 import { Icon } from "./icons";
 import { Badge } from "./components/ui/badge";
 import { Button } from "./components/ui/button";
+import { applyThemeMode } from "./theme-controller";
 
 export type TagVariant = "default" | "ok" | "info" | "model" | "demo";
 
@@ -126,23 +126,7 @@ export function ThemeToggle({ shape }: { shape?: "pill" } = {}): React.JSX.Eleme
     const root = document.documentElement;
     const current = root.dataset.theme === "light" ? "light" : "dark";
     const next = current === "light" ? "dark" : "light";
-    root.dataset.themeSwitching = "true";
-    root.dataset.theme = next;
-    root.style.colorScheme = next;
-    const meta = document.querySelector<HTMLMetaElement>('meta[name="theme-color"]:not([media])');
-    if (meta) {
-      meta.content =
-        next === "light"
-          ? LIGHT_THEME_TOKENS["--background-elevated"]
-          : STAGE_DARK_TOKENS["--pl-glass-nav"];
-    }
-    void root.offsetHeight;
-    delete root.dataset.themeSwitching;
-    try {
-      window.localStorage.setItem("pl-theme", next);
-    } catch (err) {
-      void err;
-    }
+    applyThemeMode(next, { persistStorage: true, syncServer: false });
   };
 
   return (

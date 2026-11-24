@@ -96,6 +96,7 @@ interface AuditedFinishedGame {
 export function HistorialClubView(): React.JSX.Element {
   const uid = useId();
   const leagueSelectId = `${uid}-hist-league`;
+  const marketSelectId = `${uid}-hist-market`;
   const { dataset, oddsFormat, userTimezone } = usePlatformCore();
   const { navigateTo } = usePlatformActions();
   const [outcome, setOutcome] = useState<OutcomeFilter>("all");
@@ -389,23 +390,34 @@ export function HistorialClubView(): React.JSX.Element {
     () => [
       {
         id: "ft",
-        label: "Finalizados (FT)",
+        label: "Partidos revisados",
         value: String(scoped.length),
         delta:
           league === "all"
-            ? `${byLeague.length} ligas · ${decidedScoped.length} dec.`
-            : `${decidedScoped.length} decididos`,
+            ? `${byLeague.length} ligas · ${decidedScoped.length} calificados`
+            : `${decidedScoped.length} calificados`,
       },
       {
         id: "hit",
-        label: "Pick principal ganado",
+        label: "Acierto global",
         value: decidedScoped.length > 0 ? `${hitPct.toFixed(1)} %` : "—",
-        delta: `${scopedStatusCounts.won}G–${scopedStatusCounts.lost}P${scopedStatusCounts.push > 0 ? ` · ${scopedStatusCounts.push} Push` : ""}`,
+        delta: `${scopedStatusCounts.won}G – ${scopedStatusCounts.lost}P${scopedStatusCounts.push > 0 ? ` · ${scopedStatusCounts.push} Push` : ""}`,
         tone: decidedScoped.length > 0 && hitPct >= 55 ? "positive" : "default",
       },
       {
+        id: "recent",
+        label: `Últimos ${recent.length}`,
+        value: recentDecided > 0 ? `${recentWon}/${recentDecided}` : "—",
+        delta:
+          recentDecided > 0
+            ? `${Math.round((recentWon / recentDecided) * 100)} % reciente`
+            : "Sin cierres",
+        tone:
+          recentDecided > 0 && recentWon / recentDecided >= 0.55 ? "positive" : "default",
+      },
+      {
         id: "ev",
-        label: evSummary.avgEvPct !== null ? "EV medio capturado" : "Momio justo medio",
+        label: evSummary.avgEvPct !== null ? "Ventaja media" : "Momio justo medio",
         value:
           evSummary.avgEvPct !== null
             ? formatSignedPctValue(evSummary.avgEvPct)
@@ -414,19 +426,10 @@ export function HistorialClubView(): React.JSX.Element {
               : "—",
         delta:
           evSummary.avgEvPct !== null
-            ? `${evSummary.evCount} con cuota`
-            : "Probabilidad calibrada",
+            ? `${evSummary.evCount} con cuota de casa`
+            : "Promedio calibrado",
         tone:
           evSummary.avgEvPct !== null && evSummary.avgEvPct > 0 ? "positive" : "default",
-      },
-      {
-        id: "recent",
-        label: `Últimos ${recent.length} FT`,
-        value: recentDecided > 0 ? `${recentWon}/${recentDecided} G` : "—",
-        delta:
-          recentDecided > 0 ? `${Math.round((recentWon / recentDecided) * 100)} %` : "Sin cierres",
-        tone:
-          recentDecided > 0 && recentWon / recentDecided >= 0.55 ? "positive" : "default",
       },
     ],
     [
@@ -457,85 +460,13 @@ export function HistorialClubView(): React.JSX.Element {
     ? activeBreakdownRows
     : activeBreakdownRows.slice(0, BREAKDOWN_PAGE_SIZE);
 
-  const breakdownColumns = useMemo<readonly SofascoreTableColumn<AuditRate>[]>(
-    () => [
-      {
-        key: "entity",
-        header: effectiveBreakdownTab === "league" ? "Liga" : "Familia de mercado",
-        sticky: true,
-        render: (r) => (
-          <span className="inline-flex items-center gap-2 min-w-0">
-            {r.leagueId ? (
-              <LeagueBadge league={r.leagueId} label={r.label} logoUrl={r.logoUrl} size={16} />
-            ) : null}
-            <span className="truncate font-semibold">{r.label}</span>
-          </span>
-        ),
-      },
-      {
-        key: "rate",
-        header: "Acierto",
-        numeric: true,
-        render: (r) => {
-          const v = pct(r.hits, r.total);
-          const barColor =
-            r.total === 0
-              ? "var(--pl-text-muted)"
-              : v >= 55
-                ? "var(--pl-success)"
-                : v < 45
-                  ? "var(--pl-warning)"
-                  : "var(--pl-brand)";
-          return (
-            <div className="pl-rec-tbl-rate num">
-              <strong>{r.total > 0 ? `${v.toFixed(0)} %` : "—"}</strong>
-              <span className="pl-rec-tbl-bar" aria-hidden="true">
-                <span style={{ inlineSize: `${Math.min(100, Math.max(0, v))}%`, background: barColor }} />
-              </span>
-            </div>
-          );
-        },
-      },
-      {
-        key: "record",
-        header: "G–P",
-        numeric: true,
-        render: (r) => (
-          <span className="num whitespace-nowrap">
-            {r.hits}/{r.total}
-            {r.pushes && r.pushes > 0 ? ` · ${r.pushes} Push` : ""}
-          </span>
-        ),
-      },
-      {
-        key: "ev",
-        header: "EV medio",
-        numeric: true,
-        render: (r) =>
-          typeof r.avgEvPct === "number" && Number.isFinite(r.avgEvPct) ? (
-            <strong
-              className="num whitespace-nowrap"
-              style={{ color: r.avgEvPct > 0 ? "var(--pl-success)" : "var(--pl-text-secondary)" }}
-            >
-              {formatSignedPctValue(r.avgEvPct)}
-            </strong>
-          ) : (
-            <span className="num" style={{ color: "var(--pl-text-muted)" }}>
-              —
-            </span>
-          ),
-      },
-    ],
-    [effectiveBreakdownTab],
-  );
-
   const visibleHistoryRows = useMemo(() => listed.slice(0, shown), [listed, shown]);
 
   const historyColumns = useMemo<readonly SofascoreTableColumn<AuditedFinishedGame>[]>(
     () => [
       {
         key: "match",
-        header: "Partido (FT)",
+        header: "Partido",
         sticky: true,
         render: (item) => {
           const g = item.game;
@@ -552,8 +483,14 @@ export function HistorialClubView(): React.JSX.Element {
                   navigateTo(item.href);
                 }}
               >
+                <LeagueBadge
+                  league={g.league}
+                  label={g.leagueLabel}
+                  logoUrl={leagueLogoByKey.get(g.league)}
+                  size={15}
+                />
                 <span className="truncate">{g.home.shortName}</span>
-                <span className="pl-hist-score-pill num">{scoreText}</span>
+                <span className="pl-hist-score-flat num">{scoreText}</span>
                 <span className="truncate">{g.away.shortName}</span>
               </a>
               <span className="pl-hist-ed-meta num">
@@ -565,11 +502,11 @@ export function HistorialClubView(): React.JSX.Element {
       },
       {
         key: "pick",
-        header: "Pick y familia",
+        header: "Pick publicado",
         render: (item) => (
           <div className="space-y-0.5 min-w-0">
             <strong className="block text-xs font-bold truncate">
-              {item.pick ? item.pick.label : "Sin pick principal publicado"}
+              {item.pick ? item.pick.label : "Sin pick publicado"}
             </strong>
             <span className="block text-[11px]" style={{ color: "var(--pl-text-muted)" }}>
               {item.family.shortLabel}
@@ -579,7 +516,7 @@ export function HistorialClubView(): React.JSX.Element {
       },
       {
         key: "value",
-        header: "Prob. / Momio",
+        header: "Prob. / Cuota",
         numeric: true,
         render: (item) =>
           item.pick ? (
@@ -602,12 +539,15 @@ export function HistorialClubView(): React.JSX.Element {
       },
       {
         key: "status",
-        header: "Estado",
+        header: "Resultado",
         align: "end",
         render: (item) => {
           const st = getAuditStatusMeta(item.auditStatus);
           return (
-            <span className={st.pillClass} data-audit-status={item.auditStatus}>
+            <span
+              className={`pl-hist-outcome-tag is-${item.auditStatus}`}
+              data-audit-status={item.auditStatus}
+            >
               <MaestroIcon name={st.icon} size={11} />
               <span>{st.label}</span>
             </span>
@@ -615,282 +555,324 @@ export function HistorialClubView(): React.JSX.Element {
         },
       },
     ],
-    [navigateTo, oddsFormat],
+    [leagueLogoByKey, navigateTo, oddsFormat],
   );
+
+  const hasActiveFilters =
+    league !== "all" ||
+    marketFamily !== "all" ||
+    outcome !== "all" ||
+    searchQuery.trim().length > 0;
 
   return (
     <AtmosphereStage>
       <ClubWorkspaceShell activePath="/app/historial">
-        <div className="pl-rec">
-          <SofascoreCard as="section" className="pl-rec-hero-card">
-            <header className="pl-rec-hero-top">
-              <div className="pl-rec-hero-copy">
-                <h1 className="pl-rec-title [text-wrap:balance]">Resultados</h1>
-                <p className="pl-rec-sub [text-wrap:pretty]">
-                  Cada pick principal se publica antes del partido y se audita con el marcador
-                  oficial. Todos los partidos finalizados (FT) permanecen visibles: ganados,
-                  perdidos, push y pendientes.
-                </p>
-              </div>
-              <div className="pl-hist-ed-league-select">
-                <label htmlFor={leagueSelectId} className="pl-rec-label">
-                  Liga
-                </label>
-                <select
-                  id={leagueSelectId}
-                  className="pl-rec-select"
-                  value={league}
-                  onChange={(e) => {
-                    setLeague(e.target.value);
-                    setMarketFamily("all");
-                    setShowAllBreakdown(false);
-                    setShown(FT_PAGE_SIZE);
-                  }}
-                >
-                  <option value="all">Todas ({finishedAudited.length})</option>
-                  {byLeague.map((r) => (
-                    <option key={r.key} value={r.key}>
-                      {r.label}
-                    </option>
-                  ))}
-                </select>
-              </div>
-            </header>
-
-            <SofascoreKpiStrip items={kpiItems} className="pl-rec-kpi-strip" />
-
-            {byLeague.length > 1 ? (
-              <div
-                className="pl-rec-filter-row num"
-                role="group"
-                aria-label="Filtrar resultados por liga"
+        <div className="pl-rec pl-hist-page">
+          <header className="pl-hist-header">
+            <div className="pl-hist-header-copy">
+              <h1 className="pl-rec-title [text-wrap:balance]">Resultados</h1>
+              <p className="pl-rec-sub [text-wrap:pretty]">
+                Picks publicados antes del inicio y calificados con el marcador oficial. Todos los
+                partidos terminados permanecen visibles.
+              </p>
+            </div>
+            <div className="pl-hist-header-controls">
+              <label htmlFor={leagueSelectId} className="sr-only">
+                Filtrar resultados por liga
+              </label>
+              <select
+                id={leagueSelectId}
+                className="pl-rec-select pl-hist-select"
+                value={league}
+                onChange={(e) => {
+                  setLeague(e.target.value);
+                  setMarketFamily("all");
+                  setShowAllBreakdown(false);
+                  setShown(FT_PAGE_SIZE);
+                }}
               >
-                <button
+                <option value="all">Todas las ligas ({finishedAudited.length})</option>
+                {byLeague.map((r) => (
+                  <option key={r.key} value={r.key}>
+                    {r.label}
+                    {r.total > 0 ? ` · ${pct(r.hits, r.total).toFixed(0)} %` : ""}
+                  </option>
+                ))}
+              </select>
+              {hasActiveFilters ? (
+                <Button
                   type="button"
-                  className="pl-rec-chip"
-                  aria-pressed={league === "all"}
+                  variant="ghost"
+                  size="sm"
                   onClick={() => {
+                    setOutcome("all");
                     setLeague("all");
                     setMarketFamily("all");
-                    setShowAllBreakdown(false);
+                    setSearchQuery("");
                     setShown(FT_PAGE_SIZE);
                   }}
                 >
-                  Todas · {finishedAudited.length}
-                </button>
-                {byLeague.slice(0, 7).map((r) => (
-                  <button
-                    key={r.key}
-                    type="button"
-                    className="pl-rec-chip"
-                    aria-pressed={league === r.key}
-                    onClick={() => {
-                      setLeague(r.key);
-                      setMarketFamily("all");
-                      setShowAllBreakdown(false);
-                      setShown(FT_PAGE_SIZE);
-                    }}
-                  >
-                    <span>{r.label}</span>
-                    <span>{r.total > 0 ? `${pct(r.hits, r.total).toFixed(0)}%` : "FT"}</span>
-                  </button>
-                ))}
-              </div>
-            ) : null}
-          </SofascoreCard>
-
-          <DailyParlaysResultsSection games={dataset.games} oddsFormat={oddsFormat} />
-
-          {scoped.length > 0 && activeBreakdownRows.length > 0 ? (
-            <SofascoreCard
-              id={`${uid}-breakdown`}
-              title="Desglose auditable"
-              meta={
-                league === "all" && byLeague.length > 1 ? (
-                  <SofascoreTabs
-                    items={BREAKDOWN_TABS}
-                    value={effectiveBreakdownTab}
-                    onChange={(next) => {
-                      setBreakdownTab(next === "market" ? "market" : "league");
-                      setShowAllBreakdown(false);
-                    }}
-                    variant="segmented"
-                    ariaLabel="Agrupación del desglose auditable"
-                  />
-                ) : (
-                  <span>{activeBreakdownRows.length} familias</span>
-                )
-              }
-            >
-              <div className="space-y-3">
-                <SofascoreTable
-                  caption={
-                    effectiveBreakdownTab === "league"
-                      ? "Acierto del modelo por liga en partidos finalizados"
-                      : "Acierto del modelo por familia de mercado en partidos finalizados"
-                  }
-                  columns={breakdownColumns}
-                  rows={visibleBreakdownRows}
-                  rowKey={(r) => r.key}
-                  density="compact"
-                />
-                {activeBreakdownRows.length > BREAKDOWN_PAGE_SIZE ? (
-                  <div className="flex justify-center">
-                    <Button
-                      variant="secondary"
-                      size="sm"
-                      onClick={() => setShowAllBreakdown((v) => !v)}
-                    >
-                      {showAllBreakdown
-                        ? "Mostrar menos"
-                        : `Ver todas (${activeBreakdownRows.length - BREAKDOWN_PAGE_SIZE} más)`}
-                    </Button>
-                  </div>
-                ) : null}
-              </div>
-            </SofascoreCard>
-          ) : null}
-
-          <SofascoreCard
-            id={`${uid}-settled-ft`}
-            title={
-              viewMode === "calendar"
-                ? "Calendario mensual de resultados"
-                : `Partidos finalizados (FT) · ${listed.length}`
-            }
-            meta={
-              <div data-historial-view-toggle="">
-                <SofascoreTabs
-                  items={HISTORIAL_VIEW_TABS}
-                  value={viewMode}
-                  onChange={(next) => setViewMode(next === "calendar" ? "calendar" : "list")}
-                  variant="segmented"
-                  ariaLabel="Modo de vista de resultados"
-                />
-              </div>
-            }
-          >
-            <div className="space-y-3">
-              {viewMode === "calendar" ? (
-                <DailyResultsCalendar
-                  buildMonth={buildModelCalendar}
-                  mode="model"
-                  onNavigateItem={navigateTo}
-                />
-              ) : (
-                <>
-                  <SofascoreFilterBar
-                    searchValue={searchQuery}
-                    onSearchChange={(next) => {
-                      setSearchQuery(next);
-                      setShown(FT_PAGE_SIZE);
-                    }}
-                    searchPlaceholder="Buscar equipo, liga o pick…"
-                    resultCount={listed.length}
-                  >
-                    <div
-                      className="pl-rec-filter-row num"
-                      role="group"
-                      aria-label="Filtrar por estado de liquidación"
-                      data-historial-status-filter=""
-                    >
-                      {(
-                        [
-                          ["all", `Todos · ${familyScoped.length}`],
-                          ["won", `Ganados · ${statusCounts.won}`],
-                          ["lost", `Perdidos · ${statusCounts.lost}`],
-                          ["push", `Push · ${statusCounts.push}`],
-                          ["pending", `Pendientes · ${statusCounts.pending}`],
-                        ] as const
-                      ).map(([id, label]) => (
-                        <button
-                          key={id}
-                          type="button"
-                          className="pl-rec-chip"
-                          aria-pressed={outcome === id}
-                          data-status-filter={id}
-                          onClick={() => {
-                            setOutcome(id);
-                            setShown(FT_PAGE_SIZE);
-                          }}
-                        >
-                          {label}
-                        </button>
-                      ))}
-                    </div>
-                  </SofascoreFilterBar>
-
-                  {familyFilterOptions.length > 1 ? (
-                    <div
-                      className="pl-rec-filter-row num"
-                      role="group"
-                      aria-label="Filtrar resultados por familia de mercado"
-                      data-historial-family-filter=""
-                    >
-                      <button
-                        type="button"
-                        className="pl-rec-chip"
-                        aria-pressed={marketFamily === "all"}
-                        onClick={() => {
-                          setMarketFamily("all");
-                          setShown(FT_PAGE_SIZE);
-                        }}
-                      >
-                        Todas las familias
-                      </button>
-                      {familyFilterOptions.slice(0, 7).map((opt) => (
-                        <button
-                          key={opt.key}
-                          type="button"
-                          className="pl-rec-chip"
-                          aria-pressed={marketFamily === opt.key}
-                          onClick={() => {
-                            setMarketFamily(opt.key);
-                            setShown(FT_PAGE_SIZE);
-                          }}
-                        >
-                          {opt.shortLabel} · {opt.count}
-                        </button>
-                      ))}
-                    </div>
-                  ) : null}
-
-                  <SofascoreTable
-                    caption="Historial auditable de partidos finalizados (FT) con pick principal, momio justo, casa y resultado"
-                    columns={historyColumns}
-                    rows={visibleHistoryRows}
-                    rowKey={(item) => item.game.id}
-                    emptyState={
-                      <SofascoreEmptyState
-                        title="Sin partidos finalizados con ese filtro"
-                        description="Prueba limpiando la búsqueda o eligiendo otro estado o liga."
-                        actionLabel="Limpiar filtros"
-                        onAction={() => {
-                          setOutcome("all");
-                          setLeague("all");
-                          setMarketFamily("all");
-                          setSearchQuery("");
-                          setShown(FT_PAGE_SIZE);
-                        }}
-                      />
-                    }
-                  />
-
-                  {listed.length > shown ? (
-                    <div className="flex justify-center pt-1">
-                      <Button
-                        variant="secondary"
-                        size="sm"
-                        onClick={() => setShown((n) => n + FT_PAGE_SIZE)}
-                      >
-                        Ver más ({listed.length - shown})
-                      </Button>
-                    </div>
-                  ) : null}
-                </>
-              )}
+                  Limpiar
+                </Button>
+              ) : null}
             </div>
-          </SofascoreCard>
+          </header>
+
+          <SofascoreKpiStrip items={kpiItems} className="pl-rec-kpi-strip" />
+
+          <div className="pl-hist-workspace">
+            <div className="pl-hist-main">
+              <SofascoreCard
+                id={`${uid}-settled-ft`}
+                title={
+                  viewMode === "calendar"
+                    ? "Calendario mensual"
+                    : `Partidos terminados · ${listed.length}`
+                }
+                meta={
+                  <div data-historial-view-toggle="">
+                    <SofascoreTabs
+                      items={HISTORIAL_VIEW_TABS}
+                      value={viewMode}
+                      onChange={(next) => setViewMode(next === "calendar" ? "calendar" : "list")}
+                      variant="segmented"
+                      ariaLabel="Modo de vista de resultados"
+                    />
+                  </div>
+                }
+              >
+                <div className="space-y-3">
+                  {viewMode === "calendar" ? (
+                    <DailyResultsCalendar
+                      buildMonth={buildModelCalendar}
+                      mode="model"
+                      onNavigateItem={navigateTo}
+                    />
+                  ) : (
+                    <>
+                      <div
+                        className="pl-hist-status-bar num"
+                        role="group"
+                        aria-label="Filtrar por estado de liquidación"
+                        data-historial-status-filter=""
+                      >
+                        {(
+                          [
+                            ["all", "Todos", familyScoped.length],
+                            ["won", "Ganados", statusCounts.won],
+                            ["lost", "Perdidos", statusCounts.lost],
+                            ["push", "Push", statusCounts.push],
+                            ["pending", "Pendientes", statusCounts.pending],
+                          ] as const
+                        )
+                          .filter(([id, , count]) => id === "all" || id === "won" || id === "lost" || count > 0)
+                          .map(([id, label, count]) => (
+                            <button
+                              key={id}
+                              type="button"
+                              className="pl-hist-status-tab"
+                              aria-pressed={outcome === id}
+                              data-status-filter={id}
+                              onClick={() => {
+                                setOutcome(id);
+                                setShown(FT_PAGE_SIZE);
+                              }}
+                            >
+                              <span>{label}</span>
+                              <span className="pl-hist-status-count num">{count}</span>
+                            </button>
+                          ))}
+                      </div>
+
+                      <div className="pl-hist-toolbar">
+                        <div className="pl-hist-search-wrap">
+                          <SofascoreFilterBar
+                            searchValue={searchQuery}
+                            onSearchChange={(next) => {
+                              setSearchQuery(next);
+                              setShown(FT_PAGE_SIZE);
+                            }}
+                            searchPlaceholder="Buscar equipo, liga o pick…"
+                            resultCount={listed.length}
+                          />
+                        </div>
+                        {familyFilterOptions.length > 1 ? (
+                          <div className="pl-hist-market-wrap" data-historial-family-filter="">
+                            <label htmlFor={marketSelectId} className="sr-only">
+                              Filtrar por tipo de mercado
+                            </label>
+                            <select
+                              id={marketSelectId}
+                              className="pl-rec-select pl-hist-select"
+                              value={marketFamily}
+                              onChange={(e) => {
+                                setMarketFamily(e.target.value);
+                                setShown(FT_PAGE_SIZE);
+                              }}
+                            >
+                              <option value="all">Todos los mercados</option>
+                              {familyFilterOptions.map((opt) => (
+                                <option key={opt.key} value={opt.key}>
+                                  {opt.shortLabel} ({opt.count})
+                                </option>
+                              ))}
+                            </select>
+                          </div>
+                        ) : null}
+                      </div>
+
+                      <SofascoreTable
+                        caption="Historial auditable de partidos finalizados (FT) con pick principal, momio justo, casa y resultado"
+                        columns={historyColumns}
+                        rows={visibleHistoryRows}
+                        rowKey={(item) => item.game.id}
+                        emptyState={
+                          <SofascoreEmptyState
+                            title="Sin partidos con ese filtro"
+                            description="Prueba limpiando la búsqueda o eligiendo otro resultado o liga."
+                            actionLabel="Limpiar filtros"
+                            onAction={() => {
+                              setOutcome("all");
+                              setLeague("all");
+                              setMarketFamily("all");
+                              setSearchQuery("");
+                              setShown(FT_PAGE_SIZE);
+                            }}
+                          />
+                        }
+                      />
+
+                      {listed.length > shown ? (
+                        <div className="flex justify-center pt-1">
+                          <Button
+                            variant="secondary"
+                            size="sm"
+                            onClick={() => setShown((n) => n + FT_PAGE_SIZE)}
+                          >
+                            Ver más ({listed.length - shown})
+                          </Button>
+                        </div>
+                      ) : null}
+                    </>
+                  )}
+                </div>
+              </SofascoreCard>
+            </div>
+
+            <aside className="pl-hist-rail" aria-label="Parlays y desglose de rendimiento">
+              <DailyParlaysResultsSection
+                games={dataset.games}
+                oddsFormat={oddsFormat}
+                timeZone={userTimezone || "America/Mexico_City"}
+                compact
+              />
+
+              {scoped.length > 0 && activeBreakdownRows.length > 0 ? (
+                <SofascoreCard
+                  id={`${uid}-breakdown`}
+                  title="Rendimiento"
+                  meta={
+                    league === "all" && byLeague.length > 1 ? (
+                      <SofascoreTabs
+                        items={BREAKDOWN_TABS}
+                        value={effectiveBreakdownTab}
+                        onChange={(next) => {
+                          setBreakdownTab(next === "market" ? "market" : "league");
+                          setShowAllBreakdown(false);
+                        }}
+                        variant="segmented"
+                        ariaLabel="Agrupación del rendimiento"
+                      />
+                    ) : (
+                      <span>{activeBreakdownRows.length} mercados</span>
+                    )
+                  }
+                >
+                  <div className="space-y-3">
+                    <div className="pl-hist-breakdown-list">
+                      {visibleBreakdownRows.map((row) => {
+                        const rateVal = pct(row.hits, row.total);
+                        const barColor =
+                          row.total === 0
+                            ? "var(--pl-text-muted)"
+                            : rateVal >= 55
+                              ? "var(--pl-success)"
+                              : rateVal < 45
+                                ? "var(--pl-warning)"
+                                : "var(--pl-brand)";
+                        const isClickableLeague = effectiveBreakdownTab === "league" && row.leagueId;
+                        const content = (
+                          <>
+                            <div className="pl-hist-breakdown-top">
+                              <span className="pl-hist-breakdown-name">
+                                {row.leagueId ? (
+                                  <LeagueBadge
+                                    league={row.leagueId}
+                                    label={row.label}
+                                    logoUrl={row.logoUrl}
+                                    size={16}
+                                  />
+                                ) : null}
+                                <span className="truncate">{row.label}</span>
+                              </span>
+                              <span className="pl-hist-breakdown-nums num">
+                                <strong>{row.total > 0 ? `${rateVal.toFixed(0)} %` : "—"}</strong>
+                                <span className="pl-hist-breakdown-rec">
+                                  {row.hits}/{row.total}
+                                </span>
+                              </span>
+                            </div>
+                            <span className="pl-hist-breakdown-bar" aria-hidden="true">
+                              <span
+                                style={{
+                                  inlineSize: `${Math.min(100, Math.max(0, rateVal))}%`,
+                                  background: barColor,
+                                }}
+                              />
+                            </span>
+                          </>
+                        );
+                        return isClickableLeague ? (
+                          <button
+                            key={row.key}
+                            type="button"
+                            className="pl-hist-breakdown-row is-interactive"
+                            aria-pressed={league === row.key}
+                            onClick={() => {
+                              setLeague(league === row.key ? "all" : row.key);
+                              setMarketFamily("all");
+                              setShowAllBreakdown(false);
+                              setShown(FT_PAGE_SIZE);
+                            }}
+                          >
+                            {content}
+                          </button>
+                        ) : (
+                          <div key={row.key} className="pl-hist-breakdown-row">
+                            {content}
+                          </div>
+                        );
+                      })}
+                    </div>
+
+                    {activeBreakdownRows.length > BREAKDOWN_PAGE_SIZE ? (
+                      <div className="flex justify-center">
+                        <Button
+                          variant="secondary"
+                          size="sm"
+                          onClick={() => setShowAllBreakdown((v) => !v)}
+                        >
+                          {showAllBreakdown
+                            ? "Mostrar menos"
+                            : `Ver todas (${activeBreakdownRows.length - BREAKDOWN_PAGE_SIZE} más)`}
+                        </Button>
+                      </div>
+                    ) : null}
+                  </div>
+                </SofascoreCard>
+              ) : null}
+            </aside>
+          </div>
         </div>
       </ClubWorkspaceShell>
     </AtmosphereStage>

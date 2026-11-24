@@ -4,41 +4,21 @@
    El color se reserva para el glifo: las superficies se quedan calladas.
    ========================================================================== */
 
-/* Píldora junto al nombre */
+/* Insignia simple solo ícono junto al nombre (hover nombre + clic explicación) */
 .pl-badge-chip {
   display: inline-flex;
   align-items: center;
-  gap: 6px;
-  max-width: 100%;
-  border-radius: 999px;
-  border: 1px solid var(--pl-border);
-  background: color-mix(in srgb, var(--pl-text) 5%, transparent);
-  color: var(--pl-text);
-  font-weight: 600;
-  white-space: nowrap;
-}
-
-.pl-badge-chip > svg {
-  flex: none;
-  color: var(--pl-brand);
-}
-
-.pl-badge-chip > span {
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-
-.pl-badge-chip--md {
-  height: 26px;
-  padding: 0 10px 0 8px;
-  font-size: 12px;
-}
-
-.pl-badge-chip--sm {
-  height: 22px;
-  padding: 0 8px 0 6px;
-  font-size: 11px;
+  justify-content: center;
+  border: 0;
+  background: transparent;
+  padding: 0;
   vertical-align: middle;
+}
+
+.pl-badge-chip--md,
+.pl-badge-chip--sm {
+  height: auto;
+  padding: 0;
 }
 
 .pl-badge-row {

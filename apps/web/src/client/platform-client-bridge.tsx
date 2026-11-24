@@ -1,7 +1,15 @@
 "use client";
 
-import React, { useCallback, useEffect, useRef, useState, useTransition } from "react";
+import React, {
+  startTransition as startBackgroundTransition,
+  useCallback,
+  useEffect,
+  useRef,
+  useState,
+  useTransition,
+} from "react";
 import { usePathname, useRouter } from "next/navigation";
+import { invalidateClientJsonCache } from "@pitchlab/ui/hooks";
 import {
   isDetailRoutePath,
   runWithViewTransition,
@@ -21,6 +29,21 @@ type ShellTeamEntry = NonNullable<PlatformDataset["teams"]>[number];
 
 const MAX_PREFETCHED_ROUTES = 80;
 
+const EAGER_EXTEND_PATHS: ReadonlySet<string> = new Set([
+  "/app/parlays",
+  "/app/social",
+  "/app/lab",
+  "/app/momios",
+  "/app/props",
+  "/app/tipster",
+]);
+
+function requiresImmediateShellExtend(rawPath: string | null | undefined): boolean {
+  if (!rawPath) return false;
+  const clean = (rawPath.split(/[?#]/, 1)[0] ?? "/").replace(/\/+$/, "") || "/";
+  return EAGER_EXTEND_PATHS.has(clean) || clean.startsWith("/app/u/");
+}
+
 function mergeShellExtension(
   base: PlatformDataset,
   extraGames: readonly PlatformGame[],
@@ -33,7 +56,6 @@ function mergeShellExtension(
     seenGameIds.add(g.id);
     const enriched = extraById.get(g.id);
     if (!enriched) return g;
-    // Conserva parlayCandidates cuando el tramo 2 trae más detalle sin perder el estado local
     if (
       (enriched.parlayCandidates?.length ?? 0) > (g.parlayCandidates?.length ?? 0) ||
       enriched.picks.length > g.picks.length
@@ -83,7 +105,6 @@ export function PlatformClientBridge({
   children,
 }: {
   dataset: PlatformDataset;
-  /** Cuando true, el shell inicial trae la ventana inmediata (< 500 KB) y extiende el horizonte en ocioso. */
   deferredShellExtend?: boolean;
   initialRole: ViewerRole;
   allowRoleSimulation?: boolean;
@@ -102,46 +123,131 @@ export function PlatformClientBridge({
   const prefetchedRef = useRef<Set<string>>(new Set());
   const extendStartedRef = useRef<boolean>(false);
   const extendDoneRef = useRef<boolean>(!deferredShellExtend);
+  const extendedPayloadRef = useRef<{
+    scope: string;
+    games: PlatformGame[];
+    teams: ShellTeamEntry[];
+  } | null>(null);
+  const viewerScope = `${initialRole}:${viewerIdentity?.handle ?? "anon"}:${dataset.isServerRedactedForVisitor ? "1" : "0"}`;
+  const prevViewerScopeRef = useRef<string>(viewerScope);
 
-  // Sincroniza si el layout del servidor manda un dataset distinto (p. ej. cambio de sesión)
   useEffect(() => {
+    if (prevViewerScopeRef.current !== viewerScope) {
+      prevViewerScopeRef.current = viewerScope;
+      invalidateClientJsonCache();
+      extendedPayloadRef.current = null;
+      extendStartedRef.current = false;
+      extendDoneRef.current = !deferredShellExtend;
+      setActiveDataset(dataset);
+      return;
+    }
+    const cachedExtended = extendedPayloadRef.current;
+    if (cachedExtended && cachedExtended.scope === viewerScope) {
+      extendDoneRef.current = true;
+      startBackgroundTransition(() => {
+        setActiveDataset(
+          mergeShellExtension(dataset, cachedExtended.games, cachedExtended.teams),
+        );
+      });
+      return;
+    }
     setActiveDataset(dataset);
     extendStartedRef.current = false;
     extendDoneRef.current = !deferredShellExtend;
-  }, [dataset, deferredShellExtend]);
+  }, [dataset, deferredShellExtend, viewerScope]);
+
+  const triggerFullShell = useCallback(
+    (background: boolean) => {
+      if (!deferredShellExtend || extendStartedRef.current || extendDoneRef.current) return;
+      extendStartedRef.current = true;
+      const requestScope = prevViewerScopeRef.current;
+      const fetchInit: RequestInit & { priority?: "high" | "low" | "auto" } = {
+        credentials: "same-origin",
+        priority: background ? "low" : "auto",
+      };
+      void fetch("/api/shell/extend", fetchInit)
+        .then((res) => (res.ok ? res.json() : null))
+        .then((payload: { games?: PlatformGame[]; teams?: ShellTeamEntry[] } | null) => {
+          if (!payload) {
+            extendStartedRef.current = false;
+            return;
+          }
+          if (prevViewerScopeRef.current !== requestScope) {
+            return;
+          }
+          const extraGames = Array.isArray(payload.games) ? payload.games : [];
+          const extraTeams = Array.isArray(payload.teams) ? payload.teams : [];
+          extendedPayloadRef.current = {
+            scope: requestScope,
+            games: extraGames,
+            teams: extraTeams,
+          };
+          extendDoneRef.current = true;
+          startBackgroundTransition(() => {
+            setActiveDataset((prev) => mergeShellExtension(prev, extraGames, extraTeams));
+          });
+        })
+        .catch((err) => {
+          void err;
+          extendStartedRef.current = false;
+        });
+    },
+    [deferredShellExtend],
+  );
 
   const requestFullShell = useCallback(() => {
-    if (!deferredShellExtend || extendStartedRef.current || extendDoneRef.current) return;
-    extendStartedRef.current = true;
-    void fetch("/api/shell/extend", { credentials: "same-origin" })
-      .then((res) => (res.ok ? res.json() : null))
-      .then((payload: { games?: PlatformGame[]; teams?: ShellTeamEntry[] } | null) => {
-        if (!payload) {
-          extendStartedRef.current = false;
-          return;
-        }
-        extendDoneRef.current = true;
-        const extraGames = Array.isArray(payload.games) ? payload.games : [];
-        const extraTeams = Array.isArray(payload.teams) ? payload.teams : [];
-        setActiveDataset((prev) => mergeShellExtension(prev, extraGames, extraTeams));
-      })
-      .catch((err) => {
-        void err;
-        extendStartedRef.current = false;
-      });
-  }, [deferredShellExtend]);
+    triggerFullShell(false);
+  }, [triggerFullShell]);
 
-  // Carga diferida del horizonte completo (7 días / todas las ligas) en tiempo ocioso (ADR-053)
+  const requestFullShellBackground = useCallback(() => {
+    triggerFullShell(true);
+  }, [triggerFullShell]);
+
   useEffect(() => {
     if (!deferredShellExtend || extendDoneRef.current) return;
     if (typeof window === "undefined") return;
-    if (typeof window.requestIdleCallback === "function") {
-      const id = window.requestIdleCallback(() => requestFullShell(), { timeout: 1400 });
-      return () => window.cancelIdleCallback(id);
+    if (requiresImmediateShellExtend(pathname)) {
+      requestFullShell();
+      return;
     }
-    const timer = window.setTimeout(() => requestFullShell(), 500);
-    return () => window.clearTimeout(timer);
-  }, [deferredShellExtend, requestFullShell]);
+    let cancelled = false;
+    let idleHandle: number | null = null;
+    let timerHandle: number | null = null;
+    const scheduleIdle = () => {
+      if (cancelled || extendStartedRef.current || extendDoneRef.current) return;
+      if (typeof window.requestIdleCallback === "function") {
+        idleHandle = window.requestIdleCallback(
+          () => {
+            if (!cancelled) requestFullShellBackground();
+          },
+          { timeout: 1200 },
+        );
+        return;
+      }
+      timerHandle = window.setTimeout(() => {
+        if (!cancelled) requestFullShellBackground();
+      }, 80);
+    };
+    const rafHandle =
+      typeof window.requestAnimationFrame === "function"
+        ? window.requestAnimationFrame(() => scheduleIdle())
+        : null;
+    if (rafHandle === null) {
+      timerHandle = window.setTimeout(scheduleIdle, 80);
+    }
+    return () => {
+      cancelled = true;
+      if (rafHandle !== null && typeof window.cancelAnimationFrame === "function") {
+        window.cancelAnimationFrame(rafHandle);
+      }
+      if (idleHandle !== null && typeof window.cancelIdleCallback === "function") {
+        window.cancelIdleCallback(idleHandle);
+      }
+      if (timerHandle !== null) {
+        window.clearTimeout(timerHandle);
+      }
+    };
+  }, [deferredShellExtend, pathname, requestFullShell, requestFullShellBackground]);
 
   useEffect(() => {
     setNavPending(false);
@@ -178,11 +284,13 @@ export function PlatformClientBridge({
     (href: string) => {
       const safeHref = sanitizeInternalHref(href);
       if (!safeHref) return;
+      if (requiresImmediateShellExtend(safeHref)) {
+        requestFullShell();
+      }
       if (typeof window !== "undefined") {
         const currentPath = window.location.pathname;
         const nextPath = safeHref.split("?")[0] || "/";
         if (nextPath !== currentPath) {
-          // Guarda scroll de la vista actual antes de entrar a detalle (/g/, /t/, /p/)
           if (isDetailRoutePath(nextPath) || !isDetailRoutePath(currentPath)) {
             saveRouteScroll(currentPath, window.scrollY);
           }
@@ -200,7 +308,7 @@ export function PlatformClientBridge({
         });
       });
     },
-    [router],
+    [requestFullShell, router],
   );
 
   return (

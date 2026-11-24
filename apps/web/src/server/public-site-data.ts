@@ -48,12 +48,79 @@ export function selectHeroMainCards(
   return picked;
 }
 
-function loadPublicFinishedGames() {
-  const dataset = redactDatasetForVisitor(buildServerRawPlatformDataset());
-  return withoutGameDetail({
-    ...dataset,
-    games: dataset.games.filter((g) => g.status === "FT"),
-  }).games;
+interface PublicSiteMemo {
+  readonly rawRef: ReturnType<typeof buildServerRawPlatformDataset>;
+  redacted: ReturnType<typeof buildServerRawPlatformDataset> | null;
+  finished: ReturnType<typeof buildServerRawPlatformDataset>["games"] | null;
+  heroCards: LandingHeroLeagueCard[] | null;
+  allFinishedResults: LandingFinishedResultItem[] | null;
+  parlayDemo: LandingParlayDemoData | null;
+  featuredPick: LandingFeaturedCommunityPick | null;
+}
+
+let publicSiteMemo: PublicSiteMemo | null = null;
+
+function getPublicSiteMemo(): PublicSiteMemo {
+  const raw = buildServerRawPlatformDataset();
+  if (!publicSiteMemo || publicSiteMemo.rawRef !== raw) {
+    publicSiteMemo = {
+      rawRef: raw,
+      redacted: null,
+      finished: null,
+      heroCards: null,
+      allFinishedResults: null,
+      parlayDemo: null,
+      featuredPick: null,
+    };
+  }
+  return publicSiteMemo;
+}
+
+function getPublicRedactedDataset(memo: PublicSiteMemo) {
+  if (!memo.redacted) {
+    memo.redacted = redactDatasetForVisitor(memo.rawRef);
+  }
+  return memo.redacted;
+}
+
+function getPublicFinishedGames(memo: PublicSiteMemo) {
+  if (!memo.finished) {
+    const dataset = getPublicRedactedDataset(memo);
+    memo.finished = withoutGameDetail({
+      ...dataset,
+      games: dataset.games.filter((g) => g.status === "FT"),
+    }).games;
+  }
+  return memo.finished;
+}
+
+function getPublicHeroCards(memo: PublicSiteMemo): LandingHeroLeagueCard[] {
+  if (!memo.heroCards) {
+    memo.heroCards = buildHeroLeagueCards(memo.rawRef.games, memo.rawRef.leagues);
+  }
+  return memo.heroCards;
+}
+
+function getPublicAllFinishedResults(memo: PublicSiteMemo): LandingFinishedResultItem[] {
+  if (!memo.allFinishedResults) {
+    memo.allFinishedResults = buildFinishedResultItems(getPublicFinishedGames(memo));
+  }
+  return memo.allFinishedResults;
+}
+
+function getPublicParlayDemo(memo: PublicSiteMemo): LandingParlayDemoData {
+  if (!memo.parlayDemo) {
+    memo.parlayDemo = buildParlayDemoData(getPublicRedactedDataset(memo).games);
+  }
+  return memo.parlayDemo;
+}
+
+function getPublicFeaturedPick(memo: PublicSiteMemo): LandingFeaturedCommunityPick {
+  if (!memo.featuredPick) {
+    const dataset = getPublicRedactedDataset(memo);
+    memo.featuredPick = buildFeaturedCommunityPick(dataset.games, dataset.tipsterWeeklyPickId);
+  }
+  return memo.featuredPick;
 }
 
 export async function loadLandingViewProps(): Promise<{
@@ -62,17 +129,12 @@ export async function loadLandingViewProps(): Promise<{
   parlayDemo: LandingParlayDemoData;
   featuredPick: LandingFeaturedCommunityPick;
 }> {
-  const raw = buildServerRawPlatformDataset();
-  const dataset = redactDatasetForVisitor(raw);
-  const allHeroCards = buildHeroLeagueCards(raw.games, raw.leagues);
+  const memo = getPublicSiteMemo();
+  const allHeroCards = getPublicHeroCards(memo);
   const heroCards = selectHeroMainCards(allHeroCards);
-  const finished = loadPublicFinishedGames();
-  const recentResults = buildFinishedResultItems(finished, 4).slice(0, 4);
-  const parlayDemo = buildParlayDemoData(dataset.games);
-  const featuredPick = buildFeaturedCommunityPick(
-    dataset.games,
-    dataset.tipsterWeeklyPickId,
-  );
+  const recentResults = getPublicAllFinishedResults(memo).slice(0, 4);
+  const parlayDemo = getPublicParlayDemo(memo);
+  const featuredPick = getPublicFeaturedPick(memo);
 
   return {
     heroCards,
@@ -85,39 +147,70 @@ export async function loadLandingViewProps(): Promise<{
 export async function loadComoFuncionaViewProps(): Promise<{
   heroCards: LandingHeroLeagueCard[];
 }> {
-  const raw = buildServerRawPlatformDataset();
+  const memo = getPublicSiteMemo();
   return {
-    heroCards: buildHeroLeagueCards(raw.games, raw.leagues),
+    heroCards: getPublicHeroCards(memo),
   };
 }
 
 export async function loadResultadosViewProps(): Promise<{
   results: LandingFinishedResultItem[];
 }> {
-  const finished = loadPublicFinishedGames();
+  const memo = getPublicSiteMemo();
   return {
-    results: buildFinishedResultItems(finished),
+    results: getPublicAllFinishedResults(memo),
+  };
+}
+
+export interface ResultadosPageData {
+  readonly results: readonly LandingFinishedResultItem[];
+  readonly totalCount: number;
+  readonly hasMore: boolean;
+}
+
+export async function loadResultadosPageData(options?: {
+  readonly limit?: number;
+  readonly offset?: number;
+  readonly league?: string;
+}): Promise<ResultadosPageData> {
+  const memo = getPublicSiteMemo();
+  const all = getPublicAllFinishedResults(memo);
+  const leagueFilter = options?.league?.trim().toLowerCase();
+  const filtered =
+    leagueFilter && leagueFilter !== "all"
+      ? all.filter((item) => item.league.toLowerCase() === leagueFilter)
+      : all;
+  const offset =
+    typeof options?.offset === "number" && Number.isFinite(options.offset) && options.offset >= 0
+      ? Math.floor(options.offset)
+      : 0;
+  const limit =
+    typeof options?.limit === "number" && Number.isFinite(options.limit) && options.limit >= 1
+      ? Math.floor(options.limit)
+      : 85;
+  const slice = filtered.slice(offset, offset + limit);
+  return {
+    results: slice,
+    totalCount: filtered.length,
+    hasMore: offset + slice.length < filtered.length,
   };
 }
 
 export async function loadParlaysViewProps(): Promise<{
   parlayDemo: LandingParlayDemoData;
 }> {
-  const dataset = redactDatasetForVisitor(buildServerRawPlatformDataset());
+  const memo = getPublicSiteMemo();
   return {
-    parlayDemo: buildParlayDemoData(dataset.games),
+    parlayDemo: getPublicParlayDemo(memo),
   };
 }
 
 export async function loadComunidadViewProps(): Promise<{
   featuredPick: LandingFeaturedCommunityPick;
 }> {
-  const dataset = redactDatasetForVisitor(buildServerRawPlatformDataset());
+  const memo = getPublicSiteMemo();
   return {
-    featuredPick: buildFeaturedCommunityPick(
-      dataset.games,
-      dataset.tipsterWeeklyPickId,
-    ),
+    featuredPick: getPublicFeaturedPick(memo),
   };
 }
 
@@ -127,7 +220,8 @@ export interface LoginPreviewData {
 }
 
 export async function loadLoginPreviewData(): Promise<LoginPreviewData> {
-  const dataset = redactDatasetForVisitor(buildServerRawPlatformDataset());
+  const memo = getPublicSiteMemo();
+  const dataset = getPublicRedactedDataset(memo);
   if (dataset.games.length === 0) {
     return { primaryCard: null, secondaryCard: null };
   }

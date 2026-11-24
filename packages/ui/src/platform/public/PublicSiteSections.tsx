@@ -1868,14 +1868,63 @@ export function MotoresPageSurface({
   );
 }
 
+export const RESULTS_BOARD_PROJECTION_LIMIT = 85;
+const RESULTS_FIRST_FOLD_COUNT = 20;
+
+export function selectProjectedResultadosBoard<T extends { id: string; league: string }>(
+  allResults: readonly T[],
+  limit = RESULTS_BOARD_PROJECTION_LIMIT,
+): T[] {
+  if (allResults.length <= limit) return [...allResults];
+  const indexById = new Map<string, number>();
+  const pickedIds = new Set<string>();
+  const pickedByLeague = new Map<string, number>();
+  const selected: T[] = [];
+
+  for (let i = 0; i < allResults.length; i += 1) {
+    indexById.set(allResults[i]!.id, i);
+  }
+
+  for (const item of allResults.slice(0, RESULTS_FIRST_FOLD_COUNT)) {
+    if (selected.length >= limit || pickedIds.has(item.id)) continue;
+    pickedIds.add(item.id);
+    pickedByLeague.set(item.league, (pickedByLeague.get(item.league) ?? 0) + 1);
+    selected.push(item);
+  }
+
+  for (const item of allResults) {
+    if (selected.length >= limit) break;
+    if (pickedIds.has(item.id)) continue;
+    if ((pickedByLeague.get(item.league) ?? 0) === 0) {
+      pickedIds.add(item.id);
+      pickedByLeague.set(item.league, 1);
+      selected.push(item);
+    }
+  }
+
+  for (const item of allResults) {
+    if (selected.length >= limit) break;
+    if (pickedIds.has(item.id)) continue;
+    pickedIds.add(item.id);
+    selected.push(item);
+  }
+
+  selected.sort((a, b) => (indexById.get(a.id) ?? 0) - (indexById.get(b.id) ?? 0));
+  return selected;
+}
+
 export function ResultadosPageSurface({
   results,
+  boardResults,
   hasSession = false,
 }: {
   results: readonly LandingFinishedResultItem[];
+  boardResults?: readonly LandingFinishedResultItem[];
   hasSession?: boolean;
 }): React.JSX.Element {
   const stats = computePublicResultsSummary(results);
+  const effectiveBoardResults = boardResults ?? results;
+  const coveredLeagueCount = new Set(effectiveBoardResults.map((item) => item.league)).size;
   const kpiItems: EditorialKpiItem[] = [
     {
       id: "settled",
@@ -1935,7 +1984,16 @@ export function ResultadosPageSurface({
             <EditorialKpiStrip items={kpiItems} className="pl-ed-kpi-4" />
           </div>
 
-          <ResultadosEditorialBoard results={results} />
+          {effectiveBoardResults.length < results.length ? (
+            <p className="pl-v4-sub m-0">
+              Ventana interactiva: muestra reciente de{" "}
+              <strong className="num">{effectiveBoardResults.length}</strong> partidos (
+              <strong className="num">{coveredLeagueCount}</strong> ligas cubiertas) de{" "}
+              <strong className="num">{results.length}</strong> registros auditados. Los indicadores
+              y la curva superior cubren el historial completo.
+            </p>
+          ) : null}
+          <ResultadosEditorialBoard results={effectiveBoardResults} />
 
           <div className="pl-ed-callout">
             <div className="pl-ed-callout-copy">

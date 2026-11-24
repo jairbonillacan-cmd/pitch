@@ -73,7 +73,9 @@
     "./verificacion": "./src/platform/public/VerificationSurface.tsx",
     "./alerts": "./src/platform/club/AlertsClubView.tsx",
     "./referees": "./src/platform/club/RefereesClubView.tsx",
-    "./standings-brackets": "./src/platform/club/StandingsBracketsSection.tsx"
+    "./standings-brackets": "./src/platform/club/StandingsBracketsSection.tsx",
+    "./theme-controller": "./src/theme-controller.ts",
+    "./juego-responsable": "./src/platform/club/ClubResponsiblePlayView.tsx"
   },
   "scripts": {
     "build": "tsc --noEmit",

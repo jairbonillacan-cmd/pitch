@@ -20,22 +20,15 @@ import {
   StackedAvatars,
 } from "../components/MaestroPrimitives";
 import type { CortexSectionView } from "./match/CortexAnalysisCard";
-import { MatchEnfrentamientosPanel } from "./match/MatchEnfrentamientosPanel";
 import {
   MatchBreadcrumb,
   MatchHeroScoreboard,
   MatchLeftRail,
 } from "./match/MatchHeroAndRail";
-import { MatchInjuriesPanel } from "./match/MatchInjuriesPanel";
-import { MatchLineupsPanel } from "./match/MatchLineupsPanel";
 import { MatchPicksEvidenceBoard } from "./match/MatchPicksEvidenceBoard";
-import { MatchPlayerPicksBoard } from "./match/MatchPlayerPicksBoard";
 import { MatchTabPanel, MatchTabs, useMatchUrlTab } from "./match/MatchTabs";
 import { PreMatchModule } from "./match/PreMatchModule";
-import {
-  SportOutlookCard,
-  platformGameToSportOutlook,
-} from "./match/sport-outlook";
+import { platformGameToSportOutlook } from "./match/sport-outlook/sport-outlook-mapper";
 import { useLiveMatch } from "../live/live-store";
 import {
   AtmosphereStage,
@@ -89,6 +82,23 @@ export {
   type LeagueTitleProjectionData,
 } from "./league/LeagueHubClubView";
 
+const loadMatchPlayerPicksBoard = () =>
+  import("./match/MatchPlayerPicksBoard").then((m) => ({ default: m.MatchPlayerPicksBoard }));
+const LazyMatchPlayerPicksBoard = lazy(loadMatchPlayerPicksBoard);
+const LazySportOutlookCard = lazy(() =>
+  import("./match/sport-outlook/SportOutlookCard").then((m) => ({ default: m.SportOutlookCard })),
+);
+const LazyMatchLineupsPanel = lazy(() =>
+  import("./match/MatchLineupsPanel").then((m) => ({ default: m.MatchLineupsPanel })),
+);
+const LazyMatchEnfrentamientosPanel = lazy(() =>
+  import("./match/MatchEnfrentamientosPanel").then((m) => ({
+    default: m.MatchEnfrentamientosPanel,
+  })),
+);
+const LazyMatchInjuriesPanel = lazy(() =>
+  import("./match/MatchInjuriesPanel").then((m) => ({ default: m.MatchInjuriesPanel })),
+);
 const LazyLiveMatchPanelView = lazy(() =>
   import("../live/LiveMatchCenter").then((m) => ({ default: m.LiveMatchPanelView })),
 );
@@ -139,19 +149,12 @@ export function MatchStudioClubView({
 }: {
   leagueId: LeagueId;
   gameId: string;
-  /** Resumen de Cortex IA redactado en servidor (LLM validado); si falta, se usa la plantilla. */
   cortexSynthesisOverride?: string | null;
-  /** Análisis por secciones de Cortex IA (lo redacta el corte y llega en el snapshot). */
   cortexSections?: readonly CortexSectionView[] | null;
-  /** Idea central del partido redactada por Cortex IA. */
   cortexHeadline?: string | null;
-  /** Mercados, enfrentamientos y factores de este partido (el dataset del layout llega sin ellos). */
   detail?: PlatformGameDetail | null;
-  /** Tabla general de la liga de este partido (evita enviar 57 tablas en el layout). */
   leagueStandings?: readonly StandingRow[];
-  /** Snapshot en vivo inyectado para stories o pruebas deterministas. */
   liveDetailOverride?: LiveMatchDetail | null;
-  /** Pestaña inicial resuelta en servidor desde `?tab=` para compartir enlaces. */
   initialTab?: MatchTabKey;
 }): React.JSX.Element {
   const { dataset, viewerRole, viewerIdentity, hasAccountSessionAuth, oddsFormat, upgradeHref } = usePlatformCore();
@@ -399,7 +402,6 @@ export function MatchStudioClubView({
       <ClubWorkspaceShell activePath={studioPath}>
         <MatchBreadcrumb game={game} onNavigate={navigateTo} />
 
-        {/* Hero principal del encuentro */}
         <MatchHeroScoreboard
           game={game}
           homePrimary={homePrimary}
@@ -409,7 +411,6 @@ export function MatchStudioClubView({
           onNavigate={navigateTo}
         />
 
-        {/* Área de estudio en 2 columnas: Riel persistente + Espacio principal con pestañas */}
         <div className="pl-match-layout">
           <MatchLeftRail
             game={game}
@@ -477,6 +478,8 @@ export function MatchStudioClubView({
                     className={`pl-mdp-switcher-btn ${picksSubTab === "jugadores" ? "is-active" : ""}`.trim()}
                     aria-pressed={picksSubTab === "jugadores"}
                     data-picks-subtab="jugadores"
+                    onPointerEnter={() => void loadMatchPlayerPicksBoard()}
+                    onFocus={() => void loadMatchPlayerPicksBoard()}
                     onClick={() => setPicksSubTab("jugadores")}
                   >
                     <span>Jugadores</span>
@@ -495,31 +498,33 @@ export function MatchStudioClubView({
                   catalog={detail?.picksCatalog ?? null}
                 />
               ) : (
-                <MatchPlayerPicksBoard
-                  picks={playerPicksList}
-                  allowFull={intelUnlocked || isFinished}
-                  homeLabel={game.home.shortName || game.home.name}
-                  awayLabel={game.away.shortName || game.away.name}
-                  oddsFormat={oddsFormat}
-                  upgradeHref={upgradeHref}
-                  hasAccountSession={viewerIdentity !== null}
-                  parlayPickIds={parlayPickIds}
-                  sealedPickIds={sealedPickIds}
-                  onToggleParlay={(pk) => {
-                    if (parlayPickIds.has(pk.id)) {
-                      removePickFromParlay(pk.id);
-                    } else {
-                      addPickToParlay(pk);
-                    }
-                  }}
-                  onSealPick={openComposer}
-                  onNavigate={navigateTo}
-                />
+                <Suspense fallback={<MatchTabFallback />}>
+                  <LazyMatchPlayerPicksBoard
+                    picks={playerPicksList}
+                    allowFull={intelUnlocked || isFinished}
+                    homeLabel={game.home.shortName || game.home.name}
+                    awayLabel={game.away.shortName || game.away.name}
+                    oddsFormat={oddsFormat}
+                    upgradeHref={upgradeHref}
+                    hasAccountSession={viewerIdentity !== null}
+                    parlayPickIds={parlayPickIds}
+                    sealedPickIds={sealedPickIds}
+                    onToggleParlay={(pk) => {
+                      if (parlayPickIds.has(pk.id)) {
+                        removePickFromParlay(pk.id);
+                      } else {
+                        addPickToParlay(pk);
+                      }
+                    }}
+                    onSealPick={openComposer}
+                    onNavigate={navigateTo}
+                  />
+                </Suspense>
               )}
             </MatchTabPanel>
 
             <MatchTabPanel idPrefix="pl-match" tabKey="resumen" active={activeTab}>
-              {liveSupported || liveDetailOverride ? (
+              {isTabMounted("resumen") && (liveSupported || liveDetailOverride) ? (
                 <Suspense fallback={<MatchTabFallback />}>
                   <LazyLiveMatchPanelView
                     game={game}
@@ -535,11 +540,12 @@ export function MatchStudioClubView({
               ) : null}
 
               {isFinished ? null : <PreMatchModule game={game} detail={detail} />}
-              {sportOutlook ? (
-                <SportOutlookCard outlook={sportOutlook} oddsFormat={oddsFormat} />
+              {isTabMounted("resumen") && sportOutlook ? (
+                <Suspense fallback={<MatchTabFallback />}>
+                  <LazySportOutlookCard outlook={sportOutlook} oddsFormat={oddsFormat} />
+                </Suspense>
               ) : null}
 
-              {/* Factores clave del análisis */}
               <section
                 className="glass-card glass-ring rounded-2xl p-5 space-y-3.5"
                 aria-labelledby="resumen-factors-heading"
@@ -743,42 +749,53 @@ export function MatchStudioClubView({
 
             {hasLineupsTab ? (
               <MatchTabPanel idPrefix="pl-match" tabKey="alineaciones" active={activeTab}>
-                <MatchLineupsPanel
-                  lineups={enrichedLineups}
-                  incidents={liveDetail?.incidents}
-                  onNavigate={navigateTo}
-                />
+                {isTabMounted("alineaciones") ? (
+                  <Suspense fallback={<MatchTabFallback />}>
+                    <LazyMatchLineupsPanel
+                      lineups={enrichedLineups}
+                      incidents={liveDetail?.incidents}
+                      onNavigate={navigateTo}
+                    />
+                  </Suspense>
+                ) : null}
               </MatchTabPanel>
             ) : null}
 
             <MatchTabPanel idPrefix="pl-match" tabKey="enfrentamientos" active={activeTab}>
-              <MatchEnfrentamientosPanel
-                enfrentamientos={resolvedEnfrentamientos}
-                league={game.league}
-                homeName={game.home.shortName || game.home.name}
-                homeSlug={game.home.slug}
-                homeLogoUrl={game.home.logoUrl}
-                awayName={game.away.shortName || game.away.name}
-                awaySlug={game.away.slug}
-                awayLogoUrl={game.away.logoUrl}
-              />
+              {isTabMounted("enfrentamientos") ? (
+                <Suspense fallback={<MatchTabFallback />}>
+                  <LazyMatchEnfrentamientosPanel
+                    enfrentamientos={resolvedEnfrentamientos}
+                    league={game.league}
+                    homeName={game.home.shortName || game.home.name}
+                    homeSlug={game.home.slug}
+                    homeLogoUrl={game.home.logoUrl}
+                    awayName={game.away.shortName || game.away.name}
+                    awaySlug={game.away.slug}
+                    awayLogoUrl={game.away.logoUrl}
+                  />
+                </Suspense>
+              ) : null}
             </MatchTabPanel>
 
             <MatchTabPanel idPrefix="pl-match" tabKey="lesiones" active={activeTab}>
-              <MatchInjuriesPanel
-                injuries={injuriesList}
-                league={game.league}
-                homeName={game.home.name}
-                homeSlug={game.home.slug}
-                homeLogoUrl={game.home.logoUrl}
-                awayName={game.away.name}
-                awaySlug={game.away.slug}
-                awayLogoUrl={game.away.logoUrl}
-                onNavigate={navigateTo}
-              />
+              {isTabMounted("lesiones") ? (
+                <Suspense fallback={<MatchTabFallback />}>
+                  <LazyMatchInjuriesPanel
+                    injuries={injuriesList}
+                    league={game.league}
+                    homeName={game.home.name}
+                    homeSlug={game.home.slug}
+                    homeLogoUrl={game.home.logoUrl}
+                    awayName={game.away.name}
+                    awaySlug={game.away.slug}
+                    awayLogoUrl={game.away.logoUrl}
+                    onNavigate={navigateTo}
+                  />
+                </Suspense>
+              ) : null}
             </MatchTabPanel>
 
-        {/* Pestaña 2: Análisis IA (Pronóstico estructurado de Cortex IA + Análisis editorial + Señales) */}
         <MatchTabPanel idPrefix="pl-match" tabKey="ia" active={activeTab}>
           {isTabMounted("ia") ? (
             <Suspense fallback={<MatchTabFallback />}>
@@ -868,7 +885,6 @@ export function MatchStudioClubView({
           ) : null}
         </MatchTabPanel>
 
-        {/* Pestaña 3: Números esperados, mercados y simulador */}
         <MatchTabPanel idPrefix="pl-match" tabKey="numeros" active={activeTab}>
           {isTabMounted("numeros") ? (
             <Suspense fallback={<MatchTabFallback />}>
@@ -902,7 +918,6 @@ export function MatchStudioClubView({
           ) : null}
         </MatchTabPanel>
 
-        {/* Pestaña 4: ¿Dónde está el dinero? (flujo de mercado vs. modelo + comparativa de cuotas) */}
         <MatchTabPanel idPrefix="pl-match" tabKey="dinero" active={activeTab}>
           {isTabMounted("dinero") ? (
             <Suspense fallback={<MatchTabFallback />}>

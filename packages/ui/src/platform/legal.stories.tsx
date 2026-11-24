@@ -1,5 +1,8 @@
 import React from "react";
 import type { Meta } from "@storybook/react-vite";
+import { ClubResponsiblePlayView } from "./club/ClubResponsiblePlayView";
+import { buildPlatformDataset } from "./match-picks-engine";
+import { PlatformProvider } from "./platform-provider";
 import {
   LegalDocumentSurface,
   ResponsiblePlayControls,
@@ -232,4 +235,26 @@ export const DocumentoCortoSinIndiceOscuro = {
 export const DocumentoCortoSinIndiceClaro = {
   globals: { theme: "light" },
   render: () => <CortoSinIndice />,
+};
+
+const clubDataset = buildPlatformDataset([]);
+
+function ClubJuegoResponsable() {
+  return (
+    <PlatformProvider dataset={clubDataset} initialRole="member">
+      <div style={{ padding: 24, background: "var(--pl-stage-bg)", minHeight: "100vh" }}>
+        <ClubResponsiblePlayView disableNetwork />
+      </div>
+    </PlatformProvider>
+  );
+}
+
+export const ClubJuegoResponsableOscuro = {
+  globals: { theme: "dark" },
+  render: () => <ClubJuegoResponsable />,
+};
+
+export const ClubJuegoResponsableClaro = {
+  globals: { theme: "light" },
+  render: () => <ClubJuegoResponsable />,
 };
