@@ -1313,7 +1313,12 @@ async function hydrateOfficialsForUsLeagues(now: Date): Promise<number> {
                 ? prob.athlete.headshot
                 : prob?.athlete?.headshot?.href;
             const safePhoto =
-              rawHead && rawHead.startsWith("https://a.espncdn.com/i/headshots/") ? rawHead : undefined;
+              rawHead &&
+              (rawHead.startsWith("pl-p:") ||
+                rawHead.startsWith("pl-m:") ||
+                rawHead.startsWith("/brand/official/"))
+                ? rawHead
+                : undefined;
             const era = statVal(["era", "earnedrunaverage"]);
             const whip = statVal(["whip"]);
             const k9 = statVal(["strikeoutspernine", "k/9", "k9"]);
