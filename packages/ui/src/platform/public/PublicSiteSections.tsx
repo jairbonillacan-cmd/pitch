@@ -1924,6 +1924,7 @@ export function ResultadosPageSurface({
 }): React.JSX.Element {
   const stats = computePublicResultsSummary(results);
   const effectiveBoardResults = boardResults ?? results;
+  const coveredLeagueCount = new Set(effectiveBoardResults.map((item) => item.league)).size;
   const kpiItems: EditorialKpiItem[] = [
     {
       id: "settled",
@@ -1985,8 +1986,9 @@ export function ResultadosPageSurface({
 
           {effectiveBoardResults.length < results.length ? (
             <p className="pl-v4-sub m-0">
-              Ventana interactiva: últimos{" "}
-              <strong className="num">{effectiveBoardResults.length}</strong> partidos por liga de{" "}
+              Ventana interactiva: muestra reciente de{" "}
+              <strong className="num">{effectiveBoardResults.length}</strong> partidos (
+              <strong className="num">{coveredLeagueCount}</strong> ligas cubiertas) de{" "}
               <strong className="num">{results.length}</strong> registros auditados. Los indicadores
               y la curva superior cubren el historial completo.
             </p>

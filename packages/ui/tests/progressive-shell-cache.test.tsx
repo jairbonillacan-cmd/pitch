@@ -211,7 +211,8 @@ describe("Experiencia progresiva, caché corta SWR y proyección /resultados", (
       <ResultadosPageSurface results={allResults} boardResults={projected} />,
     );
     expect(surfaceHtml).toContain("240");
-    expect(surfaceHtml).toContain("Ventana interactiva");
+    expect(surfaceHtml).toContain("Ventana interactiva: muestra reciente de");
+    expect(surfaceHtml).toContain("ligas cubiertas");
     expect(surfaceHtml).toContain("36");
   });
 
@@ -251,6 +252,7 @@ describe("Experiencia progresiva, caché corta SWR y proyección /resultados", (
       "utf8",
     );
     expect(shellCss).toContain("@starting-style");
+    expect(shellCss).toContain(".pl-astro-row.pl-home-md-row");
     expect(shellCss).toContain("prefers-reduced-motion: reduce");
     expect(shellCss).not.toMatch(/backdrop-filter\s*:/i);
     expect(shellCss).not.toMatch(/transition[^;]*box-shadow/i);

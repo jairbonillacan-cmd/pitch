@@ -3175,13 +3175,16 @@
       }
     }
 
-    .pl-home-md-row {
+    .pl-astro-row.pl-home-md-row {
       opacity: 1;
-      transition: opacity var(--time-fast, 160ms) ease-out;
+      transition:
+        background-color 140ms ease,
+        border-color 140ms ease,
+        opacity var(--time-fast, 160ms) ease-out;
     }
 
     @starting-style {
-      .pl-home-md-row {
+      .pl-astro-row.pl-home-md-row {
         opacity: 0;
       }
     }
@@ -3194,11 +3197,18 @@
     .pl-scr-root,
     .pl-lh-hero,
     .pl-lh-grid,
-    .pl-match-workspace,
-    .pl-home-md-row {
+    .pl-match-workspace {
       opacity: 1;
       translate: none;
       transition: none;
+    }
+
+    .pl-astro-row.pl-home-md-row {
+      opacity: 1;
+      translate: none;
+      transition:
+        background-color 140ms ease,
+        border-color 140ms ease;
     }
 
     @starting-style {
@@ -3209,7 +3219,7 @@
       .pl-lh-hero,
       .pl-lh-grid,
       .pl-match-workspace,
-      .pl-home-md-row {
+      .pl-astro-row.pl-home-md-row {
         opacity: 1;
         translate: none;
       }
