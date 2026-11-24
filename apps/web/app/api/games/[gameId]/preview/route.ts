@@ -3,6 +3,7 @@ import {
   withSessionRead,
   type SessionReadContext,
 } from "../../../../../src/server/api-guards";
+import { buildServerTimingHeader, nowPerfMs } from "../../../../../src/server/perf-cache";
 import { loadGamePreviewPayload } from "../../../../../src/server/platform-data";
 
 export const runtime = "nodejs";
@@ -48,13 +49,20 @@ export const GET = withSessionRead(
       );
     }
 
+    const startedAt = nowPerfMs();
     const payload = await loadGamePreviewPayload(gameId, access.fullAccess);
+    const serverTiming = buildServerTimingHeader([
+      { stage: "preview", durationMs: nowPerfMs() - startedAt },
+    ]);
     if (!payload) {
       return NextResponse.json(
         { ok: false, error: "not_found" },
         {
           status: 404,
-          headers: { "Cache-Control": "private, no-store" },
+          headers: {
+            "Cache-Control": "private, no-store",
+            ...(serverTiming ? { "Server-Timing": serverTiming } : {}),
+          },
         },
       );
     }
@@ -62,6 +70,7 @@ export const GET = withSessionRead(
     return NextResponse.json(payload, {
       headers: {
         "Cache-Control": "private, no-store",
+        ...(serverTiming ? { "Server-Timing": serverTiming } : {}),
       },
     });
   },

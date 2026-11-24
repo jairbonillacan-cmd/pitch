@@ -1,5 +1,6 @@
 import fs from "node:fs";
 import path from "node:path";
+import { safeStatMtimeMs } from "./perf-cache";
 import {
   COMPETITION_BY_ID,
   LeagueSnapshotSchema,
@@ -2015,12 +2016,7 @@ const snapshotFileCache = new Map<
 >();
 
 function safeStatMtime(filePath: string): number {
-  try {
-    return fs.statSync(filePath).mtimeMs;
-  } catch (err) {
-    void err;
-    return 0;
-  }
+  return safeStatMtimeMs(filePath);
 }
 
 function areTrackedFilesFresh(tracked: readonly TrackedFileMtime[]): boolean {
@@ -2093,11 +2089,12 @@ export function readLeagueInjuriesMap(
   league: string,
 ): ReadonlyMap<string, LeagueInjuryLookupEntry> {
   const injPath = path.join(root, league, "injuries.json");
-  if (!fs.existsSync(injPath)) {
+  const mtimeMs = safeStatMtime(injPath);
+  if (mtimeMs === 0) {
+    leagueInjuriesCache.delete(injPath);
     return new Map<string, LeagueInjuryLookupEntry>();
   }
   try {
-    const mtimeMs = fs.statSync(injPath).mtimeMs;
     const cached = leagueInjuriesCache.get(injPath);
     if (cached && cached.mtimeMs === mtimeMs) {
       return cached.map;
@@ -2552,54 +2549,99 @@ export function loadPlayerPropStreakCards(maxCards = 36): ExplorerStreakCard[] {
         const id = `${lg}:${team.teamSlug}:${player.slug}`;
         if (seenCardIds.has(id)) continue;
 
-        const allLabels = Array.from(
-          new Set(logs.flatMap((g) => g.stats.map((s) => s.label))),
-        );
-        const countingLabels = allLabels.filter(
-          (lbl) => !NON_PROP_STAT_LABELS.has(lbl.trim().toUpperCase()),
-        );
-        const statLabels = countingLabels.length > 0 ? countingLabels : allLabels;
+        const parsedLogs: Array<{
+          readonly label: string;
+          readonly opponent: string;
+          readonly date: string;
+          readonly minVal: number | null;
+          readonly xgVal: number | null;
+          readonly isHome?: boolean;
+          readonly byLabel: Map<string, number>;
+        }> = [];
+        const allLabelSet = new Set<string>();
+
+        for (let idx = logs.length - 1; idx >= 0; idx -= 1) {
+          const g = logs[idx]!;
+          let minVal: number | null = null;
+          let xgVal: number | null = null;
+          const byLabel = new Map<string, number>();
+
+          for (const st of g.stats) {
+            const rawLbl = st.label;
+            const upperLbl = rawLbl.trim().toUpperCase();
+            if (minVal === null && (upperLbl === "MIN" || upperLbl === "MINS" || upperLbl === "MINUTOS")) {
+              minVal = parseNumericStat(st.value);
+            }
+            if (sport === "football" && xgVal === null && upperLbl === "XG") {
+              xgVal = parseNumericStat(st.value);
+            }
+            const parsedVal = parseNumericStat(st.value);
+            if (parsedVal !== null) {
+              if (!byLabel.has(rawLbl)) {
+                byLabel.set(rawLbl, parsedVal);
+              }
+              if (!NON_PROP_STAT_LABELS.has(upperLbl)) {
+                allLabelSet.add(rawLbl);
+              }
+            } else if (!NON_PROP_STAT_LABELS.has(upperLbl)) {
+              allLabelSet.add(rawLbl);
+            }
+          }
+
+          if (sport === "football" && (minVal === null || minVal < FOOTBALL_MIN_MINUTES)) {
+            continue;
+          }
+          if (sport === "basketball" && (minVal === null || minVal < NBA_MIN_MINUTES_PER_GAME)) {
+            continue;
+          }
+
+          parsedLogs.push({
+            label: (g.opponentAbbr ?? g.opponent).slice(0, 8),
+            opponent: g.opponent,
+            date: g.dateIso,
+            minVal,
+            xgVal,
+            ...(g.isHome === true || g.isHome === false ? { isHome: g.isHome } : {}),
+            byLabel,
+          });
+        }
+
+        if (parsedLogs.length < 3) continue;
+
+        const statLabels = Array.from(allLabelSet);
+        const fallbackLabels =
+          statLabels.length > 0
+            ? statLabels
+            : Array.from(new Set(logs.flatMap((g) => g.stats.map((s) => s.label))));
         const orderedLabels = [
-          ...prefLabels.filter((lbl) => statLabels.includes(lbl)),
-          ...statLabels.filter((lbl) => !prefLabels.includes(lbl)),
+          ...prefLabels.filter((lbl) => fallbackLabels.includes(lbl)),
+          ...fallbackLabels.filter((lbl) => !prefLabels.includes(lbl)),
         ].slice(0, 6);
 
         const series: PropMetricSeries[] = [];
         for (const lbl of orderedLabels) {
-          const pts = logs
-            .slice()
-            .reverse()
-            .map((g) => {
-              const minHit = g.stats.find((s) => {
-                const u = s.label.trim().toUpperCase();
-                return u === "MIN" || u === "MINS" || u === "MINUTOS";
-              });
-              const minVal = minHit ? parseNumericStat(minHit.value) : null;
-              if (sport === "football" && (minVal === null || minVal < FOOTBALL_MIN_MINUTES)) {
-                return null;
-              }
-              if (sport === "basketball" && (minVal === null || minVal < NBA_MIN_MINUTES_PER_GAME)) {
-                return null;
-              }
-              const hit = g.stats.find((s) => s.label === lbl);
-              const val = hit ? parseNumericStat(hit.value) : null;
-              if (val === null) return null;
-              const xgHit =
-                sport === "football"
-                  ? g.stats.find((s) => s.label.trim().toUpperCase() === "XG")
-                  : undefined;
-              const xgVal = xgHit ? parseNumericStat(xgHit.value) : null;
-              return {
-                label: (g.opponentAbbr ?? g.opponent).slice(0, 8),
-                opponent: g.opponent,
-                date: g.dateIso,
-                value: val,
-                ...(minVal !== null ? { minutes: Math.round(minVal) } : {}),
-                ...(xgVal !== null ? { xg: xgVal } : {}),
-                ...(g.isHome === true || g.isHome === false ? { isHome: g.isHome } : {}),
-              };
-            })
-            .filter((p): p is NonNullable<typeof p> => p !== null);
+          const pts: Array<{
+            label: string;
+            opponent: string;
+            date: string;
+            value: number;
+            minutes?: number;
+            xg?: number;
+            isHome?: boolean;
+          }> = [];
+          for (const pl of parsedLogs) {
+            const val = pl.byLabel.get(lbl);
+            if (val === undefined) continue;
+            pts.push({
+              label: pl.label,
+              opponent: pl.opponent,
+              date: pl.date,
+              value: val,
+              ...(pl.minVal !== null ? { minutes: Math.round(pl.minVal) } : {}),
+              ...(pl.xgVal !== null ? { xg: pl.xgVal } : {}),
+              ...(pl.isHome !== undefined ? { isHome: pl.isHome } : {}),
+            });
+          }
 
           if (pts.length < 3) continue;
           const values = pts.map((p) => p.value);

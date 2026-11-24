@@ -2919,6 +2919,19 @@ export function buildServerMatchPicksCatalog(
     game.hasForecast !== false &&
     Boolean(game.x12 || game.projection || game.picks.length > 0 || markets.length > 0);
 
+  const hasUnlockedPickForGame = Boolean(
+    options.unlockedPickIds &&
+      options.unlockedPickIds.size > 0 &&
+      (game.picks.some((p) => options.unlockedPickIds!.has(p.id)) ||
+        Array.from(options.unlockedPickIds).some((id) => id.startsWith(game.id))),
+  );
+  const canFastRedactLockedVisitor =
+    !options.fullAccess &&
+    game.status !== "FT" &&
+    !game.picks.some((p) => Boolean(p.isDailyOpenPromo || p.isTipsterWeeklyOpen)) &&
+    !hasUnlockedPickForGame &&
+    (!options.families || options.families.length === 0);
+
   let effectiveV5: MatchIntelligenceV5View | null = options.v5 ?? null;
   let socBundle: {
     readonly socEval: Soccer57V6MatchEvaluation;
@@ -2932,84 +2945,14 @@ export function buildServerMatchPicksCatalog(
     readonly awayBand: EpistemicProbabilityBandV5;
   } | null = null;
 
-  if (hasForecast && game.sport === "football") {
-    const rawX12 = game.x12;
-    const sumX12 = rawX12 ? rawX12[0] + rawX12[1] + rawX12[2] : 0;
-    const pHome = rawX12 && sumX12 > 0 ? rawX12[0] / sumX12 : 0.42;
-    const pDraw = rawX12 && sumX12 > 0 ? rawX12[1] / sumX12 : 0.27;
-    const pAway = rawX12 && sumX12 > 0 ? rawX12[2] / sumX12 : 0.31;
-    const socEval = evaluateSoccer57V6Match({
-      matchId: game.id,
-      league: String(game.league),
-      homeTeam: game.home.name,
-      awayTeam: game.away.name,
-      pHome,
-      pDraw,
-      pAway,
-      projectedHomeGoals: game.projection?.home ?? null,
-      projectedAwayGoals: game.projection?.away ?? null,
-      totalGoalsTarget: game.projection?.total ?? null,
-      refereeName: game.referee ?? game.preGame?.matchContext?.referee ?? null,
-      mode: "matrix_4param",
-      asianHandicapLines: SOCCER_AH_LINES_V6,
-    });
-    const built = buildSoccerV6IntelligenceView(game, socEval);
-    if (!effectiveV5) {
-      effectiveV5 = built.view;
-    }
-    socBundle = {
-      socEval,
-      homeBand: built.homeBand,
-      drawBand: built.drawBand,
-      awayBand: built.awayBand,
-    };
-  } else if (hasForecast) {
-    const msSport = resolveSportKeyForMultisport(game.sport);
-    if (msSport) {
-      const rawX12 = game.x12;
-      const twoWay = rawX12 ? rawX12[0] + rawX12[2] : 0;
-      const livePHome = rawX12 && twoWay > 0 ? clampProb(rawX12[0] / twoWay) : null;
-      const expMargin =
-        game.projection && Number.isFinite(game.projection.home) && Number.isFinite(game.projection.away)
-          ? game.projection.home - game.projection.away
-          : null;
-      const expTotal =
-        game.projection && Number.isFinite(game.projection.total) && game.projection.total > 0
-          ? game.projection.total
-          : null;
-      const msEval = evaluateUsMultisportV6Match({
-        sport: msSport,
-        homeTeam: game.home.name,
-        awayTeam: game.away.name,
-        homeCode: game.home.code,
-        awayCode: game.away.code,
-        gameDate: game.dayId || game.kickoffUtc.slice(0, 10),
-        neutralSite: game.neutralSite,
-        totalLine: game.goalLine?.line ?? null,
-        livePHomeAnchor: livePHome,
-        expectedMarginOverride: expMargin,
-        expectedTotalOverride: expTotal,
-      });
-      const built = buildUsV6IntelligenceView(game, msEval, livePHome ?? msEval.outlook.p_home);
-      if (!effectiveV5) {
-        effectiveV5 = built.view;
-      }
-      usBundle = {
-        msEval,
-        homeBand: built.homeBand,
-        awayBand: built.awayBand,
-      };
-    }
-  }
-
   const ctx: CatalogBuildContext = {
     markets,
     v5: effectiveV5,
-    playerProps: options.playerProps,
-    footballPlayers: options.footballPlayers,
-    nbaPlayers: options.nbaPlayers,
-    homeHistory: options.homeHistory,
-    awayHistory: options.awayHistory,
+    playerProps: canFastRedactLockedVisitor ? undefined : options.playerProps,
+    footballPlayers: canFastRedactLockedVisitor ? undefined : options.footballPlayers,
+    nbaPlayers: canFastRedactLockedVisitor ? undefined : options.nbaPlayers,
+    homeHistory: canFastRedactLockedVisitor ? undefined : options.homeHistory,
+    awayHistory: canFastRedactLockedVisitor ? undefined : options.awayHistory,
     f5Score: options.f5Score ?? null,
     finalStats: options.finalStats ?? null,
     allowedFamilies,
@@ -3017,37 +2960,130 @@ export function buildServerMatchPicksCatalog(
     nowIso,
   };
 
-  let catalog = buildMatchPicksCatalog(game, ctx);
+  let catalog = canFastRedactLockedVisitor ? buildMatchPicksCatalog(game, ctx) : null;
 
-  if (catalog.picks.length > 0 || (hasForecast && (socBundle !== null || usBundle !== null))) {
-    if (socBundle && effectiveV5) {
-      catalog = enrichFootballCatalogWithV6({
-        game,
-        baseCatalog: catalog,
-        socEval: socBundle.socEval,
-        homeBand: socBundle.homeBand,
-        drawBand: socBundle.drawBand,
-        awayBand: socBundle.awayBand,
-        effectiveV5,
-        options,
-        allowedFamilies,
-        nowIso,
+  if (!canFastRedactLockedVisitor || (catalog !== null && catalog.picks.length === 0 && hasForecast)) {
+    if (hasForecast && game.sport === "football") {
+      const rawX12 = game.x12;
+      const sumX12 = rawX12 ? rawX12[0] + rawX12[1] + rawX12[2] : 0;
+      const pHome = rawX12 && sumX12 > 0 ? rawX12[0] / sumX12 : 0.42;
+      const pDraw = rawX12 && sumX12 > 0 ? rawX12[1] / sumX12 : 0.27;
+      const pAway = rawX12 && sumX12 > 0 ? rawX12[2] / sumX12 : 0.31;
+      const socEval = evaluateSoccer57V6Match({
+        matchId: game.id,
+        league: String(game.league),
+        homeTeam: game.home.name,
+        awayTeam: game.away.name,
+        pHome,
+        pDraw,
+        pAway,
+        projectedHomeGoals: game.projection?.home ?? null,
+        projectedAwayGoals: game.projection?.away ?? null,
+        totalGoalsTarget: game.projection?.total ?? null,
+        refereeName: game.referee ?? game.preGame?.matchContext?.referee ?? null,
+        mode: "matrix_4param",
+        asianHandicapLines: SOCCER_AH_LINES_V6,
       });
-    } else if (usBundle && effectiveV5) {
-      const quoteIndex = buildSameBookQuoteIndexV6(markets, nowIso);
-      catalog = enrichUsCatalogWithV6({
-        game,
-        baseCatalog: catalog,
-        msEval: usBundle.msEval,
-        homeBand: usBundle.homeBand,
-        awayBand: usBundle.awayBand,
-        effectiveV5,
-        quoteIndex,
-        options,
-        allowedFamilies,
-        nowIso,
-      });
+      const built = buildSoccerV6IntelligenceView(game, socEval);
+      if (!effectiveV5) {
+        effectiveV5 = built.view;
+      }
+      socBundle = {
+        socEval,
+        homeBand: built.homeBand,
+        drawBand: built.drawBand,
+        awayBand: built.awayBand,
+      };
+    } else if (hasForecast) {
+      const msSport = resolveSportKeyForMultisport(game.sport);
+      if (msSport) {
+        const rawX12 = game.x12;
+        const twoWay = rawX12 ? rawX12[0] + rawX12[2] : 0;
+        const livePHome = rawX12 && twoWay > 0 ? clampProb(rawX12[0] / twoWay) : null;
+        const expMargin =
+          game.projection && Number.isFinite(game.projection.home) && Number.isFinite(game.projection.away)
+            ? game.projection.home - game.projection.away
+            : null;
+        const expTotal =
+          game.projection && Number.isFinite(game.projection.total) && game.projection.total > 0
+            ? game.projection.total
+            : null;
+        const msEval = evaluateUsMultisportV6Match({
+          sport: msSport,
+          homeTeam: game.home.name,
+          awayTeam: game.away.name,
+          homeCode: game.home.code,
+          awayCode: game.away.code,
+          gameDate: game.dayId || game.kickoffUtc.slice(0, 10),
+          neutralSite: game.neutralSite,
+          totalLine: game.goalLine?.line ?? null,
+          livePHomeAnchor: livePHome,
+          expectedMarginOverride: expMargin,
+          expectedTotalOverride: expTotal,
+        });
+        const built = buildUsV6IntelligenceView(game, msEval, livePHome ?? msEval.outlook.p_home);
+        if (!effectiveV5) {
+          effectiveV5 = built.view;
+        }
+        usBundle = {
+          msEval,
+          homeBand: built.homeBand,
+          awayBand: built.awayBand,
+        };
+      }
     }
+
+    const fullCtx: CatalogBuildContext = {
+      markets,
+      v5: effectiveV5,
+      playerProps: options.playerProps,
+      footballPlayers: options.footballPlayers,
+      nbaPlayers: options.nbaPlayers,
+      homeHistory: options.homeHistory,
+      awayHistory: options.awayHistory,
+      f5Score: options.f5Score ?? null,
+      finalStats: options.finalStats ?? null,
+      allowedFamilies,
+      deVigPreference: options.deVigPreference ?? "auto",
+      nowIso,
+    };
+
+    catalog = buildMatchPicksCatalog(game, fullCtx);
+
+    if (catalog.picks.length > 0 || (hasForecast && (socBundle !== null || usBundle !== null))) {
+      if (socBundle && effectiveV5) {
+        catalog = enrichFootballCatalogWithV6({
+          game,
+          baseCatalog: catalog,
+          socEval: socBundle.socEval,
+          homeBand: socBundle.homeBand,
+          drawBand: socBundle.drawBand,
+          awayBand: socBundle.awayBand,
+          effectiveV5,
+          options,
+          allowedFamilies,
+          nowIso,
+        });
+      } else if (usBundle && effectiveV5) {
+        const quoteIndex = buildSameBookQuoteIndexV6(markets, nowIso);
+        catalog = enrichUsCatalogWithV6({
+          game,
+          baseCatalog: catalog,
+          msEval: usBundle.msEval,
+          homeBand: usBundle.homeBand,
+          awayBand: usBundle.awayBand,
+          effectiveV5,
+          quoteIndex,
+          options,
+          allowedFamilies,
+          nowIso,
+        });
+      }
+    }
+  }
+
+  if (!catalog) {
+    catalog = buildMatchPicksCatalog(game, ctx);
   }
 
   if (options.families && options.families.length > 0) {

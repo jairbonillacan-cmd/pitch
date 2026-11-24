@@ -50,6 +50,7 @@ import {
   getOfficialEspnTeamLogoUrl,
 } from "@pitchlab/sports-assets";
 import { logSecurityEvent } from "./safe-logger";
+import { safeStatMtimeMs } from "./perf-cache";
 import {
   LEAGUE_LABELS,
   PRODUCT_LEAGUES,
@@ -155,29 +156,48 @@ function buildNarrowedMultiSportArtifactV6(): MultiSportModelArtifactV60 {
   };
 }
 
-const MULTISPORT_ARTIFACT_V6: MultiSportModelArtifactV60 = buildNarrowedMultiSportArtifactV6();
-const MULTISPORT_ARTIFACT_NO_NBA_INJURIES_V6: MultiSportModelArtifactV60 = {
-  ...MULTISPORT_ARTIFACT_V6,
-  nba_active_injuries_2026: undefined,
-};
+let multisportArtifactV6Memo: MultiSportModelArtifactV60 | null = null;
+let multisportArtifactNoNbaInjuriesV6Memo: MultiSportModelArtifactV60 | null = null;
+
+function getMultisportArtifactV6Local(): MultiSportModelArtifactV60 {
+  if (!multisportArtifactV6Memo) {
+    multisportArtifactV6Memo = buildNarrowedMultiSportArtifactV6();
+  }
+  return multisportArtifactV6Memo;
+}
+
+function getMultisportArtifactNoNbaInjuriesV6Local(): MultiSportModelArtifactV60 {
+  if (!multisportArtifactNoNbaInjuriesV6Memo) {
+    multisportArtifactNoNbaInjuriesV6Memo = {
+      ...getMultisportArtifactV6Local(),
+      nba_active_injuries_2026: undefined,
+    };
+  }
+  return multisportArtifactNoNbaInjuriesV6Memo;
+}
 
 const preKickoffSealLedger = new Map<string, SealedPreKickoffRecordV6>();
-let preKickoffSealLedgerVersion = 0;
+const sealVersionByLeague = new Map<string, number>();
 const leagueCausalityAuditCache = new Map<string, PreKickoffCausalityAuditReportV6>();
+
+function getLeagueSealVersion(leagueKey: string): number {
+  return sealVersionByLeague.get(leagueKey) ?? 0;
+}
 
 function resolveMultiSportAliasSafe(
   sport: MultiSportLeagueV60,
   rawTeam: string,
 ): string | null {
+  const artifact = getMultisportArtifactV6Local();
   let clean = rawTeam.trim().toLowerCase();
   const dblIdx = clean.indexOf("::");
   if (dblIdx >= 0) clean = clean.slice(dblIdx + 2);
   const dotIdx = clean.indexOf(".");
   if (dotIdx >= 0) clean = clean.slice(dotIdx + 1);
   clean = clean.replace(/[^a-z0-9_-]+/g, "");
-  const code = MULTISPORT_ARTIFACT_V6.team_slug_aliases[sport]?.[clean] ?? null;
+  const code = artifact.team_slug_aliases[sport]?.[clean] ?? null;
   if (!code) return null;
-  const stMap = MULTISPORT_ARTIFACT_V6.teams_post_walkforward_state_2026;
+  const stMap = artifact.teams_post_walkforward_state_2026;
   return stMap && stMap[`${sport}::${code}`] ? code : null;
 }
 
@@ -188,13 +208,14 @@ function buildMultiSportCausalBackfillV6(params: {
   readonly kickoffUtc: string;
   readonly neutralSite?: boolean;
 }): PreKickoffAnalysisPayloadV6 | null {
+  const artifact = getMultisportArtifactV6Local();
   const kickoffMs = parseIsoUtcEpochMs(params.kickoffUtc);
   if (kickoffMs === null) return null;
   const hCode = resolveMultiSportAliasSafe(params.sport, params.homeTeam);
   const aCode = resolveMultiSportAliasSafe(params.sport, params.awayTeam);
   if (!hCode || !aCode) return null;
 
-  const stMap = MULTISPORT_ARTIFACT_V6.teams_post_walkforward_state_2026;
+  const stMap = artifact.teams_post_walkforward_state_2026;
   const hSt = stMap?.[`${params.sport}::${hCode}`];
   const aSt = stMap?.[`${params.sport}::${aCode}`];
   if (!hSt || !aSt) return null;
@@ -214,16 +235,16 @@ function buildMultiSportCausalBackfillV6(params: {
     return null;
   }
 
-  let effectiveArtifact = MULTISPORT_ARTIFACT_V6;
+  let effectiveArtifact = artifact;
   let effectiveInputsMs = stateInputsMs;
   if (params.sport === "nba") {
-    const injObsMs = MULTISPORT_ARTIFACT_V6.nba_active_injuries_observed_at_utc
-      ? parseIsoUtcEpochMs(MULTISPORT_ARTIFACT_V6.nba_active_injuries_observed_at_utc)
+    const injObsMs = artifact.nba_active_injuries_observed_at_utc
+      ? parseIsoUtcEpochMs(artifact.nba_active_injuries_observed_at_utc)
       : null;
     if (injObsMs !== null && injObsMs <= kickoffMs) {
       effectiveInputsMs = Math.max(stateInputsMs, injObsMs);
     } else {
-      effectiveArtifact = MULTISPORT_ARTIFACT_NO_NBA_INJURIES_V6;
+      effectiveArtifact = getMultisportArtifactNoNbaInjuriesV6Local();
     }
   }
 
@@ -524,6 +545,9 @@ const shellIndexReconciledCache = new Map<
   string,
   { readonly key: string; readonly envelope: SnapshotEnvelope }
 >();
+const rawSnapshotCache = new Map<string, { mtime: number; snapshot: LeagueSnapshot }>();
+const marketPulseCache = new Map<string, { mtime: number; byGame: Map<string, MarketPulseView> }>();
+const injuriesCache = new Map<string, { mtime: number; byTeam: Map<string, TeamInjuryEntry[]> }>();
 
 function extractSlugFromTeamId(rawId: string): string {
   const dotIdx = rawId.indexOf(".");
@@ -638,8 +662,10 @@ function readDatedSnapshotIndexCached(
 function readLatestCausalityMetaCached(
   latestPath: string,
   hasDraw: boolean,
+  mtimeOverride?: number,
+  leagueKey?: ProductLeague,
 ): CachedLatestCausalityMetaV6 | null {
-  const mtime = fileMtime(latestPath);
+  const mtime = mtimeOverride ?? fileMtime(latestPath);
   if (mtime <= 0) {
     latestCausalityMetaCache.delete(latestPath);
     return null;
@@ -649,6 +675,25 @@ function readLatestCausalityMetaCached(
     return cached;
   }
   try {
+    const rawCached = leagueKey ? rawSnapshotCache.get(leagueKey) : undefined;
+    if (rawCached && rawCached.mtime === mtime) {
+      const games: LightweightGameCausalityInputV6[] = rawCached.snapshot.games.map((g) => ({
+        id: g.id,
+        startTime: g.startTime,
+        status: g.status,
+        homeTeam: extractSlugFromTeamId(g.home.id),
+        awayTeam: extractSlugFromTeamId(g.away.id),
+        neutralSite: Boolean(g.neutralSite),
+        incomingAnalysis: toPreKickoffPayloadFromGameAnalysis(
+          rawCached.snapshot.analyses[g.id],
+          hasDraw,
+        ),
+      }));
+      const meta: CachedLatestCausalityMetaV6 = { mtime, games };
+      latestCausalityMetaCache.set(latestPath, meta);
+      return meta;
+    }
+
     const raw: unknown = JSON.parse(fs.readFileSync(latestPath, "utf8"));
     if (!isPlainRecord(raw)) return null;
     const rawGames = Array.isArray(raw.games) ? raw.games : [];
@@ -692,7 +737,7 @@ function findNewestCausalHistoricalRescuesFromDisk(
   hasDraw: boolean,
 ): Map<string, CompactHistoricalRescueEntryV6> {
   const rescued = new Map<string, CompactHistoricalRescueEntryV6>();
-  if (targetKickoffsByGameId.size === 0 || !fs.existsSync(leagueDir)) return rescued;
+  if (targetKickoffsByGameId.size === 0) return rescued;
 
   let datedFiles: string[];
   try {
@@ -967,7 +1012,9 @@ function storeNewLedgerSeal(key: string, record: SealedPreKickoffRecordV6): void
   if (record.inputsAsOfEpochMs > record.kickoffEpochMs) return;
   if (!preKickoffSealLedger.has(key)) {
     preKickoffSealLedger.set(key, record);
-    preKickoffSealLedgerVersion += 1;
+    const sep = key.indexOf("::");
+    const leagueKey = sep > 0 ? key.slice(0, sep) : key;
+    sealVersionByLeague.set(leagueKey, getLeagueSealVersion(leagueKey) + 1);
   }
 }
 
@@ -1045,7 +1092,7 @@ function reconcileShellIndexEnvelopeV6(
   latestMtime: number,
 ): SnapshotEnvelope {
   if (envelope.state !== "ready" || !envelope.data) return envelope;
-  const cacheKeyBefore = `${shellIndexMtime}:${latestMtime}:${preKickoffSealLedgerVersion}`;
+  const cacheKeyBefore = `${shellIndexMtime}:${latestMtime}:${getLeagueSealVersion(leagueKey)}`;
   const cached = shellIndexReconciledCache.get(leagueKey);
   if (cached && cached.key === cacheKeyBefore) {
     return cached.envelope;
@@ -1053,7 +1100,7 @@ function reconcileShellIndexEnvelopeV6(
 
   const hasDraw = sportHasDraw(sportForLeague(leagueKey));
   const latestPath = path.join(leagueDir, "latest.json");
-  const meta = readLatestCausalityMetaCached(latestPath, hasDraw);
+  const meta = readLatestCausalityMetaCached(latestPath, hasDraw, latestMtime, leagueKey);
   if (!meta) {
     return envelope;
   }
@@ -1110,7 +1157,7 @@ function reconcileShellIndexEnvelopeV6(
     },
   };
   shellIndexReconciledCache.set(leagueKey, {
-    key: `${shellIndexMtime}:${latestMtime}:${preKickoffSealLedgerVersion}`,
+    key: `${shellIndexMtime}:${latestMtime}:${getLeagueSealVersion(leagueKey)}`,
     envelope: reconciledEnvelope,
   });
   return reconciledEnvelope;
@@ -1119,20 +1166,24 @@ function reconcileShellIndexEnvelopeV6(
 const snapshotCache = new Map<string, { key: string; envelope: SnapshotEnvelope }>();
 
 function fileMtime(file: string): number {
-  try {
-    return fs.statSync(file).mtimeMs;
-  } catch (err) {
-    void err;
-    return 0;
-  }
+  return safeStatMtimeMs(file);
 }
 
-function loadMarketPulse(file: string): Map<string, MarketPulseView> {
+function loadMarketPulse(file: string, knownMtime?: number): Map<string, MarketPulseView> {
+  const mtime = knownMtime ?? fileMtime(file);
+  if (mtime <= 0) {
+    marketPulseCache.delete(file);
+    return new Map();
+  }
+  const cached = marketPulseCache.get(file);
+  if (cached && cached.mtime === mtime) {
+    return cached.byGame;
+  }
   const byGame = new Map<string, MarketPulseView>();
-  if (!fs.existsSync(file)) return byGame;
   try {
     const parsed = MarketPulseFileSchema.parse(JSON.parse(fs.readFileSync(file, "utf8")));
     for (const entry of parsed.entries) byGame.set(entry.gameId, toMarketPulseView(entry));
+    marketPulseCache.set(file, { mtime, byGame });
   } catch (err) {
     void err;
     byGame.clear();
@@ -1140,9 +1191,17 @@ function loadMarketPulse(file: string): Map<string, MarketPulseView> {
   return byGame;
 }
 
-function loadLeagueInjuries(file: string): Map<string, TeamInjuryEntry[]> {
+function loadLeagueInjuries(file: string, knownMtime?: number): Map<string, TeamInjuryEntry[]> {
+  const mtime = knownMtime ?? fileMtime(file);
+  if (mtime <= 0) {
+    injuriesCache.delete(file);
+    return new Map();
+  }
+  const cached = injuriesCache.get(file);
+  if (cached && cached.mtime === mtime) {
+    return cached.byTeam;
+  }
   const byTeam = new Map<string, TeamInjuryEntry[]>();
-  if (!fs.existsSync(file)) return byTeam;
   try {
     const parsed = LeagueInjuriesFileSchema.parse(JSON.parse(fs.readFileSync(file, "utf8")));
     for (const entry of parsed.entries) {
@@ -1150,6 +1209,7 @@ function loadLeagueInjuries(file: string): Map<string, TeamInjuryEntry[]> {
       bucket.push(entry);
       byTeam.set(entry.teamId, bucket);
     }
+    injuriesCache.set(file, { mtime, byTeam });
   } catch (err) {
     void err;
     byTeam.clear();
@@ -1172,14 +1232,25 @@ const LEAGUE_SEASONS: Record<ProductLeague, string> = Object.fromEntries(
   PRODUCT_LEAGUES.map((id) => [id, COMPETITION_BY_ID[id]?.season ?? "2026"]),
 ) as Record<ProductLeague, string>;
 
-export function loadLeagueSnapshotEnvelope(leagueKey: ProductLeague): SnapshotEnvelope {
+interface PreStattedLeagueFiles {
+  readonly latestM: number;
+  readonly pulseM: number;
+  readonly injuriesM: number;
+}
+
+function loadLeagueSnapshotEnvelopeInternal(
+  leagueKey: ProductLeague,
+  preStatted?: PreStattedLeagueFiles,
+): SnapshotEnvelope {
   const root = resolveSnapshotsRoot();
   const leagueDir = path.join(root, leagueKey);
   const latestPath = path.join(leagueDir, "latest.json");
   const league = asLeagueId(leagueKey);
+  const snapshotMtime = preStatted ? preStatted.latestM : fileMtime(latestPath);
 
-  if (!fs.existsSync(latestPath)) {
+  if (snapshotMtime <= 0) {
     snapshotCache.delete(leagueKey);
+    rawSnapshotCache.delete(leagueKey);
     leagueCausalityAuditCache.delete(leagueKey);
     const emptySnapshot: ClientLeagueSnapshot = {
       schemaVersion: 1,
@@ -1207,21 +1278,24 @@ export function loadLeagueSnapshotEnvelope(leagueKey: ProductLeague): SnapshotEn
 
   const pulsePath = path.join(leagueDir, "market-pulse.json");
   const injuriesPath = path.join(leagueDir, "injuries.json");
-  const snapshotMtime = fileMtime(latestPath);
-  const pulseMtime = fileMtime(pulsePath);
-  const injuriesMtime = fileMtime(injuriesPath);
-  const cacheKeyBefore =
-    snapshotMtime > 0
-      ? `${snapshotMtime}:${pulseMtime}:${injuriesMtime}:${preKickoffSealLedgerVersion}`
-      : "";
+  const pulseMtime = preStatted ? preStatted.pulseM : fileMtime(pulsePath);
+  const injuriesMtime = preStatted ? preStatted.injuriesM : fileMtime(injuriesPath);
+  const cacheKeyBefore = `${snapshotMtime}:${pulseMtime}:${injuriesMtime}:${getLeagueSealVersion(leagueKey)}`;
   const cached = snapshotCache.get(leagueKey);
-  if (cached && cacheKeyBefore && cached.key === cacheKeyBefore) {
+  if (cached && cached.key === cacheKeyBefore) {
     return cached.envelope;
   }
 
   try {
-    const raw: unknown = JSON.parse(fs.readFileSync(latestPath, "utf8"));
-    const parsed = LeagueSnapshotSchema.parse(raw);
+    const rawCached = rawSnapshotCache.get(leagueKey);
+    let parsed: LeagueSnapshot;
+    if (rawCached && rawCached.mtime === snapshotMtime) {
+      parsed = rawCached.snapshot;
+    } else {
+      const raw: unknown = JSON.parse(fs.readFileSync(latestPath, "utf8"));
+      parsed = LeagueSnapshotSchema.parse(raw);
+      rawSnapshotCache.set(leagueKey, { mtime: snapshotMtime, snapshot: parsed });
+    }
     assertNotDemoInProduction(parsed.provenance);
 
     const hasDraw = sportHasDraw(sportForLeague(parsed.league));
@@ -1246,8 +1320,8 @@ export function loadLeagueSnapshotEnvelope(leagueKey: ProductLeague): SnapshotEn
     });
     leagueCausalityAuditCache.set(leagueKey, audit);
 
-    const pulses = loadMarketPulse(pulsePath);
-    const injuriesByTeam = loadLeagueInjuries(injuriesPath);
+    const pulses = loadMarketPulse(pulsePath, pulseMtime);
+    const injuriesByTeam = loadLeagueInjuries(injuriesPath, injuriesMtime);
     const leagueLogoUrl =
       parsed.logoUrl ??
       getBzzoiroLeagueEmblemUrl(parsed.league) ??
@@ -1301,12 +1375,10 @@ export function loadLeagueSnapshotEnvelope(leagueKey: ProductLeague): SnapshotEn
       data: clientSafe,
       generatedAt: clientSafe.generatedAt,
     };
-    if (snapshotMtime > 0) {
-      snapshotCache.set(leagueKey, {
-        key: `${snapshotMtime}:${pulseMtime}:${injuriesMtime}:${preKickoffSealLedgerVersion}`,
-        envelope,
-      });
-    }
+    snapshotCache.set(leagueKey, {
+      key: `${snapshotMtime}:${pulseMtime}:${injuriesMtime}:${getLeagueSealVersion(leagueKey)}`,
+      envelope,
+    });
     return envelope;
   } catch (err) {
     const message = err instanceof Error ? err.message : "Error de lectura";
@@ -1319,6 +1391,10 @@ export function loadLeagueSnapshotEnvelope(leagueKey: ProductLeague): SnapshotEn
       },
     };
   }
+}
+
+export function loadLeagueSnapshotEnvelope(leagueKey: ProductLeague): SnapshotEnvelope {
+  return loadLeagueSnapshotEnvelopeInternal(leagueKey);
 }
 
 export function getCachedLeagueCausalityAuditV6(
@@ -1346,11 +1422,15 @@ export function clearSnapshotCausalityCachesForTests(): void {
   allSnapshotsMemo = null;
   shellIndexCache = null;
   preKickoffSealLedger.clear();
-  preKickoffSealLedgerVersion = 0;
+  sealVersionByLeague.clear();
   leagueCausalityAuditCache.clear();
   historicalDatedFileCache.clear();
   latestCausalityMetaCache.clear();
   shellIndexReconciledCache.clear();
+  rawSnapshotCache.clear();
+  marketPulseCache.clear();
+  injuriesCache.clear();
+  cortexWriteupCache.clear();
 }
 
 interface ShellIndexFile {
@@ -1359,22 +1439,46 @@ interface ShellIndexFile {
   leagues?: Record<string, SnapshotEnvelope>;
 }
 
-let shellIndexCache: { mtime: number; leagues: Record<string, SnapshotEnvelope> } | null = null;
+export interface CachedShellIndexEntry {
+  readonly root: string;
+  readonly mtime: number;
+  readonly leagues: Readonly<Record<string, SnapshotEnvelope>>;
+  readonly gameToLeague: ReadonlyMap<string, ProductLeague>;
+}
 
-function readFreshShellIndex(root: string): { mtime: number; leagues: Record<string, SnapshotEnvelope> } | null {
+const PRODUCT_LEAGUE_SET: ReadonlySet<string> = new Set(PRODUCT_LEAGUES);
+
+function isProductLeagueKey(raw: string): raw is ProductLeague {
+  return PRODUCT_LEAGUE_SET.has(raw);
+}
+
+let shellIndexCache: CachedShellIndexEntry | null = null;
+
+function readFreshShellIndex(root: string): CachedShellIndexEntry | null {
   const indexPath = path.join(root, "shell-index.json");
   const mtime = fileMtime(indexPath);
   if (!mtime) {
     shellIndexCache = null;
     return null;
   }
-  if (shellIndexCache && shellIndexCache.mtime === mtime) {
+  if (shellIndexCache && shellIndexCache.root === root && shellIndexCache.mtime === mtime) {
     return shellIndexCache;
   }
   try {
     const parsed = JSON.parse(fs.readFileSync(indexPath, "utf8")) as ShellIndexFile;
     if (parsed?.schemaVersion === 1 && parsed.leagues && typeof parsed.leagues === "object") {
-      shellIndexCache = { mtime, leagues: parsed.leagues };
+      const gameToLeague = new Map<string, ProductLeague>();
+      for (const [leagueKey, env] of Object.entries(parsed.leagues)) {
+        if (!isProductLeagueKey(leagueKey) || !env || env.state !== "ready" || !env.data) {
+          continue;
+        }
+        for (const game of env.data.games) {
+          if (game.id && !gameToLeague.has(game.id)) {
+            gameToLeague.set(game.id, leagueKey);
+          }
+        }
+      }
+      shellIndexCache = { root, mtime, leagues: parsed.leagues, gameToLeague };
       return shellIndexCache;
     }
   } catch (err) {
@@ -1383,56 +1487,159 @@ function readFreshShellIndex(root: string): { mtime: number; leagues: Record<str
   return null;
 }
 
-const ALL_SNAPSHOTS_TTL_MS = 15_000;
-let allSnapshotsMemo: {
-  root: string;
-  at: number;
-  envelopes: Record<ProductLeague, SnapshotEnvelope>;
-} | null = null;
+export function readShellIndexEntryFast(): CachedShellIndexEntry | null {
+  return readFreshShellIndex(resolveSnapshotsRoot());
+}
 
-export function loadAllActiveLeagueSnapshots(): Record<ProductLeague, SnapshotEnvelope> {
+export function findLeagueForGameIdInSnapshots(gameId: string): ProductLeague | null {
+  if (!gameId) return null;
   const root = resolveSnapshotsRoot();
-  const now = Date.now();
-  if (
-    allSnapshotsMemo &&
-    allSnapshotsMemo.root === root &&
-    now - allSnapshotsMemo.at < ALL_SNAPSHOTS_TTL_MS
-  ) {
-    return allSnapshotsMemo.envelopes;
-  }
-
   const precompiled = readFreshShellIndex(root);
-  const entries = PRODUCT_LEAGUES.map((league) => {
+  if (precompiled) {
+    const indexed = precompiled.gameToLeague.get(gameId);
+    if (indexed) {
+      return indexed;
+    }
+  }
+  if (allSnapshotsMemo && allSnapshotsMemo.root === root) {
+    for (const league of PRODUCT_LEAGUES) {
+      const env = allSnapshotsMemo.envelopes[league];
+      if (env?.state === "ready" && env.data?.games.some((g) => g.id === gameId)) {
+        return league;
+      }
+    }
+  }
+  for (const league of PRODUCT_LEAGUES) {
+    const env = precompiled?.leagues[league] ?? loadLeagueSnapshotEnvelope(league);
+    if (env?.state === "ready" && env.data?.games.some((g) => g.id === gameId)) {
+      return league;
+    }
     if (precompiled) {
-      const pre = precompiled.leagues[league];
-      if (pre) {
-        const latestM = fileMtime(path.join(root, league, "latest.json"));
-        const injuriesM = fileMtime(path.join(root, league, "injuries.json"));
-        const pulseM = fileMtime(path.join(root, league, "market-pulse.json"));
-        if (latestM <= precompiled.mtime && injuriesM <= precompiled.mtime && pulseM <= precompiled.mtime) {
-          return [
-            league,
-            reconcileShellIndexEnvelopeV6(
-              league,
-              path.join(root, league),
-              pre,
-              precompiled.mtime,
-              latestM,
-            ),
-          ] as [ProductLeague, SnapshotEnvelope];
+      const latestPath = path.join(root, league, "latest.json");
+      const latestM = fileMtime(latestPath);
+      if (latestM > precompiled.mtime) {
+        const freshEnv = loadLeagueSnapshotEnvelope(league);
+        if (freshEnv.state === "ready" && freshEnv.data?.games.some((g) => g.id === gameId)) {
+          return league;
         }
       }
     }
-    return [league, loadLeagueSnapshotEnvelope(league)] as [ProductLeague, SnapshotEnvelope];
+  }
+  return null;
+}
+
+let allSnapshotsMemo: {
+  root: string;
+  stamp: string;
+  envelopes: Record<ProductLeague, SnapshotEnvelope>;
+} | null = null;
+
+function statLeagueSnapshotFiles(root: string, league: ProductLeague): PreStattedLeagueFiles {
+  const leagueDir = path.join(root, league);
+  return {
+    latestM: fileMtime(path.join(leagueDir, "latest.json")),
+    injuriesM: fileMtime(path.join(leagueDir, "injuries.json")),
+    pulseM: fileMtime(path.join(leagueDir, "market-pulse.json")),
+  };
+}
+
+export function getSnapshotsRootStamp(leagues: readonly ProductLeague[] = PRODUCT_LEAGUES): string {
+  const root = resolveSnapshotsRoot();
+  const indexMtime = fileMtime(path.join(root, "shell-index.json"));
+  const parts: string[] = [root, String(indexMtime)];
+  for (const league of leagues) {
+    const st = statLeagueSnapshotFiles(root, league);
+    parts.push(`${league}:${st.latestM}:${st.injuriesM}:${st.pulseM}:${getLeagueSealVersion(league)}`);
+  }
+  return parts.join("|");
+}
+
+function resolveLeagueEnvelopeWithPrecompiled(
+  root: string,
+  league: ProductLeague,
+  precompiled: CachedShellIndexEntry | null,
+  files: PreStattedLeagueFiles,
+): SnapshotEnvelope {
+  if (precompiled) {
+    const pre = precompiled.leagues[league];
+    if (
+      pre &&
+      files.latestM <= precompiled.mtime &&
+      files.injuriesM <= precompiled.mtime &&
+      files.pulseM <= precompiled.mtime
+    ) {
+      return reconcileShellIndexEnvelopeV6(
+        league,
+        path.join(root, league),
+        pre,
+        precompiled.mtime,
+        files.latestM,
+      );
+    }
+  }
+  return loadLeagueSnapshotEnvelopeInternal(league, files);
+}
+
+export function loadSelectedLeagueSnapshots(
+  leagues: readonly ProductLeague[],
+): Partial<Record<ProductLeague, SnapshotEnvelope>> {
+  const root = resolveSnapshotsRoot();
+  const precompiled = readFreshShellIndex(root);
+  const result: Partial<Record<ProductLeague, SnapshotEnvelope>> = {};
+  const seen = new Set<ProductLeague>();
+  for (const league of leagues) {
+    if (seen.has(league)) continue;
+    seen.add(league);
+    const files = statLeagueSnapshotFiles(root, league);
+    result[league] = resolveLeagueEnvelopeWithPrecompiled(root, league, precompiled, files);
+  }
+  return result;
+}
+
+export function loadAllActiveLeagueSnapshots(): Record<ProductLeague, SnapshotEnvelope> {
+  const root = resolveSnapshotsRoot();
+  const precompiled = readFreshShellIndex(root);
+  const indexMtime = precompiled?.mtime ?? 0;
+  const stattedByLeague = new Map<ProductLeague, PreStattedLeagueFiles>();
+  const stampParts: string[] = [root, String(indexMtime)];
+  for (const league of PRODUCT_LEAGUES) {
+    const files = statLeagueSnapshotFiles(root, league);
+    stattedByLeague.set(league, files);
+    stampParts.push(
+      `${league}:${files.latestM}:${files.injuriesM}:${files.pulseM}:${getLeagueSealVersion(league)}`,
+    );
+  }
+  const stamp = stampParts.join("|");
+  if (allSnapshotsMemo && allSnapshotsMemo.root === root && allSnapshotsMemo.stamp === stamp) {
+    return allSnapshotsMemo.envelopes;
+  }
+
+  const entries = PRODUCT_LEAGUES.map((league) => {
+    const files = stattedByLeague.get(league)!;
+    return [
+      league,
+      resolveLeagueEnvelopeWithPrecompiled(root, league, precompiled, files),
+    ] as [ProductLeague, SnapshotEnvelope];
   });
+  const afterStampParts: string[] = [root, String(indexMtime)];
+  for (const league of PRODUCT_LEAGUES) {
+    const files = stattedByLeague.get(league)!;
+    afterStampParts.push(
+      `${league}:${files.latestM}:${files.injuriesM}:${files.pulseM}:${getLeagueSealVersion(league)}`,
+    );
+  }
   const envelopes = Object.fromEntries(entries) as Record<ProductLeague, SnapshotEnvelope>;
-  allSnapshotsMemo = { root, at: now, envelopes };
+  allSnapshotsMemo = { root, stamp: afterStampParts.join("|"), envelopes };
   return envelopes;
 }
 
 const cortexWriteupCache = new Map<
   string,
-  { mtime: number; byGame: Map<string, CortexWriteup | null> }
+  {
+    mtime: number;
+    analyses: Record<string, { cortex?: unknown }> | undefined;
+    byGame: Map<string, CortexWriteup | null>;
+  }
 >();
 
 export function loadCortexWriteup(leagueKey: ProductLeague, gameId: string): CortexWriteup | null {
@@ -1444,36 +1651,37 @@ export function loadCortexWriteup(leagueKey: ProductLeague, gameId: string): Cor
       return null;
     }
 
-    const cached = cortexWriteupCache.get(leagueKey);
-    if (cached && cached.mtime === mtime) {
+    let cached = cortexWriteupCache.get(leagueKey);
+    if (!cached || cached.mtime !== mtime) {
+      const rawCached = rawSnapshotCache.get(leagueKey);
+      const analyses =
+        rawCached && rawCached.mtime === mtime
+          ? (rawCached.snapshot.analyses as Record<string, { cortex?: unknown }> | undefined)
+          : (JSON.parse(fs.readFileSync(latestPath, "utf8")) as {
+              analyses?: Record<string, { cortex?: unknown }>;
+            }).analyses;
+      cached = { mtime, analyses, byGame: new Map() };
+      cortexWriteupCache.set(leagueKey, cached);
+    }
+
+    if (cached.byGame.has(gameId)) {
       return cached.byGame.get(gameId) ?? null;
     }
 
-    const rawCached = rawSnapshotCache.get(leagueKey);
-    const analyses =
-      rawCached && rawCached.mtime === mtime
-        ? (rawCached.snapshot.analyses as Record<string, { cortex?: unknown }> | undefined)
-        : (JSON.parse(fs.readFileSync(latestPath, "utf8")) as {
-            analyses?: Record<string, { cortex?: unknown }>;
-          }).analyses;
-
-    const byGame = new Map<string, CortexWriteup | null>();
-    if (analyses && typeof analyses === "object") {
-      for (const [id, entry] of Object.entries(analyses)) {
-        if (!entry || entry.cortex === undefined) continue;
-        const parsed = CortexWriteupSchema.safeParse(entry.cortex);
-        if (parsed.success) byGame.set(id, parsed.data);
-      }
+    const entry = cached.analyses?.[gameId];
+    if (!entry || entry.cortex === undefined) {
+      cached.byGame.set(gameId, null);
+      return null;
     }
-    cortexWriteupCache.set(leagueKey, { mtime, byGame });
-    return byGame.get(gameId) ?? null;
+    const parsed = CortexWriteupSchema.safeParse(entry.cortex);
+    const resolved = parsed.success ? parsed.data : null;
+    cached.byGame.set(gameId, resolved);
+    return resolved;
   } catch (err) {
     void err;
     return null;
   }
 }
-
-const rawSnapshotCache = new Map<string, { mtime: number; snapshot: LeagueSnapshot }>();
 
 export function loadRawLeagueSnapshot(leagueKey: ProductLeague): LeagueSnapshot | null {
   try {

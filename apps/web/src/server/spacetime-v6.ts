@@ -527,77 +527,94 @@ function buildLiveFeedbackArtifact(): LiveFeedbackModelArtifactV52 {
   };
 }
 
-const soccer57Artifact: Soccer57ModelArtifactV60 = buildSoccer57Artifact();
-const multisportArtifact: MultiSportModelArtifactV60 = buildMultisportArtifact();
-const officialsArtifact: OfficialsFreezeModelArtifactV6 = buildOfficialsArtifact();
-const propsArtifact: PropsV6ModelArtifact = buildPropsArtifact();
-const liveFeedbackArtifact: LiveFeedbackModelArtifactV52 = buildLiveFeedbackArtifact();
+let soccer57ArtifactMemo: Soccer57ModelArtifactV60 | null = null;
+let multisportArtifactMemo: MultiSportModelArtifactV60 | null = null;
+let officialsArtifactMemo: OfficialsFreezeModelArtifactV6 | null = null;
+let propsArtifactMemo: PropsV6ModelArtifact | null = null;
+let liveFeedbackArtifactMemo: LiveFeedbackModelArtifactV52 | null = null;
+let epistemicArtifactMemo: EpistemicConformalArtifactV51 | null = null;
+let inplayArtifactMemo: InPlayEarlyPayoutArtifactV5 | null = null;
+let microArtifactMemo: SoccerMicroModelArtifactV5 | null = null;
+let sgpArtifactMemo: SgpCopulaArtifactV5 | null = null;
+let unifiedArtifactsBundleMemo: UnifiedArtifactsBundleV6 | null = null;
+let candidateRegistrySummaryMemo: CandidateRegistryV6Summary | null = null;
 
-const epistemicArtifact: EpistemicConformalArtifactV51 = {
-  schema_version: epistemicArtifactJson.schema_version,
-  status: toArtifactStatus(epistemicArtifactJson.status),
-  production_activated: epistemicArtifactJson.production_activated,
-  holdout_cut_utc: epistemicArtifactJson.holdout_cut_utc,
-  holdout_sealed_untouched: epistemicArtifactJson.holdout_sealed_untouched,
-  sports: {
-    soccer: epistemicArtifactJson.sports.soccer,
-    nfl: epistemicArtifactJson.sports.nfl,
-    multisport: epistemicArtifactJson.sports.multisport,
-  },
-};
+function getEpistemicArtifactMemo(): EpistemicConformalArtifactV51 {
+  if (!epistemicArtifactMemo) {
+    epistemicArtifactMemo = {
+      schema_version: epistemicArtifactJson.schema_version,
+      status: toArtifactStatus(epistemicArtifactJson.status),
+      production_activated: epistemicArtifactJson.production_activated,
+      holdout_cut_utc: epistemicArtifactJson.holdout_cut_utc,
+      holdout_sealed_untouched: epistemicArtifactJson.holdout_sealed_untouched,
+      sports: {
+        soccer: epistemicArtifactJson.sports.soccer,
+        nfl: epistemicArtifactJson.sports.nfl,
+        multisport: epistemicArtifactJson.sports.multisport,
+      },
+    };
+  }
+  return epistemicArtifactMemo;
+}
 
-const inplayWeights = inplayArtifactJson.soccer.minute_bucket_weights_6;
-const inplayArtifact: InPlayEarlyPayoutArtifactV5 = {
-  ...inplayArtifactJson,
-  status: toArtifactStatus(inplayArtifactJson.status),
-  soccer: {
-    ...inplayArtifactJson.soccer,
-    minute_bucket_weights_6: [
-      inplayWeights[0] ?? 0.126799,
-      inplayWeights[1] ?? 0.143104,
-      inplayWeights[2] ?? 0.167323,
-      inplayWeights[3] ?? 0.164121,
-      inplayWeights[4] ?? 0.169973,
-      inplayWeights[5] ?? 0.22868,
-    ],
-  },
-  points_sports_early_payout: {
-    nfl: { ...inplayArtifactJson.points_sports_early_payout.nfl, trigger_lead: 17 },
-    nba: { ...inplayArtifactJson.points_sports_early_payout.nba, trigger_lead: 20 },
-    mlb: { ...inplayArtifactJson.points_sports_early_payout.mlb, trigger_lead: 5 },
-  },
-};
+function getInplayArtifactMemo(): InPlayEarlyPayoutArtifactV5 {
+  if (!inplayArtifactMemo) {
+    const inplayWeights = inplayArtifactJson.soccer.minute_bucket_weights_6;
+    inplayArtifactMemo = {
+      ...inplayArtifactJson,
+      status: toArtifactStatus(inplayArtifactJson.status),
+      soccer: {
+        ...inplayArtifactJson.soccer,
+        minute_bucket_weights_6: [
+          inplayWeights[0] ?? 0.126799,
+          inplayWeights[1] ?? 0.143104,
+          inplayWeights[2] ?? 0.167323,
+          inplayWeights[3] ?? 0.164121,
+          inplayWeights[4] ?? 0.169973,
+          inplayWeights[5] ?? 0.22868,
+        ],
+      },
+      points_sports_early_payout: {
+        nfl: { ...inplayArtifactJson.points_sports_early_payout.nfl, trigger_lead: 17 },
+        nba: { ...inplayArtifactJson.points_sports_early_payout.nba, trigger_lead: 20 },
+        mlb: { ...inplayArtifactJson.points_sports_early_payout.mlb, trigger_lead: 5 },
+      },
+    };
+  }
+  return inplayArtifactMemo;
+}
 
-const microArtifact: SoccerMicroModelArtifactV5 = {
-  ...microArtifactJson,
-  status: toArtifactStatus(microArtifactJson.status),
-};
+function getMicroArtifactMemo(): SoccerMicroModelArtifactV5 {
+  if (!microArtifactMemo) {
+    microArtifactMemo = {
+      ...microArtifactJson,
+      status: toArtifactStatus(microArtifactJson.status),
+    };
+  }
+  return microArtifactMemo;
+}
 
-const sgpArtifact: SgpCopulaArtifactV5 = {
-  ...sgpArtifactJson,
-  status: toArtifactStatus(sgpArtifactJson.status),
-  sports: {
-    soccer: {
-      ...sgpArtifactJson.sports.soccer,
-      copula_family:
-        sgpArtifactJson.sports.soccer.copula_family === "gaussian" ? "gaussian" : "student_t",
-    },
-    nfl: {
-      ...sgpArtifactJson.sports.nfl,
-      copula_family:
-        sgpArtifactJson.sports.nfl.copula_family === "gaussian" ? "gaussian" : "student_t",
-    },
-  },
-};
-
-const unifiedArtifactsBundle: UnifiedArtifactsBundleV6 = Object.freeze({
-  soccer57ArtifactV6: soccer57Artifact,
-  propsArtifactV6: propsArtifact,
-  multisportArtifactV6: multisportArtifact,
-  officialsArtifactV6: officialsArtifact,
-  epistemicArtifactV51: epistemicArtifact,
-  inplayArtifactV5: inplayArtifact,
-});
+function getSgpArtifactMemo(): SgpCopulaArtifactV5 {
+  if (!sgpArtifactMemo) {
+    sgpArtifactMemo = {
+      ...sgpArtifactJson,
+      status: toArtifactStatus(sgpArtifactJson.status),
+      sports: {
+        soccer: {
+          ...sgpArtifactJson.sports.soccer,
+          copula_family:
+            sgpArtifactJson.sports.soccer.copula_family === "gaussian" ? "gaussian" : "student_t",
+        },
+        nfl: {
+          ...sgpArtifactJson.sports.nfl,
+          copula_family:
+            sgpArtifactJson.sports.nfl.copula_family === "gaussian" ? "gaussian" : "student_t",
+        },
+      },
+    };
+  }
+  return sgpArtifactMemo;
+}
 
 export interface CandidateRegistryV6Summary {
   readonly schemaVersion: string;
@@ -612,21 +629,8 @@ export interface CandidateRegistryV6Summary {
   readonly activeArtifactIds: readonly string[];
 }
 
-const candidateRegistrySummary: CandidateRegistryV6Summary = Object.freeze({
-  schemaVersion: candidateRegistryJson.schema_version,
-  suiteCodename: candidateRegistryJson.suite_codename,
-  suiteVersion: candidateRegistryJson.suite_version,
-  status: toArtifactStatus(candidateRegistryJson.status),
-  productionActivated: candidateRegistryJson.production_activated,
-  holdoutCutUtc: candidateRegistryJson.holdout_cut_utc,
-  holdoutWindowProtected: toTuple2(candidateRegistryJson.holdout_window_protected),
-  holdoutSealedUntouched: candidateRegistryJson.holdout_sealed_untouched,
-  activeArtifactsCount: candidateRegistryJson.n_active_v6_0_candidate_artifacts,
-  activeArtifactIds: Object.freeze(candidateRegistryJson.active_v6_0_artifacts.map((a) => a.id)),
-});
-
 export const SOCCER_57_LEAGUE_IDS_V6: readonly string[] = Object.freeze(
-  Object.keys(soccer57Artifact.competitions).sort(),
+  Object.keys(soccer57ArtifactJson.competitions).sort(),
 );
 
 const V5_DIV_TO_LEAGUE_V6: Readonly<Record<string, string>> = Object.freeze({
@@ -698,46 +702,88 @@ function hasOwn(obj: object, key: string): boolean {
 }
 
 export function getSpacetimeV6RegistrySummary(): CandidateRegistryV6Summary {
-  return candidateRegistrySummary;
+  if (!candidateRegistrySummaryMemo) {
+    candidateRegistrySummaryMemo = Object.freeze({
+      schemaVersion: candidateRegistryJson.schema_version,
+      suiteCodename: candidateRegistryJson.suite_codename,
+      suiteVersion: candidateRegistryJson.suite_version,
+      status: toArtifactStatus(candidateRegistryJson.status),
+      productionActivated: candidateRegistryJson.production_activated,
+      holdoutCutUtc: candidateRegistryJson.holdout_cut_utc,
+      holdoutWindowProtected: toTuple2(candidateRegistryJson.holdout_window_protected),
+      holdoutSealedUntouched: candidateRegistryJson.holdout_sealed_untouched,
+      activeArtifactsCount: candidateRegistryJson.n_active_v6_0_candidate_artifacts,
+      activeArtifactIds: Object.freeze(candidateRegistryJson.active_v6_0_artifacts.map((a) => a.id)),
+    });
+  }
+  return candidateRegistrySummaryMemo;
 }
 
 export function getSoccer57ArtifactV6(): Soccer57ModelArtifactV60 {
-  return soccer57Artifact;
+  if (!soccer57ArtifactMemo) {
+    soccer57ArtifactMemo = buildSoccer57Artifact();
+  }
+  return soccer57ArtifactMemo;
 }
 
 export function getMultisportArtifactV6(): MultiSportModelArtifactV60 {
-  return multisportArtifact;
+  if (!multisportArtifactMemo) {
+    multisportArtifactMemo = buildMultisportArtifact();
+  }
+  return multisportArtifactMemo;
 }
 
 export function getOfficialsFreezeArtifactV6(): OfficialsFreezeModelArtifactV6 {
-  return officialsArtifact;
+  if (!officialsArtifactMemo) {
+    officialsArtifactMemo = buildOfficialsArtifact();
+  }
+  return officialsArtifactMemo;
 }
 
 export function getPropsArtifactV6(): PropsV6ModelArtifact {
-  return propsArtifact;
+  if (!propsArtifactMemo) {
+    propsArtifactMemo = buildPropsArtifact();
+  }
+  return propsArtifactMemo;
 }
 
 export function getLiveFeedbackArtifactV52(): LiveFeedbackModelArtifactV52 {
-  return liveFeedbackArtifact;
+  if (!liveFeedbackArtifactMemo) {
+    liveFeedbackArtifactMemo = buildLiveFeedbackArtifact();
+  }
+  return liveFeedbackArtifactMemo;
 }
 
 export function getUnifiedArtifactsBundleV6(): UnifiedArtifactsBundleV6 {
-  return unifiedArtifactsBundle;
+  if (!unifiedArtifactsBundleMemo) {
+    unifiedArtifactsBundleMemo = Object.freeze({
+      soccer57ArtifactV6: getSoccer57ArtifactV6(),
+      propsArtifactV6: getPropsArtifactV6(),
+      multisportArtifactV6: getMultisportArtifactV6(),
+      officialsArtifactV6: getOfficialsFreezeArtifactV6(),
+      epistemicArtifactV51: getEpistemicArtifactMemo(),
+      inplayArtifactV5: getInplayArtifactMemo(),
+    });
+  }
+  return unifiedArtifactsBundleMemo;
 }
 
 export function isSoccer57LeagueV6(league: string): boolean {
   const slug = normalizeLeagueSlugV6(league);
-  return hasOwn(soccer57Artifact.competitions, slug);
+  return hasOwn(getSoccer57ArtifactV6().competitions, slug);
 }
 
 export function getSoccer57CompetitionSpecV6(league: string): CompetitionSpecV60 | null {
   const slug = normalizeLeagueSlugV6(league);
+  const soccer57Artifact = getSoccer57ArtifactV6();
   if (!hasOwn(soccer57Artifact.competitions, slug)) return null;
   return soccer57Artifact.competitions[slug] ?? null;
 }
 
 export function resolveSoccerMicroDivCodeV6(league: string): string {
   const slug = normalizeLeagueSlugV6(league);
+  const officialsArtifact = getOfficialsFreezeArtifactV6();
+  const microArtifact = getMicroArtifactMemo();
   const compOfficial = hasOwn(officialsArtifact.competition_priors, slug)
     ? officialsArtifact.competition_priors[slug]
     : undefined;
@@ -766,7 +812,7 @@ export function calibratePlayableOddsV6(params: {
   return calibratePlayableVennAbersLogitV60(
     params.pRaw,
     isExpansionOrCup,
-    soccer57Artifact.venn_abers_playable_calibrator,
+    getSoccer57ArtifactV6().venn_abers_playable_calibrator,
   );
 }
 
@@ -778,10 +824,12 @@ export function recalibrateSoccer57MatchServerV6(params: {
   readonly causalLeagueEnvGoals?: number | null;
 }): Soccer57PrekickoffRecalibratedOutlookV60 | null {
   const slug = normalizeLeagueSlugV6(params.league);
+  const soccer57Artifact = getSoccer57ArtifactV6();
   if (!hasOwn(soccer57Artifact.competitions, slug)) {
     return null;
   }
   const compSpec = soccer57Artifact.competitions[slug]!;
+  const liveFeedbackArtifact = getLiveFeedbackArtifactV52();
   const envFromFeedback = hasOwn(liveFeedbackArtifact.league_scoring_environments_2026, slug)
     ? liveFeedbackArtifact.league_scoring_environments_2026[slug]?.shrunk_env_goals
     : undefined;
@@ -804,6 +852,7 @@ export function projectSoccer57MatchServerV6(
   params: Omit<ProjectSoccer57MatchInputV60, "artifact">,
 ): Soccer57MatchOutlookV60 | null {
   const slug = normalizeLeagueSlugV6(params.league);
+  const soccer57Artifact = getSoccer57ArtifactV6();
   if (!hasOwn(soccer57Artifact.competitions, slug)) {
     return null;
   }
@@ -1065,7 +1114,7 @@ export function evaluateSoccer57V6Match(
     solvedDispersionR = solved.dispersionR;
     expectedTotalImplied = solved.expectedTotalImplied;
     markets = deriveCoherentSoccerMarketsV60(solved.matrix);
-    const vaCfg = soccer57Artifact.venn_abers_playable_calibrator;
+    const vaCfg = getSoccer57ArtifactV6().venn_abers_playable_calibrator;
     playableVennAbers = Object.freeze({
       home: calibratePlayableVennAbersLogitV60(markets["1x2"].home, isExpansionOrCup, vaCfg),
       away: calibratePlayableVennAbersLogitV60(markets["1x2"].away, isExpansionOrCup, vaCfg),
@@ -1087,6 +1136,7 @@ export function evaluateSoccer57V6Match(
   });
 
   const divCode = resolveSoccerMicroDivCodeV6(slug);
+  const microArtifact = getMicroArtifactMemo();
   const lh = muHome;
   const la = muAway;
   const supH = lh - la;
@@ -1141,7 +1191,7 @@ export function evaluateSoccer57V6Match(
     corePHome: markets["1x2"].home,
     corePDraw: markets["1x2"].draw,
     corePAway: markets["1x2"].away,
-    artifact: inplayArtifact,
+    artifact: getInplayArtifactMemo(),
   });
 
   return Object.freeze({
@@ -1167,19 +1217,30 @@ export function evaluateSoccer57V6Match(
   });
 }
 
-const multisportStateBySport = (() => {
-  const bySport = new Map<
-    MultiSportLeagueV60,
-    Array<{ readonly team_key: string; readonly team_name: string }>
-  >();
-  const stateMap = multisportArtifact.teams_post_walkforward_state_2026 ?? {};
-  for (const entry of Object.values(stateMap)) {
-    const list = bySport.get(entry.sport) ?? [];
-    list.push({ team_key: entry.team_key, team_name: entry.team_name });
-    bySport.set(entry.sport, list);
+let multisportStateBySportMemo: Map<
+  MultiSportLeagueV60,
+  Array<{ readonly team_key: string; readonly team_name: string }>
+> | null = null;
+
+function getMultisportStateBySport(): Map<
+  MultiSportLeagueV60,
+  Array<{ readonly team_key: string; readonly team_name: string }>
+> {
+  if (!multisportStateBySportMemo) {
+    const bySport = new Map<
+      MultiSportLeagueV60,
+      Array<{ readonly team_key: string; readonly team_name: string }>
+    >();
+    const stateMap = getMultisportArtifactV6().teams_post_walkforward_state_2026 ?? {};
+    for (const entry of Object.values(stateMap)) {
+      const list = bySport.get(entry.sport) ?? [];
+      list.push({ team_key: entry.team_key, team_name: entry.team_name });
+      bySport.set(entry.sport, list);
+    }
+    multisportStateBySportMemo = bySport;
   }
-  return bySport;
-})();
+  return multisportStateBySportMemo;
+}
 
 function cleanFranchiseToken(raw: string): string {
   let clean = raw.trim().toLowerCase();
@@ -1205,6 +1266,7 @@ export function resolveMultiSportTeamCodeSafeV6(
   teamNameOrSlug: string,
   teamCode?: string | null,
 ): string | null {
+  const multisportArtifact = getMultisportArtifactV6();
   const stateMap = multisportArtifact.teams_post_walkforward_state_2026;
   if (!stateMap) return null;
   const aliases = multisportArtifact.team_slug_aliases[sport];
@@ -1274,7 +1336,7 @@ export function resolveMultiSportTeamCodeSafeV6(
     }
   };
 
-  for (const entry of multisportStateBySport.get(sport) ?? []) {
+  for (const entry of getMultisportStateBySport().get(sport) ?? []) {
     considerScore(entry.team_name, entry.team_key);
   }
   for (const [aliasKey, mappedCode] of Object.entries(aliases)) {
@@ -1312,6 +1374,7 @@ export function tryProjectMultiSportFromStateV6(params: {
   );
   if (!homeCode || !awayCode) return null;
 
+  const multisportArtifact = getMultisportArtifactV6();
   const stateMap = multisportArtifact.teams_post_walkforward_state_2026;
   if (
     !stateMap ||
@@ -1355,6 +1418,7 @@ export function evaluateUsEarlyPayoutV6(params: {
   readonly nhlLambda60Home?: number | null;
   readonly nhlLambda60Away?: number | null;
 }): EarlyPayoutOutlookV60 {
+  const multisportArtifact = getMultisportArtifactV6();
   const pHome = clampProb(params.pHomeWin);
   const pAway =
     typeof params.pAwayWin === "number" && Number.isFinite(params.pAwayWin)
@@ -1460,7 +1524,7 @@ export function evaluateUsMultisportV6Match(
           ? { total_line: params.totalLine }
           : {}),
       },
-      multisportArtifact,
+      getMultisportArtifactV6(),
     );
   } else if (params.sport === "nhl") {
     outlook = projectNhlWalkforwardOutlookV60(
@@ -1470,7 +1534,7 @@ export function evaluateUsMultisportV6Match(
           ? { total_line: params.totalLine }
           : {}),
       },
-      multisportArtifact,
+      getMultisportArtifactV6(),
     );
   } else if (params.sport === "nba") {
     outlook = projectNbaWalkforwardOutlookV60(
@@ -1481,7 +1545,7 @@ export function evaluateUsMultisportV6Match(
         spread_line_home: params.spreadLineHome ?? null,
         total_line: params.totalLine ?? null,
       },
-      multisportArtifact,
+      getMultisportArtifactV6(),
     );
   } else {
     outlook = projectNflWalkforwardOutlookV60(
@@ -1494,7 +1558,7 @@ export function evaluateUsMultisportV6Match(
         spread_line_home: params.spreadLineHome ?? null,
         total_line: params.totalLine ?? null,
       },
-      multisportArtifact,
+      getMultisportArtifactV6(),
     );
   }
 
@@ -1530,7 +1594,7 @@ export function solveNflMarginFromWinProbV6(
   pHome2Way: number,
   pTie: number = 0.004,
 ): NflKeyMarginSolutionV60 {
-  const nflCfg = multisportArtifact.physics_config.nfl;
+  const nflCfg = getMultisportArtifactV6().physics_config.nfl;
   const targetPHome = clampProb(pHome2Way);
   const safeTie = clampValue(pTie, 1e-6, 0.05);
   let lo = -28.0;
@@ -1571,7 +1635,7 @@ export function evaluateNflAltSpreadV6(params: {
   readonly pTie?: number;
   readonly altLines?: readonly number[];
 }): NflAltSpreadEvaluationV6 {
-  const nflCfg = multisportArtifact.physics_config.nfl;
+  const nflCfg = getMultisportArtifactV6().physics_config.nfl;
   const safeTie =
     typeof params.pTie === "number" && Number.isFinite(params.pTie)
       ? clampValue(params.pTie, 1e-6, 0.05)
@@ -1620,7 +1684,7 @@ export function evaluateNflAltTotalV6(params: {
   readonly line: number;
   readonly altLines?: readonly number[];
 }): NflAltTotalEvaluationV6 {
-  const nflCfg = multisportArtifact.physics_config.nfl;
+  const nflCfg = getMultisportArtifactV6().physics_config.nfl;
   const sol = solveNflDiscreteKeyTotalPmfV60(params.expectedTotal, nflCfg);
   const primary = evalNflTotalFromPmfV60(sol.pmf, params.line);
   const lines = params.altLines ?? nflCfg.walkforward.canonical_total_lines;
@@ -1668,7 +1732,7 @@ export function evaluateNflMatchServerV6(params: {
   readonly isTurf?: boolean;
   readonly pTie?: number;
 }): NflMatchServerEvaluationV6 {
-  const nflCfg = multisportArtifact.physics_config.nfl;
+  const nflCfg = getMultisportArtifactV6().physics_config.nfl;
   const safeTie = clampValue(params.pTie ?? 0.004, 1e-6, 0.05);
   const solMargin = solveNflMarginFromWinProbV6(params.pHome2Way, safeTie);
   const center = solMargin.max_abs_margin;
@@ -1759,7 +1823,7 @@ export function resolveOfficialPriorServerV6(params: {
   return resolveOfficialPriorV6({
     refereeName: params.refereeName ?? null,
     league: slug,
-    artifact: officialsArtifact,
+    artifact: getOfficialsFreezeArtifactV6(),
   });
 }
 
@@ -1774,7 +1838,10 @@ export function resolveOfficialPriorByDivV6(
     const lower = normalizeLeagueSlugV6(trimmed);
     if (hasOwn(V5_DIV_TO_LEAGUE_V6, upper)) {
       league = V5_DIV_TO_LEAGUE_V6[upper]!;
-    } else if (hasOwn(officialsArtifact.competition_priors, lower) || isMultiSportLeagueV60(lower)) {
+    } else if (
+      hasOwn(getOfficialsFreezeArtifactV6().competition_priors, lower) ||
+      isMultiSportLeagueV60(lower)
+    ) {
       league = lower;
     }
   }
@@ -1783,6 +1850,7 @@ export function resolveOfficialPriorByDivV6(
 
 export function getOfficialCompetitionPriorV6(league: string): CompetitionDisciplinaryPriorV6 | null {
   const slug = normalizeLeagueSlugV6(league);
+  const officialsArtifact = getOfficialsFreezeArtifactV6();
   if (!hasOwn(officialsArtifact.competition_priors, slug)) return null;
   return officialsArtifact.competition_priors[slug] ?? null;
 }
@@ -1792,6 +1860,7 @@ export function computeBookingPointsServerV6(params: {
   readonly redCardRatePrior: number;
   readonly lines?: readonly number[];
 }): ConditionalBookingPointsResultV6 {
+  const officialsArtifact = getOfficialsFreezeArtifactV6();
   return computeConditionalBookingPointsV6({
     yellowRatePrior: params.yellowRatePrior,
     redCardRatePrior: params.redCardRatePrior,
@@ -1810,7 +1879,7 @@ export function evaluateSgpCopulaV6(params: {
   const evaluated = evaluateStudentTSameGameParlayV5({
     sport: params.sport,
     legs: params.legs,
-    artifact: sgpArtifact,
+    artifact: getSgpArtifactMemo(),
     offeredCombinedDecimalOdds: params.offeredCombinedDecimalOdds ?? null,
   });
 
@@ -1939,7 +2008,7 @@ export interface GoalkeeperSavesSgpServerResultV6 {
 export function evaluateGoalkeeperSavesSgpServerV6(
   params: GoalkeeperSavesLinkedSgpInputV6,
 ): GoalkeeperSavesSgpServerResultV6 {
-  const gkCfg = propsArtifact.goalkeeper_saves_v6;
+  const gkCfg = getPropsArtifactV6().goalkeeper_saves_v6;
   const evaluated = evaluateGoalkeeperSavesLinkedSgpV6({
     ...params,
     rDispersionSoT: params.rDispersionSoT ?? gkCfg.r_dispersion_sot,
@@ -1981,12 +2050,12 @@ export function buildUnifiedMatchIntelligenceServerV6(
 ): UnifiedMatchIntelligenceV6 | null {
   if (input.sport === "soccer") {
     const slug = normalizeLeagueSlugV6(input.league);
-    if (!input.soccerInput || !hasOwn(soccer57Artifact.competitions, slug)) {
+    if (!input.soccerInput || !hasOwn(getSoccer57ArtifactV6().competitions, slug)) {
       return null;
     }
     return buildUnifiedMatchIntelligenceV6(
       { ...input, league: slug },
-      unifiedArtifactsBundle,
+      getUnifiedArtifactsBundleV6(),
     );
   }
 
@@ -2005,7 +2074,7 @@ export function buildUnifiedMatchIntelligenceServerV6(
         homeSlug: homeCode,
         awaySlug: awayCode,
       },
-      unifiedArtifactsBundle,
+      getUnifiedArtifactsBundleV6(),
     );
   }
 
@@ -2018,5 +2087,5 @@ export function buildUnifiedMatchIntelligenceServerV6(
     if (!hasCausal) return null;
   }
 
-  return buildUnifiedMatchIntelligenceV6(input, unifiedArtifactsBundle);
+  return buildUnifiedMatchIntelligenceV6(input, getUnifiedArtifactsBundleV6());
 }

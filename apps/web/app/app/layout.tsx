@@ -13,7 +13,7 @@ import { ClubShellBridge } from "../../src/client/club-shell-bridge";
 import { PlatformClientBridge } from "../../src/client/platform-client-bridge";
 import { sanitizeNextPath } from "../../src/server/beta-auth";
 import { resolveClubRoute } from "../../src/server/club-route-guard";
-import { loadClubPlatformState } from "../../src/server/platform-data";
+import { loadClubPlatformState, loadMonth1Flag } from "../../src/server/platform-data";
 import {
   playerExistsInSnapshots,
   teamExistsInSnapshots,
@@ -54,21 +54,21 @@ export default async function ClubAppLayout({
 }: {
   children: React.ReactNode;
 }): Promise<React.JSX.Element> {
-  const reqHeaders = await headers();
+  const [reqHeaders, access, serverMonth1NoCardMode] = await Promise.all([
+    headers(),
+    getViewerAccess(),
+    loadMonth1Flag(),
+  ]);
   const rawClubPath = reqHeaders.get(CLUB_REQUEST_PATH_HEADER) ?? "/app";
   const safeNext = sanitizeNextPath(rawClubPath);
 
-  const access = await getViewerAccess();
-  // La cookie de sesión existía pero ya no es válida (vencida o cerrada en otro equipo).
   if (access.via === "none") {
     redirect(`/login?next=${encodeURIComponent(safeNext)}`);
   }
-  // Cuenta nueva sin fecha de nacimiento ni términos: primero el paso 2.
   if (access.via === "account" && !access.signupComplete) {
     redirect(`/signup?paso=2&via=cuenta&next=${encodeURIComponent(safeNext)}`);
   }
 
-  // Resolver alias y rutas inexistentes antes de que `loading.tsx` confirme un HTTP 200.
   const routeCheck = resolveClubRoute(rawClubPath, {
     isLeague: isProductLeague,
     gameExists: (league, gameSlugOrId) => {
@@ -97,7 +97,6 @@ export default async function ClubAppLayout({
 
   const requestedProfile = reqHeaders.get(CLUB_PROFILE_HANDLE_HEADER);
   if (requestedProfile) {
-    // Resolve a missing profile before loading.tsx can commit a streamed 200 response.
     const { clubHandleFromHeader, loadClubProfile } = await import(
       "../../src/server/club-profile"
     );
@@ -105,7 +104,10 @@ export default async function ClubAppLayout({
     if (!handle || !(await loadClubProfile(handle, access.via === "beta"))) notFound();
   }
 
-  const state = await loadClubPlatformState("member");
+  const state = await loadClubPlatformState("member", {
+    access,
+    serverMonth1NoCardMode,
+  });
   const passExpired =
     access.via === "account" &&
     !access.fullAccess &&
@@ -126,7 +128,6 @@ export default async function ClubAppLayout({
       serverMonth1NoCardMode={state.serverMonth1NoCardMode}
       viewerIdentity={state.viewerIdentity}
     >
-      {/* Encabezado y barra lateral montados una sola vez; cada página aporta su contenido. */}
       {showExpiredPassGate ? (
         <ExpiredPassGate
           memberHandle={state.viewerIdentity?.handle ?? null}
