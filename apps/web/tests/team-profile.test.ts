@@ -133,6 +133,22 @@ describe("Cargador de perfiles de equipo y cumplimiento FD-16 / Cero-Fuga", () =
     expect(playerProfile).not.toBeNull();
     expect(playerProfile!.lastMatch).not.toBeNull();
     expect(playerProfile!.lastMatch!.date.startsWith("2026-")).toBe(true);
+
+    const uclMadrid = loadTeamProfile("champions-league", "real-madrid", { fullAccess: true });
+    expect(uclMadrid).not.toBeNull();
+    expect(uclMadrid!.squad?.players.length ?? 0).toBeGreaterThan(10);
+
+    const uclPsg = loadTeamProfile("champions-league", "paris-saint-germain", { fullAccess: true });
+    expect(uclPsg).not.toBeNull();
+    expect(uclPsg!.squad?.players.length ?? 0).toBeGreaterThan(10);
+
+    const leaguesCupMty = loadTeamProfile("leagues-cup", "monterrey", { fullAccess: true });
+    expect(leaguesCupMty).not.toBeNull();
+    expect(leaguesCupMty!.squad?.players.length ?? 0).toBeGreaterThan(10);
+
+    const mlsChicago = loadTeamProfile("mls", "chicago-fire", { fullAccess: true });
+    expect(mlsChicago).not.toBeNull();
+    expect(mlsChicago!.squad?.players.length ?? 0).toBeGreaterThan(10);
   });
 
   it("carga props de jugadores sin romper si falta player-props.json de NBA", () => {
