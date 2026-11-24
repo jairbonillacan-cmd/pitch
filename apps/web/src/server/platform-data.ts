@@ -1,7 +1,6 @@
 import fs from "node:fs";
 import path from "node:path";
 import { cache } from "react";
-import { gzipSync } from "node:zlib";
 import { z } from "zod";
 import {
   COMPETITION_BY_ID,
@@ -213,8 +212,6 @@ interface DatasetMemoBundle {
   } | null;
   slimMemberShellJson: string | null;
   slimVisitorShellJson: string | null;
-  slimMemberShellGzip: Buffer | null;
-  slimVisitorShellGzip: Buffer | null;
   initialMemberShell: PlatformDataset | null;
   initialVisitorShell: PlatformDataset | null;
   shellPlayerPropsMember: PlayerPropItem[] | null;
@@ -1181,8 +1178,6 @@ function createDatasetMemoBundle(params: {
     extendVisitorPayload: null,
     slimMemberShellJson: null,
     slimVisitorShellJson: null,
-    slimMemberShellGzip: null,
-    slimVisitorShellGzip: null,
     initialMemberShell: null,
     initialVisitorShell: null,
     shellPlayerPropsMember: null,
@@ -1215,7 +1210,7 @@ const singleLeagueBundleCache = new BoundedStampCache<DatasetMemoBundle>(24);
 let stage1MemberSelectiveMemo: { readonly key: string; readonly at: number; readonly dataset: PlatformDataset } | null = null;
 let stage1VisitorSelectiveMemo: { readonly key: string; readonly at: number; readonly dataset: PlatformDataset } | null = null;
 const previewStaticCache = new BoundedStampCache<Omit<GamePreviewPayload, "detail" | "ok"> & { readonly staticDetail: PlatformGameDetail }>(256);
-const previewWireCache = new BoundedStampCache<{ readonly json: string; readonly gzip: Buffer }>(256);
+const previewWireCache = new BoundedStampCache<string>(256);
 
 export function clearPlatformDataCachesForTests(): void {
   datasetMemo = null;
@@ -1784,41 +1779,18 @@ export function loadExtendedShellPayload(fullAccess: boolean): {
   return getExtendedShellBundlePayload(bundle, fullAccess);
 }
 
-export function loadExtendedShellResponsePayload(fullAccess: boolean): {
-  readonly json: string;
-  readonly gzip: Buffer;
-} {
+export function loadExtendedShellSerializedJson(fullAccess: boolean): string {
   const bundle = getDatasetMemoBundle();
   if (fullAccess) {
     if (!bundle.slimMemberShellJson) {
       bundle.slimMemberShellJson = JSON.stringify(getExtendedShellBundlePayload(bundle, true));
     }
-    if (!bundle.slimMemberShellGzip) {
-      bundle.slimMemberShellGzip = gzipSync(Buffer.from(bundle.slimMemberShellJson, "utf8"), {
-        level: 6,
-      });
-    }
-    return {
-      json: bundle.slimMemberShellJson,
-      gzip: bundle.slimMemberShellGzip,
-    };
+    return bundle.slimMemberShellJson;
   }
   if (!bundle.slimVisitorShellJson) {
     bundle.slimVisitorShellJson = JSON.stringify(getExtendedShellBundlePayload(bundle, false));
   }
-  if (!bundle.slimVisitorShellGzip) {
-    bundle.slimVisitorShellGzip = gzipSync(Buffer.from(bundle.slimVisitorShellJson, "utf8"), {
-      level: 6,
-    });
-  }
-  return {
-    json: bundle.slimVisitorShellJson,
-    gzip: bundle.slimVisitorShellGzip,
-  };
-}
-
-export function loadExtendedShellSerializedJson(fullAccess: boolean): string {
-  return loadExtendedShellResponsePayload(fullAccess).json;
+  return bundle.slimVisitorShellJson;
 }
 
 export const buildServerRawPlatformDataset = cache(function buildServerRawPlatformDatasetCached(): PlatformDataset {
@@ -3696,10 +3668,10 @@ export async function loadGamePreviewPayload(
   };
 }
 
-export async function loadGamePreviewResponsePayload(
+export async function loadGamePreviewSerializedJson(
   gameId: string,
   fullAccess: boolean,
-): Promise<{ readonly json: string; readonly gzip: Buffer } | null> {
+): Promise<string | null> {
   const payload = await loadGamePreviewPayload(gameId, fullAccess);
   if (!payload) return null;
   const stamp = getPlatformDataFilesStamp();
@@ -3710,10 +3682,8 @@ export async function loadGamePreviewResponsePayload(
     return cached;
   }
   const json = JSON.stringify(payload);
-  const gzip = gzipSync(Buffer.from(json, "utf8"), { level: 6 });
-  const wire = { json, gzip };
-  previewWireCache.set(wireKey, stamp, wire);
-  return wire;
+  previewWireCache.set(wireKey, stamp, json);
+  return json;
 }
 
 export async function hasAuthenticatedBetaSession(): Promise<boolean> {

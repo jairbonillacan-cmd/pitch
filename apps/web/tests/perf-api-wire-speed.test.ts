@@ -1,7 +1,7 @@
 import fs from "node:fs";
 import os from "node:os";
 import path from "node:path";
-import { gunzipSync } from "node:zlib";
+import { gzipSync } from "node:zlib";
 import { afterEach, describe, expect, it, vi } from "vitest";
 import {
   LeagueSnapshotSchema,
@@ -18,7 +18,6 @@ import { GET as previewGET } from "../app/api/games/[gameId]/preview/route";
 import { resetScrapingVelocityForTests } from "../src/server/api-guards";
 import {
   clearPlatformDataCachesForTests,
-  loadExtendedShellResponsePayload,
   loadExtendedShellSerializedJson,
   loadGameDetail,
   loadGameSummary,
@@ -93,46 +92,45 @@ describe("API wire compression, shell pruning, snapshot cut, props fast-scan and
     }
   });
 
-  it("/api/shell/extend sirve gzip cacheado < 200 KB, mantiene JSON acotado, Vary y Cero-Fuga estricta", async () => {
+  it("/api/shell/extend sirve JSON UTF-8 plano sin bytes gzip corruptos incluso con Accept-Encoding: gzip, mantiene compresibilidad < 200 KB y Cero-Fuga", async () => {
     mocks.getViewerAccess.mockResolvedValue(ACCESS_MEMBER);
-    const gzipReq = new Request("http://localhost:9990/api/shell/extend", {
+    const acceptGzipReq = new Request("http://localhost:9990/api/shell/extend", {
       headers: { "accept-encoding": "gzip, deflate, br" },
     });
-    const gzipRes = await extendGET(gzipReq);
-    expect(gzipRes.status).toBe(200);
-    expect(gzipRes.headers.get("Content-Encoding")).toBe("gzip");
-    expect(gzipRes.headers.get("Vary")).toBe("Accept-Encoding");
-    expect(gzipRes.headers.get("Cache-Control")).toContain("no-store");
-    expect(gzipRes.headers.get("X-Content-Type-Options")).toBe("nosniff");
-    expect(gzipRes.headers.get("Server-Timing")).toMatch(/shell_extend;dur=\d+\.\d+/);
+    const memberRes = await extendGET(acceptGzipReq);
+    expect(memberRes.status).toBe(200);
+    expect(memberRes.headers.get("Content-Encoding")).toBeNull();
+    expect(memberRes.headers.get("Content-Type")).toContain("application/json");
+    expect(memberRes.headers.get("Cache-Control")).toContain("no-store");
+    expect(memberRes.headers.get("X-Content-Type-Options")).toBe("nosniff");
+    expect(memberRes.headers.get("Server-Timing")).toMatch(/shell_extend;dur=\d+\.\d+/);
 
-    const compressedBytes = Buffer.from(await gzipRes.arrayBuffer());
-    expect(compressedBytes.byteLength).toBeLessThan(200 * 1024);
-
-    const gunzippedText = gunzipSync(compressedBytes).toString("utf8");
+    const memberBytes = Buffer.from(await memberRes.arrayBuffer());
+    expect(memberBytes[0] === 0x1f && memberBytes[1] === 0x8b).toBe(false);
+    const memberText = memberBytes.toString("utf8");
     const expectedMemberJson = loadExtendedShellSerializedJson(true);
-    expect(gunzippedText).toBe(expectedMemberJson);
-    expect(Buffer.byteLength(expectedMemberJson, "utf8")).toBeLessThan(1_950_000);
+    expect(memberText).toBe(expectedMemberJson);
+    expect(memberBytes.byteLength).toBeLessThan(1_950_000);
+    expect(gzipSync(memberBytes, { level: 6 }).byteLength).toBeLessThan(200 * 1024);
 
-    const plainReq = new Request("http://localhost:9990/api/shell/extend");
-    const plainRes = await extendGET(plainReq);
+    const plainRes = await extendGET(new Request("http://localhost:9990/api/shell/extend"));
     expect(plainRes.status).toBe(200);
     expect(plainRes.headers.get("Content-Encoding")).toBeNull();
-    expect(plainRes.headers.get("Vary")).toBe("Accept-Encoding");
     expect(await plainRes.text()).toBe(expectedMemberJson);
 
     mocks.getViewerAccess.mockResolvedValue(ACCESS_VISITOR);
-    const visitorGzipRes = await extendGET(
+    const visitorRes = await extendGET(
       new Request("http://localhost:9990/api/shell/extend", {
-        headers: { "accept-encoding": "gzip" },
+        headers: { "accept-encoding": "gzip, deflate, br" },
       }),
     );
-    expect(visitorGzipRes.status).toBe(200);
-    expect(visitorGzipRes.headers.get("Content-Encoding")).toBe("gzip");
-    const visitorCompressed = Buffer.from(await visitorGzipRes.arrayBuffer());
-    expect(visitorCompressed.byteLength).toBeLessThan(120 * 1024);
+    expect(visitorRes.status).toBe(200);
+    expect(visitorRes.headers.get("Content-Encoding")).toBeNull();
+    const visitorBytes = Buffer.from(await visitorRes.arrayBuffer());
+    expect(visitorBytes[0] === 0x1f && visitorBytes[1] === 0x8b).toBe(false);
+    expect(gzipSync(visitorBytes, { level: 6 }).byteLength).toBeLessThan(120 * 1024);
 
-    const visitorDecoded = JSON.parse(gunzipSync(visitorCompressed).toString("utf8")) as ExtendWireBody;
+    const visitorDecoded = JSON.parse(visitorBytes.toString("utf8")) as ExtendWireBody;
     expect(visitorDecoded.isRedactedForVisitor).toBe(true);
     const lockedVisitorGame = visitorDecoded.games.find(
       (g) =>
@@ -147,7 +145,7 @@ describe("API wire compression, shell pruning, snapshot cut, props fast-scan and
     }
 
     const stage1 = loadInitialShellDatasetForAccess(true);
-    const memberDecoded = JSON.parse(gunzippedText) as ExtendWireBody;
+    const memberDecoded = JSON.parse(memberText) as ExtendWireBody;
     const memberIds = new Set(memberDecoded.games.map((g) => g.id));
     expect(memberDecoded.games.length).toBeGreaterThanOrEqual(stage1.games.length);
     for (const sg of stage1.games) {
@@ -212,12 +210,9 @@ describe("API wire compression, shell pruning, snapshot cut, props fast-scan and
     for (const pk of slimWithMultiQuotes.games[0]!.picks) {
       expect(pk.bookQuotes?.length).toBe(2);
     }
-
-    const cachedWire = loadExtendedShellResponsePayload(true);
-    expect(cachedWire.gzip.byteLength).toBe(compressedBytes.byteLength);
   });
 
-  it("/api/games/[gameId]/preview sirve gzip, evita duplicar injuries y preserva Cero-Fuga + Match Studio", async () => {
+  it("/api/games/[gameId]/preview sirve JSON UTF-8 plano sin bytes gzip corruptos, evita duplicar injuries y preserva Cero-Fuga + Match Studio", async () => {
     mocks.resolveServerFrozenMainPick.mockResolvedValue(null);
     const stage1 = loadInitialShellDatasetForAccess(true);
     const targetUpcoming =
@@ -227,22 +222,23 @@ describe("API wire compression, shell pruning, snapshot cut, props fast-scan and
     const targetId = targetUpcoming!.id;
 
     mocks.getViewerAccess.mockResolvedValue(ACCESS_MEMBER);
-    const gzipRes = await previewGET(
+    const memberRes = await previewGET(
       new Request(`http://localhost:9990/api/games/${targetId}/preview`, {
-        headers: { "accept-encoding": "gzip" },
+        headers: { "accept-encoding": "gzip, deflate, br" },
       }),
       { params: Promise.resolve({ gameId: targetId }) },
     );
-    expect(gzipRes.status).toBe(200);
-    expect(gzipRes.headers.get("Content-Encoding")).toBe("gzip");
-    expect(gzipRes.headers.get("Vary")).toBe("Accept-Encoding");
-    expect(gzipRes.headers.get("Cache-Control")).toContain("no-store");
-    expect(gzipRes.headers.get("X-Content-Type-Options")).toBe("nosniff");
-    expect(gzipRes.headers.get("Server-Timing")).toMatch(/preview;dur=\d+\.\d+/);
+    expect(memberRes.status).toBe(200);
+    expect(memberRes.headers.get("Content-Encoding")).toBeNull();
+    expect(memberRes.headers.get("Content-Type")).toContain("application/json");
+    expect(memberRes.headers.get("Cache-Control")).toContain("no-store");
+    expect(memberRes.headers.get("X-Content-Type-Options")).toBe("nosniff");
+    expect(memberRes.headers.get("Server-Timing")).toMatch(/preview;dur=\d+\.\d+/);
 
-    const compressed = Buffer.from(await gzipRes.arrayBuffer());
-    expect(compressed.byteLength).toBeLessThan(35 * 1024);
-    const decodedMember = JSON.parse(gunzipSync(compressed).toString("utf8")) as GamePreviewPayload;
+    const memberBytes = Buffer.from(await memberRes.arrayBuffer());
+    expect(memberBytes[0] === 0x1f && memberBytes[1] === 0x8b).toBe(false);
+    expect(gzipSync(memberBytes, { level: 6 }).byteLength).toBeLessThan(35 * 1024);
+    const decodedMember = JSON.parse(memberBytes.toString("utf8")) as GamePreviewPayload;
     expect(decodedMember.ok).toBe(true);
     expect(decodedMember.fullAccess).toBe(true);
     expect(Array.isArray(decodedMember.injuries)).toBe(true);
@@ -255,7 +251,6 @@ describe("API wire compression, shell pruning, snapshot cut, props fast-scan and
     );
     expect(plainRes.status).toBe(200);
     expect(plainRes.headers.get("Content-Encoding")).toBeNull();
-    expect(plainRes.headers.get("Vary")).toBe("Accept-Encoding");
     const plainJson = JSON.parse(await plainRes.text()) as GamePreviewPayload;
     expect(plainJson.gameId).toBe(decodedMember.gameId);
 
@@ -267,9 +262,10 @@ describe("API wire compression, shell pruning, snapshot cut, props fast-scan and
       { params: Promise.resolve({ gameId: targetId }) },
     );
     expect(visitorRes.status).toBe(200);
-    const visitorDecoded = JSON.parse(
-      gunzipSync(Buffer.from(await visitorRes.arrayBuffer())).toString("utf8"),
-    ) as GamePreviewPayload;
+    expect(visitorRes.headers.get("Content-Encoding")).toBeNull();
+    const visitorBytes = Buffer.from(await visitorRes.arrayBuffer());
+    expect(visitorBytes[0] === 0x1f && visitorBytes[1] === 0x8b).toBe(false);
+    const visitorDecoded = JSON.parse(visitorBytes.toString("utf8")) as GamePreviewPayload;
     expect(visitorDecoded.fullAccess).toBe(false);
     expect(visitorDecoded.detail?.picksCatalog?.isRedactedForVisitor).toBe(true);
 
