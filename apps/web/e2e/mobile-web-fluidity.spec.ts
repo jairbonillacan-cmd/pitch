@@ -56,10 +56,10 @@ test.describe("Integración web y fluidez móvil multi-breakpoint", () => {
       await page.setViewportSize({ width: w, height: w <= 390 ? 812 : 900 });
       await assertNoHorizontalOverflow(page, `/app @ ${w}px`);
 
-      const dayCenter = page.locator("[data-day-center]");
+      const dayCenter = page.locator("#main [data-day-center]:visible");
       await expect(dayCenter).toBeVisible();
       await dayCenter.click();
-      const cal = page.locator("[data-home-calendar-popover]");
+      const cal = page.locator("#main [data-home-calendar-popover]");
       await expect(cal).toBeVisible();
       const box = await cal.boundingBox();
       expect(box, `Calendario visible @ ${w}px`).not.toBeNull();
@@ -114,17 +114,17 @@ test.describe("Integración web y fluidez móvil multi-breakpoint", () => {
 
     // 2) Hub de Liga (/app/bundesliga): 2 columnas, Clasificaciones con zonas y leyenda desplegable
     await page.goto("/app/bundesliga");
-    await expect(page.locator('[data-league-hero="bundesliga"]')).toBeVisible();
-    await expect(page.locator("#pl-league-tab-tabla")).toHaveAttribute("aria-selected", "true");
-    await expect(page.locator(".pl-st-table")).toBeVisible();
+    await expect(page.locator('#main [data-league-hero="bundesliga"]:visible')).toBeVisible();
+    await expect(page.locator("#main #pl-league-tab-tabla:visible")).toHaveAttribute("aria-selected", "true");
+    await expect(page.locator("#main .pl-st-table:visible")).toBeVisible();
 
-    const legendSummary = page.locator(".pl-st-legend-summary");
+    const legendSummary = page.locator("#main .pl-st-legend-summary:visible");
     await expect(legendSummary).toBeVisible();
-    await expect(page.locator(".pl-st-legend[open]")).toBeVisible();
+    await expect(page.locator("#main .pl-st-legend[open]:visible")).toBeVisible();
     await legendSummary.click();
-    await expect(page.locator(".pl-st-legend[open]")).toHaveCount(0);
+    await expect(page.locator("#main .pl-st-legend[open]")).toHaveCount(0);
     await legendSummary.click();
-    await expect(page.locator(".pl-st-legend[open]")).toBeVisible();
+    await expect(page.locator("#main .pl-st-legend[open]:visible")).toBeVisible();
 
     for (const w of widths) {
       await page.setViewportSize({ width: w, height: w <= 390 ? 812 : 900 });
@@ -135,14 +135,14 @@ test.describe("Integración web y fluidez móvil multi-breakpoint", () => {
 
     // 3) Perfil de Bayern München (entrenador Vincent Kompany + foto + Estadísticas + Plantilla + Jugador)
     await page.goto("/app/bundesliga/teams/bayern-munchen");
-    const bayernHero = page.locator('[data-team-hero="bayern-munchen"]');
+    const bayernHero = page.locator('#main [data-team-hero="bayern-munchen"]:visible');
     await expect(bayernHero).toBeVisible();
     await expect(bayernHero).toContainText("Vincent Kompany");
-    await expect(page.locator("[data-team-coach-card]")).toContainText("Vincent Kompany");
+    await expect(page.locator("#main [data-team-coach-card]:visible")).toContainText("Vincent Kompany");
 
     // PlSelect curado en riel derecho de Partidos
     const matchesSelectTrigger = page
-      .locator("[data-team-matches-section] [data-pl-select] button")
+      .locator("#main [data-team-matches-section] [data-pl-select] button")
       .first();
     if ((await matchesSelectTrigger.count()) > 0) {
       await matchesSelectTrigger.click();
@@ -153,7 +153,7 @@ test.describe("Integración web y fluidez móvil multi-breakpoint", () => {
 
     // Cambiar a Plantilla y comprobar cero overflow incluso a 320 px
     await page.locator("#main").getByRole("tab", { name: /Plantilla/i }).click();
-    const bayernSquad = page.locator("[data-team-squad-section]");
+    const bayernSquad = page.locator("#main [data-team-squad-section]:visible");
     await expect(bayernSquad).toBeVisible();
     await expect(bayernSquad).toContainText("Delanteros");
     await expect(bayernSquad).toContainText("Porteros");
@@ -169,7 +169,7 @@ test.describe("Integración web y fluidez móvil multi-breakpoint", () => {
     const playerLink = bayernSquad.locator('a[href*="/p/"]').first();
     await playerLink.click();
     await expect(page).toHaveURL(/\/app\/bundesliga\/t\/bayern-munchen\/p\//);
-    const playerHero = page.locator('[data-team-hero="player"]');
+    const playerHero = page.locator('#main [data-team-hero="player"]:visible');
     await expect(playerHero).toBeVisible();
     await expect(playerHero).toContainText("DT: Vincent Kompany");
     for (const w of widths) {
@@ -181,21 +181,22 @@ test.describe("Integración web y fluidez móvil multi-breakpoint", () => {
 
     // 4) Selección nacional (/app/copa-del-mundo/teams/mexico) + NFL (/app/nfl/teams/kansas-city-chiefs?tab=plantilla)
     await page.goto("/app/copa-del-mundo/teams/mexico?tab=plantilla");
-    await expect(page.locator('[data-team-hero="mexico"]')).toContainText("Rafael Márquez");
-    await expect(page.locator("[data-team-squad-section]")).toBeVisible();
+    await expect(page.locator('#main [data-team-hero="mexico"]:visible')).toContainText("Rafael Márquez");
+    await expect(page.locator("#main [data-team-squad-section]:visible")).toBeVisible();
     await assertNoHorizontalOverflow(page, `Selección México @ ${checkWidth}px`);
 
     await page.goto("/app/nfl/teams/kansas-city-chiefs?tab=plantilla");
-    await expect(page.locator('[data-team-hero="kansas-city-chiefs"]')).toContainText("Andy Reid");
-    await expect(page.locator("[data-team-squad-section]")).toBeVisible();
+    await expect(page.locator('#main [data-team-hero="kansas-city-chiefs"]:visible')).toContainText("Andy Reid");
+    await expect(page.locator("#main [data-team-squad-section]:visible")).toBeVisible();
     await assertNoHorizontalOverflow(page, `Chiefs NFL Plantilla @ ${checkWidth}px`);
 
     // 5) Perfil propio (/app/u/socio_pl): insignias compactas con tooltip dentro del viewport y cierre con Escape
     await page.goto("/app/u/socio_pl");
-    const firstBadgeTrigger = page.locator(".pl-badge-tile-trigger").first();
+    await expect(page.locator("#main #pl-prof-name:visible")).toBeVisible();
+    const firstBadgeTrigger = page.locator("#main .pl-badge-tile-trigger:visible").first();
     if ((await firstBadgeTrigger.count()) > 0) {
       await firstBadgeTrigger.click();
-      const openTooltip = page.locator('.pl-badge-tile[data-tip-open="true"] [role="tooltip"]');
+      const openTooltip = page.locator('#main .pl-badge-tile[data-tip-open="true"] [role="tooltip"]:visible');
       await expect(openTooltip).toBeVisible();
       const tipBox = await openTooltip.boundingBox();
       expect(tipBox).not.toBeNull();
@@ -203,7 +204,7 @@ test.describe("Integración web y fluidez móvil multi-breakpoint", () => {
       expect(Math.round(tipBox!.x + tipBox!.width)).toBeLessThanOrEqual(checkWidth + 1);
       await assertNoHorizontalOverflow(page, `Insignias con tooltip abierto @ ${checkWidth}px`);
       await page.keyboard.press("Escape");
-      await expect(page.locator('.pl-badge-tile[data-tip-open="true"]')).toHaveCount(0);
+      await expect(page.locator('#main .pl-badge-tile[data-tip-open="true"]')).toHaveCount(0);
     }
 
     // 6) Pantalla 404 centrada sin scroll vertical ni horizontal incluso en teléfono corto (375 × 667)
