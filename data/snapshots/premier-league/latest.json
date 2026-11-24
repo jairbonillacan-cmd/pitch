@@ -5,7 +5,7 @@
   "season": "premier-league-2026-27",
   "seasonLabel": "2026/27",
   "periodLabel": "Jornada 12",
-  "updatedAt": "2026-11-23T22:35:24.628Z",
+  "updatedAt": "2026-11-24T03:29:17.514Z",
   "source": "football-data",
   "provenance": "derived",
   "isDemo": false,
@@ -19,8 +19,8 @@
       "forPerGame": 1.6363636363636365,
       "againstPerGame": 1.2727272727272727,
       "gamesPlayed": 11,
-      "adjustedFor": 1.3980157342424049,
-      "adjustedAgainst": 1.193826315621978
+      "adjustedFor": 1.397915589702206,
+      "adjustedAgainst": 1.193925489219363
     },
     "premier-league.arsenal": {
       "teamId": "premier-league.arsenal",
@@ -31,8 +31,8 @@
       "forPerGame": 1.5454545454545454,
       "againstPerGame": 0.6363636363636364,
       "gamesPlayed": 11,
-      "adjustedFor": 1.4515427755306742,
-      "adjustedAgainst": 0.7847723446829783
+      "adjustedFor": 1.4514110772953088,
+      "adjustedAgainst": 0.7851314147839977
     },
     "premier-league.aston-villa": {
       "teamId": "premier-league.aston-villa",
@@ -43,8 +43,8 @@
       "forPerGame": 1.2727272727272727,
       "againstPerGame": 1.5454545454545454,
       "gamesPlayed": 11,
-      "adjustedFor": 1.3226301796409698,
-      "adjustedAgainst": 1.2269630491518617
+      "adjustedFor": 1.3225479460792167,
+      "adjustedAgainst": 1.2270320826699694
     },
     "premier-league.brentford": {
       "teamId": "premier-league.brentford",
@@ -55,8 +55,8 @@
       "forPerGame": 1.8181818181818181,
       "againstPerGame": 1,
       "gamesPlayed": 11,
-      "adjustedFor": 1.472947005131457,
-      "adjustedAgainst": 1.1208177716267806
+      "adjustedFor": 1.472768052609323,
+      "adjustedAgainst": 1.120957005813027
     },
     "premier-league.brighton-hove-albion": {
       "teamId": "premier-league.brighton-hove-albion",
@@ -67,8 +67,8 @@
       "forPerGame": 2.3636363636363638,
       "againstPerGame": 0.8181818181818182,
       "gamesPlayed": 11,
-      "adjustedFor": 1.5853920781553237,
-      "adjustedAgainst": 0.9986697963351496
+      "adjustedFor": 1.585149697610069,
+      "adjustedAgainst": 0.9988920283633973
     },
     "premier-league.chelsea": {
       "teamId": "premier-league.chelsea",
@@ -79,8 +79,8 @@
       "forPerGame": 1.8181818181818181,
       "againstPerGame": 1.8181818181818181,
       "gamesPlayed": 11,
-      "adjustedFor": 1.430034671163228,
-      "adjustedAgainst": 1.344810022864809
+      "adjustedFor": 1.429867172389152,
+      "adjustedAgainst": 1.3447890998383492
     },
     "premier-league.coventry-city": {
       "teamId": "premier-league.coventry-city",
@@ -91,8 +91,8 @@
       "forPerGame": 1.1818181818181819,
       "againstPerGame": 1.9090909090909092,
       "gamesPlayed": 11,
-      "adjustedFor": 1.170820380835647,
-      "adjustedAgainst": 1.5043626491859887
+      "adjustedFor": 1.1708896973499647,
+      "adjustedAgainst": 1.5040932173675934
     },
     "premier-league.crystal-palace": {
       "teamId": "premier-league.crystal-palace",
@@ -103,8 +103,8 @@
       "forPerGame": 1.0909090909090908,
       "againstPerGame": 2.4545454545454546,
       "gamesPlayed": 11,
-      "adjustedFor": 1.130068317459244,
-      "adjustedAgainst": 1.6183169072514707
+      "adjustedFor": 1.1301645405266252,
+      "adjustedAgainst": 1.6181155733589465
     },
     "premier-league.everton": {
       "teamId": "premier-league.everton",
@@ -115,8 +115,8 @@
       "forPerGame": 1.0909090909090908,
       "againstPerGame": 1.2727272727272727,
       "gamesPlayed": 11,
-      "adjustedFor": 1.0832250996266688,
-      "adjustedAgainst": 1.1470518630284743
+      "adjustedFor": 1.083375315492077,
+      "adjustedAgainst": 1.147184263443943
     },
     "premier-league.fulham": {
       "teamId": "premier-league.fulham",
@@ -127,8 +127,8 @@
       "forPerGame": 1,
       "againstPerGame": 1.1818181818181819,
       "gamesPlayed": 11,
-      "adjustedFor": 1.0532164593695896,
-      "adjustedAgainst": 1.1310774655964368
+      "adjustedFor": 1.0533850336376236,
+      "adjustedAgainst": 1.1312177612543726
     },
     "premier-league.hull-city": {
       "teamId": "premier-league.hull-city",
@@ -139,8 +139,8 @@
       "forPerGame": 1.1818181818181819,
       "againstPerGame": 1,
       "gamesPlayed": 11,
-      "adjustedFor": 1.1135346251356244,
-      "adjustedAgainst": 1.0055029493311334
+      "adjustedFor": 1.113711784718946,
+      "adjustedAgainst": 1.0058312815106483
     },
     "premier-league.ipswich-town": {
       "teamId": "premier-league.ipswich-town",
@@ -151,8 +151,8 @@
       "forPerGame": 1.3636363636363635,
       "againstPerGame": 2,
       "gamesPlayed": 11,
-      "adjustedFor": 1.2063455221316537,
-      "adjustedAgainst": 1.575255949183763
+      "adjustedFor": 1.2063779475177094,
+      "adjustedAgainst": 1.574936635709964
     },
     "premier-league.leeds-united": {
       "teamId": "premier-league.leeds-united",
@@ -163,8 +163,8 @@
       "forPerGame": 1.2727272727272727,
       "againstPerGame": 0.8181818181818182,
       "gamesPlayed": 11,
-      "adjustedFor": 1.2131014035943253,
-      "adjustedAgainst": 1.0602686767439213
+      "adjustedFor": 1.2131420271489939,
+      "adjustedAgainst": 1.0604657390080727
     },
     "premier-league.liverpool": {
       "teamId": "premier-league.liverpool",
@@ -175,8 +175,8 @@
       "forPerGame": 1.6363636363636365,
       "againstPerGame": 0.9090909090909091,
       "gamesPlayed": 11,
-      "adjustedFor": 1.433630621657799,
-      "adjustedAgainst": 1.073349232139864
+      "adjustedFor": 1.433513328266224,
+      "adjustedAgainst": 1.0735311046853586
     },
     "premier-league.manchester-city": {
       "teamId": "premier-league.manchester-city",
@@ -187,8 +187,8 @@
       "forPerGame": 2,
       "againstPerGame": 1.2727272727272727,
       "gamesPlayed": 11,
-      "adjustedFor": 1.5847555728872416,
-      "adjustedAgainst": 1.0287237626498162
+      "adjustedFor": 1.5845716831235916,
+      "adjustedAgainst": 1.0289185230691866
     },
     "premier-league.manchester-united": {
       "teamId": "premier-league.manchester-united",
@@ -199,8 +199,8 @@
       "forPerGame": 1.2727272727272727,
       "againstPerGame": 2.090909090909091,
       "gamesPlayed": 11,
-      "adjustedFor": 1.336266918148677,
-      "adjustedAgainst": 1.4024923278172057
+      "adjustedFor": 1.3362038355711798,
+      "adjustedAgainst": 1.402450592985579
     },
     "premier-league.newcastle-united": {
       "teamId": "premier-league.newcastle-united",
@@ -211,8 +211,8 @@
       "forPerGame": 1.3636363636363635,
       "againstPerGame": 1.6363636363636365,
       "gamesPlayed": 11,
-      "adjustedFor": 1.303062770938939,
-      "adjustedAgainst": 1.3419725097261102
+      "adjustedFor": 1.3030165183365912,
+      "adjustedAgainst": 1.3419487340986542
     },
     "premier-league.nottingham-forest": {
       "teamId": "premier-league.nottingham-forest",
@@ -223,8 +223,8 @@
       "forPerGame": 0.8181818181818182,
       "againstPerGame": 1.3636363636363635,
       "gamesPlayed": 11,
-      "adjustedFor": 1.0659140687470068,
-      "adjustedAgainst": 1.1719374341572713
+      "adjustedFor": 1.0660665318189808,
+      "adjustedAgainst": 1.1720627898448168
     },
     "premier-league.sunderland": {
       "teamId": "premier-league.sunderland",
@@ -235,8 +235,8 @@
       "forPerGame": 0.7272727272727273,
       "againstPerGame": 1.5454545454545454,
       "gamesPlayed": 11,
-      "adjustedFor": 0.9814104393598164,
-      "adjustedAgainst": 1.2257177681857523
+      "adjustedFor": 0.9816234241812667,
+      "adjustedAgainst": 1.2258169898670879
     },
     "premier-league.tottenham-hotspur": {
       "teamId": "premier-league.tottenham-hotspur",
@@ -247,8 +247,8 @@
       "forPerGame": 1.0909090909090908,
       "againstPerGame": 1,
       "gamesPlayed": 11,
-      "adjustedFor": 1.0459894025448453,
-      "adjustedAgainst": 1.177346307972697
+      "adjustedFor": 1.0461728180968817,
+      "adjustedAgainst": 1.177450119149831
     }
   },
   "games": [
@@ -281,7 +281,7 @@
       "result": {
         "home": 1,
         "away": 1,
-        "observedAt": "2026-11-23T12:00:00.000Z",
+        "observedAt": "2026-11-24T12:00:00.000Z",
         "source": "openfootball"
       }
     },
@@ -314,7 +314,7 @@
       "result": {
         "home": 1,
         "away": 4,
-        "observedAt": "2026-11-23T12:00:00.000Z",
+        "observedAt": "2026-11-24T12:00:00.000Z",
         "source": "openfootball"
       }
     },
@@ -347,7 +347,7 @@
       "result": {
         "home": 0,
         "away": 0,
-        "observedAt": "2026-11-23T12:00:00.000Z",
+        "observedAt": "2026-11-24T12:00:00.000Z",
         "source": "openfootball"
       }
     },
@@ -380,7 +380,7 @@
       "result": {
         "home": 2,
         "away": 0,
-        "observedAt": "2026-11-23T12:00:00.000Z",
+        "observedAt": "2026-11-24T12:00:00.000Z",
         "source": "openfootball"
       }
     },
@@ -413,7 +413,7 @@
       "result": {
         "home": 2,
         "away": 0,
-        "observedAt": "2026-11-23T12:00:00.000Z",
+        "observedAt": "2026-11-24T12:00:00.000Z",
         "source": "openfootball"
       }
     },
@@ -446,7 +446,7 @@
       "result": {
         "home": 3,
         "away": 2,
-        "observedAt": "2026-11-23T12:00:00.000Z",
+        "observedAt": "2026-11-24T12:00:00.000Z",
         "source": "openfootball"
       }
     },
@@ -479,7 +479,7 @@
       "result": {
         "home": 2,
         "away": 2,
-        "observedAt": "2026-11-23T12:00:00.000Z",
+        "observedAt": "2026-11-24T12:00:00.000Z",
         "source": "openfootball"
       }
     },
@@ -512,7 +512,7 @@
       "result": {
         "home": 2,
         "away": 0,
-        "observedAt": "2026-11-23T12:00:00.000Z",
+        "observedAt": "2026-11-24T12:00:00.000Z",
         "source": "openfootball"
       }
     },
@@ -545,7 +545,7 @@
       "result": {
         "home": 4,
         "away": 0,
-        "observedAt": "2026-11-23T12:00:00.000Z",
+        "observedAt": "2026-11-24T12:00:00.000Z",
         "source": "openfootball"
       }
     },
@@ -578,7 +578,7 @@
       "result": {
         "home": 4,
         "away": 0,
-        "observedAt": "2026-11-23T12:00:00.000Z",
+        "observedAt": "2026-11-24T12:00:00.000Z",
         "source": "openfootball"
       }
     },

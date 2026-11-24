@@ -5,7 +5,7 @@
   "season": "nhl-2026-27",
   "seasonLabel": "Temporada 2026-27",
   "periodLabel": "22 nov – 25 nov",
-  "updatedAt": "2026-11-23T22:27:27.560Z",
+  "updatedAt": "2026-11-24T03:28:14.757Z",
   "source": "bzzoiro",
   "provenance": "derived",
   "isDemo": false,
@@ -388,7 +388,7 @@
       "result": {
         "home": 2,
         "away": 5,
-        "observedAt": "2026-11-23T22:26:35.762Z",
+        "observedAt": "2026-11-24T03:27:23.562Z",
         "source": "bzzoiro"
       }
     },
@@ -416,7 +416,7 @@
       "result": {
         "home": 2,
         "away": 6,
-        "observedAt": "2026-11-23T22:26:35.762Z",
+        "observedAt": "2026-11-24T03:27:23.562Z",
         "source": "bzzoiro"
       }
     },
@@ -444,7 +444,7 @@
       "result": {
         "home": 5,
         "away": 4,
-        "observedAt": "2026-11-23T22:26:35.762Z",
+        "observedAt": "2026-11-24T03:27:23.562Z",
         "source": "bzzoiro"
       }
     },
@@ -472,7 +472,7 @@
       "result": {
         "home": 1,
         "away": 0,
-        "observedAt": "2026-11-23T22:26:35.762Z",
+        "observedAt": "2026-11-24T03:27:23.562Z",
         "source": "bzzoiro"
       }
     },
@@ -500,7 +500,7 @@
       "result": {
         "home": 3,
         "away": 6,
-        "observedAt": "2026-11-23T22:26:35.762Z",
+        "observedAt": "2026-11-24T03:27:23.562Z",
         "source": "bzzoiro"
       }
     },
@@ -509,7 +509,7 @@
       "league": "nhl",
       "season": "nhl-2026-27",
       "startTime": "2026-11-24T00:00:00.000Z",
-      "status": "scheduled",
+      "status": "in_progress",
       "home": {
         "id": "nhl.new-jersey-devils",
         "league": "nhl",
@@ -531,7 +531,7 @@
       "league": "nhl",
       "season": "nhl-2026-27",
       "startTime": "2026-11-24T00:30:00.000Z",
-      "status": "scheduled",
+      "status": "in_progress",
       "home": {
         "id": "nhl.montreal-canadiens",
         "league": "nhl",
@@ -553,7 +553,7 @@
       "league": "nhl",
       "season": "nhl-2026-27",
       "startTime": "2026-11-24T00:30:00.000Z",
-      "status": "scheduled",
+      "status": "in_progress",
       "home": {
         "id": "nhl.new-york-islanders",
         "league": "nhl",
@@ -568,7 +568,6 @@
         "shortName": "Maple Leafs",
         "code": "TOR"
       },
-      "referee": "Riley Brace",
       "neutralSite": false
     },
     {
@@ -576,7 +575,7 @@
       "league": "nhl",
       "season": "nhl-2026-27",
       "startTime": "2026-11-24T00:30:00.000Z",
-      "status": "scheduled",
+      "status": "in_progress",
       "home": {
         "id": "nhl.winnipeg-jets",
         "league": "nhl",
@@ -598,7 +597,7 @@
       "league": "nhl",
       "season": "nhl-2026-27",
       "startTime": "2026-11-24T00:30:00.000Z",
-      "status": "scheduled",
+      "status": "in_progress",
       "home": {
         "id": "nhl.ottawa-senators",
         "league": "nhl",
@@ -613,7 +612,6 @@
         "shortName": "Flames",
         "code": "CGY"
       },
-      "referee": "Francois St. Laurent",
       "neutralSite": false
     },
     {
@@ -621,7 +619,7 @@
       "league": "nhl",
       "season": "nhl-2026-27",
       "startTime": "2026-11-24T02:40:00.000Z",
-      "status": "scheduled",
+      "status": "in_progress",
       "home": {
         "id": "nhl.seattle-kraken",
         "league": "nhl",
@@ -643,7 +641,7 @@
       "league": "nhl",
       "season": "nhl-2026-27",
       "startTime": "2026-11-24T03:00:00.000Z",
-      "status": "scheduled",
+      "status": "in_progress",
       "home": {
         "id": "nhl.san-jose-sharks",
         "league": "nhl",
@@ -8201,23 +8199,23 @@
       "shortName": "Senators",
       "code": "OTT",
       "logoUrl": "/brand/official/nhl/ottawa-senators.png",
-      "played": 24,
-      "won": 15,
+      "played": 25,
+      "won": 16,
       "drawn": 0,
       "lost": 6,
-      "goalsFor": 79,
-      "goalsAgainst": 70,
-      "points": 33,
+      "goalsFor": 81,
+      "goalsAgainst": 71,
+      "points": 35,
       "conference": "Este",
       "division": "Atlántico",
       "otLosses": 3,
-      "winPct": 0.625,
+      "winPct": 0.64,
       "seed": 2,
       "form": [
         "W",
         "W",
-        "W",
         "L",
+        "W",
         "W"
       ]
     },
@@ -8248,6 +8246,32 @@
       ]
     },
     {
+      "teamId": "nhl.new-jersey-devils",
+      "name": "New Jersey Devils",
+      "shortName": "Devils",
+      "code": "NJD",
+      "logoUrl": "/brand/official/nhl/new-jersey-devils.png",
+      "played": 24,
+      "won": 16,
+      "drawn": 0,
+      "lost": 8,
+      "goalsFor": 91,
+      "goalsAgainst": 75,
+      "points": 32,
+      "conference": "Este",
+      "division": "Metropolitana",
+      "otLosses": 0,
+      "winPct": 0.667,
+      "seed": 3,
+      "form": [
+        "W",
+        "W",
+        "L",
+        "L",
+        "W"
+      ]
+    },
+    {
       "teamId": "nhl.tampa-bay-lightning",
       "name": "Tampa Bay Lightning",
       "shortName": "Lightning",
@@ -8264,7 +8288,7 @@
       "division": "Atlántico",
       "otLosses": 2,
       "winPct": 0.652,
-      "seed": 3,
+      "seed": 4,
       "form": [
         "W",
         "L",
@@ -8316,12 +8340,12 @@
       "division": "Atlántico",
       "otLosses": 4,
       "winPct": 0.583,
-      "seed": 4,
+      "seed": 5,
       "form": [
         "L",
+        "W",
+        "W",
         "L",
-        "W",
-        "W",
         "L"
       ]
     },
@@ -8342,39 +8366,13 @@
       "division": "Atlántico",
       "otLosses": 1,
       "winPct": 0.652,
-      "seed": 5,
+      "seed": 6,
       "form": [
         "L",
         "L",
         "L",
         "W",
         "W"
-      ]
-    },
-    {
-      "teamId": "nhl.new-jersey-devils",
-      "name": "New Jersey Devils",
-      "shortName": "Devils",
-      "code": "NJD",
-      "logoUrl": "/brand/official/nhl/new-jersey-devils.png",
-      "played": 23,
-      "won": 15,
-      "drawn": 0,
-      "lost": 8,
-      "goalsFor": 88,
-      "goalsAgainst": 73,
-      "points": 30,
-      "conference": "Este",
-      "division": "Metropolitana",
-      "otLosses": 0,
-      "winPct": 0.652,
-      "seed": 6,
-      "form": [
-        "L",
-        "W",
-        "W",
-        "L",
-        "L"
       ]
     },
     {
@@ -8482,6 +8480,32 @@
       ]
     },
     {
+      "teamId": "nhl.winnipeg-jets",
+      "name": "Winnipeg Jets",
+      "shortName": "Jets",
+      "code": "WPG",
+      "logoUrl": "/brand/official/nhl/winnipeg-jets.png",
+      "played": 25,
+      "won": 12,
+      "drawn": 0,
+      "lost": 9,
+      "goalsFor": 79,
+      "goalsAgainst": 84,
+      "points": 28,
+      "conference": "Oeste",
+      "division": "Central",
+      "otLosses": 4,
+      "winPct": 0.48,
+      "seed": 8,
+      "form": [
+        "W",
+        "L",
+        "W",
+        "L",
+        "W"
+      ]
+    },
+    {
       "teamId": "nhl.new-york-rangers",
       "name": "New York Rangers",
       "shortName": "Rangers",
@@ -8513,24 +8537,24 @@
       "shortName": "Mammoth",
       "code": "UTA",
       "logoUrl": "/brand/official/nhl/utah-mammoth.png",
-      "played": 24,
+      "played": 25,
       "won": 12,
       "drawn": 0,
-      "lost": 9,
-      "goalsFor": 80,
-      "goalsAgainst": 81,
+      "lost": 10,
+      "goalsFor": 82,
+      "goalsAgainst": 85,
       "points": 27,
       "conference": "Oeste",
       "division": "Central",
       "otLosses": 3,
-      "winPct": 0.5,
-      "seed": 8,
+      "winPct": 0.48,
+      "seed": 9,
       "form": [
         "L",
         "L",
-        "L",
         "W",
-        "W"
+        "W",
+        "L"
       ]
     },
     {
@@ -8539,43 +8563,17 @@
       "shortName": "Islanders",
       "code": "NYI",
       "logoUrl": "/brand/official/nhl/new-york-islanders.png",
-      "played": 22,
+      "played": 23,
       "won": 11,
       "drawn": 0,
-      "lost": 6,
-      "goalsFor": 71,
-      "goalsAgainst": 63,
+      "lost": 7,
+      "goalsFor": 73,
+      "goalsAgainst": 67,
       "points": 27,
       "conference": "Este",
       "division": "Metropolitana",
       "otLosses": 5,
-      "winPct": 0.5,
-      "seed": 9,
-      "form": [
-        "W",
-        "W",
-        "W",
-        "L",
-        "W"
-      ]
-    },
-    {
-      "teamId": "nhl.winnipeg-jets",
-      "name": "Winnipeg Jets",
-      "shortName": "Jets",
-      "code": "WPG",
-      "logoUrl": "/brand/official/nhl/winnipeg-jets.png",
-      "played": 24,
-      "won": 11,
-      "drawn": 0,
-      "lost": 9,
-      "goalsFor": 75,
-      "goalsAgainst": 82,
-      "points": 26,
-      "conference": "Oeste",
-      "division": "Central",
-      "otLosses": 4,
-      "winPct": 0.458,
+      "winPct": 0.478,
       "seed": 9,
       "form": [
         "W",
@@ -8695,22 +8693,22 @@
       "shortName": "Flames",
       "code": "CGY",
       "logoUrl": "/brand/official/nhl/calgary-flames.png",
-      "played": 24,
+      "played": 25,
       "won": 10,
       "drawn": 0,
-      "lost": 12,
-      "goalsFor": 60,
-      "goalsAgainst": 84,
+      "lost": 13,
+      "goalsFor": 61,
+      "goalsAgainst": 86,
       "points": 22,
       "conference": "Oeste",
       "division": "Pacífico",
       "otLosses": 2,
-      "winPct": 0.417,
+      "winPct": 0.4,
       "seed": 12,
       "form": [
-        "W",
         "L",
         "W",
+        "L",
         "L",
         "L"
       ]
@@ -8742,6 +8740,32 @@
       ]
     },
     {
+      "teamId": "nhl.toronto-maple-leafs",
+      "name": "Toronto Maple Leafs",
+      "shortName": "Maple Leafs",
+      "code": "TOR",
+      "logoUrl": "/brand/official/nhl/toronto-maple-leafs.png",
+      "played": 26,
+      "won": 9,
+      "drawn": 0,
+      "lost": 14,
+      "goalsFor": 82,
+      "goalsAgainst": 92,
+      "points": 21,
+      "conference": "Este",
+      "division": "Atlántico",
+      "otLosses": 3,
+      "winPct": 0.346,
+      "seed": 12,
+      "form": [
+        "L",
+        "L",
+        "L",
+        "L",
+        "W"
+      ]
+    },
+    {
       "teamId": "nhl.washington-capitals",
       "name": "Washington Capitals",
       "shortName": "Capitals",
@@ -8758,7 +8782,7 @@
       "division": "Metropolitana",
       "otLosses": 0,
       "winPct": 0.476,
-      "seed": 12,
+      "seed": 13,
       "form": [
         "L",
         "L",
@@ -8784,37 +8808,11 @@
       "division": "Atlántico",
       "otLosses": 3,
       "winPct": 0.348,
-      "seed": 13,
-      "form": [
-        "L",
-        "L",
-        "W",
-        "L",
-        "L"
-      ]
-    },
-    {
-      "teamId": "nhl.toronto-maple-leafs",
-      "name": "Toronto Maple Leafs",
-      "shortName": "Maple Leafs",
-      "code": "TOR",
-      "logoUrl": "/brand/official/nhl/toronto-maple-leafs.png",
-      "played": 25,
-      "won": 8,
-      "drawn": 0,
-      "lost": 14,
-      "goalsFor": 78,
-      "goalsAgainst": 90,
-      "points": 19,
-      "conference": "Este",
-      "division": "Atlántico",
-      "otLosses": 3,
-      "winPct": 0.32,
       "seed": 14,
       "form": [
         "L",
         "L",
-        "L",
+        "W",
         "L",
         "L"
       ]
@@ -8825,24 +8823,24 @@
       "shortName": "Blue Jackets",
       "code": "CBJ",
       "logoUrl": "/brand/official/nhl/columbus-blue-jackets.png",
-      "played": 21,
+      "played": 22,
       "won": 9,
       "drawn": 0,
-      "lost": 12,
-      "goalsFor": 54,
-      "goalsAgainst": 68,
+      "lost": 13,
+      "goalsFor": 56,
+      "goalsAgainst": 71,
       "points": 18,
       "conference": "Este",
       "division": "Metropolitana",
       "otLosses": 0,
-      "winPct": 0.429,
+      "winPct": 0.409,
       "seed": 15,
       "form": [
         "L",
         "L",
-        "L",
         "W",
-        "W"
+        "W",
+        "L"
       ]
     },
     {
@@ -8891,10 +8889,10 @@
       "seed": 15,
       "form": [
         "L",
+        "W",
+        "W",
         "L",
-        "W",
-        "W",
-        "L"
+        "W"
       ]
     },
     {

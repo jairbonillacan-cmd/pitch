@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "league": "laliga",
   "season": "laliga-2026-27",
-  "updatedAt": "2026-11-23T22:35:24.628Z",
+  "updatedAt": "2026-11-24T03:29:17.514Z",
   "matches": [
     {
       "id": "la-liga:2026-27:alaves:getafe",
@@ -71,10 +71,10 @@
       "neutralSite": false
     },
     {
-      "id": "laliga-espn-401882908",
+      "id": "la-liga:2026-27:rayo-vallecano:alaves",
       "date": "2026-08-20",
-      "startTime": "2026-08-20T19:00Z",
-      "round": null,
+      "startTime": "2026-08-20T12:00:00Z",
+      "round": "Jornada 2",
       "homeTeam": "laliga.rayo-vallecano",
       "awayTeam": "laliga.alaves",
       "homeScore": 1,
