@@ -11,13 +11,14 @@ import {
   type MarketOutlook,
   type MatchOutlook,
 } from "@pitchlab/spacetime";
-import liveSnapshotJson from "@pitchlab/spacetime/data/live_matchday_v3_snapshot.json";
 import type { MatchOutlookSummary, PlatformMarketRow, SpacetimeSignal } from "@pitchlab/ui/types";
 import {
   bookLabelWithDate,
   formatBookLabel,
   isMarketFresh,
   LEAGUE_TO_V3,
+  readLiveSnapshotGeneratedAtFast,
+  readSpacetimeDataJson,
   teamScore,
 } from "./spacetime";
 import {
@@ -78,13 +79,15 @@ let snapshotMemo: OutlookSnapshot | null = null;
 
 function getOutlookSnapshot(): OutlookSnapshot {
   if (!snapshotMemo) {
-    snapshotMemo = parseOutlookSnapshot(liveSnapshotJson);
+    snapshotMemo = parseOutlookSnapshot(
+      readSpacetimeDataJson<unknown>("live_matchday_v3_snapshot.json"),
+    );
   }
   return snapshotMemo;
 }
 
 export const OUTLOOK_SNAPSHOT_GENERATED_AT: string | null =
-  readOutlookSnapshotGeneratedAt(liveSnapshotJson);
+  readLiveSnapshotGeneratedAtFast() ?? readOutlookSnapshotGeneratedAt(getOutlookSnapshot());
 
 const STALE_OUTLOOK_DELTA_MS = 24 * 3_600_000;
 const MAX_OUTLOOK_TOTAL_INFLATION = 0.35;

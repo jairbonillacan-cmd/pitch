@@ -19,7 +19,6 @@ import {
   type SofascoreKpiItem,
 } from "../../components/ui/primitives";
 import { formatOddsValue, isPickUnlocked } from "../access-guard";
-import { LivePickProgressBar } from "../atomic";
 import { normalizeBookKey, resolvePreferredBookQuote } from "../bookmakers";
 import { MaestroIcon, type MaestroIconName } from "../components/MaestroPrimitives";
 import { MarketCategoryIcon } from "../components/PackSportIcons";
@@ -71,7 +70,6 @@ import type {
 import { addDays, matchesSportFilter, todayId } from "./home/home-model";
 import { classifyOddsMovement } from "./picks/BookmakerComparePill";
 import { extractEvidenceWindows } from "./picks/EvidenceWindowPills";
-import { NonLinearOddsSlider } from "./picks/NonLinearOddsSlider";
 import type { PickLabCustomSelection } from "./picks/PickEvidenceLabDrawer";
 import { SavedViewsBar } from "./picks/SavedViewsBar";
 import {
@@ -162,6 +160,12 @@ import {
 
 const LazyPickEvidenceLabDrawer = lazy(loadPickEvidenceLabDrawer);
 const LazyBetBuilderDrawer = lazy(loadBetBuilderDrawer);
+const LazyLivePickProgressBar = lazy(() =>
+  import("../atomic/LivePickProgressBar").then((m) => ({ default: m.LivePickProgressBar })),
+);
+const LazyNonLinearOddsSlider = lazy(() =>
+  import("./picks/NonLinearOddsSlider").then((m) => ({ default: m.NonLinearOddsSlider })),
+);
 
 function subscribePageVisibility(onStoreChange: () => void): () => void {
   if (typeof document === "undefined") return () => undefined;
@@ -2309,18 +2313,20 @@ export function PicksFinderClubView({
           </summary>
           {openAccordions.has("odds") ? (
             <div className="pl-scr-acc-body">
-              <NonLinearOddsSlider
-                minStep={minOddsStep}
-                maxStep={maxOddsStep}
-                oddsFormat={oddsFormat}
-                compact
-                onChange={(nextMin, nextMax) => {
-                  setActiveViewId(null);
-                  setMinOddsStep(nextMin);
-                  setMaxOddsStep(nextMax);
-                  setVisibleGamesCount(INITIAL_GAMES_SHOWN);
-                }}
-              />
+              <Suspense fallback={null}>
+                <LazyNonLinearOddsSlider
+                  minStep={minOddsStep}
+                  maxStep={maxOddsStep}
+                  oddsFormat={oddsFormat}
+                  compact
+                  onChange={(nextMin, nextMax) => {
+                    setActiveViewId(null);
+                    setMinOddsStep(nextMin);
+                    setMaxOddsStep(nextMax);
+                    setVisibleGamesCount(INITIAL_GAMES_SHOWN);
+                  }}
+                />
+              </Suspense>
             </div>
           ) : null}
         </details>
@@ -2470,63 +2476,65 @@ export function PicksFinderClubView({
       density="compact"
     >
       {liveTrackedItems.length > 0 ? (
-        <div className="pl-scr-live-tracker-grid" data-live-tracker-strip="">
-          {liveTrackedItems.map((tracked) => (
-            <div
-              key={tracked.id}
-              className="pl-scr-live-tracker-card"
-              data-picks-live-progress=""
-            >
-              <LivePickProgressBar
-                pickLabel={tracked.pickLabel}
-                matchLabel={
-                  tracked.leagueLabel
-                    ? `${tracked.leagueLabel} · ${tracked.matchLabel}`
-                    : tracked.matchLabel
-                }
-                clockLabel={tracked.clockLabel}
-                actualValue={tracked.actualValue}
-                targetLine={tracked.targetLine}
-                unitLabel={tracked.unitLabel}
-                direction={tracked.direction}
-                projectedFinal={tracked.projectedFinal}
-                asianState={tracked.asianState}
-                starterAlert={tracked.starterAlert}
-                starterAlertDetail={tracked.starterAlertDetail}
-              />
-              {tracked.pickKind === "parlay" && tracked.legs.length > 1 ? (
-                <details className="pl-scr-live-legs">
-                  <summary className="pl-scr-live-legs-summary num">
-                    Ver {tracked.legs.length} piernas del parlay
-                  </summary>
-                  <div className="pl-scr-live-legs-list">
-                    {tracked.legs.map((leg) => (
-                      <LivePickProgressBar
-                        key={leg.pickId}
-                        pickLabel={leg.pickLabel}
-                        matchLabel={
-                          leg.leagueLabel
-                            ? `${leg.leagueLabel} · ${leg.matchLabel}`
-                            : leg.matchLabel
-                        }
-                        clockLabel={leg.clockLabel}
-                        actualValue={leg.actualValue}
-                        targetLine={leg.targetLine}
-                        unitLabel={leg.unitLabel}
-                        direction={leg.direction}
-                        projectedFinal={leg.projectedFinal}
-                        asianState={leg.asianState}
-                        starterAlert={leg.starterAlert}
-                        starterAlertDetail={leg.starterAlertDetail}
-                        compact
-                      />
-                    ))}
-                  </div>
-                </details>
-              ) : null}
-            </div>
-          ))}
-        </div>
+        <Suspense fallback={null}>
+          <div className="pl-scr-live-tracker-grid" data-live-tracker-strip="">
+            {liveTrackedItems.map((tracked) => (
+              <div
+                key={tracked.id}
+                className="pl-scr-live-tracker-card"
+                data-picks-live-progress=""
+              >
+                <LazyLivePickProgressBar
+                  pickLabel={tracked.pickLabel}
+                  matchLabel={
+                    tracked.leagueLabel
+                      ? `${tracked.leagueLabel} · ${tracked.matchLabel}`
+                      : tracked.matchLabel
+                  }
+                  clockLabel={tracked.clockLabel}
+                  actualValue={tracked.actualValue}
+                  targetLine={tracked.targetLine}
+                  unitLabel={tracked.unitLabel}
+                  direction={tracked.direction}
+                  projectedFinal={tracked.projectedFinal}
+                  asianState={tracked.asianState}
+                  starterAlert={tracked.starterAlert}
+                  starterAlertDetail={tracked.starterAlertDetail}
+                />
+                {tracked.pickKind === "parlay" && tracked.legs.length > 1 ? (
+                  <details className="pl-scr-live-legs">
+                    <summary className="pl-scr-live-legs-summary num">
+                      Ver {tracked.legs.length} piernas del parlay
+                    </summary>
+                    <div className="pl-scr-live-legs-list">
+                      {tracked.legs.map((leg) => (
+                        <LazyLivePickProgressBar
+                          key={leg.pickId}
+                          pickLabel={leg.pickLabel}
+                          matchLabel={
+                            leg.leagueLabel
+                              ? `${leg.leagueLabel} · ${leg.matchLabel}`
+                              : leg.matchLabel
+                          }
+                          clockLabel={leg.clockLabel}
+                          actualValue={leg.actualValue}
+                          targetLine={leg.targetLine}
+                          unitLabel={leg.unitLabel}
+                          direction={leg.direction}
+                          projectedFinal={leg.projectedFinal}
+                          asianState={leg.asianState}
+                          starterAlert={leg.starterAlert}
+                          starterAlertDetail={leg.starterAlertDetail}
+                          compact
+                        />
+                      ))}
+                    </div>
+                  </details>
+                ) : null}
+              </div>
+            ))}
+          </div>
+        </Suspense>
       ) : (
         <p className="pl-scr-live-tracker-note">
           {hasAccountSessionAuth && liveTrackerLoaded

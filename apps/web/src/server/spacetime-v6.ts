@@ -74,18 +74,140 @@ import {
   type V51OfficialEntryV6,
   type VennAbersPlayableEvaluationV60,
 } from "@pitchlab/spacetime/v6";
-import candidateRegistryJson from "@pitchlab/spacetime/data/candidate_registry_v6_0.json";
-import epistemicArtifactJson from "@pitchlab/spacetime/data/model_epistemic_conformal_v5_1_candidate.json";
-import inplayArtifactJson from "@pitchlab/spacetime/data/model_inplay_early_payout_v5_0_candidate.json";
-import multisportArtifactJson from "@pitchlab/spacetime/data/model_multisport_v6_0_candidate.json";
-import officialsArtifactJson from "@pitchlab/spacetime/data/model_officials_freeze_v6_0_candidate.json";
-import propsArtifactJson from "@pitchlab/spacetime/data/model_props_v6_0_candidate.json";
-import soccer57ArtifactJson from "@pitchlab/spacetime/data/model_soccer_57_v6_0_candidate.json";
-import microArtifactJson from "@pitchlab/spacetime/data/model_soccer_micro_v5_0_candidate.json";
-import liveFeedbackArtifactJson from "@pitchlab/spacetime/data/model_v5_2_live_feedback_candidate.json";
-import sgpArtifactJson from "@pitchlab/spacetime/data/sgp_copula_v5_0_candidate.json";
 import type { SgpCopulaAuditView } from "@pitchlab/ui/types";
-import { teamScore } from "./spacetime";
+import { readSpacetimeDataJson, teamScore } from "./spacetime";
+
+interface RawCandidateRegistryJson {
+  readonly schema_version: string;
+  readonly suite_codename: string;
+  readonly suite_version: string;
+  readonly status: string;
+  readonly production_activated: boolean;
+  readonly holdout_cut_utc: string;
+  readonly holdout_window_protected: readonly string[];
+  readonly holdout_sealed_untouched: boolean;
+  readonly n_active_v6_0_candidate_artifacts: number;
+  readonly active_v6_0_artifacts: readonly { readonly id: string }[];
+}
+
+type RawEpistemicArtifactJson = Omit<EpistemicConformalArtifactV51, "status"> & {
+  readonly status: string;
+};
+
+type RawInplayArtifactJson = Omit<InPlayEarlyPayoutArtifactV5, "status" | "soccer"> & {
+  readonly status: string;
+  readonly soccer: Omit<InPlayEarlyPayoutArtifactV5["soccer"], "minute_bucket_weights_6"> & {
+    readonly minute_bucket_weights_6: readonly number[];
+  };
+};
+
+type RawMicroArtifactJson = Omit<SoccerMicroModelArtifactV5, "status"> & {
+  readonly status: string;
+};
+
+type RawSgpSportSpecJson = Omit<SgpCopulaArtifactV5["sports"]["soccer"], "copula_family"> & {
+  readonly copula_family: string;
+};
+
+type RawSgpArtifactJson = Omit<SgpCopulaArtifactV5, "status" | "sports"> & {
+  readonly status: string;
+  readonly default_player_linked_dc_rho: number;
+  readonly sports: {
+    readonly soccer: RawSgpSportSpecJson;
+    readonly nfl: RawSgpSportSpecJson;
+  };
+};
+
+type RawLiveFeedbackArtifactJson = Omit<LiveFeedbackModelArtifactV52, "status"> & {
+  readonly status: string;
+};
+
+type RawSoccer57CompetitionJson = Omit<
+  CompetitionSpecV60,
+  "confederation_group" | "competition_status"
+> & {
+  readonly confederation_group: string;
+  readonly competition_status: string;
+};
+
+type RawSoccer57ArtifactJson = Omit<
+  Soccer57ModelArtifactV60,
+  "status" | "holdout_window_protected" | "competitions"
+> & {
+  readonly status: string;
+  readonly holdout_window_protected: readonly string[];
+  readonly competitions: Record<string, RawSoccer57CompetitionJson>;
+};
+
+type RawPostWalkforwardTeamStateJson = Omit<
+  PostWalkforwardTeamStateV60,
+  "sport" | "structural_priors"
+> & {
+  readonly sport: string;
+  readonly structural_priors: unknown;
+};
+
+type RawMultisportArtifactJson = Omit<
+  MultiSportModelArtifactV60,
+  "status" | "team_slug_aliases" | "teams_post_walkforward_state_2026"
+> & {
+  readonly status: string;
+  readonly team_slug_aliases: {
+    readonly mlb: unknown;
+    readonly nhl: unknown;
+    readonly nba: unknown;
+    readonly nfl: unknown;
+  };
+  readonly teams_post_walkforward_state_2026: Record<string, RawPostWalkforwardTeamStateJson>;
+};
+
+type RawOfficialsArtifactJson = Omit<
+  OfficialsFreezeModelArtifactV6,
+  "status" | "holdout_window_protected" | "confederation_priors" | "alias_to_v5_1_key"
+> & {
+  readonly status: string;
+  readonly holdout_window_protected: readonly string[];
+  readonly confederation_priors: Record<string, unknown>;
+  readonly alias_to_v5_1_key: unknown;
+};
+
+type RawPropsArtifactJson = Omit<
+  PropsV6ModelArtifact,
+  "status" | "coupled_shots_v6" | "goalkeeper_saves_v6" | "us_props_v6"
+> & {
+  readonly status: string;
+  readonly coupled_shots_v6: Omit<
+    PropsV6ModelArtifact["coupled_shots_v6"],
+    "positions" | "multi_line_logit_splines"
+  > & {
+    readonly positions: Record<
+      string,
+      {
+        readonly mean_starter_minutes: number;
+        readonly metrics: { readonly shots: unknown; readonly shots_on_target: unknown };
+      }
+    >;
+    readonly multi_line_logit_splines: { readonly shots: unknown; readonly shots_on_target: unknown };
+  };
+  readonly goalkeeper_saves_v6: Omit<
+    PropsV6ModelArtifact["goalkeeper_saves_v6"],
+    "multi_line_logit_splines"
+  > & {
+    readonly multi_line_logit_splines: unknown;
+  };
+  readonly us_props_v6: Record<UsPropsSportV6, unknown>;
+};
+
+const FILE_CANDIDATE_REGISTRY = "candidate_registry_v6_0.json";
+const FILE_EPISTEMIC_CONFORMAL = "model_epistemic_conformal_v5_1_candidate.json";
+const FILE_INPLAY_EARLY_PAYOUT = "model_inplay_early_payout_v5_0_candidate.json";
+const FILE_MULTISPORT_V6 = "model_multisport_v6_0_candidate.json";
+const FILE_OFFICIALS_V6 = "model_officials_freeze_v6_0_candidate.json";
+const FILE_PROPS_V6 = "model_props_v6_0_candidate.json";
+const FILE_SOCCER_57_V6 = "model_soccer_57_v6_0_candidate.json";
+const FILE_SOCCER_MICRO_V5 = "model_soccer_micro_v5_0_candidate.json";
+const FILE_LIVE_FEEDBACK_V52 = "model_v5_2_live_feedback_candidate.json";
+const FILE_SGP_COPULA_V5 = "sgp_copula_v5_0_candidate.json";
 
 export {
   PLAYABLE_ODDS_MAX_V60,
@@ -268,6 +390,7 @@ function narrowUsPropsSportConfig(raw: unknown): UsSportPropsConfigV6 {
 }
 
 function buildSoccer57Artifact(): Soccer57ModelArtifactV60 {
+  const soccer57ArtifactJson = readSpacetimeDataJson<RawSoccer57ArtifactJson>(FILE_SOCCER_57_V6);
   const competitions: Record<string, CompetitionSpecV60> = {};
   for (const [leagueKey, rawComp] of Object.entries(soccer57ArtifactJson.competitions)) {
     competitions[leagueKey] = {
@@ -306,6 +429,8 @@ function buildSoccer57Artifact(): Soccer57ModelArtifactV60 {
 }
 
 function buildMultisportArtifact(): MultiSportModelArtifactV60 {
+  const multisportArtifactJson =
+    readSpacetimeDataJson<RawMultisportArtifactJson>(FILE_MULTISPORT_V6);
   const teamsState: Record<string, PostWalkforwardTeamStateV60> = {};
   for (const [teamKey, rawEntry] of Object.entries(
     multisportArtifactJson.teams_post_walkforward_state_2026,
@@ -336,7 +461,9 @@ function buildMultisportArtifact(): MultiSportModelArtifactV60 {
       readonly questionable_impact_pts: number;
     }
   > = {};
-  for (const [code, entry] of Object.entries(multisportArtifactJson.nba_active_injuries_2026)) {
+  for (const [code, entry] of Object.entries(
+    multisportArtifactJson.nba_active_injuries_2026 ?? {},
+  )) {
     nbaInjuries[code] = {
       baja_count: entry.baja_count,
       duda_count: entry.duda_count,
@@ -372,6 +499,8 @@ function buildMultisportArtifact(): MultiSportModelArtifactV60 {
 }
 
 function buildOfficialsArtifact(): OfficialsFreezeModelArtifactV6 {
+  const officialsArtifactJson =
+    readSpacetimeDataJson<RawOfficialsArtifactJson>(FILE_OFFICIALS_V6);
   const confederationPriors: Record<string, Record<string, unknown>> = {};
   for (const [confKey, rawObj] of Object.entries(officialsArtifactJson.confederation_priors)) {
     if (isRecord(rawObj)) {
@@ -430,6 +559,7 @@ function buildOfficialsArtifact(): OfficialsFreezeModelArtifactV6 {
 }
 
 function buildPropsArtifact(): PropsV6ModelArtifact {
+  const propsArtifactJson = readSpacetimeDataJson<RawPropsArtifactJson>(FILE_PROPS_V6);
   const positions: Record<string, CoupledShotPositionSpecV6> = {};
   for (const [posKey, rawPos] of Object.entries(propsArtifactJson.coupled_shots_v6.positions)) {
     positions[posKey] = {
@@ -495,6 +625,8 @@ function buildPropsArtifact(): PropsV6ModelArtifact {
 }
 
 function buildLiveFeedbackArtifact(): LiveFeedbackModelArtifactV52 {
+  const liveFeedbackArtifactJson =
+    readSpacetimeDataJson<RawLiveFeedbackArtifactJson>(FILE_LIVE_FEEDBACK_V52);
   const leagueEnvs: Record<
     string,
     {
@@ -541,6 +673,8 @@ let candidateRegistrySummaryMemo: CandidateRegistryV6Summary | null = null;
 
 function getEpistemicArtifactMemo(): EpistemicConformalArtifactV51 {
   if (!epistemicArtifactMemo) {
+    const epistemicArtifactJson =
+      readSpacetimeDataJson<RawEpistemicArtifactJson>(FILE_EPISTEMIC_CONFORMAL);
     epistemicArtifactMemo = {
       schema_version: epistemicArtifactJson.schema_version,
       status: toArtifactStatus(epistemicArtifactJson.status),
@@ -559,6 +693,8 @@ function getEpistemicArtifactMemo(): EpistemicConformalArtifactV51 {
 
 function getInplayArtifactMemo(): InPlayEarlyPayoutArtifactV5 {
   if (!inplayArtifactMemo) {
+    const inplayArtifactJson =
+      readSpacetimeDataJson<RawInplayArtifactJson>(FILE_INPLAY_EARLY_PAYOUT);
     const inplayWeights = inplayArtifactJson.soccer.minute_bucket_weights_6;
     inplayArtifactMemo = {
       ...inplayArtifactJson,
@@ -586,6 +722,7 @@ function getInplayArtifactMemo(): InPlayEarlyPayoutArtifactV5 {
 
 function getMicroArtifactMemo(): SoccerMicroModelArtifactV5 {
   if (!microArtifactMemo) {
+    const microArtifactJson = readSpacetimeDataJson<RawMicroArtifactJson>(FILE_SOCCER_MICRO_V5);
     microArtifactMemo = {
       ...microArtifactJson,
       status: toArtifactStatus(microArtifactJson.status),
@@ -594,8 +731,11 @@ function getMicroArtifactMemo(): SoccerMicroModelArtifactV5 {
   return microArtifactMemo;
 }
 
-function getSgpArtifactMemo(): SgpCopulaArtifactV5 {
+function getSgpArtifactMemo(): SgpCopulaArtifactV5 & {
+  readonly default_player_linked_dc_rho: number;
+} {
   if (!sgpArtifactMemo) {
+    const sgpArtifactJson = readSpacetimeDataJson<RawSgpArtifactJson>(FILE_SGP_COPULA_V5);
     sgpArtifactMemo = {
       ...sgpArtifactJson,
       status: toArtifactStatus(sgpArtifactJson.status),
@@ -613,7 +753,9 @@ function getSgpArtifactMemo(): SgpCopulaArtifactV5 {
       },
     };
   }
-  return sgpArtifactMemo;
+  return sgpArtifactMemo as SgpCopulaArtifactV5 & {
+    readonly default_player_linked_dc_rho: number;
+  };
 }
 
 export interface CandidateRegistryV6Summary {
@@ -630,7 +772,7 @@ export interface CandidateRegistryV6Summary {
 }
 
 export const SOCCER_57_LEAGUE_IDS_V6: readonly string[] = Object.freeze(
-  Object.keys(soccer57ArtifactJson.competitions).sort(),
+  Object.keys(readSpacetimeDataJson<RawSoccer57ArtifactJson>(FILE_SOCCER_57_V6).competitions).sort(),
 );
 
 const V5_DIV_TO_LEAGUE_V6: Readonly<Record<string, string>> = Object.freeze({
@@ -703,6 +845,9 @@ function hasOwn(obj: object, key: string): boolean {
 
 export function getSpacetimeV6RegistrySummary(): CandidateRegistryV6Summary {
   if (!candidateRegistrySummaryMemo) {
+    const candidateRegistryJson = readSpacetimeDataJson<RawCandidateRegistryJson>(
+      FILE_CANDIDATE_REGISTRY,
+    );
     candidateRegistrySummaryMemo = Object.freeze({
       schemaVersion: candidateRegistryJson.schema_version,
       suiteCodename: candidateRegistryJson.suite_codename,
@@ -1932,7 +2077,9 @@ export function evaluatePlayerLinkedSgpV6(params: {
   readonly offeredCombinedDecimalOdds?: number | null;
   readonly dixonColesRho?: number;
 }): PlayerLinkedSgpServerResultV6 {
-  const dcRho = params.dixonColesRho ?? sgpArtifactJson.default_player_linked_dc_rho;
+  const dcRho =
+    params.dixonColesRho ??
+    readSpacetimeDataJson<RawSgpArtifactJson>(FILE_SGP_COPULA_V5).default_player_linked_dc_rho;
   const evaluated = evaluatePlayerLinkedSgpV5({
     pPlayerAnytimeGoal: params.pPlayerAnytimeGoal,
     teamExpectedGoals: params.teamExpectedGoals,
