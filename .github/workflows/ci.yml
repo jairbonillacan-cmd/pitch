@@ -124,6 +124,7 @@ jobs:
             apps/web/.next
             !apps/web/.next/cache
             !apps/web/.next/cache/**
+          include-hidden-files: true
           retention-days: 1
           if-no-files-found: error
 

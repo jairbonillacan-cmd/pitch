@@ -94,7 +94,8 @@ describe("Preferencias PWA/Push, embudo Admin y consentimiento local", () => {
     );
 
     expect(prefsHtml).not.toContain("Cristal");
-    expect(prefsHtml).toContain("Madrid · España");
+    expect(prefsHtml).toContain("Zona horaria");
+    expect(prefsHtml).toContain("Ciudad de México");
     expect(prefsHtml).not.toContain("Resumen semanal por correo");
     expect(prefsHtml).not.toContain("Corte mensual de Mi récord");
     expect(prefsHtml).not.toContain("Notificaciones push en este dispositivo");
