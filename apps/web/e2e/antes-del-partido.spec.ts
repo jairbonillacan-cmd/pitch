@@ -1,6 +1,7 @@
-import { existsSync, readFileSync } from "node:fs";
+import { existsSync, readFileSync, readdirSync } from "node:fs";
 import { resolve } from "node:path";
 import AxeBuilder from "@axe-core/playwright";
+import { LEAGUE_CAPABILITY_LIST } from "@pitchlab/contracts";
 import { expect, test } from "./fixtures";
 
 const PRE_MATCH_LEAGUES = [
@@ -13,31 +14,169 @@ const PRE_MATCH_LEAGUES = [
   "nfl",
 ] as const;
 
+const EXTENDED_PRE_MATCH_LEAGUES = [
+  "champions-league",
+  "europa-league",
+  "conference-league",
+  "championship",
+  "brasileirao",
+  "mls",
+  "nba",
+  "nhl",
+  "mlb",
+] as const;
+
+const PRODUCT_LEAGUE_SET: ReadonlySet<string> = new Set(
+  LEAGUE_CAPABILITY_LIST.map((entry) => entry.id),
+);
+
+interface SnapshotGameCandidate {
+  readonly id: string;
+  readonly status: string;
+  readonly startTime?: string;
+}
+
+function isPlainRecord(value: unknown): value is Record<string, unknown> {
+  return typeof value === "object" && value !== null && !Array.isArray(value);
+}
+
+function parseIsoTimestampMs(raw: unknown): number | null {
+  if (typeof raw !== "string" || raw.trim().length === 0) return null;
+  const parsed = Date.parse(raw);
+  return Number.isFinite(parsed) ? parsed : null;
+}
+
+function hasValidSnapshotPick(analysis: Record<string, unknown>): boolean {
+  const picks = analysis.picks;
+  if (!Array.isArray(picks) || picks.length === 0) return false;
+  return picks.some(
+    (item) =>
+      isPlainRecord(item) &&
+      typeof item.label === "string" &&
+      item.label.trim().length > 0 &&
+      typeof item.p === "number" &&
+      Number.isFinite(item.p) &&
+      item.p > 0 &&
+      item.p < 1,
+  );
+}
+
+function hasForecastSignals(analysis: Record<string, unknown>): boolean {
+  const hasX12 =
+    Array.isArray(analysis.x12) &&
+    analysis.x12.length >= 2 &&
+    analysis.x12.every((v) => typeof v === "number" && Number.isFinite(v));
+  const hasProbabilities =
+    Array.isArray(analysis.probabilities) && analysis.probabilities.length > 0;
+  return hasX12 || hasProbabilities;
+}
+
+function isCausallyPreKickoff(
+  analysis: Record<string, unknown>,
+  startMs: number | null,
+): boolean {
+  const inputsMs = parseIsoTimestampMs(analysis.inputsAsOf);
+  if (inputsMs === null) return true;
+  return startMs !== null && inputsMs <= startMs;
+}
+
+function hasConfirmedLineup(analysis: Record<string, unknown>): boolean {
+  return isPlainRecord(analysis.lineups) && analysis.lineups.status === "confirmed";
+}
+
+function buildOrderedLeagueList(snapshotsRoot: string): string[] {
+  const seen = new Set<string>();
+  const ordered: string[] = [];
+  const pushLeague = (league: string): void => {
+    if (PRODUCT_LEAGUE_SET.has(league) && !seen.has(league)) {
+      seen.add(league);
+      ordered.push(league);
+    }
+  };
+  for (const league of PRE_MATCH_LEAGUES) pushLeague(league);
+  for (const league of EXTENDED_PRE_MATCH_LEAGUES) pushLeague(league);
+  if (existsSync(snapshotsRoot)) {
+    const discovered = readdirSync(snapshotsRoot, { withFileTypes: true })
+      .filter((entry) => entry.isDirectory())
+      .map((entry) => entry.name)
+      .sort((a, b) => a.localeCompare(b));
+    for (const league of discovered) pushLeague(league);
+  }
+  return ordered;
+}
+
+function parseSnapshotGames(raw: unknown): SnapshotGameCandidate[] {
+  if (!isPlainRecord(raw) || !Array.isArray(raw.games)) return [];
+  const games: SnapshotGameCandidate[] = [];
+  for (const entry of raw.games) {
+    if (!isPlainRecord(entry)) continue;
+    if (typeof entry.id !== "string" || typeof entry.status !== "string") continue;
+    games.push({
+      id: entry.id,
+      status: entry.status,
+      startTime: typeof entry.startTime === "string" ? entry.startTime : undefined,
+    });
+  }
+  return games;
+}
+
 function pickScheduledGameRoute(): string {
   const snapshotsRoot = resolve(import.meta.dirname, "../../../data/snapshots");
   const nowMs = Date.now();
+  const leagues = buildOrderedLeagueList(snapshotsRoot);
+
+  let upcomingWithAnalysisRoute: string | null = null;
+  let scheduledWithPicksRoute: string | null = null;
+  let upcomingWithForecastRoute: string | null = null;
+  let scheduledWithForecastRoute: string | null = null;
   let fallbackScheduledRoute: string | null = null;
 
-  for (const league of PRE_MATCH_LEAGUES) {
+  for (const league of leagues) {
     const file = resolve(snapshotsRoot, league, "latest.json");
     if (!existsSync(file)) continue;
-    const snapshot = JSON.parse(readFileSync(file, "utf8")) as {
-      games?: Array<{ id: string; status: string; startTime?: string }>;
-    };
-    const scheduled = (snapshot.games ?? []).filter((g) => g.status === "scheduled");
-    const upcoming = scheduled.find((g) => {
-      const ts = g.startTime ? Date.parse(g.startTime) : Number.NaN;
-      return Number.isFinite(ts) && ts > nowMs;
-    });
-    if (upcoming) {
-      return `/app/${league}/games/${upcoming.id}`;
-    }
-    if (!fallbackScheduledRoute && scheduled[0]) {
-      fallbackScheduledRoute = `/app/${league}/games/${scheduled[0].id}`;
+    const raw: unknown = JSON.parse(readFileSync(file, "utf8"));
+    if (!isPlainRecord(raw) || raw.isDemo === true) continue;
+    const analyses = isPlainRecord(raw.analyses) ? raw.analyses : null;
+    const scheduled = parseSnapshotGames(raw).filter((g) => g.status === "scheduled");
+
+    for (const g of scheduled) {
+      const route = `/app/${league}/games/${g.id}`;
+      if (!fallbackScheduledRoute) fallbackScheduledRoute = route;
+      const startMs = parseIsoTimestampMs(g.startTime);
+      const isUpcoming = startMs !== null && startMs > nowMs;
+      const rawAnalysis = analyses ? analyses[g.id] : undefined;
+      if (!isPlainRecord(rawAnalysis)) continue;
+
+      const causal = isCausallyPreKickoff(rawAnalysis, startMs);
+      const hasPick = causal && hasValidSnapshotPick(rawAnalysis);
+      const hasForecast = causal && hasForecastSignals(rawAnalysis);
+      const unconfirmedLineup = !hasConfirmedLineup(rawAnalysis);
+
+      if (isUpcoming && hasPick && unconfirmedLineup) {
+        return route;
+      }
+      if (!upcomingWithAnalysisRoute && isUpcoming && hasPick) {
+        upcomingWithAnalysisRoute = route;
+      }
+      if (!scheduledWithPicksRoute && hasPick && unconfirmedLineup) {
+        scheduledWithPicksRoute = route;
+      }
+      if (!upcomingWithForecastRoute && isUpcoming && hasForecast) {
+        upcomingWithForecastRoute = route;
+      }
+      if (!scheduledWithForecastRoute && (hasPick || hasForecast)) {
+        scheduledWithForecastRoute = route;
+      }
     }
   }
 
-  if (fallbackScheduledRoute) return fallbackScheduledRoute;
+  const chosen =
+    upcomingWithAnalysisRoute ??
+    scheduledWithPicksRoute ??
+    upcomingWithForecastRoute ??
+    scheduledWithForecastRoute ??
+    fallbackScheduledRoute;
+  if (chosen) return chosen;
   throw new Error("No hay partidos scheduled en data/snapshots/*/latest.json para probar Antes del partido.");
 }
 
