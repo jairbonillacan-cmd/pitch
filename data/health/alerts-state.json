@@ -1,19 +1,5 @@
 {
   "schemaVersion": 1,
-  "updatedAtUtc": "2026-11-24T21:08:59.597Z",
-  "openIncidents": {
-    "stale::momios::liga-mx": {
-      "incidentKey": "stale::momios::liga-mx",
-      "kind": "stale_data",
-      "severity": "warning",
-      "targetLabel": "Liga MX · Momios",
-      "league": "liga-mx",
-      "dataType": "momios",
-      "message": "Última cuota de Liga MX capturada hace 44.7 h (límite alerta 36 h; caduca en app a las 72 h).",
-      "failingSinceUtc": "2026-11-24T21:08:59.597Z",
-      "lastSeenAtUtc": "2026-11-24T21:08:59.597Z",
-      "emailedAtUtc": null,
-      "occurrences": 1
-    }
-  }
+  "updatedAtUtc": "2026-11-24T21:38:09Z",
+  "openIncidents": {}
 }
