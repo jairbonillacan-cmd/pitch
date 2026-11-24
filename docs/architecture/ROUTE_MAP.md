@@ -75,7 +75,8 @@
 | `/app/lab` | Mi Récord / Bitácora (`ADR-061`) | Picks y parlays sellados inmutables (`0025`/`0027`, tope `6` piernas) con `<LivePickProgressBar>`, filtros separados `Tipo`/`Estado`, CLV creíble unificado (`[-60, 25]` simple / `[-60, 50]` parlay, sin mutar `sealed_picks`) y CSV |
 | `/app/tech` | Motores dentro del Club | Validación y comparativa interna |
 | `/app/social` | Comunidad VIP | Feed (`Para ti · Siguiendo · Consenso · Ranking`), moderación y copiar a parlay |
-| `/app/account` | Cuenta, Preferencias, Plan, CFDI y Referidos | `?tab=prefs|plan|cfdi|referrals`, `?pago=ok|cancelado`; SPEI, casas/vistas guardadas DB (`0025`), enlace canónico de baja de correos (`/api/me/email-preferences/unsubscribe`), export y solicitud ARCO |
+| `/app/account` | Cuenta, Preferencias, Plan, CFDI y Referidos | `?tab=prefs|plan|cfdi|referrals`, `?pago=ok|cancelado`; SPEI, modales en `General`, `Tus ligas` por deporte y país, casas/vistas guardadas DB (`0025`), enlace canónico de baja de correos (`/api/me/email-preferences/unsubscribe`), export y solicitud ARCO |
+| `/app/juego-responsable` | Juego responsable (+18) dentro del Club | Pausas voluntarias inmediatas (`24h`/`7d`/`30d`), pausa de Comunidad, solo unidades, principios +18 y líneas `tel:` directas (`800 911 2000`, `55 5212 1212`) |
 | `/app/canjear` | Canje de cupón dentro del Club (`?codigo=`) | Redime cupones de acceso y extiende días del pase |
 | `/app/tipster` | Portal de Tipsters Oficiales | Solo `isTipster` o `isAdmin`; lee `/api/tipster/me`; `?connect=ok|refresh` en modo Stripe Connect |
 | `/app/admin` | Panel del equipo fundador | Solo `isAdmin` con correo verificado (si no `HTTP 404`); `4` pestañas (`Salud de datos & Ligas`, `Seguridad & Anti-Scraping`, `Pagos & Cupones`, `Socios & Moderación`) |
@@ -107,6 +108,7 @@
 | `/app/la-liga` | `/app/laliga` |
 | `/app/tipstar` | `/app/tipster` |
 | `/app/h2h`, `/app/compare` | `/app/comparar` |
+| `/app/responsible-play` | `/app/juego-responsable` |
 
 ## 5. Endpoints HTTP reales (`apps/web/app/api/*`)
 

@@ -4,11 +4,10 @@ import React, { useCallback, useId, useMemo, useRef, useState } from "react";
 import { Switch } from "@heroui/react";
 import {
   COMPETITION_CATALOG,
-  LEAGUE_REGIONS,
   isLeagueActiveInWindow,
   parseStrictFiniteNumber,
   type LeagueId,
-  type LeagueRegionKey,
+  type PlatformSport,
 } from "@pitchlab/contracts";
 import {
   Button,
@@ -17,18 +16,34 @@ import {
   SofascoreTable,
   type SofascoreTableColumn,
 } from "../../../components/ui/primitives";
+import {
+  resolveThemedPackSrcSet,
+  resolveThemedPackUrl,
+  usePackIconBase,
+} from "../../../pack-icon-theme";
 import { LeagueBadge } from "../../../sports";
+import {
+  THEME_CHANGE_EVENT,
+  applyThemeMode,
+  getSystemPreferredTheme,
+  readStoredThemeMode,
+  shouldHydrateServerThemeMode,
+} from "../../../theme-controller";
 import { BOOKMAKER_OPTIONS } from "../../bookmakers";
+import { resolveCircularCountryFlag, type CircularCountryFlag } from "../../country-flags";
 import {
   FeedbackSupportDialog,
   type AccountSupportModalKind,
 } from "../../components/FeedbackSupportDialog";
 import { ExampleBadge, MaestroIcon } from "../../components/MaestroPrimitives";
-import { ConfirmActionDialog } from "../../components/PlatformOverlays";
-import { PlSelect } from "../../components/PlSelect";
+import {
+  ConfirmActionDialog,
+  TopLayerModalDialog,
+} from "../../components/PlatformOverlays";
 import { SettingsGroup, SettingsRow } from "../../components/SettingsGroup";
 import { type VisualStyle } from "../../components/ShellChrome";
 import { useAbortableJson, useSafeEffect } from "../../hooks";
+import { handleRovingTablistKeyDown } from "../../navigation-helpers";
 import {
   useJournalEntries,
   usePlatformActions,
@@ -44,8 +59,12 @@ import {
   MAX_SAVED_VIEWS_PREF,
   PRIORITY_MX_BOOKMAKER_IDS,
   describeSavedViewFilters,
+  detectDeviceTimezone,
+  formatCurrentTimeInTimezone,
   formatPreferredBooksSummary,
+  formatTimezoneShortLabel,
   getOddsFormatPreview,
+  listWorldTimezoneOptions,
   partitionPriorityBookmakers,
   readAccountSavedViews,
   readStoredPrefs,
@@ -62,6 +81,7 @@ import {
   type SessionAccountIdentity,
   type StoredAccountPrefsV1,
   type ThemePreference,
+  type WorldTimezoneOption,
 } from "./account-helpers";
 import { PwaAndPushSection } from "./PwaAndPushSection";
 
@@ -102,49 +122,101 @@ interface ServerPreferencesEnvelope {
     readonly lineMoveAlerts?: boolean;
     readonly language?: string;
     readonly alertCadence?: AlertCadence;
+    readonly updatedAtIso?: string | null;
   };
 }
 
 const PREF_GROUPS = [
   { id: "pl-prefs-resumen", label: "General" },
   { id: "pl-prefs-ligas", label: "Tus ligas" },
-  { id: "pl-prefs-datos", label: "Datos y casas" },
-  { id: "pl-prefs-vistas", label: "Vistas guardadas" },
   { id: "pl-prefs-picks", label: "Picks y parlays" },
-  { id: "pl-prefs-alertas", label: "Notificaciones" },
   { id: "pl-prefs-privacidad", label: "Privacidad" },
-  { id: "pl-prefs-descanso", label: "Juego responsable" },
   { id: "pl-prefs-soporte", label: "Soporte y cuenta" },
 ] as const;
 
 type PrefGroupId = (typeof PREF_GROUPS)[number]["id"];
+type GeneralModalKind = "theme" | "timezone" | "odds" | "books" | "views" | "alerts" | null;
+type LeagueSportFilter = "all" | PlatformSport;
 
-const LEAGUE_OPTIONS: ReadonlyArray<{ id: LeagueId; name: string; region: LeagueRegionKey }> =
-  COMPETITION_CATALOG.map((c) => ({
-    id: c.id,
-    name: c.label,
-    region: c.region,
-  }));
-
-const TIMEZONE_OPTIONS: ReadonlyArray<{ value: string; label: string }> = [
-  { value: "America/Mexico_City", label: "Ciudad de México (UTC−6)" },
-  { value: "America/Cancun", label: "Cancún (UTC−5)" },
-  { value: "America/Hermosillo", label: "Hermosillo (UTC−7)" },
-  { value: "America/Tijuana", label: "Tijuana (UTC−8)" },
-  { value: "America/Los_Angeles", label: "Los Ángeles · EE. UU. (UTC−8)" },
-  { value: "America/Denver", label: "Denver · EE. UU. (UTC−7)" },
-  { value: "America/Chicago", label: "Chicago · EE. UU. (UTC−6)" },
-  { value: "America/New_York", label: "Nueva York · EE. UU. (UTC−5)" },
-  { value: "America/Bogota", label: "Bogotá · Colombia (UTC−5)" },
-  { value: "America/Lima", label: "Lima · Perú (UTC−5)" },
-  { value: "America/Caracas", label: "Caracas · Venezuela (UTC−4)" },
-  { value: "America/Santiago", label: "Santiago · Chile (UTC−3)" },
-  { value: "America/Argentina/Buenos_Aires", label: "Buenos Aires · Argentina (UTC−3)" },
-  { value: "America/Sao_Paulo", label: "São Paulo · Brasil (UTC−3)" },
-  { value: "Europe/London", label: "Londres · Reino Unido (UTC+0)" },
-  { value: "Europe/Madrid", label: "Madrid · España (UTC+1)" },
-  { value: "UTC", label: "Tiempo universal · UTC (UTC+0)" },
+const LEAGUE_SPORT_DEFS: ReadonlyArray<{
+  readonly key: PlatformSport;
+  readonly label: string;
+  readonly shortLabel: string;
+}> = [
+  { key: "football", label: "Fútbol", shortLabel: "Fútbol" },
+  { key: "basketball", label: "Baloncesto", shortLabel: "Baloncesto" },
+  { key: "american-football", label: "Fútbol americano", shortLabel: "Fútbol am." },
+  { key: "baseball", label: "Béisbol", shortLabel: "Béisbol" },
+  { key: "ice-hockey", label: "Hockey sobre hielo", shortLabel: "Hockey" },
 ];
+
+const COUNTRY_PRIORITY_ORDER: readonly string[] = [
+  "México",
+  "Estados Unidos",
+  "Inglaterra",
+  "España",
+  "Alemania",
+  "Italia",
+  "Francia",
+  "Argentina",
+  "Brasil",
+  "Colombia",
+  "Chile",
+  "Ecuador",
+  "Perú",
+  "Países Bajos",
+  "Portugal",
+  "Bélgica",
+  "Turquía",
+  "Arabia Saudita",
+  "Japón",
+  "Copas internacionales · Europa",
+  "Copas internacionales · Sudamérica",
+  "Copas internacionales · CONCACAF",
+  "Copas internacionales · Norteamérica",
+  "Copas internacionales · África",
+  "Selecciones nacionales",
+];
+
+function resolveLeagueCountryGroup(comp: (typeof COMPETITION_CATALOG)[number]): string {
+  if (comp.region === "national-teams") return "Selecciones nacionales";
+  if (comp.countrySlug !== null) return comp.country;
+  return `Copas internacionales · ${comp.country}`;
+}
+
+function countrySortRank(countryLabel: string): number {
+  const idx = COUNTRY_PRIORITY_ORDER.indexOf(countryLabel);
+  return idx >= 0 ? idx : 999;
+}
+
+function resolveCountryAccordionFlag(countryLabel: string): CircularCountryFlag | null {
+  if (countryLabel === "Copas internacionales · Europa") {
+    return resolveCircularCountryFlag("europa");
+  }
+  if (
+    countryLabel.startsWith("Copas internacionales") ||
+    countryLabel === "Selecciones nacionales"
+  ) {
+    return resolveCircularCountryFlag("internacional");
+  }
+  return resolveCircularCountryFlag(countryLabel);
+}
+
+const LEAGUE_OPTIONS: ReadonlyArray<{
+  readonly id: LeagueId;
+  readonly name: string;
+  readonly sport: PlatformSport;
+  readonly countryGroup: string;
+  readonly prestigeTier: 1 | 2 | 3 | 4;
+}> = COMPETITION_CATALOG.map((c) => ({
+  id: c.id,
+  name: c.label,
+  sport: c.sport,
+  countryGroup: resolveLeagueCountryGroup(c),
+  prestigeTier: c.prestigeTier,
+}));
+
+const TZ_VISIBLE_PAGE = 50;
 
 const SAVED_VIEW_SPORT_OPTIONS: ReadonlyArray<{ value: AccountSavedViewSport; label: string }> = [
   { value: "all", label: "Todos los deportes" },
@@ -212,11 +284,12 @@ const PRIVACY_ITEMS: ReadonlyArray<{
   },
 ];
 
-const BREAK_OPTIONS: ReadonlyArray<{ value: Exclude<PauseChoice, null>; label: string }> = [
-  { value: "24h", label: "24 horas" },
-  { value: "7d", label: "7 días" },
-  { value: "30d", label: "30 días" },
-];
+function formatPauseChoiceLabel(choice: PauseChoice): string {
+  if (choice === "24h") return "Pausa · 24 horas";
+  if (choice === "7d") return "Pausa · 7 días";
+  if (choice === "30d") return "Pausa · 30 días";
+  return "Sin pausa";
+}
 
 type NearestScrollIntoViewOptions = ScrollIntoViewOptions & {
   readonly container?: "all" | "nearest";
@@ -238,29 +311,7 @@ function scrollNavChipIntoView(element: HTMLElement | null): void {
 }
 
 function applyDocumentThemeMode(mode: ThemePreference): void {
-  if (typeof document === "undefined" || typeof window === "undefined") return;
-  const resolvedLight =
-    mode === "light" ||
-    (mode === "system" &&
-      Boolean(window.matchMedia?.("(prefers-color-scheme: light)").matches));
-  const target: "dark" | "light" = resolvedLight ? "light" : "dark";
-  const root = document.documentElement;
-  if ((root.dataset.theme === "light" ? "light" : "dark") !== target) {
-    root.dataset.themeSwitching = "true";
-    root.dataset.theme = target;
-    void root.offsetHeight;
-    delete root.dataset.themeSwitching;
-  }
-  root.style.colorScheme = target;
-  try {
-    if (mode === "system") {
-      window.localStorage.removeItem("pl-theme");
-    } else {
-      window.localStorage.setItem("pl-theme", target);
-    }
-  } catch (err) {
-    void err;
-  }
+  applyThemeMode(mode, { persistStorage: true, syncServer: false });
 }
 
 function buildSavedViewId(name: string): string {
@@ -351,7 +402,7 @@ function mergePrefs(
   };
 }
 
-type PrefsConfirmKind = "pause" | "export" | "delete" | null;
+type PrefsConfirmKind = "export" | "delete" | null;
 
 export function PrefsTab({
   identity,
@@ -394,6 +445,7 @@ export function PrefsTab({
   const emailDisplay = storyOverride?.email ?? serverEmail ?? identity.atHandle;
 
   const baseId = useId();
+  const modalTitleId = `${baseId}-general-modal-title`;
   const oddsLabelId = `${baseId}-odds`;
   const themeLabelId = `${baseId}-theme`;
   const tzSelectId = `${baseId}-tz`;
@@ -407,6 +459,12 @@ export function PrefsTab({
   const [prefs, setPrefs] = useState<StoredAccountPrefsV1>(() =>
     mergePrefs(DEFAULT_STORED_PREFS_V1, storyOverride?.initialPrefs),
   );
+  const [systemTheme, setSystemTheme] = useState<"dark" | "light">("dark");
+  const [deviceTimezone, setDeviceTimezone] = useState<string | null>(null);
+  const [tzSearch, setTzSearch] = useState<string>("");
+  const [tzRegion, setTzRegion] = useState<string>("all");
+  const [tzVisibleCount, setTzVisibleCount] = useState<number>(TZ_VISIBLE_PAGE);
+  const iconBase = usePackIconBase();
   const [savedViews, setSavedViews] = useState<AccountSavedView[]>(() =>
     sanitizeAccountSavedViews(storyOverride?.initialPrefs?.savedViews ?? []),
   );
@@ -421,14 +479,15 @@ export function PrefsTab({
     String(storyOverride?.initialPrefs?.unitMxn ?? DEFAULT_STORED_PREFS_V1.unitMxn),
   );
   const [unitError, setUnitError] = useState<string | null>(null);
-  const [pendingBreak, setPendingBreak] = useState<Exclude<PauseChoice, null>>("7d");
   const [lastLeagueWarn, setLastLeagueWarn] = useState<boolean>(false);
   const [activeGroup, setActiveGroup] = useState<PrefGroupId>("pl-prefs-resumen");
   const [localSavedTick, setLocalSavedTick] = useState<number>(0);
   const [confirmKind, setConfirmKind] = useState<PrefsConfirmKind>(null);
+  const [generalModal, setGeneralModal] = useState<GeneralModalKind>(null);
   const [supportModal, setSupportModal] = useState<AccountSupportModalKind>(null);
   const [showInactiveLeagues, setShowInactiveLeagues] = useState<boolean>(false);
   const [leagueSearch, setLeagueSearch] = useState<string>("");
+  const [leagueSportFilter, setLeagueSportFilter] = useState<LeagueSportFilter>("all");
   const [accountActionNote, setAccountActionNote] = useState<string | null>(null);
   const [exportBusy, setExportBusy] = useState<boolean>(false);
   const [deleteBusy, setDeleteBusy] = useState<boolean>(false);
@@ -453,9 +512,6 @@ export function PrefsTab({
     const stored = mergePrefs(readStoredPrefs(), storyOverride?.initialPrefs);
     setPrefs(stored);
     setUnitDraft(String(stored.unitMxn));
-    if (stored.pauseChoice) {
-      setPendingBreak(stored.pauseChoice);
-    }
     if (storyOverride?.initialPrefs?.savedViews !== undefined) {
       setSavedViews(sanitizeAccountSavedViews(storyOverride.initialPrefs.savedViews));
     } else if (!canPersistServer) {
@@ -525,25 +581,26 @@ export function PrefsTab({
     setUnitDraft(String(unitMxnValue));
     setUnitError(null);
 
-    if (p.themeMode === "dark" || p.themeMode === "light" || p.themeMode === "system") {
-      applyDocumentThemeMode(p.themeMode);
-    }
-    if (
-      p.responsiblePauseKind === "24h" ||
-      p.responsiblePauseKind === "7d" ||
-      p.responsiblePauseKind === "30d"
-    ) {
-      setPendingBreak(p.responsiblePauseKind);
+    const serverThemeMode =
+      p.themeMode === "dark" || p.themeMode === "light" || p.themeMode === "system"
+        ? p.themeMode
+        : null;
+    const hydrateServerTheme = Boolean(
+      serverThemeMode && shouldHydrateServerThemeMode(p.updatedAtIso),
+    );
+    if (hydrateServerTheme && serverThemeMode) {
+      applyThemeMode(serverThemeMode, {
+        persistStorage: true,
+        syncServer: false,
+        recordTimestamp: false,
+      });
     }
 
     setPrefs((prev) => {
       const next: StoredAccountPrefsV1 = {
         ...prev,
         v: 1,
-        themeMode:
-          p.themeMode === "dark" || p.themeMode === "light" || p.themeMode === "system"
-            ? p.themeMode
-            : prev.themeMode,
+        themeMode: hydrateServerTheme && serverThemeMode ? serverThemeMode : readStoredThemeMode(),
         timezone: typeof p.timezone === "string" && p.timezone.trim() ? p.timezone : prev.timezone,
         showMxnBalance:
           typeof p.showMxnBalance === "boolean" ? p.showMxnBalance : prev.showMxnBalance,
@@ -621,34 +678,30 @@ export function PrefsTab({
   ]);
 
   useSafeEffect(() => {
-    if (typeof window === "undefined" || prefs.themeMode !== "system") return;
-    const mq = window.matchMedia?.("(prefers-color-scheme: light)");
-    if (!mq) return;
-    const onSystemChange = () => applyDocumentThemeMode("system");
-    mq.addEventListener?.("change", onSystemChange);
-    return () => mq.removeEventListener?.("change", onSystemChange);
-  }, [prefs.themeMode]);
-
-  useSafeEffect(() => {
-    if (typeof document === "undefined" || typeof window === "undefined") return;
-    const root = document.documentElement;
-    const obs = new MutationObserver(() => {
-      try {
-        const explicit = window.localStorage.getItem("pl-theme");
-        if (explicit === "light" || explicit === "dark") {
-          setPrefs((prev) => {
-            if (prev.themeMode === explicit) return prev;
-            const next: StoredAccountPrefsV1 = { ...prev, themeMode: explicit };
-            writeStoredPrefs(next);
-            return next;
-          });
-        }
-      } catch (err) {
-        void err;
-      }
-    });
-    obs.observe(root, { attributes: true, attributeFilter: ["data-theme"] });
-    return () => obs.disconnect();
+    if (typeof window === "undefined") return;
+    setSystemTheme(getSystemPreferredTheme());
+    setDeviceTimezone(detectDeviceTimezone());
+    const syncLocalTheme = () => {
+      const currentMode = readStoredThemeMode();
+      setSystemTheme(getSystemPreferredTheme());
+      setPrefs((prev) => {
+        if (prev.themeMode === currentMode) return prev;
+        const next: StoredAccountPrefsV1 = { ...prev, themeMode: currentMode };
+        writeStoredPrefs(next);
+        return next;
+      });
+    };
+    const mq =
+      typeof window.matchMedia === "function"
+        ? window.matchMedia("(prefers-color-scheme: light)")
+        : null;
+    const onSchemeChange = () => setSystemTheme(getSystemPreferredTheme());
+    window.addEventListener(THEME_CHANGE_EVENT, syncLocalTheme);
+    mq?.addEventListener("change", onSchemeChange);
+    return () => {
+      window.removeEventListener(THEME_CHANGE_EVENT, syncLocalTheme);
+      mq?.removeEventListener("change", onSchemeChange);
+    };
   }, []);
 
   useSafeEffect(() => {
@@ -762,30 +815,76 @@ export function PrefsTab({
     });
   };
 
-  const timezoneOptions = useMemo(() => {
-    const base = TIMEZONE_OPTIONS.map((tz) => {
-      const match = /^(.*)\s+\((UTC[^)]+)\)$/.exec(tz.label);
-      return {
-        value: tz.value,
-        label: match ? match[1]! : tz.label,
-        description: match ? match[2] : undefined,
-        triggerLabel: tz.label,
-        textValue: tz.label,
-        icon: <MaestroIcon name="calendar" size={14} />,
-      };
-    });
+  const tzReferenceNow = useMemo(
+    () => (generalModal === "timezone" ? new Date() : null),
+    [generalModal],
+  );
+
+  const worldTimezones = useMemo<readonly WorldTimezoneOption[]>(() => {
+    if (!tzReferenceNow) return [];
+    const base = listWorldTimezoneOptions(tzReferenceNow);
     if (prefs.timezone && !base.some((opt) => opt.value === prefs.timezone)) {
-      base.push({
-        value: prefs.timezone,
-        label: prefs.timezone,
-        description: undefined,
-        triggerLabel: prefs.timezone,
-        textValue: prefs.timezone,
-        icon: <MaestroIcon name="calendar" size={14} />,
-      });
+      return [
+        {
+          value: prefs.timezone,
+          city: formatTimezoneShortLabel(prefs.timezone),
+          region: "Otras zonas",
+          offsetLabel: "",
+          offsetMinutes: 0,
+          searchIndex: prefs.timezone.toLowerCase(),
+        },
+        ...base,
+      ];
     }
     return base;
-  }, [prefs.timezone]);
+  }, [prefs.timezone, tzReferenceNow]);
+
+  const tzRegionTabs = useMemo(() => {
+    const counts = new Map<string, number>();
+    for (const tz of worldTimezones) {
+      counts.set(tz.region, (counts.get(tz.region) ?? 0) + 1);
+    }
+    const order = ["América", "Europa", "Asia", "Oceanía", "África", "Pacífico", "Atlántico", "Índico", "UTC"];
+    const tabs: Array<{ key: string; label: string; count: number }> = [
+      { key: "all", label: "Todas", count: worldTimezones.length },
+    ];
+    for (const region of order) {
+      const count = counts.get(region) ?? 0;
+      if (count > 0) tabs.push({ key: region, label: region, count });
+    }
+    return tabs;
+  }, [worldTimezones]);
+
+  const filteredTimezones = useMemo(() => {
+    if (worldTimezones.length === 0) return [];
+    const q = tzSearch
+      .normalize("NFD")
+      .replace(/[\u0300-\u036f]/g, "")
+      .toLowerCase()
+      .replace(/−/g, "-")
+      .trim();
+    const tokens = q ? q.split(/\s+/).filter(Boolean) : [];
+    return worldTimezones.filter((opt) => {
+      if (tzRegion !== "all" && !q && opt.region !== tzRegion) return false;
+      if (tokens.length === 0) return true;
+      return tokens.every((tok) => opt.searchIndex.includes(tok));
+    });
+  }, [tzRegion, tzSearch, worldTimezones]);
+
+  const handleTimezoneChange = (nextTz: string) => {
+    if (nextTz === prefs.timezone) return;
+    const prevTz = prefs.timezone;
+    updatePrefs((prev) => ({ ...prev, timezone: nextTz }));
+    setUserTimezone(nextTz);
+    void persistServerPrefs({ timezone: nextTz }, () => {
+      setUserTimezone(prevTz);
+      setPrefs((curr) => {
+        const reverted = { ...curr, timezone: prevTz };
+        writeStoredPrefs(reverted);
+        return reverted;
+      });
+    });
+  };
 
   const handleUnitInputChange = (raw: string) => {
     setUnitDraft(raw);
@@ -839,15 +938,12 @@ export function PrefsTab({
   const mxnSign = activeUnits < 0 ? "−" : "";
   const formattedMxn = `${mxnSign}$${mxnAmount.toLocaleString("es-MX")} MXN`;
 
-  const selectedBreakLabel =
-    BREAK_OPTIONS.find((b) => b.value === (prefs.pauseChoice ?? pendingBreak))?.label ?? "7 días";
-
   const todayIso = useMemo(
     () => todayId(userTimezone || prefs.timezone || "America/Mexico_City"),
     [userTimezone, prefs.timezone],
   );
 
-  const groupedLeagues = useMemo(() => {
+  const filteredLeagues = useMemo(() => {
     const norm = (s: string) =>
       s
         .normalize("NFD")
@@ -855,10 +951,17 @@ export function PrefsTab({
         .toLowerCase()
         .trim();
     const q = norm(leagueSearch);
-    const byRegion = new Map<
-      LeagueRegionKey,
-      Array<{ id: LeagueId; name: string; active: boolean }>
-    >();
+    const sportLabelByKey = new Map<PlatformSport, string>(
+      LEAGUE_SPORT_DEFS.map((s) => [s.key, `${s.label} ${s.shortLabel}`]),
+    );
+    const matches: Array<{
+      id: LeagueId;
+      name: string;
+      sport: PlatformSport;
+      countryGroup: string;
+      prestigeTier: 1 | 2 | 3 | 4;
+      active: boolean;
+    }> = [];
     for (const lg of LEAGUE_OPTIONS) {
       const active =
         dataset.games.length === 0
@@ -866,16 +969,101 @@ export function PrefsTab({
           : isLeagueActiveInWindow(dataset.games, lg.id, todayIso, 30);
       const isFav = favoriteLeagues.includes(lg.id);
       if (!showInactiveLeagues && !active && !isFav) continue;
-      if (q && !norm(lg.name).includes(q) && !norm(lg.id).includes(q)) continue;
-      const arr = byRegion.get(lg.region) ?? [];
-      arr.push({ id: lg.id, name: lg.name, active });
-      byRegion.set(lg.region, arr);
+      if (q) {
+        const sportText = sportLabelByKey.get(lg.sport) ?? "";
+        const hit =
+          norm(lg.name).includes(q) ||
+          norm(lg.id).includes(q) ||
+          norm(lg.countryGroup).includes(q) ||
+          norm(sportText).includes(q);
+        if (!hit) continue;
+      }
+      matches.push({
+        id: lg.id,
+        name: lg.name,
+        sport: lg.sport,
+        countryGroup: lg.countryGroup,
+        prestigeTier: lg.prestigeTier,
+        active,
+      });
     }
-    return LEAGUE_REGIONS.map((region) => ({
-      region,
-      items: byRegion.get(region.key) ?? [],
-    })).filter((g) => g.items.length > 0);
+    return matches;
   }, [dataset.games, favoriteLeagues, leagueSearch, showInactiveLeagues, todayIso]);
+
+  const sportTabs = useMemo(() => {
+    const countBySport = new Map<PlatformSport, number>();
+    for (const item of filteredLeagues) {
+      countBySport.set(item.sport, (countBySport.get(item.sport) ?? 0) + 1);
+    }
+    const items: Array<{ key: LeagueSportFilter; label: string; count: number }> = [
+      { key: "all", label: "Todos", count: filteredLeagues.length },
+    ];
+    for (const def of LEAGUE_SPORT_DEFS) {
+      const count = countBySport.get(def.key) ?? 0;
+      if (count > 0 || leagueSportFilter === def.key) {
+        items.push({ key: def.key, label: def.shortLabel, count });
+      }
+    }
+    return items;
+  }, [filteredLeagues, leagueSportFilter]);
+
+  const groupedLeagues = useMemo(() => {
+    const favoriteSet = new Set<LeagueId>(favoriteLeagues);
+    const bySport = new Map<
+      PlatformSport,
+      Map<string, Array<{ id: LeagueId; name: string; active: boolean; prestigeTier: 1 | 2 | 3 | 4 }>>
+    >();
+    for (const item of filteredLeagues) {
+      if (leagueSportFilter !== "all" && item.sport !== leagueSportFilter) continue;
+      let byCountry = bySport.get(item.sport);
+      if (!byCountry) {
+        byCountry = new Map();
+        bySport.set(item.sport, byCountry);
+      }
+      const countryList = byCountry.get(item.countryGroup) ?? [];
+      countryList.push({
+        id: item.id,
+        name: item.name,
+        active: item.active,
+        prestigeTier: item.prestigeTier,
+      });
+      byCountry.set(item.countryGroup, countryList);
+    }
+    return LEAGUE_SPORT_DEFS.map((sportDef) => {
+      const byCountry = bySport.get(sportDef.key);
+      if (!byCountry || byCountry.size === 0) return null;
+      const countries = Array.from(byCountry.entries())
+        .sort(([a], [b]) => {
+          const rankDiff = countrySortRank(a) - countrySortRank(b);
+          return rankDiff !== 0 ? rankDiff : a.localeCompare(b, "es");
+        })
+        .map(([country, items]) => ({
+          country,
+          items: [...items].sort((a, b) =>
+            a.prestigeTier !== b.prestigeTier
+              ? a.prestigeTier - b.prestigeTier
+              : a.name.localeCompare(b.name, "es"),
+          ),
+        }));
+      const totalCount = countries.reduce((acc, group) => acc + group.items.length, 0);
+      const selectedCount = countries.reduce(
+        (acc, group) => acc + group.items.filter((it) => favoriteSet.has(it.id)).length,
+        0,
+      );
+      return { sport: sportDef, countries, totalCount, selectedCount };
+    }).filter((entry): entry is NonNullable<typeof entry> => entry !== null);
+  }, [favoriteLeagues, filteredLeagues, leagueSportFilter]);
+
+  const themeRowValue =
+    prefs.themeMode === "light"
+      ? "Claro"
+      : prefs.themeMode === "dark"
+        ? "Oscuro"
+        : systemTheme === "light"
+          ? "Sistema (claro)"
+          : "Sistema (oscuro)";
+
+  const timezoneRowValue = formatTimezoneShortLabel(prefs.timezone);
 
   const telegramUrl =
     typeof process !== "undefined" ? process.env.NEXT_PUBLIC_TELEGRAM_URL?.trim() || "" : "";
@@ -1073,40 +1261,6 @@ export function PrefsTab({
     [handleDeleteSavedView, handleTogglePinSavedView],
   );
 
-  const handleConfirmPause = useCallback(() => {
-    const nextBreak = pendingBreak;
-    const prevChoice = prefs.pauseChoice;
-    const prevChosenAt = prefs.pauseChosenAtIso;
-    const revertPause = () => {
-      updatePrefs((curr) => ({
-        ...curr,
-        pauseChoice: prevChoice,
-        pauseChosenAtIso: prevChosenAt,
-      }));
-      void persistServerPrefs({ responsiblePauseKind: prevChoice });
-    };
-    updatePrefs((prev) => ({
-      ...prev,
-      pauseChoice: nextBreak,
-      pauseChosenAtIso: new Date().toISOString(),
-    }));
-    pushToast(`Descanso de ${selectedBreakLabel} activado.`, "default", {
-      actionLabel: "Deshacer",
-      onAction: revertPause,
-    });
-    void persistServerPrefs({ responsiblePauseKind: nextBreak }, () => {
-      setPrefs((curr) => {
-        const reverted = {
-          ...curr,
-          pauseChoice: prevChoice,
-          pauseChosenAtIso: prevChosenAt,
-        };
-        writeStoredPrefs(reverted);
-        return reverted;
-      });
-    });
-  }, [pendingBreak, persistServerPrefs, prefs.pauseChoice, prefs.pauseChosenAtIso, pushToast, selectedBreakLabel, updatePrefs]);
-
   const handleConfirmExport = useCallback(() => {
     if (!canPersistServer) {
       setAccountActionNote("Archivo descargado en modo vista previa.");
@@ -1186,16 +1340,48 @@ export function PrefsTab({
     })();
   }, [canPersistServer, pushToast]);
 
-  const scrollToSection = (groupId: PrefGroupId) => {
-    setActiveGroup(groupId);
-    if (typeof document === "undefined") return;
-    const section = document.getElementById(groupId);
-    if (!section) return;
-    const reduced =
-      typeof window !== "undefined" &&
-      Boolean(window.matchMedia?.("(prefers-reduced-motion: reduce)").matches);
-    section.scrollIntoView({ behavior: reduced ? "auto" : "smooth", block: "start" });
-  };
+  const generalModalMeta: {
+    readonly title: string;
+    readonly subtitle: string;
+    readonly maxWidth: string;
+  } | null =
+    generalModal === "theme"
+      ? {
+          title: "Tema de la interfaz",
+          subtitle: "«Sistema» sigue el ajuste de tu teléfono o computadora.",
+          maxWidth: "28rem",
+        }
+      : generalModal === "timezone"
+        ? {
+            title: "Horario de los partidos",
+            subtitle: "Todas las horas de la app usan esta zona.",
+            maxWidth: "30rem",
+          }
+        : generalModal === "odds"
+          ? {
+              title: "Formato de cuotas",
+              subtitle: "Cambia cómo se muestran todos los momios en la app.",
+              maxWidth: "28rem",
+            }
+          : generalModal === "books"
+            ? {
+                title: "Casas preferidas",
+                subtitle: "Prioritarias MX y referencia sharp (máx. 12).",
+                maxWidth: "36rem",
+              }
+            : generalModal === "views"
+              ? {
+                  title: "Vistas guardadas",
+                  subtitle: `Filtros rápidos para Explorar picks (${savedViews.length}/${MAX_SAVED_VIEWS_PREF} · ${pinnedViewsCount} en Inicio).`,
+                  maxWidth: "38rem",
+                }
+              : generalModal === "alerts"
+                ? {
+                    title: "Notificaciones",
+                    subtitle: "Alertas de valor, picks, frecuencia y app móvil.",
+                    maxWidth: "34rem",
+                  }
+                : null;
 
   return (
     <div className="pl-acct-prefs-wrap">
@@ -1241,32 +1427,52 @@ export function PrefsTab({
               showChevron={false}
             />
             <SettingsRow
+              icon={prefs.themeMode === "light" ? "sun" : "moon"}
+              title="Tema"
+              subtitle="Oscuro, claro o según tu dispositivo"
+              value={themeRowValue}
+              dataAttr="prefs-general-theme"
+              onClick={() => setGeneralModal("theme")}
+            />
+            <SettingsRow
+              icon="calendar"
+              title="Horario de los partidos"
+              subtitle="Zona horaria para toda la app"
+              value={timezoneRowValue}
+              dataAttr="prefs-general-timezone"
+              onClick={() => setGeneralModal("timezone")}
+            />
+            <SettingsRow
               icon="activity"
               title="Formato de cuotas"
               subtitle="Americano (−110) o Decimal (1.91)"
               value={`${oddsPreview.label} (${oddsFormat === "decimal" ? "1.91" : "−110"})`}
-              onClick={() => scrollToSection("pl-prefs-datos")}
+              dataAttr="prefs-general-odds"
+              onClick={() => setGeneralModal("odds")}
             />
             <SettingsRow
               icon="ticket"
               title="Casas preferidas"
               subtitle="Prioritarias MX y referencia sharp (máx. 12)"
               value={formatPreferredBooksSummary(boundedPreferredBooks)}
-              onClick={() => scrollToSection("pl-prefs-datos")}
+              dataAttr="prefs-general-books"
+              onClick={() => setGeneralModal("books")}
             />
             <SettingsRow
               icon="bookmark"
               title="Vistas guardadas"
               subtitle="Filtros rápidos y accesos fijados en Inicio"
               value={`${savedViews.length}/${MAX_SAVED_VIEWS_PREF}`}
-              onClick={() => scrollToSection("pl-prefs-vistas")}
+              dataAttr="prefs-general-views"
+              onClick={() => setGeneralModal("views")}
             />
             <SettingsRow
               icon="bell"
               title="Notificaciones"
               subtitle="Alertas de valor, picks y app móvil"
               value={`${activeAlertsCount} activas`}
-              onClick={() => scrollToSection("pl-prefs-alertas")}
+              dataAttr="prefs-general-alerts"
+              onClick={() => setGeneralModal("alerts")}
             />
           </SettingsGroup>
 
@@ -1317,376 +1523,163 @@ export function PrefsTab({
                   className="pl-acct-search-input"
                   value={leagueSearch}
                   onChange={(e) => setLeagueSearch(e.target.value)}
-                  placeholder="Buscar liga o copa (Liga MX, Champions, MLS, MLB…)"
-                  aria-label="Filtrar ligas disponibles"
+                  placeholder="Buscar liga, país o deporte (Liga MX, México, NBA…)"
+                  aria-label="Filtrar ligas por nombre, país o deporte"
                 />
               </div>
 
-              <div className="space-y-4" role="group" aria-label="Ligas">
-                {groupedLeagues.map(({ region, items }) => (
-                  <div key={region.key} className="space-y-2">
-                    <p className="m-0 text-[11px] font-bold uppercase tracking-wider text-[var(--pl-text-muted)]">
-                      {region.label}
-                    </p>
-                    <div className="pl-acct-league-grid">
-                      {items.map((league) => {
-                        const isSelected = favoriteLeagues.includes(league.id);
-                        return (
-                          <button
-                            key={league.id}
-                            type="button"
-                            className="pl-acct-league-pill"
-                            data-league-toggle={league.id}
-                            aria-pressed={isSelected}
-                            onClick={() => handleToggleLeague(league.id)}
-                          >
-                            <LeagueBadge league={league.id} size={20} />
-                            <span>{league.name}</span>
-                            {!league.active ? (
-                              <span className="pl-prefs-pause-tag">En pausa</span>
-                            ) : null}
-                          </button>
-                        );
-                      })}
-                    </div>
-                  </div>
-                ))}
+              <div
+                className="pl-prefs-sport-tabs"
+                role="tablist"
+                aria-label="Filtrar ligas por deporte"
+                aria-orientation="horizontal"
+                {...({ focusgroup: "tablist nomemory" } as React.HTMLAttributes<HTMLDivElement>)}
+              >
+                {sportTabs.map((tab) => {
+                  const selected = leagueSportFilter === tab.key;
+                  return (
+                    <button
+                      key={tab.key}
+                      type="button"
+                      role="tab"
+                      className="pl-prefs-sport-tab"
+                      data-prefs-sport-tab={tab.key}
+                      aria-selected={selected}
+                      tabIndex={selected ? 0 : -1}
+                      onClick={() => setLeagueSportFilter(tab.key)}
+                      onKeyDown={(e) =>
+                        handleRovingTablistKeyDown(
+                          e,
+                          sportTabs.map((item) => item.key),
+                          tab.key,
+                          setLeagueSportFilter,
+                        )
+                      }
+                      {...(selected
+                        ? ({ focusgroupstart: "" } as React.ButtonHTMLAttributes<HTMLButtonElement>)
+                        : {})}
+                    >
+                      <span>{tab.label}</span>
+                      <span className="pl-prefs-sport-tab-count num">{tab.count}</span>
+                    </button>
+                  );
+                })}
               </div>
+
+              {groupedLeagues.length === 0 ? (
+                <SofascoreEmptyState
+                  title="No encontramos competencias con ese filtro"
+                  description={
+                    leagueSearch.trim()
+                      ? "Prueba otro nombre, país o deporte, o activa «Ver en pausa»."
+                      : "Activa «Ver en pausa» para mostrar ligas fuera de temporada."
+                  }
+                  actionLabel="Mostrar todas las ligas"
+                  onAction={() => {
+                    setLeagueSearch("");
+                    setLeagueSportFilter("all");
+                  }}
+                />
+              ) : (
+                <div className="pl-prefs-sport-list" role="group" aria-label="Ligas por deporte y país">
+                  {groupedLeagues.map(({ sport, countries, selectedCount }) => (
+                    <section
+                      key={sport.key}
+                      className="pl-prefs-sport-group"
+                      data-prefs-sport-group={sport.key}
+                    >
+                      <header className="pl-prefs-sport-head">
+                        <h3 className="pl-prefs-sport-title">{sport.label}</h3>
+                        <span className="pl-prefs-sport-meta num">
+                          {selectedCount} {selectedCount === 1 ? "activa" : "activas"}
+                        </span>
+                      </header>
+                      <div className="pl-prefs-country-list">
+                        {countries.map(({ country, items }) => {
+                          const flag = resolveCountryAccordionFlag(country);
+                          const selectedInCountry = items.filter((league) =>
+                            favoriteLeagues.includes(league.id),
+                          ).length;
+                          const forceOpen = leagueSearch.trim().length > 0;
+                          return (
+                            <details
+                              key={`${sport.key}-${country}`}
+                              className="pl-prefs-country-acc"
+                              data-prefs-country-group={country}
+                              open={forceOpen ? true : undefined}
+                            >
+                              <summary className="pl-prefs-country-row">
+                                <span className="pl-prefs-country-lead">
+                                  {flag ? (
+                                    <span className="pl-prefs-country-flag" aria-hidden="true">
+                                      <img
+                                        src={resolveThemedPackUrl(flag.src, iconBase)}
+                                        srcSet={resolveThemedPackSrcSet(flag.srcSet, iconBase)}
+                                        width={22}
+                                        height={16}
+                                        alt=""
+                                        loading="lazy"
+                                        decoding="async"
+                                      />
+                                    </span>
+                                  ) : (
+                                    <span className="pl-prefs-country-flag-fallback" aria-hidden="true">
+                                      <MaestroIcon name="globe" size={16} />
+                                    </span>
+                                  )}
+                                  <span className="pl-prefs-country-name">{country}</span>
+                                </span>
+                                <span className="pl-prefs-country-trail">
+                                  <span className="pl-prefs-country-count num">
+                                    {selectedInCountry > 0
+                                      ? `${selectedInCountry}/${items.length}`
+                                      : items.length}
+                                  </span>
+                                  <span className="pl-prefs-country-chev" aria-hidden="true">
+                                    <MaestroIcon name="chevronLeft" size={14} />
+                                  </span>
+                                </span>
+                              </summary>
+                              <div className="pl-prefs-country-body">
+                                <div className="pl-acct-league-grid">
+                                  {items.map((league) => {
+                                    const isSelected = favoriteLeagues.includes(league.id);
+                                    return (
+                                      <button
+                                        key={league.id}
+                                        type="button"
+                                        className="pl-acct-league-pill"
+                                        data-league-toggle={league.id}
+                                        aria-pressed={isSelected}
+                                        onClick={() => handleToggleLeague(league.id)}
+                                      >
+                                        <LeagueBadge league={league.id} size={20} />
+                                        <span>{league.name}</span>
+                                        {isSelected ? (
+                                          <MaestroIcon name="check" size={12} />
+                                        ) : null}
+                                        {!league.active ? (
+                                          <span className="pl-prefs-pause-tag">En pausa</span>
+                                        ) : null}
+                                      </button>
+                                    );
+                                  })}
+                                </div>
+                              </div>
+                            </details>
+                          );
+                        })}
+                      </div>
+                    </section>
+                  ))}
+                </div>
+              )}
 
               {lastLeagueWarn ? (
                 <p role="alert" className="pl-acct-prefs-warn" data-last-league-warning="">
                   Deja al menos una liga activa.
                 </p>
               ) : null}
-            </div>
-          </SofascoreCard>
-
-          <SofascoreCard
-            id="pl-prefs-datos"
-            title="Cómo ves los datos"
-            className="pl-acct-prefs-card"
-          >
-            <div className="pl-acct-prefs-rows">
-              <div className="pl-acct-prefs-row">
-                <div className="pl-acct-prefs-row-copy">
-                  <b id={oddsLabelId} className="pl-acct-prefs-row-title">
-                    Formato de momio
-                  </b>
-                  <span className="pl-acct-prefs-row-detail num">{oddsPreview.detail}</span>
-                  <span
-                    className="inline-flex items-center gap-1.5 mt-1.5 text-[11px] font-semibold num text-[var(--pl-text-secondary)]"
-                    data-odds-format-preview=""
-                  >
-                    <span className="pl-pill pl-pill--brand text-[11px] num">
-                      Ej. justo {oddsPreview.sampleFair}
-                    </span>
-                  </span>
-                </div>
-                <PrefsSegment
-                  labelledBy={oddsLabelId}
-                  value={oddsFormat}
-                  onChange={handleOddsChange}
-                  dataAttr="data-odds-format-opt"
-                  options={[
-                    { value: "american", label: "Americano" },
-                    { value: "decimal", label: "Decimal" },
-                  ]}
-                />
-              </div>
-
-              <div className="pl-acct-prefs-row">
-                <div className="pl-acct-prefs-row-copy">
-                  <b id={themeLabelId} className="pl-acct-prefs-row-title">
-                    Tema
-                  </b>
-                  <span className="pl-acct-prefs-row-detail">
-                    «Sistema» sigue el ajuste de tu teléfono o computadora.
-                  </span>
-                </div>
-                <PrefsSegment
-                  labelledBy={themeLabelId}
-                  value={prefs.themeMode}
-                  onChange={handleThemeChange}
-                  options={[
-                    { value: "dark", label: "Oscuro" },
-                    { value: "light", label: "Claro" },
-                    { value: "system", label: "Sistema" },
-                  ]}
-                />
-              </div>
-
-              <div className="pl-acct-prefs-row">
-                <div className="pl-acct-prefs-row-copy">
-                  <label
-                    id={`${tzSelectId}-label`}
-                    htmlFor={tzSelectId}
-                    className="pl-acct-prefs-row-title"
-                  >
-                    Horario de los partidos
-                  </label>
-                  <span className="pl-acct-prefs-row-detail">
-                    Todas las horas de la app usan esta zona.
-                  </span>
-                </div>
-                <PlSelect
-                  id={tzSelectId}
-                  ariaLabelledBy={`${tzSelectId}-label`}
-                  variant="field"
-                  size="md"
-                  fullWidth={false}
-                  popoverWidth="min-trigger"
-                  triggerClassName="pl-acct-select-trigger"
-                  value={prefs.timezone}
-                  onChange={(nextTz) => {
-                    const prevTz = prefs.timezone;
-                    updatePrefs((prev) => ({ ...prev, timezone: nextTz }));
-                    setUserTimezone(nextTz);
-                    void persistServerPrefs({ timezone: nextTz }, () => {
-                      setUserTimezone(prevTz);
-                      setPrefs((curr) => {
-                        const reverted = { ...curr, timezone: prevTz };
-                        writeStoredPrefs(reverted);
-                        return reverted;
-                      });
-                    });
-                  }}
-                  options={timezoneOptions}
-                />
-              </div>
-
-              <div
-                className="pl-acct-pesos-divider space-y-3 py-4 min-w-0"
-                data-preferred-books-section=""
-              >
-                <div className="flex flex-wrap items-start justify-between gap-2.5 min-w-0">
-                  <div className="min-w-0 flex-1">
-                    <div className="flex flex-wrap items-center gap-2">
-                      <b className="pl-acct-prefs-row-title">Casas preferidas</b>
-                      <span className="pl-pill pl-pill--brand text-[11px] num">
-                        Prioridad MX · {boundedPreferredBooks.length}/{MAX_PREFERRED_BOOKMAKERS_PREF}
-                      </span>
-                    </div>
-                    <span className="pl-acct-prefs-row-detail block mt-0.5">
-                      Mostramos primero el mejor momio capturado entre tus casas frente al momio
-                      justo de Spacetime v5.1 (corte menor a 72 h, sin enlaces de afiliado).
-                    </span>
-                  </div>
-                  {!allPriorityMxSelected ? (
-                    <Button
-                      type="button"
-                      variant="secondary"
-                      size="sm"
-                      data-select-priority-mx-books=""
-                      onClick={handleSelectPriorityMxBooks}
-                    >
-                      Activar Top 5 MX
-                    </Button>
-                  ) : null}
-                </div>
-
-                {maxBooksWarn ? (
-                  <p role="alert" className="pl-acct-prefs-warn">
-                    Límite de {MAX_PREFERRED_BOOKMAKERS_PREF} casas preferidas alcanzado. Desactiva
-                    una para elegir otra.
-                  </p>
-                ) : null}
-
-                <div className="space-y-2 min-w-0" data-priority-mx-books="">
-                  <p className="m-0 text-[11px] font-bold uppercase tracking-wider text-[var(--pl-brand)]">
-                    Prioritarias en México y línea sharp
-                  </p>
-                  <div
-                    className="flex flex-wrap gap-2"
-                    role="group"
-                    aria-label="Casas prioritarias en México"
-                  >
-                    {bookmakerGroups.priorityMx.map((book) => {
-                      const active = boundedPreferredBooks.includes(book.id);
-                      const hint = book.id === "pinnacle" ? "Sharp · Ref." : book.regionHint;
-                      return (
-                        <button
-                          key={book.id}
-                          type="button"
-                          className="pl-acct-league-pill pl-acct-chip-btn"
-                          data-book-toggle={book.id}
-                          data-book-priority="mx"
-                          aria-pressed={active}
-                          onClick={() => handleToggleBook(book.id)}
-                        >
-                          {active ? (
-                            <MaestroIcon
-                              name="check"
-                              size={12}
-                              className="text-[var(--pl-brand)]"
-                            />
-                          ) : null}
-                          <span className="font-bold">{book.label}</span>
-                          <span
-                            className={`text-[11px] ${
-                              active ? "text-[var(--pl-brand)]" : "text-[var(--pl-text-muted)]"
-                            }`}
-                          >
-                            {hint}
-                          </span>
-                        </button>
-                      );
-                    })}
-                  </div>
-                </div>
-
-                <div className="space-y-2 min-w-0 pt-1" data-other-books="">
-                  <p className="m-0 text-[11px] font-bold uppercase tracking-wider text-[var(--pl-text-muted)]">
-                    Otras casas disponibles
-                  </p>
-                  <div
-                    className="flex flex-wrap gap-2"
-                    role="group"
-                    aria-label="Otras casas de referencia"
-                  >
-                    {bookmakerGroups.others.map((book) => {
-                      const active = boundedPreferredBooks.includes(book.id);
-                      return (
-                        <button
-                          key={book.id}
-                          type="button"
-                          className="pl-acct-league-pill pl-acct-chip-btn"
-                          data-book-toggle={book.id}
-                          aria-pressed={active}
-                          onClick={() => handleToggleBook(book.id)}
-                        >
-                          {active ? <MaestroIcon name="check" size={12} /> : null}
-                          <span className="font-bold">{book.label}</span>
-                          <span className="text-[11px] text-[var(--pl-text-muted)]">
-                            {book.regionHint}
-                          </span>
-                        </button>
-                      );
-                    })}
-                  </div>
-                </div>
-              </div>
-            </div>
-          </SofascoreCard>
-
-          <SofascoreCard
-            id="pl-prefs-vistas"
-            title="Vistas guardadas"
-            meta={`${savedViews.length}/${MAX_SAVED_VIEWS_PREF} · ${pinnedViewsCount} en Inicio`}
-            className="pl-acct-prefs-card"
-          >
-            <div className="space-y-4" data-saved-views-prefs="">
-              <p className="pl-acct-prefs-lead m-0">
-                Guarda combinaciones de filtros para Explorar picks (hasta {MAX_SAVED_VIEWS_PREF})
-                y fija tus favoritas como acceso directo en Inicio.
-              </p>
-
-              {savedViews.length === 0 ? (
-                <SofascoreEmptyState
-                  title="Aún no tienes vistas guardadas"
-                  description="Crea una vista rápida abajo o guárdala desde Explorar picks para fijarla en Inicio."
-                />
-              ) : (
-                <SofascoreTable
-                  caption="Vistas guardadas de filtros y fijado en Inicio"
-                  columns={savedViewsColumns}
-                  rows={savedViews}
-                  rowKey={(view) => view.id}
-                  density="compact"
-                />
-              )}
-
-              <form
-                onSubmit={handleCreateSavedView}
-                className="pl-acct-view-form"
-                aria-label="Crear vista guardada"
-                noValidate
-              >
-                <div className="pl-acct-view-form-grid">
-                  <div className="pl-acct-field">
-                    <label htmlFor={viewNameInputId} className="pl-acct-field-label">
-                      Nombre de la vista
-                    </label>
-                    <input
-                      id={viewNameInputId}
-                      type="text"
-                      name="savedViewName"
-                      maxLength={40}
-                      autoComplete="off"
-                      enterKeyHint="done"
-                      placeholder="Ej. EV+ Fútbol hoy"
-                      value={newViewName}
-                      onChange={(e) => {
-                        setNewViewName(e.target.value);
-                        if (savedViewError) setSavedViewError(null);
-                      }}
-                      className="pl-acct-input"
-                    />
-                  </div>
-
-                  <div className="pl-acct-field">
-                    <label
-                      id={`${viewSportSelectId}-label`}
-                      htmlFor={viewSportSelectId}
-                      className="pl-acct-field-label"
-                    >
-                      Deporte
-                    </label>
-                    <PlSelect
-                      id={viewSportSelectId}
-                      ariaLabelledBy={`${viewSportSelectId}-label`}
-                      variant="field"
-                      size="md"
-                      fullWidth
-                      popoverWidth="trigger"
-                      triggerClassName="pl-acct-select-trigger"
-                      value={newViewSport}
-                      onChange={(nextSport) => setNewViewSport(nextSport)}
-                      options={SAVED_VIEW_SPORT_OPTIONS}
-                    />
-                  </div>
-                </div>
-
-                <div className="pl-acct-view-form-foot">
-                  <div className="flex flex-wrap items-center gap-4">
-                    <label className="pl-acct-check-label">
-                      <input
-                        type="checkbox"
-                        checked={newViewEvOnly}
-                        onChange={(e) => setNewViewEvOnly(e.target.checked)}
-                        className="pl-acct-checkbox"
-                      />
-                      <span>Solo EV+</span>
-                    </label>
-
-                    <label className="pl-acct-check-label">
-                      <input
-                        type="checkbox"
-                        checked={newViewPinHome}
-                        onChange={(e) => setNewViewPinHome(e.target.checked)}
-                        className="pl-acct-checkbox"
-                      />
-                      <span>Fijar en Inicio</span>
-                    </label>
-                  </div>
-
-                  <Button
-                    type="submit"
-                    variant="secondary"
-                    size="sm"
-                    disabled={savedViews.length >= MAX_SAVED_VIEWS_PREF}
-                    data-create-saved-view=""
-                  >
-                    <MaestroIcon name="plus" size={14} />
-                    <span>Guardar vista</span>
-                  </Button>
-                </div>
-
-                {savedViewError ? (
-                  <p role="alert" className="pl-acct-prefs-warn">
-                    {savedViewError}
-                  </p>
-                ) : null}
-              </form>
             </div>
           </SofascoreCard>
 
@@ -1821,106 +1814,6 @@ export function PrefsTab({
           </SofascoreCard>
 
           <SofascoreCard
-            id="pl-prefs-alertas"
-            title="Alertas"
-            meta="En la app y por correo"
-            className="pl-acct-prefs-card"
-          >
-            <div className="pl-acct-prefs-rows">
-              {ALERT_ITEMS.map((item) => {
-                const titleId = `${baseId}-alert-${item.key}`;
-                const descId = `${baseId}-alert-desc-${item.key}`;
-                const serverAlertField =
-                  item.key === "valueAlerts"
-                    ? "emailValueAlerts"
-                    : item.key === "beforeMatch"
-                      ? "emailBeforeMatch"
-                      : item.key === "pickSettled"
-                        ? "emailPickResults"
-                        : "emailBillingReminder";
-                return (
-                  <div key={item.key} className="pl-acct-prefs-row pl-acct-prefs-row--switch">
-                    <div className="pl-acct-prefs-row-copy">
-                      <b id={titleId} className="pl-acct-prefs-row-title">
-                        {item.title}
-                      </b>
-                      <span id={descId} className="pl-acct-prefs-row-detail">
-                        {item.detail}
-                      </span>
-                    </div>
-                    <Switch
-                      aria-labelledby={titleId}
-                      aria-describedby={descId}
-                      isSelected={prefs.alerts[item.key]}
-                      onChange={(next) => {
-                        const prevValue = prefs.alerts[item.key];
-                        updatePrefs((prev) => ({
-                          ...prev,
-                          alerts: { ...prev.alerts, [item.key]: next },
-                        }));
-                        void persistServerPrefs({ [serverAlertField]: next }, () => {
-                          setPrefs((curr) => {
-                            const reverted = {
-                              ...curr,
-                              alerts: { ...curr.alerts, [item.key]: prevValue },
-                            };
-                            writeStoredPrefs(reverted);
-                            return reverted;
-                          });
-                        });
-                      }}
-                      className="pl-acct-switch"
-                    >
-                      <Switch.Control className="pl-acct-switch-control">
-                        <Switch.Thumb className="pl-acct-switch-thumb" />
-                      </Switch.Control>
-                    </Switch>
-                  </div>
-                );
-              })}
-
-              <div className="pl-acct-prefs-row" data-alert-cadence-row="">
-                <div className="pl-acct-prefs-row-copy">
-                  <b id={`${baseId}-cadence-title`} className="pl-acct-prefs-row-title">
-                    Frecuencia de avisos en vivo
-                  </b>
-                  <span className="pl-acct-prefs-row-detail">
-                    Controla cada cuánto recibes alertas de movimiento de línea o hitos de tus
-                    picks.
-                  </span>
-                </div>
-                <PrefsSegment<AlertCadence>
-                  labelledBy={`${baseId}-cadence-title`}
-                  value={prefs.alertCadence}
-                  dataAttr="data-alert-cadence"
-                  options={[
-                    { value: "inmediato", label: "Inmediato" },
-                    { value: "cada_15m", label: "Cada 15 min" },
-                    { value: "solo_hitos", label: "Solo hitos" },
-                  ]}
-                  onChange={(nextCadence) => {
-                    const prevCadence = prefs.alertCadence;
-                    updatePrefs((prev) => ({ ...prev, alertCadence: nextCadence }));
-                    void persistServerPrefs({ alertCadence: nextCadence }, () => {
-                      setPrefs((curr) => {
-                        const reverted = { ...curr, alertCadence: prevCadence };
-                        writeStoredPrefs(reverted);
-                        return reverted;
-                      });
-                    });
-                  }}
-                />
-              </div>
-
-              <PwaAndPushSection
-                accountsEnabled={accountsEnabled}
-                canPersistServer={canPersistServer}
-                onNotifyToast={(msg, tone) => pushToast(msg, tone)}
-              />
-            </div>
-          </SofascoreCard>
-
-          <SofascoreCard
             id="pl-prefs-privacidad"
             title="Privacidad"
             className="pl-acct-prefs-card"
@@ -1978,78 +1871,22 @@ export function PrefsTab({
             </div>
           </SofascoreCard>
 
-          <SofascoreCard
-            id="pl-prefs-descanso"
-            title="Juego responsable"
-            className="pl-acct-prefs-card"
-          >
-            <div className="space-y-4">
-              <p className="pl-acct-prefs-lead m-0">
-                Si quieres alejarte un tiempo, pausa tu cuenta para dejar de ver picks y alertas
-                durante el periodo que elijas.
-              </p>
-
-              {prefs.pauseChoice === null ? (
-                <div className="pl-acct-break-controls">
-                  <span className="pl-acct-pesos-label">Tomar un descanso de</span>
-                  <PrefsSegment
-                    ariaLabel="Duración del descanso"
-                    value={pendingBreak}
-                    onChange={setPendingBreak}
-                    options={BREAK_OPTIONS}
-                  />
-                  <Button
-                    type="button"
-                    variant="secondary"
-                    onClick={() => setConfirmKind("pause")}
-                  >
-                    Pausar mi cuenta
-                  </Button>
-                </div>
-              ) : (
-                <div role="status" className="pl-acct-pause-banner">
-                  <span>
-                    {hasAccountSessionAuth
-                      ? `Descanso activo (${selectedBreakLabel}) guardado en tu cuenta.`
-                      : `Descanso elegido (${selectedBreakLabel}). La pausa se aplicará cuando se active tu cuenta.`}
-                  </span>
-                  <Button
-                    type="button"
-                    variant="secondary"
-                    size="sm"
-                    onClick={() => {
-                      const prevChoice = prefs.pauseChoice;
-                      const prevChosenAt = prefs.pauseChosenAtIso;
-                      updatePrefs((prev) => ({
-                        ...prev,
-                        pauseChoice: null,
-                        pauseChosenAtIso: null,
-                      }));
-                      void persistServerPrefs({ responsiblePauseKind: null }, () => {
-                        setPrefs((curr) => {
-                          const reverted = {
-                            ...curr,
-                            pauseChoice: prevChoice,
-                            pauseChosenAtIso: prevChosenAt,
-                          };
-                          writeStoredPrefs(reverted);
-                          return reverted;
-                        });
-                      });
-                    }}
-                  >
-                    Deshacer
-                  </Button>
-                </div>
-              )}
-
-              <a href="/legal/juego-responsable" className="pl-acct-help-link">
-                Recursos de ayuda y juego responsable
-              </a>
-            </div>
-          </SofascoreCard>
-
           <div id="pl-prefs-soporte" className="space-y-4">
+            <SettingsGroup title="Bienestar">
+              <SettingsRow
+                icon="responsible-play"
+                title="Juego responsable"
+                subtitle="Pausa voluntaria de 24 h, 7 o 30 días, límites y líneas de ayuda +18"
+                value={formatPauseChoiceLabel(prefs.pauseChoice)}
+                href="/app/juego-responsable"
+                dataAttr="prefs-responsible-play-row"
+                onClick={(e) => {
+                  e.preventDefault();
+                  navigateTo("/app/juego-responsable");
+                }}
+              />
+            </SettingsGroup>
+
             <SettingsGroup title="Soporte">
               <SettingsRow
                 icon="sparkles"
@@ -2144,6 +1981,573 @@ export function PrefsTab({
         </div>
       </div>
 
+      <TopLayerModalDialog
+        open={generalModal !== null && generalModalMeta !== null}
+        onClose={() => setGeneralModal(null)}
+        ariaLabelledBy={modalTitleId}
+        maxWidth={generalModalMeta?.maxWidth ?? "32rem"}
+        dialogClassName="pl-prefs-modal"
+      >
+        {generalModal && generalModalMeta ? (
+          <div className="pl-prefs-modal-shell" data-prefs-general-modal={generalModal}>
+            <header className="pl-prefs-modal-head">
+              <div className="min-w-0">
+                <h2 id={modalTitleId} className="pl-prefs-modal-title">
+                  {generalModalMeta.title}
+                </h2>
+                <p className="pl-prefs-modal-sub">{generalModalMeta.subtitle}</p>
+              </div>
+              <button
+                type="button"
+                className="pl-prefs-modal-close"
+                aria-label="Cerrar ventana"
+                onClick={() => setGeneralModal(null)}
+              >
+                <MaestroIcon name="x" size={16} />
+              </button>
+            </header>
+
+            <div className="pl-prefs-modal-body">
+              {generalModal === "theme" ? (
+                <div className="space-y-4" data-prefs-modal-theme="">
+                  <div className="pl-prefs-modal-row">
+                    <b id={themeLabelId} className="pl-acct-prefs-row-title">
+                      Apariencia
+                    </b>
+                    <PrefsSegment
+                      labelledBy={themeLabelId}
+                      value={prefs.themeMode}
+                      onChange={handleThemeChange}
+                      dataAttr="data-theme-mode-opt"
+                      options={[
+                        { value: "dark", label: "Oscuro" },
+                        { value: "light", label: "Claro" },
+                        { value: "system", label: "Sistema" },
+                      ]}
+                    />
+                  </div>
+                  <p className="pl-acct-prefs-lead m-0">
+                    {prefs.themeMode === "system"
+                      ? `Sistema (actualmente ${systemTheme === "light" ? "claro" : "oscuro"}). Cambiará automáticamente cuando ajustes el tema de tu dispositivo.`
+                      : `Usando tema ${prefs.themeMode === "light" ? "claro" : "oscuro"} en todas las pantallas de PitchLab.`}
+                  </p>
+                </div>
+              ) : null}
+
+              {generalModal === "timezone" ? (
+                <div className="space-y-3" data-prefs-modal-timezone="">
+                  {deviceTimezone ? (
+                    <button
+                      type="button"
+                      className="pl-prefs-tz-auto-btn"
+                      data-tz-use-device=""
+                      aria-pressed={prefs.timezone === deviceTimezone}
+                      onClick={() => handleTimezoneChange(deviceTimezone)}
+                    >
+                      <span className="pl-prefs-tz-auto-lead">
+                        <MaestroIcon name="globe" size={15} />
+                        <span>
+                          Usar horario de este dispositivo ·{" "}
+                          <strong>{formatTimezoneShortLabel(deviceTimezone)}</strong>
+                        </span>
+                      </span>
+                      <span className="pl-prefs-tz-clock num">
+                        {tzReferenceNow
+                          ? formatCurrentTimeInTimezone(deviceTimezone, tzReferenceNow)
+                          : ""}
+                      </span>
+                    </button>
+                  ) : null}
+
+                  <div className="pl-prefs-league-search">
+                    <MaestroIcon name="search" size={14} />
+                    <input
+                      type="search"
+                      enterKeyHint="search"
+                      autoCorrect="off"
+                      autoCapitalize="none"
+                      spellCheck={false}
+                      className="pl-acct-search-input"
+                      data-tz-search=""
+                      value={tzSearch}
+                      onChange={(e) => {
+                        setTzSearch(e.target.value);
+                        setTzVisibleCount(TZ_VISIBLE_PAGE);
+                      }}
+                      placeholder="Buscar ciudad, país, zona o UTC (Tokio, Madrid, UTC+9…)"
+                      aria-label="Buscar cualquier zona horaria del mundo"
+                    />
+                  </div>
+
+                  {!tzSearch.trim() && tzRegionTabs.length > 1 ? (
+                    <div
+                      className="pl-prefs-sport-tabs"
+                      role="tablist"
+                      aria-label="Filtrar zonas horarias por región"
+                      aria-orientation="horizontal"
+                      {...({ focusgroup: "tablist nomemory" } as React.HTMLAttributes<HTMLDivElement>)}
+                    >
+                      {tzRegionTabs.map((tab) => {
+                        const selected = tzRegion === tab.key;
+                        return (
+                          <button
+                            key={tab.key}
+                            type="button"
+                            role="tab"
+                            className="pl-prefs-sport-tab"
+                            aria-selected={selected}
+                            tabIndex={selected ? 0 : -1}
+                            onClick={() => {
+                              setTzRegion(tab.key);
+                              setTzVisibleCount(TZ_VISIBLE_PAGE);
+                            }}
+                            onKeyDown={(e) =>
+                              handleRovingTablistKeyDown(
+                                e,
+                                tzRegionTabs.map((item) => item.key),
+                                tab.key,
+                                (next) => {
+                                  setTzRegion(next);
+                                  setTzVisibleCount(TZ_VISIBLE_PAGE);
+                                },
+                              )
+                            }
+                            {...(selected
+                              ? ({ focusgroupstart: "" } as React.ButtonHTMLAttributes<HTMLButtonElement>)
+                              : {})}
+                          >
+                            <span>{tab.label}</span>
+                          </button>
+                        );
+                      })}
+                    </div>
+                  ) : null}
+
+                  {filteredTimezones.length === 0 ? (
+                    <SofascoreEmptyState
+                      title="No encontramos esa zona horaria"
+                      description="Busca por ciudad, país, identificador IANA (ej. Asia/Tokyo) o desplazamiento UTC."
+                      actionLabel="Ver todas las zonas"
+                      onAction={() => {
+                        setTzSearch("");
+                        setTzRegion("all");
+                        setTzVisibleCount(TZ_VISIBLE_PAGE);
+                      }}
+                    />
+                  ) : (
+                    <>
+                      <div
+                        className="pl-prefs-tz-list"
+                        role="radiogroup"
+                        aria-labelledby={modalTitleId}
+                        id={tzSelectId}
+                      >
+                        {filteredTimezones.slice(0, tzVisibleCount).map((opt) => {
+                          const checked = opt.value === prefs.timezone;
+                          const localClock = tzReferenceNow
+                            ? formatCurrentTimeInTimezone(opt.value, tzReferenceNow)
+                            : "";
+                          return (
+                            <button
+                              key={opt.value}
+                              type="button"
+                              role="radio"
+                              aria-checked={checked}
+                              data-tz-option={opt.value}
+                              className="pl-prefs-tz-option"
+                              onClick={() => handleTimezoneChange(opt.value)}
+                            >
+                              <span className="pl-prefs-tz-copy">
+                                <span className="pl-prefs-tz-name">{opt.city}</span>
+                                <span className="pl-prefs-tz-utc">
+                                  {opt.value === "UTC" ? "UTC" : `${opt.value} · ${opt.region}`}
+                                </span>
+                              </span>
+                              <span className="pl-prefs-tz-meta num">
+                                {localClock ? <span className="pl-prefs-tz-clock">{localClock}</span> : null}
+                                {opt.offsetLabel ? (
+                                  <span className="pl-prefs-tz-offset">{opt.offsetLabel}</span>
+                                ) : null}
+                                {checked ? <MaestroIcon name="check" size={14} /> : null}
+                              </span>
+                            </button>
+                          );
+                        })}
+                      </div>
+                      {filteredTimezones.length > tzVisibleCount ? (
+                        <div className="flex justify-center pt-1">
+                          <Button
+                            type="button"
+                            variant="secondary"
+                            size="sm"
+                            onClick={() => setTzVisibleCount((n) => n + TZ_VISIBLE_PAGE)}
+                          >
+                            Ver más zonas ({filteredTimezones.length - tzVisibleCount} restantes)
+                          </Button>
+                        </div>
+                      ) : null}
+                    </>
+                  )}
+                </div>
+              ) : null}
+
+              {generalModal === "odds" ? (
+                <div className="space-y-4" data-prefs-modal-odds="">
+                  <div className="pl-prefs-modal-row">
+                    <div className="pl-acct-prefs-row-copy">
+                      <b id={oddsLabelId} className="pl-acct-prefs-row-title">
+                        Formato de momio
+                      </b>
+                      <span className="pl-acct-prefs-row-detail num">{oddsPreview.detail}</span>
+                    </div>
+                    <PrefsSegment
+                      labelledBy={oddsLabelId}
+                      value={oddsFormat}
+                      onChange={handleOddsChange}
+                      dataAttr="data-odds-format-opt"
+                      options={[
+                        { value: "american", label: "Americano" },
+                        { value: "decimal", label: "Decimal" },
+                      ]}
+                    />
+                  </div>
+                  <div className="pl-prefs-modal-preview num" data-odds-format-preview="">
+                    <span>Ejemplo de momio justo:</span>
+                    <strong>{oddsPreview.sampleFair}</strong>
+                  </div>
+                </div>
+              ) : null}
+
+              {generalModal === "books" ? (
+                <div className="space-y-4" data-preferred-books-section="">
+                  <div className="flex flex-wrap items-start justify-between gap-2.5 min-w-0">
+                    <div className="min-w-0 flex-1">
+                      <p className="pl-acct-prefs-lead m-0">
+                        Mostramos primero el mejor momio capturado entre tus casas frente al momio
+                        justo de Spacetime v5.1 ({boundedPreferredBooks.length}/
+                        {MAX_PREFERRED_BOOKMAKERS_PREF} activas, sin enlaces de afiliado).
+                      </p>
+                    </div>
+                    {!allPriorityMxSelected ? (
+                      <Button
+                        type="button"
+                        variant="secondary"
+                        size="sm"
+                        data-select-priority-mx-books=""
+                        onClick={handleSelectPriorityMxBooks}
+                      >
+                        Activar Top 5 MX
+                      </Button>
+                    ) : null}
+                  </div>
+
+                  {maxBooksWarn ? (
+                    <p role="alert" className="pl-acct-prefs-warn">
+                      Límite de {MAX_PREFERRED_BOOKMAKERS_PREF} casas preferidas alcanzado.
+                      Desactiva una para elegir otra.
+                    </p>
+                  ) : null}
+
+                  <div className="space-y-2 min-w-0" data-priority-mx-books="">
+                    <p className="m-0 text-[11px] font-bold uppercase tracking-wider text-[var(--pl-brand)]">
+                      Prioritarias en México y línea sharp
+                    </p>
+                    <div
+                      className="flex flex-wrap gap-2"
+                      role="group"
+                      aria-label="Casas prioritarias en México"
+                    >
+                      {bookmakerGroups.priorityMx.map((book) => {
+                        const active = boundedPreferredBooks.includes(book.id);
+                        const hint = book.id === "pinnacle" ? "Sharp · Ref." : book.regionHint;
+                        return (
+                          <button
+                            key={book.id}
+                            type="button"
+                            className="pl-acct-league-pill pl-acct-chip-btn"
+                            data-book-toggle={book.id}
+                            data-book-priority="mx"
+                            aria-pressed={active}
+                            onClick={() => handleToggleBook(book.id)}
+                          >
+                            {active ? (
+                              <MaestroIcon
+                                name="check"
+                                size={12}
+                                className="text-[var(--pl-brand)]"
+                              />
+                            ) : null}
+                            <span className="font-bold">{book.label}</span>
+                            <span
+                              className={`text-[11px] ${
+                                active ? "text-[var(--pl-brand)]" : "text-[var(--pl-text-muted)]"
+                              }`}
+                            >
+                              {hint}
+                            </span>
+                          </button>
+                        );
+                      })}
+                    </div>
+                  </div>
+
+                  <div className="space-y-2 min-w-0 pt-1" data-other-books="">
+                    <p className="m-0 text-[11px] font-bold uppercase tracking-wider text-[var(--pl-text-muted)]">
+                      Otras casas disponibles
+                    </p>
+                    <div
+                      className="flex flex-wrap gap-2"
+                      role="group"
+                      aria-label="Otras casas de referencia"
+                    >
+                      {bookmakerGroups.others.map((book) => {
+                        const active = boundedPreferredBooks.includes(book.id);
+                        return (
+                          <button
+                            key={book.id}
+                            type="button"
+                            className="pl-acct-league-pill pl-acct-chip-btn"
+                            data-book-toggle={book.id}
+                            aria-pressed={active}
+                            onClick={() => handleToggleBook(book.id)}
+                          >
+                            {active ? <MaestroIcon name="check" size={12} /> : null}
+                            <span className="font-bold">{book.label}</span>
+                            <span className="text-[11px] text-[var(--pl-text-muted)]">
+                              {book.regionHint}
+                            </span>
+                          </button>
+                        );
+                      })}
+                    </div>
+                  </div>
+                </div>
+              ) : null}
+
+              {generalModal === "views" ? (
+                <div className="space-y-4" data-saved-views-prefs="">
+                  <p className="pl-acct-prefs-lead m-0">
+                    Guarda combinaciones de filtros para Explorar picks (hasta{" "}
+                    {MAX_SAVED_VIEWS_PREF}) y fija tus favoritas como acceso directo en Inicio.
+                  </p>
+
+                  {savedViews.length === 0 ? (
+                    <SofascoreEmptyState
+                      title="Aún no tienes vistas guardadas"
+                      description="Crea una vista rápida abajo o guárdala desde Explorar picks para fijarla en Inicio."
+                    />
+                  ) : (
+                    <SofascoreTable
+                      caption="Vistas guardadas de filtros y fijado en Inicio"
+                      columns={savedViewsColumns}
+                      rows={savedViews}
+                      rowKey={(view) => view.id}
+                      density="compact"
+                    />
+                  )}
+
+                  <form
+                    onSubmit={handleCreateSavedView}
+                    className="pl-acct-view-form"
+                    aria-label="Crear vista guardada"
+                    noValidate
+                  >
+                    <div className="pl-acct-view-form-grid">
+                      <div className="pl-acct-field">
+                        <label htmlFor={viewNameInputId} className="pl-acct-field-label">
+                          Nombre de la vista
+                        </label>
+                        <input
+                          id={viewNameInputId}
+                          type="text"
+                          name="savedViewName"
+                          maxLength={40}
+                          autoComplete="off"
+                          enterKeyHint="done"
+                          placeholder="Ej. EV+ Fútbol hoy"
+                          value={newViewName}
+                          onChange={(e) => {
+                            setNewViewName(e.target.value);
+                            if (savedViewError) setSavedViewError(null);
+                          }}
+                          className="pl-acct-input"
+                        />
+                      </div>
+
+                      <div className="pl-acct-field">
+                        <label htmlFor={viewSportSelectId} className="pl-acct-field-label">
+                          Deporte
+                        </label>
+                        <select
+                          id={viewSportSelectId}
+                          value={newViewSport}
+                          onChange={(e) =>
+                            setNewViewSport(e.target.value as AccountSavedViewSport)
+                          }
+                          className="pl-acct-input pl-prefs-native-select"
+                        >
+                          {SAVED_VIEW_SPORT_OPTIONS.map((opt) => (
+                            <option key={opt.value} value={opt.value}>
+                              {opt.label}
+                            </option>
+                          ))}
+                        </select>
+                      </div>
+                    </div>
+
+                    <div className="pl-acct-view-form-foot">
+                      <div className="flex flex-wrap items-center gap-4">
+                        <label className="pl-acct-check-label">
+                          <input
+                            type="checkbox"
+                            checked={newViewEvOnly}
+                            onChange={(e) => setNewViewEvOnly(e.target.checked)}
+                            className="pl-acct-checkbox"
+                          />
+                          <span>Solo EV+</span>
+                        </label>
+
+                        <label className="pl-acct-check-label">
+                          <input
+                            type="checkbox"
+                            checked={newViewPinHome}
+                            onChange={(e) => setNewViewPinHome(e.target.checked)}
+                            className="pl-acct-checkbox"
+                          />
+                          <span>Fijar en Inicio</span>
+                        </label>
+                      </div>
+
+                      <Button
+                        type="submit"
+                        variant="secondary"
+                        size="sm"
+                        disabled={savedViews.length >= MAX_SAVED_VIEWS_PREF}
+                        data-create-saved-view=""
+                      >
+                        <MaestroIcon name="plus" size={14} />
+                        <span>Guardar vista</span>
+                      </Button>
+                    </div>
+
+                    {savedViewError ? (
+                      <p role="alert" className="pl-acct-prefs-warn">
+                        {savedViewError}
+                      </p>
+                    ) : null}
+                  </form>
+                </div>
+              ) : null}
+
+              {generalModal === "alerts" ? (
+                <div className="pl-acct-prefs-rows" data-prefs-modal-alerts="">
+                  {ALERT_ITEMS.map((item) => {
+                    const titleId = `${baseId}-alert-${item.key}`;
+                    const descId = `${baseId}-alert-desc-${item.key}`;
+                    const serverAlertField =
+                      item.key === "valueAlerts"
+                        ? "emailValueAlerts"
+                        : item.key === "beforeMatch"
+                          ? "emailBeforeMatch"
+                          : item.key === "pickSettled"
+                            ? "emailPickResults"
+                            : "emailBillingReminder";
+                    return (
+                      <div key={item.key} className="pl-acct-prefs-row pl-acct-prefs-row--switch">
+                        <div className="pl-acct-prefs-row-copy">
+                          <b id={titleId} className="pl-acct-prefs-row-title">
+                            {item.title}
+                          </b>
+                          <span id={descId} className="pl-acct-prefs-row-detail">
+                            {item.detail}
+                          </span>
+                        </div>
+                        <Switch
+                          aria-labelledby={titleId}
+                          aria-describedby={descId}
+                          isSelected={prefs.alerts[item.key]}
+                          onChange={(next) => {
+                            const prevValue = prefs.alerts[item.key];
+                            updatePrefs((prev) => ({
+                              ...prev,
+                              alerts: { ...prev.alerts, [item.key]: next },
+                            }));
+                            void persistServerPrefs({ [serverAlertField]: next }, () => {
+                              setPrefs((curr) => {
+                                const reverted = {
+                                  ...curr,
+                                  alerts: { ...curr.alerts, [item.key]: prevValue },
+                                };
+                                writeStoredPrefs(reverted);
+                                return reverted;
+                              });
+                            });
+                          }}
+                          className="pl-acct-switch"
+                        >
+                          <Switch.Control className="pl-acct-switch-control">
+                            <Switch.Thumb className="pl-acct-switch-thumb" />
+                          </Switch.Control>
+                        </Switch>
+                      </div>
+                    );
+                  })}
+
+                  <div className="pl-acct-prefs-row" data-alert-cadence-row="">
+                    <div className="pl-acct-prefs-row-copy">
+                      <b id={`${baseId}-cadence-title`} className="pl-acct-prefs-row-title">
+                        Frecuencia de avisos en vivo
+                      </b>
+                      <span className="pl-acct-prefs-row-detail">
+                        Controla cada cuánto recibes alertas de movimiento de línea o hitos de tus
+                        picks.
+                      </span>
+                    </div>
+                    <PrefsSegment<AlertCadence>
+                      labelledBy={`${baseId}-cadence-title`}
+                      value={prefs.alertCadence}
+                      dataAttr="data-alert-cadence"
+                      options={[
+                        { value: "inmediato", label: "Inmediato" },
+                        { value: "cada_15m", label: "Cada 15 min" },
+                        { value: "solo_hitos", label: "Solo hitos" },
+                      ]}
+                      onChange={(nextCadence) => {
+                        const prevCadence = prefs.alertCadence;
+                        updatePrefs((prev) => ({ ...prev, alertCadence: nextCadence }));
+                        void persistServerPrefs({ alertCadence: nextCadence }, () => {
+                          setPrefs((curr) => {
+                            const reverted = { ...curr, alertCadence: prevCadence };
+                            writeStoredPrefs(reverted);
+                            return reverted;
+                          });
+                        });
+                      }}
+                    />
+                  </div>
+
+                  <PwaAndPushSection
+                    accountsEnabled={accountsEnabled}
+                    canPersistServer={canPersistServer}
+                    onNotifyToast={(msg, tone) => pushToast(msg, tone)}
+                  />
+                </div>
+              ) : null}
+            </div>
+
+            <footer className="pl-prefs-modal-foot">
+              <span className="pl-acct-autosave">
+                <span className="pl-acct-autosave-dot" aria-hidden="true" />
+                <span>Se guarda automáticamente</span>
+              </span>
+              <Button type="button" variant="primary" size="sm" onClick={() => setGeneralModal(null)}>
+                Listo
+              </Button>
+            </footer>
+          </div>
+        ) : null}
+      </TopLayerModalDialog>
+
       <FeedbackSupportDialog
         kind={supportModal}
         onClose={() => setSupportModal(null)}
@@ -2153,21 +2557,6 @@ export function PrefsTab({
           pushToast(msg, "success");
         }}
         onErrorToast={(err) => pushToast(err, "warning")}
-      />
-
-      <ConfirmActionDialog
-        open={confirmKind === "pause"}
-        title={`¿Pausar tu cuenta por ${selectedBreakLabel}?`}
-        description={
-          hasAccountSessionAuth
-            ? `Aplicaremos un descanso de ${selectedBreakLabel} en tu cuenta para pausar alertas y avisos durante este periodo.`
-            : `Guardaremos tu elección de descanso por ${selectedBreakLabel}. La pausa se aplicará cuando se active tu cuenta.`
-        }
-        cancelLabel="Cancelar"
-        confirmLabel="Confirmar descanso"
-        tone="brand"
-        onConfirm={handleConfirmPause}
-        onCancel={() => setConfirmKind(null)}
       />
 
       <ConfirmActionDialog

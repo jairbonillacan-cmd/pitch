@@ -55,14 +55,14 @@
   .pl-mc-anchor-tag {
     display: inline-flex;
     align-items: center;
-    min-block-size: 24px;
-    padding: 2px 9px;
-    border-radius: var(--radius-pill, 999px);
-    border: 1px solid var(--pl-pill-brand-border);
+    min-block-size: 22px;
+    padding: 2px 7px;
+    border-radius: 6px;
+    border: 0;
     background: var(--pl-pill-brand-bg);
     color: var(--pl-pill-brand-fg);
     font-size: 0.7rem;
-    font-weight: 750;
+    font-weight: 700;
     line-height: 1.1;
     white-space: nowrap;
   }
@@ -116,9 +116,9 @@
     flex: 0 0 auto;
     min-block-size: 34px;
     padding: 0 11px;
-    border-radius: var(--radius-pill, 999px);
-    border: 1px solid var(--pl-border);
-    background: var(--pl-surface);
+    border-radius: 8px;
+    border: 0;
+    background: var(--pl-surface-elevated);
     color: var(--pl-text-secondary);
     font: inherit;
     font-size: 0.75rem;
@@ -130,7 +130,6 @@
     user-select: none;
     transition:
       background-color var(--time-fast, 120ms) var(--ease-out, ease),
-      border-color var(--time-fast, 120ms) var(--ease-out, ease),
       color var(--time-fast, 120ms) var(--ease-out, ease);
   }
 
@@ -145,9 +144,8 @@
   }
 
   .pl-mc-chip-btn.is-active {
-    background: var(--pl-pill-brand-bg);
-    border-color: var(--pl-pill-brand-border);
-    color: var(--pl-pill-brand-fg);
+    background: var(--pl-surface-active);
+    color: var(--pl-brand);
     font-weight: 750;
   }
 

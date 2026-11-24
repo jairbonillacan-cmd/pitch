@@ -49,7 +49,8 @@ function isAllowedRecoveryRoute(rawPath: string): boolean {
     pathOnly === "/app/account" ||
     pathOnly.startsWith("/app/account/") ||
     pathOnly === "/app/canjear" ||
-    pathOnly.startsWith("/app/canjear/")
+    pathOnly.startsWith("/app/canjear/") ||
+    pathOnly === "/app/juego-responsable"
   );
 }
 

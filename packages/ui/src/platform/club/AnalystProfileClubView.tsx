@@ -28,7 +28,6 @@ import { BadgePickerDialog } from "../components/BadgePickerDialog";
 import {
   MaestroIcon,
   TipsterVerifiedBadge,
-  VerifiedSeal,
 } from "../components/MaestroPrimitives";
 import { AtmosphereStage, ClubWorkspaceShell } from "../components/ShellChrome";
 import { useAbortableJson, useSafeEffect } from "../hooks";
@@ -712,10 +711,9 @@ function ProfileContent({
               <div className="pl-prof-name-row">
                 <h1 id="pl-prof-name" className="pl-prof-name">
                   {profile.name}
-                  {profile.isTipster ? <VerifiedSeal size={20} className="pl-prof-seal" /> : null}
                 </h1>
                 {profile.isTipster ? (
-                  <TipsterVerifiedBadge />
+                  <TipsterVerifiedBadge className="pl-prof-seal" />
                 ) : (
                   <span className="pl-prof-role">Socio</span>
                 )}

@@ -162,9 +162,9 @@
     align-items: center;
     gap: 6px;
     min-block-size: 24px;
-    padding: 2px 9px;
-    border-radius: var(--radius-pill, 999px);
-    border: 1px solid var(--pl-border);
+    padding: 2px 7px;
+    border-radius: 6px;
+    border: 0;
     background: var(--pl-surface-elevated);
     color: var(--pl-text-secondary);
     font-size: 0.72rem;
@@ -273,9 +273,9 @@
     min-block-size: 38px;
     min-inline-size: 44px;
     padding: 0 12px;
-    border-radius: var(--radius-pill, 999px);
-    border: 1px solid var(--pl-border);
-    background: var(--pl-surface);
+    border-radius: 8px;
+    border: 0;
+    background: var(--pl-surface-elevated);
     color: var(--pl-text-secondary);
     font: inherit;
     font-size: 0.8125rem;
@@ -285,7 +285,6 @@
     touch-action: manipulation;
     transition:
       background-color var(--time-fast, 120ms) var(--ease-out, ease),
-      border-color var(--time-fast, 120ms) var(--ease-out, ease),
       color var(--time-fast, 120ms) var(--ease-out, ease);
   }
 
@@ -295,9 +294,8 @@
   }
 
   .pl-ed-league-btn[aria-pressed="true"] {
-    border-color: var(--pl-brand);
-    background: var(--pl-pill-brand-bg);
-    color: var(--pl-pill-brand-fg);
+    background: var(--pl-surface-active);
+    color: var(--pl-brand);
   }
 
   .pl-ed-league-btn:focus-visible {
@@ -948,7 +946,7 @@
     min-inline-size: 44px;
     padding: 8px 12px;
     border-radius: var(--radius-control, 8px);
-    border: 1px solid var(--pl-border-strong);
+    border: 0;
     background: var(--pl-surface-elevated);
     color: var(--pl-text);
     font: inherit;
@@ -958,7 +956,6 @@
     touch-action: manipulation;
     transition:
       background-color var(--time-fast, 120ms) var(--ease-out, ease),
-      border-color var(--time-fast, 120ms) var(--ease-out, ease),
       color var(--time-fast, 120ms) var(--ease-out, ease);
   }
 
@@ -967,9 +964,8 @@
   }
 
   .pl-rp-pause-btn[aria-pressed="true"] {
-    border-color: var(--pl-brand);
-    background: var(--pl-pill-brand-bg);
-    color: var(--pl-pill-brand-fg);
+    background: var(--pl-surface-active);
+    color: var(--pl-brand);
   }
 
   .pl-rp-pause-btn:focus-visible {
@@ -1011,8 +1007,8 @@
     min-block-size: 44px;
     min-inline-size: 96px;
     padding: 0 14px;
-    border-radius: var(--radius-pill, 999px);
-    border: 1px solid var(--pl-border-strong);
+    border-radius: 8px;
+    border: 0;
     background: var(--pl-surface-elevated);
     color: var(--pl-text);
     font: inherit;
@@ -1022,12 +1018,10 @@
     touch-action: manipulation;
     transition:
       background-color var(--time-fast, 120ms) var(--ease-out, ease),
-      border-color var(--time-fast, 120ms) var(--ease-out, ease),
       color var(--time-fast, 120ms) var(--ease-out, ease);
   }
 
   .pl-rp-switch[aria-checked="true"] {
-    border-color: var(--pl-brand);
     background: var(--pl-brand);
     color: var(--pl-on-primary, var(--on-primary));
   }

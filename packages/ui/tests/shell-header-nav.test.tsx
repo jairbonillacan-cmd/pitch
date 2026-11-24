@@ -24,7 +24,7 @@ describe("ClubLayoutShell header navigation", () => {
     expect(html).toContain("pl-header-nav-overlay");
     expect(html).toContain("rail-group-toggle");
     expect(html).toContain('aria-expanded="false"');
-    expect(html).toContain("Ligas y selecciones");
+    expect(html).not.toContain("pl-header-nav-ligas");
     expect(html).toContain("Buscar picks");
     expect(html).toContain("Compara tu momio");
     expect(html).toContain("Resultados");

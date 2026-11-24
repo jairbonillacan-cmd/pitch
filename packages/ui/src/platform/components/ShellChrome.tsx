@@ -17,10 +17,10 @@ import {
   isNationalCompetition,
   type LeagueId,
 } from "@pitchlab/contracts";
-import { LIGHT_THEME_TOKENS, STAGE_DARK_TOKENS } from "@pitchlab/tokens";
 import { usePackIconBase } from "../../pack-icon-theme";
 import { BrandLogo, ThemeToggle } from "../../primitives";
 import { EmblemSurfaceProvider, LeagueBadge } from "../../sports";
+import { THEME_CHANGE_EVENT, applyThemeMode } from "../../theme-controller";
 import { useSafeEffect } from "../hooks";
 import { ProgressiveImage } from "./ProgressiveImage";
 import { encodeForensicTag, getSessionWatermark } from "../access-guard";
@@ -152,31 +152,17 @@ function useDocumentTheme(): "dark" | "light" {
     read();
     const obs = new MutationObserver(read);
     obs.observe(root, { attributes: true, attributeFilter: ["data-theme"] });
-    return () => obs.disconnect();
+    window.addEventListener(THEME_CHANGE_EVENT, read);
+    return () => {
+      obs.disconnect();
+      window.removeEventListener(THEME_CHANGE_EVENT, read);
+    };
   }, []);
   return theme;
 }
 
-function applyTheme(next: "dark" | "light"): void {
-  const root = document.documentElement;
-  if ((root.dataset.theme === "light" ? "light" : "dark") === next) return;
-  root.dataset.themeSwitching = "true";
-  root.dataset.theme = next;
-  root.style.colorScheme = next;
-  const meta = document.querySelector<HTMLMetaElement>('meta[name="theme-color"]:not([media])');
-  if (meta) {
-    meta.content =
-      next === "light"
-        ? LIGHT_THEME_TOKENS["--background-elevated"]
-        : STAGE_DARK_TOKENS["--pl-glass-nav"];
-  }
-  void root.offsetHeight;
-  delete root.dataset.themeSwitching;
-  try {
-    window.localStorage.setItem("pl-theme", next);
-  } catch (err) {
-    void err;
-  }
+function applyTheme(next: "dark" | "light", syncServer = false): void {
+  applyThemeMode(next, { persistStorage: true, syncServer });
 }
 
 export type VisualStyle = "solid" | "glass";
@@ -798,7 +784,7 @@ function ClubWorkspaceShellImpl({
   initialHomeSport = ALL,
   initialHomeLeague = ALL,
 }: ClubWorkspaceShellProps): React.JSX.Element {
-  const { dataset, viewerRole, allowRoleSimulation, oddsFormat, favoriteLeagues, viewerIdentity, hasAccountSession, upgradeHref, userTimezone } = usePlatformCore();
+  const { dataset, viewerRole, allowRoleSimulation, oddsFormat, favoriteLeagues, viewerIdentity, hasAccountSession, hasAccountSessionAuth, upgradeHref, userTimezone } = usePlatformCore();
   const { setViewerRole, setCmdkOpen, logoutSession, navigateTo, prefetchRoute, requestFullShell, setOddsFormat } = usePlatformActions();
   const { parlayLegs } = useParlayState();
   const journal = useJournalEntries();
@@ -936,7 +922,7 @@ function ClubWorkspaceShellImpl({
           label: "Ayuda",
           items: [
             { href: "/app/tech", label: "Cómo calculamos", icon: "cpu" },
-            { href: "/legal/juego-responsable", label: "Juego responsable", icon: "responsible-play" },
+            { href: "/app/juego-responsable", label: "Juego responsable", icon: "responsible-play" },
           ],
         },
       ] satisfies ProfileMenuGroup[];
@@ -990,7 +976,7 @@ function ClubWorkspaceShellImpl({
       label: "Ayuda",
       items: [
         { href: "/app/tech", label: "Cómo calculamos", icon: "cpu" },
-        { href: "/legal/juego-responsable", label: "Juego responsable", icon: "responsible-play" },
+        { href: "/app/juego-responsable", label: "Juego responsable", icon: "responsible-play" },
       ],
     });
     return groups;
@@ -1151,14 +1137,6 @@ function ClubWorkspaceShellImpl({
     () => activeDatasetLeagues.filter((lg) => isNationalCompetition(lg.league)),
     [activeDatasetLeagues],
   );
-  const activeLeaguePage = useMemo(
-    () =>
-      dataset.leagues.some((lg) => {
-        const href = `/app/${lg.league}`;
-        return activePath === href || activePath.startsWith(`${href}/`);
-      }),
-    [activePath, dataset.leagues],
-  );
 
   const navExploreHints: Record<string, string> = {
     "/app/picks": "Filtros por cuota, deporte y probabilidad",
@@ -1247,24 +1225,6 @@ function ClubWorkspaceShellImpl({
                       </a>
                     );
                   })}
-
-                  <span className="pl-header-nav-sep" aria-hidden="true" />
-
-                  <button
-                    type="button"
-                    aria-label="Ligas y selecciones"
-                    data-nav-group="primary"
-                    data-active={activeLeaguePage ? "true" : undefined}
-                    className="pl-header-nav-icon pl-header-nav-ligas"
-                    onClick={handleNavTriggerClick}
-                  >
-                    <span className="pl-header-nav-glyph">
-                      <MaestroIcon name="trophy" size={16} />
-                    </span>
-                    <span className="pl-header-nav-label-wrap" aria-hidden="true">
-                      <span className="pl-header-nav-label">Ligas</span>
-                    </span>
-                  </button>
 
                   <span className="pl-header-nav-sep" aria-hidden="true" />
 
@@ -1786,7 +1746,7 @@ function ClubWorkspaceShellImpl({
                   <MenuSegment<"dark" | "light">
                     labelledBy={`${profileMenuId}-theme`}
                     value={docTheme}
-                    onChange={applyTheme}
+                    onChange={(next) => applyTheme(next, hasAccountSessionAuth)}
                     dataAttr="data-theme-option"
                     options={[
                       { value: "dark", label: "Oscuro", icon: "moon" },

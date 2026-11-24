@@ -9,6 +9,7 @@ import {
   type BadgeState,
   type BadgeView,
 } from "../../badges";
+import { BadgeInfoTrigger } from "../../components/BadgeInfoTrigger";
 import { useAbortableJson, useSafeEffect } from "../../hooks";
 
 const VALID_BADGE_SLUGS = new Set([
@@ -90,16 +91,14 @@ export function BadgeChip({
   className?: string;
 }): React.JSX.Element {
   return (
-    <span
+    <BadgeInfoTrigger
+      badgeId={badge.id}
+      family={badge.family}
+      label={badge.label}
+      criterion={badge.criterion}
+      size={size === "sm" ? 16 : 20}
       className={`pl-badge-chip pl-badge-chip--${size}${className ? ` ${className}` : ""}`}
-      title={badge.criterion}
-    >
-      <BadgeGlyph family={badge.family} badgeId={badge.id} size={size === "sm" ? 14 : 16} />
-      <span>
-        <span className="sr-only">Insignia: </span>
-        {badge.label}
-      </span>
-    </span>
+    />
   );
 }
 

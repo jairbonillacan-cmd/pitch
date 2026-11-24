@@ -953,34 +953,31 @@
     justify-content: center;
     gap: 6px;
     padding: 0 11px;
-    border-radius: 999px;
-    border: 1px solid var(--pl-border);
+    border-radius: 8px;
+    border: 0;
     background: var(--pl-surface-elevated);
     color: var(--pl-text-secondary);
     font: inherit;
     font-size: 0.75rem;
-    font-weight: 700;
+    font-weight: 650;
     line-height: 1;
     white-space: nowrap;
     cursor: pointer;
     touch-action: manipulation;
     transition:
       background-color 140ms ease,
-      border-color 140ms ease,
       color 140ms ease;
   }
 
   .pl-home-md-parlay-chip:hover {
     background: var(--pl-surface-hover);
-    border-color: var(--pl-border-strong);
     color: var(--pl-text);
   }
 
   .pl-home-md-parlay-chip.has-legs,
   .pl-home-md-parlay-chip.is-active {
-    background: var(--pl-pill-brand-bg);
-    color: var(--pl-pill-brand-fg);
-    border-color: var(--pl-pill-brand-border);
+    background: var(--pl-surface-active);
+    color: var(--pl-brand);
   }
 
   .pl-home-md-parlay-chip:focus-visible,
@@ -1949,8 +1946,8 @@
     flex-direction: column;
     gap: 2px;
     padding: 9px 11px;
-    border-radius: 12px;
-    border: 1px solid var(--pl-border);
+    border-radius: 10px;
+    border: 0;
     background: var(--pl-surface-elevated);
   }
 
@@ -1991,14 +1988,14 @@
     flex-direction: column;
     gap: 9px;
     padding: 12px 14px;
-    border-radius: 14px;
-    border: 1px solid var(--pl-border);
+    border-radius: 12px;
+    border: 0;
     background: var(--pl-surface-elevated);
     min-inline-size: 0;
   }
 
   .pl-home-md-pick-card.is-primary {
-    border-color: var(--pl-pill-brand-border);
+    background: var(--pl-surface-elevated);
   }
 
   .pl-home-md-pick-head {
@@ -2044,29 +2041,26 @@
   }
 
   .pl-home-md-settled-pill {
-    padding: 2px 7px;
-    border-radius: 999px;
+    padding: 2px 6px;
+    border-radius: 5px;
     font-size: 0.68rem;
-    font-weight: 800;
-    border: 1px solid var(--pl-border);
+    font-weight: 750;
+    border: 0;
   }
 
   .pl-home-md-settled-pill.is-hit {
     background: var(--pl-pill-success-bg);
     color: var(--pl-pill-success-fg);
-    border-color: var(--pl-pill-success-border);
   }
 
   .pl-home-md-settled-pill.is-miss {
     background: var(--pl-pill-danger-bg);
     color: var(--pl-pill-danger-fg);
-    border-color: var(--pl-pill-danger-border);
   }
 
   .pl-home-md-settled-pill.is-push {
     background: var(--pl-pill-warning-bg);
     color: var(--pl-pill-warning-fg);
-    border-color: var(--pl-pill-warning-border);
   }
 
   .pl-home-md-pick-pricing {
@@ -2080,9 +2074,9 @@
     display: inline-flex;
     align-items: center;
     gap: 5px;
-    padding: 3px 8px;
-    border-radius: 8px;
-    border: 1px solid var(--pl-border);
+    padding: 2px 7px;
+    border-radius: 6px;
+    border: 0;
     background: var(--pl-surface);
     font-size: 0.72rem;
     color: var(--pl-text-secondary);
@@ -2094,19 +2088,19 @@
   }
 
   .pl-home-md-price-chip.is-book {
-    border-color: var(--pl-pill-brand-border);
+    color: var(--pl-text);
   }
 
   .pl-home-md-ev-badge {
     display: inline-flex;
     align-items: center;
-    padding: 3px 8px;
-    border-radius: 999px;
+    padding: 2px 6px;
+    border-radius: 5px;
     background: var(--pl-pill-success-bg);
     color: var(--pl-pill-success-fg);
-    border: 1px solid var(--pl-pill-success-border);
+    border: 0;
     font-size: 0.7rem;
-    font-weight: 800;
+    font-weight: 750;
   }
 
   .pl-home-md-panel .pl-ev-win-strip {
@@ -2119,36 +2113,48 @@
     display: inline-flex;
     align-items: center;
     gap: 4px;
-    padding: 2px 7px;
-    border-radius: 7px;
-    border: 1px solid var(--pl-border);
+    padding: 2px 6px;
+    border-radius: 5px;
+    border: 0;
     background: var(--pl-surface);
     font-size: 0.7rem;
     color: var(--pl-text-secondary);
   }
 
   .pl-home-md-panel .pl-ev-win-pill.is-high {
-    background: var(--pl-pill-success-bg);
+    background: var(--pl-surface);
+    color: var(--pl-text-secondary);
+  }
+
+  .pl-home-md-panel .pl-ev-win-pill.is-high .pl-ev-win-val {
     color: var(--pl-pill-success-fg);
-    border-color: var(--pl-pill-success-border);
   }
 
   .pl-home-md-panel .pl-ev-win-pill.is-mid {
-    background: var(--pl-pill-warning-bg);
+    background: var(--pl-surface);
+    color: var(--pl-text-secondary);
+  }
+
+  .pl-home-md-panel .pl-ev-win-pill.is-mid .pl-ev-win-val {
     color: var(--pl-pill-warning-fg);
-    border-color: var(--pl-pill-warning-border);
   }
 
   .pl-home-md-panel .pl-ev-win-pill.is-low {
-    background: var(--pl-pill-danger-bg);
+    background: var(--pl-surface);
+    color: var(--pl-text-secondary);
+  }
+
+  .pl-home-md-panel .pl-ev-win-pill.is-low .pl-ev-win-val {
     color: var(--pl-pill-danger-fg);
-    border-color: var(--pl-pill-danger-border);
   }
 
   .pl-home-md-panel .pl-ev-win-pill.is-info {
-    background: var(--pl-pill-info-bg);
+    background: var(--pl-surface);
+    color: var(--pl-text-secondary);
+  }
+
+  .pl-home-md-panel .pl-ev-win-pill.is-info .pl-ev-win-val {
     color: var(--pl-pill-info-fg);
-    border-color: var(--pl-pill-info-border);
   }
 
   .pl-home-md-panel .pl-ev-win-key {

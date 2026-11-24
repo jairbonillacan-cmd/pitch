@@ -3,23 +3,23 @@
     display: inline-flex;
     flex-wrap: wrap;
     align-items: center;
-    gap: 6px;
-    padding: 4px;
-    border-radius: 12px;
-    border: 1px solid var(--pl-border);
+    gap: 3px;
+    padding: 3px;
+    border-radius: 10px;
+    border: 0;
     background: var(--pl-surface-elevated);
   }
 
   .pl-mdp-switcher-btn {
     appearance: none;
-    border: 1px solid transparent;
+    border: 0;
     background: transparent;
     color: var(--pl-text-secondary);
-    border-radius: 9px;
+    border-radius: 7px;
     padding: 7px 14px;
     min-block-size: 36px;
     font-size: 0.82rem;
-    font-weight: 700;
+    font-weight: 650;
     line-height: 1.1;
     cursor: pointer;
     display: inline-flex;
@@ -27,7 +27,6 @@
     gap: 7px;
     transition:
       background-color 140ms ease,
-      border-color 140ms ease,
       color 140ms ease;
   }
 
@@ -36,9 +35,9 @@
   }
 
   .pl-mdp-switcher-btn.is-active {
-    background: var(--pl-pill-brand-bg);
-    border-color: var(--pl-pill-brand-border);
-    color: var(--pl-pill-brand-fg);
+    background: var(--pl-surface);
+    color: var(--pl-text);
+    font-weight: 750;
   }
 
   .pl-mdp-pp-shell {
@@ -212,9 +211,9 @@
     display: inline-flex;
     align-items: center;
     gap: 5px;
-    padding: 4px 8px;
-    border-radius: 8px;
-    border: 1px solid var(--pl-border);
+    padding: 3px 7px;
+    border-radius: 6px;
+    border: 0;
     background: var(--pl-surface-elevated);
     font-size: 0.75rem;
     font-weight: 750;
@@ -222,7 +221,6 @@
   }
 
   .pl-mdp-pp-odds-chip.is-fair {
-    border-color: var(--pl-pill-brand-border);
     background: var(--pl-pill-brand-bg);
     color: var(--pl-pill-brand-fg);
   }
@@ -230,13 +228,13 @@
   .pl-mdp-pp-ev-badge {
     display: inline-flex;
     align-items: center;
-    padding: 3px 7px;
-    border-radius: 999px;
+    padding: 2px 6px;
+    border-radius: 5px;
     background: var(--pl-pill-success-bg, var(--pl-surface-elevated));
-    border: 1px solid var(--pl-pill-success-border, var(--pl-border));
-    color: var(--pl-success);
+    border: 0;
+    color: var(--pl-pill-success-fg, var(--pl-success));
     font-size: 0.7rem;
-    font-weight: 800;
+    font-weight: 750;
   }
 
   .pl-mdp-pp-actions {
@@ -303,28 +301,26 @@
     gap: 8px;
     padding: 8px 10px;
     min-block-size: 38px;
-    border-radius: 10px;
-    border: 1px solid var(--pl-border);
+    border-radius: 8px;
+    border: 0;
     background: var(--pl-surface-elevated);
     color: var(--pl-text-secondary);
     font-size: 0.78rem;
     font-weight: 650;
     cursor: pointer;
     transition:
-      border-color 140ms ease,
       background-color 140ms ease,
       color 140ms ease;
   }
 
   .pl-mdp-rail-btn:hover {
-    border-color: var(--pl-border-strong);
+    background: var(--pl-surface-hover);
     color: var(--pl-text);
   }
 
   .pl-mdp-rail-btn.is-active {
-    border-color: var(--pl-pill-brand-border);
-    background: var(--pl-pill-brand-bg);
-    color: var(--pl-pill-brand-fg);
+    background: var(--pl-surface-active);
+    color: var(--pl-brand);
     font-weight: 750;
   }
 

@@ -203,23 +203,17 @@ export const STAGE_DARK_TOKENS = {
   "--pl-locked-surface": "#120F1E",
   "--pl-compare-surface": "#120F1E",
   "--pl-pill-brand-fg": "#DDD6FE",
-  "--pl-pill-brand-bg": "rgba(139, 92, 246, 0.16)",
-  "--pl-pill-brand-border": "rgba(196, 181, 253, 0.30)",
+  "--pl-pill-brand-bg": "rgba(139, 92, 246, 0.12)",
   "--pl-pill-cortex-fg": "#FBCFE8",
-  "--pl-pill-cortex-bg": "rgba(236, 72, 153, 0.15)",
-  "--pl-pill-cortex-border": "rgba(249, 168, 212, 0.30)",
+  "--pl-pill-cortex-bg": "rgba(236, 72, 153, 0.12)",
   "--pl-pill-success-fg": "#6EE7B7",
-  "--pl-pill-success-bg": "rgba(16, 185, 129, 0.14)",
-  "--pl-pill-success-border": "rgba(110, 231, 183, 0.28)",
+  "--pl-pill-success-bg": "rgba(16, 185, 129, 0.11)",
   "--pl-pill-warning-fg": "#FBBF24",
-  "--pl-pill-warning-bg": "rgba(245, 158, 11, 0.14)",
-  "--pl-pill-warning-border": "rgba(251, 191, 36, 0.28)",
+  "--pl-pill-warning-bg": "rgba(245, 158, 11, 0.11)",
   "--pl-pill-danger-fg": "#FECDD3",
-  "--pl-pill-danger-bg": "rgba(244, 63, 94, 0.15)",
-  "--pl-pill-danger-border": "rgba(253, 164, 175, 0.28)",
+  "--pl-pill-danger-bg": "rgba(244, 63, 94, 0.12)",
   "--pl-pill-info-fg": "#7DD3FC",
-  "--pl-pill-info-bg": "rgba(14, 165, 233, 0.14)",
-  "--pl-pill-info-border": "rgba(125, 211, 252, 0.28)"
+  "--pl-pill-info-bg": "rgba(14, 165, 233, 0.11)"
 } as const;
 
 export type BrandTokenKey = keyof typeof BRAND_TOKENS;
