@@ -11,6 +11,7 @@ import { PlatformGamesSupplement } from "@pitchlab/ui/games-supplement";
 import { MatchStudioClubView } from "@pitchlab/ui/match-studio";
 import { normalizeMatchTab } from "@pitchlab/ui/match-tab";
 import { MatchDetailSkeleton } from "@pitchlab/ui/route-skeletons";
+import { yieldForStreamFlush } from "../../../../../src/server/club-shell-viewer";
 import {
   loadGameDetail,
   loadGameSummary,
@@ -39,6 +40,7 @@ async function CanonicalMatchStreamContent({
   gameId: string;
   initialTab: ResolvedMatchTab;
 }): Promise<React.JSX.Element> {
+  await yieldForStreamFlush();
   const writeup = loadCortexWriteup(league, gameId);
   const [access, detail, summary, leagueStandings] = await Promise.all([
     writeup ? getViewerAccess() : Promise.resolve(null),

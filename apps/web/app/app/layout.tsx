@@ -13,6 +13,10 @@ import { ClubShellBridge } from "../../src/client/club-shell-bridge";
 import { PlatformClientBridge } from "../../src/client/platform-client-bridge";
 import { sanitizeNextPath } from "../../src/server/beta-auth";
 import { resolveClubRoute } from "../../src/server/club-route-guard";
+import {
+  loadClubShellViewerState,
+  shouldDeferLayoutDataset,
+} from "../../src/server/club-shell-viewer";
 import { loadClubPlatformState, loadMonth1Flag } from "../../src/server/platform-data";
 import {
   playerExistsInSnapshots,
@@ -69,16 +73,28 @@ export default async function ClubAppLayout({
     redirect(`/signup?paso=2&via=cuenta&next=${encodeURIComponent(safeNext)}`);
   }
 
+  const envelopeMemo = new Map<
+    ProductLeague,
+    ReturnType<typeof loadLeagueSnapshotEnvelope>
+  >();
+  const getEnvelope = (league: ProductLeague) => {
+    const cached = envelopeMemo.get(league);
+    if (cached) return cached;
+    const loaded = loadLeagueSnapshotEnvelope(league);
+    envelopeMemo.set(league, loaded);
+    return loaded;
+  };
+
   const routeCheck = resolveClubRoute(rawClubPath, {
     isLeague: isProductLeague,
     gameExists: (league, gameSlugOrId) => {
       if (!isProductLeague(league)) return false;
-      const env = loadLeagueSnapshotEnvelope(league);
+      const env = getEnvelope(league);
       return env.data ? resolveGameBySlugOrId(env.data.games, gameSlugOrId) !== null : false;
     },
     canonicalGameHrefFor: (league, gameSlugOrId) => {
       if (!isProductLeague(league)) return null;
-      const env = loadLeagueSnapshotEnvelope(league);
+      const env = getEnvelope(league);
       const found = env.data ? resolveGameBySlugOrId(env.data.games, gameSlugOrId) : null;
       return found ? canonicalGameHref(league, found) : null;
     },
@@ -104,10 +120,16 @@ export default async function ClubAppLayout({
     if (!handle || !(await loadClubProfile(handle, access.via === "beta"))) notFound();
   }
 
-  const state = await loadClubPlatformState("member", {
-    access,
-    serverMonth1NoCardMode,
-  });
+  const resolvedPath = routeCheck.kind === "ok" ? routeCheck.pathname : safeNext;
+  const state = shouldDeferLayoutDataset(resolvedPath)
+    ? await loadClubShellViewerState("member", {
+        access,
+        serverMonth1NoCardMode,
+      })
+    : await loadClubPlatformState("member", {
+        access,
+        serverMonth1NoCardMode,
+      });
   const passExpired =
     access.via === "account" &&
     !access.fullAccess &&

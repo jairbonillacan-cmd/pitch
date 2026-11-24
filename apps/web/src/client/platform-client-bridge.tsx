@@ -29,6 +29,21 @@ type ShellTeamEntry = NonNullable<PlatformDataset["teams"]>[number];
 
 const MAX_PREFETCHED_ROUTES = 80;
 
+const EAGER_EXTEND_PATHS: ReadonlySet<string> = new Set([
+  "/app/parlays",
+  "/app/social",
+  "/app/lab",
+  "/app/momios",
+  "/app/props",
+  "/app/tipster",
+]);
+
+function requiresImmediateShellExtend(rawPath: string | null | undefined): boolean {
+  if (!rawPath) return false;
+  const clean = (rawPath.split(/[?#]/, 1)[0] ?? "/").replace(/\/+$/, "") || "/";
+  return EAGER_EXTEND_PATHS.has(clean) || clean.startsWith("/app/u/");
+}
+
 function mergeShellExtension(
   base: PlatformDataset,
   extraGames: readonly PlatformGame[],
@@ -108,54 +123,131 @@ export function PlatformClientBridge({
   const prefetchedRef = useRef<Set<string>>(new Set());
   const extendStartedRef = useRef<boolean>(false);
   const extendDoneRef = useRef<boolean>(!deferredShellExtend);
-  const prevViewerScopeRef = useRef<string>(
-    `${initialRole}:${viewerIdentity?.handle ?? "anon"}`,
-  );
+  const extendedPayloadRef = useRef<{
+    scope: string;
+    games: PlatformGame[];
+    teams: ShellTeamEntry[];
+  } | null>(null);
+  const viewerScope = `${initialRole}:${viewerIdentity?.handle ?? "anon"}:${dataset.isServerRedactedForVisitor ? "1" : "0"}`;
+  const prevViewerScopeRef = useRef<string>(viewerScope);
 
   useEffect(() => {
-    const nextScope = `${initialRole}:${viewerIdentity?.handle ?? "anon"}`;
-    if (prevViewerScopeRef.current !== nextScope) {
-      prevViewerScopeRef.current = nextScope;
+    if (prevViewerScopeRef.current !== viewerScope) {
+      prevViewerScopeRef.current = viewerScope;
       invalidateClientJsonCache();
+      extendedPayloadRef.current = null;
+      extendStartedRef.current = false;
+      extendDoneRef.current = !deferredShellExtend;
+      setActiveDataset(dataset);
+      return;
+    }
+    const cachedExtended = extendedPayloadRef.current;
+    if (cachedExtended && cachedExtended.scope === viewerScope) {
+      extendDoneRef.current = true;
+      startBackgroundTransition(() => {
+        setActiveDataset(
+          mergeShellExtension(dataset, cachedExtended.games, cachedExtended.teams),
+        );
+      });
+      return;
     }
     setActiveDataset(dataset);
     extendStartedRef.current = false;
     extendDoneRef.current = !deferredShellExtend;
-  }, [dataset, deferredShellExtend, initialRole, viewerIdentity?.handle]);
+  }, [dataset, deferredShellExtend, viewerScope]);
+
+  const triggerFullShell = useCallback(
+    (background: boolean) => {
+      if (!deferredShellExtend || extendStartedRef.current || extendDoneRef.current) return;
+      extendStartedRef.current = true;
+      const requestScope = prevViewerScopeRef.current;
+      const fetchInit: RequestInit & { priority?: "high" | "low" | "auto" } = {
+        credentials: "same-origin",
+        priority: background ? "low" : "auto",
+      };
+      void fetch("/api/shell/extend", fetchInit)
+        .then((res) => (res.ok ? res.json() : null))
+        .then((payload: { games?: PlatformGame[]; teams?: ShellTeamEntry[] } | null) => {
+          if (!payload) {
+            extendStartedRef.current = false;
+            return;
+          }
+          if (prevViewerScopeRef.current !== requestScope) {
+            return;
+          }
+          const extraGames = Array.isArray(payload.games) ? payload.games : [];
+          const extraTeams = Array.isArray(payload.teams) ? payload.teams : [];
+          extendedPayloadRef.current = {
+            scope: requestScope,
+            games: extraGames,
+            teams: extraTeams,
+          };
+          extendDoneRef.current = true;
+          startBackgroundTransition(() => {
+            setActiveDataset((prev) => mergeShellExtension(prev, extraGames, extraTeams));
+          });
+        })
+        .catch((err) => {
+          void err;
+          extendStartedRef.current = false;
+        });
+    },
+    [deferredShellExtend],
+  );
 
   const requestFullShell = useCallback(() => {
-    if (!deferredShellExtend || extendStartedRef.current || extendDoneRef.current) return;
-    extendStartedRef.current = true;
-    void fetch("/api/shell/extend", { credentials: "same-origin" })
-      .then((res) => (res.ok ? res.json() : null))
-      .then((payload: { games?: PlatformGame[]; teams?: ShellTeamEntry[] } | null) => {
-        if (!payload) {
-          extendStartedRef.current = false;
-          return;
-        }
-        extendDoneRef.current = true;
-        const extraGames = Array.isArray(payload.games) ? payload.games : [];
-        const extraTeams = Array.isArray(payload.teams) ? payload.teams : [];
-        startBackgroundTransition(() => {
-          setActiveDataset((prev) => mergeShellExtension(prev, extraGames, extraTeams));
-        });
-      })
-      .catch((err) => {
-        void err;
-        extendStartedRef.current = false;
-      });
-  }, [deferredShellExtend]);
+    triggerFullShell(false);
+  }, [triggerFullShell]);
+
+  const requestFullShellBackground = useCallback(() => {
+    triggerFullShell(true);
+  }, [triggerFullShell]);
 
   useEffect(() => {
     if (!deferredShellExtend || extendDoneRef.current) return;
     if (typeof window === "undefined") return;
-    if (typeof window.requestIdleCallback === "function") {
-      const id = window.requestIdleCallback(() => requestFullShell(), { timeout: 1400 });
-      return () => window.cancelIdleCallback(id);
+    if (requiresImmediateShellExtend(pathname)) {
+      requestFullShell();
+      return;
     }
-    const timer = window.setTimeout(() => requestFullShell(), 500);
-    return () => window.clearTimeout(timer);
-  }, [deferredShellExtend, requestFullShell]);
+    let cancelled = false;
+    let idleHandle: number | null = null;
+    let timerHandle: number | null = null;
+    const scheduleIdle = () => {
+      if (cancelled || extendStartedRef.current || extendDoneRef.current) return;
+      if (typeof window.requestIdleCallback === "function") {
+        idleHandle = window.requestIdleCallback(
+          () => {
+            if (!cancelled) requestFullShellBackground();
+          },
+          { timeout: 1200 },
+        );
+        return;
+      }
+      timerHandle = window.setTimeout(() => {
+        if (!cancelled) requestFullShellBackground();
+      }, 80);
+    };
+    const rafHandle =
+      typeof window.requestAnimationFrame === "function"
+        ? window.requestAnimationFrame(() => scheduleIdle())
+        : null;
+    if (rafHandle === null) {
+      timerHandle = window.setTimeout(scheduleIdle, 80);
+    }
+    return () => {
+      cancelled = true;
+      if (rafHandle !== null && typeof window.cancelAnimationFrame === "function") {
+        window.cancelAnimationFrame(rafHandle);
+      }
+      if (idleHandle !== null && typeof window.cancelIdleCallback === "function") {
+        window.cancelIdleCallback(idleHandle);
+      }
+      if (timerHandle !== null) {
+        window.clearTimeout(timerHandle);
+      }
+    };
+  }, [deferredShellExtend, pathname, requestFullShell, requestFullShellBackground]);
 
   useEffect(() => {
     setNavPending(false);
@@ -192,6 +284,9 @@ export function PlatformClientBridge({
     (href: string) => {
       const safeHref = sanitizeInternalHref(href);
       if (!safeHref) return;
+      if (requiresImmediateShellExtend(safeHref)) {
+        requestFullShell();
+      }
       if (typeof window !== "undefined") {
         const currentPath = window.location.pathname;
         const nextPath = safeHref.split("?")[0] || "/";
@@ -213,7 +308,7 @@ export function PlatformClientBridge({
         });
       });
     },
-    [router],
+    [requestFullShell, router],
   );
 
   return (
