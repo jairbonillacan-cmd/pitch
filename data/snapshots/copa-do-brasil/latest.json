@@ -5,7 +5,7 @@
   "season": "copa-do-brasil-2026",
   "seasonLabel": "2026",
   "periodLabel": "Round of 16",
-  "updatedAt": "2026-11-23T22:28:20.377Z",
+  "updatedAt": "2026-11-24T21:01:09.804Z",
   "source": "pitchlab-football-v2",
   "provenance": "derived",
   "isDemo": false,
@@ -219,7 +219,7 @@
       "result": {
         "home": 1,
         "away": 3,
-        "observedAt": "2026-11-23T22:28:20.377Z",
+        "observedAt": "2026-11-24T21:01:09.804Z",
         "source": "pitchlab-feed"
       }
     },
@@ -254,7 +254,7 @@
       "result": {
         "home": 3,
         "away": 2,
-        "observedAt": "2026-11-23T22:28:20.377Z",
+        "observedAt": "2026-11-24T21:01:09.804Z",
         "source": "pitchlab-feed"
       }
     },
@@ -289,7 +289,7 @@
       "result": {
         "home": 4,
         "away": 0,
-        "observedAt": "2026-11-23T22:28:20.377Z",
+        "observedAt": "2026-11-24T21:01:09.804Z",
         "source": "pitchlab-feed"
       }
     },
@@ -324,7 +324,7 @@
       "result": {
         "home": 2,
         "away": 1,
-        "observedAt": "2026-11-23T22:28:20.377Z",
+        "observedAt": "2026-11-24T21:01:09.804Z",
         "source": "pitchlab-feed"
       }
     },
@@ -359,7 +359,7 @@
       "result": {
         "home": 1,
         "away": 1,
-        "observedAt": "2026-11-23T22:28:20.377Z",
+        "observedAt": "2026-11-24T21:01:09.804Z",
         "source": "pitchlab-feed"
       }
     },
@@ -394,7 +394,7 @@
       "result": {
         "home": 1,
         "away": 0,
-        "observedAt": "2026-11-23T22:28:20.377Z",
+        "observedAt": "2026-11-24T21:01:09.804Z",
         "source": "pitchlab-feed"
       }
     },
@@ -429,7 +429,7 @@
       "result": {
         "home": 3,
         "away": 0,
-        "observedAt": "2026-11-23T22:28:20.377Z",
+        "observedAt": "2026-11-24T21:01:09.804Z",
         "source": "pitchlab-feed"
       }
     },
@@ -464,7 +464,7 @@
       "result": {
         "home": 0,
         "away": 0,
-        "observedAt": "2026-11-23T22:28:20.377Z",
+        "observedAt": "2026-11-24T21:01:09.804Z",
         "source": "pitchlab-feed"
       }
     },
@@ -499,7 +499,7 @@
       "result": {
         "home": 2,
         "away": 1,
-        "observedAt": "2026-11-23T22:28:20.377Z",
+        "observedAt": "2026-11-24T21:01:09.804Z",
         "source": "pitchlab-feed"
       }
     },
@@ -534,7 +534,7 @@
       "result": {
         "home": 0,
         "away": 0,
-        "observedAt": "2026-11-23T22:28:20.377Z",
+        "observedAt": "2026-11-24T21:01:09.804Z",
         "source": "pitchlab-feed"
       }
     },
@@ -569,7 +569,7 @@
       "result": {
         "home": 0,
         "away": 2,
-        "observedAt": "2026-11-23T22:28:20.377Z",
+        "observedAt": "2026-11-24T21:01:09.804Z",
         "source": "pitchlab-feed"
       }
     },
@@ -604,7 +604,7 @@
       "result": {
         "home": 3,
         "away": 1,
-        "observedAt": "2026-11-23T22:28:20.377Z",
+        "observedAt": "2026-11-24T21:01:09.804Z",
         "source": "pitchlab-feed"
       }
     },
@@ -639,7 +639,7 @@
       "result": {
         "home": 1,
         "away": 0,
-        "observedAt": "2026-11-23T22:28:20.377Z",
+        "observedAt": "2026-11-24T21:01:09.804Z",
         "source": "pitchlab-feed"
       }
     },
@@ -674,7 +674,7 @@
       "result": {
         "home": 2,
         "away": 0,
-        "observedAt": "2026-11-23T22:28:20.377Z",
+        "observedAt": "2026-11-24T21:01:09.804Z",
         "source": "pitchlab-feed"
       }
     },
@@ -709,7 +709,7 @@
       "result": {
         "home": 1,
         "away": 1,
-        "observedAt": "2026-11-23T22:28:20.377Z",
+        "observedAt": "2026-11-24T21:01:09.804Z",
         "source": "pitchlab-feed"
       }
     },
@@ -744,7 +744,7 @@
       "result": {
         "home": 2,
         "away": 1,
-        "observedAt": "2026-11-23T22:28:20.377Z",
+        "observedAt": "2026-11-24T21:01:09.804Z",
         "source": "pitchlab-feed"
       }
     },
@@ -755,7 +755,7 @@
       "week": 29,
       "round": "Final",
       "phase": "Final",
-      "startTime": "2026-12-06T18:00:00.000Z",
+      "startTime": "2026-12-06T19:00:00.000Z",
       "status": "scheduled",
       "home": {
         "id": "copa-do-brasil.gremio",
@@ -1676,11 +1676,11 @@
         "referee": "Rafael Rodrigo Klein",
         "refereeStats": {
           "country": "Brazil",
-          "matches": 76,
-          "avgYellow": 4.34,
-          "avgRed": 0.39,
+          "matches": 78,
+          "avgYellow": 4.5,
+          "avgRed": 0.42,
           "avgFouls": 26.3,
-          "avgGoals": 2.28
+          "avgGoals": 2.29
         },
         "weather": {
           "description": "unknown",
@@ -2136,11 +2136,11 @@
         "referee": "Braulio Da Silva Machado",
         "refereeStats": {
           "country": "Brazil",
-          "matches": 31,
-          "avgYellow": 5.39,
-          "avgRed": 0.13,
+          "matches": 32,
+          "avgYellow": 5.44,
+          "avgRed": 0.19,
           "avgFouls": 24.6,
-          "avgGoals": 2.48
+          "avgGoals": 2.41
         },
         "halfTimeScore": {
           "home": 2,
@@ -2590,11 +2590,11 @@
         "referee": "Felipe Fernandes de Lima",
         "refereeStats": {
           "country": "Brazil",
-          "matches": 54,
+          "matches": 55,
           "avgYellow": 4.98,
           "avgRed": 0.33,
           "avgFouls": 30,
-          "avgGoals": 2.22
+          "avgGoals": 2.24
         },
         "weather": {
           "description": "cloudy",
@@ -3041,11 +3041,11 @@
         "referee": "Flavio Rodrigues De Souza",
         "refereeStats": {
           "country": "Brazil",
-          "matches": 61,
-          "avgYellow": 5.26,
-          "avgRed": 0.3,
+          "matches": 62,
+          "avgYellow": 5.27,
+          "avgRed": 0.29,
           "avgFouls": 25.4,
-          "avgGoals": 2.25
+          "avgGoals": 2.23
         },
         "weather": {
           "description": "rain",
@@ -3492,11 +3492,11 @@
         "referee": "Matheus Delgado Candançan",
         "refereeStats": {
           "country": "Brazil",
-          "matches": 56,
-          "avgYellow": 4.05,
-          "avgRed": 0.27,
+          "matches": 58,
+          "avgYellow": 3.98,
+          "avgRed": 0.29,
           "avgFouls": 25.3,
-          "avgGoals": 2.71
+          "avgGoals": 2.72
         },
         "weather": {
           "temperatureC": 21,
@@ -4393,11 +4393,11 @@
         "referee": "Ramon Abatti Abel",
         "refereeStats": {
           "country": "Brazil",
-          "matches": 64,
-          "avgYellow": 4.92,
+          "matches": 66,
+          "avgYellow": 4.88,
           "avgRed": 0.27,
           "avgFouls": 30.8,
-          "avgGoals": 2.25
+          "avgGoals": 2.23
         },
         "weather": {
           "description": "rain",
@@ -5313,11 +5313,11 @@
         "referee": "Davi de Oliveira Lacerda",
         "refereeStats": {
           "country": "Brazil",
-          "matches": 75,
-          "avgYellow": 4.92,
-          "avgRed": 0.24,
-          "avgFouls": 24,
-          "avgGoals": 2.25
+          "matches": 78,
+          "avgYellow": 4.96,
+          "avgRed": 0.26,
+          "avgFouls": 24.1,
+          "avgGoals": 2.32
         },
         "weather": {
           "description": "unknown",
@@ -5773,11 +5773,11 @@
         "referee": "Rafael Rodrigo Klein",
         "refereeStats": {
           "country": "Brazil",
-          "matches": 76,
-          "avgYellow": 4.34,
-          "avgRed": 0.39,
+          "matches": 78,
+          "avgYellow": 4.5,
+          "avgRed": 0.42,
           "avgFouls": 26.3,
-          "avgGoals": 2.28
+          "avgGoals": 2.29
         },
         "weather": {
           "description": "unknown",
@@ -6679,9 +6679,9 @@
         "referee": "Anderson Daronco",
         "refereeStats": {
           "country": "Brazil",
-          "matches": 91,
-          "avgYellow": 4.88,
-          "avgRed": 0.3,
+          "matches": 92,
+          "avgYellow": 4.87,
+          "avgRed": 0.29,
           "avgFouls": 26.5,
           "avgGoals": 2.36
         },
@@ -7126,11 +7126,11 @@
         "referee": "Davi de Oliveira Lacerda",
         "refereeStats": {
           "country": "Brazil",
-          "matches": 75,
-          "avgYellow": 4.92,
-          "avgRed": 0.24,
-          "avgFouls": 24,
-          "avgGoals": 2.25
+          "matches": 78,
+          "avgYellow": 4.96,
+          "avgRed": 0.26,
+          "avgFouls": 24.1,
+          "avgGoals": 2.32
         },
         "weather": {
           "description": "rain",
@@ -7586,11 +7586,11 @@
         "referee": "Ramon Abatti Abel",
         "refereeStats": {
           "country": "Brazil",
-          "matches": 64,
-          "avgYellow": 4.92,
+          "matches": 66,
+          "avgYellow": 4.88,
           "avgRed": 0.27,
           "avgFouls": 30.8,
-          "avgGoals": 2.25
+          "avgGoals": 2.23
         },
         "weather": {
           "temperatureC": 22,
@@ -8045,11 +8045,11 @@
         "referee": "Braulio Da Silva Machado",
         "refereeStats": {
           "country": "Brazil",
-          "matches": 31,
-          "avgYellow": 5.39,
-          "avgRed": 0.13,
+          "matches": 32,
+          "avgYellow": 5.44,
+          "avgRed": 0.19,
           "avgFouls": 24.6,
-          "avgGoals": 2.48
+          "avgGoals": 2.41
         },
         "weather": {
           "temperatureC": 20,

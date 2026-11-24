@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "league": "mls",
   "season": "2026",
-  "updatedAt": "2026-11-23T22:28:20.377Z",
+  "updatedAt": "2026-11-24T21:01:09.804Z",
   "matches": [
     {
       "id": "mls-2026-07-16-montreal-toronto-uyevum",
@@ -3297,11 +3297,22 @@
       "id": "mls-2026-11-23-vancouver-whit-real-salt-lake-aknepv",
       "date": "2026-11-23",
       "startTime": "2026-11-23T01:30:00.000Z",
-      "round": "Round 1",
+      "round": "League phase",
       "homeTeam": "mls.vancouver-whitecaps",
       "awayTeam": "mls.real-salt-lake",
       "homeScore": 2,
       "awayScore": 0,
+      "neutralSite": false
+    },
+    {
+      "id": "mls-2026-11-24-st-louis-city-los-angeles-m4xs03",
+      "date": "2026-11-24",
+      "startTime": "2026-11-24T01:15:00.000Z",
+      "round": "League phase",
+      "homeTeam": "mls.st-louis-city",
+      "awayTeam": "mls.los-angeles",
+      "homeScore": 3,
+      "awayScore": 2,
       "neutralSite": false
     }
   ]

@@ -4,8 +4,8 @@
   "logoUrl": "https://sports.bzzoiro.com/img/league/9/?bg=transparent",
   "season": "brasileirao-2026",
   "seasonLabel": "2026",
-  "periodLabel": "Regular season · Matchday 21",
-  "updatedAt": "2026-11-23T22:28:20.377Z",
+  "periodLabel": "Regular season · Matchday 35",
+  "updatedAt": "2026-11-24T21:01:09.804Z",
   "source": "pitchlab-football-v2",
   "provenance": "derived",
   "isDemo": false,
@@ -15,11 +15,11 @@
       "name": "Vitória",
       "shortName": "Vitória",
       "code": "VIT",
-      "forPerGame": 0.8888888888888888,
-      "againstPerGame": 1.5,
-      "gamesPlayed": 18,
-      "adjustedFor": 0.8572519843454901,
-      "adjustedAgainst": 1.2295072491973136
+      "forPerGame": 1.105263157894737,
+      "againstPerGame": 1.5263157894736843,
+      "gamesPlayed": 19,
+      "adjustedFor": 1.0271699366750897,
+      "adjustedAgainst": 1.2776100167267646
     },
     "brasileirao.vasco-gama": {
       "teamId": "brasileirao.vasco-gama",
@@ -29,30 +29,30 @@
       "forPerGame": 1.3888888888888888,
       "againstPerGame": 1.2777777777777777,
       "gamesPlayed": 18,
-      "adjustedFor": 1.165982297597817,
-      "adjustedAgainst": 1.0652795127286732
+      "adjustedFor": 1.1869407383365875,
+      "adjustedAgainst": 1.0908061734896441
     },
     "brasileirao.botafogo": {
       "teamId": "brasileirao.botafogo",
       "name": "Botafogo",
       "shortName": "Botafogo",
       "code": "BOT",
-      "forPerGame": 0.8333333333333334,
-      "againstPerGame": 1.4444444444444444,
-      "gamesPlayed": 18,
-      "adjustedFor": 0.8079800231173425,
-      "adjustedAgainst": 1.1933006280114375
+      "forPerGame": 0.8421052631578947,
+      "againstPerGame": 1.4210526315789473,
+      "gamesPlayed": 19,
+      "adjustedFor": 0.8287402677936692,
+      "adjustedAgainst": 1.2143477992982639
     },
     "brasileirao.santos": {
       "teamId": "brasileirao.santos",
       "name": "Santos",
       "shortName": "Santos",
       "code": "SAN",
-      "forPerGame": 1.4705882352941178,
-      "againstPerGame": 1.1764705882352942,
-      "gamesPlayed": 17,
-      "adjustedFor": 1.2178722033851226,
-      "adjustedAgainst": 0.9911182218930116
+      "forPerGame": 1.3888888888888888,
+      "againstPerGame": 1.2222222222222223,
+      "gamesPlayed": 18,
+      "adjustedFor": 1.1809295677057734,
+      "adjustedAgainst": 1.059266078878505
     },
     "brasileirao.bahia": {
       "teamId": "brasileirao.bahia",
@@ -62,8 +62,8 @@
       "forPerGame": 1.3157894736842106,
       "againstPerGame": 1.2105263157894737,
       "gamesPlayed": 19,
-      "adjustedFor": 1.0841203827817454,
-      "adjustedAgainst": 1.031286200764986
+      "adjustedFor": 1.1070161754292573,
+      "adjustedAgainst": 1.057506741115041
     },
     "brasileirao.chapecoense": {
       "teamId": "brasileirao.chapecoense",
@@ -73,8 +73,8 @@
       "forPerGame": 0.8947368421052632,
       "againstPerGame": 2.1578947368421053,
       "gamesPlayed": 19,
-      "adjustedFor": 0.8581489821358558,
-      "adjustedAgainst": 1.6024575643542487
+      "adjustedFor": 0.8772534955833197,
+      "adjustedAgainst": 1.6334866343204724
     },
     "brasileirao.mirassol": {
       "teamId": "brasileirao.mirassol",
@@ -84,19 +84,19 @@
       "forPerGame": 1.105263157894737,
       "againstPerGame": 1.3157894736842106,
       "gamesPlayed": 19,
-      "adjustedFor": 0.9903065338133716,
-      "adjustedAgainst": 1.0595558392312254
+      "adjustedFor": 1.0107407786331903,
+      "adjustedAgainst": 1.0874787002466726
     },
     "brasileirao.gremio": {
       "teamId": "brasileirao.gremio",
       "name": "Grêmio",
       "shortName": "Grêmio",
       "code": "GRE",
-      "forPerGame": 1.0588235294117647,
-      "againstPerGame": 1.411764705882353,
-      "gamesPlayed": 17,
-      "adjustedFor": 0.9512976225719884,
-      "adjustedAgainst": 1.152575115808112
+      "forPerGame": 1.1111111111111112,
+      "againstPerGame": 1.3333333333333333,
+      "gamesPlayed": 18,
+      "adjustedFor": 1.011706435384449,
+      "adjustedAgainst": 1.116906444295935
     },
     "brasileirao.fluminense": {
       "teamId": "brasileirao.fluminense",
@@ -106,8 +106,8 @@
       "forPerGame": 1.6111111111111112,
       "againstPerGame": 1.0555555555555556,
       "gamesPlayed": 18,
-      "adjustedFor": 1.2767145186437512,
-      "adjustedAgainst": 0.9578962364532738
+      "adjustedFor": 1.2995824792124764,
+      "adjustedAgainst": 0.9799088656053944
     },
     "brasileirao.red-bull-bragantino": {
       "teamId": "brasileirao.red-bull-bragantino",
@@ -117,8 +117,8 @@
       "forPerGame": 1.1666666666666667,
       "againstPerGame": 1.2222222222222223,
       "gamesPlayed": 18,
-      "adjustedFor": 1.0224674570116414,
-      "adjustedAgainst": 1.0322491452629259
+      "adjustedFor": 1.0508277768347187,
+      "adjustedAgainst": 1.0572092845401437
     },
     "brasileirao.atletico-mineiro": {
       "teamId": "brasileirao.atletico-mineiro",
@@ -128,8 +128,8 @@
       "forPerGame": 1.2941176470588236,
       "againstPerGame": 1,
       "gamesPlayed": 17,
-      "adjustedFor": 1.060482866627056,
-      "adjustedAgainst": 0.919896051310645
+      "adjustedFor": 1.0855763545825556,
+      "adjustedAgainst": 0.9434583443498925
     },
     "brasileirao.coritiba": {
       "teamId": "brasileirao.coritiba",
@@ -139,8 +139,8 @@
       "forPerGame": 0.9444444444444444,
       "againstPerGame": 1.5555555555555556,
       "gamesPlayed": 18,
-      "adjustedFor": 0.8635556988888765,
-      "adjustedAgainst": 1.2551063769548838
+      "adjustedFor": 0.8857508629520902,
+      "adjustedAgainst": 1.2817390667842339
     },
     "brasileirao.palmeiras": {
       "teamId": "brasileirao.palmeiras",
@@ -150,19 +150,19 @@
       "forPerGame": 1.8888888888888888,
       "againstPerGame": 0.7222222222222222,
       "gamesPlayed": 18,
-      "adjustedFor": 1.4473474891599032,
-      "adjustedAgainst": 0.7512499546565234
+      "adjustedFor": 1.4742965913464283,
+      "adjustedAgainst": 0.7719515806514419
     },
     "brasileirao.sao-paulo": {
       "teamId": "brasileirao.sao-paulo",
       "name": "São Paulo",
       "shortName": "São Paulo",
       "code": "SAO",
-      "forPerGame": 0.9411764705882353,
-      "againstPerGame": 1.1764705882352942,
-      "gamesPlayed": 17,
-      "adjustedFor": 0.8798218033943023,
-      "adjustedAgainst": 1.0069760211123713
+      "forPerGame": 0.9444444444444444,
+      "againstPerGame": 1.1666666666666667,
+      "gamesPlayed": 18,
+      "adjustedFor": 0.901723453561758,
+      "adjustedAgainst": 1.0306269010826112
     },
     "brasileirao.athletico": {
       "teamId": "brasileirao.athletico",
@@ -172,19 +172,19 @@
       "forPerGame": 1.7777777777777777,
       "againstPerGame": 1.6111111111111112,
       "gamesPlayed": 18,
-      "adjustedFor": 1.3987367254338923,
-      "adjustedAgainst": 1.281333523054757
+      "adjustedFor": 1.4237622178373501,
+      "adjustedAgainst": 1.309429494264887
     },
     "brasileirao.internacional": {
       "teamId": "brasileirao.internacional",
       "name": "Internacional",
       "shortName": "Internacional",
       "code": "INT",
-      "forPerGame": 1.0588235294117647,
-      "againstPerGame": 1.2941176470588236,
-      "gamesPlayed": 17,
-      "adjustedFor": 0.9752717015632262,
-      "adjustedAgainst": 1.0638390169970633
+      "forPerGame": 1.1111111111111112,
+      "againstPerGame": 1.5,
+      "gamesPlayed": 18,
+      "adjustedFor": 1.0207214106727056,
+      "adjustedAgainst": 1.2415849498732507
     },
     "brasileirao.cruzeiro": {
       "teamId": "brasileirao.cruzeiro",
@@ -194,8 +194,8 @@
       "forPerGame": 1.9444444444444444,
       "againstPerGame": 1.2222222222222223,
       "gamesPlayed": 18,
-      "adjustedFor": 1.4905397593055731,
-      "adjustedAgainst": 1.062543465908271
+      "adjustedFor": 1.518552025464695,
+      "adjustedAgainst": 1.087086735632269
     },
     "brasileirao.flamengo": {
       "teamId": "brasileirao.flamengo",
@@ -205,8 +205,8 @@
       "forPerGame": 2.263157894736842,
       "againstPerGame": 0.7894736842105263,
       "gamesPlayed": 19,
-      "adjustedFor": 1.6519984214862946,
-      "adjustedAgainst": 0.8056098400515771
+      "adjustedFor": 1.687099931418195,
+      "adjustedAgainst": 0.8282884373207953
     },
     "brasileirao.corinthians": {
       "teamId": "brasileirao.corinthians",
@@ -216,8 +216,8 @@
       "forPerGame": 1.2941176470588236,
       "againstPerGame": 1.3529411764705883,
       "gamesPlayed": 17,
-      "adjustedFor": 1.084536757515901,
-      "adjustedAgainst": 1.1211270725849205
+      "adjustedFor": 1.1076684781856918,
+      "adjustedAgainst": 1.1482492512556859
     },
     "brasileirao.remo": {
       "teamId": "brasileirao.remo",
@@ -227,116 +227,11 @@
       "forPerGame": 1.1111111111111112,
       "againstPerGame": 1.7777777777777777,
       "gamesPlayed": 18,
-      "adjustedFor": 0.9888517160344258,
-      "adjustedAgainst": 1.338458815801424
+      "adjustedFor": 1.0128508736215793,
+      "adjustedAgainst": 1.371171566797639
     }
   },
   "games": [
-    {
-      "id": "brasileirao-2026-11-14-chapecoense-vasco-gama-399ne3",
-      "league": "brasileirao",
-      "season": "brasileirao-2026",
-      "week": 21,
-      "round": "Regular season · Matchday 21",
-      "phase": "Regular season",
-      "startTime": "2026-11-14T23:30:00.000Z",
-      "status": "final",
-      "home": {
-        "id": "brasileirao.chapecoense",
-        "league": "brasileirao",
-        "name": "Chapecoense",
-        "shortName": "Chapecoense",
-        "code": "CHA",
-        "logoUrl": "https://sports.bzzoiro.com/img/team/373/?bg=transparent"
-      },
-      "away": {
-        "id": "brasileirao.vasco-gama",
-        "league": "brasileirao",
-        "name": "Vasco da Gama",
-        "shortName": "Vasco da Gama",
-        "code": "VAS",
-        "logoUrl": "https://sports.bzzoiro.com/img/team/164/?bg=transparent"
-      },
-      "venue": "Arena Condá, Chapecó",
-      "referee": "Rodrigo Jose Pereira de Lima",
-      "neutralSite": false,
-      "result": {
-        "home": 0,
-        "away": 2,
-        "observedAt": "2026-11-23T22:28:20.377Z",
-        "source": "pitchlab-feed"
-      }
-    },
-    {
-      "id": "brasileirao-2026-11-18-coritiba-santos-h1903s",
-      "league": "brasileirao",
-      "season": "brasileirao-2026",
-      "week": 35,
-      "round": "Regular season · Matchday 35",
-      "phase": "Regular season",
-      "startTime": "2026-11-18T22:30:00.000Z",
-      "status": "final",
-      "home": {
-        "id": "brasileirao.coritiba",
-        "league": "brasileirao",
-        "name": "Coritiba",
-        "shortName": "Coritiba",
-        "code": "COR",
-        "logoUrl": "https://sports.bzzoiro.com/img/team/370/?bg=transparent"
-      },
-      "away": {
-        "id": "brasileirao.santos",
-        "league": "brasileirao",
-        "name": "Santos",
-        "shortName": "Santos",
-        "code": "SAN",
-        "logoUrl": "https://sports.bzzoiro.com/img/team/165/?bg=transparent"
-      },
-      "venue": "Estádio Major Antônio Couto Pereira, Curitiba",
-      "referee": "Braulio Da Silva Machado",
-      "neutralSite": false,
-      "result": {
-        "home": 0,
-        "away": 1,
-        "observedAt": "2026-11-23T22:28:20.377Z",
-        "source": "pitchlab-feed"
-      }
-    },
-    {
-      "id": "brasileirao-2026-11-18-remo-chapecoense-o0a67g",
-      "league": "brasileirao",
-      "season": "brasileirao-2026",
-      "week": 35,
-      "round": "Regular season · Matchday 35",
-      "phase": "Regular season",
-      "startTime": "2026-11-18T23:00:00.000Z",
-      "status": "final",
-      "home": {
-        "id": "brasileirao.remo",
-        "league": "brasileirao",
-        "name": "Remo",
-        "shortName": "Remo",
-        "code": "REM",
-        "logoUrl": "https://sports.bzzoiro.com/img/team/372/?bg=transparent"
-      },
-      "away": {
-        "id": "brasileirao.chapecoense",
-        "league": "brasileirao",
-        "name": "Chapecoense",
-        "shortName": "Chapecoense",
-        "code": "CHA",
-        "logoUrl": "https://sports.bzzoiro.com/img/team/373/?bg=transparent"
-      },
-      "venue": "Mangueirão, Belem",
-      "referee": "Alex Gomes Stefano",
-      "neutralSite": false,
-      "result": {
-        "home": 2,
-        "away": 0,
-        "observedAt": "2026-11-23T22:28:20.377Z",
-        "source": "pitchlab-feed"
-      }
-    },
     {
       "id": "brasileirao-2026-11-18-flamengo-athletico-w5dtos",
       "league": "brasileirao",
@@ -368,7 +263,7 @@
       "result": {
         "home": 2,
         "away": 1,
-        "observedAt": "2026-11-23T22:28:20.377Z",
+        "observedAt": "2026-11-24T21:01:09.804Z",
         "source": "pitchlab-feed"
       }
     },
@@ -403,7 +298,7 @@
       "result": {
         "home": 2,
         "away": 1,
-        "observedAt": "2026-11-23T22:28:20.377Z",
+        "observedAt": "2026-11-24T21:01:09.804Z",
         "source": "pitchlab-feed"
       }
     },
@@ -438,7 +333,7 @@
       "result": {
         "home": 0,
         "away": 0,
-        "observedAt": "2026-11-23T22:28:20.377Z",
+        "observedAt": "2026-11-24T21:01:09.804Z",
         "source": "pitchlab-feed"
       }
     },
@@ -473,7 +368,7 @@
       "result": {
         "home": 4,
         "away": 0,
-        "observedAt": "2026-11-23T22:28:20.377Z",
+        "observedAt": "2026-11-24T21:01:09.804Z",
         "source": "pitchlab-feed"
       }
     },
@@ -508,7 +403,7 @@
       "result": {
         "home": 2,
         "away": 1,
-        "observedAt": "2026-11-23T22:28:20.377Z",
+        "observedAt": "2026-11-24T21:01:09.804Z",
         "source": "pitchlab-feed"
       }
     },
@@ -543,7 +438,7 @@
       "result": {
         "home": 2,
         "away": 1,
-        "observedAt": "2026-11-23T22:28:20.377Z",
+        "observedAt": "2026-11-24T21:01:09.804Z",
         "source": "pitchlab-feed"
       }
     },
@@ -578,7 +473,7 @@
       "result": {
         "home": 0,
         "away": 1,
-        "observedAt": "2026-11-23T22:28:20.377Z",
+        "observedAt": "2026-11-24T21:01:09.804Z",
         "source": "pitchlab-feed"
       }
     },
@@ -613,7 +508,7 @@
       "result": {
         "home": 1,
         "away": 1,
-        "observedAt": "2026-11-23T22:28:20.377Z",
+        "observedAt": "2026-11-24T21:01:09.804Z",
         "source": "pitchlab-feed"
       }
     },
@@ -648,7 +543,7 @@
       "result": {
         "home": 0,
         "away": 1,
-        "observedAt": "2026-11-23T22:28:20.377Z",
+        "observedAt": "2026-11-24T21:01:09.804Z",
         "source": "pitchlab-feed"
       }
     },
@@ -683,7 +578,7 @@
       "result": {
         "home": 1,
         "away": 2,
-        "observedAt": "2026-11-23T22:28:20.377Z",
+        "observedAt": "2026-11-24T21:01:09.804Z",
         "source": "pitchlab-feed"
       }
     },
@@ -718,7 +613,7 @@
       "result": {
         "home": 4,
         "away": 2,
-        "observedAt": "2026-11-23T22:28:20.377Z",
+        "observedAt": "2026-11-24T21:01:09.804Z",
         "source": "pitchlab-feed"
       }
     },
@@ -753,7 +648,7 @@
       "result": {
         "home": 1,
         "away": 0,
-        "observedAt": "2026-11-23T22:28:20.377Z",
+        "observedAt": "2026-11-24T21:01:09.804Z",
         "source": "pitchlab-feed"
       }
     },
@@ -788,7 +683,7 @@
       "result": {
         "home": 1,
         "away": 0,
-        "observedAt": "2026-11-23T22:28:20.377Z",
+        "observedAt": "2026-11-24T21:01:09.804Z",
         "source": "pitchlab-feed"
       }
     },
@@ -800,7 +695,7 @@
       "round": "Regular season · Matchday 36",
       "phase": "Regular season",
       "startTime": "2026-11-23T22:30:00.000Z",
-      "status": "scheduled",
+      "status": "final",
       "home": {
         "id": "brasileirao.internacional",
         "league": "brasileirao",
@@ -819,7 +714,13 @@
       },
       "venue": "Estádio Beira-Rio, Porto Alegre",
       "referee": "Davi de Oliveira Lacerda",
-      "neutralSite": false
+      "neutralSite": false,
+      "result": {
+        "home": 2,
+        "away": 5,
+        "observedAt": "2026-11-24T21:01:09.804Z",
+        "source": "pitchlab-feed"
+      }
     },
     {
       "id": "brasileirao-2026-11-23-botafogo-sao-paulo-gk380b",
@@ -829,7 +730,7 @@
       "round": "Regular season · Matchday 36",
       "phase": "Regular season",
       "startTime": "2026-11-23T23:00:00.000Z",
-      "status": "scheduled",
+      "status": "final",
       "home": {
         "id": "brasileirao.botafogo",
         "league": "brasileirao",
@@ -848,7 +749,13 @@
       },
       "venue": "Estádio Nilton Santos, Rio de Janeiro",
       "referee": "Andre Luis Skettino Policarpo Bento",
-      "neutralSite": false
+      "neutralSite": false,
+      "result": {
+        "home": 1,
+        "away": 1,
+        "observedAt": "2026-11-24T21:01:09.804Z",
+        "source": "pitchlab-feed"
+      }
     },
     {
       "id": "brasileirao-2026-11-24-santos-gremio-xwp7xs",
@@ -858,7 +765,7 @@
       "round": "Regular season · Matchday 36",
       "phase": "Regular season",
       "startTime": "2026-11-24T00:00:00.000Z",
-      "status": "scheduled",
+      "status": "final",
       "home": {
         "id": "brasileirao.santos",
         "league": "brasileirao",
@@ -877,7 +784,13 @@
       },
       "venue": "MorumBIS, Sao Paulo",
       "referee": "Ramon Abatti Abel",
-      "neutralSite": false
+      "neutralSite": false,
+      "result": {
+        "home": 0,
+        "away": 2,
+        "observedAt": "2026-11-24T21:01:09.804Z",
+        "source": "pitchlab-feed"
+      }
     },
     {
       "id": "brasileirao-2026-11-24-chapecoense-palmeiras-w0w0xo",
@@ -905,6 +818,7 @@
         "logoUrl": "https://sports.bzzoiro.com/img/team/162/?bg=transparent"
       },
       "venue": "Arena Condá, Chapecó",
+      "referee": "Lucas Casagrande",
       "neutralSite": false
     },
     {
@@ -933,6 +847,7 @@
         "logoUrl": "https://sports.bzzoiro.com/img/team/167/?bg=transparent"
       },
       "venue": "Arena MRV, Belo Horizonte",
+      "referee": "Braulio Da Silva Machado",
       "neutralSite": false
     },
     {
@@ -1469,1358 +1384,6 @@
     }
   ],
   "analyses": {
-    "brasileirao-2026-11-14-chapecoense-vasco-gama-399ne3": {
-      "game": "brasileirao-2026-11-14-chapecoense-vasco-gama-399ne3",
-      "model": {
-        "id": "pitchlab-statistical-brasileirao",
-        "version": "2.0.0",
-        "status": "candidate",
-        "label": "Modelo PitchLab · en validación"
-      },
-      "projection": {
-        "home": 1.2450949636848203,
-        "away": 2.1741566802218992,
-        "total": 3.4192516439067195,
-        "margin": -0.9290617165370789
-      },
-      "x12": [
-        0.19589085510955495,
-        0.23468628291136498,
-        0.5694228619790801
-      ],
-      "probabilities": [
-        {
-          "market": "h2h",
-          "selection": "Chapecoense gana",
-          "p": 0.19589085510955495,
-          "fairOdds": 5.104883530375804
-        },
-        {
-          "market": "h2h",
-          "selection": "Empate",
-          "p": 0.23468628291136498,
-          "fairOdds": 4.261007450434052
-        },
-        {
-          "market": "h2h",
-          "selection": "Vasco da Gama gana",
-          "p": 0.5694228619790801,
-          "fairOdds": 1.756164121202318
-        },
-        {
-          "market": "double_chance",
-          "selection": "Chapecoense o empate",
-          "p": 0.4305771380209199,
-          "fairOdds": 2.3224642269590596
-        },
-        {
-          "market": "double_chance",
-          "selection": "Vasco da Gama o empate",
-          "p": 0.804109144890445,
-          "fairOdds": 1.2436122712374373
-        },
-        {
-          "market": "double_chance",
-          "selection": "Sin empate",
-          "p": 0.765313717088635,
-          "fairOdds": 1.3066536998763667
-        },
-        {
-          "market": "totals",
-          "selection": "Más de 1.5",
-          "line": 1.5,
-          "p": 0.871276570503889,
-          "fairOdds": 1.1477411809910898
-        },
-        {
-          "market": "totals",
-          "selection": "Más de 2.5",
-          "line": 2.5,
-          "p": 0.6639529788014947,
-          "fairOdds": 1.5061307531221648
-        },
-        {
-          "market": "totals",
-          "selection": "Menos de 2.5",
-          "line": 2.5,
-          "p": 0.33604702119850527,
-          "fairOdds": 2.975774034340549
-        },
-        {
-          "market": "totals",
-          "selection": "Más de 3.5",
-          "line": 3.5,
-          "p": 0.4458369482918352,
-          "fairOdds": 2.242972467471273
-        },
-        {
-          "market": "totals",
-          "selection": "Menos de 3.5",
-          "line": 3.5,
-          "p": 0.5541630517081648,
-          "fairOdds": 1.8045230495204925
-        },
-        {
-          "market": "btts",
-          "selection": "Sí",
-          "p": 0.6470697588970201,
-          "fairOdds": 1.5454284275385957
-        },
-        {
-          "market": "btts",
-          "selection": "No",
-          "p": 0.3529302411029799,
-          "fairOdds": 2.8334211227544386
-        },
-        {
-          "market": "team_totals",
-          "selection": "Chapecoense más de 1.5",
-          "line": 1.5,
-          "p": 0.3536066461815077,
-          "fairOdds": 2.8280011442055755
-        },
-        {
-          "market": "team_totals",
-          "selection": "Chapecoense menos de 1.5",
-          "line": 1.5,
-          "p": 0.6463933538184923,
-          "fairOdds": 1.5470456094460414
-        },
-        {
-          "market": "team_totals",
-          "selection": "Vasco da Gama más de 1.5",
-          "line": 1.5,
-          "p": 0.6390792625503687,
-          "fairOdds": 1.564751132761385
-        },
-        {
-          "market": "team_totals",
-          "selection": "Vasco da Gama menos de 1.5",
-          "line": 1.5,
-          "p": 0.36092073744963127,
-          "fairOdds": 2.770691446178141
-        },
-        {
-          "market": "correct_score",
-          "selection": "1–1",
-          "p": 0.10457333644659962,
-          "fairOdds": 9.562667061987163
-        },
-        {
-          "market": "correct_score",
-          "selection": "1–2",
-          "p": 0.09633848220697744,
-          "fairOdds": 10.38006803814451
-        },
-        {
-          "market": "correct_score",
-          "selection": "0–2",
-          "p": 0.07737440517939825,
-          "fairOdds": 12.924170436999502
-        }
-      ],
-      "marketGroups": [
-        {
-          "group": "Resultado",
-          "rows": [
-            {
-              "market": "h2h",
-              "selection": "home",
-              "label": "Chapecoense gana",
-              "p": 0.19589085510955495,
-              "fairOdds": 5.104883530375804
-            },
-            {
-              "market": "h2h",
-              "selection": "draw",
-              "label": "Empate",
-              "p": 0.23468628291136498,
-              "fairOdds": 4.261007450434052
-            },
-            {
-              "market": "h2h",
-              "selection": "away",
-              "label": "Vasco da Gama gana",
-              "p": 0.5694228619790801,
-              "fairOdds": 1.756164121202318
-            }
-          ]
-        },
-        {
-          "group": "Doble oportunidad",
-          "rows": [
-            {
-              "market": "double_chance",
-              "selection": "1x",
-              "label": "Chapecoense o empate",
-              "p": 0.4305771380209199,
-              "fairOdds": 2.3224642269590596
-            },
-            {
-              "market": "double_chance",
-              "selection": "x2",
-              "label": "Vasco da Gama o empate",
-              "p": 0.804109144890445,
-              "fairOdds": 1.2436122712374373
-            },
-            {
-              "market": "double_chance",
-              "selection": "12",
-              "label": "Sin empate",
-              "p": 0.765313717088635,
-              "fairOdds": 1.3066536998763667
-            }
-          ]
-        },
-        {
-          "group": "Goles totales",
-          "rows": [
-            {
-              "market": "totals",
-              "selection": "over_1.5",
-              "label": "Más de 1.5",
-              "line": 1.5,
-              "p": 0.871276570503889,
-              "fairOdds": 1.1477411809910898
-            },
-            {
-              "market": "totals",
-              "selection": "over_2.5",
-              "label": "Más de 2.5",
-              "line": 2.5,
-              "p": 0.6639529788014947,
-              "fairOdds": 1.5061307531221648
-            },
-            {
-              "market": "totals",
-              "selection": "under_2.5",
-              "label": "Menos de 2.5",
-              "line": 2.5,
-              "p": 0.33604702119850527,
-              "fairOdds": 2.975774034340549
-            },
-            {
-              "market": "totals",
-              "selection": "over_3.5",
-              "label": "Más de 3.5",
-              "line": 3.5,
-              "p": 0.4458369482918352,
-              "fairOdds": 2.242972467471273
-            },
-            {
-              "market": "totals",
-              "selection": "under_3.5",
-              "label": "Menos de 3.5",
-              "line": 3.5,
-              "p": 0.5541630517081648,
-              "fairOdds": 1.8045230495204925
-            }
-          ]
-        },
-        {
-          "group": "Ambos anotan",
-          "rows": [
-            {
-              "market": "btts",
-              "selection": "yes",
-              "label": "Sí",
-              "p": 0.6470697588970201,
-              "fairOdds": 1.5454284275385957
-            },
-            {
-              "market": "btts",
-              "selection": "no",
-              "label": "No",
-              "p": 0.3529302411029799,
-              "fairOdds": 2.8334211227544386
-            }
-          ]
-        },
-        {
-          "group": "Goles por equipo (1.5)",
-          "rows": [
-            {
-              "market": "team_totals",
-              "selection": "home_over",
-              "label": "Chapecoense más de 1.5",
-              "line": 1.5,
-              "p": 0.3536066461815077,
-              "fairOdds": 2.8280011442055755
-            },
-            {
-              "market": "team_totals",
-              "selection": "home_under",
-              "label": "Chapecoense menos de 1.5",
-              "line": 1.5,
-              "p": 0.6463933538184923,
-              "fairOdds": 1.5470456094460414
-            },
-            {
-              "market": "team_totals",
-              "selection": "away_over",
-              "label": "Vasco da Gama más de 1.5",
-              "line": 1.5,
-              "p": 0.6390792625503687,
-              "fairOdds": 1.564751132761385
-            },
-            {
-              "market": "team_totals",
-              "selection": "away_under",
-              "label": "Vasco da Gama menos de 1.5",
-              "line": 1.5,
-              "p": 0.36092073744963127,
-              "fairOdds": 2.770691446178141
-            }
-          ]
-        },
-        {
-          "group": "Marcador exacto (más probables)",
-          "rows": [
-            {
-              "market": "correct_score",
-              "selection": "1-1",
-              "label": "1–1",
-              "p": 0.10457333644659962,
-              "fairOdds": 9.562667061987163
-            },
-            {
-              "market": "correct_score",
-              "selection": "1-2",
-              "label": "1–2",
-              "p": 0.09633848220697744,
-              "fairOdds": 10.38006803814451
-            },
-            {
-              "market": "correct_score",
-              "selection": "0-2",
-              "label": "0–2",
-              "p": 0.07737440517939825,
-              "fairOdds": 12.924170436999502
-            }
-          ]
-        }
-      ],
-      "mostLikelyScore": {
-        "home": 1,
-        "away": 1,
-        "p": 0.10457333644659962
-      },
-      "factors": [
-        {
-          "key": "home_attack",
-          "label": "Ataque local",
-          "value": "0.91 goles/partido",
-          "detail": "24 % menos que la media · 18 partidos"
-        },
-        {
-          "key": "away_defense",
-          "label": "Defensa visitante",
-          "value": "1.21 concedidos/partido",
-          "detail": "en la media de la liga · 16 partidos"
-        },
-        {
-          "key": "away_attack",
-          "label": "Ataque visitante",
-          "value": "2.17 goles/partido",
-          "detail": "12 % más que la media · ajustado por rival"
-        },
-        {
-          "key": "home_defense",
-          "label": "Defensa local",
-          "value": "1.94 concedidos/partido",
-          "detail": "60 % más que la media · ajustado por rival"
-        },
-        {
-          "key": "home_advantage",
-          "label": "Localía",
-          "value": "×1.37",
-          "detail": "estimada de 170 partidos"
-        },
-        {
-          "key": "uncertainty",
-          "label": "Intervalo 90%",
-          "value": "goles 2.4–4.8",
-          "detail": "local 8%–37% · 170 partidos"
-        },
-        {
-          "key": "home_position",
-          "label": "Posición local",
-          "value": "20.º · 12 pts",
-          "detail": "de 20 equipos"
-        },
-        {
-          "key": "away_position",
-          "label": "Posición visitante",
-          "value": "9.º · 24 pts",
-          "detail": "de 20 equipos"
-        },
-        {
-          "key": "home_form",
-          "label": "Forma local",
-          "value": "P-P-G-P-P · 3 pts",
-          "detail": "4 goles a favor · 11 en contra"
-        },
-        {
-          "key": "away_form",
-          "label": "Forma visitante",
-          "value": "E-P-G-P-G · 7 pts",
-          "detail": "7 goles a favor · 8 en contra"
-        }
-      ],
-      "steps": [
-        "Sincronizando Brasileirão Serie A · corte 14 nov 2026, 16:30",
-        "Fuerza ajustada por rival · CHA 0.76 / 1.60 · VAS 1.12 / 1.00",
-        "Ponderando 150.7 partidos por antigüedad y calidad del rival",
-        "Proyección de goles 1.25 – 2.17 · total 3.42",
-        "Simulando 121 marcadores con incertidumbre del ajuste",
-        "20 mercados listos · marcador proyectado 1–2"
-      ],
-      "inputsAsOf": "2026-11-14T22:30:00.000Z",
-      "publishedAt": "2026-11-14T22:30:00.000Z",
-      "source": "pitchlab-football-v2",
-      "projectedScore": {
-        "home": 1,
-        "away": 2,
-        "p": 0.09633848220697744
-      },
-      "insights": {
-        "why": [
-          "Se esperan 3.4 goles: 1.2 de Chapecoense y 2.2 de Vasco da Gama.",
-          "Chapecoense concede 60 % más que la media.",
-          "Chapecoense anota 24 % menos que la media."
-        ],
-        "restDays": {
-          "home": 11,
-          "away": 10
-        }
-      },
-      "matchContext": {
-        "referee": "Rodrigo Jose Pereira de Lima",
-        "refereeStats": {
-          "country": "Brazil",
-          "matches": 73,
-          "avgYellow": 4.73,
-          "avgRed": 0.22,
-          "avgFouls": 27.7,
-          "avgGoals": 2.38
-        },
-        "weather": {
-          "description": "cloudy",
-          "temperatureC": 22,
-          "windSpeedKmh": 9
-        },
-        "travelDistanceKm": 1057,
-        "halfTimeScore": {
-          "home": 0,
-          "away": 1
-        },
-        "stageName": "Regular season",
-        "venueCity": "Chapecó",
-        "venueCountry": "Brazil",
-        "venueCapacity": 21000
-      }
-    },
-    "brasileirao-2026-11-18-coritiba-santos-h1903s": {
-      "game": "brasileirao-2026-11-18-coritiba-santos-h1903s",
-      "model": {
-        "id": "pitchlab-statistical-brasileirao",
-        "version": "2.0.0",
-        "status": "candidate",
-        "label": "Modelo PitchLab · en validación"
-      },
-      "projection": {
-        "home": 1.1060358790428961,
-        "away": 1.738672520832823,
-        "total": 2.844708399875719,
-        "margin": -0.632636641789927
-      },
-      "x12": [
-        0.221325670467762,
-        0.2769780072176527,
-        0.5016963223145855
-      ],
-      "probabilities": [
-        {
-          "market": "h2h",
-          "selection": "Coritiba gana",
-          "p": 0.221325670467762,
-          "fairOdds": 4.518228716472628
-        },
-        {
-          "market": "h2h",
-          "selection": "Empate",
-          "p": 0.2769780072176527,
-          "fairOdds": 3.6103949553445513
-        },
-        {
-          "market": "h2h",
-          "selection": "Santos gana",
-          "p": 0.5016963223145855,
-          "fairOdds": 1.9932376529819493
-        },
-        {
-          "market": "double_chance",
-          "selection": "Coritiba o empate",
-          "p": 0.4983036776854147,
-          "fairOdds": 2.006808387698299
-        },
-        {
-          "market": "double_chance",
-          "selection": "Santos o empate",
-          "p": 0.7786743295322383,
-          "fairOdds": 1.2842339371849019
-        },
-        {
-          "market": "double_chance",
-          "selection": "Sin empate",
-          "p": 0.7230219927823475,
-          "fairOdds": 1.3830837927236215
-        },
-        {
-          "market": "totals",
-          "selection": "Más de 1.5",
-          "line": 1.5,
-          "p": 0.7965538686080236,
-          "fairOdds": 1.2554078756123528
-        },
-        {
-          "market": "totals",
-          "selection": "Más de 2.5",
-          "line": 2.5,
-          "p": 0.5411339848690809,
-          "fairOdds": 1.8479711641876173
-        },
-        {
-          "market": "totals",
-          "selection": "Menos de 2.5",
-          "line": 2.5,
-          "p": 0.45886601513091907,
-          "fairOdds": 2.1792853840236783
-        },
-        {
-          "market": "totals",
-          "selection": "Más de 3.5",
-          "line": 3.5,
-          "p": 0.3180225414546656,
-          "fairOdds": 3.1444311948011743
-        },
-        {
-          "market": "totals",
-          "selection": "Menos de 3.5",
-          "line": 3.5,
-          "p": 0.6819774585453344,
-          "fairOdds": 1.4663241247489487
-        },
-        {
-          "market": "btts",
-          "selection": "Sí",
-          "p": 0.5716582954397584,
-          "fairOdds": 1.7492967529330297
-        },
-        {
-          "market": "btts",
-          "selection": "No",
-          "p": 0.42834170456024157,
-          "fairOdds": 2.3345847237234425
-        },
-        {
-          "market": "team_totals",
-          "selection": "Coritiba más de 1.5",
-          "line": 1.5,
-          "p": 0.30318017422813925,
-          "fairOdds": 3.29836870945101
-        },
-        {
-          "market": "team_totals",
-          "selection": "Coritiba menos de 1.5",
-          "line": 1.5,
-          "p": 0.6968198257718607,
-          "fairOdds": 1.4350912000707061
-        },
-        {
-          "market": "team_totals",
-          "selection": "Santos más de 1.5",
-          "line": 1.5,
-          "p": 0.5186674828870601,
-          "fairOdds": 1.9280175314513597
-        },
-        {
-          "market": "team_totals",
-          "selection": "Santos menos de 1.5",
-          "line": 1.5,
-          "p": 0.4813325171129399,
-          "fairOdds": 2.077565849899478
-        },
-        {
-          "market": "correct_score",
-          "selection": "1–1",
-          "p": 0.13195590932099358,
-          "fairOdds": 7.57828887804803
-        },
-        {
-          "market": "correct_score",
-          "selection": "1–2",
-          "p": 0.09721530232962683,
-          "fairOdds": 10.286446434217849
-        },
-        {
-          "market": "correct_score",
-          "selection": "0–2",
-          "p": 0.08789525201818202,
-          "fairOdds": 11.377178824097802
-        }
-      ],
-      "marketGroups": [
-        {
-          "group": "Resultado",
-          "rows": [
-            {
-              "market": "h2h",
-              "selection": "home",
-              "label": "Coritiba gana",
-              "p": 0.221325670467762,
-              "fairOdds": 4.518228716472628
-            },
-            {
-              "market": "h2h",
-              "selection": "draw",
-              "label": "Empate",
-              "p": 0.2769780072176527,
-              "fairOdds": 3.6103949553445513
-            },
-            {
-              "market": "h2h",
-              "selection": "away",
-              "label": "Santos gana",
-              "p": 0.5016963223145855,
-              "fairOdds": 1.9932376529819493
-            }
-          ]
-        },
-        {
-          "group": "Doble oportunidad",
-          "rows": [
-            {
-              "market": "double_chance",
-              "selection": "1x",
-              "label": "Coritiba o empate",
-              "p": 0.4983036776854147,
-              "fairOdds": 2.006808387698299
-            },
-            {
-              "market": "double_chance",
-              "selection": "x2",
-              "label": "Santos o empate",
-              "p": 0.7786743295322383,
-              "fairOdds": 1.2842339371849019
-            },
-            {
-              "market": "double_chance",
-              "selection": "12",
-              "label": "Sin empate",
-              "p": 0.7230219927823475,
-              "fairOdds": 1.3830837927236215
-            }
-          ]
-        },
-        {
-          "group": "Goles totales",
-          "rows": [
-            {
-              "market": "totals",
-              "selection": "over_1.5",
-              "label": "Más de 1.5",
-              "line": 1.5,
-              "p": 0.7965538686080236,
-              "fairOdds": 1.2554078756123528
-            },
-            {
-              "market": "totals",
-              "selection": "over_2.5",
-              "label": "Más de 2.5",
-              "line": 2.5,
-              "p": 0.5411339848690809,
-              "fairOdds": 1.8479711641876173
-            },
-            {
-              "market": "totals",
-              "selection": "under_2.5",
-              "label": "Menos de 2.5",
-              "line": 2.5,
-              "p": 0.45886601513091907,
-              "fairOdds": 2.1792853840236783
-            },
-            {
-              "market": "totals",
-              "selection": "over_3.5",
-              "label": "Más de 3.5",
-              "line": 3.5,
-              "p": 0.3180225414546656,
-              "fairOdds": 3.1444311948011743
-            },
-            {
-              "market": "totals",
-              "selection": "under_3.5",
-              "label": "Menos de 3.5",
-              "line": 3.5,
-              "p": 0.6819774585453344,
-              "fairOdds": 1.4663241247489487
-            }
-          ]
-        },
-        {
-          "group": "Ambos anotan",
-          "rows": [
-            {
-              "market": "btts",
-              "selection": "yes",
-              "label": "Sí",
-              "p": 0.5716582954397584,
-              "fairOdds": 1.7492967529330297
-            },
-            {
-              "market": "btts",
-              "selection": "no",
-              "label": "No",
-              "p": 0.42834170456024157,
-              "fairOdds": 2.3345847237234425
-            }
-          ]
-        },
-        {
-          "group": "Goles por equipo (1.5)",
-          "rows": [
-            {
-              "market": "team_totals",
-              "selection": "home_over",
-              "label": "Coritiba más de 1.5",
-              "line": 1.5,
-              "p": 0.30318017422813925,
-              "fairOdds": 3.29836870945101
-            },
-            {
-              "market": "team_totals",
-              "selection": "home_under",
-              "label": "Coritiba menos de 1.5",
-              "line": 1.5,
-              "p": 0.6968198257718607,
-              "fairOdds": 1.4350912000707061
-            },
-            {
-              "market": "team_totals",
-              "selection": "away_over",
-              "label": "Santos más de 1.5",
-              "line": 1.5,
-              "p": 0.5186674828870601,
-              "fairOdds": 1.9280175314513597
-            },
-            {
-              "market": "team_totals",
-              "selection": "away_under",
-              "label": "Santos menos de 1.5",
-              "line": 1.5,
-              "p": 0.4813325171129399,
-              "fairOdds": 2.077565849899478
-            }
-          ]
-        },
-        {
-          "group": "Marcador exacto (más probables)",
-          "rows": [
-            {
-              "market": "correct_score",
-              "selection": "1-1",
-              "label": "1–1",
-              "p": 0.13195590932099358,
-              "fairOdds": 7.57828887804803
-            },
-            {
-              "market": "correct_score",
-              "selection": "1-2",
-              "label": "1–2",
-              "p": 0.09721530232962683,
-              "fairOdds": 10.286446434217849
-            },
-            {
-              "market": "correct_score",
-              "selection": "0-2",
-              "label": "0–2",
-              "p": 0.08789525201818202,
-              "fairOdds": 11.377178824097802
-            }
-          ]
-        }
-      ],
-      "mostLikelyScore": {
-        "home": 1,
-        "away": 1,
-        "p": 0.13195590932099358
-      },
-      "factors": [
-        {
-          "key": "home_attack",
-          "label": "Ataque local",
-          "value": "0.81 goles/partido",
-          "detail": "25 % menos que la media · 17 partidos"
-        },
-        {
-          "key": "away_defense",
-          "label": "Defensa visitante",
-          "value": "1.08 concedidos/partido",
-          "detail": "10 % menos que la media · 17 partidos"
-        },
-        {
-          "key": "away_attack",
-          "label": "Ataque visitante",
-          "value": "1.74 goles/partido",
-          "detail": "16 % más que la media · ajustado por rival"
-        },
-        {
-          "key": "home_defense",
-          "label": "Defensa local",
-          "value": "1.50 concedidos/partido",
-          "detail": "25 % más que la media · ajustado por rival"
-        },
-        {
-          "key": "home_advantage",
-          "label": "Localía",
-          "value": "×1.37",
-          "detail": "estimada de 170 partidos"
-        },
-        {
-          "key": "uncertainty",
-          "label": "Intervalo 90%",
-          "value": "goles 2.1–4.2",
-          "detail": "local 9%–40% · 170 partidos"
-        },
-        {
-          "key": "home_position",
-          "label": "Posición local",
-          "value": "17.º · 16 pts",
-          "detail": "de 20 equipos"
-        },
-        {
-          "key": "away_position",
-          "label": "Posición visitante",
-          "value": "4.º · 29 pts",
-          "detail": "de 20 equipos"
-        },
-        {
-          "key": "home_form",
-          "label": "Forma local",
-          "value": "E-P-P-G-P · 4 pts",
-          "detail": "3 goles a favor · 4 en contra"
-        },
-        {
-          "key": "away_form",
-          "label": "Forma visitante",
-          "value": "P-G-E-E-P · 5 pts",
-          "detail": "5 goles a favor · 6 en contra"
-        }
-      ],
-      "steps": [
-        "Sincronizando Brasileirão Serie A · corte 18 nov 2026, 15:30",
-        "Fuerza ajustada por rival · COR 0.75 / 1.25 · SAN 1.16 / 0.90",
-        "Ponderando 150.7 partidos por antigüedad y calidad del rival",
-        "Proyección de goles 1.11 – 1.74 · total 2.84",
-        "Simulando 121 marcadores con incertidumbre del ajuste",
-        "20 mercados listos · marcador proyectado 1–2"
-      ],
-      "inputsAsOf": "2026-11-18T21:30:00.000Z",
-      "publishedAt": "2026-11-18T21:30:00.000Z",
-      "source": "pitchlab-football-v2",
-      "projectedScore": {
-        "home": 1,
-        "away": 2,
-        "p": 0.09721530232962683
-      },
-      "insights": {
-        "why": [
-          "Se esperan 2.8 goles: 1.1 de Coritiba y 1.7 de Santos.",
-          "Coritiba anota 25 % menos que la media.",
-          "Coritiba concede 25 % más que la media."
-        ],
-        "restDays": {
-          "home": 14,
-          "away": 16
-        }
-      },
-      "matchContext": {
-        "referee": "Braulio Da Silva Machado",
-        "refereeStats": {
-          "country": "Brazil",
-          "matches": 31,
-          "avgYellow": 5.39,
-          "avgRed": 0.13,
-          "avgFouls": 24.6,
-          "avgGoals": 2.48
-        },
-        "weather": {
-          "description": "cloudy",
-          "temperatureC": 21,
-          "windSpeedKmh": 30
-        },
-        "travelDistanceKm": 338,
-        "halfTimeScore": {
-          "home": 0,
-          "away": 0
-        },
-        "stageName": "Regular season",
-        "venueCity": "Curitiba",
-        "venueCountry": "Brazil",
-        "venueCapacity": 40502
-      }
-    },
-    "brasileirao-2026-11-18-remo-chapecoense-o0a67g": {
-      "game": "brasileirao-2026-11-18-remo-chapecoense-o0a67g",
-      "model": {
-        "id": "pitchlab-statistical-brasileirao",
-        "version": "2.0.0",
-        "status": "candidate",
-        "label": "Modelo PitchLab · en validación"
-      },
-      "projection": {
-        "home": 2.26456701592195,
-        "away": 1.1060840745673726,
-        "total": 3.3706510904893223,
-        "margin": 1.1584829413545774
-      },
-      "x12": [
-        0.6189015475079055,
-        0.2229550127534661,
-        0.15814343973862832
-      ],
-      "probabilities": [
-        {
-          "market": "h2h",
-          "selection": "Remo gana",
-          "p": 0.6189015475079055,
-          "fairOdds": 1.6157658742761936
-        },
-        {
-          "market": "h2h",
-          "selection": "Empate",
-          "p": 0.2229550127534661,
-          "fairOdds": 4.485209763396332
-        },
-        {
-          "market": "h2h",
-          "selection": "Chapecoense gana",
-          "p": 0.15814343973862832,
-          "fairOdds": 6.323373272092416
-        },
-        {
-          "market": "double_chance",
-          "selection": "Remo o empate",
-          "p": 0.8418565602613716,
-          "fairOdds": 1.1878508135513366
-        },
-        {
-          "market": "double_chance",
-          "selection": "Chapecoense o empate",
-          "p": 0.3810984524920944,
-          "fairOdds": 2.623993861588153
-        },
-        {
-          "market": "double_chance",
-          "selection": "Sin empate",
-          "p": 0.7770449872465338,
-          "fairOdds": 1.286926775685806
-        },
-        {
-          "market": "totals",
-          "selection": "Más de 1.5",
-          "line": 1.5,
-          "p": 0.8652842301728083,
-          "fairOdds": 1.1556896163475523
-        },
-        {
-          "market": "totals",
-          "selection": "Más de 2.5",
-          "line": 2.5,
-          "p": 0.6545557014292768,
-          "fairOdds": 1.527753860850065
-        },
-        {
-          "market": "totals",
-          "selection": "Menos de 2.5",
-          "line": 2.5,
-          "p": 0.34544429857072323,
-          "fairOdds": 2.8948227084294134
-        },
-        {
-          "market": "totals",
-          "selection": "Más de 3.5",
-          "line": 3.5,
-          "p": 0.435201409350757,
-          "fairOdds": 2.297786676499559
-        },
-        {
-          "market": "totals",
-          "selection": "Menos de 3.5",
-          "line": 3.5,
-          "p": 0.564798590649243,
-          "fairOdds": 1.770542661677834
-        },
-        {
-          "market": "btts",
-          "selection": "Sí",
-          "p": 0.6151338062187358,
-          "fairOdds": 1.6256625629910664
-        },
-        {
-          "market": "btts",
-          "selection": "No",
-          "p": 0.3848661937812642,
-          "fairOdds": 2.598305634940601
-        },
-        {
-          "market": "team_totals",
-          "selection": "Remo más de 1.5",
-          "line": 1.5,
-          "p": 0.6608843946221021,
-          "fairOdds": 1.5131239413994733
-        },
-        {
-          "market": "team_totals",
-          "selection": "Remo menos de 1.5",
-          "line": 1.5,
-          "p": 0.33911560537789787,
-          "fairOdds": 2.948846895104214
-        },
-        {
-          "market": "team_totals",
-          "selection": "Chapecoense más de 1.5",
-          "line": 1.5,
-          "p": 0.30319781142039615,
-          "fairOdds": 3.298176841433262
-        },
-        {
-          "market": "team_totals",
-          "selection": "Chapecoense menos de 1.5",
-          "line": 1.5,
-          "p": 0.6968021885796039,
-          "fairOdds": 1.435127524553919
-        },
-        {
-          "market": "correct_score",
-          "selection": "1–1",
-          "p": 0.1015807261816248,
-          "fairOdds": 9.84438719420075
-        },
-        {
-          "market": "correct_score",
-          "selection": "2–1",
-          "p": 0.09747303473063847,
-          "fairOdds": 10.259247624365514
-        },
-        {
-          "market": "correct_score",
-          "selection": "2–0",
-          "p": 0.08812443553964332,
-          "fairOdds": 11.347590414353848
-        }
-      ],
-      "marketGroups": [
-        {
-          "group": "Resultado",
-          "rows": [
-            {
-              "market": "h2h",
-              "selection": "home",
-              "label": "Remo gana",
-              "p": 0.6189015475079055,
-              "fairOdds": 1.6157658742761936
-            },
-            {
-              "market": "h2h",
-              "selection": "draw",
-              "label": "Empate",
-              "p": 0.2229550127534661,
-              "fairOdds": 4.485209763396332
-            },
-            {
-              "market": "h2h",
-              "selection": "away",
-              "label": "Chapecoense gana",
-              "p": 0.15814343973862832,
-              "fairOdds": 6.323373272092416
-            }
-          ]
-        },
-        {
-          "group": "Doble oportunidad",
-          "rows": [
-            {
-              "market": "double_chance",
-              "selection": "1x",
-              "label": "Remo o empate",
-              "p": 0.8418565602613716,
-              "fairOdds": 1.1878508135513366
-            },
-            {
-              "market": "double_chance",
-              "selection": "x2",
-              "label": "Chapecoense o empate",
-              "p": 0.3810984524920944,
-              "fairOdds": 2.623993861588153
-            },
-            {
-              "market": "double_chance",
-              "selection": "12",
-              "label": "Sin empate",
-              "p": 0.7770449872465338,
-              "fairOdds": 1.286926775685806
-            }
-          ]
-        },
-        {
-          "group": "Goles totales",
-          "rows": [
-            {
-              "market": "totals",
-              "selection": "over_1.5",
-              "label": "Más de 1.5",
-              "line": 1.5,
-              "p": 0.8652842301728083,
-              "fairOdds": 1.1556896163475523
-            },
-            {
-              "market": "totals",
-              "selection": "over_2.5",
-              "label": "Más de 2.5",
-              "line": 2.5,
-              "p": 0.6545557014292768,
-              "fairOdds": 1.527753860850065
-            },
-            {
-              "market": "totals",
-              "selection": "under_2.5",
-              "label": "Menos de 2.5",
-              "line": 2.5,
-              "p": 0.34544429857072323,
-              "fairOdds": 2.8948227084294134
-            },
-            {
-              "market": "totals",
-              "selection": "over_3.5",
-              "label": "Más de 3.5",
-              "line": 3.5,
-              "p": 0.435201409350757,
-              "fairOdds": 2.297786676499559
-            },
-            {
-              "market": "totals",
-              "selection": "under_3.5",
-              "label": "Menos de 3.5",
-              "line": 3.5,
-              "p": 0.564798590649243,
-              "fairOdds": 1.770542661677834
-            }
-          ]
-        },
-        {
-          "group": "Ambos anotan",
-          "rows": [
-            {
-              "market": "btts",
-              "selection": "yes",
-              "label": "Sí",
-              "p": 0.6151338062187358,
-              "fairOdds": 1.6256625629910664
-            },
-            {
-              "market": "btts",
-              "selection": "no",
-              "label": "No",
-              "p": 0.3848661937812642,
-              "fairOdds": 2.598305634940601
-            }
-          ]
-        },
-        {
-          "group": "Goles por equipo (1.5)",
-          "rows": [
-            {
-              "market": "team_totals",
-              "selection": "home_over",
-              "label": "Remo más de 1.5",
-              "line": 1.5,
-              "p": 0.6608843946221021,
-              "fairOdds": 1.5131239413994733
-            },
-            {
-              "market": "team_totals",
-              "selection": "home_under",
-              "label": "Remo menos de 1.5",
-              "line": 1.5,
-              "p": 0.33911560537789787,
-              "fairOdds": 2.948846895104214
-            },
-            {
-              "market": "team_totals",
-              "selection": "away_over",
-              "label": "Chapecoense más de 1.5",
-              "line": 1.5,
-              "p": 0.30319781142039615,
-              "fairOdds": 3.298176841433262
-            },
-            {
-              "market": "team_totals",
-              "selection": "away_under",
-              "label": "Chapecoense menos de 1.5",
-              "line": 1.5,
-              "p": 0.6968021885796039,
-              "fairOdds": 1.435127524553919
-            }
-          ]
-        },
-        {
-          "group": "Marcador exacto (más probables)",
-          "rows": [
-            {
-              "market": "correct_score",
-              "selection": "1-1",
-              "label": "1–1",
-              "p": 0.1015807261816248,
-              "fairOdds": 9.84438719420075
-            },
-            {
-              "market": "correct_score",
-              "selection": "2-1",
-              "label": "2–1",
-              "p": 0.09747303473063847,
-              "fairOdds": 10.259247624365514
-            },
-            {
-              "market": "correct_score",
-              "selection": "2-0",
-              "label": "2–0",
-              "p": 0.08812443553964332,
-              "fairOdds": 11.347590414353848
-            }
-          ]
-        }
-      ],
-      "mostLikelyScore": {
-        "home": 1,
-        "away": 1,
-        "p": 0.1015807261816248
-      },
-      "factors": [
-        {
-          "key": "home_attack",
-          "label": "Ataque local",
-          "value": "1.66 goles/partido",
-          "detail": "14 % menos que la media · 17 partidos"
-        },
-        {
-          "key": "away_defense",
-          "label": "Defensa visitante",
-          "value": "1.94 concedidos/partido",
-          "detail": "60 % más que la media · 18 partidos"
-        },
-        {
-          "key": "away_attack",
-          "label": "Ataque visitante",
-          "value": "1.11 goles/partido",
-          "detail": "24 % menos que la media · ajustado por rival"
-        },
-        {
-          "key": "home_defense",
-          "label": "Defensa local",
-          "value": "1.46 concedidos/partido",
-          "detail": "21 % más que la media · ajustado por rival"
-        },
-        {
-          "key": "home_advantage",
-          "label": "Localía",
-          "value": "×1.37",
-          "detail": "estimada de 170 partidos"
-        },
-        {
-          "key": "uncertainty",
-          "label": "Intervalo 90%",
-          "value": "goles 2.4–4.8",
-          "detail": "local 40%–82% · 170 partidos"
-        },
-        {
-          "key": "home_position",
-          "label": "Posición local",
-          "value": "19.º · 14 pts",
-          "detail": "de 20 equipos"
-        },
-        {
-          "key": "away_position",
-          "label": "Posición visitante",
-          "value": "20.º · 12 pts",
-          "detail": "de 20 equipos"
-        },
-        {
-          "key": "home_form",
-          "label": "Forma local",
-          "value": "E-E-P-G-P · 5 pts",
-          "detail": "4 goles a favor · 9 en contra"
-        },
-        {
-          "key": "away_form",
-          "label": "Forma visitante",
-          "value": "P-G-P-P-P · 3 pts",
-          "detail": "3 goles a favor · 9 en contra"
-        }
-      ],
-      "steps": [
-        "Sincronizando Brasileirão Serie A · corte 18 nov 2026, 16:00",
-        "Fuerza ajustada por rival · REM 0.86 / 1.21 · CHA 0.76 / 1.60",
-        "Ponderando 150.7 partidos por antigüedad y calidad del rival",
-        "Proyección de goles 2.26 – 1.11 · total 3.37",
-        "Simulando 121 marcadores con incertidumbre del ajuste",
-        "20 mercados listos · marcador proyectado 2–1"
-      ],
-      "inputsAsOf": "2026-11-18T22:00:00.000Z",
-      "publishedAt": "2026-11-18T22:00:00.000Z",
-      "source": "pitchlab-football-v2",
-      "projectedScore": {
-        "home": 2,
-        "away": 1,
-        "p": 0.09747303473063847
-      },
-      "insights": {
-        "why": [
-          "Se esperan 3.4 goles: 2.3 de Remo y 1.1 de Chapecoense.",
-          "Chapecoense concede 60 % más que la media.",
-          "Chapecoense anota 24 % menos que la media."
-        ],
-        "restDays": {
-          "home": 13,
-          "away": 4
-        }
-      },
-      "matchContext": {
-        "referee": "Alex Gomes Stefano",
-        "refereeStats": {
-          "country": "Brazil",
-          "matches": 64,
-          "avgYellow": 5.09,
-          "avgRed": 0.36,
-          "avgFouls": 29.6,
-          "avgGoals": 2.59
-        },
-        "weather": {
-          "description": "cloudy",
-          "temperatureC": 28,
-          "windSpeedKmh": 75
-        },
-        "halfTimeScore": {
-          "home": 2,
-          "away": 0
-        },
-        "stageName": "Regular season",
-        "venueCity": "Belem",
-        "venueCountry": "Brazil",
-        "venueCapacity": 53635
-      }
-    },
     "brasileirao-2026-11-18-flamengo-athletico-w5dtos": {
       "game": "brasileirao-2026-11-18-flamengo-athletico-w5dtos",
       "model": {
@@ -3250,11 +1813,11 @@
         "referee": "Rafael Rodrigo Klein",
         "refereeStats": {
           "country": "Brazil",
-          "matches": 76,
-          "avgYellow": 4.34,
-          "avgRed": 0.39,
+          "matches": 78,
+          "avgYellow": 4.5,
+          "avgRed": 0.42,
           "avgFouls": 26.3,
-          "avgGoals": 2.28
+          "avgGoals": 2.29
         },
         "weather": {
           "temperatureC": 25,
@@ -3699,9 +2262,9 @@
         "referee": "Anderson Daronco",
         "refereeStats": {
           "country": "Brazil",
-          "matches": 91,
-          "avgYellow": 4.88,
-          "avgRed": 0.3,
+          "matches": 92,
+          "avgYellow": 4.87,
+          "avgRed": 0.29,
           "avgFouls": 26.5,
           "avgGoals": 2.36
         },
@@ -4149,11 +2712,11 @@
         "referee": "Davi de Oliveira Lacerda",
         "refereeStats": {
           "country": "Brazil",
-          "matches": 75,
-          "avgYellow": 4.92,
-          "avgRed": 0.24,
-          "avgFouls": 24,
-          "avgGoals": 2.25
+          "matches": 78,
+          "avgYellow": 4.96,
+          "avgRed": 0.26,
+          "avgFouls": 24.1,
+          "avgGoals": 2.32
         },
         "weather": {
           "description": "clear",
@@ -5088,11 +3651,11 @@
         "referee": "Ramon Abatti Abel",
         "refereeStats": {
           "country": "Brazil",
-          "matches": 64,
-          "avgYellow": 4.92,
+          "matches": 66,
+          "avgYellow": 4.88,
           "avgRed": 0.27,
           "avgFouls": 30.8,
-          "avgGoals": 2.25
+          "avgGoals": 2.23
         },
         "weather": {
           "description": "clear",
@@ -7038,11 +5601,11 @@
         "referee": "Savio Pereira Sampaio",
         "refereeStats": {
           "country": "Brazil",
-          "matches": 57,
-          "avgYellow": 4.33,
-          "avgRed": 0.21,
+          "matches": 59,
+          "avgYellow": 4.29,
+          "avgRed": 0.2,
           "avgFouls": 26.4,
-          "avgGoals": 2.84
+          "avgGoals": 2.75
         },
         "weather": {
           "description": "clear",
@@ -8984,11 +7547,11 @@
         "referee": "Braulio Da Silva Machado",
         "refereeStats": {
           "country": "Brazil",
-          "matches": 31,
-          "avgYellow": 5.39,
-          "avgRed": 0.13,
+          "matches": 32,
+          "avgYellow": 5.44,
+          "avgRed": 0.19,
           "avgFouls": 24.6,
-          "avgGoals": 2.48
+          "avgGoals": 2.41
         },
         "weather": {
           "description": "cloudy"
@@ -9469,18 +8032,22 @@
         "referee": "Davi de Oliveira Lacerda",
         "refereeStats": {
           "country": "Brazil",
-          "matches": 75,
-          "avgYellow": 4.92,
-          "avgRed": 0.24,
-          "avgFouls": 24,
-          "avgGoals": 2.25
+          "matches": 78,
+          "avgYellow": 4.96,
+          "avgRed": 0.26,
+          "avgFouls": 24.1,
+          "avgGoals": 2.32
         },
         "weather": {
-          "description": "cloudy",
+          "description": "clear",
           "temperatureC": 21,
           "windSpeedKmh": 62
         },
         "travelDistanceKm": 2322,
+        "halfTimeScore": {
+          "home": 1,
+          "away": 2
+        },
         "stageName": "Regular season",
         "venueCity": "Porto Alegre",
         "venueCountry": "Brazil",
@@ -9953,17 +8520,22 @@
         "referee": "Andre Luis Skettino Policarpo Bento",
         "refereeStats": {
           "country": "Brazil",
-          "matches": 22,
-          "avgYellow": 5.59,
-          "avgRed": 0.45,
-          "avgFouls": 30.5,
+          "matches": 23,
+          "avgYellow": 5.57,
+          "avgRed": 0.52,
+          "avgFouls": 31,
           "avgGoals": 2.09
         },
         "weather": {
+          "description": "clear",
           "temperatureC": 24,
           "windSpeedKmh": 24
         },
         "travelDistanceKm": 360,
+        "halfTimeScore": {
+          "home": 0,
+          "away": 1
+        },
         "stageName": "Regular season",
         "venueCity": "Rio de Janeiro",
         "venueCountry": "Brazil",
@@ -10436,17 +9008,22 @@
         "referee": "Ramon Abatti Abel",
         "refereeStats": {
           "country": "Brazil",
-          "matches": 64,
-          "avgYellow": 4.92,
+          "matches": 66,
+          "avgYellow": 4.88,
           "avgRed": 0.27,
           "avgFouls": 30.8,
-          "avgGoals": 2.25
+          "avgGoals": 2.23
         },
         "weather": {
+          "description": "cloudy",
           "temperatureC": 18,
           "windSpeedKmh": 63
         },
         "travelDistanceKm": 826,
+        "halfTimeScore": {
+          "home": 0,
+          "away": 1
+        },
         "stageName": "Regular season",
         "venueCity": "Sao Paulo",
         "venueCountry": "Brazil",
@@ -10916,11 +9493,24 @@
       },
       "picksAt": "2026-11-19T16:05:39.021Z",
       "matchContext": {
+        "referee": "Lucas Casagrande",
+        "refereeStats": {
+          "country": "Brazil",
+          "matches": 51,
+          "avgYellow": 4.35,
+          "avgRed": 0.22,
+          "avgFouls": 28.5,
+          "avgGoals": 2.35
+        },
         "weather": {
           "temperatureC": 25,
           "windSpeedKmh": 14
         },
         "travelDistanceKm": 718,
+        "halfTimeScore": {
+          "home": 0,
+          "away": 0
+        },
         "stageName": "Regular season",
         "venueCity": "Chapecó",
         "venueCountry": "Brazil",
@@ -11387,10 +9977,20 @@
       },
       "picksAt": "2026-11-19T16:05:39.021Z",
       "matchContext": {
+        "referee": "Braulio Da Silva Machado",
+        "refereeStats": {
+          "country": "Brazil",
+          "matches": 32,
+          "avgYellow": 5.44,
+          "avgRed": 0.19,
+          "avgFouls": 24.6,
+          "avgGoals": 2.41
+        },
         "weather": {
           "temperatureC": 20,
           "windSpeedKmh": 17
         },
+        "travelDistanceKm": 512,
         "stageName": "Regular season",
         "venueCity": "Belo Horizonte",
         "venueCountry": "Brazil",
@@ -20548,19 +19148,19 @@
       "name": "Santos",
       "shortName": "Santos",
       "code": "SAN",
-      "played": 17,
+      "played": 18,
       "won": 8,
       "drawn": 5,
-      "lost": 4,
+      "lost": 5,
       "goalsFor": 25,
-      "goalsAgainst": 20,
+      "goalsAgainst": 22,
       "points": 29,
       "form": [
-        "W",
         "D",
         "D",
         "L",
-        "W"
+        "W",
+        "L"
       ]
     },
     {
@@ -20664,6 +19264,26 @@
       ]
     },
     {
+      "teamId": "brasileirao.vitoria",
+      "name": "Vitória",
+      "shortName": "Vitória",
+      "code": "VIT",
+      "played": 19,
+      "won": 6,
+      "drawn": 4,
+      "lost": 9,
+      "goalsFor": 21,
+      "goalsAgainst": 29,
+      "points": 22,
+      "form": [
+        "D",
+        "L",
+        "L",
+        "W",
+        "W"
+      ]
+    },
+    {
       "teamId": "brasileirao.red-bull-bragantino",
       "name": "Red Bull Bragantino",
       "shortName": "Red Bull Bragantino",
@@ -20688,19 +19308,39 @@
       "name": "Botafogo",
       "shortName": "Botafogo",
       "code": "BOT",
+      "played": 19,
+      "won": 5,
+      "drawn": 6,
+      "lost": 8,
+      "goalsFor": 16,
+      "goalsAgainst": 27,
+      "points": 21,
+      "form": [
+        "L",
+        "L",
+        "W",
+        "L",
+        "D"
+      ]
+    },
+    {
+      "teamId": "brasileirao.gremio",
+      "name": "Grêmio",
+      "shortName": "Grêmio",
+      "code": "GRE",
       "played": 18,
       "won": 5,
       "drawn": 5,
       "lost": 8,
-      "goalsFor": 15,
-      "goalsAgainst": 26,
+      "goalsFor": 20,
+      "goalsAgainst": 24,
       "points": 20,
       "form": [
         "W",
-        "L",
-        "L",
         "W",
-        "L"
+        "L",
+        "D",
+        "W"
       ]
     },
     {
@@ -20708,19 +19348,19 @@
       "name": "São Paulo",
       "shortName": "São Paulo",
       "code": "SAO",
-      "played": 17,
+      "played": 18,
       "won": 5,
-      "drawn": 4,
+      "drawn": 5,
       "lost": 8,
-      "goalsFor": 16,
-      "goalsAgainst": 20,
-      "points": 19,
+      "goalsFor": 17,
+      "goalsAgainst": 21,
+      "points": 20,
       "form": [
-        "W",
         "D",
         "L",
         "D",
-        "L"
+        "L",
+        "D"
       ]
     },
     {
@@ -20744,63 +19384,23 @@
       ]
     },
     {
-      "teamId": "brasileirao.vitoria",
-      "name": "Vitória",
-      "shortName": "Vitória",
-      "code": "VIT",
-      "played": 18,
-      "won": 5,
-      "drawn": 4,
-      "lost": 9,
-      "goalsFor": 16,
-      "goalsAgainst": 27,
-      "points": 19,
-      "form": [
-        "D",
-        "D",
-        "L",
-        "L",
-        "W"
-      ]
-    },
-    {
       "teamId": "brasileirao.internacional",
       "name": "Internacional",
       "shortName": "Internacional",
       "code": "INT",
-      "played": 17,
+      "played": 18,
       "won": 4,
       "drawn": 5,
-      "lost": 8,
-      "goalsFor": 18,
-      "goalsAgainst": 22,
+      "lost": 9,
+      "goalsFor": 20,
+      "goalsAgainst": 27,
       "points": 17,
       "form": [
-        "L",
         "W",
         "L",
         "W",
+        "L",
         "L"
-      ]
-    },
-    {
-      "teamId": "brasileirao.gremio",
-      "name": "Grêmio",
-      "shortName": "Grêmio",
-      "code": "GRE",
-      "played": 17,
-      "won": 4,
-      "drawn": 5,
-      "lost": 8,
-      "goalsFor": 18,
-      "goalsAgainst": 24,
-      "points": 17,
-      "form": [
-        "L",
-        "W",
-        "W",
-        "L",
-        "D"
       ]
     },
     {

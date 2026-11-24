@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "league": "champions-league",
   "season": "2026/27",
-  "updatedAt": "2026-11-23T22:28:20.377Z",
+  "updatedAt": "2026-11-24T21:01:09.804Z",
   "matches": [
     {
       "id": "champions-league-2026-07-07-lincoln-red-im-inter-d-escald-q2nmej",
@@ -1784,6 +1784,28 @@
       "awayTeam": "champions-league.real-betis",
       "homeScore": 2,
       "awayScore": 1,
+      "neutralSite": false
+    },
+    {
+      "id": "champions-league-2026-11-24-bod-glimt-lask-jp6gaw",
+      "date": "2026-11-24",
+      "startTime": "2026-11-24T17:45:00.000Z",
+      "round": "League phase · Matchday 5",
+      "homeTeam": "champions-league.bod-glimt",
+      "awayTeam": "champions-league.lask",
+      "homeScore": 1,
+      "awayScore": 0,
+      "neutralSite": false
+    },
+    {
+      "id": "champions-league-2026-11-24-galatasaray-aston-villa-gqm2sq",
+      "date": "2026-11-24",
+      "startTime": "2026-11-24T17:45:00.000Z",
+      "round": "League phase · Matchday 5",
+      "homeTeam": "champions-league.galatasaray",
+      "awayTeam": "champions-league.aston-villa",
+      "homeScore": 1,
+      "awayScore": 0,
       "neutralSite": false
     }
   ]

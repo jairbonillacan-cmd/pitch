@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "league": "nba",
-  "observedAt": "2026-11-24T15:05:34.094Z",
+  "observedAt": "2026-11-24T21:00:15.623Z",
   "source": "espn-public-nba",
   "coverageStatus": "ok",
   "entries": [
@@ -127,6 +127,16 @@
     },
     {
       "teamId": "nba.chicago-bulls",
+      "player": "Jalen Smith",
+      "position": "F",
+      "status": "Duda",
+      "detail": "Enfermedad",
+      "injuryType": "Illness",
+      "returnDate": "2026-11-25",
+      "reportedAt": "2026-11-24T18:21:00.000Z"
+    },
+    {
+      "teamId": "nba.chicago-bulls",
       "player": "Norman Powell",
       "position": "G",
       "status": "Baja",
@@ -222,8 +232,28 @@
       "status": "Baja",
       "detail": "Oblique",
       "injuryType": "Oblique",
-      "returnDate": "2026-11-30",
-      "reportedAt": "2026-11-23T22:10:00.000Z"
+      "returnDate": "2026-12-13",
+      "reportedAt": "2026-11-24T18:37:00.000Z"
+    },
+    {
+      "teamId": "nba.detroit-pistons",
+      "player": "Taurean Prince",
+      "position": "F",
+      "status": "Baja",
+      "detail": "Rodilla",
+      "injuryType": "Knee",
+      "returnDate": "2026-12-26",
+      "reportedAt": "2026-11-24T18:33:00.000Z"
+    },
+    {
+      "teamId": "nba.detroit-pistons",
+      "player": "Duncan Robinson",
+      "position": "F",
+      "status": "Baja",
+      "detail": "Quadriceps",
+      "injuryType": "Quadriceps",
+      "returnDate": "2026-11-27",
+      "reportedAt": "2026-11-24T18:30:00.000Z"
     },
     {
       "teamId": "nba.detroit-pistons",
@@ -233,7 +263,7 @@
       "detail": "Isquiotibiales",
       "injuryType": "Hamstring",
       "returnDate": "2026-11-30",
-      "reportedAt": "2026-11-23T22:08:00.000Z"
+      "reportedAt": "2026-11-24T18:27:00.000Z"
     },
     {
       "teamId": "nba.detroit-pistons",
@@ -244,26 +274,6 @@
       "injuryType": "Knee",
       "returnDate": "2026-11-24",
       "reportedAt": "2026-11-23T22:07:00.000Z"
-    },
-    {
-      "teamId": "nba.detroit-pistons",
-      "player": "Taurean Prince",
-      "position": "F",
-      "status": "Baja",
-      "detail": "Rodilla",
-      "injuryType": "Knee",
-      "returnDate": "2026-12-13",
-      "reportedAt": "2026-11-20T23:02:00.000Z"
-    },
-    {
-      "teamId": "nba.detroit-pistons",
-      "player": "Duncan Robinson",
-      "position": "F",
-      "status": "Baja",
-      "detail": "Quadriceps",
-      "injuryType": "Quadriceps",
-      "returnDate": "2026-11-27",
-      "reportedAt": "2026-11-17T16:25:00.000Z"
     },
     {
       "teamId": "nba.golden-state-warriors",
@@ -317,21 +327,31 @@
     },
     {
       "teamId": "nba.indiana-pacers",
-      "player": "Aaron Nesmith",
-      "position": "G",
-      "status": "Duda",
-      "detail": "Pie",
-      "injuryType": "Foot",
-      "returnDate": "2026-11-27",
-      "reportedAt": "2026-11-24T04:40:00.000Z"
-    },
-    {
-      "teamId": "nba.indiana-pacers",
       "player": "T.J. McConnell",
       "position": "G",
       "status": "Duda",
       "detail": "Isquiotibiales",
       "injuryType": "Hamstring",
+      "returnDate": "2026-11-27",
+      "reportedAt": "2026-11-24T19:43:00.000Z"
+    },
+    {
+      "teamId": "nba.indiana-pacers",
+      "player": "Tyrese Haliburton",
+      "position": "G",
+      "status": "Baja",
+      "detail": "Isquiotibiales",
+      "injuryType": "Hamstring",
+      "returnDate": "2026-12-13",
+      "reportedAt": "2026-11-24T19:41:00.000Z"
+    },
+    {
+      "teamId": "nba.indiana-pacers",
+      "player": "Aaron Nesmith",
+      "position": "G",
+      "status": "Duda",
+      "detail": "Pie",
+      "injuryType": "Foot",
       "returnDate": "2026-11-27",
       "reportedAt": "2026-11-24T04:40:00.000Z"
     },
@@ -344,26 +364,6 @@
       "injuryType": "Ankle",
       "returnDate": "2026-11-27",
       "reportedAt": "2026-11-24T02:00:00.000Z"
-    },
-    {
-      "teamId": "nba.indiana-pacers",
-      "player": "Tyrese Haliburton",
-      "position": "G",
-      "status": "Baja",
-      "detail": "Isquiotibiales",
-      "injuryType": "Hamstring",
-      "returnDate": "2026-12-13",
-      "reportedAt": "2026-11-20T20:41:00.000Z"
-    },
-    {
-      "teamId": "nba.indiana-pacers",
-      "player": "Johnny Furphy",
-      "position": "G",
-      "status": "Baja",
-      "detail": "Rodilla",
-      "injuryType": "Knee",
-      "returnDate": "2027-01-02",
-      "reportedAt": "2026-10-30T19:06:00.000Z"
     },
     {
       "teamId": "nba.indiana-pacers",
@@ -463,7 +463,17 @@
       "detail": "Ingle",
       "injuryType": "Groin",
       "returnDate": "2026-11-25",
-      "reportedAt": "2026-11-23T15:04:00.000Z"
+      "reportedAt": "2026-11-24T18:56:00.000Z"
+    },
+    {
+      "teamId": "nba.minnesota-timberwolves",
+      "player": "Donte DiVincenzo",
+      "position": "G",
+      "status": "Baja",
+      "detail": "Tendón de Aquiles",
+      "injuryType": "Achilles",
+      "returnDate": "2027-01-03",
+      "reportedAt": "2026-11-24T17:10:00.000Z"
     },
     {
       "teamId": "nba.minnesota-timberwolves",
@@ -484,16 +494,6 @@
       "injuryType": "Knee",
       "returnDate": "2026-12-21",
       "reportedAt": "2026-10-29T18:33:00.000Z"
-    },
-    {
-      "teamId": "nba.minnesota-timberwolves",
-      "player": "Donte DiVincenzo",
-      "position": "G",
-      "status": "Baja",
-      "detail": "Tendón de Aquiles",
-      "injuryType": "Achilles",
-      "returnDate": "2027-04-02",
-      "reportedAt": "2026-10-05T20:53:00.000Z"
     },
     {
       "teamId": "nba.new-orleans-pelicans",
@@ -527,13 +527,13 @@
     },
     {
       "teamId": "nba.new-york-knicks",
-      "player": "Miles McBride",
+      "player": "Jordan Clarkson",
       "position": "G",
-      "status": "Duda",
-      "detail": "Abdomen",
-      "injuryType": "Abdomen",
+      "status": "Baja",
+      "detail": "Pie",
+      "injuryType": "Foot",
       "returnDate": "2026-11-25",
-      "reportedAt": "2026-11-23T15:07:00.000Z"
+      "reportedAt": "2026-11-24T18:48:00.000Z"
     },
     {
       "teamId": "nba.new-york-knicks",
@@ -543,17 +543,17 @@
       "detail": "Gemelo",
       "injuryType": "Calf",
       "returnDate": "2026-11-25",
-      "reportedAt": "2026-11-23T15:07:00.000Z"
+      "reportedAt": "2026-11-24T18:42:00.000Z"
     },
     {
       "teamId": "nba.new-york-knicks",
-      "player": "Jordan Clarkson",
+      "player": "Miles McBride",
       "position": "G",
-      "status": "Baja",
-      "detail": "Pie",
-      "injuryType": "Foot",
+      "status": "Duda",
+      "detail": "Abdomen",
+      "injuryType": "Abdomen",
       "returnDate": "2026-11-25",
-      "reportedAt": "2026-11-22T18:05:00.000Z"
+      "reportedAt": "2026-11-24T18:40:00.000Z"
     },
     {
       "teamId": "nba.oklahoma-city-thunder",
@@ -884,6 +884,16 @@
       "injuryType": "Knee",
       "returnDate": "2026-12-14",
       "reportedAt": "2026-10-27T19:25:00.000Z"
+    },
+    {
+      "teamId": "nba.washington-wizards",
+      "player": "Tre Mann",
+      "position": "G",
+      "status": "Duda",
+      "detail": "Enfermedad",
+      "injuryType": "Illness",
+      "returnDate": "2026-11-24",
+      "reportedAt": "2026-11-24T16:47:00.000Z"
     },
     {
       "teamId": "nba.washington-wizards",

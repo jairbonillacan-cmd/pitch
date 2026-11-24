@@ -1,234 +1,198 @@
 {
   "schemaVersion": 1,
   "league": "brasileirao",
-  "observedAt": "2026-11-23T22:28:20.377Z",
+  "observedAt": "2026-11-24T21:01:09.804Z",
   "source": "pitchlab-availability",
   "coverageStatus": "ok",
   "entries": [
     {
-      "teamId": "brasileirao.chapecoense",
-      "player": "Dylan Borrero",
-      "position": "M",
-      "status": "Duda",
-      "detail": "Unknown",
-      "injuryType": "Unknown",
-      "reportedAt": "2026-11-23T22:28:20.377Z"
-    },
-    {
-      "teamId": "brasileirao.chapecoense",
-      "player": "Maurício Garcez",
-      "position": "F",
-      "status": "Baja",
-      "detail": "Leg Injury",
-      "injuryType": "Leg Injury",
-      "reportedAt": "2026-11-23T22:28:20.377Z"
-    },
-    {
-      "teamId": "brasileirao.chapecoense",
-      "player": "Rafael Carvalheira",
-      "position": "M",
-      "status": "Baja",
-      "detail": "Cruciate Ligament Injury",
-      "injuryType": "Cruciate Ligament Injury",
-      "reportedAt": "2026-11-23T22:28:20.377Z"
-    },
-    {
-      "teamId": "brasileirao.vasco-gama",
-      "player": "Carlos Cuesta",
-      "position": "D",
-      "status": "Baja",
-      "detail": "Hip Injury",
-      "injuryType": "Hip Injury",
-      "reportedAt": "2026-11-23T22:28:20.377Z"
-    },
-    {
-      "teamId": "brasileirao.vasco-gama",
-      "player": "Mateus Carvalho",
-      "position": "M",
-      "status": "Baja",
-      "detail": "Cruciate Ligament Injury",
-      "injuryType": "Cruciate Ligament Injury",
-      "reportedAt": "2026-11-23T22:28:20.377Z"
-    },
-    {
-      "teamId": "brasileirao.vasco-gama",
-      "player": "Nuno Moreira",
-      "position": "M",
-      "status": "Baja",
-      "detail": "Thigh Injury",
-      "injuryType": "Thigh Injury",
-      "reportedAt": "2026-11-23T22:28:20.377Z"
-    },
-    {
-      "teamId": "brasileirao.vasco-gama",
-      "player": "Paulo Henrique",
-      "position": "D",
-      "status": "Baja",
-      "detail": "yellow_card_accumulation_suspension",
-      "injuryType": "yellow_card_accumulation_suspension",
-      "reportedAt": "2026-11-23T22:28:20.377Z"
-    },
-    {
-      "teamId": "brasileirao.coritiba",
-      "player": "Lucas Ronier",
-      "position": "M",
-      "status": "Baja",
-      "detail": "Cruciate Ligament Injury",
-      "injuryType": "Cruciate Ligament Injury",
-      "reportedAt": "2026-11-23T22:28:20.377Z"
-    },
-    {
-      "teamId": "brasileirao.coritiba",
-      "player": "Rodrigo Moledo",
-      "position": "D",
-      "status": "Baja",
-      "detail": "Hamstring Injury",
-      "injuryType": "Hamstring Injury",
-      "reportedAt": "2026-11-23T22:28:20.377Z"
-    },
-    {
-      "teamId": "brasileirao.santos",
-      "player": "Álvaro Barreal",
-      "position": "M",
-      "status": "Baja",
-      "detail": "Thigh Injury",
-      "injuryType": "Thigh Injury",
-      "reportedAt": "2026-11-23T22:28:20.377Z"
-    },
-    {
-      "teamId": "brasileirao.santos",
-      "player": "Gabriel Brazão",
-      "position": "G",
-      "status": "Baja",
-      "detail": "Dislocated Shoulder",
-      "injuryType": "Dislocated Shoulder",
-      "reportedAt": "2026-11-23T22:28:20.377Z"
-    },
-    {
-      "teamId": "brasileirao.santos",
-      "player": "Gustavinho",
-      "position": "M",
-      "status": "Baja",
-      "detail": "yellow_card_accumulation_suspension",
-      "injuryType": "yellow_card_accumulation_suspension",
-      "reportedAt": "2026-11-23T22:28:20.377Z"
-    },
-    {
-      "teamId": "brasileirao.santos",
-      "player": "Lucas Veríssimo",
-      "position": "D",
-      "status": "Baja",
-      "detail": "Hamstring Injury",
-      "injuryType": "Hamstring Injury",
-      "reportedAt": "2026-11-23T22:28:20.377Z"
-    },
-    {
-      "teamId": "brasileirao.remo",
-      "player": "Jáderson",
-      "position": "M",
-      "status": "Baja",
-      "detail": "Thigh Injury",
-      "injuryType": "Thigh Injury",
-      "reportedAt": "2026-11-23T22:28:20.377Z"
-    },
-    {
-      "teamId": "brasileirao.remo",
-      "player": "Jajá",
-      "position": "M",
-      "status": "Baja",
-      "detail": "yellow_card_accumulation_suspension",
-      "injuryType": "yellow_card_accumulation_suspension",
-      "reportedAt": "2026-11-23T22:28:20.377Z"
-    },
-    {
-      "teamId": "brasileirao.remo",
-      "player": "João Lucas",
-      "position": "D",
-      "status": "Baja",
-      "detail": "Meniscus Injury",
-      "injuryType": "Meniscus Injury",
-      "reportedAt": "2026-11-23T22:28:20.377Z"
-    },
-    {
-      "teamId": "brasileirao.remo",
-      "player": "Matheus Felipe",
-      "position": "D",
-      "status": "Baja",
-      "detail": "Thigh Injury",
-      "injuryType": "Thigh Injury",
-      "reportedAt": "2026-11-23T22:28:20.377Z"
-    },
-    {
       "teamId": "brasileirao.flamengo",
       "player": "Alex Sandro",
-      "position": "D",
+      "position": "Defensa",
       "status": "Baja",
       "detail": "yellow_card_accumulation_suspension",
       "injuryType": "yellow_card_accumulation_suspension",
-      "reportedAt": "2026-11-23T22:28:20.377Z"
+      "reportedAt": "2026-11-24T21:01:09.804Z"
     },
     {
       "teamId": "brasileirao.athletico",
       "player": "Carlos Terán",
-      "position": "D",
+      "position": "Defensa",
       "status": "Baja",
       "detail": "club_decision",
       "injuryType": "club_decision",
-      "reportedAt": "2026-11-23T22:28:20.377Z"
+      "reportedAt": "2026-11-24T21:01:09.804Z"
     },
     {
       "teamId": "brasileirao.athletico",
       "player": "Claudinho",
-      "position": "D",
+      "position": "Defensa",
       "status": "Baja",
       "detail": "Cruciate Ligament Injury",
       "injuryType": "Cruciate Ligament Injury",
-      "reportedAt": "2026-11-23T22:28:20.377Z"
+      "reportedAt": "2026-11-24T21:01:09.804Z"
     },
     {
       "teamId": "brasileirao.cruzeiro",
       "player": "Gabriel Pec",
-      "position": "M",
+      "position": "Mediocampista",
       "status": "Baja",
       "detail": "Broken Leg",
       "injuryType": "Broken Leg",
-      "reportedAt": "2026-11-23T22:28:20.377Z"
+      "reportedAt": "2026-11-24T21:01:09.804Z"
     },
     {
       "teamId": "brasileirao.cruzeiro",
       "player": "João Marcelo",
-      "position": "D",
+      "position": "Defensa",
       "status": "Baja",
       "detail": "Knee Injury",
       "injuryType": "Knee Injury",
-      "reportedAt": "2026-11-23T22:28:20.377Z"
+      "reportedAt": "2026-11-24T21:01:09.804Z"
     },
     {
       "teamId": "brasileirao.cruzeiro",
       "player": "Keny Arroyo",
-      "position": "M",
+      "position": "Mediocampista",
       "status": "Baja",
       "detail": "Muscle Injury",
       "injuryType": "Muscle Injury",
-      "reportedAt": "2026-11-23T22:28:20.377Z"
+      "reportedAt": "2026-11-24T21:01:09.804Z"
     },
     {
       "teamId": "brasileirao.cruzeiro",
       "player": "Lucas Romero",
-      "position": "M",
+      "position": "Mediocampista",
       "status": "Baja",
       "detail": "Muscle Injury",
       "injuryType": "Muscle Injury",
-      "reportedAt": "2026-11-23T22:28:20.377Z"
+      "reportedAt": "2026-11-24T21:01:09.804Z"
     },
     {
       "teamId": "brasileirao.cruzeiro",
       "player": "Luis Sinisterra",
-      "position": "F",
+      "position": "Delantero",
       "status": "Baja",
       "detail": "Thigh Injury",
       "injuryType": "Thigh Injury",
-      "reportedAt": "2026-11-23T22:28:20.377Z"
+      "reportedAt": "2026-11-24T21:01:09.804Z"
+    },
+    {
+      "teamId": "brasileirao.palmeiras",
+      "player": "Jefté",
+      "position": "Defensa",
+      "status": "Baja",
+      "detail": "Meniscus Injury",
+      "injuryType": "Meniscus Injury",
+      "reportedAt": "2026-11-24T21:01:09.804Z"
+    },
+    {
+      "teamId": "brasileirao.palmeiras",
+      "player": "Joaquín Piquerez",
+      "position": "Defensa",
+      "status": "Baja",
+      "detail": "Thigh Injury",
+      "injuryType": "Thigh Injury",
+      "reportedAt": "2026-11-24T21:01:09.804Z"
+    },
+    {
+      "teamId": "brasileirao.palmeiras",
+      "player": "Murilo",
+      "position": "Defensa",
+      "status": "Baja",
+      "detail": "Thigh Injury",
+      "injuryType": "Thigh Injury",
+      "reportedAt": "2026-11-24T21:01:09.804Z"
+    },
+    {
+      "teamId": "brasileirao.gremio",
+      "player": "Erick Noriega",
+      "position": "Mediocampista",
+      "status": "Baja",
+      "detail": "yellow_card_accumulation_suspension",
+      "injuryType": "yellow_card_accumulation_suspension",
+      "reportedAt": "2026-11-24T21:01:09.804Z"
+    },
+    {
+      "teamId": "brasileirao.gremio",
+      "player": "João Pedro",
+      "position": "Defensa",
+      "status": "Baja",
+      "detail": "yellow_card_accumulation_suspension",
+      "injuryType": "yellow_card_accumulation_suspension",
+      "reportedAt": "2026-11-24T21:01:09.804Z"
+    },
+    {
+      "teamId": "brasileirao.gremio",
+      "player": "José Enamorado",
+      "position": "Delantero",
+      "status": "Baja",
+      "detail": "yellow_card_accumulation_suspension",
+      "injuryType": "yellow_card_accumulation_suspension",
+      "reportedAt": "2026-11-24T21:01:09.804Z"
+    },
+    {
+      "teamId": "brasileirao.gremio",
+      "player": "Juan Nardoni",
+      "position": "Mediocampista",
+      "status": "Baja",
+      "detail": "Thigh Injury",
+      "injuryType": "Thigh Injury",
+      "reportedAt": "2026-11-24T21:01:09.804Z"
+    },
+    {
+      "teamId": "brasileirao.bahia",
+      "player": "Léo Vieira",
+      "position": "Portero",
+      "status": "Baja",
+      "detail": "Knee Surgery",
+      "injuryType": "Knee Surgery",
+      "reportedAt": "2026-11-24T21:01:09.804Z"
+    },
+    {
+      "teamId": "brasileirao.bahia",
+      "player": "Nicolás Acevedo",
+      "position": "Mediocampista",
+      "status": "Baja",
+      "detail": "yellow_or_red_card_suspension",
+      "injuryType": "yellow_or_red_card_suspension",
+      "reportedAt": "2026-11-24T21:01:09.804Z"
+    },
+    {
+      "teamId": "brasileirao.corinthians",
+      "player": "André Carrillo",
+      "position": "Mediocampista",
+      "status": "Baja",
+      "detail": "yellow_card_accumulation_suspension",
+      "injuryType": "yellow_card_accumulation_suspension",
+      "reportedAt": "2026-11-24T21:01:09.804Z"
+    },
+    {
+      "teamId": "brasileirao.corinthians",
+      "player": "Rodrigo Garro",
+      "position": "Mediocampista",
+      "status": "Duda",
+      "detail": "Knee Injury",
+      "injuryType": "Knee Injury",
+      "reportedAt": "2026-11-24T21:01:09.804Z"
+    },
+    {
+      "teamId": "brasileirao.botafogo",
+      "player": "Huguinho",
+      "position": "Mediocampista",
+      "status": "Baja",
+      "detail": "yellow_card_accumulation_suspension",
+      "injuryType": "yellow_card_accumulation_suspension",
+      "reportedAt": "2026-11-24T21:01:09.804Z"
+    },
+    {
+      "teamId": "brasileirao.botafogo",
+      "player": "Jordan Barrera",
+      "position": "Mediocampista",
+      "status": "Baja",
+      "detail": "Ankle Injury",
+      "injuryType": "Ankle Injury",
+      "reportedAt": "2026-11-24T21:01:09.804Z"
     }
   ]
 }

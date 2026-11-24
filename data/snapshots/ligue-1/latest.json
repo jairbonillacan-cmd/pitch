@@ -5,7 +5,7 @@
   "season": "ligue-1-2026-27",
   "seasonLabel": "2026/27",
   "periodLabel": "Jornada 12",
-  "updatedAt": "2026-11-23T22:35:24.628Z",
+  "updatedAt": "2026-11-24T21:08:59.597Z",
   "source": "openfootball+football-data",
   "provenance": "derived",
   "isDemo": false,
@@ -19,8 +19,8 @@
       "forPerGame": 0.8181818181818182,
       "againstPerGame": 2.090909090909091,
       "gamesPlayed": 11,
-      "adjustedFor": 0.9150758499081793,
-      "adjustedAgainst": 1.5218029132059907
+      "adjustedFor": 0.9154046087064659,
+      "adjustedAgainst": 1.5217448178251967
     },
     "ligue-1.aj-auxerre": {
       "teamId": "ligue-1.aj-auxerre",
@@ -31,8 +31,8 @@
       "forPerGame": 1.2727272727272727,
       "againstPerGame": 2.272727272727273,
       "gamesPlayed": 11,
-      "adjustedFor": 1.187698482361218,
-      "adjustedAgainst": 1.52571357885074
+      "adjustedFor": 1.1878416704246715,
+      "adjustedAgainst": 1.525670778314304
     },
     "ligue-1.stade-brestois": {
       "teamId": "ligue-1.stade-brestois",
@@ -43,8 +43,8 @@
       "forPerGame": 1.7272727272727273,
       "againstPerGame": 1.0909090909090908,
       "gamesPlayed": 11,
-      "adjustedFor": 1.3743702143734835,
-      "adjustedAgainst": 1.2558362019062492
+      "adjustedFor": 1.3743593688223181,
+      "adjustedAgainst": 1.255950723220208
     },
     "ligue-1.le-havre": {
       "teamId": "ligue-1.le-havre",
@@ -55,8 +55,8 @@
       "forPerGame": 0.9090909090909091,
       "againstPerGame": 2.272727272727273,
       "gamesPlayed": 11,
-      "adjustedFor": 1.0810957789344442,
-      "adjustedAgainst": 1.610560485362086
+      "adjustedFor": 1.0812948222328074,
+      "adjustedAgainst": 1.6104287466758802
     },
     "ligue-1.le-mans": {
       "teamId": "ligue-1.le-mans",
@@ -67,8 +67,8 @@
       "forPerGame": 1.3636363636363635,
       "againstPerGame": 1.9090909090909092,
       "gamesPlayed": 11,
-      "adjustedFor": 1.2864233306288815,
-      "adjustedAgainst": 1.459524009774273
+      "adjustedFor": 1.2864817110360625,
+      "adjustedAgainst": 1.4594823077399453
     },
     "ligue-1.racing-lens": {
       "teamId": "ligue-1.racing-lens",
@@ -79,8 +79,8 @@
       "forPerGame": 1.6363636363636365,
       "againstPerGame": 1.4545454545454546,
       "gamesPlayed": 11,
-      "adjustedFor": 1.522346794510065,
-      "adjustedAgainst": 1.177387899746493
+      "adjustedFor": 1.522210480706091,
+      "adjustedAgainst": 1.1775579124545859
     },
     "ligue-1.lorient": {
       "teamId": "ligue-1.lorient",
@@ -91,8 +91,8 @@
       "forPerGame": 0.9090909090909091,
       "againstPerGame": 0.8181818181818182,
       "gamesPlayed": 11,
-      "adjustedFor": 1.104161312151944,
-      "adjustedAgainst": 1.0886556279222026
+      "adjustedFor": 1.1043721459663118,
+      "adjustedAgainst": 1.088898487475704
     },
     "ligue-1.lille-osc": {
       "teamId": "ligue-1.lille-osc",
@@ -103,8 +103,8 @@
       "forPerGame": 1.2727272727272727,
       "againstPerGame": 0.7272727272727273,
       "gamesPlayed": 11,
-      "adjustedFor": 1.2647820451745682,
-      "adjustedAgainst": 0.9389702905035836
+      "adjustedFor": 1.2648530874576782,
+      "adjustedAgainst": 0.939315499441651
     },
     "ligue-1.olympique-lyonnais": {
       "teamId": "ligue-1.olympique-lyonnais",
@@ -115,8 +115,8 @@
       "forPerGame": 1.4545454545454546,
       "againstPerGame": 0.8181818181818182,
       "gamesPlayed": 11,
-      "adjustedFor": 1.403737345747459,
-      "adjustedAgainst": 1.0507213815619545
+      "adjustedFor": 1.4037130911467586,
+      "adjustedAgainst": 1.0510028897846804
     },
     "ligue-1.olympique-marseille": {
       "teamId": "ligue-1.olympique-marseille",
@@ -127,8 +127,8 @@
       "forPerGame": 2.1818181818181817,
       "againstPerGame": 1.5454545454545454,
       "gamesPlayed": 11,
-      "adjustedFor": 1.6650069936258398,
-      "adjustedAgainst": 1.3073381729570388
+      "adjustedFor": 1.6648071307556966,
+      "adjustedAgainst": 1.307425632233331
     },
     "ligue-1.monaco": {
       "teamId": "ligue-1.monaco",
@@ -139,8 +139,8 @@
       "forPerGame": 1.2727272727272727,
       "againstPerGame": 1.0909090909090908,
       "gamesPlayed": 11,
-      "adjustedFor": 1.3760784484455018,
-      "adjustedAgainst": 1.1907103254909281
+      "adjustedFor": 1.3760601317842052,
+      "adjustedAgainst": 1.1908936580621314
     },
     "ligue-1.ogc-nice": {
       "teamId": "ligue-1.ogc-nice",
@@ -151,8 +151,8 @@
       "forPerGame": 1.5454545454545454,
       "againstPerGame": 1.3636363636363635,
       "gamesPlayed": 11,
-      "adjustedFor": 1.3156233150093526,
-      "adjustedAgainst": 1.354706099903732
+      "adjustedFor": 1.3156467170014639,
+      "adjustedAgainst": 1.354773323296037
     },
     "ligue-1.paris": {
       "teamId": "ligue-1.paris",
@@ -163,8 +163,8 @@
       "forPerGame": 1.9090909090909092,
       "againstPerGame": 0.9090909090909091,
       "gamesPlayed": 11,
-      "adjustedFor": 1.5027408040107695,
-      "adjustedAgainst": 1.1387810928345141
+      "adjustedFor": 1.5026342410814069,
+      "adjustedAgainst": 1.1389948896482587
     },
     "ligue-1.paris-saint-germain": {
       "teamId": "ligue-1.paris-saint-germain",
@@ -175,8 +175,8 @@
       "forPerGame": 2.272727272727273,
       "againstPerGame": 1.0909090909090908,
       "gamesPlayed": 11,
-      "adjustedFor": 1.8122455780836313,
-      "adjustedAgainst": 0.9841552775632896
+      "adjustedFor": 1.8119423727736046,
+      "adjustedAgainst": 0.9844581447499757
     },
     "ligue-1.stade-rennais": {
       "teamId": "ligue-1.stade-rennais",
@@ -187,8 +187,8 @@
       "forPerGame": 2,
       "againstPerGame": 2,
       "gamesPlayed": 11,
-      "adjustedFor": 1.6378727378442088,
-      "adjustedAgainst": 1.4950212697275849
+      "adjustedFor": 1.6376426135881714,
+      "adjustedAgainst": 1.4949800545030911
     },
     "ligue-1.strasbourg-alsace": {
       "teamId": "ligue-1.strasbourg-alsace",
@@ -199,8 +199,8 @@
       "forPerGame": 1.6363636363636365,
       "againstPerGame": 2.090909090909091,
       "gamesPlayed": 11,
-      "adjustedFor": 1.5131798809987624,
-      "adjustedAgainst": 1.4692769982805745
+      "adjustedFor": 1.5130564451468127,
+      "adjustedAgainst": 1.469282188314461
     },
     "ligue-1.toulouse": {
       "teamId": "ligue-1.toulouse",
@@ -211,8 +211,8 @@
       "forPerGame": 1.4545454545454546,
       "againstPerGame": 1.3636363636363635,
       "gamesPlayed": 11,
-      "adjustedFor": 1.3432708863199394,
-      "adjustedAgainst": 1.2525029876053686
+      "adjustedFor": 1.3432729274907285,
+      "adjustedAgainst": 1.2526378581505282
     },
     "ligue-1.es-troyes": {
       "teamId": "ligue-1.es-troyes",
@@ -223,8 +223,8 @@
       "forPerGame": 0.9090909090909091,
       "againstPerGame": 1.6363636363636365,
       "gamesPlayed": 11,
-      "adjustedFor": 1.046171541834531,
-      "adjustedAgainst": 1.359402245375176
+      "adjustedFor": 1.0465117083264417,
+      "adjustedAgainst": 1.3594464081644646
     }
   },
   "games": [
@@ -257,7 +257,7 @@
       "result": {
         "home": 3,
         "away": 1,
-        "observedAt": "2026-11-23T22:35:29.777Z",
+        "observedAt": "2026-11-24T21:09:05.609Z",
         "source": "football-data"
       }
     },
@@ -290,7 +290,7 @@
       "result": {
         "home": 2,
         "away": 3,
-        "observedAt": "2026-11-23T22:35:29.777Z",
+        "observedAt": "2026-11-24T21:09:05.609Z",
         "source": "football-data"
       }
     },
@@ -323,7 +323,7 @@
       "result": {
         "home": 1,
         "away": 1,
-        "observedAt": "2026-11-23T22:35:29.777Z",
+        "observedAt": "2026-11-24T21:09:05.609Z",
         "source": "football-data"
       }
     },
@@ -356,7 +356,7 @@
       "result": {
         "home": 1,
         "away": 1,
-        "observedAt": "2026-11-23T22:35:29.777Z",
+        "observedAt": "2026-11-24T21:09:05.609Z",
         "source": "football-data"
       }
     },
@@ -389,7 +389,7 @@
       "result": {
         "home": 0,
         "away": 1,
-        "observedAt": "2026-11-23T22:35:29.777Z",
+        "observedAt": "2026-11-24T21:09:05.609Z",
         "source": "football-data"
       }
     },
@@ -422,7 +422,7 @@
       "result": {
         "home": 0,
         "away": 1,
-        "observedAt": "2026-11-23T22:35:29.777Z",
+        "observedAt": "2026-11-24T21:09:05.609Z",
         "source": "football-data"
       }
     },
@@ -455,7 +455,7 @@
       "result": {
         "home": 4,
         "away": 0,
-        "observedAt": "2026-11-23T22:35:29.777Z",
+        "observedAt": "2026-11-24T21:09:05.609Z",
         "source": "football-data"
       }
     },
@@ -488,7 +488,7 @@
       "result": {
         "home": 1,
         "away": 1,
-        "observedAt": "2026-11-23T22:35:29.777Z",
+        "observedAt": "2026-11-24T21:09:05.609Z",
         "source": "football-data"
       }
     },
@@ -521,7 +521,7 @@
       "result": {
         "home": 2,
         "away": 3,
-        "observedAt": "2026-11-23T22:35:29.777Z",
+        "observedAt": "2026-11-24T21:09:05.609Z",
         "source": "football-data"
       }
     },
@@ -1475,11 +1475,11 @@
         "referee": "Jeremie Pignard",
         "refereeStats": {
           "country": "France",
-          "matches": 55,
+          "matches": 56,
           "avgYellow": 4.16,
-          "avgRed": 0.27,
+          "avgRed": 0.29,
           "avgFouls": 22.5,
-          "avgGoals": 2.95
+          "avgGoals": 2.93
         }
       }
     },
@@ -4476,11 +4476,11 @@
         "referee": "François Letexier",
         "refereeStats": {
           "country": "France",
-          "matches": 78,
-          "avgYellow": 4,
-          "avgRed": 0.31,
+          "matches": 79,
+          "avgYellow": 3.99,
+          "avgRed": 0.32,
           "avgFouls": 21.9,
-          "avgGoals": 3.03
+          "avgGoals": 3.05
         }
       }
     },
@@ -5947,11 +5947,11 @@
         "referee": "Aurelien Petit",
         "refereeStats": {
           "country": "France",
-          "matches": 43,
-          "avgYellow": 3.88,
-          "avgRed": 0.26,
+          "matches": 44,
+          "avgYellow": 3.82,
+          "avgRed": 0.25,
           "avgFouls": 27.3,
-          "avgGoals": 2.44
+          "avgGoals": 2.41
         }
       }
     },
@@ -7408,11 +7408,11 @@
         "referee": "Eric Wattellier",
         "refereeStats": {
           "country": "France",
-          "matches": 49,
-          "avgYellow": 3.35,
+          "matches": 50,
+          "avgYellow": 3.34,
           "avgRed": 0.24,
           "avgFouls": 20.4,
-          "avgGoals": 3.35
+          "avgGoals": 3.36
         }
       }
     },
@@ -8139,6 +8139,84 @@
     },
     "ligue-1-2026-27-md12-angers-sco-racing-lens": {
       "game": "ligue-1-2026-27-md12-angers-sco-racing-lens",
+      "cortex": {
+        "headline": "Lens llega con más peso y Angers sostiene su localía en apuros",
+        "headlineOrigin": "ia",
+        "sections": [
+          {
+            "key": "lectura",
+            "title": "La lectura",
+            "text": "El Lens se presenta con 60 % de probabilidad y una diferencia de +2 en la tabla, frente al 18 % del Angers, que carga con -14. El local juega en casa, pero su posición 17 y sus 8 puntos lo dejan por debajo de un visitante con 14.",
+            "origin": "ia"
+          },
+          {
+            "key": "goles",
+            "title": "Goles",
+            "text": "Se espera un partido con 3.02 goles de proyección y un 58 % de que pase de 2.5. El Lens aporta 2.04 y el Angers 0.99; el 55 % de ambos anotan sugiere que el local también encuentra hueco.",
+            "origin": "ia",
+            "stats": [
+              {
+                "label": "Goles esperados",
+                "home": 0.99,
+                "away": 2.04
+              },
+              {
+                "label": "Ambos anotan",
+                "value": "55 %"
+              },
+              {
+                "label": "Más de 2.5 goles",
+                "value": "58 %"
+              }
+            ]
+          },
+          {
+            "key": "ritmo",
+            "title": "Ritmo del partido",
+            "text": "El Lens empuja más en ataque con 5.2 tiros de esquina por 4.4 del Angers, para 9.6 en total. Las faltas suman 23.3, con 12.4 del visitante, así que el juego se corta y pierde fluidez.",
+            "origin": "ia",
+            "stats": [
+              {
+                "label": "Tiros de esquina",
+                "home": 4.4,
+                "away": 5.2
+              },
+              {
+                "label": "Faltas",
+                "home": 10.9,
+                "away": 12.4
+              },
+              {
+                "label": "Amarillas",
+                "home": 1.6,
+                "away": 1.7
+              }
+            ]
+          },
+          {
+            "key": "tabla",
+            "title": "Tabla y descanso",
+            "text": "El Angers es 17 con 8 puntos, 11 jugados y -14; el Lens es 11 con 14 puntos, 11 jugados y +2. El descanso es casi igual: 6 días para el local y 7 para el visitante.",
+            "origin": "ia",
+            "stats": [
+              {
+                "label": "Puntos",
+                "home": 8,
+                "away": 14
+              }
+            ]
+          },
+          {
+            "key": "cambia",
+            "title": "Qué podría cambiarlo",
+            "text": "Las alineaciones pueden ajustar el peso ofensivo de cada lado. El criterio del árbitro define cuánto se corta el juego con faltas, y el primer gol cambia el guion: si el Angers anota temprano, el Lens debe abrirse.",
+            "origin": "ia"
+          }
+        ],
+        "fingerprint": "f1894e5648c057be",
+        "generatedAt": "2026-11-24T21:11:20.950Z",
+        "version": "2"
+      },
       "counts": {
         "corners": {
           "home": 4.43,
@@ -10093,6 +10171,84 @@
     },
     "ligue-1-2026-27-md12-le-havre-strasbourg-alsace": {
       "game": "ligue-1-2026-27-md12-le-havre-strasbourg-alsace",
+      "cortex": {
+        "headline": "Strasbourg llega con más peso ofensivo y mejor respaldo en la tabla",
+        "headlineOrigin": "ia",
+        "sections": [
+          {
+            "key": "lectura",
+            "title": "La lectura",
+            "text": "Strasbourg asoma como favorito con 50 % de probabilidad y una proyección de 2.17 goles, frente al 27 % de Le Havre. En la tabla el visitante suma 10 puntos por 2 del local, aunque ambos llegan con descanso parecido: 7 días contra 8.",
+            "origin": "ia"
+          },
+          {
+            "key": "goles",
+            "title": "Goles",
+            "text": "El total esperado es 3.77, con 89 % de más de 1.5 y 72 % de más de 2.5. Strasbourg aporta 2.17 de esos goles y Le Havre 1.60; ambos anotan se da en 71 %.",
+            "origin": "ia",
+            "stats": [
+              {
+                "label": "Goles esperados",
+                "home": 1.6,
+                "away": 2.17
+              },
+              {
+                "label": "Ambos anotan",
+                "value": "71 %"
+              },
+              {
+                "label": "Más de 2.5 goles",
+                "value": "72 %"
+              }
+            ]
+          },
+          {
+            "key": "ritmo",
+            "title": "Ritmo del partido",
+            "text": "Le Havre empuja más desde las bandas con 5.0 tiros de esquina por 3.7 del visitante, 8.7 en total. Las faltas suman 27.7, con 14.7 de Strasbourg, así que el juego se corta seguido.",
+            "origin": "ia",
+            "stats": [
+              {
+                "label": "Tiros de esquina",
+                "home": 5,
+                "away": 3.7
+              },
+              {
+                "label": "Faltas",
+                "home": 13.1,
+                "away": 14.7
+              },
+              {
+                "label": "Amarillas",
+                "home": 1.7,
+                "away": 1.8
+              }
+            ]
+          },
+          {
+            "key": "tabla",
+            "title": "Tabla y descanso",
+            "text": "Le Havre es 18 con 2 puntos en 11 partidos y diferencia de -15. Strasbourg es 16 con 10 puntos y -5. El descanso es casi igual: 8 días para el local y 7 para el visitante.",
+            "origin": "ia",
+            "stats": [
+              {
+                "label": "Puntos",
+                "home": 2,
+                "away": 10
+              }
+            ]
+          },
+          {
+            "key": "cambia",
+            "title": "Qué podría cambiarlo",
+            "text": "Las alineaciones pueden ajustar el peso ofensivo de cada lado. El árbitro influye en un partido de muchas faltas, y el primer gol definiría si Le Havre se estira o Strasbourg controla.",
+            "origin": "ia"
+          }
+        ],
+        "fingerprint": "f5624fb83f28b9c2",
+        "generatedAt": "2026-11-24T21:11:33.616Z",
+        "version": "2"
+      },
       "counts": {
         "corners": {
           "home": 4.99,

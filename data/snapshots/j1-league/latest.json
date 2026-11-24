@@ -5,7 +5,7 @@
   "season": "j1-league-2026",
   "seasonLabel": "2026",
   "periodLabel": "Regular season · Matchday 14",
-  "updatedAt": "2026-11-23T22:28:20.377Z",
+  "updatedAt": "2026-11-24T21:01:09.804Z",
   "source": "pitchlab-football-v2",
   "provenance": "derived",
   "isDemo": false,
@@ -18,8 +18,8 @@
       "forPerGame": 1.5333333333333334,
       "againstPerGame": 1.1333333333333333,
       "gamesPlayed": 15,
-      "adjustedFor": 1.3523987019618278,
-      "adjustedAgainst": 1.1217782859164025
+      "adjustedFor": 1.3523976478201307,
+      "adjustedAgainst": 1.121985234712342
     },
     "j1-league.kashima-antlers": {
       "teamId": "j1-league.kashima-antlers",
@@ -29,8 +29,8 @@
       "forPerGame": 2,
       "againstPerGame": 1.6666666666666667,
       "gamesPlayed": 15,
-      "adjustedFor": 1.5814658820165348,
-      "adjustedAgainst": 1.4505627440820426
+      "adjustedFor": 1.5812624373810826,
+      "adjustedAgainst": 1.450435909421994
     },
     "j1-league.gamba-osaka": {
       "teamId": "j1-league.gamba-osaka",
@@ -40,8 +40,8 @@
       "forPerGame": 1.0666666666666667,
       "againstPerGame": 1.6666666666666667,
       "gamesPlayed": 15,
-      "adjustedFor": 1.1002223833804983,
-      "adjustedAgainst": 1.4321221445529937
+      "adjustedFor": 1.1004407661006506,
+      "adjustedAgainst": 1.4320238480456524
     },
     "j1-league.urawa-red-diamonds": {
       "teamId": "j1-league.urawa-red-diamonds",
@@ -51,8 +51,8 @@
       "forPerGame": 1.6,
       "againstPerGame": 2.066666666666667,
       "gamesPlayed": 15,
-      "adjustedFor": 1.4369547784322267,
-      "adjustedAgainst": 1.603467487433466
+      "adjustedFor": 1.436823860150063,
+      "adjustedAgainst": 1.603245266897845
     },
     "j1-league.nagoya-grampus": {
       "teamId": "j1-league.nagoya-grampus",
@@ -62,8 +62,8 @@
       "forPerGame": 1,
       "againstPerGame": 1.5333333333333334,
       "gamesPlayed": 15,
-      "adjustedFor": 1.0857651986710433,
-      "adjustedAgainst": 1.3052355396342512
+      "adjustedFor": 1.0859845157635277,
+      "adjustedAgainst": 1.3053003565862118
     },
     "j1-league.shimizu-s-pulse": {
       "teamId": "j1-league.shimizu-s-pulse",
@@ -73,8 +73,8 @@
       "forPerGame": 0.7333333333333333,
       "againstPerGame": 1.6,
       "gamesPlayed": 15,
-      "adjustedFor": 0.9184839615675926,
-      "adjustedAgainst": 1.3916023488349818
+      "adjustedFor": 0.9188704307810176,
+      "adjustedAgainst": 1.3915755214077525
     },
     "j1-league.kashiwa-reysol": {
       "teamId": "j1-league.kashiwa-reysol",
@@ -84,8 +84,8 @@
       "forPerGame": 2.066666666666667,
       "againstPerGame": 1.4,
       "gamesPlayed": 15,
-      "adjustedFor": 1.6525490565147136,
-      "adjustedAgainst": 1.2782336526262703
+      "adjustedFor": 1.6522471351413563,
+      "adjustedAgainst": 1.278295234640567
     },
     "j1-league.mito-hollyhock": {
       "teamId": "j1-league.mito-hollyhock",
@@ -95,8 +95,8 @@
       "forPerGame": 0.9333333333333333,
       "againstPerGame": 1.8,
       "gamesPlayed": 15,
-      "adjustedFor": 1.0265992186495883,
-      "adjustedAgainst": 1.458511650039278
+      "adjustedFor": 1.026884046200855,
+      "adjustedAgainst": 1.4584537737783179
     },
     "j1-league.tokyo": {
       "teamId": "j1-league.tokyo",
@@ -106,8 +106,8 @@
       "forPerGame": 2.4,
       "againstPerGame": 0.5333333333333333,
       "gamesPlayed": 15,
-      "adjustedFor": 1.8257580950200514,
-      "adjustedAgainst": 0.799287921771582
+      "adjustedFor": 1.8253456465761084,
+      "adjustedAgainst": 0.7997846730218808
     },
     "j1-league.machida-zelvia": {
       "teamId": "j1-league.machida-zelvia",
@@ -117,8 +117,8 @@
       "forPerGame": 2,
       "againstPerGame": 0.6666666666666666,
       "gamesPlayed": 15,
-      "adjustedFor": 1.5858425295083554,
-      "adjustedAgainst": 0.8572015246618989
+      "adjustedFor": 1.5856077325948519,
+      "adjustedAgainst": 0.8576523569867306
     },
     "j1-league.cerezo-osaka": {
       "teamId": "j1-league.cerezo-osaka",
@@ -128,8 +128,8 @@
       "forPerGame": 1.0666666666666667,
       "againstPerGame": 1.8666666666666667,
       "gamesPlayed": 15,
-      "adjustedFor": 1.1171734203293404,
-      "adjustedAgainst": 1.558919116148107
+      "adjustedFor": 1.1173690923454132,
+      "adjustedAgainst": 1.5587192286282878
     },
     "j1-league.fagiano-okayama": {
       "teamId": "j1-league.fagiano-okayama",
@@ -139,8 +139,8 @@
       "forPerGame": 1.1333333333333333,
       "againstPerGame": 1.4666666666666666,
       "gamesPlayed": 15,
-      "adjustedFor": 1.1356013809845529,
-      "adjustedAgainst": 1.333581868684661
+      "adjustedFor": 1.1357897805619328,
+      "adjustedAgainst": 1.3335733100024534
     },
     "j1-league.avispa-fukuoka": {
       "teamId": "j1-league.avispa-fukuoka",
@@ -150,8 +150,8 @@
       "forPerGame": 0.9333333333333333,
       "againstPerGame": 1.7333333333333334,
       "gamesPlayed": 15,
-      "adjustedFor": 0.9950146223645786,
-      "adjustedAgainst": 1.494973154163368
+      "adjustedFor": 0.9953430554927175,
+      "adjustedAgainst": 1.494810806200617
     },
     "j1-league.vissel-kobe": {
       "teamId": "j1-league.vissel-kobe",
@@ -161,8 +161,8 @@
       "forPerGame": 1.6,
       "againstPerGame": 1.0666666666666667,
       "gamesPlayed": 15,
-      "adjustedFor": 1.3869874919662641,
-      "adjustedAgainst": 1.110245930234925
+      "adjustedFor": 1.3869512264784118,
+      "adjustedAgainst": 1.1104620142621415
     },
     "j1-league.sanfrecce-hiroshima": {
       "teamId": "j1-league.sanfrecce-hiroshima",
@@ -172,8 +172,8 @@
       "forPerGame": 2.2666666666666666,
       "againstPerGame": 0.8,
       "gamesPlayed": 15,
-      "adjustedFor": 1.731633228607429,
-      "adjustedAgainst": 0.9976772250091028
+      "adjustedFor": 1.7313055076166428,
+      "adjustedAgainst": 0.997959919674995
     },
     "j1-league.jef-united-chiba": {
       "teamId": "j1-league.jef-united-chiba",
@@ -183,8 +183,8 @@
       "forPerGame": 1.1333333333333333,
       "againstPerGame": 1.6,
       "gamesPlayed": 15,
-      "adjustedFor": 1.152520492992851,
-      "adjustedAgainst": 1.356639104120082
+      "adjustedFor": 1.1526943415392212,
+      "adjustedAgainst": 1.3566248958353027
     },
     "j1-league.tokyo-verdy": {
       "teamId": "j1-league.tokyo-verdy",
@@ -194,8 +194,8 @@
       "forPerGame": 0.8,
       "againstPerGame": 1.4666666666666666,
       "gamesPlayed": 15,
-      "adjustedFor": 0.9519216153429995,
-      "adjustedAgainst": 1.3086775757914184
+      "adjustedFor": 0.9522792147291468,
+      "adjustedAgainst": 1.3087205420206995
     },
     "j1-league.kawasaki-frontale": {
       "teamId": "j1-league.kawasaki-frontale",
@@ -205,8 +205,8 @@
       "forPerGame": 1.9333333333333333,
       "againstPerGame": 1.6,
       "gamesPlayed": 15,
-      "adjustedFor": 1.5790359575906623,
-      "adjustedAgainst": 1.420737366116486
+      "adjustedFor": 1.5788100218980479,
+      "adjustedAgainst": 1.4206389176211813
     },
     "j1-league.v-varen-nagasaki": {
       "teamId": "j1-league.v-varen-nagasaki",
@@ -216,8 +216,8 @@
       "forPerGame": 1.1333333333333333,
       "againstPerGame": 1.4666666666666666,
       "gamesPlayed": 15,
-      "adjustedFor": 1.1435623459577375,
-      "adjustedAgainst": 1.2744943910722333
+      "adjustedFor": 1.1437392839878953,
+      "adjustedAgainst": 1.2745737628351375
     },
     "j1-league.kyoto-sanga": {
       "teamId": "j1-league.kyoto-sanga",
@@ -227,8 +227,8 @@
       "forPerGame": 1.4,
       "againstPerGame": 1.6,
       "gamesPlayed": 15,
-      "adjustedFor": 1.3006130536696818,
-      "adjustedAgainst": 1.3485892678709381
+      "adjustedFor": 1.300643532129577,
+      "adjustedAgainst": 1.3486062688706437
     }
   },
   "games": [
@@ -263,7 +263,7 @@
       "result": {
         "home": 1,
         "away": 1,
-        "observedAt": "2026-11-23T22:28:20.377Z",
+        "observedAt": "2026-11-24T21:01:09.804Z",
         "source": "pitchlab-feed"
       }
     },
@@ -298,7 +298,7 @@
       "result": {
         "home": 2,
         "away": 1,
-        "observedAt": "2026-11-23T22:28:20.377Z",
+        "observedAt": "2026-11-24T21:01:09.804Z",
         "source": "pitchlab-feed"
       }
     },
@@ -333,7 +333,7 @@
       "result": {
         "home": 2,
         "away": 2,
-        "observedAt": "2026-11-23T22:28:20.377Z",
+        "observedAt": "2026-11-24T21:01:09.804Z",
         "source": "pitchlab-feed"
       }
     },
@@ -368,7 +368,7 @@
       "result": {
         "home": 0,
         "away": 0,
-        "observedAt": "2026-11-23T22:28:20.377Z",
+        "observedAt": "2026-11-24T21:01:09.804Z",
         "source": "pitchlab-feed"
       }
     },
@@ -403,7 +403,7 @@
       "result": {
         "home": 2,
         "away": 3,
-        "observedAt": "2026-11-23T22:28:20.377Z",
+        "observedAt": "2026-11-24T21:01:09.804Z",
         "source": "pitchlab-feed"
       }
     },
@@ -438,7 +438,7 @@
       "result": {
         "home": 1,
         "away": 0,
-        "observedAt": "2026-11-23T22:28:20.377Z",
+        "observedAt": "2026-11-24T21:01:09.804Z",
         "source": "pitchlab-feed"
       }
     },
@@ -473,7 +473,7 @@
       "result": {
         "home": 1,
         "away": 2,
-        "observedAt": "2026-11-23T22:28:20.377Z",
+        "observedAt": "2026-11-24T21:01:09.804Z",
         "source": "pitchlab-feed"
       }
     },
@@ -508,7 +508,7 @@
       "result": {
         "home": 0,
         "away": 1,
-        "observedAt": "2026-11-23T22:28:20.377Z",
+        "observedAt": "2026-11-24T21:01:09.804Z",
         "source": "pitchlab-feed"
       }
     },
@@ -543,7 +543,7 @@
       "result": {
         "home": 1,
         "away": 1,
-        "observedAt": "2026-11-23T22:28:20.377Z",
+        "observedAt": "2026-11-24T21:01:09.804Z",
         "source": "pitchlab-feed"
       }
     },
@@ -578,7 +578,7 @@
       "result": {
         "home": 0,
         "away": 0,
-        "observedAt": "2026-11-23T22:28:20.377Z",
+        "observedAt": "2026-11-24T21:01:09.804Z",
         "source": "pitchlab-feed"
       }
     },
@@ -613,7 +613,7 @@
       "result": {
         "home": 2,
         "away": 2,
-        "observedAt": "2026-11-23T22:28:20.377Z",
+        "observedAt": "2026-11-24T21:01:09.804Z",
         "source": "pitchlab-feed"
       }
     },
@@ -648,7 +648,7 @@
       "result": {
         "home": 0,
         "away": 0,
-        "observedAt": "2026-11-23T22:28:20.377Z",
+        "observedAt": "2026-11-24T21:01:09.804Z",
         "source": "pitchlab-feed"
       }
     },
@@ -683,7 +683,7 @@
       "result": {
         "home": 2,
         "away": 1,
-        "observedAt": "2026-11-23T22:28:20.377Z",
+        "observedAt": "2026-11-24T21:01:09.804Z",
         "source": "pitchlab-feed"
       }
     },
@@ -718,7 +718,7 @@
       "result": {
         "home": 1,
         "away": 0,
-        "observedAt": "2026-11-23T22:28:20.377Z",
+        "observedAt": "2026-11-24T21:01:09.804Z",
         "source": "pitchlab-feed"
       }
     },
@@ -753,7 +753,7 @@
       "result": {
         "home": 0,
         "away": 3,
-        "observedAt": "2026-11-23T22:28:20.377Z",
+        "observedAt": "2026-11-24T21:01:09.804Z",
         "source": "pitchlab-feed"
       }
     },
@@ -788,7 +788,7 @@
       "result": {
         "home": 0,
         "away": 1,
-        "observedAt": "2026-11-23T22:28:20.377Z",
+        "observedAt": "2026-11-24T21:01:09.804Z",
         "source": "pitchlab-feed"
       }
     },
@@ -3472,11 +3472,11 @@
         "referee": "Masuya Ueda",
         "refereeStats": {
           "country": "Japan",
-          "matches": 42,
-          "avgYellow": 2.69,
+          "matches": 43,
+          "avgYellow": 2.7,
           "avgRed": 0.14,
           "avgFouls": 22.1,
-          "avgGoals": 2.38
+          "avgGoals": 2.35
         },
         "weather": {
           "description": "clear",
@@ -5353,11 +5353,11 @@
         "referee": "Jumpei Iida",
         "refereeStats": {
           "country": "Japan",
-          "matches": 30,
-          "avgYellow": 2.47,
-          "avgRed": 0.17,
+          "matches": 31,
+          "avgYellow": 2.45,
+          "avgRed": 0.16,
           "avgFouls": 23.9,
-          "avgGoals": 2.7
+          "avgGoals": 2.65
         },
         "weather": {
           "description": "clear",
@@ -8281,11 +8281,11 @@
         "referee": "Hayato Shimizu",
         "refereeStats": {
           "country": "Japan",
-          "matches": 34,
-          "avgYellow": 2.41,
-          "avgRed": 0.12,
+          "matches": 35,
+          "avgYellow": 2.4,
+          "avgRed": 0.11,
           "avgFouls": 18,
-          "avgGoals": 2.88
+          "avgGoals": 2.83
         },
         "weather": {
           "description": "clear",
@@ -9257,11 +9257,11 @@
         "referee": "Akihiko Ikeuchi",
         "refereeStats": {
           "country": "Japan",
-          "matches": 50,
-          "avgYellow": 2.42,
+          "matches": 51,
+          "avgYellow": 2.39,
           "avgRed": 0.08,
           "avgFouls": 20.5,
-          "avgGoals": 2.66
+          "avgGoals": 2.63
         },
         "weather": {
           "description": "cloudy",
@@ -9748,6 +9748,7 @@
           "temperatureC": 10,
           "windSpeedKmh": 33
         },
+        "travelDistanceKm": 937,
         "stageName": "Regular season",
         "venueCity": "Nagasaki",
         "venueCountry": "Japan",
@@ -10223,6 +10224,7 @@
           "temperatureC": 11,
           "windSpeedKmh": 37
         },
+        "travelDistanceKm": 110,
         "stageName": "Regular season",
         "venueCity": "Mito",
         "venueCountry": "Japan",
@@ -10699,6 +10701,7 @@
           "temperatureC": 15,
           "windSpeedKmh": 50
         },
+        "travelDistanceKm": 274,
         "stageName": "Regular season",
         "venueCity": "Chiba",
         "venueCountry": "Japan",
@@ -11172,6 +11175,7 @@
           "temperatureC": 12,
           "windSpeedKmh": 29
         },
+        "travelDistanceKm": 419,
         "stageName": "Regular season",
         "venueCity": "Okayama",
         "venueCountry": "Japan",
@@ -11645,6 +11649,7 @@
           "temperatureC": 16,
           "windSpeedKmh": 71
         },
+        "travelDistanceKm": 665,
         "stageName": "Regular season",
         "venueCity": "Tokyo",
         "venueCountry": "Japan",
@@ -12117,6 +12122,7 @@
           "temperatureC": 12,
           "windSpeedKmh": 7
         },
+        "travelDistanceKm": 866,
         "stageName": "Regular season",
         "venueCity": "Fukuoka",
         "venueCountry": "Japan",
@@ -12592,6 +12598,7 @@
           "temperatureC": 16,
           "windSpeedKmh": 60
         },
+        "travelDistanceKm": 408,
         "stageName": "Regular season",
         "venueCity": "Saitama",
         "venueCountry": "Japan",

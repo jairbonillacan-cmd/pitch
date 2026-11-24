@@ -1,214 +1,233 @@
 {
   "schemaVersion": 1,
   "league": "copa-do-brasil",
-  "observedAt": "2026-11-23T22:28:20.377Z",
+  "observedAt": "2026-11-24T21:01:09.804Z",
   "source": "pitchlab-availability",
   "coverageStatus": "ok",
   "entries": [
     {
       "teamId": "copa-do-brasil.fluminense",
       "player": "Alisson",
-      "position": "M",
+      "position": "Mediocampista",
       "status": "Baja",
       "detail": "Hip Injury",
       "injuryType": "Hip Injury",
-      "reportedAt": "2026-11-23T22:28:20.377Z"
+      "reportedAt": "2026-11-24T21:01:09.804Z"
     },
     {
       "teamId": "copa-do-brasil.fluminense",
       "player": "John Kennedy",
-      "position": "F",
+      "position": "Delantero",
       "status": "Baja",
       "detail": "Cruciate Ligament Injury",
       "injuryType": "Cruciate Ligament Injury",
-      "reportedAt": "2026-11-23T22:28:20.377Z"
+      "reportedAt": "2026-11-24T21:01:09.804Z"
+    },
+    {
+      "teamId": "copa-do-brasil.fluminense",
+      "player": "Matheus Reis",
+      "position": "Delantero",
+      "status": "Baja",
+      "detail": "Lesión reportada",
+      "reportedAt": "2026-11-24T21:01:09.804Z"
     },
     {
       "teamId": "copa-do-brasil.vasco-gama",
       "player": "Carlos Cuesta",
-      "position": "D",
+      "position": "Defensa",
       "status": "Baja",
       "detail": "Hip Injury",
       "injuryType": "Hip Injury",
-      "reportedAt": "2026-11-23T22:28:20.377Z"
+      "reportedAt": "2026-11-24T21:01:09.804Z"
+    },
+    {
+      "teamId": "copa-do-brasil.vasco-gama",
+      "player": "Johan Rojas",
+      "position": "Mediocampista",
+      "status": "Baja",
+      "detail": "personal_reason",
+      "injuryType": "personal_reason",
+      "reportedAt": "2026-11-24T21:01:09.804Z"
     },
     {
       "teamId": "copa-do-brasil.vasco-gama",
       "player": "Mateus Carvalho",
-      "position": "M",
+      "position": "Mediocampista",
       "status": "Baja",
       "detail": "Cruciate Ligament Injury",
       "injuryType": "Cruciate Ligament Injury",
-      "reportedAt": "2026-11-23T22:28:20.377Z"
+      "reportedAt": "2026-11-24T21:01:09.804Z"
     },
     {
       "teamId": "copa-do-brasil.vasco-gama",
       "player": "Nuno Moreira",
-      "position": "M",
+      "position": "Mediocampista",
       "status": "Baja",
       "detail": "Thigh Injury",
       "injuryType": "Thigh Injury",
-      "reportedAt": "2026-11-23T22:28:20.377Z"
+      "reportedAt": "2026-11-24T21:01:09.804Z"
     },
     {
       "teamId": "copa-do-brasil.vasco-gama",
       "player": "Paulo Henrique",
-      "position": "D",
+      "position": "Defensa",
       "status": "Baja",
       "detail": "yellow_card_accumulation_suspension",
       "injuryType": "yellow_card_accumulation_suspension",
-      "reportedAt": "2026-11-23T22:28:20.377Z"
+      "reportedAt": "2026-11-24T21:01:09.804Z"
     },
     {
       "teamId": "copa-do-brasil.palmeiras",
       "player": "Jefté",
-      "position": "D",
+      "position": "Defensa",
       "status": "Baja",
       "detail": "Meniscus Injury",
       "injuryType": "Meniscus Injury",
-      "reportedAt": "2026-11-23T22:28:20.377Z"
+      "reportedAt": "2026-11-24T21:01:09.804Z"
     },
     {
       "teamId": "copa-do-brasil.palmeiras",
       "player": "Joaquín Piquerez",
-      "position": "D",
+      "position": "Defensa",
       "status": "Baja",
       "detail": "Thigh Injury",
       "injuryType": "Thigh Injury",
-      "reportedAt": "2026-11-23T22:28:20.377Z"
+      "reportedAt": "2026-11-24T21:01:09.804Z"
     },
     {
       "teamId": "copa-do-brasil.palmeiras",
       "player": "Murilo",
-      "position": "D",
+      "position": "Defensa",
       "status": "Baja",
       "detail": "Thigh Injury",
       "injuryType": "Thigh Injury",
-      "reportedAt": "2026-11-23T22:28:20.377Z"
-    },
-    {
-      "teamId": "copa-do-brasil.vitoria",
-      "player": "Dudu",
-      "position": "M",
-      "status": "Baja",
-      "detail": "Lesión reportada",
-      "reportedAt": "2026-11-23T22:28:20.377Z"
+      "reportedAt": "2026-11-24T21:01:09.804Z"
     },
     {
       "teamId": "copa-do-brasil.vitoria",
       "player": "Edu",
-      "position": "D",
+      "position": "Defensa",
       "status": "Baja",
       "detail": "Achilles Tendon Injury",
       "injuryType": "Achilles Tendon Injury",
-      "reportedAt": "2026-11-23T22:28:20.377Z"
+      "reportedAt": "2026-11-24T21:01:09.804Z"
+    },
+    {
+      "teamId": "copa-do-brasil.vitoria",
+      "player": "Emmanuel Martínez",
+      "position": "Mediocampista",
+      "status": "Baja",
+      "detail": "yellow_card_accumulation_suspension",
+      "injuryType": "yellow_card_accumulation_suspension",
+      "reportedAt": "2026-11-24T21:01:09.804Z"
     },
     {
       "teamId": "copa-do-brasil.vitoria",
       "player": "Fabiano Souza",
-      "position": "D",
+      "position": "Defensa",
       "status": "Baja",
       "detail": "Cruciate Ligament Injury",
       "injuryType": "Cruciate Ligament Injury",
-      "reportedAt": "2026-11-23T22:28:20.377Z"
+      "reportedAt": "2026-11-24T21:01:09.804Z"
     },
     {
       "teamId": "copa-do-brasil.vitoria",
       "player": "Mateusinho",
-      "position": "D",
+      "position": "Defensa",
       "status": "Baja",
       "detail": "yellow_card_accumulation_suspension",
       "injuryType": "yellow_card_accumulation_suspension",
-      "reportedAt": "2026-11-23T22:28:20.377Z"
+      "reportedAt": "2026-11-24T21:01:09.804Z"
     },
     {
       "teamId": "copa-do-brasil.vitoria",
       "player": "Nathan Mendes",
-      "position": "D",
+      "position": "Defensa",
       "status": "Baja",
       "detail": "Cruciate Ligament Injury",
       "injuryType": "Cruciate Ligament Injury",
-      "reportedAt": "2026-11-23T22:28:20.377Z"
+      "reportedAt": "2026-11-24T21:01:09.804Z"
     },
     {
       "teamId": "copa-do-brasil.athletico",
       "player": "Carlos Terán",
-      "position": "D",
+      "position": "Defensa",
       "status": "Baja",
       "detail": "club_decision",
       "injuryType": "club_decision",
-      "reportedAt": "2026-11-23T22:28:20.377Z"
+      "reportedAt": "2026-11-24T21:01:09.804Z"
     },
     {
       "teamId": "copa-do-brasil.athletico",
       "player": "Claudinho",
-      "position": "D",
+      "position": "Defensa",
       "status": "Baja",
       "detail": "Cruciate Ligament Injury",
       "injuryType": "Cruciate Ligament Injury",
-      "reportedAt": "2026-11-23T22:28:20.377Z"
+      "reportedAt": "2026-11-24T21:01:09.804Z"
     },
     {
       "teamId": "copa-do-brasil.corinthians",
       "player": "André Carrillo",
-      "position": "M",
+      "position": "Mediocampista",
       "status": "Baja",
       "detail": "yellow_card_accumulation_suspension",
       "injuryType": "yellow_card_accumulation_suspension",
-      "reportedAt": "2026-11-23T22:28:20.377Z"
-    },
-    {
-      "teamId": "copa-do-brasil.corinthians",
-      "player": "Kayke Ferrari",
-      "position": "F",
-      "status": "Baja",
-      "detail": "Lesión reportada",
-      "reportedAt": "2026-11-23T22:28:20.377Z"
+      "reportedAt": "2026-11-24T21:01:09.804Z"
     },
     {
       "teamId": "copa-do-brasil.corinthians",
       "player": "Rodrigo Garro",
-      "position": "M",
+      "position": "Mediocampista",
       "status": "Duda",
       "detail": "Knee Injury",
       "injuryType": "Knee Injury",
-      "reportedAt": "2026-11-23T22:28:20.377Z"
+      "reportedAt": "2026-11-24T21:01:09.804Z"
     },
     {
       "teamId": "copa-do-brasil.internacional",
       "player": "Alan Patrick",
-      "position": "M",
+      "position": "Mediocampista",
       "status": "Baja",
       "detail": "yellow_card_accumulation_suspension",
       "injuryType": "yellow_card_accumulation_suspension",
-      "reportedAt": "2026-11-23T22:28:20.377Z"
+      "reportedAt": "2026-11-24T21:01:09.804Z"
+    },
+    {
+      "teamId": "copa-do-brasil.internacional",
+      "player": "Alerrandro",
+      "position": "Delantero",
+      "status": "Baja",
+      "detail": "yellow_card_accumulation_suspension",
+      "injuryType": "yellow_card_accumulation_suspension",
+      "reportedAt": "2026-11-24T21:01:09.804Z"
     },
     {
       "teamId": "copa-do-brasil.internacional",
       "player": "Alexandro Bernabei",
-      "position": "D",
+      "position": "Defensa",
       "status": "Baja",
       "detail": "Sprained Knee Injury",
       "injuryType": "Sprained Knee Injury",
-      "reportedAt": "2026-11-23T22:28:20.377Z"
+      "reportedAt": "2026-11-24T21:01:09.804Z"
     },
     {
       "teamId": "copa-do-brasil.internacional",
       "player": "Benjamin Arhin",
-      "position": "M",
+      "position": "Mediocampista",
       "status": "Baja",
       "detail": "Thigh Injury",
       "injuryType": "Thigh Injury",
-      "reportedAt": "2026-11-23T22:28:20.377Z"
+      "reportedAt": "2026-11-24T21:01:09.804Z"
     },
     {
       "teamId": "copa-do-brasil.internacional",
       "player": "Kayky",
-      "position": "F",
+      "position": "Delantero",
       "status": "Baja",
       "detail": "Ankle Injury",
       "injuryType": "Ankle Injury",
-      "reportedAt": "2026-11-23T22:28:20.377Z"
+      "reportedAt": "2026-11-24T21:01:09.804Z"
     }
   ]
 }

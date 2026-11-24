@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "league": "mlb",
-  "observedAt": "2026-11-24T15:05:34.094Z",
+  "observedAt": "2026-11-24T21:00:15.623Z",
   "source": "espn-public-mlb",
   "coverageStatus": "ok",
   "entries": [
@@ -404,16 +404,6 @@
       "injuryType": "Elbow",
       "returnDate": "2027-02-01",
       "reportedAt": "2026-11-03T04:29:00.000Z"
-    },
-    {
-      "teamId": "mlb.chicago-cubs",
-      "player": "Tyler Austin",
-      "position": "1B",
-      "status": "Baja",
-      "detail": "Rodilla",
-      "injuryType": "Knee",
-      "returnDate": "2027-02-01",
-      "reportedAt": "2026-11-03T03:25:00.000Z"
     },
     {
       "teamId": "mlb.chicago-white-sox",

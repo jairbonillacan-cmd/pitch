@@ -5,7 +5,7 @@
   "season": "ligue-2-2026-27",
   "seasonLabel": "2026/27",
   "periodLabel": "Regular season · Matchday 12",
-  "updatedAt": "2026-11-23T22:28:20.377Z",
+  "updatedAt": "2026-11-24T21:01:09.804Z",
   "source": "pitchlab-football-v2",
   "provenance": "derived",
   "isDemo": false,
@@ -18,8 +18,8 @@
       "forPerGame": 1.5384615384615385,
       "againstPerGame": 1.4615384615384615,
       "gamesPlayed": 13,
-      "adjustedFor": 1.3684985307280313,
-      "adjustedAgainst": 1.3205439935572925
+      "adjustedFor": 1.36841106579551,
+      "adjustedAgainst": 1.3205029924258467
     },
     "ligue-2.grenoble-foot": {
       "teamId": "ligue-2.grenoble-foot",
@@ -29,8 +29,8 @@
       "forPerGame": 1,
       "againstPerGame": 1.7692307692307692,
       "gamesPlayed": 13,
-      "adjustedFor": 1.0844639450550952,
-      "adjustedAgainst": 1.4681906325291956
+      "adjustedFor": 1.0846699215789464,
+      "adjustedAgainst": 1.468020469710711
     },
     "ligue-2.boulogne-cote-d-opale": {
       "teamId": "ligue-2.boulogne-cote-d-opale",
@@ -40,8 +40,8 @@
       "forPerGame": 0.8461538461538461,
       "againstPerGame": 0.7692307692307693,
       "gamesPlayed": 13,
-      "adjustedFor": 1.00438323515737,
-      "adjustedAgainst": 0.9731325430527925
+      "adjustedFor": 1.0046850089576507,
+      "adjustedAgainst": 0.973447454800953
     },
     "ligue-2.nancy": {
       "teamId": "ligue-2.nancy",
@@ -51,8 +51,8 @@
       "forPerGame": 1.3846153846153846,
       "againstPerGame": 0.6923076923076923,
       "gamesPlayed": 13,
-      "adjustedFor": 1.2838320510795544,
-      "adjustedAgainst": 0.9235228018877207
+      "adjustedFor": 1.2838481169023728,
+      "adjustedAgainst": 0.9238934001443305
     },
     "ligue-2.sochaux": {
       "teamId": "ligue-2.sochaux",
@@ -62,8 +62,8 @@
       "forPerGame": 0.7692307692307693,
       "againstPerGame": 1.3846153846153846,
       "gamesPlayed": 13,
-      "adjustedFor": 0.9795993618273025,
-      "adjustedAgainst": 1.2993226836985632
+      "adjustedFor": 0.9799103978394064,
+      "adjustedAgainst": 1.2993123292632145
     },
     "ligue-2.saint-etienne": {
       "teamId": "ligue-2.saint-etienne",
@@ -73,8 +73,8 @@
       "forPerGame": 2,
       "againstPerGame": 0.8461538461538461,
       "gamesPlayed": 13,
-      "adjustedFor": 1.5402978394114704,
-      "adjustedAgainst": 0.9945746628483727
+      "adjustedFor": 1.5400924207691222,
+      "adjustedAgainst": 0.9948738740260596
     },
     "ligue-2.rodez-af": {
       "teamId": "ligue-2.rodez-af",
@@ -84,8 +84,8 @@
       "forPerGame": 1.5384615384615385,
       "againstPerGame": 1.8461538461538463,
       "gamesPlayed": 13,
-      "adjustedFor": 1.3592894317191542,
-      "adjustedAgainst": 1.505996419272754
+      "adjustedFor": 1.3592130756779472,
+      "adjustedAgainst": 1.5057742395673035
     },
     "ligue-2.stade-lavallois": {
       "teamId": "ligue-2.stade-lavallois",
@@ -95,8 +95,8 @@
       "forPerGame": 1.1538461538461537,
       "againstPerGame": 1.7692307692307692,
       "gamesPlayed": 13,
-      "adjustedFor": 1.1836336240515686,
-      "adjustedAgainst": 1.4956008261736553
+      "adjustedFor": 1.1837097417627123,
+      "adjustedAgainst": 1.4953566577904343
     },
     "ligue-2.pau": {
       "teamId": "ligue-2.pau",
@@ -106,8 +106,8 @@
       "forPerGame": 1.3076923076923077,
       "againstPerGame": 1.1538461538461537,
       "gamesPlayed": 13,
-      "adjustedFor": 1.2281363534341447,
-      "adjustedAgainst": 1.1815581164312767
+      "adjustedFor": 1.2282210668195823,
+      "adjustedAgainst": 1.1816621904447515
     },
     "ligue-2.annecy": {
       "teamId": "ligue-2.annecy",
@@ -117,8 +117,8 @@
       "forPerGame": 1.3846153846153846,
       "againstPerGame": 1.5384615384615385,
       "gamesPlayed": 13,
-      "adjustedFor": 1.304123633069513,
-      "adjustedAgainst": 1.3966082861754165
+      "adjustedFor": 1.3040929456601107,
+      "adjustedAgainst": 1.396475205385785
     },
     "ligue-2.nantes": {
       "teamId": "ligue-2.nantes",
@@ -128,8 +128,8 @@
       "forPerGame": 1.1538461538461537,
       "againstPerGame": 1.3846153846153846,
       "gamesPlayed": 13,
-      "adjustedFor": 1.1611882206635047,
-      "adjustedAgainst": 1.2847200672759687
+      "adjustedFor": 1.1613125791073147,
+      "adjustedAgainst": 1.2846987709091597
     },
     "ligue-2.red-star": {
       "teamId": "ligue-2.red-star",
@@ -139,8 +139,8 @@
       "forPerGame": 1.2307692307692308,
       "againstPerGame": 1.3846153846153846,
       "gamesPlayed": 13,
-      "adjustedFor": 1.239066789954199,
-      "adjustedAgainst": 1.30183887460956
+      "adjustedFor": 1.2390842675365743,
+      "adjustedAgainst": 1.301813132090833
     },
     "ligue-2.montpellier": {
       "teamId": "ligue-2.montpellier",
@@ -150,8 +150,8 @@
       "forPerGame": 1.3846153846153846,
       "againstPerGame": 0.7692307692307693,
       "gamesPlayed": 13,
-      "adjustedFor": 1.2950674099273403,
-      "adjustedAgainst": 0.9487875784477819
+      "adjustedFor": 1.2950660910899927,
+      "adjustedAgainst": 0.9491420176598994
     },
     "ligue-2.dijon": {
       "teamId": "ligue-2.dijon",
@@ -161,8 +161,8 @@
       "forPerGame": 1.6153846153846154,
       "againstPerGame": 1.5384615384615385,
       "gamesPlayed": 13,
-      "adjustedFor": 1.4276229288094247,
-      "adjustedAgainst": 1.3627686129768608
+      "adjustedFor": 1.427463077666553,
+      "adjustedAgainst": 1.3626879286481255
     },
     "ligue-2.metz": {
       "teamId": "ligue-2.metz",
@@ -172,8 +172,8 @@
       "forPerGame": 1.6923076923076923,
       "againstPerGame": 1.5384615384615385,
       "gamesPlayed": 13,
-      "adjustedFor": 1.454660390746162,
-      "adjustedAgainst": 1.3997333903316715
+      "adjustedFor": 1.4544865043992636,
+      "adjustedAgainst": 1.399599498733398
     },
     "ligue-2.guingamp": {
       "teamId": "ligue-2.guingamp",
@@ -183,8 +183,8 @@
       "forPerGame": 1.3076923076923077,
       "againstPerGame": 1.6153846153846154,
       "gamesPlayed": 13,
-      "adjustedFor": 1.255748474837286,
-      "adjustedAgainst": 1.41449064981763
+      "adjustedFor": 1.2557646100957252,
+      "adjustedAgainst": 1.414356108789823
     },
     "ligue-2.clermont-foot": {
       "teamId": "ligue-2.clermont-foot",
@@ -194,8 +194,8 @@
       "forPerGame": 1,
       "againstPerGame": 1.4615384615384615,
       "gamesPlayed": 13,
-      "adjustedFor": 1.071586803743967,
-      "adjustedAgainst": 1.3531296948581037
+      "adjustedFor": 1.0718246969068448,
+      "adjustedAgainst": 1.3530554595791084
     },
     "ligue-2.stade-reims": {
       "teamId": "ligue-2.stade-reims",
@@ -205,8 +205,8 @@
       "forPerGame": 1.8461538461538463,
       "againstPerGame": 1.2307692307692308,
       "gamesPlayed": 13,
-      "adjustedFor": 1.5409998245332892,
-      "adjustedAgainst": 1.2313796661216045
+      "adjustedFor": 1.540703126182085,
+      "adjustedAgainst": 1.2314075120752972
     }
   },
   "games": [
@@ -241,7 +241,7 @@
       "result": {
         "home": 1,
         "away": 0,
-        "observedAt": "2026-11-23T22:28:20.377Z",
+        "observedAt": "2026-11-24T21:01:09.804Z",
         "source": "pitchlab-feed"
       }
     },
@@ -276,7 +276,7 @@
       "result": {
         "home": 2,
         "away": 3,
-        "observedAt": "2026-11-23T22:28:20.377Z",
+        "observedAt": "2026-11-24T21:01:09.804Z",
         "source": "pitchlab-feed"
       }
     },
@@ -311,7 +311,7 @@
       "result": {
         "home": 3,
         "away": 2,
-        "observedAt": "2026-11-23T22:28:20.377Z",
+        "observedAt": "2026-11-24T21:01:09.804Z",
         "source": "pitchlab-feed"
       }
     },
@@ -346,7 +346,7 @@
       "result": {
         "home": 1,
         "away": 0,
-        "observedAt": "2026-11-23T22:28:20.377Z",
+        "observedAt": "2026-11-24T21:01:09.804Z",
         "source": "pitchlab-feed"
       }
     },
@@ -381,7 +381,7 @@
       "result": {
         "home": 1,
         "away": 0,
-        "observedAt": "2026-11-23T22:28:20.377Z",
+        "observedAt": "2026-11-24T21:01:09.804Z",
         "source": "pitchlab-feed"
       }
     },
@@ -416,7 +416,7 @@
       "result": {
         "home": 2,
         "away": 0,
-        "observedAt": "2026-11-23T22:28:20.377Z",
+        "observedAt": "2026-11-24T21:01:09.804Z",
         "source": "pitchlab-feed"
       }
     },
@@ -451,7 +451,7 @@
       "result": {
         "home": 0,
         "away": 2,
-        "observedAt": "2026-11-23T22:28:20.377Z",
+        "observedAt": "2026-11-24T21:01:09.804Z",
         "source": "pitchlab-feed"
       }
     },
@@ -486,7 +486,7 @@
       "result": {
         "home": 2,
         "away": 1,
-        "observedAt": "2026-11-23T22:28:20.377Z",
+        "observedAt": "2026-11-24T21:01:09.804Z",
         "source": "pitchlab-feed"
       }
     },
@@ -521,7 +521,7 @@
       "result": {
         "home": 1,
         "away": 0,
-        "observedAt": "2026-11-23T22:28:20.377Z",
+        "observedAt": "2026-11-24T21:01:09.804Z",
         "source": "pitchlab-feed"
       }
     },
@@ -556,7 +556,7 @@
       "result": {
         "home": 2,
         "away": 1,
-        "observedAt": "2026-11-23T22:28:20.377Z",
+        "observedAt": "2026-11-24T21:01:09.804Z",
         "source": "pitchlab-feed"
       }
     },
@@ -591,7 +591,7 @@
       "result": {
         "home": 1,
         "away": 3,
-        "observedAt": "2026-11-23T22:28:20.377Z",
+        "observedAt": "2026-11-24T21:01:09.804Z",
         "source": "pitchlab-feed"
       }
     },
@@ -626,7 +626,7 @@
       "result": {
         "home": 4,
         "away": 2,
-        "observedAt": "2026-11-23T22:28:20.377Z",
+        "observedAt": "2026-11-24T21:01:09.804Z",
         "source": "pitchlab-feed"
       }
     },
@@ -661,7 +661,7 @@
       "result": {
         "home": 1,
         "away": 0,
-        "observedAt": "2026-11-23T22:28:20.377Z",
+        "observedAt": "2026-11-24T21:01:09.804Z",
         "source": "pitchlab-feed"
       }
     },
@@ -696,7 +696,7 @@
       "result": {
         "home": 0,
         "away": 1,
-        "observedAt": "2026-11-23T22:28:20.377Z",
+        "observedAt": "2026-11-24T21:01:09.804Z",
         "source": "pitchlab-feed"
       }
     },
@@ -731,7 +731,7 @@
       "result": {
         "home": 1,
         "away": 0,
-        "observedAt": "2026-11-23T22:28:20.377Z",
+        "observedAt": "2026-11-24T21:01:09.804Z",
         "source": "pitchlab-feed"
       }
     },
@@ -766,7 +766,7 @@
       "result": {
         "home": 2,
         "away": 3,
-        "observedAt": "2026-11-23T22:28:20.377Z",
+        "observedAt": "2026-11-24T21:01:09.804Z",
         "source": "pitchlab-feed"
       }
     },
@@ -3962,7 +3962,7 @@
           "matches": 37,
           "avgYellow": 3.19,
           "avgRed": 0.14,
-          "avgFouls": 25.7,
+          "avgFouls": 25.8,
           "avgGoals": 2.14
         },
         "weather": {
@@ -4410,11 +4410,11 @@
         "referee": "Antoine Valnet",
         "refereeStats": {
           "country": "France",
-          "matches": 41,
-          "avgYellow": 4.05,
-          "avgRed": 0.2,
+          "matches": 42,
+          "avgYellow": 4.1,
+          "avgRed": 0.19,
           "avgFouls": 29.1,
-          "avgGoals": 2.44
+          "avgGoals": 2.45
         },
         "weather": {
           "description": "cloudy",
@@ -5384,11 +5384,11 @@
         "referee": "Mickael Leleu",
         "refereeStats": {
           "country": "France",
-          "matches": 39,
-          "avgYellow": 3.69,
-          "avgRed": 0.08,
+          "matches": 40,
+          "avgYellow": 3.75,
+          "avgRed": 0.12,
           "avgFouls": 31.8,
-          "avgGoals": 2.49
+          "avgGoals": 2.48
         },
         "weather": {
           "description": "cloudy",
@@ -7821,11 +7821,11 @@
         "referee": "Romain Lissorgue",
         "refereeStats": {
           "country": "France",
-          "matches": 42,
+          "matches": 44,
           "avgYellow": 4.07,
-          "avgRed": 0.21,
+          "avgRed": 0.25,
           "avgFouls": 27.7,
-          "avgGoals": 2.64
+          "avgGoals": 2.66
         },
         "weather": {
           "description": "cloudy",
@@ -8310,11 +8310,11 @@
         "referee": "Ahmed Taleb",
         "refereeStats": {
           "country": "France",
-          "matches": 29,
-          "avgYellow": 3.1,
-          "avgRed": 0.28,
+          "matches": 30,
+          "avgYellow": 3.13,
+          "avgRed": 0.3,
           "avgFouls": 25.9,
-          "avgGoals": 2.69
+          "avgGoals": 2.7
         },
         "weather": {
           "description": "cloudy",
@@ -8800,7 +8800,7 @@
           "matches": 37,
           "avgYellow": 3.19,
           "avgRed": 0.14,
-          "avgFouls": 25.7,
+          "avgFouls": 25.8,
           "avgGoals": 2.14
         },
         "weather": {

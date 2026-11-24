@@ -1,108 +1,126 @@
 {
   "schemaVersion": 1,
   "league": "segunda-espana",
-  "observedAt": "2026-11-23T22:28:20.377Z",
+  "observedAt": "2026-11-24T21:01:09.804Z",
   "source": "pitchlab-availability",
   "coverageStatus": "ok",
   "entries": [
     {
       "teamId": "segunda-espana.ad-ceuta",
+      "player": "Cedric Teguia",
+      "position": "Delantero",
+      "status": "Baja",
+      "detail": "yellow_or_red_card_suspension",
+      "injuryType": "yellow_or_red_card_suspension",
+      "reportedAt": "2026-11-24T21:01:09.804Z"
+    },
+    {
+      "teamId": "segunda-espana.ad-ceuta",
       "player": "Edgar Sevikyan",
-      "position": "M",
+      "position": "Mediocampista",
       "status": "Duda",
       "detail": "Muscle Injury",
       "injuryType": "Muscle Injury",
-      "reportedAt": "2026-11-23T22:28:20.377Z"
+      "reportedAt": "2026-11-24T21:01:09.804Z"
     },
     {
       "teamId": "segunda-espana.granada",
       "player": "Owen Emeka",
-      "position": "F",
+      "position": "Delantero",
       "status": "Baja",
       "detail": "national_team",
       "injuryType": "national_team",
-      "reportedAt": "2026-11-23T22:28:20.377Z"
+      "reportedAt": "2026-11-24T21:01:09.804Z"
+    },
+    {
+      "teamId": "segunda-espana.las-palmas",
+      "player": "Alex Suárez",
+      "position": "Defensa",
+      "status": "Baja",
+      "detail": "yellow_card_accumulation_suspension",
+      "injuryType": "yellow_card_accumulation_suspension",
+      "reportedAt": "2026-11-24T21:01:09.804Z"
     },
     {
       "teamId": "segunda-espana.las-palmas",
       "player": "Enrique Clemente",
-      "position": "D",
+      "position": "Defensa",
       "status": "Baja",
       "detail": "Meniscus Injury",
       "injuryType": "Meniscus Injury",
-      "reportedAt": "2026-11-23T22:28:20.377Z"
+      "reportedAt": "2026-11-24T21:01:09.804Z"
     },
     {
       "teamId": "segunda-espana.las-palmas",
       "player": "Rafael Cruz",
-      "position": "F",
+      "position": "Delantero",
       "status": "Baja",
       "detail": "national_team",
       "injuryType": "national_team",
-      "reportedAt": "2026-11-23T22:28:20.377Z"
+      "reportedAt": "2026-11-24T21:01:09.804Z"
     },
     {
       "teamId": "segunda-espana.eibar",
       "player": "Unai Elgezabal",
-      "position": "D",
+      "position": "Defensa",
       "status": "Baja",
       "detail": "Calf Injury",
       "injuryType": "Calf Injury",
-      "reportedAt": "2026-11-23T22:28:20.377Z"
+      "reportedAt": "2026-11-24T21:01:09.804Z"
     },
     {
       "teamId": "segunda-espana.cadiz",
       "player": "Gonzalo Petit",
-      "position": "F",
+      "position": "Delantero",
       "status": "Baja",
       "detail": "Muscle Injury",
       "injuryType": "Muscle Injury",
-      "reportedAt": "2026-11-23T22:28:20.377Z"
+      "reportedAt": "2026-11-24T21:01:09.804Z"
     },
     {
       "teamId": "segunda-espana.cadiz",
       "player": "Jandro Orellana",
-      "position": "M",
+      "position": "Mediocampista",
       "status": "Baja",
       "detail": "Muscle Injury",
       "injuryType": "Muscle Injury",
-      "reportedAt": "2026-11-23T22:28:20.377Z"
+      "reportedAt": "2026-11-24T21:01:09.804Z"
     },
     {
-      "teamId": "segunda-espana.cadiz",
-      "player": "Javi Castro",
-      "position": "D",
-      "status": "Duda",
-      "detail": "Muscle Injury",
-      "injuryType": "Muscle Injury",
-      "reportedAt": "2026-11-23T22:28:20.377Z"
+      "teamId": "segunda-espana.eldense",
+      "player": "Álex Serradell",
+      "position": "Defensa",
+      "status": "Baja",
+      "detail": "yellow_card_accumulation_suspension",
+      "injuryType": "yellow_card_accumulation_suspension",
+      "reportedAt": "2026-11-24T21:01:09.804Z"
     },
     {
       "teamId": "segunda-espana.eldense",
       "player": "Jesús Clemente",
-      "position": "D",
+      "position": "Defensa",
       "status": "Duda",
       "detail": "Muscle Injury",
       "injuryType": "Muscle Injury",
-      "reportedAt": "2026-11-23T22:28:20.377Z"
+      "reportedAt": "2026-11-24T21:01:09.804Z"
     },
     {
       "teamId": "segunda-espana.ce-sabadell",
       "player": "Arthur Bonaldo",
-      "position": "D",
+      "position": "Defensa",
       "status": "Duda",
       "detail": "Muscle Injury",
       "injuryType": "Muscle Injury",
-      "reportedAt": "2026-11-23T22:28:20.377Z"
+      "reportedAt": "2026-11-24T21:01:09.804Z"
     },
     {
       "teamId": "segunda-espana.ce-sabadell",
       "player": "Nicholas Gioacchini",
-      "position": "F",
+      "position": "Delantero",
       "status": "Baja",
       "detail": "Cruciate Ligament Injury",
       "injuryType": "Cruciate Ligament Injury",
-      "reportedAt": "2026-11-23T22:28:20.377Z"
+      "reportedAt": "2026-11-24T21:01:09.804Z"
     }
   ]
 }

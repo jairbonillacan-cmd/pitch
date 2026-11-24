@@ -1,0 +1,45 @@
+{
+  "schemaVersion": 1,
+  "league": "copa-del-rey",
+  "observedAt": "2026-11-24T21:01:09.804Z",
+  "source": "pitchlab-availability",
+  "coverageStatus": "ok",
+  "entries": [
+    {
+      "teamId": "copa-del-rey.eibar",
+      "player": "Unai Elgezabal",
+      "position": "Defensa",
+      "status": "Baja",
+      "detail": "Calf Injury",
+      "injuryType": "Calf Injury",
+      "reportedAt": "2026-11-24T21:01:09.804Z"
+    },
+    {
+      "teamId": "copa-del-rey.deportivo-alaves",
+      "player": "Facundo Garcés",
+      "position": "Defensa",
+      "status": "Baja",
+      "detail": "Cruciate Ligament Injury",
+      "injuryType": "Cruciate Ligament Injury",
+      "reportedAt": "2026-11-24T21:01:09.804Z"
+    },
+    {
+      "teamId": "copa-del-rey.deportivo-alaves",
+      "player": "Hugo Novoa",
+      "position": "Defensa",
+      "status": "Baja",
+      "detail": "Hamstring Injury",
+      "injuryType": "Hamstring Injury",
+      "reportedAt": "2026-11-24T21:01:09.804Z"
+    },
+    {
+      "teamId": "copa-del-rey.deportivo-alaves",
+      "player": "Mikel Rodriguez",
+      "position": "Mediocampista",
+      "status": "Baja",
+      "detail": "Cruciate Ligament Injury",
+      "injuryType": "Cruciate Ligament Injury",
+      "reportedAt": "2026-11-24T21:01:09.804Z"
+    }
+  ]
+}

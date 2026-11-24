@@ -5,7 +5,7 @@
   "season": "concacaf-champions-2026",
   "seasonLabel": "2026",
   "periodLabel": "Toluca win 6-5 on penalties",
-  "updatedAt": "2026-11-23T22:28:20.377Z",
+  "updatedAt": "2026-11-24T21:01:09.804Z",
   "source": "pitchlab-concacaf-v1",
   "provenance": "derived",
   "isDemo": false,
@@ -18,8 +18,8 @@
       "forPerGame": 1,
       "againstPerGame": 1,
       "gamesPlayed": 1,
-      "adjustedFor": 0.9285219880371911,
-      "adjustedAgainst": 0.9369422631417781
+      "adjustedFor": 0.928524800546375,
+      "adjustedAgainst": 0.936931592211414
     },
     "concacaf-champions.tigres-uanl": {
       "teamId": "concacaf-champions.tigres-uanl",
@@ -29,8 +29,8 @@
       "forPerGame": 1,
       "againstPerGame": 1,
       "gamesPlayed": 1,
-      "adjustedFor": 0.9369422631417781,
-      "adjustedAgainst": 0.9285219880371911
+      "adjustedFor": 0.936931592211414,
+      "adjustedAgainst": 0.928524800546375
     }
   },
   "games": [
@@ -62,7 +62,7 @@
       "result": {
         "home": 1,
         "away": 1,
-        "observedAt": "2026-11-23T22:28:20.377Z",
+        "observedAt": "2026-11-24T21:01:09.804Z",
         "source": "pitchlab-concacaf"
       }
     }

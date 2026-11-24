@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "league": "liga-argentina",
   "season": "2026",
-  "updatedAt": "2026-11-23T22:28:20.377Z",
+  "updatedAt": "2026-11-24T21:01:09.804Z",
   "matches": [
     {
       "id": "liga-argentina-2026-07-23-sarmiento-argentinos-jun-q7ein3",
@@ -2708,6 +2708,17 @@
       "awayTeam": "liga-argentina.huracan",
       "homeScore": 2,
       "awayScore": 1,
+      "neutralSite": false
+    },
+    {
+      "id": "liga-argentina-2026-11-23-gimnasia-y-esg-newell-s-old-b-ko9fyj",
+      "date": "2026-11-23",
+      "startTime": "2026-11-23T20:00:00.000Z",
+      "round": "Round of 16",
+      "homeTeam": "liga-argentina.gimnasia-y-esgrima",
+      "awayTeam": "liga-argentina.newell-s-old-boys",
+      "homeScore": 2,
+      "awayScore": 2,
       "neutralSite": false
     }
   ]

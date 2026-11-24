@@ -5,7 +5,7 @@
   "season": "bundesliga-2026-27",
   "seasonLabel": "2026/27",
   "periodLabel": "Jornada 11",
-  "updatedAt": "2026-11-23T22:35:24.628Z",
+  "updatedAt": "2026-11-24T21:08:59.597Z",
   "source": "openfootball+football-data",
   "provenance": "derived",
   "isDemo": false,
@@ -19,8 +19,8 @@
       "forPerGame": 2.3,
       "againstPerGame": 2.1,
       "gamesPlayed": 10,
-      "adjustedFor": 1.471533826533622,
-      "adjustedAgainst": 1.5033114827396061
+      "adjustedFor": 1.4715235451985853,
+      "adjustedAgainst": 1.5033996005870585
     },
     "bundesliga.bayer-leverkusen": {
       "teamId": "bundesliga.bayer-leverkusen",
@@ -31,8 +31,8 @@
       "forPerGame": 2.4,
       "againstPerGame": 1.7,
       "gamesPlayed": 10,
-      "adjustedFor": 1.7102485791946116,
-      "adjustedAgainst": 1.29277496670081
+      "adjustedFor": 1.7100873898794995,
+      "adjustedAgainst": 1.2929561717779567
     },
     "bundesliga.bayern-munchen": {
       "teamId": "bundesliga.bayern-munchen",
@@ -43,8 +43,8 @@
       "forPerGame": 3,
       "againstPerGame": 1,
       "gamesPlayed": 10,
-      "adjustedFor": 2.3687216268102045,
-      "adjustedAgainst": 1.0128778186244618
+      "adjustedFor": 2.3680674273086524,
+      "adjustedAgainst": 1.0132283365083563
     },
     "bundesliga.borussia-dortmund": {
       "teamId": "bundesliga.borussia-dortmund",
@@ -55,8 +55,8 @@
       "forPerGame": 1.7,
       "againstPerGame": 0.7,
       "gamesPlayed": 10,
-      "adjustedFor": 1.53864501925452,
-      "adjustedAgainst": 0.8821472814599631
+      "adjustedFor": 1.5386277989954993,
+      "adjustedAgainst": 0.8825999201397721
     },
     "bundesliga.borussia-monchengladbach": {
       "teamId": "bundesliga.borussia-monchengladbach",
@@ -67,8 +67,8 @@
       "forPerGame": 1.2,
       "againstPerGame": 2.6,
       "gamesPlayed": 10,
-      "adjustedFor": 1.2314712406120227,
-      "adjustedAgainst": 1.640743496618182
+      "adjustedFor": 1.2316335929097924,
+      "adjustedAgainst": 1.6407218346731873
     },
     "bundesliga.eintracht-frankfurt": {
       "teamId": "bundesliga.eintracht-frankfurt",
@@ -79,8 +79,8 @@
       "forPerGame": 1.6,
       "againstPerGame": 2,
       "gamesPlayed": 10,
-      "adjustedFor": 1.419613029828058,
-      "adjustedAgainst": 1.485249940974914
+      "adjustedFor": 1.4196518138652696,
+      "adjustedAgainst": 1.4853062338048393
     },
     "bundesliga.elversberg": {
       "teamId": "bundesliga.elversberg",
@@ -91,8 +91,8 @@
       "forPerGame": 1.7,
       "againstPerGame": 1.9,
       "gamesPlayed": 10,
-      "adjustedFor": 1.4320306999655186,
-      "adjustedAgainst": 1.4194297601966217
+      "adjustedFor": 1.432006340917661,
+      "adjustedAgainst": 1.4195318398178025
     },
     "bundesliga.freiburg": {
       "teamId": "bundesliga.freiburg",
@@ -103,8 +103,8 @@
       "forPerGame": 2.1,
       "againstPerGame": 1,
       "gamesPlayed": 10,
-      "adjustedFor": 1.4911830165769038,
-      "adjustedAgainst": 1.1984859659086835
+      "adjustedFor": 1.4911667199891974,
+      "adjustedAgainst": 1.198730802635226
     },
     "bundesliga.hamburger": {
       "teamId": "bundesliga.hamburger",
@@ -115,8 +115,8 @@
       "forPerGame": 1,
       "againstPerGame": 2.4,
       "gamesPlayed": 10,
-      "adjustedFor": 1.1267079925970855,
-      "adjustedAgainst": 1.5693545414434684
+      "adjustedFor": 1.1269675063226245,
+      "adjustedAgainst": 1.5693784432362001
     },
     "bundesliga.hoffenheim": {
       "teamId": "bundesliga.hoffenheim",
@@ -127,8 +127,8 @@
       "forPerGame": 1.6,
       "againstPerGame": 1.8,
       "gamesPlayed": 10,
-      "adjustedFor": 1.4664779664862615,
-      "adjustedAgainst": 1.4348980373528692
+      "adjustedFor": 1.4664589833817112,
+      "adjustedAgainst": 1.434953226664668
     },
     "bundesliga.koln": {
       "teamId": "bundesliga.koln",
@@ -139,8 +139,8 @@
       "forPerGame": 1.1,
       "againstPerGame": 1.5,
       "gamesPlayed": 10,
-      "adjustedFor": 1.1490144949152226,
-      "adjustedAgainst": 1.3406912110844098
+      "adjustedFor": 1.1492508811435551,
+      "adjustedAgainst": 1.3408655874952928
     },
     "bundesliga.mainz": {
       "teamId": "bundesliga.mainz",
@@ -151,8 +151,8 @@
       "forPerGame": 1.9,
       "againstPerGame": 2.2,
       "gamesPlayed": 10,
-      "adjustedFor": 1.3863448513754908,
-      "adjustedAgainst": 1.4997640315418597
+      "adjustedFor": 1.386398349003397,
+      "adjustedAgainst": 1.4998167915393836
     },
     "bundesliga.paderborn": {
       "teamId": "bundesliga.paderborn",
@@ -163,8 +163,8 @@
       "forPerGame": 0.8,
       "againstPerGame": 1.5,
       "gamesPlayed": 10,
-      "adjustedFor": 0.9877328616042069,
-      "adjustedAgainst": 1.2769900015148776
+      "adjustedFor": 0.9882525352867528,
+      "adjustedAgainst": 1.2772360035601409
     },
     "bundesliga.rb-leipzig": {
       "teamId": "bundesliga.rb-leipzig",
@@ -175,8 +175,8 @@
       "forPerGame": 3.2,
       "againstPerGame": 1.4,
       "gamesPlayed": 10,
-      "adjustedFor": 1.9220412047981938,
-      "adjustedAgainst": 1.224411997891636
+      "adjustedFor": 1.9217470175726057,
+      "adjustedAgainst": 1.2246421788039945
     },
     "bundesliga.schalke": {
       "teamId": "bundesliga.schalke",
@@ -187,8 +187,8 @@
       "forPerGame": 0.5,
       "againstPerGame": 1.1,
       "gamesPlayed": 10,
-      "adjustedFor": 0.8499952072137893,
-      "adjustedAgainst": 1.0575048203893684
+      "adjustedFor": 0.8506650916843191,
+      "adjustedAgainst": 1.05799256856575
     },
     "bundesliga.stuttgart": {
       "teamId": "bundesliga.stuttgart",
@@ -199,8 +199,8 @@
       "forPerGame": 1.5,
       "againstPerGame": 1.5,
       "gamesPlayed": 10,
-      "adjustedFor": 1.554830281528489,
-      "adjustedAgainst": 1.241314601484653
+      "adjustedFor": 1.5547475043319667,
+      "adjustedAgainst": 1.2415182165714673
     },
     "bundesliga.union-berlin": {
       "teamId": "bundesliga.union-berlin",
@@ -211,8 +211,8 @@
       "forPerGame": 0.8,
       "againstPerGame": 2.6,
       "gamesPlayed": 10,
-      "adjustedFor": 1.0800916717751545,
-      "adjustedAgainst": 1.577047012016009
+      "adjustedFor": 1.080349985383069,
+      "adjustedAgainst": 1.5771125719998231
     },
     "bundesliga.werder-bremen": {
       "teamId": "bundesliga.werder-bremen",
@@ -223,8 +223,8 @@
       "forPerGame": 2.1,
       "againstPerGame": 1.5,
       "gamesPlayed": 10,
-      "adjustedFor": 1.3852251439560825,
-      "adjustedAgainst": 1.301212992786825
+      "adjustedFor": 1.3852890546008867,
+      "adjustedAgainst": 1.3013919567182672
     }
   },
   "games": [
@@ -257,7 +257,7 @@
       "result": {
         "home": 1,
         "away": 1,
-        "observedAt": "2026-11-23T22:35:28.189Z",
+        "observedAt": "2026-11-24T21:09:04.109Z",
         "source": "football-data"
       }
     },
@@ -290,7 +290,7 @@
       "result": {
         "home": 4,
         "away": 0,
-        "observedAt": "2026-11-23T22:35:28.189Z",
+        "observedAt": "2026-11-24T21:09:04.109Z",
         "source": "football-data"
       }
     },
@@ -323,7 +323,7 @@
       "result": {
         "home": 1,
         "away": 5,
-        "observedAt": "2026-11-23T22:35:28.189Z",
+        "observedAt": "2026-11-24T21:09:04.109Z",
         "source": "football-data"
       }
     },
@@ -356,7 +356,7 @@
       "result": {
         "home": 0,
         "away": 1,
-        "observedAt": "2026-11-23T22:35:28.189Z",
+        "observedAt": "2026-11-24T21:09:04.109Z",
         "source": "football-data"
       }
     },
@@ -389,7 +389,7 @@
       "result": {
         "home": 0,
         "away": 1,
-        "observedAt": "2026-11-23T22:35:28.189Z",
+        "observedAt": "2026-11-24T21:09:04.109Z",
         "source": "football-data"
       }
     },
@@ -422,7 +422,7 @@
       "result": {
         "home": 1,
         "away": 0,
-        "observedAt": "2026-11-23T22:35:28.189Z",
+        "observedAt": "2026-11-24T21:09:04.109Z",
         "source": "football-data"
       }
     },
@@ -455,7 +455,7 @@
       "result": {
         "home": 0,
         "away": 0,
-        "observedAt": "2026-11-23T22:35:28.189Z",
+        "observedAt": "2026-11-24T21:09:04.109Z",
         "source": "football-data"
       }
     },
@@ -488,7 +488,7 @@
       "result": {
         "home": 3,
         "away": 1,
-        "observedAt": "2026-11-23T22:35:28.189Z",
+        "observedAt": "2026-11-24T21:09:04.109Z",
         "source": "football-data"
       }
     },
@@ -521,7 +521,7 @@
       "result": {
         "home": 4,
         "away": 0,
-        "observedAt": "2026-11-23T22:35:28.189Z",
+        "observedAt": "2026-11-24T21:09:04.109Z",
         "source": "football-data"
       }
     },
@@ -2246,11 +2246,11 @@
         "referee": "Tobias Reichel",
         "refereeStats": {
           "country": "Germany",
-          "matches": 38,
-          "avgYellow": 3.42,
-          "avgRed": 0.11,
+          "matches": 40,
+          "avgYellow": 3.62,
+          "avgRed": 0.12,
           "avgFouls": 23.3,
-          "avgGoals": 2.42
+          "avgGoals": 2.55
         }
       }
     },
@@ -2994,9 +2994,9 @@
         "referee": "Christian Dingert",
         "refereeStats": {
           "country": "Germany",
-          "matches": 37,
-          "avgYellow": 3.43,
-          "avgRed": 0.19,
+          "matches": 38,
+          "avgYellow": 3.42,
+          "avgRed": 0.18,
           "avgFouls": 22.4,
           "avgGoals": 2.84
         }
@@ -4458,11 +4458,11 @@
         "referee": "Robert Hartmann",
         "refereeStats": {
           "country": "Germany",
-          "matches": 42,
-          "avgYellow": 2.81,
+          "matches": 43,
+          "avgYellow": 2.84,
           "avgRed": 0.14,
           "avgFouls": 24.5,
-          "avgGoals": 3.36
+          "avgGoals": 3.37
         }
       }
     },
@@ -5207,11 +5207,11 @@
         "referee": "Max Burda",
         "refereeStats": {
           "country": "Germany",
-          "matches": 35,
-          "avgYellow": 1.17,
+          "matches": 36,
+          "avgYellow": 1.25,
           "avgRed": 0.03,
           "avgFouls": 24.4,
-          "avgGoals": 3.29
+          "avgGoals": 3.31
         }
       }
     },
@@ -5957,11 +5957,11 @@
         "referee": "Daniel Siebert",
         "refereeStats": {
           "country": "Germany",
-          "matches": 81,
-          "avgYellow": 4.52,
+          "matches": 82,
+          "avgYellow": 4.55,
           "avgRed": 0.22,
-          "avgFouls": 22.1,
-          "avgGoals": 2.93
+          "avgFouls": 22.2,
+          "avgGoals": 2.9
         }
       }
     },
@@ -7454,9 +7454,9 @@
         "referee": "Florian Badstubner",
         "refereeStats": {
           "country": "Germany",
-          "matches": 62,
-          "avgYellow": 2.82,
-          "avgRed": 0.18,
+          "matches": 63,
+          "avgYellow": 2.87,
+          "avgRed": 0.17,
           "avgFouls": 23.4,
           "avgGoals": 3.06
         }
@@ -8912,6 +8912,84 @@
     },
     "bundesliga-2026-27-md11-mainz-union-berlin": {
       "game": "bundesliga-2026-27-md11-mainz-union-berlin",
+      "cortex": {
+        "headline": "Mainz, 60 % en casa ante un Union Berlin de visitante",
+        "headlineOrigin": "ia",
+        "sections": [
+          {
+            "key": "lectura",
+            "title": "La lectura",
+            "text": "Mainz llega con 60 % de probabilidad y 10 puntos en la décima posición; Union Berlin visita con 20 % y 7 puntos en el lugar 17. La diferencia en la tabla y el -18 de diferencia de goles del visitante explican por qué el peso está del lado local.",
+            "origin": "ia"
+          },
+          {
+            "key": "goles",
+            "title": "Goles",
+            "text": "Se proyecta un partido abierto: 3.82 goles esperados en total, con 2.51 para Mainz y 1.31 para Union Berlin. El 72 % de más de 2.5 goles y el 68 % de ambos anotan apuntan a un marcador con varios tantos y al local como el que más aporta.",
+            "origin": "ia",
+            "stats": [
+              {
+                "label": "Goles esperados",
+                "home": 2.51,
+                "away": 1.31
+              },
+              {
+                "label": "Ambos anotan",
+                "value": "68 %"
+              },
+              {
+                "label": "Más de 2.5 goles",
+                "value": "72 %"
+              }
+            ]
+          },
+          {
+            "key": "ritmo",
+            "title": "Ritmo del partido",
+            "text": "Mainz empuja más: 5.9 tiros de esquina por 4.0 del visitante, 9.9 en total. Las faltas están parejas, 11.3 contra 11.1 para 22.3, con 4.1 amarillas, así que el juego se corta sin que un equipo domine el roce.",
+            "origin": "ia",
+            "stats": [
+              {
+                "label": "Tiros de esquina",
+                "home": 5.9,
+                "away": 4
+              },
+              {
+                "label": "Faltas",
+                "home": 11.3,
+                "away": 11.1
+              },
+              {
+                "label": "Amarillas",
+                "home": 2,
+                "away": 2.1
+              }
+            ]
+          },
+          {
+            "key": "tabla",
+            "title": "Tabla y descanso",
+            "text": "Mainz está en el lugar 13 con 10 puntos y diferencia de -3; Union Berlin es 17 con 7 puntos y -18. En descanso, el local llega con 6 días y el visitante con 7.",
+            "origin": "ia",
+            "stats": [
+              {
+                "label": "Puntos",
+                "home": 10,
+                "away": 7
+              }
+            ]
+          },
+          {
+            "key": "cambia",
+            "title": "Qué podría cambiarlo",
+            "text": "Las alineaciones de última hora, el criterio del árbitro y quién anota primero pueden mover la lectura. Un gol temprano del visitante obligaría a Mainz a sostener más el balón y cambiaría el ritmo del partido.",
+            "origin": "ia"
+          }
+        ],
+        "fingerprint": "4542ed9f5c3397e5",
+        "generatedAt": "2026-11-24T21:11:08.466Z",
+        "version": "2"
+      },
       "counts": {
         "corners": {
           "home": 5.92,
@@ -11056,6 +11134,84 @@
     },
     "bundesliga-2026-27-md11-stuttgart-eintracht-frankfurt": {
       "game": "bundesliga-2026-27-md11-stuttgart-eintracht-frankfurt",
+      "cortex": {
+        "headline": "Stuttgart empuja en casa y el partido apunta a goles",
+        "headlineOrigin": "ia",
+        "sections": [
+          {
+            "key": "lectura",
+            "title": "La lectura",
+            "text": "Stuttgart llega con 60 % de probabilidad y una proyección de 2.73 goles a favor; Frankfurt se queda en 20 %. La balanza se inclina por el ataque local, mientras el visitante sostiene una diferencia de -4 en la tabla.",
+            "origin": "ia"
+          },
+          {
+            "key": "goles",
+            "title": "Goles",
+            "text": "El total esperado es 4.22 y el 78 % apunta a más de 2.5 goles, con 73 % de que ambos anoten. Stuttgart aporta 2.73 y Frankfurt 1.49: el local concentra el peso ofensivo y el visitante responde con menos volumen.",
+            "origin": "ia",
+            "stats": [
+              {
+                "label": "Goles esperados",
+                "home": 2.73,
+                "away": 1.49
+              },
+              {
+                "label": "Ambos anotan",
+                "value": "73 %"
+              },
+              {
+                "label": "Más de 2.5 goles",
+                "value": "78 %"
+              }
+            ]
+          },
+          {
+            "key": "ritmo",
+            "title": "Ritmo del partido",
+            "text": "Se esperan 10.4 tiros de esquina, con Stuttgart al frente con 6.1 frente a 4.3. Las faltas suman 21.4 y Frankfurt carga con 11.2: un partido con empuje local y cortes frecuentes del visitante.",
+            "origin": "ia",
+            "stats": [
+              {
+                "label": "Tiros de esquina",
+                "home": 6.1,
+                "away": 4.3
+              },
+              {
+                "label": "Faltas",
+                "home": 10.2,
+                "away": 11.2
+              },
+              {
+                "label": "Amarillas",
+                "home": 1.6,
+                "away": 2.1
+              }
+            ]
+          },
+          {
+            "key": "tabla",
+            "title": "Tabla y descanso",
+            "text": "Stuttgart es octavo con 13 puntos en 10 partidos y diferencia de 0. Frankfurt es séptimo con 15 puntos, también 10 jugados, pero con diferencia de -4. Ambos llegan con 7 días de descanso.",
+            "origin": "ia",
+            "stats": [
+              {
+                "label": "Puntos",
+                "home": 13,
+                "away": 15
+              }
+            ]
+          },
+          {
+            "key": "cambia",
+            "title": "Qué podría cambiarlo",
+            "text": "Las alineaciones pueden ajustar el peso ofensivo de cada lado. El criterio del árbitro define cuánto se corta el juego con faltas. El primer gol cambia el guion: si Frankfurt anota antes, Stuttgart debe abrirse.",
+            "origin": "ia"
+          }
+        ],
+        "fingerprint": "31d69b7e0f03ad1e",
+        "generatedAt": "2026-11-24T21:11:16.266Z",
+        "version": "2"
+      },
       "counts": {
         "corners": {
           "home": 6.09,

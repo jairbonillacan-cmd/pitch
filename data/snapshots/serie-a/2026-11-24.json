@@ -5,7 +5,7 @@
   "season": "serie-a-2026-27",
   "seasonLabel": "2026/27",
   "periodLabel": "Jornada 13",
-  "updatedAt": "2026-11-24T15:06:43.292Z",
+  "updatedAt": "2026-11-24T21:08:59.597Z",
   "source": "openfootball+football-data",
   "provenance": "derived",
   "isDemo": false,
@@ -281,7 +281,7 @@
       "result": {
         "home": 2,
         "away": 0,
-        "observedAt": "2026-11-24T15:06:46.889Z",
+        "observedAt": "2026-11-24T21:09:04.875Z",
         "source": "football-data"
       }
     },
@@ -314,7 +314,7 @@
       "result": {
         "home": 3,
         "away": 0,
-        "observedAt": "2026-11-24T15:06:46.889Z",
+        "observedAt": "2026-11-24T21:09:04.875Z",
         "source": "football-data"
       }
     },
@@ -347,7 +347,7 @@
       "result": {
         "home": 1,
         "away": 5,
-        "observedAt": "2026-11-24T15:06:46.889Z",
+        "observedAt": "2026-11-24T21:09:04.875Z",
         "source": "football-data"
       }
     },
@@ -380,7 +380,7 @@
       "result": {
         "home": 1,
         "away": 0,
-        "observedAt": "2026-11-24T15:06:46.889Z",
+        "observedAt": "2026-11-24T21:09:04.875Z",
         "source": "football-data"
       }
     },
@@ -413,7 +413,7 @@
       "result": {
         "home": 4,
         "away": 0,
-        "observedAt": "2026-11-24T15:06:46.889Z",
+        "observedAt": "2026-11-24T21:09:04.875Z",
         "source": "football-data"
       }
     },
@@ -446,7 +446,7 @@
       "result": {
         "home": 0,
         "away": 2,
-        "observedAt": "2026-11-24T15:06:46.889Z",
+        "observedAt": "2026-11-24T21:09:04.875Z",
         "source": "football-data"
       }
     },
@@ -479,7 +479,7 @@
       "result": {
         "home": 1,
         "away": 1,
-        "observedAt": "2026-11-24T15:06:46.889Z",
+        "observedAt": "2026-11-24T21:09:04.875Z",
         "source": "football-data"
       }
     },
@@ -512,7 +512,7 @@
       "result": {
         "home": 5,
         "away": 1,
-        "observedAt": "2026-11-24T15:06:46.889Z",
+        "observedAt": "2026-11-24T21:09:04.875Z",
         "source": "football-data"
       }
     },
@@ -545,7 +545,7 @@
       "result": {
         "home": 4,
         "away": 4,
-        "observedAt": "2026-11-24T15:06:46.889Z",
+        "observedAt": "2026-11-24T21:09:04.875Z",
         "source": "football-data"
       }
     },
@@ -578,7 +578,7 @@
       "result": {
         "home": 3,
         "away": 0,
-        "observedAt": "2026-11-24T15:06:46.889Z",
+        "observedAt": "2026-11-24T21:09:04.875Z",
         "source": "football-data"
       }
     },
@@ -1581,11 +1581,11 @@
         "referee": "Andrea Calzavara",
         "refereeStats": {
           "country": "Italy",
-          "matches": 39,
-          "avgYellow": 1.1,
+          "matches": 40,
+          "avgYellow": 1.07,
           "avgRed": 0,
           "avgFouls": 28.2,
-          "avgGoals": 2.08
+          "avgGoals": 2.02
         }
       }
     },
@@ -2331,11 +2331,11 @@
         "referee": "Matteo Marcenaro",
         "refereeStats": {
           "country": "Italy",
-          "matches": 42,
+          "matches": 43,
           "avgYellow": 2.86,
-          "avgRed": 0.17,
+          "avgRed": 0.19,
           "avgFouls": 26.1,
-          "avgGoals": 2.86
+          "avgGoals": 2.91
         }
       }
     },
@@ -4563,11 +4563,11 @@
         "referee": "Alberto Ruben Arena",
         "refereeStats": {
           "country": "Italy",
-          "matches": 38,
-          "avgYellow": 1.58,
+          "matches": 39,
+          "avgYellow": 1.54,
           "avgRed": 0.05,
           "avgFouls": 22.5,
-          "avgGoals": 2.74
+          "avgGoals": 2.69
         }
       }
     },
@@ -5311,11 +5311,11 @@
         "referee": "Maria Sole Ferrieri Caputi",
         "refereeStats": {
           "country": "Italy",
-          "matches": 35,
-          "avgYellow": 0.91,
+          "matches": 38,
+          "avgYellow": 0.87,
           "avgRed": 0.03,
           "avgFouls": 26.8,
-          "avgGoals": 2.57
+          "avgGoals": 2.53
         }
       }
     },
@@ -6809,11 +6809,11 @@
         "referee": "Luca Pairetto",
         "refereeStats": {
           "country": "Italy",
-          "matches": 49,
-          "avgYellow": 3.45,
-          "avgRed": 0.31,
+          "matches": 50,
+          "avgYellow": 3.54,
+          "avgRed": 0.3,
           "avgFouls": 24.2,
-          "avgGoals": 2.63
+          "avgGoals": 2.6
         }
       }
     },

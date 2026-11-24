@@ -1,169 +1,143 @@
 {
   "schemaVersion": 1,
   "league": "libertadores",
-  "observedAt": "2026-11-23T22:28:20.377Z",
+  "observedAt": "2026-11-24T21:01:09.804Z",
   "source": "pitchlab-availability",
   "coverageStatus": "ok",
   "entries": [
     {
       "teamId": "libertadores.flamengo",
       "player": "Alex Sandro",
-      "position": "D",
+      "position": "Defensa",
       "status": "Baja",
       "detail": "yellow_card_accumulation_suspension",
       "injuryType": "yellow_card_accumulation_suspension",
-      "reportedAt": "2026-11-23T22:28:20.377Z"
+      "reportedAt": "2026-11-24T21:01:09.804Z"
     },
     {
       "teamId": "libertadores.cruzeiro",
       "player": "Gabriel Pec",
-      "position": "M",
+      "position": "Mediocampista",
       "status": "Baja",
       "detail": "Broken Leg",
       "injuryType": "Broken Leg",
-      "reportedAt": "2026-11-23T22:28:20.377Z"
+      "reportedAt": "2026-11-24T21:01:09.804Z"
     },
     {
       "teamId": "libertadores.cruzeiro",
       "player": "João Marcelo",
-      "position": "D",
+      "position": "Defensa",
       "status": "Baja",
       "detail": "Knee Injury",
       "injuryType": "Knee Injury",
-      "reportedAt": "2026-11-23T22:28:20.377Z"
+      "reportedAt": "2026-11-24T21:01:09.804Z"
     },
     {
       "teamId": "libertadores.cruzeiro",
       "player": "Keny Arroyo",
-      "position": "M",
+      "position": "Mediocampista",
       "status": "Baja",
       "detail": "Muscle Injury",
       "injuryType": "Muscle Injury",
-      "reportedAt": "2026-11-23T22:28:20.377Z"
+      "reportedAt": "2026-11-24T21:01:09.804Z"
     },
     {
       "teamId": "libertadores.cruzeiro",
       "player": "Lucas Romero",
-      "position": "M",
+      "position": "Mediocampista",
       "status": "Baja",
       "detail": "Muscle Injury",
       "injuryType": "Muscle Injury",
-      "reportedAt": "2026-11-23T22:28:20.377Z"
+      "reportedAt": "2026-11-24T21:01:09.804Z"
     },
     {
       "teamId": "libertadores.cruzeiro",
       "player": "Luis Sinisterra",
-      "position": "F",
+      "position": "Delantero",
       "status": "Baja",
       "detail": "Thigh Injury",
       "injuryType": "Thigh Injury",
-      "reportedAt": "2026-11-23T22:28:20.377Z"
+      "reportedAt": "2026-11-24T21:01:09.804Z"
     },
     {
       "teamId": "libertadores.ldu",
       "player": "José Quintero",
-      "position": "D",
+      "position": "Defensa",
       "status": "Baja",
       "detail": "Lesión reportada",
-      "reportedAt": "2026-11-23T22:28:20.377Z"
-    },
-    {
-      "teamId": "libertadores.mirassol",
-      "player": "Edson Carioca",
-      "position": "F",
-      "status": "Baja",
-      "detail": "red_card_suspension",
-      "injuryType": "red_card_suspension",
-      "reportedAt": "2026-11-23T22:28:20.377Z"
-    },
-    {
-      "teamId": "libertadores.mirassol",
-      "player": "Neto Moura",
-      "position": "M",
-      "status": "Baja",
-      "detail": "yellow_card_accumulation_suspension",
-      "injuryType": "yellow_card_accumulation_suspension",
-      "reportedAt": "2026-11-23T22:28:20.377Z"
+      "reportedAt": "2026-11-24T21:01:09.804Z"
     },
     {
       "teamId": "libertadores.mirassol",
       "player": "Wallisson Luiz",
-      "position": "M",
+      "position": "Mediocampista",
       "status": "Baja",
       "detail": "yellow_card_accumulation_suspension",
       "injuryType": "yellow_card_accumulation_suspension",
-      "reportedAt": "2026-11-23T22:28:20.377Z"
+      "reportedAt": "2026-11-24T21:01:09.804Z"
     },
     {
       "teamId": "libertadores.corinthians",
       "player": "André Carrillo",
-      "position": "M",
+      "position": "Mediocampista",
       "status": "Baja",
       "detail": "yellow_card_accumulation_suspension",
       "injuryType": "yellow_card_accumulation_suspension",
-      "reportedAt": "2026-11-23T22:28:20.377Z"
-    },
-    {
-      "teamId": "libertadores.corinthians",
-      "player": "Kayke Ferrari",
-      "position": "F",
-      "status": "Baja",
-      "detail": "Lesión reportada",
-      "reportedAt": "2026-11-23T22:28:20.377Z"
+      "reportedAt": "2026-11-24T21:01:09.804Z"
     },
     {
       "teamId": "libertadores.corinthians",
       "player": "Rodrigo Garro",
-      "position": "M",
+      "position": "Mediocampista",
       "status": "Duda",
       "detail": "Knee Injury",
       "injuryType": "Knee Injury",
-      "reportedAt": "2026-11-23T22:28:20.377Z"
+      "reportedAt": "2026-11-24T21:01:09.804Z"
     },
     {
       "teamId": "libertadores.rosario-central",
       "player": "Federico Navarro",
-      "position": "M",
+      "position": "Mediocampista",
       "status": "Baja",
       "detail": "Sprained Ankle",
       "injuryType": "Sprained Ankle",
-      "reportedAt": "2026-11-23T22:28:20.377Z"
+      "reportedAt": "2026-11-24T21:01:09.804Z"
     },
     {
       "teamId": "libertadores.rosario-central",
       "player": "Giovanni Cantizano",
-      "position": "M",
+      "position": "Mediocampista",
       "status": "Baja",
       "detail": "Knee Injury",
       "injuryType": "Knee Injury",
-      "reportedAt": "2026-11-23T22:28:20.377Z"
+      "reportedAt": "2026-11-24T21:01:09.804Z"
     },
     {
       "teamId": "libertadores.rosario-central",
       "player": "Pol Fernández",
-      "position": "M",
+      "position": "Mediocampista",
       "status": "Baja",
       "detail": "Unknown",
       "injuryType": "Unknown",
-      "reportedAt": "2026-11-23T22:28:20.377Z"
+      "reportedAt": "2026-11-24T21:01:09.804Z"
     },
     {
       "teamId": "libertadores.deportes-tolima",
       "player": "Cristian Arrieta",
-      "position": "D",
+      "position": "Defensa",
       "status": "Baja",
       "detail": "Muscle Injury",
       "injuryType": "Muscle Injury",
-      "reportedAt": "2026-11-23T22:28:20.377Z"
+      "reportedAt": "2026-11-24T21:01:09.804Z"
     },
     {
       "teamId": "libertadores.deportes-tolima",
       "player": "Neto Volpi",
-      "position": "G",
+      "position": "Portero",
       "status": "Baja",
       "detail": "Muscle Injury",
       "injuryType": "Muscle Injury",
-      "reportedAt": "2026-11-23T22:28:20.377Z"
+      "reportedAt": "2026-11-24T21:01:09.804Z"
     }
   ]
 }

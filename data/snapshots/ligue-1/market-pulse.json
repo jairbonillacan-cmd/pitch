@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "league": "ligue-1",
-  "observedAt": "2026-11-24T15:07:50.872Z",
+  "observedAt": "2026-11-24T21:11:38.469Z",
   "entries": [
     {
       "gameId": "ligue-1-2026-27-md11-es-troyes-le-havre",
@@ -214,7 +214,7 @@
       "gameId": "ligue-1-2026-27-md12-aj-auxerre-olympique-marseille",
       "source": "polymarket",
       "unit": "usd",
-      "observedAt": "2026-11-24T15:07:50.872Z",
+      "observedAt": "2026-11-24T21:11:38.469Z",
       "outcomes": [
         {
           "side": "home",
@@ -237,7 +237,7 @@
       "gameId": "ligue-1-2026-27-md12-angers-sco-racing-lens",
       "source": "polymarket",
       "unit": "usd",
-      "observedAt": "2026-11-24T15:07:50.872Z",
+      "observedAt": "2026-11-24T21:11:38.469Z",
       "outcomes": [
         {
           "side": "home",
@@ -260,7 +260,7 @@
       "gameId": "ligue-1-2026-27-md12-le-havre-strasbourg-alsace",
       "source": "polymarket",
       "unit": "usd",
-      "observedAt": "2026-11-24T15:07:50.872Z",
+      "observedAt": "2026-11-24T21:11:38.469Z",
       "outcomes": [
         {
           "side": "home",
@@ -283,17 +283,17 @@
       "gameId": "ligue-1-2026-27-md12-le-mans-lille-osc",
       "source": "polymarket",
       "unit": "usd",
-      "observedAt": "2026-11-24T15:07:50.872Z",
+      "observedAt": "2026-11-24T21:11:38.469Z",
       "outcomes": [
         {
           "side": "home",
           "volume": 6.895,
-          "price": 0.245
+          "price": 0.25
         },
         {
           "side": "draw",
           "volume": 141.206436,
-          "price": 0.29
+          "price": 0.285
         },
         {
           "side": "away",
@@ -306,7 +306,7 @@
       "gameId": "ligue-1-2026-27-md12-ogc-nice-es-troyes",
       "source": "polymarket",
       "unit": "usd",
-      "observedAt": "2026-11-24T15:07:50.872Z",
+      "observedAt": "2026-11-24T21:11:38.469Z",
       "outcomes": [
         {
           "side": "home",
@@ -329,7 +329,7 @@
       "gameId": "ligue-1-2026-27-md12-olympique-lyonnais-monaco",
       "source": "polymarket",
       "unit": "usd",
-      "observedAt": "2026-11-24T15:07:50.872Z",
+      "observedAt": "2026-11-24T21:11:38.469Z",
       "outcomes": [
         {
           "side": "home",
@@ -352,7 +352,7 @@
       "gameId": "ligue-1-2026-27-md12-paris-saint-germain-lorient",
       "source": "polymarket",
       "unit": "usd",
-      "observedAt": "2026-11-24T15:07:50.872Z",
+      "observedAt": "2026-11-24T21:11:38.469Z",
       "outcomes": [
         {
           "side": "home",
@@ -367,7 +367,7 @@
         {
           "side": "away",
           "volume": 0,
-          "price": 0.07
+          "price": 0.075
         }
       ]
     },
@@ -375,7 +375,7 @@
       "gameId": "ligue-1-2026-27-md12-stade-brestois-paris",
       "source": "polymarket",
       "unit": "usd",
-      "observedAt": "2026-11-24T15:07:50.872Z",
+      "observedAt": "2026-11-24T21:11:38.469Z",
       "outcomes": [
         {
           "side": "home",
@@ -398,7 +398,7 @@
       "gameId": "ligue-1-2026-27-md12-toulouse-stade-rennais",
       "source": "polymarket",
       "unit": "usd",
-      "observedAt": "2026-11-24T15:07:50.872Z",
+      "observedAt": "2026-11-24T21:11:38.469Z",
       "outcomes": [
         {
           "side": "home",

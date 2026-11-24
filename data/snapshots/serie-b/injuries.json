@@ -1,126 +1,171 @@
 {
   "schemaVersion": 1,
   "league": "serie-b",
-  "observedAt": "2026-11-23T22:28:20.377Z",
+  "observedAt": "2026-11-24T21:01:09.804Z",
   "source": "pitchlab-availability",
   "coverageStatus": "ok",
   "entries": [
     {
       "teamId": "serie-b.hellas-verona",
       "player": "Davide De Battisti",
-      "position": "M",
+      "position": "Mediocampista",
       "status": "Baja",
       "detail": "Unknown",
       "injuryType": "Unknown",
-      "reportedAt": "2026-11-23T22:28:20.377Z"
+      "reportedAt": "2026-11-24T21:01:09.804Z"
+    },
+    {
+      "teamId": "serie-b.sudtirol",
+      "player": "Bjarki Bjarkason",
+      "position": "Mediocampista",
+      "status": "Baja",
+      "detail": "Broken Foot",
+      "injuryType": "Broken Foot",
+      "reportedAt": "2026-11-24T21:01:09.804Z"
+    },
+    {
+      "teamId": "serie-b.sudtirol",
+      "player": "Kevin Zeroli",
+      "position": "Mediocampista",
+      "status": "Baja",
+      "detail": "Overload",
+      "injuryType": "Overload",
+      "reportedAt": "2026-11-24T21:01:09.804Z"
+    },
+    {
+      "teamId": "serie-b.sudtirol",
+      "player": "Riccardo Stivanello",
+      "position": "Defensa",
+      "status": "Baja",
+      "detail": "yellow_or_red_card_suspension",
+      "injuryType": "yellow_or_red_card_suspension",
+      "reportedAt": "2026-11-24T21:01:09.804Z"
+    },
+    {
+      "teamId": "serie-b.cremonese",
+      "player": "Federico Bonazzoli",
+      "position": "Delantero",
+      "status": "Baja",
+      "detail": "yellow_or_red_card_suspension",
+      "injuryType": "yellow_or_red_card_suspension",
+      "reportedAt": "2026-11-24T21:01:09.804Z"
+    },
+    {
+      "teamId": "serie-b.cremonese",
+      "player": "Salvatore Elia",
+      "position": "Mediocampista",
+      "status": "Baja",
+      "detail": "Unknown",
+      "injuryType": "Unknown",
+      "reportedAt": "2026-11-24T21:01:09.804Z"
+    },
+    {
+      "teamId": "serie-b.sampdoria",
+      "player": "Alessandro Di Pardo",
+      "position": "Defensa",
+      "status": "Baja",
+      "detail": "Unknown",
+      "injuryType": "Unknown",
+      "reportedAt": "2026-11-24T21:01:09.804Z"
+    },
+    {
+      "teamId": "serie-b.sampdoria",
+      "player": "Fabio Depaoli",
+      "position": "Mediocampista",
+      "status": "Baja",
+      "detail": "Shoulder Injury",
+      "injuryType": "Shoulder Injury",
+      "reportedAt": "2026-11-24T21:01:09.804Z"
+    },
+    {
+      "teamId": "serie-b.sampdoria",
+      "player": "Lorenzo Insigne",
+      "position": "Mediocampista",
+      "status": "Baja",
+      "detail": "Unknown",
+      "injuryType": "Unknown",
+      "reportedAt": "2026-11-24T21:01:09.804Z"
+    },
+    {
+      "teamId": "serie-b.sampdoria",
+      "player": "Salvatore Esposito",
+      "position": "Mediocampista",
+      "status": "Baja",
+      "detail": "Unknown",
+      "injuryType": "Unknown",
+      "reportedAt": "2026-11-24T21:01:09.804Z"
     },
     {
       "teamId": "serie-b.benevento",
       "player": "Edoardo Pierozzi",
-      "position": "D",
+      "position": "Defensa",
       "status": "Baja",
       "detail": "Unknown",
       "injuryType": "Unknown",
-      "reportedAt": "2026-11-23T22:28:20.377Z"
-    },
-    {
-      "teamId": "serie-b.avellino",
-      "player": "Andrea Favilli",
-      "position": "F",
-      "status": "Baja",
-      "detail": "Unknown",
-      "injuryType": "Unknown",
-      "reportedAt": "2026-11-23T22:28:20.377Z"
-    },
-    {
-      "teamId": "serie-b.avellino",
-      "player": "Dimitrios Sounas",
-      "position": "M",
-      "status": "Baja",
-      "detail": "Unknown",
-      "injuryType": "Unknown",
-      "reportedAt": "2026-11-23T22:28:20.377Z"
-    },
-    {
-      "teamId": "serie-b.avellino",
-      "player": "Lorenco Šimić",
-      "position": "D",
-      "status": "Baja",
-      "detail": "Unknown",
-      "injuryType": "Unknown",
-      "reportedAt": "2026-11-23T22:28:20.377Z"
-    },
-    {
-      "teamId": "serie-b.avellino",
-      "player": "Luca Di Maggio",
-      "position": "M",
-      "status": "Baja",
-      "detail": "Unknown",
-      "injuryType": "Unknown",
-      "reportedAt": "2026-11-23T22:28:20.377Z"
-    },
-    {
-      "teamId": "serie-b.virtus-entella",
-      "player": "Mattia Alborghetti",
-      "position": "D",
-      "status": "Baja",
-      "detail": "Muscle Injury",
-      "injuryType": "Muscle Injury",
-      "reportedAt": "2026-11-23T22:28:20.377Z"
+      "reportedAt": "2026-11-24T21:01:09.804Z"
     },
     {
       "teamId": "serie-b.modena",
       "player": "Alessandro Sersanti",
-      "position": "M",
+      "position": "Mediocampista",
       "status": "Baja",
       "detail": "Cruciate Ligament Injury",
       "injuryType": "Cruciate Ligament Injury",
-      "reportedAt": "2026-11-23T22:28:20.377Z"
+      "reportedAt": "2026-11-24T21:01:09.804Z"
     },
     {
       "teamId": "serie-b.modena",
       "player": "Daniel Tonoli",
-      "position": "D",
+      "position": "Defensa",
       "status": "Baja",
       "detail": "Unknown",
       "injuryType": "Unknown",
-      "reportedAt": "2026-11-23T22:28:20.377Z"
+      "reportedAt": "2026-11-24T21:01:09.804Z"
     },
     {
       "teamId": "serie-b.modena",
       "player": "Francesco Zampano",
-      "position": "M",
+      "position": "Mediocampista",
       "status": "Baja",
       "detail": "Unknown",
       "injuryType": "Unknown",
-      "reportedAt": "2026-11-23T22:28:20.377Z"
+      "reportedAt": "2026-11-24T21:01:09.804Z"
     },
     {
       "teamId": "serie-b.modena",
       "player": "Giuseppe Caso",
-      "position": "M",
+      "position": "Mediocampista",
       "status": "Baja",
       "detail": "Unknown",
       "injuryType": "Unknown",
-      "reportedAt": "2026-11-23T22:28:20.377Z"
+      "reportedAt": "2026-11-24T21:01:09.804Z"
     },
     {
       "teamId": "serie-b.modena",
       "player": "Joris Manquant",
-      "position": "F",
+      "position": "Delantero",
       "status": "Baja",
       "detail": "Cruciate Ligament Injury",
       "injuryType": "Cruciate Ligament Injury",
-      "reportedAt": "2026-11-23T22:28:20.377Z"
+      "reportedAt": "2026-11-24T21:01:09.804Z"
     },
     {
       "teamId": "serie-b.modena",
       "player": "Steven Nador",
-      "position": "D",
+      "position": "Defensa",
       "status": "Baja",
       "detail": "Unknown",
       "injuryType": "Unknown",
-      "reportedAt": "2026-11-23T22:28:20.377Z"
+      "reportedAt": "2026-11-24T21:01:09.804Z"
+    },
+    {
+      "teamId": "serie-b.juve-stabia",
+      "player": "Nicola Patanè",
+      "position": "Mediocampista",
+      "status": "Baja",
+      "detail": "Unknown",
+      "injuryType": "Unknown",
+      "reportedAt": "2026-11-24T21:01:09.804Z"
     }
   ]
 }

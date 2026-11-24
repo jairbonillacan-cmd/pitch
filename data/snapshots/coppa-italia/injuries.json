@@ -1,108 +1,117 @@
 {
   "schemaVersion": 1,
   "league": "coppa-italia",
-  "observedAt": "2026-11-23T22:28:20.377Z",
+  "observedAt": "2026-11-24T21:01:09.804Z",
   "source": "pitchlab-availability",
   "coverageStatus": "ok",
   "entries": [
     {
       "teamId": "coppa-italia.frosinone",
       "player": "Antonio Raimondo",
-      "position": "F",
+      "position": "Delantero",
       "status": "Baja",
       "detail": "Ankle Injury",
       "injuryType": "Ankle Injury",
-      "reportedAt": "2026-11-23T22:28:20.377Z"
+      "reportedAt": "2026-11-24T21:01:09.804Z"
     },
     {
       "teamId": "coppa-italia.frosinone",
       "player": "Daniel Bîrligea",
-      "position": "F",
+      "position": "Delantero",
       "status": "Baja",
       "detail": "Thigh Injury",
       "injuryType": "Thigh Injury",
-      "reportedAt": "2026-11-23T22:28:20.377Z"
+      "reportedAt": "2026-11-24T21:01:09.804Z"
     },
     {
       "teamId": "coppa-italia.frosinone",
       "player": "Florian Grillitsch",
-      "position": "M",
+      "position": "Mediocampista",
       "status": "Baja",
       "detail": "Groin Injury",
       "injuryType": "Groin Injury",
-      "reportedAt": "2026-11-23T22:28:20.377Z"
+      "reportedAt": "2026-11-24T21:01:09.804Z"
     },
     {
       "teamId": "coppa-italia.juve-stabia",
       "player": "Nicola Patanè",
-      "position": "M",
+      "position": "Mediocampista",
       "status": "Baja",
       "detail": "Unknown",
       "injuryType": "Unknown",
-      "reportedAt": "2026-11-23T22:28:20.377Z"
+      "reportedAt": "2026-11-24T21:01:09.804Z"
     },
     {
       "teamId": "coppa-italia.genoa",
       "player": "Lorenzo Colombo",
-      "position": "F",
+      "position": "Delantero",
       "status": "Baja",
       "detail": "Cruciate Ligament Injury",
       "injuryType": "Cruciate Ligament Injury",
-      "reportedAt": "2026-11-23T22:28:20.377Z"
+      "reportedAt": "2026-11-24T21:01:09.804Z"
+    },
+    {
+      "teamId": "coppa-italia.ascoli",
+      "player": "Gennaro Acampora",
+      "position": "Mediocampista",
+      "status": "Baja",
+      "detail": "Unknown",
+      "injuryType": "Unknown",
+      "reportedAt": "2026-11-24T21:01:09.804Z"
     },
     {
       "teamId": "coppa-italia.hellas-verona",
       "player": "Davide De Battisti",
-      "position": "M",
+      "position": "Mediocampista",
       "status": "Baja",
       "detail": "Unknown",
       "injuryType": "Unknown",
-      "reportedAt": "2026-11-23T22:28:20.377Z"
+      "reportedAt": "2026-11-24T21:01:09.804Z"
     },
     {
       "teamId": "coppa-italia.virtus-entella",
       "player": "Mattia Alborghetti",
-      "position": "D",
+      "position": "Defensa",
       "status": "Baja",
       "detail": "Muscle Injury",
       "injuryType": "Muscle Injury",
-      "reportedAt": "2026-11-23T22:28:20.377Z"
+      "reportedAt": "2026-11-24T21:01:09.804Z"
     },
     {
       "teamId": "coppa-italia.lazio",
       "player": "Adam Marušić",
-      "position": "D",
+      "position": "Defensa",
       "status": "Baja",
       "detail": "Muscle Injury",
       "injuryType": "Muscle Injury",
-      "reportedAt": "2026-11-23T22:28:20.377Z"
+      "reportedAt": "2026-11-24T21:01:09.804Z"
     },
     {
       "teamId": "coppa-italia.lazio",
       "player": "Josip Šutalo",
-      "position": "D",
+      "position": "Defensa",
       "status": "Baja",
       "detail": "Hamstring Injury",
       "injuryType": "Hamstring Injury",
-      "reportedAt": "2026-11-23T22:28:20.377Z"
+      "reportedAt": "2026-11-24T21:01:09.804Z"
     },
     {
       "teamId": "coppa-italia.lazio",
       "player": "Mattia Zaccagni",
-      "position": "F",
+      "position": "Delantero",
       "status": "Baja",
       "detail": "Thigh Injury",
       "injuryType": "Thigh Injury",
-      "reportedAt": "2026-11-23T22:28:20.377Z"
+      "reportedAt": "2026-11-24T21:01:09.804Z"
     },
     {
       "teamId": "coppa-italia.lazio",
       "player": "Nuno Tavares",
-      "position": "D",
+      "position": "Defensa",
       "status": "Baja",
       "detail": "Muscle Injury",
       "injuryType": "Muscle Injury",
-      "reportedAt": "2026-11-23T22:28:20.377Z"
+      "reportedAt": "2026-11-24T21:01:09.804Z"
     }
   ]
 }

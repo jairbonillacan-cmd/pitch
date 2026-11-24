@@ -5,7 +5,7 @@
   "season": "pro-league-belgica-2026-27",
   "seasonLabel": "2026/27",
   "periodLabel": "Regular season · Matchday 11",
-  "updatedAt": "2026-11-23T22:28:20.377Z",
+  "updatedAt": "2026-11-24T21:01:09.804Z",
   "source": "pitchlab-football-v2",
   "provenance": "derived",
   "isDemo": false,
@@ -18,8 +18,8 @@
       "forPerGame": 2.6666666666666665,
       "againstPerGame": 0.8333333333333334,
       "gamesPlayed": 12,
-      "adjustedFor": 1.8421332105727488,
-      "adjustedAgainst": 1.0306411475286543
+      "adjustedFor": 1.8417653570170367,
+      "adjustedAgainst": 1.0310012210123778
     },
     "pro-league-belgica.kv-kortrijk": {
       "teamId": "pro-league-belgica.kv-kortrijk",
@@ -29,8 +29,8 @@
       "forPerGame": 0.3333333333333333,
       "againstPerGame": 2,
       "gamesPlayed": 12,
-      "adjustedFor": 0.7418869126347635,
-      "adjustedAgainst": 1.4800973353991116
+      "adjustedFor": 0.7425641787529036,
+      "adjustedAgainst": 1.4800955955919
     },
     "pro-league-belgica.standard-liege": {
       "teamId": "pro-league-belgica.standard-liege",
@@ -40,8 +40,8 @@
       "forPerGame": 1.6666666666666667,
       "againstPerGame": 1.4166666666666667,
       "gamesPlayed": 12,
-      "adjustedFor": 1.3197311601821715,
-      "adjustedAgainst": 1.2686431307135262
+      "adjustedFor": 1.3198917909161643,
+      "adjustedAgainst": 1.268782029225883
     },
     "pro-league-belgica.cercle-brugge": {
       "teamId": "pro-league-belgica.cercle-brugge",
@@ -51,8 +51,8 @@
       "forPerGame": 1.25,
       "againstPerGame": 1.8333333333333333,
       "gamesPlayed": 12,
-      "adjustedFor": 1.181608823079643,
-      "adjustedAgainst": 1.3736215100617089
+      "adjustedFor": 1.1818495914902574,
+      "adjustedAgainst": 1.3737503512419722
     },
     "pro-league-belgica.sint-truidense-vv": {
       "teamId": "pro-league-belgica.sint-truidense-vv",
@@ -62,8 +62,8 @@
       "forPerGame": 2,
       "againstPerGame": 2,
       "gamesPlayed": 12,
-      "adjustedFor": 1.5000293302732441,
-      "adjustedAgainst": 1.4966322004552424
+      "adjustedFor": 1.5000096072655236,
+      "adjustedAgainst": 1.4966237153826742
     },
     "pro-league-belgica.lommel": {
       "teamId": "pro-league-belgica.lommel",
@@ -73,8 +73,8 @@
       "forPerGame": 1.3333333333333333,
       "againstPerGame": 1.25,
       "gamesPlayed": 12,
-      "adjustedFor": 1.217409536713309,
-      "adjustedAgainst": 1.134213835021225
+      "adjustedFor": 1.217628865442233,
+      "adjustedAgainst": 1.1345454495632663
     },
     "pro-league-belgica.kvc-westerlo": {
       "teamId": "pro-league-belgica.kvc-westerlo",
@@ -84,8 +84,8 @@
       "forPerGame": 2.1666666666666665,
       "againstPerGame": 2.5833333333333335,
       "gamesPlayed": 12,
-      "adjustedFor": 1.6073704945618492,
-      "adjustedAgainst": 1.8001323663052788
+      "adjustedFor": 1.6072016742100401,
+      "adjustedAgainst": 1.7997876428442618
     },
     "pro-league-belgica.royale-union-saint-gilloise": {
       "teamId": "pro-league-belgica.royale-union-saint-gilloise",
@@ -95,8 +95,8 @@
       "forPerGame": 2.5833333333333335,
       "againstPerGame": 0.5833333333333334,
       "gamesPlayed": 12,
-      "adjustedFor": 1.7650394097703097,
-      "adjustedAgainst": 0.8659083750974415
+      "adjustedFor": 1.7647443613555351,
+      "adjustedAgainst": 0.866456613951411
     },
     "pro-league-belgica.kaa-gent": {
       "teamId": "pro-league-belgica.kaa-gent",
@@ -106,8 +106,8 @@
       "forPerGame": 1.6666666666666667,
       "againstPerGame": 0.5833333333333334,
       "gamesPlayed": 12,
-      "adjustedFor": 1.3542555659495392,
-      "adjustedAgainst": 0.8913827027643086
+      "adjustedFor": 1.3543398468658767,
+      "adjustedAgainst": 0.8918920524615648
     },
     "pro-league-belgica.kv-mechelen": {
       "teamId": "pro-league-belgica.kv-mechelen",
@@ -117,8 +117,8 @@
       "forPerGame": 1.1666666666666667,
       "againstPerGame": 2.0833333333333335,
       "gamesPlayed": 12,
-      "adjustedFor": 1.1479212789688955,
-      "adjustedAgainst": 1.575375394840612
+      "adjustedFor": 1.1481942264565645,
+      "adjustedAgainst": 1.5752302296213294
     },
     "pro-league-belgica.zulte-waregem": {
       "teamId": "pro-league-belgica.zulte-waregem",
@@ -128,8 +128,8 @@
       "forPerGame": 1.25,
       "againstPerGame": 1.8333333333333333,
       "gamesPlayed": 12,
-      "adjustedFor": 1.1676089554199713,
-      "adjustedAgainst": 1.4408425979440096
+      "adjustedFor": 1.1678685675076976,
+      "adjustedAgainst": 1.4408830943164812
     },
     "pro-league-belgica.krc-genk": {
       "teamId": "pro-league-belgica.krc-genk",
@@ -139,8 +139,8 @@
       "forPerGame": 1.75,
       "againstPerGame": 1.25,
       "gamesPlayed": 12,
-      "adjustedFor": 1.370355621016389,
-      "adjustedAgainst": 1.1438088024412825
+      "adjustedFor": 1.3704592157811222,
+      "adjustedAgainst": 1.144107569383006
     },
     "pro-league-belgica.sporting-charleroi": {
       "teamId": "pro-league-belgica.sporting-charleroi",
@@ -150,8 +150,8 @@
       "forPerGame": 2.3333333333333335,
       "againstPerGame": 1.25,
       "gamesPlayed": 12,
-      "adjustedFor": 1.628503126407027,
-      "adjustedAgainst": 1.2012408109557953
+      "adjustedFor": 1.6283978547041877,
+      "adjustedAgainst": 1.2014549376917456
     },
     "pro-league-belgica.oud-heverlee-leuven": {
       "teamId": "pro-league-belgica.oud-heverlee-leuven",
@@ -161,8 +161,8 @@
       "forPerGame": 1,
       "againstPerGame": 1.5,
       "gamesPlayed": 12,
-      "adjustedFor": 1.077482333282891,
-      "adjustedAgainst": 1.2367922161741318
+      "adjustedFor": 1.0778220148380142,
+      "adjustedAgainst": 1.237018215892932
     },
     "pro-league-belgica.rsc-anderlecht": {
       "teamId": "pro-league-belgica.rsc-anderlecht",
@@ -172,8 +172,8 @@
       "forPerGame": 1.25,
       "againstPerGame": 1,
       "gamesPlayed": 12,
-      "adjustedFor": 1.158515434316914,
-      "adjustedAgainst": 1.047885815518185
+      "adjustedFor": 1.1588069889714652,
+      "adjustedAgainst": 1.0482740151906478
     },
     "pro-league-belgica.raal-la-louviere": {
       "teamId": "pro-league-belgica.raal-la-louviere",
@@ -183,8 +183,8 @@
       "forPerGame": 1.0833333333333333,
       "againstPerGame": 2.25,
       "gamesPlayed": 12,
-      "adjustedFor": 1.1063594427017496,
-      "adjustedAgainst": 1.659714124974922
+      "adjustedFor": 1.1066664253170455,
+      "adjustedAgainst": 1.659488179260592
     },
     "pro-league-belgica.royal-antwerp": {
       "teamId": "pro-league-belgica.royal-antwerp",
@@ -194,8 +194,8 @@
       "forPerGame": 1.6666666666666667,
       "againstPerGame": 2.1666666666666665,
       "gamesPlayed": 12,
-      "adjustedFor": 1.3739779371221632,
-      "adjustedAgainst": 1.567741058923539
+      "adjustedFor": 1.3740289081580874,
+      "adjustedAgainst": 1.5676591273439016
     },
     "pro-league-belgica.beveren": {
       "teamId": "pro-league-belgica.beveren",
@@ -205,8 +205,8 @@
       "forPerGame": 1.1666666666666667,
       "againstPerGame": 1.9166666666666667,
       "gamesPlayed": 12,
-      "adjustedFor": 1.16122085567379,
-      "adjustedAgainst": 1.4945218940338123
+      "adjustedFor": 1.1614565922732603,
+      "adjustedAgainst": 1.494461826298132
     }
   },
   "games": [
@@ -241,7 +241,7 @@
       "result": {
         "home": 2,
         "away": 0,
-        "observedAt": "2026-11-23T22:28:20.377Z",
+        "observedAt": "2026-11-24T21:01:09.804Z",
         "source": "pitchlab-feed"
       }
     },
@@ -276,7 +276,7 @@
       "result": {
         "home": 2,
         "away": 2,
-        "observedAt": "2026-11-23T22:28:20.377Z",
+        "observedAt": "2026-11-24T21:01:09.804Z",
         "source": "pitchlab-feed"
       }
     },
@@ -311,7 +311,7 @@
       "result": {
         "home": 0,
         "away": 1,
-        "observedAt": "2026-11-23T22:28:20.377Z",
+        "observedAt": "2026-11-24T21:01:09.804Z",
         "source": "pitchlab-feed"
       }
     },
@@ -346,7 +346,7 @@
       "result": {
         "home": 1,
         "away": 1,
-        "observedAt": "2026-11-23T22:28:20.377Z",
+        "observedAt": "2026-11-24T21:01:09.804Z",
         "source": "pitchlab-feed"
       }
     },
@@ -381,7 +381,7 @@
       "result": {
         "home": 1,
         "away": 0,
-        "observedAt": "2026-11-23T22:28:20.377Z",
+        "observedAt": "2026-11-24T21:01:09.804Z",
         "source": "pitchlab-feed"
       }
     },
@@ -416,7 +416,7 @@
       "result": {
         "home": 1,
         "away": 0,
-        "observedAt": "2026-11-23T22:28:20.377Z",
+        "observedAt": "2026-11-24T21:01:09.804Z",
         "source": "pitchlab-feed"
       }
     },
@@ -451,7 +451,7 @@
       "result": {
         "home": 4,
         "away": 1,
-        "observedAt": "2026-11-23T22:28:20.377Z",
+        "observedAt": "2026-11-24T21:01:09.804Z",
         "source": "pitchlab-feed"
       }
     },
@@ -486,7 +486,7 @@
       "result": {
         "home": 1,
         "away": 0,
-        "observedAt": "2026-11-23T22:28:20.377Z",
+        "observedAt": "2026-11-24T21:01:09.804Z",
         "source": "pitchlab-feed"
       }
     },
@@ -521,7 +521,7 @@
       "result": {
         "home": 2,
         "away": 2,
-        "observedAt": "2026-11-23T22:28:20.377Z",
+        "observedAt": "2026-11-24T21:01:09.804Z",
         "source": "pitchlab-feed"
       }
     },
@@ -556,7 +556,7 @@
       "result": {
         "home": 3,
         "away": 0,
-        "observedAt": "2026-11-23T22:28:20.377Z",
+        "observedAt": "2026-11-24T21:01:09.804Z",
         "source": "pitchlab-feed"
       }
     },
@@ -591,7 +591,7 @@
       "result": {
         "home": 2,
         "away": 2,
-        "observedAt": "2026-11-23T22:28:20.377Z",
+        "observedAt": "2026-11-24T21:01:09.804Z",
         "source": "pitchlab-feed"
       }
     },
@@ -626,7 +626,7 @@
       "result": {
         "home": 1,
         "away": 5,
-        "observedAt": "2026-11-23T22:28:20.377Z",
+        "observedAt": "2026-11-24T21:01:09.804Z",
         "source": "pitchlab-feed"
       }
     },
@@ -661,7 +661,7 @@
       "result": {
         "home": 1,
         "away": 0,
-        "observedAt": "2026-11-23T22:28:20.377Z",
+        "observedAt": "2026-11-24T21:01:09.804Z",
         "source": "pitchlab-feed"
       }
     },
@@ -696,7 +696,7 @@
       "result": {
         "home": 0,
         "away": 1,
-        "observedAt": "2026-11-23T22:28:20.377Z",
+        "observedAt": "2026-11-24T21:01:09.804Z",
         "source": "pitchlab-feed"
       }
     },
@@ -731,7 +731,7 @@
       "result": {
         "home": 1,
         "away": 0,
-        "observedAt": "2026-11-23T22:28:20.377Z",
+        "observedAt": "2026-11-24T21:01:09.804Z",
         "source": "pitchlab-feed"
       }
     },
@@ -766,7 +766,7 @@
       "result": {
         "home": 1,
         "away": 2,
-        "observedAt": "2026-11-23T22:28:20.377Z",
+        "observedAt": "2026-11-24T21:01:09.804Z",
         "source": "pitchlab-feed"
       }
     },
@@ -2097,8 +2097,8 @@
         "referee": "Lawrence Visser",
         "refereeStats": {
           "country": "Belgium",
-          "matches": 75,
-          "avgYellow": 4.65,
+          "matches": 76,
+          "avgYellow": 4.63,
           "avgRed": 0.33,
           "avgFouls": 24.2,
           "avgGoals": 3.25
@@ -3000,11 +3000,11 @@
         "referee": "Wim Smet",
         "refereeStats": {
           "country": "Belgium",
-          "matches": 25,
-          "avgYellow": 2.56,
+          "matches": 26,
+          "avgYellow": 2.62,
           "avgRed": 0.04,
           "avgFouls": 24.6,
-          "avgGoals": 3.24
+          "avgGoals": 3.19
         },
         "weather": {
           "description": "cloudy",
@@ -6270,11 +6270,11 @@
         "referee": "Michiel Allaerts",
         "refereeStats": {
           "country": "Belgium",
-          "matches": 24,
-          "avgYellow": 3.29,
-          "avgRed": 0.25,
+          "matches": 25,
+          "avgYellow": 3.36,
+          "avgRed": 0.24,
           "avgFouls": 22.7,
-          "avgGoals": 2.25
+          "avgGoals": 2.2
         },
         "weather": {
           "description": "clear",
@@ -7246,11 +7246,11 @@
         "referee": "Eric Lambrechts",
         "refereeStats": {
           "country": "Belgium",
-          "matches": 68,
-          "avgYellow": 4.06,
-          "avgRed": 0.18,
+          "matches": 69,
+          "avgYellow": 4.03,
+          "avgRed": 0.17,
           "avgFouls": 22.3,
-          "avgGoals": 3.04
+          "avgGoals": 3.07
         },
         "weather": {
           "description": "cloudy",
@@ -7732,8 +7732,8 @@
         "referee": "Lawrence Visser",
         "refereeStats": {
           "country": "Belgium",
-          "matches": 75,
-          "avgYellow": 4.65,
+          "matches": 76,
+          "avgYellow": 4.63,
           "avgRed": 0.33,
           "avgFouls": 24.2,
           "avgGoals": 3.25
@@ -8220,11 +8220,11 @@
         "referee": "Kevin van Damme",
         "refereeStats": {
           "country": "Belgium",
-          "matches": 36,
-          "avgYellow": 4.06,
-          "avgRed": 0.25,
+          "matches": 37,
+          "avgYellow": 4.05,
+          "avgRed": 0.24,
           "avgFouls": 21.6,
-          "avgGoals": 2.58
+          "avgGoals": 2.62
         },
         "weather": {
           "description": "clear",
@@ -8707,8 +8707,8 @@
         "referee": "Simon Bourdeaud'hui",
         "refereeStats": {
           "country": "Belgium",
-          "matches": 43,
-          "avgYellow": 3.6,
+          "matches": 44,
+          "avgYellow": 3.61,
           "avgRed": 0.07,
           "avgFouls": 23.3,
           "avgGoals": 2.84
@@ -9194,11 +9194,11 @@
         "referee": "Lothar D'hondt",
         "refereeStats": {
           "country": "Belgium",
-          "matches": 66,
-          "avgYellow": 4.42,
+          "matches": 67,
+          "avgYellow": 4.39,
           "avgRed": 0.3,
           "avgFouls": 24.6,
-          "avgGoals": 2.61
+          "avgGoals": 2.63
         },
         "weather": {
           "description": "cloudy",

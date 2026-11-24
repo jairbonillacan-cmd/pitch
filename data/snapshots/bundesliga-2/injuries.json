@@ -1,126 +1,135 @@
 {
   "schemaVersion": 1,
   "league": "bundesliga-2",
-  "observedAt": "2026-11-23T22:28:20.377Z",
+  "observedAt": "2026-11-24T21:01:09.804Z",
   "source": "pitchlab-availability",
   "coverageStatus": "ok",
   "entries": [
     {
       "teamId": "bundesliga-2.kaiserslautern",
       "player": "Enis Kamga",
-      "position": "G",
+      "position": "Portero",
       "status": "Baja",
       "detail": "Eye Injury",
       "injuryType": "Eye Injury",
-      "reportedAt": "2026-11-23T22:28:20.377Z"
+      "reportedAt": "2026-11-24T21:01:09.804Z"
     },
     {
       "teamId": "bundesliga-2.kaiserslautern",
       "player": "Leon Robinson",
-      "position": "M",
+      "position": "Mediocampista",
       "status": "Baja",
       "detail": "Foot Injury",
       "injuryType": "Foot Injury",
-      "reportedAt": "2026-11-23T22:28:20.377Z"
+      "reportedAt": "2026-11-24T21:01:09.804Z"
     },
     {
       "teamId": "bundesliga-2.kaiserslautern",
       "player": "Marlon Ritter",
-      "position": "F",
+      "position": "Delantero",
       "status": "Baja",
       "detail": "Illness",
       "injuryType": "Illness",
-      "reportedAt": "2026-11-23T22:28:20.377Z"
+      "reportedAt": "2026-11-24T21:01:09.804Z"
     },
     {
       "teamId": "bundesliga-2.arminia-bielefeld",
       "player": "David Min",
-      "position": "F",
+      "position": "Delantero",
       "status": "Baja",
       "detail": "Thigh Injury",
       "injuryType": "Thigh Injury",
-      "reportedAt": "2026-11-23T22:28:20.377Z"
+      "reportedAt": "2026-11-24T21:01:09.804Z"
     },
     {
       "teamId": "bundesliga-2.arminia-bielefeld",
       "player": "Joel Felix",
-      "position": "D",
+      "position": "Defensa",
       "status": "Baja",
       "detail": "Unknown",
       "injuryType": "Unknown",
-      "reportedAt": "2026-11-23T22:28:20.377Z"
+      "reportedAt": "2026-11-24T21:01:09.804Z"
     },
     {
       "teamId": "bundesliga-2.nurnberg",
       "player": "Finn Ole Becker",
-      "position": "M",
+      "position": "Mediocampista",
       "status": "Baja",
       "detail": "Unknown",
       "injuryType": "Unknown",
-      "reportedAt": "2026-11-23T22:28:20.377Z"
+      "reportedAt": "2026-11-24T21:01:09.804Z"
     },
     {
       "teamId": "bundesliga-2.nurnberg",
       "player": "Kristian Mandić",
-      "position": "D",
+      "position": "Defensa",
       "status": "Baja",
       "detail": "Unknown",
       "injuryType": "Unknown",
-      "reportedAt": "2026-11-23T22:28:20.377Z"
+      "reportedAt": "2026-11-24T21:01:09.804Z"
     },
     {
       "teamId": "bundesliga-2.nurnberg",
       "player": "Mohamed Ali Zoma",
-      "position": "F",
+      "position": "Delantero",
       "status": "Baja",
       "detail": "Dislocated Shoulder",
       "injuryType": "Dislocated Shoulder",
-      "reportedAt": "2026-11-23T22:28:20.377Z"
+      "reportedAt": "2026-11-24T21:01:09.804Z"
     },
     {
       "teamId": "bundesliga-2.darmstadt",
       "player": "Fabian Nürnberger",
-      "position": "D",
+      "position": "Defensa",
       "status": "Baja",
       "detail": "Unknown",
       "injuryType": "Unknown",
-      "reportedAt": "2026-11-23T22:28:20.377Z"
+      "reportedAt": "2026-11-24T21:01:09.804Z"
     },
     {
       "teamId": "bundesliga-2.darmstadt",
       "player": "Luca Marseiler",
-      "position": "M",
+      "position": "Mediocampista",
       "status": "Baja",
       "detail": "Cruciate Ligament Injury",
       "injuryType": "Cruciate Ligament Injury",
-      "reportedAt": "2026-11-23T22:28:20.377Z"
+      "reportedAt": "2026-11-24T21:01:09.804Z"
     },
     {
       "teamId": "bundesliga-2.darmstadt",
       "player": "Marcel Schuhen",
-      "position": "G",
+      "position": "Portero",
       "status": "Baja",
       "detail": "Thigh Injury",
       "injuryType": "Thigh Injury",
-      "reportedAt": "2026-11-23T22:28:20.377Z"
+      "reportedAt": "2026-11-24T21:01:09.804Z"
     },
     {
       "teamId": "bundesliga-2.darmstadt",
       "player": "Nicolas Verkooijen",
-      "position": "M",
+      "position": "Mediocampista",
       "status": "Baja",
       "detail": "Unknown",
       "injuryType": "Unknown",
-      "reportedAt": "2026-11-23T22:28:20.377Z"
+      "reportedAt": "2026-11-24T21:01:09.804Z"
     },
     {
       "teamId": "bundesliga-2.darmstadt",
       "player": "Patric Pfeiffer",
-      "position": "D",
+      "position": "Defensa",
       "status": "Baja",
       "detail": "Unknown",
       "injuryType": "Unknown",
-      "reportedAt": "2026-11-23T22:28:20.377Z"
+      "reportedAt": "2026-11-24T21:01:09.804Z"
+    },
+    {
+      "teamId": "bundesliga-2.hertha-bsc",
+      "player": "Soufian Gouram",
+      "position": "Mediocampista",
+      "status": "Baja",
+      "detail": "yellow_or_red_card_suspension",
+      "injuryType": "yellow_or_red_card_suspension",
+      "reportedAt": "2026-11-24T21:01:09.804Z"
     }
   ]
 }

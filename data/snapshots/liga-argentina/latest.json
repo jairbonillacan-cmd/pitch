@@ -4,8 +4,8 @@
   "logoUrl": "https://sports.bzzoiro.com/img/league/85/?bg=transparent",
   "season": "liga-argentina-2026",
   "seasonLabel": "2026",
-  "periodLabel": "Clausura, Group A · Matchday 16",
-  "updatedAt": "2026-11-23T22:28:20.377Z",
+  "periodLabel": "Clausura, Group B · Matchday 16",
+  "updatedAt": "2026-11-24T21:01:09.804Z",
   "source": "pitchlab-football-v2",
   "provenance": "derived",
   "isDemo": false,
@@ -18,8 +18,8 @@
       "forPerGame": 1.4375,
       "againstPerGame": 1.5,
       "gamesPlayed": 16,
-      "adjustedFor": 1.1876885939103927,
-      "adjustedAgainst": 1.2335327048894784
+      "adjustedFor": 1.1897668545716888,
+      "adjustedAgainst": 1.235783728122966
     },
     "liga-argentina.argentinos-juniors": {
       "teamId": "liga-argentina.argentinos-juniors",
@@ -29,8 +29,8 @@
       "forPerGame": 1.2352941176470589,
       "againstPerGame": 0.9411764705882353,
       "gamesPlayed": 17,
-      "adjustedFor": 1.079701143079826,
-      "adjustedAgainst": 0.9262075853829086
+      "adjustedFor": 1.0816721864226306,
+      "adjustedAgainst": 0.9286626737182251
     },
     "liga-argentina.atletico-belgrano": {
       "teamId": "liga-argentina.atletico-belgrano",
@@ -40,8 +40,8 @@
       "forPerGame": 1.0588235294117647,
       "againstPerGame": 0.9411764705882353,
       "gamesPlayed": 17,
-      "adjustedFor": 0.9897595800586001,
-      "adjustedAgainst": 0.9227029035513311
+      "adjustedFor": 0.9917497586334664,
+      "adjustedAgainst": 0.9248536493025351
     },
     "liga-argentina.rosario-central": {
       "teamId": "liga-argentina.rosario-central",
@@ -51,8 +51,8 @@
       "forPerGame": 1.7058823529411764,
       "againstPerGame": 0.7647058823529411,
       "gamesPlayed": 17,
-      "adjustedFor": 1.3747900040925038,
-      "adjustedAgainst": 0.8337833810544052
+      "adjustedFor": 1.3754028562282377,
+      "adjustedAgainst": 0.8350680271591909
     },
     "liga-argentina.defensa-y-justicia": {
       "teamId": "liga-argentina.defensa-y-justicia",
@@ -62,8 +62,8 @@
       "forPerGame": 1.2352941176470589,
       "againstPerGame": 0.9411764705882353,
       "gamesPlayed": 17,
-      "adjustedFor": 1.0972614808901777,
-      "adjustedAgainst": 0.922422497484743
+      "adjustedFor": 1.0998888484844993,
+      "adjustedAgainst": 0.9244741222547677
     },
     "liga-argentina.aldosivi": {
       "teamId": "liga-argentina.aldosivi",
@@ -73,8 +73,8 @@
       "forPerGame": 1,
       "againstPerGame": 1.625,
       "gamesPlayed": 16,
-      "adjustedFor": 0.9566325640811357,
-      "adjustedAgainst": 1.3092915334160817
+      "adjustedFor": 0.9587131637840427,
+      "adjustedAgainst": 1.311972542792808
     },
     "liga-argentina.gimnasia-y-esgrima-mendoza": {
       "teamId": "liga-argentina.gimnasia-y-esgrima-mendoza",
@@ -84,8 +84,8 @@
       "forPerGame": 1.1176470588235294,
       "againstPerGame": 1.1764705882352942,
       "gamesPlayed": 17,
-      "adjustedFor": 1.0259875361156219,
-      "adjustedAgainst": 1.0421692689058173
+      "adjustedFor": 1.0271545396077688,
+      "adjustedAgainst": 1.0431245356107033
     },
     "liga-argentina.central-cordoba": {
       "teamId": "liga-argentina.central-cordoba",
@@ -95,8 +95,8 @@
       "forPerGame": 0.75,
       "againstPerGame": 1.625,
       "gamesPlayed": 16,
-      "adjustedFor": 0.8420370781136113,
-      "adjustedAgainst": 1.3344259033914752
+      "adjustedFor": 0.8445085013393716,
+      "adjustedAgainst": 1.3358711819710152
     },
     "liga-argentina.velez-sarsfield": {
       "teamId": "liga-argentina.velez-sarsfield",
@@ -106,8 +106,8 @@
       "forPerGame": 1.5294117647058822,
       "againstPerGame": 1.0588235294117647,
       "gamesPlayed": 17,
-      "adjustedFor": 1.29352747313095,
-      "adjustedAgainst": 1.0157642535354552
+      "adjustedFor": 1.2964086140507143,
+      "adjustedAgainst": 1.0174746171393312
     },
     "liga-argentina.instituto-cordoba": {
       "teamId": "liga-argentina.instituto-cordoba",
@@ -117,8 +117,8 @@
       "forPerGame": 1.6470588235294117,
       "againstPerGame": 0.9411764705882353,
       "gamesPlayed": 17,
-      "adjustedFor": 1.3591583804238139,
-      "adjustedAgainst": 0.9688739479526486
+      "adjustedFor": 1.3616978201991485,
+      "adjustedAgainst": 0.970670745931503
     },
     "liga-argentina.racing": {
       "teamId": "liga-argentina.racing",
@@ -128,19 +128,19 @@
       "forPerGame": 1,
       "againstPerGame": 1.5,
       "gamesPlayed": 16,
-      "adjustedFor": 0.9616315046664334,
-      "adjustedAgainst": 1.2459862594574582
+      "adjustedFor": 0.9637366166267777,
+      "adjustedAgainst": 1.2485892351142334
     },
     "liga-argentina.gimnasia-y-esgrima": {
       "teamId": "liga-argentina.gimnasia-y-esgrima",
       "name": "Gimnasia y Esgrima",
       "shortName": "Gimnasia y Esgrima",
       "code": "GIM",
-      "forPerGame": 1.5625,
-      "againstPerGame": 1.25,
-      "gamesPlayed": 16,
-      "adjustedFor": 1.2794164919702462,
-      "adjustedAgainst": 1.1022439477510946
+      "forPerGame": 1.588235294117647,
+      "againstPerGame": 1.2941176470588236,
+      "gamesPlayed": 17,
+      "adjustedFor": 1.312639607340463,
+      "adjustedAgainst": 1.1438122026983335
     },
     "liga-argentina.huracan": {
       "teamId": "liga-argentina.huracan",
@@ -150,8 +150,8 @@
       "forPerGame": 0.8823529411764706,
       "againstPerGame": 1.0588235294117647,
       "gamesPlayed": 17,
-      "adjustedFor": 0.889357885064337,
-      "adjustedAgainst": 0.9992933477012413
+      "adjustedFor": 0.8912599448129332,
+      "adjustedAgainst": 1.001754918846467
     },
     "liga-argentina.banfield": {
       "teamId": "liga-argentina.banfield",
@@ -161,8 +161,8 @@
       "forPerGame": 1.125,
       "againstPerGame": 1.5625,
       "gamesPlayed": 16,
-      "adjustedFor": 1.0601162926221233,
-      "adjustedAgainst": 1.2942687468346754
+      "adjustedFor": 1.0610254712181941,
+      "adjustedAgainst": 1.2945168435391574
     },
     "liga-argentina.atletico-platense": {
       "teamId": "liga-argentina.atletico-platense",
@@ -172,8 +172,8 @@
       "forPerGame": 1.125,
       "againstPerGame": 1.25,
       "gamesPlayed": 16,
-      "adjustedFor": 1.0623502069865507,
-      "adjustedAgainst": 1.0870895373753349
+      "adjustedFor": 1.0648216434369682,
+      "adjustedAgainst": 1.089044272225101
     },
     "liga-argentina.atletico-union-santa-fe": {
       "teamId": "liga-argentina.atletico-union-santa-fe",
@@ -183,8 +183,8 @@
       "forPerGame": 1.5,
       "againstPerGame": 1.5,
       "gamesPlayed": 16,
-      "adjustedFor": 1.2449795406415372,
-      "adjustedAgainst": 1.2469310932018385
+      "adjustedFor": 1.2476832963431423,
+      "adjustedAgainst": 1.2483193381608415
     },
     "liga-argentina.estudiantes-rio-cuarto": {
       "teamId": "liga-argentina.estudiantes-rio-cuarto",
@@ -194,8 +194,8 @@
       "forPerGame": 0.625,
       "againstPerGame": 1.4375,
       "gamesPlayed": 16,
-      "adjustedFor": 0.7538822379024122,
-      "adjustedAgainst": 1.201074453032211
+      "adjustedFor": 0.7557500666708403,
+      "adjustedAgainst": 1.2035819824599752
     },
     "liga-argentina.tigre": {
       "teamId": "liga-argentina.tigre",
@@ -205,19 +205,19 @@
       "forPerGame": 1,
       "againstPerGame": 1,
       "gamesPlayed": 16,
-      "adjustedFor": 0.948768173622895,
-      "adjustedAgainst": 0.9609856873579252
+      "adjustedFor": 0.9510065657954349,
+      "adjustedAgainst": 0.9632574952830261
     },
     "liga-argentina.newell-s-old-boys": {
       "teamId": "liga-argentina.newell-s-old-boys",
       "name": "Newell's Old Boys",
       "shortName": "Newell's Old Boys",
       "code": "NEW",
-      "forPerGame": 1,
-      "againstPerGame": 0.8125,
-      "gamesPlayed": 16,
-      "adjustedFor": 0.9545291867753168,
-      "adjustedAgainst": 0.8374825473499979
+      "forPerGame": 1.0588235294117647,
+      "againstPerGame": 0.8823529411764706,
+      "gamesPlayed": 17,
+      "adjustedFor": 0.995677707783564,
+      "adjustedAgainst": 0.8694754207963894
     },
     "liga-argentina.talleres": {
       "teamId": "liga-argentina.talleres",
@@ -227,8 +227,8 @@
       "forPerGame": 1.0625,
       "againstPerGame": 1.4375,
       "gamesPlayed": 16,
-      "adjustedFor": 1.015356248208394,
-      "adjustedAgainst": 1.1963193301068171
+      "adjustedFor": 1.0182145574729111,
+      "adjustedAgainst": 1.198171710592757
     },
     "liga-argentina.river-plate": {
       "teamId": "liga-argentina.river-plate",
@@ -238,8 +238,8 @@
       "forPerGame": 1.411764705882353,
       "againstPerGame": 0.8823529411764706,
       "gamesPlayed": 17,
-      "adjustedFor": 1.2149084151170524,
-      "adjustedAgainst": 0.8729299752216884
+      "adjustedFor": 1.2172980652995125,
+      "adjustedAgainst": 0.8752246787794072
     },
     "liga-argentina.barracas-central": {
       "teamId": "liga-argentina.barracas-central",
@@ -249,8 +249,8 @@
       "forPerGame": 1.0588235294117647,
       "againstPerGame": 0.7647058823529411,
       "gamesPlayed": 17,
-      "adjustedFor": 1.000611473904134,
-      "adjustedAgainst": 0.824631510207442
+      "adjustedFor": 1.0028955989625927,
+      "adjustedAgainst": 0.8269259557226918
     },
     "liga-argentina.lanus": {
       "teamId": "liga-argentina.lanus",
@@ -260,8 +260,8 @@
       "forPerGame": 1.1764705882352942,
       "againstPerGame": 0.8823529411764706,
       "gamesPlayed": 17,
-      "adjustedFor": 1.0721259349984882,
-      "adjustedAgainst": 0.8837428642690986
+      "adjustedFor": 1.074842286815658,
+      "adjustedAgainst": 0.8855676482397936
     },
     "liga-argentina.san-lorenzo": {
       "teamId": "liga-argentina.san-lorenzo",
@@ -271,8 +271,8 @@
       "forPerGame": 0.5625,
       "againstPerGame": 1,
       "gamesPlayed": 16,
-      "adjustedFor": 0.7202636248160048,
-      "adjustedAgainst": 0.9715559133277595
+      "adjustedFor": 0.7225590876244613,
+      "adjustedAgainst": 0.9734282635529471
     },
     "liga-argentina.atletico-tucuman": {
       "teamId": "liga-argentina.atletico-tucuman",
@@ -282,8 +282,8 @@
       "forPerGame": 1,
       "againstPerGame": 1.0625,
       "gamesPlayed": 16,
-      "adjustedFor": 0.9651577858721733,
-      "adjustedAgainst": 1.0144953295136798
+      "adjustedFor": 0.9672452637827121,
+      "adjustedAgainst": 1.016678855784469
     },
     "liga-argentina.independiente-rivadavia": {
       "teamId": "liga-argentina.independiente-rivadavia",
@@ -293,8 +293,8 @@
       "forPerGame": 1.3125,
       "againstPerGame": 1.5,
       "gamesPlayed": 16,
-      "adjustedFor": 1.1506348757197307,
-      "adjustedAgainst": 1.24988540032812
+      "adjustedFor": 1.1524929936491335,
+      "adjustedAgainst": 1.2525416687723248
     },
     "liga-argentina.estudiantes-la-plata": {
       "teamId": "liga-argentina.estudiantes-la-plata",
@@ -304,8 +304,8 @@
       "forPerGame": 1.3125,
       "againstPerGame": 1.375,
       "gamesPlayed": 16,
-      "adjustedFor": 1.156823277057277,
-      "adjustedAgainst": 1.1751602546300202
+      "adjustedFor": 1.1576157646073673,
+      "adjustedAgainst": 1.1759512821838352
     },
     "liga-argentina.independiente": {
       "teamId": "liga-argentina.independiente",
@@ -315,8 +315,8 @@
       "forPerGame": 1,
       "againstPerGame": 1,
       "gamesPlayed": 17,
-      "adjustedFor": 0.964557552929651,
-      "adjustedAgainst": 0.9563785845542688
+      "adjustedFor": 0.9670812376072321,
+      "adjustedAgainst": 0.9585297071163849
     },
     "liga-argentina.deportivo-riestra": {
       "teamId": "liga-argentina.deportivo-riestra",
@@ -326,8 +326,8 @@
       "forPerGame": 0.6875,
       "againstPerGame": 1.1875,
       "gamesPlayed": 16,
-      "adjustedFor": 0.7819953082923435,
-      "adjustedAgainst": 1.0788037668558885
+      "adjustedFor": 0.7845859013817544,
+      "adjustedAgainst": 1.0805815329879314
     },
     "liga-argentina.boca-juniors": {
       "teamId": "liga-argentina.boca-juniors",
@@ -337,46 +337,11 @@
       "forPerGame": 1.5,
       "againstPerGame": 0.875,
       "gamesPlayed": 16,
-      "adjustedFor": 1.2532459729649212,
-      "adjustedAgainst": 0.8774740734272589
+      "adjustedFor": 1.2562075161458257,
+      "adjustedAgainst": 0.8793038405714373
     }
   },
   "games": [
-    {
-      "id": "liga-argentina-2026-11-06-independiente-deportivo-ries-j8uzap",
-      "league": "liga-argentina",
-      "season": "liga-argentina-2026",
-      "week": 16,
-      "round": "Clausura, Group A · Matchday 16",
-      "phase": "Group stage",
-      "startTime": "2026-11-06T22:15:00.000Z",
-      "status": "final",
-      "home": {
-        "id": "liga-argentina.independiente",
-        "league": "liga-argentina",
-        "name": "CA Independiente",
-        "shortName": "Independiente",
-        "code": "IND",
-        "logoUrl": "https://sports.bzzoiro.com/img/team/2390/?bg=transparent"
-      },
-      "away": {
-        "id": "liga-argentina.deportivo-riestra",
-        "league": "liga-argentina",
-        "name": "Deportivo Riestra",
-        "shortName": "Riestra",
-        "code": "DEP",
-        "logoUrl": "https://sports.bzzoiro.com/img/team/743/?bg=transparent"
-      },
-      "venue": "Libertadores de America, Buenos Aires",
-      "referee": "Juan Pafundi",
-      "neutralSite": false,
-      "result": {
-        "home": 2,
-        "away": 1,
-        "observedAt": "2026-11-23T22:28:20.377Z",
-        "source": "pitchlab-feed"
-      }
-    },
     {
       "id": "liga-argentina-2026-11-07-tigre-sarmiento-mrmd04",
       "league": "liga-argentina",
@@ -408,7 +373,7 @@
       "result": {
         "home": 1,
         "away": 0,
-        "observedAt": "2026-11-23T22:28:20.377Z",
+        "observedAt": "2026-11-24T21:01:09.804Z",
         "source": "pitchlab-feed"
       }
     },
@@ -443,7 +408,7 @@
       "result": {
         "home": 2,
         "away": 2,
-        "observedAt": "2026-11-23T22:28:20.377Z",
+        "observedAt": "2026-11-24T21:01:09.804Z",
         "source": "pitchlab-feed"
       }
     },
@@ -478,7 +443,7 @@
       "result": {
         "home": 1,
         "away": 1,
-        "observedAt": "2026-11-23T22:28:20.377Z",
+        "observedAt": "2026-11-24T21:01:09.804Z",
         "source": "pitchlab-feed"
       }
     },
@@ -513,7 +478,7 @@
       "result": {
         "home": 1,
         "away": 1,
-        "observedAt": "2026-11-23T22:28:20.377Z",
+        "observedAt": "2026-11-24T21:01:09.804Z",
         "source": "pitchlab-feed"
       }
     },
@@ -548,7 +513,7 @@
       "result": {
         "home": 2,
         "away": 0,
-        "observedAt": "2026-11-23T22:28:20.377Z",
+        "observedAt": "2026-11-24T21:01:09.804Z",
         "source": "pitchlab-feed"
       }
     },
@@ -583,7 +548,7 @@
       "result": {
         "home": 1,
         "away": 0,
-        "observedAt": "2026-11-23T22:28:20.377Z",
+        "observedAt": "2026-11-24T21:01:09.804Z",
         "source": "pitchlab-feed"
       }
     },
@@ -618,7 +583,7 @@
       "result": {
         "home": 0,
         "away": 2,
-        "observedAt": "2026-11-23T22:28:20.377Z",
+        "observedAt": "2026-11-24T21:01:09.804Z",
         "source": "pitchlab-feed"
       }
     },
@@ -653,7 +618,7 @@
       "result": {
         "home": 2,
         "away": 2,
-        "observedAt": "2026-11-23T22:28:20.377Z",
+        "observedAt": "2026-11-24T21:01:09.804Z",
         "source": "pitchlab-feed"
       }
     },
@@ -688,7 +653,7 @@
       "result": {
         "home": 1,
         "away": 1,
-        "observedAt": "2026-11-23T22:28:20.377Z",
+        "observedAt": "2026-11-24T21:01:09.804Z",
         "source": "pitchlab-feed"
       }
     },
@@ -723,7 +688,7 @@
       "result": {
         "home": 1,
         "away": 1,
-        "observedAt": "2026-11-23T22:28:20.377Z",
+        "observedAt": "2026-11-24T21:01:09.804Z",
         "source": "pitchlab-feed"
       }
     },
@@ -758,7 +723,7 @@
       "result": {
         "home": 0,
         "away": 1,
-        "observedAt": "2026-11-23T22:28:20.377Z",
+        "observedAt": "2026-11-24T21:01:09.804Z",
         "source": "pitchlab-feed"
       }
     },
@@ -793,7 +758,7 @@
       "result": {
         "home": 1,
         "away": 2,
-        "observedAt": "2026-11-23T22:28:20.377Z",
+        "observedAt": "2026-11-24T21:01:09.804Z",
         "source": "pitchlab-feed"
       }
     },
@@ -828,7 +793,7 @@
       "result": {
         "home": 3,
         "away": 1,
-        "observedAt": "2026-11-23T22:28:20.377Z",
+        "observedAt": "2026-11-24T21:01:09.804Z",
         "source": "pitchlab-feed"
       }
     },
@@ -863,7 +828,7 @@
       "result": {
         "home": 3,
         "away": 1,
-        "observedAt": "2026-11-23T22:28:20.377Z",
+        "observedAt": "2026-11-24T21:01:09.804Z",
         "source": "pitchlab-feed"
       }
     },
@@ -898,7 +863,7 @@
       "result": {
         "home": 2,
         "away": 1,
-        "observedAt": "2026-11-23T22:28:20.377Z",
+        "observedAt": "2026-11-24T21:01:09.804Z",
         "source": "pitchlab-feed"
       }
     },
@@ -910,7 +875,7 @@
       "round": "Round of 16",
       "phase": "Round of 16",
       "startTime": "2026-11-23T20:00:00.000Z",
-      "status": "scheduled",
+      "status": "final",
       "home": {
         "id": "liga-argentina.gimnasia-y-esgrima",
         "league": "liga-argentina",
@@ -929,7 +894,13 @@
       },
       "venue": "Estadio Juan Carmelo Zerillo, La Plata",
       "referee": "Nicolas Ramirez",
-      "neutralSite": false
+      "neutralSite": false,
+      "result": {
+        "home": 2,
+        "away": 2,
+        "observedAt": "2026-11-24T21:01:09.804Z",
+        "source": "pitchlab-feed"
+      }
     },
     {
       "id": "liga-argentina-2026-11-26-boca-juniors-independiente--27r1io",
@@ -957,6 +928,35 @@
         "logoUrl": "https://sports.bzzoiro.com/img/team/774/?bg=transparent"
       },
       "venue": "Alberto Jose Armando, Buenos Aires",
+      "referee": "Luis Lobo Medina",
+      "neutralSite": false
+    },
+    {
+      "id": "liga-argentina-2026-11-29-instituto-cord-river-plate-jl0r2y",
+      "league": "liga-argentina",
+      "season": "liga-argentina-2026",
+      "week": 27,
+      "round": "Quarterfinals",
+      "phase": "Quarterfinals",
+      "startTime": "2026-11-29T22:00:00.000Z",
+      "status": "scheduled",
+      "home": {
+        "id": "liga-argentina.instituto-cordoba",
+        "league": "liga-argentina",
+        "name": "Instituto De Córdoba",
+        "shortName": "Instituto De Córdoba",
+        "code": "INS",
+        "logoUrl": "https://sports.bzzoiro.com/img/team/4996/?bg=transparent"
+      },
+      "away": {
+        "id": "liga-argentina.river-plate",
+        "league": "liga-argentina",
+        "name": "River Plate",
+        "shortName": "River Plate",
+        "code": "RIV",
+        "logoUrl": "https://sports.bzzoiro.com/img/team/755/?bg=transparent"
+      },
+      "venue": "Estadio Presidente Peron, Cordoba",
       "neutralSite": false
     },
     {
@@ -1017,457 +1017,6 @@
     }
   ],
   "analyses": {
-    "liga-argentina-2026-11-06-independiente-deportivo-ries-j8uzap": {
-      "game": "liga-argentina-2026-11-06-independiente-deportivo-ries-j8uzap",
-      "model": {
-        "id": "pitchlab-statistical-liga-argentina",
-        "version": "2.0.0",
-        "status": "candidate",
-        "label": "Modelo PitchLab · en validación"
-      },
-      "projection": {
-        "home": 1.156096122543253,
-        "away": 0.6802162935205812,
-        "total": 1.836312416063834,
-        "margin": 0.4758798290226717
-      },
-      "x12": [
-        0.47358697249607823,
-        0.30790544195692243,
-        0.21850758554699995
-      ],
-      "probabilities": [
-        {
-          "market": "h2h",
-          "selection": "Independiente gana",
-          "p": 0.47358697249607823,
-          "fairOdds": 2.1115445695843778
-        },
-        {
-          "market": "h2h",
-          "selection": "Empate",
-          "p": 0.30790544195692243,
-          "fairOdds": 3.24775032764736
-        },
-        {
-          "market": "h2h",
-          "selection": "Riestra gana",
-          "p": 0.21850758554699995,
-          "fairOdds": 4.576500159006629
-        },
-        {
-          "market": "double_chance",
-          "selection": "Independiente o empate",
-          "p": 0.7814924144530007,
-          "fairOdds": 1.2796029513606244
-        },
-        {
-          "market": "double_chance",
-          "selection": "Riestra o empate",
-          "p": 0.5264130275039224,
-          "fairOdds": 1.8996490355523141
-        },
-        {
-          "market": "double_chance",
-          "selection": "Sin empate",
-          "p": 0.6920945580430782,
-          "fairOdds": 1.4448892689281294
-        },
-        {
-          "market": "totals",
-          "selection": "Más de 1.5",
-          "line": 1.5,
-          "p": 0.5459996621352492,
-          "fairOdds": 1.831502964835701
-        },
-        {
-          "market": "totals",
-          "selection": "Más de 2.5",
-          "line": 2.5,
-          "p": 0.2791211073734794,
-          "fairOdds": 3.5826742356032035
-        },
-        {
-          "market": "totals",
-          "selection": "Menos de 2.5",
-          "line": 2.5,
-          "p": 0.7208788926265206,
-          "fairOdds": 1.3871955611801898
-        },
-        {
-          "market": "totals",
-          "selection": "Más de 3.5",
-          "line": 3.5,
-          "p": 0.11461268745645792,
-          "fairOdds": 8.725037534608953
-        },
-        {
-          "market": "totals",
-          "selection": "Menos de 3.5",
-          "line": 3.5,
-          "p": 0.8853873125435421,
-          "fairOdds": 1.1294492092135344
-        },
-        {
-          "market": "btts",
-          "selection": "Sí",
-          "p": 0.33630402182826774,
-          "fairOdds": 2.9734999735169563
-        },
-        {
-          "market": "btts",
-          "selection": "No",
-          "p": 0.6636959781717322,
-          "fairOdds": 1.506713966769358
-        },
-        {
-          "market": "team_totals",
-          "selection": "Independiente más de 1.5",
-          "line": 1.5,
-          "p": 0.32144981903777503,
-          "fairOdds": 3.1109054688330233
-        },
-        {
-          "market": "team_totals",
-          "selection": "Independiente menos de 1.5",
-          "line": 1.5,
-          "p": 0.678550180962225,
-          "fairOdds": 1.4737303563635336
-        },
-        {
-          "market": "team_totals",
-          "selection": "Riestra más de 1.5",
-          "line": 1.5,
-          "p": 0.14895796947329965,
-          "fairOdds": 6.71330311185027
-        },
-        {
-          "market": "team_totals",
-          "selection": "Riestra menos de 1.5",
-          "line": 1.5,
-          "p": 0.8510420305267004,
-          "fairOdds": 1.1750300973749925
-        },
-        {
-          "market": "correct_score",
-          "selection": "1–0",
-          "p": 0.1861668596712168,
-          "fairOdds": 5.371525317481679
-        },
-        {
-          "market": "correct_score",
-          "selection": "0–0",
-          "p": 0.1575238461309276,
-          "fairOdds": 6.3482451994527835
-        },
-        {
-          "market": "correct_score",
-          "selection": "1–1",
-          "p": 0.12347438595560074,
-          "fairOdds": 8.098845701970793
-        }
-      ],
-      "marketGroups": [
-        {
-          "group": "Resultado",
-          "rows": [
-            {
-              "market": "h2h",
-              "selection": "home",
-              "label": "Independiente gana",
-              "p": 0.47358697249607823,
-              "fairOdds": 2.1115445695843778
-            },
-            {
-              "market": "h2h",
-              "selection": "draw",
-              "label": "Empate",
-              "p": 0.30790544195692243,
-              "fairOdds": 3.24775032764736
-            },
-            {
-              "market": "h2h",
-              "selection": "away",
-              "label": "Riestra gana",
-              "p": 0.21850758554699995,
-              "fairOdds": 4.576500159006629
-            }
-          ]
-        },
-        {
-          "group": "Doble oportunidad",
-          "rows": [
-            {
-              "market": "double_chance",
-              "selection": "1x",
-              "label": "Independiente o empate",
-              "p": 0.7814924144530007,
-              "fairOdds": 1.2796029513606244
-            },
-            {
-              "market": "double_chance",
-              "selection": "x2",
-              "label": "Riestra o empate",
-              "p": 0.5264130275039224,
-              "fairOdds": 1.8996490355523141
-            },
-            {
-              "market": "double_chance",
-              "selection": "12",
-              "label": "Sin empate",
-              "p": 0.6920945580430782,
-              "fairOdds": 1.4448892689281294
-            }
-          ]
-        },
-        {
-          "group": "Goles totales",
-          "rows": [
-            {
-              "market": "totals",
-              "selection": "over_1.5",
-              "label": "Más de 1.5",
-              "line": 1.5,
-              "p": 0.5459996621352492,
-              "fairOdds": 1.831502964835701
-            },
-            {
-              "market": "totals",
-              "selection": "over_2.5",
-              "label": "Más de 2.5",
-              "line": 2.5,
-              "p": 0.2791211073734794,
-              "fairOdds": 3.5826742356032035
-            },
-            {
-              "market": "totals",
-              "selection": "under_2.5",
-              "label": "Menos de 2.5",
-              "line": 2.5,
-              "p": 0.7208788926265206,
-              "fairOdds": 1.3871955611801898
-            },
-            {
-              "market": "totals",
-              "selection": "over_3.5",
-              "label": "Más de 3.5",
-              "line": 3.5,
-              "p": 0.11461268745645792,
-              "fairOdds": 8.725037534608953
-            },
-            {
-              "market": "totals",
-              "selection": "under_3.5",
-              "label": "Menos de 3.5",
-              "line": 3.5,
-              "p": 0.8853873125435421,
-              "fairOdds": 1.1294492092135344
-            }
-          ]
-        },
-        {
-          "group": "Ambos anotan",
-          "rows": [
-            {
-              "market": "btts",
-              "selection": "yes",
-              "label": "Sí",
-              "p": 0.33630402182826774,
-              "fairOdds": 2.9734999735169563
-            },
-            {
-              "market": "btts",
-              "selection": "no",
-              "label": "No",
-              "p": 0.6636959781717322,
-              "fairOdds": 1.506713966769358
-            }
-          ]
-        },
-        {
-          "group": "Goles por equipo (1.5)",
-          "rows": [
-            {
-              "market": "team_totals",
-              "selection": "home_over",
-              "label": "Independiente más de 1.5",
-              "line": 1.5,
-              "p": 0.32144981903777503,
-              "fairOdds": 3.1109054688330233
-            },
-            {
-              "market": "team_totals",
-              "selection": "home_under",
-              "label": "Independiente menos de 1.5",
-              "line": 1.5,
-              "p": 0.678550180962225,
-              "fairOdds": 1.4737303563635336
-            },
-            {
-              "market": "team_totals",
-              "selection": "away_over",
-              "label": "Riestra más de 1.5",
-              "line": 1.5,
-              "p": 0.14895796947329965,
-              "fairOdds": 6.71330311185027
-            },
-            {
-              "market": "team_totals",
-              "selection": "away_under",
-              "label": "Riestra menos de 1.5",
-              "line": 1.5,
-              "p": 0.8510420305267004,
-              "fairOdds": 1.1750300973749925
-            }
-          ]
-        },
-        {
-          "group": "Marcador exacto (más probables)",
-          "rows": [
-            {
-              "market": "correct_score",
-              "selection": "1-0",
-              "label": "1–0",
-              "p": 0.1861668596712168,
-              "fairOdds": 5.371525317481679
-            },
-            {
-              "market": "correct_score",
-              "selection": "0-0",
-              "label": "0–0",
-              "p": 0.1575238461309276,
-              "fairOdds": 6.3482451994527835
-            },
-            {
-              "market": "correct_score",
-              "selection": "1-1",
-              "label": "1–1",
-              "p": 0.12347438595560074,
-              "fairOdds": 8.098845701970793
-            }
-          ]
-        }
-      ],
-      "mostLikelyScore": {
-        "home": 1,
-        "away": 0,
-        "p": 0.1861668596712168
-      },
-      "factors": [
-        {
-          "key": "home_attack",
-          "label": "Ataque local",
-          "value": "0.97 goles/partido",
-          "detail": "14 % menos que la media · 16 partidos"
-        },
-        {
-          "key": "away_defense",
-          "label": "Defensa visitante",
-          "value": "1.13 concedidos/partido",
-          "detail": "5 % más que la media · 16 partidos"
-        },
-        {
-          "key": "away_attack",
-          "label": "Ataque visitante",
-          "value": "0.68 goles/partido",
-          "detail": "30 % menos que la media · ajustado por rival"
-        },
-        {
-          "key": "home_defense",
-          "label": "Defensa local",
-          "value": "0.98 concedidos/partido",
-          "detail": "10 % menos que la media · ajustado por rival"
-        },
-        {
-          "key": "home_advantage",
-          "label": "Localía",
-          "value": "×1.19",
-          "detail": "estimada de 240 partidos"
-        },
-        {
-          "key": "uncertainty",
-          "label": "Intervalo 90%",
-          "value": "goles 1.3–2.8",
-          "detail": "local 29%–69% · 240 partidos"
-        },
-        {
-          "key": "home_position",
-          "label": "Posición local",
-          "value": "13.º · 23 pts",
-          "detail": "de 30 equipos"
-        },
-        {
-          "key": "away_position",
-          "label": "Posición visitante",
-          "value": "27.º · 12 pts",
-          "detail": "de 30 equipos"
-        },
-        {
-          "key": "home_form",
-          "label": "Forma local",
-          "value": "P-E-E-P-E · 3 pts",
-          "detail": "3 goles a favor · 7 en contra"
-        },
-        {
-          "key": "away_form",
-          "label": "Forma visitante",
-          "value": "E-P-E-P-P · 2 pts",
-          "detail": "2 goles a favor · 7 en contra"
-        }
-      ],
-      "steps": [
-        "Sincronizando Liga Profesional Argentina · corte 6 nov 2026, 15:15",
-        "Fuerza ajustada por rival · IND 0.86 / 0.90 · DEP 0.70 / 1.05",
-        "Ponderando 211.6 partidos por antigüedad y calidad del rival",
-        "Proyección de goles 1.16 – 0.68 · total 1.84",
-        "Simulando 121 marcadores con incertidumbre del ajuste",
-        "20 mercados listos · marcador proyectado 1–0"
-      ],
-      "inputsAsOf": "2026-11-06T21:15:00.000Z",
-      "publishedAt": "2026-11-06T21:15:00.000Z",
-      "source": "pitchlab-football-v2",
-      "projectedScore": {
-        "home": 1,
-        "away": 0,
-        "p": 0.1861668596712168
-      },
-      "insights": {
-        "why": [
-          "Independiente gana en 47% de los escenarios; el empate, en 31%.",
-          "Riestra anota 30 % menos que la media.",
-          "Independiente anota 14 % menos que la media."
-        ],
-        "restDays": {
-          "home": 4,
-          "away": 6
-        }
-      },
-      "matchContext": {
-        "referee": "Juan Pafundi",
-        "refereeStats": {
-          "country": "Argentina",
-          "matches": 23,
-          "avgYellow": 4.43,
-          "avgRed": 0.13,
-          "avgFouls": 26.6,
-          "avgGoals": 1.43
-        },
-        "weather": {
-          "description": "cloudy",
-          "temperatureC": 22,
-          "windSpeedKmh": 50
-        },
-        "halfTimeScore": {
-          "home": 1,
-          "away": 0
-        },
-        "groupName": "Clausura, Group A",
-        "stageName": "Group stage",
-        "venueCity": "Buenos Aires",
-        "venueCountry": "Argentina",
-        "venueCapacity": 52000
-      }
-    },
     "liga-argentina-2026-11-07-tigre-sarmiento-mrmd04": {
       "game": "liga-argentina-2026-11-07-tigre-sarmiento-mrmd04",
       "model": {
@@ -1897,11 +1446,11 @@
         "referee": "Gonzalo Pereira",
         "refereeStats": {
           "country": "Argentina",
-          "matches": 2,
-          "avgYellow": 3.5,
-          "avgRed": 1,
+          "matches": 3,
+          "avgYellow": 2.33,
+          "avgRed": 0.67,
           "avgFouls": 22,
-          "avgGoals": 2
+          "avgGoals": 1.67
         },
         "weather": {
           "description": "cloudy",
@@ -2800,11 +2349,11 @@
         "referee": "Facundo Raul Tello Figueroa",
         "refereeStats": {
           "country": "Argentina",
-          "matches": 82,
-          "avgYellow": 5.13,
-          "avgRed": 0.22,
+          "matches": 86,
+          "avgYellow": 5.03,
+          "avgRed": 0.21,
           "avgFouls": 25.8,
-          "avgGoals": 2.15
+          "avgGoals": 2.16
         },
         "weather": {
           "description": "clear",
@@ -3251,11 +2800,11 @@
         "referee": "Maximiliano Macheroni",
         "refereeStats": {
           "country": "Argentina",
-          "matches": 3,
-          "avgYellow": 5.33,
-          "avgRed": 0.33,
+          "matches": 5,
+          "avgYellow": 3.2,
+          "avgRed": 0.2,
           "avgFouls": 24.7,
-          "avgGoals": 2.33
+          "avgGoals": 2.8
         },
         "weather": {
           "description": "clear",
@@ -3703,11 +3252,11 @@
         "referee": "Hernan Mastrangelo",
         "refereeStats": {
           "country": "Argentina",
-          "matches": 52,
-          "avgYellow": 4.87,
-          "avgRed": 0.19,
+          "matches": 53,
+          "avgYellow": 4.81,
+          "avgRed": 0.23,
           "avgFouls": 26.6,
-          "avgGoals": 2.02
+          "avgGoals": 1.98
         },
         "weather": {
           "description": "clear",
@@ -4154,11 +3703,11 @@
         "referee": "Sebastian Zunino",
         "refereeStats": {
           "country": "Argentina",
-          "matches": 64,
-          "avgYellow": 4.91,
-          "avgRed": 0.33,
+          "matches": 68,
+          "avgYellow": 4.75,
+          "avgRed": 0.31,
           "avgFouls": 23.9,
-          "avgGoals": 2.12
+          "avgGoals": 2.1
         },
         "weather": {
           "description": "clear",
@@ -4606,11 +4155,11 @@
         "referee": "Pablo Dovalo",
         "refereeStats": {
           "country": "Argentina",
-          "matches": 56,
-          "avgYellow": 3.95,
-          "avgRed": 0.41,
+          "matches": 58,
+          "avgYellow": 3.83,
+          "avgRed": 0.4,
           "avgFouls": 25.6,
-          "avgGoals": 2.23
+          "avgGoals": 2.24
         },
         "weather": {
           "description": "clear",
@@ -5058,9 +4607,9 @@
         "referee": "Leandro Rey Hilfer",
         "refereeStats": {
           "country": "Argentina",
-          "matches": 85,
-          "avgYellow": 4.8,
-          "avgRed": 0.18,
+          "matches": 87,
+          "avgYellow": 4.69,
+          "avgRed": 0.17,
           "avgFouls": 24.4,
           "avgGoals": 2.07
         },
@@ -5510,11 +5059,11 @@
         "referee": "Alvaro Caranza",
         "refereeStats": {
           "country": "Argentina",
-          "matches": 10,
-          "avgYellow": 4.4,
-          "avgRed": 0.2,
+          "matches": 11,
+          "avgYellow": 4,
+          "avgRed": 0.18,
           "avgFouls": 24.3,
-          "avgGoals": 3
+          "avgGoals": 2.91
         },
         "weather": {
           "description": "clear",
@@ -5998,11 +5547,11 @@
         "referee": "Yael Falcon Perez",
         "refereeStats": {
           "country": "Argentina",
-          "matches": 91,
-          "avgYellow": 5.46,
-          "avgRed": 0.3,
+          "matches": 92,
+          "avgYellow": 5.41,
+          "avgRed": 0.29,
           "avgFouls": 25.2,
-          "avgGoals": 2.45
+          "avgGoals": 2.46
         },
         "weather": {
           "description": "rain",
@@ -6493,11 +6042,11 @@
         "referee": "Pablo Echavarria",
         "refereeStats": {
           "country": "Argentina",
-          "matches": 57,
-          "avgYellow": 4.21,
-          "avgRed": 0.23,
+          "matches": 58,
+          "avgYellow": 4.19,
+          "avgRed": 0.22,
           "avgFouls": 22.2,
-          "avgGoals": 2.23
+          "avgGoals": 2.21
         },
         "weather": {
           "description": "cloudy",
@@ -6981,11 +6530,11 @@
         "referee": "Jorge Balino",
         "refereeStats": {
           "country": "Argentina",
-          "matches": 29,
-          "avgYellow": 3.93,
+          "matches": 30,
+          "avgYellow": 3.8,
           "avgRed": 0.17,
           "avgFouls": 28.3,
-          "avgGoals": 2.31
+          "avgGoals": 2.3
         },
         "weather": {
           "description": "clear",
@@ -7469,9 +7018,9 @@
         "referee": "Leandro Rey Hilfer",
         "refereeStats": {
           "country": "Argentina",
-          "matches": 85,
-          "avgYellow": 4.8,
-          "avgRed": 0.18,
+          "matches": 87,
+          "avgYellow": 4.69,
+          "avgRed": 0.17,
           "avgFouls": 24.4,
           "avgGoals": 2.07
         },
@@ -7957,11 +7506,11 @@
         "referee": "Pablo Dovalo",
         "refereeStats": {
           "country": "Argentina",
-          "matches": 56,
-          "avgYellow": 3.95,
-          "avgRed": 0.41,
+          "matches": 58,
+          "avgYellow": 3.83,
+          "avgRed": 0.4,
           "avgFouls": 25.6,
-          "avgGoals": 2.23
+          "avgGoals": 2.24
         },
         "weather": {
           "description": "clear",
@@ -8445,11 +7994,11 @@
         "referee": "Dario Herrera",
         "refereeStats": {
           "country": "Argentina",
-          "matches": 95,
-          "avgYellow": 5.55,
+          "matches": 97,
+          "avgYellow": 5.57,
           "avgRed": 0.32,
           "avgFouls": 24.6,
-          "avgGoals": 2.06
+          "avgGoals": 2.07
         },
         "weather": {
           "description": "clear",
@@ -8933,20 +8482,24 @@
         "referee": "Nicolas Ramirez",
         "refereeStats": {
           "country": "Argentina",
-          "matches": 74,
-          "avgYellow": 5.91,
-          "avgRed": 0.3,
-          "avgFouls": 24.4,
-          "avgGoals": 2.04
+          "matches": 78,
+          "avgYellow": 5.81,
+          "avgRed": 0.31,
+          "avgFouls": 24.7,
+          "avgGoals": 2.09
         },
         "weather": {
-          "description": "rain",
+          "description": "cloudy",
           "temperatureC": 21,
           "windSpeedKmh": 59
         },
         "travelDistanceKm": 333,
         "halfTimeScore": {
           "home": 1,
+          "away": 0
+        },
+        "extraTimeScore": {
+          "home": 2,
           "away": 0
         },
         "stageName": "Round of 16",
@@ -9416,6 +8969,15 @@
       },
       "picksAt": "2026-11-19T16:05:39.021Z",
       "matchContext": {
+        "referee": "Luis Lobo Medina",
+        "refereeStats": {
+          "country": "Argentina",
+          "matches": 68,
+          "avgYellow": 5.47,
+          "avgRed": 0.29,
+          "avgFouls": 22.7,
+          "avgGoals": 1.94
+        },
         "weather": {
           "description": "unknown",
           "temperatureC": 17,
@@ -9425,6 +8987,481 @@
         "venueCity": "Buenos Aires",
         "venueCountry": "Argentina",
         "venueCapacity": 57420
+      }
+    },
+    "liga-argentina-2026-11-29-instituto-cord-river-plate-jl0r2y": {
+      "game": "liga-argentina-2026-11-29-instituto-cord-river-plate-jl0r2y",
+      "model": {
+        "id": "pitchlab-statistical-liga-argentina",
+        "version": "2.0.0",
+        "status": "candidate",
+        "label": "Modelo PitchLab · en validación"
+      },
+      "projection": {
+        "home": 1.3449960247205937,
+        "away": 1.1298884117050338,
+        "total": 2.4748844364256275,
+        "margin": 0.2151076130155598
+      },
+      "x12": [
+        0.4190804658396558,
+        0.26460667451707465,
+        0.316312859643269
+      ],
+      "probabilities": [
+        {
+          "market": "h2h",
+          "selection": "Instituto De Córdoba gana",
+          "p": 0.4190804658396558,
+          "fairOdds": 2.3861765973664104
+        },
+        {
+          "market": "h2h",
+          "selection": "Empate",
+          "p": 0.26460667451707465,
+          "fairOdds": 3.7791941636584516
+        },
+        {
+          "market": "h2h",
+          "selection": "River Plate gana",
+          "p": 0.316312859643269,
+          "fairOdds": 3.1614269528206314
+        },
+        {
+          "market": "double_chance",
+          "selection": "Instituto De Córdoba o empate",
+          "p": 0.6836871403567304,
+          "fairOdds": 1.4626573193671972
+        },
+        {
+          "market": "double_chance",
+          "selection": "River Plate o empate",
+          "p": 0.5809195341603437,
+          "fairOdds": 1.7214088031062542
+        },
+        {
+          "market": "double_chance",
+          "selection": "Sin empate",
+          "p": 0.7353933254829248,
+          "fairOdds": 1.35981652994105
+        },
+        {
+          "market": "totals",
+          "selection": "Más de 1.5 goles",
+          "line": 1.5,
+          "p": 0.7049511313451351,
+          "fairOdds": 1.4185380454555405
+        },
+        {
+          "market": "totals",
+          "selection": "Más de 2.5 goles",
+          "line": 2.5,
+          "p": 0.4497282363716534,
+          "fairOdds": 2.223565075806369
+        },
+        {
+          "market": "totals",
+          "selection": "Menos de 2.5 goles",
+          "line": 2.5,
+          "p": 0.5502717636283466,
+          "fairOdds": 1.8172838697124203
+        },
+        {
+          "market": "totals",
+          "selection": "Más de 3.5 goles",
+          "line": 3.5,
+          "p": 0.23706864885345902,
+          "fairOdds": 4.218187452606343
+        },
+        {
+          "market": "totals",
+          "selection": "Menos de 3.5 goles",
+          "line": 3.5,
+          "p": 0.762931351146541,
+          "fairOdds": 1.31073391924082
+        },
+        {
+          "market": "btts",
+          "selection": "Sí",
+          "p": 0.49800428790528783,
+          "fairOdds": 2.008014839001112
+        },
+        {
+          "market": "btts",
+          "selection": "No",
+          "p": 0.5019957120947122,
+          "fairOdds": 1.9920488878823903
+        },
+        {
+          "market": "team_totals",
+          "selection": "Instituto De Córdoba más de 1.5 goles",
+          "line": 1.5,
+          "p": 0.38903287513507734,
+          "fairOdds": 2.5704768514814766
+        },
+        {
+          "market": "team_totals",
+          "selection": "Instituto De Córdoba menos de 1.5 goles",
+          "line": 1.5,
+          "p": 0.6109671248649227,
+          "fairOdds": 1.636749277174427
+        },
+        {
+          "market": "team_totals",
+          "selection": "River Plate más de 1.5 goles",
+          "line": 1.5,
+          "p": 0.3118984072153608,
+          "fairOdds": 3.20617219218281
+        },
+        {
+          "market": "team_totals",
+          "selection": "River Plate menos de 1.5 goles",
+          "line": 1.5,
+          "p": 0.6881015927846392,
+          "fairOdds": 1.4532737759742087
+        },
+        {
+          "market": "correct_score",
+          "selection": "1–1",
+          "p": 0.12535858310374015,
+          "fairOdds": 7.977116326948692
+        },
+        {
+          "market": "correct_score",
+          "selection": "1–0",
+          "p": 0.11577033371206193,
+          "fairOdds": 8.637791461214485
+        },
+        {
+          "market": "correct_score",
+          "selection": "0–1",
+          "p": 0.09766413739466832,
+          "fairOdds": 10.239173013517979
+        }
+      ],
+      "marketGroups": [
+        {
+          "group": "Resultado",
+          "rows": [
+            {
+              "market": "h2h",
+              "selection": "home",
+              "label": "Instituto De Córdoba gana",
+              "p": 0.4190804658396558,
+              "fairOdds": 2.3861765973664104
+            },
+            {
+              "market": "h2h",
+              "selection": "draw",
+              "label": "Empate",
+              "p": 0.26460667451707465,
+              "fairOdds": 3.7791941636584516
+            },
+            {
+              "market": "h2h",
+              "selection": "away",
+              "label": "River Plate gana",
+              "p": 0.316312859643269,
+              "fairOdds": 3.1614269528206314
+            }
+          ]
+        },
+        {
+          "group": "Doble oportunidad",
+          "rows": [
+            {
+              "market": "double_chance",
+              "selection": "1x",
+              "label": "Instituto De Córdoba o empate",
+              "p": 0.6836871403567304,
+              "fairOdds": 1.4626573193671972
+            },
+            {
+              "market": "double_chance",
+              "selection": "x2",
+              "label": "River Plate o empate",
+              "p": 0.5809195341603437,
+              "fairOdds": 1.7214088031062542
+            },
+            {
+              "market": "double_chance",
+              "selection": "12",
+              "label": "Sin empate",
+              "p": 0.7353933254829248,
+              "fairOdds": 1.35981652994105
+            }
+          ]
+        },
+        {
+          "group": "Goles totales",
+          "rows": [
+            {
+              "market": "totals",
+              "selection": "over_1.5",
+              "label": "Más de 1.5 goles",
+              "line": 1.5,
+              "p": 0.7049511313451351,
+              "fairOdds": 1.4185380454555405
+            },
+            {
+              "market": "totals",
+              "selection": "over_2.5",
+              "label": "Más de 2.5 goles",
+              "line": 2.5,
+              "p": 0.4497282363716534,
+              "fairOdds": 2.223565075806369
+            },
+            {
+              "market": "totals",
+              "selection": "under_2.5",
+              "label": "Menos de 2.5 goles",
+              "line": 2.5,
+              "p": 0.5502717636283466,
+              "fairOdds": 1.8172838697124203
+            },
+            {
+              "market": "totals",
+              "selection": "over_3.5",
+              "label": "Más de 3.5 goles",
+              "line": 3.5,
+              "p": 0.23706864885345902,
+              "fairOdds": 4.218187452606343
+            },
+            {
+              "market": "totals",
+              "selection": "under_3.5",
+              "label": "Menos de 3.5 goles",
+              "line": 3.5,
+              "p": 0.762931351146541,
+              "fairOdds": 1.31073391924082
+            }
+          ]
+        },
+        {
+          "group": "Ambos anotan",
+          "rows": [
+            {
+              "market": "btts",
+              "selection": "yes",
+              "label": "Sí",
+              "p": 0.49800428790528783,
+              "fairOdds": 2.008014839001112
+            },
+            {
+              "market": "btts",
+              "selection": "no",
+              "label": "No",
+              "p": 0.5019957120947122,
+              "fairOdds": 1.9920488878823903
+            }
+          ]
+        },
+        {
+          "group": "Goles por equipo (1.5)",
+          "rows": [
+            {
+              "market": "team_totals",
+              "selection": "home_over",
+              "label": "Instituto De Córdoba más de 1.5 goles",
+              "line": 1.5,
+              "p": 0.38903287513507734,
+              "fairOdds": 2.5704768514814766
+            },
+            {
+              "market": "team_totals",
+              "selection": "home_under",
+              "label": "Instituto De Córdoba menos de 1.5 goles",
+              "line": 1.5,
+              "p": 0.6109671248649227,
+              "fairOdds": 1.636749277174427
+            },
+            {
+              "market": "team_totals",
+              "selection": "away_over",
+              "label": "River Plate más de 1.5 goles",
+              "line": 1.5,
+              "p": 0.3118984072153608,
+              "fairOdds": 3.20617219218281
+            },
+            {
+              "market": "team_totals",
+              "selection": "away_under",
+              "label": "River Plate menos de 1.5 goles",
+              "line": 1.5,
+              "p": 0.6881015927846392,
+              "fairOdds": 1.4532737759742087
+            }
+          ]
+        },
+        {
+          "group": "Marcador exacto (más probables)",
+          "rows": [
+            {
+              "market": "correct_score",
+              "selection": "1-1",
+              "label": "1–1",
+              "p": 0.12535858310374015,
+              "fairOdds": 7.977116326948692
+            },
+            {
+              "market": "correct_score",
+              "selection": "1-0",
+              "label": "1–0",
+              "p": 0.11577033371206193,
+              "fairOdds": 8.637791461214485
+            },
+            {
+              "market": "correct_score",
+              "selection": "0-1",
+              "label": "0–1",
+              "p": 0.09766413739466832,
+              "fairOdds": 10.239173013517979
+            }
+          ]
+        }
+      ],
+      "mostLikelyScore": {
+        "home": 1,
+        "away": 1,
+        "p": 0.12535858310374015
+      },
+      "factors": [
+        {
+          "key": "home_attack",
+          "label": "Ataque local",
+          "value": "1.14 goles/partido",
+          "detail": "30 % más que la media · 17 partidos"
+        },
+        {
+          "key": "away_defense",
+          "label": "Defensa visitante",
+          "value": "0.88 concedidos/partido",
+          "detail": "16 % menos que la media · 17 partidos"
+        },
+        {
+          "key": "away_attack",
+          "label": "Ataque visitante",
+          "value": "1.13 goles/partido",
+          "detail": "16 % más que la media · ajustado por rival"
+        },
+        {
+          "key": "home_defense",
+          "label": "Defensa local",
+          "value": "0.97 concedidos/partido",
+          "detail": "7 % menos que la media · ajustado por rival"
+        },
+        {
+          "key": "home_advantage",
+          "label": "Localía",
+          "value": "×1.18",
+          "detail": "estimada de 247 partidos"
+        },
+        {
+          "key": "uncertainty",
+          "label": "Intervalo 90%",
+          "value": "goles 1.8–3.4",
+          "detail": "local 23%–63% · 247 partidos"
+        },
+        {
+          "key": "home_position",
+          "label": "Posición local",
+          "value": "2.º · 37 pts",
+          "detail": "de 30 equipos"
+        },
+        {
+          "key": "away_position",
+          "label": "Posición visitante",
+          "value": "6.º · 29 pts",
+          "detail": "de 30 equipos"
+        },
+        {
+          "key": "home_form",
+          "label": "Forma local",
+          "value": "G-G-E-E-G · 11 pts",
+          "detail": "9 goles a favor · 6 en contra"
+        },
+        {
+          "key": "away_form",
+          "label": "Forma visitante",
+          "value": "G-G-P-G-G · 12 pts",
+          "detail": "9 goles a favor · 2 en contra"
+        }
+      ],
+      "steps": [
+        "Sincronizando Liga Profesional Argentina · corte 24 nov 2026, 21:01",
+        "Fuerza ajustada por rival · INS 1.30 / 0.93 · RIV 1.16 / 0.84",
+        "Ponderando 216.6 partidos por antigüedad y calidad del rival",
+        "Proyección de goles 1.34 – 1.13 · total 2.47",
+        "Simulando 121 marcadores con incertidumbre del ajuste",
+        "20 mercados listos · marcador proyectado 1–0"
+      ],
+      "inputsAsOf": "2026-11-24T21:01:09.804Z",
+      "publishedAt": "2026-11-24T21:01:09.804Z",
+      "source": "pitchlab-football-v2",
+      "picks": [
+        {
+          "profile": "conservadora",
+          "market": "totals",
+          "selection": "under_3.5",
+          "label": "Menos de 3.5 goles",
+          "line": 3.5,
+          "p": 0.762931351146541,
+          "fairOdds": 1.31073391924082
+        },
+        {
+          "profile": "intermedia",
+          "market": "team_totals",
+          "selection": "away_under",
+          "label": "River Plate menos de 1.5 goles",
+          "line": 1.5,
+          "p": 0.6881015927846392,
+          "fairOdds": 1.4532737759742087
+        },
+        {
+          "profile": "arriesgada",
+          "market": "btts",
+          "selection": "no",
+          "label": "Ambos anotan: No",
+          "p": 0.5019957120947122,
+          "fairOdds": 1.9920488878823903
+        }
+      ],
+      "confidence": {
+        "score": 40,
+        "level": "baja",
+        "reasons": [
+          "Partido parejo",
+          "Muestra suficiente",
+          "Rango de incertidumbre amplio"
+        ]
+      },
+      "projectedScore": {
+        "home": 1,
+        "away": 0,
+        "p": 0.11577033371206193
+      },
+      "insights": {
+        "why": [
+          "Se esperan 2.5 goles: 1.3 de Instituto De Córdoba y 1.1 de River Plate.",
+          "Instituto De Córdoba anota 30 % más que la media.",
+          "River Plate concede 16 % menos que la media."
+        ],
+        "restDays": {
+          "home": 6,
+          "away": 7
+        }
+      },
+      "picksAt": "2026-11-24T21:01:09.804Z",
+      "matchContext": {
+        "weather": {
+          "description": "cloudy",
+          "temperatureC": 27,
+          "windSpeedKmh": 36
+        },
+        "stageName": "Quarterfinals",
+        "venueCity": "Cordoba",
+        "venueCountry": "Argentina",
+        "venueCapacity": 32500
       }
     },
     "liga-argentina-2026-11-29-rosario-centra-barracas-centr-n7qo26": {
@@ -9904,6 +9941,7 @@
           "temperatureC": 29,
           "windSpeedKmh": 34
         },
+        "groupName": "Clausura, Group B",
         "stageName": "Quarterfinals",
         "venueCity": "Rosario",
         "venueCountry": "Argentina",
@@ -10386,6 +10424,7 @@
           "temperatureC": 29,
           "windSpeedKmh": 29
         },
+        "groupName": "Clausura, Group A",
         "stageName": "Quarterfinals",
         "venueCity": "Buenos Aires",
         "venueCountry": "Argentina",
@@ -10459,19 +10498,19 @@
       "name": "Gimnasia y Esgrima",
       "shortName": "Gimnasia y Esgrima",
       "code": "GIM",
-      "played": 16,
+      "played": 17,
       "won": 9,
-      "drawn": 4,
+      "drawn": 5,
       "lost": 3,
-      "goalsFor": 25,
-      "goalsAgainst": 20,
-      "points": 31,
+      "goalsFor": 27,
+      "goalsAgainst": 22,
+      "points": 32,
       "form": [
-        "D",
         "W",
         "W",
         "W",
-        "W"
+        "W",
+        "D"
       ]
     },
     {
@@ -10615,6 +10654,26 @@
       ]
     },
     {
+      "teamId": "liga-argentina.newell-s-old-boys",
+      "name": "Newell's Old Boys",
+      "shortName": "Newell's Old Boys",
+      "code": "NEW",
+      "played": 17,
+      "won": 5,
+      "drawn": 9,
+      "lost": 3,
+      "goalsFor": 18,
+      "goalsAgainst": 15,
+      "points": 24,
+      "form": [
+        "W",
+        "D",
+        "D",
+        "D",
+        "D"
+      ]
+    },
+    {
       "teamId": "liga-argentina.atletico-belgrano",
       "name": "Club Atlético Belgrano",
       "shortName": "Belgrano",
@@ -10631,26 +10690,6 @@
         "L",
         "D",
         "L",
-        "D"
-      ]
-    },
-    {
-      "teamId": "liga-argentina.newell-s-old-boys",
-      "name": "Newell's Old Boys",
-      "shortName": "Newell's Old Boys",
-      "code": "NEW",
-      "played": 16,
-      "won": 5,
-      "drawn": 8,
-      "lost": 3,
-      "goalsFor": 16,
-      "goalsAgainst": 13,
-      "points": 23,
-      "form": [
-        "L",
-        "W",
-        "D",
-        "D",
         "D"
       ]
     },

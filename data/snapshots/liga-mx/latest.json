@@ -4,8 +4,8 @@
   "logoUrl": "https://sports.bzzoiro.com/img/league/19/?bg=transparent",
   "season": "liga-mx-2026-apertura",
   "seasonLabel": "Apertura 2026",
-  "periodLabel": "Jornada 17",
-  "updatedAt": "2026-11-23T22:35:24.628Z",
+  "periodLabel": "Liguilla",
+  "updatedAt": "2026-11-24T21:08:59.597Z",
   "source": "espn",
   "provenance": "derived",
   "isDemo": false,
@@ -19,8 +19,8 @@
       "forPerGame": 2.235294117647059,
       "againstPerGame": 1.411764705882353,
       "gamesPlayed": 17,
-      "adjustedFor": 1.854190356540847,
-      "adjustedAgainst": 1.3359224380344494
+      "adjustedFor": 1.853799559434943,
+      "adjustedAgainst": 1.3359964294598428
     },
     "liga-mx.atlante": {
       "teamId": "liga-mx.atlante",
@@ -31,8 +31,8 @@
       "forPerGame": 0.9411764705882353,
       "againstPerGame": 1.588235294117647,
       "gamesPlayed": 17,
-      "adjustedFor": 1.0642295187700082,
-      "adjustedAgainst": 1.4409519400935447
+      "adjustedFor": 1.0645415655689323,
+      "adjustedAgainst": 1.4409489171449497
     },
     "liga-mx.atlas": {
       "teamId": "liga-mx.atlas",
@@ -43,8 +43,8 @@
       "forPerGame": 1.7647058823529411,
       "againstPerGame": 1.9411764705882353,
       "gamesPlayed": 17,
-      "adjustedFor": 1.5815438503671435,
-      "adjustedAgainst": 1.6949914873514316
+      "adjustedFor": 1.5813806552321648,
+      "adjustedAgainst": 1.6947582653840156
     },
     "liga-mx.atletico-san-luis": {
       "teamId": "liga-mx.atletico-san-luis",
@@ -55,8 +55,8 @@
       "forPerGame": 1.1764705882352942,
       "againstPerGame": 1.4705882352941178,
       "gamesPlayed": 17,
-      "adjustedFor": 1.2004292489704367,
-      "adjustedAgainst": 1.3586890206690159
+      "adjustedFor": 1.2006150049107276,
+      "adjustedAgainst": 1.3587586919970502
     },
     "liga-mx.chivas": {
       "teamId": "liga-mx.chivas",
@@ -67,8 +67,8 @@
       "forPerGame": 1.588235294117647,
       "againstPerGame": 0.8823529411764706,
       "gamesPlayed": 17,
-      "adjustedFor": 1.4158774833874286,
-      "adjustedAgainst": 1.0175841613291978
+      "adjustedFor": 1.415890151900091,
+      "adjustedAgainst": 1.0179403238482476
     },
     "liga-mx.cruz-azul": {
       "teamId": "liga-mx.cruz-azul",
@@ -79,8 +79,8 @@
       "forPerGame": 2.176470588235294,
       "againstPerGame": 1.588235294117647,
       "gamesPlayed": 17,
-      "adjustedFor": 1.8292294132099745,
-      "adjustedAgainst": 1.4195661129029469
+      "adjustedFor": 1.8288545495878128,
+      "adjustedAgainst": 1.4195664792952545
     },
     "liga-mx.fc-juarez": {
       "teamId": "liga-mx.fc-juarez",
@@ -91,8 +91,8 @@
       "forPerGame": 0.9411764705882353,
       "againstPerGame": 2.176470588235294,
       "gamesPlayed": 17,
-      "adjustedFor": 1.0855161224049124,
-      "adjustedAgainst": 1.742652087421368
+      "adjustedFor": 1.0857963088695624,
+      "adjustedAgainst": 1.7423986405563703
     },
     "liga-mx.leon": {
       "teamId": "liga-mx.leon",
@@ -103,8 +103,8 @@
       "forPerGame": 1.4705882352941178,
       "againstPerGame": 1.2941176470588236,
       "gamesPlayed": 17,
-      "adjustedFor": 1.3724850640549016,
-      "adjustedAgainst": 1.2750375609803066
+      "adjustedFor": 1.3725200599359293,
+      "adjustedAgainst": 1.275170799617691
     },
     "liga-mx.monterrey": {
       "teamId": "liga-mx.monterrey",
@@ -115,8 +115,8 @@
       "forPerGame": 1.7058823529411764,
       "againstPerGame": 1.4705882352941178,
       "gamesPlayed": 17,
-      "adjustedFor": 1.5397095702168695,
-      "adjustedAgainst": 1.3537561193866778
+      "adjustedFor": 1.5395881581301527,
+      "adjustedAgainst": 1.3538218024514543
     },
     "liga-mx.necaxa": {
       "teamId": "liga-mx.necaxa",
@@ -127,8 +127,8 @@
       "forPerGame": 1.1176470588235294,
       "againstPerGame": 1.7647058823529411,
       "gamesPlayed": 17,
-      "adjustedFor": 1.1952228358548957,
-      "adjustedAgainst": 1.5403951863975398
+      "adjustedFor": 1.1954083117674212,
+      "adjustedAgainst": 1.540305530578329
     },
     "liga-mx.pachuca": {
       "teamId": "liga-mx.pachuca",
@@ -139,8 +139,8 @@
       "forPerGame": 1.8235294117647058,
       "againstPerGame": 1.1764705882352942,
       "gamesPlayed": 17,
-      "adjustedFor": 1.6296830767128714,
-      "adjustedAgainst": 1.2010373623916741
+      "adjustedFor": 1.6294958825427606,
+      "adjustedAgainst": 1.2012341783925968
     },
     "liga-mx.puebla": {
       "teamId": "liga-mx.puebla",
@@ -151,8 +151,8 @@
       "forPerGame": 1.1764705882352942,
       "againstPerGame": 1.411764705882353,
       "gamesPlayed": 17,
-      "adjustedFor": 1.1677144066726004,
-      "adjustedAgainst": 1.33430156331214
+      "adjustedFor": 1.1679267642041042,
+      "adjustedAgainst": 1.3343892890282016
     },
     "liga-mx.pumas-unam": {
       "teamId": "liga-mx.pumas-unam",
@@ -163,8 +163,8 @@
       "forPerGame": 1.411764705882353,
       "againstPerGame": 1.6470588235294117,
       "gamesPlayed": 17,
-      "adjustedFor": 1.3450938906737215,
-      "adjustedAgainst": 1.4841772218759477
+      "adjustedFor": 1.3451474352424215,
+      "adjustedAgainst": 1.484133735003652
     },
     "liga-mx.queretaro": {
       "teamId": "liga-mx.queretaro",
@@ -175,8 +175,8 @@
       "forPerGame": 1.1764705882352942,
       "againstPerGame": 1.5294117647058822,
       "gamesPlayed": 17,
-      "adjustedFor": 1.1890405120574006,
-      "adjustedAgainst": 1.4166214710373044
+      "adjustedFor": 1.189235923624889,
+      "adjustedAgainst": 1.4166343045946022
     },
     "liga-mx.santos-laguna": {
       "teamId": "liga-mx.santos-laguna",
@@ -187,8 +187,8 @@
       "forPerGame": 1.411764705882353,
       "againstPerGame": 1.2941176470588236,
       "gamesPlayed": 17,
-      "adjustedFor": 1.3390392808826042,
-      "adjustedAgainst": 1.3006491164619738
+      "adjustedFor": 1.3391038037431342,
+      "adjustedAgainst": 1.3007607226553903
     },
     "liga-mx.tigres-uanl": {
       "teamId": "liga-mx.tigres-uanl",
@@ -199,8 +199,8 @@
       "forPerGame": 1.0588235294117647,
       "againstPerGame": 1.4705882352941178,
       "gamesPlayed": 17,
-      "adjustedFor": 1.1343522700579076,
-      "adjustedAgainst": 1.327085973805863
+      "adjustedFor": 1.134593689871997,
+      "adjustedAgainst": 1.3271910127775617
     },
     "liga-mx.tijuana": {
       "teamId": "liga-mx.tijuana",
@@ -211,8 +211,8 @@
       "forPerGame": 1.5294117647058822,
       "againstPerGame": 1.2941176470588236,
       "gamesPlayed": 17,
-      "adjustedFor": 1.4320084809989189,
-      "adjustedAgainst": 1.2677976990117874
+      "adjustedFor": 1.431996015054335,
+      "adjustedAgainst": 1.267938604270502
     },
     "liga-mx.toluca": {
       "teamId": "liga-mx.toluca",
@@ -223,8 +223,8 @@
       "forPerGame": 2.0588235294117645,
       "againstPerGame": 1.3529411764705883,
       "gamesPlayed": 17,
-      "adjustedFor": 1.7571511183551858,
-      "adjustedAgainst": 1.3096390650428593
+      "adjustedFor": 1.7568512067465416,
+      "adjustedAgainst": 1.3097405242707145
     }
   },
   "games": [
@@ -257,7 +257,7 @@
       "result": {
         "home": 1,
         "away": 1,
-        "observedAt": "2026-11-23T12:00:00.000Z",
+        "observedAt": "2026-11-24T12:00:00.000Z",
         "source": "espn"
       }
     },
@@ -290,7 +290,7 @@
       "result": {
         "home": 3,
         "away": 3,
-        "observedAt": "2026-11-23T12:00:00.000Z",
+        "observedAt": "2026-11-24T12:00:00.000Z",
         "source": "espn"
       }
     },
@@ -323,7 +323,7 @@
       "result": {
         "home": 1,
         "away": 0,
-        "observedAt": "2026-11-23T12:00:00.000Z",
+        "observedAt": "2026-11-24T12:00:00.000Z",
         "source": "espn"
       }
     },
@@ -356,7 +356,7 @@
       "result": {
         "home": 2,
         "away": 0,
-        "observedAt": "2026-11-23T12:00:00.000Z",
+        "observedAt": "2026-11-24T12:00:00.000Z",
         "source": "espn"
       }
     },
@@ -389,7 +389,7 @@
       "result": {
         "home": 1,
         "away": 2,
-        "observedAt": "2026-11-23T12:00:00.000Z",
+        "observedAt": "2026-11-24T12:00:00.000Z",
         "source": "espn"
       }
     },
@@ -422,7 +422,7 @@
       "result": {
         "home": 0,
         "away": 2,
-        "observedAt": "2026-11-23T12:00:00.000Z",
+        "observedAt": "2026-11-24T12:00:00.000Z",
         "source": "espn"
       }
     },
@@ -455,7 +455,7 @@
       "result": {
         "home": 1,
         "away": 0,
-        "observedAt": "2026-11-23T12:00:00.000Z",
+        "observedAt": "2026-11-24T12:00:00.000Z",
         "source": "espn"
       }
     },
@@ -488,7 +488,7 @@
       "result": {
         "home": 1,
         "away": 0,
-        "observedAt": "2026-11-23T12:00:00.000Z",
+        "observedAt": "2026-11-24T12:00:00.000Z",
         "source": "espn"
       }
     },
@@ -521,9 +521,225 @@
       "result": {
         "home": 2,
         "away": 2,
-        "observedAt": "2026-11-23T12:00:00.000Z",
+        "observedAt": "2026-11-24T12:00:00.000Z",
         "source": "espn"
       }
+    },
+    {
+      "id": "mx-2026-lg-toluca-atlas-401931986",
+      "league": "liga-mx",
+      "season": "liga-mx-2026-apertura",
+      "week": 18,
+      "round": "Liguilla",
+      "startTime": "2026-11-26T01:00Z",
+      "status": "scheduled",
+      "home": {
+        "id": "liga-mx.toluca",
+        "league": "liga-mx",
+        "name": "Deportivo Toluca",
+        "shortName": "Toluca",
+        "code": "TOL",
+        "logoUrl": "https://sports.bzzoiro.com/img/team/310/?bg=transparent"
+      },
+      "away": {
+        "id": "liga-mx.atlas",
+        "league": "liga-mx",
+        "name": "Atlas",
+        "shortName": "Atlas",
+        "code": "ATS",
+        "logoUrl": "https://sports.bzzoiro.com/img/team/305/?bg=transparent"
+      },
+      "venue": "Estadio Nemesio Díez Riega",
+      "neutralSite": false
+    },
+    {
+      "id": "mx-2026-lg-monterrey-america-401931998",
+      "league": "liga-mx",
+      "season": "liga-mx-2026-apertura",
+      "week": 18,
+      "round": "Liguilla",
+      "startTime": "2026-11-26T03:10Z",
+      "status": "scheduled",
+      "home": {
+        "id": "liga-mx.monterrey",
+        "league": "liga-mx",
+        "name": "Rayados de Monterrey",
+        "shortName": "Monterrey",
+        "code": "MTY",
+        "logoUrl": "https://sports.bzzoiro.com/img/team/317/?bg=transparent"
+      },
+      "away": {
+        "id": "liga-mx.america",
+        "league": "liga-mx",
+        "name": "Club América",
+        "shortName": "América",
+        "code": "AME",
+        "logoUrl": "https://sports.bzzoiro.com/img/team/307/?bg=transparent"
+      },
+      "venue": "Estadio BBVA",
+      "neutralSite": false
+    },
+    {
+      "id": "mx-2026-lg-pachuca-chivas-401931982",
+      "league": "liga-mx",
+      "season": "liga-mx-2026-apertura",
+      "week": 18,
+      "round": "Liguilla",
+      "startTime": "2026-11-27T01:00Z",
+      "status": "scheduled",
+      "home": {
+        "id": "liga-mx.pachuca",
+        "league": "liga-mx",
+        "name": "Pachuca",
+        "shortName": "Pachuca",
+        "code": "PAC",
+        "logoUrl": "https://sports.bzzoiro.com/img/team/316/?bg=transparent"
+      },
+      "away": {
+        "id": "liga-mx.chivas",
+        "league": "liga-mx",
+        "name": "Chivas Guadalajara",
+        "shortName": "Chivas",
+        "code": "GDL",
+        "logoUrl": "https://sports.bzzoiro.com/img/team/320/?bg=transparent"
+      },
+      "venue": "Estadio Hidalgo",
+      "neutralSite": false
+    },
+    {
+      "id": "mx-2026-lg-leon-cruz-azul-401931995",
+      "league": "liga-mx",
+      "season": "liga-mx-2026-apertura",
+      "week": 18,
+      "round": "Liguilla",
+      "startTime": "2026-11-27T03:10Z",
+      "status": "scheduled",
+      "home": {
+        "id": "liga-mx.leon",
+        "league": "liga-mx",
+        "name": "Club León",
+        "shortName": "León",
+        "code": "LEO",
+        "logoUrl": "https://sports.bzzoiro.com/img/team/318/?bg=transparent"
+      },
+      "away": {
+        "id": "liga-mx.cruz-azul",
+        "league": "liga-mx",
+        "name": "Cruz Azul",
+        "shortName": "Cruz Azul",
+        "code": "CAZ",
+        "logoUrl": "https://sports.bzzoiro.com/img/team/314/?bg=transparent"
+      },
+      "venue": "Estadio León",
+      "neutralSite": false
+    },
+    {
+      "id": "mx-2026-lg-atlas-toluca-401931997",
+      "league": "liga-mx",
+      "season": "liga-mx-2026-apertura",
+      "week": 19,
+      "round": "Liguilla",
+      "startTime": "2026-11-29T01:00Z",
+      "status": "scheduled",
+      "home": {
+        "id": "liga-mx.atlas",
+        "league": "liga-mx",
+        "name": "Atlas",
+        "shortName": "Atlas",
+        "code": "ATS",
+        "logoUrl": "https://sports.bzzoiro.com/img/team/305/?bg=transparent"
+      },
+      "away": {
+        "id": "liga-mx.toluca",
+        "league": "liga-mx",
+        "name": "Deportivo Toluca",
+        "shortName": "Toluca",
+        "code": "TOL",
+        "logoUrl": "https://sports.bzzoiro.com/img/team/310/?bg=transparent"
+      },
+      "venue": "Estadio Jalisco",
+      "neutralSite": false
+    },
+    {
+      "id": "mx-2026-lg-america-monterrey-401931996",
+      "league": "liga-mx",
+      "season": "liga-mx-2026-apertura",
+      "week": 19,
+      "round": "Liguilla",
+      "startTime": "2026-11-29T03:10Z",
+      "status": "scheduled",
+      "home": {
+        "id": "liga-mx.america",
+        "league": "liga-mx",
+        "name": "Club América",
+        "shortName": "América",
+        "code": "AME",
+        "logoUrl": "https://sports.bzzoiro.com/img/team/307/?bg=transparent"
+      },
+      "away": {
+        "id": "liga-mx.monterrey",
+        "league": "liga-mx",
+        "name": "Rayados de Monterrey",
+        "shortName": "Monterrey",
+        "code": "MTY",
+        "logoUrl": "https://sports.bzzoiro.com/img/team/317/?bg=transparent"
+      },
+      "venue": "Estadio Banorte",
+      "neutralSite": false
+    },
+    {
+      "id": "mx-2026-lg-chivas-pachuca-401931983",
+      "league": "liga-mx",
+      "season": "liga-mx-2026-apertura",
+      "week": 19,
+      "round": "Liguilla",
+      "startTime": "2026-11-30T01:07Z",
+      "status": "scheduled",
+      "home": {
+        "id": "liga-mx.chivas",
+        "league": "liga-mx",
+        "name": "Chivas Guadalajara",
+        "shortName": "Chivas",
+        "code": "GDL",
+        "logoUrl": "https://sports.bzzoiro.com/img/team/320/?bg=transparent"
+      },
+      "away": {
+        "id": "liga-mx.pachuca",
+        "league": "liga-mx",
+        "name": "Pachuca",
+        "shortName": "Pachuca",
+        "code": "PAC",
+        "logoUrl": "https://sports.bzzoiro.com/img/team/316/?bg=transparent"
+      },
+      "venue": "Estadio Akron",
+      "neutralSite": false
+    },
+    {
+      "id": "mx-2026-lg-cruz-azul-leon-401932000",
+      "league": "liga-mx",
+      "season": "liga-mx-2026-apertura",
+      "week": 19,
+      "round": "Liguilla",
+      "startTime": "2026-11-30T03:00Z",
+      "status": "scheduled",
+      "home": {
+        "id": "liga-mx.cruz-azul",
+        "league": "liga-mx",
+        "name": "Cruz Azul",
+        "shortName": "Cruz Azul",
+        "code": "CAZ",
+        "logoUrl": "https://sports.bzzoiro.com/img/team/314/?bg=transparent"
+      },
+      "away": {
+        "id": "liga-mx.leon",
+        "league": "liga-mx",
+        "name": "Club León",
+        "shortName": "León",
+        "code": "LEO",
+        "logoUrl": "https://sports.bzzoiro.com/img/team/318/?bg=transparent"
+      },
+      "venue": "Estadio Banorte",
+      "neutralSite": false
     }
   ],
   "analyses": {
@@ -4823,11 +5039,11 @@
         "referee": "Fernando Hernandez",
         "refereeStats": {
           "country": "Mexico",
-          "matches": 47,
-          "avgYellow": 4.36,
-          "avgRed": 0.68,
+          "matches": 48,
+          "avgYellow": 4.35,
+          "avgRed": 0.69,
           "avgFouls": 26.2,
-          "avgGoals": 2.64
+          "avgGoals": 2.6
         }
       }
     },
@@ -7094,6 +7310,5551 @@
           "avgGoals": 3.24
         }
       }
+    },
+    "mx-2026-lg-toluca-atlas-401931986": {
+      "game": "mx-2026-lg-toluca-atlas-401931986",
+      "cortex": {
+        "headline": "Toluca manda en casa y Atlas llega con mejor posición que juego",
+        "headlineOrigin": "ia",
+        "sections": [
+          {
+            "key": "lectura",
+            "title": "La lectura",
+            "text": "Toluca llega con 61 % de probabilidad y una diferencia de más doce, aunque es quinto con 27 puntos frente al cuarto Atlas, que suma 28 pero con diferencia de menos tres. El descanso es idéntico para ambos, cinco días, así que la ventaja local pesa más que la tabla.",
+            "origin": "ia"
+          },
+          {
+            "key": "goles",
+            "title": "Goles",
+            "text": "Se ve un partido abierto: 3.92 goles esperados, 75 % de superar los 2.5 y 71 % de que ambos anoten. Toluca aporta 2.41 y Atlas 1.51, así que el peso ofensivo se carga del lado local.",
+            "origin": "ia",
+            "stats": [
+              {
+                "label": "Goles esperados",
+                "home": 2.41,
+                "away": 1.51
+              },
+              {
+                "label": "Ambos anotan",
+                "value": "71 %"
+              },
+              {
+                "label": "Más de 2.5 goles",
+                "value": "75 %"
+              }
+            ]
+          },
+          {
+            "key": "ritmo",
+            "title": "Ritmo del partido",
+            "text": "Toluca empuja con 7.0 tiros de esquina por 4.4 del Atlas, 11.3 en total. Las faltas están parejas, 12.1 contra 11.9 para 24.0, con 4.0 amarillas: juego intenso pero no roto.",
+            "origin": "ia",
+            "stats": [
+              {
+                "label": "Tiros de esquina",
+                "home": 7,
+                "away": 4.4
+              },
+              {
+                "label": "Faltas",
+                "home": 12.1,
+                "away": 11.9
+              },
+              {
+                "label": "Amarillas",
+                "home": 1.8,
+                "away": 2.2
+              }
+            ]
+          },
+          {
+            "key": "tabla",
+            "title": "Tabla y descanso",
+            "text": "Toluca es quinto con 27 puntos en 17 partidos y diferencia de más doce. Atlas es cuarto con 28 puntos y diferencia de menos tres. Ambos llegan con cinco días de descanso.",
+            "origin": "ia",
+            "stats": [
+              {
+                "label": "Puntos",
+                "home": 27,
+                "away": 28
+              }
+            ]
+          },
+          {
+            "key": "cambia",
+            "title": "Qué podría cambiarlo",
+            "text": "Las alineaciones pueden ajustar el peso ofensivo local, el criterio del árbitro define cuánto se corta el ritmo con faltas y amarillas, y el primer gol cambia quién empuja y quién espera.",
+            "origin": "ia"
+          }
+        ],
+        "fingerprint": "534c060d924a22af",
+        "generatedAt": "2026-11-24T21:09:57.261Z",
+        "version": "2"
+      },
+      "counts": {
+        "corners": {
+          "home": 6.97,
+          "away": 4.38,
+          "total": 11.35,
+          "line": 11.5,
+          "pOver": 0.4537,
+          "sample": {
+            "home": 58,
+            "away": 52
+          }
+        },
+        "fouls": {
+          "home": 12.1,
+          "away": 11.94,
+          "total": 24.04,
+          "line": 23.5,
+          "pOver": 0.527,
+          "sample": {
+            "home": 58,
+            "away": 52
+          }
+        },
+        "yellow": {
+          "home": 1.76,
+          "away": 2.2,
+          "total": 3.96,
+          "line": 3.5,
+          "pOver": 0.5579,
+          "sample": {
+            "home": 81,
+            "away": 69
+          }
+        }
+      },
+      "model": {
+        "id": "pitchlab-statistical-liga-mx",
+        "version": "2.0.0",
+        "status": "candidate",
+        "label": "Modelo PitchLab · en validación"
+      },
+      "projection": {
+        "home": 2.4125282177846046,
+        "away": 1.508859573666441,
+        "total": 3.9213877914510453,
+        "margin": 0.9036686441181636
+      },
+      "x12": [
+        0.6117690045264605,
+        0.19696596929307358,
+        0.19126502618046579
+      ],
+      "probabilities": [
+        {
+          "market": "h2h",
+          "selection": "Toluca gana",
+          "p": 0.6117690045264605,
+          "fairOdds": 1.634603898858932
+        },
+        {
+          "market": "h2h",
+          "selection": "Empate",
+          "p": 0.19696596929307358,
+          "fairOdds": 5.077019160157864
+        },
+        {
+          "market": "h2h",
+          "selection": "Atlas gana",
+          "p": 0.19126502618046579,
+          "fairOdds": 5.2283473877574576
+        },
+        {
+          "market": "double_chance",
+          "selection": "Toluca o empate",
+          "p": 0.8087349738195342,
+          "fairOdds": 1.2364990168251901
+        },
+        {
+          "market": "double_chance",
+          "selection": "Atlas o empate",
+          "p": 0.38823099547353934,
+          "fairOdds": 2.5757860955441334
+        },
+        {
+          "market": "double_chance",
+          "selection": "Sin empate",
+          "p": 0.8030340307069264,
+          "fairOdds": 1.2452772382755444
+        },
+        {
+          "market": "totals",
+          "selection": "Más de 1.5 goles",
+          "line": 1.5,
+          "p": 0.9033291001606476,
+          "fairOdds": 1.1070162577759983
+        },
+        {
+          "market": "totals",
+          "selection": "Más de 2.5 goles",
+          "line": 2.5,
+          "p": 0.74970429582663,
+          "fairOdds": 1.3338592369907551
+        },
+        {
+          "market": "totals",
+          "selection": "Menos de 2.5 goles",
+          "line": 2.5,
+          "p": 0.25029570417337,
+          "fairOdds": 3.9952743228359178
+        },
+        {
+          "market": "totals",
+          "selection": "Más de 3.5 goles",
+          "line": 3.5,
+          "p": 0.5545415707729444,
+          "fairOdds": 1.8032913179189722
+        },
+        {
+          "market": "totals",
+          "selection": "Menos de 3.5 goles",
+          "line": 3.5,
+          "p": 0.4454584292270556,
+          "fairOdds": 2.2448783868231343
+        },
+        {
+          "market": "btts",
+          "selection": "Sí",
+          "p": 0.707911401625498,
+          "fairOdds": 1.4126061505773342
+        },
+        {
+          "market": "btts",
+          "selection": "No",
+          "p": 0.29208859837450196,
+          "fairOdds": 3.423618742960477
+        },
+        {
+          "market": "team_totals",
+          "selection": "Toluca más de 1.5 goles",
+          "line": 1.5,
+          "p": 0.718135600643327,
+          "fairOdds": 1.392494675245414
+        },
+        {
+          "market": "team_totals",
+          "selection": "Toluca menos de 1.5 goles",
+          "line": 1.5,
+          "p": 0.28186439935667296,
+          "fairOdds": 3.5478052648096003
+        },
+        {
+          "market": "team_totals",
+          "selection": "Atlas más de 1.5 goles",
+          "line": 1.5,
+          "p": 0.42071967469476346,
+          "fairOdds": 2.376879571238285
+        },
+        {
+          "market": "team_totals",
+          "selection": "Atlas menos de 1.5 goles",
+          "line": 1.5,
+          "p": 0.5792803253052365,
+          "fairOdds": 1.7262799310041754
+        },
+        {
+          "market": "correct_score",
+          "selection": "2–1",
+          "p": 0.09227693343416157,
+          "fairOdds": 10.836944432201872
+        },
+        {
+          "market": "correct_score",
+          "selection": "3–1",
+          "p": 0.07420690192018214,
+          "fairOdds": 13.4758354563247
+        },
+        {
+          "market": "correct_score",
+          "selection": "1–1",
+          "p": 0.07404743384245001,
+          "fairOdds": 13.50485692897461
+        },
+        {
+          "market": "corners_total",
+          "selection": "Más de 11.5",
+          "line": 11.5,
+          "p": 0.4537,
+          "fairOdds": 2.204099625303064
+        },
+        {
+          "market": "corners_total",
+          "selection": "Menos de 11.5",
+          "line": 11.5,
+          "p": 0.5463,
+          "fairOdds": 1.8304960644334614
+        },
+        {
+          "market": "fouls_total",
+          "selection": "Más de 23.5",
+          "line": 23.5,
+          "p": 0.527,
+          "fairOdds": 1.8975332068311195
+        },
+        {
+          "market": "fouls_total",
+          "selection": "Menos de 23.5",
+          "line": 23.5,
+          "p": 0.473,
+          "fairOdds": 2.1141649048625792
+        },
+        {
+          "market": "yellow_total",
+          "selection": "Más de 3.5",
+          "line": 3.5,
+          "p": 0.5579,
+          "fairOdds": 1.7924359204158453
+        },
+        {
+          "market": "yellow_total",
+          "selection": "Menos de 3.5",
+          "line": 3.5,
+          "p": 0.44210000000000005,
+          "fairOdds": 2.2619316896629718
+        }
+      ],
+      "marketGroups": [
+        {
+          "group": "Resultado",
+          "rows": [
+            {
+              "market": "h2h",
+              "selection": "home",
+              "label": "Toluca gana",
+              "p": 0.6117690045264605,
+              "fairOdds": 1.634603898858932
+            },
+            {
+              "market": "h2h",
+              "selection": "draw",
+              "label": "Empate",
+              "p": 0.19696596929307358,
+              "fairOdds": 5.077019160157864
+            },
+            {
+              "market": "h2h",
+              "selection": "away",
+              "label": "Atlas gana",
+              "p": 0.19126502618046579,
+              "fairOdds": 5.2283473877574576
+            }
+          ]
+        },
+        {
+          "group": "Doble oportunidad",
+          "rows": [
+            {
+              "market": "double_chance",
+              "selection": "1x",
+              "label": "Toluca o empate",
+              "p": 0.8087349738195342,
+              "fairOdds": 1.2364990168251901
+            },
+            {
+              "market": "double_chance",
+              "selection": "x2",
+              "label": "Atlas o empate",
+              "p": 0.38823099547353934,
+              "fairOdds": 2.5757860955441334
+            },
+            {
+              "market": "double_chance",
+              "selection": "12",
+              "label": "Sin empate",
+              "p": 0.8030340307069264,
+              "fairOdds": 1.2452772382755444
+            }
+          ]
+        },
+        {
+          "group": "Goles totales",
+          "rows": [
+            {
+              "market": "totals",
+              "selection": "over_1.5",
+              "label": "Más de 1.5 goles",
+              "line": 1.5,
+              "p": 0.9033291001606476,
+              "fairOdds": 1.1070162577759983
+            },
+            {
+              "market": "totals",
+              "selection": "over_2.5",
+              "label": "Más de 2.5 goles",
+              "line": 2.5,
+              "p": 0.74970429582663,
+              "fairOdds": 1.3338592369907551
+            },
+            {
+              "market": "totals",
+              "selection": "under_2.5",
+              "label": "Menos de 2.5 goles",
+              "line": 2.5,
+              "p": 0.25029570417337,
+              "fairOdds": 3.9952743228359178
+            },
+            {
+              "market": "totals",
+              "selection": "over_3.5",
+              "label": "Más de 3.5 goles",
+              "line": 3.5,
+              "p": 0.5545415707729444,
+              "fairOdds": 1.8032913179189722
+            },
+            {
+              "market": "totals",
+              "selection": "under_3.5",
+              "label": "Menos de 3.5 goles",
+              "line": 3.5,
+              "p": 0.4454584292270556,
+              "fairOdds": 2.2448783868231343
+            }
+          ]
+        },
+        {
+          "group": "Ambos anotan",
+          "rows": [
+            {
+              "market": "btts",
+              "selection": "yes",
+              "label": "Sí",
+              "p": 0.707911401625498,
+              "fairOdds": 1.4126061505773342
+            },
+            {
+              "market": "btts",
+              "selection": "no",
+              "label": "No",
+              "p": 0.29208859837450196,
+              "fairOdds": 3.423618742960477
+            }
+          ]
+        },
+        {
+          "group": "Goles por equipo (1.5)",
+          "rows": [
+            {
+              "market": "team_totals",
+              "selection": "home_over",
+              "label": "Toluca más de 1.5 goles",
+              "line": 1.5,
+              "p": 0.718135600643327,
+              "fairOdds": 1.392494675245414
+            },
+            {
+              "market": "team_totals",
+              "selection": "home_under",
+              "label": "Toluca menos de 1.5 goles",
+              "line": 1.5,
+              "p": 0.28186439935667296,
+              "fairOdds": 3.5478052648096003
+            },
+            {
+              "market": "team_totals",
+              "selection": "away_over",
+              "label": "Atlas más de 1.5 goles",
+              "line": 1.5,
+              "p": 0.42071967469476346,
+              "fairOdds": 2.376879571238285
+            },
+            {
+              "market": "team_totals",
+              "selection": "away_under",
+              "label": "Atlas menos de 1.5 goles",
+              "line": 1.5,
+              "p": 0.5792803253052365,
+              "fairOdds": 1.7262799310041754
+            }
+          ]
+        },
+        {
+          "group": "Marcador exacto (más probables)",
+          "rows": [
+            {
+              "market": "correct_score",
+              "selection": "2-1",
+              "label": "2–1",
+              "p": 0.09227693343416157,
+              "fairOdds": 10.836944432201872
+            },
+            {
+              "market": "correct_score",
+              "selection": "3-1",
+              "label": "3–1",
+              "p": 0.07420690192018214,
+              "fairOdds": 13.4758354563247
+            },
+            {
+              "market": "correct_score",
+              "selection": "1-1",
+              "label": "1–1",
+              "p": 0.07404743384245001,
+              "fairOdds": 13.50485692897461
+            }
+          ]
+        },
+        {
+          "group": "Tiros de esquina 11.5",
+          "rows": [
+            {
+              "market": "corners_total",
+              "selection": "over",
+              "label": "Más de 11.5",
+              "line": 11.5,
+              "p": 0.4537,
+              "fairOdds": 2.204099625303064
+            },
+            {
+              "market": "corners_total",
+              "selection": "under",
+              "label": "Menos de 11.5",
+              "line": 11.5,
+              "p": 0.5463,
+              "fairOdds": 1.8304960644334614
+            }
+          ]
+        },
+        {
+          "group": "Faltas 23.5",
+          "rows": [
+            {
+              "market": "fouls_total",
+              "selection": "over",
+              "label": "Más de 23.5",
+              "line": 23.5,
+              "p": 0.527,
+              "fairOdds": 1.8975332068311195
+            },
+            {
+              "market": "fouls_total",
+              "selection": "under",
+              "label": "Menos de 23.5",
+              "line": 23.5,
+              "p": 0.473,
+              "fairOdds": 2.1141649048625792
+            }
+          ]
+        },
+        {
+          "group": "Tarjetas amarillas 3.5",
+          "rows": [
+            {
+              "market": "yellow_total",
+              "selection": "over",
+              "label": "Más de 3.5",
+              "line": 3.5,
+              "p": 0.5579,
+              "fairOdds": 1.7924359204158453
+            },
+            {
+              "market": "yellow_total",
+              "selection": "under",
+              "label": "Menos de 3.5",
+              "line": 3.5,
+              "p": 0.44210000000000005,
+              "fairOdds": 2.2619316896629718
+            }
+          ]
+        }
+      ],
+      "mostLikelyScore": {
+        "home": 2,
+        "away": 1,
+        "p": 0.09227693343416157
+      },
+      "factors": [
+        {
+          "key": "home_attack",
+          "label": "Ataque local",
+          "value": "2.17 goles/partido",
+          "detail": "28 % más que la media · 17 partidos"
+        },
+        {
+          "key": "away_defense",
+          "label": "Defensa visitante",
+          "value": "1.69 concedidos/partido",
+          "detail": "23 % más que la media · 17 partidos"
+        },
+        {
+          "key": "away_attack",
+          "label": "Ataque visitante",
+          "value": "1.51 goles/partido",
+          "detail": "15 % más que la media · ajustado por rival"
+        },
+        {
+          "key": "home_defense",
+          "label": "Defensa local",
+          "value": "1.31 concedidos/partido",
+          "detail": "5 % menos que la media · ajustado por rival"
+        },
+        {
+          "key": "home_advantage",
+          "label": "Localía",
+          "value": "×1.11",
+          "detail": "estimada de 207 partidos"
+        },
+        {
+          "key": "uncertainty",
+          "label": "Intervalo 90%",
+          "value": "goles 3.0–5.0",
+          "detail": "local 44%–78% · 207 partidos"
+        },
+        {
+          "key": "home_position",
+          "label": "Posición local",
+          "value": "5.º · 27 pts",
+          "detail": "de 18 equipos"
+        },
+        {
+          "key": "away_position",
+          "label": "Posición visitante",
+          "value": "4.º · 28 pts",
+          "detail": "de 18 equipos"
+        },
+        {
+          "key": "home_form",
+          "label": "Forma local",
+          "value": "E-E-E-G-P · 6 pts",
+          "detail": "9 goles a favor · 7 en contra"
+        },
+        {
+          "key": "away_form",
+          "label": "Forma visitante",
+          "value": "P-G-G-P-E · 7 pts",
+          "detail": "11 goles a favor · 15 en contra"
+        },
+        {
+          "key": "long_memory",
+          "label": "Memoria larga",
+          "value": "+3 pts al local",
+          "detail": "historia 65% / 20% / 15% · temporada 58% / 19% / 23%"
+        },
+        {
+          "key": "corners_expected",
+          "label": "Tiros de esquina",
+          "value": "11.3 tiros de esquina esperados",
+          "detail": "Toluca 7.0 · Atlas 4.4"
+        },
+        {
+          "key": "fouls_expected",
+          "label": "Faltas",
+          "value": "24.0 faltas esperados",
+          "detail": "Toluca 12.1 · Atlas 11.9"
+        },
+        {
+          "key": "yellow_expected",
+          "label": "Tarjetas amarillas",
+          "value": "4.0 amarillas esperados",
+          "detail": "Toluca 1.8 · Atlas 2.2"
+        }
+      ],
+      "steps": [
+        "Sincronizando Liga MX · corte 24 nov 2026, 21:08",
+        "Fuerza ajustada por rival · TOL 1.28 / 0.95 · ATS 1.15 / 1.23",
+        "Ponderando 143.6 partidos por antigüedad y calidad del rival",
+        "Proyección de goles 2.41 – 1.51 · total 3.92",
+        "Simulando 121 marcadores con incertidumbre del ajuste",
+        "20 mercados listos · marcador proyectado 2–1"
+      ],
+      "inputsAsOf": "2026-11-24T21:08:59.597Z",
+      "publishedAt": "2026-11-24T21:08:59.597Z",
+      "source": "espn",
+      "picks": [
+        {
+          "profile": "conservadora",
+          "market": "totals",
+          "selection": "over_1.5",
+          "label": "Más de 1.5 goles",
+          "line": 1.5,
+          "p": 0.9033291001606476,
+          "fairOdds": 1.1070162577759983
+        },
+        {
+          "profile": "intermedia",
+          "market": "h2h",
+          "selection": "home",
+          "label": "Toluca gana",
+          "p": 0.6117690045264605,
+          "fairOdds": 1.634603898858932
+        },
+        {
+          "profile": "arriesgada",
+          "market": "totals",
+          "selection": "under_3.5",
+          "label": "Menos de 3.5 goles",
+          "line": 3.5,
+          "p": 0.4454584292270556,
+          "fairOdds": 2.2448783868231343
+        }
+      ],
+      "confidence": {
+        "score": 69,
+        "level": "alta",
+        "reasons": [
+          "Favorito claro",
+          "Muestra suficiente"
+        ]
+      },
+      "projectedScore": {
+        "home": 2,
+        "away": 1,
+        "p": 0.09227693343416157
+      },
+      "insights": {
+        "why": [
+          "Toluca gana en 61% de los escenarios; el empate, en 20%.",
+          "Toluca anota 28 % más que la media.",
+          "Atlas concede 23 % más que la media."
+        ],
+        "headToHead": [
+          {
+            "date": "2026-09-12",
+            "homeTeamId": "liga-mx.toluca",
+            "awayTeamId": "liga-mx.atlas",
+            "homeGoals": 5,
+            "awayGoals": 2
+          },
+          {
+            "date": "2025-04-12",
+            "homeTeamId": "liga-mx.atlas",
+            "awayTeamId": "liga-mx.toluca",
+            "homeGoals": 2,
+            "awayGoals": 3
+          },
+          {
+            "date": "2024-09-28",
+            "homeTeamId": "liga-mx.toluca",
+            "awayTeamId": "liga-mx.atlas",
+            "homeGoals": 4,
+            "awayGoals": 1
+          },
+          {
+            "date": "2021-02-27",
+            "homeTeamId": "liga-mx.toluca",
+            "awayTeamId": "liga-mx.atlas",
+            "homeGoals": 0,
+            "awayGoals": 0
+          },
+          {
+            "date": "2020-08-13",
+            "homeTeamId": "liga-mx.atlas",
+            "awayTeamId": "liga-mx.toluca",
+            "homeGoals": 1,
+            "awayGoals": 2
+          }
+        ],
+        "restDays": {
+          "home": 5,
+          "away": 5
+        }
+      },
+      "picksAt": "2026-11-24T21:08:59.597Z"
+    },
+    "mx-2026-lg-monterrey-america-401931998": {
+      "game": "mx-2026-lg-monterrey-america-401931998",
+      "counts": {
+        "corners": {
+          "home": 5.98,
+          "away": 4.57,
+          "total": 10.55,
+          "line": 10.5,
+          "pOver": 0.474,
+          "sample": {
+            "home": 54,
+            "away": 54
+          }
+        },
+        "fouls": {
+          "home": 12.56,
+          "away": 12.98,
+          "total": 25.54,
+          "line": 25.5,
+          "pOver": 0.4881,
+          "sample": {
+            "home": 54,
+            "away": 54
+          }
+        },
+        "yellow": {
+          "home": 2.19,
+          "away": 1.98,
+          "total": 4.17,
+          "line": 4.5,
+          "pOver": 0.4048,
+          "sample": {
+            "home": 75,
+            "away": 77
+          }
+        }
+      },
+      "model": {
+        "id": "pitchlab-statistical-liga-mx",
+        "version": "2.0.0",
+        "status": "candidate",
+        "label": "Modelo PitchLab · en validación"
+      },
+      "projection": {
+        "home": 1.666631244204877,
+        "away": 1.828316650201003,
+        "total": 3.49494789440588,
+        "margin": -0.16168540599612613
+      },
+      "x12": [
+        0.3570042603579712,
+        0.2587304258501036,
+        0.38426531379192524
+      ],
+      "probabilities": [
+        {
+          "market": "h2h",
+          "selection": "Monterrey gana",
+          "p": 0.3570042603579712,
+          "fairOdds": 2.8010870206346876
+        },
+        {
+          "market": "h2h",
+          "selection": "Empate",
+          "p": 0.2587304258501036,
+          "fairOdds": 3.8650266844895684
+        },
+        {
+          "market": "h2h",
+          "selection": "América gana",
+          "p": 0.38426531379192524,
+          "fairOdds": 2.602368634660289
+        },
+        {
+          "market": "double_chance",
+          "selection": "Monterrey o empate",
+          "p": 0.6157346862080748,
+          "fairOdds": 1.6240761197949967
+        },
+        {
+          "market": "double_chance",
+          "selection": "América o empate",
+          "p": 0.6429957396420288,
+          "fairOdds": 1.5552202578460692
+        },
+        {
+          "market": "double_chance",
+          "selection": "Sin empate",
+          "p": 0.7412695741498965,
+          "fairOdds": 1.3490368887011464
+        },
+        {
+          "market": "totals",
+          "selection": "Más de 1.5 goles",
+          "line": 1.5,
+          "p": 0.8622836395157659,
+          "fairOdds": 1.159711206583453
+        },
+        {
+          "market": "totals",
+          "selection": "Más de 2.5 goles",
+          "line": 2.5,
+          "p": 0.6667322916344922,
+          "fairOdds": 1.4998523583558598
+        },
+        {
+          "market": "totals",
+          "selection": "Menos de 2.5 goles",
+          "line": 2.5,
+          "p": 0.3332677083655078,
+          "fairOdds": 3.00059074101251
+        },
+        {
+          "market": "totals",
+          "selection": "Más de 3.5 goles",
+          "line": 3.5,
+          "p": 0.46148713418692133,
+          "fairOdds": 2.1669076468661825
+        },
+        {
+          "market": "totals",
+          "selection": "Menos de 3.5 goles",
+          "line": 3.5,
+          "p": 0.5385128658130787,
+          "fairOdds": 1.8569658470278898
+        },
+        {
+          "market": "btts",
+          "selection": "Sí",
+          "p": 0.6890347445669881,
+          "fairOdds": 1.4513056241139664
+        },
+        {
+          "market": "btts",
+          "selection": "No",
+          "p": 0.3109652554330119,
+          "fairOdds": 3.215793348383964
+        },
+        {
+          "market": "team_totals",
+          "selection": "Monterrey más de 1.5 goles",
+          "line": 1.5,
+          "p": 0.5055337100561582,
+          "fairOdds": 1.9781074537816934
+        },
+        {
+          "market": "team_totals",
+          "selection": "Monterrey menos de 1.5 goles",
+          "line": 1.5,
+          "p": 0.4944662899438418,
+          "fairOdds": 2.0223825573904612
+        },
+        {
+          "market": "team_totals",
+          "selection": "América más de 1.5 goles",
+          "line": 1.5,
+          "p": 0.5294076670609211,
+          "fairOdds": 1.8889035089945645
+        },
+        {
+          "market": "team_totals",
+          "selection": "América menos de 1.5 goles",
+          "line": 1.5,
+          "p": 0.4705923329390789,
+          "fairOdds": 2.124981496733089
+        },
+        {
+          "market": "correct_score",
+          "selection": "1–1",
+          "p": 0.10737183401601479,
+          "fairOdds": 9.313429440451277
+        },
+        {
+          "market": "correct_score",
+          "selection": "2–2",
+          "p": 0.08303956837146242,
+          "fairOdds": 12.042451804743031
+        },
+        {
+          "market": "correct_score",
+          "selection": "2–1",
+          "p": 0.07704726625639693,
+          "fairOdds": 12.979045832362338
+        },
+        {
+          "market": "corners_total",
+          "selection": "Más de 10.5",
+          "line": 10.5,
+          "p": 0.474,
+          "fairOdds": 2.109704641350211
+        },
+        {
+          "market": "corners_total",
+          "selection": "Menos de 10.5",
+          "line": 10.5,
+          "p": 0.526,
+          "fairOdds": 1.9011406844106462
+        },
+        {
+          "market": "fouls_total",
+          "selection": "Más de 25.5",
+          "line": 25.5,
+          "p": 0.4881,
+          "fairOdds": 2.048760499897562
+        },
+        {
+          "market": "fouls_total",
+          "selection": "Menos de 25.5",
+          "line": 25.5,
+          "p": 0.5119,
+          "fairOdds": 1.953506544246923
+        },
+        {
+          "market": "yellow_total",
+          "selection": "Más de 4.5",
+          "line": 4.5,
+          "p": 0.4048,
+          "fairOdds": 2.4703557312252964
+        },
+        {
+          "market": "yellow_total",
+          "selection": "Menos de 4.5",
+          "line": 4.5,
+          "p": 0.5952,
+          "fairOdds": 1.6801075268817205
+        }
+      ],
+      "marketGroups": [
+        {
+          "group": "Resultado",
+          "rows": [
+            {
+              "market": "h2h",
+              "selection": "home",
+              "label": "Monterrey gana",
+              "p": 0.3570042603579712,
+              "fairOdds": 2.8010870206346876
+            },
+            {
+              "market": "h2h",
+              "selection": "draw",
+              "label": "Empate",
+              "p": 0.2587304258501036,
+              "fairOdds": 3.8650266844895684
+            },
+            {
+              "market": "h2h",
+              "selection": "away",
+              "label": "América gana",
+              "p": 0.38426531379192524,
+              "fairOdds": 2.602368634660289
+            }
+          ]
+        },
+        {
+          "group": "Doble oportunidad",
+          "rows": [
+            {
+              "market": "double_chance",
+              "selection": "1x",
+              "label": "Monterrey o empate",
+              "p": 0.6157346862080748,
+              "fairOdds": 1.6240761197949967
+            },
+            {
+              "market": "double_chance",
+              "selection": "x2",
+              "label": "América o empate",
+              "p": 0.6429957396420288,
+              "fairOdds": 1.5552202578460692
+            },
+            {
+              "market": "double_chance",
+              "selection": "12",
+              "label": "Sin empate",
+              "p": 0.7412695741498965,
+              "fairOdds": 1.3490368887011464
+            }
+          ]
+        },
+        {
+          "group": "Goles totales",
+          "rows": [
+            {
+              "market": "totals",
+              "selection": "over_1.5",
+              "label": "Más de 1.5 goles",
+              "line": 1.5,
+              "p": 0.8622836395157659,
+              "fairOdds": 1.159711206583453
+            },
+            {
+              "market": "totals",
+              "selection": "over_2.5",
+              "label": "Más de 2.5 goles",
+              "line": 2.5,
+              "p": 0.6667322916344922,
+              "fairOdds": 1.4998523583558598
+            },
+            {
+              "market": "totals",
+              "selection": "under_2.5",
+              "label": "Menos de 2.5 goles",
+              "line": 2.5,
+              "p": 0.3332677083655078,
+              "fairOdds": 3.00059074101251
+            },
+            {
+              "market": "totals",
+              "selection": "over_3.5",
+              "label": "Más de 3.5 goles",
+              "line": 3.5,
+              "p": 0.46148713418692133,
+              "fairOdds": 2.1669076468661825
+            },
+            {
+              "market": "totals",
+              "selection": "under_3.5",
+              "label": "Menos de 3.5 goles",
+              "line": 3.5,
+              "p": 0.5385128658130787,
+              "fairOdds": 1.8569658470278898
+            }
+          ]
+        },
+        {
+          "group": "Ambos anotan",
+          "rows": [
+            {
+              "market": "btts",
+              "selection": "yes",
+              "label": "Sí",
+              "p": 0.6890347445669881,
+              "fairOdds": 1.4513056241139664
+            },
+            {
+              "market": "btts",
+              "selection": "no",
+              "label": "No",
+              "p": 0.3109652554330119,
+              "fairOdds": 3.215793348383964
+            }
+          ]
+        },
+        {
+          "group": "Goles por equipo (1.5)",
+          "rows": [
+            {
+              "market": "team_totals",
+              "selection": "home_over",
+              "label": "Monterrey más de 1.5 goles",
+              "line": 1.5,
+              "p": 0.5055337100561582,
+              "fairOdds": 1.9781074537816934
+            },
+            {
+              "market": "team_totals",
+              "selection": "home_under",
+              "label": "Monterrey menos de 1.5 goles",
+              "line": 1.5,
+              "p": 0.4944662899438418,
+              "fairOdds": 2.0223825573904612
+            },
+            {
+              "market": "team_totals",
+              "selection": "away_over",
+              "label": "América más de 1.5 goles",
+              "line": 1.5,
+              "p": 0.5294076670609211,
+              "fairOdds": 1.8889035089945645
+            },
+            {
+              "market": "team_totals",
+              "selection": "away_under",
+              "label": "América menos de 1.5 goles",
+              "line": 1.5,
+              "p": 0.4705923329390789,
+              "fairOdds": 2.124981496733089
+            }
+          ]
+        },
+        {
+          "group": "Marcador exacto (más probables)",
+          "rows": [
+            {
+              "market": "correct_score",
+              "selection": "1-1",
+              "label": "1–1",
+              "p": 0.10737183401601479,
+              "fairOdds": 9.313429440451277
+            },
+            {
+              "market": "correct_score",
+              "selection": "2-2",
+              "label": "2–2",
+              "p": 0.08303956837146242,
+              "fairOdds": 12.042451804743031
+            },
+            {
+              "market": "correct_score",
+              "selection": "2-1",
+              "label": "2–1",
+              "p": 0.07704726625639693,
+              "fairOdds": 12.979045832362338
+            }
+          ]
+        },
+        {
+          "group": "Tiros de esquina 10.5",
+          "rows": [
+            {
+              "market": "corners_total",
+              "selection": "over",
+              "label": "Más de 10.5",
+              "line": 10.5,
+              "p": 0.474,
+              "fairOdds": 2.109704641350211
+            },
+            {
+              "market": "corners_total",
+              "selection": "under",
+              "label": "Menos de 10.5",
+              "line": 10.5,
+              "p": 0.526,
+              "fairOdds": 1.9011406844106462
+            }
+          ]
+        },
+        {
+          "group": "Faltas 25.5",
+          "rows": [
+            {
+              "market": "fouls_total",
+              "selection": "over",
+              "label": "Más de 25.5",
+              "line": 25.5,
+              "p": 0.4881,
+              "fairOdds": 2.048760499897562
+            },
+            {
+              "market": "fouls_total",
+              "selection": "under",
+              "label": "Menos de 25.5",
+              "line": 25.5,
+              "p": 0.5119,
+              "fairOdds": 1.953506544246923
+            }
+          ]
+        },
+        {
+          "group": "Tarjetas amarillas 4.5",
+          "rows": [
+            {
+              "market": "yellow_total",
+              "selection": "over",
+              "label": "Más de 4.5",
+              "line": 4.5,
+              "p": 0.4048,
+              "fairOdds": 2.4703557312252964
+            },
+            {
+              "market": "yellow_total",
+              "selection": "under",
+              "label": "Menos de 4.5",
+              "line": 4.5,
+              "p": 0.5952,
+              "fairOdds": 1.6801075268817205
+            }
+          ]
+        }
+      ],
+      "mostLikelyScore": {
+        "home": 1,
+        "away": 1,
+        "p": 0.10737183401601479
+      },
+      "factors": [
+        {
+          "key": "home_attack",
+          "label": "Ataque local",
+          "value": "1.50 goles/partido",
+          "detail": "12 % más que la media · 17 partidos"
+        },
+        {
+          "key": "away_defense",
+          "label": "Defensa visitante",
+          "value": "1.34 concedidos/partido",
+          "detail": "3 % menos que la media · 17 partidos"
+        },
+        {
+          "key": "away_attack",
+          "label": "Ataque visitante",
+          "value": "1.83 goles/partido",
+          "detail": "35 % más que la media · ajustado por rival"
+        },
+        {
+          "key": "home_defense",
+          "label": "Defensa local",
+          "value": "1.35 concedidos/partido",
+          "detail": "en la media de la liga · ajustado por rival"
+        },
+        {
+          "key": "home_advantage",
+          "label": "Localía",
+          "value": "×1.11",
+          "detail": "estimada de 207 partidos"
+        },
+        {
+          "key": "uncertainty",
+          "label": "Intervalo 90%",
+          "value": "goles 2.6–4.7",
+          "detail": "local 20%–58% · 207 partidos"
+        },
+        {
+          "key": "home_position",
+          "label": "Posición local",
+          "value": "6.º · 27 pts",
+          "detail": "de 18 equipos"
+        },
+        {
+          "key": "away_position",
+          "label": "Posición visitante",
+          "value": "3.º · 30 pts",
+          "detail": "de 18 equipos"
+        },
+        {
+          "key": "home_form",
+          "label": "Forma local",
+          "value": "P-E-P-G-G · 7 pts",
+          "detail": "6 goles a favor · 8 en contra"
+        },
+        {
+          "key": "away_form",
+          "label": "Forma visitante",
+          "value": "P-E-E-E-P · 3 pts",
+          "detail": "6 goles a favor · 8 en contra"
+        },
+        {
+          "key": "long_memory",
+          "label": "Memoria larga",
+          "value": "coincide con la temporada",
+          "detail": "historia 36% / 30% / 35% · temporada 36% / 22% / 42%"
+        },
+        {
+          "key": "corners_expected",
+          "label": "Tiros de esquina",
+          "value": "10.6 tiros de esquina esperados",
+          "detail": "Monterrey 6.0 · América 4.6"
+        },
+        {
+          "key": "fouls_expected",
+          "label": "Faltas",
+          "value": "25.5 faltas esperados",
+          "detail": "Monterrey 12.6 · América 13.0"
+        },
+        {
+          "key": "yellow_expected",
+          "label": "Tarjetas amarillas",
+          "value": "4.2 amarillas esperados",
+          "detail": "Monterrey 2.2 · América 2.0"
+        }
+      ],
+      "steps": [
+        "Sincronizando Liga MX · corte 24 nov 2026, 21:08",
+        "Fuerza ajustada por rival · MTY 1.12 / 0.99 · AME 1.35 / 0.97",
+        "Ponderando 143.6 partidos por antigüedad y calidad del rival",
+        "Proyección de goles 1.67 – 1.83 · total 3.49",
+        "Simulando 121 marcadores con incertidumbre del ajuste",
+        "20 mercados listos · marcador proyectado 1–2"
+      ],
+      "inputsAsOf": "2026-11-24T21:08:59.597Z",
+      "publishedAt": "2026-11-24T21:08:59.597Z",
+      "source": "espn",
+      "picks": [
+        {
+          "profile": "conservadora",
+          "market": "totals",
+          "selection": "over_1.5",
+          "label": "Más de 1.5 goles",
+          "line": 1.5,
+          "p": 0.8622836395157659,
+          "fairOdds": 1.159711206583453
+        },
+        {
+          "profile": "intermedia",
+          "market": "btts",
+          "selection": "yes",
+          "label": "Ambos anotan: Sí",
+          "p": 0.6890347445669881,
+          "fairOdds": 1.4513056241139664
+        },
+        {
+          "profile": "arriesgada",
+          "market": "team_totals",
+          "selection": "home_over",
+          "label": "Monterrey más de 1.5 goles",
+          "line": 1.5,
+          "p": 0.5055337100561582,
+          "fairOdds": 1.9781074537816934
+        }
+      ],
+      "confidence": {
+        "score": 40,
+        "level": "baja",
+        "reasons": [
+          "Partido parejo",
+          "Muestra suficiente"
+        ]
+      },
+      "projectedScore": {
+        "home": 1,
+        "away": 2,
+        "p": 0.07672906675839904
+      },
+      "insights": {
+        "why": [
+          "Se esperan 3.5 goles: 1.7 de Monterrey y 1.8 de América.",
+          "América anota 35 % más que la media.",
+          "Monterrey anota 12 % más que la media."
+        ],
+        "headToHead": [
+          {
+            "date": "2026-10-11",
+            "homeTeamId": "liga-mx.america",
+            "awayTeamId": "liga-mx.monterrey",
+            "homeGoals": 1,
+            "awayGoals": 1
+          },
+          {
+            "date": "2025-04-16",
+            "homeTeamId": "liga-mx.monterrey",
+            "awayTeamId": "liga-mx.america",
+            "homeGoals": 1,
+            "awayGoals": 0
+          },
+          {
+            "date": "2024-10-27",
+            "homeTeamId": "liga-mx.america",
+            "awayTeamId": "liga-mx.monterrey",
+            "homeGoals": 2,
+            "awayGoals": 1
+          },
+          {
+            "date": "2021-01-16",
+            "homeTeamId": "liga-mx.monterrey",
+            "awayTeamId": "liga-mx.america",
+            "homeGoals": 1,
+            "awayGoals": 0
+          },
+          {
+            "date": "2020-08-22",
+            "homeTeamId": "liga-mx.america",
+            "awayTeamId": "liga-mx.monterrey",
+            "homeGoals": 1,
+            "awayGoals": 3
+          }
+        ],
+        "restDays": {
+          "home": 4,
+          "away": 4
+        }
+      },
+      "picksAt": "2026-11-24T21:08:59.597Z"
+    },
+    "mx-2026-lg-pachuca-chivas-401931982": {
+      "game": "mx-2026-lg-pachuca-chivas-401931982",
+      "cortex": {
+        "headline": "Pachuca favorito leve en casa ante el líder Chivas",
+        "headlineOrigin": "ia",
+        "sections": [
+          {
+            "key": "lectura",
+            "title": "La lectura",
+            "text": "Chivas llega como líder con 33 puntos y mejor diferencia, pero Pachuca tiene la probabilidad más alta del partido con 42 % por jugar en casa. La ventaja es mínima y el empate se queda con 27 %.",
+            "origin": "ia"
+          },
+          {
+            "key": "goles",
+            "title": "Goles",
+            "text": "Se espera un partido de 2.58 goles, con Pachuca aportando 1.34 y Chivas 1.24. El 48 % de más de 2.5 y el 52 % de ambos anotan hablan de un juego con llegada repartida, sin un goleador claro.",
+            "origin": "ia",
+            "stats": [
+              {
+                "label": "Goles esperados",
+                "home": 1.34,
+                "away": 1.24
+              },
+              {
+                "label": "Ambos anotan",
+                "value": "52 %"
+              },
+              {
+                "label": "Más de 2.5 goles",
+                "value": "48 %"
+              }
+            ]
+          },
+          {
+            "key": "ritmo",
+            "title": "Ritmo del partido",
+            "text": "Los tiros de esquina están casi parejos: 5.1 de Pachuca y 5.0 de Chivas, con 10.1 de total. En faltas Pachuca corta más con 14.7 frente a 10.6 de Chivas, así que el juego se traba del lado local.",
+            "origin": "ia",
+            "stats": [
+              {
+                "label": "Tiros de esquina",
+                "home": 5.1,
+                "away": 5
+              },
+              {
+                "label": "Faltas",
+                "home": 14.7,
+                "away": 10.6
+              },
+              {
+                "label": "Amarillas",
+                "home": 2.1,
+                "away": 1.9
+              }
+            ]
+          },
+          {
+            "key": "tabla",
+            "title": "Tabla y descanso",
+            "text": "Chivas es primero con 33 puntos y diferencia de 12 en 17 partidos. Pachuca es octavo con 25 puntos y diferencia de 11. El descanso favorece poco al local: 6 días por 5 de Chivas.",
+            "origin": "ia",
+            "stats": [
+              {
+                "label": "Puntos",
+                "home": 25,
+                "away": 33
+              }
+            ]
+          },
+          {
+            "key": "cambia",
+            "title": "Qué podría cambiarlo",
+            "text": "Las alineaciones pueden ajustar el peso ofensivo de cada lado. El árbitro importa por las 25.3 faltas esperadas y el primer gol definiría si Chivas se suelta o Pachuca se repliega.",
+            "origin": "ia"
+          }
+        ],
+        "fingerprint": "746b2e92a3faf93c",
+        "generatedAt": "2026-11-24T21:10:08.816Z",
+        "version": "2"
+      },
+      "counts": {
+        "corners": {
+          "home": 5.07,
+          "away": 5.02,
+          "total": 10.09,
+          "line": 9.5,
+          "pOver": 0.5321,
+          "sample": {
+            "home": 56,
+            "away": 56
+          }
+        },
+        "fouls": {
+          "home": 14.69,
+          "away": 10.6,
+          "total": 25.29,
+          "line": 25.5,
+          "pOver": 0.4688,
+          "sample": {
+            "home": 56,
+            "away": 56
+          }
+        },
+        "yellow": {
+          "home": 2.14,
+          "away": 1.93,
+          "total": 4.07,
+          "line": 3.5,
+          "pOver": 0.5794,
+          "sample": {
+            "home": 76,
+            "away": 73
+          }
+        }
+      },
+      "model": {
+        "id": "pitchlab-statistical-liga-mx",
+        "version": "2.0.0",
+        "status": "candidate",
+        "label": "Modelo PitchLab · en validación"
+      },
+      "projection": {
+        "home": 1.344018496850209,
+        "away": 1.2390372912123093,
+        "total": 2.5830557880625182,
+        "margin": 0.10498120563789959
+      },
+      "x12": [
+        0.42017743323542994,
+        0.2660298374143605,
+        0.3137927293502096
+      ],
+      "probabilities": [
+        {
+          "market": "h2h",
+          "selection": "Pachuca gana",
+          "p": 0.42017743323542994,
+          "fairOdds": 2.37994694836381
+        },
+        {
+          "market": "h2h",
+          "selection": "Empate",
+          "p": 0.2660298374143605,
+          "fairOdds": 3.7589768490608386
+        },
+        {
+          "market": "h2h",
+          "selection": "Chivas gana",
+          "p": 0.3137927293502096,
+          "fairOdds": 3.186816986074735
+        },
+        {
+          "market": "double_chance",
+          "selection": "Pachuca o empate",
+          "p": 0.6862072706497904,
+          "fairOdds": 1.4572856376952548
+        },
+        {
+          "market": "double_chance",
+          "selection": "Chivas o empate",
+          "p": 0.57982256676457,
+          "fairOdds": 1.7246655396322959
+        },
+        {
+          "market": "double_chance",
+          "selection": "Sin empate",
+          "p": 0.7339701625856395,
+          "fairOdds": 1.3624532044697664
+        },
+        {
+          "market": "totals",
+          "selection": "Más de 1.5 goles",
+          "line": 1.5,
+          "p": 0.7277835752066866,
+          "fairOdds": 1.3740348560573181
+        },
+        {
+          "market": "totals",
+          "selection": "Más de 2.5 goles",
+          "line": 2.5,
+          "p": 0.4758913297022599,
+          "fairOdds": 2.101320065288114
+        },
+        {
+          "market": "totals",
+          "selection": "Menos de 2.5 goles",
+          "line": 2.5,
+          "p": 0.5241086702977401,
+          "fairOdds": 1.9080012536940316
+        },
+        {
+          "market": "totals",
+          "selection": "Más de 3.5 goles",
+          "line": 3.5,
+          "p": 0.2605577632486896,
+          "fairOdds": 3.8379205728963406
+        },
+        {
+          "market": "totals",
+          "selection": "Menos de 3.5 goles",
+          "line": 3.5,
+          "p": 0.7394422367513104,
+          "fairOdds": 1.3523706792750068
+        },
+        {
+          "market": "btts",
+          "selection": "Sí",
+          "p": 0.5244401351403436,
+          "fairOdds": 1.9067953289509267
+        },
+        {
+          "market": "btts",
+          "selection": "No",
+          "p": 0.4755598648596564,
+          "fairOdds": 2.1027846836803867
+        },
+        {
+          "market": "team_totals",
+          "selection": "Pachuca más de 1.5 goles",
+          "line": 1.5,
+          "p": 0.4059351384808547,
+          "fairOdds": 2.4634477412877707
+        },
+        {
+          "market": "team_totals",
+          "selection": "Pachuca menos de 1.5 goles",
+          "line": 1.5,
+          "p": 0.5940648615191453,
+          "fairOdds": 1.6833178744873003
+        },
+        {
+          "market": "team_totals",
+          "selection": "Chivas más de 1.5 goles",
+          "line": 1.5,
+          "p": 0.33270533932157353,
+          "fairOdds": 3.0056626143695833
+        },
+        {
+          "market": "team_totals",
+          "selection": "Chivas menos de 1.5 goles",
+          "line": 1.5,
+          "p": 0.6672946606784265,
+          "fairOdds": 1.498588343241527
+        },
+        {
+          "market": "correct_score",
+          "selection": "1–1",
+          "p": 0.12644071550566693,
+          "fairOdds": 7.9088448368926
+        },
+        {
+          "market": "correct_score",
+          "selection": "1–0",
+          "p": 0.11020585987710091,
+          "fairOdds": 9.07392765788659
+        },
+        {
+          "market": "correct_score",
+          "selection": "2–1",
+          "p": 0.09008796985836366,
+          "fairOdds": 11.100261239899183
+        },
+        {
+          "market": "corners_total",
+          "selection": "Más de 9.5",
+          "line": 9.5,
+          "p": 0.5321,
+          "fairOdds": 1.8793459875963163
+        },
+        {
+          "market": "corners_total",
+          "selection": "Menos de 9.5",
+          "line": 9.5,
+          "p": 0.4679,
+          "fairOdds": 2.137208805300278
+        },
+        {
+          "market": "fouls_total",
+          "selection": "Más de 25.5",
+          "line": 25.5,
+          "p": 0.4688,
+          "fairOdds": 2.1331058020477816
+        },
+        {
+          "market": "fouls_total",
+          "selection": "Menos de 25.5",
+          "line": 25.5,
+          "p": 0.5312,
+          "fairOdds": 1.8825301204819276
+        },
+        {
+          "market": "yellow_total",
+          "selection": "Más de 3.5",
+          "line": 3.5,
+          "p": 0.5794,
+          "fairOdds": 1.7259233690024163
+        },
+        {
+          "market": "yellow_total",
+          "selection": "Menos de 3.5",
+          "line": 3.5,
+          "p": 0.4206,
+          "fairOdds": 2.3775558725630055
+        }
+      ],
+      "marketGroups": [
+        {
+          "group": "Resultado",
+          "rows": [
+            {
+              "market": "h2h",
+              "selection": "home",
+              "label": "Pachuca gana",
+              "p": 0.42017743323542994,
+              "fairOdds": 2.37994694836381
+            },
+            {
+              "market": "h2h",
+              "selection": "draw",
+              "label": "Empate",
+              "p": 0.2660298374143605,
+              "fairOdds": 3.7589768490608386
+            },
+            {
+              "market": "h2h",
+              "selection": "away",
+              "label": "Chivas gana",
+              "p": 0.3137927293502096,
+              "fairOdds": 3.186816986074735
+            }
+          ]
+        },
+        {
+          "group": "Doble oportunidad",
+          "rows": [
+            {
+              "market": "double_chance",
+              "selection": "1x",
+              "label": "Pachuca o empate",
+              "p": 0.6862072706497904,
+              "fairOdds": 1.4572856376952548
+            },
+            {
+              "market": "double_chance",
+              "selection": "x2",
+              "label": "Chivas o empate",
+              "p": 0.57982256676457,
+              "fairOdds": 1.7246655396322959
+            },
+            {
+              "market": "double_chance",
+              "selection": "12",
+              "label": "Sin empate",
+              "p": 0.7339701625856395,
+              "fairOdds": 1.3624532044697664
+            }
+          ]
+        },
+        {
+          "group": "Goles totales",
+          "rows": [
+            {
+              "market": "totals",
+              "selection": "over_1.5",
+              "label": "Más de 1.5 goles",
+              "line": 1.5,
+              "p": 0.7277835752066866,
+              "fairOdds": 1.3740348560573181
+            },
+            {
+              "market": "totals",
+              "selection": "over_2.5",
+              "label": "Más de 2.5 goles",
+              "line": 2.5,
+              "p": 0.4758913297022599,
+              "fairOdds": 2.101320065288114
+            },
+            {
+              "market": "totals",
+              "selection": "under_2.5",
+              "label": "Menos de 2.5 goles",
+              "line": 2.5,
+              "p": 0.5241086702977401,
+              "fairOdds": 1.9080012536940316
+            },
+            {
+              "market": "totals",
+              "selection": "over_3.5",
+              "label": "Más de 3.5 goles",
+              "line": 3.5,
+              "p": 0.2605577632486896,
+              "fairOdds": 3.8379205728963406
+            },
+            {
+              "market": "totals",
+              "selection": "under_3.5",
+              "label": "Menos de 3.5 goles",
+              "line": 3.5,
+              "p": 0.7394422367513104,
+              "fairOdds": 1.3523706792750068
+            }
+          ]
+        },
+        {
+          "group": "Ambos anotan",
+          "rows": [
+            {
+              "market": "btts",
+              "selection": "yes",
+              "label": "Sí",
+              "p": 0.5244401351403436,
+              "fairOdds": 1.9067953289509267
+            },
+            {
+              "market": "btts",
+              "selection": "no",
+              "label": "No",
+              "p": 0.4755598648596564,
+              "fairOdds": 2.1027846836803867
+            }
+          ]
+        },
+        {
+          "group": "Goles por equipo (1.5)",
+          "rows": [
+            {
+              "market": "team_totals",
+              "selection": "home_over",
+              "label": "Pachuca más de 1.5 goles",
+              "line": 1.5,
+              "p": 0.4059351384808547,
+              "fairOdds": 2.4634477412877707
+            },
+            {
+              "market": "team_totals",
+              "selection": "home_under",
+              "label": "Pachuca menos de 1.5 goles",
+              "line": 1.5,
+              "p": 0.5940648615191453,
+              "fairOdds": 1.6833178744873003
+            },
+            {
+              "market": "team_totals",
+              "selection": "away_over",
+              "label": "Chivas más de 1.5 goles",
+              "line": 1.5,
+              "p": 0.33270533932157353,
+              "fairOdds": 3.0056626143695833
+            },
+            {
+              "market": "team_totals",
+              "selection": "away_under",
+              "label": "Chivas menos de 1.5 goles",
+              "line": 1.5,
+              "p": 0.6672946606784265,
+              "fairOdds": 1.498588343241527
+            }
+          ]
+        },
+        {
+          "group": "Marcador exacto (más probables)",
+          "rows": [
+            {
+              "market": "correct_score",
+              "selection": "1-1",
+              "label": "1–1",
+              "p": 0.12644071550566693,
+              "fairOdds": 7.9088448368926
+            },
+            {
+              "market": "correct_score",
+              "selection": "1-0",
+              "label": "1–0",
+              "p": 0.11020585987710091,
+              "fairOdds": 9.07392765788659
+            },
+            {
+              "market": "correct_score",
+              "selection": "2-1",
+              "label": "2–1",
+              "p": 0.09008796985836366,
+              "fairOdds": 11.100261239899183
+            }
+          ]
+        },
+        {
+          "group": "Tiros de esquina 9.5",
+          "rows": [
+            {
+              "market": "corners_total",
+              "selection": "over",
+              "label": "Más de 9.5",
+              "line": 9.5,
+              "p": 0.5321,
+              "fairOdds": 1.8793459875963163
+            },
+            {
+              "market": "corners_total",
+              "selection": "under",
+              "label": "Menos de 9.5",
+              "line": 9.5,
+              "p": 0.4679,
+              "fairOdds": 2.137208805300278
+            }
+          ]
+        },
+        {
+          "group": "Faltas 25.5",
+          "rows": [
+            {
+              "market": "fouls_total",
+              "selection": "over",
+              "label": "Más de 25.5",
+              "line": 25.5,
+              "p": 0.4688,
+              "fairOdds": 2.1331058020477816
+            },
+            {
+              "market": "fouls_total",
+              "selection": "under",
+              "label": "Menos de 25.5",
+              "line": 25.5,
+              "p": 0.5312,
+              "fairOdds": 1.8825301204819276
+            }
+          ]
+        },
+        {
+          "group": "Tarjetas amarillas 3.5",
+          "rows": [
+            {
+              "market": "yellow_total",
+              "selection": "over",
+              "label": "Más de 3.5",
+              "line": 3.5,
+              "p": 0.5794,
+              "fairOdds": 1.7259233690024163
+            },
+            {
+              "market": "yellow_total",
+              "selection": "under",
+              "label": "Menos de 3.5",
+              "line": 3.5,
+              "p": 0.4206,
+              "fairOdds": 2.3775558725630055
+            }
+          ]
+        }
+      ],
+      "mostLikelyScore": {
+        "home": 1,
+        "away": 1,
+        "p": 0.12644071550566693
+      },
+      "factors": [
+        {
+          "key": "home_attack",
+          "label": "Ataque local",
+          "value": "1.21 goles/partido",
+          "detail": "19 % más que la media · 17 partidos"
+        },
+        {
+          "key": "away_defense",
+          "label": "Defensa visitante",
+          "value": "1.02 concedidos/partido",
+          "detail": "26 % menos que la media · 17 partidos"
+        },
+        {
+          "key": "away_attack",
+          "label": "Ataque visitante",
+          "value": "1.24 goles/partido",
+          "detail": "3 % más que la media · ajustado por rival"
+        },
+        {
+          "key": "home_defense",
+          "label": "Defensa local",
+          "value": "1.20 concedidos/partido",
+          "detail": "12 % menos que la media · ajustado por rival"
+        },
+        {
+          "key": "home_advantage",
+          "label": "Localía",
+          "value": "×1.11",
+          "detail": "estimada de 207 partidos"
+        },
+        {
+          "key": "uncertainty",
+          "label": "Intervalo 90%",
+          "value": "goles 2.0–3.5",
+          "detail": "local 25%–60% · 207 partidos"
+        },
+        {
+          "key": "home_position",
+          "label": "Posición local",
+          "value": "8.º · 25 pts",
+          "detail": "de 18 equipos"
+        },
+        {
+          "key": "away_position",
+          "label": "Posición visitante",
+          "value": "1.º · 33 pts",
+          "detail": "de 18 equipos"
+        },
+        {
+          "key": "home_form",
+          "label": "Forma local",
+          "value": "P-G-G-G-G · 12 pts",
+          "detail": "12 goles a favor · 4 en contra"
+        },
+        {
+          "key": "away_form",
+          "label": "Forma visitante",
+          "value": "G-G-G-E-G · 13 pts",
+          "detail": "8 goles a favor · 3 en contra"
+        },
+        {
+          "key": "long_memory",
+          "label": "Memoria larga",
+          "value": "+3 pts al local",
+          "detail": "historia 45% / 27% / 28% · temporada 39% / 26% / 34%"
+        },
+        {
+          "key": "corners_expected",
+          "label": "Tiros de esquina",
+          "value": "10.1 tiros de esquina esperados",
+          "detail": "Pachuca 5.1 · Chivas 5.0"
+        },
+        {
+          "key": "fouls_expected",
+          "label": "Faltas",
+          "value": "25.3 faltas esperados",
+          "detail": "Pachuca 14.7 · Chivas 10.6"
+        },
+        {
+          "key": "yellow_expected",
+          "label": "Tarjetas amarillas",
+          "value": "4.1 amarillas esperados",
+          "detail": "Pachuca 2.1 · Chivas 1.9"
+        }
+      ],
+      "steps": [
+        "Sincronizando Liga MX · corte 24 nov 2026, 21:08",
+        "Fuerza ajustada por rival · PAC 1.19 / 0.88 · GDL 1.03 / 0.74",
+        "Ponderando 143.6 partidos por antigüedad y calidad del rival",
+        "Proyección de goles 1.34 – 1.24 · total 2.58",
+        "Simulando 121 marcadores con incertidumbre del ajuste",
+        "20 mercados listos · marcador proyectado 1–0"
+      ],
+      "inputsAsOf": "2026-11-24T21:08:59.597Z",
+      "publishedAt": "2026-11-24T21:08:59.597Z",
+      "source": "espn",
+      "picks": [
+        {
+          "profile": "conservadora",
+          "market": "totals",
+          "selection": "under_3.5",
+          "label": "Menos de 3.5 goles",
+          "line": 3.5,
+          "p": 0.7394422367513104,
+          "fairOdds": 1.3523706792750068
+        },
+        {
+          "profile": "intermedia",
+          "market": "double_chance",
+          "selection": "1x",
+          "label": "Pachuca o empate",
+          "p": 0.6862072706497904,
+          "fairOdds": 1.4572856376952548
+        },
+        {
+          "profile": "arriesgada",
+          "market": "totals",
+          "selection": "over_2.5",
+          "label": "Más de 2.5 goles",
+          "line": 2.5,
+          "p": 0.4758913297022599,
+          "fairOdds": 2.101320065288114
+        }
+      ],
+      "confidence": {
+        "score": 47,
+        "level": "media",
+        "reasons": [
+          "Partido parejo",
+          "Muestra suficiente"
+        ]
+      },
+      "projectedScore": {
+        "home": 1,
+        "away": 0,
+        "p": 0.11020585987710091
+      },
+      "insights": {
+        "why": [
+          "Pachuca gana en 42% de los escenarios; el empate, en 27%.",
+          "Chivas concede 26 % menos que la media.",
+          "Pachuca anota 19 % más que la media."
+        ],
+        "headToHead": [
+          {
+            "date": "2026-08-29",
+            "homeTeamId": "liga-mx.pachuca",
+            "awayTeamId": "liga-mx.chivas",
+            "homeGoals": 1,
+            "awayGoals": 1
+          },
+          {
+            "date": "2025-02-22",
+            "homeTeamId": "liga-mx.chivas",
+            "awayTeamId": "liga-mx.pachuca",
+            "homeGoals": 2,
+            "awayGoals": 1
+          },
+          {
+            "date": "2024-10-19",
+            "homeTeamId": "liga-mx.pachuca",
+            "awayTeamId": "liga-mx.chivas",
+            "homeGoals": 0,
+            "awayGoals": 2
+          },
+          {
+            "date": "2021-02-22",
+            "homeTeamId": "liga-mx.pachuca",
+            "awayTeamId": "liga-mx.chivas",
+            "homeGoals": 1,
+            "awayGoals": 1
+          },
+          {
+            "date": "2020-08-29",
+            "homeTeamId": "liga-mx.chivas",
+            "awayTeamId": "liga-mx.pachuca",
+            "homeGoals": 0,
+            "awayGoals": 0
+          }
+        ],
+        "restDays": {
+          "home": 6,
+          "away": 5
+        }
+      },
+      "picksAt": "2026-11-24T21:08:59.597Z"
+    },
+    "mx-2026-lg-leon-cruz-azul-401931995": {
+      "game": "mx-2026-lg-leon-cruz-azul-401931995",
+      "cortex": {
+        "headline": "Cruz Azul llega mejor ubicado, pero el local mantiene ventaja de descanso",
+        "headlineOrigin": "ia",
+        "sections": [
+          {
+            "key": "lectura",
+            "title": "La lectura",
+            "text": "Cruz Azul llega con 41 % de probabilidad y segundo lugar de la tabla con 32 puntos, mientras León es séptimo con 26. La diferencia en la proyección es mínima, así que el peso de la localía y un día más de descanso sostienen al León en el partido.",
+            "origin": "ia"
+          },
+          {
+            "key": "goles",
+            "title": "Goles",
+            "text": "Se espera un partido abierto: 3.28 goles en total, con 63 % de superar los 2.5 y 65 % de que ambos anoten. Cruz Azul aporta un poco más en la proyección con 1.70 por 1.58 del León.",
+            "origin": "ia",
+            "stats": [
+              {
+                "label": "Goles esperados",
+                "home": 1.58,
+                "away": 1.7
+              },
+              {
+                "label": "Ambos anotan",
+                "value": "65 %"
+              },
+              {
+                "label": "Más de 2.5 goles",
+                "value": "63 %"
+              }
+            ]
+          },
+          {
+            "key": "ritmo",
+            "title": "Ritmo del partido",
+            "text": "Los tiros de esquina vienen parejos, 5.5 del León y 5.3 del Cruz Azul, con 10.8 en total. Las faltas también se reparten: 12.0 y 12.5, para 24.5 en conjunto, un partido cortado pero sin un dominador claro.",
+            "origin": "ia",
+            "stats": [
+              {
+                "label": "Tiros de esquina",
+                "home": 5.5,
+                "away": 5.3
+              },
+              {
+                "label": "Faltas",
+                "home": 12,
+                "away": 12.5
+              },
+              {
+                "label": "Amarillas",
+                "home": 2.1,
+                "away": 2.3
+              }
+            ]
+          },
+          {
+            "key": "tabla",
+            "title": "Tabla y descanso",
+            "text": "Cruz Azul está segundo con 32 puntos y diferencia de 10 tras 17 jornadas. El León es séptimo con 26 puntos y diferencia de 3. El descanso favorece al local: 6 días por 5 del visitante.",
+            "origin": "ia",
+            "stats": [
+              {
+                "label": "Puntos",
+                "home": 26,
+                "away": 32
+              }
+            ]
+          },
+          {
+            "key": "cambia",
+            "title": "Qué podría cambiarlo",
+            "text": "Las alineaciones confirmadas pueden ajustar el peso ofensivo de cada lado. El criterio del árbitro influye en un partido con muchas faltas proyectadas. El primer gol define si el León se suelta o el Cruz Azul controla.",
+            "origin": "ia"
+          }
+        ],
+        "fingerprint": "3c2c8768db039e04",
+        "generatedAt": "2026-11-24T21:10:14.551Z",
+        "version": "2"
+      },
+      "counts": {
+        "corners": {
+          "home": 5.51,
+          "away": 5.26,
+          "total": 10.77,
+          "line": 10.5,
+          "pOver": 0.4963,
+          "sample": {
+            "home": 50,
+            "away": 60
+          }
+        },
+        "fouls": {
+          "home": 11.98,
+          "away": 12.48,
+          "total": 24.46,
+          "line": 24.5,
+          "pOver": 0.4816,
+          "sample": {
+            "home": 50,
+            "away": 60
+          }
+        },
+        "yellow": {
+          "home": 2.08,
+          "away": 2.26,
+          "total": 4.35,
+          "line": 4.5,
+          "pOver": 0.4386,
+          "sample": {
+            "home": 69,
+            "away": 81
+          }
+        }
+      },
+      "model": {
+        "id": "pitchlab-statistical-liga-mx",
+        "version": "2.0.0",
+        "status": "candidate",
+        "label": "Modelo PitchLab · en validación"
+      },
+      "projection": {
+        "home": 1.578716310778772,
+        "away": 1.6989267797166163,
+        "total": 3.2776430904953884,
+        "margin": -0.12021046893784426
+      },
+      "x12": [
+        0.3357213668504659,
+        0.25553656132789787,
+        0.4087420718216359
+      ],
+      "probabilities": [
+        {
+          "market": "h2h",
+          "selection": "León gana",
+          "p": 0.3357213668504659,
+          "fairOdds": 2.9786605761241622
+        },
+        {
+          "market": "h2h",
+          "selection": "Empate",
+          "p": 0.25553656132789787,
+          "fairOdds": 3.9133343377694825
+        },
+        {
+          "market": "h2h",
+          "selection": "Cruz Azul gana",
+          "p": 0.4087420718216359,
+          "fairOdds": 2.4465306337155655
+        },
+        {
+          "market": "double_chance",
+          "selection": "León o empate",
+          "p": 0.5912579281783638,
+          "fairOdds": 1.6913092448179938
+        },
+        {
+          "market": "double_chance",
+          "selection": "Cruz Azul o empate",
+          "p": 0.6642786331495338,
+          "fairOdds": 1.505392391230041
+        },
+        {
+          "market": "double_chance",
+          "selection": "Sin empate",
+          "p": 0.7444634386721019,
+          "fairOdds": 1.343249309574824
+        },
+        {
+          "market": "totals",
+          "selection": "Más de 1.5 goles",
+          "line": 1.5,
+          "p": 0.8374000394449475,
+          "fairOdds": 1.194172382249741
+        },
+        {
+          "market": "totals",
+          "selection": "Más de 2.5 goles",
+          "line": 2.5,
+          "p": 0.6277613842171053,
+          "fairOdds": 1.5929619520116254
+        },
+        {
+          "market": "totals",
+          "selection": "Menos de 2.5 goles",
+          "line": 2.5,
+          "p": 0.37223861578289474,
+          "fairOdds": 2.6864488465195726
+        },
+        {
+          "market": "totals",
+          "selection": "Más de 3.5 goles",
+          "line": 3.5,
+          "p": 0.41447522120703006,
+          "fairOdds": 2.412689465700293
+        },
+        {
+          "market": "totals",
+          "selection": "Menos de 3.5 goles",
+          "line": 3.5,
+          "p": 0.5855247787929699,
+          "fairOdds": 1.707869651667774
+        },
+        {
+          "market": "btts",
+          "selection": "Sí",
+          "p": 0.6539967284066772,
+          "fairOdds": 1.5290596367909752
+        },
+        {
+          "market": "btts",
+          "selection": "No",
+          "p": 0.3460032715933228,
+          "fairOdds": 2.8901460827091734
+        },
+        {
+          "market": "team_totals",
+          "selection": "León más de 1.5 goles",
+          "line": 1.5,
+          "p": 0.4580680296958951,
+          "fairOdds": 2.1830818463010524
+        },
+        {
+          "market": "team_totals",
+          "selection": "León menos de 1.5 goles",
+          "line": 1.5,
+          "p": 0.5419319703041049,
+          "fairOdds": 1.8452500586722176
+        },
+        {
+          "market": "team_totals",
+          "selection": "Cruz Azul más de 1.5 goles",
+          "line": 1.5,
+          "p": 0.5105298332545332,
+          "fairOdds": 1.9587493910496574
+        },
+        {
+          "market": "team_totals",
+          "selection": "Cruz Azul menos de 1.5 goles",
+          "line": 1.5,
+          "p": 0.48947016674546684,
+          "fairOdds": 2.0430254343162404
+        },
+        {
+          "market": "correct_score",
+          "selection": "1–1",
+          "p": 0.11183981559604927,
+          "fairOdds": 8.941359520940813
+        },
+        {
+          "market": "correct_score",
+          "selection": "1–2",
+          "p": 0.08534659489924967,
+          "fairOdds": 11.71692908405408
+        },
+        {
+          "market": "correct_score",
+          "selection": "2–2",
+          "p": 0.07613405798736282,
+          "fairOdds": 13.134726119104092
+        },
+        {
+          "market": "corners_total",
+          "selection": "Más de 10.5",
+          "line": 10.5,
+          "p": 0.4963,
+          "fairOdds": 2.014910336490026
+        },
+        {
+          "market": "corners_total",
+          "selection": "Menos de 10.5",
+          "line": 10.5,
+          "p": 0.5037,
+          "fairOdds": 1.985308715505261
+        },
+        {
+          "market": "fouls_total",
+          "selection": "Más de 24.5",
+          "line": 24.5,
+          "p": 0.4816,
+          "fairOdds": 2.0764119601328903
+        },
+        {
+          "market": "fouls_total",
+          "selection": "Menos de 24.5",
+          "line": 24.5,
+          "p": 0.5184,
+          "fairOdds": 1.9290123456790125
+        },
+        {
+          "market": "yellow_total",
+          "selection": "Más de 4.5",
+          "line": 4.5,
+          "p": 0.4386,
+          "fairOdds": 2.279981760145919
+        },
+        {
+          "market": "yellow_total",
+          "selection": "Menos de 4.5",
+          "line": 4.5,
+          "p": 0.5614,
+          "fairOdds": 1.7812611328820804
+        }
+      ],
+      "marketGroups": [
+        {
+          "group": "Resultado",
+          "rows": [
+            {
+              "market": "h2h",
+              "selection": "home",
+              "label": "León gana",
+              "p": 0.3357213668504659,
+              "fairOdds": 2.9786605761241622
+            },
+            {
+              "market": "h2h",
+              "selection": "draw",
+              "label": "Empate",
+              "p": 0.25553656132789787,
+              "fairOdds": 3.9133343377694825
+            },
+            {
+              "market": "h2h",
+              "selection": "away",
+              "label": "Cruz Azul gana",
+              "p": 0.4087420718216359,
+              "fairOdds": 2.4465306337155655
+            }
+          ]
+        },
+        {
+          "group": "Doble oportunidad",
+          "rows": [
+            {
+              "market": "double_chance",
+              "selection": "1x",
+              "label": "León o empate",
+              "p": 0.5912579281783638,
+              "fairOdds": 1.6913092448179938
+            },
+            {
+              "market": "double_chance",
+              "selection": "x2",
+              "label": "Cruz Azul o empate",
+              "p": 0.6642786331495338,
+              "fairOdds": 1.505392391230041
+            },
+            {
+              "market": "double_chance",
+              "selection": "12",
+              "label": "Sin empate",
+              "p": 0.7444634386721019,
+              "fairOdds": 1.343249309574824
+            }
+          ]
+        },
+        {
+          "group": "Goles totales",
+          "rows": [
+            {
+              "market": "totals",
+              "selection": "over_1.5",
+              "label": "Más de 1.5 goles",
+              "line": 1.5,
+              "p": 0.8374000394449475,
+              "fairOdds": 1.194172382249741
+            },
+            {
+              "market": "totals",
+              "selection": "over_2.5",
+              "label": "Más de 2.5 goles",
+              "line": 2.5,
+              "p": 0.6277613842171053,
+              "fairOdds": 1.5929619520116254
+            },
+            {
+              "market": "totals",
+              "selection": "under_2.5",
+              "label": "Menos de 2.5 goles",
+              "line": 2.5,
+              "p": 0.37223861578289474,
+              "fairOdds": 2.6864488465195726
+            },
+            {
+              "market": "totals",
+              "selection": "over_3.5",
+              "label": "Más de 3.5 goles",
+              "line": 3.5,
+              "p": 0.41447522120703006,
+              "fairOdds": 2.412689465700293
+            },
+            {
+              "market": "totals",
+              "selection": "under_3.5",
+              "label": "Menos de 3.5 goles",
+              "line": 3.5,
+              "p": 0.5855247787929699,
+              "fairOdds": 1.707869651667774
+            }
+          ]
+        },
+        {
+          "group": "Ambos anotan",
+          "rows": [
+            {
+              "market": "btts",
+              "selection": "yes",
+              "label": "Sí",
+              "p": 0.6539967284066772,
+              "fairOdds": 1.5290596367909752
+            },
+            {
+              "market": "btts",
+              "selection": "no",
+              "label": "No",
+              "p": 0.3460032715933228,
+              "fairOdds": 2.8901460827091734
+            }
+          ]
+        },
+        {
+          "group": "Goles por equipo (1.5)",
+          "rows": [
+            {
+              "market": "team_totals",
+              "selection": "home_over",
+              "label": "León más de 1.5 goles",
+              "line": 1.5,
+              "p": 0.4580680296958951,
+              "fairOdds": 2.1830818463010524
+            },
+            {
+              "market": "team_totals",
+              "selection": "home_under",
+              "label": "León menos de 1.5 goles",
+              "line": 1.5,
+              "p": 0.5419319703041049,
+              "fairOdds": 1.8452500586722176
+            },
+            {
+              "market": "team_totals",
+              "selection": "away_over",
+              "label": "Cruz Azul más de 1.5 goles",
+              "line": 1.5,
+              "p": 0.5105298332545332,
+              "fairOdds": 1.9587493910496574
+            },
+            {
+              "market": "team_totals",
+              "selection": "away_under",
+              "label": "Cruz Azul menos de 1.5 goles",
+              "line": 1.5,
+              "p": 0.48947016674546684,
+              "fairOdds": 2.0430254343162404
+            }
+          ]
+        },
+        {
+          "group": "Marcador exacto (más probables)",
+          "rows": [
+            {
+              "market": "correct_score",
+              "selection": "1-1",
+              "label": "1–1",
+              "p": 0.11183981559604927,
+              "fairOdds": 8.941359520940813
+            },
+            {
+              "market": "correct_score",
+              "selection": "1-2",
+              "label": "1–2",
+              "p": 0.08534659489924967,
+              "fairOdds": 11.71692908405408
+            },
+            {
+              "market": "correct_score",
+              "selection": "2-2",
+              "label": "2–2",
+              "p": 0.07613405798736282,
+              "fairOdds": 13.134726119104092
+            }
+          ]
+        },
+        {
+          "group": "Tiros de esquina 10.5",
+          "rows": [
+            {
+              "market": "corners_total",
+              "selection": "over",
+              "label": "Más de 10.5",
+              "line": 10.5,
+              "p": 0.4963,
+              "fairOdds": 2.014910336490026
+            },
+            {
+              "market": "corners_total",
+              "selection": "under",
+              "label": "Menos de 10.5",
+              "line": 10.5,
+              "p": 0.5037,
+              "fairOdds": 1.985308715505261
+            }
+          ]
+        },
+        {
+          "group": "Faltas 24.5",
+          "rows": [
+            {
+              "market": "fouls_total",
+              "selection": "over",
+              "label": "Más de 24.5",
+              "line": 24.5,
+              "p": 0.4816,
+              "fairOdds": 2.0764119601328903
+            },
+            {
+              "market": "fouls_total",
+              "selection": "under",
+              "label": "Menos de 24.5",
+              "line": 24.5,
+              "p": 0.5184,
+              "fairOdds": 1.9290123456790125
+            }
+          ]
+        },
+        {
+          "group": "Tarjetas amarillas 4.5",
+          "rows": [
+            {
+              "market": "yellow_total",
+              "selection": "over",
+              "label": "Más de 4.5",
+              "line": 4.5,
+              "p": 0.4386,
+              "fairOdds": 2.279981760145919
+            },
+            {
+              "market": "yellow_total",
+              "selection": "under",
+              "label": "Menos de 4.5",
+              "line": 4.5,
+              "p": 0.5614,
+              "fairOdds": 1.7812611328820804
+            }
+          ]
+        }
+      ],
+      "mostLikelyScore": {
+        "home": 1,
+        "away": 1,
+        "p": 0.11183981559604927
+      },
+      "factors": [
+        {
+          "key": "home_attack",
+          "label": "Ataque local",
+          "value": "1.42 goles/partido",
+          "detail": "en la media de la liga · 17 partidos"
+        },
+        {
+          "key": "away_defense",
+          "label": "Defensa visitante",
+          "value": "1.42 concedidos/partido",
+          "detail": "3 % más que la media · 17 partidos"
+        },
+        {
+          "key": "away_attack",
+          "label": "Ataque visitante",
+          "value": "1.70 goles/partido",
+          "detail": "33 % más que la media · ajustado por rival"
+        },
+        {
+          "key": "home_defense",
+          "label": "Defensa local",
+          "value": "1.28 concedidos/partido",
+          "detail": "7 % menos que la media · ajustado por rival"
+        },
+        {
+          "key": "home_advantage",
+          "label": "Localía",
+          "value": "×1.11",
+          "detail": "estimada de 207 partidos"
+        },
+        {
+          "key": "uncertainty",
+          "label": "Intervalo 90%",
+          "value": "goles 2.6–4.5",
+          "detail": "local 16%–55% · 207 partidos"
+        },
+        {
+          "key": "home_position",
+          "label": "Posición local",
+          "value": "7.º · 26 pts",
+          "detail": "de 18 equipos"
+        },
+        {
+          "key": "away_position",
+          "label": "Posición visitante",
+          "value": "2.º · 32 pts",
+          "detail": "de 18 equipos"
+        },
+        {
+          "key": "home_form",
+          "label": "Forma local",
+          "value": "G-E-P-E-G · 8 pts",
+          "detail": "7 goles a favor · 5 en contra"
+        },
+        {
+          "key": "away_form",
+          "label": "Forma visitante",
+          "value": "G-G-G-G-P · 12 pts",
+          "detail": "10 goles a favor · 6 en contra"
+        },
+        {
+          "key": "long_memory",
+          "label": "Memoria larga",
+          "value": "−3 pts al local",
+          "detail": "historia 31% / 28% / 41% · temporada 36% / 23% / 41%"
+        },
+        {
+          "key": "corners_expected",
+          "label": "Tiros de esquina",
+          "value": "10.8 tiros de esquina esperados",
+          "detail": "León 5.5 · Cruz Azul 5.3"
+        },
+        {
+          "key": "fouls_expected",
+          "label": "Faltas",
+          "value": "24.5 faltas esperados",
+          "detail": "León 12.0 · Cruz Azul 12.5"
+        },
+        {
+          "key": "yellow_expected",
+          "label": "Tarjetas amarillas",
+          "value": "4.3 amarillas esperados",
+          "detail": "León 2.1 · Cruz Azul 2.3"
+        }
+      ],
+      "steps": [
+        "Sincronizando Liga MX · corte 24 nov 2026, 21:08",
+        "Fuerza ajustada por rival · LEO 1.00 / 0.93 · CAZ 1.33 / 1.03",
+        "Ponderando 143.6 partidos por antigüedad y calidad del rival",
+        "Proyección de goles 1.58 – 1.70 · total 3.28",
+        "Simulando 121 marcadores con incertidumbre del ajuste",
+        "20 mercados listos · marcador proyectado 1–2"
+      ],
+      "inputsAsOf": "2026-11-24T21:08:59.597Z",
+      "publishedAt": "2026-11-24T21:08:59.597Z",
+      "source": "espn",
+      "picks": [
+        {
+          "profile": "conservadora",
+          "market": "totals",
+          "selection": "over_1.5",
+          "label": "Más de 1.5 goles",
+          "line": 1.5,
+          "p": 0.8374000394449475,
+          "fairOdds": 1.194172382249741
+        },
+        {
+          "profile": "intermedia",
+          "market": "double_chance",
+          "selection": "x2",
+          "label": "Cruz Azul o empate",
+          "p": 0.6642786331495338,
+          "fairOdds": 1.505392391230041
+        },
+        {
+          "profile": "arriesgada",
+          "market": "team_totals",
+          "selection": "away_over",
+          "label": "Cruz Azul más de 1.5 goles",
+          "line": 1.5,
+          "p": 0.5105298332545332,
+          "fairOdds": 1.9587493910496574
+        }
+      ],
+      "confidence": {
+        "score": 44,
+        "level": "baja",
+        "reasons": [
+          "Partido parejo",
+          "Muestra suficiente"
+        ]
+      },
+      "projectedScore": {
+        "home": 1,
+        "away": 2,
+        "p": 0.08534659489924967
+      },
+      "insights": {
+        "why": [
+          "Cruz Azul gana en 41% de los escenarios; el empate, en 26%.",
+          "Cruz Azul anota 33 % más que la media."
+        ],
+        "headToHead": [
+          {
+            "date": "2026-11-02",
+            "homeTeamId": "liga-mx.cruz-azul",
+            "awayTeamId": "liga-mx.leon",
+            "homeGoals": 2,
+            "awayGoals": 1
+          },
+          {
+            "date": "2025-04-15",
+            "homeTeamId": "liga-mx.cruz-azul",
+            "awayTeamId": "liga-mx.leon",
+            "homeGoals": 2,
+            "awayGoals": 1
+          },
+          {
+            "date": "2024-09-14",
+            "homeTeamId": "liga-mx.leon",
+            "awayTeamId": "liga-mx.cruz-azul",
+            "homeGoals": 1,
+            "awayGoals": 2
+          },
+          {
+            "date": "2021-02-27",
+            "homeTeamId": "liga-mx.leon",
+            "awayTeamId": "liga-mx.cruz-azul",
+            "homeGoals": 0,
+            "awayGoals": 1
+          },
+          {
+            "date": "2020-08-08",
+            "homeTeamId": "liga-mx.cruz-azul",
+            "awayTeamId": "liga-mx.leon",
+            "homeGoals": 2,
+            "awayGoals": 0
+          }
+        ],
+        "restDays": {
+          "home": 6,
+          "away": 5
+        }
+      },
+      "picksAt": "2026-11-24T21:08:59.597Z"
+    },
+    "mx-2026-lg-atlas-toluca-401931997": {
+      "game": "mx-2026-lg-atlas-toluca-401931997",
+      "counts": {
+        "corners": {
+          "home": 5.5,
+          "away": 5.55,
+          "total": 11.05,
+          "line": 10.5,
+          "pOver": 0.5244,
+          "sample": {
+            "home": 52,
+            "away": 58
+          }
+        },
+        "fouls": {
+          "home": 12.18,
+          "away": 11.86,
+          "total": 24.04,
+          "line": 23.5,
+          "pOver": 0.5271,
+          "sample": {
+            "home": 52,
+            "away": 58
+          }
+        },
+        "yellow": {
+          "home": 2.02,
+          "away": 1.91,
+          "total": 3.93,
+          "line": 3.5,
+          "pOver": 0.5532,
+          "sample": {
+            "home": 69,
+            "away": 81
+          }
+        }
+      },
+      "model": {
+        "id": "pitchlab-statistical-liga-mx",
+        "version": "2.0.0",
+        "status": "candidate",
+        "label": "Modelo PitchLab · en validación"
+      },
+      "projection": {
+        "home": 1.6782294838790832,
+        "away": 2.169051570784471,
+        "total": 3.8472810546635543,
+        "margin": -0.49082208690538764
+      },
+      "x12": [
+        0.2910035775938885,
+        0.23673168906501055,
+        0.47226473334110103
+      ],
+      "probabilities": [
+        {
+          "market": "h2h",
+          "selection": "Atlas gana",
+          "p": 0.2910035775938885,
+          "fairOdds": 3.436383869464158
+        },
+        {
+          "market": "h2h",
+          "selection": "Empate",
+          "p": 0.23673168906501055,
+          "fairOdds": 4.224191547610608
+        },
+        {
+          "market": "h2h",
+          "selection": "Toluca gana",
+          "p": 0.47226473334110103,
+          "fairOdds": 2.117456437886785
+        },
+        {
+          "market": "double_chance",
+          "selection": "Atlas o empate",
+          "p": 0.527735266658899,
+          "fairOdds": 1.8948894704934485
+        },
+        {
+          "market": "double_chance",
+          "selection": "Toluca o empate",
+          "p": 0.7089964224061116,
+          "fairOdds": 1.4104443526052126
+        },
+        {
+          "market": "double_chance",
+          "selection": "Sin empate",
+          "p": 0.7632683109349896,
+          "fairOdds": 1.3101552700059282
+        },
+        {
+          "market": "totals",
+          "selection": "Más de 1.5 goles",
+          "line": 1.5,
+          "p": 0.8956053080220963,
+          "fairOdds": 1.1165632796532377
+        },
+        {
+          "market": "totals",
+          "selection": "Más de 2.5 goles",
+          "line": 2.5,
+          "p": 0.7297129238039851,
+          "fairOdds": 1.3704019311964648
+        },
+        {
+          "market": "totals",
+          "selection": "Menos de 2.5 goles",
+          "line": 2.5,
+          "p": 0.2702870761960149,
+          "fairOdds": 3.6997699411820566
+        },
+        {
+          "market": "totals",
+          "selection": "Más de 3.5 goles",
+          "line": 3.5,
+          "p": 0.5356131112323377,
+          "fairOdds": 1.8670192701205575
+        },
+        {
+          "market": "totals",
+          "selection": "Menos de 3.5 goles",
+          "line": 3.5,
+          "p": 0.4643868887676623,
+          "fairOdds": 2.153376902293016
+        },
+        {
+          "market": "btts",
+          "selection": "Sí",
+          "p": 0.7267844790104211,
+          "fairOdds": 1.3759237144986711
+        },
+        {
+          "market": "btts",
+          "selection": "No",
+          "p": 0.2732155209895789,
+          "fairOdds": 3.6601141705933404
+        },
+        {
+          "market": "team_totals",
+          "selection": "Atlas más de 1.5 goles",
+          "line": 1.5,
+          "p": 0.5016254357167723,
+          "fairOdds": 1.993519324974222
+        },
+        {
+          "market": "team_totals",
+          "selection": "Atlas menos de 1.5 goles",
+          "line": 1.5,
+          "p": 0.4983745642832277,
+          "fairOdds": 2.0065229481328366
+        },
+        {
+          "market": "team_totals",
+          "selection": "Toluca más de 1.5 goles",
+          "line": 1.5,
+          "p": 0.6324816082801463,
+          "fairOdds": 1.5810736421557225
+        },
+        {
+          "market": "team_totals",
+          "selection": "Toluca menos de 1.5 goles",
+          "line": 1.5,
+          "p": 0.3675183917198537,
+          "fairOdds": 2.7209522639679617
+        },
+        {
+          "market": "correct_score",
+          "selection": "1–1",
+          "p": 0.08899696809234169,
+          "fairOdds": 11.236337837513943
+        },
+        {
+          "market": "correct_score",
+          "selection": "2–2",
+          "p": 0.08222430555502658,
+          "fairOdds": 12.161854007155766
+        },
+        {
+          "market": "correct_score",
+          "selection": "1–2",
+          "p": 0.08055529878350041,
+          "fairOdds": 12.413832672728205
+        },
+        {
+          "market": "corners_total",
+          "selection": "Más de 10.5",
+          "line": 10.5,
+          "p": 0.5244,
+          "fairOdds": 1.9069412662090008
+        },
+        {
+          "market": "corners_total",
+          "selection": "Menos de 10.5",
+          "line": 10.5,
+          "p": 0.4756,
+          "fairOdds": 2.1026072329688814
+        },
+        {
+          "market": "fouls_total",
+          "selection": "Más de 23.5",
+          "line": 23.5,
+          "p": 0.5271,
+          "fairOdds": 1.8971732119142477
+        },
+        {
+          "market": "fouls_total",
+          "selection": "Menos de 23.5",
+          "line": 23.5,
+          "p": 0.4729,
+          "fairOdds": 2.114611968703743
+        },
+        {
+          "market": "yellow_total",
+          "selection": "Más de 3.5",
+          "line": 3.5,
+          "p": 0.5532,
+          "fairOdds": 1.8076644974692697
+        },
+        {
+          "market": "yellow_total",
+          "selection": "Menos de 3.5",
+          "line": 3.5,
+          "p": 0.4468,
+          "fairOdds": 2.2381378692927485
+        }
+      ],
+      "marketGroups": [
+        {
+          "group": "Resultado",
+          "rows": [
+            {
+              "market": "h2h",
+              "selection": "home",
+              "label": "Atlas gana",
+              "p": 0.2910035775938885,
+              "fairOdds": 3.436383869464158
+            },
+            {
+              "market": "h2h",
+              "selection": "draw",
+              "label": "Empate",
+              "p": 0.23673168906501055,
+              "fairOdds": 4.224191547610608
+            },
+            {
+              "market": "h2h",
+              "selection": "away",
+              "label": "Toluca gana",
+              "p": 0.47226473334110103,
+              "fairOdds": 2.117456437886785
+            }
+          ]
+        },
+        {
+          "group": "Doble oportunidad",
+          "rows": [
+            {
+              "market": "double_chance",
+              "selection": "1x",
+              "label": "Atlas o empate",
+              "p": 0.527735266658899,
+              "fairOdds": 1.8948894704934485
+            },
+            {
+              "market": "double_chance",
+              "selection": "x2",
+              "label": "Toluca o empate",
+              "p": 0.7089964224061116,
+              "fairOdds": 1.4104443526052126
+            },
+            {
+              "market": "double_chance",
+              "selection": "12",
+              "label": "Sin empate",
+              "p": 0.7632683109349896,
+              "fairOdds": 1.3101552700059282
+            }
+          ]
+        },
+        {
+          "group": "Goles totales",
+          "rows": [
+            {
+              "market": "totals",
+              "selection": "over_1.5",
+              "label": "Más de 1.5 goles",
+              "line": 1.5,
+              "p": 0.8956053080220963,
+              "fairOdds": 1.1165632796532377
+            },
+            {
+              "market": "totals",
+              "selection": "over_2.5",
+              "label": "Más de 2.5 goles",
+              "line": 2.5,
+              "p": 0.7297129238039851,
+              "fairOdds": 1.3704019311964648
+            },
+            {
+              "market": "totals",
+              "selection": "under_2.5",
+              "label": "Menos de 2.5 goles",
+              "line": 2.5,
+              "p": 0.2702870761960149,
+              "fairOdds": 3.6997699411820566
+            },
+            {
+              "market": "totals",
+              "selection": "over_3.5",
+              "label": "Más de 3.5 goles",
+              "line": 3.5,
+              "p": 0.5356131112323377,
+              "fairOdds": 1.8670192701205575
+            },
+            {
+              "market": "totals",
+              "selection": "under_3.5",
+              "label": "Menos de 3.5 goles",
+              "line": 3.5,
+              "p": 0.4643868887676623,
+              "fairOdds": 2.153376902293016
+            }
+          ]
+        },
+        {
+          "group": "Ambos anotan",
+          "rows": [
+            {
+              "market": "btts",
+              "selection": "yes",
+              "label": "Sí",
+              "p": 0.7267844790104211,
+              "fairOdds": 1.3759237144986711
+            },
+            {
+              "market": "btts",
+              "selection": "no",
+              "label": "No",
+              "p": 0.2732155209895789,
+              "fairOdds": 3.6601141705933404
+            }
+          ]
+        },
+        {
+          "group": "Goles por equipo (1.5)",
+          "rows": [
+            {
+              "market": "team_totals",
+              "selection": "home_over",
+              "label": "Atlas más de 1.5 goles",
+              "line": 1.5,
+              "p": 0.5016254357167723,
+              "fairOdds": 1.993519324974222
+            },
+            {
+              "market": "team_totals",
+              "selection": "home_under",
+              "label": "Atlas menos de 1.5 goles",
+              "line": 1.5,
+              "p": 0.4983745642832277,
+              "fairOdds": 2.0065229481328366
+            },
+            {
+              "market": "team_totals",
+              "selection": "away_over",
+              "label": "Toluca más de 1.5 goles",
+              "line": 1.5,
+              "p": 0.6324816082801463,
+              "fairOdds": 1.5810736421557225
+            },
+            {
+              "market": "team_totals",
+              "selection": "away_under",
+              "label": "Toluca menos de 1.5 goles",
+              "line": 1.5,
+              "p": 0.3675183917198537,
+              "fairOdds": 2.7209522639679617
+            }
+          ]
+        },
+        {
+          "group": "Marcador exacto (más probables)",
+          "rows": [
+            {
+              "market": "correct_score",
+              "selection": "1-1",
+              "label": "1–1",
+              "p": 0.08899696809234169,
+              "fairOdds": 11.236337837513943
+            },
+            {
+              "market": "correct_score",
+              "selection": "2-2",
+              "label": "2–2",
+              "p": 0.08222430555502658,
+              "fairOdds": 12.161854007155766
+            },
+            {
+              "market": "correct_score",
+              "selection": "1-2",
+              "label": "1–2",
+              "p": 0.08055529878350041,
+              "fairOdds": 12.413832672728205
+            }
+          ]
+        },
+        {
+          "group": "Tiros de esquina 10.5",
+          "rows": [
+            {
+              "market": "corners_total",
+              "selection": "over",
+              "label": "Más de 10.5",
+              "line": 10.5,
+              "p": 0.5244,
+              "fairOdds": 1.9069412662090008
+            },
+            {
+              "market": "corners_total",
+              "selection": "under",
+              "label": "Menos de 10.5",
+              "line": 10.5,
+              "p": 0.4756,
+              "fairOdds": 2.1026072329688814
+            }
+          ]
+        },
+        {
+          "group": "Faltas 23.5",
+          "rows": [
+            {
+              "market": "fouls_total",
+              "selection": "over",
+              "label": "Más de 23.5",
+              "line": 23.5,
+              "p": 0.5271,
+              "fairOdds": 1.8971732119142477
+            },
+            {
+              "market": "fouls_total",
+              "selection": "under",
+              "label": "Menos de 23.5",
+              "line": 23.5,
+              "p": 0.4729,
+              "fairOdds": 2.114611968703743
+            }
+          ]
+        },
+        {
+          "group": "Tarjetas amarillas 3.5",
+          "rows": [
+            {
+              "market": "yellow_total",
+              "selection": "over",
+              "label": "Más de 3.5",
+              "line": 3.5,
+              "p": 0.5532,
+              "fairOdds": 1.8076644974692697
+            },
+            {
+              "market": "yellow_total",
+              "selection": "under",
+              "label": "Menos de 3.5",
+              "line": 3.5,
+              "p": 0.4468,
+              "fairOdds": 2.2381378692927485
+            }
+          ]
+        }
+      ],
+      "mostLikelyScore": {
+        "home": 1,
+        "away": 1,
+        "p": 0.08899696809234169
+      },
+      "factors": [
+        {
+          "key": "home_attack",
+          "label": "Ataque local",
+          "value": "1.51 goles/partido",
+          "detail": "15 % más que la media · 17 partidos"
+        },
+        {
+          "key": "away_defense",
+          "label": "Defensa visitante",
+          "value": "1.31 concedidos/partido",
+          "detail": "5 % menos que la media · 17 partidos"
+        },
+        {
+          "key": "away_attack",
+          "label": "Ataque visitante",
+          "value": "2.17 goles/partido",
+          "detail": "28 % más que la media · ajustado por rival"
+        },
+        {
+          "key": "home_defense",
+          "label": "Defensa local",
+          "value": "1.69 concedidos/partido",
+          "detail": "23 % más que la media · ajustado por rival"
+        },
+        {
+          "key": "home_advantage",
+          "label": "Localía",
+          "value": "×1.11",
+          "detail": "estimada de 207 partidos"
+        },
+        {
+          "key": "uncertainty",
+          "label": "Intervalo 90%",
+          "value": "goles 3.1–5.3",
+          "detail": "local 16%–50% · 207 partidos"
+        },
+        {
+          "key": "home_position",
+          "label": "Posición local",
+          "value": "4.º · 28 pts",
+          "detail": "de 18 equipos"
+        },
+        {
+          "key": "away_position",
+          "label": "Posición visitante",
+          "value": "5.º · 27 pts",
+          "detail": "de 18 equipos"
+        },
+        {
+          "key": "home_form",
+          "label": "Forma local",
+          "value": "P-G-G-P-E · 7 pts",
+          "detail": "11 goles a favor · 15 en contra"
+        },
+        {
+          "key": "away_form",
+          "label": "Forma visitante",
+          "value": "E-E-E-G-P · 6 pts",
+          "detail": "9 goles a favor · 7 en contra"
+        },
+        {
+          "key": "long_memory",
+          "label": "Memoria larga",
+          "value": "coincide con la temporada",
+          "detail": "historia 28% / 27% / 45% · temporada 30% / 20% / 49%"
+        },
+        {
+          "key": "corners_expected",
+          "label": "Tiros de esquina",
+          "value": "11.1 tiros de esquina esperados",
+          "detail": "Atlas 5.5 · Toluca 5.5"
+        },
+        {
+          "key": "fouls_expected",
+          "label": "Faltas",
+          "value": "24.0 faltas esperados",
+          "detail": "Atlas 12.2 · Toluca 11.9"
+        },
+        {
+          "key": "yellow_expected",
+          "label": "Tarjetas amarillas",
+          "value": "3.9 amarillas esperados",
+          "detail": "Atlas 2.0 · Toluca 1.9"
+        }
+      ],
+      "steps": [
+        "Sincronizando Liga MX · corte 24 nov 2026, 21:08",
+        "Fuerza ajustada por rival · ATS 1.15 / 1.23 · TOL 1.28 / 0.95",
+        "Ponderando 143.6 partidos por antigüedad y calidad del rival",
+        "Proyección de goles 1.68 – 2.17 · total 3.85",
+        "Simulando 121 marcadores con incertidumbre del ajuste",
+        "20 mercados listos · marcador proyectado 1–2"
+      ],
+      "inputsAsOf": "2026-11-24T21:08:59.597Z",
+      "publishedAt": "2026-11-24T21:08:59.597Z",
+      "source": "espn",
+      "picks": [
+        {
+          "profile": "conservadora",
+          "market": "totals",
+          "selection": "over_1.5",
+          "label": "Más de 1.5 goles",
+          "line": 1.5,
+          "p": 0.8956053080220963,
+          "fairOdds": 1.1165632796532377
+        },
+        {
+          "profile": "intermedia",
+          "market": "team_totals",
+          "selection": "away_over",
+          "label": "Toluca más de 1.5 goles",
+          "line": 1.5,
+          "p": 0.6324816082801463,
+          "fairOdds": 1.5810736421557225
+        },
+        {
+          "profile": "arriesgada",
+          "market": "team_totals",
+          "selection": "home_over",
+          "label": "Atlas más de 1.5 goles",
+          "line": 1.5,
+          "p": 0.5016254357167723,
+          "fairOdds": 1.993519324974222
+        }
+      ],
+      "confidence": {
+        "score": 53,
+        "level": "media",
+        "reasons": [
+          "Muestra suficiente"
+        ]
+      },
+      "projectedScore": {
+        "home": 1,
+        "away": 2,
+        "p": 0.08055529878350041
+      },
+      "insights": {
+        "why": [
+          "Se esperan 3.8 goles: 1.7 de Atlas y 2.2 de Toluca.",
+          "Toluca anota 28 % más que la media.",
+          "Atlas concede 23 % más que la media."
+        ],
+        "headToHead": [
+          {
+            "date": "2026-09-12",
+            "homeTeamId": "liga-mx.toluca",
+            "awayTeamId": "liga-mx.atlas",
+            "homeGoals": 5,
+            "awayGoals": 2
+          },
+          {
+            "date": "2025-04-12",
+            "homeTeamId": "liga-mx.atlas",
+            "awayTeamId": "liga-mx.toluca",
+            "homeGoals": 2,
+            "awayGoals": 3
+          },
+          {
+            "date": "2024-09-28",
+            "homeTeamId": "liga-mx.toluca",
+            "awayTeamId": "liga-mx.atlas",
+            "homeGoals": 4,
+            "awayGoals": 1
+          },
+          {
+            "date": "2021-02-27",
+            "homeTeamId": "liga-mx.toluca",
+            "awayTeamId": "liga-mx.atlas",
+            "homeGoals": 0,
+            "awayGoals": 0
+          },
+          {
+            "date": "2020-08-13",
+            "homeTeamId": "liga-mx.atlas",
+            "awayTeamId": "liga-mx.toluca",
+            "homeGoals": 1,
+            "awayGoals": 2
+          }
+        ],
+        "restDays": {
+          "home": 8,
+          "away": 8
+        }
+      },
+      "picksAt": "2026-11-24T21:08:59.597Z"
+    },
+    "mx-2026-lg-america-monterrey-401931996": {
+      "game": "mx-2026-lg-america-monterrey-401931996",
+      "counts": {
+        "corners": {
+          "home": 5.74,
+          "away": 4.77,
+          "total": 10.5,
+          "line": 10.5,
+          "pOver": 0.4689,
+          "sample": {
+            "home": 54,
+            "away": 54
+          }
+        },
+        "fouls": {
+          "home": 13.24,
+          "away": 12.31,
+          "total": 25.55,
+          "line": 25.5,
+          "pOver": 0.4891,
+          "sample": {
+            "home": 54,
+            "away": 54
+          }
+        },
+        "yellow": {
+          "home": 1.82,
+          "away": 2.39,
+          "total": 4.21,
+          "line": 4.5,
+          "pOver": 0.4113,
+          "sample": {
+            "home": 77,
+            "away": 75
+          }
+        }
+      },
+      "model": {
+        "id": "pitchlab-statistical-liga-mx",
+        "version": "2.0.0",
+        "status": "candidate",
+        "label": "Modelo PitchLab · en validación"
+      },
+      "projection": {
+        "home": 2.033545706827103,
+        "away": 1.4984318490088728,
+        "total": 3.531977555835976,
+        "margin": 0.53511385781823
+      },
+      "x12": [
+        0.5287880790871193,
+        0.22428808065641082,
+        0.2469238402564705
+      ],
+      "probabilities": [
+        {
+          "market": "h2h",
+          "selection": "América gana",
+          "p": 0.5287880790871193,
+          "fairOdds": 1.8911167621750549
+        },
+        {
+          "market": "h2h",
+          "selection": "Empate",
+          "p": 0.22428808065641082,
+          "fairOdds": 4.458551685285096
+        },
+        {
+          "market": "h2h",
+          "selection": "Monterrey gana",
+          "p": 0.2469238402564705,
+          "fairOdds": 4.0498317171859055
+        },
+        {
+          "market": "double_chance",
+          "selection": "América o empate",
+          "p": 0.7530761597435301,
+          "fairOdds": 1.3278869435205105
+        },
+        {
+          "market": "double_chance",
+          "selection": "Monterrey o empate",
+          "p": 0.47121192091288133,
+          "fairOdds": 2.122187397260016
+        },
+        {
+          "market": "double_chance",
+          "selection": "Sin empate",
+          "p": 0.7757119193435899,
+          "fairOdds": 1.2891383709124948
+        },
+        {
+          "market": "totals",
+          "selection": "Más de 1.5 goles",
+          "line": 1.5,
+          "p": 0.867417130666124,
+          "fairOdds": 1.15284787981079
+        },
+        {
+          "market": "totals",
+          "selection": "Más de 2.5 goles",
+          "line": 2.5,
+          "p": 0.682348929379633,
+          "fairOdds": 1.4655258577296573
+        },
+        {
+          "market": "totals",
+          "selection": "Menos de 2.5 goles",
+          "line": 2.5,
+          "p": 0.317651070620367,
+          "fairOdds": 3.1481083883867207
+        },
+        {
+          "market": "totals",
+          "selection": "Más de 3.5 goles",
+          "line": 3.5,
+          "p": 0.47204136052790335,
+          "fairOdds": 2.1184584310189654
+        },
+        {
+          "market": "totals",
+          "selection": "Menos de 3.5 goles",
+          "line": 3.5,
+          "p": 0.5279586394720966,
+          "fairOdds": 1.894087766041475
+        },
+        {
+          "market": "btts",
+          "selection": "Sí",
+          "p": 0.6756962963316347,
+          "fairOdds": 1.4799548338935922
+        },
+        {
+          "market": "btts",
+          "selection": "No",
+          "p": 0.32430370366836525,
+          "fairOdds": 3.0835293852289936
+        },
+        {
+          "market": "team_totals",
+          "selection": "América más de 1.5 goles",
+          "line": 1.5,
+          "p": 0.6229727228087406,
+          "fairOdds": 1.6052067183477805
+        },
+        {
+          "market": "team_totals",
+          "selection": "América menos de 1.5 goles",
+          "line": 1.5,
+          "p": 0.3770272771912594,
+          "fairOdds": 2.6523279892364853
+        },
+        {
+          "market": "team_totals",
+          "selection": "Monterrey más de 1.5 goles",
+          "line": 1.5,
+          "p": 0.4200024560908717,
+          "fairOdds": 2.3809384576161623
+        },
+        {
+          "market": "team_totals",
+          "selection": "Monterrey menos de 1.5 goles",
+          "line": 1.5,
+          "p": 0.5799975439091283,
+          "fairOdds": 1.7241452321678727
+        },
+        {
+          "market": "correct_score",
+          "selection": "2–1",
+          "p": 0.09536663842771252,
+          "fairOdds": 10.485847215407466
+        },
+        {
+          "market": "correct_score",
+          "selection": "1–1",
+          "p": 0.09307843284717816,
+          "fairOdds": 10.743627384034934
+        },
+        {
+          "market": "correct_score",
+          "selection": "2–2",
+          "p": 0.07198529259702313,
+          "fairOdds": 13.891726544726913
+        },
+        {
+          "market": "corners_total",
+          "selection": "Más de 10.5",
+          "line": 10.5,
+          "p": 0.4689,
+          "fairOdds": 2.1326508850501176
+        },
+        {
+          "market": "corners_total",
+          "selection": "Menos de 10.5",
+          "line": 10.5,
+          "p": 0.5311,
+          "fairOdds": 1.8828845791752964
+        },
+        {
+          "market": "fouls_total",
+          "selection": "Más de 25.5",
+          "line": 25.5,
+          "p": 0.4891,
+          "fairOdds": 2.0445716622367613
+        },
+        {
+          "market": "fouls_total",
+          "selection": "Menos de 25.5",
+          "line": 25.5,
+          "p": 0.5109,
+          "fairOdds": 1.9573302016050107
+        },
+        {
+          "market": "yellow_total",
+          "selection": "Más de 4.5",
+          "line": 4.5,
+          "p": 0.4113,
+          "fairOdds": 2.4313153415998054
+        },
+        {
+          "market": "yellow_total",
+          "selection": "Menos de 4.5",
+          "line": 4.5,
+          "p": 0.5887,
+          "fairOdds": 1.6986580601324954
+        }
+      ],
+      "marketGroups": [
+        {
+          "group": "Resultado",
+          "rows": [
+            {
+              "market": "h2h",
+              "selection": "home",
+              "label": "América gana",
+              "p": 0.5287880790871193,
+              "fairOdds": 1.8911167621750549
+            },
+            {
+              "market": "h2h",
+              "selection": "draw",
+              "label": "Empate",
+              "p": 0.22428808065641082,
+              "fairOdds": 4.458551685285096
+            },
+            {
+              "market": "h2h",
+              "selection": "away",
+              "label": "Monterrey gana",
+              "p": 0.2469238402564705,
+              "fairOdds": 4.0498317171859055
+            }
+          ]
+        },
+        {
+          "group": "Doble oportunidad",
+          "rows": [
+            {
+              "market": "double_chance",
+              "selection": "1x",
+              "label": "América o empate",
+              "p": 0.7530761597435301,
+              "fairOdds": 1.3278869435205105
+            },
+            {
+              "market": "double_chance",
+              "selection": "x2",
+              "label": "Monterrey o empate",
+              "p": 0.47121192091288133,
+              "fairOdds": 2.122187397260016
+            },
+            {
+              "market": "double_chance",
+              "selection": "12",
+              "label": "Sin empate",
+              "p": 0.7757119193435899,
+              "fairOdds": 1.2891383709124948
+            }
+          ]
+        },
+        {
+          "group": "Goles totales",
+          "rows": [
+            {
+              "market": "totals",
+              "selection": "over_1.5",
+              "label": "Más de 1.5 goles",
+              "line": 1.5,
+              "p": 0.867417130666124,
+              "fairOdds": 1.15284787981079
+            },
+            {
+              "market": "totals",
+              "selection": "over_2.5",
+              "label": "Más de 2.5 goles",
+              "line": 2.5,
+              "p": 0.682348929379633,
+              "fairOdds": 1.4655258577296573
+            },
+            {
+              "market": "totals",
+              "selection": "under_2.5",
+              "label": "Menos de 2.5 goles",
+              "line": 2.5,
+              "p": 0.317651070620367,
+              "fairOdds": 3.1481083883867207
+            },
+            {
+              "market": "totals",
+              "selection": "over_3.5",
+              "label": "Más de 3.5 goles",
+              "line": 3.5,
+              "p": 0.47204136052790335,
+              "fairOdds": 2.1184584310189654
+            },
+            {
+              "market": "totals",
+              "selection": "under_3.5",
+              "label": "Menos de 3.5 goles",
+              "line": 3.5,
+              "p": 0.5279586394720966,
+              "fairOdds": 1.894087766041475
+            }
+          ]
+        },
+        {
+          "group": "Ambos anotan",
+          "rows": [
+            {
+              "market": "btts",
+              "selection": "yes",
+              "label": "Sí",
+              "p": 0.6756962963316347,
+              "fairOdds": 1.4799548338935922
+            },
+            {
+              "market": "btts",
+              "selection": "no",
+              "label": "No",
+              "p": 0.32430370366836525,
+              "fairOdds": 3.0835293852289936
+            }
+          ]
+        },
+        {
+          "group": "Goles por equipo (1.5)",
+          "rows": [
+            {
+              "market": "team_totals",
+              "selection": "home_over",
+              "label": "América más de 1.5 goles",
+              "line": 1.5,
+              "p": 0.6229727228087406,
+              "fairOdds": 1.6052067183477805
+            },
+            {
+              "market": "team_totals",
+              "selection": "home_under",
+              "label": "América menos de 1.5 goles",
+              "line": 1.5,
+              "p": 0.3770272771912594,
+              "fairOdds": 2.6523279892364853
+            },
+            {
+              "market": "team_totals",
+              "selection": "away_over",
+              "label": "Monterrey más de 1.5 goles",
+              "line": 1.5,
+              "p": 0.4200024560908717,
+              "fairOdds": 2.3809384576161623
+            },
+            {
+              "market": "team_totals",
+              "selection": "away_under",
+              "label": "Monterrey menos de 1.5 goles",
+              "line": 1.5,
+              "p": 0.5799975439091283,
+              "fairOdds": 1.7241452321678727
+            }
+          ]
+        },
+        {
+          "group": "Marcador exacto (más probables)",
+          "rows": [
+            {
+              "market": "correct_score",
+              "selection": "2-1",
+              "label": "2–1",
+              "p": 0.09536663842771252,
+              "fairOdds": 10.485847215407466
+            },
+            {
+              "market": "correct_score",
+              "selection": "1-1",
+              "label": "1–1",
+              "p": 0.09307843284717816,
+              "fairOdds": 10.743627384034934
+            },
+            {
+              "market": "correct_score",
+              "selection": "2-2",
+              "label": "2–2",
+              "p": 0.07198529259702313,
+              "fairOdds": 13.891726544726913
+            }
+          ]
+        },
+        {
+          "group": "Tiros de esquina 10.5",
+          "rows": [
+            {
+              "market": "corners_total",
+              "selection": "over",
+              "label": "Más de 10.5",
+              "line": 10.5,
+              "p": 0.4689,
+              "fairOdds": 2.1326508850501176
+            },
+            {
+              "market": "corners_total",
+              "selection": "under",
+              "label": "Menos de 10.5",
+              "line": 10.5,
+              "p": 0.5311,
+              "fairOdds": 1.8828845791752964
+            }
+          ]
+        },
+        {
+          "group": "Faltas 25.5",
+          "rows": [
+            {
+              "market": "fouls_total",
+              "selection": "over",
+              "label": "Más de 25.5",
+              "line": 25.5,
+              "p": 0.4891,
+              "fairOdds": 2.0445716622367613
+            },
+            {
+              "market": "fouls_total",
+              "selection": "under",
+              "label": "Menos de 25.5",
+              "line": 25.5,
+              "p": 0.5109,
+              "fairOdds": 1.9573302016050107
+            }
+          ]
+        },
+        {
+          "group": "Tarjetas amarillas 4.5",
+          "rows": [
+            {
+              "market": "yellow_total",
+              "selection": "over",
+              "label": "Más de 4.5",
+              "line": 4.5,
+              "p": 0.4113,
+              "fairOdds": 2.4313153415998054
+            },
+            {
+              "market": "yellow_total",
+              "selection": "under",
+              "label": "Menos de 4.5",
+              "line": 4.5,
+              "p": 0.5887,
+              "fairOdds": 1.6986580601324954
+            }
+          ]
+        }
+      ],
+      "mostLikelyScore": {
+        "home": 2,
+        "away": 1,
+        "p": 0.09536663842771252
+      },
+      "factors": [
+        {
+          "key": "home_attack",
+          "label": "Ataque local",
+          "value": "1.83 goles/partido",
+          "detail": "35 % más que la media · 17 partidos"
+        },
+        {
+          "key": "away_defense",
+          "label": "Defensa visitante",
+          "value": "1.35 concedidos/partido",
+          "detail": "en la media de la liga · 17 partidos"
+        },
+        {
+          "key": "away_attack",
+          "label": "Ataque visitante",
+          "value": "1.50 goles/partido",
+          "detail": "12 % más que la media · ajustado por rival"
+        },
+        {
+          "key": "home_defense",
+          "label": "Defensa local",
+          "value": "1.34 concedidos/partido",
+          "detail": "3 % menos que la media · ajustado por rival"
+        },
+        {
+          "key": "home_advantage",
+          "label": "Localía",
+          "value": "×1.11",
+          "detail": "estimada de 207 partidos"
+        },
+        {
+          "key": "uncertainty",
+          "label": "Intervalo 90%",
+          "value": "goles 2.8–4.4",
+          "detail": "local 32%–72% · 207 partidos"
+        },
+        {
+          "key": "home_position",
+          "label": "Posición local",
+          "value": "3.º · 30 pts",
+          "detail": "de 18 equipos"
+        },
+        {
+          "key": "away_position",
+          "label": "Posición visitante",
+          "value": "6.º · 27 pts",
+          "detail": "de 18 equipos"
+        },
+        {
+          "key": "home_form",
+          "label": "Forma local",
+          "value": "P-E-E-E-P · 3 pts",
+          "detail": "6 goles a favor · 8 en contra"
+        },
+        {
+          "key": "away_form",
+          "label": "Forma visitante",
+          "value": "P-E-P-G-G · 7 pts",
+          "detail": "6 goles a favor · 8 en contra"
+        },
+        {
+          "key": "long_memory",
+          "label": "Memoria larga",
+          "value": "+3 pts al local",
+          "detail": "historia 56% / 24% / 21% · temporada 50% / 21% / 29%"
+        },
+        {
+          "key": "corners_expected",
+          "label": "Tiros de esquina",
+          "value": "10.5 tiros de esquina esperados",
+          "detail": "América 5.7 · Monterrey 4.8"
+        },
+        {
+          "key": "fouls_expected",
+          "label": "Faltas",
+          "value": "25.6 faltas esperados",
+          "detail": "América 13.2 · Monterrey 12.3"
+        },
+        {
+          "key": "yellow_expected",
+          "label": "Tarjetas amarillas",
+          "value": "4.2 amarillas esperados",
+          "detail": "América 1.8 · Monterrey 2.4"
+        }
+      ],
+      "steps": [
+        "Sincronizando Liga MX · corte 24 nov 2026, 21:08",
+        "Fuerza ajustada por rival · AME 1.35 / 0.97 · MTY 1.12 / 0.99",
+        "Ponderando 143.6 partidos por antigüedad y calidad del rival",
+        "Proyección de goles 2.03 – 1.50 · total 3.53",
+        "Simulando 121 marcadores con incertidumbre del ajuste",
+        "20 mercados listos · marcador proyectado 2–1"
+      ],
+      "inputsAsOf": "2026-11-24T21:08:59.597Z",
+      "publishedAt": "2026-11-24T21:08:59.597Z",
+      "source": "espn",
+      "picks": [
+        {
+          "profile": "conservadora",
+          "market": "totals",
+          "selection": "over_1.5",
+          "label": "Más de 1.5 goles",
+          "line": 1.5,
+          "p": 0.867417130666124,
+          "fairOdds": 1.15284787981079
+        },
+        {
+          "profile": "intermedia",
+          "market": "totals",
+          "selection": "over_2.5",
+          "label": "Más de 2.5 goles",
+          "line": 2.5,
+          "p": 0.682348929379633,
+          "fairOdds": 1.4655258577296573
+        },
+        {
+          "profile": "arriesgada",
+          "market": "totals",
+          "selection": "over_3.5",
+          "label": "Más de 3.5 goles",
+          "line": 3.5,
+          "p": 0.47204136052790335,
+          "fairOdds": 2.1184584310189654
+        }
+      ],
+      "confidence": {
+        "score": 56,
+        "level": "media",
+        "reasons": [
+          "Muestra suficiente"
+        ]
+      },
+      "projectedScore": {
+        "home": 2,
+        "away": 1,
+        "p": 0.09536663842771252
+      },
+      "insights": {
+        "why": [
+          "Se esperan 3.5 goles: 2.0 de América y 1.5 de Monterrey.",
+          "América anota 35 % más que la media.",
+          "Monterrey anota 12 % más que la media."
+        ],
+        "headToHead": [
+          {
+            "date": "2026-10-11",
+            "homeTeamId": "liga-mx.america",
+            "awayTeamId": "liga-mx.monterrey",
+            "homeGoals": 1,
+            "awayGoals": 1
+          },
+          {
+            "date": "2025-04-16",
+            "homeTeamId": "liga-mx.monterrey",
+            "awayTeamId": "liga-mx.america",
+            "homeGoals": 1,
+            "awayGoals": 0
+          },
+          {
+            "date": "2024-10-27",
+            "homeTeamId": "liga-mx.america",
+            "awayTeamId": "liga-mx.monterrey",
+            "homeGoals": 2,
+            "awayGoals": 1
+          },
+          {
+            "date": "2021-01-16",
+            "homeTeamId": "liga-mx.monterrey",
+            "awayTeamId": "liga-mx.america",
+            "homeGoals": 1,
+            "awayGoals": 0
+          },
+          {
+            "date": "2020-08-22",
+            "homeTeamId": "liga-mx.america",
+            "awayTeamId": "liga-mx.monterrey",
+            "homeGoals": 1,
+            "awayGoals": 3
+          }
+        ],
+        "restDays": {
+          "home": 7,
+          "away": 7
+        }
+      },
+      "picksAt": "2026-11-24T21:08:59.597Z"
+    },
+    "mx-2026-lg-chivas-pachuca-401931983": {
+      "game": "mx-2026-lg-chivas-pachuca-401931983",
+      "counts": {
+        "corners": {
+          "home": 6.3,
+          "away": 4.04,
+          "total": 10.34,
+          "line": 10.5,
+          "pOver": 0.4519,
+          "sample": {
+            "home": 56,
+            "away": 56
+          }
+        },
+        "fouls": {
+          "home": 10.82,
+          "away": 14.39,
+          "total": 25.21,
+          "line": 25.5,
+          "pOver": 0.4629,
+          "sample": {
+            "home": 56,
+            "away": 56
+          }
+        },
+        "yellow": {
+          "home": 1.77,
+          "away": 2.33,
+          "total": 4.1,
+          "line": 3.5,
+          "pOver": 0.5858,
+          "sample": {
+            "home": 73,
+            "away": 76
+          }
+        }
+      },
+      "model": {
+        "id": "pitchlab-statistical-liga-mx",
+        "version": "2.0.0",
+        "status": "candidate",
+        "label": "Modelo PitchLab · en validación"
+      },
+      "projection": {
+        "home": 1.3781195745641042,
+        "away": 1.2083777550313437,
+        "total": 2.586497329595448,
+        "margin": 0.16974181953276046
+      },
+      "x12": [
+        0.44059401724471065,
+        0.26173520008046564,
+        0.2976707826748237
+      ],
+      "probabilities": [
+        {
+          "market": "h2h",
+          "selection": "Chivas gana",
+          "p": 0.44059401724471065,
+          "fairOdds": 2.269663138536421
+        },
+        {
+          "market": "h2h",
+          "selection": "Empate",
+          "p": 0.26173520008046564,
+          "fairOdds": 3.8206553787666637
+        },
+        {
+          "market": "h2h",
+          "selection": "Pachuca gana",
+          "p": 0.2976707826748237,
+          "fairOdds": 3.3594160334250955
+        },
+        {
+          "market": "double_chance",
+          "selection": "Chivas o empate",
+          "p": 0.7023292173251763,
+          "fairOdds": 1.423833688435324
+        },
+        {
+          "market": "double_chance",
+          "selection": "Pachuca o empate",
+          "p": 0.5594059827552893,
+          "fairOdds": 1.7876104847406458
+        },
+        {
+          "market": "double_chance",
+          "selection": "Sin empate",
+          "p": 0.7382647999195344,
+          "fairOdds": 1.354527535525184
+        },
+        {
+          "market": "totals",
+          "selection": "Más de 1.5 goles",
+          "line": 1.5,
+          "p": 0.7288326284386696,
+          "fairOdds": 1.3720571239273884
+        },
+        {
+          "market": "totals",
+          "selection": "Más de 2.5 goles",
+          "line": 2.5,
+          "p": 0.4780539498302183,
+          "fairOdds": 2.091814115028548
+        },
+        {
+          "market": "totals",
+          "selection": "Menos de 2.5 goles",
+          "line": 2.5,
+          "p": 0.5219460501697817,
+          "fairOdds": 1.9159068253792018
+        },
+        {
+          "market": "totals",
+          "selection": "Más de 3.5 goles",
+          "line": 3.5,
+          "p": 0.26167939493924497,
+          "fairOdds": 3.8214701628768806
+        },
+        {
+          "market": "totals",
+          "selection": "Menos de 3.5 goles",
+          "line": 3.5,
+          "p": 0.738320605060755,
+          "fairOdds": 1.3544251550689308
+        },
+        {
+          "market": "btts",
+          "selection": "Sí",
+          "p": 0.5228979037492683,
+          "fairOdds": 1.9124192176519113
+        },
+        {
+          "market": "btts",
+          "selection": "No",
+          "p": 0.47710209625073174,
+          "fairOdds": 2.0959874371930436
+        },
+        {
+          "market": "team_totals",
+          "selection": "Chivas más de 1.5 goles",
+          "line": 1.5,
+          "p": 0.42054118938028995,
+          "fairOdds": 2.3778883620736444
+        },
+        {
+          "market": "team_totals",
+          "selection": "Chivas menos de 1.5 goles",
+          "line": 1.5,
+          "p": 0.57945881061971,
+          "fairOdds": 1.725748201033541
+        },
+        {
+          "market": "team_totals",
+          "selection": "Pachuca más de 1.5 goles",
+          "line": 1.5,
+          "p": 0.32041778972967694,
+          "fairOdds": 3.120925342015679
+        },
+        {
+          "market": "team_totals",
+          "selection": "Pachuca menos de 1.5 goles",
+          "line": 1.5,
+          "p": 0.6795822102703231,
+          "fairOdds": 1.4714923152597266
+        },
+        {
+          "market": "correct_score",
+          "selection": "1–1",
+          "p": 0.12439952710885852,
+          "fairOdds": 8.038615766802138
+        },
+        {
+          "market": "correct_score",
+          "selection": "1–0",
+          "p": 0.11353952570206155,
+          "fairOdds": 8.807505525644828
+        },
+        {
+          "market": "correct_score",
+          "selection": "2–1",
+          "p": 0.0928550049116392,
+          "fairOdds": 10.769478726015898
+        },
+        {
+          "market": "corners_total",
+          "selection": "Más de 10.5",
+          "line": 10.5,
+          "p": 0.4519,
+          "fairOdds": 2.212878955521133
+        },
+        {
+          "market": "corners_total",
+          "selection": "Menos de 10.5",
+          "line": 10.5,
+          "p": 0.5481,
+          "fairOdds": 1.8244845831052727
+        },
+        {
+          "market": "fouls_total",
+          "selection": "Más de 25.5",
+          "line": 25.5,
+          "p": 0.4629,
+          "fairOdds": 2.1602937999567944
+        },
+        {
+          "market": "fouls_total",
+          "selection": "Menos de 25.5",
+          "line": 25.5,
+          "p": 0.5371,
+          "fairOdds": 1.8618506795754979
+        },
+        {
+          "market": "yellow_total",
+          "selection": "Más de 3.5",
+          "line": 3.5,
+          "p": 0.5858,
+          "fairOdds": 1.7070672584499829
+        },
+        {
+          "market": "yellow_total",
+          "selection": "Menos de 3.5",
+          "line": 3.5,
+          "p": 0.4142,
+          "fairOdds": 2.4142926122646062
+        }
+      ],
+      "marketGroups": [
+        {
+          "group": "Resultado",
+          "rows": [
+            {
+              "market": "h2h",
+              "selection": "home",
+              "label": "Chivas gana",
+              "p": 0.44059401724471065,
+              "fairOdds": 2.269663138536421
+            },
+            {
+              "market": "h2h",
+              "selection": "draw",
+              "label": "Empate",
+              "p": 0.26173520008046564,
+              "fairOdds": 3.8206553787666637
+            },
+            {
+              "market": "h2h",
+              "selection": "away",
+              "label": "Pachuca gana",
+              "p": 0.2976707826748237,
+              "fairOdds": 3.3594160334250955
+            }
+          ]
+        },
+        {
+          "group": "Doble oportunidad",
+          "rows": [
+            {
+              "market": "double_chance",
+              "selection": "1x",
+              "label": "Chivas o empate",
+              "p": 0.7023292173251763,
+              "fairOdds": 1.423833688435324
+            },
+            {
+              "market": "double_chance",
+              "selection": "x2",
+              "label": "Pachuca o empate",
+              "p": 0.5594059827552893,
+              "fairOdds": 1.7876104847406458
+            },
+            {
+              "market": "double_chance",
+              "selection": "12",
+              "label": "Sin empate",
+              "p": 0.7382647999195344,
+              "fairOdds": 1.354527535525184
+            }
+          ]
+        },
+        {
+          "group": "Goles totales",
+          "rows": [
+            {
+              "market": "totals",
+              "selection": "over_1.5",
+              "label": "Más de 1.5 goles",
+              "line": 1.5,
+              "p": 0.7288326284386696,
+              "fairOdds": 1.3720571239273884
+            },
+            {
+              "market": "totals",
+              "selection": "over_2.5",
+              "label": "Más de 2.5 goles",
+              "line": 2.5,
+              "p": 0.4780539498302183,
+              "fairOdds": 2.091814115028548
+            },
+            {
+              "market": "totals",
+              "selection": "under_2.5",
+              "label": "Menos de 2.5 goles",
+              "line": 2.5,
+              "p": 0.5219460501697817,
+              "fairOdds": 1.9159068253792018
+            },
+            {
+              "market": "totals",
+              "selection": "over_3.5",
+              "label": "Más de 3.5 goles",
+              "line": 3.5,
+              "p": 0.26167939493924497,
+              "fairOdds": 3.8214701628768806
+            },
+            {
+              "market": "totals",
+              "selection": "under_3.5",
+              "label": "Menos de 3.5 goles",
+              "line": 3.5,
+              "p": 0.738320605060755,
+              "fairOdds": 1.3544251550689308
+            }
+          ]
+        },
+        {
+          "group": "Ambos anotan",
+          "rows": [
+            {
+              "market": "btts",
+              "selection": "yes",
+              "label": "Sí",
+              "p": 0.5228979037492683,
+              "fairOdds": 1.9124192176519113
+            },
+            {
+              "market": "btts",
+              "selection": "no",
+              "label": "No",
+              "p": 0.47710209625073174,
+              "fairOdds": 2.0959874371930436
+            }
+          ]
+        },
+        {
+          "group": "Goles por equipo (1.5)",
+          "rows": [
+            {
+              "market": "team_totals",
+              "selection": "home_over",
+              "label": "Chivas más de 1.5 goles",
+              "line": 1.5,
+              "p": 0.42054118938028995,
+              "fairOdds": 2.3778883620736444
+            },
+            {
+              "market": "team_totals",
+              "selection": "home_under",
+              "label": "Chivas menos de 1.5 goles",
+              "line": 1.5,
+              "p": 0.57945881061971,
+              "fairOdds": 1.725748201033541
+            },
+            {
+              "market": "team_totals",
+              "selection": "away_over",
+              "label": "Pachuca más de 1.5 goles",
+              "line": 1.5,
+              "p": 0.32041778972967694,
+              "fairOdds": 3.120925342015679
+            },
+            {
+              "market": "team_totals",
+              "selection": "away_under",
+              "label": "Pachuca menos de 1.5 goles",
+              "line": 1.5,
+              "p": 0.6795822102703231,
+              "fairOdds": 1.4714923152597266
+            }
+          ]
+        },
+        {
+          "group": "Marcador exacto (más probables)",
+          "rows": [
+            {
+              "market": "correct_score",
+              "selection": "1-1",
+              "label": "1–1",
+              "p": 0.12439952710885852,
+              "fairOdds": 8.038615766802138
+            },
+            {
+              "market": "correct_score",
+              "selection": "1-0",
+              "label": "1–0",
+              "p": 0.11353952570206155,
+              "fairOdds": 8.807505525644828
+            },
+            {
+              "market": "correct_score",
+              "selection": "2-1",
+              "label": "2–1",
+              "p": 0.0928550049116392,
+              "fairOdds": 10.769478726015898
+            }
+          ]
+        },
+        {
+          "group": "Tiros de esquina 10.5",
+          "rows": [
+            {
+              "market": "corners_total",
+              "selection": "over",
+              "label": "Más de 10.5",
+              "line": 10.5,
+              "p": 0.4519,
+              "fairOdds": 2.212878955521133
+            },
+            {
+              "market": "corners_total",
+              "selection": "under",
+              "label": "Menos de 10.5",
+              "line": 10.5,
+              "p": 0.5481,
+              "fairOdds": 1.8244845831052727
+            }
+          ]
+        },
+        {
+          "group": "Faltas 25.5",
+          "rows": [
+            {
+              "market": "fouls_total",
+              "selection": "over",
+              "label": "Más de 25.5",
+              "line": 25.5,
+              "p": 0.4629,
+              "fairOdds": 2.1602937999567944
+            },
+            {
+              "market": "fouls_total",
+              "selection": "under",
+              "label": "Menos de 25.5",
+              "line": 25.5,
+              "p": 0.5371,
+              "fairOdds": 1.8618506795754979
+            }
+          ]
+        },
+        {
+          "group": "Tarjetas amarillas 3.5",
+          "rows": [
+            {
+              "market": "yellow_total",
+              "selection": "over",
+              "label": "Más de 3.5",
+              "line": 3.5,
+              "p": 0.5858,
+              "fairOdds": 1.7070672584499829
+            },
+            {
+              "market": "yellow_total",
+              "selection": "under",
+              "label": "Menos de 3.5",
+              "line": 3.5,
+              "p": 0.4142,
+              "fairOdds": 2.4142926122646062
+            }
+          ]
+        }
+      ],
+      "mostLikelyScore": {
+        "home": 1,
+        "away": 1,
+        "p": 0.12439952710885852
+      },
+      "factors": [
+        {
+          "key": "home_attack",
+          "label": "Ataque local",
+          "value": "1.24 goles/partido",
+          "detail": "3 % más que la media · 17 partidos"
+        },
+        {
+          "key": "away_defense",
+          "label": "Defensa visitante",
+          "value": "1.20 concedidos/partido",
+          "detail": "12 % menos que la media · 17 partidos"
+        },
+        {
+          "key": "away_attack",
+          "label": "Ataque visitante",
+          "value": "1.21 goles/partido",
+          "detail": "19 % más que la media · ajustado por rival"
+        },
+        {
+          "key": "home_defense",
+          "label": "Defensa local",
+          "value": "1.02 concedidos/partido",
+          "detail": "26 % menos que la media · ajustado por rival"
+        },
+        {
+          "key": "home_advantage",
+          "label": "Localía",
+          "value": "×1.11",
+          "detail": "estimada de 207 partidos"
+        },
+        {
+          "key": "uncertainty",
+          "label": "Intervalo 90%",
+          "value": "goles 1.9–3.6",
+          "detail": "local 28%–66% · 207 partidos"
+        },
+        {
+          "key": "home_position",
+          "label": "Posición local",
+          "value": "1.º · 33 pts",
+          "detail": "de 18 equipos"
+        },
+        {
+          "key": "away_position",
+          "label": "Posición visitante",
+          "value": "8.º · 25 pts",
+          "detail": "de 18 equipos"
+        },
+        {
+          "key": "home_form",
+          "label": "Forma local",
+          "value": "G-G-G-E-G · 13 pts",
+          "detail": "8 goles a favor · 3 en contra"
+        },
+        {
+          "key": "away_form",
+          "label": "Forma visitante",
+          "value": "P-G-G-G-G · 12 pts",
+          "detail": "12 goles a favor · 4 en contra"
+        },
+        {
+          "key": "long_memory",
+          "label": "Memoria larga",
+          "value": "+3 pts al local",
+          "detail": "historia 47% / 26% / 27% · temporada 41% / 26% / 33%"
+        },
+        {
+          "key": "corners_expected",
+          "label": "Tiros de esquina",
+          "value": "10.3 tiros de esquina esperados",
+          "detail": "Chivas 6.3 · Pachuca 4.0"
+        },
+        {
+          "key": "fouls_expected",
+          "label": "Faltas",
+          "value": "25.2 faltas esperados",
+          "detail": "Chivas 10.8 · Pachuca 14.4"
+        },
+        {
+          "key": "yellow_expected",
+          "label": "Tarjetas amarillas",
+          "value": "4.1 amarillas esperados",
+          "detail": "Chivas 1.8 · Pachuca 2.3"
+        }
+      ],
+      "steps": [
+        "Sincronizando Liga MX · corte 24 nov 2026, 21:08",
+        "Fuerza ajustada por rival · GDL 1.03 / 0.74 · PAC 1.19 / 0.88",
+        "Ponderando 143.6 partidos por antigüedad y calidad del rival",
+        "Proyección de goles 1.38 – 1.21 · total 2.59",
+        "Simulando 121 marcadores con incertidumbre del ajuste",
+        "20 mercados listos · marcador proyectado 1–0"
+      ],
+      "inputsAsOf": "2026-11-24T21:08:59.597Z",
+      "publishedAt": "2026-11-24T21:08:59.597Z",
+      "source": "espn",
+      "picks": [
+        {
+          "profile": "conservadora",
+          "market": "totals",
+          "selection": "under_3.5",
+          "label": "Menos de 3.5 goles",
+          "line": 3.5,
+          "p": 0.738320605060755,
+          "fairOdds": 1.3544251550689308
+        },
+        {
+          "profile": "intermedia",
+          "market": "team_totals",
+          "selection": "away_under",
+          "label": "Pachuca menos de 1.5 goles",
+          "line": 1.5,
+          "p": 0.6795822102703231,
+          "fairOdds": 1.4714923152597266
+        },
+        {
+          "profile": "arriesgada",
+          "market": "totals",
+          "selection": "over_2.5",
+          "label": "Más de 2.5 goles",
+          "line": 2.5,
+          "p": 0.4780539498302183,
+          "fairOdds": 2.091814115028548
+        }
+      ],
+      "confidence": {
+        "score": 47,
+        "level": "media",
+        "reasons": [
+          "Muestra suficiente"
+        ]
+      },
+      "projectedScore": {
+        "home": 1,
+        "away": 0,
+        "p": 0.11353952570206155
+      },
+      "insights": {
+        "why": [
+          "Se esperan 2.6 goles: 1.4 de Chivas y 1.2 de Pachuca.",
+          "Chivas concede 26 % menos que la media.",
+          "Pachuca anota 19 % más que la media."
+        ],
+        "headToHead": [
+          {
+            "date": "2026-08-29",
+            "homeTeamId": "liga-mx.pachuca",
+            "awayTeamId": "liga-mx.chivas",
+            "homeGoals": 1,
+            "awayGoals": 1
+          },
+          {
+            "date": "2025-02-22",
+            "homeTeamId": "liga-mx.chivas",
+            "awayTeamId": "liga-mx.pachuca",
+            "homeGoals": 2,
+            "awayGoals": 1
+          },
+          {
+            "date": "2024-10-19",
+            "homeTeamId": "liga-mx.pachuca",
+            "awayTeamId": "liga-mx.chivas",
+            "homeGoals": 0,
+            "awayGoals": 2
+          },
+          {
+            "date": "2021-02-22",
+            "homeTeamId": "liga-mx.pachuca",
+            "awayTeamId": "liga-mx.chivas",
+            "homeGoals": 1,
+            "awayGoals": 1
+          },
+          {
+            "date": "2020-08-29",
+            "homeTeamId": "liga-mx.chivas",
+            "awayTeamId": "liga-mx.pachuca",
+            "homeGoals": 0,
+            "awayGoals": 0
+          }
+        ],
+        "restDays": {
+          "home": 8,
+          "away": 9
+        }
+      },
+      "picksAt": "2026-11-24T21:08:59.597Z"
+    },
+    "mx-2026-lg-cruz-azul-leon-401932000": {
+      "game": "mx-2026-lg-cruz-azul-leon-401932000",
+      "counts": {
+        "corners": {
+          "home": 6.6,
+          "away": 4.39,
+          "total": 10.99,
+          "line": 10.5,
+          "pOver": 0.518,
+          "sample": {
+            "home": 60,
+            "away": 50
+          }
+        },
+        "fouls": {
+          "home": 12.73,
+          "away": 11.74,
+          "total": 24.47,
+          "line": 24.5,
+          "pOver": 0.4827,
+          "sample": {
+            "home": 60,
+            "away": 50
+          }
+        },
+        "yellow": {
+          "home": 2.08,
+          "away": 2.27,
+          "total": 4.35,
+          "line": 4.5,
+          "pOver": 0.4387,
+          "sample": {
+            "home": 81,
+            "away": 69
+          }
+        }
+      },
+      "model": {
+        "id": "pitchlab-statistical-liga-mx",
+        "version": "2.0.0",
+        "status": "candidate",
+        "label": "Modelo PitchLab · en validación"
+      },
+      "projection": {
+        "home": 1.8896317871012651,
+        "away": 1.4193894473334987,
+        "total": 3.3090212344347636,
+        "margin": 0.4702423397677664
+      },
+      "x12": [
+        0.5488066411152319,
+        0.21952032988705053,
+        0.23167302899771786
+      ],
+      "probabilities": [
+        {
+          "market": "h2h",
+          "selection": "Cruz Azul gana",
+          "p": 0.5488066411152319,
+          "fairOdds": 1.8221353844550723
+        },
+        {
+          "market": "h2h",
+          "selection": "Empate",
+          "p": 0.21952032988705053,
+          "fairOdds": 4.555386740328463
+        },
+        {
+          "market": "h2h",
+          "selection": "León gana",
+          "p": 0.23167302899771786,
+          "fairOdds": 4.316428219228967
+        },
+        {
+          "market": "double_chance",
+          "selection": "Cruz Azul o empate",
+          "p": 0.7683269710022824,
+          "fairOdds": 1.3015292157393619
+        },
+        {
+          "market": "double_chance",
+          "selection": "León o empate",
+          "p": 0.4511933588847684,
+          "fairOdds": 2.2163446786356467
+        },
+        {
+          "market": "double_chance",
+          "selection": "Sin empate",
+          "p": 0.7804796701129497,
+          "fairOdds": 1.2812633541822833
+        },
+        {
+          "market": "totals",
+          "selection": "Más de 1.5 goles",
+          "line": 1.5,
+          "p": 0.8433405356946138,
+          "fairOdds": 1.185760624178173
+        },
+        {
+          "market": "totals",
+          "selection": "Más de 2.5 goles",
+          "line": 2.5,
+          "p": 0.6445878477381817,
+          "fairOdds": 1.5513789214440472
+        },
+        {
+          "market": "totals",
+          "selection": "Menos de 2.5 goles",
+          "line": 2.5,
+          "p": 0.3554121522618183,
+          "fairOdds": 2.813634800149824
+        },
+        {
+          "market": "totals",
+          "selection": "Más de 3.5 goles",
+          "line": 3.5,
+          "p": 0.4250045909228948,
+          "fairOdds": 2.3529157598709847
+        },
+        {
+          "market": "totals",
+          "selection": "Menos de 3.5 goles",
+          "line": 3.5,
+          "p": 0.5749954090771052,
+          "fairOdds": 1.7391443204825707
+        },
+        {
+          "market": "btts",
+          "selection": "Sí",
+          "p": 0.6402490771534106,
+          "fairOdds": 1.5618921380505
+        },
+        {
+          "market": "btts",
+          "selection": "No",
+          "p": 0.3597509228465894,
+          "fairOdds": 2.7797010000345033
+        },
+        {
+          "market": "team_totals",
+          "selection": "Cruz Azul más de 1.5 goles",
+          "line": 1.5,
+          "p": 0.6032988532670738,
+          "fairOdds": 1.6575532915148954
+        },
+        {
+          "market": "team_totals",
+          "selection": "Cruz Azul menos de 1.5 goles",
+          "line": 1.5,
+          "p": 0.3967011467329262,
+          "fairOdds": 2.5207892849204105
+        },
+        {
+          "market": "team_totals",
+          "selection": "León más de 1.5 goles",
+          "line": 1.5,
+          "p": 0.37644341278213633,
+          "fairOdds": 2.6564417547100025
+        },
+        {
+          "market": "team_totals",
+          "selection": "León menos de 1.5 goles",
+          "line": 1.5,
+          "p": 0.6235565872178637,
+          "fairOdds": 1.603703690248422
+        },
+        {
+          "market": "correct_score",
+          "selection": "2–1",
+          "p": 0.10420612219213145,
+          "fairOdds": 9.596365155554263
+        },
+        {
+          "market": "correct_score",
+          "selection": "1–1",
+          "p": 0.09607671437140568,
+          "fairOdds": 10.408349271128069
+        },
+        {
+          "market": "correct_score",
+          "selection": "1–0",
+          "p": 0.07935858397298001,
+          "fairOdds": 12.601031292852701
+        },
+        {
+          "market": "corners_total",
+          "selection": "Más de 10.5",
+          "line": 10.5,
+          "p": 0.518,
+          "fairOdds": 1.9305019305019304
+        },
+        {
+          "market": "corners_total",
+          "selection": "Menos de 10.5",
+          "line": 10.5,
+          "p": 0.482,
+          "fairOdds": 2.074688796680498
+        },
+        {
+          "market": "fouls_total",
+          "selection": "Más de 24.5",
+          "line": 24.5,
+          "p": 0.4827,
+          "fairOdds": 2.0716801325875283
+        },
+        {
+          "market": "fouls_total",
+          "selection": "Menos de 24.5",
+          "line": 24.5,
+          "p": 0.5173,
+          "fairOdds": 1.9331142470520009
+        },
+        {
+          "market": "yellow_total",
+          "selection": "Más de 4.5",
+          "line": 4.5,
+          "p": 0.4387,
+          "fairOdds": 2.2794620469569185
+        },
+        {
+          "market": "yellow_total",
+          "selection": "Menos de 4.5",
+          "line": 4.5,
+          "p": 0.5613,
+          "fairOdds": 1.7815784785319793
+        }
+      ],
+      "marketGroups": [
+        {
+          "group": "Resultado",
+          "rows": [
+            {
+              "market": "h2h",
+              "selection": "home",
+              "label": "Cruz Azul gana",
+              "p": 0.5488066411152319,
+              "fairOdds": 1.8221353844550723
+            },
+            {
+              "market": "h2h",
+              "selection": "draw",
+              "label": "Empate",
+              "p": 0.21952032988705053,
+              "fairOdds": 4.555386740328463
+            },
+            {
+              "market": "h2h",
+              "selection": "away",
+              "label": "León gana",
+              "p": 0.23167302899771786,
+              "fairOdds": 4.316428219228967
+            }
+          ]
+        },
+        {
+          "group": "Doble oportunidad",
+          "rows": [
+            {
+              "market": "double_chance",
+              "selection": "1x",
+              "label": "Cruz Azul o empate",
+              "p": 0.7683269710022824,
+              "fairOdds": 1.3015292157393619
+            },
+            {
+              "market": "double_chance",
+              "selection": "x2",
+              "label": "León o empate",
+              "p": 0.4511933588847684,
+              "fairOdds": 2.2163446786356467
+            },
+            {
+              "market": "double_chance",
+              "selection": "12",
+              "label": "Sin empate",
+              "p": 0.7804796701129497,
+              "fairOdds": 1.2812633541822833
+            }
+          ]
+        },
+        {
+          "group": "Goles totales",
+          "rows": [
+            {
+              "market": "totals",
+              "selection": "over_1.5",
+              "label": "Más de 1.5 goles",
+              "line": 1.5,
+              "p": 0.8433405356946138,
+              "fairOdds": 1.185760624178173
+            },
+            {
+              "market": "totals",
+              "selection": "over_2.5",
+              "label": "Más de 2.5 goles",
+              "line": 2.5,
+              "p": 0.6445878477381817,
+              "fairOdds": 1.5513789214440472
+            },
+            {
+              "market": "totals",
+              "selection": "under_2.5",
+              "label": "Menos de 2.5 goles",
+              "line": 2.5,
+              "p": 0.3554121522618183,
+              "fairOdds": 2.813634800149824
+            },
+            {
+              "market": "totals",
+              "selection": "over_3.5",
+              "label": "Más de 3.5 goles",
+              "line": 3.5,
+              "p": 0.4250045909228948,
+              "fairOdds": 2.3529157598709847
+            },
+            {
+              "market": "totals",
+              "selection": "under_3.5",
+              "label": "Menos de 3.5 goles",
+              "line": 3.5,
+              "p": 0.5749954090771052,
+              "fairOdds": 1.7391443204825707
+            }
+          ]
+        },
+        {
+          "group": "Ambos anotan",
+          "rows": [
+            {
+              "market": "btts",
+              "selection": "yes",
+              "label": "Sí",
+              "p": 0.6402490771534106,
+              "fairOdds": 1.5618921380505
+            },
+            {
+              "market": "btts",
+              "selection": "no",
+              "label": "No",
+              "p": 0.3597509228465894,
+              "fairOdds": 2.7797010000345033
+            }
+          ]
+        },
+        {
+          "group": "Goles por equipo (1.5)",
+          "rows": [
+            {
+              "market": "team_totals",
+              "selection": "home_over",
+              "label": "Cruz Azul más de 1.5 goles",
+              "line": 1.5,
+              "p": 0.6032988532670738,
+              "fairOdds": 1.6575532915148954
+            },
+            {
+              "market": "team_totals",
+              "selection": "home_under",
+              "label": "Cruz Azul menos de 1.5 goles",
+              "line": 1.5,
+              "p": 0.3967011467329262,
+              "fairOdds": 2.5207892849204105
+            },
+            {
+              "market": "team_totals",
+              "selection": "away_over",
+              "label": "León más de 1.5 goles",
+              "line": 1.5,
+              "p": 0.37644341278213633,
+              "fairOdds": 2.6564417547100025
+            },
+            {
+              "market": "team_totals",
+              "selection": "away_under",
+              "label": "León menos de 1.5 goles",
+              "line": 1.5,
+              "p": 0.6235565872178637,
+              "fairOdds": 1.603703690248422
+            }
+          ]
+        },
+        {
+          "group": "Marcador exacto (más probables)",
+          "rows": [
+            {
+              "market": "correct_score",
+              "selection": "2-1",
+              "label": "2–1",
+              "p": 0.10420612219213145,
+              "fairOdds": 9.596365155554263
+            },
+            {
+              "market": "correct_score",
+              "selection": "1-1",
+              "label": "1–1",
+              "p": 0.09607671437140568,
+              "fairOdds": 10.408349271128069
+            },
+            {
+              "market": "correct_score",
+              "selection": "1-0",
+              "label": "1–0",
+              "p": 0.07935858397298001,
+              "fairOdds": 12.601031292852701
+            }
+          ]
+        },
+        {
+          "group": "Tiros de esquina 10.5",
+          "rows": [
+            {
+              "market": "corners_total",
+              "selection": "over",
+              "label": "Más de 10.5",
+              "line": 10.5,
+              "p": 0.518,
+              "fairOdds": 1.9305019305019304
+            },
+            {
+              "market": "corners_total",
+              "selection": "under",
+              "label": "Menos de 10.5",
+              "line": 10.5,
+              "p": 0.482,
+              "fairOdds": 2.074688796680498
+            }
+          ]
+        },
+        {
+          "group": "Faltas 24.5",
+          "rows": [
+            {
+              "market": "fouls_total",
+              "selection": "over",
+              "label": "Más de 24.5",
+              "line": 24.5,
+              "p": 0.4827,
+              "fairOdds": 2.0716801325875283
+            },
+            {
+              "market": "fouls_total",
+              "selection": "under",
+              "label": "Menos de 24.5",
+              "line": 24.5,
+              "p": 0.5173,
+              "fairOdds": 1.9331142470520009
+            }
+          ]
+        },
+        {
+          "group": "Tarjetas amarillas 4.5",
+          "rows": [
+            {
+              "market": "yellow_total",
+              "selection": "over",
+              "label": "Más de 4.5",
+              "line": 4.5,
+              "p": 0.4387,
+              "fairOdds": 2.2794620469569185
+            },
+            {
+              "market": "yellow_total",
+              "selection": "under",
+              "label": "Menos de 4.5",
+              "line": 4.5,
+              "p": 0.5613,
+              "fairOdds": 1.7815784785319793
+            }
+          ]
+        }
+      ],
+      "mostLikelyScore": {
+        "home": 2,
+        "away": 1,
+        "p": 0.10420612219213145
+      },
+      "factors": [
+        {
+          "key": "home_attack",
+          "label": "Ataque local",
+          "value": "1.70 goles/partido",
+          "detail": "33 % más que la media · 17 partidos"
+        },
+        {
+          "key": "away_defense",
+          "label": "Defensa visitante",
+          "value": "1.28 concedidos/partido",
+          "detail": "7 % menos que la media · 17 partidos"
+        },
+        {
+          "key": "away_attack",
+          "label": "Ataque visitante",
+          "value": "1.42 goles/partido",
+          "detail": "en la media de la liga · ajustado por rival"
+        },
+        {
+          "key": "home_defense",
+          "label": "Defensa local",
+          "value": "1.42 concedidos/partido",
+          "detail": "3 % más que la media · ajustado por rival"
+        },
+        {
+          "key": "home_advantage",
+          "label": "Localía",
+          "value": "×1.11",
+          "detail": "estimada de 207 partidos"
+        },
+        {
+          "key": "uncertainty",
+          "label": "Intervalo 90%",
+          "value": "goles 2.6–4.4",
+          "detail": "local 37%–75% · 207 partidos"
+        },
+        {
+          "key": "home_position",
+          "label": "Posición local",
+          "value": "2.º · 32 pts",
+          "detail": "de 18 equipos"
+        },
+        {
+          "key": "away_position",
+          "label": "Posición visitante",
+          "value": "7.º · 26 pts",
+          "detail": "de 18 equipos"
+        },
+        {
+          "key": "home_form",
+          "label": "Forma local",
+          "value": "G-G-G-G-P · 12 pts",
+          "detail": "10 goles a favor · 6 en contra"
+        },
+        {
+          "key": "away_form",
+          "label": "Forma visitante",
+          "value": "G-E-P-E-G · 8 pts",
+          "detail": "7 goles a favor · 5 en contra"
+        },
+        {
+          "key": "long_memory",
+          "label": "Memoria larga",
+          "value": "+6 pts al local",
+          "detail": "historia 61% / 22% / 17% · temporada 49% / 22% / 29%"
+        },
+        {
+          "key": "corners_expected",
+          "label": "Tiros de esquina",
+          "value": "11.0 tiros de esquina esperados",
+          "detail": "Cruz Azul 6.6 · León 4.4"
+        },
+        {
+          "key": "fouls_expected",
+          "label": "Faltas",
+          "value": "24.5 faltas esperados",
+          "detail": "Cruz Azul 12.7 · León 11.7"
+        },
+        {
+          "key": "yellow_expected",
+          "label": "Tarjetas amarillas",
+          "value": "4.3 amarillas esperados",
+          "detail": "Cruz Azul 2.1 · León 2.3"
+        }
+      ],
+      "steps": [
+        "Sincronizando Liga MX · corte 24 nov 2026, 21:08",
+        "Fuerza ajustada por rival · CAZ 1.33 / 1.03 · LEO 1.00 / 0.93",
+        "Ponderando 143.6 partidos por antigüedad y calidad del rival",
+        "Proyección de goles 1.89 – 1.42 · total 3.31",
+        "Simulando 121 marcadores con incertidumbre del ajuste",
+        "20 mercados listos · marcador proyectado 2–1"
+      ],
+      "inputsAsOf": "2026-11-24T21:08:59.597Z",
+      "publishedAt": "2026-11-24T21:08:59.597Z",
+      "source": "espn",
+      "picks": [
+        {
+          "profile": "conservadora",
+          "market": "totals",
+          "selection": "over_1.5",
+          "label": "Más de 1.5 goles",
+          "line": 1.5,
+          "p": 0.8433405356946138,
+          "fairOdds": 1.185760624178173
+        },
+        {
+          "profile": "intermedia",
+          "market": "totals",
+          "selection": "over_2.5",
+          "label": "Más de 2.5 goles",
+          "line": 2.5,
+          "p": 0.6445878477381817,
+          "fairOdds": 1.5513789214440472
+        },
+        {
+          "profile": "arriesgada",
+          "market": "double_chance",
+          "selection": "x2",
+          "label": "León o empate",
+          "p": 0.4511933588847684,
+          "fairOdds": 2.2163446786356467
+        }
+      ],
+      "confidence": {
+        "score": 56,
+        "level": "media",
+        "reasons": [
+          "Muestra suficiente",
+          "La temporada y la historia no coinciden"
+        ]
+      },
+      "projectedScore": {
+        "home": 2,
+        "away": 1,
+        "p": 0.10420612219213145
+      },
+      "insights": {
+        "why": [
+          "Se esperan 3.3 goles: 1.9 de Cruz Azul y 1.4 de León.",
+          "Cruz Azul anota 33 % más que la media.",
+          "La historia larga favorece más a Cruz Azul que esta temporada."
+        ],
+        "headToHead": [
+          {
+            "date": "2026-11-02",
+            "homeTeamId": "liga-mx.cruz-azul",
+            "awayTeamId": "liga-mx.leon",
+            "homeGoals": 2,
+            "awayGoals": 1
+          },
+          {
+            "date": "2025-04-15",
+            "homeTeamId": "liga-mx.cruz-azul",
+            "awayTeamId": "liga-mx.leon",
+            "homeGoals": 2,
+            "awayGoals": 1
+          },
+          {
+            "date": "2024-09-14",
+            "homeTeamId": "liga-mx.leon",
+            "awayTeamId": "liga-mx.cruz-azul",
+            "homeGoals": 1,
+            "awayGoals": 2
+          },
+          {
+            "date": "2021-02-27",
+            "homeTeamId": "liga-mx.leon",
+            "awayTeamId": "liga-mx.cruz-azul",
+            "homeGoals": 0,
+            "awayGoals": 1
+          },
+          {
+            "date": "2020-08-08",
+            "homeTeamId": "liga-mx.cruz-azul",
+            "awayTeamId": "liga-mx.leon",
+            "homeGoals": 2,
+            "awayGoals": 0
+          }
+        ],
+        "restDays": {
+          "home": 8,
+          "away": 9
+        }
+      },
+      "picksAt": "2026-11-24T21:08:59.597Z"
     }
   },
   "standings": [

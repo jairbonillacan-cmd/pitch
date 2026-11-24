@@ -1,162 +1,144 @@
 {
   "schemaVersion": 1,
   "league": "primera-chile",
-  "observedAt": "2026-11-23T22:28:20.377Z",
+  "observedAt": "2026-11-24T21:01:09.804Z",
   "source": "pitchlab-availability",
   "coverageStatus": "ok",
   "entries": [
     {
       "teamId": "primera-chile.deportes-la-serena",
       "player": "Andrés Zanini",
-      "position": "D",
+      "position": "Defensa",
       "status": "Baja",
       "detail": "Cruciate Ligament Injury",
       "injuryType": "Cruciate Ligament Injury",
-      "reportedAt": "2026-11-23T22:28:20.377Z"
+      "reportedAt": "2026-11-24T21:01:09.804Z"
     },
     {
       "teamId": "primera-chile.deportes-la-serena",
       "player": "Bastián Sandoval",
-      "position": "F",
+      "position": "Delantero",
       "status": "Baja",
       "detail": "Physical Discomfort",
       "injuryType": "Physical Discomfort",
-      "reportedAt": "2026-11-23T22:28:20.377Z"
+      "reportedAt": "2026-11-24T21:01:09.804Z"
     },
     {
       "teamId": "primera-chile.deportes-la-serena",
       "player": "Gonzalo Escalante",
-      "position": "M",
+      "position": "Mediocampista",
       "status": "Duda",
       "detail": "Knock Injury",
       "injuryType": "Knock Injury",
-      "reportedAt": "2026-11-23T22:28:20.377Z"
-    },
-    {
-      "teamId": "primera-chile.deportes-la-serena",
-      "player": "Gonzalo Gabriel Figueroa",
-      "position": "F",
-      "status": "Baja",
-      "detail": "red_card_suspension",
-      "injuryType": "red_card_suspension",
-      "reportedAt": "2026-11-23T22:28:20.377Z"
+      "reportedAt": "2026-11-24T21:01:09.804Z"
     },
     {
       "teamId": "primera-chile.deportes-la-serena",
       "player": "Nicolás Stefanelli",
-      "position": "F",
+      "position": "Delantero",
       "status": "Baja",
       "detail": "Knock Injury",
       "injuryType": "Knock Injury",
-      "reportedAt": "2026-11-23T22:28:20.377Z"
+      "reportedAt": "2026-11-24T21:01:09.804Z"
     },
     {
       "teamId": "primera-chile.palestino",
       "player": "Dylan Glaby",
-      "position": "M",
+      "position": "Mediocampista",
       "status": "Baja",
       "detail": "red_card_suspension",
       "injuryType": "red_card_suspension",
-      "reportedAt": "2026-11-23T22:28:20.377Z"
+      "reportedAt": "2026-11-24T21:01:09.804Z"
     },
     {
       "teamId": "primera-chile.everton-vina-mar",
       "player": "Nicolás Baeza",
-      "position": "D",
+      "position": "Defensa",
       "status": "Baja",
       "detail": "Leg Injury",
       "injuryType": "Leg Injury",
-      "reportedAt": "2026-11-23T22:28:20.377Z"
+      "reportedAt": "2026-11-24T21:01:09.804Z"
     },
     {
       "teamId": "primera-chile.deportes-concepcion",
       "player": "Fausto Grillo",
-      "position": "D",
+      "position": "Defensa",
       "status": "Baja",
       "detail": "yellow_or_red_card_suspension",
       "injuryType": "yellow_or_red_card_suspension",
-      "reportedAt": "2026-11-23T22:28:20.377Z"
+      "reportedAt": "2026-11-24T21:01:09.804Z"
     },
     {
       "teamId": "primera-chile.universidad-catolica",
       "player": "Bernardo Cerezo",
-      "position": "D",
+      "position": "Defensa",
       "status": "Baja",
       "detail": "Meniscus Injury",
       "injuryType": "Meniscus Injury",
-      "reportedAt": "2026-11-23T22:28:20.377Z"
+      "reportedAt": "2026-11-24T21:01:09.804Z"
     },
     {
       "teamId": "primera-chile.universidad-catolica",
       "player": "Branco Ampuero",
-      "position": "D",
+      "position": "Defensa",
       "status": "Baja",
       "detail": "Ligament Injury",
       "injuryType": "Ligament Injury",
-      "reportedAt": "2026-11-23T22:28:20.377Z"
+      "reportedAt": "2026-11-24T21:01:09.804Z"
     },
     {
       "teamId": "primera-chile.universidad-catolica",
       "player": "Diego Valencia",
-      "position": "F",
+      "position": "Delantero",
       "status": "Baja",
       "detail": "Cruciate Ligament Injury",
       "injuryType": "Cruciate Ligament Injury",
-      "reportedAt": "2026-11-23T22:28:20.377Z"
+      "reportedAt": "2026-11-24T21:01:09.804Z"
     },
     {
       "teamId": "primera-chile.universidad-catolica",
       "player": "Eugenio Mena",
-      "position": "D",
+      "position": "Defensa",
       "status": "Baja",
       "detail": "Muscle Injury",
       "injuryType": "Muscle Injury",
-      "reportedAt": "2026-11-23T22:28:20.377Z"
-    },
-    {
-      "teamId": "primera-chile.universidad-catolica",
-      "player": "Jimmy Martínez",
-      "position": "M",
-      "status": "Baja",
-      "detail": "yellow_card_accumulation_suspension",
-      "injuryType": "yellow_card_accumulation_suspension",
-      "reportedAt": "2026-11-23T22:28:20.377Z"
+      "reportedAt": "2026-11-24T21:01:09.804Z"
     },
     {
       "teamId": "primera-chile.universidad-catolica",
       "player": "Sebastián Arancibia",
-      "position": "D",
+      "position": "Defensa",
       "status": "Baja",
       "detail": "Ankle Injury",
       "injuryType": "Ankle Injury",
-      "reportedAt": "2026-11-23T22:28:20.377Z"
+      "reportedAt": "2026-11-24T21:01:09.804Z"
     },
     {
       "teamId": "primera-chile.audax-italiano",
       "player": "Cristóbal Muñoz",
-      "position": "D",
+      "position": "Defensa",
       "status": "Baja",
       "detail": "Achilles Tendon Injury",
       "injuryType": "Achilles Tendon Injury",
-      "reportedAt": "2026-11-23T22:28:20.377Z"
+      "reportedAt": "2026-11-24T21:01:09.804Z"
     },
     {
       "teamId": "primera-chile.audax-italiano",
       "player": "Enzo Ferrario",
-      "position": "D",
+      "position": "Defensa",
       "status": "Baja",
       "detail": "yellow_or_red_card_suspension",
       "injuryType": "yellow_or_red_card_suspension",
-      "reportedAt": "2026-11-23T22:28:20.377Z"
+      "reportedAt": "2026-11-24T21:01:09.804Z"
     },
     {
       "teamId": "primera-chile.audax-italiano",
       "player": "Franco Troyansky",
-      "position": "F",
+      "position": "Delantero",
       "status": "Baja",
       "detail": "red_card_suspension",
       "injuryType": "red_card_suspension",
-      "reportedAt": "2026-11-23T22:28:20.377Z"
+      "reportedAt": "2026-11-24T21:01:09.804Z"
     }
   ]
 }

@@ -1,81 +1,81 @@
 {
   "schemaVersion": 1,
   "league": "mls",
-  "observedAt": "2026-11-23T22:28:20.377Z",
+  "observedAt": "2026-11-24T21:01:09.804Z",
   "source": "pitchlab-availability",
   "coverageStatus": "ok",
   "entries": [
     {
-      "teamId": "mls.inter-miami",
-      "player": "Ezequiel Abadia-Reda",
-      "position": "D",
-      "status": "Baja",
-      "detail": "Groin Injury",
-      "injuryType": "Groin Injury",
-      "reportedAt": "2026-11-23T22:28:20.377Z"
-    },
-    {
-      "teamId": "mls.charlotte",
-      "player": "Aron John",
-      "position": "M",
-      "status": "Baja",
-      "detail": "Shoulder Injury",
-      "injuryType": "Shoulder Injury",
-      "reportedAt": "2026-11-23T22:28:20.377Z"
-    },
-    {
-      "teamId": "mls.charlotte",
-      "player": "Nimfasha Berchimas",
-      "position": "F",
-      "status": "Baja",
-      "detail": "Broken Foot",
-      "injuryType": "Broken Foot",
-      "reportedAt": "2026-11-23T22:28:20.377Z"
-    },
-    {
       "teamId": "mls.houston-dynamo",
       "player": "Jimmy Maurer",
-      "position": "G",
+      "position": "Portero",
       "status": "Baja",
       "detail": "Back Injury",
       "injuryType": "Back Injury",
-      "reportedAt": "2026-11-23T22:28:20.377Z"
+      "reportedAt": "2026-11-24T21:01:09.804Z"
     },
     {
       "teamId": "mls.houston-dynamo",
       "player": "Marcelo Saracchi",
-      "position": "D",
+      "position": "Defensa",
       "status": "Baja",
       "detail": "Knock Injury",
       "injuryType": "Knock Injury",
-      "reportedAt": "2026-11-23T22:28:20.377Z"
-    },
-    {
-      "teamId": "mls.st-louis-city",
-      "player": "Roman Bürki",
-      "position": "G",
-      "status": "Baja",
-      "detail": "Concussion",
-      "injuryType": "Concussion",
-      "reportedAt": "2026-11-23T22:28:20.377Z"
+      "reportedAt": "2026-11-24T21:01:09.804Z"
     },
     {
       "teamId": "mls.sporting-kansas-city",
       "player": "Jacob Bartlett",
-      "position": "M",
+      "position": "Mediocampista",
       "status": "Baja",
       "detail": "Ankle Injury",
       "injuryType": "Ankle Injury",
-      "reportedAt": "2026-11-23T22:28:20.377Z"
+      "reportedAt": "2026-11-24T21:01:09.804Z"
     },
     {
       "teamId": "mls.sporting-kansas-city",
       "player": "Kwaku Agyabeng",
-      "position": "M",
+      "position": "Mediocampista",
       "status": "Baja",
       "detail": "Ankle Injury",
       "injuryType": "Ankle Injury",
-      "reportedAt": "2026-11-23T22:28:20.377Z"
+      "reportedAt": "2026-11-24T21:01:09.804Z"
+    },
+    {
+      "teamId": "mls.portland-timbers",
+      "player": "Alex Bonetig",
+      "position": "Defensa",
+      "status": "Baja",
+      "detail": "Shoulder Injury",
+      "injuryType": "Shoulder Injury",
+      "reportedAt": "2026-11-24T21:01:09.804Z"
+    },
+    {
+      "teamId": "mls.portland-timbers",
+      "player": "Juan Mosquera",
+      "position": "Defensa",
+      "status": "Baja",
+      "detail": "Foot Injury",
+      "injuryType": "Foot Injury",
+      "reportedAt": "2026-11-24T21:01:09.804Z"
+    },
+    {
+      "teamId": "mls.portland-timbers",
+      "player": "Trey Muse",
+      "position": "Portero",
+      "status": "Baja",
+      "detail": "Concussion",
+      "injuryType": "Concussion",
+      "reportedAt": "2026-11-24T21:01:09.804Z"
+    },
+    {
+      "teamId": "mls.portland-timbers",
+      "player": "Zac McGraw",
+      "position": "Defensa",
+      "status": "Baja",
+      "detail": "Back Injury",
+      "injuryType": "Back Injury",
+      "reportedAt": "2026-11-24T21:01:09.804Z"
     }
   ]
 }

@@ -5,7 +5,7 @@
   "season": "premier-league-2026-27",
   "seasonLabel": "2026/27",
   "periodLabel": "Jornada 12",
-  "updatedAt": "2026-11-24T15:06:43.292Z",
+  "updatedAt": "2026-11-24T21:08:59.597Z",
   "source": "football-data",
   "provenance": "derived",
   "isDemo": false,
@@ -2351,11 +2351,11 @@
         "referee": "Michael Oliver",
         "refereeStats": {
           "country": "England",
-          "matches": 106,
-          "avgYellow": 3.77,
+          "matches": 107,
+          "avgYellow": 3.8,
           "avgRed": 0.15,
           "avgFouls": 23,
-          "avgGoals": 2.94
+          "avgGoals": 2.95
         }
       }
     },
@@ -3105,11 +3105,11 @@
         "referee": "Andy Madley",
         "refereeStats": {
           "country": "England",
-          "matches": 65,
-          "avgYellow": 3.82,
+          "matches": 66,
+          "avgYellow": 3.83,
           "avgRed": 0.12,
           "avgFouls": 23.4,
-          "avgGoals": 2.94
+          "avgGoals": 3.02
         }
       }
     },
@@ -3854,8 +3854,8 @@
         "referee": "Adam Herczeg",
         "refereeStats": {
           "country": "England",
-          "matches": 68,
-          "avgYellow": 3.68,
+          "matches": 69,
+          "avgYellow": 3.67,
           "avgRed": 0.13,
           "avgFouls": 22.5,
           "avgGoals": 2.68
@@ -6051,9 +6051,9 @@
         "referee": "Chris Kavanagh",
         "refereeStats": {
           "country": "England",
-          "matches": 91,
-          "avgYellow": 4.52,
-          "avgRed": 0.16,
+          "matches": 93,
+          "avgYellow": 4.59,
+          "avgRed": 0.17,
           "avgFouls": 23.4,
           "avgGoals": 2.68
         }
@@ -6767,11 +6767,11 @@
         "referee": "Peter Bankes",
         "refereeStats": {
           "country": "England",
-          "matches": 59,
+          "matches": 60,
           "avgYellow": 4,
-          "avgRed": 0.19,
+          "avgRed": 0.18,
           "avgFouls": 22.6,
-          "avgGoals": 2.83
+          "avgGoals": 2.87
         }
       }
     },
@@ -8276,11 +8276,11 @@
         "referee": "Craig Pawson",
         "refereeStats": {
           "country": "England",
-          "matches": 59,
-          "avgYellow": 3.49,
-          "avgRed": 0.14,
+          "matches": 60,
+          "avgYellow": 3.48,
+          "avgRed": 0.13,
           "avgFouls": 23.1,
-          "avgGoals": 2.8
+          "avgGoals": 2.75
         }
       }
     },
@@ -9027,6 +9027,84 @@
     },
     "pl-2026-27-md12-leeds-united-coventry-city": {
       "game": "pl-2026-27-md12-leeds-united-coventry-city",
+      "cortex": {
+        "headline": "Leeds en casa con más peso ofensivo y mejor posición",
+        "headlineOrigin": "ia",
+        "sections": [
+          {
+            "key": "lectura",
+            "title": "La lectura",
+            "text": "Leeds llega mejor: 59 % de probabilidad, séptimo con 17 puntos y diferencia de 5. Coventry es decimocuarto con 12 puntos y diferencia de -8, y su producción ofensiva esperada es la mitad de la del local.",
+            "origin": "ia"
+          },
+          {
+            "key": "goles",
+            "title": "Goles",
+            "text": "Se ve abierto: 2.91 goles esperados en total, con 78 % de más de 1.5 y 55 % de más de 2.5. Leeds aporta 1.89 y Coventry 1.02; ambos anotan aparece en 54 %, así que el visitante también tiene margen.",
+            "origin": "ia",
+            "stats": [
+              {
+                "label": "Goles esperados",
+                "home": 1.89,
+                "away": 1.02
+              },
+              {
+                "label": "Ambos anotan",
+                "value": "54 %"
+              },
+              {
+                "label": "Más de 2.5 goles",
+                "value": "55 %"
+              }
+            ]
+          },
+          {
+            "key": "ritmo",
+            "title": "Ritmo del partido",
+            "text": "Leeds empuja más desde las bandas con 5.0 tiros de esquina por 4.2 del visitante, 9.2 en total. Las faltas están parejas, 11.7 y 11.5, 23.2 en conjunto: partido con contacto pero sin un equipo que corte todo.",
+            "origin": "ia",
+            "stats": [
+              {
+                "label": "Tiros de esquina",
+                "home": 5,
+                "away": 4.2
+              },
+              {
+                "label": "Faltas",
+                "home": 11.7,
+                "away": 11.5
+              },
+              {
+                "label": "Amarillas",
+                "home": 1.7,
+                "away": 2
+              }
+            ]
+          },
+          {
+            "key": "tabla",
+            "title": "Tabla y descanso",
+            "text": "Leeds es séptimo con 17 puntos en 11 jornadas y diferencia de 5. Coventry es decimocuarto con 12 puntos y diferencia de -8. Ambos llegan con 7 días de descanso, sin ventaja física de un lado.",
+            "origin": "ia",
+            "stats": [
+              {
+                "label": "Puntos",
+                "home": 17,
+                "away": 12
+              }
+            ]
+          },
+          {
+            "key": "cambia",
+            "title": "Qué podría cambiarlo",
+            "text": "Las alineaciones pueden ajustar el peso ofensivo de Leeds; el criterio del árbitro define cuánto se corta el juego con faltas; el primer gol cambia quién empuja y quién espera.",
+            "origin": "ia"
+          }
+        ],
+        "fingerprint": "310628ef8ebe7982",
+        "generatedAt": "2026-11-24T21:10:19.427Z",
+        "version": "2"
+      },
       "counts": {
         "corners": {
           "home": 5,
@@ -10397,6 +10475,84 @@
     },
     "pl-2026-27-md12-ipswich-town-aston-villa": {
       "game": "pl-2026-27-md12-ipswich-town-aston-villa",
+      "cortex": {
+        "headline": "Aston Villa con más peso en las probabilidades y un partido abierto",
+        "headlineOrigin": "ia",
+        "sections": [
+          {
+            "key": "lectura",
+            "title": "La lectura",
+            "text": "Aston Villa parte adelante: gana en 44 % de los escenarios, contra 31 % de Ipswich Town; el empate se queda en 24 %.",
+            "origin": "plantilla"
+          },
+          {
+            "key": "goles",
+            "title": "Goles",
+            "text": "El total esperado es 3.24, con 62 % de más de 2.5 y 64 % de ambos anotan. Aston Villa aporta 1.70 y el Ipswich 1.54: el visitante empuja algo más, pero el gol local está presente.",
+            "origin": "ia",
+            "stats": [
+              {
+                "label": "Goles esperados",
+                "home": 1.54,
+                "away": 1.7
+              },
+              {
+                "label": "Ambos anotan",
+                "value": "64 %"
+              },
+              {
+                "label": "Más de 2.5 goles",
+                "value": "62 %"
+              }
+            ]
+          },
+          {
+            "key": "ritmo",
+            "title": "Ritmo del partido",
+            "text": "Se esperan 9.2 tiros de esquina, con Aston Villa arriba (4.8 por 4.4). Las faltas suman 24.6 y el Ipswich carga con 13.2: partido con contacto y cortes, más del lado local.",
+            "origin": "ia",
+            "stats": [
+              {
+                "label": "Tiros de esquina",
+                "home": 4.4,
+                "away": 4.8
+              },
+              {
+                "label": "Faltas",
+                "home": 13.2,
+                "away": 11.4
+              },
+              {
+                "label": "Amarillas",
+                "home": 2.1,
+                "away": 2.2
+              }
+            ]
+          },
+          {
+            "key": "tabla",
+            "title": "Tabla y descanso",
+            "text": "Aston Villa es 12º con 14 puntos y diferencia de -3; el Ipswich es 16º con 11 y -7. Ambos llegan con 7 días de descanso, sin ventaja física de un lado.",
+            "origin": "ia",
+            "stats": [
+              {
+                "label": "Puntos",
+                "home": 11,
+                "away": 14
+              }
+            ]
+          },
+          {
+            "key": "cambia",
+            "title": "Qué podría cambiarlo",
+            "text": "Las alineaciones confirmadas, el criterio del árbitro y quién anota primero pueden mover la lectura: si el Ipswich golpea temprano, el partido se le abre al local.",
+            "origin": "ia"
+          }
+        ],
+        "fingerprint": "12913cb87fe5f771",
+        "generatedAt": "2026-11-24T21:10:22.810Z",
+        "version": "2"
+      },
       "counts": {
         "corners": {
           "home": 4.36,

@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "league": "liga-mx",
-  "observedAt": "2026-11-24T15:07:50.872Z",
+  "observedAt": "2026-11-24T21:11:38.469Z",
   "entries": [
     {
       "gameId": "mx-2026-j17-chivas-cruz-azul-401877047",
@@ -207,6 +207,98 @@
           "side": "away",
           "volume": 467.86842399999995,
           "price": 0.165
+        }
+      ]
+    },
+    {
+      "gameId": "mx-2026-lg-leon-cruz-azul-401931995",
+      "source": "polymarket",
+      "unit": "usd",
+      "observedAt": "2026-11-24T21:11:38.469Z",
+      "outcomes": [
+        {
+          "side": "home",
+          "volume": 0,
+          "price": 0.295
+        },
+        {
+          "side": "draw",
+          "volume": 0,
+          "price": 0.265
+        },
+        {
+          "side": "away",
+          "volume": 0,
+          "price": 0.44
+        }
+      ]
+    },
+    {
+      "gameId": "mx-2026-lg-monterrey-america-401931998",
+      "source": "polymarket",
+      "unit": "usd",
+      "observedAt": "2026-11-24T21:11:38.469Z",
+      "outcomes": [
+        {
+          "side": "home",
+          "volume": 10.028248000000001,
+          "price": 0.415
+        },
+        {
+          "side": "draw",
+          "volume": 0,
+          "price": 0.285
+        },
+        {
+          "side": "away",
+          "volume": 0,
+          "price": 0.305
+        }
+      ]
+    },
+    {
+      "gameId": "mx-2026-lg-pachuca-chivas-401931982",
+      "source": "polymarket",
+      "unit": "usd",
+      "observedAt": "2026-11-24T21:11:38.469Z",
+      "outcomes": [
+        {
+          "side": "home",
+          "volume": 2.777778,
+          "price": 0.35
+        },
+        {
+          "side": "draw",
+          "volume": 70,
+          "price": 0.29
+        },
+        {
+          "side": "away",
+          "volume": 0,
+          "price": 0.36
+        }
+      ]
+    },
+    {
+      "gameId": "mx-2026-lg-toluca-atlas-401931986",
+      "source": "polymarket",
+      "unit": "usd",
+      "observedAt": "2026-11-24T21:11:38.469Z",
+      "outcomes": [
+        {
+          "side": "home",
+          "volume": 14.599317,
+          "price": 0.665
+        },
+        {
+          "side": "draw",
+          "volume": 0,
+          "price": 0.185
+        },
+        {
+          "side": "away",
+          "volume": 0,
+          "price": 0.15
         }
       ]
     }

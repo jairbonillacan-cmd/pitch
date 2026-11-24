@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "league": "nfl",
-  "observedAt": "2026-11-24T15:06:43.292Z",
+  "observedAt": "2026-11-24T21:08:59.597Z",
   "source": "espn-public-nfl",
   "coverageStatus": "ok",
   "entries": [
@@ -247,6 +247,16 @@
     },
     {
       "teamId": "nfl.chicago-bears",
+      "player": "Elijah Hicks",
+      "position": "S",
+      "status": "Baja",
+      "detail": "Protocolo de conmoción",
+      "injuryType": "Concussion",
+      "returnDate": "2026-12-06",
+      "reportedAt": "2026-11-24T20:22:00.000Z"
+    },
+    {
+      "teamId": "nfl.chicago-bears",
       "player": "Kyler Gordon",
       "position": "CB",
       "status": "Duda",
@@ -324,6 +334,26 @@
       "injuryType": "Groin",
       "returnDate": "2026-12-20",
       "reportedAt": "2026-11-21T19:53:00.000Z"
+    },
+    {
+      "teamId": "nfl.cleveland-browns",
+      "player": "Denzel Boston",
+      "position": "WR",
+      "status": "Duda",
+      "detail": "Toe",
+      "injuryType": "Toe",
+      "returnDate": "2026-11-29",
+      "reportedAt": "2026-11-24T18:17:00.000Z"
+    },
+    {
+      "teamId": "nfl.cleveland-browns",
+      "player": "Raheim Sanders",
+      "position": "RB",
+      "status": "Baja",
+      "detail": "Cadera",
+      "injuryType": "Hip",
+      "returnDate": "2026-11-29",
+      "reportedAt": "2026-11-24T15:58:00.000Z"
     },
     {
       "teamId": "nfl.cleveland-browns",
@@ -447,6 +477,16 @@
     },
     {
       "teamId": "nfl.detroit-lions",
+      "player": "Skyler Gill-Howard",
+      "position": "DT",
+      "status": "Baja",
+      "detail": "Rodilla",
+      "injuryType": "Knee",
+      "returnDate": "2027-02-15",
+      "reportedAt": "2026-11-24T19:25:00.000Z"
+    },
+    {
+      "teamId": "nfl.detroit-lions",
       "player": "Ennis Rakestraw Jr.",
       "position": "CB",
       "status": "Duda",
@@ -477,16 +517,6 @@
     },
     {
       "teamId": "nfl.detroit-lions",
-      "player": "Skyler Gill-Howard",
-      "position": "DT",
-      "status": "Duda",
-      "detail": "Rodilla",
-      "injuryType": "Knee",
-      "returnDate": "2026-11-26",
-      "reportedAt": "2026-11-24T00:42:00.000Z"
-    },
-    {
-      "teamId": "nfl.detroit-lions",
       "player": "Sam LaPorta",
       "position": "TE",
       "status": "Duda",
@@ -504,6 +534,56 @@
       "injuryType": "Ankle",
       "returnDate": "2026-12-20",
       "reportedAt": "2026-11-22T00:57:00.000Z"
+    },
+    {
+      "teamId": "nfl.green-bay-packers",
+      "player": "Skyy Moore",
+      "position": "WR",
+      "status": "Duda",
+      "detail": "Tobillo",
+      "injuryType": "Ankle",
+      "returnDate": "2026-11-25",
+      "reportedAt": "2026-11-24T20:48:00.000Z"
+    },
+    {
+      "teamId": "nfl.green-bay-packers",
+      "player": "Bo Melton",
+      "position": "WR",
+      "status": "Duda",
+      "detail": "Muslo",
+      "injuryType": "Thigh",
+      "returnDate": "2026-11-25",
+      "reportedAt": "2026-11-24T20:40:00.000Z"
+    },
+    {
+      "teamId": "nfl.green-bay-packers",
+      "player": "Zaire Franklin",
+      "position": "LB",
+      "status": "Duda",
+      "detail": "Shin",
+      "injuryType": "Shin",
+      "returnDate": "2026-11-25",
+      "reportedAt": "2026-11-24T20:28:00.000Z"
+    },
+    {
+      "teamId": "nfl.green-bay-packers",
+      "player": "Micah Parsons",
+      "position": "DE",
+      "status": "Duda",
+      "detail": "Knee - ACL",
+      "injuryType": "Knee - ACL",
+      "returnDate": "2026-11-25",
+      "reportedAt": "2026-11-24T19:34:00.000Z"
+    },
+    {
+      "teamId": "nfl.green-bay-packers",
+      "player": "Josh Jacobs",
+      "position": "RB",
+      "status": "Duda",
+      "detail": "Finger",
+      "injuryType": "Finger",
+      "returnDate": "2026-11-25",
+      "reportedAt": "2026-11-24T18:19:00.000Z"
     },
     {
       "teamId": "nfl.green-bay-packers",
@@ -527,26 +607,6 @@
     },
     {
       "teamId": "nfl.green-bay-packers",
-      "player": "Skyy Moore",
-      "position": "WR",
-      "status": "Duda",
-      "detail": "Tobillo",
-      "injuryType": "Ankle",
-      "returnDate": "2026-11-25",
-      "reportedAt": "2026-11-24T00:18:00.000Z"
-    },
-    {
-      "teamId": "nfl.green-bay-packers",
-      "player": "Bo Melton",
-      "position": "WR",
-      "status": "Duda",
-      "detail": "Muslo",
-      "injuryType": "Thigh",
-      "returnDate": "2026-11-25",
-      "reportedAt": "2026-11-24T00:16:00.000Z"
-    },
-    {
-      "teamId": "nfl.green-bay-packers",
       "player": "Travis Glover",
       "position": "OT",
       "status": "Duda",
@@ -554,46 +614,6 @@
       "injuryType": "Shoulder",
       "returnDate": "2026-11-25",
       "reportedAt": "2026-11-23T22:18:00.000Z"
-    },
-    {
-      "teamId": "nfl.green-bay-packers",
-      "player": "Micah Parsons",
-      "position": "DE",
-      "status": "Baja",
-      "detail": "Knee - ACL",
-      "injuryType": "Knee - ACL",
-      "returnDate": "2026-11-25",
-      "reportedAt": "2026-11-23T21:43:00.000Z"
-    },
-    {
-      "teamId": "nfl.green-bay-packers",
-      "player": "Josh Jacobs",
-      "position": "RB",
-      "status": "Duda",
-      "detail": "Finger",
-      "injuryType": "Finger",
-      "returnDate": "2026-11-25",
-      "reportedAt": "2026-11-23T21:35:00.000Z"
-    },
-    {
-      "teamId": "nfl.green-bay-packers",
-      "player": "Zaire Franklin",
-      "position": "LB",
-      "status": "Duda",
-      "detail": "Shin",
-      "injuryType": "Shin",
-      "returnDate": "2026-11-25",
-      "reportedAt": "2026-11-23T20:24:00.000Z"
-    },
-    {
-      "teamId": "nfl.green-bay-packers",
-      "player": "Isaiah McDuffie",
-      "position": "LB",
-      "status": "Duda",
-      "detail": "Costillas",
-      "injuryType": "Ribs",
-      "returnDate": "2026-11-25",
-      "reportedAt": "2026-11-22T21:35:00.000Z"
     },
     {
       "teamId": "nfl.green-bay-packers",
@@ -684,6 +704,16 @@
       "injuryType": "Ankle",
       "returnDate": "2026-11-29",
       "reportedAt": "2026-11-20T02:50:00.000Z"
+    },
+    {
+      "teamId": "nfl.indianapolis-colts",
+      "player": "Caden Curry",
+      "position": "LB",
+      "status": "Baja",
+      "detail": "Parte médico reservado",
+      "injuryType": "Undisclosed",
+      "returnDate": "2027-01-03",
+      "reportedAt": "2026-11-24T20:11:00.000Z"
     },
     {
       "teamId": "nfl.indianapolis-colts",
@@ -827,6 +857,26 @@
     },
     {
       "teamId": "nfl.kansas-city-chiefs",
+      "player": "Ben VanSumeren",
+      "position": "FB",
+      "status": "Baja",
+      "detail": "Rodilla",
+      "injuryType": "Knee",
+      "returnDate": "2026-12-27",
+      "reportedAt": "2026-11-24T19:33:00.000Z"
+    },
+    {
+      "teamId": "nfl.kansas-city-chiefs",
+      "player": "Kenneth Walker III",
+      "position": "RB",
+      "status": "Duda",
+      "detail": "Ingle",
+      "injuryType": "Groin",
+      "returnDate": "2026-11-26",
+      "reportedAt": "2026-11-24T18:03:00.000Z"
+    },
+    {
+      "teamId": "nfl.kansas-city-chiefs",
       "player": "Trey Smith",
       "position": "G",
       "status": "Duda",
@@ -847,6 +897,16 @@
     },
     {
       "teamId": "nfl.kansas-city-chiefs",
+      "player": "Omarr Norman-Lott",
+      "position": "DT",
+      "status": "Duda",
+      "detail": "Rodilla",
+      "injuryType": "Knee",
+      "returnDate": "2026-11-26",
+      "reportedAt": "2026-11-24T01:18:00.000Z"
+    },
+    {
+      "teamId": "nfl.kansas-city-chiefs",
       "player": "Noah Gray",
       "position": "TE",
       "status": "Duda",
@@ -854,26 +914,6 @@
       "injuryType": "Ribs",
       "returnDate": "2026-11-26",
       "reportedAt": "2026-11-24T00:06:00.000Z"
-    },
-    {
-      "teamId": "nfl.kansas-city-chiefs",
-      "player": "Kenneth Walker III",
-      "position": "RB",
-      "status": "Duda",
-      "detail": "Ingle",
-      "injuryType": "Groin",
-      "returnDate": "2026-11-26",
-      "reportedAt": "2026-11-23T22:45:00.000Z"
-    },
-    {
-      "teamId": "nfl.kansas-city-chiefs",
-      "player": "Ben VanSumeren",
-      "position": "FB",
-      "status": "Duda",
-      "detail": "Rodilla",
-      "injuryType": "Knee",
-      "returnDate": "2026-11-26",
-      "reportedAt": "2026-11-22T20:49:00.000Z"
     },
     {
       "teamId": "nfl.kansas-city-chiefs",
@@ -1047,16 +1087,6 @@
     },
     {
       "teamId": "nfl.los-angeles-rams",
-      "player": "Myles Garrett",
-      "position": "DE",
-      "status": "Duda",
-      "detail": "Rodilla",
-      "injuryType": "Knee",
-      "returnDate": "2026-11-25",
-      "reportedAt": "2026-11-24T00:25:00.000Z"
-    },
-    {
-      "teamId": "nfl.los-angeles-rams",
       "player": "Coleman Shelton",
       "position": "C",
       "status": "Baja",
@@ -1074,16 +1104,6 @@
       "injuryType": "Ankle",
       "returnDate": "2027-02-15",
       "reportedAt": "2026-11-23T19:35:00.000Z"
-    },
-    {
-      "teamId": "nfl.los-angeles-rams",
-      "player": "Kam Curl",
-      "position": "S",
-      "status": "Duda",
-      "detail": "Toe",
-      "injuryType": "Toe",
-      "returnDate": "2026-11-25",
-      "reportedAt": "2026-11-23T00:14:00.000Z"
     },
     {
       "teamId": "nfl.los-angeles-rams",
@@ -1247,6 +1267,16 @@
     },
     {
       "teamId": "nfl.new-england-patriots",
+      "player": "A.J. Brown",
+      "position": "WR",
+      "status": "Duda",
+      "detail": "Isquiotibiales",
+      "injuryType": "Hamstring",
+      "returnDate": "2026-11-29",
+      "reportedAt": "2026-11-24T19:46:00.000Z"
+    },
+    {
+      "teamId": "nfl.new-england-patriots",
       "player": "Walter Rouse",
       "position": "OL",
       "status": "Duda",
@@ -1294,16 +1324,6 @@
       "injuryType": "Hamstring",
       "returnDate": "2026-11-29",
       "reportedAt": "2026-11-24T01:00:00.000Z"
-    },
-    {
-      "teamId": "nfl.new-england-patriots",
-      "player": "A.J. Brown",
-      "position": "WR",
-      "status": "Duda",
-      "detail": "Isquiotibiales",
-      "injuryType": "Hamstring",
-      "returnDate": "2026-11-29",
-      "reportedAt": "2026-11-23T21:34:00.000Z"
     },
     {
       "teamId": "nfl.new-england-patriots",
@@ -1422,8 +1442,8 @@
       "status": "Baja",
       "detail": "Tobillo",
       "injuryType": "Ankle",
-      "returnDate": "2026-12-13",
-      "reportedAt": "2026-11-23T22:14:00.000Z"
+      "returnDate": "2026-12-20",
+      "reportedAt": "2026-11-24T20:14:00.000Z"
     },
     {
       "teamId": "nfl.new-york-giants",
@@ -1677,6 +1697,16 @@
     },
     {
       "teamId": "nfl.seattle-seahawks",
+      "player": "Sam Darnold",
+      "position": "QB",
+      "status": "Duda",
+      "detail": "Quadriceps",
+      "injuryType": "Quadriceps",
+      "returnDate": "2026-11-29",
+      "reportedAt": "2026-11-24T15:31:00.000Z"
+    },
+    {
+      "teamId": "nfl.seattle-seahawks",
       "player": "Leonard Williams",
       "position": "DT",
       "status": "Duda",
@@ -1704,16 +1734,6 @@
       "injuryType": "Ankle",
       "returnDate": "2026-11-29",
       "reportedAt": "2026-11-24T12:39:00.000Z"
-    },
-    {
-      "teamId": "nfl.seattle-seahawks",
-      "player": "Sam Darnold",
-      "position": "QB",
-      "status": "Duda",
-      "detail": "Quadriceps",
-      "injuryType": "Quadriceps",
-      "returnDate": "2026-11-29",
-      "reportedAt": "2026-11-23T23:33:00.000Z"
     },
     {
       "teamId": "nfl.seattle-seahawks",

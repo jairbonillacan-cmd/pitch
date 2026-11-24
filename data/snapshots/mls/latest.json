@@ -5,7 +5,7 @@
   "season": "mls-2026",
   "seasonLabel": "2026",
   "periodLabel": "League phase",
-  "updatedAt": "2026-11-23T22:28:20.377Z",
+  "updatedAt": "2026-11-24T21:01:09.804Z",
   "source": "pitchlab-football-v2",
   "provenance": "derived",
   "isDemo": false,
@@ -18,8 +18,8 @@
       "forPerGame": 0.75,
       "againstPerGame": 1.9,
       "gamesPlayed": 20,
-      "adjustedFor": 0.9104110561597505,
-      "adjustedAgainst": 1.549798810293947
+      "adjustedFor": 0.912355771274824,
+      "adjustedAgainst": 1.5516683945010115
     },
     "mls.toronto": {
       "teamId": "mls.toronto",
@@ -29,19 +29,19 @@
       "forPerGame": 1.5,
       "againstPerGame": 1.9,
       "gamesPlayed": 20,
-      "adjustedFor": 1.429697488655179,
-      "adjustedAgainst": 1.5798498028888546
+      "adjustedFor": 1.4306428719011572,
+      "adjustedAgainst": 1.5797148297646832
     },
     "mls.st-louis-city": {
       "teamId": "mls.st-louis-city",
       "name": "St.Louis City",
       "shortName": "St.Louis City",
       "code": "STL",
-      "forPerGame": 2.15,
-      "againstPerGame": 1.4,
-      "gamesPlayed": 20,
-      "adjustedFor": 1.6999503429196212,
-      "adjustedAgainst": 1.3290430358762977
+      "forPerGame": 2.1904761904761907,
+      "againstPerGame": 1.4285714285714286,
+      "gamesPlayed": 21,
+      "adjustedFor": 1.7401919697801738,
+      "adjustedAgainst": 1.3583915475857964
     },
     "mls.sporting-kansas-city": {
       "teamId": "mls.sporting-kansas-city",
@@ -51,8 +51,8 @@
       "forPerGame": 1.3,
       "againstPerGame": 2.25,
       "gamesPlayed": 20,
-      "adjustedFor": 1.2778502989163,
-      "adjustedAgainst": 1.8050807606503991
+      "adjustedFor": 1.2761789227300806,
+      "adjustedAgainst": 1.8019626304425582
     },
     "mls.chicago-fire": {
       "teamId": "mls.chicago-fire",
@@ -62,8 +62,8 @@
       "forPerGame": 1.8095238095238095,
       "againstPerGame": 1.9047619047619047,
       "gamesPlayed": 21,
-      "adjustedFor": 1.6260480826582402,
-      "adjustedAgainst": 1.5228855856379426
+      "adjustedFor": 1.6283071873102777,
+      "adjustedAgainst": 1.5246633966892642
     },
     "mls.vancouver-whitecaps": {
       "teamId": "mls.vancouver-whitecaps",
@@ -73,8 +73,8 @@
       "forPerGame": 2,
       "againstPerGame": 1.0476190476190477,
       "gamesPlayed": 21,
-      "adjustedFor": 1.6503921382215925,
-      "adjustedAgainst": 1.1051005160887164
+      "adjustedFor": 1.6480359691611095,
+      "adjustedAgainst": 1.1034037303061208
     },
     "mls.seattle-sounders": {
       "teamId": "mls.seattle-sounders",
@@ -84,8 +84,8 @@
       "forPerGame": 1.2727272727272727,
       "againstPerGame": 1.6363636363636365,
       "gamesPlayed": 22,
-      "adjustedFor": 1.2039848783490381,
-      "adjustedAgainst": 1.4496657823787935
+      "adjustedFor": 1.2054357929461215,
+      "adjustedAgainst": 1.4513038801649831
     },
     "mls.portland-timbers": {
       "teamId": "mls.portland-timbers",
@@ -95,8 +95,8 @@
       "forPerGame": 1.9047619047619047,
       "againstPerGame": 1.7142857142857142,
       "gamesPlayed": 21,
-      "adjustedFor": 1.5697178800504106,
-      "adjustedAgainst": 1.5170536461099977
+      "adjustedFor": 1.5690980579323195,
+      "adjustedAgainst": 1.515224973061891
     },
     "mls.nashville": {
       "teamId": "mls.nashville",
@@ -106,8 +106,8 @@
       "forPerGame": 1.9047619047619047,
       "againstPerGame": 0.7142857142857143,
       "gamesPlayed": 21,
-      "adjustedFor": 1.5473852807642174,
-      "adjustedAgainst": 0.8647125946533855
+      "adjustedFor": 1.5497558575357546,
+      "adjustedAgainst": 0.8663277080012781
     },
     "mls.atlanta-united": {
       "teamId": "mls.atlanta-united",
@@ -117,8 +117,8 @@
       "forPerGame": 1.45,
       "againstPerGame": 1.85,
       "gamesPlayed": 20,
-      "adjustedFor": 1.3293474466218154,
-      "adjustedAgainst": 1.521240491388733
+      "adjustedFor": 1.33175355986764,
+      "adjustedAgainst": 1.5232441575870244
     },
     "mls.la-galaxy": {
       "teamId": "mls.la-galaxy",
@@ -128,19 +128,19 @@
       "forPerGame": 1.4736842105263157,
       "againstPerGame": 1.8421052631578947,
       "gamesPlayed": 19,
-      "adjustedFor": 1.3597977875379317,
-      "adjustedAgainst": 1.623400159371015
+      "adjustedFor": 1.3577393884053044,
+      "adjustedAgainst": 1.6201001425960864
     },
     "mls.los-angeles": {
       "teamId": "mls.los-angeles",
       "name": "Los Angeles FC",
       "shortName": "Los Angeles",
       "code": "LOS",
-      "forPerGame": 1.4736842105263157,
-      "againstPerGame": 1.2105263157894737,
-      "gamesPlayed": 19,
-      "adjustedFor": 1.2902265328444713,
-      "adjustedAgainst": 1.2444773051750087
+      "forPerGame": 1.5,
+      "againstPerGame": 1.3,
+      "gamesPlayed": 20,
+      "adjustedFor": 1.3196264177579413,
+      "adjustedAgainst": 1.2870742209543424
     },
     "mls.new-england-revolution": {
       "teamId": "mls.new-england-revolution",
@@ -150,8 +150,8 @@
       "forPerGame": 1.6666666666666667,
       "againstPerGame": 1.380952380952381,
       "gamesPlayed": 21,
-      "adjustedFor": 1.4564475596688762,
-      "adjustedAgainst": 1.2553298493729244
+      "adjustedFor": 1.458744641494406,
+      "adjustedAgainst": 1.2570879484317772
     },
     "mls.philadelphia-union": {
       "teamId": "mls.philadelphia-union",
@@ -161,8 +161,8 @@
       "forPerGame": 2.4,
       "againstPerGame": 1.2,
       "gamesPlayed": 20,
-      "adjustedFor": 1.8679403704676225,
-      "adjustedAgainst": 1.180798088249906
+      "adjustedFor": 1.8705507138933872,
+      "adjustedAgainst": 1.1825658523800697
     },
     "mls.new-york-red-bulls": {
       "teamId": "mls.new-york-red-bulls",
@@ -172,8 +172,8 @@
       "forPerGame": 1.2105263157894737,
       "againstPerGame": 1.5789473684210527,
       "gamesPlayed": 19,
-      "adjustedFor": 1.2267993406163933,
-      "adjustedAgainst": 1.3463917827415754
+      "adjustedFor": 1.2264340901383015,
+      "adjustedAgainst": 1.3457126951360316
     },
     "mls.columbus-crew": {
       "teamId": "mls.columbus-crew",
@@ -183,8 +183,8 @@
       "forPerGame": 2.05,
       "againstPerGame": 1.45,
       "gamesPlayed": 20,
-      "adjustedFor": 1.7252667519803713,
-      "adjustedAgainst": 1.286005373376231
+      "adjustedFor": 1.7274992776596234,
+      "adjustedAgainst": 1.2875880421979014
     },
     "mls.new-york-city": {
       "teamId": "mls.new-york-city",
@@ -194,8 +194,8 @@
       "forPerGame": 1.263157894736842,
       "againstPerGame": 1.263157894736842,
       "gamesPlayed": 19,
-      "adjustedFor": 1.2110490167218815,
-      "adjustedAgainst": 1.1824313766436174
+      "adjustedFor": 1.2115145290189775,
+      "adjustedAgainst": 1.183205393261139
     },
     "mls.cincinnati": {
       "teamId": "mls.cincinnati",
@@ -205,8 +205,8 @@
       "forPerGame": 1.6666666666666667,
       "againstPerGame": 1.8571428571428572,
       "gamesPlayed": 21,
-      "adjustedFor": 1.5455578014615132,
-      "adjustedAgainst": 1.5044741795309868
+      "adjustedFor": 1.5475309622519993,
+      "adjustedAgainst": 1.5060028563917862
     },
     "mls.inter-miami": {
       "teamId": "mls.inter-miami",
@@ -216,8 +216,8 @@
       "forPerGame": 2.05,
       "againstPerGame": 1.7,
       "gamesPlayed": 20,
-      "adjustedFor": 1.702917412981733,
-      "adjustedAgainst": 1.4735620341464728
+      "adjustedFor": 1.7049535182309563,
+      "adjustedAgainst": 1.47509648709493
     },
     "mls.charlotte": {
       "teamId": "mls.charlotte",
@@ -227,8 +227,8 @@
       "forPerGame": 2.2,
       "againstPerGame": 1.45,
       "gamesPlayed": 20,
-      "adjustedFor": 1.7992834472352015,
-      "adjustedAgainst": 1.2899467746554683
+      "adjustedFor": 1.8016140685224569,
+      "adjustedAgainst": 1.2915125892528128
     },
     "mls.houston-dynamo": {
       "teamId": "mls.houston-dynamo",
@@ -238,8 +238,8 @@
       "forPerGame": 1.2,
       "againstPerGame": 1,
       "gamesPlayed": 20,
-      "adjustedFor": 1.1078584731128105,
-      "adjustedAgainst": 1.0475638442393767
+      "adjustedFor": 1.109076832578315,
+      "adjustedAgainst": 1.0477807259971406
     },
     "mls.dc-united": {
       "teamId": "mls.dc-united",
@@ -249,8 +249,8 @@
       "forPerGame": 0.9473684210526315,
       "againstPerGame": 1.894736842105263,
       "gamesPlayed": 19,
-      "adjustedFor": 1.0369289840666744,
-      "adjustedAgainst": 1.5555397354808536
+      "adjustedFor": 1.037676398834063,
+      "adjustedAgainst": 1.55640426073356
     },
     "mls.minnesota-united": {
       "teamId": "mls.minnesota-united",
@@ -260,8 +260,8 @@
       "forPerGame": 2,
       "againstPerGame": 1.894736842105263,
       "gamesPlayed": 19,
-      "adjustedFor": 1.6513750793445747,
-      "adjustedAgainst": 1.6479178386119147
+      "adjustedFor": 1.6505785013245762,
+      "adjustedAgainst": 1.645625461781311
     },
     "mls.colorado-rapids": {
       "teamId": "mls.colorado-rapids",
@@ -271,8 +271,8 @@
       "forPerGame": 1.1578947368421053,
       "againstPerGame": 1.368421052631579,
       "gamesPlayed": 19,
-      "adjustedFor": 1.0972130315150728,
-      "adjustedAgainst": 1.3270300008732168
+      "adjustedFor": 1.0980223394741349,
+      "adjustedAgainst": 1.3272374814498005
     },
     "mls.san-diego": {
       "teamId": "mls.san-diego",
@@ -282,8 +282,8 @@
       "forPerGame": 1.4210526315789473,
       "againstPerGame": 1.894736842105263,
       "gamesPlayed": 19,
-      "adjustedFor": 1.3147637803476193,
-      "adjustedAgainst": 1.5945284892510472
+      "adjustedFor": 1.3156036540112137,
+      "adjustedAgainst": 1.5940924082905434
     },
     "mls.austin": {
       "teamId": "mls.austin",
@@ -293,8 +293,8 @@
       "forPerGame": 1.2105263157894737,
       "againstPerGame": 1.7894736842105263,
       "gamesPlayed": 19,
-      "adjustedFor": 1.1988401421451116,
-      "adjustedAgainst": 1.5778900775349367
+      "adjustedFor": 1.2004852364904073,
+      "adjustedAgainst": 1.579364497298118
     },
     "mls.dallas": {
       "teamId": "mls.dallas",
@@ -304,8 +304,8 @@
       "forPerGame": 1.75,
       "againstPerGame": 1.45,
       "gamesPlayed": 20,
-      "adjustedFor": 1.48609745706221,
-      "adjustedAgainst": 1.3028891506759457
+      "adjustedFor": 1.4868449600620524,
+      "adjustedAgainst": 1.3032485665071103
     },
     "mls.san-jose-earthquakes": {
       "teamId": "mls.san-jose-earthquakes",
@@ -315,8 +315,8 @@
       "forPerGame": 1.2105263157894737,
       "againstPerGame": 1.894736842105263,
       "gamesPlayed": 19,
-      "adjustedFor": 1.190936436755903,
-      "adjustedAgainst": 1.615766861199289
+      "adjustedFor": 1.1914916691900557,
+      "adjustedAgainst": 1.6159426525568479
     },
     "mls.orlando-city": {
       "teamId": "mls.orlando-city",
@@ -326,8 +326,8 @@
       "forPerGame": 2.05,
       "againstPerGame": 1.85,
       "gamesPlayed": 20,
-      "adjustedFor": 1.6793788563552345,
-      "adjustedAgainst": 1.5544812342828542
+      "adjustedFor": 1.6818810195712774,
+      "adjustedAgainst": 1.5563544218787906
     },
     "mls.real-salt-lake": {
       "teamId": "mls.real-salt-lake",
@@ -337,45 +337,11 @@
       "forPerGame": 1.2727272727272727,
       "againstPerGame": 1.6363636363636365,
       "gamesPlayed": 22,
-      "adjustedFor": 1.24229888421847,
-      "adjustedAgainst": 1.4073484071112727
+      "adjustedFor": 1.2410136138834211,
+      "adjustedAgainst": 1.4055479718830244
     }
   },
   "games": [
-    {
-      "id": "mls-2026-11-07-inter-miami-charlotte-nf5pga",
-      "league": "mls",
-      "season": "mls-2026",
-      "round": "League phase",
-      "phase": "League phase",
-      "startTime": "2026-11-07T21:00:00.000Z",
-      "status": "final",
-      "home": {
-        "id": "mls.inter-miami",
-        "league": "mls",
-        "name": "Inter Miami CF",
-        "shortName": "Inter Miami",
-        "code": "INT",
-        "logoUrl": "https://sports.bzzoiro.com/img/team/293/?bg=transparent"
-      },
-      "away": {
-        "id": "mls.charlotte",
-        "league": "mls",
-        "name": "Charlotte FC",
-        "shortName": "Charlotte",
-        "code": "CHA",
-        "logoUrl": "https://sports.bzzoiro.com/img/team/275/?bg=transparent"
-      },
-      "venue": "Nu Stadium, Miami",
-      "referee": "Rubiel Vazquez",
-      "neutralSite": false,
-      "result": {
-        "home": 3,
-        "away": 3,
-        "observedAt": "2026-11-23T22:28:20.377Z",
-        "source": "pitchlab-feed"
-      }
-    },
     {
       "id": "mls-2026-11-08-houston-dynamo-st-louis-city-7fb9ul",
       "league": "mls",
@@ -406,7 +372,7 @@
       "result": {
         "home": 0,
         "away": 1,
-        "observedAt": "2026-11-23T22:28:20.377Z",
+        "observedAt": "2026-11-24T21:01:09.804Z",
         "source": "pitchlab-feed"
       }
     },
@@ -440,7 +406,7 @@
       "result": {
         "home": 3,
         "away": 1,
-        "observedAt": "2026-11-23T22:28:20.377Z",
+        "observedAt": "2026-11-24T21:01:09.804Z",
         "source": "pitchlab-feed"
       }
     },
@@ -474,7 +440,7 @@
       "result": {
         "home": 0,
         "away": 1,
-        "observedAt": "2026-11-23T22:28:20.377Z",
+        "observedAt": "2026-11-24T21:01:09.804Z",
         "source": "pitchlab-feed"
       }
     },
@@ -508,7 +474,7 @@
       "result": {
         "home": 0,
         "away": 2,
-        "observedAt": "2026-11-23T22:28:20.377Z",
+        "observedAt": "2026-11-24T21:01:09.804Z",
         "source": "pitchlab-feed"
       }
     },
@@ -542,7 +508,7 @@
       "result": {
         "home": 3,
         "away": 1,
-        "observedAt": "2026-11-23T22:28:20.377Z",
+        "observedAt": "2026-11-24T21:01:09.804Z",
         "source": "pitchlab-feed"
       }
     },
@@ -576,7 +542,7 @@
       "result": {
         "home": 2,
         "away": 1,
-        "observedAt": "2026-11-23T22:28:20.377Z",
+        "observedAt": "2026-11-24T21:01:09.804Z",
         "source": "pitchlab-feed"
       }
     },
@@ -610,7 +576,7 @@
       "result": {
         "home": 2,
         "away": 1,
-        "observedAt": "2026-11-23T22:28:20.377Z",
+        "observedAt": "2026-11-24T21:01:09.804Z",
         "source": "pitchlab-feed"
       }
     },
@@ -645,7 +611,7 @@
       "result": {
         "home": 1,
         "away": 3,
-        "observedAt": "2026-11-23T22:28:20.377Z",
+        "observedAt": "2026-11-24T21:01:09.804Z",
         "source": "pitchlab-feed"
       }
     },
@@ -680,7 +646,7 @@
       "result": {
         "home": 1,
         "away": 1,
-        "observedAt": "2026-11-23T22:28:20.377Z",
+        "observedAt": "2026-11-24T21:01:09.804Z",
         "source": "pitchlab-feed"
       }
     },
@@ -714,7 +680,7 @@
       "result": {
         "home": 2,
         "away": 0,
-        "observedAt": "2026-11-23T22:28:20.377Z",
+        "observedAt": "2026-11-24T21:01:09.804Z",
         "source": "pitchlab-feed"
       }
     },
@@ -748,7 +714,7 @@
       "result": {
         "home": 3,
         "away": 0,
-        "observedAt": "2026-11-23T22:28:20.377Z",
+        "observedAt": "2026-11-24T21:01:09.804Z",
         "source": "pitchlab-feed"
       }
     },
@@ -782,7 +748,7 @@
       "result": {
         "home": 0,
         "away": 3,
-        "observedAt": "2026-11-23T22:28:20.377Z",
+        "observedAt": "2026-11-24T21:01:09.804Z",
         "source": "pitchlab-feed"
       }
     },
@@ -816,7 +782,7 @@
       "result": {
         "home": 0,
         "away": 1,
-        "observedAt": "2026-11-23T22:28:20.377Z",
+        "observedAt": "2026-11-24T21:01:09.804Z",
         "source": "pitchlab-feed"
       }
     },
@@ -850,7 +816,7 @@
       "result": {
         "home": 1,
         "away": 2,
-        "observedAt": "2026-11-23T22:28:20.377Z",
+        "observedAt": "2026-11-24T21:01:09.804Z",
         "source": "pitchlab-feed"
       }
     },
@@ -858,8 +824,8 @@
       "id": "mls-2026-11-23-vancouver-whit-real-salt-lake-aknepv",
       "league": "mls",
       "season": "mls-2026",
-      "round": "Round 1",
-      "phase": "Round 1",
+      "round": "League phase",
+      "phase": "League phase",
       "startTime": "2026-11-23T01:30:00.000Z",
       "status": "final",
       "home": {
@@ -884,7 +850,7 @@
       "result": {
         "home": 2,
         "away": 0,
-        "observedAt": "2026-11-23T22:28:20.377Z",
+        "observedAt": "2026-11-24T21:01:09.804Z",
         "source": "pitchlab-feed"
       }
     },
@@ -894,8 +860,8 @@
       "season": "mls-2026",
       "round": "League phase",
       "phase": "League phase",
-      "startTime": "2026-11-24T01:00:00.000Z",
-      "status": "scheduled",
+      "startTime": "2026-11-24T01:15:00.000Z",
+      "status": "final",
       "home": {
         "id": "mls.st-louis-city",
         "league": "mls",
@@ -914,7 +880,13 @@
       },
       "venue": "Energizer Park, St. Louis",
       "referee": "Guido Gonzales Jr",
-      "neutralSite": false
+      "neutralSite": false,
+      "result": {
+        "home": 3,
+        "away": 2,
+        "observedAt": "2026-11-24T21:01:09.804Z",
+        "source": "pitchlab-feed"
+      }
     },
     {
       "id": "mls-2026-11-25-san-jose-earth-houston-dynamo-gh3odc",
@@ -941,6 +913,7 @@
         "logoUrl": "https://sports.bzzoiro.com/img/team/288/?bg=transparent"
       },
       "venue": "PayPal Park, San Jose",
+      "referee": "Sergiy Boyko",
       "neutralSite": false
     },
     {
@@ -1161,457 +1134,6 @@
     }
   ],
   "analyses": {
-    "mls-2026-11-07-inter-miami-charlotte-nf5pga": {
-      "game": "mls-2026-11-07-inter-miami-charlotte-nf5pga",
-      "model": {
-        "id": "pitchlab-statistical-mls",
-        "version": "2.0.0",
-        "status": "candidate",
-        "label": "Modelo PitchLab · en validación"
-      },
-      "projection": {
-        "home": 2.333544686233984,
-        "away": 2.053762771809919,
-        "total": 4.387307458043903,
-        "margin": 0.2797819144240652
-      },
-      "x12": [
-        0.4503133131500228,
-        0.20249683520745151,
-        0.3471898516425255
-      ],
-      "probabilities": [
-        {
-          "market": "h2h",
-          "selection": "Inter Miami gana",
-          "p": 0.4503133131500228,
-          "fairOdds": 2.2206760732984323
-        },
-        {
-          "market": "h2h",
-          "selection": "Empate",
-          "p": 0.20249683520745151,
-          "fairOdds": 4.938348784441653
-        },
-        {
-          "market": "h2h",
-          "selection": "Charlotte gana",
-          "p": 0.3471898516425255,
-          "fairOdds": 2.8802685195695825
-        },
-        {
-          "market": "double_chance",
-          "selection": "Inter Miami o empate",
-          "p": 0.6528101483574743,
-          "fairOdds": 1.5318389312973837
-        },
-        {
-          "market": "double_chance",
-          "selection": "Charlotte o empate",
-          "p": 0.549686686849977,
-          "fairOdds": 1.8192181544919326
-        },
-        {
-          "market": "double_chance",
-          "selection": "Sin empate",
-          "p": 0.7975031647925483,
-          "fairOdds": 1.2539135192775397
-        },
-        {
-          "market": "totals",
-          "selection": "Más de 1.5",
-          "line": 1.5,
-          "p": 0.9365860167786373,
-          "fairOdds": 1.0677075912786669
-        },
-        {
-          "market": "totals",
-          "selection": "Más de 2.5",
-          "line": 2.5,
-          "p": 0.813335803825653,
-          "fairOdds": 1.2295044621131181
-        },
-        {
-          "market": "totals",
-          "selection": "Menos de 2.5",
-          "line": 2.5,
-          "p": 0.18666419617434704,
-          "fairOdds": 5.357213758689887
-        },
-        {
-          "market": "totals",
-          "selection": "Más de 3.5",
-          "line": 3.5,
-          "p": 0.6383194170411794,
-          "fairOdds": 1.5666137881804207
-        },
-        {
-          "market": "totals",
-          "selection": "Menos de 3.5",
-          "line": 3.5,
-          "p": 0.36168058295882055,
-          "fairOdds": 2.7648705712074566
-        },
-        {
-          "market": "btts",
-          "selection": "Sí",
-          "p": 0.7908028492962846,
-          "fairOdds": 1.2645376795112393
-        },
-        {
-          "market": "btts",
-          "selection": "No",
-          "p": 0.20919715070371536,
-          "fairOdds": 4.780179828626317
-        },
-        {
-          "market": "team_totals",
-          "selection": "Inter Miami más de 1.5",
-          "line": 1.5,
-          "p": 0.676797083453989,
-          "fairOdds": 1.477547738380559
-        },
-        {
-          "market": "team_totals",
-          "selection": "Inter Miami menos de 1.5",
-          "line": 1.5,
-          "p": 0.32320291654601097,
-          "fairOdds": 3.0940314855037534
-        },
-        {
-          "market": "team_totals",
-          "selection": "Charlotte más de 1.5",
-          "line": 1.5,
-          "p": 0.6083464573655234,
-          "fairOdds": 1.6438001535022544
-        },
-        {
-          "market": "team_totals",
-          "selection": "Charlotte menos de 1.5",
-          "line": 1.5,
-          "p": 0.3916535426344766,
-          "fairOdds": 2.553277044996073
-        },
-        {
-          "market": "correct_score",
-          "selection": "2–2",
-          "p": 0.07140170124330766,
-          "fairOdds": 14.00526853824408
-        },
-        {
-          "market": "correct_score",
-          "selection": "2–1",
-          "p": 0.06953256941198083,
-          "fairOdds": 14.381749566523206
-        },
-        {
-          "market": "correct_score",
-          "selection": "1–1",
-          "p": 0.06316958403367753,
-          "fairOdds": 15.830403433824593
-        }
-      ],
-      "marketGroups": [
-        {
-          "group": "Resultado",
-          "rows": [
-            {
-              "market": "h2h",
-              "selection": "home",
-              "label": "Inter Miami gana",
-              "p": 0.4503133131500228,
-              "fairOdds": 2.2206760732984323
-            },
-            {
-              "market": "h2h",
-              "selection": "draw",
-              "label": "Empate",
-              "p": 0.20249683520745151,
-              "fairOdds": 4.938348784441653
-            },
-            {
-              "market": "h2h",
-              "selection": "away",
-              "label": "Charlotte gana",
-              "p": 0.3471898516425255,
-              "fairOdds": 2.8802685195695825
-            }
-          ]
-        },
-        {
-          "group": "Doble oportunidad",
-          "rows": [
-            {
-              "market": "double_chance",
-              "selection": "1x",
-              "label": "Inter Miami o empate",
-              "p": 0.6528101483574743,
-              "fairOdds": 1.5318389312973837
-            },
-            {
-              "market": "double_chance",
-              "selection": "x2",
-              "label": "Charlotte o empate",
-              "p": 0.549686686849977,
-              "fairOdds": 1.8192181544919326
-            },
-            {
-              "market": "double_chance",
-              "selection": "12",
-              "label": "Sin empate",
-              "p": 0.7975031647925483,
-              "fairOdds": 1.2539135192775397
-            }
-          ]
-        },
-        {
-          "group": "Goles totales",
-          "rows": [
-            {
-              "market": "totals",
-              "selection": "over_1.5",
-              "label": "Más de 1.5",
-              "line": 1.5,
-              "p": 0.9365860167786373,
-              "fairOdds": 1.0677075912786669
-            },
-            {
-              "market": "totals",
-              "selection": "over_2.5",
-              "label": "Más de 2.5",
-              "line": 2.5,
-              "p": 0.813335803825653,
-              "fairOdds": 1.2295044621131181
-            },
-            {
-              "market": "totals",
-              "selection": "under_2.5",
-              "label": "Menos de 2.5",
-              "line": 2.5,
-              "p": 0.18666419617434704,
-              "fairOdds": 5.357213758689887
-            },
-            {
-              "market": "totals",
-              "selection": "over_3.5",
-              "label": "Más de 3.5",
-              "line": 3.5,
-              "p": 0.6383194170411794,
-              "fairOdds": 1.5666137881804207
-            },
-            {
-              "market": "totals",
-              "selection": "under_3.5",
-              "label": "Menos de 3.5",
-              "line": 3.5,
-              "p": 0.36168058295882055,
-              "fairOdds": 2.7648705712074566
-            }
-          ]
-        },
-        {
-          "group": "Ambos anotan",
-          "rows": [
-            {
-              "market": "btts",
-              "selection": "yes",
-              "label": "Sí",
-              "p": 0.7908028492962846,
-              "fairOdds": 1.2645376795112393
-            },
-            {
-              "market": "btts",
-              "selection": "no",
-              "label": "No",
-              "p": 0.20919715070371536,
-              "fairOdds": 4.780179828626317
-            }
-          ]
-        },
-        {
-          "group": "Goles por equipo (1.5)",
-          "rows": [
-            {
-              "market": "team_totals",
-              "selection": "home_over",
-              "label": "Inter Miami más de 1.5",
-              "line": 1.5,
-              "p": 0.676797083453989,
-              "fairOdds": 1.477547738380559
-            },
-            {
-              "market": "team_totals",
-              "selection": "home_under",
-              "label": "Inter Miami menos de 1.5",
-              "line": 1.5,
-              "p": 0.32320291654601097,
-              "fairOdds": 3.0940314855037534
-            },
-            {
-              "market": "team_totals",
-              "selection": "away_over",
-              "label": "Charlotte más de 1.5",
-              "line": 1.5,
-              "p": 0.6083464573655234,
-              "fairOdds": 1.6438001535022544
-            },
-            {
-              "market": "team_totals",
-              "selection": "away_under",
-              "label": "Charlotte menos de 1.5",
-              "line": 1.5,
-              "p": 0.3916535426344766,
-              "fairOdds": 2.553277044996073
-            }
-          ]
-        },
-        {
-          "group": "Marcador exacto (más probables)",
-          "rows": [
-            {
-              "market": "correct_score",
-              "selection": "2-2",
-              "label": "2–2",
-              "p": 0.07140170124330766,
-              "fairOdds": 14.00526853824408
-            },
-            {
-              "market": "correct_score",
-              "selection": "2-1",
-              "label": "2–1",
-              "p": 0.06953256941198083,
-              "fairOdds": 14.381749566523206
-            },
-            {
-              "market": "correct_score",
-              "selection": "1-1",
-              "label": "1–1",
-              "p": 0.06316958403367753,
-              "fairOdds": 15.830403433824593
-            }
-          ]
-        }
-      ],
-      "mostLikelyScore": {
-        "home": 2,
-        "away": 2,
-        "p": 0.07140170124330766
-      },
-      "factors": [
-        {
-          "key": "home_attack",
-          "label": "Ataque local",
-          "value": "1.90 goles/partido",
-          "detail": "33 % más que la media · 19 partidos"
-        },
-        {
-          "key": "away_defense",
-          "label": "Defensa visitante",
-          "value": "1.43 concedidos/partido",
-          "detail": "5 % menos que la media · 19 partidos"
-        },
-        {
-          "key": "away_attack",
-          "label": "Ataque visitante",
-          "value": "2.05 goles/partido",
-          "detail": "35 % más que la media · ajustado por rival"
-        },
-        {
-          "key": "home_defense",
-          "label": "Defensa local",
-          "value": "1.52 concedidos/partido",
-          "detail": "en la media de la liga · ajustado por rival"
-        },
-        {
-          "key": "home_advantage",
-          "label": "Localía",
-          "value": "×1.23",
-          "detail": "estimada de 294 partidos"
-        },
-        {
-          "key": "uncertainty",
-          "label": "Intervalo 90%",
-          "value": "goles 3.4–5.9",
-          "detail": "local 21%–68% · 294 partidos"
-        },
-        {
-          "key": "home_position",
-          "label": "Posición local",
-          "value": "11.º · 29 pts",
-          "detail": "de 30 equipos"
-        },
-        {
-          "key": "away_position",
-          "label": "Posición visitante",
-          "value": "4.º · 33 pts",
-          "detail": "de 30 equipos"
-        },
-        {
-          "key": "home_form",
-          "label": "Forma local",
-          "value": "G-G-P-E-G · 10 pts",
-          "detail": "9 goles a favor · 6 en contra"
-        },
-        {
-          "key": "away_form",
-          "label": "Forma visitante",
-          "value": "P-E-P-G-G · 7 pts",
-          "detail": "13 goles a favor · 8 en contra"
-        }
-      ],
-      "steps": [
-        "Sincronizando MLS · corte 7 nov 2026, 20:00",
-        "Fuerza ajustada por rival · INT 1.33 / 1.01 · CHA 1.35 / 0.95",
-        "Ponderando 259.8 partidos por antigüedad y calidad del rival",
-        "Proyección de goles 2.33 – 2.05 · total 4.39",
-        "Simulando 121 marcadores con incertidumbre del ajuste",
-        "20 mercados listos · marcador proyectado 2–1"
-      ],
-      "inputsAsOf": "2026-11-07T20:00:00.000Z",
-      "publishedAt": "2026-11-07T20:00:00.000Z",
-      "source": "pitchlab-football-v2",
-      "projectedScore": {
-        "home": 2,
-        "away": 1,
-        "p": 0.06953256941198083
-      },
-      "insights": {
-        "why": [
-          "Se esperan 4.4 goles: 2.3 de Inter Miami y 2.1 de Charlotte.",
-          "Charlotte anota 35 % más que la media.",
-          "Inter Miami anota 33 % más que la media."
-        ],
-        "restDays": {
-          "home": 5,
-          "away": 7
-        }
-      },
-      "matchContext": {
-        "referee": "Rubiel Vazquez",
-        "refereeStats": {
-          "country": "USA",
-          "matches": 60,
-          "avgYellow": 3.63,
-          "avgRed": 0.15,
-          "avgFouls": 23.2,
-          "avgGoals": 3.15
-        },
-        "weather": {
-          "description": "clear",
-          "temperatureC": 26,
-          "windSpeedKmh": 92
-        },
-        "travelDistanceKm": 1009,
-        "halfTimeScore": {
-          "home": 3,
-          "away": 0
-        },
-        "stageName": "League phase",
-        "venueCity": "Miami",
-        "venueCountry": "USA",
-        "venueCapacity": 26700
-      }
-    },
     "mls-2026-11-08-houston-dynamo-st-louis-city-7fb9ul": {
       "game": "mls-2026-11-08-houston-dynamo-st-louis-city-7fb9ul",
       "model": {
@@ -2191,11 +1713,11 @@
         "referee": "Alexis Da Silva",
         "refereeStats": {
           "country": "USA",
-          "matches": 43,
-          "avgYellow": 4.6,
+          "matches": 44,
+          "avgYellow": 4.57,
           "avgRed": 0.09,
           "avgFouls": 25.7,
-          "avgGoals": 3.12
+          "avgGoals": 3.07
         },
         "weather": {
           "description": "cloudy",
@@ -2792,11 +2314,11 @@
         "referee": "Victor Rivas",
         "refereeStats": {
           "country": "USA",
-          "matches": 53,
-          "avgYellow": 4.6,
-          "avgRed": 0.32,
+          "matches": 54,
+          "avgYellow": 4.61,
+          "avgRed": 0.31,
           "avgFouls": 23.4,
-          "avgGoals": 3.3
+          "avgGoals": 3.26
         },
         "weather": {
           "description": "cloudy",
@@ -3093,11 +2615,11 @@
         "referee": "Drew Fischer",
         "refereeStats": {
           "country": "Canada",
-          "matches": 53,
-          "avgYellow": 3.98,
-          "avgRed": 0.09,
+          "matches": 54,
+          "avgYellow": 4,
+          "avgRed": 0.11,
           "avgFouls": 24.7,
-          "avgGoals": 3.23
+          "avgGoals": 3.26
         },
         "weather": {
           "description": "cloudy",
@@ -3394,11 +2916,11 @@
         "referee": "Joseph Dickerson",
         "refereeStats": {
           "country": "USA",
-          "matches": 41,
-          "avgYellow": 4.44,
-          "avgRed": 0.27,
+          "matches": 42,
+          "avgYellow": 4.4,
+          "avgRed": 0.26,
           "avgFouls": 25.9,
-          "avgGoals": 3.83
+          "avgGoals": 3.76
         },
         "weather": {
           "description": "clear",
@@ -3695,11 +3217,11 @@
         "referee": "Filip Dujic",
         "refereeStats": {
           "country": "Canada",
-          "matches": 54,
-          "avgYellow": 4.04,
-          "avgRed": 0.2,
+          "matches": 55,
+          "avgYellow": 4.05,
+          "avgRed": 0.22,
           "avgFouls": 25.7,
-          "avgGoals": 3.33
+          "avgGoals": 3.36
         },
         "weather": {
           "description": "rain",
@@ -4662,11 +4184,11 @@
         "referee": "Lorenzo Hernandez",
         "refereeStats": {
           "country": "USA",
-          "matches": 32,
-          "avgYellow": 4.12,
-          "avgRed": 0.19,
+          "matches": 33,
+          "avgYellow": 4.18,
+          "avgRed": 0.18,
           "avgFouls": 23,
-          "avgGoals": 3.06
+          "avgGoals": 3.12
         },
         "weather": {
           "description": "clear",
@@ -5031,11 +4553,11 @@
         "referee": "Alexis Da Silva",
         "refereeStats": {
           "country": "USA",
-          "matches": 43,
-          "avgYellow": 4.6,
+          "matches": 44,
+          "avgYellow": 4.57,
           "avgRed": 0.09,
           "avgFouls": 25.7,
-          "avgGoals": 3.12
+          "avgGoals": 3.07
         },
         "weather": {
           "description": "cloudy",
@@ -6038,8 +5560,8 @@
         "referee": "Fotis Bazakos",
         "refereeStats": {
           "country": "USA",
-          "matches": 35,
-          "avgYellow": 4.4,
+          "matches": 36,
+          "avgYellow": 4.36,
           "avgRed": 0.11,
           "avgFouls": 24.5,
           "avgGoals": 3.14
@@ -6406,11 +5928,11 @@
         "referee": "Filip Dujic",
         "refereeStats": {
           "country": "Canada",
-          "matches": 54,
-          "avgYellow": 4.04,
-          "avgRed": 0.2,
+          "matches": 55,
+          "avgYellow": 4.05,
+          "avgRed": 0.22,
           "avgFouls": 25.7,
-          "avgGoals": 3.33
+          "avgGoals": 3.36
         },
         "weather": {
           "description": "cloudy",
@@ -6904,11 +6426,11 @@
         "referee": "Chris Penso",
         "refereeStats": {
           "country": "USA",
-          "matches": 42,
-          "avgYellow": 4.69,
-          "avgRed": 0.17,
+          "matches": 43,
+          "avgYellow": 4.67,
+          "avgRed": 0.19,
           "avgFouls": 22.5,
-          "avgGoals": 2.69
+          "avgGoals": 2.7
         },
         "weather": {
           "description": "cloudy",
@@ -6920,7 +6442,7 @@
           "home": 1,
           "away": 0
         },
-        "stageName": "Round 1",
+        "stageName": "League phase",
         "venueCity": "Vancouver",
         "venueCountry": "Canada",
         "venueCapacity": 54500
@@ -7256,16 +6778,20 @@
         "referee": "Guido Gonzales Jr",
         "refereeStats": {
           "country": "USA",
-          "matches": 49,
+          "matches": 51,
           "avgYellow": 4.33,
-          "avgRed": 0.27,
+          "avgRed": 0.25,
           "avgFouls": 24.2,
-          "avgGoals": 2.82
+          "avgGoals": 2.9
         },
         "weather": {
           "description": "rain",
           "temperatureC": 3,
           "windSpeedKmh": 57
+        },
+        "halfTimeScore": {
+          "home": 1,
+          "away": 0
         },
         "stageName": "League phase",
         "venueCity": "St. Louis",
@@ -7617,11 +7143,21 @@
       },
       "picksAt": "2026-11-20T13:22:46.169Z",
       "matchContext": {
+        "referee": "Sergiy Boyko",
+        "refereeStats": {
+          "country": "Ukraine",
+          "matches": 45,
+          "avgYellow": 3.87,
+          "avgRed": 0.24,
+          "avgFouls": 22,
+          "avgGoals": 3.6
+        },
         "weather": {
           "description": "unknown",
           "temperatureC": 16,
           "windSpeedKmh": 5
         },
+        "travelDistanceKm": 2599,
         "stageName": "League phase",
         "venueCity": "San Jose",
         "venueCountry": "USA",
@@ -10884,18 +10420,18 @@
       "name": "St.Louis City",
       "shortName": "St.Louis City",
       "code": "STL",
-      "played": 20,
-      "won": 11,
+      "played": 21,
+      "won": 12,
       "drawn": 5,
       "lost": 4,
-      "goalsFor": 43,
-      "goalsAgainst": 28,
-      "points": 38,
+      "goalsFor": 46,
+      "goalsAgainst": 30,
+      "points": 41,
       "form": [
         "L",
         "L",
         "L",
-        "L",
+        "W",
         "W"
       ]
     },
@@ -11184,17 +10720,17 @@
       "name": "Los Angeles FC",
       "shortName": "Los Angeles",
       "code": "LOS",
-      "played": 19,
+      "played": 20,
       "won": 5,
       "drawn": 8,
-      "lost": 6,
-      "goalsFor": 28,
-      "goalsAgainst": 23,
+      "lost": 7,
+      "goalsFor": 30,
+      "goalsAgainst": 26,
       "points": 23,
       "form": [
-        "W",
         "D",
         "D",
+        "L",
         "L",
         "L"
       ]

@@ -1,63 +1,126 @@
 {
   "schemaVersion": 1,
   "league": "liga-1-peru",
-  "observedAt": "2026-11-22T19:27:07.879Z",
+  "observedAt": "2026-11-24T21:01:09.804Z",
   "source": "pitchlab-availability",
   "coverageStatus": "ok",
   "entries": [
     {
       "teamId": "liga-1-peru.cajamarca",
       "player": "Carlos Gómez",
-      "position": "D",
+      "position": "Defensa",
       "status": "Baja",
       "detail": "Muscle Injury",
       "injuryType": "Muscle Injury",
-      "reportedAt": "2026-11-22T19:27:07.879Z"
+      "reportedAt": "2026-11-24T21:01:09.804Z"
     },
     {
       "teamId": "liga-1-peru.cajamarca",
       "player": "Patrick Alegría",
-      "position": "M",
+      "position": "Mediocampista",
       "status": "Baja",
       "detail": "Muscle Injury",
       "injuryType": "Muscle Injury",
-      "reportedAt": "2026-11-22T19:27:07.879Z"
+      "reportedAt": "2026-11-24T21:01:09.804Z"
     },
     {
       "teamId": "liga-1-peru.cajamarca",
       "player": "Paulo Goyoneche",
-      "position": "M",
+      "position": "Mediocampista",
       "status": "Baja",
       "detail": "Muscle Injury",
       "injuryType": "Muscle Injury",
-      "reportedAt": "2026-11-22T19:27:07.879Z"
+      "reportedAt": "2026-11-24T21:01:09.804Z"
     },
     {
       "teamId": "liga-1-peru.cajamarca",
       "player": "Sebastien Pineau",
-      "position": "F",
+      "position": "Delantero",
       "status": "Baja",
       "detail": "Muscle Injury",
       "injuryType": "Muscle Injury",
-      "reportedAt": "2026-11-22T19:27:07.879Z"
+      "reportedAt": "2026-11-24T21:01:09.804Z"
     },
     {
       "teamId": "liga-1-peru.cajamarca",
       "player": "Valentino Sandoval",
-      "position": "F",
+      "position": "Delantero",
       "status": "Baja",
       "detail": "Muscle Injury",
       "injuryType": "Muscle Injury",
-      "reportedAt": "2026-11-22T19:27:07.879Z"
+      "reportedAt": "2026-11-24T21:01:09.804Z"
     },
     {
       "teamId": "liga-1-peru.melgar",
       "player": "Jefferson Caceres",
-      "position": "M",
+      "position": "Mediocampista",
       "status": "Baja",
       "detail": "Broken Leg",
       "injuryType": "Broken Leg",
-      "reportedAt": "2026-11-22T19:27:07.879Z"
+      "reportedAt": "2026-11-24T21:01:09.804Z"
+    },
+    {
+      "teamId": "liga-1-peru.cienciano",
+      "player": "Alejandro Hohberg",
+      "position": "Mediocampista",
+      "status": "Baja",
+      "detail": "Calf Injury",
+      "injuryType": "Calf Injury",
+      "reportedAt": "2026-11-24T21:01:09.804Z"
+    },
+    {
+      "teamId": "liga-1-peru.sport-huancayo",
+      "player": "Franco Javier Caballero",
+      "position": "Delantero",
+      "status": "Baja",
+      "detail": "Achilles Tendon Injury",
+      "injuryType": "Achilles Tendon Injury",
+      "reportedAt": "2026-11-24T21:01:09.804Z"
+    },
+    {
+      "teamId": "liga-1-peru.alianza-lima",
+      "player": "Jairo Vélez",
+      "position": "Mediocampista",
+      "status": "Baja",
+      "detail": "Thigh Injury",
+      "injuryType": "Thigh Injury",
+      "reportedAt": "2026-11-24T21:01:09.804Z"
+    },
+    {
+      "teamId": "liga-1-peru.alianza-lima",
+      "player": "Kevin Quevedo",
+      "position": "Mediocampista",
+      "status": "Duda",
+      "detail": "Muscle Injury",
+      "injuryType": "Muscle Injury",
+      "reportedAt": "2026-11-24T21:01:09.804Z"
+    },
+    {
+      "teamId": "liga-1-peru.alianza-lima",
+      "player": "Marco Huamán",
+      "position": "Defensa",
+      "status": "Baja",
+      "detail": "Ankle Injury",
+      "injuryType": "Ankle Injury",
+      "reportedAt": "2026-11-24T21:01:09.804Z"
+    },
+    {
+      "teamId": "liga-1-peru.alianza-lima",
+      "player": "Nicolás Díaz",
+      "position": "Defensa",
+      "status": "Duda",
+      "detail": "Muscle Injury",
+      "injuryType": "Muscle Injury",
+      "reportedAt": "2026-11-24T21:01:09.804Z"
+    },
+    {
+      "teamId": "liga-1-peru.alianza-lima",
+      "player": "Renzo Garcés",
+      "position": "Defensa",
+      "status": "Baja",
+      "detail": "Broken Nose",
+      "injuryType": "Broken Nose",
+      "reportedAt": "2026-11-24T21:01:09.804Z"
     }
   ]
 }

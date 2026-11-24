@@ -5,7 +5,7 @@
   "season": "laliga-2026-27",
   "seasonLabel": "2026/27",
   "periodLabel": "Jornada 14",
-  "updatedAt": "2026-11-24T15:06:43.292Z",
+  "updatedAt": "2026-11-24T21:08:59.597Z",
   "source": "openfootball+football-data",
   "provenance": "derived",
   "isDemo": false,
@@ -281,7 +281,7 @@
       "result": {
         "home": 0,
         "away": 1,
-        "observedAt": "2026-11-24T15:06:45.889Z",
+        "observedAt": "2026-11-24T21:09:03.323Z",
         "source": "football-data"
       }
     },
@@ -314,7 +314,7 @@
       "result": {
         "home": 3,
         "away": 1,
-        "observedAt": "2026-11-24T15:06:45.889Z",
+        "observedAt": "2026-11-24T21:09:03.323Z",
         "source": "football-data"
       }
     },
@@ -347,7 +347,7 @@
       "result": {
         "home": 0,
         "away": 1,
-        "observedAt": "2026-11-24T15:06:45.889Z",
+        "observedAt": "2026-11-24T21:09:03.323Z",
         "source": "football-data"
       }
     },
@@ -380,7 +380,7 @@
       "result": {
         "home": 1,
         "away": 1,
-        "observedAt": "2026-11-24T15:06:45.889Z",
+        "observedAt": "2026-11-24T21:09:03.323Z",
         "source": "football-data"
       }
     },
@@ -413,7 +413,7 @@
       "result": {
         "home": 2,
         "away": 1,
-        "observedAt": "2026-11-24T15:06:45.889Z",
+        "observedAt": "2026-11-24T21:09:03.323Z",
         "source": "football-data"
       }
     },
@@ -446,7 +446,7 @@
       "result": {
         "home": 3,
         "away": 2,
-        "observedAt": "2026-11-24T15:06:45.889Z",
+        "observedAt": "2026-11-24T21:09:03.323Z",
         "source": "football-data"
       }
     },
@@ -479,7 +479,7 @@
       "result": {
         "home": 3,
         "away": 2,
-        "observedAt": "2026-11-24T15:06:45.889Z",
+        "observedAt": "2026-11-24T21:09:03.323Z",
         "source": "football-data"
       }
     },
@@ -512,7 +512,7 @@
       "result": {
         "home": 1,
         "away": 0,
-        "observedAt": "2026-11-24T15:06:45.889Z",
+        "observedAt": "2026-11-24T21:09:03.323Z",
         "source": "football-data"
       }
     },
@@ -545,7 +545,7 @@
       "result": {
         "home": 0,
         "away": 3,
-        "observedAt": "2026-11-24T15:06:45.889Z",
+        "observedAt": "2026-11-24T21:09:03.323Z",
         "source": "football-data"
       }
     },
@@ -578,7 +578,7 @@
       "result": {
         "home": 1,
         "away": 1,
-        "observedAt": "2026-11-24T15:06:45.889Z",
+        "observedAt": "2026-11-24T21:09:03.323Z",
         "source": "football-data"
       }
     },
@@ -1596,11 +1596,11 @@
         "referee": "Mateo Busquets Ferrer",
         "refereeStats": {
           "country": "Spain",
-          "matches": 49,
-          "avgYellow": 5.41,
-          "avgRed": 0.29,
+          "matches": 50,
+          "avgYellow": 5.38,
+          "avgRed": 0.3,
           "avgFouls": 24.4,
-          "avgGoals": 2.86
+          "avgGoals": 2.84
         }
       }
     },
@@ -3843,11 +3843,11 @@
         "referee": "José María Sánchez Martínez",
         "refereeStats": {
           "country": "Spain",
-          "matches": 73,
-          "avgYellow": 4.51,
-          "avgRed": 0.18,
+          "matches": 75,
+          "avgYellow": 4.52,
+          "avgRed": 0.17,
           "avgFouls": 26.5,
-          "avgGoals": 2.55
+          "avgGoals": 2.61
         }
       }
     },
@@ -4595,11 +4595,11 @@
         "referee": "Adrian Cordero Vega",
         "refereeStats": {
           "country": "Spain",
-          "matches": 44,
-          "avgYellow": 4.59,
-          "avgRed": 0.11,
+          "matches": 45,
+          "avgYellow": 4.69,
+          "avgRed": 0.16,
           "avgFouls": 24.1,
-          "avgGoals": 2.77
+          "avgGoals": 2.73
         }
       }
     },
@@ -5349,11 +5349,11 @@
         "referee": "Alejandro Hernandez",
         "refereeStats": {
           "country": "Spain",
-          "matches": 72,
-          "avgYellow": 4.68,
+          "matches": 73,
+          "avgYellow": 4.71,
           "avgRed": 0.25,
           "avgFouls": 23.9,
-          "avgGoals": 3.43
+          "avgGoals": 3.4
         }
       }
     },
@@ -8320,8 +8320,8 @@
         "referee": "Francisco Hernandez Maeso",
         "refereeStats": {
           "country": "Spain",
-          "matches": 46,
-          "avgYellow": 4.13,
+          "matches": 47,
+          "avgYellow": 4.19,
           "avgRed": 0.17,
           "avgFouls": 24.8,
           "avgGoals": 2.91
@@ -9698,6 +9698,84 @@
     },
     "laliga-2026-27-md14-malaga-athletic-club": {
       "game": "laliga-2026-27-md14-malaga-athletic-club",
+      "cortex": {
+        "headline": "Athletic llega mejor: el Málaga cierra la tabla y concede",
+        "headlineOrigin": "ia",
+        "sections": [
+          {
+            "key": "lectura",
+            "title": "La lectura",
+            "text": "El Athletic es el favorito con 44 % y llega octavo con 16 puntos en 12 partidos, mientras el Málaga es último con 5 puntos en 13 y una diferencia de -15. La proyección de 0.96 a 1.29 goles refleja esa distancia: el local anota poco y el visitante no necesita mucho para inclinar el marcador.",
+            "origin": "ia"
+          },
+          {
+            "key": "goles",
+            "title": "Goles",
+            "text": "Se ve un partido de pocas anotaciones: 2.25 goles esperados en total, con 66 % de superar 1.5 y solo 39 % de pasar 2.5. El Athletic aporta más con 1.29 esperados frente a 0.96 del Málaga, y ambos anotan aparece en 45 %.",
+            "origin": "ia",
+            "stats": [
+              {
+                "label": "Goles esperados",
+                "home": 0.96,
+                "away": 1.29
+              },
+              {
+                "label": "Ambos anotan",
+                "value": "45 %"
+              },
+              {
+                "label": "Más de 2.5 goles",
+                "value": "39 %"
+              }
+            ]
+          },
+          {
+            "key": "ritmo",
+            "title": "Ritmo del partido",
+            "text": "Los tiros de esquina están parejos: 4.9 por lado y 9.8 en total, así que ninguno empuja de forma clara. Las faltas suman 23.3, con el Athletic en 12.0 y el Málaga en 11.3, y 4.3 amarillas anticipan un juego cortado.",
+            "origin": "ia",
+            "stats": [
+              {
+                "label": "Tiros de esquina",
+                "home": 4.9,
+                "away": 4.9
+              },
+              {
+                "label": "Faltas",
+                "home": 11.3,
+                "away": 12
+              },
+              {
+                "label": "Amarillas",
+                "home": 2.1,
+                "away": 2.2
+              }
+            ]
+          },
+          {
+            "key": "tabla",
+            "title": "Tabla y descanso",
+            "text": "El Málaga es último con 5 puntos en 13 jornadas y diferencia de -15. El Athletic es octavo con 16 puntos en 12 y +3. En descanso, el local llega con 6 días y el visitante con 8.",
+            "origin": "ia",
+            "stats": [
+              {
+                "label": "Puntos",
+                "home": 5,
+                "away": 16
+              }
+            ]
+          },
+          {
+            "key": "cambia",
+            "title": "Qué podría cambiarlo",
+            "text": "Las alineaciones pueden ajustar el peso ofensivo de cada lado. El criterio del árbitro define cuánto se corta el juego con faltas y amarillas. El primer gol cambia el guion: si el Málaga anota temprano, el plan del Athletic se estira.",
+            "origin": "ia"
+          }
+        ],
+        "fingerprint": "1bcb01c42793464e",
+        "generatedAt": "2026-11-24T21:10:35.159Z",
+        "version": "2"
+      },
       "counts": {
         "corners": {
           "home": 4.91,
@@ -10362,6 +10440,84 @@
     },
     "laliga-2026-27-md14-elche-atletico-madrid": {
       "game": "laliga-2026-27-md14-elche-atletico-madrid",
+      "cortex": {
+        "headline": "El Atlético llega con más peso y el Elche busca cortar",
+        "headlineOrigin": "ia",
+        "sections": [
+          {
+            "key": "lectura",
+            "title": "La lectura",
+            "text": "Atlético de Madrid parte adelante: gana en 54 % de los escenarios, contra 22 % de Elche CF; el empate se queda en 24 %.",
+            "origin": "plantilla"
+          },
+          {
+            "key": "goles",
+            "title": "Goles",
+            "text": "Se ve un partido de 2.75 goles esperados, con el Atlético aportando 1.63 y el Elche 1.13. El 53 % de más de 2.5 y el 54 % de ambos anotan dicen que hay hueco para el gol, sobre todo del lado visitante.",
+            "origin": "ia",
+            "stats": [
+              {
+                "label": "Goles esperados",
+                "home": 1.13,
+                "away": 1.63
+              },
+              {
+                "label": "Ambos anotan",
+                "value": "54 %"
+              },
+              {
+                "label": "Más de 2.5 goles",
+                "value": "53 %"
+              }
+            ]
+          },
+          {
+            "key": "ritmo",
+            "title": "Ritmo del partido",
+            "text": "Los tiros de esquina están parejos: 4.5 del Elche y 4.8 del Atlético, 9.3 en total. Las faltas suman 23.6, con 12.6 del visitante, así que el juego se corta más de lo que se empuja por las bandas.",
+            "origin": "ia",
+            "stats": [
+              {
+                "label": "Tiros de esquina",
+                "home": 4.5,
+                "away": 4.8
+              },
+              {
+                "label": "Faltas",
+                "home": 11,
+                "away": 12.6
+              },
+              {
+                "label": "Amarillas",
+                "home": 2.1,
+                "away": 2.2
+              }
+            ]
+          },
+          {
+            "key": "tabla",
+            "title": "Tabla y descanso",
+            "text": "El Elche es 19.º con 11 puntos en 13 partidos y diferencia de -6. El Atlético es 3.º con 31 puntos y +16. El local tuvo 5 días de descanso y el visitante 6.",
+            "origin": "ia",
+            "stats": [
+              {
+                "label": "Puntos",
+                "home": 11,
+                "away": 31
+              }
+            ]
+          },
+          {
+            "key": "cambia",
+            "title": "Qué podría cambiarlo",
+            "text": "Las alineaciones pueden ajustar el peso ofensivo de cada lado. El criterio del árbitro define cuánto aguantan las faltas antes de la amarilla. El primer gol cambia el guion: si el Elche anota, el Atlético debe abrirse.",
+            "origin": "ia"
+          }
+        ],
+        "fingerprint": "fea30a30fd724dca",
+        "generatedAt": "2026-11-24T21:10:40.168Z",
+        "version": "2"
+      },
       "counts": {
         "corners": {
           "home": 4.55,

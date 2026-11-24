@@ -1,108 +1,135 @@
 {
   "schemaVersion": 1,
   "league": "liga-argentina",
-  "observedAt": "2026-11-23T22:28:20.377Z",
+  "observedAt": "2026-11-24T21:01:09.804Z",
   "source": "pitchlab-availability",
   "coverageStatus": "ok",
   "entries": [
     {
       "teamId": "liga-argentina.tigre",
       "player": "Bruno Leyes",
-      "position": "M",
+      "position": "Mediocampista",
       "status": "Baja",
       "detail": "Shoulder Injury",
       "injuryType": "Shoulder Injury",
-      "reportedAt": "2026-11-23T22:28:20.377Z"
+      "reportedAt": "2026-11-24T21:01:09.804Z"
     },
     {
       "teamId": "liga-argentina.tigre",
       "player": "Joaquín Laso",
-      "position": "D",
+      "position": "Defensa",
       "status": "Baja",
       "detail": "Hamstring Injury",
       "injuryType": "Hamstring Injury",
-      "reportedAt": "2026-11-23T22:28:20.377Z"
+      "reportedAt": "2026-11-24T21:01:09.804Z"
     },
     {
       "teamId": "liga-argentina.tigre",
       "player": "Nicolas Dubersarsky",
-      "position": "M",
+      "position": "Mediocampista",
       "status": "Baja",
       "detail": "Foot Injury",
       "injuryType": "Foot Injury",
-      "reportedAt": "2026-11-23T22:28:20.377Z"
+      "reportedAt": "2026-11-24T21:01:09.804Z"
     },
     {
       "teamId": "liga-argentina.tigre",
       "player": "Ramón Arias",
-      "position": "D",
+      "position": "Defensa",
       "status": "Baja",
       "detail": "Knee Injury",
       "injuryType": "Knee Injury",
-      "reportedAt": "2026-11-23T22:28:20.377Z"
+      "reportedAt": "2026-11-24T21:01:09.804Z"
     },
     {
       "teamId": "liga-argentina.tigre",
       "player": "Santiago González",
-      "position": "M",
+      "position": "Mediocampista",
       "status": "Baja",
       "detail": "Hamstring Injury",
       "injuryType": "Hamstring Injury",
-      "reportedAt": "2026-11-23T22:28:20.377Z"
+      "reportedAt": "2026-11-24T21:01:09.804Z"
     },
     {
       "teamId": "liga-argentina.tigre",
       "player": "Valentín Moreno",
-      "position": "D",
+      "position": "Defensa",
       "status": "Baja",
       "detail": "Hamstring Injury",
       "injuryType": "Hamstring Injury",
-      "reportedAt": "2026-11-23T22:28:20.377Z"
+      "reportedAt": "2026-11-24T21:01:09.804Z"
     },
     {
       "teamId": "liga-argentina.banfield",
       "player": "Santiago Esquivel",
-      "position": "M",
+      "position": "Mediocampista",
       "status": "Baja",
       "detail": "Knee Injury",
       "injuryType": "Knee Injury",
-      "reportedAt": "2026-11-23T22:28:20.377Z"
+      "reportedAt": "2026-11-24T21:01:09.804Z"
     },
     {
       "teamId": "liga-argentina.gimnasia-y-esgrima-mendoza",
       "player": "Germán Guiffrey",
-      "position": "D",
+      "position": "Defensa",
       "status": "Baja",
       "detail": "Physical Discomfort",
       "injuryType": "Physical Discomfort",
-      "reportedAt": "2026-11-23T22:28:20.377Z"
+      "reportedAt": "2026-11-24T21:01:09.804Z"
     },
     {
       "teamId": "liga-argentina.independiente-rivadavia",
       "player": "Ezequiel Bonifacio",
-      "position": "D",
+      "position": "Defensa",
       "status": "Baja",
       "detail": "Ankle Injury",
       "injuryType": "Ankle Injury",
-      "reportedAt": "2026-11-23T22:28:20.377Z"
+      "reportedAt": "2026-11-24T21:01:09.804Z"
     },
     {
       "teamId": "liga-argentina.independiente-rivadavia",
       "player": "José Florentín",
-      "position": "M",
+      "position": "Mediocampista",
       "status": "Baja",
       "detail": "red_card_suspension",
       "injuryType": "red_card_suspension",
-      "reportedAt": "2026-11-23T22:28:20.377Z"
+      "reportedAt": "2026-11-24T21:01:09.804Z"
     },
     {
       "teamId": "liga-argentina.independiente-rivadavia",
       "player": "Leonard Costa",
-      "position": "D",
+      "position": "Defensa",
       "status": "Baja",
       "detail": "Groin Strain",
       "injuryType": "Groin Strain",
-      "reportedAt": "2026-11-23T22:28:20.377Z"
+      "reportedAt": "2026-11-24T21:01:09.804Z"
+    },
+    {
+      "teamId": "liga-argentina.talleres",
+      "player": "Matías Gómez",
+      "position": "Mediocampista",
+      "status": "Baja",
+      "detail": "Sprained Knee Injury",
+      "injuryType": "Sprained Knee Injury",
+      "reportedAt": "2026-11-24T21:01:09.804Z"
+    },
+    {
+      "teamId": "liga-argentina.estudiantes-la-plata",
+      "player": "Baltasar Rodriguez",
+      "position": "Mediocampista",
+      "status": "Baja",
+      "detail": "yellow_or_red_card_suspension",
+      "injuryType": "yellow_or_red_card_suspension",
+      "reportedAt": "2026-11-24T21:01:09.804Z"
+    },
+    {
+      "teamId": "liga-argentina.estudiantes-la-plata",
+      "player": "Gabriel Neves",
+      "position": "Mediocampista",
+      "status": "Baja",
+      "detail": "Broken Arm",
+      "injuryType": "Broken Arm",
+      "reportedAt": "2026-11-24T21:01:09.804Z"
     }
   ]
 }

@@ -1,279 +1,288 @@
 {
   "schemaVersion": 1,
   "league": "carabao-cup",
-  "observedAt": "2026-11-23T22:28:20.377Z",
+  "observedAt": "2026-11-24T21:01:09.804Z",
   "source": "pitchlab-availability",
   "coverageStatus": "ok",
   "entries": [
     {
       "teamId": "carabao-cup.liverpool",
+      "player": "Cody Gakpo",
+      "position": "Mediocampista",
+      "status": "Baja",
+      "detail": "Calf Injury",
+      "injuryType": "Calf Injury",
+      "reportedAt": "2026-11-24T21:01:09.804Z"
+    },
+    {
+      "teamId": "carabao-cup.liverpool",
       "player": "Conor Bradley",
-      "position": "D",
+      "position": "Defensa",
       "status": "Baja",
       "detail": "Knee Injury",
       "injuryType": "Knee Injury",
-      "reportedAt": "2026-11-23T22:28:20.377Z"
+      "reportedAt": "2026-11-24T21:01:09.804Z"
     },
     {
       "teamId": "carabao-cup.liverpool",
       "player": "Giovanni Leoni",
-      "position": "D",
+      "position": "Defensa",
       "status": "Baja",
       "detail": "Cruciate Ligament Injury",
       "injuryType": "Cruciate Ligament Injury",
-      "reportedAt": "2026-11-23T22:28:20.377Z"
+      "reportedAt": "2026-11-24T21:01:09.804Z"
     },
     {
       "teamId": "carabao-cup.liverpool",
       "player": "Hugo Ekitiké",
-      "position": "F",
+      "position": "Delantero",
       "status": "Baja",
       "detail": "Achilles Tendon Injury",
       "injuryType": "Achilles Tendon Injury",
-      "reportedAt": "2026-11-23T22:28:20.377Z"
+      "reportedAt": "2026-11-24T21:01:09.804Z"
     },
     {
       "teamId": "carabao-cup.liverpool",
       "player": "Ryan Gravenberch",
-      "position": "M",
-      "status": "Duda",
+      "position": "Mediocampista",
+      "status": "Baja",
       "detail": "Heel Injury",
       "injuryType": "Heel Injury",
-      "reportedAt": "2026-11-23T22:28:20.377Z"
+      "reportedAt": "2026-11-24T21:01:09.804Z"
     },
     {
       "teamId": "carabao-cup.tottenham-hotspur",
       "player": "Mathys Tel",
-      "position": "F",
+      "position": "Delantero",
       "status": "Baja",
       "detail": "Hamstring Injury",
       "injuryType": "Hamstring Injury",
-      "reportedAt": "2026-11-23T22:28:20.377Z"
+      "reportedAt": "2026-11-24T21:01:09.804Z"
     },
     {
       "teamId": "carabao-cup.tottenham-hotspur",
       "player": "Mykhailo Mudryk",
-      "position": "M",
+      "position": "Mediocampista",
       "status": "Baja",
       "detail": "Ankle Injury",
       "injuryType": "Ankle Injury",
-      "reportedAt": "2026-11-23T22:28:20.377Z"
+      "reportedAt": "2026-11-24T21:01:09.804Z"
     },
     {
       "teamId": "carabao-cup.tottenham-hotspur",
       "player": "Richarlison",
-      "position": "F",
+      "position": "Delantero",
       "status": "Baja",
       "detail": "coach_decision",
       "injuryType": "coach_decision",
-      "reportedAt": "2026-11-23T22:28:20.377Z"
+      "reportedAt": "2026-11-24T21:01:09.804Z"
     },
     {
       "teamId": "carabao-cup.tottenham-hotspur",
       "player": "Sávio",
-      "position": "M",
+      "position": "Mediocampista",
       "status": "Baja",
       "detail": "Muscle Injury",
       "injuryType": "Muscle Injury",
-      "reportedAt": "2026-11-23T22:28:20.377Z"
+      "reportedAt": "2026-11-24T21:01:09.804Z"
     },
     {
       "teamId": "carabao-cup.tottenham-hotspur",
       "player": "Tosin Adarabioyo",
-      "position": "D",
+      "position": "Defensa",
       "status": "Baja",
       "detail": "Knock Injury",
       "injuryType": "Knock Injury",
-      "reportedAt": "2026-11-23T22:28:20.377Z"
+      "reportedAt": "2026-11-24T21:01:09.804Z"
     },
     {
       "teamId": "carabao-cup.tottenham-hotspur",
       "player": "Wilson Odobert",
-      "position": "F",
+      "position": "Delantero",
       "status": "Baja",
       "detail": "Cruciate Ligament Injury",
       "injuryType": "Cruciate Ligament Injury",
-      "reportedAt": "2026-11-23T22:28:20.377Z"
+      "reportedAt": "2026-11-24T21:01:09.804Z"
     },
     {
       "teamId": "carabao-cup.tottenham-hotspur",
       "player": "Xavi Simons",
-      "position": "M",
+      "position": "Mediocampista",
       "status": "Baja",
       "detail": "Cruciate Ligament Injury",
       "injuryType": "Cruciate Ligament Injury",
-      "reportedAt": "2026-11-23T22:28:20.377Z"
+      "reportedAt": "2026-11-24T21:01:09.804Z"
     },
     {
       "teamId": "carabao-cup.brentford",
       "player": "Aaron Hickey",
-      "position": "D",
+      "position": "Defensa",
       "status": "Baja",
       "detail": "Hamstring Injury",
       "injuryType": "Hamstring Injury",
-      "reportedAt": "2026-11-23T22:28:20.377Z"
+      "reportedAt": "2026-11-24T21:01:09.804Z"
     },
     {
       "teamId": "carabao-cup.brentford",
       "player": "Antoni Milambo",
-      "position": "M",
+      "position": "Mediocampista",
       "status": "Baja",
       "detail": "Cruciate Ligament Injury",
       "injuryType": "Cruciate Ligament Injury",
-      "reportedAt": "2026-11-23T22:28:20.377Z"
-    },
-    {
-      "teamId": "carabao-cup.brentford",
-      "player": "Fabio Carvalho",
-      "position": "F",
-      "status": "Baja",
-      "detail": "Knock Injury",
-      "injuryType": "Knock Injury",
-      "reportedAt": "2026-11-23T22:28:20.377Z"
+      "reportedAt": "2026-11-24T21:01:09.804Z"
     },
     {
       "teamId": "carabao-cup.brentford",
       "player": "Igor Thiago",
-      "position": "F",
+      "position": "Delantero",
       "status": "Baja",
       "detail": "red_card_suspension",
       "injuryType": "red_card_suspension",
-      "reportedAt": "2026-11-23T22:28:20.377Z"
+      "reportedAt": "2026-11-24T21:01:09.804Z"
     },
     {
       "teamId": "carabao-cup.brentford",
       "player": "Josh Dasilva",
-      "position": "M",
+      "position": "Mediocampista",
       "status": "Baja",
       "detail": "Hamstring Injury",
       "injuryType": "Hamstring Injury",
-      "reportedAt": "2026-11-23T22:28:20.377Z"
+      "reportedAt": "2026-11-24T21:01:09.804Z"
     },
     {
       "teamId": "carabao-cup.brentford",
       "player": "Kaye Furo",
-      "position": "F",
+      "position": "Delantero",
       "status": "Baja",
       "detail": "Knee Surgery",
       "injuryType": "Knee Surgery",
-      "reportedAt": "2026-11-23T22:28:20.377Z"
+      "reportedAt": "2026-11-24T21:01:09.804Z"
     },
     {
       "teamId": "carabao-cup.brentford",
       "player": "Nathan Collins",
-      "position": "D",
+      "position": "Defensa",
       "status": "Baja",
       "detail": "Knee Injury",
       "injuryType": "Knee Injury",
-      "reportedAt": "2026-11-23T22:28:20.377Z"
+      "reportedAt": "2026-11-24T21:01:09.804Z"
     },
     {
       "teamId": "carabao-cup.brentford",
       "player": "Rico Henry",
-      "position": "D",
+      "position": "Defensa",
       "status": "Baja",
       "detail": "Muscle Injury",
       "injuryType": "Muscle Injury",
-      "reportedAt": "2026-11-23T22:28:20.377Z"
+      "reportedAt": "2026-11-24T21:01:09.804Z"
     },
     {
       "teamId": "carabao-cup.ipswich-town",
       "player": "Leif Davis",
-      "position": "D",
+      "position": "Defensa",
       "status": "Baja",
       "detail": "Abdominal Injury",
       "injuryType": "Abdominal Injury",
-      "reportedAt": "2026-11-23T22:28:20.377Z"
+      "reportedAt": "2026-11-24T21:01:09.804Z"
     },
     {
       "teamId": "carabao-cup.arsenal",
       "player": "Bukayo Saka",
-      "position": "F",
+      "position": "Delantero",
       "status": "Baja",
       "detail": "Muscle Injury",
       "injuryType": "Muscle Injury",
-      "reportedAt": "2026-11-23T22:28:20.377Z"
+      "reportedAt": "2026-11-24T21:01:09.804Z"
     },
     {
       "teamId": "carabao-cup.arsenal",
       "player": "David Raya",
-      "position": "G",
-      "status": "Duda",
-      "detail": "Abdominal Injury",
-      "injuryType": "Abdominal Injury",
-      "reportedAt": "2026-11-23T22:28:20.377Z"
+      "position": "Portero",
+      "status": "Baja",
+      "detail": "Shoulder Injury",
+      "injuryType": "Shoulder Injury",
+      "reportedAt": "2026-11-24T21:01:09.804Z"
     },
     {
       "teamId": "carabao-cup.arsenal",
       "player": "Martín Zubimendi",
-      "position": "M",
+      "position": "Mediocampista",
       "status": "Baja",
       "detail": "Hamstring Injury",
       "injuryType": "Hamstring Injury",
-      "reportedAt": "2026-11-23T22:28:20.377Z"
+      "reportedAt": "2026-11-24T21:01:09.804Z"
+    },
+    {
+      "teamId": "carabao-cup.everton",
+      "player": "James Tarkowski",
+      "position": "Defensa",
+      "status": "Baja",
+      "detail": "red_card_suspension",
+      "injuryType": "red_card_suspension",
+      "reportedAt": "2026-11-24T21:01:09.804Z"
     },
     {
       "teamId": "carabao-cup.wolverhampton",
       "player": "Boubacar Traoré",
-      "position": "M",
+      "position": "Mediocampista",
       "status": "Baja",
       "detail": "Calf Injury",
       "injuryType": "Calf Injury",
-      "reportedAt": "2026-11-23T22:28:20.377Z"
+      "reportedAt": "2026-11-24T21:01:09.804Z"
     },
     {
       "teamId": "carabao-cup.wolverhampton",
       "player": "Fer López",
-      "position": "M",
+      "position": "Mediocampista",
       "status": "Duda",
       "detail": "Muscle Injury",
       "injuryType": "Muscle Injury",
-      "reportedAt": "2026-11-23T22:28:20.377Z"
+      "reportedAt": "2026-11-24T21:01:09.804Z"
     },
     {
       "teamId": "carabao-cup.wolverhampton",
       "player": "Jean-Ricner Bellegarde",
-      "position": "M",
+      "position": "Mediocampista",
       "status": "Duda",
       "detail": "Muscle Injury",
       "injuryType": "Muscle Injury",
-      "reportedAt": "2026-11-23T22:28:20.377Z"
+      "reportedAt": "2026-11-24T21:01:09.804Z"
     },
     {
       "teamId": "carabao-cup.wolverhampton",
       "player": "Marshall Munetsi",
-      "position": "M",
+      "position": "Mediocampista",
       "status": "Duda",
       "detail": "Physical Discomfort",
       "injuryType": "Physical Discomfort",
-      "reportedAt": "2026-11-23T22:28:20.377Z"
+      "reportedAt": "2026-11-24T21:01:09.804Z"
     },
     {
       "teamId": "carabao-cup.wolverhampton",
       "player": "Nasser Djiga",
-      "position": "D",
+      "position": "Defensa",
       "status": "Duda",
       "detail": "Physical Discomfort",
       "injuryType": "Physical Discomfort",
-      "reportedAt": "2026-11-23T22:28:20.377Z"
+      "reportedAt": "2026-11-24T21:01:09.804Z"
     },
     {
       "teamId": "carabao-cup.wolverhampton",
       "player": "Raúl Jiménez",
-      "position": "F",
+      "position": "Delantero",
       "status": "Baja",
       "detail": "Knee Injury",
       "injuryType": "Knee Injury",
-      "reportedAt": "2026-11-23T22:28:20.377Z"
+      "reportedAt": "2026-11-24T21:01:09.804Z"
     },
     {
       "teamId": "carabao-cup.wolverhampton",
       "player": "Tawanda Chirewa",
-      "position": "F",
+      "position": "Delantero",
       "status": "Duda",
       "detail": "Physical Discomfort",
       "injuryType": "Physical Discomfort",
-      "reportedAt": "2026-11-23T22:28:20.377Z"
+      "reportedAt": "2026-11-24T21:01:09.804Z"
     }
   ]
 }

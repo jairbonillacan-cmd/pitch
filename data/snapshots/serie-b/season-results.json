@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "league": "serie-b",
   "season": "2026/27",
-  "updatedAt": "2026-11-23T22:28:20.377Z",
+  "updatedAt": "2026-11-24T21:01:09.804Z",
   "matches": [
     {
       "id": "serie-b-2026-08-21-l-r-vicenza-catanzaro-j05jn1",
@@ -1322,6 +1322,72 @@
       "awayTeam": "serie-b.padova",
       "homeScore": 1,
       "awayScore": 1,
+      "neutralSite": false
+    },
+    {
+      "id": "serie-b-2026-11-24-juve-stabia-catanzaro-4xvj6v",
+      "date": "2026-11-24",
+      "startTime": "2026-11-24T18:00:00.000Z",
+      "round": "Regular season · Matchday 13",
+      "homeTeam": "serie-b.juve-stabia",
+      "awayTeam": "serie-b.catanzaro",
+      "homeScore": 1,
+      "awayScore": 3,
+      "neutralSite": false
+    },
+    {
+      "id": "serie-b-2026-11-24-virtus-entella-hellas-verona-wifjpe",
+      "date": "2026-11-24",
+      "startTime": "2026-11-24T19:00:00.000Z",
+      "round": "Regular season · Matchday 13",
+      "homeTeam": "serie-b.virtus-entella",
+      "awayTeam": "serie-b.hellas-verona",
+      "homeScore": 2,
+      "awayScore": 1,
+      "neutralSite": false
+    },
+    {
+      "id": "serie-b-2026-11-24-palermo-sudtirol-sz7ppg",
+      "date": "2026-11-24",
+      "startTime": "2026-11-24T19:00:00.000Z",
+      "round": "Regular season · Matchday 13",
+      "homeTeam": "serie-b.palermo",
+      "awayTeam": "serie-b.sudtirol",
+      "homeScore": 4,
+      "awayScore": 1,
+      "neutralSite": false
+    },
+    {
+      "id": "serie-b-2026-11-24-l-r-vicenza-carrarese-husm8a",
+      "date": "2026-11-24",
+      "startTime": "2026-11-24T19:00:00.000Z",
+      "round": "Regular season · Matchday 13",
+      "homeTeam": "serie-b.l-r-vicenza",
+      "awayTeam": "serie-b.carrarese",
+      "homeScore": 0,
+      "awayScore": 1,
+      "neutralSite": false
+    },
+    {
+      "id": "serie-b-2026-11-24-cesena-ascoli-9vpm0b",
+      "date": "2026-11-24",
+      "startTime": "2026-11-24T19:00:00.000Z",
+      "round": "Regular season · Matchday 13",
+      "homeTeam": "serie-b.cesena",
+      "awayTeam": "serie-b.ascoli",
+      "homeScore": 5,
+      "awayScore": 1,
+      "neutralSite": false
+    },
+    {
+      "id": "serie-b-2026-11-24-benevento-empoli-nzr0q3",
+      "date": "2026-11-24",
+      "startTime": "2026-11-24T19:00:00.000Z",
+      "round": "Regular season · Matchday 13",
+      "homeTeam": "serie-b.benevento",
+      "awayTeam": "serie-b.empoli",
+      "homeScore": 5,
+      "awayScore": 0,
       "neutralSite": false
     }
   ]
