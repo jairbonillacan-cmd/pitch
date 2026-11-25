@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "league": "liga-portugal",
   "seasonLabel": "2026/27",
-  "observedAt": "2026-11-24T21:01:09.804Z",
+  "observedAt": "2026-11-25T20:23:50.754Z",
   "teams": [
     {
       "teamId": "liga-portugal.moreirense",
@@ -24,7 +24,7 @@
           "winPct": 32.1
         }
       },
-      "updatedAt": "2026-11-24T21:01:09.804Z",
+      "updatedAt": "2026-11-25T20:23:50.754Z",
       "players": [
         {
           "id": "liga-portugal.moreirense.afonso-assis",
@@ -605,7 +605,7 @@
             "subIns": 0,
             "goals": 0,
             "assists": 0,
-            "shots": 1,
+            "shots": 0,
             "shotsOnTarget": 0,
             "foulsCommitted": 0,
             "foulsSuffered": 0,
@@ -614,7 +614,7 @@
             "offsides": 0,
             "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 1
+            "goalsConceded": 0
           },
           "candidatePicks": []
         },
@@ -788,9 +788,9 @@
           "stats": {
             "appearances": 0,
             "subIns": 0,
-            "goals": 0,
+            "goals": 1,
             "assists": 0,
-            "shots": 1,
+            "shots": 2,
             "shotsOnTarget": 1,
             "foulsCommitted": 0,
             "foulsSuffered": 0,
@@ -799,7 +799,7 @@
             "offsides": 0,
             "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 1
+            "goalsConceded": 0
           },
           "candidatePicks": []
         },
@@ -1010,10 +1010,10 @@
           "stats": {
             "appearances": 0,
             "subIns": 0,
-            "goals": 1,
+            "goals": 0,
             "assists": 0,
             "shots": 3,
-            "shotsOnTarget": 1,
+            "shotsOnTarget": 0,
             "foulsCommitted": 0,
             "foulsSuffered": 0,
             "yellowCards": 0,
@@ -1021,7 +1021,7 @@
             "offsides": 0,
             "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 0
+            "goalsConceded": 1
           },
           "candidatePicks": []
         },
@@ -1084,7 +1084,7 @@
           "winPct": 30.6
         }
       },
-      "updatedAt": "2026-11-24T21:01:09.804Z",
+      "updatedAt": "2026-11-25T20:23:50.754Z",
       "players": [
         {
           "id": "liga-portugal.estrela-amadora.abraham-marcus",
@@ -1119,7 +1119,7 @@
             "offsides": 0,
             "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 2
+            "goalsConceded": 3
           },
           "candidatePicks": []
         },
@@ -1480,7 +1480,7 @@
             "subIns": 0,
             "goals": 0,
             "assists": 0,
-            "shots": 3,
+            "shots": 1,
             "shotsOnTarget": 0,
             "foulsCommitted": 0,
             "foulsSuffered": 0,
@@ -1663,10 +1663,10 @@
           "stats": {
             "appearances": 0,
             "subIns": 0,
-            "goals": 0,
+            "goals": 1,
             "assists": 0,
-            "shots": 4,
-            "shotsOnTarget": 0,
+            "shots": 2,
+            "shotsOnTarget": 1,
             "foulsCommitted": 0,
             "foulsSuffered": 0,
             "yellowCards": 0,
@@ -1748,7 +1748,7 @@
             "offsides": 0,
             "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 2
+            "goalsConceded": 3
           },
           "candidatePicks": []
         },
@@ -1896,7 +1896,7 @@
             "offsides": 0,
             "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 3
+            "goalsConceded": 1
           },
           "candidatePicks": []
         },
@@ -2109,7 +2109,7 @@
             "subIns": 0,
             "goals": 0,
             "assists": 0,
-            "shots": 0,
+            "shots": 1,
             "shotsOnTarget": 0,
             "foulsCommitted": 0,
             "foulsSuffered": 0,
@@ -2181,7 +2181,7 @@
           "winPct": 67
         }
       },
-      "updatedAt": "2026-11-24T21:01:09.804Z",
+      "updatedAt": "2026-11-25T20:23:50.754Z",
       "players": [
         {
           "id": "liga-portugal.porto.alan-varela",
@@ -2244,7 +2244,7 @@
             "subIns": 0,
             "goals": 0,
             "assists": 0,
-            "shots": 2,
+            "shots": 0,
             "shotsOnTarget": 0,
             "foulsCommitted": 0,
             "foulsSuffered": 0,
@@ -2253,7 +2253,7 @@
             "offsides": 0,
             "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 1
+            "goalsConceded": 0
           },
           "candidatePicks": []
         },
@@ -2281,8 +2281,8 @@
             "subIns": 0,
             "goals": 0,
             "assists": 0,
-            "shots": 0,
-            "shotsOnTarget": 0,
+            "shots": 1,
+            "shotsOnTarget": 1,
             "foulsCommitted": 0,
             "foulsSuffered": 0,
             "yellowCards": 0,
@@ -2316,10 +2316,10 @@
           "stats": {
             "appearances": 0,
             "subIns": 0,
-            "goals": 0,
+            "goals": 1,
             "assists": 0,
             "shots": 2,
-            "shotsOnTarget": 0,
+            "shotsOnTarget": 1,
             "foulsCommitted": 0,
             "foulsSuffered": 0,
             "yellowCards": 0,
@@ -2327,7 +2327,7 @@
             "offsides": 0,
             "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 1
+            "goalsConceded": 0
           },
           "candidatePicks": []
         },
@@ -2436,9 +2436,9 @@
             "yellowCards": 0,
             "redCards": 0,
             "offsides": 0,
-            "saves": 5,
+            "saves": 6,
             "shotsFaced": 0,
-            "goalsConceded": 1
+            "goalsConceded": 0
           },
           "candidatePicks": []
         },
@@ -2577,7 +2577,7 @@
             "subIns": 0,
             "goals": 0,
             "assists": 0,
-            "shots": 1,
+            "shots": 0,
             "shotsOnTarget": 0,
             "foulsCommitted": 0,
             "foulsSuffered": 0,
@@ -2614,7 +2614,7 @@
             "subIns": 0,
             "goals": 0,
             "assists": 0,
-            "shots": 0,
+            "shots": 1,
             "shotsOnTarget": 0,
             "foulsCommitted": 0,
             "foulsSuffered": 0,
@@ -2623,7 +2623,7 @@
             "offsides": 0,
             "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 0
+            "goalsConceded": 1
           },
           "candidatePicks": []
         },
@@ -2660,7 +2660,7 @@
             "offsides": 0,
             "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 1
+            "goalsConceded": 0
           },
           "candidatePicks": []
         },
@@ -2910,8 +2910,8 @@
             "subIns": 0,
             "goals": 0,
             "assists": 0,
-            "shots": 2,
-            "shotsOnTarget": 1,
+            "shots": 0,
+            "shotsOnTarget": 0,
             "foulsCommitted": 0,
             "foulsSuffered": 0,
             "yellowCards": 0,
@@ -2919,7 +2919,7 @@
             "offsides": 0,
             "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 1
+            "goalsConceded": 0
           },
           "candidatePicks": []
         },
@@ -2945,10 +2945,10 @@
           "stats": {
             "appearances": 0,
             "subIns": 0,
-            "goals": 1,
+            "goals": 0,
             "assists": 0,
-            "shots": 2,
-            "shotsOnTarget": 2,
+            "shots": 1,
+            "shotsOnTarget": 1,
             "foulsCommitted": 0,
             "foulsSuffered": 0,
             "yellowCards": 0,
@@ -2985,7 +2985,7 @@
             "goals": 0,
             "assists": 0,
             "shots": 1,
-            "shotsOnTarget": 1,
+            "shotsOnTarget": 0,
             "foulsCommitted": 0,
             "foulsSuffered": 0,
             "yellowCards": 0,
@@ -3019,7 +3019,7 @@
           "stats": {
             "appearances": 0,
             "subIns": 0,
-            "goals": 0,
+            "goals": 1,
             "assists": 0,
             "shots": 0,
             "shotsOnTarget": 0,
@@ -3141,7 +3141,7 @@
             "offsides": 0,
             "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 1
+            "goalsConceded": 0
           },
           "candidatePicks": []
         },
@@ -3241,7 +3241,7 @@
           "winPct": 13.3
         }
       },
-      "updatedAt": "2026-11-24T21:01:09.804Z",
+      "updatedAt": "2026-11-25T20:23:50.754Z",
       "players": [
         {
           "id": "liga-portugal.estoril-praia.andre-lacximicant",
@@ -3268,7 +3268,7 @@
             "goals": 0,
             "assists": 0,
             "shots": 3,
-            "shotsOnTarget": 1,
+            "shotsOnTarget": 0,
             "foulsCommitted": 0,
             "foulsSuffered": 0,
             "yellowCards": 0,
@@ -3276,7 +3276,7 @@
             "offsides": 0,
             "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 0
+            "goalsConceded": 4
           },
           "candidatePicks": []
         },
@@ -3304,7 +3304,7 @@
             "subIns": 0,
             "goals": 0,
             "assists": 0,
-            "shots": 0,
+            "shots": 3,
             "shotsOnTarget": 0,
             "foulsCommitted": 0,
             "foulsSuffered": 0,
@@ -3313,7 +3313,7 @@
             "offsides": 0,
             "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 4
+            "goalsConceded": 3
           },
           "candidatePicks": []
         },
@@ -3452,7 +3452,7 @@
             "subIns": 0,
             "goals": 0,
             "assists": 0,
-            "shots": 1,
+            "shots": 0,
             "shotsOnTarget": 0,
             "foulsCommitted": 0,
             "foulsSuffered": 0,
@@ -3489,8 +3489,8 @@
             "subIns": 0,
             "goals": 0,
             "assists": 0,
-            "shots": 0,
-            "shotsOnTarget": 0,
+            "shots": 3,
+            "shotsOnTarget": 1,
             "foulsCommitted": 0,
             "foulsSuffered": 0,
             "yellowCards": 0,
@@ -3498,7 +3498,7 @@
             "offsides": 0,
             "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 4
+            "goalsConceded": 3
           },
           "candidatePicks": []
         },
@@ -3637,8 +3637,8 @@
             "subIns": 0,
             "goals": 0,
             "assists": 0,
-            "shots": 4,
-            "shotsOnTarget": 1,
+            "shots": 0,
+            "shotsOnTarget": 0,
             "foulsCommitted": 0,
             "foulsSuffered": 0,
             "yellowCards": 0,
@@ -3646,7 +3646,7 @@
             "offsides": 0,
             "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 3
+            "goalsConceded": 0
           },
           "candidatePicks": []
         },
@@ -3681,9 +3681,9 @@
             "yellowCards": 0,
             "redCards": 0,
             "offsides": 0,
-            "saves": 0,
+            "saves": 1,
             "shotsFaced": 0,
-            "goalsConceded": 0
+            "goalsConceded": 3
           },
           "candidatePicks": []
         },
@@ -3979,7 +3979,7 @@
             "offsides": 0,
             "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 0
+            "goalsConceded": 4
           },
           "candidatePicks": []
         },
@@ -4005,10 +4005,10 @@
           "stats": {
             "appearances": 0,
             "subIns": 0,
-            "goals": 1,
+            "goals": 0,
             "assists": 0,
-            "shots": 3,
-            "shotsOnTarget": 1,
+            "shots": 0,
+            "shotsOnTarget": 0,
             "foulsCommitted": 0,
             "foulsSuffered": 0,
             "yellowCards": 0,
@@ -4016,7 +4016,7 @@
             "offsides": 0,
             "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 0
+            "goalsConceded": 1
           },
           "candidatePicks": []
         },
@@ -4090,7 +4090,7 @@
             "offsides": 0,
             "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 0
+            "goalsConceded": 3
           },
           "candidatePicks": []
         },
@@ -4164,7 +4164,7 @@
             "offsides": 0,
             "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 3
+            "goalsConceded": 0
           },
           "candidatePicks": []
         },
@@ -4303,7 +4303,7 @@
             "subIns": 0,
             "goals": 0,
             "assists": 0,
-            "shots": 2,
+            "shots": 0,
             "shotsOnTarget": 0,
             "foulsCommitted": 0,
             "foulsSuffered": 0,
@@ -4312,7 +4312,7 @@
             "offsides": 0,
             "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 3
+            "goalsConceded": 1
           },
           "candidatePicks": []
         },
@@ -4412,7 +4412,7 @@
           "winPct": 35
         }
       },
-      "updatedAt": "2026-11-24T21:01:09.804Z",
+      "updatedAt": "2026-11-25T20:23:50.754Z",
       "players": [
         {
           "id": "liga-portugal.arouca.alfonso-trezza",
@@ -4521,7 +4521,7 @@
             "offsides": 0,
             "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 0
+            "goalsConceded": 1
           },
           "candidatePicks": []
         },
@@ -4771,8 +4771,8 @@
             "subIns": 0,
             "goals": 0,
             "assists": 0,
-            "shots": 1,
-            "shotsOnTarget": 1,
+            "shots": 0,
+            "shotsOnTarget": 0,
             "foulsCommitted": 0,
             "foulsSuffered": 0,
             "yellowCards": 0,
@@ -4780,7 +4780,7 @@
             "offsides": 0,
             "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 0
+            "goalsConceded": 1
           },
           "candidatePicks": []
         },
@@ -4815,9 +4815,9 @@
             "yellowCards": 0,
             "redCards": 0,
             "offsides": 0,
-            "saves": 4,
+            "saves": 1,
             "shotsFaced": 0,
-            "goalsConceded": 1
+            "goalsConceded": 0
           },
           "candidatePicks": []
         },
@@ -4845,7 +4845,7 @@
             "subIns": 0,
             "goals": 0,
             "assists": 0,
-            "shots": 0,
+            "shots": 2,
             "shotsOnTarget": 0,
             "foulsCommitted": 0,
             "foulsSuffered": 0,
@@ -4928,7 +4928,7 @@
             "offsides": 0,
             "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 1
+            "goalsConceded": 0
           },
           "candidatePicks": []
         },
@@ -4956,7 +4956,7 @@
             "subIns": 0,
             "goals": 0,
             "assists": 0,
-            "shots": 0,
+            "shots": 1,
             "shotsOnTarget": 0,
             "foulsCommitted": 0,
             "foulsSuffered": 0,
@@ -4965,7 +4965,7 @@
             "offsides": 0,
             "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 1
+            "goalsConceded": 0
           },
           "candidatePicks": []
         },
@@ -5252,8 +5252,8 @@
             "subIns": 0,
             "goals": 0,
             "assists": 0,
-            "shots": 0,
-            "shotsOnTarget": 0,
+            "shots": 1,
+            "shotsOnTarget": 1,
             "foulsCommitted": 0,
             "foulsSuffered": 0,
             "yellowCards": 0,
@@ -5261,7 +5261,7 @@
             "offsides": 0,
             "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 1
+            "goalsConceded": 0
           },
           "candidatePicks": []
         },
@@ -5435,10 +5435,10 @@
           "stats": {
             "appearances": 0,
             "subIns": 0,
-            "goals": 0,
+            "goals": 1,
             "assists": 0,
-            "shots": 0,
-            "shotsOnTarget": 0,
+            "shots": 1,
+            "shotsOnTarget": 1,
             "foulsCommitted": 0,
             "foulsSuffered": 0,
             "yellowCards": 0,
@@ -5446,7 +5446,7 @@
             "offsides": 0,
             "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 1
+            "goalsConceded": 0
           },
           "candidatePicks": []
         }
@@ -5472,7 +5472,7 @@
           "winPct": 15
         }
       },
-      "updatedAt": "2026-11-24T21:01:09.804Z",
+      "updatedAt": "2026-11-25T20:23:50.754Z",
       "players": [
         {
           "id": "liga-portugal.nacional.abdel-kader-njoya",
@@ -5840,7 +5840,7 @@
             "offsides": 0,
             "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 1
+            "goalsConceded": 0
           },
           "candidatePicks": []
         },
@@ -6173,7 +6173,7 @@
             "offsides": 0,
             "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 1
+            "goalsConceded": 0
           },
           "candidatePicks": []
         },
@@ -6275,8 +6275,8 @@
             "subIns": 0,
             "goals": 0,
             "assists": 0,
-            "shots": 0,
-            "shotsOnTarget": 0,
+            "shots": 2,
+            "shotsOnTarget": 1,
             "foulsCommitted": 0,
             "foulsSuffered": 0,
             "yellowCards": 0,
@@ -6284,7 +6284,7 @@
             "offsides": 0,
             "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 1
+            "goalsConceded": 0
           },
           "candidatePicks": []
         },
@@ -6430,9 +6430,9 @@
             "yellowCards": 0,
             "redCards": 0,
             "offsides": 0,
-            "saves": 2,
+            "saves": 4,
             "shotsFaced": 0,
-            "goalsConceded": 0
+            "goalsConceded": 1
           },
           "candidatePicks": []
         },
@@ -6608,7 +6608,7 @@
             "subIns": 0,
             "goals": 0,
             "assists": 0,
-            "shots": 1,
+            "shots": 2,
             "shotsOnTarget": 0,
             "foulsCommitted": 0,
             "foulsSuffered": 0,
@@ -6617,7 +6617,7 @@
             "offsides": 0,
             "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 1
+            "goalsConceded": 0
           },
           "candidatePicks": []
         }
@@ -6643,7 +6643,7 @@
           "winPct": 42.9
         }
       },
-      "updatedAt": "2026-11-24T21:01:09.804Z",
+      "updatedAt": "2026-11-25T20:23:50.754Z",
       "players": [
         {
           "id": "liga-portugal.cs-maritimo.adrian-butzke",
@@ -7703,7 +7703,7 @@
           "winPct": 39.1
         }
       },
-      "updatedAt": "2026-11-24T21:01:09.804Z",
+      "updatedAt": "2026-11-25T20:23:50.754Z",
       "players": [
         {
           "id": "liga-portugal.santa-clara.afonso-duarte",
@@ -8108,7 +8108,7 @@
             "offsides": 0,
             "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 0
+            "goalsConceded": 1
           },
           "candidatePicks": []
         },

@@ -5,7 +5,7 @@
   "season": "serie-b-2026-27",
   "seasonLabel": "2026/27",
   "periodLabel": "Regular season · Matchday 12",
-  "updatedAt": "2026-11-24T21:01:09.804Z",
+  "updatedAt": "2026-11-25T20:23:50.754Z",
   "source": "pitchlab-football-v2",
   "provenance": "derived",
   "isDemo": false,
@@ -18,8 +18,8 @@
       "forPerGame": 1.2307692307692308,
       "againstPerGame": 2.076923076923077,
       "gamesPlayed": 13,
-      "adjustedFor": 1.188462292035318,
-      "adjustedAgainst": 1.5789454705396133
+      "adjustedFor": 1.189613996743622,
+      "adjustedAgainst": 1.5818574791299322
     },
     "serie-b.catanzaro": {
       "teamId": "serie-b.catanzaro",
@@ -29,8 +29,8 @@
       "forPerGame": 1.3076923076923077,
       "againstPerGame": 1.9230769230769231,
       "gamesPlayed": 13,
-      "adjustedFor": 1.2479225151379834,
-      "adjustedAgainst": 1.4988360078473602
+      "adjustedFor": 1.2461251494097434,
+      "adjustedAgainst": 1.4982342495717567
     },
     "serie-b.sudtirol": {
       "teamId": "serie-b.sudtirol",
@@ -40,8 +40,8 @@
       "forPerGame": 1.1538461538461537,
       "againstPerGame": 1.2307692307692308,
       "gamesPlayed": 13,
-      "adjustedFor": 1.1313365025018751,
-      "adjustedAgainst": 1.1723591696285633
+      "adjustedFor": 1.130630361538999,
+      "adjustedAgainst": 1.1732173084762743
     },
     "serie-b.virtus-entella": {
       "teamId": "serie-b.virtus-entella",
@@ -51,8 +51,8 @@
       "forPerGame": 1,
       "againstPerGame": 1.2307692307692308,
       "gamesPlayed": 13,
-      "adjustedFor": 1.0608099282711156,
-      "adjustedAgainst": 1.1796438046692885
+      "adjustedFor": 1.0621162686261139,
+      "adjustedAgainst": 1.1811669287782587
     },
     "serie-b.carrarese": {
       "teamId": "serie-b.carrarese",
@@ -62,8 +62,8 @@
       "forPerGame": 0.8461538461538461,
       "againstPerGame": 1.0769230769230769,
       "gamesPlayed": 13,
-      "adjustedFor": 0.9486612389959606,
-      "adjustedAgainst": 1.07493467244057
+      "adjustedFor": 0.9474597381584333,
+      "adjustedAgainst": 1.0738584027407636
     },
     "serie-b.mantova": {
       "teamId": "serie-b.mantova",
@@ -73,19 +73,19 @@
       "forPerGame": 1.3333333333333333,
       "againstPerGame": 1.25,
       "gamesPlayed": 12,
-      "adjustedFor": 1.212546627244294,
-      "adjustedAgainst": 1.1661034798550463
+      "adjustedFor": 1.2143803666984772,
+      "adjustedAgainst": 1.167888880834163
     },
     "serie-b.avellino": {
       "teamId": "serie-b.avellino",
       "name": "US Avellino 1912",
       "shortName": "US Avellino 1912",
       "code": "AVE",
-      "forPerGame": 1.6666666666666667,
-      "againstPerGame": 1,
-      "gamesPlayed": 12,
-      "adjustedFor": 1.391554306336621,
-      "adjustedAgainst": 1.0346275035243813
+      "forPerGame": 1.6153846153846154,
+      "againstPerGame": 0.9230769230769231,
+      "gamesPlayed": 13,
+      "adjustedFor": 1.379623224818064,
+      "adjustedAgainst": 0.9858909724337663
     },
     "serie-b.arezzo": {
       "teamId": "serie-b.arezzo",
@@ -95,8 +95,8 @@
       "forPerGame": 0.8333333333333334,
       "againstPerGame": 1.75,
       "gamesPlayed": 12,
-      "adjustedFor": 0.9804448374271788,
-      "adjustedAgainst": 1.4323398487312746
+      "adjustedFor": 0.9813070323749619,
+      "adjustedAgainst": 1.4346524872425568
     },
     "serie-b.empoli": {
       "teamId": "serie-b.empoli",
@@ -106,19 +106,19 @@
       "forPerGame": 0.9230769230769231,
       "againstPerGame": 1.9230769230769231,
       "gamesPlayed": 13,
-      "adjustedFor": 1.0217553197704101,
-      "adjustedAgainst": 1.531949249954367
+      "adjustedFor": 1.020715025928864,
+      "adjustedAgainst": 1.5331078038604486
     },
     "serie-b.cremonese": {
       "teamId": "serie-b.cremonese",
       "name": "Cremonese",
       "shortName": "Cremonese",
       "code": "CRE",
-      "forPerGame": 1.1666666666666667,
-      "againstPerGame": 1.0833333333333333,
-      "gamesPlayed": 12,
-      "adjustedFor": 1.1530935809962468,
-      "adjustedAgainst": 1.0974268111451888
+      "forPerGame": 1.0769230769230769,
+      "againstPerGame": 1.0769230769230769,
+      "gamesPlayed": 13,
+      "adjustedFor": 1.1028134664899267,
+      "adjustedAgainst": 1.0855279968491334
     },
     "serie-b.benevento": {
       "teamId": "serie-b.benevento",
@@ -128,8 +128,8 @@
       "forPerGame": 1.6153846153846154,
       "againstPerGame": 1.0769230769230769,
       "gamesPlayed": 13,
-      "adjustedFor": 1.3568906058900618,
-      "adjustedAgainst": 1.11639993035901
+      "adjustedFor": 1.3594421490900368,
+      "adjustedAgainst": 1.117926290838371
     },
     "serie-b.modena": {
       "teamId": "serie-b.modena",
@@ -139,8 +139,8 @@
       "forPerGame": 1.8333333333333333,
       "againstPerGame": 0.8333333333333334,
       "gamesPlayed": 12,
-      "adjustedFor": 1.4949029102139848,
-      "adjustedAgainst": 0.9911520617586128
+      "adjustedFor": 1.4968290873667647,
+      "adjustedAgainst": 0.9924014532735977
     },
     "serie-b.pisa": {
       "teamId": "serie-b.pisa",
@@ -150,8 +150,8 @@
       "forPerGame": 1.75,
       "againstPerGame": 1.4166666666666667,
       "gamesPlayed": 12,
-      "adjustedFor": 1.4225628951954905,
-      "adjustedAgainst": 1.270885564421296
+      "adjustedFor": 1.4243151000066174,
+      "adjustedAgainst": 1.2730606252781298
     },
     "serie-b.padova": {
       "teamId": "serie-b.padova",
@@ -161,8 +161,8 @@
       "forPerGame": 1.0833333333333333,
       "againstPerGame": 1.1666666666666667,
       "gamesPlayed": 12,
-      "adjustedFor": 1.0941583250100484,
-      "adjustedAgainst": 1.1394912695699613
+      "adjustedFor": 1.0953641283815077,
+      "adjustedAgainst": 1.1415884064947188
     },
     "serie-b.hellas-verona": {
       "teamId": "serie-b.hellas-verona",
@@ -172,8 +172,8 @@
       "forPerGame": 1.5384615384615385,
       "againstPerGame": 1.3076923076923077,
       "gamesPlayed": 13,
-      "adjustedFor": 1.3181375970425013,
-      "adjustedAgainst": 1.2236528066125874
+      "adjustedFor": 1.3168303691692578,
+      "adjustedAgainst": 1.2223036840634662
     },
     "serie-b.ascoli": {
       "teamId": "serie-b.ascoli",
@@ -183,8 +183,8 @@
       "forPerGame": 1.5384615384615385,
       "againstPerGame": 1.0769230769230769,
       "gamesPlayed": 13,
-      "adjustedFor": 1.3026515425866743,
-      "adjustedAgainst": 1.1124529246616994
+      "adjustedFor": 1.303864727226973,
+      "adjustedAgainst": 1.1118641952481823
     },
     "serie-b.palermo": {
       "teamId": "serie-b.palermo",
@@ -194,8 +194,8 @@
       "forPerGame": 2.3076923076923075,
       "againstPerGame": 1.3076923076923077,
       "gamesPlayed": 13,
-      "adjustedFor": 1.7172912124188715,
-      "adjustedAgainst": 1.2471648489338298
+      "adjustedFor": 1.7181638209104306,
+      "adjustedAgainst": 1.2471399800073073
     },
     "serie-b.juve-stabia": {
       "teamId": "serie-b.juve-stabia",
@@ -205,8 +205,8 @@
       "forPerGame": 1,
       "againstPerGame": 1.2307692307692308,
       "gamesPlayed": 13,
-      "adjustedFor": 1.0257489830073387,
-      "adjustedAgainst": 1.159693325786024
+      "adjustedFor": 1.0248267981390717,
+      "adjustedAgainst": 1.1611963583899476
     },
     "serie-b.cesena": {
       "teamId": "serie-b.cesena",
@@ -216,8 +216,8 @@
       "forPerGame": 1.4615384615384615,
       "againstPerGame": 1.1538461538461537,
       "gamesPlayed": 13,
-      "adjustedFor": 1.3140906057429809,
-      "adjustedAgainst": 1.1270830445264262
+      "adjustedFor": 1.316268847118161,
+      "adjustedAgainst": 1.1283988143111576
     },
     "serie-b.sampdoria": {
       "teamId": "serie-b.sampdoria",
@@ -227,46 +227,11 @@
       "forPerGame": 1.1666666666666667,
       "againstPerGame": 1.5833333333333333,
       "gamesPlayed": 12,
-      "adjustedFor": 1.171480952746688,
-      "adjustedAgainst": 1.3312159078580033
+      "adjustedFor": 1.172020376019783,
+      "adjustedAgainst": 1.3312339632942582
     }
   },
   "games": [
-    {
-      "id": "serie-b-2026-11-20-hellas-verona-cesena-w7ot0l",
-      "league": "serie-b",
-      "season": "serie-b-2026-27",
-      "week": 12,
-      "round": "Regular season · Matchday 12",
-      "phase": "Regular season",
-      "startTime": "2026-11-20T19:30:00.000Z",
-      "status": "final",
-      "home": {
-        "id": "serie-b.hellas-verona",
-        "league": "serie-b",
-        "name": "Hellas Verona",
-        "shortName": "Hellas Verona",
-        "code": "HEL",
-        "logoUrl": "https://sports.bzzoiro.com/img/team/76/?bg=transparent"
-      },
-      "away": {
-        "id": "serie-b.cesena",
-        "league": "serie-b",
-        "name": "Cesena",
-        "shortName": "Cesena",
-        "code": "CES",
-        "logoUrl": "https://sports.bzzoiro.com/img/team/1275/?bg=transparent"
-      },
-      "venue": "Stadio Marcantonio Bentegodi, Verona",
-      "referee": "Simone Galipo",
-      "neutralSite": false,
-      "result": {
-        "home": 0,
-        "away": 2,
-        "observedAt": "2026-11-24T21:01:09.804Z",
-        "source": "pitchlab-feed"
-      }
-    },
     {
       "id": "serie-b-2026-11-21-sudtirol-cremonese-u0tlvf",
       "league": "serie-b",
@@ -298,7 +263,7 @@
       "result": {
         "home": 1,
         "away": 0,
-        "observedAt": "2026-11-24T21:01:09.804Z",
+        "observedAt": "2026-11-25T20:23:50.754Z",
         "source": "pitchlab-feed"
       }
     },
@@ -333,7 +298,7 @@
       "result": {
         "home": 3,
         "away": 1,
-        "observedAt": "2026-11-24T21:01:09.804Z",
+        "observedAt": "2026-11-25T20:23:50.754Z",
         "source": "pitchlab-feed"
       }
     },
@@ -368,7 +333,7 @@
       "result": {
         "home": 2,
         "away": 0,
-        "observedAt": "2026-11-24T21:01:09.804Z",
+        "observedAt": "2026-11-25T20:23:50.754Z",
         "source": "pitchlab-feed"
       }
     },
@@ -403,7 +368,7 @@
       "result": {
         "home": 1,
         "away": 0,
-        "observedAt": "2026-11-24T21:01:09.804Z",
+        "observedAt": "2026-11-25T20:23:50.754Z",
         "source": "pitchlab-feed"
       }
     },
@@ -438,7 +403,7 @@
       "result": {
         "home": 2,
         "away": 2,
-        "observedAt": "2026-11-24T21:01:09.804Z",
+        "observedAt": "2026-11-25T20:23:50.754Z",
         "source": "pitchlab-feed"
       }
     },
@@ -473,7 +438,7 @@
       "result": {
         "home": 3,
         "away": 1,
-        "observedAt": "2026-11-24T21:01:09.804Z",
+        "observedAt": "2026-11-25T20:23:50.754Z",
         "source": "pitchlab-feed"
       }
     },
@@ -508,7 +473,7 @@
       "result": {
         "home": 0,
         "away": 1,
-        "observedAt": "2026-11-24T21:01:09.804Z",
+        "observedAt": "2026-11-25T20:23:50.754Z",
         "source": "pitchlab-feed"
       }
     },
@@ -543,7 +508,7 @@
       "result": {
         "home": 4,
         "away": 1,
-        "observedAt": "2026-11-24T21:01:09.804Z",
+        "observedAt": "2026-11-25T20:23:50.754Z",
         "source": "pitchlab-feed"
       }
     },
@@ -578,7 +543,7 @@
       "result": {
         "home": 1,
         "away": 1,
-        "observedAt": "2026-11-24T21:01:09.804Z",
+        "observedAt": "2026-11-25T20:23:50.754Z",
         "source": "pitchlab-feed"
       }
     },
@@ -613,7 +578,7 @@
       "result": {
         "home": 1,
         "away": 3,
-        "observedAt": "2026-11-24T21:01:09.804Z",
+        "observedAt": "2026-11-25T20:23:50.754Z",
         "source": "pitchlab-feed"
       }
     },
@@ -648,7 +613,7 @@
       "result": {
         "home": 2,
         "away": 1,
-        "observedAt": "2026-11-24T21:01:09.804Z",
+        "observedAt": "2026-11-25T20:23:50.754Z",
         "source": "pitchlab-feed"
       }
     },
@@ -683,7 +648,7 @@
       "result": {
         "home": 4,
         "away": 1,
-        "observedAt": "2026-11-24T21:01:09.804Z",
+        "observedAt": "2026-11-25T20:23:50.754Z",
         "source": "pitchlab-feed"
       }
     },
@@ -718,7 +683,7 @@
       "result": {
         "home": 0,
         "away": 1,
-        "observedAt": "2026-11-24T21:01:09.804Z",
+        "observedAt": "2026-11-25T20:23:50.754Z",
         "source": "pitchlab-feed"
       }
     },
@@ -753,7 +718,7 @@
       "result": {
         "home": 5,
         "away": 1,
-        "observedAt": "2026-11-24T21:01:09.804Z",
+        "observedAt": "2026-11-25T20:23:50.754Z",
         "source": "pitchlab-feed"
       }
     },
@@ -788,7 +753,7 @@
       "result": {
         "home": 5,
         "away": 0,
-        "observedAt": "2026-11-24T21:01:09.804Z",
+        "observedAt": "2026-11-25T20:23:50.754Z",
         "source": "pitchlab-feed"
       }
     },
@@ -800,7 +765,7 @@
       "round": "Regular season · Matchday 13",
       "phase": "Regular season",
       "startTime": "2026-11-25T18:00:00.000Z",
-      "status": "scheduled",
+      "status": "final",
       "home": {
         "id": "serie-b.cremonese",
         "league": "serie-b",
@@ -819,7 +784,13 @@
       },
       "venue": "Stadio Giovanni Zini, Cremona",
       "referee": "Giuseppe Collu",
-      "neutralSite": false
+      "neutralSite": false,
+      "result": {
+        "home": 0,
+        "away": 1,
+        "observedAt": "2026-11-25T20:23:50.754Z",
+        "source": "pitchlab-feed"
+      }
     },
     {
       "id": "serie-b-2026-11-25-pisa-modena-d964jt",
@@ -1691,496 +1662,37 @@
       },
       "venue": "Carlo Castellani, Empoli",
       "neutralSite": false
+    },
+    {
+      "id": "serie-b-2026-12-09-catanzaro-virtus-entella-wfz0qk",
+      "league": "serie-b",
+      "season": "serie-b-2026-27",
+      "week": 16,
+      "round": "Regular season · Matchday 16",
+      "phase": "Regular season",
+      "startTime": "2026-12-09T19:00:00.000Z",
+      "status": "scheduled",
+      "home": {
+        "id": "serie-b.catanzaro",
+        "league": "serie-b",
+        "name": "Catanzaro",
+        "shortName": "Catanzaro",
+        "code": "CAT",
+        "logoUrl": "https://sports.bzzoiro.com/img/team/1605/?bg=transparent"
+      },
+      "away": {
+        "id": "serie-b.virtus-entella",
+        "league": "serie-b",
+        "name": "Virtus Entella",
+        "shortName": "Virtus Entella",
+        "code": "VIR",
+        "logoUrl": "https://sports.bzzoiro.com/img/team/1598/?bg=transparent"
+      },
+      "venue": "Stadio Nicola Ceravolo, Catanzaro",
+      "neutralSite": false
     }
   ],
   "analyses": {
-    "serie-b-2026-11-20-hellas-verona-cesena-w7ot0l": {
-      "game": "serie-b-2026-11-20-hellas-verona-cesena-w7ot0l",
-      "model": {
-        "id": "pitchlab-statistical-serie-b",
-        "version": "2.0.0",
-        "status": "candidate",
-        "label": "Modelo PitchLab · en validación"
-      },
-      "projection": {
-        "home": 1.6263716498941265,
-        "away": 1.0651727634242665,
-        "total": 2.6915444133183932,
-        "margin": 0.56119888646986
-      },
-      "x12": [
-        0.48965492304750374,
-        0.2763185985367829,
-        0.2340264784157135
-      ],
-      "probabilities": [
-        {
-          "market": "h2h",
-          "selection": "Hellas Verona gana",
-          "p": 0.48965492304750374,
-          "fairOdds": 2.0422545611840714
-        },
-        {
-          "market": "h2h",
-          "selection": "Empate",
-          "p": 0.2763185985367829,
-          "fairOdds": 3.619010827701785
-        },
-        {
-          "market": "h2h",
-          "selection": "Cesena gana",
-          "p": 0.2340264784157135,
-          "fairOdds": 4.273020757179654
-        },
-        {
-          "market": "double_chance",
-          "selection": "Hellas Verona o empate",
-          "p": 0.7659735215842867,
-          "fairOdds": 1.305528157072152
-        },
-        {
-          "market": "double_chance",
-          "selection": "Cesena o empate",
-          "p": 0.5103450769524964,
-          "fairOdds": 1.9594585020227036
-        },
-        {
-          "market": "double_chance",
-          "selection": "Sin empate",
-          "p": 0.7236814014632172,
-          "fairOdds": 1.381823545524442
-        },
-        {
-          "market": "totals",
-          "selection": "Más de 1.5",
-          "line": 1.5,
-          "p": 0.7644775710512295,
-          "fairOdds": 1.3080828501284933
-        },
-        {
-          "market": "totals",
-          "selection": "Más de 2.5",
-          "line": 2.5,
-          "p": 0.5043013253963597,
-          "fairOdds": 1.9829414471874367
-        },
-        {
-          "market": "totals",
-          "selection": "Menos de 2.5",
-          "line": 2.5,
-          "p": 0.49569867460364025,
-          "fairOdds": 2.017354597124146
-        },
-        {
-          "market": "totals",
-          "selection": "Más de 3.5",
-          "line": 3.5,
-          "p": 0.28404365416102983,
-          "fairOdds": 3.5205856048911435
-        },
-        {
-          "market": "totals",
-          "selection": "Menos de 3.5",
-          "line": 3.5,
-          "p": 0.7159563458389702,
-          "fairOdds": 1.396733202815854
-        },
-        {
-          "market": "btts",
-          "selection": "Sí",
-          "p": 0.5411426235355704,
-          "fairOdds": 1.8479416636347588
-        },
-        {
-          "market": "btts",
-          "selection": "No",
-          "p": 0.4588573764644296,
-          "fairOdds": 2.1793264122834026
-        },
-        {
-          "market": "team_totals",
-          "selection": "Hellas Verona más de 1.5",
-          "line": 1.5,
-          "p": 0.4835450206977534,
-          "fairOdds": 2.0680597611304203
-        },
-        {
-          "market": "team_totals",
-          "selection": "Hellas Verona menos de 1.5",
-          "line": 1.5,
-          "p": 0.5164549793022466,
-          "fairOdds": 1.936277197580792
-        },
-        {
-          "market": "team_totals",
-          "selection": "Cesena más de 1.5",
-          "line": 1.5,
-          "p": 0.28820039360085525,
-          "fairOdds": 3.4698078913277115
-        },
-        {
-          "market": "team_totals",
-          "selection": "Cesena menos de 1.5",
-          "line": 1.5,
-          "p": 0.7117996063991447,
-          "fairOdds": 1.4048897906235223
-        },
-        {
-          "market": "correct_score",
-          "selection": "1–1",
-          "p": 0.1320900220414471,
-          "fairOdds": 7.57059454260838
-        },
-        {
-          "market": "correct_score",
-          "selection": "1–0",
-          "p": 0.09555272930438212,
-          "fairOdds": 10.465425815462702
-        },
-        {
-          "market": "correct_score",
-          "selection": "2–1",
-          "p": 0.09547887425871104,
-          "fairOdds": 10.473521056504964
-        }
-      ],
-      "marketGroups": [
-        {
-          "group": "Resultado",
-          "rows": [
-            {
-              "market": "h2h",
-              "selection": "home",
-              "label": "Hellas Verona gana",
-              "p": 0.48965492304750374,
-              "fairOdds": 2.0422545611840714
-            },
-            {
-              "market": "h2h",
-              "selection": "draw",
-              "label": "Empate",
-              "p": 0.2763185985367829,
-              "fairOdds": 3.619010827701785
-            },
-            {
-              "market": "h2h",
-              "selection": "away",
-              "label": "Cesena gana",
-              "p": 0.2340264784157135,
-              "fairOdds": 4.273020757179654
-            }
-          ]
-        },
-        {
-          "group": "Doble oportunidad",
-          "rows": [
-            {
-              "market": "double_chance",
-              "selection": "1x",
-              "label": "Hellas Verona o empate",
-              "p": 0.7659735215842867,
-              "fairOdds": 1.305528157072152
-            },
-            {
-              "market": "double_chance",
-              "selection": "x2",
-              "label": "Cesena o empate",
-              "p": 0.5103450769524964,
-              "fairOdds": 1.9594585020227036
-            },
-            {
-              "market": "double_chance",
-              "selection": "12",
-              "label": "Sin empate",
-              "p": 0.7236814014632172,
-              "fairOdds": 1.381823545524442
-            }
-          ]
-        },
-        {
-          "group": "Goles totales",
-          "rows": [
-            {
-              "market": "totals",
-              "selection": "over_1.5",
-              "label": "Más de 1.5",
-              "line": 1.5,
-              "p": 0.7644775710512295,
-              "fairOdds": 1.3080828501284933
-            },
-            {
-              "market": "totals",
-              "selection": "over_2.5",
-              "label": "Más de 2.5",
-              "line": 2.5,
-              "p": 0.5043013253963597,
-              "fairOdds": 1.9829414471874367
-            },
-            {
-              "market": "totals",
-              "selection": "under_2.5",
-              "label": "Menos de 2.5",
-              "line": 2.5,
-              "p": 0.49569867460364025,
-              "fairOdds": 2.017354597124146
-            },
-            {
-              "market": "totals",
-              "selection": "over_3.5",
-              "label": "Más de 3.5",
-              "line": 3.5,
-              "p": 0.28404365416102983,
-              "fairOdds": 3.5205856048911435
-            },
-            {
-              "market": "totals",
-              "selection": "under_3.5",
-              "label": "Menos de 3.5",
-              "line": 3.5,
-              "p": 0.7159563458389702,
-              "fairOdds": 1.396733202815854
-            }
-          ]
-        },
-        {
-          "group": "Ambos anotan",
-          "rows": [
-            {
-              "market": "btts",
-              "selection": "yes",
-              "label": "Sí",
-              "p": 0.5411426235355704,
-              "fairOdds": 1.8479416636347588
-            },
-            {
-              "market": "btts",
-              "selection": "no",
-              "label": "No",
-              "p": 0.4588573764644296,
-              "fairOdds": 2.1793264122834026
-            }
-          ]
-        },
-        {
-          "group": "Goles por equipo (1.5)",
-          "rows": [
-            {
-              "market": "team_totals",
-              "selection": "home_over",
-              "label": "Hellas Verona más de 1.5",
-              "line": 1.5,
-              "p": 0.4835450206977534,
-              "fairOdds": 2.0680597611304203
-            },
-            {
-              "market": "team_totals",
-              "selection": "home_under",
-              "label": "Hellas Verona menos de 1.5",
-              "line": 1.5,
-              "p": 0.5164549793022466,
-              "fairOdds": 1.936277197580792
-            },
-            {
-              "market": "team_totals",
-              "selection": "away_over",
-              "label": "Cesena más de 1.5",
-              "line": 1.5,
-              "p": 0.28820039360085525,
-              "fairOdds": 3.4698078913277115
-            },
-            {
-              "market": "team_totals",
-              "selection": "away_under",
-              "label": "Cesena menos de 1.5",
-              "line": 1.5,
-              "p": 0.7117996063991447,
-              "fairOdds": 1.4048897906235223
-            }
-          ]
-        },
-        {
-          "group": "Marcador exacto (más probables)",
-          "rows": [
-            {
-              "market": "correct_score",
-              "selection": "1-1",
-              "label": "1–1",
-              "p": 0.1320900220414471,
-              "fairOdds": 7.57059454260838
-            },
-            {
-              "market": "correct_score",
-              "selection": "1-0",
-              "label": "1–0",
-              "p": 0.09555272930438212,
-              "fairOdds": 10.465425815462702
-            },
-            {
-              "market": "correct_score",
-              "selection": "2-1",
-              "label": "2–1",
-              "p": 0.09547887425871104,
-              "fairOdds": 10.473521056504964
-            }
-          ]
-        }
-      ],
-      "mostLikelyScore": {
-        "home": 1,
-        "away": 1,
-        "p": 0.1320900220414471
-      },
-      "factors": [
-        {
-          "key": "home_attack",
-          "label": "Ataque local",
-          "value": "1.59 goles/partido",
-          "detail": "25 % más que la media · 11 partidos"
-        },
-        {
-          "key": "away_defense",
-          "label": "Defensa visitante",
-          "value": "1.27 concedidos/partido",
-          "detail": "3 % más que la media · 11 partidos"
-        },
-        {
-          "key": "away_attack",
-          "label": "Ataque visitante",
-          "value": "1.07 goles/partido",
-          "detail": "10 % menos que la media · ajustado por rival"
-        },
-        {
-          "key": "home_defense",
-          "label": "Defensa local",
-          "value": "1.18 concedidos/partido",
-          "detail": "4 % menos que la media · ajustado por rival"
-        },
-        {
-          "key": "home_advantage",
-          "label": "Localía",
-          "value": "×1.03",
-          "detail": "estimada de 110 partidos"
-        },
-        {
-          "key": "uncertainty",
-          "label": "Intervalo 90%",
-          "value": "goles 1.9–3.9",
-          "detail": "local 26%–72% · 110 partidos"
-        },
-        {
-          "key": "home_position",
-          "label": "Posición local",
-          "value": "5.º · 16 pts",
-          "detail": "de 20 equipos"
-        },
-        {
-          "key": "away_position",
-          "label": "Posición visitante",
-          "value": "13.º · 15 pts",
-          "detail": "de 20 equipos"
-        },
-        {
-          "key": "home_form",
-          "label": "Forma local",
-          "value": "E-E-G-G-E · 9 pts",
-          "detail": "7 goles a favor · 3 en contra"
-        },
-        {
-          "key": "away_form",
-          "label": "Forma visitante",
-          "value": "E-P-G-E-G · 8 pts",
-          "detail": "5 goles a favor · 6 en contra"
-        }
-      ],
-      "steps": [
-        "Sincronizando Serie B Italia · corte 19 nov 2026, 10:05",
-        "Fuerza ajustada por rival · HEL 1.25 / 0.96 · CES 0.90 / 1.03",
-        "Ponderando 100.6 partidos por antigüedad y calidad del rival",
-        "Proyección de goles 1.63 – 1.07 · total 2.69",
-        "Simulando 121 marcadores con incertidumbre del ajuste",
-        "20 mercados listos · marcador proyectado 2–1"
-      ],
-      "inputsAsOf": "2026-11-19T16:05:39.021Z",
-      "publishedAt": "2026-11-19T16:05:39.021Z",
-      "source": "pitchlab-football-v2",
-      "picks": [
-        {
-          "profile": "conservadora",
-          "market": "double_chance",
-          "selection": "1x",
-          "label": "Hellas Verona o empate",
-          "p": 0.7659735215842867,
-          "fairOdds": 1.305528157072152
-        },
-        {
-          "profile": "intermedia",
-          "market": "btts",
-          "selection": "yes",
-          "label": "Ambos anotan: Sí",
-          "p": 0.5411426235355704,
-          "fairOdds": 1.8479416636347588
-        },
-        {
-          "profile": "arriesgada",
-          "market": "team_totals",
-          "selection": "home_under",
-          "label": "Hellas Verona menos de 1.5",
-          "line": 1.5,
-          "p": 0.5164549793022466,
-          "fairOdds": 1.936277197580792
-        }
-      ],
-      "confidence": {
-        "score": 47,
-        "level": "media",
-        "reasons": [
-          "Muestra suficiente",
-          "Rango de incertidumbre amplio"
-        ]
-      },
-      "projectedScore": {
-        "home": 2,
-        "away": 1,
-        "p": 0.09547887425871104
-      },
-      "insights": {
-        "why": [
-          "Se esperan 2.7 goles: 1.6 de Hellas Verona y 1.1 de Cesena.",
-          "Hellas Verona anota 25 % más que la media.",
-          "Cesena anota 10 % menos que la media."
-        ],
-        "restDays": {
-          "home": 13,
-          "away": 13
-        }
-      },
-      "picksAt": "2026-11-19T16:05:39.021Z",
-      "matchContext": {
-        "referee": "Simone Galipo",
-        "refereeStats": {
-          "country": "Italy",
-          "matches": 33,
-          "avgYellow": 0.97,
-          "avgRed": 0,
-          "avgFouls": 32.4,
-          "avgGoals": 2.79
-        },
-        "weather": {
-          "description": "cloudy",
-          "temperatureC": 14,
-          "windSpeedKmh": 78
-        },
-        "travelDistanceKm": 177,
-        "halfTimeScore": {
-          "home": 0,
-          "away": 1
-        },
-        "stageName": "Regular season",
-        "venueCity": "Verona",
-        "venueCountry": "Italy",
-        "venueCapacity": 39045
-      }
-    },
     "serie-b-2026-11-21-sudtirol-cremonese-u0tlvf": {
       "game": "serie-b-2026-11-21-sudtirol-cremonese-u0tlvf",
       "model": {
@@ -3619,11 +3131,11 @@
         "referee": "Rosario Abisso",
         "refereeStats": {
           "country": "Italy",
-          "matches": 36,
-          "avgYellow": 2.83,
+          "matches": 37,
+          "avgYellow": 2.84,
           "avgRed": 0.19,
           "avgFouls": 27,
-          "avgGoals": 2.42
+          "avgGoals": 2.43
         },
         "weather": {
           "description": "clear",
@@ -9468,11 +8980,11 @@
         "referee": "Edoardo Manedo Mazzoni",
         "refereeStats": {
           "country": "Italy",
-          "matches": 35,
-          "avgYellow": 0.71,
+          "matches": 36,
+          "avgYellow": 0.69,
           "avgRed": 0,
           "avgFouls": 27.1,
-          "avgGoals": 2.46
+          "avgGoals": 2.53
         },
         "weather": {
           "description": "rain",
@@ -9955,17 +9467,22 @@
         "referee": "Giuseppe Collu",
         "refereeStats": {
           "country": "Italy",
-          "matches": 38,
-          "avgYellow": 2.89,
+          "matches": 39,
+          "avgYellow": 2.87,
           "avgRed": 0.13,
-          "avgFouls": 25.4,
-          "avgGoals": 2.08
+          "avgFouls": 25,
+          "avgGoals": 2.05
         },
         "weather": {
+          "description": "cloudy",
           "temperatureC": 8,
           "windSpeedKmh": 13
         },
         "travelDistanceKm": 609,
+        "halfTimeScore": {
+          "home": 0,
+          "away": 0
+        },
         "stageName": "Regular season",
         "venueCity": "Cremona",
         "venueCountry": "Italy",
@@ -10448,6 +9965,10 @@
           "windSpeedKmh": 33
         },
         "travelDistanceKm": 112,
+        "halfTimeScore": {
+          "home": 0,
+          "away": 0
+        },
         "stageName": "Regular season",
         "venueCity": "Pisa",
         "venueCountry": "Italy",
@@ -10931,6 +10452,10 @@
           "windSpeedKmh": 77
         },
         "travelDistanceKm": 256,
+        "halfTimeScore": {
+          "home": 1,
+          "away": 1
+        },
         "stageName": "Regular season",
         "venueCity": "Padova",
         "venueCountry": "Italy",
@@ -11414,6 +10939,10 @@
           "windSpeedKmh": 92
         },
         "travelDistanceKm": 208,
+        "halfTimeScore": {
+          "home": 1,
+          "away": 0
+        },
         "stageName": "Regular season",
         "venueCity": "Mantova",
         "venueCountry": "Italy",
@@ -24677,6 +24206,479 @@
         "venueCountry": "Italy",
         "venueCapacity": 16284
       }
+    },
+    "serie-b-2026-12-09-catanzaro-virtus-entella-wfz0qk": {
+      "game": "serie-b-2026-12-09-catanzaro-virtus-entella-wfz0qk",
+      "model": {
+        "id": "pitchlab-statistical-serie-b",
+        "version": "2.0.0",
+        "status": "candidate",
+        "label": "Modelo PitchLab · en validación"
+      },
+      "projection": {
+        "home": 1.3994338726952773,
+        "away": 1.313746737689912,
+        "total": 2.713180610385189,
+        "margin": 0.0856871350053654
+      },
+      "x12": [
+        0.3880597725110715,
+        0.2632752267534078,
+        0.34866500073552065
+      ],
+      "probabilities": [
+        {
+          "market": "h2h",
+          "selection": "Catanzaro gana",
+          "p": 0.3880597725110715,
+          "fairOdds": 2.5769226053222756
+        },
+        {
+          "market": "h2h",
+          "selection": "Empate",
+          "p": 0.2632752267534078,
+          "fairOdds": 3.7983064807560973
+        },
+        {
+          "market": "h2h",
+          "selection": "Virtus Entella gana",
+          "p": 0.34866500073552065,
+          "fairOdds": 2.8680825373652823
+        },
+        {
+          "market": "double_chance",
+          "selection": "Catanzaro o empate",
+          "p": 0.6513349992644792,
+          "fairOdds": 1.5353082532479463
+        },
+        {
+          "market": "double_chance",
+          "selection": "Virtus Entella o empate",
+          "p": 0.6119402274889285,
+          "fairOdds": 1.6341465311137637
+        },
+        {
+          "market": "double_chance",
+          "selection": "Sin empate",
+          "p": 0.7367247732465921,
+          "fairOdds": 1.3573589979785925
+        },
+        {
+          "market": "totals",
+          "selection": "Más de 1.5 goles",
+          "line": 1.5,
+          "p": 0.7567697665850894,
+          "fairOdds": 1.3214058544020366
+        },
+        {
+          "market": "totals",
+          "selection": "Más de 2.5 goles",
+          "line": 2.5,
+          "p": 0.5095985365891577,
+          "fairOdds": 1.9623290260862893
+        },
+        {
+          "market": "totals",
+          "selection": "Menos de 2.5 goles",
+          "line": 2.5,
+          "p": 0.49040146341084234,
+          "fairOdds": 2.0391456278388644
+        },
+        {
+          "market": "totals",
+          "selection": "Más de 3.5 goles",
+          "line": 3.5,
+          "p": 0.2888155089044735,
+          "fairOdds": 3.462417942142964
+        },
+        {
+          "market": "totals",
+          "selection": "Menos de 3.5 goles",
+          "line": 3.5,
+          "p": 0.7111844910955265,
+          "fairOdds": 1.4061049031870405
+        },
+        {
+          "market": "btts",
+          "selection": "Sí",
+          "p": 0.5538263126001952,
+          "fairOdds": 1.8056202409470847
+        },
+        {
+          "market": "btts",
+          "selection": "No",
+          "p": 0.4461736873998048,
+          "fairOdds": 2.2412796366988035
+        },
+        {
+          "market": "team_totals",
+          "selection": "Catanzaro más de 1.5 goles",
+          "line": 1.5,
+          "p": 0.4079716565561401,
+          "fairOdds": 2.4511506716947435
+        },
+        {
+          "market": "team_totals",
+          "selection": "Catanzaro menos de 1.5 goles",
+          "line": 1.5,
+          "p": 0.5920283434438599,
+          "fairOdds": 1.6891083190087617
+        },
+        {
+          "market": "team_totals",
+          "selection": "Virtus Entella más de 1.5 goles",
+          "line": 1.5,
+          "p": 0.37803932441341503,
+          "fairOdds": 2.6452274549787926
+        },
+        {
+          "market": "team_totals",
+          "selection": "Virtus Entella menos de 1.5 goles",
+          "line": 1.5,
+          "p": 0.621960675586585,
+          "fairOdds": 1.6078186921655098
+        },
+        {
+          "market": "correct_score",
+          "selection": "1–1",
+          "p": 0.12498811503983927,
+          "fairOdds": 8.00076070977833
+        },
+        {
+          "market": "correct_score",
+          "selection": "1–0",
+          "p": 0.08976972231479373,
+          "fairOdds": 11.139613382041214
+        },
+        {
+          "market": "correct_score",
+          "selection": "2–1",
+          "p": 0.08532322042491958,
+          "fairOdds": 11.720138961233337
+        }
+      ],
+      "marketGroups": [
+        {
+          "group": "Resultado",
+          "rows": [
+            {
+              "market": "h2h",
+              "selection": "home",
+              "label": "Catanzaro gana",
+              "p": 0.3880597725110715,
+              "fairOdds": 2.5769226053222756
+            },
+            {
+              "market": "h2h",
+              "selection": "draw",
+              "label": "Empate",
+              "p": 0.2632752267534078,
+              "fairOdds": 3.7983064807560973
+            },
+            {
+              "market": "h2h",
+              "selection": "away",
+              "label": "Virtus Entella gana",
+              "p": 0.34866500073552065,
+              "fairOdds": 2.8680825373652823
+            }
+          ]
+        },
+        {
+          "group": "Doble oportunidad",
+          "rows": [
+            {
+              "market": "double_chance",
+              "selection": "1x",
+              "label": "Catanzaro o empate",
+              "p": 0.6513349992644792,
+              "fairOdds": 1.5353082532479463
+            },
+            {
+              "market": "double_chance",
+              "selection": "x2",
+              "label": "Virtus Entella o empate",
+              "p": 0.6119402274889285,
+              "fairOdds": 1.6341465311137637
+            },
+            {
+              "market": "double_chance",
+              "selection": "12",
+              "label": "Sin empate",
+              "p": 0.7367247732465921,
+              "fairOdds": 1.3573589979785925
+            }
+          ]
+        },
+        {
+          "group": "Goles totales",
+          "rows": [
+            {
+              "market": "totals",
+              "selection": "over_1.5",
+              "label": "Más de 1.5 goles",
+              "line": 1.5,
+              "p": 0.7567697665850894,
+              "fairOdds": 1.3214058544020366
+            },
+            {
+              "market": "totals",
+              "selection": "over_2.5",
+              "label": "Más de 2.5 goles",
+              "line": 2.5,
+              "p": 0.5095985365891577,
+              "fairOdds": 1.9623290260862893
+            },
+            {
+              "market": "totals",
+              "selection": "under_2.5",
+              "label": "Menos de 2.5 goles",
+              "line": 2.5,
+              "p": 0.49040146341084234,
+              "fairOdds": 2.0391456278388644
+            },
+            {
+              "market": "totals",
+              "selection": "over_3.5",
+              "label": "Más de 3.5 goles",
+              "line": 3.5,
+              "p": 0.2888155089044735,
+              "fairOdds": 3.462417942142964
+            },
+            {
+              "market": "totals",
+              "selection": "under_3.5",
+              "label": "Menos de 3.5 goles",
+              "line": 3.5,
+              "p": 0.7111844910955265,
+              "fairOdds": 1.4061049031870405
+            }
+          ]
+        },
+        {
+          "group": "Ambos anotan",
+          "rows": [
+            {
+              "market": "btts",
+              "selection": "yes",
+              "label": "Sí",
+              "p": 0.5538263126001952,
+              "fairOdds": 1.8056202409470847
+            },
+            {
+              "market": "btts",
+              "selection": "no",
+              "label": "No",
+              "p": 0.4461736873998048,
+              "fairOdds": 2.2412796366988035
+            }
+          ]
+        },
+        {
+          "group": "Goles por equipo (1.5)",
+          "rows": [
+            {
+              "market": "team_totals",
+              "selection": "home_over",
+              "label": "Catanzaro más de 1.5 goles",
+              "line": 1.5,
+              "p": 0.4079716565561401,
+              "fairOdds": 2.4511506716947435
+            },
+            {
+              "market": "team_totals",
+              "selection": "home_under",
+              "label": "Catanzaro menos de 1.5 goles",
+              "line": 1.5,
+              "p": 0.5920283434438599,
+              "fairOdds": 1.6891083190087617
+            },
+            {
+              "market": "team_totals",
+              "selection": "away_over",
+              "label": "Virtus Entella más de 1.5 goles",
+              "line": 1.5,
+              "p": 0.37803932441341503,
+              "fairOdds": 2.6452274549787926
+            },
+            {
+              "market": "team_totals",
+              "selection": "away_under",
+              "label": "Virtus Entella menos de 1.5 goles",
+              "line": 1.5,
+              "p": 0.621960675586585,
+              "fairOdds": 1.6078186921655098
+            }
+          ]
+        },
+        {
+          "group": "Marcador exacto (más probables)",
+          "rows": [
+            {
+              "market": "correct_score",
+              "selection": "1-1",
+              "label": "1–1",
+              "p": 0.12498811503983927,
+              "fairOdds": 8.00076070977833
+            },
+            {
+              "market": "correct_score",
+              "selection": "1-0",
+              "label": "1–0",
+              "p": 0.08976972231479373,
+              "fairOdds": 11.139613382041214
+            },
+            {
+              "market": "correct_score",
+              "selection": "2-1",
+              "label": "2–1",
+              "p": 0.08532322042491958,
+              "fairOdds": 11.720138961233337
+            }
+          ]
+        }
+      ],
+      "mostLikelyScore": {
+        "home": 1,
+        "away": 1,
+        "p": 0.12498811503983927
+      },
+      "factors": [
+        {
+          "key": "home_attack",
+          "label": "Ataque local",
+          "value": "1.22 goles/partido",
+          "detail": "3 % más que la media · 13 partidos"
+        },
+        {
+          "key": "away_defense",
+          "label": "Defensa visitante",
+          "value": "1.18 concedidos/partido",
+          "detail": "en la media de la liga · 13 partidos"
+        },
+        {
+          "key": "away_attack",
+          "label": "Ataque visitante",
+          "value": "1.31 goles/partido",
+          "detail": "12 % menos que la media · ajustado por rival"
+        },
+        {
+          "key": "home_defense",
+          "label": "Defensa local",
+          "value": "1.50 concedidos/partido",
+          "detail": "24 % más que la media · ajustado por rival"
+        },
+        {
+          "key": "home_advantage",
+          "label": "Localía",
+          "value": "×1.15",
+          "detail": "estimada de 127 partidos"
+        },
+        {
+          "key": "uncertainty",
+          "label": "Intervalo 90%",
+          "value": "goles 1.9–3.9",
+          "detail": "local 22%–60% · 127 partidos"
+        },
+        {
+          "key": "home_position",
+          "label": "Posición local",
+          "value": "17.º · 12 pts",
+          "detail": "de 20 equipos"
+        },
+        {
+          "key": "away_position",
+          "label": "Posición visitante",
+          "value": "16.º · 13 pts",
+          "detail": "de 20 equipos"
+        },
+        {
+          "key": "home_form",
+          "label": "Forma local",
+          "value": "E-E-P-G-G · 8 pts",
+          "detail": "8 goles a favor · 5 en contra"
+        },
+        {
+          "key": "away_form",
+          "label": "Forma visitante",
+          "value": "E-P-P-P-G · 4 pts",
+          "detail": "3 goles a favor · 7 en contra"
+        }
+      ],
+      "steps": [
+        "Sincronizando Serie B Italia · corte 25 nov 2026, 20:23",
+        "Fuerza ajustada por rival · CAT 1.03 / 1.24 · VIR 0.88 / 0.98",
+        "Ponderando 116.4 partidos por antigüedad y calidad del rival",
+        "Proyección de goles 1.40 – 1.31 · total 2.71",
+        "Simulando 121 marcadores con incertidumbre del ajuste",
+        "20 mercados listos · marcador proyectado 2–1"
+      ],
+      "inputsAsOf": "2026-11-25T20:23:50.754Z",
+      "publishedAt": "2026-11-25T20:23:50.754Z",
+      "source": "pitchlab-football-v2",
+      "picks": [
+        {
+          "profile": "conservadora",
+          "market": "totals",
+          "selection": "over_1.5",
+          "label": "Más de 1.5 goles",
+          "line": 1.5,
+          "p": 0.7567697665850894,
+          "fairOdds": 1.3214058544020366
+        },
+        {
+          "profile": "intermedia",
+          "market": "double_chance",
+          "selection": "1x",
+          "label": "Catanzaro o empate",
+          "p": 0.6513349992644792,
+          "fairOdds": 1.5353082532479463
+        },
+        {
+          "profile": "arriesgada",
+          "market": "totals",
+          "selection": "over_2.5",
+          "label": "Más de 2.5 goles",
+          "line": 2.5,
+          "p": 0.5095985365891577,
+          "fairOdds": 1.9623290260862893
+        }
+      ],
+      "confidence": {
+        "score": 37,
+        "level": "baja",
+        "reasons": [
+          "Partido parejo",
+          "Muestra suficiente"
+        ]
+      },
+      "projectedScore": {
+        "home": 2,
+        "away": 1,
+        "p": 0.08532322042491958
+      },
+      "insights": {
+        "why": [
+          "Catanzaro gana en 39% de los escenarios; el empate, en 26%.",
+          "Catanzaro concede 24 % más que la media.",
+          "Virtus Entella anota 12 % menos que la media."
+        ],
+        "restDays": {
+          "home": 15,
+          "away": 15
+        }
+      },
+      "picksAt": "2026-11-25T20:23:50.754Z",
+      "matchContext": {
+        "weather": {
+          "temperatureC": 11,
+          "windSpeedKmh": 24
+        },
+        "stageName": "Regular season",
+        "venueCity": "Catanzaro",
+        "venueCountry": "Italy",
+        "venueCapacity": 14650
+      }
     }
   },
   "standings": [
@@ -24721,6 +24723,26 @@
       ]
     },
     {
+      "teamId": "serie-b.avellino",
+      "name": "US Avellino 1912",
+      "shortName": "US Avellino 1912",
+      "code": "AVE",
+      "played": 13,
+      "won": 6,
+      "drawn": 4,
+      "lost": 3,
+      "goalsFor": 21,
+      "goalsAgainst": 12,
+      "points": 22,
+      "form": [
+        "D",
+        "W",
+        "D",
+        "W",
+        "W"
+      ]
+    },
+    {
       "teamId": "serie-b.ascoli",
       "name": "Ascoli",
       "shortName": "Ascoli",
@@ -24757,26 +24779,6 @@
         "D",
         "W",
         "W",
-        "W"
-      ]
-    },
-    {
-      "teamId": "serie-b.avellino",
-      "name": "US Avellino 1912",
-      "shortName": "US Avellino 1912",
-      "code": "AVE",
-      "played": 12,
-      "won": 5,
-      "drawn": 4,
-      "lost": 3,
-      "goalsFor": 20,
-      "goalsAgainst": 12,
-      "points": 19,
-      "form": [
-        "L",
-        "D",
-        "W",
-        "D",
         "W"
       ]
     },
@@ -24945,18 +24947,18 @@
       "name": "Cremonese",
       "shortName": "Cremonese",
       "code": "CRE",
-      "played": 12,
+      "played": 13,
       "won": 4,
       "drawn": 3,
-      "lost": 5,
+      "lost": 6,
       "goalsFor": 14,
-      "goalsAgainst": 13,
+      "goalsAgainst": 14,
       "points": 15,
       "form": [
+        "W",
+        "W",
+        "W",
         "L",
-        "W",
-        "W",
-        "W",
         "L"
       ]
     },

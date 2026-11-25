@@ -5,7 +5,7 @@
   "season": "copa-del-rey-2026-27",
   "seasonLabel": "2026/27",
   "periodLabel": "Round 1",
-  "updatedAt": "2026-11-24T21:01:09.804Z",
+  "updatedAt": "2026-11-25T20:23:50.754Z",
   "source": "pitchlab-football-v2",
   "provenance": "derived",
   "isDemo": false,
@@ -1384,7 +1384,7 @@
       "result": {
         "home": 0,
         "away": 3,
-        "observedAt": "2026-11-24T21:01:09.804Z",
+        "observedAt": "2026-11-25T20:23:50.754Z",
         "source": "pitchlab-feed"
       }
     },
@@ -1418,7 +1418,7 @@
       "result": {
         "home": 1,
         "away": 6,
-        "observedAt": "2026-11-24T21:01:09.804Z",
+        "observedAt": "2026-11-25T20:23:50.754Z",
         "source": "pitchlab-feed"
       }
     },
@@ -1452,7 +1452,7 @@
       "result": {
         "home": 1,
         "away": 0,
-        "observedAt": "2026-11-24T21:01:09.804Z",
+        "observedAt": "2026-11-25T20:23:50.754Z",
         "source": "pitchlab-feed"
       }
     },
@@ -1486,7 +1486,7 @@
       "result": {
         "home": 1,
         "away": 2,
-        "observedAt": "2026-11-24T21:01:09.804Z",
+        "observedAt": "2026-11-25T20:23:50.754Z",
         "source": "pitchlab-feed"
       }
     },
@@ -1520,7 +1520,7 @@
       "result": {
         "home": 0,
         "away": 1,
-        "observedAt": "2026-11-24T21:01:09.804Z",
+        "observedAt": "2026-11-25T20:23:50.754Z",
         "source": "pitchlab-feed"
       }
     },
@@ -1554,7 +1554,7 @@
       "result": {
         "home": 0,
         "away": 6,
-        "observedAt": "2026-11-24T21:01:09.804Z",
+        "observedAt": "2026-11-25T20:23:50.754Z",
         "source": "pitchlab-feed"
       }
     },
@@ -1588,7 +1588,7 @@
       "result": {
         "home": 0,
         "away": 3,
-        "observedAt": "2026-11-24T21:01:09.804Z",
+        "observedAt": "2026-11-25T20:23:50.754Z",
         "source": "pitchlab-feed"
       }
     },
@@ -1622,7 +1622,7 @@
       "result": {
         "home": 1,
         "away": 1,
-        "observedAt": "2026-11-24T21:01:09.804Z",
+        "observedAt": "2026-11-25T20:23:50.754Z",
         "source": "pitchlab-feed"
       }
     },
@@ -1656,7 +1656,7 @@
       "result": {
         "home": 2,
         "away": 2,
-        "observedAt": "2026-11-24T21:01:09.804Z",
+        "observedAt": "2026-11-25T20:23:50.754Z",
         "source": "pitchlab-feed"
       }
     },
@@ -1689,7 +1689,7 @@
       "result": {
         "home": 0,
         "away": 5,
-        "observedAt": "2026-11-24T21:01:09.804Z",
+        "observedAt": "2026-11-25T20:23:50.754Z",
         "source": "pitchlab-feed"
       }
     },
@@ -1723,7 +1723,7 @@
       "result": {
         "home": 0,
         "away": 3,
-        "observedAt": "2026-11-24T21:01:09.804Z",
+        "observedAt": "2026-11-25T20:23:50.754Z",
         "source": "pitchlab-feed"
       }
     },
@@ -1757,7 +1757,7 @@
       "result": {
         "home": 0,
         "away": 0,
-        "observedAt": "2026-11-24T21:01:09.804Z",
+        "observedAt": "2026-11-25T20:23:50.754Z",
         "source": "pitchlab-feed"
       }
     },
@@ -1790,7 +1790,7 @@
       "result": {
         "home": 2,
         "away": 5,
-        "observedAt": "2026-11-24T21:01:09.804Z",
+        "observedAt": "2026-11-25T20:23:50.754Z",
         "source": "pitchlab-feed"
       }
     },
@@ -1823,7 +1823,7 @@
       "result": {
         "home": 1,
         "away": 1,
-        "observedAt": "2026-11-24T21:01:09.804Z",
+        "observedAt": "2026-11-25T20:23:50.754Z",
         "source": "pitchlab-feed"
       }
     },
@@ -1857,7 +1857,7 @@
       "result": {
         "home": 1,
         "away": 1,
-        "observedAt": "2026-11-24T21:01:09.804Z",
+        "observedAt": "2026-11-25T20:23:50.754Z",
         "source": "pitchlab-feed"
       }
     },
@@ -1890,9 +1890,37 @@
       "result": {
         "home": 1,
         "away": 1,
-        "observedAt": "2026-11-24T21:01:09.804Z",
+        "observedAt": "2026-11-25T20:23:50.754Z",
         "source": "pitchlab-feed"
       }
+    },
+    {
+      "id": "copa-del-rey-2026-12-01-reus-reddis-real-racing-z0uk6i",
+      "league": "copa-del-rey",
+      "season": "copa-del-rey-2026-27",
+      "week": 2,
+      "round": "Round 2",
+      "phase": "Round 2",
+      "startTime": "2026-12-01T18:00:00.000Z",
+      "status": "scheduled",
+      "home": {
+        "id": "copa-del-rey.reus-reddis",
+        "league": "copa-del-rey",
+        "name": "Reus FC Reddis",
+        "shortName": "Reus Reddis",
+        "code": "REU",
+        "logoUrl": "https://sports.bzzoiro.com/img/team/1464/?bg=transparent"
+      },
+      "away": {
+        "id": "copa-del-rey.real-racing",
+        "league": "copa-del-rey",
+        "name": "Real Racing Club",
+        "shortName": "Real Racing",
+        "code": "REA",
+        "logoUrl": "https://sports.bzzoiro.com/img/team/1400/?bg=transparent"
+      },
+      "venue": "Estadio Municipal de Reus, Reus",
+      "neutralSite": false
     },
     {
       "id": "copa-del-rey-2026-12-01-antequera-levante-9rykxd",
@@ -1923,6 +1951,200 @@
       "neutralSite": false
     },
     {
+      "id": "copa-del-rey-2026-12-01-huesca-girona-je70fa",
+      "league": "copa-del-rey",
+      "season": "copa-del-rey-2026-27",
+      "week": 2,
+      "round": "Round 2",
+      "phase": "Round 2",
+      "startTime": "2026-12-01T18:30:00.000Z",
+      "status": "scheduled",
+      "home": {
+        "id": "copa-del-rey.huesca",
+        "league": "copa-del-rey",
+        "name": "Huesca",
+        "shortName": "Huesca",
+        "code": "HUE",
+        "logoUrl": "https://sports.bzzoiro.com/img/team/1269/?bg=transparent"
+      },
+      "away": {
+        "id": "copa-del-rey.girona",
+        "league": "copa-del-rey",
+        "name": "Girona FC",
+        "shortName": "Girona",
+        "code": "GIR",
+        "logoUrl": "https://sports.bzzoiro.com/img/team/39/?bg=transparent"
+      },
+      "venue": "El Alcoraz, Huesca",
+      "neutralSite": false
+    },
+    {
+      "id": "copa-del-rey-2026-12-01-sd-ponferradin-andorra-47j6nr",
+      "league": "copa-del-rey",
+      "season": "copa-del-rey-2026-27",
+      "week": 2,
+      "round": "Round 2",
+      "phase": "Round 2",
+      "startTime": "2026-12-01T19:00:00.000Z",
+      "status": "scheduled",
+      "home": {
+        "id": "copa-del-rey.sd-ponferradina",
+        "league": "copa-del-rey",
+        "name": "SD Ponferradina",
+        "shortName": "Ponferradina",
+        "code": "SDP",
+        "logoUrl": "https://sports.bzzoiro.com/img/team/1469/?bg=transparent"
+      },
+      "away": {
+        "id": "copa-del-rey.andorra",
+        "league": "copa-del-rey",
+        "name": "FC Andorra",
+        "shortName": "Andorra",
+        "code": "AND",
+        "logoUrl": "https://sports.bzzoiro.com/img/team/1460/?bg=transparent"
+      },
+      "venue": "Estadio El Toralin, Ponferrada",
+      "neutralSite": false
+    },
+    {
+      "id": "copa-del-rey-2026-12-01-albacete-balom-las-palmas-02yn2e",
+      "league": "copa-del-rey",
+      "season": "copa-del-rey-2026-27",
+      "week": 2,
+      "round": "Round 2",
+      "phase": "Round 2",
+      "startTime": "2026-12-01T19:00:00.000Z",
+      "status": "scheduled",
+      "home": {
+        "id": "copa-del-rey.albacete-balompie",
+        "league": "copa-del-rey",
+        "name": "Albacete Balompié",
+        "shortName": "Albacete Balompié",
+        "code": "ALB",
+        "logoUrl": "https://sports.bzzoiro.com/img/team/1395/?bg=transparent"
+      },
+      "away": {
+        "id": "copa-del-rey.las-palmas",
+        "league": "copa-del-rey",
+        "name": "UD Las Palmas",
+        "shortName": "Las Palmas",
+        "code": "LAS",
+        "logoUrl": "https://sports.bzzoiro.com/img/team/1266/?bg=transparent"
+      },
+      "neutralSite": false
+    },
+    {
+      "id": "copa-del-rey-2026-12-01-cartagena-elche-3fvqac",
+      "league": "copa-del-rey",
+      "season": "copa-del-rey-2026-27",
+      "week": 2,
+      "round": "Round 2",
+      "phase": "Round 2",
+      "startTime": "2026-12-01T20:00:00.000Z",
+      "status": "scheduled",
+      "home": {
+        "id": "copa-del-rey.cartagena",
+        "league": "copa-del-rey",
+        "name": "FC Cartagena",
+        "shortName": "Cartagena",
+        "code": "CAR",
+        "logoUrl": "https://sports.bzzoiro.com/img/team/1402/?bg=transparent"
+      },
+      "away": {
+        "id": "copa-del-rey.elche",
+        "league": "copa-del-rey",
+        "name": "Elche",
+        "shortName": "Elche",
+        "code": "ELC",
+        "logoUrl": "https://sports.bzzoiro.com/img/team/55/?bg=transparent"
+      },
+      "venue": "Cartagonova, Cartagena",
+      "neutralSite": false
+    },
+    {
+      "id": "copa-del-rey-2026-12-01-gimnastica-tor-deportivo-alav-prqo3c",
+      "league": "copa-del-rey",
+      "season": "copa-del-rey-2026-27",
+      "week": 2,
+      "round": "Round 2",
+      "phase": "Round 2",
+      "startTime": "2026-12-01T20:00:00.000Z",
+      "status": "scheduled",
+      "home": {
+        "id": "copa-del-rey.gimnastica-torrelavega",
+        "league": "copa-del-rey",
+        "name": "Gimnástica Torrelavega",
+        "shortName": "Gimnástica Torrelavega",
+        "code": "GIM",
+        "logoUrl": "https://sports.bzzoiro.com/img/team/2697/?bg=transparent"
+      },
+      "away": {
+        "id": "copa-del-rey.deportivo-alaves",
+        "league": "copa-del-rey",
+        "name": "Deportivo Alavés",
+        "shortName": "Alavés",
+        "code": "DEP",
+        "logoUrl": "https://sports.bzzoiro.com/img/team/45/?bg=transparent"
+      },
+      "neutralSite": false
+    },
+    {
+      "id": "copa-del-rey-2026-12-01-ce-europa-rayo-vallecano-0ck900",
+      "league": "copa-del-rey",
+      "season": "copa-del-rey-2026-27",
+      "week": 2,
+      "round": "Round 2",
+      "phase": "Round 2",
+      "startTime": "2026-12-01T20:00:00.000Z",
+      "status": "scheduled",
+      "home": {
+        "id": "copa-del-rey.ce-europa",
+        "league": "copa-del-rey",
+        "name": "CE Europa",
+        "shortName": "CE Europa",
+        "code": "CEE",
+        "logoUrl": "https://sports.bzzoiro.com/img/team/1480/?bg=transparent"
+      },
+      "away": {
+        "id": "copa-del-rey.rayo-vallecano",
+        "league": "copa-del-rey",
+        "name": "Rayo Vallecano",
+        "shortName": "Rayo Vallecano",
+        "code": "RAY",
+        "logoUrl": "https://sports.bzzoiro.com/img/team/40/?bg=transparent"
+      },
+      "venue": "Nou Sardenya, Barcelona",
+      "neutralSite": false
+    },
+    {
+      "id": "copa-del-rey-2026-12-01-numancia-athletic-cn4cig",
+      "league": "copa-del-rey",
+      "season": "copa-del-rey-2026-27",
+      "week": 2,
+      "round": "Round 2",
+      "phase": "Round 2",
+      "startTime": "2026-12-01T20:00:00.000Z",
+      "status": "scheduled",
+      "home": {
+        "id": "copa-del-rey.numancia",
+        "league": "copa-del-rey",
+        "name": "Numancia",
+        "shortName": "Numancia",
+        "code": "NUM",
+        "logoUrl": "https://sports.bzzoiro.com/img/team/1457/?bg=transparent"
+      },
+      "away": {
+        "id": "copa-del-rey.athletic",
+        "league": "copa-del-rey",
+        "name": "Athletic Club",
+        "shortName": "Athletic",
+        "code": "ATH",
+        "logoUrl": "https://sports.bzzoiro.com/img/team/51/?bg=transparent"
+      },
+      "venue": "Nuevo Estadio Los Pajaritos, Soria",
+      "neutralSite": false
+    },
+    {
       "id": "copa-del-rey-2026-12-01-extremadura-real-betis-tk2hca",
       "league": "copa-del-rey",
       "season": "copa-del-rey-2026-27",
@@ -1948,228 +2170,6 @@
         "logoUrl": "https://sports.bzzoiro.com/img/team/56/?bg=transparent"
       },
       "venue": "Estadio Francisco de la Hera, Almendralejo",
-      "neutralSite": false
-    },
-    {
-      "id": "copa-del-rey-2026-12-02-sd-ponferradin-andorra-icx92y",
-      "league": "copa-del-rey",
-      "season": "copa-del-rey-2026-27",
-      "week": 2,
-      "round": "Round 2",
-      "phase": "Round 2",
-      "startTime": "2026-12-02T11:00:00.000Z",
-      "status": "scheduled",
-      "home": {
-        "id": "copa-del-rey.sd-ponferradina",
-        "league": "copa-del-rey",
-        "name": "SD Ponferradina",
-        "shortName": "Ponferradina",
-        "code": "SDP",
-        "logoUrl": "https://sports.bzzoiro.com/img/team/1469/?bg=transparent"
-      },
-      "away": {
-        "id": "copa-del-rey.andorra",
-        "league": "copa-del-rey",
-        "name": "FC Andorra",
-        "shortName": "Andorra",
-        "code": "AND",
-        "logoUrl": "https://sports.bzzoiro.com/img/team/1460/?bg=transparent"
-      },
-      "venue": "Estadio El Toralin, Ponferrada",
-      "neutralSite": false
-    },
-    {
-      "id": "copa-del-rey-2026-12-02-reus-reddis-real-racing-ddkfn3",
-      "league": "copa-del-rey",
-      "season": "copa-del-rey-2026-27",
-      "week": 2,
-      "round": "Round 2",
-      "phase": "Round 2",
-      "startTime": "2026-12-02T11:00:00.000Z",
-      "status": "scheduled",
-      "home": {
-        "id": "copa-del-rey.reus-reddis",
-        "league": "copa-del-rey",
-        "name": "Reus FC Reddis",
-        "shortName": "Reus Reddis",
-        "code": "REU",
-        "logoUrl": "https://sports.bzzoiro.com/img/team/1464/?bg=transparent"
-      },
-      "away": {
-        "id": "copa-del-rey.real-racing",
-        "league": "copa-del-rey",
-        "name": "Real Racing Club",
-        "shortName": "Real Racing",
-        "code": "REA",
-        "logoUrl": "https://sports.bzzoiro.com/img/team/1400/?bg=transparent"
-      },
-      "venue": "Estadio Municipal de Reus, Reus",
-      "neutralSite": false
-    },
-    {
-      "id": "copa-del-rey-2026-12-02-albacete-balom-las-palmas-shhpxx",
-      "league": "copa-del-rey",
-      "season": "copa-del-rey-2026-27",
-      "week": 2,
-      "round": "Round 2",
-      "phase": "Round 2",
-      "startTime": "2026-12-02T11:00:00.000Z",
-      "status": "scheduled",
-      "home": {
-        "id": "copa-del-rey.albacete-balompie",
-        "league": "copa-del-rey",
-        "name": "Albacete Balompié",
-        "shortName": "Albacete Balompié",
-        "code": "ALB",
-        "logoUrl": "https://sports.bzzoiro.com/img/team/1395/?bg=transparent"
-      },
-      "away": {
-        "id": "copa-del-rey.las-palmas",
-        "league": "copa-del-rey",
-        "name": "UD Las Palmas",
-        "shortName": "Las Palmas",
-        "code": "LAS",
-        "logoUrl": "https://sports.bzzoiro.com/img/team/1266/?bg=transparent"
-      },
-      "neutralSite": false
-    },
-    {
-      "id": "copa-del-rey-2026-12-02-cartagena-elche-qjo7y9",
-      "league": "copa-del-rey",
-      "season": "copa-del-rey-2026-27",
-      "week": 2,
-      "round": "Round 2",
-      "phase": "Round 2",
-      "startTime": "2026-12-02T11:00:00.000Z",
-      "status": "scheduled",
-      "home": {
-        "id": "copa-del-rey.cartagena",
-        "league": "copa-del-rey",
-        "name": "FC Cartagena",
-        "shortName": "Cartagena",
-        "code": "CAR",
-        "logoUrl": "https://sports.bzzoiro.com/img/team/1402/?bg=transparent"
-      },
-      "away": {
-        "id": "copa-del-rey.elche",
-        "league": "copa-del-rey",
-        "name": "Elche",
-        "shortName": "Elche",
-        "code": "ELC",
-        "logoUrl": "https://sports.bzzoiro.com/img/team/55/?bg=transparent"
-      },
-      "venue": "Cartagonova, Cartagena",
-      "neutralSite": false
-    },
-    {
-      "id": "copa-del-rey-2026-12-02-gimnastica-tor-deportivo-alav-2kavyp",
-      "league": "copa-del-rey",
-      "season": "copa-del-rey-2026-27",
-      "week": 2,
-      "round": "Round 2",
-      "phase": "Round 2",
-      "startTime": "2026-12-02T11:00:00.000Z",
-      "status": "scheduled",
-      "home": {
-        "id": "copa-del-rey.gimnastica-torrelavega",
-        "league": "copa-del-rey",
-        "name": "Gimnástica Torrelavega",
-        "shortName": "Gimnástica Torrelavega",
-        "code": "GIM",
-        "logoUrl": "https://sports.bzzoiro.com/img/team/2697/?bg=transparent"
-      },
-      "away": {
-        "id": "copa-del-rey.deportivo-alaves",
-        "league": "copa-del-rey",
-        "name": "Deportivo Alavés",
-        "shortName": "Alavés",
-        "code": "DEP",
-        "logoUrl": "https://sports.bzzoiro.com/img/team/45/?bg=transparent"
-      },
-      "neutralSite": false
-    },
-    {
-      "id": "copa-del-rey-2026-12-02-ce-europa-rayo-vallecano-vz8n9z",
-      "league": "copa-del-rey",
-      "season": "copa-del-rey-2026-27",
-      "week": 2,
-      "round": "Round 2",
-      "phase": "Round 2",
-      "startTime": "2026-12-02T11:00:00.000Z",
-      "status": "scheduled",
-      "home": {
-        "id": "copa-del-rey.ce-europa",
-        "league": "copa-del-rey",
-        "name": "CE Europa",
-        "shortName": "CE Europa",
-        "code": "CEE",
-        "logoUrl": "https://sports.bzzoiro.com/img/team/1480/?bg=transparent"
-      },
-      "away": {
-        "id": "copa-del-rey.rayo-vallecano",
-        "league": "copa-del-rey",
-        "name": "Rayo Vallecano",
-        "shortName": "Rayo Vallecano",
-        "code": "RAY",
-        "logoUrl": "https://sports.bzzoiro.com/img/team/40/?bg=transparent"
-      },
-      "venue": "Nou Sardenya, Barcelona",
-      "neutralSite": false
-    },
-    {
-      "id": "copa-del-rey-2026-12-02-huesca-girona-mksnkf",
-      "league": "copa-del-rey",
-      "season": "copa-del-rey-2026-27",
-      "week": 2,
-      "round": "Round 2",
-      "phase": "Round 2",
-      "startTime": "2026-12-02T11:00:00.000Z",
-      "status": "scheduled",
-      "home": {
-        "id": "copa-del-rey.huesca",
-        "league": "copa-del-rey",
-        "name": "Huesca",
-        "shortName": "Huesca",
-        "code": "HUE",
-        "logoUrl": "https://sports.bzzoiro.com/img/team/1269/?bg=transparent"
-      },
-      "away": {
-        "id": "copa-del-rey.girona",
-        "league": "copa-del-rey",
-        "name": "Girona FC",
-        "shortName": "Girona",
-        "code": "GIR",
-        "logoUrl": "https://sports.bzzoiro.com/img/team/39/?bg=transparent"
-      },
-      "venue": "El Alcoraz, Huesca",
-      "neutralSite": false
-    },
-    {
-      "id": "copa-del-rey-2026-12-02-numancia-athletic-ysmhbx",
-      "league": "copa-del-rey",
-      "season": "copa-del-rey-2026-27",
-      "week": 2,
-      "round": "Round 2",
-      "phase": "Round 2",
-      "startTime": "2026-12-02T11:00:00.000Z",
-      "status": "scheduled",
-      "home": {
-        "id": "copa-del-rey.numancia",
-        "league": "copa-del-rey",
-        "name": "Numancia",
-        "shortName": "Numancia",
-        "code": "NUM",
-        "logoUrl": "https://sports.bzzoiro.com/img/team/1457/?bg=transparent"
-      },
-      "away": {
-        "id": "copa-del-rey.athletic",
-        "league": "copa-del-rey",
-        "name": "Athletic Club",
-        "shortName": "Athletic",
-        "code": "ATH",
-        "logoUrl": "https://sports.bzzoiro.com/img/team/51/?bg=transparent"
-      },
-      "venue": "Nuevo Estadio Los Pajaritos, Soria",
       "neutralSite": false
     },
     {
@@ -2424,34 +2424,6 @@
       "neutralSite": false
     },
     {
-      "id": "copa-del-rey-2026-12-02-rayo-majadahon-mallorca-6ufh8e",
-      "league": "copa-del-rey",
-      "season": "copa-del-rey-2026-27",
-      "week": 2,
-      "round": "Round 2",
-      "phase": "Round 2",
-      "startTime": "2026-12-02T19:00:00.000Z",
-      "status": "scheduled",
-      "home": {
-        "id": "copa-del-rey.rayo-majadahonda",
-        "league": "copa-del-rey",
-        "name": "Rayo Majadahonda",
-        "shortName": "Rayo Majadahonda",
-        "code": "RAY",
-        "logoUrl": "https://sports.bzzoiro.com/img/team/1510/?bg=transparent"
-      },
-      "away": {
-        "id": "copa-del-rey.mallorca",
-        "league": "copa-del-rey",
-        "name": "Mallorca",
-        "shortName": "Mallorca",
-        "code": "MAL",
-        "logoUrl": "https://sports.bzzoiro.com/img/team/43/?bg=transparent"
-      },
-      "venue": "Estadio Cerro del Espino, Majadahonda",
-      "neutralSite": false
-    },
-    {
       "id": "copa-del-rey-2026-12-02-arosa-celta-vigo-cvn4ib",
       "league": "copa-del-rey",
       "season": "copa-del-rey-2026-27",
@@ -2503,6 +2475,34 @@
         "code": "VIL",
         "logoUrl": "https://sports.bzzoiro.com/img/team/41/?bg=transparent"
       },
+      "neutralSite": false
+    },
+    {
+      "id": "copa-del-rey-2026-12-02-rayo-majadahon-mallorca-6ufh8e",
+      "league": "copa-del-rey",
+      "season": "copa-del-rey-2026-27",
+      "week": 2,
+      "round": "Round 2",
+      "phase": "Round 2",
+      "startTime": "2026-12-02T20:00:00.000Z",
+      "status": "scheduled",
+      "home": {
+        "id": "copa-del-rey.rayo-majadahonda",
+        "league": "copa-del-rey",
+        "name": "Rayo Majadahonda",
+        "shortName": "Rayo Majadahonda",
+        "code": "RAY",
+        "logoUrl": "https://sports.bzzoiro.com/img/team/1510/?bg=transparent"
+      },
+      "away": {
+        "id": "copa-del-rey.mallorca",
+        "league": "copa-del-rey",
+        "name": "Mallorca",
+        "shortName": "Mallorca",
+        "code": "MAL",
+        "logoUrl": "https://sports.bzzoiro.com/img/team/43/?bg=transparent"
+      },
+      "venue": "Estadio Cerro del Espino, Majadahonda",
       "neutralSite": false
     },
     {
@@ -9418,6 +9418,288 @@
         "stageName": "Round 1"
       }
     },
+    "copa-del-rey-2026-12-01-reus-reddis-real-racing-z0uk6i": {
+      "game": "copa-del-rey-2026-12-01-reus-reddis-real-racing-z0uk6i",
+      "model": {
+        "id": "pitchlab-statistical-copa-del-rey",
+        "version": "1.0.0",
+        "status": "reference",
+        "label": "Modelo PitchLab · en validación"
+      },
+      "projection": {
+        "home": 1.2543949872819204,
+        "away": 1.3831969558236628,
+        "total": 2.6375919431055834
+      },
+      "x12": [
+        0.32956785273950456,
+        0.2809317281068086,
+        0.38950041877129105
+      ],
+      "probabilities": [
+        {
+          "market": "h2h",
+          "selection": "Reus Reddis gana",
+          "p": 0.32956785273950456,
+          "fairOdds": 3.0342765281491673
+        },
+        {
+          "market": "h2h",
+          "selection": "Empate",
+          "p": 0.2809317281068086,
+          "fairOdds": 3.559583699352769
+        },
+        {
+          "market": "h2h",
+          "selection": "Real Racing gana",
+          "p": 0.38950041877129105,
+          "fairOdds": 2.567391334660375
+        },
+        {
+          "market": "double_chance",
+          "selection": "Reus Reddis o empate",
+          "p": 0.6104995808463132,
+          "fairOdds": 1.6380027626124438
+        },
+        {
+          "market": "double_chance",
+          "selection": "Real Racing o empate",
+          "p": 0.6704321468780996,
+          "fairOdds": 1.4915752543438578
+        },
+        {
+          "market": "double_chance",
+          "selection": "Sin empate",
+          "p": 0.7190682715107957,
+          "fairOdds": 1.390688533508722
+        },
+        {
+          "market": "totals",
+          "selection": "Más de 1.5",
+          "line": 1.5,
+          "p": 0.7397909765156752,
+          "fairOdds": 1.3517331675358861
+        },
+        {
+          "market": "totals",
+          "selection": "Más de 2.5",
+          "line": 2.5,
+          "p": 0.49096621701384113,
+          "fairOdds": 2.0368000187104696
+        },
+        {
+          "market": "totals",
+          "selection": "Menos de 2.5",
+          "line": 2.5,
+          "p": 0.5090337829861589,
+          "fairOdds": 1.9645061554336778
+        },
+        {
+          "market": "totals",
+          "selection": "Más de 3.5",
+          "line": 3.5,
+          "p": 0.2722001567114337,
+          "fairOdds": 3.6737671722214524
+        },
+        {
+          "market": "totals",
+          "selection": "Menos de 3.5",
+          "line": 3.5,
+          "p": 0.7277998432885663,
+          "fairOdds": 1.3740041430642473
+        },
+        {
+          "market": "btts",
+          "selection": "Sí",
+          "p": 0.535509391895819,
+          "fairOdds": 1.867380880958565
+        },
+        {
+          "market": "btts",
+          "selection": "No",
+          "p": 0.46449060810418097,
+          "fairOdds": 2.1528960597965616
+        }
+      ],
+      "marketGroups": [
+        {
+          "group": "Resultado",
+          "rows": [
+            {
+              "market": "h2h",
+              "selection": "home",
+              "label": "Reus Reddis gana",
+              "p": 0.32956785273950456,
+              "fairOdds": 3.0342765281491673
+            },
+            {
+              "market": "h2h",
+              "selection": "draw",
+              "label": "Empate",
+              "p": 0.2809317281068086,
+              "fairOdds": 3.559583699352769
+            },
+            {
+              "market": "h2h",
+              "selection": "away",
+              "label": "Real Racing gana",
+              "p": 0.38950041877129105,
+              "fairOdds": 2.567391334660375
+            }
+          ]
+        },
+        {
+          "group": "Doble oportunidad",
+          "rows": [
+            {
+              "market": "double_chance",
+              "selection": "1x",
+              "label": "Reus Reddis o empate",
+              "p": 0.6104995808463132,
+              "fairOdds": 1.6380027626124438
+            },
+            {
+              "market": "double_chance",
+              "selection": "x2",
+              "label": "Real Racing o empate",
+              "p": 0.6704321468780996,
+              "fairOdds": 1.4915752543438578
+            },
+            {
+              "market": "double_chance",
+              "selection": "12",
+              "label": "Sin empate",
+              "p": 0.7190682715107957,
+              "fairOdds": 1.390688533508722
+            }
+          ]
+        },
+        {
+          "group": "Goles totales",
+          "rows": [
+            {
+              "market": "totals",
+              "selection": "over_1.5",
+              "label": "Más de 1.5",
+              "line": 1.5,
+              "p": 0.7397909765156752,
+              "fairOdds": 1.3517331675358861
+            },
+            {
+              "market": "totals",
+              "selection": "over_2.5",
+              "label": "Más de 2.5",
+              "line": 2.5,
+              "p": 0.49096621701384113,
+              "fairOdds": 2.0368000187104696
+            },
+            {
+              "market": "totals",
+              "selection": "under_2.5",
+              "label": "Menos de 2.5",
+              "line": 2.5,
+              "p": 0.5090337829861589,
+              "fairOdds": 1.9645061554336778
+            },
+            {
+              "market": "totals",
+              "selection": "over_3.5",
+              "label": "Más de 3.5",
+              "line": 3.5,
+              "p": 0.2722001567114337,
+              "fairOdds": 3.6737671722214524
+            },
+            {
+              "market": "totals",
+              "selection": "under_3.5",
+              "label": "Menos de 3.5",
+              "line": 3.5,
+              "p": 0.7277998432885663,
+              "fairOdds": 1.3740041430642473
+            }
+          ]
+        },
+        {
+          "group": "Ambos anotan",
+          "rows": [
+            {
+              "market": "btts",
+              "selection": "yes",
+              "label": "Sí",
+              "p": 0.535509391895819,
+              "fairOdds": 1.867380880958565
+            },
+            {
+              "market": "btts",
+              "selection": "no",
+              "label": "No",
+              "p": 0.46449060810418097,
+              "fairOdds": 2.1528960597965616
+            }
+          ]
+        }
+      ],
+      "mostLikelyScore": {
+        "home": 1,
+        "away": 1,
+        "p": 0.13404495195859129
+      },
+      "factors": [
+        {
+          "key": "home_attack",
+          "label": "Ataque local",
+          "value": "1.00 goles/partido",
+          "detail": "1 partidos · ajustado a 1.39"
+        },
+        {
+          "key": "away_defense",
+          "label": "Defensa visitante",
+          "value": "0.00 recibidos/partido",
+          "detail": "ajustado a 1.24"
+        },
+        {
+          "key": "away_attack",
+          "label": "Ataque visitante",
+          "value": "2.00 goles/partido",
+          "detail": "ajustado a 1.53"
+        },
+        {
+          "key": "home_defense",
+          "label": "Defensa local",
+          "value": "1.00 recibidos/partido",
+          "detail": "ajustado a 1.39"
+        },
+        {
+          "key": "home_advantage",
+          "label": "Localía",
+          "value": "Incluida",
+          "detail": "Ajuste del modelo PitchLab"
+        },
+        {
+          "key": "sample_size",
+          "label": "Muestra",
+          "value": "1 y 1 partidos",
+          "detail": "Temporada actual"
+        }
+      ],
+      "steps": [
+        "Sincronizando Copa del Rey · corte 25 nov 2026, 20:23",
+        "Fuerza de ataque y defensa · REU 1.00 / 1.00 · REA 2.00 / 0.00",
+        "Ajuste por localía y tamaño de muestra (1 partidos)",
+        "Proyección de goles 1.25 – 1.38",
+        "Evaluando 196 marcadores posibles",
+        "13 mercados listos · marcador más probable 1–1"
+      ],
+      "inputsAsOf": "2026-11-25T20:23:50.754Z",
+      "publishedAt": "2026-11-25T20:23:50.754Z",
+      "source": "pitchlab-football-v2",
+      "matchContext": {
+        "stageName": "Round 2",
+        "venueCity": "Reus",
+        "venueCountry": "Spain",
+        "venueCapacity": 4700
+      }
+    },
     "copa-del-rey-2026-12-01-antequera-levante-9rykxd": {
       "game": "copa-del-rey-2026-12-01-antequera-levante-9rykxd",
       "model": {
@@ -9700,6 +9982,1974 @@
         "venueCapacity": 6200
       }
     },
+    "copa-del-rey-2026-12-01-huesca-girona-je70fa": {
+      "game": "copa-del-rey-2026-12-01-huesca-girona-je70fa",
+      "model": {
+        "id": "pitchlab-statistical-copa-del-rey",
+        "version": "1.0.0",
+        "status": "reference",
+        "label": "Modelo PitchLab · en validación"
+      },
+      "projection": {
+        "home": 1.720519786839653,
+        "away": 1.4243197474932139,
+        "total": 3.144839534332867
+      },
+      "x12": [
+        0.4381754779068423,
+        0.2507741968636089,
+        0.31105032018440204
+      ],
+      "probabilities": [
+        {
+          "market": "h2h",
+          "selection": "Huesca gana",
+          "p": 0.4381754779068423,
+          "fairOdds": 2.2821906985233062
+        },
+        {
+          "market": "h2h",
+          "selection": "Empate",
+          "p": 0.2507741968636089,
+          "fairOdds": 3.98765109212524
+        },
+        {
+          "market": "h2h",
+          "selection": "Girona gana",
+          "p": 0.31105032018440204,
+          "fairOdds": 3.214913906557509
+        },
+        {
+          "market": "double_chance",
+          "selection": "Huesca o empate",
+          "p": 0.6889496747704512,
+          "fairOdds": 1.4514848277317012
+        },
+        {
+          "market": "double_chance",
+          "selection": "Girona o empate",
+          "p": 0.561824517048011,
+          "fairOdds": 1.779915204224782
+        },
+        {
+          "market": "double_chance",
+          "selection": "Sin empate",
+          "p": 0.7492257980912443,
+          "fairOdds": 1.3347111145233352
+        },
+        {
+          "market": "totals",
+          "selection": "Más de 1.5",
+          "line": 1.5,
+          "p": 0.8214658642878266,
+          "fairOdds": 1.2173360372886026
+        },
+        {
+          "market": "totals",
+          "selection": "Más de 2.5",
+          "line": 2.5,
+          "p": 0.6084654103541026,
+          "fairOdds": 1.6434787959730361
+        },
+        {
+          "market": "totals",
+          "selection": "Menos de 2.5",
+          "line": 2.5,
+          "p": 0.3915345896458974,
+          "fairOdds": 2.5540527617352957
+        },
+        {
+          "market": "totals",
+          "selection": "Más de 3.5",
+          "line": 3.5,
+          "p": 0.3851813275668954,
+          "fairOdds": 2.596179846818581
+        },
+        {
+          "market": "totals",
+          "selection": "Menos de 3.5",
+          "line": 3.5,
+          "p": 0.6148186724331046,
+          "fairOdds": 1.6264958187469576
+        },
+        {
+          "market": "btts",
+          "selection": "Sí",
+          "p": 0.6234286141411156,
+          "fairOdds": 1.6040328873541982
+        },
+        {
+          "market": "btts",
+          "selection": "No",
+          "p": 0.3765713858588844,
+          "fairOdds": 2.655538996196429
+        }
+      ],
+      "marketGroups": [
+        {
+          "group": "Resultado",
+          "rows": [
+            {
+              "market": "h2h",
+              "selection": "home",
+              "label": "Huesca gana",
+              "p": 0.4381754779068423,
+              "fairOdds": 2.2821906985233062
+            },
+            {
+              "market": "h2h",
+              "selection": "draw",
+              "label": "Empate",
+              "p": 0.2507741968636089,
+              "fairOdds": 3.98765109212524
+            },
+            {
+              "market": "h2h",
+              "selection": "away",
+              "label": "Girona gana",
+              "p": 0.31105032018440204,
+              "fairOdds": 3.214913906557509
+            }
+          ]
+        },
+        {
+          "group": "Doble oportunidad",
+          "rows": [
+            {
+              "market": "double_chance",
+              "selection": "1x",
+              "label": "Huesca o empate",
+              "p": 0.6889496747704512,
+              "fairOdds": 1.4514848277317012
+            },
+            {
+              "market": "double_chance",
+              "selection": "x2",
+              "label": "Girona o empate",
+              "p": 0.561824517048011,
+              "fairOdds": 1.779915204224782
+            },
+            {
+              "market": "double_chance",
+              "selection": "12",
+              "label": "Sin empate",
+              "p": 0.7492257980912443,
+              "fairOdds": 1.3347111145233352
+            }
+          ]
+        },
+        {
+          "group": "Goles totales",
+          "rows": [
+            {
+              "market": "totals",
+              "selection": "over_1.5",
+              "label": "Más de 1.5",
+              "line": 1.5,
+              "p": 0.8214658642878266,
+              "fairOdds": 1.2173360372886026
+            },
+            {
+              "market": "totals",
+              "selection": "over_2.5",
+              "label": "Más de 2.5",
+              "line": 2.5,
+              "p": 0.6084654103541026,
+              "fairOdds": 1.6434787959730361
+            },
+            {
+              "market": "totals",
+              "selection": "under_2.5",
+              "label": "Menos de 2.5",
+              "line": 2.5,
+              "p": 0.3915345896458974,
+              "fairOdds": 2.5540527617352957
+            },
+            {
+              "market": "totals",
+              "selection": "over_3.5",
+              "label": "Más de 3.5",
+              "line": 3.5,
+              "p": 0.3851813275668954,
+              "fairOdds": 2.596179846818581
+            },
+            {
+              "market": "totals",
+              "selection": "under_3.5",
+              "label": "Menos de 3.5",
+              "line": 3.5,
+              "p": 0.6148186724331046,
+              "fairOdds": 1.6264958187469576
+            }
+          ]
+        },
+        {
+          "group": "Ambos anotan",
+          "rows": [
+            {
+              "market": "btts",
+              "selection": "yes",
+              "label": "Sí",
+              "p": 0.6234286141411156,
+              "fairOdds": 1.6040328873541982
+            },
+            {
+              "market": "btts",
+              "selection": "no",
+              "label": "No",
+              "p": 0.3765713858588844,
+              "fairOdds": 2.655538996196429
+            }
+          ]
+        }
+      ],
+      "mostLikelyScore": {
+        "home": 1,
+        "away": 1,
+        "p": 0.1139998989705656
+      },
+      "factors": [
+        {
+          "key": "home_attack",
+          "label": "Ataque local",
+          "value": "5.00 goles/partido",
+          "detail": "1 partidos · ajustado a 1.96"
+        },
+        {
+          "key": "away_defense",
+          "label": "Defensa visitante",
+          "value": "0.00 recibidos/partido",
+          "detail": "ajustado a 1.24"
+        },
+        {
+          "key": "away_attack",
+          "label": "Ataque visitante",
+          "value": "2.00 goles/partido",
+          "detail": "ajustado a 1.53"
+        },
+        {
+          "key": "home_defense",
+          "label": "Defensa local",
+          "value": "1.00 recibidos/partido",
+          "detail": "ajustado a 1.39"
+        },
+        {
+          "key": "home_advantage",
+          "label": "Localía",
+          "value": "Incluida",
+          "detail": "Ajuste del modelo PitchLab"
+        },
+        {
+          "key": "sample_size",
+          "label": "Muestra",
+          "value": "1 y 1 partidos",
+          "detail": "Temporada actual"
+        }
+      ],
+      "steps": [
+        "Sincronizando Copa del Rey · corte 25 nov 2026, 20:23",
+        "Fuerza de ataque y defensa · HUE 5.00 / 1.00 · GIR 2.00 / 0.00",
+        "Ajuste por localía y tamaño de muestra (1 partidos)",
+        "Proyección de goles 1.72 – 1.42",
+        "Evaluando 196 marcadores posibles",
+        "13 mercados listos · marcador más probable 1–1"
+      ],
+      "inputsAsOf": "2026-11-25T20:23:50.754Z",
+      "publishedAt": "2026-11-25T20:23:50.754Z",
+      "source": "pitchlab-football-v2",
+      "matchContext": {
+        "stageName": "Round 2",
+        "venueCity": "Huesca",
+        "venueCountry": "Spain",
+        "venueCapacity": 9100
+      }
+    },
+    "copa-del-rey-2026-12-01-sd-ponferradin-andorra-47j6nr": {
+      "game": "copa-del-rey-2026-12-01-sd-ponferradin-andorra-47j6nr",
+      "model": {
+        "id": "pitchlab-statistical-copa-del-rey",
+        "version": "1.0.0",
+        "status": "reference",
+        "label": "Modelo PitchLab · en validación"
+      },
+      "projection": {
+        "home": 1.2638475745730264,
+        "away": 1.5011556287886862,
+        "total": 2.7650032033617125
+      },
+      "x12": [
+        0.3101505046217265,
+        0.2717190615209888,
+        0.41813043292575797
+      ],
+      "probabilities": [
+        {
+          "market": "h2h",
+          "selection": "Ponferradina gana",
+          "p": 0.3101505046217265,
+          "fairOdds": 3.224241086499746
+        },
+        {
+          "market": "h2h",
+          "selection": "Empate",
+          "p": 0.2717190615209888,
+          "fairOdds": 3.680271801331669
+        },
+        {
+          "market": "h2h",
+          "selection": "Andorra gana",
+          "p": 0.41813043292575797,
+          "fairOdds": 2.391598222121175
+        },
+        {
+          "market": "double_chance",
+          "selection": "Ponferradina o empate",
+          "p": 0.5818695661427153,
+          "fairOdds": 1.7185982188914304
+        },
+        {
+          "market": "double_chance",
+          "selection": "Andorra o empate",
+          "p": 0.6898494944467468,
+          "fairOdds": 1.4495915530125758
+        },
+        {
+          "market": "double_chance",
+          "selection": "Sin empate",
+          "p": 0.7282809375474845,
+          "fairOdds": 1.3730964912627543
+        },
+        {
+          "market": "totals",
+          "selection": "Más de 1.5",
+          "line": 1.5,
+          "p": 0.7628955437520513,
+          "fairOdds": 1.3107954400701154
+        },
+        {
+          "market": "totals",
+          "selection": "Más de 2.5",
+          "line": 2.5,
+          "p": 0.5221625325410117,
+          "fairOdds": 1.9151125132124602
+        },
+        {
+          "market": "totals",
+          "selection": "Menos de 2.5",
+          "line": 2.5,
+          "p": 0.47783746745898825,
+          "fairOdds": 2.092761803124674
+        },
+        {
+          "market": "totals",
+          "selection": "Más de 3.5",
+          "line": 3.5,
+          "p": 0.30028668348986653,
+          "fairOdds": 3.330151002296264
+        },
+        {
+          "market": "totals",
+          "selection": "Menos de 3.5",
+          "line": 3.5,
+          "p": 0.6997133165101335,
+          "fairOdds": 1.4291567366297475
+        },
+        {
+          "market": "btts",
+          "selection": "Sí",
+          "p": 0.5575387007933518,
+          "fairOdds": 1.7935974643142194
+        },
+        {
+          "market": "btts",
+          "selection": "No",
+          "p": 0.44246129920664823,
+          "fairOdds": 2.260084671344233
+        }
+      ],
+      "marketGroups": [
+        {
+          "group": "Resultado",
+          "rows": [
+            {
+              "market": "h2h",
+              "selection": "home",
+              "label": "Ponferradina gana",
+              "p": 0.3101505046217265,
+              "fairOdds": 3.224241086499746
+            },
+            {
+              "market": "h2h",
+              "selection": "draw",
+              "label": "Empate",
+              "p": 0.2717190615209888,
+              "fairOdds": 3.680271801331669
+            },
+            {
+              "market": "h2h",
+              "selection": "away",
+              "label": "Andorra gana",
+              "p": 0.41813043292575797,
+              "fairOdds": 2.391598222121175
+            }
+          ]
+        },
+        {
+          "group": "Doble oportunidad",
+          "rows": [
+            {
+              "market": "double_chance",
+              "selection": "1x",
+              "label": "Ponferradina o empate",
+              "p": 0.5818695661427153,
+              "fairOdds": 1.7185982188914304
+            },
+            {
+              "market": "double_chance",
+              "selection": "x2",
+              "label": "Andorra o empate",
+              "p": 0.6898494944467468,
+              "fairOdds": 1.4495915530125758
+            },
+            {
+              "market": "double_chance",
+              "selection": "12",
+              "label": "Sin empate",
+              "p": 0.7282809375474845,
+              "fairOdds": 1.3730964912627543
+            }
+          ]
+        },
+        {
+          "group": "Goles totales",
+          "rows": [
+            {
+              "market": "totals",
+              "selection": "over_1.5",
+              "label": "Más de 1.5",
+              "line": 1.5,
+              "p": 0.7628955437520513,
+              "fairOdds": 1.3107954400701154
+            },
+            {
+              "market": "totals",
+              "selection": "over_2.5",
+              "label": "Más de 2.5",
+              "line": 2.5,
+              "p": 0.5221625325410117,
+              "fairOdds": 1.9151125132124602
+            },
+            {
+              "market": "totals",
+              "selection": "under_2.5",
+              "label": "Menos de 2.5",
+              "line": 2.5,
+              "p": 0.47783746745898825,
+              "fairOdds": 2.092761803124674
+            },
+            {
+              "market": "totals",
+              "selection": "over_3.5",
+              "label": "Más de 3.5",
+              "line": 3.5,
+              "p": 0.30028668348986653,
+              "fairOdds": 3.330151002296264
+            },
+            {
+              "market": "totals",
+              "selection": "under_3.5",
+              "label": "Menos de 3.5",
+              "line": 3.5,
+              "p": 0.6997133165101335,
+              "fairOdds": 1.4291567366297475
+            }
+          ]
+        },
+        {
+          "group": "Ambos anotan",
+          "rows": [
+            {
+              "market": "btts",
+              "selection": "yes",
+              "label": "Sí",
+              "p": 0.5575387007933518,
+              "fairOdds": 1.7935974643142194
+            },
+            {
+              "market": "btts",
+              "selection": "no",
+              "label": "No",
+              "p": 0.44246129920664823,
+              "fairOdds": 2.260084671344233
+            }
+          ]
+        }
+      ],
+      "mostLikelyScore": {
+        "home": 1,
+        "away": 1,
+        "p": 0.12903827246744032
+      },
+      "factors": [
+        {
+          "key": "home_attack",
+          "label": "Ataque local",
+          "value": "1.00 goles/partido",
+          "detail": "1 partidos · ajustado a 1.39"
+        },
+        {
+          "key": "away_defense",
+          "label": "Defensa visitante",
+          "value": "0.00 recibidos/partido",
+          "detail": "ajustado a 1.24"
+        },
+        {
+          "key": "away_attack",
+          "label": "Ataque visitante",
+          "value": "3.00 goles/partido",
+          "detail": "ajustado a 1.67"
+        },
+        {
+          "key": "home_defense",
+          "label": "Defensa local",
+          "value": "1.00 recibidos/partido",
+          "detail": "ajustado a 1.39"
+        },
+        {
+          "key": "home_advantage",
+          "label": "Localía",
+          "value": "Incluida",
+          "detail": "Ajuste del modelo PitchLab"
+        },
+        {
+          "key": "sample_size",
+          "label": "Muestra",
+          "value": "1 y 1 partidos",
+          "detail": "Temporada actual"
+        }
+      ],
+      "steps": [
+        "Sincronizando Copa del Rey · corte 25 nov 2026, 20:23",
+        "Fuerza de ataque y defensa · SDP 1.00 / 1.00 · AND 3.00 / 0.00",
+        "Ajuste por localía y tamaño de muestra (1 partidos)",
+        "Proyección de goles 1.26 – 1.50",
+        "Evaluando 196 marcadores posibles",
+        "13 mercados listos · marcador más probable 1–1"
+      ],
+      "inputsAsOf": "2026-11-25T20:23:50.754Z",
+      "publishedAt": "2026-11-25T20:23:50.754Z",
+      "source": "pitchlab-football-v2",
+      "matchContext": {
+        "stageName": "Round 2",
+        "venueCity": "Ponferrada",
+        "venueCountry": "Spain",
+        "venueCapacity": 8800
+      }
+    },
+    "copa-del-rey-2026-12-01-albacete-balom-las-palmas-02yn2e": {
+      "game": "copa-del-rey-2026-12-01-albacete-balom-las-palmas-02yn2e",
+      "model": {
+        "id": "pitchlab-statistical-copa-del-rey",
+        "version": "1.0.0",
+        "status": "reference",
+        "label": "Modelo PitchLab · en validación"
+      },
+      "projection": {
+        "home": 1.6242015783067352,
+        "away": 1.1681012540814868,
+        "total": 2.7923028323882217
+      },
+      "x12": [
+        0.4704822669705897,
+        0.26440156881337756,
+        0.2651161619300739
+      ],
+      "probabilities": [
+        {
+          "market": "h2h",
+          "selection": "Albacete Balompié gana",
+          "p": 0.4704822669705897,
+          "fairOdds": 2.1254786209880914
+        },
+        {
+          "market": "h2h",
+          "selection": "Empate",
+          "p": 0.26440156881337756,
+          "fairOdds": 3.7821258190257923
+        },
+        {
+          "market": "h2h",
+          "selection": "Las Palmas gana",
+          "p": 0.2651161619300739,
+          "fairOdds": 3.7719314911618116
+        },
+        {
+          "market": "double_chance",
+          "selection": "Albacete Balompié o empate",
+          "p": 0.7348838357839673,
+          "fairOdds": 1.360759281000118
+        },
+        {
+          "market": "double_chance",
+          "selection": "Las Palmas o empate",
+          "p": 0.5295177307434515,
+          "fairOdds": 1.8885108881925137
+        },
+        {
+          "market": "double_chance",
+          "selection": "Sin empate",
+          "p": 0.7355984289006636,
+          "fairOdds": 1.359437378753621
+        },
+        {
+          "market": "totals",
+          "selection": "Más de 1.5",
+          "line": 1.5,
+          "p": 0.7676079331448753,
+          "fairOdds": 1.3027483912301672
+        },
+        {
+          "market": "totals",
+          "selection": "Más de 2.5",
+          "line": 2.5,
+          "p": 0.5287094863759703,
+          "fairOdds": 1.891397876846285
+        },
+        {
+          "market": "totals",
+          "selection": "Menos de 2.5",
+          "line": 2.5,
+          "p": 0.47129051362402974,
+          "fairOdds": 2.1218334999158213
+        },
+        {
+          "market": "totals",
+          "selection": "Más de 3.5",
+          "line": 3.5,
+          "p": 0.30635054985398347,
+          "fairOdds": 3.264234389253201
+        },
+        {
+          "market": "totals",
+          "selection": "Menos de 3.5",
+          "line": 3.5,
+          "p": 0.6936494501460165,
+          "fairOdds": 1.4416503895296036
+        },
+        {
+          "market": "btts",
+          "selection": "Sí",
+          "p": 0.553254168295658,
+          "fairOdds": 1.8074875117174027
+        },
+        {
+          "market": "btts",
+          "selection": "No",
+          "p": 0.446745831704342,
+          "fairOdds": 2.238409245330807
+        }
+      ],
+      "marketGroups": [
+        {
+          "group": "Resultado",
+          "rows": [
+            {
+              "market": "h2h",
+              "selection": "home",
+              "label": "Albacete Balompié gana",
+              "p": 0.4704822669705897,
+              "fairOdds": 2.1254786209880914
+            },
+            {
+              "market": "h2h",
+              "selection": "draw",
+              "label": "Empate",
+              "p": 0.26440156881337756,
+              "fairOdds": 3.7821258190257923
+            },
+            {
+              "market": "h2h",
+              "selection": "away",
+              "label": "Las Palmas gana",
+              "p": 0.2651161619300739,
+              "fairOdds": 3.7719314911618116
+            }
+          ]
+        },
+        {
+          "group": "Doble oportunidad",
+          "rows": [
+            {
+              "market": "double_chance",
+              "selection": "1x",
+              "label": "Albacete Balompié o empate",
+              "p": 0.7348838357839673,
+              "fairOdds": 1.360759281000118
+            },
+            {
+              "market": "double_chance",
+              "selection": "x2",
+              "label": "Las Palmas o empate",
+              "p": 0.5295177307434515,
+              "fairOdds": 1.8885108881925137
+            },
+            {
+              "market": "double_chance",
+              "selection": "12",
+              "label": "Sin empate",
+              "p": 0.7355984289006636,
+              "fairOdds": 1.359437378753621
+            }
+          ]
+        },
+        {
+          "group": "Goles totales",
+          "rows": [
+            {
+              "market": "totals",
+              "selection": "over_1.5",
+              "label": "Más de 1.5",
+              "line": 1.5,
+              "p": 0.7676079331448753,
+              "fairOdds": 1.3027483912301672
+            },
+            {
+              "market": "totals",
+              "selection": "over_2.5",
+              "label": "Más de 2.5",
+              "line": 2.5,
+              "p": 0.5287094863759703,
+              "fairOdds": 1.891397876846285
+            },
+            {
+              "market": "totals",
+              "selection": "under_2.5",
+              "label": "Menos de 2.5",
+              "line": 2.5,
+              "p": 0.47129051362402974,
+              "fairOdds": 2.1218334999158213
+            },
+            {
+              "market": "totals",
+              "selection": "over_3.5",
+              "label": "Más de 3.5",
+              "line": 3.5,
+              "p": 0.30635054985398347,
+              "fairOdds": 3.264234389253201
+            },
+            {
+              "market": "totals",
+              "selection": "under_3.5",
+              "label": "Menos de 3.5",
+              "line": 3.5,
+              "p": 0.6936494501460165,
+              "fairOdds": 1.4416503895296036
+            }
+          ]
+        },
+        {
+          "group": "Ambos anotan",
+          "rows": [
+            {
+              "market": "btts",
+              "selection": "yes",
+              "label": "Sí",
+              "p": 0.553254168295658,
+              "fairOdds": 1.8074875117174027
+            },
+            {
+              "market": "btts",
+              "selection": "no",
+              "label": "No",
+              "p": 0.446745831704342,
+              "fairOdds": 2.238409245330807
+            }
+          ]
+        }
+      ],
+      "mostLikelyScore": {
+        "home": 1,
+        "away": 1,
+        "p": 0.1255632250692279
+      },
+      "factors": [
+        {
+          "key": "home_attack",
+          "label": "Ataque local",
+          "value": "3.00 goles/partido",
+          "detail": "1 partidos · ajustado a 1.67"
+        },
+        {
+          "key": "away_defense",
+          "label": "Defensa visitante",
+          "value": "1.00 recibidos/partido",
+          "detail": "ajustado a 1.39"
+        },
+        {
+          "key": "away_attack",
+          "label": "Ataque visitante",
+          "value": "1.00 goles/partido",
+          "detail": "ajustado a 1.39"
+        },
+        {
+          "key": "home_defense",
+          "label": "Defensa local",
+          "value": "0.00 recibidos/partido",
+          "detail": "ajustado a 1.24"
+        },
+        {
+          "key": "home_advantage",
+          "label": "Localía",
+          "value": "Incluida",
+          "detail": "Ajuste del modelo PitchLab"
+        },
+        {
+          "key": "sample_size",
+          "label": "Muestra",
+          "value": "1 y 1 partidos",
+          "detail": "Temporada actual"
+        }
+      ],
+      "steps": [
+        "Sincronizando Copa del Rey · corte 25 nov 2026, 20:23",
+        "Fuerza de ataque y defensa · ALB 3.00 / 0.00 · LAS 1.00 / 1.00",
+        "Ajuste por localía y tamaño de muestra (1 partidos)",
+        "Proyección de goles 1.62 – 1.17",
+        "Evaluando 196 marcadores posibles",
+        "13 mercados listos · marcador más probable 1–1"
+      ],
+      "inputsAsOf": "2026-11-25T20:23:50.754Z",
+      "publishedAt": "2026-11-25T20:23:50.754Z",
+      "source": "pitchlab-football-v2",
+      "matchContext": {
+        "stageName": "Round 2"
+      }
+    },
+    "copa-del-rey-2026-12-01-cartagena-elche-3fvqac": {
+      "game": "copa-del-rey-2026-12-01-cartagena-elche-3fvqac",
+      "model": {
+        "id": "pitchlab-statistical-copa-del-rey",
+        "version": "1.0.0",
+        "status": "reference",
+        "label": "Modelo PitchLab · en validación"
+      },
+      "projection": {
+        "home": 1.3987703978461352,
+        "away": 1.512260007789664,
+        "total": 2.911030405635799
+      },
+      "x12": [
+        0.34211905158996425,
+        0.2651965165905981,
+        0.3926844305576179
+      ],
+      "probabilities": [
+        {
+          "market": "h2h",
+          "selection": "Cartagena gana",
+          "p": 0.34211905158996425,
+          "fairOdds": 2.92295911423991
+        },
+        {
+          "market": "h2h",
+          "selection": "Empate",
+          "p": 0.2651965165905981,
+          "fairOdds": 3.7707885942701425
+        },
+        {
+          "market": "h2h",
+          "selection": "Elche gana",
+          "p": 0.3926844305576179,
+          "fairOdds": 2.5465740991563752
+        },
+        {
+          "market": "double_chance",
+          "selection": "Cartagena o empate",
+          "p": 0.6073155681805624,
+          "fairOdds": 1.6465904257911064
+        },
+        {
+          "market": "double_chance",
+          "selection": "Elche o empate",
+          "p": 0.6578809471482161,
+          "fairOdds": 1.5200318603765657
+        },
+        {
+          "market": "double_chance",
+          "selection": "Sin empate",
+          "p": 0.7348034821475822,
+          "fairOdds": 1.3609080853527504
+        },
+        {
+          "market": "totals",
+          "selection": "Más de 1.5",
+          "line": 1.5,
+          "p": 0.787163185392721,
+          "fairOdds": 1.2703846147239384
+        },
+        {
+          "market": "totals",
+          "selection": "Más de 2.5",
+          "line": 2.5,
+          "p": 0.5565845599763293,
+          "fairOdds": 1.7966721894738304
+        },
+        {
+          "market": "totals",
+          "selection": "Menos de 2.5",
+          "line": 2.5,
+          "p": 0.4434154400236707,
+          "fairOdds": 2.255221423833634
+        },
+        {
+          "market": "totals",
+          "selection": "Más de 3.5",
+          "line": 3.5,
+          "p": 0.332844096817388,
+          "fairOdds": 3.0044096006564933
+        },
+        {
+          "market": "totals",
+          "selection": "Menos de 3.5",
+          "line": 3.5,
+          "p": 0.667155903182612,
+          "fairOdds": 1.4989000250609832
+        },
+        {
+          "market": "btts",
+          "selection": "Sí",
+          "p": 0.5871079766585461,
+          "fairOdds": 1.7032642031051577
+        },
+        {
+          "market": "btts",
+          "selection": "No",
+          "p": 0.4128920233414539,
+          "fairOdds": 2.4219407096005314
+        }
+      ],
+      "marketGroups": [
+        {
+          "group": "Resultado",
+          "rows": [
+            {
+              "market": "h2h",
+              "selection": "home",
+              "label": "Cartagena gana",
+              "p": 0.34211905158996425,
+              "fairOdds": 2.92295911423991
+            },
+            {
+              "market": "h2h",
+              "selection": "draw",
+              "label": "Empate",
+              "p": 0.2651965165905981,
+              "fairOdds": 3.7707885942701425
+            },
+            {
+              "market": "h2h",
+              "selection": "away",
+              "label": "Elche gana",
+              "p": 0.3926844305576179,
+              "fairOdds": 2.5465740991563752
+            }
+          ]
+        },
+        {
+          "group": "Doble oportunidad",
+          "rows": [
+            {
+              "market": "double_chance",
+              "selection": "1x",
+              "label": "Cartagena o empate",
+              "p": 0.6073155681805624,
+              "fairOdds": 1.6465904257911064
+            },
+            {
+              "market": "double_chance",
+              "selection": "x2",
+              "label": "Elche o empate",
+              "p": 0.6578809471482161,
+              "fairOdds": 1.5200318603765657
+            },
+            {
+              "market": "double_chance",
+              "selection": "12",
+              "label": "Sin empate",
+              "p": 0.7348034821475822,
+              "fairOdds": 1.3609080853527504
+            }
+          ]
+        },
+        {
+          "group": "Goles totales",
+          "rows": [
+            {
+              "market": "totals",
+              "selection": "over_1.5",
+              "label": "Más de 1.5",
+              "line": 1.5,
+              "p": 0.787163185392721,
+              "fairOdds": 1.2703846147239384
+            },
+            {
+              "market": "totals",
+              "selection": "over_2.5",
+              "label": "Más de 2.5",
+              "line": 2.5,
+              "p": 0.5565845599763293,
+              "fairOdds": 1.7966721894738304
+            },
+            {
+              "market": "totals",
+              "selection": "under_2.5",
+              "label": "Menos de 2.5",
+              "line": 2.5,
+              "p": 0.4434154400236707,
+              "fairOdds": 2.255221423833634
+            },
+            {
+              "market": "totals",
+              "selection": "over_3.5",
+              "label": "Más de 3.5",
+              "line": 3.5,
+              "p": 0.332844096817388,
+              "fairOdds": 3.0044096006564933
+            },
+            {
+              "market": "totals",
+              "selection": "under_3.5",
+              "label": "Menos de 3.5",
+              "line": 3.5,
+              "p": 0.667155903182612,
+              "fairOdds": 1.4989000250609832
+            }
+          ]
+        },
+        {
+          "group": "Ambos anotan",
+          "rows": [
+            {
+              "market": "btts",
+              "selection": "yes",
+              "label": "Sí",
+              "p": 0.5871079766585461,
+              "fairOdds": 1.7032642031051577
+            },
+            {
+              "market": "btts",
+              "selection": "no",
+              "label": "No",
+              "p": 0.4128920233414539,
+              "fairOdds": 2.4219407096005314
+            }
+          ]
+        }
+      ],
+      "mostLikelyScore": {
+        "home": 1,
+        "away": 1,
+        "p": 0.12432320962437647
+      },
+      "factors": [
+        {
+          "key": "home_attack",
+          "label": "Ataque local",
+          "value": "1.00 goles/partido",
+          "detail": "1 partidos · ajustado a 1.39"
+        },
+        {
+          "key": "away_defense",
+          "label": "Defensa visitante",
+          "value": "1.00 recibidos/partido",
+          "detail": "ajustado a 1.39"
+        },
+        {
+          "key": "away_attack",
+          "label": "Ataque visitante",
+          "value": "3.00 goles/partido",
+          "detail": "ajustado a 1.67"
+        },
+        {
+          "key": "home_defense",
+          "label": "Defensa local",
+          "value": "1.00 recibidos/partido",
+          "detail": "ajustado a 1.39"
+        },
+        {
+          "key": "home_advantage",
+          "label": "Localía",
+          "value": "Incluida",
+          "detail": "Ajuste del modelo PitchLab"
+        },
+        {
+          "key": "sample_size",
+          "label": "Muestra",
+          "value": "1 y 1 partidos",
+          "detail": "Temporada actual"
+        }
+      ],
+      "steps": [
+        "Sincronizando Copa del Rey · corte 25 nov 2026, 20:23",
+        "Fuerza de ataque y defensa · CAR 1.00 / 1.00 · ELC 3.00 / 1.00",
+        "Ajuste por localía y tamaño de muestra (1 partidos)",
+        "Proyección de goles 1.40 – 1.51",
+        "Evaluando 196 marcadores posibles",
+        "13 mercados listos · marcador más probable 1–1"
+      ],
+      "inputsAsOf": "2026-11-25T20:23:50.754Z",
+      "publishedAt": "2026-11-25T20:23:50.754Z",
+      "source": "pitchlab-football-v2",
+      "matchContext": {
+        "stageName": "Round 2",
+        "venueCity": "Cartagena",
+        "venueCountry": "Spain",
+        "venueCapacity": 15105
+      }
+    },
+    "copa-del-rey-2026-12-01-gimnastica-tor-deportivo-alav-prqo3c": {
+      "game": "copa-del-rey-2026-12-01-gimnastica-tor-deportivo-alav-prqo3c",
+      "model": {
+        "id": "pitchlab-statistical-copa-del-rey",
+        "version": "1.0.0",
+        "status": "reference",
+        "label": "Modelo PitchLab · en validación"
+      },
+      "projection": {
+        "home": 1.4344343142600007,
+        "away": 1.8527793736865183,
+        "total": 3.287213687946519
+      },
+      "x12": [
+        0.2914856884899495,
+        0.24158311785086528,
+        0.46693118167412745
+      ],
+      "probabilities": [
+        {
+          "market": "h2h",
+          "selection": "Gimnástica Torrelavega gana",
+          "p": 0.2914856884899495,
+          "fairOdds": 3.4307001663804852
+        },
+        {
+          "market": "h2h",
+          "selection": "Empate",
+          "p": 0.24158311785086528,
+          "fairOdds": 4.139362091590036
+        },
+        {
+          "market": "h2h",
+          "selection": "Alavés gana",
+          "p": 0.46693118167412745,
+          "fairOdds": 2.1416432212014977
+        },
+        {
+          "market": "double_chance",
+          "selection": "Gimnástica Torrelavega o empate",
+          "p": 0.5330688063408148,
+          "fairOdds": 1.8759304391948517
+        },
+        {
+          "market": "double_chance",
+          "selection": "Alavés o empate",
+          "p": 0.7085142995249927,
+          "fairOdds": 1.4114041179838253
+        },
+        {
+          "market": "double_chance",
+          "selection": "Sin empate",
+          "p": 0.758416870164077,
+          "fairOdds": 1.3185360707807812
+        },
+        {
+          "market": "totals",
+          "selection": "Más de 1.5",
+          "line": 1.5,
+          "p": 0.8398391499630414,
+          "fairOdds": 1.1907041962071032
+        },
+        {
+          "market": "totals",
+          "selection": "Más de 2.5",
+          "line": 2.5,
+          "p": 0.6379992082286957,
+          "fairOdds": 1.567400064298422
+        },
+        {
+          "market": "totals",
+          "selection": "Menos de 2.5",
+          "line": 2.5,
+          "p": 0.3620007917713043,
+          "fairOdds": 2.7624248972133594
+        },
+        {
+          "market": "totals",
+          "selection": "Más de 3.5",
+          "line": 3.5,
+          "p": 0.41683553514753935,
+          "fairOdds": 2.399027711603448
+        },
+        {
+          "market": "totals",
+          "selection": "Menos de 3.5",
+          "line": 3.5,
+          "p": 0.5831644648524607,
+          "fairOdds": 1.7147821245469712
+        },
+        {
+          "market": "btts",
+          "selection": "Sí",
+          "p": 0.6423069421738593,
+          "fairOdds": 1.556888045792475
+        },
+        {
+          "market": "btts",
+          "selection": "No",
+          "p": 0.3576930578261407,
+          "fairOdds": 2.79569306174809
+        }
+      ],
+      "marketGroups": [
+        {
+          "group": "Resultado",
+          "rows": [
+            {
+              "market": "h2h",
+              "selection": "home",
+              "label": "Gimnástica Torrelavega gana",
+              "p": 0.2914856884899495,
+              "fairOdds": 3.4307001663804852
+            },
+            {
+              "market": "h2h",
+              "selection": "draw",
+              "label": "Empate",
+              "p": 0.24158311785086528,
+              "fairOdds": 4.139362091590036
+            },
+            {
+              "market": "h2h",
+              "selection": "away",
+              "label": "Alavés gana",
+              "p": 0.46693118167412745,
+              "fairOdds": 2.1416432212014977
+            }
+          ]
+        },
+        {
+          "group": "Doble oportunidad",
+          "rows": [
+            {
+              "market": "double_chance",
+              "selection": "1x",
+              "label": "Gimnástica Torrelavega o empate",
+              "p": 0.5330688063408148,
+              "fairOdds": 1.8759304391948517
+            },
+            {
+              "market": "double_chance",
+              "selection": "x2",
+              "label": "Alavés o empate",
+              "p": 0.7085142995249927,
+              "fairOdds": 1.4114041179838253
+            },
+            {
+              "market": "double_chance",
+              "selection": "12",
+              "label": "Sin empate",
+              "p": 0.758416870164077,
+              "fairOdds": 1.3185360707807812
+            }
+          ]
+        },
+        {
+          "group": "Goles totales",
+          "rows": [
+            {
+              "market": "totals",
+              "selection": "over_1.5",
+              "label": "Más de 1.5",
+              "line": 1.5,
+              "p": 0.8398391499630414,
+              "fairOdds": 1.1907041962071032
+            },
+            {
+              "market": "totals",
+              "selection": "over_2.5",
+              "label": "Más de 2.5",
+              "line": 2.5,
+              "p": 0.6379992082286957,
+              "fairOdds": 1.567400064298422
+            },
+            {
+              "market": "totals",
+              "selection": "under_2.5",
+              "label": "Menos de 2.5",
+              "line": 2.5,
+              "p": 0.3620007917713043,
+              "fairOdds": 2.7624248972133594
+            },
+            {
+              "market": "totals",
+              "selection": "over_3.5",
+              "label": "Más de 3.5",
+              "line": 3.5,
+              "p": 0.41683553514753935,
+              "fairOdds": 2.399027711603448
+            },
+            {
+              "market": "totals",
+              "selection": "under_3.5",
+              "label": "Menos de 3.5",
+              "line": 3.5,
+              "p": 0.5831644648524607,
+              "fairOdds": 1.7147821245469712
+            }
+          ]
+        },
+        {
+          "group": "Ambos anotan",
+          "rows": [
+            {
+              "market": "btts",
+              "selection": "yes",
+              "label": "Sí",
+              "p": 0.6423069421738593,
+              "fairOdds": 1.556888045792475
+            },
+            {
+              "market": "btts",
+              "selection": "no",
+              "label": "No",
+              "p": 0.3576930578261407,
+              "fairOdds": 2.79569306174809
+            }
+          ]
+        }
+      ],
+      "mostLikelyScore": {
+        "home": 1,
+        "away": 1,
+        "p": 0.10722828574551171
+      },
+      "factors": [
+        {
+          "key": "home_attack",
+          "label": "Ataque local",
+          "value": "1.00 goles/partido",
+          "detail": "1 partidos · ajustado a 1.39"
+        },
+        {
+          "key": "away_defense",
+          "label": "Defensa visitante",
+          "value": "1.00 recibidos/partido",
+          "detail": "ajustado a 1.39"
+        },
+        {
+          "key": "away_attack",
+          "label": "Ataque visitante",
+          "value": "6.00 goles/partido",
+          "detail": "ajustado a 2.10"
+        },
+        {
+          "key": "home_defense",
+          "label": "Defensa local",
+          "value": "1.00 recibidos/partido",
+          "detail": "ajustado a 1.39"
+        },
+        {
+          "key": "home_advantage",
+          "label": "Localía",
+          "value": "Incluida",
+          "detail": "Ajuste del modelo PitchLab"
+        },
+        {
+          "key": "sample_size",
+          "label": "Muestra",
+          "value": "1 y 1 partidos",
+          "detail": "Temporada actual"
+        }
+      ],
+      "steps": [
+        "Sincronizando Copa del Rey · corte 25 nov 2026, 20:23",
+        "Fuerza de ataque y defensa · GIM 1.00 / 1.00 · DEP 6.00 / 1.00",
+        "Ajuste por localía y tamaño de muestra (1 partidos)",
+        "Proyección de goles 1.43 – 1.85",
+        "Evaluando 196 marcadores posibles",
+        "13 mercados listos · marcador más probable 1–1"
+      ],
+      "inputsAsOf": "2026-11-25T20:23:50.754Z",
+      "publishedAt": "2026-11-25T20:23:50.754Z",
+      "source": "pitchlab-football-v2",
+      "matchContext": {
+        "stageName": "Round 2"
+      }
+    },
+    "copa-del-rey-2026-12-01-ce-europa-rayo-vallecano-0ck900": {
+      "game": "copa-del-rey-2026-12-01-ce-europa-rayo-vallecano-0ck900",
+      "model": {
+        "id": "pitchlab-statistical-copa-del-rey",
+        "version": "1.0.0",
+        "status": "reference",
+        "label": "Modelo PitchLab · en validación"
+      },
+      "projection": {
+        "home": 1.6242015783067352,
+        "away": 1.1681012540814868,
+        "total": 2.7923028323882217
+      },
+      "x12": [
+        0.4704822669705897,
+        0.26440156881337756,
+        0.2651161619300739
+      ],
+      "probabilities": [
+        {
+          "market": "h2h",
+          "selection": "CE Europa gana",
+          "p": 0.4704822669705897,
+          "fairOdds": 2.1254786209880914
+        },
+        {
+          "market": "h2h",
+          "selection": "Empate",
+          "p": 0.26440156881337756,
+          "fairOdds": 3.7821258190257923
+        },
+        {
+          "market": "h2h",
+          "selection": "Rayo Vallecano gana",
+          "p": 0.2651161619300739,
+          "fairOdds": 3.7719314911618116
+        },
+        {
+          "market": "double_chance",
+          "selection": "CE Europa o empate",
+          "p": 0.7348838357839673,
+          "fairOdds": 1.360759281000118
+        },
+        {
+          "market": "double_chance",
+          "selection": "Rayo Vallecano o empate",
+          "p": 0.5295177307434515,
+          "fairOdds": 1.8885108881925137
+        },
+        {
+          "market": "double_chance",
+          "selection": "Sin empate",
+          "p": 0.7355984289006636,
+          "fairOdds": 1.359437378753621
+        },
+        {
+          "market": "totals",
+          "selection": "Más de 1.5",
+          "line": 1.5,
+          "p": 0.7676079331448753,
+          "fairOdds": 1.3027483912301672
+        },
+        {
+          "market": "totals",
+          "selection": "Más de 2.5",
+          "line": 2.5,
+          "p": 0.5287094863759703,
+          "fairOdds": 1.891397876846285
+        },
+        {
+          "market": "totals",
+          "selection": "Menos de 2.5",
+          "line": 2.5,
+          "p": 0.47129051362402974,
+          "fairOdds": 2.1218334999158213
+        },
+        {
+          "market": "totals",
+          "selection": "Más de 3.5",
+          "line": 3.5,
+          "p": 0.30635054985398347,
+          "fairOdds": 3.264234389253201
+        },
+        {
+          "market": "totals",
+          "selection": "Menos de 3.5",
+          "line": 3.5,
+          "p": 0.6936494501460165,
+          "fairOdds": 1.4416503895296036
+        },
+        {
+          "market": "btts",
+          "selection": "Sí",
+          "p": 0.553254168295658,
+          "fairOdds": 1.8074875117174027
+        },
+        {
+          "market": "btts",
+          "selection": "No",
+          "p": 0.446745831704342,
+          "fairOdds": 2.238409245330807
+        }
+      ],
+      "marketGroups": [
+        {
+          "group": "Resultado",
+          "rows": [
+            {
+              "market": "h2h",
+              "selection": "home",
+              "label": "CE Europa gana",
+              "p": 0.4704822669705897,
+              "fairOdds": 2.1254786209880914
+            },
+            {
+              "market": "h2h",
+              "selection": "draw",
+              "label": "Empate",
+              "p": 0.26440156881337756,
+              "fairOdds": 3.7821258190257923
+            },
+            {
+              "market": "h2h",
+              "selection": "away",
+              "label": "Rayo Vallecano gana",
+              "p": 0.2651161619300739,
+              "fairOdds": 3.7719314911618116
+            }
+          ]
+        },
+        {
+          "group": "Doble oportunidad",
+          "rows": [
+            {
+              "market": "double_chance",
+              "selection": "1x",
+              "label": "CE Europa o empate",
+              "p": 0.7348838357839673,
+              "fairOdds": 1.360759281000118
+            },
+            {
+              "market": "double_chance",
+              "selection": "x2",
+              "label": "Rayo Vallecano o empate",
+              "p": 0.5295177307434515,
+              "fairOdds": 1.8885108881925137
+            },
+            {
+              "market": "double_chance",
+              "selection": "12",
+              "label": "Sin empate",
+              "p": 0.7355984289006636,
+              "fairOdds": 1.359437378753621
+            }
+          ]
+        },
+        {
+          "group": "Goles totales",
+          "rows": [
+            {
+              "market": "totals",
+              "selection": "over_1.5",
+              "label": "Más de 1.5",
+              "line": 1.5,
+              "p": 0.7676079331448753,
+              "fairOdds": 1.3027483912301672
+            },
+            {
+              "market": "totals",
+              "selection": "over_2.5",
+              "label": "Más de 2.5",
+              "line": 2.5,
+              "p": 0.5287094863759703,
+              "fairOdds": 1.891397876846285
+            },
+            {
+              "market": "totals",
+              "selection": "under_2.5",
+              "label": "Menos de 2.5",
+              "line": 2.5,
+              "p": 0.47129051362402974,
+              "fairOdds": 2.1218334999158213
+            },
+            {
+              "market": "totals",
+              "selection": "over_3.5",
+              "label": "Más de 3.5",
+              "line": 3.5,
+              "p": 0.30635054985398347,
+              "fairOdds": 3.264234389253201
+            },
+            {
+              "market": "totals",
+              "selection": "under_3.5",
+              "label": "Menos de 3.5",
+              "line": 3.5,
+              "p": 0.6936494501460165,
+              "fairOdds": 1.4416503895296036
+            }
+          ]
+        },
+        {
+          "group": "Ambos anotan",
+          "rows": [
+            {
+              "market": "btts",
+              "selection": "yes",
+              "label": "Sí",
+              "p": 0.553254168295658,
+              "fairOdds": 1.8074875117174027
+            },
+            {
+              "market": "btts",
+              "selection": "no",
+              "label": "No",
+              "p": 0.446745831704342,
+              "fairOdds": 2.238409245330807
+            }
+          ]
+        }
+      ],
+      "mostLikelyScore": {
+        "home": 1,
+        "away": 1,
+        "p": 0.1255632250692279
+      },
+      "factors": [
+        {
+          "key": "home_attack",
+          "label": "Ataque local",
+          "value": "3.00 goles/partido",
+          "detail": "1 partidos · ajustado a 1.67"
+        },
+        {
+          "key": "away_defense",
+          "label": "Defensa visitante",
+          "value": "1.00 recibidos/partido",
+          "detail": "ajustado a 1.39"
+        },
+        {
+          "key": "away_attack",
+          "label": "Ataque visitante",
+          "value": "1.00 goles/partido",
+          "detail": "ajustado a 1.39"
+        },
+        {
+          "key": "home_defense",
+          "label": "Defensa local",
+          "value": "0.00 recibidos/partido",
+          "detail": "ajustado a 1.24"
+        },
+        {
+          "key": "home_advantage",
+          "label": "Localía",
+          "value": "Incluida",
+          "detail": "Ajuste del modelo PitchLab"
+        },
+        {
+          "key": "sample_size",
+          "label": "Muestra",
+          "value": "1 y 1 partidos",
+          "detail": "Temporada actual"
+        }
+      ],
+      "steps": [
+        "Sincronizando Copa del Rey · corte 25 nov 2026, 20:23",
+        "Fuerza de ataque y defensa · CEE 3.00 / 0.00 · RAY 1.00 / 1.00",
+        "Ajuste por localía y tamaño de muestra (1 partidos)",
+        "Proyección de goles 1.62 – 1.17",
+        "Evaluando 196 marcadores posibles",
+        "13 mercados listos · marcador más probable 1–1"
+      ],
+      "inputsAsOf": "2026-11-25T20:23:50.754Z",
+      "publishedAt": "2026-11-25T20:23:50.754Z",
+      "source": "pitchlab-football-v2",
+      "matchContext": {
+        "stageName": "Round 2",
+        "venueCity": "Barcelona",
+        "venueCountry": "Spain",
+        "venueCapacity": 4000
+      }
+    },
+    "copa-del-rey-2026-12-01-numancia-athletic-cn4cig": {
+      "game": "copa-del-rey-2026-12-01-numancia-athletic-cn4cig",
+      "model": {
+        "id": "pitchlab-statistical-copa-del-rey",
+        "version": "1.0.0",
+        "status": "reference",
+        "label": "Modelo PitchLab · en validación"
+      },
+      "projection": {
+        "home": 1.7457074924708975,
+        "away": 2.2149358479302017,
+        "total": 3.9606433404010994
+      },
+      "x12": [
+        0.30223986937229386,
+        0.21496772240678153,
+        0.4827923023913644
+      ],
+      "probabilities": [
+        {
+          "market": "h2h",
+          "selection": "Numancia gana",
+          "p": 0.30223986937229386,
+          "fairOdds": 3.3086303341675194
+        },
+        {
+          "market": "h2h",
+          "selection": "Empate",
+          "p": 0.21496772240678153,
+          "fairOdds": 4.651861166895134
+        },
+        {
+          "market": "h2h",
+          "selection": "Athletic gana",
+          "p": 0.4827923023913644,
+          "fairOdds": 2.0712840595154582
+        },
+        {
+          "market": "double_chance",
+          "selection": "Numancia o empate",
+          "p": 0.5172075917790754,
+          "fairOdds": 1.9334596318670219
+        },
+        {
+          "market": "double_chance",
+          "selection": "Athletic o empate",
+          "p": 0.6977600247981459,
+          "fairOdds": 1.433157481742077
+        },
+        {
+          "market": "double_chance",
+          "selection": "Sin empate",
+          "p": 0.7850321717636582,
+          "fairOdds": 1.273833144638383
+        },
+        {
+          "market": "totals",
+          "selection": "Más de 1.5",
+          "line": 1.5,
+          "p": 0.9054955071616191,
+          "fairOdds": 1.1043677103761853
+        },
+        {
+          "market": "totals",
+          "selection": "Más de 2.5",
+          "line": 2.5,
+          "p": 0.7560730313995725,
+          "fairOdds": 1.3226235541676343
+        },
+        {
+          "market": "totals",
+          "selection": "Menos de 2.5",
+          "line": 2.5,
+          "p": 0.2439269686004275,
+          "fairOdds": 4.099587699292416
+        },
+        {
+          "market": "totals",
+          "selection": "Más de 3.5",
+          "line": 3.5,
+          "p": 0.5588033202218409,
+          "fairOdds": 1.7895384007435877
+        },
+        {
+          "market": "totals",
+          "selection": "Menos de 3.5",
+          "line": 3.5,
+          "p": 0.44119667977815913,
+          "fairOdds": 2.266562841095759
+        },
+        {
+          "market": "btts",
+          "selection": "Sí",
+          "p": 0.7353688646165931,
+          "fairOdds": 1.3598617620578488
+        },
+        {
+          "market": "btts",
+          "selection": "No",
+          "p": 0.2646311353834069,
+          "fairOdds": 3.7788448383111266
+        }
+      ],
+      "marketGroups": [
+        {
+          "group": "Resultado",
+          "rows": [
+            {
+              "market": "h2h",
+              "selection": "home",
+              "label": "Numancia gana",
+              "p": 0.30223986937229386,
+              "fairOdds": 3.3086303341675194
+            },
+            {
+              "market": "h2h",
+              "selection": "draw",
+              "label": "Empate",
+              "p": 0.21496772240678153,
+              "fairOdds": 4.651861166895134
+            },
+            {
+              "market": "h2h",
+              "selection": "away",
+              "label": "Athletic gana",
+              "p": 0.4827923023913644,
+              "fairOdds": 2.0712840595154582
+            }
+          ]
+        },
+        {
+          "group": "Doble oportunidad",
+          "rows": [
+            {
+              "market": "double_chance",
+              "selection": "1x",
+              "label": "Numancia o empate",
+              "p": 0.5172075917790754,
+              "fairOdds": 1.9334596318670219
+            },
+            {
+              "market": "double_chance",
+              "selection": "x2",
+              "label": "Athletic o empate",
+              "p": 0.6977600247981459,
+              "fairOdds": 1.433157481742077
+            },
+            {
+              "market": "double_chance",
+              "selection": "12",
+              "label": "Sin empate",
+              "p": 0.7850321717636582,
+              "fairOdds": 1.273833144638383
+            }
+          ]
+        },
+        {
+          "group": "Goles totales",
+          "rows": [
+            {
+              "market": "totals",
+              "selection": "over_1.5",
+              "label": "Más de 1.5",
+              "line": 1.5,
+              "p": 0.9054955071616191,
+              "fairOdds": 1.1043677103761853
+            },
+            {
+              "market": "totals",
+              "selection": "over_2.5",
+              "label": "Más de 2.5",
+              "line": 2.5,
+              "p": 0.7560730313995725,
+              "fairOdds": 1.3226235541676343
+            },
+            {
+              "market": "totals",
+              "selection": "under_2.5",
+              "label": "Menos de 2.5",
+              "line": 2.5,
+              "p": 0.2439269686004275,
+              "fairOdds": 4.099587699292416
+            },
+            {
+              "market": "totals",
+              "selection": "over_3.5",
+              "label": "Más de 3.5",
+              "line": 3.5,
+              "p": 0.5588033202218409,
+              "fairOdds": 1.7895384007435877
+            },
+            {
+              "market": "totals",
+              "selection": "under_3.5",
+              "label": "Menos de 3.5",
+              "line": 3.5,
+              "p": 0.44119667977815913,
+              "fairOdds": 2.266562841095759
+            }
+          ]
+        },
+        {
+          "group": "Ambos anotan",
+          "rows": [
+            {
+              "market": "btts",
+              "selection": "yes",
+              "label": "Sí",
+              "p": 0.7353688646165931,
+              "fairOdds": 1.3598617620578488
+            },
+            {
+              "market": "btts",
+              "selection": "no",
+              "label": "No",
+              "p": 0.2646311353834069,
+              "fairOdds": 3.7788448383111266
+            }
+          ]
+        }
+      ],
+      "mostLikelyScore": {
+        "home": 1,
+        "away": 2,
+        "p": 0.08157897360481983
+      },
+      "factors": [
+        {
+          "key": "home_attack",
+          "label": "Ataque local",
+          "value": "3.00 goles/partido",
+          "detail": "1 partidos · ajustado a 1.67"
+        },
+        {
+          "key": "away_defense",
+          "label": "Defensa visitante",
+          "value": "1.00 recibidos/partido",
+          "detail": "ajustado a 1.39"
+        },
+        {
+          "key": "away_attack",
+          "label": "Ataque visitante",
+          "value": "6.00 goles/partido",
+          "detail": "ajustado a 2.10"
+        },
+        {
+          "key": "home_defense",
+          "label": "Defensa local",
+          "value": "3.00 recibidos/partido",
+          "detail": "ajustado a 1.67"
+        },
+        {
+          "key": "home_advantage",
+          "label": "Localía",
+          "value": "Incluida",
+          "detail": "Ajuste del modelo PitchLab"
+        },
+        {
+          "key": "sample_size",
+          "label": "Muestra",
+          "value": "1 y 1 partidos",
+          "detail": "Temporada actual"
+        }
+      ],
+      "steps": [
+        "Sincronizando Copa del Rey · corte 25 nov 2026, 20:23",
+        "Fuerza de ataque y defensa · NUM 3.00 / 3.00 · ATH 6.00 / 1.00",
+        "Ajuste por localía y tamaño de muestra (1 partidos)",
+        "Proyección de goles 1.75 – 2.21",
+        "Evaluando 196 marcadores posibles",
+        "13 mercados listos · marcador más probable 1–2"
+      ],
+      "inputsAsOf": "2026-11-25T20:23:50.754Z",
+      "publishedAt": "2026-11-25T20:23:50.754Z",
+      "source": "pitchlab-football-v2",
+      "matchContext": {
+        "stageName": "Round 2",
+        "venueCity": "Soria",
+        "venueCountry": "Spain",
+        "venueCapacity": 8261
+      }
+    },
     "copa-del-rey-2026-12-01-extremadura-real-betis-tk2hca": {
       "game": "copa-del-rey-2026-12-01-extremadura-real-betis-tk2hca",
       "model": {
@@ -9980,2256 +12230,6 @@
         "venueCity": "Almendralejo",
         "venueCountry": "Spain",
         "venueCapacity": 11580
-      }
-    },
-    "copa-del-rey-2026-12-02-sd-ponferradin-andorra-icx92y": {
-      "game": "copa-del-rey-2026-12-02-sd-ponferradin-andorra-icx92y",
-      "model": {
-        "id": "pitchlab-statistical-copa-del-rey",
-        "version": "1.0.0",
-        "status": "reference",
-        "label": "Modelo PitchLab · en validación"
-      },
-      "projection": {
-        "home": 1.2638475745730264,
-        "away": 1.5011556287886862,
-        "total": 2.7650032033617125
-      },
-      "x12": [
-        0.3101505046217265,
-        0.2717190615209888,
-        0.41813043292575797
-      ],
-      "probabilities": [
-        {
-          "market": "h2h",
-          "selection": "Ponferradina gana",
-          "p": 0.3101505046217265,
-          "fairOdds": 3.224241086499746
-        },
-        {
-          "market": "h2h",
-          "selection": "Empate",
-          "p": 0.2717190615209888,
-          "fairOdds": 3.680271801331669
-        },
-        {
-          "market": "h2h",
-          "selection": "Andorra gana",
-          "p": 0.41813043292575797,
-          "fairOdds": 2.391598222121175
-        },
-        {
-          "market": "double_chance",
-          "selection": "Ponferradina o empate",
-          "p": 0.5818695661427153,
-          "fairOdds": 1.7185982188914304
-        },
-        {
-          "market": "double_chance",
-          "selection": "Andorra o empate",
-          "p": 0.6898494944467468,
-          "fairOdds": 1.4495915530125758
-        },
-        {
-          "market": "double_chance",
-          "selection": "Sin empate",
-          "p": 0.7282809375474845,
-          "fairOdds": 1.3730964912627543
-        },
-        {
-          "market": "totals",
-          "selection": "Más de 1.5",
-          "line": 1.5,
-          "p": 0.7628955437520513,
-          "fairOdds": 1.3107954400701154
-        },
-        {
-          "market": "totals",
-          "selection": "Más de 2.5",
-          "line": 2.5,
-          "p": 0.5221625325410117,
-          "fairOdds": 1.9151125132124602
-        },
-        {
-          "market": "totals",
-          "selection": "Menos de 2.5",
-          "line": 2.5,
-          "p": 0.47783746745898825,
-          "fairOdds": 2.092761803124674
-        },
-        {
-          "market": "totals",
-          "selection": "Más de 3.5",
-          "line": 3.5,
-          "p": 0.30028668348986653,
-          "fairOdds": 3.330151002296264
-        },
-        {
-          "market": "totals",
-          "selection": "Menos de 3.5",
-          "line": 3.5,
-          "p": 0.6997133165101335,
-          "fairOdds": 1.4291567366297475
-        },
-        {
-          "market": "btts",
-          "selection": "Sí",
-          "p": 0.5575387007933518,
-          "fairOdds": 1.7935974643142194
-        },
-        {
-          "market": "btts",
-          "selection": "No",
-          "p": 0.44246129920664823,
-          "fairOdds": 2.260084671344233
-        }
-      ],
-      "marketGroups": [
-        {
-          "group": "Resultado",
-          "rows": [
-            {
-              "market": "h2h",
-              "selection": "home",
-              "label": "Ponferradina gana",
-              "p": 0.3101505046217265,
-              "fairOdds": 3.224241086499746
-            },
-            {
-              "market": "h2h",
-              "selection": "draw",
-              "label": "Empate",
-              "p": 0.2717190615209888,
-              "fairOdds": 3.680271801331669
-            },
-            {
-              "market": "h2h",
-              "selection": "away",
-              "label": "Andorra gana",
-              "p": 0.41813043292575797,
-              "fairOdds": 2.391598222121175
-            }
-          ]
-        },
-        {
-          "group": "Doble oportunidad",
-          "rows": [
-            {
-              "market": "double_chance",
-              "selection": "1x",
-              "label": "Ponferradina o empate",
-              "p": 0.5818695661427153,
-              "fairOdds": 1.7185982188914304
-            },
-            {
-              "market": "double_chance",
-              "selection": "x2",
-              "label": "Andorra o empate",
-              "p": 0.6898494944467468,
-              "fairOdds": 1.4495915530125758
-            },
-            {
-              "market": "double_chance",
-              "selection": "12",
-              "label": "Sin empate",
-              "p": 0.7282809375474845,
-              "fairOdds": 1.3730964912627543
-            }
-          ]
-        },
-        {
-          "group": "Goles totales",
-          "rows": [
-            {
-              "market": "totals",
-              "selection": "over_1.5",
-              "label": "Más de 1.5",
-              "line": 1.5,
-              "p": 0.7628955437520513,
-              "fairOdds": 1.3107954400701154
-            },
-            {
-              "market": "totals",
-              "selection": "over_2.5",
-              "label": "Más de 2.5",
-              "line": 2.5,
-              "p": 0.5221625325410117,
-              "fairOdds": 1.9151125132124602
-            },
-            {
-              "market": "totals",
-              "selection": "under_2.5",
-              "label": "Menos de 2.5",
-              "line": 2.5,
-              "p": 0.47783746745898825,
-              "fairOdds": 2.092761803124674
-            },
-            {
-              "market": "totals",
-              "selection": "over_3.5",
-              "label": "Más de 3.5",
-              "line": 3.5,
-              "p": 0.30028668348986653,
-              "fairOdds": 3.330151002296264
-            },
-            {
-              "market": "totals",
-              "selection": "under_3.5",
-              "label": "Menos de 3.5",
-              "line": 3.5,
-              "p": 0.6997133165101335,
-              "fairOdds": 1.4291567366297475
-            }
-          ]
-        },
-        {
-          "group": "Ambos anotan",
-          "rows": [
-            {
-              "market": "btts",
-              "selection": "yes",
-              "label": "Sí",
-              "p": 0.5575387007933518,
-              "fairOdds": 1.7935974643142194
-            },
-            {
-              "market": "btts",
-              "selection": "no",
-              "label": "No",
-              "p": 0.44246129920664823,
-              "fairOdds": 2.260084671344233
-            }
-          ]
-        }
-      ],
-      "mostLikelyScore": {
-        "home": 1,
-        "away": 1,
-        "p": 0.12903827246744032
-      },
-      "factors": [
-        {
-          "key": "home_attack",
-          "label": "Ataque local",
-          "value": "1.00 goles/partido",
-          "detail": "1 partidos · ajustado a 1.39"
-        },
-        {
-          "key": "away_defense",
-          "label": "Defensa visitante",
-          "value": "0.00 recibidos/partido",
-          "detail": "ajustado a 1.24"
-        },
-        {
-          "key": "away_attack",
-          "label": "Ataque visitante",
-          "value": "3.00 goles/partido",
-          "detail": "ajustado a 1.67"
-        },
-        {
-          "key": "home_defense",
-          "label": "Defensa local",
-          "value": "1.00 recibidos/partido",
-          "detail": "ajustado a 1.39"
-        },
-        {
-          "key": "home_advantage",
-          "label": "Localía",
-          "value": "Incluida",
-          "detail": "Ajuste del modelo PitchLab"
-        },
-        {
-          "key": "sample_size",
-          "label": "Muestra",
-          "value": "1 y 1 partidos",
-          "detail": "Temporada actual"
-        }
-      ],
-      "steps": [
-        "Sincronizando Copa del Rey · corte 24 nov 2026, 21:01",
-        "Fuerza de ataque y defensa · SDP 1.00 / 1.00 · AND 3.00 / 0.00",
-        "Ajuste por localía y tamaño de muestra (1 partidos)",
-        "Proyección de goles 1.26 – 1.50",
-        "Evaluando 196 marcadores posibles",
-        "13 mercados listos · marcador más probable 1–1"
-      ],
-      "inputsAsOf": "2026-11-24T21:01:09.804Z",
-      "publishedAt": "2026-11-24T21:01:09.804Z",
-      "source": "pitchlab-football-v2",
-      "matchContext": {
-        "stageName": "Round 2",
-        "venueCity": "Ponferrada",
-        "venueCountry": "Spain",
-        "venueCapacity": 8800
-      }
-    },
-    "copa-del-rey-2026-12-02-reus-reddis-real-racing-ddkfn3": {
-      "game": "copa-del-rey-2026-12-02-reus-reddis-real-racing-ddkfn3",
-      "model": {
-        "id": "pitchlab-statistical-copa-del-rey",
-        "version": "1.0.0",
-        "status": "reference",
-        "label": "Modelo PitchLab · en validación"
-      },
-      "projection": {
-        "home": 1.2543949872819204,
-        "away": 1.3831969558236628,
-        "total": 2.6375919431055834
-      },
-      "x12": [
-        0.32956785273950456,
-        0.2809317281068086,
-        0.38950041877129105
-      ],
-      "probabilities": [
-        {
-          "market": "h2h",
-          "selection": "Reus Reddis gana",
-          "p": 0.32956785273950456,
-          "fairOdds": 3.0342765281491673
-        },
-        {
-          "market": "h2h",
-          "selection": "Empate",
-          "p": 0.2809317281068086,
-          "fairOdds": 3.559583699352769
-        },
-        {
-          "market": "h2h",
-          "selection": "Real Racing gana",
-          "p": 0.38950041877129105,
-          "fairOdds": 2.567391334660375
-        },
-        {
-          "market": "double_chance",
-          "selection": "Reus Reddis o empate",
-          "p": 0.6104995808463132,
-          "fairOdds": 1.6380027626124438
-        },
-        {
-          "market": "double_chance",
-          "selection": "Real Racing o empate",
-          "p": 0.6704321468780996,
-          "fairOdds": 1.4915752543438578
-        },
-        {
-          "market": "double_chance",
-          "selection": "Sin empate",
-          "p": 0.7190682715107957,
-          "fairOdds": 1.390688533508722
-        },
-        {
-          "market": "totals",
-          "selection": "Más de 1.5",
-          "line": 1.5,
-          "p": 0.7397909765156752,
-          "fairOdds": 1.3517331675358861
-        },
-        {
-          "market": "totals",
-          "selection": "Más de 2.5",
-          "line": 2.5,
-          "p": 0.49096621701384113,
-          "fairOdds": 2.0368000187104696
-        },
-        {
-          "market": "totals",
-          "selection": "Menos de 2.5",
-          "line": 2.5,
-          "p": 0.5090337829861589,
-          "fairOdds": 1.9645061554336778
-        },
-        {
-          "market": "totals",
-          "selection": "Más de 3.5",
-          "line": 3.5,
-          "p": 0.2722001567114337,
-          "fairOdds": 3.6737671722214524
-        },
-        {
-          "market": "totals",
-          "selection": "Menos de 3.5",
-          "line": 3.5,
-          "p": 0.7277998432885663,
-          "fairOdds": 1.3740041430642473
-        },
-        {
-          "market": "btts",
-          "selection": "Sí",
-          "p": 0.535509391895819,
-          "fairOdds": 1.867380880958565
-        },
-        {
-          "market": "btts",
-          "selection": "No",
-          "p": 0.46449060810418097,
-          "fairOdds": 2.1528960597965616
-        }
-      ],
-      "marketGroups": [
-        {
-          "group": "Resultado",
-          "rows": [
-            {
-              "market": "h2h",
-              "selection": "home",
-              "label": "Reus Reddis gana",
-              "p": 0.32956785273950456,
-              "fairOdds": 3.0342765281491673
-            },
-            {
-              "market": "h2h",
-              "selection": "draw",
-              "label": "Empate",
-              "p": 0.2809317281068086,
-              "fairOdds": 3.559583699352769
-            },
-            {
-              "market": "h2h",
-              "selection": "away",
-              "label": "Real Racing gana",
-              "p": 0.38950041877129105,
-              "fairOdds": 2.567391334660375
-            }
-          ]
-        },
-        {
-          "group": "Doble oportunidad",
-          "rows": [
-            {
-              "market": "double_chance",
-              "selection": "1x",
-              "label": "Reus Reddis o empate",
-              "p": 0.6104995808463132,
-              "fairOdds": 1.6380027626124438
-            },
-            {
-              "market": "double_chance",
-              "selection": "x2",
-              "label": "Real Racing o empate",
-              "p": 0.6704321468780996,
-              "fairOdds": 1.4915752543438578
-            },
-            {
-              "market": "double_chance",
-              "selection": "12",
-              "label": "Sin empate",
-              "p": 0.7190682715107957,
-              "fairOdds": 1.390688533508722
-            }
-          ]
-        },
-        {
-          "group": "Goles totales",
-          "rows": [
-            {
-              "market": "totals",
-              "selection": "over_1.5",
-              "label": "Más de 1.5",
-              "line": 1.5,
-              "p": 0.7397909765156752,
-              "fairOdds": 1.3517331675358861
-            },
-            {
-              "market": "totals",
-              "selection": "over_2.5",
-              "label": "Más de 2.5",
-              "line": 2.5,
-              "p": 0.49096621701384113,
-              "fairOdds": 2.0368000187104696
-            },
-            {
-              "market": "totals",
-              "selection": "under_2.5",
-              "label": "Menos de 2.5",
-              "line": 2.5,
-              "p": 0.5090337829861589,
-              "fairOdds": 1.9645061554336778
-            },
-            {
-              "market": "totals",
-              "selection": "over_3.5",
-              "label": "Más de 3.5",
-              "line": 3.5,
-              "p": 0.2722001567114337,
-              "fairOdds": 3.6737671722214524
-            },
-            {
-              "market": "totals",
-              "selection": "under_3.5",
-              "label": "Menos de 3.5",
-              "line": 3.5,
-              "p": 0.7277998432885663,
-              "fairOdds": 1.3740041430642473
-            }
-          ]
-        },
-        {
-          "group": "Ambos anotan",
-          "rows": [
-            {
-              "market": "btts",
-              "selection": "yes",
-              "label": "Sí",
-              "p": 0.535509391895819,
-              "fairOdds": 1.867380880958565
-            },
-            {
-              "market": "btts",
-              "selection": "no",
-              "label": "No",
-              "p": 0.46449060810418097,
-              "fairOdds": 2.1528960597965616
-            }
-          ]
-        }
-      ],
-      "mostLikelyScore": {
-        "home": 1,
-        "away": 1,
-        "p": 0.13404495195859129
-      },
-      "factors": [
-        {
-          "key": "home_attack",
-          "label": "Ataque local",
-          "value": "1.00 goles/partido",
-          "detail": "1 partidos · ajustado a 1.39"
-        },
-        {
-          "key": "away_defense",
-          "label": "Defensa visitante",
-          "value": "0.00 recibidos/partido",
-          "detail": "ajustado a 1.24"
-        },
-        {
-          "key": "away_attack",
-          "label": "Ataque visitante",
-          "value": "2.00 goles/partido",
-          "detail": "ajustado a 1.53"
-        },
-        {
-          "key": "home_defense",
-          "label": "Defensa local",
-          "value": "1.00 recibidos/partido",
-          "detail": "ajustado a 1.39"
-        },
-        {
-          "key": "home_advantage",
-          "label": "Localía",
-          "value": "Incluida",
-          "detail": "Ajuste del modelo PitchLab"
-        },
-        {
-          "key": "sample_size",
-          "label": "Muestra",
-          "value": "1 y 1 partidos",
-          "detail": "Temporada actual"
-        }
-      ],
-      "steps": [
-        "Sincronizando Copa del Rey · corte 24 nov 2026, 21:01",
-        "Fuerza de ataque y defensa · REU 1.00 / 1.00 · REA 2.00 / 0.00",
-        "Ajuste por localía y tamaño de muestra (1 partidos)",
-        "Proyección de goles 1.25 – 1.38",
-        "Evaluando 196 marcadores posibles",
-        "13 mercados listos · marcador más probable 1–1"
-      ],
-      "inputsAsOf": "2026-11-24T21:01:09.804Z",
-      "publishedAt": "2026-11-24T21:01:09.804Z",
-      "source": "pitchlab-football-v2",
-      "matchContext": {
-        "stageName": "Round 2",
-        "venueCity": "Reus",
-        "venueCountry": "Spain",
-        "venueCapacity": 4700
-      }
-    },
-    "copa-del-rey-2026-12-02-albacete-balom-las-palmas-shhpxx": {
-      "game": "copa-del-rey-2026-12-02-albacete-balom-las-palmas-shhpxx",
-      "model": {
-        "id": "pitchlab-statistical-copa-del-rey",
-        "version": "1.0.0",
-        "status": "reference",
-        "label": "Modelo PitchLab · en validación"
-      },
-      "projection": {
-        "home": 1.6242015783067352,
-        "away": 1.1681012540814868,
-        "total": 2.7923028323882217
-      },
-      "x12": [
-        0.4704822669705897,
-        0.26440156881337756,
-        0.2651161619300739
-      ],
-      "probabilities": [
-        {
-          "market": "h2h",
-          "selection": "Albacete Balompié gana",
-          "p": 0.4704822669705897,
-          "fairOdds": 2.1254786209880914
-        },
-        {
-          "market": "h2h",
-          "selection": "Empate",
-          "p": 0.26440156881337756,
-          "fairOdds": 3.7821258190257923
-        },
-        {
-          "market": "h2h",
-          "selection": "Las Palmas gana",
-          "p": 0.2651161619300739,
-          "fairOdds": 3.7719314911618116
-        },
-        {
-          "market": "double_chance",
-          "selection": "Albacete Balompié o empate",
-          "p": 0.7348838357839673,
-          "fairOdds": 1.360759281000118
-        },
-        {
-          "market": "double_chance",
-          "selection": "Las Palmas o empate",
-          "p": 0.5295177307434515,
-          "fairOdds": 1.8885108881925137
-        },
-        {
-          "market": "double_chance",
-          "selection": "Sin empate",
-          "p": 0.7355984289006636,
-          "fairOdds": 1.359437378753621
-        },
-        {
-          "market": "totals",
-          "selection": "Más de 1.5",
-          "line": 1.5,
-          "p": 0.7676079331448753,
-          "fairOdds": 1.3027483912301672
-        },
-        {
-          "market": "totals",
-          "selection": "Más de 2.5",
-          "line": 2.5,
-          "p": 0.5287094863759703,
-          "fairOdds": 1.891397876846285
-        },
-        {
-          "market": "totals",
-          "selection": "Menos de 2.5",
-          "line": 2.5,
-          "p": 0.47129051362402974,
-          "fairOdds": 2.1218334999158213
-        },
-        {
-          "market": "totals",
-          "selection": "Más de 3.5",
-          "line": 3.5,
-          "p": 0.30635054985398347,
-          "fairOdds": 3.264234389253201
-        },
-        {
-          "market": "totals",
-          "selection": "Menos de 3.5",
-          "line": 3.5,
-          "p": 0.6936494501460165,
-          "fairOdds": 1.4416503895296036
-        },
-        {
-          "market": "btts",
-          "selection": "Sí",
-          "p": 0.553254168295658,
-          "fairOdds": 1.8074875117174027
-        },
-        {
-          "market": "btts",
-          "selection": "No",
-          "p": 0.446745831704342,
-          "fairOdds": 2.238409245330807
-        }
-      ],
-      "marketGroups": [
-        {
-          "group": "Resultado",
-          "rows": [
-            {
-              "market": "h2h",
-              "selection": "home",
-              "label": "Albacete Balompié gana",
-              "p": 0.4704822669705897,
-              "fairOdds": 2.1254786209880914
-            },
-            {
-              "market": "h2h",
-              "selection": "draw",
-              "label": "Empate",
-              "p": 0.26440156881337756,
-              "fairOdds": 3.7821258190257923
-            },
-            {
-              "market": "h2h",
-              "selection": "away",
-              "label": "Las Palmas gana",
-              "p": 0.2651161619300739,
-              "fairOdds": 3.7719314911618116
-            }
-          ]
-        },
-        {
-          "group": "Doble oportunidad",
-          "rows": [
-            {
-              "market": "double_chance",
-              "selection": "1x",
-              "label": "Albacete Balompié o empate",
-              "p": 0.7348838357839673,
-              "fairOdds": 1.360759281000118
-            },
-            {
-              "market": "double_chance",
-              "selection": "x2",
-              "label": "Las Palmas o empate",
-              "p": 0.5295177307434515,
-              "fairOdds": 1.8885108881925137
-            },
-            {
-              "market": "double_chance",
-              "selection": "12",
-              "label": "Sin empate",
-              "p": 0.7355984289006636,
-              "fairOdds": 1.359437378753621
-            }
-          ]
-        },
-        {
-          "group": "Goles totales",
-          "rows": [
-            {
-              "market": "totals",
-              "selection": "over_1.5",
-              "label": "Más de 1.5",
-              "line": 1.5,
-              "p": 0.7676079331448753,
-              "fairOdds": 1.3027483912301672
-            },
-            {
-              "market": "totals",
-              "selection": "over_2.5",
-              "label": "Más de 2.5",
-              "line": 2.5,
-              "p": 0.5287094863759703,
-              "fairOdds": 1.891397876846285
-            },
-            {
-              "market": "totals",
-              "selection": "under_2.5",
-              "label": "Menos de 2.5",
-              "line": 2.5,
-              "p": 0.47129051362402974,
-              "fairOdds": 2.1218334999158213
-            },
-            {
-              "market": "totals",
-              "selection": "over_3.5",
-              "label": "Más de 3.5",
-              "line": 3.5,
-              "p": 0.30635054985398347,
-              "fairOdds": 3.264234389253201
-            },
-            {
-              "market": "totals",
-              "selection": "under_3.5",
-              "label": "Menos de 3.5",
-              "line": 3.5,
-              "p": 0.6936494501460165,
-              "fairOdds": 1.4416503895296036
-            }
-          ]
-        },
-        {
-          "group": "Ambos anotan",
-          "rows": [
-            {
-              "market": "btts",
-              "selection": "yes",
-              "label": "Sí",
-              "p": 0.553254168295658,
-              "fairOdds": 1.8074875117174027
-            },
-            {
-              "market": "btts",
-              "selection": "no",
-              "label": "No",
-              "p": 0.446745831704342,
-              "fairOdds": 2.238409245330807
-            }
-          ]
-        }
-      ],
-      "mostLikelyScore": {
-        "home": 1,
-        "away": 1,
-        "p": 0.1255632250692279
-      },
-      "factors": [
-        {
-          "key": "home_attack",
-          "label": "Ataque local",
-          "value": "3.00 goles/partido",
-          "detail": "1 partidos · ajustado a 1.67"
-        },
-        {
-          "key": "away_defense",
-          "label": "Defensa visitante",
-          "value": "1.00 recibidos/partido",
-          "detail": "ajustado a 1.39"
-        },
-        {
-          "key": "away_attack",
-          "label": "Ataque visitante",
-          "value": "1.00 goles/partido",
-          "detail": "ajustado a 1.39"
-        },
-        {
-          "key": "home_defense",
-          "label": "Defensa local",
-          "value": "0.00 recibidos/partido",
-          "detail": "ajustado a 1.24"
-        },
-        {
-          "key": "home_advantage",
-          "label": "Localía",
-          "value": "Incluida",
-          "detail": "Ajuste del modelo PitchLab"
-        },
-        {
-          "key": "sample_size",
-          "label": "Muestra",
-          "value": "1 y 1 partidos",
-          "detail": "Temporada actual"
-        }
-      ],
-      "steps": [
-        "Sincronizando Copa del Rey · corte 24 nov 2026, 21:01",
-        "Fuerza de ataque y defensa · ALB 3.00 / 0.00 · LAS 1.00 / 1.00",
-        "Ajuste por localía y tamaño de muestra (1 partidos)",
-        "Proyección de goles 1.62 – 1.17",
-        "Evaluando 196 marcadores posibles",
-        "13 mercados listos · marcador más probable 1–1"
-      ],
-      "inputsAsOf": "2026-11-24T21:01:09.804Z",
-      "publishedAt": "2026-11-24T21:01:09.804Z",
-      "source": "pitchlab-football-v2",
-      "matchContext": {
-        "stageName": "Round 2"
-      }
-    },
-    "copa-del-rey-2026-12-02-cartagena-elche-qjo7y9": {
-      "game": "copa-del-rey-2026-12-02-cartagena-elche-qjo7y9",
-      "model": {
-        "id": "pitchlab-statistical-copa-del-rey",
-        "version": "1.0.0",
-        "status": "reference",
-        "label": "Modelo PitchLab · en validación"
-      },
-      "projection": {
-        "home": 1.3987703978461352,
-        "away": 1.512260007789664,
-        "total": 2.911030405635799
-      },
-      "x12": [
-        0.34211905158996425,
-        0.2651965165905981,
-        0.3926844305576179
-      ],
-      "probabilities": [
-        {
-          "market": "h2h",
-          "selection": "Cartagena gana",
-          "p": 0.34211905158996425,
-          "fairOdds": 2.92295911423991
-        },
-        {
-          "market": "h2h",
-          "selection": "Empate",
-          "p": 0.2651965165905981,
-          "fairOdds": 3.7707885942701425
-        },
-        {
-          "market": "h2h",
-          "selection": "Elche gana",
-          "p": 0.3926844305576179,
-          "fairOdds": 2.5465740991563752
-        },
-        {
-          "market": "double_chance",
-          "selection": "Cartagena o empate",
-          "p": 0.6073155681805624,
-          "fairOdds": 1.6465904257911064
-        },
-        {
-          "market": "double_chance",
-          "selection": "Elche o empate",
-          "p": 0.6578809471482161,
-          "fairOdds": 1.5200318603765657
-        },
-        {
-          "market": "double_chance",
-          "selection": "Sin empate",
-          "p": 0.7348034821475822,
-          "fairOdds": 1.3609080853527504
-        },
-        {
-          "market": "totals",
-          "selection": "Más de 1.5",
-          "line": 1.5,
-          "p": 0.787163185392721,
-          "fairOdds": 1.2703846147239384
-        },
-        {
-          "market": "totals",
-          "selection": "Más de 2.5",
-          "line": 2.5,
-          "p": 0.5565845599763293,
-          "fairOdds": 1.7966721894738304
-        },
-        {
-          "market": "totals",
-          "selection": "Menos de 2.5",
-          "line": 2.5,
-          "p": 0.4434154400236707,
-          "fairOdds": 2.255221423833634
-        },
-        {
-          "market": "totals",
-          "selection": "Más de 3.5",
-          "line": 3.5,
-          "p": 0.332844096817388,
-          "fairOdds": 3.0044096006564933
-        },
-        {
-          "market": "totals",
-          "selection": "Menos de 3.5",
-          "line": 3.5,
-          "p": 0.667155903182612,
-          "fairOdds": 1.4989000250609832
-        },
-        {
-          "market": "btts",
-          "selection": "Sí",
-          "p": 0.5871079766585461,
-          "fairOdds": 1.7032642031051577
-        },
-        {
-          "market": "btts",
-          "selection": "No",
-          "p": 0.4128920233414539,
-          "fairOdds": 2.4219407096005314
-        }
-      ],
-      "marketGroups": [
-        {
-          "group": "Resultado",
-          "rows": [
-            {
-              "market": "h2h",
-              "selection": "home",
-              "label": "Cartagena gana",
-              "p": 0.34211905158996425,
-              "fairOdds": 2.92295911423991
-            },
-            {
-              "market": "h2h",
-              "selection": "draw",
-              "label": "Empate",
-              "p": 0.2651965165905981,
-              "fairOdds": 3.7707885942701425
-            },
-            {
-              "market": "h2h",
-              "selection": "away",
-              "label": "Elche gana",
-              "p": 0.3926844305576179,
-              "fairOdds": 2.5465740991563752
-            }
-          ]
-        },
-        {
-          "group": "Doble oportunidad",
-          "rows": [
-            {
-              "market": "double_chance",
-              "selection": "1x",
-              "label": "Cartagena o empate",
-              "p": 0.6073155681805624,
-              "fairOdds": 1.6465904257911064
-            },
-            {
-              "market": "double_chance",
-              "selection": "x2",
-              "label": "Elche o empate",
-              "p": 0.6578809471482161,
-              "fairOdds": 1.5200318603765657
-            },
-            {
-              "market": "double_chance",
-              "selection": "12",
-              "label": "Sin empate",
-              "p": 0.7348034821475822,
-              "fairOdds": 1.3609080853527504
-            }
-          ]
-        },
-        {
-          "group": "Goles totales",
-          "rows": [
-            {
-              "market": "totals",
-              "selection": "over_1.5",
-              "label": "Más de 1.5",
-              "line": 1.5,
-              "p": 0.787163185392721,
-              "fairOdds": 1.2703846147239384
-            },
-            {
-              "market": "totals",
-              "selection": "over_2.5",
-              "label": "Más de 2.5",
-              "line": 2.5,
-              "p": 0.5565845599763293,
-              "fairOdds": 1.7966721894738304
-            },
-            {
-              "market": "totals",
-              "selection": "under_2.5",
-              "label": "Menos de 2.5",
-              "line": 2.5,
-              "p": 0.4434154400236707,
-              "fairOdds": 2.255221423833634
-            },
-            {
-              "market": "totals",
-              "selection": "over_3.5",
-              "label": "Más de 3.5",
-              "line": 3.5,
-              "p": 0.332844096817388,
-              "fairOdds": 3.0044096006564933
-            },
-            {
-              "market": "totals",
-              "selection": "under_3.5",
-              "label": "Menos de 3.5",
-              "line": 3.5,
-              "p": 0.667155903182612,
-              "fairOdds": 1.4989000250609832
-            }
-          ]
-        },
-        {
-          "group": "Ambos anotan",
-          "rows": [
-            {
-              "market": "btts",
-              "selection": "yes",
-              "label": "Sí",
-              "p": 0.5871079766585461,
-              "fairOdds": 1.7032642031051577
-            },
-            {
-              "market": "btts",
-              "selection": "no",
-              "label": "No",
-              "p": 0.4128920233414539,
-              "fairOdds": 2.4219407096005314
-            }
-          ]
-        }
-      ],
-      "mostLikelyScore": {
-        "home": 1,
-        "away": 1,
-        "p": 0.12432320962437647
-      },
-      "factors": [
-        {
-          "key": "home_attack",
-          "label": "Ataque local",
-          "value": "1.00 goles/partido",
-          "detail": "1 partidos · ajustado a 1.39"
-        },
-        {
-          "key": "away_defense",
-          "label": "Defensa visitante",
-          "value": "1.00 recibidos/partido",
-          "detail": "ajustado a 1.39"
-        },
-        {
-          "key": "away_attack",
-          "label": "Ataque visitante",
-          "value": "3.00 goles/partido",
-          "detail": "ajustado a 1.67"
-        },
-        {
-          "key": "home_defense",
-          "label": "Defensa local",
-          "value": "1.00 recibidos/partido",
-          "detail": "ajustado a 1.39"
-        },
-        {
-          "key": "home_advantage",
-          "label": "Localía",
-          "value": "Incluida",
-          "detail": "Ajuste del modelo PitchLab"
-        },
-        {
-          "key": "sample_size",
-          "label": "Muestra",
-          "value": "1 y 1 partidos",
-          "detail": "Temporada actual"
-        }
-      ],
-      "steps": [
-        "Sincronizando Copa del Rey · corte 24 nov 2026, 21:01",
-        "Fuerza de ataque y defensa · CAR 1.00 / 1.00 · ELC 3.00 / 1.00",
-        "Ajuste por localía y tamaño de muestra (1 partidos)",
-        "Proyección de goles 1.40 – 1.51",
-        "Evaluando 196 marcadores posibles",
-        "13 mercados listos · marcador más probable 1–1"
-      ],
-      "inputsAsOf": "2026-11-24T21:01:09.804Z",
-      "publishedAt": "2026-11-24T21:01:09.804Z",
-      "source": "pitchlab-football-v2",
-      "matchContext": {
-        "stageName": "Round 2",
-        "venueCity": "Cartagena",
-        "venueCountry": "Spain",
-        "venueCapacity": 15105
-      }
-    },
-    "copa-del-rey-2026-12-02-gimnastica-tor-deportivo-alav-2kavyp": {
-      "game": "copa-del-rey-2026-12-02-gimnastica-tor-deportivo-alav-2kavyp",
-      "model": {
-        "id": "pitchlab-statistical-copa-del-rey",
-        "version": "1.0.0",
-        "status": "reference",
-        "label": "Modelo PitchLab · en validación"
-      },
-      "projection": {
-        "home": 1.4344343142600007,
-        "away": 1.8527793736865183,
-        "total": 3.287213687946519
-      },
-      "x12": [
-        0.2914856884899495,
-        0.24158311785086528,
-        0.46693118167412745
-      ],
-      "probabilities": [
-        {
-          "market": "h2h",
-          "selection": "Gimnástica Torrelavega gana",
-          "p": 0.2914856884899495,
-          "fairOdds": 3.4307001663804852
-        },
-        {
-          "market": "h2h",
-          "selection": "Empate",
-          "p": 0.24158311785086528,
-          "fairOdds": 4.139362091590036
-        },
-        {
-          "market": "h2h",
-          "selection": "Alavés gana",
-          "p": 0.46693118167412745,
-          "fairOdds": 2.1416432212014977
-        },
-        {
-          "market": "double_chance",
-          "selection": "Gimnástica Torrelavega o empate",
-          "p": 0.5330688063408148,
-          "fairOdds": 1.8759304391948517
-        },
-        {
-          "market": "double_chance",
-          "selection": "Alavés o empate",
-          "p": 0.7085142995249927,
-          "fairOdds": 1.4114041179838253
-        },
-        {
-          "market": "double_chance",
-          "selection": "Sin empate",
-          "p": 0.758416870164077,
-          "fairOdds": 1.3185360707807812
-        },
-        {
-          "market": "totals",
-          "selection": "Más de 1.5",
-          "line": 1.5,
-          "p": 0.8398391499630414,
-          "fairOdds": 1.1907041962071032
-        },
-        {
-          "market": "totals",
-          "selection": "Más de 2.5",
-          "line": 2.5,
-          "p": 0.6379992082286957,
-          "fairOdds": 1.567400064298422
-        },
-        {
-          "market": "totals",
-          "selection": "Menos de 2.5",
-          "line": 2.5,
-          "p": 0.3620007917713043,
-          "fairOdds": 2.7624248972133594
-        },
-        {
-          "market": "totals",
-          "selection": "Más de 3.5",
-          "line": 3.5,
-          "p": 0.41683553514753935,
-          "fairOdds": 2.399027711603448
-        },
-        {
-          "market": "totals",
-          "selection": "Menos de 3.5",
-          "line": 3.5,
-          "p": 0.5831644648524607,
-          "fairOdds": 1.7147821245469712
-        },
-        {
-          "market": "btts",
-          "selection": "Sí",
-          "p": 0.6423069421738593,
-          "fairOdds": 1.556888045792475
-        },
-        {
-          "market": "btts",
-          "selection": "No",
-          "p": 0.3576930578261407,
-          "fairOdds": 2.79569306174809
-        }
-      ],
-      "marketGroups": [
-        {
-          "group": "Resultado",
-          "rows": [
-            {
-              "market": "h2h",
-              "selection": "home",
-              "label": "Gimnástica Torrelavega gana",
-              "p": 0.2914856884899495,
-              "fairOdds": 3.4307001663804852
-            },
-            {
-              "market": "h2h",
-              "selection": "draw",
-              "label": "Empate",
-              "p": 0.24158311785086528,
-              "fairOdds": 4.139362091590036
-            },
-            {
-              "market": "h2h",
-              "selection": "away",
-              "label": "Alavés gana",
-              "p": 0.46693118167412745,
-              "fairOdds": 2.1416432212014977
-            }
-          ]
-        },
-        {
-          "group": "Doble oportunidad",
-          "rows": [
-            {
-              "market": "double_chance",
-              "selection": "1x",
-              "label": "Gimnástica Torrelavega o empate",
-              "p": 0.5330688063408148,
-              "fairOdds": 1.8759304391948517
-            },
-            {
-              "market": "double_chance",
-              "selection": "x2",
-              "label": "Alavés o empate",
-              "p": 0.7085142995249927,
-              "fairOdds": 1.4114041179838253
-            },
-            {
-              "market": "double_chance",
-              "selection": "12",
-              "label": "Sin empate",
-              "p": 0.758416870164077,
-              "fairOdds": 1.3185360707807812
-            }
-          ]
-        },
-        {
-          "group": "Goles totales",
-          "rows": [
-            {
-              "market": "totals",
-              "selection": "over_1.5",
-              "label": "Más de 1.5",
-              "line": 1.5,
-              "p": 0.8398391499630414,
-              "fairOdds": 1.1907041962071032
-            },
-            {
-              "market": "totals",
-              "selection": "over_2.5",
-              "label": "Más de 2.5",
-              "line": 2.5,
-              "p": 0.6379992082286957,
-              "fairOdds": 1.567400064298422
-            },
-            {
-              "market": "totals",
-              "selection": "under_2.5",
-              "label": "Menos de 2.5",
-              "line": 2.5,
-              "p": 0.3620007917713043,
-              "fairOdds": 2.7624248972133594
-            },
-            {
-              "market": "totals",
-              "selection": "over_3.5",
-              "label": "Más de 3.5",
-              "line": 3.5,
-              "p": 0.41683553514753935,
-              "fairOdds": 2.399027711603448
-            },
-            {
-              "market": "totals",
-              "selection": "under_3.5",
-              "label": "Menos de 3.5",
-              "line": 3.5,
-              "p": 0.5831644648524607,
-              "fairOdds": 1.7147821245469712
-            }
-          ]
-        },
-        {
-          "group": "Ambos anotan",
-          "rows": [
-            {
-              "market": "btts",
-              "selection": "yes",
-              "label": "Sí",
-              "p": 0.6423069421738593,
-              "fairOdds": 1.556888045792475
-            },
-            {
-              "market": "btts",
-              "selection": "no",
-              "label": "No",
-              "p": 0.3576930578261407,
-              "fairOdds": 2.79569306174809
-            }
-          ]
-        }
-      ],
-      "mostLikelyScore": {
-        "home": 1,
-        "away": 1,
-        "p": 0.10722828574551171
-      },
-      "factors": [
-        {
-          "key": "home_attack",
-          "label": "Ataque local",
-          "value": "1.00 goles/partido",
-          "detail": "1 partidos · ajustado a 1.39"
-        },
-        {
-          "key": "away_defense",
-          "label": "Defensa visitante",
-          "value": "1.00 recibidos/partido",
-          "detail": "ajustado a 1.39"
-        },
-        {
-          "key": "away_attack",
-          "label": "Ataque visitante",
-          "value": "6.00 goles/partido",
-          "detail": "ajustado a 2.10"
-        },
-        {
-          "key": "home_defense",
-          "label": "Defensa local",
-          "value": "1.00 recibidos/partido",
-          "detail": "ajustado a 1.39"
-        },
-        {
-          "key": "home_advantage",
-          "label": "Localía",
-          "value": "Incluida",
-          "detail": "Ajuste del modelo PitchLab"
-        },
-        {
-          "key": "sample_size",
-          "label": "Muestra",
-          "value": "1 y 1 partidos",
-          "detail": "Temporada actual"
-        }
-      ],
-      "steps": [
-        "Sincronizando Copa del Rey · corte 24 nov 2026, 21:01",
-        "Fuerza de ataque y defensa · GIM 1.00 / 1.00 · DEP 6.00 / 1.00",
-        "Ajuste por localía y tamaño de muestra (1 partidos)",
-        "Proyección de goles 1.43 – 1.85",
-        "Evaluando 196 marcadores posibles",
-        "13 mercados listos · marcador más probable 1–1"
-      ],
-      "inputsAsOf": "2026-11-24T21:01:09.804Z",
-      "publishedAt": "2026-11-24T21:01:09.804Z",
-      "source": "pitchlab-football-v2",
-      "matchContext": {
-        "stageName": "Round 2"
-      }
-    },
-    "copa-del-rey-2026-12-02-ce-europa-rayo-vallecano-vz8n9z": {
-      "game": "copa-del-rey-2026-12-02-ce-europa-rayo-vallecano-vz8n9z",
-      "model": {
-        "id": "pitchlab-statistical-copa-del-rey",
-        "version": "1.0.0",
-        "status": "reference",
-        "label": "Modelo PitchLab · en validación"
-      },
-      "projection": {
-        "home": 1.6242015783067352,
-        "away": 1.1681012540814868,
-        "total": 2.7923028323882217
-      },
-      "x12": [
-        0.4704822669705897,
-        0.26440156881337756,
-        0.2651161619300739
-      ],
-      "probabilities": [
-        {
-          "market": "h2h",
-          "selection": "CE Europa gana",
-          "p": 0.4704822669705897,
-          "fairOdds": 2.1254786209880914
-        },
-        {
-          "market": "h2h",
-          "selection": "Empate",
-          "p": 0.26440156881337756,
-          "fairOdds": 3.7821258190257923
-        },
-        {
-          "market": "h2h",
-          "selection": "Rayo Vallecano gana",
-          "p": 0.2651161619300739,
-          "fairOdds": 3.7719314911618116
-        },
-        {
-          "market": "double_chance",
-          "selection": "CE Europa o empate",
-          "p": 0.7348838357839673,
-          "fairOdds": 1.360759281000118
-        },
-        {
-          "market": "double_chance",
-          "selection": "Rayo Vallecano o empate",
-          "p": 0.5295177307434515,
-          "fairOdds": 1.8885108881925137
-        },
-        {
-          "market": "double_chance",
-          "selection": "Sin empate",
-          "p": 0.7355984289006636,
-          "fairOdds": 1.359437378753621
-        },
-        {
-          "market": "totals",
-          "selection": "Más de 1.5",
-          "line": 1.5,
-          "p": 0.7676079331448753,
-          "fairOdds": 1.3027483912301672
-        },
-        {
-          "market": "totals",
-          "selection": "Más de 2.5",
-          "line": 2.5,
-          "p": 0.5287094863759703,
-          "fairOdds": 1.891397876846285
-        },
-        {
-          "market": "totals",
-          "selection": "Menos de 2.5",
-          "line": 2.5,
-          "p": 0.47129051362402974,
-          "fairOdds": 2.1218334999158213
-        },
-        {
-          "market": "totals",
-          "selection": "Más de 3.5",
-          "line": 3.5,
-          "p": 0.30635054985398347,
-          "fairOdds": 3.264234389253201
-        },
-        {
-          "market": "totals",
-          "selection": "Menos de 3.5",
-          "line": 3.5,
-          "p": 0.6936494501460165,
-          "fairOdds": 1.4416503895296036
-        },
-        {
-          "market": "btts",
-          "selection": "Sí",
-          "p": 0.553254168295658,
-          "fairOdds": 1.8074875117174027
-        },
-        {
-          "market": "btts",
-          "selection": "No",
-          "p": 0.446745831704342,
-          "fairOdds": 2.238409245330807
-        }
-      ],
-      "marketGroups": [
-        {
-          "group": "Resultado",
-          "rows": [
-            {
-              "market": "h2h",
-              "selection": "home",
-              "label": "CE Europa gana",
-              "p": 0.4704822669705897,
-              "fairOdds": 2.1254786209880914
-            },
-            {
-              "market": "h2h",
-              "selection": "draw",
-              "label": "Empate",
-              "p": 0.26440156881337756,
-              "fairOdds": 3.7821258190257923
-            },
-            {
-              "market": "h2h",
-              "selection": "away",
-              "label": "Rayo Vallecano gana",
-              "p": 0.2651161619300739,
-              "fairOdds": 3.7719314911618116
-            }
-          ]
-        },
-        {
-          "group": "Doble oportunidad",
-          "rows": [
-            {
-              "market": "double_chance",
-              "selection": "1x",
-              "label": "CE Europa o empate",
-              "p": 0.7348838357839673,
-              "fairOdds": 1.360759281000118
-            },
-            {
-              "market": "double_chance",
-              "selection": "x2",
-              "label": "Rayo Vallecano o empate",
-              "p": 0.5295177307434515,
-              "fairOdds": 1.8885108881925137
-            },
-            {
-              "market": "double_chance",
-              "selection": "12",
-              "label": "Sin empate",
-              "p": 0.7355984289006636,
-              "fairOdds": 1.359437378753621
-            }
-          ]
-        },
-        {
-          "group": "Goles totales",
-          "rows": [
-            {
-              "market": "totals",
-              "selection": "over_1.5",
-              "label": "Más de 1.5",
-              "line": 1.5,
-              "p": 0.7676079331448753,
-              "fairOdds": 1.3027483912301672
-            },
-            {
-              "market": "totals",
-              "selection": "over_2.5",
-              "label": "Más de 2.5",
-              "line": 2.5,
-              "p": 0.5287094863759703,
-              "fairOdds": 1.891397876846285
-            },
-            {
-              "market": "totals",
-              "selection": "under_2.5",
-              "label": "Menos de 2.5",
-              "line": 2.5,
-              "p": 0.47129051362402974,
-              "fairOdds": 2.1218334999158213
-            },
-            {
-              "market": "totals",
-              "selection": "over_3.5",
-              "label": "Más de 3.5",
-              "line": 3.5,
-              "p": 0.30635054985398347,
-              "fairOdds": 3.264234389253201
-            },
-            {
-              "market": "totals",
-              "selection": "under_3.5",
-              "label": "Menos de 3.5",
-              "line": 3.5,
-              "p": 0.6936494501460165,
-              "fairOdds": 1.4416503895296036
-            }
-          ]
-        },
-        {
-          "group": "Ambos anotan",
-          "rows": [
-            {
-              "market": "btts",
-              "selection": "yes",
-              "label": "Sí",
-              "p": 0.553254168295658,
-              "fairOdds": 1.8074875117174027
-            },
-            {
-              "market": "btts",
-              "selection": "no",
-              "label": "No",
-              "p": 0.446745831704342,
-              "fairOdds": 2.238409245330807
-            }
-          ]
-        }
-      ],
-      "mostLikelyScore": {
-        "home": 1,
-        "away": 1,
-        "p": 0.1255632250692279
-      },
-      "factors": [
-        {
-          "key": "home_attack",
-          "label": "Ataque local",
-          "value": "3.00 goles/partido",
-          "detail": "1 partidos · ajustado a 1.67"
-        },
-        {
-          "key": "away_defense",
-          "label": "Defensa visitante",
-          "value": "1.00 recibidos/partido",
-          "detail": "ajustado a 1.39"
-        },
-        {
-          "key": "away_attack",
-          "label": "Ataque visitante",
-          "value": "1.00 goles/partido",
-          "detail": "ajustado a 1.39"
-        },
-        {
-          "key": "home_defense",
-          "label": "Defensa local",
-          "value": "0.00 recibidos/partido",
-          "detail": "ajustado a 1.24"
-        },
-        {
-          "key": "home_advantage",
-          "label": "Localía",
-          "value": "Incluida",
-          "detail": "Ajuste del modelo PitchLab"
-        },
-        {
-          "key": "sample_size",
-          "label": "Muestra",
-          "value": "1 y 1 partidos",
-          "detail": "Temporada actual"
-        }
-      ],
-      "steps": [
-        "Sincronizando Copa del Rey · corte 24 nov 2026, 21:01",
-        "Fuerza de ataque y defensa · CEE 3.00 / 0.00 · RAY 1.00 / 1.00",
-        "Ajuste por localía y tamaño de muestra (1 partidos)",
-        "Proyección de goles 1.62 – 1.17",
-        "Evaluando 196 marcadores posibles",
-        "13 mercados listos · marcador más probable 1–1"
-      ],
-      "inputsAsOf": "2026-11-24T21:01:09.804Z",
-      "publishedAt": "2026-11-24T21:01:09.804Z",
-      "source": "pitchlab-football-v2",
-      "matchContext": {
-        "stageName": "Round 2",
-        "venueCity": "Barcelona",
-        "venueCountry": "Spain",
-        "venueCapacity": 4000
-      }
-    },
-    "copa-del-rey-2026-12-02-huesca-girona-mksnkf": {
-      "game": "copa-del-rey-2026-12-02-huesca-girona-mksnkf",
-      "model": {
-        "id": "pitchlab-statistical-copa-del-rey",
-        "version": "1.0.0",
-        "status": "reference",
-        "label": "Modelo PitchLab · en validación"
-      },
-      "projection": {
-        "home": 1.720519786839653,
-        "away": 1.4243197474932139,
-        "total": 3.144839534332867
-      },
-      "x12": [
-        0.4381754779068423,
-        0.2507741968636089,
-        0.31105032018440204
-      ],
-      "probabilities": [
-        {
-          "market": "h2h",
-          "selection": "Huesca gana",
-          "p": 0.4381754779068423,
-          "fairOdds": 2.2821906985233062
-        },
-        {
-          "market": "h2h",
-          "selection": "Empate",
-          "p": 0.2507741968636089,
-          "fairOdds": 3.98765109212524
-        },
-        {
-          "market": "h2h",
-          "selection": "Girona gana",
-          "p": 0.31105032018440204,
-          "fairOdds": 3.214913906557509
-        },
-        {
-          "market": "double_chance",
-          "selection": "Huesca o empate",
-          "p": 0.6889496747704512,
-          "fairOdds": 1.4514848277317012
-        },
-        {
-          "market": "double_chance",
-          "selection": "Girona o empate",
-          "p": 0.561824517048011,
-          "fairOdds": 1.779915204224782
-        },
-        {
-          "market": "double_chance",
-          "selection": "Sin empate",
-          "p": 0.7492257980912443,
-          "fairOdds": 1.3347111145233352
-        },
-        {
-          "market": "totals",
-          "selection": "Más de 1.5",
-          "line": 1.5,
-          "p": 0.8214658642878266,
-          "fairOdds": 1.2173360372886026
-        },
-        {
-          "market": "totals",
-          "selection": "Más de 2.5",
-          "line": 2.5,
-          "p": 0.6084654103541026,
-          "fairOdds": 1.6434787959730361
-        },
-        {
-          "market": "totals",
-          "selection": "Menos de 2.5",
-          "line": 2.5,
-          "p": 0.3915345896458974,
-          "fairOdds": 2.5540527617352957
-        },
-        {
-          "market": "totals",
-          "selection": "Más de 3.5",
-          "line": 3.5,
-          "p": 0.3851813275668954,
-          "fairOdds": 2.596179846818581
-        },
-        {
-          "market": "totals",
-          "selection": "Menos de 3.5",
-          "line": 3.5,
-          "p": 0.6148186724331046,
-          "fairOdds": 1.6264958187469576
-        },
-        {
-          "market": "btts",
-          "selection": "Sí",
-          "p": 0.6234286141411156,
-          "fairOdds": 1.6040328873541982
-        },
-        {
-          "market": "btts",
-          "selection": "No",
-          "p": 0.3765713858588844,
-          "fairOdds": 2.655538996196429
-        }
-      ],
-      "marketGroups": [
-        {
-          "group": "Resultado",
-          "rows": [
-            {
-              "market": "h2h",
-              "selection": "home",
-              "label": "Huesca gana",
-              "p": 0.4381754779068423,
-              "fairOdds": 2.2821906985233062
-            },
-            {
-              "market": "h2h",
-              "selection": "draw",
-              "label": "Empate",
-              "p": 0.2507741968636089,
-              "fairOdds": 3.98765109212524
-            },
-            {
-              "market": "h2h",
-              "selection": "away",
-              "label": "Girona gana",
-              "p": 0.31105032018440204,
-              "fairOdds": 3.214913906557509
-            }
-          ]
-        },
-        {
-          "group": "Doble oportunidad",
-          "rows": [
-            {
-              "market": "double_chance",
-              "selection": "1x",
-              "label": "Huesca o empate",
-              "p": 0.6889496747704512,
-              "fairOdds": 1.4514848277317012
-            },
-            {
-              "market": "double_chance",
-              "selection": "x2",
-              "label": "Girona o empate",
-              "p": 0.561824517048011,
-              "fairOdds": 1.779915204224782
-            },
-            {
-              "market": "double_chance",
-              "selection": "12",
-              "label": "Sin empate",
-              "p": 0.7492257980912443,
-              "fairOdds": 1.3347111145233352
-            }
-          ]
-        },
-        {
-          "group": "Goles totales",
-          "rows": [
-            {
-              "market": "totals",
-              "selection": "over_1.5",
-              "label": "Más de 1.5",
-              "line": 1.5,
-              "p": 0.8214658642878266,
-              "fairOdds": 1.2173360372886026
-            },
-            {
-              "market": "totals",
-              "selection": "over_2.5",
-              "label": "Más de 2.5",
-              "line": 2.5,
-              "p": 0.6084654103541026,
-              "fairOdds": 1.6434787959730361
-            },
-            {
-              "market": "totals",
-              "selection": "under_2.5",
-              "label": "Menos de 2.5",
-              "line": 2.5,
-              "p": 0.3915345896458974,
-              "fairOdds": 2.5540527617352957
-            },
-            {
-              "market": "totals",
-              "selection": "over_3.5",
-              "label": "Más de 3.5",
-              "line": 3.5,
-              "p": 0.3851813275668954,
-              "fairOdds": 2.596179846818581
-            },
-            {
-              "market": "totals",
-              "selection": "under_3.5",
-              "label": "Menos de 3.5",
-              "line": 3.5,
-              "p": 0.6148186724331046,
-              "fairOdds": 1.6264958187469576
-            }
-          ]
-        },
-        {
-          "group": "Ambos anotan",
-          "rows": [
-            {
-              "market": "btts",
-              "selection": "yes",
-              "label": "Sí",
-              "p": 0.6234286141411156,
-              "fairOdds": 1.6040328873541982
-            },
-            {
-              "market": "btts",
-              "selection": "no",
-              "label": "No",
-              "p": 0.3765713858588844,
-              "fairOdds": 2.655538996196429
-            }
-          ]
-        }
-      ],
-      "mostLikelyScore": {
-        "home": 1,
-        "away": 1,
-        "p": 0.1139998989705656
-      },
-      "factors": [
-        {
-          "key": "home_attack",
-          "label": "Ataque local",
-          "value": "5.00 goles/partido",
-          "detail": "1 partidos · ajustado a 1.96"
-        },
-        {
-          "key": "away_defense",
-          "label": "Defensa visitante",
-          "value": "0.00 recibidos/partido",
-          "detail": "ajustado a 1.24"
-        },
-        {
-          "key": "away_attack",
-          "label": "Ataque visitante",
-          "value": "2.00 goles/partido",
-          "detail": "ajustado a 1.53"
-        },
-        {
-          "key": "home_defense",
-          "label": "Defensa local",
-          "value": "1.00 recibidos/partido",
-          "detail": "ajustado a 1.39"
-        },
-        {
-          "key": "home_advantage",
-          "label": "Localía",
-          "value": "Incluida",
-          "detail": "Ajuste del modelo PitchLab"
-        },
-        {
-          "key": "sample_size",
-          "label": "Muestra",
-          "value": "1 y 1 partidos",
-          "detail": "Temporada actual"
-        }
-      ],
-      "steps": [
-        "Sincronizando Copa del Rey · corte 24 nov 2026, 21:01",
-        "Fuerza de ataque y defensa · HUE 5.00 / 1.00 · GIR 2.00 / 0.00",
-        "Ajuste por localía y tamaño de muestra (1 partidos)",
-        "Proyección de goles 1.72 – 1.42",
-        "Evaluando 196 marcadores posibles",
-        "13 mercados listos · marcador más probable 1–1"
-      ],
-      "inputsAsOf": "2026-11-24T21:01:09.804Z",
-      "publishedAt": "2026-11-24T21:01:09.804Z",
-      "source": "pitchlab-football-v2",
-      "matchContext": {
-        "stageName": "Round 2",
-        "venueCity": "Huesca",
-        "venueCountry": "Spain",
-        "venueCapacity": 9100
-      }
-    },
-    "copa-del-rey-2026-12-02-numancia-athletic-ysmhbx": {
-      "game": "copa-del-rey-2026-12-02-numancia-athletic-ysmhbx",
-      "model": {
-        "id": "pitchlab-statistical-copa-del-rey",
-        "version": "1.0.0",
-        "status": "reference",
-        "label": "Modelo PitchLab · en validación"
-      },
-      "projection": {
-        "home": 1.7457074924708975,
-        "away": 2.2149358479302017,
-        "total": 3.9606433404010994
-      },
-      "x12": [
-        0.30223986937229386,
-        0.21496772240678153,
-        0.4827923023913644
-      ],
-      "probabilities": [
-        {
-          "market": "h2h",
-          "selection": "Numancia gana",
-          "p": 0.30223986937229386,
-          "fairOdds": 3.3086303341675194
-        },
-        {
-          "market": "h2h",
-          "selection": "Empate",
-          "p": 0.21496772240678153,
-          "fairOdds": 4.651861166895134
-        },
-        {
-          "market": "h2h",
-          "selection": "Athletic gana",
-          "p": 0.4827923023913644,
-          "fairOdds": 2.0712840595154582
-        },
-        {
-          "market": "double_chance",
-          "selection": "Numancia o empate",
-          "p": 0.5172075917790754,
-          "fairOdds": 1.9334596318670219
-        },
-        {
-          "market": "double_chance",
-          "selection": "Athletic o empate",
-          "p": 0.6977600247981459,
-          "fairOdds": 1.433157481742077
-        },
-        {
-          "market": "double_chance",
-          "selection": "Sin empate",
-          "p": 0.7850321717636582,
-          "fairOdds": 1.273833144638383
-        },
-        {
-          "market": "totals",
-          "selection": "Más de 1.5",
-          "line": 1.5,
-          "p": 0.9054955071616191,
-          "fairOdds": 1.1043677103761853
-        },
-        {
-          "market": "totals",
-          "selection": "Más de 2.5",
-          "line": 2.5,
-          "p": 0.7560730313995725,
-          "fairOdds": 1.3226235541676343
-        },
-        {
-          "market": "totals",
-          "selection": "Menos de 2.5",
-          "line": 2.5,
-          "p": 0.2439269686004275,
-          "fairOdds": 4.099587699292416
-        },
-        {
-          "market": "totals",
-          "selection": "Más de 3.5",
-          "line": 3.5,
-          "p": 0.5588033202218409,
-          "fairOdds": 1.7895384007435877
-        },
-        {
-          "market": "totals",
-          "selection": "Menos de 3.5",
-          "line": 3.5,
-          "p": 0.44119667977815913,
-          "fairOdds": 2.266562841095759
-        },
-        {
-          "market": "btts",
-          "selection": "Sí",
-          "p": 0.7353688646165931,
-          "fairOdds": 1.3598617620578488
-        },
-        {
-          "market": "btts",
-          "selection": "No",
-          "p": 0.2646311353834069,
-          "fairOdds": 3.7788448383111266
-        }
-      ],
-      "marketGroups": [
-        {
-          "group": "Resultado",
-          "rows": [
-            {
-              "market": "h2h",
-              "selection": "home",
-              "label": "Numancia gana",
-              "p": 0.30223986937229386,
-              "fairOdds": 3.3086303341675194
-            },
-            {
-              "market": "h2h",
-              "selection": "draw",
-              "label": "Empate",
-              "p": 0.21496772240678153,
-              "fairOdds": 4.651861166895134
-            },
-            {
-              "market": "h2h",
-              "selection": "away",
-              "label": "Athletic gana",
-              "p": 0.4827923023913644,
-              "fairOdds": 2.0712840595154582
-            }
-          ]
-        },
-        {
-          "group": "Doble oportunidad",
-          "rows": [
-            {
-              "market": "double_chance",
-              "selection": "1x",
-              "label": "Numancia o empate",
-              "p": 0.5172075917790754,
-              "fairOdds": 1.9334596318670219
-            },
-            {
-              "market": "double_chance",
-              "selection": "x2",
-              "label": "Athletic o empate",
-              "p": 0.6977600247981459,
-              "fairOdds": 1.433157481742077
-            },
-            {
-              "market": "double_chance",
-              "selection": "12",
-              "label": "Sin empate",
-              "p": 0.7850321717636582,
-              "fairOdds": 1.273833144638383
-            }
-          ]
-        },
-        {
-          "group": "Goles totales",
-          "rows": [
-            {
-              "market": "totals",
-              "selection": "over_1.5",
-              "label": "Más de 1.5",
-              "line": 1.5,
-              "p": 0.9054955071616191,
-              "fairOdds": 1.1043677103761853
-            },
-            {
-              "market": "totals",
-              "selection": "over_2.5",
-              "label": "Más de 2.5",
-              "line": 2.5,
-              "p": 0.7560730313995725,
-              "fairOdds": 1.3226235541676343
-            },
-            {
-              "market": "totals",
-              "selection": "under_2.5",
-              "label": "Menos de 2.5",
-              "line": 2.5,
-              "p": 0.2439269686004275,
-              "fairOdds": 4.099587699292416
-            },
-            {
-              "market": "totals",
-              "selection": "over_3.5",
-              "label": "Más de 3.5",
-              "line": 3.5,
-              "p": 0.5588033202218409,
-              "fairOdds": 1.7895384007435877
-            },
-            {
-              "market": "totals",
-              "selection": "under_3.5",
-              "label": "Menos de 3.5",
-              "line": 3.5,
-              "p": 0.44119667977815913,
-              "fairOdds": 2.266562841095759
-            }
-          ]
-        },
-        {
-          "group": "Ambos anotan",
-          "rows": [
-            {
-              "market": "btts",
-              "selection": "yes",
-              "label": "Sí",
-              "p": 0.7353688646165931,
-              "fairOdds": 1.3598617620578488
-            },
-            {
-              "market": "btts",
-              "selection": "no",
-              "label": "No",
-              "p": 0.2646311353834069,
-              "fairOdds": 3.7788448383111266
-            }
-          ]
-        }
-      ],
-      "mostLikelyScore": {
-        "home": 1,
-        "away": 2,
-        "p": 0.08157897360481983
-      },
-      "factors": [
-        {
-          "key": "home_attack",
-          "label": "Ataque local",
-          "value": "3.00 goles/partido",
-          "detail": "1 partidos · ajustado a 1.67"
-        },
-        {
-          "key": "away_defense",
-          "label": "Defensa visitante",
-          "value": "1.00 recibidos/partido",
-          "detail": "ajustado a 1.39"
-        },
-        {
-          "key": "away_attack",
-          "label": "Ataque visitante",
-          "value": "6.00 goles/partido",
-          "detail": "ajustado a 2.10"
-        },
-        {
-          "key": "home_defense",
-          "label": "Defensa local",
-          "value": "3.00 recibidos/partido",
-          "detail": "ajustado a 1.67"
-        },
-        {
-          "key": "home_advantage",
-          "label": "Localía",
-          "value": "Incluida",
-          "detail": "Ajuste del modelo PitchLab"
-        },
-        {
-          "key": "sample_size",
-          "label": "Muestra",
-          "value": "1 y 1 partidos",
-          "detail": "Temporada actual"
-        }
-      ],
-      "steps": [
-        "Sincronizando Copa del Rey · corte 24 nov 2026, 21:01",
-        "Fuerza de ataque y defensa · NUM 3.00 / 3.00 · ATH 6.00 / 1.00",
-        "Ajuste por localía y tamaño de muestra (1 partidos)",
-        "Proyección de goles 1.75 – 2.21",
-        "Evaluando 196 marcadores posibles",
-        "13 mercados listos · marcador más probable 1–2"
-      ],
-      "inputsAsOf": "2026-11-24T21:01:09.804Z",
-      "publishedAt": "2026-11-24T21:01:09.804Z",
-      "source": "pitchlab-football-v2",
-      "matchContext": {
-        "stageName": "Round 2",
-        "venueCity": "Soria",
-        "venueCountry": "Spain",
-        "venueCapacity": 8261
       }
     },
     "copa-del-rey-2026-12-02-ad-ceuta-cadiz-2b5zow": {
@@ -14766,288 +14766,6 @@
         "venueCapacity": 17400
       }
     },
-    "copa-del-rey-2026-12-02-rayo-majadahon-mallorca-6ufh8e": {
-      "game": "copa-del-rey-2026-12-02-rayo-majadahon-mallorca-6ufh8e",
-      "model": {
-        "id": "pitchlab-statistical-copa-del-rey",
-        "version": "1.0.0",
-        "status": "reference",
-        "label": "Modelo PitchLab · en validación"
-      },
-      "projection": {
-        "home": 1.3715692220777063,
-        "away": 1.1468023121236885,
-        "total": 2.518371534201395
-      },
-      "x12": [
-        0.40972542825537855,
-        0.2871067142386737,
-        0.3031678572122078
-      ],
-      "probabilities": [
-        {
-          "market": "h2h",
-          "selection": "Rayo Majadahonda gana",
-          "p": 0.40972542825537855,
-          "fairOdds": 2.4406588682035815
-        },
-        {
-          "market": "h2h",
-          "selection": "Empate",
-          "p": 0.2871067142386737,
-          "fairOdds": 3.4830254759165733
-        },
-        {
-          "market": "h2h",
-          "selection": "Mallorca gana",
-          "p": 0.3031678572122078,
-          "fairOdds": 3.2985027146200134
-        },
-        {
-          "market": "double_chance",
-          "selection": "Rayo Majadahonda o empate",
-          "p": 0.6968321424940522,
-          "fairOdds": 1.4350658343928724
-        },
-        {
-          "market": "double_chance",
-          "selection": "Mallorca o empate",
-          "p": 0.5902745714508815,
-          "fairOdds": 1.6941268493779476
-        },
-        {
-          "market": "double_chance",
-          "selection": "Sin empate",
-          "p": 0.7128932854675863,
-          "fairOdds": 1.4027344911014283
-        },
-        {
-          "market": "totals",
-          "selection": "Más de 1.5",
-          "line": 1.5,
-          "p": 0.7164518372409019,
-          "fairOdds": 1.3957672351725117
-        },
-        {
-          "market": "totals",
-          "selection": "Más de 2.5",
-          "line": 2.5,
-          "p": 0.46089073818130366,
-          "fairOdds": 2.1697116413014648
-        },
-        {
-          "market": "totals",
-          "selection": "Menos de 2.5",
-          "line": 2.5,
-          "p": 0.5391092618186963,
-          "fairOdds": 1.8549115565673628
-        },
-        {
-          "market": "totals",
-          "selection": "Más de 3.5",
-          "line": 3.5,
-          "p": 0.24635813914099858,
-          "fairOdds": 4.059131163625442
-        },
-        {
-          "market": "totals",
-          "selection": "Menos de 3.5",
-          "line": 3.5,
-          "p": 0.7536418608590014,
-          "fairOdds": 1.3268902006852425
-        },
-        {
-          "market": "btts",
-          "selection": "Sí",
-          "p": 0.5092313217056855,
-          "fairOdds": 1.9637440930586716
-        },
-        {
-          "market": "btts",
-          "selection": "No",
-          "p": 0.4907686782943145,
-          "fairOdds": 2.037619848674
-        }
-      ],
-      "marketGroups": [
-        {
-          "group": "Resultado",
-          "rows": [
-            {
-              "market": "h2h",
-              "selection": "home",
-              "label": "Rayo Majadahonda gana",
-              "p": 0.40972542825537855,
-              "fairOdds": 2.4406588682035815
-            },
-            {
-              "market": "h2h",
-              "selection": "draw",
-              "label": "Empate",
-              "p": 0.2871067142386737,
-              "fairOdds": 3.4830254759165733
-            },
-            {
-              "market": "h2h",
-              "selection": "away",
-              "label": "Mallorca gana",
-              "p": 0.3031678572122078,
-              "fairOdds": 3.2985027146200134
-            }
-          ]
-        },
-        {
-          "group": "Doble oportunidad",
-          "rows": [
-            {
-              "market": "double_chance",
-              "selection": "1x",
-              "label": "Rayo Majadahonda o empate",
-              "p": 0.6968321424940522,
-              "fairOdds": 1.4350658343928724
-            },
-            {
-              "market": "double_chance",
-              "selection": "x2",
-              "label": "Mallorca o empate",
-              "p": 0.5902745714508815,
-              "fairOdds": 1.6941268493779476
-            },
-            {
-              "market": "double_chance",
-              "selection": "12",
-              "label": "Sin empate",
-              "p": 0.7128932854675863,
-              "fairOdds": 1.4027344911014283
-            }
-          ]
-        },
-        {
-          "group": "Goles totales",
-          "rows": [
-            {
-              "market": "totals",
-              "selection": "over_1.5",
-              "label": "Más de 1.5",
-              "line": 1.5,
-              "p": 0.7164518372409019,
-              "fairOdds": 1.3957672351725117
-            },
-            {
-              "market": "totals",
-              "selection": "over_2.5",
-              "label": "Más de 2.5",
-              "line": 2.5,
-              "p": 0.46089073818130366,
-              "fairOdds": 2.1697116413014648
-            },
-            {
-              "market": "totals",
-              "selection": "under_2.5",
-              "label": "Menos de 2.5",
-              "line": 2.5,
-              "p": 0.5391092618186963,
-              "fairOdds": 1.8549115565673628
-            },
-            {
-              "market": "totals",
-              "selection": "over_3.5",
-              "label": "Más de 3.5",
-              "line": 3.5,
-              "p": 0.24635813914099858,
-              "fairOdds": 4.059131163625442
-            },
-            {
-              "market": "totals",
-              "selection": "under_3.5",
-              "label": "Menos de 3.5",
-              "line": 3.5,
-              "p": 0.7536418608590014,
-              "fairOdds": 1.3268902006852425
-            }
-          ]
-        },
-        {
-          "group": "Ambos anotan",
-          "rows": [
-            {
-              "market": "btts",
-              "selection": "yes",
-              "label": "Sí",
-              "p": 0.5092313217056855,
-              "fairOdds": 1.9637440930586716
-            },
-            {
-              "market": "btts",
-              "selection": "no",
-              "label": "No",
-              "p": 0.4907686782943145,
-              "fairOdds": 2.037619848674
-            }
-          ]
-        }
-      ],
-      "mostLikelyScore": {
-        "home": 1,
-        "away": 1,
-        "p": 0.1369037000086241
-      },
-      "factors": [
-        {
-          "key": "home_attack",
-          "label": "Ataque local",
-          "value": "1.00 goles/partido",
-          "detail": "1 partidos · ajustado a 1.39"
-        },
-        {
-          "key": "away_defense",
-          "label": "Defensa visitante",
-          "value": "1.00 recibidos/partido",
-          "detail": "ajustado a 1.39"
-        },
-        {
-          "key": "away_attack",
-          "label": "Ataque visitante",
-          "value": "1.00 goles/partido",
-          "detail": "ajustado a 1.39"
-        },
-        {
-          "key": "home_defense",
-          "label": "Defensa local",
-          "value": "0.00 recibidos/partido",
-          "detail": "ajustado a 1.24"
-        },
-        {
-          "key": "home_advantage",
-          "label": "Localía",
-          "value": "Incluida",
-          "detail": "Ajuste del modelo PitchLab"
-        },
-        {
-          "key": "sample_size",
-          "label": "Muestra",
-          "value": "1 y 1 partidos",
-          "detail": "Temporada actual"
-        }
-      ],
-      "steps": [
-        "Sincronizando Copa del Rey · corte 24 nov 2026, 21:01",
-        "Fuerza de ataque y defensa · RAY 1.00 / 0.00 · MAL 1.00 / 1.00",
-        "Ajuste por localía y tamaño de muestra (1 partidos)",
-        "Proyección de goles 1.37 – 1.15",
-        "Evaluando 196 marcadores posibles",
-        "13 mercados listos · marcador más probable 1–1"
-      ],
-      "inputsAsOf": "2026-11-24T21:01:09.804Z",
-      "publishedAt": "2026-11-24T21:01:09.804Z",
-      "source": "pitchlab-football-v2",
-      "matchContext": {
-        "stageName": "Round 2",
-        "venueCity": "Majadahonda",
-        "venueCountry": "Spain",
-        "venueCapacity": 3800
-      }
-    },
     "copa-del-rey-2026-12-02-arosa-celta-vigo-cvn4ib": {
       "game": "copa-del-rey-2026-12-02-arosa-celta-vigo-cvn4ib",
       "model": {
@@ -15604,6 +15322,288 @@
       "source": "pitchlab-football-v2",
       "matchContext": {
         "stageName": "Round 2"
+      }
+    },
+    "copa-del-rey-2026-12-02-rayo-majadahon-mallorca-6ufh8e": {
+      "game": "copa-del-rey-2026-12-02-rayo-majadahon-mallorca-6ufh8e",
+      "model": {
+        "id": "pitchlab-statistical-copa-del-rey",
+        "version": "1.0.0",
+        "status": "reference",
+        "label": "Modelo PitchLab · en validación"
+      },
+      "projection": {
+        "home": 1.3715692220777063,
+        "away": 1.1468023121236885,
+        "total": 2.518371534201395
+      },
+      "x12": [
+        0.40972542825537855,
+        0.2871067142386737,
+        0.3031678572122078
+      ],
+      "probabilities": [
+        {
+          "market": "h2h",
+          "selection": "Rayo Majadahonda gana",
+          "p": 0.40972542825537855,
+          "fairOdds": 2.4406588682035815
+        },
+        {
+          "market": "h2h",
+          "selection": "Empate",
+          "p": 0.2871067142386737,
+          "fairOdds": 3.4830254759165733
+        },
+        {
+          "market": "h2h",
+          "selection": "Mallorca gana",
+          "p": 0.3031678572122078,
+          "fairOdds": 3.2985027146200134
+        },
+        {
+          "market": "double_chance",
+          "selection": "Rayo Majadahonda o empate",
+          "p": 0.6968321424940522,
+          "fairOdds": 1.4350658343928724
+        },
+        {
+          "market": "double_chance",
+          "selection": "Mallorca o empate",
+          "p": 0.5902745714508815,
+          "fairOdds": 1.6941268493779476
+        },
+        {
+          "market": "double_chance",
+          "selection": "Sin empate",
+          "p": 0.7128932854675863,
+          "fairOdds": 1.4027344911014283
+        },
+        {
+          "market": "totals",
+          "selection": "Más de 1.5",
+          "line": 1.5,
+          "p": 0.7164518372409019,
+          "fairOdds": 1.3957672351725117
+        },
+        {
+          "market": "totals",
+          "selection": "Más de 2.5",
+          "line": 2.5,
+          "p": 0.46089073818130366,
+          "fairOdds": 2.1697116413014648
+        },
+        {
+          "market": "totals",
+          "selection": "Menos de 2.5",
+          "line": 2.5,
+          "p": 0.5391092618186963,
+          "fairOdds": 1.8549115565673628
+        },
+        {
+          "market": "totals",
+          "selection": "Más de 3.5",
+          "line": 3.5,
+          "p": 0.24635813914099858,
+          "fairOdds": 4.059131163625442
+        },
+        {
+          "market": "totals",
+          "selection": "Menos de 3.5",
+          "line": 3.5,
+          "p": 0.7536418608590014,
+          "fairOdds": 1.3268902006852425
+        },
+        {
+          "market": "btts",
+          "selection": "Sí",
+          "p": 0.5092313217056855,
+          "fairOdds": 1.9637440930586716
+        },
+        {
+          "market": "btts",
+          "selection": "No",
+          "p": 0.4907686782943145,
+          "fairOdds": 2.037619848674
+        }
+      ],
+      "marketGroups": [
+        {
+          "group": "Resultado",
+          "rows": [
+            {
+              "market": "h2h",
+              "selection": "home",
+              "label": "Rayo Majadahonda gana",
+              "p": 0.40972542825537855,
+              "fairOdds": 2.4406588682035815
+            },
+            {
+              "market": "h2h",
+              "selection": "draw",
+              "label": "Empate",
+              "p": 0.2871067142386737,
+              "fairOdds": 3.4830254759165733
+            },
+            {
+              "market": "h2h",
+              "selection": "away",
+              "label": "Mallorca gana",
+              "p": 0.3031678572122078,
+              "fairOdds": 3.2985027146200134
+            }
+          ]
+        },
+        {
+          "group": "Doble oportunidad",
+          "rows": [
+            {
+              "market": "double_chance",
+              "selection": "1x",
+              "label": "Rayo Majadahonda o empate",
+              "p": 0.6968321424940522,
+              "fairOdds": 1.4350658343928724
+            },
+            {
+              "market": "double_chance",
+              "selection": "x2",
+              "label": "Mallorca o empate",
+              "p": 0.5902745714508815,
+              "fairOdds": 1.6941268493779476
+            },
+            {
+              "market": "double_chance",
+              "selection": "12",
+              "label": "Sin empate",
+              "p": 0.7128932854675863,
+              "fairOdds": 1.4027344911014283
+            }
+          ]
+        },
+        {
+          "group": "Goles totales",
+          "rows": [
+            {
+              "market": "totals",
+              "selection": "over_1.5",
+              "label": "Más de 1.5",
+              "line": 1.5,
+              "p": 0.7164518372409019,
+              "fairOdds": 1.3957672351725117
+            },
+            {
+              "market": "totals",
+              "selection": "over_2.5",
+              "label": "Más de 2.5",
+              "line": 2.5,
+              "p": 0.46089073818130366,
+              "fairOdds": 2.1697116413014648
+            },
+            {
+              "market": "totals",
+              "selection": "under_2.5",
+              "label": "Menos de 2.5",
+              "line": 2.5,
+              "p": 0.5391092618186963,
+              "fairOdds": 1.8549115565673628
+            },
+            {
+              "market": "totals",
+              "selection": "over_3.5",
+              "label": "Más de 3.5",
+              "line": 3.5,
+              "p": 0.24635813914099858,
+              "fairOdds": 4.059131163625442
+            },
+            {
+              "market": "totals",
+              "selection": "under_3.5",
+              "label": "Menos de 3.5",
+              "line": 3.5,
+              "p": 0.7536418608590014,
+              "fairOdds": 1.3268902006852425
+            }
+          ]
+        },
+        {
+          "group": "Ambos anotan",
+          "rows": [
+            {
+              "market": "btts",
+              "selection": "yes",
+              "label": "Sí",
+              "p": 0.5092313217056855,
+              "fairOdds": 1.9637440930586716
+            },
+            {
+              "market": "btts",
+              "selection": "no",
+              "label": "No",
+              "p": 0.4907686782943145,
+              "fairOdds": 2.037619848674
+            }
+          ]
+        }
+      ],
+      "mostLikelyScore": {
+        "home": 1,
+        "away": 1,
+        "p": 0.1369037000086241
+      },
+      "factors": [
+        {
+          "key": "home_attack",
+          "label": "Ataque local",
+          "value": "1.00 goles/partido",
+          "detail": "1 partidos · ajustado a 1.39"
+        },
+        {
+          "key": "away_defense",
+          "label": "Defensa visitante",
+          "value": "1.00 recibidos/partido",
+          "detail": "ajustado a 1.39"
+        },
+        {
+          "key": "away_attack",
+          "label": "Ataque visitante",
+          "value": "1.00 goles/partido",
+          "detail": "ajustado a 1.39"
+        },
+        {
+          "key": "home_defense",
+          "label": "Defensa local",
+          "value": "0.00 recibidos/partido",
+          "detail": "ajustado a 1.24"
+        },
+        {
+          "key": "home_advantage",
+          "label": "Localía",
+          "value": "Incluida",
+          "detail": "Ajuste del modelo PitchLab"
+        },
+        {
+          "key": "sample_size",
+          "label": "Muestra",
+          "value": "1 y 1 partidos",
+          "detail": "Temporada actual"
+        }
+      ],
+      "steps": [
+        "Sincronizando Copa del Rey · corte 24 nov 2026, 21:01",
+        "Fuerza de ataque y defensa · RAY 1.00 / 0.00 · MAL 1.00 / 1.00",
+        "Ajuste por localía y tamaño de muestra (1 partidos)",
+        "Proyección de goles 1.37 – 1.15",
+        "Evaluando 196 marcadores posibles",
+        "13 mercados listos · marcador más probable 1–1"
+      ],
+      "inputsAsOf": "2026-11-24T21:01:09.804Z",
+      "publishedAt": "2026-11-24T21:01:09.804Z",
+      "source": "pitchlab-football-v2",
+      "matchContext": {
+        "stageName": "Round 2",
+        "venueCity": "Majadahonda",
+        "venueCountry": "Spain",
+        "venueCapacity": 3800
       }
     },
     "copa-del-rey-2026-12-03-atletico-paso-sevilla-jzdsc7": {

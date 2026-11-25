@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "league": "primera-a-colombia",
   "season": "2026",
-  "updatedAt": "2026-11-24T21:01:09.804Z",
+  "updatedAt": "2026-11-25T20:23:50.754Z",
   "matches": [
     {
       "id": "primera-a-colombia-2026-07-24-llaneros-deportivo-pere-mwp9br",
@@ -2136,6 +2136,28 @@
       "awayTeam": "primera-a-colombia.atletico-nacional",
       "homeScore": 0,
       "awayScore": 0,
+      "neutralSite": false
+    },
+    {
+      "id": "primera-a-colombia-2026-11-24-millonarios-atletico-bucar-9oarno",
+      "date": "2026-11-24",
+      "startTime": "2026-11-24T23:20:00.000Z",
+      "round": "Group B · Matchday 2",
+      "homeTeam": "primera-a-colombia.millonarios",
+      "awayTeam": "primera-a-colombia.atletico-bucaramanga",
+      "homeScore": 4,
+      "awayScore": 1,
+      "neutralSite": false
+    },
+    {
+      "id": "primera-a-colombia-2026-11-25-america-cali-deportivo-cali-7b0fr4",
+      "date": "2026-11-25",
+      "startTime": "2026-11-25T01:30:00.000Z",
+      "round": "Group B · Matchday 2",
+      "homeTeam": "primera-a-colombia.america-cali",
+      "awayTeam": "primera-a-colombia.deportivo-cali",
+      "homeScore": 2,
+      "awayScore": 1,
       "neutralSite": false
     }
   ]

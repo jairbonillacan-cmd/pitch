@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "league": "coppa-italia",
   "seasonLabel": "2026/27",
-  "observedAt": "2026-11-24T21:01:09.804Z",
+  "observedAt": "2026-11-25T20:23:50.754Z",
   "teams": [
     {
       "teamId": "coppa-italia.frosinone",
@@ -24,7 +24,7 @@
           "winPct": 46.7
         }
       },
-      "updatedAt": "2026-11-24T21:01:09.804Z",
+      "updatedAt": "2026-11-25T20:23:50.754Z",
       "players": [
         {
           "id": "coppa-italia.frosinone.aleksa-terzic",
@@ -566,10 +566,10 @@
           "stats": {
             "appearances": 0,
             "subIns": 0,
-            "goals": 0,
+            "goals": 1,
             "assists": 0,
-            "shots": 4,
-            "shotsOnTarget": 3,
+            "shots": 5,
+            "shotsOnTarget": 2,
             "foulsCommitted": 0,
             "foulsSuffered": 0,
             "yellowCards": 0,
@@ -577,7 +577,7 @@
             "offsides": 0,
             "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 1
+            "goalsConceded": 0
           },
           "candidatePicks": []
         },
@@ -762,7 +762,7 @@
             "offsides": 0,
             "saves": 3,
             "shotsFaced": 0,
-            "goalsConceded": 1
+            "goalsConceded": 0
           },
           "candidatePicks": []
         },
@@ -1158,7 +1158,7 @@
           "winPct": 34
         }
       },
-      "updatedAt": "2026-11-24T21:01:09.804Z",
+      "updatedAt": "2026-11-25T20:23:50.754Z",
       "players": [
         {
           "id": "coppa-italia.juve-stabia.alessandro-signorini",
@@ -2329,7 +2329,7 @@
           "winPct": 32.6
         }
       },
-      "updatedAt": "2026-11-24T21:01:09.804Z",
+      "updatedAt": "2026-11-25T20:23:50.754Z",
       "players": [
         {
           "id": "coppa-italia.genoa.alessandro-marcandalli",
@@ -2364,7 +2364,7 @@
             "offsides": 0,
             "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 2
+            "goalsConceded": 0
           },
           "candidatePicks": []
         },
@@ -2725,8 +2725,8 @@
             "subIns": 0,
             "goals": 0,
             "assists": 0,
-            "shots": 1,
-            "shotsOnTarget": 1,
+            "shots": 2,
+            "shotsOnTarget": 0,
             "foulsCommitted": 0,
             "foulsSuffered": 0,
             "yellowCards": 0,
@@ -2734,7 +2734,7 @@
             "offsides": 0,
             "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 0
+            "goalsConceded": 2
           },
           "candidatePicks": []
         },
@@ -2843,9 +2843,9 @@
             "yellowCards": 0,
             "redCards": 0,
             "offsides": 0,
-            "saves": 7,
+            "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 0
+            "goalsConceded": 2
           },
           "candidatePicks": []
         },
@@ -2910,8 +2910,8 @@
             "subIns": 0,
             "goals": 0,
             "assists": 0,
-            "shots": 2,
-            "shotsOnTarget": 2,
+            "shots": 1,
+            "shotsOnTarget": 0,
             "foulsCommitted": 0,
             "foulsSuffered": 0,
             "yellowCards": 0,
@@ -2919,7 +2919,7 @@
             "offsides": 0,
             "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 2
+            "goalsConceded": 0
           },
           "candidatePicks": []
         },
@@ -3537,7 +3537,7 @@
           "winPct": 43.4
         }
       },
-      "updatedAt": "2026-11-24T21:01:09.804Z",
+      "updatedAt": "2026-11-25T20:23:50.754Z",
       "players": [
         {
           "id": "coppa-italia.ascoli.abdoul-guiebre",
@@ -3572,7 +3572,7 @@
             "offsides": 0,
             "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 2
+            "goalsConceded": 1
           },
           "candidatePicks": []
         },
@@ -4229,8 +4229,8 @@
             "subIns": 0,
             "goals": 1,
             "assists": 0,
-            "shots": 2,
-            "shotsOnTarget": 1,
+            "shots": 5,
+            "shotsOnTarget": 3,
             "foulsCommitted": 0,
             "foulsSuffered": 0,
             "yellowCards": 0,
@@ -4634,7 +4634,7 @@
           "winPct": 32.7
         }
       },
-      "updatedAt": "2026-11-24T21:01:09.804Z",
+      "updatedAt": "2026-11-25T20:23:50.754Z",
       "players": [
         {
           "id": "coppa-italia.hellas-verona.abdou-harroui",
@@ -4660,8 +4660,8 @@
             "subIns": 0,
             "goals": 0,
             "assists": 0,
-            "shots": 4,
-            "shotsOnTarget": 2,
+            "shots": 3,
+            "shotsOnTarget": 1,
             "foulsCommitted": 0,
             "foulsSuffered": 0,
             "yellowCards": 0,
@@ -4669,7 +4669,7 @@
             "offsides": 0,
             "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 0
+            "goalsConceded": 2
           },
           "candidatePicks": []
         },
@@ -4697,7 +4697,7 @@
             "subIns": 0,
             "goals": 0,
             "assists": 0,
-            "shots": 1,
+            "shots": 2,
             "shotsOnTarget": 0,
             "foulsCommitted": 0,
             "foulsSuffered": 0,
@@ -4706,7 +4706,7 @@
             "offsides": 0,
             "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 0
+            "goalsConceded": 2
           },
           "candidatePicks": []
         },
@@ -4956,8 +4956,8 @@
             "subIns": 0,
             "goals": 0,
             "assists": 0,
-            "shots": 3,
-            "shotsOnTarget": 1,
+            "shots": 2,
+            "shotsOnTarget": 2,
             "foulsCommitted": 0,
             "foulsSuffered": 0,
             "yellowCards": 0,
@@ -5261,7 +5261,7 @@
             "offsides": 0,
             "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 0
+            "goalsConceded": 1
           },
           "candidatePicks": []
         },
@@ -5842,7 +5842,7 @@
           "winPct": 37.9
         }
       },
-      "updatedAt": "2026-11-24T21:01:09.804Z",
+      "updatedAt": "2026-11-25T20:23:50.754Z",
       "players": [
         {
           "id": "coppa-italia.virtus-entella.andrea-franzoni",
@@ -6173,7 +6173,7 @@
             "offsides": 0,
             "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 1
+            "goalsConceded": 2
           },
           "candidatePicks": []
         },
@@ -6312,7 +6312,7 @@
             "subIns": 0,
             "goals": 0,
             "assists": 0,
-            "shots": 0,
+            "shots": 1,
             "shotsOnTarget": 0,
             "foulsCommitted": 0,
             "foulsSuffered": 0,
@@ -6395,7 +6395,7 @@
             "offsides": 0,
             "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 2
+            "goalsConceded": 0
           },
           "candidatePicks": []
         },
@@ -6756,7 +6756,7 @@
             "subIns": 0,
             "goals": 0,
             "assists": 0,
-            "shots": 0,
+            "shots": 1,
             "shotsOnTarget": 0,
             "foulsCommitted": 0,
             "foulsSuffered": 0,
@@ -6765,7 +6765,7 @@
             "offsides": 0,
             "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 2
+            "goalsConceded": 1
           },
           "candidatePicks": []
         },
@@ -6777,11 +6777,11 @@
           "jersey": "29",
           "positionGroup": "DEF",
           "positionLabel": "Defensa",
-          "age": null,
-          "birthDate": null,
+          "age": 18,
+          "birthDate": "2008-03-13",
           "heightCm": 186,
           "weightKg": null,
-          "preferredFoot": null,
+          "preferredFoot": "R",
           "nationality": "Italy",
           "nationalityCode": null,
           "photoKey": "pl-p:231666",
@@ -6830,7 +6830,7 @@
             "subIns": 0,
             "goals": 0,
             "assists": 0,
-            "shots": 1,
+            "shots": 0,
             "shotsOnTarget": 0,
             "foulsCommitted": 0,
             "foulsSuffered": 0,
@@ -6839,7 +6839,7 @@
             "offsides": 0,
             "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 1
+            "goalsConceded": 0
           },
           "candidatePicks": []
         },
@@ -6976,7 +6976,7 @@
           "winPct": 60
         }
       },
-      "updatedAt": "2026-11-24T21:01:09.804Z",
+      "updatedAt": "2026-11-25T20:23:50.754Z",
       "players": [
         {
           "id": "coppa-italia.lazio.adam-marusic",
@@ -7197,43 +7197,6 @@
             "saves": 0,
             "shotsFaced": 0,
             "goalsConceded": 1
-          },
-          "candidatePicks": []
-        },
-        {
-          "id": "coppa-italia.lazio.bruno-galassi",
-          "slug": "bruno-galassi",
-          "name": "Bruno Galassi",
-          "shortName": "B. Galassi",
-          "jersey": "8",
-          "positionGroup": "MID",
-          "positionLabel": "Mediocampista",
-          "age": 19,
-          "birthDate": "2007-02-08",
-          "heightCm": 184,
-          "weightKg": null,
-          "preferredFoot": "R",
-          "nationality": "Argentina",
-          "nationalityCode": null,
-          "photoKey": "pl-p:74888",
-          "availability": "available",
-          "injuryDetail": null,
-          "expectedReturn": null,
-          "stats": {
-            "appearances": 0,
-            "subIns": 0,
-            "goals": 0,
-            "assists": 0,
-            "shots": 0,
-            "shotsOnTarget": 0,
-            "foulsCommitted": 0,
-            "foulsSuffered": 0,
-            "yellowCards": 0,
-            "redCards": 0,
-            "offsides": 0,
-            "saves": 0,
-            "shotsFaced": 0,
-            "goalsConceded": 0
           },
           "candidatePicks": []
         },
@@ -8161,6 +8124,43 @@
             "goalsConceded": 1
           },
           "candidatePicks": []
+        },
+        {
+          "id": "coppa-italia.lazio.tijjani-noslin",
+          "slug": "tijjani-noslin",
+          "name": "Tijjani Noslin",
+          "shortName": "T. Noslin",
+          "jersey": "14",
+          "positionGroup": "FWD",
+          "positionLabel": "Delantero",
+          "age": 27,
+          "birthDate": "1999-07-07",
+          "heightCm": 177,
+          "weightKg": null,
+          "preferredFoot": "R",
+          "nationality": "Netherlands",
+          "nationalityCode": null,
+          "photoKey": "pl-p:2021",
+          "availability": "available",
+          "injuryDetail": null,
+          "expectedReturn": null,
+          "stats": {
+            "appearances": 0,
+            "subIns": 0,
+            "goals": 0,
+            "assists": 0,
+            "shots": 3,
+            "shotsOnTarget": 1,
+            "foulsCommitted": 0,
+            "foulsSuffered": 0,
+            "yellowCards": 0,
+            "redCards": 0,
+            "offsides": 0,
+            "saves": 0,
+            "shotsFaced": 0,
+            "goalsConceded": 1
+          },
+          "candidatePicks": []
         }
       ]
     },
@@ -8184,7 +8184,7 @@
           "winPct": 32.2
         }
       },
-      "updatedAt": "2026-11-24T21:01:09.804Z",
+      "updatedAt": "2026-11-25T20:23:50.754Z",
       "players": [
         {
           "id": "coppa-italia.mantova.alessio-castellini",
@@ -9201,8 +9201,8 @@
           "nationality": "Italy",
           "nationalityCode": null,
           "photoKey": "pl-p:39354",
-          "availability": "available",
-          "injuryDetail": null,
+          "availability": "suspended",
+          "injuryDetail": "yellow_card_accumulation_suspension",
           "expectedReturn": null,
           "stats": {
             "appearances": 0,

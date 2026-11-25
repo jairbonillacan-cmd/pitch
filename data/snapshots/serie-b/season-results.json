@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "league": "serie-b",
   "season": "2026/27",
-  "updatedAt": "2026-11-24T21:01:09.804Z",
+  "updatedAt": "2026-11-25T20:23:50.754Z",
   "matches": [
     {
       "id": "serie-b-2026-08-21-l-r-vicenza-catanzaro-j05jn1",
@@ -1388,6 +1388,17 @@
       "awayTeam": "serie-b.empoli",
       "homeScore": 5,
       "awayScore": 0,
+      "neutralSite": false
+    },
+    {
+      "id": "serie-b-2026-11-25-cremonese-avellino-g2sa90",
+      "date": "2026-11-25",
+      "startTime": "2026-11-25T18:00:00.000Z",
+      "round": "Regular season · Matchday 13",
+      "homeTeam": "serie-b.cremonese",
+      "awayTeam": "serie-b.avellino",
+      "homeScore": 0,
+      "awayScore": 1,
       "neutralSite": false
     }
   ]

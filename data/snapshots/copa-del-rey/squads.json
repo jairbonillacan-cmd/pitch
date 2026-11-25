@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "league": "copa-del-rey",
   "seasonLabel": "2026/27",
-  "observedAt": "2026-11-24T21:01:09.804Z",
+  "observedAt": "2026-11-25T20:23:50.754Z",
   "teams": [
     {
       "teamId": "copa-del-rey.pamplona",
@@ -18,7 +18,7 @@
         "styleLabel": "",
         "careerRecord": null
       },
-      "updatedAt": "2026-11-24T21:01:09.804Z",
+      "updatedAt": "2026-11-25T20:23:50.754Z",
       "players": [
         {
           "id": "copa-del-rey.pamplona.adrian-pardo",
@@ -930,7 +930,7 @@
           "winPct": 52.2
         }
       },
-      "updatedAt": "2026-11-24T21:01:09.804Z",
+      "updatedAt": "2026-11-25T20:23:50.754Z",
       "players": [
         {
           "id": "copa-del-rey.eibar.aleix-garrido",
@@ -956,8 +956,8 @@
             "subIns": 0,
             "goals": 0,
             "assists": 0,
-            "shots": 0,
-            "shotsOnTarget": 0,
+            "shots": 2,
+            "shotsOnTarget": 2,
             "foulsCommitted": 0,
             "foulsSuffered": 0,
             "yellowCards": 0,
@@ -1002,7 +1002,7 @@
             "offsides": 0,
             "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 0
+            "goalsConceded": 1
           },
           "candidatePicks": []
         },
@@ -1077,6 +1077,43 @@
             "saves": 0,
             "shotsFaced": 0,
             "goalsConceded": 1
+          },
+          "candidatePicks": []
+        },
+        {
+          "id": "copa-del-rey.eibar.carlos-lumbreras",
+          "slug": "carlos-lumbreras",
+          "name": "Carlos Lumbreras",
+          "shortName": "C. Lumbreras",
+          "jersey": "32",
+          "positionGroup": "FWD",
+          "positionLabel": "Delantero",
+          "age": 21,
+          "birthDate": "2005-02-20",
+          "heightCm": 180,
+          "weightKg": null,
+          "preferredFoot": "R",
+          "nationality": "Spain",
+          "nationalityCode": null,
+          "photoKey": "pl-p:79578",
+          "availability": "available",
+          "injuryDetail": null,
+          "expectedReturn": null,
+          "stats": {
+            "appearances": 0,
+            "subIns": 0,
+            "goals": 0,
+            "assists": 0,
+            "shots": 0,
+            "shotsOnTarget": 0,
+            "foulsCommitted": 0,
+            "foulsSuffered": 0,
+            "yellowCards": 0,
+            "redCards": 0,
+            "offsides": 0,
+            "saves": 0,
+            "shotsFaced": 0,
+            "goalsConceded": 0
           },
           "candidatePicks": []
         },
@@ -1289,8 +1326,8 @@
             "subIns": 0,
             "goals": 0,
             "assists": 0,
-            "shots": 0,
-            "shotsOnTarget": 0,
+            "shots": 1,
+            "shotsOnTarget": 1,
             "foulsCommitted": 0,
             "foulsSuffered": 0,
             "yellowCards": 0,
@@ -1361,10 +1398,10 @@
           "stats": {
             "appearances": 0,
             "subIns": 0,
-            "goals": 0,
+            "goals": 1,
             "assists": 0,
-            "shots": 1,
-            "shotsOnTarget": 1,
+            "shots": 0,
+            "shotsOnTarget": 0,
             "foulsCommitted": 0,
             "foulsSuffered": 0,
             "yellowCards": 0,
@@ -1372,7 +1409,7 @@
             "offsides": 0,
             "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 1
+            "goalsConceded": 0
           },
           "candidatePicks": []
         },
@@ -1472,7 +1509,7 @@
           "stats": {
             "appearances": 0,
             "subIns": 0,
-            "goals": 0,
+            "goals": 2,
             "assists": 0,
             "shots": 0,
             "shotsOnTarget": 0,
@@ -1483,7 +1520,7 @@
             "offsides": 0,
             "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 1
+            "goalsConceded": 0
           },
           "candidatePicks": []
         },
@@ -1518,9 +1555,9 @@
             "yellowCards": 0,
             "redCards": 0,
             "offsides": 0,
-            "saves": 0,
+            "saves": 4,
             "shotsFaced": 0,
-            "goalsConceded": 0
+            "goalsConceded": 1
           },
           "candidatePicks": []
         },
@@ -1696,8 +1733,8 @@
             "subIns": 0,
             "goals": 0,
             "assists": 0,
-            "shots": 0,
-            "shotsOnTarget": 0,
+            "shots": 4,
+            "shotsOnTarget": 1,
             "foulsCommitted": 0,
             "foulsSuffered": 0,
             "yellowCards": 0,
@@ -1705,7 +1742,7 @@
             "offsides": 0,
             "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 0
+            "goalsConceded": 1
           },
           "candidatePicks": []
         },
@@ -1807,8 +1844,8 @@
             "subIns": 0,
             "goals": 0,
             "assists": 0,
-            "shots": 1,
-            "shotsOnTarget": 1,
+            "shots": 0,
+            "shotsOnTarget": 0,
             "foulsCommitted": 0,
             "foulsSuffered": 0,
             "yellowCards": 0,
@@ -1853,7 +1890,7 @@
             "offsides": 0,
             "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 0
+            "goalsConceded": 1
           },
           "candidatePicks": []
         },
@@ -1990,7 +2027,7 @@
           "winPct": 66.7
         }
       },
-      "updatedAt": "2026-11-24T21:01:09.804Z",
+      "updatedAt": "2026-11-25T20:23:50.754Z",
       "players": [
         {
           "id": "copa-del-rey.anaitasuna-ft.aimar-guembe",
@@ -3198,7 +3235,7 @@
           "winPct": 32.3
         }
       },
-      "updatedAt": "2026-11-24T21:01:09.804Z",
+      "updatedAt": "2026-11-25T20:23:50.754Z",
       "players": [
         {
           "id": "copa-del-rey.deportivo-alaves.abde-rebbach",
@@ -3268,9 +3305,9 @@
             "yellowCards": 0,
             "redCards": 0,
             "offsides": 0,
-            "saves": 2,
+            "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 1
+            "goalsConceded": 0
           },
           "candidatePicks": []
         },
@@ -3296,10 +3333,10 @@
           "stats": {
             "appearances": 0,
             "subIns": 0,
-            "goals": 1,
+            "goals": 0,
             "assists": 0,
-            "shots": 2,
-            "shotsOnTarget": 1,
+            "shots": 0,
+            "shotsOnTarget": 0,
             "foulsCommitted": 0,
             "foulsSuffered": 0,
             "yellowCards": 0,
@@ -3529,7 +3566,7 @@
             "offsides": 0,
             "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 0
+            "goalsConceded": 1
           },
           "candidatePicks": []
         },
@@ -3668,43 +3705,6 @@
             "subIns": 0,
             "goals": 0,
             "assists": 0,
-            "shots": 3,
-            "shotsOnTarget": 2,
-            "foulsCommitted": 0,
-            "foulsSuffered": 0,
-            "yellowCards": 0,
-            "redCards": 0,
-            "offsides": 0,
-            "saves": 0,
-            "shotsFaced": 0,
-            "goalsConceded": 1
-          },
-          "candidatePicks": []
-        },
-        {
-          "id": "copa-del-rey.deportivo-alaves.izei-hernandez",
-          "slug": "izei-hernandez",
-          "name": "Izei Hernandez",
-          "shortName": "I. Hernandez",
-          "jersey": "29",
-          "positionGroup": "FWD",
-          "positionLabel": "Delantero",
-          "age": 19,
-          "birthDate": "2007-02-02",
-          "heightCm": 181,
-          "weightKg": null,
-          "preferredFoot": "R",
-          "nationality": "Spain",
-          "nationalityCode": null,
-          "photoKey": "pl-p:2365",
-          "availability": "available",
-          "injuryDetail": null,
-          "expectedReturn": null,
-          "stats": {
-            "appearances": 0,
-            "subIns": 0,
-            "goals": 0,
-            "assists": 0,
             "shots": 0,
             "shotsOnTarget": 0,
             "foulsCommitted": 0,
@@ -3740,10 +3740,10 @@
           "stats": {
             "appearances": 0,
             "subIns": 0,
-            "goals": 1,
+            "goals": 0,
             "assists": 0,
-            "shots": 1,
-            "shotsOnTarget": 1,
+            "shots": 0,
+            "shotsOnTarget": 0,
             "foulsCommitted": 0,
             "foulsSuffered": 0,
             "yellowCards": 0,
@@ -3751,7 +3751,7 @@
             "offsides": 0,
             "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 1
+            "goalsConceded": 0
           },
           "candidatePicks": []
         },
@@ -3779,8 +3779,8 @@
             "subIns": 0,
             "goals": 0,
             "assists": 0,
-            "shots": 1,
-            "shotsOnTarget": 1,
+            "shots": 0,
+            "shotsOnTarget": 0,
             "foulsCommitted": 0,
             "foulsSuffered": 0,
             "yellowCards": 0,
@@ -4158,7 +4158,7 @@
             "offsides": 0,
             "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 1
+            "goalsConceded": 0
           },
           "candidatePicks": []
         },
@@ -4186,7 +4186,7 @@
             "subIns": 0,
             "goals": 0,
             "assists": 0,
-            "shots": 1,
+            "shots": 0,
             "shotsOnTarget": 0,
             "foulsCommitted": 0,
             "foulsSuffered": 0,
@@ -4221,7 +4221,7 @@
           "winPct": 33.3
         }
       },
-      "updatedAt": "2026-11-24T21:01:09.804Z",
+      "updatedAt": "2026-11-25T20:23:50.754Z",
       "players": [
         {
           "id": "copa-del-rey.sd-amorebieta.aitor-intxausti",
@@ -4515,7 +4515,7 @@
             "offsides": 0,
             "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 0
+            "goalsConceded": 1
           },
           "candidatePicks": []
         },
@@ -5318,7 +5318,7 @@
           "winPct": 54.5
         }
       },
-      "updatedAt": "2026-11-24T21:01:09.804Z",
+      "updatedAt": "2026-11-25T20:23:50.754Z",
       "players": [
         {
           "id": "copa-del-rey.logrones.adei-mendinueta",
@@ -6526,7 +6526,7 @@
           "winPct": 25
         }
       },
-      "updatedAt": "2026-11-24T21:01:09.804Z",
+      "updatedAt": "2026-11-25T20:23:50.754Z",
       "players": [
         {
           "id": "copa-del-rey.cp-mijas-las-lagunas.abubakar-seidu",
@@ -7475,7 +7475,7 @@
           "winPct": 55.6
         }
       },
-      "updatedAt": "2026-11-24T21:01:09.804Z",
+      "updatedAt": "2026-11-25T20:23:50.754Z",
       "players": [
         {
           "id": "copa-del-rey.real-jaen.adri",

@@ -5,7 +5,7 @@
   "season": "nfl-2026",
   "seasonLabel": "2026",
   "periodLabel": "Semana 12",
-  "updatedAt": "2026-11-24T21:08:59.597Z",
+  "updatedAt": "2026-11-25T20:29:53.678Z",
   "source": "nflverse",
   "provenance": "derived",
   "isDemo": false,
@@ -581,6 +581,33 @@
       "neutralSite": false
     },
     {
+      "id": "nfl-2026-w12-tennessee-titans-jacksonville-jaguars",
+      "league": "nfl",
+      "season": "nfl-2026",
+      "week": 12,
+      "round": "Semana 12",
+      "startTime": "2026-11-29T18:00:00.000Z",
+      "status": "scheduled",
+      "home": {
+        "id": "nfl.jacksonville-jaguars",
+        "league": "nfl",
+        "name": "Jacksonville Jaguars",
+        "shortName": "Jacksonville",
+        "code": "JAX",
+        "logoUrl": "/brand/official/nfl/jacksonville-jaguars.png"
+      },
+      "away": {
+        "id": "nfl.tennessee-titans",
+        "league": "nfl",
+        "name": "Tennessee Titans",
+        "shortName": "Tennessee",
+        "code": "TEN",
+        "logoUrl": "/brand/official/nfl/tennessee-titans.png"
+      },
+      "venue": "EverBank Stadium",
+      "neutralSite": false
+    },
+    {
       "id": "nfl-2026-w12-new-york-jets-miami-dolphins",
       "league": "nfl",
       "season": "nfl-2026",
@@ -632,33 +659,6 @@
         "logoUrl": "/brand/official/nfl/atlanta-falcons.png"
       },
       "venue": "U.S. Bank Stadium",
-      "neutralSite": false
-    },
-    {
-      "id": "nfl-2026-w12-tennessee-titans-jacksonville-jaguars",
-      "league": "nfl",
-      "season": "nfl-2026",
-      "week": 12,
-      "round": "Semana 12",
-      "startTime": "2026-11-29T18:00:00.000Z",
-      "status": "scheduled",
-      "home": {
-        "id": "nfl.jacksonville-jaguars",
-        "league": "nfl",
-        "name": "Jacksonville Jaguars",
-        "shortName": "Jacksonville",
-        "code": "JAX",
-        "logoUrl": "/brand/official/nfl/jacksonville-jaguars.png"
-      },
-      "away": {
-        "id": "nfl.tennessee-titans",
-        "league": "nfl",
-        "name": "Tennessee Titans",
-        "shortName": "Tennessee",
-        "code": "TEN",
-        "logoUrl": "/brand/official/nfl/tennessee-titans.png"
-      },
-      "venue": "EverBank Stadium",
       "neutralSite": false
     },
     {
@@ -4001,6 +4001,411 @@
       },
       "picksAt": "2026-11-24T15:05:34.094Z"
     },
+    "nfl-2026-w12-tennessee-titans-jacksonville-jaguars": {
+      "game": "nfl-2026-w12-tennessee-titans-jacksonville-jaguars",
+      "model": {
+        "id": "pitchlab-statistical-nfl",
+        "version": "2.0.0",
+        "status": "candidate",
+        "label": "Modelo PitchLab · en validación"
+      },
+      "projection": {
+        "home": 29.457213604492487,
+        "away": 17.67659856913033,
+        "total": 47.133812173622815,
+        "margin": 11.780615035362157
+      },
+      "x12": [
+        0.8557247298442124,
+        0,
+        0.14427527015578756
+      ],
+      "probabilities": [
+        {
+          "market": "h2h",
+          "selection": "Jacksonville gana",
+          "p": 0.8557247298442124,
+          "fairOdds": 1.1686000943107644
+        },
+        {
+          "market": "h2h",
+          "selection": "Tennessee gana",
+          "p": 0.14427527015578756,
+          "fairOdds": 6.931194784249623
+        },
+        {
+          "market": "spreads",
+          "selection": "JAX cubre",
+          "line": -11.5,
+          "p": 0.5100843942509684,
+          "fairOdds": 1.9604598989319137
+        },
+        {
+          "market": "spreads",
+          "selection": "TEN cubre",
+          "line": 11.5,
+          "p": 0.4899156057490316,
+          "fairOdds": 2.041167883335949
+        },
+        {
+          "market": "totals",
+          "selection": "Más",
+          "line": 47.5,
+          "p": 0.48849966553666335,
+          "fairOdds": 2.047084308443497
+        },
+        {
+          "market": "totals",
+          "selection": "Menos",
+          "line": 47.5,
+          "p": 0.5115003344633366,
+          "fairOdds": 1.9550329347275883
+        },
+        {
+          "market": "spreads",
+          "selection": "JAX -3.5",
+          "line": -3.5,
+          "p": 0.7721646853433743,
+          "fairOdds": 1.2950605213903423
+        },
+        {
+          "market": "spreads",
+          "selection": "TEN +3.5",
+          "line": 3.5,
+          "p": 0.22783531465662565,
+          "fairOdds": 4.389135202798198
+        },
+        {
+          "market": "spreads",
+          "selection": "JAX -7.5",
+          "line": -7.5,
+          "p": 0.6501173411187543,
+          "fairOdds": 1.538183858131134
+        },
+        {
+          "market": "spreads",
+          "selection": "TEN +7.5",
+          "line": 7.5,
+          "p": 0.3498826588812457,
+          "fairOdds": 2.858101065075682
+        },
+        {
+          "market": "team_totals",
+          "selection": "JAX más de 29.5",
+          "line": 29.5,
+          "p": 0.49809941821137116,
+          "fairOdds": 2.0076313351075723
+        },
+        {
+          "market": "team_totals",
+          "selection": "JAX menos de 29.5",
+          "line": 29.5,
+          "p": 0.5019005817886288,
+          "fairOdds": 1.9924264611056806
+        },
+        {
+          "market": "team_totals",
+          "selection": "TEN más de 17.5",
+          "line": 17.5,
+          "p": 0.5078440648323017,
+          "fairOdds": 1.9691083725281227
+        },
+        {
+          "market": "team_totals",
+          "selection": "TEN menos de 17.5",
+          "line": 17.5,
+          "p": 0.4921559351676983,
+          "fairOdds": 2.0318763394761414
+        }
+      ],
+      "marketGroups": [
+        {
+          "group": "Ganador",
+          "rows": [
+            {
+              "market": "h2h",
+              "selection": "home",
+              "label": "Jacksonville gana",
+              "p": 0.8557247298442124,
+              "fairOdds": 1.1686000943107644
+            },
+            {
+              "market": "h2h",
+              "selection": "away",
+              "label": "Tennessee gana",
+              "p": 0.14427527015578756,
+              "fairOdds": 6.931194784249623
+            }
+          ]
+        },
+        {
+          "group": "Spread JAX -11.5",
+          "rows": [
+            {
+              "market": "spreads",
+              "selection": "home",
+              "label": "JAX cubre",
+              "line": -11.5,
+              "p": 0.5100843942509684,
+              "fairOdds": 1.9604598989319137
+            },
+            {
+              "market": "spreads",
+              "selection": "away",
+              "label": "TEN cubre",
+              "line": 11.5,
+              "p": 0.4899156057490316,
+              "fairOdds": 2.041167883335949
+            }
+          ]
+        },
+        {
+          "group": "Total 47.5",
+          "rows": [
+            {
+              "market": "totals",
+              "selection": "over",
+              "label": "Más",
+              "line": 47.5,
+              "p": 0.48849966553666335,
+              "fairOdds": 2.047084308443497
+            },
+            {
+              "market": "totals",
+              "selection": "under",
+              "label": "Menos",
+              "line": 47.5,
+              "p": 0.5115003344633366,
+              "fairOdds": 1.9550329347275883
+            }
+          ]
+        },
+        {
+          "group": "Hándicap alternativo -3.5",
+          "rows": [
+            {
+              "market": "spreads",
+              "selection": "home_-3.5",
+              "label": "JAX -3.5",
+              "line": -3.5,
+              "p": 0.7721646853433743,
+              "fairOdds": 1.2950605213903423
+            },
+            {
+              "market": "spreads",
+              "selection": "away_3.5",
+              "label": "TEN +3.5",
+              "line": 3.5,
+              "p": 0.22783531465662565,
+              "fairOdds": 4.389135202798198
+            }
+          ]
+        },
+        {
+          "group": "Hándicap alternativo -7.5",
+          "rows": [
+            {
+              "market": "spreads",
+              "selection": "home_-7.5",
+              "label": "JAX -7.5",
+              "line": -7.5,
+              "p": 0.6501173411187543,
+              "fairOdds": 1.538183858131134
+            },
+            {
+              "market": "spreads",
+              "selection": "away_7.5",
+              "label": "TEN +7.5",
+              "line": 7.5,
+              "p": 0.3498826588812457,
+              "fairOdds": 2.858101065075682
+            }
+          ]
+        },
+        {
+          "group": "Puntos por equipo",
+          "rows": [
+            {
+              "market": "team_totals",
+              "selection": "home_over",
+              "label": "JAX más de 29.5",
+              "line": 29.5,
+              "p": 0.49809941821137116,
+              "fairOdds": 2.0076313351075723
+            },
+            {
+              "market": "team_totals",
+              "selection": "home_under",
+              "label": "JAX menos de 29.5",
+              "line": 29.5,
+              "p": 0.5019005817886288,
+              "fairOdds": 1.9924264611056806
+            },
+            {
+              "market": "team_totals",
+              "selection": "away_over",
+              "label": "TEN más de 17.5",
+              "line": 17.5,
+              "p": 0.5078440648323017,
+              "fairOdds": 1.9691083725281227
+            },
+            {
+              "market": "team_totals",
+              "selection": "away_under",
+              "label": "TEN menos de 17.5",
+              "line": 17.5,
+              "p": 0.4921559351676983,
+              "fairOdds": 2.0318763394761414
+            }
+          ]
+        }
+      ],
+      "factors": [
+        {
+          "key": "home_offense",
+          "label": "Ofensiva local",
+          "value": "29.5 pts proyectados",
+          "detail": "10 partidos · ajustado a 2.9 sobre la media"
+        },
+        {
+          "key": "away_defense",
+          "label": "Defensa visitante",
+          "value": "26.4 pts permitidos",
+          "detail": "10 partidos · ajustado por rival"
+        },
+        {
+          "key": "away_offense",
+          "label": "Ofensiva visitante",
+          "value": "17.7 pts proyectados",
+          "detail": "10 partidos · ajustado a -2.1 sobre la media"
+        },
+        {
+          "key": "home_defense",
+          "label": "Defensa local",
+          "value": "19.9 pts permitidos",
+          "detail": "10 partidos · ajustado por rival"
+        },
+        {
+          "key": "home_advantage",
+          "label": "Localía",
+          "value": "+0.3 pts",
+          "detail": "estimada de 163 partidos"
+        },
+        {
+          "key": "uncertainty",
+          "label": "Rango 90%",
+          "value": "margen -6.5 a 30.0",
+          "detail": "total 26.2 a 68.0"
+        },
+        {
+          "key": "home_form",
+          "label": "Forma local",
+          "value": "P-G-G-G-P · 3-2",
+          "detail": "164 pts a favor · 97 en contra"
+        },
+        {
+          "key": "away_form",
+          "label": "Forma visitante",
+          "value": "G-P-P-P-P · 1-4",
+          "detail": "139 pts a favor · 181 en contra"
+        }
+      ],
+      "steps": [
+        "Sincronizando NFL · corte 24 nov 2026, 15:05",
+        "Ofensiva y defensa ajustadas por rival · JAX 29.5 / 17.7",
+        "Fuerza de calendario incluida (163 partidos)",
+        "Proyección 29.5 – 17.7 · margen +11.8",
+        "Simulando escenarios de margen (σ 11.1) y total (σ 12.7)",
+        "14 mercados listos"
+      ],
+      "inputsAsOf": "2026-11-24T15:05:34.094Z",
+      "publishedAt": "2026-11-24T15:05:34.094Z",
+      "source": "nflverse",
+      "picks": [
+        {
+          "profile": "conservadora",
+          "market": "h2h",
+          "selection": "home",
+          "label": "Jacksonville gana",
+          "p": 0.8557247298442124,
+          "fairOdds": 1.1686000943107644
+        },
+        {
+          "profile": "intermedia",
+          "market": "spreads",
+          "selection": "home_-7.5",
+          "label": "JAX -7.5",
+          "line": -7.5,
+          "p": 0.6501173411187543,
+          "fairOdds": 1.538183858131134
+        },
+        {
+          "profile": "arriesgada",
+          "market": "totals",
+          "selection": "under",
+          "label": "Menos de 47.5 puntos",
+          "line": 47.5,
+          "p": 0.5115003344633366,
+          "fairOdds": 1.9550329347275883
+        }
+      ],
+      "confidence": {
+        "score": 100,
+        "level": "alta",
+        "reasons": [
+          "Favorito claro",
+          "Muestra suficiente"
+        ]
+      },
+      "insights": {
+        "why": [
+          "Jacksonville gana en 86 % de los escenarios, por 11.8 puntos en promedio.",
+          "Se esperan 47.1 puntos: 29.5 de Jacksonville y 17.7 de Tennessee."
+        ],
+        "headToHead": [
+          {
+            "date": "2026-11-15",
+            "homeTeamId": "nfl.tennessee-titans",
+            "awayTeamId": "nfl.jacksonville-jaguars",
+            "homeGoals": 23,
+            "awayGoals": 40
+          },
+          {
+            "date": "2026-01-04",
+            "homeTeamId": "nfl.jacksonville-jaguars",
+            "awayTeamId": "nfl.tennessee-titans",
+            "homeGoals": 41,
+            "awayGoals": 7
+          },
+          {
+            "date": "2025-11-30",
+            "homeTeamId": "nfl.tennessee-titans",
+            "awayTeamId": "nfl.jacksonville-jaguars",
+            "homeGoals": 3,
+            "awayGoals": 25
+          },
+          {
+            "date": "2024-12-29",
+            "homeTeamId": "nfl.jacksonville-jaguars",
+            "awayTeamId": "nfl.tennessee-titans",
+            "homeGoals": 20,
+            "awayGoals": 13
+          },
+          {
+            "date": "2024-12-08",
+            "homeTeamId": "nfl.tennessee-titans",
+            "awayTeamId": "nfl.jacksonville-jaguars",
+            "homeGoals": 6,
+            "awayGoals": 10
+          }
+        ],
+        "restDays": {
+          "home": 7,
+          "away": 7
+        }
+      },
+      "picksAt": "2026-11-24T15:05:34.094Z"
+    },
     "nfl-2026-w12-new-york-jets-miami-dolphins": {
       "game": "nfl-2026-w12-new-york-jets-miami-dolphins",
       "model": {
@@ -4798,411 +5203,6 @@
         "restDays": {
           "home": 6,
           "away": 14
-        }
-      },
-      "picksAt": "2026-11-24T15:05:34.094Z"
-    },
-    "nfl-2026-w12-tennessee-titans-jacksonville-jaguars": {
-      "game": "nfl-2026-w12-tennessee-titans-jacksonville-jaguars",
-      "model": {
-        "id": "pitchlab-statistical-nfl",
-        "version": "2.0.0",
-        "status": "candidate",
-        "label": "Modelo PitchLab · en validación"
-      },
-      "projection": {
-        "home": 29.457213604492487,
-        "away": 17.67659856913033,
-        "total": 47.133812173622815,
-        "margin": 11.780615035362157
-      },
-      "x12": [
-        0.8557247298442124,
-        0,
-        0.14427527015578756
-      ],
-      "probabilities": [
-        {
-          "market": "h2h",
-          "selection": "Jacksonville gana",
-          "p": 0.8557247298442124,
-          "fairOdds": 1.1686000943107644
-        },
-        {
-          "market": "h2h",
-          "selection": "Tennessee gana",
-          "p": 0.14427527015578756,
-          "fairOdds": 6.931194784249623
-        },
-        {
-          "market": "spreads",
-          "selection": "JAX cubre",
-          "line": -11.5,
-          "p": 0.5100843942509684,
-          "fairOdds": 1.9604598989319137
-        },
-        {
-          "market": "spreads",
-          "selection": "TEN cubre",
-          "line": 11.5,
-          "p": 0.4899156057490316,
-          "fairOdds": 2.041167883335949
-        },
-        {
-          "market": "totals",
-          "selection": "Más",
-          "line": 47.5,
-          "p": 0.48849966553666335,
-          "fairOdds": 2.047084308443497
-        },
-        {
-          "market": "totals",
-          "selection": "Menos",
-          "line": 47.5,
-          "p": 0.5115003344633366,
-          "fairOdds": 1.9550329347275883
-        },
-        {
-          "market": "spreads",
-          "selection": "JAX -3.5",
-          "line": -3.5,
-          "p": 0.7721646853433743,
-          "fairOdds": 1.2950605213903423
-        },
-        {
-          "market": "spreads",
-          "selection": "TEN +3.5",
-          "line": 3.5,
-          "p": 0.22783531465662565,
-          "fairOdds": 4.389135202798198
-        },
-        {
-          "market": "spreads",
-          "selection": "JAX -7.5",
-          "line": -7.5,
-          "p": 0.6501173411187543,
-          "fairOdds": 1.538183858131134
-        },
-        {
-          "market": "spreads",
-          "selection": "TEN +7.5",
-          "line": 7.5,
-          "p": 0.3498826588812457,
-          "fairOdds": 2.858101065075682
-        },
-        {
-          "market": "team_totals",
-          "selection": "JAX más de 29.5",
-          "line": 29.5,
-          "p": 0.49809941821137116,
-          "fairOdds": 2.0076313351075723
-        },
-        {
-          "market": "team_totals",
-          "selection": "JAX menos de 29.5",
-          "line": 29.5,
-          "p": 0.5019005817886288,
-          "fairOdds": 1.9924264611056806
-        },
-        {
-          "market": "team_totals",
-          "selection": "TEN más de 17.5",
-          "line": 17.5,
-          "p": 0.5078440648323017,
-          "fairOdds": 1.9691083725281227
-        },
-        {
-          "market": "team_totals",
-          "selection": "TEN menos de 17.5",
-          "line": 17.5,
-          "p": 0.4921559351676983,
-          "fairOdds": 2.0318763394761414
-        }
-      ],
-      "marketGroups": [
-        {
-          "group": "Ganador",
-          "rows": [
-            {
-              "market": "h2h",
-              "selection": "home",
-              "label": "Jacksonville gana",
-              "p": 0.8557247298442124,
-              "fairOdds": 1.1686000943107644
-            },
-            {
-              "market": "h2h",
-              "selection": "away",
-              "label": "Tennessee gana",
-              "p": 0.14427527015578756,
-              "fairOdds": 6.931194784249623
-            }
-          ]
-        },
-        {
-          "group": "Spread JAX -11.5",
-          "rows": [
-            {
-              "market": "spreads",
-              "selection": "home",
-              "label": "JAX cubre",
-              "line": -11.5,
-              "p": 0.5100843942509684,
-              "fairOdds": 1.9604598989319137
-            },
-            {
-              "market": "spreads",
-              "selection": "away",
-              "label": "TEN cubre",
-              "line": 11.5,
-              "p": 0.4899156057490316,
-              "fairOdds": 2.041167883335949
-            }
-          ]
-        },
-        {
-          "group": "Total 47.5",
-          "rows": [
-            {
-              "market": "totals",
-              "selection": "over",
-              "label": "Más",
-              "line": 47.5,
-              "p": 0.48849966553666335,
-              "fairOdds": 2.047084308443497
-            },
-            {
-              "market": "totals",
-              "selection": "under",
-              "label": "Menos",
-              "line": 47.5,
-              "p": 0.5115003344633366,
-              "fairOdds": 1.9550329347275883
-            }
-          ]
-        },
-        {
-          "group": "Hándicap alternativo -3.5",
-          "rows": [
-            {
-              "market": "spreads",
-              "selection": "home_-3.5",
-              "label": "JAX -3.5",
-              "line": -3.5,
-              "p": 0.7721646853433743,
-              "fairOdds": 1.2950605213903423
-            },
-            {
-              "market": "spreads",
-              "selection": "away_3.5",
-              "label": "TEN +3.5",
-              "line": 3.5,
-              "p": 0.22783531465662565,
-              "fairOdds": 4.389135202798198
-            }
-          ]
-        },
-        {
-          "group": "Hándicap alternativo -7.5",
-          "rows": [
-            {
-              "market": "spreads",
-              "selection": "home_-7.5",
-              "label": "JAX -7.5",
-              "line": -7.5,
-              "p": 0.6501173411187543,
-              "fairOdds": 1.538183858131134
-            },
-            {
-              "market": "spreads",
-              "selection": "away_7.5",
-              "label": "TEN +7.5",
-              "line": 7.5,
-              "p": 0.3498826588812457,
-              "fairOdds": 2.858101065075682
-            }
-          ]
-        },
-        {
-          "group": "Puntos por equipo",
-          "rows": [
-            {
-              "market": "team_totals",
-              "selection": "home_over",
-              "label": "JAX más de 29.5",
-              "line": 29.5,
-              "p": 0.49809941821137116,
-              "fairOdds": 2.0076313351075723
-            },
-            {
-              "market": "team_totals",
-              "selection": "home_under",
-              "label": "JAX menos de 29.5",
-              "line": 29.5,
-              "p": 0.5019005817886288,
-              "fairOdds": 1.9924264611056806
-            },
-            {
-              "market": "team_totals",
-              "selection": "away_over",
-              "label": "TEN más de 17.5",
-              "line": 17.5,
-              "p": 0.5078440648323017,
-              "fairOdds": 1.9691083725281227
-            },
-            {
-              "market": "team_totals",
-              "selection": "away_under",
-              "label": "TEN menos de 17.5",
-              "line": 17.5,
-              "p": 0.4921559351676983,
-              "fairOdds": 2.0318763394761414
-            }
-          ]
-        }
-      ],
-      "factors": [
-        {
-          "key": "home_offense",
-          "label": "Ofensiva local",
-          "value": "29.5 pts proyectados",
-          "detail": "10 partidos · ajustado a 2.9 sobre la media"
-        },
-        {
-          "key": "away_defense",
-          "label": "Defensa visitante",
-          "value": "26.4 pts permitidos",
-          "detail": "10 partidos · ajustado por rival"
-        },
-        {
-          "key": "away_offense",
-          "label": "Ofensiva visitante",
-          "value": "17.7 pts proyectados",
-          "detail": "10 partidos · ajustado a -2.1 sobre la media"
-        },
-        {
-          "key": "home_defense",
-          "label": "Defensa local",
-          "value": "19.9 pts permitidos",
-          "detail": "10 partidos · ajustado por rival"
-        },
-        {
-          "key": "home_advantage",
-          "label": "Localía",
-          "value": "+0.3 pts",
-          "detail": "estimada de 163 partidos"
-        },
-        {
-          "key": "uncertainty",
-          "label": "Rango 90%",
-          "value": "margen -6.5 a 30.0",
-          "detail": "total 26.2 a 68.0"
-        },
-        {
-          "key": "home_form",
-          "label": "Forma local",
-          "value": "P-G-G-G-P · 3-2",
-          "detail": "164 pts a favor · 97 en contra"
-        },
-        {
-          "key": "away_form",
-          "label": "Forma visitante",
-          "value": "G-P-P-P-P · 1-4",
-          "detail": "139 pts a favor · 181 en contra"
-        }
-      ],
-      "steps": [
-        "Sincronizando NFL · corte 24 nov 2026, 15:05",
-        "Ofensiva y defensa ajustadas por rival · JAX 29.5 / 17.7",
-        "Fuerza de calendario incluida (163 partidos)",
-        "Proyección 29.5 – 17.7 · margen +11.8",
-        "Simulando escenarios de margen (σ 11.1) y total (σ 12.7)",
-        "14 mercados listos"
-      ],
-      "inputsAsOf": "2026-11-24T15:05:34.094Z",
-      "publishedAt": "2026-11-24T15:05:34.094Z",
-      "source": "nflverse",
-      "picks": [
-        {
-          "profile": "conservadora",
-          "market": "h2h",
-          "selection": "home",
-          "label": "Jacksonville gana",
-          "p": 0.8557247298442124,
-          "fairOdds": 1.1686000943107644
-        },
-        {
-          "profile": "intermedia",
-          "market": "spreads",
-          "selection": "home_-7.5",
-          "label": "JAX -7.5",
-          "line": -7.5,
-          "p": 0.6501173411187543,
-          "fairOdds": 1.538183858131134
-        },
-        {
-          "profile": "arriesgada",
-          "market": "totals",
-          "selection": "under",
-          "label": "Menos de 47.5 puntos",
-          "line": 47.5,
-          "p": 0.5115003344633366,
-          "fairOdds": 1.9550329347275883
-        }
-      ],
-      "confidence": {
-        "score": 100,
-        "level": "alta",
-        "reasons": [
-          "Favorito claro",
-          "Muestra suficiente"
-        ]
-      },
-      "insights": {
-        "why": [
-          "Jacksonville gana en 86 % de los escenarios, por 11.8 puntos en promedio.",
-          "Se esperan 47.1 puntos: 29.5 de Jacksonville y 17.7 de Tennessee."
-        ],
-        "headToHead": [
-          {
-            "date": "2026-11-15",
-            "homeTeamId": "nfl.tennessee-titans",
-            "awayTeamId": "nfl.jacksonville-jaguars",
-            "homeGoals": 23,
-            "awayGoals": 40
-          },
-          {
-            "date": "2026-01-04",
-            "homeTeamId": "nfl.jacksonville-jaguars",
-            "awayTeamId": "nfl.tennessee-titans",
-            "homeGoals": 41,
-            "awayGoals": 7
-          },
-          {
-            "date": "2025-11-30",
-            "homeTeamId": "nfl.tennessee-titans",
-            "awayTeamId": "nfl.jacksonville-jaguars",
-            "homeGoals": 3,
-            "awayGoals": 25
-          },
-          {
-            "date": "2024-12-29",
-            "homeTeamId": "nfl.jacksonville-jaguars",
-            "awayTeamId": "nfl.tennessee-titans",
-            "homeGoals": 20,
-            "awayGoals": 13
-          },
-          {
-            "date": "2024-12-08",
-            "homeTeamId": "nfl.tennessee-titans",
-            "awayTeamId": "nfl.jacksonville-jaguars",
-            "homeGoals": 6,
-            "awayGoals": 10
-          }
-        ],
-        "restDays": {
-          "home": 7,
-          "away": 7
         }
       },
       "picksAt": "2026-11-24T15:05:34.094Z"

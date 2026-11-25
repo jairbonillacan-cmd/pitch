@@ -5,7 +5,7 @@
   "season": "serie-a-2026-27",
   "seasonLabel": "2026/27",
   "periodLabel": "Jornada 13",
-  "updatedAt": "2026-11-24T21:08:59.597Z",
+  "updatedAt": "2026-11-25T20:29:53.678Z",
   "source": "openfootball+football-data",
   "provenance": "derived",
   "isDemo": false,
@@ -19,8 +19,8 @@
       "forPerGame": 2.3333333333333335,
       "againstPerGame": 1.1666666666666667,
       "gamesPlayed": 12,
-      "adjustedFor": 1.6823559166920148,
-      "adjustedAgainst": 1.1041224491097223
+      "adjustedFor": 1.6822837447826158,
+      "adjustedAgainst": 1.1044735125092915
     },
     "serie-a.monza": {
       "teamId": "serie-a.monza",
@@ -31,8 +31,8 @@
       "forPerGame": 1.6666666666666667,
       "againstPerGame": 2.0833333333333335,
       "gamesPlayed": 12,
-      "adjustedFor": 1.3974746665384812,
-      "adjustedAgainst": 1.6959218848463173
+      "adjustedFor": 1.3975533085929368,
+      "adjustedAgainst": 1.6955805416127916
     },
     "serie-a.fiorentina": {
       "teamId": "serie-a.fiorentina",
@@ -43,8 +43,8 @@
       "forPerGame": 1.4166666666666667,
       "againstPerGame": 2.3333333333333335,
       "gamesPlayed": 12,
-      "adjustedFor": 1.333707200628949,
-      "adjustedAgainst": 1.5646441892459373
+      "adjustedFor": 1.3337810881929455,
+      "adjustedAgainst": 1.5646961061959248
     },
     "serie-a.roma": {
       "teamId": "serie-a.roma",
@@ -55,8 +55,8 @@
       "forPerGame": 3,
       "againstPerGame": 0.9166666666666666,
       "gamesPlayed": 12,
-      "adjustedFor": 1.9395819360264719,
-      "adjustedAgainst": 0.9574561470123338
+      "adjustedFor": 1.9393295773876928,
+      "adjustedAgainst": 0.9578754777466204
     },
     "serie-a.atalanta-bc": {
       "teamId": "serie-a.atalanta-bc",
@@ -67,8 +67,8 @@
       "forPerGame": 1.75,
       "againstPerGame": 2,
       "gamesPlayed": 12,
-      "adjustedFor": 1.4703827782650416,
-      "adjustedAgainst": 1.3645154803195996
+      "adjustedFor": 1.4703966211594448,
+      "adjustedAgainst": 1.3646189956818913
     },
     "serie-a.bologna": {
       "teamId": "serie-a.bologna",
@@ -79,8 +79,8 @@
       "forPerGame": 1.4166666666666667,
       "againstPerGame": 1.25,
       "gamesPlayed": 12,
-      "adjustedFor": 1.3195627968545671,
-      "adjustedAgainst": 1.1959709430712762
+      "adjustedFor": 1.319731727618461,
+      "adjustedAgainst": 1.196184899817614
     },
     "serie-a.cagliari": {
       "teamId": "serie-a.cagliari",
@@ -91,8 +91,8 @@
       "forPerGame": 0.8333333333333334,
       "againstPerGame": 1.4166666666666667,
       "gamesPlayed": 12,
-      "adjustedFor": 1.0638986929101257,
-      "adjustedAgainst": 1.2899916867862427
+      "adjustedFor": 1.0642432693198178,
+      "adjustedAgainst": 1.2901751551072036
     },
     "serie-a.como": {
       "teamId": "serie-a.como",
@@ -103,8 +103,8 @@
       "forPerGame": 1.6666666666666667,
       "againstPerGame": 0.8333333333333334,
       "gamesPlayed": 12,
-      "adjustedFor": 1.590678017990431,
-      "adjustedAgainst": 0.9287400211035363
+      "adjustedFor": 1.5906023727654648,
+      "adjustedAgainst": 0.929212601823705
     },
     "serie-a.internazionale-milano": {
       "teamId": "serie-a.internazionale-milano",
@@ -115,8 +115,8 @@
       "forPerGame": 2.6666666666666665,
       "againstPerGame": 1.4166666666666667,
       "gamesPlayed": 12,
-      "adjustedFor": 2.076661327170515,
-      "adjustedAgainst": 1.1574546788713822
+      "adjustedFor": 2.076182836880137,
+      "adjustedAgainst": 1.1576723420629447
     },
     "serie-a.frosinone": {
       "teamId": "serie-a.frosinone",
@@ -127,8 +127,8 @@
       "forPerGame": 2.0833333333333335,
       "againstPerGame": 1.6666666666666667,
       "gamesPlayed": 12,
-      "adjustedFor": 1.7057345202284462,
-      "adjustedAgainst": 1.4925517303884457
+      "adjustedFor": 1.705461447715588,
+      "adjustedAgainst": 1.492533810316633
     },
     "serie-a.genoa-cfc": {
       "teamId": "serie-a.genoa-cfc",
@@ -139,8 +139,8 @@
       "forPerGame": 1.0833333333333333,
       "againstPerGame": 1.3333333333333333,
       "gamesPlayed": 12,
-      "adjustedFor": 1.187359139840464,
-      "adjustedAgainst": 1.2781115666849743
+      "adjustedFor": 1.1853933206613054,
+      "adjustedAgainst": 1.278185429437386
     },
     "serie-a.juventus": {
       "teamId": "serie-a.juventus",
@@ -151,8 +151,8 @@
       "forPerGame": 1.5833333333333333,
       "againstPerGame": 1,
       "gamesPlayed": 12,
-      "adjustedFor": 1.4614663731051019,
-      "adjustedAgainst": 1.0378648819406115
+      "adjustedFor": 1.4615530948254536,
+      "adjustedAgainst": 1.0382479279479773
     },
     "serie-a.lazio": {
       "teamId": "serie-a.lazio",
@@ -163,8 +163,8 @@
       "forPerGame": 2.3333333333333335,
       "againstPerGame": 0.75,
       "gamesPlayed": 12,
-      "adjustedFor": 1.6143471765517903,
-      "adjustedAgainst": 1.0494953622880772
+      "adjustedFor": 1.6143046641004528,
+      "adjustedAgainst": 1.049853413115627
     },
     "serie-a.lecce": {
       "teamId": "serie-a.lecce",
@@ -175,8 +175,8 @@
       "forPerGame": 1,
       "againstPerGame": 2.0833333333333335,
       "gamesPlayed": 12,
-      "adjustedFor": 1.021450011707435,
-      "adjustedAgainst": 1.5326244996303011
+      "adjustedFor": 1.0216759055024032,
+      "adjustedAgainst": 1.5306503437156274
     },
     "serie-a.napoli": {
       "teamId": "serie-a.napoli",
@@ -187,8 +187,8 @@
       "forPerGame": 1.5833333333333333,
       "againstPerGame": 1.1666666666666667,
       "gamesPlayed": 12,
-      "adjustedFor": 1.4741764061210618,
-      "adjustedAgainst": 1.0457443777549693
+      "adjustedFor": 1.4741720119662738,
+      "adjustedAgainst": 1.0461256919241078
     },
     "serie-a.parma": {
       "teamId": "serie-a.parma",
@@ -199,8 +199,8 @@
       "forPerGame": 0.8333333333333334,
       "againstPerGame": 1.8333333333333333,
       "gamesPlayed": 12,
-      "adjustedFor": 0.9790491661550073,
-      "adjustedAgainst": 1.388860289468987
+      "adjustedFor": 0.9794158215210349,
+      "adjustedAgainst": 1.3889914379795172
     },
     "serie-a.sassuolo": {
       "teamId": "serie-a.sassuolo",
@@ -211,8 +211,8 @@
       "forPerGame": 1.3333333333333333,
       "againstPerGame": 2.5833333333333335,
       "gamesPlayed": 12,
-      "adjustedFor": 1.2950192516152566,
-      "adjustedAgainst": 1.6684295655308095
+      "adjustedFor": 1.29511027754248,
+      "adjustedAgainst": 1.6684344804738551
     },
     "serie-a.torino": {
       "teamId": "serie-a.torino",
@@ -223,8 +223,8 @@
       "forPerGame": 1.25,
       "againstPerGame": 1.5,
       "gamesPlayed": 12,
-      "adjustedFor": 1.2145818935809736,
-      "adjustedAgainst": 1.4131692274515881
+      "adjustedFor": 1.214838542162521,
+      "adjustedAgainst": 1.413239920793792
     },
     "serie-a.udinese": {
       "teamId": "serie-a.udinese",
@@ -235,8 +235,8 @@
       "forPerGame": 1.0833333333333333,
       "againstPerGame": 2.1666666666666665,
       "gamesPlayed": 12,
-      "adjustedFor": 1.1427458482961694,
-      "adjustedAgainst": 1.5123684190606834
+      "adjustedFor": 1.1430207726991544,
+      "adjustedAgainst": 1.5123672592936235
     },
     "serie-a.venezia": {
       "teamId": "serie-a.venezia",
@@ -247,8 +247,8 @@
       "forPerGame": 0.6666666666666666,
       "againstPerGame": 2.0833333333333335,
       "gamesPlayed": 12,
-      "adjustedFor": 0.9333725874920307,
-      "adjustedAgainst": 1.5534455434861274
+      "adjustedFor": 0.9339544527199714,
+      "adjustedAgainst": 1.5534787358188729
     }
   },
   "games": [
@@ -281,7 +281,7 @@
       "result": {
         "home": 2,
         "away": 0,
-        "observedAt": "2026-11-24T21:09:04.875Z",
+        "observedAt": "2026-11-25T20:29:57.049Z",
         "source": "football-data"
       }
     },
@@ -314,7 +314,7 @@
       "result": {
         "home": 3,
         "away": 0,
-        "observedAt": "2026-11-24T21:09:04.875Z",
+        "observedAt": "2026-11-25T20:29:57.049Z",
         "source": "football-data"
       }
     },
@@ -347,7 +347,7 @@
       "result": {
         "home": 1,
         "away": 5,
-        "observedAt": "2026-11-24T21:09:04.875Z",
+        "observedAt": "2026-11-25T20:29:57.049Z",
         "source": "football-data"
       }
     },
@@ -380,7 +380,7 @@
       "result": {
         "home": 1,
         "away": 0,
-        "observedAt": "2026-11-24T21:09:04.875Z",
+        "observedAt": "2026-11-25T20:29:57.049Z",
         "source": "football-data"
       }
     },
@@ -413,7 +413,7 @@
       "result": {
         "home": 4,
         "away": 0,
-        "observedAt": "2026-11-24T21:09:04.875Z",
+        "observedAt": "2026-11-25T20:29:57.049Z",
         "source": "football-data"
       }
     },
@@ -446,7 +446,7 @@
       "result": {
         "home": 0,
         "away": 2,
-        "observedAt": "2026-11-24T21:09:04.875Z",
+        "observedAt": "2026-11-25T20:29:57.049Z",
         "source": "football-data"
       }
     },
@@ -479,7 +479,7 @@
       "result": {
         "home": 1,
         "away": 1,
-        "observedAt": "2026-11-24T21:09:04.875Z",
+        "observedAt": "2026-11-25T20:29:57.049Z",
         "source": "football-data"
       }
     },
@@ -512,7 +512,7 @@
       "result": {
         "home": 5,
         "away": 1,
-        "observedAt": "2026-11-24T21:09:04.875Z",
+        "observedAt": "2026-11-25T20:29:57.049Z",
         "source": "football-data"
       }
     },
@@ -545,7 +545,7 @@
       "result": {
         "home": 4,
         "away": 4,
-        "observedAt": "2026-11-24T21:09:04.875Z",
+        "observedAt": "2026-11-25T20:29:57.049Z",
         "source": "football-data"
       }
     },
@@ -578,7 +578,7 @@
       "result": {
         "home": 3,
         "away": 0,
-        "observedAt": "2026-11-24T21:09:04.875Z",
+        "observedAt": "2026-11-25T20:29:57.049Z",
         "source": "football-data"
       }
     },
@@ -3081,11 +3081,11 @@
         "referee": "Simone Sozza",
         "refereeStats": {
           "country": "Italy",
-          "matches": 69,
-          "avgYellow": 3.13,
-          "avgRed": 0.19,
+          "matches": 70,
+          "avgYellow": 3.16,
+          "avgRed": 0.2,
           "avgFouls": 23.7,
-          "avgGoals": 2.84
+          "avgGoals": 2.87
         }
       }
     },
@@ -3830,9 +3830,9 @@
         "referee": "Antonio Rapuano",
         "refereeStats": {
           "country": "Italy",
-          "matches": 44,
-          "avgYellow": 2.61,
-          "avgRed": 0.3,
+          "matches": 45,
+          "avgYellow": 2.69,
+          "avgRed": 0.31,
           "avgFouls": 27.7,
           "avgGoals": 2.36
         }
@@ -5312,9 +5312,9 @@
         "refereeStats": {
           "country": "Italy",
           "matches": 38,
-          "avgYellow": 0.87,
+          "avgYellow": 0.95,
           "avgRed": 0.03,
-          "avgFouls": 26.8,
+          "avgFouls": 25.6,
           "avgGoals": 2.53
         }
       }
@@ -6060,11 +6060,11 @@
         "referee": "Livio Marinelli",
         "refereeStats": {
           "country": "Italy",
-          "matches": 48,
-          "avgYellow": 2.31,
+          "matches": 49,
+          "avgYellow": 2.27,
           "avgRed": 0.1,
           "avgFouls": 25.9,
-          "avgGoals": 2.46
+          "avgGoals": 2.41
         }
       }
     },
@@ -8306,11 +8306,11 @@
         "referee": "Daniele Doveri",
         "refereeStats": {
           "country": "Italy",
-          "matches": 46,
-          "avgYellow": 2.87,
+          "matches": 47,
+          "avgYellow": 2.81,
           "avgRed": 0.11,
           "avgFouls": 22.8,
-          "avgGoals": 2.35
+          "avgGoals": 2.34
         }
       }
     },
@@ -9050,6 +9050,84 @@
     },
     "serie-a-2026-27-md13-frosinone-parma": {
       "game": "serie-a-2026-27-md13-frosinone-parma",
+      "cortex": {
+        "headline": "Frosinone en casa empuja arriba; Parma llega con la defensa expuesta",
+        "headlineOrigin": "ia",
+        "sections": [
+          {
+            "key": "lectura",
+            "title": "La lectura",
+            "text": "El Frosinone llega séptimo con 20 puntos y diferencia de +5, sostenido por un ataque que produce 2.02 goles esperados en casa. El Parma es decimoséptimo con 8 puntos y -12, y su 21 % de probabilidad lo deja como visitante que concede más de lo que genera.",
+            "origin": "ia"
+          },
+          {
+            "key": "goles",
+            "title": "Goles",
+            "text": "Se ve abierto: 3.13 goles esperados en total y un 60 % de que se superen los 2.5. El Frosinone aporta 2.02 y el Parma 1.11; el 58 % de ambos anotan sugiere que el visitante también encuentra hueco.",
+            "origin": "ia",
+            "stats": [
+              {
+                "label": "Goles esperados",
+                "home": 2.02,
+                "away": 1.11
+              },
+              {
+                "label": "Ambos anotan",
+                "value": "58 %"
+              },
+              {
+                "label": "Más de 2.5 goles",
+                "value": "60 %"
+              }
+            ]
+          },
+          {
+            "key": "ritmo",
+            "title": "Ritmo del partido",
+            "text": "El Frosinone empuja con 6.8 tiros de esquina frente a 4.0 del Parma, 10.8 en total. Las faltas suman 23.9, con 13.0 del local, así que el partido se corta sobre todo en campo del visitante.",
+            "origin": "ia",
+            "stats": [
+              {
+                "label": "Tiros de esquina",
+                "home": 6.8,
+                "away": 4
+              },
+              {
+                "label": "Faltas",
+                "home": 13,
+                "away": 10.9
+              },
+              {
+                "label": "Amarillas",
+                "home": 1.4,
+                "away": 1.7
+              }
+            ]
+          },
+          {
+            "key": "tabla",
+            "title": "Tabla y descanso",
+            "text": "Frosinone séptimo con 20 puntos en 12 jornadas y diferencia de +5. Parma decimoséptimo con 8 puntos y -12. El descanso es casi igual: 6 días para el local y 7 para el visitante.",
+            "origin": "ia",
+            "stats": [
+              {
+                "label": "Puntos",
+                "home": 20,
+                "away": 8
+              }
+            ]
+          },
+          {
+            "key": "cambia",
+            "title": "Qué podría cambiarlo",
+            "text": "Las alineaciones pueden ajustar el peso ofensivo del Parma; el criterio del árbitro define cuánto aguanta el ritmo de faltas, y un primer gol temprano del local obligaría al visitante a estirarse.",
+            "origin": "ia"
+          }
+        ],
+        "fingerprint": "f10c7629be5d9ac5",
+        "generatedAt": "2026-11-25T20:31:50.426Z",
+        "version": "2"
+      },
       "counts": {
         "corners": {
           "home": 6.84,
@@ -10358,6 +10436,84 @@
     },
     "serie-a-2026-27-md13-internazionale-milano-genoa-cfc": {
       "game": "serie-a-2026-27-md13-internazionale-milano-genoa-cfc",
+      "cortex": {
+        "headline": "Inter 74 % en casa y proyección de 2.26 goles",
+        "headlineOrigin": "ia",
+        "sections": [
+          {
+            "key": "lectura",
+            "title": "La lectura",
+            "text": "El Inter llega mejor: tercero con 29 puntos y diferencia de 15, frente al Genoa décimo con 16 y diferencia de -3. La probabilidad de 74 % a favor del local se sostiene en esa distancia de rendimiento, aunque ambos descansaron 6 días.",
+            "origin": "ia"
+          },
+          {
+            "key": "goles",
+            "title": "Goles",
+            "text": "Se ve abierto: total esperado de 3.31, con 85 % de más de 1.5 y 66 % de más de 2.5. El Inter aporta casi todo el peso con 2.26 esperados; el Genoa suma 1.04 y el 56 % de ambos anotan.",
+            "origin": "ia",
+            "stats": [
+              {
+                "label": "Goles esperados",
+                "home": 2.26,
+                "away": 1.04
+              },
+              {
+                "label": "Ambos anotan",
+                "value": "56 %"
+              },
+              {
+                "label": "Más de 2.5 goles",
+                "value": "66 %"
+              }
+            ]
+          },
+          {
+            "key": "ritmo",
+            "title": "Ritmo del partido",
+            "text": "El Inter empuja con 6.5 tiros de esquina por 3.2 del Genoa, 9.7 en total. En faltas el local también carga más: 11.5 contra 9.0, un total de 20.5 que anticipa un partido cortado y con 3.1 amarillas.",
+            "origin": "ia",
+            "stats": [
+              {
+                "label": "Tiros de esquina",
+                "home": 6.5,
+                "away": 3.2
+              },
+              {
+                "label": "Faltas",
+                "home": 11.5,
+                "away": 9
+              },
+              {
+                "label": "Amarillas",
+                "home": 1.5,
+                "away": 1.6
+              }
+            ]
+          },
+          {
+            "key": "tabla",
+            "title": "Tabla y descanso",
+            "text": "El Inter es tercero con 29 puntos en 12 jornadas y diferencia de 15. El Genoa es décimo con 16 puntos y diferencia de -3. Los dos llegan con 6 días de descanso.",
+            "origin": "ia",
+            "stats": [
+              {
+                "label": "Puntos",
+                "home": 29,
+                "away": 16
+              }
+            ]
+          },
+          {
+            "key": "cambia",
+            "title": "Qué podría cambiarlo",
+            "text": "Las alineaciones pueden ajustar el peso ofensivo del Inter; el criterio del árbitro define cuánto se corta el juego con esas faltas; un primer gol temprano del Genoa obliga al local a empujar más.",
+            "origin": "ia"
+          }
+        ],
+        "fingerprint": "277e179674ab3518",
+        "generatedAt": "2026-11-25T20:31:59.692Z",
+        "version": "2"
+      },
       "counts": {
         "corners": {
           "home": 6.49,
@@ -11023,6 +11179,84 @@
     },
     "serie-a-2026-27-md13-udinese-fiorentina": {
       "game": "serie-a-2026-27-md13-udinese-fiorentina",
+      "cortex": {
+        "headline": "Udinese y Fiorentina, dos equipos en la parte baja con poco margen",
+        "headlineOrigin": "ia",
+        "sections": [
+          {
+            "key": "lectura",
+            "title": "La lectura",
+            "text": "La probabilidad favorece apenas al Udinese con 38 % frente al 36 % de la Fiorentina, una diferencia mínima para un local. Llega algo más descansado, con 7 días por 6 del visitante, aunque en la tabla está por debajo: 19º con 6 puntos contra el 16º con 9.",
+            "origin": "ia"
+          },
+          {
+            "key": "goles",
+            "title": "Goles",
+            "text": "El total esperado es 3.06, con 58 % de más de 2.5 y 62 % de ambos anotan. El reparto es casi idéntico, 1.52 para el Udinese y 1.53 para la Fiorentina, así que ninguno carga con el peso del gol.",
+            "origin": "ia",
+            "stats": [
+              {
+                "label": "Goles esperados",
+                "home": 1.52,
+                "away": 1.53
+              },
+              {
+                "label": "Ambos anotan",
+                "value": "62 %"
+              },
+              {
+                "label": "Más de 2.5 goles",
+                "value": "58 %"
+              }
+            ]
+          },
+          {
+            "key": "ritmo",
+            "title": "Ritmo del partido",
+            "text": "Los córners se inclinan al Udinese, 5.0 contra 4.6, con 9.6 de total: el local empuja desde los costados. Las faltas suman 23.7, 12.6 del local y 11.1 del visitante, un partido cortado y con 3.3 amarillas.",
+            "origin": "ia",
+            "stats": [
+              {
+                "label": "Tiros de esquina",
+                "home": 5,
+                "away": 4.6
+              },
+              {
+                "label": "Faltas",
+                "home": 12.6,
+                "away": 11.1
+              },
+              {
+                "label": "Amarillas",
+                "home": 1.7,
+                "away": 1.6
+              }
+            ]
+          },
+          {
+            "key": "tabla",
+            "title": "Tabla y descanso",
+            "text": "El Udinese es 19º con 6 puntos en 12 partidos y diferencia de -13. La Fiorentina es 16º con 9 puntos y -11. El local acumula 7 días de descanso y el visitante 6.",
+            "origin": "ia",
+            "stats": [
+              {
+                "label": "Puntos",
+                "home": 6,
+                "away": 9
+              }
+            ]
+          },
+          {
+            "key": "cambia",
+            "title": "Qué podría cambiarlo",
+            "text": "Las alineaciones pueden ajustar el peso ofensivo de cada lado. El criterio del árbitro define cuánto se corta el juego con 23.7 faltas proyectadas. El primer gol ordena a un equipo necesitado o lo obliga a abrirse.",
+            "origin": "ia"
+          }
+        ],
+        "fingerprint": "a38ce6f27369ebde",
+        "generatedAt": "2026-11-25T20:32:02.505Z",
+        "version": "2"
+      },
       "counts": {
         "corners": {
           "home": 4.98,
@@ -11687,6 +11921,84 @@
     },
     "serie-a-2026-27-md13-sassuolo-napoli": {
       "game": "serie-a-2026-27-md13-sassuolo-napoli",
+      "cortex": {
+        "headline": "Napoli visita a un Sassuolo en descenso con más peso ofensivo",
+        "headlineOrigin": "ia",
+        "sections": [
+          {
+            "key": "lectura",
+            "title": "La lectura",
+            "text": "El Napoli llega mejor: 57 % de probabilidad, octavo con 18 puntos y diferencia de 5, frente a un Sassuolo decimoctavo con 8 puntos y diferencia de -15. El descanso es casi igual, 8 días para el Napoli y 7 para el Sassuolo, así que la ventaja se explica por forma y plantel, no por frescura.",
+            "origin": "ia"
+          },
+          {
+            "key": "goles",
+            "title": "Goles",
+            "text": "Se ve abierto: 3.02 goles esperados en total, con 80 % de superar 1.5 y 58 % de pasar 2.5. El Napoli aporta más con 1.87 esperados por 1.15 del Sassuolo, y el 57 % de ambos anotan reparte culpa entre las dos defensas.",
+            "origin": "ia",
+            "stats": [
+              {
+                "label": "Goles esperados",
+                "home": 1.15,
+                "away": 1.87
+              },
+              {
+                "label": "Ambos anotan",
+                "value": "57 %"
+              },
+              {
+                "label": "Más de 2.5 goles",
+                "value": "58 %"
+              }
+            ]
+          },
+          {
+            "key": "ritmo",
+            "title": "Ritmo del partido",
+            "text": "El Napoli empuja más con 5.3 tiros de esquina por 4.4 del Sassuolo, 9.7 en total. Las faltas suman 19.4, con 10.0 del visitante y 9.3 del local, y 3.1 amarillas: partido cortado pero no desbordado.",
+            "origin": "ia",
+            "stats": [
+              {
+                "label": "Tiros de esquina",
+                "home": 4.4,
+                "away": 5.3
+              },
+              {
+                "label": "Faltas",
+                "home": 9.3,
+                "away": 10
+              },
+              {
+                "label": "Amarillas",
+                "home": 1.6,
+                "away": 1.5
+              }
+            ]
+          },
+          {
+            "key": "tabla",
+            "title": "Tabla y descanso",
+            "text": "El Sassuolo es decimoctavo con 8 puntos en 12 jornadas y diferencia de -15; el Napoli es octavo con 18 puntos y diferencia de 5. El descanso favorece apenas al visitante: 8 días contra 7 del local.",
+            "origin": "ia",
+            "stats": [
+              {
+                "label": "Puntos",
+                "home": 8,
+                "away": 18
+              }
+            ]
+          },
+          {
+            "key": "cambia",
+            "title": "Qué podría cambiarlo",
+            "text": "Las alineaciones pueden ajustar el peso ofensivo del Napoli si descansa piezas de ataque. El criterio del árbitro define qué tan cortado se juega con 19.4 faltas proyectadas. Un gol temprano del Sassuolo obliga al Napoli a estirarse y abre el ritmo.",
+            "origin": "ia"
+          }
+        ],
+        "fingerprint": "f93e9a9ab29b0e85",
+        "generatedAt": "2026-11-25T20:32:05.209Z",
+        "version": "2"
+      },
       "counts": {
         "corners": {
           "home": 4.36,
@@ -12350,6 +12662,84 @@
     },
     "serie-a-2026-27-md13-roma-monza": {
       "game": "serie-a-2026-27-md13-roma-monza",
+      "cortex": {
+        "headline": "La Roma manda en casa ante un Monza que concede",
+        "headlineOrigin": "ia",
+        "sections": [
+          {
+            "key": "lectura",
+            "title": "La lectura",
+            "text": "La Roma llega segunda con 30 puntos y una diferencia de 25 goles en 12 partidos, sostenida por un 79 % de probabilidad de victoria en casa. El Monza es decimocuarto con 10 puntos y diferencia de -5, y además descansa dos días menos.",
+            "origin": "ia"
+          },
+          {
+            "key": "goles",
+            "title": "Goles",
+            "text": "El total esperado es de 3.82 goles, con 74 % de superar los 2.5 y 59 % de que ambos anoten. La Roma aporta 2.80 y el Monza 1.02: el peso ofensivo se concentra en el local, y el visitante anota poco pero deja huecos.",
+            "origin": "ia",
+            "stats": [
+              {
+                "label": "Goles esperados",
+                "home": 2.8,
+                "away": 1.02
+              },
+              {
+                "label": "Ambos anotan",
+                "value": "59 %"
+              },
+              {
+                "label": "Más de 2.5 goles",
+                "value": "74 %"
+              }
+            ]
+          },
+          {
+            "key": "ritmo",
+            "title": "Ritmo del partido",
+            "text": "La Roma empuja con 5.7 tiros de esquina por 3.3 del Monza, 9.1 en total. Las faltas están parejas, 11.1 y 11.3 para 22.3, con 3.4 amarillas: partido de contacto moderado y con el local instalado en campo rival.",
+            "origin": "ia",
+            "stats": [
+              {
+                "label": "Tiros de esquina",
+                "home": 5.7,
+                "away": 3.3
+              },
+              {
+                "label": "Faltas",
+                "home": 11.1,
+                "away": 11.3
+              },
+              {
+                "label": "Amarillas",
+                "home": 1.5,
+                "away": 1.9
+              }
+            ]
+          },
+          {
+            "key": "tabla",
+            "title": "Tabla y descanso",
+            "text": "La Roma es segunda con 30 puntos en 12 jornadas y diferencia de 25, con 8 días de descanso. El Monza es decimocuarto con 10 puntos, diferencia de -5 y 6 días desde su último partido.",
+            "origin": "ia",
+            "stats": [
+              {
+                "label": "Puntos",
+                "home": 30,
+                "away": 10
+              }
+            ]
+          },
+          {
+            "key": "cambia",
+            "title": "Qué podría cambiarlo",
+            "text": "Las alineaciones pueden ajustar el peso ofensivo de la Roma si descansa piezas de ataque. El criterio del árbitro importa con 22.3 faltas previstas, y un gol temprano del Monza obligaría a la Roma a jugar más abierta.",
+            "origin": "ia"
+          }
+        ],
+        "fingerprint": "1514be0a9c252f62",
+        "generatedAt": "2026-11-25T20:32:07.849Z",
+        "version": "2"
+      },
       "counts": {
         "corners": {
           "home": 5.74,
@@ -13014,6 +13404,84 @@
     },
     "serie-a-2026-27-md13-como-juventus": {
       "game": "serie-a-2026-27-md13-como-juventus",
+      "cortex": {
+        "headline": "Como llega mejor y sostiene la localía",
+        "headlineOrigin": "ia",
+        "sections": [
+          {
+            "key": "lectura",
+            "title": "La lectura",
+            "text": "El Como está quinto con 26 puntos y una diferencia de más diez, mientras el Juventus es sexto con 21 y diferencia de siete. La probabilidad de 48 por ciento para el local frente al 27 por ciento del visitante confirma esa ventaja, con ocho días de descanso contra siete.",
+            "origin": "ia"
+          },
+          {
+            "key": "goles",
+            "title": "Goles",
+            "text": "El total esperado es de 2.44 goles, con 69 por ciento de pasar de 1.5 y 44 por ciento de superar 2.5. El Como aporta 1.41 y el Juventus 1.03, así que el peso ofensivo se inclina al local; ambos anotan aparece en 48 por ciento.",
+            "origin": "ia",
+            "stats": [
+              {
+                "label": "Goles esperados",
+                "home": 1.41,
+                "away": 1.03
+              },
+              {
+                "label": "Ambos anotan",
+                "value": "48 %"
+              },
+              {
+                "label": "Más de 2.5 goles",
+                "value": "44 %"
+              }
+            ]
+          },
+          {
+            "key": "ritmo",
+            "title": "Ritmo del partido",
+            "text": "Los córners se reparten 5.0 del Como contra 4.5 del Juventus, con 9.5 de total: el local empuja más. Las faltas suman 20.3, con 11.6 del visitante frente a 8.8 del local, así que el juego se corta del lado del Juventus.",
+            "origin": "ia",
+            "stats": [
+              {
+                "label": "Tiros de esquina",
+                "home": 5,
+                "away": 4.5
+              },
+              {
+                "label": "Faltas",
+                "home": 8.8,
+                "away": 11.6
+              },
+              {
+                "label": "Amarillas",
+                "home": 1.5,
+                "away": 1.6
+              }
+            ]
+          },
+          {
+            "key": "tabla",
+            "title": "Tabla y descanso",
+            "text": "El Como es quinto con 26 puntos en 12 partidos y diferencia de más diez; el Juventus es sexto con 21 y diferencia de más siete. El descanso favorece al local con ocho días por siete del visitante.",
+            "origin": "ia",
+            "stats": [
+              {
+                "label": "Puntos",
+                "home": 26,
+                "away": 21
+              }
+            ]
+          },
+          {
+            "key": "cambia",
+            "title": "Qué podría cambiarlo",
+            "text": "Las alineaciones pueden ajustar el peso ofensivo de cada lado. El criterio del árbitro define cuánto se corta un partido con faltas cargadas del visitante. El primer gol ordena el ritmo: si el Como anota temprano, el Juventus debe abrirse.",
+            "origin": "ia"
+          }
+        ],
+        "fingerprint": "ffa0b87abbe95331",
+        "generatedAt": "2026-11-25T20:32:12.109Z",
+        "version": "2"
+      },
       "counts": {
         "corners": {
           "home": 4.99,

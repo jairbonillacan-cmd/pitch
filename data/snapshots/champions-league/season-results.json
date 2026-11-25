@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "league": "champions-league",
   "season": "2026/27",
-  "updatedAt": "2026-11-24T21:01:09.804Z",
+  "updatedAt": "2026-11-25T20:23:50.754Z",
   "matches": [
     {
       "id": "champions-league-2026-07-07-lincoln-red-im-inter-d-escald-q2nmej",
@@ -1806,6 +1806,105 @@
       "awayTeam": "champions-league.aston-villa",
       "homeScore": 1,
       "awayScore": 0,
+      "neutralSite": false
+    },
+    {
+      "id": "champions-league-2026-11-24-slovan-bratisl-real-betis-4zsr0s",
+      "date": "2026-11-24",
+      "startTime": "2026-11-24T20:00:00.000Z",
+      "round": "League phase · Matchday 5",
+      "homeTeam": "champions-league.slovan-bratislava",
+      "awayTeam": "champions-league.real-betis",
+      "homeScore": 0,
+      "awayScore": 2,
+      "neutralSite": false
+    },
+    {
+      "id": "champions-league-2026-11-24-rb-leipzig-lens-i9qz9v",
+      "date": "2026-11-24",
+      "startTime": "2026-11-24T20:00:00.000Z",
+      "round": "League phase · Matchday 5",
+      "homeTeam": "champions-league.rb-leipzig",
+      "awayTeam": "champions-league.lens",
+      "homeScore": 3,
+      "awayScore": 1,
+      "neutralSite": false
+    },
+    {
+      "id": "champions-league-2026-11-24-feyenoord-porto-mkerg1",
+      "date": "2026-11-24",
+      "startTime": "2026-11-24T20:00:00.000Z",
+      "round": "League phase · Matchday 5",
+      "homeTeam": "champions-league.feyenoord",
+      "awayTeam": "champions-league.porto",
+      "homeScore": 0,
+      "awayScore": 1,
+      "neutralSite": false
+    },
+    {
+      "id": "champions-league-2026-11-24-como-aek-athens-41k5bt",
+      "date": "2026-11-24",
+      "startTime": "2026-11-24T20:00:00.000Z",
+      "round": "League phase · Matchday 5",
+      "homeTeam": "champions-league.como",
+      "awayTeam": "champions-league.aek-athens",
+      "homeScore": 1,
+      "awayScore": 0,
+      "neutralSite": false
+    },
+    {
+      "id": "champions-league-2026-11-24-arsenal-borussia-dortm-uvjz3b",
+      "date": "2026-11-24",
+      "startTime": "2026-11-24T20:00:00.000Z",
+      "round": "League phase · Matchday 5",
+      "homeTeam": "champions-league.arsenal",
+      "awayTeam": "champions-league.borussia-dortmund",
+      "homeScore": 1,
+      "awayScore": 1,
+      "neutralSite": false
+    },
+    {
+      "id": "champions-league-2026-11-24-manchester-cit-napoli-pn8qgq",
+      "date": "2026-11-24",
+      "startTime": "2026-11-24T20:00:00.000Z",
+      "round": "League phase · Matchday 5",
+      "homeTeam": "champions-league.manchester-city",
+      "awayTeam": "champions-league.napoli",
+      "homeScore": 2,
+      "awayScore": 2,
+      "neutralSite": false
+    },
+    {
+      "id": "champions-league-2026-11-24-real-madrid-psv-eindhoven-crii8m",
+      "date": "2026-11-24",
+      "startTime": "2026-11-24T20:00:00.000Z",
+      "round": "League phase · Matchday 5",
+      "homeTeam": "champions-league.real-madrid",
+      "awayTeam": "champions-league.psv-eindhoven",
+      "homeScore": 5,
+      "awayScore": 1,
+      "neutralSite": false
+    },
+    {
+      "id": "champions-league-2026-11-25-slavia-praha-villarreal-5rhm2p",
+      "date": "2026-11-25",
+      "startTime": "2026-11-25T17:45:00.000Z",
+      "round": "League phase · Matchday 5",
+      "homeTeam": "champions-league.slavia-praha",
+      "awayTeam": "champions-league.villarreal",
+      "homeScore": 0,
+      "awayScore": 1,
+      "neutralSite": false
+    },
+    {
+      "id": "champions-league-2026-11-25-sabah-barcelona-y7ydqu",
+      "date": "2026-11-25",
+      "startTime": "2026-11-25T17:45:00.000Z",
+      "round": "League phase · Matchday 5",
+      "homeTeam": "champions-league.sabah",
+      "awayTeam": "champions-league.barcelona",
+      "homeScore": 1,
+      "awayScore": 4,
       "neutralSite": false
     }
   ]

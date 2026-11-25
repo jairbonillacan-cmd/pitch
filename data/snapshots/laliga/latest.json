@@ -5,7 +5,7 @@
   "season": "laliga-2026-27",
   "seasonLabel": "2026/27",
   "periodLabel": "Jornada 14",
-  "updatedAt": "2026-11-24T21:08:59.597Z",
+  "updatedAt": "2026-11-25T20:29:53.678Z",
   "source": "openfootball+football-data",
   "provenance": "derived",
   "isDemo": false,
@@ -19,8 +19,8 @@
       "forPerGame": 1.25,
       "againstPerGame": 1,
       "gamesPlayed": 12,
-      "adjustedFor": 1.0935197756461659,
-      "adjustedAgainst": 1.0510032162173906
+      "adjustedFor": 1.092996085134286,
+      "adjustedAgainst": 1.050630412428019
     },
     "laliga.atletico-madrid": {
       "teamId": "laliga.atletico-madrid",
@@ -31,8 +31,8 @@
       "forPerGame": 2,
       "againstPerGame": 0.7692307692307693,
       "gamesPlayed": 13,
-      "adjustedFor": 1.5450164065297571,
-      "adjustedAgainst": 0.9032942533038614
+      "adjustedFor": 1.5440117309604084,
+      "adjustedAgainst": 0.903076013279122
     },
     "laliga.osasuna": {
       "teamId": "laliga.osasuna",
@@ -43,8 +43,8 @@
       "forPerGame": 1,
       "againstPerGame": 1.7692307692307692,
       "gamesPlayed": 13,
-      "adjustedFor": 1.039684841493877,
-      "adjustedAgainst": 1.3246123629272144
+      "adjustedFor": 1.039142094520265,
+      "adjustedAgainst": 1.323949915262654
     },
     "laliga.celta-vigo": {
       "teamId": "laliga.celta-vigo",
@@ -55,8 +55,8 @@
       "forPerGame": 0.8461538461538461,
       "againstPerGame": 0.9230769230769231,
       "gamesPlayed": 13,
-      "adjustedFor": 1.0466106539870734,
-      "adjustedAgainst": 1.0129038840702496
+      "adjustedFor": 1.0461489627329612,
+      "adjustedAgainst": 1.0125565493058213
     },
     "laliga.alaves": {
       "teamId": "laliga.alaves",
@@ -67,8 +67,8 @@
       "forPerGame": 1.3846153846153846,
       "againstPerGame": 1.3846153846153846,
       "gamesPlayed": 13,
-      "adjustedFor": 1.1437425356657585,
-      "adjustedAgainst": 1.184424759066521
+      "adjustedFor": 1.1395068506214316,
+      "adjustedAgainst": 1.181615108205576
     },
     "laliga.elche": {
       "teamId": "laliga.elche",
@@ -79,8 +79,8 @@
       "forPerGame": 1.1538461538461537,
       "againstPerGame": 1.6153846153846154,
       "gamesPlayed": 13,
-      "adjustedFor": 1.1441898247766575,
-      "adjustedAgainst": 1.247272947598805
+      "adjustedFor": 1.143480237994601,
+      "adjustedAgainst": 1.2465892645889127
     },
     "laliga.barcelona": {
       "teamId": "laliga.barcelona",
@@ -91,8 +91,8 @@
       "forPerGame": 3.923076923076923,
       "againstPerGame": 1.1538461538461537,
       "gamesPlayed": 13,
-      "adjustedFor": 2.4350117459920937,
-      "adjustedAgainst": 0.9889736404645384
+      "adjustedFor": 2.43300450867317,
+      "adjustedAgainst": 0.9886231494192146
     },
     "laliga.getafe": {
       "teamId": "laliga.getafe",
@@ -103,8 +103,8 @@
       "forPerGame": 0.6153846153846154,
       "againstPerGame": 1.6153846153846154,
       "gamesPlayed": 13,
-      "adjustedFor": 0.799563892623251,
-      "adjustedAgainst": 1.1367884238058947
+      "adjustedFor": 0.7993182376511767,
+      "adjustedAgainst": 1.1363403960731548
     },
     "laliga.levante": {
       "teamId": "laliga.levante",
@@ -115,8 +115,8 @@
       "forPerGame": 1.3076923076923077,
       "againstPerGame": 1.6923076923076923,
       "gamesPlayed": 13,
-      "adjustedFor": 1.1944268175920132,
-      "adjustedAgainst": 1.3299209703386492
+      "adjustedFor": 1.193638392069182,
+      "adjustedAgainst": 1.329123410338376
     },
     "laliga.malaga": {
       "teamId": "laliga.malaga",
@@ -127,8 +127,8 @@
       "forPerGame": 0.6923076923076923,
       "againstPerGame": 1.8461538461538463,
       "gamesPlayed": 13,
-      "adjustedFor": 0.8416150429925712,
-      "adjustedAgainst": 1.3925276736425416
+      "adjustedFor": 0.8413517967342901,
+      "adjustedAgainst": 1.391699016105566
     },
     "laliga.racing-santander": {
       "teamId": "laliga.racing-santander",
@@ -139,8 +139,8 @@
       "forPerGame": 1.5384615384615385,
       "againstPerGame": 2.4615384615384617,
       "gamesPlayed": 13,
-      "adjustedFor": 1.2993890824269456,
-      "adjustedAgainst": 1.728642494126161
+      "adjustedFor": 1.2984729483162034,
+      "adjustedAgainst": 1.7273096545214541
     },
     "laliga.rayo-vallecano": {
       "teamId": "laliga.rayo-vallecano",
@@ -151,8 +151,8 @@
       "forPerGame": 1.25,
       "againstPerGame": 1.8333333333333333,
       "gamesPlayed": 12,
-      "adjustedFor": 1.1049755238750265,
-      "adjustedAgainst": 1.252446600963208
+      "adjustedFor": 1.104439452700872,
+      "adjustedAgainst": 1.2519032431294645
     },
     "laliga.deportivo-la-coruna": {
       "teamId": "laliga.deportivo-la-coruna",
@@ -163,8 +163,8 @@
       "forPerGame": 1.2307692307692308,
       "againstPerGame": 1.3076923076923077,
       "gamesPlayed": 13,
-      "adjustedFor": 1.1136044159532192,
-      "adjustedAgainst": 1.1679228871708336
+      "adjustedFor": 1.1129586167323338,
+      "adjustedAgainst": 1.1673412898917597
     },
     "laliga.espanyol": {
       "teamId": "laliga.espanyol",
@@ -175,8 +175,8 @@
       "forPerGame": 1.0769230769230769,
       "againstPerGame": 1.0769230769230769,
       "gamesPlayed": 13,
-      "adjustedFor": 1.0478833501205835,
-      "adjustedAgainst": 1.0922850029943896
+      "adjustedFor": 1.0472894933338326,
+      "adjustedAgainst": 1.091734465609003
     },
     "laliga.real-betis": {
       "teamId": "laliga.real-betis",
@@ -187,8 +187,8 @@
       "forPerGame": 1.6153846153846154,
       "againstPerGame": 1.2307692307692308,
       "gamesPlayed": 13,
-      "adjustedFor": 1.415494689633904,
-      "adjustedAgainst": 1.0988723944777024
+      "adjustedFor": 1.4144685849534218,
+      "adjustedAgainst": 1.0983175933987734
     },
     "laliga.real-madrid": {
       "teamId": "laliga.real-madrid",
@@ -199,8 +199,8 @@
       "forPerGame": 2.5384615384615383,
       "againstPerGame": 0.8461538461538461,
       "gamesPlayed": 13,
-      "adjustedFor": 1.8201453194289834,
-      "adjustedAgainst": 0.842783908579661
+      "adjustedFor": 1.8186949363677238,
+      "adjustedAgainst": 0.8425037172701921
     },
     "laliga.real-sociedad": {
       "teamId": "laliga.real-sociedad",
@@ -211,8 +211,8 @@
       "forPerGame": 1.7692307692307692,
       "againstPerGame": 1.7692307692307692,
       "gamesPlayed": 13,
-      "adjustedFor": 1.4257327448518218,
-      "adjustedAgainst": 1.385237836957787
+      "adjustedFor": 1.4247904047794886,
+      "adjustedAgainst": 1.3844590824890821
     },
     "laliga.sevilla": {
       "teamId": "laliga.sevilla",
@@ -223,8 +223,8 @@
       "forPerGame": 1.3846153846153846,
       "againstPerGame": 1.5384615384615385,
       "gamesPlayed": 13,
-      "adjustedFor": 1.1596612557749273,
-      "adjustedAgainst": 1.2596838030203619
+      "adjustedFor": 1.1590695560962447,
+      "adjustedAgainst": 1.25914226066627
     },
     "laliga.valencia": {
       "teamId": "laliga.valencia",
@@ -235,8 +235,8 @@
       "forPerGame": 0.6923076923076923,
       "againstPerGame": 1.5384615384615385,
       "gamesPlayed": 13,
-      "adjustedFor": 0.9582294520861939,
-      "adjustedAgainst": 1.172234235602229
+      "adjustedFor": 0.9578131458634646,
+      "adjustedAgainst": 1.1717818069431127
     },
     "laliga.villarreal": {
       "teamId": "laliga.villarreal",
@@ -247,8 +247,8 @@
       "forPerGame": 1.4615384615384615,
       "againstPerGame": 1.3846153846153846,
       "gamesPlayed": 13,
-      "adjustedFor": 1.4176987819687823,
-      "adjustedAgainst": 1.0823531985686394
+      "adjustedFor": 1.4167608172570063,
+      "adjustedAgainst": 1.0819317887528173
     }
   },
   "games": [
@@ -281,7 +281,7 @@
       "result": {
         "home": 0,
         "away": 1,
-        "observedAt": "2026-11-24T21:09:03.323Z",
+        "observedAt": "2026-11-25T20:29:55.609Z",
         "source": "football-data"
       }
     },
@@ -314,7 +314,7 @@
       "result": {
         "home": 3,
         "away": 1,
-        "observedAt": "2026-11-24T21:09:03.323Z",
+        "observedAt": "2026-11-25T20:29:55.609Z",
         "source": "football-data"
       }
     },
@@ -347,7 +347,7 @@
       "result": {
         "home": 0,
         "away": 1,
-        "observedAt": "2026-11-24T21:09:03.323Z",
+        "observedAt": "2026-11-25T20:29:55.609Z",
         "source": "football-data"
       }
     },
@@ -380,7 +380,7 @@
       "result": {
         "home": 1,
         "away": 1,
-        "observedAt": "2026-11-24T21:09:03.323Z",
+        "observedAt": "2026-11-25T20:29:55.609Z",
         "source": "football-data"
       }
     },
@@ -413,7 +413,7 @@
       "result": {
         "home": 2,
         "away": 1,
-        "observedAt": "2026-11-24T21:09:03.323Z",
+        "observedAt": "2026-11-25T20:29:55.609Z",
         "source": "football-data"
       }
     },
@@ -446,7 +446,7 @@
       "result": {
         "home": 3,
         "away": 2,
-        "observedAt": "2026-11-24T21:09:03.323Z",
+        "observedAt": "2026-11-25T20:29:55.609Z",
         "source": "football-data"
       }
     },
@@ -479,7 +479,7 @@
       "result": {
         "home": 3,
         "away": 2,
-        "observedAt": "2026-11-24T21:09:03.323Z",
+        "observedAt": "2026-11-25T20:29:55.609Z",
         "source": "football-data"
       }
     },
@@ -512,7 +512,7 @@
       "result": {
         "home": 1,
         "away": 0,
-        "observedAt": "2026-11-24T21:09:03.323Z",
+        "observedAt": "2026-11-25T20:29:55.609Z",
         "source": "football-data"
       }
     },
@@ -545,7 +545,7 @@
       "result": {
         "home": 0,
         "away": 3,
-        "observedAt": "2026-11-24T21:09:03.323Z",
+        "observedAt": "2026-11-25T20:29:55.609Z",
         "source": "football-data"
       }
     },
@@ -578,7 +578,7 @@
       "result": {
         "home": 1,
         "away": 1,
-        "observedAt": "2026-11-24T21:09:03.323Z",
+        "observedAt": "2026-11-25T20:29:55.609Z",
         "source": "football-data"
       }
     },
@@ -6818,11 +6818,11 @@
         "referee": "Ricardo De Burgos Bengoetxea",
         "refereeStats": {
           "country": "Spain",
-          "matches": 68,
-          "avgYellow": 3.71,
+          "matches": 69,
+          "avgYellow": 3.67,
           "avgRed": 0.26,
           "avgFouls": 22.9,
-          "avgGoals": 3.12
+          "avgGoals": 3.1
         }
       }
     },
@@ -8330,6 +8330,84 @@
     },
     "laliga-2026-27-md14-levante-racing-santander": {
       "game": "laliga-2026-27-md14-levante-racing-santander",
+      "cortex": {
+        "headline": "Levante con la probabilidad y el gol a favor en casa",
+        "headlineOrigin": "ia",
+        "sections": [
+          {
+            "key": "lectura",
+            "title": "La lectura",
+            "text": "El Levante llega con la mayor probabilidad del partido, 50 %, y un ataque proyectado por encima del Racing. En la tabla, en cambio, el Racing está séptimo con 17 puntos frente al decimoquinto del Levante con 12, así que el visitante sostiene su temporada con menos margen en el marcador.",
+            "origin": "ia"
+          },
+          {
+            "key": "goles",
+            "title": "Goles",
+            "text": "Se espera un partido abierto: 3.71 goles en total, con 70 % de superar los 2.5 y 70 % de que anoten ambos. El Levante aporta 2.25 y el Racing 1.46, así que el peso ofensivo se inclina al local.",
+            "origin": "ia",
+            "stats": [
+              {
+                "label": "Goles esperados",
+                "home": 2.25,
+                "away": 1.46
+              },
+              {
+                "label": "Ambos anotan",
+                "value": "70 %"
+              },
+              {
+                "label": "Más de 2.5 goles",
+                "value": "70 %"
+              }
+            ]
+          },
+          {
+            "key": "ritmo",
+            "title": "Ritmo del partido",
+            "text": "El Levante empuja más por las bandas con 5.8 tiros de esquina por 4.4 del Racing, 10.2 en total. Las faltas llegan parejas, 11.8 y 12.0 para 23.8, un partido cortado por ambos lados sin un equipo que rompa el ritmo.",
+            "origin": "ia",
+            "stats": [
+              {
+                "label": "Tiros de esquina",
+                "home": 5.8,
+                "away": 4.4
+              },
+              {
+                "label": "Faltas",
+                "home": 11.8,
+                "away": 12
+              },
+              {
+                "label": "Amarillas",
+                "home": 2.2,
+                "away": 2.3
+              }
+            ]
+          },
+          {
+            "key": "tabla",
+            "title": "Tabla y descanso",
+            "text": "El Racing está séptimo con 17 puntos y diferencia de -12; el Levante es decimoquinto con 12 puntos y -5, ambos con 13 jugados. El descanso favorece al visitante: 5 días por 4 del local.",
+            "origin": "ia",
+            "stats": [
+              {
+                "label": "Puntos",
+                "home": 12,
+                "away": 17
+              }
+            ]
+          },
+          {
+            "key": "cambia",
+            "title": "Qué podría cambiarlo",
+            "text": "Las alineaciones pueden ajustar el peso ofensivo del Levante. El criterio del árbitro define cuánto se corta el juego con faltas tan parejas. El primer gol cambia quién empuja y quién espera.",
+            "origin": "ia"
+          }
+        ],
+        "fingerprint": "48fd3d71d264e816",
+        "generatedAt": "2026-11-25T20:31:24.836Z",
+        "version": "2"
+      },
       "counts": {
         "corners": {
           "home": 5.76,
@@ -11181,6 +11259,84 @@
     },
     "laliga-2026-27-md14-real-madrid-alaves": {
       "game": "laliga-2026-27-md14-real-madrid-alaves",
+      "cortex": {
+        "headline": "Real Madrid recibe al Alavés con la probabilidad más alta",
+        "headlineOrigin": "ia",
+        "sections": [
+          {
+            "key": "lectura",
+            "title": "La lectura",
+            "text": "Real Madrid parte adelante: gana en 76 % de los escenarios, contra 8 % de Deportivo Alavés; el empate se queda en 15 %.",
+            "origin": "plantilla"
+          },
+          {
+            "key": "goles",
+            "title": "Goles",
+            "text": "Se espera un partido con 3.16 goles en total y un 63 % de que pase de 2.5. El Real Madrid aporta 2.35 y el Alavés 0.81; el 50 % de ambos anotan deja abierta la posibilidad de que el visitante marque.",
+            "origin": "ia",
+            "stats": [
+              {
+                "label": "Goles esperados",
+                "home": 2.35,
+                "away": 0.81
+              },
+              {
+                "label": "Ambos anotan",
+                "value": "50 %"
+              },
+              {
+                "label": "Más de 2.5 goles",
+                "value": "63 %"
+              }
+            ]
+          },
+          {
+            "key": "ritmo",
+            "title": "Ritmo del partido",
+            "text": "El Real Madrid empuja con 6.5 tiros de esquina por 3.7 del Alavés, 10.1 en total. Las faltas se cargan al visitante, 16.8 contra 10.1, con 26.9 en conjunto: el juego se corta del lado del Alavés y el local acumula llegadas.",
+            "origin": "ia",
+            "stats": [
+              {
+                "label": "Tiros de esquina",
+                "home": 6.5,
+                "away": 3.7
+              },
+              {
+                "label": "Faltas",
+                "home": 10.1,
+                "away": 16.8
+              },
+              {
+                "label": "Amarillas",
+                "home": 2.1,
+                "away": 2.5
+              }
+            ]
+          },
+          {
+            "key": "tabla",
+            "title": "Tabla y descanso",
+            "text": "El Real Madrid es segundo con 33 puntos y diferencia de 22 tras 13 partidos. El Alavés es noveno con 16 puntos y diferencia de cero. Ambos llegan con 7 días de descanso.",
+            "origin": "ia",
+            "stats": [
+              {
+                "label": "Puntos",
+                "home": 33,
+                "away": 16
+              }
+            ]
+          },
+          {
+            "key": "cambia",
+            "title": "Qué podría cambiarlo",
+            "text": "Las alineaciones pueden ajustar el peso ofensivo del Real Madrid y la contención del Alavés. El criterio del árbitro define cuánto se corta el juego ante las faltas del visitante. El primer gol ordena el resto.",
+            "origin": "ia"
+          }
+        ],
+        "fingerprint": "4afc3ac7e08bcc44",
+        "generatedAt": "2026-11-25T20:31:30.700Z",
+        "version": "2"
+      },
       "counts": {
         "corners": {
           "home": 6.45,
@@ -12508,6 +12664,84 @@
     },
     "laliga-2026-27-md14-deportivo-la-coruna-barcelona": {
       "game": "laliga-2026-27-md14-deportivo-la-coruna-barcelona",
+      "cortex": {
+        "headline": "El Barcelona llega como favorito claro y el gol lo respalda",
+        "headlineOrigin": "ia",
+        "sections": [
+          {
+            "key": "lectura",
+            "title": "La lectura",
+            "text": "El Barcelona llega mejor: es líder con 36 puntos y una diferencia de 36, frente al 12.º lugar del Deportivo con 15 puntos y diferencia de -1. La probabilidad de 70 % a su favor confirma esa distancia, aunque el descanso es casi igual: 8 días del local por 7 del visitante.",
+            "origin": "ia"
+          },
+          {
+            "key": "goles",
+            "title": "Goles",
+            "text": "Se ve abierto: el total esperado es 3.60, con 71 % de más de 2.5 goles y 63 % de ambos anotan. El Barcelona aporta 2.40 y el Deportivo 1.20, así que el peso anotador cae del lado visitante.",
+            "origin": "ia",
+            "stats": [
+              {
+                "label": "Goles esperados",
+                "home": 1.2,
+                "away": 2.4
+              },
+              {
+                "label": "Ambos anotan",
+                "value": "63 %"
+              },
+              {
+                "label": "Más de 2.5 goles",
+                "value": "71 %"
+              }
+            ]
+          },
+          {
+            "key": "ritmo",
+            "title": "Ritmo del partido",
+            "text": "Los córners suman 10.2, con 5.4 del Barcelona y 4.7 del Deportivo: el visitante empuja más arriba. Las faltas llegan a 22.5, muy repartidas (11.4 y 11.1), con 4.3 amarillas: un partido cortado pero sin dominio de un solo lado.",
+            "origin": "ia",
+            "stats": [
+              {
+                "label": "Tiros de esquina",
+                "home": 4.7,
+                "away": 5.4
+              },
+              {
+                "label": "Faltas",
+                "home": 11.4,
+                "away": 11.1
+              },
+              {
+                "label": "Amarillas",
+                "home": 2.3,
+                "away": 2
+              }
+            ]
+          },
+          {
+            "key": "tabla",
+            "title": "Tabla y descanso",
+            "text": "El Barcelona es primero con 36 puntos en 13 partidos y diferencia de 36. El Deportivo es 12.º con 15 puntos y diferencia de -1. El descanso favorece apenas al local: 8 días contra 7.",
+            "origin": "ia",
+            "stats": [
+              {
+                "label": "Puntos",
+                "home": 15,
+                "away": 36
+              }
+            ]
+          },
+          {
+            "key": "cambia",
+            "title": "Qué podría cambiarlo",
+            "text": "Las alineaciones pueden ajustar cuánto presiona el Barcelona arriba. El criterio del árbitro pesa en un partido de 22.5 faltas. El primer gol define si el Deportivo se cierra o se estira y abre espacios.",
+            "origin": "ia"
+          }
+        ],
+        "fingerprint": "7ca27cd23c67b78c",
+        "generatedAt": "2026-11-25T20:31:39.000Z",
+        "version": "2"
+      },
       "counts": {
         "corners": {
           "home": 4.74,
@@ -13173,6 +13407,84 @@
     },
     "laliga-2026-27-md14-celta-vigo-villarreal": {
       "game": "laliga-2026-27-md14-celta-vigo-villarreal",
+      "cortex": {
+        "headline": "Villarreal, favorito mínimo, visita a un Celta con más descanso",
+        "headlineOrigin": "ia",
+        "sections": [
+          {
+            "key": "lectura",
+            "title": "La lectura",
+            "text": "El Villarreal llega un escalón arriba: décimo con 15 puntos y diferencia de más uno, frente al Celta, decimocuarto con 13 y menos uno. La ventaja es mínima y el Celta juega en casa con un día extra de descanso, así que el orden de la tabla pesa poco aquí.",
+            "origin": "ia"
+          },
+          {
+            "key": "goles",
+            "title": "Goles",
+            "text": "Se ve un partido de pocos goles: el total esperado es 2.45, con 70 % de superar 1.5 pero solo 44 % de pasar 2.5. El reparto es casi idéntico, 1.23 para el Celta y 1.21 para el Villarreal, y ambos anotan en la mitad de los escenarios.",
+            "origin": "ia",
+            "stats": [
+              {
+                "label": "Goles esperados",
+                "home": 1.23,
+                "away": 1.21
+              },
+              {
+                "label": "Ambos anotan",
+                "value": "50 %"
+              },
+              {
+                "label": "Más de 2.5 goles",
+                "value": "44 %"
+              }
+            ]
+          },
+          {
+            "key": "ritmo",
+            "title": "Ritmo del partido",
+            "text": "Ninguno de los dos empuja mucho: 4.6 tiros de esquina del Celta y 4.3 del Villarreal, 8.9 en total. Las faltas van parejas, 11.8 y 11.7 para un total de 23.5, así que se perfila un juego cortado pero sin un dominador claro del ritmo.",
+            "origin": "ia",
+            "stats": [
+              {
+                "label": "Tiros de esquina",
+                "home": 4.6,
+                "away": 4.3
+              },
+              {
+                "label": "Faltas",
+                "home": 11.8,
+                "away": 11.7
+              },
+              {
+                "label": "Amarillas",
+                "home": 2.1,
+                "away": 2.2
+              }
+            ]
+          },
+          {
+            "key": "tabla",
+            "title": "Tabla y descanso",
+            "text": "El Villarreal es décimo con 15 puntos en 13 jornadas y diferencia de más uno; el Celta es decimocuarto con 13 puntos y menos uno. El descanso favorece al local: 8 días por 7 del visitante.",
+            "origin": "ia",
+            "stats": [
+              {
+                "label": "Puntos",
+                "home": 13,
+                "away": 15
+              }
+            ]
+          },
+          {
+            "key": "cambia",
+            "title": "Qué podría cambiarlo",
+            "text": "Las alineaciones pueden inclinar la balanza hacia el lado que arriesgue más arriba. El criterio del árbitro define cuánto se corta el juego con faltas tan parejas, y el primer gol cambia quién empuja y quién espera.",
+            "origin": "ia"
+          }
+        ],
+        "fingerprint": "07d478d6f9cffd04",
+        "generatedAt": "2026-11-25T20:31:43.167Z",
+        "version": "2"
+      },
       "counts": {
         "corners": {
           "home": 4.61,
@@ -13838,6 +14150,84 @@
     },
     "laliga-2026-27-md14-real-sociedad-sevilla": {
       "game": "laliga-2026-27-md14-real-sociedad-sevilla",
+      "cortex": {
+        "headline": "Real Sociedad llega mejor y con más peso ofensivo en casa",
+        "headlineOrigin": "ia",
+        "sections": [
+          {
+            "key": "lectura",
+            "title": "La lectura",
+            "text": "La Real Sociedad es quinta con 22 puntos y llega con 52 % de probabilidad frente a un Sevilla sexto con 19. El descanso es casi igual, siete días por ocho del visitante, así que la diferencia se explica por puntos y por localía.",
+            "origin": "ia"
+          },
+          {
+            "key": "goles",
+            "title": "Goles",
+            "text": "Se espera un partido abierto: 3.31 goles en total, con 64 % de que se superen los 2.5 y 64 % de que ambos anoten. La Real Sociedad aporta 1.96 y el Sevilla 1.36, así que el peso ofensivo se inclina al local.",
+            "origin": "ia",
+            "stats": [
+              {
+                "label": "Goles esperados",
+                "home": 1.96,
+                "away": 1.36
+              },
+              {
+                "label": "Ambos anotan",
+                "value": "64 %"
+              },
+              {
+                "label": "Más de 2.5 goles",
+                "value": "64 %"
+              }
+            ]
+          },
+          {
+            "key": "ritmo",
+            "title": "Ritmo del partido",
+            "text": "La Real Sociedad empuja más: 5.8 tiros de esquina por 4.0 del Sevilla, 9.8 en total. Las faltas están parejas en 13.2 por lado, 26.4 en conjunto, con 5.0 amarillas: juego cortado y con pocas pausas limpias.",
+            "origin": "ia",
+            "stats": [
+              {
+                "label": "Tiros de esquina",
+                "home": 5.8,
+                "away": 4
+              },
+              {
+                "label": "Faltas",
+                "home": 13.2,
+                "away": 13.2
+              },
+              {
+                "label": "Amarillas",
+                "home": 2.2,
+                "away": 2.7
+              }
+            ]
+          },
+          {
+            "key": "tabla",
+            "title": "Tabla y descanso",
+            "text": "La Real Sociedad es quinta con 22 puntos en 13 partidos y diferencia de 0. El Sevilla es sexto con 19 puntos en 13 y diferencia de -2. El descanso favorece apenas al visitante: 8 días por 7.",
+            "origin": "ia",
+            "stats": [
+              {
+                "label": "Puntos",
+                "home": 22,
+                "away": 19
+              }
+            ]
+          },
+          {
+            "key": "cambia",
+            "title": "Qué podría cambiarlo",
+            "text": "Las alineaciones confirmadas pueden ajustar el peso ofensivo de cada lado. El criterio del árbitro importa con 26.4 faltas proyectadas. El primer gol define si el Sevilla se estira o se cierra atrás.",
+            "origin": "ia"
+          }
+        ],
+        "fingerprint": "17cef9969d765a35",
+        "generatedAt": "2026-11-25T20:31:46.102Z",
+        "version": "2"
+      },
       "counts": {
         "corners": {
           "home": 5.81,

@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "league": "eredivisie",
   "seasonLabel": "2026/27",
-  "observedAt": "2026-11-24T21:01:09.804Z",
+  "observedAt": "2026-11-25T20:23:50.754Z",
   "teams": [
     {
       "teamId": "eredivisie.ado-den-haag",
@@ -24,7 +24,7 @@
           "winPct": 40
         }
       },
-      "updatedAt": "2026-11-24T21:01:09.804Z",
+      "updatedAt": "2026-11-25T20:23:50.754Z",
       "players": [
         {
           "id": "eredivisie.ado-den-haag.alex-pozo",
@@ -355,7 +355,7 @@
             "offsides": 0,
             "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 1
+            "goalsConceded": 0
           },
           "candidatePicks": []
         },
@@ -575,7 +575,7 @@
             "yellowCards": 0,
             "redCards": 0,
             "offsides": 0,
-            "saves": 4,
+            "saves": 6,
             "shotsFaced": 0,
             "goalsConceded": 1
           },
@@ -614,7 +614,7 @@
             "offsides": 0,
             "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 1
+            "goalsConceded": 0
           },
           "candidatePicks": []
         },
@@ -679,7 +679,7 @@
             "subIns": 0,
             "goals": 0,
             "assists": 0,
-            "shots": 2,
+            "shots": 0,
             "shotsOnTarget": 0,
             "foulsCommitted": 0,
             "foulsSuffered": 0,
@@ -688,7 +688,7 @@
             "offsides": 0,
             "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 1
+            "goalsConceded": 0
           },
           "candidatePicks": []
         },
@@ -716,7 +716,7 @@
             "subIns": 0,
             "goals": 0,
             "assists": 0,
-            "shots": 1,
+            "shots": 0,
             "shotsOnTarget": 0,
             "foulsCommitted": 0,
             "foulsSuffered": 0,
@@ -947,7 +947,7 @@
             "offsides": 0,
             "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 1
+            "goalsConceded": 0
           },
           "candidatePicks": []
         },
@@ -1121,7 +1121,7 @@
           "winPct": 29.8
         }
       },
-      "updatedAt": "2026-11-24T21:01:09.804Z",
+      "updatedAt": "2026-11-25T20:23:50.754Z",
       "players": [
         {
           "id": "eredivisie.sparta-rotterdam.alwande-roaldsoy",
@@ -1182,10 +1182,10 @@
           "stats": {
             "appearances": 0,
             "subIns": 0,
-            "goals": 1,
+            "goals": 0,
             "assists": 0,
-            "shots": 1,
-            "shotsOnTarget": 1,
+            "shots": 0,
+            "shotsOnTarget": 0,
             "foulsCommitted": 0,
             "foulsSuffered": 0,
             "yellowCards": 0,
@@ -1193,7 +1193,7 @@
             "offsides": 0,
             "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 0
+            "goalsConceded": 1
           },
           "candidatePicks": []
         },
@@ -1998,7 +1998,7 @@
             "subIns": 0,
             "goals": 0,
             "assists": 0,
-            "shots": 0,
+            "shots": 1,
             "shotsOnTarget": 0,
             "foulsCommitted": 0,
             "foulsSuffered": 0,
@@ -2007,7 +2007,7 @@
             "offsides": 0,
             "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 2
+            "goalsConceded": 0
           },
           "candidatePicks": []
         },
@@ -2035,8 +2035,8 @@
             "subIns": 0,
             "goals": 0,
             "assists": 0,
-            "shots": 0,
-            "shotsOnTarget": 0,
+            "shots": 3,
+            "shotsOnTarget": 2,
             "foulsCommitted": 0,
             "foulsSuffered": 0,
             "yellowCards": 0,
@@ -2044,7 +2044,7 @@
             "offsides": 0,
             "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 0
+            "goalsConceded": 1
           },
           "candidatePicks": []
         },
@@ -2072,8 +2072,8 @@
             "subIns": 0,
             "goals": 0,
             "assists": 0,
-            "shots": 4,
-            "shotsOnTarget": 1,
+            "shots": 0,
+            "shotsOnTarget": 0,
             "foulsCommitted": 0,
             "foulsSuffered": 0,
             "yellowCards": 0,
@@ -2081,7 +2081,7 @@
             "offsides": 0,
             "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 3
+            "goalsConceded": 0
           },
           "candidatePicks": []
         }
@@ -2107,7 +2107,7 @@
           "winPct": 36.5
         }
       },
-      "updatedAt": "2026-11-24T21:01:09.804Z",
+      "updatedAt": "2026-11-25T20:23:50.754Z",
       "players": [
         {
           "id": "eredivisie.excelsior.agust-orri-thorsteinsson",
@@ -2133,7 +2133,7 @@
             "subIns": 0,
             "goals": 0,
             "assists": 0,
-            "shots": 0,
+            "shots": 1,
             "shotsOnTarget": 0,
             "foulsCommitted": 0,
             "foulsSuffered": 0,
@@ -2142,7 +2142,7 @@
             "offsides": 0,
             "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 0
+            "goalsConceded": 1
           },
           "candidatePicks": []
         },
@@ -2179,7 +2179,7 @@
             "offsides": 0,
             "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 0
+            "goalsConceded": 1
           },
           "candidatePicks": []
         },
@@ -2207,7 +2207,7 @@
             "subIns": 0,
             "goals": 0,
             "assists": 0,
-            "shots": 1,
+            "shots": 0,
             "shotsOnTarget": 0,
             "foulsCommitted": 0,
             "foulsSuffered": 0,
@@ -2216,7 +2216,7 @@
             "offsides": 0,
             "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 0
+            "goalsConceded": 5
           },
           "candidatePicks": []
         },
@@ -2355,8 +2355,8 @@
             "subIns": 0,
             "goals": 0,
             "assists": 0,
-            "shots": 0,
-            "shotsOnTarget": 0,
+            "shots": 1,
+            "shotsOnTarget": 1,
             "foulsCommitted": 0,
             "foulsSuffered": 0,
             "yellowCards": 0,
@@ -2364,7 +2364,7 @@
             "offsides": 0,
             "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 0
+            "goalsConceded": 1
           },
           "candidatePicks": []
         },
@@ -2540,8 +2540,8 @@
             "subIns": 0,
             "goals": 0,
             "assists": 0,
-            "shots": 1,
-            "shotsOnTarget": 1,
+            "shots": 0,
+            "shotsOnTarget": 0,
             "foulsCommitted": 0,
             "foulsSuffered": 0,
             "yellowCards": 0,
@@ -2549,7 +2549,7 @@
             "offsides": 0,
             "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 1
+            "goalsConceded": 9
           },
           "candidatePicks": []
         },
@@ -2623,7 +2623,7 @@
             "offsides": 0,
             "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 1
+            "goalsConceded": 9
           },
           "candidatePicks": []
         },
@@ -2672,7 +2672,7 @@
           "jersey": "27",
           "positionGroup": "DEF",
           "positionLabel": "Defensa",
-          "age": 18,
+          "age": 19,
           "birthDate": "2007-11-26",
           "heightCm": null,
           "weightKg": null,
@@ -2734,7 +2734,7 @@
             "offsides": 0,
             "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 9
+            "goalsConceded": 0
           },
           "candidatePicks": []
         },
@@ -2762,7 +2762,7 @@
             "subIns": 0,
             "goals": 0,
             "assists": 0,
-            "shots": 1,
+            "shots": 0,
             "shotsOnTarget": 0,
             "foulsCommitted": 0,
             "foulsSuffered": 0,
@@ -2771,7 +2771,7 @@
             "offsides": 0,
             "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 0
+            "goalsConceded": 9
           },
           "candidatePicks": []
         },
@@ -2824,7 +2824,7 @@
           "birthDate": "2007-01-08",
           "heightCm": 188,
           "weightKg": null,
-          "preferredFoot": null,
+          "preferredFoot": "B",
           "nationality": "Netherlands",
           "nationalityCode": null,
           "photoKey": "pl-p:65777",
@@ -2882,7 +2882,7 @@
             "offsides": 0,
             "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 1
+            "goalsConceded": 9
           },
           "candidatePicks": []
         },
@@ -3093,7 +3093,7 @@
           "winPct": 42.6
         }
       },
-      "updatedAt": "2026-11-24T21:01:09.804Z",
+      "updatedAt": "2026-11-25T20:23:50.754Z",
       "players": [
         {
           "id": "eredivisie.go-ahead-eagles.alfons-sampsted",
@@ -3202,7 +3202,7 @@
             "offsides": 0,
             "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 3
+            "goalsConceded": 0
           },
           "candidatePicks": []
         },
@@ -3461,7 +3461,7 @@
             "offsides": 0,
             "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 4
+            "goalsConceded": 0
           },
           "candidatePicks": []
         },
@@ -3894,10 +3894,10 @@
           "stats": {
             "appearances": 0,
             "subIns": 0,
-            "goals": 1,
+            "goals": 0,
             "assists": 0,
-            "shots": 1,
-            "shotsOnTarget": 1,
+            "shots": 2,
+            "shotsOnTarget": 0,
             "foulsCommitted": 0,
             "foulsSuffered": 0,
             "yellowCards": 0,
@@ -3905,7 +3905,7 @@
             "offsides": 0,
             "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 0
+            "goalsConceded": 4
           },
           "candidatePicks": []
         },
@@ -4164,7 +4164,7 @@
             "offsides": 0,
             "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 0
+            "goalsConceded": 3
           },
           "candidatePicks": []
         },
@@ -4227,7 +4227,7 @@
           "winPct": 41.8
         }
       },
-      "updatedAt": "2026-11-24T21:01:09.804Z",
+      "updatedAt": "2026-11-25T20:23:50.754Z",
       "players": [
         {
           "id": "eredivisie.heerenveen.anass-bouziane",
@@ -4334,9 +4334,9 @@
             "yellowCards": 0,
             "redCards": 0,
             "offsides": 0,
-            "saves": 0,
+            "saves": 1,
             "shotsFaced": 0,
-            "goalsConceded": 3
+            "goalsConceded": 0
           },
           "candidatePicks": []
         },
@@ -4584,10 +4584,10 @@
           "stats": {
             "appearances": 0,
             "subIns": 0,
-            "goals": 1,
+            "goals": 0,
             "assists": 0,
-            "shots": 2,
-            "shotsOnTarget": 2,
+            "shots": 1,
+            "shotsOnTarget": 0,
             "foulsCommitted": 0,
             "foulsSuffered": 0,
             "yellowCards": 0,
@@ -4595,7 +4595,7 @@
             "offsides": 0,
             "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 3
+            "goalsConceded": 0
           },
           "candidatePicks": []
         },
@@ -4658,10 +4658,10 @@
           "stats": {
             "appearances": 0,
             "subIns": 0,
-            "goals": 1,
+            "goals": 0,
             "assists": 0,
-            "shots": 2,
-            "shotsOnTarget": 1,
+            "shots": 0,
+            "shotsOnTarget": 0,
             "foulsCommitted": 0,
             "foulsSuffered": 0,
             "yellowCards": 0,
@@ -4669,7 +4669,7 @@
             "offsides": 0,
             "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 3
+            "goalsConceded": 0
           },
           "candidatePicks": []
         },
@@ -4882,8 +4882,8 @@
             "subIns": 0,
             "goals": 0,
             "assists": 0,
-            "shots": 1,
-            "shotsOnTarget": 0,
+            "shots": 2,
+            "shotsOnTarget": 1,
             "foulsCommitted": 0,
             "foulsSuffered": 0,
             "yellowCards": 0,
@@ -4891,7 +4891,7 @@
             "offsides": 0,
             "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 0
+            "goalsConceded": 3
           },
           "candidatePicks": []
         },
@@ -4919,7 +4919,7 @@
             "subIns": 0,
             "goals": 0,
             "assists": 0,
-            "shots": 1,
+            "shots": 0,
             "shotsOnTarget": 0,
             "foulsCommitted": 0,
             "foulsSuffered": 0,
@@ -4928,7 +4928,7 @@
             "offsides": 0,
             "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 3
+            "goalsConceded": 0
           },
           "candidatePicks": []
         },
@@ -5176,7 +5176,7 @@
           "winPct": 58.3
         }
       },
-      "updatedAt": "2026-11-24T21:01:09.804Z",
+      "updatedAt": "2026-11-25T20:23:50.754Z",
       "players": [
         {
           "id": "eredivisie.feyenoord.anis-hadj-moussa",
@@ -5200,9 +5200,9 @@
           "stats": {
             "appearances": 0,
             "subIns": 0,
-            "goals": 1,
+            "goals": 0,
             "assists": 0,
-            "shots": 1,
+            "shots": 4,
             "shotsOnTarget": 1,
             "foulsCommitted": 0,
             "foulsSuffered": 0,
@@ -5211,7 +5211,7 @@
             "offsides": 0,
             "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 5
+            "goalsConceded": 1
           },
           "candidatePicks": []
         },
@@ -5276,7 +5276,7 @@
             "subIns": 0,
             "goals": 0,
             "assists": 0,
-            "shots": 1,
+            "shots": 0,
             "shotsOnTarget": 0,
             "foulsCommitted": 0,
             "foulsSuffered": 0,
@@ -5285,7 +5285,7 @@
             "offsides": 0,
             "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 5
+            "goalsConceded": 2
           },
           "candidatePicks": []
         },
@@ -5294,7 +5294,7 @@
           "slug": "dani-slory",
           "name": "Dani Slory",
           "shortName": "D. Slory",
-          "jersey": "65",
+          "jersey": "5",
           "positionGroup": "DEF",
           "positionLabel": "Defensa",
           "age": 18,
@@ -5461,7 +5461,7 @@
             "subIns": 0,
             "goals": 0,
             "assists": 0,
-            "shots": 2,
+            "shots": 0,
             "shotsOnTarget": 0,
             "foulsCommitted": 0,
             "foulsSuffered": 0,
@@ -5470,7 +5470,7 @@
             "offsides": 0,
             "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 3
+            "goalsConceded": 5
           },
           "candidatePicks": []
         },
@@ -5507,7 +5507,7 @@
             "offsides": 0,
             "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 4
+            "goalsConceded": 3
           },
           "candidatePicks": []
         },
@@ -5535,7 +5535,7 @@
             "subIns": 0,
             "goals": 0,
             "assists": 0,
-            "shots": 0,
+            "shots": 1,
             "shotsOnTarget": 0,
             "foulsCommitted": 0,
             "foulsSuffered": 0,
@@ -5609,7 +5609,7 @@
             "subIns": 0,
             "goals": 0,
             "assists": 0,
-            "shots": 0,
+            "shots": 1,
             "shotsOnTarget": 0,
             "foulsCommitted": 0,
             "foulsSuffered": 0,
@@ -5618,7 +5618,7 @@
             "offsides": 0,
             "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 5
+            "goalsConceded": 1
           },
           "candidatePicks": []
         },
@@ -5646,8 +5646,8 @@
             "subIns": 0,
             "goals": 0,
             "assists": 0,
-            "shots": 0,
-            "shotsOnTarget": 0,
+            "shots": 1,
+            "shotsOnTarget": 1,
             "foulsCommitted": 0,
             "foulsSuffered": 0,
             "yellowCards": 0,
@@ -5655,7 +5655,7 @@
             "offsides": 0,
             "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 2
+            "goalsConceded": 3
           },
           "candidatePicks": []
         },
@@ -5794,7 +5794,7 @@
             "subIns": 0,
             "goals": 0,
             "assists": 0,
-            "shots": 0,
+            "shots": 1,
             "shotsOnTarget": 0,
             "foulsCommitted": 0,
             "foulsSuffered": 0,
@@ -5914,7 +5914,7 @@
             "offsides": 0,
             "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 5
+            "goalsConceded": 3
           },
           "candidatePicks": []
         },
@@ -5940,7 +5940,7 @@
           "stats": {
             "appearances": 0,
             "subIns": 0,
-            "goals": 1,
+            "goals": 0,
             "assists": 0,
             "shots": 2,
             "shotsOnTarget": 1,
@@ -5988,7 +5988,7 @@
             "offsides": 0,
             "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 3
+            "goalsConceded": 0
           },
           "candidatePicks": []
         },
@@ -6051,10 +6051,10 @@
           "stats": {
             "appearances": 0,
             "subIns": 0,
-            "goals": 1,
+            "goals": 0,
             "assists": 0,
-            "shots": 1,
-            "shotsOnTarget": 1,
+            "shots": 2,
+            "shotsOnTarget": 0,
             "foulsCommitted": 0,
             "foulsSuffered": 0,
             "yellowCards": 0,
@@ -6062,7 +6062,7 @@
             "offsides": 0,
             "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 2
+            "goalsConceded": 1
           },
           "candidatePicks": []
         },
@@ -6090,7 +6090,7 @@
             "subIns": 0,
             "goals": 0,
             "assists": 0,
-            "shots": 0,
+            "shots": 1,
             "shotsOnTarget": 0,
             "foulsCommitted": 0,
             "foulsSuffered": 0,
@@ -6099,7 +6099,7 @@
             "offsides": 0,
             "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 2
+            "goalsConceded": 0
           },
           "candidatePicks": []
         },
@@ -6164,7 +6164,7 @@
             "subIns": 0,
             "goals": 0,
             "assists": 0,
-            "shots": 1,
+            "shots": 0,
             "shotsOnTarget": 0,
             "foulsCommitted": 0,
             "foulsSuffered": 0,
@@ -6173,7 +6173,7 @@
             "offsides": 0,
             "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 2
+            "goalsConceded": 3
           },
           "candidatePicks": []
         },
@@ -6312,7 +6312,7 @@
             "subIns": 0,
             "goals": 0,
             "assists": 0,
-            "shots": 0,
+            "shots": 1,
             "shotsOnTarget": 0,
             "foulsCommitted": 0,
             "foulsSuffered": 0,
@@ -6358,7 +6358,7 @@
             "offsides": 0,
             "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 3
+            "goalsConceded": 2
           },
           "candidatePicks": []
         }
@@ -6384,7 +6384,7 @@
           "winPct": 47
         }
       },
-      "updatedAt": "2026-11-24T21:01:09.804Z",
+      "updatedAt": "2026-11-25T20:23:50.754Z",
       "players": [
         {
           "id": "eredivisie.twente.aske-adelgaard",
@@ -6456,7 +6456,7 @@
             "offsides": 0,
             "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 2
+            "goalsConceded": 1
           },
           "candidatePicks": []
         },
@@ -6521,8 +6521,8 @@
             "subIns": 0,
             "goals": 0,
             "assists": 0,
-            "shots": 5,
-            "shotsOnTarget": 1,
+            "shots": 0,
+            "shotsOnTarget": 0,
             "foulsCommitted": 0,
             "foulsSuffered": 0,
             "yellowCards": 0,
@@ -6530,7 +6530,7 @@
             "offsides": 0,
             "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 2
+            "goalsConceded": 1
           },
           "candidatePicks": []
         },
@@ -6713,9 +6713,9 @@
             "yellowCards": 0,
             "redCards": 0,
             "offsides": 0,
-            "saves": 0,
+            "saves": 3,
             "shotsFaced": 0,
-            "goalsConceded": 2
+            "goalsConceded": 1
           },
           "candidatePicks": []
         },
@@ -7224,7 +7224,7 @@
             "subIns": 0,
             "goals": 0,
             "assists": 0,
-            "shots": 0,
+            "shots": 1,
             "shotsOnTarget": 0,
             "foulsCommitted": 0,
             "foulsSuffered": 0,
@@ -7233,7 +7233,7 @@
             "offsides": 0,
             "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 1
+            "goalsConceded": 2
           },
           "candidatePicks": []
         },
@@ -7407,10 +7407,10 @@
           "stats": {
             "appearances": 0,
             "subIns": 0,
-            "goals": 1,
+            "goals": 0,
             "assists": 0,
-            "shots": 2,
-            "shotsOnTarget": 1,
+            "shots": 3,
+            "shotsOnTarget": 2,
             "foulsCommitted": 0,
             "foulsSuffered": 0,
             "yellowCards": 0,
@@ -7418,7 +7418,7 @@
             "offsides": 0,
             "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 2
+            "goalsConceded": 1
           },
           "candidatePicks": []
         },
@@ -7518,7 +7518,7 @@
           "winPct": 50.5
         }
       },
-      "updatedAt": "2026-11-24T21:01:09.804Z",
+      "updatedAt": "2026-11-25T20:23:50.754Z",
       "players": [
         {
           "id": "eredivisie.ajax.aaron-bouwman",

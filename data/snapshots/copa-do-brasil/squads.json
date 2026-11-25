@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "league": "copa-do-brasil",
   "seasonLabel": "2026",
-  "observedAt": "2026-11-24T21:01:09.804Z",
+  "observedAt": "2026-11-25T20:23:50.754Z",
   "teams": [
     {
       "teamId": "copa-do-brasil.fluminense",
@@ -24,7 +24,7 @@
           "winPct": 56.6
         }
       },
-      "updatedAt": "2026-11-24T21:01:09.804Z",
+      "updatedAt": "2026-11-25T20:23:50.754Z",
       "players": [
         {
           "id": "copa-do-brasil.fluminense.agustin-canobbio",
@@ -1232,7 +1232,7 @@
           "winPct": 37
         }
       },
-      "updatedAt": "2026-11-24T21:01:09.804Z",
+      "updatedAt": "2026-11-25T20:23:50.754Z",
       "players": [
         {
           "id": "copa-do-brasil.vasco-gama.adson",
@@ -2440,7 +2440,7 @@
           "winPct": 43.1
         }
       },
-      "updatedAt": "2026-11-24T21:01:09.804Z",
+      "updatedAt": "2026-11-25T20:23:50.754Z",
       "players": [
         {
           "id": "copa-do-brasil.fortaleza.bastos",
@@ -2873,7 +2873,7 @@
             "subIns": 0,
             "goals": 0,
             "assists": 0,
-            "shots": 1,
+            "shots": 0,
             "shotsOnTarget": 0,
             "foulsCommitted": 0,
             "foulsSuffered": 0,
@@ -2882,7 +2882,7 @@
             "offsides": 0,
             "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 2
+            "goalsConceded": 0
           },
           "candidatePicks": []
         },
@@ -2948,7 +2948,7 @@
             "goals": 0,
             "assists": 0,
             "shots": 1,
-            "shotsOnTarget": 1,
+            "shotsOnTarget": 0,
             "foulsCommitted": 0,
             "foulsSuffered": 0,
             "yellowCards": 0,
@@ -2956,7 +2956,7 @@
             "offsides": 0,
             "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 0
+            "goalsConceded": 1
           },
           "candidatePicks": []
         },
@@ -3278,10 +3278,10 @@
           "stats": {
             "appearances": 0,
             "subIns": 0,
-            "goals": 1,
+            "goals": 0,
             "assists": 0,
-            "shots": 1,
-            "shotsOnTarget": 1,
+            "shots": 0,
+            "shotsOnTarget": 0,
             "foulsCommitted": 0,
             "foulsSuffered": 0,
             "yellowCards": 0,
@@ -3289,7 +3289,7 @@
             "offsides": 0,
             "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 2
+            "goalsConceded": 0
           },
           "candidatePicks": []
         },
@@ -3326,7 +3326,7 @@
             "offsides": 0,
             "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 1
+            "goalsConceded": 0
           },
           "candidatePicks": []
         },
@@ -3428,8 +3428,8 @@
             "subIns": 0,
             "goals": 0,
             "assists": 0,
-            "shots": 0,
-            "shotsOnTarget": 0,
+            "shots": 2,
+            "shotsOnTarget": 1,
             "foulsCommitted": 0,
             "foulsSuffered": 0,
             "yellowCards": 0,
@@ -3437,7 +3437,7 @@
             "offsides": 0,
             "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 2
+            "goalsConceded": 0
           },
           "candidatePicks": []
         },
@@ -3648,7 +3648,7 @@
           "winPct": 60
         }
       },
-      "updatedAt": "2026-11-24T21:01:09.804Z",
+      "updatedAt": "2026-11-25T20:23:50.754Z",
       "players": [
         {
           "id": "copa-do-brasil.palmeiras.agustin-giay",
@@ -3674,7 +3674,7 @@
             "subIns": 0,
             "goals": 0,
             "assists": 0,
-            "shots": 0,
+            "shots": 1,
             "shotsOnTarget": 0,
             "foulsCommitted": 0,
             "foulsSuffered": 0,
@@ -3683,7 +3683,7 @@
             "offsides": 0,
             "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 0
+            "goalsConceded": 1
           },
           "candidatePicks": []
         },
@@ -3720,7 +3720,7 @@
             "offsides": 0,
             "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 2
+            "goalsConceded": 0
           },
           "candidatePicks": []
         },
@@ -3757,7 +3757,44 @@
             "offsides": 0,
             "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 2
+            "goalsConceded": 0
+          },
+          "candidatePicks": []
+        },
+        {
+          "id": "copa-do-brasil.palmeiras.andre-lucas",
+          "slug": "andre-lucas",
+          "name": "André Lucas",
+          "shortName": "A. Lucas",
+          "jersey": "66",
+          "positionGroup": "DEF",
+          "positionLabel": "Defensa",
+          "age": 20,
+          "birthDate": "2006-01-22",
+          "heightCm": 178,
+          "weightKg": null,
+          "preferredFoot": "L",
+          "nationality": "Brazil",
+          "nationalityCode": null,
+          "photoKey": "pl-p:206914",
+          "availability": "available",
+          "injuryDetail": null,
+          "expectedReturn": null,
+          "stats": {
+            "appearances": 0,
+            "subIns": 0,
+            "goals": 0,
+            "assists": 0,
+            "shots": 0,
+            "shotsOnTarget": 0,
+            "foulsCommitted": 0,
+            "foulsSuffered": 0,
+            "yellowCards": 0,
+            "redCards": 0,
+            "offsides": 0,
+            "saves": 0,
+            "shotsFaced": 0,
+            "goalsConceded": 1
           },
           "candidatePicks": []
         },
@@ -3794,7 +3831,7 @@
             "offsides": 0,
             "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 2
+            "goalsConceded": 1
           },
           "candidatePicks": []
         },
@@ -3859,8 +3896,8 @@
             "subIns": 0,
             "goals": 0,
             "assists": 0,
-            "shots": 1,
-            "shotsOnTarget": 1,
+            "shots": 0,
+            "shotsOnTarget": 0,
             "foulsCommitted": 0,
             "foulsSuffered": 0,
             "yellowCards": 0,
@@ -3868,7 +3905,7 @@
             "offsides": 0,
             "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 2
+            "goalsConceded": 1
           },
           "candidatePicks": []
         },
@@ -3903,9 +3940,9 @@
             "yellowCards": 0,
             "redCards": 0,
             "offsides": 0,
-            "saves": 1,
+            "saves": 6,
             "shotsFaced": 0,
-            "goalsConceded": 2
+            "goalsConceded": 1
           },
           "candidatePicks": []
         },
@@ -4058,6 +4095,43 @@
           "candidatePicks": []
         },
         {
+          "id": "copa-do-brasil.palmeiras.geovanne-soares",
+          "slug": "geovanne-soares",
+          "name": "Geovanne Soares",
+          "shortName": "G. Soares",
+          "jersey": "40",
+          "positionGroup": "DEF",
+          "positionLabel": "Defensa",
+          "age": null,
+          "birthDate": null,
+          "heightCm": 179,
+          "weightKg": null,
+          "preferredFoot": null,
+          "nationality": "Brazil",
+          "nationalityCode": null,
+          "photoKey": "pl-p:233367",
+          "availability": "available",
+          "injuryDetail": null,
+          "expectedReturn": null,
+          "stats": {
+            "appearances": 0,
+            "subIns": 0,
+            "goals": 0,
+            "assists": 0,
+            "shots": 1,
+            "shotsOnTarget": 1,
+            "foulsCommitted": 0,
+            "foulsSuffered": 0,
+            "yellowCards": 0,
+            "redCards": 0,
+            "offsides": 0,
+            "saves": 0,
+            "shotsFaced": 0,
+            "goalsConceded": 1
+          },
+          "candidatePicks": []
+        },
+        {
           "id": "copa-do-brasil.palmeiras.gustavo-gomez",
           "slug": "gustavo-gomez",
           "name": "Gustavo Gómez",
@@ -4091,6 +4165,43 @@
             "saves": 0,
             "shotsFaced": 0,
             "goalsConceded": 1
+          },
+          "candidatePicks": []
+        },
+        {
+          "id": "copa-do-brasil.palmeiras.heittor",
+          "slug": "heittor",
+          "name": "Heittor",
+          "shortName": "Heittor",
+          "jersey": "39",
+          "positionGroup": "FWD",
+          "positionLabel": "Delantero",
+          "age": 19,
+          "birthDate": "2007-09-18",
+          "heightCm": 170,
+          "weightKg": null,
+          "preferredFoot": "R",
+          "nationality": "Brazil",
+          "nationalityCode": null,
+          "photoKey": "pl-p:4492",
+          "availability": "available",
+          "injuryDetail": null,
+          "expectedReturn": null,
+          "stats": {
+            "appearances": 0,
+            "subIns": 0,
+            "goals": 0,
+            "assists": 0,
+            "shots": 3,
+            "shotsOnTarget": 1,
+            "foulsCommitted": 0,
+            "foulsSuffered": 0,
+            "yellowCards": 0,
+            "redCards": 0,
+            "offsides": 0,
+            "saves": 0,
+            "shotsFaced": 0,
+            "goalsConceded": 2
           },
           "candidatePicks": []
         },
@@ -4243,6 +4354,43 @@
           "candidatePicks": []
         },
         {
+          "id": "copa-do-brasil.palmeiras.kauan-lima",
+          "slug": "kauan-lima",
+          "name": "Kauan Lima",
+          "shortName": "Kauan Lima",
+          "jersey": "72",
+          "positionGroup": "GK",
+          "positionLabel": "Portero",
+          "age": null,
+          "birthDate": null,
+          "heightCm": 193,
+          "weightKg": null,
+          "preferredFoot": null,
+          "nationality": "Brazil",
+          "nationalityCode": null,
+          "photoKey": "pl-p:4332",
+          "availability": "available",
+          "injuryDetail": null,
+          "expectedReturn": null,
+          "stats": {
+            "appearances": 0,
+            "subIns": 0,
+            "goals": 0,
+            "assists": 0,
+            "shots": 0,
+            "shotsOnTarget": 0,
+            "foulsCommitted": 0,
+            "foulsSuffered": 0,
+            "yellowCards": 0,
+            "redCards": 0,
+            "offsides": 0,
+            "saves": 0,
+            "shotsFaced": 0,
+            "goalsConceded": 0
+          },
+          "candidatePicks": []
+        },
+        {
           "id": "copa-do-brasil.palmeiras.khellven",
           "slug": "khellven",
           "name": "Khellven",
@@ -4266,7 +4414,7 @@
             "subIns": 0,
             "goals": 0,
             "assists": 0,
-            "shots": 1,
+            "shots": 0,
             "shotsOnTarget": 0,
             "foulsCommitted": 0,
             "foulsSuffered": 0,
@@ -4275,7 +4423,7 @@
             "offsides": 0,
             "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 2
+            "goalsConceded": 0
           },
           "candidatePicks": []
         },
@@ -4377,8 +4525,8 @@
             "subIns": 0,
             "goals": 0,
             "assists": 0,
-            "shots": 0,
-            "shotsOnTarget": 0,
+            "shots": 1,
+            "shotsOnTarget": 1,
             "foulsCommitted": 0,
             "foulsSuffered": 0,
             "yellowCards": 0,
@@ -4386,7 +4534,7 @@
             "offsides": 0,
             "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 0
+            "goalsConceded": 1
           },
           "candidatePicks": []
         },
@@ -4423,7 +4571,7 @@
             "offsides": 0,
             "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 0
+            "goalsConceded": 1
           },
           "candidatePicks": []
         },
@@ -4539,6 +4687,43 @@
           "candidatePicks": []
         },
         {
+          "id": "copa-do-brasil.palmeiras.miguel-cinoncelli-bilong",
+          "slug": "miguel-cinoncelli-bilong",
+          "name": "Miguel Cinoncelli Bilong",
+          "shortName": "M. C. Bilong",
+          "jersey": "29",
+          "positionGroup": "FWD",
+          "positionLabel": "Delantero",
+          "age": 18,
+          "birthDate": "2008-01-20",
+          "heightCm": 178,
+          "weightKg": null,
+          "preferredFoot": "R",
+          "nationality": "Cameroon",
+          "nationalityCode": null,
+          "photoKey": "pl-p:76827",
+          "availability": "available",
+          "injuryDetail": null,
+          "expectedReturn": null,
+          "stats": {
+            "appearances": 0,
+            "subIns": 0,
+            "goals": 0,
+            "assists": 0,
+            "shots": 1,
+            "shotsOnTarget": 1,
+            "foulsCommitted": 0,
+            "foulsSuffered": 0,
+            "yellowCards": 0,
+            "redCards": 0,
+            "offsides": 0,
+            "saves": 0,
+            "shotsFaced": 0,
+            "goalsConceded": 1
+          },
+          "candidatePicks": []
+        },
+        {
           "id": "copa-do-brasil.palmeiras.murilo",
           "slug": "murilo",
           "name": "Murilo",
@@ -4613,58 +4798,21 @@
           "candidatePicks": []
         },
         {
-          "id": "copa-do-brasil.palmeiras.ramon-sosa",
-          "slug": "ramon-sosa",
-          "name": "Ramón Sosa",
-          "shortName": "R. Sosa",
-          "jersey": "19",
-          "positionGroup": "FWD",
-          "positionLabel": "Delantero",
-          "age": 27,
-          "birthDate": "1999-08-31",
+          "id": "copa-do-brasil.palmeiras.rafael-coutinho",
+          "slug": "rafael-coutinho",
+          "name": "Rafael Coutinho",
+          "shortName": "Coutinho",
+          "jersey": "65",
+          "positionGroup": "MID",
+          "positionLabel": "Mediocampista",
+          "age": 20,
+          "birthDate": "2006-03-24",
           "heightCm": 178,
           "weightKg": null,
-          "preferredFoot": "R",
-          "nationality": "Paraguay",
-          "nationalityCode": null,
-          "photoKey": "pl-p:37",
-          "availability": "available",
-          "injuryDetail": null,
-          "expectedReturn": null,
-          "stats": {
-            "appearances": 0,
-            "subIns": 0,
-            "goals": 0,
-            "assists": 0,
-            "shots": 0,
-            "shotsOnTarget": 0,
-            "foulsCommitted": 0,
-            "foulsSuffered": 0,
-            "yellowCards": 0,
-            "redCards": 0,
-            "offsides": 0,
-            "saves": 0,
-            "shotsFaced": 0,
-            "goalsConceded": 0
-          },
-          "candidatePicks": []
-        },
-        {
-          "id": "copa-do-brasil.palmeiras.vitor-roque",
-          "slug": "vitor-roque",
-          "name": "Vitor Roque",
-          "shortName": "V. Roque",
-          "jersey": "9",
-          "positionGroup": "FWD",
-          "positionLabel": "Delantero",
-          "age": 21,
-          "birthDate": "2005-02-28",
-          "heightCm": 174,
-          "weightKg": null,
-          "preferredFoot": "R",
+          "preferredFoot": "L",
           "nationality": "Brazil",
           "nationalityCode": null,
-          "photoKey": "pl-p:33",
+          "photoKey": "pl-p:5003",
           "availability": "available",
           "injuryDetail": null,
           "expectedReturn": null,
@@ -4673,7 +4821,7 @@
             "subIns": 0,
             "goals": 0,
             "assists": 0,
-            "shots": 0,
+            "shots": 1,
             "shotsOnTarget": 0,
             "foulsCommitted": 0,
             "foulsSuffered": 0,
@@ -4708,7 +4856,7 @@
           "winPct": 40
         }
       },
-      "updatedAt": "2026-11-24T21:01:09.804Z",
+      "updatedAt": "2026-11-25T20:23:50.754Z",
       "players": [
         {
           "id": "copa-do-brasil.vitoria.alejandro-almaraz",
@@ -4817,7 +4965,7 @@
             "offsides": 0,
             "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 1
+            "goalsConceded": 0
           },
           "candidatePicks": []
         },
@@ -5252,7 +5400,7 @@
             "subIns": 0,
             "goals": 0,
             "assists": 0,
-            "shots": 1,
+            "shots": 0,
             "shotsOnTarget": 0,
             "foulsCommitted": 0,
             "foulsSuffered": 0,
@@ -5261,7 +5409,7 @@
             "offsides": 0,
             "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 1
+            "goalsConceded": 2
           },
           "candidatePicks": []
         },
@@ -5400,8 +5548,8 @@
             "subIns": 0,
             "goals": 0,
             "assists": 0,
-            "shots": 0,
-            "shotsOnTarget": 0,
+            "shots": 3,
+            "shotsOnTarget": 2,
             "foulsCommitted": 0,
             "foulsSuffered": 0,
             "yellowCards": 0,
@@ -5409,7 +5557,7 @@
             "offsides": 0,
             "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 1
+            "goalsConceded": 3
           },
           "candidatePicks": []
         },
@@ -5705,7 +5853,7 @@
             "offsides": 0,
             "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 0
+            "goalsConceded": 1
           },
           "candidatePicks": []
         },
@@ -5762,15 +5910,15 @@
           "nationality": "Brazil",
           "nationalityCode": null,
           "photoKey": "pl-p:12318",
-          "availability": "suspended",
-          "injuryDetail": "yellow_card_accumulation_suspension",
+          "availability": "available",
+          "injuryDetail": null,
           "expectedReturn": null,
           "stats": {
             "appearances": 0,
             "subIns": 0,
             "goals": 0,
             "assists": 0,
-            "shots": 1,
+            "shots": 0,
             "shotsOnTarget": 0,
             "foulsCommitted": 0,
             "foulsSuffered": 0,
@@ -5779,7 +5927,7 @@
             "offsides": 0,
             "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 0
+            "goalsConceded": 2
           },
           "candidatePicks": []
         },
@@ -5916,7 +6064,7 @@
           "winPct": 43.4
         }
       },
-      "updatedAt": "2026-11-24T21:01:09.804Z",
+      "updatedAt": "2026-11-25T20:23:50.754Z",
       "players": [
         {
           "id": "copa-do-brasil.athletico.adriano-oliveira-farias",
@@ -6149,7 +6297,7 @@
           "positionGroup": "DEF",
           "positionLabel": "Defensa",
           "age": 17,
-          "birthDate": "2009-09-09",
+          "birthDate": "2009-09-08",
           "heightCm": 181,
           "weightKg": null,
           "preferredFoot": null,
@@ -6371,7 +6519,7 @@
           "positionGroup": "DEF",
           "positionLabel": "Defensa",
           "age": 17,
-          "birthDate": "2009-04-03",
+          "birthDate": "2009-04-02",
           "heightCm": null,
           "weightKg": null,
           "preferredFoot": null,
@@ -7124,7 +7272,7 @@
           "winPct": 61.1
         }
       },
-      "updatedAt": "2026-11-24T21:01:09.804Z",
+      "updatedAt": "2026-11-25T20:23:50.754Z",
       "players": [
         {
           "id": "copa-do-brasil.corinthians.alex-santana",
@@ -8332,7 +8480,7 @@
           "winPct": 46.8
         }
       },
-      "updatedAt": "2026-11-24T21:01:09.804Z",
+      "updatedAt": "2026-11-25T20:23:50.754Z",
       "players": [
         {
           "id": "copa-do-brasil.internacional.alan-patrick",
@@ -8350,8 +8498,8 @@
           "nationality": "Brazil",
           "nationalityCode": null,
           "photoKey": "pl-p:171",
-          "availability": "suspended",
-          "injuryDetail": "yellow_card_accumulation_suspension",
+          "availability": "available",
+          "injuryDetail": null,
           "expectedReturn": null,
           "stats": {
             "appearances": 0,
@@ -8405,6 +8553,43 @@
             "saves": 0,
             "shotsFaced": 0,
             "goalsConceded": 2
+          },
+          "candidatePicks": []
+        },
+        {
+          "id": "copa-do-brasil.internacional.alerrandro-barra-mansa-realino-de-souza",
+          "slug": "alerrandro-barra-mansa-realino-de-souza",
+          "name": "Alerrandro Barra Mansa Realino de Souza",
+          "shortName": "A. B. M. R. d. Souza",
+          "jersey": "9",
+          "positionGroup": "FWD",
+          "positionLabel": "Delantero",
+          "age": 26,
+          "birthDate": "2000-01-12",
+          "heightCm": null,
+          "weightKg": null,
+          "preferredFoot": null,
+          "nationality": "Brazil",
+          "nationalityCode": null,
+          "photoKey": "pl-p:237312",
+          "availability": "available",
+          "injuryDetail": null,
+          "expectedReturn": null,
+          "stats": {
+            "appearances": 0,
+            "subIns": 0,
+            "goals": 0,
+            "assists": 0,
+            "shots": 0,
+            "shotsOnTarget": 0,
+            "foulsCommitted": 0,
+            "foulsSuffered": 0,
+            "yellowCards": 0,
+            "redCards": 0,
+            "offsides": 0,
+            "saves": 0,
+            "shotsFaced": 0,
+            "goalsConceded": 0
           },
           "candidatePicks": []
         },
@@ -8868,43 +9053,6 @@
           "nationality": "Ecuador",
           "nationalityCode": null,
           "photoKey": "pl-p:273",
-          "availability": "available",
-          "injuryDetail": null,
-          "expectedReturn": null,
-          "stats": {
-            "appearances": 0,
-            "subIns": 0,
-            "goals": 0,
-            "assists": 0,
-            "shots": 0,
-            "shotsOnTarget": 0,
-            "foulsCommitted": 0,
-            "foulsSuffered": 0,
-            "yellowCards": 0,
-            "redCards": 0,
-            "offsides": 0,
-            "saves": 0,
-            "shotsFaced": 0,
-            "goalsConceded": 0
-          },
-          "candidatePicks": []
-        },
-        {
-          "id": "copa-do-brasil.internacional.filipe-borba-sirio",
-          "slug": "filipe-borba-sirio",
-          "name": "Filipe Borba Sirio",
-          "shortName": "F. B. Sirio",
-          "jersey": "24",
-          "positionGroup": "GK",
-          "positionLabel": "Portero",
-          "age": null,
-          "birthDate": null,
-          "heightCm": 192,
-          "weightKg": null,
-          "preferredFoot": null,
-          "nationality": "Brazil",
-          "nationalityCode": null,
-          "photoKey": "pl-p:76988",
           "availability": "available",
           "injuryDetail": null,
           "expectedReturn": null,

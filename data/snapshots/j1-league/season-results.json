@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "league": "j1-league",
   "season": "2026",
-  "updatedAt": "2026-11-24T21:01:09.804Z",
+  "updatedAt": "2026-11-25T20:23:50.754Z",
   "matches": [
     {
       "id": "j1-league-2026-08-07-yokohama-f-mar-kashima-antler-7xxxo0",
@@ -1652,6 +1652,83 @@
       "awayTeam": "j1-league.fagiano-okayama",
       "homeScore": 0,
       "awayScore": 1,
+      "neutralSite": false
+    },
+    {
+      "id": "j1-league-2026-11-25-v-varen-nagasa-kawasaki-front-qarx2d",
+      "date": "2026-11-25",
+      "startTime": "2026-11-25T10:00:00.000Z",
+      "round": "Regular season · Matchday 16",
+      "homeTeam": "j1-league.v-varen-nagasaki",
+      "awayTeam": "j1-league.kawasaki-frontale",
+      "homeScore": 1,
+      "awayScore": 2,
+      "neutralSite": false
+    },
+    {
+      "id": "j1-league-2026-11-25-mito-hollyhock-tokyo-verdy-db2md3",
+      "date": "2026-11-25",
+      "startTime": "2026-11-25T10:00:00.000Z",
+      "round": "Regular season · Matchday 16",
+      "homeTeam": "j1-league.mito-hollyhock",
+      "awayTeam": "j1-league.tokyo-verdy",
+      "homeScore": 1,
+      "awayScore": 0,
+      "neutralSite": false
+    },
+    {
+      "id": "j1-league-2026-11-25-jef-united-chi-nagoya-grampus-fdavlj",
+      "date": "2026-11-25",
+      "startTime": "2026-11-25T10:00:00.000Z",
+      "round": "Regular season · Matchday 16",
+      "homeTeam": "j1-league.jef-united-chiba",
+      "awayTeam": "j1-league.nagoya-grampus",
+      "homeScore": 1,
+      "awayScore": 2,
+      "neutralSite": false
+    },
+    {
+      "id": "j1-league-2026-11-25-fagiano-okayam-shimizu-s-puls-rcasg8",
+      "date": "2026-11-25",
+      "startTime": "2026-11-25T10:00:00.000Z",
+      "round": "Regular season · Matchday 16",
+      "homeTeam": "j1-league.fagiano-okayama",
+      "awayTeam": "j1-league.shimizu-s-pulse",
+      "homeScore": 2,
+      "awayScore": 0,
+      "neutralSite": false
+    },
+    {
+      "id": "j1-league-2026-11-25-tokyo-sanfrecce-hiro-aj7a2v",
+      "date": "2026-11-25",
+      "startTime": "2026-11-25T10:00:00.000Z",
+      "round": "Regular season · Matchday 16",
+      "homeTeam": "j1-league.tokyo",
+      "awayTeam": "j1-league.sanfrecce-hiroshima",
+      "homeScore": 2,
+      "awayScore": 2,
+      "neutralSite": false
+    },
+    {
+      "id": "j1-league-2026-11-25-avispa-fukuoka-yokohama-f-mar-r6nske",
+      "date": "2026-11-25",
+      "startTime": "2026-11-25T10:00:00.000Z",
+      "round": "Regular season · Matchday 16",
+      "homeTeam": "j1-league.avispa-fukuoka",
+      "awayTeam": "j1-league.yokohama-f-marinos",
+      "homeScore": 1,
+      "awayScore": 2,
+      "neutralSite": false
+    },
+    {
+      "id": "j1-league-2026-11-25-urawa-red-diam-cerezo-osaka-qb7q5h",
+      "date": "2026-11-25",
+      "startTime": "2026-11-25T10:30:00.000Z",
+      "round": "Regular season · Matchday 16",
+      "homeTeam": "j1-league.urawa-red-diamonds",
+      "awayTeam": "j1-league.cerezo-osaka",
+      "homeScore": 2,
+      "awayScore": 2,
       "neutralSite": false
     }
   ]

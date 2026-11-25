@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "league": "championship",
   "season": "2026/27",
-  "updatedAt": "2026-11-24T21:01:09.804Z",
+  "updatedAt": "2026-11-25T20:23:50.754Z",
   "matches": [
     {
       "id": "championship-2026-08-14-wolverhampton-blackburn-rove-i5q670",
@@ -2114,6 +2114,94 @@
       "awayTeam": "championship.blackburn-rovers",
       "homeScore": 2,
       "awayScore": 2,
+      "neutralSite": false
+    },
+    {
+      "id": "championship-2026-11-24-sheffield-unit-southampton-odh6sp",
+      "date": "2026-11-24",
+      "startTime": "2026-11-24T19:45:00.000Z",
+      "round": "Regular season · Matchday 17",
+      "homeTeam": "championship.sheffield-united",
+      "awayTeam": "championship.southampton",
+      "homeScore": 1,
+      "awayScore": 1,
+      "neutralSite": false
+    },
+    {
+      "id": "championship-2026-11-24-portsmouth-west-ham-unite-94b1oc",
+      "date": "2026-11-24",
+      "startTime": "2026-11-24T19:45:00.000Z",
+      "round": "Regular season · Matchday 17",
+      "homeTeam": "championship.portsmouth",
+      "awayTeam": "championship.west-ham-united",
+      "homeScore": 1,
+      "awayScore": 0,
+      "neutralSite": false
+    },
+    {
+      "id": "championship-2026-11-24-norwich-city-queens-park-ra-73y4ko",
+      "date": "2026-11-24",
+      "startTime": "2026-11-24T19:45:00.000Z",
+      "round": "Regular season · Matchday 17",
+      "homeTeam": "championship.norwich-city",
+      "awayTeam": "championship.queens-park-rangers",
+      "homeScore": 1,
+      "awayScore": 1,
+      "neutralSite": false
+    },
+    {
+      "id": "championship-2026-11-24-middlesbrough-swansea-city-vpiqnz",
+      "date": "2026-11-24",
+      "startTime": "2026-11-24T19:45:00.000Z",
+      "round": "Regular season · Matchday 17",
+      "homeTeam": "championship.middlesbrough",
+      "awayTeam": "championship.swansea-city",
+      "homeScore": 2,
+      "awayScore": 1,
+      "neutralSite": false
+    },
+    {
+      "id": "championship-2026-11-24-charlton-athle-lincoln-city-esrc82",
+      "date": "2026-11-24",
+      "startTime": "2026-11-24T19:45:00.000Z",
+      "round": "Regular season · Matchday 17",
+      "homeTeam": "championship.charlton-athletic",
+      "awayTeam": "championship.lincoln-city",
+      "homeScore": 4,
+      "awayScore": 0,
+      "neutralSite": false
+    },
+    {
+      "id": "championship-2026-11-24-cardiff-city-preston-north--reonhu",
+      "date": "2026-11-24",
+      "startTime": "2026-11-24T19:45:00.000Z",
+      "round": "Regular season · Matchday 17",
+      "homeTeam": "championship.cardiff-city",
+      "awayTeam": "championship.preston-north-end",
+      "homeScore": 0,
+      "awayScore": 4,
+      "neutralSite": false
+    },
+    {
+      "id": "championship-2026-11-24-bristol-city-wrexham-l5r8kn",
+      "date": "2026-11-24",
+      "startTime": "2026-11-24T19:45:00.000Z",
+      "round": "Regular season · Matchday 17",
+      "homeTeam": "championship.bristol-city",
+      "awayTeam": "championship.wrexham",
+      "homeScore": 1,
+      "awayScore": 1,
+      "neutralSite": false
+    },
+    {
+      "id": "championship-2026-11-24-wolverhampton-derby-county-e9lzyq",
+      "date": "2026-11-24",
+      "startTime": "2026-11-24T20:00:00.000Z",
+      "round": "Regular season · Matchday 17",
+      "homeTeam": "championship.wolverhampton",
+      "awayTeam": "championship.derby-county",
+      "homeScore": 3,
+      "awayScore": 0,
       "neutralSite": false
     }
   ]

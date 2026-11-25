@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "league": "brasileirao",
   "season": "2026",
-  "updatedAt": "2026-11-24T21:01:09.804Z",
+  "updatedAt": "2026-11-25T20:23:50.754Z",
   "matches": [
     {
       "id": "brasileirao-2026-07-16-vitoria-vasco-gama-a31ng3",
@@ -2004,6 +2004,17 @@
       "awayTeam": "brasileirao.gremio",
       "homeScore": 0,
       "awayScore": 2,
+      "neutralSite": false
+    },
+    {
+      "id": "brasileirao-2026-11-24-chapecoense-palmeiras-w0w0xo",
+      "date": "2026-11-24",
+      "startTime": "2026-11-24T21:00:00.000Z",
+      "round": "Regular season · Matchday 37",
+      "homeTeam": "brasileirao.chapecoense",
+      "awayTeam": "brasileirao.palmeiras",
+      "homeScore": 3,
+      "awayScore": 0,
       "neutralSite": false
     }
   ]

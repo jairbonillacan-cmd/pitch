@@ -5,7 +5,7 @@
   "season": "ligapro-ecuador-2026",
   "seasonLabel": "2026",
   "periodLabel": "Regular season · Matchday 5",
-  "updatedAt": "2026-11-24T21:01:09.804Z",
+  "updatedAt": "2026-11-25T20:23:50.754Z",
   "source": "pitchlab-football-v2",
   "provenance": "derived",
   "isDemo": false,
@@ -18,8 +18,8 @@
       "forPerGame": 1.4285714285714286,
       "againstPerGame": 1.0476190476190477,
       "gamesPlayed": 21,
-      "adjustedFor": 1.2405930836477042,
-      "adjustedAgainst": 0.9205303302914954
+      "adjustedFor": 1.240471686729008,
+      "adjustedAgainst": 0.9207442060859966
     },
     "ligapro-ecuador.mushuc-runa": {
       "teamId": "ligapro-ecuador.mushuc-runa",
@@ -29,8 +29,8 @@
       "forPerGame": 1.2857142857142858,
       "againstPerGame": 1.4761904761904763,
       "gamesPlayed": 21,
-      "adjustedFor": 1.088903346144382,
-      "adjustedAgainst": 1.2782344802518508
+      "adjustedFor": 1.0889933512627754,
+      "adjustedAgainst": 1.2780831590145405
     },
     "ligapro-ecuador.macara": {
       "teamId": "ligapro-ecuador.macara",
@@ -40,8 +40,8 @@
       "forPerGame": 1.8095238095238095,
       "againstPerGame": 0.9047619047619048,
       "gamesPlayed": 21,
-      "adjustedFor": 1.4915794516747674,
-      "adjustedAgainst": 0.8316491480348348
+      "adjustedFor": 1.491259263507175,
+      "adjustedAgainst": 0.8319203370560937
     },
     "ligapro-ecuador.ldu": {
       "teamId": "ligapro-ecuador.ldu",
@@ -51,8 +51,8 @@
       "forPerGame": 1,
       "againstPerGame": 0.9090909090909091,
       "gamesPlayed": 22,
-      "adjustedFor": 0.9584726138784816,
-      "adjustedAgainst": 0.8643173593614719
+      "adjustedFor": 0.9585865128195242,
+      "adjustedAgainst": 0.8645584452318228
     },
     "ligapro-ecuador.orense": {
       "teamId": "ligapro-ecuador.orense",
@@ -62,8 +62,8 @@
       "forPerGame": 1.0909090909090908,
       "againstPerGame": 1.6818181818181819,
       "gamesPlayed": 22,
-      "adjustedFor": 0.9857822183173522,
-      "adjustedAgainst": 1.4034658309313959
+      "adjustedFor": 0.9859254883798729,
+      "adjustedAgainst": 1.4032238571495854
     },
     "ligapro-ecuador.independiente-valle": {
       "teamId": "ligapro-ecuador.independiente-valle",
@@ -73,8 +73,8 @@
       "forPerGame": 2.45,
       "againstPerGame": 1,
       "gamesPlayed": 20,
-      "adjustedFor": 1.8461694487271458,
-      "adjustedAgainst": 0.949043701969594
+      "adjustedFor": 1.8455251120709628,
+      "adjustedAgainst": 0.9492091435469697
     },
     "ligapro-ecuador.manta": {
       "teamId": "ligapro-ecuador.manta",
@@ -84,8 +84,8 @@
       "forPerGame": 1.0476190476190477,
       "againstPerGame": 1.6666666666666667,
       "gamesPlayed": 21,
-      "adjustedFor": 0.959626655695857,
-      "adjustedAgainst": 1.3975571162115925
+      "adjustedFor": 0.9597994970806134,
+      "adjustedAgainst": 1.397322666663826
     },
     "ligapro-ecuador.libertad": {
       "teamId": "ligapro-ecuador.libertad",
@@ -95,8 +95,8 @@
       "forPerGame": 1.35,
       "againstPerGame": 0.9,
       "gamesPlayed": 20,
-      "adjustedFor": 1.156327465566997,
-      "adjustedAgainst": 0.9002580083356095
+      "adjustedFor": 1.15631989538516,
+      "adjustedAgainst": 0.9004485342995188
     },
     "ligapro-ecuador.leones-norte": {
       "teamId": "ligapro-ecuador.leones-norte",
@@ -106,8 +106,8 @@
       "forPerGame": 1.25,
       "againstPerGame": 1.15,
       "gamesPlayed": 20,
-      "adjustedFor": 1.0997147011066604,
-      "adjustedAgainst": 1.0641712874616298
+      "adjustedFor": 1.0997540489078574,
+      "adjustedAgainst": 1.0642174473184682
     },
     "ligapro-ecuador.barcelona-guayaquil": {
       "teamId": "ligapro-ecuador.barcelona-guayaquil",
@@ -117,8 +117,8 @@
       "forPerGame": 1.1,
       "againstPerGame": 0.95,
       "gamesPlayed": 20,
-      "adjustedFor": 1.0574033780554333,
-      "adjustedAgainst": 0.8960813120336577
+      "adjustedFor": 1.0574290299951643,
+      "adjustedAgainst": 0.896297389096106
     },
     "ligapro-ecuador.deportivo-cuenca": {
       "teamId": "ligapro-ecuador.deportivo-cuenca",
@@ -128,8 +128,8 @@
       "forPerGame": 0.7142857142857143,
       "againstPerGame": 1.2857142857142858,
       "gamesPlayed": 21,
-      "adjustedFor": 0.7415025387121739,
-      "adjustedAgainst": 1.1163370923923357
+      "adjustedFor": 0.7418339109668826,
+      "adjustedAgainst": 1.1163427969060846
     },
     "ligapro-ecuador.delfin": {
       "teamId": "ligapro-ecuador.delfin",
@@ -139,8 +139,8 @@
       "forPerGame": 1.1904761904761905,
       "againstPerGame": 1.4285714285714286,
       "gamesPlayed": 21,
-      "adjustedFor": 1.0405161487514214,
-      "adjustedAgainst": 1.2385407130795067
+      "adjustedFor": 1.040638798786806,
+      "adjustedAgainst": 1.2384475098712282
     },
     "ligapro-ecuador.emelec": {
       "teamId": "ligapro-ecuador.emelec",
@@ -150,8 +150,8 @@
       "forPerGame": 0.95,
       "againstPerGame": 1.35,
       "gamesPlayed": 20,
-      "adjustedFor": 0.9296375392707003,
-      "adjustedAgainst": 1.128682249731268
+      "adjustedFor": 0.92980893252803,
+      "adjustedAgainst": 1.1287070177925993
     },
     "ligapro-ecuador.tecnico-universitario": {
       "teamId": "ligapro-ecuador.tecnico-universitario",
@@ -161,8 +161,8 @@
       "forPerGame": 0.9523809523809523,
       "againstPerGame": 1.5714285714285714,
       "gamesPlayed": 21,
-      "adjustedFor": 0.8885099889606728,
-      "adjustedAgainst": 1.318260443531846
+      "adjustedFor": 0.8887344158358371,
+      "adjustedAgainst": 1.318083073910526
     },
     "ligapro-ecuador.aucas": {
       "teamId": "ligapro-ecuador.aucas",
@@ -172,8 +172,8 @@
       "forPerGame": 1.0476190476190477,
       "againstPerGame": 1.2380952380952381,
       "gamesPlayed": 21,
-      "adjustedFor": 1.0313738377984925,
-      "adjustedAgainst": 1.0499806724565994
+      "adjustedFor": 1.0314054119439282,
+      "adjustedAgainst": 1.0501082610758254
     },
     "ligapro-ecuador.guayaquil-city": {
       "teamId": "ligapro-ecuador.guayaquil-city",
@@ -183,8 +183,8 @@
       "forPerGame": 1.25,
       "againstPerGame": 1.25,
       "gamesPlayed": 20,
-      "adjustedFor": 1.1109552861498633,
-      "adjustedAgainst": 1.1343468598388395
+      "adjustedFor": 1.1109725246672562,
+      "adjustedAgainst": 1.134322659758
     }
   },
   "games": [
@@ -219,7 +219,7 @@
       "result": {
         "home": 1,
         "away": 1,
-        "observedAt": "2026-11-24T21:01:09.804Z",
+        "observedAt": "2026-11-25T20:23:50.754Z",
         "source": "pitchlab-feed"
       }
     },
@@ -254,7 +254,7 @@
       "result": {
         "home": 2,
         "away": 3,
-        "observedAt": "2026-11-24T21:01:09.804Z",
+        "observedAt": "2026-11-25T20:23:50.754Z",
         "source": "pitchlab-feed"
       }
     },
@@ -289,7 +289,7 @@
       "result": {
         "home": 0,
         "away": 1,
-        "observedAt": "2026-11-24T21:01:09.804Z",
+        "observedAt": "2026-11-25T20:23:50.754Z",
         "source": "pitchlab-feed"
       }
     },
@@ -324,7 +324,7 @@
       "result": {
         "home": 1,
         "away": 1,
-        "observedAt": "2026-11-24T21:01:09.804Z",
+        "observedAt": "2026-11-25T20:23:50.754Z",
         "source": "pitchlab-feed"
       }
     },
@@ -359,7 +359,7 @@
       "result": {
         "home": 2,
         "away": 2,
-        "observedAt": "2026-11-24T21:01:09.804Z",
+        "observedAt": "2026-11-25T20:23:50.754Z",
         "source": "pitchlab-feed"
       }
     },
@@ -394,7 +394,7 @@
       "result": {
         "home": 2,
         "away": 0,
-        "observedAt": "2026-11-24T21:01:09.804Z",
+        "observedAt": "2026-11-25T20:23:50.754Z",
         "source": "pitchlab-feed"
       }
     },
@@ -429,7 +429,7 @@
       "result": {
         "home": 2,
         "away": 4,
-        "observedAt": "2026-11-24T21:01:09.804Z",
+        "observedAt": "2026-11-25T20:23:50.754Z",
         "source": "pitchlab-feed"
       }
     },
@@ -464,7 +464,7 @@
       "result": {
         "home": 1,
         "away": 1,
-        "observedAt": "2026-11-24T21:01:09.804Z",
+        "observedAt": "2026-11-25T20:23:50.754Z",
         "source": "pitchlab-feed"
       }
     },
@@ -499,7 +499,7 @@
       "result": {
         "home": 2,
         "away": 1,
-        "observedAt": "2026-11-24T21:01:09.804Z",
+        "observedAt": "2026-11-25T20:23:50.754Z",
         "source": "pitchlab-feed"
       }
     },
@@ -534,7 +534,7 @@
       "result": {
         "home": 1,
         "away": 2,
-        "observedAt": "2026-11-24T21:01:09.804Z",
+        "observedAt": "2026-11-25T20:23:50.754Z",
         "source": "pitchlab-feed"
       }
     },
@@ -569,7 +569,7 @@
       "result": {
         "home": 0,
         "away": 1,
-        "observedAt": "2026-11-24T21:01:09.804Z",
+        "observedAt": "2026-11-25T20:23:50.754Z",
         "source": "pitchlab-feed"
       }
     },
@@ -604,7 +604,7 @@
       "result": {
         "home": 2,
         "away": 0,
-        "observedAt": "2026-11-24T21:01:09.804Z",
+        "observedAt": "2026-11-25T20:23:50.754Z",
         "source": "pitchlab-feed"
       }
     },
@@ -639,7 +639,7 @@
       "result": {
         "home": 0,
         "away": 1,
-        "observedAt": "2026-11-24T21:01:09.804Z",
+        "observedAt": "2026-11-25T20:23:50.754Z",
         "source": "pitchlab-feed"
       }
     },
@@ -674,7 +674,7 @@
       "result": {
         "home": 2,
         "away": 2,
-        "observedAt": "2026-11-24T21:01:09.804Z",
+        "observedAt": "2026-11-25T20:23:50.754Z",
         "source": "pitchlab-feed"
       }
     },
@@ -709,7 +709,7 @@
       "result": {
         "home": 2,
         "away": 3,
-        "observedAt": "2026-11-24T21:01:09.804Z",
+        "observedAt": "2026-11-25T20:23:50.754Z",
         "source": "pitchlab-feed"
       }
     },
@@ -744,7 +744,7 @@
       "result": {
         "home": 0,
         "away": 1,
-        "observedAt": "2026-11-24T21:01:09.804Z",
+        "observedAt": "2026-11-25T20:23:50.754Z",
         "source": "pitchlab-feed"
       }
     },
@@ -775,6 +775,34 @@
       },
       "venue": "Estadio Monumental Banco Pichincha, Guayaquil",
       "referee": "Guillermo Enrique Guerrero Alcivar",
+      "neutralSite": false
+    },
+    {
+      "id": "ligapro-ecuador-2026-11-27-delfin-orense-6k3eni",
+      "league": "ligapro-ecuador",
+      "season": "ligapro-ecuador-2026",
+      "week": 8,
+      "round": "Regular season · Matchday 8",
+      "phase": "Regular season",
+      "startTime": "2026-11-27T19:00:00.000Z",
+      "status": "scheduled",
+      "home": {
+        "id": "ligapro-ecuador.delfin",
+        "league": "ligapro-ecuador",
+        "name": "Delfín",
+        "shortName": "Delfín",
+        "code": "DEL",
+        "logoUrl": "https://sports.bzzoiro.com/img/team/5269/?bg=transparent"
+      },
+      "away": {
+        "id": "ligapro-ecuador.orense",
+        "league": "ligapro-ecuador",
+        "name": "Orense SC",
+        "shortName": "Orense",
+        "code": "ORE",
+        "logoUrl": "https://sports.bzzoiro.com/img/team/772/?bg=transparent"
+      },
+      "venue": "Estadio Jocay, Manta",
       "neutralSite": false
     },
     {
@@ -862,41 +890,13 @@
       "neutralSite": false
     },
     {
-      "id": "ligapro-ecuador-2026-11-29-delfin-orense-xisgj4",
-      "league": "ligapro-ecuador",
-      "season": "ligapro-ecuador-2026",
-      "week": 8,
-      "round": "Regular season · Matchday 8",
-      "phase": "Regular season",
-      "startTime": "2026-11-29T20:00:00.000Z",
-      "status": "scheduled",
-      "home": {
-        "id": "ligapro-ecuador.delfin",
-        "league": "ligapro-ecuador",
-        "name": "Delfín",
-        "shortName": "Delfín",
-        "code": "DEL",
-        "logoUrl": "https://sports.bzzoiro.com/img/team/5269/?bg=transparent"
-      },
-      "away": {
-        "id": "ligapro-ecuador.orense",
-        "league": "ligapro-ecuador",
-        "name": "Orense SC",
-        "shortName": "Orense",
-        "code": "ORE",
-        "logoUrl": "https://sports.bzzoiro.com/img/team/772/?bg=transparent"
-      },
-      "venue": "Estadio Jocay, Manta",
-      "neutralSite": false
-    },
-    {
       "id": "ligapro-ecuador-2026-11-29-barcelona-guay-aucas-t3sj8y",
       "league": "ligapro-ecuador",
       "season": "ligapro-ecuador-2026",
       "week": 8,
       "round": "Regular season · Matchday 8",
       "phase": "Regular season",
-      "startTime": "2026-11-29T20:00:00.000Z",
+      "startTime": "2026-11-29T21:30:00.000Z",
       "status": "scheduled",
       "home": {
         "id": "ligapro-ecuador.barcelona-guayaquil",
@@ -918,13 +918,13 @@
       "neutralSite": false
     },
     {
-      "id": "ligapro-ecuador-2026-11-29-mushuc-runa-tecnico-univer-2iq9o9",
+      "id": "ligapro-ecuador-2026-11-30-mushuc-runa-tecnico-univer-i8dby5",
       "league": "ligapro-ecuador",
       "season": "ligapro-ecuador-2026",
       "week": 8,
       "round": "Regular season · Matchday 8",
       "phase": "Regular season",
-      "startTime": "2026-11-29T20:30:00.000Z",
+      "startTime": "2026-11-30T20:30:00.000Z",
       "status": "scheduled",
       "home": {
         "id": "ligapro-ecuador.mushuc-runa",
@@ -9365,10 +9365,495 @@
           "temperatureC": 25,
           "windSpeedKmh": 15
         },
+        "travelDistanceKm": 261,
         "stageName": "Regular season",
         "venueCity": "Guayaquil",
         "venueCountry": "Ecuador",
         "venueCapacity": 59283
+      }
+    },
+    "ligapro-ecuador-2026-11-27-delfin-orense-6k3eni": {
+      "game": "ligapro-ecuador-2026-11-27-delfin-orense-6k3eni",
+      "model": {
+        "id": "pitchlab-statistical-ligapro-ecuador",
+        "version": "2.0.0",
+        "status": "candidate",
+        "label": "Modelo PitchLab · en validación"
+      },
+      "projection": {
+        "home": 1.6873620282870214,
+        "away": 1.1329017760111781,
+        "total": 2.8202638042981993,
+        "margin": 0.5544602522758433
+      },
+      "x12": [
+        0.5032854033513559,
+        0.2410000442773199,
+        0.2557145523713245
+      ],
+      "probabilities": [
+        {
+          "market": "h2h",
+          "selection": "Delfín gana",
+          "p": 0.5032854033513559,
+          "fairOdds": 1.9869441739041964
+        },
+        {
+          "market": "h2h",
+          "selection": "Empate",
+          "p": 0.2410000442773199,
+          "fairOdds": 4.149376831023712
+        },
+        {
+          "market": "h2h",
+          "selection": "Orense gana",
+          "p": 0.2557145523713245,
+          "fairOdds": 3.9106104471828984
+        },
+        {
+          "market": "double_chance",
+          "selection": "Delfín o empate",
+          "p": 0.7442854476286758,
+          "fairOdds": 1.3435705389458323
+        },
+        {
+          "market": "double_chance",
+          "selection": "Orense o empate",
+          "p": 0.4967145966486444,
+          "fairOdds": 2.0132285355555175
+        },
+        {
+          "market": "double_chance",
+          "selection": "Sin empate",
+          "p": 0.7589999557226803,
+          "fairOdds": 1.3175231335130342
+        },
+        {
+          "market": "totals",
+          "selection": "Más de 1.5 goles",
+          "line": 1.5,
+          "p": 0.7723492427586678,
+          "fairOdds": 1.29475105902637
+        },
+        {
+          "market": "totals",
+          "selection": "Más de 2.5 goles",
+          "line": 2.5,
+          "p": 0.5353618641263747,
+          "fairOdds": 1.8678954684825018
+        },
+        {
+          "market": "totals",
+          "selection": "Menos de 2.5 goles",
+          "line": 2.5,
+          "p": 0.46463813587362535,
+          "fairOdds": 2.1522124913827243
+        },
+        {
+          "market": "totals",
+          "selection": "Más de 3.5 goles",
+          "line": 3.5,
+          "p": 0.31257288878231826,
+          "fairOdds": 3.199253792917463
+        },
+        {
+          "market": "totals",
+          "selection": "Menos de 3.5 goles",
+          "line": 3.5,
+          "p": 0.6874271112176817,
+          "fairOdds": 1.4546996818741098
+        },
+        {
+          "market": "btts",
+          "selection": "Sí",
+          "p": 0.5524858292889215,
+          "fairOdds": 1.8100011746673266
+        },
+        {
+          "market": "btts",
+          "selection": "No",
+          "p": 0.44751417071107846,
+          "fairOdds": 2.2345661108586756
+        },
+        {
+          "market": "team_totals",
+          "selection": "Delfín más de 1.5 goles",
+          "line": 1.5,
+          "p": 0.5028185729396403,
+          "fairOdds": 1.9887889068092215
+        },
+        {
+          "market": "team_totals",
+          "selection": "Delfín menos de 1.5 goles",
+          "line": 1.5,
+          "p": 0.4971814270603597,
+          "fairOdds": 2.0113382068847803
+        },
+        {
+          "market": "team_totals",
+          "selection": "Orense más de 1.5 goles",
+          "line": 1.5,
+          "p": 0.31299819001632256,
+          "fairOdds": 3.194906654085926
+        },
+        {
+          "market": "team_totals",
+          "selection": "Orense menos de 1.5 goles",
+          "line": 1.5,
+          "p": 0.6870018099836774,
+          "fairOdds": 1.455600240738462
+        },
+        {
+          "market": "correct_score",
+          "selection": "1–1",
+          "p": 0.11391378303940254,
+          "fairOdds": 8.778568960826295
+        },
+        {
+          "market": "correct_score",
+          "selection": "1–0",
+          "p": 0.10055044969607195,
+          "fairOdds": 9.945256366556713
+        },
+        {
+          "market": "correct_score",
+          "selection": "2–1",
+          "p": 0.09610689599960696,
+          "fairOdds": 10.405080609450643
+        }
+      ],
+      "marketGroups": [
+        {
+          "group": "Resultado",
+          "rows": [
+            {
+              "market": "h2h",
+              "selection": "home",
+              "label": "Delfín gana",
+              "p": 0.5032854033513559,
+              "fairOdds": 1.9869441739041964
+            },
+            {
+              "market": "h2h",
+              "selection": "draw",
+              "label": "Empate",
+              "p": 0.2410000442773199,
+              "fairOdds": 4.149376831023712
+            },
+            {
+              "market": "h2h",
+              "selection": "away",
+              "label": "Orense gana",
+              "p": 0.2557145523713245,
+              "fairOdds": 3.9106104471828984
+            }
+          ]
+        },
+        {
+          "group": "Doble oportunidad",
+          "rows": [
+            {
+              "market": "double_chance",
+              "selection": "1x",
+              "label": "Delfín o empate",
+              "p": 0.7442854476286758,
+              "fairOdds": 1.3435705389458323
+            },
+            {
+              "market": "double_chance",
+              "selection": "x2",
+              "label": "Orense o empate",
+              "p": 0.4967145966486444,
+              "fairOdds": 2.0132285355555175
+            },
+            {
+              "market": "double_chance",
+              "selection": "12",
+              "label": "Sin empate",
+              "p": 0.7589999557226803,
+              "fairOdds": 1.3175231335130342
+            }
+          ]
+        },
+        {
+          "group": "Goles totales",
+          "rows": [
+            {
+              "market": "totals",
+              "selection": "over_1.5",
+              "label": "Más de 1.5 goles",
+              "line": 1.5,
+              "p": 0.7723492427586678,
+              "fairOdds": 1.29475105902637
+            },
+            {
+              "market": "totals",
+              "selection": "over_2.5",
+              "label": "Más de 2.5 goles",
+              "line": 2.5,
+              "p": 0.5353618641263747,
+              "fairOdds": 1.8678954684825018
+            },
+            {
+              "market": "totals",
+              "selection": "under_2.5",
+              "label": "Menos de 2.5 goles",
+              "line": 2.5,
+              "p": 0.46463813587362535,
+              "fairOdds": 2.1522124913827243
+            },
+            {
+              "market": "totals",
+              "selection": "over_3.5",
+              "label": "Más de 3.5 goles",
+              "line": 3.5,
+              "p": 0.31257288878231826,
+              "fairOdds": 3.199253792917463
+            },
+            {
+              "market": "totals",
+              "selection": "under_3.5",
+              "label": "Menos de 3.5 goles",
+              "line": 3.5,
+              "p": 0.6874271112176817,
+              "fairOdds": 1.4546996818741098
+            }
+          ]
+        },
+        {
+          "group": "Ambos anotan",
+          "rows": [
+            {
+              "market": "btts",
+              "selection": "yes",
+              "label": "Sí",
+              "p": 0.5524858292889215,
+              "fairOdds": 1.8100011746673266
+            },
+            {
+              "market": "btts",
+              "selection": "no",
+              "label": "No",
+              "p": 0.44751417071107846,
+              "fairOdds": 2.2345661108586756
+            }
+          ]
+        },
+        {
+          "group": "Goles por equipo (1.5)",
+          "rows": [
+            {
+              "market": "team_totals",
+              "selection": "home_over",
+              "label": "Delfín más de 1.5 goles",
+              "line": 1.5,
+              "p": 0.5028185729396403,
+              "fairOdds": 1.9887889068092215
+            },
+            {
+              "market": "team_totals",
+              "selection": "home_under",
+              "label": "Delfín menos de 1.5 goles",
+              "line": 1.5,
+              "p": 0.4971814270603597,
+              "fairOdds": 2.0113382068847803
+            },
+            {
+              "market": "team_totals",
+              "selection": "away_over",
+              "label": "Orense más de 1.5 goles",
+              "line": 1.5,
+              "p": 0.31299819001632256,
+              "fairOdds": 3.194906654085926
+            },
+            {
+              "market": "team_totals",
+              "selection": "away_under",
+              "label": "Orense menos de 1.5 goles",
+              "line": 1.5,
+              "p": 0.6870018099836774,
+              "fairOdds": 1.455600240738462
+            }
+          ]
+        },
+        {
+          "group": "Marcador exacto (más probables)",
+          "rows": [
+            {
+              "market": "correct_score",
+              "selection": "1-1",
+              "label": "1–1",
+              "p": 0.11391378303940254,
+              "fairOdds": 8.778568960826295
+            },
+            {
+              "market": "correct_score",
+              "selection": "1-0",
+              "label": "1–0",
+              "p": 0.10055044969607195,
+              "fairOdds": 9.945256366556713
+            },
+            {
+              "market": "correct_score",
+              "selection": "2-1",
+              "label": "2–1",
+              "p": 0.09610689599960696,
+              "fairOdds": 10.405080609450643
+            }
+          ]
+        }
+      ],
+      "mostLikelyScore": {
+        "home": 1,
+        "away": 1,
+        "p": 0.11391378303940254
+      },
+      "factors": [
+        {
+          "key": "home_attack",
+          "label": "Ataque local",
+          "value": "1.35 goles/partido",
+          "detail": "3 % menos que la media · 21 partidos"
+        },
+        {
+          "key": "away_defense",
+          "label": "Defensa visitante",
+          "value": "1.40 concedidos/partido",
+          "detail": "30 % más que la media · 22 partidos"
+        },
+        {
+          "key": "away_attack",
+          "label": "Ataque visitante",
+          "value": "1.13 goles/partido",
+          "detail": "9 % menos que la media · ajustado por rival"
+        },
+        {
+          "key": "home_defense",
+          "label": "Defensa local",
+          "value": "1.24 concedidos/partido",
+          "detail": "15 % más que la media · ajustado por rival"
+        },
+        {
+          "key": "home_advantage",
+          "label": "Localía",
+          "value": "×1.25",
+          "detail": "estimada de 166 partidos"
+        },
+        {
+          "key": "uncertainty",
+          "label": "Intervalo 90%",
+          "value": "goles 2.2–3.9",
+          "detail": "local 33%–72% · 166 partidos"
+        },
+        {
+          "key": "home_position",
+          "label": "Posición local",
+          "value": "11.º · 23 pts",
+          "detail": "de 16 equipos"
+        },
+        {
+          "key": "away_position",
+          "label": "Posición visitante",
+          "value": "16.º · 17 pts",
+          "detail": "de 16 equipos"
+        },
+        {
+          "key": "home_form",
+          "label": "Forma local",
+          "value": "G-P-G-P-E · 7 pts",
+          "detail": "10 goles a favor · 11 en contra"
+        },
+        {
+          "key": "away_form",
+          "label": "Forma visitante",
+          "value": "E-G-E-P-P · 5 pts",
+          "detail": "8 goles a favor · 7 en contra"
+        }
+      ],
+      "steps": [
+        "Sincronizando LigaPro Serie A · corte 25 nov 2026, 20:23",
+        "Fuerza ajustada por rival · DEL 0.97 / 1.15 · ORE 0.91 / 1.30",
+        "Ponderando 141.7 partidos por antigüedad y calidad del rival",
+        "Proyección de goles 1.69 – 1.13 · total 2.82",
+        "Simulando 121 marcadores con incertidumbre del ajuste",
+        "20 mercados listos · marcador proyectado 2–1"
+      ],
+      "inputsAsOf": "2026-11-25T20:23:50.754Z",
+      "publishedAt": "2026-11-25T20:23:50.754Z",
+      "source": "pitchlab-football-v2",
+      "picks": [
+        {
+          "profile": "conservadora",
+          "market": "totals",
+          "selection": "over_1.5",
+          "label": "Más de 1.5 goles",
+          "line": 1.5,
+          "p": 0.7723492427586678,
+          "fairOdds": 1.29475105902637
+        },
+        {
+          "profile": "intermedia",
+          "market": "totals",
+          "selection": "under_3.5",
+          "label": "Menos de 3.5 goles",
+          "line": 3.5,
+          "p": 0.6874271112176817,
+          "fairOdds": 1.4546996818741098
+        },
+        {
+          "profile": "arriesgada",
+          "market": "h2h",
+          "selection": "home",
+          "label": "Delfín gana",
+          "p": 0.5032854033513559,
+          "fairOdds": 1.9869441739041964
+        }
+      ],
+      "confidence": {
+        "score": 52,
+        "level": "media",
+        "reasons": [
+          "Muestra suficiente"
+        ]
+      },
+      "projectedScore": {
+        "home": 2,
+        "away": 1,
+        "p": 0.09610689599960696
+      },
+      "insights": {
+        "why": [
+          "Se esperan 2.8 goles: 1.7 de Delfín y 1.1 de Orense.",
+          "Orense concede 30 % más que la media.",
+          "Delfín concede 15 % más que la media."
+        ],
+        "headToHead": [
+          {
+            "date": "2026-10-24",
+            "homeTeamId": "ligapro-ecuador.orense",
+            "awayTeamId": "ligapro-ecuador.delfin",
+            "homeGoals": 4,
+            "awayGoals": 0
+          },
+          {
+            "date": "2026-08-09",
+            "homeTeamId": "ligapro-ecuador.delfin",
+            "awayTeamId": "ligapro-ecuador.orense",
+            "homeGoals": 1,
+            "awayGoals": 1
+          }
+        ],
+        "restDays": {
+          "home": 5,
+          "away": 5
+        }
+      },
+      "picksAt": "2026-11-25T20:23:50.754Z",
+      "matchContext": {
+        "stageName": "Regular season",
+        "venueCity": "Manta",
+        "venueCountry": "Ecuador",
+        "venueCapacity": 15000
       }
     },
     "ligapro-ecuador-2026-11-27-deportivo-cuen-manta-4p1x1p": {
@@ -10835,491 +11320,6 @@
         "venueCapacity": 20000
       }
     },
-    "ligapro-ecuador-2026-11-29-delfin-orense-xisgj4": {
-      "game": "ligapro-ecuador-2026-11-29-delfin-orense-xisgj4",
-      "model": {
-        "id": "pitchlab-statistical-ligapro-ecuador",
-        "version": "2.0.0",
-        "status": "candidate",
-        "label": "Modelo PitchLab · en validación"
-      },
-      "projection": {
-        "home": 1.8003888819547598,
-        "away": 1.1867611402957603,
-        "total": 2.9871500222505203,
-        "margin": 0.6136277416589995
-      },
-      "x12": [
-        0.5121473209600438,
-        0.2421706437234325,
-        0.2456820353165241
-      ],
-      "probabilities": [
-        {
-          "market": "h2h",
-          "selection": "Delfín gana",
-          "p": 0.5121473209600438,
-          "fairOdds": 1.9525631767934544
-        },
-        {
-          "market": "h2h",
-          "selection": "Empate",
-          "p": 0.2421706437234325,
-          "fairOdds": 4.129319659165772
-        },
-        {
-          "market": "h2h",
-          "selection": "Orense gana",
-          "p": 0.2456820353165241,
-          "fairOdds": 4.070301675544373
-        },
-        {
-          "market": "double_chance",
-          "selection": "Delfín o empate",
-          "p": 0.7543179646834763,
-          "fairOdds": 1.325700893812884
-        },
-        {
-          "market": "double_chance",
-          "selection": "Orense o empate",
-          "p": 0.4878526790399566,
-          "fairOdds": 2.049799136017652
-        },
-        {
-          "market": "double_chance",
-          "selection": "Sin empate",
-          "p": 0.7578293562765679,
-          "fairOdds": 1.3195582774904442
-        },
-        {
-          "market": "totals",
-          "selection": "Más de 1.5",
-          "line": 1.5,
-          "p": 0.8043111953093353,
-          "fairOdds": 1.2432998643210524
-        },
-        {
-          "market": "totals",
-          "selection": "Más de 2.5",
-          "line": 2.5,
-          "p": 0.5739234723154913,
-          "fairOdds": 1.7423925806092317
-        },
-        {
-          "market": "totals",
-          "selection": "Menos de 2.5",
-          "line": 2.5,
-          "p": 0.42607652768450865,
-          "fairOdds": 2.3469962202199905
-        },
-        {
-          "market": "totals",
-          "selection": "Más de 3.5",
-          "line": 3.5,
-          "p": 0.34988713415011785,
-          "fairOdds": 2.858064508227826
-        },
-        {
-          "market": "totals",
-          "selection": "Menos de 3.5",
-          "line": 3.5,
-          "p": 0.6501128658498821,
-          "fairOdds": 1.5381944467330546
-        },
-        {
-          "market": "btts",
-          "selection": "Sí",
-          "p": 0.5853754113490459,
-          "fairOdds": 1.7083054405982265
-        },
-        {
-          "market": "btts",
-          "selection": "No",
-          "p": 0.4146245886509541,
-          "fairOdds": 2.411820300512462
-        },
-        {
-          "market": "team_totals",
-          "selection": "Delfín más de 1.5",
-          "line": 1.5,
-          "p": 0.5372773616806373,
-          "fairOdds": 1.861236060406374
-        },
-        {
-          "market": "team_totals",
-          "selection": "Delfín menos de 1.5",
-          "line": 1.5,
-          "p": 0.46272263831936267,
-          "fairOdds": 2.161121841006228
-        },
-        {
-          "market": "team_totals",
-          "selection": "Orense más de 1.5",
-          "line": 1.5,
-          "p": 0.33258255001100245,
-          "fairOdds": 3.0067723034985394
-        },
-        {
-          "market": "team_totals",
-          "selection": "Orense menos de 1.5",
-          "line": 1.5,
-          "p": 0.6674174499889975,
-          "fairOdds": 1.4983126377898646
-        },
-        {
-          "market": "correct_score",
-          "selection": "1–1",
-          "p": 0.11314035862862538,
-          "fairOdds": 8.838579019202369
-        },
-        {
-          "market": "correct_score",
-          "selection": "2–1",
-          "p": 0.09699840179778638,
-          "fairOdds": 10.309448212195402
-        },
-        {
-          "market": "correct_score",
-          "selection": "1–0",
-          "p": 0.08540799144028591,
-          "fairOdds": 11.708506231517724
-        }
-      ],
-      "marketGroups": [
-        {
-          "group": "Resultado",
-          "rows": [
-            {
-              "market": "h2h",
-              "selection": "home",
-              "label": "Delfín gana",
-              "p": 0.5121473209600438,
-              "fairOdds": 1.9525631767934544
-            },
-            {
-              "market": "h2h",
-              "selection": "draw",
-              "label": "Empate",
-              "p": 0.2421706437234325,
-              "fairOdds": 4.129319659165772
-            },
-            {
-              "market": "h2h",
-              "selection": "away",
-              "label": "Orense gana",
-              "p": 0.2456820353165241,
-              "fairOdds": 4.070301675544373
-            }
-          ]
-        },
-        {
-          "group": "Doble oportunidad",
-          "rows": [
-            {
-              "market": "double_chance",
-              "selection": "1x",
-              "label": "Delfín o empate",
-              "p": 0.7543179646834763,
-              "fairOdds": 1.325700893812884
-            },
-            {
-              "market": "double_chance",
-              "selection": "x2",
-              "label": "Orense o empate",
-              "p": 0.4878526790399566,
-              "fairOdds": 2.049799136017652
-            },
-            {
-              "market": "double_chance",
-              "selection": "12",
-              "label": "Sin empate",
-              "p": 0.7578293562765679,
-              "fairOdds": 1.3195582774904442
-            }
-          ]
-        },
-        {
-          "group": "Goles totales",
-          "rows": [
-            {
-              "market": "totals",
-              "selection": "over_1.5",
-              "label": "Más de 1.5",
-              "line": 1.5,
-              "p": 0.8043111953093353,
-              "fairOdds": 1.2432998643210524
-            },
-            {
-              "market": "totals",
-              "selection": "over_2.5",
-              "label": "Más de 2.5",
-              "line": 2.5,
-              "p": 0.5739234723154913,
-              "fairOdds": 1.7423925806092317
-            },
-            {
-              "market": "totals",
-              "selection": "under_2.5",
-              "label": "Menos de 2.5",
-              "line": 2.5,
-              "p": 0.42607652768450865,
-              "fairOdds": 2.3469962202199905
-            },
-            {
-              "market": "totals",
-              "selection": "over_3.5",
-              "label": "Más de 3.5",
-              "line": 3.5,
-              "p": 0.34988713415011785,
-              "fairOdds": 2.858064508227826
-            },
-            {
-              "market": "totals",
-              "selection": "under_3.5",
-              "label": "Menos de 3.5",
-              "line": 3.5,
-              "p": 0.6501128658498821,
-              "fairOdds": 1.5381944467330546
-            }
-          ]
-        },
-        {
-          "group": "Ambos anotan",
-          "rows": [
-            {
-              "market": "btts",
-              "selection": "yes",
-              "label": "Sí",
-              "p": 0.5853754113490459,
-              "fairOdds": 1.7083054405982265
-            },
-            {
-              "market": "btts",
-              "selection": "no",
-              "label": "No",
-              "p": 0.4146245886509541,
-              "fairOdds": 2.411820300512462
-            }
-          ]
-        },
-        {
-          "group": "Goles por equipo (1.5)",
-          "rows": [
-            {
-              "market": "team_totals",
-              "selection": "home_over",
-              "label": "Delfín más de 1.5",
-              "line": 1.5,
-              "p": 0.5372773616806373,
-              "fairOdds": 1.861236060406374
-            },
-            {
-              "market": "team_totals",
-              "selection": "home_under",
-              "label": "Delfín menos de 1.5",
-              "line": 1.5,
-              "p": 0.46272263831936267,
-              "fairOdds": 2.161121841006228
-            },
-            {
-              "market": "team_totals",
-              "selection": "away_over",
-              "label": "Orense más de 1.5",
-              "line": 1.5,
-              "p": 0.33258255001100245,
-              "fairOdds": 3.0067723034985394
-            },
-            {
-              "market": "team_totals",
-              "selection": "away_under",
-              "label": "Orense menos de 1.5",
-              "line": 1.5,
-              "p": 0.6674174499889975,
-              "fairOdds": 1.4983126377898646
-            }
-          ]
-        },
-        {
-          "group": "Marcador exacto (más probables)",
-          "rows": [
-            {
-              "market": "correct_score",
-              "selection": "1-1",
-              "label": "1–1",
-              "p": 0.11314035862862538,
-              "fairOdds": 8.838579019202369
-            },
-            {
-              "market": "correct_score",
-              "selection": "2-1",
-              "label": "2–1",
-              "p": 0.09699840179778638,
-              "fairOdds": 10.309448212195402
-            },
-            {
-              "market": "correct_score",
-              "selection": "1-0",
-              "label": "1–0",
-              "p": 0.08540799144028591,
-              "fairOdds": 11.708506231517724
-            }
-          ]
-        }
-      ],
-      "mostLikelyScore": {
-        "home": 1,
-        "away": 1,
-        "p": 0.11314035862862538
-      },
-      "factors": [
-        {
-          "key": "home_attack",
-          "label": "Ataque local",
-          "value": "1.42 goles/partido",
-          "detail": "7 % menos que la media · 20 partidos"
-        },
-        {
-          "key": "away_defense",
-          "label": "Defensa visitante",
-          "value": "1.52 concedidos/partido",
-          "detail": "31 % más que la media · 21 partidos"
-        },
-        {
-          "key": "away_attack",
-          "label": "Ataque visitante",
-          "value": "1.19 goles/partido",
-          "detail": "12 % menos que la media · ajustado por rival"
-        },
-        {
-          "key": "home_defense",
-          "label": "Defensa local",
-          "value": "1.35 concedidos/partido",
-          "detail": "17 % más que la media · ajustado por rival"
-        },
-        {
-          "key": "home_advantage",
-          "label": "Localía",
-          "value": "×1.27",
-          "detail": "estimada de 160 partidos"
-        },
-        {
-          "key": "uncertainty",
-          "label": "Intervalo 90%",
-          "value": "goles 2.2–4.4",
-          "detail": "local 33%–76% · 160 partidos"
-        },
-        {
-          "key": "home_position",
-          "label": "Posición local",
-          "value": "12.º · 22 pts",
-          "detail": "de 16 equipos"
-        },
-        {
-          "key": "away_position",
-          "label": "Posición visitante",
-          "value": "15.º · 17 pts",
-          "detail": "de 16 equipos"
-        },
-        {
-          "key": "home_form",
-          "label": "Forma local",
-          "value": "G-G-P-G-P · 9 pts",
-          "detail": "11 goles a favor · 11 en contra"
-        },
-        {
-          "key": "away_form",
-          "label": "Forma visitante",
-          "value": "E-E-G-E-P · 6 pts",
-          "detail": "6 goles a favor · 4 en contra"
-        }
-      ],
-      "steps": [
-        "Sincronizando LigaPro Serie A · corte 19 nov 2026, 10:05",
-        "Fuerza ajustada por rival · DEL 0.93 / 1.17 · ORE 0.88 / 1.31",
-        "Ponderando 137.3 partidos por antigüedad y calidad del rival",
-        "Proyección de goles 1.80 – 1.19 · total 2.99",
-        "Simulando 121 marcadores con incertidumbre del ajuste",
-        "20 mercados listos · marcador proyectado 2–1"
-      ],
-      "inputsAsOf": "2026-11-19T16:05:39.021Z",
-      "publishedAt": "2026-11-19T16:05:39.021Z",
-      "source": "pitchlab-football-v2",
-      "picks": [
-        {
-          "profile": "conservadora",
-          "market": "totals",
-          "selection": "over_1.5",
-          "label": "Más de 1.5",
-          "line": 1.5,
-          "p": 0.8043111953093353,
-          "fairOdds": 1.2432998643210524
-        },
-        {
-          "profile": "intermedia",
-          "market": "team_totals",
-          "selection": "away_under",
-          "label": "Orense menos de 1.5",
-          "line": 1.5,
-          "p": 0.6674174499889975,
-          "fairOdds": 1.4983126377898646
-        },
-        {
-          "profile": "arriesgada",
-          "market": "h2h",
-          "selection": "home",
-          "label": "Delfín gana",
-          "p": 0.5121473209600438,
-          "fairOdds": 1.9525631767934544
-        }
-      ],
-      "confidence": {
-        "score": 52,
-        "level": "media",
-        "reasons": [
-          "Muestra suficiente",
-          "Rango de incertidumbre amplio"
-        ]
-      },
-      "projectedScore": {
-        "home": 2,
-        "away": 1,
-        "p": 0.09699840179778638
-      },
-      "insights": {
-        "why": [
-          "Se esperan 3.0 goles: 1.8 de Delfín y 1.2 de Orense.",
-          "Orense concede 31 % más que la media.",
-          "Delfín concede 17 % más que la media."
-        ],
-        "headToHead": [
-          {
-            "date": "2026-10-24",
-            "homeTeamId": "ligapro-ecuador.orense",
-            "awayTeamId": "ligapro-ecuador.delfin",
-            "homeGoals": 4,
-            "awayGoals": 0
-          },
-          {
-            "date": "2026-08-09",
-            "homeTeamId": "ligapro-ecuador.delfin",
-            "awayTeamId": "ligapro-ecuador.orense",
-            "homeGoals": 1,
-            "awayGoals": 1
-          }
-        ],
-        "restDays": {
-          "home": 20,
-          "away": 21
-        }
-      },
-      "picksAt": "2026-11-19T16:05:39.021Z",
-      "matchContext": {
-        "stageName": "Regular season",
-        "venueCity": "Manta",
-        "venueCountry": "Ecuador",
-        "venueCapacity": 15000
-      }
-    },
     "ligapro-ecuador-2026-11-29-barcelona-guay-aucas-t3sj8y": {
       "game": "ligapro-ecuador-2026-11-29-barcelona-guay-aucas-t3sj8y",
       "model": {
@@ -11808,8 +11808,8 @@
         "venueCapacity": 59283
       }
     },
-    "ligapro-ecuador-2026-11-29-mushuc-runa-tecnico-univer-2iq9o9": {
-      "game": "ligapro-ecuador-2026-11-29-mushuc-runa-tecnico-univer-2iq9o9",
+    "ligapro-ecuador-2026-11-30-mushuc-runa-tecnico-univer-i8dby5": {
+      "game": "ligapro-ecuador-2026-11-30-mushuc-runa-tecnico-univer-i8dby5",
       "model": {
         "id": "pitchlab-statistical-ligapro-ecuador",
         "version": "2.0.0",
@@ -11817,145 +11817,145 @@
         "label": "Modelo PitchLab · en validación"
       },
       "projection": {
-        "home": 1.8445889725051319,
-        "away": 1.0692928926208352,
-        "total": 2.9138818651259673,
-        "margin": 0.7752960798842967
+        "home": 1.6586292093211876,
+        "away": 1.053905497105347,
+        "total": 2.712534706426535,
+        "margin": 0.6047237122158406
       },
       "x12": [
-        0.5497253005689796,
-        0.23788970921568217,
-        0.21238499021533844
+        0.5149357645954943,
+        0.2440846306903877,
+        0.24097960471411795
       ],
       "probabilities": [
         {
           "market": "h2h",
           "selection": "Mushuc Runa gana",
-          "p": 0.5497253005689796,
-          "fairOdds": 1.8190903692534701
+          "p": 0.5149357645954943,
+          "fairOdds": 1.9419897951457032
         },
         {
           "market": "h2h",
           "selection": "Empate",
-          "p": 0.23788970921568217,
-          "fairOdds": 4.203628661773479
+          "p": 0.2440846306903877,
+          "fairOdds": 4.096939644137049
         },
         {
           "market": "h2h",
           "selection": "Técnico Universitario gana",
-          "p": 0.21238499021533844,
-          "fairOdds": 4.708430661630532
+          "p": 0.24097960471411795,
+          "fairOdds": 4.149728775538216
         },
         {
           "market": "double_chance",
           "selection": "Mushuc Runa o empate",
-          "p": 0.7876150097846618,
-          "fairOdds": 1.2696558440060777
+          "p": 0.7590203952858819,
+          "fairOdds": 1.3174876541009863
         },
         {
           "market": "double_chance",
           "selection": "Técnico Universitario o empate",
-          "p": 0.4502746994310206,
-          "fairOdds": 2.220866509407762
+          "p": 0.4850642354045056,
+          "fairOdds": 2.0615826255796375
         },
         {
           "market": "double_chance",
           "selection": "Sin empate",
-          "p": 0.762110290784318,
-          "fairOdds": 1.3121460398741764
+          "p": 0.7559153693096122,
+          "fairOdds": 1.3228994151995
         },
         {
           "market": "totals",
-          "selection": "Más de 1.5",
+          "selection": "Más de 1.5 goles",
           "line": 1.5,
-          "p": 0.7929652637690829,
-          "fairOdds": 1.261089288132055
+          "p": 0.7536047666952302,
+          "fairOdds": 1.3269555132795703
         },
         {
           "market": "totals",
-          "selection": "Más de 2.5",
+          "selection": "Más de 2.5 goles",
           "line": 2.5,
-          "p": 0.5572400045540897,
-          "fairOdds": 1.7945588827568333
+          "p": 0.5094403394468372,
+          "fairOdds": 1.9629383905597748
         },
         {
           "market": "totals",
-          "selection": "Menos de 2.5",
+          "selection": "Menos de 2.5 goles",
           "line": 2.5,
-          "p": 0.44275999544591027,
-          "fairOdds": 2.2585599654117012
+          "p": 0.4905596605531628,
+          "fairOdds": 2.0384880380754997
         },
         {
           "market": "totals",
-          "selection": "Más de 3.5",
+          "selection": "Más de 3.5 goles",
           "line": 3.5,
-          "p": 0.3334794804685597,
-          "fairOdds": 2.9986852522228262
+          "p": 0.2886721784514963,
+          "fairOdds": 3.464137089220822
         },
         {
           "market": "totals",
-          "selection": "Menos de 3.5",
+          "selection": "Menos de 3.5 goles",
           "line": 3.5,
-          "p": 0.6665205195314403,
-          "fairOdds": 1.5003289031566405
+          "p": 0.7113278215485037,
+          "fairOdds": 1.4058215772062452
         },
         {
           "market": "btts",
           "selection": "Sí",
-          "p": 0.558274443923564,
-          "fairOdds": 1.7912337039323885
+          "p": 0.5273946519796529,
+          "fairOdds": 1.8961132735160546
         },
         {
           "market": "btts",
           "selection": "No",
-          "p": 0.44172555607643604,
-          "fairOdds": 2.2638490941804608
+          "p": 0.47260534802034715,
+          "fairOdds": 2.115930351166798
         },
         {
           "market": "team_totals",
-          "selection": "Mushuc Runa más de 1.5",
+          "selection": "Mushuc Runa más de 1.5 goles",
           "line": 1.5,
-          "p": 0.5502963468779533,
-          "fairOdds": 1.8172026866494604
+          "p": 0.49379680051630637,
+          "fairOdds": 2.025124502537107
         },
         {
           "market": "team_totals",
-          "selection": "Mushuc Runa menos de 1.5",
+          "selection": "Mushuc Runa menos de 1.5 goles",
           "line": 1.5,
-          "p": 0.44970365312204674,
-          "fairOdds": 2.2236866279772167
+          "p": 0.5062031994836936,
+          "fairOdds": 1.9754912671827414
         },
         {
           "market": "team_totals",
-          "selection": "Técnico Universitario más de 1.5",
+          "selection": "Técnico Universitario más de 1.5 goles",
           "line": 1.5,
-          "p": 0.2897128270343252,
-          "fairOdds": 3.451693907503515
+          "p": 0.2840624802958265,
+          "fairOdds": 3.520352279394965
         },
         {
           "market": "team_totals",
-          "selection": "Técnico Universitario menos de 1.5",
+          "selection": "Técnico Universitario menos de 1.5 goles",
           "line": 1.5,
-          "p": 0.7102871729656748,
-          "fairOdds": 1.4078812599482573
+          "p": 0.7159375197041735,
+          "fairOdds": 1.3967699310034785
         },
         {
           "market": "correct_score",
           "selection": "1–1",
-          "p": 0.11238400021747788,
-          "fairOdds": 8.898063764102256
-        },
-        {
-          "market": "correct_score",
-          "selection": "2–1",
-          "p": 0.09871537499389238,
-          "fairOdds": 10.130134237568068
+          "p": 0.11601462979990293,
+          "fairOdds": 8.619602559821612
         },
         {
           "market": "correct_score",
           "selection": "1–0",
-          "p": 0.09474479222291027,
-          "fairOdds": 10.554669829738565
+          "p": 0.11008067622623499,
+          "fairOdds": 9.084246520659317
+        },
+        {
+          "market": "correct_score",
+          "selection": "2–1",
+          "p": 0.09621262684735166,
+          "fairOdds": 10.393646164412212
         }
       ],
       "marketGroups": [
@@ -11966,22 +11966,22 @@
               "market": "h2h",
               "selection": "home",
               "label": "Mushuc Runa gana",
-              "p": 0.5497253005689796,
-              "fairOdds": 1.8190903692534701
+              "p": 0.5149357645954943,
+              "fairOdds": 1.9419897951457032
             },
             {
               "market": "h2h",
               "selection": "draw",
               "label": "Empate",
-              "p": 0.23788970921568217,
-              "fairOdds": 4.203628661773479
+              "p": 0.2440846306903877,
+              "fairOdds": 4.096939644137049
             },
             {
               "market": "h2h",
               "selection": "away",
               "label": "Técnico Universitario gana",
-              "p": 0.21238499021533844,
-              "fairOdds": 4.708430661630532
+              "p": 0.24097960471411795,
+              "fairOdds": 4.149728775538216
             }
           ]
         },
@@ -11992,22 +11992,22 @@
               "market": "double_chance",
               "selection": "1x",
               "label": "Mushuc Runa o empate",
-              "p": 0.7876150097846618,
-              "fairOdds": 1.2696558440060777
+              "p": 0.7590203952858819,
+              "fairOdds": 1.3174876541009863
             },
             {
               "market": "double_chance",
               "selection": "x2",
               "label": "Técnico Universitario o empate",
-              "p": 0.4502746994310206,
-              "fairOdds": 2.220866509407762
+              "p": 0.4850642354045056,
+              "fairOdds": 2.0615826255796375
             },
             {
               "market": "double_chance",
               "selection": "12",
               "label": "Sin empate",
-              "p": 0.762110290784318,
-              "fairOdds": 1.3121460398741764
+              "p": 0.7559153693096122,
+              "fairOdds": 1.3228994151995
             }
           ]
         },
@@ -12017,42 +12017,42 @@
             {
               "market": "totals",
               "selection": "over_1.5",
-              "label": "Más de 1.5",
+              "label": "Más de 1.5 goles",
               "line": 1.5,
-              "p": 0.7929652637690829,
-              "fairOdds": 1.261089288132055
+              "p": 0.7536047666952302,
+              "fairOdds": 1.3269555132795703
             },
             {
               "market": "totals",
               "selection": "over_2.5",
-              "label": "Más de 2.5",
+              "label": "Más de 2.5 goles",
               "line": 2.5,
-              "p": 0.5572400045540897,
-              "fairOdds": 1.7945588827568333
+              "p": 0.5094403394468372,
+              "fairOdds": 1.9629383905597748
             },
             {
               "market": "totals",
               "selection": "under_2.5",
-              "label": "Menos de 2.5",
+              "label": "Menos de 2.5 goles",
               "line": 2.5,
-              "p": 0.44275999544591027,
-              "fairOdds": 2.2585599654117012
+              "p": 0.4905596605531628,
+              "fairOdds": 2.0384880380754997
             },
             {
               "market": "totals",
               "selection": "over_3.5",
-              "label": "Más de 3.5",
+              "label": "Más de 3.5 goles",
               "line": 3.5,
-              "p": 0.3334794804685597,
-              "fairOdds": 2.9986852522228262
+              "p": 0.2886721784514963,
+              "fairOdds": 3.464137089220822
             },
             {
               "market": "totals",
               "selection": "under_3.5",
-              "label": "Menos de 3.5",
+              "label": "Menos de 3.5 goles",
               "line": 3.5,
-              "p": 0.6665205195314403,
-              "fairOdds": 1.5003289031566405
+              "p": 0.7113278215485037,
+              "fairOdds": 1.4058215772062452
             }
           ]
         },
@@ -12063,15 +12063,15 @@
               "market": "btts",
               "selection": "yes",
               "label": "Sí",
-              "p": 0.558274443923564,
-              "fairOdds": 1.7912337039323885
+              "p": 0.5273946519796529,
+              "fairOdds": 1.8961132735160546
             },
             {
               "market": "btts",
               "selection": "no",
               "label": "No",
-              "p": 0.44172555607643604,
-              "fairOdds": 2.2638490941804608
+              "p": 0.47260534802034715,
+              "fairOdds": 2.115930351166798
             }
           ]
         },
@@ -12081,34 +12081,34 @@
             {
               "market": "team_totals",
               "selection": "home_over",
-              "label": "Mushuc Runa más de 1.5",
+              "label": "Mushuc Runa más de 1.5 goles",
               "line": 1.5,
-              "p": 0.5502963468779533,
-              "fairOdds": 1.8172026866494604
+              "p": 0.49379680051630637,
+              "fairOdds": 2.025124502537107
             },
             {
               "market": "team_totals",
               "selection": "home_under",
-              "label": "Mushuc Runa menos de 1.5",
+              "label": "Mushuc Runa menos de 1.5 goles",
               "line": 1.5,
-              "p": 0.44970365312204674,
-              "fairOdds": 2.2236866279772167
+              "p": 0.5062031994836936,
+              "fairOdds": 1.9754912671827414
             },
             {
               "market": "team_totals",
               "selection": "away_over",
-              "label": "Técnico Universitario más de 1.5",
+              "label": "Técnico Universitario más de 1.5 goles",
               "line": 1.5,
-              "p": 0.2897128270343252,
-              "fairOdds": 3.451693907503515
+              "p": 0.2840624802958265,
+              "fairOdds": 3.520352279394965
             },
             {
               "market": "team_totals",
               "selection": "away_under",
-              "label": "Técnico Universitario menos de 1.5",
+              "label": "Técnico Universitario menos de 1.5 goles",
               "line": 1.5,
-              "p": 0.7102871729656748,
-              "fairOdds": 1.4078812599482573
+              "p": 0.7159375197041735,
+              "fairOdds": 1.3967699310034785
             }
           ]
         },
@@ -12119,22 +12119,22 @@
               "market": "correct_score",
               "selection": "1-1",
               "label": "1–1",
-              "p": 0.11238400021747788,
-              "fairOdds": 8.898063764102256
-            },
-            {
-              "market": "correct_score",
-              "selection": "2-1",
-              "label": "2–1",
-              "p": 0.09871537499389238,
-              "fairOdds": 10.130134237568068
+              "p": 0.11601462979990293,
+              "fairOdds": 8.619602559821612
             },
             {
               "market": "correct_score",
               "selection": "1-0",
               "label": "1–0",
-              "p": 0.09474479222291027,
-              "fairOdds": 10.554669829738565
+              "p": 0.11008067622623499,
+              "fairOdds": 9.084246520659317
+            },
+            {
+              "market": "correct_score",
+              "selection": "2-1",
+              "label": "2–1",
+              "p": 0.09621262684735166,
+              "fairOdds": 10.393646164412212
             }
           ]
         }
@@ -12142,111 +12142,109 @@
       "mostLikelyScore": {
         "home": 1,
         "away": 1,
-        "p": 0.11238400021747788
+        "p": 0.11601462979990293
       },
       "factors": [
         {
           "key": "home_attack",
           "label": "Ataque local",
-          "value": "1.45 goles/partido",
-          "detail": "5 % menos que la media · 20 partidos"
+          "value": "1.33 goles/partido",
+          "detail": "en la media de la liga · 21 partidos"
         },
         {
           "key": "away_defense",
           "label": "Defensa visitante",
-          "value": "1.53 concedidos/partido",
-          "detail": "32 % más que la media · 20 partidos"
+          "value": "1.32 concedidos/partido",
+          "detail": "22 % más que la media · 21 partidos"
         },
         {
           "key": "away_attack",
           "label": "Ataque visitante",
-          "value": "1.07 goles/partido",
-          "detail": "24 % menos que la media · ajustado por rival"
+          "value": "1.05 goles/partido",
+          "detail": "18 % menos que la media · ajustado por rival"
         },
         {
           "key": "home_defense",
           "label": "Defensa local",
-          "value": "1.41 concedidos/partido",
-          "detail": "21 % más que la media · ajustado por rival"
+          "value": "1.28 concedidos/partido",
+          "detail": "19 % más que la media · ajustado por rival"
         },
         {
           "key": "home_advantage",
           "label": "Localía",
-          "value": "×1.27",
-          "detail": "estimada de 160 partidos"
+          "value": "×1.25",
+          "detail": "estimada de 166 partidos"
         },
         {
           "key": "uncertainty",
           "label": "Intervalo 90%",
-          "value": "goles 2.2–4.0",
-          "detail": "local 36%–76% · 160 partidos"
+          "value": "goles 2.0–3.6",
+          "detail": "local 31%–70% · 166 partidos"
         },
         {
           "key": "home_position",
           "label": "Posición local",
-          "value": "9.º · 25 pts",
+          "value": "9.º · 28 pts",
           "detail": "de 16 equipos"
         },
         {
           "key": "away_position",
           "label": "Posición visitante",
-          "value": "16.º · 17 pts",
+          "value": "15.º · 20 pts",
           "detail": "de 16 equipos"
         },
         {
           "key": "home_form",
           "label": "Forma local",
-          "value": "P-E-P-P-G · 4 pts",
-          "detail": "7 goles a favor · 11 en contra"
+          "value": "E-P-P-G-G · 7 pts",
+          "detail": "8 goles a favor · 10 en contra"
         },
         {
           "key": "away_form",
           "label": "Forma visitante",
-          "value": "P-P-G-E-P · 4 pts",
-          "detail": "6 goles a favor · 6 en contra"
+          "value": "P-G-E-P-G · 7 pts",
+          "detail": "8 goles a favor · 5 en contra"
         }
       ],
       "steps": [
-        "Sincronizando LigaPro Serie A · corte 19 nov 2026, 10:05",
-        "Fuerza ajustada por rival · MUS 0.95 / 1.21 · TEC 0.76 / 1.32",
-        "Ponderando 137.3 partidos por antigüedad y calidad del rival",
-        "Proyección de goles 1.84 – 1.07 · total 2.91",
+        "Sincronizando LigaPro Serie A · corte 25 nov 2026, 20:23",
+        "Fuerza ajustada por rival · MUS 1.01 / 1.19 · TEC 0.82 / 1.22",
+        "Ponderando 141.7 partidos por antigüedad y calidad del rival",
+        "Proyección de goles 1.66 – 1.05 · total 2.71",
         "Simulando 121 marcadores con incertidumbre del ajuste",
         "20 mercados listos · marcador proyectado 2–1"
       ],
-      "inputsAsOf": "2026-11-19T16:05:39.021Z",
-      "publishedAt": "2026-11-19T16:05:39.021Z",
+      "inputsAsOf": "2026-11-25T20:23:50.754Z",
+      "publishedAt": "2026-11-25T20:23:50.754Z",
       "source": "pitchlab-football-v2",
       "picks": [
         {
           "profile": "conservadora",
-          "market": "totals",
-          "selection": "over_1.5",
-          "label": "Más de 1.5",
-          "line": 1.5,
-          "p": 0.7929652637690829,
-          "fairOdds": 1.261089288132055
+          "market": "double_chance",
+          "selection": "1x",
+          "label": "Mushuc Runa o empate",
+          "p": 0.7590203952858819,
+          "fairOdds": 1.3174876541009863
         },
         {
           "profile": "intermedia",
-          "market": "totals",
-          "selection": "under_3.5",
-          "label": "Menos de 3.5",
-          "line": 3.5,
-          "p": 0.6665205195314403,
-          "fairOdds": 1.5003289031566405
+          "market": "btts",
+          "selection": "yes",
+          "label": "Ambos anotan: Sí",
+          "p": 0.5273946519796529,
+          "fairOdds": 1.8961132735160546
         },
         {
           "profile": "arriesgada",
-          "market": "double_chance",
-          "selection": "x2",
-          "label": "Técnico Universitario o empate",
-          "p": 0.4502746994310206,
-          "fairOdds": 2.220866509407762
+          "market": "h2h",
+          "selection": "home",
+          "label": "Mushuc Runa gana",
+          "p": 0.5149357645954943,
+          "fairOdds": 1.9419897951457032
         }
       ],
       "confidence": {
-        "score": 59,
+        "score": 54,
         "level": "media",
         "reasons": [
           "Muestra suficiente"
@@ -12255,13 +12253,13 @@
       "projectedScore": {
         "home": 2,
         "away": 1,
-        "p": 0.09871537499389238
+        "p": 0.09621262684735166
       },
       "insights": {
         "why": [
-          "Se esperan 2.9 goles: 1.8 de Mushuc Runa y 1.1 de Técnico Universitario.",
-          "Técnico Universitario concede 32 % más que la media.",
-          "Técnico Universitario anota 24 % menos que la media."
+          "Se esperan 2.7 goles: 1.7 de Mushuc Runa y 1.1 de Técnico Universitario.",
+          "Técnico Universitario concede 22 % más que la media.",
+          "Técnico Universitario anota 18 % menos que la media."
         ],
         "headToHead": [
           {
@@ -12280,11 +12278,11 @@
           }
         ],
         "restDays": {
-          "home": 20,
-          "away": 20
+          "home": 8,
+          "away": 9
         }
       },
-      "picksAt": "2026-11-19T16:05:39.021Z",
+      "picksAt": "2026-11-25T20:23:50.754Z",
       "matchContext": {
         "stageName": "Regular season",
         "venueCity": "Ambato",

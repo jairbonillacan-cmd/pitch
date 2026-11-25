@@ -5,7 +5,7 @@
   "season": "liga-1-peru-2026",
   "seasonLabel": "2026",
   "periodLabel": "League phase · Matchday 16",
-  "updatedAt": "2026-11-24T21:01:09.804Z",
+  "updatedAt": "2026-11-25T20:23:50.754Z",
   "source": "pitchlab-football-v2",
   "provenance": "derived",
   "isDemo": false,
@@ -18,8 +18,8 @@
       "forPerGame": 1.3529411764705883,
       "againstPerGame": 2.4705882352941178,
       "gamesPlayed": 17,
-      "adjustedFor": 1.112704500963963,
-      "adjustedAgainst": 1.7445751885019087
+      "adjustedFor": 1.1128729963654782,
+      "adjustedAgainst": 1.7442695901924985
     },
     "liga-1-peru.acd-juan-pablo-ii": {
       "teamId": "liga-1-peru.acd-juan-pablo-ii",
@@ -29,8 +29,8 @@
       "forPerGame": 1.6470588235294117,
       "againstPerGame": 1.2352941176470589,
       "gamesPlayed": 17,
-      "adjustedFor": 1.3013956112992822,
-      "adjustedAgainst": 1.0470442271181235
+      "adjustedFor": 1.3014071145252721,
+      "adjustedAgainst": 1.04728032970284
     },
     "liga-1-peru.sporting-cristal": {
       "teamId": "liga-1-peru.sporting-cristal",
@@ -40,8 +40,8 @@
       "forPerGame": 2.2941176470588234,
       "againstPerGame": 1.1176470588235294,
       "gamesPlayed": 17,
-      "adjustedFor": 1.6305224131088845,
-      "adjustedAgainst": 1.0310502418737257
+      "adjustedFor": 1.6303184251094376,
+      "adjustedAgainst": 1.0312761170271554
     },
     "liga-1-peru.deportivo-garcilaso": {
       "teamId": "liga-1-peru.deportivo-garcilaso",
@@ -51,8 +51,8 @@
       "forPerGame": 1.8235294117647058,
       "againstPerGame": 1.1176470588235294,
       "gamesPlayed": 17,
-      "adjustedFor": 1.3819152374309025,
-      "adjustedAgainst": 1.0119266281947286
+      "adjustedFor": 1.381899437223822,
+      "adjustedAgainst": 1.012181327533961
     },
     "liga-1-peru.cienciano": {
       "teamId": "liga-1-peru.cienciano",
@@ -62,8 +62,8 @@
       "forPerGame": 1.2352941176470589,
       "againstPerGame": 1.6470588235294117,
       "gamesPlayed": 17,
-      "adjustedFor": 1.0772193494349516,
-      "adjustedAgainst": 1.271436184043053
+      "adjustedFor": 1.0774192808056793,
+      "adjustedAgainst": 1.271494893137889
     },
     "liga-1-peru.melgar": {
       "teamId": "liga-1-peru.melgar",
@@ -73,8 +73,8 @@
       "forPerGame": 1.6470588235294117,
       "againstPerGame": 1.1176470588235294,
       "gamesPlayed": 17,
-      "adjustedFor": 1.2899327937697322,
-      "adjustedAgainst": 0.9984006997192766
+      "adjustedFor": 1.2899665094348811,
+      "adjustedAgainst": 0.9986625783612387
     },
     "liga-1-peru.moquegua": {
       "teamId": "liga-1-peru.moquegua",
@@ -84,8 +84,8 @@
       "forPerGame": 0.7058823529411765,
       "againstPerGame": 1.4705882352941178,
       "gamesPlayed": 17,
-      "adjustedFor": 0.7718085629561569,
-      "adjustedAgainst": 1.1824418894033408
+      "adjustedFor": 0.7722439616004538,
+      "adjustedAgainst": 1.1825764763315725
     },
     "liga-1-peru.comerciantes-unidos": {
       "teamId": "liga-1-peru.comerciantes-unidos",
@@ -95,8 +95,8 @@
       "forPerGame": 1.7058823529411764,
       "againstPerGame": 1.7647058823529411,
       "gamesPlayed": 17,
-      "adjustedFor": 1.3344894798683942,
-      "adjustedAgainst": 1.3345635831639442
+      "adjustedFor": 1.334478229764011,
+      "adjustedAgainst": 1.3345751003656023
     },
     "liga-1-peru.asociacion-deportiva-tarma": {
       "teamId": "liga-1-peru.asociacion-deportiva-tarma",
@@ -106,8 +106,8 @@
       "forPerGame": 0.9411764705882353,
       "againstPerGame": 1.7058823529411764,
       "gamesPlayed": 17,
-      "adjustedFor": 0.9236616690752559,
-      "adjustedAgainst": 1.288838213853201
+      "adjustedFor": 0.9239843626675451,
+      "adjustedAgainst": 1.2888851985331797
     },
     "liga-1-peru.universitario-deportes": {
       "teamId": "liga-1-peru.universitario-deportes",
@@ -117,8 +117,8 @@
       "forPerGame": 2.1176470588235294,
       "againstPerGame": 1.6470588235294117,
       "gamesPlayed": 17,
-      "adjustedFor": 1.5762360192601381,
-      "adjustedAgainst": 1.3048091598805263
+      "adjustedFor": 1.576027418117204,
+      "adjustedAgainst": 1.3048235179884993
     },
     "liga-1-peru.atletico-grau": {
       "teamId": "liga-1-peru.atletico-grau",
@@ -128,8 +128,8 @@
       "forPerGame": 1.2352941176470589,
       "againstPerGame": 1.4705882352941178,
       "gamesPlayed": 17,
-      "adjustedFor": 1.0457345381341774,
-      "adjustedAgainst": 1.207661443719311
+      "adjustedFor": 1.0459687963128743,
+      "adjustedAgainst": 1.207766763288764
     },
     "liga-1-peru.universidad-tecnica-cajamarca": {
       "teamId": "liga-1-peru.universidad-tecnica-cajamarca",
@@ -139,8 +139,8 @@
       "forPerGame": 1.2941176470588236,
       "againstPerGame": 2.0588235294117645,
       "gamesPlayed": 17,
-      "adjustedFor": 1.1162630217645706,
-      "adjustedAgainst": 1.507826116871511
+      "adjustedFor": 1.1164264975561273,
+      "adjustedAgainst": 1.5076960905714631
     },
     "liga-1-peru.cusco": {
       "teamId": "liga-1-peru.cusco",
@@ -150,8 +150,8 @@
       "forPerGame": 1.588235294117647,
       "againstPerGame": 1.4705882352941178,
       "gamesPlayed": 17,
-      "adjustedFor": 1.235839118260019,
-      "adjustedAgainst": 1.201885190382809
+      "adjustedFor": 1.235908612182344,
+      "adjustedAgainst": 1.2019890671244178
     },
     "liga-1-peru.alianza-atletico-sullana": {
       "teamId": "liga-1-peru.alianza-atletico-sullana",
@@ -161,8 +161,8 @@
       "forPerGame": 1.7647058823529411,
       "againstPerGame": 1.8235294117647058,
       "gamesPlayed": 17,
-      "adjustedFor": 1.3360934523625958,
-      "adjustedAgainst": 1.408091815888839
+      "adjustedFor": 1.3360908165116439,
+      "adjustedAgainst": 1.4080188841994725
     },
     "liga-1-peru.los-chankas-cyc": {
       "teamId": "liga-1-peru.los-chankas-cyc",
@@ -172,8 +172,8 @@
       "forPerGame": 1.0588235294117647,
       "againstPerGame": 2.1176470588235294,
       "gamesPlayed": 17,
-      "adjustedFor": 0.9840713866177154,
-      "adjustedAgainst": 1.5161209910197986
+      "adjustedFor": 0.9843383379655877,
+      "adjustedAgainst": 1.516000778058164
     },
     "liga-1-peru.sport-boys": {
       "teamId": "liga-1-peru.sport-boys",
@@ -183,8 +183,8 @@
       "forPerGame": 1.4705882352941178,
       "againstPerGame": 1.1176470588235294,
       "gamesPlayed": 17,
-      "adjustedFor": 1.1891232293274925,
-      "adjustedAgainst": 1.002789594714982
+      "adjustedFor": 1.189252632675056,
+      "adjustedAgainst": 1.0030551121530171
     },
     "liga-1-peru.alianza-lima": {
       "teamId": "liga-1-peru.alianza-lima",
@@ -194,8 +194,8 @@
       "forPerGame": 1.7058823529411764,
       "againstPerGame": 0.9411764705882353,
       "gamesPlayed": 17,
-      "adjustedFor": 1.2939224435378514,
-      "adjustedAgainst": 0.9075990375931222
+      "adjustedFor": 1.2939854670365145,
+      "adjustedAgainst": 0.9079317674082549
     },
     "liga-1-peru.sport-huancayo": {
       "teamId": "liga-1-peru.sport-huancayo",
@@ -205,8 +205,8 @@
       "forPerGame": 1.8235294117647058,
       "againstPerGame": 1.1176470588235294,
       "gamesPlayed": 17,
-      "adjustedFor": 1.3737753989788248,
-      "adjustedAgainst": 0.9984264997008708
+      "adjustedFor": 1.3737654374186823,
+      "adjustedAgainst": 0.99869330247799
     }
   },
   "games": [
@@ -240,7 +240,7 @@
       "result": {
         "home": 2,
         "away": 0,
-        "observedAt": "2026-11-24T21:01:09.804Z",
+        "observedAt": "2026-11-25T20:23:50.754Z",
         "source": "pitchlab-feed"
       }
     },
@@ -275,7 +275,7 @@
       "result": {
         "home": 2,
         "away": 1,
-        "observedAt": "2026-11-24T21:01:09.804Z",
+        "observedAt": "2026-11-25T20:23:50.754Z",
         "source": "pitchlab-feed"
       }
     },
@@ -310,7 +310,7 @@
       "result": {
         "home": 1,
         "away": 2,
-        "observedAt": "2026-11-24T21:01:09.804Z",
+        "observedAt": "2026-11-25T20:23:50.754Z",
         "source": "pitchlab-feed"
       }
     },
@@ -345,7 +345,7 @@
       "result": {
         "home": 1,
         "away": 1,
-        "observedAt": "2026-11-24T21:01:09.804Z",
+        "observedAt": "2026-11-25T20:23:50.754Z",
         "source": "pitchlab-feed"
       }
     },
@@ -380,7 +380,7 @@
       "result": {
         "home": 0,
         "away": 0,
-        "observedAt": "2026-11-24T21:01:09.804Z",
+        "observedAt": "2026-11-25T20:23:50.754Z",
         "source": "pitchlab-feed"
       }
     },
@@ -415,7 +415,7 @@
       "result": {
         "home": 0,
         "away": 0,
-        "observedAt": "2026-11-24T21:01:09.804Z",
+        "observedAt": "2026-11-25T20:23:50.754Z",
         "source": "pitchlab-feed"
       }
     },
@@ -450,7 +450,7 @@
       "result": {
         "home": 2,
         "away": 2,
-        "observedAt": "2026-11-24T21:01:09.804Z",
+        "observedAt": "2026-11-25T20:23:50.754Z",
         "source": "pitchlab-feed"
       }
     },
@@ -485,7 +485,7 @@
       "result": {
         "home": 3,
         "away": 3,
-        "observedAt": "2026-11-24T21:01:09.804Z",
+        "observedAt": "2026-11-25T20:23:50.754Z",
         "source": "pitchlab-feed"
       }
     },
@@ -519,7 +519,7 @@
       "result": {
         "home": 2,
         "away": 2,
-        "observedAt": "2026-11-24T21:01:09.804Z",
+        "observedAt": "2026-11-25T20:23:50.754Z",
         "source": "pitchlab-feed"
       }
     },
@@ -554,7 +554,7 @@
       "result": {
         "home": 5,
         "away": 3,
-        "observedAt": "2026-11-24T21:01:09.804Z",
+        "observedAt": "2026-11-25T20:23:50.754Z",
         "source": "pitchlab-feed"
       }
     },
@@ -588,7 +588,7 @@
       "result": {
         "home": 2,
         "away": 1,
-        "observedAt": "2026-11-24T21:01:09.804Z",
+        "observedAt": "2026-11-25T20:23:50.754Z",
         "source": "pitchlab-feed"
       }
     },
@@ -623,7 +623,7 @@
       "result": {
         "home": 2,
         "away": 2,
-        "observedAt": "2026-11-24T21:01:09.804Z",
+        "observedAt": "2026-11-25T20:23:50.754Z",
         "source": "pitchlab-feed"
       }
     },
@@ -658,7 +658,7 @@
       "result": {
         "home": 1,
         "away": 1,
-        "observedAt": "2026-11-24T21:01:09.804Z",
+        "observedAt": "2026-11-25T20:23:50.754Z",
         "source": "pitchlab-feed"
       }
     },
@@ -693,7 +693,7 @@
       "result": {
         "home": 5,
         "away": 0,
-        "observedAt": "2026-11-24T21:01:09.804Z",
+        "observedAt": "2026-11-25T20:23:50.754Z",
         "source": "pitchlab-feed"
       }
     },
@@ -728,7 +728,7 @@
       "result": {
         "home": 4,
         "away": 1,
-        "observedAt": "2026-11-24T21:01:09.804Z",
+        "observedAt": "2026-11-25T20:23:50.754Z",
         "source": "pitchlab-feed"
       }
     },
@@ -763,7 +763,7 @@
       "result": {
         "home": 4,
         "away": 1,
-        "observedAt": "2026-11-24T21:01:09.804Z",
+        "observedAt": "2026-11-25T20:23:50.754Z",
         "source": "pitchlab-feed"
       }
     },
@@ -793,6 +793,34 @@
         "logoUrl": "https://sports.bzzoiro.com/img/team/782/?bg=transparent"
       },
       "venue": "Estadio Huancayo, Huancayo",
+      "neutralSite": false
+    },
+    {
+      "id": "liga-1-peru-2026-12-05-universitario--sport-huancayo-fh0jgm",
+      "league": "liga-1-peru",
+      "season": "liga-1-peru-2026",
+      "week": 28,
+      "round": "Semifinals",
+      "phase": "Semifinals",
+      "startTime": "2026-12-05T01:30:00.000Z",
+      "status": "scheduled",
+      "home": {
+        "id": "liga-1-peru.universitario-deportes",
+        "league": "liga-1-peru",
+        "name": "Universitario de Deportes",
+        "shortName": "Universitario de Depor",
+        "code": "UNI",
+        "logoUrl": "https://sports.bzzoiro.com/img/team/782/?bg=transparent"
+      },
+      "away": {
+        "id": "liga-1-peru.sport-huancayo",
+        "league": "liga-1-peru",
+        "name": "Sport Huancayo",
+        "shortName": "Sport Huancayo",
+        "code": "SPO",
+        "logoUrl": "https://sports.bzzoiro.com/img/team/5270/?bg=transparent"
+      },
+      "venue": "Estadio Monumental, Lima",
       "neutralSite": false
     }
   ],
@@ -8541,6 +8569,488 @@
         "venueCity": "Huancayo",
         "venueCountry": "Peru",
         "venueCapacity": 20000
+      }
+    },
+    "liga-1-peru-2026-12-05-universitario--sport-huancayo-fh0jgm": {
+      "game": "liga-1-peru-2026-12-05-universitario--sport-huancayo-fh0jgm",
+      "model": {
+        "id": "pitchlab-statistical-liga-1-peru",
+        "version": "2.0.0",
+        "status": "candidate",
+        "label": "Modelo PitchLab · en validación"
+      },
+      "projection": {
+        "home": 1.9175663961568585,
+        "away": 1.4916608334903478,
+        "total": 3.4092272296472066,
+        "margin": 0.4259055626665107
+      },
+      "x12": [
+        0.4730261929610765,
+        0.22961370919237117,
+        0.29736009784655143
+      ],
+      "probabilities": [
+        {
+          "market": "h2h",
+          "selection": "Universitario de Depor gana",
+          "p": 0.4730261929610765,
+          "fairOdds": 2.114047836844177
+        },
+        {
+          "market": "h2h",
+          "selection": "Empate",
+          "p": 0.22961370919237117,
+          "fairOdds": 4.355140655657439
+        },
+        {
+          "market": "h2h",
+          "selection": "Sport Huancayo gana",
+          "p": 0.29736009784655143,
+          "fairOdds": 3.3629259851671027
+        },
+        {
+          "market": "double_chance",
+          "selection": "Universitario de Depor o empate",
+          "p": 0.7026399021534477,
+          "fairOdds": 1.4232041148463164
+        },
+        {
+          "market": "double_chance",
+          "selection": "Sport Huancayo o empate",
+          "p": 0.5269738070389226,
+          "fairOdds": 1.8976275227397392
+        },
+        {
+          "market": "double_chance",
+          "selection": "Sin empate",
+          "p": 0.770386290807628,
+          "fairOdds": 1.29805009763564
+        },
+        {
+          "market": "totals",
+          "selection": "Más de 1.5 goles",
+          "line": 1.5,
+          "p": 0.8584565663589355,
+          "fairOdds": 1.1648812988191213
+        },
+        {
+          "market": "totals",
+          "selection": "Más de 2.5 goles",
+          "line": 2.5,
+          "p": 0.662034559259533,
+          "fairOdds": 1.5104951637547015
+        },
+        {
+          "market": "totals",
+          "selection": "Menos de 2.5 goles",
+          "line": 2.5,
+          "p": 0.33796544074046697,
+          "fairOdds": 2.9588824165247347
+        },
+        {
+          "market": "totals",
+          "selection": "Más de 3.5 goles",
+          "line": 3.5,
+          "p": 0.44365564848815886,
+          "fairOdds": 2.254000379365597
+        },
+        {
+          "market": "totals",
+          "selection": "Menos de 3.5 goles",
+          "line": 3.5,
+          "p": 0.5563443515118411,
+          "fairOdds": 1.797447924621764
+        },
+        {
+          "market": "btts",
+          "selection": "Sí",
+          "p": 0.6653594116887059,
+          "fairOdds": 1.5029471026222718
+        },
+        {
+          "market": "btts",
+          "selection": "No",
+          "p": 0.33464058831129406,
+          "fairOdds": 2.9882806656727663
+        },
+        {
+          "market": "team_totals",
+          "selection": "Universitario de Depor más de 1.5 goles",
+          "line": 1.5,
+          "p": 0.5712198317631372,
+          "fairOdds": 1.7506394988307434
+        },
+        {
+          "market": "team_totals",
+          "selection": "Universitario de Depor menos de 1.5 goles",
+          "line": 1.5,
+          "p": 0.4287801682368628,
+          "fairOdds": 2.332197415080982
+        },
+        {
+          "market": "team_totals",
+          "selection": "Sport Huancayo más de 1.5 goles",
+          "line": 1.5,
+          "p": 0.43937935879503187,
+          "fairOdds": 2.2759375923858425
+        },
+        {
+          "market": "team_totals",
+          "selection": "Sport Huancayo menos de 1.5 goles",
+          "line": 1.5,
+          "p": 0.5606206412049681,
+          "fairOdds": 1.7837373912074541
+        },
+        {
+          "market": "correct_score",
+          "selection": "1–1",
+          "p": 0.09883957921185987,
+          "fairOdds": 10.117404464627757
+        },
+        {
+          "market": "correct_score",
+          "selection": "2–1",
+          "p": 0.09068490703681652,
+          "fairOdds": 11.027193307856809
+        },
+        {
+          "market": "correct_score",
+          "selection": "1–2",
+          "p": 0.07054312397559721,
+          "fairOdds": 14.175726047317202
+        }
+      ],
+      "marketGroups": [
+        {
+          "group": "Resultado",
+          "rows": [
+            {
+              "market": "h2h",
+              "selection": "home",
+              "label": "Universitario de Depor gana",
+              "p": 0.4730261929610765,
+              "fairOdds": 2.114047836844177
+            },
+            {
+              "market": "h2h",
+              "selection": "draw",
+              "label": "Empate",
+              "p": 0.22961370919237117,
+              "fairOdds": 4.355140655657439
+            },
+            {
+              "market": "h2h",
+              "selection": "away",
+              "label": "Sport Huancayo gana",
+              "p": 0.29736009784655143,
+              "fairOdds": 3.3629259851671027
+            }
+          ]
+        },
+        {
+          "group": "Doble oportunidad",
+          "rows": [
+            {
+              "market": "double_chance",
+              "selection": "1x",
+              "label": "Universitario de Depor o empate",
+              "p": 0.7026399021534477,
+              "fairOdds": 1.4232041148463164
+            },
+            {
+              "market": "double_chance",
+              "selection": "x2",
+              "label": "Sport Huancayo o empate",
+              "p": 0.5269738070389226,
+              "fairOdds": 1.8976275227397392
+            },
+            {
+              "market": "double_chance",
+              "selection": "12",
+              "label": "Sin empate",
+              "p": 0.770386290807628,
+              "fairOdds": 1.29805009763564
+            }
+          ]
+        },
+        {
+          "group": "Goles totales",
+          "rows": [
+            {
+              "market": "totals",
+              "selection": "over_1.5",
+              "label": "Más de 1.5 goles",
+              "line": 1.5,
+              "p": 0.8584565663589355,
+              "fairOdds": 1.1648812988191213
+            },
+            {
+              "market": "totals",
+              "selection": "over_2.5",
+              "label": "Más de 2.5 goles",
+              "line": 2.5,
+              "p": 0.662034559259533,
+              "fairOdds": 1.5104951637547015
+            },
+            {
+              "market": "totals",
+              "selection": "under_2.5",
+              "label": "Menos de 2.5 goles",
+              "line": 2.5,
+              "p": 0.33796544074046697,
+              "fairOdds": 2.9588824165247347
+            },
+            {
+              "market": "totals",
+              "selection": "over_3.5",
+              "label": "Más de 3.5 goles",
+              "line": 3.5,
+              "p": 0.44365564848815886,
+              "fairOdds": 2.254000379365597
+            },
+            {
+              "market": "totals",
+              "selection": "under_3.5",
+              "label": "Menos de 3.5 goles",
+              "line": 3.5,
+              "p": 0.5563443515118411,
+              "fairOdds": 1.797447924621764
+            }
+          ]
+        },
+        {
+          "group": "Ambos anotan",
+          "rows": [
+            {
+              "market": "btts",
+              "selection": "yes",
+              "label": "Sí",
+              "p": 0.6653594116887059,
+              "fairOdds": 1.5029471026222718
+            },
+            {
+              "market": "btts",
+              "selection": "no",
+              "label": "No",
+              "p": 0.33464058831129406,
+              "fairOdds": 2.9882806656727663
+            }
+          ]
+        },
+        {
+          "group": "Goles por equipo (1.5)",
+          "rows": [
+            {
+              "market": "team_totals",
+              "selection": "home_over",
+              "label": "Universitario de Depor más de 1.5 goles",
+              "line": 1.5,
+              "p": 0.5712198317631372,
+              "fairOdds": 1.7506394988307434
+            },
+            {
+              "market": "team_totals",
+              "selection": "home_under",
+              "label": "Universitario de Depor menos de 1.5 goles",
+              "line": 1.5,
+              "p": 0.4287801682368628,
+              "fairOdds": 2.332197415080982
+            },
+            {
+              "market": "team_totals",
+              "selection": "away_over",
+              "label": "Sport Huancayo más de 1.5 goles",
+              "line": 1.5,
+              "p": 0.43937935879503187,
+              "fairOdds": 2.2759375923858425
+            },
+            {
+              "market": "team_totals",
+              "selection": "away_under",
+              "label": "Sport Huancayo menos de 1.5 goles",
+              "line": 1.5,
+              "p": 0.5606206412049681,
+              "fairOdds": 1.7837373912074541
+            }
+          ]
+        },
+        {
+          "group": "Marcador exacto (más probables)",
+          "rows": [
+            {
+              "market": "correct_score",
+              "selection": "1-1",
+              "label": "1–1",
+              "p": 0.09883957921185987,
+              "fairOdds": 10.117404464627757
+            },
+            {
+              "market": "correct_score",
+              "selection": "2-1",
+              "label": "2–1",
+              "p": 0.09068490703681652,
+              "fairOdds": 11.027193307856809
+            },
+            {
+              "market": "correct_score",
+              "selection": "1-2",
+              "label": "1–2",
+              "p": 0.07054312397559721,
+              "fairOdds": 14.175726047317202
+            }
+          ]
+        }
+      ],
+      "mostLikelyScore": {
+        "home": 1,
+        "away": 1,
+        "p": 0.09883957921185987
+      },
+      "factors": [
+        {
+          "key": "home_attack",
+          "label": "Ataque local",
+          "value": "1.31 goles/partido",
+          "detail": "31 % más que la media · 17 partidos"
+        },
+        {
+          "key": "away_defense",
+          "label": "Defensa visitante",
+          "value": "1.00 concedidos/partido",
+          "detail": "17 % menos que la media · 17 partidos"
+        },
+        {
+          "key": "away_attack",
+          "label": "Ataque visitante",
+          "value": "1.49 goles/partido",
+          "detail": "14 % más que la media · ajustado por rival"
+        },
+        {
+          "key": "home_defense",
+          "label": "Defensa local",
+          "value": "1.30 concedidos/partido",
+          "detail": "9 % más que la media · ajustado por rival"
+        },
+        {
+          "key": "home_advantage",
+          "label": "Localía",
+          "value": "×1.46",
+          "detail": "estimada de 153 partidos"
+        },
+        {
+          "key": "uncertainty",
+          "label": "Intervalo 90%",
+          "value": "goles 2.7–4.7",
+          "detail": "local 26%–70% · 153 partidos"
+        },
+        {
+          "key": "home_position",
+          "label": "Posición local",
+          "value": "4.º · 32 pts",
+          "detail": "de 18 equipos"
+        },
+        {
+          "key": "away_position",
+          "label": "Posición visitante",
+          "value": "1.º · 37 pts",
+          "detail": "de 18 equipos"
+        },
+        {
+          "key": "home_form",
+          "label": "Forma local",
+          "value": "G-G-E-E-P · 8 pts",
+          "detail": "11 goles a favor · 9 en contra"
+        },
+        {
+          "key": "away_form",
+          "label": "Forma visitante",
+          "value": "G-P-G-G-G · 12 pts",
+          "detail": "12 goles a favor · 5 en contra"
+        }
+      ],
+      "steps": [
+        "Sincronizando Liga 1 Perú · corte 25 nov 2026, 20:23",
+        "Fuerza ajustada por rival · UNI 1.31 / 1.09 · SPO 1.14 / 0.83",
+        "Ponderando 134.6 partidos por antigüedad y calidad del rival",
+        "Proyección de goles 1.92 – 1.49 · total 3.41",
+        "Simulando 121 marcadores con incertidumbre del ajuste",
+        "20 mercados listos · marcador proyectado 2–1"
+      ],
+      "inputsAsOf": "2026-11-25T20:23:50.754Z",
+      "publishedAt": "2026-11-25T20:23:50.754Z",
+      "source": "pitchlab-football-v2",
+      "picks": [
+        {
+          "profile": "conservadora",
+          "market": "totals",
+          "selection": "over_1.5",
+          "label": "Más de 1.5 goles",
+          "line": 1.5,
+          "p": 0.8584565663589355,
+          "fairOdds": 1.1648812988191213
+        },
+        {
+          "profile": "intermedia",
+          "market": "btts",
+          "selection": "yes",
+          "label": "Ambos anotan: Sí",
+          "p": 0.6653594116887059,
+          "fairOdds": 1.5029471026222718
+        },
+        {
+          "profile": "arriesgada",
+          "market": "h2h",
+          "selection": "home",
+          "label": "Universitario de Depor gana",
+          "p": 0.4730261929610765,
+          "fairOdds": 2.114047836844177
+        }
+      ],
+      "confidence": {
+        "score": 45,
+        "level": "media",
+        "reasons": [
+          "Muestra suficiente",
+          "Rango de incertidumbre amplio"
+        ]
+      },
+      "projectedScore": {
+        "home": 2,
+        "away": 1,
+        "p": 0.09068490703681652
+      },
+      "insights": {
+        "why": [
+          "Se esperan 3.4 goles: 1.9 de Universitario de Depor y 1.5 de Sport Huancayo.",
+          "Universitario de Depor anota 31 % más que la media.",
+          "Sport Huancayo concede 17 % menos que la media."
+        ],
+        "headToHead": [
+          {
+            "date": "2026-11-22",
+            "homeTeamId": "liga-1-peru.sport-huancayo",
+            "awayTeamId": "liga-1-peru.universitario-deportes",
+            "homeGoals": 4,
+            "awayGoals": 1
+          }
+        ],
+        "restDays": {
+          "home": 13,
+          "away": 13
+        }
+      },
+      "picksAt": "2026-11-25T20:23:50.754Z",
+      "matchContext": {
+        "weather": {
+          "description": "cloudy",
+          "temperatureC": 24,
+          "windSpeedKmh": 32
+        },
+        "stageName": "Semifinals",
+        "venueCity": "Lima",
+        "venueCountry": "Peru",
+        "venueCapacity": 80093
       }
     }
   },

@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "league": "mls",
   "season": "2026",
-  "updatedAt": "2026-11-24T21:01:09.804Z",
+  "updatedAt": "2026-11-25T20:23:50.754Z",
   "matches": [
     {
       "id": "mls-2026-07-16-montreal-toronto-uyevum",
@@ -3313,6 +3313,17 @@
       "awayTeam": "mls.los-angeles",
       "homeScore": 3,
       "awayScore": 2,
+      "neutralSite": false
+    },
+    {
+      "id": "mls-2026-11-25-san-jose-earth-houston-dynamo-gh3odc",
+      "date": "2026-11-25",
+      "startTime": "2026-11-25T03:00:00.000Z",
+      "round": "Round 1",
+      "homeTeam": "mls.san-jose-earthquakes",
+      "awayTeam": "mls.houston-dynamo",
+      "homeScore": 2,
+      "awayScore": 1,
       "neutralSite": false
     }
   ]

@@ -5,7 +5,7 @@
   "season": "liga-f-2026-27",
   "seasonLabel": "2026/27",
   "periodLabel": "Regular season · Matchday 11",
-  "updatedAt": "2026-11-24T21:01:09.804Z",
+  "updatedAt": "2026-11-25T20:23:50.754Z",
   "source": "pitchlab-football-v2",
   "provenance": "derived",
   "isDemo": false,
@@ -18,8 +18,8 @@
       "forPerGame": 1.25,
       "againstPerGame": 1.5833333333333333,
       "gamesPlayed": 12,
-      "adjustedFor": 1.2892945195952465,
-      "adjustedAgainst": 1.4414724365007257
+      "adjustedFor": 1.289447300448124,
+      "adjustedAgainst": 1.4414860643453367
     },
     "liga-f.logrono-united": {
       "teamId": "liga-f.logrono-united",
@@ -29,8 +29,8 @@
       "forPerGame": 1.4166666666666667,
       "againstPerGame": 1.4166666666666667,
       "gamesPlayed": 12,
-      "adjustedFor": 1.3879140824981617,
-      "adjustedAgainst": 1.3573011861849877
+      "adjustedFor": 1.387960271076715,
+      "adjustedAgainst": 1.3574141373442037
     },
     "liga-f.real-deportivo-a-coruna": {
       "teamId": "liga-f.real-deportivo-a-coruna",
@@ -40,8 +40,8 @@
       "forPerGame": 1.0833333333333333,
       "againstPerGame": 1.3333333333333333,
       "gamesPlayed": 12,
-      "adjustedFor": 1.1987197161950067,
-      "adjustedAgainst": 1.295780060187356
+      "adjustedFor": 1.1989786431117138,
+      "adjustedAgainst": 1.2959775396012085
     },
     "liga-f.sevilla": {
       "teamId": "liga-f.sevilla",
@@ -51,8 +51,8 @@
       "forPerGame": 1,
       "againstPerGame": 1.5833333333333333,
       "gamesPlayed": 12,
-      "adjustedFor": 1.1649764119997592,
-      "adjustedAgainst": 1.375035022861925
+      "adjustedFor": 1.165270850794218,
+      "adjustedAgainst": 1.3751793306457643
     },
     "liga-f.sd-eibar": {
       "teamId": "liga-f.sd-eibar",
@@ -62,8 +62,8 @@
       "forPerGame": 1,
       "againstPerGame": 1.5,
       "gamesPlayed": 12,
-      "adjustedFor": 1.142014898248162,
-      "adjustedAgainst": 1.4546806523001898
+      "adjustedFor": 1.142340766427664,
+      "adjustedAgainst": 1.4546471897374793
     },
     "liga-f.espanyol-barcelona": {
       "teamId": "liga-f.espanyol-barcelona",
@@ -73,8 +73,8 @@
       "forPerGame": 1.4166666666666667,
       "againstPerGame": 1.1666666666666667,
       "gamesPlayed": 12,
-      "adjustedFor": 1.339769479438187,
-      "adjustedAgainst": 1.2644556426387659
+      "adjustedFor": 1.3399104857755002,
+      "adjustedAgainst": 1.2646183286409645
     },
     "liga-f.madrid-cff": {
       "teamId": "liga-f.madrid-cff",
@@ -84,8 +84,8 @@
       "forPerGame": 1.75,
       "againstPerGame": 2,
       "gamesPlayed": 12,
-      "adjustedFor": 1.5846035284646371,
-      "adjustedAgainst": 1.6564397097702819
+      "adjustedFor": 1.5844036664492516,
+      "adjustedAgainst": 1.6562295155553441
     },
     "liga-f.granada": {
       "teamId": "liga-f.granada",
@@ -95,8 +95,8 @@
       "forPerGame": 0.8333333333333334,
       "againstPerGame": 1.75,
       "gamesPlayed": 12,
-      "adjustedFor": 1.067697957681605,
-      "adjustedAgainst": 1.4764358134363667
+      "adjustedFor": 1.068098090902952,
+      "adjustedAgainst": 1.476470148699601
     },
     "liga-f.athletic": {
       "teamId": "liga-f.athletic",
@@ -106,8 +106,8 @@
       "forPerGame": 1.4166666666666667,
       "againstPerGame": 1.5,
       "gamesPlayed": 12,
-      "adjustedFor": 1.3667492180303333,
-      "adjustedAgainst": 1.3477333034380492
+      "adjustedFor": 1.366831737058862,
+      "adjustedAgainst": 1.3479088450199013
     },
     "liga-f.badalona-women": {
       "teamId": "liga-f.badalona-women",
@@ -117,8 +117,8 @@
       "forPerGame": 1.1666666666666667,
       "againstPerGame": 2,
       "gamesPlayed": 12,
-      "adjustedFor": 1.2757807348954022,
-      "adjustedAgainst": 1.5965055035284867
+      "adjustedFor": 1.2759313407535582,
+      "adjustedAgainst": 1.59642875783103
     },
     "liga-f.deportivo-alaves": {
       "teamId": "liga-f.deportivo-alaves",
@@ -128,8 +128,8 @@
       "forPerGame": 0.8181818181818182,
       "againstPerGame": 1.5454545454545454,
       "gamesPlayed": 11,
-      "adjustedFor": 1.095041590443871,
-      "adjustedAgainst": 1.419273715054864
+      "adjustedFor": 1.0954189053627152,
+      "adjustedAgainst": 1.419317485427826
     },
     "liga-f.valencia": {
       "teamId": "liga-f.valencia",
@@ -139,8 +139,8 @@
       "forPerGame": 0.6666666666666666,
       "againstPerGame": 1.75,
       "gamesPlayed": 12,
-      "adjustedFor": 0.9828219546662577,
-      "adjustedAgainst": 1.5063192820697449
+      "adjustedFor": 0.9833171723175499,
+      "adjustedAgainst": 1.5062611368788088
     },
     "liga-f.barcelona": {
       "teamId": "liga-f.barcelona",
@@ -150,8 +150,8 @@
       "forPerGame": 4,
       "againstPerGame": 0.5,
       "gamesPlayed": 12,
-      "adjustedFor": 2.667893154878658,
-      "adjustedAgainst": 0.8926919648913233
+      "adjustedFor": 2.6666394831079367,
+      "adjustedAgainst": 0.8932756349773662
     },
     "liga-f.costa-adeje-tenerife": {
       "teamId": "liga-f.costa-adeje-tenerife",
@@ -161,8 +161,8 @@
       "forPerGame": 1.5454545454545454,
       "againstPerGame": 1.6363636363636365,
       "gamesPlayed": 11,
-      "adjustedFor": 1.4529642068822943,
-      "adjustedAgainst": 1.4107228429861725
+      "adjustedFor": 1.452953421453368,
+      "adjustedAgainst": 1.410814764507863
     },
     "liga-f.real-madrid": {
       "teamId": "liga-f.real-madrid",
@@ -172,8 +172,8 @@
       "forPerGame": 2.5833333333333335,
       "againstPerGame": 1.8333333333333333,
       "gamesPlayed": 12,
-      "adjustedFor": 2.0196275756731863,
-      "adjustedAgainst": 1.5731115000722717
+      "adjustedFor": 2.0189708711807426,
+      "adjustedAgainst": 1.572979390185193
     },
     "liga-f.atletico-madrid": {
       "teamId": "liga-f.atletico-madrid",
@@ -183,8 +183,8 @@
       "forPerGame": 2.25,
       "againstPerGame": 1.1666666666666667,
       "gamesPlayed": 12,
-      "adjustedFor": 1.8090438540242062,
-      "adjustedAgainst": 1.2030535459766354
+      "adjustedFor": 1.808672976953333,
+      "adjustedAgainst": 1.20331504829898
     }
   },
   "games": [
@@ -219,7 +219,7 @@
       "result": {
         "home": 1,
         "away": 3,
-        "observedAt": "2026-11-24T21:01:09.804Z",
+        "observedAt": "2026-11-25T20:23:50.754Z",
         "source": "pitchlab-feed"
       }
     },
@@ -253,7 +253,7 @@
       "result": {
         "home": 2,
         "away": 1,
-        "observedAt": "2026-11-24T21:01:09.804Z",
+        "observedAt": "2026-11-25T20:23:50.754Z",
         "source": "pitchlab-feed"
       }
     },
@@ -288,7 +288,7 @@
       "result": {
         "home": 3,
         "away": 3,
-        "observedAt": "2026-11-24T21:01:09.804Z",
+        "observedAt": "2026-11-25T20:23:50.754Z",
         "source": "pitchlab-feed"
       }
     },
@@ -323,7 +323,7 @@
       "result": {
         "home": 1,
         "away": 4,
-        "observedAt": "2026-11-24T21:01:09.804Z",
+        "observedAt": "2026-11-25T20:23:50.754Z",
         "source": "pitchlab-feed"
       }
     },
@@ -358,7 +358,7 @@
       "result": {
         "home": 2,
         "away": 3,
-        "observedAt": "2026-11-24T21:01:09.804Z",
+        "observedAt": "2026-11-25T20:23:50.754Z",
         "source": "pitchlab-feed"
       }
     },
@@ -393,7 +393,7 @@
       "result": {
         "home": 1,
         "away": 2,
-        "observedAt": "2026-11-24T21:01:09.804Z",
+        "observedAt": "2026-11-25T20:23:50.754Z",
         "source": "pitchlab-feed"
       }
     },
@@ -428,7 +428,7 @@
       "result": {
         "home": 1,
         "away": 1,
-        "observedAt": "2026-11-24T21:01:09.804Z",
+        "observedAt": "2026-11-25T20:23:50.754Z",
         "source": "pitchlab-feed"
       }
     },
@@ -462,7 +462,7 @@
       "result": {
         "home": 0,
         "away": 0,
-        "observedAt": "2026-11-24T21:01:09.804Z",
+        "observedAt": "2026-11-25T20:23:50.754Z",
         "source": "pitchlab-feed"
       }
     },
@@ -497,7 +497,7 @@
       "result": {
         "home": 2,
         "away": 1,
-        "observedAt": "2026-11-24T21:01:09.804Z",
+        "observedAt": "2026-11-25T20:23:50.754Z",
         "source": "pitchlab-feed"
       }
     },
@@ -532,7 +532,7 @@
       "result": {
         "home": 1,
         "away": 3,
-        "observedAt": "2026-11-24T21:01:09.804Z",
+        "observedAt": "2026-11-25T20:23:50.754Z",
         "source": "pitchlab-feed"
       }
     },
@@ -567,7 +567,7 @@
       "result": {
         "home": 3,
         "away": 1,
-        "observedAt": "2026-11-24T21:01:09.804Z",
+        "observedAt": "2026-11-25T20:23:50.754Z",
         "source": "pitchlab-feed"
       }
     },
@@ -602,7 +602,7 @@
       "result": {
         "home": 1,
         "away": 0,
-        "observedAt": "2026-11-24T21:01:09.804Z",
+        "observedAt": "2026-11-25T20:23:50.754Z",
         "source": "pitchlab-feed"
       }
     },
@@ -637,7 +637,7 @@
       "result": {
         "home": 1,
         "away": 5,
-        "observedAt": "2026-11-24T21:01:09.804Z",
+        "observedAt": "2026-11-25T20:23:50.754Z",
         "source": "pitchlab-feed"
       }
     },
@@ -672,7 +672,7 @@
       "result": {
         "home": 0,
         "away": 3,
-        "observedAt": "2026-11-24T21:01:09.804Z",
+        "observedAt": "2026-11-25T20:23:50.754Z",
         "source": "pitchlab-feed"
       }
     },
@@ -706,7 +706,7 @@
       "result": {
         "home": 6,
         "away": 0,
-        "observedAt": "2026-11-24T21:01:09.804Z",
+        "observedAt": "2026-11-25T20:23:50.754Z",
         "source": "pitchlab-feed"
       }
     },
@@ -741,7 +741,7 @@
       "result": {
         "home": 2,
         "away": 0,
-        "observedAt": "2026-11-24T21:01:09.804Z",
+        "observedAt": "2026-11-25T20:23:50.754Z",
         "source": "pitchlab-feed"
       }
     },

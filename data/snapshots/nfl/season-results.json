@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "league": "nfl",
   "season": "nfl-2026",
-  "updatedAt": "2026-11-24T21:08:59.597Z",
+  "updatedAt": "2026-11-25T20:29:53.678Z",
   "matches": [
     {
       "id": "nfl-2026-w1-new-england-patriots-seattle-seahawks",
@@ -1446,17 +1446,6 @@
       "neutralSite": false
     },
     {
-      "id": "nfl-2026-w9-las-vegas-raiders-san-francisco-49ers",
-      "date": "2026-11-08",
-      "startTime": "2026-11-08T21:25:00.000Z",
-      "round": "Semana 9",
-      "homeTeam": "nfl.san-francisco-49ers",
-      "awayTeam": "nfl.las-vegas-raiders",
-      "homeScore": 38,
-      "awayScore": 17,
-      "neutralSite": false
-    },
-    {
       "id": "nfl-2026-w9-green-bay-packers-new-england-patriots",
       "date": "2026-11-08",
       "startTime": "2026-11-08T21:25:00.000Z",
@@ -1476,6 +1465,17 @@
       "awayTeam": "nfl.arizona-cardinals",
       "homeScore": 17,
       "awayScore": 3,
+      "neutralSite": false
+    },
+    {
+      "id": "nfl-2026-w9-las-vegas-raiders-san-francisco-49ers",
+      "date": "2026-11-08",
+      "startTime": "2026-11-08T21:25:00.000Z",
+      "round": "Semana 9",
+      "homeTeam": "nfl.san-francisco-49ers",
+      "awayTeam": "nfl.las-vegas-raiders",
+      "homeScore": 38,
+      "awayScore": 17,
       "neutralSite": false
     },
     {
@@ -1754,17 +1754,6 @@
       "neutralSite": false
     },
     {
-      "id": "nfl-2026-w11-jacksonville-jaguars-new-york-giants",
-      "date": "2026-11-22",
-      "startTime": "2026-11-22T21:25:00.000Z",
-      "round": "Semana 11",
-      "homeTeam": "nfl.new-york-giants",
-      "awayTeam": "nfl.jacksonville-jaguars",
-      "homeScore": 23,
-      "awayScore": 18,
-      "neutralSite": false
-    },
-    {
       "id": "nfl-2026-w11-las-vegas-raiders-denver-broncos",
       "date": "2026-11-22",
       "startTime": "2026-11-22T21:25:00.000Z",
@@ -1773,6 +1762,17 @@
       "awayTeam": "nfl.las-vegas-raiders",
       "homeScore": 38,
       "awayScore": 24,
+      "neutralSite": false
+    },
+    {
+      "id": "nfl-2026-w11-jacksonville-jaguars-new-york-giants",
+      "date": "2026-11-22",
+      "startTime": "2026-11-22T21:25:00.000Z",
+      "round": "Semana 11",
+      "homeTeam": "nfl.new-york-giants",
+      "awayTeam": "nfl.jacksonville-jaguars",
+      "homeScore": 23,
+      "awayScore": 18,
       "neutralSite": false
     },
     {

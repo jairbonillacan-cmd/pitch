@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "league": "super-lig",
-  "observedAt": "2026-11-24T21:01:09.804Z",
+  "observedAt": "2026-11-25T20:23:50.754Z",
   "source": "pitchlab-availability",
   "coverageStatus": "ok",
   "entries": [
@@ -12,7 +12,7 @@
       "status": "Baja",
       "detail": "Hamstring Injury",
       "injuryType": "Hamstring Injury",
-      "reportedAt": "2026-11-24T21:01:09.804Z"
+      "reportedAt": "2026-11-25T20:23:50.754Z"
     },
     {
       "teamId": "super-lig.samsunspor",
@@ -21,7 +21,7 @@
       "status": "Baja",
       "detail": "Broken Rib",
       "injuryType": "Broken Rib",
-      "reportedAt": "2026-11-24T21:01:09.804Z"
+      "reportedAt": "2026-11-25T20:23:50.754Z"
     },
     {
       "teamId": "super-lig.konyaspor",
@@ -30,7 +30,7 @@
       "status": "Baja",
       "detail": "Cruciate Ligament Injury",
       "injuryType": "Cruciate Ligament Injury",
-      "reportedAt": "2026-11-24T21:01:09.804Z"
+      "reportedAt": "2026-11-25T20:23:50.754Z"
     },
     {
       "teamId": "super-lig.konyaspor",
@@ -39,7 +39,7 @@
       "status": "Duda",
       "detail": "Muscle Injury",
       "injuryType": "Muscle Injury",
-      "reportedAt": "2026-11-24T21:01:09.804Z"
+      "reportedAt": "2026-11-25T20:23:50.754Z"
     },
     {
       "teamId": "super-lig.goztepe",
@@ -48,7 +48,7 @@
       "status": "Duda",
       "detail": "Muscle Injury",
       "injuryType": "Muscle Injury",
-      "reportedAt": "2026-11-24T21:01:09.804Z"
+      "reportedAt": "2026-11-25T20:23:50.754Z"
     },
     {
       "teamId": "super-lig.goztepe",
@@ -57,7 +57,7 @@
       "status": "Baja",
       "detail": "club_decision",
       "injuryType": "club_decision",
-      "reportedAt": "2026-11-24T21:01:09.804Z"
+      "reportedAt": "2026-11-25T20:23:50.754Z"
     },
     {
       "teamId": "super-lig.basaksehir",
@@ -66,7 +66,7 @@
       "status": "Duda",
       "detail": "Physical Discomfort",
       "injuryType": "Physical Discomfort",
-      "reportedAt": "2026-11-24T21:01:09.804Z"
+      "reportedAt": "2026-11-25T20:23:50.754Z"
     },
     {
       "teamId": "super-lig.basaksehir",
@@ -75,7 +75,7 @@
       "status": "Duda",
       "detail": "Physical Discomfort",
       "injuryType": "Physical Discomfort",
-      "reportedAt": "2026-11-24T21:01:09.804Z"
+      "reportedAt": "2026-11-25T20:23:50.754Z"
     },
     {
       "teamId": "super-lig.basaksehir",
@@ -84,7 +84,25 @@
       "status": "Baja",
       "detail": "Knee Injury",
       "injuryType": "Knee Injury",
-      "reportedAt": "2026-11-24T21:01:09.804Z"
+      "reportedAt": "2026-11-25T20:23:50.754Z"
+    },
+    {
+      "teamId": "super-lig.galatasaray",
+      "player": "Deniz Gül",
+      "position": "Delantero",
+      "status": "Baja",
+      "detail": "Broken Nose",
+      "injuryType": "Broken Nose",
+      "reportedAt": "2026-11-25T20:23:50.754Z"
+    },
+    {
+      "teamId": "super-lig.galatasaray",
+      "player": "Lucas Torreira",
+      "position": "Mediocampista",
+      "status": "Baja",
+      "detail": "Muscle Injury",
+      "injuryType": "Muscle Injury",
+      "reportedAt": "2026-11-25T20:23:50.754Z"
     },
     {
       "teamId": "super-lig.galatasaray",
@@ -93,7 +111,7 @@
       "status": "Baja",
       "detail": "Hamstring Injury",
       "injuryType": "Hamstring Injury",
-      "reportedAt": "2026-11-24T21:01:09.804Z"
+      "reportedAt": "2026-11-25T20:23:50.754Z"
     },
     {
       "teamId": "super-lig.galatasaray",
@@ -102,7 +120,7 @@
       "status": "Baja",
       "detail": "Thigh Injury",
       "injuryType": "Thigh Injury",
-      "reportedAt": "2026-11-24T21:01:09.804Z"
+      "reportedAt": "2026-11-25T20:23:50.754Z"
     },
     {
       "teamId": "super-lig.galatasaray",
@@ -111,7 +129,7 @@
       "status": "Baja",
       "detail": "Knee Injury",
       "injuryType": "Knee Injury",
-      "reportedAt": "2026-11-24T21:01:09.804Z"
+      "reportedAt": "2026-11-25T20:23:50.754Z"
     },
     {
       "teamId": "super-lig.amedspor",
@@ -120,7 +138,7 @@
       "status": "Baja",
       "detail": "Cruciate Ligament Injury",
       "injuryType": "Cruciate Ligament Injury",
-      "reportedAt": "2026-11-24T21:01:09.804Z"
+      "reportedAt": "2026-11-25T20:23:50.754Z"
     },
     {
       "teamId": "super-lig.amedspor",
@@ -129,7 +147,7 @@
       "status": "Baja",
       "detail": "Muscle Injury",
       "injuryType": "Muscle Injury",
-      "reportedAt": "2026-11-24T21:01:09.804Z"
+      "reportedAt": "2026-11-25T20:23:50.754Z"
     },
     {
       "teamId": "super-lig.caykur-rizespor",
@@ -138,7 +156,7 @@
       "status": "Baja",
       "detail": "Muscle Injury",
       "injuryType": "Muscle Injury",
-      "reportedAt": "2026-11-24T21:01:09.804Z"
+      "reportedAt": "2026-11-25T20:23:50.754Z"
     },
     {
       "teamId": "super-lig.caykur-rizespor",
@@ -147,7 +165,7 @@
       "status": "Duda",
       "detail": "Muscle Injury",
       "injuryType": "Muscle Injury",
-      "reportedAt": "2026-11-24T21:01:09.804Z"
+      "reportedAt": "2026-11-25T20:23:50.754Z"
     },
     {
       "teamId": "super-lig.caykur-rizespor",
@@ -156,7 +174,7 @@
       "status": "Baja",
       "detail": "Cruciate Ligament Injury",
       "injuryType": "Cruciate Ligament Injury",
-      "reportedAt": "2026-11-24T21:01:09.804Z"
+      "reportedAt": "2026-11-25T20:23:50.754Z"
     },
     {
       "teamId": "super-lig.caykur-rizespor",
@@ -165,7 +183,7 @@
       "status": "Duda",
       "detail": "Muscle Injury",
       "injuryType": "Muscle Injury",
-      "reportedAt": "2026-11-24T21:01:09.804Z"
+      "reportedAt": "2026-11-25T20:23:50.754Z"
     }
   ]
 }

@@ -5,7 +5,7 @@
   "season": "bundesliga-2026-27",
   "seasonLabel": "2026/27",
   "periodLabel": "Jornada 11",
-  "updatedAt": "2026-11-24T21:08:59.597Z",
+  "updatedAt": "2026-11-25T20:29:53.678Z",
   "source": "openfootball+football-data",
   "provenance": "derived",
   "isDemo": false,
@@ -19,8 +19,8 @@
       "forPerGame": 2.3,
       "againstPerGame": 2.1,
       "gamesPlayed": 10,
-      "adjustedFor": 1.4715235451985853,
-      "adjustedAgainst": 1.5033996005870585
+      "adjustedFor": 1.4724681564938307,
+      "adjustedAgainst": 1.5044594297579312
     },
     "bundesliga.bayer-leverkusen": {
       "teamId": "bundesliga.bayer-leverkusen",
@@ -31,8 +31,8 @@
       "forPerGame": 2.4,
       "againstPerGame": 1.7,
       "gamesPlayed": 10,
-      "adjustedFor": 1.7100873898794995,
-      "adjustedAgainst": 1.2929561717779567
+      "adjustedFor": 1.7107625942564868,
+      "adjustedAgainst": 1.2937961277141237
     },
     "bundesliga.bayern-munchen": {
       "teamId": "bundesliga.bayern-munchen",
@@ -43,8 +43,8 @@
       "forPerGame": 3,
       "againstPerGame": 1,
       "gamesPlayed": 10,
-      "adjustedFor": 2.3680674273086524,
-      "adjustedAgainst": 1.0132283365083563
+      "adjustedFor": 2.3684365363134163,
+      "adjustedAgainst": 1.0143719969183769
     },
     "bundesliga.borussia-dortmund": {
       "teamId": "bundesliga.borussia-dortmund",
@@ -55,8 +55,8 @@
       "forPerGame": 1.7,
       "againstPerGame": 0.7,
       "gamesPlayed": 10,
-      "adjustedFor": 1.5386277989954993,
-      "adjustedAgainst": 0.8825999201397721
+      "adjustedFor": 1.5395271443221819,
+      "adjustedAgainst": 0.8836950247736042
     },
     "bundesliga.borussia-monchengladbach": {
       "teamId": "bundesliga.borussia-monchengladbach",
@@ -67,8 +67,8 @@
       "forPerGame": 1.2,
       "againstPerGame": 2.6,
       "gamesPlayed": 10,
-      "adjustedFor": 1.2316335929097924,
-      "adjustedAgainst": 1.6407218346731873
+      "adjustedFor": 1.2324784129138262,
+      "adjustedAgainst": 1.6414274935704811
     },
     "bundesliga.eintracht-frankfurt": {
       "teamId": "bundesliga.eintracht-frankfurt",
@@ -79,8 +79,8 @@
       "forPerGame": 1.6,
       "againstPerGame": 2,
       "gamesPlayed": 10,
-      "adjustedFor": 1.4196518138652696,
-      "adjustedAgainst": 1.4853062338048393
+      "adjustedFor": 1.4205522651486813,
+      "adjustedAgainst": 1.4861631916192974
     },
     "bundesliga.elversberg": {
       "teamId": "bundesliga.elversberg",
@@ -91,8 +91,8 @@
       "forPerGame": 1.7,
       "againstPerGame": 1.9,
       "gamesPlayed": 10,
-      "adjustedFor": 1.432006340917661,
-      "adjustedAgainst": 1.4195318398178025
+      "adjustedFor": 1.4332182800884565,
+      "adjustedAgainst": 1.4208686840415303
     },
     "bundesliga.freiburg": {
       "teamId": "bundesliga.freiburg",
@@ -103,8 +103,8 @@
       "forPerGame": 2.1,
       "againstPerGame": 1,
       "gamesPlayed": 10,
-      "adjustedFor": 1.4911667199891974,
-      "adjustedAgainst": 1.198730802635226
+      "adjustedFor": 1.492102387376492,
+      "adjustedAgainst": 1.1998592563072163
     },
     "bundesliga.hamburger": {
       "teamId": "bundesliga.hamburger",
@@ -115,8 +115,8 @@
       "forPerGame": 1,
       "againstPerGame": 2.4,
       "gamesPlayed": 10,
-      "adjustedFor": 1.1269675063226245,
-      "adjustedAgainst": 1.5693784432362001
+      "adjustedFor": 1.1281038711371898,
+      "adjustedAgainst": 1.5702119370189982
     },
     "bundesliga.hoffenheim": {
       "teamId": "bundesliga.hoffenheim",
@@ -127,8 +127,8 @@
       "forPerGame": 1.6,
       "againstPerGame": 1.8,
       "gamesPlayed": 10,
-      "adjustedFor": 1.4664589833817112,
-      "adjustedAgainst": 1.434953226664668
+      "adjustedFor": 1.474390171911779,
+      "adjustedAgainst": 1.438362540129321
     },
     "bundesliga.koln": {
       "teamId": "bundesliga.koln",
@@ -139,8 +139,8 @@
       "forPerGame": 1.1,
       "againstPerGame": 1.5,
       "gamesPlayed": 10,
-      "adjustedFor": 1.1492508811435551,
-      "adjustedAgainst": 1.3408655874952928
+      "adjustedFor": 1.150282532468093,
+      "adjustedAgainst": 1.3418589733750665
     },
     "bundesliga.mainz": {
       "teamId": "bundesliga.mainz",
@@ -151,8 +151,8 @@
       "forPerGame": 1.9,
       "againstPerGame": 2.2,
       "gamesPlayed": 10,
-      "adjustedFor": 1.386398349003397,
-      "adjustedAgainst": 1.4998167915393836
+      "adjustedFor": 1.3874560129428795,
+      "adjustedAgainst": 1.50084303227698
     },
     "bundesliga.paderborn": {
       "teamId": "bundesliga.paderborn",
@@ -163,8 +163,8 @@
       "forPerGame": 0.8,
       "againstPerGame": 1.5,
       "gamesPlayed": 10,
-      "adjustedFor": 0.9882525352867528,
-      "adjustedAgainst": 1.2772360035601409
+      "adjustedFor": 0.9898128291225189,
+      "adjustedAgainst": 1.278431167784071
     },
     "bundesliga.rb-leipzig": {
       "teamId": "bundesliga.rb-leipzig",
@@ -175,8 +175,8 @@
       "forPerGame": 3.2,
       "againstPerGame": 1.4,
       "gamesPlayed": 10,
-      "adjustedFor": 1.9217470175726057,
-      "adjustedAgainst": 1.2246421788039945
+      "adjustedFor": 1.9225154687791515,
+      "adjustedAgainst": 1.225773258086608
     },
     "bundesliga.schalke": {
       "teamId": "bundesliga.schalke",
@@ -187,8 +187,8 @@
       "forPerGame": 0.5,
       "againstPerGame": 1.1,
       "gamesPlayed": 10,
-      "adjustedFor": 0.8506650916843191,
-      "adjustedAgainst": 1.05799256856575
+      "adjustedFor": 0.8523034806573253,
+      "adjustedAgainst": 1.0592469960723148
     },
     "bundesliga.stuttgart": {
       "teamId": "bundesliga.stuttgart",
@@ -199,8 +199,8 @@
       "forPerGame": 1.5,
       "againstPerGame": 1.5,
       "gamesPlayed": 10,
-      "adjustedFor": 1.5547475043319667,
-      "adjustedAgainst": 1.2415182165714673
+      "adjustedFor": 1.5555242215871035,
+      "adjustedAgainst": 1.242474672318104
     },
     "bundesliga.union-berlin": {
       "teamId": "bundesliga.union-berlin",
@@ -211,8 +211,8 @@
       "forPerGame": 0.8,
       "againstPerGame": 2.6,
       "gamesPlayed": 10,
-      "adjustedFor": 1.080349985383069,
-      "adjustedAgainst": 1.5771125719998231
+      "adjustedFor": 1.0814416537504885,
+      "adjustedAgainst": 1.5782621629703384
     },
     "bundesliga.werder-bremen": {
       "teamId": "bundesliga.werder-bremen",
@@ -223,8 +223,8 @@
       "forPerGame": 2.1,
       "againstPerGame": 1.5,
       "gamesPlayed": 10,
-      "adjustedFor": 1.3852890546008867,
-      "adjustedAgainst": 1.3013919567182672
+      "adjustedFor": 1.3861228754794752,
+      "adjustedAgainst": 1.302273814360321
     }
   },
   "games": [
@@ -257,7 +257,7 @@
       "result": {
         "home": 1,
         "away": 1,
-        "observedAt": "2026-11-24T21:09:04.109Z",
+        "observedAt": "2026-11-25T20:29:56.284Z",
         "source": "football-data"
       }
     },
@@ -290,7 +290,7 @@
       "result": {
         "home": 4,
         "away": 0,
-        "observedAt": "2026-11-24T21:09:04.109Z",
+        "observedAt": "2026-11-25T20:29:56.284Z",
         "source": "football-data"
       }
     },
@@ -323,7 +323,7 @@
       "result": {
         "home": 1,
         "away": 5,
-        "observedAt": "2026-11-24T21:09:04.109Z",
+        "observedAt": "2026-11-25T20:29:56.284Z",
         "source": "football-data"
       }
     },
@@ -356,7 +356,7 @@
       "result": {
         "home": 0,
         "away": 1,
-        "observedAt": "2026-11-24T21:09:04.109Z",
+        "observedAt": "2026-11-25T20:29:56.284Z",
         "source": "football-data"
       }
     },
@@ -389,7 +389,7 @@
       "result": {
         "home": 0,
         "away": 1,
-        "observedAt": "2026-11-24T21:09:04.109Z",
+        "observedAt": "2026-11-25T20:29:56.284Z",
         "source": "football-data"
       }
     },
@@ -422,7 +422,7 @@
       "result": {
         "home": 1,
         "away": 0,
-        "observedAt": "2026-11-24T21:09:04.109Z",
+        "observedAt": "2026-11-25T20:29:56.284Z",
         "source": "football-data"
       }
     },
@@ -455,7 +455,7 @@
       "result": {
         "home": 0,
         "away": 0,
-        "observedAt": "2026-11-24T21:09:04.109Z",
+        "observedAt": "2026-11-25T20:29:56.284Z",
         "source": "football-data"
       }
     },
@@ -488,7 +488,7 @@
       "result": {
         "home": 3,
         "away": 1,
-        "observedAt": "2026-11-24T21:09:04.109Z",
+        "observedAt": "2026-11-25T20:29:56.284Z",
         "source": "football-data"
       }
     },
@@ -521,7 +521,7 @@
       "result": {
         "home": 4,
         "away": 0,
-        "observedAt": "2026-11-24T21:09:04.109Z",
+        "observedAt": "2026-11-25T20:29:56.284Z",
         "source": "football-data"
       }
     },
@@ -1502,8 +1502,8 @@
         "referee": "Robin Braun",
         "refereeStats": {
           "country": "Germany",
-          "matches": 36,
-          "avgYellow": 1.94,
+          "matches": 37,
+          "avgYellow": 1.89,
           "avgRed": 0.14,
           "avgFouls": 21.5,
           "avgGoals": 3.11
@@ -12541,6 +12541,84 @@
     },
     "bundesliga-2026-27-md11-hoffenheim-augsburg": {
       "game": "bundesliga-2026-27-md11-hoffenheim-augsburg",
+      "cortex": {
+        "headline": "Hoffenheim con más peso ofensivo en casa ante un Augsburg ordenado",
+        "headlineOrigin": "ia",
+        "sections": [
+          {
+            "key": "lectura",
+            "title": "La lectura",
+            "text": "Hoffenheim llega con 52 % de probabilidad y un ataque proyectado a 2.53 goles, el respaldo más claro para jugar en casa. Augsburg está un escalón arriba en la tabla con 12 puntos y diferencia de +2, pero su 26 % lo deja como visitante que aguanta más de lo que propone.",
+            "origin": "ia"
+          },
+          {
+            "key": "goles",
+            "title": "Goles",
+            "text": "El partido se ve abierto: 4.36 goles esperados, 80 % de superar los 2.5 y 78 % de que ambos anoten. Hoffenheim aporta la mayor cuota ofensiva con 2.53; Augsburg suma 1.83 y responde aunque ceda la iniciativa.",
+            "origin": "ia",
+            "stats": [
+              {
+                "label": "Goles esperados",
+                "home": 2.53,
+                "away": 1.83
+              },
+              {
+                "label": "Ambos anotan",
+                "value": "78 %"
+              },
+              {
+                "label": "Más de 2.5 goles",
+                "value": "80 %"
+              }
+            ]
+          },
+          {
+            "key": "ritmo",
+            "title": "Ritmo del partido",
+            "text": "Hoffenheim empuja con 6.3 tiros de esquina por 4.3 del Augsburg, 10.7 en total. Las faltas también cargan del lado local: 12.0 contra 9.2, 21.2 en conjunto. Partido con contacto y con el balón viviendo cerca del área visitante.",
+            "origin": "ia",
+            "stats": [
+              {
+                "label": "Tiros de esquina",
+                "home": 6.3,
+                "away": 4.3
+              },
+              {
+                "label": "Faltas",
+                "home": 12,
+                "away": 9.2
+              },
+              {
+                "label": "Amarillas",
+                "home": 1.8,
+                "away": 1.9
+              }
+            ]
+          },
+          {
+            "key": "tabla",
+            "title": "Tabla y descanso",
+            "text": "Augsburg es décimo con 12 puntos y diferencia de +2; Hoffenheim es undécimo con 12 puntos y -2. El descanso es casi igual: 8 días para el local y 7 para el visitante, sin ventaja física clara.",
+            "origin": "ia",
+            "stats": [
+              {
+                "label": "Puntos",
+                "home": 12,
+                "away": 12
+              }
+            ]
+          },
+          {
+            "key": "cambia",
+            "title": "Qué podría cambiarlo",
+            "text": "Las alineaciones pueden ajustar el peso ofensivo de cada lado. El árbitro define cuánto se corta el juego con ese volumen de faltas. El primer gol cambia el guion: si Hoffenheim anota temprano, Augsburg se estira.",
+            "origin": "ia"
+          }
+        ],
+        "fingerprint": "547e295093e6ced2",
+        "generatedAt": "2026-11-25T20:32:20.686Z",
+        "version": "2"
+      },
       "counts": {
         "corners": {
           "home": 6.34,
@@ -13204,6 +13282,84 @@
     },
     "bundesliga-2026-27-md11-borussia-dortmund-bayer-leverkusen": {
       "game": "bundesliga-2026-27-md11-borussia-dortmund-bayer-leverkusen",
+      "cortex": {
+        "headline": "Dortmund manda en casa con un partido de goles",
+        "headlineOrigin": "ia",
+        "sections": [
+          {
+            "key": "lectura",
+            "title": "La lectura",
+            "text": "El Dortmund llega como primero con 24 puntos y 59 % de probabilidad, ante un Leverkusen quinto con 19. La localía y la diferencia de diez goles sostienen esa ventaja frente a un rival que también anota.",
+            "origin": "ia"
+          },
+          {
+            "key": "goles",
+            "title": "Goles",
+            "text": "Se espera un partido abierto: 3.44 goles totales, 66 % de más de 2.5 y 63 % de ambos anotan. El Dortmund aporta más con 2.26 esperados por 1.19 del Leverkusen.",
+            "origin": "ia",
+            "stats": [
+              {
+                "label": "Goles esperados",
+                "home": 2.26,
+                "away": 1.19
+              },
+              {
+                "label": "Ambos anotan",
+                "value": "63 %"
+              },
+              {
+                "label": "Más de 2.5 goles",
+                "value": "66 %"
+              }
+            ]
+          },
+          {
+            "key": "ritmo",
+            "title": "Ritmo del partido",
+            "text": "El Dortmund empuja con 5.0 tiros de esquina por 4.6 del Leverkusen, en un total de 9.5. Las faltas suman 21.3, así que el juego se corta seguido y habrá pocas pausas limpias.",
+            "origin": "ia",
+            "stats": [
+              {
+                "label": "Tiros de esquina",
+                "home": 5,
+                "away": 4.6
+              },
+              {
+                "label": "Faltas",
+                "home": 11.1,
+                "away": 10.3
+              },
+              {
+                "label": "Amarillas",
+                "home": 2.1,
+                "away": 2
+              }
+            ]
+          },
+          {
+            "key": "tabla",
+            "title": "Tabla y descanso",
+            "text": "El Dortmund es primero con 24 puntos y diferencia de 10 en 10 partidos. El Leverkusen es quinto con 19 y diferencia de 7. Ambos llegan con 8 días de descanso.",
+            "origin": "ia",
+            "stats": [
+              {
+                "label": "Puntos",
+                "home": 24,
+                "away": 19
+              }
+            ]
+          },
+          {
+            "key": "cambia",
+            "title": "Qué podría cambiarlo",
+            "text": "Las alineaciones de último momento, el criterio del árbitro y quién anota primero pueden mover la lectura hacia un partido más cerrado o más suelto.",
+            "origin": "ia"
+          }
+        ],
+        "fingerprint": "adfd5ff387d0f177",
+        "generatedAt": "2026-11-25T20:32:22.270Z",
+        "version": "2"
+      },
       "counts": {
         "corners": {
           "home": 4.96,

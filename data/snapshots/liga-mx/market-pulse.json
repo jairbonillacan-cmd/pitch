@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "league": "liga-mx",
-  "observedAt": "2026-11-24T21:11:38.469Z",
+  "observedAt": "2026-11-25T20:32:51.350Z",
   "entries": [
     {
       "gameId": "mx-2026-j17-chivas-cruz-azul-401877047",
@@ -211,10 +211,56 @@
       ]
     },
     {
+      "gameId": "mx-2026-lg-america-monterrey-401931996",
+      "source": "polymarket",
+      "unit": "usd",
+      "observedAt": "2026-11-25T20:32:51.350Z",
+      "outcomes": [
+        {
+          "side": "home",
+          "volume": 0,
+          "price": 0.45
+        },
+        {
+          "side": "draw",
+          "volume": 0,
+          "price": 0.495
+        },
+        {
+          "side": "away",
+          "volume": 0,
+          "price": 0.325
+        }
+      ]
+    },
+    {
+      "gameId": "mx-2026-lg-atlas-toluca-401931997",
+      "source": "polymarket",
+      "unit": "usd",
+      "observedAt": "2026-11-25T20:32:51.350Z",
+      "outcomes": [
+        {
+          "side": "home",
+          "volume": 0,
+          "price": 0.35
+        },
+        {
+          "side": "draw",
+          "volume": 0,
+          "price": 0.495
+        },
+        {
+          "side": "away",
+          "volume": 0,
+          "price": 0.43
+        }
+      ]
+    },
+    {
       "gameId": "mx-2026-lg-leon-cruz-azul-401931995",
       "source": "polymarket",
       "unit": "usd",
-      "observedAt": "2026-11-24T21:11:38.469Z",
+      "observedAt": "2026-11-25T20:32:51.350Z",
       "outcomes": [
         {
           "side": "home",
@@ -228,8 +274,8 @@
         },
         {
           "side": "away",
-          "volume": 0,
-          "price": 0.44
+          "volume": 70.56,
+          "price": 0.445
         }
       ]
     },
@@ -237,22 +283,22 @@
       "gameId": "mx-2026-lg-monterrey-america-401931998",
       "source": "polymarket",
       "unit": "usd",
-      "observedAt": "2026-11-24T21:11:38.469Z",
+      "observedAt": "2026-11-25T20:32:51.350Z",
       "outcomes": [
         {
           "side": "home",
-          "volume": 10.028248000000001,
-          "price": 0.415
+          "volume": 659.2828089999999,
+          "price": 0.425
         },
         {
           "side": "draw",
-          "volume": 0,
+          "volume": 33.638276,
           "price": 0.285
         },
         {
           "side": "away",
-          "volume": 0,
-          "price": 0.305
+          "volume": 74.850535,
+          "price": 0.295
         }
       ]
     },
@@ -260,22 +306,22 @@
       "gameId": "mx-2026-lg-pachuca-chivas-401931982",
       "source": "polymarket",
       "unit": "usd",
-      "observedAt": "2026-11-24T21:11:38.469Z",
+      "observedAt": "2026-11-25T20:32:51.350Z",
       "outcomes": [
         {
           "side": "home",
-          "volume": 2.777778,
-          "price": 0.35
+          "volume": 141.66666700000002,
+          "price": 0.355
         },
         {
           "side": "draw",
           "volume": 70,
-          "price": 0.29
+          "price": 0.285
         },
         {
           "side": "away",
           "volume": 0,
-          "price": 0.36
+          "price": 0.365
         }
       ]
     },
@@ -283,12 +329,12 @@
       "gameId": "mx-2026-lg-toluca-atlas-401931986",
       "source": "polymarket",
       "unit": "usd",
-      "observedAt": "2026-11-24T21:11:38.469Z",
+      "observedAt": "2026-11-25T20:32:51.350Z",
       "outcomes": [
         {
           "side": "home",
-          "volume": 14.599317,
-          "price": 0.665
+          "volume": 37.579499,
+          "price": 0.675
         },
         {
           "side": "draw",
@@ -297,8 +343,8 @@
         },
         {
           "side": "away",
-          "volume": 0,
-          "price": 0.15
+          "volume": 557.938159,
+          "price": 0.135
         }
       ]
     }

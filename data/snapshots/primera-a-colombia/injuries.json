@@ -1,37 +1,10 @@
 {
   "schemaVersion": 1,
   "league": "primera-a-colombia",
-  "observedAt": "2026-11-24T21:01:09.804Z",
+  "observedAt": "2026-11-25T20:23:50.754Z",
   "source": "pitchlab-availability",
   "coverageStatus": "ok",
   "entries": [
-    {
-      "teamId": "primera-a-colombia.alianza-valledupar",
-      "player": "Johan Wallens",
-      "position": "Portero",
-      "status": "Baja",
-      "detail": "Muscle Injury",
-      "injuryType": "Muscle Injury",
-      "reportedAt": "2026-11-24T21:01:09.804Z"
-    },
-    {
-      "teamId": "primera-a-colombia.cucuta-deportivo",
-      "player": "Kevin Londoño",
-      "position": "Mediocampista",
-      "status": "Baja",
-      "detail": "Ankle Injury",
-      "injuryType": "Ankle Injury",
-      "reportedAt": "2026-11-24T21:01:09.804Z"
-    },
-    {
-      "teamId": "primera-a-colombia.cucuta-deportivo",
-      "player": "Lucas Ríos",
-      "position": "Mediocampista",
-      "status": "Baja",
-      "detail": "Ankle Injury",
-      "injuryType": "Ankle Injury",
-      "reportedAt": "2026-11-24T21:01:09.804Z"
-    },
     {
       "teamId": "primera-a-colombia.independiente-santa-fe",
       "player": "Christian Mafla",
@@ -39,7 +12,16 @@
       "status": "Baja",
       "detail": "Muscle Injury",
       "injuryType": "Muscle Injury",
-      "reportedAt": "2026-11-24T21:01:09.804Z"
+      "reportedAt": "2026-11-25T20:23:50.754Z"
+    },
+    {
+      "teamId": "primera-a-colombia.independiente-santa-fe",
+      "player": "Jader Obrian",
+      "position": "Delantero",
+      "status": "Baja",
+      "detail": "Muscle Injury",
+      "injuryType": "Muscle Injury",
+      "reportedAt": "2026-11-25T20:23:50.754Z"
     },
     {
       "teamId": "primera-a-colombia.independiente-santa-fe",
@@ -48,7 +30,34 @@
       "status": "Baja",
       "detail": "Muscle Injury",
       "injuryType": "Muscle Injury",
-      "reportedAt": "2026-11-24T21:01:09.804Z"
+      "reportedAt": "2026-11-25T20:23:50.754Z"
+    },
+    {
+      "teamId": "primera-a-colombia.cucuta-deportivo",
+      "player": "Kevin Londoño",
+      "position": "Mediocampista",
+      "status": "Baja",
+      "detail": "Ankle Injury",
+      "injuryType": "Ankle Injury",
+      "reportedAt": "2026-11-25T20:23:50.754Z"
+    },
+    {
+      "teamId": "primera-a-colombia.cucuta-deportivo",
+      "player": "Lucas Ríos",
+      "position": "Mediocampista",
+      "status": "Baja",
+      "detail": "Ankle Injury",
+      "injuryType": "Ankle Injury",
+      "reportedAt": "2026-11-25T20:23:50.754Z"
+    },
+    {
+      "teamId": "primera-a-colombia.jaguares-cordoba",
+      "player": "Andrés Rentería",
+      "position": "Delantero",
+      "status": "Baja",
+      "detail": "Strain Injury",
+      "injuryType": "Strain Injury",
+      "reportedAt": "2026-11-25T20:23:50.754Z"
     }
   ]
 }

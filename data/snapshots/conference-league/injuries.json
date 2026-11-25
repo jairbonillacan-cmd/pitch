@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "league": "conference-league",
-  "observedAt": "2026-11-24T21:01:09.804Z",
+  "observedAt": "2026-11-25T20:23:50.754Z",
   "source": "pitchlab-availability",
   "coverageStatus": "ok",
   "entries": [
@@ -12,7 +12,7 @@
       "status": "Duda",
       "detail": "Thigh Injury",
       "injuryType": "Thigh Injury",
-      "reportedAt": "2026-11-24T21:01:09.804Z"
+      "reportedAt": "2026-11-25T20:23:50.754Z"
     },
     {
       "teamId": "conference-league.mjallby-aif",
@@ -21,7 +21,7 @@
       "status": "Baja",
       "detail": "Back Injury",
       "injuryType": "Back Injury",
-      "reportedAt": "2026-11-24T21:01:09.804Z"
+      "reportedAt": "2026-11-25T20:23:50.754Z"
     },
     {
       "teamId": "conference-league.mjallby-aif",
@@ -30,7 +30,7 @@
       "status": "Baja",
       "detail": "yellow_card_accumulation_suspension",
       "injuryType": "yellow_card_accumulation_suspension",
-      "reportedAt": "2026-11-24T21:01:09.804Z"
+      "reportedAt": "2026-11-25T20:23:50.754Z"
     },
     {
       "teamId": "conference-league.mjallby-aif",
@@ -39,7 +39,7 @@
       "status": "Baja",
       "detail": "Unknown",
       "injuryType": "Unknown",
-      "reportedAt": "2026-11-24T21:01:09.804Z"
+      "reportedAt": "2026-11-25T20:23:50.754Z"
     },
     {
       "teamId": "conference-league.lincoln-red-imps",
@@ -48,7 +48,7 @@
       "status": "Duda",
       "detail": "Leg Injury",
       "injuryType": "Leg Injury",
-      "reportedAt": "2026-11-24T21:01:09.804Z"
+      "reportedAt": "2026-11-25T20:23:50.754Z"
     },
     {
       "teamId": "conference-league.hnk-hajduk-split",
@@ -57,7 +57,7 @@
       "status": "Duda",
       "detail": "Muscle Injury",
       "injuryType": "Muscle Injury",
-      "reportedAt": "2026-11-24T21:01:09.804Z"
+      "reportedAt": "2026-11-25T20:23:50.754Z"
     },
     {
       "teamId": "conference-league.hnk-hajduk-split",
@@ -66,7 +66,7 @@
       "status": "Baja",
       "detail": "Physical Discomfort",
       "injuryType": "Physical Discomfort",
-      "reportedAt": "2026-11-24T21:01:09.804Z"
+      "reportedAt": "2026-11-25T20:23:50.754Z"
     },
     {
       "teamId": "conference-league.hnk-hajduk-split",
@@ -75,7 +75,7 @@
       "status": "Baja",
       "detail": "Muscle Injury",
       "injuryType": "Muscle Injury",
-      "reportedAt": "2026-11-24T21:01:09.804Z"
+      "reportedAt": "2026-11-25T20:23:50.754Z"
     },
     {
       "teamId": "conference-league.hnk-hajduk-split",
@@ -84,7 +84,15 @@
       "status": "Duda",
       "detail": "Knock Injury",
       "injuryType": "Knock Injury",
-      "reportedAt": "2026-11-24T21:01:09.804Z"
+      "reportedAt": "2026-11-25T20:23:50.754Z"
+    },
+    {
+      "teamId": "conference-league.hnk-hajduk-split",
+      "player": "Marko Livaja",
+      "position": "Delantero",
+      "status": "Baja",
+      "detail": "Lesión reportada",
+      "reportedAt": "2026-11-25T20:23:50.754Z"
     },
     {
       "teamId": "conference-league.hnk-hajduk-split",
@@ -93,7 +101,7 @@
       "status": "Duda",
       "detail": "Back Injury",
       "injuryType": "Back Injury",
-      "reportedAt": "2026-11-24T21:01:09.804Z"
+      "reportedAt": "2026-11-25T20:23:50.754Z"
     },
     {
       "teamId": "conference-league.crvena-zvezda",
@@ -102,7 +110,7 @@
       "status": "Baja",
       "detail": "Cruciate Ligament Injury",
       "injuryType": "Cruciate Ligament Injury",
-      "reportedAt": "2026-11-24T21:01:09.804Z"
+      "reportedAt": "2026-11-25T20:23:50.754Z"
     },
     {
       "teamId": "conference-league.crvena-zvezda",
@@ -111,7 +119,7 @@
       "status": "Baja",
       "detail": "red_card_suspension",
       "injuryType": "red_card_suspension",
-      "reportedAt": "2026-11-24T21:01:09.804Z"
+      "reportedAt": "2026-11-25T20:23:50.754Z"
     },
     {
       "teamId": "conference-league.inter-d-escaldes",
@@ -120,7 +128,7 @@
       "status": "Baja",
       "detail": "yellow_or_red_card_suspension",
       "injuryType": "yellow_or_red_card_suspension",
-      "reportedAt": "2026-11-24T21:01:09.804Z"
+      "reportedAt": "2026-11-25T20:23:50.754Z"
     },
     {
       "teamId": "conference-league.thun",
@@ -129,7 +137,7 @@
       "status": "Baja",
       "detail": "Knee Surgery",
       "injuryType": "Knee Surgery",
-      "reportedAt": "2026-11-24T21:01:09.804Z"
+      "reportedAt": "2026-11-25T20:23:50.754Z"
     },
     {
       "teamId": "conference-league.thun",
@@ -138,7 +146,7 @@
       "status": "Baja",
       "detail": "Leg Injury",
       "injuryType": "Leg Injury",
-      "reportedAt": "2026-11-24T21:01:09.804Z"
+      "reportedAt": "2026-11-25T20:23:50.754Z"
     },
     {
       "teamId": "conference-league.thun",
@@ -147,7 +155,7 @@
       "status": "Baja",
       "detail": "Cruciate Ligament Injury",
       "injuryType": "Cruciate Ligament Injury",
-      "reportedAt": "2026-11-24T21:01:09.804Z"
+      "reportedAt": "2026-11-25T20:23:50.754Z"
     },
     {
       "teamId": "conference-league.thun",
@@ -156,7 +164,7 @@
       "status": "Baja",
       "detail": "Back Injury",
       "injuryType": "Back Injury",
-      "reportedAt": "2026-11-24T21:01:09.804Z"
+      "reportedAt": "2026-11-25T20:23:50.754Z"
     },
     {
       "teamId": "conference-league.heart-of-midlothian",
@@ -165,7 +173,7 @@
       "status": "Baja",
       "detail": "Shin Injury",
       "injuryType": "Shin Injury",
-      "reportedAt": "2026-11-24T21:01:09.804Z"
+      "reportedAt": "2026-11-25T20:23:50.754Z"
     },
     {
       "teamId": "conference-league.heart-of-midlothian",
@@ -174,7 +182,7 @@
       "status": "Baja",
       "detail": "Knee Surgery",
       "injuryType": "Knee Surgery",
-      "reportedAt": "2026-11-24T21:01:09.804Z"
+      "reportedAt": "2026-11-25T20:23:50.754Z"
     },
     {
       "teamId": "conference-league.heart-of-midlothian",
@@ -183,7 +191,7 @@
       "status": "Baja",
       "detail": "Achilles Tendon Injury",
       "injuryType": "Achilles Tendon Injury",
-      "reportedAt": "2026-11-24T21:01:09.804Z"
+      "reportedAt": "2026-11-25T20:23:50.754Z"
     },
     {
       "teamId": "conference-league.heart-of-midlothian",
@@ -192,7 +200,7 @@
       "status": "Baja",
       "detail": "Cruciate Ligament Injury",
       "injuryType": "Cruciate Ligament Injury",
-      "reportedAt": "2026-11-24T21:01:09.804Z"
+      "reportedAt": "2026-11-25T20:23:50.754Z"
     },
     {
       "teamId": "conference-league.heart-of-midlothian",
@@ -201,7 +209,7 @@
       "status": "Baja",
       "detail": "Muscle Injury",
       "injuryType": "Muscle Injury",
-      "reportedAt": "2026-11-24T21:01:09.804Z"
+      "reportedAt": "2026-11-25T20:23:50.754Z"
     },
     {
       "teamId": "conference-league.heart-of-midlothian",
@@ -210,7 +218,7 @@
       "status": "Baja",
       "detail": "Hamstring Injury",
       "injuryType": "Hamstring Injury",
-      "reportedAt": "2026-11-24T21:01:09.804Z"
+      "reportedAt": "2026-11-25T20:23:50.754Z"
     }
   ]
 }

@@ -5,7 +5,7 @@
   "season": "ligue-1-2026-27",
   "seasonLabel": "2026/27",
   "periodLabel": "Jornada 12",
-  "updatedAt": "2026-11-24T21:08:59.597Z",
+  "updatedAt": "2026-11-25T20:29:53.678Z",
   "source": "openfootball+football-data",
   "provenance": "derived",
   "isDemo": false,
@@ -19,8 +19,8 @@
       "forPerGame": 0.8181818181818182,
       "againstPerGame": 2.090909090909091,
       "gamesPlayed": 11,
-      "adjustedFor": 0.9154046087064659,
-      "adjustedAgainst": 1.5217448178251967
+      "adjustedFor": 0.9156518753360414,
+      "adjustedAgainst": 1.5214932888874277
     },
     "ligue-1.aj-auxerre": {
       "teamId": "ligue-1.aj-auxerre",
@@ -31,8 +31,8 @@
       "forPerGame": 1.2727272727272727,
       "againstPerGame": 2.272727272727273,
       "gamesPlayed": 11,
-      "adjustedFor": 1.1878416704246715,
-      "adjustedAgainst": 1.525670778314304
+      "adjustedFor": 1.1891384768589617,
+      "adjustedAgainst": 1.529622120727784
     },
     "ligue-1.stade-brestois": {
       "teamId": "ligue-1.stade-brestois",
@@ -43,8 +43,8 @@
       "forPerGame": 1.7272727272727273,
       "againstPerGame": 1.0909090909090908,
       "gamesPlayed": 11,
-      "adjustedFor": 1.3743593688223181,
-      "adjustedAgainst": 1.255950723220208
+      "adjustedFor": 1.3741703896913762,
+      "adjustedAgainst": 1.255922591044118
     },
     "ligue-1.le-havre": {
       "teamId": "ligue-1.le-havre",
@@ -55,8 +55,8 @@
       "forPerGame": 0.9090909090909091,
       "againstPerGame": 2.272727272727273,
       "gamesPlayed": 11,
-      "adjustedFor": 1.0812948222328074,
-      "adjustedAgainst": 1.6104287466758802
+      "adjustedFor": 1.0813569162878096,
+      "adjustedAgainst": 1.6102420123537613
     },
     "ligue-1.le-mans": {
       "teamId": "ligue-1.le-mans",
@@ -67,8 +67,8 @@
       "forPerGame": 1.3636363636363635,
       "againstPerGame": 1.9090909090909092,
       "gamesPlayed": 11,
-      "adjustedFor": 1.2864817110360625,
-      "adjustedAgainst": 1.4594823077399453
+      "adjustedFor": 1.2864067035392077,
+      "adjustedAgainst": 1.459248360964287
     },
     "ligue-1.racing-lens": {
       "teamId": "ligue-1.racing-lens",
@@ -79,8 +79,8 @@
       "forPerGame": 1.6363636363636365,
       "againstPerGame": 1.4545454545454546,
       "gamesPlayed": 11,
-      "adjustedFor": 1.522210480706091,
-      "adjustedAgainst": 1.1775579124545859
+      "adjustedFor": 1.521837841802781,
+      "adjustedAgainst": 1.1777442554417135
     },
     "ligue-1.lorient": {
       "teamId": "ligue-1.lorient",
@@ -91,8 +91,8 @@
       "forPerGame": 0.9090909090909091,
       "againstPerGame": 0.8181818181818182,
       "gamesPlayed": 11,
-      "adjustedFor": 1.1043721459663118,
-      "adjustedAgainst": 1.088898487475704
+      "adjustedFor": 1.1045775225991488,
+      "adjustedAgainst": 1.089101864387404
     },
     "ligue-1.lille-osc": {
       "teamId": "ligue-1.lille-osc",
@@ -103,8 +103,8 @@
       "forPerGame": 1.2727272727272727,
       "againstPerGame": 0.7272727272727273,
       "gamesPlayed": 11,
-      "adjustedFor": 1.2648530874576782,
-      "adjustedAgainst": 0.939315499441651
+      "adjustedFor": 1.2648691185924916,
+      "adjustedAgainst": 0.9396654212810064
     },
     "ligue-1.olympique-lyonnais": {
       "teamId": "ligue-1.olympique-lyonnais",
@@ -115,8 +115,8 @@
       "forPerGame": 1.4545454545454546,
       "againstPerGame": 0.8181818181818182,
       "gamesPlayed": 11,
-      "adjustedFor": 1.4037130911467586,
-      "adjustedAgainst": 1.0510028897846804
+      "adjustedFor": 1.4034747633297613,
+      "adjustedAgainst": 1.051230726117459
     },
     "ligue-1.olympique-marseille": {
       "teamId": "ligue-1.olympique-marseille",
@@ -127,8 +127,8 @@
       "forPerGame": 2.1818181818181817,
       "againstPerGame": 1.5454545454545454,
       "gamesPlayed": 11,
-      "adjustedFor": 1.6648071307556966,
-      "adjustedAgainst": 1.307425632233331
+      "adjustedFor": 1.6645631863946502,
+      "adjustedAgainst": 1.3075749768489386
     },
     "ligue-1.monaco": {
       "teamId": "ligue-1.monaco",
@@ -139,8 +139,8 @@
       "forPerGame": 1.2727272727272727,
       "againstPerGame": 1.0909090909090908,
       "gamesPlayed": 11,
-      "adjustedFor": 1.3760601317842052,
-      "adjustedAgainst": 1.1908936580621314
+      "adjustedFor": 1.375863916234852,
+      "adjustedAgainst": 1.1911231423270814
     },
     "ligue-1.ogc-nice": {
       "teamId": "ligue-1.ogc-nice",
@@ -151,8 +151,8 @@
       "forPerGame": 1.5454545454545454,
       "againstPerGame": 1.3636363636363635,
       "gamesPlayed": 11,
-      "adjustedFor": 1.3156467170014639,
-      "adjustedAgainst": 1.354773323296037
+      "adjustedFor": 1.319785447344168,
+      "adjustedAgainst": 1.3559834240617805
     },
     "ligue-1.paris": {
       "teamId": "ligue-1.paris",
@@ -163,8 +163,8 @@
       "forPerGame": 1.9090909090909092,
       "againstPerGame": 0.9090909090909091,
       "gamesPlayed": 11,
-      "adjustedFor": 1.5026342410814069,
-      "adjustedAgainst": 1.1389948896482587
+      "adjustedFor": 1.5023202826197983,
+      "adjustedAgainst": 1.1391418440337193
     },
     "ligue-1.paris-saint-germain": {
       "teamId": "ligue-1.paris-saint-germain",
@@ -175,8 +175,8 @@
       "forPerGame": 2.272727272727273,
       "againstPerGame": 1.0909090909090908,
       "gamesPlayed": 11,
-      "adjustedFor": 1.8119423727736046,
-      "adjustedAgainst": 0.9844581447499757
+      "adjustedFor": 1.8115105977160673,
+      "adjustedAgainst": 0.9846879360446154
     },
     "ligue-1.stade-rennais": {
       "teamId": "ligue-1.stade-rennais",
@@ -187,8 +187,8 @@
       "forPerGame": 2,
       "againstPerGame": 2,
       "gamesPlayed": 11,
-      "adjustedFor": 1.6376426135881714,
-      "adjustedAgainst": 1.4949800545030911
+      "adjustedFor": 1.6371043567952612,
+      "adjustedAgainst": 1.494721375723253
     },
     "ligue-1.strasbourg-alsace": {
       "teamId": "ligue-1.strasbourg-alsace",
@@ -199,8 +199,8 @@
       "forPerGame": 1.6363636363636365,
       "againstPerGame": 2.090909090909091,
       "gamesPlayed": 11,
-      "adjustedFor": 1.5130564451468127,
-      "adjustedAgainst": 1.469282188314461
+      "adjustedFor": 1.5127011667131676,
+      "adjustedAgainst": 1.4690932051411112
     },
     "ligue-1.toulouse": {
       "teamId": "ligue-1.toulouse",
@@ -211,8 +211,8 @@
       "forPerGame": 1.4545454545454546,
       "againstPerGame": 1.3636363636363635,
       "gamesPlayed": 11,
-      "adjustedFor": 1.3432729274907285,
-      "adjustedAgainst": 1.2526378581505282
+      "adjustedFor": 1.3433229219426894,
+      "adjustedAgainst": 1.25284381721846
     },
     "ligue-1.es-troyes": {
       "teamId": "ligue-1.es-troyes",
@@ -223,8 +223,8 @@
       "forPerGame": 0.9090909090909091,
       "againstPerGame": 1.6363636363636365,
       "gamesPlayed": 11,
-      "adjustedFor": 1.0465117083264417,
-      "adjustedAgainst": 1.3594464081644646
+      "adjustedFor": 1.0469809048127845,
+      "adjustedAgainst": 1.3596504055718395
     }
   },
   "games": [
@@ -257,7 +257,7 @@
       "result": {
         "home": 3,
         "away": 1,
-        "observedAt": "2026-11-24T21:09:05.609Z",
+        "observedAt": "2026-11-25T20:29:57.590Z",
         "source": "football-data"
       }
     },
@@ -290,7 +290,7 @@
       "result": {
         "home": 2,
         "away": 3,
-        "observedAt": "2026-11-24T21:09:05.609Z",
+        "observedAt": "2026-11-25T20:29:57.590Z",
         "source": "football-data"
       }
     },
@@ -323,7 +323,7 @@
       "result": {
         "home": 1,
         "away": 1,
-        "observedAt": "2026-11-24T21:09:05.609Z",
+        "observedAt": "2026-11-25T20:29:57.590Z",
         "source": "football-data"
       }
     },
@@ -356,7 +356,7 @@
       "result": {
         "home": 1,
         "away": 1,
-        "observedAt": "2026-11-24T21:09:05.609Z",
+        "observedAt": "2026-11-25T20:29:57.590Z",
         "source": "football-data"
       }
     },
@@ -389,7 +389,7 @@
       "result": {
         "home": 0,
         "away": 1,
-        "observedAt": "2026-11-24T21:09:05.609Z",
+        "observedAt": "2026-11-25T20:29:57.590Z",
         "source": "football-data"
       }
     },
@@ -422,7 +422,7 @@
       "result": {
         "home": 0,
         "away": 1,
-        "observedAt": "2026-11-24T21:09:05.609Z",
+        "observedAt": "2026-11-25T20:29:57.590Z",
         "source": "football-data"
       }
     },
@@ -455,7 +455,7 @@
       "result": {
         "home": 4,
         "away": 0,
-        "observedAt": "2026-11-24T21:09:05.609Z",
+        "observedAt": "2026-11-25T20:29:57.590Z",
         "source": "football-data"
       }
     },
@@ -488,7 +488,7 @@
       "result": {
         "home": 1,
         "away": 1,
-        "observedAt": "2026-11-24T21:09:05.609Z",
+        "observedAt": "2026-11-25T20:29:57.590Z",
         "source": "football-data"
       }
     },
@@ -521,7 +521,7 @@
       "result": {
         "home": 2,
         "away": 3,
-        "observedAt": "2026-11-24T21:09:05.609Z",
+        "observedAt": "2026-11-25T20:29:57.590Z",
         "source": "football-data"
       }
     },
@@ -2225,11 +2225,11 @@
         "referee": "Jérôme Brisard",
         "refereeStats": {
           "country": "France",
-          "matches": 62,
-          "avgYellow": 4.21,
+          "matches": 63,
+          "avgYellow": 4.17,
           "avgRed": 0.32,
-          "avgFouls": 23.4,
-          "avgGoals": 2.95
+          "avgFouls": 23.2,
+          "avgGoals": 2.94
         }
       }
     },
@@ -3727,9 +3727,9 @@
         "referee": "Bastien Dechepy",
         "refereeStats": {
           "country": "France",
-          "matches": 45,
-          "avgYellow": 4.4,
-          "avgRed": 0.27,
+          "matches": 46,
+          "avgYellow": 4.37,
+          "avgRed": 0.26,
           "avgFouls": 25.1,
           "avgGoals": 2.98
         }
@@ -4476,11 +4476,11 @@
         "referee": "François Letexier",
         "refereeStats": {
           "country": "France",
-          "matches": 79,
-          "avgYellow": 3.99,
-          "avgRed": 0.32,
+          "matches": 80,
+          "avgYellow": 4,
+          "avgRed": 0.33,
           "avgFouls": 21.9,
-          "avgGoals": 3.05
+          "avgGoals": 3.01
         }
       }
     },
@@ -6697,9 +6697,9 @@
         "referee": "Marc Bollengier",
         "refereeStats": {
           "country": "France",
-          "matches": 44,
-          "avgYellow": 3.95,
-          "avgRed": 0.25,
+          "matches": 45,
+          "avgYellow": 4,
+          "avgRed": 0.27,
           "avgFouls": 28.1,
           "avgGoals": 2.8
         }
@@ -8881,6 +8881,84 @@
     },
     "ligue-1-2026-27-md12-le-mans-lille-osc": {
       "game": "ligue-1-2026-27-md12-le-mans-lille-osc",
+      "cortex": {
+        "headline": "Lille llega tercero y con más gol; Le Mans aguanta en casa",
+        "headlineOrigin": "ia",
+        "sections": [
+          {
+            "key": "lectura",
+            "title": "La lectura",
+            "text": "El Lille es tercero con 21 puntos y diferencia de +6; el Le Mans es decimotercero con 11 y −6. El favorito tiene 49 % de probabilidad y llega con siete días de descanso frente a seis del local.",
+            "origin": "ia"
+          },
+          {
+            "key": "goles",
+            "title": "Goles",
+            "text": "El total esperado es 2.70 y el 50 % apunta a más de 2.5. El Lille aporta 1.57 de esa cifra y el Le Mans 1.14; ambos anotan en 53 % de los escenarios.",
+            "origin": "ia",
+            "stats": [
+              {
+                "label": "Goles esperados",
+                "home": 1.14,
+                "away": 1.57
+              },
+              {
+                "label": "Ambos anotan",
+                "value": "53 %"
+              },
+              {
+                "label": "Más de 2.5 goles",
+                "value": "50 %"
+              }
+            ]
+          },
+          {
+            "key": "ritmo",
+            "title": "Ritmo del partido",
+            "text": "Los corners están parejos: 4.5 por lado, 9.0 en total. El Le Mans comete 14.8 faltas por 11.1 del Lille, así que el juego se corta más del lado local.",
+            "origin": "ia",
+            "stats": [
+              {
+                "label": "Tiros de esquina",
+                "home": 4.5,
+                "away": 4.5
+              },
+              {
+                "label": "Faltas",
+                "home": 14.8,
+                "away": 11.1
+              },
+              {
+                "label": "Amarillas",
+                "home": 1.8,
+                "away": 1.9
+              }
+            ]
+          },
+          {
+            "key": "tabla",
+            "title": "Tabla y descanso",
+            "text": "Le Mans: 13.º, 11 puntos en 11 partidos, diferencia −6. Lille: 3.º, 21 puntos, diferencia +6. Descanso: seis días para el local, siete para el visitante.",
+            "origin": "ia",
+            "stats": [
+              {
+                "label": "Puntos",
+                "home": 11,
+                "away": 21
+              }
+            ]
+          },
+          {
+            "key": "cambia",
+            "title": "Qué podría cambiarlo",
+            "text": "Las alineaciones, el árbitro y el primer gol. Si el Le Mans anota primero, el partido se cierra y el Lille pierde el espacio donde su favoritismo pesa más.",
+            "origin": "ia"
+          }
+        ],
+        "fingerprint": "9190a18f77b5e08e",
+        "generatedAt": "2026-11-25T20:32:25.950Z",
+        "version": "2"
+      },
       "counts": {
         "corners": {
           "home": 4.49,
@@ -9507,6 +9585,84 @@
     },
     "ligue-1-2026-27-md12-ogc-nice-es-troyes": {
       "game": "ligue-1-2026-27-md12-ogc-nice-es-troyes",
+      "cortex": {
+        "headline": "Nice manda en casa ante un Troyes que concede y no alcanza",
+        "headlineOrigin": "ia",
+        "sections": [
+          {
+            "key": "lectura",
+            "title": "La lectura",
+            "text": "Nice llega mejor: séptimo con 17 puntos y diferencia de más dos, mientras Troyes es decimocuarto con 11 puntos y menos ocho. La probabilidad de 60 por ciento frente a 19 por ciento confirma esa distancia, aunque el descanso favorece apenas al visitante.",
+            "origin": "ia"
+          },
+          {
+            "key": "goles",
+            "title": "Goles",
+            "text": "Se ve abierto: el total esperado es 2.90, con 78 por ciento de más de 1.5 y 56 por ciento de más de 2.5. Nice aporta 1.82 goles esperados y Troyes 1.08, y ambos anotan aparece con 54 por ciento.",
+            "origin": "ia",
+            "stats": [
+              {
+                "label": "Goles esperados",
+                "home": 1.82,
+                "away": 1.08
+              },
+              {
+                "label": "Ambos anotan",
+                "value": "54 %"
+              },
+              {
+                "label": "Más de 2.5 goles",
+                "value": "56 %"
+              }
+            ]
+          },
+          {
+            "key": "ritmo",
+            "title": "Ritmo del partido",
+            "text": "Nice empuja más: 5.6 tiros de esquina por 4.1 del visitante, con 9.7 en total. Las faltas están parejas, 10.9 y 10.4 para un total de 21.3, así que el partido se corta sin que un solo lado lo domine.",
+            "origin": "ia",
+            "stats": [
+              {
+                "label": "Tiros de esquina",
+                "home": 5.6,
+                "away": 4.1
+              },
+              {
+                "label": "Faltas",
+                "home": 10.9,
+                "away": 10.4
+              },
+              {
+                "label": "Amarillas",
+                "home": 1.8,
+                "away": 1.8
+              }
+            ]
+          },
+          {
+            "key": "tabla",
+            "title": "Tabla y descanso",
+            "text": "Nice es séptimo con 17 puntos en 11 jornadas y diferencia de más dos. Troyes es decimocuarto con 11 puntos y menos ocho. El descanso es casi igual: 7 días para el local y 8 para el visitante.",
+            "origin": "ia",
+            "stats": [
+              {
+                "label": "Puntos",
+                "home": 17,
+                "away": 11
+              }
+            ]
+          },
+          {
+            "key": "cambia",
+            "title": "Qué podría cambiarlo",
+            "text": "Las alineaciones pueden ajustar el peso ofensivo de cada lado. El criterio del árbitro define cuánto se corta el juego con faltas. El primer gol cambia el guion: si Troyes anota antes, Nice debe abrirse y el ritmo sube.",
+            "origin": "ia"
+          }
+        ],
+        "fingerprint": "82a0b03aa554ba48",
+        "generatedAt": "2026-11-25T20:32:32.059Z",
+        "version": "2"
+      },
       "counts": {
         "corners": {
           "home": 5.57,
@@ -11577,6 +11733,84 @@
     },
     "ligue-1-2026-27-md12-aj-auxerre-olympique-marseille": {
       "game": "ligue-1-2026-27-md12-aj-auxerre-olympique-marseille",
+      "cortex": {
+        "headline": "Marsella con más peso ofensivo, Auxerre sostiene su campo",
+        "headlineOrigin": "ia",
+        "sections": [
+          {
+            "key": "lectura",
+            "title": "La lectura",
+            "text": "El Olympique de Marseille llega mejor: 50 % de probabilidad y quinto lugar con 18 puntos, frente al Auxerre, decimoquinto con 11. El Auxerre juega en casa y tiene un día más de descanso, pero su diferencia de menos 11 marca un equipo que concede.",
+            "origin": "ia"
+          },
+          {
+            "key": "goles",
+            "title": "Goles",
+            "text": "Se ve abierto: 3.83 goles esperados en total, con 89 % de más de 1.5 y 73 % de más de 2.5. El Marseille aporta más con 2.28 esperados por 1.55 del Auxerre, y ambos anotan aparece con 71 %.",
+            "origin": "ia",
+            "stats": [
+              {
+                "label": "Goles esperados",
+                "home": 1.55,
+                "away": 2.28
+              },
+              {
+                "label": "Ambos anotan",
+                "value": "71 %"
+              },
+              {
+                "label": "Más de 2.5 goles",
+                "value": "73 %"
+              }
+            ]
+          },
+          {
+            "key": "ritmo",
+            "title": "Ritmo del partido",
+            "text": "Los córners vienen parejos, 4.4 del Auxerre y 4.8 del Marseille, con 9.2 en total. En faltas el Auxerre empuja más el contacto con 13.9 por 11.9 del rival, para 25.9 en conjunto: partido cortado.",
+            "origin": "ia",
+            "stats": [
+              {
+                "label": "Tiros de esquina",
+                "home": 4.4,
+                "away": 4.8
+              },
+              {
+                "label": "Faltas",
+                "home": 13.9,
+                "away": 11.9
+              },
+              {
+                "label": "Amarillas",
+                "home": 1.8,
+                "away": 1.9
+              }
+            ]
+          },
+          {
+            "key": "tabla",
+            "title": "Tabla y descanso",
+            "text": "El Auxerre es decimoquinto con 11 puntos y diferencia de menos 11 tras 11 jornadas. El Marseille es quinto con 18 puntos y más 7. El descanso favorece apenas al local: 8 días por 7.",
+            "origin": "ia",
+            "stats": [
+              {
+                "label": "Puntos",
+                "home": 11,
+                "away": 18
+              }
+            ]
+          },
+          {
+            "key": "cambia",
+            "title": "Qué podría cambiarlo",
+            "text": "Las alineaciones pueden ajustar el peso ofensivo del Marseille. El criterio del árbitro define qué tan cortado se juega con ese volumen de faltas. El primer gol ordena el partido: si el Auxerre anota temprano, cambia el ritmo.",
+            "origin": "ia"
+          }
+        ],
+        "fingerprint": "af3cb5e4e2817fae",
+        "generatedAt": "2026-11-25T20:32:41.721Z",
+        "version": "2"
+      },
       "counts": {
         "corners": {
           "home": 4.36,
@@ -12240,6 +12474,84 @@
     },
     "ligue-1-2026-27-md12-toulouse-stade-rennais": {
       "game": "ligue-1-2026-27-md12-toulouse-stade-rennais",
+      "cortex": {
+        "headline": "Toulouse, favorito en casa dentro de un partido con goles",
+        "headlineOrigin": "ia",
+        "sections": [
+          {
+            "key": "lectura",
+            "title": "La lectura",
+            "text": "Toulouse llega con la mayor probabilidad (43 %) por jugar en casa, aunque en la tabla está debajo: 12º con 14 puntos frente al 9º con 17 del Rennes. El Rennes sostiene su posición con una diferencia de goles de 0, mientras el Toulouse llega con +1.",
+            "origin": "ia"
+          },
+          {
+            "key": "goles",
+            "title": "Goles",
+            "text": "Se espera un partido abierto: 3.92 goles en total, con 74 % de más de 2.5 y 74 % de ambos anotan. El Toulouse aporta más en la proyección, con 2.14 por 1.78 del Rennes.",
+            "origin": "ia",
+            "stats": [
+              {
+                "label": "Goles esperados",
+                "home": 2.14,
+                "away": 1.78
+              },
+              {
+                "label": "Ambos anotan",
+                "value": "74 %"
+              },
+              {
+                "label": "Más de 2.5 goles",
+                "value": "74 %"
+              }
+            ]
+          },
+          {
+            "key": "ritmo",
+            "title": "Ritmo del partido",
+            "text": "El Toulouse empuja un poco más en ataque con 4.9 tiros de esquina por 4.6 del Rennes, en un total de 9.5. También corta más el juego: 14.4 faltas por 12.4, para un total de 26.9.",
+            "origin": "ia",
+            "stats": [
+              {
+                "label": "Tiros de esquina",
+                "home": 4.9,
+                "away": 4.6
+              },
+              {
+                "label": "Faltas",
+                "home": 14.4,
+                "away": 12.4
+              },
+              {
+                "label": "Amarillas",
+                "home": 2,
+                "away": 1.9
+              }
+            ]
+          },
+          {
+            "key": "tabla",
+            "title": "Tabla y descanso",
+            "text": "El Rennes está 9º con 17 puntos y diferencia de 0 tras 11 partidos; el Toulouse es 12º con 14 puntos y +1. En descanso, el Toulouse llega con 8 días y el Rennes con 7.",
+            "origin": "ia",
+            "stats": [
+              {
+                "label": "Puntos",
+                "home": 14,
+                "away": 17
+              }
+            ]
+          },
+          {
+            "key": "cambia",
+            "title": "Qué podría cambiarlo",
+            "text": "Las alineaciones pueden ajustar el peso ofensivo de cada lado. El criterio del árbitro influye en un partido con muchas faltas, y el primer gol definiría si el Rennes se estira o el Toulouse controla.",
+            "origin": "ia"
+          }
+        ],
+        "fingerprint": "430c39c1b08fd5d7",
+        "generatedAt": "2026-11-25T20:32:46.036Z",
+        "version": "2"
+      },
       "counts": {
         "corners": {
           "home": 4.91,
@@ -12905,6 +13217,84 @@
     },
     "ligue-1-2026-27-md12-olympique-lyonnais-monaco": {
       "game": "ligue-1-2026-27-md12-olympique-lyonnais-monaco",
+      "cortex": {
+        "headline": "Lyon llega mejor y en casa, con un partido de pocos goles",
+        "headlineOrigin": "ia",
+        "sections": [
+          {
+            "key": "lectura",
+            "title": "La lectura",
+            "text": "El Lyon llega con 50 % de probabilidad y 20 puntos en la cuarta posición, tres más que un Mónaco octavo que suma 17. La ventaja de jugar en casa y la diferencia de goles de 7 frente a 2 inclinan la lectura hacia el local.",
+            "origin": "ia"
+          },
+          {
+            "key": "goles",
+            "title": "Goles",
+            "text": "Se espera un partido de 2.86 goles en total, con el Lyon aportando 1.71 y el Mónaco 1.16. El 77 % de más de 1.5 y el 54 % de más de 2.5 hablan de un juego con llegadas, y el 56 % de ambos anotan deja al Mónaco con margen para responder.",
+            "origin": "ia",
+            "stats": [
+              {
+                "label": "Goles esperados",
+                "home": 1.71,
+                "away": 1.16
+              },
+              {
+                "label": "Ambos anotan",
+                "value": "56 %"
+              },
+              {
+                "label": "Más de 2.5 goles",
+                "value": "54 %"
+              }
+            ]
+          },
+          {
+            "key": "ritmo",
+            "title": "Ritmo del partido",
+            "text": "El Lyon empuja con 5.2 tiros de esquina frente a 4.5 del Mónaco, 9.8 en total. Las faltas suman 25.1, con el Mónaco más cortado en 13.3 y 2.1 amarillas por 1.6 del local: partido de contacto y pocas pausas.",
+            "origin": "ia",
+            "stats": [
+              {
+                "label": "Tiros de esquina",
+                "home": 5.2,
+                "away": 4.5
+              },
+              {
+                "label": "Faltas",
+                "home": 11.8,
+                "away": 13.3
+              },
+              {
+                "label": "Amarillas",
+                "home": 1.6,
+                "away": 2.1
+              }
+            ]
+          },
+          {
+            "key": "tabla",
+            "title": "Tabla y descanso",
+            "text": "El Lyon es cuarto con 20 puntos en 11 jornadas y diferencia de 7. El Mónaco es octavo con 17 puntos y diferencia de 2. Ambos llegan con 8 días de descanso, así que el desgaste no separa a ninguno.",
+            "origin": "ia",
+            "stats": [
+              {
+                "label": "Puntos",
+                "home": 20,
+                "away": 17
+              }
+            ]
+          },
+          {
+            "key": "cambia",
+            "title": "Qué podría cambiarlo",
+            "text": "Las alineaciones pueden ajustar el peso ofensivo de cada lado. El criterio del árbitro define cuánto se corta el juego con 25.1 faltas. El primer gol cambia el guion: si el Mónaco anota antes, el Lyon debe abrirse.",
+            "origin": "ia"
+          }
+        ],
+        "fingerprint": "a9081bfb8fc4c76e",
+        "generatedAt": "2026-11-25T20:32:50.814Z",
+        "version": "2"
+      },
       "counts": {
         "corners": {
           "home": 5.21,

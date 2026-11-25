@@ -1,163 +1,10 @@
 {
   "schemaVersion": 1,
   "league": "championship",
-  "observedAt": "2026-11-24T21:01:09.804Z",
+  "observedAt": "2026-11-25T20:23:50.754Z",
   "source": "pitchlab-availability",
   "coverageStatus": "ok",
   "entries": [
-    {
-      "teamId": "championship.charlton-athletic",
-      "player": "Collins Sichenje",
-      "position": "Defensa",
-      "status": "Baja",
-      "detail": "Cruciate Ligament Injury",
-      "injuryType": "Cruciate Ligament Injury",
-      "reportedAt": "2026-11-24T21:01:09.804Z"
-    },
-    {
-      "teamId": "championship.sheffield-united",
-      "player": "Ben Brereton Díaz",
-      "position": "Mediocampista",
-      "status": "Baja",
-      "detail": "club_decision",
-      "injuryType": "club_decision",
-      "reportedAt": "2026-11-24T21:01:09.804Z"
-    },
-    {
-      "teamId": "championship.sheffield-united",
-      "player": "Femi Seriki",
-      "position": "Defensa",
-      "status": "Baja",
-      "detail": "Muscle Injury",
-      "injuryType": "Muscle Injury",
-      "reportedAt": "2026-11-24T21:01:09.804Z"
-    },
-    {
-      "teamId": "championship.sheffield-united",
-      "player": "Jamie Shackleton",
-      "position": "Defensa",
-      "status": "Baja",
-      "detail": "Thigh Injury",
-      "injuryType": "Thigh Injury",
-      "reportedAt": "2026-11-24T21:01:09.804Z"
-    },
-    {
-      "teamId": "championship.sheffield-united",
-      "player": "Japhet Tanganga",
-      "position": "Defensa",
-      "status": "Baja",
-      "detail": "yellow_card_accumulation_suspension",
-      "injuryType": "yellow_card_accumulation_suspension",
-      "reportedAt": "2026-11-24T21:01:09.804Z"
-    },
-    {
-      "teamId": "championship.sheffield-united",
-      "player": "Joe Rothwell",
-      "position": "Mediocampista",
-      "status": "Baja",
-      "detail": "Muscle Injury",
-      "injuryType": "Muscle Injury",
-      "reportedAt": "2026-11-24T21:01:09.804Z"
-    },
-    {
-      "teamId": "championship.sheffield-united",
-      "player": "Matt Doherty",
-      "position": "Defensa",
-      "status": "Baja",
-      "detail": "Muscle Injury",
-      "injuryType": "Muscle Injury",
-      "reportedAt": "2026-11-24T21:01:09.804Z"
-    },
-    {
-      "teamId": "championship.sheffield-united",
-      "player": "Ryan One",
-      "position": "Delantero",
-      "status": "Baja",
-      "detail": "Hamstring Injury",
-      "injuryType": "Hamstring Injury",
-      "reportedAt": "2026-11-24T21:01:09.804Z"
-    },
-    {
-      "teamId": "championship.cardiff-city",
-      "player": "Dylan Lawlor",
-      "position": "Defensa",
-      "status": "Baja",
-      "detail": "Hamstring Injury",
-      "injuryType": "Hamstring Injury",
-      "reportedAt": "2026-11-24T21:01:09.804Z"
-    },
-    {
-      "teamId": "championship.cardiff-city",
-      "player": "Gabriel Osho",
-      "position": "Defensa",
-      "status": "Baja",
-      "detail": "Muscle Injury",
-      "injuryType": "Muscle Injury",
-      "reportedAt": "2026-11-24T21:01:09.804Z"
-    },
-    {
-      "teamId": "championship.cardiff-city",
-      "player": "Perry Ng",
-      "position": "Defensa",
-      "status": "Baja",
-      "detail": "Muscle Injury",
-      "injuryType": "Muscle Injury",
-      "reportedAt": "2026-11-24T21:01:09.804Z"
-    },
-    {
-      "teamId": "championship.burnley",
-      "player": "Connor Roberts",
-      "position": "Defensa",
-      "status": "Baja",
-      "detail": "fa_charge_of_improper_conduct",
-      "injuryType": "fa_charge_of_improper_conduct",
-      "reportedAt": "2026-11-24T21:01:09.804Z"
-    },
-    {
-      "teamId": "championship.burnley",
-      "player": "Dastan Satpaev",
-      "position": "Delantero",
-      "status": "Baja",
-      "detail": "Muscle Injury",
-      "injuryType": "Muscle Injury",
-      "reportedAt": "2026-11-24T21:01:09.804Z"
-    },
-    {
-      "teamId": "championship.burnley",
-      "player": "Hannibal Mejbri",
-      "position": "Mediocampista",
-      "status": "Baja",
-      "detail": "Hamstring Injury",
-      "injuryType": "Hamstring Injury",
-      "reportedAt": "2026-11-24T21:01:09.804Z"
-    },
-    {
-      "teamId": "championship.blackburn-rovers",
-      "player": "Adam Forshaw",
-      "position": "Mediocampista",
-      "status": "Baja",
-      "detail": "Muscle Injury",
-      "injuryType": "Muscle Injury",
-      "reportedAt": "2026-11-24T21:01:09.804Z"
-    },
-    {
-      "teamId": "championship.blackburn-rovers",
-      "player": "Balázs Tóth",
-      "position": "Portero",
-      "status": "Baja",
-      "detail": "Finger Injury",
-      "injuryType": "Finger Injury",
-      "reportedAt": "2026-11-24T21:01:09.804Z"
-    },
-    {
-      "teamId": "championship.blackburn-rovers",
-      "player": "Tom Atcheson",
-      "position": "Defensa",
-      "status": "Duda",
-      "detail": "Muscle Injury",
-      "injuryType": "Muscle Injury",
-      "reportedAt": "2026-11-24T21:01:09.804Z"
-    },
     {
       "teamId": "championship.west-ham-united",
       "player": "Alphonse Aréola",
@@ -165,7 +12,7 @@
       "status": "Duda",
       "detail": "Muscle Injury",
       "injuryType": "Muscle Injury",
-      "reportedAt": "2026-11-24T21:01:09.804Z"
+      "reportedAt": "2026-11-25T20:23:50.754Z"
     },
     {
       "teamId": "championship.west-ham-united",
@@ -174,7 +21,7 @@
       "status": "Baja",
       "detail": "Knee Injury",
       "injuryType": "Knee Injury",
-      "reportedAt": "2026-11-24T21:01:09.804Z"
+      "reportedAt": "2026-11-25T20:23:50.754Z"
     },
     {
       "teamId": "championship.west-ham-united",
@@ -183,25 +30,52 @@
       "status": "Baja",
       "detail": "Muscle Injury",
       "injuryType": "Muscle Injury",
-      "reportedAt": "2026-11-24T21:01:09.804Z"
+      "reportedAt": "2026-11-25T20:23:50.754Z"
     },
     {
-      "teamId": "championship.birmingham-city",
-      "player": "Christoph Klarer",
+      "teamId": "championship.preston-north-end",
+      "player": "Ali McCann",
+      "position": "Mediocampista",
+      "status": "Baja",
+      "detail": "Hamstring Injury",
+      "injuryType": "Hamstring Injury",
+      "reportedAt": "2026-11-25T20:23:50.754Z"
+    },
+    {
+      "teamId": "championship.preston-north-end",
+      "player": "Harry Clarke",
+      "position": "Mediocampista",
+      "status": "Baja",
+      "detail": "Hamstring Injury",
+      "injuryType": "Hamstring Injury",
+      "reportedAt": "2026-11-25T20:23:50.754Z"
+    },
+    {
+      "teamId": "championship.preston-north-end",
+      "player": "Johnny Kenny",
+      "position": "Delantero",
+      "status": "Baja",
+      "detail": "Hamstring Injury",
+      "injuryType": "Hamstring Injury",
+      "reportedAt": "2026-11-25T20:23:50.754Z"
+    },
+    {
+      "teamId": "championship.preston-north-end",
+      "player": "Lewis Gibson",
       "position": "Defensa",
       "status": "Baja",
-      "detail": "yellow_card_accumulation_suspension",
-      "injuryType": "yellow_card_accumulation_suspension",
-      "reportedAt": "2026-11-24T21:01:09.804Z"
+      "detail": "Muscle Injury",
+      "injuryType": "Muscle Injury",
+      "reportedAt": "2026-11-25T20:23:50.754Z"
     },
     {
-      "teamId": "championship.birmingham-city",
-      "player": "Jhon Solís",
+      "teamId": "championship.preston-north-end",
+      "player": "Liam Gibbs",
       "position": "Mediocampista",
-      "status": "Duda",
-      "detail": "Physical Discomfort",
-      "injuryType": "Physical Discomfort",
-      "reportedAt": "2026-11-24T21:01:09.804Z"
+      "status": "Baja",
+      "detail": "Muscle Injury",
+      "injuryType": "Muscle Injury",
+      "reportedAt": "2026-11-25T20:23:50.754Z"
     },
     {
       "teamId": "championship.swansea-city",
@@ -210,16 +84,7 @@
       "status": "Baja",
       "detail": "Cruciate Ligament Injury",
       "injuryType": "Cruciate Ligament Injury",
-      "reportedAt": "2026-11-24T21:01:09.804Z"
-    },
-    {
-      "teamId": "championship.swansea-city",
-      "player": "Josh Tymon",
-      "position": "Defensa",
-      "status": "Baja",
-      "detail": "yellow_card_accumulation_suspension",
-      "injuryType": "yellow_card_accumulation_suspension",
-      "reportedAt": "2026-11-24T21:01:09.804Z"
+      "reportedAt": "2026-11-25T20:23:50.754Z"
     },
     {
       "teamId": "championship.swansea-city",
@@ -228,7 +93,7 @@
       "status": "Baja",
       "detail": "red_card_suspension",
       "injuryType": "red_card_suspension",
-      "reportedAt": "2026-11-24T21:01:09.804Z"
+      "reportedAt": "2026-11-25T20:23:50.754Z"
     },
     {
       "teamId": "championship.swansea-city",
@@ -237,7 +102,7 @@
       "status": "Duda",
       "detail": "Muscle Injury",
       "injuryType": "Muscle Injury",
-      "reportedAt": "2026-11-24T21:01:09.804Z"
+      "reportedAt": "2026-11-25T20:23:50.754Z"
     },
     {
       "teamId": "championship.swansea-city",
@@ -246,7 +111,169 @@
       "status": "Baja",
       "detail": "Muscle Injury",
       "injuryType": "Muscle Injury",
-      "reportedAt": "2026-11-24T21:01:09.804Z"
+      "reportedAt": "2026-11-25T20:23:50.754Z"
+    },
+    {
+      "teamId": "championship.west-bromwich-albion",
+      "player": "Isaac Price",
+      "position": "Mediocampista",
+      "status": "Duda",
+      "detail": "Muscle Injury",
+      "injuryType": "Muscle Injury",
+      "reportedAt": "2026-11-25T20:23:50.754Z"
+    },
+    {
+      "teamId": "championship.west-bromwich-albion",
+      "player": "Kareem Tunde",
+      "position": "Mediocampista",
+      "status": "Duda",
+      "detail": "Muscle Injury",
+      "injuryType": "Muscle Injury",
+      "reportedAt": "2026-11-25T20:23:50.754Z"
+    },
+    {
+      "teamId": "championship.west-bromwich-albion",
+      "player": "Nolan Galves",
+      "position": "Defensa",
+      "status": "Baja",
+      "detail": "Cruciate Ligament Injury",
+      "injuryType": "Cruciate Ligament Injury",
+      "reportedAt": "2026-11-25T20:23:50.754Z"
+    },
+    {
+      "teamId": "championship.west-bromwich-albion",
+      "player": "Ousmane Diakité",
+      "position": "Mediocampista",
+      "status": "Baja",
+      "detail": "Calf Injury",
+      "injuryType": "Calf Injury",
+      "reportedAt": "2026-11-25T20:23:50.754Z"
+    },
+    {
+      "teamId": "championship.west-bromwich-albion",
+      "player": "Toby Collyer",
+      "position": "Mediocampista",
+      "status": "Baja",
+      "detail": "Hamstring Injury",
+      "injuryType": "Hamstring Injury",
+      "reportedAt": "2026-11-25T20:23:50.754Z"
+    },
+    {
+      "teamId": "championship.stoke-city",
+      "player": "Ato Ampah",
+      "position": "Mediocampista",
+      "status": "Baja",
+      "detail": "Knee Surgery",
+      "injuryType": "Knee Surgery",
+      "reportedAt": "2026-11-25T20:23:50.754Z"
+    },
+    {
+      "teamId": "championship.stoke-city",
+      "player": "Djibril Soumaré",
+      "position": "Mediocampista",
+      "status": "Baja",
+      "detail": "Muscle Injury",
+      "injuryType": "Muscle Injury",
+      "reportedAt": "2026-11-25T20:23:50.754Z"
+    },
+    {
+      "teamId": "championship.stoke-city",
+      "player": "George Hirst",
+      "position": "Delantero",
+      "status": "Baja",
+      "detail": "Muscle Injury",
+      "injuryType": "Muscle Injury",
+      "reportedAt": "2026-11-25T20:23:50.754Z"
+    },
+    {
+      "teamId": "championship.stoke-city",
+      "player": "Lamine Cissé",
+      "position": "Delantero",
+      "status": "Baja",
+      "detail": "Muscle Injury",
+      "injuryType": "Muscle Injury",
+      "reportedAt": "2026-11-25T20:23:50.754Z"
+    },
+    {
+      "teamId": "championship.stoke-city",
+      "player": "Luca Bombino",
+      "position": "Defensa",
+      "status": "Baja",
+      "detail": "yellow_or_red_card_suspension",
+      "injuryType": "yellow_or_red_card_suspension",
+      "reportedAt": "2026-11-25T20:23:50.754Z"
+    },
+    {
+      "teamId": "championship.birmingham-city",
+      "player": "Christoph Klarer",
+      "position": "Defensa",
+      "status": "Baja",
+      "detail": "yellow_card_accumulation_suspension",
+      "injuryType": "yellow_card_accumulation_suspension",
+      "reportedAt": "2026-11-25T20:23:50.754Z"
+    },
+    {
+      "teamId": "championship.birmingham-city",
+      "player": "Jhon Solís",
+      "position": "Mediocampista",
+      "status": "Duda",
+      "detail": "Physical Discomfort",
+      "injuryType": "Physical Discomfort",
+      "reportedAt": "2026-11-25T20:23:50.754Z"
+    },
+    {
+      "teamId": "championship.sheffield-united",
+      "player": "Femi Seriki",
+      "position": "Defensa",
+      "status": "Baja",
+      "detail": "Muscle Injury",
+      "injuryType": "Muscle Injury",
+      "reportedAt": "2026-11-25T20:23:50.754Z"
+    },
+    {
+      "teamId": "championship.sheffield-united",
+      "player": "Jamie Shackleton",
+      "position": "Defensa",
+      "status": "Baja",
+      "detail": "Thigh Injury",
+      "injuryType": "Thigh Injury",
+      "reportedAt": "2026-11-25T20:23:50.754Z"
+    },
+    {
+      "teamId": "championship.sheffield-united",
+      "player": "Joe Rothwell",
+      "position": "Mediocampista",
+      "status": "Baja",
+      "detail": "Muscle Injury",
+      "injuryType": "Muscle Injury",
+      "reportedAt": "2026-11-25T20:23:50.754Z"
+    },
+    {
+      "teamId": "championship.sheffield-united",
+      "player": "Matt Doherty",
+      "position": "Defensa",
+      "status": "Baja",
+      "detail": "Muscle Injury",
+      "injuryType": "Muscle Injury",
+      "reportedAt": "2026-11-25T20:23:50.754Z"
+    },
+    {
+      "teamId": "championship.sheffield-united",
+      "player": "Ryan One",
+      "position": "Delantero",
+      "status": "Baja",
+      "detail": "Hamstring Injury",
+      "injuryType": "Hamstring Injury",
+      "reportedAt": "2026-11-25T20:23:50.754Z"
+    },
+    {
+      "teamId": "championship.watford",
+      "player": "Jeremy Ngakia",
+      "position": "Defensa",
+      "status": "Baja",
+      "detail": "Thigh Injury",
+      "injuryType": "Thigh Injury",
+      "reportedAt": "2026-11-25T20:23:50.754Z"
     }
   ]
 }

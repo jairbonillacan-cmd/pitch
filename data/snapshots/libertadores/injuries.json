@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "league": "libertadores",
-  "observedAt": "2026-11-24T21:01:09.804Z",
+  "observedAt": "2026-11-25T20:23:50.754Z",
   "source": "pitchlab-availability",
   "coverageStatus": "ok",
   "entries": [
@@ -12,7 +12,16 @@
       "status": "Baja",
       "detail": "yellow_card_accumulation_suspension",
       "injuryType": "yellow_card_accumulation_suspension",
-      "reportedAt": "2026-11-24T21:01:09.804Z"
+      "reportedAt": "2026-11-25T20:23:50.754Z"
+    },
+    {
+      "teamId": "libertadores.flamengo",
+      "player": "Gonzalo Plata",
+      "position": "Mediocampista",
+      "status": "Duda",
+      "detail": "Elbow Injury",
+      "injuryType": "Elbow Injury",
+      "reportedAt": "2026-11-25T20:23:50.754Z"
     },
     {
       "teamId": "libertadores.cruzeiro",
@@ -21,7 +30,7 @@
       "status": "Baja",
       "detail": "Broken Leg",
       "injuryType": "Broken Leg",
-      "reportedAt": "2026-11-24T21:01:09.804Z"
+      "reportedAt": "2026-11-25T20:23:50.754Z"
     },
     {
       "teamId": "libertadores.cruzeiro",
@@ -30,7 +39,7 @@
       "status": "Baja",
       "detail": "Knee Injury",
       "injuryType": "Knee Injury",
-      "reportedAt": "2026-11-24T21:01:09.804Z"
+      "reportedAt": "2026-11-25T20:23:50.754Z"
     },
     {
       "teamId": "libertadores.cruzeiro",
@@ -39,7 +48,7 @@
       "status": "Baja",
       "detail": "Muscle Injury",
       "injuryType": "Muscle Injury",
-      "reportedAt": "2026-11-24T21:01:09.804Z"
+      "reportedAt": "2026-11-25T20:23:50.754Z"
     },
     {
       "teamId": "libertadores.cruzeiro",
@@ -48,7 +57,7 @@
       "status": "Baja",
       "detail": "Muscle Injury",
       "injuryType": "Muscle Injury",
-      "reportedAt": "2026-11-24T21:01:09.804Z"
+      "reportedAt": "2026-11-25T20:23:50.754Z"
     },
     {
       "teamId": "libertadores.cruzeiro",
@@ -57,7 +66,16 @@
       "status": "Baja",
       "detail": "Thigh Injury",
       "injuryType": "Thigh Injury",
-      "reportedAt": "2026-11-24T21:01:09.804Z"
+      "reportedAt": "2026-11-25T20:23:50.754Z"
+    },
+    {
+      "teamId": "libertadores.cruzeiro",
+      "player": "Matheus Henrique",
+      "position": "Mediocampista",
+      "status": "Duda",
+      "detail": "Foot Injury",
+      "injuryType": "Foot Injury",
+      "reportedAt": "2026-11-25T20:23:50.754Z"
     },
     {
       "teamId": "libertadores.ldu",
@@ -65,7 +83,7 @@
       "position": "Defensa",
       "status": "Baja",
       "detail": "Lesión reportada",
-      "reportedAt": "2026-11-24T21:01:09.804Z"
+      "reportedAt": "2026-11-25T20:23:50.754Z"
     },
     {
       "teamId": "libertadores.mirassol",
@@ -74,7 +92,7 @@
       "status": "Baja",
       "detail": "yellow_card_accumulation_suspension",
       "injuryType": "yellow_card_accumulation_suspension",
-      "reportedAt": "2026-11-24T21:01:09.804Z"
+      "reportedAt": "2026-11-25T20:23:50.754Z"
     },
     {
       "teamId": "libertadores.corinthians",
@@ -83,7 +101,7 @@
       "status": "Baja",
       "detail": "yellow_card_accumulation_suspension",
       "injuryType": "yellow_card_accumulation_suspension",
-      "reportedAt": "2026-11-24T21:01:09.804Z"
+      "reportedAt": "2026-11-25T20:23:50.754Z"
     },
     {
       "teamId": "libertadores.corinthians",
@@ -92,7 +110,7 @@
       "status": "Duda",
       "detail": "Knee Injury",
       "injuryType": "Knee Injury",
-      "reportedAt": "2026-11-24T21:01:09.804Z"
+      "reportedAt": "2026-11-25T20:23:50.754Z"
     },
     {
       "teamId": "libertadores.rosario-central",
@@ -101,7 +119,7 @@
       "status": "Baja",
       "detail": "Sprained Ankle",
       "injuryType": "Sprained Ankle",
-      "reportedAt": "2026-11-24T21:01:09.804Z"
+      "reportedAt": "2026-11-25T20:23:50.754Z"
     },
     {
       "teamId": "libertadores.rosario-central",
@@ -110,7 +128,7 @@
       "status": "Baja",
       "detail": "Knee Injury",
       "injuryType": "Knee Injury",
-      "reportedAt": "2026-11-24T21:01:09.804Z"
+      "reportedAt": "2026-11-25T20:23:50.754Z"
     },
     {
       "teamId": "libertadores.rosario-central",
@@ -119,7 +137,7 @@
       "status": "Baja",
       "detail": "Unknown",
       "injuryType": "Unknown",
-      "reportedAt": "2026-11-24T21:01:09.804Z"
+      "reportedAt": "2026-11-25T20:23:50.754Z"
     },
     {
       "teamId": "libertadores.deportes-tolima",
@@ -128,7 +146,7 @@
       "status": "Baja",
       "detail": "Muscle Injury",
       "injuryType": "Muscle Injury",
-      "reportedAt": "2026-11-24T21:01:09.804Z"
+      "reportedAt": "2026-11-25T20:23:50.754Z"
     },
     {
       "teamId": "libertadores.deportes-tolima",
@@ -137,7 +155,7 @@
       "status": "Baja",
       "detail": "Muscle Injury",
       "injuryType": "Muscle Injury",
-      "reportedAt": "2026-11-24T21:01:09.804Z"
+      "reportedAt": "2026-11-25T20:23:50.754Z"
     }
   ]
 }
