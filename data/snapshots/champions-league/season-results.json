@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "league": "champions-league",
   "season": "2026/27",
-  "updatedAt": "2026-11-25T20:23:50.754Z",
+  "updatedAt": "2026-11-26T20:00:11.075Z",
   "matches": [
     {
       "id": "champions-league-2026-07-07-lincoln-red-im-inter-d-escald-q2nmej",
@@ -1905,6 +1905,83 @@
       "awayTeam": "champions-league.barcelona",
       "homeScore": 1,
       "awayScore": 4,
+      "neutralSite": false
+    },
+    {
+      "id": "champions-league-2026-11-25-shakhtar-donet-fenerbahce-sonnv8",
+      "date": "2026-11-25",
+      "startTime": "2026-11-25T20:00:00.000Z",
+      "round": "League phase · Matchday 5",
+      "homeTeam": "champions-league.shakhtar-donetsk",
+      "awayTeam": "champions-league.fenerbahce",
+      "homeScore": 0,
+      "awayScore": 1,
+      "neutralSite": false
+    },
+    {
+      "id": "champions-league-2026-11-25-lille-bayern-munchen-5j0oze",
+      "date": "2026-11-25",
+      "startTime": "2026-11-25T20:00:00.000Z",
+      "round": "League phase · Matchday 5",
+      "homeTeam": "champions-league.lille",
+      "awayTeam": "champions-league.bayern-munchen",
+      "homeScore": 2,
+      "awayScore": 1,
+      "neutralSite": false
+    },
+    {
+      "id": "champions-league-2026-11-25-sporting-cp-manchester-uni-lq589j",
+      "date": "2026-11-25",
+      "startTime": "2026-11-25T20:00:00.000Z",
+      "round": "League phase · Matchday 5",
+      "homeTeam": "champions-league.sporting-cp",
+      "awayTeam": "champions-league.manchester-united",
+      "homeScore": 2,
+      "awayScore": 2,
+      "neutralSite": false
+    },
+    {
+      "id": "champions-league-2026-11-25-paris-saint-ge-roma-r10ekl",
+      "date": "2026-11-25",
+      "startTime": "2026-11-25T20:00:00.000Z",
+      "round": "League phase · Matchday 5",
+      "homeTeam": "champions-league.paris-saint-germain",
+      "awayTeam": "champions-league.roma",
+      "homeScore": 2,
+      "awayScore": 2,
+      "neutralSite": false
+    },
+    {
+      "id": "champions-league-2026-11-25-brugge-kv-liverpool-ehh94j",
+      "date": "2026-11-25",
+      "startTime": "2026-11-25T20:00:00.000Z",
+      "round": "League phase · Matchday 5",
+      "homeTeam": "champions-league.brugge-kv",
+      "awayTeam": "champions-league.liverpool",
+      "homeScore": 0,
+      "awayScore": 3,
+      "neutralSite": false
+    },
+    {
+      "id": "champions-league-2026-11-25-inter-stuttgart-jk3jqh",
+      "date": "2026-11-25",
+      "startTime": "2026-11-25T20:00:00.000Z",
+      "round": "League phase · Matchday 5",
+      "homeTeam": "champions-league.inter",
+      "awayTeam": "champions-league.stuttgart",
+      "homeScore": 2,
+      "awayScore": 0,
+      "neutralSite": false
+    },
+    {
+      "id": "champions-league-2026-11-25-atletico-madri-viking-dnjr93",
+      "date": "2026-11-25",
+      "startTime": "2026-11-25T20:00:00.000Z",
+      "round": "League phase · Matchday 5",
+      "homeTeam": "champions-league.atletico-madrid",
+      "awayTeam": "champions-league.viking",
+      "homeScore": 2,
+      "awayScore": 0,
       "neutralSite": false
     }
   ]

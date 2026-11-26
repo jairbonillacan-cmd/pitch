@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "league": "eredivisie",
-  "observedAt": "2026-11-25T20:23:50.754Z",
+  "observedAt": "2026-11-26T20:00:11.075Z",
   "source": "pitchlab-availability",
   "coverageStatus": "ok",
   "entries": [
@@ -12,7 +12,7 @@
       "status": "Baja",
       "detail": "Unknown",
       "injuryType": "Unknown",
-      "reportedAt": "2026-11-25T20:23:50.754Z"
+      "reportedAt": "2026-11-26T20:00:11.075Z"
     },
     {
       "teamId": "eredivisie.ado-den-haag",
@@ -21,7 +21,7 @@
       "status": "Baja",
       "detail": "red_card_suspension",
       "injuryType": "red_card_suspension",
-      "reportedAt": "2026-11-25T20:23:50.754Z"
+      "reportedAt": "2026-11-26T20:00:11.075Z"
     },
     {
       "teamId": "eredivisie.sparta-rotterdam",
@@ -30,7 +30,7 @@
       "status": "Baja",
       "detail": "yellow_or_red_card_suspension",
       "injuryType": "yellow_or_red_card_suspension",
-      "reportedAt": "2026-11-25T20:23:50.754Z"
+      "reportedAt": "2026-11-26T20:00:11.075Z"
     },
     {
       "teamId": "eredivisie.sparta-rotterdam",
@@ -39,7 +39,7 @@
       "status": "Baja",
       "detail": "Unknown",
       "injuryType": "Unknown",
-      "reportedAt": "2026-11-25T20:23:50.754Z"
+      "reportedAt": "2026-11-26T20:00:11.075Z"
     },
     {
       "teamId": "eredivisie.sparta-rotterdam",
@@ -48,7 +48,7 @@
       "status": "Baja",
       "detail": "Unknown",
       "injuryType": "Unknown",
-      "reportedAt": "2026-11-25T20:23:50.754Z"
+      "reportedAt": "2026-11-26T20:00:11.075Z"
     },
     {
       "teamId": "eredivisie.sparta-rotterdam",
@@ -57,7 +57,7 @@
       "status": "Baja",
       "detail": "Unknown",
       "injuryType": "Unknown",
-      "reportedAt": "2026-11-25T20:23:50.754Z"
+      "reportedAt": "2026-11-26T20:00:11.075Z"
     },
     {
       "teamId": "eredivisie.go-ahead-eagles",
@@ -66,7 +66,7 @@
       "status": "Baja",
       "detail": "Knee Injury",
       "injuryType": "Knee Injury",
-      "reportedAt": "2026-11-25T20:23:50.754Z"
+      "reportedAt": "2026-11-26T20:00:11.075Z"
     },
     {
       "teamId": "eredivisie.heerenveen",
@@ -75,7 +75,7 @@
       "status": "Baja",
       "detail": "Unknown",
       "injuryType": "Unknown",
-      "reportedAt": "2026-11-25T20:23:50.754Z"
+      "reportedAt": "2026-11-26T20:00:11.075Z"
     },
     {
       "teamId": "eredivisie.feyenoord",
@@ -84,7 +84,7 @@
       "status": "Baja",
       "detail": "Ankle Injury",
       "injuryType": "Ankle Injury",
-      "reportedAt": "2026-11-25T20:23:50.754Z"
+      "reportedAt": "2026-11-26T20:00:11.075Z"
     },
     {
       "teamId": "eredivisie.feyenoord",
@@ -93,7 +93,7 @@
       "status": "Baja",
       "detail": "Knee Injury",
       "injuryType": "Knee Injury",
-      "reportedAt": "2026-11-25T20:23:50.754Z"
+      "reportedAt": "2026-11-26T20:00:11.075Z"
     },
     {
       "teamId": "eredivisie.feyenoord",
@@ -102,7 +102,7 @@
       "status": "Baja",
       "detail": "Unknown",
       "injuryType": "Unknown",
-      "reportedAt": "2026-11-25T20:23:50.754Z"
+      "reportedAt": "2026-11-26T20:00:11.075Z"
     },
     {
       "teamId": "eredivisie.feyenoord",
@@ -111,7 +111,34 @@
       "status": "Baja",
       "detail": "Knee Injury",
       "injuryType": "Knee Injury",
-      "reportedAt": "2026-11-25T20:23:50.754Z"
+      "reportedAt": "2026-11-26T20:00:11.075Z"
+    },
+    {
+      "teamId": "eredivisie.twente",
+      "player": "Krzysztof Kurowski",
+      "position": "Mediocampista",
+      "status": "Baja",
+      "detail": "Unknown",
+      "injuryType": "Unknown",
+      "reportedAt": "2026-11-26T20:00:11.075Z"
+    },
+    {
+      "teamId": "eredivisie.twente",
+      "player": "Thomas Van den Belt",
+      "position": "Mediocampista",
+      "status": "Baja",
+      "detail": "Unknown",
+      "injuryType": "Unknown",
+      "reportedAt": "2026-11-26T20:00:11.075Z"
+    },
+    {
+      "teamId": "eredivisie.ajax",
+      "player": "Jorthy Mokio",
+      "position": "Mediocampista",
+      "status": "Baja",
+      "detail": "Broken Leg",
+      "injuryType": "Broken Leg",
+      "reportedAt": "2026-11-26T20:00:11.075Z"
     },
     {
       "teamId": "eredivisie.ajax",
@@ -120,16 +147,7 @@
       "status": "Baja",
       "detail": "Knee Injury",
       "injuryType": "Knee Injury",
-      "reportedAt": "2026-11-25T20:23:50.754Z"
-    },
-    {
-      "teamId": "eredivisie.ajax",
-      "player": "Sofyan Amrabat",
-      "position": "Mediocampista",
-      "status": "Baja",
-      "detail": "Groin Injury",
-      "injuryType": "Groin Injury",
-      "reportedAt": "2026-11-25T20:23:50.754Z"
+      "reportedAt": "2026-11-26T20:00:11.075Z"
     },
     {
       "teamId": "eredivisie.ajax",
@@ -138,7 +156,7 @@
       "status": "Baja",
       "detail": "Unknown",
       "injuryType": "Unknown",
-      "reportedAt": "2026-11-25T20:23:50.754Z"
+      "reportedAt": "2026-11-26T20:00:11.075Z"
     }
   ]
 }

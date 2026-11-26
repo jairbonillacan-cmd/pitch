@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "league": "primera-a-colombia",
   "season": "2026",
-  "updatedAt": "2026-11-25T20:23:50.754Z",
+  "updatedAt": "2026-11-26T20:00:11.075Z",
   "matches": [
     {
       "id": "primera-a-colombia-2026-07-24-llaneros-deportivo-pere-mwp9br",
@@ -2157,6 +2157,28 @@
       "homeTeam": "primera-a-colombia.america-cali",
       "awayTeam": "primera-a-colombia.deportivo-cali",
       "homeScore": 2,
+      "awayScore": 1,
+      "neutralSite": false
+    },
+    {
+      "id": "primera-a-colombia-2026-11-25-independiente--once-caldas-0k7duh",
+      "date": "2026-11-25",
+      "startTime": "2026-11-25T23:20:00.000Z",
+      "round": "Group A · Matchday 2",
+      "homeTeam": "primera-a-colombia.independiente-santa-fe",
+      "awayTeam": "primera-a-colombia.once-caldas",
+      "homeScore": 3,
+      "awayScore": 0,
+      "neutralSite": false
+    },
+    {
+      "id": "primera-a-colombia-2026-11-26-atletico-nacio-independiente--gladtk",
+      "date": "2026-11-26",
+      "startTime": "2026-11-26T01:30:00.000Z",
+      "round": "Group A · Matchday 2",
+      "homeTeam": "primera-a-colombia.atletico-nacional",
+      "awayTeam": "primera-a-colombia.independiente-medellin",
+      "homeScore": 3,
       "awayScore": 1,
       "neutralSite": false
     }

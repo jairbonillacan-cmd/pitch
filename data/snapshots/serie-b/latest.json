@@ -5,7 +5,7 @@
   "season": "serie-b-2026-27",
   "seasonLabel": "2026/27",
   "periodLabel": "Regular season · Matchday 12",
-  "updatedAt": "2026-11-25T20:23:50.754Z",
+  "updatedAt": "2026-11-26T20:00:11.075Z",
   "source": "pitchlab-football-v2",
   "provenance": "derived",
   "isDemo": false,
@@ -18,8 +18,8 @@
       "forPerGame": 1.2307692307692308,
       "againstPerGame": 2.076923076923077,
       "gamesPlayed": 13,
-      "adjustedFor": 1.189613996743622,
-      "adjustedAgainst": 1.5818574791299322
+      "adjustedFor": 1.1870206031767319,
+      "adjustedAgainst": 1.5788714040353273
     },
     "serie-b.catanzaro": {
       "teamId": "serie-b.catanzaro",
@@ -29,8 +29,8 @@
       "forPerGame": 1.3076923076923077,
       "againstPerGame": 1.9230769230769231,
       "gamesPlayed": 13,
-      "adjustedFor": 1.2461251494097434,
-      "adjustedAgainst": 1.4982342495717567
+      "adjustedFor": 1.2431839829044817,
+      "adjustedAgainst": 1.489676505053146
     },
     "serie-b.sudtirol": {
       "teamId": "serie-b.sudtirol",
@@ -40,8 +40,8 @@
       "forPerGame": 1.1538461538461537,
       "againstPerGame": 1.2307692307692308,
       "gamesPlayed": 13,
-      "adjustedFor": 1.130630361538999,
-      "adjustedAgainst": 1.1732173084762743
+      "adjustedFor": 1.1247913142671497,
+      "adjustedAgainst": 1.1712404656370086
     },
     "serie-b.virtus-entella": {
       "teamId": "serie-b.virtus-entella",
@@ -51,8 +51,8 @@
       "forPerGame": 1,
       "againstPerGame": 1.2307692307692308,
       "gamesPlayed": 13,
-      "adjustedFor": 1.0621162686261139,
-      "adjustedAgainst": 1.1811669287782587
+      "adjustedFor": 1.0595455753596426,
+      "adjustedAgainst": 1.174885618314859
     },
     "serie-b.carrarese": {
       "teamId": "serie-b.carrarese",
@@ -62,19 +62,19 @@
       "forPerGame": 0.8461538461538461,
       "againstPerGame": 1.0769230769230769,
       "gamesPlayed": 13,
-      "adjustedFor": 0.9474597381584333,
-      "adjustedAgainst": 1.0738584027407636
+      "adjustedFor": 0.9417945383592187,
+      "adjustedAgainst": 1.0689936902553798
     },
     "serie-b.mantova": {
       "teamId": "serie-b.mantova",
       "name": "Mantova",
       "shortName": "Mantova",
       "code": "MAN",
-      "forPerGame": 1.3333333333333333,
-      "againstPerGame": 1.25,
-      "gamesPlayed": 12,
-      "adjustedFor": 1.2143803666984772,
-      "adjustedAgainst": 1.167888880834163
+      "forPerGame": 1.4615384615384615,
+      "againstPerGame": 1.1538461538461537,
+      "gamesPlayed": 13,
+      "adjustedFor": 1.268670109229219,
+      "adjustedAgainst": 1.123651609220984
     },
     "serie-b.avellino": {
       "teamId": "serie-b.avellino",
@@ -84,19 +84,19 @@
       "forPerGame": 1.6153846153846154,
       "againstPerGame": 0.9230769230769231,
       "gamesPlayed": 13,
-      "adjustedFor": 1.379623224818064,
-      "adjustedAgainst": 0.9858909724337663
+      "adjustedFor": 1.3747339644711014,
+      "adjustedAgainst": 0.981120569621644
     },
     "serie-b.arezzo": {
       "teamId": "serie-b.arezzo",
       "name": "Arezzo",
       "shortName": "Arezzo",
       "code": "ARE",
-      "forPerGame": 0.8333333333333334,
-      "againstPerGame": 1.75,
-      "gamesPlayed": 12,
-      "adjustedFor": 0.9813070323749619,
-      "adjustedAgainst": 1.4346524872425568
+      "forPerGame": 0.7692307692307693,
+      "againstPerGame": 1.8461538461538463,
+      "gamesPlayed": 13,
+      "adjustedFor": 0.9339510314127633,
+      "adjustedAgainst": 1.485546624739247
     },
     "serie-b.empoli": {
       "teamId": "serie-b.empoli",
@@ -106,8 +106,8 @@
       "forPerGame": 0.9230769230769231,
       "againstPerGame": 1.9230769230769231,
       "gamesPlayed": 13,
-      "adjustedFor": 1.020715025928864,
-      "adjustedAgainst": 1.5331078038604486
+      "adjustedFor": 1.0151896978376076,
+      "adjustedAgainst": 1.5301243867231455
     },
     "serie-b.cremonese": {
       "teamId": "serie-b.cremonese",
@@ -117,8 +117,8 @@
       "forPerGame": 1.0769230769230769,
       "againstPerGame": 1.0769230769230769,
       "gamesPlayed": 13,
-      "adjustedFor": 1.1028134664899267,
-      "adjustedAgainst": 1.0855279968491334
+      "adjustedFor": 1.0976034095535139,
+      "adjustedAgainst": 1.081844225512658
     },
     "serie-b.benevento": {
       "teamId": "serie-b.benevento",
@@ -128,41 +128,41 @@
       "forPerGame": 1.6153846153846154,
       "againstPerGame": 1.0769230769230769,
       "gamesPlayed": 13,
-      "adjustedFor": 1.3594421490900368,
-      "adjustedAgainst": 1.117926290838371
+      "adjustedFor": 1.3528029741160326,
+      "adjustedAgainst": 1.1148019382308139
     },
     "serie-b.modena": {
       "teamId": "serie-b.modena",
       "name": "Modena",
       "shortName": "Modena",
       "code": "MOD",
-      "forPerGame": 1.8333333333333333,
-      "againstPerGame": 0.8333333333333334,
-      "gamesPlayed": 12,
-      "adjustedFor": 1.4968290873667647,
-      "adjustedAgainst": 0.9924014532735977
+      "forPerGame": 1.7692307692307692,
+      "againstPerGame": 0.8461538461538461,
+      "gamesPlayed": 13,
+      "adjustedFor": 1.4702093183699432,
+      "adjustedAgainst": 0.9710530539028189
     },
     "serie-b.pisa": {
       "teamId": "serie-b.pisa",
       "name": "Pisa",
       "shortName": "Pisa",
       "code": "PIS",
-      "forPerGame": 1.75,
-      "againstPerGame": 1.4166666666666667,
-      "gamesPlayed": 12,
-      "adjustedFor": 1.4243151000066174,
-      "adjustedAgainst": 1.2730606252781298
+      "forPerGame": 1.6923076923076923,
+      "againstPerGame": 1.3846153846153846,
+      "gamesPlayed": 13,
+      "adjustedFor": 1.404955700769047,
+      "adjustedAgainst": 1.2423141482269022
     },
     "serie-b.padova": {
       "teamId": "serie-b.padova",
       "name": "Padova",
       "shortName": "Padova",
       "code": "PAD",
-      "forPerGame": 1.0833333333333333,
-      "againstPerGame": 1.1666666666666667,
-      "gamesPlayed": 12,
-      "adjustedFor": 1.0953641283815077,
-      "adjustedAgainst": 1.1415884064947188
+      "forPerGame": 1.0769230769230769,
+      "againstPerGame": 1.2307692307692308,
+      "gamesPlayed": 13,
+      "adjustedFor": 1.073228583551626,
+      "adjustedAgainst": 1.178367511487024
     },
     "serie-b.hellas-verona": {
       "teamId": "serie-b.hellas-verona",
@@ -172,8 +172,8 @@
       "forPerGame": 1.5384615384615385,
       "againstPerGame": 1.3076923076923077,
       "gamesPlayed": 13,
-      "adjustedFor": 1.3168303691692578,
-      "adjustedAgainst": 1.2223036840634662
+      "adjustedFor": 1.3113419406362234,
+      "adjustedAgainst": 1.2187683232789985
     },
     "serie-b.ascoli": {
       "teamId": "serie-b.ascoli",
@@ -183,8 +183,8 @@
       "forPerGame": 1.5384615384615385,
       "againstPerGame": 1.0769230769230769,
       "gamesPlayed": 13,
-      "adjustedFor": 1.303864727226973,
-      "adjustedAgainst": 1.1118641952481823
+      "adjustedFor": 1.2953788142752003,
+      "adjustedAgainst": 1.1085263314434786
     },
     "serie-b.palermo": {
       "teamId": "serie-b.palermo",
@@ -194,8 +194,8 @@
       "forPerGame": 2.3076923076923075,
       "againstPerGame": 1.3076923076923077,
       "gamesPlayed": 13,
-      "adjustedFor": 1.7181638209104306,
-      "adjustedAgainst": 1.2471399800073073
+      "adjustedFor": 1.712269156944826,
+      "adjustedAgainst": 1.2412980594138048
     },
     "serie-b.juve-stabia": {
       "teamId": "serie-b.juve-stabia",
@@ -205,8 +205,8 @@
       "forPerGame": 1,
       "againstPerGame": 1.2307692307692308,
       "gamesPlayed": 13,
-      "adjustedFor": 1.0248267981390717,
-      "adjustedAgainst": 1.1611963583899476
+      "adjustedFor": 1.0199525224130515,
+      "adjustedAgainst": 1.1578683803566872
     },
     "serie-b.cesena": {
       "teamId": "serie-b.cesena",
@@ -216,127 +216,22 @@
       "forPerGame": 1.4615384615384615,
       "againstPerGame": 1.1538461538461537,
       "gamesPlayed": 13,
-      "adjustedFor": 1.316268847118161,
-      "adjustedAgainst": 1.1283988143111576
+      "adjustedFor": 1.3144063141677953,
+      "adjustedAgainst": 1.1216437508473744
     },
     "serie-b.sampdoria": {
       "teamId": "serie-b.sampdoria",
       "name": "Sampdoria",
       "shortName": "Sampdoria",
       "code": "SAM",
-      "forPerGame": 1.1666666666666667,
-      "againstPerGame": 1.5833333333333333,
-      "gamesPlayed": 12,
-      "adjustedFor": 1.172020376019783,
-      "adjustedAgainst": 1.3312339632942582
+      "forPerGame": 1.2307692307692308,
+      "againstPerGame": 1.5384615384615385,
+      "gamesPlayed": 13,
+      "adjustedFor": 1.2056585161540214,
+      "adjustedAgainst": 1.3092278448696333
     }
   },
   "games": [
-    {
-      "id": "serie-b-2026-11-21-sudtirol-cremonese-u0tlvf",
-      "league": "serie-b",
-      "season": "serie-b-2026-27",
-      "week": 12,
-      "round": "Regular season · Matchday 12",
-      "phase": "Regular season",
-      "startTime": "2026-11-21T14:00:00.000Z",
-      "status": "final",
-      "home": {
-        "id": "serie-b.sudtirol",
-        "league": "serie-b",
-        "name": "Südtirol",
-        "shortName": "Südtirol",
-        "code": "SUD",
-        "logoUrl": "https://sports.bzzoiro.com/img/team/1608/?bg=transparent"
-      },
-      "away": {
-        "id": "serie-b.cremonese",
-        "league": "serie-b",
-        "name": "Cremonese",
-        "shortName": "Cremonese",
-        "code": "CRE",
-        "logoUrl": "https://sports.bzzoiro.com/img/team/64/?bg=transparent"
-      },
-      "venue": "Stadio Druso, Bozen",
-      "referee": "Mario Perri",
-      "neutralSite": false,
-      "result": {
-        "home": 1,
-        "away": 0,
-        "observedAt": "2026-11-25T20:23:50.754Z",
-        "source": "pitchlab-feed"
-      }
-    },
-    {
-      "id": "serie-b-2026-11-21-sampdoria-benevento-gf1p82",
-      "league": "serie-b",
-      "season": "serie-b-2026-27",
-      "week": 12,
-      "round": "Regular season · Matchday 12",
-      "phase": "Regular season",
-      "startTime": "2026-11-21T14:00:00.000Z",
-      "status": "final",
-      "home": {
-        "id": "serie-b.sampdoria",
-        "league": "serie-b",
-        "name": "Sampdoria",
-        "shortName": "Sampdoria",
-        "code": "SAM",
-        "logoUrl": "https://sports.bzzoiro.com/img/team/1271/?bg=transparent"
-      },
-      "away": {
-        "id": "serie-b.benevento",
-        "league": "serie-b",
-        "name": "Benevento",
-        "shortName": "Benevento",
-        "code": "BEN",
-        "logoUrl": "https://sports.bzzoiro.com/img/team/1281/?bg=transparent"
-      },
-      "venue": "Luigi Ferraris, Genoa",
-      "referee": "Paride Tremolada",
-      "neutralSite": false,
-      "result": {
-        "home": 3,
-        "away": 1,
-        "observedAt": "2026-11-25T20:23:50.754Z",
-        "source": "pitchlab-feed"
-      }
-    },
-    {
-      "id": "serie-b-2026-11-21-modena-juve-stabia-az65l9",
-      "league": "serie-b",
-      "season": "serie-b-2026-27",
-      "week": 12,
-      "round": "Regular season · Matchday 12",
-      "phase": "Regular season",
-      "startTime": "2026-11-21T14:00:00.000Z",
-      "status": "final",
-      "home": {
-        "id": "serie-b.modena",
-        "league": "serie-b",
-        "name": "Modena",
-        "shortName": "Modena",
-        "code": "MOD",
-        "logoUrl": "https://sports.bzzoiro.com/img/team/1597/?bg=transparent"
-      },
-      "away": {
-        "id": "serie-b.juve-stabia",
-        "league": "serie-b",
-        "name": "Juve Stabia",
-        "shortName": "Juve Stabia",
-        "code": "JUV",
-        "logoUrl": "https://sports.bzzoiro.com/img/team/1606/?bg=transparent"
-      },
-      "venue": "Alberto Braglia, Modena",
-      "referee": "Rosario Abisso",
-      "neutralSite": false,
-      "result": {
-        "home": 2,
-        "away": 0,
-        "observedAt": "2026-11-25T20:23:50.754Z",
-        "source": "pitchlab-feed"
-      }
-    },
     {
       "id": "serie-b-2026-11-21-carrarese-virtus-entella-1d9cky",
       "league": "serie-b",
@@ -368,7 +263,7 @@
       "result": {
         "home": 1,
         "away": 0,
-        "observedAt": "2026-11-25T20:23:50.754Z",
+        "observedAt": "2026-11-26T20:00:11.075Z",
         "source": "pitchlab-feed"
       }
     },
@@ -403,7 +298,7 @@
       "result": {
         "home": 2,
         "away": 2,
-        "observedAt": "2026-11-25T20:23:50.754Z",
+        "observedAt": "2026-11-26T20:00:11.075Z",
         "source": "pitchlab-feed"
       }
     },
@@ -438,7 +333,7 @@
       "result": {
         "home": 3,
         "away": 1,
-        "observedAt": "2026-11-25T20:23:50.754Z",
+        "observedAt": "2026-11-26T20:00:11.075Z",
         "source": "pitchlab-feed"
       }
     },
@@ -473,7 +368,7 @@
       "result": {
         "home": 0,
         "away": 1,
-        "observedAt": "2026-11-25T20:23:50.754Z",
+        "observedAt": "2026-11-26T20:00:11.075Z",
         "source": "pitchlab-feed"
       }
     },
@@ -508,7 +403,7 @@
       "result": {
         "home": 4,
         "away": 1,
-        "observedAt": "2026-11-25T20:23:50.754Z",
+        "observedAt": "2026-11-26T20:00:11.075Z",
         "source": "pitchlab-feed"
       }
     },
@@ -543,7 +438,7 @@
       "result": {
         "home": 1,
         "away": 1,
-        "observedAt": "2026-11-25T20:23:50.754Z",
+        "observedAt": "2026-11-26T20:00:11.075Z",
         "source": "pitchlab-feed"
       }
     },
@@ -578,7 +473,7 @@
       "result": {
         "home": 1,
         "away": 3,
-        "observedAt": "2026-11-25T20:23:50.754Z",
+        "observedAt": "2026-11-26T20:00:11.075Z",
         "source": "pitchlab-feed"
       }
     },
@@ -613,7 +508,7 @@
       "result": {
         "home": 2,
         "away": 1,
-        "observedAt": "2026-11-25T20:23:50.754Z",
+        "observedAt": "2026-11-26T20:00:11.075Z",
         "source": "pitchlab-feed"
       }
     },
@@ -648,7 +543,7 @@
       "result": {
         "home": 4,
         "away": 1,
-        "observedAt": "2026-11-25T20:23:50.754Z",
+        "observedAt": "2026-11-26T20:00:11.075Z",
         "source": "pitchlab-feed"
       }
     },
@@ -683,7 +578,7 @@
       "result": {
         "home": 0,
         "away": 1,
-        "observedAt": "2026-11-25T20:23:50.754Z",
+        "observedAt": "2026-11-26T20:00:11.075Z",
         "source": "pitchlab-feed"
       }
     },
@@ -718,7 +613,7 @@
       "result": {
         "home": 5,
         "away": 1,
-        "observedAt": "2026-11-25T20:23:50.754Z",
+        "observedAt": "2026-11-26T20:00:11.075Z",
         "source": "pitchlab-feed"
       }
     },
@@ -753,7 +648,7 @@
       "result": {
         "home": 5,
         "away": 0,
-        "observedAt": "2026-11-25T20:23:50.754Z",
+        "observedAt": "2026-11-26T20:00:11.075Z",
         "source": "pitchlab-feed"
       }
     },
@@ -788,7 +683,7 @@
       "result": {
         "home": 0,
         "away": 1,
-        "observedAt": "2026-11-25T20:23:50.754Z",
+        "observedAt": "2026-11-26T20:00:11.075Z",
         "source": "pitchlab-feed"
       }
     },
@@ -800,7 +695,7 @@
       "round": "Regular season · Matchday 13",
       "phase": "Regular season",
       "startTime": "2026-11-25T19:00:00.000Z",
-      "status": "scheduled",
+      "status": "final",
       "home": {
         "id": "serie-b.pisa",
         "league": "serie-b",
@@ -819,7 +714,13 @@
       },
       "venue": "Arena Garibaldi-Romeo Anconetani, Pisa",
       "referee": "Gianluca Manganiello",
-      "neutralSite": false
+      "neutralSite": false,
+      "result": {
+        "home": 1,
+        "away": 1,
+        "observedAt": "2026-11-26T20:00:11.075Z",
+        "source": "pitchlab-feed"
+      }
     },
     {
       "id": "serie-b-2026-11-25-padova-sampdoria-tja7lb",
@@ -829,7 +730,7 @@
       "round": "Regular season · Matchday 13",
       "phase": "Regular season",
       "startTime": "2026-11-25T19:00:00.000Z",
-      "status": "scheduled",
+      "status": "final",
       "home": {
         "id": "serie-b.padova",
         "league": "serie-b",
@@ -848,7 +749,13 @@
       },
       "venue": "Stadio Comunale Euganeo, Padova",
       "referee": "Claudio Giuseppe Allegretta",
-      "neutralSite": false
+      "neutralSite": false,
+      "result": {
+        "home": 1,
+        "away": 2,
+        "observedAt": "2026-11-26T20:00:11.075Z",
+        "source": "pitchlab-feed"
+      }
     },
     {
       "id": "serie-b-2026-11-25-mantova-arezzo-7iyes7",
@@ -858,7 +765,7 @@
       "round": "Regular season · Matchday 13",
       "phase": "Regular season",
       "startTime": "2026-11-25T19:00:00.000Z",
-      "status": "scheduled",
+      "status": "final",
       "home": {
         "id": "serie-b.mantova",
         "league": "serie-b",
@@ -877,7 +784,13 @@
       },
       "venue": "Stadio Danilo Martelli, Mantova",
       "referee": "Davide Di Marco",
-      "neutralSite": false
+      "neutralSite": false,
+      "result": {
+        "home": 3,
+        "away": 0,
+        "observedAt": "2026-11-26T20:00:11.075Z",
+        "source": "pitchlab-feed"
+      }
     },
     {
       "id": "serie-b-2026-11-28-empoli-hellas-verona-a3cbdj",
@@ -1690,1469 +1603,93 @@
       },
       "venue": "Stadio Nicola Ceravolo, Catanzaro",
       "neutralSite": false
+    },
+    {
+      "id": "serie-b-2026-12-09-arezzo-cesena-fnngxf",
+      "league": "serie-b",
+      "season": "serie-b-2026-27",
+      "week": 16,
+      "round": "Regular season · Matchday 16",
+      "phase": "Regular season",
+      "startTime": "2026-12-09T19:00:00.000Z",
+      "status": "scheduled",
+      "home": {
+        "id": "serie-b.arezzo",
+        "league": "serie-b",
+        "name": "Arezzo",
+        "shortName": "Arezzo",
+        "code": "ARE",
+        "logoUrl": "https://sports.bzzoiro.com/img/team/3887/?bg=transparent"
+      },
+      "away": {
+        "id": "serie-b.cesena",
+        "league": "serie-b",
+        "name": "Cesena",
+        "shortName": "Cesena",
+        "code": "CES",
+        "logoUrl": "https://sports.bzzoiro.com/img/team/1275/?bg=transparent"
+      },
+      "venue": "Stadio Città di Arezzo, Arezzo",
+      "neutralSite": false
+    },
+    {
+      "id": "serie-b-2026-12-12-pisa-ascoli-dlcqqw",
+      "league": "serie-b",
+      "season": "serie-b-2026-27",
+      "week": 17,
+      "round": "Regular season · Matchday 17",
+      "phase": "Regular season",
+      "startTime": "2026-12-12T14:00:00.000Z",
+      "status": "scheduled",
+      "home": {
+        "id": "serie-b.pisa",
+        "league": "serie-b",
+        "name": "Pisa",
+        "shortName": "Pisa",
+        "code": "PIS",
+        "logoUrl": "https://sports.bzzoiro.com/img/team/72/?bg=transparent"
+      },
+      "away": {
+        "id": "serie-b.ascoli",
+        "league": "serie-b",
+        "name": "Ascoli",
+        "shortName": "Ascoli",
+        "code": "ASC",
+        "logoUrl": "https://sports.bzzoiro.com/img/team/3889/?bg=transparent"
+      },
+      "venue": "Arena Garibaldi-Romeo Anconetani, Pisa",
+      "neutralSite": false
+    },
+    {
+      "id": "serie-b-2026-12-12-mantova-benevento-s1mdsb",
+      "league": "serie-b",
+      "season": "serie-b-2026-27",
+      "week": 17,
+      "round": "Regular season · Matchday 17",
+      "phase": "Regular season",
+      "startTime": "2026-12-12T14:00:00.000Z",
+      "status": "scheduled",
+      "home": {
+        "id": "serie-b.mantova",
+        "league": "serie-b",
+        "name": "Mantova",
+        "shortName": "Mantova",
+        "code": "MAN",
+        "logoUrl": "https://sports.bzzoiro.com/img/team/1607/?bg=transparent"
+      },
+      "away": {
+        "id": "serie-b.benevento",
+        "league": "serie-b",
+        "name": "Benevento",
+        "shortName": "Benevento",
+        "code": "BEN",
+        "logoUrl": "https://sports.bzzoiro.com/img/team/1281/?bg=transparent"
+      },
+      "venue": "Stadio Danilo Martelli, Mantova",
+      "neutralSite": false
     }
   ],
   "analyses": {
-    "serie-b-2026-11-21-sudtirol-cremonese-u0tlvf": {
-      "game": "serie-b-2026-11-21-sudtirol-cremonese-u0tlvf",
-      "model": {
-        "id": "pitchlab-statistical-serie-b",
-        "version": "2.0.0",
-        "status": "candidate",
-        "label": "Modelo PitchLab · en validación"
-      },
-      "projection": {
-        "home": 1.0762723386131734,
-        "away": 1.1605812632095436,
-        "total": 2.236853601822717,
-        "margin": -0.08430892459637018
-      },
-      "x12": [
-        0.31820832939838295,
-        0.3214523060994513,
-        0.3603393645021661
-      ],
-      "probabilities": [
-        {
-          "market": "h2h",
-          "selection": "Südtirol gana",
-          "p": 0.31820832939838295,
-          "fairOdds": 3.1425952987800128
-        },
-        {
-          "market": "h2h",
-          "selection": "Empate",
-          "p": 0.3214523060994513,
-          "fairOdds": 3.110881399900795
-        },
-        {
-          "market": "h2h",
-          "selection": "Cremonese gana",
-          "p": 0.3603393645021661,
-          "fairOdds": 2.7751616906511716
-        },
-        {
-          "market": "double_chance",
-          "selection": "Südtirol o empate",
-          "p": 0.6396606354978343,
-          "fairOdds": 1.5633289661817649
-        },
-        {
-          "market": "double_chance",
-          "selection": "Cremonese o empate",
-          "p": 0.6817916706016174,
-          "fairOdds": 1.4667236974567224
-        },
-        {
-          "market": "double_chance",
-          "selection": "Sin empate",
-          "p": 0.678547693900549,
-          "fairOdds": 1.4737357579857377
-        },
-        {
-          "market": "totals",
-          "selection": "Más de 1.5",
-          "line": 1.5,
-          "p": 0.6709980255398614,
-          "fairOdds": 1.4903173510763092
-        },
-        {
-          "market": "totals",
-          "selection": "Más de 2.5",
-          "line": 2.5,
-          "p": 0.3871508188764593,
-          "fairOdds": 2.582972710485477
-        },
-        {
-          "market": "totals",
-          "selection": "Menos de 2.5",
-          "line": 2.5,
-          "p": 0.6128491811235407,
-          "fairOdds": 1.6317228296963586
-        },
-        {
-          "market": "totals",
-          "selection": "Más de 3.5",
-          "line": 3.5,
-          "p": 0.18794212606449223,
-          "fairOdds": 5.320786887644607
-        },
-        {
-          "market": "totals",
-          "selection": "Menos de 3.5",
-          "line": 3.5,
-          "p": 0.8120578739355078,
-          "fairOdds": 1.231439324827504
-        },
-        {
-          "market": "btts",
-          "selection": "Sí",
-          "p": 0.46930074591183507,
-          "fairOdds": 2.1308297689939417
-        },
-        {
-          "market": "btts",
-          "selection": "No",
-          "p": 0.530699254088165,
-          "fairOdds": 1.8843063982032093
-        },
-        {
-          "market": "team_totals",
-          "selection": "Südtirol más de 1.5",
-          "line": 1.5,
-          "p": 0.2922739368179812,
-          "fairOdds": 3.4214477379923474
-        },
-        {
-          "market": "team_totals",
-          "selection": "Südtirol menos de 1.5",
-          "line": 1.5,
-          "p": 0.7077260631820188,
-          "fairOdds": 1.4129760821636037
-        },
-        {
-          "market": "team_totals",
-          "selection": "Cremonese más de 1.5",
-          "line": 1.5,
-          "p": 0.32308118343263725,
-          "fairOdds": 3.0951972794432363
-        },
-        {
-          "market": "team_totals",
-          "selection": "Cremonese menos de 1.5",
-          "line": 1.5,
-          "p": 0.6769188165673627,
-          "fairOdds": 1.4772820248533987
-        },
-        {
-          "market": "correct_score",
-          "selection": "1–1",
-          "p": 0.15007111468291212,
-          "fairOdds": 6.663507511841419
-        },
-        {
-          "market": "correct_score",
-          "selection": "0–0",
-          "p": 0.12346856805254951,
-          "fairOdds": 8.099227323786485
-        },
-        {
-          "market": "correct_score",
-          "selection": "0–1",
-          "p": 0.10726854684011579,
-          "fairOdds": 9.322397193377702
-        }
-      ],
-      "marketGroups": [
-        {
-          "group": "Resultado",
-          "rows": [
-            {
-              "market": "h2h",
-              "selection": "home",
-              "label": "Südtirol gana",
-              "p": 0.31820832939838295,
-              "fairOdds": 3.1425952987800128
-            },
-            {
-              "market": "h2h",
-              "selection": "draw",
-              "label": "Empate",
-              "p": 0.3214523060994513,
-              "fairOdds": 3.110881399900795
-            },
-            {
-              "market": "h2h",
-              "selection": "away",
-              "label": "Cremonese gana",
-              "p": 0.3603393645021661,
-              "fairOdds": 2.7751616906511716
-            }
-          ]
-        },
-        {
-          "group": "Doble oportunidad",
-          "rows": [
-            {
-              "market": "double_chance",
-              "selection": "1x",
-              "label": "Südtirol o empate",
-              "p": 0.6396606354978343,
-              "fairOdds": 1.5633289661817649
-            },
-            {
-              "market": "double_chance",
-              "selection": "x2",
-              "label": "Cremonese o empate",
-              "p": 0.6817916706016174,
-              "fairOdds": 1.4667236974567224
-            },
-            {
-              "market": "double_chance",
-              "selection": "12",
-              "label": "Sin empate",
-              "p": 0.678547693900549,
-              "fairOdds": 1.4737357579857377
-            }
-          ]
-        },
-        {
-          "group": "Goles totales",
-          "rows": [
-            {
-              "market": "totals",
-              "selection": "over_1.5",
-              "label": "Más de 1.5",
-              "line": 1.5,
-              "p": 0.6709980255398614,
-              "fairOdds": 1.4903173510763092
-            },
-            {
-              "market": "totals",
-              "selection": "over_2.5",
-              "label": "Más de 2.5",
-              "line": 2.5,
-              "p": 0.3871508188764593,
-              "fairOdds": 2.582972710485477
-            },
-            {
-              "market": "totals",
-              "selection": "under_2.5",
-              "label": "Menos de 2.5",
-              "line": 2.5,
-              "p": 0.6128491811235407,
-              "fairOdds": 1.6317228296963586
-            },
-            {
-              "market": "totals",
-              "selection": "over_3.5",
-              "label": "Más de 3.5",
-              "line": 3.5,
-              "p": 0.18794212606449223,
-              "fairOdds": 5.320786887644607
-            },
-            {
-              "market": "totals",
-              "selection": "under_3.5",
-              "label": "Menos de 3.5",
-              "line": 3.5,
-              "p": 0.8120578739355078,
-              "fairOdds": 1.231439324827504
-            }
-          ]
-        },
-        {
-          "group": "Ambos anotan",
-          "rows": [
-            {
-              "market": "btts",
-              "selection": "yes",
-              "label": "Sí",
-              "p": 0.46930074591183507,
-              "fairOdds": 2.1308297689939417
-            },
-            {
-              "market": "btts",
-              "selection": "no",
-              "label": "No",
-              "p": 0.530699254088165,
-              "fairOdds": 1.8843063982032093
-            }
-          ]
-        },
-        {
-          "group": "Goles por equipo (1.5)",
-          "rows": [
-            {
-              "market": "team_totals",
-              "selection": "home_over",
-              "label": "Südtirol más de 1.5",
-              "line": 1.5,
-              "p": 0.2922739368179812,
-              "fairOdds": 3.4214477379923474
-            },
-            {
-              "market": "team_totals",
-              "selection": "home_under",
-              "label": "Südtirol menos de 1.5",
-              "line": 1.5,
-              "p": 0.7077260631820188,
-              "fairOdds": 1.4129760821636037
-            },
-            {
-              "market": "team_totals",
-              "selection": "away_over",
-              "label": "Cremonese más de 1.5",
-              "line": 1.5,
-              "p": 0.32308118343263725,
-              "fairOdds": 3.0951972794432363
-            },
-            {
-              "market": "team_totals",
-              "selection": "away_under",
-              "label": "Cremonese menos de 1.5",
-              "line": 1.5,
-              "p": 0.6769188165673627,
-              "fairOdds": 1.4772820248533987
-            }
-          ]
-        },
-        {
-          "group": "Marcador exacto (más probables)",
-          "rows": [
-            {
-              "market": "correct_score",
-              "selection": "1-1",
-              "label": "1–1",
-              "p": 0.15007111468291212,
-              "fairOdds": 6.663507511841419
-            },
-            {
-              "market": "correct_score",
-              "selection": "0-0",
-              "label": "0–0",
-              "p": 0.12346856805254951,
-              "fairOdds": 8.099227323786485
-            },
-            {
-              "market": "correct_score",
-              "selection": "0-1",
-              "label": "0–1",
-              "p": 0.10726854684011579,
-              "fairOdds": 9.322397193377702
-            }
-          ]
-        }
-      ],
-      "mostLikelyScore": {
-        "home": 1,
-        "away": 1,
-        "p": 0.15007111468291212
-      },
-      "factors": [
-        {
-          "key": "home_attack",
-          "label": "Ataque local",
-          "value": "1.05 goles/partido",
-          "detail": "6 % menos que la media · 11 partidos"
-        },
-        {
-          "key": "away_defense",
-          "label": "Defensa visitante",
-          "value": "1.12 concedidos/partido",
-          "detail": "9 % menos que la media · 11 partidos"
-        },
-        {
-          "key": "away_attack",
-          "label": "Ataque visitante",
-          "value": "1.16 goles/partido",
-          "detail": "en la media de la liga · ajustado por rival"
-        },
-        {
-          "key": "home_defense",
-          "label": "Defensa local",
-          "value": "1.16 concedidos/partido",
-          "detail": "6 % menos que la media · ajustado por rival"
-        },
-        {
-          "key": "home_advantage",
-          "label": "Localía",
-          "value": "×1.03",
-          "detail": "estimada de 110 partidos"
-        },
-        {
-          "key": "uncertainty",
-          "label": "Intervalo 90%",
-          "value": "goles 1.6–3.7",
-          "detail": "local 12%–58% · 110 partidos"
-        },
-        {
-          "key": "home_position",
-          "label": "Posición local",
-          "value": "11.º · 15 pts",
-          "detail": "de 20 equipos"
-        },
-        {
-          "key": "away_position",
-          "label": "Posición visitante",
-          "value": "10.º · 15 pts",
-          "detail": "de 20 equipos"
-        },
-        {
-          "key": "home_form",
-          "label": "Forma local",
-          "value": "P-E-P-E-E · 3 pts",
-          "detail": "4 goles a favor · 9 en contra"
-        },
-        {
-          "key": "away_form",
-          "label": "Forma visitante",
-          "value": "P-P-G-G-G · 9 pts",
-          "detail": "9 goles a favor · 5 en contra"
-        }
-      ],
-      "steps": [
-        "Sincronizando Serie B Italia · corte 19 nov 2026, 10:05",
-        "Fuerza ajustada por rival · SUD 0.94 / 0.94 · CRE 1.00 / 0.91",
-        "Ponderando 100.6 partidos por antigüedad y calidad del rival",
-        "Proyección de goles 1.08 – 1.16 · total 2.24",
-        "Simulando 121 marcadores con incertidumbre del ajuste",
-        "20 mercados listos · marcador proyectado 0–1"
-      ],
-      "inputsAsOf": "2026-11-19T16:05:39.021Z",
-      "publishedAt": "2026-11-19T16:05:39.021Z",
-      "source": "pitchlab-football-v2",
-      "picks": [
-        {
-          "profile": "conservadora",
-          "market": "totals",
-          "selection": "under_3.5",
-          "label": "Menos de 3.5",
-          "line": 3.5,
-          "p": 0.8120578739355078,
-          "fairOdds": 1.231439324827504
-        },
-        {
-          "profile": "intermedia",
-          "market": "double_chance",
-          "selection": "x2",
-          "label": "Cremonese o empate",
-          "p": 0.6817916706016174,
-          "fairOdds": 1.4667236974567224
-        },
-        {
-          "profile": "arriesgada",
-          "market": "btts",
-          "selection": "yes",
-          "label": "Ambos anotan: Sí",
-          "p": 0.46930074591183507,
-          "fairOdds": 2.1308297689939417
-        }
-      ],
-      "confidence": {
-        "score": 29,
-        "level": "baja",
-        "reasons": [
-          "Partido parejo",
-          "Muestra suficiente",
-          "Rango de incertidumbre amplio"
-        ]
-      },
-      "projectedScore": {
-        "home": 0,
-        "away": 1,
-        "p": 0.10726854684011579
-      },
-      "insights": {
-        "why": [
-          "Cremonese gana en 36% de los escenarios; el empate, en 32%.",
-          "Cremonese concede 9 % menos que la media."
-        ],
-        "restDays": {
-          "home": 14,
-          "away": 13
-        }
-      },
-      "picksAt": "2026-11-19T16:05:39.021Z",
-      "matchContext": {
-        "referee": "Mario Perri",
-        "refereeStats": {
-          "country": "Italy",
-          "matches": 39,
-          "avgYellow": 1,
-          "avgRed": 0.1,
-          "avgFouls": 28.8,
-          "avgGoals": 2.97
-        },
-        "weather": {
-          "description": "clear",
-          "temperatureC": 10,
-          "windSpeedKmh": 33
-        },
-        "travelDistanceKm": 183,
-        "halfTimeScore": {
-          "home": 1,
-          "away": 0
-        },
-        "stageName": "Regular season",
-        "venueCity": "Bozen",
-        "venueCountry": "Italy",
-        "venueCapacity": 5539
-      }
-    },
-    "serie-b-2026-11-21-sampdoria-benevento-gf1p82": {
-      "game": "serie-b-2026-11-21-sampdoria-benevento-gf1p82",
-      "model": {
-        "id": "pitchlab-statistical-serie-b",
-        "version": "2.0.0",
-        "status": "candidate",
-        "label": "Modelo PitchLab · en validación"
-      },
-      "projection": {
-        "home": 0.9493147743699758,
-        "away": 1.6017802174339966,
-        "total": 2.5510949918039723,
-        "margin": -0.6524654430640208
-      },
-      "x12": [
-        0.20879927193204337,
-        0.279720355876042,
-        0.5114803721919143
-      ],
-      "probabilities": [
-        {
-          "market": "h2h",
-          "selection": "Sampdoria gana",
-          "p": 0.20879927193204337,
-          "fairOdds": 4.789288730496454
-        },
-        {
-          "market": "h2h",
-          "selection": "Empate",
-          "p": 0.279720355876042,
-          "fairOdds": 3.574999026682026
-        },
-        {
-          "market": "h2h",
-          "selection": "Benevento gana",
-          "p": 0.5114803721919143,
-          "fairOdds": 1.9551092365765044
-        },
-        {
-          "market": "double_chance",
-          "selection": "Sampdoria o empate",
-          "p": 0.48851962780808533,
-          "fairOdds": 2.047000658882123
-        },
-        {
-          "market": "double_chance",
-          "selection": "Benevento o empate",
-          "p": 0.7912007280679563,
-          "fairOdds": 1.2639017692032632
-        },
-        {
-          "market": "double_chance",
-          "selection": "Sin empate",
-          "p": 0.7202796441239577,
-          "fairOdds": 1.3883496613544493
-        },
-        {
-          "market": "totals",
-          "selection": "Más de 1.5",
-          "line": 1.5,
-          "p": 0.7378528301790823,
-          "fairOdds": 1.3552838169059982
-        },
-        {
-          "market": "totals",
-          "selection": "Más de 2.5",
-          "line": 2.5,
-          "p": 0.4692244612360754,
-          "fairOdds": 2.131176190954976
-        },
-        {
-          "market": "totals",
-          "selection": "Menos de 2.5",
-          "line": 2.5,
-          "p": 0.5307755387639246,
-          "fairOdds": 1.8840355799530817
-        },
-        {
-          "market": "totals",
-          "selection": "Más de 3.5",
-          "line": 3.5,
-          "p": 0.253399031253543,
-          "fairOdds": 3.946345000030532
-        },
-        {
-          "market": "totals",
-          "selection": "Menos de 3.5",
-          "line": 3.5,
-          "p": 0.746600968746457,
-          "fairOdds": 1.339403566109752
-        },
-        {
-          "market": "btts",
-          "selection": "Sí",
-          "p": 0.5042776307238807,
-          "fairOdds": 1.983034620362834
-        },
-        {
-          "market": "btts",
-          "selection": "No",
-          "p": 0.49572236927611935,
-          "fairOdds": 2.01725817106106
-        },
-        {
-          "market": "team_totals",
-          "selection": "Sampdoria más de 1.5",
-          "line": 1.5,
-          "p": 0.24560324972736258,
-          "fairOdds": 4.071607363135759
-        },
-        {
-          "market": "team_totals",
-          "selection": "Sampdoria menos de 1.5",
-          "line": 1.5,
-          "p": 0.7543967502726374,
-          "fairOdds": 1.3255624439508813
-        },
-        {
-          "market": "team_totals",
-          "selection": "Benevento más de 1.5",
-          "line": 1.5,
-          "p": 0.47564338955121643,
-          "fairOdds": 2.1024154271197366
-        },
-        {
-          "market": "team_totals",
-          "selection": "Benevento menos de 1.5",
-          "line": 1.5,
-          "p": 0.5243566104487836,
-          "fairOdds": 1.9070990621137116
-        },
-        {
-          "market": "correct_score",
-          "selection": "1–1",
-          "p": 0.13342575308561996,
-          "fairOdds": 7.494804989845514
-        },
-        {
-          "market": "correct_score",
-          "selection": "0–1",
-          "p": 0.11010783911347187,
-          "fairOdds": 9.08200549617042
-        },
-        {
-          "market": "correct_score",
-          "selection": "0–2",
-          "p": 0.10005754211533663,
-          "fairOdds": 9.994249097657196
-        }
-      ],
-      "marketGroups": [
-        {
-          "group": "Resultado",
-          "rows": [
-            {
-              "market": "h2h",
-              "selection": "home",
-              "label": "Sampdoria gana",
-              "p": 0.20879927193204337,
-              "fairOdds": 4.789288730496454
-            },
-            {
-              "market": "h2h",
-              "selection": "draw",
-              "label": "Empate",
-              "p": 0.279720355876042,
-              "fairOdds": 3.574999026682026
-            },
-            {
-              "market": "h2h",
-              "selection": "away",
-              "label": "Benevento gana",
-              "p": 0.5114803721919143,
-              "fairOdds": 1.9551092365765044
-            }
-          ]
-        },
-        {
-          "group": "Doble oportunidad",
-          "rows": [
-            {
-              "market": "double_chance",
-              "selection": "1x",
-              "label": "Sampdoria o empate",
-              "p": 0.48851962780808533,
-              "fairOdds": 2.047000658882123
-            },
-            {
-              "market": "double_chance",
-              "selection": "x2",
-              "label": "Benevento o empate",
-              "p": 0.7912007280679563,
-              "fairOdds": 1.2639017692032632
-            },
-            {
-              "market": "double_chance",
-              "selection": "12",
-              "label": "Sin empate",
-              "p": 0.7202796441239577,
-              "fairOdds": 1.3883496613544493
-            }
-          ]
-        },
-        {
-          "group": "Goles totales",
-          "rows": [
-            {
-              "market": "totals",
-              "selection": "over_1.5",
-              "label": "Más de 1.5",
-              "line": 1.5,
-              "p": 0.7378528301790823,
-              "fairOdds": 1.3552838169059982
-            },
-            {
-              "market": "totals",
-              "selection": "over_2.5",
-              "label": "Más de 2.5",
-              "line": 2.5,
-              "p": 0.4692244612360754,
-              "fairOdds": 2.131176190954976
-            },
-            {
-              "market": "totals",
-              "selection": "under_2.5",
-              "label": "Menos de 2.5",
-              "line": 2.5,
-              "p": 0.5307755387639246,
-              "fairOdds": 1.8840355799530817
-            },
-            {
-              "market": "totals",
-              "selection": "over_3.5",
-              "label": "Más de 3.5",
-              "line": 3.5,
-              "p": 0.253399031253543,
-              "fairOdds": 3.946345000030532
-            },
-            {
-              "market": "totals",
-              "selection": "under_3.5",
-              "label": "Menos de 3.5",
-              "line": 3.5,
-              "p": 0.746600968746457,
-              "fairOdds": 1.339403566109752
-            }
-          ]
-        },
-        {
-          "group": "Ambos anotan",
-          "rows": [
-            {
-              "market": "btts",
-              "selection": "yes",
-              "label": "Sí",
-              "p": 0.5042776307238807,
-              "fairOdds": 1.983034620362834
-            },
-            {
-              "market": "btts",
-              "selection": "no",
-              "label": "No",
-              "p": 0.49572236927611935,
-              "fairOdds": 2.01725817106106
-            }
-          ]
-        },
-        {
-          "group": "Goles por equipo (1.5)",
-          "rows": [
-            {
-              "market": "team_totals",
-              "selection": "home_over",
-              "label": "Sampdoria más de 1.5",
-              "line": 1.5,
-              "p": 0.24560324972736258,
-              "fairOdds": 4.071607363135759
-            },
-            {
-              "market": "team_totals",
-              "selection": "home_under",
-              "label": "Sampdoria menos de 1.5",
-              "line": 1.5,
-              "p": 0.7543967502726374,
-              "fairOdds": 1.3255624439508813
-            },
-            {
-              "market": "team_totals",
-              "selection": "away_over",
-              "label": "Benevento más de 1.5",
-              "line": 1.5,
-              "p": 0.47564338955121643,
-              "fairOdds": 2.1024154271197366
-            },
-            {
-              "market": "team_totals",
-              "selection": "away_under",
-              "label": "Benevento menos de 1.5",
-              "line": 1.5,
-              "p": 0.5243566104487836,
-              "fairOdds": 1.9070990621137116
-            }
-          ]
-        },
-        {
-          "group": "Marcador exacto (más probables)",
-          "rows": [
-            {
-              "market": "correct_score",
-              "selection": "1-1",
-              "label": "1–1",
-              "p": 0.13342575308561996,
-              "fairOdds": 7.494804989845514
-            },
-            {
-              "market": "correct_score",
-              "selection": "0-1",
-              "label": "0–1",
-              "p": 0.11010783911347187,
-              "fairOdds": 9.08200549617042
-            },
-            {
-              "market": "correct_score",
-              "selection": "0-2",
-              "label": "0–2",
-              "p": 0.10005754211533663,
-              "fairOdds": 9.994249097657196
-            }
-          ]
-        }
-      ],
-      "mostLikelyScore": {
-        "home": 1,
-        "away": 1,
-        "p": 0.13342575308561996
-      },
-      "factors": [
-        {
-          "key": "home_attack",
-          "label": "Ataque local",
-          "value": "0.93 goles/partido",
-          "detail": "13 % menos que la media · 11 partidos"
-        },
-        {
-          "key": "away_defense",
-          "label": "Defensa visitante",
-          "value": "1.06 concedidos/partido",
-          "detail": "14 % menos que la media · 11 partidos"
-        },
-        {
-          "key": "away_attack",
-          "label": "Ataque visitante",
-          "value": "1.60 goles/partido",
-          "detail": "4 % más que la media · ajustado por rival"
-        },
-        {
-          "key": "home_defense",
-          "label": "Defensa local",
-          "value": "1.54 concedidos/partido",
-          "detail": "25 % más que la media · ajustado por rival"
-        },
-        {
-          "key": "home_advantage",
-          "label": "Localía",
-          "value": "×1.03",
-          "detail": "estimada de 110 partidos"
-        },
-        {
-          "key": "uncertainty",
-          "label": "Intervalo 90%",
-          "value": "goles 1.7–4.2",
-          "detail": "local 8%–46% · 110 partidos"
-        },
-        {
-          "key": "home_position",
-          "label": "Posición local",
-          "value": "14.º · 11 pts",
-          "detail": "de 20 equipos"
-        },
-        {
-          "key": "away_position",
-          "label": "Posición visitante",
-          "value": "7.º · 16 pts",
-          "detail": "de 20 equipos"
-        },
-        {
-          "key": "home_form",
-          "label": "Forma local",
-          "value": "P-E-P-G-G · 7 pts",
-          "detail": "5 goles a favor · 5 en contra"
-        },
-        {
-          "key": "away_form",
-          "label": "Forma visitante",
-          "value": "E-G-E-P-E · 6 pts",
-          "detail": "7 goles a favor · 6 en contra"
-        }
-      ],
-      "steps": [
-        "Sincronizando Serie B Italia · corte 19 nov 2026, 10:05",
-        "Fuerza ajustada por rival · SAM 0.87 / 1.25 · BEN 1.04 / 0.86",
-        "Ponderando 100.6 partidos por antigüedad y calidad del rival",
-        "Proyección de goles 0.95 – 1.60 · total 2.55",
-        "Simulando 121 marcadores con incertidumbre del ajuste",
-        "20 mercados listos · marcador proyectado 0–1"
-      ],
-      "inputsAsOf": "2026-11-19T16:05:39.021Z",
-      "publishedAt": "2026-11-19T16:05:39.021Z",
-      "source": "pitchlab-football-v2",
-      "picks": [
-        {
-          "profile": "conservadora",
-          "market": "double_chance",
-          "selection": "x2",
-          "label": "Benevento o empate",
-          "p": 0.7912007280679563,
-          "fairOdds": 1.2639017692032632
-        },
-        {
-          "profile": "intermedia",
-          "market": "totals",
-          "selection": "under_2.5",
-          "label": "Menos de 2.5",
-          "line": 2.5,
-          "p": 0.5307755387639246,
-          "fairOdds": 1.8840355799530817
-        },
-        {
-          "profile": "arriesgada",
-          "market": "h2h",
-          "selection": "away",
-          "label": "Benevento gana",
-          "p": 0.5114803721919143,
-          "fairOdds": 1.9551092365765044
-        }
-      ],
-      "confidence": {
-        "score": 54,
-        "level": "media",
-        "reasons": [
-          "Muestra suficiente"
-        ]
-      },
-      "projectedScore": {
-        "home": 0,
-        "away": 1,
-        "p": 0.11010783911347187
-      },
-      "insights": {
-        "why": [
-          "Se esperan 2.6 goles: 0.9 de Sampdoria y 1.6 de Benevento.",
-          "Sampdoria concede 25 % más que la media.",
-          "Benevento concede 14 % menos que la media."
-        ],
-        "restDays": {
-          "home": 13,
-          "away": 14
-        }
-      },
-      "picksAt": "2026-11-19T16:05:39.021Z",
-      "matchContext": {
-        "referee": "Paride Tremolada",
-        "refereeStats": {
-          "country": "Italy",
-          "matches": 39,
-          "avgYellow": 1.74,
-          "avgRed": 0.13,
-          "avgFouls": 26.5,
-          "avgGoals": 2.59
-        },
-        "weather": {
-          "description": "clear",
-          "temperatureC": 12,
-          "windSpeedKmh": 49
-        },
-        "travelDistanceKm": 602,
-        "halfTimeScore": {
-          "home": 3,
-          "away": 1
-        },
-        "stageName": "Regular season",
-        "venueCity": "Genoa",
-        "venueCountry": "Italy",
-        "venueCapacity": 33205
-      }
-    },
-    "serie-b-2026-11-21-modena-juve-stabia-az65l9": {
-      "game": "serie-b-2026-11-21-modena-juve-stabia-az65l9",
-      "model": {
-        "id": "pitchlab-statistical-serie-b",
-        "version": "2.0.0",
-        "status": "candidate",
-        "label": "Modelo PitchLab · en validación"
-      },
-      "projection": {
-        "home": 1.398405183267118,
-        "away": 0.863626928277,
-        "total": 2.262032111544118,
-        "margin": 0.534778254990118
-      },
-      "x12": [
-        0.4788837405023028,
-        0.3048210272503228,
-        0.21629523224737396
-      ],
-      "probabilities": [
-        {
-          "market": "h2h",
-          "selection": "Modena gana",
-          "p": 0.4788837405023028,
-          "fairOdds": 2.0881895028448794
-        },
-        {
-          "market": "h2h",
-          "selection": "Empate",
-          "p": 0.3048210272503228,
-          "fairOdds": 3.2806135751874743
-        },
-        {
-          "market": "h2h",
-          "selection": "Juve Stabia gana",
-          "p": 0.21629523224737396,
-          "fairOdds": 4.6233104151658475
-        },
-        {
-          "market": "double_chance",
-          "selection": "Modena o empate",
-          "p": 0.7837047677526257,
-          "fairOdds": 1.2759907061272944
-        },
-        {
-          "market": "double_chance",
-          "selection": "Juve Stabia o empate",
-          "p": 0.5211162594976968,
-          "fairOdds": 1.918957587245308
-        },
-        {
-          "market": "double_chance",
-          "selection": "Sin empate",
-          "p": 0.6951789727496768,
-          "fairOdds": 1.4384784914374626
-        },
-        {
-          "market": "totals",
-          "selection": "Más de 1.5",
-          "line": 1.5,
-          "p": 0.6760173295630963,
-          "fairOdds": 1.479252019539633
-        },
-        {
-          "market": "totals",
-          "selection": "Más de 2.5",
-          "line": 2.5,
-          "p": 0.3938684553129137,
-          "fairOdds": 2.5389187341888997
-        },
-        {
-          "market": "totals",
-          "selection": "Menos de 2.5",
-          "line": 2.5,
-          "p": 0.6061315446870863,
-          "fairOdds": 1.6498068921924318
-        },
-        {
-          "market": "totals",
-          "selection": "Más de 3.5",
-          "line": 3.5,
-          "p": 0.19297901646459814,
-          "fairOdds": 5.181910543022429
-        },
-        {
-          "market": "totals",
-          "selection": "Menos de 3.5",
-          "line": 3.5,
-          "p": 0.8070209835354019,
-          "fairOdds": 1.2391251533748164
-        },
-        {
-          "market": "btts",
-          "selection": "Sí",
-          "p": 0.45123900915864706,
-          "fairOdds": 2.2161204587886574
-        },
-        {
-          "market": "btts",
-          "selection": "No",
-          "p": 0.5487609908413529,
-          "fairOdds": 1.8222869640693913
-        },
-        {
-          "market": "team_totals",
-          "selection": "Modena más de 1.5",
-          "line": 1.5,
-          "p": 0.40761640774179053,
-          "fairOdds": 2.453286916343814
-        },
-        {
-          "market": "team_totals",
-          "selection": "Modena menos de 1.5",
-          "line": 1.5,
-          "p": 0.5923835922582095,
-          "fairOdds": 1.688095371088735
-        },
-        {
-          "market": "team_totals",
-          "selection": "Juve Stabia más de 1.5",
-          "line": 1.5,
-          "p": 0.21423882046380238,
-          "fairOdds": 4.667688133434991
-        },
-        {
-          "market": "team_totals",
-          "selection": "Juve Stabia menos de 1.5",
-          "line": 1.5,
-          "p": 0.7857611795361976,
-          "fairOdds": 1.2726513170200884
-        },
-        {
-          "market": "correct_score",
-          "selection": "1–1",
-          "p": 0.14148935975379723,
-          "fairOdds": 7.067669270255232
-        },
-        {
-          "market": "correct_score",
-          "selection": "1–0",
-          "p": 0.12990702657232828,
-          "fairOdds": 7.697813015858927
-        },
-        {
-          "market": "correct_score",
-          "selection": "0–0",
-          "p": 0.11985971758018779,
-          "fairOdds": 8.343086569772588
-        }
-      ],
-      "marketGroups": [
-        {
-          "group": "Resultado",
-          "rows": [
-            {
-              "market": "h2h",
-              "selection": "home",
-              "label": "Modena gana",
-              "p": 0.4788837405023028,
-              "fairOdds": 2.0881895028448794
-            },
-            {
-              "market": "h2h",
-              "selection": "draw",
-              "label": "Empate",
-              "p": 0.3048210272503228,
-              "fairOdds": 3.2806135751874743
-            },
-            {
-              "market": "h2h",
-              "selection": "away",
-              "label": "Juve Stabia gana",
-              "p": 0.21629523224737396,
-              "fairOdds": 4.6233104151658475
-            }
-          ]
-        },
-        {
-          "group": "Doble oportunidad",
-          "rows": [
-            {
-              "market": "double_chance",
-              "selection": "1x",
-              "label": "Modena o empate",
-              "p": 0.7837047677526257,
-              "fairOdds": 1.2759907061272944
-            },
-            {
-              "market": "double_chance",
-              "selection": "x2",
-              "label": "Juve Stabia o empate",
-              "p": 0.5211162594976968,
-              "fairOdds": 1.918957587245308
-            },
-            {
-              "market": "double_chance",
-              "selection": "12",
-              "label": "Sin empate",
-              "p": 0.6951789727496768,
-              "fairOdds": 1.4384784914374626
-            }
-          ]
-        },
-        {
-          "group": "Goles totales",
-          "rows": [
-            {
-              "market": "totals",
-              "selection": "over_1.5",
-              "label": "Más de 1.5",
-              "line": 1.5,
-              "p": 0.6760173295630963,
-              "fairOdds": 1.479252019539633
-            },
-            {
-              "market": "totals",
-              "selection": "over_2.5",
-              "label": "Más de 2.5",
-              "line": 2.5,
-              "p": 0.3938684553129137,
-              "fairOdds": 2.5389187341888997
-            },
-            {
-              "market": "totals",
-              "selection": "under_2.5",
-              "label": "Menos de 2.5",
-              "line": 2.5,
-              "p": 0.6061315446870863,
-              "fairOdds": 1.6498068921924318
-            },
-            {
-              "market": "totals",
-              "selection": "over_3.5",
-              "label": "Más de 3.5",
-              "line": 3.5,
-              "p": 0.19297901646459814,
-              "fairOdds": 5.181910543022429
-            },
-            {
-              "market": "totals",
-              "selection": "under_3.5",
-              "label": "Menos de 3.5",
-              "line": 3.5,
-              "p": 0.8070209835354019,
-              "fairOdds": 1.2391251533748164
-            }
-          ]
-        },
-        {
-          "group": "Ambos anotan",
-          "rows": [
-            {
-              "market": "btts",
-              "selection": "yes",
-              "label": "Sí",
-              "p": 0.45123900915864706,
-              "fairOdds": 2.2161204587886574
-            },
-            {
-              "market": "btts",
-              "selection": "no",
-              "label": "No",
-              "p": 0.5487609908413529,
-              "fairOdds": 1.8222869640693913
-            }
-          ]
-        },
-        {
-          "group": "Goles por equipo (1.5)",
-          "rows": [
-            {
-              "market": "team_totals",
-              "selection": "home_over",
-              "label": "Modena más de 1.5",
-              "line": 1.5,
-              "p": 0.40761640774179053,
-              "fairOdds": 2.453286916343814
-            },
-            {
-              "market": "team_totals",
-              "selection": "home_under",
-              "label": "Modena menos de 1.5",
-              "line": 1.5,
-              "p": 0.5923835922582095,
-              "fairOdds": 1.688095371088735
-            },
-            {
-              "market": "team_totals",
-              "selection": "away_over",
-              "label": "Juve Stabia más de 1.5",
-              "line": 1.5,
-              "p": 0.21423882046380238,
-              "fairOdds": 4.667688133434991
-            },
-            {
-              "market": "team_totals",
-              "selection": "away_under",
-              "label": "Juve Stabia menos de 1.5",
-              "line": 1.5,
-              "p": 0.7857611795361976,
-              "fairOdds": 1.2726513170200884
-            }
-          ]
-        },
-        {
-          "group": "Marcador exacto (más probables)",
-          "rows": [
-            {
-              "market": "correct_score",
-              "selection": "1-1",
-              "label": "1–1",
-              "p": 0.14148935975379723,
-              "fairOdds": 7.067669270255232
-            },
-            {
-              "market": "correct_score",
-              "selection": "1-0",
-              "label": "1–0",
-              "p": 0.12990702657232828,
-              "fairOdds": 7.697813015858927
-            },
-            {
-              "market": "correct_score",
-              "selection": "0-0",
-              "label": "0–0",
-              "p": 0.11985971758018779,
-              "fairOdds": 8.343086569772588
-            }
-          ]
-        }
-      ],
-      "mostLikelyScore": {
-        "home": 1,
-        "away": 1,
-        "p": 0.14148935975379723
-      },
-      "factors": [
-        {
-          "key": "home_attack",
-          "label": "Ataque local",
-          "value": "1.36 goles/partido",
-          "detail": "33 % más que la media · 11 partidos"
-        },
-        {
-          "key": "away_defense",
-          "label": "Defensa visitante",
-          "value": "1.02 concedidos/partido",
-          "detail": "17 % menos que la media · 11 partidos"
-        },
-        {
-          "key": "away_attack",
-          "label": "Ataque visitante",
-          "value": "0.86 goles/partido",
-          "detail": "15 % menos que la media · ajustado por rival"
-        },
-        {
-          "key": "home_defense",
-          "label": "Defensa local",
-          "value": "1.01 concedidos/partido",
-          "detail": "18 % menos que la media · ajustado por rival"
-        },
-        {
-          "key": "home_advantage",
-          "label": "Localía",
-          "value": "×1.03",
-          "detail": "estimada de 110 partidos"
-        },
-        {
-          "key": "uncertainty",
-          "label": "Intervalo 90%",
-          "value": "goles 1.7–3.5",
-          "detail": "local 26%–71% · 110 partidos"
-        },
-        {
-          "key": "home_position",
-          "label": "Posición local",
-          "value": "2.º · 23 pts",
-          "detail": "de 20 equipos"
-        },
-        {
-          "key": "away_position",
-          "label": "Posición visitante",
-          "value": "9.º · 16 pts",
-          "detail": "de 20 equipos"
-        },
-        {
-          "key": "home_form",
-          "label": "Forma local",
-          "value": "P-G-G-E-G · 10 pts",
-          "detail": "9 goles a favor · 4 en contra"
-        },
-        {
-          "key": "away_form",
-          "label": "Forma visitante",
-          "value": "G-G-P-E-G · 10 pts",
-          "detail": "7 goles a favor · 3 en contra"
-        }
-      ],
-      "steps": [
-        "Sincronizando Serie B Italia · corte 19 nov 2026, 10:05",
-        "Fuerza ajustada por rival · MOD 1.33 / 0.82 · JUV 0.85 / 0.83",
-        "Ponderando 100.6 partidos por antigüedad y calidad del rival",
-        "Proyección de goles 1.40 – 0.86 · total 2.26",
-        "Simulando 121 marcadores con incertidumbre del ajuste",
-        "20 mercados listos · marcador proyectado 1–0"
-      ],
-      "inputsAsOf": "2026-11-19T16:05:39.021Z",
-      "publishedAt": "2026-11-19T16:05:39.021Z",
-      "source": "pitchlab-football-v2",
-      "picks": [
-        {
-          "profile": "conservadora",
-          "market": "totals",
-          "selection": "under_3.5",
-          "label": "Menos de 3.5",
-          "line": 3.5,
-          "p": 0.8070209835354019,
-          "fairOdds": 1.2391251533748164
-        },
-        {
-          "profile": "intermedia",
-          "market": "double_chance",
-          "selection": "12",
-          "label": "Sin empate",
-          "p": 0.6951789727496768,
-          "fairOdds": 1.4384784914374626
-        },
-        {
-          "profile": "arriesgada",
-          "market": "h2h",
-          "selection": "home",
-          "label": "Modena gana",
-          "p": 0.4788837405023028,
-          "fairOdds": 2.0881895028448794
-        }
-      ],
-      "confidence": {
-        "score": 46,
-        "level": "media",
-        "reasons": [
-          "Muestra suficiente",
-          "Rango de incertidumbre amplio"
-        ]
-      },
-      "projectedScore": {
-        "home": 1,
-        "away": 0,
-        "p": 0.12990702657232828
-      },
-      "insights": {
-        "why": [
-          "Modena gana en 48% de los escenarios; el empate, en 30%.",
-          "Modena anota 33 % más que la media.",
-          "Modena concede 18 % menos que la media."
-        ],
-        "restDays": {
-          "home": 13,
-          "away": 14
-        }
-      },
-      "picksAt": "2026-11-19T16:05:39.021Z",
-      "matchContext": {
-        "referee": "Rosario Abisso",
-        "refereeStats": {
-          "country": "Italy",
-          "matches": 37,
-          "avgYellow": 2.84,
-          "avgRed": 0.19,
-          "avgFouls": 27,
-          "avgGoals": 2.43
-        },
-        "weather": {
-          "description": "clear",
-          "temperatureC": 13,
-          "windSpeedKmh": 34
-        },
-        "travelDistanceKm": 528,
-        "halfTimeScore": {
-          "home": 0,
-          "away": 0
-        },
-        "stageName": "Regular season",
-        "venueCity": "Modena",
-        "venueCountry": "Italy",
-        "venueCapacity": 21092
-      }
-    },
     "serie-b-2026-11-21-carrarese-virtus-entella-1d9cky": {
       "game": "serie-b-2026-11-21-carrarese-virtus-entella-1d9cky",
       "model": {
@@ -3619,11 +2156,11 @@
         "referee": "Dario Madonia",
         "refereeStats": {
           "country": "Italy",
-          "matches": 32,
-          "avgYellow": 0.41,
+          "matches": 33,
+          "avgYellow": 0.39,
           "avgRed": 0.03,
           "avgFouls": 28.4,
-          "avgGoals": 2.5
+          "avgGoals": 2.45
         },
         "weather": {
           "description": "clear",
@@ -5082,11 +3619,11 @@
         "referee": "Federico La Penna",
         "refereeStats": {
           "country": "Italy",
-          "matches": 45,
-          "avgYellow": 3.16,
-          "avgRed": 0.16,
+          "matches": 46,
+          "avgYellow": 3.3,
+          "avgRed": 0.17,
           "avgFouls": 29.1,
-          "avgGoals": 2.56
+          "avgGoals": 2.54
         },
         "weather": {
           "description": "cloudy",
@@ -6545,11 +5082,11 @@
         "referee": "Andrea Zanotti",
         "refereeStats": {
           "country": "Italy",
-          "matches": 36,
-          "avgYellow": 1,
-          "avgRed": 0.06,
+          "matches": 37,
+          "avgYellow": 0.97,
+          "avgRed": 0.05,
           "avgFouls": 27.3,
-          "avgGoals": 2.47
+          "avgGoals": 2.41
         },
         "weather": {
           "description": "cloudy",
@@ -7031,11 +5568,11 @@
         "referee": "Juan Luca Sacchi",
         "refereeStats": {
           "country": "Italy",
-          "matches": 40,
-          "avgYellow": 2.33,
+          "matches": 41,
+          "avgYellow": 2.29,
           "avgRed": 0.07,
           "avgFouls": 26.5,
-          "avgGoals": 2.55
+          "avgGoals": 2.61
         },
         "weather": {
           "description": "rain",
@@ -7518,11 +6055,11 @@
         "referee": "Maco Di Loreto",
         "refereeStats": {
           "country": "Italy",
-          "matches": 33,
-          "avgYellow": 1.06,
+          "matches": 34,
+          "avgYellow": 1.03,
           "avgRed": 0.03,
           "avgFouls": 30.5,
-          "avgGoals": 2
+          "avgGoals": 2.12
         },
         "weather": {
           "description": "clear",
@@ -9467,11 +8004,11 @@
         "referee": "Giuseppe Collu",
         "refereeStats": {
           "country": "Italy",
-          "matches": 39,
-          "avgYellow": 2.87,
-          "avgRed": 0.13,
+          "matches": 40,
+          "avgYellow": 2.83,
+          "avgRed": 0.15,
           "avgFouls": 25,
-          "avgGoals": 2.05
+          "avgGoals": 2.12
         },
         "weather": {
           "description": "cloudy",
@@ -9954,13 +8491,14 @@
         "referee": "Gianluca Manganiello",
         "refereeStats": {
           "country": "Italy",
-          "matches": 43,
-          "avgYellow": 2.49,
-          "avgRed": 0.12,
-          "avgFouls": 23.6,
-          "avgGoals": 2.49
+          "matches": 44,
+          "avgYellow": 2.55,
+          "avgRed": 0.11,
+          "avgFouls": 23.7,
+          "avgGoals": 2.48
         },
         "weather": {
+          "description": "cloudy",
           "temperatureC": 14,
           "windSpeedKmh": 33
         },
@@ -10441,13 +8979,14 @@
         "referee": "Claudio Giuseppe Allegretta",
         "refereeStats": {
           "country": "Italy",
-          "matches": 36,
-          "avgYellow": 0.72,
-          "avgRed": 0.06,
-          "avgFouls": 25.1,
+          "matches": 38,
+          "avgYellow": 0.76,
+          "avgRed": 0.05,
+          "avgFouls": 25.4,
           "avgGoals": 2.61
         },
         "weather": {
+          "description": "clear",
           "temperatureC": 9,
           "windSpeedKmh": 77
         },
@@ -10928,13 +9467,14 @@
         "referee": "Davide Di Marco",
         "refereeStats": {
           "country": "Italy",
-          "matches": 31,
-          "avgYellow": 1.45,
+          "matches": 32,
+          "avgYellow": 1.59,
           "avgRed": 0.03,
-          "avgFouls": 26,
+          "avgFouls": 26.5,
           "avgGoals": 2.84
         },
         "weather": {
+          "description": "cloudy",
           "temperatureC": 9,
           "windSpeedKmh": 92
         },
@@ -24679,6 +23219,1409 @@
         "venueCountry": "Italy",
         "venueCapacity": 14650
       }
+    },
+    "serie-b-2026-12-09-arezzo-cesena-fnngxf": {
+      "game": "serie-b-2026-12-09-arezzo-cesena-fnngxf",
+      "model": {
+        "id": "pitchlab-statistical-serie-b",
+        "version": "2.0.0",
+        "status": "candidate",
+        "label": "Modelo PitchLab · en validación"
+      },
+      "projection": {
+        "home": 1.0066142277673749,
+        "away": 1.6190314406601627,
+        "total": 2.6256456684275378,
+        "margin": -0.6124172128927878
+      },
+      "x12": [
+        0.23061265360663025,
+        0.2575352726382916,
+        0.5118520737550781
+      ],
+      "probabilities": [
+        {
+          "market": "h2h",
+          "selection": "Arezzo gana",
+          "p": 0.23061265360663025,
+          "fairOdds": 4.336275500761374
+        },
+        {
+          "market": "h2h",
+          "selection": "Empate",
+          "p": 0.2575352726382916,
+          "fairOdds": 3.8829632529773908
+        },
+        {
+          "market": "h2h",
+          "selection": "Cesena gana",
+          "p": 0.5118520737550781,
+          "fairOdds": 1.9536894569240355
+        },
+        {
+          "market": "double_chance",
+          "selection": "Arezzo o empate",
+          "p": 0.48814792624492187,
+          "fairOdds": 2.04855935308893
+        },
+        {
+          "market": "double_chance",
+          "selection": "Cesena o empate",
+          "p": 0.7693873463933698,
+          "fairOdds": 1.2997354384467916
+        },
+        {
+          "market": "double_chance",
+          "selection": "Sin empate",
+          "p": 0.7424647273617084,
+          "fairOdds": 1.3468653299577253
+        },
+        {
+          "market": "totals",
+          "selection": "Más de 1.5 goles",
+          "line": 1.5,
+          "p": 0.7422476053508507,
+          "fairOdds": 1.3472593145346872
+        },
+        {
+          "market": "totals",
+          "selection": "Más de 2.5 goles",
+          "line": 2.5,
+          "p": 0.4879888193938733,
+          "fairOdds": 2.049227277875119
+        },
+        {
+          "market": "totals",
+          "selection": "Menos de 2.5 goles",
+          "line": 2.5,
+          "p": 0.5120111806061267,
+          "fairOdds": 1.953082350303727
+        },
+        {
+          "market": "totals",
+          "selection": "Más de 3.5 goles",
+          "line": 3.5,
+          "p": 0.2695880419580555,
+          "fairOdds": 3.7093633409585256
+        },
+        {
+          "market": "totals",
+          "selection": "Menos de 3.5 goles",
+          "line": 3.5,
+          "p": 0.7304119580419445,
+          "fairOdds": 1.3690904002732307
+        },
+        {
+          "market": "btts",
+          "selection": "Sí",
+          "p": 0.5135674285153043,
+          "fairOdds": 1.9471639836874894
+        },
+        {
+          "market": "btts",
+          "selection": "No",
+          "p": 0.48643257148469565,
+          "fairOdds": 2.0557833883281855
+        },
+        {
+          "market": "team_totals",
+          "selection": "Arezzo más de 1.5 goles",
+          "line": 1.5,
+          "p": 0.2666743305140601,
+          "fairOdds": 3.749892230243271
+        },
+        {
+          "market": "team_totals",
+          "selection": "Arezzo menos de 1.5 goles",
+          "line": 1.5,
+          "p": 0.7333256694859399,
+          "fairOdds": 1.3636506147411944
+        },
+        {
+          "market": "team_totals",
+          "selection": "Cesena más de 1.5 goles",
+          "line": 1.5,
+          "p": 0.48119423947982465,
+          "fairOdds": 2.0781628663738974
+        },
+        {
+          "market": "team_totals",
+          "selection": "Cesena menos de 1.5 goles",
+          "line": 1.5,
+          "p": 0.5188057605201754,
+          "fairOdds": 1.9275036556983487
+        },
+        {
+          "market": "correct_score",
+          "selection": "1–1",
+          "p": 0.12270118701747036,
+          "fairOdds": 8.149880407087004
+        },
+        {
+          "market": "correct_score",
+          "selection": "0–1",
+          "p": 0.11248740249971526,
+          "fairOdds": 8.889884358406546
+        },
+        {
+          "market": "correct_score",
+          "selection": "1–2",
+          "p": 0.0955082113401957,
+          "fairOdds": 10.470303924319634
+        }
+      ],
+      "marketGroups": [
+        {
+          "group": "Resultado",
+          "rows": [
+            {
+              "market": "h2h",
+              "selection": "home",
+              "label": "Arezzo gana",
+              "p": 0.23061265360663025,
+              "fairOdds": 4.336275500761374
+            },
+            {
+              "market": "h2h",
+              "selection": "draw",
+              "label": "Empate",
+              "p": 0.2575352726382916,
+              "fairOdds": 3.8829632529773908
+            },
+            {
+              "market": "h2h",
+              "selection": "away",
+              "label": "Cesena gana",
+              "p": 0.5118520737550781,
+              "fairOdds": 1.9536894569240355
+            }
+          ]
+        },
+        {
+          "group": "Doble oportunidad",
+          "rows": [
+            {
+              "market": "double_chance",
+              "selection": "1x",
+              "label": "Arezzo o empate",
+              "p": 0.48814792624492187,
+              "fairOdds": 2.04855935308893
+            },
+            {
+              "market": "double_chance",
+              "selection": "x2",
+              "label": "Cesena o empate",
+              "p": 0.7693873463933698,
+              "fairOdds": 1.2997354384467916
+            },
+            {
+              "market": "double_chance",
+              "selection": "12",
+              "label": "Sin empate",
+              "p": 0.7424647273617084,
+              "fairOdds": 1.3468653299577253
+            }
+          ]
+        },
+        {
+          "group": "Goles totales",
+          "rows": [
+            {
+              "market": "totals",
+              "selection": "over_1.5",
+              "label": "Más de 1.5 goles",
+              "line": 1.5,
+              "p": 0.7422476053508507,
+              "fairOdds": 1.3472593145346872
+            },
+            {
+              "market": "totals",
+              "selection": "over_2.5",
+              "label": "Más de 2.5 goles",
+              "line": 2.5,
+              "p": 0.4879888193938733,
+              "fairOdds": 2.049227277875119
+            },
+            {
+              "market": "totals",
+              "selection": "under_2.5",
+              "label": "Menos de 2.5 goles",
+              "line": 2.5,
+              "p": 0.5120111806061267,
+              "fairOdds": 1.953082350303727
+            },
+            {
+              "market": "totals",
+              "selection": "over_3.5",
+              "label": "Más de 3.5 goles",
+              "line": 3.5,
+              "p": 0.2695880419580555,
+              "fairOdds": 3.7093633409585256
+            },
+            {
+              "market": "totals",
+              "selection": "under_3.5",
+              "label": "Menos de 3.5 goles",
+              "line": 3.5,
+              "p": 0.7304119580419445,
+              "fairOdds": 1.3690904002732307
+            }
+          ]
+        },
+        {
+          "group": "Ambos anotan",
+          "rows": [
+            {
+              "market": "btts",
+              "selection": "yes",
+              "label": "Sí",
+              "p": 0.5135674285153043,
+              "fairOdds": 1.9471639836874894
+            },
+            {
+              "market": "btts",
+              "selection": "no",
+              "label": "No",
+              "p": 0.48643257148469565,
+              "fairOdds": 2.0557833883281855
+            }
+          ]
+        },
+        {
+          "group": "Goles por equipo (1.5)",
+          "rows": [
+            {
+              "market": "team_totals",
+              "selection": "home_over",
+              "label": "Arezzo más de 1.5 goles",
+              "line": 1.5,
+              "p": 0.2666743305140601,
+              "fairOdds": 3.749892230243271
+            },
+            {
+              "market": "team_totals",
+              "selection": "home_under",
+              "label": "Arezzo menos de 1.5 goles",
+              "line": 1.5,
+              "p": 0.7333256694859399,
+              "fairOdds": 1.3636506147411944
+            },
+            {
+              "market": "team_totals",
+              "selection": "away_over",
+              "label": "Cesena más de 1.5 goles",
+              "line": 1.5,
+              "p": 0.48119423947982465,
+              "fairOdds": 2.0781628663738974
+            },
+            {
+              "market": "team_totals",
+              "selection": "away_under",
+              "label": "Cesena menos de 1.5 goles",
+              "line": 1.5,
+              "p": 0.5188057605201754,
+              "fairOdds": 1.9275036556983487
+            }
+          ]
+        },
+        {
+          "group": "Marcador exacto (más probables)",
+          "rows": [
+            {
+              "market": "correct_score",
+              "selection": "1-1",
+              "label": "1–1",
+              "p": 0.12270118701747036,
+              "fairOdds": 8.149880407087004
+            },
+            {
+              "market": "correct_score",
+              "selection": "0-1",
+              "label": "0–1",
+              "p": 0.11248740249971526,
+              "fairOdds": 8.889884358406546
+            },
+            {
+              "market": "correct_score",
+              "selection": "1-2",
+              "label": "1–2",
+              "p": 0.0955082113401957,
+              "fairOdds": 10.470303924319634
+            }
+          ]
+        }
+      ],
+      "mostLikelyScore": {
+        "home": 1,
+        "away": 1,
+        "p": 0.12270118701747036
+      },
+      "factors": [
+        {
+          "key": "home_attack",
+          "label": "Ataque local",
+          "value": "0.87 goles/partido",
+          "detail": "23 % menos que la media · 13 partidos"
+        },
+        {
+          "key": "away_defense",
+          "label": "Defensa visitante",
+          "value": "1.12 concedidos/partido",
+          "detail": "7 % menos que la media · 13 partidos"
+        },
+        {
+          "key": "away_attack",
+          "label": "Ataque visitante",
+          "value": "1.62 goles/partido",
+          "detail": "9 % más que la media · ajustado por rival"
+        },
+        {
+          "key": "home_defense",
+          "label": "Defensa local",
+          "value": "1.49 concedidos/partido",
+          "detail": "23 % más que la media · ajustado por rival"
+        },
+        {
+          "key": "home_advantage",
+          "label": "Localía",
+          "value": "×1.16",
+          "detail": "estimada de 130 partidos"
+        },
+        {
+          "key": "uncertainty",
+          "label": "Intervalo 90%",
+          "value": "goles 1.9–3.8",
+          "detail": "local 9%–39% · 130 partidos"
+        },
+        {
+          "key": "home_position",
+          "label": "Posición local",
+          "value": "18.º · 12 pts",
+          "detail": "de 20 equipos"
+        },
+        {
+          "key": "away_position",
+          "label": "Posición visitante",
+          "value": "6.º · 21 pts",
+          "detail": "de 20 equipos"
+        },
+        {
+          "key": "home_form",
+          "label": "Forma local",
+          "value": "P-E-P-E-P · 2 pts",
+          "detail": "2 goles a favor · 7 en contra"
+        },
+        {
+          "key": "away_form",
+          "label": "Forma visitante",
+          "value": "G-E-G-G-G · 13 pts",
+          "detail": "11 goles a favor · 3 en contra"
+        }
+      ],
+      "steps": [
+        "Sincronizando Serie B Italia · corte 26 nov 2026, 20:00",
+        "Fuerza ajustada por rival · ARE 0.77 / 1.23 · CES 1.09 / 0.93",
+        "Ponderando 119.1 partidos por antigüedad y calidad del rival",
+        "Proyección de goles 1.01 – 1.62 · total 2.63",
+        "Simulando 121 marcadores con incertidumbre del ajuste",
+        "20 mercados listos · marcador proyectado 0–1"
+      ],
+      "inputsAsOf": "2026-11-26T20:00:11.075Z",
+      "publishedAt": "2026-11-26T20:00:11.075Z",
+      "source": "pitchlab-football-v2",
+      "picks": [
+        {
+          "profile": "conservadora",
+          "market": "double_chance",
+          "selection": "x2",
+          "label": "Cesena o empate",
+          "p": 0.7693873463933698,
+          "fairOdds": 1.2997354384467916
+        },
+        {
+          "profile": "arriesgada",
+          "market": "team_totals",
+          "selection": "away_under",
+          "label": "Cesena menos de 1.5 goles",
+          "line": 1.5,
+          "p": 0.5188057605201754,
+          "fairOdds": 1.9275036556983487
+        }
+      ],
+      "confidence": {
+        "score": 59,
+        "level": "media",
+        "reasons": [
+          "Muestra suficiente"
+        ]
+      },
+      "projectedScore": {
+        "home": 0,
+        "away": 1,
+        "p": 0.11248740249971526
+      },
+      "insights": {
+        "why": [
+          "Cesena gana en 51% de los escenarios; el empate, en 26%.",
+          "Arezzo anota 23 % menos que la media.",
+          "Arezzo concede 23 % más que la media."
+        ],
+        "restDays": {
+          "home": 14,
+          "away": 15
+        }
+      },
+      "picksAt": "2026-11-26T20:00:11.075Z",
+      "matchContext": {
+        "weather": {
+          "description": "cloudy",
+          "temperatureC": -2,
+          "windSpeedKmh": 35
+        },
+        "stageName": "Regular season",
+        "venueCity": "Arezzo",
+        "venueCountry": "Italy",
+        "venueCapacity": 13128
+      }
+    },
+    "serie-b-2026-12-12-pisa-ascoli-dlcqqw": {
+      "game": "serie-b-2026-12-12-pisa-ascoli-dlcqqw",
+      "model": {
+        "id": "pitchlab-statistical-serie-b",
+        "version": "2.0.0",
+        "status": "candidate",
+        "label": "Modelo PitchLab · en validación"
+      },
+      "projection": {
+        "home": 1.4965549298651653,
+        "away": 1.3343433026641511,
+        "total": 2.830898232529316,
+        "margin": 0.16221162720101412
+      },
+      "x12": [
+        0.4067163016808998,
+        0.2597023756065691,
+        0.33358132271253127
+      ],
+      "probabilities": [
+        {
+          "market": "h2h",
+          "selection": "Pisa gana",
+          "p": 0.4067163016808998,
+          "fairOdds": 2.458716298970915
+        },
+        {
+          "market": "h2h",
+          "selection": "Empate",
+          "p": 0.2597023756065691,
+          "fairOdds": 3.85056161948603
+        },
+        {
+          "market": "h2h",
+          "selection": "Ascoli gana",
+          "p": 0.33358132271253127,
+          "fairOdds": 2.9977697548185724
+        },
+        {
+          "market": "double_chance",
+          "selection": "Pisa o empate",
+          "p": 0.666418677287469,
+          "fairOdds": 1.500558183738653
+        },
+        {
+          "market": "double_chance",
+          "selection": "Ascoli o empate",
+          "p": 0.5932836983191003,
+          "fairOdds": 1.6855342609837654
+        },
+        {
+          "market": "double_chance",
+          "selection": "Sin empate",
+          "p": 0.740297624393431,
+          "fairOdds": 1.35080806293193
+        },
+        {
+          "market": "totals",
+          "selection": "Más de 1.5 goles",
+          "line": 1.5,
+          "p": 0.7788401001054803,
+          "fairOdds": 1.2839605971297157
+        },
+        {
+          "market": "totals",
+          "selection": "Más de 2.5 goles",
+          "line": 2.5,
+          "p": 0.5378786543634793,
+          "fairOdds": 1.8591553910675094
+        },
+        {
+          "market": "totals",
+          "selection": "Menos de 2.5 goles",
+          "line": 2.5,
+          "p": 0.46212134563652074,
+          "fairOdds": 2.1639338010292755
+        },
+        {
+          "market": "totals",
+          "selection": "Más de 3.5 goles",
+          "line": 3.5,
+          "p": 0.31494360563438994,
+          "fairOdds": 3.175171624728507
+        },
+        {
+          "market": "totals",
+          "selection": "Menos de 3.5 goles",
+          "line": 3.5,
+          "p": 0.68505639436561,
+          "fairOdds": 1.459733838301065
+        },
+        {
+          "market": "btts",
+          "selection": "Sí",
+          "p": 0.5764380372326608,
+          "fairOdds": 1.734791834350067
+        },
+        {
+          "market": "btts",
+          "selection": "No",
+          "p": 0.42356196276733915,
+          "fairOdds": 2.3609296582405723
+        },
+        {
+          "market": "team_totals",
+          "selection": "Pisa más de 1.5 goles",
+          "line": 1.5,
+          "p": 0.4410205881024222,
+          "fairOdds": 2.267467839319467
+        },
+        {
+          "market": "team_totals",
+          "selection": "Pisa menos de 1.5 goles",
+          "line": 1.5,
+          "p": 0.5589794118975778,
+          "fairOdds": 1.7889746540132514
+        },
+        {
+          "market": "team_totals",
+          "selection": "Ascoli más de 1.5 goles",
+          "line": 1.5,
+          "p": 0.3852948241158416,
+          "fairOdds": 2.5954150884189997
+        },
+        {
+          "market": "team_totals",
+          "selection": "Ascoli menos de 1.5 goles",
+          "line": 1.5,
+          "p": 0.6147051758841584,
+          "fairOdds": 1.6267961280164178
+        },
+        {
+          "market": "correct_score",
+          "selection": "1–1",
+          "p": 0.12244763781160421,
+          "fairOdds": 8.166756156934465
+        },
+        {
+          "market": "correct_score",
+          "selection": "2–1",
+          "p": 0.08810077693139448,
+          "fairOdds": 11.350637699582563
+        },
+        {
+          "market": "correct_score",
+          "selection": "1–0",
+          "p": 0.08352722312234005,
+          "fairOdds": 11.972144680726752
+        }
+      ],
+      "marketGroups": [
+        {
+          "group": "Resultado",
+          "rows": [
+            {
+              "market": "h2h",
+              "selection": "home",
+              "label": "Pisa gana",
+              "p": 0.4067163016808998,
+              "fairOdds": 2.458716298970915
+            },
+            {
+              "market": "h2h",
+              "selection": "draw",
+              "label": "Empate",
+              "p": 0.2597023756065691,
+              "fairOdds": 3.85056161948603
+            },
+            {
+              "market": "h2h",
+              "selection": "away",
+              "label": "Ascoli gana",
+              "p": 0.33358132271253127,
+              "fairOdds": 2.9977697548185724
+            }
+          ]
+        },
+        {
+          "group": "Doble oportunidad",
+          "rows": [
+            {
+              "market": "double_chance",
+              "selection": "1x",
+              "label": "Pisa o empate",
+              "p": 0.666418677287469,
+              "fairOdds": 1.500558183738653
+            },
+            {
+              "market": "double_chance",
+              "selection": "x2",
+              "label": "Ascoli o empate",
+              "p": 0.5932836983191003,
+              "fairOdds": 1.6855342609837654
+            },
+            {
+              "market": "double_chance",
+              "selection": "12",
+              "label": "Sin empate",
+              "p": 0.740297624393431,
+              "fairOdds": 1.35080806293193
+            }
+          ]
+        },
+        {
+          "group": "Goles totales",
+          "rows": [
+            {
+              "market": "totals",
+              "selection": "over_1.5",
+              "label": "Más de 1.5 goles",
+              "line": 1.5,
+              "p": 0.7788401001054803,
+              "fairOdds": 1.2839605971297157
+            },
+            {
+              "market": "totals",
+              "selection": "over_2.5",
+              "label": "Más de 2.5 goles",
+              "line": 2.5,
+              "p": 0.5378786543634793,
+              "fairOdds": 1.8591553910675094
+            },
+            {
+              "market": "totals",
+              "selection": "under_2.5",
+              "label": "Menos de 2.5 goles",
+              "line": 2.5,
+              "p": 0.46212134563652074,
+              "fairOdds": 2.1639338010292755
+            },
+            {
+              "market": "totals",
+              "selection": "over_3.5",
+              "label": "Más de 3.5 goles",
+              "line": 3.5,
+              "p": 0.31494360563438994,
+              "fairOdds": 3.175171624728507
+            },
+            {
+              "market": "totals",
+              "selection": "under_3.5",
+              "label": "Menos de 3.5 goles",
+              "line": 3.5,
+              "p": 0.68505639436561,
+              "fairOdds": 1.459733838301065
+            }
+          ]
+        },
+        {
+          "group": "Ambos anotan",
+          "rows": [
+            {
+              "market": "btts",
+              "selection": "yes",
+              "label": "Sí",
+              "p": 0.5764380372326608,
+              "fairOdds": 1.734791834350067
+            },
+            {
+              "market": "btts",
+              "selection": "no",
+              "label": "No",
+              "p": 0.42356196276733915,
+              "fairOdds": 2.3609296582405723
+            }
+          ]
+        },
+        {
+          "group": "Goles por equipo (1.5)",
+          "rows": [
+            {
+              "market": "team_totals",
+              "selection": "home_over",
+              "label": "Pisa más de 1.5 goles",
+              "line": 1.5,
+              "p": 0.4410205881024222,
+              "fairOdds": 2.267467839319467
+            },
+            {
+              "market": "team_totals",
+              "selection": "home_under",
+              "label": "Pisa menos de 1.5 goles",
+              "line": 1.5,
+              "p": 0.5589794118975778,
+              "fairOdds": 1.7889746540132514
+            },
+            {
+              "market": "team_totals",
+              "selection": "away_over",
+              "label": "Ascoli más de 1.5 goles",
+              "line": 1.5,
+              "p": 0.3852948241158416,
+              "fairOdds": 2.5954150884189997
+            },
+            {
+              "market": "team_totals",
+              "selection": "away_under",
+              "label": "Ascoli menos de 1.5 goles",
+              "line": 1.5,
+              "p": 0.6147051758841584,
+              "fairOdds": 1.6267961280164178
+            }
+          ]
+        },
+        {
+          "group": "Marcador exacto (más probables)",
+          "rows": [
+            {
+              "market": "correct_score",
+              "selection": "1-1",
+              "label": "1–1",
+              "p": 0.12244763781160421,
+              "fairOdds": 8.166756156934465
+            },
+            {
+              "market": "correct_score",
+              "selection": "2-1",
+              "label": "2–1",
+              "p": 0.08810077693139448,
+              "fairOdds": 11.350637699582563
+            },
+            {
+              "market": "correct_score",
+              "selection": "1-0",
+              "label": "1–0",
+              "p": 0.08352722312234005,
+              "fairOdds": 11.972144680726752
+            }
+          ]
+        }
+      ],
+      "mostLikelyScore": {
+        "home": 1,
+        "away": 1,
+        "p": 0.12244763781160421
+      },
+      "factors": [
+        {
+          "key": "home_attack",
+          "label": "Ataque local",
+          "value": "1.29 goles/partido",
+          "detail": "16 % más que la media · 13 partidos"
+        },
+        {
+          "key": "away_defense",
+          "label": "Defensa visitante",
+          "value": "1.11 concedidos/partido",
+          "detail": "8 % menos que la media · 13 partidos"
+        },
+        {
+          "key": "away_attack",
+          "label": "Ataque visitante",
+          "value": "1.33 goles/partido",
+          "detail": "7 % más que la media · ajustado por rival"
+        },
+        {
+          "key": "home_defense",
+          "label": "Defensa local",
+          "value": "1.24 concedidos/partido",
+          "detail": "3 % más que la media · ajustado por rival"
+        },
+        {
+          "key": "home_advantage",
+          "label": "Localía",
+          "value": "×1.16",
+          "detail": "estimada de 130 partidos"
+        },
+        {
+          "key": "uncertainty",
+          "label": "Intervalo 90%",
+          "value": "goles 2.1–3.9",
+          "detail": "local 23%–64% · 130 partidos"
+        },
+        {
+          "key": "home_position",
+          "label": "Posición local",
+          "value": "7.º · 20 pts",
+          "detail": "de 20 equipos"
+        },
+        {
+          "key": "away_position",
+          "label": "Posición visitante",
+          "value": "5.º · 21 pts",
+          "detail": "de 20 equipos"
+        },
+        {
+          "key": "home_form",
+          "label": "Forma local",
+          "value": "E-P-E-G-E · 6 pts",
+          "detail": "7 goles a favor · 8 en contra"
+        },
+        {
+          "key": "away_form",
+          "label": "Forma visitante",
+          "value": "G-E-E-E-P · 6 pts",
+          "detail": "6 goles a favor · 8 en contra"
+        }
+      ],
+      "steps": [
+        "Sincronizando Serie B Italia · corte 26 nov 2026, 20:00",
+        "Fuerza ajustada por rival · PIS 1.16 / 1.03 · ASC 1.07 / 0.92",
+        "Ponderando 119.1 partidos por antigüedad y calidad del rival",
+        "Proyección de goles 1.50 – 1.33 · total 2.83",
+        "Simulando 121 marcadores con incertidumbre del ajuste",
+        "20 mercados listos · marcador proyectado 2–1"
+      ],
+      "inputsAsOf": "2026-11-26T20:00:11.075Z",
+      "publishedAt": "2026-11-26T20:00:11.075Z",
+      "source": "pitchlab-football-v2",
+      "picks": [
+        {
+          "profile": "conservadora",
+          "market": "totals",
+          "selection": "over_1.5",
+          "label": "Más de 1.5 goles",
+          "line": 1.5,
+          "p": 0.7788401001054803,
+          "fairOdds": 1.2839605971297157
+        },
+        {
+          "profile": "intermedia",
+          "market": "totals",
+          "selection": "under_3.5",
+          "label": "Menos de 3.5 goles",
+          "line": 3.5,
+          "p": 0.68505639436561,
+          "fairOdds": 1.459733838301065
+        },
+        {
+          "profile": "arriesgada",
+          "market": "totals",
+          "selection": "under_2.5",
+          "label": "Menos de 2.5 goles",
+          "line": 2.5,
+          "p": 0.46212134563652074,
+          "fairOdds": 2.1639338010292755
+        }
+      ],
+      "confidence": {
+        "score": 38,
+        "level": "baja",
+        "reasons": [
+          "Partido parejo",
+          "Muestra suficiente",
+          "Rango de incertidumbre amplio"
+        ]
+      },
+      "projectedScore": {
+        "home": 2,
+        "away": 1,
+        "p": 0.08810077693139448
+      },
+      "insights": {
+        "why": [
+          "Se esperan 2.8 goles: 1.5 de Pisa y 1.3 de Ascoli.",
+          "Pisa anota 16 % más que la media.",
+          "Ascoli concede 8 % menos que la media."
+        ],
+        "restDays": {
+          "home": 17,
+          "away": 18
+        }
+      },
+      "picksAt": "2026-11-26T20:00:11.075Z",
+      "matchContext": {
+        "stageName": "Regular season",
+        "venueCity": "Pisa",
+        "venueCountry": "Italy",
+        "venueCapacity": 10442
+      }
+    },
+    "serie-b-2026-12-12-mantova-benevento-s1mdsb": {
+      "game": "serie-b-2026-12-12-mantova-benevento-s1mdsb",
+      "model": {
+        "id": "pitchlab-statistical-serie-b",
+        "version": "2.0.0",
+        "status": "candidate",
+        "label": "Modelo PitchLab · en validación"
+      },
+      "projection": {
+        "home": 1.3590343702429697,
+        "away": 1.2603918504723823,
+        "total": 2.619426220715352,
+        "margin": 0.09864251977058736
+      },
+      "x12": [
+        0.386839052737035,
+        0.27237322779348294,
+        0.34078771946948244
+      ],
+      "probabilities": [
+        {
+          "market": "h2h",
+          "selection": "Mantova gana",
+          "p": 0.386839052737035,
+          "fairOdds": 2.585054411969566
+        },
+        {
+          "market": "h2h",
+          "selection": "Empate",
+          "p": 0.27237322779348294,
+          "fairOdds": 3.6714327913249005
+        },
+        {
+          "market": "h2h",
+          "selection": "Benevento gana",
+          "p": 0.34078771946948244,
+          "fairOdds": 2.934378039081746
+        },
+        {
+          "market": "double_chance",
+          "selection": "Mantova o empate",
+          "p": 0.659212280530518,
+          "fairOdds": 1.5169620311005498
+        },
+        {
+          "market": "double_chance",
+          "selection": "Benevento o empate",
+          "p": 0.6131609472629653,
+          "fairOdds": 1.6308931683660075
+        },
+        {
+          "market": "double_chance",
+          "selection": "Sin empate",
+          "p": 0.7276267722065175,
+          "fairOdds": 1.374330959493855
+        },
+        {
+          "market": "totals",
+          "selection": "Más de 1.5 goles",
+          "line": 1.5,
+          "p": 0.7413351615961286,
+          "fairOdds": 1.348917536633436
+        },
+        {
+          "market": "totals",
+          "selection": "Más de 2.5 goles",
+          "line": 2.5,
+          "p": 0.4864361078462738,
+          "fairOdds": 2.0557684429051997
+        },
+        {
+          "market": "totals",
+          "selection": "Menos de 2.5 goles",
+          "line": 2.5,
+          "p": 0.5135638921537262,
+          "fairOdds": 1.9471773917093607
+        },
+        {
+          "market": "totals",
+          "selection": "Más de 3.5 goles",
+          "line": 3.5,
+          "p": 0.2682309341132435,
+          "fairOdds": 3.728130773976328
+        },
+        {
+          "market": "totals",
+          "selection": "Menos de 3.5 goles",
+          "line": 3.5,
+          "p": 0.7317690658867565,
+          "fairOdds": 1.366551343336988
+        },
+        {
+          "market": "btts",
+          "selection": "Sí",
+          "p": 0.5373840246672553,
+          "fairOdds": 1.8608666318638585
+        },
+        {
+          "market": "btts",
+          "selection": "No",
+          "p": 0.4626159753327447,
+          "fairOdds": 2.1616201197564187
+        },
+        {
+          "market": "team_totals",
+          "selection": "Mantova más de 1.5 goles",
+          "line": 1.5,
+          "p": 0.3939433335752065,
+          "fairOdds": 2.5384361525414496
+        },
+        {
+          "market": "team_totals",
+          "selection": "Mantova menos de 1.5 goles",
+          "line": 1.5,
+          "p": 0.6060566664247935,
+          "fairOdds": 1.6500107257282213
+        },
+        {
+          "market": "team_totals",
+          "selection": "Benevento más de 1.5 goles",
+          "line": 1.5,
+          "p": 0.35908187860130214,
+          "fairOdds": 2.7848801613025027
+        },
+        {
+          "market": "team_totals",
+          "selection": "Benevento menos de 1.5 goles",
+          "line": 1.5,
+          "p": 0.6409181213986979,
+          "fairOdds": 1.5602617036598454
+        },
+        {
+          "market": "correct_score",
+          "selection": "1–1",
+          "p": 0.1297678617022643,
+          "fairOdds": 7.706068258213052
+        },
+        {
+          "market": "correct_score",
+          "selection": "1–0",
+          "p": 0.09400733912965405,
+          "fairOdds": 10.637467343063602
+        },
+        {
+          "market": "correct_score",
+          "selection": "0–1",
+          "p": 0.08682175729164746,
+          "fairOdds": 11.51785026235818
+        }
+      ],
+      "marketGroups": [
+        {
+          "group": "Resultado",
+          "rows": [
+            {
+              "market": "h2h",
+              "selection": "home",
+              "label": "Mantova gana",
+              "p": 0.386839052737035,
+              "fairOdds": 2.585054411969566
+            },
+            {
+              "market": "h2h",
+              "selection": "draw",
+              "label": "Empate",
+              "p": 0.27237322779348294,
+              "fairOdds": 3.6714327913249005
+            },
+            {
+              "market": "h2h",
+              "selection": "away",
+              "label": "Benevento gana",
+              "p": 0.34078771946948244,
+              "fairOdds": 2.934378039081746
+            }
+          ]
+        },
+        {
+          "group": "Doble oportunidad",
+          "rows": [
+            {
+              "market": "double_chance",
+              "selection": "1x",
+              "label": "Mantova o empate",
+              "p": 0.659212280530518,
+              "fairOdds": 1.5169620311005498
+            },
+            {
+              "market": "double_chance",
+              "selection": "x2",
+              "label": "Benevento o empate",
+              "p": 0.6131609472629653,
+              "fairOdds": 1.6308931683660075
+            },
+            {
+              "market": "double_chance",
+              "selection": "12",
+              "label": "Sin empate",
+              "p": 0.7276267722065175,
+              "fairOdds": 1.374330959493855
+            }
+          ]
+        },
+        {
+          "group": "Goles totales",
+          "rows": [
+            {
+              "market": "totals",
+              "selection": "over_1.5",
+              "label": "Más de 1.5 goles",
+              "line": 1.5,
+              "p": 0.7413351615961286,
+              "fairOdds": 1.348917536633436
+            },
+            {
+              "market": "totals",
+              "selection": "over_2.5",
+              "label": "Más de 2.5 goles",
+              "line": 2.5,
+              "p": 0.4864361078462738,
+              "fairOdds": 2.0557684429051997
+            },
+            {
+              "market": "totals",
+              "selection": "under_2.5",
+              "label": "Menos de 2.5 goles",
+              "line": 2.5,
+              "p": 0.5135638921537262,
+              "fairOdds": 1.9471773917093607
+            },
+            {
+              "market": "totals",
+              "selection": "over_3.5",
+              "label": "Más de 3.5 goles",
+              "line": 3.5,
+              "p": 0.2682309341132435,
+              "fairOdds": 3.728130773976328
+            },
+            {
+              "market": "totals",
+              "selection": "under_3.5",
+              "label": "Menos de 3.5 goles",
+              "line": 3.5,
+              "p": 0.7317690658867565,
+              "fairOdds": 1.366551343336988
+            }
+          ]
+        },
+        {
+          "group": "Ambos anotan",
+          "rows": [
+            {
+              "market": "btts",
+              "selection": "yes",
+              "label": "Sí",
+              "p": 0.5373840246672553,
+              "fairOdds": 1.8608666318638585
+            },
+            {
+              "market": "btts",
+              "selection": "no",
+              "label": "No",
+              "p": 0.4626159753327447,
+              "fairOdds": 2.1616201197564187
+            }
+          ]
+        },
+        {
+          "group": "Goles por equipo (1.5)",
+          "rows": [
+            {
+              "market": "team_totals",
+              "selection": "home_over",
+              "label": "Mantova más de 1.5 goles",
+              "line": 1.5,
+              "p": 0.3939433335752065,
+              "fairOdds": 2.5384361525414496
+            },
+            {
+              "market": "team_totals",
+              "selection": "home_under",
+              "label": "Mantova menos de 1.5 goles",
+              "line": 1.5,
+              "p": 0.6060566664247935,
+              "fairOdds": 1.6500107257282213
+            },
+            {
+              "market": "team_totals",
+              "selection": "away_over",
+              "label": "Benevento más de 1.5 goles",
+              "line": 1.5,
+              "p": 0.35908187860130214,
+              "fairOdds": 2.7848801613025027
+            },
+            {
+              "market": "team_totals",
+              "selection": "away_under",
+              "label": "Benevento menos de 1.5 goles",
+              "line": 1.5,
+              "p": 0.6409181213986979,
+              "fairOdds": 1.5602617036598454
+            }
+          ]
+        },
+        {
+          "group": "Marcador exacto (más probables)",
+          "rows": [
+            {
+              "market": "correct_score",
+              "selection": "1-1",
+              "label": "1–1",
+              "p": 0.1297678617022643,
+              "fairOdds": 7.706068258213052
+            },
+            {
+              "market": "correct_score",
+              "selection": "1-0",
+              "label": "1–0",
+              "p": 0.09400733912965405,
+              "fairOdds": 10.637467343063602
+            },
+            {
+              "market": "correct_score",
+              "selection": "0-1",
+              "label": "0–1",
+              "p": 0.08682175729164746,
+              "fairOdds": 11.51785026235818
+            }
+          ]
+        }
+      ],
+      "mostLikelyScore": {
+        "home": 1,
+        "away": 1,
+        "p": 0.1297678617022643
+      },
+      "factors": [
+        {
+          "key": "home_attack",
+          "label": "Ataque local",
+          "value": "1.17 goles/partido",
+          "detail": "5 % más que la media · 13 partidos"
+        },
+        {
+          "key": "away_defense",
+          "label": "Defensa visitante",
+          "value": "1.11 concedidos/partido",
+          "detail": "8 % menos que la media · 13 partidos"
+        },
+        {
+          "key": "away_attack",
+          "label": "Ataque visitante",
+          "value": "1.26 goles/partido",
+          "detail": "12 % más que la media · ajustado por rival"
+        },
+        {
+          "key": "home_defense",
+          "label": "Defensa local",
+          "value": "1.12 concedidos/partido",
+          "detail": "7 % menos que la media · ajustado por rival"
+        },
+        {
+          "key": "home_advantage",
+          "label": "Localía",
+          "value": "×1.16",
+          "detail": "estimada de 130 partidos"
+        },
+        {
+          "key": "uncertainty",
+          "label": "Intervalo 90%",
+          "value": "goles 1.9–3.6",
+          "detail": "local 22%–59% · 130 partidos"
+        },
+        {
+          "key": "home_position",
+          "label": "Posición local",
+          "value": "4.º · 22 pts",
+          "detail": "de 20 equipos"
+        },
+        {
+          "key": "away_position",
+          "label": "Posición visitante",
+          "value": "8.º · 19 pts",
+          "detail": "de 20 equipos"
+        },
+        {
+          "key": "home_form",
+          "label": "Forma local",
+          "value": "P-E-E-P-G · 5 pts",
+          "detail": "5 goles a favor · 7 en contra"
+        },
+        {
+          "key": "away_form",
+          "label": "Forma visitante",
+          "value": "E-P-E-P-G · 5 pts",
+          "detail": "8 goles a favor · 7 en contra"
+        }
+      ],
+      "steps": [
+        "Sincronizando Serie B Italia · corte 26 nov 2026, 20:00",
+        "Fuerza ajustada por rival · MAN 1.05 / 0.93 · BEN 1.12 / 0.92",
+        "Ponderando 119.1 partidos por antigüedad y calidad del rival",
+        "Proyección de goles 1.36 – 1.26 · total 2.62",
+        "Simulando 121 marcadores con incertidumbre del ajuste",
+        "20 mercados listos · marcador proyectado 1–0"
+      ],
+      "inputsAsOf": "2026-11-26T20:00:11.075Z",
+      "publishedAt": "2026-11-26T20:00:11.075Z",
+      "source": "pitchlab-football-v2",
+      "picks": [
+        {
+          "profile": "conservadora",
+          "market": "totals",
+          "selection": "over_1.5",
+          "label": "Más de 1.5 goles",
+          "line": 1.5,
+          "p": 0.7413351615961286,
+          "fairOdds": 1.348917536633436
+        },
+        {
+          "profile": "intermedia",
+          "market": "double_chance",
+          "selection": "1x",
+          "label": "Mantova o empate",
+          "p": 0.659212280530518,
+          "fairOdds": 1.5169620311005498
+        },
+        {
+          "profile": "arriesgada",
+          "market": "totals",
+          "selection": "under_2.5",
+          "label": "Menos de 2.5 goles",
+          "line": 2.5,
+          "p": 0.5135638921537262,
+          "fairOdds": 1.9471773917093607
+        }
+      ],
+      "confidence": {
+        "score": 36,
+        "level": "baja",
+        "reasons": [
+          "Partido parejo",
+          "Muestra suficiente"
+        ]
+      },
+      "projectedScore": {
+        "home": 1,
+        "away": 0,
+        "p": 0.09400733912965405
+      },
+      "insights": {
+        "why": [
+          "Mantova gana en 39% de los escenarios; el empate, en 27%.",
+          "Benevento anota 12 % más que la media."
+        ],
+        "restDays": {
+          "home": 17,
+          "away": 18
+        }
+      },
+      "picksAt": "2026-11-26T20:00:11.075Z",
+      "matchContext": {
+        "stageName": "Regular season",
+        "venueCity": "Mantova",
+        "venueCountry": "Italy",
+        "venueCapacity": 11219
+      }
     }
   },
   "standings": [
@@ -24707,19 +24650,19 @@
       "name": "Modena",
       "shortName": "Modena",
       "code": "MOD",
-      "played": 12,
+      "played": 13,
       "won": 8,
-      "drawn": 2,
+      "drawn": 3,
       "lost": 2,
-      "goalsFor": 22,
-      "goalsAgainst": 10,
-      "points": 26,
+      "goalsFor": 23,
+      "goalsAgainst": 11,
+      "points": 27,
       "form": [
-        "W",
         "W",
         "D",
         "W",
-        "W"
+        "W",
+        "D"
       ]
     },
     {
@@ -24739,6 +24682,26 @@
         "W",
         "D",
         "W",
+        "W"
+      ]
+    },
+    {
+      "teamId": "serie-b.mantova",
+      "name": "Mantova",
+      "shortName": "Mantova",
+      "code": "MAN",
+      "played": 13,
+      "won": 6,
+      "drawn": 4,
+      "lost": 3,
+      "goalsFor": 19,
+      "goalsAgainst": 15,
+      "points": 22,
+      "form": [
+        "L",
+        "D",
+        "D",
+        "L",
         "W"
       ]
     },
@@ -24783,6 +24746,26 @@
       ]
     },
     {
+      "teamId": "serie-b.pisa",
+      "name": "Pisa",
+      "shortName": "Pisa",
+      "code": "PIS",
+      "played": 13,
+      "won": 5,
+      "drawn": 5,
+      "lost": 3,
+      "goalsFor": 22,
+      "goalsAgainst": 18,
+      "points": 20,
+      "form": [
+        "D",
+        "L",
+        "D",
+        "W",
+        "D"
+      ]
+    },
+    {
       "teamId": "serie-b.benevento",
       "name": "Benevento",
       "shortName": "Benevento",
@@ -24803,46 +24786,6 @@
       ]
     },
     {
-      "teamId": "serie-b.pisa",
-      "name": "Pisa",
-      "shortName": "Pisa",
-      "code": "PIS",
-      "played": 12,
-      "won": 5,
-      "drawn": 4,
-      "lost": 3,
-      "goalsFor": 21,
-      "goalsAgainst": 17,
-      "points": 19,
-      "form": [
-        "D",
-        "D",
-        "L",
-        "D",
-        "W"
-      ]
-    },
-    {
-      "teamId": "serie-b.mantova",
-      "name": "Mantova",
-      "shortName": "Mantova",
-      "code": "MAN",
-      "played": 12,
-      "won": 5,
-      "drawn": 4,
-      "lost": 3,
-      "goalsFor": 16,
-      "goalsAgainst": 15,
-      "points": 19,
-      "form": [
-        "W",
-        "L",
-        "D",
-        "D",
-        "L"
-      ]
-    },
-    {
       "teamId": "serie-b.sudtirol",
       "name": "Südtirol",
       "shortName": "Südtirol",
@@ -24860,6 +24803,26 @@
         "D",
         "W",
         "L"
+      ]
+    },
+    {
+      "teamId": "serie-b.sampdoria",
+      "name": "Sampdoria",
+      "shortName": "Sampdoria",
+      "code": "SAM",
+      "played": 13,
+      "won": 5,
+      "drawn": 2,
+      "lost": 6,
+      "goalsFor": 16,
+      "goalsAgainst": 20,
+      "points": 17,
+      "form": [
+        "L",
+        "W",
+        "W",
+        "W",
+        "W"
       ]
     },
     {
@@ -24887,19 +24850,19 @@
       "name": "Padova",
       "shortName": "Padova",
       "code": "PAD",
-      "played": 12,
+      "played": 13,
       "won": 4,
       "drawn": 4,
-      "lost": 4,
-      "goalsFor": 13,
-      "goalsAgainst": 14,
+      "lost": 5,
+      "goalsFor": 14,
+      "goalsAgainst": 16,
       "points": 16,
       "form": [
         "W",
-        "W",
         "D",
         "D",
-        "D"
+        "D",
+        "L"
       ]
     },
     {
@@ -24963,26 +24926,6 @@
       ]
     },
     {
-      "teamId": "serie-b.sampdoria",
-      "name": "Sampdoria",
-      "shortName": "Sampdoria",
-      "code": "SAM",
-      "played": 12,
-      "won": 4,
-      "drawn": 2,
-      "lost": 6,
-      "goalsFor": 14,
-      "goalsAgainst": 19,
-      "points": 14,
-      "form": [
-        "D",
-        "L",
-        "W",
-        "W",
-        "W"
-      ]
-    },
-    {
       "teamId": "serie-b.virtus-entella",
       "name": "Virtus Entella",
       "shortName": "Virtus Entella",
@@ -25027,19 +24970,19 @@
       "name": "Arezzo",
       "shortName": "Arezzo",
       "code": "ARE",
-      "played": 12,
+      "played": 13,
       "won": 3,
       "drawn": 3,
-      "lost": 6,
+      "lost": 7,
       "goalsFor": 10,
-      "goalsAgainst": 21,
+      "goalsAgainst": 24,
       "points": 12,
       "form": [
         "L",
-        "L",
         "D",
         "L",
-        "D"
+        "D",
+        "L"
       ]
     },
     {

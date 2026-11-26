@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "league": "saudi-pro-league",
   "season": "2026/27",
-  "updatedAt": "2026-11-25T20:23:50.754Z",
+  "updatedAt": "2026-11-26T20:00:11.075Z",
   "matches": [
     {
       "id": "saudi-pro-league-2026-08-13-abha-al-hazem-k0kswu",
@@ -1157,6 +1157,39 @@
       "awayTeam": "saudi-pro-league.al-nassr",
       "homeScore": 3,
       "awayScore": 1,
+      "neutralSite": false
+    },
+    {
+      "id": "saudi-pro-league-2026-11-26-al-fateh-al-riyadh-z76cdc",
+      "date": "2026-11-26",
+      "startTime": "2026-11-26T14:25:00.000Z",
+      "round": "Regular season · Matchday 13",
+      "homeTeam": "saudi-pro-league.al-fateh",
+      "awayTeam": "saudi-pro-league.al-riyadh",
+      "homeScore": 1,
+      "awayScore": 0,
+      "neutralSite": false
+    },
+    {
+      "id": "saudi-pro-league-2026-11-26-abha-al-shabab-do91n9",
+      "date": "2026-11-26",
+      "startTime": "2026-11-26T15:05:00.000Z",
+      "round": "Regular season · Matchday 13",
+      "homeTeam": "saudi-pro-league.abha",
+      "awayTeam": "saudi-pro-league.al-shabab",
+      "homeScore": 0,
+      "awayScore": 1,
+      "neutralSite": false
+    },
+    {
+      "id": "saudi-pro-league-2026-11-26-al-faisaly-diriyah-aqcznk",
+      "date": "2026-11-26",
+      "startTime": "2026-11-26T17:30:00.000Z",
+      "round": "Regular season · Matchday 13",
+      "homeTeam": "saudi-pro-league.al-faisaly",
+      "awayTeam": "saudi-pro-league.diriyah",
+      "homeScore": 2,
+      "awayScore": 2,
       "neutralSite": false
     }
   ]

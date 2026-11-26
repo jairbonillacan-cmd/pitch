@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "league": "championship",
   "season": "2026/27",
-  "updatedAt": "2026-11-25T20:23:50.754Z",
+  "updatedAt": "2026-11-26T20:00:11.075Z",
   "matches": [
     {
       "id": "championship-2026-08-14-wolverhampton-blackburn-rove-i5q670",
@@ -2202,6 +2202,50 @@
       "awayTeam": "championship.derby-county",
       "homeScore": 3,
       "awayScore": 0,
+      "neutralSite": false
+    },
+    {
+      "id": "championship-2026-11-25-watford-blackburn-rove-n5j6a6",
+      "date": "2026-11-25",
+      "startTime": "2026-11-25T19:45:00.000Z",
+      "round": "Regular season · Matchday 17",
+      "homeTeam": "championship.watford",
+      "awayTeam": "championship.blackburn-rovers",
+      "homeScore": 0,
+      "awayScore": 1,
+      "neutralSite": false
+    },
+    {
+      "id": "championship-2026-11-25-burnley-birmingham-cit-agub2v",
+      "date": "2026-11-25",
+      "startTime": "2026-11-25T19:45:00.000Z",
+      "round": "Regular season · Matchday 17",
+      "homeTeam": "championship.burnley",
+      "awayTeam": "championship.birmingham-city",
+      "homeScore": 0,
+      "awayScore": 2,
+      "neutralSite": false
+    },
+    {
+      "id": "championship-2026-11-25-bolton-wandere-west-bromwich--96rg1f",
+      "date": "2026-11-25",
+      "startTime": "2026-11-25T19:45:00.000Z",
+      "round": "Regular season · Matchday 17",
+      "homeTeam": "championship.bolton-wanderers",
+      "awayTeam": "championship.west-bromwich-albion",
+      "homeScore": 1,
+      "awayScore": 3,
+      "neutralSite": false
+    },
+    {
+      "id": "championship-2026-11-25-stoke-city-millwall-9sbl8j",
+      "date": "2026-11-25",
+      "startTime": "2026-11-25T20:00:00.000Z",
+      "round": "Regular season · Matchday 17",
+      "homeTeam": "championship.stoke-city",
+      "awayTeam": "championship.millwall",
+      "homeScore": 2,
+      "awayScore": 1,
       "neutralSite": false
     }
   ]

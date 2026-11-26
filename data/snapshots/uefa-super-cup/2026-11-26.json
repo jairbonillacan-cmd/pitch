@@ -1,0 +1,541 @@
+{
+  "schemaVersion": 1,
+  "league": "uefa-super-cup",
+  "logoUrl": "https://sports.bzzoiro.com/img/league/90/?bg=transparent",
+  "season": "uefa-super-cup-2026",
+  "seasonLabel": "2026",
+  "periodLabel": "Final",
+  "updatedAt": "2026-11-26T20:00:11.075Z",
+  "source": "pitchlab-football-v2",
+  "provenance": "derived",
+  "isDemo": false,
+  "teamRates": {
+    "uefa-super-cup.paris-saint-germain": {
+      "teamId": "uefa-super-cup.paris-saint-germain",
+      "name": "Paris Saint-Germain",
+      "shortName": "Paris Saint-Germain",
+      "code": "PAR",
+      "forPerGame": 2,
+      "againstPerGame": 1,
+      "gamesPlayed": 1,
+      "adjustedFor": 1.5285714285714285,
+      "adjustedAgainst": 1.3857142857142857
+    },
+    "uefa-super-cup.aston-villa": {
+      "teamId": "uefa-super-cup.aston-villa",
+      "name": "Aston Villa",
+      "shortName": "Aston Villa",
+      "code": "AST",
+      "forPerGame": 1,
+      "againstPerGame": 2,
+      "gamesPlayed": 1,
+      "adjustedFor": 1.3857142857142857,
+      "adjustedAgainst": 1.5285714285714285
+    }
+  },
+  "games": [
+    {
+      "id": "uefa-super-cup-2026-08-12-paris-saint-ge-aston-villa-j0rgyz",
+      "league": "uefa-super-cup",
+      "season": "uefa-super-cup-2026",
+      "week": 29,
+      "round": "Final",
+      "phase": "Final",
+      "startTime": "2026-08-12T19:00:00.000Z",
+      "status": "final",
+      "home": {
+        "id": "uefa-super-cup.paris-saint-germain",
+        "league": "uefa-super-cup",
+        "name": "Paris Saint-Germain",
+        "shortName": "Paris Saint-Germain",
+        "code": "PAR",
+        "logoUrl": "https://sports.bzzoiro.com/img/team/114/?bg=transparent"
+      },
+      "away": {
+        "id": "uefa-super-cup.aston-villa",
+        "league": "uefa-super-cup",
+        "name": "Aston Villa",
+        "shortName": "Aston Villa",
+        "code": "AST",
+        "logoUrl": "https://sports.bzzoiro.com/img/team/3/?bg=transparent"
+      },
+      "venue": "Red Bull Arena, Salzburg",
+      "referee": "Omar Abdulkadir Artan",
+      "neutralSite": false,
+      "result": {
+        "home": 2,
+        "away": 1,
+        "observedAt": "2026-11-26T20:00:11.075Z",
+        "source": "pitchlab-feed"
+      }
+    }
+  ],
+  "analyses": {
+    "uefa-super-cup-2026-08-12-paris-saint-ge-aston-villa-j0rgyz": {
+      "game": "uefa-super-cup-2026-08-12-paris-saint-ge-aston-villa-j0rgyz",
+      "model": {
+        "id": "pitchlab-statistical-uefa-super-cup",
+        "version": "2.0.0",
+        "status": "candidate",
+        "label": "Modelo PitchLab · en validación"
+      },
+      "projection": {
+        "home": 1.7910999591791623,
+        "away": 1.2558126388142563,
+        "total": 3.0469125979934186,
+        "margin": 0.535287320364906
+      },
+      "x12": [
+        0.49705809848929816,
+        0.23711783997329122,
+        0.2658240615374106
+      ],
+      "probabilities": [
+        {
+          "market": "h2h",
+          "selection": "Paris Saint-Germain gana",
+          "p": 0.49705809848929816,
+          "fairOdds": 2.0118372541143303
+        },
+        {
+          "market": "h2h",
+          "selection": "Empate",
+          "p": 0.23711783997329122,
+          "fairOdds": 4.21731237140419
+        },
+        {
+          "market": "h2h",
+          "selection": "Aston Villa gana",
+          "p": 0.2658240615374106,
+          "fairOdds": 3.76188669383966
+        },
+        {
+          "market": "double_chance",
+          "selection": "Paris Saint-Germain o empate",
+          "p": 0.7341759384625894,
+          "fairOdds": 1.362071334146503
+        },
+        {
+          "market": "double_chance",
+          "selection": "Aston Villa o empate",
+          "p": 0.5029419015107018,
+          "fairOdds": 1.988301227231753
+        },
+        {
+          "market": "double_chance",
+          "selection": "Sin empate",
+          "p": 0.7628821600267088,
+          "fairOdds": 1.310818436185465
+        },
+        {
+          "market": "totals",
+          "selection": "Más de 1.5",
+          "line": 1.5,
+          "p": 0.8104206793508589,
+          "fairOdds": 1.2339270523069485
+        },
+        {
+          "market": "totals",
+          "selection": "Más de 2.5",
+          "line": 2.5,
+          "p": 0.5872364393049392,
+          "fairOdds": 1.7028916005001549
+        },
+        {
+          "market": "totals",
+          "selection": "Menos de 2.5",
+          "line": 2.5,
+          "p": 0.4127635606950608,
+          "fairOdds": 2.422694479900503
+        },
+        {
+          "market": "totals",
+          "selection": "Más de 3.5",
+          "line": 3.5,
+          "p": 0.3632752586102599,
+          "fairOdds": 2.752733571302335
+        },
+        {
+          "market": "totals",
+          "selection": "Menos de 3.5",
+          "line": 3.5,
+          "p": 0.6367247413897401,
+          "fairOdds": 1.5705373688124027
+        },
+        {
+          "market": "btts",
+          "selection": "Sí",
+          "p": 0.5985554247267417,
+          "fairOdds": 1.6706890601760558
+        },
+        {
+          "market": "btts",
+          "selection": "No",
+          "p": 0.4014445752732583,
+          "fairOdds": 2.491003893424921
+        },
+        {
+          "market": "team_totals",
+          "selection": "Paris Saint-Germain más de 1.5",
+          "line": 1.5,
+          "p": 0.5345083910543982,
+          "fairOdds": 1.8708780193840355
+        },
+        {
+          "market": "team_totals",
+          "selection": "Paris Saint-Germain menos de 1.5",
+          "line": 1.5,
+          "p": 0.4654916089456018,
+          "fairOdds": 2.1482664365639765
+        },
+        {
+          "market": "team_totals",
+          "selection": "Aston Villa más de 1.5",
+          "line": 1.5,
+          "p": 0.3574446134982787,
+          "fairOdds": 2.797636227367056
+        },
+        {
+          "market": "team_totals",
+          "selection": "Aston Villa menos de 1.5",
+          "line": 1.5,
+          "p": 0.6425553865017213,
+          "fairOdds": 1.5562860743325528
+        },
+        {
+          "market": "correct_score",
+          "selection": "1–1",
+          "p": 0.10952482005020814,
+          "fairOdds": 9.130350541015106
+        },
+        {
+          "market": "correct_score",
+          "selection": "2–1",
+          "p": 0.09569263449806484,
+          "fairOdds": 10.450125082722252
+        },
+        {
+          "market": "correct_score",
+          "selection": "1–0",
+          "p": 0.08241578474076999,
+          "fairOdds": 12.133597989091443
+        }
+      ],
+      "marketGroups": [
+        {
+          "group": "Resultado",
+          "rows": [
+            {
+              "market": "h2h",
+              "selection": "home",
+              "label": "Paris Saint-Germain gana",
+              "p": 0.49705809848929816,
+              "fairOdds": 2.0118372541143303
+            },
+            {
+              "market": "h2h",
+              "selection": "draw",
+              "label": "Empate",
+              "p": 0.23711783997329122,
+              "fairOdds": 4.21731237140419
+            },
+            {
+              "market": "h2h",
+              "selection": "away",
+              "label": "Aston Villa gana",
+              "p": 0.2658240615374106,
+              "fairOdds": 3.76188669383966
+            }
+          ]
+        },
+        {
+          "group": "Doble oportunidad",
+          "rows": [
+            {
+              "market": "double_chance",
+              "selection": "1x",
+              "label": "Paris Saint-Germain o empate",
+              "p": 0.7341759384625894,
+              "fairOdds": 1.362071334146503
+            },
+            {
+              "market": "double_chance",
+              "selection": "x2",
+              "label": "Aston Villa o empate",
+              "p": 0.5029419015107018,
+              "fairOdds": 1.988301227231753
+            },
+            {
+              "market": "double_chance",
+              "selection": "12",
+              "label": "Sin empate",
+              "p": 0.7628821600267088,
+              "fairOdds": 1.310818436185465
+            }
+          ]
+        },
+        {
+          "group": "Goles totales",
+          "rows": [
+            {
+              "market": "totals",
+              "selection": "over_1.5",
+              "label": "Más de 1.5",
+              "line": 1.5,
+              "p": 0.8104206793508589,
+              "fairOdds": 1.2339270523069485
+            },
+            {
+              "market": "totals",
+              "selection": "over_2.5",
+              "label": "Más de 2.5",
+              "line": 2.5,
+              "p": 0.5872364393049392,
+              "fairOdds": 1.7028916005001549
+            },
+            {
+              "market": "totals",
+              "selection": "under_2.5",
+              "label": "Menos de 2.5",
+              "line": 2.5,
+              "p": 0.4127635606950608,
+              "fairOdds": 2.422694479900503
+            },
+            {
+              "market": "totals",
+              "selection": "over_3.5",
+              "label": "Más de 3.5",
+              "line": 3.5,
+              "p": 0.3632752586102599,
+              "fairOdds": 2.752733571302335
+            },
+            {
+              "market": "totals",
+              "selection": "under_3.5",
+              "label": "Menos de 3.5",
+              "line": 3.5,
+              "p": 0.6367247413897401,
+              "fairOdds": 1.5705373688124027
+            }
+          ]
+        },
+        {
+          "group": "Ambos anotan",
+          "rows": [
+            {
+              "market": "btts",
+              "selection": "yes",
+              "label": "Sí",
+              "p": 0.5985554247267417,
+              "fairOdds": 1.6706890601760558
+            },
+            {
+              "market": "btts",
+              "selection": "no",
+              "label": "No",
+              "p": 0.4014445752732583,
+              "fairOdds": 2.491003893424921
+            }
+          ]
+        },
+        {
+          "group": "Goles por equipo (1.5)",
+          "rows": [
+            {
+              "market": "team_totals",
+              "selection": "home_over",
+              "label": "Paris Saint-Germain más de 1.5",
+              "line": 1.5,
+              "p": 0.5345083910543982,
+              "fairOdds": 1.8708780193840355
+            },
+            {
+              "market": "team_totals",
+              "selection": "home_under",
+              "label": "Paris Saint-Germain menos de 1.5",
+              "line": 1.5,
+              "p": 0.4654916089456018,
+              "fairOdds": 2.1482664365639765
+            },
+            {
+              "market": "team_totals",
+              "selection": "away_over",
+              "label": "Aston Villa más de 1.5",
+              "line": 1.5,
+              "p": 0.3574446134982787,
+              "fairOdds": 2.797636227367056
+            },
+            {
+              "market": "team_totals",
+              "selection": "away_under",
+              "label": "Aston Villa menos de 1.5",
+              "line": 1.5,
+              "p": 0.6425553865017213,
+              "fairOdds": 1.5562860743325528
+            }
+          ]
+        },
+        {
+          "group": "Marcador exacto (más probables)",
+          "rows": [
+            {
+              "market": "correct_score",
+              "selection": "1-1",
+              "label": "1–1",
+              "p": 0.10952482005020814,
+              "fairOdds": 9.130350541015106
+            },
+            {
+              "market": "correct_score",
+              "selection": "2-1",
+              "label": "2–1",
+              "p": 0.09569263449806484,
+              "fairOdds": 10.450125082722252
+            },
+            {
+              "market": "correct_score",
+              "selection": "1-0",
+              "label": "1–0",
+              "p": 0.08241578474076999,
+              "fairOdds": 12.133597989091443
+            }
+          ]
+        }
+      ],
+      "mostLikelyScore": {
+        "home": 1,
+        "away": 1,
+        "p": 0.10952482005020814
+      },
+      "factors": [
+        {
+          "key": "home_attack",
+          "label": "Ataque local",
+          "value": "1.51 goles/partido",
+          "detail": "4 % más que la media · 1 partidos"
+        },
+        {
+          "key": "away_defense",
+          "label": "Defensa visitante",
+          "value": "1.46 concedidos/partido",
+          "detail": "6 % más que la media · 1 partidos"
+        },
+        {
+          "key": "away_attack",
+          "label": "Ataque visitante",
+          "value": "1.26 goles/partido",
+          "detail": "4 % menos que la media · ajustado por rival"
+        },
+        {
+          "key": "home_defense",
+          "label": "Defensa local",
+          "value": "1.30 concedidos/partido",
+          "detail": "5 % menos que la media · ajustado por rival"
+        },
+        {
+          "key": "home_advantage",
+          "label": "Localía",
+          "value": "×1.19",
+          "detail": "estimada de 1 partidos"
+        },
+        {
+          "key": "uncertainty",
+          "label": "Intervalo 90%",
+          "value": "goles 1.4–6.9",
+          "detail": "local 11%–89% · 1 partidos"
+        },
+        {
+          "key": "home_position",
+          "label": "Posición local",
+          "value": "1.º · 3 pts",
+          "detail": "de 2 equipos"
+        },
+        {
+          "key": "away_position",
+          "label": "Posición visitante",
+          "value": "2.º · 0 pts",
+          "detail": "de 2 equipos"
+        }
+      ],
+      "steps": [
+        "Sincronizando UEFA Super Cup · corte 12 ago 2026, 12:00",
+        "Fuerza ajustada por rival · PAR 1.04 / 0.95 · AST 0.96 / 1.06",
+        "Ponderando 0.8 partidos por antigüedad y calidad del rival",
+        "Proyección de goles 1.79 – 1.26 · total 3.05",
+        "Simulando 121 marcadores con incertidumbre del ajuste",
+        "20 mercados listos · marcador proyectado 2–1"
+      ],
+      "inputsAsOf": "2026-08-12T18:00:00.000Z",
+      "publishedAt": "2026-08-12T18:00:00.000Z",
+      "source": "pitchlab-football-v2",
+      "projectedScore": {
+        "home": 2,
+        "away": 1,
+        "p": 0.09569263449806484
+      },
+      "insights": {
+        "why": [
+          "Se esperan 3.0 goles: 1.8 de Paris Saint-Germain y 1.3 de Aston Villa."
+        ]
+      },
+      "matchContext": {
+        "referee": "Omar Abdulkadir Artan",
+        "refereeStats": {
+          "country": "Somalia",
+          "matches": 8,
+          "avgYellow": 2.5,
+          "avgRed": 0.12,
+          "avgFouls": 25.8,
+          "avgGoals": 2.38
+        },
+        "weather": {
+          "description": "unknown",
+          "temperatureC": 22,
+          "windSpeedKmh": 19
+        },
+        "halfTimeScore": {
+          "home": 1,
+          "away": 1
+        },
+        "stageName": "Final",
+        "venueCity": "Salzburg",
+        "venueCountry": "Austria",
+        "venueCapacity": 30188
+      }
+    }
+  },
+  "standings": [
+    {
+      "teamId": "uefa-super-cup.paris-saint-germain",
+      "name": "Paris Saint-Germain",
+      "shortName": "Paris Saint-Germain",
+      "code": "PAR",
+      "played": 1,
+      "won": 1,
+      "drawn": 0,
+      "lost": 0,
+      "goalsFor": 2,
+      "goalsAgainst": 1,
+      "points": 3,
+      "form": [
+        "W"
+      ]
+    },
+    {
+      "teamId": "uefa-super-cup.aston-villa",
+      "name": "Aston Villa",
+      "shortName": "Aston Villa",
+      "code": "AST",
+      "played": 1,
+      "won": 0,
+      "drawn": 0,
+      "lost": 1,
+      "goalsFor": 1,
+      "goalsAgainst": 2,
+      "points": 0,
+      "form": [
+        "L"
+      ]
+    }
+  ]
+}

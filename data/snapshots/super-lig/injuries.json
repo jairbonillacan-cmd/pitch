@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "league": "super-lig",
-  "observedAt": "2026-11-25T20:23:50.754Z",
+  "observedAt": "2026-11-26T20:00:11.075Z",
   "source": "pitchlab-availability",
   "coverageStatus": "ok",
   "entries": [
@@ -12,7 +12,7 @@
       "status": "Baja",
       "detail": "Hamstring Injury",
       "injuryType": "Hamstring Injury",
-      "reportedAt": "2026-11-25T20:23:50.754Z"
+      "reportedAt": "2026-11-26T20:00:11.075Z"
     },
     {
       "teamId": "super-lig.samsunspor",
@@ -21,7 +21,7 @@
       "status": "Baja",
       "detail": "Broken Rib",
       "injuryType": "Broken Rib",
-      "reportedAt": "2026-11-25T20:23:50.754Z"
+      "reportedAt": "2026-11-26T20:00:11.075Z"
     },
     {
       "teamId": "super-lig.konyaspor",
@@ -30,7 +30,7 @@
       "status": "Baja",
       "detail": "Cruciate Ligament Injury",
       "injuryType": "Cruciate Ligament Injury",
-      "reportedAt": "2026-11-25T20:23:50.754Z"
+      "reportedAt": "2026-11-26T20:00:11.075Z"
     },
     {
       "teamId": "super-lig.konyaspor",
@@ -39,7 +39,7 @@
       "status": "Duda",
       "detail": "Muscle Injury",
       "injuryType": "Muscle Injury",
-      "reportedAt": "2026-11-25T20:23:50.754Z"
+      "reportedAt": "2026-11-26T20:00:11.075Z"
     },
     {
       "teamId": "super-lig.goztepe",
@@ -48,7 +48,16 @@
       "status": "Duda",
       "detail": "Muscle Injury",
       "injuryType": "Muscle Injury",
-      "reportedAt": "2026-11-25T20:23:50.754Z"
+      "reportedAt": "2026-11-26T20:00:11.075Z"
+    },
+    {
+      "teamId": "super-lig.goztepe",
+      "player": "Arda Okan Kurtulan",
+      "position": "Mediocampista",
+      "status": "Baja",
+      "detail": "yellow_card_accumulation_suspension",
+      "injuryType": "yellow_card_accumulation_suspension",
+      "reportedAt": "2026-11-26T20:00:11.075Z"
     },
     {
       "teamId": "super-lig.goztepe",
@@ -57,7 +66,7 @@
       "status": "Baja",
       "detail": "club_decision",
       "injuryType": "club_decision",
-      "reportedAt": "2026-11-25T20:23:50.754Z"
+      "reportedAt": "2026-11-26T20:00:11.075Z"
     },
     {
       "teamId": "super-lig.basaksehir",
@@ -66,7 +75,7 @@
       "status": "Duda",
       "detail": "Physical Discomfort",
       "injuryType": "Physical Discomfort",
-      "reportedAt": "2026-11-25T20:23:50.754Z"
+      "reportedAt": "2026-11-26T20:00:11.075Z"
     },
     {
       "teamId": "super-lig.basaksehir",
@@ -75,7 +84,7 @@
       "status": "Duda",
       "detail": "Physical Discomfort",
       "injuryType": "Physical Discomfort",
-      "reportedAt": "2026-11-25T20:23:50.754Z"
+      "reportedAt": "2026-11-26T20:00:11.075Z"
     },
     {
       "teamId": "super-lig.basaksehir",
@@ -84,7 +93,7 @@
       "status": "Baja",
       "detail": "Knee Injury",
       "injuryType": "Knee Injury",
-      "reportedAt": "2026-11-25T20:23:50.754Z"
+      "reportedAt": "2026-11-26T20:00:11.075Z"
     },
     {
       "teamId": "super-lig.galatasaray",
@@ -93,7 +102,7 @@
       "status": "Baja",
       "detail": "Broken Nose",
       "injuryType": "Broken Nose",
-      "reportedAt": "2026-11-25T20:23:50.754Z"
+      "reportedAt": "2026-11-26T20:00:11.075Z"
     },
     {
       "teamId": "super-lig.galatasaray",
@@ -102,7 +111,7 @@
       "status": "Baja",
       "detail": "Muscle Injury",
       "injuryType": "Muscle Injury",
-      "reportedAt": "2026-11-25T20:23:50.754Z"
+      "reportedAt": "2026-11-26T20:00:11.075Z"
     },
     {
       "teamId": "super-lig.galatasaray",
@@ -111,7 +120,7 @@
       "status": "Baja",
       "detail": "Hamstring Injury",
       "injuryType": "Hamstring Injury",
-      "reportedAt": "2026-11-25T20:23:50.754Z"
+      "reportedAt": "2026-11-26T20:00:11.075Z"
     },
     {
       "teamId": "super-lig.galatasaray",
@@ -120,7 +129,7 @@
       "status": "Baja",
       "detail": "Thigh Injury",
       "injuryType": "Thigh Injury",
-      "reportedAt": "2026-11-25T20:23:50.754Z"
+      "reportedAt": "2026-11-26T20:00:11.075Z"
     },
     {
       "teamId": "super-lig.galatasaray",
@@ -129,7 +138,7 @@
       "status": "Baja",
       "detail": "Knee Injury",
       "injuryType": "Knee Injury",
-      "reportedAt": "2026-11-25T20:23:50.754Z"
+      "reportedAt": "2026-11-26T20:00:11.075Z"
     },
     {
       "teamId": "super-lig.amedspor",
@@ -138,7 +147,7 @@
       "status": "Baja",
       "detail": "Cruciate Ligament Injury",
       "injuryType": "Cruciate Ligament Injury",
-      "reportedAt": "2026-11-25T20:23:50.754Z"
+      "reportedAt": "2026-11-26T20:00:11.075Z"
     },
     {
       "teamId": "super-lig.amedspor",
@@ -147,16 +156,25 @@
       "status": "Baja",
       "detail": "Muscle Injury",
       "injuryType": "Muscle Injury",
-      "reportedAt": "2026-11-25T20:23:50.754Z"
+      "reportedAt": "2026-11-26T20:00:11.075Z"
+    },
+    {
+      "teamId": "super-lig.amedspor",
+      "player": "Samuel Ballet",
+      "position": "Delantero",
+      "status": "Baja",
+      "detail": "red_card_suspension",
+      "injuryType": "red_card_suspension",
+      "reportedAt": "2026-11-26T20:00:11.075Z"
     },
     {
       "teamId": "super-lig.caykur-rizespor",
       "player": "Can Bozdoğan",
       "position": "Mediocampista",
       "status": "Baja",
-      "detail": "Muscle Injury",
-      "injuryType": "Muscle Injury",
-      "reportedAt": "2026-11-25T20:23:50.754Z"
+      "detail": "Knee Injury",
+      "injuryType": "Knee Injury",
+      "reportedAt": "2026-11-26T20:00:11.075Z"
     },
     {
       "teamId": "super-lig.caykur-rizespor",
@@ -165,7 +183,7 @@
       "status": "Duda",
       "detail": "Muscle Injury",
       "injuryType": "Muscle Injury",
-      "reportedAt": "2026-11-25T20:23:50.754Z"
+      "reportedAt": "2026-11-26T20:00:11.075Z"
     },
     {
       "teamId": "super-lig.caykur-rizespor",
@@ -174,16 +192,16 @@
       "status": "Baja",
       "detail": "Cruciate Ligament Injury",
       "injuryType": "Cruciate Ligament Injury",
-      "reportedAt": "2026-11-25T20:23:50.754Z"
+      "reportedAt": "2026-11-26T20:00:11.075Z"
     },
     {
       "teamId": "super-lig.caykur-rizespor",
       "player": "Valentin Mihăilă",
       "position": "Mediocampista",
       "status": "Duda",
-      "detail": "Muscle Injury",
-      "injuryType": "Muscle Injury",
-      "reportedAt": "2026-11-25T20:23:50.754Z"
+      "detail": "Calf Injury",
+      "injuryType": "Calf Injury",
+      "reportedAt": "2026-11-26T20:00:11.075Z"
     }
   ]
 }

@@ -1,5 +1,20 @@
 {
   "schemaVersion": 1,
-  "updatedAtUtc": "2026-11-25T20:46:11Z",
-  "openIncidents": {}
+  "updatedAtUtc": "2026-11-26T20:07:51.050Z",
+  "openIncidents": {
+    "validation::calendario::liga-mx": {
+      "incidentKey": "validation::calendario::liga-mx",
+      "kind": "validation_rejected",
+      "severity": "critical",
+      "targetLabel": "Liga MX · Calendario y resultados",
+      "league": "liga-mx",
+      "dataType": "calendario",
+      "workflowId": "pre-mvp-snapshot",
+      "message": "EMPTY_OR_REGRESSED_SNAPSHOT: El candidato perdió marcadores finales en Liguilla (8 < 9).",
+      "failingSinceUtc": "2026-11-26T20:07:51.050Z",
+      "lastSeenAtUtc": "2026-11-26T20:07:51.050Z",
+      "emailedAtUtc": null,
+      "occurrences": 1
+    }
+  }
 }

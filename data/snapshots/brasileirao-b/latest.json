@@ -5,121 +5,11 @@
   "season": "brasileirao-b-2026",
   "seasonLabel": "2026",
   "periodLabel": "League phase · Matchday 37",
-  "updatedAt": "2026-11-25T20:23:50.754Z",
+  "updatedAt": "2026-11-26T20:00:11.075Z",
   "source": "pitchlab-football-v2",
   "provenance": "derived",
   "isDemo": false,
   "teamRates": {
-    "brasileirao-b.juventude": {
-      "teamId": "brasileirao-b.juventude",
-      "name": "Juventude",
-      "shortName": "Juventude",
-      "code": "JUV",
-      "forPerGame": 1.5416666666666667,
-      "againstPerGame": 0.75,
-      "gamesPlayed": 24,
-      "adjustedFor": 1.1999313028530025,
-      "adjustedAgainst": 0.7129622422202212
-    },
-    "brasileirao-b.ceara": {
-      "teamId": "brasileirao-b.ceara",
-      "name": "Ceará",
-      "shortName": "Ceará",
-      "code": "CEA",
-      "forPerGame": 1,
-      "againstPerGame": 1.3333333333333333,
-      "gamesPlayed": 24,
-      "adjustedFor": 0.8607645875911686,
-      "adjustedAgainst": 1.0301000761910186
-    },
-    "brasileirao-b.atletico-goianiense": {
-      "teamId": "brasileirao-b.atletico-goianiense",
-      "name": "Atlético Goianiense",
-      "shortName": "Goianiense",
-      "code": "ATL",
-      "forPerGame": 1.24,
-      "againstPerGame": 0.8,
-      "gamesPlayed": 25,
-      "adjustedFor": 0.9897249633362499,
-      "adjustedAgainst": 0.7243001249136772
-    },
-    "brasileirao-b.ponte-preta": {
-      "teamId": "brasileirao-b.ponte-preta",
-      "name": "Ponte Preta",
-      "shortName": "Ponte Preta",
-      "code": "PON",
-      "forPerGame": 0.4583333333333333,
-      "againstPerGame": 2.25,
-      "gamesPlayed": 24,
-      "adjustedFor": 0.5343072745761711,
-      "adjustedAgainst": 1.5873820662344837
-    },
-    "brasileirao-b.athletic": {
-      "teamId": "brasileirao-b.athletic",
-      "name": "Athletic Club",
-      "shortName": "Athletic",
-      "code": "ATH",
-      "forPerGame": 1.2916666666666667,
-      "againstPerGame": 1.2916666666666667,
-      "gamesPlayed": 24,
-      "adjustedFor": 1.0441329479815946,
-      "adjustedAgainst": 1.0531679657901096
-    },
-    "brasileirao-b.avai": {
-      "teamId": "brasileirao-b.avai",
-      "name": "Avaí",
-      "shortName": "Avaí",
-      "code": "AVA",
-      "forPerGame": 0.9166666666666666,
-      "againstPerGame": 1.125,
-      "gamesPlayed": 24,
-      "adjustedFor": 0.7856235268624349,
-      "adjustedAgainst": 0.9141869992948626
-    },
-    "brasileirao-b.nautico": {
-      "teamId": "brasileirao-b.nautico",
-      "name": "Náutico",
-      "shortName": "Náutico",
-      "code": "NAU",
-      "forPerGame": 0.8333333333333334,
-      "againstPerGame": 1.375,
-      "gamesPlayed": 24,
-      "adjustedFor": 0.7441335014261827,
-      "adjustedAgainst": 1.1039543618007042
-    },
-    "brasileirao-b.goias": {
-      "teamId": "brasileirao-b.goias",
-      "name": "Goiás",
-      "shortName": "Goiás",
-      "code": "GOI",
-      "forPerGame": 1.0833333333333333,
-      "againstPerGame": 0.9583333333333334,
-      "gamesPlayed": 24,
-      "adjustedFor": 0.8620166231187326,
-      "adjustedAgainst": 0.8304380888268584
-    },
-    "brasileirao-b.fortaleza": {
-      "teamId": "brasileirao-b.fortaleza",
-      "name": "Fortaleza",
-      "shortName": "Fortaleza",
-      "code": "FOR",
-      "forPerGame": 1.16,
-      "againstPerGame": 0.76,
-      "gamesPlayed": 25,
-      "adjustedFor": 0.9306173444269541,
-      "adjustedAgainst": 0.7012006340487086
-    },
-    "brasileirao-b.sport-recife": {
-      "teamId": "brasileirao-b.sport-recife",
-      "name": "Sport Recife",
-      "shortName": "Sport Recife",
-      "code": "SPO",
-      "forPerGame": 1.5,
-      "againstPerGame": 1.375,
-      "gamesPlayed": 24,
-      "adjustedFor": 1.1930295808658018,
-      "adjustedAgainst": 1.071544558567954
-    },
     "brasileirao-b.botafogo-sp": {
       "teamId": "brasileirao-b.botafogo-sp",
       "name": "Botafogo-SP",
@@ -128,8 +18,8 @@
       "forPerGame": 1.2916666666666667,
       "againstPerGame": 1.1666666666666667,
       "gamesPlayed": 24,
-      "adjustedFor": 1.0103233781089274,
-      "adjustedAgainst": 0.9283055423358691
+      "adjustedFor": 1.014275881085668,
+      "adjustedAgainst": 0.9326873325276898
     },
     "brasileirao-b.crb": {
       "teamId": "brasileirao-b.crb",
@@ -139,8 +29,8 @@
       "forPerGame": 1.4583333333333333,
       "againstPerGame": 1.1666666666666667,
       "gamesPlayed": 24,
-      "adjustedFor": 1.1349084555090398,
-      "adjustedAgainst": 0.9671542853996622
+      "adjustedFor": 1.1386781435792441,
+      "adjustedAgainst": 0.9705438618752464
     },
     "brasileirao-b.cuiaba": {
       "teamId": "brasileirao-b.cuiaba",
@@ -150,8 +40,8 @@
       "forPerGame": 1,
       "againstPerGame": 1.0434782608695652,
       "gamesPlayed": 23,
-      "adjustedFor": 0.8415154117695376,
-      "adjustedAgainst": 0.8557245668124444
+      "adjustedFor": 0.844635937489634,
+      "adjustedAgainst": 0.860726362767641
     },
     "brasileirao-b.america-mineiro": {
       "teamId": "brasileirao-b.america-mineiro",
@@ -161,8 +51,30 @@
       "forPerGame": 0.7391304347826086,
       "againstPerGame": 1.3478260869565217,
       "gamesPlayed": 23,
-      "adjustedFor": 0.6778458063639023,
-      "adjustedAgainst": 1.0539708557374698
+      "adjustedFor": 0.6819157348000515,
+      "adjustedAgainst": 1.057643263588415
+    },
+    "brasileirao-b.fortaleza": {
+      "teamId": "brasileirao-b.fortaleza",
+      "name": "Fortaleza",
+      "shortName": "Fortaleza",
+      "code": "FOR",
+      "forPerGame": 1.125,
+      "againstPerGame": 0.75,
+      "gamesPlayed": 24,
+      "adjustedFor": 0.9228272745174235,
+      "adjustedAgainst": 0.7029853527085499
+    },
+    "brasileirao-b.ponte-preta": {
+      "teamId": "brasileirao-b.ponte-preta",
+      "name": "Ponte Preta",
+      "shortName": "Ponte Preta",
+      "code": "PON",
+      "forPerGame": 0.4782608695652174,
+      "againstPerGame": 2.260869565217391,
+      "gamesPlayed": 23,
+      "adjustedFor": 0.5482783450650626,
+      "adjustedAgainst": 1.601972081239203
     },
     "brasileirao-b.londrina": {
       "teamId": "brasileirao-b.londrina",
@@ -172,8 +84,8 @@
       "forPerGame": 1.2173913043478262,
       "againstPerGame": 1.5217391304347827,
       "gamesPlayed": 23,
-      "adjustedFor": 0.9733191746848073,
-      "adjustedAgainst": 1.202580304501292
+      "adjustedFor": 0.9774653108391403,
+      "adjustedAgainst": 1.2059839955724982
     },
     "brasileirao-b.gremio-novorizontino": {
       "teamId": "brasileirao-b.gremio-novorizontino",
@@ -183,8 +95,19 @@
       "forPerGame": 1.8695652173913044,
       "againstPerGame": 0.782608695652174,
       "gamesPlayed": 23,
-      "adjustedFor": 1.395222199413019,
-      "adjustedAgainst": 0.7239965563315194
+      "adjustedFor": 1.398487654750926,
+      "adjustedAgainst": 0.7286517073123052
+    },
+    "brasileirao-b.atletico-goianiense": {
+      "teamId": "brasileirao-b.atletico-goianiense",
+      "name": "Atlético Goianiense",
+      "shortName": "Goianiense",
+      "code": "ATL",
+      "forPerGame": 1.2083333333333333,
+      "againstPerGame": 0.8333333333333334,
+      "gamesPlayed": 24,
+      "adjustedFor": 1.0017781596486153,
+      "adjustedAgainst": 0.7383399647674868
     },
     "brasileirao-b.criciuma": {
       "teamId": "brasileirao-b.criciuma",
@@ -194,8 +117,63 @@
       "forPerGame": 0.9166666666666666,
       "againstPerGame": 0.875,
       "gamesPlayed": 24,
-      "adjustedFor": 0.7785717438782681,
-      "adjustedAgainst": 0.7586846316958814
+      "adjustedFor": 0.7830109016298492,
+      "adjustedAgainst": 0.7637178101188968
+    },
+    "brasileirao-b.sport-recife": {
+      "teamId": "brasileirao-b.sport-recife",
+      "name": "Sport Recife",
+      "shortName": "Sport Recife",
+      "code": "SPO",
+      "forPerGame": 1.5217391304347827,
+      "againstPerGame": 1.3478260869565217,
+      "gamesPlayed": 23,
+      "adjustedFor": 1.1927743234315153,
+      "adjustedAgainst": 1.0638374921978486
+    },
+    "brasileirao-b.goias": {
+      "teamId": "brasileirao-b.goias",
+      "name": "Goiás",
+      "shortName": "Goiás",
+      "code": "GOI",
+      "forPerGame": 1.0869565217391304,
+      "againstPerGame": 1,
+      "gamesPlayed": 23,
+      "adjustedFor": 0.8671184639057153,
+      "adjustedAgainst": 0.8564069803560906
+    },
+    "brasileirao-b.ceara": {
+      "teamId": "brasileirao-b.ceara",
+      "name": "Ceará",
+      "shortName": "Ceará",
+      "code": "CEA",
+      "forPerGame": 1.0434782608695652,
+      "againstPerGame": 1.3043478260869565,
+      "gamesPlayed": 23,
+      "adjustedFor": 0.8788771984136989,
+      "adjustedAgainst": 1.0312954495923712
+    },
+    "brasileirao-b.nautico": {
+      "teamId": "brasileirao-b.nautico",
+      "name": "Náutico",
+      "shortName": "Náutico",
+      "code": "NAU",
+      "forPerGame": 0.8695652173913043,
+      "againstPerGame": 1.391304347826087,
+      "gamesPlayed": 23,
+      "adjustedFor": 0.7695264742458245,
+      "adjustedAgainst": 1.1091806958688961
+    },
+    "brasileirao-b.juventude": {
+      "teamId": "brasileirao-b.juventude",
+      "name": "Juventude",
+      "shortName": "Juventude",
+      "code": "JUV",
+      "forPerGame": 1.5217391304347827,
+      "againstPerGame": 0.782608695652174,
+      "gamesPlayed": 23,
+      "adjustedFor": 1.2006377682339706,
+      "adjustedAgainst": 0.7325003723443869
     },
     "brasileirao-b.vila-nova": {
       "teamId": "brasileirao-b.vila-nova",
@@ -205,8 +183,8 @@
       "forPerGame": 1.2916666666666667,
       "againstPerGame": 0.9583333333333334,
       "gamesPlayed": 24,
-      "adjustedFor": 1.05138206950573,
-      "adjustedAgainst": 0.811598717899518
+      "adjustedFor": 1.054804729023659,
+      "adjustedAgainst": 0.8164090140040683
     },
     "brasileirao-b.sao-bernardo": {
       "teamId": "brasileirao-b.sao-bernardo",
@@ -216,8 +194,30 @@
       "forPerGame": 1.4782608695652173,
       "againstPerGame": 1.391304347826087,
       "gamesPlayed": 23,
-      "adjustedFor": 1.167295854091786,
-      "adjustedAgainst": 1.0840415837296213
+      "adjustedFor": 1.16988744762538,
+      "adjustedAgainst": 1.0880333826806872
+    },
+    "brasileirao-b.avai": {
+      "teamId": "brasileirao-b.avai",
+      "name": "Avaí",
+      "shortName": "Avaí",
+      "code": "AVA",
+      "forPerGame": 0.9565217391304348,
+      "againstPerGame": 1.1304347826086956,
+      "gamesPlayed": 23,
+      "adjustedFor": 0.8105208472722522,
+      "adjustedAgainst": 0.9290476343057931
+    },
+    "brasileirao-b.athletic": {
+      "teamId": "brasileirao-b.athletic",
+      "name": "Athletic Club",
+      "shortName": "Athletic",
+      "code": "ATH",
+      "forPerGame": 1.3043478260869565,
+      "againstPerGame": 1.3478260869565217,
+      "gamesPlayed": 23,
+      "adjustedFor": 1.0590030394637215,
+      "adjustedAgainst": 1.0776404339439718
     },
     "brasileirao-b.operario-pr": {
       "teamId": "brasileirao-b.operario-pr",
@@ -227,8 +227,8 @@
       "forPerGame": 1.391304347826087,
       "againstPerGame": 1.434782608695652,
       "gamesPlayed": 23,
-      "adjustedFor": 1.0728517618258155,
-      "adjustedAgainst": 1.102453329266121
+      "adjustedFor": 1.076288072253557,
+      "adjustedAgainst": 1.1067933898949314
     }
   },
   "games": [
@@ -263,7 +263,7 @@
       "result": {
         "home": 0,
         "away": 3,
-        "observedAt": "2026-11-25T20:23:50.754Z",
+        "observedAt": "2026-11-26T20:00:11.075Z",
         "source": "pitchlab-feed"
       }
     },
@@ -298,7 +298,7 @@
       "result": {
         "home": 2,
         "away": 3,
-        "observedAt": "2026-11-25T20:23:50.754Z",
+        "observedAt": "2026-11-26T20:00:11.075Z",
         "source": "pitchlab-feed"
       }
     },
@@ -333,7 +333,7 @@
       "result": {
         "home": 1,
         "away": 0,
-        "observedAt": "2026-11-25T20:23:50.754Z",
+        "observedAt": "2026-11-26T20:00:11.075Z",
         "source": "pitchlab-feed"
       }
     },
@@ -368,7 +368,7 @@
       "result": {
         "home": 0,
         "away": 1,
-        "observedAt": "2026-11-25T20:23:50.754Z",
+        "observedAt": "2026-11-26T20:00:11.075Z",
         "source": "pitchlab-feed"
       }
     },
@@ -403,7 +403,7 @@
       "result": {
         "home": 2,
         "away": 1,
-        "observedAt": "2026-11-25T20:23:50.754Z",
+        "observedAt": "2026-11-26T20:00:11.075Z",
         "source": "pitchlab-feed"
       }
     },
@@ -437,7 +437,7 @@
       "result": {
         "home": 0,
         "away": 2,
-        "observedAt": "2026-11-25T20:23:50.754Z",
+        "observedAt": "2026-11-26T20:00:11.075Z",
         "source": "pitchlab-feed"
       }
     },
@@ -471,7 +471,7 @@
       "result": {
         "home": 2,
         "away": 2,
-        "observedAt": "2026-11-25T20:23:50.754Z",
+        "observedAt": "2026-11-26T20:00:11.075Z",
         "source": "pitchlab-feed"
       }
     },
@@ -506,7 +506,7 @@
       "result": {
         "home": 3,
         "away": 0,
-        "observedAt": "2026-11-25T20:23:50.754Z",
+        "observedAt": "2026-11-26T20:00:11.075Z",
         "source": "pitchlab-feed"
       }
     },
@@ -541,7 +541,7 @@
       "result": {
         "home": 2,
         "away": 0,
-        "observedAt": "2026-11-25T20:23:50.754Z",
+        "observedAt": "2026-11-26T20:00:11.075Z",
         "source": "pitchlab-feed"
       }
     },
@@ -576,7 +576,7 @@
       "result": {
         "home": 1,
         "away": 0,
-        "observedAt": "2026-11-25T20:23:50.754Z",
+        "observedAt": "2026-11-26T20:00:11.075Z",
         "source": "pitchlab-feed"
       }
     },
@@ -611,7 +611,7 @@
       "result": {
         "home": 0,
         "away": 1,
-        "observedAt": "2026-11-25T20:23:50.754Z",
+        "observedAt": "2026-11-26T20:00:11.075Z",
         "source": "pitchlab-feed"
       }
     },
@@ -646,7 +646,7 @@
       "result": {
         "home": 1,
         "away": 1,
-        "observedAt": "2026-11-25T20:23:50.754Z",
+        "observedAt": "2026-11-26T20:00:11.075Z",
         "source": "pitchlab-feed"
       }
     },
@@ -681,7 +681,7 @@
       "result": {
         "home": 1,
         "away": 0,
-        "observedAt": "2026-11-25T20:23:50.754Z",
+        "observedAt": "2026-11-26T20:00:11.075Z",
         "source": "pitchlab-feed"
       }
     },
@@ -716,7 +716,7 @@
       "result": {
         "home": 0,
         "away": 2,
-        "observedAt": "2026-11-25T20:23:50.754Z",
+        "observedAt": "2026-11-26T20:00:11.075Z",
         "source": "pitchlab-feed"
       }
     },
@@ -751,7 +751,7 @@
       "result": {
         "home": 1,
         "away": 0,
-        "observedAt": "2026-11-25T20:23:50.754Z",
+        "observedAt": "2026-11-26T20:00:11.075Z",
         "source": "pitchlab-feed"
       }
     },
@@ -786,7 +786,7 @@
       "result": {
         "home": 1,
         "away": 1,
-        "observedAt": "2026-11-25T20:23:50.754Z",
+        "observedAt": "2026-11-26T20:00:11.075Z",
         "source": "pitchlab-feed"
       }
     },
@@ -816,6 +816,7 @@
         "logoUrl": "https://sports.bzzoiro.com/img/team/819/?bg=transparent"
       },
       "venue": "Estádio Onésio Brasileiro Alvarenga, Goiânia",
+      "referee": "Anderson Daronco",
       "neutralSite": false
     },
     {
@@ -4944,11 +4945,11 @@
         "referee": "Davi de Oliveira Lacerda",
         "refereeStats": {
           "country": "Brazil",
-          "matches": 78,
-          "avgYellow": 4.96,
-          "avgRed": 0.26,
+          "matches": 79,
+          "avgYellow": 4.99,
+          "avgRed": 0.25,
           "avgFouls": 24.1,
-          "avgGoals": 2.32
+          "avgGoals": 2.33
         },
         "weather": {
           "description": "clear",
@@ -6783,11 +6784,11 @@
         "referee": "Braulio Da Silva Machado",
         "refereeStats": {
           "country": "Brazil",
-          "matches": 32,
-          "avgYellow": 5.44,
-          "avgRed": 0.19,
+          "matches": 33,
+          "avgYellow": 5.39,
+          "avgRed": 0.21,
           "avgFouls": 24.6,
-          "avgGoals": 2.41
+          "avgGoals": 2.39
         },
         "weather": {
           "description": "cloudy",
@@ -8729,10 +8730,20 @@
       },
       "picksAt": "2026-11-19T16:05:39.021Z",
       "matchContext": {
+        "referee": "Anderson Daronco",
+        "refereeStats": {
+          "country": "Brazil",
+          "matches": 92,
+          "avgYellow": 4.87,
+          "avgRed": 0.29,
+          "avgFouls": 26.5,
+          "avgGoals": 2.36
+        },
         "weather": {
           "temperatureC": 22,
           "windSpeedKmh": 26
         },
+        "travelDistanceKm": 3,
         "stageName": "Final",
         "venueCity": "Goiânia",
         "venueCountry": "Brazil",
@@ -9223,26 +9234,6 @@
   },
   "standings": [
     {
-      "teamId": "brasileirao-b.juventude",
-      "name": "Juventude",
-      "shortName": "Juventude",
-      "code": "JUV",
-      "played": 24,
-      "won": 14,
-      "drawn": 7,
-      "lost": 3,
-      "goalsFor": 37,
-      "goalsAgainst": 18,
-      "points": 49,
-      "form": [
-        "D",
-        "W",
-        "D",
-        "W",
-        "W"
-      ]
-    },
-    {
       "teamId": "brasileirao-b.gremio-novorizontino",
       "name": "Grêmio Novorizontino",
       "shortName": "Grêmio Novorizontino",
@@ -9263,43 +9254,23 @@
       ]
     },
     {
-      "teamId": "brasileirao-b.atletico-goianiense",
-      "name": "Atlético Goianiense",
-      "shortName": "Goianiense",
-      "code": "ATL",
-      "played": 25,
-      "won": 12,
-      "drawn": 8,
-      "lost": 5,
-      "goalsFor": 31,
-      "goalsAgainst": 20,
-      "points": 44,
-      "form": [
-        "L",
-        "D",
-        "W",
-        "W",
-        "D"
-      ]
-    },
-    {
-      "teamId": "brasileirao-b.fortaleza",
-      "name": "Fortaleza",
-      "shortName": "Fortaleza",
-      "code": "FOR",
-      "played": 25,
-      "won": 11,
-      "drawn": 10,
-      "lost": 4,
-      "goalsFor": 29,
-      "goalsAgainst": 19,
-      "points": 43,
+      "teamId": "brasileirao-b.juventude",
+      "name": "Juventude",
+      "shortName": "Juventude",
+      "code": "JUV",
+      "played": 23,
+      "won": 13,
+      "drawn": 7,
+      "lost": 3,
+      "goalsFor": 35,
+      "goalsAgainst": 18,
+      "points": 46,
       "form": [
         "D",
-        "D",
-        "L",
         "W",
-        "L"
+        "D",
+        "W",
+        "W"
       ]
     },
     {
@@ -9323,21 +9294,41 @@
       ]
     },
     {
-      "teamId": "brasileirao-b.goias",
-      "name": "Goiás",
-      "shortName": "Goiás",
-      "code": "GOI",
+      "teamId": "brasileirao-b.atletico-goianiense",
+      "name": "Atlético Goianiense",
+      "shortName": "Goianiense",
+      "code": "ATL",
       "played": 24,
-      "won": 12,
-      "drawn": 4,
-      "lost": 8,
-      "goalsFor": 26,
-      "goalsAgainst": 23,
-      "points": 40,
+      "won": 11,
+      "drawn": 8,
+      "lost": 5,
+      "goalsFor": 29,
+      "goalsAgainst": 20,
+      "points": 41,
       "form": [
+        "L",
         "D",
         "W",
         "W",
+        "D"
+      ]
+    },
+    {
+      "teamId": "brasileirao-b.fortaleza",
+      "name": "Fortaleza",
+      "shortName": "Fortaleza",
+      "code": "FOR",
+      "played": 24,
+      "won": 10,
+      "drawn": 10,
+      "lost": 4,
+      "goalsFor": 27,
+      "goalsAgainst": 18,
+      "points": 40,
+      "form": [
+        "D",
+        "D",
+        "L",
         "W",
         "L"
       ]
@@ -9383,6 +9374,26 @@
       ]
     },
     {
+      "teamId": "brasileirao-b.goias",
+      "name": "Goiás",
+      "shortName": "Goiás",
+      "code": "GOI",
+      "played": 23,
+      "won": 11,
+      "drawn": 4,
+      "lost": 8,
+      "goalsFor": 25,
+      "goalsAgainst": 23,
+      "points": 37,
+      "form": [
+        "D",
+        "W",
+        "W",
+        "W",
+        "L"
+      ]
+    },
+    {
       "teamId": "brasileirao-b.botafogo-sp",
       "name": "Botafogo-SP",
       "shortName": "Botafogo-SP",
@@ -9407,12 +9418,12 @@
       "name": "Sport Recife",
       "shortName": "Sport Recife",
       "code": "SPO",
-      "played": 24,
+      "played": 23,
       "won": 9,
       "drawn": 6,
-      "lost": 9,
-      "goalsFor": 36,
-      "goalsAgainst": 33,
+      "lost": 8,
+      "goalsFor": 35,
+      "goalsAgainst": 31,
       "points": 33,
       "form": [
         "L",
@@ -9447,12 +9458,12 @@
       "name": "Avaí",
       "shortName": "Avaí",
       "code": "AVA",
-      "played": 24,
+      "played": 23,
       "won": 9,
       "drawn": 3,
-      "lost": 12,
+      "lost": 11,
       "goalsFor": 22,
-      "goalsAgainst": 27,
+      "goalsAgainst": 26,
       "points": 30,
       "form": [
         "D",
@@ -9460,26 +9471,6 @@
         "L",
         "W",
         "W"
-      ]
-    },
-    {
-      "teamId": "brasileirao-b.athletic",
-      "name": "Athletic Club",
-      "shortName": "Athletic",
-      "code": "ATH",
-      "played": 24,
-      "won": 7,
-      "drawn": 8,
-      "lost": 9,
-      "goalsFor": 31,
-      "goalsAgainst": 31,
-      "points": 29,
-      "form": [
-        "D",
-        "L",
-        "W",
-        "L",
-        "D"
       ]
     },
     {
@@ -9527,12 +9518,12 @@
       "name": "Ceará",
       "shortName": "Ceará",
       "code": "CEA",
-      "played": 24,
+      "played": 23,
       "won": 7,
       "drawn": 6,
-      "lost": 11,
+      "lost": 10,
       "goalsFor": 24,
-      "goalsAgainst": 32,
+      "goalsAgainst": 30,
       "points": 27,
       "form": [
         "D",
@@ -9543,16 +9534,36 @@
       ]
     },
     {
+      "teamId": "brasileirao-b.athletic",
+      "name": "Athletic Club",
+      "shortName": "Athletic",
+      "code": "ATH",
+      "played": 23,
+      "won": 6,
+      "drawn": 8,
+      "lost": 9,
+      "goalsFor": 30,
+      "goalsAgainst": 31,
+      "points": 26,
+      "form": [
+        "D",
+        "L",
+        "W",
+        "L",
+        "D"
+      ]
+    },
+    {
       "teamId": "brasileirao-b.nautico",
       "name": "Náutico",
       "shortName": "Náutico",
       "code": "NAU",
-      "played": 24,
+      "played": 23,
       "won": 6,
       "drawn": 8,
-      "lost": 10,
+      "lost": 9,
       "goalsFor": 20,
-      "goalsAgainst": 33,
+      "goalsAgainst": 32,
       "points": 26,
       "form": [
         "D",
@@ -9607,12 +9618,12 @@
       "name": "Ponte Preta",
       "shortName": "Ponte Preta",
       "code": "PON",
-      "played": 24,
+      "played": 23,
       "won": 1,
       "drawn": 4,
-      "lost": 19,
+      "lost": 18,
       "goalsFor": 11,
-      "goalsAgainst": 54,
+      "goalsAgainst": 52,
       "points": 7,
       "form": [
         "D",

@@ -5,7 +5,7 @@
   "season": "coppa-italia-2026-27",
   "seasonLabel": "2026/27",
   "periodLabel": "Round of 64",
-  "updatedAt": "2026-11-25T20:23:50.754Z",
+  "updatedAt": "2026-11-26T20:00:11.075Z",
   "source": "pitchlab-football-v2",
   "provenance": "derived",
   "isDemo": false,
@@ -494,7 +494,7 @@
       "result": {
         "home": 4,
         "away": 1,
-        "observedAt": "2026-11-25T20:23:50.754Z",
+        "observedAt": "2026-11-26T20:00:11.075Z",
         "source": "pitchlab-feed"
       }
     },
@@ -529,7 +529,7 @@
       "result": {
         "home": 4,
         "away": 1,
-        "observedAt": "2026-11-25T20:23:50.754Z",
+        "observedAt": "2026-11-26T20:00:11.075Z",
         "source": "pitchlab-feed"
       }
     },
@@ -564,7 +564,7 @@
       "result": {
         "home": 2,
         "away": 2,
-        "observedAt": "2026-11-25T20:23:50.754Z",
+        "observedAt": "2026-11-26T20:00:11.075Z",
         "source": "pitchlab-feed"
       }
     },
@@ -599,7 +599,7 @@
       "result": {
         "home": 0,
         "away": 2,
-        "observedAt": "2026-11-25T20:23:50.754Z",
+        "observedAt": "2026-11-26T20:00:11.075Z",
         "source": "pitchlab-feed"
       }
     },
@@ -634,7 +634,7 @@
       "result": {
         "home": 1,
         "away": 1,
-        "observedAt": "2026-11-25T20:23:50.754Z",
+        "observedAt": "2026-11-26T20:00:11.075Z",
         "source": "pitchlab-feed"
       }
     },
@@ -669,7 +669,7 @@
       "result": {
         "home": 3,
         "away": 0,
-        "observedAt": "2026-11-25T20:23:50.754Z",
+        "observedAt": "2026-11-26T20:00:11.075Z",
         "source": "pitchlab-feed"
       }
     },
@@ -704,7 +704,7 @@
       "result": {
         "home": 2,
         "away": 0,
-        "observedAt": "2026-11-25T20:23:50.754Z",
+        "observedAt": "2026-11-26T20:00:11.075Z",
         "source": "pitchlab-feed"
       }
     },
@@ -739,7 +739,7 @@
       "result": {
         "home": 2,
         "away": 0,
-        "observedAt": "2026-11-25T20:23:50.754Z",
+        "observedAt": "2026-11-26T20:00:11.075Z",
         "source": "pitchlab-feed"
       }
     },
@@ -774,7 +774,7 @@
       "result": {
         "home": 0,
         "away": 2,
-        "observedAt": "2026-11-25T20:23:50.754Z",
+        "observedAt": "2026-11-26T20:00:11.075Z",
         "source": "pitchlab-feed"
       }
     },
@@ -809,7 +809,7 @@
       "result": {
         "home": 0,
         "away": 1,
-        "observedAt": "2026-11-25T20:23:50.754Z",
+        "observedAt": "2026-11-26T20:00:11.075Z",
         "source": "pitchlab-feed"
       }
     },
@@ -844,7 +844,7 @@
       "result": {
         "home": 1,
         "away": 1,
-        "observedAt": "2026-11-25T20:23:50.754Z",
+        "observedAt": "2026-11-26T20:00:11.075Z",
         "source": "pitchlab-feed"
       }
     },
@@ -879,7 +879,7 @@
       "result": {
         "home": 2,
         "away": 1,
-        "observedAt": "2026-11-25T20:23:50.754Z",
+        "observedAt": "2026-11-26T20:00:11.075Z",
         "source": "pitchlab-feed"
       }
     },
@@ -914,7 +914,7 @@
       "result": {
         "home": 5,
         "away": 2,
-        "observedAt": "2026-11-25T20:23:50.754Z",
+        "observedAt": "2026-11-26T20:00:11.075Z",
         "source": "pitchlab-feed"
       }
     },
@@ -949,7 +949,7 @@
       "result": {
         "home": 1,
         "away": 2,
-        "observedAt": "2026-11-25T20:23:50.754Z",
+        "observedAt": "2026-11-26T20:00:11.075Z",
         "source": "pitchlab-feed"
       }
     },
@@ -984,7 +984,7 @@
       "result": {
         "home": 1,
         "away": 0,
-        "observedAt": "2026-11-25T20:23:50.754Z",
+        "observedAt": "2026-11-26T20:00:11.075Z",
         "source": "pitchlab-feed"
       }
     },
@@ -1019,7 +1019,7 @@
       "result": {
         "home": 3,
         "away": 0,
-        "observedAt": "2026-11-25T20:23:50.754Z",
+        "observedAt": "2026-11-26T20:00:11.075Z",
         "source": "pitchlab-feed"
       }
     },
@@ -1443,11 +1443,11 @@
         "referee": "Maco Di Loreto",
         "refereeStats": {
           "country": "Italy",
-          "matches": 33,
-          "avgYellow": 1.06,
+          "matches": 34,
+          "avgYellow": 1.03,
           "avgRed": 0.03,
           "avgFouls": 30.5,
-          "avgGoals": 2
+          "avgGoals": 2.12
         },
         "weather": {
           "description": "clear",
@@ -2348,11 +2348,11 @@
         "referee": "Giuseppe Mucera",
         "refereeStats": {
           "country": "Italy",
-          "matches": 39,
-          "avgYellow": 0.82,
+          "matches": 40,
+          "avgYellow": 0.8,
           "avgRed": 0.03,
           "avgFouls": 23.3,
-          "avgGoals": 2.33
+          "avgGoals": 2.35
         },
         "weather": {
           "description": "unknown",
@@ -2648,11 +2648,11 @@
         "referee": "Andrea Zanotti",
         "refereeStats": {
           "country": "Italy",
-          "matches": 36,
-          "avgYellow": 1,
-          "avgRed": 0.06,
+          "matches": 37,
+          "avgYellow": 0.97,
+          "avgRed": 0.05,
           "avgFouls": 27.3,
-          "avgGoals": 2.47
+          "avgGoals": 2.41
         },
         "weather": {
           "description": "rain",
@@ -4745,9 +4745,9 @@
         "referee": "Matteo Marchetti",
         "refereeStats": {
           "country": "Italy",
-          "matches": 48,
-          "avgYellow": 2.69,
-          "avgRed": 0.23,
+          "matches": 49,
+          "avgYellow": 2.63,
+          "avgRed": 0.22,
           "avgFouls": 25.4,
           "avgGoals": 2.35
         },
@@ -5046,10 +5046,10 @@
         "referee": "Davide Di Marco",
         "refereeStats": {
           "country": "Italy",
-          "matches": 31,
-          "avgYellow": 1.45,
+          "matches": 32,
+          "avgYellow": 1.59,
           "avgRed": 0.03,
-          "avgFouls": 26,
+          "avgFouls": 26.5,
           "avgGoals": 2.84
         },
         "weather": {
@@ -5346,11 +5346,11 @@
         "referee": "Andrea Zanotti",
         "refereeStats": {
           "country": "Italy",
-          "matches": 36,
-          "avgYellow": 1,
-          "avgRed": 0.06,
+          "matches": 37,
+          "avgYellow": 0.97,
+          "avgRed": 0.05,
           "avgFouls": 27.3,
-          "avgGoals": 2.47
+          "avgGoals": 2.41
         },
         "weather": {
           "description": "cloudy",
@@ -5647,11 +5647,11 @@
         "referee": "Gianluca Manganiello",
         "refereeStats": {
           "country": "Italy",
-          "matches": 43,
-          "avgYellow": 2.49,
-          "avgRed": 0.12,
-          "avgFouls": 23.6,
-          "avgGoals": 2.49
+          "matches": 44,
+          "avgYellow": 2.55,
+          "avgRed": 0.11,
+          "avgFouls": 23.7,
+          "avgGoals": 2.48
         },
         "weather": {
           "description": "clear",

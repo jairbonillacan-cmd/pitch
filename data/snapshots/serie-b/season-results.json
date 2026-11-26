@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "league": "serie-b",
   "season": "2026/27",
-  "updatedAt": "2026-11-25T20:23:50.754Z",
+  "updatedAt": "2026-11-26T20:00:11.075Z",
   "matches": [
     {
       "id": "serie-b-2026-08-21-l-r-vicenza-catanzaro-j05jn1",
@@ -1399,6 +1399,39 @@
       "awayTeam": "serie-b.avellino",
       "homeScore": 0,
       "awayScore": 1,
+      "neutralSite": false
+    },
+    {
+      "id": "serie-b-2026-11-25-pisa-modena-d964jt",
+      "date": "2026-11-25",
+      "startTime": "2026-11-25T19:00:00.000Z",
+      "round": "Regular season · Matchday 13",
+      "homeTeam": "serie-b.pisa",
+      "awayTeam": "serie-b.modena",
+      "homeScore": 1,
+      "awayScore": 1,
+      "neutralSite": false
+    },
+    {
+      "id": "serie-b-2026-11-25-padova-sampdoria-tja7lb",
+      "date": "2026-11-25",
+      "startTime": "2026-11-25T19:00:00.000Z",
+      "round": "Regular season · Matchday 13",
+      "homeTeam": "serie-b.padova",
+      "awayTeam": "serie-b.sampdoria",
+      "homeScore": 1,
+      "awayScore": 2,
+      "neutralSite": false
+    },
+    {
+      "id": "serie-b-2026-11-25-mantova-arezzo-7iyes7",
+      "date": "2026-11-25",
+      "startTime": "2026-11-25T19:00:00.000Z",
+      "round": "Regular season · Matchday 13",
+      "homeTeam": "serie-b.mantova",
+      "awayTeam": "serie-b.arezzo",
+      "homeScore": 3,
+      "awayScore": 0,
       "neutralSite": false
     }
   ]

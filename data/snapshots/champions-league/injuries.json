@@ -1,144 +1,81 @@
 {
   "schemaVersion": 1,
   "league": "champions-league",
-  "observedAt": "2026-11-25T20:23:50.754Z",
+  "observedAt": "2026-11-26T20:00:11.075Z",
   "source": "pitchlab-availability",
   "coverageStatus": "ok",
   "entries": [
     {
-      "teamId": "champions-league.psv-eindhoven",
-      "player": "Adamo Nagalo",
-      "position": "Defensa",
-      "status": "Baja",
-      "detail": "Unknown",
-      "injuryType": "Unknown",
-      "reportedAt": "2026-11-25T20:23:50.754Z"
-    },
-    {
-      "teamId": "champions-league.psv-eindhoven",
-      "player": "Alassane Pléa",
+      "teamId": "champions-league.slovan-bratislava",
+      "player": "Alasana Yirajang",
       "position": "Mediocampista",
       "status": "Baja",
       "detail": "Unknown",
       "injuryType": "Unknown",
-      "reportedAt": "2026-11-25T20:23:50.754Z"
+      "reportedAt": "2026-11-26T20:00:11.075Z"
     },
     {
-      "teamId": "champions-league.psv-eindhoven",
-      "player": "Jerdy Schouten",
-      "position": "Defensa",
-      "status": "Baja",
-      "detail": "ACL Knee Injury",
-      "injuryType": "ACL Knee Injury",
-      "reportedAt": "2026-11-25T20:23:50.754Z"
-    },
-    {
-      "teamId": "champions-league.psv-eindhoven",
-      "player": "Mauro Júnior",
-      "position": "Defensa",
-      "status": "Baja",
-      "detail": "Groin Injury",
-      "injuryType": "Groin Injury",
-      "reportedAt": "2026-11-25T20:23:50.754Z"
-    },
-    {
-      "teamId": "champions-league.brugge-kv",
-      "player": "Jan Virgili",
+      "teamId": "champions-league.slovan-bratislava",
+      "player": "Alen Mustafić",
       "position": "Mediocampista",
       "status": "Baja",
-      "detail": "Groin Injury",
-      "injuryType": "Groin Injury",
-      "reportedAt": "2026-11-25T20:23:50.754Z"
+      "detail": "Knee Injury",
+      "injuryType": "Knee Injury",
+      "reportedAt": "2026-11-26T20:00:11.075Z"
     },
     {
-      "teamId": "champions-league.slavia-praha",
-      "player": "Adonija Ouanda",
-      "position": "Delantero",
-      "status": "Baja",
-      "detail": "Physical Discomfort",
-      "injuryType": "Physical Discomfort",
-      "reportedAt": "2026-11-25T20:23:50.754Z"
-    },
-    {
-      "teamId": "champions-league.slavia-praha",
-      "player": "Danijel Šturm",
+      "teamId": "champions-league.slovan-bratislava",
+      "player": "Artur Gajdoš",
       "position": "Mediocampista",
+      "status": "Duda",
+      "detail": "Knock Injury",
+      "injuryType": "Knock Injury",
+      "reportedAt": "2026-11-26T20:00:11.075Z"
+    },
+    {
+      "teamId": "champions-league.slovan-bratislava",
+      "player": "Kevin Wimmer",
+      "position": "Defensa",
       "status": "Baja",
       "detail": "Knock Injury",
       "injuryType": "Knock Injury",
-      "reportedAt": "2026-11-25T20:23:50.754Z"
+      "reportedAt": "2026-11-26T20:00:11.075Z"
     },
     {
-      "teamId": "champions-league.slavia-praha",
-      "player": "Elias Pitak",
+      "teamId": "champions-league.slovan-bratislava",
+      "player": "Sahmkou Camara",
+      "position": "Defensa",
+      "status": "Baja",
+      "detail": "Abdominal Injury",
+      "injuryType": "Abdominal Injury",
+      "reportedAt": "2026-11-26T20:00:11.075Z"
+    },
+    {
+      "teamId": "champions-league.slovan-bratislava",
+      "player": "Suleiman Camara",
+      "position": "Delantero",
+      "status": "Baja",
+      "detail": "Ankle Injury",
+      "injuryType": "Ankle Injury",
+      "reportedAt": "2026-11-26T20:00:11.075Z"
+    },
+    {
+      "teamId": "champions-league.real-betis",
+      "player": "Antony",
       "position": "Mediocampista",
-      "status": "Baja",
-      "detail": "Physical Discomfort",
-      "injuryType": "Physical Discomfort",
-      "reportedAt": "2026-11-25T20:23:50.754Z"
-    },
-    {
-      "teamId": "champions-league.slavia-praha",
-      "player": "Igoh Ogbu",
-      "position": "Defensa",
-      "status": "Baja",
-      "detail": "Achilles Tendon Injury",
-      "injuryType": "Achilles Tendon Injury",
-      "reportedAt": "2026-11-25T20:23:50.754Z"
-    },
-    {
-      "teamId": "champions-league.slavia-praha",
-      "player": "Lukáš Provod",
-      "position": "Delantero",
       "status": "Duda",
-      "detail": "Knee Injury",
-      "injuryType": "Knee Injury",
-      "reportedAt": "2026-11-25T20:23:50.754Z"
+      "detail": "Back Injury",
+      "injuryType": "Back Injury",
+      "reportedAt": "2026-11-26T20:00:11.075Z"
     },
     {
-      "teamId": "champions-league.slavia-praha",
-      "player": "Štěpán Chaloupek",
-      "position": "Defensa",
-      "status": "Baja",
-      "detail": "Hamstring Injury",
-      "injuryType": "Hamstring Injury",
-      "reportedAt": "2026-11-25T20:23:50.754Z"
-    },
-    {
-      "teamId": "champions-league.slavia-praha",
-      "player": "Tomáš Chorý",
-      "position": "Delantero",
-      "status": "Baja",
-      "detail": "club_decision",
-      "injuryType": "club_decision",
-      "reportedAt": "2026-11-25T20:23:50.754Z"
-    },
-    {
-      "teamId": "champions-league.arsenal",
-      "player": "Bukayo Saka",
-      "position": "Delantero",
-      "status": "Baja",
-      "detail": "Muscle Injury",
-      "injuryType": "Muscle Injury",
-      "reportedAt": "2026-11-25T20:23:50.754Z"
-    },
-    {
-      "teamId": "champions-league.arsenal",
-      "player": "David Raya",
-      "position": "Portero",
-      "status": "Duda",
-      "detail": "Shoulder Injury",
-      "injuryType": "Shoulder Injury",
-      "reportedAt": "2026-11-25T20:23:50.754Z"
-    },
-    {
-      "teamId": "champions-league.arsenal",
-      "player": "Martín Zubimendi",
+      "teamId": "champions-league.real-betis",
+      "player": "Dani Ceballos",
       "position": "Mediocampista",
       "status": "Baja",
       "detail": "Hamstring Injury",
       "injuryType": "Hamstring Injury",
-      "reportedAt": "2026-11-25T20:23:50.754Z"
+      "reportedAt": "2026-11-26T20:00:11.075Z"
     },
     {
       "teamId": "champions-league.rb-leipzig",
@@ -147,7 +84,7 @@
       "status": "Baja",
       "detail": "Shoulder Injury",
       "injuryType": "Shoulder Injury",
-      "reportedAt": "2026-11-25T20:23:50.754Z"
+      "reportedAt": "2026-11-26T20:00:11.075Z"
     },
     {
       "teamId": "champions-league.rb-leipzig",
@@ -156,7 +93,7 @@
       "status": "Baja",
       "detail": "Bruised Knee",
       "injuryType": "Bruised Knee",
-      "reportedAt": "2026-11-25T20:23:50.754Z"
+      "reportedAt": "2026-11-26T20:00:11.075Z"
     },
     {
       "teamId": "champions-league.rb-leipzig",
@@ -165,16 +102,79 @@
       "status": "Baja",
       "detail": "Thigh Injury",
       "injuryType": "Thigh Injury",
-      "reportedAt": "2026-11-25T20:23:50.754Z"
+      "reportedAt": "2026-11-26T20:00:11.075Z"
     },
     {
-      "teamId": "champions-league.manchester-city",
-      "player": "Antoine Semenyo",
+      "teamId": "champions-league.lens",
+      "player": "Maik Nawrocki",
+      "position": "Defensa",
+      "status": "Baja",
+      "detail": "Cruciate Ligament Injury",
+      "injuryType": "Cruciate Ligament Injury",
+      "reportedAt": "2026-11-26T20:00:11.075Z"
+    },
+    {
+      "teamId": "champions-league.lens",
+      "player": "Michaël Cuisance",
       "position": "Mediocampista",
       "status": "Baja",
-      "detail": "Leg Injury",
-      "injuryType": "Leg Injury",
-      "reportedAt": "2026-11-25T20:23:50.754Z"
+      "detail": "Illness",
+      "injuryType": "Illness",
+      "reportedAt": "2026-11-26T20:00:11.075Z"
+    },
+    {
+      "teamId": "champions-league.lens",
+      "player": "Odsonne Édouard",
+      "position": "Delantero",
+      "status": "Baja",
+      "detail": "Groin Injury",
+      "injuryType": "Groin Injury",
+      "reportedAt": "2026-11-26T20:00:11.075Z"
+    },
+    {
+      "teamId": "champions-league.lens",
+      "player": "Ruben Aguilar",
+      "position": "Mediocampista",
+      "status": "Baja",
+      "detail": "Hamstring Injury",
+      "injuryType": "Hamstring Injury",
+      "reportedAt": "2026-11-26T20:00:11.075Z"
+    },
+    {
+      "teamId": "champions-league.feyenoord",
+      "player": "Anis Hadj Moussa",
+      "position": "Mediocampista",
+      "status": "Baja",
+      "detail": "Ankle Injury",
+      "injuryType": "Ankle Injury",
+      "reportedAt": "2026-11-26T20:00:11.075Z"
+    },
+    {
+      "teamId": "champions-league.feyenoord",
+      "player": "Jakub Moder",
+      "position": "Mediocampista",
+      "status": "Baja",
+      "detail": "Knee Injury",
+      "injuryType": "Knee Injury",
+      "reportedAt": "2026-11-26T20:00:11.075Z"
+    },
+    {
+      "teamId": "champions-league.feyenoord",
+      "player": "Jeremiah St. Juste",
+      "position": "Defensa",
+      "status": "Baja",
+      "detail": "Unknown",
+      "injuryType": "Unknown",
+      "reportedAt": "2026-11-26T20:00:11.075Z"
+    },
+    {
+      "teamId": "champions-league.feyenoord",
+      "player": "Jordan Bos",
+      "position": "Defensa",
+      "status": "Baja",
+      "detail": "Knee Injury",
+      "injuryType": "Knee Injury",
+      "reportedAt": "2026-11-26T20:00:11.075Z"
     },
     {
       "teamId": "champions-league.porto",
@@ -183,7 +183,7 @@
       "status": "Baja",
       "detail": "Unknown",
       "injuryType": "Unknown",
-      "reportedAt": "2026-11-25T20:23:50.754Z"
+      "reportedAt": "2026-11-26T20:00:11.075Z"
     },
     {
       "teamId": "champions-league.porto",
@@ -192,7 +192,7 @@
       "status": "Baja",
       "detail": "Unknown",
       "injuryType": "Unknown",
-      "reportedAt": "2026-11-25T20:23:50.754Z"
+      "reportedAt": "2026-11-26T20:00:11.075Z"
     },
     {
       "teamId": "champions-league.porto",
@@ -201,70 +201,88 @@
       "status": "Baja",
       "detail": "Meniscus Injury",
       "injuryType": "Meniscus Injury",
-      "reportedAt": "2026-11-25T20:23:50.754Z"
+      "reportedAt": "2026-11-26T20:00:11.075Z"
     },
     {
-      "teamId": "champions-league.napoli",
-      "player": "Alex Meret",
-      "position": "Portero",
-      "status": "Baja",
-      "detail": "Back Injury",
-      "injuryType": "Back Injury",
-      "reportedAt": "2026-11-25T20:23:50.754Z"
-    },
-    {
-      "teamId": "champions-league.napoli",
-      "player": "Alisson Santos",
-      "position": "Delantero",
+      "teamId": "champions-league.como",
+      "player": "Assane Diao",
+      "position": "Mediocampista",
       "status": "Baja",
       "detail": "Thigh Injury",
       "injuryType": "Thigh Injury",
-      "reportedAt": "2026-11-25T20:23:50.754Z"
+      "reportedAt": "2026-11-26T20:00:11.075Z"
     },
     {
-      "teamId": "champions-league.napoli",
-      "player": "Antonio Vergara",
-      "position": "Delantero",
-      "status": "Baja",
-      "detail": "Thigh Injury",
-      "injuryType": "Thigh Injury",
-      "reportedAt": "2026-11-25T20:23:50.754Z"
-    },
-    {
-      "teamId": "champions-league.napoli",
-      "player": "Benoît Badiashile",
-      "position": "Defensa",
+      "teamId": "champions-league.como",
+      "player": "Jayden Addai",
+      "position": "Mediocampista",
       "status": "Baja",
       "detail": "Muscle Injury",
       "injuryType": "Muscle Injury",
-      "reportedAt": "2026-11-25T20:23:50.754Z"
+      "reportedAt": "2026-11-26T20:00:11.075Z"
     },
     {
-      "teamId": "champions-league.napoli",
-      "player": "David Neres",
+      "teamId": "champions-league.como",
+      "player": "Jesús Rodriguez",
+      "position": "Mediocampista",
+      "status": "Baja",
+      "detail": "Muscle Injury",
+      "injuryType": "Muscle Injury",
+      "reportedAt": "2026-11-26T20:00:11.075Z"
+    },
+    {
+      "teamId": "champions-league.como",
+      "player": "Maxence Caqueret",
+      "position": "Mediocampista",
+      "status": "Duda",
+      "detail": "Muscle Injury",
+      "injuryType": "Muscle Injury",
+      "reportedAt": "2026-11-26T20:00:11.075Z"
+    },
+    {
+      "teamId": "champions-league.como",
+      "player": "Moise Kean",
       "position": "Delantero",
       "status": "Baja",
       "detail": "Thigh Injury",
       "injuryType": "Thigh Injury",
-      "reportedAt": "2026-11-25T20:23:50.754Z"
+      "reportedAt": "2026-11-26T20:00:11.075Z"
     },
     {
-      "teamId": "champions-league.napoli",
-      "player": "Rafa Marín",
-      "position": "Defensa",
+      "teamId": "champions-league.aek-athens",
+      "player": "Aboubakary Koita",
+      "position": "Mediocampista",
       "status": "Baja",
       "detail": "red_card_suspension",
       "injuryType": "red_card_suspension",
-      "reportedAt": "2026-11-25T20:23:50.754Z"
+      "reportedAt": "2026-11-26T20:00:11.075Z"
     },
     {
-      "teamId": "champions-league.napoli",
-      "player": "Stanislav Lobotka",
+      "teamId": "champions-league.aek-athens",
+      "player": "Kaan Kairinen",
       "position": "Mediocampista",
       "status": "Baja",
-      "detail": "Ankle Injury",
-      "injuryType": "Ankle Injury",
-      "reportedAt": "2026-11-25T20:23:50.754Z"
+      "detail": "Muscle Injury",
+      "injuryType": "Muscle Injury",
+      "reportedAt": "2026-11-26T20:00:11.075Z"
+    },
+    {
+      "teamId": "champions-league.aek-athens",
+      "player": "Kervin Arriaga",
+      "position": "Mediocampista",
+      "status": "Baja",
+      "detail": "Broken Collarbone",
+      "injuryType": "Broken Collarbone",
+      "reportedAt": "2026-11-26T20:00:11.075Z"
+    },
+    {
+      "teamId": "champions-league.aek-athens",
+      "player": "Oleksandr Zubkov",
+      "position": "Mediocampista",
+      "status": "Baja",
+      "detail": "Broken Leg",
+      "injuryType": "Broken Leg",
+      "reportedAt": "2026-11-26T20:00:11.075Z"
     }
   ]
 }

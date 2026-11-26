@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "league": "nfl",
   "season": "nfl-2026",
-  "updatedAt": "2026-11-25T20:29:53.678Z",
+  "updatedAt": "2026-11-26T20:07:51.050Z",
   "matches": [
     {
       "id": "nfl-2026-w1-new-england-patriots-seattle-seahawks",
@@ -1795,6 +1795,17 @@
       "awayTeam": "nfl.cincinnati-bengals",
       "homeScore": 22,
       "awayScore": 20,
+      "neutralSite": false
+    },
+    {
+      "id": "nfl-2026-w12-green-bay-packers-los-angeles-rams",
+      "date": "2026-11-26",
+      "startTime": "2026-11-26T01:00:00.000Z",
+      "round": "Semana 12",
+      "homeTeam": "nfl.los-angeles-rams",
+      "awayTeam": "nfl.green-bay-packers",
+      "homeScore": 26,
+      "awayScore": 13,
       "neutralSite": false
     }
   ]

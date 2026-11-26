@@ -5,7 +5,7 @@
   "season": "primera-a-colombia-2026",
   "seasonLabel": "2026",
   "periodLabel": "League phase · Matchday 19",
-  "updatedAt": "2026-11-25T20:23:50.754Z",
+  "updatedAt": "2026-11-26T20:00:11.075Z",
   "source": "pitchlab-football-v2",
   "provenance": "derived",
   "isDemo": false,
@@ -18,8 +18,8 @@
       "forPerGame": 1.105263157894737,
       "againstPerGame": 1.263157894736842,
       "gamesPlayed": 19,
-      "adjustedFor": 0.9675880707353238,
-      "adjustedAgainst": 1.0773779424357108
+      "adjustedFor": 0.9616885905261645,
+      "adjustedAgainst": 1.0702599558389483
     },
     "primera-a-colombia.deportivo-pereira": {
       "teamId": "primera-a-colombia.deportivo-pereira",
@@ -29,8 +29,8 @@
       "forPerGame": 0.8421052631578947,
       "againstPerGame": 1.4736842105263157,
       "gamesPlayed": 19,
-      "adjustedFor": 0.8275570395696884,
-      "adjustedAgainst": 1.2066330532095506
+      "adjustedFor": 0.8217460958601868,
+      "adjustedAgainst": 1.198603567253507
     },
     "primera-a-colombia.deportivo-cali": {
       "teamId": "primera-a-colombia.deportivo-cali",
@@ -40,8 +40,8 @@
       "forPerGame": 1.380952380952381,
       "againstPerGame": 0.6666666666666666,
       "gamesPlayed": 21,
-      "adjustedFor": 1.1381920125893736,
-      "adjustedAgainst": 0.6844843633634712
+      "adjustedFor": 1.1313222565584213,
+      "adjustedAgainst": 0.6782880162257143
     },
     "primera-a-colombia.jaguares-cordoba": {
       "teamId": "primera-a-colombia.jaguares-cordoba",
@@ -51,8 +51,8 @@
       "forPerGame": 0.8947368421052632,
       "againstPerGame": 1.9473684210526316,
       "gamesPlayed": 19,
-      "adjustedFor": 0.8557176187993398,
-      "adjustedAgainst": 1.4682839937723473
+      "adjustedFor": 0.8498276825236456,
+      "adjustedAgainst": 1.4570168779338206
     },
     "primera-a-colombia.boyaca-chico": {
       "teamId": "primera-a-colombia.boyaca-chico",
@@ -62,30 +62,30 @@
       "forPerGame": 0.7894736842105263,
       "againstPerGame": 1.5263157894736843,
       "gamesPlayed": 19,
-      "adjustedFor": 0.7790243681202738,
-      "adjustedAgainst": 1.199585285144106
+      "adjustedFor": 0.7725805197024912,
+      "adjustedAgainst": 1.190848091564719
     },
     "primera-a-colombia.atletico-nacional": {
       "teamId": "primera-a-colombia.atletico-nacional",
       "name": "Atlético Nacional",
       "shortName": "Nacional",
       "code": "ATL",
-      "forPerGame": 1.9,
-      "againstPerGame": 0.9,
-      "gamesPlayed": 20,
-      "adjustedFor": 1.4552132336056147,
-      "adjustedAgainst": 0.8633785668193547
+      "forPerGame": 1.9523809523809523,
+      "againstPerGame": 0.9047619047619048,
+      "gamesPlayed": 21,
+      "adjustedFor": 1.4764229520607424,
+      "adjustedAgainst": 0.8584260696733165
     },
     "primera-a-colombia.independiente-medellin": {
       "teamId": "primera-a-colombia.independiente-medellin",
       "name": "Independiente Medellín",
       "shortName": "Independiente Medellín",
       "code": "IND",
-      "forPerGame": 1.5,
-      "againstPerGame": 1.25,
-      "gamesPlayed": 20,
-      "adjustedFor": 1.2110102557157043,
-      "adjustedAgainst": 1.046463538673603
+      "forPerGame": 1.4761904761904763,
+      "againstPerGame": 1.3333333333333333,
+      "gamesPlayed": 21,
+      "adjustedFor": 1.20580465339436,
+      "adjustedAgainst": 1.0688847505646824
     },
     "primera-a-colombia.deportivo-pasto": {
       "teamId": "primera-a-colombia.deportivo-pasto",
@@ -95,8 +95,8 @@
       "forPerGame": 0.6842105263157895,
       "againstPerGame": 1.5789473684210527,
       "gamesPlayed": 19,
-      "adjustedFor": 0.7157097583578274,
-      "adjustedAgainst": 1.2179095800883615
+      "adjustedFor": 0.7102005491900948,
+      "adjustedAgainst": 1.2071205306990334
     },
     "primera-a-colombia.millonarios": {
       "teamId": "primera-a-colombia.millonarios",
@@ -106,8 +106,8 @@
       "forPerGame": 1.4761904761904763,
       "againstPerGame": 0.8095238095238095,
       "gamesPlayed": 21,
-      "adjustedFor": 1.2167442824787742,
-      "adjustedAgainst": 0.7782707956543443
+      "adjustedFor": 1.2088487137442092,
+      "adjustedAgainst": 0.7713549674966265
     },
     "primera-a-colombia.atletico-bucaramanga": {
       "teamId": "primera-a-colombia.atletico-bucaramanga",
@@ -117,8 +117,8 @@
       "forPerGame": 1.619047619047619,
       "againstPerGame": 1.0952380952380953,
       "gamesPlayed": 21,
-      "adjustedFor": 1.3000747891577582,
-      "adjustedAgainst": 0.9774941648838011
+      "adjustedFor": 1.2918448265380555,
+      "adjustedAgainst": 0.9702774302086105
     },
     "primera-a-colombia.deportes-tolima": {
       "teamId": "primera-a-colombia.deportes-tolima",
@@ -128,8 +128,8 @@
       "forPerGame": 1.3157894736842106,
       "againstPerGame": 1.2105263157894737,
       "gamesPlayed": 19,
-      "adjustedFor": 1.1051074120327504,
-      "adjustedAgainst": 1.0360961981972006
+      "adjustedFor": 1.0984158112007503,
+      "adjustedAgainst": 1.0276412131754493
     },
     "primera-a-colombia.junior-barranquilla": {
       "teamId": "primera-a-colombia.junior-barranquilla",
@@ -139,8 +139,8 @@
       "forPerGame": 1.368421052631579,
       "againstPerGame": 1.4210526315789473,
       "gamesPlayed": 19,
-      "adjustedFor": 1.138684512033744,
-      "adjustedAgainst": 1.1466618834163247
+      "adjustedFor": 1.1313823851220906,
+      "adjustedAgainst": 1.1377409569935053
     },
     "primera-a-colombia.internacional-bogota": {
       "teamId": "primera-a-colombia.internacional-bogota",
@@ -150,8 +150,8 @@
       "forPerGame": 1.3157894736842106,
       "againstPerGame": 1.3157894736842106,
       "gamesPlayed": 19,
-      "adjustedFor": 1.0869482732889224,
-      "adjustedAgainst": 1.11522631078723
+      "adjustedFor": 1.0793286441336463,
+      "adjustedAgainst": 1.1072751940429932
     },
     "primera-a-colombia.america-cali": {
       "teamId": "primera-a-colombia.america-cali",
@@ -161,8 +161,8 @@
       "forPerGame": 1.6666666666666667,
       "againstPerGame": 0.8571428571428571,
       "gamesPlayed": 21,
-      "adjustedFor": 1.3096842385371554,
-      "adjustedAgainst": 0.8132765865858324
+      "adjustedFor": 1.301453630501611,
+      "adjustedAgainst": 0.8068565656003466
     },
     "primera-a-colombia.rionegro-aguilas-doradas": {
       "teamId": "primera-a-colombia.rionegro-aguilas-doradas",
@@ -172,19 +172,19 @@
       "forPerGame": 1.1578947368421053,
       "againstPerGame": 1.1578947368421053,
       "gamesPlayed": 19,
-      "adjustedFor": 0.9887188679652241,
-      "adjustedAgainst": 0.9823899369759338
+      "adjustedFor": 0.982022927170434,
+      "adjustedAgainst": 0.9747304968715725
     },
     "primera-a-colombia.independiente-santa-fe": {
       "teamId": "primera-a-colombia.independiente-santa-fe",
       "name": "Independiente Santa Fe",
       "shortName": "Independiente Santa Fe",
       "code": "IND",
-      "forPerGame": 1.5,
-      "againstPerGame": 0.95,
-      "gamesPlayed": 20,
-      "adjustedFor": 1.2041261681812223,
-      "adjustedAgainst": 0.8635714394430133
+      "forPerGame": 1.5714285714285714,
+      "againstPerGame": 0.9047619047619048,
+      "gamesPlayed": 21,
+      "adjustedFor": 1.247378735241712,
+      "adjustedAgainst": 0.8316335123383305
     },
     "primera-a-colombia.alianza-valledupar": {
       "teamId": "primera-a-colombia.alianza-valledupar",
@@ -194,8 +194,8 @@
       "forPerGame": 0.9473684210526315,
       "againstPerGame": 1.736842105263158,
       "gamesPlayed": 19,
-      "adjustedFor": 0.8808159058972304,
-      "adjustedAgainst": 1.3425348107787605
+      "adjustedFor": 0.8748149488860147,
+      "adjustedAgainst": 1.3340513627049204
     },
     "primera-a-colombia.fortaleza": {
       "teamId": "primera-a-colombia.fortaleza",
@@ -205,19 +205,19 @@
       "forPerGame": 0.8947368421052632,
       "againstPerGame": 1.5263157894736843,
       "gamesPlayed": 19,
-      "adjustedFor": 0.8543697299411657,
-      "adjustedAgainst": 1.2154009846350076
+      "adjustedFor": 0.8483031664679919,
+      "adjustedAgainst": 1.2062042191454896
     },
     "primera-a-colombia.once-caldas": {
       "teamId": "primera-a-colombia.once-caldas",
       "name": "Once Caldas",
       "shortName": "Once Caldas",
       "code": "ONC",
-      "forPerGame": 1.15,
-      "againstPerGame": 0.95,
-      "gamesPlayed": 20,
-      "adjustedFor": 0.9849558248691689,
-      "adjustedAgainst": 0.8484111950751485
+      "forPerGame": 1.0952380952380953,
+      "againstPerGame": 1.0476190476190477,
+      "gamesPlayed": 21,
+      "adjustedFor": 0.9537902659349596,
+      "adjustedAgainst": 0.8919869303482849
     },
     "primera-a-colombia.cucuta-deportivo": {
       "teamId": "primera-a-colombia.cucuta-deportivo",
@@ -227,81 +227,11 @@
       "forPerGame": 1.105263157894737,
       "againstPerGame": 1.368421052631579,
       "gamesPlayed": 19,
-      "adjustedFor": 0.9643348549445242,
-      "adjustedAgainst": 1.1129216156413322
+      "adjustedFor": 0.9580925949501277,
+      "adjustedAgainst": 1.1049701202851512
     }
   },
   "games": [
-    {
-      "id": "primera-a-colombia-2026-11-12-deportivo-past-junior-barranq-dostrn",
-      "league": "primera-a-colombia",
-      "season": "primera-a-colombia-2026",
-      "week": 19,
-      "round": "League phase · Matchday 19",
-      "phase": "League phase",
-      "startTime": "2026-11-12T23:00:00.000Z",
-      "status": "final",
-      "home": {
-        "id": "primera-a-colombia.deportivo-pasto",
-        "league": "primera-a-colombia",
-        "name": "Deportivo Pasto",
-        "shortName": "Pasto",
-        "code": "DEP",
-        "logoUrl": "https://sports.bzzoiro.com/img/team/3419/?bg=transparent"
-      },
-      "away": {
-        "id": "primera-a-colombia.junior-barranquilla",
-        "league": "primera-a-colombia",
-        "name": "Junior Barranquilla",
-        "shortName": "Junior Barranquilla",
-        "code": "JUN",
-        "logoUrl": "https://sports.bzzoiro.com/img/team/789/?bg=transparent"
-      },
-      "venue": "Estadio Departamental Libertad, Pasto",
-      "referee": "Diego Alejandro Ruiz Casas",
-      "neutralSite": false,
-      "result": {
-        "home": 0,
-        "away": 1,
-        "observedAt": "2026-11-25T20:23:50.754Z",
-        "source": "pitchlab-feed"
-      }
-    },
-    {
-      "id": "primera-a-colombia-2026-11-13-llaneros-boyaca-chico-b3z9ps",
-      "league": "primera-a-colombia",
-      "season": "primera-a-colombia-2026",
-      "week": 19,
-      "round": "League phase · Matchday 19",
-      "phase": "League phase",
-      "startTime": "2026-11-13T00:00:00.000Z",
-      "status": "final",
-      "home": {
-        "id": "primera-a-colombia.llaneros",
-        "league": "primera-a-colombia",
-        "name": "Llaneros FC",
-        "shortName": "Llaneros",
-        "code": "LLA",
-        "logoUrl": "https://sports.bzzoiro.com/img/team/4781/?bg=transparent"
-      },
-      "away": {
-        "id": "primera-a-colombia.boyaca-chico",
-        "league": "primera-a-colombia",
-        "name": "Boyacá Chicó FC",
-        "shortName": "Boyacá Chicó",
-        "code": "BOY",
-        "logoUrl": "https://sports.bzzoiro.com/img/team/4784/?bg=transparent"
-      },
-      "venue": "Estadio Bello Horizonte “Rey Pelé”, Villavicencio",
-      "referee": "Carlos Andrés Márquez Ortega",
-      "neutralSite": false,
-      "result": {
-        "home": 0,
-        "away": 0,
-        "observedAt": "2026-11-25T20:23:50.754Z",
-        "source": "pitchlab-feed"
-      }
-    },
     {
       "id": "primera-a-colombia-2026-11-14-internacional--independiente--mbuvzq",
       "league": "primera-a-colombia",
@@ -332,7 +262,7 @@
       "result": {
         "home": 0,
         "away": 2,
-        "observedAt": "2026-11-25T20:23:50.754Z",
+        "observedAt": "2026-11-26T20:00:11.075Z",
         "source": "pitchlab-feed"
       }
     },
@@ -367,7 +297,7 @@
       "result": {
         "home": 2,
         "away": 0,
-        "observedAt": "2026-11-25T20:23:50.754Z",
+        "observedAt": "2026-11-26T20:00:11.075Z",
         "source": "pitchlab-feed"
       }
     },
@@ -402,7 +332,7 @@
       "result": {
         "home": 1,
         "away": 0,
-        "observedAt": "2026-11-25T20:23:50.754Z",
+        "observedAt": "2026-11-26T20:00:11.075Z",
         "source": "pitchlab-feed"
       }
     },
@@ -437,7 +367,7 @@
       "result": {
         "home": 2,
         "away": 2,
-        "observedAt": "2026-11-25T20:23:50.754Z",
+        "observedAt": "2026-11-26T20:00:11.075Z",
         "source": "pitchlab-feed"
       }
     },
@@ -472,7 +402,7 @@
       "result": {
         "home": 0,
         "away": 2,
-        "observedAt": "2026-11-25T20:23:50.754Z",
+        "observedAt": "2026-11-26T20:00:11.075Z",
         "source": "pitchlab-feed"
       }
     },
@@ -507,7 +437,7 @@
       "result": {
         "home": 1,
         "away": 1,
-        "observedAt": "2026-11-25T20:23:50.754Z",
+        "observedAt": "2026-11-26T20:00:11.075Z",
         "source": "pitchlab-feed"
       }
     },
@@ -542,7 +472,7 @@
       "result": {
         "home": 0,
         "away": 1,
-        "observedAt": "2026-11-25T20:23:50.754Z",
+        "observedAt": "2026-11-26T20:00:11.075Z",
         "source": "pitchlab-feed"
       }
     },
@@ -577,7 +507,7 @@
       "result": {
         "home": 2,
         "away": 0,
-        "observedAt": "2026-11-25T20:23:50.754Z",
+        "observedAt": "2026-11-26T20:00:11.075Z",
         "source": "pitchlab-feed"
       }
     },
@@ -612,7 +542,7 @@
       "result": {
         "home": 1,
         "away": 0,
-        "observedAt": "2026-11-25T20:23:50.754Z",
+        "observedAt": "2026-11-26T20:00:11.075Z",
         "source": "pitchlab-feed"
       }
     },
@@ -647,7 +577,7 @@
       "result": {
         "home": 2,
         "away": 2,
-        "observedAt": "2026-11-25T20:23:50.754Z",
+        "observedAt": "2026-11-26T20:00:11.075Z",
         "source": "pitchlab-feed"
       }
     },
@@ -682,7 +612,7 @@
       "result": {
         "home": 0,
         "away": 0,
-        "observedAt": "2026-11-25T20:23:50.754Z",
+        "observedAt": "2026-11-26T20:00:11.075Z",
         "source": "pitchlab-feed"
       }
     },
@@ -717,7 +647,7 @@
       "result": {
         "home": 0,
         "away": 0,
-        "observedAt": "2026-11-25T20:23:50.754Z",
+        "observedAt": "2026-11-26T20:00:11.075Z",
         "source": "pitchlab-feed"
       }
     },
@@ -752,7 +682,7 @@
       "result": {
         "home": 4,
         "away": 1,
-        "observedAt": "2026-11-25T20:23:50.754Z",
+        "observedAt": "2026-11-26T20:00:11.075Z",
         "source": "pitchlab-feed"
       }
     },
@@ -787,7 +717,7 @@
       "result": {
         "home": 2,
         "away": 1,
-        "observedAt": "2026-11-25T20:23:50.754Z",
+        "observedAt": "2026-11-26T20:00:11.075Z",
         "source": "pitchlab-feed"
       }
     },
@@ -799,7 +729,7 @@
       "round": "Group A · Matchday 2",
       "phase": "Group stage",
       "startTime": "2026-11-25T23:20:00.000Z",
-      "status": "scheduled",
+      "status": "final",
       "home": {
         "id": "primera-a-colombia.independiente-santa-fe",
         "league": "primera-a-colombia",
@@ -818,7 +748,13 @@
       },
       "venue": "Estadio Nemesio Camacho El Campin, Bogota",
       "referee": "Diego Alejandro Ruiz Casas",
-      "neutralSite": false
+      "neutralSite": false,
+      "result": {
+        "home": 3,
+        "away": 0,
+        "observedAt": "2026-11-26T20:00:11.075Z",
+        "source": "pitchlab-feed"
+      }
     },
     {
       "id": "primera-a-colombia-2026-11-26-atletico-nacio-independiente--gladtk",
@@ -828,7 +764,7 @@
       "round": "Group A · Matchday 2",
       "phase": "Group stage",
       "startTime": "2026-11-26T01:30:00.000Z",
-      "status": "scheduled",
+      "status": "final",
       "home": {
         "id": "primera-a-colombia.atletico-nacional",
         "league": "primera-a-colombia",
@@ -847,7 +783,13 @@
       },
       "venue": "Estadio Atanasio Girardot, Medellin",
       "referee": "Carlos Betancur",
-      "neutralSite": false
+      "neutralSite": false,
+      "result": {
+        "home": 3,
+        "away": 1,
+        "observedAt": "2026-11-26T20:00:11.075Z",
+        "source": "pitchlab-feed"
+      }
     },
     {
       "id": "primera-a-colombia-2026-11-27-deportivo-cali-atletico-bucar-j8cyrn",
@@ -1075,907 +1017,6 @@
     }
   ],
   "analyses": {
-    "primera-a-colombia-2026-11-12-deportivo-past-junior-barranq-dostrn": {
-      "game": "primera-a-colombia-2026-11-12-deportivo-past-junior-barranq-dostrn",
-      "model": {
-        "id": "pitchlab-statistical-primera-a-colombia",
-        "version": "2.0.0",
-        "status": "candidate",
-        "label": "Modelo PitchLab · en validación"
-      },
-      "projection": {
-        "home": 1.079197590353676,
-        "away": 1.587448116282923,
-        "total": 2.666645706636599,
-        "margin": -0.5082505259292471
-      },
-      "x12": [
-        0.25774589568949896,
-        0.25151745121202623,
-        0.49073665309847364
-      ],
-      "probabilities": [
-        {
-          "market": "h2h",
-          "selection": "Pasto gana",
-          "p": 0.25774589568949896,
-          "fairOdds": 3.8797901992770387
-        },
-        {
-          "market": "h2h",
-          "selection": "Empate",
-          "p": 0.25151745121202623,
-          "fairOdds": 3.9758672616199973
-        },
-        {
-          "market": "h2h",
-          "selection": "Junior Barranquilla gana",
-          "p": 0.49073665309847364,
-          "fairOdds": 2.0377528225904395
-        },
-        {
-          "market": "double_chance",
-          "selection": "Pasto o empate",
-          "p": 0.5092633469015252,
-          "fairOdds": 1.963620602354811
-        },
-        {
-          "market": "double_chance",
-          "selection": "Junior Barranquilla o empate",
-          "p": 0.7422541043104999,
-          "fairOdds": 1.347247518326527
-        },
-        {
-          "market": "double_chance",
-          "selection": "Sin empate",
-          "p": 0.7484825487879726,
-          "fairOdds": 1.3360364935953588
-        },
-        {
-          "market": "totals",
-          "selection": "Más de 1.5",
-          "line": 1.5,
-          "p": 0.7458184120601571,
-          "fairOdds": 1.340808947365248
-        },
-        {
-          "market": "totals",
-          "selection": "Más de 2.5",
-          "line": 2.5,
-          "p": 0.4981694083713488,
-          "fairOdds": 2.007349273551886
-        },
-        {
-          "market": "totals",
-          "selection": "Menos de 2.5",
-          "line": 2.5,
-          "p": 0.5018305916286512,
-          "fairOdds": 1.9927043442181946
-        },
-        {
-          "market": "totals",
-          "selection": "Más de 3.5",
-          "line": 3.5,
-          "p": 0.278567751566581,
-          "fairOdds": 3.589790973205986
-        },
-        {
-          "market": "totals",
-          "selection": "Menos de 3.5",
-          "line": 3.5,
-          "p": 0.721432248433419,
-          "fairOdds": 1.3861315489728763
-        },
-        {
-          "market": "btts",
-          "selection": "Sí",
-          "p": 0.5257651709427514,
-          "fairOdds": 1.901989814591363
-        },
-        {
-          "market": "btts",
-          "selection": "No",
-          "p": 0.47423482905724856,
-          "fairOdds": 2.108659969129518
-        },
-        {
-          "market": "team_totals",
-          "selection": "Pasto más de 1.5",
-          "line": 1.5,
-          "p": 0.2933469883571458,
-          "fairOdds": 3.408932219145588
-        },
-        {
-          "market": "team_totals",
-          "selection": "Pasto menos de 1.5",
-          "line": 1.5,
-          "p": 0.7066530116428542,
-          "fairOdds": 1.4151216842268335
-        },
-        {
-          "market": "team_totals",
-          "selection": "Junior Barranquilla más de 1.5",
-          "line": 1.5,
-          "p": 0.4710043440448082,
-          "fairOdds": 2.1231226689171825
-        },
-        {
-          "market": "team_totals",
-          "selection": "Junior Barranquilla menos de 1.5",
-          "line": 1.5,
-          "p": 0.5289956559551918,
-          "fairOdds": 1.890374691630179
-        },
-        {
-          "market": "correct_score",
-          "selection": "1–1",
-          "p": 0.11963478548688085,
-          "fairOdds": 8.358772876386023
-        },
-        {
-          "market": "correct_score",
-          "selection": "0–1",
-          "p": 0.10970859500356675,
-          "fairOdds": 9.115056117230276
-        },
-        {
-          "market": "correct_score",
-          "selection": "1–2",
-          "p": 0.09448458450898536,
-          "fairOdds": 10.58373707411394
-        }
-      ],
-      "marketGroups": [
-        {
-          "group": "Resultado",
-          "rows": [
-            {
-              "market": "h2h",
-              "selection": "home",
-              "label": "Pasto gana",
-              "p": 0.25774589568949896,
-              "fairOdds": 3.8797901992770387
-            },
-            {
-              "market": "h2h",
-              "selection": "draw",
-              "label": "Empate",
-              "p": 0.25151745121202623,
-              "fairOdds": 3.9758672616199973
-            },
-            {
-              "market": "h2h",
-              "selection": "away",
-              "label": "Junior Barranquilla gana",
-              "p": 0.49073665309847364,
-              "fairOdds": 2.0377528225904395
-            }
-          ]
-        },
-        {
-          "group": "Doble oportunidad",
-          "rows": [
-            {
-              "market": "double_chance",
-              "selection": "1x",
-              "label": "Pasto o empate",
-              "p": 0.5092633469015252,
-              "fairOdds": 1.963620602354811
-            },
-            {
-              "market": "double_chance",
-              "selection": "x2",
-              "label": "Junior Barranquilla o empate",
-              "p": 0.7422541043104999,
-              "fairOdds": 1.347247518326527
-            },
-            {
-              "market": "double_chance",
-              "selection": "12",
-              "label": "Sin empate",
-              "p": 0.7484825487879726,
-              "fairOdds": 1.3360364935953588
-            }
-          ]
-        },
-        {
-          "group": "Goles totales",
-          "rows": [
-            {
-              "market": "totals",
-              "selection": "over_1.5",
-              "label": "Más de 1.5",
-              "line": 1.5,
-              "p": 0.7458184120601571,
-              "fairOdds": 1.340808947365248
-            },
-            {
-              "market": "totals",
-              "selection": "over_2.5",
-              "label": "Más de 2.5",
-              "line": 2.5,
-              "p": 0.4981694083713488,
-              "fairOdds": 2.007349273551886
-            },
-            {
-              "market": "totals",
-              "selection": "under_2.5",
-              "label": "Menos de 2.5",
-              "line": 2.5,
-              "p": 0.5018305916286512,
-              "fairOdds": 1.9927043442181946
-            },
-            {
-              "market": "totals",
-              "selection": "over_3.5",
-              "label": "Más de 3.5",
-              "line": 3.5,
-              "p": 0.278567751566581,
-              "fairOdds": 3.589790973205986
-            },
-            {
-              "market": "totals",
-              "selection": "under_3.5",
-              "label": "Menos de 3.5",
-              "line": 3.5,
-              "p": 0.721432248433419,
-              "fairOdds": 1.3861315489728763
-            }
-          ]
-        },
-        {
-          "group": "Ambos anotan",
-          "rows": [
-            {
-              "market": "btts",
-              "selection": "yes",
-              "label": "Sí",
-              "p": 0.5257651709427514,
-              "fairOdds": 1.901989814591363
-            },
-            {
-              "market": "btts",
-              "selection": "no",
-              "label": "No",
-              "p": 0.47423482905724856,
-              "fairOdds": 2.108659969129518
-            }
-          ]
-        },
-        {
-          "group": "Goles por equipo (1.5)",
-          "rows": [
-            {
-              "market": "team_totals",
-              "selection": "home_over",
-              "label": "Pasto más de 1.5",
-              "line": 1.5,
-              "p": 0.2933469883571458,
-              "fairOdds": 3.408932219145588
-            },
-            {
-              "market": "team_totals",
-              "selection": "home_under",
-              "label": "Pasto menos de 1.5",
-              "line": 1.5,
-              "p": 0.7066530116428542,
-              "fairOdds": 1.4151216842268335
-            },
-            {
-              "market": "team_totals",
-              "selection": "away_over",
-              "label": "Junior Barranquilla más de 1.5",
-              "line": 1.5,
-              "p": 0.4710043440448082,
-              "fairOdds": 2.1231226689171825
-            },
-            {
-              "market": "team_totals",
-              "selection": "away_under",
-              "label": "Junior Barranquilla menos de 1.5",
-              "line": 1.5,
-              "p": 0.5289956559551918,
-              "fairOdds": 1.890374691630179
-            }
-          ]
-        },
-        {
-          "group": "Marcador exacto (más probables)",
-          "rows": [
-            {
-              "market": "correct_score",
-              "selection": "1-1",
-              "label": "1–1",
-              "p": 0.11963478548688085,
-              "fairOdds": 8.358772876386023
-            },
-            {
-              "market": "correct_score",
-              "selection": "0-1",
-              "label": "0–1",
-              "p": 0.10970859500356675,
-              "fairOdds": 9.115056117230276
-            },
-            {
-              "market": "correct_score",
-              "selection": "1-2",
-              "label": "1–2",
-              "p": 0.09448458450898536,
-              "fairOdds": 10.58373707411394
-            }
-          ]
-        }
-      ],
-      "mostLikelyScore": {
-        "home": 1,
-        "away": 1,
-        "p": 0.11963478548688085
-      },
-      "factors": [
-        {
-          "key": "home_attack",
-          "label": "Ataque local",
-          "value": "0.83 goles/partido",
-          "detail": "36 % menos que la media · 19 partidos"
-        },
-        {
-          "key": "away_defense",
-          "label": "Defensa visitante",
-          "value": "1.31 concedidos/partido",
-          "detail": "15 % más que la media · 19 partidos"
-        },
-        {
-          "key": "away_attack",
-          "label": "Ataque visitante",
-          "value": "1.59 goles/partido",
-          "detail": "13 % más que la media · ajustado por rival"
-        },
-        {
-          "key": "home_defense",
-          "label": "Defensa local",
-          "value": "1.41 concedidos/partido",
-          "detail": "24 % más que la media · ajustado por rival"
-        },
-        {
-          "key": "home_advantage",
-          "label": "Localía",
-          "value": "×1.30",
-          "detail": "estimada de 190 partidos"
-        },
-        {
-          "key": "uncertainty",
-          "label": "Intervalo 90%",
-          "value": "goles 2.0–3.8",
-          "detail": "local 13%–48% · 190 partidos"
-        },
-        {
-          "key": "home_position",
-          "label": "Posición local",
-          "value": "18.º · 15 pts",
-          "detail": "de 20 equipos"
-        },
-        {
-          "key": "away_position",
-          "label": "Posición visitante",
-          "value": "14.º · 22 pts",
-          "detail": "de 20 equipos"
-        },
-        {
-          "key": "home_form",
-          "label": "Forma local",
-          "value": "P-G-P-G-P · 6 pts",
-          "detail": "4 goles a favor · 10 en contra"
-        },
-        {
-          "key": "away_form",
-          "label": "Forma visitante",
-          "value": "E-G-E-P-G · 8 pts",
-          "detail": "6 goles a favor · 4 en contra"
-        }
-      ],
-      "steps": [
-        "Sincronizando Categoría Primera A · corte 12 nov 2026, 16:00",
-        "Fuerza ajustada por rival · DEP 0.64 / 1.24 · JUN 1.13 / 1.15",
-        "Ponderando 170.7 partidos por antigüedad y calidad del rival",
-        "Proyección de goles 1.08 – 1.59 · total 2.67",
-        "Simulando 121 marcadores con incertidumbre del ajuste",
-        "20 mercados listos · marcador proyectado 0–1"
-      ],
-      "inputsAsOf": "2026-11-12T22:00:00.000Z",
-      "publishedAt": "2026-11-12T22:00:00.000Z",
-      "source": "pitchlab-football-v2",
-      "projectedScore": {
-        "home": 0,
-        "away": 1,
-        "p": 0.10970859500356675
-      },
-      "insights": {
-        "why": [
-          "Se esperan 2.7 goles: 1.1 de Pasto y 1.6 de Junior Barranquilla.",
-          "Pasto anota 36 % menos que la media.",
-          "Pasto concede 24 % más que la media."
-        ],
-        "restDays": {
-          "home": 4,
-          "away": 2
-        }
-      },
-      "matchContext": {
-        "referee": "Diego Alejandro Ruiz Casas",
-        "refereeStats": {
-          "country": "Colombia",
-          "matches": 14,
-          "avgYellow": 5,
-          "avgRed": 0.29,
-          "avgFouls": 20.5,
-          "avgGoals": 2.71
-        },
-        "weather": {
-          "description": "cloudy",
-          "temperatureC": 15,
-          "windSpeedKmh": 15
-        },
-        "travelDistanceKm": 1118,
-        "halfTimeScore": {
-          "home": 0,
-          "away": 0
-        },
-        "stageName": "League phase",
-        "venueCity": "Pasto",
-        "venueCountry": "Colombia",
-        "venueCapacity": 20665
-      }
-    },
-    "primera-a-colombia-2026-11-13-llaneros-boyaca-chico-b3z9ps": {
-      "game": "primera-a-colombia-2026-11-13-llaneros-boyaca-chico-b3z9ps",
-      "model": {
-        "id": "pitchlab-statistical-primera-a-colombia",
-        "version": "2.0.0",
-        "status": "candidate",
-        "label": "Modelo PitchLab · en validación"
-      },
-      "projection": {
-        "home": 1.6310572936797132,
-        "away": 0.8451837591286263,
-        "total": 2.4762410528083394,
-        "margin": 0.7858735345510869
-      },
-      "x12": [
-        0.5592086872959245,
-        0.24770622871586506,
-        0.1930850839882106
-      ],
-      "probabilities": [
-        {
-          "market": "h2h",
-          "selection": "Llaneros gana",
-          "p": 0.5592086872959245,
-          "fairOdds": 1.7882411749279845
-        },
-        {
-          "market": "h2h",
-          "selection": "Empate",
-          "p": 0.24770622871586506,
-          "fairOdds": 4.037040187419204
-        },
-        {
-          "market": "h2h",
-          "selection": "Boyacá Chicó gana",
-          "p": 0.1930850839882106,
-          "fairOdds": 5.179063961569699
-        },
-        {
-          "market": "double_chance",
-          "selection": "Llaneros o empate",
-          "p": 0.8069149160117897,
-          "fairOdds": 1.239288034161695
-        },
-        {
-          "market": "double_chance",
-          "selection": "Boyacá Chicó o empate",
-          "p": 0.4407913127040757,
-          "fairOdds": 2.2686472513838947
-        },
-        {
-          "market": "double_chance",
-          "selection": "Sin empate",
-          "p": 0.7522937712841351,
-          "fairOdds": 1.3292679511263803
-        },
-        {
-          "market": "totals",
-          "selection": "Más de 1.5",
-          "line": 1.5,
-          "p": 0.7083710612835714,
-          "fairOdds": 1.411689515079845
-        },
-        {
-          "market": "totals",
-          "selection": "Más de 2.5",
-          "line": 2.5,
-          "p": 0.4500773470653596,
-          "fairOdds": 2.2218403270466784
-        },
-        {
-          "market": "totals",
-          "selection": "Menos de 2.5",
-          "line": 2.5,
-          "p": 0.5499226529346404,
-          "fairOdds": 1.8184375469232623
-        },
-        {
-          "market": "totals",
-          "selection": "Más de 3.5",
-          "line": 3.5,
-          "p": 0.23735641951306774,
-          "fairOdds": 4.213073326819984
-        },
-        {
-          "market": "totals",
-          "selection": "Menos de 3.5",
-          "line": 3.5,
-          "p": 0.7626435804869323,
-          "fairOdds": 1.3112285025221355
-        },
-        {
-          "market": "btts",
-          "selection": "Sí",
-          "p": 0.45943690012529664,
-          "fairOdds": 2.1765774575948997
-        },
-        {
-          "market": "btts",
-          "selection": "No",
-          "p": 0.5405630998747033,
-          "fairOdds": 1.8499227939010066
-        },
-        {
-          "market": "team_totals",
-          "selection": "Llaneros más de 1.5",
-          "line": 1.5,
-          "p": 0.48504217987228293,
-          "fairOdds": 2.061676368565124
-        },
-        {
-          "market": "team_totals",
-          "selection": "Llaneros menos de 1.5",
-          "line": 1.5,
-          "p": 0.5149578201277171,
-          "fairOdds": 1.9419066201421806
-        },
-        {
-          "market": "team_totals",
-          "selection": "Boyacá Chicó más de 1.5",
-          "line": 1.5,
-          "p": 0.20753337393102866,
-          "fairOdds": 4.818502109122644
-        },
-        {
-          "market": "team_totals",
-          "selection": "Boyacá Chicó menos de 1.5",
-          "line": 1.5,
-          "p": 0.7924666260689713,
-          "fairOdds": 1.2618827936773784
-        },
-        {
-          "market": "correct_score",
-          "selection": "1–0",
-          "p": 0.13652517595734895,
-          "fairOdds": 7.324656371894399
-        },
-        {
-          "market": "correct_score",
-          "selection": "1–1",
-          "p": 0.11645794756801567,
-          "fairOdds": 8.586790518663088
-        },
-        {
-          "market": "correct_score",
-          "selection": "2–0",
-          "p": 0.11181270341301483,
-          "fairOdds": 8.943527608899593
-        }
-      ],
-      "marketGroups": [
-        {
-          "group": "Resultado",
-          "rows": [
-            {
-              "market": "h2h",
-              "selection": "home",
-              "label": "Llaneros gana",
-              "p": 0.5592086872959245,
-              "fairOdds": 1.7882411749279845
-            },
-            {
-              "market": "h2h",
-              "selection": "draw",
-              "label": "Empate",
-              "p": 0.24770622871586506,
-              "fairOdds": 4.037040187419204
-            },
-            {
-              "market": "h2h",
-              "selection": "away",
-              "label": "Boyacá Chicó gana",
-              "p": 0.1930850839882106,
-              "fairOdds": 5.179063961569699
-            }
-          ]
-        },
-        {
-          "group": "Doble oportunidad",
-          "rows": [
-            {
-              "market": "double_chance",
-              "selection": "1x",
-              "label": "Llaneros o empate",
-              "p": 0.8069149160117897,
-              "fairOdds": 1.239288034161695
-            },
-            {
-              "market": "double_chance",
-              "selection": "x2",
-              "label": "Boyacá Chicó o empate",
-              "p": 0.4407913127040757,
-              "fairOdds": 2.2686472513838947
-            },
-            {
-              "market": "double_chance",
-              "selection": "12",
-              "label": "Sin empate",
-              "p": 0.7522937712841351,
-              "fairOdds": 1.3292679511263803
-            }
-          ]
-        },
-        {
-          "group": "Goles totales",
-          "rows": [
-            {
-              "market": "totals",
-              "selection": "over_1.5",
-              "label": "Más de 1.5",
-              "line": 1.5,
-              "p": 0.7083710612835714,
-              "fairOdds": 1.411689515079845
-            },
-            {
-              "market": "totals",
-              "selection": "over_2.5",
-              "label": "Más de 2.5",
-              "line": 2.5,
-              "p": 0.4500773470653596,
-              "fairOdds": 2.2218403270466784
-            },
-            {
-              "market": "totals",
-              "selection": "under_2.5",
-              "label": "Menos de 2.5",
-              "line": 2.5,
-              "p": 0.5499226529346404,
-              "fairOdds": 1.8184375469232623
-            },
-            {
-              "market": "totals",
-              "selection": "over_3.5",
-              "label": "Más de 3.5",
-              "line": 3.5,
-              "p": 0.23735641951306774,
-              "fairOdds": 4.213073326819984
-            },
-            {
-              "market": "totals",
-              "selection": "under_3.5",
-              "label": "Menos de 3.5",
-              "line": 3.5,
-              "p": 0.7626435804869323,
-              "fairOdds": 1.3112285025221355
-            }
-          ]
-        },
-        {
-          "group": "Ambos anotan",
-          "rows": [
-            {
-              "market": "btts",
-              "selection": "yes",
-              "label": "Sí",
-              "p": 0.45943690012529664,
-              "fairOdds": 2.1765774575948997
-            },
-            {
-              "market": "btts",
-              "selection": "no",
-              "label": "No",
-              "p": 0.5405630998747033,
-              "fairOdds": 1.8499227939010066
-            }
-          ]
-        },
-        {
-          "group": "Goles por equipo (1.5)",
-          "rows": [
-            {
-              "market": "team_totals",
-              "selection": "home_over",
-              "label": "Llaneros más de 1.5",
-              "line": 1.5,
-              "p": 0.48504217987228293,
-              "fairOdds": 2.061676368565124
-            },
-            {
-              "market": "team_totals",
-              "selection": "home_under",
-              "label": "Llaneros menos de 1.5",
-              "line": 1.5,
-              "p": 0.5149578201277171,
-              "fairOdds": 1.9419066201421806
-            },
-            {
-              "market": "team_totals",
-              "selection": "away_over",
-              "label": "Boyacá Chicó más de 1.5",
-              "line": 1.5,
-              "p": 0.20753337393102866,
-              "fairOdds": 4.818502109122644
-            },
-            {
-              "market": "team_totals",
-              "selection": "away_under",
-              "label": "Boyacá Chicó menos de 1.5",
-              "line": 1.5,
-              "p": 0.7924666260689713,
-              "fairOdds": 1.2618827936773784
-            }
-          ]
-        },
-        {
-          "group": "Marcador exacto (más probables)",
-          "rows": [
-            {
-              "market": "correct_score",
-              "selection": "1-0",
-              "label": "1–0",
-              "p": 0.13652517595734895,
-              "fairOdds": 7.324656371894399
-            },
-            {
-              "market": "correct_score",
-              "selection": "1-1",
-              "label": "1–1",
-              "p": 0.11645794756801567,
-              "fairOdds": 8.586790518663088
-            },
-            {
-              "market": "correct_score",
-              "selection": "2-0",
-              "label": "2–0",
-              "p": 0.11181270341301483,
-              "fairOdds": 8.943527608899593
-            }
-          ]
-        }
-      ],
-      "mostLikelyScore": {
-        "home": 1,
-        "away": 0,
-        "p": 0.13652517595734895
-      },
-      "factors": [
-        {
-          "key": "home_attack",
-          "label": "Ataque local",
-          "value": "1.26 goles/partido",
-          "detail": "7 % menos que la media · 19 partidos"
-        },
-        {
-          "key": "away_defense",
-          "label": "Defensa visitante",
-          "value": "1.35 concedidos/partido",
-          "detail": "19 % más que la media · 19 partidos"
-        },
-        {
-          "key": "away_attack",
-          "label": "Ataque visitante",
-          "value": "0.85 goles/partido",
-          "detail": "29 % menos que la media · ajustado por rival"
-        },
-        {
-          "key": "home_defense",
-          "label": "Defensa local",
-          "value": "1.19 concedidos/partido",
-          "detail": "4 % más que la media · ajustado por rival"
-        },
-        {
-          "key": "home_advantage",
-          "label": "Localía",
-          "value": "×1.30",
-          "detail": "estimada de 190 partidos"
-        },
-        {
-          "key": "uncertainty",
-          "label": "Intervalo 90%",
-          "value": "goles 1.9–3.6",
-          "detail": "local 35%–77% · 190 partidos"
-        },
-        {
-          "key": "home_position",
-          "label": "Posición local",
-          "value": "12.º · 24 pts",
-          "detail": "de 20 equipos"
-        },
-        {
-          "key": "away_position",
-          "label": "Posición visitante",
-          "value": "15.º · 20 pts",
-          "detail": "de 20 equipos"
-        },
-        {
-          "key": "home_form",
-          "label": "Forma local",
-          "value": "G-P-P-G-G · 9 pts",
-          "detail": "6 goles a favor · 7 en contra"
-        },
-        {
-          "key": "away_form",
-          "label": "Forma visitante",
-          "value": "P-G-E-P-G · 7 pts",
-          "detail": "4 goles a favor · 6 en contra"
-        }
-      ],
-      "steps": [
-        "Sincronizando Categoría Primera A · corte 12 nov 2026, 17:00",
-        "Fuerza ajustada por rival · LLA 0.93 / 1.04 · BOY 0.71 / 1.19",
-        "Ponderando 170.7 partidos por antigüedad y calidad del rival",
-        "Proyección de goles 1.63 – 0.85 · total 2.48",
-        "Simulando 121 marcadores con incertidumbre del ajuste",
-        "20 mercados listos · marcador proyectado 1–0"
-      ],
-      "inputsAsOf": "2026-11-12T23:00:00.000Z",
-      "publishedAt": "2026-11-12T23:00:00.000Z",
-      "source": "pitchlab-football-v2",
-      "projectedScore": {
-        "home": 1,
-        "away": 0,
-        "p": 0.13652517595734895
-      },
-      "insights": {
-        "why": [
-          "Llaneros gana en 56% de los escenarios; el empate, en 25%.",
-          "Boyacá Chicó anota 29 % menos que la media.",
-          "Boyacá Chicó concede 19 % más que la media."
-        ],
-        "restDays": {
-          "home": 4,
-          "away": 7
-        }
-      },
-      "matchContext": {
-        "referee": "Carlos Andrés Márquez Ortega",
-        "refereeStats": {
-          "country": "Colombia",
-          "matches": 6,
-          "avgYellow": 5.67,
-          "avgRed": 0.5,
-          "avgFouls": 18.3,
-          "avgGoals": 2.17
-        },
-        "weather": {
-          "temperatureC": 24,
-          "windSpeedKmh": 6
-        },
-        "travelDistanceKm": 159,
-        "halfTimeScore": {
-          "home": 0,
-          "away": 0
-        },
-        "stageName": "League phase",
-        "venueCity": "Villavicencio",
-        "venueCountry": "Colombia",
-        "venueCapacity": 18000
-      }
-    },
     "primera-a-colombia-2026-11-14-internacional--independiente--mbuvzq": {
       "game": "primera-a-colombia-2026-11-14-internacional--independiente--mbuvzq",
       "model": {
@@ -4654,11 +3695,11 @@
         "referee": "Andres Rojas",
         "refereeStats": {
           "country": "Colombia",
-          "matches": 59,
-          "avgYellow": 5.73,
-          "avgRed": 0.59,
+          "matches": 60,
+          "avgYellow": 5.7,
+          "avgRed": 0.58,
           "avgFouls": 24.6,
-          "avgGoals": 2.29
+          "avgGoals": 2.33
         },
         "weather": {
           "description": "clear",
@@ -5106,11 +4147,11 @@
         "referee": "Wilmar Roldan",
         "refereeStats": {
           "country": "Colombia",
-          "matches": 75,
-          "avgYellow": 4.63,
-          "avgRed": 0.48,
-          "avgFouls": 18.6,
-          "avgGoals": 2.43
+          "matches": 76,
+          "avgYellow": 4.66,
+          "avgRed": 0.47,
+          "avgFouls": 18.7,
+          "avgGoals": 2.42
         },
         "weather": {
           "description": "clear",
@@ -8049,7 +7090,7 @@
           "matches": 7,
           "avgYellow": 4.57,
           "avgRed": 0.29,
-          "avgFouls": 26.4,
+          "avgFouls": 26.6,
           "avgGoals": 4.14
         },
         "weather": {
@@ -8544,11 +7585,11 @@
         "referee": "Wilmar Roldan",
         "refereeStats": {
           "country": "Colombia",
-          "matches": 75,
-          "avgYellow": 4.63,
-          "avgRed": 0.48,
-          "avgFouls": 18.6,
-          "avgGoals": 2.43
+          "matches": 76,
+          "avgYellow": 4.66,
+          "avgRed": 0.47,
+          "avgFouls": 18.7,
+          "avgGoals": 2.42
         },
         "weather": {
           "description": "cloudy",
@@ -9041,17 +8082,22 @@
         "referee": "Diego Alejandro Ruiz Casas",
         "refereeStats": {
           "country": "Colombia",
-          "matches": 14,
+          "matches": 15,
           "avgYellow": 5,
-          "avgRed": 0.29,
-          "avgFouls": 20.5,
-          "avgGoals": 2.71
+          "avgRed": 0.27,
+          "avgFouls": 18.7,
+          "avgGoals": 2.73
         },
         "weather": {
+          "description": "cloudy",
           "temperatureC": 16,
           "windSpeedKmh": 6
         },
         "travelDistanceKm": 163,
+        "halfTimeScore": {
+          "home": 1,
+          "away": 0
+        },
         "groupName": "Group A",
         "stageName": "Group stage",
         "venueCity": "Bogota",
@@ -9536,17 +8582,22 @@
         "referee": "Carlos Betancur",
         "refereeStats": {
           "country": "Colombia",
-          "matches": 48,
-          "avgYellow": 4.81,
-          "avgRed": 0.38,
+          "matches": 49,
+          "avgYellow": 4.92,
+          "avgRed": 0.39,
           "avgFouls": 21.2,
-          "avgGoals": 2.73
+          "avgGoals": 2.76
         },
         "weather": {
+          "description": "clear",
           "temperatureC": 19,
           "windSpeedKmh": 3
         },
         "travelDistanceKm": 0,
+        "halfTimeScore": {
+          "home": 1,
+          "away": 1
+        },
         "groupName": "Group A",
         "stageName": "Group stage",
         "venueCity": "Medellin",
@@ -10030,6 +9081,7 @@
           "temperatureC": 23,
           "windSpeedKmh": 14
         },
+        "travelDistanceKm": 544,
         "groupName": "Group B",
         "stageName": "Group stage",
         "venueCity": "Palmira",
@@ -13431,19 +12483,19 @@
       "name": "Atlético Nacional",
       "shortName": "Nacional",
       "code": "ATL",
-      "played": 20,
-      "won": 12,
+      "played": 21,
+      "won": 13,
       "drawn": 5,
       "lost": 3,
-      "goalsFor": 38,
-      "goalsAgainst": 18,
-      "points": 41,
+      "goalsFor": 41,
+      "goalsAgainst": 19,
+      "points": 44,
       "form": [
-        "W",
         "D",
         "W",
         "D",
-        "D"
+        "D",
+        "W"
       ]
     },
     {
@@ -13463,6 +12515,26 @@
         "D",
         "W",
         "D",
+        "W"
+      ]
+    },
+    {
+      "teamId": "primera-a-colombia.independiente-santa-fe",
+      "name": "Independiente Santa Fe",
+      "shortName": "Independiente Santa Fe",
+      "code": "IND",
+      "played": 21,
+      "won": 11,
+      "drawn": 4,
+      "lost": 6,
+      "goalsFor": 33,
+      "goalsAgainst": 19,
+      "points": 37,
+      "form": [
+        "L",
+        "W",
+        "W",
+        "L",
         "W"
       ]
     },
@@ -13511,19 +12583,19 @@
       "name": "Independiente Medellín",
       "shortName": "Independiente Medellín",
       "code": "IND",
-      "played": 20,
+      "played": 21,
       "won": 11,
       "drawn": 2,
-      "lost": 7,
-      "goalsFor": 30,
-      "goalsAgainst": 25,
+      "lost": 8,
+      "goalsFor": 31,
+      "goalsAgainst": 28,
       "points": 35,
       "form": [
-        "L",
         "W",
         "W",
         "W",
-        "W"
+        "W",
+        "L"
       ]
     },
     {
@@ -13547,43 +12619,23 @@
       ]
     },
     {
-      "teamId": "primera-a-colombia.independiente-santa-fe",
-      "name": "Independiente Santa Fe",
-      "shortName": "Independiente Santa Fe",
-      "code": "IND",
-      "played": 20,
-      "won": 10,
-      "drawn": 4,
-      "lost": 6,
-      "goalsFor": 30,
-      "goalsAgainst": 19,
-      "points": 34,
-      "form": [
-        "L",
-        "L",
-        "W",
-        "W",
-        "L"
-      ]
-    },
-    {
       "teamId": "primera-a-colombia.once-caldas",
       "name": "Once Caldas",
       "shortName": "Once Caldas",
       "code": "ONC",
-      "played": 20,
+      "played": 21,
       "won": 7,
       "drawn": 8,
-      "lost": 5,
+      "lost": 6,
       "goalsFor": 23,
-      "goalsAgainst": 19,
+      "goalsAgainst": 22,
       "points": 29,
       "form": [
-        "D",
         "W",
         "W",
         "D",
-        "D"
+        "D",
+        "L"
       ]
     },
     {

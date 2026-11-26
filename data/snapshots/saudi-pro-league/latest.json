@@ -5,7 +5,7 @@
   "season": "saudi-pro-league-2026-27",
   "seasonLabel": "2026/27",
   "periodLabel": "Regular season · Matchday 11",
-  "updatedAt": "2026-11-25T20:23:50.754Z",
+  "updatedAt": "2026-11-26T20:00:11.075Z",
   "source": "pitchlab-football-v2",
   "provenance": "derived",
   "isDemo": false,
@@ -15,11 +15,11 @@
       "name": "Abha",
       "shortName": "Abha",
       "code": "ABH",
-      "forPerGame": 0.6363636363636364,
-      "againstPerGame": 1.7272727272727273,
-      "gamesPlayed": 11,
-      "adjustedFor": 1.04958046811767,
-      "adjustedAgainst": 1.4917443511315818
+      "forPerGame": 0.5833333333333334,
+      "againstPerGame": 1.6666666666666667,
+      "gamesPlayed": 12,
+      "adjustedFor": 0.9874272379531509,
+      "adjustedAgainst": 1.4476142191681929
     },
     "saudi-pro-league.al-hazem": {
       "teamId": "saudi-pro-league.al-hazem",
@@ -29,19 +29,19 @@
       "forPerGame": 1.1666666666666667,
       "againstPerGame": 1.6666666666666667,
       "gamesPlayed": 12,
-      "adjustedFor": 1.3034728972650675,
-      "adjustedAgainst": 1.549217761430084
+      "adjustedFor": 1.296810837769083,
+      "adjustedAgainst": 1.5381908814267788
     },
     "saudi-pro-league.al-shabab": {
       "teamId": "saudi-pro-league.al-shabab",
       "name": "Al-Shabab",
       "shortName": "Al-Shabab",
       "code": "ALS",
-      "forPerGame": 1.8181818181818181,
-      "againstPerGame": 1.3636363636363635,
-      "gamesPlayed": 11,
-      "adjustedFor": 1.58251210361158,
-      "adjustedAgainst": 1.359680744418769
+      "forPerGame": 1.75,
+      "againstPerGame": 1.25,
+      "gamesPlayed": 12,
+      "adjustedFor": 1.5470878735786913,
+      "adjustedAgainst": 1.3016752044973763
     },
     "saudi-pro-league.al-qadsiah": {
       "teamId": "saudi-pro-league.al-qadsiah",
@@ -51,19 +51,19 @@
       "forPerGame": 2.6666666666666665,
       "againstPerGame": 1,
       "gamesPlayed": 12,
-      "adjustedFor": 2.0682623424644926,
-      "adjustedAgainst": 1.1897483011285128
+      "adjustedFor": 2.06116430495182,
+      "adjustedAgainst": 1.1815404300290113
     },
     "saudi-pro-league.diriyah": {
       "teamId": "saudi-pro-league.diriyah",
       "name": "Diriyah",
       "shortName": "Diriyah",
       "code": "DIR",
-      "forPerGame": 0.8333333333333334,
-      "againstPerGame": 1.0833333333333333,
-      "gamesPlayed": 12,
-      "adjustedFor": 1.0952120353268,
-      "adjustedAgainst": 1.2317225280658692
+      "forPerGame": 0.9230769230769231,
+      "againstPerGame": 1.1538461538461537,
+      "gamesPlayed": 13,
+      "adjustedFor": 1.1230946754510371,
+      "adjustedAgainst": 1.2630400656135945
     },
     "saudi-pro-league.al-ahli": {
       "teamId": "saudi-pro-league.al-ahli",
@@ -73,8 +73,8 @@
       "forPerGame": 2.5833333333333335,
       "againstPerGame": 1.6666666666666667,
       "gamesPlayed": 12,
-      "adjustedFor": 2.003967885490231,
-      "adjustedAgainst": 1.5160323856697127
+      "adjustedFor": 2.002950452565458,
+      "adjustedAgainst": 1.5102092554202124
     },
     "saudi-pro-league.neom": {
       "teamId": "saudi-pro-league.neom",
@@ -84,8 +84,8 @@
       "forPerGame": 1.5,
       "againstPerGame": 0.8333333333333334,
       "gamesPlayed": 12,
-      "adjustedFor": 1.441374573268595,
-      "adjustedAgainst": 1.103621923135205
+      "adjustedFor": 1.434010521980198,
+      "adjustedAgainst": 1.094568475403858
     },
     "saudi-pro-league.al-fayha": {
       "teamId": "saudi-pro-league.al-fayha",
@@ -95,8 +95,8 @@
       "forPerGame": 1.3333333333333333,
       "againstPerGame": 1.6666666666666667,
       "gamesPlayed": 12,
-      "adjustedFor": 1.36558033660413,
-      "adjustedAgainst": 1.5249353245934107
+      "adjustedFor": 1.3586817589930422,
+      "adjustedAgainst": 1.517692059177956
     },
     "saudi-pro-league.al-hilal": {
       "teamId": "saudi-pro-league.al-hilal",
@@ -106,19 +106,19 @@
       "forPerGame": 2.909090909090909,
       "againstPerGame": 0.8181818181818182,
       "gamesPlayed": 11,
-      "adjustedFor": 2.132917313898252,
-      "adjustedAgainst": 1.103050115834227
+      "adjustedFor": 2.1286590983393627,
+      "adjustedAgainst": 1.091999382541748
     },
     "saudi-pro-league.al-faisaly": {
       "teamId": "saudi-pro-league.al-faisaly",
       "name": "Al Faisaly",
       "shortName": "Al Faisaly",
       "code": "ALF",
-      "forPerGame": 1.0833333333333333,
+      "forPerGame": 1.1538461538461537,
       "againstPerGame": 2,
-      "gamesPlayed": 12,
-      "adjustedFor": 1.262212719268115,
-      "adjustedAgainst": 1.6360787681794875
+      "gamesPlayed": 13,
+      "adjustedFor": 1.2972381346077646,
+      "adjustedAgainst": 1.6612368027188253
     },
     "saudi-pro-league.al-ettifaq": {
       "teamId": "saudi-pro-league.al-ettifaq",
@@ -128,19 +128,19 @@
       "forPerGame": 1.5,
       "againstPerGame": 1.4166666666666667,
       "gamesPlayed": 12,
-      "adjustedFor": 1.4419467093293064,
-      "adjustedAgainst": 1.4264455223656893
+      "adjustedFor": 1.4341683971900006,
+      "adjustedAgainst": 1.4180827978657875
     },
     "saudi-pro-league.al-riyadh": {
       "teamId": "saudi-pro-league.al-riyadh",
       "name": "Al-Riyadh",
       "shortName": "Al-Riyadh",
       "code": "ALR",
-      "forPerGame": 1,
-      "againstPerGame": 2.272727272727273,
-      "gamesPlayed": 11,
-      "adjustedFor": 1.216432640108164,
-      "adjustedAgainst": 1.7726644828769331
+      "forPerGame": 0.9166666666666666,
+      "againstPerGame": 2.1666666666666665,
+      "gamesPlayed": 12,
+      "adjustedFor": 1.139526306819982,
+      "adjustedAgainst": 1.7369920593792483
     },
     "saudi-pro-league.al-taawoun": {
       "teamId": "saudi-pro-league.al-taawoun",
@@ -150,8 +150,8 @@
       "forPerGame": 0.5,
       "againstPerGame": 1.6666666666666667,
       "gamesPlayed": 12,
-      "adjustedFor": 0.9370126416037104,
-      "adjustedAgainst": 1.4960503040758062
+      "adjustedFor": 0.9302179129712748,
+      "adjustedAgainst": 1.48827041377802
     },
     "saudi-pro-league.al-khaleej": {
       "teamId": "saudi-pro-league.al-khaleej",
@@ -161,8 +161,8 @@
       "forPerGame": 1.1666666666666667,
       "againstPerGame": 1.5833333333333333,
       "gamesPlayed": 12,
-      "adjustedFor": 1.3005959241407228,
-      "adjustedAgainst": 1.4824780746953528
+      "adjustedFor": 1.2977430601033286,
+      "adjustedAgainst": 1.4782389578325215
     },
     "saudi-pro-league.al-nassr": {
       "teamId": "saudi-pro-league.al-nassr",
@@ -172,19 +172,19 @@
       "forPerGame": 2.4166666666666665,
       "againstPerGame": 1.1666666666666667,
       "gamesPlayed": 12,
-      "adjustedFor": 1.8862545205334706,
-      "adjustedAgainst": 1.3301476692454657
+      "adjustedFor": 1.8787021010121545,
+      "adjustedAgainst": 1.3210081823214612
     },
     "saudi-pro-league.al-fateh": {
       "teamId": "saudi-pro-league.al-fateh",
       "name": "Al-Fateh",
       "shortName": "Al-Fateh",
       "code": "ALF",
-      "forPerGame": 0.8333333333333334,
-      "againstPerGame": 2.0833333333333335,
-      "gamesPlayed": 12,
-      "adjustedFor": 1.1507821579870707,
-      "adjustedAgainst": 1.709980830269248
+      "forPerGame": 0.8461538461538461,
+      "againstPerGame": 1.9230769230769231,
+      "gamesPlayed": 13,
+      "adjustedFor": 1.118326844512737,
+      "adjustedAgainst": 1.633587446299302
     },
     "saudi-pro-league.al-ittihad": {
       "teamId": "saudi-pro-league.al-ittihad",
@@ -194,8 +194,8 @@
       "forPerGame": 1.9090909090909092,
       "againstPerGame": 1,
       "gamesPlayed": 11,
-      "adjustedFor": 1.655125806199825,
-      "adjustedAgainst": 1.1857252344937879
+      "adjustedFor": 1.6467034839817716,
+      "adjustedAgainst": 1.1744176617597157
     },
     "saudi-pro-league.al-kholood": {
       "teamId": "saudi-pro-league.al-kholood",
@@ -205,116 +205,11 @@
       "forPerGame": 1.5454545454545454,
       "againstPerGame": 2.3636363636363638,
       "gamesPlayed": 11,
-      "adjustedFor": 1.480293013042561,
-      "adjustedAgainst": 1.8461817087950423
+      "adjustedFor": 1.4704220875102727,
+      "adjustedAgainst": 1.834544943280329
     }
   },
   "games": [
-    {
-      "id": "saudi-pro-league-2026-10-23-al-qadsiah-al-hilal-v4qkfi",
-      "league": "saudi-pro-league",
-      "season": "saudi-pro-league-2026-27",
-      "week": 11,
-      "round": "Regular season · Matchday 11",
-      "phase": "Regular season",
-      "startTime": "2026-10-23T18:00:00.000Z",
-      "status": "final",
-      "home": {
-        "id": "saudi-pro-league.al-qadsiah",
-        "league": "saudi-pro-league",
-        "name": "Al-Qadsiah",
-        "shortName": "Al-Qadsiah",
-        "code": "ALQ",
-        "logoUrl": "https://sports.bzzoiro.com/img/team/272/?bg=transparent"
-      },
-      "away": {
-        "id": "saudi-pro-league.al-hilal",
-        "league": "saudi-pro-league",
-        "name": "Al-Hilal",
-        "shortName": "Al-Hilal",
-        "code": "ALH",
-        "logoUrl": "https://sports.bzzoiro.com/img/team/262/?bg=transparent"
-      },
-      "venue": "EGO Stadium, Dammam",
-      "referee": "Donatas Rumsas",
-      "neutralSite": false,
-      "result": {
-        "home": 2,
-        "away": 3,
-        "observedAt": "2026-11-25T20:23:50.754Z",
-        "source": "pitchlab-feed"
-      }
-    },
-    {
-      "id": "saudi-pro-league-2026-10-23-al-ahli-al-khaleej-td33ez",
-      "league": "saudi-pro-league",
-      "season": "saudi-pro-league-2026-27",
-      "week": 11,
-      "round": "Regular season · Matchday 11",
-      "phase": "Regular season",
-      "startTime": "2026-10-23T18:00:00.000Z",
-      "status": "final",
-      "home": {
-        "id": "saudi-pro-league.al-ahli",
-        "league": "saudi-pro-league",
-        "name": "Al-Ahli",
-        "shortName": "Al-Ahli",
-        "code": "ALA",
-        "logoUrl": "https://sports.bzzoiro.com/img/team/258/?bg=transparent"
-      },
-      "away": {
-        "id": "saudi-pro-league.al-khaleej",
-        "league": "saudi-pro-league",
-        "name": "Al-Khaleej",
-        "shortName": "Al-Khaleej",
-        "code": "ALK",
-        "logoUrl": "https://sports.bzzoiro.com/img/team/265/?bg=transparent"
-      },
-      "venue": "Prince Abdullah al-Faisal Stadium, Jeddah",
-      "referee": "Abdullah Dhafer Al-Shehri",
-      "neutralSite": false,
-      "result": {
-        "home": 4,
-        "away": 1,
-        "observedAt": "2026-11-25T20:23:50.754Z",
-        "source": "pitchlab-feed"
-      }
-    },
-    {
-      "id": "saudi-pro-league-2026-10-24-neom-abha-fg12z0",
-      "league": "saudi-pro-league",
-      "season": "saudi-pro-league-2026-27",
-      "week": 11,
-      "round": "Regular season · Matchday 11",
-      "phase": "Regular season",
-      "startTime": "2026-10-24T14:00:00.000Z",
-      "status": "final",
-      "home": {
-        "id": "saudi-pro-league.neom",
-        "league": "saudi-pro-league",
-        "name": "Neom SC",
-        "shortName": "Neom",
-        "code": "NEO",
-        "logoUrl": "https://sports.bzzoiro.com/img/team/259/?bg=transparent"
-      },
-      "away": {
-        "id": "saudi-pro-league.abha",
-        "league": "saudi-pro-league",
-        "name": "Abha",
-        "shortName": "Abha",
-        "code": "ABH",
-        "logoUrl": "https://sports.bzzoiro.com/img/team/2415/?bg=transparent"
-      },
-      "venue": "King Khalid Sport City Stadium, Tabuk",
-      "referee": "Khalid Al-Ahmari",
-      "neutralSite": false,
-      "result": {
-        "home": 2,
-        "away": 0,
-        "observedAt": "2026-11-25T20:23:50.754Z",
-        "source": "pitchlab-feed"
-      }
-    },
     {
       "id": "saudi-pro-league-2026-10-24-al-kholood-al-ettifaq-3lrdk6",
       "league": "saudi-pro-league",
@@ -346,7 +241,7 @@
       "result": {
         "home": 0,
         "away": 3,
-        "observedAt": "2026-11-25T20:23:50.754Z",
+        "observedAt": "2026-11-26T20:00:11.075Z",
         "source": "pitchlab-feed"
       }
     },
@@ -381,7 +276,7 @@
       "result": {
         "home": 2,
         "away": 1,
-        "observedAt": "2026-11-25T20:23:50.754Z",
+        "observedAt": "2026-11-26T20:00:11.075Z",
         "source": "pitchlab-feed"
       }
     },
@@ -416,7 +311,7 @@
       "result": {
         "home": 0,
         "away": 1,
-        "observedAt": "2026-11-25T20:23:50.754Z",
+        "observedAt": "2026-11-26T20:00:11.075Z",
         "source": "pitchlab-feed"
       }
     },
@@ -451,7 +346,7 @@
       "result": {
         "home": 4,
         "away": 2,
-        "observedAt": "2026-11-25T20:23:50.754Z",
+        "observedAt": "2026-11-26T20:00:11.075Z",
         "source": "pitchlab-feed"
       }
     },
@@ -486,7 +381,7 @@
       "result": {
         "home": 0,
         "away": 6,
-        "observedAt": "2026-11-25T20:23:50.754Z",
+        "observedAt": "2026-11-26T20:00:11.075Z",
         "source": "pitchlab-feed"
       }
     },
@@ -521,7 +416,7 @@
       "result": {
         "home": 5,
         "away": 3,
-        "observedAt": "2026-11-25T20:23:50.754Z",
+        "observedAt": "2026-11-26T20:00:11.075Z",
         "source": "pitchlab-feed"
       }
     },
@@ -556,7 +451,7 @@
       "result": {
         "home": 1,
         "away": 1,
-        "observedAt": "2026-11-25T20:23:50.754Z",
+        "observedAt": "2026-11-26T20:00:11.075Z",
         "source": "pitchlab-feed"
       }
     },
@@ -591,7 +486,7 @@
       "result": {
         "home": 1,
         "away": 2,
-        "observedAt": "2026-11-25T20:23:50.754Z",
+        "observedAt": "2026-11-26T20:00:11.075Z",
         "source": "pitchlab-feed"
       }
     },
@@ -626,7 +521,7 @@
       "result": {
         "home": 6,
         "away": 1,
-        "observedAt": "2026-11-25T20:23:50.754Z",
+        "observedAt": "2026-11-26T20:00:11.075Z",
         "source": "pitchlab-feed"
       }
     },
@@ -661,7 +556,7 @@
       "result": {
         "home": 1,
         "away": 1,
-        "observedAt": "2026-11-25T20:23:50.754Z",
+        "observedAt": "2026-11-26T20:00:11.075Z",
         "source": "pitchlab-feed"
       }
     },
@@ -696,7 +591,7 @@
       "result": {
         "home": 4,
         "away": 1,
-        "observedAt": "2026-11-25T20:23:50.754Z",
+        "observedAt": "2026-11-26T20:00:11.075Z",
         "source": "pitchlab-feed"
       }
     },
@@ -731,7 +626,7 @@
       "result": {
         "home": 2,
         "away": 0,
-        "observedAt": "2026-11-25T20:23:50.754Z",
+        "observedAt": "2026-11-26T20:00:11.075Z",
         "source": "pitchlab-feed"
       }
     },
@@ -766,7 +661,7 @@
       "result": {
         "home": 3,
         "away": 1,
-        "observedAt": "2026-11-25T20:23:50.754Z",
+        "observedAt": "2026-11-26T20:00:11.075Z",
         "source": "pitchlab-feed"
       }
     },
@@ -778,7 +673,7 @@
       "round": "Regular season · Matchday 13",
       "phase": "Regular season",
       "startTime": "2026-11-26T14:25:00.000Z",
-      "status": "scheduled",
+      "status": "final",
       "home": {
         "id": "saudi-pro-league.al-fateh",
         "league": "saudi-pro-league",
@@ -796,7 +691,14 @@
         "logoUrl": "https://sports.bzzoiro.com/img/team/263/?bg=transparent"
       },
       "venue": "Prince Abdullah bin Jalawi Stadium, Al-Ahsa",
-      "neutralSite": false
+      "referee": "Mohammed Nasser Abu Shaqara",
+      "neutralSite": false,
+      "result": {
+        "home": 1,
+        "away": 0,
+        "observedAt": "2026-11-26T20:00:11.075Z",
+        "source": "pitchlab-feed"
+      }
     },
     {
       "id": "saudi-pro-league-2026-11-26-abha-al-shabab-do91n9",
@@ -806,7 +708,7 @@
       "round": "Regular season · Matchday 13",
       "phase": "Regular season",
       "startTime": "2026-11-26T15:05:00.000Z",
-      "status": "scheduled",
+      "status": "final",
       "home": {
         "id": "saudi-pro-league.abha",
         "league": "saudi-pro-league",
@@ -824,7 +726,14 @@
         "logoUrl": "https://sports.bzzoiro.com/img/team/264/?bg=transparent"
       },
       "venue": "Prince Sultan bin Abdul Aziz Stadium, Abha",
-      "neutralSite": false
+      "referee": "Abdullah Al-Harbi",
+      "neutralSite": false,
+      "result": {
+        "home": 0,
+        "away": 1,
+        "observedAt": "2026-11-26T20:00:11.075Z",
+        "source": "pitchlab-feed"
+      }
     },
     {
       "id": "saudi-pro-league-2026-11-26-al-faisaly-diriyah-aqcznk",
@@ -834,7 +743,7 @@
       "round": "Regular season · Matchday 13",
       "phase": "Regular season",
       "startTime": "2026-11-26T17:30:00.000Z",
-      "status": "scheduled",
+      "status": "final",
       "home": {
         "id": "saudi-pro-league.al-faisaly",
         "league": "saudi-pro-league",
@@ -852,7 +761,14 @@
         "logoUrl": "https://sports.bzzoiro.com/img/team/3256/?bg=transparent"
       },
       "venue": "Al Majma'ah Sport City, Al Majmaah",
-      "neutralSite": false
+      "referee": "Faisal Suleiman Al-Balawi",
+      "neutralSite": false,
+      "result": {
+        "home": 2,
+        "away": 2,
+        "observedAt": "2026-11-26T20:00:11.075Z",
+        "source": "pitchlab-feed"
+      }
     },
     {
       "id": "saudi-pro-league-2026-11-27-al-kholood-al-khaleej-mdv5xa",
@@ -1665,1360 +1581,93 @@
       },
       "venue": "SHG Arena, Riyadh",
       "neutralSite": false
+    },
+    {
+      "id": "saudi-pro-league-2026-12-16-al-fayha-al-nassr-suou9z",
+      "league": "saudi-pro-league",
+      "season": "saudi-pro-league-2026-27",
+      "week": 16,
+      "round": "Regular season · Matchday 16",
+      "phase": "Regular season",
+      "startTime": "2026-12-16T17:30:00.000Z",
+      "status": "scheduled",
+      "home": {
+        "id": "saudi-pro-league.al-fayha",
+        "league": "saudi-pro-league",
+        "name": "Al-Fayha",
+        "shortName": "Al-Fayha",
+        "code": "ALF",
+        "logoUrl": "https://sports.bzzoiro.com/img/team/269/?bg=transparent"
+      },
+      "away": {
+        "id": "saudi-pro-league.al-nassr",
+        "league": "saudi-pro-league",
+        "name": "Al-Nassr",
+        "shortName": "Al-Nassr",
+        "code": "ALN",
+        "logoUrl": "https://sports.bzzoiro.com/img/team/267/?bg=transparent"
+      },
+      "venue": "Al Majma'ah Sport City, Al Majmaah",
+      "neutralSite": false
+    },
+    {
+      "id": "saudi-pro-league-2026-12-17-al-riyadh-al-ittihad-fycpek",
+      "league": "saudi-pro-league",
+      "season": "saudi-pro-league-2026-27",
+      "week": 16,
+      "round": "Regular season · Matchday 16",
+      "phase": "Regular season",
+      "startTime": "2026-12-17T14:45:00.000Z",
+      "status": "scheduled",
+      "home": {
+        "id": "saudi-pro-league.al-riyadh",
+        "league": "saudi-pro-league",
+        "name": "Al-Riyadh",
+        "shortName": "Al-Riyadh",
+        "code": "ALR",
+        "logoUrl": "https://sports.bzzoiro.com/img/team/263/?bg=transparent"
+      },
+      "away": {
+        "id": "saudi-pro-league.al-ittihad",
+        "league": "saudi-pro-league",
+        "name": "Al-Ittihad",
+        "shortName": "Al-Ittihad",
+        "code": "ALI",
+        "logoUrl": "https://sports.bzzoiro.com/img/team/271/?bg=transparent"
+      },
+      "venue": "Prince Turki bin Abdul Aziz Stadium, Riyadh",
+      "neutralSite": false
+    },
+    {
+      "id": "saudi-pro-league-2026-12-17-al-hilal-abha-ilx9fz",
+      "league": "saudi-pro-league",
+      "season": "saudi-pro-league-2026-27",
+      "week": 16,
+      "round": "Regular season · Matchday 16",
+      "phase": "Regular season",
+      "startTime": "2026-12-17T17:30:00.000Z",
+      "status": "scheduled",
+      "home": {
+        "id": "saudi-pro-league.al-hilal",
+        "league": "saudi-pro-league",
+        "name": "Al-Hilal",
+        "shortName": "Al-Hilal",
+        "code": "ALH",
+        "logoUrl": "https://sports.bzzoiro.com/img/team/262/?bg=transparent"
+      },
+      "away": {
+        "id": "saudi-pro-league.abha",
+        "league": "saudi-pro-league",
+        "name": "Abha",
+        "shortName": "Abha",
+        "code": "ABH",
+        "logoUrl": "https://sports.bzzoiro.com/img/team/2415/?bg=transparent"
+      },
+      "venue": "Kingdom Arena, Riyadh",
+      "neutralSite": false
     }
   ],
   "analyses": {
-    "saudi-pro-league-2026-10-23-al-qadsiah-al-hilal-v4qkfi": {
-      "game": "saudi-pro-league-2026-10-23-al-qadsiah-al-hilal-v4qkfi",
-      "model": {
-        "id": "pitchlab-statistical-saudi-pro-league",
-        "version": "2.0.0",
-        "status": "candidate",
-        "label": "Modelo PitchLab · en validación"
-      },
-      "projection": {
-        "home": 1.6074029662782159,
-        "away": 1.8683297462567687,
-        "total": 3.4757327125349846,
-        "margin": -0.26092677997855285
-      },
-      "x12": [
-        0.316943700820402,
-        0.2589999937905591,
-        0.4240563053890388
-      ],
-      "probabilities": [
-        {
-          "market": "h2h",
-          "selection": "Al-Qadsiah gana",
-          "p": 0.316943700820402,
-          "fairOdds": 3.1551344841734394
-        },
-        {
-          "market": "h2h",
-          "selection": "Empate",
-          "p": 0.2589999937905591,
-          "fairOdds": 3.8610039535701772
-        },
-        {
-          "market": "h2h",
-          "selection": "Al-Hilal gana",
-          "p": 0.4240563053890388,
-          "fairOdds": 2.3581774101497617
-        },
-        {
-          "market": "double_chance",
-          "selection": "Al-Qadsiah o empate",
-          "p": 0.5759436946109611,
-          "fairOdds": 1.7362808367499898
-        },
-        {
-          "market": "double_chance",
-          "selection": "Al-Hilal o empate",
-          "p": 0.6830562991795979,
-          "fairOdds": 1.464008166239116
-        },
-        {
-          "market": "double_chance",
-          "selection": "Sin empate",
-          "p": 0.7410000062094408,
-          "fairOdds": 1.3495276540083507
-        },
-        {
-          "market": "totals",
-          "selection": "Más de 1.5",
-          "line": 1.5,
-          "p": 0.8801069880644684,
-          "fairOdds": 1.1362254970832584
-        },
-        {
-          "market": "totals",
-          "selection": "Más de 2.5",
-          "line": 2.5,
-          "p": 0.6746392116126902,
-          "fairOdds": 1.4822737587540333
-        },
-        {
-          "market": "totals",
-          "selection": "Menos de 2.5",
-          "line": 2.5,
-          "p": 0.32536078838730975,
-          "fairOdds": 3.0735111165565505
-        },
-        {
-          "market": "totals",
-          "selection": "Más de 3.5",
-          "line": 3.5,
-          "p": 0.4581188654556302,
-          "fairOdds": 2.1828395977655983
-        },
-        {
-          "market": "totals",
-          "selection": "Menos de 3.5",
-          "line": 3.5,
-          "p": 0.5418811345443698,
-          "fairOdds": 1.845423168017891
-        },
-        {
-          "market": "btts",
-          "selection": "Sí",
-          "p": 0.6947328638831382,
-          "fairOdds": 1.4394021817401907
-        },
-        {
-          "market": "btts",
-          "selection": "No",
-          "p": 0.30526713611686185,
-          "fairOdds": 3.2758193781369958
-        },
-        {
-          "market": "team_totals",
-          "selection": "Al-Qadsiah más de 1.5",
-          "line": 1.5,
-          "p": 0.4774565816668501,
-          "fairOdds": 2.0944312810787884
-        },
-        {
-          "market": "team_totals",
-          "selection": "Al-Qadsiah menos de 1.5",
-          "line": 1.5,
-          "p": 0.5225434183331499,
-          "fairOdds": 1.9137165734282497
-        },
-        {
-          "market": "team_totals",
-          "selection": "Al-Hilal más de 1.5",
-          "line": 1.5,
-          "p": 0.5571815584558869,
-          "fairOdds": 1.7947471247456441
-        },
-        {
-          "market": "team_totals",
-          "selection": "Al-Hilal menos de 1.5",
-          "line": 1.5,
-          "p": 0.4428184415441131,
-          "fairOdds": 2.2582618657727718
-        },
-        {
-          "market": "correct_score",
-          "selection": "1–1",
-          "p": 0.11149885020988735,
-          "fairOdds": 8.968702350899429
-        },
-        {
-          "market": "correct_score",
-          "selection": "1–2",
-          "p": 0.08679859105023346,
-          "fairOdds": 11.520924336447628
-        },
-        {
-          "market": "correct_score",
-          "selection": "2–1",
-          "p": 0.07467649273499309,
-          "fairOdds": 13.391094886428755
-        }
-      ],
-      "marketGroups": [
-        {
-          "group": "Resultado",
-          "rows": [
-            {
-              "market": "h2h",
-              "selection": "home",
-              "label": "Al-Qadsiah gana",
-              "p": 0.316943700820402,
-              "fairOdds": 3.1551344841734394
-            },
-            {
-              "market": "h2h",
-              "selection": "draw",
-              "label": "Empate",
-              "p": 0.2589999937905591,
-              "fairOdds": 3.8610039535701772
-            },
-            {
-              "market": "h2h",
-              "selection": "away",
-              "label": "Al-Hilal gana",
-              "p": 0.4240563053890388,
-              "fairOdds": 2.3581774101497617
-            }
-          ]
-        },
-        {
-          "group": "Doble oportunidad",
-          "rows": [
-            {
-              "market": "double_chance",
-              "selection": "1x",
-              "label": "Al-Qadsiah o empate",
-              "p": 0.5759436946109611,
-              "fairOdds": 1.7362808367499898
-            },
-            {
-              "market": "double_chance",
-              "selection": "x2",
-              "label": "Al-Hilal o empate",
-              "p": 0.6830562991795979,
-              "fairOdds": 1.464008166239116
-            },
-            {
-              "market": "double_chance",
-              "selection": "12",
-              "label": "Sin empate",
-              "p": 0.7410000062094408,
-              "fairOdds": 1.3495276540083507
-            }
-          ]
-        },
-        {
-          "group": "Goles totales",
-          "rows": [
-            {
-              "market": "totals",
-              "selection": "over_1.5",
-              "label": "Más de 1.5",
-              "line": 1.5,
-              "p": 0.8801069880644684,
-              "fairOdds": 1.1362254970832584
-            },
-            {
-              "market": "totals",
-              "selection": "over_2.5",
-              "label": "Más de 2.5",
-              "line": 2.5,
-              "p": 0.6746392116126902,
-              "fairOdds": 1.4822737587540333
-            },
-            {
-              "market": "totals",
-              "selection": "under_2.5",
-              "label": "Menos de 2.5",
-              "line": 2.5,
-              "p": 0.32536078838730975,
-              "fairOdds": 3.0735111165565505
-            },
-            {
-              "market": "totals",
-              "selection": "over_3.5",
-              "label": "Más de 3.5",
-              "line": 3.5,
-              "p": 0.4581188654556302,
-              "fairOdds": 2.1828395977655983
-            },
-            {
-              "market": "totals",
-              "selection": "under_3.5",
-              "label": "Menos de 3.5",
-              "line": 3.5,
-              "p": 0.5418811345443698,
-              "fairOdds": 1.845423168017891
-            }
-          ]
-        },
-        {
-          "group": "Ambos anotan",
-          "rows": [
-            {
-              "market": "btts",
-              "selection": "yes",
-              "label": "Sí",
-              "p": 0.6947328638831382,
-              "fairOdds": 1.4394021817401907
-            },
-            {
-              "market": "btts",
-              "selection": "no",
-              "label": "No",
-              "p": 0.30526713611686185,
-              "fairOdds": 3.2758193781369958
-            }
-          ]
-        },
-        {
-          "group": "Goles por equipo (1.5)",
-          "rows": [
-            {
-              "market": "team_totals",
-              "selection": "home_over",
-              "label": "Al-Qadsiah más de 1.5",
-              "line": 1.5,
-              "p": 0.4774565816668501,
-              "fairOdds": 2.0944312810787884
-            },
-            {
-              "market": "team_totals",
-              "selection": "home_under",
-              "label": "Al-Qadsiah menos de 1.5",
-              "line": 1.5,
-              "p": 0.5225434183331499,
-              "fairOdds": 1.9137165734282497
-            },
-            {
-              "market": "team_totals",
-              "selection": "away_over",
-              "label": "Al-Hilal más de 1.5",
-              "line": 1.5,
-              "p": 0.5571815584558869,
-              "fairOdds": 1.7947471247456441
-            },
-            {
-              "market": "team_totals",
-              "selection": "away_under",
-              "label": "Al-Hilal menos de 1.5",
-              "line": 1.5,
-              "p": 0.4428184415441131,
-              "fairOdds": 2.2582618657727718
-            }
-          ]
-        },
-        {
-          "group": "Marcador exacto (más probables)",
-          "rows": [
-            {
-              "market": "correct_score",
-              "selection": "1-1",
-              "label": "1–1",
-              "p": 0.11149885020988735,
-              "fairOdds": 8.968702350899429
-            },
-            {
-              "market": "correct_score",
-              "selection": "1-2",
-              "label": "1–2",
-              "p": 0.08679859105023346,
-              "fairOdds": 11.520924336447628
-            },
-            {
-              "market": "correct_score",
-              "selection": "2-1",
-              "label": "2–1",
-              "p": 0.07467649273499309,
-              "fairOdds": 13.391094886428755
-            }
-          ]
-        }
-      ],
-      "mostLikelyScore": {
-        "home": 1,
-        "away": 1,
-        "p": 0.11149885020988735
-      },
-      "factors": [
-        {
-          "key": "home_attack",
-          "label": "Ataque local",
-          "value": "1.56 goles/partido",
-          "detail": "67 % más que la media · 12 partidos"
-        },
-        {
-          "key": "away_defense",
-          "label": "Defensa visitante",
-          "value": "0.94 concedidos/partido",
-          "detail": "32 % menos que la media · 11 partidos"
-        },
-        {
-          "key": "away_attack",
-          "label": "Ataque visitante",
-          "value": "1.87 goles/partido",
-          "detail": "75 % más que la media · ajustado por rival"
-        },
-        {
-          "key": "home_defense",
-          "label": "Defensa local",
-          "value": "1.07 concedidos/partido",
-          "detail": "22 % menos que la media · ajustado por rival"
-        },
-        {
-          "key": "home_advantage",
-          "label": "Localía",
-          "value": "×1.03",
-          "detail": "estimada de 104 partidos"
-        },
-        {
-          "key": "uncertainty",
-          "label": "Intervalo 90%",
-          "value": "goles 2.6–5.1",
-          "detail": "local 10%–61% · 104 partidos"
-        },
-        {
-          "key": "home_position",
-          "label": "Posición local",
-          "value": "2.º · 28 pts",
-          "detail": "de 18 equipos"
-        },
-        {
-          "key": "away_position",
-          "label": "Posición visitante",
-          "value": "1.º · 30 pts",
-          "detail": "de 18 equipos"
-        },
-        {
-          "key": "home_form",
-          "label": "Forma local",
-          "value": "G-E-G-G-G · 13 pts",
-          "detail": "14 goles a favor · 6 en contra"
-        },
-        {
-          "key": "away_form",
-          "label": "Forma visitante",
-          "value": "G-P-G-G-G · 12 pts",
-          "detail": "12 goles a favor · 4 en contra"
-        }
-      ],
-      "steps": [
-        "Sincronizando Saudi Pro League · corte 23 oct 2026, 11:00",
-        "Fuerza ajustada por rival · ALQ 1.67 / 0.78 · ALH 1.75 / 0.68",
-        "Ponderando 92.7 partidos por antigüedad y calidad del rival",
-        "Proyección de goles 1.61 – 1.87 · total 3.48",
-        "Simulando 121 marcadores con incertidumbre del ajuste",
-        "20 mercados listos · marcador proyectado 1–2"
-      ],
-      "inputsAsOf": "2026-10-23T17:00:00.000Z",
-      "publishedAt": "2026-10-23T17:00:00.000Z",
-      "source": "pitchlab-football-v2",
-      "projectedScore": {
-        "home": 1,
-        "away": 2,
-        "p": 0.08679859105023346
-      },
-      "insights": {
-        "why": [
-          "Se esperan 3.5 goles: 1.6 de Al-Qadsiah y 1.9 de Al-Hilal.",
-          "Al-Hilal anota 75 % más que la media.",
-          "Al-Qadsiah anota 67 % más que la media."
-        ],
-        "restDays": {
-          "home": 3,
-          "away": 4
-        }
-      },
-      "matchContext": {
-        "referee": "Donatas Rumsas",
-        "refereeStats": {
-          "country": "Lithuania",
-          "matches": 38,
-          "avgYellow": 3.89,
-          "avgRed": 0.21,
-          "avgFouls": 24.7,
-          "avgGoals": 3.05
-        },
-        "weather": {
-          "description": "cloudy",
-          "temperatureC": 30,
-          "windSpeedKmh": 55
-        },
-        "travelDistanceKm": 400,
-        "halfTimeScore": {
-          "home": 1,
-          "away": 1
-        },
-        "stageName": "Regular season",
-        "venueCity": "Dammam",
-        "venueCountry": "Saudi Arabia",
-        "venueCapacity": 15000
-      }
-    },
-    "saudi-pro-league-2026-10-23-al-ahli-al-khaleej-td33ez": {
-      "game": "saudi-pro-league-2026-10-23-al-ahli-al-khaleej-td33ez",
-      "model": {
-        "id": "pitchlab-statistical-saudi-pro-league",
-        "version": "2.0.0",
-        "status": "candidate",
-        "label": "Modelo PitchLab · en validación"
-      },
-      "projection": {
-        "home": 2.3229637924443356,
-        "away": 1.4244024566198181,
-        "total": 3.7473662490641537,
-        "margin": 0.8985613358245175
-      },
-      "x12": [
-        0.560502152480398,
-        0.22670596511881566,
-        0.2127918824007864
-      ],
-      "probabilities": [
-        {
-          "market": "h2h",
-          "selection": "Al-Ahli gana",
-          "p": 0.560502152480398,
-          "fairOdds": 1.7841144687396577
-        },
-        {
-          "market": "h2h",
-          "selection": "Empate",
-          "p": 0.22670596511881566,
-          "fairOdds": 4.4109999464544485
-        },
-        {
-          "market": "h2h",
-          "selection": "Al-Khaleej gana",
-          "p": 0.2127918824007864,
-          "fairOdds": 4.699427387537901
-        },
-        {
-          "market": "double_chance",
-          "selection": "Al-Ahli o empate",
-          "p": 0.7872081175992137,
-          "fairOdds": 1.2703121038052148
-        },
-        {
-          "market": "double_chance",
-          "selection": "Al-Khaleej o empate",
-          "p": 0.4394978475196021,
-          "fairOdds": 2.2753239990678202
-        },
-        {
-          "market": "double_chance",
-          "selection": "Sin empate",
-          "p": 0.7732940348811844,
-          "fairOdds": 1.2931691632066562
-        },
-        {
-          "market": "totals",
-          "selection": "Más de 1.5",
-          "line": 1.5,
-          "p": 0.9036593854548384,
-          "fairOdds": 1.1066116460425746
-        },
-        {
-          "market": "totals",
-          "selection": "Más de 2.5",
-          "line": 2.5,
-          "p": 0.7224867401403849,
-          "fairOdds": 1.3841084471746734
-        },
-        {
-          "market": "totals",
-          "selection": "Menos de 2.5",
-          "line": 2.5,
-          "p": 0.27751325985961506,
-          "fairOdds": 3.6034314198387043
-        },
-        {
-          "market": "totals",
-          "selection": "Más de 3.5",
-          "line": 3.5,
-          "p": 0.5156723151484597,
-          "fairOdds": 1.939215991675071
-        },
-        {
-          "market": "totals",
-          "selection": "Menos de 3.5",
-          "line": 3.5,
-          "p": 0.4843276848515403,
-          "fairOdds": 2.064717816629721
-        },
-        {
-          "market": "btts",
-          "selection": "Sí",
-          "p": 0.7005471442947249,
-          "fairOdds": 1.4274556796698514
-        },
-        {
-          "market": "btts",
-          "selection": "No",
-          "p": 0.29945285570527513,
-          "fairOdds": 3.3394238223068116
-        },
-        {
-          "market": "team_totals",
-          "selection": "Al-Ahli más de 1.5",
-          "line": 1.5,
-          "p": 0.6743963646485991,
-          "fairOdds": 1.482807518574125
-        },
-        {
-          "market": "team_totals",
-          "selection": "Al-Ahli menos de 1.5",
-          "line": 1.5,
-          "p": 0.3256036353514009,
-          "fairOdds": 3.0712187808369245
-        },
-        {
-          "market": "team_totals",
-          "selection": "Al-Khaleej más de 1.5",
-          "line": 1.5,
-          "p": 0.4165619704827296,
-          "fairOdds": 2.400603201586448
-        },
-        {
-          "market": "team_totals",
-          "selection": "Al-Khaleej menos de 1.5",
-          "line": 1.5,
-          "p": 0.5834380295172704,
-          "fairOdds": 1.713978090916336
-        },
-        {
-          "market": "correct_score",
-          "selection": "1–1",
-          "p": 0.09362892886791963,
-          "fairOdds": 10.680459683680448
-        },
-        {
-          "market": "correct_score",
-          "selection": "2–1",
-          "p": 0.09062358820230146,
-          "fairOdds": 11.034654661517852
-        },
-        {
-          "market": "correct_score",
-          "selection": "3–1",
-          "p": 0.07017177137844398,
-          "fairOdds": 14.250744713381845
-        }
-      ],
-      "marketGroups": [
-        {
-          "group": "Resultado",
-          "rows": [
-            {
-              "market": "h2h",
-              "selection": "home",
-              "label": "Al-Ahli gana",
-              "p": 0.560502152480398,
-              "fairOdds": 1.7841144687396577
-            },
-            {
-              "market": "h2h",
-              "selection": "draw",
-              "label": "Empate",
-              "p": 0.22670596511881566,
-              "fairOdds": 4.4109999464544485
-            },
-            {
-              "market": "h2h",
-              "selection": "away",
-              "label": "Al-Khaleej gana",
-              "p": 0.2127918824007864,
-              "fairOdds": 4.699427387537901
-            }
-          ]
-        },
-        {
-          "group": "Doble oportunidad",
-          "rows": [
-            {
-              "market": "double_chance",
-              "selection": "1x",
-              "label": "Al-Ahli o empate",
-              "p": 0.7872081175992137,
-              "fairOdds": 1.2703121038052148
-            },
-            {
-              "market": "double_chance",
-              "selection": "x2",
-              "label": "Al-Khaleej o empate",
-              "p": 0.4394978475196021,
-              "fairOdds": 2.2753239990678202
-            },
-            {
-              "market": "double_chance",
-              "selection": "12",
-              "label": "Sin empate",
-              "p": 0.7732940348811844,
-              "fairOdds": 1.2931691632066562
-            }
-          ]
-        },
-        {
-          "group": "Goles totales",
-          "rows": [
-            {
-              "market": "totals",
-              "selection": "over_1.5",
-              "label": "Más de 1.5",
-              "line": 1.5,
-              "p": 0.9036593854548384,
-              "fairOdds": 1.1066116460425746
-            },
-            {
-              "market": "totals",
-              "selection": "over_2.5",
-              "label": "Más de 2.5",
-              "line": 2.5,
-              "p": 0.7224867401403849,
-              "fairOdds": 1.3841084471746734
-            },
-            {
-              "market": "totals",
-              "selection": "under_2.5",
-              "label": "Menos de 2.5",
-              "line": 2.5,
-              "p": 0.27751325985961506,
-              "fairOdds": 3.6034314198387043
-            },
-            {
-              "market": "totals",
-              "selection": "over_3.5",
-              "label": "Más de 3.5",
-              "line": 3.5,
-              "p": 0.5156723151484597,
-              "fairOdds": 1.939215991675071
-            },
-            {
-              "market": "totals",
-              "selection": "under_3.5",
-              "label": "Menos de 3.5",
-              "line": 3.5,
-              "p": 0.4843276848515403,
-              "fairOdds": 2.064717816629721
-            }
-          ]
-        },
-        {
-          "group": "Ambos anotan",
-          "rows": [
-            {
-              "market": "btts",
-              "selection": "yes",
-              "label": "Sí",
-              "p": 0.7005471442947249,
-              "fairOdds": 1.4274556796698514
-            },
-            {
-              "market": "btts",
-              "selection": "no",
-              "label": "No",
-              "p": 0.29945285570527513,
-              "fairOdds": 3.3394238223068116
-            }
-          ]
-        },
-        {
-          "group": "Goles por equipo (1.5)",
-          "rows": [
-            {
-              "market": "team_totals",
-              "selection": "home_over",
-              "label": "Al-Ahli más de 1.5",
-              "line": 1.5,
-              "p": 0.6743963646485991,
-              "fairOdds": 1.482807518574125
-            },
-            {
-              "market": "team_totals",
-              "selection": "home_under",
-              "label": "Al-Ahli menos de 1.5",
-              "line": 1.5,
-              "p": 0.3256036353514009,
-              "fairOdds": 3.0712187808369245
-            },
-            {
-              "market": "team_totals",
-              "selection": "away_over",
-              "label": "Al-Khaleej más de 1.5",
-              "line": 1.5,
-              "p": 0.4165619704827296,
-              "fairOdds": 2.400603201586448
-            },
-            {
-              "market": "team_totals",
-              "selection": "away_under",
-              "label": "Al-Khaleej menos de 1.5",
-              "line": 1.5,
-              "p": 0.5834380295172704,
-              "fairOdds": 1.713978090916336
-            }
-          ]
-        },
-        {
-          "group": "Marcador exacto (más probables)",
-          "rows": [
-            {
-              "market": "correct_score",
-              "selection": "1-1",
-              "label": "1–1",
-              "p": 0.09362892886791963,
-              "fairOdds": 10.680459683680448
-            },
-            {
-              "market": "correct_score",
-              "selection": "2-1",
-              "label": "2–1",
-              "p": 0.09062358820230146,
-              "fairOdds": 11.034654661517852
-            },
-            {
-              "market": "correct_score",
-              "selection": "3-1",
-              "label": "3–1",
-              "p": 0.07017177137844398,
-              "fairOdds": 14.250744713381845
-            }
-          ]
-        }
-      ],
-      "mostLikelyScore": {
-        "home": 1,
-        "away": 1,
-        "p": 0.09362892886791963
-      },
-      "factors": [
-        {
-          "key": "home_attack",
-          "label": "Ataque local",
-          "value": "2.26 goles/partido",
-          "detail": "54 % más que la media · 11 partidos"
-        },
-        {
-          "key": "away_defense",
-          "label": "Defensa visitante",
-          "value": "1.47 concedidos/partido",
-          "detail": "6 % más que la media · 12 partidos"
-        },
-        {
-          "key": "away_attack",
-          "label": "Ataque visitante",
-          "value": "1.42 goles/partido",
-          "detail": "11 % menos que la media · ajustado por rival"
-        },
-        {
-          "key": "home_defense",
-          "label": "Defensa local",
-          "value": "1.61 concedidos/partido",
-          "detail": "17 % más que la media · ajustado por rival"
-        },
-        {
-          "key": "home_advantage",
-          "label": "Localía",
-          "value": "×1.03",
-          "detail": "estimada de 104 partidos"
-        },
-        {
-          "key": "uncertainty",
-          "label": "Intervalo 90%",
-          "value": "goles 2.7–5.2",
-          "detail": "local 31%–82% · 104 partidos"
-        },
-        {
-          "key": "home_position",
-          "label": "Posición local",
-          "value": "6.º · 21 pts",
-          "detail": "de 18 equipos"
-        },
-        {
-          "key": "away_position",
-          "label": "Posición visitante",
-          "value": "9.º · 15 pts",
-          "detail": "de 18 equipos"
-        },
-        {
-          "key": "home_form",
-          "label": "Forma local",
-          "value": "G-P-G-G-G · 12 pts",
-          "detail": "17 goles a favor · 6 en contra"
-        },
-        {
-          "key": "away_form",
-          "label": "Forma visitante",
-          "value": "E-E-E-G-G · 9 pts",
-          "detail": "7 goles a favor · 4 en contra"
-        }
-      ],
-      "steps": [
-        "Sincronizando Saudi Pro League · corte 23 oct 2026, 11:00",
-        "Fuerza ajustada por rival · ALA 1.54 / 1.17 · ALK 0.89 / 1.06",
-        "Ponderando 92.7 partidos por antigüedad y calidad del rival",
-        "Proyección de goles 2.32 – 1.42 · total 3.75",
-        "Simulando 121 marcadores con incertidumbre del ajuste",
-        "20 mercados listos · marcador proyectado 2–1"
-      ],
-      "inputsAsOf": "2026-10-23T17:00:00.000Z",
-      "publishedAt": "2026-10-23T17:00:00.000Z",
-      "source": "pitchlab-football-v2",
-      "projectedScore": {
-        "home": 2,
-        "away": 1,
-        "p": 0.09062358820230146
-      },
-      "insights": {
-        "why": [
-          "Se esperan 3.7 goles: 2.3 de Al-Ahli y 1.4 de Al-Khaleej.",
-          "Al-Ahli anota 54 % más que la media.",
-          "Al-Ahli concede 17 % más que la media."
-        ],
-        "restDays": {
-          "home": 4,
-          "away": 5
-        }
-      },
-      "matchContext": {
-        "referee": "Abdullah Dhafer Al-Shehri",
-        "refereeStats": {
-          "country": "Saudi Arabia",
-          "matches": 19,
-          "avgYellow": 3.37,
-          "avgRed": 0.32,
-          "avgFouls": 21.4,
-          "avgGoals": 3.89
-        },
-        "weather": {
-          "description": "cloudy",
-          "temperatureC": 26,
-          "windSpeedKmh": 30
-        },
-        "travelDistanceKm": 1223,
-        "halfTimeScore": {
-          "home": 1,
-          "away": 0
-        },
-        "stageName": "Regular season",
-        "venueCity": "Jeddah",
-        "venueCountry": "Saudi Arabia"
-      }
-    },
-    "saudi-pro-league-2026-10-24-neom-abha-fg12z0": {
-      "game": "saudi-pro-league-2026-10-24-neom-abha-fg12z0",
-      "model": {
-        "id": "pitchlab-statistical-saudi-pro-league",
-        "version": "2.0.0",
-        "status": "candidate",
-        "label": "Modelo PitchLab · en validación"
-      },
-      "projection": {
-        "home": 1.5559167519079316,
-        "away": 0.597711121512739,
-        "total": 2.1536278734206706,
-        "margin": 0.9582056303951926
-      },
-      "x12": [
-        0.5855578070627758,
-        0.2950184587723519,
-        0.1194237341648725
-      ],
-      "probabilities": [
-        {
-          "market": "h2h",
-          "selection": "Neom gana",
-          "p": 0.5855578070627758,
-          "fairOdds": 1.7077733196251161
-        },
-        {
-          "market": "h2h",
-          "selection": "Empate",
-          "p": 0.2950184587723519,
-          "fairOdds": 3.3896184128995137
-        },
-        {
-          "market": "h2h",
-          "selection": "Abha gana",
-          "p": 0.1194237341648725,
-          "fairOdds": 8.373544898700226
-        },
-        {
-          "market": "double_chance",
-          "selection": "Neom o empate",
-          "p": 0.8805762658351277,
-          "fairOdds": 1.13561997841449
-        },
-        {
-          "market": "double_chance",
-          "selection": "Abha o empate",
-          "p": 0.4144421929372244,
-          "fairOdds": 2.4128817409077605
-        },
-        {
-          "market": "double_chance",
-          "selection": "Sin empate",
-          "p": 0.7049815412276483,
-          "fairOdds": 1.418476855803358
-        },
-        {
-          "market": "totals",
-          "selection": "Más de 1.5",
-          "line": 1.5,
-          "p": 0.6555696522753985,
-          "fairOdds": 1.5253909276140647
-        },
-        {
-          "market": "totals",
-          "selection": "Más de 2.5",
-          "line": 2.5,
-          "p": 0.3648269811676905,
-          "fairOdds": 2.7410253397359226
-        },
-        {
-          "market": "totals",
-          "selection": "Menos de 2.5",
-          "line": 2.5,
-          "p": 0.6351730188323095,
-          "fairOdds": 1.574374178925896
-        },
-        {
-          "market": "totals",
-          "selection": "Más de 3.5",
-          "line": 3.5,
-          "p": 0.1716068470658091,
-          "fairOdds": 5.827273311632562
-        },
-        {
-          "market": "totals",
-          "selection": "Menos de 3.5",
-          "line": 3.5,
-          "p": 0.8283931529341909,
-          "fairOdds": 1.2071562837741632
-        },
-        {
-          "market": "btts",
-          "selection": "Sí",
-          "p": 0.37658450786729114,
-          "fairOdds": 2.6554464644955638
-        },
-        {
-          "market": "btts",
-          "selection": "No",
-          "p": 0.6234154921327089,
-          "fairOdds": 1.6040666499624396
-        },
-        {
-          "market": "team_totals",
-          "selection": "Neom más de 1.5",
-          "line": 1.5,
-          "p": 0.4607117158965349,
-          "fairOdds": 2.170554742794031
-        },
-        {
-          "market": "team_totals",
-          "selection": "Neom menos de 1.5",
-          "line": 1.5,
-          "p": 0.5392882841034651,
-          "fairOdds": 1.8542957996249463
-        },
-        {
-          "market": "team_totals",
-          "selection": "Abha más de 1.5",
-          "line": 1.5,
-          "p": 0.12114826089481445,
-          "fairOdds": 8.254348783993178
-        },
-        {
-          "market": "team_totals",
-          "selection": "Abha menos de 1.5",
-          "line": 1.5,
-          "p": 0.8788517391051855,
-          "fairOdds": 1.1378483485942272
-        },
-        {
-          "market": "correct_score",
-          "selection": "1–0",
-          "p": 0.15899612103878083,
-          "fairOdds": 6.289461613696157
-        },
-        {
-          "market": "correct_score",
-          "selection": "2–0",
-          "p": 0.1404864236769645,
-          "fairOdds": 7.118125537165122
-        },
-        {
-          "market": "correct_score",
-          "selection": "0–0",
-          "p": 0.13764977444364776,
-          "fairOdds": 7.264813938430306
-        }
-      ],
-      "marketGroups": [
-        {
-          "group": "Resultado",
-          "rows": [
-            {
-              "market": "h2h",
-              "selection": "home",
-              "label": "Neom gana",
-              "p": 0.5855578070627758,
-              "fairOdds": 1.7077733196251161
-            },
-            {
-              "market": "h2h",
-              "selection": "draw",
-              "label": "Empate",
-              "p": 0.2950184587723519,
-              "fairOdds": 3.3896184128995137
-            },
-            {
-              "market": "h2h",
-              "selection": "away",
-              "label": "Abha gana",
-              "p": 0.1194237341648725,
-              "fairOdds": 8.373544898700226
-            }
-          ]
-        },
-        {
-          "group": "Doble oportunidad",
-          "rows": [
-            {
-              "market": "double_chance",
-              "selection": "1x",
-              "label": "Neom o empate",
-              "p": 0.8805762658351277,
-              "fairOdds": 1.13561997841449
-            },
-            {
-              "market": "double_chance",
-              "selection": "x2",
-              "label": "Abha o empate",
-              "p": 0.4144421929372244,
-              "fairOdds": 2.4128817409077605
-            },
-            {
-              "market": "double_chance",
-              "selection": "12",
-              "label": "Sin empate",
-              "p": 0.7049815412276483,
-              "fairOdds": 1.418476855803358
-            }
-          ]
-        },
-        {
-          "group": "Goles totales",
-          "rows": [
-            {
-              "market": "totals",
-              "selection": "over_1.5",
-              "label": "Más de 1.5",
-              "line": 1.5,
-              "p": 0.6555696522753985,
-              "fairOdds": 1.5253909276140647
-            },
-            {
-              "market": "totals",
-              "selection": "over_2.5",
-              "label": "Más de 2.5",
-              "line": 2.5,
-              "p": 0.3648269811676905,
-              "fairOdds": 2.7410253397359226
-            },
-            {
-              "market": "totals",
-              "selection": "under_2.5",
-              "label": "Menos de 2.5",
-              "line": 2.5,
-              "p": 0.6351730188323095,
-              "fairOdds": 1.574374178925896
-            },
-            {
-              "market": "totals",
-              "selection": "over_3.5",
-              "label": "Más de 3.5",
-              "line": 3.5,
-              "p": 0.1716068470658091,
-              "fairOdds": 5.827273311632562
-            },
-            {
-              "market": "totals",
-              "selection": "under_3.5",
-              "label": "Menos de 3.5",
-              "line": 3.5,
-              "p": 0.8283931529341909,
-              "fairOdds": 1.2071562837741632
-            }
-          ]
-        },
-        {
-          "group": "Ambos anotan",
-          "rows": [
-            {
-              "market": "btts",
-              "selection": "yes",
-              "label": "Sí",
-              "p": 0.37658450786729114,
-              "fairOdds": 2.6554464644955638
-            },
-            {
-              "market": "btts",
-              "selection": "no",
-              "label": "No",
-              "p": 0.6234154921327089,
-              "fairOdds": 1.6040666499624396
-            }
-          ]
-        },
-        {
-          "group": "Goles por equipo (1.5)",
-          "rows": [
-            {
-              "market": "team_totals",
-              "selection": "home_over",
-              "label": "Neom más de 1.5",
-              "line": 1.5,
-              "p": 0.4607117158965349,
-              "fairOdds": 2.170554742794031
-            },
-            {
-              "market": "team_totals",
-              "selection": "home_under",
-              "label": "Neom menos de 1.5",
-              "line": 1.5,
-              "p": 0.5392882841034651,
-              "fairOdds": 1.8542957996249463
-            },
-            {
-              "market": "team_totals",
-              "selection": "away_over",
-              "label": "Abha más de 1.5",
-              "line": 1.5,
-              "p": 0.12114826089481445,
-              "fairOdds": 8.254348783993178
-            },
-            {
-              "market": "team_totals",
-              "selection": "away_under",
-              "label": "Abha menos de 1.5",
-              "line": 1.5,
-              "p": 0.8788517391051855,
-              "fairOdds": 1.1378483485942272
-            }
-          ]
-        },
-        {
-          "group": "Marcador exacto (más probables)",
-          "rows": [
-            {
-              "market": "correct_score",
-              "selection": "1-0",
-              "label": "1–0",
-              "p": 0.15899612103878083,
-              "fairOdds": 6.289461613696157
-            },
-            {
-              "market": "correct_score",
-              "selection": "2-0",
-              "label": "2–0",
-              "p": 0.1404864236769645,
-              "fairOdds": 7.118125537165122
-            },
-            {
-              "market": "correct_score",
-              "selection": "0-0",
-              "label": "0–0",
-              "p": 0.13764977444364776,
-              "fairOdds": 7.264813938430306
-            }
-          ]
-        }
-      ],
-      "mostLikelyScore": {
-        "home": 1,
-        "away": 0,
-        "p": 0.15899612103878083
-      },
-      "factors": [
-        {
-          "key": "home_attack",
-          "label": "Ataque local",
-          "value": "1.51 goles/partido",
-          "detail": "3 % más que la media · 12 partidos"
-        },
-        {
-          "key": "away_defense",
-          "label": "Defensa visitante",
-          "value": "1.47 concedidos/partido",
-          "detail": "6 % más que la media · 11 partidos"
-        },
-        {
-          "key": "away_attack",
-          "label": "Ataque visitante",
-          "value": "0.60 goles/partido",
-          "detail": "37 % menos que la media · ajustado por rival"
-        },
-        {
-          "key": "home_defense",
-          "label": "Defensa local",
-          "value": "0.95 concedidos/partido",
-          "detail": "31 % menos que la media · ajustado por rival"
-        },
-        {
-          "key": "home_advantage",
-          "label": "Localía",
-          "value": "×1.03",
-          "detail": "estimada de 104 partidos"
-        },
-        {
-          "key": "uncertainty",
-          "label": "Intervalo 90%",
-          "value": "goles 1.4–3.5",
-          "detail": "local 36%–81% · 104 partidos"
-        },
-        {
-          "key": "home_position",
-          "label": "Posición local",
-          "value": "5.º · 22 pts",
-          "detail": "de 18 equipos"
-        },
-        {
-          "key": "away_position",
-          "label": "Posición visitante",
-          "value": "18.º · 3 pts",
-          "detail": "de 18 equipos"
-        },
-        {
-          "key": "home_form",
-          "label": "Forma local",
-          "value": "G-G-E-P-P · 7 pts",
-          "detail": "7 goles a favor · 5 en contra"
-        },
-        {
-          "key": "away_form",
-          "label": "Forma visitante",
-          "value": "P-P-P-E-P · 1 pts",
-          "detail": "4 goles a favor · 8 en contra"
-        }
-      ],
-      "steps": [
-        "Sincronizando Saudi Pro League · corte 24 oct 2026, 07:00",
-        "Fuerza ajustada por rival · NEO 1.03 / 0.69 · ABH 0.63 / 1.06",
-        "Ponderando 92.7 partidos por antigüedad y calidad del rival",
-        "Proyección de goles 1.56 – 0.60 · total 2.15",
-        "Simulando 121 marcadores con incertidumbre del ajuste",
-        "20 mercados listos · marcador proyectado 1–0"
-      ],
-      "inputsAsOf": "2026-10-24T13:00:00.000Z",
-      "publishedAt": "2026-10-24T13:00:00.000Z",
-      "source": "pitchlab-football-v2",
-      "projectedScore": {
-        "home": 1,
-        "away": 0,
-        "p": 0.15899612103878083
-      },
-      "insights": {
-        "why": [
-          "Se esperan 2.2 goles: 1.6 de Neom y 0.6 de Abha.",
-          "Abha anota 37 % menos que la media.",
-          "Neom concede 31 % menos que la media."
-        ],
-        "restDays": {
-          "home": 4,
-          "away": 8
-        }
-      },
-      "matchContext": {
-        "referee": "Khalid Al-Ahmari",
-        "refereeStats": {
-          "country": "Saudi Arabia",
-          "matches": 16,
-          "avgYellow": 4.06,
-          "avgRed": 0.25,
-          "avgFouls": 24.3,
-          "avgGoals": 2.75
-        },
-        "weather": {
-          "description": "clear",
-          "temperatureC": 32,
-          "windSpeedKmh": 32
-        },
-        "halfTimeScore": {
-          "home": 1,
-          "away": 0
-        },
-        "stageName": "Regular season",
-        "venueCity": "Tabuk",
-        "venueCountry": "Saudi Arabia",
-        "venueCapacity": 12000
-      }
-    },
     "saudi-pro-league-2026-10-24-al-kholood-al-ettifaq-3lrdk6": {
       "game": "saudi-pro-league-2026-10-24-al-kholood-al-ettifaq-3lrdk6",
       "model": {
@@ -5249,11 +3898,11 @@
         "referee": "Faisal Suleiman Al-Balawi",
         "refereeStats": {
           "country": "Saudi Arabia",
-          "matches": 38,
-          "avgYellow": 4.45,
+          "matches": 39,
+          "avgYellow": 4.41,
           "avgRed": 0.26,
-          "avgFouls": 22.7,
-          "avgGoals": 2.66
+          "avgFouls": 22.4,
+          "avgGoals": 2.69
         },
         "weather": {
           "description": "cloudy",
@@ -5699,11 +4348,11 @@
         "referee": "Khaled Al Teris",
         "refereeStats": {
           "country": "Saudi Arabia",
-          "matches": 46,
-          "avgYellow": 4.11,
+          "matches": 47,
+          "avgYellow": 4.09,
           "avgRed": 0.09,
           "avgFouls": 25.8,
-          "avgGoals": 3.11
+          "avgGoals": 3.06
         },
         "weather": {
           "description": "clear",
@@ -6149,11 +4798,11 @@
         "referee": "Mohammed Nasser Abu Shaqara",
         "refereeStats": {
           "country": "Saudi Arabia",
-          "matches": 15,
-          "avgYellow": 4.07,
-          "avgRed": 0.2,
-          "avgFouls": 22.9,
-          "avgGoals": 2.47
+          "matches": 16,
+          "avgYellow": 4.25,
+          "avgRed": 0.19,
+          "avgFouls": 23.4,
+          "avgGoals": 2.38
         },
         "weather": {
           "description": "cloudy",
@@ -7050,11 +5699,11 @@
         "referee": "Majed Mohammed Al-Shamrani",
         "refereeStats": {
           "country": "Saudi Arabia",
-          "matches": 41,
-          "avgYellow": 4.07,
-          "avgRed": 0.22,
+          "matches": 42,
+          "avgYellow": 4.02,
+          "avgRed": 0.21,
           "avgFouls": 23.2,
-          "avgGoals": 3.1
+          "avgGoals": 3.14
         },
         "weather": {
           "description": "cloudy",
@@ -8891,11 +7540,11 @@
         "referee": "Facundo Raul Tello Figueroa",
         "refereeStats": {
           "country": "Argentina",
-          "matches": 86,
-          "avgYellow": 5.15,
+          "matches": 87,
+          "avgYellow": 5.11,
           "avgRed": 0.21,
           "avgFouls": 25.9,
-          "avgGoals": 2.16
+          "avgGoals": 2.14
         },
         "weather": {
           "description": "cloudy",
@@ -9378,10 +8027,23 @@
       },
       "picksAt": "2026-11-19T16:05:39.021Z",
       "matchContext": {
+        "referee": "Mohammed Nasser Abu Shaqara",
+        "refereeStats": {
+          "country": "Saudi Arabia",
+          "matches": 16,
+          "avgYellow": 4.25,
+          "avgRed": 0.19,
+          "avgFouls": 23.4,
+          "avgGoals": 2.38
+        },
         "weather": {
-          "description": "unknown",
+          "description": "cloudy",
           "temperatureC": 24,
           "windSpeedKmh": 19
+        },
+        "halfTimeScore": {
+          "home": 0,
+          "away": 0
         },
         "stageName": "Regular season",
         "venueCity": "Al-Ahsa",
@@ -9849,12 +8511,25 @@
       },
       "picksAt": "2026-11-19T16:05:39.021Z",
       "matchContext": {
+        "referee": "Abdullah Al-Harbi",
+        "refereeStats": {
+          "country": "Saudi Arabia",
+          "matches": 17,
+          "avgYellow": 4.12,
+          "avgRed": 0.18,
+          "avgFouls": 25,
+          "avgGoals": 2.65
+        },
         "weather": {
-          "description": "unknown",
+          "description": "cloudy",
           "temperatureC": 19,
           "windSpeedKmh": 49
         },
         "travelDistanceKm": 835,
+        "halfTimeScore": {
+          "home": 0,
+          "away": 1
+        },
         "stageName": "Regular season",
         "venueCity": "Abha",
         "venueCountry": "Saudi Arabia",
@@ -10324,10 +8999,23 @@
       },
       "picksAt": "2026-11-19T16:05:39.021Z",
       "matchContext": {
+        "referee": "Faisal Suleiman Al-Balawi",
+        "refereeStats": {
+          "country": "Saudi Arabia",
+          "matches": 39,
+          "avgYellow": 4.41,
+          "avgRed": 0.26,
+          "avgFouls": 22.4,
+          "avgGoals": 2.69
+        },
         "weather": {
-          "description": "rain",
+          "description": "cloudy",
           "temperatureC": 21,
           "windSpeedKmh": 36
+        },
+        "halfTimeScore": {
+          "home": 0,
+          "away": 2
         },
         "stageName": "Regular season",
         "venueCity": "Al Majmaah",
@@ -11279,6 +9967,7 @@
           "temperatureC": 25,
           "windSpeedKmh": 45
         },
+        "travelDistanceKm": 486,
         "stageName": "Regular season",
         "venueCity": "Khobar",
         "venueCountry": "Saudi Arabia",
@@ -18811,6 +17500,11 @@
       },
       "picksAt": "2026-11-19T16:05:39.021Z",
       "matchContext": {
+        "weather": {
+          "description": "rain",
+          "temperatureC": 26,
+          "windSpeedKmh": 66
+        },
         "stageName": "Regular season",
         "venueCity": "Al Majmaah",
         "venueCountry": "Saudi Arabia",
@@ -19275,6 +17969,11 @@
       },
       "picksAt": "2026-11-19T16:05:39.021Z",
       "matchContext": {
+        "weather": {
+          "description": "rain",
+          "temperatureC": 23,
+          "windSpeedKmh": 27
+        },
         "stageName": "Regular season",
         "venueCity": "Riyadh",
         "venueCountry": "Saudi Arabia",
@@ -19739,6 +18438,11 @@
       },
       "picksAt": "2026-11-19T16:05:39.021Z",
       "matchContext": {
+        "weather": {
+          "description": "rain",
+          "temperatureC": 30,
+          "windSpeedKmh": 12
+        },
         "stageName": "Regular season",
         "venueCity": "Khobar",
         "venueCountry": "Saudi Arabia",
@@ -23930,6 +22634,1405 @@
         "venueCountry": "Saudi Arabia",
         "venueCapacity": 13536
       }
+    },
+    "saudi-pro-league-2026-12-16-al-fayha-al-nassr-suou9z": {
+      "game": "saudi-pro-league-2026-12-16-al-fayha-al-nassr-suou9z",
+      "model": {
+        "id": "pitchlab-statistical-saudi-pro-league",
+        "version": "2.0.0",
+        "status": "candidate",
+        "label": "Modelo PitchLab · en validación"
+      },
+      "projection": {
+        "home": 1.3509851550280891,
+        "away": 2.0197287028108772,
+        "total": 3.3707138578389664,
+        "margin": -0.6687435477827881
+      },
+      "x12": [
+        0.24009867247509553,
+        0.24519858360555916,
+        0.5147027439193449
+      ],
+      "probabilities": [
+        {
+          "market": "h2h",
+          "selection": "Al-Fayha gana",
+          "p": 0.24009867247509553,
+          "fairOdds": 4.164954306874503
+        },
+        {
+          "market": "h2h",
+          "selection": "Empate",
+          "p": 0.24519858360555916,
+          "fairOdds": 4.07832698417483
+        },
+        {
+          "market": "h2h",
+          "selection": "Al-Nassr gana",
+          "p": 0.5147027439193449,
+          "fairOdds": 1.9428689895554594
+        },
+        {
+          "market": "double_chance",
+          "selection": "Al-Fayha o empate",
+          "p": 0.48529725608065466,
+          "fairOdds": 2.0605927345977073
+        },
+        {
+          "market": "double_chance",
+          "selection": "Al-Nassr o empate",
+          "p": 0.759901327524904,
+          "fairOdds": 1.315960327714031
+        },
+        {
+          "market": "double_chance",
+          "selection": "Sin empate",
+          "p": 0.7548014163944404,
+          "fairOdds": 1.3248517799248867
+        },
+        {
+          "market": "totals",
+          "selection": "Más de 1.5 goles",
+          "line": 1.5,
+          "p": 0.8648018446636832,
+          "fairOdds": 1.1563342587328715
+        },
+        {
+          "market": "totals",
+          "selection": "Más de 2.5 goles",
+          "line": 2.5,
+          "p": 0.6545736207926707,
+          "fairOdds": 1.5277120376299727
+        },
+        {
+          "market": "totals",
+          "selection": "Menos de 2.5 goles",
+          "line": 2.5,
+          "p": 0.3454263792073293,
+          "fairOdds": 2.8949728804579435
+        },
+        {
+          "market": "totals",
+          "selection": "Más de 3.5 goles",
+          "line": 3.5,
+          "p": 0.4352244403332902,
+          "fairOdds": 2.2976650834089436
+        },
+        {
+          "market": "totals",
+          "selection": "Menos de 3.5 goles",
+          "line": 3.5,
+          "p": 0.5647755596667098,
+          "fairOdds": 1.770614862636989
+        },
+        {
+          "market": "btts",
+          "selection": "Sí",
+          "p": 0.6576909494247369,
+          "fairOdds": 1.520470976337246
+        },
+        {
+          "market": "btts",
+          "selection": "No",
+          "p": 0.34230905057526306,
+          "fairOdds": 2.9213367228224403
+        },
+        {
+          "market": "team_totals",
+          "selection": "Al-Fayha más de 1.5 goles",
+          "line": 1.5,
+          "p": 0.39113000075600923,
+          "fairOdds": 2.5566947001434692
+        },
+        {
+          "market": "team_totals",
+          "selection": "Al-Fayha menos de 1.5 goles",
+          "line": 1.5,
+          "p": 0.6088699992439908,
+          "fairOdds": 1.642386718415523
+        },
+        {
+          "market": "team_totals",
+          "selection": "Al-Nassr más de 1.5 goles",
+          "line": 1.5,
+          "p": 0.5993041494379531,
+          "fairOdds": 1.6686018292011369
+        },
+        {
+          "market": "team_totals",
+          "selection": "Al-Nassr menos de 1.5 goles",
+          "line": 1.5,
+          "p": 0.40069585056204693,
+          "fairOdds": 2.495658486598558
+        },
+        {
+          "market": "correct_score",
+          "selection": "1–1",
+          "p": 0.10877352689246707,
+          "fairOdds": 9.193413402772116
+        },
+        {
+          "market": "correct_score",
+          "selection": "1–2",
+          "p": 0.09469526481495112,
+          "fairOdds": 10.560190120954319
+        },
+        {
+          "market": "correct_score",
+          "selection": "0–2",
+          "p": 0.07009349026709494,
+          "fairOdds": 14.266660087683569
+        }
+      ],
+      "marketGroups": [
+        {
+          "group": "Resultado",
+          "rows": [
+            {
+              "market": "h2h",
+              "selection": "home",
+              "label": "Al-Fayha gana",
+              "p": 0.24009867247509553,
+              "fairOdds": 4.164954306874503
+            },
+            {
+              "market": "h2h",
+              "selection": "draw",
+              "label": "Empate",
+              "p": 0.24519858360555916,
+              "fairOdds": 4.07832698417483
+            },
+            {
+              "market": "h2h",
+              "selection": "away",
+              "label": "Al-Nassr gana",
+              "p": 0.5147027439193449,
+              "fairOdds": 1.9428689895554594
+            }
+          ]
+        },
+        {
+          "group": "Doble oportunidad",
+          "rows": [
+            {
+              "market": "double_chance",
+              "selection": "1x",
+              "label": "Al-Fayha o empate",
+              "p": 0.48529725608065466,
+              "fairOdds": 2.0605927345977073
+            },
+            {
+              "market": "double_chance",
+              "selection": "x2",
+              "label": "Al-Nassr o empate",
+              "p": 0.759901327524904,
+              "fairOdds": 1.315960327714031
+            },
+            {
+              "market": "double_chance",
+              "selection": "12",
+              "label": "Sin empate",
+              "p": 0.7548014163944404,
+              "fairOdds": 1.3248517799248867
+            }
+          ]
+        },
+        {
+          "group": "Goles totales",
+          "rows": [
+            {
+              "market": "totals",
+              "selection": "over_1.5",
+              "label": "Más de 1.5 goles",
+              "line": 1.5,
+              "p": 0.8648018446636832,
+              "fairOdds": 1.1563342587328715
+            },
+            {
+              "market": "totals",
+              "selection": "over_2.5",
+              "label": "Más de 2.5 goles",
+              "line": 2.5,
+              "p": 0.6545736207926707,
+              "fairOdds": 1.5277120376299727
+            },
+            {
+              "market": "totals",
+              "selection": "under_2.5",
+              "label": "Menos de 2.5 goles",
+              "line": 2.5,
+              "p": 0.3454263792073293,
+              "fairOdds": 2.8949728804579435
+            },
+            {
+              "market": "totals",
+              "selection": "over_3.5",
+              "label": "Más de 3.5 goles",
+              "line": 3.5,
+              "p": 0.4352244403332902,
+              "fairOdds": 2.2976650834089436
+            },
+            {
+              "market": "totals",
+              "selection": "under_3.5",
+              "label": "Menos de 3.5 goles",
+              "line": 3.5,
+              "p": 0.5647755596667098,
+              "fairOdds": 1.770614862636989
+            }
+          ]
+        },
+        {
+          "group": "Ambos anotan",
+          "rows": [
+            {
+              "market": "btts",
+              "selection": "yes",
+              "label": "Sí",
+              "p": 0.6576909494247369,
+              "fairOdds": 1.520470976337246
+            },
+            {
+              "market": "btts",
+              "selection": "no",
+              "label": "No",
+              "p": 0.34230905057526306,
+              "fairOdds": 2.9213367228224403
+            }
+          ]
+        },
+        {
+          "group": "Goles por equipo (1.5)",
+          "rows": [
+            {
+              "market": "team_totals",
+              "selection": "home_over",
+              "label": "Al-Fayha más de 1.5 goles",
+              "line": 1.5,
+              "p": 0.39113000075600923,
+              "fairOdds": 2.5566947001434692
+            },
+            {
+              "market": "team_totals",
+              "selection": "home_under",
+              "label": "Al-Fayha menos de 1.5 goles",
+              "line": 1.5,
+              "p": 0.6088699992439908,
+              "fairOdds": 1.642386718415523
+            },
+            {
+              "market": "team_totals",
+              "selection": "away_over",
+              "label": "Al-Nassr más de 1.5 goles",
+              "line": 1.5,
+              "p": 0.5993041494379531,
+              "fairOdds": 1.6686018292011369
+            },
+            {
+              "market": "team_totals",
+              "selection": "away_under",
+              "label": "Al-Nassr menos de 1.5 goles",
+              "line": 1.5,
+              "p": 0.40069585056204693,
+              "fairOdds": 2.495658486598558
+            }
+          ]
+        },
+        {
+          "group": "Marcador exacto (más probables)",
+          "rows": [
+            {
+              "market": "correct_score",
+              "selection": "1-1",
+              "label": "1–1",
+              "p": 0.10877352689246707,
+              "fairOdds": 9.193413402772116
+            },
+            {
+              "market": "correct_score",
+              "selection": "1-2",
+              "label": "1–2",
+              "p": 0.09469526481495112,
+              "fairOdds": 10.560190120954319
+            },
+            {
+              "market": "correct_score",
+              "selection": "0-2",
+              "label": "0–2",
+              "p": 0.07009349026709494,
+              "fairOdds": 14.266660087683569
+            }
+          ]
+        }
+      ],
+      "mostLikelyScore": {
+        "home": 1,
+        "away": 1,
+        "p": 0.10877352689246707
+      },
+      "factors": [
+        {
+          "key": "home_attack",
+          "label": "Ataque local",
+          "value": "1.27 goles/partido",
+          "detail": "4 % menos que la media · 12 partidos"
+        },
+        {
+          "key": "away_defense",
+          "label": "Defensa visitante",
+          "value": "1.32 concedidos/partido",
+          "detail": "6 % menos que la media · 12 partidos"
+        },
+        {
+          "key": "away_attack",
+          "label": "Ataque visitante",
+          "value": "2.02 goles/partido",
+          "detail": "33 % más que la media · ajustado por rival"
+        },
+        {
+          "key": "home_defense",
+          "label": "Defensa local",
+          "value": "1.52 concedidos/partido",
+          "detail": "8 % más que la media · ajustado por rival"
+        },
+        {
+          "key": "home_advantage",
+          "label": "Localía",
+          "value": "×1.06",
+          "detail": "estimada de 108 partidos"
+        },
+        {
+          "key": "uncertainty",
+          "label": "Intervalo 90%",
+          "value": "goles 2.7–4.5",
+          "detail": "local 10%–41% · 108 partidos"
+        },
+        {
+          "key": "home_position",
+          "label": "Posición local",
+          "value": "13.º · 11 pts",
+          "detail": "de 18 equipos"
+        },
+        {
+          "key": "away_position",
+          "label": "Posición visitante",
+          "value": "3.º · 28 pts",
+          "detail": "de 18 equipos"
+        },
+        {
+          "key": "home_form",
+          "label": "Forma local",
+          "value": "E-P-P-E-G · 5 pts",
+          "detail": "9 goles a favor · 9 en contra"
+        },
+        {
+          "key": "away_form",
+          "label": "Forma visitante",
+          "value": "G-G-G-G-P · 12 pts",
+          "detail": "13 goles a favor · 7 en contra"
+        }
+      ],
+      "steps": [
+        "Sincronizando Saudi Pro League · corte 26 nov 2026, 20:00",
+        "Fuerza ajustada por rival · ALF 0.96 / 1.08 · ALN 1.33 / 0.94",
+        "Ponderando 95.5 partidos por antigüedad y calidad del rival",
+        "Proyección de goles 1.35 – 2.02 · total 3.37",
+        "Simulando 121 marcadores con incertidumbre del ajuste",
+        "20 mercados listos · marcador proyectado 1–2"
+      ],
+      "inputsAsOf": "2026-11-26T20:00:11.075Z",
+      "publishedAt": "2026-11-26T20:00:11.075Z",
+      "source": "pitchlab-football-v2",
+      "picks": [
+        {
+          "profile": "conservadora",
+          "market": "totals",
+          "selection": "over_1.5",
+          "label": "Más de 1.5 goles",
+          "line": 1.5,
+          "p": 0.8648018446636832,
+          "fairOdds": 1.1563342587328715
+        },
+        {
+          "profile": "intermedia",
+          "market": "btts",
+          "selection": "yes",
+          "label": "Ambos anotan: Sí",
+          "p": 0.6576909494247369,
+          "fairOdds": 1.520470976337246
+        },
+        {
+          "profile": "arriesgada",
+          "market": "h2h",
+          "selection": "away",
+          "label": "Al-Nassr gana",
+          "p": 0.5147027439193449,
+          "fairOdds": 1.9428689895554594
+        }
+      ],
+      "confidence": {
+        "score": 58,
+        "level": "media",
+        "reasons": [
+          "Muestra suficiente"
+        ]
+      },
+      "projectedScore": {
+        "home": 1,
+        "away": 2,
+        "p": 0.09469526481495112
+      },
+      "insights": {
+        "why": [
+          "Se esperan 3.4 goles: 1.4 de Al-Fayha y 2.0 de Al-Nassr.",
+          "Al-Nassr anota 33 % más que la media."
+        ],
+        "restDays": {
+          "away": 26
+        }
+      },
+      "picksAt": "2026-11-26T20:00:11.075Z",
+      "matchContext": {
+        "stageName": "Regular season",
+        "venueCity": "Al Majmaah",
+        "venueCountry": "Saudi Arabia",
+        "venueCapacity": 7000
+      }
+    },
+    "saudi-pro-league-2026-12-17-al-riyadh-al-ittihad-fycpek": {
+      "game": "saudi-pro-league-2026-12-17-al-riyadh-al-ittihad-fycpek",
+      "model": {
+        "id": "pitchlab-statistical-saudi-pro-league",
+        "version": "2.0.0",
+        "status": "candidate",
+        "label": "Modelo PitchLab · en validación"
+      },
+      "projection": {
+        "home": 1.007335765716122,
+        "away": 2.026117799811075,
+        "total": 3.033453565527197,
+        "margin": -1.018782034094953
+      },
+      "x12": [
+        0.16530976840920916,
+        0.24095896713023776,
+        0.5937312644605534
+      ],
+      "probabilities": [
+        {
+          "market": "h2h",
+          "selection": "Al-Riyadh gana",
+          "p": 0.16530976840920916,
+          "fairOdds": 6.049249294963572
+        },
+        {
+          "market": "h2h",
+          "selection": "Empate",
+          "p": 0.24095896713023776,
+          "fairOdds": 4.150084190307399
+        },
+        {
+          "market": "h2h",
+          "selection": "Al-Ittihad gana",
+          "p": 0.5937312644605534,
+          "fairOdds": 1.6842636725700648
+        },
+        {
+          "market": "double_chance",
+          "selection": "Al-Riyadh o empate",
+          "p": 0.4062687355394469,
+          "fairOdds": 2.461424944925166
+        },
+        {
+          "market": "double_chance",
+          "selection": "Al-Ittihad o empate",
+          "p": 0.8346902315907911,
+          "fairOdds": 1.1980492428839784
+        },
+        {
+          "market": "double_chance",
+          "selection": "Sin empate",
+          "p": 0.7590410328697625,
+          "fairOdds": 1.3174518328992388
+        },
+        {
+          "market": "totals",
+          "selection": "Más de 1.5 goles",
+          "line": 1.5,
+          "p": 0.8215147224772636,
+          "fairOdds": 1.217263638300379
+        },
+        {
+          "market": "totals",
+          "selection": "Más de 2.5 goles",
+          "line": 2.5,
+          "p": 0.5842590800925465,
+          "fairOdds": 1.711569463056698
+        },
+        {
+          "market": "totals",
+          "selection": "Menos de 2.5 goles",
+          "line": 2.5,
+          "p": 0.41574091990745354,
+          "fairOdds": 2.4053441749794704
+        },
+        {
+          "market": "totals",
+          "selection": "Más de 3.5 goles",
+          "line": 3.5,
+          "p": 0.36025665063817547,
+          "fairOdds": 2.7757988595867786
+        },
+        {
+          "market": "totals",
+          "selection": "Menos de 3.5 goles",
+          "line": 3.5,
+          "p": 0.6397433493618245,
+          "fairOdds": 1.5631268398453055
+        },
+        {
+          "market": "btts",
+          "selection": "Sí",
+          "p": 0.5668348158948353,
+          "fairOdds": 1.7641823895756072
+        },
+        {
+          "market": "btts",
+          "selection": "No",
+          "p": 0.4331651841051647,
+          "fairOdds": 2.3085881245645496
+        },
+        {
+          "market": "team_totals",
+          "selection": "Al-Riyadh más de 1.5 goles",
+          "line": 1.5,
+          "p": 0.26693976300458555,
+          "fairOdds": 3.7461635117388705
+        },
+        {
+          "market": "team_totals",
+          "selection": "Al-Riyadh menos de 1.5 goles",
+          "line": 1.5,
+          "p": 0.7330602369954144,
+          "fairOdds": 1.3641443765913268
+        },
+        {
+          "market": "team_totals",
+          "selection": "Al-Ittihad más de 1.5 goles",
+          "line": 1.5,
+          "p": 0.6010135795465367,
+          "fairOdds": 1.6638559161250528
+        },
+        {
+          "market": "team_totals",
+          "selection": "Al-Ittihad menos de 1.5 goles",
+          "line": 1.5,
+          "p": 0.39898642045346333,
+          "fairOdds": 2.50635096518689
+        },
+        {
+          "market": "correct_score",
+          "selection": "1–1",
+          "p": 0.11399580241283155,
+          "fairOdds": 8.772252827157066
+        },
+        {
+          "market": "correct_score",
+          "selection": "1–2",
+          "p": 0.09955557085016564,
+          "fairOdds": 10.044641313995701
+        },
+        {
+          "market": "correct_score",
+          "selection": "0–2",
+          "p": 0.09883057292162252,
+          "fairOdds": 10.118326449377653
+        }
+      ],
+      "marketGroups": [
+        {
+          "group": "Resultado",
+          "rows": [
+            {
+              "market": "h2h",
+              "selection": "home",
+              "label": "Al-Riyadh gana",
+              "p": 0.16530976840920916,
+              "fairOdds": 6.049249294963572
+            },
+            {
+              "market": "h2h",
+              "selection": "draw",
+              "label": "Empate",
+              "p": 0.24095896713023776,
+              "fairOdds": 4.150084190307399
+            },
+            {
+              "market": "h2h",
+              "selection": "away",
+              "label": "Al-Ittihad gana",
+              "p": 0.5937312644605534,
+              "fairOdds": 1.6842636725700648
+            }
+          ]
+        },
+        {
+          "group": "Doble oportunidad",
+          "rows": [
+            {
+              "market": "double_chance",
+              "selection": "1x",
+              "label": "Al-Riyadh o empate",
+              "p": 0.4062687355394469,
+              "fairOdds": 2.461424944925166
+            },
+            {
+              "market": "double_chance",
+              "selection": "x2",
+              "label": "Al-Ittihad o empate",
+              "p": 0.8346902315907911,
+              "fairOdds": 1.1980492428839784
+            },
+            {
+              "market": "double_chance",
+              "selection": "12",
+              "label": "Sin empate",
+              "p": 0.7590410328697625,
+              "fairOdds": 1.3174518328992388
+            }
+          ]
+        },
+        {
+          "group": "Goles totales",
+          "rows": [
+            {
+              "market": "totals",
+              "selection": "over_1.5",
+              "label": "Más de 1.5 goles",
+              "line": 1.5,
+              "p": 0.8215147224772636,
+              "fairOdds": 1.217263638300379
+            },
+            {
+              "market": "totals",
+              "selection": "over_2.5",
+              "label": "Más de 2.5 goles",
+              "line": 2.5,
+              "p": 0.5842590800925465,
+              "fairOdds": 1.711569463056698
+            },
+            {
+              "market": "totals",
+              "selection": "under_2.5",
+              "label": "Menos de 2.5 goles",
+              "line": 2.5,
+              "p": 0.41574091990745354,
+              "fairOdds": 2.4053441749794704
+            },
+            {
+              "market": "totals",
+              "selection": "over_3.5",
+              "label": "Más de 3.5 goles",
+              "line": 3.5,
+              "p": 0.36025665063817547,
+              "fairOdds": 2.7757988595867786
+            },
+            {
+              "market": "totals",
+              "selection": "under_3.5",
+              "label": "Menos de 3.5 goles",
+              "line": 3.5,
+              "p": 0.6397433493618245,
+              "fairOdds": 1.5631268398453055
+            }
+          ]
+        },
+        {
+          "group": "Ambos anotan",
+          "rows": [
+            {
+              "market": "btts",
+              "selection": "yes",
+              "label": "Sí",
+              "p": 0.5668348158948353,
+              "fairOdds": 1.7641823895756072
+            },
+            {
+              "market": "btts",
+              "selection": "no",
+              "label": "No",
+              "p": 0.4331651841051647,
+              "fairOdds": 2.3085881245645496
+            }
+          ]
+        },
+        {
+          "group": "Goles por equipo (1.5)",
+          "rows": [
+            {
+              "market": "team_totals",
+              "selection": "home_over",
+              "label": "Al-Riyadh más de 1.5 goles",
+              "line": 1.5,
+              "p": 0.26693976300458555,
+              "fairOdds": 3.7461635117388705
+            },
+            {
+              "market": "team_totals",
+              "selection": "home_under",
+              "label": "Al-Riyadh menos de 1.5 goles",
+              "line": 1.5,
+              "p": 0.7330602369954144,
+              "fairOdds": 1.3641443765913268
+            },
+            {
+              "market": "team_totals",
+              "selection": "away_over",
+              "label": "Al-Ittihad más de 1.5 goles",
+              "line": 1.5,
+              "p": 0.6010135795465367,
+              "fairOdds": 1.6638559161250528
+            },
+            {
+              "market": "team_totals",
+              "selection": "away_under",
+              "label": "Al-Ittihad menos de 1.5 goles",
+              "line": 1.5,
+              "p": 0.39898642045346333,
+              "fairOdds": 2.50635096518689
+            }
+          ]
+        },
+        {
+          "group": "Marcador exacto (más probables)",
+          "rows": [
+            {
+              "market": "correct_score",
+              "selection": "1-1",
+              "label": "1–1",
+              "p": 0.11399580241283155,
+              "fairOdds": 8.772252827157066
+            },
+            {
+              "market": "correct_score",
+              "selection": "1-2",
+              "label": "1–2",
+              "p": 0.09955557085016564,
+              "fairOdds": 10.044641313995701
+            },
+            {
+              "market": "correct_score",
+              "selection": "0-2",
+              "label": "0–2",
+              "p": 0.09883057292162252,
+              "fairOdds": 10.118326449377653
+            }
+          ]
+        }
+      ],
+      "mostLikelyScore": {
+        "home": 1,
+        "away": 1,
+        "p": 0.11399580241283155
+      },
+      "factors": [
+        {
+          "key": "home_attack",
+          "label": "Ataque local",
+          "value": "0.95 goles/partido",
+          "detail": "19 % menos que la media · 12 partidos"
+        },
+        {
+          "key": "away_defense",
+          "label": "Defensa visitante",
+          "value": "1.17 concedidos/partido",
+          "detail": "17 % menos que la media · 11 partidos"
+        },
+        {
+          "key": "away_attack",
+          "label": "Ataque visitante",
+          "value": "2.03 goles/partido",
+          "detail": "17 % más que la media · ajustado por rival"
+        },
+        {
+          "key": "home_defense",
+          "label": "Defensa local",
+          "value": "1.74 concedidos/partido",
+          "detail": "23 % más que la media · ajustado por rival"
+        },
+        {
+          "key": "home_advantage",
+          "label": "Localía",
+          "value": "×1.06",
+          "detail": "estimada de 108 partidos"
+        },
+        {
+          "key": "uncertainty",
+          "label": "Intervalo 90%",
+          "value": "goles 2.2–4.1",
+          "detail": "local 6%–33% · 108 partidos"
+        },
+        {
+          "key": "home_position",
+          "label": "Posición local",
+          "value": "12.º · 12 pts",
+          "detail": "de 18 equipos"
+        },
+        {
+          "key": "away_position",
+          "label": "Posición visitante",
+          "value": "5.º · 24 pts",
+          "detail": "de 18 equipos"
+        },
+        {
+          "key": "home_form",
+          "label": "Forma local",
+          "value": "E-P-G-P-P · 4 pts",
+          "detail": "3 goles a favor · 10 en contra"
+        },
+        {
+          "key": "away_form",
+          "label": "Forma visitante",
+          "value": "G-P-G-G-E · 10 pts",
+          "detail": "12 goles a favor · 6 en contra"
+        }
+      ],
+      "steps": [
+        "Sincronizando Saudi Pro League · corte 26 nov 2026, 20:00",
+        "Fuerza ajustada por rival · ALR 0.81 / 1.23 · ALI 1.17 / 0.83",
+        "Ponderando 95.5 partidos por antigüedad y calidad del rival",
+        "Proyección de goles 1.01 – 2.03 · total 3.03",
+        "Simulando 121 marcadores con incertidumbre del ajuste",
+        "20 mercados listos · marcador proyectado 1–2"
+      ],
+      "inputsAsOf": "2026-11-26T20:00:11.075Z",
+      "publishedAt": "2026-11-26T20:00:11.075Z",
+      "source": "pitchlab-football-v2",
+      "picks": [
+        {
+          "profile": "conservadora",
+          "market": "double_chance",
+          "selection": "x2",
+          "label": "Al-Ittihad o empate",
+          "p": 0.8346902315907911,
+          "fairOdds": 1.1980492428839784
+        },
+        {
+          "profile": "intermedia",
+          "market": "totals",
+          "selection": "under_3.5",
+          "label": "Menos de 3.5 goles",
+          "line": 3.5,
+          "p": 0.6397433493618245,
+          "fairOdds": 1.5631268398453055
+        },
+        {
+          "profile": "arriesgada",
+          "market": "btts",
+          "selection": "no",
+          "label": "Ambos anotan: No",
+          "p": 0.4331651841051647,
+          "fairOdds": 2.3085881245645496
+        }
+      ],
+      "confidence": {
+        "score": 71,
+        "level": "alta",
+        "reasons": [
+          "Favorito claro",
+          "Muestra suficiente"
+        ]
+      },
+      "projectedScore": {
+        "home": 1,
+        "away": 2,
+        "p": 0.09955557085016564
+      },
+      "insights": {
+        "why": [
+          "Se esperan 3.0 goles: 1.0 de Al-Riyadh y 2.0 de Al-Ittihad.",
+          "Al-Riyadh anota 19 % menos que la media.",
+          "Al-Riyadh concede 23 % más que la media."
+        ],
+        "restDays": {
+          "home": 21
+        }
+      },
+      "picksAt": "2026-11-26T20:00:11.075Z",
+      "matchContext": {
+        "stageName": "Regular season",
+        "venueCity": "Riyadh",
+        "venueCountry": "Saudi Arabia",
+        "venueCapacity": 15000
+      }
+    },
+    "saudi-pro-league-2026-12-17-al-hilal-abha-ilx9fz": {
+      "game": "saudi-pro-league-2026-12-17-al-hilal-abha-ilx9fz",
+      "model": {
+        "id": "pitchlab-statistical-saudi-pro-league",
+        "version": "2.0.0",
+        "status": "candidate",
+        "label": "Modelo PitchLab · en validación"
+      },
+      "projection": {
+        "home": 2.319456757088996,
+        "away": 0.7637987622408773,
+        "total": 3.0832555193298736,
+        "margin": 1.5556579948481188
+      },
+      "x12": [
+        0.7100703558574757,
+        0.1968044395490327,
+        0.09312520459349187
+      ],
+      "probabilities": [
+        {
+          "market": "h2h",
+          "selection": "Al-Hilal gana",
+          "p": 0.7100703558574757,
+          "fairOdds": 1.4083111507906951
+        },
+        {
+          "market": "h2h",
+          "selection": "Empate",
+          "p": 0.1968044395490327,
+          "fairOdds": 5.081186188134011
+        },
+        {
+          "market": "h2h",
+          "selection": "Abha gana",
+          "p": 0.09312520459349187,
+          "fairOdds": 10.73823144190854
+        },
+        {
+          "market": "double_chance",
+          "selection": "Al-Hilal o empate",
+          "p": 0.9068747954065084,
+          "fairOdds": 1.1026880502856495
+        },
+        {
+          "market": "double_chance",
+          "selection": "Abha o empate",
+          "p": 0.2899296441425246,
+          "fairOdds": 3.449112638887028
+        },
+        {
+          "market": "double_chance",
+          "selection": "Sin empate",
+          "p": 0.8031955604509675,
+          "fairOdds": 1.2450268019889619
+        },
+        {
+          "market": "totals",
+          "selection": "Más de 1.5 goles",
+          "line": 1.5,
+          "p": 0.8259260982193098,
+          "fairOdds": 1.21076207926592
+        },
+        {
+          "market": "totals",
+          "selection": "Más de 2.5 goles",
+          "line": 2.5,
+          "p": 0.5951886966333388,
+          "fairOdds": 1.6801394341936602
+        },
+        {
+          "market": "totals",
+          "selection": "Menos de 2.5 goles",
+          "line": 2.5,
+          "p": 0.40481130336666116,
+          "fairOdds": 2.470286752576772
+        },
+        {
+          "market": "totals",
+          "selection": "Más de 3.5 goles",
+          "line": 3.5,
+          "p": 0.3713937633071155,
+          "fairOdds": 2.692560023343938
+        },
+        {
+          "market": "totals",
+          "selection": "Menos de 3.5 goles",
+          "line": 3.5,
+          "p": 0.6286062366928845,
+          "fairOdds": 1.5908209967197093
+        },
+        {
+          "market": "btts",
+          "selection": "Sí",
+          "p": 0.4945734634494646,
+          "fairOdds": 2.021944309396171
+        },
+        {
+          "market": "btts",
+          "selection": "No",
+          "p": 0.5054265365505354,
+          "fairOdds": 1.9785269028904944
+        },
+        {
+          "market": "team_totals",
+          "selection": "Al-Hilal más de 1.5 goles",
+          "line": 1.5,
+          "p": 0.6735974444312396,
+          "fairOdds": 1.48456620236195
+        },
+        {
+          "market": "team_totals",
+          "selection": "Al-Hilal menos de 1.5 goles",
+          "line": 1.5,
+          "p": 0.3264025555687604,
+          "fairOdds": 3.0637015027578074
+        },
+        {
+          "market": "team_totals",
+          "selection": "Abha más de 1.5 goles",
+          "line": 1.5,
+          "p": 0.17825807319826592,
+          "fairOdds": 5.6098440988294485
+        },
+        {
+          "market": "team_totals",
+          "selection": "Abha menos de 1.5 goles",
+          "line": 1.5,
+          "p": 0.8217419268017341,
+          "fairOdds": 1.2169270757451265
+        },
+        {
+          "market": "correct_score",
+          "selection": "2–0",
+          "p": 0.12322973431886267,
+          "fairOdds": 8.114924579910669
+        },
+        {
+          "market": "correct_score",
+          "selection": "3–0",
+          "p": 0.09527534664672259,
+          "fairOdds": 10.495894637969279
+        },
+        {
+          "market": "correct_score",
+          "selection": "1–1",
+          "p": 0.09414476314539309,
+          "fairOdds": 10.62193972972924
+        }
+      ],
+      "marketGroups": [
+        {
+          "group": "Resultado",
+          "rows": [
+            {
+              "market": "h2h",
+              "selection": "home",
+              "label": "Al-Hilal gana",
+              "p": 0.7100703558574757,
+              "fairOdds": 1.4083111507906951
+            },
+            {
+              "market": "h2h",
+              "selection": "draw",
+              "label": "Empate",
+              "p": 0.1968044395490327,
+              "fairOdds": 5.081186188134011
+            },
+            {
+              "market": "h2h",
+              "selection": "away",
+              "label": "Abha gana",
+              "p": 0.09312520459349187,
+              "fairOdds": 10.73823144190854
+            }
+          ]
+        },
+        {
+          "group": "Doble oportunidad",
+          "rows": [
+            {
+              "market": "double_chance",
+              "selection": "1x",
+              "label": "Al-Hilal o empate",
+              "p": 0.9068747954065084,
+              "fairOdds": 1.1026880502856495
+            },
+            {
+              "market": "double_chance",
+              "selection": "x2",
+              "label": "Abha o empate",
+              "p": 0.2899296441425246,
+              "fairOdds": 3.449112638887028
+            },
+            {
+              "market": "double_chance",
+              "selection": "12",
+              "label": "Sin empate",
+              "p": 0.8031955604509675,
+              "fairOdds": 1.2450268019889619
+            }
+          ]
+        },
+        {
+          "group": "Goles totales",
+          "rows": [
+            {
+              "market": "totals",
+              "selection": "over_1.5",
+              "label": "Más de 1.5 goles",
+              "line": 1.5,
+              "p": 0.8259260982193098,
+              "fairOdds": 1.21076207926592
+            },
+            {
+              "market": "totals",
+              "selection": "over_2.5",
+              "label": "Más de 2.5 goles",
+              "line": 2.5,
+              "p": 0.5951886966333388,
+              "fairOdds": 1.6801394341936602
+            },
+            {
+              "market": "totals",
+              "selection": "under_2.5",
+              "label": "Menos de 2.5 goles",
+              "line": 2.5,
+              "p": 0.40481130336666116,
+              "fairOdds": 2.470286752576772
+            },
+            {
+              "market": "totals",
+              "selection": "over_3.5",
+              "label": "Más de 3.5 goles",
+              "line": 3.5,
+              "p": 0.3713937633071155,
+              "fairOdds": 2.692560023343938
+            },
+            {
+              "market": "totals",
+              "selection": "under_3.5",
+              "label": "Menos de 3.5 goles",
+              "line": 3.5,
+              "p": 0.6286062366928845,
+              "fairOdds": 1.5908209967197093
+            }
+          ]
+        },
+        {
+          "group": "Ambos anotan",
+          "rows": [
+            {
+              "market": "btts",
+              "selection": "yes",
+              "label": "Sí",
+              "p": 0.4945734634494646,
+              "fairOdds": 2.021944309396171
+            },
+            {
+              "market": "btts",
+              "selection": "no",
+              "label": "No",
+              "p": 0.5054265365505354,
+              "fairOdds": 1.9785269028904944
+            }
+          ]
+        },
+        {
+          "group": "Goles por equipo (1.5)",
+          "rows": [
+            {
+              "market": "team_totals",
+              "selection": "home_over",
+              "label": "Al-Hilal más de 1.5 goles",
+              "line": 1.5,
+              "p": 0.6735974444312396,
+              "fairOdds": 1.48456620236195
+            },
+            {
+              "market": "team_totals",
+              "selection": "home_under",
+              "label": "Al-Hilal menos de 1.5 goles",
+              "line": 1.5,
+              "p": 0.3264025555687604,
+              "fairOdds": 3.0637015027578074
+            },
+            {
+              "market": "team_totals",
+              "selection": "away_over",
+              "label": "Abha más de 1.5 goles",
+              "line": 1.5,
+              "p": 0.17825807319826592,
+              "fairOdds": 5.6098440988294485
+            },
+            {
+              "market": "team_totals",
+              "selection": "away_under",
+              "label": "Abha menos de 1.5 goles",
+              "line": 1.5,
+              "p": 0.8217419268017341,
+              "fairOdds": 1.2169270757451265
+            }
+          ]
+        },
+        {
+          "group": "Marcador exacto (más probables)",
+          "rows": [
+            {
+              "market": "correct_score",
+              "selection": "2-0",
+              "label": "2–0",
+              "p": 0.12322973431886267,
+              "fairOdds": 8.114924579910669
+            },
+            {
+              "market": "correct_score",
+              "selection": "3-0",
+              "label": "3–0",
+              "p": 0.09527534664672259,
+              "fairOdds": 10.495894637969279
+            },
+            {
+              "market": "correct_score",
+              "selection": "1-1",
+              "label": "1–1",
+              "p": 0.09414476314539309,
+              "fairOdds": 10.62193972972924
+            }
+          ]
+        }
+      ],
+      "mostLikelyScore": {
+        "home": 2,
+        "away": 0,
+        "p": 0.12322973431886267
+      },
+      "factors": [
+        {
+          "key": "home_attack",
+          "label": "Ataque local",
+          "value": "2.18 goles/partido",
+          "detail": "51 % más que la media · 11 partidos"
+        },
+        {
+          "key": "away_defense",
+          "label": "Defensa visitante",
+          "value": "1.45 concedidos/partido",
+          "detail": "3 % más que la media · 12 partidos"
+        },
+        {
+          "key": "away_attack",
+          "label": "Ataque visitante",
+          "value": "0.76 goles/partido",
+          "detail": "30 % menos que la media · ajustado por rival"
+        },
+        {
+          "key": "home_defense",
+          "label": "Defensa local",
+          "value": "1.09 concedidos/partido",
+          "detail": "23 % menos que la media · ajustado por rival"
+        },
+        {
+          "key": "home_advantage",
+          "label": "Localía",
+          "value": "×1.06",
+          "detail": "estimada de 108 partidos"
+        },
+        {
+          "key": "uncertainty",
+          "label": "Intervalo 90%",
+          "value": "goles 2.2–4.3",
+          "detail": "local 51%–88% · 108 partidos"
+        },
+        {
+          "key": "home_position",
+          "label": "Posición local",
+          "value": "1.º · 30 pts",
+          "detail": "de 18 equipos"
+        },
+        {
+          "key": "away_position",
+          "label": "Posición visitante",
+          "value": "18.º · 3 pts",
+          "detail": "de 18 equipos"
+        },
+        {
+          "key": "home_form",
+          "label": "Forma local",
+          "value": "G-G-G-G-G · 15 pts",
+          "detail": "15 goles a favor · 4 en contra"
+        },
+        {
+          "key": "away_form",
+          "label": "Forma visitante",
+          "value": "P-P-P-E-P · 1 pts",
+          "detail": "2 goles a favor · 7 en contra"
+        }
+      ],
+      "steps": [
+        "Sincronizando Saudi Pro League · corte 26 nov 2026, 20:00",
+        "Fuerza ajustada por rival · ALH 1.51 / 0.77 · ABH 0.70 / 1.03",
+        "Ponderando 95.5 partidos por antigüedad y calidad del rival",
+        "Proyección de goles 2.32 – 0.76 · total 3.08",
+        "Simulando 121 marcadores con incertidumbre del ajuste",
+        "20 mercados listos · marcador proyectado 3–0"
+      ],
+      "inputsAsOf": "2026-11-26T20:00:11.075Z",
+      "publishedAt": "2026-11-26T20:00:11.075Z",
+      "source": "pitchlab-football-v2",
+      "picks": [
+        {
+          "profile": "conservadora",
+          "market": "double_chance",
+          "selection": "1x",
+          "label": "Al-Hilal o empate",
+          "p": 0.9068747954065084,
+          "fairOdds": 1.1026880502856495
+        },
+        {
+          "profile": "intermedia",
+          "market": "team_totals",
+          "selection": "home_over",
+          "label": "Al-Hilal más de 1.5 goles",
+          "line": 1.5,
+          "p": 0.6735974444312396,
+          "fairOdds": 1.48456620236195
+        },
+        {
+          "profile": "arriesgada",
+          "market": "btts",
+          "selection": "no",
+          "label": "Ambos anotan: No",
+          "p": 0.5054265365505354,
+          "fairOdds": 1.9785269028904944
+        }
+      ],
+      "confidence": {
+        "score": 83,
+        "level": "alta",
+        "reasons": [
+          "Favorito claro",
+          "Muestra suficiente"
+        ]
+      },
+      "projectedScore": {
+        "home": 3,
+        "away": 0,
+        "p": 0.09527534664672259
+      },
+      "insights": {
+        "why": [
+          "Se esperan 3.1 goles: 2.3 de Al-Hilal y 0.8 de Abha.",
+          "Al-Hilal anota 51 % más que la media.",
+          "Abha anota 30 % menos que la media."
+        ],
+        "restDays": {
+          "away": 21
+        }
+      },
+      "picksAt": "2026-11-26T20:00:11.075Z",
+      "matchContext": {
+        "stageName": "Regular season",
+        "venueCity": "Riyadh",
+        "venueCountry": "Saudi Arabia",
+        "venueCapacity": 26000
+      }
     }
   },
   "standings": [
@@ -24074,23 +24177,43 @@
       ]
     },
     {
+      "teamId": "saudi-pro-league.al-shabab",
+      "name": "Al-Shabab",
+      "shortName": "Al-Shabab",
+      "code": "ALS",
+      "played": 12,
+      "won": 4,
+      "drawn": 5,
+      "lost": 3,
+      "goalsFor": 21,
+      "goalsAgainst": 15,
+      "points": 17,
+      "form": [
+        "W",
+        "D",
+        "W",
+        "W",
+        "W"
+      ]
+    },
+    {
       "teamId": "saudi-pro-league.diriyah",
       "name": "Diriyah",
       "shortName": "Diriyah",
       "code": "DIR",
-      "played": 12,
+      "played": 13,
       "won": 4,
-      "drawn": 3,
+      "drawn": 4,
       "lost": 5,
-      "goalsFor": 10,
-      "goalsAgainst": 13,
-      "points": 15,
+      "goalsFor": 12,
+      "goalsAgainst": 15,
+      "points": 16,
       "form": [
-        "L",
         "D",
         "W",
         "L",
-        "L"
+        "L",
+        "D"
       ]
     },
     {
@@ -24110,26 +24233,6 @@
         "W",
         "W",
         "L",
-        "W"
-      ]
-    },
-    {
-      "teamId": "saudi-pro-league.al-shabab",
-      "name": "Al-Shabab",
-      "shortName": "Al-Shabab",
-      "code": "ALS",
-      "played": 11,
-      "won": 3,
-      "drawn": 5,
-      "lost": 3,
-      "goalsFor": 20,
-      "goalsAgainst": 15,
-      "points": 14,
-      "form": [
-        "D",
-        "W",
-        "D",
-        "W",
         "W"
       ]
     },
@@ -24158,18 +24261,18 @@
       "name": "Al-Riyadh",
       "shortName": "Al-Riyadh",
       "code": "ALR",
-      "played": 11,
+      "played": 12,
       "won": 3,
       "drawn": 3,
-      "lost": 5,
+      "lost": 6,
       "goalsFor": 11,
-      "goalsAgainst": 25,
+      "goalsAgainst": 26,
       "points": 12,
       "form": [
-        "W",
         "D",
         "L",
         "W",
+        "L",
         "L"
       ]
     },
@@ -24194,6 +24297,26 @@
       ]
     },
     {
+      "teamId": "saudi-pro-league.al-faisaly",
+      "name": "Al Faisaly",
+      "shortName": "Al Faisaly",
+      "code": "ALF",
+      "played": 13,
+      "won": 2,
+      "drawn": 5,
+      "lost": 6,
+      "goalsFor": 15,
+      "goalsAgainst": 26,
+      "points": 11,
+      "form": [
+        "D",
+        "L",
+        "W",
+        "L",
+        "D"
+      ]
+    },
+    {
       "teamId": "saudi-pro-league.al-hazem",
       "name": "Al-Hazem",
       "shortName": "Al-Hazem",
@@ -24214,43 +24337,23 @@
       ]
     },
     {
-      "teamId": "saudi-pro-league.al-faisaly",
-      "name": "Al Faisaly",
-      "shortName": "Al Faisaly",
-      "code": "ALF",
-      "played": 12,
-      "won": 2,
-      "drawn": 4,
-      "lost": 6,
-      "goalsFor": 13,
-      "goalsAgainst": 24,
-      "points": 10,
-      "form": [
-        "W",
-        "D",
-        "L",
-        "W",
-        "L"
-      ]
-    },
-    {
       "teamId": "saudi-pro-league.al-fateh",
       "name": "Al-Fateh",
       "shortName": "Al-Fateh",
       "code": "ALF",
-      "played": 12,
-      "won": 1,
+      "played": 13,
+      "won": 2,
       "drawn": 3,
       "lost": 8,
-      "goalsFor": 10,
+      "goalsFor": 11,
       "goalsAgainst": 25,
-      "points": 6,
+      "points": 9,
       "form": [
-        "L",
         "W",
         "L",
         "L",
-        "L"
+        "L",
+        "W"
       ]
     },
     {
@@ -24278,19 +24381,19 @@
       "name": "Abha",
       "shortName": "Abha",
       "code": "ABH",
-      "played": 11,
+      "played": 12,
       "won": 0,
       "drawn": 3,
-      "lost": 8,
+      "lost": 9,
       "goalsFor": 7,
-      "goalsAgainst": 19,
+      "goalsAgainst": 20,
       "points": 3,
       "form": [
+        "L",
+        "L",
+        "L",
         "D",
-        "L",
-        "L",
-        "L",
-        "D"
+        "L"
       ]
     }
   ]

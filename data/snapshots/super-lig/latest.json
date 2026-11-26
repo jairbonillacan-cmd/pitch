@@ -5,7 +5,7 @@
   "season": "super-lig-2026-27",
   "seasonLabel": "2026/27",
   "periodLabel": "Regular season · Matchday 11",
-  "updatedAt": "2026-11-25T20:23:50.754Z",
+  "updatedAt": "2026-11-26T20:00:11.075Z",
   "source": "pitchlab-football-v2",
   "provenance": "derived",
   "isDemo": false,
@@ -18,8 +18,8 @@
       "forPerGame": 2.4166666666666665,
       "againstPerGame": 1.3333333333333333,
       "gamesPlayed": 12,
-      "adjustedFor": 1.7968231600284426,
-      "adjustedAgainst": 1.2149184651177807
+      "adjustedFor": 1.7963644269662442,
+      "adjustedAgainst": 1.2151331733853974
     },
     "super-lig.corum": {
       "teamId": "super-lig.corum",
@@ -29,8 +29,8 @@
       "forPerGame": 1.9166666666666667,
       "againstPerGame": 2.0833333333333335,
       "gamesPlayed": 12,
-      "adjustedFor": 1.5340689223086914,
-      "adjustedAgainst": 1.5956449068596303
+      "adjustedFor": 1.5339258336332768,
+      "adjustedAgainst": 1.5954601730374318
     },
     "super-lig.konyaspor": {
       "teamId": "super-lig.konyaspor",
@@ -40,8 +40,8 @@
       "forPerGame": 0.6666666666666666,
       "againstPerGame": 1.5,
       "gamesPlayed": 12,
-      "adjustedFor": 0.9441512078816717,
-      "adjustedAgainst": 1.2694080221710151
+      "adjustedFor": 0.9445728177295575,
+      "adjustedAgainst": 1.269609924438145
     },
     "super-lig.caykur-rizespor": {
       "teamId": "super-lig.caykur-rizespor",
@@ -51,8 +51,8 @@
       "forPerGame": 1.25,
       "againstPerGame": 1.3333333333333333,
       "gamesPlayed": 12,
-      "adjustedFor": 1.215415760355893,
-      "adjustedAgainst": 1.246970069292887
+      "adjustedFor": 1.2155974738394935,
+      "adjustedAgainst": 1.247102277854379
     },
     "super-lig.kas-mpasa": {
       "teamId": "super-lig.kas-mpasa",
@@ -62,8 +62,8 @@
       "forPerGame": 1.5833333333333333,
       "againstPerGame": 1,
       "gamesPlayed": 12,
-      "adjustedFor": 1.3534747069603563,
-      "adjustedAgainst": 1.0729634990539978
+      "adjustedFor": 1.3535247911072754,
+      "adjustedAgainst": 1.07329921811432
     },
     "super-lig.trabzonspor": {
       "teamId": "super-lig.trabzonspor",
@@ -73,8 +73,8 @@
       "forPerGame": 2.25,
       "againstPerGame": 0.6666666666666666,
       "gamesPlayed": 12,
-      "adjustedFor": 1.670738718698456,
-      "adjustedAgainst": 0.9208836442613403
+      "adjustedFor": 1.6704725898157164,
+      "adjustedAgainst": 0.9213581518412696
     },
     "super-lig.genclerbirligi": {
       "teamId": "super-lig.genclerbirligi",
@@ -84,8 +84,8 @@
       "forPerGame": 1.0833333333333333,
       "againstPerGame": 1.75,
       "gamesPlayed": 12,
-      "adjustedFor": 1.1501573521407022,
-      "adjustedAgainst": 1.384809382996214
+      "adjustedFor": 1.1503675308238692,
+      "adjustedAgainst": 1.384893490864571
     },
     "super-lig.fenerbahce": {
       "teamId": "super-lig.fenerbahce",
@@ -95,8 +95,8 @@
       "forPerGame": 2.5833333333333335,
       "againstPerGame": 1,
       "gamesPlayed": 12,
-      "adjustedFor": 1.8454692515500486,
-      "adjustedAgainst": 1.0888915471427074
+      "adjustedFor": 1.845041411166381,
+      "adjustedAgainst": 1.089181203692943
     },
     "super-lig.gaziantep": {
       "teamId": "super-lig.gaziantep",
@@ -106,8 +106,8 @@
       "forPerGame": 0.75,
       "againstPerGame": 1.6666666666666667,
       "gamesPlayed": 12,
-      "adjustedFor": 0.9535399278731757,
-      "adjustedAgainst": 1.4088938705461753
+      "adjustedFor": 0.953975517444846,
+      "adjustedAgainst": 1.4088814514573496
     },
     "super-lig.alanyaspor": {
       "teamId": "super-lig.alanyaspor",
@@ -117,8 +117,8 @@
       "forPerGame": 0.8333333333333334,
       "againstPerGame": 1.6666666666666667,
       "gamesPlayed": 12,
-      "adjustedFor": 1.0196464780930141,
-      "adjustedAgainst": 1.4063800691976271
+      "adjustedFor": 1.0200084701149879,
+      "adjustedAgainst": 1.4063724238266875
     },
     "super-lig.basaksehir": {
       "teamId": "super-lig.basaksehir",
@@ -128,8 +128,8 @@
       "forPerGame": 1.9166666666666667,
       "againstPerGame": 1.5833333333333333,
       "gamesPlayed": 12,
-      "adjustedFor": 1.5519237463569209,
-      "adjustedAgainst": 1.322936775058116
+      "adjustedFor": 1.5517338795174527,
+      "adjustedAgainst": 1.3230681578876975
     },
     "super-lig.kocaelispor": {
       "teamId": "super-lig.kocaelispor",
@@ -139,8 +139,8 @@
       "forPerGame": 1.25,
       "againstPerGame": 0.9166666666666666,
       "gamesPlayed": 12,
-      "adjustedFor": 1.1922580122897999,
-      "adjustedAgainst": 1.023143875732555
+      "adjustedFor": 1.1924680494519955,
+      "adjustedAgainst": 1.0235346609070777
     },
     "super-lig.besiktas-jk": {
       "teamId": "super-lig.besiktas-jk",
@@ -150,8 +150,8 @@
       "forPerGame": 2.25,
       "againstPerGame": 1.1666666666666667,
       "gamesPlayed": 12,
-      "adjustedFor": 1.7238708856228535,
-      "adjustedAgainst": 1.153423946704521
+      "adjustedFor": 1.7234974392296287,
+      "adjustedAgainst": 1.1536747341183295
     },
     "super-lig.eyupspor": {
       "teamId": "super-lig.eyupspor",
@@ -161,8 +161,8 @@
       "forPerGame": 0.25,
       "againstPerGame": 2.5833333333333335,
       "gamesPlayed": 12,
-      "adjustedFor": 0.7290341310373244,
-      "adjustedAgainst": 1.779288997285747
+      "adjustedFor": 0.7297071473547658,
+      "adjustedAgainst": 1.7790026665488992
     },
     "super-lig.amedspor": {
       "teamId": "super-lig.amedspor",
@@ -172,8 +172,8 @@
       "forPerGame": 2.3333333333333335,
       "againstPerGame": 1.4166666666666667,
       "gamesPlayed": 12,
-      "adjustedFor": 1.7460031287293687,
-      "adjustedAgainst": 1.3157151566790581
+      "adjustedFor": 1.7455952775910926,
+      "adjustedAgainst": 1.315787696976071
     },
     "super-lig.erzurumspor": {
       "teamId": "super-lig.erzurumspor",
@@ -183,8 +183,8 @@
       "forPerGame": 0.8333333333333334,
       "againstPerGame": 1.5,
       "gamesPlayed": 12,
-      "adjustedFor": 0.9669366762181162,
-      "adjustedAgainst": 1.3256777175716639
+      "adjustedFor": 0.9673836879090183,
+      "adjustedAgainst": 1.3257402553793012
     },
     "super-lig.samsunspor": {
       "teamId": "super-lig.samsunspor",
@@ -194,8 +194,8 @@
       "forPerGame": 1,
       "againstPerGame": 2.3333333333333335,
       "gamesPlayed": 12,
-      "adjustedFor": 1.11773564342948,
-      "adjustedAgainst": 1.647572724534467
+      "adjustedFor": 1.1179767897720838,
+      "adjustedAgainst": 1.6474280924490072
     },
     "super-lig.goztepe": {
       "teamId": "super-lig.goztepe",
@@ -205,8 +205,8 @@
       "forPerGame": 1.9166666666666667,
       "againstPerGame": 1.5833333333333333,
       "gamesPlayed": 12,
-      "adjustedFor": 1.5134843560771536,
-      "adjustedAgainst": 1.3556249411534547
+      "adjustedFor": 1.5133837166671578,
+      "adjustedAgainst": 1.35563395072254
     }
   },
   "games": [
@@ -241,7 +241,7 @@
       "result": {
         "home": 1,
         "away": 0,
-        "observedAt": "2026-11-25T20:23:50.754Z",
+        "observedAt": "2026-11-26T20:00:11.075Z",
         "source": "pitchlab-feed"
       }
     },
@@ -276,7 +276,7 @@
       "result": {
         "home": 1,
         "away": 2,
-        "observedAt": "2026-11-25T20:23:50.754Z",
+        "observedAt": "2026-11-26T20:00:11.075Z",
         "source": "pitchlab-feed"
       }
     },
@@ -311,7 +311,7 @@
       "result": {
         "home": 4,
         "away": 3,
-        "observedAt": "2026-11-25T20:23:50.754Z",
+        "observedAt": "2026-11-26T20:00:11.075Z",
         "source": "pitchlab-feed"
       }
     },
@@ -346,7 +346,7 @@
       "result": {
         "home": 2,
         "away": 1,
-        "observedAt": "2026-11-25T20:23:50.754Z",
+        "observedAt": "2026-11-26T20:00:11.075Z",
         "source": "pitchlab-feed"
       }
     },
@@ -381,7 +381,7 @@
       "result": {
         "home": 0,
         "away": 5,
-        "observedAt": "2026-11-25T20:23:50.754Z",
+        "observedAt": "2026-11-26T20:00:11.075Z",
         "source": "pitchlab-feed"
       }
     },
@@ -416,7 +416,7 @@
       "result": {
         "home": 0,
         "away": 2,
-        "observedAt": "2026-11-25T20:23:50.754Z",
+        "observedAt": "2026-11-26T20:00:11.075Z",
         "source": "pitchlab-feed"
       }
     },
@@ -451,7 +451,7 @@
       "result": {
         "home": 3,
         "away": 0,
-        "observedAt": "2026-11-25T20:23:50.754Z",
+        "observedAt": "2026-11-26T20:00:11.075Z",
         "source": "pitchlab-feed"
       }
     },
@@ -486,7 +486,7 @@
       "result": {
         "home": 1,
         "away": 0,
-        "observedAt": "2026-11-25T20:23:50.754Z",
+        "observedAt": "2026-11-26T20:00:11.075Z",
         "source": "pitchlab-feed"
       }
     },
@@ -521,7 +521,7 @@
       "result": {
         "home": 2,
         "away": 1,
-        "observedAt": "2026-11-25T20:23:50.754Z",
+        "observedAt": "2026-11-26T20:00:11.075Z",
         "source": "pitchlab-feed"
       }
     },
@@ -556,7 +556,7 @@
       "result": {
         "home": 0,
         "away": 2,
-        "observedAt": "2026-11-25T20:23:50.754Z",
+        "observedAt": "2026-11-26T20:00:11.075Z",
         "source": "pitchlab-feed"
       }
     },
@@ -591,7 +591,7 @@
       "result": {
         "home": 2,
         "away": 2,
-        "observedAt": "2026-11-25T20:23:50.754Z",
+        "observedAt": "2026-11-26T20:00:11.075Z",
         "source": "pitchlab-feed"
       }
     },
@@ -626,7 +626,7 @@
       "result": {
         "home": 0,
         "away": 1,
-        "observedAt": "2026-11-25T20:23:50.754Z",
+        "observedAt": "2026-11-26T20:00:11.075Z",
         "source": "pitchlab-feed"
       }
     },
@@ -661,7 +661,7 @@
       "result": {
         "home": 2,
         "away": 1,
-        "observedAt": "2026-11-25T20:23:50.754Z",
+        "observedAt": "2026-11-26T20:00:11.075Z",
         "source": "pitchlab-feed"
       }
     },
@@ -696,7 +696,7 @@
       "result": {
         "home": 2,
         "away": 4,
-        "observedAt": "2026-11-25T20:23:50.754Z",
+        "observedAt": "2026-11-26T20:00:11.075Z",
         "source": "pitchlab-feed"
       }
     },
@@ -731,7 +731,7 @@
       "result": {
         "home": 1,
         "away": 0,
-        "observedAt": "2026-11-25T20:23:50.754Z",
+        "observedAt": "2026-11-26T20:00:11.075Z",
         "source": "pitchlab-feed"
       }
     },
@@ -766,7 +766,7 @@
       "result": {
         "home": 4,
         "away": 2,
-        "observedAt": "2026-11-25T20:23:50.754Z",
+        "observedAt": "2026-11-26T20:00:11.075Z",
         "source": "pitchlab-feed"
       }
     },
@@ -2548,11 +2548,11 @@
         "referee": "Cagdas Altay",
         "refereeStats": {
           "country": "Türkiye",
-          "matches": 44,
-          "avgYellow": 4.39,
-          "avgRed": 0.23,
+          "matches": 45,
+          "avgYellow": 4.42,
+          "avgRed": 0.22,
           "avgFouls": 25.2,
-          "avgGoals": 3.41
+          "avgGoals": 3.4
         },
         "weather": {
           "description": "cloudy",
@@ -8207,11 +8207,11 @@
         "referee": "Cagdas Altay",
         "refereeStats": {
           "country": "Türkiye",
-          "matches": 44,
-          "avgYellow": 4.39,
-          "avgRed": 0.23,
+          "matches": 45,
+          "avgYellow": 4.42,
+          "avgRed": 0.22,
           "avgFouls": 25.2,
-          "avgGoals": 3.41
+          "avgGoals": 3.4
         },
         "weather": {
           "description": "clear",
@@ -9663,6 +9663,7 @@
           "temperatureC": 11,
           "windSpeedKmh": 14
         },
+        "travelDistanceKm": 974,
         "stageName": "Regular season",
         "venueCity": "Rize",
         "venueCountry": "Türkiye",
@@ -10136,6 +10137,7 @@
           "temperatureC": 13,
           "windSpeedKmh": 24
         },
+        "travelDistanceKm": 150,
         "stageName": "Regular season",
         "venueCity": "Alanya",
         "venueCountry": "Türkiye",

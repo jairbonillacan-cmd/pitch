@@ -1,8 +1,608 @@
 {
   "schemaVersion": 1,
   "league": "primera-chile",
-  "updatedAt": "2026-11-25T20:23:50.754Z",
+  "updatedAt": "2026-11-26T20:00:11.075Z",
   "lines": [
+    {
+      "gameId": "primera-chile-2026-11-28-coquimbo-unido-deportes-limac-drrh3w",
+      "homeName": "Coquimbo Unido",
+      "awayName": "Deportes Limache",
+      "market": "1x2",
+      "outcome": "HOME",
+      "line": null,
+      "book": "bet365",
+      "decimal": 1.71,
+      "openingDecimal": 1.71,
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-25T22:52:16Z"
+    },
+    {
+      "gameId": "primera-chile-2026-11-28-coquimbo-unido-deportes-limac-drrh3w",
+      "homeName": "Coquimbo Unido",
+      "awayName": "Deportes Limache",
+      "market": "1x2",
+      "outcome": "DRAW",
+      "line": null,
+      "book": "bet365",
+      "decimal": 3.7,
+      "openingDecimal": 3.7,
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-25T22:52:16Z"
+    },
+    {
+      "gameId": "primera-chile-2026-11-28-coquimbo-unido-deportes-limac-drrh3w",
+      "homeName": "Coquimbo Unido",
+      "awayName": "Deportes Limache",
+      "market": "1x2",
+      "outcome": "AWAY",
+      "line": null,
+      "book": "bet365",
+      "decimal": 4,
+      "openingDecimal": 4,
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-25T22:52:16Z"
+    },
+    {
+      "gameId": "primera-chile-2026-11-28-coquimbo-unido-deportes-limac-drrh3w",
+      "homeName": "Coquimbo Unido",
+      "awayName": "Deportes Limache",
+      "market": "double_chance",
+      "outcome": "1X",
+      "line": null,
+      "book": "bet365",
+      "decimal": 1.222,
+      "openingDecimal": 1.222,
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-25T22:52:16Z"
+    },
+    {
+      "gameId": "primera-chile-2026-11-28-coquimbo-unido-deportes-limac-drrh3w",
+      "homeName": "Coquimbo Unido",
+      "awayName": "Deportes Limache",
+      "market": "double_chance",
+      "outcome": "X2",
+      "line": null,
+      "book": "bet365",
+      "decimal": 2,
+      "openingDecimal": 2,
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-25T22:52:16Z"
+    },
+    {
+      "gameId": "primera-chile-2026-11-28-coquimbo-unido-deportes-limac-drrh3w",
+      "homeName": "Coquimbo Unido",
+      "awayName": "Deportes Limache",
+      "market": "double_chance",
+      "outcome": "12",
+      "line": null,
+      "book": "bet365",
+      "decimal": 1.286,
+      "openingDecimal": 1.286,
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-25T22:52:16Z"
+    },
+    {
+      "gameId": "primera-chile-2026-11-28-coquimbo-unido-deportes-limac-drrh3w",
+      "homeName": "Coquimbo Unido",
+      "awayName": "Deportes Limache",
+      "market": "over_under_15",
+      "outcome": "over",
+      "line": 1.5,
+      "book": "bet365",
+      "decimal": 1.2,
+      "openingDecimal": 1.2,
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-25T22:52:16Z"
+    },
+    {
+      "gameId": "primera-chile-2026-11-28-coquimbo-unido-deportes-limac-drrh3w",
+      "homeName": "Coquimbo Unido",
+      "awayName": "Deportes Limache",
+      "market": "over_under_15",
+      "outcome": "under",
+      "line": 1.5,
+      "book": "bet365",
+      "decimal": 4.333,
+      "openingDecimal": 4.333,
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-25T22:52:16Z"
+    },
+    {
+      "gameId": "primera-chile-2026-11-28-coquimbo-unido-deportes-limac-drrh3w",
+      "homeName": "Coquimbo Unido",
+      "awayName": "Deportes Limache",
+      "market": "over_under_25",
+      "outcome": "over",
+      "line": 2.5,
+      "book": "bet365",
+      "decimal": 1.65,
+      "openingDecimal": 1.65,
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-25T22:52:16Z"
+    },
+    {
+      "gameId": "primera-chile-2026-11-28-coquimbo-unido-deportes-limac-drrh3w",
+      "homeName": "Coquimbo Unido",
+      "awayName": "Deportes Limache",
+      "market": "over_under_25",
+      "outcome": "under",
+      "line": 2.5,
+      "book": "bet365",
+      "decimal": 2.2,
+      "openingDecimal": 2.2,
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-25T22:52:16Z"
+    },
+    {
+      "gameId": "primera-chile-2026-11-28-coquimbo-unido-deportes-limac-drrh3w",
+      "homeName": "Coquimbo Unido",
+      "awayName": "Deportes Limache",
+      "market": "over_under_35",
+      "outcome": "over",
+      "line": 3.5,
+      "book": "bet365",
+      "decimal": 2.625,
+      "openingDecimal": 2.625,
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-25T22:52:16Z"
+    },
+    {
+      "gameId": "primera-chile-2026-11-28-coquimbo-unido-deportes-limac-drrh3w",
+      "homeName": "Coquimbo Unido",
+      "awayName": "Deportes Limache",
+      "market": "over_under_35",
+      "outcome": "under",
+      "line": 3.5,
+      "book": "bet365",
+      "decimal": 1.444,
+      "openingDecimal": 1.444,
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-25T22:52:16Z"
+    },
+    {
+      "gameId": "primera-chile-2026-11-28-coquimbo-unido-deportes-limac-drrh3w",
+      "homeName": "Coquimbo Unido",
+      "awayName": "Deportes Limache",
+      "market": "btts",
+      "outcome": "yes",
+      "line": null,
+      "book": "bet365",
+      "decimal": 1.615,
+      "openingDecimal": 1.615,
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-25T22:52:16Z"
+    },
+    {
+      "gameId": "primera-chile-2026-11-28-coquimbo-unido-deportes-limac-drrh3w",
+      "homeName": "Coquimbo Unido",
+      "awayName": "Deportes Limache",
+      "market": "draw_no_bet",
+      "outcome": "HOME",
+      "line": null,
+      "book": "bet365",
+      "decimal": 1.4,
+      "openingDecimal": 1.4,
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-25T22:52:16Z"
+    },
+    {
+      "gameId": "primera-chile-2026-11-28-coquimbo-unido-deportes-limac-drrh3w",
+      "homeName": "Coquimbo Unido",
+      "awayName": "Deportes Limache",
+      "market": "draw_no_bet",
+      "outcome": "AWAY",
+      "line": null,
+      "book": "bet365",
+      "decimal": 2.75,
+      "openingDecimal": 2.75,
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-25T22:52:16Z"
+    },
+    {
+      "gameId": "primera-chile-2026-11-28-coquimbo-unido-deportes-limac-drrh3w",
+      "homeName": "Coquimbo Unido",
+      "awayName": "Deportes Limache",
+      "market": "btts",
+      "outcome": "no",
+      "line": null,
+      "book": "bet365",
+      "decimal": 2.2,
+      "openingDecimal": 2.2,
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-25T22:52:16Z"
+    },
+    {
+      "gameId": "primera-chile-2026-11-28-coquimbo-unido-deportes-limac-drrh3w",
+      "homeName": "Coquimbo Unido",
+      "awayName": "Deportes Limache",
+      "market": "over_under_05",
+      "outcome": "over",
+      "line": 0.5,
+      "book": "bet365",
+      "decimal": 1.03,
+      "openingDecimal": 1.03,
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-25T22:52:16Z"
+    },
+    {
+      "gameId": "primera-chile-2026-11-28-coquimbo-unido-deportes-limac-drrh3w",
+      "homeName": "Coquimbo Unido",
+      "awayName": "Deportes Limache",
+      "market": "over_under_05",
+      "outcome": "under",
+      "line": 0.5,
+      "book": "bet365",
+      "decimal": 15,
+      "openingDecimal": 15,
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-25T22:52:16Z"
+    },
+    {
+      "gameId": "primera-chile-2026-11-28-coquimbo-unido-deportes-limac-drrh3w",
+      "homeName": "Coquimbo Unido",
+      "awayName": "Deportes Limache",
+      "market": "total_corners",
+      "outcome": "over",
+      "line": 10.5,
+      "book": "bet365",
+      "decimal": 2,
+      "openingDecimal": 2,
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-25T22:52:16Z"
+    },
+    {
+      "gameId": "primera-chile-2026-11-28-coquimbo-unido-deportes-limac-drrh3w",
+      "homeName": "Coquimbo Unido",
+      "awayName": "Deportes Limache",
+      "market": "total_corners",
+      "outcome": "under",
+      "line": 10.5,
+      "book": "bet365",
+      "decimal": 1.727,
+      "openingDecimal": 1.727,
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-25T22:52:16Z"
+    },
+    {
+      "gameId": "primera-chile-2026-11-28-colo-colo-deportes-la-se-t47hhe",
+      "homeName": "Colo-Colo",
+      "awayName": "Deportes La Serena",
+      "market": "1x2",
+      "outcome": "HOME",
+      "line": null,
+      "book": "bet365",
+      "decimal": 1.56,
+      "openingDecimal": 1.56,
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-25T22:52:20Z"
+    },
+    {
+      "gameId": "primera-chile-2026-11-28-colo-colo-deportes-la-se-t47hhe",
+      "homeName": "Colo-Colo",
+      "awayName": "Deportes La Serena",
+      "market": "1x2",
+      "outcome": "DRAW",
+      "line": null,
+      "book": "bet365",
+      "decimal": 4.2,
+      "openingDecimal": 4.2,
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-25T22:52:20Z"
+    },
+    {
+      "gameId": "primera-chile-2026-11-28-colo-colo-deportes-la-se-t47hhe",
+      "homeName": "Colo-Colo",
+      "awayName": "Deportes La Serena",
+      "market": "1x2",
+      "outcome": "AWAY",
+      "line": null,
+      "book": "bet365",
+      "decimal": 4.5,
+      "openingDecimal": 4.5,
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-25T22:52:20Z"
+    },
+    {
+      "gameId": "primera-chile-2026-11-28-colo-colo-deportes-la-se-t47hhe",
+      "homeName": "Colo-Colo",
+      "awayName": "Deportes La Serena",
+      "market": "double_chance",
+      "outcome": "1X",
+      "line": null,
+      "book": "bet365",
+      "decimal": 1.182,
+      "openingDecimal": 1.182,
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-25T22:52:20Z"
+    },
+    {
+      "gameId": "primera-chile-2026-11-28-colo-colo-deportes-la-se-t47hhe",
+      "homeName": "Colo-Colo",
+      "awayName": "Deportes La Serena",
+      "market": "double_chance",
+      "outcome": "X2",
+      "line": null,
+      "book": "bet365",
+      "decimal": 2.3,
+      "openingDecimal": 2.3,
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-25T22:52:20Z"
+    },
+    {
+      "gameId": "primera-chile-2026-11-28-colo-colo-deportes-la-se-t47hhe",
+      "homeName": "Colo-Colo",
+      "awayName": "Deportes La Serena",
+      "market": "double_chance",
+      "outcome": "12",
+      "line": null,
+      "book": "bet365",
+      "decimal": 1.222,
+      "openingDecimal": 1.222,
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-25T22:52:20Z"
+    },
+    {
+      "gameId": "primera-chile-2026-11-28-colo-colo-deportes-la-se-t47hhe",
+      "homeName": "Colo-Colo",
+      "awayName": "Deportes La Serena",
+      "market": "over_under_15",
+      "outcome": "over",
+      "line": 1.5,
+      "book": "bet365",
+      "decimal": 1.143,
+      "openingDecimal": 1.143,
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-25T22:52:20Z"
+    },
+    {
+      "gameId": "primera-chile-2026-11-28-colo-colo-deportes-la-se-t47hhe",
+      "homeName": "Colo-Colo",
+      "awayName": "Deportes La Serena",
+      "market": "over_under_15",
+      "outcome": "under",
+      "line": 1.5,
+      "book": "bet365",
+      "decimal": 5.5,
+      "openingDecimal": 5.5,
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-25T22:52:20Z"
+    },
+    {
+      "gameId": "primera-chile-2026-11-28-colo-colo-deportes-la-se-t47hhe",
+      "homeName": "Colo-Colo",
+      "awayName": "Deportes La Serena",
+      "market": "over_under_25",
+      "outcome": "over",
+      "line": 2.5,
+      "book": "bet365",
+      "decimal": 1.5,
+      "openingDecimal": 1.5,
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-25T22:52:20Z"
+    },
+    {
+      "gameId": "primera-chile-2026-11-28-colo-colo-deportes-la-se-t47hhe",
+      "homeName": "Colo-Colo",
+      "awayName": "Deportes La Serena",
+      "market": "over_under_25",
+      "outcome": "under",
+      "line": 2.5,
+      "book": "bet365",
+      "decimal": 2.5,
+      "openingDecimal": 2.5,
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-25T22:52:20Z"
+    },
+    {
+      "gameId": "primera-chile-2026-11-28-colo-colo-deportes-la-se-t47hhe",
+      "homeName": "Colo-Colo",
+      "awayName": "Deportes La Serena",
+      "market": "over_under_35",
+      "outcome": "over",
+      "line": 3.5,
+      "book": "bet365",
+      "decimal": 2.2,
+      "openingDecimal": 2.2,
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-25T22:52:20Z"
+    },
+    {
+      "gameId": "primera-chile-2026-11-28-colo-colo-deportes-la-se-t47hhe",
+      "homeName": "Colo-Colo",
+      "awayName": "Deportes La Serena",
+      "market": "over_under_35",
+      "outcome": "under",
+      "line": 3.5,
+      "book": "bet365",
+      "decimal": 1.615,
+      "openingDecimal": 1.615,
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-25T22:52:20Z"
+    },
+    {
+      "gameId": "primera-chile-2026-11-28-colo-colo-deportes-la-se-t47hhe",
+      "homeName": "Colo-Colo",
+      "awayName": "Deportes La Serena",
+      "market": "btts",
+      "outcome": "yes",
+      "line": null,
+      "book": "bet365",
+      "decimal": 1.571,
+      "openingDecimal": 1.571,
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-25T22:52:20Z"
+    },
+    {
+      "gameId": "primera-chile-2026-11-28-colo-colo-deportes-la-se-t47hhe",
+      "homeName": "Colo-Colo",
+      "awayName": "Deportes La Serena",
+      "market": "draw_no_bet",
+      "outcome": "HOME",
+      "line": null,
+      "book": "bet365",
+      "decimal": 1.286,
+      "openingDecimal": 1.286,
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-25T22:52:20Z"
+    },
+    {
+      "gameId": "primera-chile-2026-11-28-colo-colo-deportes-la-se-t47hhe",
+      "homeName": "Colo-Colo",
+      "awayName": "Deportes La Serena",
+      "market": "draw_no_bet",
+      "outcome": "AWAY",
+      "line": null,
+      "book": "bet365",
+      "decimal": 3.5,
+      "openingDecimal": 3.5,
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-25T22:52:20Z"
+    },
+    {
+      "gameId": "primera-chile-2026-11-28-colo-colo-deportes-la-se-t47hhe",
+      "homeName": "Colo-Colo",
+      "awayName": "Deportes La Serena",
+      "market": "btts",
+      "outcome": "no",
+      "line": null,
+      "book": "bet365",
+      "decimal": 2.25,
+      "openingDecimal": 2.25,
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-25T22:52:20Z"
+    },
+    {
+      "gameId": "primera-chile-2026-11-28-colo-colo-deportes-la-se-t47hhe",
+      "homeName": "Colo-Colo",
+      "awayName": "Deportes La Serena",
+      "market": "over_under_05",
+      "outcome": "over",
+      "line": 0.5,
+      "book": "bet365",
+      "decimal": 1.02,
+      "openingDecimal": 1.02,
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-25T22:52:20Z"
+    },
+    {
+      "gameId": "primera-chile-2026-11-28-colo-colo-deportes-la-se-t47hhe",
+      "homeName": "Colo-Colo",
+      "awayName": "Deportes La Serena",
+      "market": "over_under_05",
+      "outcome": "under",
+      "line": 0.5,
+      "book": "bet365",
+      "decimal": 19,
+      "openingDecimal": 19,
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-25T22:52:20Z"
+    },
+    {
+      "gameId": "primera-chile-2026-11-28-colo-colo-deportes-la-se-t47hhe",
+      "homeName": "Colo-Colo",
+      "awayName": "Deportes La Serena",
+      "market": "total_corners",
+      "outcome": "over",
+      "line": 10.5,
+      "book": "bet365",
+      "decimal": 1.833,
+      "openingDecimal": 1.833,
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-25T22:52:20Z"
+    },
+    {
+      "gameId": "primera-chile-2026-11-28-colo-colo-deportes-la-se-t47hhe",
+      "homeName": "Colo-Colo",
+      "awayName": "Deportes La Serena",
+      "market": "total_corners",
+      "outcome": "under",
+      "line": 10.5,
+      "book": "bet365",
+      "decimal": 1.833,
+      "openingDecimal": 1.833,
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-25T22:52:20Z"
+    },
     {
       "gameId": "primera-chile-2026-11-29-universidad-ca-huachipato-n65y1g",
       "homeName": "Universidad Católica",
@@ -16,7 +616,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-25T20:20:07Z"
+      "capturedAtUtc": "2026-11-26T19:50:07Z"
     },
     {
       "gameId": "primera-chile-2026-11-29-universidad-ca-huachipato-n65y1g",
@@ -31,7 +631,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-25T20:20:07Z"
+      "capturedAtUtc": "2026-11-26T19:50:07Z"
     },
     {
       "gameId": "primera-chile-2026-11-29-universidad-ca-huachipato-n65y1g",
@@ -46,7 +646,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-25T20:20:07Z"
+      "capturedAtUtc": "2026-11-26T19:50:07Z"
     },
     {
       "gameId": "primera-chile-2026-11-29-universidad-ca-huachipato-n65y1g",
@@ -61,7 +661,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-25T20:20:07Z"
+      "capturedAtUtc": "2026-11-26T19:50:07Z"
     },
     {
       "gameId": "primera-chile-2026-11-29-universidad-ca-huachipato-n65y1g",
@@ -76,7 +676,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-25T20:20:07Z"
+      "capturedAtUtc": "2026-11-26T19:50:07Z"
     },
     {
       "gameId": "primera-chile-2026-11-29-universidad-ca-huachipato-n65y1g",
@@ -91,7 +691,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-25T20:20:07Z"
+      "capturedAtUtc": "2026-11-26T19:50:07Z"
     },
     {
       "gameId": "primera-chile-2026-11-29-universidad-ca-huachipato-n65y1g",
@@ -106,7 +706,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-25T20:20:07Z"
+      "capturedAtUtc": "2026-11-26T19:50:07Z"
     },
     {
       "gameId": "primera-chile-2026-11-29-universidad-ca-huachipato-n65y1g",
@@ -121,7 +721,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-25T20:20:07Z"
+      "capturedAtUtc": "2026-11-26T19:50:07Z"
     },
     {
       "gameId": "primera-chile-2026-11-29-universidad-ca-huachipato-n65y1g",
@@ -136,7 +736,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-25T20:20:07Z"
+      "capturedAtUtc": "2026-11-26T19:50:07Z"
     },
     {
       "gameId": "primera-chile-2026-11-29-universidad-ca-huachipato-n65y1g",
@@ -151,7 +751,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-25T20:20:07Z"
+      "capturedAtUtc": "2026-11-26T19:50:07Z"
     },
     {
       "gameId": "primera-chile-2026-11-29-universidad-ca-huachipato-n65y1g",
@@ -161,12 +761,12 @@
       "outcome": "HOME",
       "line": null,
       "book": "sbo",
-      "decimal": 1.45,
+      "decimal": 1.43,
       "openingDecimal": 1.45,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-25T20:20:07Z"
+      "deltaPct": -1.38,
+      "movement": "shortening",
+      "movementSignal": "SHORTENING",
+      "capturedAtUtc": "2026-11-26T19:50:07Z"
     },
     {
       "gameId": "primera-chile-2026-11-29-universidad-ca-huachipato-n65y1g",
@@ -181,7 +781,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-25T20:20:07Z"
+      "capturedAtUtc": "2026-11-26T19:50:07Z"
     },
     {
       "gameId": "primera-chile-2026-11-29-universidad-ca-huachipato-n65y1g",
@@ -196,7 +796,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-25T20:20:07Z"
+      "capturedAtUtc": "2026-11-26T19:50:07Z"
     },
     {
       "gameId": "primera-chile-2026-11-29-universidad-ca-huachipato-n65y1g",
@@ -211,7 +811,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-25T20:20:07Z"
+      "capturedAtUtc": "2026-11-26T19:50:07Z"
     },
     {
       "gameId": "primera-chile-2026-11-29-universidad-ca-huachipato-n65y1g",
@@ -226,7 +826,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-25T20:20:07Z"
+      "capturedAtUtc": "2026-11-26T19:50:07Z"
     },
     {
       "gameId": "primera-chile-2026-11-29-universidad-ca-huachipato-n65y1g",
@@ -241,7 +841,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-25T20:20:07Z"
+      "capturedAtUtc": "2026-11-26T19:50:07Z"
     },
     {
       "gameId": "primera-chile-2026-11-29-universidad-ca-huachipato-n65y1g",
@@ -256,7 +856,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-25T20:20:07Z"
+      "capturedAtUtc": "2026-11-26T19:50:07Z"
     },
     {
       "gameId": "primera-chile-2026-11-29-universidad-ca-huachipato-n65y1g",
@@ -271,7 +871,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-25T20:20:07Z"
+      "capturedAtUtc": "2026-11-26T19:50:07Z"
     },
     {
       "gameId": "primera-chile-2026-11-29-universidad-ca-huachipato-n65y1g",
@@ -286,7 +886,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-25T20:20:07Z"
+      "capturedAtUtc": "2026-11-26T19:50:07Z"
     },
     {
       "gameId": "primera-chile-2026-11-29-universidad-ca-huachipato-n65y1g",
@@ -301,7 +901,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-25T20:20:07Z"
+      "capturedAtUtc": "2026-11-26T19:50:07Z"
     },
     {
       "gameId": "primera-chile-2026-11-29-universidad-ca-huachipato-n65y1g",
@@ -316,7 +916,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-25T20:20:07Z"
+      "capturedAtUtc": "2026-11-26T19:50:07Z"
     },
     {
       "gameId": "primera-chile-2026-11-29-universidad-ca-huachipato-n65y1g",
@@ -326,12 +926,12 @@
       "outcome": "DRAW",
       "line": null,
       "book": "sbo",
-      "decimal": 3.93,
+      "decimal": 3.98,
       "openingDecimal": 3.93,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-25T20:20:07Z"
+      "deltaPct": 1.27,
+      "movement": "drifting",
+      "movementSignal": "DRIFTING",
+      "capturedAtUtc": "2026-11-26T19:50:07Z"
     },
     {
       "gameId": "primera-chile-2026-11-29-universidad-ca-huachipato-n65y1g",
@@ -346,7 +946,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-25T20:20:07Z"
+      "capturedAtUtc": "2026-11-26T19:50:07Z"
     },
     {
       "gameId": "primera-chile-2026-11-29-universidad-ca-huachipato-n65y1g",
@@ -361,7 +961,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-25T20:20:07Z"
+      "capturedAtUtc": "2026-11-26T19:50:07Z"
     },
     {
       "gameId": "primera-chile-2026-11-29-universidad-ca-huachipato-n65y1g",
@@ -376,7 +976,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-25T20:20:07Z"
+      "capturedAtUtc": "2026-11-26T19:50:07Z"
     },
     {
       "gameId": "primera-chile-2026-11-29-universidad-ca-huachipato-n65y1g",
@@ -391,7 +991,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-25T20:20:07Z"
+      "capturedAtUtc": "2026-11-26T19:50:07Z"
     },
     {
       "gameId": "primera-chile-2026-11-29-universidad-ca-huachipato-n65y1g",
@@ -406,7 +1006,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-25T20:20:07Z"
+      "capturedAtUtc": "2026-11-26T19:50:07Z"
     },
     {
       "gameId": "primera-chile-2026-11-29-universidad-ca-huachipato-n65y1g",
@@ -421,7 +1021,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-25T20:20:07Z"
+      "capturedAtUtc": "2026-11-26T19:50:07Z"
     },
     {
       "gameId": "primera-chile-2026-11-29-universidad-ca-huachipato-n65y1g",
@@ -436,7 +1036,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-25T20:20:07Z"
+      "capturedAtUtc": "2026-11-26T19:50:07Z"
     },
     {
       "gameId": "primera-chile-2026-11-29-universidad-ca-huachipato-n65y1g",
@@ -451,7 +1051,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-25T20:20:07Z"
+      "capturedAtUtc": "2026-11-26T19:50:07Z"
     },
     {
       "gameId": "primera-chile-2026-11-29-universidad-ca-huachipato-n65y1g",
@@ -466,7 +1066,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-25T20:20:07Z"
+      "capturedAtUtc": "2026-11-26T19:50:07Z"
     },
     {
       "gameId": "primera-chile-2026-11-29-universidad-ca-huachipato-n65y1g",
@@ -481,7 +1081,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-25T20:20:07Z"
+      "capturedAtUtc": "2026-11-26T19:50:07Z"
     },
     {
       "gameId": "primera-chile-2026-11-29-universidad-ca-huachipato-n65y1g",
@@ -491,12 +1091,12 @@
       "outcome": "AWAY",
       "line": null,
       "book": "sbo",
-      "decimal": 4.84,
+      "decimal": 5.03,
       "openingDecimal": 4.84,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-25T20:20:07Z"
+      "deltaPct": 3.93,
+      "movement": "drifting",
+      "movementSignal": "DRIFTING",
+      "capturedAtUtc": "2026-11-26T19:50:07Z"
     },
     {
       "gameId": "primera-chile-2026-11-29-universidad-ca-huachipato-n65y1g",
@@ -511,7 +1111,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-25T20:20:07Z"
+      "capturedAtUtc": "2026-11-26T19:50:07Z"
     },
     {
       "gameId": "primera-chile-2026-11-29-universidad-ca-huachipato-n65y1g",
@@ -526,7 +1126,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-25T20:20:07Z"
+      "capturedAtUtc": "2026-11-26T19:50:07Z"
     },
     {
       "gameId": "primera-chile-2026-11-29-universidad-ca-huachipato-n65y1g",
@@ -541,7 +1141,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-25T20:20:07Z"
+      "capturedAtUtc": "2026-11-26T19:50:07Z"
     },
     {
       "gameId": "primera-chile-2026-11-29-universidad-ca-huachipato-n65y1g",
@@ -551,12 +1151,12 @@
       "outcome": "1X",
       "line": null,
       "book": "sbo",
-      "decimal": 1.08,
+      "decimal": 1.07,
       "openingDecimal": 1.08,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-25T20:20:07Z"
+      "deltaPct": -0.93,
+      "movement": "shortening",
+      "movementSignal": "SHORTENING",
+      "capturedAtUtc": "2026-11-26T19:50:07Z"
     },
     {
       "gameId": "primera-chile-2026-11-29-universidad-ca-huachipato-n65y1g",
@@ -571,7 +1171,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-25T20:20:07Z"
+      "capturedAtUtc": "2026-11-26T19:50:07Z"
     },
     {
       "gameId": "primera-chile-2026-11-29-universidad-ca-huachipato-n65y1g",
@@ -586,7 +1186,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-25T20:20:07Z"
+      "capturedAtUtc": "2026-11-26T19:50:07Z"
     },
     {
       "gameId": "primera-chile-2026-11-29-universidad-ca-huachipato-n65y1g",
@@ -601,7 +1201,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-25T20:20:07Z"
+      "capturedAtUtc": "2026-11-26T19:50:07Z"
     },
     {
       "gameId": "primera-chile-2026-11-29-universidad-ca-huachipato-n65y1g",
@@ -611,12 +1211,12 @@
       "outcome": "X2",
       "line": null,
       "book": "sbo",
-      "decimal": 2.3,
+      "decimal": 2.36,
       "openingDecimal": 2.3,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-25T20:20:07Z"
+      "deltaPct": 2.61,
+      "movement": "drifting",
+      "movementSignal": "DRIFTING",
+      "capturedAtUtc": "2026-11-26T19:50:07Z"
     },
     {
       "gameId": "primera-chile-2026-11-29-universidad-ca-huachipato-n65y1g",
@@ -631,7 +1231,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-25T20:20:07Z"
+      "capturedAtUtc": "2026-11-26T19:50:07Z"
     },
     {
       "gameId": "primera-chile-2026-11-29-universidad-ca-huachipato-n65y1g",
@@ -646,7 +1246,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-25T20:20:07Z"
+      "capturedAtUtc": "2026-11-26T19:50:07Z"
     },
     {
       "gameId": "primera-chile-2026-11-29-universidad-ca-huachipato-n65y1g",
@@ -661,7 +1261,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-25T20:20:07Z"
+      "capturedAtUtc": "2026-11-26T19:50:07Z"
     },
     {
       "gameId": "primera-chile-2026-11-29-universidad-ca-huachipato-n65y1g",
@@ -671,12 +1271,12 @@
       "outcome": "12",
       "line": null,
       "book": "sbo",
-      "decimal": 1.14,
+      "decimal": 1.13,
       "openingDecimal": 1.14,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-25T20:20:07Z"
+      "deltaPct": -0.88,
+      "movement": "shortening",
+      "movementSignal": "SHORTENING",
+      "capturedAtUtc": "2026-11-26T19:50:07Z"
     },
     {
       "gameId": "primera-chile-2026-11-29-universidad-ca-huachipato-n65y1g",
@@ -691,7 +1291,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-25T20:20:07Z"
+      "capturedAtUtc": "2026-11-26T19:50:07Z"
     },
     {
       "gameId": "primera-chile-2026-11-29-universidad-ca-huachipato-n65y1g",
@@ -706,7 +1306,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-25T20:20:07Z"
+      "capturedAtUtc": "2026-11-26T19:50:07Z"
     },
     {
       "gameId": "primera-chile-2026-11-29-universidad-ca-huachipato-n65y1g",
@@ -721,7 +1321,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-25T20:20:07Z"
+      "capturedAtUtc": "2026-11-26T19:50:07Z"
     },
     {
       "gameId": "primera-chile-2026-11-29-universidad-ca-huachipato-n65y1g",
@@ -736,7 +1336,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-25T20:20:07Z"
+      "capturedAtUtc": "2026-11-26T19:50:07Z"
     },
     {
       "gameId": "primera-chile-2026-11-29-universidad-ca-huachipato-n65y1g",
@@ -751,7 +1351,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-25T20:20:07Z"
+      "capturedAtUtc": "2026-11-26T19:50:07Z"
     },
     {
       "gameId": "primera-chile-2026-11-29-universidad-ca-huachipato-n65y1g",
@@ -766,7 +1366,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-25T20:20:07Z"
+      "capturedAtUtc": "2026-11-26T19:50:07Z"
     },
     {
       "gameId": "primera-chile-2026-11-29-universidad-ca-huachipato-n65y1g",
@@ -781,7 +1381,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-25T20:20:07Z"
+      "capturedAtUtc": "2026-11-26T19:50:07Z"
     },
     {
       "gameId": "primera-chile-2026-11-29-universidad-ca-huachipato-n65y1g",
@@ -796,7 +1396,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-25T20:20:07Z"
+      "capturedAtUtc": "2026-11-26T19:50:07Z"
     },
     {
       "gameId": "primera-chile-2026-11-29-universidad-ca-huachipato-n65y1g",
@@ -811,7 +1411,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-25T20:20:07Z"
+      "capturedAtUtc": "2026-11-26T19:50:07Z"
     },
     {
       "gameId": "primera-chile-2026-11-29-universidad-ca-huachipato-n65y1g",
@@ -826,7 +1426,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-25T20:20:07Z"
+      "capturedAtUtc": "2026-11-26T19:50:07Z"
     },
     {
       "gameId": "primera-chile-2026-11-29-universidad-ca-huachipato-n65y1g",
@@ -841,7 +1441,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-25T20:20:07Z"
+      "capturedAtUtc": "2026-11-26T19:50:07Z"
     },
     {
       "gameId": "primera-chile-2026-11-29-universidad-ca-huachipato-n65y1g",
@@ -856,7 +1456,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-25T20:20:07Z"
+      "capturedAtUtc": "2026-11-26T19:50:07Z"
     },
     {
       "gameId": "primera-chile-2026-11-29-universidad-ca-huachipato-n65y1g",
@@ -871,7 +1471,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-25T20:20:07Z"
+      "capturedAtUtc": "2026-11-26T19:50:07Z"
     },
     {
       "gameId": "primera-chile-2026-11-29-universidad-ca-huachipato-n65y1g",
@@ -886,7 +1486,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-25T20:20:07Z"
+      "capturedAtUtc": "2026-11-26T19:50:07Z"
     },
     {
       "gameId": "primera-chile-2026-11-29-universidad-ca-huachipato-n65y1g",
@@ -901,7 +1501,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-25T20:20:07Z"
+      "capturedAtUtc": "2026-11-26T19:50:07Z"
     },
     {
       "gameId": "primera-chile-2026-11-29-universidad-ca-huachipato-n65y1g",
@@ -916,7 +1516,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-25T20:20:07Z"
+      "capturedAtUtc": "2026-11-26T19:50:07Z"
     },
     {
       "gameId": "primera-chile-2026-11-29-universidad-ca-huachipato-n65y1g",
@@ -931,7 +1531,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-25T20:20:07Z"
+      "capturedAtUtc": "2026-11-26T19:50:07Z"
     },
     {
       "gameId": "primera-chile-2026-11-29-universidad-ca-huachipato-n65y1g",
@@ -946,7 +1546,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-25T20:20:07Z"
+      "capturedAtUtc": "2026-11-26T19:50:07Z"
     },
     {
       "gameId": "primera-chile-2026-11-29-universidad-ca-huachipato-n65y1g",
@@ -961,7 +1561,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-25T20:20:07Z"
+      "capturedAtUtc": "2026-11-26T19:50:07Z"
     },
     {
       "gameId": "primera-chile-2026-11-29-universidad-ca-huachipato-n65y1g",
@@ -976,7 +1576,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-25T20:20:07Z"
+      "capturedAtUtc": "2026-11-26T19:50:07Z"
     },
     {
       "gameId": "primera-chile-2026-11-29-universidad-ca-huachipato-n65y1g",
@@ -991,7 +1591,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-25T20:20:07Z"
+      "capturedAtUtc": "2026-11-26T19:50:07Z"
     },
     {
       "gameId": "primera-chile-2026-11-29-universidad-ca-huachipato-n65y1g",
@@ -1006,7 +1606,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-25T20:20:07Z"
+      "capturedAtUtc": "2026-11-26T19:50:07Z"
     },
     {
       "gameId": "primera-chile-2026-11-29-universidad-ca-huachipato-n65y1g",
@@ -1021,7 +1621,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-25T20:20:07Z"
+      "capturedAtUtc": "2026-11-26T19:50:07Z"
     },
     {
       "gameId": "primera-chile-2026-11-29-universidad-ca-huachipato-n65y1g",
@@ -1031,12 +1631,12 @@
       "outcome": "over",
       "line": 8.5,
       "book": "1xbet",
-      "decimal": 1.45,
+      "decimal": 1.44,
       "openingDecimal": 1.45,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-25T20:20:07Z"
+      "deltaPct": -0.69,
+      "movement": "shortening",
+      "movementSignal": "SHORTENING",
+      "capturedAtUtc": "2026-11-26T19:50:07Z"
     },
     {
       "gameId": "primera-chile-2026-11-29-universidad-ca-huachipato-n65y1g",
@@ -1046,12 +1646,12 @@
       "outcome": "under",
       "line": 8.5,
       "book": "1xbet",
-      "decimal": 2.55,
+      "decimal": 2.6,
       "openingDecimal": 2.55,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-25T20:20:07Z"
+      "deltaPct": 1.96,
+      "movement": "drifting",
+      "movementSignal": "DRIFTING",
+      "capturedAtUtc": "2026-11-26T19:50:07Z"
     },
     {
       "gameId": "primera-chile-2026-11-29-universidad-ca-huachipato-n65y1g",
@@ -1066,7 +1666,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-25T20:20:07Z"
+      "capturedAtUtc": "2026-11-26T19:50:07Z"
     },
     {
       "gameId": "primera-chile-2026-11-29-universidad-ca-huachipato-n65y1g",
@@ -1081,7 +1681,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-25T20:20:07Z"
+      "capturedAtUtc": "2026-11-26T19:50:07Z"
     },
     {
       "gameId": "primera-chile-2026-11-29-universidad-ca-huachipato-n65y1g",
@@ -1091,12 +1691,12 @@
       "outcome": "over",
       "line": 10.5,
       "book": "1xbet",
-      "decimal": 2.32,
+      "decimal": 2.27,
       "openingDecimal": 2.32,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-25T20:20:07Z"
+      "deltaPct": -2.16,
+      "movement": "shortening",
+      "movementSignal": "SHORTENING",
+      "capturedAtUtc": "2026-11-26T19:50:07Z"
     },
     {
       "gameId": "primera-chile-2026-11-29-universidad-ca-huachipato-n65y1g",
@@ -1106,12 +1706,12 @@
       "outcome": "under",
       "line": 10.5,
       "book": "1xbet",
-      "decimal": 1.54,
+      "decimal": 1.56,
       "openingDecimal": 1.54,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-25T20:20:07Z"
+      "deltaPct": 1.3,
+      "movement": "drifting",
+      "movementSignal": "DRIFTING",
+      "capturedAtUtc": "2026-11-26T19:50:07Z"
     },
     {
       "gameId": "primera-chile-2026-11-29-universidad-ca-huachipato-n65y1g",
@@ -1121,12 +1721,12 @@
       "outcome": "over",
       "line": 11.5,
       "book": "1xbet",
-      "decimal": 3.1,
+      "decimal": 3.05,
       "openingDecimal": 3.1,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-25T20:20:07Z"
+      "deltaPct": -1.61,
+      "movement": "shortening",
+      "movementSignal": "SHORTENING",
+      "capturedAtUtc": "2026-11-26T19:50:07Z"
     },
     {
       "gameId": "primera-chile-2026-11-29-universidad-ca-huachipato-n65y1g",
@@ -1136,12 +1736,12 @@
       "outcome": "under",
       "line": 11.5,
       "book": "1xbet",
-      "decimal": 1.32,
+      "decimal": 1.33,
       "openingDecimal": 1.32,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-25T20:20:07Z"
+      "deltaPct": 0.76,
+      "movement": "drifting",
+      "movementSignal": "DRIFTING",
+      "capturedAtUtc": "2026-11-26T19:50:07Z"
     },
     {
       "gameId": "primera-chile-2026-11-29-deportes-conce-universidad-ch-r8l7pe",
@@ -1156,7 +1756,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-25T20:20:07Z"
+      "capturedAtUtc": "2026-11-26T19:50:07Z"
     },
     {
       "gameId": "primera-chile-2026-11-29-deportes-conce-universidad-ch-r8l7pe",
@@ -1171,7 +1771,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-25T20:20:07Z"
+      "capturedAtUtc": "2026-11-26T19:50:07Z"
     },
     {
       "gameId": "primera-chile-2026-11-29-deportes-conce-universidad-ch-r8l7pe",
@@ -1186,7 +1786,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-25T20:20:07Z"
+      "capturedAtUtc": "2026-11-26T19:50:07Z"
     },
     {
       "gameId": "primera-chile-2026-11-29-deportes-conce-universidad-ch-r8l7pe",
@@ -1201,7 +1801,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-25T20:20:07Z"
+      "capturedAtUtc": "2026-11-26T19:50:07Z"
     },
     {
       "gameId": "primera-chile-2026-11-29-deportes-conce-universidad-ch-r8l7pe",
@@ -1216,7 +1816,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-25T20:20:07Z"
+      "capturedAtUtc": "2026-11-26T19:50:07Z"
     },
     {
       "gameId": "primera-chile-2026-11-29-deportes-conce-universidad-ch-r8l7pe",
@@ -1231,7 +1831,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-25T20:20:07Z"
+      "capturedAtUtc": "2026-11-26T19:50:07Z"
     },
     {
       "gameId": "primera-chile-2026-11-29-deportes-conce-universidad-ch-r8l7pe",
@@ -1246,7 +1846,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-25T20:20:07Z"
+      "capturedAtUtc": "2026-11-26T19:50:07Z"
     },
     {
       "gameId": "primera-chile-2026-11-29-deportes-conce-universidad-ch-r8l7pe",
@@ -1261,7 +1861,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-25T20:20:07Z"
+      "capturedAtUtc": "2026-11-26T19:50:07Z"
     },
     {
       "gameId": "primera-chile-2026-11-29-deportes-conce-universidad-ch-r8l7pe",
@@ -1276,7 +1876,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-25T20:20:07Z"
+      "capturedAtUtc": "2026-11-26T19:50:07Z"
     },
     {
       "gameId": "primera-chile-2026-11-29-deportes-conce-universidad-ch-r8l7pe",
@@ -1291,7 +1891,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-25T20:20:07Z"
+      "capturedAtUtc": "2026-11-26T19:50:07Z"
     },
     {
       "gameId": "primera-chile-2026-11-29-deportes-conce-universidad-ch-r8l7pe",
@@ -1306,7 +1906,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-25T20:20:07Z"
+      "capturedAtUtc": "2026-11-26T19:50:07Z"
     },
     {
       "gameId": "primera-chile-2026-11-29-deportes-conce-universidad-ch-r8l7pe",
@@ -1321,7 +1921,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-25T20:20:07Z"
+      "capturedAtUtc": "2026-11-26T19:50:07Z"
     },
     {
       "gameId": "primera-chile-2026-11-29-deportes-conce-universidad-ch-r8l7pe",
@@ -1336,7 +1936,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-25T20:20:07Z"
+      "capturedAtUtc": "2026-11-26T19:50:07Z"
     },
     {
       "gameId": "primera-chile-2026-11-29-deportes-conce-universidad-ch-r8l7pe",
@@ -1351,7 +1951,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-25T20:20:07Z"
+      "capturedAtUtc": "2026-11-26T19:50:07Z"
     },
     {
       "gameId": "primera-chile-2026-11-29-deportes-conce-universidad-ch-r8l7pe",
@@ -1366,7 +1966,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-25T20:20:07Z"
+      "capturedAtUtc": "2026-11-26T19:50:07Z"
     },
     {
       "gameId": "primera-chile-2026-11-29-deportes-conce-universidad-ch-r8l7pe",
@@ -1381,7 +1981,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-25T20:20:07Z"
+      "capturedAtUtc": "2026-11-26T19:50:07Z"
     },
     {
       "gameId": "primera-chile-2026-11-29-deportes-conce-universidad-ch-r8l7pe",
@@ -1396,7 +1996,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-25T20:20:07Z"
+      "capturedAtUtc": "2026-11-26T19:50:07Z"
     },
     {
       "gameId": "primera-chile-2026-11-29-deportes-conce-universidad-ch-r8l7pe",
@@ -1411,7 +2011,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-25T20:20:07Z"
+      "capturedAtUtc": "2026-11-26T19:50:07Z"
     },
     {
       "gameId": "primera-chile-2026-11-29-deportes-conce-universidad-ch-r8l7pe",
@@ -1426,7 +2026,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-25T20:20:07Z"
+      "capturedAtUtc": "2026-11-26T19:50:07Z"
     },
     {
       "gameId": "primera-chile-2026-11-29-deportes-conce-universidad-ch-r8l7pe",
@@ -1441,7 +2041,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-25T20:20:07Z"
+      "capturedAtUtc": "2026-11-26T19:50:07Z"
     },
     {
       "gameId": "primera-chile-2026-11-29-deportes-conce-universidad-ch-r8l7pe",
@@ -1456,7 +2056,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-25T20:20:07Z"
+      "capturedAtUtc": "2026-11-26T19:50:07Z"
     },
     {
       "gameId": "primera-chile-2026-11-29-deportes-conce-universidad-ch-r8l7pe",
@@ -1471,7 +2071,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-25T20:20:07Z"
+      "capturedAtUtc": "2026-11-26T19:50:07Z"
     },
     {
       "gameId": "primera-chile-2026-11-29-deportes-conce-universidad-ch-r8l7pe",
@@ -1486,7 +2086,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-25T20:20:07Z"
+      "capturedAtUtc": "2026-11-26T19:50:07Z"
     },
     {
       "gameId": "primera-chile-2026-11-29-deportes-conce-universidad-ch-r8l7pe",
@@ -1501,7 +2101,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-25T20:20:07Z"
+      "capturedAtUtc": "2026-11-26T19:50:07Z"
     },
     {
       "gameId": "primera-chile-2026-11-29-deportes-conce-universidad-ch-r8l7pe",
@@ -1516,7 +2116,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-25T20:20:07Z"
+      "capturedAtUtc": "2026-11-26T19:50:07Z"
     },
     {
       "gameId": "primera-chile-2026-11-29-deportes-conce-universidad-ch-r8l7pe",
@@ -1531,7 +2131,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-25T20:20:07Z"
+      "capturedAtUtc": "2026-11-26T19:50:07Z"
     },
     {
       "gameId": "primera-chile-2026-11-29-deportes-conce-universidad-ch-r8l7pe",
@@ -1546,7 +2146,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-25T20:20:07Z"
+      "capturedAtUtc": "2026-11-26T19:50:07Z"
     },
     {
       "gameId": "primera-chile-2026-11-29-deportes-conce-universidad-ch-r8l7pe",
@@ -1561,7 +2161,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-25T20:20:07Z"
+      "capturedAtUtc": "2026-11-26T19:50:07Z"
     },
     {
       "gameId": "primera-chile-2026-11-29-deportes-conce-universidad-ch-r8l7pe",
@@ -1576,7 +2176,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-25T20:20:07Z"
+      "capturedAtUtc": "2026-11-26T19:50:07Z"
     },
     {
       "gameId": "primera-chile-2026-11-29-deportes-conce-universidad-ch-r8l7pe",
@@ -1591,7 +2191,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-25T20:20:07Z"
+      "capturedAtUtc": "2026-11-26T19:50:07Z"
     },
     {
       "gameId": "primera-chile-2026-11-29-deportes-conce-universidad-ch-r8l7pe",
@@ -1606,7 +2206,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-25T20:20:07Z"
+      "capturedAtUtc": "2026-11-26T19:50:07Z"
     },
     {
       "gameId": "primera-chile-2026-11-29-deportes-conce-universidad-ch-r8l7pe",
@@ -1621,7 +2221,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-25T20:20:07Z"
+      "capturedAtUtc": "2026-11-26T19:50:07Z"
     },
     {
       "gameId": "primera-chile-2026-11-29-deportes-conce-universidad-ch-r8l7pe",
@@ -1636,7 +2236,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-25T20:20:07Z"
+      "capturedAtUtc": "2026-11-26T19:50:07Z"
     },
     {
       "gameId": "primera-chile-2026-11-29-deportes-conce-universidad-ch-r8l7pe",
@@ -1651,7 +2251,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-25T20:20:07Z"
+      "capturedAtUtc": "2026-11-26T19:50:07Z"
     },
     {
       "gameId": "primera-chile-2026-11-29-deportes-conce-universidad-ch-r8l7pe",
@@ -1666,7 +2266,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-25T20:20:07Z"
+      "capturedAtUtc": "2026-11-26T19:50:07Z"
     },
     {
       "gameId": "primera-chile-2026-11-29-deportes-conce-universidad-ch-r8l7pe",
@@ -1681,7 +2281,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-25T20:20:07Z"
+      "capturedAtUtc": "2026-11-26T19:50:07Z"
     },
     {
       "gameId": "primera-chile-2026-11-29-deportes-conce-universidad-ch-r8l7pe",
@@ -1696,7 +2296,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-25T20:20:07Z"
+      "capturedAtUtc": "2026-11-26T19:50:07Z"
     },
     {
       "gameId": "primera-chile-2026-11-29-deportes-conce-universidad-ch-r8l7pe",
@@ -1711,7 +2311,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-25T20:20:07Z"
+      "capturedAtUtc": "2026-11-26T19:50:07Z"
     },
     {
       "gameId": "primera-chile-2026-11-29-deportes-conce-universidad-ch-r8l7pe",
@@ -1726,7 +2326,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-25T20:20:07Z"
+      "capturedAtUtc": "2026-11-26T19:50:07Z"
     },
     {
       "gameId": "primera-chile-2026-11-29-deportes-conce-universidad-ch-r8l7pe",
@@ -1741,7 +2341,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-25T20:20:07Z"
+      "capturedAtUtc": "2026-11-26T19:50:07Z"
     },
     {
       "gameId": "primera-chile-2026-11-29-deportes-conce-universidad-ch-r8l7pe",
@@ -1756,7 +2356,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-25T20:20:07Z"
+      "capturedAtUtc": "2026-11-26T19:50:07Z"
     },
     {
       "gameId": "primera-chile-2026-11-29-deportes-conce-universidad-ch-r8l7pe",
@@ -1771,7 +2371,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-25T20:20:07Z"
+      "capturedAtUtc": "2026-11-26T19:50:07Z"
     },
     {
       "gameId": "primera-chile-2026-11-29-deportes-conce-universidad-ch-r8l7pe",
@@ -1786,7 +2386,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-25T20:20:07Z"
+      "capturedAtUtc": "2026-11-26T19:50:07Z"
     },
     {
       "gameId": "primera-chile-2026-11-29-deportes-conce-universidad-ch-r8l7pe",
@@ -1801,7 +2401,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-25T20:20:07Z"
+      "capturedAtUtc": "2026-11-26T19:50:07Z"
     },
     {
       "gameId": "primera-chile-2026-11-29-deportes-conce-universidad-ch-r8l7pe",
@@ -1816,7 +2416,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-25T20:20:07Z"
+      "capturedAtUtc": "2026-11-26T19:50:07Z"
     },
     {
       "gameId": "primera-chile-2026-11-29-deportes-conce-universidad-ch-r8l7pe",
@@ -1831,7 +2431,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-25T20:20:07Z"
+      "capturedAtUtc": "2026-11-26T19:50:07Z"
     },
     {
       "gameId": "primera-chile-2026-11-29-deportes-conce-universidad-ch-r8l7pe",
@@ -1846,7 +2446,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-25T20:20:07Z"
+      "capturedAtUtc": "2026-11-26T19:50:07Z"
     },
     {
       "gameId": "primera-chile-2026-11-29-deportes-conce-universidad-ch-r8l7pe",
@@ -1861,7 +2461,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-25T20:20:07Z"
+      "capturedAtUtc": "2026-11-26T19:50:07Z"
     },
     {
       "gameId": "primera-chile-2026-11-29-deportes-conce-universidad-ch-r8l7pe",
@@ -1876,7 +2476,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-25T20:20:07Z"
+      "capturedAtUtc": "2026-11-26T19:50:07Z"
     },
     {
       "gameId": "primera-chile-2026-11-29-deportes-conce-universidad-ch-r8l7pe",
@@ -1891,7 +2491,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-25T20:20:07Z"
+      "capturedAtUtc": "2026-11-26T19:50:07Z"
     },
     {
       "gameId": "primera-chile-2026-11-29-deportes-conce-universidad-ch-r8l7pe",
@@ -1906,7 +2506,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-25T20:20:07Z"
+      "capturedAtUtc": "2026-11-26T19:50:07Z"
     },
     {
       "gameId": "primera-chile-2026-11-29-deportes-conce-universidad-ch-r8l7pe",
@@ -1921,7 +2521,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-25T20:20:07Z"
+      "capturedAtUtc": "2026-11-26T19:50:07Z"
     },
     {
       "gameId": "primera-chile-2026-11-29-deportes-conce-universidad-ch-r8l7pe",
@@ -1936,7 +2536,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-25T20:20:07Z"
+      "capturedAtUtc": "2026-11-26T19:50:07Z"
     },
     {
       "gameId": "primera-chile-2026-11-29-deportes-conce-universidad-ch-r8l7pe",
@@ -1951,7 +2551,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-25T20:20:07Z"
+      "capturedAtUtc": "2026-11-26T19:50:07Z"
     },
     {
       "gameId": "primera-chile-2026-11-29-deportes-conce-universidad-ch-r8l7pe",
@@ -1966,7 +2566,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-25T20:20:07Z"
+      "capturedAtUtc": "2026-11-26T19:50:07Z"
     },
     {
       "gameId": "primera-chile-2026-11-29-deportes-conce-universidad-ch-r8l7pe",
@@ -1981,7 +2581,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-25T20:20:07Z"
+      "capturedAtUtc": "2026-11-26T19:50:07Z"
     },
     {
       "gameId": "primera-chile-2026-11-29-deportes-conce-universidad-ch-r8l7pe",
@@ -1996,7 +2596,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-25T20:20:07Z"
+      "capturedAtUtc": "2026-11-26T19:50:07Z"
     },
     {
       "gameId": "primera-chile-2026-11-29-deportes-conce-universidad-ch-r8l7pe",
@@ -2011,7 +2611,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-25T20:20:07Z"
+      "capturedAtUtc": "2026-11-26T19:50:07Z"
     },
     {
       "gameId": "primera-chile-2026-11-29-deportes-conce-universidad-ch-r8l7pe",
@@ -2026,7 +2626,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-25T20:20:07Z"
+      "capturedAtUtc": "2026-11-26T19:50:07Z"
     },
     {
       "gameId": "primera-chile-2026-11-29-deportes-conce-universidad-ch-r8l7pe",
@@ -2041,7 +2641,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-25T20:20:07Z"
+      "capturedAtUtc": "2026-11-26T19:50:07Z"
     },
     {
       "gameId": "primera-chile-2026-11-29-deportes-conce-universidad-ch-r8l7pe",
@@ -2056,7 +2656,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-25T20:20:07Z"
+      "capturedAtUtc": "2026-11-26T19:50:07Z"
     },
     {
       "gameId": "primera-chile-2026-11-29-deportes-conce-universidad-ch-r8l7pe",
@@ -2071,7 +2671,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-25T20:20:07Z"
+      "capturedAtUtc": "2026-11-26T19:50:07Z"
     },
     {
       "gameId": "primera-chile-2026-11-29-deportes-conce-universidad-ch-r8l7pe",
@@ -2086,7 +2686,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-25T20:20:07Z"
+      "capturedAtUtc": "2026-11-26T19:50:07Z"
     },
     {
       "gameId": "primera-chile-2026-11-29-deportes-conce-universidad-ch-r8l7pe",
@@ -2101,7 +2701,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-25T20:20:07Z"
+      "capturedAtUtc": "2026-11-26T19:50:07Z"
     },
     {
       "gameId": "primera-chile-2026-11-29-deportes-conce-universidad-ch-r8l7pe",
@@ -2116,7 +2716,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-25T20:20:07Z"
+      "capturedAtUtc": "2026-11-26T19:50:07Z"
     },
     {
       "gameId": "primera-chile-2026-11-29-deportes-conce-universidad-ch-r8l7pe",
@@ -2131,7 +2731,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-25T20:20:07Z"
+      "capturedAtUtc": "2026-11-26T19:50:07Z"
     },
     {
       "gameId": "primera-chile-2026-11-29-deportes-conce-universidad-ch-r8l7pe",
@@ -2146,7 +2746,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-25T20:20:07Z"
+      "capturedAtUtc": "2026-11-26T19:50:07Z"
     },
     {
       "gameId": "primera-chile-2026-11-29-deportes-conce-universidad-ch-r8l7pe",
@@ -2161,7 +2761,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-25T20:20:07Z"
+      "capturedAtUtc": "2026-11-26T19:50:07Z"
     },
     {
       "gameId": "primera-chile-2026-11-29-deportes-conce-universidad-ch-r8l7pe",
@@ -2176,7 +2776,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-25T20:20:07Z"
+      "capturedAtUtc": "2026-11-26T19:50:07Z"
     },
     {
       "gameId": "primera-chile-2026-11-29-deportes-conce-universidad-ch-r8l7pe",
@@ -2191,7 +2791,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-25T20:20:07Z"
+      "capturedAtUtc": "2026-11-26T19:50:07Z"
     },
     {
       "gameId": "primera-chile-2026-11-29-deportes-conce-universidad-ch-r8l7pe",
@@ -2206,7 +2806,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-25T20:20:07Z"
+      "capturedAtUtc": "2026-11-26T19:50:07Z"
     },
     {
       "gameId": "primera-chile-2026-11-29-deportes-conce-universidad-ch-r8l7pe",
@@ -2221,7 +2821,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-25T20:20:07Z"
+      "capturedAtUtc": "2026-11-26T19:50:07Z"
     },
     {
       "gameId": "primera-chile-2026-11-29-deportes-conce-universidad-ch-r8l7pe",
@@ -2236,7 +2836,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-25T20:20:07Z"
+      "capturedAtUtc": "2026-11-26T19:50:07Z"
     },
     {
       "gameId": "primera-chile-2026-11-29-deportes-conce-universidad-ch-r8l7pe",
@@ -2251,7 +2851,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-25T20:20:07Z"
+      "capturedAtUtc": "2026-11-26T19:50:07Z"
     },
     {
       "gameId": "primera-chile-2026-11-29-deportes-conce-universidad-ch-r8l7pe",
@@ -2266,7 +2866,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-25T20:20:07Z"
+      "capturedAtUtc": "2026-11-26T19:50:07Z"
     },
     {
       "gameId": "primera-chile-2026-11-29-deportes-conce-universidad-ch-r8l7pe",
@@ -2281,7 +2881,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-25T20:20:07Z"
+      "capturedAtUtc": "2026-11-26T19:50:07Z"
     },
     {
       "gameId": "primera-chile-2026-11-29-deportes-conce-universidad-ch-r8l7pe",
@@ -2296,7 +2896,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-25T20:20:07Z"
+      "capturedAtUtc": "2026-11-26T19:50:07Z"
     },
     {
       "gameId": "primera-chile-2026-11-29-deportes-conce-universidad-ch-r8l7pe",
@@ -2311,7 +2911,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-25T20:20:07Z"
+      "capturedAtUtc": "2026-11-26T19:50:07Z"
     },
     {
       "gameId": "primera-chile-2026-11-29-nublense-cobresal-d33fej",
@@ -2326,7 +2926,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-25T20:20:07Z"
+      "capturedAtUtc": "2026-11-26T19:50:07Z"
     },
     {
       "gameId": "primera-chile-2026-11-29-nublense-cobresal-d33fej",
@@ -2341,7 +2941,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-25T20:20:07Z"
+      "capturedAtUtc": "2026-11-26T19:50:07Z"
     },
     {
       "gameId": "primera-chile-2026-11-29-nublense-cobresal-d33fej",
@@ -2356,7 +2956,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-25T20:20:07Z"
+      "capturedAtUtc": "2026-11-26T19:50:07Z"
     },
     {
       "gameId": "primera-chile-2026-11-29-nublense-cobresal-d33fej",
@@ -2371,7 +2971,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-25T20:20:07Z"
+      "capturedAtUtc": "2026-11-26T19:50:07Z"
     },
     {
       "gameId": "primera-chile-2026-11-29-nublense-cobresal-d33fej",
@@ -2386,7 +2986,22 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-25T20:20:07Z"
+      "capturedAtUtc": "2026-11-26T19:50:07Z"
+    },
+    {
+      "gameId": "primera-chile-2026-11-29-nublense-cobresal-d33fej",
+      "homeName": "Ñublense",
+      "awayName": "Cobresal",
+      "market": "1x2",
+      "outcome": "HOME",
+      "line": null,
+      "book": "betfair",
+      "decimal": 1.62,
+      "openingDecimal": 1.62,
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-26T19:50:07Z"
     },
     {
       "gameId": "primera-chile-2026-11-29-nublense-cobresal-d33fej",
@@ -2401,7 +3016,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-25T20:20:07Z"
+      "capturedAtUtc": "2026-11-26T19:50:07Z"
     },
     {
       "gameId": "primera-chile-2026-11-29-nublense-cobresal-d33fej",
@@ -2416,7 +3031,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-25T20:20:07Z"
+      "capturedAtUtc": "2026-11-26T19:50:07Z"
     },
     {
       "gameId": "primera-chile-2026-11-29-nublense-cobresal-d33fej",
@@ -2431,7 +3046,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-25T20:20:07Z"
+      "capturedAtUtc": "2026-11-26T19:50:07Z"
     },
     {
       "gameId": "primera-chile-2026-11-29-nublense-cobresal-d33fej",
@@ -2446,7 +3061,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-25T20:20:07Z"
+      "capturedAtUtc": "2026-11-26T19:50:07Z"
     },
     {
       "gameId": "primera-chile-2026-11-29-nublense-cobresal-d33fej",
@@ -2461,7 +3076,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-25T20:20:07Z"
+      "capturedAtUtc": "2026-11-26T19:50:07Z"
     },
     {
       "gameId": "primera-chile-2026-11-29-nublense-cobresal-d33fej",
@@ -2476,7 +3091,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-25T20:20:07Z"
+      "capturedAtUtc": "2026-11-26T19:50:07Z"
     },
     {
       "gameId": "primera-chile-2026-11-29-nublense-cobresal-d33fej",
@@ -2491,7 +3106,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-25T20:20:07Z"
+      "capturedAtUtc": "2026-11-26T19:50:07Z"
     },
     {
       "gameId": "primera-chile-2026-11-29-nublense-cobresal-d33fej",
@@ -2506,7 +3121,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-25T20:20:07Z"
+      "capturedAtUtc": "2026-11-26T19:50:07Z"
     },
     {
       "gameId": "primera-chile-2026-11-29-nublense-cobresal-d33fej",
@@ -2521,7 +3136,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-25T20:20:07Z"
+      "capturedAtUtc": "2026-11-26T19:50:07Z"
     },
     {
       "gameId": "primera-chile-2026-11-29-nublense-cobresal-d33fej",
@@ -2536,7 +3151,22 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-25T20:20:07Z"
+      "capturedAtUtc": "2026-11-26T19:50:07Z"
+    },
+    {
+      "gameId": "primera-chile-2026-11-29-nublense-cobresal-d33fej",
+      "homeName": "Ñublense",
+      "awayName": "Cobresal",
+      "market": "1x2",
+      "outcome": "DRAW",
+      "line": null,
+      "book": "betfair",
+      "decimal": 3.9,
+      "openingDecimal": 3.9,
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-26T19:50:07Z"
     },
     {
       "gameId": "primera-chile-2026-11-29-nublense-cobresal-d33fej",
@@ -2551,7 +3181,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-25T20:20:07Z"
+      "capturedAtUtc": "2026-11-26T19:50:07Z"
     },
     {
       "gameId": "primera-chile-2026-11-29-nublense-cobresal-d33fej",
@@ -2566,7 +3196,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-25T20:20:07Z"
+      "capturedAtUtc": "2026-11-26T19:50:07Z"
     },
     {
       "gameId": "primera-chile-2026-11-29-nublense-cobresal-d33fej",
@@ -2581,7 +3211,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-25T20:20:07Z"
+      "capturedAtUtc": "2026-11-26T19:50:07Z"
     },
     {
       "gameId": "primera-chile-2026-11-29-nublense-cobresal-d33fej",
@@ -2596,7 +3226,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-25T20:20:07Z"
+      "capturedAtUtc": "2026-11-26T19:50:07Z"
     },
     {
       "gameId": "primera-chile-2026-11-29-nublense-cobresal-d33fej",
@@ -2606,12 +3236,12 @@
       "outcome": "DRAW",
       "line": null,
       "book": "sbo",
-      "decimal": 3.62,
+      "decimal": 3.59,
       "openingDecimal": 3.62,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-25T20:20:07Z"
+      "deltaPct": -0.83,
+      "movement": "shortening",
+      "movementSignal": "SHORTENING",
+      "capturedAtUtc": "2026-11-26T19:50:07Z"
     },
     {
       "gameId": "primera-chile-2026-11-29-nublense-cobresal-d33fej",
@@ -2626,7 +3256,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-25T20:20:07Z"
+      "capturedAtUtc": "2026-11-26T19:50:07Z"
     },
     {
       "gameId": "primera-chile-2026-11-29-nublense-cobresal-d33fej",
@@ -2641,7 +3271,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-25T20:20:07Z"
+      "capturedAtUtc": "2026-11-26T19:50:07Z"
     },
     {
       "gameId": "primera-chile-2026-11-29-nublense-cobresal-d33fej",
@@ -2656,7 +3286,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-25T20:20:07Z"
+      "capturedAtUtc": "2026-11-26T19:50:07Z"
     },
     {
       "gameId": "primera-chile-2026-11-29-nublense-cobresal-d33fej",
@@ -2671,7 +3301,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-25T20:20:07Z"
+      "capturedAtUtc": "2026-11-26T19:50:07Z"
     },
     {
       "gameId": "primera-chile-2026-11-29-nublense-cobresal-d33fej",
@@ -2686,7 +3316,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-25T20:20:07Z"
+      "capturedAtUtc": "2026-11-26T19:50:07Z"
     },
     {
       "gameId": "primera-chile-2026-11-29-nublense-cobresal-d33fej",
@@ -2701,7 +3331,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-25T20:20:07Z"
+      "capturedAtUtc": "2026-11-26T19:50:07Z"
     },
     {
       "gameId": "primera-chile-2026-11-29-nublense-cobresal-d33fej",
@@ -2716,7 +3346,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-25T20:20:07Z"
+      "capturedAtUtc": "2026-11-26T19:50:07Z"
     },
     {
       "gameId": "primera-chile-2026-11-29-nublense-cobresal-d33fej",
@@ -2731,7 +3361,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-25T20:20:07Z"
+      "capturedAtUtc": "2026-11-26T19:50:07Z"
     },
     {
       "gameId": "primera-chile-2026-11-29-nublense-cobresal-d33fej",
@@ -2746,7 +3376,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-25T20:20:07Z"
+      "capturedAtUtc": "2026-11-26T19:50:07Z"
     },
     {
       "gameId": "primera-chile-2026-11-29-nublense-cobresal-d33fej",
@@ -2761,7 +3391,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-25T20:20:07Z"
+      "capturedAtUtc": "2026-11-26T19:50:07Z"
     },
     {
       "gameId": "primera-chile-2026-11-29-nublense-cobresal-d33fej",
@@ -2771,12 +3401,12 @@
       "outcome": "AWAY",
       "line": null,
       "book": "sbo",
-      "decimal": 3.89,
+      "decimal": 3.94,
       "openingDecimal": 3.89,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-25T20:20:07Z"
+      "deltaPct": 1.29,
+      "movement": "drifting",
+      "movementSignal": "DRIFTING",
+      "capturedAtUtc": "2026-11-26T19:50:07Z"
     },
     {
       "gameId": "primera-chile-2026-11-29-nublense-cobresal-d33fej",
@@ -2791,7 +3421,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-25T20:20:07Z"
+      "capturedAtUtc": "2026-11-26T19:50:07Z"
     },
     {
       "gameId": "primera-chile-2026-11-29-nublense-cobresal-d33fej",
@@ -2806,7 +3436,22 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-25T20:20:07Z"
+      "capturedAtUtc": "2026-11-26T19:50:07Z"
+    },
+    {
+      "gameId": "primera-chile-2026-11-29-nublense-cobresal-d33fej",
+      "homeName": "Ñublense",
+      "awayName": "Cobresal",
+      "market": "double_chance",
+      "outcome": "1X",
+      "line": null,
+      "book": "betfair",
+      "decimal": 1.17,
+      "openingDecimal": 1.17,
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-26T19:50:07Z"
     },
     {
       "gameId": "primera-chile-2026-11-29-nublense-cobresal-d33fej",
@@ -2821,7 +3466,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-25T20:20:07Z"
+      "capturedAtUtc": "2026-11-26T19:50:07Z"
     },
     {
       "gameId": "primera-chile-2026-11-29-nublense-cobresal-d33fej",
@@ -2836,7 +3481,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-25T20:20:07Z"
+      "capturedAtUtc": "2026-11-26T19:50:07Z"
     },
     {
       "gameId": "primera-chile-2026-11-29-nublense-cobresal-d33fej",
@@ -2851,7 +3496,22 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-25T20:20:07Z"
+      "capturedAtUtc": "2026-11-26T19:50:07Z"
+    },
+    {
+      "gameId": "primera-chile-2026-11-29-nublense-cobresal-d33fej",
+      "homeName": "Ñublense",
+      "awayName": "Cobresal",
+      "market": "double_chance",
+      "outcome": "X2",
+      "line": null,
+      "book": "betfair",
+      "decimal": 2.1,
+      "openingDecimal": 2.1,
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-26T19:50:07Z"
     },
     {
       "gameId": "primera-chile-2026-11-29-nublense-cobresal-d33fej",
@@ -2866,7 +3526,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-25T20:20:07Z"
+      "capturedAtUtc": "2026-11-26T19:50:07Z"
     },
     {
       "gameId": "primera-chile-2026-11-29-nublense-cobresal-d33fej",
@@ -2881,7 +3541,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-25T20:20:07Z"
+      "capturedAtUtc": "2026-11-26T19:50:07Z"
     },
     {
       "gameId": "primera-chile-2026-11-29-nublense-cobresal-d33fej",
@@ -2896,7 +3556,22 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-25T20:20:07Z"
+      "capturedAtUtc": "2026-11-26T19:50:07Z"
+    },
+    {
+      "gameId": "primera-chile-2026-11-29-nublense-cobresal-d33fej",
+      "homeName": "Ñublense",
+      "awayName": "Cobresal",
+      "market": "double_chance",
+      "outcome": "12",
+      "line": null,
+      "book": "betfair",
+      "decimal": 1.2,
+      "openingDecimal": 1.2,
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-26T19:50:07Z"
     },
     {
       "gameId": "primera-chile-2026-11-29-nublense-cobresal-d33fej",
@@ -2911,7 +3586,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-25T20:20:07Z"
+      "capturedAtUtc": "2026-11-26T19:50:07Z"
     },
     {
       "gameId": "primera-chile-2026-11-29-nublense-cobresal-d33fej",
@@ -2926,7 +3601,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-25T20:20:07Z"
+      "capturedAtUtc": "2026-11-26T19:50:07Z"
     },
     {
       "gameId": "primera-chile-2026-11-29-nublense-cobresal-d33fej",
@@ -2941,7 +3616,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-25T20:20:07Z"
+      "capturedAtUtc": "2026-11-26T19:50:07Z"
     },
     {
       "gameId": "primera-chile-2026-11-29-nublense-cobresal-d33fej",
@@ -2956,7 +3631,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-25T20:20:07Z"
+      "capturedAtUtc": "2026-11-26T19:50:07Z"
     },
     {
       "gameId": "primera-chile-2026-11-29-nublense-cobresal-d33fej",
@@ -2971,7 +3646,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-25T20:20:07Z"
+      "capturedAtUtc": "2026-11-26T19:50:07Z"
     },
     {
       "gameId": "primera-chile-2026-11-29-nublense-cobresal-d33fej",
@@ -2986,7 +3661,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-25T20:20:07Z"
+      "capturedAtUtc": "2026-11-26T19:50:07Z"
     },
     {
       "gameId": "primera-chile-2026-11-29-nublense-cobresal-d33fej",
@@ -3001,7 +3676,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-25T20:20:07Z"
+      "capturedAtUtc": "2026-11-26T19:50:07Z"
     },
     {
       "gameId": "primera-chile-2026-11-29-nublense-cobresal-d33fej",
@@ -3016,7 +3691,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-25T20:20:07Z"
+      "capturedAtUtc": "2026-11-26T19:50:07Z"
     },
     {
       "gameId": "primera-chile-2026-11-29-nublense-cobresal-d33fej",
@@ -3031,7 +3706,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-25T20:20:07Z"
+      "capturedAtUtc": "2026-11-26T19:50:07Z"
     },
     {
       "gameId": "primera-chile-2026-11-29-nublense-cobresal-d33fej",
@@ -3046,7 +3721,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-25T20:20:07Z"
+      "capturedAtUtc": "2026-11-26T19:50:07Z"
     },
     {
       "gameId": "primera-chile-2026-11-29-nublense-cobresal-d33fej",
@@ -3061,7 +3736,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-25T20:20:07Z"
+      "capturedAtUtc": "2026-11-26T19:50:07Z"
     },
     {
       "gameId": "primera-chile-2026-11-29-nublense-cobresal-d33fej",
@@ -3076,7 +3751,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-25T20:20:07Z"
+      "capturedAtUtc": "2026-11-26T19:50:07Z"
     },
     {
       "gameId": "primera-chile-2026-11-29-nublense-cobresal-d33fej",
@@ -3091,7 +3766,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-25T20:20:07Z"
+      "capturedAtUtc": "2026-11-26T19:50:07Z"
     },
     {
       "gameId": "primera-chile-2026-11-29-nublense-cobresal-d33fej",
@@ -3106,7 +3781,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-25T20:20:07Z"
+      "capturedAtUtc": "2026-11-26T19:50:07Z"
     },
     {
       "gameId": "primera-chile-2026-11-29-nublense-cobresal-d33fej",
@@ -3121,7 +3796,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-25T20:20:07Z"
+      "capturedAtUtc": "2026-11-26T19:50:07Z"
     },
     {
       "gameId": "primera-chile-2026-11-29-nublense-cobresal-d33fej",
@@ -3136,7 +3811,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-25T20:20:07Z"
+      "capturedAtUtc": "2026-11-26T19:50:07Z"
     },
     {
       "gameId": "primera-chile-2026-11-29-nublense-cobresal-d33fej",
@@ -3151,7 +3826,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-25T20:20:07Z"
+      "capturedAtUtc": "2026-11-26T19:50:07Z"
     },
     {
       "gameId": "primera-chile-2026-11-29-nublense-cobresal-d33fej",
@@ -3166,7 +3841,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-25T20:20:07Z"
+      "capturedAtUtc": "2026-11-26T19:50:07Z"
     },
     {
       "gameId": "primera-chile-2026-11-29-nublense-cobresal-d33fej",
@@ -3181,7 +3856,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-25T20:20:07Z"
+      "capturedAtUtc": "2026-11-26T19:50:07Z"
     },
     {
       "gameId": "primera-chile-2026-11-29-nublense-cobresal-d33fej",
@@ -3191,12 +3866,12 @@
       "outcome": "yes",
       "line": null,
       "book": "bet365",
-      "decimal": 1.57,
+      "decimal": 1.61,
       "openingDecimal": 1.57,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-25T20:20:07Z"
+      "deltaPct": 2.55,
+      "movement": "drifting",
+      "movementSignal": "DRIFTING",
+      "capturedAtUtc": "2026-11-26T19:50:07Z"
     },
     {
       "gameId": "primera-chile-2026-11-29-nublense-cobresal-d33fej",
@@ -3211,7 +3886,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-25T20:20:07Z"
+      "capturedAtUtc": "2026-11-26T19:50:07Z"
     },
     {
       "gameId": "primera-chile-2026-11-29-nublense-cobresal-d33fej",
@@ -3226,7 +3901,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-25T20:20:07Z"
+      "capturedAtUtc": "2026-11-26T19:50:07Z"
     },
     {
       "gameId": "primera-chile-2026-11-29-nublense-cobresal-d33fej",
@@ -3236,12 +3911,12 @@
       "outcome": "no",
       "line": null,
       "book": "bet365",
-      "decimal": 2.25,
+      "decimal": 2.2,
       "openingDecimal": 2.25,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-25T20:20:07Z"
+      "deltaPct": -2.22,
+      "movement": "shortening",
+      "movementSignal": "SHORTENING",
+      "capturedAtUtc": "2026-11-26T19:50:07Z"
     },
     {
       "gameId": "primera-chile-2026-11-29-nublense-cobresal-d33fej",
@@ -3256,7 +3931,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-25T20:20:07Z"
+      "capturedAtUtc": "2026-11-26T19:50:07Z"
     },
     {
       "gameId": "primera-chile-2026-11-29-nublense-cobresal-d33fej",
@@ -3271,7 +3946,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-25T20:20:07Z"
+      "capturedAtUtc": "2026-11-26T19:50:07Z"
     },
     {
       "gameId": "primera-chile-2026-11-29-nublense-cobresal-d33fej",
@@ -3286,7 +3961,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-25T20:20:07Z"
+      "capturedAtUtc": "2026-11-26T19:50:07Z"
     },
     {
       "gameId": "primera-chile-2026-11-29-nublense-cobresal-d33fej",
@@ -3301,7 +3976,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-25T20:20:07Z"
+      "capturedAtUtc": "2026-11-26T19:50:07Z"
     },
     {
       "gameId": "primera-chile-2026-11-29-nublense-cobresal-d33fej",
@@ -3316,7 +3991,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-25T20:20:07Z"
+      "capturedAtUtc": "2026-11-26T19:50:07Z"
     },
     {
       "gameId": "primera-chile-2026-11-29-nublense-cobresal-d33fej",
@@ -3331,7 +4006,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-25T20:20:07Z"
+      "capturedAtUtc": "2026-11-26T19:50:07Z"
     },
     {
       "gameId": "primera-chile-2026-11-29-nublense-cobresal-d33fej",
@@ -3346,7 +4021,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-25T20:20:07Z"
+      "capturedAtUtc": "2026-11-26T19:50:07Z"
     },
     {
       "gameId": "primera-chile-2026-11-29-nublense-cobresal-d33fej",
@@ -3361,7 +4036,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-25T20:20:07Z"
+      "capturedAtUtc": "2026-11-26T19:50:07Z"
     },
     {
       "gameId": "primera-chile-2026-11-29-nublense-cobresal-d33fej",
@@ -3376,7 +4051,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-25T20:20:07Z"
+      "capturedAtUtc": "2026-11-26T19:50:07Z"
     },
     {
       "gameId": "primera-chile-2026-11-29-nublense-cobresal-d33fej",
@@ -3391,7 +4066,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-25T20:20:07Z"
+      "capturedAtUtc": "2026-11-26T19:50:07Z"
     },
     {
       "gameId": "primera-chile-2026-11-29-union-la-caler-universidad-co-shclp5",
@@ -3406,7 +4081,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-25T20:20:07Z"
+      "capturedAtUtc": "2026-11-26T19:50:07Z"
     },
     {
       "gameId": "primera-chile-2026-11-29-union-la-caler-universidad-co-shclp5",
@@ -3421,7 +4096,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-25T20:20:07Z"
+      "capturedAtUtc": "2026-11-26T19:50:07Z"
     },
     {
       "gameId": "primera-chile-2026-11-29-union-la-caler-universidad-co-shclp5",
@@ -3436,7 +4111,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-25T20:20:07Z"
+      "capturedAtUtc": "2026-11-26T19:50:07Z"
     },
     {
       "gameId": "primera-chile-2026-11-29-union-la-caler-universidad-co-shclp5",
@@ -3451,7 +4126,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-25T20:20:07Z"
+      "capturedAtUtc": "2026-11-26T19:50:07Z"
     },
     {
       "gameId": "primera-chile-2026-11-29-union-la-caler-universidad-co-shclp5",
@@ -3466,7 +4141,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-25T20:20:07Z"
+      "capturedAtUtc": "2026-11-26T19:50:07Z"
     },
     {
       "gameId": "primera-chile-2026-11-29-union-la-caler-universidad-co-shclp5",
@@ -3481,7 +4156,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-25T20:20:07Z"
+      "capturedAtUtc": "2026-11-26T19:50:07Z"
     },
     {
       "gameId": "primera-chile-2026-11-29-union-la-caler-universidad-co-shclp5",
@@ -3496,7 +4171,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-25T20:20:07Z"
+      "capturedAtUtc": "2026-11-26T19:50:07Z"
     },
     {
       "gameId": "primera-chile-2026-11-29-union-la-caler-universidad-co-shclp5",
@@ -3511,7 +4186,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-25T20:20:07Z"
+      "capturedAtUtc": "2026-11-26T19:50:07Z"
     },
     {
       "gameId": "primera-chile-2026-11-29-union-la-caler-universidad-co-shclp5",
@@ -3526,7 +4201,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-25T20:20:07Z"
+      "capturedAtUtc": "2026-11-26T19:50:07Z"
     },
     {
       "gameId": "primera-chile-2026-11-29-union-la-caler-universidad-co-shclp5",
@@ -3541,7 +4216,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-25T20:20:07Z"
+      "capturedAtUtc": "2026-11-26T19:50:07Z"
     },
     {
       "gameId": "primera-chile-2026-11-29-union-la-caler-universidad-co-shclp5",
@@ -3556,7 +4231,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-25T20:20:07Z"
+      "capturedAtUtc": "2026-11-26T19:50:07Z"
     },
     {
       "gameId": "primera-chile-2026-11-29-union-la-caler-universidad-co-shclp5",
@@ -3571,7 +4246,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-25T20:20:07Z"
+      "capturedAtUtc": "2026-11-26T19:50:07Z"
     },
     {
       "gameId": "primera-chile-2026-11-29-union-la-caler-universidad-co-shclp5",
@@ -3586,7 +4261,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-25T20:20:07Z"
+      "capturedAtUtc": "2026-11-26T19:50:07Z"
     },
     {
       "gameId": "primera-chile-2026-11-29-union-la-caler-universidad-co-shclp5",
@@ -3601,7 +4276,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-25T20:20:07Z"
+      "capturedAtUtc": "2026-11-26T19:50:07Z"
     },
     {
       "gameId": "primera-chile-2026-11-29-union-la-caler-universidad-co-shclp5",
@@ -3616,7 +4291,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-25T20:20:07Z"
+      "capturedAtUtc": "2026-11-26T19:50:07Z"
     },
     {
       "gameId": "primera-chile-2026-11-29-union-la-caler-universidad-co-shclp5",
@@ -3631,7 +4306,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-25T20:20:07Z"
+      "capturedAtUtc": "2026-11-26T19:50:07Z"
     },
     {
       "gameId": "primera-chile-2026-11-29-union-la-caler-universidad-co-shclp5",
@@ -3646,7 +4321,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-25T20:20:07Z"
+      "capturedAtUtc": "2026-11-26T19:50:07Z"
     },
     {
       "gameId": "primera-chile-2026-11-29-union-la-caler-universidad-co-shclp5",
@@ -3661,7 +4336,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-25T20:20:07Z"
+      "capturedAtUtc": "2026-11-26T19:50:07Z"
     },
     {
       "gameId": "primera-chile-2026-11-29-union-la-caler-universidad-co-shclp5",
@@ -3676,7 +4351,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-25T20:20:07Z"
+      "capturedAtUtc": "2026-11-26T19:50:07Z"
     },
     {
       "gameId": "primera-chile-2026-11-29-union-la-caler-universidad-co-shclp5",
@@ -3691,7 +4366,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-25T20:20:07Z"
+      "capturedAtUtc": "2026-11-26T19:50:07Z"
     },
     {
       "gameId": "primera-chile-2026-11-29-union-la-caler-universidad-co-shclp5",
@@ -3706,7 +4381,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-25T20:20:07Z"
+      "capturedAtUtc": "2026-11-26T19:50:07Z"
     },
     {
       "gameId": "primera-chile-2026-11-29-union-la-caler-universidad-co-shclp5",
@@ -3721,7 +4396,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-25T20:20:07Z"
+      "capturedAtUtc": "2026-11-26T19:50:07Z"
     },
     {
       "gameId": "primera-chile-2026-11-29-union-la-caler-universidad-co-shclp5",
@@ -3736,7 +4411,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-25T20:20:07Z"
+      "capturedAtUtc": "2026-11-26T19:50:07Z"
     },
     {
       "gameId": "primera-chile-2026-11-29-union-la-caler-universidad-co-shclp5",
@@ -3751,7 +4426,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-25T20:20:07Z"
+      "capturedAtUtc": "2026-11-26T19:50:07Z"
     },
     {
       "gameId": "primera-chile-2026-11-29-union-la-caler-universidad-co-shclp5",
@@ -3766,7 +4441,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-25T20:20:07Z"
+      "capturedAtUtc": "2026-11-26T19:50:07Z"
     },
     {
       "gameId": "primera-chile-2026-11-29-union-la-caler-universidad-co-shclp5",
@@ -3781,7 +4456,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-25T20:20:07Z"
+      "capturedAtUtc": "2026-11-26T19:50:07Z"
     },
     {
       "gameId": "primera-chile-2026-11-29-union-la-caler-universidad-co-shclp5",
@@ -3796,7 +4471,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-25T20:20:07Z"
+      "capturedAtUtc": "2026-11-26T19:50:07Z"
     },
     {
       "gameId": "primera-chile-2026-11-29-union-la-caler-universidad-co-shclp5",
@@ -3811,7 +4486,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-25T20:20:07Z"
+      "capturedAtUtc": "2026-11-26T19:50:07Z"
     },
     {
       "gameId": "primera-chile-2026-11-29-union-la-caler-universidad-co-shclp5",
@@ -3826,7 +4501,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-25T20:20:07Z"
+      "capturedAtUtc": "2026-11-26T19:50:07Z"
     },
     {
       "gameId": "primera-chile-2026-11-29-union-la-caler-universidad-co-shclp5",
@@ -3841,7 +4516,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-25T20:20:07Z"
+      "capturedAtUtc": "2026-11-26T19:50:07Z"
     },
     {
       "gameId": "primera-chile-2026-11-29-union-la-caler-universidad-co-shclp5",
@@ -3856,7 +4531,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-25T20:20:07Z"
+      "capturedAtUtc": "2026-11-26T19:50:07Z"
     },
     {
       "gameId": "primera-chile-2026-11-29-union-la-caler-universidad-co-shclp5",
@@ -3871,7 +4546,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-25T20:20:07Z"
+      "capturedAtUtc": "2026-11-26T19:50:07Z"
     },
     {
       "gameId": "primera-chile-2026-11-29-union-la-caler-universidad-co-shclp5",
@@ -3886,7 +4561,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-25T20:20:07Z"
+      "capturedAtUtc": "2026-11-26T19:50:07Z"
     },
     {
       "gameId": "primera-chile-2026-11-29-union-la-caler-universidad-co-shclp5",
@@ -3901,7 +4576,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-25T20:20:07Z"
+      "capturedAtUtc": "2026-11-26T19:50:07Z"
     },
     {
       "gameId": "primera-chile-2026-11-29-union-la-caler-universidad-co-shclp5",
@@ -3916,7 +4591,22 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-25T20:20:07Z"
+      "capturedAtUtc": "2026-11-26T19:50:07Z"
+    },
+    {
+      "gameId": "primera-chile-2026-11-29-union-la-caler-universidad-co-shclp5",
+      "homeName": "Unión La Calera",
+      "awayName": "Universidad de Concepción",
+      "market": "double_chance",
+      "outcome": "1X",
+      "line": null,
+      "book": "betfair",
+      "decimal": 1.2,
+      "openingDecimal": 1.2,
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-26T19:50:07Z"
     },
     {
       "gameId": "primera-chile-2026-11-29-union-la-caler-universidad-co-shclp5",
@@ -3931,7 +4621,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-25T20:20:07Z"
+      "capturedAtUtc": "2026-11-26T19:50:07Z"
     },
     {
       "gameId": "primera-chile-2026-11-29-union-la-caler-universidad-co-shclp5",
@@ -3946,7 +4636,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-25T20:20:07Z"
+      "capturedAtUtc": "2026-11-26T19:50:07Z"
     },
     {
       "gameId": "primera-chile-2026-11-29-union-la-caler-universidad-co-shclp5",
@@ -3961,7 +4651,22 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-25T20:20:07Z"
+      "capturedAtUtc": "2026-11-26T19:50:07Z"
+    },
+    {
+      "gameId": "primera-chile-2026-11-29-union-la-caler-universidad-co-shclp5",
+      "homeName": "Unión La Calera",
+      "awayName": "Universidad de Concepción",
+      "market": "double_chance",
+      "outcome": "X2",
+      "line": null,
+      "book": "betfair",
+      "decimal": 1.83,
+      "openingDecimal": 1.83,
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-26T19:50:07Z"
     },
     {
       "gameId": "primera-chile-2026-11-29-union-la-caler-universidad-co-shclp5",
@@ -3976,7 +4681,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-25T20:20:07Z"
+      "capturedAtUtc": "2026-11-26T19:50:07Z"
     },
     {
       "gameId": "primera-chile-2026-11-29-union-la-caler-universidad-co-shclp5",
@@ -3991,7 +4696,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-25T20:20:07Z"
+      "capturedAtUtc": "2026-11-26T19:50:07Z"
     },
     {
       "gameId": "primera-chile-2026-11-29-union-la-caler-universidad-co-shclp5",
@@ -4006,7 +4711,22 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-25T20:20:07Z"
+      "capturedAtUtc": "2026-11-26T19:50:07Z"
+    },
+    {
+      "gameId": "primera-chile-2026-11-29-union-la-caler-universidad-co-shclp5",
+      "homeName": "Unión La Calera",
+      "awayName": "Universidad de Concepción",
+      "market": "double_chance",
+      "outcome": "12",
+      "line": null,
+      "book": "betfair",
+      "decimal": 1.25,
+      "openingDecimal": 1.25,
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-26T19:50:07Z"
     },
     {
       "gameId": "primera-chile-2026-11-29-union-la-caler-universidad-co-shclp5",
@@ -4021,7 +4741,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-25T20:20:07Z"
+      "capturedAtUtc": "2026-11-26T19:50:07Z"
     },
     {
       "gameId": "primera-chile-2026-11-29-union-la-caler-universidad-co-shclp5",
@@ -4036,7 +4756,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-25T20:20:07Z"
+      "capturedAtUtc": "2026-11-26T19:50:07Z"
     },
     {
       "gameId": "primera-chile-2026-11-29-union-la-caler-universidad-co-shclp5",
@@ -4051,7 +4771,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-25T20:20:07Z"
+      "capturedAtUtc": "2026-11-26T19:50:07Z"
     },
     {
       "gameId": "primera-chile-2026-11-29-union-la-caler-universidad-co-shclp5",
@@ -4066,7 +4786,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-25T20:20:07Z"
+      "capturedAtUtc": "2026-11-26T19:50:07Z"
     },
     {
       "gameId": "primera-chile-2026-11-29-union-la-caler-universidad-co-shclp5",
@@ -4081,7 +4801,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-25T20:20:07Z"
+      "capturedAtUtc": "2026-11-26T19:50:07Z"
     },
     {
       "gameId": "primera-chile-2026-11-29-union-la-caler-universidad-co-shclp5",
@@ -4096,7 +4816,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-25T20:20:07Z"
+      "capturedAtUtc": "2026-11-26T19:50:07Z"
     },
     {
       "gameId": "primera-chile-2026-11-29-union-la-caler-universidad-co-shclp5",
@@ -4111,7 +4831,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-25T20:20:07Z"
+      "capturedAtUtc": "2026-11-26T19:50:07Z"
     },
     {
       "gameId": "primera-chile-2026-11-29-union-la-caler-universidad-co-shclp5",
@@ -4121,12 +4841,12 @@
       "outcome": "over",
       "line": 2.5,
       "book": "bet365",
-      "decimal": 1.85,
+      "decimal": 1.9,
       "openingDecimal": 1.85,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-25T20:20:07Z"
+      "deltaPct": 2.7,
+      "movement": "drifting",
+      "movementSignal": "DRIFTING",
+      "capturedAtUtc": "2026-11-26T19:50:07Z"
     },
     {
       "gameId": "primera-chile-2026-11-29-union-la-caler-universidad-co-shclp5",
@@ -4141,7 +4861,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-25T20:20:07Z"
+      "capturedAtUtc": "2026-11-26T19:50:07Z"
     },
     {
       "gameId": "primera-chile-2026-11-29-union-la-caler-universidad-co-shclp5",
@@ -4156,7 +4876,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-25T20:20:07Z"
+      "capturedAtUtc": "2026-11-26T19:50:07Z"
     },
     {
       "gameId": "primera-chile-2026-11-29-union-la-caler-universidad-co-shclp5",
@@ -4171,7 +4891,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-25T20:20:07Z"
+      "capturedAtUtc": "2026-11-26T19:50:07Z"
     },
     {
       "gameId": "primera-chile-2026-11-29-union-la-caler-universidad-co-shclp5",
@@ -4186,7 +4906,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-25T20:20:07Z"
+      "capturedAtUtc": "2026-11-26T19:50:07Z"
     },
     {
       "gameId": "primera-chile-2026-11-29-union-la-caler-universidad-co-shclp5",
@@ -4196,12 +4916,12 @@
       "outcome": "under",
       "line": 2.5,
       "book": "bet365",
-      "decimal": 1.95,
+      "decimal": 1.9,
       "openingDecimal": 1.95,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-25T20:20:07Z"
+      "deltaPct": -2.56,
+      "movement": "shortening",
+      "movementSignal": "SHORTENING",
+      "capturedAtUtc": "2026-11-26T19:50:07Z"
     },
     {
       "gameId": "primera-chile-2026-11-29-union-la-caler-universidad-co-shclp5",
@@ -4216,7 +4936,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-25T20:20:07Z"
+      "capturedAtUtc": "2026-11-26T19:50:07Z"
     },
     {
       "gameId": "primera-chile-2026-11-29-union-la-caler-universidad-co-shclp5",
@@ -4231,7 +4951,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-25T20:20:07Z"
+      "capturedAtUtc": "2026-11-26T19:50:07Z"
     },
     {
       "gameId": "primera-chile-2026-11-29-union-la-caler-universidad-co-shclp5",
@@ -4246,7 +4966,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-25T20:20:07Z"
+      "capturedAtUtc": "2026-11-26T19:50:07Z"
     },
     {
       "gameId": "primera-chile-2026-11-29-union-la-caler-universidad-co-shclp5",
@@ -4261,7 +4981,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-25T20:20:07Z"
+      "capturedAtUtc": "2026-11-26T19:50:07Z"
     },
     {
       "gameId": "primera-chile-2026-11-29-union-la-caler-universidad-co-shclp5",
@@ -4276,7 +4996,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-25T20:20:07Z"
+      "capturedAtUtc": "2026-11-26T19:50:07Z"
     },
     {
       "gameId": "primera-chile-2026-11-29-union-la-caler-universidad-co-shclp5",
@@ -4291,7 +5011,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-25T20:20:07Z"
+      "capturedAtUtc": "2026-11-26T19:50:07Z"
     },
     {
       "gameId": "primera-chile-2026-11-29-union-la-caler-universidad-co-shclp5",
@@ -4306,7 +5026,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-25T20:20:07Z"
+      "capturedAtUtc": "2026-11-26T19:50:07Z"
     },
     {
       "gameId": "primera-chile-2026-11-29-union-la-caler-universidad-co-shclp5",
@@ -4321,7 +5041,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-25T20:20:07Z"
+      "capturedAtUtc": "2026-11-26T19:50:07Z"
     },
     {
       "gameId": "primera-chile-2026-11-29-union-la-caler-universidad-co-shclp5",
@@ -4331,12 +5051,12 @@
       "outcome": "yes",
       "line": null,
       "book": "bet365",
-      "decimal": 1.72,
+      "decimal": 1.8,
       "openingDecimal": 1.72,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-25T20:20:07Z"
+      "deltaPct": 4.65,
+      "movement": "drifting",
+      "movementSignal": "DRIFTING",
+      "capturedAtUtc": "2026-11-26T19:50:07Z"
     },
     {
       "gameId": "primera-chile-2026-11-29-union-la-caler-universidad-co-shclp5",
@@ -4351,7 +5071,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-25T20:20:07Z"
+      "capturedAtUtc": "2026-11-26T19:50:07Z"
     },
     {
       "gameId": "primera-chile-2026-11-29-union-la-caler-universidad-co-shclp5",
@@ -4366,7 +5086,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-25T20:20:07Z"
+      "capturedAtUtc": "2026-11-26T19:50:07Z"
     },
     {
       "gameId": "primera-chile-2026-11-29-union-la-caler-universidad-co-shclp5",
@@ -4376,12 +5096,12 @@
       "outcome": "no",
       "line": null,
       "book": "bet365",
-      "decimal": 2,
+      "decimal": 1.9,
       "openingDecimal": 2,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-25T20:20:07Z"
+      "deltaPct": -5,
+      "movement": "shortening",
+      "movementSignal": "SHORTENING",
+      "capturedAtUtc": "2026-11-26T19:50:07Z"
     },
     {
       "gameId": "primera-chile-2026-11-29-union-la-caler-universidad-co-shclp5",
@@ -4396,7 +5116,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-25T20:20:07Z"
+      "capturedAtUtc": "2026-11-26T19:50:07Z"
     },
     {
       "gameId": "primera-chile-2026-11-29-union-la-caler-universidad-co-shclp5",
@@ -4411,7 +5131,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-25T20:20:07Z"
+      "capturedAtUtc": "2026-11-26T19:50:07Z"
     },
     {
       "gameId": "primera-chile-2026-11-29-union-la-caler-universidad-co-shclp5",
@@ -4426,7 +5146,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-25T20:20:07Z"
+      "capturedAtUtc": "2026-11-26T19:50:07Z"
     },
     {
       "gameId": "primera-chile-2026-11-29-union-la-caler-universidad-co-shclp5",
@@ -4441,7 +5161,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-25T20:20:07Z"
+      "capturedAtUtc": "2026-11-26T19:50:07Z"
     },
     {
       "gameId": "primera-chile-2026-11-29-union-la-caler-universidad-co-shclp5",
@@ -4456,7 +5176,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-25T20:20:07Z"
+      "capturedAtUtc": "2026-11-26T19:50:07Z"
     },
     {
       "gameId": "primera-chile-2026-11-29-union-la-caler-universidad-co-shclp5",
@@ -4471,7 +5191,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-25T20:20:07Z"
+      "capturedAtUtc": "2026-11-26T19:50:07Z"
     },
     {
       "gameId": "primera-chile-2026-11-29-union-la-caler-universidad-co-shclp5",
@@ -4486,7 +5206,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-25T20:20:07Z"
+      "capturedAtUtc": "2026-11-26T19:50:07Z"
     },
     {
       "gameId": "primera-chile-2026-11-29-union-la-caler-universidad-co-shclp5",
@@ -4501,7 +5221,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-25T20:20:07Z"
+      "capturedAtUtc": "2026-11-26T19:50:07Z"
     },
     {
       "gameId": "primera-chile-2026-11-29-union-la-caler-universidad-co-shclp5",
@@ -4516,7 +5236,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-25T20:20:07Z"
+      "capturedAtUtc": "2026-11-26T19:50:07Z"
     },
     {
       "gameId": "primera-chile-2026-11-29-everton-vina-m-o-higgins-kllv53",
@@ -4531,7 +5251,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-25T20:20:07Z"
+      "capturedAtUtc": "2026-11-26T19:50:07Z"
     },
     {
       "gameId": "primera-chile-2026-11-29-everton-vina-m-o-higgins-kllv53",
@@ -4546,7 +5266,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-25T20:20:07Z"
+      "capturedAtUtc": "2026-11-26T19:50:07Z"
     },
     {
       "gameId": "primera-chile-2026-11-29-everton-vina-m-o-higgins-kllv53",
@@ -4561,7 +5281,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-25T20:20:07Z"
+      "capturedAtUtc": "2026-11-26T19:50:07Z"
     },
     {
       "gameId": "primera-chile-2026-11-29-everton-vina-m-o-higgins-kllv53",
@@ -4571,12 +5291,12 @@
       "outcome": "HOME",
       "line": null,
       "book": "william-hill",
-      "decimal": 1.85,
+      "decimal": 1.83,
       "openingDecimal": 1.85,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-25T20:20:07Z"
+      "deltaPct": -1.08,
+      "movement": "shortening",
+      "movementSignal": "SHORTENING",
+      "capturedAtUtc": "2026-11-26T19:50:07Z"
     },
     {
       "gameId": "primera-chile-2026-11-29-everton-vina-m-o-higgins-kllv53",
@@ -4591,7 +5311,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-25T20:20:07Z"
+      "capturedAtUtc": "2026-11-26T19:50:07Z"
     },
     {
       "gameId": "primera-chile-2026-11-29-everton-vina-m-o-higgins-kllv53",
@@ -4606,7 +5326,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-25T20:20:07Z"
+      "capturedAtUtc": "2026-11-26T19:50:07Z"
     },
     {
       "gameId": "primera-chile-2026-11-29-everton-vina-m-o-higgins-kllv53",
@@ -4621,7 +5341,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-25T20:20:07Z"
+      "capturedAtUtc": "2026-11-26T19:50:07Z"
     },
     {
       "gameId": "primera-chile-2026-11-29-everton-vina-m-o-higgins-kllv53",
@@ -4636,7 +5356,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-25T20:20:07Z"
+      "capturedAtUtc": "2026-11-26T19:50:07Z"
     },
     {
       "gameId": "primera-chile-2026-11-29-everton-vina-m-o-higgins-kllv53",
@@ -4651,7 +5371,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-25T20:20:07Z"
+      "capturedAtUtc": "2026-11-26T19:50:07Z"
     },
     {
       "gameId": "primera-chile-2026-11-29-everton-vina-m-o-higgins-kllv53",
@@ -4666,7 +5386,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-25T20:20:07Z"
+      "capturedAtUtc": "2026-11-26T19:50:07Z"
     },
     {
       "gameId": "primera-chile-2026-11-29-everton-vina-m-o-higgins-kllv53",
@@ -4676,12 +5396,12 @@
       "outcome": "HOME",
       "line": null,
       "book": "sbo",
-      "decimal": 1.94,
+      "decimal": 1.86,
       "openingDecimal": 1.94,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-25T20:20:07Z"
+      "deltaPct": -4.12,
+      "movement": "shortening",
+      "movementSignal": "SHORTENING",
+      "capturedAtUtc": "2026-11-26T19:50:07Z"
     },
     {
       "gameId": "primera-chile-2026-11-29-everton-vina-m-o-higgins-kllv53",
@@ -4696,7 +5416,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-25T20:20:07Z"
+      "capturedAtUtc": "2026-11-26T19:50:07Z"
     },
     {
       "gameId": "primera-chile-2026-11-29-everton-vina-m-o-higgins-kllv53",
@@ -4711,7 +5431,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-25T20:20:07Z"
+      "capturedAtUtc": "2026-11-26T19:50:07Z"
     },
     {
       "gameId": "primera-chile-2026-11-29-everton-vina-m-o-higgins-kllv53",
@@ -4726,7 +5446,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-25T20:20:07Z"
+      "capturedAtUtc": "2026-11-26T19:50:07Z"
     },
     {
       "gameId": "primera-chile-2026-11-29-everton-vina-m-o-higgins-kllv53",
@@ -4741,7 +5461,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-25T20:20:07Z"
+      "capturedAtUtc": "2026-11-26T19:50:07Z"
     },
     {
       "gameId": "primera-chile-2026-11-29-everton-vina-m-o-higgins-kllv53",
@@ -4756,7 +5476,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-25T20:20:07Z"
+      "capturedAtUtc": "2026-11-26T19:50:07Z"
     },
     {
       "gameId": "primera-chile-2026-11-29-everton-vina-m-o-higgins-kllv53",
@@ -4771,7 +5491,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-25T20:20:07Z"
+      "capturedAtUtc": "2026-11-26T19:50:07Z"
     },
     {
       "gameId": "primera-chile-2026-11-29-everton-vina-m-o-higgins-kllv53",
@@ -4786,7 +5506,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-25T20:20:07Z"
+      "capturedAtUtc": "2026-11-26T19:50:07Z"
     },
     {
       "gameId": "primera-chile-2026-11-29-everton-vina-m-o-higgins-kllv53",
@@ -4801,7 +5521,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-25T20:20:07Z"
+      "capturedAtUtc": "2026-11-26T19:50:07Z"
     },
     {
       "gameId": "primera-chile-2026-11-29-everton-vina-m-o-higgins-kllv53",
@@ -4816,7 +5536,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-25T20:20:07Z"
+      "capturedAtUtc": "2026-11-26T19:50:07Z"
     },
     {
       "gameId": "primera-chile-2026-11-29-everton-vina-m-o-higgins-kllv53",
@@ -4831,7 +5551,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-25T20:20:07Z"
+      "capturedAtUtc": "2026-11-26T19:50:07Z"
     },
     {
       "gameId": "primera-chile-2026-11-29-everton-vina-m-o-higgins-kllv53",
@@ -4841,12 +5561,12 @@
       "outcome": "DRAW",
       "line": null,
       "book": "sbo",
-      "decimal": 3.12,
+      "decimal": 3.16,
       "openingDecimal": 3.12,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-25T20:20:07Z"
+      "deltaPct": 1.28,
+      "movement": "drifting",
+      "movementSignal": "DRIFTING",
+      "capturedAtUtc": "2026-11-26T19:50:07Z"
     },
     {
       "gameId": "primera-chile-2026-11-29-everton-vina-m-o-higgins-kllv53",
@@ -4861,7 +5581,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-25T20:20:07Z"
+      "capturedAtUtc": "2026-11-26T19:50:07Z"
     },
     {
       "gameId": "primera-chile-2026-11-29-everton-vina-m-o-higgins-kllv53",
@@ -4876,7 +5596,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-25T20:20:07Z"
+      "capturedAtUtc": "2026-11-26T19:50:07Z"
     },
     {
       "gameId": "primera-chile-2026-11-29-everton-vina-m-o-higgins-kllv53",
@@ -4891,7 +5611,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-25T20:20:07Z"
+      "capturedAtUtc": "2026-11-26T19:50:07Z"
     },
     {
       "gameId": "primera-chile-2026-11-29-everton-vina-m-o-higgins-kllv53",
@@ -4901,12 +5621,12 @@
       "outcome": "AWAY",
       "line": null,
       "book": "william-hill",
-      "decimal": 3.7,
+      "decimal": 3.75,
       "openingDecimal": 3.7,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-25T20:20:07Z"
+      "deltaPct": 1.35,
+      "movement": "drifting",
+      "movementSignal": "DRIFTING",
+      "capturedAtUtc": "2026-11-26T19:50:07Z"
     },
     {
       "gameId": "primera-chile-2026-11-29-everton-vina-m-o-higgins-kllv53",
@@ -4921,7 +5641,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-25T20:20:07Z"
+      "capturedAtUtc": "2026-11-26T19:50:07Z"
     },
     {
       "gameId": "primera-chile-2026-11-29-everton-vina-m-o-higgins-kllv53",
@@ -4936,7 +5656,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-25T20:20:07Z"
+      "capturedAtUtc": "2026-11-26T19:50:07Z"
     },
     {
       "gameId": "primera-chile-2026-11-29-everton-vina-m-o-higgins-kllv53",
@@ -4951,7 +5671,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-25T20:20:07Z"
+      "capturedAtUtc": "2026-11-26T19:50:07Z"
     },
     {
       "gameId": "primera-chile-2026-11-29-everton-vina-m-o-higgins-kllv53",
@@ -4966,7 +5686,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-25T20:20:07Z"
+      "capturedAtUtc": "2026-11-26T19:50:07Z"
     },
     {
       "gameId": "primera-chile-2026-11-29-everton-vina-m-o-higgins-kllv53",
@@ -4981,7 +5701,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-25T20:20:07Z"
+      "capturedAtUtc": "2026-11-26T19:50:07Z"
     },
     {
       "gameId": "primera-chile-2026-11-29-everton-vina-m-o-higgins-kllv53",
@@ -4996,7 +5716,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-25T20:20:07Z"
+      "capturedAtUtc": "2026-11-26T19:50:07Z"
     },
     {
       "gameId": "primera-chile-2026-11-29-everton-vina-m-o-higgins-kllv53",
@@ -5006,12 +5726,12 @@
       "outcome": "AWAY",
       "line": null,
       "book": "sbo",
-      "decimal": 3.19,
+      "decimal": 3.38,
       "openingDecimal": 3.19,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-25T20:20:07Z"
+      "deltaPct": 5.96,
+      "movement": "drifting",
+      "movementSignal": "DRIFTING",
+      "capturedAtUtc": "2026-11-26T19:50:07Z"
     },
     {
       "gameId": "primera-chile-2026-11-29-everton-vina-m-o-higgins-kllv53",
@@ -5026,7 +5746,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-25T20:20:07Z"
+      "capturedAtUtc": "2026-11-26T19:50:07Z"
     },
     {
       "gameId": "primera-chile-2026-11-29-everton-vina-m-o-higgins-kllv53",
@@ -5041,7 +5761,22 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-25T20:20:07Z"
+      "capturedAtUtc": "2026-11-26T19:50:07Z"
+    },
+    {
+      "gameId": "primera-chile-2026-11-29-everton-vina-m-o-higgins-kllv53",
+      "homeName": "Everton de Viña del Mar",
+      "awayName": "O'Higgins",
+      "market": "double_chance",
+      "outcome": "1X",
+      "line": null,
+      "book": "betfair",
+      "decimal": 1.2,
+      "openingDecimal": 1.2,
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-26T19:50:07Z"
     },
     {
       "gameId": "primera-chile-2026-11-29-everton-vina-m-o-higgins-kllv53",
@@ -5051,12 +5786,12 @@
       "outcome": "1X",
       "line": null,
       "book": "sbo",
-      "decimal": 1.17,
+      "decimal": 1.15,
       "openingDecimal": 1.17,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-25T20:20:07Z"
+      "deltaPct": -1.71,
+      "movement": "shortening",
+      "movementSignal": "SHORTENING",
+      "capturedAtUtc": "2026-11-26T19:50:07Z"
     },
     {
       "gameId": "primera-chile-2026-11-29-everton-vina-m-o-higgins-kllv53",
@@ -5071,7 +5806,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-25T20:20:07Z"
+      "capturedAtUtc": "2026-11-26T19:50:07Z"
     },
     {
       "gameId": "primera-chile-2026-11-29-everton-vina-m-o-higgins-kllv53",
@@ -5086,7 +5821,22 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-25T20:20:07Z"
+      "capturedAtUtc": "2026-11-26T19:50:07Z"
+    },
+    {
+      "gameId": "primera-chile-2026-11-29-everton-vina-m-o-higgins-kllv53",
+      "homeName": "Everton de Viña del Mar",
+      "awayName": "O'Higgins",
+      "market": "double_chance",
+      "outcome": "X2",
+      "line": null,
+      "book": "betfair",
+      "decimal": 1.83,
+      "openingDecimal": 1.83,
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-26T19:50:07Z"
     },
     {
       "gameId": "primera-chile-2026-11-29-everton-vina-m-o-higgins-kllv53",
@@ -5096,12 +5846,12 @@
       "outcome": "X2",
       "line": null,
       "book": "sbo",
-      "decimal": 1.85,
+      "decimal": 1.93,
       "openingDecimal": 1.85,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-25T20:20:07Z"
+      "deltaPct": 4.32,
+      "movement": "drifting",
+      "movementSignal": "DRIFTING",
+      "capturedAtUtc": "2026-11-26T19:50:07Z"
     },
     {
       "gameId": "primera-chile-2026-11-29-everton-vina-m-o-higgins-kllv53",
@@ -5116,7 +5866,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-25T20:20:07Z"
+      "capturedAtUtc": "2026-11-26T19:50:07Z"
     },
     {
       "gameId": "primera-chile-2026-11-29-everton-vina-m-o-higgins-kllv53",
@@ -5131,7 +5881,22 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-25T20:20:07Z"
+      "capturedAtUtc": "2026-11-26T19:50:07Z"
+    },
+    {
+      "gameId": "primera-chile-2026-11-29-everton-vina-m-o-higgins-kllv53",
+      "homeName": "Everton de Viña del Mar",
+      "awayName": "O'Higgins",
+      "market": "double_chance",
+      "outcome": "12",
+      "line": null,
+      "book": "betfair",
+      "decimal": 1.22,
+      "openingDecimal": 1.22,
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-26T19:50:07Z"
     },
     {
       "gameId": "primera-chile-2026-11-29-everton-vina-m-o-higgins-kllv53",
@@ -5146,7 +5911,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-25T20:20:07Z"
+      "capturedAtUtc": "2026-11-26T19:50:07Z"
     },
     {
       "gameId": "primera-chile-2026-11-29-everton-vina-m-o-higgins-kllv53",
@@ -5161,7 +5926,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-25T20:20:07Z"
+      "capturedAtUtc": "2026-11-26T19:50:07Z"
     },
     {
       "gameId": "primera-chile-2026-11-29-everton-vina-m-o-higgins-kllv53",
@@ -5176,7 +5941,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-25T20:20:07Z"
+      "capturedAtUtc": "2026-11-26T19:50:07Z"
     },
     {
       "gameId": "primera-chile-2026-11-29-everton-vina-m-o-higgins-kllv53",
@@ -5191,7 +5956,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-25T20:20:07Z"
+      "capturedAtUtc": "2026-11-26T19:50:07Z"
     },
     {
       "gameId": "primera-chile-2026-11-29-everton-vina-m-o-higgins-kllv53",
@@ -5206,7 +5971,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-25T20:20:07Z"
+      "capturedAtUtc": "2026-11-26T19:50:07Z"
     },
     {
       "gameId": "primera-chile-2026-11-29-everton-vina-m-o-higgins-kllv53",
@@ -5221,7 +5986,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-25T20:20:07Z"
+      "capturedAtUtc": "2026-11-26T19:50:07Z"
     },
     {
       "gameId": "primera-chile-2026-11-29-everton-vina-m-o-higgins-kllv53",
@@ -5236,7 +6001,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-25T20:20:07Z"
+      "capturedAtUtc": "2026-11-26T19:50:07Z"
     },
     {
       "gameId": "primera-chile-2026-11-29-everton-vina-m-o-higgins-kllv53",
@@ -5251,7 +6016,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-25T20:20:07Z"
+      "capturedAtUtc": "2026-11-26T19:50:07Z"
     },
     {
       "gameId": "primera-chile-2026-11-29-everton-vina-m-o-higgins-kllv53",
@@ -5266,7 +6031,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-25T20:20:07Z"
+      "capturedAtUtc": "2026-11-26T19:50:07Z"
     },
     {
       "gameId": "primera-chile-2026-11-29-everton-vina-m-o-higgins-kllv53",
@@ -5281,7 +6046,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-25T20:20:07Z"
+      "capturedAtUtc": "2026-11-26T19:50:07Z"
     },
     {
       "gameId": "primera-chile-2026-11-29-everton-vina-m-o-higgins-kllv53",
@@ -5296,7 +6061,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-25T20:20:07Z"
+      "capturedAtUtc": "2026-11-26T19:50:07Z"
     },
     {
       "gameId": "primera-chile-2026-11-29-everton-vina-m-o-higgins-kllv53",
@@ -5311,7 +6076,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-25T20:20:07Z"
+      "capturedAtUtc": "2026-11-26T19:50:07Z"
     },
     {
       "gameId": "primera-chile-2026-11-29-everton-vina-m-o-higgins-kllv53",
@@ -5326,7 +6091,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-25T20:20:07Z"
+      "capturedAtUtc": "2026-11-26T19:50:07Z"
     },
     {
       "gameId": "primera-chile-2026-11-29-everton-vina-m-o-higgins-kllv53",
@@ -5341,7 +6106,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-25T20:20:07Z"
+      "capturedAtUtc": "2026-11-26T19:50:07Z"
     },
     {
       "gameId": "primera-chile-2026-11-29-everton-vina-m-o-higgins-kllv53",
@@ -5356,7 +6121,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-25T20:20:07Z"
+      "capturedAtUtc": "2026-11-26T19:50:07Z"
     },
     {
       "gameId": "primera-chile-2026-11-29-everton-vina-m-o-higgins-kllv53",
@@ -5371,7 +6136,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-25T20:20:07Z"
+      "capturedAtUtc": "2026-11-26T19:50:07Z"
     },
     {
       "gameId": "primera-chile-2026-11-29-everton-vina-m-o-higgins-kllv53",
@@ -5386,7 +6151,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-25T20:20:07Z"
+      "capturedAtUtc": "2026-11-26T19:50:07Z"
     },
     {
       "gameId": "primera-chile-2026-11-29-everton-vina-m-o-higgins-kllv53",
@@ -5401,7 +6166,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-25T20:20:07Z"
+      "capturedAtUtc": "2026-11-26T19:50:07Z"
     },
     {
       "gameId": "primera-chile-2026-11-29-everton-vina-m-o-higgins-kllv53",
@@ -5416,7 +6181,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-25T20:20:07Z"
+      "capturedAtUtc": "2026-11-26T19:50:07Z"
     },
     {
       "gameId": "primera-chile-2026-11-29-everton-vina-m-o-higgins-kllv53",
@@ -5431,7 +6196,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-25T20:20:07Z"
+      "capturedAtUtc": "2026-11-26T19:50:07Z"
     },
     {
       "gameId": "primera-chile-2026-11-29-everton-vina-m-o-higgins-kllv53",
@@ -5446,7 +6211,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-25T20:20:07Z"
+      "capturedAtUtc": "2026-11-26T19:50:07Z"
     },
     {
       "gameId": "primera-chile-2026-11-29-everton-vina-m-o-higgins-kllv53",
@@ -5461,7 +6226,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-25T20:20:07Z"
+      "capturedAtUtc": "2026-11-26T19:50:07Z"
     },
     {
       "gameId": "primera-chile-2026-11-29-everton-vina-m-o-higgins-kllv53",
@@ -5476,7 +6241,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-25T20:20:07Z"
+      "capturedAtUtc": "2026-11-26T19:50:07Z"
     },
     {
       "gameId": "primera-chile-2026-11-29-everton-vina-m-o-higgins-kllv53",
@@ -5491,7 +6256,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-25T20:20:07Z"
+      "capturedAtUtc": "2026-11-26T19:50:07Z"
     },
     {
       "gameId": "primera-chile-2026-11-29-everton-vina-m-o-higgins-kllv53",
@@ -5506,7 +6271,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-25T20:20:07Z"
+      "capturedAtUtc": "2026-11-26T19:50:07Z"
     },
     {
       "gameId": "primera-chile-2026-11-29-everton-vina-m-o-higgins-kllv53",
@@ -5521,7 +6286,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-25T20:20:07Z"
+      "capturedAtUtc": "2026-11-26T19:50:07Z"
     },
     {
       "gameId": "primera-chile-2026-11-29-everton-vina-m-o-higgins-kllv53",
@@ -5536,7 +6301,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-25T20:20:07Z"
+      "capturedAtUtc": "2026-11-26T19:50:07Z"
     },
     {
       "gameId": "primera-chile-2026-11-29-everton-vina-m-o-higgins-kllv53",
@@ -5551,7 +6316,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-25T20:20:07Z"
+      "capturedAtUtc": "2026-11-26T19:50:07Z"
     },
     {
       "gameId": "primera-chile-2026-11-29-everton-vina-m-o-higgins-kllv53",
@@ -5566,7 +6331,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-25T20:20:07Z"
+      "capturedAtUtc": "2026-11-26T19:50:07Z"
     },
     {
       "gameId": "primera-chile-2026-11-29-everton-vina-m-o-higgins-kllv53",
@@ -5581,7 +6346,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-25T20:20:07Z"
+      "capturedAtUtc": "2026-11-26T19:50:07Z"
     },
     {
       "gameId": "primera-chile-2026-11-29-everton-vina-m-o-higgins-kllv53",
@@ -5596,7 +6361,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-25T20:20:07Z"
+      "capturedAtUtc": "2026-11-26T19:50:07Z"
     },
     {
       "gameId": "primera-chile-2026-11-29-everton-vina-m-o-higgins-kllv53",
@@ -5611,7 +6376,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-25T20:20:07Z"
+      "capturedAtUtc": "2026-11-26T19:50:07Z"
     },
     {
       "gameId": "primera-chile-2026-11-29-everton-vina-m-o-higgins-kllv53",
@@ -5626,7 +6391,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-25T20:20:07Z"
+      "capturedAtUtc": "2026-11-26T19:50:07Z"
     },
     {
       "gameId": "primera-chile-2026-11-29-audax-italiano-palestino-07v56s",
@@ -5641,7 +6406,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-25T20:20:07Z"
+      "capturedAtUtc": "2026-11-26T19:50:07Z"
     },
     {
       "gameId": "primera-chile-2026-11-29-audax-italiano-palestino-07v56s",
@@ -5656,7 +6421,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-25T20:20:07Z"
+      "capturedAtUtc": "2026-11-26T19:50:07Z"
     },
     {
       "gameId": "primera-chile-2026-11-29-audax-italiano-palestino-07v56s",
@@ -5671,7 +6436,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-25T20:20:07Z"
+      "capturedAtUtc": "2026-11-26T19:50:07Z"
     },
     {
       "gameId": "primera-chile-2026-11-29-audax-italiano-palestino-07v56s",
@@ -5686,7 +6451,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-25T20:20:07Z"
+      "capturedAtUtc": "2026-11-26T19:50:07Z"
     },
     {
       "gameId": "primera-chile-2026-11-29-audax-italiano-palestino-07v56s",
@@ -5701,7 +6466,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-25T20:20:07Z"
+      "capturedAtUtc": "2026-11-26T19:50:07Z"
     },
     {
       "gameId": "primera-chile-2026-11-29-audax-italiano-palestino-07v56s",
@@ -5716,7 +6481,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-25T20:20:07Z"
+      "capturedAtUtc": "2026-11-26T19:50:07Z"
     },
     {
       "gameId": "primera-chile-2026-11-29-audax-italiano-palestino-07v56s",
@@ -5731,7 +6496,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-25T20:20:07Z"
+      "capturedAtUtc": "2026-11-26T19:50:07Z"
     },
     {
       "gameId": "primera-chile-2026-11-29-audax-italiano-palestino-07v56s",
@@ -5746,7 +6511,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-25T20:20:07Z"
+      "capturedAtUtc": "2026-11-26T19:50:07Z"
     },
     {
       "gameId": "primera-chile-2026-11-29-audax-italiano-palestino-07v56s",
@@ -5761,7 +6526,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-25T20:20:07Z"
+      "capturedAtUtc": "2026-11-26T19:50:07Z"
     },
     {
       "gameId": "primera-chile-2026-11-29-audax-italiano-palestino-07v56s",
@@ -5776,7 +6541,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-25T20:20:07Z"
+      "capturedAtUtc": "2026-11-26T19:50:07Z"
     },
     {
       "gameId": "primera-chile-2026-11-29-audax-italiano-palestino-07v56s",
@@ -5791,7 +6556,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-25T20:20:07Z"
+      "capturedAtUtc": "2026-11-26T19:50:07Z"
     },
     {
       "gameId": "primera-chile-2026-11-29-audax-italiano-palestino-07v56s",
@@ -5806,7 +6571,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-25T20:20:07Z"
+      "capturedAtUtc": "2026-11-26T19:50:07Z"
     },
     {
       "gameId": "primera-chile-2026-11-29-audax-italiano-palestino-07v56s",
@@ -5821,7 +6586,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-25T20:20:07Z"
+      "capturedAtUtc": "2026-11-26T19:50:07Z"
     },
     {
       "gameId": "primera-chile-2026-11-29-audax-italiano-palestino-07v56s",
@@ -5836,7 +6601,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-25T20:20:07Z"
+      "capturedAtUtc": "2026-11-26T19:50:07Z"
     },
     {
       "gameId": "primera-chile-2026-11-29-audax-italiano-palestino-07v56s",
@@ -5851,7 +6616,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-25T20:20:07Z"
+      "capturedAtUtc": "2026-11-26T19:50:07Z"
     },
     {
       "gameId": "primera-chile-2026-11-29-audax-italiano-palestino-07v56s",
@@ -5866,7 +6631,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-25T20:20:07Z"
+      "capturedAtUtc": "2026-11-26T19:50:07Z"
     },
     {
       "gameId": "primera-chile-2026-11-29-audax-italiano-palestino-07v56s",
@@ -5881,7 +6646,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-25T20:20:07Z"
+      "capturedAtUtc": "2026-11-26T19:50:07Z"
     },
     {
       "gameId": "primera-chile-2026-11-29-audax-italiano-palestino-07v56s",
@@ -5896,7 +6661,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-25T20:20:07Z"
+      "capturedAtUtc": "2026-11-26T19:50:07Z"
     },
     {
       "gameId": "primera-chile-2026-11-29-audax-italiano-palestino-07v56s",
@@ -5911,7 +6676,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-25T20:20:07Z"
+      "capturedAtUtc": "2026-11-26T19:50:07Z"
     },
     {
       "gameId": "primera-chile-2026-11-29-audax-italiano-palestino-07v56s",
@@ -5926,7 +6691,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-25T20:20:07Z"
+      "capturedAtUtc": "2026-11-26T19:50:07Z"
     },
     {
       "gameId": "primera-chile-2026-11-29-audax-italiano-palestino-07v56s",
@@ -5941,7 +6706,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-25T20:20:07Z"
+      "capturedAtUtc": "2026-11-26T19:50:07Z"
     },
     {
       "gameId": "primera-chile-2026-11-29-audax-italiano-palestino-07v56s",
@@ -5956,7 +6721,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-25T20:20:07Z"
+      "capturedAtUtc": "2026-11-26T19:50:07Z"
     },
     {
       "gameId": "primera-chile-2026-11-29-audax-italiano-palestino-07v56s",
@@ -5971,7 +6736,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-25T20:20:07Z"
+      "capturedAtUtc": "2026-11-26T19:50:07Z"
     },
     {
       "gameId": "primera-chile-2026-11-29-audax-italiano-palestino-07v56s",
@@ -5986,7 +6751,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-25T20:20:07Z"
+      "capturedAtUtc": "2026-11-26T19:50:07Z"
     },
     {
       "gameId": "primera-chile-2026-11-29-audax-italiano-palestino-07v56s",
@@ -6001,7 +6766,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-25T20:20:07Z"
+      "capturedAtUtc": "2026-11-26T19:50:07Z"
     },
     {
       "gameId": "primera-chile-2026-11-29-audax-italiano-palestino-07v56s",
@@ -6016,7 +6781,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-25T20:20:07Z"
+      "capturedAtUtc": "2026-11-26T19:50:07Z"
     },
     {
       "gameId": "primera-chile-2026-11-29-audax-italiano-palestino-07v56s",
@@ -6031,7 +6796,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-25T20:20:07Z"
+      "capturedAtUtc": "2026-11-26T19:50:07Z"
     },
     {
       "gameId": "primera-chile-2026-11-29-audax-italiano-palestino-07v56s",
@@ -6046,7 +6811,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-25T20:20:07Z"
+      "capturedAtUtc": "2026-11-26T19:50:07Z"
     },
     {
       "gameId": "primera-chile-2026-11-29-audax-italiano-palestino-07v56s",
@@ -6061,7 +6826,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-25T20:20:07Z"
+      "capturedAtUtc": "2026-11-26T19:50:07Z"
     },
     {
       "gameId": "primera-chile-2026-11-29-audax-italiano-palestino-07v56s",
@@ -6076,7 +6841,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-25T20:20:07Z"
+      "capturedAtUtc": "2026-11-26T19:50:07Z"
     },
     {
       "gameId": "primera-chile-2026-11-29-audax-italiano-palestino-07v56s",
@@ -6091,7 +6856,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-25T20:20:07Z"
+      "capturedAtUtc": "2026-11-26T19:50:07Z"
     },
     {
       "gameId": "primera-chile-2026-11-29-audax-italiano-palestino-07v56s",
@@ -6106,7 +6871,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-25T20:20:07Z"
+      "capturedAtUtc": "2026-11-26T19:50:07Z"
     },
     {
       "gameId": "primera-chile-2026-11-29-audax-italiano-palestino-07v56s",
@@ -6121,7 +6886,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-25T20:20:07Z"
+      "capturedAtUtc": "2026-11-26T19:50:07Z"
     },
     {
       "gameId": "primera-chile-2026-11-29-audax-italiano-palestino-07v56s",
@@ -6136,7 +6901,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-25T20:20:07Z"
+      "capturedAtUtc": "2026-11-26T19:50:07Z"
     },
     {
       "gameId": "primera-chile-2026-11-29-audax-italiano-palestino-07v56s",
@@ -6151,7 +6916,22 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-25T20:20:07Z"
+      "capturedAtUtc": "2026-11-26T19:50:07Z"
+    },
+    {
+      "gameId": "primera-chile-2026-11-29-audax-italiano-palestino-07v56s",
+      "homeName": "Audax Italiano",
+      "awayName": "Palestino",
+      "market": "double_chance",
+      "outcome": "1X",
+      "line": null,
+      "book": "betfair",
+      "decimal": 1.36,
+      "openingDecimal": 1.36,
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-26T19:50:07Z"
     },
     {
       "gameId": "primera-chile-2026-11-29-audax-italiano-palestino-07v56s",
@@ -6166,7 +6946,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-25T20:20:07Z"
+      "capturedAtUtc": "2026-11-26T19:50:07Z"
     },
     {
       "gameId": "primera-chile-2026-11-29-audax-italiano-palestino-07v56s",
@@ -6181,7 +6961,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-25T20:20:07Z"
+      "capturedAtUtc": "2026-11-26T19:50:07Z"
     },
     {
       "gameId": "primera-chile-2026-11-29-audax-italiano-palestino-07v56s",
@@ -6196,7 +6976,22 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-25T20:20:07Z"
+      "capturedAtUtc": "2026-11-26T19:50:07Z"
+    },
+    {
+      "gameId": "primera-chile-2026-11-29-audax-italiano-palestino-07v56s",
+      "homeName": "Audax Italiano",
+      "awayName": "Palestino",
+      "market": "double_chance",
+      "outcome": "X2",
+      "line": null,
+      "book": "betfair",
+      "decimal": 1.53,
+      "openingDecimal": 1.53,
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-26T19:50:07Z"
     },
     {
       "gameId": "primera-chile-2026-11-29-audax-italiano-palestino-07v56s",
@@ -6211,7 +7006,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-25T20:20:07Z"
+      "capturedAtUtc": "2026-11-26T19:50:07Z"
     },
     {
       "gameId": "primera-chile-2026-11-29-audax-italiano-palestino-07v56s",
@@ -6226,7 +7021,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-25T20:20:07Z"
+      "capturedAtUtc": "2026-11-26T19:50:07Z"
     },
     {
       "gameId": "primera-chile-2026-11-29-audax-italiano-palestino-07v56s",
@@ -6241,7 +7036,22 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-25T20:20:07Z"
+      "capturedAtUtc": "2026-11-26T19:50:07Z"
+    },
+    {
+      "gameId": "primera-chile-2026-11-29-audax-italiano-palestino-07v56s",
+      "homeName": "Audax Italiano",
+      "awayName": "Palestino",
+      "market": "double_chance",
+      "outcome": "12",
+      "line": null,
+      "book": "betfair",
+      "decimal": 1.25,
+      "openingDecimal": 1.25,
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-26T19:50:07Z"
     },
     {
       "gameId": "primera-chile-2026-11-29-audax-italiano-palestino-07v56s",
@@ -6256,7 +7066,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-25T20:20:07Z"
+      "capturedAtUtc": "2026-11-26T19:50:07Z"
     },
     {
       "gameId": "primera-chile-2026-11-29-audax-italiano-palestino-07v56s",
@@ -6271,7 +7081,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-25T20:20:07Z"
+      "capturedAtUtc": "2026-11-26T19:50:07Z"
     },
     {
       "gameId": "primera-chile-2026-11-29-audax-italiano-palestino-07v56s",
@@ -6286,7 +7096,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-25T20:20:07Z"
+      "capturedAtUtc": "2026-11-26T19:50:07Z"
     },
     {
       "gameId": "primera-chile-2026-11-29-audax-italiano-palestino-07v56s",
@@ -6301,7 +7111,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-25T20:20:07Z"
+      "capturedAtUtc": "2026-11-26T19:50:07Z"
     },
     {
       "gameId": "primera-chile-2026-11-29-audax-italiano-palestino-07v56s",
@@ -6316,7 +7126,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-25T20:20:07Z"
+      "capturedAtUtc": "2026-11-26T19:50:07Z"
     },
     {
       "gameId": "primera-chile-2026-11-29-audax-italiano-palestino-07v56s",
@@ -6331,7 +7141,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-25T20:20:07Z"
+      "capturedAtUtc": "2026-11-26T19:50:07Z"
     },
     {
       "gameId": "primera-chile-2026-11-29-audax-italiano-palestino-07v56s",
@@ -6346,7 +7156,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-25T20:20:07Z"
+      "capturedAtUtc": "2026-11-26T19:50:07Z"
     },
     {
       "gameId": "primera-chile-2026-11-29-audax-italiano-palestino-07v56s",
@@ -6361,7 +7171,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-25T20:20:07Z"
+      "capturedAtUtc": "2026-11-26T19:50:07Z"
     },
     {
       "gameId": "primera-chile-2026-11-29-audax-italiano-palestino-07v56s",
@@ -6376,7 +7186,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-25T20:20:07Z"
+      "capturedAtUtc": "2026-11-26T19:50:07Z"
     },
     {
       "gameId": "primera-chile-2026-11-29-audax-italiano-palestino-07v56s",
@@ -6391,7 +7201,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-25T20:20:07Z"
+      "capturedAtUtc": "2026-11-26T19:50:07Z"
     },
     {
       "gameId": "primera-chile-2026-11-29-audax-italiano-palestino-07v56s",
@@ -6406,7 +7216,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-25T20:20:07Z"
+      "capturedAtUtc": "2026-11-26T19:50:07Z"
     },
     {
       "gameId": "primera-chile-2026-11-29-audax-italiano-palestino-07v56s",
@@ -6421,7 +7231,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-25T20:20:07Z"
+      "capturedAtUtc": "2026-11-26T19:50:07Z"
     },
     {
       "gameId": "primera-chile-2026-11-29-audax-italiano-palestino-07v56s",
@@ -6436,7 +7246,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-25T20:20:07Z"
+      "capturedAtUtc": "2026-11-26T19:50:07Z"
     },
     {
       "gameId": "primera-chile-2026-11-29-audax-italiano-palestino-07v56s",
@@ -6451,7 +7261,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-25T20:20:07Z"
+      "capturedAtUtc": "2026-11-26T19:50:07Z"
     },
     {
       "gameId": "primera-chile-2026-11-29-audax-italiano-palestino-07v56s",
@@ -6466,7 +7276,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-25T20:20:07Z"
+      "capturedAtUtc": "2026-11-26T19:50:07Z"
     },
     {
       "gameId": "primera-chile-2026-11-29-audax-italiano-palestino-07v56s",
@@ -6481,7 +7291,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-25T20:20:07Z"
+      "capturedAtUtc": "2026-11-26T19:50:07Z"
     },
     {
       "gameId": "primera-chile-2026-11-29-audax-italiano-palestino-07v56s",
@@ -6496,7 +7306,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-25T20:20:07Z"
+      "capturedAtUtc": "2026-11-26T19:50:07Z"
     },
     {
       "gameId": "primera-chile-2026-11-29-audax-italiano-palestino-07v56s",
@@ -6511,7 +7321,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-25T20:20:07Z"
+      "capturedAtUtc": "2026-11-26T19:50:07Z"
     },
     {
       "gameId": "primera-chile-2026-11-29-audax-italiano-palestino-07v56s",
@@ -6526,7 +7336,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-25T20:20:07Z"
+      "capturedAtUtc": "2026-11-26T19:50:07Z"
     },
     {
       "gameId": "primera-chile-2026-11-29-audax-italiano-palestino-07v56s",
@@ -6541,7 +7351,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-25T20:20:07Z"
+      "capturedAtUtc": "2026-11-26T19:50:07Z"
     },
     {
       "gameId": "primera-chile-2026-11-29-audax-italiano-palestino-07v56s",
@@ -6556,7 +7366,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-25T20:20:07Z"
+      "capturedAtUtc": "2026-11-26T19:50:07Z"
     },
     {
       "gameId": "primera-chile-2026-11-29-audax-italiano-palestino-07v56s",
@@ -6571,7 +7381,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-25T20:20:07Z"
+      "capturedAtUtc": "2026-11-26T19:50:07Z"
     },
     {
       "gameId": "primera-chile-2026-11-29-audax-italiano-palestino-07v56s",
@@ -6586,7 +7396,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-25T20:20:07Z"
+      "capturedAtUtc": "2026-11-26T19:50:07Z"
     },
     {
       "gameId": "primera-chile-2026-11-29-audax-italiano-palestino-07v56s",
@@ -6601,7 +7411,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-25T20:20:07Z"
+      "capturedAtUtc": "2026-11-26T19:50:07Z"
     },
     {
       "gameId": "primera-chile-2026-11-29-audax-italiano-palestino-07v56s",
@@ -6616,7 +7426,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-25T20:20:07Z"
+      "capturedAtUtc": "2026-11-26T19:50:07Z"
     },
     {
       "gameId": "primera-chile-2026-11-29-audax-italiano-palestino-07v56s",
@@ -6631,7 +7441,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-25T20:20:07Z"
+      "capturedAtUtc": "2026-11-26T19:50:07Z"
     },
     {
       "gameId": "primera-chile-2026-11-29-audax-italiano-palestino-07v56s",
@@ -6641,12 +7451,12 @@
       "outcome": "over",
       "line": 8.5,
       "book": "1xbet",
-      "decimal": 1.5,
+      "decimal": 1.52,
       "openingDecimal": 1.5,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-25T20:20:07Z"
+      "deltaPct": 1.33,
+      "movement": "drifting",
+      "movementSignal": "DRIFTING",
+      "capturedAtUtc": "2026-11-26T19:50:07Z"
     },
     {
       "gameId": "primera-chile-2026-11-29-audax-italiano-palestino-07v56s",
@@ -6656,12 +7466,12 @@
       "outcome": "under",
       "line": 8.5,
       "book": "1xbet",
-      "decimal": 2.4,
+      "decimal": 2.35,
       "openingDecimal": 2.4,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-25T20:20:07Z"
+      "deltaPct": -2.08,
+      "movement": "shortening",
+      "movementSignal": "SHORTENING",
+      "capturedAtUtc": "2026-11-26T19:50:07Z"
     },
     {
       "gameId": "primera-chile-2026-11-29-audax-italiano-palestino-07v56s",
@@ -6671,12 +7481,12 @@
       "outcome": "over",
       "line": 9.5,
       "book": "1xbet",
-      "decimal": 1.85,
+      "decimal": 1.87,
       "openingDecimal": 1.85,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-25T20:20:07Z"
+      "deltaPct": 1.08,
+      "movement": "drifting",
+      "movementSignal": "DRIFTING",
+      "capturedAtUtc": "2026-11-26T19:50:07Z"
     },
     {
       "gameId": "primera-chile-2026-11-29-audax-italiano-palestino-07v56s",
@@ -6686,12 +7496,12 @@
       "outcome": "under",
       "line": 9.5,
       "book": "1xbet",
-      "decimal": 1.85,
+      "decimal": 1.83,
       "openingDecimal": 1.85,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-25T20:20:07Z"
+      "deltaPct": -1.08,
+      "movement": "shortening",
+      "movementSignal": "SHORTENING",
+      "capturedAtUtc": "2026-11-26T19:50:07Z"
     },
     {
       "gameId": "primera-chile-2026-11-29-audax-italiano-palestino-07v56s",
@@ -6701,12 +7511,12 @@
       "outcome": "over",
       "line": 10.5,
       "book": "1xbet",
-      "decimal": 2.4,
+      "decimal": 2.45,
       "openingDecimal": 2.4,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-25T20:20:07Z"
+      "deltaPct": 2.08,
+      "movement": "drifting",
+      "movementSignal": "DRIFTING",
+      "capturedAtUtc": "2026-11-26T19:50:07Z"
     },
     {
       "gameId": "primera-chile-2026-11-29-audax-italiano-palestino-07v56s",
@@ -6716,12 +7526,12 @@
       "outcome": "under",
       "line": 10.5,
       "book": "1xbet",
-      "decimal": 1.5,
+      "decimal": 1.49,
       "openingDecimal": 1.5,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-25T20:20:07Z"
+      "deltaPct": -0.67,
+      "movement": "shortening",
+      "movementSignal": "SHORTENING",
+      "capturedAtUtc": "2026-11-26T19:50:07Z"
     },
     {
       "gameId": "primera-chile-2026-11-29-audax-italiano-palestino-07v56s",
@@ -6731,12 +7541,12 @@
       "outcome": "over",
       "line": 11.5,
       "book": "1xbet",
-      "decimal": 3.2,
+      "decimal": 3.3,
       "openingDecimal": 3.2,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-25T20:20:07Z"
+      "deltaPct": 3.12,
+      "movement": "drifting",
+      "movementSignal": "DRIFTING",
+      "capturedAtUtc": "2026-11-26T19:50:07Z"
     },
     {
       "gameId": "primera-chile-2026-11-29-audax-italiano-palestino-07v56s",
@@ -6746,12 +7556,12 @@
       "outcome": "under",
       "line": 11.5,
       "book": "1xbet",
-      "decimal": 1.3,
+      "decimal": 1.29,
       "openingDecimal": 1.3,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-25T20:20:07Z"
+      "deltaPct": -0.77,
+      "movement": "shortening",
+      "movementSignal": "SHORTENING",
+      "capturedAtUtc": "2026-11-26T19:50:07Z"
     }
   ]
 }

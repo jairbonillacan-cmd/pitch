@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "league": "caf-champions",
   "seasonLabel": "2026/27",
-  "observedAt": "2026-11-25T20:23:50.754Z",
+  "observedAt": "2026-11-26T20:00:11.075Z",
   "teams": [
     {
       "teamId": "caf-champions.young-africans",
@@ -24,7 +24,7 @@
           "winPct": 50
         }
       },
-      "updatedAt": "2026-11-25T20:23:50.754Z",
+      "updatedAt": "2026-11-26T20:00:11.075Z",
       "players": [
         {
           "id": "caf-champions.young-africans.abdul-nasir-asaa-mohammed",
@@ -175,21 +175,21 @@
           "candidatePicks": []
         },
         {
-          "id": "caf-champions.young-africans.abubakar-nizar-ninju",
-          "slug": "abubakar-nizar-ninju",
-          "name": "Abubakar Nizar  Ninju",
-          "shortName": "A. N. Ninju",
-          "jersey": "6",
+          "id": "caf-champions.young-africans.abubakar-nizar-othman",
+          "slug": "abubakar-nizar-othman",
+          "name": "Abubakar Nizar Othman",
+          "shortName": "A. N. Othman",
+          "jersey": "4",
           "positionGroup": "DEF",
           "positionLabel": "Defensa",
           "age": 17,
           "birthDate": "2009-07-12",
-          "heightCm": null,
+          "heightCm": 180,
           "weightKg": null,
-          "preferredFoot": null,
+          "preferredFoot": "R",
           "nationality": "Tanzania",
           "nationalityCode": null,
-          "photoKey": "pl-p:49517",
+          "photoKey": "pl-p:237491",
           "availability": "available",
           "injuryDetail": null,
           "expectedReturn": null,
@@ -443,7 +443,7 @@
           "positionLabel": "Delantero",
           "age": 25,
           "birthDate": "2001-06-15",
-          "heightCm": null,
+          "heightCm": 184,
           "weightKg": null,
           "preferredFoot": "R",
           "nationality": "Gambia",
@@ -1000,7 +1000,7 @@
           "birthDate": null,
           "heightCm": null,
           "weightKg": null,
-          "preferredFoot": null,
+          "preferredFoot": "R",
           "nationality": "Tanzania",
           "nationalityCode": null,
           "photoKey": "pl-p:206649",
@@ -1218,7 +1218,7 @@
       "teamName": "CFFA",
       "coachName": null,
       "coach": null,
-      "updatedAt": "2026-11-25T20:23:50.754Z",
+      "updatedAt": "2026-11-26T20:00:11.075Z",
       "players": []
     },
     {
@@ -1241,7 +1241,7 @@
           "winPct": 11.1
         }
       },
-      "updatedAt": "2026-11-25T20:23:50.754Z",
+      "updatedAt": "2026-11-26T20:00:11.075Z",
       "players": [
         {
           "id": "caf-champions.atletico-petroleos-luanda.antonio-hossi",
@@ -1267,7 +1267,7 @@
             "subIns": 0,
             "goals": 0,
             "assists": 0,
-            "shots": 1,
+            "shots": 0,
             "shotsOnTarget": 0,
             "foulsCommitted": 0,
             "foulsSuffered": 0,
@@ -1607,9 +1607,9 @@
             "yellowCards": 0,
             "redCards": 0,
             "offsides": 0,
-            "saves": 0,
+            "saves": 1,
             "shotsFaced": 0,
-            "goalsConceded": 1
+            "goalsConceded": 0
           },
           "candidatePicks": []
         },
@@ -1785,8 +1785,8 @@
             "subIns": 0,
             "goals": 0,
             "assists": 0,
-            "shots": 0,
-            "shotsOnTarget": 0,
+            "shots": 1,
+            "shotsOnTarget": 1,
             "foulsCommitted": 0,
             "foulsSuffered": 0,
             "yellowCards": 0,
@@ -1859,7 +1859,7 @@
             "subIns": 0,
             "goals": 0,
             "assists": 0,
-            "shots": 1,
+            "shots": 0,
             "shotsOnTarget": 0,
             "foulsCommitted": 0,
             "foulsSuffered": 0,
@@ -2266,8 +2266,8 @@
             "subIns": 0,
             "goals": 0,
             "assists": 0,
-            "shots": 0,
-            "shotsOnTarget": 0,
+            "shots": 6,
+            "shotsOnTarget": 2,
             "foulsCommitted": 0,
             "foulsSuffered": 0,
             "yellowCards": 0,
@@ -2303,8 +2303,8 @@
             "subIns": 0,
             "goals": 0,
             "assists": 0,
-            "shots": 0,
-            "shotsOnTarget": 0,
+            "shots": 1,
+            "shotsOnTarget": 1,
             "foulsCommitted": 0,
             "foulsSuffered": 0,
             "yellowCards": 0,
@@ -2375,7 +2375,7 @@
           "winPct": 40
         }
       },
-      "updatedAt": "2026-11-25T20:23:50.754Z",
+      "updatedAt": "2026-11-26T20:00:11.075Z",
       "players": [
         {
           "id": "caf-champions.scottland.abubakar-moffat",
@@ -3118,6 +3118,43 @@
           "candidatePicks": []
         },
         {
+          "id": "caf-champions.scottland.seth-patrick",
+          "slug": "seth-patrick",
+          "name": "Seth Patrick",
+          "shortName": "S. Patrick",
+          "jersey": null,
+          "positionGroup": "MID",
+          "positionLabel": "Mediocampista",
+          "age": 26,
+          "birthDate": "2000-05-02",
+          "heightCm": 187,
+          "weightKg": null,
+          "preferredFoot": "R",
+          "nationality": "Zimbabwe",
+          "nationalityCode": null,
+          "photoKey": "pl-p:151467",
+          "availability": "available",
+          "injuryDetail": null,
+          "expectedReturn": null,
+          "stats": {
+            "appearances": 0,
+            "subIns": 0,
+            "goals": 0,
+            "assists": 0,
+            "shots": 0,
+            "shotsOnTarget": 0,
+            "foulsCommitted": 0,
+            "foulsSuffered": 0,
+            "yellowCards": 0,
+            "redCards": 0,
+            "offsides": 0,
+            "saves": 0,
+            "shotsFaced": 0,
+            "goalsConceded": 0
+          },
+          "candidatePicks": []
+        },
+        {
           "id": "caf-champions.scottland.stoffel-witbeen",
           "slug": "stoffel-witbeen",
           "name": "Stoffel Witbeen",
@@ -3398,7 +3435,7 @@
           "winPct": 52.6
         }
       },
-      "updatedAt": "2026-11-25T20:23:50.754Z",
+      "updatedAt": "2026-11-26T20:00:11.075Z",
       "players": [
         {
           "id": "caf-champions.orlando-pirates.andre-de-jong",
@@ -4592,7 +4629,7 @@
       "teamName": "African Stars FC",
       "coachName": null,
       "coach": null,
-      "updatedAt": "2026-11-25T20:23:50.754Z",
+      "updatedAt": "2026-11-26T20:00:11.075Z",
       "players": [
         {
           "id": "caf-champions.african-stars.awillo-stephanus",
@@ -4653,7 +4690,7 @@
           "winPct": 37.5
         }
       },
-      "updatedAt": "2026-11-25T20:23:50.754Z",
+      "updatedAt": "2026-11-26T20:00:11.075Z",
       "players": [
         {
           "id": "caf-champions.mamelodi-sundowns.antonio-van-wyk",
@@ -5861,7 +5898,7 @@
           "winPct": 66.7
         }
       },
-      "updatedAt": "2026-11-25T20:23:50.754Z",
+      "updatedAt": "2026-11-26T20:00:11.075Z",
       "players": [
         {
           "id": "caf-champions.wiliete.antonio-mule-chitongo",

@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "league": "conference-league",
   "season": "2026/27",
-  "updatedAt": "2026-11-25T20:23:50.754Z",
+  "updatedAt": "2026-11-26T20:00:11.075Z",
   "matches": [
     {
       "id": "conference-league-2026-07-07-una-strassen-la-fiorita-vf4j5y",
@@ -3433,6 +3433,116 @@
       "homeTeam": "conference-league.monaco",
       "awayTeam": "conference-league.nordsj-lland",
       "homeScore": 2,
+      "awayScore": 0,
+      "neutralSite": false
+    },
+    {
+      "id": "conference-league-2026-11-26-kairat-almaty-mjallby-aif-nviunr",
+      "date": "2026-11-26",
+      "startTime": "2026-11-26T15:30:00.000Z",
+      "round": "League phase · Matchday 4",
+      "homeTeam": "conference-league.kairat-almaty",
+      "awayTeam": "conference-league.mjallby-aif",
+      "homeScore": 1,
+      "awayScore": 0,
+      "neutralSite": false
+    },
+    {
+      "id": "conference-league-2026-11-26-brann-agf-ads5sv",
+      "date": "2026-11-26",
+      "startTime": "2026-11-26T17:45:00.000Z",
+      "round": "League phase · Matchday 4",
+      "homeTeam": "conference-league.brann",
+      "awayTeam": "conference-league.agf",
+      "homeScore": 1,
+      "awayScore": 4,
+      "neutralSite": false
+    },
+    {
+      "id": "conference-league-2026-11-26-pafos-midtjylland-hpdgwb",
+      "date": "2026-11-26",
+      "startTime": "2026-11-26T17:45:00.000Z",
+      "round": "League phase · Matchday 4",
+      "homeTeam": "conference-league.pafos",
+      "awayTeam": "conference-league.midtjylland",
+      "homeScore": 0,
+      "awayScore": 2,
+      "neutralSite": false
+    },
+    {
+      "id": "conference-league-2026-11-26-kf-egnatia-lincoln-red-im-7inewq",
+      "date": "2026-11-26",
+      "startTime": "2026-11-26T17:45:00.000Z",
+      "round": "League phase · Matchday 4",
+      "homeTeam": "conference-league.kf-egnatia",
+      "awayTeam": "conference-league.lincoln-red-imps",
+      "homeScore": 2,
+      "awayScore": 1,
+      "neutralSite": false
+    },
+    {
+      "id": "conference-league-2026-11-26-heart-of-midlo-monaco-nhxekn",
+      "date": "2026-11-26",
+      "startTime": "2026-11-26T17:45:00.000Z",
+      "round": "League phase · Matchday 4",
+      "homeTeam": "conference-league.heart-of-midlothian",
+      "awayTeam": "conference-league.monaco",
+      "homeScore": 2,
+      "awayScore": 3,
+      "neutralSite": false
+    },
+    {
+      "id": "conference-league-2026-11-26-kauno-zalgiris-riga-amytvh",
+      "date": "2026-11-26",
+      "startTime": "2026-11-26T17:45:00.000Z",
+      "round": "League phase · Matchday 4",
+      "homeTeam": "conference-league.kauno-zalgiris",
+      "awayTeam": "conference-league.riga",
+      "homeScore": 2,
+      "awayScore": 0,
+      "neutralSite": false
+    },
+    {
+      "id": "conference-league-2026-11-26-jablonec-lugano-fztbh1",
+      "date": "2026-11-26",
+      "startTime": "2026-11-26T17:45:00.000Z",
+      "round": "League phase · Matchday 4",
+      "homeTeam": "conference-league.jablonec",
+      "awayTeam": "conference-league.lugano",
+      "homeScore": 2,
+      "awayScore": 0,
+      "neutralSite": false
+    },
+    {
+      "id": "conference-league-2026-11-26-iberia-getafe-qmhzv9",
+      "date": "2026-11-26",
+      "startTime": "2026-11-26T17:45:00.000Z",
+      "round": "League phase · Matchday 4",
+      "homeTeam": "conference-league.iberia",
+      "awayTeam": "conference-league.getafe",
+      "homeScore": 1,
+      "awayScore": 0,
+      "neutralSite": false
+    },
+    {
+      "id": "conference-league-2026-11-26-brighton-hove--universitatea--nac0an",
+      "date": "2026-11-26",
+      "startTime": "2026-11-26T17:45:00.000Z",
+      "round": "League phase · Matchday 4",
+      "homeTeam": "conference-league.brighton-hove-albion",
+      "awayTeam": "conference-league.universitatea-craiova",
+      "homeScore": 4,
+      "awayScore": 0,
+      "neutralSite": false
+    },
+    {
+      "id": "conference-league-2026-11-26-ajax-thun-mmnmxx",
+      "date": "2026-11-26",
+      "startTime": "2026-11-26T17:45:00.000Z",
+      "round": "League phase · Matchday 4",
+      "homeTeam": "conference-league.ajax",
+      "awayTeam": "conference-league.thun",
+      "homeScore": 4,
       "awayScore": 0,
       "neutralSite": false
     }

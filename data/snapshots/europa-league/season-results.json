@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "league": "europa-league",
   "season": "2026/27",
-  "updatedAt": "2026-11-25T20:23:50.754Z",
+  "updatedAt": "2026-11-26T20:00:11.075Z",
   "matches": [
     {
       "id": "europa-league-2026-07-09-qarabag-if-vestri-ye5k4s",
@@ -1672,6 +1672,83 @@
       "round": "League phase · Matchday 4",
       "homeTeam": "europa-league.az-alkmaar",
       "awayTeam": "europa-league.juventus",
+      "homeScore": 1,
+      "awayScore": 2,
+      "neutralSite": false
+    },
+    {
+      "id": "europa-league-2026-11-26-royale-union-s-lech-poznan-svg514",
+      "date": "2026-11-26",
+      "startTime": "2026-11-26T17:45:00.000Z",
+      "round": "League phase · Matchday 5",
+      "homeTeam": "europa-league.royale-union-saint-gilloise",
+      "awayTeam": "europa-league.lech-poznan",
+      "homeScore": 2,
+      "awayScore": 2,
+      "neutralSite": false
+    },
+    {
+      "id": "europa-league-2026-11-26-red-bull-salzb-ararat-armenia-vcjsi6",
+      "date": "2026-11-26",
+      "startTime": "2026-11-26T17:45:00.000Z",
+      "round": "League phase · Matchday 5",
+      "homeTeam": "europa-league.red-bull-salzburg",
+      "awayTeam": "europa-league.ararat-armenia",
+      "homeScore": 2,
+      "awayScore": 0,
+      "neutralSite": false
+    },
+    {
+      "id": "europa-league-2026-11-26-olympique-mars-levski-sofia-imsl6o",
+      "date": "2026-11-26",
+      "startTime": "2026-11-26T17:45:00.000Z",
+      "round": "League phase · Matchday 5",
+      "homeTeam": "europa-league.olympique-marseille",
+      "awayTeam": "europa-league.levski-sofia",
+      "homeScore": 1,
+      "awayScore": 0,
+      "neutralSite": false
+    },
+    {
+      "id": "europa-league-2026-11-26-olympiacos-milan-epicy6",
+      "date": "2026-11-26",
+      "startTime": "2026-11-26T17:45:00.000Z",
+      "round": "League phase · Matchday 5",
+      "homeTeam": "europa-league.olympiacos",
+      "awayTeam": "europa-league.milan",
+      "homeScore": 2,
+      "awayScore": 4,
+      "neutralSite": false
+    },
+    {
+      "id": "europa-league-2026-11-26-gnk-dinamo-zag-bayer-leverkus-mhk6z9",
+      "date": "2026-11-26",
+      "startTime": "2026-11-26T17:45:00.000Z",
+      "round": "League phase · Matchday 5",
+      "homeTeam": "europa-league.gnk-dinamo-zagreb",
+      "awayTeam": "europa-league.bayer-leverkusen",
+      "homeScore": 0,
+      "awayScore": 2,
+      "neutralSite": false
+    },
+    {
+      "id": "europa-league-2026-11-26-viktoria-plzen-benfica-4d3902",
+      "date": "2026-11-26",
+      "startTime": "2026-11-26T17:45:00.000Z",
+      "round": "League phase · Matchday 5",
+      "homeTeam": "europa-league.viktoria-plzen",
+      "awayTeam": "europa-league.benfica",
+      "homeScore": 4,
+      "awayScore": 0,
+      "neutralSite": false
+    },
+    {
+      "id": "europa-league-2026-11-26-celta-vigo-bournemouth-gty9cz",
+      "date": "2026-11-26",
+      "startTime": "2026-11-26T17:45:00.000Z",
+      "round": "League phase · Matchday 5",
+      "homeTeam": "europa-league.celta-vigo",
+      "awayTeam": "europa-league.bournemouth",
       "homeScore": 1,
       "awayScore": 2,
       "neutralSite": false

@@ -2,29 +2,23 @@
   "schemaVersion": 1,
   "league": "pro-league-belgica",
   "seasonLabel": "2026/27",
-  "observedAt": "2026-11-25T20:23:50.754Z",
+  "observedAt": "2026-11-26T20:00:11.075Z",
   "teams": [
     {
       "teamId": "pro-league-belgica.oud-heverlee-leuven",
       "teamSlug": "oud-heverlee-leuven",
       "teamName": "Oud-Heverlee Leuven",
-      "coachName": "Timmy Simons",
+      "coachName": "Jamath Shoffner",
       "coach": {
-        "name": "Timmy Simons",
-        "shortName": "T. Simons",
-        "photoKey": "pl-m:2045",
-        "nationality": "Belgium",
-        "preferredFormation": "4-2-3-1",
-        "styleLabel": "Gegenpressing",
-        "careerRecord": {
-          "matches": 64,
-          "wins": 20,
-          "draws": 18,
-          "losses": 26,
-          "winPct": 31.2
-        }
+        "name": "Jamath Shoffner",
+        "shortName": "J. Shoffner",
+        "photoKey": "pl-m:5118",
+        "nationality": "USA",
+        "preferredFormation": "",
+        "styleLabel": "",
+        "careerRecord": null
       },
-      "updatedAt": "2026-11-25T20:23:50.754Z",
+      "updatedAt": "2026-11-26T20:00:11.075Z",
       "players": [
         {
           "id": "pro-league-belgica.oud-heverlee-leuven.abdoul-karim-traore",
@@ -316,9 +310,9 @@
             "yellowCards": 0,
             "redCards": 0,
             "offsides": 0,
-            "saves": 2,
+            "saves": 6,
             "shotsFaced": 0,
-            "goalsConceded": 0
+            "goalsConceded": 1
           },
           "candidatePicks": []
         },
@@ -344,10 +338,10 @@
           "stats": {
             "appearances": 0,
             "subIns": 0,
-            "goals": 1,
+            "goals": 0,
             "assists": 0,
             "shots": 1,
-            "shotsOnTarget": 1,
+            "shotsOnTarget": 0,
             "foulsCommitted": 0,
             "foulsSuffered": 0,
             "yellowCards": 0,
@@ -355,7 +349,7 @@
             "offsides": 0,
             "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 1
+            "goalsConceded": 0
           },
           "candidatePicks": []
         },
@@ -429,7 +423,7 @@
             "offsides": 0,
             "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 0
+            "goalsConceded": 1
           },
           "candidatePicks": []
         },
@@ -531,7 +525,7 @@
             "subIns": 0,
             "goals": 0,
             "assists": 0,
-            "shots": 0,
+            "shots": 1,
             "shotsOnTarget": 0,
             "foulsCommitted": 0,
             "foulsSuffered": 0,
@@ -540,7 +534,7 @@
             "offsides": 0,
             "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 0
+            "goalsConceded": 1
           },
           "candidatePicks": []
         },
@@ -605,7 +599,7 @@
             "subIns": 0,
             "goals": 0,
             "assists": 0,
-            "shots": 0,
+            "shots": 1,
             "shotsOnTarget": 0,
             "foulsCommitted": 0,
             "foulsSuffered": 0,
@@ -947,7 +941,7 @@
             "offsides": 0,
             "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 1
+            "goalsConceded": 0
           },
           "candidatePicks": []
         },
@@ -1050,7 +1044,7 @@
             "goals": 0,
             "assists": 0,
             "shots": 1,
-            "shotsOnTarget": 0,
+            "shotsOnTarget": 1,
             "foulsCommitted": 0,
             "foulsSuffered": 0,
             "yellowCards": 0,
@@ -1058,7 +1052,7 @@
             "offsides": 0,
             "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 1
+            "goalsConceded": 0
           },
           "candidatePicks": []
         },
@@ -1232,7 +1226,7 @@
           "winPct": 31.1
         }
       },
-      "updatedAt": "2026-11-25T20:23:50.754Z",
+      "updatedAt": "2026-11-26T20:00:11.075Z",
       "players": [
         {
           "id": "pro-league-belgica.kv-mechelen.adeshina-ibrahim-ayodele",
@@ -1378,7 +1372,7 @@
             "offsides": 0,
             "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 1
+            "goalsConceded": 0
           },
           "candidatePicks": []
         },
@@ -1443,7 +1437,7 @@
             "subIns": 0,
             "goals": 0,
             "assists": 0,
-            "shots": 1,
+            "shots": 0,
             "shotsOnTarget": 0,
             "foulsCommitted": 0,
             "foulsSuffered": 0,
@@ -1452,7 +1446,7 @@
             "offsides": 0,
             "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 1
+            "goalsConceded": 0
           },
           "candidatePicks": []
         },
@@ -1554,7 +1548,7 @@
             "subIns": 0,
             "goals": 0,
             "assists": 0,
-            "shots": 0,
+            "shots": 1,
             "shotsOnTarget": 0,
             "foulsCommitted": 0,
             "foulsSuffered": 0,
@@ -1563,7 +1557,7 @@
             "offsides": 0,
             "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 0
+            "goalsConceded": 2
           },
           "candidatePicks": []
         },
@@ -1702,8 +1696,8 @@
             "subIns": 0,
             "goals": 0,
             "assists": 0,
-            "shots": 1,
-            "shotsOnTarget": 0,
+            "shots": 2,
+            "shotsOnTarget": 2,
             "foulsCommitted": 0,
             "foulsSuffered": 0,
             "yellowCards": 0,
@@ -1711,7 +1705,7 @@
             "offsides": 0,
             "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 1
+            "goalsConceded": 0
           },
           "candidatePicks": []
         },
@@ -1998,7 +1992,7 @@
             "subIns": 0,
             "goals": 0,
             "assists": 0,
-            "shots": 0,
+            "shots": 1,
             "shotsOnTarget": 0,
             "foulsCommitted": 0,
             "foulsSuffered": 0,
@@ -2007,7 +2001,7 @@
             "offsides": 0,
             "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 1
+            "goalsConceded": 0
           },
           "candidatePicks": []
         },
@@ -2144,10 +2138,10 @@
           "stats": {
             "appearances": 0,
             "subIns": 0,
-            "goals": 1,
+            "goals": 0,
             "assists": 0,
             "shots": 2,
-            "shotsOnTarget": 2,
+            "shotsOnTarget": 0,
             "foulsCommitted": 0,
             "foulsSuffered": 0,
             "yellowCards": 0,
@@ -2155,7 +2149,7 @@
             "offsides": 0,
             "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 1
+            "goalsConceded": 2
           },
           "candidatePicks": []
         },
@@ -2190,9 +2184,9 @@
             "yellowCards": 0,
             "redCards": 0,
             "offsides": 0,
-            "saves": 4,
+            "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 5
+            "goalsConceded": 0
           },
           "candidatePicks": []
         },
@@ -2331,7 +2325,7 @@
             "subIns": 0,
             "goals": 0,
             "assists": 0,
-            "shots": 1,
+            "shots": 2,
             "shotsOnTarget": 0,
             "foulsCommitted": 0,
             "foulsSuffered": 0,
@@ -2340,7 +2334,7 @@
             "offsides": 0,
             "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 1
+            "goalsConceded": 2
           },
           "candidatePicks": []
         },
@@ -2440,8 +2434,45 @@
           "winPct": 27.5
         }
       },
-      "updatedAt": "2026-11-25T20:23:50.754Z",
+      "updatedAt": "2026-11-26T20:00:11.075Z",
       "players": [
+        {
+          "id": "pro-league-belgica.royal-antwerp.aaron-ibrahim",
+          "slug": "aaron-ibrahim",
+          "name": "Aaron Ibrahim",
+          "shortName": "A. Ibrahim",
+          "jersey": "46",
+          "positionGroup": "DEF",
+          "positionLabel": "Defensa",
+          "age": 18,
+          "birthDate": "2008-08-02",
+          "heightCm": null,
+          "weightKg": null,
+          "preferredFoot": "L",
+          "nationality": "Belgium",
+          "nationalityCode": null,
+          "photoKey": "pl-p:64834",
+          "availability": "available",
+          "injuryDetail": null,
+          "expectedReturn": null,
+          "stats": {
+            "appearances": 0,
+            "subIns": 0,
+            "goals": 0,
+            "assists": 0,
+            "shots": 0,
+            "shotsOnTarget": 0,
+            "foulsCommitted": 0,
+            "foulsSuffered": 0,
+            "yellowCards": 0,
+            "redCards": 0,
+            "offsides": 0,
+            "saves": 0,
+            "shotsFaced": 0,
+            "goalsConceded": 0
+          },
+          "candidatePicks": []
+        },
         {
           "id": "pro-league-belgica.royal-antwerp.alvaro-cortes",
           "slug": "alvaro-cortes",
@@ -2466,7 +2497,7 @@
             "subIns": 0,
             "goals": 0,
             "assists": 0,
-            "shots": 1,
+            "shots": 0,
             "shotsOnTarget": 0,
             "foulsCommitted": 0,
             "foulsSuffered": 0,
@@ -2614,7 +2645,7 @@
             "subIns": 0,
             "goals": 0,
             "assists": 0,
-            "shots": 0,
+            "shots": 2,
             "shotsOnTarget": 0,
             "foulsCommitted": 0,
             "foulsSuffered": 0,
@@ -2623,7 +2654,7 @@
             "offsides": 0,
             "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 0
+            "goalsConceded": 2
           },
           "candidatePicks": []
         },
@@ -2776,6 +2807,154 @@
           "candidatePicks": []
         },
         {
+          "id": "pro-league-belgica.royal-antwerp.jeff-godelaine",
+          "slug": "jeff-godelaine",
+          "name": "Jeff Godelaine",
+          "shortName": "J. Godelaine",
+          "jersey": "29",
+          "positionGroup": "FWD",
+          "positionLabel": "Delantero",
+          "age": 19,
+          "birthDate": "2007-04-26",
+          "heightCm": null,
+          "weightKg": null,
+          "preferredFoot": "L",
+          "nationality": "Belgium",
+          "nationalityCode": null,
+          "photoKey": "pl-p:23917",
+          "availability": "available",
+          "injuryDetail": null,
+          "expectedReturn": null,
+          "stats": {
+            "appearances": 0,
+            "subIns": 0,
+            "goals": 0,
+            "assists": 0,
+            "shots": 0,
+            "shotsOnTarget": 0,
+            "foulsCommitted": 0,
+            "foulsSuffered": 0,
+            "yellowCards": 0,
+            "redCards": 0,
+            "offsides": 0,
+            "saves": 0,
+            "shotsFaced": 0,
+            "goalsConceded": 0
+          },
+          "candidatePicks": []
+        },
+        {
+          "id": "pro-league-belgica.royal-antwerp.koki-ando",
+          "slug": "koki-ando",
+          "name": "Koki Ando",
+          "shortName": "K. Ando",
+          "jersey": "33",
+          "positionGroup": "MID",
+          "positionLabel": "Mediocampista",
+          "age": 19,
+          "birthDate": "2007-09-22",
+          "heightCm": 170,
+          "weightKg": null,
+          "preferredFoot": "R",
+          "nationality": "Japan",
+          "nationalityCode": null,
+          "photoKey": "pl-p:44825",
+          "availability": "available",
+          "injuryDetail": null,
+          "expectedReturn": null,
+          "stats": {
+            "appearances": 0,
+            "subIns": 0,
+            "goals": 0,
+            "assists": 0,
+            "shots": 0,
+            "shotsOnTarget": 0,
+            "foulsCommitted": 0,
+            "foulsSuffered": 0,
+            "yellowCards": 0,
+            "redCards": 0,
+            "offsides": 0,
+            "saves": 0,
+            "shotsFaced": 0,
+            "goalsConceded": 0
+          },
+          "candidatePicks": []
+        },
+        {
+          "id": "pro-league-belgica.royal-antwerp.louie-van-gelder",
+          "slug": "louie-van-gelder",
+          "name": "Louie Van Gelder",
+          "shortName": "L. V. Gelder",
+          "jersey": "16",
+          "positionGroup": "MID",
+          "positionLabel": "Mediocampista",
+          "age": 17,
+          "birthDate": "2009-01-30",
+          "heightCm": 175,
+          "weightKg": null,
+          "preferredFoot": "R",
+          "nationality": "Belgium",
+          "nationalityCode": null,
+          "photoKey": "pl-p:12099",
+          "availability": "available",
+          "injuryDetail": null,
+          "expectedReturn": null,
+          "stats": {
+            "appearances": 0,
+            "subIns": 0,
+            "goals": 0,
+            "assists": 0,
+            "shots": 0,
+            "shotsOnTarget": 0,
+            "foulsCommitted": 0,
+            "foulsSuffered": 0,
+            "yellowCards": 0,
+            "redCards": 0,
+            "offsides": 0,
+            "saves": 0,
+            "shotsFaced": 0,
+            "goalsConceded": 0
+          },
+          "candidatePicks": []
+        },
+        {
+          "id": "pro-league-belgica.royal-antwerp.lowie-pisele",
+          "slug": "lowie-pisele",
+          "name": "Lowie Piselé",
+          "shortName": "L. Piselé",
+          "jersey": "61",
+          "positionGroup": "GK",
+          "positionLabel": "Portero",
+          "age": 17,
+          "birthDate": "2009-09-17",
+          "heightCm": null,
+          "weightKg": null,
+          "preferredFoot": null,
+          "nationality": "Belgium",
+          "nationalityCode": null,
+          "photoKey": "pl-p:112838",
+          "availability": "available",
+          "injuryDetail": null,
+          "expectedReturn": null,
+          "stats": {
+            "appearances": 0,
+            "subIns": 0,
+            "goals": 0,
+            "assists": 0,
+            "shots": 0,
+            "shotsOnTarget": 0,
+            "foulsCommitted": 0,
+            "foulsSuffered": 0,
+            "yellowCards": 0,
+            "redCards": 0,
+            "offsides": 0,
+            "saves": 0,
+            "shotsFaced": 0,
+            "goalsConceded": 0
+          },
+          "candidatePicks": []
+        },
+        {
           "id": "pro-league-belgica.royal-antwerp.luca-schelfhout",
           "slug": "luca-schelfhout",
           "name": "Luca Schelfhout",
@@ -2882,7 +3061,7 @@
             "offsides": 0,
             "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 0
+            "goalsConceded": 2
           },
           "candidatePicks": []
         },
@@ -2993,7 +3172,44 @@
             "offsides": 0,
             "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 2
+            "goalsConceded": 0
+          },
+          "candidatePicks": []
+        },
+        {
+          "id": "pro-league-belgica.royal-antwerp.mukhammadali-urinboev",
+          "slug": "mukhammadali-urinboev",
+          "name": "Mukhammadali Urinboev",
+          "shortName": "M. Urinbaev",
+          "jersey": "19",
+          "positionGroup": "MID",
+          "positionLabel": "Mediocampista",
+          "age": 21,
+          "birthDate": "2005-04-24",
+          "heightCm": 170,
+          "weightKg": null,
+          "preferredFoot": "L",
+          "nationality": "Uzbekistan",
+          "nationalityCode": null,
+          "photoKey": "pl-p:7797",
+          "availability": "available",
+          "injuryDetail": null,
+          "expectedReturn": null,
+          "stats": {
+            "appearances": 0,
+            "subIns": 0,
+            "goals": 0,
+            "assists": 0,
+            "shots": 0,
+            "shotsOnTarget": 0,
+            "foulsCommitted": 0,
+            "foulsSuffered": 0,
+            "yellowCards": 0,
+            "redCards": 0,
+            "offsides": 0,
+            "saves": 0,
+            "shotsFaced": 0,
+            "goalsConceded": 0
           },
           "candidatePicks": []
         },
@@ -3058,7 +3274,7 @@
             "subIns": 0,
             "goals": 0,
             "assists": 0,
-            "shots": 1,
+            "shots": 0,
             "shotsOnTarget": 0,
             "foulsCommitted": 0,
             "foulsSuffered": 0,
@@ -3067,7 +3283,7 @@
             "offsides": 0,
             "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 2
+            "goalsConceded": 1
           },
           "candidatePicks": []
         },
@@ -3095,8 +3311,8 @@
             "subIns": 0,
             "goals": 0,
             "assists": 0,
-            "shots": 0,
-            "shotsOnTarget": 0,
+            "shots": 1,
+            "shotsOnTarget": 1,
             "foulsCommitted": 0,
             "foulsSuffered": 0,
             "yellowCards": 0,
@@ -3176,7 +3392,7 @@
             "yellowCards": 0,
             "redCards": 0,
             "offsides": 0,
-            "saves": 2,
+            "saves": 3,
             "shotsFaced": 0,
             "goalsConceded": 2
           },
@@ -3326,7 +3542,7 @@
             "offsides": 0,
             "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 1
+            "goalsConceded": 0
           },
           "candidatePicks": []
         },
@@ -3389,7 +3605,7 @@
           "winPct": 50
         }
       },
-      "updatedAt": "2026-11-25T20:23:50.754Z",
+      "updatedAt": "2026-11-26T20:00:11.075Z",
       "players": [
         {
           "id": "pro-league-belgica.lommel.alexander-reumers",
@@ -3711,7 +3927,7 @@
             "subIns": 0,
             "goals": 0,
             "assists": 0,
-            "shots": 1,
+            "shots": 0,
             "shotsOnTarget": 0,
             "foulsCommitted": 0,
             "foulsSuffered": 0,
@@ -3720,7 +3936,7 @@
             "offsides": 0,
             "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 0
+            "goalsConceded": 2
           },
           "candidatePicks": []
         },
@@ -3977,9 +4193,9 @@
             "yellowCards": 0,
             "redCards": 0,
             "offsides": 0,
-            "saves": 4,
+            "saves": 3,
             "shotsFaced": 0,
-            "goalsConceded": 0
+            "goalsConceded": 2
           },
           "candidatePicks": []
         },
@@ -4340,8 +4556,8 @@
             "subIns": 0,
             "goals": 0,
             "assists": 0,
-            "shots": 1,
-            "shotsOnTarget": 1,
+            "shots": 0,
+            "shotsOnTarget": 0,
             "foulsCommitted": 0,
             "foulsSuffered": 0,
             "yellowCards": 0,
@@ -4349,7 +4565,7 @@
             "offsides": 0,
             "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 0
+            "goalsConceded": 2
           },
           "candidatePicks": []
         },
@@ -4414,8 +4630,8 @@
             "subIns": 0,
             "goals": 0,
             "assists": 0,
-            "shots": 3,
-            "shotsOnTarget": 2,
+            "shots": 0,
+            "shotsOnTarget": 0,
             "foulsCommitted": 0,
             "foulsSuffered": 0,
             "yellowCards": 0,
@@ -4470,23 +4686,17 @@
       "teamId": "pro-league-belgica.raal-la-louviere",
       "teamSlug": "raal-la-louviere",
       "teamName": "RAAL La Louvière",
-      "coachName": "Edward Still",
+      "coachName": "Sven Vandenbroeck",
       "coach": {
-        "name": "Edward Still",
-        "shortName": "E. Still",
-        "photoKey": "pl-m:180",
+        "name": "Sven Vandenbroeck",
+        "shortName": "S. Vandenbroeck",
+        "photoKey": "pl-m:5108",
         "nationality": "Belgium",
-        "preferredFormation": "4-4-2",
-        "styleLabel": "Cross & Pray",
-        "careerRecord": {
-          "matches": 67,
-          "wins": 19,
-          "draws": 19,
-          "losses": 29,
-          "winPct": 28.4
-        }
+        "preferredFormation": "",
+        "styleLabel": "",
+        "careerRecord": null
       },
-      "updatedAt": "2026-11-25T20:23:50.754Z",
+      "updatedAt": "2026-11-26T20:00:11.075Z",
       "players": [
         {
           "id": "pro-league-belgica.raal-la-louviere.anas-tajaouart",
@@ -4623,7 +4833,7 @@
             "subIns": 0,
             "goals": 0,
             "assists": 0,
-            "shots": 0,
+            "shots": 2,
             "shotsOnTarget": 0,
             "foulsCommitted": 0,
             "foulsSuffered": 0,
@@ -4632,7 +4842,7 @@
             "offsides": 0,
             "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 1
+            "goalsConceded": 0
           },
           "candidatePicks": []
         },
@@ -4669,7 +4879,7 @@
             "offsides": 0,
             "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 0
+            "goalsConceded": 4
           },
           "candidatePicks": []
         },
@@ -4808,7 +5018,7 @@
             "subIns": 0,
             "goals": 0,
             "assists": 0,
-            "shots": 2,
+            "shots": 0,
             "shotsOnTarget": 0,
             "foulsCommitted": 0,
             "foulsSuffered": 0,
@@ -4817,7 +5027,7 @@
             "offsides": 0,
             "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 1
+            "goalsConceded": 4
           },
           "candidatePicks": []
         },
@@ -4919,7 +5129,7 @@
             "subIns": 0,
             "goals": 0,
             "assists": 0,
-            "shots": 1,
+            "shots": 0,
             "shotsOnTarget": 0,
             "foulsCommitted": 0,
             "foulsSuffered": 0,
@@ -4928,7 +5138,7 @@
             "offsides": 0,
             "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 1
+            "goalsConceded": 2
           },
           "candidatePicks": []
         },
@@ -4993,7 +5203,7 @@
             "subIns": 0,
             "goals": 0,
             "assists": 0,
-            "shots": 0,
+            "shots": 2,
             "shotsOnTarget": 0,
             "foulsCommitted": 0,
             "foulsSuffered": 0,
@@ -5002,7 +5212,7 @@
             "offsides": 0,
             "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 0
+            "goalsConceded": 1
           },
           "candidatePicks": []
         },
@@ -5401,7 +5611,7 @@
             "goals": 0,
             "assists": 0,
             "shots": 1,
-            "shotsOnTarget": 0,
+            "shotsOnTarget": 1,
             "foulsCommitted": 0,
             "foulsSuffered": 0,
             "yellowCards": 0,
@@ -5409,7 +5619,7 @@
             "offsides": 0,
             "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 1
+            "goalsConceded": 5
           },
           "candidatePicks": []
         },
@@ -5557,7 +5767,7 @@
             "offsides": 0,
             "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 0
+            "goalsConceded": 3
           },
           "candidatePicks": []
         },
@@ -5620,7 +5830,7 @@
           "winPct": 29
         }
       },
-      "updatedAt": "2026-11-25T20:23:50.754Z",
+      "updatedAt": "2026-11-26T20:00:11.075Z",
       "players": [
         {
           "id": "pro-league-belgica.cercle-brugge.abdoulie-manneh",
@@ -5868,7 +6078,7 @@
             "subIns": 0,
             "goals": 0,
             "assists": 0,
-            "shots": 0,
+            "shots": 1,
             "shotsOnTarget": 0,
             "foulsCommitted": 0,
             "foulsSuffered": 0,
@@ -5943,7 +6153,7 @@
             "goals": 0,
             "assists": 0,
             "shots": 1,
-            "shotsOnTarget": 1,
+            "shotsOnTarget": 0,
             "foulsCommitted": 0,
             "foulsSuffered": 0,
             "yellowCards": 0,
@@ -5951,7 +6161,7 @@
             "offsides": 0,
             "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 0
+            "goalsConceded": 1
           },
           "candidatePicks": []
         },
@@ -5988,7 +6198,7 @@
             "offsides": 0,
             "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 0
+            "goalsConceded": 1
           },
           "candidatePicks": []
         },
@@ -6016,8 +6226,8 @@
             "subIns": 0,
             "goals": 0,
             "assists": 0,
-            "shots": 3,
-            "shotsOnTarget": 1,
+            "shots": 0,
+            "shotsOnTarget": 0,
             "foulsCommitted": 0,
             "foulsSuffered": 0,
             "yellowCards": 0,
@@ -6025,7 +6235,7 @@
             "offsides": 0,
             "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 0
+            "goalsConceded": 1
           },
           "candidatePicks": []
         },
@@ -6238,8 +6448,8 @@
             "subIns": 0,
             "goals": 0,
             "assists": 0,
-            "shots": 0,
-            "shotsOnTarget": 0,
+            "shots": 1,
+            "shotsOnTarget": 1,
             "foulsCommitted": 0,
             "foulsSuffered": 0,
             "yellowCards": 0,
@@ -6247,7 +6457,7 @@
             "offsides": 0,
             "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 1
+            "goalsConceded": 0
           },
           "candidatePicks": []
         },
@@ -6275,7 +6485,7 @@
             "subIns": 0,
             "goals": 0,
             "assists": 0,
-            "shots": 1,
+            "shots": 0,
             "shotsOnTarget": 0,
             "foulsCommitted": 0,
             "foulsSuffered": 0,
@@ -6284,7 +6494,7 @@
             "offsides": 0,
             "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 0
+            "goalsConceded": 1
           },
           "candidatePicks": []
         },
@@ -6349,7 +6559,7 @@
             "subIns": 0,
             "goals": 0,
             "assists": 0,
-            "shots": 0,
+            "shots": 1,
             "shotsOnTarget": 0,
             "foulsCommitted": 0,
             "foulsSuffered": 0,
@@ -6358,7 +6568,7 @@
             "offsides": 0,
             "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 0
+            "goalsConceded": 1
           },
           "candidatePicks": []
         },
@@ -6617,7 +6827,7 @@
             "offsides": 0,
             "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 1
+            "goalsConceded": 0
           },
           "candidatePicks": []
         },
@@ -6717,8 +6927,82 @@
           "winPct": 62.9
         }
       },
-      "updatedAt": "2026-11-25T20:23:50.754Z",
+      "updatedAt": "2026-11-26T20:00:11.075Z",
       "players": [
+        {
+          "id": "pro-league-belgica.brugge-kv.andrej-vasovic",
+          "slug": "andrej-vasovic",
+          "name": "Andrej Vasovic",
+          "shortName": "A. Vasovic",
+          "jersey": "77",
+          "positionGroup": "FWD",
+          "positionLabel": "Delantero",
+          "age": 19,
+          "birthDate": "2007-10-14",
+          "heightCm": 181,
+          "weightKg": null,
+          "preferredFoot": "R",
+          "nationality": "Switzerland",
+          "nationalityCode": null,
+          "photoKey": "pl-p:7346",
+          "availability": "available",
+          "injuryDetail": null,
+          "expectedReturn": null,
+          "stats": {
+            "appearances": 0,
+            "subIns": 0,
+            "goals": 0,
+            "assists": 0,
+            "shots": 0,
+            "shotsOnTarget": 0,
+            "foulsCommitted": 0,
+            "foulsSuffered": 0,
+            "yellowCards": 0,
+            "redCards": 0,
+            "offsides": 0,
+            "saves": 0,
+            "shotsFaced": 0,
+            "goalsConceded": 0
+          },
+          "candidatePicks": []
+        },
+        {
+          "id": "pro-league-belgica.brugge-kv.argus-vanden-driessche",
+          "slug": "argus-vanden-driessche",
+          "name": "Argus Vanden Driessche",
+          "shortName": "A. V. Driessche",
+          "jersey": "81",
+          "positionGroup": "GK",
+          "positionLabel": "Portero",
+          "age": 19,
+          "birthDate": "2007-04-22",
+          "heightCm": 194,
+          "weightKg": null,
+          "preferredFoot": "R",
+          "nationality": "Belgium",
+          "nationalityCode": null,
+          "photoKey": "pl-p:7732",
+          "availability": "available",
+          "injuryDetail": null,
+          "expectedReturn": null,
+          "stats": {
+            "appearances": 0,
+            "subIns": 0,
+            "goals": 0,
+            "assists": 0,
+            "shots": 0,
+            "shotsOnTarget": 0,
+            "foulsCommitted": 0,
+            "foulsSuffered": 0,
+            "yellowCards": 0,
+            "redCards": 0,
+            "offsides": 0,
+            "saves": 0,
+            "shotsFaced": 0,
+            "goalsConceded": 0
+          },
+          "candidatePicks": []
+        },
         {
           "id": "pro-league-belgica.brugge-kv.brandon-mechele",
           "slug": "brandon-mechele",
@@ -6780,8 +7064,8 @@
             "subIns": 0,
             "goals": 0,
             "assists": 0,
-            "shots": 4,
-            "shotsOnTarget": 2,
+            "shots": 1,
+            "shotsOnTarget": 0,
             "foulsCommitted": 0,
             "foulsSuffered": 0,
             "yellowCards": 0,
@@ -6789,7 +7073,7 @@
             "offsides": 0,
             "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 1
+            "goalsConceded": 0
           },
           "candidatePicks": []
         },
@@ -6852,10 +7136,10 @@
           "stats": {
             "appearances": 0,
             "subIns": 0,
-            "goals": 0,
+            "goals": 1,
             "assists": 0,
-            "shots": 3,
-            "shotsOnTarget": 0,
+            "shots": 2,
+            "shotsOnTarget": 2,
             "foulsCommitted": 0,
             "foulsSuffered": 0,
             "yellowCards": 0,
@@ -6863,7 +7147,7 @@
             "offsides": 0,
             "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 1
+            "goalsConceded": 0
           },
           "candidatePicks": []
         },
@@ -6965,8 +7249,8 @@
             "subIns": 0,
             "goals": 0,
             "assists": 0,
-            "shots": 0,
-            "shotsOnTarget": 0,
+            "shots": 1,
+            "shotsOnTarget": 1,
             "foulsCommitted": 0,
             "foulsSuffered": 0,
             "yellowCards": 0,
@@ -7002,8 +7286,8 @@
             "subIns": 0,
             "goals": 0,
             "assists": 0,
-            "shots": 0,
-            "shotsOnTarget": 0,
+            "shots": 2,
+            "shotsOnTarget": 1,
             "foulsCommitted": 0,
             "foulsSuffered": 0,
             "yellowCards": 0,
@@ -7039,7 +7323,7 @@
             "subIns": 0,
             "goals": 0,
             "assists": 0,
-            "shots": 0,
+            "shots": 2,
             "shotsOnTarget": 0,
             "foulsCommitted": 0,
             "foulsSuffered": 0,
@@ -7048,7 +7332,7 @@
             "offsides": 0,
             "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 1
+            "goalsConceded": 0
           },
           "candidatePicks": []
         },
@@ -7187,7 +7471,7 @@
             "subIns": 0,
             "goals": 0,
             "assists": 0,
-            "shots": 1,
+            "shots": 0,
             "shotsOnTarget": 0,
             "foulsCommitted": 0,
             "foulsSuffered": 0,
@@ -7233,7 +7517,7 @@
             "offsides": 0,
             "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 1
+            "goalsConceded": 0
           },
           "candidatePicks": []
         },
@@ -7407,10 +7691,10 @@
           "stats": {
             "appearances": 0,
             "subIns": 0,
-            "goals": 0,
+            "goals": 2,
             "assists": 0,
-            "shots": 1,
-            "shotsOnTarget": 1,
+            "shots": 4,
+            "shotsOnTarget": 3,
             "foulsCommitted": 0,
             "foulsSuffered": 0,
             "yellowCards": 0,
@@ -7418,7 +7702,7 @@
             "offsides": 0,
             "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 1
+            "goalsConceded": 0
           },
           "candidatePicks": []
         },
@@ -7481,10 +7765,10 @@
           "stats": {
             "appearances": 0,
             "subIns": 0,
-            "goals": 0,
+            "goals": 1,
             "assists": 0,
-            "shots": 3,
-            "shotsOnTarget": 0,
+            "shots": 1,
+            "shotsOnTarget": 1,
             "foulsCommitted": 0,
             "foulsSuffered": 0,
             "yellowCards": 0,
@@ -7564,7 +7848,7 @@
             "yellowCards": 0,
             "redCards": 0,
             "offsides": 0,
-            "saves": 7,
+            "saves": 3,
             "shotsFaced": 0,
             "goalsConceded": 1
           },
@@ -7592,7 +7876,7 @@
           "winPct": 49.3
         }
       },
-      "updatedAt": "2026-11-25T20:23:50.754Z",
+      "updatedAt": "2026-11-26T20:00:11.075Z",
       "players": [
         {
           "id": "pro-league-belgica.rsc-anderlecht.adriano-bertaccini",
@@ -7616,10 +7900,10 @@
           "stats": {
             "appearances": 0,
             "subIns": 0,
-            "goals": 0,
+            "goals": 1,
             "assists": 0,
-            "shots": 0,
-            "shotsOnTarget": 0,
+            "shots": 1,
+            "shotsOnTarget": 1,
             "foulsCommitted": 0,
             "foulsSuffered": 0,
             "yellowCards": 0,
@@ -7736,9 +8020,9 @@
             "yellowCards": 0,
             "redCards": 0,
             "offsides": 0,
-            "saves": 7,
+            "saves": 3,
             "shotsFaced": 0,
-            "goalsConceded": 1
+            "goalsConceded": 0
           },
           "candidatePicks": []
         },
@@ -7840,8 +8124,8 @@
             "subIns": 0,
             "goals": 0,
             "assists": 0,
-            "shots": 0,
-            "shotsOnTarget": 0,
+            "shots": 1,
+            "shotsOnTarget": 1,
             "foulsCommitted": 0,
             "foulsSuffered": 0,
             "yellowCards": 0,
@@ -7849,7 +8133,7 @@
             "offsides": 0,
             "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 1
+            "goalsConceded": 0
           },
           "candidatePicks": []
         },
@@ -8062,7 +8346,7 @@
             "subIns": 0,
             "goals": 0,
             "assists": 0,
-            "shots": 0,
+            "shots": 1,
             "shotsOnTarget": 0,
             "foulsCommitted": 0,
             "foulsSuffered": 0,
@@ -8171,10 +8455,10 @@
           "stats": {
             "appearances": 0,
             "subIns": 0,
-            "goals": 0,
+            "goals": 1,
             "assists": 0,
-            "shots": 0,
-            "shotsOnTarget": 0,
+            "shots": 2,
+            "shotsOnTarget": 1,
             "foulsCommitted": 0,
             "foulsSuffered": 0,
             "yellowCards": 0,
@@ -8182,7 +8466,7 @@
             "offsides": 0,
             "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 1
+            "goalsConceded": 0
           },
           "candidatePicks": []
         },
@@ -8293,7 +8577,7 @@
             "offsides": 0,
             "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 1
+            "goalsConceded": 0
           },
           "candidatePicks": []
         },

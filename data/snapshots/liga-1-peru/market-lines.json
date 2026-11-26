@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "league": "liga-1-peru",
-  "updatedAt": "2026-11-25T20:23:50.754Z",
+  "updatedAt": "2026-11-26T20:00:11.075Z",
   "lines": [
     {
       "gameId": "liga-1-peru-2026-11-29-sport-huancayo-universitario--v0il6x",
@@ -11,12 +11,12 @@
       "outcome": "HOME",
       "line": null,
       "book": "1xbet",
-      "decimal": 1.91,
+      "decimal": 1.94,
       "openingDecimal": 1.91,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-25T20:20:07Z"
+      "deltaPct": 1.57,
+      "movement": "drifting",
+      "movementSignal": "DRIFTING",
+      "capturedAtUtc": "2026-11-26T19:50:07Z"
     },
     {
       "gameId": "liga-1-peru-2026-11-29-sport-huancayo-universitario--v0il6x",
@@ -31,7 +31,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-25T20:20:07Z"
+      "capturedAtUtc": "2026-11-26T19:50:07Z"
     },
     {
       "gameId": "liga-1-peru-2026-11-29-sport-huancayo-universitario--v0il6x",
@@ -41,12 +41,12 @@
       "outcome": "HOME",
       "line": null,
       "book": "bwin",
-      "decimal": 1.98,
+      "decimal": 1.85,
       "openingDecimal": 1.98,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-25T20:20:07Z"
+      "deltaPct": -6.57,
+      "movement": "shortening",
+      "movementSignal": "SHORTENING",
+      "capturedAtUtc": "2026-11-26T19:50:07Z"
     },
     {
       "gameId": "liga-1-peru-2026-11-29-sport-huancayo-universitario--v0il6x",
@@ -56,12 +56,27 @@
       "outcome": "HOME",
       "line": null,
       "book": "bet365",
-      "decimal": 2.1,
+      "decimal": 1.83,
       "openingDecimal": 2.1,
+      "deltaPct": -12.86,
+      "movement": "shortening",
+      "movementSignal": "STEAM",
+      "capturedAtUtc": "2026-11-26T19:50:07Z"
+    },
+    {
+      "gameId": "liga-1-peru-2026-11-29-sport-huancayo-universitario--v0il6x",
+      "homeName": "Sport Huancayo",
+      "awayName": "Universitario de Deportes",
+      "market": "1x2",
+      "outcome": "HOME",
+      "line": null,
+      "book": "betfair",
+      "decimal": 1.87,
+      "openingDecimal": 1.87,
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-25T20:20:07Z"
+      "capturedAtUtc": "2026-11-26T19:50:07Z"
     },
     {
       "gameId": "liga-1-peru-2026-11-29-sport-huancayo-universitario--v0il6x",
@@ -71,12 +86,12 @@
       "outcome": "HOME",
       "line": null,
       "book": "coral",
-      "decimal": 2,
+      "decimal": 1.85,
       "openingDecimal": 2,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-25T20:20:07Z"
+      "deltaPct": -7.5,
+      "movement": "shortening",
+      "movementSignal": "STEAM",
+      "capturedAtUtc": "2026-11-26T19:50:07Z"
     },
     {
       "gameId": "liga-1-peru-2026-11-29-sport-huancayo-universitario--v0il6x",
@@ -86,12 +101,27 @@
       "outcome": "HOME",
       "line": null,
       "book": "ladbrokes",
-      "decimal": 2,
+      "decimal": 1.85,
       "openingDecimal": 2,
+      "deltaPct": -7.5,
+      "movement": "shortening",
+      "movementSignal": "STEAM",
+      "capturedAtUtc": "2026-11-26T19:50:07Z"
+    },
+    {
+      "gameId": "liga-1-peru-2026-11-29-sport-huancayo-universitario--v0il6x",
+      "homeName": "Sport Huancayo",
+      "awayName": "Universitario de Deportes",
+      "market": "1x2",
+      "outcome": "HOME",
+      "line": null,
+      "book": "mansionbet",
+      "decimal": 1.85,
+      "openingDecimal": 1.85,
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-25T20:20:07Z"
+      "capturedAtUtc": "2026-11-26T19:50:07Z"
     },
     {
       "gameId": "liga-1-peru-2026-11-29-sport-huancayo-universitario--v0il6x",
@@ -101,12 +131,12 @@
       "outcome": "DRAW",
       "line": null,
       "book": "1xbet",
-      "decimal": 3.45,
+      "decimal": 3.42,
       "openingDecimal": 3.45,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-25T20:20:07Z"
+      "deltaPct": -0.87,
+      "movement": "shortening",
+      "movementSignal": "SHORTENING",
+      "capturedAtUtc": "2026-11-26T19:50:07Z"
     },
     {
       "gameId": "liga-1-peru-2026-11-29-sport-huancayo-universitario--v0il6x",
@@ -121,7 +151,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-25T20:20:07Z"
+      "capturedAtUtc": "2026-11-26T19:50:07Z"
     },
     {
       "gameId": "liga-1-peru-2026-11-29-sport-huancayo-universitario--v0il6x",
@@ -131,12 +161,12 @@
       "outcome": "DRAW",
       "line": null,
       "book": "bwin",
-      "decimal": 3.3,
+      "decimal": 3.5,
       "openingDecimal": 3.3,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-25T20:20:07Z"
+      "deltaPct": 6.06,
+      "movement": "drifting",
+      "movementSignal": "DRIFTING",
+      "capturedAtUtc": "2026-11-26T19:50:07Z"
     },
     {
       "gameId": "liga-1-peru-2026-11-29-sport-huancayo-universitario--v0il6x",
@@ -146,12 +176,27 @@
       "outcome": "DRAW",
       "line": null,
       "book": "bet365",
-      "decimal": 3.4,
+      "decimal": 3.5,
       "openingDecimal": 3.4,
+      "deltaPct": 2.94,
+      "movement": "drifting",
+      "movementSignal": "DRIFTING",
+      "capturedAtUtc": "2026-11-26T19:50:07Z"
+    },
+    {
+      "gameId": "liga-1-peru-2026-11-29-sport-huancayo-universitario--v0il6x",
+      "homeName": "Sport Huancayo",
+      "awayName": "Universitario de Deportes",
+      "market": "1x2",
+      "outcome": "DRAW",
+      "line": null,
+      "book": "betfair",
+      "decimal": 3.5,
+      "openingDecimal": 3.5,
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-25T20:20:07Z"
+      "capturedAtUtc": "2026-11-26T19:50:07Z"
     },
     {
       "gameId": "liga-1-peru-2026-11-29-sport-huancayo-universitario--v0il6x",
@@ -161,12 +206,12 @@
       "outcome": "DRAW",
       "line": null,
       "book": "coral",
-      "decimal": 3.3,
+      "decimal": 3.5,
       "openingDecimal": 3.3,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-25T20:20:07Z"
+      "deltaPct": 6.06,
+      "movement": "drifting",
+      "movementSignal": "DRIFTING",
+      "capturedAtUtc": "2026-11-26T19:50:07Z"
     },
     {
       "gameId": "liga-1-peru-2026-11-29-sport-huancayo-universitario--v0il6x",
@@ -176,12 +221,27 @@
       "outcome": "DRAW",
       "line": null,
       "book": "ladbrokes",
-      "decimal": 3.3,
+      "decimal": 3.5,
       "openingDecimal": 3.3,
+      "deltaPct": 6.06,
+      "movement": "drifting",
+      "movementSignal": "DRIFTING",
+      "capturedAtUtc": "2026-11-26T19:50:07Z"
+    },
+    {
+      "gameId": "liga-1-peru-2026-11-29-sport-huancayo-universitario--v0il6x",
+      "homeName": "Sport Huancayo",
+      "awayName": "Universitario de Deportes",
+      "market": "1x2",
+      "outcome": "DRAW",
+      "line": null,
+      "book": "mansionbet",
+      "decimal": 3.5,
+      "openingDecimal": 3.5,
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-25T20:20:07Z"
+      "capturedAtUtc": "2026-11-26T19:50:07Z"
     },
     {
       "gameId": "liga-1-peru-2026-11-29-sport-huancayo-universitario--v0il6x",
@@ -191,12 +251,12 @@
       "outcome": "AWAY",
       "line": null,
       "book": "1xbet",
-      "decimal": 3.75,
+      "decimal": 3.68,
       "openingDecimal": 3.75,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-25T20:20:07Z"
+      "deltaPct": -1.87,
+      "movement": "shortening",
+      "movementSignal": "SHORTENING",
+      "capturedAtUtc": "2026-11-26T19:50:07Z"
     },
     {
       "gameId": "liga-1-peru-2026-11-29-sport-huancayo-universitario--v0il6x",
@@ -211,7 +271,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-25T20:20:07Z"
+      "capturedAtUtc": "2026-11-26T19:50:07Z"
     },
     {
       "gameId": "liga-1-peru-2026-11-29-sport-huancayo-universitario--v0il6x",
@@ -221,12 +281,12 @@
       "outcome": "AWAY",
       "line": null,
       "book": "bwin",
-      "decimal": 3.2,
+      "decimal": 3.4,
       "openingDecimal": 3.2,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-25T20:20:07Z"
+      "deltaPct": 6.25,
+      "movement": "drifting",
+      "movementSignal": "DRIFTING",
+      "capturedAtUtc": "2026-11-26T19:50:07Z"
     },
     {
       "gameId": "liga-1-peru-2026-11-29-sport-huancayo-universitario--v0il6x",
@@ -236,12 +296,27 @@
       "outcome": "AWAY",
       "line": null,
       "book": "bet365",
-      "decimal": 3.1,
+      "decimal": 3.8,
       "openingDecimal": 3.1,
+      "deltaPct": 22.58,
+      "movement": "drifting",
+      "movementSignal": "DRIFTING",
+      "capturedAtUtc": "2026-11-26T19:50:07Z"
+    },
+    {
+      "gameId": "liga-1-peru-2026-11-29-sport-huancayo-universitario--v0il6x",
+      "homeName": "Sport Huancayo",
+      "awayName": "Universitario de Deportes",
+      "market": "1x2",
+      "outcome": "AWAY",
+      "line": null,
+      "book": "betfair",
+      "decimal": 3.5,
+      "openingDecimal": 3.5,
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-25T20:20:07Z"
+      "capturedAtUtc": "2026-11-26T19:50:07Z"
     },
     {
       "gameId": "liga-1-peru-2026-11-29-sport-huancayo-universitario--v0il6x",
@@ -251,12 +326,12 @@
       "outcome": "AWAY",
       "line": null,
       "book": "coral",
-      "decimal": 3.2,
+      "decimal": 3.4,
       "openingDecimal": 3.2,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-25T20:20:07Z"
+      "deltaPct": 6.25,
+      "movement": "drifting",
+      "movementSignal": "DRIFTING",
+      "capturedAtUtc": "2026-11-26T19:50:07Z"
     },
     {
       "gameId": "liga-1-peru-2026-11-29-sport-huancayo-universitario--v0il6x",
@@ -266,12 +341,27 @@
       "outcome": "AWAY",
       "line": null,
       "book": "ladbrokes",
-      "decimal": 3.2,
+      "decimal": 3.4,
       "openingDecimal": 3.2,
+      "deltaPct": 6.25,
+      "movement": "drifting",
+      "movementSignal": "DRIFTING",
+      "capturedAtUtc": "2026-11-26T19:50:07Z"
+    },
+    {
+      "gameId": "liga-1-peru-2026-11-29-sport-huancayo-universitario--v0il6x",
+      "homeName": "Sport Huancayo",
+      "awayName": "Universitario de Deportes",
+      "market": "1x2",
+      "outcome": "AWAY",
+      "line": null,
+      "book": "mansionbet",
+      "decimal": 3.4,
+      "openingDecimal": 3.4,
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-25T20:20:07Z"
+      "capturedAtUtc": "2026-11-26T19:50:07Z"
     },
     {
       "gameId": "liga-1-peru-2026-11-29-sport-huancayo-universitario--v0il6x",
@@ -281,12 +371,12 @@
       "outcome": "over",
       "line": 2.5,
       "book": "bet365",
-      "decimal": 1.75,
+      "decimal": 1.72,
       "openingDecimal": 1.75,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-25T20:20:07Z"
+      "deltaPct": -1.71,
+      "movement": "shortening",
+      "movementSignal": "SHORTENING",
+      "capturedAtUtc": "2026-11-26T19:50:07Z"
     },
     {
       "gameId": "liga-1-peru-2026-11-29-sport-huancayo-universitario--v0il6x",
@@ -296,12 +386,12 @@
       "outcome": "under",
       "line": 2.5,
       "book": "bet365",
-      "decimal": 2.05,
+      "decimal": 2.07,
       "openingDecimal": 2.05,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-25T20:20:07Z"
+      "deltaPct": 0.98,
+      "movement": "drifting",
+      "movementSignal": "DRIFTING",
+      "capturedAtUtc": "2026-11-26T19:50:07Z"
     },
     {
       "gameId": "liga-1-peru-2026-11-29-sport-huancayo-universitario--v0il6x",
@@ -311,12 +401,12 @@
       "outcome": "yes",
       "line": null,
       "book": "bet365",
-      "decimal": 1.61,
+      "decimal": 1.66,
       "openingDecimal": 1.61,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-25T20:20:07Z"
+      "deltaPct": 3.11,
+      "movement": "drifting",
+      "movementSignal": "DRIFTING",
+      "capturedAtUtc": "2026-11-26T19:50:07Z"
     },
     {
       "gameId": "liga-1-peru-2026-11-29-sport-huancayo-universitario--v0il6x",
@@ -326,12 +416,12 @@
       "outcome": "no",
       "line": null,
       "book": "bet365",
-      "decimal": 2.2,
+      "decimal": 2.1,
       "openingDecimal": 2.2,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-25T20:20:07Z"
+      "deltaPct": -4.55,
+      "movement": "shortening",
+      "movementSignal": "SHORTENING",
+      "capturedAtUtc": "2026-11-26T19:50:07Z"
     }
   ]
 }

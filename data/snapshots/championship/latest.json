@@ -5,7 +5,7 @@
   "season": "championship-2026-27",
   "seasonLabel": "2026/27",
   "periodLabel": "Regular season · Matchday 16",
-  "updatedAt": "2026-11-25T20:23:50.754Z",
+  "updatedAt": "2026-11-26T20:00:11.075Z",
   "source": "pitchlab-football-v2",
   "provenance": "derived",
   "isDemo": false,
@@ -18,30 +18,30 @@
       "forPerGame": 1.8235294117647058,
       "againstPerGame": 1.1176470588235294,
       "gamesPlayed": 17,
-      "adjustedFor": 1.4293490000256572,
-      "adjustedAgainst": 1.061895359849002
+      "adjustedFor": 1.4364811647695692,
+      "adjustedAgainst": 1.0670257479443306
     },
     "championship.blackburn-rovers": {
       "teamId": "championship.blackburn-rovers",
       "name": "Blackburn Rovers",
       "shortName": "Blackburn Rovers",
       "code": "BLA",
-      "forPerGame": 1.5,
-      "againstPerGame": 1.5625,
-      "gamesPlayed": 16,
-      "adjustedFor": 1.2850036641901372,
-      "adjustedAgainst": 1.3110393425162095
+      "forPerGame": 1.4705882352941178,
+      "againstPerGame": 1.4705882352941178,
+      "gamesPlayed": 17,
+      "adjustedFor": 1.273330338106403,
+      "adjustedAgainst": 1.2707974328886051
     },
     "championship.bolton-wanderers": {
       "teamId": "championship.bolton-wanderers",
       "name": "Bolton Wanderers",
       "shortName": "Bolton Wanderers",
       "code": "BOL",
-      "forPerGame": 1.3125,
-      "againstPerGame": 1.875,
-      "gamesPlayed": 16,
-      "adjustedFor": 1.1700352674385153,
-      "adjustedAgainst": 1.4758273639962962
+      "forPerGame": 1.2941176470588236,
+      "againstPerGame": 1.9411764705882353,
+      "gamesPlayed": 17,
+      "adjustedFor": 1.1648494328016852,
+      "adjustedAgainst": 1.5308890701772615
     },
     "championship.preston-north-end": {
       "teamId": "championship.preston-north-end",
@@ -51,19 +51,19 @@
       "forPerGame": 1.0588235294117647,
       "againstPerGame": 1.8235294117647058,
       "gamesPlayed": 17,
-      "adjustedFor": 1.0562679607370105,
-      "adjustedAgainst": 1.4380611274564963
+      "adjustedFor": 1.0611865358927732,
+      "adjustedAgainst": 1.4438653718347159
     },
     "championship.stoke-city": {
       "teamId": "championship.stoke-city",
       "name": "Stoke City",
       "shortName": "Stoke City",
       "code": "STO",
-      "forPerGame": 1.5625,
-      "againstPerGame": 1.125,
-      "gamesPlayed": 16,
-      "adjustedFor": 1.315175029214419,
-      "adjustedAgainst": 1.0539195330956066
+      "forPerGame": 1.588235294117647,
+      "againstPerGame": 1.1176470588235294,
+      "gamesPlayed": 17,
+      "adjustedFor": 1.3246180072096752,
+      "adjustedAgainst": 1.0571690467489032
     },
     "championship.swansea-city": {
       "teamId": "championship.swansea-city",
@@ -73,8 +73,8 @@
       "forPerGame": 1.4705882352941178,
       "againstPerGame": 1.2941176470588236,
       "gamesPlayed": 17,
-      "adjustedFor": 1.2851953366885371,
-      "adjustedAgainst": 1.152308152778879
+      "adjustedFor": 1.2939631381055783,
+      "adjustedAgainst": 1.1572822798814058
     },
     "championship.portsmouth": {
       "teamId": "championship.portsmouth",
@@ -84,8 +84,8 @@
       "forPerGame": 1.2941176470588236,
       "againstPerGame": 1.1176470588235294,
       "gamesPlayed": 17,
-      "adjustedFor": 1.1275321636087148,
-      "adjustedAgainst": 1.0363250133228517
+      "adjustedFor": 1.1307641059717704,
+      "adjustedAgainst": 1.0415392869079323
     },
     "championship.queens-park-rangers": {
       "teamId": "championship.queens-park-rangers",
@@ -95,8 +95,8 @@
       "forPerGame": 1.5294117647058822,
       "againstPerGame": 1.1176470588235294,
       "gamesPlayed": 17,
-      "adjustedFor": 1.266320171658987,
-      "adjustedAgainst": 1.0309667759990166
+      "adjustedFor": 1.2713027340880982,
+      "adjustedAgainst": 1.0348159696175225
     },
     "championship.norwich-city": {
       "teamId": "championship.norwich-city",
@@ -106,19 +106,19 @@
       "forPerGame": 2.0588235294117645,
       "againstPerGame": 1.5294117647058822,
       "gamesPlayed": 17,
-      "adjustedFor": 1.6143295257139179,
-      "adjustedAgainst": 1.3008679888392232
+      "adjustedFor": 1.6208926741507745,
+      "adjustedAgainst": 1.3061258758765628
     },
     "championship.west-bromwich-albion": {
       "teamId": "championship.west-bromwich-albion",
       "name": "West Bromwich Albion",
       "shortName": "West Bromwich Albion",
       "code": "WES",
-      "forPerGame": 1.5625,
-      "againstPerGame": 1.0625,
-      "gamesPlayed": 16,
-      "adjustedFor": 1.3258026006651624,
-      "adjustedAgainst": 1.0086628432090565
+      "forPerGame": 1.6470588235294117,
+      "againstPerGame": 1.0588235294117647,
+      "gamesPlayed": 17,
+      "adjustedFor": 1.3862882905745781,
+      "adjustedAgainst": 1.0063170890530844
     },
     "championship.middlesbrough": {
       "teamId": "championship.middlesbrough",
@@ -128,8 +128,8 @@
       "forPerGame": 2,
       "againstPerGame": 1.1764705882352942,
       "gamesPlayed": 17,
-      "adjustedFor": 1.5415438689549403,
-      "adjustedAgainst": 1.0995811699782967
+      "adjustedFor": 1.5491709702091103,
+      "adjustedAgainst": 1.10512722591781
     },
     "championship.lincoln-city": {
       "teamId": "championship.lincoln-city",
@@ -139,8 +139,8 @@
       "forPerGame": 0.8823529411764706,
       "againstPerGame": 1.8235294117647058,
       "gamesPlayed": 17,
-      "adjustedFor": 0.9342929221427732,
-      "adjustedAgainst": 1.4884856162912574
+      "adjustedFor": 0.9386501217310129,
+      "adjustedAgainst": 1.498930737448635
     },
     "championship.charlton-athletic": {
       "teamId": "championship.charlton-athletic",
@@ -150,8 +150,8 @@
       "forPerGame": 1.0588235294117647,
       "againstPerGame": 1.4705882352941178,
       "gamesPlayed": 17,
-      "adjustedFor": 1.004415244395588,
-      "adjustedAgainst": 1.2636410530561035
+      "adjustedFor": 1.0059190851269364,
+      "adjustedAgainst": 1.2695559091450228
     },
     "championship.derby-county": {
       "teamId": "championship.derby-county",
@@ -161,8 +161,8 @@
       "forPerGame": 0.8235294117647058,
       "againstPerGame": 2.0588235294117645,
       "gamesPlayed": 17,
-      "adjustedFor": 0.9131261756720707,
-      "adjustedAgainst": 1.538106653730977
+      "adjustedFor": 0.9151623569664669,
+      "adjustedAgainst": 1.544063489649242
     },
     "championship.bristol-city": {
       "teamId": "championship.bristol-city",
@@ -172,19 +172,19 @@
       "forPerGame": 1,
       "againstPerGame": 1.588235294117647,
       "gamesPlayed": 17,
-      "adjustedFor": 0.9787932963786786,
-      "adjustedAgainst": 1.3341450065040072
+      "adjustedFor": 0.9835360569282019,
+      "adjustedAgainst": 1.3427689289738307
     },
     "championship.millwall": {
       "teamId": "championship.millwall",
       "name": "Millwall",
       "shortName": "Millwall",
       "code": "MIL",
-      "forPerGame": 1.4375,
-      "againstPerGame": 1.75,
-      "gamesPlayed": 16,
-      "adjustedFor": 1.2382868918305134,
-      "adjustedAgainst": 1.407334915497804
+      "forPerGame": 1.411764705882353,
+      "againstPerGame": 1.7647058823529411,
+      "gamesPlayed": 17,
+      "adjustedFor": 1.2412623139316394,
+      "adjustedAgainst": 1.412552611120661
     },
     "championship.sheffield-united": {
       "teamId": "championship.sheffield-united",
@@ -194,30 +194,30 @@
       "forPerGame": 1.5294117647058822,
       "againstPerGame": 1.1764705882352942,
       "gamesPlayed": 17,
-      "adjustedFor": 1.2952454884457223,
-      "adjustedAgainst": 1.1272696547464558
+      "adjustedFor": 1.3015566569471562,
+      "adjustedAgainst": 1.1325669170543387
     },
     "championship.birmingham-city": {
       "teamId": "championship.birmingham-city",
       "name": "Birmingham City",
       "shortName": "Birmingham City",
       "code": "BIR",
-      "forPerGame": 1.75,
-      "againstPerGame": 0.9375,
-      "gamesPlayed": 16,
-      "adjustedFor": 1.4398824383140905,
-      "adjustedAgainst": 0.94723963520274
+      "forPerGame": 1.7647058823529411,
+      "againstPerGame": 0.8823529411764706,
+      "gamesPlayed": 17,
+      "adjustedFor": 1.448565733511677,
+      "adjustedAgainst": 0.9021815916847877
     },
     "championship.watford": {
       "teamId": "championship.watford",
       "name": "Watford",
       "shortName": "Watford",
       "code": "WAT",
-      "forPerGame": 0.8125,
-      "againstPerGame": 1.6875,
-      "gamesPlayed": 16,
-      "adjustedFor": 0.8845657879020912,
-      "adjustedAgainst": 1.3578626777674496
+      "forPerGame": 0.7647058823529411,
+      "againstPerGame": 1.6470588235294117,
+      "gamesPlayed": 17,
+      "adjustedFor": 0.8431660358188924,
+      "adjustedAgainst": 1.3463274009399078
     },
     "championship.southampton": {
       "teamId": "championship.southampton",
@@ -227,19 +227,19 @@
       "forPerGame": 1.8823529411764706,
       "againstPerGame": 0.9411764705882353,
       "gamesPlayed": 17,
-      "adjustedFor": 1.4946753720765307,
-      "adjustedAgainst": 0.955214395407106
+      "adjustedFor": 1.4991408491775766,
+      "adjustedAgainst": 0.9577330251992303
     },
     "championship.burnley": {
       "teamId": "championship.burnley",
       "name": "Burnley",
       "shortName": "Burnley",
       "code": "BUR",
-      "forPerGame": 1.5,
-      "againstPerGame": 2.0625,
-      "gamesPlayed": 16,
-      "adjustedFor": 1.2860381724479848,
-      "adjustedAgainst": 1.608578225483409
+      "forPerGame": 1.411764705882353,
+      "againstPerGame": 2.0588235294117645,
+      "gamesPlayed": 17,
+      "adjustedFor": 1.246912425245816,
+      "adjustedAgainst": 1.6185447101296975
     },
     "championship.west-ham-united": {
       "teamId": "championship.west-ham-united",
@@ -249,8 +249,8 @@
       "forPerGame": 2.235294117647059,
       "againstPerGame": 1.4705882352941178,
       "gamesPlayed": 17,
-      "adjustedFor": 1.674874923089138,
-      "adjustedAgainst": 1.2985881318318504
+      "adjustedFor": 1.6804700937616168,
+      "adjustedAgainst": 1.306020515331276
     },
     "championship.cardiff-city": {
       "teamId": "championship.cardiff-city",
@@ -260,8 +260,8 @@
       "forPerGame": 1.6470588235294117,
       "againstPerGame": 1.9411764705882353,
       "gamesPlayed": 17,
-      "adjustedFor": 1.3649206072169624,
-      "adjustedAgainst": 1.5393773479888255
+      "adjustedFor": 1.3725987836074482,
+      "adjustedAgainst": 1.5495545635281995
     },
     "championship.wrexham": {
       "teamId": "championship.wrexham",
@@ -271,151 +271,11 @@
       "forPerGame": 1.1764705882352942,
       "againstPerGame": 1.2352941176470589,
       "gamesPlayed": 17,
-      "adjustedFor": 1.0881164933930203,
-      "adjustedAgainst": 1.1065991606612817
+      "adjustedFor": 1.0943014357186875,
+      "adjustedAgainst": 1.1113499975157564
     }
   },
   "games": [
-    {
-      "id": "championship-2026-11-21-west-ham-unite-preston-north--6bb0yc",
-      "league": "championship",
-      "season": "championship-2026-27",
-      "week": 16,
-      "round": "Regular season · Matchday 16",
-      "phase": "Regular season",
-      "startTime": "2026-11-21T15:00:00.000Z",
-      "status": "final",
-      "home": {
-        "id": "championship.west-ham-united",
-        "league": "championship",
-        "name": "West Ham United",
-        "shortName": "West Ham United",
-        "code": "WES",
-        "logoUrl": "https://sports.bzzoiro.com/img/team/8/?bg=transparent"
-      },
-      "away": {
-        "id": "championship.preston-north-end",
-        "league": "championship",
-        "name": "Preston North End",
-        "shortName": "Preston North End",
-        "code": "PRE",
-        "logoUrl": "https://sports.bzzoiro.com/img/team/214/?bg=transparent"
-      },
-      "venue": "London Stadium, London",
-      "referee": "Will Finnie",
-      "neutralSite": false,
-      "result": {
-        "home": 1,
-        "away": 1,
-        "observedAt": "2026-11-25T20:23:50.754Z",
-        "source": "pitchlab-feed"
-      }
-    },
-    {
-      "id": "championship-2026-11-21-swansea-city-west-bromwich--top9mx",
-      "league": "championship",
-      "season": "championship-2026-27",
-      "week": 16,
-      "round": "Regular season · Matchday 16",
-      "phase": "Regular season",
-      "startTime": "2026-11-21T15:00:00.000Z",
-      "status": "final",
-      "home": {
-        "id": "championship.swansea-city",
-        "league": "championship",
-        "name": "Swansea City",
-        "shortName": "Swansea City",
-        "code": "SWA",
-        "logoUrl": "https://sports.bzzoiro.com/img/team/208/?bg=transparent"
-      },
-      "away": {
-        "id": "championship.west-bromwich-albion",
-        "league": "championship",
-        "name": "West Bromwich Albion",
-        "shortName": "West Bromwich Albion",
-        "code": "WES",
-        "logoUrl": "https://sports.bzzoiro.com/img/team/217/?bg=transparent"
-      },
-      "venue": "Swansea.com Stadium, Swansea",
-      "referee": "Thomas Kirk",
-      "neutralSite": false,
-      "result": {
-        "home": 2,
-        "away": 2,
-        "observedAt": "2026-11-25T20:23:50.754Z",
-        "source": "pitchlab-feed"
-      }
-    },
-    {
-      "id": "championship-2026-11-21-stoke-city-birmingham-cit-e79fgy",
-      "league": "championship",
-      "season": "championship-2026-27",
-      "week": 16,
-      "round": "Regular season · Matchday 16",
-      "phase": "Regular season",
-      "startTime": "2026-11-21T15:00:00.000Z",
-      "status": "final",
-      "home": {
-        "id": "championship.stoke-city",
-        "league": "championship",
-        "name": "Stoke City",
-        "shortName": "Stoke City",
-        "code": "STO",
-        "logoUrl": "https://sports.bzzoiro.com/img/team/215/?bg=transparent"
-      },
-      "away": {
-        "id": "championship.birmingham-city",
-        "league": "championship",
-        "name": "Birmingham City",
-        "shortName": "Birmingham City",
-        "code": "BIR",
-        "logoUrl": "https://sports.bzzoiro.com/img/team/199/?bg=transparent"
-      },
-      "venue": "bet365 Stadium, Stoke",
-      "referee": "Robert Madley",
-      "neutralSite": false,
-      "result": {
-        "home": 1,
-        "away": 0,
-        "observedAt": "2026-11-25T20:23:50.754Z",
-        "source": "pitchlab-feed"
-      }
-    },
-    {
-      "id": "championship-2026-11-21-sheffield-unit-watford-z22l12",
-      "league": "championship",
-      "season": "championship-2026-27",
-      "week": 16,
-      "round": "Regular season · Matchday 16",
-      "phase": "Regular season",
-      "startTime": "2026-11-21T15:00:00.000Z",
-      "status": "final",
-      "home": {
-        "id": "championship.sheffield-united",
-        "league": "championship",
-        "name": "Sheffield United",
-        "shortName": "Sheffield United",
-        "code": "SHE",
-        "logoUrl": "https://sports.bzzoiro.com/img/team/219/?bg=transparent"
-      },
-      "away": {
-        "id": "championship.watford",
-        "league": "championship",
-        "name": "Watford",
-        "shortName": "Watford",
-        "code": "WAT",
-        "logoUrl": "https://sports.bzzoiro.com/img/team/202/?bg=transparent"
-      },
-      "venue": "Bramall Lane, Sheffield",
-      "referee": "Tim Robinson",
-      "neutralSite": false,
-      "result": {
-        "home": 4,
-        "away": 0,
-        "observedAt": "2026-11-25T20:23:50.754Z",
-        "source": "pitchlab-feed"
-      }
-    },
     {
       "id": "championship-2026-11-21-middlesbrough-bristol-city-7hicpy",
       "league": "championship",
@@ -447,7 +307,7 @@
       "result": {
         "home": 2,
         "away": 0,
-        "observedAt": "2026-11-25T20:23:50.754Z",
+        "observedAt": "2026-11-26T20:00:11.075Z",
         "source": "pitchlab-feed"
       }
     },
@@ -482,7 +342,7 @@
       "result": {
         "home": 0,
         "away": 1,
-        "observedAt": "2026-11-25T20:23:50.754Z",
+        "observedAt": "2026-11-26T20:00:11.075Z",
         "source": "pitchlab-feed"
       }
     },
@@ -517,7 +377,7 @@
       "result": {
         "home": 1,
         "away": 1,
-        "observedAt": "2026-11-25T20:23:50.754Z",
+        "observedAt": "2026-11-26T20:00:11.075Z",
         "source": "pitchlab-feed"
       }
     },
@@ -552,7 +412,7 @@
       "result": {
         "home": 2,
         "away": 2,
-        "observedAt": "2026-11-25T20:23:50.754Z",
+        "observedAt": "2026-11-26T20:00:11.075Z",
         "source": "pitchlab-feed"
       }
     },
@@ -587,7 +447,7 @@
       "result": {
         "home": 1,
         "away": 1,
-        "observedAt": "2026-11-25T20:23:50.754Z",
+        "observedAt": "2026-11-26T20:00:11.075Z",
         "source": "pitchlab-feed"
       }
     },
@@ -622,7 +482,7 @@
       "result": {
         "home": 1,
         "away": 0,
-        "observedAt": "2026-11-25T20:23:50.754Z",
+        "observedAt": "2026-11-26T20:00:11.075Z",
         "source": "pitchlab-feed"
       }
     },
@@ -657,7 +517,7 @@
       "result": {
         "home": 1,
         "away": 1,
-        "observedAt": "2026-11-25T20:23:50.754Z",
+        "observedAt": "2026-11-26T20:00:11.075Z",
         "source": "pitchlab-feed"
       }
     },
@@ -692,7 +552,7 @@
       "result": {
         "home": 2,
         "away": 1,
-        "observedAt": "2026-11-25T20:23:50.754Z",
+        "observedAt": "2026-11-26T20:00:11.075Z",
         "source": "pitchlab-feed"
       }
     },
@@ -727,7 +587,7 @@
       "result": {
         "home": 4,
         "away": 0,
-        "observedAt": "2026-11-25T20:23:50.754Z",
+        "observedAt": "2026-11-26T20:00:11.075Z",
         "source": "pitchlab-feed"
       }
     },
@@ -762,7 +622,7 @@
       "result": {
         "home": 0,
         "away": 4,
-        "observedAt": "2026-11-25T20:23:50.754Z",
+        "observedAt": "2026-11-26T20:00:11.075Z",
         "source": "pitchlab-feed"
       }
     },
@@ -797,7 +657,7 @@
       "result": {
         "home": 1,
         "away": 1,
-        "observedAt": "2026-11-25T20:23:50.754Z",
+        "observedAt": "2026-11-26T20:00:11.075Z",
         "source": "pitchlab-feed"
       }
     },
@@ -832,7 +692,7 @@
       "result": {
         "home": 3,
         "away": 0,
-        "observedAt": "2026-11-25T20:23:50.754Z",
+        "observedAt": "2026-11-26T20:00:11.075Z",
         "source": "pitchlab-feed"
       }
     },
@@ -844,7 +704,7 @@
       "round": "Regular season · Matchday 17",
       "phase": "Regular season",
       "startTime": "2026-11-25T19:45:00.000Z",
-      "status": "scheduled",
+      "status": "final",
       "home": {
         "id": "championship.watford",
         "league": "championship",
@@ -863,7 +723,13 @@
       },
       "venue": "Vicarage Road, Watford",
       "referee": "Stephen Martin",
-      "neutralSite": false
+      "neutralSite": false,
+      "result": {
+        "home": 0,
+        "away": 1,
+        "observedAt": "2026-11-26T20:00:11.075Z",
+        "source": "pitchlab-feed"
+      }
     },
     {
       "id": "championship-2026-11-25-burnley-birmingham-cit-agub2v",
@@ -873,7 +739,7 @@
       "round": "Regular season · Matchday 17",
       "phase": "Regular season",
       "startTime": "2026-11-25T19:45:00.000Z",
-      "status": "scheduled",
+      "status": "final",
       "home": {
         "id": "championship.burnley",
         "league": "championship",
@@ -892,7 +758,13 @@
       },
       "venue": "Turf Moor, Burnley",
       "referee": "Matthew Corlett",
-      "neutralSite": false
+      "neutralSite": false,
+      "result": {
+        "home": 0,
+        "away": 2,
+        "observedAt": "2026-11-26T20:00:11.075Z",
+        "source": "pitchlab-feed"
+      }
     },
     {
       "id": "championship-2026-11-25-bolton-wandere-west-bromwich--96rg1f",
@@ -902,7 +774,7 @@
       "round": "Regular season · Matchday 17",
       "phase": "Regular season",
       "startTime": "2026-11-25T19:45:00.000Z",
-      "status": "scheduled",
+      "status": "final",
       "home": {
         "id": "championship.bolton-wanderers",
         "league": "championship",
@@ -921,7 +793,13 @@
       },
       "venue": "Toughsheet Community Stadium , Horwich",
       "referee": "Elliot Bell",
-      "neutralSite": false
+      "neutralSite": false,
+      "result": {
+        "home": 1,
+        "away": 3,
+        "observedAt": "2026-11-26T20:00:11.075Z",
+        "source": "pitchlab-feed"
+      }
     },
     {
       "id": "championship-2026-11-25-stoke-city-millwall-9sbl8j",
@@ -931,7 +809,7 @@
       "round": "Regular season · Matchday 17",
       "phase": "Regular season",
       "startTime": "2026-11-25T20:00:00.000Z",
-      "status": "scheduled",
+      "status": "final",
       "home": {
         "id": "championship.stoke-city",
         "league": "championship",
@@ -950,7 +828,13 @@
       },
       "venue": "bet365 Stadium, Stoke",
       "referee": "James Bell",
-      "neutralSite": false
+      "neutralSite": false,
+      "result": {
+        "home": 2,
+        "away": 1,
+        "observedAt": "2026-11-26T20:00:11.075Z",
+        "source": "pitchlab-feed"
+      }
     },
     {
       "id": "championship-2026-11-27-southampton-middlesbrough-dtzzkv",
@@ -1735,1950 +1619,121 @@
       },
       "venue": "Loftus Road Stadium, London",
       "neutralSite": false
+    },
+    {
+      "id": "championship-2026-12-08-millwall-sheffield-unit-lbedrw",
+      "league": "championship",
+      "season": "championship-2026-27",
+      "week": 20,
+      "round": "Regular season · Matchday 20",
+      "phase": "Regular season",
+      "startTime": "2026-12-08T19:45:00.000Z",
+      "status": "scheduled",
+      "home": {
+        "id": "championship.millwall",
+        "league": "championship",
+        "name": "Millwall",
+        "shortName": "Millwall",
+        "code": "MIL",
+        "logoUrl": "https://sports.bzzoiro.com/img/team/210/?bg=transparent"
+      },
+      "away": {
+        "id": "championship.sheffield-united",
+        "league": "championship",
+        "name": "Sheffield United",
+        "shortName": "Sheffield United",
+        "code": "SHE",
+        "logoUrl": "https://sports.bzzoiro.com/img/team/219/?bg=transparent"
+      },
+      "venue": "The Den, London",
+      "neutralSite": false
+    },
+    {
+      "id": "championship-2026-12-08-blackburn-rove-norwich-city-8r4qcx",
+      "league": "championship",
+      "season": "championship-2026-27",
+      "week": 20,
+      "round": "Regular season · Matchday 20",
+      "phase": "Regular season",
+      "startTime": "2026-12-08T19:45:00.000Z",
+      "status": "scheduled",
+      "home": {
+        "id": "championship.blackburn-rovers",
+        "league": "championship",
+        "name": "Blackburn Rovers",
+        "shortName": "Blackburn Rovers",
+        "code": "BLA",
+        "logoUrl": "https://sports.bzzoiro.com/img/team/218/?bg=transparent"
+      },
+      "away": {
+        "id": "championship.norwich-city",
+        "league": "championship",
+        "name": "Norwich City",
+        "shortName": "Norwich City",
+        "code": "NOR",
+        "logoUrl": "https://sports.bzzoiro.com/img/team/209/?bg=transparent"
+      },
+      "venue": "Ewood Park, Blackburn",
+      "neutralSite": false
+    },
+    {
+      "id": "championship-2026-12-08-west-ham-unite-middlesbrough-626inx",
+      "league": "championship",
+      "season": "championship-2026-27",
+      "week": 20,
+      "round": "Regular season · Matchday 20",
+      "phase": "Regular season",
+      "startTime": "2026-12-08T20:00:00.000Z",
+      "status": "scheduled",
+      "home": {
+        "id": "championship.west-ham-united",
+        "league": "championship",
+        "name": "West Ham United",
+        "shortName": "West Ham United",
+        "code": "WES",
+        "logoUrl": "https://sports.bzzoiro.com/img/team/8/?bg=transparent"
+      },
+      "away": {
+        "id": "championship.middlesbrough",
+        "league": "championship",
+        "name": "Middlesbrough",
+        "shortName": "Middlesbrough",
+        "code": "MID",
+        "logoUrl": "https://sports.bzzoiro.com/img/team/207/?bg=transparent"
+      },
+      "venue": "London Stadium, London",
+      "neutralSite": false
+    },
+    {
+      "id": "championship-2026-12-08-birmingham-cit-watford-q70ob4",
+      "league": "championship",
+      "season": "championship-2026-27",
+      "week": 20,
+      "round": "Regular season · Matchday 20",
+      "phase": "Regular season",
+      "startTime": "2026-12-08T20:00:00.000Z",
+      "status": "scheduled",
+      "home": {
+        "id": "championship.birmingham-city",
+        "league": "championship",
+        "name": "Birmingham City",
+        "shortName": "Birmingham City",
+        "code": "BIR",
+        "logoUrl": "https://sports.bzzoiro.com/img/team/199/?bg=transparent"
+      },
+      "away": {
+        "id": "championship.watford",
+        "league": "championship",
+        "name": "Watford",
+        "shortName": "Watford",
+        "code": "WAT",
+        "logoUrl": "https://sports.bzzoiro.com/img/team/202/?bg=transparent"
+      },
+      "venue": "St. Andrew's @ Knighthead Park, Birmingham",
+      "neutralSite": false
     }
   ],
   "analyses": {
-    "championship-2026-11-21-west-ham-unite-preston-north--6bb0yc": {
-      "game": "championship-2026-11-21-west-ham-unite-preston-north--6bb0yc",
-      "model": {
-        "id": "pitchlab-statistical-championship",
-        "version": "2.0.0",
-        "status": "candidate",
-        "label": "Modelo PitchLab · en validación"
-      },
-      "projection": {
-        "home": 3.777996592464663,
-        "away": 1.0648365753840743,
-        "total": 4.842833167848737,
-        "margin": 2.7131600170805887
-      },
-      "x12": [
-        0.8490669912852586,
-        0.08984697963945784,
-        0.061086029075283745
-      ],
-      "probabilities": [
-        {
-          "market": "h2h",
-          "selection": "West Ham United gana",
-          "p": 0.8490669912852586,
-          "fairOdds": 1.1777633688082367
-        },
-        {
-          "market": "h2h",
-          "selection": "Empate",
-          "p": 0.08984697963945784,
-          "fairOdds": 11.130034688008955
-        },
-        {
-          "market": "h2h",
-          "selection": "Preston North End gana",
-          "p": 0.061086029075283745,
-          "fairOdds": 16.370355302807102
-        },
-        {
-          "market": "double_chance",
-          "selection": "West Ham United o empate",
-          "p": 0.9389139709247165,
-          "fairOdds": 1.065060304742426
-        },
-        {
-          "market": "double_chance",
-          "selection": "Preston North End o empate",
-          "p": 0.15093300871474158,
-          "fairOdds": 6.625455945756485
-        },
-        {
-          "market": "double_chance",
-          "selection": "Sin empate",
-          "p": 0.9101530203605424,
-          "fairOdds": 1.0987163450865287
-        },
-        {
-          "market": "totals",
-          "selection": "Más de 1.5",
-          "line": 1.5,
-          "p": 0.9536870501575778,
-          "fairOdds": 1.0485619992792918
-        },
-        {
-          "market": "totals",
-          "selection": "Más de 2.5",
-          "line": 2.5,
-          "p": 0.8612151388379679,
-          "fairOdds": 1.1611500482321917
-        },
-        {
-          "market": "totals",
-          "selection": "Menos de 2.5",
-          "line": 2.5,
-          "p": 0.13878486116203215,
-          "fairOdds": 7.2053968395911285
-        },
-        {
-          "market": "totals",
-          "selection": "Más de 3.5",
-          "line": 3.5,
-          "p": 0.7116832972592856,
-          "fairOdds": 1.405119389271929
-        },
-        {
-          "market": "totals",
-          "selection": "Menos de 3.5",
-          "line": 3.5,
-          "p": 0.2883167027407144,
-          "fairOdds": 3.468408144564931
-        },
-        {
-          "market": "btts",
-          "selection": "Sí",
-          "p": 0.6400454290876277,
-          "fairOdds": 1.5623890970137548
-        },
-        {
-          "market": "btts",
-          "selection": "No",
-          "p": 0.35995457091237226,
-          "fairOdds": 2.778128355101347
-        },
-        {
-          "market": "team_totals",
-          "selection": "West Ham United más de 1.5",
-          "line": 1.5,
-          "p": 0.8905325795817304,
-          "fairOdds": 1.1229235436503455
-        },
-        {
-          "market": "team_totals",
-          "selection": "West Ham United menos de 1.5",
-          "line": 1.5,
-          "p": 0.10946742041826962,
-          "fairOdds": 9.135138072853541
-        },
-        {
-          "market": "team_totals",
-          "selection": "Preston North End más de 1.5",
-          "line": 1.5,
-          "p": 0.28807696722516596,
-          "fairOdds": 3.4712945280987446
-        },
-        {
-          "market": "team_totals",
-          "selection": "Preston North End menos de 1.5",
-          "line": 1.5,
-          "p": 0.711923032774834,
-          "fairOdds": 1.4046462243289697
-        },
-        {
-          "market": "correct_score",
-          "selection": "3–1",
-          "p": 0.07559669396247824,
-          "fairOdds": 13.228091700628353
-        },
-        {
-          "market": "correct_score",
-          "selection": "4–1",
-          "p": 0.07140101304795919,
-          "fairOdds": 14.005403527374495
-        },
-        {
-          "market": "correct_score",
-          "selection": "3–0",
-          "p": 0.07099370524083604,
-          "fairOdds": 14.08575586536359
-        }
-      ],
-      "marketGroups": [
-        {
-          "group": "Resultado",
-          "rows": [
-            {
-              "market": "h2h",
-              "selection": "home",
-              "label": "West Ham United gana",
-              "p": 0.8490669912852586,
-              "fairOdds": 1.1777633688082367
-            },
-            {
-              "market": "h2h",
-              "selection": "draw",
-              "label": "Empate",
-              "p": 0.08984697963945784,
-              "fairOdds": 11.130034688008955
-            },
-            {
-              "market": "h2h",
-              "selection": "away",
-              "label": "Preston North End gana",
-              "p": 0.061086029075283745,
-              "fairOdds": 16.370355302807102
-            }
-          ]
-        },
-        {
-          "group": "Doble oportunidad",
-          "rows": [
-            {
-              "market": "double_chance",
-              "selection": "1x",
-              "label": "West Ham United o empate",
-              "p": 0.9389139709247165,
-              "fairOdds": 1.065060304742426
-            },
-            {
-              "market": "double_chance",
-              "selection": "x2",
-              "label": "Preston North End o empate",
-              "p": 0.15093300871474158,
-              "fairOdds": 6.625455945756485
-            },
-            {
-              "market": "double_chance",
-              "selection": "12",
-              "label": "Sin empate",
-              "p": 0.9101530203605424,
-              "fairOdds": 1.0987163450865287
-            }
-          ]
-        },
-        {
-          "group": "Goles totales",
-          "rows": [
-            {
-              "market": "totals",
-              "selection": "over_1.5",
-              "label": "Más de 1.5",
-              "line": 1.5,
-              "p": 0.9536870501575778,
-              "fairOdds": 1.0485619992792918
-            },
-            {
-              "market": "totals",
-              "selection": "over_2.5",
-              "label": "Más de 2.5",
-              "line": 2.5,
-              "p": 0.8612151388379679,
-              "fairOdds": 1.1611500482321917
-            },
-            {
-              "market": "totals",
-              "selection": "under_2.5",
-              "label": "Menos de 2.5",
-              "line": 2.5,
-              "p": 0.13878486116203215,
-              "fairOdds": 7.2053968395911285
-            },
-            {
-              "market": "totals",
-              "selection": "over_3.5",
-              "label": "Más de 3.5",
-              "line": 3.5,
-              "p": 0.7116832972592856,
-              "fairOdds": 1.405119389271929
-            },
-            {
-              "market": "totals",
-              "selection": "under_3.5",
-              "label": "Menos de 3.5",
-              "line": 3.5,
-              "p": 0.2883167027407144,
-              "fairOdds": 3.468408144564931
-            }
-          ]
-        },
-        {
-          "group": "Ambos anotan",
-          "rows": [
-            {
-              "market": "btts",
-              "selection": "yes",
-              "label": "Sí",
-              "p": 0.6400454290876277,
-              "fairOdds": 1.5623890970137548
-            },
-            {
-              "market": "btts",
-              "selection": "no",
-              "label": "No",
-              "p": 0.35995457091237226,
-              "fairOdds": 2.778128355101347
-            }
-          ]
-        },
-        {
-          "group": "Goles por equipo (1.5)",
-          "rows": [
-            {
-              "market": "team_totals",
-              "selection": "home_over",
-              "label": "West Ham United más de 1.5",
-              "line": 1.5,
-              "p": 0.8905325795817304,
-              "fairOdds": 1.1229235436503455
-            },
-            {
-              "market": "team_totals",
-              "selection": "home_under",
-              "label": "West Ham United menos de 1.5",
-              "line": 1.5,
-              "p": 0.10946742041826962,
-              "fairOdds": 9.135138072853541
-            },
-            {
-              "market": "team_totals",
-              "selection": "away_over",
-              "label": "Preston North End más de 1.5",
-              "line": 1.5,
-              "p": 0.28807696722516596,
-              "fairOdds": 3.4712945280987446
-            },
-            {
-              "market": "team_totals",
-              "selection": "away_under",
-              "label": "Preston North End menos de 1.5",
-              "line": 1.5,
-              "p": 0.711923032774834,
-              "fairOdds": 1.4046462243289697
-            }
-          ]
-        },
-        {
-          "group": "Marcador exacto (más probables)",
-          "rows": [
-            {
-              "market": "correct_score",
-              "selection": "3-1",
-              "label": "3–1",
-              "p": 0.07559669396247824,
-              "fairOdds": 13.228091700628353
-            },
-            {
-              "market": "correct_score",
-              "selection": "4-1",
-              "label": "4–1",
-              "p": 0.07140101304795919,
-              "fairOdds": 14.005403527374495
-            },
-            {
-              "market": "correct_score",
-              "selection": "3-0",
-              "label": "3–0",
-              "p": 0.07099370524083604,
-              "fairOdds": 14.08575586536359
-            }
-          ]
-        }
-      ],
-      "mostLikelyScore": {
-        "home": 3,
-        "away": 1,
-        "p": 0.07559669396247824
-      },
-      "factors": [
-        {
-          "key": "home_attack",
-          "label": "Ataque local",
-          "value": "2.92 goles/partido",
-          "detail": "59 % más que la media · 15 partidos"
-        },
-        {
-          "key": "away_defense",
-          "label": "Defensa visitante",
-          "value": "1.84 concedidos/partido",
-          "detail": "35 % más que la media · 15 partidos"
-        },
-        {
-          "key": "away_attack",
-          "label": "Ataque visitante",
-          "value": "1.06 goles/partido",
-          "detail": "29 % menos que la media · ajustado por rival"
-        },
-        {
-          "key": "home_defense",
-          "label": "Defensa local",
-          "value": "1.49 concedidos/partido",
-          "detail": "10 % más que la media · ajustado por rival"
-        },
-        {
-          "key": "home_advantage",
-          "label": "Localía",
-          "value": "×1.29",
-          "detail": "estimada de 180 partidos"
-        },
-        {
-          "key": "uncertainty",
-          "label": "Intervalo 90%",
-          "value": "goles 3.6–6.9",
-          "detail": "local 64%–95% · 180 partidos"
-        },
-        {
-          "key": "home_position",
-          "label": "Posición local",
-          "value": "9.º · 23 pts",
-          "detail": "de 24 equipos"
-        },
-        {
-          "key": "away_position",
-          "label": "Posición visitante",
-          "value": "24.º · 8 pts",
-          "detail": "de 24 equipos"
-        },
-        {
-          "key": "home_form",
-          "label": "Forma local",
-          "value": "G-P-P-E-P · 4 pts",
-          "detail": "8 goles a favor · 11 en contra"
-        },
-        {
-          "key": "away_form",
-          "label": "Forma visitante",
-          "value": "P-E-P-P-G · 4 pts",
-          "detail": "5 goles a favor · 10 en contra"
-        }
-      ],
-      "steps": [
-        "Sincronizando EFL Championship · corte 19 nov 2026, 10:05",
-        "Fuerza ajustada por rival · WES 1.59 / 1.10 · PRE 0.71 / 1.35",
-        "Ponderando 162.9 partidos por antigüedad y calidad del rival",
-        "Proyección de goles 3.78 – 1.06 · total 4.84",
-        "Simulando 121 marcadores con incertidumbre del ajuste",
-        "20 mercados listos · marcador proyectado 3–1"
-      ],
-      "inputsAsOf": "2026-11-19T16:05:39.021Z",
-      "publishedAt": "2026-11-19T16:05:39.021Z",
-      "source": "pitchlab-football-v2",
-      "picks": [
-        {
-          "profile": "conservadora",
-          "market": "totals",
-          "selection": "over_1.5",
-          "label": "Más de 1.5",
-          "line": 1.5,
-          "p": 0.9536870501575778,
-          "fairOdds": 1.0485619992792918
-        },
-        {
-          "profile": "intermedia",
-          "market": "btts",
-          "selection": "yes",
-          "label": "Ambos anotan: Sí",
-          "p": 0.6400454290876277,
-          "fairOdds": 1.5623890970137548
-        }
-      ],
-      "confidence": {
-        "score": 92,
-        "level": "alta",
-        "reasons": [
-          "Favorito claro",
-          "Muestra suficiente"
-        ]
-      },
-      "projectedScore": {
-        "home": 3,
-        "away": 1,
-        "p": 0.07559669396247824
-      },
-      "insights": {
-        "why": [
-          "Se esperan 4.8 goles: 3.8 de West Ham United y 1.1 de Preston North End.",
-          "West Ham United anota 59 % más que la media.",
-          "Preston North End anota 29 % menos que la media."
-        ],
-        "restDays": {
-          "home": 14,
-          "away": 14
-        }
-      },
-      "picksAt": "2026-11-19T16:05:39.021Z",
-      "matchContext": {
-        "referee": "Will Finnie",
-        "refereeStats": {
-          "country": "England",
-          "matches": 69,
-          "avgYellow": 3.51,
-          "avgRed": 0.12,
-          "avgFouls": 22.6,
-          "avgGoals": 2.45
-        },
-        "weather": {
-          "description": "cloudy",
-          "temperatureC": 4,
-          "windSpeedKmh": 29
-        },
-        "travelDistanceKm": 307,
-        "halfTimeScore": {
-          "home": 0,
-          "away": 1
-        },
-        "stageName": "Regular season",
-        "venueCity": "London",
-        "venueCountry": "England",
-        "venueCapacity": 62500
-      }
-    },
-    "championship-2026-11-21-swansea-city-west-bromwich--top9mx": {
-      "game": "championship-2026-11-21-swansea-city-west-bromwich--top9mx",
-      "model": {
-        "id": "pitchlab-statistical-championship",
-        "version": "2.0.0",
-        "status": "candidate",
-        "label": "Modelo PitchLab · en validación"
-      },
-      "projection": {
-        "home": 1.324572402301501,
-        "away": 1.2318776839761485,
-        "total": 2.55645008627765,
-        "margin": 0.09269471832535259
-      },
-      "x12": [
-        0.3894081578214541,
-        0.2649221742480076,
-        0.3456696679305382
-      ],
-      "probabilities": [
-        {
-          "market": "h2h",
-          "selection": "Swansea City gana",
-          "p": 0.3894081578214541,
-          "fairOdds": 2.5679996166349084
-        },
-        {
-          "market": "h2h",
-          "selection": "Empate",
-          "p": 0.2649221742480076,
-          "fairOdds": 3.7746934654999746
-        },
-        {
-          "market": "h2h",
-          "selection": "West Bromwich Albion gana",
-          "p": 0.3456696679305382,
-          "fairOdds": 2.8929353448534236
-        },
-        {
-          "market": "double_chance",
-          "selection": "Swansea City o empate",
-          "p": 0.6543303320694618,
-          "fairOdds": 1.528280061291493
-        },
-        {
-          "market": "double_chance",
-          "selection": "West Bromwich Albion o empate",
-          "p": 0.6105918421785459,
-          "fairOdds": 1.63775525796754
-        },
-        {
-          "market": "double_chance",
-          "selection": "Sin empate",
-          "p": 0.7350778257519923,
-          "fairOdds": 1.3604001712022662
-        },
-        {
-          "market": "totals",
-          "selection": "Más de 1.5",
-          "line": 1.5,
-          "p": 0.7234588296307747,
-          "fairOdds": 1.3822486630101138
-        },
-        {
-          "market": "totals",
-          "selection": "Más de 2.5",
-          "line": 2.5,
-          "p": 0.4705832356066555,
-          "fairOdds": 2.1250225769535613
-        },
-        {
-          "market": "totals",
-          "selection": "Menos de 2.5",
-          "line": 2.5,
-          "p": 0.5294167643933445,
-          "fairOdds": 1.8888710506662818
-        },
-        {
-          "market": "totals",
-          "selection": "Más de 3.5",
-          "line": 3.5,
-          "p": 0.2545559326710881,
-          "fairOdds": 3.9284097192584415
-        },
-        {
-          "market": "totals",
-          "selection": "Menos de 3.5",
-          "line": 3.5,
-          "p": 0.7454440673289119,
-          "fairOdds": 1.3414822705387104
-        },
-        {
-          "market": "btts",
-          "selection": "Sí",
-          "p": 0.5192857672175007,
-          "fairOdds": 1.9257219495121538
-        },
-        {
-          "market": "btts",
-          "selection": "No",
-          "p": 0.48071423278249925,
-          "fairOdds": 2.0802379705126253
-        },
-        {
-          "market": "team_totals",
-          "selection": "Swansea City más de 1.5",
-          "line": 1.5,
-          "p": 0.38185741523631433,
-          "fairOdds": 2.6187785285802163
-        },
-        {
-          "market": "team_totals",
-          "selection": "Swansea City menos de 1.5",
-          "line": 1.5,
-          "p": 0.6181425847636857,
-          "fairOdds": 1.61774973064232
-        },
-        {
-          "market": "team_totals",
-          "selection": "West Bromwich Albion más de 1.5",
-          "line": 1.5,
-          "p": 0.34886244518527054,
-          "fairOdds": 2.8664592987901854
-        },
-        {
-          "market": "team_totals",
-          "selection": "West Bromwich Albion menos de 1.5",
-          "line": 1.5,
-          "p": 0.6511375548147295,
-          "fairOdds": 1.5357738047908074
-        },
-        {
-          "market": "correct_score",
-          "selection": "1–1",
-          "p": 0.12595468080065764,
-          "fairOdds": 7.939363536498112
-        },
-        {
-          "market": "correct_score",
-          "selection": "1–0",
-          "p": 0.10339283101383166,
-          "fairOdds": 9.67185045804793
-        },
-        {
-          "market": "correct_score",
-          "selection": "0–1",
-          "p": 0.09620160514142749,
-          "fairOdds": 10.394836952355258
-        }
-      ],
-      "marketGroups": [
-        {
-          "group": "Resultado",
-          "rows": [
-            {
-              "market": "h2h",
-              "selection": "home",
-              "label": "Swansea City gana",
-              "p": 0.3894081578214541,
-              "fairOdds": 2.5679996166349084
-            },
-            {
-              "market": "h2h",
-              "selection": "draw",
-              "label": "Empate",
-              "p": 0.2649221742480076,
-              "fairOdds": 3.7746934654999746
-            },
-            {
-              "market": "h2h",
-              "selection": "away",
-              "label": "West Bromwich Albion gana",
-              "p": 0.3456696679305382,
-              "fairOdds": 2.8929353448534236
-            }
-          ]
-        },
-        {
-          "group": "Doble oportunidad",
-          "rows": [
-            {
-              "market": "double_chance",
-              "selection": "1x",
-              "label": "Swansea City o empate",
-              "p": 0.6543303320694618,
-              "fairOdds": 1.528280061291493
-            },
-            {
-              "market": "double_chance",
-              "selection": "x2",
-              "label": "West Bromwich Albion o empate",
-              "p": 0.6105918421785459,
-              "fairOdds": 1.63775525796754
-            },
-            {
-              "market": "double_chance",
-              "selection": "12",
-              "label": "Sin empate",
-              "p": 0.7350778257519923,
-              "fairOdds": 1.3604001712022662
-            }
-          ]
-        },
-        {
-          "group": "Goles totales",
-          "rows": [
-            {
-              "market": "totals",
-              "selection": "over_1.5",
-              "label": "Más de 1.5",
-              "line": 1.5,
-              "p": 0.7234588296307747,
-              "fairOdds": 1.3822486630101138
-            },
-            {
-              "market": "totals",
-              "selection": "over_2.5",
-              "label": "Más de 2.5",
-              "line": 2.5,
-              "p": 0.4705832356066555,
-              "fairOdds": 2.1250225769535613
-            },
-            {
-              "market": "totals",
-              "selection": "under_2.5",
-              "label": "Menos de 2.5",
-              "line": 2.5,
-              "p": 0.5294167643933445,
-              "fairOdds": 1.8888710506662818
-            },
-            {
-              "market": "totals",
-              "selection": "over_3.5",
-              "label": "Más de 3.5",
-              "line": 3.5,
-              "p": 0.2545559326710881,
-              "fairOdds": 3.9284097192584415
-            },
-            {
-              "market": "totals",
-              "selection": "under_3.5",
-              "label": "Menos de 3.5",
-              "line": 3.5,
-              "p": 0.7454440673289119,
-              "fairOdds": 1.3414822705387104
-            }
-          ]
-        },
-        {
-          "group": "Ambos anotan",
-          "rows": [
-            {
-              "market": "btts",
-              "selection": "yes",
-              "label": "Sí",
-              "p": 0.5192857672175007,
-              "fairOdds": 1.9257219495121538
-            },
-            {
-              "market": "btts",
-              "selection": "no",
-              "label": "No",
-              "p": 0.48071423278249925,
-              "fairOdds": 2.0802379705126253
-            }
-          ]
-        },
-        {
-          "group": "Goles por equipo (1.5)",
-          "rows": [
-            {
-              "market": "team_totals",
-              "selection": "home_over",
-              "label": "Swansea City más de 1.5",
-              "line": 1.5,
-              "p": 0.38185741523631433,
-              "fairOdds": 2.6187785285802163
-            },
-            {
-              "market": "team_totals",
-              "selection": "home_under",
-              "label": "Swansea City menos de 1.5",
-              "line": 1.5,
-              "p": 0.6181425847636857,
-              "fairOdds": 1.61774973064232
-            },
-            {
-              "market": "team_totals",
-              "selection": "away_over",
-              "label": "West Bromwich Albion más de 1.5",
-              "line": 1.5,
-              "p": 0.34886244518527054,
-              "fairOdds": 2.8664592987901854
-            },
-            {
-              "market": "team_totals",
-              "selection": "away_under",
-              "label": "West Bromwich Albion menos de 1.5",
-              "line": 1.5,
-              "p": 0.6511375548147295,
-              "fairOdds": 1.5357738047908074
-            }
-          ]
-        },
-        {
-          "group": "Marcador exacto (más probables)",
-          "rows": [
-            {
-              "market": "correct_score",
-              "selection": "1-1",
-              "label": "1–1",
-              "p": 0.12595468080065764,
-              "fairOdds": 7.939363536498112
-            },
-            {
-              "market": "correct_score",
-              "selection": "1-0",
-              "label": "1–0",
-              "p": 0.10339283101383166,
-              "fairOdds": 9.67185045804793
-            },
-            {
-              "market": "correct_score",
-              "selection": "0-1",
-              "label": "0–1",
-              "p": 0.09620160514142749,
-              "fairOdds": 10.394836952355258
-            }
-          ]
-        }
-      ],
-      "mostLikelyScore": {
-        "home": 1,
-        "away": 1,
-        "p": 0.12595468080065764
-      },
-      "factors": [
-        {
-          "key": "home_attack",
-          "label": "Ataque local",
-          "value": "1.02 goles/partido",
-          "detail": "3 % más que la media · 15 partidos"
-        },
-        {
-          "key": "away_defense",
-          "label": "Defensa visitante",
-          "value": "1.00 concedidos/partido",
-          "detail": "27 % menos que la media · 15 partidos"
-        },
-        {
-          "key": "away_attack",
-          "label": "Ataque visitante",
-          "value": "1.23 goles/partido",
-          "detail": "5 % más que la media · ajustado por rival"
-        },
-        {
-          "key": "home_defense",
-          "label": "Defensa local",
-          "value": "1.17 concedidos/partido",
-          "detail": "14 % menos que la media · ajustado por rival"
-        },
-        {
-          "key": "home_advantage",
-          "label": "Localía",
-          "value": "×1.29",
-          "detail": "estimada de 180 partidos"
-        },
-        {
-          "key": "uncertainty",
-          "label": "Intervalo 90%",
-          "value": "goles 1.8–3.8",
-          "detail": "local 23%–61% · 180 partidos"
-        },
-        {
-          "key": "home_position",
-          "label": "Posición local",
-          "value": "7.º · 26 pts",
-          "detail": "de 24 equipos"
-        },
-        {
-          "key": "away_position",
-          "label": "Posición visitante",
-          "value": "6.º · 28 pts",
-          "detail": "de 24 equipos"
-        },
-        {
-          "key": "home_form",
-          "label": "Forma local",
-          "value": "P-P-G-P-P · 3 pts",
-          "detail": "6 goles a favor · 11 en contra"
-        },
-        {
-          "key": "away_form",
-          "label": "Forma visitante",
-          "value": "G-E-G-E-G · 11 pts",
-          "detail": "11 goles a favor · 5 en contra"
-        }
-      ],
-      "steps": [
-        "Sincronizando EFL Championship · corte 19 nov 2026, 10:05",
-        "Fuerza ajustada por rival · SWA 1.03 / 0.86 · WES 1.05 / 0.73",
-        "Ponderando 162.9 partidos por antigüedad y calidad del rival",
-        "Proyección de goles 1.32 – 1.23 · total 2.56",
-        "Simulando 121 marcadores con incertidumbre del ajuste",
-        "20 mercados listos · marcador proyectado 1–0"
-      ],
-      "inputsAsOf": "2026-11-19T16:05:39.021Z",
-      "publishedAt": "2026-11-19T16:05:39.021Z",
-      "source": "pitchlab-football-v2",
-      "picks": [
-        {
-          "profile": "conservadora",
-          "market": "totals",
-          "selection": "under_3.5",
-          "label": "Menos de 3.5",
-          "line": 3.5,
-          "p": 0.7454440673289119,
-          "fairOdds": 1.3414822705387104
-        },
-        {
-          "profile": "intermedia",
-          "market": "double_chance",
-          "selection": "1x",
-          "label": "Swansea City o empate",
-          "p": 0.6543303320694618,
-          "fairOdds": 1.528280061291493
-        },
-        {
-          "profile": "arriesgada",
-          "market": "btts",
-          "selection": "yes",
-          "label": "Ambos anotan: Sí",
-          "p": 0.5192857672175007,
-          "fairOdds": 1.9257219495121538
-        }
-      ],
-      "confidence": {
-        "score": 37,
-        "level": "baja",
-        "reasons": [
-          "Partido parejo",
-          "Muestra suficiente"
-        ]
-      },
-      "projectedScore": {
-        "home": 1,
-        "away": 0,
-        "p": 0.10339283101383166
-      },
-      "insights": {
-        "why": [
-          "Swansea City gana en 39% de los escenarios; el empate, en 26%.",
-          "West Bromwich Albion concede 27 % menos que la media.",
-          "Swansea City concede 14 % menos que la media."
-        ],
-        "restDays": {
-          "home": 14,
-          "away": 14
-        }
-      },
-      "picksAt": "2026-11-19T16:05:39.021Z",
-      "matchContext": {
-        "referee": "Thomas Kirk",
-        "refereeStats": {
-          "country": "England",
-          "matches": 72,
-          "avgYellow": 4.6,
-          "avgRed": 0.14,
-          "avgFouls": 22.1,
-          "avgGoals": 2.78
-        },
-        "weather": {
-          "description": "clear",
-          "temperatureC": 4,
-          "windSpeedKmh": 14
-        },
-        "travelDistanceKm": 166,
-        "halfTimeScore": {
-          "home": 2,
-          "away": 2
-        },
-        "stageName": "Regular season",
-        "venueCity": "Swansea",
-        "venueCountry": "Wales",
-        "venueCapacity": 20827
-      }
-    },
-    "championship-2026-11-21-stoke-city-birmingham-cit-e79fgy": {
-      "game": "championship-2026-11-21-stoke-city-birmingham-cit-e79fgy",
-      "model": {
-        "id": "pitchlab-statistical-championship",
-        "version": "2.0.0",
-        "status": "candidate",
-        "label": "Modelo PitchLab · en validación"
-      },
-      "projection": {
-        "home": 1.3446715574214114,
-        "away": 1.4939165573271158,
-        "total": 2.8385881147485272,
-        "margin": -0.1492449999057044
-      },
-      "x12": [
-        0.3419598787110797,
-        0.24886125805131115,
-        0.4091788632376091
-      ],
-      "probabilities": [
-        {
-          "market": "h2h",
-          "selection": "Stoke City gana",
-          "p": 0.3419598787110797,
-          "fairOdds": 2.9243196709778205
-        },
-        {
-          "market": "h2h",
-          "selection": "Empate",
-          "p": 0.24886125805131115,
-          "fairOdds": 4.018303241856216
-        },
-        {
-          "market": "h2h",
-          "selection": "Birmingham City gana",
-          "p": 0.4091788632376091,
-          "fairOdds": 2.4439190042407017
-        },
-        {
-          "market": "double_chance",
-          "selection": "Stoke City o empate",
-          "p": 0.5908211367623908,
-          "fairOdds": 1.6925596221554404
-        },
-        {
-          "market": "double_chance",
-          "selection": "Birmingham City o empate",
-          "p": 0.6580401212889202,
-          "fairOdds": 1.5196641779854914
-        },
-        {
-          "market": "double_chance",
-          "selection": "Sin empate",
-          "p": 0.7511387419486888,
-          "fairOdds": 1.3313119722804967
-        },
-        {
-          "market": "totals",
-          "selection": "Más de 1.5",
-          "line": 1.5,
-          "p": 0.7748232360856866,
-          "fairOdds": 1.2906169477465328
-        },
-        {
-          "market": "totals",
-          "selection": "Más de 2.5",
-          "line": 2.5,
-          "p": 0.5396933484486796,
-          "fairOdds": 1.852904066493404
-        },
-        {
-          "market": "totals",
-          "selection": "Menos de 2.5",
-          "line": 2.5,
-          "p": 0.46030665155132044,
-          "fairOdds": 2.17246480499426
-        },
-        {
-          "market": "totals",
-          "selection": "Más de 3.5",
-          "line": 3.5,
-          "p": 0.31665833413015587,
-          "fairOdds": 3.157977833575574
-        },
-        {
-          "market": "totals",
-          "selection": "Menos de 3.5",
-          "line": 3.5,
-          "p": 0.6833416658698441,
-          "fairOdds": 1.4633967895504703
-        },
-        {
-          "market": "btts",
-          "selection": "Sí",
-          "p": 0.5728034319098538,
-          "fairOdds": 1.7457995959727022
-        },
-        {
-          "market": "btts",
-          "selection": "No",
-          "p": 0.42719656809014617,
-          "fairOdds": 2.340842775190511
-        },
-        {
-          "market": "team_totals",
-          "selection": "Stoke City más de 1.5",
-          "line": 1.5,
-          "p": 0.3889191687947049,
-          "fairOdds": 2.571228368864124
-        },
-        {
-          "market": "team_totals",
-          "selection": "Stoke City menos de 1.5",
-          "line": 1.5,
-          "p": 0.6110808312052951,
-          "fairOdds": 1.6364447204596504
-        },
-        {
-          "market": "team_totals",
-          "selection": "Birmingham City más de 1.5",
-          "line": 1.5,
-          "p": 0.44013614307562543,
-          "fairOdds": 2.2720242718812056
-        },
-        {
-          "market": "team_totals",
-          "selection": "Birmingham City menos de 1.5",
-          "line": 1.5,
-          "p": 0.5598638569243746,
-          "fairOdds": 1.7861485209878056
-        },
-        {
-          "market": "correct_score",
-          "selection": "1–1",
-          "p": 0.11694530713683585,
-          "fairOdds": 8.551005803336048
-        },
-        {
-          "market": "correct_score",
-          "selection": "0–1",
-          "p": 0.08799411838994887,
-          "fairOdds": 11.36439591983258
-        },
-        {
-          "market": "correct_score",
-          "selection": "1–2",
-          "p": 0.08779222644895679,
-          "fairOdds": 11.39053012377365
-        }
-      ],
-      "marketGroups": [
-        {
-          "group": "Resultado",
-          "rows": [
-            {
-              "market": "h2h",
-              "selection": "home",
-              "label": "Stoke City gana",
-              "p": 0.3419598787110797,
-              "fairOdds": 2.9243196709778205
-            },
-            {
-              "market": "h2h",
-              "selection": "draw",
-              "label": "Empate",
-              "p": 0.24886125805131115,
-              "fairOdds": 4.018303241856216
-            },
-            {
-              "market": "h2h",
-              "selection": "away",
-              "label": "Birmingham City gana",
-              "p": 0.4091788632376091,
-              "fairOdds": 2.4439190042407017
-            }
-          ]
-        },
-        {
-          "group": "Doble oportunidad",
-          "rows": [
-            {
-              "market": "double_chance",
-              "selection": "1x",
-              "label": "Stoke City o empate",
-              "p": 0.5908211367623908,
-              "fairOdds": 1.6925596221554404
-            },
-            {
-              "market": "double_chance",
-              "selection": "x2",
-              "label": "Birmingham City o empate",
-              "p": 0.6580401212889202,
-              "fairOdds": 1.5196641779854914
-            },
-            {
-              "market": "double_chance",
-              "selection": "12",
-              "label": "Sin empate",
-              "p": 0.7511387419486888,
-              "fairOdds": 1.3313119722804967
-            }
-          ]
-        },
-        {
-          "group": "Goles totales",
-          "rows": [
-            {
-              "market": "totals",
-              "selection": "over_1.5",
-              "label": "Más de 1.5",
-              "line": 1.5,
-              "p": 0.7748232360856866,
-              "fairOdds": 1.2906169477465328
-            },
-            {
-              "market": "totals",
-              "selection": "over_2.5",
-              "label": "Más de 2.5",
-              "line": 2.5,
-              "p": 0.5396933484486796,
-              "fairOdds": 1.852904066493404
-            },
-            {
-              "market": "totals",
-              "selection": "under_2.5",
-              "label": "Menos de 2.5",
-              "line": 2.5,
-              "p": 0.46030665155132044,
-              "fairOdds": 2.17246480499426
-            },
-            {
-              "market": "totals",
-              "selection": "over_3.5",
-              "label": "Más de 3.5",
-              "line": 3.5,
-              "p": 0.31665833413015587,
-              "fairOdds": 3.157977833575574
-            },
-            {
-              "market": "totals",
-              "selection": "under_3.5",
-              "label": "Menos de 3.5",
-              "line": 3.5,
-              "p": 0.6833416658698441,
-              "fairOdds": 1.4633967895504703
-            }
-          ]
-        },
-        {
-          "group": "Ambos anotan",
-          "rows": [
-            {
-              "market": "btts",
-              "selection": "yes",
-              "label": "Sí",
-              "p": 0.5728034319098538,
-              "fairOdds": 1.7457995959727022
-            },
-            {
-              "market": "btts",
-              "selection": "no",
-              "label": "No",
-              "p": 0.42719656809014617,
-              "fairOdds": 2.340842775190511
-            }
-          ]
-        },
-        {
-          "group": "Goles por equipo (1.5)",
-          "rows": [
-            {
-              "market": "team_totals",
-              "selection": "home_over",
-              "label": "Stoke City más de 1.5",
-              "line": 1.5,
-              "p": 0.3889191687947049,
-              "fairOdds": 2.571228368864124
-            },
-            {
-              "market": "team_totals",
-              "selection": "home_under",
-              "label": "Stoke City menos de 1.5",
-              "line": 1.5,
-              "p": 0.6110808312052951,
-              "fairOdds": 1.6364447204596504
-            },
-            {
-              "market": "team_totals",
-              "selection": "away_over",
-              "label": "Birmingham City más de 1.5",
-              "line": 1.5,
-              "p": 0.44013614307562543,
-              "fairOdds": 2.2720242718812056
-            },
-            {
-              "market": "team_totals",
-              "selection": "away_under",
-              "label": "Birmingham City menos de 1.5",
-              "line": 1.5,
-              "p": 0.5598638569243746,
-              "fairOdds": 1.7861485209878056
-            }
-          ]
-        },
-        {
-          "group": "Marcador exacto (más probables)",
-          "rows": [
-            {
-              "market": "correct_score",
-              "selection": "1-1",
-              "label": "1–1",
-              "p": 0.11694530713683585,
-              "fairOdds": 8.551005803336048
-            },
-            {
-              "market": "correct_score",
-              "selection": "0-1",
-              "label": "0–1",
-              "p": 0.08799411838994887,
-              "fairOdds": 11.36439591983258
-            },
-            {
-              "market": "correct_score",
-              "selection": "1-2",
-              "label": "1–2",
-              "p": 0.08779222644895679,
-              "fairOdds": 11.39053012377365
-            }
-          ]
-        }
-      ],
-      "mostLikelyScore": {
-        "home": 1,
-        "away": 1,
-        "p": 0.11694530713683585
-      },
-      "factors": [
-        {
-          "key": "home_attack",
-          "label": "Ataque local",
-          "value": "1.04 goles/partido",
-          "detail": "8 % más que la media · 15 partidos"
-        },
-        {
-          "key": "away_defense",
-          "label": "Defensa visitante",
-          "value": "0.96 concedidos/partido",
-          "detail": "30 % menos que la media · 15 partidos"
-        },
-        {
-          "key": "away_attack",
-          "label": "Ataque visitante",
-          "value": "1.49 goles/partido",
-          "detail": "25 % más que la media · ajustado por rival"
-        },
-        {
-          "key": "home_defense",
-          "label": "Defensa local",
-          "value": "1.19 concedidos/partido",
-          "detail": "12 % menos que la media · ajustado por rival"
-        },
-        {
-          "key": "home_advantage",
-          "label": "Localía",
-          "value": "×1.29",
-          "detail": "estimada de 180 partidos"
-        },
-        {
-          "key": "uncertainty",
-          "label": "Intervalo 90%",
-          "value": "goles 2.1–4.1",
-          "detail": "local 18%–56% · 180 partidos"
-        },
-        {
-          "key": "home_position",
-          "label": "Posición local",
-          "value": "3.º · 29 pts",
-          "detail": "de 24 equipos"
-        },
-        {
-          "key": "away_position",
-          "label": "Posición visitante",
-          "value": "1.º · 29 pts",
-          "detail": "de 24 equipos"
-        },
-        {
-          "key": "home_form",
-          "label": "Forma local",
-          "value": "G-E-G-G-G · 13 pts",
-          "detail": "7 goles a favor · 2 en contra"
-        },
-        {
-          "key": "away_form",
-          "label": "Forma visitante",
-          "value": "G-P-G-G-G · 12 pts",
-          "detail": "11 goles a favor · 3 en contra"
-        }
-      ],
-      "steps": [
-        "Sincronizando EFL Championship · corte 19 nov 2026, 10:05",
-        "Fuerza ajustada por rival · STO 1.08 / 0.88 · BIR 1.25 / 0.70",
-        "Ponderando 162.9 partidos por antigüedad y calidad del rival",
-        "Proyección de goles 1.34 – 1.49 · total 2.84",
-        "Simulando 121 marcadores con incertidumbre del ajuste",
-        "20 mercados listos · marcador proyectado 1–2"
-      ],
-      "inputsAsOf": "2026-11-19T16:05:39.021Z",
-      "publishedAt": "2026-11-19T16:05:39.021Z",
-      "source": "pitchlab-football-v2",
-      "picks": [
-        {
-          "profile": "conservadora",
-          "market": "totals",
-          "selection": "over_1.5",
-          "label": "Más de 1.5",
-          "line": 1.5,
-          "p": 0.7748232360856866,
-          "fairOdds": 1.2906169477465328
-        },
-        {
-          "profile": "intermedia",
-          "market": "totals",
-          "selection": "under_3.5",
-          "label": "Menos de 3.5",
-          "line": 3.5,
-          "p": 0.6833416658698441,
-          "fairOdds": 1.4633967895504703
-        },
-        {
-          "profile": "arriesgada",
-          "market": "totals",
-          "selection": "under_2.5",
-          "label": "Menos de 2.5",
-          "line": 2.5,
-          "p": 0.46030665155132044,
-          "fairOdds": 2.17246480499426
-        }
-      ],
-      "confidence": {
-        "score": 39,
-        "level": "baja",
-        "reasons": [
-          "Partido parejo",
-          "Muestra suficiente"
-        ]
-      },
-      "projectedScore": {
-        "home": 1,
-        "away": 2,
-        "p": 0.08779222644895679
-      },
-      "insights": {
-        "why": [
-          "Se esperan 2.8 goles: 1.3 de Stoke City y 1.5 de Birmingham City.",
-          "Birmingham City concede 30 % menos que la media.",
-          "Birmingham City anota 25 % más que la media."
-        ],
-        "restDays": {
-          "home": 14,
-          "away": 14
-        }
-      },
-      "picksAt": "2026-11-19T16:05:39.021Z",
-      "matchContext": {
-        "referee": "Robert Madley",
-        "refereeStats": {
-          "country": "England",
-          "matches": 49,
-          "avgYellow": 3.88,
-          "avgRed": 0.16,
-          "avgFouls": 21.3,
-          "avgGoals": 2.35
-        },
-        "weather": {
-          "description": "clear",
-          "temperatureC": 3,
-          "windSpeedKmh": 5
-        },
-        "travelDistanceKm": 61,
-        "halfTimeScore": {
-          "home": 0,
-          "away": 0
-        },
-        "stageName": "Regular season",
-        "venueCity": "Stoke",
-        "venueCountry": "England",
-        "venueCapacity": 30089
-      }
-    },
-    "championship-2026-11-21-sheffield-unit-watford-z22l12": {
-      "game": "championship-2026-11-21-sheffield-unit-watford-z22l12",
-      "model": {
-        "id": "pitchlab-statistical-championship",
-        "version": "2.0.0",
-        "status": "candidate",
-        "label": "Modelo PitchLab · en validación"
-      },
-      "projection": {
-        "home": 1.7561190778490021,
-        "away": 0.8667136107624598,
-        "total": 2.622832688611462,
-        "margin": 0.8894054670865423
-      },
-      "x12": [
-        0.5848394635481629,
-        0.23186411852257366,
-        0.18329641792926418
-      ],
-      "probabilities": [
-        {
-          "market": "h2h",
-          "selection": "Sheffield United gana",
-          "p": 0.5848394635481629,
-          "fairOdds": 1.709870934381034
-        },
-        {
-          "market": "h2h",
-          "selection": "Empate",
-          "p": 0.23186411852257366,
-          "fairOdds": 4.312870858897655
-        },
-        {
-          "market": "h2h",
-          "selection": "Watford gana",
-          "p": 0.18329641792926418,
-          "fairOdds": 5.455643985284587
-        },
-        {
-          "market": "double_chance",
-          "selection": "Sheffield United o empate",
-          "p": 0.8167035820707365,
-          "fairOdds": 1.22443444837663
-        },
-        {
-          "market": "double_chance",
-          "selection": "Watford o empate",
-          "p": 0.4151605364518378,
-          "fairOdds": 2.40870678255328
-        },
-        {
-          "market": "double_chance",
-          "selection": "Sin empate",
-          "p": 0.7681358814774271,
-          "fairOdds": 1.3018529977750906
-        },
-        {
-          "market": "totals",
-          "selection": "Más de 1.5",
-          "line": 1.5,
-          "p": 0.7364403452508459,
-          "fairOdds": 1.3578832371811196
-        },
-        {
-          "market": "totals",
-          "selection": "Más de 2.5",
-          "line": 2.5,
-          "p": 0.48728595694626964,
-          "fairOdds": 2.0521830882769816
-        },
-        {
-          "market": "totals",
-          "selection": "Menos de 2.5",
-          "line": 2.5,
-          "p": 0.5127140430537304,
-          "fairOdds": 1.950404935359268
-        },
-        {
-          "market": "totals",
-          "selection": "Más de 3.5",
-          "line": 3.5,
-          "p": 0.26897284209654504,
-          "fairOdds": 3.717847468188109
-        },
-        {
-          "market": "totals",
-          "selection": "Menos de 3.5",
-          "line": 3.5,
-          "p": 0.731027157903455,
-          "fairOdds": 1.3679382348365061
-        },
-        {
-          "market": "btts",
-          "selection": "Sí",
-          "p": 0.47899968909436896,
-          "fairOdds": 2.087684027291691
-        },
-        {
-          "market": "btts",
-          "selection": "No",
-          "p": 0.521000310905631,
-          "fairOdds": 1.9193846511564372
-        },
-        {
-          "market": "team_totals",
-          "selection": "Sheffield United más de 1.5",
-          "line": 1.5,
-          "p": 0.5239788729418186,
-          "fairOdds": 1.908473893967549
-        },
-        {
-          "market": "team_totals",
-          "selection": "Sheffield United menos de 1.5",
-          "line": 1.5,
-          "p": 0.47602112705818145,
-          "fairOdds": 2.100747095365319
-        },
-        {
-          "market": "team_totals",
-          "selection": "Watford más de 1.5",
-          "line": 1.5,
-          "p": 0.21536304903967363,
-          "fairOdds": 4.643322076183007
-        },
-        {
-          "market": "team_totals",
-          "selection": "Watford menos de 1.5",
-          "line": 1.5,
-          "p": 0.7846369509603264,
-          "fairOdds": 1.2744747730476984
-        },
-        {
-          "market": "correct_score",
-          "selection": "1–0",
-          "p": 0.1280416472982104,
-          "fairOdds": 7.809958877450154
-        },
-        {
-          "market": "correct_score",
-          "selection": "2–0",
-          "p": 0.11194307684812571,
-          "fairOdds": 8.93311161490326
-        },
-        {
-          "market": "correct_score",
-          "selection": "1–1",
-          "p": 0.10994411097847513,
-          "fairOdds": 9.095530366294746
-        }
-      ],
-      "marketGroups": [
-        {
-          "group": "Resultado",
-          "rows": [
-            {
-              "market": "h2h",
-              "selection": "home",
-              "label": "Sheffield United gana",
-              "p": 0.5848394635481629,
-              "fairOdds": 1.709870934381034
-            },
-            {
-              "market": "h2h",
-              "selection": "draw",
-              "label": "Empate",
-              "p": 0.23186411852257366,
-              "fairOdds": 4.312870858897655
-            },
-            {
-              "market": "h2h",
-              "selection": "away",
-              "label": "Watford gana",
-              "p": 0.18329641792926418,
-              "fairOdds": 5.455643985284587
-            }
-          ]
-        },
-        {
-          "group": "Doble oportunidad",
-          "rows": [
-            {
-              "market": "double_chance",
-              "selection": "1x",
-              "label": "Sheffield United o empate",
-              "p": 0.8167035820707365,
-              "fairOdds": 1.22443444837663
-            },
-            {
-              "market": "double_chance",
-              "selection": "x2",
-              "label": "Watford o empate",
-              "p": 0.4151605364518378,
-              "fairOdds": 2.40870678255328
-            },
-            {
-              "market": "double_chance",
-              "selection": "12",
-              "label": "Sin empate",
-              "p": 0.7681358814774271,
-              "fairOdds": 1.3018529977750906
-            }
-          ]
-        },
-        {
-          "group": "Goles totales",
-          "rows": [
-            {
-              "market": "totals",
-              "selection": "over_1.5",
-              "label": "Más de 1.5",
-              "line": 1.5,
-              "p": 0.7364403452508459,
-              "fairOdds": 1.3578832371811196
-            },
-            {
-              "market": "totals",
-              "selection": "over_2.5",
-              "label": "Más de 2.5",
-              "line": 2.5,
-              "p": 0.48728595694626964,
-              "fairOdds": 2.0521830882769816
-            },
-            {
-              "market": "totals",
-              "selection": "under_2.5",
-              "label": "Menos de 2.5",
-              "line": 2.5,
-              "p": 0.5127140430537304,
-              "fairOdds": 1.950404935359268
-            },
-            {
-              "market": "totals",
-              "selection": "over_3.5",
-              "label": "Más de 3.5",
-              "line": 3.5,
-              "p": 0.26897284209654504,
-              "fairOdds": 3.717847468188109
-            },
-            {
-              "market": "totals",
-              "selection": "under_3.5",
-              "label": "Menos de 3.5",
-              "line": 3.5,
-              "p": 0.731027157903455,
-              "fairOdds": 1.3679382348365061
-            }
-          ]
-        },
-        {
-          "group": "Ambos anotan",
-          "rows": [
-            {
-              "market": "btts",
-              "selection": "yes",
-              "label": "Sí",
-              "p": 0.47899968909436896,
-              "fairOdds": 2.087684027291691
-            },
-            {
-              "market": "btts",
-              "selection": "no",
-              "label": "No",
-              "p": 0.521000310905631,
-              "fairOdds": 1.9193846511564372
-            }
-          ]
-        },
-        {
-          "group": "Goles por equipo (1.5)",
-          "rows": [
-            {
-              "market": "team_totals",
-              "selection": "home_over",
-              "label": "Sheffield United más de 1.5",
-              "line": 1.5,
-              "p": 0.5239788729418186,
-              "fairOdds": 1.908473893967549
-            },
-            {
-              "market": "team_totals",
-              "selection": "home_under",
-              "label": "Sheffield United menos de 1.5",
-              "line": 1.5,
-              "p": 0.47602112705818145,
-              "fairOdds": 2.100747095365319
-            },
-            {
-              "market": "team_totals",
-              "selection": "away_over",
-              "label": "Watford más de 1.5",
-              "line": 1.5,
-              "p": 0.21536304903967363,
-              "fairOdds": 4.643322076183007
-            },
-            {
-              "market": "team_totals",
-              "selection": "away_under",
-              "label": "Watford menos de 1.5",
-              "line": 1.5,
-              "p": 0.7846369509603264,
-              "fairOdds": 1.2744747730476984
-            }
-          ]
-        },
-        {
-          "group": "Marcador exacto (más probables)",
-          "rows": [
-            {
-              "market": "correct_score",
-              "selection": "1-0",
-              "label": "1–0",
-              "p": 0.1280416472982104,
-              "fairOdds": 7.809958877450154
-            },
-            {
-              "market": "correct_score",
-              "selection": "2-0",
-              "label": "2–0",
-              "p": 0.11194307684812571,
-              "fairOdds": 8.93311161490326
-            },
-            {
-              "market": "correct_score",
-              "selection": "1-1",
-              "label": "1–1",
-              "p": 0.10994411097847513,
-              "fairOdds": 9.095530366294746
-            }
-          ]
-        }
-      ],
-      "mostLikelyScore": {
-        "home": 1,
-        "away": 0,
-        "p": 0.1280416472982104
-      },
-      "factors": [
-        {
-          "key": "home_attack",
-          "label": "Ataque local",
-          "value": "1.36 goles/partido",
-          "detail": "en la media de la liga · 15 partidos"
-        },
-        {
-          "key": "away_defense",
-          "label": "Defensa visitante",
-          "value": "1.39 concedidos/partido",
-          "detail": "en la media de la liga · 15 partidos"
-        },
-        {
-          "key": "away_attack",
-          "label": "Ataque visitante",
-          "value": "0.87 goles/partido",
-          "detail": "33 % menos que la media · ajustado por rival"
-        },
-        {
-          "key": "home_defense",
-          "label": "Defensa local",
-          "value": "1.29 concedidos/partido",
-          "detail": "5 % menos que la media · ajustado por rival"
-        },
-        {
-          "key": "home_advantage",
-          "label": "Localía",
-          "value": "×1.29",
-          "detail": "estimada de 180 partidos"
-        },
-        {
-          "key": "uncertainty",
-          "label": "Intervalo 90%",
-          "value": "goles 1.9–3.7",
-          "detail": "local 38%–79% · 180 partidos"
-        },
-        {
-          "key": "home_position",
-          "label": "Posición local",
-          "value": "10.º · 22 pts",
-          "detail": "de 24 equipos"
-        },
-        {
-          "key": "away_position",
-          "label": "Posición visitante",
-          "value": "20.º · 15 pts",
-          "detail": "de 24 equipos"
-        },
-        {
-          "key": "home_form",
-          "label": "Forma local",
-          "value": "G-E-G-G-P · 10 pts",
-          "detail": "7 goles a favor · 5 en contra"
-        },
-        {
-          "key": "away_form",
-          "label": "Forma visitante",
-          "value": "G-P-P-G-E · 7 pts",
-          "detail": "5 goles a favor · 4 en contra"
-        }
-      ],
-      "steps": [
-        "Sincronizando EFL Championship · corte 19 nov 2026, 10:05",
-        "Fuerza ajustada por rival · SHE 0.98 / 0.95 · WAT 0.67 / 1.02",
-        "Ponderando 162.9 partidos por antigüedad y calidad del rival",
-        "Proyección de goles 1.76 – 0.87 · total 2.62",
-        "Simulando 121 marcadores con incertidumbre del ajuste",
-        "20 mercados listos · marcador proyectado 1–0"
-      ],
-      "inputsAsOf": "2026-11-19T16:05:39.021Z",
-      "publishedAt": "2026-11-19T16:05:39.021Z",
-      "source": "pitchlab-football-v2",
-      "picks": [
-        {
-          "profile": "conservadora",
-          "market": "double_chance",
-          "selection": "1x",
-          "label": "Sheffield United o empate",
-          "p": 0.8167035820707365,
-          "fairOdds": 1.22443444837663
-        },
-        {
-          "profile": "intermedia",
-          "market": "h2h",
-          "selection": "home",
-          "label": "Sheffield United gana",
-          "p": 0.5848394635481629,
-          "fairOdds": 1.709870934381034
-        },
-        {
-          "profile": "arriesgada",
-          "market": "totals",
-          "selection": "under_2.5",
-          "label": "Menos de 2.5",
-          "line": 2.5,
-          "p": 0.5127140430537304,
-          "fairOdds": 1.950404935359268
-        }
-      ],
-      "confidence": {
-        "score": 63,
-        "level": "alta",
-        "reasons": [
-          "Muestra suficiente",
-          "Rango de incertidumbre amplio"
-        ]
-      },
-      "projectedScore": {
-        "home": 1,
-        "away": 0,
-        "p": 0.1280416472982104
-      },
-      "insights": {
-        "why": [
-          "Sheffield United gana en 58% de los escenarios; el empate, en 23%.",
-          "Watford anota 33 % menos que la media."
-        ],
-        "restDays": {
-          "home": 14,
-          "away": 14
-        }
-      },
-      "picksAt": "2026-11-19T16:05:39.021Z",
-      "matchContext": {
-        "referee": "Tim Robinson",
-        "refereeStats": {
-          "country": "England",
-          "matches": 51,
-          "avgYellow": 4.41,
-          "avgRed": 0.12,
-          "avgFouls": 23.7,
-          "avgGoals": 2.53
-        },
-        "weather": {
-          "description": "clear",
-          "temperatureC": 3,
-          "windSpeedKmh": 11
-        },
-        "travelDistanceKm": 205,
-        "halfTimeScore": {
-          "home": 2,
-          "away": 0
-        },
-        "stageName": "Regular season",
-        "venueCity": "Sheffield",
-        "venueCountry": "England",
-        "venueCapacity": 32050
-      }
-    },
     "championship-2026-11-21-middlesbrough-bristol-city-7hicpy": {
       "game": "championship-2026-11-21-middlesbrough-bristol-city-7hicpy",
       "model": {
@@ -4633,11 +2688,11 @@
         "referee": "Edward Duckworth",
         "refereeStats": {
           "country": "England",
-          "matches": 65,
-          "avgYellow": 4.2,
+          "matches": 66,
+          "avgYellow": 4.29,
           "avgRed": 0.17,
           "avgFouls": 21.9,
-          "avgGoals": 2.98
+          "avgGoals": 2.94
         },
         "weather": {
           "description": "clear",
@@ -6098,11 +4153,11 @@
         "referee": "Farai Hallam",
         "refereeStats": {
           "country": "England",
-          "matches": 73,
-          "avgYellow": 3.68,
+          "matches": 74,
+          "avgYellow": 3.69,
           "avgRed": 0.03,
           "avgFouls": 21.1,
-          "avgGoals": 2.63
+          "avgGoals": 2.65
         },
         "weather": {
           "description": "cloudy",
@@ -7075,7 +5130,7 @@
         "referee": "Gavin Ward",
         "refereeStats": {
           "country": "England",
-          "matches": 65,
+          "matches": 66,
           "avgYellow": 3.52,
           "avgRed": 0.15,
           "avgFouls": 20.7,
@@ -8050,11 +6105,11 @@
         "referee": "Oliver Langford",
         "refereeStats": {
           "country": "England",
-          "matches": 62,
-          "avgYellow": 3.47,
+          "matches": 63,
+          "avgYellow": 3.49,
           "avgRed": 0.19,
           "avgFouls": 19.5,
-          "avgGoals": 2.89
+          "avgGoals": 2.92
         },
         "weather": {
           "description": "clear",
@@ -9028,7 +7083,7 @@
         "referee": "Benjamin Speedie",
         "refereeStats": {
           "country": "England",
-          "matches": 83,
+          "matches": 84,
           "avgYellow": 3.17,
           "avgRed": 0.1,
           "avgFouls": 22,
@@ -9515,11 +7570,11 @@
         "referee": "John Busby",
         "refereeStats": {
           "country": "England",
-          "matches": 60,
-          "avgYellow": 3.55,
+          "matches": 61,
+          "avgYellow": 3.57,
           "avgRed": 0.08,
           "avgFouls": 21.1,
-          "avgGoals": 2.95
+          "avgGoals": 2.97
         },
         "weather": {
           "description": "cloudy",
@@ -10003,13 +8058,14 @@
         "referee": "Stephen Martin",
         "refereeStats": {
           "country": "England",
-          "matches": 62,
-          "avgYellow": 3.9,
-          "avgRed": 0.05,
-          "avgFouls": 22.6,
-          "avgGoals": 2.71
+          "matches": 64,
+          "avgYellow": 4.03,
+          "avgRed": 0.06,
+          "avgFouls": 22.7,
+          "avgGoals": 2.67
         },
         "weather": {
+          "description": "cloudy",
           "temperatureC": 10,
           "windSpeedKmh": 119
         },
@@ -10491,13 +8547,14 @@
         "referee": "Matthew Corlett",
         "refereeStats": {
           "country": "England",
-          "matches": 60,
-          "avgYellow": 4.6,
+          "matches": 61,
+          "avgYellow": 4.64,
           "avgRed": 0.13,
           "avgFouls": 22.2,
-          "avgGoals": 2.95
+          "avgGoals": 2.93
         },
         "weather": {
+          "description": "cloudy",
           "temperatureC": 9,
           "windSpeedKmh": 109
         },
@@ -10977,13 +9034,14 @@
         "referee": "Elliot Bell",
         "refereeStats": {
           "country": "England",
-          "matches": 80,
+          "matches": 81,
           "avgYellow": 4.12,
           "avgRed": 0.17,
           "avgFouls": 22.2,
-          "avgGoals": 2.48
+          "avgGoals": 2.49
         },
         "weather": {
+          "description": "clear",
           "temperatureC": 8,
           "windSpeedKmh": 84
         },
@@ -11466,19 +9524,20 @@
         "referee": "James Bell",
         "refereeStats": {
           "country": "England",
-          "matches": 53,
-          "avgYellow": 3.92,
-          "avgRed": 0.15,
-          "avgFouls": 21.4,
-          "avgGoals": 2.43
+          "matches": 55,
+          "avgYellow": 4,
+          "avgRed": 0.18,
+          "avgFouls": 21.3,
+          "avgGoals": 2.45
         },
         "weather": {
+          "description": "cloudy",
           "temperatureC": 9,
           "windSpeedKmh": 112
         },
         "travelDistanceKm": 221,
         "halfTimeScore": {
-          "home": 1,
+          "home": 2,
           "away": 0
         },
         "stageName": "Regular season",
@@ -11954,6 +10013,7 @@
           "temperatureC": 13,
           "windSpeedKmh": 81
         },
+        "travelDistanceKm": 409,
         "stageName": "Regular season",
         "venueCity": "Southampton",
         "venueCountry": "England",
@@ -24732,6 +22792,1905 @@
         "venueCountry": "England",
         "venueCapacity": 18500
       }
+    },
+    "championship-2026-12-08-millwall-sheffield-unit-lbedrw": {
+      "game": "championship-2026-12-08-millwall-sheffield-unit-lbedrw",
+      "model": {
+        "id": "pitchlab-statistical-championship",
+        "version": "2.0.0",
+        "status": "candidate",
+        "label": "Modelo PitchLab · en validación"
+      },
+      "projection": {
+        "home": 1.4602607568015513,
+        "away": 1.4906846685255404,
+        "total": 2.9509454253270917,
+        "margin": -0.03042391172398906
+      },
+      "x12": [
+        0.3723339119271358,
+        0.24185252260446824,
+        0.38581356546839585
+      ],
+      "probabilities": [
+        {
+          "market": "h2h",
+          "selection": "Millwall gana",
+          "p": 0.3723339119271358,
+          "fairOdds": 2.68576126956627
+        },
+        {
+          "market": "h2h",
+          "selection": "Empate",
+          "p": 0.24185252260446824,
+          "fairOdds": 4.1347511666662475
+        },
+        {
+          "market": "h2h",
+          "selection": "Sheffield United gana",
+          "p": 0.38581356546839585,
+          "fairOdds": 2.5919254518330708
+        },
+        {
+          "market": "double_chance",
+          "selection": "Millwall o empate",
+          "p": 0.614186434531604,
+          "fairOdds": 1.6281701186751678
+        },
+        {
+          "market": "double_chance",
+          "selection": "Sheffield United o empate",
+          "p": 0.6276660880728641,
+          "fairOdds": 1.59320380533911
+        },
+        {
+          "market": "double_chance",
+          "selection": "Sin empate",
+          "p": 0.7581474773955317,
+          "fairOdds": 1.3190045865948214
+        },
+        {
+          "market": "totals",
+          "selection": "Más de 1.5 goles",
+          "line": 1.5,
+          "p": 0.7916965227185068,
+          "fairOdds": 1.263110259176365
+        },
+        {
+          "market": "totals",
+          "selection": "Más de 2.5 goles",
+          "line": 2.5,
+          "p": 0.5657298868326486,
+          "fairOdds": 1.7676280205005592
+        },
+        {
+          "market": "totals",
+          "selection": "Menos de 2.5 goles",
+          "line": 2.5,
+          "p": 0.4342701131673514,
+          "fairOdds": 2.3027143007988613
+        },
+        {
+          "market": "totals",
+          "selection": "Más de 3.5 goles",
+          "line": 3.5,
+          "p": 0.34177869461094246,
+          "fairOdds": 2.9258699145607414
+        },
+        {
+          "market": "totals",
+          "selection": "Menos de 3.5 goles",
+          "line": 3.5,
+          "p": 0.6582213053890575,
+          "fairOdds": 1.5192458703671494
+        },
+        {
+          "market": "btts",
+          "selection": "Sí",
+          "p": 0.5931885778238184,
+          "fairOdds": 1.6858045440939151
+        },
+        {
+          "market": "btts",
+          "selection": "No",
+          "p": 0.4068114221761816,
+          "fairOdds": 2.4581414028412425
+        },
+        {
+          "market": "team_totals",
+          "selection": "Millwall más de 1.5 goles",
+          "line": 1.5,
+          "p": 0.4287869308462985,
+          "fairOdds": 2.3321606328492708
+        },
+        {
+          "market": "team_totals",
+          "selection": "Millwall menos de 1.5 goles",
+          "line": 1.5,
+          "p": 0.5712130691537015,
+          "fairOdds": 1.75066022470666
+        },
+        {
+          "market": "team_totals",
+          "selection": "Sheffield United más de 1.5 goles",
+          "line": 1.5,
+          "p": 0.43905168564816033,
+          "fairOdds": 2.2776361706110446
+        },
+        {
+          "market": "team_totals",
+          "selection": "Sheffield United menos de 1.5 goles",
+          "line": 1.5,
+          "p": 0.5609483143518397,
+          "fairOdds": 1.7826954363085528
+        },
+        {
+          "market": "correct_score",
+          "selection": "1–1",
+          "p": 0.11211753099601646,
+          "fairOdds": 8.919211751421194
+        },
+        {
+          "market": "correct_score",
+          "selection": "1–2",
+          "p": 0.08483852006532933,
+          "fairOdds": 11.78709858717428
+        },
+        {
+          "market": "correct_score",
+          "selection": "2–1",
+          "p": 0.08310702064109866,
+          "fairOdds": 12.032677772417617
+        }
+      ],
+      "marketGroups": [
+        {
+          "group": "Resultado",
+          "rows": [
+            {
+              "market": "h2h",
+              "selection": "home",
+              "label": "Millwall gana",
+              "p": 0.3723339119271358,
+              "fairOdds": 2.68576126956627
+            },
+            {
+              "market": "h2h",
+              "selection": "draw",
+              "label": "Empate",
+              "p": 0.24185252260446824,
+              "fairOdds": 4.1347511666662475
+            },
+            {
+              "market": "h2h",
+              "selection": "away",
+              "label": "Sheffield United gana",
+              "p": 0.38581356546839585,
+              "fairOdds": 2.5919254518330708
+            }
+          ]
+        },
+        {
+          "group": "Doble oportunidad",
+          "rows": [
+            {
+              "market": "double_chance",
+              "selection": "1x",
+              "label": "Millwall o empate",
+              "p": 0.614186434531604,
+              "fairOdds": 1.6281701186751678
+            },
+            {
+              "market": "double_chance",
+              "selection": "x2",
+              "label": "Sheffield United o empate",
+              "p": 0.6276660880728641,
+              "fairOdds": 1.59320380533911
+            },
+            {
+              "market": "double_chance",
+              "selection": "12",
+              "label": "Sin empate",
+              "p": 0.7581474773955317,
+              "fairOdds": 1.3190045865948214
+            }
+          ]
+        },
+        {
+          "group": "Goles totales",
+          "rows": [
+            {
+              "market": "totals",
+              "selection": "over_1.5",
+              "label": "Más de 1.5 goles",
+              "line": 1.5,
+              "p": 0.7916965227185068,
+              "fairOdds": 1.263110259176365
+            },
+            {
+              "market": "totals",
+              "selection": "over_2.5",
+              "label": "Más de 2.5 goles",
+              "line": 2.5,
+              "p": 0.5657298868326486,
+              "fairOdds": 1.7676280205005592
+            },
+            {
+              "market": "totals",
+              "selection": "under_2.5",
+              "label": "Menos de 2.5 goles",
+              "line": 2.5,
+              "p": 0.4342701131673514,
+              "fairOdds": 2.3027143007988613
+            },
+            {
+              "market": "totals",
+              "selection": "over_3.5",
+              "label": "Más de 3.5 goles",
+              "line": 3.5,
+              "p": 0.34177869461094246,
+              "fairOdds": 2.9258699145607414
+            },
+            {
+              "market": "totals",
+              "selection": "under_3.5",
+              "label": "Menos de 3.5 goles",
+              "line": 3.5,
+              "p": 0.6582213053890575,
+              "fairOdds": 1.5192458703671494
+            }
+          ]
+        },
+        {
+          "group": "Ambos anotan",
+          "rows": [
+            {
+              "market": "btts",
+              "selection": "yes",
+              "label": "Sí",
+              "p": 0.5931885778238184,
+              "fairOdds": 1.6858045440939151
+            },
+            {
+              "market": "btts",
+              "selection": "no",
+              "label": "No",
+              "p": 0.4068114221761816,
+              "fairOdds": 2.4581414028412425
+            }
+          ]
+        },
+        {
+          "group": "Goles por equipo (1.5)",
+          "rows": [
+            {
+              "market": "team_totals",
+              "selection": "home_over",
+              "label": "Millwall más de 1.5 goles",
+              "line": 1.5,
+              "p": 0.4287869308462985,
+              "fairOdds": 2.3321606328492708
+            },
+            {
+              "market": "team_totals",
+              "selection": "home_under",
+              "label": "Millwall menos de 1.5 goles",
+              "line": 1.5,
+              "p": 0.5712130691537015,
+              "fairOdds": 1.75066022470666
+            },
+            {
+              "market": "team_totals",
+              "selection": "away_over",
+              "label": "Sheffield United más de 1.5 goles",
+              "line": 1.5,
+              "p": 0.43905168564816033,
+              "fairOdds": 2.2776361706110446
+            },
+            {
+              "market": "team_totals",
+              "selection": "away_under",
+              "label": "Sheffield United menos de 1.5 goles",
+              "line": 1.5,
+              "p": 0.5609483143518397,
+              "fairOdds": 1.7826954363085528
+            }
+          ]
+        },
+        {
+          "group": "Marcador exacto (más probables)",
+          "rows": [
+            {
+              "market": "correct_score",
+              "selection": "1-1",
+              "label": "1–1",
+              "p": 0.11211753099601646,
+              "fairOdds": 8.919211751421194
+            },
+            {
+              "market": "correct_score",
+              "selection": "1-2",
+              "label": "1–2",
+              "p": 0.08483852006532933,
+              "fairOdds": 11.78709858717428
+            },
+            {
+              "market": "correct_score",
+              "selection": "2-1",
+              "label": "2–1",
+              "p": 0.08310702064109866,
+              "fairOdds": 12.032677772417617
+            }
+          ]
+        }
+      ],
+      "mostLikelyScore": {
+        "home": 1,
+        "away": 1,
+        "p": 0.11211753099601646
+      },
+      "factors": [
+        {
+          "key": "home_attack",
+          "label": "Ataque local",
+          "value": "1.14 goles/partido",
+          "detail": "en la media de la liga · 17 partidos"
+        },
+        {
+          "key": "away_defense",
+          "label": "Defensa visitante",
+          "value": "1.13 concedidos/partido",
+          "detail": "8 % menos que la media · 17 partidos"
+        },
+        {
+          "key": "away_attack",
+          "label": "Ataque visitante",
+          "value": "1.49 goles/partido",
+          "detail": "6 % más que la media · ajustado por rival"
+        },
+        {
+          "key": "home_defense",
+          "label": "Defensa local",
+          "value": "1.41 concedidos/partido",
+          "detail": "15 % más que la media · ajustado por rival"
+        },
+        {
+          "key": "home_advantage",
+          "label": "Localía",
+          "value": "×1.28",
+          "detail": "estimada de 204 partidos"
+        },
+        {
+          "key": "uncertainty",
+          "label": "Intervalo 90%",
+          "value": "goles 2.2–4.1",
+          "detail": "local 19%–58% · 204 partidos"
+        },
+        {
+          "key": "home_position",
+          "label": "Posición local",
+          "value": "18.º · 18 pts",
+          "detail": "de 24 equipos"
+        },
+        {
+          "key": "away_position",
+          "label": "Posición visitante",
+          "value": "9.º · 26 pts",
+          "detail": "de 24 equipos"
+        },
+        {
+          "key": "home_form",
+          "label": "Forma local",
+          "value": "G-P-P-P-P · 3 pts",
+          "detail": "5 goles a favor · 10 en contra"
+        },
+        {
+          "key": "away_form",
+          "label": "Forma visitante",
+          "value": "G-G-P-G-E · 10 pts",
+          "detail": "10 goles a favor · 5 en contra"
+        }
+      ],
+      "steps": [
+        "Sincronizando EFL Championship · corte 26 nov 2026, 20:00",
+        "Fuerza ajustada por rival · MIL 1.01 / 1.15 · SHE 1.06 / 0.92",
+        "Ponderando 184.6 partidos por antigüedad y calidad del rival",
+        "Proyección de goles 1.46 – 1.49 · total 2.95",
+        "Simulando 121 marcadores con incertidumbre del ajuste",
+        "20 mercados listos · marcador proyectado 1–2"
+      ],
+      "inputsAsOf": "2026-11-26T20:00:11.075Z",
+      "publishedAt": "2026-11-26T20:00:11.075Z",
+      "source": "pitchlab-football-v2",
+      "picks": [
+        {
+          "profile": "conservadora",
+          "market": "totals",
+          "selection": "over_1.5",
+          "label": "Más de 1.5 goles",
+          "line": 1.5,
+          "p": 0.7916965227185068,
+          "fairOdds": 1.263110259176365
+        },
+        {
+          "profile": "intermedia",
+          "market": "totals",
+          "selection": "under_3.5",
+          "label": "Menos de 3.5 goles",
+          "line": 3.5,
+          "p": 0.6582213053890575,
+          "fairOdds": 1.5192458703671494
+        },
+        {
+          "profile": "arriesgada",
+          "market": "team_totals",
+          "selection": "away_over",
+          "label": "Sheffield United más de 1.5 goles",
+          "line": 1.5,
+          "p": 0.43905168564816033,
+          "fairOdds": 2.2776361706110446
+        }
+      ],
+      "confidence": {
+        "score": 36,
+        "level": "baja",
+        "reasons": [
+          "Partido parejo",
+          "Muestra suficiente"
+        ]
+      },
+      "projectedScore": {
+        "home": 1,
+        "away": 2,
+        "p": 0.08483852006532933
+      },
+      "insights": {
+        "why": [
+          "Se esperan 3.0 goles: 1.5 de Millwall y 1.5 de Sheffield United.",
+          "Millwall concede 15 % más que la media.",
+          "Sheffield United concede 8 % menos que la media."
+        ],
+        "restDays": {
+          "home": 13,
+          "away": 14
+        }
+      },
+      "picksAt": "2026-11-26T20:00:11.075Z",
+      "matchContext": {
+        "weather": {
+          "description": "unknown",
+          "temperatureC": 2,
+          "windSpeedKmh": 27
+        },
+        "halfTimeScore": {
+          "home": 0,
+          "away": 2
+        },
+        "stageName": "Regular season",
+        "venueCity": "London",
+        "venueCountry": "England",
+        "venueCapacity": 20146
+      }
+    },
+    "championship-2026-12-08-blackburn-rove-norwich-city-8r4qcx": {
+      "game": "championship-2026-12-08-blackburn-rove-norwich-city-8r4qcx",
+      "model": {
+        "id": "pitchlab-statistical-championship",
+        "version": "2.0.0",
+        "status": "candidate",
+        "label": "Modelo PitchLab · en validación"
+      },
+      "projection": {
+        "home": 1.727543901251927,
+        "away": 1.6701237926854573,
+        "total": 3.397667693937384,
+        "margin": 0.05742010856646962
+      },
+      "x12": [
+        0.4001698246408924,
+        0.22353180184101895,
+        0.3762983735180881
+      ],
+      "probabilities": [
+        {
+          "market": "h2h",
+          "selection": "Blackburn Rovers gana",
+          "p": 0.4001698246408924,
+          "fairOdds": 2.498939046434568
+        },
+        {
+          "market": "h2h",
+          "selection": "Empate",
+          "p": 0.22353180184101895,
+          "fairOdds": 4.473636376407968
+        },
+        {
+          "market": "h2h",
+          "selection": "Norwich City gana",
+          "p": 0.3762983735180881,
+          "fairOdds": 2.657465645282497
+        },
+        {
+          "market": "double_chance",
+          "selection": "Blackburn Rovers o empate",
+          "p": 0.6237016264819113,
+          "fairOdds": 1.603330755509906
+        },
+        {
+          "market": "double_chance",
+          "selection": "Norwich City o empate",
+          "p": 0.5998301753591071,
+          "fairOdds": 1.667138535338471
+        },
+        {
+          "market": "double_chance",
+          "selection": "Sin empate",
+          "p": 0.7764681981589805,
+          "fairOdds": 1.2878827521475023
+        },
+        {
+          "market": "totals",
+          "selection": "Más de 1.5 goles",
+          "line": 1.5,
+          "p": 0.8514444980991721,
+          "fairOdds": 1.1744746747820607
+        },
+        {
+          "market": "totals",
+          "selection": "Más de 2.5 goles",
+          "line": 2.5,
+          "p": 0.6598087531234854,
+          "fairOdds": 1.5155906848250718
+        },
+        {
+          "market": "totals",
+          "selection": "Menos de 2.5 goles",
+          "line": 2.5,
+          "p": 0.3401912468765146,
+          "fairOdds": 2.939523015896374
+        },
+        {
+          "market": "totals",
+          "selection": "Más de 3.5 goles",
+          "line": 3.5,
+          "p": 0.4411309447412899,
+          "fairOdds": 2.266900592490672
+        },
+        {
+          "market": "totals",
+          "selection": "Menos de 3.5 goles",
+          "line": 3.5,
+          "p": 0.5588690552587101,
+          "fairOdds": 1.789327912487627
+        },
+        {
+          "market": "btts",
+          "selection": "Sí",
+          "p": 0.6660588036456608,
+          "fairOdds": 1.5013689399892594
+        },
+        {
+          "market": "btts",
+          "selection": "No",
+          "p": 0.33394119635433916,
+          "fairOdds": 2.994539191082365
+        },
+        {
+          "market": "team_totals",
+          "selection": "Blackburn Rovers más de 1.5 goles",
+          "line": 1.5,
+          "p": 0.515258851069406,
+          "fairOdds": 1.9407720952770178
+        },
+        {
+          "market": "team_totals",
+          "selection": "Blackburn Rovers menos de 1.5 goles",
+          "line": 1.5,
+          "p": 0.48474114893059395,
+          "fairOdds": 2.062956698035928
+        },
+        {
+          "market": "team_totals",
+          "selection": "Norwich City más de 1.5 goles",
+          "line": 1.5,
+          "p": 0.49741847596203215,
+          "fairOdds": 2.0103796869747352
+        },
+        {
+          "market": "team_totals",
+          "selection": "Norwich City menos de 1.5 goles",
+          "line": 1.5,
+          "p": 0.5025815240379679,
+          "fairOdds": 1.989726944129475
+        },
+        {
+          "market": "correct_score",
+          "selection": "1–1",
+          "p": 0.09506644349262575,
+          "fairOdds": 10.518958775159918
+        },
+        {
+          "market": "correct_score",
+          "selection": "2–1",
+          "p": 0.08336622064436372,
+          "fairOdds": 11.995266095436326
+        },
+        {
+          "market": "correct_score",
+          "selection": "1–2",
+          "p": 0.08059529399138164,
+          "fairOdds": 12.407672340111246
+        }
+      ],
+      "marketGroups": [
+        {
+          "group": "Resultado",
+          "rows": [
+            {
+              "market": "h2h",
+              "selection": "home",
+              "label": "Blackburn Rovers gana",
+              "p": 0.4001698246408924,
+              "fairOdds": 2.498939046434568
+            },
+            {
+              "market": "h2h",
+              "selection": "draw",
+              "label": "Empate",
+              "p": 0.22353180184101895,
+              "fairOdds": 4.473636376407968
+            },
+            {
+              "market": "h2h",
+              "selection": "away",
+              "label": "Norwich City gana",
+              "p": 0.3762983735180881,
+              "fairOdds": 2.657465645282497
+            }
+          ]
+        },
+        {
+          "group": "Doble oportunidad",
+          "rows": [
+            {
+              "market": "double_chance",
+              "selection": "1x",
+              "label": "Blackburn Rovers o empate",
+              "p": 0.6237016264819113,
+              "fairOdds": 1.603330755509906
+            },
+            {
+              "market": "double_chance",
+              "selection": "x2",
+              "label": "Norwich City o empate",
+              "p": 0.5998301753591071,
+              "fairOdds": 1.667138535338471
+            },
+            {
+              "market": "double_chance",
+              "selection": "12",
+              "label": "Sin empate",
+              "p": 0.7764681981589805,
+              "fairOdds": 1.2878827521475023
+            }
+          ]
+        },
+        {
+          "group": "Goles totales",
+          "rows": [
+            {
+              "market": "totals",
+              "selection": "over_1.5",
+              "label": "Más de 1.5 goles",
+              "line": 1.5,
+              "p": 0.8514444980991721,
+              "fairOdds": 1.1744746747820607
+            },
+            {
+              "market": "totals",
+              "selection": "over_2.5",
+              "label": "Más de 2.5 goles",
+              "line": 2.5,
+              "p": 0.6598087531234854,
+              "fairOdds": 1.5155906848250718
+            },
+            {
+              "market": "totals",
+              "selection": "under_2.5",
+              "label": "Menos de 2.5 goles",
+              "line": 2.5,
+              "p": 0.3401912468765146,
+              "fairOdds": 2.939523015896374
+            },
+            {
+              "market": "totals",
+              "selection": "over_3.5",
+              "label": "Más de 3.5 goles",
+              "line": 3.5,
+              "p": 0.4411309447412899,
+              "fairOdds": 2.266900592490672
+            },
+            {
+              "market": "totals",
+              "selection": "under_3.5",
+              "label": "Menos de 3.5 goles",
+              "line": 3.5,
+              "p": 0.5588690552587101,
+              "fairOdds": 1.789327912487627
+            }
+          ]
+        },
+        {
+          "group": "Ambos anotan",
+          "rows": [
+            {
+              "market": "btts",
+              "selection": "yes",
+              "label": "Sí",
+              "p": 0.6660588036456608,
+              "fairOdds": 1.5013689399892594
+            },
+            {
+              "market": "btts",
+              "selection": "no",
+              "label": "No",
+              "p": 0.33394119635433916,
+              "fairOdds": 2.994539191082365
+            }
+          ]
+        },
+        {
+          "group": "Goles por equipo (1.5)",
+          "rows": [
+            {
+              "market": "team_totals",
+              "selection": "home_over",
+              "label": "Blackburn Rovers más de 1.5 goles",
+              "line": 1.5,
+              "p": 0.515258851069406,
+              "fairOdds": 1.9407720952770178
+            },
+            {
+              "market": "team_totals",
+              "selection": "home_under",
+              "label": "Blackburn Rovers menos de 1.5 goles",
+              "line": 1.5,
+              "p": 0.48474114893059395,
+              "fairOdds": 2.062956698035928
+            },
+            {
+              "market": "team_totals",
+              "selection": "away_over",
+              "label": "Norwich City más de 1.5 goles",
+              "line": 1.5,
+              "p": 0.49741847596203215,
+              "fairOdds": 2.0103796869747352
+            },
+            {
+              "market": "team_totals",
+              "selection": "away_under",
+              "label": "Norwich City menos de 1.5 goles",
+              "line": 1.5,
+              "p": 0.5025815240379679,
+              "fairOdds": 1.989726944129475
+            }
+          ]
+        },
+        {
+          "group": "Marcador exacto (más probables)",
+          "rows": [
+            {
+              "market": "correct_score",
+              "selection": "1-1",
+              "label": "1–1",
+              "p": 0.09506644349262575,
+              "fairOdds": 10.518958775159918
+            },
+            {
+              "market": "correct_score",
+              "selection": "2-1",
+              "label": "2–1",
+              "p": 0.08336622064436372,
+              "fairOdds": 11.995266095436326
+            },
+            {
+              "market": "correct_score",
+              "selection": "1-2",
+              "label": "1–2",
+              "p": 0.08059529399138164,
+              "fairOdds": 12.407672340111246
+            }
+          ]
+        }
+      ],
+      "mostLikelyScore": {
+        "home": 1,
+        "away": 1,
+        "p": 0.09506644349262575
+      },
+      "factors": [
+        {
+          "key": "home_attack",
+          "label": "Ataque local",
+          "value": "1.35 goles/partido",
+          "detail": "3 % más que la media · 17 partidos"
+        },
+        {
+          "key": "away_defense",
+          "label": "Defensa visitante",
+          "value": "1.31 concedidos/partido",
+          "detail": "6 % más que la media · 17 partidos"
+        },
+        {
+          "key": "away_attack",
+          "label": "Ataque visitante",
+          "value": "1.67 goles/partido",
+          "detail": "31 % más que la media · ajustado por rival"
+        },
+        {
+          "key": "home_defense",
+          "label": "Defensa local",
+          "value": "1.27 concedidos/partido",
+          "detail": "3 % más que la media · ajustado por rival"
+        },
+        {
+          "key": "home_advantage",
+          "label": "Localía",
+          "value": "×1.28",
+          "detail": "estimada de 204 partidos"
+        },
+        {
+          "key": "uncertainty",
+          "label": "Intervalo 90%",
+          "value": "goles 2.6–4.3",
+          "detail": "local 24%–57% · 204 partidos"
+        },
+        {
+          "key": "home_position",
+          "label": "Posición local",
+          "value": "12.º · 25 pts",
+          "detail": "de 24 equipos"
+        },
+        {
+          "key": "away_position",
+          "label": "Posición visitante",
+          "value": "11.º · 25 pts",
+          "detail": "de 24 equipos"
+        },
+        {
+          "key": "home_form",
+          "label": "Forma local",
+          "value": "P-P-G-E-G · 7 pts",
+          "detail": "6 goles a favor · 9 en contra"
+        },
+        {
+          "key": "away_form",
+          "label": "Forma visitante",
+          "value": "G-G-G-G-E · 13 pts",
+          "detail": "15 goles a favor · 4 en contra"
+        }
+      ],
+      "steps": [
+        "Sincronizando EFL Championship · corte 26 nov 2026, 20:00",
+        "Fuerza ajustada por rival · BLA 1.03 / 1.03 · NOR 1.31 / 1.06",
+        "Ponderando 184.6 partidos por antigüedad y calidad del rival",
+        "Proyección de goles 1.73 – 1.67 · total 3.40",
+        "Simulando 121 marcadores con incertidumbre del ajuste",
+        "20 mercados listos · marcador proyectado 2–1"
+      ],
+      "inputsAsOf": "2026-11-26T20:00:11.075Z",
+      "publishedAt": "2026-11-26T20:00:11.075Z",
+      "source": "pitchlab-football-v2",
+      "picks": [
+        {
+          "profile": "conservadora",
+          "market": "totals",
+          "selection": "over_1.5",
+          "label": "Más de 1.5 goles",
+          "line": 1.5,
+          "p": 0.8514444980991721,
+          "fairOdds": 1.1744746747820607
+        },
+        {
+          "profile": "intermedia",
+          "market": "btts",
+          "selection": "yes",
+          "label": "Ambos anotan: Sí",
+          "p": 0.6660588036456608,
+          "fairOdds": 1.5013689399892594
+        },
+        {
+          "profile": "arriesgada",
+          "market": "team_totals",
+          "selection": "home_over",
+          "label": "Blackburn Rovers más de 1.5 goles",
+          "line": 1.5,
+          "p": 0.515258851069406,
+          "fairOdds": 1.9407720952770178
+        }
+      ],
+      "confidence": {
+        "score": 41,
+        "level": "baja",
+        "reasons": [
+          "Partido parejo",
+          "Muestra suficiente"
+        ]
+      },
+      "projectedScore": {
+        "home": 2,
+        "away": 1,
+        "p": 0.08336622064436372
+      },
+      "insights": {
+        "why": [
+          "Se esperan 3.4 goles: 1.7 de Blackburn Rovers y 1.7 de Norwich City.",
+          "Norwich City anota 31 % más que la media."
+        ],
+        "restDays": {
+          "home": 13,
+          "away": 14
+        }
+      },
+      "picksAt": "2026-11-26T20:00:11.075Z",
+      "matchContext": {
+        "weather": {
+          "description": "cloudy",
+          "temperatureC": 2,
+          "windSpeedKmh": 9
+        },
+        "stageName": "Regular season",
+        "venueCity": "Blackburn",
+        "venueCountry": "England",
+        "venueCapacity": 31367
+      }
+    },
+    "championship-2026-12-08-west-ham-unite-middlesbrough-626inx": {
+      "game": "championship-2026-12-08-west-ham-unite-middlesbrough-626inx",
+      "model": {
+        "id": "pitchlab-statistical-championship",
+        "version": "2.0.0",
+        "status": "candidate",
+        "label": "Modelo PitchLab · en validación"
+      },
+      "projection": {
+        "home": 1.9290613467495725,
+        "away": 1.6404667187649342,
+        "total": 3.5695280655145067,
+        "margin": 0.2885946279846383
+      },
+      "x12": [
+        0.45071709482341715,
+        0.21554543020371786,
+        0.33373747497286477
+      ],
+      "probabilities": [
+        {
+          "market": "h2h",
+          "selection": "West Ham United gana",
+          "p": 0.45071709482341715,
+          "fairOdds": 2.2186866473120617
+        },
+        {
+          "market": "h2h",
+          "selection": "Empate",
+          "p": 0.21554543020371786,
+          "fairOdds": 4.639393185255066
+        },
+        {
+          "market": "h2h",
+          "selection": "Middlesbrough gana",
+          "p": 0.33373747497286477,
+          "fairOdds": 2.9963671298265413
+        },
+        {
+          "market": "double_chance",
+          "selection": "West Ham United o empate",
+          "p": 0.666262525027135,
+          "fairOdds": 1.5009098702636363
+        },
+        {
+          "market": "double_chance",
+          "selection": "Middlesbrough o empate",
+          "p": 0.5492829051765826,
+          "fairOdds": 1.8205554743753067
+        },
+        {
+          "market": "double_chance",
+          "selection": "Sin empate",
+          "p": 0.7844545697962819,
+          "fairOdds": 1.2747710810833748
+        },
+        {
+          "market": "totals",
+          "selection": "Más de 1.5 goles",
+          "line": 1.5,
+          "p": 0.8699422153316094,
+          "fairOdds": 1.1495016362883532
+        },
+        {
+          "market": "totals",
+          "selection": "Más de 2.5 goles",
+          "line": 2.5,
+          "p": 0.6918190590536009,
+          "fairOdds": 1.4454646585886004
+        },
+        {
+          "market": "totals",
+          "selection": "Menos de 2.5 goles",
+          "line": 2.5,
+          "p": 0.30818094094639914,
+          "fairOdds": 3.2448469945256173
+        },
+        {
+          "market": "totals",
+          "selection": "Más de 3.5 goles",
+          "line": 3.5,
+          "p": 0.47828952061505847,
+          "fairOdds": 2.090783838864054
+        },
+        {
+          "market": "totals",
+          "selection": "Menos de 3.5 goles",
+          "line": 3.5,
+          "p": 0.5217104793849415,
+          "fairOdds": 1.9167719252619322
+        },
+        {
+          "market": "btts",
+          "selection": "Sí",
+          "p": 0.6876570418147766,
+          "fairOdds": 1.4542132766661238
+        },
+        {
+          "market": "btts",
+          "selection": "No",
+          "p": 0.3123429581852234,
+          "fairOdds": 3.2016089167183566
+        },
+        {
+          "market": "team_totals",
+          "selection": "West Ham United más de 1.5 goles",
+          "line": 1.5,
+          "p": 0.574450234576723,
+          "fairOdds": 1.7407948327096403
+        },
+        {
+          "market": "team_totals",
+          "selection": "West Ham United menos de 1.5 goles",
+          "line": 1.5,
+          "p": 0.42554976542327705,
+          "fairOdds": 2.3499014245850676
+        },
+        {
+          "market": "team_totals",
+          "selection": "Middlesbrough más de 1.5 goles",
+          "line": 1.5,
+          "p": 0.4880404850355685,
+          "fairOdds": 2.0490103396383597
+        },
+        {
+          "market": "team_totals",
+          "selection": "Middlesbrough menos de 1.5 goles",
+          "line": 1.5,
+          "p": 0.5119595149644315,
+          "fairOdds": 1.953279450367233
+        },
+        {
+          "market": "correct_score",
+          "selection": "1–1",
+          "p": 0.08780646683093801,
+          "fairOdds": 11.388682816783795
+        },
+        {
+          "market": "correct_score",
+          "selection": "2–1",
+          "p": 0.08598175693310202,
+          "fairOdds": 11.630374112709148
+        },
+        {
+          "market": "correct_score",
+          "selection": "1–2",
+          "p": 0.07311857184187356,
+          "fairOdds": 13.676415920193339
+        }
+      ],
+      "marketGroups": [
+        {
+          "group": "Resultado",
+          "rows": [
+            {
+              "market": "h2h",
+              "selection": "home",
+              "label": "West Ham United gana",
+              "p": 0.45071709482341715,
+              "fairOdds": 2.2186866473120617
+            },
+            {
+              "market": "h2h",
+              "selection": "draw",
+              "label": "Empate",
+              "p": 0.21554543020371786,
+              "fairOdds": 4.639393185255066
+            },
+            {
+              "market": "h2h",
+              "selection": "away",
+              "label": "Middlesbrough gana",
+              "p": 0.33373747497286477,
+              "fairOdds": 2.9963671298265413
+            }
+          ]
+        },
+        {
+          "group": "Doble oportunidad",
+          "rows": [
+            {
+              "market": "double_chance",
+              "selection": "1x",
+              "label": "West Ham United o empate",
+              "p": 0.666262525027135,
+              "fairOdds": 1.5009098702636363
+            },
+            {
+              "market": "double_chance",
+              "selection": "x2",
+              "label": "Middlesbrough o empate",
+              "p": 0.5492829051765826,
+              "fairOdds": 1.8205554743753067
+            },
+            {
+              "market": "double_chance",
+              "selection": "12",
+              "label": "Sin empate",
+              "p": 0.7844545697962819,
+              "fairOdds": 1.2747710810833748
+            }
+          ]
+        },
+        {
+          "group": "Goles totales",
+          "rows": [
+            {
+              "market": "totals",
+              "selection": "over_1.5",
+              "label": "Más de 1.5 goles",
+              "line": 1.5,
+              "p": 0.8699422153316094,
+              "fairOdds": 1.1495016362883532
+            },
+            {
+              "market": "totals",
+              "selection": "over_2.5",
+              "label": "Más de 2.5 goles",
+              "line": 2.5,
+              "p": 0.6918190590536009,
+              "fairOdds": 1.4454646585886004
+            },
+            {
+              "market": "totals",
+              "selection": "under_2.5",
+              "label": "Menos de 2.5 goles",
+              "line": 2.5,
+              "p": 0.30818094094639914,
+              "fairOdds": 3.2448469945256173
+            },
+            {
+              "market": "totals",
+              "selection": "over_3.5",
+              "label": "Más de 3.5 goles",
+              "line": 3.5,
+              "p": 0.47828952061505847,
+              "fairOdds": 2.090783838864054
+            },
+            {
+              "market": "totals",
+              "selection": "under_3.5",
+              "label": "Menos de 3.5 goles",
+              "line": 3.5,
+              "p": 0.5217104793849415,
+              "fairOdds": 1.9167719252619322
+            }
+          ]
+        },
+        {
+          "group": "Ambos anotan",
+          "rows": [
+            {
+              "market": "btts",
+              "selection": "yes",
+              "label": "Sí",
+              "p": 0.6876570418147766,
+              "fairOdds": 1.4542132766661238
+            },
+            {
+              "market": "btts",
+              "selection": "no",
+              "label": "No",
+              "p": 0.3123429581852234,
+              "fairOdds": 3.2016089167183566
+            }
+          ]
+        },
+        {
+          "group": "Goles por equipo (1.5)",
+          "rows": [
+            {
+              "market": "team_totals",
+              "selection": "home_over",
+              "label": "West Ham United más de 1.5 goles",
+              "line": 1.5,
+              "p": 0.574450234576723,
+              "fairOdds": 1.7407948327096403
+            },
+            {
+              "market": "team_totals",
+              "selection": "home_under",
+              "label": "West Ham United menos de 1.5 goles",
+              "line": 1.5,
+              "p": 0.42554976542327705,
+              "fairOdds": 2.3499014245850676
+            },
+            {
+              "market": "team_totals",
+              "selection": "away_over",
+              "label": "Middlesbrough más de 1.5 goles",
+              "line": 1.5,
+              "p": 0.4880404850355685,
+              "fairOdds": 2.0490103396383597
+            },
+            {
+              "market": "team_totals",
+              "selection": "away_under",
+              "label": "Middlesbrough menos de 1.5 goles",
+              "line": 1.5,
+              "p": 0.5119595149644315,
+              "fairOdds": 1.953279450367233
+            }
+          ]
+        },
+        {
+          "group": "Marcador exacto (más probables)",
+          "rows": [
+            {
+              "market": "correct_score",
+              "selection": "1-1",
+              "label": "1–1",
+              "p": 0.08780646683093801,
+              "fairOdds": 11.388682816783795
+            },
+            {
+              "market": "correct_score",
+              "selection": "2-1",
+              "label": "2–1",
+              "p": 0.08598175693310202,
+              "fairOdds": 11.630374112709148
+            },
+            {
+              "market": "correct_score",
+              "selection": "1-2",
+              "label": "1–2",
+              "p": 0.07311857184187356,
+              "fairOdds": 13.676415920193339
+            }
+          ]
+        }
+      ],
+      "mostLikelyScore": {
+        "home": 1,
+        "away": 1,
+        "p": 0.08780646683093801
+      },
+      "factors": [
+        {
+          "key": "home_attack",
+          "label": "Ataque local",
+          "value": "1.51 goles/partido",
+          "detail": "36 % más que la media · 17 partidos"
+        },
+        {
+          "key": "away_defense",
+          "label": "Defensa visitante",
+          "value": "1.11 concedidos/partido",
+          "detail": "10 % menos que la media · 17 partidos"
+        },
+        {
+          "key": "away_attack",
+          "label": "Ataque visitante",
+          "value": "1.64 goles/partido",
+          "detail": "26 % más que la media · ajustado por rival"
+        },
+        {
+          "key": "home_defense",
+          "label": "Defensa local",
+          "value": "1.31 concedidos/partido",
+          "detail": "6 % más que la media · ajustado por rival"
+        },
+        {
+          "key": "home_advantage",
+          "label": "Localía",
+          "value": "×1.28",
+          "detail": "estimada de 204 partidos"
+        },
+        {
+          "key": "uncertainty",
+          "label": "Intervalo 90%",
+          "value": "goles 2.7–4.7",
+          "detail": "local 30%–66% · 204 partidos"
+        },
+        {
+          "key": "home_position",
+          "label": "Posición local",
+          "value": "13.º · 24 pts",
+          "detail": "de 24 equipos"
+        },
+        {
+          "key": "away_position",
+          "label": "Posición visitante",
+          "value": "1.º · 35 pts",
+          "detail": "de 24 equipos"
+        },
+        {
+          "key": "home_form",
+          "label": "Forma local",
+          "value": "P-E-P-E-P · 2 pts",
+          "detail": "6 goles a favor · 10 en contra"
+        },
+        {
+          "key": "away_form",
+          "label": "Forma visitante",
+          "value": "G-P-E-G-G · 10 pts",
+          "detail": "7 goles a favor · 3 en contra"
+        }
+      ],
+      "steps": [
+        "Sincronizando EFL Championship · corte 26 nov 2026, 20:00",
+        "Fuerza ajustada por rival · WES 1.36 / 1.06 · MID 1.26 / 0.90",
+        "Ponderando 184.6 partidos por antigüedad y calidad del rival",
+        "Proyección de goles 1.93 – 1.64 · total 3.57",
+        "Simulando 121 marcadores con incertidumbre del ajuste",
+        "20 mercados listos · marcador proyectado 2–1"
+      ],
+      "inputsAsOf": "2026-11-26T20:00:11.075Z",
+      "publishedAt": "2026-11-26T20:00:11.075Z",
+      "source": "pitchlab-football-v2",
+      "picks": [
+        {
+          "profile": "conservadora",
+          "market": "totals",
+          "selection": "over_1.5",
+          "label": "Más de 1.5 goles",
+          "line": 1.5,
+          "p": 0.8699422153316094,
+          "fairOdds": 1.1495016362883532
+        },
+        {
+          "profile": "intermedia",
+          "market": "totals",
+          "selection": "over_2.5",
+          "label": "Más de 2.5 goles",
+          "line": 2.5,
+          "p": 0.6918190590536009,
+          "fairOdds": 1.4454646585886004
+        },
+        {
+          "profile": "arriesgada",
+          "market": "team_totals",
+          "selection": "away_under",
+          "label": "Middlesbrough menos de 1.5 goles",
+          "line": 1.5,
+          "p": 0.5119595149644315,
+          "fairOdds": 1.953279450367233
+        }
+      ],
+      "confidence": {
+        "score": 46,
+        "level": "media",
+        "reasons": [
+          "Muestra suficiente"
+        ]
+      },
+      "projectedScore": {
+        "home": 2,
+        "away": 1,
+        "p": 0.08598175693310202
+      },
+      "insights": {
+        "why": [
+          "Se esperan 3.6 goles: 1.9 de West Ham United y 1.6 de Middlesbrough.",
+          "West Ham United anota 36 % más que la media.",
+          "Middlesbrough anota 26 % más que la media."
+        ],
+        "restDays": {
+          "home": 14,
+          "away": 14
+        }
+      },
+      "picksAt": "2026-11-26T20:00:11.075Z",
+      "matchContext": {
+        "weather": {
+          "description": "unknown",
+          "temperatureC": 2,
+          "windSpeedKmh": 31
+        },
+        "stageName": "Regular season",
+        "venueCity": "London",
+        "venueCountry": "England",
+        "venueCapacity": 62500
+      }
+    },
+    "championship-2026-12-08-birmingham-cit-watford-q70ob4": {
+      "game": "championship-2026-12-08-birmingham-cit-watford-q70ob4",
+      "model": {
+        "id": "pitchlab-statistical-championship",
+        "version": "2.0.0",
+        "status": "candidate",
+        "label": "Modelo PitchLab · en validación"
+      },
+      "projection": {
+        "home": 2.0257780683363698,
+        "away": 0.6167726969632514,
+        "total": 2.642550765299621,
+        "margin": 1.4090053713731183
+      },
+      "x12": [
+        0.7070664150994508,
+        0.18940113103320994,
+        0.103532453867339
+      ],
+      "probabilities": [
+        {
+          "market": "h2h",
+          "selection": "Birmingham City gana",
+          "p": 0.7070664150994508,
+          "fairOdds": 1.4142942991562502
+        },
+        {
+          "market": "h2h",
+          "selection": "Empate",
+          "p": 0.18940113103320994,
+          "fairOdds": 5.279799516216501
+        },
+        {
+          "market": "h2h",
+          "selection": "Watford gana",
+          "p": 0.103532453867339,
+          "fairOdds": 9.65880709522588
+        },
+        {
+          "market": "double_chance",
+          "selection": "Birmingham City o empate",
+          "p": 0.8964675461326608,
+          "fairOdds": 1.115489349630085
+        },
+        {
+          "market": "double_chance",
+          "selection": "Watford o empate",
+          "p": 0.29293358490054894,
+          "fairOdds": 3.4137430856195623
+        },
+        {
+          "market": "double_chance",
+          "selection": "Sin empate",
+          "p": 0.8105988689667898,
+          "fairOdds": 1.233655804719572
+        },
+        {
+          "market": "totals",
+          "selection": "Más de 1.5 goles",
+          "line": 1.5,
+          "p": 0.7393886888651618,
+          "fairOdds": 1.352468620442156
+        },
+        {
+          "market": "totals",
+          "selection": "Más de 2.5 goles",
+          "line": 2.5,
+          "p": 0.49219460862253117,
+          "fairOdds": 2.031716687833348
+        },
+        {
+          "market": "totals",
+          "selection": "Menos de 2.5 goles",
+          "line": 2.5,
+          "p": 0.5078053913774688,
+          "fairOdds": 1.9692583359294553
+        },
+        {
+          "market": "totals",
+          "selection": "Más de 3.5 goles",
+          "line": 3.5,
+          "p": 0.2732785552270507,
+          "fairOdds": 3.6592699312580903
+        },
+        {
+          "market": "totals",
+          "selection": "Menos de 3.5 goles",
+          "line": 3.5,
+          "p": 0.7267214447729493,
+          "fairOdds": 1.3760430591289783
+        },
+        {
+          "market": "btts",
+          "selection": "Sí",
+          "p": 0.39827033892917485,
+          "fairOdds": 2.510857330447176
+        },
+        {
+          "market": "btts",
+          "selection": "No",
+          "p": 0.6017296610708252,
+          "fairOdds": 1.6618758633576771
+        },
+        {
+          "market": "team_totals",
+          "selection": "Birmingham City más de 1.5 goles",
+          "line": 1.5,
+          "p": 0.6009228220186535,
+          "fairOdds": 1.6641072087106694
+        },
+        {
+          "market": "team_totals",
+          "selection": "Birmingham City menos de 1.5 goles",
+          "line": 1.5,
+          "p": 0.39907717798134645,
+          "fairOdds": 2.50578097464331
+        },
+        {
+          "market": "team_totals",
+          "selection": "Watford más de 1.5 goles",
+          "line": 1.5,
+          "p": 0.12745469173662705,
+          "fairOdds": 7.845925374535482
+        },
+        {
+          "market": "team_totals",
+          "selection": "Watford menos de 1.5 goles",
+          "line": 1.5,
+          "p": 0.872545308263373,
+          "fairOdds": 1.146072290492628
+        },
+        {
+          "market": "correct_score",
+          "selection": "2–0",
+          "p": 0.14605370466596582,
+          "fairOdds": 6.846796541635586
+        },
+        {
+          "market": "correct_score",
+          "selection": "1–0",
+          "p": 0.14552920285778762,
+          "fairOdds": 6.87147308143513
+        },
+        {
+          "market": "correct_score",
+          "selection": "3–0",
+          "p": 0.09862413057053031,
+          "fairOdds": 10.139506368422254
+        }
+      ],
+      "marketGroups": [
+        {
+          "group": "Resultado",
+          "rows": [
+            {
+              "market": "h2h",
+              "selection": "home",
+              "label": "Birmingham City gana",
+              "p": 0.7070664150994508,
+              "fairOdds": 1.4142942991562502
+            },
+            {
+              "market": "h2h",
+              "selection": "draw",
+              "label": "Empate",
+              "p": 0.18940113103320994,
+              "fairOdds": 5.279799516216501
+            },
+            {
+              "market": "h2h",
+              "selection": "away",
+              "label": "Watford gana",
+              "p": 0.103532453867339,
+              "fairOdds": 9.65880709522588
+            }
+          ]
+        },
+        {
+          "group": "Doble oportunidad",
+          "rows": [
+            {
+              "market": "double_chance",
+              "selection": "1x",
+              "label": "Birmingham City o empate",
+              "p": 0.8964675461326608,
+              "fairOdds": 1.115489349630085
+            },
+            {
+              "market": "double_chance",
+              "selection": "x2",
+              "label": "Watford o empate",
+              "p": 0.29293358490054894,
+              "fairOdds": 3.4137430856195623
+            },
+            {
+              "market": "double_chance",
+              "selection": "12",
+              "label": "Sin empate",
+              "p": 0.8105988689667898,
+              "fairOdds": 1.233655804719572
+            }
+          ]
+        },
+        {
+          "group": "Goles totales",
+          "rows": [
+            {
+              "market": "totals",
+              "selection": "over_1.5",
+              "label": "Más de 1.5 goles",
+              "line": 1.5,
+              "p": 0.7393886888651618,
+              "fairOdds": 1.352468620442156
+            },
+            {
+              "market": "totals",
+              "selection": "over_2.5",
+              "label": "Más de 2.5 goles",
+              "line": 2.5,
+              "p": 0.49219460862253117,
+              "fairOdds": 2.031716687833348
+            },
+            {
+              "market": "totals",
+              "selection": "under_2.5",
+              "label": "Menos de 2.5 goles",
+              "line": 2.5,
+              "p": 0.5078053913774688,
+              "fairOdds": 1.9692583359294553
+            },
+            {
+              "market": "totals",
+              "selection": "over_3.5",
+              "label": "Más de 3.5 goles",
+              "line": 3.5,
+              "p": 0.2732785552270507,
+              "fairOdds": 3.6592699312580903
+            },
+            {
+              "market": "totals",
+              "selection": "under_3.5",
+              "label": "Menos de 3.5 goles",
+              "line": 3.5,
+              "p": 0.7267214447729493,
+              "fairOdds": 1.3760430591289783
+            }
+          ]
+        },
+        {
+          "group": "Ambos anotan",
+          "rows": [
+            {
+              "market": "btts",
+              "selection": "yes",
+              "label": "Sí",
+              "p": 0.39827033892917485,
+              "fairOdds": 2.510857330447176
+            },
+            {
+              "market": "btts",
+              "selection": "no",
+              "label": "No",
+              "p": 0.6017296610708252,
+              "fairOdds": 1.6618758633576771
+            }
+          ]
+        },
+        {
+          "group": "Goles por equipo (1.5)",
+          "rows": [
+            {
+              "market": "team_totals",
+              "selection": "home_over",
+              "label": "Birmingham City más de 1.5 goles",
+              "line": 1.5,
+              "p": 0.6009228220186535,
+              "fairOdds": 1.6641072087106694
+            },
+            {
+              "market": "team_totals",
+              "selection": "home_under",
+              "label": "Birmingham City menos de 1.5 goles",
+              "line": 1.5,
+              "p": 0.39907717798134645,
+              "fairOdds": 2.50578097464331
+            },
+            {
+              "market": "team_totals",
+              "selection": "away_over",
+              "label": "Watford más de 1.5 goles",
+              "line": 1.5,
+              "p": 0.12745469173662705,
+              "fairOdds": 7.845925374535482
+            },
+            {
+              "market": "team_totals",
+              "selection": "away_under",
+              "label": "Watford menos de 1.5 goles",
+              "line": 1.5,
+              "p": 0.872545308263373,
+              "fairOdds": 1.146072290492628
+            }
+          ]
+        },
+        {
+          "group": "Marcador exacto (más probables)",
+          "rows": [
+            {
+              "market": "correct_score",
+              "selection": "2-0",
+              "label": "2–0",
+              "p": 0.14605370466596582,
+              "fairOdds": 6.846796541635586
+            },
+            {
+              "market": "correct_score",
+              "selection": "1-0",
+              "label": "1–0",
+              "p": 0.14552920285778762,
+              "fairOdds": 6.87147308143513
+            },
+            {
+              "market": "correct_score",
+              "selection": "3-0",
+              "label": "3–0",
+              "p": 0.09862413057053031,
+              "fairOdds": 10.139506368422254
+            }
+          ]
+        }
+      ],
+      "mostLikelyScore": {
+        "home": 2,
+        "away": 0,
+        "p": 0.14605370466596582
+      },
+      "factors": [
+        {
+          "key": "home_attack",
+          "label": "Ataque local",
+          "value": "1.58 goles/partido",
+          "detail": "17 % más que la media · 17 partidos"
+        },
+        {
+          "key": "away_defense",
+          "label": "Defensa visitante",
+          "value": "1.35 concedidos/partido",
+          "detail": "9 % más que la media · 17 partidos"
+        },
+        {
+          "key": "away_attack",
+          "label": "Ataque visitante",
+          "value": "0.62 goles/partido",
+          "detail": "32 % menos que la media · ajustado por rival"
+        },
+        {
+          "key": "home_defense",
+          "label": "Defensa local",
+          "value": "0.90 concedidos/partido",
+          "detail": "27 % menos que la media · ajustado por rival"
+        },
+        {
+          "key": "home_advantage",
+          "label": "Localía",
+          "value": "×1.28",
+          "detail": "estimada de 204 partidos"
+        },
+        {
+          "key": "uncertainty",
+          "label": "Intervalo 90%",
+          "value": "goles 1.9–3.7",
+          "detail": "local 52%–87% · 204 partidos"
+        },
+        {
+          "key": "home_position",
+          "label": "Posición local",
+          "value": "5.º · 32 pts",
+          "detail": "de 24 equipos"
+        },
+        {
+          "key": "away_position",
+          "label": "Posición visitante",
+          "value": "20.º · 15 pts",
+          "detail": "de 24 equipos"
+        },
+        {
+          "key": "home_form",
+          "label": "Forma local",
+          "value": "G-G-G-P-G · 12 pts",
+          "detail": "10 goles a favor · 3 en contra"
+        },
+        {
+          "key": "away_form",
+          "label": "Forma visitante",
+          "value": "P-G-E-P-P · 4 pts",
+          "detail": "3 goles a favor · 8 en contra"
+        }
+      ],
+      "steps": [
+        "Sincronizando EFL Championship · corte 26 nov 2026, 20:00",
+        "Fuerza ajustada por rival · BIR 1.17 / 0.73 · WAT 0.68 / 1.09",
+        "Ponderando 184.6 partidos por antigüedad y calidad del rival",
+        "Proyección de goles 2.03 – 0.62 · total 2.64",
+        "Simulando 121 marcadores con incertidumbre del ajuste",
+        "20 mercados listos · marcador proyectado 2–0"
+      ],
+      "inputsAsOf": "2026-11-26T20:00:11.075Z",
+      "publishedAt": "2026-11-26T20:00:11.075Z",
+      "source": "pitchlab-football-v2",
+      "picks": [
+        {
+          "profile": "conservadora",
+          "market": "double_chance",
+          "selection": "1x",
+          "label": "Birmingham City o empate",
+          "p": 0.8964675461326608,
+          "fairOdds": 1.115489349630085
+        },
+        {
+          "profile": "intermedia",
+          "market": "btts",
+          "selection": "no",
+          "label": "Ambos anotan: No",
+          "p": 0.6017296610708252,
+          "fairOdds": 1.6618758633576771
+        },
+        {
+          "profile": "arriesgada",
+          "market": "totals",
+          "selection": "under_2.5",
+          "label": "Menos de 2.5 goles",
+          "line": 2.5,
+          "p": 0.5078053913774688,
+          "fairOdds": 1.9692583359294553
+        }
+      ],
+      "confidence": {
+        "score": 84,
+        "level": "alta",
+        "reasons": [
+          "Favorito claro",
+          "Muestra suficiente"
+        ]
+      },
+      "projectedScore": {
+        "home": 2,
+        "away": 0,
+        "p": 0.14605370466596582
+      },
+      "insights": {
+        "why": [
+          "Se esperan 2.6 goles: 2.0 de Birmingham City y 0.6 de Watford.",
+          "Watford anota 32 % menos que la media.",
+          "Birmingham City concede 27 % menos que la media."
+        ],
+        "restDays": {
+          "home": 13,
+          "away": 13
+        }
+      },
+      "picksAt": "2026-11-26T20:00:11.075Z",
+      "matchContext": {
+        "weather": {
+          "description": "rain",
+          "temperatureC": 3,
+          "windSpeedKmh": 31
+        },
+        "stageName": "Regular season",
+        "venueCity": "Birmingham",
+        "venueCountry": "England",
+        "venueCapacity": 29409
+      }
     }
   },
   "standings": [
@@ -24751,6 +24710,26 @@
         "W",
         "L",
         "D",
+        "W",
+        "W"
+      ]
+    },
+    {
+      "teamId": "championship.stoke-city",
+      "name": "Stoke City",
+      "shortName": "Stoke City",
+      "code": "STO",
+      "played": 17,
+      "won": 11,
+      "drawn": 2,
+      "lost": 4,
+      "goalsFor": 27,
+      "goalsAgainst": 19,
+      "points": 35,
+      "form": [
+        "W",
+        "W",
+        "W",
         "W",
         "W"
       ]
@@ -24796,43 +24775,23 @@
       ]
     },
     {
-      "teamId": "championship.stoke-city",
-      "name": "Stoke City",
-      "shortName": "Stoke City",
-      "code": "STO",
-      "played": 16,
-      "won": 10,
-      "drawn": 2,
-      "lost": 4,
-      "goalsFor": 25,
-      "goalsAgainst": 18,
-      "points": 32,
-      "form": [
-        "D",
-        "W",
-        "W",
-        "W",
-        "W"
-      ]
-    },
-    {
       "teamId": "championship.birmingham-city",
       "name": "Birmingham City",
       "shortName": "Birmingham City",
       "code": "BIR",
-      "played": 16,
-      "won": 8,
+      "played": 17,
+      "won": 9,
       "drawn": 5,
       "lost": 3,
-      "goalsFor": 28,
+      "goalsFor": 30,
       "goalsAgainst": 15,
-      "points": 29,
+      "points": 32,
       "form": [
+        "W",
+        "W",
+        "W",
         "L",
-        "W",
-        "W",
-        "W",
-        "L"
+        "W"
       ]
     },
     {
@@ -24840,19 +24799,19 @@
       "name": "West Bromwich Albion",
       "shortName": "West Bromwich Albion",
       "code": "WES",
-      "played": 16,
-      "won": 8,
+      "played": 17,
+      "won": 9,
       "drawn": 5,
       "lost": 3,
-      "goalsFor": 25,
-      "goalsAgainst": 17,
-      "points": 29,
+      "goalsFor": 28,
+      "goalsAgainst": 18,
+      "points": 32,
       "form": [
-        "D",
         "W",
         "D",
         "W",
-        "D"
+        "D",
+        "W"
       ]
     },
     {
@@ -24956,6 +24915,26 @@
       ]
     },
     {
+      "teamId": "championship.blackburn-rovers",
+      "name": "Blackburn Rovers",
+      "shortName": "Blackburn Rovers",
+      "code": "BLA",
+      "played": 17,
+      "won": 7,
+      "drawn": 4,
+      "lost": 6,
+      "goalsFor": 25,
+      "goalsAgainst": 25,
+      "points": 25,
+      "form": [
+        "L",
+        "L",
+        "W",
+        "D",
+        "W"
+      ]
+    },
+    {
       "teamId": "championship.west-ham-united",
       "name": "West Ham United",
       "shortName": "West Ham United",
@@ -24973,26 +24952,6 @@
         "L",
         "D",
         "L"
-      ]
-    },
-    {
-      "teamId": "championship.blackburn-rovers",
-      "name": "Blackburn Rovers",
-      "shortName": "Blackburn Rovers",
-      "code": "BLA",
-      "played": 16,
-      "won": 6,
-      "drawn": 4,
-      "lost": 6,
-      "goalsFor": 24,
-      "goalsAgainst": 25,
-      "points": 22,
-      "form": [
-        "W",
-        "L",
-        "L",
-        "W",
-        "D"
       ]
     },
     {
@@ -25080,16 +25039,16 @@
       "name": "Millwall",
       "shortName": "Millwall",
       "code": "MIL",
-      "played": 16,
+      "played": 17,
       "won": 5,
       "drawn": 3,
-      "lost": 8,
-      "goalsFor": 23,
-      "goalsAgainst": 28,
+      "lost": 9,
+      "goalsFor": 24,
+      "goalsAgainst": 30,
       "points": 18,
       "form": [
-        "L",
         "W",
+        "L",
         "L",
         "L",
         "L"
@@ -25100,19 +25059,19 @@
       "name": "Bolton Wanderers",
       "shortName": "Bolton Wanderers",
       "code": "BOL",
-      "played": 16,
+      "played": 17,
       "won": 5,
       "drawn": 3,
-      "lost": 8,
-      "goalsFor": 21,
-      "goalsAgainst": 30,
+      "lost": 9,
+      "goalsFor": 22,
+      "goalsAgainst": 33,
       "points": 18,
       "form": [
         "L",
-        "L",
         "W",
         "L",
-        "D"
+        "D",
+        "L"
       ]
     },
     {
@@ -25120,18 +25079,18 @@
       "name": "Watford",
       "shortName": "Watford",
       "code": "WAT",
-      "played": 16,
+      "played": 17,
       "won": 4,
       "drawn": 3,
-      "lost": 9,
+      "lost": 10,
       "goalsFor": 13,
-      "goalsAgainst": 27,
+      "goalsAgainst": 28,
       "points": 15,
       "form": [
         "L",
-        "L",
         "W",
         "D",
+        "L",
         "L"
       ]
     },
@@ -25180,19 +25139,19 @@
       "name": "Burnley",
       "shortName": "Burnley",
       "code": "BUR",
-      "played": 16,
+      "played": 17,
       "won": 1,
       "drawn": 8,
-      "lost": 7,
+      "lost": 8,
       "goalsFor": 24,
-      "goalsAgainst": 33,
+      "goalsAgainst": 35,
       "points": 11,
       "form": [
-        "L",
         "D",
         "D",
         "L",
-        "D"
+        "D",
+        "L"
       ]
     },
     {

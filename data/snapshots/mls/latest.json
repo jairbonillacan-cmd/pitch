@@ -5,7 +5,7 @@
   "season": "mls-2026",
   "seasonLabel": "2026",
   "periodLabel": "League phase",
-  "updatedAt": "2026-11-25T20:23:50.754Z",
+  "updatedAt": "2026-11-26T20:00:11.075Z",
   "source": "pitchlab-football-v2",
   "provenance": "derived",
   "isDemo": false,
@@ -18,8 +18,8 @@
       "forPerGame": 0.75,
       "againstPerGame": 1.9,
       "gamesPlayed": 20,
-      "adjustedFor": 0.9119280392917593,
-      "adjustedAgainst": 1.5507727452600404
+      "adjustedFor": 0.9123447642392045,
+      "adjustedAgainst": 1.550779846147323
     },
     "mls.toronto": {
       "teamId": "mls.toronto",
@@ -29,8 +29,8 @@
       "forPerGame": 1.5,
       "againstPerGame": 1.9,
       "gamesPlayed": 20,
-      "adjustedFor": 1.4299885077267445,
-      "adjustedAgainst": 1.5784062983587053
+      "adjustedFor": 1.429952085499693,
+      "adjustedAgainst": 1.5783562637118471
     },
     "mls.st-louis-city": {
       "teamId": "mls.st-louis-city",
@@ -40,8 +40,8 @@
       "forPerGame": 2.1904761904761907,
       "againstPerGame": 1.4285714285714286,
       "gamesPlayed": 21,
-      "adjustedFor": 1.7373147638776298,
-      "adjustedAgainst": 1.3573445532732833
+      "adjustedFor": 1.7371676095525475,
+      "adjustedAgainst": 1.3573931335291152
     },
     "mls.sporting-kansas-city": {
       "teamId": "mls.sporting-kansas-city",
@@ -51,8 +51,8 @@
       "forPerGame": 1.3,
       "againstPerGame": 2.25,
       "gamesPlayed": 20,
-      "adjustedFor": 1.2739891047730265,
-      "adjustedAgainst": 1.801631886059169
+      "adjustedFor": 1.274128676515566,
+      "adjustedAgainst": 1.8013514048954098
     },
     "mls.chicago-fire": {
       "teamId": "mls.chicago-fire",
@@ -62,8 +62,8 @@
       "forPerGame": 1.8095238095238095,
       "againstPerGame": 1.9047619047619047,
       "gamesPlayed": 21,
-      "adjustedFor": 1.6273937852786116,
-      "adjustedAgainst": 1.523749674172369
+      "adjustedFor": 1.6271934344047587,
+      "adjustedAgainst": 1.5237875470588662
     },
     "mls.vancouver-whitecaps": {
       "teamId": "mls.vancouver-whitecaps",
@@ -73,8 +73,8 @@
       "forPerGame": 2,
       "againstPerGame": 1.0476190476190477,
       "gamesPlayed": 21,
-      "adjustedFor": 1.6463076971418953,
-      "adjustedAgainst": 1.1030195913933278
+      "adjustedFor": 1.6462214941863316,
+      "adjustedAgainst": 1.103258495135618
     },
     "mls.seattle-sounders": {
       "teamId": "mls.seattle-sounders",
@@ -84,8 +84,8 @@
       "forPerGame": 1.2727272727272727,
       "againstPerGame": 1.6363636363636365,
       "gamesPlayed": 22,
-      "adjustedFor": 1.2039857349321035,
-      "adjustedAgainst": 1.450767871656806
+      "adjustedFor": 1.204192509980315,
+      "adjustedAgainst": 1.4507612094187166
     },
     "mls.portland-timbers": {
       "teamId": "mls.portland-timbers",
@@ -95,8 +95,8 @@
       "forPerGame": 1.9047619047619047,
       "againstPerGame": 1.7142857142857142,
       "gamesPlayed": 21,
-      "adjustedFor": 1.5674504512894707,
-      "adjustedAgainst": 1.5134886487342143
+      "adjustedFor": 1.5674152198537326,
+      "adjustedAgainst": 1.513424303372544
     },
     "mls.nashville": {
       "teamId": "mls.nashville",
@@ -106,8 +106,8 @@
       "forPerGame": 1.9047619047619047,
       "againstPerGame": 0.7142857142857143,
       "gamesPlayed": 21,
-      "adjustedFor": 1.548995856150737,
-      "adjustedAgainst": 0.8652381556309553
+      "adjustedFor": 1.5489626085357824,
+      "adjustedAgainst": 0.8657112846821491
     },
     "mls.atlanta-united": {
       "teamId": "mls.atlanta-united",
@@ -117,8 +117,8 @@
       "forPerGame": 1.45,
       "againstPerGame": 1.85,
       "gamesPlayed": 20,
-      "adjustedFor": 1.3310324891682443,
-      "adjustedAgainst": 1.5222920677499103
+      "adjustedFor": 1.3311248707089045,
+      "adjustedAgainst": 1.5223010461558377
     },
     "mls.la-galaxy": {
       "teamId": "mls.la-galaxy",
@@ -128,8 +128,8 @@
       "forPerGame": 1.4736842105263157,
       "againstPerGame": 1.8421052631578947,
       "gamesPlayed": 19,
-      "adjustedFor": 1.3569354231351773,
-      "adjustedAgainst": 1.617193048505405
+      "adjustedFor": 1.357047348789232,
+      "adjustedAgainst": 1.617004625265361
     },
     "mls.los-angeles": {
       "teamId": "mls.los-angeles",
@@ -139,8 +139,8 @@
       "forPerGame": 1.5,
       "againstPerGame": 1.3,
       "gamesPlayed": 20,
-      "adjustedFor": 1.3194669189239567,
-      "adjustedAgainst": 1.2853056650779284
+      "adjustedFor": 1.3196285021949152,
+      "adjustedAgainst": 1.285407891295112
     },
     "mls.new-england-revolution": {
       "teamId": "mls.new-england-revolution",
@@ -150,8 +150,8 @@
       "forPerGame": 1.6666666666666667,
       "againstPerGame": 1.380952380952381,
       "gamesPlayed": 21,
-      "adjustedFor": 1.4569870957231286,
-      "adjustedAgainst": 1.2563755846957645
+      "adjustedFor": 1.4569776434691404,
+      "adjustedAgainst": 1.2565671378789631
     },
     "mls.philadelphia-union": {
       "teamId": "mls.philadelphia-union",
@@ -161,8 +161,8 @@
       "forPerGame": 2.4,
       "againstPerGame": 1.2,
       "gamesPlayed": 20,
-      "adjustedFor": 1.869263059501981,
-      "adjustedAgainst": 1.1820264623199779
+      "adjustedFor": 1.8689467449197978,
+      "adjustedAgainst": 1.182262560887181
     },
     "mls.new-york-red-bulls": {
       "teamId": "mls.new-york-red-bulls",
@@ -172,8 +172,8 @@
       "forPerGame": 1.2105263157894737,
       "againstPerGame": 1.5789473684210527,
       "gamesPlayed": 19,
-      "adjustedFor": 1.225707184141901,
-      "adjustedAgainst": 1.3449978302656922
+      "adjustedFor": 1.225865916502943,
+      "adjustedAgainst": 1.3451424271773083
     },
     "mls.columbus-crew": {
       "teamId": "mls.columbus-crew",
@@ -183,8 +183,8 @@
       "forPerGame": 2.05,
       "againstPerGame": 1.45,
       "gamesPlayed": 20,
-      "adjustedFor": 1.726469684946691,
-      "adjustedAgainst": 1.2867586117992058
+      "adjustedFor": 1.7262367984370872,
+      "adjustedAgainst": 1.2869305207233541
     },
     "mls.new-york-city": {
       "teamId": "mls.new-york-city",
@@ -194,8 +194,8 @@
       "forPerGame": 1.263157894736842,
       "againstPerGame": 1.263157894736842,
       "gamesPlayed": 19,
-      "adjustedFor": 1.2110003342120572,
-      "adjustedAgainst": 1.1823679540409362
+      "adjustedFor": 1.2111863856737748,
+      "adjustedAgainst": 1.1826278459644024
     },
     "mls.cincinnati": {
       "teamId": "mls.cincinnati",
@@ -205,8 +205,8 @@
       "forPerGame": 1.6666666666666667,
       "againstPerGame": 1.8571428571428572,
       "gamesPlayed": 21,
-      "adjustedFor": 1.5459764095273343,
-      "adjustedAgainst": 1.504359718154702
+      "adjustedFor": 1.5458190130339102,
+      "adjustedAgainst": 1.5043770960631397
     },
     "mls.inter-miami": {
       "teamId": "mls.inter-miami",
@@ -216,8 +216,8 @@
       "forPerGame": 2.05,
       "againstPerGame": 1.7,
       "gamesPlayed": 20,
-      "adjustedFor": 1.7035410805714575,
-      "adjustedAgainst": 1.4743126104602755
+      "adjustedFor": 1.7032944744182252,
+      "adjustedAgainst": 1.4743455322799057
     },
     "mls.charlotte": {
       "teamId": "mls.charlotte",
@@ -227,8 +227,8 @@
       "forPerGame": 2.2,
       "againstPerGame": 1.45,
       "gamesPlayed": 20,
-      "adjustedFor": 1.7993485723711231,
-      "adjustedAgainst": 1.2906358917106167
+      "adjustedFor": 1.7990774914008296,
+      "adjustedAgainst": 1.2908050630343986
     },
     "mls.houston-dynamo": {
       "teamId": "mls.houston-dynamo",
@@ -238,8 +238,8 @@
       "forPerGame": 1.1904761904761905,
       "againstPerGame": 1.0476190476190477,
       "gamesPlayed": 21,
-      "adjustedFor": 1.1002298543938804,
-      "adjustedAgainst": 1.0754956086154792
+      "adjustedFor": 1.1005555910012965,
+      "adjustedAgainst": 1.0757915879256914
     },
     "mls.dc-united": {
       "teamId": "mls.dc-united",
@@ -249,8 +249,8 @@
       "forPerGame": 0.9473684210526315,
       "againstPerGame": 1.894736842105263,
       "gamesPlayed": 19,
-      "adjustedFor": 1.0365770233823026,
-      "adjustedAgainst": 1.5557057618783572
+      "adjustedFor": 1.0368945932816325,
+      "adjustedAgainst": 1.5557004814817776
     },
     "mls.minnesota-united": {
       "teamId": "mls.minnesota-united",
@@ -260,8 +260,8 @@
       "forPerGame": 2,
       "againstPerGame": 1.894736842105263,
       "gamesPlayed": 19,
-      "adjustedFor": 1.6479307180876588,
-      "adjustedAgainst": 1.6428703580720803
+      "adjustedFor": 1.647824434398499,
+      "adjustedAgainst": 1.6426619887278844
     },
     "mls.colorado-rapids": {
       "teamId": "mls.colorado-rapids",
@@ -271,8 +271,8 @@
       "forPerGame": 1.1578947368421053,
       "againstPerGame": 1.368421052631579,
       "gamesPlayed": 19,
-      "adjustedFor": 1.0980030147806084,
-      "adjustedAgainst": 1.324417081571579
+      "adjustedFor": 1.098338389503605,
+      "adjustedAgainst": 1.3245126055488514
     },
     "mls.san-diego": {
       "teamId": "mls.san-diego",
@@ -282,8 +282,8 @@
       "forPerGame": 1.4210526315789473,
       "againstPerGame": 1.894736842105263,
       "gamesPlayed": 19,
-      "adjustedFor": 1.3144868437363988,
-      "adjustedAgainst": 1.5921168139519881
+      "adjustedFor": 1.3146348395394727,
+      "adjustedAgainst": 1.592008803224654
     },
     "mls.austin": {
       "teamId": "mls.austin",
@@ -293,8 +293,8 @@
       "forPerGame": 1.2105263157894737,
       "againstPerGame": 1.7894736842105263,
       "gamesPlayed": 19,
-      "adjustedFor": 1.1996412143936297,
-      "adjustedAgainst": 1.5777117718030715
+      "adjustedFor": 1.1998534133662577,
+      "adjustedAgainst": 1.5775756966657402
     },
     "mls.dallas": {
       "teamId": "mls.dallas",
@@ -304,8 +304,8 @@
       "forPerGame": 1.75,
       "againstPerGame": 1.45,
       "gamesPlayed": 20,
-      "adjustedFor": 1.4856787159812752,
-      "adjustedAgainst": 1.3019393911372314
+      "adjustedFor": 1.4857205001198885,
+      "adjustedAgainst": 1.302054322484775
     },
     "mls.san-jose-earthquakes": {
       "teamId": "mls.san-jose-earthquakes",
@@ -315,8 +315,8 @@
       "forPerGame": 1.25,
       "againstPerGame": 1.85,
       "gamesPlayed": 20,
-      "adjustedFor": 1.220916381723038,
-      "adjustedAgainst": 1.6058349570896653
+      "adjustedFor": 1.2211099001620787,
+      "adjustedAgainst": 1.6056692614591088
     },
     "mls.orlando-city": {
       "teamId": "mls.orlando-city",
@@ -326,8 +326,8 @@
       "forPerGame": 2.05,
       "againstPerGame": 1.85,
       "gamesPlayed": 20,
-      "adjustedFor": 1.681132949475578,
-      "adjustedAgainst": 1.5543503576853663
+      "adjustedFor": 1.6809465287561207,
+      "adjustedAgainst": 1.554343403587063
     },
     "mls.real-salt-lake": {
       "teamId": "mls.real-salt-lake",
@@ -337,8 +337,8 @@
       "forPerGame": 1.2727272727272727,
       "againstPerGame": 1.6363636363636365,
       "gamesPlayed": 22,
-      "adjustedFor": 1.2404864593731058,
-      "adjustedAgainst": 1.4028468132017502
+      "adjustedFor": 1.2406657350877772,
+      "adjustedAgainst": 1.4028841329944672
     }
   },
   "games": [
@@ -372,7 +372,7 @@
       "result": {
         "home": 3,
         "away": 1,
-        "observedAt": "2026-11-25T20:23:50.754Z",
+        "observedAt": "2026-11-26T20:00:11.075Z",
         "source": "pitchlab-feed"
       }
     },
@@ -406,7 +406,7 @@
       "result": {
         "home": 0,
         "away": 1,
-        "observedAt": "2026-11-25T20:23:50.754Z",
+        "observedAt": "2026-11-26T20:00:11.075Z",
         "source": "pitchlab-feed"
       }
     },
@@ -440,7 +440,7 @@
       "result": {
         "home": 0,
         "away": 2,
-        "observedAt": "2026-11-25T20:23:50.754Z",
+        "observedAt": "2026-11-26T20:00:11.075Z",
         "source": "pitchlab-feed"
       }
     },
@@ -474,7 +474,7 @@
       "result": {
         "home": 3,
         "away": 1,
-        "observedAt": "2026-11-25T20:23:50.754Z",
+        "observedAt": "2026-11-26T20:00:11.075Z",
         "source": "pitchlab-feed"
       }
     },
@@ -508,7 +508,7 @@
       "result": {
         "home": 2,
         "away": 1,
-        "observedAt": "2026-11-25T20:23:50.754Z",
+        "observedAt": "2026-11-26T20:00:11.075Z",
         "source": "pitchlab-feed"
       }
     },
@@ -542,7 +542,7 @@
       "result": {
         "home": 2,
         "away": 1,
-        "observedAt": "2026-11-25T20:23:50.754Z",
+        "observedAt": "2026-11-26T20:00:11.075Z",
         "source": "pitchlab-feed"
       }
     },
@@ -577,7 +577,7 @@
       "result": {
         "home": 1,
         "away": 3,
-        "observedAt": "2026-11-25T20:23:50.754Z",
+        "observedAt": "2026-11-26T20:00:11.075Z",
         "source": "pitchlab-feed"
       }
     },
@@ -612,7 +612,7 @@
       "result": {
         "home": 1,
         "away": 1,
-        "observedAt": "2026-11-25T20:23:50.754Z",
+        "observedAt": "2026-11-26T20:00:11.075Z",
         "source": "pitchlab-feed"
       }
     },
@@ -646,7 +646,7 @@
       "result": {
         "home": 2,
         "away": 0,
-        "observedAt": "2026-11-25T20:23:50.754Z",
+        "observedAt": "2026-11-26T20:00:11.075Z",
         "source": "pitchlab-feed"
       }
     },
@@ -680,7 +680,7 @@
       "result": {
         "home": 3,
         "away": 0,
-        "observedAt": "2026-11-25T20:23:50.754Z",
+        "observedAt": "2026-11-26T20:00:11.075Z",
         "source": "pitchlab-feed"
       }
     },
@@ -714,7 +714,7 @@
       "result": {
         "home": 0,
         "away": 3,
-        "observedAt": "2026-11-25T20:23:50.754Z",
+        "observedAt": "2026-11-26T20:00:11.075Z",
         "source": "pitchlab-feed"
       }
     },
@@ -748,7 +748,7 @@
       "result": {
         "home": 0,
         "away": 1,
-        "observedAt": "2026-11-25T20:23:50.754Z",
+        "observedAt": "2026-11-26T20:00:11.075Z",
         "source": "pitchlab-feed"
       }
     },
@@ -782,7 +782,7 @@
       "result": {
         "home": 1,
         "away": 2,
-        "observedAt": "2026-11-25T20:23:50.754Z",
+        "observedAt": "2026-11-26T20:00:11.075Z",
         "source": "pitchlab-feed"
       }
     },
@@ -816,7 +816,7 @@
       "result": {
         "home": 2,
         "away": 0,
-        "observedAt": "2026-11-25T20:23:50.754Z",
+        "observedAt": "2026-11-26T20:00:11.075Z",
         "source": "pitchlab-feed"
       }
     },
@@ -850,7 +850,7 @@
       "result": {
         "home": 3,
         "away": 2,
-        "observedAt": "2026-11-25T20:23:50.754Z",
+        "observedAt": "2026-11-26T20:00:11.075Z",
         "source": "pitchlab-feed"
       }
     },
@@ -858,9 +858,9 @@
       "id": "mls-2026-11-25-san-jose-earth-houston-dynamo-gh3odc",
       "league": "mls",
       "season": "mls-2026",
-      "round": "Round 1",
-      "phase": "Round 1",
-      "startTime": "2026-11-25T03:00:00.000Z",
+      "round": "League phase",
+      "phase": "League phase",
+      "startTime": "2026-11-25T03:30:00.000Z",
       "status": "final",
       "home": {
         "id": "mls.san-jose-earthquakes",
@@ -884,7 +884,7 @@
       "result": {
         "home": 2,
         "away": 1,
-        "observedAt": "2026-11-25T20:23:50.754Z",
+        "observedAt": "2026-11-26T20:00:11.075Z",
         "source": "pitchlab-feed"
       }
     },
@@ -6834,7 +6834,7 @@
           "home": 2,
           "away": 0
         },
-        "stageName": "Round 1",
+        "stageName": "League phase",
         "venueCity": "San Jose",
         "venueCountry": "USA",
         "venueCapacity": 18000

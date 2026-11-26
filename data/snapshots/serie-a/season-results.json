@@ -2,35 +2,13 @@
   "schemaVersion": 1,
   "league": "serie-a",
   "season": "serie-a-2026-27",
-  "updatedAt": "2026-11-25T20:29:53.678Z",
+  "updatedAt": "2026-11-26T20:07:51.050Z",
   "matches": [
     {
-      "id": "serie-a-espn-401874931",
+      "id": "serie-a:2026-27:genoa-cfc:napoli",
       "date": "2026-08-22",
-      "startTime": "2026-08-22T16:30Z",
-      "round": null,
-      "homeTeam": "serie-a.internazionale-milano",
-      "awayTeam": "serie-a.monza",
-      "homeScore": 4,
-      "awayScore": 1,
-      "neutralSite": false
-    },
-    {
-      "id": "serie-a-espn-401874745",
-      "date": "2026-08-22",
-      "startTime": "2026-08-22T16:30Z",
-      "round": null,
-      "homeTeam": "serie-a.udinese",
-      "awayTeam": "serie-a.como",
-      "homeScore": 1,
-      "awayScore": 1,
-      "neutralSite": false
-    },
-    {
-      "id": "serie-a-espn-401874929",
-      "date": "2026-08-22",
-      "startTime": "2026-08-22T18:45Z",
-      "round": null,
+      "startTime": "2026-08-22T12:00:00Z",
+      "round": "Jornada 1",
       "homeTeam": "serie-a.genoa-cfc",
       "awayTeam": "serie-a.napoli",
       "homeScore": 0,
@@ -38,13 +16,35 @@
       "neutralSite": false
     },
     {
-      "id": "serie-a-espn-401874747",
+      "id": "serie-a:2026-27:inter:monza",
       "date": "2026-08-22",
-      "startTime": "2026-08-22T18:45Z",
-      "round": null,
+      "startTime": "2026-08-22T12:00:00Z",
+      "round": "Jornada 1",
+      "homeTeam": "serie-a.internazionale-milano",
+      "awayTeam": "serie-a.monza",
+      "homeScore": 4,
+      "awayScore": 1,
+      "neutralSite": false
+    },
+    {
+      "id": "serie-a:2026-27:parma:cagliari",
+      "date": "2026-08-22",
+      "startTime": "2026-08-22T12:00:00Z",
+      "round": "Jornada 1",
       "homeTeam": "serie-a.parma",
       "awayTeam": "serie-a.cagliari",
       "homeScore": 0,
+      "awayScore": 1,
+      "neutralSite": false
+    },
+    {
+      "id": "serie-a:2026-27:udinese:como",
+      "date": "2026-08-22",
+      "startTime": "2026-08-22T12:00:00Z",
+      "round": "Jornada 1",
+      "homeTeam": "serie-a.udinese",
+      "awayTeam": "serie-a.como",
+      "homeScore": 1,
       "awayScore": 1,
       "neutralSite": false
     },

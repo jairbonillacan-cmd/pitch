@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "league": "liga-mx",
-  "observedAt": "2026-11-25T20:32:51.350Z",
+  "observedAt": "2026-11-26T20:09:11.214Z",
   "entries": [
     {
       "gameId": "mx-2026-j17-chivas-cruz-azul-401877047",
@@ -214,22 +214,22 @@
       "gameId": "mx-2026-lg-america-monterrey-401931996",
       "source": "polymarket",
       "unit": "usd",
-      "observedAt": "2026-11-25T20:32:51.350Z",
+      "observedAt": "2026-11-26T20:09:11.214Z",
       "outcomes": [
         {
           "side": "home",
-          "volume": 0,
-          "price": 0.45
+          "volume": 50.021823,
+          "price": 0.41
         },
         {
           "side": "draw",
-          "volume": 0,
-          "price": 0.495
+          "volume": 1023.8226080000001,
+          "price": 0.315
         },
         {
           "side": "away",
-          "volume": 0,
-          "price": 0.325
+          "volume": 272.34142899999995,
+          "price": 0.285
         }
       ]
     },
@@ -237,22 +237,68 @@
       "gameId": "mx-2026-lg-atlas-toluca-401931997",
       "source": "polymarket",
       "unit": "usd",
-      "observedAt": "2026-11-25T20:32:51.350Z",
+      "observedAt": "2026-11-26T20:09:11.214Z",
+      "outcomes": [
+        {
+          "side": "home",
+          "volume": 1621.6799999999998,
+          "price": 0.32
+        },
+        {
+          "side": "draw",
+          "volume": 847.7242000000001,
+          "price": 0.25
+        },
+        {
+          "side": "away",
+          "volume": 11860.870672,
+          "price": 0.415
+        }
+      ]
+    },
+    {
+      "gameId": "mx-2026-lg-chivas-pachuca-401931983",
+      "source": "polymarket",
+      "unit": "usd",
+      "observedAt": "2026-11-26T20:09:11.214Z",
       "outcomes": [
         {
           "side": "home",
           "volume": 0,
-          "price": 0.35
+          "price": 0.435
         },
         {
           "side": "draw",
           "volume": 0,
-          "price": 0.495
+          "price": 0.5
         },
         {
           "side": "away",
           "volume": 0,
-          "price": 0.43
+          "price": 0.34
+        }
+      ]
+    },
+    {
+      "gameId": "mx-2026-lg-cruz-azul-leon-401932000",
+      "source": "polymarket",
+      "unit": "usd",
+      "observedAt": "2026-11-26T20:09:11.214Z",
+      "outcomes": [
+        {
+          "side": "home",
+          "volume": 2180.615968,
+          "price": 0.565
+        },
+        {
+          "side": "draw",
+          "volume": 0,
+          "price": 0.205
+        },
+        {
+          "side": "away",
+          "volume": 0,
+          "price": 0.255
         }
       ]
     },
@@ -260,22 +306,22 @@
       "gameId": "mx-2026-lg-leon-cruz-azul-401931995",
       "source": "polymarket",
       "unit": "usd",
-      "observedAt": "2026-11-25T20:32:51.350Z",
+      "observedAt": "2026-11-26T20:09:11.214Z",
       "outcomes": [
         {
           "side": "home",
-          "volume": 0,
+          "volume": 20.000001,
           "price": 0.295
         },
         {
           "side": "draw",
-          "volume": 0,
+          "volume": 28.83,
           "price": 0.265
         },
         {
           "side": "away",
-          "volume": 70.56,
-          "price": 0.445
+          "volume": 1811.264541,
+          "price": 0.455
         }
       ]
     },
@@ -306,22 +352,22 @@
       "gameId": "mx-2026-lg-pachuca-chivas-401931982",
       "source": "polymarket",
       "unit": "usd",
-      "observedAt": "2026-11-25T20:32:51.350Z",
+      "observedAt": "2026-11-26T20:09:11.214Z",
       "outcomes": [
         {
           "side": "home",
-          "volume": 141.66666700000002,
-          "price": 0.355
+          "volume": 261.270403,
+          "price": 0.315
         },
         {
           "side": "draw",
-          "volume": 70,
-          "price": 0.285
+          "volume": 857,
+          "price": 0.295
         },
         {
           "side": "away",
-          "volume": 0,
-          "price": 0.365
+          "volume": 131.280586,
+          "price": 0.385
         }
       ]
     },

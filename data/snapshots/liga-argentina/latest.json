@@ -5,7 +5,7 @@
   "season": "liga-argentina-2026",
   "seasonLabel": "2026",
   "periodLabel": "Clausura, Group B · Matchday 16",
-  "updatedAt": "2026-11-25T20:23:50.754Z",
+  "updatedAt": "2026-11-26T20:00:11.075Z",
   "source": "pitchlab-football-v2",
   "provenance": "derived",
   "isDemo": false,
@@ -18,8 +18,8 @@
       "forPerGame": 1.4375,
       "againstPerGame": 1.5,
       "gamesPlayed": 16,
-      "adjustedFor": 1.1896817652543217,
-      "adjustedAgainst": 1.2356539290482018
+      "adjustedFor": 1.1847343651661146,
+      "adjustedAgainst": 1.2339822399396956
     },
     "liga-argentina.argentinos-juniors": {
       "teamId": "liga-argentina.argentinos-juniors",
@@ -29,8 +29,8 @@
       "forPerGame": 1.2352941176470589,
       "againstPerGame": 0.9411764705882353,
       "gamesPlayed": 17,
-      "adjustedFor": 1.0816869865595207,
-      "adjustedAgainst": 0.9288024418087784
+      "adjustedFor": 1.0768798936961852,
+      "adjustedAgainst": 0.9272072002460938
     },
     "liga-argentina.atletico-belgrano": {
       "teamId": "liga-argentina.atletico-belgrano",
@@ -40,8 +40,8 @@
       "forPerGame": 1.0588235294117647,
       "againstPerGame": 0.9411764705882353,
       "gamesPlayed": 17,
-      "adjustedFor": 0.9918436556607921,
-      "adjustedAgainst": 0.9250073735746938
+      "adjustedFor": 0.9876622556576996,
+      "adjustedAgainst": 0.9232511296314274
     },
     "liga-argentina.rosario-central": {
       "teamId": "liga-argentina.rosario-central",
@@ -51,8 +51,8 @@
       "forPerGame": 1.7058823529411764,
       "againstPerGame": 0.7647058823529411,
       "gamesPlayed": 17,
-      "adjustedFor": 1.3751777184675864,
-      "adjustedAgainst": 0.8352821250300532
+      "adjustedFor": 1.3692156294870967,
+      "adjustedAgainst": 0.83391067689494
     },
     "liga-argentina.defensa-y-justicia": {
       "teamId": "liga-argentina.defensa-y-justicia",
@@ -62,8 +62,8 @@
       "forPerGame": 1.2352941176470589,
       "againstPerGame": 0.9411764705882353,
       "gamesPlayed": 17,
-      "adjustedFor": 1.099866794537011,
-      "adjustedAgainst": 0.9246212451015147
+      "adjustedFor": 1.097961591603067,
+      "adjustedAgainst": 0.9207442485392434
     },
     "liga-argentina.aldosivi": {
       "teamId": "liga-argentina.aldosivi",
@@ -73,8 +73,8 @@
       "forPerGame": 1,
       "againstPerGame": 1.625,
       "gamesPlayed": 16,
-      "adjustedFor": 0.9588367060220988,
-      "adjustedAgainst": 1.3117775739475979
+      "adjustedFor": 0.9544836648571924,
+      "adjustedAgainst": 1.310508497139166
     },
     "liga-argentina.gimnasia-y-esgrima-mendoza": {
       "teamId": "liga-argentina.gimnasia-y-esgrima-mendoza",
@@ -84,8 +84,8 @@
       "forPerGame": 1.1176470588235294,
       "againstPerGame": 1.1764705882352942,
       "gamesPlayed": 17,
-      "adjustedFor": 1.0272063806495533,
-      "adjustedAgainst": 1.0431997032473037
+      "adjustedFor": 1.0251822503625891,
+      "adjustedAgainst": 1.0403137557129067
     },
     "liga-argentina.central-cordoba": {
       "teamId": "liga-argentina.central-cordoba",
@@ -95,8 +95,8 @@
       "forPerGame": 0.75,
       "againstPerGame": 1.625,
       "gamesPlayed": 16,
-      "adjustedFor": 0.8447149748147026,
-      "adjustedAgainst": 1.3356547166868238
+      "adjustedFor": 0.8430476212821537,
+      "adjustedAgainst": 1.330488897084676
     },
     "liga-argentina.velez-sarsfield": {
       "teamId": "liga-argentina.velez-sarsfield",
@@ -106,8 +106,8 @@
       "forPerGame": 1.5294117647058822,
       "againstPerGame": 1.0588235294117647,
       "gamesPlayed": 17,
-      "adjustedFor": 1.2961952839354385,
-      "adjustedAgainst": 1.0175335201794105
+      "adjustedFor": 1.2938942477295232,
+      "adjustedAgainst": 1.0134543205113855
     },
     "liga-argentina.instituto-cordoba": {
       "teamId": "liga-argentina.instituto-cordoba",
@@ -117,8 +117,8 @@
       "forPerGame": 1.6470588235294117,
       "againstPerGame": 0.9411764705882353,
       "gamesPlayed": 17,
-      "adjustedFor": 1.3614494173889822,
-      "adjustedAgainst": 0.9707577220045258
+      "adjustedFor": 1.359473973675662,
+      "adjustedAgainst": 0.9668223759267252
     },
     "liga-argentina.racing": {
       "teamId": "liga-argentina.racing",
@@ -128,8 +128,8 @@
       "forPerGame": 1,
       "againstPerGame": 1.5,
       "gamesPlayed": 16,
-      "adjustedFor": 0.9638458824395625,
-      "adjustedAgainst": 1.2484447469945898
+      "adjustedFor": 0.9606491699358825,
+      "adjustedAgainst": 1.2470467682886435
     },
     "liga-argentina.gimnasia-y-esgrima": {
       "teamId": "liga-argentina.gimnasia-y-esgrima",
@@ -139,8 +139,8 @@
       "forPerGame": 1.588235294117647,
       "againstPerGame": 1.2941176470588236,
       "gamesPlayed": 17,
-      "adjustedFor": 1.3124410133718745,
-      "adjustedAgainst": 1.1437502130824886
+      "adjustedFor": 1.3069550532211343,
+      "adjustedAgainst": 1.1425501579264938
     },
     "liga-argentina.huracan": {
       "teamId": "liga-argentina.huracan",
@@ -150,8 +150,8 @@
       "forPerGame": 0.8823529411764706,
       "againstPerGame": 1.0588235294117647,
       "gamesPlayed": 17,
-      "adjustedFor": 0.8914400686528743,
-      "adjustedAgainst": 1.0018326293714945
+      "adjustedFor": 0.8873924649317314,
+      "adjustedAgainst": 1.0001517761893588
     },
     "liga-argentina.banfield": {
       "teamId": "liga-argentina.banfield",
@@ -161,8 +161,8 @@
       "forPerGame": 1.125,
       "againstPerGame": 1.5625,
       "gamesPlayed": 16,
-      "adjustedFor": 1.0610310489674846,
-      "adjustedAgainst": 1.2943209783701615
+      "adjustedFor": 1.056465905242699,
+      "adjustedAgainst": 1.2933369504158716
     },
     "liga-argentina.atletico-platense": {
       "teamId": "liga-argentina.atletico-platense",
@@ -172,8 +172,8 @@
       "forPerGame": 1.125,
       "againstPerGame": 1.25,
       "gamesPlayed": 16,
-      "adjustedFor": 1.0648207634232747,
-      "adjustedAgainst": 1.089046908465107
+      "adjustedFor": 1.063146542782879,
+      "adjustedAgainst": 1.0846764540657572
     },
     "liga-argentina.atletico-union-santa-fe": {
       "teamId": "liga-argentina.atletico-union-santa-fe",
@@ -183,8 +183,8 @@
       "forPerGame": 1.5,
       "againstPerGame": 1.5,
       "gamesPlayed": 16,
-      "adjustedFor": 1.2475346768578621,
-      "adjustedAgainst": 1.2481717134382624
+      "adjustedFor": 1.2455156786898718,
+      "adjustedAgainst": 1.2433842577399565
     },
     "liga-argentina.estudiantes-rio-cuarto": {
       "teamId": "liga-argentina.estudiantes-rio-cuarto",
@@ -194,8 +194,8 @@
       "forPerGame": 0.625,
       "againstPerGame": 1.4375,
       "gamesPlayed": 16,
-      "adjustedFor": 0.7560574664739779,
-      "adjustedAgainst": 1.2034939528832402
+      "adjustedFor": 0.7523226226118175,
+      "adjustedAgainst": 1.201940342536151
     },
     "liga-argentina.tigre": {
       "teamId": "liga-argentina.tigre",
@@ -205,8 +205,8 @@
       "forPerGame": 1,
       "againstPerGame": 1,
       "gamesPlayed": 16,
-      "adjustedFor": 0.9511484409279808,
-      "adjustedAgainst": 0.9633768697229036
+      "adjustedFor": 0.9468933774134004,
+      "adjustedAgainst": 0.9622391875158816
     },
     "liga-argentina.newell-s-old-boys": {
       "teamId": "liga-argentina.newell-s-old-boys",
@@ -216,8 +216,8 @@
       "forPerGame": 1.0588235294117647,
       "againstPerGame": 0.8823529411764706,
       "gamesPlayed": 17,
-      "adjustedFor": 0.9957661636693788,
-      "adjustedAgainst": 0.8696889737535621
+      "adjustedFor": 0.9939210038198162,
+      "adjustedAgainst": 0.8660210017093942
     },
     "liga-argentina.talleres": {
       "teamId": "liga-argentina.talleres",
@@ -227,8 +227,8 @@
       "forPerGame": 1.0625,
       "againstPerGame": 1.4375,
       "gamesPlayed": 16,
-      "adjustedFor": 1.0182549339474534,
-      "adjustedAgainst": 1.1980866183644177
+      "adjustedFor": 1.0163684049750652,
+      "adjustedAgainst": 1.19356323409542
     },
     "liga-argentina.river-plate": {
       "teamId": "liga-argentina.river-plate",
@@ -238,8 +238,8 @@
       "forPerGame": 1.411764705882353,
       "againstPerGame": 0.8823529411764706,
       "gamesPlayed": 17,
-      "adjustedFor": 1.217189044410583,
-      "adjustedAgainst": 0.8754182491275698
+      "adjustedFor": 1.213587298395753,
+      "adjustedAgainst": 0.8736659344267602
     },
     "liga-argentina.barracas-central": {
       "teamId": "liga-argentina.barracas-central",
@@ -249,8 +249,8 @@
       "forPerGame": 1.0588235294117647,
       "againstPerGame": 0.7647058823529411,
       "gamesPlayed": 17,
-      "adjustedFor": 1.0029858998974222,
-      "adjustedAgainst": 0.8271514195196011
+      "adjustedFor": 0.998568996314412,
+      "adjustedAgainst": 0.8255848831559893
     },
     "liga-argentina.lanus": {
       "teamId": "liga-argentina.lanus",
@@ -260,8 +260,8 @@
       "forPerGame": 1.1764705882352942,
       "againstPerGame": 0.8823529411764706,
       "gamesPlayed": 17,
-      "adjustedFor": 1.074847942704338,
-      "adjustedAgainst": 0.885755479649519
+      "adjustedFor": 1.0729626125684681,
+      "adjustedAgainst": 0.8819641478280652
     },
     "liga-argentina.san-lorenzo": {
       "teamId": "liga-argentina.san-lorenzo",
@@ -271,8 +271,8 @@
       "forPerGame": 0.5625,
       "againstPerGame": 1,
       "gamesPlayed": 16,
-      "adjustedFor": 0.7228914841771562,
-      "adjustedAgainst": 0.97353893473508
+      "adjustedFor": 0.7214424657677982,
+      "adjustedAgainst": 0.969451179487617
     },
     "liga-argentina.atletico-tucuman": {
       "teamId": "liga-argentina.atletico-tucuman",
@@ -282,19 +282,19 @@
       "forPerGame": 1,
       "againstPerGame": 1.0625,
       "gamesPlayed": 16,
-      "adjustedFor": 0.967365942845973,
-      "adjustedAgainst": 1.0167464008671137
+      "adjustedFor": 0.9631157998294907,
+      "adjustedAgainst": 1.015249778896226
     },
     "liga-argentina.independiente-rivadavia": {
       "teamId": "liga-argentina.independiente-rivadavia",
       "name": "Independiente Rivadavia",
       "shortName": "Independiente Rivadavi",
       "code": "IND",
-      "forPerGame": 1.3125,
-      "againstPerGame": 1.5,
-      "gamesPlayed": 16,
-      "adjustedFor": 1.1524351725472712,
-      "adjustedAgainst": 1.252386365787803
+      "forPerGame": 1.2352941176470589,
+      "againstPerGame": 1.5294117647058822,
+      "gamesPlayed": 17,
+      "adjustedFor": 1.110923730848204,
+      "adjustedAgainst": 1.2573244279536986
     },
     "liga-argentina.estudiantes-la-plata": {
       "teamId": "liga-argentina.estudiantes-la-plata",
@@ -304,8 +304,8 @@
       "forPerGame": 1.3125,
       "againstPerGame": 1.375,
       "gamesPlayed": 16,
-      "adjustedFor": 1.1575472899643893,
-      "adjustedAgainst": 1.1758933470269708
+      "adjustedFor": 1.1555508926853735,
+      "adjustedAgainst": 1.1712212569674827
     },
     "liga-argentina.independiente": {
       "teamId": "liga-argentina.independiente",
@@ -315,8 +315,8 @@
       "forPerGame": 1,
       "againstPerGame": 1,
       "gamesPlayed": 17,
-      "adjustedFor": 0.9671894643710808,
-      "adjustedAgainst": 0.9586547474174707
+      "adjustedFor": 0.9654968726438312,
+      "adjustedAgainst": 0.9557166102971851
     },
     "liga-argentina.deportivo-riestra": {
       "teamId": "liga-argentina.deportivo-riestra",
@@ -326,57 +326,22 @@
       "forPerGame": 0.6875,
       "againstPerGame": 1.1875,
       "gamesPlayed": 16,
-      "adjustedFor": 0.7848564734770233,
-      "adjustedAgainst": 1.0805951946131334
+      "adjustedFor": 0.7832654946468339,
+      "adjustedAgainst": 1.0762834555451133
     },
     "liga-argentina.boca-juniors": {
       "teamId": "liga-argentina.boca-juniors",
       "name": "Boca Juniors",
       "shortName": "Boca Juniors",
       "code": "BOC",
-      "forPerGame": 1.5,
-      "againstPerGame": 0.875,
-      "gamesPlayed": 16,
-      "adjustedFor": 1.2560513599745322,
-      "adjustedAgainst": 0.8794968740959273
+      "forPerGame": 1.5294117647058822,
+      "againstPerGame": 0.8235294117647058,
+      "gamesPlayed": 17,
+      "adjustedFor": 1.2608508930852,
+      "adjustedAgainst": 0.8392565011420384
     }
   },
   "games": [
-    {
-      "id": "liga-argentina-2026-11-07-tigre-sarmiento-mrmd04",
-      "league": "liga-argentina",
-      "season": "liga-argentina-2026",
-      "week": 16,
-      "round": "Clausura, Group B · Matchday 16",
-      "phase": "Group stage",
-      "startTime": "2026-11-07T01:00:00.000Z",
-      "status": "final",
-      "home": {
-        "id": "liga-argentina.tigre",
-        "league": "liga-argentina",
-        "name": "Tigre",
-        "shortName": "Tigre",
-        "code": "TIG",
-        "logoUrl": "https://sports.bzzoiro.com/img/team/739/?bg=transparent"
-      },
-      "away": {
-        "id": "liga-argentina.sarmiento",
-        "league": "liga-argentina",
-        "name": "Sarmiento",
-        "shortName": "Sarmiento",
-        "code": "SAR",
-        "logoUrl": "https://sports.bzzoiro.com/img/team/4999/?bg=transparent"
-      },
-      "venue": "Estadio Jose Dellagiovanna, Buenos Aires",
-      "referee": "Gonzalo Pereira",
-      "neutralSite": false,
-      "result": {
-        "home": 1,
-        "away": 0,
-        "observedAt": "2026-11-25T20:23:50.754Z",
-        "source": "pitchlab-feed"
-      }
-    },
     {
       "id": "liga-argentina-2026-11-07-banfield-atletico-tucum-3wzbw9",
       "league": "liga-argentina",
@@ -408,7 +373,7 @@
       "result": {
         "home": 2,
         "away": 2,
-        "observedAt": "2026-11-25T20:23:50.754Z",
+        "observedAt": "2026-11-26T20:00:11.075Z",
         "source": "pitchlab-feed"
       }
     },
@@ -443,7 +408,7 @@
       "result": {
         "home": 1,
         "away": 1,
-        "observedAt": "2026-11-25T20:23:50.754Z",
+        "observedAt": "2026-11-26T20:00:11.075Z",
         "source": "pitchlab-feed"
       }
     },
@@ -478,7 +443,7 @@
       "result": {
         "home": 1,
         "away": 1,
-        "observedAt": "2026-11-25T20:23:50.754Z",
+        "observedAt": "2026-11-26T20:00:11.075Z",
         "source": "pitchlab-feed"
       }
     },
@@ -513,7 +478,7 @@
       "result": {
         "home": 2,
         "away": 0,
-        "observedAt": "2026-11-25T20:23:50.754Z",
+        "observedAt": "2026-11-26T20:00:11.075Z",
         "source": "pitchlab-feed"
       }
     },
@@ -548,7 +513,7 @@
       "result": {
         "home": 1,
         "away": 0,
-        "observedAt": "2026-11-25T20:23:50.754Z",
+        "observedAt": "2026-11-26T20:00:11.075Z",
         "source": "pitchlab-feed"
       }
     },
@@ -583,7 +548,7 @@
       "result": {
         "home": 0,
         "away": 2,
-        "observedAt": "2026-11-25T20:23:50.754Z",
+        "observedAt": "2026-11-26T20:00:11.075Z",
         "source": "pitchlab-feed"
       }
     },
@@ -618,7 +583,7 @@
       "result": {
         "home": 2,
         "away": 2,
-        "observedAt": "2026-11-25T20:23:50.754Z",
+        "observedAt": "2026-11-26T20:00:11.075Z",
         "source": "pitchlab-feed"
       }
     },
@@ -653,7 +618,7 @@
       "result": {
         "home": 1,
         "away": 1,
-        "observedAt": "2026-11-25T20:23:50.754Z",
+        "observedAt": "2026-11-26T20:00:11.075Z",
         "source": "pitchlab-feed"
       }
     },
@@ -688,7 +653,7 @@
       "result": {
         "home": 1,
         "away": 1,
-        "observedAt": "2026-11-25T20:23:50.754Z",
+        "observedAt": "2026-11-26T20:00:11.075Z",
         "source": "pitchlab-feed"
       }
     },
@@ -723,7 +688,7 @@
       "result": {
         "home": 0,
         "away": 1,
-        "observedAt": "2026-11-25T20:23:50.754Z",
+        "observedAt": "2026-11-26T20:00:11.075Z",
         "source": "pitchlab-feed"
       }
     },
@@ -758,7 +723,7 @@
       "result": {
         "home": 1,
         "away": 2,
-        "observedAt": "2026-11-25T20:23:50.754Z",
+        "observedAt": "2026-11-26T20:00:11.075Z",
         "source": "pitchlab-feed"
       }
     },
@@ -793,7 +758,7 @@
       "result": {
         "home": 3,
         "away": 1,
-        "observedAt": "2026-11-25T20:23:50.754Z",
+        "observedAt": "2026-11-26T20:00:11.075Z",
         "source": "pitchlab-feed"
       }
     },
@@ -828,7 +793,7 @@
       "result": {
         "home": 3,
         "away": 1,
-        "observedAt": "2026-11-25T20:23:50.754Z",
+        "observedAt": "2026-11-26T20:00:11.075Z",
         "source": "pitchlab-feed"
       }
     },
@@ -863,7 +828,7 @@
       "result": {
         "home": 2,
         "away": 1,
-        "observedAt": "2026-11-25T20:23:50.754Z",
+        "observedAt": "2026-11-26T20:00:11.075Z",
         "source": "pitchlab-feed"
       }
     },
@@ -898,7 +863,7 @@
       "result": {
         "home": 2,
         "away": 2,
-        "observedAt": "2026-11-25T20:23:50.754Z",
+        "observedAt": "2026-11-26T20:00:11.075Z",
         "source": "pitchlab-feed"
       }
     },
@@ -910,7 +875,7 @@
       "round": "Round of 16",
       "phase": "Round of 16",
       "startTime": "2026-11-26T00:00:00.000Z",
-      "status": "scheduled",
+      "status": "final",
       "home": {
         "id": "liga-argentina.boca-juniors",
         "league": "liga-argentina",
@@ -929,6 +894,40 @@
       },
       "venue": "Alberto Jose Armando, Buenos Aires",
       "referee": "Luis Lobo Medina",
+      "neutralSite": false,
+      "result": {
+        "home": 2,
+        "away": 0,
+        "observedAt": "2026-11-26T20:00:11.075Z",
+        "source": "pitchlab-feed"
+      }
+    },
+    {
+      "id": "liga-argentina-2026-11-29-boca-juniors-gimnasia-y-esg-tmdnlb",
+      "league": "liga-argentina",
+      "season": "liga-argentina-2026",
+      "week": 27,
+      "round": "Quarterfinals",
+      "phase": "Quarterfinals",
+      "startTime": "2026-11-29T22:00:00.000Z",
+      "status": "scheduled",
+      "home": {
+        "id": "liga-argentina.boca-juniors",
+        "league": "liga-argentina",
+        "name": "Boca Juniors",
+        "shortName": "Boca Juniors",
+        "code": "BOC",
+        "logoUrl": "https://sports.bzzoiro.com/img/team/780/?bg=transparent"
+      },
+      "away": {
+        "id": "liga-argentina.gimnasia-y-esgrima",
+        "league": "liga-argentina",
+        "name": "Gimnasia y Esgrima",
+        "shortName": "Gimnasia y Esgrima",
+        "code": "GIM",
+        "logoUrl": "https://sports.bzzoiro.com/img/team/4998/?bg=transparent"
+      },
+      "venue": "Alberto Jose Armando, Buenos Aires",
       "neutralSite": false
     },
     {
@@ -1017,457 +1016,6 @@
     }
   ],
   "analyses": {
-    "liga-argentina-2026-11-07-tigre-sarmiento-mrmd04": {
-      "game": "liga-argentina-2026-11-07-tigre-sarmiento-mrmd04",
-      "model": {
-        "id": "pitchlab-statistical-liga-argentina",
-        "version": "2.0.0",
-        "status": "candidate",
-        "label": "Modelo PitchLab · en validación"
-      },
-      "projection": {
-        "home": 1.4198548822731147,
-        "away": 1.1654196661616043,
-        "total": 2.585274548434719,
-        "margin": 0.25443521611151043
-      },
-      "x12": [
-        0.43034694894627085,
-        0.25849172207958765,
-        0.3111613289741414
-      ],
-      "probabilities": [
-        {
-          "market": "h2h",
-          "selection": "Tigre gana",
-          "p": 0.43034694894627085,
-          "fairOdds": 2.3237064941405006
-        },
-        {
-          "market": "h2h",
-          "selection": "Empate",
-          "p": 0.25849172207958765,
-          "fairOdds": 3.868595837247382
-        },
-        {
-          "market": "h2h",
-          "selection": "Sarmiento gana",
-          "p": 0.3111613289741414,
-          "fairOdds": 3.2137669655058696
-        },
-        {
-          "market": "double_chance",
-          "selection": "Tigre o empate",
-          "p": 0.6888386710258585,
-          "fairOdds": 1.451718729017844
-        },
-        {
-          "market": "double_chance",
-          "selection": "Sarmiento o empate",
-          "p": 0.569653051053729,
-          "fairOdds": 1.7554544790907847
-        },
-        {
-          "market": "double_chance",
-          "selection": "Sin empate",
-          "p": 0.7415082779204123,
-          "fairOdds": 1.3486026114294198
-        },
-        {
-          "market": "totals",
-          "selection": "Más de 1.5",
-          "line": 1.5,
-          "p": 0.7278875733904624,
-          "fairOdds": 1.3738385384738088
-        },
-        {
-          "market": "totals",
-          "selection": "Más de 2.5",
-          "line": 2.5,
-          "p": 0.47786723542788456,
-          "fairOdds": 2.092631437902612
-        },
-        {
-          "market": "totals",
-          "selection": "Menos de 2.5",
-          "line": 2.5,
-          "p": 0.5221327645721154,
-          "fairOdds": 1.9152216981048753
-        },
-        {
-          "market": "totals",
-          "selection": "Más de 3.5",
-          "line": 3.5,
-          "p": 0.26079791227453075,
-          "fairOdds": 3.8343865228006235
-        },
-        {
-          "market": "totals",
-          "selection": "Menos de 3.5",
-          "line": 3.5,
-          "p": 0.7392020877254692,
-          "fairOdds": 1.352810032067155
-        },
-        {
-          "market": "btts",
-          "selection": "Sí",
-          "p": 0.5199635493747558,
-          "fairOdds": 1.9232117351350437
-        },
-        {
-          "market": "btts",
-          "selection": "No",
-          "p": 0.48003645062524425,
-          "fairOdds": 2.083175139507649
-        },
-        {
-          "market": "team_totals",
-          "selection": "Tigre más de 1.5",
-          "line": 1.5,
-          "p": 0.41500207897654384,
-          "fairOdds": 2.409626482995331
-        },
-        {
-          "market": "team_totals",
-          "selection": "Tigre menos de 1.5",
-          "line": 1.5,
-          "p": 0.5849979210234562,
-          "fairOdds": 1.7094077843054487
-        },
-        {
-          "market": "team_totals",
-          "selection": "Sarmiento más de 1.5",
-          "line": 1.5,
-          "p": 0.3248399031737511,
-          "fairOdds": 3.0784395335357484
-        },
-        {
-          "market": "team_totals",
-          "selection": "Sarmiento menos de 1.5",
-          "line": 1.5,
-          "p": 0.6751600968262489,
-          "fairOdds": 1.4811301863080157
-        },
-        {
-          "market": "correct_score",
-          "selection": "1–1",
-          "p": 0.12285482639181336,
-          "fairOdds": 8.13968835714082
-        },
-        {
-          "market": "correct_score",
-          "selection": "1–0",
-          "p": 0.10889303031651092,
-          "fairOdds": 9.183324195252696
-        },
-        {
-          "market": "correct_score",
-          "selection": "0–1",
-          "p": 0.0897148714504192,
-          "fairOdds": 11.146424041332418
-        }
-      ],
-      "marketGroups": [
-        {
-          "group": "Resultado",
-          "rows": [
-            {
-              "market": "h2h",
-              "selection": "home",
-              "label": "Tigre gana",
-              "p": 0.43034694894627085,
-              "fairOdds": 2.3237064941405006
-            },
-            {
-              "market": "h2h",
-              "selection": "draw",
-              "label": "Empate",
-              "p": 0.25849172207958765,
-              "fairOdds": 3.868595837247382
-            },
-            {
-              "market": "h2h",
-              "selection": "away",
-              "label": "Sarmiento gana",
-              "p": 0.3111613289741414,
-              "fairOdds": 3.2137669655058696
-            }
-          ]
-        },
-        {
-          "group": "Doble oportunidad",
-          "rows": [
-            {
-              "market": "double_chance",
-              "selection": "1x",
-              "label": "Tigre o empate",
-              "p": 0.6888386710258585,
-              "fairOdds": 1.451718729017844
-            },
-            {
-              "market": "double_chance",
-              "selection": "x2",
-              "label": "Sarmiento o empate",
-              "p": 0.569653051053729,
-              "fairOdds": 1.7554544790907847
-            },
-            {
-              "market": "double_chance",
-              "selection": "12",
-              "label": "Sin empate",
-              "p": 0.7415082779204123,
-              "fairOdds": 1.3486026114294198
-            }
-          ]
-        },
-        {
-          "group": "Goles totales",
-          "rows": [
-            {
-              "market": "totals",
-              "selection": "over_1.5",
-              "label": "Más de 1.5",
-              "line": 1.5,
-              "p": 0.7278875733904624,
-              "fairOdds": 1.3738385384738088
-            },
-            {
-              "market": "totals",
-              "selection": "over_2.5",
-              "label": "Más de 2.5",
-              "line": 2.5,
-              "p": 0.47786723542788456,
-              "fairOdds": 2.092631437902612
-            },
-            {
-              "market": "totals",
-              "selection": "under_2.5",
-              "label": "Menos de 2.5",
-              "line": 2.5,
-              "p": 0.5221327645721154,
-              "fairOdds": 1.9152216981048753
-            },
-            {
-              "market": "totals",
-              "selection": "over_3.5",
-              "label": "Más de 3.5",
-              "line": 3.5,
-              "p": 0.26079791227453075,
-              "fairOdds": 3.8343865228006235
-            },
-            {
-              "market": "totals",
-              "selection": "under_3.5",
-              "label": "Menos de 3.5",
-              "line": 3.5,
-              "p": 0.7392020877254692,
-              "fairOdds": 1.352810032067155
-            }
-          ]
-        },
-        {
-          "group": "Ambos anotan",
-          "rows": [
-            {
-              "market": "btts",
-              "selection": "yes",
-              "label": "Sí",
-              "p": 0.5199635493747558,
-              "fairOdds": 1.9232117351350437
-            },
-            {
-              "market": "btts",
-              "selection": "no",
-              "label": "No",
-              "p": 0.48003645062524425,
-              "fairOdds": 2.083175139507649
-            }
-          ]
-        },
-        {
-          "group": "Goles por equipo (1.5)",
-          "rows": [
-            {
-              "market": "team_totals",
-              "selection": "home_over",
-              "label": "Tigre más de 1.5",
-              "line": 1.5,
-              "p": 0.41500207897654384,
-              "fairOdds": 2.409626482995331
-            },
-            {
-              "market": "team_totals",
-              "selection": "home_under",
-              "label": "Tigre menos de 1.5",
-              "line": 1.5,
-              "p": 0.5849979210234562,
-              "fairOdds": 1.7094077843054487
-            },
-            {
-              "market": "team_totals",
-              "selection": "away_over",
-              "label": "Sarmiento más de 1.5",
-              "line": 1.5,
-              "p": 0.3248399031737511,
-              "fairOdds": 3.0784395335357484
-            },
-            {
-              "market": "team_totals",
-              "selection": "away_under",
-              "label": "Sarmiento menos de 1.5",
-              "line": 1.5,
-              "p": 0.6751600968262489,
-              "fairOdds": 1.4811301863080157
-            }
-          ]
-        },
-        {
-          "group": "Marcador exacto (más probables)",
-          "rows": [
-            {
-              "market": "correct_score",
-              "selection": "1-1",
-              "label": "1–1",
-              "p": 0.12285482639181336,
-              "fairOdds": 8.13968835714082
-            },
-            {
-              "market": "correct_score",
-              "selection": "1-0",
-              "label": "1–0",
-              "p": 0.10889303031651092,
-              "fairOdds": 9.183324195252696
-            },
-            {
-              "market": "correct_score",
-              "selection": "0-1",
-              "label": "0–1",
-              "p": 0.0897148714504192,
-              "fairOdds": 11.146424041332418
-            }
-          ]
-        }
-      ],
-      "mostLikelyScore": {
-        "home": 1,
-        "away": 1,
-        "p": 0.12285482639181336
-      },
-      "factors": [
-        {
-          "key": "home_attack",
-          "label": "Ataque local",
-          "value": "1.20 goles/partido",
-          "detail": "12 % menos que la media · 16 partidos"
-        },
-        {
-          "key": "away_defense",
-          "label": "Defensa visitante",
-          "value": "1.36 concedidos/partido",
-          "detail": "26 % más que la media · 16 partidos"
-        },
-        {
-          "key": "away_attack",
-          "label": "Ataque visitante",
-          "value": "1.17 goles/partido",
-          "detail": "18 % más que la media · ajustado por rival"
-        },
-        {
-          "key": "home_defense",
-          "label": "Defensa local",
-          "value": "0.99 concedidos/partido",
-          "detail": "8 % menos que la media · ajustado por rival"
-        },
-        {
-          "key": "home_advantage",
-          "label": "Localía",
-          "value": "×1.19",
-          "detail": "estimada de 240 partidos"
-        },
-        {
-          "key": "uncertainty",
-          "label": "Intervalo 90%",
-          "value": "goles 1.8–3.7",
-          "detail": "local 24%–65% · 240 partidos"
-        },
-        {
-          "key": "home_position",
-          "label": "Posición local",
-          "value": "20.º · 19 pts",
-          "detail": "de 30 equipos"
-        },
-        {
-          "key": "away_position",
-          "label": "Posición visitante",
-          "value": "18.º · 21 pts",
-          "detail": "de 30 equipos"
-        },
-        {
-          "key": "home_form",
-          "label": "Forma local",
-          "value": "P-P-E-P-G · 4 pts",
-          "detail": "6 goles a favor · 7 en contra"
-        },
-        {
-          "key": "away_form",
-          "label": "Forma visitante",
-          "value": "G-E-E-P-P · 5 pts",
-          "detail": "6 goles a favor · 7 en contra"
-        }
-      ],
-      "steps": [
-        "Sincronizando Liga Profesional Argentina · corte 6 nov 2026, 18:00",
-        "Fuerza ajustada por rival · TIG 0.88 / 0.92 · SAR 1.18 / 1.26",
-        "Ponderando 211.6 partidos por antigüedad y calidad del rival",
-        "Proyección de goles 1.42 – 1.17 · total 2.59",
-        "Simulando 121 marcadores con incertidumbre del ajuste",
-        "20 mercados listos · marcador proyectado 1–0"
-      ],
-      "inputsAsOf": "2026-11-07T00:00:00.000Z",
-      "publishedAt": "2026-11-07T00:00:00.000Z",
-      "source": "pitchlab-football-v2",
-      "projectedScore": {
-        "home": 1,
-        "away": 0,
-        "p": 0.10889303031651092
-      },
-      "insights": {
-        "why": [
-          "Tigre gana en 43% de los escenarios; el empate, en 26%.",
-          "Sarmiento concede 26 % más que la media.",
-          "Sarmiento anota 18 % más que la media."
-        ],
-        "restDays": {
-          "home": 8,
-          "away": 7
-        }
-      },
-      "matchContext": {
-        "referee": "Gonzalo Pereira",
-        "refereeStats": {
-          "country": "Argentina",
-          "matches": 3,
-          "avgYellow": 3.67,
-          "avgRed": 1,
-          "avgFouls": 22,
-          "avgGoals": 1.67
-        },
-        "weather": {
-          "description": "cloudy",
-          "temperatureC": 25,
-          "windSpeedKmh": 45
-        },
-        "halfTimeScore": {
-          "home": 0,
-          "away": 0
-        },
-        "groupName": "Clausura, Group B",
-        "stageName": "Group stage",
-        "venueCity": "Buenos Aires",
-        "venueCountry": "Argentina",
-        "venueCapacity": 26282
-      }
-    },
     "liga-argentina-2026-11-07-banfield-atletico-tucum-3wzbw9": {
       "game": "liga-argentina-2026-11-07-banfield-atletico-tucum-3wzbw9",
       "model": {
@@ -2349,11 +1897,11 @@
         "referee": "Facundo Raul Tello Figueroa",
         "refereeStats": {
           "country": "Argentina",
-          "matches": 86,
-          "avgYellow": 5.15,
+          "matches": 87,
+          "avgYellow": 5.11,
           "avgRed": 0.21,
           "avgFouls": 25.9,
-          "avgGoals": 2.16
+          "avgGoals": 2.14
         },
         "weather": {
           "description": "clear",
@@ -4607,11 +4155,11 @@
         "referee": "Leandro Rey Hilfer",
         "refereeStats": {
           "country": "Argentina",
-          "matches": 87,
-          "avgYellow": 4.8,
-          "avgRed": 0.18,
+          "matches": 88,
+          "avgYellow": 4.78,
+          "avgRed": 0.19,
           "avgFouls": 24.4,
-          "avgGoals": 2.07
+          "avgGoals": 2.11
         },
         "weather": {
           "description": "cloudy",
@@ -6530,11 +6078,11 @@
         "referee": "Jorge Balino",
         "refereeStats": {
           "country": "Argentina",
-          "matches": 30,
+          "matches": 31,
           "avgYellow": 3.9,
-          "avgRed": 0.17,
+          "avgRed": 0.16,
           "avgFouls": 27.5,
-          "avgGoals": 2.3
+          "avgGoals": 2.29
         },
         "weather": {
           "description": "clear",
@@ -7018,11 +6566,11 @@
         "referee": "Leandro Rey Hilfer",
         "refereeStats": {
           "country": "Argentina",
-          "matches": 87,
-          "avgYellow": 4.8,
-          "avgRed": 0.18,
+          "matches": 88,
+          "avgYellow": 4.78,
+          "avgRed": 0.19,
           "avgFouls": 24.4,
-          "avgGoals": 2.07
+          "avgGoals": 2.11
         },
         "weather": {
           "description": "clear",
@@ -7994,9 +7542,9 @@
         "referee": "Dario Herrera",
         "refereeStats": {
           "country": "Argentina",
-          "matches": 97,
-          "avgYellow": 5.57,
-          "avgRed": 0.32,
+          "matches": 98,
+          "avgYellow": 5.59,
+          "avgRed": 0.34,
           "avgFouls": 24.6,
           "avgGoals": 2.07
         },
@@ -8972,18 +8520,489 @@
         "referee": "Luis Lobo Medina",
         "refereeStats": {
           "country": "Argentina",
-          "matches": 68,
-          "avgYellow": 5.47,
+          "matches": 69,
+          "avgYellow": 5.48,
           "avgRed": 0.29,
-          "avgFouls": 22.7,
+          "avgFouls": 22.6,
           "avgGoals": 1.94
         },
         "weather": {
-          "description": "unknown",
+          "description": "cloudy",
           "temperatureC": 17,
           "windSpeedKmh": 47
         },
+        "halfTimeScore": {
+          "home": 1,
+          "away": 0
+        },
         "stageName": "Round of 16",
+        "venueCity": "Buenos Aires",
+        "venueCountry": "Argentina",
+        "venueCapacity": 57420
+      }
+    },
+    "liga-argentina-2026-11-29-boca-juniors-gimnasia-y-esg-tmdnlb": {
+      "game": "liga-argentina-2026-11-29-boca-juniors-gimnasia-y-esg-tmdnlb",
+      "model": {
+        "id": "pitchlab-statistical-liga-argentina",
+        "version": "2.0.0",
+        "status": "candidate",
+        "label": "Modelo PitchLab · en validación"
+      },
+      "projection": {
+        "home": 1.6384568956254408,
+        "away": 1.0529276455430812,
+        "total": 2.6913845411685218,
+        "margin": 0.5855292500823597
+      },
+      "x12": [
+        0.5119808768993758,
+        0.24244723467742874,
+        0.24557188842319574
+      ],
+      "probabilities": [
+        {
+          "market": "h2h",
+          "selection": "Boca Juniors gana",
+          "p": 0.5119808768993758,
+          "fairOdds": 1.9531979515643882
+        },
+        {
+          "market": "h2h",
+          "selection": "Empate",
+          "p": 0.24244723467742874,
+          "fairOdds": 4.12460880954357
+        },
+        {
+          "market": "h2h",
+          "selection": "Gimnasia y Esgrima gana",
+          "p": 0.24557188842319574,
+          "fairOdds": 4.072127336809387
+        },
+        {
+          "market": "double_chance",
+          "selection": "Boca Juniors o empate",
+          "p": 0.7544281115768046,
+          "fairOdds": 1.3255073407987594
+        },
+        {
+          "market": "double_chance",
+          "selection": "Gimnasia y Esgrima o empate",
+          "p": 0.48801912310062445,
+          "fairOdds": 2.0491000304383777
+        },
+        {
+          "market": "double_chance",
+          "selection": "Sin empate",
+          "p": 0.7575527653225715,
+          "fairOdds": 1.320040062917852
+        },
+        {
+          "market": "totals",
+          "selection": "Más de 1.5 goles",
+          "line": 1.5,
+          "p": 0.7480175438030376,
+          "fairOdds": 1.33686704046518
+        },
+        {
+          "market": "totals",
+          "selection": "Más de 2.5 goles",
+          "line": 2.5,
+          "p": 0.5042620337081702,
+          "fairOdds": 1.9830959563747892
+        },
+        {
+          "market": "totals",
+          "selection": "Menos de 2.5 goles",
+          "line": 2.5,
+          "p": 0.49573796629182976,
+          "fairOdds": 2.0171947036457616
+        },
+        {
+          "market": "totals",
+          "selection": "Más de 3.5 goles",
+          "line": 3.5,
+          "p": 0.2840083802690926,
+          "fairOdds": 3.5210228622568067
+        },
+        {
+          "market": "totals",
+          "selection": "Menos de 3.5 goles",
+          "line": 3.5,
+          "p": 0.7159916197309074,
+          "fairOdds": 1.396664391652841
+        },
+        {
+          "market": "btts",
+          "selection": "Sí",
+          "p": 0.5228383237033113,
+          "fairOdds": 1.9126371474013406
+        },
+        {
+          "market": "btts",
+          "selection": "No",
+          "p": 0.4771616762966887,
+          "fairOdds": 2.0957257250019
+        },
+        {
+          "market": "team_totals",
+          "selection": "Boca Juniors más de 1.5 goles",
+          "line": 1.5,
+          "p": 0.48740097814404715,
+          "fairOdds": 2.0516987959438575
+        },
+        {
+          "market": "team_totals",
+          "selection": "Boca Juniors menos de 1.5 goles",
+          "line": 1.5,
+          "p": 0.5125990218559529,
+          "fairOdds": 1.9508425833106902
+        },
+        {
+          "market": "team_totals",
+          "selection": "Gimnasia y Esgrima más de 1.5 goles",
+          "line": 1.5,
+          "p": 0.2837032442306614,
+          "fairOdds": 3.5248098861603516
+        },
+        {
+          "market": "team_totals",
+          "selection": "Gimnasia y Esgrima menos de 1.5 goles",
+          "line": 1.5,
+          "p": 0.7162967557693386,
+          "fairOdds": 1.3960694250610557
+        },
+        {
+          "market": "correct_score",
+          "selection": "1–1",
+          "p": 0.115190560168993,
+          "fairOdds": 8.68126692441574
+        },
+        {
+          "market": "correct_score",
+          "selection": "1–0",
+          "p": 0.11282042668845382,
+          "fairOdds": 8.863643130524883
+        },
+        {
+          "market": "correct_score",
+          "selection": "2–1",
+          "p": 0.09580445056844863,
+          "fairOdds": 10.437928447651167
+        }
+      ],
+      "marketGroups": [
+        {
+          "group": "Resultado",
+          "rows": [
+            {
+              "market": "h2h",
+              "selection": "home",
+              "label": "Boca Juniors gana",
+              "p": 0.5119808768993758,
+              "fairOdds": 1.9531979515643882
+            },
+            {
+              "market": "h2h",
+              "selection": "draw",
+              "label": "Empate",
+              "p": 0.24244723467742874,
+              "fairOdds": 4.12460880954357
+            },
+            {
+              "market": "h2h",
+              "selection": "away",
+              "label": "Gimnasia y Esgrima gana",
+              "p": 0.24557188842319574,
+              "fairOdds": 4.072127336809387
+            }
+          ]
+        },
+        {
+          "group": "Doble oportunidad",
+          "rows": [
+            {
+              "market": "double_chance",
+              "selection": "1x",
+              "label": "Boca Juniors o empate",
+              "p": 0.7544281115768046,
+              "fairOdds": 1.3255073407987594
+            },
+            {
+              "market": "double_chance",
+              "selection": "x2",
+              "label": "Gimnasia y Esgrima o empate",
+              "p": 0.48801912310062445,
+              "fairOdds": 2.0491000304383777
+            },
+            {
+              "market": "double_chance",
+              "selection": "12",
+              "label": "Sin empate",
+              "p": 0.7575527653225715,
+              "fairOdds": 1.320040062917852
+            }
+          ]
+        },
+        {
+          "group": "Goles totales",
+          "rows": [
+            {
+              "market": "totals",
+              "selection": "over_1.5",
+              "label": "Más de 1.5 goles",
+              "line": 1.5,
+              "p": 0.7480175438030376,
+              "fairOdds": 1.33686704046518
+            },
+            {
+              "market": "totals",
+              "selection": "over_2.5",
+              "label": "Más de 2.5 goles",
+              "line": 2.5,
+              "p": 0.5042620337081702,
+              "fairOdds": 1.9830959563747892
+            },
+            {
+              "market": "totals",
+              "selection": "under_2.5",
+              "label": "Menos de 2.5 goles",
+              "line": 2.5,
+              "p": 0.49573796629182976,
+              "fairOdds": 2.0171947036457616
+            },
+            {
+              "market": "totals",
+              "selection": "over_3.5",
+              "label": "Más de 3.5 goles",
+              "line": 3.5,
+              "p": 0.2840083802690926,
+              "fairOdds": 3.5210228622568067
+            },
+            {
+              "market": "totals",
+              "selection": "under_3.5",
+              "label": "Menos de 3.5 goles",
+              "line": 3.5,
+              "p": 0.7159916197309074,
+              "fairOdds": 1.396664391652841
+            }
+          ]
+        },
+        {
+          "group": "Ambos anotan",
+          "rows": [
+            {
+              "market": "btts",
+              "selection": "yes",
+              "label": "Sí",
+              "p": 0.5228383237033113,
+              "fairOdds": 1.9126371474013406
+            },
+            {
+              "market": "btts",
+              "selection": "no",
+              "label": "No",
+              "p": 0.4771616762966887,
+              "fairOdds": 2.0957257250019
+            }
+          ]
+        },
+        {
+          "group": "Goles por equipo (1.5)",
+          "rows": [
+            {
+              "market": "team_totals",
+              "selection": "home_over",
+              "label": "Boca Juniors más de 1.5 goles",
+              "line": 1.5,
+              "p": 0.48740097814404715,
+              "fairOdds": 2.0516987959438575
+            },
+            {
+              "market": "team_totals",
+              "selection": "home_under",
+              "label": "Boca Juniors menos de 1.5 goles",
+              "line": 1.5,
+              "p": 0.5125990218559529,
+              "fairOdds": 1.9508425833106902
+            },
+            {
+              "market": "team_totals",
+              "selection": "away_over",
+              "label": "Gimnasia y Esgrima más de 1.5 goles",
+              "line": 1.5,
+              "p": 0.2837032442306614,
+              "fairOdds": 3.5248098861603516
+            },
+            {
+              "market": "team_totals",
+              "selection": "away_under",
+              "label": "Gimnasia y Esgrima menos de 1.5 goles",
+              "line": 1.5,
+              "p": 0.7162967557693386,
+              "fairOdds": 1.3960694250610557
+            }
+          ]
+        },
+        {
+          "group": "Marcador exacto (más probables)",
+          "rows": [
+            {
+              "market": "correct_score",
+              "selection": "1-1",
+              "label": "1–1",
+              "p": 0.115190560168993,
+              "fairOdds": 8.68126692441574
+            },
+            {
+              "market": "correct_score",
+              "selection": "1-0",
+              "label": "1–0",
+              "p": 0.11282042668845382,
+              "fairOdds": 8.863643130524883
+            },
+            {
+              "market": "correct_score",
+              "selection": "2-1",
+              "label": "2–1",
+              "p": 0.09580445056844863,
+              "fairOdds": 10.437928447651167
+            }
+          ]
+        }
+      ],
+      "mostLikelyScore": {
+        "home": 1,
+        "away": 1,
+        "p": 0.115190560168993
+      },
+      "factors": [
+        {
+          "key": "home_attack",
+          "label": "Ataque local",
+          "value": "1.38 goles/partido",
+          "detail": "21 % más que la media · 17 partidos"
+        },
+        {
+          "key": "away_defense",
+          "label": "Defensa visitante",
+          "value": "1.14 concedidos/partido",
+          "detail": "10 % más que la media · 17 partidos"
+        },
+        {
+          "key": "away_attack",
+          "label": "Ataque visitante",
+          "value": "1.05 goles/partido",
+          "detail": "25 % más que la media · ajustado por rival"
+        },
+        {
+          "key": "home_defense",
+          "label": "Defensa local",
+          "value": "0.84 concedidos/partido",
+          "detail": "19 % menos que la media · ajustado por rival"
+        },
+        {
+          "key": "home_advantage",
+          "label": "Localía",
+          "value": "×1.18",
+          "detail": "estimada de 248 partidos"
+        },
+        {
+          "key": "uncertainty",
+          "label": "Intervalo 90%",
+          "value": "goles 1.9–3.8",
+          "detail": "local 31%–71% · 248 partidos"
+        },
+        {
+          "key": "home_position",
+          "label": "Posición local",
+          "value": "3.º · 36 pts",
+          "detail": "de 30 equipos"
+        },
+        {
+          "key": "away_position",
+          "label": "Posición visitante",
+          "value": "4.º · 32 pts",
+          "detail": "de 30 equipos"
+        },
+        {
+          "key": "home_form",
+          "label": "Forma local",
+          "value": "G-G-G-G-G · 15 pts",
+          "detail": "7 goles a favor · 1 en contra"
+        },
+        {
+          "key": "away_form",
+          "label": "Forma visitante",
+          "value": "G-G-G-G-E · 13 pts",
+          "detail": "10 goles a favor · 5 en contra"
+        }
+      ],
+      "steps": [
+        "Sincronizando Liga Profesional Argentina · corte 26 nov 2026, 20:00",
+        "Fuerza ajustada por rival · BOC 1.21 / 0.81 · GIM 1.25 / 1.10",
+        "Ponderando 216.7 partidos por antigüedad y calidad del rival",
+        "Proyección de goles 1.64 – 1.05 · total 2.69",
+        "Simulando 121 marcadores con incertidumbre del ajuste",
+        "20 mercados listos · marcador proyectado 2–1"
+      ],
+      "inputsAsOf": "2026-11-26T20:00:11.075Z",
+      "publishedAt": "2026-11-26T20:00:11.075Z",
+      "source": "pitchlab-football-v2",
+      "picks": [
+        {
+          "profile": "conservadora",
+          "market": "double_chance",
+          "selection": "12",
+          "label": "Sin empate",
+          "p": 0.7575527653225715,
+          "fairOdds": 1.320040062917852
+        },
+        {
+          "profile": "intermedia",
+          "market": "btts",
+          "selection": "yes",
+          "label": "Ambos anotan: Sí",
+          "p": 0.5228383237033113,
+          "fairOdds": 1.9126371474013406
+        },
+        {
+          "profile": "arriesgada",
+          "market": "team_totals",
+          "selection": "home_under",
+          "label": "Boca Juniors menos de 1.5 goles",
+          "line": 1.5,
+          "p": 0.5125990218559529,
+          "fairOdds": 1.9508425833106902
+        }
+      ],
+      "confidence": {
+        "score": 53,
+        "level": "media",
+        "reasons": [
+          "Muestra suficiente"
+        ]
+      },
+      "projectedScore": {
+        "home": 2,
+        "away": 1,
+        "p": 0.09580445056844863
+      },
+      "insights": {
+        "why": [
+          "Se esperan 2.7 goles: 1.6 de Boca Juniors y 1.1 de Gimnasia y Esgrima.",
+          "Gimnasia y Esgrima anota 25 % más que la media.",
+          "Boca Juniors concede 19 % menos que la media."
+        ],
+        "restDays": {
+          "home": 3,
+          "away": 6
+        }
+      },
+      "picksAt": "2026-11-26T20:00:11.075Z",
+      "matchContext": {
+        "stageName": "Quarterfinals",
         "venueCity": "Buenos Aires",
         "venueCountry": "Argentina",
         "venueCapacity": 57420
@@ -10478,15 +10497,15 @@
       "name": "Boca Juniors",
       "shortName": "Boca Juniors",
       "code": "BOC",
-      "played": 16,
-      "won": 9,
+      "played": 17,
+      "won": 10,
       "drawn": 6,
       "lost": 1,
-      "goalsFor": 24,
+      "goalsFor": 26,
       "goalsAgainst": 14,
-      "points": 33,
+      "points": 36,
       "form": [
-        "D",
+        "W",
         "W",
         "W",
         "W",
@@ -10698,19 +10717,19 @@
       "name": "Independiente Rivadavia",
       "shortName": "Independiente Rivadavi",
       "code": "IND",
-      "played": 16,
+      "played": 17,
       "won": 6,
       "drawn": 5,
-      "lost": 5,
+      "lost": 6,
       "goalsFor": 21,
-      "goalsAgainst": 24,
+      "goalsAgainst": 26,
       "points": 23,
       "form": [
-        "L",
         "D",
         "L",
         "W",
-        "D"
+        "D",
+        "L"
       ]
     },
     {

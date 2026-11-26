@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "league": "copa-do-brasil",
   "seasonLabel": "2026",
-  "observedAt": "2026-11-25T20:23:50.754Z",
+  "observedAt": "2026-11-26T20:00:11.075Z",
   "teams": [
     {
       "teamId": "copa-do-brasil.fluminense",
@@ -24,7 +24,7 @@
           "winPct": 56.6
         }
       },
-      "updatedAt": "2026-11-25T20:23:50.754Z",
+      "updatedAt": "2026-11-26T20:00:11.075Z",
       "players": [
         {
           "id": "copa-do-brasil.fluminense.agustin-canobbio",
@@ -1232,7 +1232,7 @@
           "winPct": 37
         }
       },
-      "updatedAt": "2026-11-25T20:23:50.754Z",
+      "updatedAt": "2026-11-26T20:00:11.075Z",
       "players": [
         {
           "id": "copa-do-brasil.vasco-gama.adson",
@@ -2440,7 +2440,7 @@
           "winPct": 43.1
         }
       },
-      "updatedAt": "2026-11-25T20:23:50.754Z",
+      "updatedAt": "2026-11-26T20:00:11.075Z",
       "players": [
         {
           "id": "copa-do-brasil.fortaleza.bastos",
@@ -2948,7 +2948,7 @@
             "goals": 0,
             "assists": 0,
             "shots": 1,
-            "shotsOnTarget": 0,
+            "shotsOnTarget": 1,
             "foulsCommitted": 0,
             "foulsSuffered": 0,
             "yellowCards": 0,
@@ -2956,7 +2956,7 @@
             "offsides": 0,
             "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 1
+            "goalsConceded": 0
           },
           "candidatePicks": []
         },
@@ -2984,7 +2984,7 @@
             "subIns": 0,
             "goals": 0,
             "assists": 0,
-            "shots": 1,
+            "shots": 0,
             "shotsOnTarget": 0,
             "foulsCommitted": 0,
             "foulsSuffered": 0,
@@ -3648,7 +3648,7 @@
           "winPct": 60
         }
       },
-      "updatedAt": "2026-11-25T20:23:50.754Z",
+      "updatedAt": "2026-11-26T20:00:11.075Z",
       "players": [
         {
           "id": "copa-do-brasil.palmeiras.agustin-giay",
@@ -3674,7 +3674,7 @@
             "subIns": 0,
             "goals": 0,
             "assists": 0,
-            "shots": 1,
+            "shots": 0,
             "shotsOnTarget": 0,
             "foulsCommitted": 0,
             "foulsSuffered": 0,
@@ -3683,7 +3683,7 @@
             "offsides": 0,
             "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 1
+            "goalsConceded": 0
           },
           "candidatePicks": []
         },
@@ -3720,7 +3720,7 @@
             "offsides": 0,
             "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 0
+            "goalsConceded": 2
           },
           "candidatePicks": []
         },
@@ -3940,9 +3940,9 @@
             "yellowCards": 0,
             "redCards": 0,
             "offsides": 0,
-            "saves": 6,
+            "saves": 4,
             "shotsFaced": 0,
-            "goalsConceded": 1
+            "goalsConceded": 2
           },
           "candidatePicks": []
         },
@@ -4044,8 +4044,8 @@
             "subIns": 0,
             "goals": 0,
             "assists": 0,
-            "shots": 0,
-            "shotsOnTarget": 0,
+            "shots": 2,
+            "shotsOnTarget": 1,
             "foulsCommitted": 0,
             "foulsSuffered": 0,
             "yellowCards": 0,
@@ -4053,7 +4053,7 @@
             "offsides": 0,
             "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 0
+            "goalsConceded": 2
           },
           "candidatePicks": []
         },
@@ -4102,11 +4102,11 @@
           "jersey": "40",
           "positionGroup": "DEF",
           "positionLabel": "Defensa",
-          "age": null,
-          "birthDate": null,
+          "age": 18,
+          "birthDate": "2008-04-28",
           "heightCm": 179,
           "weightKg": null,
-          "preferredFoot": null,
+          "preferredFoot": "L",
           "nationality": "Brazil",
           "nationalityCode": null,
           "photoKey": "pl-p:233367",
@@ -4497,7 +4497,7 @@
             "offsides": 0,
             "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 2
+            "goalsConceded": 1
           },
           "candidatePicks": []
         },
@@ -4636,7 +4636,7 @@
             "subIns": 0,
             "goals": 0,
             "assists": 0,
-            "shots": 1,
+            "shots": 0,
             "shotsOnTarget": 0,
             "foulsCommitted": 0,
             "foulsSuffered": 0,
@@ -4645,7 +4645,7 @@
             "offsides": 0,
             "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 2
+            "goalsConceded": 0
           },
           "candidatePicks": []
         },
@@ -4856,7 +4856,7 @@
           "winPct": 40
         }
       },
-      "updatedAt": "2026-11-25T20:23:50.754Z",
+      "updatedAt": "2026-11-26T20:00:11.075Z",
       "players": [
         {
           "id": "copa-do-brasil.vitoria.alejandro-almaraz",
@@ -5039,7 +5039,7 @@
             "offsides": 0,
             "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 1
+            "goalsConceded": 3
           },
           "candidatePicks": []
         },
@@ -5400,7 +5400,7 @@
             "subIns": 0,
             "goals": 0,
             "assists": 0,
-            "shots": 0,
+            "shots": 1,
             "shotsOnTarget": 0,
             "foulsCommitted": 0,
             "foulsSuffered": 0,
@@ -5409,7 +5409,7 @@
             "offsides": 0,
             "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 2
+            "goalsConceded": 1
           },
           "candidatePicks": []
         },
@@ -5548,8 +5548,8 @@
             "subIns": 0,
             "goals": 0,
             "assists": 0,
-            "shots": 3,
-            "shotsOnTarget": 2,
+            "shots": 0,
+            "shotsOnTarget": 0,
             "foulsCommitted": 0,
             "foulsSuffered": 0,
             "yellowCards": 0,
@@ -5557,7 +5557,7 @@
             "offsides": 0,
             "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 3
+            "goalsConceded": 1
           },
           "candidatePicks": []
         },
@@ -5814,9 +5814,9 @@
             "yellowCards": 0,
             "redCards": 0,
             "offsides": 0,
-            "saves": 6,
+            "saves": 4,
             "shotsFaced": 0,
-            "goalsConceded": 1
+            "goalsConceded": 3
           },
           "candidatePicks": []
         },
@@ -5853,7 +5853,7 @@
             "offsides": 0,
             "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 1
+            "goalsConceded": 0
           },
           "candidatePicks": []
         },
@@ -6064,7 +6064,7 @@
           "winPct": 43.4
         }
       },
-      "updatedAt": "2026-11-25T20:23:50.754Z",
+      "updatedAt": "2026-11-26T20:00:11.075Z",
       "players": [
         {
           "id": "copa-do-brasil.athletico.adriano-oliveira-farias",
@@ -7272,7 +7272,7 @@
           "winPct": 61.1
         }
       },
-      "updatedAt": "2026-11-25T20:23:50.754Z",
+      "updatedAt": "2026-11-26T20:00:11.075Z",
       "players": [
         {
           "id": "copa-do-brasil.corinthians.alex-santana",
@@ -7409,8 +7409,8 @@
             "subIns": 0,
             "goals": 0,
             "assists": 0,
-            "shots": 3,
-            "shotsOnTarget": 1,
+            "shots": 1,
+            "shotsOnTarget": 0,
             "foulsCommitted": 0,
             "foulsSuffered": 0,
             "yellowCards": 0,
@@ -7418,7 +7418,7 @@
             "offsides": 0,
             "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 0
+            "goalsConceded": 1
           },
           "candidatePicks": []
         },
@@ -7483,7 +7483,7 @@
             "subIns": 0,
             "goals": 0,
             "assists": 0,
-            "shots": 3,
+            "shots": 0,
             "shotsOnTarget": 0,
             "foulsCommitted": 0,
             "foulsSuffered": 0,
@@ -7594,7 +7594,7 @@
             "subIns": 0,
             "goals": 0,
             "assists": 0,
-            "shots": 1,
+            "shots": 0,
             "shotsOnTarget": 0,
             "foulsCommitted": 0,
             "foulsSuffered": 0,
@@ -7652,7 +7652,7 @@
           "jersey": "3",
           "positionGroup": "DEF",
           "positionLabel": "Defensa",
-          "age": 35,
+          "age": 36,
           "birthDate": "1990-11-26",
           "heightCm": 187,
           "weightKg": null,
@@ -7660,8 +7660,8 @@
           "nationality": "Brazil",
           "nationalityCode": null,
           "photoKey": "pl-p:5830",
-          "availability": "available",
-          "injuryDetail": null,
+          "availability": "injured",
+          "injuryDetail": "Knee Injury",
           "expectedReturn": null,
           "stats": {
             "appearances": 0,
@@ -7962,7 +7962,7 @@
           "stats": {
             "appearances": 0,
             "subIns": 0,
-            "goals": 1,
+            "goals": 3,
             "assists": 0,
             "shots": 8,
             "shotsOnTarget": 3,
@@ -8112,7 +8112,7 @@
             "subIns": 0,
             "goals": 0,
             "assists": 0,
-            "shots": 1,
+            "shots": 2,
             "shotsOnTarget": 0,
             "foulsCommitted": 0,
             "foulsSuffered": 0,
@@ -8221,10 +8221,10 @@
           "stats": {
             "appearances": 0,
             "subIns": 0,
-            "goals": 0,
+            "goals": 1,
             "assists": 0,
-            "shots": 0,
-            "shotsOnTarget": 0,
+            "shots": 2,
+            "shotsOnTarget": 1,
             "foulsCommitted": 0,
             "foulsSuffered": 0,
             "yellowCards": 0,
@@ -8400,8 +8400,8 @@
           "nationality": "Argentina",
           "nationalityCode": null,
           "photoKey": "pl-p:1145",
-          "availability": "doubtful",
-          "injuryDetail": "Knee Injury",
+          "availability": "available",
+          "injuryDetail": null,
           "expectedReturn": null,
           "stats": {
             "appearances": 0,
@@ -8409,7 +8409,7 @@
             "goals": 0,
             "assists": 0,
             "shots": 1,
-            "shotsOnTarget": 0,
+            "shotsOnTarget": 1,
             "foulsCommitted": 0,
             "foulsSuffered": 0,
             "yellowCards": 0,
@@ -8417,7 +8417,7 @@
             "offsides": 0,
             "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 0
+            "goalsConceded": 1
           },
           "candidatePicks": []
         },
@@ -8445,8 +8445,8 @@
             "subIns": 0,
             "goals": 0,
             "assists": 0,
-            "shots": 3,
-            "shotsOnTarget": 1,
+            "shots": 4,
+            "shotsOnTarget": 0,
             "foulsCommitted": 0,
             "foulsSuffered": 0,
             "yellowCards": 0,
@@ -8480,7 +8480,7 @@
           "winPct": 46.8
         }
       },
-      "updatedAt": "2026-11-25T20:23:50.754Z",
+      "updatedAt": "2026-11-26T20:00:11.075Z",
       "players": [
         {
           "id": "copa-do-brasil.internacional.alan-patrick",

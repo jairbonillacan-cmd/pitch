@@ -253,6 +253,7 @@
         "logoUrl": "https://sports.bzzoiro.com/img/team/319/?bg=transparent"
       },
       "venue": "Estadio Cuauhtémoc",
+      "referee": "Karen Hernandez Andrade",
       "neutralSite": false,
       "result": {
         "home": 1,
@@ -286,6 +287,7 @@
         "logoUrl": "https://sports.bzzoiro.com/img/team/305/?bg=transparent"
       },
       "venue": "Estadio Olímpico Benito Juárez",
+      "referee": "Adonai Escobedo Gonzalez",
       "neutralSite": false,
       "result": {
         "home": 3,
@@ -319,6 +321,7 @@
         "logoUrl": "https://sports.bzzoiro.com/img/team/3840/?bg=transparent"
       },
       "venue": "Estadio Caliente",
+      "referee": "Jesus Rafael Lopez Valle",
       "neutralSite": false,
       "result": {
         "home": 1,
@@ -352,6 +355,7 @@
         "logoUrl": "https://sports.bzzoiro.com/img/team/310/?bg=transparent"
       },
       "venue": "Estadio Hidalgo",
+      "referee": "Jesus Rafael Lopez Valle",
       "neutralSite": false,
       "result": {
         "home": 2,
@@ -385,6 +389,7 @@
         "logoUrl": "https://sports.bzzoiro.com/img/team/318/?bg=transparent"
       },
       "venue": "Estadio Corona",
+      "referee": "Luis Santander",
       "neutralSite": false,
       "result": {
         "home": 1,
@@ -418,6 +423,7 @@
         "logoUrl": "https://sports.bzzoiro.com/img/team/317/?bg=transparent"
       },
       "venue": "Estadio Olímpico Universitario",
+      "referee": "Fernando Hernandez",
       "neutralSite": false,
       "result": {
         "home": 0,
@@ -451,6 +457,7 @@
         "logoUrl": "https://sports.bzzoiro.com/img/team/307/?bg=transparent"
       },
       "venue": "Estadio Universitario",
+      "referee": "Guillermo Pacheco Larios",
       "neutralSite": false,
       "result": {
         "home": 1,
@@ -484,6 +491,7 @@
         "logoUrl": "https://sports.bzzoiro.com/img/team/314/?bg=transparent"
       },
       "venue": "Estadio Akron",
+      "referee": "Daniel Quintero Huitrón",
       "neutralSite": false,
       "result": {
         "home": 1,
@@ -517,6 +525,7 @@
         "logoUrl": "https://sports.bzzoiro.com/img/team/311/?bg=transparent"
       },
       "venue": "Estadio Corregidora",
+      "referee": "Salvador Perez Villalobos",
       "neutralSite": false,
       "result": {
         "home": 2,
@@ -550,6 +559,7 @@
         "logoUrl": "https://sports.bzzoiro.com/img/team/305/?bg=transparent"
       },
       "venue": "Estadio Nemesio Díez Riega",
+      "referee": "Guillermo Pacheco Larios",
       "neutralSite": false
     },
     {
@@ -577,6 +587,7 @@
         "logoUrl": "https://sports.bzzoiro.com/img/team/307/?bg=transparent"
       },
       "venue": "Estadio BBVA",
+      "referee": "Victor Alfonso Caceres Hernandez",
       "neutralSite": false
     },
     {
@@ -5793,11 +5804,11 @@
         "referee": "Guillermo Pacheco Larios",
         "refereeStats": {
           "country": "Mexico",
-          "matches": 32,
-          "avgYellow": 3.94,
-          "avgRed": 0.47,
-          "avgFouls": 22.3,
-          "avgGoals": 2.72
+          "matches": 33,
+          "avgYellow": 3.91,
+          "avgRed": 0.45,
+          "avgFouls": 21.9,
+          "avgGoals": 2.7
         }
       }
     },
@@ -6548,11 +6559,11 @@
         "referee": "Daniel Quintero Huitrón",
         "refereeStats": {
           "country": "Mexico",
-          "matches": 51,
-          "avgYellow": 4.61,
+          "matches": 52,
+          "avgYellow": 4.65,
           "avgRed": 0.29,
           "avgFouls": 24,
-          "avgGoals": 2.57
+          "avgGoals": 2.6
         }
       }
     },
@@ -8051,7 +8062,18 @@
           "away": 5
         }
       },
-      "picksAt": "2026-11-24T21:08:59.597Z"
+      "picksAt": "2026-11-24T21:08:59.597Z",
+      "matchContext": {
+        "referee": "Guillermo Pacheco Larios",
+        "refereeStats": {
+          "country": "Mexico",
+          "matches": 33,
+          "avgYellow": 3.91,
+          "avgRed": 0.45,
+          "avgFouls": 21.9,
+          "avgGoals": 2.7
+        }
+      }
     },
     "mx-2026-lg-monterrey-america-401931998": {
       "game": "mx-2026-lg-monterrey-america-401931998",
@@ -8793,7 +8815,18 @@
           "away": 4
         }
       },
-      "picksAt": "2026-11-24T21:08:59.597Z"
+      "picksAt": "2026-11-24T21:08:59.597Z",
+      "matchContext": {
+        "referee": "Victor Alfonso Caceres Hernandez",
+        "refereeStats": {
+          "country": "Mexico",
+          "matches": 53,
+          "avgYellow": 3.83,
+          "avgRed": 0.3,
+          "avgFouls": 24.7,
+          "avgGoals": 2.79
+        }
+      }
     },
     "mx-2026-lg-pachuca-chivas-401931982": {
       "game": "mx-2026-lg-pachuca-chivas-401931982",
@@ -13070,11 +13103,11 @@
       "goalsAgainst": 24,
       "points": 30,
       "form": [
+        "D",
+        "D",
+        "D",
         "L",
-        "D",
-        "D",
-        "D",
-        "L"
+        "D"
       ]
     },
     {
@@ -13091,11 +13124,11 @@
       "goalsAgainst": 33,
       "points": 28,
       "form": [
-        "L",
         "W",
         "W",
         "L",
-        "D"
+        "D",
+        "L"
       ]
     },
     {
@@ -13114,9 +13147,9 @@
       "form": [
         "D",
         "D",
-        "D",
         "W",
-        "L"
+        "L",
+        "W"
       ]
     },
     {
@@ -13133,11 +13166,11 @@
       "goalsAgainst": 25,
       "points": 27,
       "form": [
-        "L",
         "D",
         "L",
         "W",
-        "W"
+        "W",
+        "D"
       ]
     },
     {

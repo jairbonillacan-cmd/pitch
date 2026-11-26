@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "league": "liga-argentina",
   "season": "2026",
-  "updatedAt": "2026-11-25T20:23:50.754Z",
+  "updatedAt": "2026-11-26T20:00:11.075Z",
   "matches": [
     {
       "id": "liga-argentina-2026-07-23-sarmiento-argentinos-jun-q7ein3",
@@ -2719,6 +2719,17 @@
       "awayTeam": "liga-argentina.newell-s-old-boys",
       "homeScore": 2,
       "awayScore": 2,
+      "neutralSite": false
+    },
+    {
+      "id": "liga-argentina-2026-11-26-boca-juniors-independiente--27r1io",
+      "date": "2026-11-26",
+      "startTime": "2026-11-26T00:00:00.000Z",
+      "round": "Round of 16",
+      "homeTeam": "liga-argentina.boca-juniors",
+      "awayTeam": "liga-argentina.independiente-rivadavia",
+      "homeScore": 2,
+      "awayScore": 0,
       "neutralSite": false
     }
   ]

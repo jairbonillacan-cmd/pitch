@@ -1,0 +1,1010 @@
+{
+  "schemaVersion": 1,
+  "league": "leagues-cup",
+  "logoUrl": "/brand/official/competitions/leagues-cup.png",
+  "season": "leagues-cup-2026",
+  "seasonLabel": "2026",
+  "periodLabel": "Fase de grupos y KO",
+  "updatedAt": "2026-11-26T20:00:11.075Z",
+  "source": "pitchlab-concacaf-v1",
+  "provenance": "derived",
+  "isDemo": false,
+  "teamRates": {
+    "leagues-cup.leon": {
+      "teamId": "leagues-cup.leon",
+      "name": "León",
+      "shortName": "León",
+      "code": "LEO",
+      "forPerGame": 1,
+      "againstPerGame": 0,
+      "gamesPlayed": 1,
+      "adjustedFor": 0.6461454035322939,
+      "adjustedAgainst": 0.5869439501939463
+    },
+    "leagues-cup.america": {
+      "teamId": "leagues-cup.america",
+      "name": "América",
+      "shortName": "América",
+      "code": "AME",
+      "forPerGame": 0,
+      "againstPerGame": 1,
+      "gamesPlayed": 1,
+      "adjustedFor": 0.5869439501939463,
+      "adjustedAgainst": 0.6461454035322939
+    },
+    "leagues-cup.toluca": {
+      "teamId": "leagues-cup.toluca",
+      "name": "Toluca",
+      "shortName": "Toluca",
+      "code": "TOL",
+      "forPerGame": 2,
+      "againstPerGame": 0,
+      "gamesPlayed": 1,
+      "adjustedFor": 0.7156317247392641,
+      "adjustedAgainst": 0.5868672718985098
+    },
+    "leagues-cup.monterrey": {
+      "teamId": "leagues-cup.monterrey",
+      "name": "Monterrey",
+      "shortName": "Monterrey",
+      "code": "MTY",
+      "forPerGame": 0,
+      "againstPerGame": 2,
+      "gamesPlayed": 1,
+      "adjustedFor": 0.5868672718985098,
+      "adjustedAgainst": 0.7156317247392641
+    }
+  },
+  "games": [
+    {
+      "id": "leagues-cup-2026-09-06-leon-america-binrai",
+      "league": "leagues-cup",
+      "season": "leagues-cup-2026",
+      "startTime": "2026-09-06T22:00:00.000Z",
+      "status": "final",
+      "home": {
+        "id": "leagues-cup.leon",
+        "league": "leagues-cup",
+        "name": "León",
+        "shortName": "León",
+        "code": "LEO",
+        "logoUrl": "https://sports.bzzoiro.com/img/team/318/?bg=transparent"
+      },
+      "away": {
+        "id": "leagues-cup.america",
+        "league": "leagues-cup",
+        "name": "América",
+        "shortName": "América",
+        "code": "AME",
+        "logoUrl": "https://sports.bzzoiro.com/img/team/307/?bg=transparent"
+      },
+      "venue": "Shell Energy Stadium, Houston, Texas",
+      "neutralSite": false,
+      "result": {
+        "home": 1,
+        "away": 0,
+        "observedAt": "2026-11-26T20:00:11.075Z",
+        "source": "pitchlab-concacaf"
+      }
+    },
+    {
+      "id": "leagues-cup-2026-09-07-toluca-monterrey-tkfylr",
+      "league": "leagues-cup",
+      "season": "leagues-cup-2026",
+      "startTime": "2026-09-07T01:15:00.000Z",
+      "status": "final",
+      "home": {
+        "id": "leagues-cup.toluca",
+        "league": "leagues-cup",
+        "name": "Toluca",
+        "shortName": "Toluca",
+        "code": "TOL",
+        "logoUrl": "https://sports.bzzoiro.com/img/team/310/?bg=transparent"
+      },
+      "away": {
+        "id": "leagues-cup.monterrey",
+        "league": "leagues-cup",
+        "name": "Monterrey",
+        "shortName": "Monterrey",
+        "code": "MTY",
+        "logoUrl": "https://sports.bzzoiro.com/img/team/317/?bg=transparent"
+      },
+      "venue": "Shell Energy Stadium, Houston, Texas",
+      "neutralSite": false,
+      "result": {
+        "home": 2,
+        "away": 0,
+        "observedAt": "2026-11-26T20:00:11.075Z",
+        "source": "pitchlab-concacaf"
+      }
+    }
+  ],
+  "analyses": {
+    "leagues-cup-2026-09-06-leon-america-binrai": {
+      "game": "leagues-cup-2026-09-06-leon-america-binrai",
+      "model": {
+        "id": "pitchlab-statistical-leagues-cup",
+        "version": "2.0.0",
+        "status": "candidate",
+        "label": "Modelo PitchLab · en validación"
+      },
+      "projection": {
+        "home": 0.9242316384614641,
+        "away": 0.3804747778604531,
+        "total": 1.304706416321917,
+        "margin": 0.543756860601011
+      },
+      "x12": [
+        0.4819367364217264,
+        0.3658190182360562,
+        0.1522442453422171
+      ],
+      "probabilities": [
+        {
+          "market": "h2h",
+          "selection": "León gana",
+          "p": 0.4819367364217264,
+          "fairOdds": 2.0749611399719776
+        },
+        {
+          "market": "h2h",
+          "selection": "Empate",
+          "p": 0.3658190182360562,
+          "fairOdds": 2.7335921593740613
+        },
+        {
+          "market": "h2h",
+          "selection": "América gana",
+          "p": 0.1522442453422171,
+          "fairOdds": 6.568392767504504
+        },
+        {
+          "market": "double_chance",
+          "selection": "León o empate",
+          "p": 0.8477557546577826,
+          "fairOdds": 1.1795850331958815
+        },
+        {
+          "market": "double_chance",
+          "selection": "América o empate",
+          "p": 0.5180632635782734,
+          "fairOdds": 1.9302661862047117
+        },
+        {
+          "market": "double_chance",
+          "selection": "Sin empate",
+          "p": 0.6341809817639434,
+          "fairOdds": 1.5768369420643122
+        },
+        {
+          "market": "totals",
+          "selection": "Más de 1.5",
+          "line": 1.5,
+          "p": 0.3700741588188323,
+          "fairOdds": 2.7021611106047105
+        },
+        {
+          "market": "totals",
+          "selection": "Más de 2.5",
+          "line": 2.5,
+          "p": 0.1439727144298254,
+          "fairOdds": 6.945760548867168
+        },
+        {
+          "market": "totals",
+          "selection": "Menos de 2.5",
+          "line": 2.5,
+          "p": 0.8560272855701746,
+          "fairOdds": 1.168187062324689
+        },
+        {
+          "market": "totals",
+          "selection": "Más de 3.5",
+          "line": 3.5,
+          "p": 0.04356655649921226,
+          "fairOdds": 22.9533862750452
+        },
+        {
+          "market": "totals",
+          "selection": "Menos de 3.5",
+          "line": 3.5,
+          "p": 0.9564334435007877,
+          "fairOdds": 1.0455510592977046
+        },
+        {
+          "market": "btts",
+          "selection": "Sí",
+          "p": 0.1861098902573384,
+          "fairOdds": 5.373169575336792
+        },
+        {
+          "market": "btts",
+          "selection": "No",
+          "p": 0.8138901097426616,
+          "fairOdds": 1.228667098948018
+        },
+        {
+          "market": "team_totals",
+          "selection": "León más de 1.5",
+          "line": 1.5,
+          "p": 0.23639519510701978,
+          "fairOdds": 4.230204423348302
+        },
+        {
+          "market": "team_totals",
+          "selection": "León menos de 1.5",
+          "line": 1.5,
+          "p": 0.7636048048929802,
+          "fairOdds": 1.3095779303538442
+        },
+        {
+          "market": "team_totals",
+          "selection": "América más de 1.5",
+          "line": 1.5,
+          "p": 0.056394682311442956,
+          "fairOdds": 17.732168335969003
+        },
+        {
+          "market": "team_totals",
+          "selection": "América menos de 1.5",
+          "line": 1.5,
+          "p": 0.943605317688557,
+          "fairOdds": 1.059765117103819
+        },
+        {
+          "market": "correct_score",
+          "selection": "0–0",
+          "p": 0.2664829117209799,
+          "fairOdds": 3.7525858357741413
+        },
+        {
+          "market": "correct_score",
+          "selection": "1–0",
+          "p": 0.25546907614966424,
+          "fairOdds": 3.9143680913229555
+        },
+        {
+          "market": "correct_score",
+          "selection": "2–0",
+          "p": 0.1158523564340771,
+          "fairOdds": 8.631675960506035
+        }
+      ],
+      "marketGroups": [
+        {
+          "group": "Resultado",
+          "rows": [
+            {
+              "market": "h2h",
+              "selection": "home",
+              "label": "León gana",
+              "p": 0.4819367364217264,
+              "fairOdds": 2.0749611399719776
+            },
+            {
+              "market": "h2h",
+              "selection": "draw",
+              "label": "Empate",
+              "p": 0.3658190182360562,
+              "fairOdds": 2.7335921593740613
+            },
+            {
+              "market": "h2h",
+              "selection": "away",
+              "label": "América gana",
+              "p": 0.1522442453422171,
+              "fairOdds": 6.568392767504504
+            }
+          ]
+        },
+        {
+          "group": "Doble oportunidad",
+          "rows": [
+            {
+              "market": "double_chance",
+              "selection": "1x",
+              "label": "León o empate",
+              "p": 0.8477557546577826,
+              "fairOdds": 1.1795850331958815
+            },
+            {
+              "market": "double_chance",
+              "selection": "x2",
+              "label": "América o empate",
+              "p": 0.5180632635782734,
+              "fairOdds": 1.9302661862047117
+            },
+            {
+              "market": "double_chance",
+              "selection": "12",
+              "label": "Sin empate",
+              "p": 0.6341809817639434,
+              "fairOdds": 1.5768369420643122
+            }
+          ]
+        },
+        {
+          "group": "Goles totales",
+          "rows": [
+            {
+              "market": "totals",
+              "selection": "over_1.5",
+              "label": "Más de 1.5",
+              "line": 1.5,
+              "p": 0.3700741588188323,
+              "fairOdds": 2.7021611106047105
+            },
+            {
+              "market": "totals",
+              "selection": "over_2.5",
+              "label": "Más de 2.5",
+              "line": 2.5,
+              "p": 0.1439727144298254,
+              "fairOdds": 6.945760548867168
+            },
+            {
+              "market": "totals",
+              "selection": "under_2.5",
+              "label": "Menos de 2.5",
+              "line": 2.5,
+              "p": 0.8560272855701746,
+              "fairOdds": 1.168187062324689
+            },
+            {
+              "market": "totals",
+              "selection": "over_3.5",
+              "label": "Más de 3.5",
+              "line": 3.5,
+              "p": 0.04356655649921226,
+              "fairOdds": 22.9533862750452
+            },
+            {
+              "market": "totals",
+              "selection": "under_3.5",
+              "label": "Menos de 3.5",
+              "line": 3.5,
+              "p": 0.9564334435007877,
+              "fairOdds": 1.0455510592977046
+            }
+          ]
+        },
+        {
+          "group": "Ambos anotan",
+          "rows": [
+            {
+              "market": "btts",
+              "selection": "yes",
+              "label": "Sí",
+              "p": 0.1861098902573384,
+              "fairOdds": 5.373169575336792
+            },
+            {
+              "market": "btts",
+              "selection": "no",
+              "label": "No",
+              "p": 0.8138901097426616,
+              "fairOdds": 1.228667098948018
+            }
+          ]
+        },
+        {
+          "group": "Goles por equipo (1.5)",
+          "rows": [
+            {
+              "market": "team_totals",
+              "selection": "home_over",
+              "label": "León más de 1.5",
+              "line": 1.5,
+              "p": 0.23639519510701978,
+              "fairOdds": 4.230204423348302
+            },
+            {
+              "market": "team_totals",
+              "selection": "home_under",
+              "label": "León menos de 1.5",
+              "line": 1.5,
+              "p": 0.7636048048929802,
+              "fairOdds": 1.3095779303538442
+            },
+            {
+              "market": "team_totals",
+              "selection": "away_over",
+              "label": "América más de 1.5",
+              "line": 1.5,
+              "p": 0.056394682311442956,
+              "fairOdds": 17.732168335969003
+            },
+            {
+              "market": "team_totals",
+              "selection": "away_under",
+              "label": "América menos de 1.5",
+              "line": 1.5,
+              "p": 0.943605317688557,
+              "fairOdds": 1.059765117103819
+            }
+          ]
+        },
+        {
+          "group": "Marcador exacto (más probables)",
+          "rows": [
+            {
+              "market": "correct_score",
+              "selection": "0-0",
+              "label": "0–0",
+              "p": 0.2664829117209799,
+              "fairOdds": 3.7525858357741413
+            },
+            {
+              "market": "correct_score",
+              "selection": "1-0",
+              "label": "1–0",
+              "p": 0.25546907614966424,
+              "fairOdds": 3.9143680913229555
+            },
+            {
+              "market": "correct_score",
+              "selection": "2-0",
+              "label": "2–0",
+              "p": 0.1158523564340771,
+              "fairOdds": 8.631675960506035
+            }
+          ]
+        }
+      ],
+      "mostLikelyScore": {
+        "home": 0,
+        "away": 0,
+        "p": 0.2664829117209799
+      },
+      "factors": [
+        {
+          "key": "home_attack",
+          "label": "Ataque local",
+          "value": "0.64 goles/partido",
+          "detail": "6 % más que la media · 1 partidos"
+        },
+        {
+          "key": "away_defense",
+          "label": "Defensa visitante",
+          "value": "0.60 concedidos/partido",
+          "detail": "10 % más que la media · 1 partidos"
+        },
+        {
+          "key": "away_attack",
+          "label": "Ataque visitante",
+          "value": "0.38 goles/partido",
+          "detail": "14 % menos que la media · ajustado por rival"
+        },
+        {
+          "key": "home_defense",
+          "label": "Defensa local",
+          "value": "0.44 concedidos/partido",
+          "detail": "19 % menos que la media · ajustado por rival"
+        },
+        {
+          "key": "home_advantage",
+          "label": "Localía",
+          "value": "×1.45",
+          "detail": "estimada de 2 partidos"
+        },
+        {
+          "key": "uncertainty",
+          "label": "Intervalo 90%",
+          "value": "goles 0.5–5.0",
+          "detail": "local 8%–96% · 2 partidos"
+        },
+        {
+          "key": "home_position",
+          "label": "Posición local",
+          "value": "2.º · 3 pts",
+          "detail": "de 4 equipos"
+        },
+        {
+          "key": "away_position",
+          "label": "Posición visitante",
+          "value": "3.º · 0 pts",
+          "detail": "de 4 equipos"
+        }
+      ],
+      "steps": [
+        "Sincronizando Leagues Cup · corte 6 sep 2026, 15:00",
+        "Fuerza ajustada por rival · LEO 1.06 / 0.81 · AME 0.86 / 1.10",
+        "Ponderando 1.7 partidos por antigüedad y calidad del rival",
+        "Proyección de goles 0.92 – 0.38 · total 1.30",
+        "Simulando 121 marcadores con incertidumbre del ajuste",
+        "20 mercados listos · marcador proyectado 1–0"
+      ],
+      "inputsAsOf": "2026-09-06T21:00:00.000Z",
+      "publishedAt": "2026-09-06T21:00:00.000Z",
+      "source": "pitchlab-concacaf-v1",
+      "projectedScore": {
+        "home": 1,
+        "away": 0,
+        "p": 0.25546907614966424
+      },
+      "insights": {
+        "why": [
+          "León gana en 48% de los escenarios; el empate, en 37%.",
+          "León concede 19 % menos que la media.",
+          "América anota 14 % menos que la media."
+        ]
+      }
+    },
+    "leagues-cup-2026-09-07-toluca-monterrey-tkfylr": {
+      "game": "leagues-cup-2026-09-07-toluca-monterrey-tkfylr",
+      "model": {
+        "id": "pitchlab-statistical-leagues-cup",
+        "version": "2.0.0",
+        "status": "candidate",
+        "label": "Modelo PitchLab · en validación"
+      },
+      "projection": {
+        "home": 1.3934789542062602,
+        "away": 0.3802821351574461,
+        "total": 1.7737610893637064,
+        "margin": 1.013196819048814
+      },
+      "x12": [
+        0.6324969630675636,
+        0.26326256418474236,
+        0.10424047274769349
+      ],
+      "probabilities": [
+        {
+          "market": "h2h",
+          "selection": "Toluca gana",
+          "p": 0.6324969630675636,
+          "fairOdds": 1.5810352592842085
+        },
+        {
+          "market": "h2h",
+          "selection": "Empate",
+          "p": 0.26326256418474236,
+          "fairOdds": 3.798489174094111
+        },
+        {
+          "market": "h2h",
+          "selection": "Monterrey gana",
+          "p": 0.10424047274769349,
+          "fairOdds": 9.593202847615892
+        },
+        {
+          "market": "double_chance",
+          "selection": "Toluca o empate",
+          "p": 0.895759527252306,
+          "fairOdds": 1.1163710455499658
+        },
+        {
+          "market": "double_chance",
+          "selection": "Monterrey o empate",
+          "p": 0.36750303693243586,
+          "fairOdds": 2.721065949133494
+        },
+        {
+          "market": "double_chance",
+          "selection": "Sin empate",
+          "p": 0.7367374358152572,
+          "fairOdds": 1.3573356685661322
+        },
+        {
+          "market": "totals",
+          "selection": "Más de 1.5",
+          "line": 1.5,
+          "p": 0.5248143337696973,
+          "fairOdds": 1.9054357620476634
+        },
+        {
+          "market": "totals",
+          "selection": "Más de 2.5",
+          "line": 2.5,
+          "p": 0.2623630817492537,
+          "fairOdds": 3.8115118687152885
+        },
+        {
+          "market": "totals",
+          "selection": "Menos de 2.5",
+          "line": 2.5,
+          "p": 0.7376369182507463,
+          "fairOdds": 1.3556805187726086
+        },
+        {
+          "market": "totals",
+          "selection": "Más de 3.5",
+          "line": 3.5,
+          "p": 0.1045294373370691,
+          "fairOdds": 9.56668308445368
+        },
+        {
+          "market": "totals",
+          "selection": "Menos de 3.5",
+          "line": 3.5,
+          "p": 0.8954705626629309,
+          "fairOdds": 1.1167312937973324
+        },
+        {
+          "market": "btts",
+          "selection": "Sí",
+          "p": 0.23331858906635602,
+          "fairOdds": 4.285985115894898
+        },
+        {
+          "market": "btts",
+          "selection": "No",
+          "p": 0.766681410933644,
+          "fairOdds": 1.304322741805135
+        },
+        {
+          "market": "team_totals",
+          "selection": "Toluca más de 1.5",
+          "line": 1.5,
+          "p": 0.4059137374433812,
+          "fairOdds": 2.4635776219312726
+        },
+        {
+          "market": "team_totals",
+          "selection": "Toluca menos de 1.5",
+          "line": 1.5,
+          "p": 0.5940862625566188,
+          "fairOdds": 1.683257235568035
+        },
+        {
+          "market": "team_totals",
+          "selection": "Monterrey más de 1.5",
+          "line": 1.5,
+          "p": 0.05634458986903468,
+          "fairOdds": 17.747932895143325
+        },
+        {
+          "market": "team_totals",
+          "selection": "Monterrey menos de 1.5",
+          "line": 1.5,
+          "p": 0.9436554101309653,
+          "fairOdds": 1.0597088611627998
+        },
+        {
+          "market": "correct_score",
+          "selection": "1–0",
+          "p": 0.24096062123426165,
+          "fairOdds": 4.150055701540548
+        },
+        {
+          "market": "correct_score",
+          "selection": "0–0",
+          "p": 0.1651974398364126,
+          "fairOdds": 6.053362576261798
+        },
+        {
+          "market": "correct_score",
+          "selection": "2–0",
+          "p": 0.16475412472488604,
+          "fairOdds": 6.06965077001772
+        }
+      ],
+      "marketGroups": [
+        {
+          "group": "Resultado",
+          "rows": [
+            {
+              "market": "h2h",
+              "selection": "home",
+              "label": "Toluca gana",
+              "p": 0.6324969630675636,
+              "fairOdds": 1.5810352592842085
+            },
+            {
+              "market": "h2h",
+              "selection": "draw",
+              "label": "Empate",
+              "p": 0.26326256418474236,
+              "fairOdds": 3.798489174094111
+            },
+            {
+              "market": "h2h",
+              "selection": "away",
+              "label": "Monterrey gana",
+              "p": 0.10424047274769349,
+              "fairOdds": 9.593202847615892
+            }
+          ]
+        },
+        {
+          "group": "Doble oportunidad",
+          "rows": [
+            {
+              "market": "double_chance",
+              "selection": "1x",
+              "label": "Toluca o empate",
+              "p": 0.895759527252306,
+              "fairOdds": 1.1163710455499658
+            },
+            {
+              "market": "double_chance",
+              "selection": "x2",
+              "label": "Monterrey o empate",
+              "p": 0.36750303693243586,
+              "fairOdds": 2.721065949133494
+            },
+            {
+              "market": "double_chance",
+              "selection": "12",
+              "label": "Sin empate",
+              "p": 0.7367374358152572,
+              "fairOdds": 1.3573356685661322
+            }
+          ]
+        },
+        {
+          "group": "Goles totales",
+          "rows": [
+            {
+              "market": "totals",
+              "selection": "over_1.5",
+              "label": "Más de 1.5",
+              "line": 1.5,
+              "p": 0.5248143337696973,
+              "fairOdds": 1.9054357620476634
+            },
+            {
+              "market": "totals",
+              "selection": "over_2.5",
+              "label": "Más de 2.5",
+              "line": 2.5,
+              "p": 0.2623630817492537,
+              "fairOdds": 3.8115118687152885
+            },
+            {
+              "market": "totals",
+              "selection": "under_2.5",
+              "label": "Menos de 2.5",
+              "line": 2.5,
+              "p": 0.7376369182507463,
+              "fairOdds": 1.3556805187726086
+            },
+            {
+              "market": "totals",
+              "selection": "over_3.5",
+              "label": "Más de 3.5",
+              "line": 3.5,
+              "p": 0.1045294373370691,
+              "fairOdds": 9.56668308445368
+            },
+            {
+              "market": "totals",
+              "selection": "under_3.5",
+              "label": "Menos de 3.5",
+              "line": 3.5,
+              "p": 0.8954705626629309,
+              "fairOdds": 1.1167312937973324
+            }
+          ]
+        },
+        {
+          "group": "Ambos anotan",
+          "rows": [
+            {
+              "market": "btts",
+              "selection": "yes",
+              "label": "Sí",
+              "p": 0.23331858906635602,
+              "fairOdds": 4.285985115894898
+            },
+            {
+              "market": "btts",
+              "selection": "no",
+              "label": "No",
+              "p": 0.766681410933644,
+              "fairOdds": 1.304322741805135
+            }
+          ]
+        },
+        {
+          "group": "Goles por equipo (1.5)",
+          "rows": [
+            {
+              "market": "team_totals",
+              "selection": "home_over",
+              "label": "Toluca más de 1.5",
+              "line": 1.5,
+              "p": 0.4059137374433812,
+              "fairOdds": 2.4635776219312726
+            },
+            {
+              "market": "team_totals",
+              "selection": "home_under",
+              "label": "Toluca menos de 1.5",
+              "line": 1.5,
+              "p": 0.5940862625566188,
+              "fairOdds": 1.683257235568035
+            },
+            {
+              "market": "team_totals",
+              "selection": "away_over",
+              "label": "Monterrey más de 1.5",
+              "line": 1.5,
+              "p": 0.05634458986903468,
+              "fairOdds": 17.747932895143325
+            },
+            {
+              "market": "team_totals",
+              "selection": "away_under",
+              "label": "Monterrey menos de 1.5",
+              "line": 1.5,
+              "p": 0.9436554101309653,
+              "fairOdds": 1.0597088611627998
+            }
+          ]
+        },
+        {
+          "group": "Marcador exacto (más probables)",
+          "rows": [
+            {
+              "market": "correct_score",
+              "selection": "1-0",
+              "label": "1–0",
+              "p": 0.24096062123426165,
+              "fairOdds": 4.150055701540548
+            },
+            {
+              "market": "correct_score",
+              "selection": "0-0",
+              "label": "0–0",
+              "p": 0.1651974398364126,
+              "fairOdds": 6.053362576261798
+            },
+            {
+              "market": "correct_score",
+              "selection": "2-0",
+              "label": "2–0",
+              "p": 0.16475412472488604,
+              "fairOdds": 6.06965077001772
+            }
+          ]
+        }
+      ],
+      "mostLikelyScore": {
+        "home": 1,
+        "away": 0,
+        "p": 0.24096062123426165
+      },
+      "factors": [
+        {
+          "key": "home_attack",
+          "label": "Ataque local",
+          "value": "0.96 goles/partido",
+          "detail": "28 % más que la media · 1 partidos"
+        },
+        {
+          "key": "away_defense",
+          "label": "Defensa visitante",
+          "value": "0.75 concedidos/partido",
+          "detail": "37 % más que la media · 1 partidos"
+        },
+        {
+          "key": "away_attack",
+          "label": "Ataque visitante",
+          "value": "0.38 goles/partido",
+          "detail": "14 % menos que la media · ajustado por rival"
+        },
+        {
+          "key": "home_defense",
+          "label": "Defensa local",
+          "value": "0.44 concedidos/partido",
+          "detail": "19 % menos que la media · ajustado por rival"
+        },
+        {
+          "key": "home_advantage",
+          "label": "Localía",
+          "value": "×1.45",
+          "detail": "estimada de 2 partidos"
+        },
+        {
+          "key": "uncertainty",
+          "label": "Intervalo 90%",
+          "value": "goles 0.7–5.7",
+          "detail": "local 11%–96% · 2 partidos"
+        },
+        {
+          "key": "home_position",
+          "label": "Posición local",
+          "value": "1.º · 3 pts",
+          "detail": "de 4 equipos"
+        },
+        {
+          "key": "away_position",
+          "label": "Posición visitante",
+          "value": "4.º · 0 pts",
+          "detail": "de 4 equipos"
+        }
+      ],
+      "steps": [
+        "Sincronizando Leagues Cup · corte 6 sep 2026, 18:15",
+        "Fuerza ajustada por rival · TOL 1.28 / 0.81 · MTY 0.86 / 1.37",
+        "Ponderando 1.7 partidos por antigüedad y calidad del rival",
+        "Proyección de goles 1.39 – 0.38 · total 1.77",
+        "Simulando 121 marcadores con incertidumbre del ajuste",
+        "20 mercados listos · marcador proyectado 1–0"
+      ],
+      "inputsAsOf": "2026-09-07T00:15:00.000Z",
+      "publishedAt": "2026-09-07T00:15:00.000Z",
+      "source": "pitchlab-concacaf-v1",
+      "projectedScore": {
+        "home": 1,
+        "away": 0,
+        "p": 0.24096062123426165
+      },
+      "insights": {
+        "why": [
+          "Toluca gana en 63% de los escenarios; el empate, en 26%.",
+          "Monterrey concede 37 % más que la media.",
+          "Toluca anota 28 % más que la media."
+        ]
+      }
+    }
+  },
+  "standings": [
+    {
+      "teamId": "leagues-cup.toluca",
+      "name": "Toluca",
+      "shortName": "Toluca",
+      "code": "TOL",
+      "played": 1,
+      "won": 1,
+      "drawn": 0,
+      "lost": 0,
+      "goalsFor": 2,
+      "goalsAgainst": 0,
+      "points": 3,
+      "form": [
+        "W"
+      ]
+    },
+    {
+      "teamId": "leagues-cup.leon",
+      "name": "León",
+      "shortName": "León",
+      "code": "LEO",
+      "played": 1,
+      "won": 1,
+      "drawn": 0,
+      "lost": 0,
+      "goalsFor": 1,
+      "goalsAgainst": 0,
+      "points": 3,
+      "form": [
+        "W"
+      ]
+    },
+    {
+      "teamId": "leagues-cup.america",
+      "name": "América",
+      "shortName": "América",
+      "code": "AME",
+      "played": 1,
+      "won": 0,
+      "drawn": 0,
+      "lost": 1,
+      "goalsFor": 0,
+      "goalsAgainst": 1,
+      "points": 0,
+      "form": [
+        "L"
+      ]
+    },
+    {
+      "teamId": "leagues-cup.monterrey",
+      "name": "Monterrey",
+      "shortName": "Monterrey",
+      "code": "MTY",
+      "played": 1,
+      "won": 0,
+      "drawn": 0,
+      "lost": 1,
+      "goalsFor": 0,
+      "goalsAgainst": 2,
+      "points": 0,
+      "form": [
+        "L"
+      ]
+    }
+  ]
+}

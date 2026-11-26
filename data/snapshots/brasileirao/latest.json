@@ -5,7 +5,7 @@
   "season": "brasileirao-2026",
   "seasonLabel": "2026",
   "periodLabel": "Regular season · Matchday 35",
-  "updatedAt": "2026-11-25T20:23:50.754Z",
+  "updatedAt": "2026-11-26T20:00:11.075Z",
   "source": "pitchlab-football-v2",
   "provenance": "derived",
   "isDemo": false,
@@ -18,8 +18,8 @@
       "forPerGame": 1.105263157894737,
       "againstPerGame": 1.5263157894736843,
       "gamesPlayed": 19,
-      "adjustedFor": 1.0192599029801575,
-      "adjustedAgainst": 1.267861383227643
+      "adjustedFor": 1.02009989272034,
+      "adjustedAgainst": 1.2687526942669018
     },
     "brasileirao.vasco-gama": {
       "teamId": "brasileirao.vasco-gama",
@@ -29,8 +29,8 @@
       "forPerGame": 1.3888888888888888,
       "againstPerGame": 1.2777777777777777,
       "gamesPlayed": 18,
-      "adjustedFor": 1.1792571449475717,
-      "adjustedAgainst": 1.0807942612828212
+      "adjustedFor": 1.1803429942007633,
+      "adjustedAgainst": 1.0811090486612576
     },
     "brasileirao.botafogo": {
       "teamId": "brasileirao.botafogo",
@@ -40,8 +40,8 @@
       "forPerGame": 0.8421052631578947,
       "againstPerGame": 1.4210526315789473,
       "gamesPlayed": 19,
-      "adjustedFor": 0.8214584640951846,
-      "adjustedAgainst": 1.2053167262995856
+      "adjustedFor": 0.8221978559044495,
+      "adjustedAgainst": 1.2060481090417574
     },
     "brasileirao.santos": {
       "teamId": "brasileirao.santos",
@@ -51,8 +51,8 @@
       "forPerGame": 1.3888888888888888,
       "againstPerGame": 1.2222222222222223,
       "gamesPlayed": 18,
-      "adjustedFor": 1.1724634912810477,
-      "adjustedAgainst": 1.050713835850414
+      "adjustedFor": 1.1732244365063578,
+      "adjustedAgainst": 1.0516257263294766
     },
     "brasileirao.bahia": {
       "teamId": "brasileirao.bahia",
@@ -62,8 +62,8 @@
       "forPerGame": 1.3157894736842106,
       "againstPerGame": 1.2105263157894737,
       "gamesPlayed": 19,
-      "adjustedFor": 1.100953770409689,
-      "adjustedAgainst": 1.046378050264912
+      "adjustedFor": 1.1018642314700533,
+      "adjustedAgainst": 1.0472872816436223
     },
     "brasileirao.chapecoense": {
       "teamId": "brasileirao.chapecoense",
@@ -73,8 +73,8 @@
       "forPerGame": 1,
       "againstPerGame": 2.05,
       "gamesPlayed": 20,
-      "adjustedFor": 0.943845773820466,
-      "adjustedAgainst": 1.552894416642179
+      "adjustedFor": 0.9445368107848247,
+      "adjustedAgainst": 1.5539654197576174
     },
     "brasileirao.mirassol": {
       "teamId": "brasileirao.mirassol",
@@ -84,8 +84,8 @@
       "forPerGame": 1.105263157894737,
       "againstPerGame": 1.3157894736842106,
       "gamesPlayed": 19,
-      "adjustedFor": 1.0028666899623349,
-      "adjustedAgainst": 1.076744416465723
+      "adjustedFor": 1.003601354544588,
+      "adjustedAgainst": 1.0775679660717534
     },
     "brasileirao.gremio": {
       "teamId": "brasileirao.gremio",
@@ -95,8 +95,8 @@
       "forPerGame": 1.1111111111111112,
       "againstPerGame": 1.3333333333333333,
       "gamesPlayed": 18,
-      "adjustedFor": 1.0038137320365261,
-      "adjustedAgainst": 1.1080410864947636
+      "adjustedFor": 1.0041161594354788,
+      "adjustedAgainst": 1.1089658237882638
     },
     "brasileirao.fluminense": {
       "teamId": "brasileirao.fluminense",
@@ -106,8 +106,8 @@
       "forPerGame": 1.6111111111111112,
       "againstPerGame": 1.0555555555555556,
       "gamesPlayed": 18,
-      "adjustedFor": 1.2897890279383584,
-      "adjustedAgainst": 0.9705408659040825
+      "adjustedFor": 1.290734344990139,
+      "adjustedAgainst": 0.9713749651760003
     },
     "brasileirao.red-bull-bragantino": {
       "teamId": "brasileirao.red-bull-bragantino",
@@ -117,19 +117,19 @@
       "forPerGame": 1.1666666666666667,
       "againstPerGame": 1.2222222222222223,
       "gamesPlayed": 18,
-      "adjustedFor": 1.0432736977725956,
-      "adjustedAgainst": 1.0488514306431154
+      "adjustedFor": 1.0442112027858932,
+      "adjustedAgainst": 1.049799725810247
     },
     "brasileirao.atletico-mineiro": {
       "teamId": "brasileirao.atletico-mineiro",
       "name": "Atlético Mineiro",
       "shortName": "Mineiro",
       "code": "ATL",
-      "forPerGame": 1.2941176470588236,
+      "forPerGame": 1.2777777777777777,
       "againstPerGame": 1,
-      "gamesPlayed": 17,
-      "adjustedFor": 1.0778165936621698,
-      "adjustedAgainst": 0.9359426628868732
+      "gamesPlayed": 18,
+      "adjustedFor": 1.0623958298973908,
+      "adjustedAgainst": 0.9388409586245057
     },
     "brasileirao.coritiba": {
       "teamId": "brasileirao.coritiba",
@@ -139,8 +139,8 @@
       "forPerGame": 0.9444444444444444,
       "againstPerGame": 1.5555555555555556,
       "gamesPlayed": 18,
-      "adjustedFor": 0.87805027647675,
-      "adjustedAgainst": 1.2721938415475542
+      "adjustedFor": 0.8789225214548255,
+      "adjustedAgainst": 1.2732295000414526
     },
     "brasileirao.palmeiras": {
       "teamId": "brasileirao.palmeiras",
@@ -150,8 +150,8 @@
       "forPerGame": 1.7894736842105263,
       "againstPerGame": 0.8421052631578947,
       "gamesPlayed": 19,
-      "adjustedFor": 1.3928005032988047,
-      "adjustedAgainst": 0.8394313001197349
+      "adjustedFor": 1.3939411266086739,
+      "adjustedAgainst": 0.8400439216854519
     },
     "brasileirao.sao-paulo": {
       "teamId": "brasileirao.sao-paulo",
@@ -161,8 +161,8 @@
       "forPerGame": 0.9444444444444444,
       "againstPerGame": 1.1666666666666667,
       "gamesPlayed": 18,
-      "adjustedFor": 0.8938624736599579,
-      "adjustedAgainst": 1.0225076260039276
+      "adjustedFor": 0.8948090895921946,
+      "adjustedAgainst": 1.0231721751480334
     },
     "brasileirao.athletico": {
       "teamId": "brasileirao.athletico",
@@ -172,8 +172,8 @@
       "forPerGame": 1.7777777777777777,
       "againstPerGame": 1.6111111111111112,
       "gamesPlayed": 18,
-      "adjustedFor": 1.4136338799670467,
-      "adjustedAgainst": 1.2974387563164786
+      "adjustedFor": 1.4144516098470656,
+      "adjustedAgainst": 1.2983951313561701
     },
     "brasileirao.internacional": {
       "teamId": "brasileirao.internacional",
@@ -183,8 +183,8 @@
       "forPerGame": 1.1111111111111112,
       "againstPerGame": 1.5,
       "gamesPlayed": 18,
-      "adjustedFor": 1.0129097542652394,
-      "adjustedAgainst": 1.2312255579096005
+      "adjustedFor": 1.013863317858159,
+      "adjustedAgainst": 1.232062324937683
     },
     "brasileirao.cruzeiro": {
       "teamId": "brasileirao.cruzeiro",
@@ -194,8 +194,8 @@
       "forPerGame": 1.9444444444444444,
       "againstPerGame": 1.2222222222222223,
       "gamesPlayed": 18,
-      "adjustedFor": 1.507930650747113,
-      "adjustedAgainst": 1.0768884875676479
+      "adjustedFor": 1.5088401013929518,
+      "adjustedAgainst": 1.0778870484203205
     },
     "brasileirao.flamengo": {
       "teamId": "brasileirao.flamengo",
@@ -205,19 +205,19 @@
       "forPerGame": 2.263157894736842,
       "againstPerGame": 0.7894736842105263,
       "gamesPlayed": 19,
-      "adjustedFor": 1.674260310862968,
-      "adjustedAgainst": 0.8214405198081606
+      "adjustedFor": 1.6756778847225864,
+      "adjustedAgainst": 0.8220809038606671
     },
     "brasileirao.corinthians": {
       "teamId": "brasileirao.corinthians",
       "name": "Corinthians",
       "shortName": "Corinthians",
       "code": "COR",
-      "forPerGame": 1.2941176470588236,
-      "againstPerGame": 1.3529411764705883,
-      "gamesPlayed": 17,
-      "adjustedFor": 1.099118351020566,
-      "adjustedAgainst": 1.1400459813813846
+      "forPerGame": 1.2777777777777777,
+      "againstPerGame": 1.3333333333333333,
+      "gamesPlayed": 18,
+      "adjustedFor": 1.1022301277214586,
+      "adjustedAgainst": 1.1242133605183458
     },
     "brasileirao.remo": {
       "teamId": "brasileirao.remo",
@@ -227,46 +227,11 @@
       "forPerGame": 1.1111111111111112,
       "againstPerGame": 1.7777777777777777,
       "gamesPlayed": 18,
-      "adjustedFor": 1.005556660446781,
-      "adjustedAgainst": 1.3604214458530053
+      "adjustedFor": 1.006280340444537,
+      "adjustedAgainst": 1.361346910643658
     }
   },
   "games": [
-    {
-      "id": "brasileirao-2026-11-18-cruzeiro-palmeiras-jdqgfe",
-      "league": "brasileirao",
-      "season": "brasileirao-2026",
-      "week": 35,
-      "round": "Regular season · Matchday 35",
-      "phase": "Regular season",
-      "startTime": "2026-11-18T23:30:00.000Z",
-      "status": "final",
-      "home": {
-        "id": "brasileirao.cruzeiro",
-        "league": "brasileirao",
-        "name": "Cruzeiro",
-        "shortName": "Cruzeiro",
-        "code": "CRU",
-        "logoUrl": "https://sports.bzzoiro.com/img/team/150/?bg=transparent"
-      },
-      "away": {
-        "id": "brasileirao.palmeiras",
-        "league": "brasileirao",
-        "name": "Palmeiras",
-        "shortName": "Palmeiras",
-        "code": "PAL",
-        "logoUrl": "https://sports.bzzoiro.com/img/team/162/?bg=transparent"
-      },
-      "venue": "Governador Magalhães Pinto, Belo Horizonte",
-      "referee": "Anderson Daronco",
-      "neutralSite": false,
-      "result": {
-        "home": 2,
-        "away": 1,
-        "observedAt": "2026-11-25T20:23:50.754Z",
-        "source": "pitchlab-feed"
-      }
-    },
     {
       "id": "brasileirao-2026-11-19-gremio-bahia-jxizc3",
       "league": "brasileirao",
@@ -298,7 +263,7 @@
       "result": {
         "home": 0,
         "away": 0,
-        "observedAt": "2026-11-25T20:23:50.754Z",
+        "observedAt": "2026-11-26T20:00:11.075Z",
         "source": "pitchlab-feed"
       }
     },
@@ -333,7 +298,7 @@
       "result": {
         "home": 4,
         "away": 0,
-        "observedAt": "2026-11-25T20:23:50.754Z",
+        "observedAt": "2026-11-26T20:00:11.075Z",
         "source": "pitchlab-feed"
       }
     },
@@ -368,7 +333,7 @@
       "result": {
         "home": 2,
         "away": 1,
-        "observedAt": "2026-11-25T20:23:50.754Z",
+        "observedAt": "2026-11-26T20:00:11.075Z",
         "source": "pitchlab-feed"
       }
     },
@@ -403,7 +368,7 @@
       "result": {
         "home": 2,
         "away": 1,
-        "observedAt": "2026-11-25T20:23:50.754Z",
+        "observedAt": "2026-11-26T20:00:11.075Z",
         "source": "pitchlab-feed"
       }
     },
@@ -438,7 +403,7 @@
       "result": {
         "home": 0,
         "away": 1,
-        "observedAt": "2026-11-25T20:23:50.754Z",
+        "observedAt": "2026-11-26T20:00:11.075Z",
         "source": "pitchlab-feed"
       }
     },
@@ -473,7 +438,7 @@
       "result": {
         "home": 1,
         "away": 1,
-        "observedAt": "2026-11-25T20:23:50.754Z",
+        "observedAt": "2026-11-26T20:00:11.075Z",
         "source": "pitchlab-feed"
       }
     },
@@ -508,7 +473,7 @@
       "result": {
         "home": 0,
         "away": 1,
-        "observedAt": "2026-11-25T20:23:50.754Z",
+        "observedAt": "2026-11-26T20:00:11.075Z",
         "source": "pitchlab-feed"
       }
     },
@@ -543,7 +508,7 @@
       "result": {
         "home": 1,
         "away": 2,
-        "observedAt": "2026-11-25T20:23:50.754Z",
+        "observedAt": "2026-11-26T20:00:11.075Z",
         "source": "pitchlab-feed"
       }
     },
@@ -578,7 +543,7 @@
       "result": {
         "home": 4,
         "away": 2,
-        "observedAt": "2026-11-25T20:23:50.754Z",
+        "observedAt": "2026-11-26T20:00:11.075Z",
         "source": "pitchlab-feed"
       }
     },
@@ -613,7 +578,7 @@
       "result": {
         "home": 1,
         "away": 0,
-        "observedAt": "2026-11-25T20:23:50.754Z",
+        "observedAt": "2026-11-26T20:00:11.075Z",
         "source": "pitchlab-feed"
       }
     },
@@ -648,7 +613,7 @@
       "result": {
         "home": 1,
         "away": 0,
-        "observedAt": "2026-11-25T20:23:50.754Z",
+        "observedAt": "2026-11-26T20:00:11.075Z",
         "source": "pitchlab-feed"
       }
     },
@@ -683,7 +648,7 @@
       "result": {
         "home": 2,
         "away": 5,
-        "observedAt": "2026-11-25T20:23:50.754Z",
+        "observedAt": "2026-11-26T20:00:11.075Z",
         "source": "pitchlab-feed"
       }
     },
@@ -718,7 +683,7 @@
       "result": {
         "home": 1,
         "away": 1,
-        "observedAt": "2026-11-25T20:23:50.754Z",
+        "observedAt": "2026-11-26T20:00:11.075Z",
         "source": "pitchlab-feed"
       }
     },
@@ -753,7 +718,7 @@
       "result": {
         "home": 0,
         "away": 2,
-        "observedAt": "2026-11-25T20:23:50.754Z",
+        "observedAt": "2026-11-26T20:00:11.075Z",
         "source": "pitchlab-feed"
       }
     },
@@ -788,7 +753,7 @@
       "result": {
         "home": 3,
         "away": 0,
-        "observedAt": "2026-11-25T20:23:50.754Z",
+        "observedAt": "2026-11-26T20:00:11.075Z",
         "source": "pitchlab-feed"
       }
     },
@@ -800,7 +765,7 @@
       "round": "Regular season · Matchday 36",
       "phase": "Regular season",
       "startTime": "2026-11-25T23:00:00.000Z",
-      "status": "scheduled",
+      "status": "final",
       "home": {
         "id": "brasileirao.atletico-mineiro",
         "league": "brasileirao",
@@ -819,7 +784,13 @@
       },
       "venue": "Arena MRV, Belo Horizonte",
       "referee": "Braulio Da Silva Machado",
-      "neutralSite": false
+      "neutralSite": false,
+      "result": {
+        "home": 1,
+        "away": 1,
+        "observedAt": "2026-11-26T20:00:11.075Z",
+        "source": "pitchlab-feed"
+      }
     },
     {
       "id": "brasileirao-2026-11-26-sao-paulo-remo-k7imox",
@@ -1357,457 +1328,6 @@
     }
   ],
   "analyses": {
-    "brasileirao-2026-11-18-cruzeiro-palmeiras-jdqgfe": {
-      "game": "brasileirao-2026-11-18-cruzeiro-palmeiras-jdqgfe",
-      "model": {
-        "id": "pitchlab-statistical-brasileirao",
-        "version": "2.0.0",
-        "status": "candidate",
-        "label": "Modelo PitchLab · en validación"
-      },
-      "projection": {
-        "home": 1.5717922294262483,
-        "away": 1.7113081236797507,
-        "total": 3.283100353105999,
-        "margin": -0.13951589425350241
-      },
-      "x12": [
-        0.33722608807991183,
-        0.26667049790651054,
-        0.39610341401357746
-      ],
-      "probabilities": [
-        {
-          "market": "h2h",
-          "selection": "Cruzeiro gana",
-          "p": 0.33722608807991183,
-          "fairOdds": 2.965369629893616
-        },
-        {
-          "market": "h2h",
-          "selection": "Empate",
-          "p": 0.26667049790651054,
-          "fairOdds": 3.7499461239637406
-        },
-        {
-          "market": "h2h",
-          "selection": "Palmeiras gana",
-          "p": 0.39610341401357746,
-          "fairOdds": 2.524593236567566
-        },
-        {
-          "market": "double_chance",
-          "selection": "Cruzeiro o empate",
-          "p": 0.6038965859864224,
-          "fairOdds": 1.655912656579389
-        },
-        {
-          "market": "double_chance",
-          "selection": "Palmeiras o empate",
-          "p": 0.6627739119200879,
-          "fairOdds": 1.5088101417615425
-        },
-        {
-          "market": "double_chance",
-          "selection": "Sin empate",
-          "p": 0.7333295020934893,
-          "fairOdds": 1.363643487879905
-        },
-        {
-          "market": "totals",
-          "selection": "Más de 1.5",
-          "line": 1.5,
-          "p": 0.8574948888754786,
-          "fairOdds": 1.1661877090735817
-        },
-        {
-          "market": "totals",
-          "selection": "Más de 2.5",
-          "line": 2.5,
-          "p": 0.6371672861845592,
-          "fairOdds": 1.5694465514513942
-        },
-        {
-          "market": "totals",
-          "selection": "Menos de 2.5",
-          "line": 2.5,
-          "p": 0.3628327138154408,
-          "fairOdds": 2.756091063245918
-        },
-        {
-          "market": "totals",
-          "selection": "Más de 3.5",
-          "line": 3.5,
-          "p": 0.41592401302598003,
-          "fairOdds": 2.404285322996094
-        },
-        {
-          "market": "totals",
-          "selection": "Menos de 3.5",
-          "line": 3.5,
-          "p": 0.58407598697402,
-          "fairOdds": 1.7121059969967238
-        },
-        {
-          "market": "btts",
-          "selection": "Sí",
-          "p": 0.6673713907909402,
-          "fairOdds": 1.4984160450972321
-        },
-        {
-          "market": "btts",
-          "selection": "No",
-          "p": 0.3326286092090598,
-          "fairOdds": 3.0063559547022964
-        },
-        {
-          "market": "team_totals",
-          "selection": "Cruzeiro más de 1.5",
-          "line": 1.5,
-          "p": 0.4659086266022556,
-          "fairOdds": 2.1463436023769873
-        },
-        {
-          "market": "team_totals",
-          "selection": "Cruzeiro menos de 1.5",
-          "line": 1.5,
-          "p": 0.5340913733977444,
-          "fairOdds": 1.8723387978320476
-        },
-        {
-          "market": "team_totals",
-          "selection": "Palmeiras más de 1.5",
-          "line": 1.5,
-          "p": 0.5102572183311013,
-          "fairOdds": 1.959795891316738
-        },
-        {
-          "market": "team_totals",
-          "selection": "Palmeiras menos de 1.5",
-          "line": 1.5,
-          "p": 0.48974278166889873,
-          "fairOdds": 2.0418881858601274
-        },
-        {
-          "market": "correct_score",
-          "selection": "1–1",
-          "p": 0.11906228374865246,
-          "fairOdds": 8.398965386142427
-        },
-        {
-          "market": "correct_score",
-          "selection": "1–2",
-          "p": 0.08633570059446295,
-          "fairOdds": 11.582693985390952
-        },
-        {
-          "market": "correct_score",
-          "selection": "2–1",
-          "p": 0.0792971069550318,
-          "fairOdds": 12.610800549975739
-        }
-      ],
-      "marketGroups": [
-        {
-          "group": "Resultado",
-          "rows": [
-            {
-              "market": "h2h",
-              "selection": "home",
-              "label": "Cruzeiro gana",
-              "p": 0.33722608807991183,
-              "fairOdds": 2.965369629893616
-            },
-            {
-              "market": "h2h",
-              "selection": "draw",
-              "label": "Empate",
-              "p": 0.26667049790651054,
-              "fairOdds": 3.7499461239637406
-            },
-            {
-              "market": "h2h",
-              "selection": "away",
-              "label": "Palmeiras gana",
-              "p": 0.39610341401357746,
-              "fairOdds": 2.524593236567566
-            }
-          ]
-        },
-        {
-          "group": "Doble oportunidad",
-          "rows": [
-            {
-              "market": "double_chance",
-              "selection": "1x",
-              "label": "Cruzeiro o empate",
-              "p": 0.6038965859864224,
-              "fairOdds": 1.655912656579389
-            },
-            {
-              "market": "double_chance",
-              "selection": "x2",
-              "label": "Palmeiras o empate",
-              "p": 0.6627739119200879,
-              "fairOdds": 1.5088101417615425
-            },
-            {
-              "market": "double_chance",
-              "selection": "12",
-              "label": "Sin empate",
-              "p": 0.7333295020934893,
-              "fairOdds": 1.363643487879905
-            }
-          ]
-        },
-        {
-          "group": "Goles totales",
-          "rows": [
-            {
-              "market": "totals",
-              "selection": "over_1.5",
-              "label": "Más de 1.5",
-              "line": 1.5,
-              "p": 0.8574948888754786,
-              "fairOdds": 1.1661877090735817
-            },
-            {
-              "market": "totals",
-              "selection": "over_2.5",
-              "label": "Más de 2.5",
-              "line": 2.5,
-              "p": 0.6371672861845592,
-              "fairOdds": 1.5694465514513942
-            },
-            {
-              "market": "totals",
-              "selection": "under_2.5",
-              "label": "Menos de 2.5",
-              "line": 2.5,
-              "p": 0.3628327138154408,
-              "fairOdds": 2.756091063245918
-            },
-            {
-              "market": "totals",
-              "selection": "over_3.5",
-              "label": "Más de 3.5",
-              "line": 3.5,
-              "p": 0.41592401302598003,
-              "fairOdds": 2.404285322996094
-            },
-            {
-              "market": "totals",
-              "selection": "under_3.5",
-              "label": "Menos de 3.5",
-              "line": 3.5,
-              "p": 0.58407598697402,
-              "fairOdds": 1.7121059969967238
-            }
-          ]
-        },
-        {
-          "group": "Ambos anotan",
-          "rows": [
-            {
-              "market": "btts",
-              "selection": "yes",
-              "label": "Sí",
-              "p": 0.6673713907909402,
-              "fairOdds": 1.4984160450972321
-            },
-            {
-              "market": "btts",
-              "selection": "no",
-              "label": "No",
-              "p": 0.3326286092090598,
-              "fairOdds": 3.0063559547022964
-            }
-          ]
-        },
-        {
-          "group": "Goles por equipo (1.5)",
-          "rows": [
-            {
-              "market": "team_totals",
-              "selection": "home_over",
-              "label": "Cruzeiro más de 1.5",
-              "line": 1.5,
-              "p": 0.4659086266022556,
-              "fairOdds": 2.1463436023769873
-            },
-            {
-              "market": "team_totals",
-              "selection": "home_under",
-              "label": "Cruzeiro menos de 1.5",
-              "line": 1.5,
-              "p": 0.5340913733977444,
-              "fairOdds": 1.8723387978320476
-            },
-            {
-              "market": "team_totals",
-              "selection": "away_over",
-              "label": "Palmeiras más de 1.5",
-              "line": 1.5,
-              "p": 0.5102572183311013,
-              "fairOdds": 1.959795891316738
-            },
-            {
-              "market": "team_totals",
-              "selection": "away_under",
-              "label": "Palmeiras menos de 1.5",
-              "line": 1.5,
-              "p": 0.48974278166889873,
-              "fairOdds": 2.0418881858601274
-            }
-          ]
-        },
-        {
-          "group": "Marcador exacto (más probables)",
-          "rows": [
-            {
-              "market": "correct_score",
-              "selection": "1-1",
-              "label": "1–1",
-              "p": 0.11906228374865246,
-              "fairOdds": 8.398965386142427
-            },
-            {
-              "market": "correct_score",
-              "selection": "1-2",
-              "label": "1–2",
-              "p": 0.08633570059446295,
-              "fairOdds": 11.582693985390952
-            },
-            {
-              "market": "correct_score",
-              "selection": "2-1",
-              "label": "2–1",
-              "p": 0.0792971069550318,
-              "fairOdds": 12.610800549975739
-            }
-          ]
-        }
-      ],
-      "mostLikelyScore": {
-        "home": 1,
-        "away": 1,
-        "p": 0.11906228374865246
-      },
-      "factors": [
-        {
-          "key": "home_attack",
-          "label": "Ataque local",
-          "value": "1.15 goles/partido",
-          "detail": "49 % más que la media · 17 partidos"
-        },
-        {
-          "key": "away_defense",
-          "label": "Defensa visitante",
-          "value": "0.77 concedidos/partido",
-          "detail": "36 % menos que la media · 17 partidos"
-        },
-        {
-          "key": "away_attack",
-          "label": "Ataque visitante",
-          "value": "1.71 goles/partido",
-          "detail": "44 % más que la media · ajustado por rival"
-        },
-        {
-          "key": "home_defense",
-          "label": "Defensa local",
-          "value": "1.19 concedidos/partido",
-          "detail": "en la media de la liga · ajustado por rival"
-        },
-        {
-          "key": "home_advantage",
-          "label": "Localía",
-          "value": "×1.37",
-          "detail": "estimada de 170 partidos"
-        },
-        {
-          "key": "uncertainty",
-          "label": "Intervalo 90%",
-          "value": "goles 2.4–4.6",
-          "detail": "local 14%–57% · 170 partidos"
-        },
-        {
-          "key": "home_position",
-          "label": "Posición local",
-          "value": "2.º · 39 pts",
-          "detail": "de 20 equipos"
-        },
-        {
-          "key": "away_position",
-          "label": "Posición visitante",
-          "value": "3.º · 32 pts",
-          "detail": "de 20 equipos"
-        },
-        {
-          "key": "home_form",
-          "label": "Forma local",
-          "value": "P-G-G-G-G · 12 pts",
-          "detail": "11 goles a favor · 8 en contra"
-        },
-        {
-          "key": "away_form",
-          "label": "Forma visitante",
-          "value": "G-G-G-E-G · 13 pts",
-          "detail": "14 goles a favor · 2 en contra"
-        }
-      ],
-      "steps": [
-        "Sincronizando Brasileirão Serie A · corte 18 nov 2026, 16:30",
-        "Fuerza ajustada por rival · CRU 1.49 / 0.98 · PAL 1.44 / 0.64",
-        "Ponderando 150.7 partidos por antigüedad y calidad del rival",
-        "Proyección de goles 1.57 – 1.71 · total 3.28",
-        "Simulando 121 marcadores con incertidumbre del ajuste",
-        "20 mercados listos · marcador proyectado 1–2"
-      ],
-      "inputsAsOf": "2026-11-18T22:30:00.000Z",
-      "publishedAt": "2026-11-18T22:30:00.000Z",
-      "source": "pitchlab-football-v2",
-      "projectedScore": {
-        "home": 1,
-        "away": 2,
-        "p": 0.08633570059446295
-      },
-      "insights": {
-        "why": [
-          "Se esperan 3.3 goles: 1.6 de Cruzeiro y 1.7 de Palmeiras.",
-          "Palmeiras concede 36 % menos que la media.",
-          "Cruzeiro anota 49 % más que la media."
-        ],
-        "restDays": {
-          "home": 12,
-          "away": 13
-        }
-      },
-      "matchContext": {
-        "referee": "Anderson Daronco",
-        "refereeStats": {
-          "country": "Brazil",
-          "matches": 92,
-          "avgYellow": 4.87,
-          "avgRed": 0.29,
-          "avgFouls": 26.5,
-          "avgGoals": 2.36
-        },
-        "weather": {
-          "description": "cloudy",
-          "temperatureC": 24,
-          "windSpeedKmh": 12
-        },
-        "travelDistanceKm": 518,
-        "halfTimeScore": {
-          "home": 0,
-          "away": 0
-        },
-        "stageName": "Regular season",
-        "venueCity": "Belo Horizonte",
-        "venueCountry": "Brazil",
-        "venueCapacity": 61927
-      }
-    },
     "brasileirao-2026-11-19-gremio-bahia-jxizc3": {
       "game": "brasileirao-2026-11-19-gremio-bahia-jxizc3",
       "model": {
@@ -2236,11 +1756,11 @@
         "referee": "Davi de Oliveira Lacerda",
         "refereeStats": {
           "country": "Brazil",
-          "matches": 78,
-          "avgYellow": 4.96,
-          "avgRed": 0.26,
+          "matches": 79,
+          "avgYellow": 4.99,
+          "avgRed": 0.25,
           "avgFouls": 24.1,
-          "avgGoals": 2.32
+          "avgGoals": 2.33
         },
         "weather": {
           "description": "clear",
@@ -4639,11 +4159,11 @@
         "referee": "Rodrigo Jose Pereira de Lima",
         "refereeStats": {
           "country": "Brazil",
-          "matches": 73,
+          "matches": 74,
           "avgYellow": 4.73,
           "avgRed": 0.22,
           "avgFouls": 27.7,
-          "avgGoals": 2.38
+          "avgGoals": 2.41
         },
         "weather": {
           "description": "cloudy",
@@ -7071,11 +6591,11 @@
         "referee": "Braulio Da Silva Machado",
         "refereeStats": {
           "country": "Brazil",
-          "matches": 32,
-          "avgYellow": 5.44,
-          "avgRed": 0.19,
+          "matches": 33,
+          "avgYellow": 5.39,
+          "avgRed": 0.21,
           "avgFouls": 24.6,
-          "avgGoals": 2.41
+          "avgGoals": 2.39
         },
         "weather": {
           "description": "cloudy"
@@ -7556,11 +7076,11 @@
         "referee": "Davi de Oliveira Lacerda",
         "refereeStats": {
           "country": "Brazil",
-          "matches": 78,
-          "avgYellow": 4.96,
-          "avgRed": 0.26,
+          "matches": 79,
+          "avgYellow": 4.99,
+          "avgRed": 0.25,
           "avgFouls": 24.1,
-          "avgGoals": 2.32
+          "avgGoals": 2.33
         },
         "weather": {
           "description": "clear",
@@ -9505,17 +9025,22 @@
         "referee": "Braulio Da Silva Machado",
         "refereeStats": {
           "country": "Brazil",
-          "matches": 32,
-          "avgYellow": 5.44,
-          "avgRed": 0.19,
+          "matches": 33,
+          "avgYellow": 5.39,
+          "avgRed": 0.21,
           "avgFouls": 24.6,
-          "avgGoals": 2.41
+          "avgGoals": 2.39
         },
         "weather": {
+          "description": "clear",
           "temperatureC": 20,
           "windSpeedKmh": 17
         },
         "travelDistanceKm": 512,
+        "halfTimeScore": {
+          "home": 0,
+          "away": 0
+        },
         "stageName": "Regular season",
         "venueCity": "Belo Horizonte",
         "venueCountry": "Brazil",
@@ -10480,6 +10005,7 @@
           "temperatureC": 22,
           "windSpeedKmh": 37
         },
+        "travelDistanceKm": 396,
         "stageName": "Regular season",
         "venueCity": "Rio de Janeiro",
         "venueCountry": "Brazil",
@@ -18707,6 +18233,26 @@
       ]
     },
     {
+      "teamId": "brasileirao.atletico-mineiro",
+      "name": "Atlético Mineiro",
+      "shortName": "Mineiro",
+      "code": "ATL",
+      "played": 18,
+      "won": 7,
+      "drawn": 7,
+      "lost": 4,
+      "goalsFor": 23,
+      "goalsAgainst": 18,
+      "points": 28,
+      "form": [
+        "L",
+        "L",
+        "L",
+        "D",
+        "D"
+      ]
+    },
+    {
       "teamId": "brasileirao.bahia",
       "name": "Bahia",
       "shortName": "Bahia",
@@ -18724,26 +18270,6 @@
         "L",
         "D",
         "L"
-      ]
-    },
-    {
-      "teamId": "brasileirao.atletico-mineiro",
-      "name": "Atlético Mineiro",
-      "shortName": "Mineiro",
-      "code": "ATL",
-      "played": 17,
-      "won": 7,
-      "drawn": 6,
-      "lost": 4,
-      "goalsFor": 22,
-      "goalsAgainst": 17,
-      "points": 27,
-      "form": [
-        "W",
-        "L",
-        "L",
-        "L",
-        "D"
       ]
     },
     {
@@ -18927,6 +18453,26 @@
       ]
     },
     {
+      "teamId": "brasileirao.corinthians",
+      "name": "Corinthians",
+      "shortName": "Corinthians",
+      "code": "COR",
+      "played": 18,
+      "won": 4,
+      "drawn": 5,
+      "lost": 9,
+      "goalsFor": 23,
+      "goalsAgainst": 24,
+      "points": 17,
+      "form": [
+        "L",
+        "W",
+        "D",
+        "W",
+        "D"
+      ]
+    },
+    {
       "teamId": "brasileirao.internacional",
       "name": "Internacional",
       "shortName": "Internacional",
@@ -18944,26 +18490,6 @@
         "W",
         "L",
         "L"
-      ]
-    },
-    {
-      "teamId": "brasileirao.corinthians",
-      "name": "Corinthians",
-      "shortName": "Corinthians",
-      "code": "COR",
-      "played": 17,
-      "won": 4,
-      "drawn": 4,
-      "lost": 9,
-      "goalsFor": 22,
-      "goalsAgainst": 23,
-      "points": 16,
-      "form": [
-        "D",
-        "L",
-        "W",
-        "D",
-        "W"
       ]
     },
     {

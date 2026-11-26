@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "league": "ligapro-ecuador",
   "season": "2026",
-  "updatedAt": "2026-11-25T20:23:50.754Z",
+  "updatedAt": "2026-11-26T20:00:11.075Z",
   "matches": [
     {
       "id": "ligapro-ecuador-2026-07-01-ldu-orense-hsz276",
@@ -1827,6 +1827,17 @@
       "homeTeam": "ligapro-ecuador.ldu",
       "awayTeam": "ligapro-ecuador.aucas",
       "homeScore": 0,
+      "awayScore": 1,
+      "neutralSite": false
+    },
+    {
+      "id": "ligapro-ecuador-2026-11-26-barcelona-guay-independiente--ekplfz",
+      "date": "2026-11-26",
+      "startTime": "2026-11-26T00:00:00.000Z",
+      "round": "Regular season · Matchday 1",
+      "homeTeam": "ligapro-ecuador.barcelona-guayaquil",
+      "awayTeam": "ligapro-ecuador.independiente-valle",
+      "homeScore": 1,
       "awayScore": 1,
       "neutralSite": false
     }

@@ -1,17 +1,193 @@
 {
   "schemaVersion": 1,
   "league": "nfl",
-  "observedAt": "2026-11-25T20:29:53.678Z",
+  "observedAt": "2026-11-26T20:07:51.050Z",
   "source": "nflverse-cc-by-4.0",
   "coverageStatus": "ok",
   "entries": [
+    {
+      "teamId": "nfl.buffalo-bills",
+      "player": "Christian Benford",
+      "position": "CB",
+      "status": "Duda",
+      "detail": "Ingle",
+      "reportedAt": "2026-11-26T20:07:51.050Z"
+    },
+    {
+      "teamId": "nfl.buffalo-bills",
+      "player": "O'Cyrus Torrence",
+      "position": "G",
+      "status": "Duda",
+      "detail": "Tobillo",
+      "reportedAt": "2026-11-26T20:07:51.050Z"
+    },
+    {
+      "teamId": "nfl.buffalo-bills",
+      "player": "Dorian Williams",
+      "position": "LB",
+      "status": "Duda",
+      "detail": "Gemelo",
+      "reportedAt": "2026-11-26T20:07:51.050Z"
+    },
+    {
+      "teamId": "nfl.buffalo-bills",
+      "player": "Dalton Kincaid",
+      "position": "TE",
+      "status": "Duda",
+      "detail": "Thumb",
+      "reportedAt": "2026-11-26T20:07:51.050Z"
+    },
+    {
+      "teamId": "nfl.buffalo-bills",
+      "player": "T.J. Sanders",
+      "position": "DE",
+      "status": "Duda",
+      "detail": "Hombro",
+      "reportedAt": "2026-11-26T20:07:51.050Z"
+    },
+    {
+      "teamId": "nfl.chicago-bears",
+      "player": "Elijah Hicks",
+      "position": "S",
+      "status": "Baja",
+      "detail": "Protocolo de conmoción",
+      "reportedAt": "2026-11-26T20:07:51.050Z"
+    },
+    {
+      "teamId": "nfl.chicago-bears",
+      "player": "D'Marco Jackson",
+      "position": "LB",
+      "status": "Duda",
+      "detail": "Elbow",
+      "reportedAt": "2026-11-26T20:07:51.050Z"
+    },
+    {
+      "teamId": "nfl.chicago-bears",
+      "player": "Kyler Gordon",
+      "position": "CB",
+      "status": "Baja",
+      "detail": "Hombro",
+      "reportedAt": "2026-11-26T20:07:51.050Z"
+    },
+    {
+      "teamId": "nfl.chicago-bears",
+      "player": "Roschon Johnson",
+      "position": "RB",
+      "status": "Baja",
+      "detail": "Tobillo",
+      "reportedAt": "2026-11-26T20:07:51.050Z"
+    },
+    {
+      "teamId": "nfl.chicago-bears",
+      "player": "Tyrique Stevenson",
+      "position": "CB",
+      "status": "Duda",
+      "detail": "Ingle",
+      "reportedAt": "2026-11-26T20:07:51.050Z"
+    },
+    {
+      "teamId": "nfl.dallas-cowboys",
+      "player": "P.J. Locke",
+      "position": "S",
+      "status": "Baja",
+      "detail": "Protocolo de conmoción",
+      "reportedAt": "2026-11-26T20:07:51.050Z"
+    },
+    {
+      "teamId": "nfl.dallas-cowboys",
+      "player": "Jalen Thompson",
+      "position": "S",
+      "status": "Duda",
+      "detail": "Isquiotibiales",
+      "reportedAt": "2026-11-26T20:07:51.050Z"
+    },
+    {
+      "teamId": "nfl.dallas-cowboys",
+      "player": "Jake Ferguson",
+      "position": "TE",
+      "status": "Baja",
+      "detail": "Rodilla",
+      "reportedAt": "2026-11-26T20:07:51.050Z"
+    },
+    {
+      "teamId": "nfl.dallas-cowboys",
+      "player": "Jonathan Mingo",
+      "position": "WR",
+      "status": "Baja",
+      "detail": "Tobillo",
+      "reportedAt": "2026-11-26T20:07:51.050Z"
+    },
+    {
+      "teamId": "nfl.dallas-cowboys",
+      "player": "Tyler Booker",
+      "position": "G",
+      "status": "Baja",
+      "detail": "Tobillo",
+      "reportedAt": "2026-11-26T20:07:51.050Z"
+    },
+    {
+      "teamId": "nfl.dallas-cowboys",
+      "player": "Devin Moore",
+      "position": "CB",
+      "status": "Duda",
+      "detail": "Cadera",
+      "reportedAt": "2026-11-26T20:07:51.050Z"
+    },
+    {
+      "teamId": "nfl.denver-broncos",
+      "player": "Taylor Rapp",
+      "position": "S",
+      "status": "Baja",
+      "detail": "Cuádriceps",
+      "reportedAt": "2026-11-26T20:07:51.050Z"
+    },
+    {
+      "teamId": "nfl.denver-broncos",
+      "player": "Sai'vion Jones",
+      "position": "DE",
+      "status": "Baja",
+      "detail": "Isquiotibiales",
+      "reportedAt": "2026-11-26T20:07:51.050Z"
+    },
+    {
+      "teamId": "nfl.detroit-lions",
+      "player": "Chuck Clark",
+      "position": "S",
+      "status": "Duda",
+      "detail": "Isquiotibiales",
+      "reportedAt": "2026-11-26T20:07:51.050Z"
+    },
+    {
+      "teamId": "nfl.detroit-lions",
+      "player": "DJ Wonnum",
+      "position": "DE",
+      "status": "Duda",
+      "detail": "Espalda",
+      "reportedAt": "2026-11-26T20:07:51.050Z"
+    },
+    {
+      "teamId": "nfl.detroit-lions",
+      "player": "Ennis Rakestraw Jr.",
+      "position": "CB",
+      "status": "Baja",
+      "detail": "Hombro",
+      "reportedAt": "2026-11-26T20:07:51.050Z"
+    },
+    {
+      "teamId": "nfl.detroit-lions",
+      "player": "Skyler Gill-Howard",
+      "position": "DT",
+      "status": "Baja",
+      "detail": "Rodilla",
+      "reportedAt": "2026-11-26T20:07:51.050Z"
+    },
     {
       "teamId": "nfl.green-bay-packers",
       "player": "Kevin Zeitler",
       "position": "G",
       "status": "Duda",
       "detail": "Triceps",
-      "reportedAt": "2026-11-25T20:29:53.678Z"
+      "reportedAt": "2026-11-26T20:07:51.050Z"
     },
     {
       "teamId": "nfl.green-bay-packers",
@@ -19,7 +195,7 @@
       "position": "LB",
       "status": "Duda",
       "detail": "Shin",
-      "reportedAt": "2026-11-25T20:29:53.678Z"
+      "reportedAt": "2026-11-26T20:07:51.050Z"
     },
     {
       "teamId": "nfl.green-bay-packers",
@@ -27,7 +203,7 @@
       "position": "RB",
       "status": "Duda",
       "detail": "Finger",
-      "reportedAt": "2026-11-25T20:29:53.678Z"
+      "reportedAt": "2026-11-26T20:07:51.050Z"
     },
     {
       "teamId": "nfl.green-bay-packers",
@@ -35,7 +211,7 @@
       "position": "LB",
       "status": "Duda",
       "detail": "Rodilla",
-      "reportedAt": "2026-11-25T20:29:53.678Z"
+      "reportedAt": "2026-11-26T20:07:51.050Z"
     },
     {
       "teamId": "nfl.green-bay-packers",
@@ -43,7 +219,7 @@
       "position": "C",
       "status": "Duda",
       "detail": "Tobillo",
-      "reportedAt": "2026-11-25T20:29:53.678Z"
+      "reportedAt": "2026-11-26T20:07:51.050Z"
     },
     {
       "teamId": "nfl.green-bay-packers",
@@ -51,7 +227,7 @@
       "position": "WR",
       "status": "Duda",
       "detail": "Muslo",
-      "reportedAt": "2026-11-25T20:29:53.678Z"
+      "reportedAt": "2026-11-26T20:07:51.050Z"
     },
     {
       "teamId": "nfl.green-bay-packers",
@@ -59,7 +235,7 @@
       "position": "WR",
       "status": "Duda",
       "detail": "Tobillo",
-      "reportedAt": "2026-11-25T20:29:53.678Z"
+      "reportedAt": "2026-11-26T20:07:51.050Z"
     },
     {
       "teamId": "nfl.green-bay-packers",
@@ -67,7 +243,47 @@
       "position": "G",
       "status": "Duda",
       "detail": "Hombro",
-      "reportedAt": "2026-11-25T20:29:53.678Z"
+      "reportedAt": "2026-11-26T20:07:51.050Z"
+    },
+    {
+      "teamId": "nfl.kansas-city-chiefs",
+      "player": "Jaylon Moore",
+      "position": "T",
+      "status": "Baja",
+      "detail": "Tobillo",
+      "reportedAt": "2026-11-26T20:07:51.050Z"
+    },
+    {
+      "teamId": "nfl.kansas-city-chiefs",
+      "player": "Noah Gray",
+      "position": "TE",
+      "status": "Duda",
+      "detail": "Costillas",
+      "reportedAt": "2026-11-26T20:07:51.050Z"
+    },
+    {
+      "teamId": "nfl.kansas-city-chiefs",
+      "player": "Kenneth Walker III",
+      "position": "RB",
+      "status": "Baja",
+      "detail": "Ingle",
+      "reportedAt": "2026-11-26T20:07:51.050Z"
+    },
+    {
+      "teamId": "nfl.kansas-city-chiefs",
+      "player": "Omarr Norman-Lott",
+      "position": "DT",
+      "status": "Baja",
+      "detail": "Rodilla",
+      "reportedAt": "2026-11-26T20:07:51.050Z"
+    },
+    {
+      "teamId": "nfl.kansas-city-chiefs",
+      "player": "Peter Woods",
+      "position": "DT",
+      "status": "Duda",
+      "detail": "Cuello",
+      "reportedAt": "2026-11-26T20:07:51.050Z"
     },
     {
       "teamId": "nfl.los-angeles-rams",
@@ -75,7 +291,7 @@
       "position": "C",
       "status": "Baja",
       "detail": "Isquiotibiales",
-      "reportedAt": "2026-11-25T20:29:53.678Z"
+      "reportedAt": "2026-11-26T20:07:51.050Z"
     },
     {
       "teamId": "nfl.los-angeles-rams",
@@ -83,7 +299,7 @@
       "position": "G",
       "status": "Baja",
       "detail": "Isquiotibiales",
-      "reportedAt": "2026-11-25T20:29:53.678Z"
+      "reportedAt": "2026-11-26T20:07:51.050Z"
     },
     {
       "teamId": "nfl.los-angeles-rams",
@@ -91,7 +307,23 @@
       "position": "TE",
       "status": "Baja",
       "detail": "Tobillo",
-      "reportedAt": "2026-11-25T20:29:53.678Z"
+      "reportedAt": "2026-11-26T20:07:51.050Z"
+    },
+    {
+      "teamId": "nfl.philadelphia-eagles",
+      "player": "Jonathan Jones",
+      "position": "CB",
+      "status": "Baja",
+      "detail": "Tobillo",
+      "reportedAt": "2026-11-26T20:07:51.050Z"
+    },
+    {
+      "teamId": "nfl.philadelphia-eagles",
+      "player": "Arnold Ebiketie",
+      "position": "LB",
+      "status": "Baja",
+      "detail": "Oblique",
+      "reportedAt": "2026-11-26T20:07:51.050Z"
     }
   ]
 }

@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "league": "premier-league",
   "season": "premier-league-2026-27",
-  "updatedAt": "2026-11-25T20:29:53.678Z",
+  "updatedAt": "2026-11-26T20:07:51.050Z",
   "matches": [
     {
       "id": "premier-league:2026-27:arsenal:coventry-city",
@@ -16,21 +16,21 @@
       "neutralSite": false
     },
     {
-      "id": "premier-league-espn-401879322",
+      "id": "premier-league:2026-27:brentford:tottenham-hotspur",
       "date": "2026-08-22",
-      "startTime": "2026-08-22T11:30Z",
-      "round": null,
-      "homeTeam": "premier-league.hull-city",
-      "awayTeam": "premier-league.manchester-united",
-      "homeScore": 2,
+      "startTime": "2026-08-22T12:00:00Z",
+      "round": "Jornada 1",
+      "homeTeam": "premier-league.brentford",
+      "awayTeam": "premier-league.tottenham-hotspur",
+      "homeScore": 3,
       "awayScore": 0,
       "neutralSite": false
     },
     {
-      "id": "premier-league-espn-401879300",
+      "id": "premier-league:2026-27:everton:crystal-palace",
       "date": "2026-08-22",
-      "startTime": "2026-08-22T14:00Z",
-      "round": null,
+      "startTime": "2026-08-22T12:00:00Z",
+      "round": "Jornada 1",
       "homeTeam": "premier-league.everton",
       "awayTeam": "premier-league.crystal-palace",
       "homeScore": 2,
@@ -38,10 +38,21 @@
       "neutralSite": false
     },
     {
-      "id": "premier-league-espn-401879299",
+      "id": "premier-league:2026-27:hull-city:manchester-united",
       "date": "2026-08-22",
-      "startTime": "2026-08-22T14:00Z",
-      "round": null,
+      "startTime": "2026-08-22T12:00:00Z",
+      "round": "Jornada 1",
+      "homeTeam": "premier-league.hull-city",
+      "awayTeam": "premier-league.manchester-united",
+      "homeScore": 2,
+      "awayScore": 0,
+      "neutralSite": false
+    },
+    {
+      "id": "premier-league:2026-27:ipswich-town:sunderland",
+      "date": "2026-08-22",
+      "startTime": "2026-08-22T12:00:00Z",
+      "round": "Jornada 1",
       "homeTeam": "premier-league.ipswich-town",
       "awayTeam": "premier-league.sunderland",
       "homeScore": 2,
@@ -49,25 +60,14 @@
       "neutralSite": false
     },
     {
-      "id": "premier-league-espn-401879298",
+      "id": "premier-league:2026-27:nottingham-forest:leeds-united",
       "date": "2026-08-22",
-      "startTime": "2026-08-22T14:00Z",
-      "round": null,
+      "startTime": "2026-08-22T12:00:00Z",
+      "round": "Jornada 1",
       "homeTeam": "premier-league.nottingham-forest",
       "awayTeam": "premier-league.leeds-united",
       "homeScore": 0,
       "awayScore": 1,
-      "neutralSite": false
-    },
-    {
-      "id": "premier-league-espn-401879321",
-      "date": "2026-08-22",
-      "startTime": "2026-08-22T16:30Z",
-      "round": null,
-      "homeTeam": "premier-league.brentford",
-      "awayTeam": "premier-league.tottenham-hotspur",
-      "homeScore": 3,
-      "awayScore": 0,
       "neutralSite": false
     },
     {

@@ -5,7 +5,7 @@
   "season": "ligue-1-2026-27",
   "seasonLabel": "2026/27",
   "periodLabel": "Jornada 12",
-  "updatedAt": "2026-11-25T20:29:53.678Z",
+  "updatedAt": "2026-11-26T20:07:51.050Z",
   "source": "openfootball+football-data",
   "provenance": "derived",
   "isDemo": false,
@@ -19,8 +19,8 @@
       "forPerGame": 0.8181818181818182,
       "againstPerGame": 2.090909090909091,
       "gamesPlayed": 11,
-      "adjustedFor": 0.9156518753360414,
-      "adjustedAgainst": 1.5214932888874277
+      "adjustedFor": 0.9216544286762927,
+      "adjustedAgainst": 1.5204707174668313
     },
     "ligue-1.aj-auxerre": {
       "teamId": "ligue-1.aj-auxerre",
@@ -31,8 +31,8 @@
       "forPerGame": 1.2727272727272727,
       "againstPerGame": 2.272727272727273,
       "gamesPlayed": 11,
-      "adjustedFor": 1.1891384768589617,
-      "adjustedAgainst": 1.529622120727784
+      "adjustedFor": 1.190017960462677,
+      "adjustedAgainst": 1.5301023865402907
     },
     "ligue-1.stade-brestois": {
       "teamId": "ligue-1.stade-brestois",
@@ -43,8 +43,8 @@
       "forPerGame": 1.7272727272727273,
       "againstPerGame": 1.0909090909090908,
       "gamesPlayed": 11,
-      "adjustedFor": 1.3741703896913762,
-      "adjustedAgainst": 1.255922591044118
+      "adjustedFor": 1.3754320485436409,
+      "adjustedAgainst": 1.2568678614913698
     },
     "ligue-1.le-havre": {
       "teamId": "ligue-1.le-havre",
@@ -55,8 +55,8 @@
       "forPerGame": 0.9090909090909091,
       "againstPerGame": 2.272727272727273,
       "gamesPlayed": 11,
-      "adjustedFor": 1.0813569162878096,
-      "adjustedAgainst": 1.6102420123537613
+      "adjustedFor": 1.082606048013414,
+      "adjustedAgainst": 1.6109436347070474
     },
     "ligue-1.le-mans": {
       "teamId": "ligue-1.le-mans",
@@ -67,8 +67,8 @@
       "forPerGame": 1.3636363636363635,
       "againstPerGame": 1.9090909090909092,
       "gamesPlayed": 11,
-      "adjustedFor": 1.2864067035392077,
-      "adjustedAgainst": 1.459248360964287
+      "adjustedFor": 1.2872957823568614,
+      "adjustedAgainst": 1.4603712973258582
     },
     "ligue-1.racing-lens": {
       "teamId": "ligue-1.racing-lens",
@@ -79,8 +79,8 @@
       "forPerGame": 1.6363636363636365,
       "againstPerGame": 1.4545454545454546,
       "gamesPlayed": 11,
-      "adjustedFor": 1.521837841802781,
-      "adjustedAgainst": 1.1777442554417135
+      "adjustedFor": 1.5282137364596675,
+      "adjustedAgainst": 1.1856997147405794
     },
     "ligue-1.lorient": {
       "teamId": "ligue-1.lorient",
@@ -91,8 +91,8 @@
       "forPerGame": 0.9090909090909091,
       "againstPerGame": 0.8181818181818182,
       "gamesPlayed": 11,
-      "adjustedFor": 1.1045775225991488,
-      "adjustedAgainst": 1.089101864387404
+      "adjustedFor": 1.1054988252974225,
+      "adjustedAgainst": 1.0899764921209985
     },
     "ligue-1.lille-osc": {
       "teamId": "ligue-1.lille-osc",
@@ -103,8 +103,8 @@
       "forPerGame": 1.2727272727272727,
       "againstPerGame": 0.7272727272727273,
       "gamesPlayed": 11,
-      "adjustedFor": 1.2648691185924916,
-      "adjustedAgainst": 0.9396654212810064
+      "adjustedFor": 1.271573599193512,
+      "adjustedAgainst": 0.9406463414845344
     },
     "ligue-1.olympique-lyonnais": {
       "teamId": "ligue-1.olympique-lyonnais",
@@ -115,8 +115,8 @@
       "forPerGame": 1.4545454545454546,
       "againstPerGame": 0.8181818181818182,
       "gamesPlayed": 11,
-      "adjustedFor": 1.4034747633297613,
-      "adjustedAgainst": 1.051230726117459
+      "adjustedFor": 1.404198648202888,
+      "adjustedAgainst": 1.0520022375314035
     },
     "ligue-1.olympique-marseille": {
       "teamId": "ligue-1.olympique-marseille",
@@ -127,8 +127,8 @@
       "forPerGame": 2.1818181818181817,
       "againstPerGame": 1.5454545454545454,
       "gamesPlayed": 11,
-      "adjustedFor": 1.6645631863946502,
-      "adjustedAgainst": 1.3075749768489386
+      "adjustedFor": 1.6649774714861807,
+      "adjustedAgainst": 1.3082086805777189
     },
     "ligue-1.monaco": {
       "teamId": "ligue-1.monaco",
@@ -139,8 +139,8 @@
       "forPerGame": 1.2727272727272727,
       "againstPerGame": 1.0909090909090908,
       "gamesPlayed": 11,
-      "adjustedFor": 1.375863916234852,
-      "adjustedAgainst": 1.1911231423270814
+      "adjustedFor": 1.3749843402319173,
+      "adjustedAgainst": 1.196729550502692
     },
     "ligue-1.ogc-nice": {
       "teamId": "ligue-1.ogc-nice",
@@ -151,8 +151,8 @@
       "forPerGame": 1.5454545454545454,
       "againstPerGame": 1.3636363636363635,
       "gamesPlayed": 11,
-      "adjustedFor": 1.319785447344168,
-      "adjustedAgainst": 1.3559834240617805
+      "adjustedFor": 1.320797786973698,
+      "adjustedAgainst": 1.3566630045937318
     },
     "ligue-1.paris": {
       "teamId": "ligue-1.paris",
@@ -163,8 +163,8 @@
       "forPerGame": 1.9090909090909092,
       "againstPerGame": 0.9090909090909091,
       "gamesPlayed": 11,
-      "adjustedFor": 1.5023202826197983,
-      "adjustedAgainst": 1.1391418440337193
+      "adjustedFor": 1.502818673957847,
+      "adjustedAgainst": 1.140039614096408
     },
     "ligue-1.paris-saint-germain": {
       "teamId": "ligue-1.paris-saint-germain",
@@ -175,8 +175,8 @@
       "forPerGame": 2.272727272727273,
       "againstPerGame": 1.0909090909090908,
       "gamesPlayed": 11,
-      "adjustedFor": 1.8115105977160673,
-      "adjustedAgainst": 0.9846879360446154
+      "adjustedFor": 1.812040022460882,
+      "adjustedAgainst": 0.9858141708057166
     },
     "ligue-1.stade-rennais": {
       "teamId": "ligue-1.stade-rennais",
@@ -187,8 +187,8 @@
       "forPerGame": 2,
       "againstPerGame": 2,
       "gamesPlayed": 11,
-      "adjustedFor": 1.6371043567952612,
-      "adjustedAgainst": 1.494721375723253
+      "adjustedFor": 1.6452517151485402,
+      "adjustedAgainst": 1.5009039819284455
     },
     "ligue-1.strasbourg-alsace": {
       "teamId": "ligue-1.strasbourg-alsace",
@@ -199,8 +199,8 @@
       "forPerGame": 1.6363636363636365,
       "againstPerGame": 2.090909090909091,
       "gamesPlayed": 11,
-      "adjustedFor": 1.5127011667131676,
-      "adjustedAgainst": 1.4690932051411112
+      "adjustedFor": 1.513107696223548,
+      "adjustedAgainst": 1.4698960057607284
     },
     "ligue-1.toulouse": {
       "teamId": "ligue-1.toulouse",
@@ -211,8 +211,8 @@
       "forPerGame": 1.4545454545454546,
       "againstPerGame": 1.3636363636363635,
       "gamesPlayed": 11,
-      "adjustedFor": 1.3433229219426894,
-      "adjustedAgainst": 1.25284381721846
+      "adjustedFor": 1.344060809717272,
+      "adjustedAgainst": 1.2537906233471492
     },
     "ligue-1.es-troyes": {
       "teamId": "ligue-1.es-troyes",
@@ -223,8 +223,8 @@
       "forPerGame": 0.9090909090909091,
       "againstPerGame": 1.6363636363636365,
       "gamesPlayed": 11,
-      "adjustedFor": 1.0469809048127845,
-      "adjustedAgainst": 1.3596504055718395
+      "adjustedFor": 1.048726494112587,
+      "adjustedAgainst": 1.3605852697520466
     }
   },
   "games": [
@@ -257,7 +257,7 @@
       "result": {
         "home": 3,
         "away": 1,
-        "observedAt": "2026-11-25T20:29:57.590Z",
+        "observedAt": "2026-11-26T20:07:55.531Z",
         "source": "football-data"
       }
     },
@@ -290,7 +290,7 @@
       "result": {
         "home": 2,
         "away": 3,
-        "observedAt": "2026-11-25T20:29:57.590Z",
+        "observedAt": "2026-11-26T20:07:55.531Z",
         "source": "football-data"
       }
     },
@@ -323,7 +323,7 @@
       "result": {
         "home": 1,
         "away": 1,
-        "observedAt": "2026-11-25T20:29:57.590Z",
+        "observedAt": "2026-11-26T20:07:55.531Z",
         "source": "football-data"
       }
     },
@@ -356,7 +356,7 @@
       "result": {
         "home": 1,
         "away": 1,
-        "observedAt": "2026-11-25T20:29:57.590Z",
+        "observedAt": "2026-11-26T20:07:55.531Z",
         "source": "football-data"
       }
     },
@@ -389,7 +389,7 @@
       "result": {
         "home": 0,
         "away": 1,
-        "observedAt": "2026-11-25T20:29:57.590Z",
+        "observedAt": "2026-11-26T20:07:55.531Z",
         "source": "football-data"
       }
     },
@@ -422,7 +422,7 @@
       "result": {
         "home": 0,
         "away": 1,
-        "observedAt": "2026-11-25T20:29:57.590Z",
+        "observedAt": "2026-11-26T20:07:55.531Z",
         "source": "football-data"
       }
     },
@@ -455,7 +455,7 @@
       "result": {
         "home": 4,
         "away": 0,
-        "observedAt": "2026-11-25T20:29:57.590Z",
+        "observedAt": "2026-11-26T20:07:55.531Z",
         "source": "football-data"
       }
     },
@@ -488,7 +488,7 @@
       "result": {
         "home": 1,
         "away": 1,
-        "observedAt": "2026-11-25T20:29:57.590Z",
+        "observedAt": "2026-11-26T20:07:55.531Z",
         "source": "football-data"
       }
     },
@@ -521,7 +521,7 @@
       "result": {
         "home": 2,
         "away": 3,
-        "observedAt": "2026-11-25T20:29:57.590Z",
+        "observedAt": "2026-11-26T20:07:55.531Z",
         "source": "football-data"
       }
     },
@@ -2225,11 +2225,11 @@
         "referee": "Jérôme Brisard",
         "refereeStats": {
           "country": "France",
-          "matches": 63,
-          "avgYellow": 4.17,
-          "avgRed": 0.32,
+          "matches": 64,
+          "avgYellow": 4.19,
+          "avgRed": 0.31,
           "avgFouls": 23.2,
-          "avgGoals": 2.94
+          "avgGoals": 2.92
         }
       }
     },
@@ -2976,9 +2976,9 @@
         "referee": "Jeremy Stinat",
         "refereeStats": {
           "country": "France",
-          "matches": 47,
-          "avgYellow": 3.72,
-          "avgRed": 0.26,
+          "matches": 48,
+          "avgYellow": 3.69,
+          "avgRed": 0.25,
           "avgFouls": 23.4,
           "avgGoals": 3.21
         }
@@ -4476,11 +4476,11 @@
         "referee": "François Letexier",
         "refereeStats": {
           "country": "France",
-          "matches": 80,
-          "avgYellow": 4,
-          "avgRed": 0.33,
-          "avgFouls": 21.9,
-          "avgGoals": 3.01
+          "matches": 81,
+          "avgYellow": 3.99,
+          "avgRed": 0.32,
+          "avgFouls": 21.8,
+          "avgGoals": 3
         }
       }
     },
@@ -8135,7 +8135,18 @@
           "away": 5
         }
       },
-      "picksAt": "2026-11-22T22:03:53.979Z"
+      "picksAt": "2026-11-22T22:03:53.979Z",
+      "matchContext": {
+        "referee": "Ruddy Buquet",
+        "refereeStats": {
+          "country": "France",
+          "matches": 37,
+          "avgYellow": 3.51,
+          "avgRed": 0.16,
+          "avgFouls": 23.2,
+          "avgGoals": 2.68
+        }
+      }
     },
     "ligue-1-2026-27-md12-angers-sco-racing-lens": {
       "game": "ligue-1-2026-27-md12-angers-sco-racing-lens",
@@ -8877,7 +8888,18 @@
           "away": 7
         }
       },
-      "picksAt": "2026-11-22T22:03:53.979Z"
+      "picksAt": "2026-11-22T22:03:53.979Z",
+      "matchContext": {
+        "referee": "Romain Lissorgue",
+        "refereeStats": {
+          "country": "France",
+          "matches": 44,
+          "avgYellow": 4.07,
+          "avgRed": 0.25,
+          "avgFouls": 27.7,
+          "avgGoals": 2.66
+        }
+      }
     },
     "ligue-1-2026-27-md12-le-mans-lille-osc": {
       "game": "ligue-1-2026-27-md12-le-mans-lille-osc",
@@ -9581,7 +9603,18 @@
           "away": 7
         }
       },
-      "picksAt": "2026-11-22T22:03:53.979Z"
+      "picksAt": "2026-11-22T22:03:53.979Z",
+      "matchContext": {
+        "referee": "Mathieu Vernice",
+        "refereeStats": {
+          "country": "France",
+          "matches": 45,
+          "avgYellow": 4.71,
+          "avgRed": 0.22,
+          "avgFouls": 27.3,
+          "avgGoals": 2.49
+        }
+      }
     },
     "ligue-1-2026-27-md12-ogc-nice-es-troyes": {
       "game": "ligue-1-2026-27-md12-ogc-nice-es-troyes",
@@ -10323,7 +10356,18 @@
           "away": 8
         }
       },
-      "picksAt": "2026-11-22T22:03:53.979Z"
+      "picksAt": "2026-11-22T22:03:53.979Z",
+      "matchContext": {
+        "referee": "Aurelien Petit",
+        "refereeStats": {
+          "country": "France",
+          "matches": 44,
+          "avgYellow": 3.82,
+          "avgRed": 0.25,
+          "avgFouls": 27.3,
+          "avgGoals": 2.41
+        }
+      }
     },
     "ligue-1-2026-27-md12-le-havre-strasbourg-alsace": {
       "game": "ligue-1-2026-27-md12-le-havre-strasbourg-alsace",
@@ -11064,10 +11108,99 @@
           "away": 7
         }
       },
-      "picksAt": "2026-11-22T22:03:53.979Z"
+      "picksAt": "2026-11-22T22:03:53.979Z",
+      "matchContext": {
+        "referee": "Geoffrey Kubler",
+        "refereeStats": {
+          "country": "French Guiana",
+          "matches": 42,
+          "avgYellow": 4.05,
+          "avgRed": 0.19,
+          "avgFouls": 26.7,
+          "avgGoals": 2.4
+        }
+      }
     },
     "ligue-1-2026-27-md12-paris-saint-germain-lorient": {
       "game": "ligue-1-2026-27-md12-paris-saint-germain-lorient",
+      "cortex": {
+        "headline": "PSG domina la probabilidad y el volumen ofensivo ante Lorient",
+        "headlineOrigin": "ia",
+        "sections": [
+          {
+            "key": "lectura",
+            "title": "La lectura",
+            "text": "El PSG llega con 73 % de probabilidad frente al 11 % del Lorient, y una proyección de 2.03 a 0.82. La diferencia en la tabla lo respalda: primero con 26 puntos contra décimo con 16.",
+            "origin": "ia"
+          },
+          {
+            "key": "goles",
+            "title": "Goles",
+            "text": "Se esperan 2.85 goles en total, con 56 % de superar los 2.5. El PSG aporta 2.03 de esa cifra y el Lorient 0.82; ambos anotan aparece en 47 %.",
+            "origin": "ia",
+            "stats": [
+              {
+                "label": "Goles esperados",
+                "home": 2.03,
+                "away": 0.82
+              },
+              {
+                "label": "Ambos anotan",
+                "value": "47 %"
+              },
+              {
+                "label": "Más de 2.5 goles",
+                "value": "56 %"
+              }
+            ]
+          },
+          {
+            "key": "ritmo",
+            "title": "Ritmo del partido",
+            "text": "El PSG empuja con 6.3 tiros de esquina por 2.9 del Lorient, 9.3 en total. Las faltas van parejas, 9.4 y 9.6, así que el partido se corta poco y fluye hacia el área visitante.",
+            "origin": "ia",
+            "stats": [
+              {
+                "label": "Tiros de esquina",
+                "home": 6.3,
+                "away": 2.9
+              },
+              {
+                "label": "Faltas",
+                "home": 9.4,
+                "away": 9.6
+              },
+              {
+                "label": "Amarillas",
+                "home": 1.5,
+                "away": 1.6
+              }
+            ]
+          },
+          {
+            "key": "tabla",
+            "title": "Tabla y descanso",
+            "text": "El PSG es primero con 26 puntos y diferencia de 13 en 11 jornadas. El Lorient es décimo con 16 puntos y diferencia de 1. El local descansa 7 días y el visitante 6.",
+            "origin": "ia",
+            "stats": [
+              {
+                "label": "Puntos",
+                "home": 26,
+                "away": 16
+              }
+            ]
+          },
+          {
+            "key": "cambia",
+            "title": "Qué podría cambiarlo",
+            "text": "Una alineación con rotaciones en el PSG, un árbitro que corte más el juego o un gol temprano del Lorient, que obligaría al local a abrirse antes.",
+            "origin": "ia"
+          }
+        ],
+        "fingerprint": "4a769beb6b33adc1",
+        "generatedAt": "2026-11-26T20:09:10.914Z",
+        "version": "2"
+      },
       "counts": {
         "corners": {
           "home": 6.34,
@@ -11729,7 +11862,18 @@
           "away": 6
         }
       },
-      "picksAt": "2026-11-22T22:03:53.979Z"
+      "picksAt": "2026-11-22T22:03:53.979Z",
+      "matchContext": {
+        "referee": "Bastien Dechepy",
+        "refereeStats": {
+          "country": "France",
+          "matches": 46,
+          "avgYellow": 4.37,
+          "avgRed": 0.26,
+          "avgFouls": 25.1,
+          "avgGoals": 2.98
+        }
+      }
     },
     "ligue-1-2026-27-md12-aj-auxerre-olympique-marseille": {
       "game": "ligue-1-2026-27-md12-aj-auxerre-olympique-marseille",
@@ -12470,7 +12614,18 @@
           "away": 7
         }
       },
-      "picksAt": "2026-11-22T22:03:53.979Z"
+      "picksAt": "2026-11-22T22:03:53.979Z",
+      "matchContext": {
+        "referee": "François Letexier",
+        "refereeStats": {
+          "country": "France",
+          "matches": 81,
+          "avgYellow": 3.99,
+          "avgRed": 0.32,
+          "avgFouls": 21.8,
+          "avgGoals": 3
+        }
+      }
     },
     "ligue-1-2026-27-md12-toulouse-stade-rennais": {
       "game": "ligue-1-2026-27-md12-toulouse-stade-rennais",
@@ -13213,7 +13368,18 @@
           "away": 7
         }
       },
-      "picksAt": "2026-11-22T22:03:53.979Z"
+      "picksAt": "2026-11-22T22:03:53.979Z",
+      "matchContext": {
+        "referee": "Guillaume Paradis",
+        "refereeStats": {
+          "country": "France",
+          "matches": 43,
+          "avgYellow": 4.12,
+          "avgRed": 0.26,
+          "avgFouls": 25.9,
+          "avgGoals": 2.58
+        }
+      }
     },
     "ligue-1-2026-27-md12-olympique-lyonnais-monaco": {
       "game": "ligue-1-2026-27-md12-olympique-lyonnais-monaco",
@@ -13956,7 +14122,18 @@
           "away": 8
         }
       },
-      "picksAt": "2026-11-22T22:03:53.979Z"
+      "picksAt": "2026-11-22T22:03:53.979Z",
+      "matchContext": {
+        "referee": "Jérôme Brisard",
+        "refereeStats": {
+          "country": "France",
+          "matches": 64,
+          "avgYellow": 4.19,
+          "avgRed": 0.31,
+          "avgFouls": 23.2,
+          "avgGoals": 2.92
+        }
+      }
     }
   },
   "standings": [

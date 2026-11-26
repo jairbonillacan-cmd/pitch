@@ -1,28 +1,10 @@
 {
   "schemaVersion": 1,
   "league": "saudi-pro-league",
-  "observedAt": "2026-11-25T20:23:50.754Z",
+  "observedAt": "2026-11-26T20:00:11.075Z",
   "source": "pitchlab-availability",
   "coverageStatus": "ok",
   "entries": [
-    {
-      "teamId": "saudi-pro-league.al-hilal",
-      "player": "Gabriel Martinelli",
-      "position": "Delantero",
-      "status": "Baja",
-      "detail": "Hamstring Injury",
-      "injuryType": "Hamstring Injury",
-      "reportedAt": "2026-11-25T20:23:50.754Z"
-    },
-    {
-      "teamId": "saudi-pro-league.abha",
-      "player": "Abdou Diallo",
-      "position": "Defensa",
-      "status": "Baja",
-      "detail": "Back Injury",
-      "injuryType": "Back Injury",
-      "reportedAt": "2026-11-25T20:23:50.754Z"
-    },
     {
       "teamId": "saudi-pro-league.abha",
       "player": "Basil Yousef Al-Sayyali",
@@ -30,25 +12,7 @@
       "status": "Baja",
       "detail": "Ligament Injury",
       "injuryType": "Ligament Injury",
-      "reportedAt": "2026-11-25T20:23:50.754Z"
-    },
-    {
-      "teamId": "saudi-pro-league.abha",
-      "player": "Georges-Kévin N'Koudou",
-      "position": "Mediocampista",
-      "status": "Baja",
-      "detail": "Shoulder Injury",
-      "injuryType": "Shoulder Injury",
-      "reportedAt": "2026-11-25T20:23:50.754Z"
-    },
-    {
-      "teamId": "saudi-pro-league.abha",
-      "player": "Khaled Al Shamrani",
-      "position": "Defensa",
-      "status": "Baja",
-      "detail": "Hamstring Injury",
-      "injuryType": "Hamstring Injury",
-      "reportedAt": "2026-11-25T20:23:50.754Z"
+      "reportedAt": "2026-11-26T20:00:11.075Z"
     },
     {
       "teamId": "saudi-pro-league.abha",
@@ -57,7 +21,7 @@
       "status": "Baja",
       "detail": "Muscle Injury",
       "injuryType": "Muscle Injury",
-      "reportedAt": "2026-11-25T20:23:50.754Z"
+      "reportedAt": "2026-11-26T20:00:11.075Z"
     }
   ]
 }

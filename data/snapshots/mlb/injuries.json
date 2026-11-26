@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "league": "mlb",
-  "observedAt": "2026-11-25T20:22:56.270Z",
+  "observedAt": "2026-11-26T19:59:18.835Z",
   "source": "espn-public-mlb",
   "coverageStatus": "ok",
   "entries": [
@@ -717,6 +717,16 @@
     },
     {
       "teamId": "mlb.los-angeles-dodgers",
+      "player": "Ben Casparius",
+      "position": "RP",
+      "status": "Baja",
+      "detail": "Hombro",
+      "injuryType": "Shoulder",
+      "returnDate": "2027-02-01",
+      "reportedAt": "2026-11-26T00:28:00.000Z"
+    },
+    {
+      "teamId": "mlb.los-angeles-dodgers",
       "player": "Seth Halvorsen",
       "position": "RP",
       "status": "Baja",
@@ -734,16 +744,6 @@
       "injuryType": "Shoulder",
       "returnDate": "2027-02-01",
       "reportedAt": "2026-11-03T05:09:00.000Z"
-    },
-    {
-      "teamId": "mlb.los-angeles-dodgers",
-      "player": "Ben Casparius",
-      "position": "RP",
-      "status": "Baja",
-      "detail": "Hombro",
-      "injuryType": "Shoulder",
-      "returnDate": "2027-02-01",
-      "reportedAt": "2026-11-03T05:07:00.000Z"
     },
     {
       "teamId": "mlb.los-angeles-dodgers",
@@ -1404,6 +1404,16 @@
       "injuryType": "Elbow",
       "returnDate": "2027-08-01",
       "reportedAt": "2026-11-03T00:34:00.000Z"
+    },
+    {
+      "teamId": "mlb.washington-nationals",
+      "player": "A.J. Puk",
+      "position": "RP",
+      "status": "Baja",
+      "detail": "Elbow",
+      "injuryType": "Elbow",
+      "returnDate": "2027-02-01",
+      "reportedAt": "2026-11-26T04:56:00.000Z"
     },
     {
       "teamId": "mlb.washington-nationals",
