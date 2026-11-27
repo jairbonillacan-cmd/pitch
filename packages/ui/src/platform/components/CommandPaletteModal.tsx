@@ -224,7 +224,7 @@ export function CommandPaletteModal({
       dialogClassName="pl-cmd-dialog"
       keepMounted
     >
-      {cmdkOpen ? (
+      {rendered || cmdkOpen ? (
         <CommandPaletteModalBody
           initialQuery={initialQuery}
           onClose={() => setCmdkOpen(false)}

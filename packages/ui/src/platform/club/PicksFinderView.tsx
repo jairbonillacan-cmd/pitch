@@ -304,6 +304,8 @@ export function PicksFinderClubView({
   const [apiHasMore, setApiHasMore] = useState<boolean>(true);
   const lastMergedApiStampRef = useRef<string>("");
   const lastFilterSigRef = useRef<string>("");
+  const leagueRef = useRef<string>(league);
+  leagueRef.current = league;
 
   const [liveTrackedItems, setLiveTrackedItems] = useState<readonly LiveTrackedPickView[]>([]);
   const [liveTrackerLoaded, setLiveTrackerLoaded] = useState<boolean>(false);
@@ -439,7 +441,7 @@ export function PicksFinderClubView({
     if (payload.tabCounts) {
       setApiTabCounts(payload.tabCounts);
     }
-    if (payload.leagueFacets) {
+    if (payload.leagueFacets && leagueRef.current === "all") {
       setApiLeagueFacets(payload.leagueFacets);
     }
     setLoadedApiPage(payload.page);

@@ -150,7 +150,7 @@ describe("Fase 2B · Performance web/móvil, contratos C1/C3/C4, lazy views, dra
     expect(cmdkSrc).toContain("CommandPaletteModalBody");
     expect(cmdkSrc).toContain("indexedGames");
     expect(cmdkSrc).toContain("indexedLeagues");
-    expect(cmdkSrc).toContain("{cmdkOpen ? (");
+    expect(cmdkSrc).toContain("{rendered || cmdkOpen ? (");
 
     const oddsSrc = readText(path.join(UI_ROOT, "club/OddsCompareView.tsx"));
     expect(oddsSrc).toContain("activeLeagues30d");
@@ -181,6 +181,7 @@ describe("Fase 2B · Performance web/móvil, contratos C1/C3/C4, lazy views, dra
     expect(screenerSrc).toContain("useDebouncedValue(maxOddsStep, 180)");
     expect(screenerSrc).toContain("singlePassEvaluation");
     expect(screenerSrc).toContain('pageSize: "24"');
+    expect(screenerSrc).toContain('leagueRef.current === "all"');
   });
 
   it("picks-screener.css elimina transición content-visibility y aplica animación top-layer y overscroll-behavior-y", () => {
