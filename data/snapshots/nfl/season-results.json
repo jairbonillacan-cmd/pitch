@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "league": "nfl",
   "season": "nfl-2026",
-  "updatedAt": "2026-11-27T01:10:26.788Z",
+  "updatedAt": "2026-11-27T14:08:37.870Z",
   "matches": [
     {
       "id": "nfl-2026-w1-new-england-patriots-seattle-seahawks",
@@ -1817,6 +1817,28 @@
       "awayTeam": "nfl.chicago-bears",
       "homeScore": 35,
       "awayScore": 39,
+      "neutralSite": false
+    },
+    {
+      "id": "nfl-2026-w12-philadelphia-eagles-dallas-cowboys",
+      "date": "2026-11-26",
+      "startTime": "2026-11-26T21:30:00.000Z",
+      "round": "Semana 12",
+      "homeTeam": "nfl.dallas-cowboys",
+      "awayTeam": "nfl.philadelphia-eagles",
+      "homeScore": 38,
+      "awayScore": 39,
+      "neutralSite": false
+    },
+    {
+      "id": "nfl-2026-w12-kansas-city-chiefs-buffalo-bills",
+      "date": "2026-11-27",
+      "startTime": "2026-11-27T01:20:00.000Z",
+      "round": "Semana 12",
+      "homeTeam": "nfl.buffalo-bills",
+      "awayTeam": "nfl.kansas-city-chiefs",
+      "homeScore": 13,
+      "awayScore": 10,
       "neutralSite": false
     }
   ]

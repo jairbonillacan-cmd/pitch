@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "league": "bundesliga",
-  "observedAt": "2026-11-27T01:11:07.198Z",
+  "observedAt": "2026-11-27T14:09:11.239Z",
   "entries": [
     {
       "gameId": "bundesliga-2026-27-md10-augsburg-mainz",
@@ -214,11 +214,11 @@
       "gameId": "bundesliga-2026-27-md11-borussia-dortmund-bayer-leverkusen",
       "source": "polymarket",
       "unit": "usd",
-      "observedAt": "2026-11-27T01:11:07.198Z",
+      "observedAt": "2026-11-27T14:09:11.239Z",
       "outcomes": [
         {
           "side": "home",
-          "volume": 797.9090429999999,
+          "volume": 1102.065854,
           "price": 0.465
         },
         {
@@ -228,7 +228,7 @@
         },
         {
           "side": "away",
-          "volume": 132.215,
+          "volume": 147.215,
           "price": 0.305
         }
       ]
@@ -237,21 +237,21 @@
       "gameId": "bundesliga-2026-27-md11-freiburg-rb-leipzig",
       "source": "polymarket",
       "unit": "usd",
-      "observedAt": "2026-11-27T01:11:07.198Z",
+      "observedAt": "2026-11-27T14:09:11.239Z",
       "outcomes": [
         {
           "side": "home",
-          "volume": 2.857143,
+          "volume": 8.412699,
           "price": 0.355
         },
         {
           "side": "draw",
-          "volume": 116.19,
+          "volume": 131.19,
           "price": 0.245
         },
         {
           "side": "away",
-          "volume": 129.097562,
+          "volume": 131.536587,
           "price": 0.405
         }
       ]
@@ -260,21 +260,21 @@
       "gameId": "bundesliga-2026-27-md11-hamburger-bayern-munchen",
       "source": "polymarket",
       "unit": "usd",
-      "observedAt": "2026-11-27T01:11:07.198Z",
+      "observedAt": "2026-11-27T14:09:11.239Z",
       "outcomes": [
         {
           "side": "home",
-          "volume": 3637.842255,
-          "price": 0.095
+          "volume": 4270.041529,
+          "price": 0.085
         },
         {
           "side": "draw",
-          "volume": 307.298846,
+          "volume": 350.15599000000003,
           "price": 0.135
         },
         {
           "side": "away",
-          "volume": 6358.129637,
+          "volume": 7324.642577,
           "price": 0.775
         }
       ]
@@ -283,12 +283,12 @@
       "gameId": "bundesliga-2026-27-md11-hoffenheim-augsburg",
       "source": "polymarket",
       "unit": "usd",
-      "observedAt": "2026-11-27T01:11:07.198Z",
+      "observedAt": "2026-11-27T14:09:11.239Z",
       "outcomes": [
         {
           "side": "home",
-          "volume": 10,
-          "price": 0.56
+          "volume": 11.785715,
+          "price": 0.555
         },
         {
           "side": "draw",
@@ -297,7 +297,7 @@
         },
         {
           "side": "away",
-          "volume": 169.383112,
+          "volume": 173.549779,
           "price": 0.235
         }
       ]
@@ -306,21 +306,21 @@
       "gameId": "bundesliga-2026-27-md11-koln-elversberg",
       "source": "polymarket",
       "unit": "usd",
-      "observedAt": "2026-11-27T01:11:07.198Z",
+      "observedAt": "2026-11-27T14:09:11.239Z",
       "outcomes": [
         {
           "side": "home",
-          "volume": 1267.008253,
+          "volume": 1269.04907,
           "price": 0.485
         },
         {
           "side": "draw",
-          "volume": 1.315787,
+          "volume": 24.315787,
           "price": 0.245
         },
         {
           "side": "away",
-          "volume": 937.106935,
+          "volume": 1024.894719,
           "price": 0.265
         }
       ]
@@ -329,21 +329,21 @@
       "gameId": "bundesliga-2026-27-md11-mainz-union-berlin",
       "source": "polymarket",
       "unit": "usd",
-      "observedAt": "2026-11-27T01:11:07.198Z",
+      "observedAt": "2026-11-27T14:09:11.239Z",
       "outcomes": [
         {
           "side": "home",
-          "volume": 348.18592299999995,
-          "price": 0.65
+          "volume": 503.99400399999996,
+          "price": 0.655
         },
         {
           "side": "draw",
-          "volume": 39.10762,
+          "volume": 114.10762,
           "price": 0.205
         },
         {
           "side": "away",
-          "volume": 1062.737501,
+          "volume": 1065.063079,
           "price": 0.145
         }
       ]
@@ -352,7 +352,7 @@
       "gameId": "bundesliga-2026-27-md11-paderborn-schalke",
       "source": "polymarket",
       "unit": "usd",
-      "observedAt": "2026-11-27T01:11:07.198Z",
+      "observedAt": "2026-11-27T14:09:11.239Z",
       "outcomes": [
         {
           "side": "home",
@@ -361,13 +361,13 @@
         },
         {
           "side": "draw",
-          "volume": 13.454011,
+          "volume": 398.308298,
           "price": 0.275
         },
         {
           "side": "away",
-          "volume": 10.970589,
-          "price": 0.335
+          "volume": 100.500165,
+          "price": 0.345
         }
       ]
     },
@@ -375,22 +375,22 @@
       "gameId": "bundesliga-2026-27-md11-stuttgart-eintracht-frankfurt",
       "source": "polymarket",
       "unit": "usd",
-      "observedAt": "2026-11-27T01:11:07.198Z",
+      "observedAt": "2026-11-27T14:09:11.239Z",
       "outcomes": [
         {
           "side": "home",
-          "volume": 286.442778,
-          "price": 0.545
+          "volume": 401.960766,
+          "price": 0.525
         },
         {
           "side": "draw",
-          "volume": 17.023809999999997,
+          "volume": 97.261906,
           "price": 0.205
         },
         {
           "side": "away",
-          "volume": 931.201416,
-          "price": 0.245
+          "volume": 968.552768,
+          "price": 0.265
         }
       ]
     },
@@ -398,22 +398,22 @@
       "gameId": "bundesliga-2026-27-md11-werder-bremen-borussia-monchengladbach",
       "source": "polymarket",
       "unit": "usd",
-      "observedAt": "2026-11-27T01:11:07.198Z",
+      "observedAt": "2026-11-27T14:09:11.239Z",
       "outcomes": [
         {
           "side": "home",
-          "volume": 4958.733706999999,
+          "volume": 27533.143777,
           "price": 0.575
         },
         {
           "side": "draw",
-          "volume": 1518.4841000000001,
+          "volume": 1858.2505030000002,
           "price": 0.215
         },
         {
           "side": "away",
-          "volume": 1490.653844,
-          "price": 0.205
+          "volume": 3246.411933,
+          "price": 0.195
         }
       ]
     }
