@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "updatedAtUtc": "2026-11-27T06:41:30Z",
+  "updatedAtUtc": "2026-11-27T10:02:59Z",
   "openIncidents": {
     "validation::calendario::liga-mx": {
       "incidentKey": "validation::calendario::liga-mx",
@@ -12,9 +12,22 @@
       "workflowId": "pre-mvp-snapshot",
       "message": "EMPTY_OR_REGRESSED_SNAPSHOT: El candidato perdió marcadores finales en Liguilla (4 < 9).",
       "failingSinceUtc": "2026-11-26T20:07:51.050Z",
-      "lastSeenAtUtc": "2026-11-27T06:41:30Z",
+      "lastSeenAtUtc": "2026-11-27T10:02:59Z",
       "emailedAtUtc": null,
-      "occurrences": 5
+      "occurrences": 6
+    },
+    "stale::momios::laliga": {
+      "incidentKey": "stale::momios::laliga",
+      "kind": "stale_data",
+      "severity": "warning",
+      "targetLabel": "LaLiga · Momios",
+      "league": "laliga",
+      "dataType": "momios",
+      "message": "Última cuota de LaLiga capturada hace 37.3 h (límite alerta 36 h; caduca en app a las 72 h).",
+      "failingSinceUtc": "2026-11-27T10:02:59Z",
+      "lastSeenAtUtc": "2026-11-27T10:02:59Z",
+      "emailedAtUtc": null,
+      "occurrences": 1
     }
   }
 }
