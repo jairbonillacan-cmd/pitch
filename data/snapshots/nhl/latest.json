@@ -5,7 +5,7 @@
   "season": "nhl-2026-27",
   "seasonLabel": "Temporada 2026-27",
   "periodLabel": "25 nov – 29 nov",
-  "updatedAt": "2026-11-26T19:59:18.835Z",
+  "updatedAt": "2026-11-27T01:09:30.805Z",
   "source": "bzzoiro",
   "provenance": "derived",
   "isDemo": false,
@@ -388,7 +388,7 @@
       "result": {
         "home": 1,
         "away": 3,
-        "observedAt": "2026-11-26T19:58:27.471Z",
+        "observedAt": "2026-11-27T01:08:39.386Z",
         "source": "bzzoiro"
       }
     },
@@ -416,7 +416,7 @@
       "result": {
         "home": 2,
         "away": 4,
-        "observedAt": "2026-11-26T19:58:27.471Z",
+        "observedAt": "2026-11-27T01:08:39.386Z",
         "source": "bzzoiro"
       }
     },
@@ -444,7 +444,7 @@
       "result": {
         "home": 7,
         "away": 3,
-        "observedAt": "2026-11-26T19:58:27.471Z",
+        "observedAt": "2026-11-27T01:08:39.386Z",
         "source": "bzzoiro"
       }
     },
@@ -472,7 +472,7 @@
       "result": {
         "home": 5,
         "away": 3,
-        "observedAt": "2026-11-26T19:58:27.471Z",
+        "observedAt": "2026-11-27T01:08:39.386Z",
         "source": "bzzoiro"
       }
     },
@@ -500,7 +500,7 @@
       "result": {
         "home": 5,
         "away": 1,
-        "observedAt": "2026-11-26T19:58:27.471Z",
+        "observedAt": "2026-11-27T01:08:39.386Z",
         "source": "bzzoiro"
       }
     },
@@ -528,7 +528,7 @@
       "result": {
         "home": 3,
         "away": 6,
-        "observedAt": "2026-11-26T19:58:27.471Z",
+        "observedAt": "2026-11-27T01:08:39.386Z",
         "source": "bzzoiro"
       }
     },
@@ -556,7 +556,7 @@
       "result": {
         "home": 2,
         "away": 3,
-        "observedAt": "2026-11-26T19:58:27.471Z",
+        "observedAt": "2026-11-27T01:08:39.386Z",
         "source": "bzzoiro"
       }
     },
@@ -584,7 +584,7 @@
       "result": {
         "home": 3,
         "away": 2,
-        "observedAt": "2026-11-26T19:58:27.471Z",
+        "observedAt": "2026-11-27T01:08:39.386Z",
         "source": "bzzoiro"
       }
     },
@@ -612,7 +612,7 @@
       "result": {
         "home": 5,
         "away": 1,
-        "observedAt": "2026-11-26T19:58:27.471Z",
+        "observedAt": "2026-11-27T01:08:39.386Z",
         "source": "bzzoiro"
       }
     },
@@ -640,7 +640,7 @@
       "result": {
         "home": 1,
         "away": 3,
-        "observedAt": "2026-11-26T19:58:27.471Z",
+        "observedAt": "2026-11-27T01:08:39.386Z",
         "source": "bzzoiro"
       }
     },
@@ -668,7 +668,7 @@
       "result": {
         "home": 3,
         "away": 4,
-        "observedAt": "2026-11-26T19:58:27.471Z",
+        "observedAt": "2026-11-27T01:08:39.386Z",
         "source": "bzzoiro"
       }
     },
@@ -696,7 +696,7 @@
       "result": {
         "home": 6,
         "away": 0,
-        "observedAt": "2026-11-26T19:58:27.471Z",
+        "observedAt": "2026-11-27T01:08:39.386Z",
         "source": "bzzoiro"
       }
     },
@@ -724,7 +724,7 @@
       "result": {
         "home": 1,
         "away": 3,
-        "observedAt": "2026-11-26T19:58:27.471Z",
+        "observedAt": "2026-11-27T01:08:39.386Z",
         "source": "bzzoiro"
       }
     },
@@ -752,7 +752,7 @@
       "result": {
         "home": 7,
         "away": 0,
-        "observedAt": "2026-11-26T19:58:27.471Z",
+        "observedAt": "2026-11-27T01:08:39.386Z",
         "source": "bzzoiro"
       }
     },
@@ -1391,6 +1391,28 @@
         "name": "Minnesota Wild",
         "shortName": "Wild",
         "code": "MIN"
+      },
+      "neutralSite": false
+    },
+    {
+      "id": "nhl-2026-11-29-van-bos",
+      "league": "nhl",
+      "season": "nhl-2026-27",
+      "startTime": "2026-11-29T22:00:00.000Z",
+      "status": "scheduled",
+      "home": {
+        "id": "nhl.boston-bruins",
+        "league": "nhl",
+        "name": "Boston Bruins",
+        "shortName": "Bruins",
+        "code": "BOS"
+      },
+      "away": {
+        "id": "nhl.vancouver-canucks",
+        "league": "nhl",
+        "name": "Vancouver Canucks",
+        "shortName": "Canucks",
+        "code": "VAN"
       },
       "neutralSite": false
     }
@@ -12725,6 +12747,275 @@
         "why": [
           "Wild gana en 76 % de los escenarios.",
           "Se esperan 6.36 goles: 2.29 de Blackhawks y 4.06 de Wild."
+        ]
+      }
+    },
+    "nhl-2026-11-29-van-bos": {
+      "game": "nhl-2026-11-29-van-bos",
+      "model": {
+        "id": "pitchlab-ratings-nhl",
+        "version": "1.0.0",
+        "status": "candidate",
+        "label": "Modelo PitchLab · en validación"
+      },
+      "projection": {
+        "home": 4.473363047160019,
+        "away": 2.3950365320844305,
+        "total": 6.86839957924445,
+        "margin": 2.0783265150755885
+      },
+      "x12": [
+        0.7835562499702434,
+        0,
+        0.21644375002975658
+      ],
+      "probabilities": [
+        {
+          "market": "h2h",
+          "selection": "Bruins gana",
+          "p": 0.7835562499702434,
+          "fairOdds": 1.276232561526982
+        },
+        {
+          "market": "h2h",
+          "selection": "Canucks gana",
+          "p": 0.21644375002975658,
+          "fairOdds": 4.620138025988371
+        },
+        {
+          "market": "spreads",
+          "selection": "BOS cubre",
+          "line": -1.5,
+          "p": 0.5807794901366129,
+          "fairOdds": 1.721823888382795
+        },
+        {
+          "market": "spreads",
+          "selection": "VAN cubre",
+          "line": 1.5,
+          "p": 0.4192205098633871,
+          "fairOdds": 2.38537947565083
+        },
+        {
+          "market": "totals",
+          "selection": "Más",
+          "line": 6.5,
+          "p": 0.5652694568967888,
+          "fairOdds": 1.7690678096952046
+        },
+        {
+          "market": "totals",
+          "selection": "Menos",
+          "line": 6.5,
+          "p": 0.43473054310321124,
+          "fairOdds": 2.3002754599705817
+        },
+        {
+          "market": "team_totals",
+          "selection": "BOS más de 3.5",
+          "line": 3.5,
+          "p": 0.6701918806225686,
+          "fairOdds": 1.4921099895615852
+        },
+        {
+          "market": "team_totals",
+          "selection": "BOS menos de 3.5",
+          "line": 3.5,
+          "p": 0.3298081193774314,
+          "fairOdds": 3.032066044606995
+        },
+        {
+          "market": "team_totals",
+          "selection": "VAN más de 2.5",
+          "line": 2.5,
+          "p": 0.44358921638313475,
+          "fairOdds": 2.254337939397257
+        },
+        {
+          "market": "team_totals",
+          "selection": "VAN menos de 2.5",
+          "line": 2.5,
+          "p": 0.5564107836168652,
+          "fairOdds": 1.7972333201374158
+        }
+      ],
+      "marketGroups": [
+        {
+          "group": "Ganador (incluye tiempo extra)",
+          "rows": [
+            {
+              "market": "h2h",
+              "selection": "home",
+              "label": "Bruins gana",
+              "p": 0.7835562499702434,
+              "fairOdds": 1.276232561526982
+            },
+            {
+              "market": "h2h",
+              "selection": "away",
+              "label": "Canucks gana",
+              "p": 0.21644375002975658,
+              "fairOdds": 4.620138025988371
+            }
+          ]
+        },
+        {
+          "group": "Puck line BOS -1.5",
+          "rows": [
+            {
+              "market": "spreads",
+              "selection": "home",
+              "label": "BOS cubre",
+              "line": -1.5,
+              "p": 0.5807794901366129,
+              "fairOdds": 1.721823888382795
+            },
+            {
+              "market": "spreads",
+              "selection": "away",
+              "label": "VAN cubre",
+              "line": 1.5,
+              "p": 0.4192205098633871,
+              "fairOdds": 2.38537947565083
+            }
+          ]
+        },
+        {
+          "group": "Total 6.5",
+          "rows": [
+            {
+              "market": "totals",
+              "selection": "over",
+              "label": "Más",
+              "line": 6.5,
+              "p": 0.5652694568967888,
+              "fairOdds": 1.7690678096952046
+            },
+            {
+              "market": "totals",
+              "selection": "under",
+              "label": "Menos",
+              "line": 6.5,
+              "p": 0.43473054310321124,
+              "fairOdds": 2.3002754599705817
+            }
+          ]
+        },
+        {
+          "group": "Goles por equipo",
+          "rows": [
+            {
+              "market": "team_totals",
+              "selection": "home_over",
+              "label": "BOS más de 3.5",
+              "line": 3.5,
+              "p": 0.6701918806225686,
+              "fairOdds": 1.4921099895615852
+            },
+            {
+              "market": "team_totals",
+              "selection": "home_under",
+              "label": "BOS menos de 3.5",
+              "line": 3.5,
+              "p": 0.3298081193774314,
+              "fairOdds": 3.032066044606995
+            },
+            {
+              "market": "team_totals",
+              "selection": "away_over",
+              "label": "VAN más de 2.5",
+              "line": 2.5,
+              "p": 0.44358921638313475,
+              "fairOdds": 2.254337939397257
+            },
+            {
+              "market": "team_totals",
+              "selection": "away_under",
+              "label": "VAN menos de 2.5",
+              "line": 2.5,
+              "p": 0.5564107836168652,
+              "fairOdds": 1.7972333201374158
+            }
+          ]
+        }
+      ],
+      "factors": [
+        {
+          "key": "home_projection",
+          "label": "Local",
+          "value": "4.47 goles proyectados",
+          "detail": "24 partidos esta temporada"
+        },
+        {
+          "key": "away_projection",
+          "label": "Visitante",
+          "value": "2.40 goles proyectados",
+          "detail": "27 partidos esta temporada"
+        },
+        {
+          "key": "rest",
+          "label": "Descanso",
+          "value": "BOS: 2 días de descanso",
+          "detail": "VAN: 2 días de descanso"
+        },
+        {
+          "key": "overtime",
+          "label": "Tiempo extra",
+          "value": "12 % de llegar empatados al final",
+          "detail": "se define en tiempo extra o penales"
+        }
+      ],
+      "steps": [
+        "Sincronizando NHL · corte 27 nov 2026, 01:08",
+        "Ataque y defensa actualizados partido a partido (1793 partidos)",
+        "Goles de tiempo regular separados del tiempo extra",
+        "Proyección 4.47 – 2.40 · margen +2.08",
+        "Simulando marcadores y tiempo extra",
+        "10 mercados listos"
+      ],
+      "inputsAsOf": "2026-11-27T01:08:39.386Z",
+      "publishedAt": "2026-11-27T01:08:39.386Z",
+      "source": "bzzoiro",
+      "picks": [
+        {
+          "profile": "conservadora",
+          "market": "h2h",
+          "selection": "home",
+          "label": "Bruins gana",
+          "p": 0.7835562499702434,
+          "fairOdds": 1.276232561526982
+        },
+        {
+          "profile": "intermedia",
+          "market": "team_totals",
+          "selection": "home_over",
+          "label": "BOS más de 3.5 goles",
+          "line": 3.5,
+          "p": 0.6701918806225686,
+          "fairOdds": 1.4921099895615852
+        },
+        {
+          "profile": "arriesgada",
+          "market": "team_totals",
+          "selection": "away_over",
+          "label": "VAN más de 2.5 goles",
+          "line": 2.5,
+          "p": 0.44358921638313475,
+          "fairOdds": 2.254337939397257
+        }
+      ],
+      "confidence": {
+        "score": 86,
+        "level": "alta",
+        "reasons": [
+          "Favorito claro",
+          "Muestra suficiente"
+        ]
+      },
+      "insights": {
+        "why": [
+          "Bruins gana en 78 % de los escenarios.",
+          "Se esperan 6.87 goles: 4.47 de Bruins y 2.40 de Canucks."
         ]
       }
     }

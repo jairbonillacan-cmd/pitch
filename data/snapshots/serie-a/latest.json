@@ -5,7 +5,7 @@
   "season": "serie-a-2026-27",
   "seasonLabel": "2026/27",
   "periodLabel": "Jornada 13",
-  "updatedAt": "2026-11-26T20:07:51.050Z",
+  "updatedAt": "2026-11-27T01:10:26.788Z",
   "source": "openfootball+football-data",
   "provenance": "derived",
   "isDemo": false,
@@ -19,8 +19,8 @@
       "forPerGame": 2.3333333333333335,
       "againstPerGame": 1.1666666666666667,
       "gamesPlayed": 12,
-      "adjustedFor": 1.6800128460164103,
-      "adjustedAgainst": 1.1076454043006214
+      "adjustedFor": 1.682967838177509,
+      "adjustedAgainst": 1.1106983833068724
     },
     "serie-a.monza": {
       "teamId": "serie-a.monza",
@@ -31,8 +31,8 @@
       "forPerGame": 1.6666666666666667,
       "againstPerGame": 2.0833333333333335,
       "gamesPlayed": 12,
-      "adjustedFor": 1.4029398577984409,
-      "adjustedAgainst": 1.6985589145756759
+      "adjustedFor": 1.4055650565843605,
+      "adjustedAgainst": 1.7020094199656193
     },
     "serie-a.fiorentina": {
       "teamId": "serie-a.fiorentina",
@@ -43,8 +43,8 @@
       "forPerGame": 1.4166666666666667,
       "againstPerGame": 2.3333333333333335,
       "gamesPlayed": 12,
-      "adjustedFor": 1.334811243934122,
-      "adjustedAgainst": 1.566415793813403
+      "adjustedFor": 1.3286933987491099,
+      "adjustedAgainst": 1.576343662742488
     },
     "serie-a.roma": {
       "teamId": "serie-a.roma",
@@ -55,8 +55,8 @@
       "forPerGame": 3,
       "againstPerGame": 0.9166666666666666,
       "gamesPlayed": 12,
-      "adjustedFor": 1.9398192680106305,
-      "adjustedAgainst": 0.9596473435952899
+      "adjustedFor": 1.9473392155145544,
+      "adjustedAgainst": 0.9658988386629859
     },
     "serie-a.atalanta-bc": {
       "teamId": "serie-a.atalanta-bc",
@@ -67,8 +67,8 @@
       "forPerGame": 1.75,
       "againstPerGame": 2,
       "gamesPlayed": 12,
-      "adjustedFor": 1.471309301886848,
-      "adjustedAgainst": 1.3665943036207762
+      "adjustedFor": 1.479948177532262,
+      "adjustedAgainst": 1.3709604743806005
     },
     "serie-a.bologna": {
       "teamId": "serie-a.bologna",
@@ -79,8 +79,8 @@
       "forPerGame": 1.4166666666666667,
       "againstPerGame": 1.25,
       "gamesPlayed": 12,
-      "adjustedFor": 1.3206211263128103,
-      "adjustedAgainst": 1.1979419553025576
+      "adjustedFor": 1.3065572965922259,
+      "adjustedAgainst": 1.20662196751819
     },
     "serie-a.cagliari": {
       "teamId": "serie-a.cagliari",
@@ -91,8 +91,8 @@
       "forPerGame": 0.8333333333333334,
       "againstPerGame": 1.4166666666666667,
       "gamesPlayed": 12,
-      "adjustedFor": 1.0655204114544812,
-      "adjustedAgainst": 1.2917250289785058
+      "adjustedFor": 1.0721160599638908,
+      "adjustedAgainst": 1.2998859492221917
     },
     "serie-a.como": {
       "teamId": "serie-a.como",
@@ -103,8 +103,8 @@
       "forPerGame": 1.6666666666666667,
       "againstPerGame": 0.8333333333333334,
       "gamesPlayed": 12,
-      "adjustedFor": 1.5925918700448758,
-      "adjustedAgainst": 0.927936185356499
+      "adjustedFor": 1.5943762135913262,
+      "adjustedAgainst": 0.9310063646126124
     },
     "serie-a.internazionale-milano": {
       "teamId": "serie-a.internazionale-milano",
@@ -115,8 +115,8 @@
       "forPerGame": 2.6666666666666665,
       "againstPerGame": 1.4166666666666667,
       "gamesPlayed": 12,
-      "adjustedFor": 2.076575403784057,
-      "adjustedAgainst": 1.1594148030774944
+      "adjustedFor": 2.0791464775596418,
+      "adjustedAgainst": 1.1690100980361569
     },
     "serie-a.frosinone": {
       "teamId": "serie-a.frosinone",
@@ -127,8 +127,8 @@
       "forPerGame": 2.0833333333333335,
       "againstPerGame": 1.6666666666666667,
       "gamesPlayed": 12,
-      "adjustedFor": 1.706500386921886,
-      "adjustedAgainst": 1.494713484369296
+      "adjustedFor": 1.7085894591056479,
+      "adjustedAgainst": 1.4970779577965128
     },
     "serie-a.genoa-cfc": {
       "teamId": "serie-a.genoa-cfc",
@@ -139,8 +139,8 @@
       "forPerGame": 1.0833333333333333,
       "againstPerGame": 1.3333333333333333,
       "gamesPlayed": 12,
-      "adjustedFor": 1.1866682200300462,
-      "adjustedAgainst": 1.280261944890645
+      "adjustedFor": 1.1899788974704437,
+      "adjustedAgainst": 1.2825798568808715
     },
     "serie-a.juventus": {
       "teamId": "serie-a.juventus",
@@ -151,8 +151,8 @@
       "forPerGame": 1.5833333333333333,
       "againstPerGame": 1,
       "gamesPlayed": 12,
-      "adjustedFor": 1.4626054564187478,
-      "adjustedAgainst": 1.040209687827075
+      "adjustedFor": 1.4730756068163855,
+      "adjustedAgainst": 1.0346688204568046
     },
     "serie-a.lazio": {
       "teamId": "serie-a.lazio",
@@ -163,8 +163,8 @@
       "forPerGame": 2.3333333333333335,
       "againstPerGame": 0.75,
       "gamesPlayed": 12,
-      "adjustedFor": 1.6150193594855704,
-      "adjustedAgainst": 1.0515335059990345
+      "adjustedFor": 1.6241197596358732,
+      "adjustedAgainst": 1.036643842026742
     },
     "serie-a.lecce": {
       "teamId": "serie-a.lecce",
@@ -175,8 +175,8 @@
       "forPerGame": 1,
       "againstPerGame": 2.0833333333333335,
       "gamesPlayed": 12,
-      "adjustedFor": 1.0229575976561256,
-      "adjustedAgainst": 1.5323403502133288
+      "adjustedFor": 1.0257373891574662,
+      "adjustedAgainst": 1.5355415066091023
     },
     "serie-a.napoli": {
       "teamId": "serie-a.napoli",
@@ -187,8 +187,8 @@
       "forPerGame": 1.5833333333333333,
       "againstPerGame": 1.1666666666666667,
       "gamesPlayed": 12,
-      "adjustedFor": 1.474934276081589,
-      "adjustedAgainst": 1.0478964320189086
+      "adjustedFor": 1.48598710043,
+      "adjustedAgainst": 1.0548313998003584
     },
     "serie-a.parma": {
       "teamId": "serie-a.parma",
@@ -199,8 +199,8 @@
       "forPerGame": 0.8333333333333334,
       "againstPerGame": 1.8333333333333333,
       "gamesPlayed": 12,
-      "adjustedFor": 0.9819312512058709,
-      "adjustedAgainst": 1.3934136164269812
+      "adjustedFor": 0.9852104552371165,
+      "adjustedAgainst": 1.3964415739630414
     },
     "serie-a.sassuolo": {
       "teamId": "serie-a.sassuolo",
@@ -211,8 +211,8 @@
       "forPerGame": 1.3333333333333333,
       "againstPerGame": 2.5833333333333335,
       "gamesPlayed": 12,
-      "adjustedFor": 1.2961135858107062,
-      "adjustedAgainst": 1.6703692429694001
+      "adjustedFor": 1.2996907480069742,
+      "adjustedAgainst": 1.6742141920676201
     },
     "serie-a.torino": {
       "teamId": "serie-a.torino",
@@ -223,8 +223,8 @@
       "forPerGame": 1.25,
       "againstPerGame": 1.5,
       "gamesPlayed": 12,
-      "adjustedFor": 1.2177162987773549,
-      "adjustedAgainst": 1.4209630298755698
+      "adjustedFor": 1.2202759987958398,
+      "adjustedAgainst": 1.4245347380222395
     },
     "serie-a.udinese": {
       "teamId": "serie-a.udinese",
@@ -235,8 +235,8 @@
       "forPerGame": 1.0833333333333333,
       "againstPerGame": 2.1666666666666665,
       "gamesPlayed": 12,
-      "adjustedFor": 1.1504069737173392,
-      "adjustedAgainst": 1.5149559088218183
+      "adjustedFor": 1.152907982612007,
+      "adjustedAgainst": 1.5184888164540806
     },
     "serie-a.venezia": {
       "teamId": "serie-a.venezia",
@@ -247,8 +247,8 @@
       "forPerGame": 0.6666666666666666,
       "againstPerGame": 2.0833333333333335,
       "gamesPlayed": 12,
-      "adjustedFor": 0.9360381026356336,
-      "adjustedAgainst": 1.5553388114204387
+      "adjustedFor": 0.9451588220658121,
+      "adjustedAgainst": 1.5689238870187783
     }
   },
   "games": [
@@ -281,7 +281,7 @@
       "result": {
         "home": 2,
         "away": 0,
-        "observedAt": "2026-11-26T20:07:54.980Z",
+        "observedAt": "2026-11-27T01:10:30.073Z",
         "source": "football-data"
       }
     },
@@ -314,7 +314,7 @@
       "result": {
         "home": 3,
         "away": 0,
-        "observedAt": "2026-11-26T20:07:54.980Z",
+        "observedAt": "2026-11-27T01:10:30.073Z",
         "source": "football-data"
       }
     },
@@ -347,7 +347,7 @@
       "result": {
         "home": 1,
         "away": 5,
-        "observedAt": "2026-11-26T20:07:54.980Z",
+        "observedAt": "2026-11-27T01:10:30.073Z",
         "source": "football-data"
       }
     },
@@ -380,7 +380,7 @@
       "result": {
         "home": 1,
         "away": 0,
-        "observedAt": "2026-11-26T20:07:54.980Z",
+        "observedAt": "2026-11-27T01:10:30.073Z",
         "source": "football-data"
       }
     },
@@ -413,7 +413,7 @@
       "result": {
         "home": 4,
         "away": 0,
-        "observedAt": "2026-11-26T20:07:54.980Z",
+        "observedAt": "2026-11-27T01:10:30.073Z",
         "source": "football-data"
       }
     },
@@ -446,7 +446,7 @@
       "result": {
         "home": 0,
         "away": 2,
-        "observedAt": "2026-11-26T20:07:54.980Z",
+        "observedAt": "2026-11-27T01:10:30.073Z",
         "source": "football-data"
       }
     },
@@ -479,7 +479,7 @@
       "result": {
         "home": 1,
         "away": 1,
-        "observedAt": "2026-11-26T20:07:54.980Z",
+        "observedAt": "2026-11-27T01:10:30.073Z",
         "source": "football-data"
       }
     },
@@ -512,7 +512,7 @@
       "result": {
         "home": 5,
         "away": 1,
-        "observedAt": "2026-11-26T20:07:54.980Z",
+        "observedAt": "2026-11-27T01:10:30.073Z",
         "source": "football-data"
       }
     },
@@ -545,7 +545,7 @@
       "result": {
         "home": 4,
         "away": 4,
-        "observedAt": "2026-11-26T20:07:54.980Z",
+        "observedAt": "2026-11-27T01:10:30.073Z",
         "source": "football-data"
       }
     },
@@ -578,7 +578,7 @@
       "result": {
         "home": 3,
         "away": 0,
-        "observedAt": "2026-11-26T20:07:54.980Z",
+        "observedAt": "2026-11-27T01:10:30.073Z",
         "source": "football-data"
       }
     },
@@ -14217,6 +14217,84 @@
     },
     "serie-a-2026-27-md13-lecce-atalanta-bc": {
       "game": "serie-a-2026-27-md13-lecce-atalanta-bc",
+      "cortex": {
+        "headline": "Atalanta llega con más peso ofensivo y mejor diferencia",
+        "headlineOrigin": "ia",
+        "sections": [
+          {
+            "key": "lectura",
+            "title": "La lectura",
+            "text": "La Atalanta llega mejor: 52 % de probabilidad frente al 25 % del Lecce, y una diferencia de -3 contra -13 en la misma cantidad de partidos jugados. El Lecce sostiene su localía con 10 puntos y 15 en la tabla para el visitante, pero su arco ha cedido mucho más.",
+            "origin": "ia"
+          },
+          {
+            "key": "goles",
+            "title": "Goles",
+            "text": "Se ve abierto: 2.90 goles esperados en total, con 78 % de más de 1.5 y 55 % de más de 2.5. La Atalanta aporta 1.71 y el Lecce 1.19; ambos anotan aparece en 57 %, así que el local también cuenta.",
+            "origin": "ia",
+            "stats": [
+              {
+                "label": "Goles esperados",
+                "home": 1.19,
+                "away": 1.71
+              },
+              {
+                "label": "Ambos anotan",
+                "value": "57 %"
+              },
+              {
+                "label": "Más de 2.5 goles",
+                "value": "55 %"
+              }
+            ]
+          },
+          {
+            "key": "ritmo",
+            "title": "Ritmo del partido",
+            "text": "Los tiros de esquina están parejos, 4.9 del Lecce y 4.8 de la Atalanta, con 9.7 en total: ninguno empuja de forma clara. Las faltas suman 20.6 y las amarillas 2.7, un partido cortado pero sin exceso.",
+            "origin": "ia",
+            "stats": [
+              {
+                "label": "Tiros de esquina",
+                "home": 4.9,
+                "away": 4.8
+              },
+              {
+                "label": "Faltas",
+                "home": 10.4,
+                "away": 10.1
+              },
+              {
+                "label": "Amarillas",
+                "home": 1.4,
+                "away": 1.3
+              }
+            ]
+          },
+          {
+            "key": "tabla",
+            "title": "Tabla y descanso",
+            "text": "El Lecce es 15 con 10 puntos, 12 jugados y -13 de diferencia. La Atalanta es 12 con 15 puntos y -3. En descanso llegan casi igual: 9 días el local y 8 el visitante.",
+            "origin": "ia",
+            "stats": [
+              {
+                "label": "Puntos",
+                "home": 10,
+                "away": 15
+              }
+            ]
+          },
+          {
+            "key": "cambia",
+            "title": "Qué podría cambiarlo",
+            "text": "Las alineaciones pueden ajustar el peso ofensivo de la Atalanta. El criterio del árbitro define qué tan cortado se juega con 20.6 faltas proyectadas. El primer gol ordena el partido: si lo anota el Lecce, cambia el guion.",
+            "origin": "ia"
+          }
+        ],
+        "fingerprint": "263964ebbbbb93a6",
+        "generatedAt": "2026-11-27T01:11:06.698Z",
+        "version": "2"
+      },
       "counts": {
         "corners": {
           "home": 4.94,

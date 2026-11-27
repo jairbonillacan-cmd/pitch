@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "league": "premier-league",
   "season": "premier-league-2026-27",
-  "updatedAt": "2026-11-26T20:07:51.050Z",
+  "updatedAt": "2026-11-27T01:10:26.788Z",
   "matches": [
     {
       "id": "premier-league:2026-27:arsenal:coventry-city",
@@ -71,10 +71,10 @@
       "neutralSite": false
     },
     {
-      "id": "premier-league-espn-401879297",
+      "id": "premier-league:2026-27:brighton-hove-albion:aston-villa",
       "date": "2026-08-23",
-      "startTime": "2026-08-23T13:00Z",
-      "round": null,
+      "startTime": "2026-08-23T12:00:00Z",
+      "round": "Jornada 1",
       "homeTeam": "premier-league.brighton-hove-albion",
       "awayTeam": "premier-league.aston-villa",
       "homeScore": 4,
@@ -82,10 +82,10 @@
       "neutralSite": false
     },
     {
-      "id": "premier-league-espn-401879320",
+      "id": "premier-league:2026-27:manchester-city:bournemouth",
       "date": "2026-08-23",
-      "startTime": "2026-08-23T13:00Z",
-      "round": null,
+      "startTime": "2026-08-23T12:00:00Z",
+      "round": "Jornada 1",
       "homeTeam": "premier-league.manchester-city",
       "awayTeam": "premier-league.afc-bournemouth",
       "homeScore": 2,
@@ -93,10 +93,10 @@
       "neutralSite": false
     },
     {
-      "id": "premier-league-espn-401879319",
+      "id": "premier-league:2026-27:newcastle-united:liverpool",
       "date": "2026-08-23",
-      "startTime": "2026-08-23T15:30Z",
-      "round": null,
+      "startTime": "2026-08-23T12:00:00Z",
+      "round": "Jornada 1",
       "homeTeam": "premier-league.newcastle-united",
       "awayTeam": "premier-league.liverpool",
       "homeScore": 2,

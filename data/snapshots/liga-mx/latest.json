@@ -11055,6 +11055,84 @@
     },
     "mx-2026-lg-america-monterrey-401931996": {
       "game": "mx-2026-lg-america-monterrey-401931996",
+      "cortex": {
+        "headline": "América con más peso en casa ante un Monterrey de visita",
+        "headlineOrigin": "ia",
+        "sections": [
+          {
+            "key": "lectura",
+            "title": "La lectura",
+            "text": "América llega mejor: 53 % de probabilidad y tercero con 30 puntos, con diferencia de 14. Monterrey es sexto con 27 puntos y diferencia de 4, y su 25 % lo deja por debajo del empate.",
+            "origin": "ia"
+          },
+          {
+            "key": "goles",
+            "title": "Goles",
+            "text": "Se ve abierto: el total esperado es 3.53, con 2.03 para América y 1.50 para Monterrey. El 68 % de más de 2.5 y el 68 % de ambos anotan apuntan a un partido con goles de los dos lados.",
+            "origin": "ia",
+            "stats": [
+              {
+                "label": "Goles esperados",
+                "home": 2.03,
+                "away": 1.5
+              },
+              {
+                "label": "Ambos anotan",
+                "value": "68 %"
+              },
+              {
+                "label": "Más de 2.5 goles",
+                "value": "68 %"
+              }
+            ]
+          },
+          {
+            "key": "ritmo",
+            "title": "Ritmo del partido",
+            "text": "América empuja más con 5.7 tiros de esquina por 4.8 de Monterrey, en un total de 10.5. Las faltas suman 25.6, con 13.2 del local, así que el juego se corta seguido y habrá amarillas.",
+            "origin": "ia",
+            "stats": [
+              {
+                "label": "Tiros de esquina",
+                "home": 5.7,
+                "away": 4.8
+              },
+              {
+                "label": "Faltas",
+                "home": 13.2,
+                "away": 12.3
+              },
+              {
+                "label": "Amarillas",
+                "home": 1.8,
+                "away": 2.4
+              }
+            ]
+          },
+          {
+            "key": "tabla",
+            "title": "Tabla y descanso",
+            "text": "América es tercero con 30 puntos en 17 partidos y diferencia de 14. Monterrey es sexto con 27 puntos y diferencia de 4. Los dos llegan con 7 días de descanso.",
+            "origin": "ia",
+            "stats": [
+              {
+                "label": "Puntos",
+                "home": 30,
+                "away": 27
+              }
+            ]
+          },
+          {
+            "key": "cambia",
+            "title": "Qué podría cambiarlo",
+            "text": "Las alineaciones pueden ajustar el peso ofensivo de cada lado. El árbitro define cuánto se corta el juego con faltas. El primer gol cambia quién empuja y quién espera.",
+            "origin": "ia"
+          }
+        ],
+        "fingerprint": "29aab4ebed893503",
+        "generatedAt": "2026-11-27T01:10:55.666Z",
+        "version": "2"
+      },
       "counts": {
         "corners": {
           "home": 5.74,
@@ -11719,6 +11797,84 @@
     },
     "mx-2026-lg-chivas-pachuca-401931983": {
       "game": "mx-2026-lg-chivas-pachuca-401931983",
+      "cortex": {
+        "headline": "Chivas manda en la tabla y Pachuca llega con más descanso",
+        "headlineOrigin": "ia",
+        "sections": [
+          {
+            "key": "lectura",
+            "title": "La lectura",
+            "text": "Chivas llega mejor: es primero con 33 puntos y la mayor probabilidad del partido, 44 %, frente al 30 % de Pachuca, octavo con 25. El descanso es casi igual, 8 días contra 9, así que la ventaja de Chivas se sostiene en su posición y no en el físico.",
+            "origin": "ia"
+          },
+          {
+            "key": "goles",
+            "title": "Goles",
+            "text": "Se ve un partido de goles moderados: 2.59 esperados en total y 48 % de pasar de 2.5. Chivas aporta más con 1.38 esperados por 1.21 de Pachuca, y el 52 % de ambos anotan deja la puerta abierta al visitante.",
+            "origin": "ia",
+            "stats": [
+              {
+                "label": "Goles esperados",
+                "home": 1.38,
+                "away": 1.21
+              },
+              {
+                "label": "Ambos anotan",
+                "value": "52 %"
+              },
+              {
+                "label": "Más de 2.5 goles",
+                "value": "48 %"
+              }
+            ]
+          },
+          {
+            "key": "ritmo",
+            "title": "Ritmo del partido",
+            "text": "Chivas empuja más desde las bandas con 6.3 tiros de esquina por 4.0 de Pachuca, 10.3 en total. Las faltas se cargan al visitante, 14.4 contra 10.8, 25.2 en conjunto: Pachuca corta más y el juego pierde continuidad.",
+            "origin": "ia",
+            "stats": [
+              {
+                "label": "Tiros de esquina",
+                "home": 6.3,
+                "away": 4
+              },
+              {
+                "label": "Faltas",
+                "home": 10.8,
+                "away": 14.4
+              },
+              {
+                "label": "Amarillas",
+                "home": 1.8,
+                "away": 2.3
+              }
+            ]
+          },
+          {
+            "key": "tabla",
+            "title": "Tabla y descanso",
+            "text": "Chivas es primero con 33 puntos en 17 partidos y diferencia de 12, con 8 días de descanso. Pachuca es octavo con 25 puntos, diferencia de 11 y 9 días de descanso.",
+            "origin": "ia",
+            "stats": [
+              {
+                "label": "Puntos",
+                "home": 33,
+                "away": 25
+              }
+            ]
+          },
+          {
+            "key": "cambia",
+            "title": "Qué podría cambiarlo",
+            "text": "Las alineaciones pueden ajustar quién lleva el peso ofensivo. El criterio del árbitro importa con un Pachuca que comete muchas faltas. El primer gol define el guion: si Chivas anota temprano, el visitante se estira.",
+            "origin": "ia"
+          }
+        ],
+        "fingerprint": "837d1d63c2d7dbf7",
+        "generatedAt": "2026-11-27T01:10:58.894Z",
+        "version": "2"
+      },
       "counts": {
         "corners": {
           "home": 6.3,
@@ -12383,6 +12539,84 @@
     },
     "mx-2026-lg-cruz-azul-leon-401932000": {
       "game": "mx-2026-lg-cruz-azul-leon-401932000",
+      "cortex": {
+        "headline": "Cruz Azul llega mejor y el partido apunta a goles",
+        "headlineOrigin": "ia",
+        "sections": [
+          {
+            "key": "lectura",
+            "title": "La lectura",
+            "text": "Cruz Azul es el favorito con 55 % y sostiene esa ventaja en la tabla: segundo con 32 puntos y diferencia de 10. León llega séptimo con 26 puntos y diferencia de 3, con un día más de descanso que su rival.",
+            "origin": "ia"
+          },
+          {
+            "key": "goles",
+            "title": "Goles",
+            "text": "Se espera un partido abierto: 3.31 goles en total, con 64 % de que caigan más de 2.5 y 64 % de que ambos anoten. Cruz Azul aporta la mayor cuota ofensiva con 1.89 por 1.42 del León.",
+            "origin": "ia",
+            "stats": [
+              {
+                "label": "Goles esperados",
+                "home": 1.89,
+                "away": 1.42
+              },
+              {
+                "label": "Ambos anotan",
+                "value": "64 %"
+              },
+              {
+                "label": "Más de 2.5 goles",
+                "value": "64 %"
+              }
+            ]
+          },
+          {
+            "key": "ritmo",
+            "title": "Ritmo del partido",
+            "text": "Cruz Azul empuja más por las bandas: 6.6 tiros de esquina por 4.4 del León, para 11.0 en total. Las faltas se reparten parejo, 12.7 y 11.7, con 24.5 en conjunto: un juego cortado pero no sucio.",
+            "origin": "ia",
+            "stats": [
+              {
+                "label": "Tiros de esquina",
+                "home": 6.6,
+                "away": 4.4
+              },
+              {
+                "label": "Faltas",
+                "home": 12.7,
+                "away": 11.7
+              },
+              {
+                "label": "Amarillas",
+                "home": 2.1,
+                "away": 2.3
+              }
+            ]
+          },
+          {
+            "key": "tabla",
+            "title": "Tabla y descanso",
+            "text": "Cruz Azul está segundo con 32 puntos y diferencia de 10 tras 17 jornadas. León es séptimo con 26 puntos y diferencia de 3. El descanso es casi igual: 8 días para el local y 9 para la visita.",
+            "origin": "ia",
+            "stats": [
+              {
+                "label": "Puntos",
+                "home": 32,
+                "away": 26
+              }
+            ]
+          },
+          {
+            "key": "cambia",
+            "title": "Qué podría cambiarlo",
+            "text": "Las alineaciones pueden ajustar el peso ofensivo de cada lado. El criterio del árbitro define qué tan cortado se juega con ese volumen de faltas. Un gol temprano abre el ritmo; uno de León lo aprieta.",
+            "origin": "ia"
+          }
+        ],
+        "fingerprint": "4c99e12cd52f738f",
+        "generatedAt": "2026-11-27T01:11:04.588Z",
+        "version": "2"
+      },
       "counts": {
         "corners": {
           "home": 6.6,

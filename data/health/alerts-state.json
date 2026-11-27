@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "updatedAtUtc": "2026-11-26T20:36:01Z",
+  "updatedAtUtc": "2026-11-27T01:10:26.788Z",
   "openIncidents": {
     "validation::calendario::liga-mx": {
       "incidentKey": "validation::calendario::liga-mx",
@@ -10,11 +10,11 @@
       "league": "liga-mx",
       "dataType": "calendario",
       "workflowId": "pre-mvp-snapshot",
-      "message": "EMPTY_OR_REGRESSED_SNAPSHOT: El candidato perdió marcadores finales en Liguilla (8 < 9).",
+      "message": "EMPTY_OR_REGRESSED_SNAPSHOT: El candidato perdió marcadores finales en Liguilla (4 < 9).",
       "failingSinceUtc": "2026-11-26T20:07:51.050Z",
-      "lastSeenAtUtc": "2026-11-26T20:36:01Z",
+      "lastSeenAtUtc": "2026-11-27T01:10:26.788Z",
       "emailedAtUtc": null,
-      "occurrences": 2
+      "occurrences": 3
     }
   }
 }

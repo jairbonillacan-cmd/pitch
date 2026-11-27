@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "league": "serie-a",
   "season": "serie-a-2026-27",
-  "updatedAt": "2026-11-26T20:07:51.050Z",
+  "updatedAt": "2026-11-27T01:10:26.788Z",
   "matches": [
     {
       "id": "serie-a:2026-27:genoa-cfc:napoli",
@@ -49,32 +49,10 @@
       "neutralSite": false
     },
     {
-      "id": "serie-a-espn-401874930",
+      "id": "serie-a:2026-27:atalanta:sassuolo",
       "date": "2026-08-23",
-      "startTime": "2026-08-23T16:30Z",
-      "round": null,
-      "homeTeam": "serie-a.frosinone",
-      "awayTeam": "serie-a.juventus",
-      "homeScore": 0,
-      "awayScore": 1,
-      "neutralSite": false
-    },
-    {
-      "id": "serie-a-espn-401874946",
-      "date": "2026-08-23",
-      "startTime": "2026-08-23T16:30Z",
-      "round": null,
-      "homeTeam": "serie-a.venezia",
-      "awayTeam": "serie-a.lecce",
-      "homeScore": 0,
-      "awayScore": 2,
-      "neutralSite": false
-    },
-    {
-      "id": "serie-a-espn-401874748",
-      "date": "2026-08-23",
-      "startTime": "2026-08-23T18:45Z",
-      "round": null,
+      "startTime": "2026-08-23T12:00:00Z",
+      "round": "Jornada 1",
       "homeTeam": "serie-a.atalanta-bc",
       "awayTeam": "serie-a.sassuolo",
       "homeScore": 2,
@@ -82,13 +60,35 @@
       "neutralSite": false
     },
     {
-      "id": "serie-a-espn-401874932",
+      "id": "serie-a:2026-27:frosinone:juventus",
       "date": "2026-08-23",
-      "startTime": "2026-08-23T18:45Z",
-      "round": null,
+      "startTime": "2026-08-23T12:00:00Z",
+      "round": "Jornada 1",
+      "homeTeam": "serie-a.frosinone",
+      "awayTeam": "serie-a.juventus",
+      "homeScore": 0,
+      "awayScore": 1,
+      "neutralSite": false
+    },
+    {
+      "id": "serie-a:2026-27:torino:milan",
+      "date": "2026-08-23",
+      "startTime": "2026-08-23T12:00:00Z",
+      "round": "Jornada 1",
       "homeTeam": "serie-a.torino",
       "awayTeam": "serie-a.milan",
       "homeScore": 1,
+      "awayScore": 2,
+      "neutralSite": false
+    },
+    {
+      "id": "serie-a:2026-27:venezia:lecce",
+      "date": "2026-08-23",
+      "startTime": "2026-08-23T12:00:00Z",
+      "round": "Jornada 1",
+      "homeTeam": "serie-a.venezia",
+      "awayTeam": "serie-a.lecce",
+      "homeScore": 0,
       "awayScore": 2,
       "neutralSite": false
     },

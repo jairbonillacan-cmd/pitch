@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "league": "ligue-1",
   "season": "ligue-1-2026-27",
-  "updatedAt": "2026-11-26T20:07:51.050Z",
+  "updatedAt": "2026-11-27T01:10:26.788Z",
   "matches": [
     {
       "id": "ligue-1:2026-27:olympique-marseille:strasbourg",
@@ -49,10 +49,10 @@
       "neutralSite": false
     },
     {
-      "id": "ligue-1-espn-401876493",
+      "id": "ligue-1:2026-27:angers-sco:lille-osc",
       "date": "2026-08-23",
-      "startTime": "2026-08-23T13:00Z",
-      "round": null,
+      "startTime": "2026-08-23T12:00:00Z",
+      "round": "Jornada 1",
       "homeTeam": "ligue-1.angers-sco",
       "awayTeam": "ligue-1.lille-osc",
       "homeScore": 0,
@@ -60,10 +60,10 @@
       "neutralSite": false
     },
     {
-      "id": "ligue-1-espn-401876492",
+      "id": "ligue-1:2026-27:le-havre:monaco",
       "date": "2026-08-23",
-      "startTime": "2026-08-23T15:15Z",
-      "round": null,
+      "startTime": "2026-08-23T12:00:00Z",
+      "round": "Jornada 1",
       "homeTeam": "ligue-1.le-havre",
       "awayTeam": "ligue-1.monaco",
       "homeScore": 0,
@@ -71,10 +71,10 @@
       "neutralSite": false
     },
     {
-      "id": "ligue-1-espn-401876487",
+      "id": "ligue-1:2026-27:stade-rennais:paris-saint-germain",
       "date": "2026-08-23",
-      "startTime": "2026-08-23T18:45Z",
-      "round": null,
+      "startTime": "2026-08-23T12:00:00Z",
+      "round": "Jornada 1",
       "homeTeam": "ligue-1.stade-rennais",
       "awayTeam": "ligue-1.paris-saint-germain",
       "homeScore": 2,

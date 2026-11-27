@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "league": "nba",
-  "observedAt": "2026-11-26T19:59:18.835Z",
+  "observedAt": "2026-11-27T01:09:30.805Z",
   "source": "espn-public-nba",
   "coverageStatus": "ok",
   "entries": [
@@ -12,8 +12,8 @@
       "status": "Baja",
       "detail": "Cadera",
       "injuryType": "Hip",
-      "returnDate": "2026-11-27",
-      "reportedAt": "2026-11-21T22:12:00.000Z"
+      "returnDate": "2026-11-29",
+      "reportedAt": "2026-11-26T22:44:00.000Z"
     },
     {
       "teamId": "nba.atlanta-hawks",
@@ -72,8 +72,8 @@
       "status": "Baja",
       "detail": "Rodilla",
       "injuryType": "Knee",
-      "returnDate": "2026-11-27",
-      "reportedAt": "2026-11-26T02:48:00.000Z"
+      "returnDate": "2026-11-28",
+      "reportedAt": "2026-11-26T21:33:00.000Z"
     },
     {
       "teamId": "nba.brooklyn-nets",
@@ -182,18 +182,8 @@
       "status": "Baja",
       "detail": "Ingle",
       "injuryType": "Groin",
-      "returnDate": "2026-11-27",
-      "reportedAt": "2026-11-23T23:25:00.000Z"
-    },
-    {
-      "teamId": "nba.dallas-mavericks",
-      "player": "Dereck Lively II",
-      "position": "C",
-      "status": "Baja",
-      "detail": "Pie",
-      "injuryType": "Foot",
-      "returnDate": "2026-11-27",
-      "reportedAt": "2026-11-20T19:31:00.000Z"
+      "returnDate": "2026-11-30",
+      "reportedAt": "2026-11-27T00:01:00.000Z"
     },
     {
       "teamId": "nba.dallas-mavericks",
@@ -202,8 +192,18 @@
       "status": "Baja",
       "detail": "Rodilla",
       "injuryType": "Knee",
-      "returnDate": "2026-11-27",
-      "reportedAt": "2026-11-17T22:53:00.000Z"
+      "returnDate": "2026-12-14",
+      "reportedAt": "2026-11-26T23:59:00.000Z"
+    },
+    {
+      "teamId": "nba.dallas-mavericks",
+      "player": "Dereck Lively II",
+      "position": "C",
+      "status": "Baja",
+      "detail": "Pie",
+      "injuryType": "Foot",
+      "returnDate": "2026-11-30",
+      "reportedAt": "2026-11-26T23:56:00.000Z"
     },
     {
       "teamId": "nba.dallas-mavericks",
@@ -212,8 +212,28 @@
       "status": "Baja",
       "detail": "Heel",
       "injuryType": "Heel",
-      "returnDate": "2026-11-27",
-      "reportedAt": "2026-11-17T22:42:00.000Z"
+      "returnDate": "2026-12-04",
+      "reportedAt": "2026-11-26T23:53:00.000Z"
+    },
+    {
+      "teamId": "nba.detroit-pistons",
+      "player": "Duncan Robinson",
+      "position": "F",
+      "status": "Baja",
+      "detail": "Quadriceps",
+      "injuryType": "Quadriceps",
+      "returnDate": "2026-11-29",
+      "reportedAt": "2026-11-26T22:26:00.000Z"
+    },
+    {
+      "teamId": "nba.detroit-pistons",
+      "player": "Cade Cunningham",
+      "position": "G",
+      "status": "Baja",
+      "detail": "Rodilla",
+      "injuryType": "Knee",
+      "returnDate": "2026-11-29",
+      "reportedAt": "2026-11-26T22:25:00.000Z"
     },
     {
       "teamId": "nba.detroit-pistons",
@@ -224,16 +244,6 @@
       "injuryType": "Hamstring",
       "returnDate": "2026-11-30",
       "reportedAt": "2026-11-26T15:31:00.000Z"
-    },
-    {
-      "teamId": "nba.detroit-pistons",
-      "player": "Cade Cunningham",
-      "position": "G",
-      "status": "Duda",
-      "detail": "Rodilla",
-      "injuryType": "Knee",
-      "returnDate": "2026-11-27",
-      "reportedAt": "2026-11-25T19:00:00.000Z"
     },
     {
       "teamId": "nba.detroit-pistons",
@@ -254,16 +264,6 @@
       "injuryType": "Knee",
       "returnDate": "2026-12-26",
       "reportedAt": "2026-11-24T18:33:00.000Z"
-    },
-    {
-      "teamId": "nba.detroit-pistons",
-      "player": "Duncan Robinson",
-      "position": "F",
-      "status": "Baja",
-      "detail": "Quadriceps",
-      "injuryType": "Quadriceps",
-      "returnDate": "2026-11-27",
-      "reportedAt": "2026-11-24T18:30:00.000Z"
     },
     {
       "teamId": "nba.golden-state-warriors",
@@ -307,13 +307,33 @@
     },
     {
       "teamId": "nba.indiana-pacers",
+      "player": "Kelly Oubre Jr.",
+      "position": "G",
+      "status": "Duda",
+      "detail": "Hand",
+      "injuryType": "Hand",
+      "returnDate": "2026-11-27",
+      "reportedAt": "2026-11-27T00:42:00.000Z"
+    },
+    {
+      "teamId": "nba.indiana-pacers",
+      "player": "Larry Nance Jr.",
+      "position": "F",
+      "status": "Duda",
+      "detail": "Tobillo",
+      "injuryType": "Ankle",
+      "returnDate": "2026-11-27",
+      "reportedAt": "2026-11-26T22:43:00.000Z"
+    },
+    {
+      "teamId": "nba.indiana-pacers",
       "player": "T.J. McConnell",
       "position": "G",
       "status": "Duda",
       "detail": "Isquiotibiales",
       "injuryType": "Hamstring",
       "returnDate": "2026-11-27",
-      "reportedAt": "2026-11-24T19:43:00.000Z"
+      "reportedAt": "2026-11-26T22:29:00.000Z"
     },
     {
       "teamId": "nba.indiana-pacers",
@@ -324,26 +344,6 @@
       "injuryType": "Hamstring",
       "returnDate": "2026-12-13",
       "reportedAt": "2026-11-24T19:41:00.000Z"
-    },
-    {
-      "teamId": "nba.indiana-pacers",
-      "player": "Aaron Nesmith",
-      "position": "G",
-      "status": "Duda",
-      "detail": "Pie",
-      "injuryType": "Foot",
-      "returnDate": "2026-11-27",
-      "reportedAt": "2026-11-24T04:40:00.000Z"
-    },
-    {
-      "teamId": "nba.indiana-pacers",
-      "player": "Larry Nance Jr.",
-      "position": "F",
-      "status": "Duda",
-      "detail": "Tobillo",
-      "injuryType": "Ankle",
-      "returnDate": "2026-11-27",
-      "reportedAt": "2026-11-24T02:00:00.000Z"
     },
     {
       "teamId": "nba.indiana-pacers",
@@ -383,7 +383,17 @@
       "detail": "Heel",
       "injuryType": "Heel",
       "returnDate": "2026-11-27",
-      "reportedAt": "2026-11-25T20:33:00.000Z"
+      "reportedAt": "2026-11-26T23:21:00.000Z"
+    },
+    {
+      "teamId": "nba.memphis-grizzlies",
+      "player": "Isaiah Stewart",
+      "position": "C",
+      "status": "Duda",
+      "detail": "Cadera",
+      "injuryType": "Hip",
+      "returnDate": "2026-11-27",
+      "reportedAt": "2026-11-26T23:27:00.000Z"
     },
     {
       "teamId": "nba.memphis-grizzlies",
@@ -393,7 +403,7 @@
       "detail": "Tobillo",
       "injuryType": "Ankle",
       "returnDate": "2026-11-27",
-      "reportedAt": "2026-11-26T03:43:00.000Z"
+      "reportedAt": "2026-11-26T23:24:00.000Z"
     },
     {
       "teamId": "nba.memphis-grizzlies",
@@ -446,6 +456,26 @@
       "reportedAt": "2026-11-07T17:24:00.000Z"
     },
     {
+      "teamId": "nba.miami-heat",
+      "player": "Giannis Antetokounmpo",
+      "position": "F",
+      "status": "Duda",
+      "detail": "Ingle",
+      "injuryType": "Groin",
+      "returnDate": "2026-11-27",
+      "reportedAt": "2026-11-26T21:15:00.000Z"
+    },
+    {
+      "teamId": "nba.miami-heat",
+      "player": "Andrew Wiggins",
+      "position": "F",
+      "status": "Duda",
+      "detail": "Tobillo",
+      "injuryType": "Ankle",
+      "returnDate": "2026-11-27",
+      "reportedAt": "2026-11-26T21:08:00.000Z"
+    },
+    {
       "teamId": "nba.minnesota-timberwolves",
       "player": "LaMelo Ball",
       "position": "G",
@@ -453,7 +483,7 @@
       "detail": "Tobillo",
       "injuryType": "Ankle",
       "returnDate": "2026-11-27",
-      "reportedAt": "2026-11-26T03:37:00.000Z"
+      "reportedAt": "2026-11-26T23:14:00.000Z"
     },
     {
       "teamId": "nba.minnesota-timberwolves",
@@ -487,6 +517,26 @@
     },
     {
       "teamId": "nba.new-orleans-pelicans",
+      "player": "Trendon Watford",
+      "position": "F",
+      "status": "Baja",
+      "detail": "Tobillo",
+      "injuryType": "Ankle",
+      "returnDate": "2026-11-27",
+      "reportedAt": "2026-11-26T21:22:00.000Z"
+    },
+    {
+      "teamId": "nba.new-orleans-pelicans",
+      "player": "Bennedict Mathurin",
+      "position": "G",
+      "status": "Baja",
+      "detail": "Pie",
+      "injuryType": "Foot",
+      "returnDate": "2026-11-27",
+      "reportedAt": "2026-11-26T21:21:00.000Z"
+    },
+    {
+      "teamId": "nba.new-orleans-pelicans",
       "player": "Julian Reese",
       "position": "F",
       "status": "Duda",
@@ -497,32 +547,12 @@
     },
     {
       "teamId": "nba.new-orleans-pelicans",
-      "player": "Trendon Watford",
-      "position": "F",
-      "status": "Baja",
-      "detail": "Tobillo",
-      "injuryType": "Ankle",
-      "returnDate": "2026-11-27",
-      "reportedAt": "2026-11-21T18:21:00.000Z"
-    },
-    {
-      "teamId": "nba.new-orleans-pelicans",
-      "player": "Bennedict Mathurin",
-      "position": "G",
-      "status": "Baja",
-      "detail": "Pie",
-      "injuryType": "Foot",
-      "returnDate": "2026-11-27",
-      "reportedAt": "2026-11-19T21:07:00.000Z"
-    },
-    {
-      "teamId": "nba.new-orleans-pelicans",
       "player": "Dejounte Murray",
       "position": "G",
       "status": "Baja",
       "detail": "Tobillo",
       "injuryType": "Ankle",
-      "returnDate": "2026-11-27",
+      "returnDate": "2026-11-29",
       "reportedAt": "2026-11-13T20:19:00.000Z"
     },
     {
@@ -533,27 +563,7 @@
       "detail": "Ingle",
       "injuryType": "Groin",
       "returnDate": "2026-11-27",
-      "reportedAt": "2026-11-26T05:31:00.000Z"
-    },
-    {
-      "teamId": "nba.new-york-knicks",
-      "player": "Andre Drummond",
-      "position": "C",
-      "status": "Duda",
-      "detail": "Head",
-      "injuryType": "Head",
-      "returnDate": "2026-11-27",
-      "reportedAt": "2026-11-26T03:40:00.000Z"
-    },
-    {
-      "teamId": "nba.new-york-knicks",
-      "player": "OG Anunoby",
-      "position": "F",
-      "status": "Baja",
-      "detail": "Gemelo",
-      "injuryType": "Calf",
-      "returnDate": "2026-11-27",
-      "reportedAt": "2026-11-25T23:19:00.000Z"
+      "reportedAt": "2026-11-26T22:11:00.000Z"
     },
     {
       "teamId": "nba.new-york-knicks",
@@ -563,7 +573,27 @@
       "detail": "Pie",
       "injuryType": "Foot",
       "returnDate": "2026-11-27",
-      "reportedAt": "2026-11-24T21:56:00.000Z"
+      "reportedAt": "2026-11-26T22:03:00.000Z"
+    },
+    {
+      "teamId": "nba.new-york-knicks",
+      "player": "OG Anunoby",
+      "position": "F",
+      "status": "Baja",
+      "detail": "Gemelo",
+      "injuryType": "Calf",
+      "returnDate": "2026-11-27",
+      "reportedAt": "2026-11-26T21:57:00.000Z"
+    },
+    {
+      "teamId": "nba.new-york-knicks",
+      "player": "Andre Drummond",
+      "position": "C",
+      "status": "Duda",
+      "detail": "Head",
+      "injuryType": "Head",
+      "returnDate": "2026-11-27",
+      "reportedAt": "2026-11-26T21:51:00.000Z"
     },
     {
       "teamId": "nba.oklahoma-city-thunder",
@@ -693,17 +723,17 @@
       "detail": "Enfermedad",
       "injuryType": "Illness",
       "returnDate": "2026-11-27",
-      "reportedAt": "2026-11-26T01:06:00.000Z"
+      "reportedAt": "2026-11-26T22:16:00.000Z"
     },
     {
       "teamId": "nba.philadelphia-76ers",
       "player": "Jaylen Brown",
       "position": "G",
-      "status": "Duda",
+      "status": "Baja",
       "detail": "Isquiotibiales",
       "injuryType": "Hamstring",
-      "returnDate": "2026-11-27",
-      "reportedAt": "2026-11-26T01:06:00.000Z"
+      "returnDate": "2026-11-28",
+      "reportedAt": "2026-11-26T22:13:00.000Z"
     },
     {
       "teamId": "nba.philadelphia-76ers",
@@ -732,7 +762,7 @@
       "status": "Baja",
       "detail": "Heel",
       "injuryType": "Heel",
-      "returnDate": "2026-11-27",
+      "returnDate": "2026-11-29",
       "reportedAt": "2026-11-20T22:18:00.000Z"
     },
     {
@@ -797,23 +827,23 @@
     },
     {
       "teamId": "nba.san-antonio-spurs",
+      "player": "Dylan Harper",
+      "position": "G",
+      "status": "Baja",
+      "detail": "Cadera",
+      "injuryType": "Hip",
+      "returnDate": "2026-11-27",
+      "reportedAt": "2026-11-26T23:41:00.000Z"
+    },
+    {
+      "teamId": "nba.san-antonio-spurs",
       "player": "De'Aaron Fox",
       "position": "G",
       "status": "Duda",
       "detail": "Lower Leg",
       "injuryType": "Lower Leg",
       "returnDate": "2026-11-27",
-      "reportedAt": "2026-11-26T06:01:00.000Z"
-    },
-    {
-      "teamId": "nba.san-antonio-spurs",
-      "player": "Dylan Harper",
-      "position": "G",
-      "status": "Baja",
-      "detail": "Cadera",
-      "injuryType": "Hip",
-      "returnDate": "2026-12-13",
-      "reportedAt": "2026-11-19T20:07:00.000Z"
+      "reportedAt": "2026-11-26T23:35:00.000Z"
     },
     {
       "teamId": "nba.san-antonio-spurs",
@@ -834,6 +864,16 @@
       "injuryType": "Knee",
       "returnDate": "2026-12-03",
       "reportedAt": "2026-10-05T21:43:00.000Z"
+    },
+    {
+      "teamId": "nba.toronto-raptors",
+      "player": "Alijah Martin",
+      "position": "G",
+      "status": "Duda",
+      "detail": "Rodilla",
+      "injuryType": "Knee",
+      "returnDate": "2026-11-27",
+      "reportedAt": "2026-11-26T21:18:00.000Z"
     },
     {
       "teamId": "nba.toronto-raptors",
@@ -873,7 +913,7 @@
       "detail": "Rodilla",
       "injuryType": "Knee",
       "returnDate": "2026-11-27",
-      "reportedAt": "2026-11-24T06:07:00.000Z"
+      "reportedAt": "2026-11-27T00:11:00.000Z"
     },
     {
       "teamId": "nba.utah-jazz",
@@ -882,8 +922,8 @@
       "status": "Baja",
       "detail": "Pie",
       "injuryType": "Foot",
-      "returnDate": "2026-11-29",
-      "reportedAt": "2026-11-20T22:40:00.000Z"
+      "returnDate": "2026-11-27",
+      "reportedAt": "2026-11-27T00:08:00.000Z"
     },
     {
       "teamId": "nba.utah-jazz",

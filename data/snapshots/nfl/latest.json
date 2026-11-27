@@ -5,7 +5,7 @@
   "season": "nfl-2026",
   "seasonLabel": "2026",
   "periodLabel": "Semana 12",
-  "updatedAt": "2026-11-26T20:07:51.050Z",
+  "updatedAt": "2026-11-27T01:10:26.788Z",
   "source": "nflverse",
   "provenance": "derived",
   "isDemo": false,
@@ -18,8 +18,8 @@
       "forPerGame": 17.363636363636363,
       "againstPerGame": 29.363636363636363,
       "gamesPlayed": 11,
-      "adjustedFor": 20.48925812176258,
-      "adjustedAgainst": 26.15769719496732
+      "adjustedFor": 20.49245069048881,
+      "adjustedAgainst": 26.17458938387439
     },
     "nfl.atlanta-falcons": {
       "teamId": "nfl.atlanta-falcons",
@@ -29,8 +29,8 @@
       "forPerGame": 20.1,
       "againstPerGame": 25.8,
       "gamesPlayed": 10,
-      "adjustedFor": 21.585132970390212,
-      "adjustedAgainst": 24.074352192626453
+      "adjustedFor": 21.612500605600804,
+      "adjustedAgainst": 24.08624807193737
     },
     "nfl.baltimore-ravens": {
       "teamId": "nfl.baltimore-ravens",
@@ -40,8 +40,8 @@
       "forPerGame": 22,
       "againstPerGame": 26.727272727272727,
       "gamesPlayed": 11,
-      "adjustedFor": 21.896173676269587,
-      "adjustedAgainst": 24.95728385514243
+      "adjustedFor": 21.945655509294355,
+      "adjustedAgainst": 25.00795919310178
     },
     "nfl.buffalo-bills": {
       "teamId": "nfl.buffalo-bills",
@@ -51,8 +51,8 @@
       "forPerGame": 31.3,
       "againstPerGame": 20.8,
       "gamesPlayed": 10,
-      "adjustedFor": 27.555778840728106,
-      "adjustedAgainst": 22.174529994597876
+      "adjustedFor": 27.56706072453092,
+      "adjustedAgainst": 22.200139168449503
     },
     "nfl.carolina-panthers": {
       "teamId": "nfl.carolina-panthers",
@@ -62,8 +62,8 @@
       "forPerGame": 25.4,
       "againstPerGame": 26.9,
       "gamesPlayed": 10,
-      "adjustedFor": 24.42390925530054,
-      "adjustedAgainst": 25.476341318738097
+      "adjustedFor": 24.410286348762984,
+      "adjustedAgainst": 25.46071475952417
     },
     "nfl.chicago-bears": {
       "teamId": "nfl.chicago-bears",
@@ -73,8 +73,8 @@
       "forPerGame": 26.2,
       "againstPerGame": 19.7,
       "gamesPlayed": 10,
-      "adjustedFor": 24.946561520308464,
-      "adjustedAgainst": 21.81779529279205
+      "adjustedFor": 25.73841031479302,
+      "adjustedAgainst": 22.3800296757798
     },
     "nfl.cincinnati-bengals": {
       "teamId": "nfl.cincinnati-bengals",
@@ -84,8 +84,8 @@
       "forPerGame": 29.8,
       "againstPerGame": 21.5,
       "gamesPlayed": 10,
-      "adjustedFor": 26.882392451710842,
-      "adjustedAgainst": 22.59140538383252
+      "adjustedFor": 26.92907810853267,
+      "adjustedAgainst": 22.640644042976355
     },
     "nfl.cleveland-browns": {
       "teamId": "nfl.cleveland-browns",
@@ -95,8 +95,8 @@
       "forPerGame": 18.8,
       "againstPerGame": 22,
       "gamesPlayed": 10,
-      "adjustedFor": 20.589381536530116,
-      "adjustedAgainst": 22.618402256246185
+      "adjustedFor": 20.64371096381262,
+      "adjustedAgainst": 22.675400754992637
     },
     "nfl.dallas-cowboys": {
       "teamId": "nfl.dallas-cowboys",
@@ -106,8 +106,8 @@
       "forPerGame": 30.636363636363637,
       "againstPerGame": 28.363636363636363,
       "gamesPlayed": 11,
-      "adjustedFor": 27.09361265230275,
-      "adjustedAgainst": 26.54796725969689
+      "adjustedFor": 27.145398092369472,
+      "adjustedAgainst": 26.597962957369397
     },
     "nfl.denver-broncos": {
       "teamId": "nfl.denver-broncos",
@@ -117,8 +117,8 @@
       "forPerGame": 23.6,
       "againstPerGame": 21,
       "gamesPlayed": 10,
-      "adjustedFor": 23.646944092304786,
-      "adjustedAgainst": 21.471717438304072
+      "adjustedFor": 23.69483093449008,
+      "adjustedAgainst": 21.51955359107344
     },
     "nfl.detroit-lions": {
       "teamId": "nfl.detroit-lions",
@@ -128,8 +128,8 @@
       "forPerGame": 28.8,
       "againstPerGame": 22,
       "gamesPlayed": 10,
-      "adjustedFor": 26.134176422745448,
-      "adjustedAgainst": 22.882724158237128
+      "adjustedFor": 26.698509985216376,
+      "adjustedAgainst": 23.672032193642533
     },
     "nfl.green-bay-packers": {
       "teamId": "nfl.green-bay-packers",
@@ -139,8 +139,8 @@
       "forPerGame": 22.6,
       "againstPerGame": 22.1,
       "gamesPlayed": 10,
-      "adjustedFor": 22.604191500005488,
-      "adjustedAgainst": 22.582323035121476
+      "adjustedFor": 22.59931646060306,
+      "adjustedAgainst": 22.578135108919813
     },
     "nfl.houston-texans": {
       "teamId": "nfl.houston-texans",
@@ -150,8 +150,8 @@
       "forPerGame": 25.9,
       "againstPerGame": 22.2,
       "gamesPlayed": 10,
-      "adjustedFor": 24.241663621649746,
-      "adjustedAgainst": 22.444696826590967
+      "adjustedFor": 24.284028806587063,
+      "adjustedAgainst": 22.48810137755741
     },
     "nfl.indianapolis-colts": {
       "teamId": "nfl.indianapolis-colts",
@@ -161,8 +161,8 @@
       "forPerGame": 19.181818181818183,
       "againstPerGame": 27,
       "gamesPlayed": 11,
-      "adjustedFor": 21.00931273910554,
-      "adjustedAgainst": 25.333825241907036
+      "adjustedFor": 21.053222765727853,
+      "adjustedAgainst": 25.379892104923695
     },
     "nfl.jacksonville-jaguars": {
       "teamId": "nfl.jacksonville-jaguars",
@@ -172,8 +172,8 @@
       "forPerGame": 28.7,
       "againstPerGame": 16.7,
       "gamesPlayed": 10,
-      "adjustedFor": 25.988524794417597,
-      "adjustedAgainst": 19.90432105275347
+      "adjustedFor": 26.035994978378145,
+      "adjustedAgainst": 19.95138578803627
     },
     "nfl.kansas-city-chiefs": {
       "teamId": "nfl.kansas-city-chiefs",
@@ -183,8 +183,8 @@
       "forPerGame": 27.1,
       "againstPerGame": 16.3,
       "gamesPlayed": 10,
-      "adjustedFor": 24.91305971524985,
-      "adjustedAgainst": 20.05598487346181
+      "adjustedFor": 24.96495310078368,
+      "adjustedAgainst": 20.10842469250494
     },
     "nfl.las-vegas-raiders": {
       "teamId": "nfl.las-vegas-raiders",
@@ -194,8 +194,8 @@
       "forPerGame": 25,
       "againstPerGame": 29.727272727272727,
       "gamesPlayed": 11,
-      "adjustedFor": 24.579346904202314,
-      "adjustedAgainst": 26.85617914946357
+      "adjustedFor": 24.633564276351812,
+      "adjustedAgainst": 26.912651042549975
     },
     "nfl.los-angeles-chargers": {
       "teamId": "nfl.los-angeles-chargers",
@@ -205,8 +205,8 @@
       "forPerGame": 16.8,
       "againstPerGame": 26.6,
       "gamesPlayed": 10,
-      "adjustedFor": 19.69565151812612,
-      "adjustedAgainst": 24.818442801977454
+      "adjustedFor": 19.745395899126674,
+      "adjustedAgainst": 24.869410958458026
     },
     "nfl.los-angeles-rams": {
       "teamId": "nfl.los-angeles-rams",
@@ -216,8 +216,8 @@
       "forPerGame": 24.8,
       "againstPerGame": 18.7,
       "gamesPlayed": 10,
-      "adjustedFor": 23.73213973656185,
-      "adjustedAgainst": 20.38585395029131
+      "adjustedFor": 23.782392598514594,
+      "adjustedAgainst": 20.435805994545294
     },
     "nfl.miami-dolphins": {
       "teamId": "nfl.miami-dolphins",
@@ -227,8 +227,8 @@
       "forPerGame": 15.7,
       "againstPerGame": 25,
       "gamesPlayed": 10,
-      "adjustedFor": 19.126016984519566,
-      "adjustedAgainst": 23.4066642777477
+      "adjustedFor": 19.13589332276961,
+      "adjustedAgainst": 23.433296070789126
     },
     "nfl.minnesota-vikings": {
       "teamId": "nfl.minnesota-vikings",
@@ -238,8 +238,8 @@
       "forPerGame": 18.6,
       "againstPerGame": 16.1,
       "gamesPlayed": 10,
-      "adjustedFor": 20.709403851887167,
-      "adjustedAgainst": 18.849526857311243
+      "adjustedFor": 20.695839059883617,
+      "adjustedAgainst": 18.839846696168394
     },
     "nfl.new-england-patriots": {
       "teamId": "nfl.new-england-patriots",
@@ -249,8 +249,8 @@
       "forPerGame": 22.1,
       "againstPerGame": 24.2,
       "gamesPlayed": 10,
-      "adjustedFor": 22.83717090616125,
-      "adjustedAgainst": 23.35448794520201
+      "adjustedFor": 22.818040505820836,
+      "adjustedAgainst": 23.339049263128096
     },
     "nfl.new-orleans-saints": {
       "teamId": "nfl.new-orleans-saints",
@@ -260,8 +260,8 @@
       "forPerGame": 21.5,
       "againstPerGame": 25.7,
       "gamesPlayed": 10,
-      "adjustedFor": 22.13147460992616,
-      "adjustedAgainst": 24.62818837452919
+      "adjustedFor": 22.11180230971179,
+      "adjustedAgainst": 24.60513143861619
     },
     "nfl.new-york-giants": {
       "teamId": "nfl.new-york-giants",
@@ -271,8 +271,8 @@
       "forPerGame": 22.6,
       "againstPerGame": 21.4,
       "gamesPlayed": 10,
-      "adjustedFor": 22.444354611469162,
-      "adjustedAgainst": 22.2504215131745
+      "adjustedFor": 22.49609775662612,
+      "adjustedAgainst": 22.29850582065464
     },
     "nfl.new-york-jets": {
       "teamId": "nfl.new-york-jets",
@@ -282,8 +282,8 @@
       "forPerGame": 20.09090909090909,
       "againstPerGame": 25.272727272727273,
       "gamesPlayed": 11,
-      "adjustedFor": 21.190923259895445,
-      "adjustedAgainst": 24.324327829710565
+      "adjustedFor": 21.171885041518713,
+      "adjustedAgainst": 24.308464205677513
     },
     "nfl.philadelphia-eagles": {
       "teamId": "nfl.philadelphia-eagles",
@@ -293,8 +293,8 @@
       "forPerGame": 16.7,
       "againstPerGame": 23.7,
       "gamesPlayed": 10,
-      "adjustedFor": 19.447692176633414,
-      "adjustedAgainst": 23.107399175135708
+      "adjustedFor": 19.46539731443095,
+      "adjustedAgainst": 23.108736459246376
     },
     "nfl.pittsburgh-steelers": {
       "teamId": "nfl.pittsburgh-steelers",
@@ -304,8 +304,8 @@
       "forPerGame": 21.4,
       "againstPerGame": 20.1,
       "gamesPlayed": 10,
-      "adjustedFor": 22.06966522764853,
-      "adjustedAgainst": 21.73334727361844
+      "adjustedFor": 22.124733206454067,
+      "adjustedAgainst": 21.789916362917698
     },
     "nfl.san-francisco-49ers": {
       "teamId": "nfl.san-francisco-49ers",
@@ -315,8 +315,8 @@
       "forPerGame": 31.6,
       "againstPerGame": 20.6,
       "gamesPlayed": 10,
-      "adjustedFor": 27.751394755696776,
-      "adjustedAgainst": 21.994199564021443
+      "adjustedFor": 27.8042633044903,
+      "adjustedAgainst": 22.044450702993018
     },
     "nfl.seattle-seahawks": {
       "teamId": "nfl.seattle-seahawks",
@@ -326,8 +326,8 @@
       "forPerGame": 22.3,
       "againstPerGame": 17.5,
       "gamesPlayed": 10,
-      "adjustedFor": 22.306948378399742,
-      "adjustedAgainst": 19.934208343818113
+      "adjustedFor": 22.32749109974041,
+      "adjustedAgainst": 19.940895200930537
     },
     "nfl.tampa-bay-buccaneers": {
       "teamId": "nfl.tampa-bay-buccaneers",
@@ -337,8 +337,8 @@
       "forPerGame": 22.3,
       "againstPerGame": 20.9,
       "gamesPlayed": 10,
-      "adjustedFor": 22.728334541841235,
-      "adjustedAgainst": 21.513654410696287
+      "adjustedFor": 22.710709967156077,
+      "adjustedAgainst": 21.495329271500495
     },
     "nfl.tennessee-titans": {
       "teamId": "nfl.tennessee-titans",
@@ -348,8 +348,8 @@
       "forPerGame": 19.7,
       "againstPerGame": 29,
       "gamesPlayed": 10,
-      "adjustedFor": 21.01134202150958,
-      "adjustedAgainst": 26.361120847854362
+      "adjustedFor": 21.05870318491675,
+      "adjustedAgainst": 26.40795781643109
     },
     "nfl.washington-commanders": {
       "teamId": "nfl.washington-commanders",
@@ -359,8 +359,8 @@
       "forPerGame": 21.8,
       "againstPerGame": 24.3,
       "gamesPlayed": 10,
-      "adjustedFor": 22.521100873613722,
-      "adjustedAgainst": 23.673644579306007
+      "adjustedFor": 22.57120058786635,
+      "adjustedAgainst": 23.718157656080617
     }
   },
   "games": [
@@ -393,7 +393,7 @@
       "result": {
         "home": 26,
         "away": 13,
-        "observedAt": "2026-11-26T12:00:00.000Z",
+        "observedAt": "2026-11-27T12:00:00.000Z",
         "source": "nflverse"
       }
     },
@@ -404,7 +404,7 @@
       "week": 12,
       "round": "Semana 12",
       "startTime": "2026-11-26T18:00:00.000Z",
-      "status": "scheduled",
+      "status": "final",
       "home": {
         "id": "nfl.detroit-lions",
         "league": "nfl",
@@ -422,7 +422,13 @@
         "logoUrl": "/brand/official/nfl/chicago-bears.png"
       },
       "venue": "Ford Field",
-      "neutralSite": false
+      "neutralSite": false,
+      "result": {
+        "home": 35,
+        "away": 39,
+        "observedAt": "2026-11-27T12:00:00.000Z",
+        "source": "nflverse"
+      }
     },
     {
       "id": "nfl-2026-w12-philadelphia-eagles-dallas-cowboys",
@@ -7260,6 +7266,31 @@
       ]
     },
     {
+      "teamId": "nfl.chicago-bears",
+      "name": "Chicago Bears",
+      "shortName": "Chicago",
+      "code": "CHI",
+      "logoUrl": "/brand/official/nfl/chicago-bears.png",
+      "played": 11,
+      "won": 9,
+      "drawn": 0,
+      "lost": 2,
+      "goalsFor": 301,
+      "goalsAgainst": 232,
+      "points": 18,
+      "conference": "NFC",
+      "division": "NFC Norte",
+      "winPct": 0.818,
+      "seed": 2,
+      "form": [
+        "W",
+        "W",
+        "W",
+        "W",
+        "W"
+      ]
+    },
+    {
       "teamId": "nfl.kansas-city-chiefs",
       "name": "Kansas City Chiefs",
       "shortName": "Kansas City",
@@ -7279,56 +7310,6 @@
       "form": [
         "L",
         "L",
-        "W",
-        "W",
-        "W"
-      ]
-    },
-    {
-      "teamId": "nfl.detroit-lions",
-      "name": "Detroit Lions",
-      "shortName": "Detroit",
-      "code": "DET",
-      "logoUrl": "/brand/official/nfl/detroit-lions.png",
-      "played": 10,
-      "won": 8,
-      "drawn": 0,
-      "lost": 2,
-      "goalsFor": 288,
-      "goalsAgainst": 220,
-      "points": 16,
-      "conference": "NFC",
-      "division": "NFC Norte",
-      "winPct": 0.8,
-      "seed": 2,
-      "form": [
-        "W",
-        "W",
-        "W",
-        "W",
-        "W"
-      ]
-    },
-    {
-      "teamId": "nfl.chicago-bears",
-      "name": "Chicago Bears",
-      "shortName": "Chicago",
-      "code": "CHI",
-      "logoUrl": "/brand/official/nfl/chicago-bears.png",
-      "played": 10,
-      "won": 8,
-      "drawn": 0,
-      "lost": 2,
-      "goalsFor": 262,
-      "goalsAgainst": 197,
-      "points": 16,
-      "conference": "NFC",
-      "division": "NFC Norte",
-      "winPct": 0.8,
-      "seed": 3,
-      "form": [
-        "W",
-        "W",
         "W",
         "W",
         "W"
@@ -7357,6 +7338,31 @@
         "W",
         "W",
         "W"
+      ]
+    },
+    {
+      "teamId": "nfl.detroit-lions",
+      "name": "Detroit Lions",
+      "shortName": "Detroit",
+      "code": "DET",
+      "logoUrl": "/brand/official/nfl/detroit-lions.png",
+      "played": 11,
+      "won": 8,
+      "drawn": 0,
+      "lost": 3,
+      "goalsFor": 323,
+      "goalsAgainst": 259,
+      "points": 16,
+      "conference": "NFC",
+      "division": "NFC Norte",
+      "winPct": 0.727,
+      "seed": 3,
+      "form": [
+        "W",
+        "W",
+        "W",
+        "W",
+        "L"
       ]
     },
     {

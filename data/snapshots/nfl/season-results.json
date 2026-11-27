@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "league": "nfl",
   "season": "nfl-2026",
-  "updatedAt": "2026-11-26T20:07:51.050Z",
+  "updatedAt": "2026-11-27T01:10:26.788Z",
   "matches": [
     {
       "id": "nfl-2026-w1-new-england-patriots-seattle-seahawks",
@@ -1806,6 +1806,17 @@
       "awayTeam": "nfl.green-bay-packers",
       "homeScore": 26,
       "awayScore": 13,
+      "neutralSite": false
+    },
+    {
+      "id": "nfl-2026-w12-chicago-bears-detroit-lions",
+      "date": "2026-11-26",
+      "startTime": "2026-11-26T18:00:00.000Z",
+      "round": "Semana 12",
+      "homeTeam": "nfl.detroit-lions",
+      "awayTeam": "nfl.chicago-bears",
+      "homeScore": 35,
+      "awayScore": 39,
       "neutralSite": false
     }
   ]
