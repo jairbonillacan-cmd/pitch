@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useCallback, useMemo, useState } from "react";
+import React, { useCallback, useMemo, useState, useSyncExternalStore } from "react";
 import {
   canonicalGameHref,
   getLeagueCapability,
@@ -452,6 +452,61 @@ export const AstroMatchRow = React.memo(function AstroMatchRow({
   );
 });
 
+const HOME_CARDS_LIMIT_STORAGE_KEY = "pl-home-cards-limit-v1";
+const MAX_HOME_CARD_LIMIT_KEYS = 24;
+const homeCardsLimitListeners = new Set<() => void>();
+
+function subscribeHomeCardsLimit(listener: () => void): () => void {
+  homeCardsLimitListeners.add(listener);
+  return () => {
+    homeCardsLimitListeners.delete(listener);
+  };
+}
+
+function readHomeCardsLimitMap(): Record<string, number> {
+  if (typeof window === "undefined") return {};
+  try {
+    const raw = window.sessionStorage.getItem(HOME_CARDS_LIMIT_STORAGE_KEY);
+    if (!raw) return {};
+    const parsed: unknown = JSON.parse(raw);
+    if (!parsed || typeof parsed !== "object" || Array.isArray(parsed)) return {};
+    const out: Record<string, number> = {};
+    for (const [key, val] of Object.entries(parsed)) {
+      if (typeof val === "number" && Number.isFinite(val) && val >= INITIAL_HOME_CARDS_LIMIT) {
+        out[key] = val;
+      }
+    }
+    return out;
+  } catch (err) {
+    void err;
+    return {};
+  }
+}
+
+function readHomeCardsLimit(key: string): number {
+  const map = readHomeCardsLimitMap();
+  return map[key] ?? INITIAL_HOME_CARDS_LIMIT;
+}
+
+function writeHomeCardsLimit(key: string, nextLimit: number): void {
+  if (typeof window === "undefined") return;
+  try {
+    const map = readHomeCardsLimitMap();
+    const keys = Object.keys(map);
+    if (!(key in map) && keys.length >= MAX_HOME_CARD_LIMIT_KEYS) {
+      const oldest = keys[0];
+      if (oldest) delete map[oldest];
+    }
+    map[key] = nextLimit;
+    window.sessionStorage.setItem(HOME_CARDS_LIMIT_STORAGE_KEY, JSON.stringify(map));
+  } catch (err) {
+    void err;
+  }
+  for (const listener of homeCardsLimitListeners) {
+    listener();
+  }
+}
+
 export function HomeMatchCardsSection({
   groups,
   liveByGameId,
@@ -489,14 +544,12 @@ export function HomeMatchCardsSection({
   readonly showRecommendedAccordion?: boolean;
 }): React.JSX.Element {
   const { navigateTo, prefetchRoute } = usePlatformActions();
-  const [limitState, setLimitState] = useState<{
-    readonly key: string | undefined;
-    readonly limit: number;
-  }>(() => ({
-    key: resetKey,
-    limit: INITIAL_HOME_CARDS_LIMIT,
-  }));
-  const limit = limitState.key === resetKey ? limitState.limit : INITIAL_HOME_CARDS_LIMIT;
+  const limitStorageKey = resetKey || "default";
+  const limit = useSyncExternalStore(
+    subscribeHomeCardsLimit,
+    () => readHomeCardsLimit(limitStorageKey),
+    () => INITIAL_HOME_CARDS_LIMIT,
+  );
   const [collapsedLeagues, setCollapsedLeagues] = useState<ReadonlySet<string>>(() => new Set());
   const [recommendedOpen, setRecommendedOpen] = useState<boolean>(true);
 
@@ -772,12 +825,7 @@ export function HomeMatchCardsSection({
           <button
             type="button"
             className="pl-btn-glass text-xs min-h-11 px-4 num"
-            onClick={() =>
-              setLimitState({
-                key: resetKey,
-                limit: limit + INITIAL_HOME_CARDS_LIMIT,
-              })
-            }
+            onClick={() => writeHomeCardsLimit(limitStorageKey, limit + INITIAL_HOME_CARDS_LIMIT)}
           >
             Ver más partidos ({totalGames - limit})
           </button>

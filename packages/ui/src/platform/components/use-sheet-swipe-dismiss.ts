@@ -9,6 +9,7 @@ export interface SheetSwipeDismissOptions {
   readonly velocityPxPerMs?: number;
   readonly disabled?: boolean;
   readonly scrollContainerRef?: React.RefObject<HTMLElement | null>;
+  readonly dragHandleSelector?: string;
 }
 
 export interface SheetSwipeState {
@@ -19,18 +20,56 @@ export interface SheetSwipeState {
 const INTERACTIVE_SWIPE_SELECTOR =
   'button, a, input, select, textarea, summary, label, [role="button"], [role="link"], [role="tab"], [role="option"], [role="switch"], [role="menuitem"], [role="checkbox"], [role="radio"], [contenteditable="true"]';
 
+const BLOCKED_GESTURE_STRIP_SELECTOR =
+  '[role="tablist"], .pl-notif-tabs, .pl-notif-chips, .pl-com-picker-mode';
+
 const DRAG_ACTIVATION_SLOP_PX = 8;
 
+function resolveTargetElement(target: EventTarget | null): Element | null {
+  if (!target || typeof target !== "object") return null;
+  if ("closest" in target && typeof (target as Element).closest === "function") {
+    return target as Element;
+  }
+  if ("parentElement" in target) {
+    return (target as Node).parentElement ?? null;
+  }
+  return null;
+}
+
 export function isInteractiveSwipeTarget(target: EventTarget | null): boolean {
-  if (!target || typeof target !== "object") return false;
-  const candidate =
-    "closest" in target && typeof (target as Element).closest === "function"
-      ? (target as Element)
-      : "parentElement" in target
-        ? ((target as Node).parentElement ?? null)
-        : null;
+  const candidate = resolveTargetElement(target);
   if (!candidate || typeof candidate.closest !== "function") return false;
   return candidate.closest(INTERACTIVE_SWIPE_SELECTOR) !== null;
+}
+
+export function hasScrolledAncestor(
+  target: EventTarget | null,
+  boundary: EventTarget | null = null,
+): boolean {
+  const startEl = resolveTargetElement(target);
+  if (!startEl) return false;
+  if (
+    startEl.closest(BLOCKED_GESTURE_STRIP_SELECTOR) !== null &&
+    startEl.closest(".pl-sheet-drag-zone") === null
+  ) {
+    return true;
+  }
+  const stopNode =
+    typeof Node !== "undefined" && boundary instanceof Node ? boundary : null;
+  let cursor: Element | null = startEl;
+  while (cursor) {
+    if (cursor.scrollTop > 0) return true;
+    if (stopNode && cursor === stopNode) break;
+    cursor = cursor.parentElement;
+  }
+  return false;
+}
+
+function isWithinDragHandle(target: EventTarget | null, selector?: string): boolean {
+  if (!selector) return true;
+  const candidate = resolveTargetElement(target);
+  if (!candidate || typeof candidate.closest !== "function") return false;
+  return candidate.closest(selector) !== null;
 }
 
 export function shouldDismissSheetSwipe(
@@ -53,6 +92,7 @@ export function useSheetSwipeDismiss({
   velocityPxPerMs = 0.55,
   disabled = false,
   scrollContainerRef,
+  dragHandleSelector,
 }: SheetSwipeDismissOptions): {
   readonly offsetY: number;
   readonly dragging: boolean;
@@ -163,23 +203,35 @@ export function useSheetSwipeDismiss({
 
   const onTouchStart = useCallback(
     (e: React.TouchEvent<HTMLElement>) => {
-      if (disabled || isInteractiveSwipeTarget(e.target)) return;
+      if (
+        disabled ||
+        isInteractiveSwipeTarget(e.target) ||
+        hasScrolledAncestor(e.target, e.currentTarget) ||
+        !isWithinDragHandle(e.target, dragHandleSelector)
+      ) {
+        return;
+      }
       const touch = e.touches[0];
       if (!touch) return;
       if (begin(touch.clientY)) {
         touchActiveRef.current = true;
       }
     },
-    [begin, disabled],
+    [begin, disabled, dragHandleSelector],
   );
 
   const onTouchMove = useCallback(
     (e: React.TouchEvent<HTMLElement>) => {
+      if (scrollContainerRef?.current && scrollContainerRef.current.scrollTop > 0) {
+        touchActiveRef.current = false;
+        cancel();
+        return;
+      }
       const touch = e.touches[0];
       if (!touch) return;
       move(touch.clientY);
     },
-    [move],
+    [cancel, move, scrollContainerRef],
   );
 
   const onTouchEndWrapped = useCallback(() => {
@@ -196,19 +248,29 @@ export function useSheetSwipeDismiss({
     (e: React.PointerEvent<HTMLElement>) => {
       if (disabled || touchActiveRef.current) return;
       if (e.button !== 0 && e.pointerType === "mouse") return;
-      if (isInteractiveSwipeTarget(e.target)) return;
+      if (
+        isInteractiveSwipeTarget(e.target) ||
+        hasScrolledAncestor(e.target, e.currentTarget) ||
+        !isWithinDragHandle(e.target, dragHandleSelector)
+      ) {
+        return;
+      }
       if (!begin(e.clientY)) return;
       activePointerIdRef.current = e.pointerId;
     },
-    [begin, disabled],
+    [begin, disabled, dragHandleSelector],
   );
 
   const onPointerMove = useCallback(
     (e: React.PointerEvent<HTMLElement>) => {
       if (touchActiveRef.current || activePointerIdRef.current !== e.pointerId) return;
+      if (scrollContainerRef?.current && scrollContainerRef.current.scrollTop > 0) {
+        cancel();
+        return;
+      }
       move(e.clientY, e);
     },
-    [move],
+    [cancel, move, scrollContainerRef],
   );
 
   const onPointerUp = useCallback(() => {

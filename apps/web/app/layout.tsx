@@ -4,11 +4,13 @@ import { DashboardEntryProvider } from "../src/client/dashboard-entry";
 import { PwaRuntimeMount } from "../src/client/pwa-runtime";
 import { DARK_THEME_COLOR, LIGHT_THEME_COLOR, THEME_INIT_SCRIPT } from "../src/theme-init-script";
 import "./globals.css";
+import "./public-mobile-nav.css";
 
 export const viewport: Viewport = {
   width: "device-width",
   initialScale: 1,
   viewportFit: "cover",
+  interactiveWidget: "resizes-content",
   themeColor: [
     { media: "(prefers-color-scheme: dark)", color: DARK_THEME_COLOR },
     { media: "(prefers-color-scheme: light)", color: LIGHT_THEME_COLOR },

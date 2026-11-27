@@ -9,6 +9,7 @@ import "../../../apps/web/app/community-social.css";
 import "../../../apps/web/app/account-v2.css";
 import "../../../apps/web/app/record-v2.css";
 import "../../../apps/web/app/blog.css";
+import "../../../apps/web/app/public-mobile-nav.css";
 import "../../../apps/web/app/login-motion.css";
 import "../../../apps/web/app/precio-motion.css";
 import "../../../apps/web/app/pre-match.css";

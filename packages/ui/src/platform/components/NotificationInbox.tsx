@@ -540,6 +540,7 @@ export function NotificationBell(): React.JSX.Element {
     onDismiss: close,
     disabled: !open,
     scrollContainerRef: listRef,
+    dragHandleSelector: ".pl-sheet-drag-zone",
   });
 
   return (
@@ -580,9 +581,11 @@ export function NotificationBell(): React.JSX.Element {
         role="dialog"
         aria-labelledby={titleId}
         style={notifSwipe.sheetStyle}
-        {...notifSwipe.handleProps}
       >
-        <div className="pl-profile-menu-sheet-top">
+        <div
+          className="pl-profile-menu-sheet-top pl-sheet-drag-zone"
+          {...notifSwipe.handleProps}
+        >
           <span className="pl-profile-menu-grab" aria-hidden="true" />
           <button
             type="button"

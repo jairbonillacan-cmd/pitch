@@ -131,4 +131,19 @@ describe("ClubLayoutShell header navigation", () => {
     expect(emptyHtml).toContain("pl-cmd-empty");
     expect(emptyHtml).toContain("Sin coincidencias para «ClubInexistenteXYZ»");
   });
+
+  it("muestra Explorar e ícono con badge numérico en Parlay dentro del dock móvil y difiere emblemas img en el overlay SSR cerrado", () => {
+    const html = renderToStaticMarkup(
+      <PlatformProvider dataset={STORY_DATASET} initialRole="member">
+        <ClubLayoutShell activePath="/app">
+          <div>Contenido</div>
+        </ClubLayoutShell>
+      </PlatformProvider>,
+    );
+
+    expect(html).toContain(">Explorar<");
+    expect(html).not.toContain(">Más<");
+    expect(html).toContain("pl-header-overlay-emblem-ph");
+    expect(html).not.toContain("Parlay (");
+  });
 });

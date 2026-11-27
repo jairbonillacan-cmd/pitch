@@ -6,6 +6,7 @@ import { parseStrictFiniteNumber, sportScoringUnit } from "@pitchlab/contracts";
 import { Button } from "../../../components/ui/primitives";
 import { TeamBadge } from "../../../sports";
 import { formatOddsValue } from "../../access-guard";
+import { DrawerErrorBoundary } from "../../components/DrawerErrorBoundary";
 import { MaestroIcon } from "../../components/MaestroPrimitives";
 import {
   MarketCategoryIcon,
@@ -615,6 +616,7 @@ export function PickEvidenceLabDrawer({
     onDismiss: () => onCloseRef.current(),
     disabled: !open || !isMobileViewport,
     scrollContainerRef: bodyScrollRef,
+    dragHandleSelector: ".pl-sheet-drag-zone",
   });
 
   const isDialogActive = open && Boolean(pickId);
@@ -1123,8 +1125,9 @@ export function PickEvidenceLabDrawer({
         className="pl-pick-lab-panel"
         style={isMobileViewport ? swipe.sheetStyle : undefined}
       >
+        <DrawerErrorBoundary title="Bet Lab temporalmente no disponible" onClose={onClose}>
         <div
-          className="pl-pick-lab-drag-zone"
+          className="pl-pick-lab-drag-zone pl-sheet-drag-zone"
           {...(isMobileViewport ? swipe.handleProps : {})}
         >
           <span className="pl-bottom-sheet-handle" aria-hidden="true" />
@@ -1207,7 +1210,7 @@ export function PickEvidenceLabDrawer({
               className="pl-pick-lab-close"
               data-pick-lab-close=""
               aria-label="Cerrar Bet Lab"
-              autoFocus
+              autoFocus={!isMobileViewport}
               onClick={onClose}
             >
               <MaestroIcon name="x" size={18} />
@@ -2157,6 +2160,7 @@ export function PickEvidenceLabDrawer({
             </section>
           </aside>
         </div>
+        </DrawerErrorBoundary>
       </div>
     </dialog>
   );

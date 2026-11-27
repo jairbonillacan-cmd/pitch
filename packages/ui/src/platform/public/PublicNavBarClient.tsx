@@ -23,10 +23,6 @@ const LANDING_NAV_ITEMS = [
   { href: "#faq", label: "Preguntas" },
 ] as const;
 
-/**
- * Isla cliente liviana para la barra pública: solo maneja el estado del menú móvil,
- * la detección de scroll y el cambio de tema, sin arrastrar 3D, calendarios ni emblemas.
- */
 export function PublicNavBarClient({
   activePath,
   hasSession = false,
@@ -41,8 +37,10 @@ export function PublicNavBarClient({
   const landing = activePath === "/";
   const navItems = landing ? LANDING_NAV_ITEMS : PUBLIC_NAV_ITEMS;
   const menuBtnRef = useRef<HTMLButtonElement | null>(null);
+  const dialogRef = useRef<HTMLDialogElement | null>(null);
   const scrollMarker = useRef<HTMLSpanElement | null>(null);
   const drawerId = useId();
+  const titleId = useId();
 
   useSafeEffect(() => {
     if (hasSession) {
@@ -85,25 +83,94 @@ export function PublicNavBarClient({
   }, []);
 
   useSafeEffect(() => {
-    if (!menuOpen || typeof window === "undefined") return;
-    const onKeyDown = (event: KeyboardEvent) => {
-      if (event.key === "Escape") {
-        setMenuOpen(false);
-        menuBtnRef.current?.focus();
+    const dialog = dialogRef.current;
+    if (!dialog) return;
+
+    if (menuOpen && !dialog.open) {
+      if (typeof dialog.showModal === "function") {
+        try {
+          dialog.showModal();
+        } catch (err) {
+          void err;
+          dialog.setAttribute("open", "");
+        }
+      } else {
+        dialog.setAttribute("open", "");
       }
-    };
-    const onResize = () => {
-      if (window.innerWidth >= 900) {
-        setMenuOpen(false);
+    } else if (!menuOpen && (dialog.open || dialog.hasAttribute("open"))) {
+      if (typeof dialog.close === "function" && dialog.open) {
+        dialog.close();
+      } else {
+        dialog.removeAttribute("open");
       }
-    };
-    window.addEventListener("keydown", onKeyDown);
-    window.addEventListener("resize", onResize);
-    return () => {
-      window.removeEventListener("keydown", onKeyDown);
-      window.removeEventListener("resize", onResize);
-    };
+    }
   }, [menuOpen]);
+
+  useSafeEffect(() => {
+    const dialog = dialogRef.current;
+    if (!dialog) return;
+
+    const handleClose = () => {
+      setMenuOpen(false);
+      menuBtnRef.current?.focus();
+    };
+    const handleCancel = (event: Event) => {
+      event.preventDefault();
+      setMenuOpen(false);
+    };
+    dialog.addEventListener("close", handleClose);
+    dialog.addEventListener("cancel", handleCancel);
+
+    const needsLightDismissFallback =
+      typeof HTMLDialogElement !== "undefined" &&
+      !("closedBy" in HTMLDialogElement.prototype);
+    let pressedOutside = false;
+    const isBackdropTarget = (e: PointerEvent) => {
+      if (e.target !== dialog) return false;
+      const r = dialog.getBoundingClientRect();
+      return (
+        e.clientX < r.left ||
+        e.clientX > r.right ||
+        e.clientY < r.top ||
+        e.clientY > r.bottom
+      );
+    };
+    const onPointerDown = (e: PointerEvent) => {
+      pressedOutside = isBackdropTarget(e);
+    };
+    const onPointerUp = (e: PointerEvent) => {
+      if (pressedOutside && isBackdropTarget(e)) {
+        setMenuOpen(false);
+      }
+      pressedOutside = false;
+    };
+    if (needsLightDismissFallback) {
+      dialog.addEventListener("pointerdown", onPointerDown);
+      dialog.addEventListener("pointerup", onPointerUp);
+    }
+
+    const onResize = () => {
+      if (typeof window !== "undefined" && window.innerWidth >= 900) {
+        setMenuOpen(false);
+      }
+    };
+    if (typeof window !== "undefined") {
+      window.addEventListener("resize", onResize);
+    }
+    return () => {
+      dialog.removeEventListener("close", handleClose);
+      dialog.removeEventListener("cancel", handleCancel);
+      if (needsLightDismissFallback) {
+        dialog.removeEventListener("pointerdown", onPointerDown);
+        dialog.removeEventListener("pointerup", onPointerUp);
+      }
+      if (typeof window !== "undefined") {
+        window.removeEventListener("resize", onResize);
+      }
+    };
+  }, []);
+
+  const closeDrawer = () => setMenuOpen(false);
 
   return (
     <>
@@ -146,7 +213,7 @@ export function PublicNavBarClient({
                 ref={menuBtnRef}
                 type="button"
                 className="pl-lp-menu-btn"
-                aria-label="Abrir menú"
+                aria-label={menuOpen ? "Cerrar menú" : "Abrir menú"}
                 aria-expanded={menuOpen}
                 aria-controls={drawerId}
                 onClick={() => setMenuOpen((prev) => !prev)}
@@ -182,36 +249,68 @@ export function PublicNavBarClient({
             </div>
           </nav>
 
-          {menuOpen ? (
-            <div
-              id={drawerId}
-              className="pl-lp-mobile-menu glass-card glass-ring"
-              role="region"
-              aria-label="Menú principal móvil"
-            >
+          <dialog
+            ref={dialogRef}
+            id={drawerId}
+            className="pl-lp-mobile-menu pl-lp-mobile-dialog"
+            aria-labelledby={titleId}
+            {...({ closedby: "any" } as React.DialogHTMLAttributes<HTMLDialogElement>)}
+          >
+            <div className="pl-lp-mobile-head">
+              <span id={titleId} className="pl-lp-mobile-title">
+                Explorar PitchLab
+              </span>
+              <button
+                type="button"
+                className="pl-lp-mobile-close"
+                aria-label="Cerrar menú"
+                onClick={closeDrawer}
+              >
+                <svg
+                  width="18"
+                  height="18"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  aria-hidden="true"
+                >
+                  <path d="M6 6l12 12M18 6L6 18" />
+                </svg>
+              </button>
+            </div>
+            <nav aria-label="Menú principal móvil" className="pl-lp-mobile-links">
               {navItems.map((item) => (
                 <a
                   key={item.href}
                   className="pl-lp-navlink"
                   href={item.href}
                   aria-current={activePath === item.href ? "page" : undefined}
-                  onClick={() => setMenuOpen(false)}
+                  onClick={closeDrawer}
                 >
                   {item.label}
                 </a>
               ))}
               <a
+                className="pl-lp-navlink pl-lp-mobile-login"
+                href={effectiveSession ? "/app" : "/login"}
+                onClick={closeDrawer}
+              >
+                {effectiveSession ? "Ir a la app" : "Entrar"}
+              </a>
+              <a
                 className="pl-lp-btn pl-lp-btn-primary"
                 href={effectiveSession ? "/app" : "/signup"}
-                onClick={() => setMenuOpen(false)}
+                onClick={closeDrawer}
               >
                 Probar 7 días gratis{" "}
                 <span className="pl-lp-arr" aria-hidden="true">
                   →
                 </span>
               </a>
-            </div>
-          ) : null}
+            </nav>
+          </dialog>
         </div>
       </header>
     </>

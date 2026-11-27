@@ -6,7 +6,6 @@ import { BrandLogo } from "../../primitives";
 import { isDisposableEmailDomain, normalizeTrialEmail } from "../access-guard";
 import { MaestroIcon } from "../components/MaestroPrimitives";
 import { BetaPinModal, ToastViewport } from "../components/PlatformOverlays";
-import { PlSelect } from "../components/PlSelect";
 import {
   hasLocalAnalyticsConsent,
   sendConsentGatedFunnelStage,
@@ -19,6 +18,11 @@ import {
   usePlatformCore,
 } from "../platform-provider";
 import { TIPSTER_CREATORS } from "../spacetime-catalog";
+import {
+  getTurnstileToken,
+  TURNSTILE_ACTION_MAGIC_LINK,
+  turnstileSiteKey,
+} from "../turnstile-client";
 import { requestLoginMagicLink, startLoginSocialSignIn } from "./LoginSurfaceV4";
 
 import {
@@ -49,7 +53,6 @@ export {
 
 export type SignupStep = "method" | "details" | EmailConfirmationStep;
 
-/** Versión de los textos legales que la persona acepta en el paso 2. */
 export const SIGNUP_CONSENT_VERSION = "2026-11-11";
 const SIGNUP_DETAILS_STORAGE_KEY = "pitchlab.signup.details";
 const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
@@ -87,13 +90,9 @@ const MONTHS_SHORT = [
 ] as const;
 
 export interface SignupDetails {
-  /** Cuenta para la que se prepararon los datos antes de confirmar el enlace. */
   email?: string;
-  /** Nombre visible (2 a 40 caracteres). */
   displayName: string;
-  /** Usuario sin @ (3 a 20: minúsculas, números y _; empieza con letra). */
   handle: string;
-  /** Fecha ISO `AAAA-MM-DD`. */
   birthDate: string;
   consents: {
     terms: boolean;
@@ -101,19 +100,18 @@ export interface SignupDetails {
     marketing: boolean;
     version: string;
   };
-  /** Código de quien invitó (`?code=`), para registrar el referido. */
   referralCode?: string;
+  turnstileToken?: string;
 }
 
-/** Respuesta de `POST /api/me/signup`. */
 export type SignupFlushResult =
   | { status: "saved"; trial: "concedida" | "ya_usada" | "apagada" }
   | { status: "none" }
   | { status: "underage" }
   | { status: "handle_taken" }
+  | { status: "captcha_required" }
   | { status: "error" };
 
-/** Sugerencia de usuario a partir del nombre o el correo (el servidor confirma si está libre). */
 export function suggestSignupHandle(base: string): string {
   const ascii = base
     .normalize("NFD")
@@ -127,7 +125,6 @@ export function suggestSignupHandle(base: string): string {
   return ascii.length >= 3 ? ascii : "";
 }
 
-/** Los datos del paso 2 esperan al enlace mágico como máximo un día. */
 const SIGNUP_DETAILS_MAX_AGE_MS = 24 * 60 * 60 * 1000;
 
 export interface SignupInvite {
@@ -136,10 +133,6 @@ export interface SignupInvite {
   freeDays: number;
 }
 
-/**
- * Lee el código de `?code=` y, si es de un creador conocido, su nombre de pila.
- * Un código vacío o con caracteres inválidos no muestra aviso.
- */
 export function resolveSignupInvite(rawCode: string): SignupInvite | null {
   const code = rawCode
     .trim()
@@ -154,7 +147,6 @@ export function resolveSignupInvite(rawCode: string): SignupInvite | null {
   return { code, inviterName: firstName, freeDays: creator?.freeDays ?? 7 };
 }
 
-/** Edad en años cumplidos a la fecha `today`. */
 export function ageOn(birth: Date, today: Date): number {
   let age = today.getFullYear() - birth.getFullYear();
   const beforeBirthday =
@@ -168,7 +160,6 @@ export type BirthDateCheck =
   | { ok: true; iso: string }
   | { ok: false; reason: "incomplete" | "invalid" | "underage" };
 
-/** Valida día/mes/año (mes 1–12) y la edad mínima de 18. */
 export function checkBirthDate(
   day: string,
   month: string,
@@ -202,10 +193,6 @@ export function checkBirthDate(
   return { ok: true, iso };
 }
 
-/**
- * Deja los datos del paso 2 listos para /onboarding, donde `flushSignupDetails` los guarda en
- * el servidor. Van en `localStorage` porque el enlace mágico se abre en otra pestaña.
- */
 export function submitSignupDetails(details: SignupDetails, now: number = Date.now()): void {
   try {
     window.localStorage.setItem(
@@ -217,7 +204,6 @@ export function submitSignupDetails(details: SignupDetails, now: number = Date.n
   }
 }
 
-/** Lee los datos pendientes del paso 2; null si no hay o ya vencieron. */
 export function readPendingSignupDetails(now: number = Date.now()): SignupDetails | null {
   try {
     const raw = window.localStorage.getItem(SIGNUP_DETAILS_STORAGE_KEY);
@@ -236,20 +222,34 @@ export function readPendingSignupDetails(now: number = Date.now()): SignupDetail
   }
 }
 
-/** Guarda en el servidor los datos pendientes del paso 2 (con sesión de cuenta). */
-export async function flushSignupDetails(email?: string): Promise<SignupFlushResult> {
+export async function flushSignupDetails(
+  email?: string,
+  turnstileTokenOverride?: string,
+): Promise<SignupFlushResult> {
   const details = readPendingSignupDetails();
-  if (!details || (email && details.email && details.email !== email.toLowerCase())) return { status: "none" };
+  if (!details || (email && details.email && details.email !== email.toLowerCase())) {
+    return { status: "none" };
+  }
   try {
+    let resolvedToken = turnstileTokenOverride ?? details.turnstileToken ?? null;
+    if (!resolvedToken && turnstileSiteKey()) {
+      resolvedToken = await getTurnstileToken(TURNSTILE_ACTION_MAGIC_LINK);
+    }
+    const requestPayload: SignupDetails = resolvedToken
+      ? { ...details, turnstileToken: resolvedToken }
+      : details;
     const res = await fetch("/api/me/signup", {
       method: "POST",
       headers: { "content-type": "application/json" },
-      body: JSON.stringify(details),
+      body: JSON.stringify(requestPayload),
     });
     if (res.status === 403) {
+      const payload = (await res.json().catch(() => ({}))) as { error?: string };
+      if (payload.error === "verificacion_humana_requerida") {
+        return { status: "captcha_required" };
+      }
       window.localStorage.removeItem(SIGNUP_DETAILS_STORAGE_KEY);
-      const { error } = await res.json() as { error?: string };
-      return { status: error === "menor_de_edad" ? "underage" : "error" };
+      return { status: payload.error === "menor_de_edad" ? "underage" : "error" };
     }
     if (res.status === 409) {
       window.localStorage.removeItem(SIGNUP_DETAILS_STORAGE_KEY);
@@ -322,14 +322,10 @@ export interface SignupSurfaceV4Props {
   previewSlot?: React.ReactNode;
   initialStep?: SignupStep;
   initialEmail?: string;
-  /** Al volver de Google sin fecha ni consentimientos. */
   returningProvider?: "Google" | null;
-  /** Fecha de referencia para la edad (pruebas). */
   today?: Date;
-  /** Con cuenta (Google o al volver a /app): nombre y usuario sugerido para prellenar. */
   initialDisplayName?: string;
   initialHandle?: string;
-  /** Destino al terminar el registro cuando el enlace vino de una ruta protegida. */
   nextPath?: string;
 }
 
@@ -397,6 +393,7 @@ export function SignupSurfaceV4({
   const [marketing, setMarketing] = useState(false);
   const [dobError, setDobError] = useState("");
   const [submitError, setSubmitError] = useState("");
+  const [captchaRequired, setCaptchaRequired] = useState(false);
   const [submitting, setSubmitting] = useState(false);
   const [resendSecondsLeft, setResendSecondsLeft] = useCountdownSeconds(0);
   const [resendNotice, setResendNotice] = useState("");
@@ -427,11 +424,18 @@ export function SignupSurfaceV4({
     void flushSignupDetails(confirmedSession.email).then(async (result) => {
       if (!active) return;
       if (result.status === "saved") {
+        setCaptchaRequired(false);
         try {
           window.sessionStorage.setItem("pitchlab.signup.trial", result.trial);
         } catch (err) {
           void err;
         }
+      }
+      if (result.status === "captcha_required") {
+        setCaptchaRequired(true);
+        setSubmitError("Necesitamos confirmar que eres una persona para activar tu cuenta.");
+        setStep("details");
+        return;
       }
       if (result.status === "underage") {
         setDestination("/");
@@ -597,6 +601,13 @@ export function SignupSurfaceV4({
     }
     if (!terms || !identityOk) return;
     setDobError("");
+    setCaptchaRequired(false);
+
+    const postSignupDest = nextPath && nextPath !== "/app" ? nextPath : "/onboarding";
+    const freshToken =
+      accountsEnabled && turnstileSiteKey()
+        ? await getTurnstileToken(TURNSTILE_ACTION_MAGIC_LINK)
+        : null;
 
     const details: SignupDetails = {
       ...(email.trim() && !provider ? { email: email.trim().toLowerCase() } : {}),
@@ -610,6 +621,7 @@ export function SignupSurfaceV4({
         version: SIGNUP_CONSENT_VERSION,
       },
       ...(invite ? { referralCode: invite.code } : {}),
+      ...(freshToken ? { turnstileToken: freshToken } : {}),
     };
 
     setSubmitting(true);
@@ -618,13 +630,69 @@ export function SignupSurfaceV4({
 
     if (!accountsEnabled) {
       setSubmitting(false);
-      openBetaPin(nextPath && nextPath !== "/app" ? nextPath : "/onboarding");
+      openBetaPin(postSignupDest);
+      return;
+    }
+
+    if (confirmedSession) {
+      const flushed = await flushSignupDetails(confirmedSession.email, freshToken ?? undefined);
+      setSubmitting(false);
+      if (flushed.status === "saved") {
+        try {
+          window.sessionStorage.setItem("pitchlab.signup.trial", flushed.trial);
+        } catch (err) {
+          void err;
+        }
+        navigateTo(postSignupDest);
+        return;
+      }
+      if (flushed.status === "captcha_required") {
+        setCaptchaRequired(true);
+        setSubmitError(
+          "No pudimos completar la verificación humana. Intenta de nuevo en unos segundos.",
+        );
+        return;
+      }
+      if (flushed.status === "handle_taken") {
+        setSubmitError("Ese usuario lo acaba de tomar alguien más. Elige otro.");
+        handleInputRef.current?.focus();
+        return;
+      }
+      if (flushed.status === "underage") {
+        navigateTo("/");
+        return;
+      }
+      setSubmitError("No pudimos completar tu registro. Intenta de nuevo.");
       return;
     }
 
     if (provider || !normalizedEmail) {
+      const flushed = await flushSignupDetails(undefined, freshToken ?? undefined);
       setSubmitting(false);
-      navigateTo(nextPath && nextPath !== "/app" ? nextPath : "/onboarding");
+      if (flushed.status === "captcha_required") {
+        setCaptchaRequired(true);
+        setSubmitError(
+          "No pudimos completar la verificación humana. Intenta de nuevo para activar tu cuenta.",
+        );
+        return;
+      }
+      if (flushed.status === "handle_taken") {
+        setSubmitError("Ese usuario lo acaba de tomar alguien más. Elige otro.");
+        handleInputRef.current?.focus();
+        return;
+      }
+      if (flushed.status === "underage") {
+        navigateTo("/");
+        return;
+      }
+      if (flushed.status === "saved") {
+        try {
+          window.sessionStorage.setItem("pitchlab.signup.trial", flushed.trial);
+        } catch (err) {
+          void err;
+        }
+      }
+      navigateTo(postSignupDest);
       return;
     }
 
@@ -636,6 +704,64 @@ export function SignupSurfaceV4({
     } else {
       setSubmitError("No pudimos enviar el enlace. Intenta de nuevo en un momento.");
     }
+  };
+
+  const handleRetryHumanVerification = async (): Promise<void> => {
+    if (submitting || !accountsEnabled) return;
+    setSubmitting(true);
+    setSubmitError("");
+    const token = turnstileSiteKey()
+      ? await getTurnstileToken(TURNSTILE_ACTION_MAGIC_LINK)
+      : null;
+    if (turnstileSiteKey() && !token) {
+      setSubmitting(false);
+      setCaptchaRequired(true);
+      setSubmitError(
+        "No pudimos iniciar la verificación humana. Revisa si tu navegador bloquea el widget e intenta de nuevo.",
+      );
+      return;
+    }
+    const existing = readPendingSignupDetails();
+    if (existing && token) {
+      submitSignupDetails({ ...existing, turnstileToken: token });
+    }
+    const postSignupDest = nextPath && nextPath !== "/app" ? nextPath : "/onboarding";
+    const result = await flushSignupDetails(confirmedSession?.email, token ?? undefined);
+    setSubmitting(false);
+    if (result.status === "saved") {
+      setCaptchaRequired(false);
+      try {
+        window.sessionStorage.setItem("pitchlab.signup.trial", result.trial);
+      } catch (err) {
+        void err;
+      }
+      navigateTo(postSignupDest);
+      return;
+    }
+    if (result.status === "captcha_required") {
+      setCaptchaRequired(true);
+      setSubmitError(
+        "La verificación humana sigue pendiente. Intenta de nuevo en unos segundos.",
+      );
+      return;
+    }
+    if (result.status === "handle_taken") {
+      setCaptchaRequired(false);
+      setSubmitError("Ese usuario lo acaba de tomar alguien más. Elige otro.");
+      handleInputRef.current?.focus();
+      return;
+    }
+    if (result.status === "underage") {
+      setCaptchaRequired(false);
+      navigateTo("/");
+      return;
+    }
+    if (result.status === "none") {
+      setCaptchaRequired(false);
+      setSubmitError("Vuelve a presionar Crear cuenta para continuar.");
+      return;
+    }
+    setSubmitError("No pudimos completar tu registro. Intenta de nuevo.");
   };
 
   const handleResend = async (): Promise<void> => {
@@ -984,71 +1110,101 @@ export function SignupSurfaceV4({
                     <fieldset className="pl-auth-fieldset">
                       <legend className="pl-auth-label">Fecha de nacimiento</legend>
                       <div className="pl-auth-dob">
-                        <PlSelect
-                          variant="auth"
-                          size="lg"
-                          ariaLabel="Día"
-                          placeholder="Día"
-                          autoComplete="bday-day"
-                          popoverWidth="min-trigger"
-                          triggerClassName="num"
-                          value={day}
-                          isInvalid={Boolean(dobError)}
-                          ariaDescribedBy={[ids.dobHint, dobError ? ids.dobError : ""]
-                            .filter(Boolean)
-                            .join(" ")}
-                          onChange={(nextDay) => {
-                            setDay(nextDay);
-                            setDobError("");
-                          }}
-                          options={Array.from({ length: 31 }, (_, i) => {
-                            const d = String(i + 1);
-                            return { value: d, label: d };
-                          })}
-                        />
-                        <PlSelect
-                          variant="auth"
-                          size="lg"
-                          ariaLabel="Mes"
-                          placeholder="Mes"
-                          autoComplete="bday-month"
-                          popoverWidth="min-trigger"
-                          value={month}
-                          isInvalid={Boolean(dobError)}
-                          ariaDescribedBy={[ids.dobHint, dobError ? ids.dobError : ""]
-                            .filter(Boolean)
-                            .join(" ")}
-                          onChange={(nextMonth) => {
-                            setMonth(nextMonth);
-                            setDobError("");
-                          }}
-                          options={months.map((label, i) => ({
-                            value: String(i + 1),
-                            label,
-                          }))}
-                        />
-                        <PlSelect
-                          variant="auth"
-                          size="lg"
-                          ariaLabel="Año"
-                          placeholder="Año"
-                          autoComplete="bday-year"
-                          popoverWidth="min-trigger"
-                          triggerClassName="num"
-                          value={year}
-                          isInvalid={Boolean(dobError)}
-                          ariaDescribedBy={[ids.dobHint, dobError ? ids.dobError : ""]
-                            .filter(Boolean)
-                            .join(" ")}
-                          onChange={(nextYear) => {
-                            setYear(nextYear);
-                            setDobError("");
-                          }}
-                          options={years.map((y) => {
-                            const str = String(y);
-                            return { value: str, label: str };
-                          })}
-                        />
+                        <div className="pl-auth-select-wrap">
+                          <select
+                            id={`${uid}-dob-day`}
+                            className="pl-auth-select num"
+                            aria-label="Día"
+                            autoComplete="bday-day"
+                            value={day}
+                            aria-invalid={dobError ? true : undefined}
+                            aria-describedby={[ids.dobHint, dobError ? ids.dobError : ""]
+                              .filter(Boolean)
+                              .join(" ")}
+                            onChange={(e) => {
+                              setDay(e.target.value);
+                              setDobError("");
+                            }}
+                          >
+                            <option value="" disabled>
+                              Día
+                            </option>
+                            {Array.from({ length: 31 }, (_, i) => {
+                              const d = String(i + 1);
+                              return (
+                                <option key={d} value={d}>
+                                  {d}
+                                </option>
+                              );
+                            })}
+                          </select>
+                          <span className="pl-auth-select-chevron" aria-hidden="true">
+                            <MaestroIcon name="chevronDown" size={14} />
+                          </span>
+                        </div>
+
+                        <div className="pl-auth-select-wrap">
+                          <select
+                            id={`${uid}-dob-month`}
+                            className="pl-auth-select"
+                            aria-label="Mes"
+                            autoComplete="bday-month"
+                            value={month}
+                            aria-invalid={dobError ? true : undefined}
+                            aria-describedby={[ids.dobHint, dobError ? ids.dobError : ""]
+                              .filter(Boolean)
+                              .join(" ")}
+                            onChange={(e) => {
+                              setMonth(e.target.value);
+                              setDobError("");
+                            }}
+                          >
+                            <option value="" disabled>
+                              Mes
+                            </option>
+                            {months.map((label, i) => (
+                              <option key={label} value={String(i + 1)}>
+                                {label}
+                              </option>
+                            ))}
+                          </select>
+                          <span className="pl-auth-select-chevron" aria-hidden="true">
+                            <MaestroIcon name="chevronDown" size={14} />
+                          </span>
+                        </div>
+
+                        <div className="pl-auth-select-wrap">
+                          <select
+                            id={`${uid}-dob-year`}
+                            className="pl-auth-select num"
+                            aria-label="Año"
+                            autoComplete="bday-year"
+                            value={year}
+                            aria-invalid={dobError ? true : undefined}
+                            aria-describedby={[ids.dobHint, dobError ? ids.dobError : ""]
+                              .filter(Boolean)
+                              .join(" ")}
+                            onChange={(e) => {
+                              setYear(e.target.value);
+                              setDobError("");
+                            }}
+                          >
+                            <option value="" disabled>
+                              Año
+                            </option>
+                            {years.map((y) => {
+                              const str = String(y);
+                              return (
+                                <option key={str} value={str}>
+                                  {str}
+                                </option>
+                              );
+                            })}
+                          </select>
+                          <span className="pl-auth-select-chevron" aria-hidden="true">
+                            <MaestroIcon name="chevronDown" size={14} />
+                          </span>
+                        </div>
                       </div>
                       <p id={ids.dobHint} className="pl-auth-fineprint pl-auth-fineprint--left">
                         {narrow
@@ -1121,7 +1277,22 @@ export function SignupSurfaceV4({
                     </fieldset>
 
                     <div className="pl-auth-error-slot" aria-live="polite" aria-atomic="true">
-                      {submitError ? <p className="pl-auth-error">{submitError}</p> : null}
+                      {submitError ? (
+                        <p className="pl-auth-error" role="alert">
+                          {submitError}
+                        </p>
+                      ) : null}
+                      {captchaRequired && accountsEnabled ? (
+                        <button
+                          type="button"
+                          className="pl-auth-quiet mt-2"
+                          data-signup-captcha-retry=""
+                          disabled={submitting}
+                          onClick={() => void handleRetryHumanVerification()}
+                        >
+                          Reintentar verificación humana
+                        </button>
+                      ) : null}
                     </div>
 
                     <button
