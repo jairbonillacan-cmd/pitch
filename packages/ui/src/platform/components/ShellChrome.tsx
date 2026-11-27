@@ -938,8 +938,12 @@ function ClubWorkspaceShellImpl({
     const menu = profileMenuRef.current;
     if (!menu) return;
     const onToggle = (e: Event) => setProfileMenuOpen((e as ToggleEvent).newState === "open");
+    menu.addEventListener("beforetoggle", onToggle);
     menu.addEventListener("toggle", onToggle);
-    return () => menu.removeEventListener("toggle", onToggle);
+    return () => {
+      menu.removeEventListener("beforetoggle", onToggle);
+      menu.removeEventListener("toggle", onToggle);
+    };
   }, []);
   const ownRecord = useMemo(() => profileRecord(journal), [journal]);
   const profileMenuGroups = useMemo(() => {
@@ -1055,7 +1059,7 @@ function ClubWorkspaceShellImpl({
   const moreSheetScrollRef = useRef<HTMLDivElement>(null);
   const profileSheetSwipe = useSheetSwipeDismiss({
     onDismiss: closeProfileMenu,
-    disabled: !profileMenuOpen,
+    disabled: false,
     scrollContainerRef: profileMenuRef,
     dragHandleSelector: ".pl-sheet-drag-zone",
   });
