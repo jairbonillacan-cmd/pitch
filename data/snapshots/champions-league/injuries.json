@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "league": "champions-league",
-  "observedAt": "2026-11-26T20:00:11.075Z",
+  "observedAt": "2026-11-27T19:49:57.890Z",
   "source": "pitchlab-availability",
   "coverageStatus": "ok",
   "entries": [
@@ -12,7 +12,7 @@
       "status": "Baja",
       "detail": "Unknown",
       "injuryType": "Unknown",
-      "reportedAt": "2026-11-26T20:00:11.075Z"
+      "reportedAt": "2026-11-27T19:49:57.890Z"
     },
     {
       "teamId": "champions-league.slovan-bratislava",
@@ -21,7 +21,7 @@
       "status": "Baja",
       "detail": "Knee Injury",
       "injuryType": "Knee Injury",
-      "reportedAt": "2026-11-26T20:00:11.075Z"
+      "reportedAt": "2026-11-27T19:49:57.890Z"
     },
     {
       "teamId": "champions-league.slovan-bratislava",
@@ -30,7 +30,7 @@
       "status": "Duda",
       "detail": "Knock Injury",
       "injuryType": "Knock Injury",
-      "reportedAt": "2026-11-26T20:00:11.075Z"
+      "reportedAt": "2026-11-27T19:49:57.890Z"
     },
     {
       "teamId": "champions-league.slovan-bratislava",
@@ -39,7 +39,7 @@
       "status": "Baja",
       "detail": "Knock Injury",
       "injuryType": "Knock Injury",
-      "reportedAt": "2026-11-26T20:00:11.075Z"
+      "reportedAt": "2026-11-27T19:49:57.890Z"
     },
     {
       "teamId": "champions-league.slovan-bratislava",
@@ -48,7 +48,7 @@
       "status": "Baja",
       "detail": "Abdominal Injury",
       "injuryType": "Abdominal Injury",
-      "reportedAt": "2026-11-26T20:00:11.075Z"
+      "reportedAt": "2026-11-27T19:49:57.890Z"
     },
     {
       "teamId": "champions-league.slovan-bratislava",
@@ -57,7 +57,16 @@
       "status": "Baja",
       "detail": "Ankle Injury",
       "injuryType": "Ankle Injury",
-      "reportedAt": "2026-11-26T20:00:11.075Z"
+      "reportedAt": "2026-11-27T19:49:57.890Z"
+    },
+    {
+      "teamId": "champions-league.real-betis",
+      "player": "Abdessamad Ezzalzouli",
+      "position": "Mediocampista",
+      "status": "Duda",
+      "detail": "Physical Discomfort",
+      "injuryType": "Physical Discomfort",
+      "reportedAt": "2026-11-27T19:49:57.890Z"
     },
     {
       "teamId": "champions-league.real-betis",
@@ -66,16 +75,25 @@
       "status": "Duda",
       "detail": "Back Injury",
       "injuryType": "Back Injury",
-      "reportedAt": "2026-11-26T20:00:11.075Z"
+      "reportedAt": "2026-11-27T19:49:57.890Z"
     },
     {
       "teamId": "champions-league.real-betis",
       "player": "Dani Ceballos",
       "position": "Mediocampista",
-      "status": "Baja",
+      "status": "Duda",
       "detail": "Hamstring Injury",
       "injuryType": "Hamstring Injury",
-      "reportedAt": "2026-11-26T20:00:11.075Z"
+      "reportedAt": "2026-11-27T19:49:57.890Z"
+    },
+    {
+      "teamId": "champions-league.real-betis",
+      "player": "Giovani Lo Celso",
+      "position": "Mediocampista",
+      "status": "Baja",
+      "detail": "Knee Injury",
+      "injuryType": "Knee Injury",
+      "reportedAt": "2026-11-27T19:49:57.890Z"
     },
     {
       "teamId": "champions-league.rb-leipzig",
@@ -84,7 +102,7 @@
       "status": "Baja",
       "detail": "Shoulder Injury",
       "injuryType": "Shoulder Injury",
-      "reportedAt": "2026-11-26T20:00:11.075Z"
+      "reportedAt": "2026-11-27T19:49:57.890Z"
     },
     {
       "teamId": "champions-league.rb-leipzig",
@@ -93,7 +111,7 @@
       "status": "Baja",
       "detail": "Bruised Knee",
       "injuryType": "Bruised Knee",
-      "reportedAt": "2026-11-26T20:00:11.075Z"
+      "reportedAt": "2026-11-27T19:49:57.890Z"
     },
     {
       "teamId": "champions-league.rb-leipzig",
@@ -102,7 +120,7 @@
       "status": "Baja",
       "detail": "Thigh Injury",
       "injuryType": "Thigh Injury",
-      "reportedAt": "2026-11-26T20:00:11.075Z"
+      "reportedAt": "2026-11-27T19:49:57.890Z"
     },
     {
       "teamId": "champions-league.lens",
@@ -111,7 +129,7 @@
       "status": "Baja",
       "detail": "Cruciate Ligament Injury",
       "injuryType": "Cruciate Ligament Injury",
-      "reportedAt": "2026-11-26T20:00:11.075Z"
+      "reportedAt": "2026-11-27T19:49:57.890Z"
     },
     {
       "teamId": "champions-league.lens",
@@ -120,7 +138,7 @@
       "status": "Baja",
       "detail": "Illness",
       "injuryType": "Illness",
-      "reportedAt": "2026-11-26T20:00:11.075Z"
+      "reportedAt": "2026-11-27T19:49:57.890Z"
     },
     {
       "teamId": "champions-league.lens",
@@ -129,7 +147,7 @@
       "status": "Baja",
       "detail": "Groin Injury",
       "injuryType": "Groin Injury",
-      "reportedAt": "2026-11-26T20:00:11.075Z"
+      "reportedAt": "2026-11-27T19:49:57.890Z"
     },
     {
       "teamId": "champions-league.lens",
@@ -138,7 +156,7 @@
       "status": "Baja",
       "detail": "Hamstring Injury",
       "injuryType": "Hamstring Injury",
-      "reportedAt": "2026-11-26T20:00:11.075Z"
+      "reportedAt": "2026-11-27T19:49:57.890Z"
     },
     {
       "teamId": "champions-league.feyenoord",
@@ -147,7 +165,7 @@
       "status": "Baja",
       "detail": "Ankle Injury",
       "injuryType": "Ankle Injury",
-      "reportedAt": "2026-11-26T20:00:11.075Z"
+      "reportedAt": "2026-11-27T19:49:57.890Z"
     },
     {
       "teamId": "champions-league.feyenoord",
@@ -156,7 +174,7 @@
       "status": "Baja",
       "detail": "Knee Injury",
       "injuryType": "Knee Injury",
-      "reportedAt": "2026-11-26T20:00:11.075Z"
+      "reportedAt": "2026-11-27T19:49:57.890Z"
     },
     {
       "teamId": "champions-league.feyenoord",
@@ -165,7 +183,7 @@
       "status": "Baja",
       "detail": "Unknown",
       "injuryType": "Unknown",
-      "reportedAt": "2026-11-26T20:00:11.075Z"
+      "reportedAt": "2026-11-27T19:49:57.890Z"
     },
     {
       "teamId": "champions-league.feyenoord",
@@ -174,7 +192,7 @@
       "status": "Baja",
       "detail": "Knee Injury",
       "injuryType": "Knee Injury",
-      "reportedAt": "2026-11-26T20:00:11.075Z"
+      "reportedAt": "2026-11-27T19:49:57.890Z"
     },
     {
       "teamId": "champions-league.porto",
@@ -183,7 +201,7 @@
       "status": "Baja",
       "detail": "Unknown",
       "injuryType": "Unknown",
-      "reportedAt": "2026-11-26T20:00:11.075Z"
+      "reportedAt": "2026-11-27T19:49:57.890Z"
     },
     {
       "teamId": "champions-league.porto",
@@ -192,7 +210,7 @@
       "status": "Baja",
       "detail": "Unknown",
       "injuryType": "Unknown",
-      "reportedAt": "2026-11-26T20:00:11.075Z"
+      "reportedAt": "2026-11-27T19:49:57.890Z"
     },
     {
       "teamId": "champions-league.porto",
@@ -201,7 +219,7 @@
       "status": "Baja",
       "detail": "Meniscus Injury",
       "injuryType": "Meniscus Injury",
-      "reportedAt": "2026-11-26T20:00:11.075Z"
+      "reportedAt": "2026-11-27T19:49:57.890Z"
     },
     {
       "teamId": "champions-league.como",
@@ -210,7 +228,7 @@
       "status": "Baja",
       "detail": "Thigh Injury",
       "injuryType": "Thigh Injury",
-      "reportedAt": "2026-11-26T20:00:11.075Z"
+      "reportedAt": "2026-11-27T19:49:57.890Z"
     },
     {
       "teamId": "champions-league.como",
@@ -219,7 +237,7 @@
       "status": "Baja",
       "detail": "Muscle Injury",
       "injuryType": "Muscle Injury",
-      "reportedAt": "2026-11-26T20:00:11.075Z"
+      "reportedAt": "2026-11-27T19:49:57.890Z"
     },
     {
       "teamId": "champions-league.como",
@@ -228,7 +246,7 @@
       "status": "Baja",
       "detail": "Muscle Injury",
       "injuryType": "Muscle Injury",
-      "reportedAt": "2026-11-26T20:00:11.075Z"
+      "reportedAt": "2026-11-27T19:49:57.890Z"
     },
     {
       "teamId": "champions-league.como",
@@ -237,7 +255,7 @@
       "status": "Duda",
       "detail": "Muscle Injury",
       "injuryType": "Muscle Injury",
-      "reportedAt": "2026-11-26T20:00:11.075Z"
+      "reportedAt": "2026-11-27T19:49:57.890Z"
     },
     {
       "teamId": "champions-league.como",
@@ -246,7 +264,7 @@
       "status": "Baja",
       "detail": "Thigh Injury",
       "injuryType": "Thigh Injury",
-      "reportedAt": "2026-11-26T20:00:11.075Z"
+      "reportedAt": "2026-11-27T19:49:57.890Z"
     },
     {
       "teamId": "champions-league.aek-athens",
@@ -255,7 +273,7 @@
       "status": "Baja",
       "detail": "red_card_suspension",
       "injuryType": "red_card_suspension",
-      "reportedAt": "2026-11-26T20:00:11.075Z"
+      "reportedAt": "2026-11-27T19:49:57.890Z"
     },
     {
       "teamId": "champions-league.aek-athens",
@@ -264,7 +282,7 @@
       "status": "Baja",
       "detail": "Muscle Injury",
       "injuryType": "Muscle Injury",
-      "reportedAt": "2026-11-26T20:00:11.075Z"
+      "reportedAt": "2026-11-27T19:49:57.890Z"
     },
     {
       "teamId": "champions-league.aek-athens",
@@ -273,7 +291,7 @@
       "status": "Baja",
       "detail": "Broken Collarbone",
       "injuryType": "Broken Collarbone",
-      "reportedAt": "2026-11-26T20:00:11.075Z"
+      "reportedAt": "2026-11-27T19:49:57.890Z"
     },
     {
       "teamId": "champions-league.aek-athens",
@@ -282,7 +300,7 @@
       "status": "Baja",
       "detail": "Broken Leg",
       "injuryType": "Broken Leg",
-      "reportedAt": "2026-11-26T20:00:11.075Z"
+      "reportedAt": "2026-11-27T19:49:57.890Z"
     }
   ]
 }

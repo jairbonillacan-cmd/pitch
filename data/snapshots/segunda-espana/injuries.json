@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "league": "segunda-espana",
-  "observedAt": "2026-11-26T20:00:11.075Z",
+  "observedAt": "2026-11-27T19:49:57.890Z",
   "source": "pitchlab-availability",
   "coverageStatus": "ok",
   "entries": [
@@ -12,7 +12,7 @@
       "status": "Baja",
       "detail": "yellow_or_red_card_suspension",
       "injuryType": "yellow_or_red_card_suspension",
-      "reportedAt": "2026-11-26T20:00:11.075Z"
+      "reportedAt": "2026-11-27T19:49:57.890Z"
     },
     {
       "teamId": "segunda-espana.ad-ceuta",
@@ -21,7 +21,7 @@
       "status": "Duda",
       "detail": "Muscle Injury",
       "injuryType": "Muscle Injury",
-      "reportedAt": "2026-11-26T20:00:11.075Z"
+      "reportedAt": "2026-11-27T19:49:57.890Z"
     },
     {
       "teamId": "segunda-espana.ad-ceuta",
@@ -30,7 +30,16 @@
       "status": "Baja",
       "detail": "Cruciate Ligament Injury",
       "injuryType": "Cruciate Ligament Injury",
-      "reportedAt": "2026-11-26T20:00:11.075Z"
+      "reportedAt": "2026-11-27T19:49:57.890Z"
+    },
+    {
+      "teamId": "segunda-espana.ad-ceuta",
+      "player": "Toni Abad",
+      "position": "Defensa",
+      "status": "Duda",
+      "detail": "Muscle Injury",
+      "injuryType": "Muscle Injury",
+      "reportedAt": "2026-11-27T19:49:57.890Z"
     },
     {
       "teamId": "segunda-espana.granada",
@@ -39,7 +48,7 @@
       "status": "Baja",
       "detail": "national_team",
       "injuryType": "national_team",
-      "reportedAt": "2026-11-26T20:00:11.075Z"
+      "reportedAt": "2026-11-27T19:49:57.890Z"
     },
     {
       "teamId": "segunda-espana.las-palmas",
@@ -48,7 +57,7 @@
       "status": "Baja",
       "detail": "yellow_card_accumulation_suspension",
       "injuryType": "yellow_card_accumulation_suspension",
-      "reportedAt": "2026-11-26T20:00:11.075Z"
+      "reportedAt": "2026-11-27T19:49:57.890Z"
     },
     {
       "teamId": "segunda-espana.las-palmas",
@@ -57,7 +66,7 @@
       "status": "Baja",
       "detail": "Meniscus Injury",
       "injuryType": "Meniscus Injury",
-      "reportedAt": "2026-11-26T20:00:11.075Z"
+      "reportedAt": "2026-11-27T19:49:57.890Z"
     },
     {
       "teamId": "segunda-espana.las-palmas",
@@ -66,7 +75,7 @@
       "status": "Baja",
       "detail": "national_team",
       "injuryType": "national_team",
-      "reportedAt": "2026-11-26T20:00:11.075Z"
+      "reportedAt": "2026-11-27T19:49:57.890Z"
     },
     {
       "teamId": "segunda-espana.eibar",
@@ -75,7 +84,7 @@
       "status": "Baja",
       "detail": "Calf Injury",
       "injuryType": "Calf Injury",
-      "reportedAt": "2026-11-26T20:00:11.075Z"
+      "reportedAt": "2026-11-27T19:49:57.890Z"
     },
     {
       "teamId": "segunda-espana.cadiz",
@@ -84,7 +93,7 @@
       "status": "Baja",
       "detail": "Muscle Injury",
       "injuryType": "Muscle Injury",
-      "reportedAt": "2026-11-26T20:00:11.075Z"
+      "reportedAt": "2026-11-27T19:49:57.890Z"
     },
     {
       "teamId": "segunda-espana.cadiz",
@@ -93,7 +102,7 @@
       "status": "Baja",
       "detail": "Muscle Injury",
       "injuryType": "Muscle Injury",
-      "reportedAt": "2026-11-26T20:00:11.075Z"
+      "reportedAt": "2026-11-27T19:49:57.890Z"
     },
     {
       "teamId": "segunda-espana.eldense",
@@ -102,7 +111,7 @@
       "status": "Baja",
       "detail": "yellow_card_accumulation_suspension",
       "injuryType": "yellow_card_accumulation_suspension",
-      "reportedAt": "2026-11-26T20:00:11.075Z"
+      "reportedAt": "2026-11-27T19:49:57.890Z"
     },
     {
       "teamId": "segunda-espana.eldense",
@@ -111,7 +120,7 @@
       "status": "Duda",
       "detail": "Muscle Injury",
       "injuryType": "Muscle Injury",
-      "reportedAt": "2026-11-26T20:00:11.075Z"
+      "reportedAt": "2026-11-27T19:49:57.890Z"
     },
     {
       "teamId": "segunda-espana.ce-sabadell",
@@ -120,7 +129,7 @@
       "status": "Duda",
       "detail": "Muscle Injury",
       "injuryType": "Muscle Injury",
-      "reportedAt": "2026-11-26T20:00:11.075Z"
+      "reportedAt": "2026-11-27T19:49:57.890Z"
     },
     {
       "teamId": "segunda-espana.ce-sabadell",
@@ -129,7 +138,7 @@
       "status": "Baja",
       "detail": "Cruciate Ligament Injury",
       "injuryType": "Cruciate Ligament Injury",
-      "reportedAt": "2026-11-26T20:00:11.075Z"
+      "reportedAt": "2026-11-27T19:49:57.890Z"
     }
   ]
 }

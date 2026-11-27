@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "league": "mlb",
-  "observedAt": "2026-11-27T14:07:39.080Z",
+  "observedAt": "2026-11-27T19:49:06.358Z",
   "source": "espn-public-mlb",
   "coverageStatus": "ok",
   "entries": [
@@ -257,6 +257,16 @@
     },
     {
       "teamId": "mlb.boston-red-sox",
+      "player": "Triston Casas",
+      "position": "1B",
+      "status": "Baja",
+      "detail": "Muñeca",
+      "injuryType": "Wrist",
+      "returnDate": "2027-02-01",
+      "reportedAt": "2026-11-27T16:38:00.000Z"
+    },
+    {
+      "teamId": "mlb.boston-red-sox",
       "player": "Eli White",
       "position": "CF",
       "status": "Baja",
@@ -274,16 +284,6 @@
       "injuryType": "Finger",
       "returnDate": "2027-02-01",
       "reportedAt": "2026-11-10T17:11:00.000Z"
-    },
-    {
-      "teamId": "mlb.boston-red-sox",
-      "player": "Triston Casas",
-      "position": "1B",
-      "status": "Baja",
-      "detail": "Muñeca",
-      "injuryType": "Wrist",
-      "returnDate": "2027-02-01",
-      "reportedAt": "2026-11-10T00:31:00.000Z"
     },
     {
       "teamId": "mlb.boston-red-sox",
@@ -667,16 +667,6 @@
     },
     {
       "teamId": "mlb.kansas-city-royals",
-      "player": "Mitch Spence",
-      "position": "RP",
-      "status": "Baja",
-      "detail": "Parte médico reservado",
-      "injuryType": "Undisclosed",
-      "returnDate": "2027-02-01",
-      "reportedAt": "2026-11-03T19:01:00.000Z"
-    },
-    {
-      "teamId": "mlb.kansas-city-royals",
       "player": "Luinder Avila",
       "position": "SP",
       "status": "Baja",
@@ -720,9 +710,9 @@
       "player": "Ben Casparius",
       "position": "RP",
       "status": "Baja",
-      "detail": "Hombro",
-      "injuryType": "Shoulder",
-      "returnDate": "2027-02-01",
+      "detail": "Elbow",
+      "injuryType": "Elbow",
+      "returnDate": "2028-02-01",
       "reportedAt": "2026-11-26T00:28:00.000Z"
     },
     {
@@ -1094,6 +1084,16 @@
       "injuryType": "Undisclosed",
       "returnDate": "2027-02-01",
       "reportedAt": "2026-11-03T21:20:00.000Z"
+    },
+    {
+      "teamId": "mlb.san-diego-padres",
+      "player": "Yu Darvish",
+      "position": "SP",
+      "status": "Baja",
+      "detail": "Elbow",
+      "injuryType": "Elbow",
+      "returnDate": "2027-02-01",
+      "reportedAt": "2026-08-26T21:06:00.000Z"
     },
     {
       "teamId": "mlb.san-francisco-giants",

@@ -1,189 +1,189 @@
 {
   "schemaVersion": 1,
   "league": "europa-league",
-  "observedAt": "2026-11-26T20:00:11.075Z",
+  "observedAt": "2026-11-27T19:49:57.890Z",
   "source": "pitchlab-availability",
   "coverageStatus": "ok",
   "entries": [
     {
-      "teamId": "europa-league.sunderland",
-      "player": "Brian Brobbey",
+      "teamId": "europa-league.olympique-marseille",
+      "player": "Derek Cornelius",
+      "position": "Defensa",
+      "status": "Baja",
+      "detail": "Hip Injury",
+      "injuryType": "Hip Injury",
+      "reportedAt": "2026-11-27T19:49:57.890Z"
+    },
+    {
+      "teamId": "europa-league.olympique-marseille",
+      "player": "Emerson",
+      "position": "Defensa",
+      "status": "Baja",
+      "detail": "Knee Surgery",
+      "injuryType": "Knee Surgery",
+      "reportedAt": "2026-11-27T19:49:57.890Z"
+    },
+    {
+      "teamId": "europa-league.levski-sofia",
+      "player": "Asen Ivanov Mitkov",
+      "position": "Mediocampista",
+      "status": "Baja",
+      "detail": "Unknown",
+      "injuryType": "Unknown",
+      "reportedAt": "2026-11-27T19:49:57.890Z"
+    },
+    {
+      "teamId": "europa-league.olympiacos",
+      "player": "Ayoub El Kaabi",
       "position": "Delantero",
+      "status": "Baja",
+      "detail": "Broken Cheekbone",
+      "injuryType": "Broken Cheekbone",
+      "reportedAt": "2026-11-27T19:49:57.890Z"
+    },
+    {
+      "teamId": "europa-league.olympiacos",
+      "player": "Chiquinho",
+      "position": "Mediocampista",
       "status": "Baja",
       "detail": "Physical Discomfort",
       "injuryType": "Physical Discomfort",
-      "reportedAt": "2026-11-26T20:00:11.075Z"
+      "reportedAt": "2026-11-27T19:49:57.890Z"
     },
     {
-      "teamId": "europa-league.sunderland",
-      "player": "Daniel Ballard",
-      "position": "Defensa",
-      "status": "Baja",
-      "detail": "Hamstring Injury",
-      "injuryType": "Hamstring Injury",
-      "reportedAt": "2026-11-26T20:00:11.075Z"
-    },
-    {
-      "teamId": "europa-league.sunderland",
-      "player": "Granit Xhaka",
+      "teamId": "europa-league.olympiacos",
+      "player": "Gustavo Puerta",
       "position": "Mediocampista",
-      "status": "Baja",
-      "detail": "Muscle Injury",
-      "injuryType": "Muscle Injury",
-      "reportedAt": "2026-11-26T20:00:11.075Z"
-    },
-    {
-      "teamId": "europa-league.sunderland",
-      "player": "Habib Diarra",
-      "position": "Mediocampista",
-      "status": "Baja",
-      "detail": "Muscle Injury",
-      "injuryType": "Muscle Injury",
-      "reportedAt": "2026-11-26T20:00:11.075Z"
-    },
-    {
-      "teamId": "europa-league.sunderland",
-      "player": "Kevin Danso",
-      "position": "Defensa",
-      "status": "Baja",
-      "detail": "club_decision",
-      "injuryType": "club_decision",
-      "reportedAt": "2026-11-26T20:00:11.075Z"
-    },
-    {
-      "teamId": "europa-league.sunderland",
-      "player": "Romaine Mundle",
-      "position": "Delantero",
       "status": "Baja",
       "detail": "Knee Injury",
       "injuryType": "Knee Injury",
-      "reportedAt": "2026-11-26T20:00:11.075Z"
+      "reportedAt": "2026-11-27T19:49:57.890Z"
     },
     {
-      "teamId": "europa-league.sturm-graz",
-      "player": "Daniil Khudyakov",
-      "position": "Portero",
-      "status": "Baja",
-      "detail": "Broken Ankle",
-      "injuryType": "Broken Ankle",
-      "reportedAt": "2026-11-26T20:00:11.075Z"
-    },
-    {
-      "teamId": "europa-league.sturm-graz",
-      "player": "Leon Grgić",
-      "position": "Delantero",
+      "teamId": "europa-league.olympiacos",
+      "player": "Santiago Hezze",
+      "position": "Mediocampista",
       "status": "Baja",
       "detail": "Knee Injury",
       "injuryType": "Knee Injury",
-      "reportedAt": "2026-11-26T20:00:11.075Z"
+      "reportedAt": "2026-11-27T19:49:57.890Z"
     },
     {
-      "teamId": "europa-league.sturm-graz",
-      "player": "Paul Koller",
-      "position": "Defensa",
-      "status": "Duda",
-      "detail": "Illness",
-      "injuryType": "Illness",
-      "reportedAt": "2026-11-26T20:00:11.075Z"
-    },
-    {
-      "teamId": "europa-league.nk-celje",
-      "player": "Jošt Pišek",
+      "teamId": "europa-league.milan",
+      "player": "Alexis Saelemaekers",
       "position": "Mediocampista",
-      "status": "Baja",
-      "detail": "Cruciate Ligament Injury",
-      "injuryType": "Cruciate Ligament Injury",
-      "reportedAt": "2026-11-26T20:00:11.075Z"
-    },
-    {
-      "teamId": "europa-league.hapoel-be-er-sheva",
-      "player": "Eliel Peretz",
-      "position": "Mediocampista",
-      "status": "Baja",
-      "detail": "Groin Injury",
-      "injuryType": "Groin Injury",
-      "reportedAt": "2026-11-26T20:00:11.075Z"
-    },
-    {
-      "teamId": "europa-league.hapoel-be-er-sheva",
-      "player": "Matan Baltaxa",
-      "position": "Defensa",
-      "status": "Duda",
-      "detail": "Bruised Foot",
-      "injuryType": "Bruised Foot",
-      "reportedAt": "2026-11-26T20:00:11.075Z"
-    },
-    {
-      "teamId": "europa-league.hapoel-be-er-sheva",
-      "player": "Ofir Marciano",
-      "position": "Portero",
-      "status": "Baja",
-      "detail": "Calf Injury",
-      "injuryType": "Calf Injury",
-      "reportedAt": "2026-11-26T20:00:11.075Z"
-    },
-    {
-      "teamId": "europa-league.ofi-crete",
-      "player": "Aaron Leya Iseka",
-      "position": "Delantero",
-      "status": "Baja",
-      "detail": "Muscle Injury",
-      "injuryType": "Muscle Injury",
-      "reportedAt": "2026-11-26T20:00:11.075Z"
-    },
-    {
-      "teamId": "europa-league.ofi-crete",
-      "player": "Achilleas Poungouras",
-      "position": "Defensa",
-      "status": "Baja",
-      "detail": "Appendicitis",
-      "injuryType": "Appendicitis",
-      "reportedAt": "2026-11-26T20:00:11.075Z"
-    },
-    {
-      "teamId": "europa-league.ofi-crete",
-      "player": "Borja Gonzalez",
-      "position": "Defensa",
-      "status": "Baja",
-      "detail": "Muscle Injury",
-      "injuryType": "Muscle Injury",
-      "reportedAt": "2026-11-26T20:00:11.075Z"
-    },
-    {
-      "teamId": "europa-league.ofi-crete",
-      "player": "Fotis Koutsoupias",
-      "position": "Defensa",
-      "status": "Baja",
-      "detail": "Leg Injury",
-      "injuryType": "Leg Injury",
-      "reportedAt": "2026-11-26T20:00:11.075Z"
-    },
-    {
-      "teamId": "europa-league.ofi-crete",
-      "player": "Kenan Kodro",
-      "position": "Delantero",
-      "status": "Baja",
-      "detail": "Knock Injury",
-      "injuryType": "Knock Injury",
-      "reportedAt": "2026-11-26T20:00:11.075Z"
-    },
-    {
-      "teamId": "europa-league.ofi-crete",
-      "player": "Krešimir Krizmanić",
-      "position": "Defensa",
       "status": "Baja",
       "detail": "Ankle Injury",
       "injuryType": "Ankle Injury",
-      "reportedAt": "2026-11-26T20:00:11.075Z"
+      "reportedAt": "2026-11-27T19:49:57.890Z"
     },
     {
-      "teamId": "europa-league.ofi-crete",
-      "player": "Manolis Chnaris",
+      "teamId": "europa-league.milan",
+      "player": "Davide Bartesaghi",
+      "position": "Mediocampista",
+      "status": "Duda",
+      "detail": "Tendon Injury",
+      "injuryType": "Tendon Injury",
+      "reportedAt": "2026-11-27T19:49:57.890Z"
+    },
+    {
+      "teamId": "europa-league.milan",
+      "player": "Francesco Camarda",
+      "position": "Delantero",
+      "status": "Duda",
+      "detail": "Ankle Injury",
+      "injuryType": "Ankle Injury",
+      "reportedAt": "2026-11-27T19:49:57.890Z"
+    },
+    {
+      "teamId": "europa-league.milan",
+      "player": "Gonçalo Ramos",
+      "position": "Delantero",
+      "status": "Duda",
+      "detail": "Physical Discomfort",
+      "injuryType": "Physical Discomfort",
+      "reportedAt": "2026-11-27T19:49:57.890Z"
+    },
+    {
+      "teamId": "europa-league.milan",
+      "player": "Luka Modrić",
+      "position": "Mediocampista",
+      "status": "Baja",
+      "detail": "Thigh Injury",
+      "injuryType": "Thigh Injury",
+      "reportedAt": "2026-11-27T19:49:57.890Z"
+    },
+    {
+      "teamId": "europa-league.milan",
+      "player": "Matteo Gabbia",
+      "position": "Defensa",
+      "status": "Baja",
+      "detail": "Tendon Injury",
+      "injuryType": "Tendon Injury",
+      "reportedAt": "2026-11-27T19:49:57.890Z"
+    },
+    {
+      "teamId": "europa-league.milan",
+      "player": "Ruben Loftus-Cheek",
+      "position": "Mediocampista",
+      "status": "Baja",
+      "detail": "Thigh Injury",
+      "injuryType": "Thigh Injury",
+      "reportedAt": "2026-11-27T19:49:57.890Z"
+    },
+    {
+      "teamId": "europa-league.milan",
+      "player": "Samuel Chukwueze",
+      "position": "Mediocampista",
+      "status": "Baja",
+      "detail": "Thigh Injury",
+      "injuryType": "Thigh Injury",
+      "reportedAt": "2026-11-27T19:49:57.890Z"
+    },
+    {
+      "teamId": "europa-league.bayer-leverkusen",
+      "player": "Kennet Eichhorn",
+      "position": "Mediocampista",
+      "status": "Baja",
+      "detail": "Illness",
+      "injuryType": "Illness",
+      "reportedAt": "2026-11-27T19:49:57.890Z"
+    },
+    {
+      "teamId": "europa-league.bayer-leverkusen",
+      "player": "Lucas Vázquez",
+      "position": "Mediocampista",
+      "status": "Baja",
+      "detail": "Physical Discomfort",
+      "injuryType": "Physical Discomfort",
+      "reportedAt": "2026-11-27T19:49:57.890Z"
+    },
+    {
+      "teamId": "europa-league.bayer-leverkusen",
+      "player": "Martin Terrier",
+      "position": "Delantero",
+      "status": "Baja",
+      "detail": "Hamstring Injury",
+      "injuryType": "Hamstring Injury",
+      "reportedAt": "2026-11-27T19:49:57.890Z"
+    },
+    {
+      "teamId": "europa-league.viktoria-plzen",
+      "player": "Václav Jemelka",
+      "position": "Defensa",
+      "status": "Baja",
+      "detail": "Knee Injury",
+      "injuryType": "Knee Injury",
+      "reportedAt": "2026-11-27T19:49:57.890Z"
+    },
+    {
+      "teamId": "europa-league.benfica",
+      "player": "Leandro Barreiro",
       "position": "Mediocampista",
       "status": "Baja",
       "detail": "Cruciate Ligament Injury",
       "injuryType": "Cruciate Ligament Injury",
-      "reportedAt": "2026-11-26T20:00:11.075Z"
+      "reportedAt": "2026-11-27T19:49:57.890Z"
     }
   ]
 }

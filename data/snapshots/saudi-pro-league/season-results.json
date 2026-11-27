@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "league": "saudi-pro-league",
   "season": "2026/27",
-  "updatedAt": "2026-11-26T20:00:11.075Z",
+  "updatedAt": "2026-11-27T19:49:57.890Z",
   "matches": [
     {
       "id": "saudi-pro-league-2026-08-13-abha-al-hazem-k0kswu",
@@ -1190,6 +1190,39 @@
       "awayTeam": "saudi-pro-league.diriyah",
       "homeScore": 2,
       "awayScore": 2,
+      "neutralSite": false
+    },
+    {
+      "id": "saudi-pro-league-2026-11-27-al-kholood-al-khaleej-mdv5xa",
+      "date": "2026-11-27",
+      "startTime": "2026-11-27T12:15:00.000Z",
+      "round": "Regular season · Matchday 13",
+      "homeTeam": "saudi-pro-league.al-kholood",
+      "awayTeam": "saudi-pro-league.al-khaleej",
+      "homeScore": 2,
+      "awayScore": 1,
+      "neutralSite": false
+    },
+    {
+      "id": "saudi-pro-league-2026-11-27-al-qadsiah-al-fayha-7lu6ci",
+      "date": "2026-11-27",
+      "startTime": "2026-11-27T14:20:00.000Z",
+      "round": "Regular season · Matchday 13",
+      "homeTeam": "saudi-pro-league.al-qadsiah",
+      "awayTeam": "saudi-pro-league.al-fayha",
+      "homeScore": 2,
+      "awayScore": 0,
+      "neutralSite": false
+    },
+    {
+      "id": "saudi-pro-league-2026-11-27-al-ittihad-neom-howint",
+      "date": "2026-11-27",
+      "startTime": "2026-11-27T17:30:00.000Z",
+      "round": "Regular season · Matchday 13",
+      "homeTeam": "saudi-pro-league.al-ittihad",
+      "awayTeam": "saudi-pro-league.neom",
+      "homeScore": 1,
+      "awayScore": 0,
       "neutralSite": false
     }
   ]

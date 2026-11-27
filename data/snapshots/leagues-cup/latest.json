@@ -5,7 +5,7 @@
   "season": "leagues-cup-2026",
   "seasonLabel": "2026",
   "periodLabel": "Fase de grupos y KO",
-  "updatedAt": "2026-11-26T20:00:11.075Z",
+  "updatedAt": "2026-11-27T19:49:57.890Z",
   "source": "pitchlab-concacaf-v1",
   "provenance": "derived",
   "isDemo": false,
@@ -18,8 +18,8 @@
       "forPerGame": 1,
       "againstPerGame": 0,
       "gamesPlayed": 1,
-      "adjustedFor": 0.6461454035322939,
-      "adjustedAgainst": 0.5869439501939463
+      "adjustedFor": 0.6462453986747844,
+      "adjustedAgainst": 0.5871309828321086
     },
     "leagues-cup.america": {
       "teamId": "leagues-cup.america",
@@ -29,8 +29,8 @@
       "forPerGame": 0,
       "againstPerGame": 1,
       "gamesPlayed": 1,
-      "adjustedFor": 0.5869439501939463,
-      "adjustedAgainst": 0.6461454035322939
+      "adjustedFor": 0.5871309828321086,
+      "adjustedAgainst": 0.6462453986747844
     },
     "leagues-cup.toluca": {
       "teamId": "leagues-cup.toluca",
@@ -40,8 +40,8 @@
       "forPerGame": 2,
       "againstPerGame": 0,
       "gamesPlayed": 1,
-      "adjustedFor": 0.7156317247392641,
-      "adjustedAgainst": 0.5868672718985098
+      "adjustedFor": 0.7156289100249906,
+      "adjustedAgainst": 0.5870543976646863
     },
     "leagues-cup.monterrey": {
       "teamId": "leagues-cup.monterrey",
@@ -51,8 +51,8 @@
       "forPerGame": 0,
       "againstPerGame": 2,
       "gamesPlayed": 1,
-      "adjustedFor": 0.5868672718985098,
-      "adjustedAgainst": 0.7156317247392641
+      "adjustedFor": 0.5870543976646863,
+      "adjustedAgainst": 0.7156289100249906
     }
   },
   "games": [
@@ -83,7 +83,7 @@
       "result": {
         "home": 1,
         "away": 0,
-        "observedAt": "2026-11-26T20:00:11.075Z",
+        "observedAt": "2026-11-27T19:49:57.890Z",
         "source": "pitchlab-concacaf"
       }
     },
@@ -114,7 +114,7 @@
       "result": {
         "home": 2,
         "away": 0,
-        "observedAt": "2026-11-26T20:00:11.075Z",
+        "observedAt": "2026-11-27T19:49:57.890Z",
         "source": "pitchlab-concacaf"
       }
     }

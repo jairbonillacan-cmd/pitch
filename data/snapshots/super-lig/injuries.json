@@ -1,100 +1,10 @@
 {
   "schemaVersion": 1,
   "league": "super-lig",
-  "observedAt": "2026-11-26T20:00:11.075Z",
+  "observedAt": "2026-11-27T19:49:57.890Z",
   "source": "pitchlab-availability",
   "coverageStatus": "ok",
   "entries": [
-    {
-      "teamId": "super-lig.samsunspor",
-      "player": "Celil Yüksel",
-      "position": "Mediocampista",
-      "status": "Baja",
-      "detail": "Hamstring Injury",
-      "injuryType": "Hamstring Injury",
-      "reportedAt": "2026-11-26T20:00:11.075Z"
-    },
-    {
-      "teamId": "super-lig.samsunspor",
-      "player": "Fatih Kaya",
-      "position": "Delantero",
-      "status": "Baja",
-      "detail": "Broken Rib",
-      "injuryType": "Broken Rib",
-      "reportedAt": "2026-11-26T20:00:11.075Z"
-    },
-    {
-      "teamId": "super-lig.konyaspor",
-      "player": "Adil Demirbağ",
-      "position": "Defensa",
-      "status": "Baja",
-      "detail": "Cruciate Ligament Injury",
-      "injuryType": "Cruciate Ligament Injury",
-      "reportedAt": "2026-11-26T20:00:11.075Z"
-    },
-    {
-      "teamId": "super-lig.konyaspor",
-      "player": "Chidozie Awaziem",
-      "position": "Defensa",
-      "status": "Duda",
-      "detail": "Muscle Injury",
-      "injuryType": "Muscle Injury",
-      "reportedAt": "2026-11-26T20:00:11.075Z"
-    },
-    {
-      "teamId": "super-lig.goztepe",
-      "player": "André Henrique",
-      "position": "Delantero",
-      "status": "Duda",
-      "detail": "Muscle Injury",
-      "injuryType": "Muscle Injury",
-      "reportedAt": "2026-11-26T20:00:11.075Z"
-    },
-    {
-      "teamId": "super-lig.goztepe",
-      "player": "Arda Okan Kurtulan",
-      "position": "Mediocampista",
-      "status": "Baja",
-      "detail": "yellow_card_accumulation_suspension",
-      "injuryType": "yellow_card_accumulation_suspension",
-      "reportedAt": "2026-11-26T20:00:11.075Z"
-    },
-    {
-      "teamId": "super-lig.goztepe",
-      "player": "Luka Gugeshashvili",
-      "position": "Portero",
-      "status": "Baja",
-      "detail": "club_decision",
-      "injuryType": "club_decision",
-      "reportedAt": "2026-11-26T20:00:11.075Z"
-    },
-    {
-      "teamId": "super-lig.basaksehir",
-      "player": "Muhammed Şengezer",
-      "position": "Portero",
-      "status": "Duda",
-      "detail": "Physical Discomfort",
-      "injuryType": "Physical Discomfort",
-      "reportedAt": "2026-11-26T20:00:11.075Z"
-    },
-    {
-      "teamId": "super-lig.basaksehir",
-      "player": "Saba Kharebashvili",
-      "position": "Defensa",
-      "status": "Duda",
-      "detail": "Physical Discomfort",
-      "injuryType": "Physical Discomfort",
-      "reportedAt": "2026-11-26T20:00:11.075Z"
-    },
-    {
-      "teamId": "super-lig.basaksehir",
-      "player": "Yusuf Sarı",
-      "position": "Mediocampista",
-      "status": "Baja",
-      "detail": "Knee Injury",
-      "injuryType": "Knee Injury",
-      "reportedAt": "2026-11-26T20:00:11.075Z"
-    },
     {
       "teamId": "super-lig.galatasaray",
       "player": "Deniz Gül",
@@ -102,7 +12,7 @@
       "status": "Baja",
       "detail": "Broken Nose",
       "injuryType": "Broken Nose",
-      "reportedAt": "2026-11-26T20:00:11.075Z"
+      "reportedAt": "2026-11-27T19:49:57.890Z"
     },
     {
       "teamId": "super-lig.galatasaray",
@@ -111,7 +21,7 @@
       "status": "Baja",
       "detail": "Muscle Injury",
       "injuryType": "Muscle Injury",
-      "reportedAt": "2026-11-26T20:00:11.075Z"
+      "reportedAt": "2026-11-27T19:49:57.890Z"
     },
     {
       "teamId": "super-lig.galatasaray",
@@ -120,7 +30,7 @@
       "status": "Baja",
       "detail": "Hamstring Injury",
       "injuryType": "Hamstring Injury",
-      "reportedAt": "2026-11-26T20:00:11.075Z"
+      "reportedAt": "2026-11-27T19:49:57.890Z"
     },
     {
       "teamId": "super-lig.galatasaray",
@@ -129,7 +39,7 @@
       "status": "Baja",
       "detail": "Thigh Injury",
       "injuryType": "Thigh Injury",
-      "reportedAt": "2026-11-26T20:00:11.075Z"
+      "reportedAt": "2026-11-27T19:49:57.890Z"
     },
     {
       "teamId": "super-lig.galatasaray",
@@ -138,7 +48,7 @@
       "status": "Baja",
       "detail": "Knee Injury",
       "injuryType": "Knee Injury",
-      "reportedAt": "2026-11-26T20:00:11.075Z"
+      "reportedAt": "2026-11-27T19:49:57.890Z"
     },
     {
       "teamId": "super-lig.amedspor",
@@ -147,7 +57,7 @@
       "status": "Baja",
       "detail": "Cruciate Ligament Injury",
       "injuryType": "Cruciate Ligament Injury",
-      "reportedAt": "2026-11-26T20:00:11.075Z"
+      "reportedAt": "2026-11-27T19:49:57.890Z"
     },
     {
       "teamId": "super-lig.amedspor",
@@ -156,7 +66,7 @@
       "status": "Baja",
       "detail": "Muscle Injury",
       "injuryType": "Muscle Injury",
-      "reportedAt": "2026-11-26T20:00:11.075Z"
+      "reportedAt": "2026-11-27T19:49:57.890Z"
     },
     {
       "teamId": "super-lig.amedspor",
@@ -165,7 +75,7 @@
       "status": "Baja",
       "detail": "red_card_suspension",
       "injuryType": "red_card_suspension",
-      "reportedAt": "2026-11-26T20:00:11.075Z"
+      "reportedAt": "2026-11-27T19:49:57.890Z"
     },
     {
       "teamId": "super-lig.caykur-rizespor",
@@ -174,7 +84,7 @@
       "status": "Baja",
       "detail": "Knee Injury",
       "injuryType": "Knee Injury",
-      "reportedAt": "2026-11-26T20:00:11.075Z"
+      "reportedAt": "2026-11-27T19:49:57.890Z"
     },
     {
       "teamId": "super-lig.caykur-rizespor",
@@ -183,7 +93,7 @@
       "status": "Duda",
       "detail": "Muscle Injury",
       "injuryType": "Muscle Injury",
-      "reportedAt": "2026-11-26T20:00:11.075Z"
+      "reportedAt": "2026-11-27T19:49:57.890Z"
     },
     {
       "teamId": "super-lig.caykur-rizespor",
@@ -192,7 +102,7 @@
       "status": "Baja",
       "detail": "Cruciate Ligament Injury",
       "injuryType": "Cruciate Ligament Injury",
-      "reportedAt": "2026-11-26T20:00:11.075Z"
+      "reportedAt": "2026-11-27T19:49:57.890Z"
     },
     {
       "teamId": "super-lig.caykur-rizespor",
@@ -201,7 +111,124 @@
       "status": "Duda",
       "detail": "Calf Injury",
       "injuryType": "Calf Injury",
-      "reportedAt": "2026-11-26T20:00:11.075Z"
+      "reportedAt": "2026-11-27T19:49:57.890Z"
+    },
+    {
+      "teamId": "super-lig.corum",
+      "player": "Berat Özdemir",
+      "position": "Mediocampista",
+      "status": "Baja",
+      "detail": "Thigh Injury",
+      "injuryType": "Thigh Injury",
+      "reportedAt": "2026-11-27T19:49:57.890Z"
+    },
+    {
+      "teamId": "super-lig.fenerbahce",
+      "player": "Jayden Oosterwolde",
+      "position": "Defensa",
+      "status": "Baja",
+      "detail": "Achilles Tendon Injury",
+      "injuryType": "Achilles Tendon Injury",
+      "reportedAt": "2026-11-27T19:49:57.890Z"
+    },
+    {
+      "teamId": "super-lig.fenerbahce",
+      "player": "Marco Asensio",
+      "position": "Mediocampista",
+      "status": "Baja",
+      "detail": "Knee Injury",
+      "injuryType": "Knee Injury",
+      "reportedAt": "2026-11-27T19:49:57.890Z"
+    },
+    {
+      "teamId": "super-lig.fenerbahce",
+      "player": "Nathan Aké",
+      "position": "Defensa",
+      "status": "Baja",
+      "detail": "Hamstring Injury",
+      "injuryType": "Hamstring Injury",
+      "reportedAt": "2026-11-27T19:49:57.890Z"
+    },
+    {
+      "teamId": "super-lig.alanyaspor",
+      "player": "Fatih Aksoy",
+      "position": "Defensa",
+      "status": "Duda",
+      "detail": "Physical Discomfort",
+      "injuryType": "Physical Discomfort",
+      "reportedAt": "2026-11-27T19:49:57.890Z"
+    },
+    {
+      "teamId": "super-lig.alanyaspor",
+      "player": "Fidan Aliti",
+      "position": "Defensa",
+      "status": "Baja",
+      "detail": "yellow_card_accumulation_suspension",
+      "injuryType": "yellow_card_accumulation_suspension",
+      "reportedAt": "2026-11-27T19:49:57.890Z"
+    },
+    {
+      "teamId": "super-lig.alanyaspor",
+      "player": "Paolo Fernandes",
+      "position": "Mediocampista",
+      "status": "Duda",
+      "detail": "Physical Discomfort",
+      "injuryType": "Physical Discomfort",
+      "reportedAt": "2026-11-27T19:49:57.890Z"
+    },
+    {
+      "teamId": "super-lig.trabzonspor",
+      "player": "Aral Şimşir",
+      "position": "Delantero",
+      "status": "Baja",
+      "detail": "Muscle Injury",
+      "injuryType": "Muscle Injury",
+      "reportedAt": "2026-11-27T19:49:57.890Z"
+    },
+    {
+      "teamId": "super-lig.trabzonspor",
+      "player": "Arseniy Batagov",
+      "position": "Defensa",
+      "status": "Baja",
+      "detail": "Hamstring Injury",
+      "injuryType": "Hamstring Injury",
+      "reportedAt": "2026-11-27T19:49:57.890Z"
+    },
+    {
+      "teamId": "super-lig.trabzonspor",
+      "player": "Cihan Çanak",
+      "position": "Delantero",
+      "status": "Baja",
+      "detail": "Muscle Injury",
+      "injuryType": "Muscle Injury",
+      "reportedAt": "2026-11-27T19:49:57.890Z"
+    },
+    {
+      "teamId": "super-lig.trabzonspor",
+      "player": "Ernest Muçi",
+      "position": "Mediocampista",
+      "status": "Duda",
+      "detail": "Physical Discomfort",
+      "injuryType": "Physical Discomfort",
+      "reportedAt": "2026-11-27T19:49:57.890Z"
+    },
+    {
+      "teamId": "super-lig.trabzonspor",
+      "player": "Franculino Djú",
+      "position": "Delantero",
+      "status": "Baja",
+      "detail": "Thigh Injury",
+      "injuryType": "Thigh Injury",
+      "reportedAt": "2026-11-27T19:49:57.890Z"
+    },
+    {
+      "teamId": "super-lig.trabzonspor",
+      "player": "Okay Yokuşlu",
+      "position": "Mediocampista",
+      "status": "Baja",
+      "detail": "Knee Surgery",
+      "injuryType": "Knee Surgery",
+      "reportedAt": "2026-11-27T19:49:57.890Z"
     }
   ]
 }

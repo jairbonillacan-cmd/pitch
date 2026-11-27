@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "league": "super-lig",
   "season": "2026/27",
-  "updatedAt": "2026-11-26T20:00:11.075Z",
+  "updatedAt": "2026-11-27T19:49:57.890Z",
   "matches": [
     {
       "id": "super-lig-2026-08-14-galatasaray-corum-55kt5k",
@@ -1189,6 +1189,28 @@
       "homeTeam": "super-lig.basaksehir",
       "awayTeam": "super-lig.corum",
       "homeScore": 4,
+      "awayScore": 2,
+      "neutralSite": false
+    },
+    {
+      "id": "super-lig-2026-11-27-caykur-rizespo-kas-mpasa-2aoq90",
+      "date": "2026-11-27",
+      "startTime": "2026-11-27T17:00:00.000Z",
+      "round": "Regular season · Matchday 13",
+      "homeTeam": "super-lig.caykur-rizespor",
+      "awayTeam": "super-lig.kas-mpasa",
+      "homeScore": 3,
+      "awayScore": 2,
+      "neutralSite": false
+    },
+    {
+      "id": "super-lig-2026-11-27-alanyaspor-konyaspor-hfw9nt",
+      "date": "2026-11-27",
+      "startTime": "2026-11-27T17:00:00.000Z",
+      "round": "Regular season · Matchday 13",
+      "homeTeam": "super-lig.alanyaspor",
+      "awayTeam": "super-lig.konyaspor",
+      "homeScore": 1,
       "awayScore": 2,
       "neutralSite": false
     }

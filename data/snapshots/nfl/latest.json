@@ -5,7 +5,7 @@
   "season": "nfl-2026",
   "seasonLabel": "2026",
   "periodLabel": "Semana 12",
-  "updatedAt": "2026-11-27T14:08:37.870Z",
+  "updatedAt": "2026-11-27T19:55:57.623Z",
   "source": "nflverse",
   "provenance": "derived",
   "isDemo": false,
@@ -2022,7 +2022,10 @@
           "away": 4
         }
       },
-      "picksAt": "2026-11-24T15:05:34.094Z"
+      "picksAt": "2026-11-24T15:05:34.094Z",
+      "matchContext": {
+        "referee": "Adrian Hill"
+      }
     },
     "nfl-2026-w12-kansas-city-chiefs-buffalo-bills": {
       "game": "nfl-2026-w12-kansas-city-chiefs-buffalo-bills",
@@ -2428,7 +2431,10 @@
           "away": 5
         }
       },
-      "picksAt": "2026-11-24T15:05:34.094Z"
+      "picksAt": "2026-11-24T15:05:34.094Z",
+      "matchContext": {
+        "referee": "Alex Kemp"
+      }
     },
     "nfl-2026-w12-denver-broncos-pittsburgh-steelers": {
       "game": "nfl-2026-w12-denver-broncos-pittsburgh-steelers",
@@ -2834,7 +2840,10 @@
           "away": 5
         }
       },
-      "picksAt": "2026-11-24T15:05:34.094Z"
+      "picksAt": "2026-11-24T15:05:34.094Z",
+      "matchContext": {
+        "referee": "Brad Allen"
+      }
     },
     "nfl-2026-w12-new-orleans-saints-cincinnati-bengals": {
       "game": "nfl-2026-w12-new-orleans-saints-cincinnati-bengals",

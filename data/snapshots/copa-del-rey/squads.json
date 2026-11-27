@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "league": "copa-del-rey",
   "seasonLabel": "2026/27",
-  "observedAt": "2026-11-26T20:00:11.075Z",
+  "observedAt": "2026-11-27T19:49:57.890Z",
   "teams": [
     {
       "teamId": "copa-del-rey.pamplona",
@@ -18,7 +18,7 @@
         "styleLabel": "",
         "careerRecord": null
       },
-      "updatedAt": "2026-11-26T20:00:11.075Z",
+      "updatedAt": "2026-11-27T19:49:57.890Z",
       "players": [
         {
           "id": "copa-del-rey.pamplona.adrian-pardo",
@@ -930,7 +930,7 @@
           "winPct": 52.2
         }
       },
-      "updatedAt": "2026-11-26T20:00:11.075Z",
+      "updatedAt": "2026-11-27T19:49:57.890Z",
       "players": [
         {
           "id": "copa-del-rey.eibar.aleix-garrido",
@@ -1361,10 +1361,10 @@
           "stats": {
             "appearances": 0,
             "subIns": 0,
-            "goals": 1,
+            "goals": 0,
             "assists": 0,
-            "shots": 0,
-            "shotsOnTarget": 0,
+            "shots": 1,
+            "shotsOnTarget": 1,
             "foulsCommitted": 0,
             "foulsSuffered": 0,
             "yellowCards": 0,
@@ -1372,7 +1372,7 @@
             "offsides": 0,
             "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 0
+            "goalsConceded": 1
           },
           "candidatePicks": []
         },
@@ -1472,7 +1472,7 @@
           "stats": {
             "appearances": 0,
             "subIns": 0,
-            "goals": 2,
+            "goals": 0,
             "assists": 0,
             "shots": 0,
             "shotsOnTarget": 0,
@@ -1483,7 +1483,7 @@
             "offsides": 0,
             "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 0
+            "goalsConceded": 1
           },
           "candidatePicks": []
         },
@@ -1807,8 +1807,8 @@
             "subIns": 0,
             "goals": 0,
             "assists": 0,
-            "shots": 0,
-            "shotsOnTarget": 0,
+            "shots": 1,
+            "shotsOnTarget": 1,
             "foulsCommitted": 0,
             "foulsSuffered": 0,
             "yellowCards": 0,
@@ -1990,7 +1990,7 @@
           "winPct": 66.7
         }
       },
-      "updatedAt": "2026-11-26T20:00:11.075Z",
+      "updatedAt": "2026-11-27T19:49:57.890Z",
       "players": [
         {
           "id": "copa-del-rey.anaitasuna-ft.aimar-guembe",
@@ -3198,7 +3198,7 @@
           "winPct": 32.3
         }
       },
-      "updatedAt": "2026-11-26T20:00:11.075Z",
+      "updatedAt": "2026-11-27T19:49:57.890Z",
       "players": [
         {
           "id": "copa-del-rey.deportivo-alaves.abde-rebbach",
@@ -3453,7 +3453,7 @@
             "yellowCards": 0,
             "redCards": 0,
             "offsides": 0,
-            "saves": 0,
+            "saves": 2,
             "shotsFaced": 0,
             "goalsConceded": 0
           },
@@ -3512,8 +3512,8 @@
           "nationality": "Uruguay",
           "nationalityCode": null,
           "photoKey": "pl-p:2362",
-          "availability": "available",
-          "injuryDetail": null,
+          "availability": "injured",
+          "injuryDetail": "Muscle Injury",
           "expectedReturn": null,
           "stats": {
             "appearances": 0,
@@ -3529,7 +3529,7 @@
             "offsides": 0,
             "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 0
+            "goalsConceded": 1
           },
           "candidatePicks": []
         },
@@ -4221,7 +4221,7 @@
           "winPct": 33.3
         }
       },
-      "updatedAt": "2026-11-26T20:00:11.075Z",
+      "updatedAt": "2026-11-27T19:49:57.890Z",
       "players": [
         {
           "id": "copa-del-rey.sd-amorebieta.aitor-intxausti",
@@ -5318,7 +5318,7 @@
           "winPct": 54.5
         }
       },
-      "updatedAt": "2026-11-26T20:00:11.075Z",
+      "updatedAt": "2026-11-27T19:49:57.890Z",
       "players": [
         {
           "id": "copa-del-rey.logrones.adei-mendinueta",
@@ -6526,7 +6526,7 @@
           "winPct": 25
         }
       },
-      "updatedAt": "2026-11-26T20:00:11.075Z",
+      "updatedAt": "2026-11-27T19:49:57.890Z",
       "players": [
         {
           "id": "copa-del-rey.cp-mijas-las-lagunas.abubakar-seidu",
@@ -7276,7 +7276,7 @@
           "jersey": "17",
           "positionGroup": "FWD",
           "positionLabel": "Delantero",
-          "age": 29,
+          "age": 30,
           "birthDate": "1996-11-27",
           "heightCm": null,
           "weightKg": null,
@@ -7475,7 +7475,7 @@
           "winPct": 55.6
         }
       },
-      "updatedAt": "2026-11-26T20:00:11.075Z",
+      "updatedAt": "2026-11-27T19:49:57.890Z",
       "players": [
         {
           "id": "copa-del-rey.real-jaen.adri",

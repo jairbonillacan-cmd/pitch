@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "league": "nba",
-  "observedAt": "2026-11-27T14:07:39.080Z",
+  "observedAt": "2026-11-27T19:49:06.358Z",
   "source": "espn-public-nba",
   "coverageStatus": "ok",
   "entries": [
@@ -62,8 +62,8 @@
       "status": "Baja",
       "detail": "Enfermedad",
       "injuryType": "Illness",
-      "returnDate": "2026-11-27",
-      "reportedAt": "2026-11-26T19:00:00.000Z"
+      "returnDate": "2026-11-29",
+      "reportedAt": "2026-11-27T17:31:00.000Z"
     },
     {
       "teamId": "nba.brooklyn-nets",
@@ -127,13 +127,23 @@
     },
     {
       "teamId": "nba.chicago-bulls",
+      "player": "Noa Essengue",
+      "position": "F",
+      "status": "Duda",
+      "detail": "Thumb",
+      "injuryType": "Thumb",
+      "returnDate": "2026-11-28",
+      "reportedAt": "2026-11-27T19:06:00.000Z"
+    },
+    {
+      "teamId": "nba.chicago-bulls",
       "player": "Jalen Smith",
       "position": "F",
       "status": "Duda",
       "detail": "Enfermedad",
       "injuryType": "Illness",
       "returnDate": "2026-11-28",
-      "reportedAt": "2026-11-26T05:29:00.000Z"
+      "reportedAt": "2026-11-27T18:36:00.000Z"
     },
     {
       "teamId": "nba.chicago-bulls",
@@ -174,6 +184,16 @@
       "injuryType": "Toe",
       "returnDate": "2026-11-29",
       "reportedAt": "2026-11-16T22:06:00.000Z"
+    },
+    {
+      "teamId": "nba.dallas-mavericks",
+      "player": "Kyrie Irving",
+      "position": "G",
+      "status": "Duda",
+      "detail": "Rodilla",
+      "injuryType": "Knee",
+      "returnDate": "2026-11-30",
+      "reportedAt": "2026-11-27T19:07:00.000Z"
     },
     {
       "teamId": "nba.dallas-mavericks",
@@ -307,6 +327,26 @@
     },
     {
       "teamId": "nba.indiana-pacers",
+      "player": "Larry Nance Jr.",
+      "position": "F",
+      "status": "Duda",
+      "detail": "Tobillo",
+      "injuryType": "Ankle",
+      "returnDate": "2026-11-27",
+      "reportedAt": "2026-11-27T18:07:00.000Z"
+    },
+    {
+      "teamId": "nba.indiana-pacers",
+      "player": "Tyrese Haliburton",
+      "position": "G",
+      "status": "Baja",
+      "detail": "Isquiotibiales",
+      "injuryType": "Hamstring",
+      "returnDate": "2026-12-13",
+      "reportedAt": "2026-11-27T16:20:00.000Z"
+    },
+    {
+      "teamId": "nba.indiana-pacers",
       "player": "Kelly Oubre Jr.",
       "position": "G",
       "status": "Duda",
@@ -317,16 +357,6 @@
     },
     {
       "teamId": "nba.indiana-pacers",
-      "player": "Larry Nance Jr.",
-      "position": "F",
-      "status": "Duda",
-      "detail": "Tobillo",
-      "injuryType": "Ankle",
-      "returnDate": "2026-11-27",
-      "reportedAt": "2026-11-26T22:43:00.000Z"
-    },
-    {
-      "teamId": "nba.indiana-pacers",
       "player": "T.J. McConnell",
       "position": "G",
       "status": "Duda",
@@ -334,16 +364,6 @@
       "injuryType": "Hamstring",
       "returnDate": "2026-11-27",
       "reportedAt": "2026-11-26T22:29:00.000Z"
-    },
-    {
-      "teamId": "nba.indiana-pacers",
-      "player": "Tyrese Haliburton",
-      "position": "G",
-      "status": "Baja",
-      "detail": "Isquiotibiales",
-      "injuryType": "Hamstring",
-      "returnDate": "2026-12-13",
-      "reportedAt": "2026-11-24T19:41:00.000Z"
     },
     {
       "teamId": "nba.indiana-pacers",
@@ -374,16 +394,6 @@
       "injuryType": "Shoulder",
       "returnDate": "2027-03-02",
       "reportedAt": "2026-08-26T20:04:00.000Z"
-    },
-    {
-      "teamId": "nba.los-angeles-lakers",
-      "player": "Austin Reaves",
-      "position": "G",
-      "status": "Baja",
-      "detail": "Heel",
-      "injuryType": "Heel",
-      "returnDate": "2026-11-27",
-      "reportedAt": "2026-11-26T23:21:00.000Z"
     },
     {
       "teamId": "nba.memphis-grizzlies",
@@ -466,24 +476,24 @@
       "reportedAt": "2026-11-26T21:15:00.000Z"
     },
     {
-      "teamId": "nba.miami-heat",
-      "player": "Andrew Wiggins",
-      "position": "F",
-      "status": "Duda",
+      "teamId": "nba.milwaukee-bucks",
+      "player": "Kasparas Jakucionis",
+      "position": "G",
+      "status": "Baja",
       "detail": "Tobillo",
       "injuryType": "Ankle",
-      "returnDate": "2026-11-27",
-      "reportedAt": "2026-11-26T21:08:00.000Z"
+      "returnDate": "2026-11-28",
+      "reportedAt": "2026-11-27T17:58:00.000Z"
     },
     {
       "teamId": "nba.minnesota-timberwolves",
       "player": "LaMelo Ball",
       "position": "G",
-      "status": "Duda",
+      "status": "Baja",
       "detail": "Tobillo",
       "injuryType": "Ankle",
-      "returnDate": "2026-11-27",
-      "reportedAt": "2026-11-26T23:14:00.000Z"
+      "returnDate": "2026-11-29",
+      "reportedAt": "2026-11-27T18:52:00.000Z"
     },
     {
       "teamId": "nba.minnesota-timberwolves",
@@ -559,21 +569,11 @@
       "teamId": "nba.new-york-knicks",
       "player": "Miles McBride",
       "position": "G",
-      "status": "Duda",
+      "status": "Baja",
       "detail": "Ingle",
       "injuryType": "Groin",
-      "returnDate": "2026-11-27",
-      "reportedAt": "2026-11-26T22:11:00.000Z"
-    },
-    {
-      "teamId": "nba.new-york-knicks",
-      "player": "Jordan Clarkson",
-      "position": "G",
-      "status": "Baja",
-      "detail": "Pie",
-      "injuryType": "Foot",
-      "returnDate": "2026-11-27",
-      "reportedAt": "2026-11-26T22:03:00.000Z"
+      "returnDate": "2026-11-29",
+      "reportedAt": "2026-11-27T18:21:00.000Z"
     },
     {
       "teamId": "nba.new-york-knicks",
@@ -582,18 +582,38 @@
       "status": "Baja",
       "detail": "Gemelo",
       "injuryType": "Calf",
+      "returnDate": "2026-11-29",
+      "reportedAt": "2026-11-27T18:20:00.000Z"
+    },
+    {
+      "teamId": "nba.new-york-knicks",
+      "player": "Jordan Clarkson",
+      "position": "G",
+      "status": "Baja",
+      "detail": "Pie",
+      "injuryType": "Foot",
+      "returnDate": "2026-11-29",
+      "reportedAt": "2026-11-27T18:19:00.000Z"
+    },
+    {
+      "teamId": "nba.new-york-knicks",
+      "player": "Karl-Anthony Towns",
+      "position": "C",
+      "status": "Duda",
+      "detail": "Abdomen",
+      "injuryType": "Abdomen",
       "returnDate": "2026-11-27",
-      "reportedAt": "2026-11-26T21:57:00.000Z"
+      "reportedAt": "2026-11-27T16:51:00.000Z"
     },
     {
       "teamId": "nba.new-york-knicks",
       "player": "Andre Drummond",
       "position": "C",
-      "status": "Duda",
-      "detail": "Head",
-      "injuryType": "Head",
-      "returnDate": "2026-11-27",
-      "reportedAt": "2026-11-26T21:51:00.000Z"
+      "status": "Baja",
+      "detail": "Protocolo de conmoción",
+      "injuryType": "Concussion",
+      "returnDate": "2026-11-29",
+      "reportedAt": "2026-11-27T15:36:00.000Z"
     },
     {
       "teamId": "nba.oklahoma-city-thunder",
@@ -723,7 +743,7 @@
       "detail": "Enfermedad",
       "injuryType": "Illness",
       "returnDate": "2026-11-27",
-      "reportedAt": "2026-11-26T22:16:00.000Z"
+      "reportedAt": "2026-11-27T16:32:00.000Z"
     },
     {
       "teamId": "nba.philadelphia-76ers",
@@ -754,6 +774,16 @@
       "injuryType": "Shoulder",
       "returnDate": "2027-02-03",
       "reportedAt": "2026-09-11T16:03:00.000Z"
+    },
+    {
+      "teamId": "nba.portland-trail-blazers",
+      "player": "Damian Lillard",
+      "position": "G",
+      "status": "Baja",
+      "detail": "Gemelo",
+      "injuryType": "Calf",
+      "returnDate": "2026-11-29",
+      "reportedAt": "2026-11-27T18:38:00.000Z"
     },
     {
       "teamId": "nba.portland-trail-blazers",
@@ -833,7 +863,7 @@
       "detail": "Cadera",
       "injuryType": "Hip",
       "returnDate": "2026-11-27",
-      "reportedAt": "2026-11-26T23:41:00.000Z"
+      "reportedAt": "2026-11-27T18:51:00.000Z"
     },
     {
       "teamId": "nba.san-antonio-spurs",
@@ -904,6 +934,16 @@
       "injuryType": "Hamstring",
       "returnDate": "2026-12-13",
       "reportedAt": "2026-11-19T21:13:00.000Z"
+    },
+    {
+      "teamId": "nba.utah-jazz",
+      "player": "Mo Bamba",
+      "position": "C",
+      "status": "Duda",
+      "detail": "Enfermedad",
+      "injuryType": "Illness",
+      "returnDate": "2026-11-29",
+      "reportedAt": "2026-11-27T16:41:00.000Z"
     },
     {
       "teamId": "nba.utah-jazz",

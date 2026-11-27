@@ -5,7 +5,7 @@
   "season": "serie-b-2026-27",
   "seasonLabel": "2026/27",
   "periodLabel": "Regular season · Matchday 12",
-  "updatedAt": "2026-11-26T20:00:11.075Z",
+  "updatedAt": "2026-11-27T19:49:57.890Z",
   "source": "pitchlab-football-v2",
   "provenance": "derived",
   "isDemo": false,
@@ -18,8 +18,8 @@
       "forPerGame": 1.2307692307692308,
       "againstPerGame": 2.076923076923077,
       "gamesPlayed": 13,
-      "adjustedFor": 1.1870206031767319,
-      "adjustedAgainst": 1.5788714040353273
+      "adjustedFor": 1.1870475678702717,
+      "adjustedAgainst": 1.5785599859073012
     },
     "serie-b.catanzaro": {
       "teamId": "serie-b.catanzaro",
@@ -29,8 +29,8 @@
       "forPerGame": 1.3076923076923077,
       "againstPerGame": 1.9230769230769231,
       "gamesPlayed": 13,
-      "adjustedFor": 1.2431839829044817,
-      "adjustedAgainst": 1.489676505053146
+      "adjustedFor": 1.2431632977309346,
+      "adjustedAgainst": 1.489444170213036
     },
     "serie-b.sudtirol": {
       "teamId": "serie-b.sudtirol",
@@ -40,8 +40,8 @@
       "forPerGame": 1.1538461538461537,
       "againstPerGame": 1.2307692307692308,
       "gamesPlayed": 13,
-      "adjustedFor": 1.1247913142671497,
-      "adjustedAgainst": 1.1712404656370086
+      "adjustedFor": 1.1248962300071377,
+      "adjustedAgainst": 1.1713204129135633
     },
     "serie-b.virtus-entella": {
       "teamId": "serie-b.virtus-entella",
@@ -51,8 +51,8 @@
       "forPerGame": 1,
       "againstPerGame": 1.2307692307692308,
       "gamesPlayed": 13,
-      "adjustedFor": 1.0595455753596426,
-      "adjustedAgainst": 1.174885618314859
+      "adjustedFor": 1.059695579066964,
+      "adjustedAgainst": 1.174944184569819
     },
     "serie-b.carrarese": {
       "teamId": "serie-b.carrarese",
@@ -62,8 +62,8 @@
       "forPerGame": 0.8461538461538461,
       "againstPerGame": 1.0769230769230769,
       "gamesPlayed": 13,
-      "adjustedFor": 0.9417945383592187,
-      "adjustedAgainst": 1.0689936902553798
+      "adjustedFor": 0.9421052546542904,
+      "adjustedAgainst": 1.0691730390335132
     },
     "serie-b.mantova": {
       "teamId": "serie-b.mantova",
@@ -73,8 +73,8 @@
       "forPerGame": 1.4615384615384615,
       "againstPerGame": 1.1538461538461537,
       "gamesPlayed": 13,
-      "adjustedFor": 1.268670109229219,
-      "adjustedAgainst": 1.123651609220984
+      "adjustedFor": 1.2686438959640913,
+      "adjustedAgainst": 1.123778014552856
     },
     "serie-b.avellino": {
       "teamId": "serie-b.avellino",
@@ -84,8 +84,8 @@
       "forPerGame": 1.6153846153846154,
       "againstPerGame": 0.9230769230769231,
       "gamesPlayed": 13,
-      "adjustedFor": 1.3747339644711014,
-      "adjustedAgainst": 0.981120569621644
+      "adjustedFor": 1.3745913701737267,
+      "adjustedAgainst": 0.981391370335131
     },
     "serie-b.arezzo": {
       "teamId": "serie-b.arezzo",
@@ -95,8 +95,8 @@
       "forPerGame": 0.7692307692307693,
       "againstPerGame": 1.8461538461538463,
       "gamesPlayed": 13,
-      "adjustedFor": 0.9339510314127633,
-      "adjustedAgainst": 1.485546624739247
+      "adjustedFor": 0.9342404435778138,
+      "adjustedAgainst": 1.4852803421445941
     },
     "serie-b.empoli": {
       "teamId": "serie-b.empoli",
@@ -106,8 +106,8 @@
       "forPerGame": 0.9230769230769231,
       "againstPerGame": 1.9230769230769231,
       "gamesPlayed": 13,
-      "adjustedFor": 1.0151896978376076,
-      "adjustedAgainst": 1.5301243867231455
+      "adjustedFor": 1.0154040435817864,
+      "adjustedAgainst": 1.529844805615212
     },
     "serie-b.cremonese": {
       "teamId": "serie-b.cremonese",
@@ -117,8 +117,8 @@
       "forPerGame": 1.0769230769230769,
       "againstPerGame": 1.0769230769230769,
       "gamesPlayed": 13,
-      "adjustedFor": 1.0976034095535139,
-      "adjustedAgainst": 1.081844225512658
+      "adjustedFor": 1.0977357416173352,
+      "adjustedAgainst": 1.0819915203658543
     },
     "serie-b.benevento": {
       "teamId": "serie-b.benevento",
@@ -128,8 +128,8 @@
       "forPerGame": 1.6153846153846154,
       "againstPerGame": 1.0769230769230769,
       "gamesPlayed": 13,
-      "adjustedFor": 1.3528029741160326,
-      "adjustedAgainst": 1.1148019382308139
+      "adjustedFor": 1.3527019470568733,
+      "adjustedAgainst": 1.1149123233944929
     },
     "serie-b.modena": {
       "teamId": "serie-b.modena",
@@ -139,8 +139,8 @@
       "forPerGame": 1.7692307692307692,
       "againstPerGame": 0.8461538461538461,
       "gamesPlayed": 13,
-      "adjustedFor": 1.4702093183699432,
-      "adjustedAgainst": 0.9710530539028189
+      "adjustedFor": 1.46995159427228,
+      "adjustedAgainst": 0.971307734223602
     },
     "serie-b.pisa": {
       "teamId": "serie-b.pisa",
@@ -150,8 +150,8 @@
       "forPerGame": 1.6923076923076923,
       "againstPerGame": 1.3846153846153846,
       "gamesPlayed": 13,
-      "adjustedFor": 1.404955700769047,
-      "adjustedAgainst": 1.2423141482269022
+      "adjustedFor": 1.404783491866207,
+      "adjustedAgainst": 1.2423155954732332
     },
     "serie-b.padova": {
       "teamId": "serie-b.padova",
@@ -161,8 +161,8 @@
       "forPerGame": 1.0769230769230769,
       "againstPerGame": 1.2307692307692308,
       "gamesPlayed": 13,
-      "adjustedFor": 1.073228583551626,
-      "adjustedAgainst": 1.178367511487024
+      "adjustedFor": 1.0734006456221348,
+      "adjustedAgainst": 1.1784204512777239
     },
     "serie-b.hellas-verona": {
       "teamId": "serie-b.hellas-verona",
@@ -172,8 +172,8 @@
       "forPerGame": 1.5384615384615385,
       "againstPerGame": 1.3076923076923077,
       "gamesPlayed": 13,
-      "adjustedFor": 1.3113419406362234,
-      "adjustedAgainst": 1.2187683232789985
+      "adjustedFor": 1.311263447549772,
+      "adjustedAgainst": 1.2187740051683307
     },
     "serie-b.ascoli": {
       "teamId": "serie-b.ascoli",
@@ -183,8 +183,8 @@
       "forPerGame": 1.5384615384615385,
       "againstPerGame": 1.0769230769230769,
       "gamesPlayed": 13,
-      "adjustedFor": 1.2953788142752003,
-      "adjustedAgainst": 1.1085263314434786
+      "adjustedFor": 1.2953525729491953,
+      "adjustedAgainst": 1.108653306604908
     },
     "serie-b.palermo": {
       "teamId": "serie-b.palermo",
@@ -194,8 +194,8 @@
       "forPerGame": 2.3076923076923075,
       "againstPerGame": 1.3076923076923077,
       "gamesPlayed": 13,
-      "adjustedFor": 1.712269156944826,
-      "adjustedAgainst": 1.2412980594138048
+      "adjustedFor": 1.7118285044215868,
+      "adjustedAgainst": 1.2412598505907875
     },
     "serie-b.juve-stabia": {
       "teamId": "serie-b.juve-stabia",
@@ -205,8 +205,8 @@
       "forPerGame": 1,
       "againstPerGame": 1.2307692307692308,
       "gamesPlayed": 13,
-      "adjustedFor": 1.0199525224130515,
-      "adjustedAgainst": 1.1578683803566872
+      "adjustedFor": 1.0201925001691214,
+      "adjustedAgainst": 1.157958517604818
     },
     "serie-b.cesena": {
       "teamId": "serie-b.cesena",
@@ -216,8 +216,8 @@
       "forPerGame": 1.4615384615384615,
       "againstPerGame": 1.1538461538461537,
       "gamesPlayed": 13,
-      "adjustedFor": 1.3144063141677953,
-      "adjustedAgainst": 1.1216437508473744
+      "adjustedFor": 1.3143063494341742,
+      "adjustedAgainst": 1.1217609390516576
     },
     "serie-b.sampdoria": {
       "teamId": "serie-b.sampdoria",
@@ -227,8 +227,8 @@
       "forPerGame": 1.2307692307692308,
       "againstPerGame": 1.5384615384615385,
       "gamesPlayed": 13,
-      "adjustedFor": 1.2056585161540214,
-      "adjustedAgainst": 1.3092278448696333
+      "adjustedFor": 1.205672385439378,
+      "adjustedAgainst": 1.3091434245865137
     }
   },
   "games": [
@@ -263,7 +263,7 @@
       "result": {
         "home": 1,
         "away": 0,
-        "observedAt": "2026-11-26T20:00:11.075Z",
+        "observedAt": "2026-11-27T19:49:57.890Z",
         "source": "pitchlab-feed"
       }
     },
@@ -298,7 +298,7 @@
       "result": {
         "home": 2,
         "away": 2,
-        "observedAt": "2026-11-26T20:00:11.075Z",
+        "observedAt": "2026-11-27T19:49:57.890Z",
         "source": "pitchlab-feed"
       }
     },
@@ -333,7 +333,7 @@
       "result": {
         "home": 3,
         "away": 1,
-        "observedAt": "2026-11-26T20:00:11.075Z",
+        "observedAt": "2026-11-27T19:49:57.890Z",
         "source": "pitchlab-feed"
       }
     },
@@ -368,7 +368,7 @@
       "result": {
         "home": 0,
         "away": 1,
-        "observedAt": "2026-11-26T20:00:11.075Z",
+        "observedAt": "2026-11-27T19:49:57.890Z",
         "source": "pitchlab-feed"
       }
     },
@@ -403,7 +403,7 @@
       "result": {
         "home": 4,
         "away": 1,
-        "observedAt": "2026-11-26T20:00:11.075Z",
+        "observedAt": "2026-11-27T19:49:57.890Z",
         "source": "pitchlab-feed"
       }
     },
@@ -438,7 +438,7 @@
       "result": {
         "home": 1,
         "away": 1,
-        "observedAt": "2026-11-26T20:00:11.075Z",
+        "observedAt": "2026-11-27T19:49:57.890Z",
         "source": "pitchlab-feed"
       }
     },
@@ -473,7 +473,7 @@
       "result": {
         "home": 1,
         "away": 3,
-        "observedAt": "2026-11-26T20:00:11.075Z",
+        "observedAt": "2026-11-27T19:49:57.890Z",
         "source": "pitchlab-feed"
       }
     },
@@ -508,7 +508,7 @@
       "result": {
         "home": 2,
         "away": 1,
-        "observedAt": "2026-11-26T20:00:11.075Z",
+        "observedAt": "2026-11-27T19:49:57.890Z",
         "source": "pitchlab-feed"
       }
     },
@@ -543,7 +543,7 @@
       "result": {
         "home": 4,
         "away": 1,
-        "observedAt": "2026-11-26T20:00:11.075Z",
+        "observedAt": "2026-11-27T19:49:57.890Z",
         "source": "pitchlab-feed"
       }
     },
@@ -578,7 +578,7 @@
       "result": {
         "home": 0,
         "away": 1,
-        "observedAt": "2026-11-26T20:00:11.075Z",
+        "observedAt": "2026-11-27T19:49:57.890Z",
         "source": "pitchlab-feed"
       }
     },
@@ -613,7 +613,7 @@
       "result": {
         "home": 5,
         "away": 1,
-        "observedAt": "2026-11-26T20:00:11.075Z",
+        "observedAt": "2026-11-27T19:49:57.890Z",
         "source": "pitchlab-feed"
       }
     },
@@ -648,7 +648,7 @@
       "result": {
         "home": 5,
         "away": 0,
-        "observedAt": "2026-11-26T20:00:11.075Z",
+        "observedAt": "2026-11-27T19:49:57.890Z",
         "source": "pitchlab-feed"
       }
     },
@@ -683,7 +683,7 @@
       "result": {
         "home": 0,
         "away": 1,
-        "observedAt": "2026-11-26T20:00:11.075Z",
+        "observedAt": "2026-11-27T19:49:57.890Z",
         "source": "pitchlab-feed"
       }
     },
@@ -718,7 +718,7 @@
       "result": {
         "home": 1,
         "away": 1,
-        "observedAt": "2026-11-26T20:00:11.075Z",
+        "observedAt": "2026-11-27T19:49:57.890Z",
         "source": "pitchlab-feed"
       }
     },
@@ -753,7 +753,7 @@
       "result": {
         "home": 1,
         "away": 2,
-        "observedAt": "2026-11-26T20:00:11.075Z",
+        "observedAt": "2026-11-27T19:49:57.890Z",
         "source": "pitchlab-feed"
       }
     },
@@ -788,7 +788,7 @@
       "result": {
         "home": 3,
         "away": 0,
-        "observedAt": "2026-11-26T20:00:11.075Z",
+        "observedAt": "2026-11-27T19:49:57.890Z",
         "source": "pitchlab-feed"
       }
     },
@@ -818,6 +818,7 @@
         "logoUrl": "https://sports.bzzoiro.com/img/team/76/?bg=transparent"
       },
       "venue": "Carlo Castellani, Empoli",
+      "referee": "Francesco Fourneau",
       "neutralSite": false
     },
     {
@@ -846,6 +847,7 @@
         "logoUrl": "https://sports.bzzoiro.com/img/team/1606/?bg=transparent"
       },
       "venue": "Stadio dei Marmi, Carrara",
+      "referee": "Ermanno Feliciani",
       "neutralSite": false
     },
     {
@@ -874,6 +876,7 @@
         "logoUrl": "https://sports.bzzoiro.com/img/team/1598/?bg=transparent"
       },
       "venue": "Cino e Lillo Del Duca, Ascoli Piceno",
+      "referee": "Fabio Maresca",
       "neutralSite": false
     },
     {
@@ -902,6 +905,7 @@
         "logoUrl": "https://sports.bzzoiro.com/img/team/1275/?bg=transparent"
       },
       "venue": "Stadio Romeo Menti, Vicenza",
+      "referee": "Luca Pairetto",
       "neutralSite": false
     },
     {
@@ -930,6 +934,7 @@
         "logoUrl": "https://sports.bzzoiro.com/img/team/1281/?bg=transparent"
       },
       "venue": "Renzo Barbera, Palermo",
+      "referee": "Valerio Crezzini",
       "neutralSite": false
     },
     {
@@ -958,6 +963,7 @@
         "logoUrl": "https://sports.bzzoiro.com/img/team/1607/?bg=transparent"
       },
       "venue": "Stadio Druso, Bozen",
+      "referee": "Dario Madonia",
       "neutralSite": false
     },
     {
@@ -986,6 +992,7 @@
         "logoUrl": "https://sports.bzzoiro.com/img/team/1600/?bg=transparent"
       },
       "venue": "Alberto Braglia, Modena",
+      "referee": "Alberto Ruben Arena",
       "neutralSite": false
     },
     {
@@ -1014,6 +1021,7 @@
         "logoUrl": "https://sports.bzzoiro.com/img/team/64/?bg=transparent"
       },
       "venue": "Luigi Ferraris, Genoa",
+      "referee": "Davide Massa",
       "neutralSite": false
     },
     {
@@ -1042,6 +1050,7 @@
         "logoUrl": "https://sports.bzzoiro.com/img/team/72/?bg=transparent"
       },
       "venue": "Stadio Città di Arezzo, Arezzo",
+      "referee": "Luca Zufferli",
       "neutralSite": false
     },
     {
@@ -1070,6 +1079,7 @@
         "logoUrl": "https://sports.bzzoiro.com/img/team/1602/?bg=transparent"
       },
       "venue": "Stadio Nicola Ceravolo, Catanzaro",
+      "referee": "Matteo Marchetti",
       "neutralSite": false
     },
     {
@@ -3132,8 +3142,8 @@
         "referee": "Ermanno Feliciani",
         "refereeStats": {
           "country": "Italy",
-          "matches": 41,
-          "avgYellow": 1.88,
+          "matches": 42,
+          "avgYellow": 1.93,
           "avgRed": 0.05,
           "avgFouls": 24.4,
           "avgGoals": 3.02
@@ -4595,8 +4605,8 @@
         "referee": "Daniele Perenzoni",
         "refereeStats": {
           "country": "Italy",
-          "matches": 41,
-          "avgYellow": 1.2,
+          "matches": 42,
+          "avgYellow": 1.29,
           "avgRed": 0.1,
           "avgFouls": 27,
           "avgGoals": 2.12
@@ -6544,11 +6554,11 @@
         "referee": "Niccolo Turrini",
         "refereeStats": {
           "country": "Italy",
-          "matches": 33,
-          "avgYellow": 0.73,
+          "matches": 34,
+          "avgYellow": 0.71,
           "avgRed": 0.03,
           "avgFouls": 23.9,
-          "avgGoals": 2.21
+          "avgGoals": 2.18
         },
         "weather": {
           "description": "cloudy",
@@ -9952,10 +9962,20 @@
       },
       "picksAt": "2026-11-19T16:05:39.021Z",
       "matchContext": {
+        "referee": "Francesco Fourneau",
+        "refereeStats": {
+          "country": "Italy",
+          "matches": 40,
+          "avgYellow": 3.05,
+          "avgRed": 0.03,
+          "avgFouls": 26.1,
+          "avgGoals": 2.73
+        },
         "weather": {
           "temperatureC": 14,
           "windSpeedKmh": 100
         },
+        "travelDistanceKm": 190,
         "stageName": "Regular season",
         "venueCity": "Empoli",
         "venueCountry": "Italy",
@@ -10424,6 +10444,15 @@
       },
       "picksAt": "2026-11-19T16:05:39.021Z",
       "matchContext": {
+        "referee": "Ermanno Feliciani",
+        "refereeStats": {
+          "country": "Italy",
+          "matches": 42,
+          "avgYellow": 1.93,
+          "avgRed": 0.05,
+          "avgFouls": 24.4,
+          "avgGoals": 3.02
+        },
         "weather": {
           "temperatureC": 15,
           "windSpeedKmh": 71
@@ -10896,10 +10925,20 @@
       },
       "picksAt": "2026-11-19T16:05:39.021Z",
       "matchContext": {
+        "referee": "Fabio Maresca",
+        "refereeStats": {
+          "country": "Italy",
+          "matches": 34,
+          "avgYellow": 3.03,
+          "avgRed": 0.26,
+          "avgFouls": 26,
+          "avgGoals": 2.97
+        },
         "weather": {
           "temperatureC": 16,
           "windSpeedKmh": 26
         },
+        "travelDistanceKm": 380,
         "stageName": "Regular season",
         "venueCity": "Ascoli Piceno",
         "venueCountry": "Italy",
@@ -11370,10 +11409,20 @@
       },
       "picksAt": "2026-11-19T16:05:39.021Z",
       "matchContext": {
+        "referee": "Luca Pairetto",
+        "refereeStats": {
+          "country": "Italy",
+          "matches": 50,
+          "avgYellow": 3.54,
+          "avgRed": 0.3,
+          "avgFouls": 24.2,
+          "avgGoals": 2.6
+        },
         "weather": {
           "temperatureC": 8,
           "windSpeedKmh": 27
         },
+        "travelDistanceKm": 166,
         "stageName": "Regular season",
         "venueCity": "Vicenza",
         "venueCountry": "Italy",
@@ -11844,11 +11893,21 @@
       },
       "picksAt": "2026-11-19T16:05:39.021Z",
       "matchContext": {
+        "referee": "Valerio Crezzini",
+        "refereeStats": {
+          "country": "Italy",
+          "matches": 39,
+          "avgYellow": 1.44,
+          "avgRed": 0.05,
+          "avgFouls": 25.9,
+          "avgGoals": 2.59
+        },
         "weather": {
           "description": "rain",
           "temperatureC": 17,
           "windSpeedKmh": 57
         },
+        "travelDistanceKm": 353,
         "stageName": "Regular season",
         "venueCity": "Palermo",
         "venueCountry": "Italy",
@@ -12318,6 +12377,15 @@
       },
       "picksAt": "2026-11-19T16:05:39.021Z",
       "matchContext": {
+        "referee": "Dario Madonia",
+        "refereeStats": {
+          "country": "Italy",
+          "matches": 33,
+          "avgYellow": 0.39,
+          "avgRed": 0.03,
+          "avgFouls": 28.4,
+          "avgGoals": 2.45
+        },
         "weather": {
           "description": "clear",
           "temperatureC": 6,
@@ -12791,6 +12859,15 @@
       },
       "picksAt": "2026-11-19T16:05:39.021Z",
       "matchContext": {
+        "referee": "Alberto Ruben Arena",
+        "refereeStats": {
+          "country": "Italy",
+          "matches": 39,
+          "avgYellow": 1.54,
+          "avgRed": 0.05,
+          "avgFouls": 22.5,
+          "avgGoals": 2.69
+        },
         "weather": {
           "description": "clear",
           "temperatureC": 9,
@@ -13264,6 +13341,15 @@
       },
       "picksAt": "2026-11-19T16:05:39.021Z",
       "matchContext": {
+        "referee": "Davide Massa",
+        "refereeStats": {
+          "country": "Italy",
+          "matches": 76,
+          "avgYellow": 3.66,
+          "avgRed": 0.3,
+          "avgFouls": 25.2,
+          "avgGoals": 2.53
+        },
         "weather": {
           "description": "rain",
           "temperatureC": 4,
@@ -13739,6 +13825,15 @@
       },
       "picksAt": "2026-11-19T16:05:39.021Z",
       "matchContext": {
+        "referee": "Luca Zufferli",
+        "refereeStats": {
+          "country": "Italy",
+          "matches": 48,
+          "avgYellow": 2.35,
+          "avgRed": 0.21,
+          "avgFouls": 26,
+          "avgGoals": 2.83
+        },
         "weather": {
           "temperatureC": 1,
           "windSpeedKmh": 33
@@ -14211,6 +14306,15 @@
       },
       "picksAt": "2026-11-19T16:05:39.021Z",
       "matchContext": {
+        "referee": "Matteo Marchetti",
+        "refereeStats": {
+          "country": "Italy",
+          "matches": 50,
+          "avgYellow": 2.68,
+          "avgRed": 0.22,
+          "avgFouls": 25.5,
+          "avgGoals": 2.34
+        },
         "weather": {
           "description": "clear",
           "temperatureC": 8,
@@ -24149,6 +24253,11 @@
       },
       "picksAt": "2026-11-26T20:00:11.075Z",
       "matchContext": {
+        "weather": {
+          "description": "rain",
+          "temperatureC": 8,
+          "windSpeedKmh": 21
+        },
         "stageName": "Regular season",
         "venueCity": "Pisa",
         "venueCountry": "Italy",
@@ -24617,6 +24726,11 @@
       },
       "picksAt": "2026-11-26T20:00:11.075Z",
       "matchContext": {
+        "weather": {
+          "description": "clear",
+          "temperatureC": 6,
+          "windSpeedKmh": 36
+        },
         "stageName": "Regular season",
         "venueCity": "Mantova",
         "venueCountry": "Italy",

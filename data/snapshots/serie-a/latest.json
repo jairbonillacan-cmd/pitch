@@ -5,7 +5,7 @@
   "season": "serie-a-2026-27",
   "seasonLabel": "2026/27",
   "periodLabel": "Jornada 13",
-  "updatedAt": "2026-11-27T14:08:37.870Z",
+  "updatedAt": "2026-11-27T19:55:57.623Z",
   "source": "openfootball+football-data",
   "provenance": "derived",
   "isDemo": false,
@@ -281,7 +281,7 @@
       "result": {
         "home": 2,
         "away": 0,
-        "observedAt": "2026-11-27T14:08:41.060Z",
+        "observedAt": "2026-11-27T19:56:00.864Z",
         "source": "football-data"
       }
     },
@@ -314,7 +314,7 @@
       "result": {
         "home": 3,
         "away": 0,
-        "observedAt": "2026-11-27T14:08:41.060Z",
+        "observedAt": "2026-11-27T19:56:00.864Z",
         "source": "football-data"
       }
     },
@@ -347,7 +347,7 @@
       "result": {
         "home": 1,
         "away": 5,
-        "observedAt": "2026-11-27T14:08:41.060Z",
+        "observedAt": "2026-11-27T19:56:00.864Z",
         "source": "football-data"
       }
     },
@@ -380,7 +380,7 @@
       "result": {
         "home": 1,
         "away": 0,
-        "observedAt": "2026-11-27T14:08:41.060Z",
+        "observedAt": "2026-11-27T19:56:00.864Z",
         "source": "football-data"
       }
     },
@@ -413,7 +413,7 @@
       "result": {
         "home": 4,
         "away": 0,
-        "observedAt": "2026-11-27T14:08:41.060Z",
+        "observedAt": "2026-11-27T19:56:00.864Z",
         "source": "football-data"
       }
     },
@@ -446,7 +446,7 @@
       "result": {
         "home": 0,
         "away": 2,
-        "observedAt": "2026-11-27T14:08:41.060Z",
+        "observedAt": "2026-11-27T19:56:00.864Z",
         "source": "football-data"
       }
     },
@@ -479,7 +479,7 @@
       "result": {
         "home": 1,
         "away": 1,
-        "observedAt": "2026-11-27T14:08:41.060Z",
+        "observedAt": "2026-11-27T19:56:00.864Z",
         "source": "football-data"
       }
     },
@@ -512,7 +512,7 @@
       "result": {
         "home": 5,
         "away": 1,
-        "observedAt": "2026-11-27T14:08:41.060Z",
+        "observedAt": "2026-11-27T19:56:00.864Z",
         "source": "football-data"
       }
     },
@@ -545,7 +545,7 @@
       "result": {
         "home": 4,
         "away": 4,
-        "observedAt": "2026-11-27T14:08:41.060Z",
+        "observedAt": "2026-11-27T19:56:00.864Z",
         "source": "football-data"
       }
     },
@@ -578,7 +578,7 @@
       "result": {
         "home": 3,
         "away": 0,
-        "observedAt": "2026-11-27T14:08:41.060Z",
+        "observedAt": "2026-11-27T19:56:00.864Z",
         "source": "football-data"
       }
     },
@@ -589,7 +589,7 @@
       "week": 13,
       "round": "Jornada 13",
       "startTime": "2026-11-27T19:45:00Z",
-      "status": "scheduled",
+      "status": "in_progress",
       "home": {
         "id": "serie-a.venezia",
         "league": "serie-a",
@@ -1581,11 +1581,11 @@
         "referee": "Andrea Calzavara",
         "refereeStats": {
           "country": "Italy",
-          "matches": 40,
-          "avgYellow": 1.07,
+          "matches": 41,
+          "avgYellow": 1.05,
           "avgRed": 0,
           "avgFouls": 28.2,
-          "avgGoals": 2.02
+          "avgGoals": 2.15
         }
       }
     },
@@ -2331,11 +2331,11 @@
         "referee": "Matteo Marcenaro",
         "refereeStats": {
           "country": "Italy",
-          "matches": 44,
-          "avgYellow": 2.8,
-          "avgRed": 0.18,
+          "matches": 46,
+          "avgYellow": 2.91,
+          "avgRed": 0.17,
           "avgFouls": 26.1,
-          "avgGoals": 2.84
+          "avgGoals": 2.83
         }
       }
     },
@@ -3081,11 +3081,11 @@
         "referee": "Simone Sozza",
         "refereeStats": {
           "country": "Italy",
-          "matches": 71,
-          "avgYellow": 3.17,
-          "avgRed": 0.2,
-          "avgFouls": 23.7,
-          "avgGoals": 2.86
+          "matches": 72,
+          "avgYellow": 3.14,
+          "avgRed": 0.19,
+          "avgFouls": 23.8,
+          "avgGoals": 2.82
         }
       }
     },
@@ -3830,11 +3830,11 @@
         "referee": "Antonio Rapuano",
         "refereeStats": {
           "country": "Italy",
-          "matches": 45,
-          "avgYellow": 2.69,
-          "avgRed": 0.31,
+          "matches": 46,
+          "avgYellow": 2.63,
+          "avgRed": 0.3,
           "avgFouls": 27.7,
-          "avgGoals": 2.36
+          "avgGoals": 2.43
         }
       }
     },
@@ -9046,7 +9046,18 @@
           "away": 5
         }
       },
-      "picksAt": "2026-11-23T22:35:24.628Z"
+      "picksAt": "2026-11-23T22:35:24.628Z",
+      "matchContext": {
+        "referee": "Andrea Colombo",
+        "refereeStats": {
+          "country": "Italy",
+          "matches": 65,
+          "avgYellow": 3.92,
+          "avgRed": 0.25,
+          "avgFouls": 26.7,
+          "avgGoals": 2.89
+        }
+      }
     },
     "serie-a-2026-27-md13-frosinone-parma": {
       "game": "serie-a-2026-27-md13-frosinone-parma",
@@ -9767,7 +9778,18 @@
           "away": 7
         }
       },
-      "picksAt": "2026-11-23T22:35:24.628Z"
+      "picksAt": "2026-11-23T22:35:24.628Z",
+      "matchContext": {
+        "referee": "Kevin Bonacina",
+        "refereeStats": {
+          "country": "Italy",
+          "matches": 45,
+          "avgYellow": 1.6,
+          "avgRed": 0.09,
+          "avgFouls": 27.4,
+          "avgGoals": 2.87
+        }
+      }
     },
     "serie-a-2026-27-md13-torino-lazio": {
       "game": "serie-a-2026-27-md13-torino-lazio",
@@ -10510,7 +10532,18 @@
           "away": 7
         }
       },
-      "picksAt": "2026-11-23T22:35:24.628Z"
+      "picksAt": "2026-11-23T22:35:24.628Z",
+      "matchContext": {
+        "referee": "Daniele Chiffi",
+        "refereeStats": {
+          "country": "Italy",
+          "matches": 54,
+          "avgYellow": 2.96,
+          "avgRed": 0.19,
+          "avgFouls": 23.2,
+          "avgGoals": 2.59
+        }
+      }
     },
     "serie-a-2026-27-md13-internazionale-milano-genoa-cfc": {
       "game": "serie-a-2026-27-md13-internazionale-milano-genoa-cfc",
@@ -11253,7 +11286,18 @@
           "away": 6
         }
       },
-      "picksAt": "2026-11-23T22:35:24.628Z"
+      "picksAt": "2026-11-23T22:35:24.628Z",
+      "matchContext": {
+        "referee": "Giovanni Ayroldi",
+        "refereeStats": {
+          "country": "Italy",
+          "matches": 43,
+          "avgYellow": 3.16,
+          "avgRed": 0.3,
+          "avgFouls": 29.6,
+          "avgGoals": 2.58
+        }
+      }
     },
     "serie-a-2026-27-md13-udinese-fiorentina": {
       "game": "serie-a-2026-27-md13-udinese-fiorentina",
@@ -11995,7 +12039,18 @@
           "away": 6
         }
       },
-      "picksAt": "2026-11-23T22:35:24.628Z"
+      "picksAt": "2026-11-23T22:35:24.628Z",
+      "matchContext": {
+        "referee": "Federico La Penna",
+        "refereeStats": {
+          "country": "Italy",
+          "matches": 46,
+          "avgYellow": 3.3,
+          "avgRed": 0.17,
+          "avgFouls": 29.1,
+          "avgGoals": 2.54
+        }
+      }
     },
     "serie-a-2026-27-md13-sassuolo-napoli": {
       "game": "serie-a-2026-27-md13-sassuolo-napoli",
@@ -12736,7 +12791,18 @@
           "away": 8
         }
       },
-      "picksAt": "2026-11-23T22:35:24.628Z"
+      "picksAt": "2026-11-23T22:35:24.628Z",
+      "matchContext": {
+        "referee": "Marco Guida",
+        "refereeStats": {
+          "country": "Italy",
+          "matches": 58,
+          "avgYellow": 3.45,
+          "avgRed": 0.07,
+          "avgFouls": 22.7,
+          "avgGoals": 2.59
+        }
+      }
     },
     "serie-a-2026-27-md13-roma-monza": {
       "game": "serie-a-2026-27-md13-roma-monza",
@@ -13478,7 +13544,18 @@
           "away": 6
         }
       },
-      "picksAt": "2026-11-23T22:35:24.628Z"
+      "picksAt": "2026-11-23T22:35:24.628Z",
+      "matchContext": {
+        "referee": "Giuseppe Collu",
+        "refereeStats": {
+          "country": "Italy",
+          "matches": 40,
+          "avgYellow": 2.83,
+          "avgRed": 0.15,
+          "avgFouls": 25,
+          "avgGoals": 2.12
+        }
+      }
     },
     "serie-a-2026-27-md13-como-juventus": {
       "game": "serie-a-2026-27-md13-como-juventus",
@@ -14213,7 +14290,18 @@
           "away": 7
         }
       },
-      "picksAt": "2026-11-23T22:35:24.628Z"
+      "picksAt": "2026-11-23T22:35:24.628Z",
+      "matchContext": {
+        "referee": "Maurizio Mariani",
+        "refereeStats": {
+          "country": "Italy",
+          "matches": 80,
+          "avgYellow": 3.39,
+          "avgRed": 0.14,
+          "avgFouls": 23.8,
+          "avgGoals": 2.64
+        }
+      }
     },
     "serie-a-2026-27-md13-lecce-atalanta-bc": {
       "game": "serie-a-2026-27-md13-lecce-atalanta-bc",
@@ -14955,7 +15043,18 @@
           "away": 8
         }
       },
-      "picksAt": "2026-11-23T22:35:24.628Z"
+      "picksAt": "2026-11-23T22:35:24.628Z",
+      "matchContext": {
+        "referee": "Mattia Drigo",
+        "refereeStats": {
+          "country": "Italy",
+          "matches": 34,
+          "avgYellow": 0.56,
+          "avgRed": 0,
+          "avgFouls": 29.4,
+          "avgGoals": 2.47
+        }
+      }
     },
     "serie-a-2026-27-md13-cagliari-milan": {
       "game": "serie-a-2026-27-md13-cagliari-milan",
@@ -15696,7 +15795,18 @@
           "away": 8
         }
       },
-      "picksAt": "2026-11-23T22:35:24.628Z"
+      "picksAt": "2026-11-23T22:35:24.628Z",
+      "matchContext": {
+        "referee": "Marco Di Bello",
+        "refereeStats": {
+          "country": "Italy",
+          "matches": 41,
+          "avgYellow": 2.27,
+          "avgRed": 0.15,
+          "avgFouls": 25.4,
+          "avgGoals": 2.56
+        }
+      }
     }
   },
   "standings": [

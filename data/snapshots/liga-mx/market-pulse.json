@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "league": "liga-mx",
-  "observedAt": "2026-11-27T14:09:11.239Z",
+  "observedAt": "2026-11-27T19:56:39.385Z",
   "entries": [
     {
       "gameId": "mx-2026-j17-chivas-cruz-azul-401877047",
@@ -214,22 +214,22 @@
       "gameId": "mx-2026-lg-america-monterrey-401931996",
       "source": "polymarket",
       "unit": "usd",
-      "observedAt": "2026-11-27T14:09:11.239Z",
+      "observedAt": "2026-11-27T19:56:39.385Z",
       "outcomes": [
         {
           "side": "home",
-          "volume": 111.630379,
-          "price": 0.415
+          "volume": 120.282198,
+          "price": 0.435
         },
         {
           "side": "draw",
-          "volume": 1381.852608,
+          "volume": 1393.727608,
           "price": 0.315
         },
         {
           "side": "away",
-          "volume": 366.39142899999996,
-          "price": 0.265
+          "volume": 371.39142899999996,
+          "price": 0.255
         }
       ]
     },
@@ -237,7 +237,7 @@
       "gameId": "mx-2026-lg-atlas-toluca-401931997",
       "source": "polymarket",
       "unit": "usd",
-      "observedAt": "2026-11-27T14:09:11.239Z",
+      "observedAt": "2026-11-27T19:56:39.385Z",
       "outcomes": [
         {
           "side": "home",
@@ -260,17 +260,17 @@
       "gameId": "mx-2026-lg-chivas-pachuca-401931983",
       "source": "polymarket",
       "unit": "usd",
-      "observedAt": "2026-11-27T14:09:11.239Z",
+      "observedAt": "2026-11-27T19:56:39.385Z",
       "outcomes": [
         {
           "side": "home",
-          "volume": 175.284483,
+          "volume": 178.625393,
           "price": 0.57
         },
         {
           "side": "draw",
-          "volume": 6,
-          "price": 0.225
+          "volume": 12,
+          "price": 0.235
         },
         {
           "side": "away",
@@ -283,22 +283,22 @@
       "gameId": "mx-2026-lg-cruz-azul-leon-401932000",
       "source": "polymarket",
       "unit": "usd",
-      "observedAt": "2026-11-27T14:09:11.239Z",
+      "observedAt": "2026-11-27T19:56:39.385Z",
       "outcomes": [
         {
           "side": "home",
-          "volume": 2719.196733,
-          "price": 0.555
+          "volume": 2825.466733,
+          "price": 0.56
         },
         {
           "side": "draw",
           "volume": 0,
-          "price": 0.265
+          "price": 0.235
         },
         {
           "side": "away",
           "volume": 0,
-          "price": 0.22
+          "price": 0.205
         }
       ]
     },

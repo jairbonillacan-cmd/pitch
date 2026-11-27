@@ -615,6 +615,7 @@
         "logoUrl": "https://sports.bzzoiro.com/img/team/320/?bg=transparent"
       },
       "venue": "Estadio Hidalgo",
+      "referee": "Fernando Hernandez",
       "neutralSite": false
     },
     {
@@ -642,6 +643,7 @@
         "logoUrl": "https://sports.bzzoiro.com/img/team/314/?bg=transparent"
       },
       "venue": "Estadio León",
+      "referee": "César Ramos Palazuelos",
       "neutralSite": false
     },
     {
@@ -4298,11 +4300,11 @@
         "referee": "Luis Santander",
         "refereeStats": {
           "country": "Mexico",
-          "matches": 39,
-          "avgYellow": 4.49,
-          "avgRed": 0.44,
+          "matches": 40,
+          "avgYellow": 4.45,
+          "avgRed": 0.45,
           "avgFouls": 26.6,
-          "avgGoals": 3.18
+          "avgGoals": 3.12
         }
       }
     },
@@ -5050,11 +5052,11 @@
         "referee": "Fernando Hernandez",
         "refereeStats": {
           "country": "Mexico",
-          "matches": 48,
-          "avgYellow": 4.35,
+          "matches": 49,
+          "avgYellow": 4.43,
           "avgRed": 0.69,
-          "avgFouls": 26.2,
-          "avgGoals": 2.6
+          "avgFouls": 26.4,
+          "avgGoals": 2.61
         }
       }
     },
@@ -6559,11 +6561,11 @@
         "referee": "Daniel Quintero Huitrón",
         "refereeStats": {
           "country": "Mexico",
-          "matches": 52,
-          "avgYellow": 4.65,
-          "avgRed": 0.29,
+          "matches": 53,
+          "avgYellow": 4.62,
+          "avgRed": 0.28,
           "avgFouls": 24,
-          "avgGoals": 2.6
+          "avgGoals": 2.57
         }
       }
     },
@@ -8820,11 +8822,11 @@
         "referee": "Victor Alfonso Caceres Hernandez",
         "refereeStats": {
           "country": "Mexico",
-          "matches": 53,
-          "avgYellow": 3.83,
+          "matches": 54,
+          "avgYellow": 3.85,
           "avgRed": 0.3,
           "avgFouls": 24.7,
-          "avgGoals": 2.79
+          "avgGoals": 2.76
         }
       }
     },
@@ -9568,7 +9570,18 @@
           "away": 5
         }
       },
-      "picksAt": "2026-11-24T21:08:59.597Z"
+      "picksAt": "2026-11-24T21:08:59.597Z",
+      "matchContext": {
+        "referee": "Fernando Hernandez",
+        "refereeStats": {
+          "country": "Mexico",
+          "matches": 49,
+          "avgYellow": 4.43,
+          "avgRed": 0.69,
+          "avgFouls": 26.4,
+          "avgGoals": 2.61
+        }
+      }
     },
     "mx-2026-lg-leon-cruz-azul-401931995": {
       "game": "mx-2026-lg-leon-cruz-azul-401931995",
@@ -10309,7 +10322,18 @@
           "away": 5
         }
       },
-      "picksAt": "2026-11-24T21:08:59.597Z"
+      "picksAt": "2026-11-24T21:08:59.597Z",
+      "matchContext": {
+        "referee": "César Ramos Palazuelos",
+        "refereeStats": {
+          "country": "Mexico",
+          "matches": 61,
+          "avgYellow": 4.36,
+          "avgRed": 0.48,
+          "avgFouls": 24.4,
+          "avgGoals": 3.15
+        }
+      }
     },
     "mx-2026-lg-atlas-toluca-401931997": {
       "game": "mx-2026-lg-atlas-toluca-401931997",

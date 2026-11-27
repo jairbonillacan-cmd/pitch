@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "league": "libertadores",
   "seasonLabel": "2026",
-  "observedAt": "2026-11-26T20:00:11.075Z",
+  "observedAt": "2026-11-27T19:49:57.890Z",
   "teams": [
     {
       "teamId": "libertadores.flamengo",
@@ -24,7 +24,7 @@
           "winPct": 62
         }
       },
-      "updatedAt": "2026-11-26T20:00:11.075Z",
+      "updatedAt": "2026-11-27T19:49:57.890Z",
       "players": [
         {
           "id": "libertadores.flamengo.agustin-rossi",
@@ -1232,7 +1232,7 @@
           "winPct": 47.4
         }
       },
-      "updatedAt": "2026-11-26T20:00:11.075Z",
+      "updatedAt": "2026-11-27T19:49:57.890Z",
       "players": [
         {
           "id": "libertadores.cruzeiro.bruno-rodrigues",
@@ -1509,8 +1509,8 @@
           "nationality": "Argentina",
           "nationalityCode": null,
           "photoKey": "pl-p:16870",
-          "availability": "available",
-          "injuryDetail": null,
+          "availability": "injured",
+          "injuryDetail": "Knee Injury",
           "expectedReturn": null,
           "stats": {
             "appearances": 0,
@@ -2138,7 +2138,7 @@
           "nationality": "Brazil",
           "nationalityCode": null,
           "photoKey": "pl-p:1874",
-          "availability": "doubtful",
+          "availability": "injured",
           "injuryDetail": "Foot Injury",
           "expectedReturn": null,
           "stats": {
@@ -2440,7 +2440,7 @@
           "winPct": 40
         }
       },
-      "updatedAt": "2026-11-26T20:00:11.075Z",
+      "updatedAt": "2026-11-27T19:49:57.890Z",
       "players": [
         {
           "id": "libertadores.ldu.alejandro-tobar",
@@ -3095,7 +3095,7 @@
             "subIns": 0,
             "goals": 0,
             "assists": 0,
-            "shots": 0,
+            "shots": 2,
             "shotsOnTarget": 0,
             "foulsCommitted": 0,
             "foulsSuffered": 0,
@@ -3611,7 +3611,7 @@
           "winPct": 41.1
         }
       },
-      "updatedAt": "2026-11-26T20:00:11.075Z",
+      "updatedAt": "2026-11-27T19:49:57.890Z",
       "players": [
         {
           "id": "libertadores.mirassol.alesson",
@@ -3646,7 +3646,7 @@
             "offsides": 0,
             "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 1
+            "goalsConceded": 0
           },
           "candidatePicks": []
         },
@@ -4377,7 +4377,7 @@
             "subIns": 0,
             "goals": 0,
             "assists": 0,
-            "shots": 0,
+            "shots": 1,
             "shotsOnTarget": 0,
             "foulsCommitted": 0,
             "foulsSuffered": 0,
@@ -4386,7 +4386,7 @@
             "offsides": 0,
             "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 1
+            "goalsConceded": 0
           },
           "candidatePicks": []
         },
@@ -4819,7 +4819,7 @@
           "winPct": 33.7
         }
       },
-      "updatedAt": "2026-11-26T20:00:11.075Z",
+      "updatedAt": "2026-11-27T19:49:57.890Z",
       "players": [
         {
           "id": "libertadores.corinthians.alex-santana",
@@ -4911,8 +4911,8 @@
           "nationality": "Peru",
           "nationalityCode": null,
           "photoKey": "pl-p:274",
-          "availability": "suspended",
-          "injuryDetail": "yellow_card_accumulation_suspension",
+          "availability": "available",
+          "injuryDetail": null,
           "expectedReturn": null,
           "stats": {
             "appearances": 0,
@@ -6027,7 +6027,7 @@
           "winPct": 51.1
         }
       },
-      "updatedAt": "2026-11-26T20:00:11.075Z",
+      "updatedAt": "2026-11-27T19:49:57.890Z",
       "players": [
         {
           "id": "libertadores.rosario-central.agustin-sandez",
@@ -6090,8 +6090,8 @@
             "subIns": 0,
             "goals": 0,
             "assists": 0,
-            "shots": 1,
-            "shotsOnTarget": 1,
+            "shots": 0,
+            "shotsOnTarget": 0,
             "foulsCommitted": 0,
             "foulsSuffered": 0,
             "yellowCards": 0,
@@ -6099,7 +6099,7 @@
             "offsides": 0,
             "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 1
+            "goalsConceded": 0
           },
           "candidatePicks": []
         },
@@ -6310,10 +6310,10 @@
           "stats": {
             "appearances": 0,
             "subIns": 0,
-            "goals": 0,
+            "goals": 1,
             "assists": 0,
             "shots": 2,
-            "shotsOnTarget": 0,
+            "shotsOnTarget": 2,
             "foulsCommitted": 0,
             "foulsSuffered": 0,
             "yellowCards": 0,
@@ -6321,7 +6321,7 @@
             "offsides": 0,
             "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 1
+            "goalsConceded": 0
           },
           "candidatePicks": []
         },
@@ -6349,7 +6349,7 @@
             "subIns": 0,
             "goals": 0,
             "assists": 0,
-            "shots": 3,
+            "shots": 2,
             "shotsOnTarget": 0,
             "foulsCommitted": 0,
             "foulsSuffered": 0,
@@ -6358,7 +6358,7 @@
             "offsides": 0,
             "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 0
+            "goalsConceded": 1
           },
           "candidatePicks": []
         },
@@ -6654,7 +6654,7 @@
             "offsides": 0,
             "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 1
+            "goalsConceded": 0
           },
           "candidatePicks": []
         },
@@ -6828,9 +6828,9 @@
           "stats": {
             "appearances": 0,
             "subIns": 0,
-            "goals": 1,
+            "goals": 0,
             "assists": 0,
-            "shots": 1,
+            "shots": 2,
             "shotsOnTarget": 1,
             "foulsCommitted": 0,
             "foulsSuffered": 0,
@@ -7015,7 +7015,7 @@
             "subIns": 0,
             "goals": 0,
             "assists": 0,
-            "shots": 1,
+            "shots": 0,
             "shotsOnTarget": 0,
             "foulsCommitted": 0,
             "foulsSuffered": 0,
@@ -7235,7 +7235,7 @@
           "winPct": 62.3
         }
       },
-      "updatedAt": "2026-11-26T20:00:11.075Z",
+      "updatedAt": "2026-11-27T19:49:57.890Z",
       "players": [
         {
           "id": "libertadores.independiente-valle.aldair-quintana",
@@ -7492,7 +7492,7 @@
             "offsides": 0,
             "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 1
+            "goalsConceded": 0
           },
           "candidatePicks": []
         },
@@ -8010,7 +8010,7 @@
             "offsides": 0,
             "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 1
+            "goalsConceded": 2
           },
           "candidatePicks": []
         },
@@ -8195,7 +8195,7 @@
             "offsides": 0,
             "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 1
+            "goalsConceded": 0
           },
           "candidatePicks": []
         },
@@ -8223,7 +8223,7 @@
             "subIns": 0,
             "goals": 0,
             "assists": 0,
-            "shots": 0,
+            "shots": 2,
             "shotsOnTarget": 0,
             "foulsCommitted": 0,
             "foulsSuffered": 0,
@@ -8232,7 +8232,7 @@
             "offsides": 0,
             "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 1
+            "goalsConceded": 2
           },
           "candidatePicks": []
         },
@@ -8295,10 +8295,10 @@
           "stats": {
             "appearances": 0,
             "subIns": 0,
-            "goals": 0,
+            "goals": 1,
             "assists": 0,
             "shots": 1,
-            "shotsOnTarget": 0,
+            "shotsOnTarget": 1,
             "foulsCommitted": 0,
             "foulsSuffered": 0,
             "yellowCards": 0,
@@ -8306,7 +8306,7 @@
             "offsides": 0,
             "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 1
+            "goalsConceded": 2
           },
           "candidatePicks": []
         },
@@ -8443,7 +8443,7 @@
           "winPct": 42.9
         }
       },
-      "updatedAt": "2026-11-26T20:00:11.075Z",
+      "updatedAt": "2026-11-27T19:49:57.890Z",
       "players": [
         {
           "id": "libertadores.deportes-tolima.adrian-parra",
@@ -8469,7 +8469,7 @@
             "subIns": 0,
             "goals": 0,
             "assists": 0,
-            "shots": 3,
+            "shots": 2,
             "shotsOnTarget": 0,
             "foulsCommitted": 0,
             "foulsSuffered": 0,
@@ -8527,7 +8527,7 @@
           "jersey": "21",
           "positionGroup": "DEF",
           "positionLabel": "Defensa",
-          "age": 18,
+          "age": 19,
           "birthDate": "2007-11-28",
           "heightCm": 185,
           "weightKg": null,
@@ -8802,7 +8802,7 @@
             "subIns": 0,
             "goals": 1,
             "assists": 0,
-            "shots": 2,
+            "shots": 3,
             "shotsOnTarget": 1,
             "foulsCommitted": 0,
             "foulsSuffered": 0,
@@ -9135,8 +9135,8 @@
             "subIns": 0,
             "goals": 0,
             "assists": 0,
-            "shots": 2,
-            "shotsOnTarget": 1,
+            "shots": 1,
+            "shotsOnTarget": 0,
             "foulsCommitted": 0,
             "foulsSuffered": 0,
             "yellowCards": 0,

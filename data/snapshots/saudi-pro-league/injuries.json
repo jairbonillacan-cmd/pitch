@@ -1,10 +1,19 @@
 {
   "schemaVersion": 1,
   "league": "saudi-pro-league",
-  "observedAt": "2026-11-26T20:00:11.075Z",
+  "observedAt": "2026-11-27T19:49:57.890Z",
   "source": "pitchlab-availability",
   "coverageStatus": "ok",
   "entries": [
+    {
+      "teamId": "saudi-pro-league.al-nassr",
+      "player": "Sultan Al-Ghannam",
+      "position": "Defensa",
+      "status": "Baja",
+      "detail": "Cruciate Ligament Injury",
+      "injuryType": "Cruciate Ligament Injury",
+      "reportedAt": "2026-11-27T19:49:57.890Z"
+    },
     {
       "teamId": "saudi-pro-league.abha",
       "player": "Basil Yousef Al-Sayyali",
@@ -12,16 +21,16 @@
       "status": "Baja",
       "detail": "Ligament Injury",
       "injuryType": "Ligament Injury",
-      "reportedAt": "2026-11-26T20:00:11.075Z"
+      "reportedAt": "2026-11-27T19:49:57.890Z"
     },
     {
-      "teamId": "saudi-pro-league.abha",
-      "player": "Nabil Fekir",
+      "teamId": "saudi-pro-league.al-ittihad",
+      "player": "Hamed Al-Ghamdi",
       "position": "Mediocampista",
       "status": "Baja",
-      "detail": "Muscle Injury",
-      "injuryType": "Muscle Injury",
-      "reportedAt": "2026-11-26T20:00:11.075Z"
+      "detail": "Cruciate Ligament Injury",
+      "injuryType": "Cruciate Ligament Injury",
+      "reportedAt": "2026-11-27T19:49:57.890Z"
     }
   ]
 }

@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "league": "coppa-italia",
-  "updatedAt": "2026-11-26T20:00:11.075Z",
+  "updatedAt": "2026-11-27T19:49:57.890Z",
   "lines": [
     {
       "gameId": "coppa-italia-2026-12-01-inter-genoa-mvd7sa",
@@ -16,7 +16,7 @@
       "deltaPct": -0.74,
       "movement": "shortening",
       "movementSignal": "SHORTENING",
-      "capturedAtUtc": "2026-11-26T20:05:08Z"
+      "capturedAtUtc": "2026-11-27T19:50:08Z"
     },
     {
       "gameId": "coppa-italia-2026-12-01-inter-genoa-mvd7sa",
@@ -26,12 +26,12 @@
       "outcome": "HOME",
       "line": null,
       "book": "pinnacle",
-      "decimal": 1.31,
+      "decimal": 1.3,
       "openingDecimal": 1.32,
-      "deltaPct": -0.76,
+      "deltaPct": -1.52,
       "movement": "shortening",
       "movementSignal": "SHORTENING",
-      "capturedAtUtc": "2026-11-26T20:05:08Z"
+      "capturedAtUtc": "2026-11-27T19:50:08Z"
     },
     {
       "gameId": "coppa-italia-2026-12-01-inter-genoa-mvd7sa",
@@ -41,12 +41,12 @@
       "outcome": "HOME",
       "line": null,
       "book": "bwin",
-      "decimal": 1.33,
+      "decimal": 1.32,
       "openingDecimal": 1.35,
-      "deltaPct": -1.48,
+      "deltaPct": -2.22,
       "movement": "shortening",
       "movementSignal": "SHORTENING",
-      "capturedAtUtc": "2026-11-26T20:05:08Z"
+      "capturedAtUtc": "2026-11-27T19:50:08Z"
     },
     {
       "gameId": "coppa-italia-2026-12-01-inter-genoa-mvd7sa",
@@ -61,7 +61,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-26T20:05:08Z"
+      "capturedAtUtc": "2026-11-27T19:50:08Z"
     },
     {
       "gameId": "coppa-italia-2026-12-01-inter-genoa-mvd7sa",
@@ -71,12 +71,12 @@
       "outcome": "HOME",
       "line": null,
       "book": "bet365",
-      "decimal": 1.33,
+      "decimal": 1.3,
       "openingDecimal": 1.3,
-      "deltaPct": 2.31,
-      "movement": "drifting",
-      "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-26T20:05:08Z"
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-27T19:50:08Z"
     },
     {
       "gameId": "coppa-italia-2026-12-01-inter-genoa-mvd7sa",
@@ -91,7 +91,7 @@
       "deltaPct": -0.77,
       "movement": "shortening",
       "movementSignal": "SHORTENING",
-      "capturedAtUtc": "2026-11-26T20:05:08Z"
+      "capturedAtUtc": "2026-11-27T19:50:08Z"
     },
     {
       "gameId": "coppa-italia-2026-12-01-inter-genoa-mvd7sa",
@@ -106,7 +106,7 @@
       "deltaPct": -1.48,
       "movement": "shortening",
       "movementSignal": "SHORTENING",
-      "capturedAtUtc": "2026-11-26T20:05:08Z"
+      "capturedAtUtc": "2026-11-27T19:50:08Z"
     },
     {
       "gameId": "coppa-italia-2026-12-01-inter-genoa-mvd7sa",
@@ -121,7 +121,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-26T20:05:08Z"
+      "capturedAtUtc": "2026-11-27T19:50:08Z"
     },
     {
       "gameId": "coppa-italia-2026-12-01-inter-genoa-mvd7sa",
@@ -131,12 +131,27 @@
       "outcome": "HOME",
       "line": null,
       "book": "ladbrokes",
-      "decimal": 1.33,
+      "decimal": 1.3,
       "openingDecimal": 1.35,
-      "deltaPct": -1.48,
+      "deltaPct": -3.7,
       "movement": "shortening",
       "movementSignal": "SHORTENING",
-      "capturedAtUtc": "2026-11-26T20:05:08Z"
+      "capturedAtUtc": "2026-11-27T19:50:08Z"
+    },
+    {
+      "gameId": "coppa-italia-2026-12-01-inter-genoa-mvd7sa",
+      "homeName": "Inter",
+      "awayName": "Genoa",
+      "market": "1x2",
+      "outcome": "HOME",
+      "line": null,
+      "book": "betvictor",
+      "decimal": 1.29,
+      "openingDecimal": 1.29,
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-27T19:50:08Z"
     },
     {
       "gameId": "coppa-italia-2026-12-01-inter-genoa-mvd7sa",
@@ -151,7 +166,7 @@
       "deltaPct": -2.4,
       "movement": "shortening",
       "movementSignal": "SHORTENING",
-      "capturedAtUtc": "2026-11-26T20:05:08Z"
+      "capturedAtUtc": "2026-11-27T19:50:08Z"
     },
     {
       "gameId": "coppa-italia-2026-12-01-inter-genoa-mvd7sa",
@@ -161,12 +176,27 @@
       "outcome": "HOME",
       "line": null,
       "book": "mansionbet",
-      "decimal": 1.29,
+      "decimal": 1.27,
       "openingDecimal": 1.3,
-      "deltaPct": -0.77,
+      "deltaPct": -2.31,
       "movement": "shortening",
       "movementSignal": "SHORTENING",
-      "capturedAtUtc": "2026-11-26T20:05:08Z"
+      "capturedAtUtc": "2026-11-27T19:50:08Z"
+    },
+    {
+      "gameId": "coppa-italia-2026-12-01-inter-genoa-mvd7sa",
+      "homeName": "Inter",
+      "awayName": "Genoa",
+      "market": "1x2",
+      "outcome": "HOME",
+      "line": null,
+      "book": "sbo",
+      "decimal": 1.27,
+      "openingDecimal": 1.27,
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-27T19:50:08Z"
     },
     {
       "gameId": "coppa-italia-2026-12-01-inter-genoa-mvd7sa",
@@ -176,12 +206,12 @@
       "outcome": "DRAW",
       "line": null,
       "book": "1xbet",
-      "decimal": 5.81,
+      "decimal": 5.79,
       "openingDecimal": 5.63,
-      "deltaPct": 3.2,
+      "deltaPct": 2.84,
       "movement": "drifting",
       "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-26T20:05:08Z"
+      "capturedAtUtc": "2026-11-27T19:50:08Z"
     },
     {
       "gameId": "coppa-italia-2026-12-01-inter-genoa-mvd7sa",
@@ -191,12 +221,12 @@
       "outcome": "DRAW",
       "line": null,
       "book": "pinnacle",
-      "decimal": 6.01,
+      "decimal": 6.06,
       "openingDecimal": 5.78,
-      "deltaPct": 3.98,
+      "deltaPct": 4.84,
       "movement": "drifting",
       "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-26T20:05:08Z"
+      "capturedAtUtc": "2026-11-27T19:50:08Z"
     },
     {
       "gameId": "coppa-italia-2026-12-01-inter-genoa-mvd7sa",
@@ -211,7 +241,7 @@
       "deltaPct": 4.76,
       "movement": "drifting",
       "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-26T20:05:08Z"
+      "capturedAtUtc": "2026-11-27T19:50:08Z"
     },
     {
       "gameId": "coppa-italia-2026-12-01-inter-genoa-mvd7sa",
@@ -226,7 +256,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-26T20:05:08Z"
+      "capturedAtUtc": "2026-11-27T19:50:08Z"
     },
     {
       "gameId": "coppa-italia-2026-12-01-inter-genoa-mvd7sa",
@@ -236,12 +266,12 @@
       "outcome": "DRAW",
       "line": null,
       "book": "bet365",
-      "decimal": 5,
+      "decimal": 5.25,
       "openingDecimal": 5,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-26T20:05:08Z"
+      "deltaPct": 5,
+      "movement": "drifting",
+      "movementSignal": "DRIFTING",
+      "capturedAtUtc": "2026-11-27T19:50:08Z"
     },
     {
       "gameId": "coppa-italia-2026-12-01-inter-genoa-mvd7sa",
@@ -256,7 +286,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-26T20:05:08Z"
+      "capturedAtUtc": "2026-11-27T19:50:08Z"
     },
     {
       "gameId": "coppa-italia-2026-12-01-inter-genoa-mvd7sa",
@@ -266,12 +296,12 @@
       "outcome": "DRAW",
       "line": null,
       "book": "coral",
-      "decimal": 5.25,
+      "decimal": 5.5,
       "openingDecimal": 5.25,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-26T20:05:08Z"
+      "deltaPct": 4.76,
+      "movement": "drifting",
+      "movementSignal": "DRIFTING",
+      "capturedAtUtc": "2026-11-27T19:50:08Z"
     },
     {
       "gameId": "coppa-italia-2026-12-01-inter-genoa-mvd7sa",
@@ -286,7 +316,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-26T20:05:08Z"
+      "capturedAtUtc": "2026-11-27T19:50:08Z"
     },
     {
       "gameId": "coppa-italia-2026-12-01-inter-genoa-mvd7sa",
@@ -296,12 +326,27 @@
       "outcome": "DRAW",
       "line": null,
       "book": "ladbrokes",
+      "decimal": 5.5,
+      "openingDecimal": 5.25,
+      "deltaPct": 4.76,
+      "movement": "drifting",
+      "movementSignal": "DRIFTING",
+      "capturedAtUtc": "2026-11-27T19:50:08Z"
+    },
+    {
+      "gameId": "coppa-italia-2026-12-01-inter-genoa-mvd7sa",
+      "homeName": "Inter",
+      "awayName": "Genoa",
+      "market": "1x2",
+      "outcome": "DRAW",
+      "line": null,
+      "book": "betvictor",
       "decimal": 5.25,
       "openingDecimal": 5.25,
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-26T20:05:08Z"
+      "capturedAtUtc": "2026-11-27T19:50:08Z"
     },
     {
       "gameId": "coppa-italia-2026-12-01-inter-genoa-mvd7sa",
@@ -316,7 +361,7 @@
       "deltaPct": 2.8,
       "movement": "drifting",
       "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-26T20:05:08Z"
+      "capturedAtUtc": "2026-11-27T19:50:08Z"
     },
     {
       "gameId": "coppa-italia-2026-12-01-inter-genoa-mvd7sa",
@@ -326,12 +371,27 @@
       "outcome": "DRAW",
       "line": null,
       "book": "mansionbet",
-      "decimal": 5.3,
+      "decimal": 5.4,
       "openingDecimal": 5.1,
-      "deltaPct": 3.92,
+      "deltaPct": 5.88,
       "movement": "drifting",
       "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-26T20:05:08Z"
+      "capturedAtUtc": "2026-11-27T19:50:08Z"
+    },
+    {
+      "gameId": "coppa-italia-2026-12-01-inter-genoa-mvd7sa",
+      "homeName": "Inter",
+      "awayName": "Genoa",
+      "market": "1x2",
+      "outcome": "DRAW",
+      "line": null,
+      "book": "sbo",
+      "decimal": 4.94,
+      "openingDecimal": 4.94,
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-27T19:50:08Z"
     },
     {
       "gameId": "coppa-italia-2026-12-01-inter-genoa-mvd7sa",
@@ -341,12 +401,12 @@
       "outcome": "AWAY",
       "line": null,
       "book": "1xbet",
-      "decimal": 9.6,
+      "decimal": 9.75,
       "openingDecimal": 9.6,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-26T20:05:08Z"
+      "deltaPct": 1.56,
+      "movement": "drifting",
+      "movementSignal": "DRIFTING",
+      "capturedAtUtc": "2026-11-27T19:50:08Z"
     },
     {
       "gameId": "coppa-italia-2026-12-01-inter-genoa-mvd7sa",
@@ -356,12 +416,12 @@
       "outcome": "AWAY",
       "line": null,
       "book": "pinnacle",
-      "decimal": 9.59,
+      "decimal": 9.95,
       "openingDecimal": 9.33,
-      "deltaPct": 2.79,
+      "deltaPct": 6.65,
       "movement": "drifting",
       "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-26T20:05:08Z"
+      "capturedAtUtc": "2026-11-27T19:50:08Z"
     },
     {
       "gameId": "coppa-italia-2026-12-01-inter-genoa-mvd7sa",
@@ -376,7 +436,7 @@
       "deltaPct": 2.94,
       "movement": "drifting",
       "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-26T20:05:08Z"
+      "capturedAtUtc": "2026-11-27T19:50:08Z"
     },
     {
       "gameId": "coppa-italia-2026-12-01-inter-genoa-mvd7sa",
@@ -391,7 +451,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-26T20:05:08Z"
+      "capturedAtUtc": "2026-11-27T19:50:08Z"
     },
     {
       "gameId": "coppa-italia-2026-12-01-inter-genoa-mvd7sa",
@@ -401,12 +461,12 @@
       "outcome": "AWAY",
       "line": null,
       "book": "bet365",
-      "decimal": 9.5,
+      "decimal": 10,
       "openingDecimal": 9,
-      "deltaPct": 5.56,
+      "deltaPct": 11.11,
       "movement": "drifting",
       "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-26T20:05:08Z"
+      "capturedAtUtc": "2026-11-27T19:50:08Z"
     },
     {
       "gameId": "coppa-italia-2026-12-01-inter-genoa-mvd7sa",
@@ -416,12 +476,12 @@
       "outcome": "AWAY",
       "line": null,
       "book": "betfair",
-      "decimal": 12,
+      "decimal": 11,
       "openingDecimal": 9,
-      "deltaPct": 33.33,
+      "deltaPct": 22.22,
       "movement": "drifting",
       "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-26T20:05:08Z"
+      "capturedAtUtc": "2026-11-27T19:50:08Z"
     },
     {
       "gameId": "coppa-italia-2026-12-01-inter-genoa-mvd7sa",
@@ -436,7 +496,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-26T20:05:08Z"
+      "capturedAtUtc": "2026-11-27T19:50:08Z"
     },
     {
       "gameId": "coppa-italia-2026-12-01-inter-genoa-mvd7sa",
@@ -451,7 +511,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-26T20:05:08Z"
+      "capturedAtUtc": "2026-11-27T19:50:08Z"
     },
     {
       "gameId": "coppa-italia-2026-12-01-inter-genoa-mvd7sa",
@@ -466,7 +526,22 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-26T20:05:08Z"
+      "capturedAtUtc": "2026-11-27T19:50:08Z"
+    },
+    {
+      "gameId": "coppa-italia-2026-12-01-inter-genoa-mvd7sa",
+      "homeName": "Inter",
+      "awayName": "Genoa",
+      "market": "1x2",
+      "outcome": "AWAY",
+      "line": null,
+      "book": "betvictor",
+      "decimal": 9.5,
+      "openingDecimal": 9.5,
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-27T19:50:08Z"
     },
     {
       "gameId": "coppa-italia-2026-12-01-inter-genoa-mvd7sa",
@@ -476,12 +551,12 @@
       "outcome": "AWAY",
       "line": null,
       "book": "melbet",
-      "decimal": 9.2,
+      "decimal": 8.9,
       "openingDecimal": 8.2,
-      "deltaPct": 12.2,
+      "deltaPct": 8.54,
       "movement": "drifting",
       "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-26T20:05:08Z"
+      "capturedAtUtc": "2026-11-27T19:50:08Z"
     },
     {
       "gameId": "coppa-italia-2026-12-01-inter-genoa-mvd7sa",
@@ -491,12 +566,27 @@
       "outcome": "AWAY",
       "line": null,
       "book": "mansionbet",
-      "decimal": 9,
+      "decimal": 9.4,
       "openingDecimal": 8.7,
-      "deltaPct": 3.45,
+      "deltaPct": 8.05,
       "movement": "drifting",
       "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-26T20:05:08Z"
+      "capturedAtUtc": "2026-11-27T19:50:08Z"
+    },
+    {
+      "gameId": "coppa-italia-2026-12-01-inter-genoa-mvd7sa",
+      "homeName": "Inter",
+      "awayName": "Genoa",
+      "market": "1x2",
+      "outcome": "AWAY",
+      "line": null,
+      "book": "sbo",
+      "decimal": 7.34,
+      "openingDecimal": 7.34,
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-27T19:50:08Z"
     },
     {
       "gameId": "coppa-italia-2026-12-01-inter-genoa-mvd7sa",
@@ -506,12 +596,12 @@
       "outcome": "1X",
       "line": null,
       "book": "1xbet",
-      "decimal": 1.08,
+      "decimal": 1.07,
       "openingDecimal": 1.08,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-26T20:05:08Z"
+      "deltaPct": -0.93,
+      "movement": "shortening",
+      "movementSignal": "SHORTENING",
+      "capturedAtUtc": "2026-11-27T19:50:08Z"
     },
     {
       "gameId": "coppa-italia-2026-12-01-inter-genoa-mvd7sa",
@@ -526,7 +616,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-26T20:05:08Z"
+      "capturedAtUtc": "2026-11-27T19:50:08Z"
     },
     {
       "gameId": "coppa-italia-2026-12-01-inter-genoa-mvd7sa",
@@ -536,12 +626,27 @@
       "outcome": "1X",
       "line": null,
       "book": "betfair",
-      "decimal": 1.03,
+      "decimal": 1.04,
       "openingDecimal": 1.06,
-      "deltaPct": -2.83,
+      "deltaPct": -1.89,
       "movement": "shortening",
       "movementSignal": "SHORTENING",
-      "capturedAtUtc": "2026-11-26T20:05:08Z"
+      "capturedAtUtc": "2026-11-27T19:50:08Z"
+    },
+    {
+      "gameId": "coppa-italia-2026-12-01-inter-genoa-mvd7sa",
+      "homeName": "Inter",
+      "awayName": "Genoa",
+      "market": "double_chance",
+      "outcome": "1X",
+      "line": null,
+      "book": "betvictor",
+      "decimal": 1.05,
+      "openingDecimal": 1.05,
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-27T19:50:08Z"
     },
     {
       "gameId": "coppa-italia-2026-12-01-inter-genoa-mvd7sa",
@@ -551,12 +656,12 @@
       "outcome": "1X",
       "line": null,
       "book": "sbo",
-      "decimal": 1.06,
+      "decimal": 1.04,
       "openingDecimal": 1.05,
-      "deltaPct": 0.95,
-      "movement": "drifting",
-      "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-26T20:05:08Z"
+      "deltaPct": -0.95,
+      "movement": "shortening",
+      "movementSignal": "SHORTENING",
+      "capturedAtUtc": "2026-11-27T19:50:08Z"
     },
     {
       "gameId": "coppa-italia-2026-12-01-inter-genoa-mvd7sa",
@@ -566,12 +671,12 @@
       "outcome": "X2",
       "line": null,
       "book": "1xbet",
-      "decimal": 3.48,
+      "decimal": 3.5,
       "openingDecimal": 3.42,
-      "deltaPct": 1.75,
+      "deltaPct": 2.34,
       "movement": "drifting",
       "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-26T20:05:08Z"
+      "capturedAtUtc": "2026-11-27T19:50:08Z"
     },
     {
       "gameId": "coppa-italia-2026-12-01-inter-genoa-mvd7sa",
@@ -581,12 +686,12 @@
       "outcome": "X2",
       "line": null,
       "book": "william-hill",
-      "decimal": 3.25,
+      "decimal": 3.3,
       "openingDecimal": 3.25,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-26T20:05:08Z"
+      "deltaPct": 1.54,
+      "movement": "drifting",
+      "movementSignal": "DRIFTING",
+      "capturedAtUtc": "2026-11-27T19:50:08Z"
     },
     {
       "gameId": "coppa-italia-2026-12-01-inter-genoa-mvd7sa",
@@ -601,7 +706,22 @@
       "deltaPct": 9.09,
       "movement": "drifting",
       "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-26T20:05:08Z"
+      "capturedAtUtc": "2026-11-27T19:50:08Z"
+    },
+    {
+      "gameId": "coppa-italia-2026-12-01-inter-genoa-mvd7sa",
+      "homeName": "Inter",
+      "awayName": "Genoa",
+      "market": "double_chance",
+      "outcome": "X2",
+      "line": null,
+      "book": "betvictor",
+      "decimal": 3.5,
+      "openingDecimal": 3.5,
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-27T19:50:08Z"
     },
     {
       "gameId": "coppa-italia-2026-12-01-inter-genoa-mvd7sa",
@@ -611,12 +731,12 @@
       "outcome": "X2",
       "line": null,
       "book": "sbo",
-      "decimal": 3.01,
+      "decimal": 3.25,
       "openingDecimal": 3.02,
-      "deltaPct": -0.33,
-      "movement": "shortening",
-      "movementSignal": "SHORTENING",
-      "capturedAtUtc": "2026-11-26T20:05:08Z"
+      "deltaPct": 7.62,
+      "movement": "drifting",
+      "movementSignal": "DRIFTING",
+      "capturedAtUtc": "2026-11-27T19:50:08Z"
     },
     {
       "gameId": "coppa-italia-2026-12-01-inter-genoa-mvd7sa",
@@ -631,7 +751,7 @@
       "deltaPct": -0.85,
       "movement": "shortening",
       "movementSignal": "SHORTENING",
-      "capturedAtUtc": "2026-11-26T20:05:08Z"
+      "capturedAtUtc": "2026-11-27T19:50:08Z"
     },
     {
       "gameId": "coppa-italia-2026-12-01-inter-genoa-mvd7sa",
@@ -641,12 +761,12 @@
       "outcome": "12",
       "line": null,
       "book": "william-hill",
-      "decimal": 1.17,
+      "decimal": 1.15,
       "openingDecimal": 1.17,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-26T20:05:08Z"
+      "deltaPct": -1.71,
+      "movement": "shortening",
+      "movementSignal": "SHORTENING",
+      "capturedAtUtc": "2026-11-27T19:50:08Z"
     },
     {
       "gameId": "coppa-italia-2026-12-01-inter-genoa-mvd7sa",
@@ -656,12 +776,27 @@
       "outcome": "12",
       "line": null,
       "book": "betfair",
-      "decimal": 1.13,
+      "decimal": 1.1,
       "openingDecimal": 1.11,
-      "deltaPct": 1.8,
-      "movement": "drifting",
-      "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-26T20:05:08Z"
+      "deltaPct": -0.9,
+      "movement": "shortening",
+      "movementSignal": "SHORTENING",
+      "capturedAtUtc": "2026-11-27T19:50:08Z"
+    },
+    {
+      "gameId": "coppa-italia-2026-12-01-inter-genoa-mvd7sa",
+      "homeName": "Inter",
+      "awayName": "Genoa",
+      "market": "double_chance",
+      "outcome": "12",
+      "line": null,
+      "book": "betvictor",
+      "decimal": 1.08,
+      "openingDecimal": 1.08,
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-27T19:50:08Z"
     },
     {
       "gameId": "coppa-italia-2026-12-01-inter-genoa-mvd7sa",
@@ -671,12 +806,12 @@
       "outcome": "12",
       "line": null,
       "book": "sbo",
-      "decimal": 1.12,
+      "decimal": 1.11,
       "openingDecimal": 1.12,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-26T20:05:08Z"
+      "deltaPct": -0.89,
+      "movement": "shortening",
+      "movementSignal": "SHORTENING",
+      "capturedAtUtc": "2026-11-27T19:50:08Z"
     },
     {
       "gameId": "coppa-italia-2026-12-01-inter-genoa-mvd7sa",
@@ -691,7 +826,7 @@
       "deltaPct": -2.54,
       "movement": "shortening",
       "movementSignal": "SHORTENING",
-      "capturedAtUtc": "2026-11-26T20:05:08Z"
+      "capturedAtUtc": "2026-11-27T19:50:08Z"
     },
     {
       "gameId": "coppa-italia-2026-12-01-inter-genoa-mvd7sa",
@@ -701,12 +836,27 @@
       "outcome": "over",
       "line": 1.5,
       "book": "betfair",
-      "decimal": 1.17,
+      "decimal": 1.14,
       "openingDecimal": 1.14,
-      "deltaPct": 2.63,
-      "movement": "drifting",
-      "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-26T20:05:08Z"
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-27T19:50:08Z"
+    },
+    {
+      "gameId": "coppa-italia-2026-12-01-inter-genoa-mvd7sa",
+      "homeName": "Inter",
+      "awayName": "Genoa",
+      "market": "over_under_15",
+      "outcome": "over",
+      "line": 1.5,
+      "book": "betvictor",
+      "decimal": 1.17,
+      "openingDecimal": 1.17,
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-27T19:50:08Z"
     },
     {
       "gameId": "coppa-italia-2026-12-01-inter-genoa-mvd7sa",
@@ -716,12 +866,12 @@
       "outcome": "under",
       "line": 1.5,
       "book": "1xbet",
-      "decimal": 4.89,
+      "decimal": 4.92,
       "openingDecimal": 4.63,
-      "deltaPct": 5.62,
+      "deltaPct": 6.26,
       "movement": "drifting",
       "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-26T20:05:08Z"
+      "capturedAtUtc": "2026-11-27T19:50:08Z"
     },
     {
       "gameId": "coppa-italia-2026-12-01-inter-genoa-mvd7sa",
@@ -731,12 +881,27 @@
       "outcome": "under",
       "line": 1.5,
       "book": "betfair",
-      "decimal": 5,
+      "decimal": 5.5,
       "openingDecimal": 5.5,
-      "deltaPct": -9.09,
-      "movement": "shortening",
-      "movementSignal": "STEAM",
-      "capturedAtUtc": "2026-11-26T20:05:08Z"
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-27T19:50:08Z"
+    },
+    {
+      "gameId": "coppa-italia-2026-12-01-inter-genoa-mvd7sa",
+      "homeName": "Inter",
+      "awayName": "Genoa",
+      "market": "over_under_15",
+      "outcome": "under",
+      "line": 1.5,
+      "book": "betvictor",
+      "decimal": 4.25,
+      "openingDecimal": 4.25,
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-27T19:50:08Z"
     },
     {
       "gameId": "coppa-italia-2026-12-01-inter-genoa-mvd7sa",
@@ -751,7 +916,7 @@
       "deltaPct": -6.63,
       "movement": "shortening",
       "movementSignal": "STEAM",
-      "capturedAtUtc": "2026-11-26T20:05:08Z"
+      "capturedAtUtc": "2026-11-27T19:50:08Z"
     },
     {
       "gameId": "coppa-italia-2026-12-01-inter-genoa-mvd7sa",
@@ -761,12 +926,12 @@
       "outcome": "over",
       "line": 2.5,
       "book": "pinnacle",
-      "decimal": 1.54,
+      "decimal": 1.55,
       "openingDecimal": 1.6,
-      "deltaPct": -3.75,
+      "deltaPct": -3.13,
       "movement": "shortening",
       "movementSignal": "SHORTENING",
-      "capturedAtUtc": "2026-11-26T20:05:08Z"
+      "capturedAtUtc": "2026-11-27T19:50:08Z"
     },
     {
       "gameId": "coppa-italia-2026-12-01-inter-genoa-mvd7sa",
@@ -781,7 +946,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-26T20:05:08Z"
+      "capturedAtUtc": "2026-11-27T19:50:08Z"
     },
     {
       "gameId": "coppa-italia-2026-12-01-inter-genoa-mvd7sa",
@@ -791,12 +956,27 @@
       "outcome": "over",
       "line": 2.5,
       "book": "betfair",
-      "decimal": 1.57,
+      "decimal": 1.5,
       "openingDecimal": 1.57,
+      "deltaPct": -4.46,
+      "movement": "shortening",
+      "movementSignal": "SHORTENING",
+      "capturedAtUtc": "2026-11-27T19:50:08Z"
+    },
+    {
+      "gameId": "coppa-italia-2026-12-01-inter-genoa-mvd7sa",
+      "homeName": "Inter",
+      "awayName": "Genoa",
+      "market": "over_under_25",
+      "outcome": "over",
+      "line": 2.5,
+      "book": "betvictor",
+      "decimal": 1.51,
+      "openingDecimal": 1.51,
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-26T20:05:08Z"
+      "capturedAtUtc": "2026-11-27T19:50:08Z"
     },
     {
       "gameId": "coppa-italia-2026-12-01-inter-genoa-mvd7sa",
@@ -811,7 +991,7 @@
       "deltaPct": 0.83,
       "movement": "drifting",
       "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-26T20:05:08Z"
+      "capturedAtUtc": "2026-11-27T19:50:08Z"
     },
     {
       "gameId": "coppa-italia-2026-12-01-inter-genoa-mvd7sa",
@@ -826,7 +1006,7 @@
       "deltaPct": 5.33,
       "movement": "drifting",
       "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-26T20:05:08Z"
+      "capturedAtUtc": "2026-11-27T19:50:08Z"
     },
     {
       "gameId": "coppa-italia-2026-12-01-inter-genoa-mvd7sa",
@@ -841,7 +1021,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-26T20:05:08Z"
+      "capturedAtUtc": "2026-11-27T19:50:08Z"
     },
     {
       "gameId": "coppa-italia-2026-12-01-inter-genoa-mvd7sa",
@@ -851,12 +1031,27 @@
       "outcome": "under",
       "line": 2.5,
       "book": "betfair",
-      "decimal": 2.38,
+      "decimal": 2.55,
       "openingDecimal": 2.25,
-      "deltaPct": 5.78,
+      "deltaPct": 13.33,
       "movement": "drifting",
       "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-26T20:05:08Z"
+      "capturedAtUtc": "2026-11-27T19:50:08Z"
+    },
+    {
+      "gameId": "coppa-italia-2026-12-01-inter-genoa-mvd7sa",
+      "homeName": "Inter",
+      "awayName": "Genoa",
+      "market": "over_under_25",
+      "outcome": "under",
+      "line": 2.5,
+      "book": "betvictor",
+      "decimal": 2.33,
+      "openingDecimal": 2.33,
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-27T19:50:08Z"
     },
     {
       "gameId": "coppa-italia-2026-12-01-inter-genoa-mvd7sa",
@@ -866,12 +1061,12 @@
       "outcome": "over",
       "line": 3.5,
       "book": "1xbet",
-      "decimal": 2.46,
+      "decimal": 2.45,
       "openingDecimal": 2.49,
-      "deltaPct": -1.2,
+      "deltaPct": -1.61,
       "movement": "shortening",
       "movementSignal": "SHORTENING",
-      "capturedAtUtc": "2026-11-26T20:05:08Z"
+      "capturedAtUtc": "2026-11-27T19:50:08Z"
     },
     {
       "gameId": "coppa-italia-2026-12-01-inter-genoa-mvd7sa",
@@ -886,7 +1081,7 @@
       "deltaPct": -5.14,
       "movement": "shortening",
       "movementSignal": "SHORTENING",
-      "capturedAtUtc": "2026-11-26T20:05:08Z"
+      "capturedAtUtc": "2026-11-27T19:50:08Z"
     },
     {
       "gameId": "coppa-italia-2026-12-01-inter-genoa-mvd7sa",
@@ -896,12 +1091,27 @@
       "outcome": "over",
       "line": 3.5,
       "book": "betfair",
-      "decimal": 2.45,
+      "decimal": 2.38,
       "openingDecimal": 2.38,
-      "deltaPct": 2.94,
-      "movement": "drifting",
-      "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-26T20:05:08Z"
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-27T19:50:08Z"
+    },
+    {
+      "gameId": "coppa-italia-2026-12-01-inter-genoa-mvd7sa",
+      "homeName": "Inter",
+      "awayName": "Genoa",
+      "market": "over_under_35",
+      "outcome": "over",
+      "line": 3.5,
+      "book": "betvictor",
+      "decimal": 2.23,
+      "openingDecimal": 2.23,
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-27T19:50:08Z"
     },
     {
       "gameId": "coppa-italia-2026-12-01-inter-genoa-mvd7sa",
@@ -911,12 +1121,12 @@
       "outcome": "under",
       "line": 3.5,
       "book": "1xbet",
-      "decimal": 1.64,
+      "decimal": 1.65,
       "openingDecimal": 1.54,
-      "deltaPct": 6.49,
+      "deltaPct": 7.14,
       "movement": "drifting",
       "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-26T20:05:08Z"
+      "capturedAtUtc": "2026-11-27T19:50:08Z"
     },
     {
       "gameId": "coppa-italia-2026-12-01-inter-genoa-mvd7sa",
@@ -931,7 +1141,7 @@
       "deltaPct": 3.85,
       "movement": "drifting",
       "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-26T20:05:08Z"
+      "capturedAtUtc": "2026-11-27T19:50:08Z"
     },
     {
       "gameId": "coppa-italia-2026-12-01-inter-genoa-mvd7sa",
@@ -941,12 +1151,27 @@
       "outcome": "under",
       "line": 3.5,
       "book": "betfair",
-      "decimal": 1.53,
+      "decimal": 1.57,
       "openingDecimal": 1.57,
-      "deltaPct": -2.55,
-      "movement": "shortening",
-      "movementSignal": "SHORTENING",
-      "capturedAtUtc": "2026-11-26T20:05:08Z"
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-27T19:50:08Z"
+    },
+    {
+      "gameId": "coppa-italia-2026-12-01-inter-genoa-mvd7sa",
+      "homeName": "Inter",
+      "awayName": "Genoa",
+      "market": "over_under_35",
+      "outcome": "under",
+      "line": 3.5,
+      "book": "betvictor",
+      "decimal": 1.56,
+      "openingDecimal": 1.56,
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-27T19:50:08Z"
     },
     {
       "gameId": "coppa-italia-2026-12-01-inter-genoa-mvd7sa",
@@ -961,7 +1186,7 @@
       "deltaPct": -2.63,
       "movement": "shortening",
       "movementSignal": "SHORTENING",
-      "capturedAtUtc": "2026-11-26T20:05:08Z"
+      "capturedAtUtc": "2026-11-27T19:50:08Z"
     },
     {
       "gameId": "coppa-italia-2026-12-01-inter-genoa-mvd7sa",
@@ -971,12 +1196,12 @@
       "outcome": "yes",
       "line": null,
       "book": "william-hill",
-      "decimal": 1.8,
+      "decimal": 1.91,
       "openingDecimal": 1.8,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-26T20:05:08Z"
+      "deltaPct": 6.11,
+      "movement": "drifting",
+      "movementSignal": "DRIFTING",
+      "capturedAtUtc": "2026-11-27T19:50:08Z"
     },
     {
       "gameId": "coppa-italia-2026-12-01-inter-genoa-mvd7sa",
@@ -986,12 +1211,12 @@
       "outcome": "yes",
       "line": null,
       "book": "bet365",
-      "decimal": 1.8,
+      "decimal": 1.9,
       "openingDecimal": 1.95,
-      "deltaPct": -7.69,
+      "deltaPct": -2.56,
       "movement": "shortening",
-      "movementSignal": "STEAM",
-      "capturedAtUtc": "2026-11-26T20:05:08Z"
+      "movementSignal": "SHORTENING",
+      "capturedAtUtc": "2026-11-27T19:50:08Z"
     },
     {
       "gameId": "coppa-italia-2026-12-01-inter-genoa-mvd7sa",
@@ -1001,12 +1226,27 @@
       "outcome": "yes",
       "line": null,
       "book": "betfair",
-      "decimal": 1.87,
+      "decimal": 1.91,
       "openingDecimal": 1.95,
-      "deltaPct": -4.1,
+      "deltaPct": -2.05,
       "movement": "shortening",
       "movementSignal": "SHORTENING",
-      "capturedAtUtc": "2026-11-26T20:05:08Z"
+      "capturedAtUtc": "2026-11-27T19:50:08Z"
+    },
+    {
+      "gameId": "coppa-italia-2026-12-01-inter-genoa-mvd7sa",
+      "homeName": "Inter",
+      "awayName": "Genoa",
+      "market": "btts",
+      "outcome": "yes",
+      "line": null,
+      "book": "betvictor",
+      "decimal": 1.85,
+      "openingDecimal": 1.85,
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-27T19:50:08Z"
     },
     {
       "gameId": "coppa-italia-2026-12-01-inter-genoa-mvd7sa",
@@ -1021,7 +1261,7 @@
       "deltaPct": 2.75,
       "movement": "drifting",
       "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-26T20:05:08Z"
+      "capturedAtUtc": "2026-11-27T19:50:08Z"
     },
     {
       "gameId": "coppa-italia-2026-12-01-inter-genoa-mvd7sa",
@@ -1031,12 +1271,12 @@
       "outcome": "no",
       "line": null,
       "book": "william-hill",
-      "decimal": 1.95,
+      "decimal": 1.91,
       "openingDecimal": 1.95,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-26T20:05:08Z"
+      "deltaPct": -2.05,
+      "movement": "shortening",
+      "movementSignal": "SHORTENING",
+      "capturedAtUtc": "2026-11-27T19:50:08Z"
     },
     {
       "gameId": "coppa-italia-2026-12-01-inter-genoa-mvd7sa",
@@ -1046,12 +1286,12 @@
       "outcome": "no",
       "line": null,
       "book": "bet365",
-      "decimal": 1.95,
+      "decimal": 1.9,
       "openingDecimal": 1.8,
-      "deltaPct": 8.33,
+      "deltaPct": 5.56,
       "movement": "drifting",
       "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-26T20:05:08Z"
+      "capturedAtUtc": "2026-11-27T19:50:08Z"
     },
     {
       "gameId": "coppa-italia-2026-12-01-inter-genoa-mvd7sa",
@@ -1061,12 +1301,27 @@
       "outcome": "no",
       "line": null,
       "book": "betfair",
-      "decimal": 1.87,
+      "decimal": 1.83,
       "openingDecimal": 1.8,
-      "deltaPct": 3.89,
+      "deltaPct": 1.67,
       "movement": "drifting",
       "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-26T20:05:08Z"
+      "capturedAtUtc": "2026-11-27T19:50:08Z"
+    },
+    {
+      "gameId": "coppa-italia-2026-12-01-inter-genoa-mvd7sa",
+      "homeName": "Inter",
+      "awayName": "Genoa",
+      "market": "btts",
+      "outcome": "no",
+      "line": null,
+      "book": "betvictor",
+      "decimal": 1.83,
+      "openingDecimal": 1.83,
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-27T19:50:08Z"
     },
     {
       "gameId": "coppa-italia-2026-12-01-inter-genoa-mvd7sa",
@@ -1081,7 +1336,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-26T20:05:08Z"
+      "capturedAtUtc": "2026-11-27T19:50:08Z"
     },
     {
       "gameId": "coppa-italia-2026-12-01-inter-genoa-mvd7sa",
@@ -1096,7 +1351,7 @@
       "deltaPct": 30.77,
       "movement": "drifting",
       "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-26T20:05:08Z"
+      "capturedAtUtc": "2026-11-27T19:50:08Z"
     },
     {
       "gameId": "coppa-italia-2026-12-01-inter-genoa-mvd7sa",
@@ -1106,12 +1361,12 @@
       "outcome": "over",
       "line": 7.5,
       "book": "1xbet",
-      "decimal": 1.23,
+      "decimal": 1.22,
       "openingDecimal": 1.32,
-      "deltaPct": -6.82,
+      "deltaPct": -7.58,
       "movement": "shortening",
       "movementSignal": "STEAM",
-      "capturedAtUtc": "2026-11-26T20:05:08Z"
+      "capturedAtUtc": "2026-11-27T19:50:08Z"
     },
     {
       "gameId": "coppa-italia-2026-12-01-inter-genoa-mvd7sa",
@@ -1126,7 +1381,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-26T20:05:08Z"
+      "capturedAtUtc": "2026-11-27T19:50:08Z"
     },
     {
       "gameId": "coppa-italia-2026-12-01-inter-genoa-mvd7sa",
@@ -1136,12 +1391,12 @@
       "outcome": "under",
       "line": 7.5,
       "book": "1xbet",
-      "decimal": 3.07,
+      "decimal": 3.2,
       "openingDecimal": 2.85,
-      "deltaPct": 7.72,
+      "deltaPct": 12.28,
       "movement": "drifting",
       "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-26T20:05:08Z"
+      "capturedAtUtc": "2026-11-27T19:50:08Z"
     },
     {
       "gameId": "coppa-italia-2026-12-01-inter-genoa-mvd7sa",
@@ -1156,7 +1411,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-26T20:05:08Z"
+      "capturedAtUtc": "2026-11-27T19:50:08Z"
     },
     {
       "gameId": "coppa-italia-2026-12-01-inter-genoa-mvd7sa",
@@ -1166,12 +1421,12 @@
       "outcome": "over",
       "line": 8.5,
       "book": "1xbet",
-      "decimal": 1.45,
+      "decimal": 1.42,
       "openingDecimal": 1.58,
-      "deltaPct": -8.23,
+      "deltaPct": -10.13,
       "movement": "shortening",
       "movementSignal": "STEAM",
-      "capturedAtUtc": "2026-11-26T20:05:08Z"
+      "capturedAtUtc": "2026-11-27T19:50:08Z"
     },
     {
       "gameId": "coppa-italia-2026-12-01-inter-genoa-mvd7sa",
@@ -1186,7 +1441,7 @@
       "deltaPct": 2.74,
       "movement": "drifting",
       "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-26T20:05:08Z"
+      "capturedAtUtc": "2026-11-27T19:50:08Z"
     },
     {
       "gameId": "coppa-italia-2026-12-01-inter-genoa-mvd7sa",
@@ -1201,7 +1456,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-26T20:05:08Z"
+      "capturedAtUtc": "2026-11-27T19:50:08Z"
     },
     {
       "gameId": "coppa-italia-2026-12-01-inter-genoa-mvd7sa",
@@ -1211,12 +1466,12 @@
       "outcome": "under",
       "line": 8.5,
       "book": "1xbet",
-      "decimal": 2.36,
+      "decimal": 2.45,
       "openingDecimal": 2.17,
-      "deltaPct": 8.76,
+      "deltaPct": 12.9,
       "movement": "drifting",
       "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-26T20:05:08Z"
+      "capturedAtUtc": "2026-11-27T19:50:08Z"
     },
     {
       "gameId": "coppa-italia-2026-12-01-inter-genoa-mvd7sa",
@@ -1231,7 +1486,7 @@
       "deltaPct": -3.8,
       "movement": "shortening",
       "movementSignal": "SHORTENING",
-      "capturedAtUtc": "2026-11-26T20:05:08Z"
+      "capturedAtUtc": "2026-11-27T19:50:08Z"
     },
     {
       "gameId": "coppa-italia-2026-12-01-inter-genoa-mvd7sa",
@@ -1246,7 +1501,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-26T20:05:08Z"
+      "capturedAtUtc": "2026-11-27T19:50:08Z"
     },
     {
       "gameId": "coppa-italia-2026-12-01-inter-genoa-mvd7sa",
@@ -1256,12 +1511,12 @@
       "outcome": "over",
       "line": 9.5,
       "book": "1xbet",
-      "decimal": 1.81,
+      "decimal": 1.76,
       "openingDecimal": 1.97,
-      "deltaPct": -8.12,
+      "deltaPct": -10.66,
       "movement": "shortening",
       "movementSignal": "STEAM",
-      "capturedAtUtc": "2026-11-26T20:05:08Z"
+      "capturedAtUtc": "2026-11-27T19:50:08Z"
     },
     {
       "gameId": "coppa-italia-2026-12-01-inter-genoa-mvd7sa",
@@ -1276,7 +1531,7 @@
       "deltaPct": 3.87,
       "movement": "drifting",
       "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-26T20:05:08Z"
+      "capturedAtUtc": "2026-11-27T19:50:08Z"
     },
     {
       "gameId": "coppa-italia-2026-12-01-inter-genoa-mvd7sa",
@@ -1291,7 +1546,7 @@
       "deltaPct": -2.5,
       "movement": "shortening",
       "movementSignal": "SHORTENING",
-      "capturedAtUtc": "2026-11-26T20:05:08Z"
+      "capturedAtUtc": "2026-11-27T19:50:08Z"
     },
     {
       "gameId": "coppa-italia-2026-12-01-inter-genoa-mvd7sa",
@@ -1301,12 +1556,12 @@
       "outcome": "under",
       "line": 9.5,
       "book": "1xbet",
-      "decimal": 1.89,
+      "decimal": 1.96,
       "openingDecimal": 1.71,
-      "deltaPct": 10.53,
+      "deltaPct": 14.62,
       "movement": "drifting",
       "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-26T20:05:08Z"
+      "capturedAtUtc": "2026-11-27T19:50:08Z"
     },
     {
       "gameId": "coppa-italia-2026-12-01-inter-genoa-mvd7sa",
@@ -1321,7 +1576,7 @@
       "deltaPct": -3.47,
       "movement": "shortening",
       "movementSignal": "SHORTENING",
-      "capturedAtUtc": "2026-11-26T20:05:08Z"
+      "capturedAtUtc": "2026-11-27T19:50:08Z"
     },
     {
       "gameId": "coppa-italia-2026-12-01-inter-genoa-mvd7sa",
@@ -1336,7 +1591,7 @@
       "deltaPct": 1.16,
       "movement": "drifting",
       "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-26T20:05:08Z"
+      "capturedAtUtc": "2026-11-27T19:50:08Z"
     },
     {
       "gameId": "coppa-italia-2026-12-01-inter-genoa-mvd7sa",
@@ -1346,12 +1601,12 @@
       "outcome": "over",
       "line": 10.5,
       "book": "1xbet",
-      "decimal": 2.22,
+      "decimal": 2.19,
       "openingDecimal": 2.48,
-      "deltaPct": -10.48,
+      "deltaPct": -11.69,
       "movement": "shortening",
       "movementSignal": "STEAM",
-      "capturedAtUtc": "2026-11-26T20:05:08Z"
+      "capturedAtUtc": "2026-11-27T19:50:08Z"
     },
     {
       "gameId": "coppa-italia-2026-12-01-inter-genoa-mvd7sa",
@@ -1366,7 +1621,7 @@
       "deltaPct": 3.07,
       "movement": "drifting",
       "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-26T20:05:08Z"
+      "capturedAtUtc": "2026-11-27T19:50:08Z"
     },
     {
       "gameId": "coppa-italia-2026-12-01-inter-genoa-mvd7sa",
@@ -1381,7 +1636,7 @@
       "deltaPct": -7.27,
       "movement": "shortening",
       "movementSignal": "SHORTENING",
-      "capturedAtUtc": "2026-11-26T20:05:08Z"
+      "capturedAtUtc": "2026-11-27T19:50:08Z"
     },
     {
       "gameId": "coppa-italia-2026-12-01-inter-genoa-mvd7sa",
@@ -1391,12 +1646,12 @@
       "outcome": "under",
       "line": 10.5,
       "book": "1xbet",
-      "decimal": 1.51,
+      "decimal": 1.57,
       "openingDecimal": 1.41,
-      "deltaPct": 7.09,
+      "deltaPct": 11.35,
       "movement": "drifting",
       "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-26T20:05:08Z"
+      "capturedAtUtc": "2026-11-27T19:50:08Z"
     },
     {
       "gameId": "coppa-italia-2026-12-01-inter-genoa-mvd7sa",
@@ -1411,7 +1666,7 @@
       "deltaPct": -1.88,
       "movement": "shortening",
       "movementSignal": "SHORTENING",
-      "capturedAtUtc": "2026-11-26T20:05:08Z"
+      "capturedAtUtc": "2026-11-27T19:50:08Z"
     },
     {
       "gameId": "coppa-italia-2026-12-01-inter-genoa-mvd7sa",
@@ -1426,7 +1681,7 @@
       "deltaPct": 3.57,
       "movement": "drifting",
       "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-26T20:05:08Z"
+      "capturedAtUtc": "2026-11-27T19:50:08Z"
     },
     {
       "gameId": "coppa-italia-2026-12-01-inter-genoa-mvd7sa",
@@ -1436,12 +1691,12 @@
       "outcome": "over",
       "line": 11.5,
       "book": "1xbet",
-      "decimal": 2.9,
+      "decimal": 2.77,
       "openingDecimal": 3.12,
-      "deltaPct": -7.05,
+      "deltaPct": -11.22,
       "movement": "shortening",
-      "movementSignal": "SHORTENING",
-      "capturedAtUtc": "2026-11-26T20:05:08Z"
+      "movementSignal": "STEAM",
+      "capturedAtUtc": "2026-11-27T19:50:08Z"
     },
     {
       "gameId": "coppa-italia-2026-12-01-inter-genoa-mvd7sa",
@@ -1456,7 +1711,7 @@
       "deltaPct": -13.16,
       "movement": "shortening",
       "movementSignal": "STEAM",
-      "capturedAtUtc": "2026-11-26T20:05:08Z"
+      "capturedAtUtc": "2026-11-27T19:50:08Z"
     },
     {
       "gameId": "coppa-italia-2026-12-01-inter-genoa-mvd7sa",
@@ -1466,12 +1721,12 @@
       "outcome": "under",
       "line": 11.5,
       "book": "1xbet",
-      "decimal": 1.31,
+      "decimal": 1.33,
       "openingDecimal": 1.22,
-      "deltaPct": 7.38,
+      "deltaPct": 9.02,
       "movement": "drifting",
       "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-26T20:05:08Z"
+      "capturedAtUtc": "2026-11-27T19:50:08Z"
     },
     {
       "gameId": "coppa-italia-2026-12-01-inter-genoa-mvd7sa",
@@ -1486,7 +1741,7 @@
       "deltaPct": 5.74,
       "movement": "drifting",
       "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-26T20:05:08Z"
+      "capturedAtUtc": "2026-11-27T19:50:08Z"
     }
   ]
 }

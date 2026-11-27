@@ -5,7 +5,7 @@
   "season": "ligue-1-2026-27",
   "seasonLabel": "2026/27",
   "periodLabel": "Jornada 12",
-  "updatedAt": "2026-11-27T14:08:37.870Z",
+  "updatedAt": "2026-11-27T19:55:57.623Z",
   "source": "openfootball+football-data",
   "provenance": "derived",
   "isDemo": false,
@@ -257,7 +257,7 @@
       "result": {
         "home": 3,
         "away": 1,
-        "observedAt": "2026-11-27T14:08:41.765Z",
+        "observedAt": "2026-11-27T19:56:01.553Z",
         "source": "football-data"
       }
     },
@@ -290,7 +290,7 @@
       "result": {
         "home": 2,
         "away": 3,
-        "observedAt": "2026-11-27T14:08:41.765Z",
+        "observedAt": "2026-11-27T19:56:01.553Z",
         "source": "football-data"
       }
     },
@@ -323,7 +323,7 @@
       "result": {
         "home": 1,
         "away": 1,
-        "observedAt": "2026-11-27T14:08:41.765Z",
+        "observedAt": "2026-11-27T19:56:01.553Z",
         "source": "football-data"
       }
     },
@@ -356,7 +356,7 @@
       "result": {
         "home": 1,
         "away": 1,
-        "observedAt": "2026-11-27T14:08:41.765Z",
+        "observedAt": "2026-11-27T19:56:01.553Z",
         "source": "football-data"
       }
     },
@@ -389,7 +389,7 @@
       "result": {
         "home": 0,
         "away": 1,
-        "observedAt": "2026-11-27T14:08:41.765Z",
+        "observedAt": "2026-11-27T19:56:01.553Z",
         "source": "football-data"
       }
     },
@@ -422,7 +422,7 @@
       "result": {
         "home": 0,
         "away": 1,
-        "observedAt": "2026-11-27T14:08:41.765Z",
+        "observedAt": "2026-11-27T19:56:01.553Z",
         "source": "football-data"
       }
     },
@@ -455,7 +455,7 @@
       "result": {
         "home": 4,
         "away": 0,
-        "observedAt": "2026-11-27T14:08:41.765Z",
+        "observedAt": "2026-11-27T19:56:01.553Z",
         "source": "football-data"
       }
     },
@@ -488,7 +488,7 @@
       "result": {
         "home": 1,
         "away": 1,
-        "observedAt": "2026-11-27T14:08:41.765Z",
+        "observedAt": "2026-11-27T19:56:01.553Z",
         "source": "football-data"
       }
     },
@@ -521,7 +521,7 @@
       "result": {
         "home": 2,
         "away": 3,
-        "observedAt": "2026-11-27T14:08:41.765Z",
+        "observedAt": "2026-11-27T19:56:01.553Z",
         "source": "football-data"
       }
     },
@@ -532,7 +532,7 @@
       "week": 12,
       "round": "Jornada 12",
       "startTime": "2026-11-27T19:45:00Z",
-      "status": "scheduled",
+      "status": "in_progress",
       "home": {
         "id": "ligue-1.stade-brestois",
         "league": "ligue-1",
@@ -1475,10 +1475,10 @@
         "referee": "Jeremie Pignard",
         "refereeStats": {
           "country": "France",
-          "matches": 56,
-          "avgYellow": 4.16,
-          "avgRed": 0.29,
-          "avgFouls": 22.5,
+          "matches": 57,
+          "avgYellow": 4.23,
+          "avgRed": 0.28,
+          "avgFouls": 22.6,
           "avgGoals": 2.93
         }
       }
@@ -5947,11 +5947,11 @@
         "referee": "Aurelien Petit",
         "refereeStats": {
           "country": "France",
-          "matches": 44,
-          "avgYellow": 3.82,
-          "avgRed": 0.25,
+          "matches": 45,
+          "avgYellow": 3.78,
+          "avgRed": 0.27,
           "avgFouls": 27.3,
-          "avgGoals": 2.41
+          "avgGoals": 2.38
         }
       }
     },
@@ -9608,11 +9608,11 @@
         "referee": "Mathieu Vernice",
         "refereeStats": {
           "country": "France",
-          "matches": 45,
-          "avgYellow": 4.71,
+          "matches": 46,
+          "avgYellow": 4.72,
           "avgRed": 0.22,
           "avgFouls": 27.3,
-          "avgGoals": 2.49
+          "avgGoals": 2.48
         }
       }
     },
@@ -10361,11 +10361,11 @@
         "referee": "Aurelien Petit",
         "refereeStats": {
           "country": "France",
-          "matches": 44,
-          "avgYellow": 3.82,
-          "avgRed": 0.25,
+          "matches": 45,
+          "avgYellow": 3.78,
+          "avgRed": 0.27,
           "avgFouls": 27.3,
-          "avgGoals": 2.41
+          "avgGoals": 2.38
         }
       }
     },
@@ -13373,11 +13373,11 @@
         "referee": "Guillaume Paradis",
         "refereeStats": {
           "country": "France",
-          "matches": 43,
-          "avgYellow": 4.12,
-          "avgRed": 0.26,
+          "matches": 44,
+          "avgYellow": 4.09,
+          "avgRed": 0.25,
           "avgFouls": 25.9,
-          "avgGoals": 2.58
+          "avgGoals": 2.57
         }
       }
     },

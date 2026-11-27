@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "league": "laliga",
   "season": "laliga-2026-27",
-  "updatedAt": "2026-11-26T20:07:51.050Z",
+  "updatedAt": "2026-11-27T19:55:57.623Z",
   "matches": [
     {
       "id": "la-liga:2026-27:alaves:getafe",
@@ -115,10 +115,10 @@
       "neutralSite": false
     },
     {
-      "id": "laliga-espn-401882915",
+      "id": "la-liga:2026-27:atletico-madrid:villarreal",
       "date": "2026-08-23",
-      "startTime": "2026-08-23T15:00Z",
-      "round": null,
+      "startTime": "2026-08-23T12:00:00Z",
+      "round": "Jornada 2",
       "homeTeam": "laliga.atletico-madrid",
       "awayTeam": "laliga.villarreal",
       "homeScore": 2,
@@ -126,25 +126,25 @@
       "neutralSite": false
     },
     {
-      "id": "laliga-espn-401882911",
+      "id": "la-liga:2026-27:elche:barcelona",
       "date": "2026-08-23",
-      "startTime": "2026-08-23T17:30Z",
-      "round": null,
-      "homeTeam": "laliga.getafe",
-      "awayTeam": "laliga.racing-santander",
-      "homeScore": 1,
-      "awayScore": 0,
-      "neutralSite": false
-    },
-    {
-      "id": "laliga-espn-401882913",
-      "date": "2026-08-23",
-      "startTime": "2026-08-23T19:30Z",
-      "round": null,
+      "startTime": "2026-08-23T12:00:00Z",
+      "round": "Jornada 2",
       "homeTeam": "laliga.elche",
       "awayTeam": "laliga.barcelona",
       "homeScore": 0,
       "awayScore": 5,
+      "neutralSite": false
+    },
+    {
+      "id": "la-liga:2026-27:getafe:real-racing-santander",
+      "date": "2026-08-23",
+      "startTime": "2026-08-23T12:00:00Z",
+      "round": "Jornada 2",
+      "homeTeam": "laliga.getafe",
+      "awayTeam": "laliga.racing-santander",
+      "homeScore": 1,
+      "awayScore": 0,
       "neutralSite": false
     },
     {

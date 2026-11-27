@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "league": "bundesliga-2",
   "season": "2026/27",
-  "updatedAt": "2026-11-26T20:00:11.075Z",
+  "updatedAt": "2026-11-27T19:49:57.890Z",
   "matches": [
     {
       "id": "bundesliga-2-2026-08-07-bochum-hertha-bsc-1qv1vj",
@@ -1190,6 +1190,28 @@
       "awayTeam": "bundesliga-2.sg-dynamo-dresden",
       "homeScore": 2,
       "awayScore": 2,
+      "neutralSite": false
+    },
+    {
+      "id": "bundesliga-2-2026-11-27-bochum-darmstadt-npg89n",
+      "date": "2026-11-27",
+      "startTime": "2026-11-27T17:30:00.000Z",
+      "round": "Regular season · Matchday 13",
+      "homeTeam": "bundesliga-2.bochum",
+      "awayTeam": "bundesliga-2.darmstadt",
+      "homeScore": 2,
+      "awayScore": 0,
+      "neutralSite": false
+    },
+    {
+      "id": "bundesliga-2-2026-11-27-heidenheim-nurnberg-bvlsli",
+      "date": "2026-11-27",
+      "startTime": "2026-11-27T17:30:00.000Z",
+      "round": "Regular season · Matchday 13",
+      "homeTeam": "bundesliga-2.heidenheim",
+      "awayTeam": "bundesliga-2.nurnberg",
+      "homeScore": 3,
+      "awayScore": 1,
       "neutralSite": false
     }
   ]

@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "league": "copa-del-rey",
-  "observedAt": "2026-11-26T20:00:11.075Z",
+  "observedAt": "2026-11-27T19:49:57.890Z",
   "source": "pitchlab-availability",
   "coverageStatus": "ok",
   "entries": [
@@ -12,7 +12,16 @@
       "status": "Baja",
       "detail": "Calf Injury",
       "injuryType": "Calf Injury",
-      "reportedAt": "2026-11-26T20:00:11.075Z"
+      "reportedAt": "2026-11-27T19:49:57.890Z"
+    },
+    {
+      "teamId": "copa-del-rey.deportivo-alaves",
+      "player": "Carlos Benavídez",
+      "position": "Defensa",
+      "status": "Baja",
+      "detail": "Muscle Injury",
+      "injuryType": "Muscle Injury",
+      "reportedAt": "2026-11-27T19:49:57.890Z"
     },
     {
       "teamId": "copa-del-rey.deportivo-alaves",
@@ -21,7 +30,7 @@
       "status": "Baja",
       "detail": "Cruciate Ligament Injury",
       "injuryType": "Cruciate Ligament Injury",
-      "reportedAt": "2026-11-26T20:00:11.075Z"
+      "reportedAt": "2026-11-27T19:49:57.890Z"
     },
     {
       "teamId": "copa-del-rey.deportivo-alaves",
@@ -30,7 +39,7 @@
       "status": "Baja",
       "detail": "Hamstring Injury",
       "injuryType": "Hamstring Injury",
-      "reportedAt": "2026-11-26T20:00:11.075Z"
+      "reportedAt": "2026-11-27T19:49:57.890Z"
     },
     {
       "teamId": "copa-del-rey.deportivo-alaves",
@@ -39,7 +48,7 @@
       "status": "Baja",
       "detail": "Cruciate Ligament Injury",
       "injuryType": "Cruciate Ligament Injury",
-      "reportedAt": "2026-11-26T20:00:11.075Z"
+      "reportedAt": "2026-11-27T19:49:57.890Z"
     }
   ]
 }

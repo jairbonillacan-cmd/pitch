@@ -1,55 +1,10 @@
 {
   "schemaVersion": 1,
   "league": "bundesliga-2",
-  "observedAt": "2026-11-26T20:00:11.075Z",
+  "observedAt": "2026-11-27T19:49:57.890Z",
   "source": "pitchlab-availability",
   "coverageStatus": "ok",
   "entries": [
-    {
-      "teamId": "bundesliga-2.kaiserslautern",
-      "player": "Enis Kamga",
-      "position": "Portero",
-      "status": "Baja",
-      "detail": "Eye Injury",
-      "injuryType": "Eye Injury",
-      "reportedAt": "2026-11-26T20:00:11.075Z"
-    },
-    {
-      "teamId": "bundesliga-2.kaiserslautern",
-      "player": "Leon Robinson",
-      "position": "Mediocampista",
-      "status": "Baja",
-      "detail": "Foot Injury",
-      "injuryType": "Foot Injury",
-      "reportedAt": "2026-11-26T20:00:11.075Z"
-    },
-    {
-      "teamId": "bundesliga-2.kaiserslautern",
-      "player": "Marlon Ritter",
-      "position": "Delantero",
-      "status": "Baja",
-      "detail": "Illness",
-      "injuryType": "Illness",
-      "reportedAt": "2026-11-26T20:00:11.075Z"
-    },
-    {
-      "teamId": "bundesliga-2.arminia-bielefeld",
-      "player": "David Min",
-      "position": "Delantero",
-      "status": "Baja",
-      "detail": "Thigh Injury",
-      "injuryType": "Thigh Injury",
-      "reportedAt": "2026-11-26T20:00:11.075Z"
-    },
-    {
-      "teamId": "bundesliga-2.arminia-bielefeld",
-      "player": "Joel Felix",
-      "position": "Defensa",
-      "status": "Baja",
-      "detail": "Unknown",
-      "injuryType": "Unknown",
-      "reportedAt": "2026-11-26T20:00:11.075Z"
-    },
     {
       "teamId": "bundesliga-2.nurnberg",
       "player": "Finn Ole Becker",
@@ -57,7 +12,7 @@
       "status": "Baja",
       "detail": "Unknown",
       "injuryType": "Unknown",
-      "reportedAt": "2026-11-26T20:00:11.075Z"
+      "reportedAt": "2026-11-27T19:49:57.890Z"
     },
     {
       "teamId": "bundesliga-2.nurnberg",
@@ -66,7 +21,7 @@
       "status": "Baja",
       "detail": "Unknown",
       "injuryType": "Unknown",
-      "reportedAt": "2026-11-26T20:00:11.075Z"
+      "reportedAt": "2026-11-27T19:49:57.890Z"
     },
     {
       "teamId": "bundesliga-2.nurnberg",
@@ -75,7 +30,7 @@
       "status": "Baja",
       "detail": "Dislocated Shoulder",
       "injuryType": "Dislocated Shoulder",
-      "reportedAt": "2026-11-26T20:00:11.075Z"
+      "reportedAt": "2026-11-27T19:49:57.890Z"
     },
     {
       "teamId": "bundesliga-2.darmstadt",
@@ -84,7 +39,7 @@
       "status": "Baja",
       "detail": "Unknown",
       "injuryType": "Unknown",
-      "reportedAt": "2026-11-26T20:00:11.075Z"
+      "reportedAt": "2026-11-27T19:49:57.890Z"
     },
     {
       "teamId": "bundesliga-2.darmstadt",
@@ -93,7 +48,7 @@
       "status": "Baja",
       "detail": "Cruciate Ligament Injury",
       "injuryType": "Cruciate Ligament Injury",
-      "reportedAt": "2026-11-26T20:00:11.075Z"
+      "reportedAt": "2026-11-27T19:49:57.890Z"
     },
     {
       "teamId": "bundesliga-2.darmstadt",
@@ -102,7 +57,7 @@
       "status": "Baja",
       "detail": "Thigh Injury",
       "injuryType": "Thigh Injury",
-      "reportedAt": "2026-11-26T20:00:11.075Z"
+      "reportedAt": "2026-11-27T19:49:57.890Z"
     },
     {
       "teamId": "bundesliga-2.darmstadt",
@@ -111,7 +66,7 @@
       "status": "Baja",
       "detail": "Unknown",
       "injuryType": "Unknown",
-      "reportedAt": "2026-11-26T20:00:11.075Z"
+      "reportedAt": "2026-11-27T19:49:57.890Z"
     },
     {
       "teamId": "bundesliga-2.darmstadt",
@@ -120,7 +75,7 @@
       "status": "Baja",
       "detail": "Unknown",
       "injuryType": "Unknown",
-      "reportedAt": "2026-11-26T20:00:11.075Z"
+      "reportedAt": "2026-11-27T19:49:57.890Z"
     },
     {
       "teamId": "bundesliga-2.hertha-bsc",
@@ -129,7 +84,61 @@
       "status": "Baja",
       "detail": "yellow_or_red_card_suspension",
       "injuryType": "yellow_or_red_card_suspension",
-      "reportedAt": "2026-11-26T20:00:11.075Z"
+      "reportedAt": "2026-11-27T19:49:57.890Z"
+    },
+    {
+      "teamId": "bundesliga-2.bochum",
+      "player": "Charalampos Drakas",
+      "position": "Delantero",
+      "status": "Baja",
+      "detail": "Unknown",
+      "injuryType": "Unknown",
+      "reportedAt": "2026-11-27T19:49:57.890Z"
+    },
+    {
+      "teamId": "bundesliga-2.bochum",
+      "player": "Philipp Strompf",
+      "position": "Defensa",
+      "status": "Baja",
+      "detail": "Unknown",
+      "injuryType": "Unknown",
+      "reportedAt": "2026-11-27T19:49:57.890Z"
+    },
+    {
+      "teamId": "bundesliga-2.karlsruher",
+      "player": "Lilian Egloff",
+      "position": "Mediocampista",
+      "status": "Duda",
+      "detail": "Calf Injury",
+      "injuryType": "Calf Injury",
+      "reportedAt": "2026-11-27T19:49:57.890Z"
+    },
+    {
+      "teamId": "bundesliga-2.karlsruher",
+      "player": "Louey Ben Farhat",
+      "position": "Delantero",
+      "status": "Duda",
+      "detail": "Back Injury",
+      "injuryType": "Back Injury",
+      "reportedAt": "2026-11-27T19:49:57.890Z"
+    },
+    {
+      "teamId": "bundesliga-2.karlsruher",
+      "player": "Moritz Broschinski",
+      "position": "Delantero",
+      "status": "Baja",
+      "detail": "Ankle Injury",
+      "injuryType": "Ankle Injury",
+      "reportedAt": "2026-11-27T19:49:57.890Z"
+    },
+    {
+      "teamId": "bundesliga-2.magdeburg",
+      "player": "Lubambo Musonda",
+      "position": "Defensa",
+      "status": "Baja",
+      "detail": "Achilles Tendon Injury",
+      "injuryType": "Achilles Tendon Injury",
+      "reportedAt": "2026-11-27T19:49:57.890Z"
     }
   ]
 }

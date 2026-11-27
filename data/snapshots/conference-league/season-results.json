@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "league": "conference-league",
   "season": "2026/27",
-  "updatedAt": "2026-11-26T20:00:11.075Z",
+  "updatedAt": "2026-11-27T19:49:57.890Z",
   "matches": [
     {
       "id": "conference-league-2026-07-07-una-strassen-la-fiorita-vf4j5y",
@@ -3544,6 +3544,94 @@
       "awayTeam": "conference-league.thun",
       "homeScore": 4,
       "awayScore": 0,
+      "neutralSite": false
+    },
+    {
+      "id": "conference-league-2026-11-26-sporting-braga-kuopion-pallos-90dzhk",
+      "date": "2026-11-26",
+      "startTime": "2026-11-26T20:00:00.000Z",
+      "round": "League phase · Matchday 4",
+      "homeTeam": "conference-league.sporting-braga",
+      "awayTeam": "conference-league.kuopion-palloseura",
+      "homeScore": 4,
+      "awayScore": 0,
+      "neutralSite": false
+    },
+    {
+      "id": "conference-league-2026-11-26-freiburg-twente-bjnig4",
+      "date": "2026-11-26",
+      "startTime": "2026-11-26T20:00:00.000Z",
+      "round": "League phase · Matchday 4",
+      "homeTeam": "conference-league.freiburg",
+      "awayTeam": "conference-league.twente",
+      "homeScore": 2,
+      "awayScore": 1,
+      "neutralSite": false
+    },
+    {
+      "id": "conference-league-2026-11-26-kaa-gent-crvena-zvezda-9z6viz",
+      "date": "2026-11-26",
+      "startTime": "2026-11-26T20:00:00.000Z",
+      "round": "League phase · Matchday 4",
+      "homeTeam": "conference-league.kaa-gent",
+      "awayTeam": "conference-league.crvena-zvezda",
+      "homeScore": 1,
+      "awayScore": 1,
+      "neutralSite": false
+    },
+    {
+      "id": "conference-league-2026-11-26-inter-d-escald-k-benhavn-yj5hye",
+      "date": "2026-11-26",
+      "startTime": "2026-11-26T20:00:00.000Z",
+      "round": "League phase · Matchday 4",
+      "homeTeam": "conference-league.inter-d-escaldes",
+      "awayTeam": "conference-league.k-benhavn",
+      "homeScore": 2,
+      "awayScore": 0,
+      "neutralSite": false
+    },
+    {
+      "id": "conference-league-2026-11-26-hnk-hajduk-spl-sint-truidense-jg2ayv",
+      "date": "2026-11-26",
+      "startTime": "2026-11-26T20:00:00.000Z",
+      "round": "League phase · Matchday 4",
+      "homeTeam": "conference-league.hnk-hajduk-split",
+      "awayTeam": "conference-league.sint-truidense-vv",
+      "homeScore": 0,
+      "awayScore": 2,
+      "neutralSite": false
+    },
+    {
+      "id": "conference-league-2026-11-26-borac-banja-lu-atalanta-nimgjy",
+      "date": "2026-11-26",
+      "startTime": "2026-11-26T20:00:00.000Z",
+      "round": "League phase · Matchday 4",
+      "homeTeam": "conference-league.borac-banja-luka",
+      "awayTeam": "conference-league.atalanta",
+      "homeScore": 2,
+      "awayScore": 3,
+      "neutralSite": false
+    },
+    {
+      "id": "conference-league-2026-11-26-nordsj-lland-panathinaikos-1ahvb3",
+      "date": "2026-11-26",
+      "startTime": "2026-11-26T20:00:00.000Z",
+      "round": "League phase · Matchday 4",
+      "homeTeam": "conference-league.nordsj-lland",
+      "awayTeam": "conference-league.panathinaikos",
+      "homeScore": 3,
+      "awayScore": 2,
+      "neutralSite": false
+    },
+    {
+      "id": "conference-league-2026-11-26-cska-sofia-trabzonspor-51g5rp",
+      "date": "2026-11-26",
+      "startTime": "2026-11-26T20:00:00.000Z",
+      "round": "League phase · Matchday 4",
+      "homeTeam": "conference-league.cska-sofia",
+      "awayTeam": "conference-league.trabzonspor",
+      "homeScore": 1,
+      "awayScore": 2,
       "neutralSite": false
     }
   ]

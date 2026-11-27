@@ -1,162 +1,180 @@
 {
   "schemaVersion": 1,
   "league": "conference-league",
-  "observedAt": "2026-11-26T20:00:11.075Z",
+  "observedAt": "2026-11-27T19:49:57.890Z",
   "source": "pitchlab-availability",
   "coverageStatus": "ok",
   "entries": [
     {
-      "teamId": "conference-league.panathinaikos",
-      "player": "Azzedine Ounahi",
+      "teamId": "conference-league.midtjylland",
+      "player": "Denil Castillo",
       "position": "Mediocampista",
       "status": "Baja",
-      "detail": "Anterior Cruciate Ligament",
-      "injuryType": "Anterior Cruciate Ligament",
-      "reportedAt": "2026-11-26T20:00:11.075Z"
+      "detail": "Unknown",
+      "injuryType": "Unknown",
+      "reportedAt": "2026-11-27T19:49:57.890Z"
     },
     {
-      "teamId": "conference-league.panathinaikos",
-      "player": "Georgios Kyriakopoulos",
-      "position": "Defensa",
+      "teamId": "conference-league.midtjylland",
+      "player": "Nordin Bakker",
+      "position": "Portero",
       "status": "Baja",
-      "detail": "Muscle Injury",
-      "injuryType": "Muscle Injury",
-      "reportedAt": "2026-11-26T20:00:11.075Z"
+      "detail": "Unknown",
+      "injuryType": "Unknown",
+      "reportedAt": "2026-11-27T19:49:57.890Z"
     },
     {
-      "teamId": "conference-league.panathinaikos",
-      "player": "Santino Andino",
+      "teamId": "conference-league.midtjylland",
+      "player": "Philip Billing",
       "position": "Mediocampista",
       "status": "Baja",
-      "detail": "Knee Injury",
-      "injuryType": "Knee Injury",
-      "reportedAt": "2026-11-26T20:00:11.075Z"
+      "detail": "Illness",
+      "injuryType": "Illness",
+      "reportedAt": "2026-11-27T19:49:57.890Z"
     },
     {
-      "teamId": "conference-league.panathinaikos",
-      "player": "Stefan de Vrij",
-      "position": "Defensa",
-      "status": "Baja",
-      "detail": "Elbow Injury",
-      "injuryType": "Elbow Injury",
-      "reportedAt": "2026-11-26T20:00:11.075Z"
-    },
-    {
-      "teamId": "conference-league.getafe",
-      "player": "Abdel Abqar",
-      "position": "Defensa",
-      "status": "Baja",
-      "detail": "Knee Injury",
-      "injuryType": "Knee Injury",
-      "reportedAt": "2026-11-26T20:00:11.075Z"
-    },
-    {
-      "teamId": "conference-league.getafe",
-      "player": "Dani Carvajal",
-      "position": "Defensa",
-      "status": "Baja",
-      "detail": "Muscle Injury",
-      "injuryType": "Muscle Injury",
-      "reportedAt": "2026-11-26T20:00:11.075Z"
-    },
-    {
-      "teamId": "conference-league.getafe",
-      "player": "Djené",
-      "position": "Defensa",
-      "status": "Baja",
-      "detail": "red_card_suspension",
-      "injuryType": "red_card_suspension",
-      "reportedAt": "2026-11-26T20:00:11.075Z"
-    },
-    {
-      "teamId": "conference-league.getafe",
-      "player": "Sebastián Boselli",
-      "position": "Defensa",
-      "status": "Baja",
-      "detail": "Leg Injury",
-      "injuryType": "Leg Injury",
-      "reportedAt": "2026-11-26T20:00:11.075Z"
-    },
-    {
-      "teamId": "conference-league.brighton-hove-albion",
-      "player": "Costinha",
-      "position": "Defensa",
-      "status": "Baja",
-      "detail": "yellow_or_red_card_suspension",
-      "injuryType": "yellow_or_red_card_suspension",
-      "reportedAt": "2026-11-26T20:00:11.075Z"
-    },
-    {
-      "teamId": "conference-league.brighton-hove-albion",
-      "player": "Evan Ferguson",
-      "position": "Delantero",
-      "status": "Baja",
-      "detail": "Ankle Injury",
-      "injuryType": "Ankle Injury",
-      "reportedAt": "2026-11-26T20:00:11.075Z"
-    },
-    {
-      "teamId": "conference-league.brighton-hove-albion",
-      "player": "Kaoru Mitoma",
-      "position": "Mediocampista",
-      "status": "Baja",
-      "detail": "Hamstring Injury",
-      "injuryType": "Hamstring Injury",
-      "reportedAt": "2026-11-26T20:00:11.075Z"
-    },
-    {
-      "teamId": "conference-league.brighton-hove-albion",
-      "player": "Stefanos Tzimas",
+      "teamId": "conference-league.kf-egnatia",
+      "player": "Soumaila Bakayoko",
       "position": "Delantero",
       "status": "Baja",
       "detail": "Cruciate Ligament Injury",
       "injuryType": "Cruciate Ligament Injury",
-      "reportedAt": "2026-11-26T20:00:11.075Z"
+      "reportedAt": "2026-11-27T19:49:57.890Z"
     },
     {
-      "teamId": "conference-league.brighton-hove-albion",
-      "player": "Zadok Yohanna",
-      "position": "Delantero",
-      "status": "Baja",
-      "detail": "Knock Injury",
-      "injuryType": "Knock Injury",
-      "reportedAt": "2026-11-26T20:00:11.075Z"
+      "teamId": "conference-league.lincoln-red-imps",
+      "player": "Ethan Jolley",
+      "position": "Defensa",
+      "status": "Duda",
+      "detail": "Leg Injury",
+      "injuryType": "Leg Injury",
+      "reportedAt": "2026-11-27T19:49:57.890Z"
     },
     {
-      "teamId": "conference-league.twente",
-      "player": "Krzysztof Kurowski",
+      "teamId": "conference-league.heart-of-midlothian",
+      "player": "Calvin Miller",
       "position": "Mediocampista",
       "status": "Baja",
-      "detail": "Unknown",
-      "injuryType": "Unknown",
-      "reportedAt": "2026-11-26T20:00:11.075Z"
+      "detail": "Knee Surgery",
+      "injuryType": "Knee Surgery",
+      "reportedAt": "2026-11-27T19:49:57.890Z"
     },
     {
-      "teamId": "conference-league.twente",
-      "player": "Thomas Van den Belt",
+      "teamId": "conference-league.heart-of-midlothian",
+      "player": "Craig Halkett",
+      "position": "Defensa",
+      "status": "Baja",
+      "detail": "Achilles Tendon Injury",
+      "injuryType": "Achilles Tendon Injury",
+      "reportedAt": "2026-11-27T19:49:57.890Z"
+    },
+    {
+      "teamId": "conference-league.heart-of-midlothian",
+      "player": "Harry Milne",
+      "position": "Defensa",
+      "status": "Baja",
+      "detail": "Cruciate Ligament Injury",
+      "injuryType": "Cruciate Ligament Injury",
+      "reportedAt": "2026-11-27T19:49:57.890Z"
+    },
+    {
+      "teamId": "conference-league.heart-of-midlothian",
+      "player": "Malachi Fagan-Walcott",
+      "position": "Defensa",
+      "status": "Baja",
+      "detail": "Muscle Injury",
+      "injuryType": "Muscle Injury",
+      "reportedAt": "2026-11-27T19:49:57.890Z"
+    },
+    {
+      "teamId": "conference-league.heart-of-midlothian",
+      "player": "Stephen Kingsley",
+      "position": "Defensa",
+      "status": "Baja",
+      "detail": "Hamstring Injury",
+      "injuryType": "Hamstring Injury",
+      "reportedAt": "2026-11-27T19:49:57.890Z"
+    },
+    {
+      "teamId": "conference-league.monaco",
+      "player": "Aleksandr Golovin",
       "position": "Mediocampista",
       "status": "Baja",
-      "detail": "Unknown",
-      "injuryType": "Unknown",
-      "reportedAt": "2026-11-26T20:00:11.075Z"
+      "detail": "Calf Injury",
+      "injuryType": "Calf Injury",
+      "reportedAt": "2026-11-27T19:49:57.890Z"
     },
     {
-      "teamId": "conference-league.pafos",
-      "player": "Lelê",
+      "teamId": "conference-league.monaco",
+      "player": "Ansu Fati",
       "position": "Delantero",
+      "status": "Baja",
+      "detail": "Hamstring Injury",
+      "injuryType": "Hamstring Injury",
+      "reportedAt": "2026-11-27T19:49:57.890Z"
+    },
+    {
+      "teamId": "conference-league.monaco",
+      "player": "Mamadou Coulibaly",
+      "position": "Mediocampista",
+      "status": "Baja",
+      "detail": "fa_charge_of_improper_conduct",
+      "injuryType": "fa_charge_of_improper_conduct",
+      "reportedAt": "2026-11-27T19:49:57.890Z"
+    },
+    {
+      "teamId": "conference-league.monaco",
+      "player": "Mohammed Salisu",
+      "position": "Defensa",
+      "status": "Baja",
+      "detail": "Sprained Knee Injury",
+      "injuryType": "Sprained Knee Injury",
+      "reportedAt": "2026-11-27T19:49:57.890Z"
+    },
+    {
+      "teamId": "conference-league.monaco",
+      "player": "Paris Brunner",
+      "position": "Delantero",
+      "status": "Baja",
+      "detail": "Hamstring Injury",
+      "injuryType": "Hamstring Injury",
+      "reportedAt": "2026-11-27T19:49:57.890Z"
+    },
+    {
+      "teamId": "conference-league.monaco",
+      "player": "Philipp Köhn",
+      "position": "Portero",
+      "status": "Baja",
+      "detail": "Muscle Injury",
+      "injuryType": "Muscle Injury",
+      "reportedAt": "2026-11-27T19:49:57.890Z"
+    },
+    {
+      "teamId": "conference-league.riga",
+      "player": "Iago Siqueira",
+      "position": "Mediocampista",
       "status": "Baja",
       "detail": "yellow_or_red_card_suspension",
       "injuryType": "yellow_or_red_card_suspension",
-      "reportedAt": "2026-11-26T20:00:11.075Z"
+      "reportedAt": "2026-11-27T19:49:57.890Z"
     },
     {
-      "teamId": "conference-league.lugano",
-      "player": "Albian Ajeti",
-      "position": "Delantero",
+      "teamId": "conference-league.riga",
+      "player": "Kenan Pirić",
+      "position": "Portero",
       "status": "Baja",
       "detail": "red_card_suspension",
       "injuryType": "red_card_suspension",
-      "reportedAt": "2026-11-26T20:00:11.075Z"
+      "reportedAt": "2026-11-27T19:49:57.890Z"
+    },
+    {
+      "teamId": "conference-league.riga",
+      "player": "Renārs Varslavāns",
+      "position": "Mediocampista",
+      "status": "Baja",
+      "detail": "Cruciate Ligament Injury",
+      "injuryType": "Cruciate Ligament Injury",
+      "reportedAt": "2026-11-27T19:49:57.890Z"
     }
   ]
 }

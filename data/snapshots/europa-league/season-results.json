@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "league": "europa-league",
   "season": "2026/27",
-  "updatedAt": "2026-11-26T20:00:11.075Z",
+  "updatedAt": "2026-11-27T19:49:57.890Z",
   "matches": [
     {
       "id": "europa-league-2026-07-09-qarabag-if-vestri-ye5k4s",
@@ -1751,6 +1751,127 @@
       "awayTeam": "europa-league.bournemouth",
       "homeScore": 1,
       "awayScore": 2,
+      "neutralSite": false
+    },
+    {
+      "id": "europa-league-2026-11-26-besiktas-jk-hapoel-be-er-s-86qtqm",
+      "date": "2026-11-26",
+      "startTime": "2026-11-26T17:45:00.000Z",
+      "round": "League phase · Matchday 5",
+      "homeTeam": "europa-league.besiktas-jk",
+      "awayTeam": "europa-league.hapoel-be-er-sheva",
+      "homeScore": 2,
+      "awayScore": 1,
+      "neutralSite": false
+    },
+    {
+      "id": "europa-league-2026-11-26-torreense-celtic-b72w0z",
+      "date": "2026-11-26",
+      "startTime": "2026-11-26T20:00:00.000Z",
+      "round": "League phase · Matchday 5",
+      "homeTeam": "europa-league.torreense",
+      "awayTeam": "europa-league.celtic",
+      "homeScore": 1,
+      "awayScore": 2,
+      "neutralSite": false
+    },
+    {
+      "id": "europa-league-2026-11-26-hoffenheim-sturm-graz-piz6m9",
+      "date": "2026-11-26",
+      "startTime": "2026-11-26T20:00:00.000Z",
+      "round": "League phase · Matchday 5",
+      "homeTeam": "europa-league.hoffenheim",
+      "awayTeam": "europa-league.sturm-graz",
+      "homeScore": 3,
+      "awayScore": 1,
+      "neutralSite": false
+    },
+    {
+      "id": "europa-league-2026-11-26-sunderland-jagiellonia-bi-ih2kav",
+      "date": "2026-11-26",
+      "startTime": "2026-11-26T20:00:00.000Z",
+      "round": "League phase · Matchday 5",
+      "homeTeam": "europa-league.sunderland",
+      "awayTeam": "europa-league.jagiellonia-bia-ystok",
+      "homeScore": 1,
+      "awayScore": 1,
+      "neutralSite": false
+    },
+    {
+      "id": "europa-league-2026-11-26-olympique-lyon-lillestr-m-h5j9hs",
+      "date": "2026-11-26",
+      "startTime": "2026-11-26T20:00:00.000Z",
+      "round": "League phase · Matchday 5",
+      "homeTeam": "europa-league.olympique-lyonnais",
+      "awayTeam": "europa-league.lillestr-m",
+      "homeScore": 0,
+      "awayScore": 0,
+      "neutralSite": false
+    },
+    {
+      "id": "europa-league-2026-11-26-ofi-crete-rsc-anderlecht-5446zl",
+      "date": "2026-11-26",
+      "startTime": "2026-11-26T20:00:00.000Z",
+      "round": "League phase · Matchday 5",
+      "homeTeam": "europa-league.ofi-crete",
+      "awayTeam": "europa-league.rsc-anderlecht",
+      "homeScore": 1,
+      "awayScore": 3,
+      "neutralSite": false
+    },
+    {
+      "id": "europa-league-2026-11-26-nec-nijmegen-stade-rennais-j6bswq",
+      "date": "2026-11-26",
+      "startTime": "2026-11-26T20:00:00.000Z",
+      "round": "League phase · Matchday 5",
+      "homeTeam": "europa-league.nec-nijmegen",
+      "awayTeam": "europa-league.stade-rennais",
+      "homeScore": 3,
+      "awayScore": 1,
+      "neutralSite": false
+    },
+    {
+      "id": "europa-league-2026-11-26-juventus-omonia-nicosia-otyaia",
+      "date": "2026-11-26",
+      "startTime": "2026-11-26T20:00:00.000Z",
+      "round": "League phase · Matchday 5",
+      "homeTeam": "europa-league.juventus",
+      "awayTeam": "europa-league.omonia-nicosia",
+      "homeScore": 4,
+      "awayScore": 1,
+      "neutralSite": false
+    },
+    {
+      "id": "europa-league-2026-11-26-ferencvaros-tc-nk-celje-hlx5xc",
+      "date": "2026-11-26",
+      "startTime": "2026-11-26T20:00:00.000Z",
+      "round": "League phase · Matchday 5",
+      "homeTeam": "europa-league.ferencvaros-tc",
+      "awayTeam": "europa-league.nk-celje",
+      "homeScore": 0,
+      "awayScore": 0,
+      "neutralSite": false
+    },
+    {
+      "id": "europa-league-2026-11-26-crystal-palace-real-sociedad-678vg5",
+      "date": "2026-11-26",
+      "startTime": "2026-11-26T20:00:00.000Z",
+      "round": "League phase · Matchday 5",
+      "homeTeam": "europa-league.crystal-palace",
+      "awayTeam": "europa-league.real-sociedad",
+      "homeScore": 2,
+      "awayScore": 1,
+      "neutralSite": false
+    },
+    {
+      "id": "europa-league-2026-11-26-sparta-praha-az-alkmaar-c6snv0",
+      "date": "2026-11-26",
+      "startTime": "2026-11-26T20:00:00.000Z",
+      "round": "League phase · Matchday 5",
+      "homeTeam": "europa-league.sparta-praha",
+      "awayTeam": "europa-league.az-alkmaar",
+      "homeScore": 2,
+      "awayScore": 4,
       "neutralSite": false
     }
   ]
