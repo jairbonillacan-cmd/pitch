@@ -459,8 +459,12 @@ export function NotificationBell(): React.JSX.Element {
         markSocialServerRead();
       }
     };
+    menu.addEventListener("beforetoggle", onToggle);
     menu.addEventListener("toggle", onToggle);
-    return () => menu.removeEventListener("toggle", onToggle);
+    return () => {
+      menu.removeEventListener("beforetoggle", onToggle);
+      menu.removeEventListener("toggle", onToggle);
+    };
   }, [socialEnabled]);
 
   const { items, effectiveReadIds } = useMemo(() => {
@@ -538,7 +542,7 @@ export function NotificationBell(): React.JSX.Element {
 
   const notifSwipe = useSheetSwipeDismiss({
     onDismiss: close,
-    disabled: !open,
+    disabled: false,
     scrollContainerRef: listRef,
     dragHandleSelector: ".pl-sheet-drag-zone",
   });
@@ -581,11 +585,9 @@ export function NotificationBell(): React.JSX.Element {
         role="dialog"
         aria-labelledby={titleId}
         style={notifSwipe.sheetStyle}
+        {...notifSwipe.handleProps}
       >
-        <div
-          className="pl-profile-menu-sheet-top pl-sheet-drag-zone"
-          {...notifSwipe.handleProps}
-        >
+        <div className="pl-profile-menu-sheet-top pl-sheet-drag-zone">
           <span className="pl-profile-menu-grab" aria-hidden="true" />
           <button
             type="button"

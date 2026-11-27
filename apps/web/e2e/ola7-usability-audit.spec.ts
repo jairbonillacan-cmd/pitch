@@ -1286,12 +1286,14 @@ test.describe("Ola 7 · Auditoría E2E de Usabilidad, Íconos WebP, Logos, Ligas
     await unlockBetaSession(page);
 
     await navigateClean(page, "/app/picks");
-    await expect(page.locator("[data-picks-layout]")).toBeVisible();
-    await expect(page.locator("[data-picks-row]").first()).toBeVisible({ timeout: 15_000 });
+    await expect(page.locator("#main [data-picks-layout]:visible")).toBeVisible();
+    await expect(page.locator("#main [data-picks-row]:visible").first()).toBeVisible({
+      timeout: 15_000,
+    });
 
     const picksTexts = await page.evaluate(() => {
-      const potd = document.querySelector("[data-picks-potd]");
-      const rows = Array.from(document.querySelectorAll("[data-picks-row]")).slice(0, 20);
+      const potd = document.querySelector("#main [data-picks-potd]");
+      const rows = Array.from(document.querySelectorAll("#main [data-picks-row]")).slice(0, 20);
       return [
         ...(potd instanceof HTMLElement ? [potd.innerText] : []),
         ...rows.map((row) => (row instanceof HTMLElement ? row.innerText : "")),
@@ -1319,7 +1321,7 @@ test.describe("Ola 7 · Auditoría E2E de Usabilidad, Íconos WebP, Logos, Ligas
       const marketIconsCount = await page.evaluate((currentTheme) => {
         const expectedPrefix = currentTheme === "dark" ? "/icons-dark/" : "/icons/";
         const imgs = Array.from(
-          document.querySelectorAll("[data-picks-layout] img, [data-picks-potd] img"),
+          document.querySelectorAll("#main [data-picks-layout] img, #main [data-picks-potd] img"),
         );
         return imgs.filter((img) => {
           if (!(img instanceof HTMLImageElement)) return false;

@@ -480,8 +480,8 @@ function createMemoryStorage(): Storage {
 }
 
 function dispatchPointerEvent(
-  target: MiniElement,
-  type: "pointerdown" | "pointermove" | "pointerup",
+  target: EventTarget,
+  type: "pointerdown" | "pointermove" | "pointerup" | "pointercancel",
   init: { clientY: number; clientX?: number; pointerId?: number; button?: number; pointerType?: string },
 ): void {
   const ev = new Event(type, { bubbles: true, cancelable: true });
@@ -691,13 +691,23 @@ describe("Fase 2A · UX Móvil App-Like, diálogos nativos y contratos PWA", () 
     const trigger = container.querySelector("[data-profile-menu-trigger]");
     const profileMenu = container.querySelector('[aria-label="Menú de tu cuenta"]');
     const dragZone = profileMenu?.querySelector(".pl-profile-menu-sheet-top.pl-sheet-drag-zone");
+    const profileHead = profileMenu?.querySelector(".pl-profile-menu-head");
     const closeBtn = profileMenu?.querySelector(".pl-profile-menu-close");
+    const bellTrigger = container.querySelector(".pl-bell-btn");
+    const notifMenu = container.querySelector(".pl-notif-menu");
+    const notifDragZone = notifMenu?.querySelector(".pl-profile-menu-sheet-top.pl-sheet-drag-zone");
+    const notifCloseBtn = notifMenu?.querySelector(".pl-profile-menu-close");
     expect(trigger).not.toBeNull();
     expect(profileMenu).not.toBeNull();
     expect(profileMenu!.classList.contains("pl-profile-menu")).toBe(true);
     expect(profileMenu!.classList.contains("pl-notif-menu")).toBe(false);
     expect(dragZone).not.toBeNull();
+    expect(profileHead).not.toBeNull();
     expect(closeBtn).not.toBeNull();
+    expect(bellTrigger).not.toBeNull();
+    expect(notifMenu).not.toBeNull();
+    expect(notifDragZone).not.toBeNull();
+    expect(notifCloseBtn).not.toBeNull();
 
     profileMenu!.popoverOpen = true;
     expect(trigger!.getAttribute("aria-expanded")).toBe("false");
@@ -734,16 +744,38 @@ describe("Fase 2A · UX Móvil App-Like, diálogos nativos y contratos PWA", () 
     expect(profileMenu!.hidePopover).not.toHaveBeenCalled();
 
     await act(async () => {
-      dispatchPointerEvent(dragZone!, "pointerdown", { clientY: 12, pointerId: 3 });
+      dispatchPointerEvent(profileHead!, "pointerdown", { clientY: 80, pointerId: 3 });
+      dispatchPointerEvent(profileHead!, "pointermove", { clientY: 220, pointerId: 3 });
+      dispatchPointerEvent(profileHead!, "pointerup", { clientY: 220, pointerId: 3 });
+    });
+    expect(profileMenu!.hidePopover).not.toHaveBeenCalled();
+    expect(profileMenu!.style.transform).toBe("");
+
+    await act(async () => {
+      dispatchPointerEvent(dragZone!, "pointerdown", { clientY: 12, pointerId: 4 });
     });
     await act(async () => {
-      dispatchPointerEvent(dragZone!, "pointermove", { clientY: 64, pointerId: 3 });
-      dispatchPointerEvent(dragZone!, "pointermove", { clientY: 165, pointerId: 3 });
+      dispatchPointerEvent(profileHead!, "pointermove", { clientY: 64, pointerId: 4 });
+      dispatchPointerEvent(win, "pointermove", { clientY: 165, pointerId: 4 });
     });
+    expect(profileMenu!.style.transform).toBe("translate3d(0, 153px, 0)");
     await act(async () => {
-      dispatchPointerEvent(dragZone!, "pointerup", { clientY: 165, pointerId: 3 });
+      dispatchPointerEvent(win, "pointerup", { clientY: 165, pointerId: 4 });
     });
     expect(profileMenu!.hidePopover).toHaveBeenCalledTimes(1);
+    expect(profileMenu!.popoverOpen).toBe(false);
+    expect(profileMenu!.style.transform).toBe("");
+
+    profileMenu!.hidePopover.mockClear();
+    profileMenu!.popoverOpen = true;
+    profileMenu!.scrollTop = 24;
+    await act(async () => {
+      dispatchPointerEvent(dragZone!, "pointerdown", { clientY: 12, pointerId: 5 });
+      dispatchPointerEvent(win, "pointermove", { clientY: 165, pointerId: 5 });
+      dispatchPointerEvent(win, "pointerup", { clientY: 165, pointerId: 5 });
+    });
+    expect(profileMenu!.hidePopover).not.toHaveBeenCalled();
+    profileMenu!.scrollTop = 0;
 
     await act(async () => {
       const lateToggle = new Event("toggle");
@@ -752,8 +784,44 @@ describe("Fase 2A · UX Móvil App-Like, diálogos nativos y contratos PWA", () 
     });
     expect(trigger!.getAttribute("aria-expanded")).toBe("false");
 
+    notifMenu!.popoverOpen = true;
+    await act(async () => {
+      dispatchPointerEvent(notifCloseBtn!, "pointerdown", { clientY: 12, pointerId: 6 });
+      dispatchPointerEvent(win, "pointermove", { clientY: 165, pointerId: 6 });
+      dispatchPointerEvent(win, "pointerup", { clientY: 165, pointerId: 6 });
+    });
+    expect(notifMenu!.hidePopover).not.toHaveBeenCalled();
+
+    await act(async () => {
+      dispatchPointerEvent(notifDragZone!, "pointerdown", { clientY: 12, pointerId: 7 });
+    });
+    await act(async () => {
+      dispatchPointerEvent(win, "pointermove", { clientY: 64, pointerId: 7 });
+      dispatchPointerEvent(win, "pointermove", { clientY: 165, pointerId: 7 });
+    });
+    expect(notifMenu!.style.transform).toBe("translate3d(0, 153px, 0)");
+    await act(async () => {
+      dispatchPointerEvent(win, "pointerup", { clientY: 165, pointerId: 7 });
+    });
+    expect(notifMenu!.hidePopover).toHaveBeenCalledTimes(1);
+    expect(notifMenu!.popoverOpen).toBe(false);
+
+    await act(async () => {
+      const notifBeforeOpen = new Event("beforetoggle");
+      Object.assign(notifBeforeOpen, { oldState: "closed", newState: "open" });
+      notifMenu!.dispatchEvent(notifBeforeOpen);
+    });
+    expect(bellTrigger!.getAttribute("aria-expanded")).toBe("true");
+
+    await act(async () => {
+      dispatchPointerEvent(dragZone!, "pointerdown", { clientY: 12, pointerId: 8 });
+    });
     await act(async () => {
       root.unmount();
+    });
+    await act(async () => {
+      dispatchPointerEvent(win, "pointermove", { clientY: 165, pointerId: 8 });
+      dispatchPointerEvent(win, "pointerup", { clientY: 165, pointerId: 8 });
     });
   });
 });

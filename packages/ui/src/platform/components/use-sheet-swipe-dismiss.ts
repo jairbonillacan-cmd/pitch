@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { prefersReducedMotion } from "../navigation-helpers";
 
 export interface SheetSwipeDismissOptions {
@@ -104,8 +104,8 @@ export function useSheetSwipeDismiss({
     onTouchCancel: () => void;
     onPointerDown: (e: React.PointerEvent<HTMLElement>) => void;
     onPointerMove: (e: React.PointerEvent<HTMLElement>) => void;
-    onPointerUp: () => void;
-    onPointerCancel: () => void;
+    onPointerUp: (e?: React.PointerEvent<HTMLElement>) => void;
+    onPointerCancel: (e?: React.PointerEvent<HTMLElement>) => void;
   };
 } {
   const [state, setState] = useState<SheetSwipeState>({ offsetY: 0, dragging: false });
@@ -113,8 +113,30 @@ export function useSheetSwipeDismiss({
   const startTimeRef = useRef<number>(0);
   const lastYRef = useRef<number>(0);
   const activePointerIdRef = useRef<number | null>(null);
+  const pointerHostRef = useRef<HTMLElement | null>(null);
   const capturedTargetRef = useRef<HTMLElement | null>(null);
   const draggingActiveRef = useRef<boolean>(false);
+  const touchActiveRef = useRef<boolean>(false);
+  const windowCleanupRef = useRef<(() => void) | null>(null);
+
+  const onDismissRef = useRef(onDismiss);
+  onDismissRef.current = onDismiss;
+  const thresholdPxRef = useRef(thresholdPx);
+  thresholdPxRef.current = thresholdPx;
+  const velocityPxPerMsRef = useRef(velocityPxPerMs);
+  velocityPxPerMsRef.current = velocityPxPerMs;
+  const disabledRef = useRef(disabled);
+  disabledRef.current = disabled;
+  const scrollContainerRefRef = useRef(scrollContainerRef);
+  scrollContainerRefRef.current = scrollContainerRef;
+
+  const detachWindowListeners = useCallback(() => {
+    const cleanup = windowCleanupRef.current;
+    if (cleanup) {
+      windowCleanupRef.current = null;
+      cleanup();
+    }
+  }, []);
 
   const releaseCapture = useCallback(() => {
     const target = capturedTargetRef.current;
@@ -131,31 +153,31 @@ export function useSheetSwipeDismiss({
     }
   }, []);
 
-  const begin = useCallback(
-    (clientY: number): boolean => {
-      if (disabled) return false;
-      if (scrollContainerRef?.current && scrollContainerRef.current.scrollTop > 0) return false;
-      startYRef.current = clientY;
-      lastYRef.current = clientY;
-      startTimeRef.current = Date.now();
-      draggingActiveRef.current = false;
-      return true;
-    },
-    [disabled, scrollContainerRef],
-  );
+  const begin = useCallback((clientY: number): boolean => {
+    if (disabledRef.current) return false;
+    const scroller = scrollContainerRefRef.current?.current;
+    if (scroller && scroller.scrollTop > 0) return false;
+    startYRef.current = clientY;
+    lastYRef.current = clientY;
+    startTimeRef.current = Date.now();
+    draggingActiveRef.current = false;
+    return true;
+  }, []);
 
   const move = useCallback(
-    (clientY: number, pointerEvent?: React.PointerEvent<HTMLElement>) => {
-      if (disabled || startYRef.current === null) return;
+    (clientY: number, captureTarget?: HTMLElement | null, pointerId?: number) => {
+      if (disabledRef.current || startYRef.current === null) return;
       const delta = clientY - startYRef.current;
       lastYRef.current = clientY;
       if (!draggingActiveRef.current) {
         if (delta < DRAG_ACTIVATION_SLOP_PX) return;
         draggingActiveRef.current = true;
-        if (pointerEvent) {
+        if (captureTarget && pointerId !== undefined) {
           try {
-            pointerEvent.currentTarget.setPointerCapture(pointerEvent.pointerId);
-            capturedTargetRef.current = pointerEvent.currentTarget;
+            if (typeof captureTarget.setPointerCapture === "function") {
+              captureTarget.setPointerCapture(pointerId);
+              capturedTargetRef.current = captureTarget;
+            }
           } catch (err) {
             void err;
           }
@@ -166,11 +188,16 @@ export function useSheetSwipeDismiss({
         prev.offsetY === clamped && prev.dragging ? prev : { offsetY: clamped, dragging: true },
       );
     },
-    [disabled],
+    [],
   );
 
   const finish = useCallback(() => {
-    if (startYRef.current === null) return;
+    detachWindowListeners();
+    if (startYRef.current === null) {
+      activePointerIdRef.current = null;
+      pointerHostRef.current = null;
+      return;
+    }
     const wasDragging = draggingActiveRef.current;
     const offset = Math.max(0, lastYRef.current - startYRef.current);
     const elapsed = Math.max(1, Date.now() - startTimeRef.current);
@@ -178,33 +205,97 @@ export function useSheetSwipeDismiss({
     releaseCapture();
     startYRef.current = null;
     activePointerIdRef.current = null;
+    pointerHostRef.current = null;
     draggingActiveRef.current = false;
     if (!wasDragging) return;
-    if (shouldDismissSheetSwipe(offset, velocity, thresholdPx, velocityPxPerMs)) {
-      setState({ offsetY: 0, dragging: false });
-      onDismiss();
-    } else {
-      setState({ offsetY: 0, dragging: false });
+    setState({ offsetY: 0, dragging: false });
+    if (
+      shouldDismissSheetSwipe(
+        offset,
+        velocity,
+        thresholdPxRef.current,
+        velocityPxPerMsRef.current,
+      )
+    ) {
+      onDismissRef.current();
     }
-  }, [onDismiss, releaseCapture, thresholdPx, velocityPxPerMs]);
+  }, [detachWindowListeners, releaseCapture]);
 
   const cancel = useCallback(() => {
+    detachWindowListeners();
     const wasDragging = draggingActiveRef.current;
     releaseCapture();
     startYRef.current = null;
     activePointerIdRef.current = null;
+    pointerHostRef.current = null;
     draggingActiveRef.current = false;
     if (wasDragging) {
       setState({ offsetY: 0, dragging: false });
     }
-  }, [releaseCapture]);
+  }, [detachWindowListeners, releaseCapture]);
 
-  const touchActiveRef = useRef<boolean>(false);
+  useEffect(() => {
+    if (disabled) {
+      cancel();
+    }
+  }, [disabled, cancel]);
+
+  useEffect(
+    () => () => {
+      detachWindowListeners();
+      releaseCapture();
+      startYRef.current = null;
+      activePointerIdRef.current = null;
+      pointerHostRef.current = null;
+      draggingActiveRef.current = false;
+    },
+    [detachWindowListeners, releaseCapture],
+  );
+
+  const attachWindowListeners = useCallback(
+    (pointerId: number) => {
+      detachWindowListeners();
+      if (typeof window === "undefined") return;
+      const onWinPointerMove = (ev: Event) => {
+        const pointerEv = ev as PointerEvent;
+        if (touchActiveRef.current || activePointerIdRef.current !== pointerId) return;
+        if (pointerEv.pointerId !== undefined && pointerEv.pointerId !== pointerId) return;
+        const scroller = scrollContainerRefRef.current?.current;
+        if (scroller && scroller.scrollTop > 0) {
+          cancel();
+          return;
+        }
+        if (typeof pointerEv.clientY !== "number") return;
+        move(pointerEv.clientY, pointerHostRef.current, pointerId);
+      };
+      const onWinPointerUp = (ev: Event) => {
+        const pointerEv = ev as PointerEvent;
+        if (touchActiveRef.current || activePointerIdRef.current !== pointerId) return;
+        if (pointerEv.pointerId !== undefined && pointerEv.pointerId !== pointerId) return;
+        finish();
+      };
+      const onWinPointerCancel = (ev: Event) => {
+        const pointerEv = ev as PointerEvent;
+        if (touchActiveRef.current || activePointerIdRef.current !== pointerId) return;
+        if (pointerEv.pointerId !== undefined && pointerEv.pointerId !== pointerId) return;
+        cancel();
+      };
+      window.addEventListener("pointermove", onWinPointerMove);
+      window.addEventListener("pointerup", onWinPointerUp);
+      window.addEventListener("pointercancel", onWinPointerCancel);
+      windowCleanupRef.current = () => {
+        window.removeEventListener("pointermove", onWinPointerMove);
+        window.removeEventListener("pointerup", onWinPointerUp);
+        window.removeEventListener("pointercancel", onWinPointerCancel);
+      };
+    },
+    [cancel, detachWindowListeners, finish, move],
+  );
 
   const onTouchStart = useCallback(
     (e: React.TouchEvent<HTMLElement>) => {
       if (
-        disabled ||
+        disabledRef.current ||
         isInteractiveSwipeTarget(e.target) ||
         hasScrolledAncestor(e.target, e.currentTarget) ||
         !isWithinDragHandle(e.target, dragHandleSelector)
@@ -213,16 +304,21 @@ export function useSheetSwipeDismiss({
       }
       const touch = e.touches[0];
       if (!touch) return;
+      detachWindowListeners();
+      releaseCapture();
+      activePointerIdRef.current = null;
+      pointerHostRef.current = null;
       if (begin(touch.clientY)) {
         touchActiveRef.current = true;
       }
     },
-    [begin, disabled, dragHandleSelector],
+    [begin, detachWindowListeners, dragHandleSelector, releaseCapture],
   );
 
   const onTouchMove = useCallback(
     (e: React.TouchEvent<HTMLElement>) => {
-      if (scrollContainerRef?.current && scrollContainerRef.current.scrollTop > 0) {
+      const scroller = scrollContainerRefRef.current?.current;
+      if (scroller && scroller.scrollTop > 0) {
         touchActiveRef.current = false;
         cancel();
         return;
@@ -231,7 +327,7 @@ export function useSheetSwipeDismiss({
       if (!touch) return;
       move(touch.clientY);
     },
-    [cancel, move, scrollContainerRef],
+    [cancel, move],
   );
 
   const onTouchEndWrapped = useCallback(() => {
@@ -246,7 +342,7 @@ export function useSheetSwipeDismiss({
 
   const onPointerDown = useCallback(
     (e: React.PointerEvent<HTMLElement>) => {
-      if (disabled || touchActiveRef.current) return;
+      if (disabledRef.current || touchActiveRef.current) return;
       if (e.button !== 0 && e.pointerType === "mouse") return;
       if (
         isInteractiveSwipeTarget(e.target) ||
@@ -257,26 +353,42 @@ export function useSheetSwipeDismiss({
       }
       if (!begin(e.clientY)) return;
       activePointerIdRef.current = e.pointerId;
+      pointerHostRef.current = e.currentTarget;
+      attachWindowListeners(e.pointerId);
     },
-    [begin, disabled, dragHandleSelector],
+    [attachWindowListeners, begin, dragHandleSelector],
   );
 
   const onPointerMove = useCallback(
     (e: React.PointerEvent<HTMLElement>) => {
       if (touchActiveRef.current || activePointerIdRef.current !== e.pointerId) return;
-      if (scrollContainerRef?.current && scrollContainerRef.current.scrollTop > 0) {
+      const scroller = scrollContainerRefRef.current?.current;
+      if (scroller && scroller.scrollTop > 0) {
         cancel();
         return;
       }
-      move(e.clientY, e);
+      move(e.clientY, e.currentTarget, e.pointerId);
     },
-    [cancel, move, scrollContainerRef],
+    [cancel, move],
   );
 
-  const onPointerUp = useCallback(() => {
-    if (touchActiveRef.current || activePointerIdRef.current === null) return;
-    finish();
-  }, [finish]);
+  const onPointerUp = useCallback(
+    (e?: React.PointerEvent<HTMLElement>) => {
+      if (touchActiveRef.current || activePointerIdRef.current === null) return;
+      if (e && e.pointerId !== undefined && e.pointerId !== activePointerIdRef.current) return;
+      finish();
+    },
+    [finish],
+  );
+
+  const onPointerCancel = useCallback(
+    (e?: React.PointerEvent<HTMLElement>) => {
+      if (touchActiveRef.current || activePointerIdRef.current === null) return;
+      if (e && e.pointerId !== undefined && e.pointerId !== activePointerIdRef.current) return;
+      cancel();
+    },
+    [cancel],
+  );
 
   const reduced = prefersReducedMotion();
   const sheetStyle: React.CSSProperties =
@@ -300,7 +412,7 @@ export function useSheetSwipeDismiss({
       onPointerDown,
       onPointerMove,
       onPointerUp,
-      onPointerCancel: cancel,
+      onPointerCancel,
     },
   };
 }

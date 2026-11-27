@@ -431,8 +431,10 @@ test("Club PitchLab v4 + Ola 6: Inicio Maestro-Detalle, Jornada, Buscador, Parla
   }
 
   await page.goto("/app/picks");
-  await expect(page.locator("[data-picks-layout]")).toBeVisible();
-  await expect(page.locator("[data-picks-row]").first()).toBeVisible({ timeout: 15_000 });
+  await expect(page.locator("#main [data-picks-layout]:visible")).toBeVisible();
+  await expect(page.locator("#main [data-picks-row]:visible").first()).toBeVisible({
+    timeout: 15_000,
+  });
 
   if (firstMatchHref) {
     await page.goto(firstMatchHref);

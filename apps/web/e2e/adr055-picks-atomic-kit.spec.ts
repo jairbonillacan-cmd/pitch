@@ -110,22 +110,22 @@ test.describe("ADR-055 / Ola 6 · Screener de Picks, Pick del día, Bet Lab, Fic
     await page.goto("/app/picks");
 
     await expect(page.getByRole("heading", { level: 1 }).first()).toBeVisible();
-    await expect(page.locator("[data-picks-layout]")).toBeVisible();
-    await expect(page.locator("[data-picks-main]")).toBeVisible();
+    await expect(page.locator("#main [data-picks-layout]:visible")).toBeVisible();
+    await expect(page.locator("#main [data-picks-main]:visible")).toBeVisible();
 
     await assertNoHorizontalOverflow(page, "/app/picks inicial");
     await assertNoForbiddenAdrCopy(page, "/app/picks", { strictConfianza: true });
 
-    const potdBanner = page.locator("[data-picks-potd]");
+    const potdBanner = page.locator("#main [data-picks-potd]:visible");
     await expect(potdBanner).toBeVisible();
-    const potdToggle = page.locator("[data-picks-potd-toggle]:visible").first();
+    const potdToggle = page.locator("#main [data-picks-potd-toggle]:visible").first();
     if ((await potdToggle.count()) > 0) {
       await potdToggle.click();
       await assertNoHorizontalOverflow(page, "/app/picks Pick del día expandido");
       await potdToggle.click();
     }
 
-    const firstRow = page.locator("[data-picks-row]").first();
+    const firstRow = page.locator("#main [data-picks-row]:visible").first();
     await expect(firstRow).toBeVisible({ timeout: 15_000 });
     const firstRowText = ((await firstRow.innerText()) ?? "").trim();
     expect(firstRowText.length).toBeGreaterThan(10);
@@ -138,9 +138,9 @@ test.describe("ADR-055 / Ola 6 · Screener de Picks, Pick del día, Bet Lab, Fic
         `El primer [data-picks-row] debe quedar arriba del pliegue en 1440×900 (y=${rowBox!.y})`,
       ).toBeLessThan(900);
 
-      const filterRail = page.locator("[data-picks-filter-rail]");
+      const filterRail = page.locator("#main [data-picks-filter-rail]");
       await expect(filterRail).toBeVisible();
-      const mainBox = await page.locator("[data-picks-main]").boundingBox();
+      const mainBox = await page.locator("#main [data-picks-main]:visible").boundingBox();
       const railBox = await filterRail.boundingBox();
       expect(mainBox).not.toBeNull();
       expect(railBox).not.toBeNull();
@@ -149,15 +149,15 @@ test.describe("ADR-055 / Ola 6 · Screener de Picks, Pick del día, Bet Lab, Fic
         "El rail de filtros [data-picks-filter-rail] debe aparecer a la derecha de [data-picks-main]",
       ).toBeGreaterThanOrEqual(mainBox!.x + mainBox!.width - 8);
 
-      const loadMoreGameBtn = page.locator("[data-picks-load-more-game]:visible").first();
+      const loadMoreGameBtn = page.locator("#main [data-picks-load-more-game]:visible").first();
       if ((await loadMoreGameBtn.count()) > 0) {
         await loadMoreGameBtn.click();
         await assertNoHorizontalOverflow(page, "/app/picks tras cargar más picks por partido");
       }
     } else {
-      await expect(page.locator("[data-picks-filter-rail]")).toBeHidden();
+      await expect(page.locator("#main [data-picks-filter-rail]")).toBeHidden();
 
-      const mobileFiltersTrigger = page.locator("[data-picks-mobile-filters-trigger]");
+      const mobileFiltersTrigger = page.locator("#main [data-picks-mobile-filters-trigger]:visible");
       await expect(mobileFiltersTrigger).toBeVisible();
       const triggerBox = await mobileFiltersTrigger.boundingBox();
       expect(triggerBox).not.toBeNull();
@@ -218,7 +218,7 @@ test.describe("ADR-055 / Ola 6 · Screener de Picks, Pick del día, Bet Lab, Fic
     await expect(labDrawer).toBeHidden();
     await expect(page.locator("dialog[open]")).toHaveCount(0);
 
-    const potdAnalyze = page.locator("[data-picks-potd-analyze]:visible").first();
+    const potdAnalyze = page.locator("#main [data-picks-potd-analyze]:visible").first();
     if ((await potdAnalyze.count()) > 0) {
       await potdAnalyze.click();
     } else {
@@ -420,7 +420,7 @@ test.describe("ADR-055 / Ola 6 · Screener de Picks, Pick del día, Bet Lab, Fic
     await assertNoHorizontalOverflow(page, "/app/picks @ 375x812");
     await assertNoForbiddenAdrCopy(page, "/app/picks @ 375x812", { strictConfianza: true });
 
-    const mobileFilterBtn = page.locator("[data-picks-mobile-filters-trigger]");
+    const mobileFilterBtn = page.locator("#main [data-picks-mobile-filters-trigger]:visible");
     await expect(mobileFilterBtn).toBeVisible();
     const filterBtnBox = await mobileFilterBtn.boundingBox();
     expect(filterBtnBox).not.toBeNull();
