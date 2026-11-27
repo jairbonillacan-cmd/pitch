@@ -750,7 +750,7 @@
   }
 
   .pl-scr-acc::details-content {
-    transition: block-size, content-visibility, display;
+    transition: block-size, display;
     transition-duration: 0.2s;
     transition-timing-function: ease-out;
     transition-behavior: allow-discrete;
@@ -2788,6 +2788,9 @@
   border-block-start: 1px solid var(--pl-border-strong);
   border-radius: 20px 20px 0 0;
   overflow: hidden;
+  overscroll-behavior-y: contain;
+  opacity: 0;
+  transform: translateY(18px);
 }
 
 .pl-bb-dialog[open],
@@ -2796,16 +2799,55 @@
   flex-direction: column;
 }
 
+:is(.pl-bb-dialog[open], .pl-scr-filter-sheet[open]):where(:not([data-closing])) {
+  opacity: 1;
+  transform: translateY(0);
+}
+
 .pl-bb-dialog:modal,
 .pl-scr-filter-sheet:modal {
   overscroll-behavior: contain;
+  overscroll-behavior-y: contain;
 }
 
 .pl-bb-dialog::backdrop,
 .pl-scr-filter-sheet::backdrop {
   overflow: hidden;
   overscroll-behavior: contain;
+  background: transparent;
+}
+
+:is(.pl-bb-dialog[open], .pl-scr-filter-sheet[open]):where(:not([data-closing]))::backdrop {
   background: var(--pl-modal-backdrop);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .pl-bb-dialog,
+  .pl-scr-filter-sheet {
+    transition-property: opacity, transform, display, overlay;
+    transition-duration: 0.22s;
+    transition-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
+    transition-behavior: allow-discrete;
+  }
+
+  .pl-bb-dialog::backdrop,
+  .pl-scr-filter-sheet::backdrop {
+    transition-property: background-color, display, overlay;
+    transition-duration: 0.2s;
+    transition-timing-function: ease-out;
+    transition-behavior: allow-discrete;
+  }
+
+  @starting-style {
+    :is(.pl-bb-dialog[open], .pl-scr-filter-sheet[open]):where(:not([data-closing])) {
+      opacity: 0;
+      transform: translateY(18px);
+    }
+
+    :is(.pl-bb-dialog[open], .pl-scr-filter-sheet[open]):where(:not([data-closing]))::backdrop {
+      background: transparent;
+    }
+  }
 }
 
 @media (min-width: 768px) {
@@ -2820,6 +2862,20 @@
     border-radius: 0;
     border-block-start: 0;
     border-inline-start: 1px solid var(--pl-border-strong);
+    transform: translateX(24px);
+  }
+
+  .pl-bb-dialog[open]:where(:not([data-closing])) {
+    transform: translateX(0);
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    @starting-style {
+      .pl-bb-dialog[open]:where(:not([data-closing])) {
+        opacity: 0;
+        transform: translateX(24px);
+      }
+    }
   }
 
   .pl-bb-dialog .pl-bottom-sheet-handle {
@@ -3119,7 +3175,8 @@
   font-size: 0.82rem;
 }
 
-.pl-pick-lab-backdrop {
+.pl-pick-lab-backdrop,
+.pl-pick-lab-dialog {
   padding: 0;
   border: 0;
   margin: 0;
@@ -3132,22 +3189,67 @@
   max-block-size: 100vh;
   max-block-size: 100dvh;
   overflow: hidden;
+  overscroll-behavior-y: contain;
+  opacity: 0;
+  transform: translateY(18px);
 }
 
-.pl-pick-lab-backdrop[open] {
+.pl-pick-lab-backdrop[open],
+.pl-pick-lab-dialog[open] {
   display: flex;
   align-items: flex-end;
   justify-content: center;
 }
 
-.pl-pick-lab-backdrop:modal {
-  overscroll-behavior: contain;
+:is(.pl-pick-lab-backdrop[open], .pl-pick-lab-dialog[open]):where(:not([data-closing])) {
+  opacity: 1;
+  transform: translateY(0);
 }
 
-.pl-pick-lab-backdrop::backdrop {
+.pl-pick-lab-backdrop:modal,
+.pl-pick-lab-dialog:modal {
+  overscroll-behavior: contain;
+  overscroll-behavior-y: contain;
+}
+
+.pl-pick-lab-backdrop::backdrop,
+.pl-pick-lab-dialog::backdrop {
   overflow: hidden;
   overscroll-behavior: contain;
+  background: transparent;
+}
+
+:is(.pl-pick-lab-backdrop[open], .pl-pick-lab-dialog[open]):where(:not([data-closing]))::backdrop {
   background: var(--pl-modal-backdrop);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .pl-pick-lab-backdrop,
+  .pl-pick-lab-dialog {
+    transition-property: opacity, transform, display, overlay;
+    transition-duration: 0.22s;
+    transition-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
+    transition-behavior: allow-discrete;
+  }
+
+  .pl-pick-lab-backdrop::backdrop,
+  .pl-pick-lab-dialog::backdrop {
+    transition-property: background-color, display, overlay;
+    transition-duration: 0.2s;
+    transition-timing-function: ease-out;
+    transition-behavior: allow-discrete;
+  }
+
+  @starting-style {
+    :is(.pl-pick-lab-backdrop[open], .pl-pick-lab-dialog[open]):where(:not([data-closing])) {
+      opacity: 0;
+      transform: translateY(18px);
+    }
+
+    :is(.pl-pick-lab-backdrop[open], .pl-pick-lab-dialog[open]):where(:not([data-closing]))::backdrop {
+      background: transparent;
+    }
+  }
 }
 
 .pl-pick-lab-panel {
@@ -3167,7 +3269,8 @@
 }
 
 @media (min-width: 1024px) {
-  .pl-pick-lab-backdrop[open] {
+  .pl-pick-lab-backdrop[open],
+  .pl-pick-lab-dialog[open] {
     align-items: center;
     padding: 20px;
   }

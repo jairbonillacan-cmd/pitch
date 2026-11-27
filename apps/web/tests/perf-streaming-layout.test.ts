@@ -417,17 +417,30 @@ describe("Streaming RSC inmediato en /app/**, club-shell-viewer y diferimiento d
     expect(events).toEqual(["microtask", "flush"]);
   });
 
-  it("PlatformClientBridge programa /api/shell/extend tras el primer pintado con priority low y preserva alcance entre rutas", () => {
+  it("PlatformClientBridge elimina el fallback 80 ms, aplica scope=parlays y C4 (sin scrollTo síncrono + viewerVia)", () => {
     const bridgeSrc = fs.readFileSync(
       path.join(WEB_ROOT, "src/client/platform-client-bridge.tsx"),
       "utf8",
     );
     expect(bridgeSrc).toContain("requestAnimationFrame");
     expect(bridgeSrc).toContain("requestIdleCallback");
-    expect(bridgeSrc).toContain("80");
+    expect(bridgeSrc).not.toContain(", 80);");
+    expect(bridgeSrc).not.toContain("scheduleIdle, 80");
+    expect(bridgeSrc).not.toContain("window.scrollTo(");
+    expect(bridgeSrc).toContain("viewerVia");
     expect(bridgeSrc).toContain('priority: background ? "low" : "auto"');
     expect(bridgeSrc).toContain("extendedPayloadRef");
+    expect(bridgeSrc).toContain("parlaysPayloadRef");
     expect(bridgeSrc).toContain("startBackgroundTransition");
     expect(bridgeSrc).toContain("requiresImmediateShellExtend");
+    expect(bridgeSrc).toContain("requiresParlayScope");
+    expect(bridgeSrc).toContain("hasDedicatedEndpointRoute");
+
+    const propsPageSrc = fs.readFileSync(
+      path.join(WEB_ROOT, "app/app/props/page.tsx"),
+      "utf8",
+    );
+    expect(propsPageSrc).toContain("<Suspense fallback={<PropsSkeleton />}>");
+    expect(propsPageSrc).toContain("yieldForStreamFlush");
   });
 });

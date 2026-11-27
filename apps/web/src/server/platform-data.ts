@@ -28,6 +28,7 @@ import { resolvePersonPhotoUrl } from "@pitchlab/sports-assets";
 import { redactDatasetForVisitor } from "@pitchlab/ui/access-guard";
 import { ALLOWED_BOOKMAKER_IDS } from "@pitchlab/ui/bookmakers";
 import {
+  catalogCategoryToLegacyFilter,
   selectPicksOfTheDay,
   type CatalogPickItem,
   type FootballPlayerMatchLog,
@@ -177,6 +178,97 @@ interface EnrichedGameMarketsBundle {
   readonly outlook: MatchOutlookSummary | null;
 }
 
+export type ShellExtendScope = "base" | "parlays";
+export type ScreenerTabFilter = "upcoming" | "live" | "settled" | "all";
+export type ScreenerSortFilter =
+  | "recomendados"
+  | "ev"
+  | "p"
+  | "movimiento"
+  | "hora"
+  | "relevancia"
+  | "momio";
+export type ScreenerPickTypeFilter = "all" | "player" | "team_match";
+export type ScreenerBandFilter = "all" | "alta" | "media" | "baja";
+
+export interface ScreenerExtendedApiResponse extends ScreenerApiResponse {
+  readonly tabCounts: {
+    readonly upcoming: number;
+    readonly live: number;
+    readonly settled: number;
+  };
+  readonly leagueFacets: readonly {
+    readonly league: string;
+    readonly label: string;
+    readonly sport: PlatformSport;
+    readonly count: number;
+  }[];
+  readonly games: Readonly<Record<string, PlatformGame>>;
+}
+
+interface ExtendedShellPickWire {
+  readonly id: string;
+  readonly slotIndex: number;
+  readonly market?: string;
+  readonly line?: number | null;
+  readonly label: string;
+  readonly p: number;
+  readonly fairDecimal: number;
+  readonly marketDecimal: number | null;
+  readonly marketBookLabel?: string | null;
+  readonly edgePts: number | null;
+  readonly result?: MatchPick["result"];
+  readonly isDailyOpenPromo?: boolean;
+  readonly isTipsterWeeklyOpen?: boolean;
+  readonly isRedacted?: boolean;
+}
+
+interface ExtendedShellGameWire {
+  readonly id: string;
+  readonly league: PlatformGame["league"];
+  readonly leagueLabel: string;
+  readonly sport: PlatformSport;
+  readonly dayId: string;
+  readonly kickoffUtc: string;
+  readonly kickoffLocal: string;
+  readonly status: PlatformGame["status"];
+  readonly score?: PlatformGame["score"];
+  readonly home: {
+    readonly slug: string;
+    readonly name: string;
+    readonly shortName: string;
+    readonly code: string;
+    readonly logoUrl?: string;
+    readonly form?: readonly string[];
+  };
+  readonly away: {
+    readonly slug: string;
+    readonly name: string;
+    readonly shortName: string;
+    readonly code: string;
+    readonly logoUrl?: string;
+    readonly form?: readonly string[];
+  };
+  readonly hasForecast?: boolean;
+  readonly x12: PlatformGame["x12"];
+  readonly projection?: PlatformGame["projection"];
+  readonly goalLine?: PlatformGame["goalLine"];
+  readonly confidenceScore: number | null;
+  readonly confidenceLevel: PlatformGame["confidenceLevel"];
+  readonly picks: readonly (MatchPick | ExtendedShellPickWire)[];
+  readonly parlayCandidates?: MatchPick[];
+  readonly preGame: {
+    readonly isRedacted?: boolean;
+    readonly lineupsConfirmed60m?: boolean;
+  };
+}
+
+export interface ExtendedShellPayload {
+  readonly games: readonly (PlatformGame | ExtendedShellGameWire)[];
+  readonly teams: NonNullable<PlatformDataset["teams"]>;
+  readonly isRedactedForVisitor: boolean;
+}
+
 interface ScreenerCachedEntry {
   readonly game: PlatformGame;
   readonly catalog: MatchPicksCatalog;
@@ -200,6 +292,8 @@ interface DatasetMemoBundle {
   redactedGamesById: Map<string, PlatformGame> | null;
   slimMemberShell: PlatformDataset | null;
   slimVisitorShell: PlatformDataset | null;
+  extendBaseMemberPayload: ExtendedShellPayload | null;
+  extendBaseVisitorPayload: ExtendedShellPayload | null;
   extendMemberPayload: {
     readonly games: PlatformGame[];
     readonly teams: NonNullable<PlatformDataset["teams"]>;
@@ -210,6 +304,8 @@ interface DatasetMemoBundle {
     readonly teams: NonNullable<PlatformDataset["teams"]>;
     readonly isRedactedForVisitor: boolean;
   } | null;
+  extendBaseMemberJson: string | null;
+  extendBaseVisitorJson: string | null;
   slimMemberShellJson: string | null;
   slimVisitorShellJson: string | null;
   initialMemberShell: PlatformDataset | null;
@@ -1174,8 +1270,12 @@ function createDatasetMemoBundle(params: {
     redactedGamesById: null,
     slimMemberShell: null,
     slimVisitorShell: null,
+    extendBaseMemberPayload: null,
+    extendBaseVisitorPayload: null,
     extendMemberPayload: null,
     extendVisitorPayload: null,
+    extendBaseMemberJson: null,
+    extendBaseVisitorJson: null,
     slimMemberShellJson: null,
     slimVisitorShellJson: null,
     initialMemberShell: null,
@@ -1209,6 +1309,7 @@ let screenerSelectiveBundleMemo: DatasetMemoBundle | null = null;
 const singleLeagueBundleCache = new BoundedStampCache<DatasetMemoBundle>(24);
 let stage1MemberSelectiveMemo: { readonly key: string; readonly at: number; readonly dataset: PlatformDataset } | null = null;
 let stage1VisitorSelectiveMemo: { readonly key: string; readonly at: number; readonly dataset: PlatformDataset } | null = null;
+let propsSelectiveMemo: { readonly key: string; readonly at: number; readonly items: PlayerPropItem[] } | null = null;
 const previewStaticCache = new BoundedStampCache<Omit<GamePreviewPayload, "detail" | "ok"> & { readonly staticDetail: PlatformGameDetail }>(256);
 const previewWireCache = new BoundedStampCache<string>(256);
 
@@ -1218,6 +1319,7 @@ export function clearPlatformDataCachesForTests(): void {
   singleLeagueBundleCache.clear();
   stage1MemberSelectiveMemo = null;
   stage1VisitorSelectiveMemo = null;
+  propsSelectiveMemo = null;
   previewStaticCache.clear();
   previewWireCache.clear();
   clearPropsExplorerCachesForTests();
@@ -1738,6 +1840,106 @@ export function loadInitialShellDatasetForAccess(fullAccess: boolean): PlatformD
   return fullAccess ? getInitialMemberShell(bundle) : getInitialVisitorShell(bundle);
 }
 
+function projectBaseExtendPick(pk: MatchPick): ExtendedShellPickWire {
+  return {
+    id: pk.id,
+    slotIndex: pk.slotIndex,
+    ...(pk.market !== undefined ? { market: pk.market } : {}),
+    ...(pk.line !== undefined ? { line: pk.line } : {}),
+    label: pk.label,
+    p: pk.p,
+    fairDecimal: pk.fairDecimal,
+    marketDecimal: pk.marketDecimal,
+    ...(pk.marketBookLabel !== undefined ? { marketBookLabel: pk.marketBookLabel } : {}),
+    edgePts: pk.edgePts,
+    ...(pk.result === "hit" || pk.result === "miss" ? { result: pk.result } : {}),
+    ...(pk.isDailyOpenPromo ? { isDailyOpenPromo: true } : {}),
+    ...(pk.isTipsterWeeklyOpen ? { isTipsterWeeklyOpen: true } : {}),
+    ...(pk.isRedacted !== undefined ? { isRedacted: pk.isRedacted } : {}),
+  };
+}
+
+function projectBaseExtendGame(
+  g: PlatformGame,
+  nowMs: number,
+  isVisitorRedacted: boolean,
+): ExtendedShellGameWire {
+  const projected = projectShellGame(g, {
+    keepParlayCandidates: false,
+    isVisitorRedacted,
+    nowMs,
+  });
+  const firstPick = projected.picks[0];
+  return {
+    id: projected.id,
+    league: projected.league,
+    leagueLabel: projected.leagueLabel,
+    sport: projected.sport,
+    dayId: projected.dayId,
+    kickoffUtc: projected.kickoffUtc,
+    kickoffLocal: projected.kickoffLocal,
+    status: projected.status,
+    ...(projected.score ? { score: projected.score } : {}),
+    home: {
+      slug: projected.home.slug,
+      name: projected.home.name,
+      shortName: projected.home.shortName,
+      code: projected.home.code,
+      ...(projected.home.logoUrl ? { logoUrl: projected.home.logoUrl } : {}),
+      ...(projected.home.form && projected.home.form.length > 0
+        ? { form: projected.home.form }
+        : {}),
+    },
+    away: {
+      slug: projected.away.slug,
+      name: projected.away.name,
+      shortName: projected.away.shortName,
+      code: projected.away.code,
+      ...(projected.away.logoUrl ? { logoUrl: projected.away.logoUrl } : {}),
+      ...(projected.away.form && projected.away.form.length > 0
+        ? { form: projected.away.form }
+        : {}),
+    },
+    ...(projected.hasForecast !== undefined ? { hasForecast: projected.hasForecast } : {}),
+    x12: projected.x12,
+    ...(projected.projection ? { projection: projected.projection } : {}),
+    ...(projected.goalLine !== undefined ? { goalLine: projected.goalLine } : {}),
+    confidenceScore: projected.confidenceScore,
+    confidenceLevel: projected.confidenceLevel,
+    picks: firstPick ? [projectBaseExtendPick(firstPick)] : [],
+    preGame: {
+      ...(projected.preGame?.isRedacted ? { isRedacted: true } : {}),
+      ...(projected.preGame?.lineupsConfirmed60m ? { lineupsConfirmed60m: true } : {}),
+    },
+  };
+}
+
+function getExtendedShellBaseBundlePayload(
+  bundle: DatasetMemoBundle,
+  fullAccess: boolean,
+): ExtendedShellPayload {
+  if (fullAccess) {
+    if (!bundle.extendBaseMemberPayload) {
+      const slim = getSlimMemberShell(bundle);
+      bundle.extendBaseMemberPayload = {
+        games: slim.games.map((g) => projectBaseExtendGame(g, bundle.at, false)),
+        teams: [],
+        isRedactedForVisitor: false,
+      };
+    }
+    return bundle.extendBaseMemberPayload;
+  }
+  if (!bundle.extendBaseVisitorPayload) {
+    const slim = getSlimVisitorShell(bundle);
+    bundle.extendBaseVisitorPayload = {
+      games: slim.games.map((g) => projectBaseExtendGame(g, bundle.at, true)),
+      teams: [],
+      isRedactedForVisitor: true,
+    };
+  }
+  return bundle.extendBaseVisitorPayload;
+}
+
 function getExtendedShellBundlePayload(
   bundle: DatasetMemoBundle,
   fullAccess: boolean,
@@ -1770,27 +1972,43 @@ function getExtendedShellBundlePayload(
   return bundle.extendVisitorPayload;
 }
 
-export function loadExtendedShellPayload(fullAccess: boolean): {
-  games: PlatformGame[];
-  teams: NonNullable<PlatformDataset["teams"]>;
-  isRedactedForVisitor: boolean;
-} {
+export function loadExtendedShellPayload(
+  fullAccess: boolean,
+  scope: ShellExtendScope = "base",
+): ExtendedShellPayload {
   const bundle = getDatasetMemoBundle();
-  return getExtendedShellBundlePayload(bundle, fullAccess);
+  return scope === "parlays"
+    ? getExtendedShellBundlePayload(bundle, fullAccess)
+    : getExtendedShellBaseBundlePayload(bundle, fullAccess);
 }
 
-export function loadExtendedShellSerializedJson(fullAccess: boolean): string {
+export function loadExtendedShellSerializedJson(
+  fullAccess: boolean,
+  scope: ShellExtendScope = "base",
+): string {
   const bundle = getDatasetMemoBundle();
-  if (fullAccess) {
-    if (!bundle.slimMemberShellJson) {
-      bundle.slimMemberShellJson = JSON.stringify(getExtendedShellBundlePayload(bundle, true));
+  if (scope === "parlays") {
+    if (fullAccess) {
+      if (!bundle.slimMemberShellJson) {
+        bundle.slimMemberShellJson = JSON.stringify(getExtendedShellBundlePayload(bundle, true));
+      }
+      return bundle.slimMemberShellJson;
     }
-    return bundle.slimMemberShellJson;
+    if (!bundle.slimVisitorShellJson) {
+      bundle.slimVisitorShellJson = JSON.stringify(getExtendedShellBundlePayload(bundle, false));
+    }
+    return bundle.slimVisitorShellJson;
   }
-  if (!bundle.slimVisitorShellJson) {
-    bundle.slimVisitorShellJson = JSON.stringify(getExtendedShellBundlePayload(bundle, false));
+  if (fullAccess) {
+    if (!bundle.extendBaseMemberJson) {
+      bundle.extendBaseMemberJson = JSON.stringify(getExtendedShellBaseBundlePayload(bundle, true));
+    }
+    return bundle.extendBaseMemberJson;
   }
-  return bundle.slimVisitorShellJson;
+  if (!bundle.extendBaseVisitorJson) {
+    bundle.extendBaseVisitorJson = JSON.stringify(getExtendedShellBaseBundlePayload(bundle, false));
+  }
+  return bundle.extendBaseVisitorJson;
 }
 
 export const buildServerRawPlatformDataset = cache(function buildServerRawPlatformDatasetCached(): PlatformDataset {
@@ -2045,8 +2263,60 @@ export function loadShellPlayerProps(options?: { fullAccess?: boolean }): Player
   if (options && options.fullAccess === false) {
     return [];
   }
-  const bundle = getDatasetMemoBundle();
-  return ensureBundlePlayerProps(bundle);
+  const now = Date.now();
+  const stamp = getPlatformDataFilesStamp();
+  const mxDay = mxDayId(new Date(now));
+  if (isDatasetMemoFresh(datasetMemo, now, stamp, mxDay)) {
+    return ensureBundlePlayerProps(datasetMemo);
+  }
+  const memoKey = `${stamp}|${mxDay}`;
+  if (
+    propsSelectiveMemo &&
+    propsSelectiveMemo.key === memoKey &&
+    now - propsSelectiveMemo.at < DATASET_WINDOW_MS
+  ) {
+    return propsSelectiveMemo.items;
+  }
+  const shellIndex = readShellIndexEntryFast();
+  if (!shellIndex) {
+    const bundle = getDatasetMemoBundle();
+    return ensureBundlePlayerProps(bundle);
+  }
+  const selectedSet = new Set<ProductLeague>();
+  let footballGamesCount = 0;
+  let nbaGamesCount = 0;
+  for (const lg of PRODUCT_LEAGUES) {
+    const data = shellIndex.leagues[lg]?.data;
+    if (!data || data.games.length === 0) continue;
+    const upcomingCount = data.games.reduce(
+      (acc, g) => (g.status !== "FT" ? acc + 1 : acc),
+      0,
+    );
+    if (upcomingCount === 0) continue;
+    if (lg === "nba" && nbaGamesCount < 24) {
+      selectedSet.add(lg);
+      nbaGamesCount += upcomingCount;
+    } else if (data.sport === "football" && footballGamesCount < 36) {
+      selectedSet.add(lg);
+      footballGamesCount += upcomingCount;
+    }
+    if (footballGamesCount >= 36 && nbaGamesCount >= 24) break;
+  }
+  const selectedLeagues = PRODUCT_LEAGUES.filter((lg) => selectedSet.has(lg));
+  if (selectedLeagues.length === 0) {
+    const bundle = getDatasetMemoBundle();
+    return ensureBundlePlayerProps(bundle);
+  }
+  const selectedEnvelopes = loadSelectedLeagueSnapshots(selectedLeagues);
+  const inputs = buildInputsFromEnvelopes(selectedEnvelopes, selectedLeagues);
+  const partialDataset = buildPlatformDataset(inputs);
+  const items = loadLeaguePlayerProps(partialDataset.games);
+  propsSelectiveMemo = {
+    key: `${getPlatformDataFilesStamp()}|${mxDay}`,
+    at: now,
+    items,
+  };
+  return items;
 }
 
 function roundFiniteDecimals(value: number, scale: number): number {
@@ -2724,7 +2994,7 @@ function getOrBuildScreenerBaseIndex(
   if (existing) return existing;
 
   const baseGames = upcomingPlusRecentFinished(bundle.value, 24)
-    .games.filter((g) => g.hasForecast !== false)
+    .games.filter((g) => g.status === "FT" || g.hasForecast !== false)
     .slice()
     .sort((a, b) => {
       const aRank = a.status === "LIVE" ? 0 : a.status === "NS" ? 1 : 2;
@@ -2761,6 +3031,80 @@ function getOrBuildScreenerBaseIndex(
   return built;
 }
 
+function screenerPickEffectiveOdds(pk: CatalogPickItem): number {
+  if (pk.pricing.marketDecimal !== null && Number.isFinite(pk.pricing.marketDecimal)) {
+    return pk.pricing.marketDecimal;
+  }
+  return pk.pricing.fairOdds;
+}
+
+function screenerPickMatchesBand(p: number, band: ScreenerBandFilter): boolean {
+  if (band === "all") return true;
+  if (band === "alta") return p >= 0.7;
+  if (band === "media") return p >= 0.55 && p < 0.7;
+  return p < 0.55;
+}
+
+function screenerPickMatchesFamily(
+  pk: CatalogPickItem,
+  familyFilter: string | undefined,
+): boolean {
+  if (!familyFilter || familyFilter === "all") return true;
+  const f = familyFilter.toLowerCase();
+  if (pk.family.toLowerCase() === f) return true;
+  if (catalogCategoryToLegacyFilter(pk.category, pk.sport) === f) return true;
+  if (f === "ambos") return pk.category === "ambos_porteria";
+  if (f === "conteos") return pk.category === "conteos_arbitro";
+  if (f === "corners") return pk.family.toLowerCase().includes("corner");
+  if (f === "tarjetas") {
+    return pk.family.toLowerCase().includes("card") || pk.family.toLowerCase().includes("yellow");
+  }
+  return false;
+}
+
+function screenerEntrySortValue(
+  catalog: MatchPicksCatalog,
+  game: PlatformGame,
+  sort: ScreenerSortFilter,
+): number {
+  const best = catalog.picks[0];
+  if (!best) return -1;
+  if (sort === "hora") {
+    const ms = Date.parse(game.kickoffUtc);
+    return Number.isFinite(ms) ? -ms : 0;
+  }
+  if (sort === "p") {
+    return Math.max(...catalog.picks.map((pk) => pk.pricing.p));
+  }
+  if (sort === "ev") {
+    return Math.max(...catalog.picks.map((pk) => pk.pricing.evPct ?? -999));
+  }
+  if (sort === "momio") {
+    return Math.max(...catalog.picks.map((pk) => screenerPickEffectiveOdds(pk)));
+  }
+  if (sort === "movimiento") {
+    let bestMove = -999;
+    for (const pk of catalog.picks) {
+      const dec = pk.pricing.marketDecimal;
+      const move = pk.pricing.evPct ?? -999;
+      const score = dec !== null && dec > 1 ? move + 100 : move;
+      if (score > bestMove) bestMove = score;
+    }
+    return bestMove;
+  }
+  if (sort === "relevancia") {
+    return Math.max(
+      ...catalog.picks.map(
+        (pk) =>
+          pk.pricing.p * 0.55 +
+          Math.min(1, Math.log(Math.max(1.01, screenerPickEffectiveOdds(pk)) + 0.5) / 2.5) * 0.25 +
+          Math.max(0, (pk.pricing.edgePts ?? 0) / 100) * 0.2,
+      ),
+    );
+  }
+  return Math.max(...catalog.picks.map((pk) => pk.recommendationScore ?? 0));
+}
+
 export function loadScreenerApiPage(params: {
   readonly fullAccess: boolean;
   readonly page?: number;
@@ -2768,10 +3112,19 @@ export function loadScreenerApiPage(params: {
   readonly sport?: string;
   readonly league?: string;
   readonly gameId?: string;
+  readonly tab?: ScreenerTabFilter;
+  readonly day?: string;
+  readonly minOdds?: number;
+  readonly maxOdds?: number;
+  readonly sort?: ScreenerSortFilter;
+  readonly band?: ScreenerBandFilter;
+  readonly family?: string;
+  readonly pickType?: ScreenerPickTypeFilter;
+  readonly onlyPositiveEdge?: boolean;
   readonly onlyRecommended?: boolean;
   readonly includeTrivial?: boolean;
   readonly q?: string;
-}): ScreenerApiResponse {
+}): ScreenerExtendedApiResponse {
   const page =
     typeof params.page === "number" && Number.isFinite(params.page) && params.page >= 1
       ? Math.floor(params.page)
@@ -2787,20 +3140,36 @@ export function loadScreenerApiPage(params: {
   const qNorm = params.q ? normalizeSearchToken(params.q) : "";
   const includeTrivial = params.includeTrivial === true;
   const onlyRecommended = params.onlyRecommended === true;
+  const onlyPositiveEdge = params.onlyPositiveEdge === true;
+  const tabFilter: ScreenerTabFilter = params.tab ?? "all";
+  const dayFilter = params.day?.trim().toLowerCase() ?? "all";
+  const sortFilter: ScreenerSortFilter = params.sort ?? "recomendados";
+  const bandFilter: ScreenerBandFilter = params.band ?? "all";
+  const familyFilter = params.family?.trim().toLowerCase();
+  const pickTypeFilter: ScreenerPickTypeFilter = params.pickType ?? "all";
+  const hasMinOdds = typeof params.minOdds === "number" && Number.isFinite(params.minOdds);
+  const hasMaxOdds = typeof params.maxOdds === "number" && Number.isFinite(params.maxOdds);
+  const minOddsVal = hasMinOdds ? params.minOdds! : 1.01;
+  const maxOddsVal = hasMaxOdds ? params.maxOdds! : Number.POSITIVE_INFINITY;
 
+  const nowMs = Date.now();
+  const todayStr = mxDayId(new Date(nowMs));
+  const plus2DaysStr = mxDayId(new Date(nowMs + 2 * 86_400_000));
+
+  let activeBundle: DatasetMemoBundle;
   let entries: readonly ScreenerCachedEntry[];
   let cachedUnfilteredPotd: readonly CatalogPickItem[] | null = null;
 
   if (gameIdFilter) {
     const hintedLeague = findLeagueForGameIdInSnapshots(gameIdFilter);
-    const singleBundle = hintedLeague
+    activeBundle = hintedLeague
       ? getOrBuildSingleLeagueBundle(hintedLeague)
       : getDatasetMemoBundle();
-    const targetGame = singleBundle.gamesById.get(gameIdFilter);
+    const targetGame = activeBundle.gamesById.get(gameIdFilter);
     if (!targetGame) {
       entries = [];
     } else {
-      const builtEntry = buildScreenerEntryFromGame(singleBundle, targetGame, params.fullAccess);
+      const builtEntry = buildScreenerEntryFromGame(activeBundle, targetGame, params.fullAccess);
       entries = builtEntry ? [builtEntry] : [];
     }
   } else {
@@ -2808,14 +3177,20 @@ export function loadScreenerApiPage(params: {
       leagueFilter && leagueFilter !== "all" && leagueFilter !== "todas"
         ? toProductLeagueKey(leagueFilter)
         : null;
-    const bundle = leagueKey ? getOrBuildSingleLeagueBundle(leagueKey) : getDatasetMemoBundle();
-    const baseIndex = getOrBuildScreenerBaseIndex(bundle, params.fullAccess);
+    activeBundle = leagueKey ? getOrBuildSingleLeagueBundle(leagueKey) : getDatasetMemoBundle();
+    const baseIndex = getOrBuildScreenerBaseIndex(activeBundle, params.fullAccess);
     entries = baseIndex.entries;
     if (
       (!sportFilter || sportFilter === "all" || sportFilter === "todos") &&
       (!leagueFilter || leagueFilter === "all" || leagueFilter === "todas") &&
       !includeTrivial &&
       !onlyRecommended &&
+      !onlyPositiveEdge &&
+      bandFilter === "all" &&
+      (!familyFilter || familyFilter === "all") &&
+      pickTypeFilter === "all" &&
+      !hasMinOdds &&
+      !hasMaxOdds &&
       qNorm.length === 0
     ) {
       cachedUnfilteredPotd = baseIndex.unfilteredPicksOfTheDay;
@@ -2824,28 +3199,90 @@ export function loadScreenerApiPage(params: {
 
   const matchedEntries: Array<{ readonly game: PlatformGame; readonly catalog: MatchPicksCatalog }> = [];
   const potdPool: CatalogPickItem[] = [];
+  const tabCounts = { upcoming: 0, live: 0, settled: 0 };
+  const leagueFacetMap = new Map<
+    string,
+    { league: string; label: string; sport: PlatformSport; count: number }
+  >();
   let totalMatchedPicks = 0;
 
   for (const entry of entries) {
     const { game, catalog: rawCatalog } = entry;
+    const entryBucket: "upcoming" | "live" | "settled" =
+      game.status === "FT" ? "settled" : game.status === "LIVE" ? "live" : "upcoming";
+
+    if (entryBucket === "live") {
+      tabCounts.live += rawCatalog.picks.length;
+    } else if (entryBucket === "settled") {
+      tabCounts.settled += rawCatalog.picks.length;
+    } else {
+      for (const pk of rawCatalog.picks) {
+        if (!onlyRecommended || pk.isRecommendedByModel !== false) {
+          tabCounts.upcoming += 1;
+        }
+      }
+    }
+
+    if (tabFilter !== "all" && entryBucket !== tabFilter) continue;
+
+    if (dayFilter !== "all" && entryBucket === "upcoming") {
+      if (dayFilter === "today" && game.dayId !== todayStr) continue;
+      if (dayFilter === "next48h" && (game.dayId < todayStr || game.dayId > plus2DaysStr)) continue;
+      if (/^\d{4}-\d{2}-\d{2}$/.test(dayFilter) && game.dayId !== dayFilter) continue;
+    }
+
     if (sportFilter && sportFilter !== "all" && sportFilter !== "todos") {
       if (game.sport.toLowerCase() !== sportFilter) continue;
     }
+
+    const facetPrev = leagueFacetMap.get(game.league);
+    if (facetPrev) {
+      facetPrev.count += rawCatalog.picks.length;
+    } else {
+      leagueFacetMap.set(game.league, {
+        league: game.league,
+        label: game.leagueLabel,
+        sport: game.sport,
+        count: rawCatalog.picks.length,
+      });
+    }
+
     if (leagueFilter && leagueFilter !== "all" && leagueFilter !== "todas") {
       if (game.league.toLowerCase() !== leagueFilter) continue;
     }
 
     const gameMatchesQ = qNorm.length === 0 || entry.gameSearchToken.includes(qNorm);
 
+    const canFastPass =
+      gameMatchesQ &&
+      includeTrivial &&
+      !onlyRecommended &&
+      !onlyPositiveEdge &&
+      bandFilter === "all" &&
+      (!familyFilter || familyFilter === "all") &&
+      pickTypeFilter === "all" &&
+      !hasMinOdds &&
+      !hasMaxOdds;
+
     let filteredPicks: readonly CatalogPickItem[];
-    if (gameMatchesQ && includeTrivial && !onlyRecommended) {
+    if (canFastPass) {
       filteredPicks = rawCatalog.picks;
     } else {
       const subset: CatalogPickItem[] = [];
       for (let i = 0; i < rawCatalog.picks.length; i += 1) {
         const pk = rawCatalog.picks[i]!;
         if (pk.isRedacted) {
-          if (gameMatchesQ) subset.push(pk);
+          if (
+            gameMatchesQ &&
+            !hasMinOdds &&
+            !hasMaxOdds &&
+            !onlyPositiveEdge &&
+            bandFilter === "all" &&
+            pickTypeFilter === "all" &&
+            (!familyFilter || familyFilter === "all")
+          ) {
+            subset.push(pk);
+          }
           continue;
         }
         if (pk.gameStatus !== "FT") {
@@ -2855,6 +3292,22 @@ export function loadScreenerApiPage(params: {
           if (onlyRecommended && pk.isRecommendedByModel !== true) {
             continue;
           }
+        }
+        if (!screenerPickMatchesBand(pk.pricing.p, bandFilter)) continue;
+        if (!screenerPickMatchesFamily(pk, familyFilter)) continue;
+        if (pickTypeFilter === "player" && !pk.playerMeta) continue;
+        if (pickTypeFilter === "team_match" && Boolean(pk.playerMeta)) continue;
+        if (onlyPositiveEdge) {
+          const ev = pk.pricing.evPct;
+          const edge = pk.pricing.edgePts;
+          if ((ev === null || ev <= 0) && (edge === null || edge <= 0)) {
+            continue;
+          }
+        }
+        if (hasMinOdds || hasMaxOdds) {
+          const effectiveDec = screenerPickEffectiveOdds(pk);
+          if (hasMinOdds && effectiveDec < minOddsVal - 0.001) continue;
+          if (hasMaxOdds && effectiveDec > maxOddsVal + 0.001) continue;
         }
         if (!gameMatchesQ && !(entry.unlockedPickTokens[i] ?? "").includes(qNorm)) {
           continue;
@@ -2881,19 +3334,75 @@ export function loadScreenerApiPage(params: {
     }
   }
 
+  if (tabFilter === "settled") {
+    matchedEntries.sort((a, b) =>
+      (b.game.kickoffUtc || "").localeCompare(a.game.kickoffUtc || ""),
+    );
+  } else if (sortFilter !== "recomendados" || tabFilter !== "all") {
+    matchedEntries.sort((a, b) => {
+      if (tabFilter === "all") {
+        const aRank = a.game.status === "LIVE" ? 0 : a.game.status === "NS" ? 1 : 2;
+        const bRank = b.game.status === "LIVE" ? 0 : b.game.status === "NS" ? 1 : 2;
+        if (aRank !== bRank) return aRank - bRank;
+        if (aRank === 2) {
+          return (b.game.kickoffUtc || "").localeCompare(a.game.kickoffUtc || "");
+        }
+      }
+      return (
+        screenerEntrySortValue(b.catalog, b.game, sortFilter) -
+        screenerEntrySortValue(a.catalog, a.game, sortFilter)
+      );
+    });
+  }
+
   const totalMatchedGames = matchedEntries.length;
   const start = (page - 1) * pageSize;
   const slice = matchedEntries.slice(start, start + pageSize);
   const catalogs: Record<string, MatchPicksCatalog> = {};
+  const games: Record<string, PlatformGame> = {};
+  const redactedGamesById = params.fullAccess ? null : getRedactedMemo(activeBundle).gamesById;
+
+  const forbiddenLogoRe = /scoutpicks|sofascore|bzzoiro|espn|poisson|dixon/i;
+  const cleanLogoUrl = (url: string | undefined): string | undefined => {
+    if (!url || forbiddenLogoRe.test(url)) return undefined;
+    if (FORBIDDEN_PROVIDER_TOKENS.some((tok) => url.toLowerCase().includes(tok))) return undefined;
+    return url;
+  };
+
   for (const entry of slice) {
     catalogs[entry.game.id] = entry.catalog;
+    const rawSafeGame = redactedGamesById
+      ? (redactedGamesById.get(entry.game.id) ?? entry.game)
+      : entry.game;
+    const projectedGame = projectShellGame(rawSafeGame, {
+      keepParlayCandidates: false,
+      isVisitorRedacted: !params.fullAccess && rawSafeGame.status !== "FT",
+      nowMs,
+    });
+    const safeHomeLogo = cleanLogoUrl(projectedGame.home.logoUrl);
+    const safeAwayLogo = cleanLogoUrl(projectedGame.away.logoUrl);
+    const safeLeagueLogo = cleanLogoUrl(projectedGame.leagueLogoUrl);
+    games[entry.game.id] = {
+      ...projectedGame,
+      leagueLogoUrl: safeLeagueLogo,
+      home: {
+        ...projectedGame.home,
+        logoUrl: safeHomeLogo,
+      },
+      away: {
+        ...projectedGame.away,
+        logoUrl: safeAwayLogo,
+      },
+      picks: [],
+    };
   }
 
   const picksOfTheDay = cachedUnfilteredPotd ?? selectPicksOfTheDay(potdPool, 3);
+  const leagueFacets = Array.from(leagueFacetMap.values());
 
   return {
     ok: true,
-    generatedAtUtc: new Date().toISOString(),
+    generatedAtUtc: new Date(nowMs).toISOString(),
     fullAccess: params.fullAccess,
     totalMatchedGames,
     totalMatchedPicks,
@@ -2902,6 +3411,9 @@ export function loadScreenerApiPage(params: {
     hasMore: start + slice.length < totalMatchedGames,
     picksOfTheDay,
     catalogs,
+    tabCounts,
+    leagueFacets,
+    games,
   };
 }
 
@@ -3406,14 +3918,16 @@ async function loadGameDetailInternal(
   const leagueInjuries = loadCachedLeagueInjuries(rawGame.league);
   const snapshot = loadSafeLeagueSnapshotData(rawGame.league, bundle);
 
-  const enrichedLineups = buildEnrichedMatchLineups({
-    game: rawGame,
-    homeSquad,
-    awaySquad,
-    confirmedLineups: rawGame.preGame?.confirmedLineups ?? null,
-    probableLineups: rawGame.preGame?.probableLineups ?? null,
-    sanitizePhotoKey: sanitizeServerPhotoKey,
-  });
+  const enrichedLineups = allowFull
+    ? buildEnrichedMatchLineups({
+        game: rawGame,
+        homeSquad,
+        awaySquad,
+        confirmedLineups: rawGame.preGame?.confirmedLineups ?? null,
+        probableLineups: rawGame.preGame?.probableLineups ?? null,
+        sanitizePhotoKey: sanitizeServerPhotoKey,
+      })
+    : null;
   const enfrentamientos = buildMatchEnfrentamientos({
     game: rawGame,
     leagueLabel: rawGame.leagueLabel,
@@ -3478,7 +3992,7 @@ async function loadGameDetailInternal(
   });
   const playerPicks = buildMatchPlayerPicks({
     game: rawGame,
-    allowFull: true,
+    allowFull,
     catalog: picksCatalog,
     homeSquad,
     awaySquad,

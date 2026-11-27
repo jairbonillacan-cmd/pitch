@@ -15,6 +15,7 @@ import type { GamePreviewPayload, MatchPicksCatalog } from "@pitchlab/ui/picks-c
 import type { PlatformDataset, PlatformGame } from "@pitchlab/ui/types";
 import { GET as extendGET } from "../app/api/shell/extend/route";
 import { GET as previewGET } from "../app/api/games/[gameId]/preview/route";
+import { GET as screenerGET } from "../app/api/picks/screener/route";
 import { resetScrapingVelocityForTests } from "../src/server/api-guards";
 import {
   clearPlatformDataCachesForTests,
@@ -23,7 +24,9 @@ import {
   loadGameSummary,
   loadInitialShellDatasetForAccess,
   loadServerPicksCatalogsForScreener,
+  loadShellPlayerProps,
   withoutGameDetail,
+  type ScreenerExtendedApiResponse,
 } from "../src/server/platform-data";
 import {
   clearPropsExplorerCachesForTests,
@@ -92,7 +95,7 @@ describe("API wire compression, shell pruning, snapshot cut, props fast-scan and
     }
   });
 
-  it("/api/shell/extend sirve JSON UTF-8 plano sin bytes gzip corruptos incluso con Accept-Encoding: gzip, mantiene compresibilidad < 200 KB y Cero-Fuga", async () => {
+  it("/api/shell/extend fragmenta base (<= 450 KB / <= 65 KB gzip) vs ?scope=parlays con Cero-Fuga y sin bytes gzip corruptos", async () => {
     mocks.getViewerAccess.mockResolvedValue(ACCESS_MEMBER);
     const acceptGzipReq = new Request("http://localhost:9990/api/shell/extend", {
       headers: { "accept-encoding": "gzip, deflate, br" },
@@ -108,15 +111,21 @@ describe("API wire compression, shell pruning, snapshot cut, props fast-scan and
     const memberBytes = Buffer.from(await memberRes.arrayBuffer());
     expect(memberBytes[0] === 0x1f && memberBytes[1] === 0x8b).toBe(false);
     const memberText = memberBytes.toString("utf8");
-    const expectedMemberJson = loadExtendedShellSerializedJson(true);
+    const expectedMemberJson = loadExtendedShellSerializedJson(true, "base");
     expect(memberText).toBe(expectedMemberJson);
-    expect(memberBytes.byteLength).toBeLessThan(1_950_000);
-    expect(gzipSync(memberBytes, { level: 6 }).byteLength).toBeLessThan(200 * 1024);
+    expect(memberBytes.byteLength).toBeLessThanOrEqual(450 * 1024);
+    expect(gzipSync(memberBytes, { level: 6 }).byteLength).toBeLessThanOrEqual(65 * 1024);
 
     const plainRes = await extendGET(new Request("http://localhost:9990/api/shell/extend"));
     expect(plainRes.status).toBe(200);
     expect(plainRes.headers.get("Content-Encoding")).toBeNull();
     expect(await plainRes.text()).toBe(expectedMemberJson);
+
+    const badScopeRes = await extendGET(
+      new Request("http://localhost:9990/api/shell/extend?scope=evil"),
+    );
+    expect(badScopeRes.status).toBe(400);
+    expect(badScopeRes.headers.get("Cache-Control")).toBe("private, no-store");
 
     mocks.getViewerAccess.mockResolvedValue(ACCESS_VISITOR);
     const visitorRes = await extendGET(
@@ -128,7 +137,8 @@ describe("API wire compression, shell pruning, snapshot cut, props fast-scan and
     expect(visitorRes.headers.get("Content-Encoding")).toBeNull();
     const visitorBytes = Buffer.from(await visitorRes.arrayBuffer());
     expect(visitorBytes[0] === 0x1f && visitorBytes[1] === 0x8b).toBe(false);
-    expect(gzipSync(visitorBytes, { level: 6 }).byteLength).toBeLessThan(120 * 1024);
+    expect(visitorBytes.byteLength).toBeLessThanOrEqual(450 * 1024);
+    expect(gzipSync(visitorBytes, { level: 6 }).byteLength).toBeLessThanOrEqual(65 * 1024);
 
     const visitorDecoded = JSON.parse(visitorBytes.toString("utf8")) as ExtendWireBody;
     expect(visitorDecoded.isRedactedForVisitor).toBe(true);
@@ -151,8 +161,18 @@ describe("API wire compression, shell pruning, snapshot cut, props fast-scan and
     for (const sg of stage1.games) {
       expect(memberIds.has(sg.id)).toBe(true);
     }
-    expect(memberDecoded.teams.length).toBeGreaterThan(0);
-    const hasParlayEligible = memberDecoded.games.some(
+    expect(memberDecoded.teams).toEqual([]);
+    expect(memberDecoded.games.every((g) => g.parlayCandidates === undefined)).toBe(true);
+
+    mocks.getViewerAccess.mockResolvedValue(ACCESS_MEMBER);
+    const parlaysRes = await extendGET(
+      new Request("http://localhost:9990/api/shell/extend?scope=parlays"),
+    );
+    expect(parlaysRes.status).toBe(200);
+    expect(parlaysRes.headers.get("Server-Timing")).toMatch(/shell_extend_parlays;dur=\d+\.\d+/);
+    const parlaysDecoded = JSON.parse(await parlaysRes.text()) as ExtendWireBody;
+    expect(parlaysDecoded.teams.length).toBeGreaterThan(0);
+    const hasParlayEligible = parlaysDecoded.games.some(
       (g) =>
         g.status === "NS" &&
         [...g.picks, ...(g.parlayCandidates ?? [])].some((pk) => {
@@ -161,12 +181,26 @@ describe("API wire compression, shell pruning, snapshot cut, props fast-scan and
         }),
     );
     expect(hasParlayEligible).toBe(true);
-    const hasFourPickNsGame = memberDecoded.games.some(
+    const hasFourPickNsGame = parlaysDecoded.games.some(
       (g) => g.status !== "FT" && g.picks.length >= 4,
     );
     expect(hasFourPickNsGame).toBe(true);
 
-    const templateGame = memberDecoded.games.find(
+    mocks.getViewerAccess.mockResolvedValue(ACCESS_VISITOR);
+    const visitorParlaysRes = await extendGET(
+      new Request("http://localhost:9990/api/shell/extend?scope=parlays"),
+    );
+    expect(visitorParlaysRes.status).toBe(200);
+    const visitorParlays = JSON.parse(await visitorParlaysRes.text()) as ExtendWireBody;
+    expect(visitorParlays.isRedactedForVisitor).toBe(true);
+    const visitorLocked = visitorParlays.games.find(
+      (g) =>
+        g.status !== "FT" &&
+        !g.picks.some((p) => Boolean(p.isDailyOpenPromo || p.isTipsterWeeklyOpen)),
+    );
+    expect(visitorLocked?.parlayCandidates).toBeUndefined();
+
+    const templateGame = parlaysDecoded.games.find(
       (g) => g.status === "NS" && g.picks.length >= 2,
     );
     expect(templateGame).toBeDefined();
@@ -268,6 +302,9 @@ describe("API wire compression, shell pruning, snapshot cut, props fast-scan and
     const visitorDecoded = JSON.parse(visitorBytes.toString("utf8")) as GamePreviewPayload;
     expect(visitorDecoded.fullAccess).toBe(false);
     expect(visitorDecoded.detail?.picksCatalog?.isRedactedForVisitor).toBe(true);
+    expect(visitorDecoded.detail?.enrichedLineups).toBeNull();
+    expect(Array.isArray(visitorDecoded.injuries)).toBe(true);
+    expect(visitorDecoded.detail?.injuries).toBeUndefined();
 
     mocks.getViewerAccess.mockResolvedValue(ACCESS_MEMBER);
     const summary = await loadGameSummary(targetId);
@@ -455,5 +492,42 @@ describe("API wire compression, shell pruning, snapshot cut, props fast-scan and
     const visitorUpcoming = Object.values(visitorCatalogs).find((c) => c.gameStatus !== "FT");
     expect(visitorUpcoming).toBeDefined();
     expect(visitorUpcoming!.isRedactedForVisitor).toBe(true);
+
+    mocks.getViewerAccess.mockResolvedValue(ACCESS_MEMBER);
+    const screenerRes = await screenerGET(
+      new Request(
+        "http://localhost:9990/api/picks/screener?page=1&pageSize=24&tab=upcoming&day=all&sort=p&minOdds=1.30&maxOdds=4.50",
+      ),
+    );
+    expect(screenerRes.status).toBe(200);
+    const screenerJson = (await screenerRes.json()) as ScreenerExtendedApiResponse;
+    expect(screenerJson.tabCounts.upcoming).toBeGreaterThan(0);
+    expect(screenerJson.tabCounts.settled).toBeGreaterThanOrEqual(0);
+    expect(screenerJson.leagueFacets.length).toBeGreaterThan(0);
+    expect(Object.keys(screenerJson.games).length).toBeLessThanOrEqual(24);
+    for (const cat of Object.values(screenerJson.catalogs)) {
+      expect(cat.gameStatus).not.toBe("FT");
+      for (const pk of cat.picks) {
+        const eff = pk.pricing.marketDecimal ?? pk.pricing.fairOdds;
+        expect(eff).toBeGreaterThanOrEqual(1.29);
+        expect(eff).toBeLessThanOrEqual(4.51);
+      }
+    }
+
+    const settledRes = await screenerGET(
+      new Request("http://localhost:9990/api/picks/screener?page=1&pageSize=24&tab=settled"),
+    );
+    expect(settledRes.status).toBe(200);
+    const settledJson = (await settledRes.json()) as ScreenerExtendedApiResponse;
+    for (const cat of Object.values(settledJson.catalogs)) {
+      expect(cat.gameStatus).toBe("FT");
+    }
+
+    clearPlatformDataCachesForTests();
+    const t0 = performance.now();
+    const fastProps = loadShellPlayerProps({ fullAccess: true });
+    const propsScanMs = performance.now() - t0;
+    expect(fastProps.length).toBeGreaterThan(0);
+    expect(propsScanMs).toBeLessThan(1500);
   });
 });

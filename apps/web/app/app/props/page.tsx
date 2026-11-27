@@ -1,7 +1,9 @@
 import "../../atomic-kit.css";
 import "../../props-betlab.css";
-import React from "react";
+import React, { Suspense } from "react";
 import { PropsLabClubView, type PropsRivalDefenseContext } from "@pitchlab/ui/props";
+import { PropsSkeleton } from "@pitchlab/ui/route-skeletons";
+import { yieldForStreamFlush } from "../../../src/server/club-shell-viewer";
 import { loadShellPlayerProps } from "../../../src/server/platform-data";
 import {
   loadPlayerPropStreakCards,
@@ -47,7 +49,8 @@ function buildRivalDefenseIndex(
   return index;
 }
 
-export default async function ClubPropsPage(): Promise<React.JSX.Element> {
+async function ClubPropsStreamContent(): Promise<React.JSX.Element> {
+  await yieldForStreamFlush();
   const access = await getViewerAccess();
   const streakCards = access.fullAccess ? loadPlayerPropStreakCards(36) : [];
   const basePlayerProps = loadShellPlayerProps({ fullAccess: access.fullAccess });
@@ -64,5 +67,13 @@ export default async function ClubPropsPage(): Promise<React.JSX.Element> {
       playerProps={playerProps}
       rivalDefenseByLeagueTeam={rivalDefenseByLeagueTeam}
     />
+  );
+}
+
+export default function ClubPropsPage(): React.JSX.Element {
+  return (
+    <Suspense fallback={<PropsSkeleton />}>
+      <ClubPropsStreamContent />
+    </Suspense>
   );
 }
