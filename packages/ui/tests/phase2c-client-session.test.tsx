@@ -103,8 +103,21 @@ describe("Phase 2C · Client session isolation, PWA push & 6a5a5af8 fixes", () =
       "pl-screener-views-v1": "[]",
       "pl-responsible-play-v1": '{"pauseChoice":"7d"}',
       "pitchlab.signup.details": '{"handle":"jair"}',
+      "pl-fav-leagues": '["liga-mx"]',
+      "pl-odds-fmt": '"decimal"',
+      "pl-risk-pref": '"balanced"',
+      "pl-sim-role": '"member"',
+      "pl-month1-nocard": "1",
+      "pl-cfdi-v1": '{"rfc":"XAXX010101000"}',
+      "pl-notif-read-v1": '["notif-1"]',
+      "pitchlab.community.following": '["carlos_mx"]',
+      "pl-follow-topics-v1": '{"leagues":["liga-mx"],"teams":["america"]}',
+      "pl-frozen-picks-v1": '{"g1":{"pickId":"p1"}}',
       "pl-theme": "dark",
       "pl-theme-updated-at": "2026-11-27T10:00:00Z",
+      "pl-style": "solid",
+      "pitchlab.analytics.consent": "1",
+      "pitchlab.analytics.sid": "pl-anon-sid-123456",
       "unrelated-external-key": "keep",
     });
     const ss = createMemoryStorage({
@@ -135,9 +148,22 @@ describe("Phase 2C · Client session isolation, PWA push & 6a5a5af8 fixes", () =
     expect(ls.getItem("pl-screener-views-v1")).toBeNull();
     expect(ls.getItem("pl-responsible-play-v1")).toBeNull();
     expect(ls.getItem("pitchlab.signup.details")).toBeNull();
+    expect(ls.getItem("pl-fav-leagues")).toBeNull();
+    expect(ls.getItem("pl-odds-fmt")).toBeNull();
+    expect(ls.getItem("pl-risk-pref")).toBeNull();
+    expect(ls.getItem("pl-sim-role")).toBeNull();
+    expect(ls.getItem("pl-month1-nocard")).toBeNull();
+    expect(ls.getItem("pl-cfdi-v1")).toBeNull();
+    expect(ls.getItem("pl-notif-read-v1")).toBeNull();
+    expect(ls.getItem("pitchlab.community.following")).toBeNull();
+    expect(ls.getItem("pl-follow-topics-v1")).toBeNull();
+    expect(ls.getItem("pl-frozen-picks-v1")).toBeNull();
 
     expect(ls.getItem("pl-theme")).toBe("dark");
     expect(ls.getItem("pl-theme-updated-at")).toBe("2026-11-27T10:00:00Z");
+    expect(ls.getItem("pl-style")).toBe("solid");
+    expect(ls.getItem("pitchlab.analytics.consent")).toBe("1");
+    expect(ls.getItem("pitchlab.analytics.sid")).toBe("pl-anon-sid-123456");
     expect(ls.getItem("unrelated-external-key")).toBe("keep");
 
     expect(ss.getItem("pl-spei-preview-v1")).toBeNull();

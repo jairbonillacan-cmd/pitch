@@ -1,4 +1,3 @@
-import { createHash } from "node:crypto";
 import { NextResponse } from "next/server";
 import { z } from "zod";
 import { siteUrl } from "@pitchlab/emails";
@@ -12,6 +11,7 @@ import {
   type UnsubscribeScope,
 } from "../../../../../src/server/lifecycle-emails";
 import { serverDb } from "../../../../../src/server/session-user";
+import { UNSUBSCRIBE_SHARED_STYLES, getUnsubscribeCsp } from "../../../../../src/unsubscribe-csp.mjs";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
@@ -32,29 +32,20 @@ const SCOPE_COPY: Record<UnsubscribeScope, string> = {
   all: "avisos y resúmenes por correo",
 };
 
-const SHARED_STYLES = `
-      :root{color-scheme:dark}
-      body{font-family:system-ui,-apple-system,sans-serif;background:rgb(10 13 18);color:rgb(244 246 249);display:flex;align-items:center;justify-content:center;min-height:100vh;margin:0;padding:24px}
-      main{max-width:440px;width:100%;background:rgb(18 23 33);border:1px solid rgb(36 45 61);border-radius:16px;padding:28px;text-align:center}
-      h1{font-size:20px;margin:0 0 12px}
-      p{font-size:14px;line-height:1.55;color:rgb(184 194 209);margin:0 0 20px}
-      form{margin:0 0 14px}
-      button,a{display:inline-flex;align-items:center;justify-content:center;min-height:48px;padding:10px 20px;border-radius:999px;font-weight:700;text-decoration:none;font-size:max(1rem,1em);cursor:pointer;box-sizing:border-box}
-      button{border:0;width:100%;background:rgb(16 185 129);color:rgb(5 46 22)}
-      a.primary{background:rgb(16 185 129);color:rgb(5 46 22)}
-      a.secondary{background:transparent;color:rgb(184 194 209);border:1px solid rgb(52 64 84);width:100%}
-      button:focus-visible,a:focus-visible{outline:3px solid rgb(16 185 129);outline-offset:2px}`;
+let cachedUnsubscribeHtmlHeaders: Record<string, string> | null = null;
 
-const STYLE_CONTENT = `${SHARED_STYLES}\n    `;
-const STYLE_SHA256 = createHash("sha256").update(STYLE_CONTENT, "utf8").digest("base64");
-const UNSUBSCRIBE_HTML_HEADERS = {
-  ...NO_STORE,
-  "Content-Type": "text/html; charset=utf-8",
-  "Content-Security-Policy": `default-src 'none'; script-src 'none'; style-src 'sha256-${STYLE_SHA256}'; img-src 'none'; font-src 'none'; connect-src 'none'; form-action 'self'; frame-ancestors 'none'; base-uri 'none'`,
-  "X-Content-Type-Options": "nosniff",
-  "X-Frame-Options": "DENY",
-  "Referrer-Policy": "no-referrer",
-} as const;
+async function getUnsubscribeHtmlHeaders(): Promise<Record<string, string>> {
+  if (cachedUnsubscribeHtmlHeaders) return cachedUnsubscribeHtmlHeaders;
+  cachedUnsubscribeHtmlHeaders = {
+    ...NO_STORE,
+    "Content-Type": "text/html; charset=utf-8",
+    "Content-Security-Policy": await getUnsubscribeCsp(),
+    "X-Content-Type-Options": "nosniff",
+    "X-Frame-Options": "DENY",
+    "Referrer-Policy": "no-referrer",
+  };
+  return cachedUnsubscribeHtmlHeaders;
+}
 
 async function readBoundedText(request: Request, maxBytes: number): Promise<string> {
   if (request.body) {
@@ -115,7 +106,7 @@ function confirmationHtml(ok: boolean, scope?: UnsubscribeScope): string {
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width,initial-scale=1" />
     <title>${title}</title>
-    <style>${SHARED_STYLES}
+    <style>${UNSUBSCRIBE_SHARED_STYLES}
     </style>
   </head>
   <body>
@@ -138,7 +129,7 @@ function confirmPromptHtml(scope: UnsubscribeScope, rawToken: string): string {
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width,initial-scale=1" />
     <title>Confirmar baja de correos · PitchLab</title>
-    <style>${SHARED_STYLES}
+    <style>${UNSUBSCRIBE_SHARED_STYLES}
     </style>
   </head>
   <body>
@@ -189,11 +180,12 @@ export const GET = withPublicRead(
     cacheControl: "no-store",
   },
   async ({ request }) => {
+    const htmlHeaders = await getUnsubscribeHtmlHeaders();
     const db = serverDb();
     if (!db) {
       return new Response(confirmationHtml(false), {
         status: 503,
-        headers: UNSUBSCRIBE_HTML_HEADERS,
+        headers: htmlHeaders,
       });
     }
     const url = new URL(request.url);
@@ -201,19 +193,19 @@ export const GET = withPublicRead(
     if (!rawToken || rawToken.length > MAX_TOKEN_LENGTH) {
       return new Response(confirmationHtml(false), {
         status: 400,
-        headers: UNSUBSCRIBE_HTML_HEADERS,
+        headers: htmlHeaders,
       });
     }
     const verified = verifyUnsubscribeToken(rawToken);
     if (!verified) {
       return new Response(confirmationHtml(false), {
         status: 400,
-        headers: UNSUBSCRIBE_HTML_HEADERS,
+        headers: htmlHeaders,
       });
     }
     return new Response(confirmPromptHtml(verified.scope, rawToken), {
       status: 200,
-      headers: UNSUBSCRIBE_HTML_HEADERS,
+      headers: htmlHeaders,
     });
   },
 );
@@ -236,7 +228,7 @@ export const POST = withPublicRead(
       if (parsedBody.wantsHtml) {
         return new Response(confirmationHtml(false), {
           status: 503,
-          headers: UNSUBSCRIBE_HTML_HEADERS,
+          headers: await getUnsubscribeHtmlHeaders(),
         });
       }
       return NextResponse.json(
@@ -252,7 +244,7 @@ export const POST = withPublicRead(
     if (parsedBody.wantsHtml) {
       return new Response(confirmationHtml(res.ok, res.ok ? res.scope : undefined), {
         status: res.ok ? 200 : 400,
-        headers: UNSUBSCRIBE_HTML_HEADERS,
+        headers: await getUnsubscribeHtmlHeaders(),
       });
     }
     if (!res.ok) {

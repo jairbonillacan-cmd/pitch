@@ -160,9 +160,9 @@ const PRIVATE_LOCAL_STORAGE_KEYS = [
   "pl-month1-nocard",
   "pl-cfdi-v1",
   "pl-notif-read-v1",
-  "pl-community-following-v1",
-  "pl-community-topics-v1",
-  "pl-frozen-main-picks-v1",
+  "pitchlab.community.following",
+  "pl-follow-topics-v1",
+  "pl-frozen-picks-v1",
 ] as const;
 
 const PRIVATE_SESSION_STORAGE_KEYS = [

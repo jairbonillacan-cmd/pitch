@@ -2,6 +2,7 @@ import { NextResponse, type NextRequest } from "next/server";
 import { getSessionCookie } from "better-auth/cookies";
 import { CLUB_PROFILE_HANDLE_HEADER, CLUB_REQUEST_PATH_HEADER } from "./src/profile-path";
 import { THEME_INIT_SCRIPT } from "./src/theme-init-script";
+import { UNSUBSCRIBE_PATHNAME, getUnsubscribeCsp } from "./src/unsubscribe-csp.mjs";
 
 const BETA_COOKIE_NAME = "pl_beta";
 const MUTATION_METHODS = new Set(["POST", "PUT", "PATCH", "DELETE"]);
@@ -267,7 +268,7 @@ function isCrossSiteExemptApiPath(pathname: string): boolean {
     normalized.startsWith("/api/webhooks/stripe/") ||
     normalized === "/api/cron" ||
     normalized.startsWith("/api/cron/") ||
-    normalized === "/api/me/email-preferences/unsubscribe"
+    normalized === UNSUBSCRIBE_PATHNAME
   );
 }
 
@@ -352,7 +353,12 @@ export async function middleware(request: NextRequest): Promise<NextResponse> {
     if (isPrivateNoStoreApiPath(pathname)) {
       response.headers.set("Cache-Control", "private, no-store");
     }
-    return applyBaselineSecurityHeaders(response, request);
+    applyBaselineSecurityHeaders(response, request);
+    if (normalizeApiPathname(pathname) === UNSUBSCRIBE_PATHNAME) {
+      response.headers.set("Content-Security-Policy", await getUnsubscribeCsp());
+      response.headers.set("Referrer-Policy", "no-referrer");
+    }
+    return response;
   }
 
   if (pathname.startsWith("/i/")) {

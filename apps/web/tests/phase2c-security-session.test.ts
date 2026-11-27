@@ -1,3 +1,4 @@
+import { createHash } from "node:crypto";
 import { PGlite } from "@electric-sql/pglite";
 import { drizzle } from "drizzle-orm/pglite";
 import { NextRequest } from "next/server";
@@ -649,6 +650,38 @@ describe("Fase 2C · Seguridad de borde, IP confiable, C1/C2, PG velocity y Zod 
     expect(unsubCsp).toContain("style-src 'sha256-");
     expect(unsubCsp).toContain("default-src 'none'");
     expect(unsubCsp).not.toContain("'unsafe-inline'");
+    const unsubHtml = await unsubGet.text();
+    const styleMatch = /<style>([\s\S]*?)<\/style>/.exec(unsubHtml);
+    expect(styleMatch?.[1]).toBeTruthy();
+    const expectedStyleHash = createHash("sha256")
+      .update(styleMatch?.[1] ?? "", "utf8")
+      .digest("base64");
+    expect(unsubCsp).toBe(
+      `default-src 'none'; script-src 'none'; style-src 'sha256-${expectedStyleHash}'; img-src 'none'; font-src 'none'; connect-src 'none'; form-action 'self'; frame-ancestors 'none'; base-uri 'none'`,
+    );
+
+    const unsubMiddlewareGet = await middleware(
+      new NextRequest(`${ORIGIN}/api/me/email-preferences/unsubscribe?token=${encodeURIComponent(tok)}`, {
+        method: "GET",
+      }),
+    );
+    expect(unsubMiddlewareGet.headers.get("Content-Security-Policy")).toBe(unsubCsp);
+    expect(unsubMiddlewareGet.headers.get("Referrer-Policy")).toBe("no-referrer");
+    expect(unsubMiddlewareGet.headers.get("Cache-Control")).toBe("private, no-store");
+
+    const unsubMiddlewarePost = await middleware(
+      new NextRequest(`${ORIGIN}/api/me/email-preferences/unsubscribe/`, {
+        method: "POST",
+        headers: {
+          "sec-fetch-site": "cross-site",
+          "content-type": "application/x-www-form-urlencoded",
+        },
+        body: "List-Unsubscribe=One-Click",
+      }),
+    );
+    expect(unsubMiddlewarePost.status).toBe(200);
+    expect(unsubMiddlewarePost.headers.get("Content-Security-Policy")).toBe(unsubCsp);
+    expect(unsubMiddlewarePost.headers.get("Referrer-Policy")).toBe("no-referrer");
 
     const tooBigUnsub = await postUnsubscribe(
       new Request(`${ORIGIN}/api/me/email-preferences/unsubscribe`, {
@@ -678,6 +711,19 @@ describe("Fase 2C · Seguridad de borde, IP confiable, C1/C2, PG velocity y Zod 
 
     const cfg = buildNextConfig("phase-production-server");
     const headerRules = await cfg.headers();
+    const rootRuleIndex = headerRules.findIndex((r: { source: string }) => r.source === "/:path*");
+    const unsubRuleIndex = headerRules.findIndex(
+      (r: { source: string }) => r.source === "/api/me/email-preferences/unsubscribe",
+    );
+    expect(rootRuleIndex).toBeGreaterThanOrEqual(0);
+    expect(unsubRuleIndex).toBeGreaterThan(rootRuleIndex);
+    const unsubRuleHeaders = headerRules[unsubRuleIndex]?.headers ?? [];
+    expect(
+      unsubRuleHeaders.find((h: { key: string }) => h.key === "Content-Security-Policy")?.value,
+    ).toBe(unsubCsp);
+    expect(unsubRuleHeaders.find((h: { key: string }) => h.key === "Referrer-Policy")?.value).toBe(
+      "no-referrer",
+    );
     const fontsRule = headerRules.find((r: { source: string }) => r.source === "/fonts/:path*");
     expect(fontsRule?.headers.find((h: { key: string }) => h.key === "Cache-Control")?.value).toBe(
       "public, max-age=31536000, immutable",
