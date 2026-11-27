@@ -25,7 +25,6 @@ import { LivePicksTrackerStrip } from "../../components/LivePicksTrackerStrip";
 import { MaestroIcon } from "../../components/MaestroPrimitives";
 import { AtmosphereStage, ClubWorkspaceShell } from "../../components/ShellChrome";
 import {
-  useAbortableJson,
   useLocalStorageState,
   useMediaQuery,
   useSafeEffect,
@@ -249,7 +248,7 @@ export function HomeClubView({
     viewerRole,
     userTimezone,
     favoriteLeagues,
-    hasAccountSessionAuth,
+    savedScreenerViews,
   } = usePlatformCore();
   const journal = useJournalEntries();
   const watchlistGameIds = useWatchlistGameIds();
@@ -290,21 +289,17 @@ export function HomeClubView({
     return () => setTodayOverride(null);
   }, [initialToday, setTodayOverride]);
 
-  const { data: prefsPayload } = useAbortableJson<PreferencesSavedViewsPayload>(
-    "/api/me/preferences",
-    { enabled: hasAccountSessionAuth && viewerRole !== "visitor" },
-  );
   const [localPinnedViews] = useLocalStorageState<readonly HomePinnedViewItem[]>(
     SAVED_SCREENER_VIEWS_STORAGE_KEY,
     EMPTY_PINNED_VIEWS,
     parsePinnedViewsArray,
   );
   const pinnedViews = useMemo<readonly HomePinnedViewItem[]>(() => {
-    if (Array.isArray(prefsPayload?.preferences?.savedViews)) {
-      return parsePinnedViewsArray(prefsPayload.preferences.savedViews) ?? EMPTY_PINNED_VIEWS;
+    if (savedScreenerViews.length > 0) {
+      return parsePinnedViewsArray(savedScreenerViews) ?? EMPTY_PINNED_VIEWS;
     }
     return localPinnedViews;
-  }, [localPinnedViews, prefsPayload?.preferences?.savedViews]);
+  }, [localPinnedViews, savedScreenerViews]);
 
   const chosenDay = homeNav.chosenDay ?? initialDay ?? null;
   const sport = homeNav.hasExplicitSport ? homeNav.sport : initialSport;

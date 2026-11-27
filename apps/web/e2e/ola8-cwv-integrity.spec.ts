@@ -331,7 +331,10 @@ async function waitForRouteLandmark(page: Page, route: ClubJourneyRoute): Promis
     return;
   }
   if (route === "/app/picks") {
-    await expect(page.locator("[data-picks-layout]"), "Layout visible en /app/picks").toBeVisible();
+    await expect(
+      page.locator("#main [data-picks-layout]:visible"),
+      "Layout visible en /app/picks",
+    ).toBeVisible();
     return;
   }
   if (route === "/app/parlays") {

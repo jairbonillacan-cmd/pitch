@@ -9,7 +9,12 @@ import {
   upsertUserPreferences,
   type StoredPushSubscription,
 } from "@pitchlab/db";
-import { withActivePaseMutation, withSessionRead } from "../../../../src/server/api-guards";
+import {
+  ApiGuardHttpError,
+  readBoundedJson,
+  withActivePaseMutation,
+  withSessionRead,
+} from "../../../../src/server/api-guards";
 import { logSecurityEvent } from "../../../../src/server/safe-logger";
 import {
   isWebPushConfigured,
@@ -22,24 +27,31 @@ export const dynamic = "force-dynamic";
 
 const MAX_PUSH_SUBSCRIPTIONS = 40;
 
-const PushSubscribeSchema = z.object({
-  endpoint: z.string().trim().min(1).max(2048),
-  keys: z.object({
-    p256dh: z.string().trim().min(16).max(512),
-    auth: z.string().trim().min(8).max(256),
-  }),
-  topics: z
-    .object({
-      picks: z.boolean().optional(),
-      live: z.boolean().optional(),
-      social: z.boolean().optional(),
-    })
-    .optional(),
-});
+const PushSubscribeSchema = z
+  .object({
+    endpoint: z.string().trim().min(1).max(2048),
+    keys: z
+      .object({
+        p256dh: z.string().trim().min(16).max(512),
+        auth: z.string().trim().min(8).max(256),
+      })
+      .strict(),
+    topics: z
+      .object({
+        picks: z.boolean().optional(),
+        live: z.boolean().optional(),
+        social: z.boolean().optional(),
+      })
+      .strict()
+      .optional(),
+  })
+  .strict();
 
-const PushDeleteBodySchema = z.object({
-  endpoint: z.string().trim().min(1).max(2048).optional(),
-});
+const PushDeleteBodySchema = z
+  .object({
+    endpoint: z.string().trim().min(1).max(2048).optional(),
+  })
+  .strict();
 
 function serializeSub(sub: {
   endpoint: string;
@@ -87,9 +99,9 @@ export const POST = withActivePaseMutation(
   async ({ request, user }) => {
     let rawBody: unknown;
     try {
-      rawBody = await request.json();
+      rawBody = await readBoundedJson(request, 16_384);
     } catch (err) {
-      void err;
+      if (err instanceof ApiGuardHttpError) throw err;
       return NextResponse.json(
         {
           ok: false,
@@ -187,22 +199,21 @@ export const DELETE = withActivePaseMutation(
     const queryEndpoint = url.searchParams.get("endpoint");
 
     let bodyEndpoint: string | undefined;
-    const rawText = await request.text();
-    if (rawText.trim().length > 0) {
-      let rawBody: unknown;
-      try {
-        rawBody = JSON.parse(rawText);
-      } catch (err) {
-        void err;
-        return NextResponse.json(
-          {
-            ok: false,
-            error: "Endpoint push inválido.",
-            ...createSanitizedErrorPayload("INVALID_JSON", "Endpoint push inválido."),
-          },
-          { status: 400 },
-        );
-      }
+    let rawBody: unknown;
+    try {
+      rawBody = await readBoundedJson(request, 16_384, { allowEmpty: true });
+    } catch (err) {
+      if (err instanceof ApiGuardHttpError) throw err;
+      return NextResponse.json(
+        {
+          ok: false,
+          error: "Endpoint push inválido.",
+          ...createSanitizedErrorPayload("INVALID_JSON", "Endpoint push inválido."),
+        },
+        { status: 400 },
+      );
+    }
+    if (rawBody !== undefined) {
       const parsedBody = PushDeleteBodySchema.safeParse(rawBody);
       if (!parsedBody.success) {
         return NextResponse.json(

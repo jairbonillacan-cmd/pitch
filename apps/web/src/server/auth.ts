@@ -30,6 +30,7 @@ export function resendSender(apiKey: string, from: string): SendEmail {
       method: "POST",
       headers: { authorization: `Bearer ${apiKey}`, "content-type": "application/json" },
       body: JSON.stringify({ from, to, subject, html, text }),
+      signal: AbortSignal.timeout(10_000),
     });
     if (!res.ok) throw new Error(`Resend respondió ${res.status}`);
   };

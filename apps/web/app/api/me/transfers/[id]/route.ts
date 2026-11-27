@@ -3,6 +3,8 @@ import { z } from "zod";
 import { createSanitizedErrorPayload, parseStrictFiniteNumber } from "@pitchlab/contracts";
 import { cancelTransferRequest, submitTransferReceipt } from "@pitchlab/db";
 import {
+  ApiGuardHttpError,
+  readBoundedJson,
   withMemberMutation,
   type GuardedRouteHandler,
   type MemberMutationContext,
@@ -13,9 +15,11 @@ import { UUID_RE, type ParsedReceiptFields } from "../../../../../src/server/tra
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
 
-const TransferIdParamsSchema = z.object({
-  id: z.string().regex(UUID_RE),
-});
+const TransferIdParamsSchema = z
+  .object({
+    id: z.string().regex(UUID_RE),
+  })
+  .strict();
 
 const OptionalNullableTextSchema = z.string().max(240).nullable().optional();
 
@@ -31,15 +35,17 @@ const NumericInputSchema = z
   .union([z.null(), z.literal(""), z.number().finite(), z.string().trim().max(32)])
   .optional();
 
-const PatchTransferReceiptSchema = z.object({
-  originBank: OptionalNullableTextSchema,
-  receiptReference: OptionalNullableTextSchema,
-  payerName: OptionalNullableTextSchema,
-  userNote: z.string().max(500).nullable().optional(),
-  transferDate: TransferDateSchema,
-  reportedAmountCentavosMxn: NumericInputSchema,
-  reportedAmountMxn: NumericInputSchema,
-});
+const PatchTransferReceiptSchema = z
+  .object({
+    originBank: OptionalNullableTextSchema,
+    receiptReference: OptionalNullableTextSchema,
+    payerName: OptionalNullableTextSchema,
+    userNote: z.string().max(500).nullable().optional(),
+    transferDate: TransferDateSchema,
+    reportedAmountCentavosMxn: NumericInputSchema,
+    reportedAmountMxn: NumericInputSchema,
+  })
+  .strict();
 
 function extractReceiptFields(
   data: z.infer<typeof PatchTransferReceiptSchema>,
@@ -93,7 +99,10 @@ export const PATCH: GuardedRouteHandler<{ id: string }> = withMemberMutation(
       return NextResponse.json({ ...payload, error: payload.message }, { status: 400 });
     }
 
-    const rawBody: unknown = await request.json().catch(() => null);
+    const rawBody: unknown = await readBoundedJson(request, 32_768).catch((err) => {
+      if (err instanceof ApiGuardHttpError) throw err;
+      return null;
+    });
     const parsedBody = PatchTransferReceiptSchema.safeParse(rawBody);
     if (!parsedBody.success) {
       const payload = createSanitizedErrorPayload(

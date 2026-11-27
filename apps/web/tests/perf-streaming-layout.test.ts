@@ -66,16 +66,21 @@ vi.mock("../src/server/snapshots", async (importOriginal) => {
   };
 });
 
-vi.mock("../src/client/platform-client-bridge", () => ({
-  PlatformClientBridge: (props: Record<string, unknown>) =>
-    React.createElement("div", { "data-mock-bridge": "1" }, props.children as React.ReactNode),
-}));
+vi.mock("../src/client/platform-client-bridge", async (importOriginal) => {
+  const actual = await importOriginal<typeof import("../src/client/platform-client-bridge")>();
+  return {
+    ...actual,
+    PlatformClientBridge: (props: Record<string, unknown>) =>
+      React.createElement("div", { "data-mock-bridge": "1" }, props.children as React.ReactNode),
+  };
+});
 
 vi.mock("../src/client/club-shell-bridge", () => ({
   ClubShellBridge: (props: Record<string, unknown>) =>
     React.createElement("div", { "data-mock-shell": "1" }, props.children as React.ReactNode),
 }));
 
+vi.mock("../app/club-legacy.css", () => ({}));
 vi.mock("../app/shell-ergonomics.css", () => ({}));
 vi.mock("../app/record-v2.css", () => ({}));
 vi.mock("../app/live.css", () => ({}));
@@ -87,6 +92,7 @@ vi.mock("../app/picks-screener.css", () => ({}));
 import ClubAppLayout from "../app/app/layout";
 import ClubHomePage from "../app/app/page";
 import ClubPicksPage from "../app/app/picks/page";
+import { mergeShellExtension } from "../src/client/platform-client-bridge";
 import {
   buildEmptyClubShellDataset,
   loadClubShellViewerState,
@@ -227,6 +233,12 @@ describe("Streaming RSC inmediato en /app/**, club-shell-viewer y diferimiento d
   });
 
   it("loadClubShellViewerState resuelve identidad y emptyShellDataset en < 20 ms sin construir Stage-1 ni filtrar datos a visitantes", async () => {
+    const coldStartMs = performance.now();
+    const coldWarmup = buildEmptyClubShellDataset(true);
+    const coldElapsedMs = performance.now() - coldStartMs;
+    expect(coldElapsedMs).toBeLessThan(250);
+    expect(coldWarmup.games).toEqual([]);
+
     const startMs = performance.now();
     const memberState = await loadClubShellViewerState("member", {
       access: ACCESS_ACCOUNT_MEMBER,
@@ -235,6 +247,7 @@ describe("Streaming RSC inmediato en /app/**, club-shell-viewer y diferimiento d
     const elapsedMs = performance.now() - startMs;
 
     expect(elapsedMs).toBeLessThan(20);
+    expect(elapsedMs).toBeLessThan(5);
     expect(memberState.hasActiveSession).toBe(true);
     expect(memberState.initialRole).toBe("member");
     expect(memberState.viewerVia).toBe("account");
@@ -242,6 +255,16 @@ describe("Streaming RSC inmediato en /app/**, club-shell-viewer y diferimiento d
     expect(memberState.dataset.games).toEqual([]);
     expect(memberState.dataset.leagues.length).toBe(PRODUCT_LEAGUES.length);
     expect(memberState.dataset.isServerRedactedForVisitor).toBe(false);
+    expect(mocks.loadLeagueSnapshotEnvelope).not.toHaveBeenCalled();
+
+    const premierSummary = memberState.dataset.leagues.find(
+      (l) => l.league === asLeagueId("premier-league"),
+    );
+    expect(premierSummary?.totalGames).toBeGreaterThan(0);
+    expect(premierSummary?.upcomingCount).toBeGreaterThan(0);
+    expect(premierSummary?.standings).toEqual([]);
+    expect(memberState.dataset.leagues.some((l) => l.activeInWindow === true)).toBe(true);
+
     const bundesligaSummary = memberState.dataset.leagues.find(
       (l) => l.league === asLeagueId("bundesliga"),
     );
@@ -256,6 +279,7 @@ describe("Streaming RSC inmediato en /app/**, club-shell-viewer y diferimiento d
     expect(visitorState.allowRoleSimulation).toBe(false);
     expect(visitorState.dataset.games).toEqual([]);
     expect(visitorState.dataset.isServerRedactedForVisitor).toBe(true);
+    expect(visitorState.dataset.leagues.every((l) => l.standings.length === 0)).toBe(true);
   });
 
   it("ClubAppLayout evita loadClubPlatformState en rutas streaming y evita doble lectura de loadLeagueSnapshotEnvelope", async () => {
@@ -417,17 +441,53 @@ describe("Streaming RSC inmediato en /app/**, club-shell-viewer y diferimiento d
     expect(events).toEqual(["microtask", "flush"]);
   });
 
-  it("PlatformClientBridge programa /api/shell/extend tras el primer pintado con priority low y preserva alcance entre rutas", () => {
+  it("PlatformClientBridge elimina el fallback 80 ms, aplica scope=parlays y C4 (sin scrollTo síncrono + viewerVia)", () => {
     const bridgeSrc = fs.readFileSync(
       path.join(WEB_ROOT, "src/client/platform-client-bridge.tsx"),
       "utf8",
     );
     expect(bridgeSrc).toContain("requestAnimationFrame");
     expect(bridgeSrc).toContain("requestIdleCallback");
-    expect(bridgeSrc).toContain("80");
+    expect(bridgeSrc).not.toContain(", 80);");
+    expect(bridgeSrc).not.toContain("scheduleIdle, 80");
+    expect(bridgeSrc).not.toContain("window.scrollTo(");
+    expect(bridgeSrc).toContain("viewerVia");
     expect(bridgeSrc).toContain('priority: background ? "low" : "auto"');
     expect(bridgeSrc).toContain("extendedPayloadRef");
+    expect(bridgeSrc).toContain("parlaysPayloadRef");
     expect(bridgeSrc).toContain("startBackgroundTransition");
     expect(bridgeSrc).toContain("requiresImmediateShellExtend");
+    expect(bridgeSrc).toContain("requiresParlayScope");
+    expect(bridgeSrc).toContain("hasDedicatedEndpointRoute");
+
+    const propsPageSrc = fs.readFileSync(
+      path.join(WEB_ROOT, "app/app/props/page.tsx"),
+      "utf8",
+    );
+    expect(propsPageSrc).toContain("<Suspense fallback={<PropsSkeleton />}>");
+    expect(propsPageSrc).toContain("yieldForStreamFlush");
+  });
+
+  it("mergeShellExtension fusiona home.form/away.form y record sin descartar rachas cuando faltan en base", () => {
+    const baseGame = makeSampleGame("ext-1", "premier-league");
+    const baseWithoutForm: PlatformGame = {
+      ...baseGame,
+      home: { ...baseGame.home, record: "", form: undefined },
+      away: { ...baseGame.away, record: "", form: undefined },
+    };
+    const extendedGame: PlatformGame = {
+      ...baseGame,
+      home: { ...baseGame.home, record: "12G-2E-1P", form: ["W", "W", "D", "W", "L"] },
+      away: { ...baseGame.away, record: "6G-4E-5P", form: ["L", "D", "W", "L", "W"] },
+    };
+    const emptyBase: PlatformDataset = {
+      ...buildEmptyClubShellDataset(true, "2026-11-27T12:00:00Z"),
+      games: [baseWithoutForm],
+    };
+    const merged = mergeShellExtension(emptyBase, [extendedGame], []);
+    expect(merged.games[0]?.home.form).toEqual(["W", "W", "D", "W", "L"]);
+    expect(merged.games[0]?.away.form).toEqual(["L", "D", "W", "L", "W"]);
+    expect(merged.games[0]?.home.record).toBe("12G-2E-1P");
+    expect(merged.games[0]?.away.record).toBe("6G-4E-5P");
   });
 });

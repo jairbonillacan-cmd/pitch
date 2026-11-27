@@ -1,12 +1,19 @@
+import { createHash } from "node:crypto";
 import { NextResponse } from "next/server";
+import { parseStrictFiniteNumber } from "@pitchlab/contracts";
 import {
+  and,
+  eq,
   hasActivePaseTotal,
   recordSecurityAbuseEvent,
   revokeUserActiveSessions,
+  securityRateBuckets,
   signupCompleted,
+  sql,
   type Db,
 } from "@pitchlab/db";
 import { getAuth } from "./auth";
+import { getBetaCookieName, isBetaPinEnabled, verifyBetaCookieToken } from "./beta-auth";
 import { requireCronAuth } from "./cron-auth";
 import {
   checkEndpointRateLimit,
@@ -182,11 +189,127 @@ const VELOCITY_WARN_THRESHOLD = 35;
 const VELOCITY_THROTTLE_THRESHOLD = 50;
 const VELOCITY_REVOKE_THRESHOLD = 75;
 const MAX_VELOCITY_ENTRIES = 5_000;
+const DEFAULT_MAX_JSON_BODY_BYTES = 65_536;
+const VELOCITY_REVOKED_BUCKET = "vel:revoked";
+const VELOCITY_REVOKE_TTL_MS = 15 * 60_000;
 const PRIVATE_NO_STORE = "private, no-store";
 const NO_STORE = "no-store";
 const MUTATION_METHODS = new Set(["POST", "PUT", "PATCH", "DELETE"]);
 
 const velocityStore = new Map<string, VelocityWindowEntry>();
+
+function isQueryableDb(candidate: unknown): candidate is Db {
+  return Boolean(
+    candidate &&
+      typeof candidate === "object" &&
+      "insert" in candidate &&
+      typeof (candidate as { insert?: unknown }).insert === "function" &&
+      "select" in candidate &&
+      typeof (candidate as { select?: unknown }).select === "function",
+  );
+}
+
+function resolveVelocityDb(user: AuthenticatedMember | null): Db | null {
+  if (user) {
+    return isQueryableDb(user.db) ? user.db : null;
+  }
+  const db = serverDb("");
+  return isQueryableDb(db) ? db : null;
+}
+
+function revokedSessionResponse(isBetaSubject: boolean): NextResponse {
+  const res = NextResponse.json(
+    { ok: false, error: "sesion_revocada" },
+    {
+      status: 403,
+      headers: {
+        "Cache-Control": PRIVATE_NO_STORE,
+        "X-Content-Type-Options": "nosniff",
+      },
+    },
+  );
+  if (isBetaSubject) {
+    res.cookies.set({
+      name: getBetaCookieName(),
+      value: "",
+      httpOnly: true,
+      secure: process.env.NODE_ENV === "production",
+      sameSite: "lax",
+      path: "/",
+      maxAge: 0,
+    });
+  }
+  return res;
+}
+
+export async function readBoundedJson(
+  request: Request,
+  maxBytes = DEFAULT_MAX_JSON_BODY_BYTES,
+  options: { allowEmpty?: boolean } = {},
+): Promise<unknown> {
+  const limit = Number.isFinite(maxBytes) && maxBytes > 0 ? Math.trunc(maxBytes) : DEFAULT_MAX_JSON_BODY_BYTES;
+  const contentLengthRaw = request.headers.get("content-length")?.trim();
+  if (contentLengthRaw && /^\d+$/.test(contentLengthRaw)) {
+    const declaredLength = parseStrictFiniteNumber(contentLengthRaw);
+    if (declaredLength !== null && declaredLength > limit) {
+      throw new ApiGuardHttpError(
+        413,
+        "cuerpo_demasiado_grande",
+        "El cuerpo de la solicitud excede el tamaño máximo permitido.",
+      );
+    }
+  }
+
+  let bytes: Uint8Array;
+  if (request.body) {
+    const reader = request.body.getReader();
+    const chunks: Uint8Array[] = [];
+    let total = 0;
+    try {
+      while (true) {
+        const { done, value } = await reader.read();
+        if (done) break;
+        if (!value || value.byteLength === 0) continue;
+        total += value.byteLength;
+        if (total > limit) {
+          await reader.cancel().catch(() => {});
+          throw new ApiGuardHttpError(
+            413,
+            "cuerpo_demasiado_grande",
+            "El cuerpo de la solicitud excede el tamaño máximo permitido.",
+          );
+        }
+        chunks.push(value);
+      }
+    } catch (err) {
+      await reader.cancel().catch(() => {});
+      throw err;
+    }
+    bytes = new Uint8Array(total);
+    let offset = 0;
+    for (const chunk of chunks) {
+      bytes.set(chunk, offset);
+      offset += chunk.byteLength;
+    }
+  } else {
+    const buffer = await request.arrayBuffer();
+    if (buffer.byteLength > limit) {
+      throw new ApiGuardHttpError(
+        413,
+        "cuerpo_demasiado_grande",
+        "El cuerpo de la solicitud excede el tamaño máximo permitido.",
+      );
+    }
+    bytes = new Uint8Array(buffer);
+  }
+
+  const text = new TextDecoder().decode(bytes).trim();
+  if (!text) {
+    if (options.allowEmpty) return undefined;
+    throw new SyntaxError("EMPTY_JSON_BODY");
+  }
+  return JSON.parse(text) as unknown;
+}
 
 export function resetScrapingVelocityForTests(): void {
   velocityStore.clear();
@@ -391,6 +514,45 @@ async function safeGetViewerAccess(): Promise<ViewerAccess | null> {
   }
 }
 
+function readCookieFromRequest(request: Request, cookieName: string): string | null {
+  const cookieHeader = request.headers.get("cookie");
+  if (!cookieHeader) return null;
+  for (const part of cookieHeader.split(";")) {
+    const trimmed = part.trim();
+    const eqIndex = trimmed.indexOf("=");
+    if (eqIndex <= 0) continue;
+    const name = trimmed.slice(0, eqIndex).trim();
+    if (name === cookieName) {
+      return trimmed.slice(eqIndex + 1).trim();
+    }
+  }
+  return null;
+}
+
+async function synthesizeAccessFromBetaRequestHeader(
+  request: Request,
+): Promise<ViewerAccess | null> {
+  if (!isBetaPinEnabled()) return null;
+  const rawToken = readCookieFromRequest(request, getBetaCookieName());
+  if (!rawToken) return null;
+  let token = rawToken;
+  try {
+    token = decodeURIComponent(rawToken);
+  } catch (err) {
+    void err;
+  }
+  const valid = await verifyBetaCookieToken(token);
+  if (!valid) return null;
+  return {
+    via: "beta",
+    signupComplete: true,
+    fullAccess: true,
+    isAdmin: false,
+    isTipster: false,
+    profile: null,
+  };
+}
+
 async function synthesizeAccessFromMember(
   member: AuthenticatedMember,
   knownSignupComplete?: boolean,
@@ -425,6 +587,251 @@ async function synthesizeAccessFromMember(
   };
 }
 
+async function isSubjectRevokedInPg(
+  db: Db,
+  subjectKey: string,
+  nowMs: number,
+): Promise<boolean> {
+  const rows = await db
+    .select({ expiresAt: securityRateBuckets.expiresAt })
+    .from(securityRateBuckets)
+    .where(
+      and(
+        eq(securityRateBuckets.bucket, VELOCITY_REVOKED_BUCKET),
+        eq(securityRateBuckets.subjectKey, subjectKey),
+        sql`${securityRateBuckets.expiresAt} > ${new Date(nowMs)}`,
+      ),
+    )
+    .limit(1);
+  return rows.length > 0;
+}
+
+function hasInMemoryRevokedBeta(subjectKey: string, nowMs: number): boolean {
+  const prefix = `${subjectKey}:`;
+  for (const [key, entry] of velocityStore) {
+    if (key.startsWith(prefix) && entry.revoked && entry.resetAt > nowMs) {
+      return true;
+    }
+  }
+  return false;
+}
+
+async function isBetaSessionRevoked(subjectKey: string, nowMs: number): Promise<boolean> {
+  if (hasInMemoryRevokedBeta(subjectKey, nowMs)) return true;
+  const pgDb = resolveVelocityDb(null);
+  if (!pgDb) return false;
+  try {
+    return await isSubjectRevokedInPg(pgDb, subjectKey, nowMs);
+  } catch (err) {
+    logSecurityEvent("warn", "beta_revocation_check_failed", { error: err });
+    return false;
+  }
+}
+
+async function evaluateScrapingVelocityInPg(params: {
+  db: Db;
+  subjectKey: string;
+  bucket: string;
+  resource: string;
+  route: string;
+  ipHash: string;
+  user: AuthenticatedMember | null;
+  nowMs: number;
+}): Promise<Response | null> {
+  const { db, nowMs } = params;
+  if (await isSubjectRevokedInPg(db, params.subjectKey, nowMs)) {
+    return revokedSessionResponse(!params.user);
+  }
+
+  const windowStart = Math.floor(nowMs / VELOCITY_WINDOW_MS) * VELOCITY_WINDOW_MS;
+  const resetAtMs = windowStart + VELOCITY_WINDOW_MS;
+  const expiresAt = new Date(resetAtMs);
+  const resHash = createHash("sha256")
+    .update(params.resource.slice(0, 160))
+    .digest("hex")
+    .slice(0, 24);
+  const resBucket = `vel:res:${params.bucket}`;
+  const resSubject = `${params.subjectKey}|${resHash}`;
+
+  await db
+    .insert(securityRateBuckets)
+    .values({
+      bucket: resBucket,
+      subjectKey: resSubject,
+      windowStart,
+      hits: 1,
+      expiresAt,
+    })
+    .onConflictDoNothing();
+
+  const countRows = await db
+    .select({ cnt: sql<number>`count(*)` })
+    .from(securityRateBuckets)
+    .where(
+      and(
+        eq(securityRateBuckets.bucket, resBucket),
+        eq(securityRateBuckets.windowStart, windowStart),
+        sql`split_part(${securityRateBuckets.subjectKey}, '|', 1) = ${params.subjectKey}`,
+        sql`${securityRateBuckets.expiresAt} > ${new Date(nowMs)}`,
+      ),
+    );
+  const distinctCount = parseStrictFiniteNumber(countRows[0]?.cnt) ?? 1;
+
+  if (distinctCount >= VELOCITY_REVOKE_THRESHOLD) {
+    const existingRevoked = await db
+      .select({ expiresAt: securityRateBuckets.expiresAt })
+      .from(securityRateBuckets)
+      .where(
+        and(
+          eq(securityRateBuckets.bucket, VELOCITY_REVOKED_BUCKET),
+          eq(securityRateBuckets.subjectKey, params.subjectKey),
+          eq(securityRateBuckets.windowStart, 0),
+        ),
+      )
+      .limit(1);
+    const alreadyRevoked = Boolean(
+      existingRevoked[0] && existingRevoked[0].expiresAt.getTime() > nowMs,
+    );
+    const revokeExpiresAt = new Date(nowMs + VELOCITY_REVOKE_TTL_MS);
+
+    await db
+      .insert(securityRateBuckets)
+      .values({
+        bucket: VELOCITY_REVOKED_BUCKET,
+        subjectKey: params.subjectKey,
+        windowStart: 0,
+        hits: distinctCount,
+        expiresAt: revokeExpiresAt,
+      })
+      .onConflictDoUpdate({
+        target: [
+          securityRateBuckets.bucket,
+          securityRateBuckets.subjectKey,
+          securityRateBuckets.windowStart,
+        ],
+        set: {
+          hits: distinctCount,
+          expiresAt: revokeExpiresAt,
+        },
+      });
+
+    logSecurityEvent("error", "session_revoked", {
+      bucket: params.bucket,
+      route: params.route,
+      userId: params.user?.userId ?? null,
+      ipHash: params.ipHash,
+      distinctResources: distinctCount,
+    });
+
+    if (!alreadyRevoked) {
+      if (params.user) {
+        try {
+          await revokeUserActiveSessions(params.user.db, params.user.userId);
+        } catch (err) {
+          logSecurityEvent("error", "session_revoke_failed", {
+            route: params.route,
+            userId: params.user.userId,
+            error: err,
+          });
+        }
+      }
+      await safeRecordAbuse(db, {
+        userId: params.user?.userId ?? null,
+        ipHash: params.ipHash,
+        route: params.route,
+        kind: "session_revoked",
+        severity: "critical",
+        details: {
+          bucket: params.bucket,
+          distinctResources: distinctCount,
+          windowMs: VELOCITY_WINDOW_MS,
+          subjectKind: params.user ? "account" : "beta",
+        },
+      });
+    }
+    return revokedSessionResponse(!params.user);
+  }
+
+  if (distinctCount >= VELOCITY_THROTTLE_THRESHOLD) {
+    const retryAfterSeconds = Math.max(1, Math.ceil((resetAtMs - nowMs) / 1000));
+    const inserted = await db
+      .insert(securityRateBuckets)
+      .values({
+        bucket: `vel:throttle:${params.bucket}`,
+        subjectKey: params.subjectKey,
+        windowStart,
+        hits: distinctCount,
+        expiresAt,
+      })
+      .onConflictDoNothing()
+      .returning({ bucket: securityRateBuckets.bucket });
+    if (inserted.length > 0) {
+      logSecurityEvent("warn", "scraping_velocity", {
+        bucket: params.bucket,
+        route: params.route,
+        userId: params.user?.userId ?? null,
+        ipHash: params.ipHash,
+        distinctResources: distinctCount,
+        severity: "high",
+      });
+      await safeRecordAbuse(db, {
+        userId: params.user?.userId ?? null,
+        ipHash: params.ipHash,
+        route: params.route,
+        kind: "scraping_velocity",
+        severity: "high",
+        details: {
+          bucket: params.bucket,
+          distinctResources: distinctCount,
+          windowMs: VELOCITY_WINDOW_MS,
+        },
+      });
+    }
+    return rateLimitResponse(
+      retryAfterSeconds,
+      "Actividad automatizada detectada. Intenta de nuevo más tarde.",
+    );
+  }
+
+  if (distinctCount >= VELOCITY_WARN_THRESHOLD) {
+    const inserted = await db
+      .insert(securityRateBuckets)
+      .values({
+        bucket: `vel:warn:${params.bucket}`,
+        subjectKey: params.subjectKey,
+        windowStart,
+        hits: distinctCount,
+        expiresAt,
+      })
+      .onConflictDoNothing()
+      .returning({ bucket: securityRateBuckets.bucket });
+    if (inserted.length > 0) {
+      logSecurityEvent("warn", "scraping_velocity", {
+        bucket: params.bucket,
+        route: params.route,
+        userId: params.user?.userId ?? null,
+        ipHash: params.ipHash,
+        distinctResources: distinctCount,
+        severity: "medium",
+      });
+      await safeRecordAbuse(db, {
+        userId: params.user?.userId ?? null,
+        ipHash: params.ipHash,
+        route: params.route,
+        kind: "scraping_velocity",
+        severity: "medium",
+        details: {
+          bucket: params.bucket,
+          distinctResources: distinctCount,
+          windowMs: VELOCITY_WINDOW_MS,
+        },
+      });
+    }
+  }
+
+  return null;
+}
+
 async function evaluateScrapingVelocity(params: {
   subjectKey: string;
   bucket: string;
@@ -434,6 +841,28 @@ async function evaluateScrapingVelocity(params: {
   user: AuthenticatedMember | null;
 }): Promise<Response | null> {
   const nowMs = Date.now();
+  const pgDb = resolveVelocityDb(params.user);
+  if (pgDb) {
+    try {
+      return await evaluateScrapingVelocityInPg({
+        db: pgDb,
+        subjectKey: params.subjectKey,
+        bucket: params.bucket,
+        resource: params.resource,
+        route: params.route,
+        ipHash: params.ipHash,
+        user: params.user,
+        nowMs,
+      });
+    } catch (err) {
+      logSecurityEvent("warn", "scraping_velocity_pg_fallback", {
+        route: params.route,
+        bucket: params.bucket,
+        error: err,
+      });
+    }
+  }
+
   const mapKey = `${params.subjectKey}:${params.bucket}`;
   let entry = velocityStore.get(mapKey);
   if (!entry || entry.resetAt <= nowMs) {
@@ -486,16 +915,7 @@ async function evaluateScrapingVelocity(params: {
         },
       });
     }
-    return NextResponse.json(
-      { ok: false, error: "sesion_revocada" },
-      {
-        status: 403,
-        headers: {
-          "Cache-Control": PRIVATE_NO_STORE,
-          "X-Content-Type-Options": "nosniff",
-        },
-      },
-    );
+    return revokedSessionResponse(!params.user);
   }
 
   if (distinctCount >= VELOCITY_THROTTLE_THRESHOLD) {
@@ -759,16 +1179,24 @@ export function withSessionRead<TParams extends RouteParams = Record<string, nev
       } else if (viewer && viewer.via !== "none") {
         access = viewer;
       } else {
-        return NextResponse.json(
-          { error: "unauthorized" },
-          {
-            status: 401,
-            headers: {
-              "Cache-Control": PRIVATE_NO_STORE,
-              "X-Content-Type-Options": "nosniff",
+        const betaAccess =
+          !viewer || viewer.via === "none"
+            ? await synthesizeAccessFromBetaRequestHeader(req)
+            : null;
+        if (betaAccess) {
+          access = betaAccess;
+        } else {
+          return NextResponse.json(
+            { error: "unauthorized" },
+            {
+              status: 401,
+              headers: {
+                "Cache-Control": PRIVATE_NO_STORE,
+                "X-Content-Type-Options": "nosniff",
+              },
             },
-          },
-        );
+          );
+        }
       }
     }
 
@@ -786,6 +1214,9 @@ export function withSessionRead<TParams extends RouteParams = Record<string, nev
     }
 
     const subjectKey = user ? `u:${user.userId}` : `b:${ipHash}`;
+    if (!user && access.via === "beta" && (await isBetaSessionRevoked(subjectKey, Date.now()))) {
+      return revokedSessionResponse(true);
+    }
     const [subjectRl, ipRl] = await Promise.all([
       checkEndpointRateLimit({
         bucket: config.bucket,
@@ -1131,6 +1562,9 @@ export function withActivePaseMutation<TParams extends RouteParams = Record<stri
     }
 
     const rateSubject = user ? user.userId : `b:${ipHash}`;
+    if (!user && access.via === "beta" && (await isBetaSessionRevoked(rateSubject, Date.now()))) {
+      return revokedSessionResponse(true);
+    }
     const rl = await checkEndpointRateLimit({
       bucket: config.bucket,
       key: rateSubject,

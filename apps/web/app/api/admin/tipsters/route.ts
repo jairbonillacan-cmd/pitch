@@ -7,7 +7,11 @@ import {
   listTipsterCodes,
   recordAdminAudit,
 } from "@pitchlab/db";
-import { withAdminMutation } from "../../../../src/server/api-guards";
+import {
+  ApiGuardHttpError,
+  readBoundedJson,
+  withAdminMutation,
+} from "../../../../src/server/api-guards";
 import { sendTipsterActivatedEmail } from "../../../../src/server/lifecycle-emails";
 import { getMailer } from "../../../../src/server/mailer";
 import { trialHashes } from "../../../../src/server/signup";
@@ -23,13 +27,15 @@ const MESSAGES: Record<string, string> = {
   duplicado: "Ese código o usuario ya existe.",
 };
 
-const CreateTipsterBodySchema = z.object({
-  email: z.string().trim().min(3).max(254).email(),
-  handle: z.string().trim().min(1).max(64),
-  displayName: z.string().trim().min(1).max(120),
-  promoCode: z.string().trim().min(1).max(32),
-  specialty: z.string().trim().max(120).optional().default(""),
-});
+const CreateTipsterBodySchema = z
+  .object({
+    email: z.string().trim().min(3).max(254).email(),
+    handle: z.string().trim().min(1).max(64),
+    displayName: z.string().trim().min(1).max(120),
+    promoCode: z.string().trim().min(1).max(32),
+    specialty: z.string().trim().max(120).optional().default(""),
+  })
+  .strict();
 
 export const POST = withAdminMutation(
   {
@@ -38,7 +44,10 @@ export const POST = withAdminMutation(
     windowMs: 60_000,
   },
   async ({ request, user }) => {
-    const rawBody: unknown = await request.json().catch(() => null);
+    const rawBody: unknown = await readBoundedJson(request, 16_384).catch((err) => {
+      if (err instanceof ApiGuardHttpError) throw err;
+      return null;
+    });
     const parsed = CreateTipsterBodySchema.safeParse(rawBody);
     if (!parsed.success) {
       const payload = createSanitizedErrorPayload(

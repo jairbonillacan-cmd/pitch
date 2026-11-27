@@ -971,3 +971,38 @@
     }
   }
 }
+
+@property --pl-hscroll-end {
+  syntax: "<length>";
+  inherits: false;
+  initial-value: 0px;
+}
+
+@keyframes pl-hscroll-fade-end {
+  0%,
+  94% {
+    --pl-hscroll-end: 18px;
+  }
+  100% {
+    --pl-hscroll-end: 0px;
+  }
+}
+
+@layer components {
+  @supports (animation-timeline: scroll(self inline)) {
+    @media (prefers-reduced-motion: no-preference) {
+      .pl-mdp-table-scroll {
+        mask-image: linear-gradient(
+          to right,
+          black 0,
+          black calc(100% - var(--pl-hscroll-end)),
+          transparent 100%
+        );
+        animation-name: pl-hscroll-fade-end;
+        animation-timing-function: linear;
+        animation-fill-mode: both;
+        animation-timeline: scroll(self inline);
+      }
+    }
+  }
+}

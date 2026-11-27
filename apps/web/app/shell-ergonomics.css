@@ -3232,3 +3232,338 @@
     }
   }
 }
+
+@property --pl-hscroll-start {
+  syntax: "<length>";
+  inherits: false;
+  initial-value: 0px;
+}
+
+@property --pl-hscroll-end {
+  syntax: "<length>";
+  inherits: false;
+  initial-value: 0px;
+}
+
+@keyframes pl-hscroll-fade-start {
+  0% {
+    --pl-hscroll-start: 0px;
+  }
+  6%,
+  100% {
+    --pl-hscroll-start: 18px;
+  }
+}
+
+@keyframes pl-hscroll-fade-end {
+  0%,
+  94% {
+    --pl-hscroll-end: 18px;
+  }
+  100% {
+    --pl-hscroll-end: 0px;
+  }
+}
+
+@layer components {
+  html {
+    scroll-padding-top: calc(var(--pl-header-h, 64px) + env(safe-area-inset-top, 0px) + 12px);
+  }
+
+  .pl-header-overlay-emblem-ph {
+    inline-size: 18px;
+    block-size: 18px;
+    flex: none;
+    border-radius: 999px;
+    background: var(--pl-surface-elevated);
+  }
+
+  .pl-mobile-dock-glyph {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .pl-mobile-dock-badge {
+    position: absolute;
+    inset-block-start: -6px;
+    inset-inline-end: -10px;
+    min-inline-size: 16px;
+    block-size: 16px;
+    padding: 0 4px;
+    border-radius: 999px;
+    border: 1px solid var(--pl-border-strong);
+    background: var(--pl-surface-elevated);
+    color: var(--pl-text);
+    font-size: 10px;
+    font-weight: 800;
+    line-height: 14px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .pl-mobile-dock-badge.is-brand {
+    border-color: var(--pl-brand);
+    background: var(--pl-brand);
+    color: var(--pl-on-primary);
+  }
+
+  .pl-more-pwa-banner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    padding: 10px 12px;
+    border-radius: 12px;
+    border: 1px solid var(--pl-border);
+    background: var(--pl-surface-elevated);
+  }
+
+  @media (max-width: 1023px) {
+    .pl-parlay-fab-wrap {
+      left: auto;
+      right: max(12px, env(safe-area-inset-right, 0px));
+      bottom: calc(74px + env(safe-area-inset-bottom, 0px));
+      justify-content: flex-end;
+      width: auto;
+    }
+
+    .pl-parlay-fab {
+      min-block-size: 44px;
+      padding: 8px 14px;
+    }
+  }
+
+  .pl-status-banners {
+    top: calc(var(--pl-header-h, 64px) + env(safe-area-inset-top, 0px) + 8px);
+  }
+
+  @media (max-width: 639px) {
+    .pl-toast-viewport {
+      top: calc(var(--pl-header-h, 64px) + env(safe-area-inset-top, 0px) + 8px);
+    }
+  }
+
+  @media (max-width: 767px), (pointer: coarse) {
+    .pl-offline-pill,
+    .pl-sw-update-pill,
+    .pl-sw-update-btn {
+      min-block-size: 44px;
+      padding-block: 6px;
+    }
+  }
+
+  @media (max-width: 767px) {
+    .panel-header[data-shell-context="home"] .pl-header-sportband {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr);
+      grid-template-rows: 1fr;
+      overflow: hidden;
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .panel-header[data-shell-context="home"][data-compact="true"] .pl-header-sportband {
+      grid-template-rows: 0fr;
+      margin-top: 0;
+      opacity: 0;
+      transform: translateY(-6px);
+      pointer-events: none;
+    }
+
+    .panel-header[data-shell-context="home"] .pl-header-sportband > div {
+      min-width: 0;
+      min-inline-size: 0;
+      min-height: 0;
+      overflow: hidden;
+    }
+
+    .panel-header[data-shell-context="home"] .pl-header-leagueband[data-open="true"] {
+      grid-template-rows: 1fr;
+      padding-top: 6px;
+      pointer-events: auto;
+    }
+  }
+
+  @media (max-width: 767px) and (prefers-reduced-motion: no-preference) {
+    .panel-header[data-shell-context="home"] .pl-header-sportband {
+      transition:
+        grid-template-rows 180ms cubic-bezier(0.22, 1, 0.36, 1),
+        opacity 150ms ease,
+        transform 180ms cubic-bezier(0.22, 1, 0.36, 1),
+        margin-top 180ms cubic-bezier(0.22, 1, 0.36, 1);
+    }
+  }
+
+  dialog.pl-native-dialog.pl-more-sheet-dialog,
+  dialog.pl-native-dialog.pl-home-fmodal-dialog,
+  dialog.pl-native-modal.pl-sheet-modal,
+  dialog[data-league-category-sheet] {
+    overscroll-behavior-y: contain;
+  }
+
+  .pl-more-sheet-inner {
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    overscroll-behavior-y: contain;
+  }
+
+  .pl-more-sheet-scroll {
+    flex: 1 1 auto;
+    min-height: 0;
+    overflow-y: auto;
+    overscroll-behavior-y: contain;
+  }
+
+  .pl-home-fmodal-body,
+  .pl-sheet-body {
+    overscroll-behavior-y: contain;
+  }
+
+  dialog.pl-native-dialog.pl-more-sheet-dialog::backdrop,
+  dialog.pl-native-dialog.pl-home-fmodal-dialog::backdrop,
+  dialog.pl-native-modal.pl-sheet-modal::backdrop,
+  dialog[data-league-category-sheet]::backdrop {
+    background: var(--pl-modal-backdrop);
+    overflow: hidden;
+    overscroll-behavior: contain;
+    opacity: 0;
+  }
+
+  dialog.pl-native-dialog.pl-more-sheet-dialog[open]:where(:not([data-closing]))::backdrop,
+  dialog.pl-native-dialog.pl-home-fmodal-dialog[open]:where(:not([data-closing]))::backdrop,
+  dialog.pl-native-modal.pl-sheet-modal[open]:where(:not([data-closing]))::backdrop,
+  dialog[data-league-category-sheet][open]:where(:not([data-closing]))::backdrop {
+    opacity: 1;
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    dialog.pl-native-modal.pl-sheet-modal,
+    dialog[data-league-category-sheet] {
+      transition-property: opacity, transform, display, overlay;
+      transition-duration: 220ms;
+      transition-timing-function: cubic-bezier(0.32, 0.72, 0, 1);
+      transition-behavior: allow-discrete;
+      transform: translateY(20px);
+      opacity: 0;
+    }
+
+    dialog.pl-native-modal.pl-sheet-modal[open]:where(:not([data-closing])),
+    dialog[data-league-category-sheet][open]:where(:not([data-closing])),
+    dialog.pl-native-dialog.pl-more-sheet-dialog[open]:where(:not([data-closing])),
+    dialog.pl-native-dialog.pl-home-fmodal-dialog[open]:where(:not([data-closing])) {
+      transform: translateY(0);
+      opacity: 1;
+    }
+
+    dialog.pl-native-dialog.pl-more-sheet-dialog[data-closing],
+    dialog.pl-native-dialog.pl-home-fmodal-dialog[data-closing],
+    dialog.pl-native-modal.pl-sheet-modal[data-closing],
+    dialog[data-league-category-sheet][data-closing] {
+      transform: translateY(24px);
+      opacity: 0;
+    }
+
+    dialog.pl-native-dialog.pl-more-sheet-dialog::backdrop,
+    dialog.pl-native-dialog.pl-home-fmodal-dialog::backdrop,
+    dialog.pl-native-modal.pl-sheet-modal::backdrop,
+    dialog[data-league-category-sheet]::backdrop {
+      transition-property: opacity, display, overlay;
+      transition-duration: 200ms;
+      transition-timing-function: ease-out;
+      transition-behavior: allow-discrete;
+    }
+
+    @starting-style {
+      dialog.pl-native-modal.pl-sheet-modal[open],
+      dialog[data-league-category-sheet][open] {
+        transform: translateY(20px);
+        opacity: 0;
+      }
+
+      dialog.pl-native-dialog.pl-more-sheet-dialog[open]::backdrop,
+      dialog.pl-native-dialog.pl-home-fmodal-dialog[open]::backdrop,
+      dialog.pl-native-modal.pl-sheet-modal[open]::backdrop,
+      dialog[data-league-category-sheet][open]::backdrop {
+        opacity: 0;
+      }
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    dialog.pl-native-modal.pl-sheet-modal,
+    dialog[data-league-category-sheet],
+    dialog.pl-native-dialog.pl-more-sheet-dialog::backdrop,
+    dialog.pl-native-dialog.pl-home-fmodal-dialog::backdrop,
+    dialog.pl-native-modal.pl-sheet-modal::backdrop,
+    dialog[data-league-category-sheet]::backdrop {
+      transition: none;
+    }
+  }
+
+  @supports (animation-timeline: scroll(self inline)) {
+    @media (prefers-reduced-motion: no-preference) {
+      .pl-match-tabs,
+      .day-chips {
+        mask-image: linear-gradient(
+          to right,
+          transparent 0,
+          black var(--pl-hscroll-start),
+          black calc(100% - var(--pl-hscroll-end)),
+          transparent 100%
+        );
+        animation-name: pl-hscroll-fade-start, pl-hscroll-fade-end;
+        animation-timing-function: linear;
+        animation-fill-mode: both;
+        animation-timeline: scroll(self inline);
+      }
+
+      .pl-table-region {
+        mask-image: linear-gradient(
+          to right,
+          black 0,
+          black calc(100% - var(--pl-hscroll-end)),
+          transparent 100%
+        );
+        animation-name: pl-hscroll-fade-end;
+        animation-timing-function: linear;
+        animation-fill-mode: both;
+        animation-timeline: scroll(self inline);
+      }
+    }
+  }
+
+  @media (max-width: 360px) {
+    .pl-st-head-lead {
+      max-inline-size: 112px;
+      padding-inline-start: 8px !important;
+    }
+
+    .pl-st-rank-cell,
+    .pl-table-region .pl-st-table tbody td.pl-st-rank-cell:first-child {
+      inline-size: 24px;
+      min-inline-size: 24px;
+      max-inline-size: 24px;
+      padding-inline-start: 6px !important;
+      padding-inline-end: 2px !important;
+    }
+
+    .pl-st-team-cell {
+      inset-inline-start: 24px;
+      min-inline-size: 86px;
+      max-inline-size: 100px;
+    }
+
+    .pl-st-team-link {
+      max-inline-size: 96px;
+      gap: 4px;
+    }
+
+    .pl-table-region :is(thead th:first-child, tbody th:first-child, tbody td:first-child) {
+      max-inline-size: 124px;
+    }
+  }
+}

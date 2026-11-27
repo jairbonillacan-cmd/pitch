@@ -467,6 +467,11 @@
 
   .pl-rec-watch-details:not([open])::details-content {
     block-size: 0;
+    opacity: 0;
+  }
+
+  .pl-rec-watch-details[open]::details-content {
+    opacity: 1;
   }
 
   @media (prefers-reduced-motion: no-preference) {
@@ -475,10 +480,13 @@
     }
 
     .pl-rec-watch-details::details-content {
-      transition: block-size, content-visibility, display;
-      transition-duration: 240ms;
-      transition-timing-function: ease-in-out;
-      transition-behavior: allow-discrete;
+      transition: opacity 180ms var(--ease-out, ease);
+    }
+
+    @starting-style {
+      .pl-rec-watch-details[open]::details-content {
+        opacity: 0;
+      }
     }
   }
 
@@ -2162,6 +2170,58 @@
     .pl-ticket-card:nth-child(n + 6):not(:focus-within),
     .pl-ticket-pick-row:nth-child(n + 6):not(:focus-within) {
       contain: layout style paint;
+    }
+  }
+}
+
+@property --pl-hscroll-start {
+  syntax: "<length>";
+  inherits: false;
+  initial-value: 0px;
+}
+
+@property --pl-hscroll-end {
+  syntax: "<length>";
+  inherits: false;
+  initial-value: 0px;
+}
+
+@keyframes pl-hscroll-fade-start {
+  0% {
+    --pl-hscroll-start: 0px;
+  }
+  6%,
+  100% {
+    --pl-hscroll-start: 18px;
+  }
+}
+
+@keyframes pl-hscroll-fade-end {
+  0%,
+  94% {
+    --pl-hscroll-end: 18px;
+  }
+  100% {
+    --pl-hscroll-end: 0px;
+  }
+}
+
+@layer components {
+  @supports (animation-timeline: scroll(self inline)) {
+    @media (prefers-reduced-motion: no-preference) {
+      .pl-hist-status-bar {
+        mask-image: linear-gradient(
+          to right,
+          transparent 0,
+          black var(--pl-hscroll-start),
+          black calc(100% - var(--pl-hscroll-end)),
+          transparent 100%
+        );
+        animation-name: pl-hscroll-fade-start, pl-hscroll-fade-end;
+        animation-timing-function: linear;
+        animation-fill-mode: both;
+        animation-timeline: scroll(self inline);
+      }
     }
   }
 }

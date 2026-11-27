@@ -17,6 +17,7 @@ import {
   PRODUCT_LEAGUES,
   type LoadedPlatformState,
 } from "./platform-data";
+import { readShellLeagueIndexMetaFast } from "./snapshots";
 import { getViewerAccess, type ViewerAccess } from "./viewer-access";
 
 const PRODUCT_LEAGUE_SET: ReadonlySet<string> = new Set(PRODUCT_LEAGUES);
@@ -32,6 +33,36 @@ const DEFERRED_STATIC_PATHS: ReadonlySet<string> = new Set([
 ]);
 
 let cachedBaseLeagues: readonly PlatformLeagueSummary[] | null = null;
+let cachedDeferredLeagues: {
+  readonly key: string;
+  readonly summaries: readonly PlatformLeagueSummary[];
+} | null = null;
+
+function resolveMxDay(nowMs: number): string {
+  try {
+    return new Intl.DateTimeFormat("en-CA", {
+      timeZone: "America/Mexico_City",
+      year: "numeric",
+      month: "2-digit",
+      day: "2-digit",
+    }).format(new Date(nowMs));
+  } catch (err) {
+    void err;
+    return new Date(nowMs).toISOString().slice(0, 10);
+  }
+}
+
+function windowBoundsForDay(todayIso: string): {
+  readonly yesterdayIso: string;
+  readonly endIso: string;
+} | null {
+  const startDate = new Date(`${todayIso}T00:00:00Z`);
+  if (Number.isNaN(startDate.getTime())) return null;
+  return {
+    yesterdayIso: new Date(startDate.getTime() - 86_400_000).toISOString().slice(0, 10),
+    endIso: new Date(startDate.getTime() + 30 * 86_400_000).toISOString().slice(0, 10),
+  };
+}
 
 function getBaseShellLeagueSummaries(): readonly PlatformLeagueSummary[] {
   if (cachedBaseLeagues) return cachedBaseLeagues;
@@ -52,11 +83,54 @@ function getBaseShellLeagueSummaries(): readonly PlatformLeagueSummary[] {
       totalGames: 0,
       upcomingCount: 0,
       finishedCount: 0,
+      activeInWindow: false,
       standings: [],
     };
   });
   cachedBaseLeagues = built;
   return built;
+}
+
+export function buildDeferredLeagueSummaries(
+  nowMs: number = Date.now(),
+): readonly PlatformLeagueSummary[] {
+  const baseLeagues = getBaseShellLeagueSummaries();
+  const metaEntry = readShellLeagueIndexMetaFast();
+  if (!metaEntry) {
+    return baseLeagues;
+  }
+  const mxDay = resolveMxDay(nowMs);
+  const cacheKey = `${metaEntry.root}|${metaEntry.mtime}|${mxDay}`;
+  if (cachedDeferredLeagues && cachedDeferredLeagues.key === cacheKey) {
+    return cachedDeferredLeagues.summaries;
+  }
+  const bounds = windowBoundsForDay(mxDay);
+  const summaries: readonly PlatformLeagueSummary[] = baseLeagues.map((base) => {
+    const meta = metaEntry.leagues[base.league];
+    if (!meta) return base;
+    const activeInWindow =
+      meta.hasLive ||
+      (bounds !== null
+        ? meta.upcomingDays.some(
+            (day) => day >= bounds.yesterdayIso && day <= bounds.endIso,
+          )
+        : meta.upcomingCount > 0);
+    return {
+      ...base,
+      ...(meta.logoUrl ? { logoUrl: meta.logoUrl } : {}),
+      season: meta.season || base.season,
+      roundLabel: meta.roundLabel || base.roundLabel,
+      generatedAt: meta.generatedAt || base.generatedAt,
+      totalGames: meta.totalGames,
+      upcomingCount: meta.upcomingCount,
+      finishedCount: meta.finishedCount,
+      activeInWindow,
+      ...(meta.leaderName ? { leaderName: meta.leaderName } : {}),
+      ...(meta.leaderPoints !== undefined ? { leaderPoints: meta.leaderPoints } : {}),
+    };
+  });
+  cachedDeferredLeagues = { key: cacheKey, summaries };
+  return summaries;
 }
 
 function toViewerIdentity(profile: ViewerAccess["profile"]): ViewerIdentity | null {
@@ -88,9 +162,11 @@ export function buildEmptyClubShellDataset(
   fullAccess: boolean,
   nowIso: string = new Date().toISOString(),
 ): PlatformDataset {
-  const leagues = getBaseShellLeagueSummaries().map((summary) => ({
+  const parsedMs = Date.parse(nowIso);
+  const resolvedNowMs = Number.isFinite(parsedMs) ? parsedMs : Date.now();
+  const leagues = buildDeferredLeagueSummaries(resolvedNowMs).map((summary) => ({
     ...summary,
-    generatedAt: nowIso,
+    generatedAt: summary.generatedAt || nowIso,
   }));
   return {
     generatedAt: nowIso,

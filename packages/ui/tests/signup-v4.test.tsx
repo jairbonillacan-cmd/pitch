@@ -1,6 +1,6 @@
 import React from "react";
 import { renderToStaticMarkup } from "react-dom/server";
-import { describe, expect, it } from "vitest";
+import { afterEach, describe, expect, it, vi } from "vitest";
 import { asLeagueId } from "@pitchlab/contracts";
 import {
   PlatformProvider,
@@ -10,8 +10,10 @@ import {
   checkBirthDate,
   compareModelWithHouseOdds,
   exampleHouseAmerican,
+  flushSignupDetails,
   resolveSignupInvite,
   selectSignupPreviewMarket,
+  submitSignupDetails,
   type LandingHeroLeagueCard,
 } from "../src/index";
 
@@ -64,6 +66,9 @@ describe("SignupSurfaceV4 (SIGNUP-2)", () => {
     expect(html.match(/Opcional/g)?.length).toBe(2);
     expect(html).toMatch(/<button[^>]*disabled=""[^>]*>Crear cuenta<\/button>/);
     expect(html).toContain('autoComplete="bday-day"');
+    expect(html).toContain('autoComplete="bday-month"');
+    expect(html).toContain('autoComplete="bday-year"');
+    expect(html).toContain("<select");
     expect(html).toContain('role="group"');
     expect(html).toContain("Sugerencias calculadas aquí (sin verificar disponibilidad):");
     expect(html).toContain("@ana");
@@ -107,5 +112,79 @@ describe("SignupSurfaceV4 (SIGNUP-2)", () => {
     const html = renderToStaticMarkup(<SignupPreviewPanel card={CARD} />);
     expect(html).toContain("Compara su momio justo");
     expect(html).toContain("+5.6 pts");
+  });
+});
+
+describe("Contrato C2 · Turnstile y recuperación en flushSignupDetails", () => {
+  const originalWindow = globalThis.window;
+  const originalFetch = globalThis.fetch;
+
+  afterEach(() => {
+    Object.defineProperty(globalThis, "window", {
+      value: originalWindow,
+      configurable: true,
+      writable: true,
+    });
+    Object.defineProperty(globalThis, "fetch", {
+      value: originalFetch,
+      configurable: true,
+      writable: true,
+    });
+  });
+
+  it("conserva los datos pendientes y devuelve captcha_required ante HTTP 403 verificacion_humana_requerida", async () => {
+    const store = new Map<string, string>();
+    const localStorageMock = {
+      get length() {
+        return store.size;
+      },
+      clear: () => store.clear(),
+      getItem: (key: string) => store.get(key) ?? null,
+      key: (idx: number) => [...store.keys()][idx] ?? null,
+      removeItem: (key: string) => {
+        store.delete(key);
+      },
+      setItem: (key: string, value: string) => {
+        store.set(key, String(value));
+      },
+    };
+    Object.defineProperty(globalThis, "window", {
+      value: { localStorage: localStorageMock },
+      configurable: true,
+      writable: true,
+    });
+    const fetchMock = vi.fn().mockResolvedValue({
+      status: 403,
+      ok: false,
+      json: async () => ({ error: "verificacion_humana_requerida" }),
+    });
+    Object.defineProperty(globalThis, "fetch", {
+      value: fetchMock,
+      configurable: true,
+      writable: true,
+    });
+
+    submitSignupDetails({
+      email: "ana@gmail.com",
+      displayName: "Ana López",
+      handle: "ana_lopez",
+      birthDate: "1998-04-12",
+      consents: {
+        terms: true,
+        analytics: false,
+        marketing: false,
+        version: "2026-11-11",
+      },
+    });
+
+    const result = await flushSignupDetails("ana@gmail.com", "ts-token-123");
+    expect(result).toEqual({ status: "captcha_required" });
+    expect(store.get("pitchlab.signup.details")).toBeTruthy();
+
+    const [, requestInit] = fetchMock.mock.calls[0] as [string, RequestInit];
+    expect(JSON.parse(String(requestInit.body))).toMatchObject({
+      turnstileToken: "ts-token-123",
+      handle: "ana_lopez",
+    });
   });
 });

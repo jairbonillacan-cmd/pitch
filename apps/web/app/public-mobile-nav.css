@@ -1,0 +1,158 @@
+@layer components {
+  dialog.pl-lp-mobile-menu.pl-lp-mobile-dialog:not([open]) {
+    display: none;
+    opacity: 0;
+    transform: translateY(-8px) scale(0.985);
+  }
+
+  dialog.pl-lp-mobile-menu.pl-lp-mobile-dialog[open] {
+    position: fixed;
+    inset-block-start: calc(var(--layout-nav-height, 64px) + env(safe-area-inset-top, 0px) + 8px);
+    inset-inline: max(12px, env(safe-area-inset-left, 0px)) max(12px, env(safe-area-inset-right, 0px));
+    margin: 0 auto;
+    inline-size: min(420px, calc(100vw - 24px));
+    max-block-size: min(
+      82dvh,
+      calc(100dvh - 88px - env(safe-area-inset-top, 0px) - env(safe-area-inset-bottom, 0px))
+    );
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    padding: 14px;
+    border-radius: var(--radius-overlay, 16px);
+    border: 1px solid var(--pl-border-strong);
+    background: var(--pl-surface);
+    color: var(--pl-text);
+    box-shadow: var(--pl-overlay-shadow);
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+
+  dialog.pl-lp-mobile-menu.pl-lp-mobile-dialog::backdrop {
+    background: var(--pl-modal-backdrop);
+    overflow: hidden;
+    overscroll-behavior: contain;
+    opacity: 0;
+  }
+
+  dialog.pl-lp-mobile-menu.pl-lp-mobile-dialog[open]::backdrop {
+    opacity: 1;
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    dialog.pl-lp-mobile-menu.pl-lp-mobile-dialog {
+      transition-property: opacity, transform, display, overlay;
+      transition-duration: 200ms;
+      transition-timing-function: var(--ease-out, cubic-bezier(0.22, 1, 0.36, 1));
+      transition-behavior: allow-discrete;
+    }
+
+    dialog.pl-lp-mobile-menu.pl-lp-mobile-dialog::backdrop {
+      transition-property: opacity, display, overlay;
+      transition-duration: 200ms;
+      transition-timing-function: ease-out;
+      transition-behavior: allow-discrete;
+    }
+
+    @starting-style {
+      dialog.pl-lp-mobile-menu.pl-lp-mobile-dialog[open] {
+        opacity: 0;
+        transform: translateY(-8px) scale(0.985);
+      }
+
+      dialog.pl-lp-mobile-menu.pl-lp-mobile-dialog[open]::backdrop {
+        opacity: 0;
+      }
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    dialog.pl-lp-mobile-menu.pl-lp-mobile-dialog,
+    dialog.pl-lp-mobile-menu.pl-lp-mobile-dialog::backdrop {
+      transition: none;
+      animation: none;
+    }
+  }
+
+  .pl-lp-mobile-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+    padding-block-end: 6px;
+    border-block-end: 1px solid var(--pl-border);
+  }
+
+  .pl-lp-mobile-title {
+    font-size: 0.875rem;
+    font-weight: 700;
+    color: var(--pl-text);
+  }
+
+  .pl-lp-mobile-close {
+    appearance: none;
+    min-inline-size: 44px;
+    min-block-size: 44px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 10px;
+    border: 1px solid var(--pl-border);
+    background: var(--pl-surface-elevated);
+    color: var(--pl-text);
+    cursor: pointer;
+    transition:
+      background-color var(--time-fast, 120ms) ease,
+      border-color var(--time-fast, 120ms) ease;
+  }
+
+  .pl-lp-mobile-close:hover {
+    background: var(--pl-surface-hover);
+    border-color: var(--pl-border-strong);
+  }
+
+  .pl-lp-mobile-close:focus-visible {
+    outline: 2px solid var(--pl-brand);
+    outline-offset: 2px;
+  }
+
+  .pl-lp-mobile-links {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  dialog.pl-lp-mobile-menu.pl-lp-mobile-dialog .pl-lp-navlink {
+    display: flex;
+    width: 100%;
+    min-block-size: 44px;
+    padding: 0 14px;
+    align-items: center;
+    justify-content: flex-start;
+    border-radius: 12px;
+    font-size: 0.9375rem;
+    color: var(--pl-text);
+    text-decoration: none;
+  }
+
+  dialog.pl-lp-mobile-menu.pl-lp-mobile-dialog .pl-lp-mobile-login {
+    font-weight: 650;
+    border: 1px solid var(--pl-border);
+    background: var(--pl-surface-elevated);
+  }
+
+  dialog.pl-lp-mobile-menu.pl-lp-mobile-dialog .pl-lp-btn {
+    width: 100%;
+    min-block-size: 44px;
+    margin-top: 2px;
+  }
+
+  @media (min-width: 900px) {
+    dialog.pl-lp-mobile-menu.pl-lp-mobile-dialog,
+    dialog.pl-lp-mobile-menu.pl-lp-mobile-dialog[open] {
+      display: none !important;
+    }
+  }
+}

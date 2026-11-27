@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useCallback, useId, useState } from "react";
+import React, { useCallback, useId, useRef, useState } from "react";
 import { Button, SofascoreCard } from "../../components/ui/primitives";
 import { useSafeEffect } from "../hooks";
 import { usePlatformActions, usePlatformCore } from "../platform-provider";
@@ -94,6 +94,7 @@ export function CouponRedeemBox({
   const effectiveAccountSession = hasAccountSessionOverride ?? hasAccountSessionAuth;
   const [code, setCode] = useState<string>(() => normalizeInputCode(initialCode));
   const [busy, setBusy] = useState<boolean>(false);
+  const submitBusyRef = useRef<boolean>(false);
   const [status, setStatus] = useState<"idle" | "redeemed" | "error">(
     storyResultOverride?.status ?? "idle",
   );
@@ -115,6 +116,7 @@ export function CouponRedeemBox({
   const handleSubmit = useCallback(
     async (e: React.FormEvent) => {
       e.preventDefault();
+      if (busy || submitBusyRef.current) return;
       const cleaned = normalizeInputCode(code);
       if (!cleaned) {
         setStatus("error");
@@ -154,6 +156,7 @@ export function CouponRedeemBox({
         return;
       }
 
+      submitBusyRef.current = true;
       setBusy(true);
       setStatus("idle");
       setMessage("");
@@ -212,10 +215,11 @@ export function CouponRedeemBox({
         setStatus("error");
         setMessage("No pudimos conectar con el servidor. Intenta de nuevo en un momento.");
       } finally {
+        submitBusyRef.current = false;
         setBusy(false);
       }
     },
-    [accountsEnabled, code, effectiveAccountSession, onRedeemed, pushToast],
+    [accountsEnabled, busy, code, effectiveAccountSession, onRedeemed, pushToast],
   );
 
   return (
@@ -336,6 +340,7 @@ export function CanjearCouponView({
     ),
   );
   const [checkingPreview, setCheckingPreview] = useState<boolean>(false);
+  const checkingPreviewRef = useRef<boolean>(false);
   const [redeemSuccess, setRedeemSuccess] = useState<boolean>(
     storyOverride?.redeemStatus === "redeemed",
   );
@@ -359,6 +364,7 @@ export function CanjearCouponView({
   const handleCheckCode = useCallback(
     async (e: React.FormEvent) => {
       e.preventDefault();
+      if (checkingPreview || checkingPreviewRef.current) return;
       const cleaned = normalizeInputCode(lookupCode);
       if (!cleaned) {
         setPreview({
@@ -396,6 +402,7 @@ export function CanjearCouponView({
         });
         return;
       }
+      checkingPreviewRef.current = true;
       setCheckingPreview(true);
       try {
         const res = await fetch(
@@ -420,10 +427,11 @@ export function CanjearCouponView({
           coupon: null,
         });
       } finally {
+        checkingPreviewRef.current = false;
         setCheckingPreview(false);
       }
     },
-    [accountsEnabled, hasAccountSession, lookupCode],
+    [accountsEnabled, checkingPreview, hasAccountSession, lookupCode],
   );
 
   const safePreview = sanitizeCouponPreviewState(preview);

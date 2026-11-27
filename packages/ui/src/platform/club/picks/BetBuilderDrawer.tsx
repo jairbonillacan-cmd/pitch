@@ -5,6 +5,7 @@ import { Button, SofascoreKpiStrip } from "../../../components/ui/primitives";
 import { PBar } from "../../../sports";
 import { formatOddsValue, isPickUnlocked } from "../../access-guard";
 import { resolvePreferredBookQuote } from "../../bookmakers";
+import { DrawerErrorBoundary } from "../../components/DrawerErrorBoundary";
 import { MaestroIcon } from "../../components/MaestroPrimitives";
 import { SgpCopulaAuditCard } from "../../components/SgpCopulaAuditCard";
 import { useSheetSwipeDismiss } from "../../components/use-sheet-swipe-dismiss";
@@ -123,6 +124,7 @@ export function BetBuilderDrawer({
     onDismiss: () => onCloseRef.current(),
     disabled: !open || !isMobileViewport,
     scrollContainerRef: bodyScrollRef,
+    dragHandleSelector: ".pl-sheet-drag-zone",
   });
 
   const pickId = pick?.id ?? null;
@@ -384,8 +386,9 @@ export function BetBuilderDrawer({
       style={isMobileViewport ? swipe.sheetStyle : undefined}
     >
       <div className="pl-bb-shell">
+        <DrawerErrorBoundary title="Bet Builder temporalmente no disponible" onClose={onClose}>
         <div
-          className="pl-bb-drag-zone"
+          className="pl-bb-drag-zone pl-sheet-drag-zone"
           {...(isMobileViewport ? swipe.handleProps : {})}
         >
           <span className="pl-bottom-sheet-handle" aria-hidden="true" />
@@ -403,7 +406,7 @@ export function BetBuilderDrawer({
               variant="ghost"
               size="icon"
               aria-label="Cerrar Bet Builder"
-              autoFocus
+              autoFocus={!isMobileViewport}
               onClick={onClose}
             >
               <MaestroIcon name="x" size={16} />
@@ -760,6 +763,7 @@ export function BetBuilderDrawer({
             </span>
           </Button>
         </footer>
+        </DrawerErrorBoundary>
       </div>
     </dialog>
   );

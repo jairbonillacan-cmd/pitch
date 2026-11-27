@@ -1470,6 +1470,7 @@ export function clearSnapshotCausalityCachesForTests(): void {
   snapshotCache.clear();
   allSnapshotsMemo = null;
   shellIndexCache = null;
+  shellLeagueMetaCache = null;
   preKickoffSealLedger.clear();
   sealVersionByLeague.clear();
   leagueCausalityAuditCache.clear();
@@ -1488,6 +1489,33 @@ interface ShellIndexFile {
   leagues?: Record<string, SnapshotEnvelope>;
 }
 
+export interface ShellLeagueMeta {
+  readonly season: string;
+  readonly roundLabel: string;
+  readonly generatedAt: string;
+  readonly logoUrl?: string;
+  readonly totalGames: number;
+  readonly upcomingCount: number;
+  readonly finishedCount: number;
+  readonly hasLive: boolean;
+  readonly upcomingDays: readonly string[];
+  readonly leaderName?: string;
+  readonly leaderPoints?: number;
+}
+
+export interface CachedShellLeagueMetaEntry {
+  readonly root: string;
+  readonly mtime: number;
+  readonly leagues: Readonly<Record<string, ShellLeagueMeta>>;
+}
+
+interface ShellLeagueMetaDiskFile {
+  readonly schemaVersion: 1;
+  readonly root: string;
+  readonly indexMtime: number;
+  readonly leagues: Record<string, ShellLeagueMeta>;
+}
+
 export interface CachedShellIndexEntry {
   readonly root: string;
   readonly mtime: number;
@@ -1502,6 +1530,95 @@ function isProductLeagueKey(raw: string): raw is ProductLeague {
 }
 
 let shellIndexCache: CachedShellIndexEntry | null = null;
+let shellLeagueMetaCache: CachedShellLeagueMetaEntry | null = null;
+
+function shellLeagueMetaDiskPath(root: string): string {
+  return path.join(os.tmpdir(), `pitchlab-shell-league-meta-v1-${sha256Hex(root).slice(0, 16)}.json`);
+}
+
+function buildShellLeagueMetaMap(
+  leagues: Readonly<Record<string, SnapshotEnvelope>>,
+): Record<string, ShellLeagueMeta> {
+  const out: Record<string, ShellLeagueMeta> = {};
+  for (const [leagueKey, env] of Object.entries(leagues)) {
+    if (!isProductLeagueKey(leagueKey) || !env || env.state !== "ready" || !env.data) {
+      continue;
+    }
+    const data = env.data;
+    let upcomingCount = 0;
+    let finishedCount = 0;
+    let hasLive = false;
+    const upcomingDaysSet = new Set<string>();
+    for (const game of data.games) {
+      if (game.status === "FT") {
+        finishedCount += 1;
+        continue;
+      }
+      upcomingCount += 1;
+      if (game.status === "LIVE") {
+        hasLive = true;
+      }
+      const day = game.day || (game.kickoffUtc ? game.kickoffUtc.slice(0, 10) : "");
+      if (day) {
+        upcomingDaysSet.add(day);
+      }
+    }
+    const leader = data.standings?.[0];
+    out[leagueKey] = {
+      season: data.season,
+      roundLabel: data.roundLabel,
+      generatedAt: data.generatedAt,
+      ...(data.logoUrl ? { logoUrl: data.logoUrl } : {}),
+      totalGames: upcomingCount + finishedCount,
+      upcomingCount,
+      finishedCount,
+      hasLive,
+      upcomingDays: Array.from(upcomingDaysSet).sort(),
+      ...(leader?.name ? { leaderName: leader.name } : {}),
+      ...(leader?.points !== undefined ? { leaderPoints: leader.points } : {}),
+    };
+  }
+  return out;
+}
+
+function isValidShellLeagueMeta(value: unknown): value is ShellLeagueMeta {
+  if (!isPlainRecord(value)) return false;
+  return (
+    typeof value.season === "string" &&
+    typeof value.roundLabel === "string" &&
+    typeof value.generatedAt === "string" &&
+    typeof value.totalGames === "number" &&
+    typeof value.upcomingCount === "number" &&
+    typeof value.finishedCount === "number" &&
+    typeof value.hasLive === "boolean" &&
+    Array.isArray(value.upcomingDays)
+  );
+}
+
+function readShellLeagueMetaDiskFile(
+  root: string,
+  indexMtime: number,
+): CachedShellLeagueMetaEntry | null {
+  if (indexMtime <= 0) return null;
+  try {
+    const raw: unknown = JSON.parse(fs.readFileSync(shellLeagueMetaDiskPath(root), "utf8"));
+    if (!isPlainRecord(raw)) return null;
+    if (raw.schemaVersion !== 1 || raw.root !== root || raw.indexMtime !== indexMtime) {
+      return null;
+    }
+    if (!isPlainRecord(raw.leagues)) return null;
+    const leagues: Record<string, ShellLeagueMeta> = {};
+    for (const [k, entry] of Object.entries(raw.leagues)) {
+      if (isProductLeagueKey(k) && isValidShellLeagueMeta(entry)) {
+        leagues[k] = entry;
+      }
+    }
+    return { root, mtime: indexMtime, leagues };
+  } catch (err) {
+    void err;
+    return null;
+  }
+}
 
 function readFreshShellIndex(root: string): CachedShellIndexEntry | null {
   const indexPath = path.join(root, "shell-index.json");
@@ -1538,6 +1655,45 @@ function readFreshShellIndex(root: string): CachedShellIndexEntry | null {
 
 export function readShellIndexEntryFast(): CachedShellIndexEntry | null {
   return readFreshShellIndex(resolveSnapshotsRoot());
+}
+
+export function readShellLeagueIndexMetaFast(): CachedShellLeagueMetaEntry | null {
+  const root = resolveSnapshotsRoot();
+  const mtime = fileMtime(path.join(root, "shell-index.json"));
+  if (!mtime) {
+    shellLeagueMetaCache = null;
+    return null;
+  }
+  if (shellLeagueMetaCache && shellLeagueMetaCache.root === root && shellLeagueMetaCache.mtime === mtime) {
+    return shellLeagueMetaCache;
+  }
+  if (shellIndexCache && shellIndexCache.root === root && shellIndexCache.mtime === mtime) {
+    const leagues = buildShellLeagueMetaMap(shellIndexCache.leagues);
+    shellLeagueMetaCache = { root, mtime, leagues };
+    writeJsonFileAtomic(shellLeagueMetaDiskPath(root), {
+      schemaVersion: 1,
+      root,
+      indexMtime: mtime,
+      leagues,
+    } satisfies ShellLeagueMetaDiskFile);
+    return shellLeagueMetaCache;
+  }
+  const fromDisk = readShellLeagueMetaDiskFile(root, mtime);
+  if (fromDisk) {
+    shellLeagueMetaCache = fromDisk;
+    return fromDisk;
+  }
+  const fullIndex = readFreshShellIndex(root);
+  if (!fullIndex) return null;
+  const leagues = buildShellLeagueMetaMap(fullIndex.leagues);
+  shellLeagueMetaCache = { root, mtime, leagues };
+  writeJsonFileAtomic(shellLeagueMetaDiskPath(root), {
+    schemaVersion: 1,
+    root,
+    indexMtime: mtime,
+    leagues,
+  } satisfies ShellLeagueMetaDiskFile);
+  return shellLeagueMetaCache;
 }
 
 export function findLeagueForGameIdInSnapshots(gameId: string): ProductLeague | null {
@@ -1684,8 +1840,7 @@ function readCausalityCutDiskFile(
   }
 }
 
-function writeCausalityCutDiskFileAtomic(payload: CausalityCutDiskFile): void {
-  const target = causalityCutDiskPath(payload.root);
+function writeJsonFileAtomic(target: string, payload: unknown): void {
   const tmp = `${target}.tmp-${process.pid}-${Date.now()}`;
   try {
     fs.writeFileSync(tmp, JSON.stringify(payload), "utf8");
@@ -1698,6 +1853,10 @@ function writeCausalityCutDiskFileAtomic(payload: CausalityCutDiskFile): void {
       void cleanupErr;
     }
   }
+}
+
+function writeCausalityCutDiskFileAtomic(payload: CausalityCutDiskFile): void {
+  writeJsonFileAtomic(causalityCutDiskPath(payload.root), payload);
 }
 
 function tryReusePrecompiledOnCheckoutSkew(

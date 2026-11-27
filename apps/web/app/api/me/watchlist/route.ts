@@ -2,7 +2,12 @@ import { NextResponse } from "next/server";
 import { z } from "zod";
 import { createSanitizedErrorPayload, parseStrictFiniteNumber } from "@pitchlab/contracts";
 import { listFollowedGames, setFollowedGame } from "@pitchlab/db";
-import { withActivePaseMutation, withSessionRead } from "../../../../src/server/api-guards";
+import {
+  ApiGuardHttpError,
+  readBoundedJson,
+  withActivePaseMutation,
+  withSessionRead,
+} from "../../../../src/server/api-guards";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
@@ -15,13 +20,16 @@ const WatchlistAlertsSchema = z
     goals: z.boolean().optional(),
     final: z.boolean().optional(),
   })
+  .strict()
   .optional();
 
-const WatchlistMutationSchema = z.object({
-  gameId: z.string().trim().min(1).max(128),
-  watched: z.boolean(),
-  alerts: WatchlistAlertsSchema,
-});
+const WatchlistMutationSchema = z
+  .object({
+    gameId: z.string().trim().min(1).max(128),
+    watched: z.boolean(),
+    alerts: WatchlistAlertsSchema,
+  })
+  .strict();
 
 function parseBoundedLimit(raw: string | null): number {
   if (raw === null) return MAX_WATCHLIST_LIMIT;
@@ -52,9 +60,9 @@ export const POST = withActivePaseMutation(
   async ({ request, user }) => {
     let rawBody: unknown;
     try {
-      rawBody = await request.json();
+      rawBody = await readBoundedJson(request, 16_384);
     } catch (err) {
-      void err;
+      if (err instanceof ApiGuardHttpError) throw err;
       return NextResponse.json(
         createSanitizedErrorPayload("INVALID_JSON", "Cuerpo JSON inválido."),
         { status: 400 },

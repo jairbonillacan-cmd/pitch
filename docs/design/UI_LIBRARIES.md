@@ -31,6 +31,8 @@ Elige en este orden y usa una sola fuente por tipo de componente dentro de una p
 
 Todo componente que use una pantalla se expone desde `@pitchlab/ui` (envuelto o reexportado), así la app importa de un solo lugar y el cambio de librería es una edición local.
 
+- **Excepción pública en `/signup` (fecha de nacimiento):** En `SignupSurfaceV4.tsx` (`Día`, `Mes`, `Año`), los tres selectores de fecha de nacimiento utilizan `<select>` HTML nativos estilizados con `.pl-auth-select` (`font-size >= 16px`, `min-block-size >= 44px`, sin `appearance: base-select`) en lugar de `PlSelect` (`@heroui/react`), para activar las ruedas nativas de iOS/Android, respetar `autoComplete="bday-day|month|year"` sin bloqueos del teclado virtual ni hidratar HeroUI/React Aria en el flujo público de alta.
+
 ## 3. Cómo comparten el tema
 
 Un solo juego de tokens alimenta a las tres librerías. Las capas se declaran en `apps/web/app/globals.css`:

@@ -207,14 +207,14 @@ test("Ficha del partido: módulo «Antes del partido» (bajas, pick congelado, v
   expect(unlock.ok()).toBe(true);
 
   await page.goto(pickScheduledGameRoute());
-  await expect(page.locator("[data-match-studio]")).toBeVisible();
+  await expect(page.locator("#main [data-match-studio]:visible")).toBeVisible();
 
-  const resumenTab = page.locator('[data-section-tab="resumen"]');
+  const resumenTab = page.locator('#main [role="tab"][data-section-tab="resumen"]:visible');
   await expect(resumenTab).toBeVisible();
   await resumenTab.click();
   await expect(resumenTab).toHaveAttribute("aria-selected", "true");
 
-  const moduleSection = page.locator("[data-pre-match-module]");
+  const moduleSection = page.locator("#main [data-pre-match-module]:visible");
   await expect(moduleSection).toBeVisible();
   await expect(moduleSection.getByRole("heading", { name: "Antes del partido" })).toBeVisible();
 
@@ -246,7 +246,7 @@ test("Ficha del partido: módulo «Antes del partido» (bajas, pick congelado, v
   await expect(lineupSlot).toContainText("Apagado");
 
   // 4) Votos de la comunidad integrados dentro del módulo (sin duplicarse en la ficha)
-  await expect(page.locator("[data-community-poll]")).toHaveCount(1);
+  await expect(page.locator("#main [data-community-poll]:visible")).toHaveCount(1);
   await expect(moduleSection.locator("[data-community-poll]")).toBeVisible();
 
   const firstPollOption = moduleSection.locator("[data-community-poll] .pl-poll-option").first();
@@ -264,7 +264,7 @@ test("Ficha del partido: módulo «Antes del partido» (bajas, pick congelado, v
     await bellButton.click();
     await expect(bellButton).toHaveAttribute("aria-pressed", "true");
     await expect(moduleSection).toContainText("Aviso activo en tu campana");
-    await expect(page.getByRole("button", { name: "Siguiendo" })).toBeVisible();
+    await expect(page.locator("#main").getByRole("button", { name: "Siguiendo" })).toBeVisible();
   }
 
   // Cero desborde horizontal en móvil estricto de 375 px
@@ -284,6 +284,8 @@ test("Ficha del partido: módulo «Antes del partido» (bajas, pick congelado, v
       () => document.documentElement.scrollWidth > window.innerWidth,
     );
     expect(hasOverflow).toBe(false);
+
+    await expect(page.locator(".pl-toast-item")).toHaveCount(0, { timeout: 6000 });
 
     const a11y = await new AxeBuilder({ page })
       .withTags(["wcag2a", "wcag2aa"])

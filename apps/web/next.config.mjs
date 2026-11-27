@@ -1,4 +1,5 @@
 import { PHASE_DEVELOPMENT_SERVER } from "next/constants.js";
+import { UNSUBSCRIBE_PATHNAME, getUnsubscribeCsp } from "./src/unsubscribe-csp.mjs";
 
 const SPACETIME_RUNTIME_DATA_FILES = [
   "../../packages/spacetime/data/live_matchday_v3_snapshot.json",
@@ -189,10 +190,18 @@ export default function config(phase) {
     ...baseConfig,
     ...(isDev ? { onDemandEntries: { maxInactiveAge: 60 * 60 * 1000, pagesBufferLength: 50 } } : {}),
     async headers() {
+      const unsubscribeCsp = await getUnsubscribeCsp();
       return [
         {
           source: "/:path*",
           headers: securityHeaders,
+        },
+        {
+          source: UNSUBSCRIBE_PATHNAME,
+          headers: [
+            { key: "Content-Security-Policy", value: unsubscribeCsp },
+            { key: "Referrer-Policy", value: "no-referrer" },
+          ],
         },
         {
           source: "/sw.js",
@@ -224,6 +233,12 @@ export default function config(phase) {
           source: "/icons-dark/:path*",
           headers: [
             { key: "Cache-Control", value: "public, max-age=86400, stale-while-revalidate=604800" },
+          ],
+        },
+        {
+          source: "/fonts/:path*",
+          headers: [
+            { key: "Cache-Control", value: "public, max-age=31536000, immutable" },
           ],
         },
         ...(!isDev

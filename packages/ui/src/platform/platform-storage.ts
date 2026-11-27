@@ -282,9 +282,43 @@ export function mergeSupplementalDataset(
             (incoming.preGame.probableLineups && !existing.preGame?.probableLineups) ||
             (incoming.preGame.matchContext?.weather && !existing.preGame?.matchContext?.weather))),
     );
-    if (!hasRicherPreGame) return existing;
+    const missingHomeForm =
+      (!existing.home.form || existing.home.form.length === 0) &&
+      Boolean(incoming.home.form && incoming.home.form.length > 0);
+    const missingAwayForm =
+      (!existing.away.form || existing.away.form.length === 0) &&
+      Boolean(incoming.away.form && incoming.away.form.length > 0);
+    if (!hasRicherPreGame && !missingHomeForm && !missingAwayForm) return existing;
     changed = true;
-    return incoming;
+    if (!hasRicherPreGame) {
+      return {
+        ...existing,
+        ...(missingHomeForm && incoming.home.form
+          ? { home: { ...existing.home, form: incoming.home.form } }
+          : {}),
+        ...(missingAwayForm && incoming.away.form
+          ? { away: { ...existing.away, form: incoming.away.form } }
+          : {}),
+      };
+    }
+    const keepExistingHomeForm =
+      (!incoming.home.form || incoming.home.form.length === 0) &&
+      Boolean(existing.home.form && existing.home.form.length > 0);
+    const keepExistingAwayForm =
+      (!incoming.away.form || incoming.away.form.length === 0) &&
+      Boolean(existing.away.form && existing.away.form.length > 0);
+    if (!keepExistingHomeForm && !keepExistingAwayForm) {
+      return incoming;
+    }
+    return {
+      ...incoming,
+      ...(keepExistingHomeForm && existing.home.form
+        ? { home: { ...incoming.home, form: existing.home.form } }
+        : {}),
+      ...(keepExistingAwayForm && existing.away.form
+        ? { away: { ...incoming.away, form: existing.away.form } }
+        : {}),
+    };
   });
 
   const extras: PlatformGame[] = [];

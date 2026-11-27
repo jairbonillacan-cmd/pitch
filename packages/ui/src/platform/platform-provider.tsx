@@ -98,6 +98,7 @@ import {
   type SavedScreenerView,
 } from "./screener-views";
 import { triggerHaptic } from "./navigation-helpers";
+import { clearClientJsonCache, setClientJsonCacheScope } from "./hooks/useClientJsonCache";
 import type {
   JournalEntry,
   MatchPick,
@@ -128,6 +129,108 @@ export {
   type ToastOptions,
   type ViewerIdentity,
 } from "./platform-storage";
+
+export interface ServerAccountPreferencesSnapshot {
+  readonly preferredBooks?: string[];
+  readonly savedViews?: unknown;
+  readonly unitMxnCentavos?: number;
+  readonly showMxnBalance?: boolean;
+  readonly publicRecordVisible?: boolean;
+  readonly showInRanking?: boolean;
+  readonly pauseCommunity?: boolean;
+  readonly responsiblePauseKind?: "24h" | "7d" | "30d" | null;
+  readonly responsiblePauseUntilIso?: string | null;
+  readonly recordPrivacy?: unknown;
+  readonly bankrollStartMxnCentavos?: number | null;
+}
+
+const PRIVATE_LOCAL_STORAGE_KEYS = [
+  STORAGE_KEYS.journal,
+  STORAGE_KEYS.watchlist,
+  STORAGE_KEYS.followAlerts,
+  STORAGE_KEYS.ownPosts,
+  "pl-prefs-v1",
+  "pl-screener-views-v1",
+  "pl-responsible-play-v1",
+  "pitchlab.signup.details",
+  "pl-fav-leagues",
+  "pl-odds-fmt",
+  "pl-risk-pref",
+  "pl-sim-role",
+  "pl-month1-nocard",
+  "pl-cfdi-v1",
+  "pl-notif-read-v1",
+  "pitchlab.community.following",
+  "pl-follow-topics-v1",
+  "pl-frozen-picks-v1",
+] as const;
+
+const PRIVATE_SESSION_STORAGE_KEYS = [
+  "pl-spei-preview-v1",
+  "pl-route-scroll-v1",
+  "pitchlab.signup.trial",
+] as const;
+
+export function clearClientSessionArtifacts(): void {
+  clearClientJsonCache();
+  if (typeof window === "undefined") return;
+  try {
+    const ls = window.localStorage;
+    for (const key of PRIVATE_LOCAL_STORAGE_KEYS) {
+      ls.removeItem(key);
+    }
+  } catch (err) {
+    void err;
+  }
+  try {
+    const ss = window.sessionStorage;
+    for (const key of PRIVATE_SESSION_STORAGE_KEYS) {
+      ss.removeItem(key);
+    }
+    const existingKeys: string[] = [];
+    for (let i = 0; i < ss.length; i += 1) {
+      const k = ss.key(i);
+      if (k) existingKeys.push(k);
+    }
+    for (const k of existingKeys) {
+      if (k.startsWith("pl-") || k.startsWith("pitchlab.")) {
+        ss.removeItem(k);
+      }
+    }
+  } catch (err) {
+    void err;
+  }
+}
+
+function scheduleIdleWrite(task: () => void): () => void {
+  if (typeof window === "undefined") return () => {};
+  if (
+    typeof window.requestIdleCallback === "function" &&
+    typeof window.cancelIdleCallback === "function"
+  ) {
+    const idleId = window.requestIdleCallback(() => task(), { timeout: 1_000 });
+    return () => window.cancelIdleCallback(idleId);
+  }
+  const timerId = window.setTimeout(task, 0);
+  return () => window.clearTimeout(timerId);
+}
+
+function isSocialFeedRoutePath(pathname: string): boolean {
+  const cleanPath = (pathname.split(/[?#]/, 1)[0] ?? "").replace(/\/+$/, "") || "/";
+  return (
+    cleanPath === "/app/social" ||
+    cleanPath.startsWith("/app/social/") ||
+    /^\/app\/[^/]+\/g\/[^/]+$/.test(cleanPath)
+  );
+}
+
+function notifyPlanUpdatedIfExpired(status: number, errorCode?: string | null): void {
+  if (status === 403 && errorCode === "pase_requerido" && typeof window !== "undefined") {
+    window.dispatchEvent(
+      new CustomEvent("pitchlab:plan-updated", { detail: { reason: "pase_requerido" } }),
+    );
+  }
+}
 
 export interface PlatformContextValue {
   rawDataset: PlatformDataset;
@@ -235,6 +338,9 @@ export interface PlatformContextValue {
   setPreferredBooks: (books: string[]) => void;
   savedScreenerViews: SavedScreenerView[];
   setSavedScreenerViews: (views: SavedScreenerView[]) => void;
+  serverPreferences: ServerAccountPreferencesSnapshot | null;
+  serverPreferencesLoaded: boolean;
+  updateServerPreferences: (patch: Partial<ServerAccountPreferencesSnapshot>) => void;
 
   referralPaidFriends: number;
   memberReferralsSnapshot: (ServerProfileSummary & {
@@ -300,6 +406,8 @@ export interface PlatformCoreValue {
   unitMxn: number;
   preferredBooks: string[];
   savedScreenerViews: SavedScreenerView[];
+  serverPreferences: ServerAccountPreferencesSnapshot | null;
+  serverPreferencesLoaded: boolean;
   month1NoCardMode: boolean;
   referralPaidFriends: number;
   memberReferralsSnapshot: (ServerProfileSummary & {
@@ -418,9 +526,12 @@ interface ScopedPlatformSupplement extends PlatformSupplementData {
   readonly scopeKey: string;
 }
 
-const PlatformSupplementSetterContext = createContext<
-  ((payload: ScopedPlatformSupplement) => void) | null
->(null);
+interface PlatformSupplementContextValue {
+  readonly register: (payload: ScopedPlatformSupplement) => void;
+  readonly activeSupplement: ScopedPlatformSupplement | null;
+}
+
+const PlatformSupplementSetterContext = createContext<PlatformSupplementContextValue | null>(null);
 
 function mergeSupplementIntoDataset(
   base: PlatformDataset,
@@ -438,7 +549,13 @@ function mergeSupplementIntoDataset(
       seenLeagues.add(existing.league);
       const incoming = incomingById.get(existing.league);
       if (!incoming) return existing;
-      const takeCounts = incoming.totalGames > existing.totalGames;
+      const takeCounts =
+        (incoming.totalGames > 0 || existing.totalGames === 0) &&
+        (incoming.totalGames !== existing.totalGames ||
+          incoming.upcomingCount !== existing.upcomingCount ||
+          incoming.finishedCount !== existing.finishedCount ||
+          (incoming.activeInWindow !== undefined &&
+            incoming.activeInWindow !== existing.activeInWindow));
       const takeStandings = incoming.standings.length > 0 && existing.standings.length === 0;
       const takeLogo = Boolean(incoming.logoUrl && !existing.logoUrl);
       if (!takeCounts && !takeStandings && !takeLogo) return existing;
@@ -450,6 +567,9 @@ function mergeSupplementIntoDataset(
               totalGames: incoming.totalGames,
               upcomingCount: incoming.upcomingCount,
               finishedCount: incoming.finishedCount,
+              ...(incoming.activeInWindow !== undefined
+                ? { activeInWindow: incoming.activeInWindow }
+                : {}),
               ...(incoming.leaderName ? { leaderName: incoming.leaderName } : {}),
               ...(incoming.leaderPoints !== undefined
                 ? { leaderPoints: incoming.leaderPoints }
@@ -611,6 +731,9 @@ export function PlatformProvider({
   const [viewerIdentity, setViewerIdentity] = useState(initialViewerIdentity);
   const [clientSupplement, setClientSupplement] = useState<ScopedPlatformSupplement | null>(null);
   const currentScopeKey = `${viewerRole}:${viewerIdentity?.handle ?? "anon"}:${incomingRawDataset.isServerRedactedForVisitor ? "1" : "0"}`;
+  useLayoutEffect(() => {
+    setClientJsonCacheScope(currentScopeKey);
+  }, [currentScopeKey]);
   const registerClientSupplement = useCallback((payload: ScopedPlatformSupplement) => {
     startTransition(() => {
       setClientSupplement((prev) => {
@@ -631,6 +754,10 @@ export function PlatformProvider({
       });
     });
   }, []);
+  const supplementContextValue = useMemo<PlatformSupplementContextValue>(
+    () => ({ register: registerClientSupplement, activeSupplement: clientSupplement }),
+    [clientSupplement, registerClientSupplement],
+  );
   const rawDataset = useMemo(() => {
     if (!clientSupplement || clientSupplement.scopeKey !== currentScopeKey) {
       return incomingRawDataset;
@@ -874,6 +1001,19 @@ export function PlatformProvider({
     }
   }, [allowRoleSimulation]);
 
+  const [serverPreferences, setServerPreferences] = useState<ServerAccountPreferencesSnapshot | null>(null);
+  const [serverPreferencesLoaded, setServerPreferencesLoaded] = useState<boolean>(false);
+  const updateServerPreferences = useCallback((patch: Partial<ServerAccountPreferencesSnapshot>) => {
+    setServerPreferences((prev) => ({ ...(prev ?? {}), ...patch }));
+  }, []);
+  const inFlightSealIdsRef = useRef<Set<string>>(new Set());
+  const likeQueueRef = useRef<Map<string, Promise<void>>>(new Map());
+  const likeSnapshotRef = useRef<Map<string, { likedByMe: boolean; likes: number }>>(new Map());
+  const helpfulQueueRef = useRef<Map<string, Promise<void>>>(new Map());
+  const helpfulSnapshotRef = useRef<Map<string, { helpfulByMe: boolean; helpfulCount: number }>>(new Map());
+  const socialPostsRef = useRef<SocialPost[]>(socialPosts);
+  socialPostsRef.current = socialPosts;
+
   const [userDataLoaded, setUserDataLoaded] = useState<boolean>(false);
   useEffect(() => {
     const savedJournal = readStoredArray<JournalEntry>(STORAGE_KEYS.journal, isJournalEntry);
@@ -899,43 +1039,53 @@ export function PlatformProvider({
   useEffect(() => {
     if (!hasAccountSessionAuth) {
       setMemberReferralsLoaded(true);
+      setServerPreferencesLoaded(false);
+      setServerPreferences(null);
       return;
     }
     let active = true;
     setMemberReferralsLoaded(false);
+    setServerPreferencesLoaded(false);
     void (async () => {
-      const watch = await getJson<{ gameIds?: string[]; follows?: { gameId: string; alerts: FollowAlerts }[] }>(
-        "/api/me/watchlist",
-      );
-      if (active && watch?.gameIds) setWatchlistGameIds(watch.gameIds);
-      if (active && Array.isArray(watch?.follows)) {
+      const [watch, journalRes, prefsRes, refs] = await Promise.all([
+        getJson<{ gameIds?: string[]; follows?: { gameId: string; alerts: FollowAlerts }[] }>(
+          "/api/me/watchlist",
+        ).catch(() => null),
+        getJson<{ entries?: ServerJournalRow[] }>("/api/me/journal").catch(() => null),
+        getJson<{ preferences?: ServerAccountPreferencesSnapshot }>("/api/me/preferences").catch(
+          () => null,
+        ),
+        getJson<
+          ServerProfileSummary & {
+            referralCode?: string | null;
+            paidFriends?: number;
+            pendingFriends?: number;
+          }
+        >("/api/me/referrals").catch(() => null),
+      ]);
+      if (!active) return;
+      if (watch?.gameIds) setWatchlistGameIds(watch.gameIds);
+      if (Array.isArray(watch?.follows)) {
         setFollowAlertsState(
           sanitizeFollowAlerts(Object.fromEntries(watch.follows.map((f) => [f.gameId, f.alerts]))),
         );
       }
-      const journalRes = await getJson<{ entries?: ServerJournalRow[] }>("/api/me/journal");
-      if (active && journalRes?.entries) setJournal(journalRes.entries.map(fromServerRow));
-      const prefsRes = await getJson<{
-        preferences?: { preferredBooks?: string[]; savedViews?: unknown };
-      }>("/api/me/preferences");
-      if (active && Array.isArray(prefsRes?.preferences?.preferredBooks)) {
-        const syncedBooks = sanitizePreferredBooks(prefsRes.preferences.preferredBooks);
-        setPreferredBooksState(syncedBooks);
-        writeStoredPrefs({ ...readStoredPrefs(), preferredBooks: syncedBooks });
-      }
-      if (active && Array.isArray(prefsRes?.preferences?.savedViews)) {
-        const syncedViews = sanitizeSavedScreenerViews(prefsRes.preferences.savedViews);
-        setSavedScreenerViewsState(syncedViews);
-        writeSavedScreenerViews(syncedViews);
-      }
-      const refs = await getJson<
-        ServerProfileSummary & {
-          referralCode?: string | null;
-          paidFriends?: number;
-          pendingFriends?: number;
+      if (journalRes?.entries) setJournal(journalRes.entries.map(fromServerRow));
+      if (prefsRes?.preferences) {
+        setServerPreferences(prefsRes.preferences);
+        if (Array.isArray(prefsRes.preferences.preferredBooks)) {
+          const syncedBooks = sanitizePreferredBooks(prefsRes.preferences.preferredBooks);
+          setPreferredBooksState(syncedBooks);
+          writeStoredPrefs({ ...readStoredPrefs(), preferredBooks: syncedBooks });
         }
-      >("/api/me/referrals");
-      if (active && refs) {
+        if (Array.isArray(prefsRes.preferences.savedViews)) {
+          const syncedViews = sanitizeSavedScreenerViews(prefsRes.preferences.savedViews);
+          setSavedScreenerViewsState(syncedViews);
+          writeSavedScreenerViews(syncedViews);
+        }
+      }
+      setServerPreferencesLoaded(true);
+      if (refs) {
         const paid = typeof refs.paidFriends === "number" ? refs.paidFriends : 0;
         const pending = typeof refs.pendingFriends === "number" ? refs.pendingFriends : 0;
         setReferralPaidFriends(paid);
@@ -949,33 +1099,38 @@ export function PlatformProvider({
           isTipster: Boolean(refs.isTipster),
         });
       }
-      if (active) setMemberReferralsLoaded(true);
+      setMemberReferralsLoaded(true);
     })();
     return () => {
       active = false;
     };
   }, [hasAccountSessionAuth]);
   useEffect(() => {
-    if (userDataLoaded) writeStored(STORAGE_KEYS.journal, journal.slice(0, 500));
+    if (!userDataLoaded) return;
+    return scheduleIdleWrite(() => writeStored(STORAGE_KEYS.journal, journal.slice(0, 500)));
   }, [journal, userDataLoaded]);
   useEffect(() => {
-    if (userDataLoaded) writeStored(STORAGE_KEYS.watchlist, watchlistGameIds);
+    if (!userDataLoaded) return;
+    return scheduleIdleWrite(() => writeStored(STORAGE_KEYS.watchlist, watchlistGameIds));
   }, [watchlistGameIds, userDataLoaded]);
   useEffect(() => {
     if (!userDataLoaded) return;
-    try {
-      window.localStorage.setItem(STORAGE_KEYS.followAlerts, JSON.stringify(followAlerts));
-    } catch (err) {
-      void err;
-    }
+    return scheduleIdleWrite(() => {
+      try {
+        window.localStorage.setItem(STORAGE_KEYS.followAlerts, JSON.stringify(followAlerts));
+      } catch (err) {
+        void err;
+      }
+    });
   }, [followAlerts, userDataLoaded]);
   useEffect(() => {
-    if (userDataLoaded && !socialOnServer) {
+    if (!userDataLoaded || socialOnServer) return;
+    return scheduleIdleWrite(() =>
       writeStored(
         STORAGE_KEYS.ownPosts,
         socialPosts.filter((p) => !p.isExample).slice(0, 100),
-      );
-    }
+      ),
+    );
   }, [socialPosts, userDataLoaded, socialOnServer]);
 
   useEffect(() => {
@@ -1403,6 +1558,12 @@ export function PlatformProvider({
       };
       const hadInParlay = parlayLegs.some((leg) => leg.pick.id === pick.id);
       const previousLegs = parlayLegs;
+      if (hasAccountSessionAuth && entry.status === "pending") {
+        if (inFlightSealIdsRef.current.has(pick.id)) {
+          return;
+        }
+        inFlightSealIdsRef.current.add(pick.id);
+      }
       setJournal((prev) => [entry, ...prev]);
       if (hadInParlay) {
         setParlayLegs((prev) => prev.filter((leg) => leg.pick.id !== pick.id));
@@ -1411,17 +1572,26 @@ export function PlatformProvider({
       triggerHaptic(10);
       pushToast(`Pick registrado en tu bitácora (${entry.units}u).`, "success");
       if (hasAccountSessionAuth && entry.status === "pending") {
-        void sealOnServer(entry).then((res) => {
-          if (res.ok && res.id) {
-            setJournal((prev) => prev.map((j) => (j.id === entry.id ? { ...j, id: res.id! } : j)));
-          } else if (res.reason && res.reason !== "sin_sesion") {
-            setJournal((prev) => prev.filter((j) => j.id !== entry.id));
-            if (hadInParlay) {
-              setParlayLegs(previousLegs);
+        void sealOnServer(entry)
+          .then((res) => {
+            if (res.ok && res.id) {
+              setJournal((prev) => prev.map((j) => (j.id === entry.id ? { ...j, id: res.id! } : j)));
+            } else if (res.reason === "ya_sellado") {
+              pushToast(SEAL_ERRORS.ya_sellado, "default");
+            } else if (res.reason && res.reason !== "sin_sesion") {
+              if (res.reason === "pase_requerido") {
+                notifyPlanUpdatedIfExpired(403, "pase_requerido");
+              }
+              setJournal((prev) => prev.filter((j) => j.id !== entry.id));
+              if (hadInParlay) {
+                setParlayLegs(previousLegs);
+              }
+              pushToast(SEAL_ERRORS[res.reason] ?? "No se pudo sellar el pick.", "warning");
             }
-            pushToast(SEAL_ERRORS[res.reason] ?? "No se pudo sellar el pick.", "warning");
-          }
-        });
+          })
+          .finally(() => {
+            inFlightSealIdsRef.current.delete(pick.id);
+          });
       }
     },
     [dataset.games, pushToast, hasAccountSessionAuth, parlayLegs],
@@ -1538,6 +1708,12 @@ export function PlatformProvider({
       };
       const previousLegs = parlayLegs;
       const sealedLegsCount = previousLegs.length;
+      if (hasAccountSessionAuth) {
+        if (inFlightSealIdsRef.current.has(canonicalPickId)) {
+          return;
+        }
+        inFlightSealIdsRef.current.add(canonicalPickId);
+      }
       setJournal((prev) => [entry, ...prev]);
       setParlayLegs([]);
       triggerHaptic(10);
@@ -1546,15 +1722,24 @@ export function PlatformProvider({
         "success",
       );
       if (hasAccountSessionAuth) {
-        void sealOnServer(entry).then((res) => {
-          if (res.ok && res.id) {
-            setJournal((prev) => prev.map((j) => (j.id === entry.id ? { ...j, id: res.id! } : j)));
-          } else if (res.reason && res.reason !== "sin_sesion") {
-            setJournal((prev) => prev.filter((j) => j.id !== entry.id));
-            setParlayLegs(previousLegs);
-            pushToast(SEAL_ERRORS[res.reason] ?? "No se pudo sellar el parlay.", "warning");
-          }
-        });
+        void sealOnServer(entry)
+          .then((res) => {
+            if (res.ok && res.id) {
+              setJournal((prev) => prev.map((j) => (j.id === entry.id ? { ...j, id: res.id! } : j)));
+            } else if (res.reason === "ya_sellado") {
+              pushToast(SEAL_ERRORS.ya_sellado, "default");
+            } else if (res.reason && res.reason !== "sin_sesion") {
+              if (res.reason === "pase_requerido") {
+                notifyPlanUpdatedIfExpired(403, "pase_requerido");
+              }
+              setJournal((prev) => prev.filter((j) => j.id !== entry.id));
+              setParlayLegs(previousLegs);
+              pushToast(SEAL_ERRORS[res.reason] ?? "No se pudo sellar el parlay.", "warning");
+            }
+          })
+          .finally(() => {
+            inFlightSealIdsRef.current.delete(canonicalPickId);
+          });
       }
     },
     [parlayLegs, parlaySummary, dataset.games, hasAccountSessionAuth, pushToast],
@@ -1568,8 +1753,11 @@ export function PlatformProvider({
       const a = document.createElement("a");
       a.href = url;
       a.download = "pitchlab-bitacora-verificada.csv";
+      a.style.display = "none";
+      document.body.appendChild(a);
       a.click();
-      URL.revokeObjectURL(url);
+      a.remove();
+      window.setTimeout(() => URL.revokeObjectURL(url), 1_000);
       pushToast("Bitácora exportada en CSV auditado.", "success");
     } catch (err) {
       void err;
@@ -1931,13 +2119,23 @@ export function PlatformProvider({
   const toggleSocialCommentHelpful = useCallback(
     (postId: string, commentId: string) => {
       if (viewerRole === "visitor") return;
-      const targetPost = socialPosts.find((p) => p.id === postId);
+      const targetPost = socialPostsRef.current.find((p) => p.id === postId);
       const targetComment = targetPost?.comments.find((c) => c.id === commentId);
       if (!targetPost || !targetComment || targetComment.pending) return;
 
-      const nextHelpful = !targetComment.helpfulByMe;
-      const prevCount = targetComment.helpfulCount ?? 0;
-      const nextCount = nextHelpful ? prevCount + 1 : Math.max(0, prevCount - 1);
+      const queueKey = `${postId}:${commentId}`;
+      const currentSnapshot = helpfulSnapshotRef.current.get(queueKey) ?? {
+        helpfulByMe: Boolean(targetComment.helpfulByMe),
+        helpfulCount: targetComment.helpfulCount ?? 0,
+      };
+      const nextHelpful = !currentSnapshot.helpfulByMe;
+      const nextCount = nextHelpful
+        ? currentSnapshot.helpfulCount + 1
+        : Math.max(0, currentSnapshot.helpfulCount - 1);
+      helpfulSnapshotRef.current.set(queueKey, {
+        helpfulByMe: nextHelpful,
+        helpfulCount: nextCount,
+      });
 
       setSocialPosts((prev) =>
         prev.map((p) =>
@@ -1953,7 +2151,8 @@ export function PlatformProvider({
       );
 
       if (!socialOnServer || !targetComment.fromServer) return;
-      void (async () => {
+      const prevTask = helpfulQueueRef.current.get(queueKey) ?? Promise.resolve();
+      const nextTask = prevTask.then(async () => {
         try {
           const res = await fetch(
             `/api/social/posts/${encodeURIComponent(postId)}/comments/${encodeURIComponent(commentId)}/like`,
@@ -1964,42 +2163,66 @@ export function PlatformProvider({
               body: JSON.stringify({ helpful: nextHelpful }),
             },
           );
-          const data = (await res.json().catch(() => null)) as { helpfulCount?: number; helpfulByMe?: boolean } | null;
-          if (!res.ok || typeof data?.helpfulCount !== "number") throw new Error(String(res.status));
-          setSocialPosts((prev) =>
-            prev.map((p) =>
-              p.id === postId
-                ? {
-                    ...p,
-                    comments: p.comments.map((c) =>
-                      c.id === commentId
-                        ? { ...c, helpfulCount: data.helpfulCount, helpfulByMe: Boolean(data.helpfulByMe) }
-                        : c,
-                    ),
-                  }
-                : p,
-            ),
-          );
+          const data = (await res.json().catch(() => null)) as {
+            helpfulCount?: number;
+            helpfulByMe?: boolean;
+            error?: string;
+          } | null;
+          if (!res.ok || typeof data?.helpfulCount !== "number") {
+            notifyPlanUpdatedIfExpired(res.status, data?.error);
+            throw new Error(String(res.status));
+          }
+          const resolvedHelpful = Boolean(data.helpfulByMe);
+          const latestSnapshot = helpfulSnapshotRef.current.get(queueKey);
+          if (!latestSnapshot || latestSnapshot.helpfulByMe === nextHelpful) {
+            helpfulSnapshotRef.current.set(queueKey, {
+              helpfulByMe: resolvedHelpful,
+              helpfulCount: data.helpfulCount,
+            });
+            setSocialPosts((prev) =>
+              prev.map((p) =>
+                p.id === postId
+                  ? {
+                      ...p,
+                      comments: p.comments.map((c) =>
+                        c.id === commentId
+                          ? { ...c, helpfulCount: data.helpfulCount, helpfulByMe: resolvedHelpful }
+                          : c,
+                      ),
+                    }
+                  : p,
+              ),
+            );
+          }
         } catch (err) {
           void err;
-          setSocialPosts((prev) =>
-            prev.map((p) =>
-              p.id === postId
-                ? {
-                    ...p,
-                    comments: p.comments.map((c) =>
-                      c.id === commentId
-                        ? { ...c, helpfulCount: prevCount, helpfulByMe: Boolean(targetComment.helpfulByMe) }
-                        : c,
-                    ),
-                  }
-                : p,
-            ),
-          );
+          const latestSnapshot = helpfulSnapshotRef.current.get(queueKey);
+          if (!latestSnapshot || latestSnapshot.helpfulByMe === nextHelpful) {
+            helpfulSnapshotRef.current.set(queueKey, currentSnapshot);
+            setSocialPosts((prev) =>
+              prev.map((p) =>
+                p.id === postId
+                  ? {
+                      ...p,
+                      comments: p.comments.map((c) =>
+                        c.id === commentId
+                          ? {
+                              ...c,
+                              helpfulCount: currentSnapshot.helpfulCount,
+                              helpfulByMe: currentSnapshot.helpfulByMe,
+                            }
+                          : c,
+                      ),
+                    }
+                  : p,
+              ),
+            );
+          }
         }
-      })();
+      });
+      helpfulQueueRef.current.set(queueKey, nextTask.catch(() => {}));
     },
-    [viewerRole, socialPosts, socialOnServer],
+    [viewerRole, socialOnServer],
   );
 
   const loadAllPostComments = useCallback(
@@ -2044,37 +2267,60 @@ export function PlatformProvider({
 
   const toggleSocialLike = useCallback(
     (postId: string) => {
-      const target = socialPosts.find((p) => p.id === postId);
+      const target = socialPostsRef.current.find((p) => p.id === postId);
       if (!target || isPendingPost(target)) return;
-      const liked = !target.likedByMe;
+      const currentSnapshot = likeSnapshotRef.current.get(postId) ?? {
+        likedByMe: Boolean(target.likedByMe),
+        likes: target.likes,
+      };
+      const liked = !currentSnapshot.likedByMe;
+      const nextLikes = liked ? currentSnapshot.likes + 1 : Math.max(0, currentSnapshot.likes - 1);
+      likeSnapshotRef.current.set(postId, { likedByMe: liked, likes: nextLikes });
       triggerHaptic(6);
       setSocialPosts((prev) =>
-        prev.map((p) =>
-          p.id === postId ? { ...p, likedByMe: liked, likes: liked ? p.likes + 1 : Math.max(0, p.likes - 1) } : p,
-        ),
+        prev.map((p) => (p.id === postId ? { ...p, likedByMe: liked, likes: nextLikes } : p)),
       );
       if (!socialOnServer || !target.fromServer) return;
-      void (async () => {
+      const prevTask = likeQueueRef.current.get(postId) ?? Promise.resolve();
+      const nextTask = prevTask.then(async () => {
         try {
-          const res = await fetch(`/api/social/posts/${postId}/like`, {
+          const res = await fetch(`/api/social/posts/${encodeURIComponent(postId)}/like`, {
             method: "PUT",
             credentials: "same-origin",
             headers: { "content-type": "application/json" },
             body: JSON.stringify({ liked }),
           });
-          const data = (await res.json().catch(() => null)) as { likes?: number } | null;
+          const data = (await res.json().catch(() => null)) as { likes?: number; error?: string } | null;
           const likes = data?.likes;
-          if (!res.ok || typeof likes !== "number") throw new Error(String(res.status));
-          setSocialPosts((prev) => prev.map((p) => (p.id === postId ? { ...p, likes, likedByMe: liked } : p)));
+          if (!res.ok || typeof likes !== "number") {
+            notifyPlanUpdatedIfExpired(res.status, data?.error);
+            throw new Error(String(res.status));
+          }
+          const latestSnapshot = likeSnapshotRef.current.get(postId);
+          if (!latestSnapshot || latestSnapshot.likedByMe === liked) {
+            likeSnapshotRef.current.set(postId, { likedByMe: liked, likes });
+            setSocialPosts((prev) =>
+              prev.map((p) => (p.id === postId ? { ...p, likes, likedByMe: liked } : p)),
+            );
+          }
         } catch (err) {
           void err;
-          setSocialPosts((prev) =>
-            prev.map((p) => (p.id === postId ? { ...p, likedByMe: target.likedByMe, likes: target.likes } : p)),
-          );
+          const latestSnapshot = likeSnapshotRef.current.get(postId);
+          if (!latestSnapshot || latestSnapshot.likedByMe === liked) {
+            likeSnapshotRef.current.set(postId, currentSnapshot);
+            setSocialPosts((prev) =>
+              prev.map((p) =>
+                p.id === postId
+                  ? { ...p, likedByMe: currentSnapshot.likedByMe, likes: currentSnapshot.likes }
+                  : p,
+              ),
+            );
+          }
         }
-      })();
+      });
+      likeQueueRef.current.set(postId, nextTask.catch(() => {}));
     },
-    [socialPosts, socialOnServer],
+    [socialOnServer],
   );
 
   const deleteSocialPost = useCallback(
@@ -2312,10 +2558,14 @@ export function PlatformProvider({
   );
 
   useEffect(() => {
-    if (!hasAccountSessionAuth) return;
-    refreshSocialFeed();
+    if (!hasAccountSessionAuth || typeof window === "undefined") return;
+    if (isSocialFeedRoutePath(window.location.pathname)) {
+      refreshSocialFeed();
+    }
     const onVisible = (): void => {
-      if (document.visibilityState === "visible") refreshSocialFeed();
+      if (document.visibilityState === "visible" && isSocialFeedRoutePath(window.location.pathname)) {
+        refreshSocialFeed();
+      }
     };
     document.addEventListener("visibilitychange", onVisible);
     return () => document.removeEventListener("visibilitychange", onVisible);
@@ -2384,6 +2634,9 @@ export function PlatformProvider({
     (href: string) => {
       const safeHref = sanitizeInternalHref(href);
       if (!safeHref) return;
+      if (hasAccountSessionAuth && isSocialFeedRoutePath(safeHref)) {
+        refreshSocialFeed();
+      }
       if (onNavigate) {
         onNavigate(safeHref);
         return;
@@ -2392,7 +2645,7 @@ export function PlatformProvider({
         window.location.assign(safeHref);
       }
     },
-    [onNavigate],
+    [hasAccountSessionAuth, onNavigate, refreshSocialFeed],
   );
 
   const prefetchRoute = useCallback(
@@ -2462,11 +2715,52 @@ export function PlatformProvider({
 
   const logoutSession = useCallback(async () => {
     if (onLogoutOverride) {
+      clearClientSessionArtifacts();
       await onLogoutOverride();
       return;
     }
+    const pushUnlinkTask = (async () => {
+      if (typeof window === "undefined") return;
+      let endpoint: string | null = null;
+      if ("serviceWorker" in navigator && "PushManager" in window) {
+        try {
+          const reg = await navigator.serviceWorker.getRegistration?.();
+          const sub = reg?.pushManager ? await reg.pushManager.getSubscription() : null;
+          if (sub) {
+            endpoint = sub.endpoint ?? null;
+            await sub.unsubscribe().catch((err) => {
+              void err;
+            });
+          }
+        } catch (err) {
+          void err;
+        }
+      }
+      if (hasAccountSessionAuth && typeof fetch === "function") {
+        try {
+          await fetch("/api/me/push", {
+            method: "DELETE",
+            credentials: "same-origin",
+            headers: { "content-type": "application/json" },
+            body: JSON.stringify(endpoint ? { endpoint } : {}),
+            signal: AbortSignal.timeout(1_200),
+          });
+        } catch (err) {
+          void err;
+        }
+      }
+    })();
+
+    await Promise.race([
+      pushUnlinkTask,
+      new Promise<void>((resolve) => setTimeout(resolve, 1_500)),
+    ]);
+
     try {
-      await fetch("/api/beta/logout", { method: "POST" });
+      await fetch("/api/beta/logout", {
+        method: "POST",
+        signal: AbortSignal.timeout(1_500),
+      });
     } catch (err) {
       void err;
     }
@@ -2476,10 +2770,16 @@ export function PlatformProvider({
           method: "POST",
           headers: { "content-type": "application/json" },
           body: "{}",
+          signal: AbortSignal.timeout(1_500),
         });
       } catch (err) {
         void err;
       }
+    }
+    clearClientSessionArtifacts();
+    if (typeof window !== "undefined") {
+      window.location.assign("/");
+      return;
     }
     navigateTo("/");
   }, [hasAccountSessionAuth, navigateTo, onLogoutOverride]);
@@ -2555,6 +2855,9 @@ export function PlatformProvider({
       setPreferredBooks,
       savedScreenerViews,
       setSavedScreenerViews,
+      serverPreferences,
+      serverPreferencesLoaded,
+      updateServerPreferences,
       referralPaidFriends,
       memberReferralsSnapshot,
       memberReferralsLoaded,
@@ -2655,6 +2958,9 @@ export function PlatformProvider({
       setPreferredBooks,
       savedScreenerViews,
       setSavedScreenerViews,
+      serverPreferences,
+      serverPreferencesLoaded,
+      updateServerPreferences,
       referralPaidFriends,
       memberReferralsSnapshot,
       memberReferralsLoaded,
@@ -2724,6 +3030,7 @@ export function PlatformProvider({
       setUnitMxn: (...args) => latestRef.current.setUnitMxn(...args),
       setPreferredBooks: (...args) => latestRef.current.setPreferredBooks(...args),
       setSavedScreenerViews: (...args) => latestRef.current.setSavedScreenerViews(...args),
+      updateServerPreferences: (...args) => latestRef.current.updateServerPreferences(...args),
       simulateFriendFirstPayment: (...args) => latestRef.current.simulateFriendFirstPayment(...args),
       setMonth1NoCardMode: (...args) => latestRef.current.setMonth1NoCardMode(...args),
       setTipsterWeeklyPickOrigin: (...args) => latestRef.current.setTipsterWeeklyPickOrigin(...args),
@@ -2768,6 +3075,8 @@ export function PlatformProvider({
       unitMxn,
       preferredBooks,
       savedScreenerViews,
+      serverPreferences,
+      serverPreferencesLoaded,
       month1NoCardMode,
       referralPaidFriends,
       memberReferralsSnapshot,
@@ -2794,6 +3103,8 @@ export function PlatformProvider({
       unitMxn,
       preferredBooks,
       savedScreenerViews,
+      serverPreferences,
+      serverPreferencesLoaded,
       month1NoCardMode,
       referralPaidFriends,
       memberReferralsSnapshot,
@@ -2889,7 +3200,7 @@ export function PlatformProvider({
   }, [parlayIdStore, parlayLegs]);
 
   return (
-    <PlatformSupplementSetterContext.Provider value={registerClientSupplement}>
+    <PlatformSupplementSetterContext.Provider value={supplementContextValue}>
       <PlatformActionsContext.Provider value={actions}>
         <PlatformCoreContext.Provider value={core}>
           <ParlayIdStoreContext.Provider value={parlayIdStore}>
@@ -2944,7 +3255,9 @@ export function PlatformGamesSupplement({
 }): React.JSX.Element {
   const full = usePlatform();
   const core = usePlatformCore();
-  const registerSupplement = useContext(PlatformSupplementSetterContext);
+  const supplementCtx = useContext(PlatformSupplementSetterContext);
+  const registerSupplement = supplementCtx?.register;
+  const activeSupplement = supplementCtx?.activeSupplement ?? null;
 
   const supplement = useMemo<PlatformSupplementData>(
     () => ({
@@ -2959,6 +3272,16 @@ export function PlatformGamesSupplement({
   );
 
   const scopeKey = `${core.viewerRole}:${core.viewerIdentity?.handle ?? "anon"}:${core.rawDataset.isServerRedactedForVisitor ? "1" : "0"}`;
+  const alreadyMergedInRoot = Boolean(
+    activeSupplement &&
+      activeSupplement.scopeKey === scopeKey &&
+      activeSupplement.games === games &&
+      activeSupplement.leagues === leagues &&
+      activeSupplement.teams === teams &&
+      activeSupplement.dailyPromoPickId === dailyPromoPickId &&
+      activeSupplement.tipsterWeeklyPickId === tipsterWeeklyPickId &&
+      activeSupplement.tipsterWeeklySlug === tipsterWeeklySlug,
+  );
 
   useEffect(() => {
     if (!registerSupplement) return;
@@ -2992,12 +3315,18 @@ export function PlatformGamesSupplement({
   );
 
   const patchedCore = useMemo<PlatformCoreValue>(
-    () => ({ ...core, dataset: merge(core.dataset, true), rawDataset: merge(core.rawDataset, false) }),
-    [core, merge],
+    () =>
+      alreadyMergedInRoot
+        ? core
+        : { ...core, dataset: merge(core.dataset, true), rawDataset: merge(core.rawDataset, false) },
+    [alreadyMergedInRoot, core, merge],
   );
   const patchedFull = useMemo<PlatformContextValue>(
-    () => ({ ...full, dataset: patchedCore.dataset, rawDataset: patchedCore.rawDataset }),
-    [full, patchedCore],
+    () =>
+      alreadyMergedInRoot
+        ? full
+        : { ...full, dataset: patchedCore.dataset, rawDataset: patchedCore.rawDataset },
+    [alreadyMergedInRoot, full, patchedCore],
   );
 
   return (

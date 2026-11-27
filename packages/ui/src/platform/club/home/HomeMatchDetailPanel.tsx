@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useCallback, useId, useMemo, useRef, useState } from "react";
+import React, { Suspense, lazy, useCallback, useId, useMemo, useRef, useState } from "react";
 import {
   canonicalGameHref,
   canonicalPlayerHref,
@@ -21,8 +21,6 @@ import { LeagueBadge, TeamBadge } from "../../../sports";
 import { formatOddsValue, isPickUnlocked, isPreGameIntelUnlocked } from "../../access-guard";
 import {
   AtomicFormStrip,
-  AtomicLineupPitch,
-  AtomicShotmapPitch,
   AtomicStatComparisonBar,
   LivePickProgressBar,
   parseAtomicForm,
@@ -34,7 +32,6 @@ import { MaestroIcon } from "../../components/MaestroPrimitives";
 import { SportEventIcon } from "../../components/SportEventIcons";
 import { useClientJsonSwr, useMediaQuery, useSafeEffect } from "../../hooks";
 import { LiveScoreTelemetry } from "../../live/LiveScoreTelemetry";
-import { MomentumChart } from "../../live/live-charts";
 import { useLiveMatch } from "../../live/live-store";
 import { sanitizeInternalHref, setActiveSharedTransition } from "../../navigation-helpers";
 import {
@@ -61,21 +58,55 @@ import type {
   MatchPick,
   PlatformGame,
 } from "../../types";
-import { MatchEnfrentamientosPanel } from "../match/MatchEnfrentamientosPanel";
-import { MatchInjuriesPanel } from "../match/MatchInjuriesPanel";
-import { MatchLineupsPanel } from "../match/MatchLineupsPanel";
-import { MatchPlayerPicksBoard } from "../match/MatchPlayerPicksBoard";
 import {
   EvidenceWindowPills,
   extractEvidenceWindows,
   type EvidenceWindowItem,
 } from "../picks/EvidenceWindowPills";
-import {
-  StandingsBracketsSection,
-  type LeagueStandingsSplitsData,
-} from "../StandingsBracketsSection";
+import type { LeagueStandingsSplitsData } from "../StandingsBracketsSection";
 import { longDayLabel } from "./home-model";
 import { formatGameKickoffTime, formatLiveChipPhase } from "./home-view-helpers";
+
+const LazyMomentumChart = lazy(() =>
+  import("../../live/live-charts").then((m) => ({ default: m.MomentumChart })),
+);
+const LazyAtomicShotmapPitch = lazy(() =>
+  import("../../atomic/AtomicShotmapPitch").then((m) => ({ default: m.AtomicShotmapPitch })),
+);
+const LazyAtomicLineupPitch = lazy(() =>
+  import("../../atomic/AtomicLineupPitch").then((m) => ({ default: m.AtomicLineupPitch })),
+);
+const LazyMatchPlayerPicksBoard = lazy(() =>
+  import("../match/MatchPlayerPicksBoard").then((m) => ({ default: m.MatchPlayerPicksBoard })),
+);
+const LazyMatchLineupsPanel = lazy(() =>
+  import("../match/MatchLineupsPanel").then((m) => ({ default: m.MatchLineupsPanel })),
+);
+const LazyMatchEnfrentamientosPanel = lazy(() =>
+  import("../match/MatchEnfrentamientosPanel").then((m) => ({
+    default: m.MatchEnfrentamientosPanel,
+  })),
+);
+const LazyStandingsBracketsSection = lazy(() =>
+  import("../StandingsBracketsSection").then((m) => ({ default: m.StandingsBracketsSection })),
+);
+const LazyMatchInjuriesPanel = lazy(() =>
+  import("../match/MatchInjuriesPanel").then((m) => ({ default: m.MatchInjuriesPanel })),
+);
+
+function HomeMatchSubpanelFallback({ label }: { readonly label: string }): React.JSX.Element {
+  return (
+    <div
+      className="pl-skel-card rounded-2xl p-4 space-y-2.5"
+      role="status"
+      aria-busy="true"
+      aria-label={label}
+    >
+      <div className="pl-skel-bar h-4 w-36 rounded-md" />
+      <div className="pl-skel-bar h-24 rounded-xl" />
+    </div>
+  );
+}
 
 function isRecord(value: unknown): value is Record<string, unknown> {
   return typeof value === "object" && value !== null && !Array.isArray(value);
@@ -1654,22 +1685,24 @@ export function HomeMatchDetailPanel({
             </div>
 
             {activePicksMode === "jugadores" ? (
-              <MatchPlayerPicksBoard
-                compact
-                picks={playerPicksList}
-                allowFull={hasFullAccess}
-                homeLabel={game.home.shortName || game.home.name}
-                awayLabel={game.away.shortName || game.away.name}
-                oddsFormat={oddsFormat}
-                upgradeHref={upgradeHref}
-                hasAccountSession={hasAccountSession}
-                parlayPickIds={effectiveParlayIds}
-                sealedPickIds={sealedIds}
-                onToggleParlay={handleParlayClick}
-                onSealPick={handleSealClick}
-                onNavigate={navigateSafe}
-                onPrefetch={prefetchSafe}
-              />
+              <Suspense fallback={<HomeMatchSubpanelFallback label="Cargando picks de jugadores" />}>
+                <LazyMatchPlayerPicksBoard
+                  compact
+                  picks={playerPicksList}
+                  allowFull={hasFullAccess}
+                  homeLabel={game.home.shortName || game.home.name}
+                  awayLabel={game.away.shortName || game.away.name}
+                  oddsFormat={oddsFormat}
+                  upgradeHref={upgradeHref}
+                  hasAccountSession={hasAccountSession}
+                  parlayPickIds={effectiveParlayIds}
+                  sealedPickIds={sealedIds}
+                  onToggleParlay={handleParlayClick}
+                  onSealPick={handleSealClick}
+                  onNavigate={navigateSafe}
+                  onPrefetch={prefetchSafe}
+                />
+              </Suspense>
             ) : (
               <>
                 {intelUnlocked && activeX12 && (activeX12[0] > 0 || activeX12[2] > 0) ? (
@@ -1963,21 +1996,25 @@ export function HomeMatchDetailPanel({
         {activeTab === "timeline" ? (
           <div className="pl-home-md-timeline-pane">
             {momentumPoints.length > 0 ? (
-              <MomentumChart
-                momentum={momentumPoints}
-                goals={[...goalScorers.home, ...goalScorers.away]}
-                homeLabel={game.home.shortName}
-                awayLabel={game.away.shortName}
-                liveMinute={liveDetail?.entry.minute ?? liveEntry?.minute ?? null}
-              />
+              <Suspense fallback={<HomeMatchSubpanelFallback label="Cargando gráfica de momento" />}>
+                <LazyMomentumChart
+                  momentum={momentumPoints}
+                  goals={[...goalScorers.home, ...goalScorers.away]}
+                  homeLabel={game.home.shortName}
+                  awayLabel={game.away.shortName}
+                  liveMinute={liveDetail?.entry.minute ?? liveEntry?.minute ?? null}
+                />
+              </Suspense>
             ) : null}
 
             {shotItems.length > 0 ? (
-              <AtomicShotmapPitch
-                shots={shotItems}
-                homeLabel={game.home.shortName}
-                awayLabel={game.away.shortName}
-              />
+              <Suspense fallback={<HomeMatchSubpanelFallback label="Cargando mapa de tiros" />}>
+                <LazyAtomicShotmapPitch
+                  shots={shotItems}
+                  homeLabel={game.home.shortName}
+                  awayLabel={game.away.shortName}
+                />
+              </Suspense>
             ) : null}
 
             {timelineEvents.length > 0 ? (
@@ -2013,72 +2050,82 @@ export function HomeMatchDetailPanel({
 
         {activeTab === "lineups" ? (
           enrichedLineups ? (
-            <MatchLineupsPanel
-              compact
-              lineups={enrichedLineups}
-              incidents={liveDetail?.incidents}
-              onNavigate={navigateSafe}
-              onPrefetch={prefetchSafe}
-            />
+            <Suspense fallback={<HomeMatchSubpanelFallback label="Cargando alineaciones" />}>
+              <LazyMatchLineupsPanel
+                compact
+                lineups={enrichedLineups}
+                incidents={liveDetail?.incidents}
+                onNavigate={navigateSafe}
+                onPrefetch={prefetchSafe}
+              />
+            </Suspense>
           ) : hasRealFootballLineups && activeLineups ? (
             <div className="pl-home-md-lineups-pane">
-              <AtomicLineupPitch
-                homeName={game.home.shortName || game.home.name}
-                awayName={game.away.shortName || game.away.name}
-                homeFormation={activeLineups.homeFormation ?? null}
-                awayFormation={activeLineups.awayFormation ?? null}
-                homeStarters={homeLineupPlayers}
-                awayStarters={awayLineupPlayers}
-                status={
-                  activeLineups.status === "confirmed" || activeLineups.confirmed
-                    ? "confirmed"
-                    : "probable"
-                }
-                incidents={liveDetail?.incidents}
-              />
+              <Suspense fallback={<HomeMatchSubpanelFallback label="Cargando esquema táctico" />}>
+                <LazyAtomicLineupPitch
+                  homeName={game.home.shortName || game.home.name}
+                  awayName={game.away.shortName || game.away.name}
+                  homeFormation={activeLineups.homeFormation ?? null}
+                  awayFormation={activeLineups.awayFormation ?? null}
+                  homeStarters={homeLineupPlayers}
+                  awayStarters={awayLineupPlayers}
+                  status={
+                    activeLineups.status === "confirmed" || activeLineups.confirmed
+                      ? "confirmed"
+                      : "probable"
+                  }
+                  incidents={liveDetail?.incidents}
+                />
+              </Suspense>
             </div>
           ) : null
         ) : null}
 
         {activeTab === "enfrentamientos" ? (
-          <MatchEnfrentamientosPanel
-            compact
-            enfrentamientos={resolvedEnfrentamientos}
-            league={game.league}
-            homeName={game.home.shortName || game.home.name}
-            homeSlug={game.home.slug}
-            homeLogoUrl={game.home.logoUrl}
-            awayName={game.away.shortName || game.away.name}
-            awaySlug={game.away.slug}
-            awayLogoUrl={game.away.logoUrl}
-          />
+          <Suspense fallback={<HomeMatchSubpanelFallback label="Cargando enfrentamientos" />}>
+            <LazyMatchEnfrentamientosPanel
+              compact
+              enfrentamientos={resolvedEnfrentamientos}
+              league={game.league}
+              homeName={game.home.shortName || game.home.name}
+              homeSlug={game.home.slug}
+              homeLogoUrl={game.home.logoUrl}
+              awayName={game.away.shortName || game.away.name}
+              awaySlug={game.away.slug}
+              awayLogoUrl={game.away.logoUrl}
+            />
+          </Suspense>
         ) : null}
 
         {activeTab === "standings" && parsedStandings ? (
           <div className="pl-home-md-standings-pane">
-            <StandingsBracketsSection
-              league={game.league}
-              standings={parsedStandings}
-              highlightTeamSlug={game.home.slug}
-              compact
-              onNavigate={navigateSafe}
-            />
+            <Suspense fallback={<HomeMatchSubpanelFallback label="Cargando clasificación" />}>
+              <LazyStandingsBracketsSection
+                league={game.league}
+                standings={parsedStandings}
+                highlightTeamSlug={game.home.slug}
+                compact
+                onNavigate={navigateSafe}
+              />
+            </Suspense>
           </div>
         ) : null}
 
         {activeTab === "injuries" ? (
-          <MatchInjuriesPanel
-            injuries={injuriesList}
-            league={game.league}
-            homeName={game.home.name}
-            homeSlug={game.home.slug}
-            homeLogoUrl={game.home.logoUrl}
-            awayName={game.away.name}
-            awaySlug={game.away.slug}
-            awayLogoUrl={game.away.logoUrl}
-            onNavigate={navigateSafe}
-            onPrefetch={prefetchSafe}
-          />
+          <Suspense fallback={<HomeMatchSubpanelFallback label="Cargando parte médico" />}>
+            <LazyMatchInjuriesPanel
+              injuries={injuriesList}
+              league={game.league}
+              homeName={game.home.name}
+              homeSlug={game.home.slug}
+              homeLogoUrl={game.home.logoUrl}
+              awayName={game.away.name}
+              awaySlug={game.away.slug}
+              awayLogoUrl={game.away.logoUrl}
+              onNavigate={navigateSafe}
+              onPrefetch={prefetchSafe}
+            />
+          </Suspense>
         ) : null}
       </div>
     </section>

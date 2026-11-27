@@ -17,9 +17,11 @@ type PostIdParams = { id: string };
 
 const UUID_RE = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
 
-const PostIdParamSchema = z.object({
-  id: z.string().regex(UUID_RE),
-});
+const PostIdParamSchema = z
+  .object({
+    id: z.string().regex(UUID_RE),
+  })
+  .strict();
 
 export const GET = withSessionRead(
   {

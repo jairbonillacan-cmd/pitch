@@ -118,7 +118,7 @@ test.describe("Fase 2 NBA y NHL en rutas reales", () => {
     if ((await nbaGamesTab.count()) > 0) {
       await nbaGamesTab.click();
     }
-    const firstNbaCard = page.locator("[data-game-card]").first();
+    const firstNbaCard = page.locator("#main [data-game-card]:visible").first();
     await expect(firstNbaCard).toBeVisible();
     await expect(firstNbaCard.getByLabel("Empate")).toHaveCount(0);
     await expect(firstNbaCard).not.toContainText("Tachyon");
@@ -128,7 +128,7 @@ test.describe("Fase 2 NBA y NHL en rutas reales", () => {
 
     await page.goto(`/app/nba/games/${NBA_SCHEDULED.id}`);
     const main = page.locator("#main");
-    const studio = page.locator("[data-match-studio]");
+    const studio = page.locator("#main [data-match-studio]:visible");
     await expect(studio).toBeVisible();
     await expect(studio).toContainText(NBA_SCHEDULED.home.name);
     await expect(studio).toContainText(NBA_SCHEDULED.away.name);
@@ -140,7 +140,7 @@ test.describe("Fase 2 NBA y NHL en rutas reales", () => {
     await expect(studio.getByLabel("Empate")).toHaveCount(0);
 
     // Pestañas en móvil deben conservar área táctil >= 44 px.
-    const tabs = main.getByRole("tab");
+    const tabs = main.locator('[role="tab"]:visible');
     expect(await tabs.count()).toBeGreaterThanOrEqual(3);
     if (vp === "375px") {
       const tabHeights = await tabs.evaluateAll((els) =>
@@ -156,7 +156,7 @@ test.describe("Fase 2 NBA y NHL en rutas reales", () => {
     await saveShot(page, `nba-ficha-dark-${vp}.png`);
 
     // Mercados reales del snapshot (Ganador / Spread / Total / Puntos por equipo).
-    await main.getByRole("tab", { name: /^Números/i }).click();
+    await main.locator('[role="tab"][data-section-tab="numeros"]:visible').click();
     const expectedGroup = nbaAnalysis.marketGroups?.[0]?.group;
     if (expectedGroup) {
       await expect(main).toContainText(expectedGroup);
@@ -181,7 +181,7 @@ test.describe("Fase 2 NBA y NHL en rutas reales", () => {
     if ((await nhlGamesTab.count()) > 0) {
       await nhlGamesTab.click();
     }
-    const firstNhlCard = page.locator("[data-game-card]").first();
+    const firstNhlCard = page.locator("#main [data-game-card]:visible").first();
     await expect(firstNhlCard).toBeVisible();
     await expect(firstNhlCard.getByLabel("Empate")).toHaveCount(0);
     await expect(firstNhlCard).not.toContainText("Tachyon");
@@ -191,7 +191,7 @@ test.describe("Fase 2 NBA y NHL en rutas reales", () => {
 
     await page.goto(`/app/nhl/games/${NHL_WITH_OT.id}`);
     const main = page.locator("#main");
-    const studio = page.locator("[data-match-studio]");
+    const studio = page.locator("#main [data-match-studio]:visible");
     await expect(studio).toBeVisible();
     await expect(studio).toContainText(NHL_WITH_OT.home.name);
     await expect(studio).toContainText(NHL_WITH_OT.away.name);
@@ -215,7 +215,7 @@ test.describe("Fase 2 NBA y NHL en rutas reales", () => {
     await assertAxeClean(page);
     await saveShot(page, `nhl-ficha-dark-${vp}.png`);
 
-    await main.getByRole("tab", { name: /^Números/i }).click();
+    await main.locator('[role="tab"][data-section-tab="numeros"]:visible').click();
     const expectedGroup = nhlAnalysis.marketGroups?.[0]?.group;
     if (expectedGroup) {
       await expect(main).toContainText(expectedGroup);
@@ -230,12 +230,12 @@ test.describe("Fase 2 NBA y NHL en rutas reales", () => {
 
     await page.goto(`/app/${EMPTY_GAME!.league}/games/${EMPTY_GAME!.game.id}`);
     const main = page.locator("#main");
-    const studio = page.locator("[data-match-studio]");
+    const studio = page.locator("#main [data-match-studio]:visible");
     await expect(studio).toBeVisible();
     await expect(studio.locator("[data-empty-forecast]")).toBeVisible();
     await expect(studio).toContainText("Sin pronóstico");
     await expect(main).toContainText(/Aún no hay (picks|selecciones) publicad[ao]s/i);
-    await main.locator('[data-section-tab="ia"]').click();
+    await main.locator('[role="tab"][data-section-tab="ia"]:visible').click();
     await expect(main).toContainText("Sin lectura publicada");
     await expect(main).not.toContainText("Simulador del partido");
     await assertNoHorizontalOverflow(page);

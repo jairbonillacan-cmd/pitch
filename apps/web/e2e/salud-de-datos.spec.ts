@@ -49,16 +49,18 @@ test("Salud de datos y bajas reales: resguardo 403/404 en prod, bajas NFL en fic
 
   // 2) En /app/nfl, una ficha por jugar muestra las bajas nominales reales leídas de data/snapshots/nfl/injuries.json
   await page.goto("/app/nfl");
-  const nflGameLink = page.locator('a[href^="/app/nfl/g/"]').first();
+  await expect(page.locator("#main").getByRole("heading", { name: /NFL/i }).first()).toBeVisible();
+  const nflGameLink = page.locator('#main a[href^="/app/nfl/g/"]:visible').first();
   if ((await nflGameLink.count()) > 0) {
     const href = await nflGameLink.getAttribute("href");
     if (href) {
       await page.goto(href);
-      const resumenTab = page.locator('[data-section-tab="resumen"]');
+      await expect(page.locator("#main [data-match-studio]:visible")).toBeVisible();
+      const resumenTab = page.locator('#main [role="tab"][data-section-tab="resumen"]:visible');
       if ((await resumenTab.count()) > 0) {
         await resumenTab.click();
       }
-      const preMatch = page.locator("[data-pre-match-module]");
+      const preMatch = page.locator("#main [data-pre-match-module]:visible");
       if ((await preMatch.count()) > 0) {
         await expect(preMatch).toBeVisible();
         const bodyText = (await preMatch.textContent()) ?? "";

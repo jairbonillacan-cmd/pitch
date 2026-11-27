@@ -199,21 +199,59 @@ function refereeTierTone(tier: CommandRefereeHit["tier"]): string {
 export function CommandPaletteModal({
   initialQuery = "",
 }: CommandPaletteModalProps = {}): React.JSX.Element | null {
-  const { dataset, viewerRole, allowRoleSimulation } = usePlatformCore();
-  const { setCmdkOpen, navigateTo } = usePlatformActions();
+  const { setCmdkOpen } = usePlatformActions();
   const { cmdkOpen } = useOverlayState();
+  const [rendered, setRendered] = useState<boolean>(cmdkOpen);
+
+  useSafeEffect(() => {
+    if (cmdkOpen) {
+      setRendered(true);
+      return undefined;
+    }
+    if (!rendered || typeof window === "undefined") return undefined;
+    const timer = window.setTimeout(() => setRendered(false), 240);
+    return () => window.clearTimeout(timer);
+  }, [cmdkOpen, rendered]);
+
+  if (!rendered && !cmdkOpen) return null;
+
+  return (
+    <TopLayerModalDialog
+      open={cmdkOpen}
+      onClose={() => setCmdkOpen(false)}
+      ariaLabel="Buscar en PitchLab"
+      maxWidth="40rem"
+      dialogClassName="pl-cmd-dialog"
+      keepMounted
+    >
+      {rendered || cmdkOpen ? (
+        <CommandPaletteModalBody
+          initialQuery={initialQuery}
+          onClose={() => setCmdkOpen(false)}
+        />
+      ) : null}
+    </TopLayerModalDialog>
+  );
+}
+
+function CommandPaletteModalBody({
+  initialQuery,
+  onClose,
+}: {
+  readonly initialQuery: string;
+  readonly onClose: () => void;
+}): React.JSX.Element {
+  const { dataset, viewerRole, allowRoleSimulation } = usePlatformCore();
+  const { navigateTo } = usePlatformActions();
   const [query, setQuery] = useState<string>(initialQuery);
   const [activeScope, setActiveScope] = useState<CommandScope>("all");
   const [activeIndex, setActiveIndex] = useState<number>(0);
-  const [rendered, setRendered] = useState<boolean>(cmdkOpen);
   const cmdUid = useId().replace(/:/g, "");
   const listboxId = `${cmdUid}-listbox`;
   const inputRef = useRef<HTMLInputElement | null>(null);
   const resultsRef = useRef<HTMLDivElement | null>(null);
 
   useSafeEffect(() => {
-    if (!cmdkOpen) return;
-    setRendered(true);
     setQuery(initialQuery);
     setActiveScope("all");
     setActiveIndex(0);
@@ -226,16 +264,13 @@ export function CommandPaletteModal({
         window.cancelAnimationFrame(frame);
       }
     };
-  }, [cmdkOpen, initialQuery]);
+  }, [initialQuery]);
 
   const debouncedQuery = useDebouncedValue(query, 150);
   const debouncedTrimmed = debouncedQuery.trim();
   const shouldFetchPlayers =
-    cmdkOpen &&
-    debouncedTrimmed.length >= 2 &&
-    (activeScope === "all" || activeScope === "players");
+    debouncedTrimmed.length >= 2 && (activeScope === "all" || activeScope === "players");
   const shouldFetchReferees =
-    cmdkOpen &&
     (activeScope === "all" || activeScope === "referees") &&
     (debouncedTrimmed.length >= 2 || activeScope === "referees");
 
@@ -256,62 +291,61 @@ export function CommandPaletteModal({
   });
 
   const indexedTeams = useMemo(() => {
-    const rawList = (() => {
-      if (dataset.teams && dataset.teams.length > 0) return dataset.teams;
-      const seen = new Map<
-        string,
-        {
-          id: string;
-          league: (typeof dataset.leagues)[number]["league"];
-          leagueLabel: string;
-          slug: string;
-          name: string;
-          shortName: string;
-          code: string;
-          rank: number | null;
-          href: string;
-        }
-      >();
-      const leagueLabelMap = new Map(dataset.leagues.map((l) => [l.league, l.label]));
-      for (const lg of dataset.leagues) {
-        lg.standings.forEach((row, idx) => {
-          const slug = row.teamId.includes(".") ? row.teamId.split(".")[1]! : row.teamId;
-          const key = `${lg.league}:${slug}`;
-          if (!seen.has(key)) {
-            seen.set(key, {
-              id: row.teamId,
-              league: lg.league,
-              leagueLabel: lg.label,
-              slug,
-              name: row.name,
-              shortName: row.shortName,
-              code: row.code,
-              rank: idx + 1,
-              href: canonicalTeamHref(lg.league, slug),
-            });
-          }
-        });
+    const seen = new Map<
+      string,
+      {
+        id: string;
+        league: (typeof dataset.leagues)[number]["league"];
+        leagueLabel: string;
+        slug: string;
+        name: string;
+        shortName: string;
+        code: string;
+        rank: number | null;
+        href: string;
       }
-      for (const g of dataset.games) {
-        for (const side of [g.home, g.away]) {
-          const key = `${g.league}:${side.slug}`;
-          if (!seen.has(key)) {
-            seen.set(key, {
-              id: key,
-              league: g.league,
-              leagueLabel: leagueLabelMap.get(g.league) ?? g.leagueLabel,
-              slug: side.slug,
-              name: side.name,
-              shortName: side.shortName,
-              code: side.code,
-              rank: null,
-              href: canonicalTeamHref(g.league, side.slug),
-            });
-          }
+    >();
+    const leagueLabelMap = new Map(dataset.leagues.map((l) => [l.league, l.label]));
+    for (const t of dataset.teams ?? []) {
+      seen.set(`${t.league}:${t.slug}`, t);
+    }
+    for (const lg of dataset.leagues) {
+      lg.standings.forEach((row, idx) => {
+        const slug = row.teamId.includes(".") ? row.teamId.split(".")[1]! : row.teamId;
+        const key = `${lg.league}:${slug}`;
+        if (!seen.has(key)) {
+          seen.set(key, {
+            id: row.teamId,
+            league: lg.league,
+            leagueLabel: lg.label,
+            slug,
+            name: row.name,
+            shortName: row.shortName,
+            code: row.code,
+            rank: idx + 1,
+            href: canonicalTeamHref(lg.league, slug),
+          });
+        }
+      });
+    }
+    for (const g of dataset.games) {
+      for (const side of [g.home, g.away]) {
+        const key = `${g.league}:${side.slug}`;
+        if (!seen.has(key)) {
+          seen.set(key, {
+            id: key,
+            league: g.league,
+            leagueLabel: leagueLabelMap.get(g.league) ?? g.leagueLabel,
+            slug: side.slug,
+            name: side.name,
+            shortName: side.shortName,
+            code: side.code,
+            rank: null,
+            href: canonicalTeamHref(g.league, side.slug),
+          });
         }
       }
-      return [...seen.values()];
-    })();
+    }
 
     const upcomingKeys = new Set<string>();
     for (const g of dataset.games) {
@@ -320,26 +354,47 @@ export function CommandPaletteModal({
         upcomingKeys.add(`${g.league}:${g.away.slug}`);
       }
     }
-    const deduped = new Map<string, (typeof rawList)[number]>();
-    for (const item of rawList) {
+    type TeamRow = typeof seen extends Map<string, infer V> ? V : never;
+    const deduped = new Map<string, { item: TeamRow; search: string }>();
+    for (const item of seen.values()) {
       const dedupeKey = isNationalCompetition(item.league)
         ? `national:${item.slug}`
         : `club:${item.league}:${item.slug}`;
+      const entry = {
+        item,
+        search: `${normSearch(item.name)} ${normSearch(item.shortName)} ${normSearch(item.code)} ${normSearch(item.leagueLabel)}`,
+      };
       const current = deduped.get(dedupeKey);
       if (!current) {
-        deduped.set(dedupeKey, item);
+        deduped.set(dedupeKey, entry);
         continue;
       }
       const nextUpcoming = upcomingKeys.has(`${item.league}:${item.slug}`);
-      const curUpcoming = upcomingKeys.has(`${current.league}:${current.slug}`);
+      const curUpcoming = upcomingKeys.has(`${current.item.league}:${current.item.slug}`);
       if (nextUpcoming && !curUpcoming) {
-        deduped.set(dedupeKey, item);
+        deduped.set(dedupeKey, entry);
       }
     }
     return [...deduped.values()];
   }, [dataset.teams, dataset.leagues, dataset.games]);
 
-  if (!rendered && !cmdkOpen) return null;
+  const indexedGames = useMemo(
+    () =>
+      dataset.games.map((g) => ({
+        game: g,
+        search: `${normSearch(g.home.name)} ${normSearch(g.away.name)} ${normSearch(g.home.shortName)} ${normSearch(g.away.shortName)} ${normSearch(g.leagueLabel)} ${normSearch(g.league)}`,
+      })),
+    [dataset.games],
+  );
+
+  const indexedLeagues = useMemo(
+    () =>
+      dataset.leagues.map((lg) => ({
+        league: lg,
+        search: `${normSearch(lg.label)} ${normSearch(lg.league)} ${normSearch(lg.roundLabel)}`,
+      })),
+    [dataset.leagues],
+  );
 
   const q = query.trim().toLowerCase();
   const nq = normSearch(q);
@@ -371,43 +426,22 @@ export function CommandPaletteModal({
 
   const matchingTeams = showGroup("teams")
     ? indexedTeams
-        .filter((t) => {
-          if (!nq) return activeScope === "teams";
-          return (
-            normSearch(t.name).includes(nq) ||
-            normSearch(t.shortName).includes(nq) ||
-            normSearch(t.code).includes(nq) ||
-            normSearch(t.leagueLabel).includes(nq)
-          );
-        })
+        .filter((entry) => (!nq ? activeScope === "teams" : entry.search.includes(nq)))
         .slice(0, 8)
+        .map((entry) => entry.item)
     : [];
 
   const matchingGames = showGroup("games")
-    ? dataset.games
-        .filter((g) => {
-          if (!nq) return true;
-          return (
-            normSearch(g.home.name).includes(nq) ||
-            normSearch(g.away.name).includes(nq) ||
-            normSearch(g.home.shortName).includes(nq) ||
-            normSearch(g.away.shortName).includes(nq) ||
-            normSearch(g.leagueLabel).includes(nq) ||
-            normSearch(g.league).includes(nq)
-          );
-        })
+    ? indexedGames
+        .filter((entry) => (!nq ? true : entry.search.includes(nq)))
         .slice(0, 6)
+        .map((entry) => entry.game)
     : [];
 
   const matchingLeagues = showGroup("leagues")
-    ? dataset.leagues.filter((lg) => {
-        if (!nq) return true;
-        return (
-          normSearch(lg.label).includes(nq) ||
-          normSearch(lg.league).includes(nq) ||
-          normSearch(lg.roundLabel).includes(nq)
-        );
-      })
+    ? indexedLeagues
+        .filter((entry) => (!nq ? true : entry.search.includes(nq)))
+        .map((entry) => entry.league)
     : [];
 
   const matchingTipsters =
@@ -465,7 +499,7 @@ export function CommandPaletteModal({
   const selectHref = (href: string) => {
     const safeHref = sanitizeInternalHref(href);
     if (!safeHref) return;
-    setCmdkOpen(false);
+    onClose();
     navigateTo(safeHref);
   };
 
@@ -505,14 +539,6 @@ export function CommandPaletteModal({
   };
 
   return (
-    <TopLayerModalDialog
-      open={cmdkOpen}
-      onClose={() => setCmdkOpen(false)}
-      ariaLabel="Buscar en PitchLab"
-      maxWidth="40rem"
-      dialogClassName="pl-cmd-dialog"
-      keepMounted
-    >
       <div className="pl-cmd-shell" onKeyDown={handleKeyDown}>
         <div className="pl-cmd-head">
           <div className="pl-cmd-searchbox">
@@ -559,7 +585,7 @@ export function CommandPaletteModal({
           <button
             type="button"
             className="pl-cmd-close"
-            onClick={() => setCmdkOpen(false)}
+            onClick={onClose}
           >
             <MaestroIcon name="x" size={14} className="sm:hidden" />
             <span className="hidden sm:inline">Esc</span>
@@ -1047,6 +1073,5 @@ export function CommandPaletteModal({
           </span>
         </div>
       </div>
-    </TopLayerModalDialog>
   );
 }

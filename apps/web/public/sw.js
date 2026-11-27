@@ -154,7 +154,7 @@ self.addEventListener("push", (event) => {
     self.registration.showNotification(payload.title, {
       body: payload.body,
       icon: "/brand/app-icons/icon-192.png",
-      badge: "/brand/app-icons/favicon.svg",
+      badge: "/brand/app-icons/badge-96.png",
       tag: payload.tag,
       data: { url: payload.url },
     }),

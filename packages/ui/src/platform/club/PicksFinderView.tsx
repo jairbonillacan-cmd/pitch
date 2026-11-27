@@ -186,6 +186,21 @@ export interface PicksFinderClubViewProps {
   readonly initialPicksOfTheDay?: readonly CatalogPickItem[] | null;
 }
 
+interface ScreenerExtendedWireResponse extends ScreenerApiResponse {
+  readonly tabCounts?: {
+    readonly upcoming: number;
+    readonly live: number;
+    readonly settled: number;
+  };
+  readonly leagueFacets?: readonly {
+    readonly league: string;
+    readonly label: string;
+    readonly sport: PlatformGame["sport"];
+    readonly count: number;
+  }[];
+  readonly games?: Readonly<Record<string, PlatformGame>>;
+}
+
 export function PicksFinderClubView({
   initialCatalogs = null,
   initialPicksOfTheDay = null,
@@ -207,7 +222,6 @@ export function PicksFinderClubView({
     addPickToParlay,
     navigateTo,
     prefetchRoute,
-    requestFullShell,
   } = usePlatformActions();
   const journalEntries = useJournalEntries();
   const journalCount = journalEntries.length;
@@ -219,10 +233,6 @@ export function PicksFinderClubView({
     live: null,
     settled: null,
   });
-
-  useSafeEffect(() => {
-    void requestFullShell();
-  }, [requestFullShell]);
 
   const isPageVisible = useSyncExternalStore(
     subscribePageVisibility,
@@ -279,11 +289,23 @@ export function PicksFinderClubView({
   const [extraCatalogs, setExtraCatalogs] = useState<Readonly<Record<string, MatchPicksCatalog>>>(
     {},
   );
+  const [apiGamesById, setApiGamesById] = useState<Readonly<Record<string, PlatformGame>>>({});
+  const [apiTabCounts, setApiTabCounts] = useState<{
+    readonly upcoming: number;
+    readonly live: number;
+    readonly settled: number;
+  } | null>(null);
+  const [apiLeagueFacets, setApiLeagueFacets] = useState<
+    readonly { readonly league: string; readonly label: string; readonly sport: PlatformGame["sport"] }[]
+  >([]);
   const [apiPicksOfTheDay, setApiPicksOfTheDay] = useState<readonly CatalogPickItem[]>([]);
+  const [apiPage, setApiPage] = useState<number>(1);
   const [loadedApiPage, setLoadedApiPage] = useState<number>(1);
   const [apiHasMore, setApiHasMore] = useState<boolean>(true);
-  const [screenerFetchUrl, setScreenerFetchUrl] = useState<string | null>(null);
   const lastMergedApiStampRef = useRef<string>("");
+  const lastFilterSigRef = useRef<string>("");
+  const leagueRef = useRef<string>(league);
+  leagueRef.current = league;
 
   const [liveTrackedItems, setLiveTrackedItems] = useState<readonly LiveTrackedPickView[]>([]);
   const [liveTrackerLoaded, setLiveTrackerLoaded] = useState<boolean>(false);
@@ -292,8 +314,115 @@ export function PicksFinderClubView({
     DEFAULT_LIVE_TRACKER_POLL_MS,
   );
 
-  const screenerPageFetch = useAbortableJson<ScreenerApiResponse>(screenerFetchUrl, {
-    enabled: screenerFetchUrl !== null,
+  const debouncedSearch = useDebouncedValue(searchQuery, 180);
+  const debouncedMinOddsStep = useDebouncedValue(minOddsStep, 180);
+  const debouncedMaxOddsStep = useDebouncedValue(maxOddsStep, 180);
+  const normalizedSearch = useMemo(() => normText(debouncedSearch.trim()), [debouncedSearch]);
+
+  const debouncedMinOddsVal = useMemo(
+    () => sliderStepToOdds(debouncedMinOddsStep) ?? 1.01,
+    [debouncedMinOddsStep],
+  );
+  const debouncedMaxOddsVal = useMemo(
+    () => sliderStepToOdds(debouncedMaxOddsStep),
+    [debouncedMaxOddsStep],
+  );
+  const effectiveIncludeTrivial =
+    includeTrivialOdds ||
+    (debouncedMinOddsStep > 0 && debouncedMinOddsVal < TRIVIAL_ODDS_FLOOR);
+
+  const screenerFilterSig = useMemo(
+    () =>
+      [
+        timing,
+        windowFilter,
+        sort,
+        sport,
+        league,
+        band,
+        family,
+        pickTypeFilter,
+        onlyRecommended ? "1" : "0",
+        effectiveIncludeTrivial ? "1" : "0",
+        onlyPositiveEdge ? "1" : "0",
+        String(debouncedMinOddsStep),
+        String(debouncedMaxOddsStep),
+        normalizedSearch,
+      ].join("|"),
+    [
+      band,
+      debouncedMaxOddsStep,
+      debouncedMinOddsStep,
+      effectiveIncludeTrivial,
+      family,
+      league,
+      normalizedSearch,
+      onlyPositiveEdge,
+      onlyRecommended,
+      pickTypeFilter,
+      sort,
+      sport,
+      timing,
+      windowFilter,
+    ],
+  );
+
+  useSafeEffect(() => {
+    if (!lastFilterSigRef.current) {
+      lastFilterSigRef.current = screenerFilterSig;
+      return;
+    }
+    if (lastFilterSigRef.current !== screenerFilterSig) {
+      lastFilterSigRef.current = screenerFilterSig;
+      lastMergedApiStampRef.current = "";
+      setApiPage(1);
+      setLoadedApiPage(1);
+      setExtraCatalogs({});
+      setApiGamesById({});
+    }
+  }, [screenerFilterSig]);
+
+  const screenerFetchUrl = useMemo(() => {
+    const params = new URLSearchParams({
+      page: String(apiPage),
+      pageSize: "24",
+      tab: timing,
+      day: windowFilter,
+      sort,
+      onlyRecommended: onlyRecommended ? "1" : "0",
+      includeTrivial: effectiveIncludeTrivial ? "1" : "0",
+    });
+    if (sport !== "all") params.set("sport", sport);
+    if (league !== "all") params.set("league", league);
+    if (band !== "all") params.set("band", band);
+    if (family !== "all") params.set("family", family);
+    if (pickTypeFilter !== "all") params.set("pickType", pickTypeFilter);
+    if (onlyPositiveEdge) params.set("onlyPositiveEdge", "1");
+    if (debouncedMinOddsStep > 0) params.set("minOdds", debouncedMinOddsVal.toFixed(2));
+    if (debouncedMaxOddsVal !== null) params.set("maxOdds", debouncedMaxOddsVal.toFixed(2));
+    if (normalizedSearch.length > 0) params.set("q", normalizedSearch);
+    return `/api/picks/screener?${params.toString()}`;
+  }, [
+    apiPage,
+    band,
+    debouncedMaxOddsVal,
+    debouncedMinOddsStep,
+    debouncedMinOddsVal,
+    effectiveIncludeTrivial,
+    family,
+    league,
+    normalizedSearch,
+    onlyPositiveEdge,
+    onlyRecommended,
+    pickTypeFilter,
+    sort,
+    sport,
+    timing,
+    windowFilter,
+  ]);
+
+  const screenerPageFetch = useAbortableJson<ScreenerExtendedWireResponse>(screenerFetchUrl, {
+    enabled: typeof window !== "undefined",
   });
 
   useSafeEffect(() => {
@@ -302,13 +431,27 @@ export function PicksFinderClubView({
     const stamp = `${payload.page}:${payload.generatedAtUtc}`;
     if (lastMergedApiStampRef.current === stamp) return;
     lastMergedApiStampRef.current = stamp;
-    setExtraCatalogs((prev) => ({ ...prev, ...payload.catalogs }));
+    setExtraCatalogs((prev) =>
+      payload.page === 1 ? payload.catalogs : { ...prev, ...payload.catalogs },
+    );
+    if (payload.games) {
+      const nextGames = payload.games;
+      setApiGamesById((prev) => (payload.page === 1 ? nextGames : { ...prev, ...nextGames }));
+    }
+    if (payload.tabCounts) {
+      setApiTabCounts(payload.tabCounts);
+    }
+    if (payload.leagueFacets && leagueRef.current === "all") {
+      setApiLeagueFacets(payload.leagueFacets);
+    }
     setLoadedApiPage(payload.page);
     setApiHasMore(payload.hasMore);
     if (payload.picksOfTheDay.length > 0) {
       setApiPicksOfTheDay(payload.picksOfTheDay);
     }
-    setVisibleGamesCount((count) => count + GAMES_PAGE_STEP);
+    if (payload.page > 1) {
+      setVisibleGamesCount((count) => count + GAMES_PAGE_STEP);
+    }
   }, [screenerPageFetch.data]);
 
   useSafeEffect(() => {
@@ -321,13 +464,26 @@ export function PicksFinderClubView({
   }, []);
 
   const mergedCatalogs = useMemo<Readonly<Record<string, MatchPicksCatalog>>>(() => {
-    if (!initialCatalogs) return extraCatalogs;
-    if (Object.keys(extraCatalogs).length === 0) return initialCatalogs;
-    return { ...initialCatalogs, ...extraCatalogs };
+    const hasExtra = Object.keys(extraCatalogs).length > 0;
+    if (hasExtra) {
+      return initialCatalogs ? { ...initialCatalogs, ...extraCatalogs } : extraCatalogs;
+    }
+    return initialCatalogs ?? extraCatalogs;
   }, [extraCatalogs, initialCatalogs]);
 
-  const debouncedSearch = useDebouncedValue(searchQuery, 150);
-  const normalizedSearch = useMemo(() => normText(debouncedSearch.trim()), [debouncedSearch]);
+  const screenerGames = useMemo<readonly PlatformGame[]>(() => {
+    const apiList = Object.values(apiGamesById);
+    if (apiList.length === 0) return dataset.games;
+    const seen = new Set(dataset.games.map((g) => g.id));
+    const merged = [...dataset.games];
+    for (const game of apiList) {
+      if (!seen.has(game.id)) {
+        seen.add(game.id);
+        merged.push(game);
+      }
+    }
+    return merged;
+  }, [apiGamesById, dataset.games]);
 
   const canPollLiveTrackedPicks =
     hasAccountSessionAuth && viewerRole !== "visitor" && !liveTrackerAuthBlocked;
@@ -474,7 +630,7 @@ export function PicksFinderClubView({
     );
     const out: ScreenerItem[] = [];
 
-    for (const game of dataset.games) {
+    for (const game of screenerGames) {
       const isSettled = game.status === "FT";
       const liveEntry = liveByGameId.get(game.id);
       const isLiveGame =
@@ -958,7 +1114,7 @@ export function PicksFinderClubView({
       }
     }
     return out;
-  }, [dataset.games, liveBoard.data?.entries, mergedCatalogs, preferredBooks, viewerRole]);
+  }, [screenerGames, liveBoard.data?.entries, mergedCatalogs, preferredBooks, viewerRole]);
 
   const itemByPickId = useMemo(() => {
     const map = new Map<string, ScreenerItem>();
@@ -970,11 +1126,11 @@ export function PicksFinderClubView({
 
   const gameById = useMemo(() => {
     const map = new Map<string, PlatformGame>();
-    for (const game of dataset.games) {
+    for (const game of screenerGames) {
       map.set(game.id, game);
     }
     return map;
-  }, [dataset.games]);
+  }, [screenerGames]);
 
   const picksOfTheDay = useMemo<readonly ScreenerItem[]>(() => {
     const candidateCatalogs: CatalogPickItem[] = [];
@@ -1074,74 +1230,6 @@ export function PicksFinderClubView({
       .filter((x): x is ScreenerItem => Boolean(x))
       .slice(0, 3);
   }, [all, apiPicksOfTheDay, gameById, initialPicksOfTheDay, itemByPickId, league, sport]);
-
-  const timingCounts = useMemo(() => {
-    const liveIds = new Set<string>();
-    let upcoming = 0;
-    let settled = 0;
-    for (const item of all) {
-      if (item.tabBucket === "live") liveIds.add(item.pick.id);
-      else if (item.tabBucket === "settled") settled += 1;
-      else if (!onlyRecommended || item.isRecommended) upcoming += 1;
-    }
-    for (const tracked of liveTrackedItems) {
-      liveIds.add(tracked.pickId);
-    }
-    return { live: liveIds.size, upcoming, settled };
-  }, [all, liveTrackedItems, onlyRecommended]);
-
-  const tabItems = useMemo<
-    readonly {
-      readonly id: TimingMode;
-      readonly label: string;
-      readonly count: number;
-      readonly icon: MaestroIconName;
-    }[]
-  >(
-    () => [
-      {
-        id: "upcoming",
-        label: "Recomendados / Próximos",
-        count: timingCounts.upcoming,
-        icon: "target-picks",
-      },
-      {
-        id: "live",
-        label: "Activos / En vivo",
-        count: timingCounts.live,
-        icon: "live-pulse",
-      },
-      {
-        id: "settled",
-        label: "Liquidados FT",
-        count: timingCounts.settled,
-        icon: "verified-seal",
-      },
-    ],
-    [timingCounts.live, timingCounts.settled, timingCounts.upcoming],
-  );
-
-  const leagues = useMemo(() => {
-    const seen = new Map<string, string>();
-    for (const { game, tabBucket } of all) {
-      if (tabBucket !== timing) continue;
-      if (sport !== "all" && !matchesSportFilter(game, sport)) continue;
-      seen.set(game.league, game.leagueLabel);
-    }
-    return Array.from(seen.entries());
-  }, [all, sport, timing]);
-
-  const teams = useMemo(() => {
-    const seen = new Map<string, string>();
-    for (const { game, tabBucket } of all) {
-      if (tabBucket !== timing) continue;
-      if (sport !== "all" && !matchesSportFilter(game, sport)) continue;
-      if (league !== "all" && game.league !== league) continue;
-      seen.set(game.home.slug, game.home.name);
-      seen.set(game.away.slug, game.away.name);
-    }
-    return Array.from(seen.entries()).sort((a, b) => a[1].localeCompare(b[1], "es"));
-  }, [all, league, sport, timing]);
 
   const applySavedView = (view: SavedScreenerView) => {
     setActiveViewId(view.id);
@@ -1325,9 +1413,6 @@ export function PicksFinderClubView({
     [activePresetId],
   );
 
-  const effectiveIncludeTrivial =
-    includeTrivialOdds || (minOddsStep > 0 && minOddsVal < TRIVIAL_ODDS_FLOOR);
-
   const activeAdvancedCount =
     (sport !== "all" ? 1 : 0) +
     (league !== "all" ? 1 : 0) +
@@ -1357,11 +1442,11 @@ export function PicksFinderClubView({
 
   const matchesOddsRange = useCallback(
     (effectiveDec: number): boolean => {
-      if (minOddsStep > 0 && effectiveDec < minOddsVal - 0.001) return false;
-      if (maxOddsVal !== null && effectiveDec > maxOddsVal + 0.001) return false;
+      if (debouncedMinOddsStep > 0 && effectiveDec < debouncedMinOddsVal - 0.001) return false;
+      if (debouncedMaxOddsVal !== null && effectiveDec > debouncedMaxOddsVal + 0.001) return false;
       return true;
     },
-    [maxOddsVal, minOddsStep, minOddsVal],
+    [debouncedMaxOddsVal, debouncedMinOddsStep, debouncedMinOddsVal],
   );
 
   const matchesPosition = useCallback(
@@ -1375,34 +1460,65 @@ export function PicksFinderClubView({
     [positionFilter],
   );
 
-  const rows = useMemo(() => {
-    const filtered = all.filter((item) => {
-      if (item.tabBucket !== timing) return false;
-      if (normalizedSearch && !item.searchHaystack.includes(normalizedSearch)) return false;
-      if (sport !== "all" && !matchesSportFilter(item.game, sport)) return false;
-      if (league !== "all" && item.game.league !== league) return false;
+  const singlePassEvaluation = useMemo(() => {
+    const liveIds = new Set<string>();
+    let upcomingCount = 0;
+    let settledCount = 0;
+    const localLeagueSeen = new Map<string, string>();
+    const localTeamSeen = new Map<string, string>();
+    const counts: Record<Band, number> = { all: 0, alta: 0, media: 0, baja: 0 };
+    const matchedRows: ScreenerItem[] = [];
+
+    for (const item of all) {
+      if (item.tabBucket === "live") {
+        liveIds.add(item.pick.id);
+      } else if (item.tabBucket === "settled") {
+        settledCount += 1;
+      } else if (!onlyRecommended || item.isRecommended) {
+        upcomingCount += 1;
+      }
+
+      if (item.tabBucket !== timing) continue;
+
+      const sportMatched = sport === "all" || matchesSportFilter(item.game, sport);
+      if (sportMatched) {
+        if (!localLeagueSeen.has(item.game.league)) {
+          localLeagueSeen.set(item.game.league, item.game.leagueLabel);
+        }
+        if (league === "all" || item.game.league === league) {
+          if (!localTeamSeen.has(item.game.home.slug)) {
+            localTeamSeen.set(item.game.home.slug, item.game.home.name);
+          }
+          if (!localTeamSeen.has(item.game.away.slug)) {
+            localTeamSeen.set(item.game.away.slug, item.game.away.name);
+          }
+        }
+      }
+
+      if (!sportMatched) continue;
+      if (league !== "all" && item.game.league !== league) continue;
+      if (normalizedSearch && !item.searchHaystack.includes(normalizedSearch)) continue;
       if (
         teamFilter !== "all" &&
         item.game.home.slug !== teamFilter &&
         item.game.away.slug !== teamFilter
       ) {
-        return false;
+        continue;
       }
-      if (!matchesWindow(item.game)) return false;
-      if (band !== "all" && bandOf(item.pick.p) !== band) return false;
+      if (!matchesWindow(item.game)) continue;
       if (
         family !== "all" &&
         !matchesMarketFamily(item.pick, item.game, family, item.family, item.catalogFamilyId)
       ) {
-        return false;
+        continue;
       }
-      if (pickTypeFilter === "player" && !item.playerMeta) return false;
-      if (pickTypeFilter === "team_match" && Boolean(item.playerMeta)) return false;
-      if (directionFilter !== "all" && item.directionBucket !== directionFilter) return false;
-      if (periodFilter !== "all" && item.period !== periodFilter) return false;
-      if (!matchesPosition(item)) return false;
+      if (pickTypeFilter === "player" && !item.playerMeta) continue;
+      if (pickTypeFilter === "team_match" && Boolean(item.playerMeta)) continue;
+      if (directionFilter !== "all" && item.directionBucket !== directionFilter) continue;
+      if (periodFilter !== "all" && item.period !== periodFilter) continue;
+      if (!matchesPosition(item)) continue;
       if (onlyPositiveEdge) {
-        if (item.isPricingAnomalous) return false;
+        if (item.isPricingAnomalous) continue;
         const itemEvCap = isSharpQuoteBook(undefined, item.houseLabel)
           ? MAX_SHARP_AUDITABLE_EV_PCT
           : MAX_SOFT_AUDITABLE_EV_PCT;
@@ -1413,24 +1529,33 @@ export function PicksFinderClubView({
           item.edgePts !== null &&
           item.edgePts > 0 &&
           item.edgePts <= MAX_AUDITABLE_EDGE_PTS;
-        if (!hasAuditableEv && !hasAuditableEdge) return false;
+        if (!hasAuditableEv && !hasAuditableEdge) continue;
       }
 
       const effectiveDec = item.houseDecimal ?? item.pick.fairDecimal;
       if (timing === "upcoming") {
         if (!effectiveIncludeTrivial && effectiveDec > 0 && effectiveDec < TRIVIAL_ODDS_FLOOR) {
-          return false;
+          continue;
         }
         if (onlyRecommended && !item.isRecommended) {
-          return false;
+          continue;
         }
       }
+      if (effectiveDec > 0 && !matchesOddsRange(effectiveDec)) continue;
 
-      if (effectiveDec > 0 && !matchesOddsRange(effectiveDec)) return false;
-      return true;
-    });
+      const itemBand = bandOf(item.pick.p);
+      counts.all += 1;
+      counts[itemBand] += 1;
+      if (band === "all" || itemBand === band) {
+        matchedRows.push(item);
+      }
+    }
 
-    return filtered.sort((a, b) => {
+    for (const tracked of liveTrackedItems) {
+      liveIds.add(tracked.pickId);
+    }
+
+    matchedRows.sort((a, b) => {
       if (timing === "settled") {
         return (
           safeParseTimestamp(b.game.kickoffUtc) - safeParseTimestamp(a.game.kickoffUtc) ||
@@ -1499,6 +1624,18 @@ export function PicksFinderClubView({
       }
       return b.pick.p - a.pick.p;
     });
+
+    return {
+      rows: matchedRows,
+      counts,
+      localTimingCounts: {
+        live: liveIds.size,
+        upcoming: upcomingCount,
+        settled: settledCount,
+      },
+      localLeagues: Array.from(localLeagueSeen.entries()),
+      teams: Array.from(localTeamSeen.entries()).sort((a, b) => a[1].localeCompare(b[1], "es")),
+    };
   }, [
     all,
     band,
@@ -1506,6 +1643,7 @@ export function PicksFinderClubView({
     effectiveIncludeTrivial,
     family,
     league,
+    liveTrackedItems,
     matchesOddsRange,
     matchesPosition,
     matchesWindow,
@@ -1520,76 +1658,67 @@ export function PicksFinderClubView({
     timing,
   ]);
 
-  const counts = useMemo(() => {
-    const c: Record<Band, number> = { all: 0, alta: 0, media: 0, baja: 0 };
-    for (const item of all) {
-      if (item.tabBucket !== timing) continue;
-      if (normalizedSearch && !item.searchHaystack.includes(normalizedSearch)) continue;
-      if (sport !== "all" && !matchesSportFilter(item.game, sport)) continue;
-      if (league !== "all" && item.game.league !== league) continue;
+  const { rows, counts, localTimingCounts, localLeagues, teams } = singlePassEvaluation;
+
+  const timingCounts = useMemo(() => {
+    if (!apiTabCounts) return localTimingCounts;
+    return {
+      upcoming: Math.max(apiTabCounts.upcoming, localTimingCounts.upcoming),
+      live: Math.max(apiTabCounts.live, localTimingCounts.live),
+      settled: Math.max(apiTabCounts.settled, localTimingCounts.settled),
+    };
+  }, [apiTabCounts, localTimingCounts]);
+
+  const tabItems = useMemo<
+    readonly {
+      readonly id: TimingMode;
+      readonly label: string;
+      readonly count: number;
+      readonly icon: MaestroIconName;
+    }[]
+  >(
+    () => [
+      {
+        id: "upcoming",
+        label: "Recomendados / Próximos",
+        count: timingCounts.upcoming,
+        icon: "target-picks",
+      },
+      {
+        id: "live",
+        label: "Activos / En vivo",
+        count: timingCounts.live,
+        icon: "live-pulse",
+      },
+      {
+        id: "settled",
+        label: "Liquidados FT",
+        count: timingCounts.settled,
+        icon: "verified-seal",
+      },
+    ],
+    [timingCounts.live, timingCounts.settled, timingCounts.upcoming],
+  );
+
+  const leagues = useMemo(() => {
+    if (apiLeagueFacets.length === 0) return localLeagues;
+    const seen = new Map<string, string>(localLeagues);
+    for (const f of apiLeagueFacets) {
       if (
-        teamFilter !== "all" &&
-        item.game.home.slug !== teamFilter &&
-        item.game.away.slug !== teamFilter
+        sport !== "all" &&
+        !matchesSportFilter(
+          { sport: f.sport, league: f.league } as Pick<PlatformGame, "sport" | "league">,
+          sport,
+        )
       ) {
         continue;
       }
-      if (!matchesWindow(item.game)) continue;
-      if (
-        family !== "all" &&
-        !matchesMarketFamily(item.pick, item.game, family, item.family, item.catalogFamilyId)
-      ) {
-        continue;
+      if (!seen.has(f.league)) {
+        seen.set(f.league, f.label);
       }
-      if (pickTypeFilter === "player" && !item.playerMeta) continue;
-      if (pickTypeFilter === "team_match" && Boolean(item.playerMeta)) continue;
-      if (directionFilter !== "all" && item.directionBucket !== directionFilter) continue;
-      if (periodFilter !== "all" && item.period !== periodFilter) continue;
-      if (!matchesPosition(item)) continue;
-      if (onlyPositiveEdge) {
-        if (item.isPricingAnomalous) continue;
-        const itemEvCap = isSharpQuoteBook(undefined, item.houseLabel)
-          ? MAX_SHARP_AUDITABLE_EV_PCT
-          : MAX_SOFT_AUDITABLE_EV_PCT;
-        const hasAuditableEv =
-          item.valuePct !== null && item.valuePct > 0 && item.valuePct <= itemEvCap;
-        const hasAuditableEdge =
-          item.valuePct === null &&
-          item.edgePts !== null &&
-          item.edgePts > 0 &&
-          item.edgePts <= MAX_AUDITABLE_EDGE_PTS;
-        if (!hasAuditableEv && !hasAuditableEdge) continue;
-      }
-      const effectiveDec = item.houseDecimal ?? item.pick.fairDecimal;
-      if (timing === "upcoming") {
-        if (!effectiveIncludeTrivial && effectiveDec > 0 && effectiveDec < TRIVIAL_ODDS_FLOOR) {
-          continue;
-        }
-        if (onlyRecommended && !item.isRecommended) continue;
-      }
-      if (effectiveDec > 0 && !matchesOddsRange(effectiveDec)) continue;
-      c.all += 1;
-      c[bandOf(item.pick.p)] += 1;
     }
-    return c;
-  }, [
-    all,
-    directionFilter,
-    effectiveIncludeTrivial,
-    family,
-    league,
-    matchesOddsRange,
-    matchesPosition,
-    matchesWindow,
-    normalizedSearch,
-    onlyPositiveEdge,
-    onlyRecommended,
-    periodFilter,
-    pickTypeFilter,
-    sport,
-    teamFilter,
-    timing,
-  ]);
+    return Array.from(seen.entries());
+  }, [apiLeagueFacets, localLeagues, sport]);
 
   const settledKpis = useMemo<readonly SofascoreKpiItem[]>(() => {
     if (timing !== "settled") return [];
@@ -1774,28 +1903,13 @@ export function PicksFinderClubView({
       setVisibleGamesCount((count) => count + GAMES_PAGE_STEP);
     }
     if (remainingLocal <= GAMES_PAGE_STEP && apiHasMore && !screenerPageFetch.loading) {
-      const nextPage = loadedApiPage + 1;
-      const params = new URLSearchParams({
-        page: String(nextPage),
-        pageSize: "20",
-        onlyRecommended: onlyRecommended ? "1" : "0",
-        includeTrivial: effectiveIncludeTrivial ? "1" : "0",
-      });
-      if (sport !== "all") params.set("sport", sport);
-      if (league !== "all") params.set("league", league);
-      if (normalizedSearch.length > 0) params.set("q", normalizedSearch);
-      setScreenerFetchUrl(`/api/picks/screener?${params.toString()}`);
+      setApiPage(loadedApiPage + 1);
     }
   }, [
     allGroupedByMatch.length,
     apiHasMore,
-    effectiveIncludeTrivial,
-    league,
     loadedApiPage,
-    normalizedSearch,
-    onlyRecommended,
     screenerPageFetch.loading,
-    sport,
     visibleGamesCount,
   ]);
 
@@ -2547,8 +2661,7 @@ export function PicksFinderClubView({
 
   const featuredPotd = picksOfTheDay[0] ?? null;
   const secondaryPotds = useMemo(() => picksOfTheDay.slice(1, 3), [picksOfTheDay]);
-  const canLoadMoreMatches =
-    visibleGamesCount < allGroupedByMatch.length || (apiHasMore && timing === "upcoming");
+  const canLoadMoreMatches = visibleGamesCount < allGroupedByMatch.length || apiHasMore;
 
   return (
     <AtmosphereStage activePath="/app/picks">

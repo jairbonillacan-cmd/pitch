@@ -3,6 +3,8 @@ import { z } from "zod";
 import { createSanitizedErrorPayload } from "@pitchlab/contracts";
 import { rejectTransferRequest } from "@pitchlab/db";
 import {
+  ApiGuardHttpError,
+  readBoundedJson,
   withAdminMutation,
   type AdminMutationContext,
   type GuardedRouteHandler,
@@ -16,14 +18,18 @@ import { UUID_RE } from "../../../../../../src/server/transfer-helpers";
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
 
-const TransferIdParamsSchema = z.object({
-  id: z.string().regex(UUID_RE),
-});
+const TransferIdParamsSchema = z
+  .object({
+    id: z.string().regex(UUID_RE),
+  })
+  .strict();
 
-const RejectTransferBodySchema = z.object({
-  reason: z.string().trim().min(3).max(500),
-  adminNotes: z.string().max(500).nullable().optional(),
-});
+const RejectTransferBodySchema = z
+  .object({
+    reason: z.string().trim().min(3).max(500),
+    adminNotes: z.string().max(500).nullable().optional(),
+  })
+  .strict();
 
 export const POST: GuardedRouteHandler<{ id: string }> = withAdminMutation(
   {
@@ -38,7 +44,10 @@ export const POST: GuardedRouteHandler<{ id: string }> = withAdminMutation(
       return NextResponse.json({ ...payload, error: payload.message }, { status: 400 });
     }
 
-    const rawBody: unknown = await request.json().catch(() => null);
+    const rawBody: unknown = await readBoundedJson(request, 16_384).catch((err) => {
+      if (err instanceof ApiGuardHttpError) throw err;
+      return null;
+    });
     const parsedBody = RejectTransferBodySchema.safeParse(rawBody);
     if (!parsedBody.success) {
       const payload = createSanitizedErrorPayload(

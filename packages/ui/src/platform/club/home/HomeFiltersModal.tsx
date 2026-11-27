@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useId, useMemo, useState } from "react";
+import React, { useId, useMemo, useRef, useState } from "react";
 import type { LeagueId } from "@pitchlab/contracts";
 import { LeagueBadge } from "../../../sports";
 import { MaestroIcon } from "../../components/MaestroPrimitives";
@@ -41,6 +41,7 @@ export function HomeFiltersModal({
   onApply,
 }: HomeFiltersModalProps): React.JSX.Element | null {
   const titleId = useId();
+  const bodyScrollRef = useRef<HTMLDivElement | null>(null);
   const [draftStatus, setDraftStatus] = useState<MatchStatusFilter>(statusFilter);
   const [draftSignal, setDraftSignal] = useState<ModelSignalFilter>(signalFilter);
   const [draftCountries, setDraftCountries] = useState<string[]>([...selectedCountries]);
@@ -113,10 +114,12 @@ export function HomeFiltersModal({
       ariaLabelledBy={titleId}
       maxWidth="28rem"
       dialogClassName="pl-home-fmodal-dialog"
+      scrollContainerRef={bodyScrollRef}
     >
       <div className="pl-home-fmodal">
-        <header className="pl-home-fmodal-head">
+        <header className="pl-home-fmodal-head pl-sheet-drag-zone">
           <div>
+            <span className="pl-bottom-sheet-handle sm:hidden mb-2" aria-hidden="true" />
             <h2 id={titleId} className="pl-home-fmodal-title">
               Filtros
             </h2>
@@ -132,7 +135,7 @@ export function HomeFiltersModal({
           </button>
         </header>
 
-        <div className="pl-home-fmodal-body">
+        <div ref={bodyScrollRef} className="pl-home-fmodal-body">
           <section className="pl-home-fmodal-section" aria-label="Estado del partido">
             <h3 className="pl-home-fmodal-h3">Estado del partido</h3>
             <div className="pl-home-fmodal-pills" role="group" aria-label="Elegir estado">

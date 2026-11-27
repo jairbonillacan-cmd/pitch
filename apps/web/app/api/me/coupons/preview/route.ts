@@ -8,9 +8,11 @@ import { COUPON_ERROR_COPY } from "../../../../../src/server/transfer-helpers";
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
 
-const CouponPreviewQuerySchema = z.object({
-  code: z.string().trim().min(1).max(64),
-});
+const CouponPreviewQuerySchema = z
+  .object({
+    code: z.string().trim().min(1).max(64),
+  })
+  .strict();
 
 export const GET = withSessionRead(
   {

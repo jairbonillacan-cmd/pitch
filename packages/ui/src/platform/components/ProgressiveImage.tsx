@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useRef, useState } from "react";
+import React, { useCallback, useState } from "react";
 
 export interface ProgressiveImageProps
   extends Omit<React.ImgHTMLAttributes<HTMLImageElement>, "onLoad" | "onError"> {
@@ -8,35 +8,33 @@ export interface ProgressiveImageProps
   readonly onError?: (e: React.SyntheticEvent<HTMLImageElement>) => void;
 }
 
-/**
- * Imagen con placeholder suave y transición blur-up sobre la propia `<img>` (Regla 9 · ADR-054).
- * - Cero `backdrop-filter` (cumple ADR-035).
- * - Detecta `img.complete && img.naturalWidth > 0` tras hidratación SSR / caché sin parpadeo.
- * - Conserva dimensiones intrínsecas (`CLS = 0`) y desactiva desenfoque en `prefers-reduced-motion`.
- */
 export function ProgressiveImage({
   className,
   src,
+  loading,
   onLoad,
   onError,
   ...rest
 }: ProgressiveImageProps): React.JSX.Element {
-  const imgRef = useRef<HTMLImageElement | null>(null);
   const [loadedSrc, setLoadedSrc] = useState<string | null>(null);
   const srcKey = typeof src === "string" ? src : "";
-  const isLoaded = loadedSrc === srcKey && srcKey.length > 0;
+  const isEager = loading === "eager";
+  const isLoaded = isEager || (loadedSrc === srcKey && srcKey.length > 0);
 
-  useEffect(() => {
-    const el = imgRef.current;
-    if (el && el.complete && el.naturalWidth > 0 && srcKey) {
-      setLoadedSrc(srcKey);
-    }
-  }, [srcKey]);
+  const handleImgRef = useCallback(
+    (el: HTMLImageElement | null) => {
+      if (el && el.complete && el.naturalWidth > 0 && srcKey) {
+        setLoadedSrc((prev) => (prev === srcKey ? prev : srcKey));
+      }
+    },
+    [srcKey],
+  );
 
   return (
     <img
-      ref={imgRef}
+      ref={handleImgRef}
       src={src}
+      loading={loading}
       {...rest}
       data-loaded={isLoaded ? "true" : "false"}
       className={`pl-prog-img${className ? ` ${className}` : ""}`}

@@ -5,6 +5,34 @@ import { MaestroIcon } from "./MaestroPrimitives";
 import { usePlatformActions } from "../platform-provider";
 import { runWithViewTransition } from "../navigation-helpers";
 
+const INTRA_NAV_TRAIL_STORAGE_KEY = "pl-intra-nav-trail";
+
+export function canSafelyUseHistoryBack(
+  win: Pick<Window, "history" | "location" | "sessionStorage">,
+  referrer: string,
+): boolean {
+  if (win.history.length <= 1) return false;
+  let sameOriginReferrer = false;
+  if (referrer) {
+    try {
+      sameOriginReferrer = new URL(referrer).origin === win.location.origin;
+    } catch (err) {
+      void err;
+      sameOriginReferrer = false;
+    }
+  }
+  if (sameOriginReferrer) return true;
+  try {
+    const raw = win.sessionStorage.getItem(INTRA_NAV_TRAIL_STORAGE_KEY);
+    if (!raw) return false;
+    const parsed: unknown = JSON.parse(raw);
+    return Array.isArray(parsed) && parsed.length >= 2;
+  } catch (err) {
+    void err;
+    return false;
+  }
+}
+
 export function ContextualBackButton({
   fallbackHref,
   label = "Atrás",
@@ -15,23 +43,14 @@ export function ContextualBackButton({
   const { navigateTo, prefetchRoute } = usePlatformActions();
 
   const handleBack = () => {
-    if (typeof window !== "undefined") {
-      let sameOriginReferrer = false;
-      if (document.referrer) {
-        try {
-          sameOriginReferrer = new URL(document.referrer).origin === window.location.origin;
-        } catch (err) {
-          void err;
-          sameOriginReferrer = false;
-        }
-      }
-      const canUseHistoryBack = window.history.length > 1 && (sameOriginReferrer || window.history.state !== null);
-      if (canUseHistoryBack) {
-        runWithViewTransition(() => {
-          window.history.back();
-        });
-        return;
-      }
+    if (
+      typeof window !== "undefined" &&
+      canSafelyUseHistoryBack(window, document.referrer)
+    ) {
+      runWithViewTransition(() => {
+        window.history.back();
+      });
+      return;
     }
     navigateTo(fallbackHref);
   };

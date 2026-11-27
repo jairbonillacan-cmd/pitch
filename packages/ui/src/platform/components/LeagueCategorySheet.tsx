@@ -8,7 +8,7 @@ import {
   type LeagueRegionKey,
 } from "@pitchlab/contracts";
 import { LeagueBadge } from "../../sports";
-import { useSafeEffect } from "../hooks";
+import { useMediaQuery, useSafeEffect } from "../hooks";
 import { MaestroIcon } from "./MaestroPrimitives";
 import { useSheetSwipeDismiss } from "./use-sheet-swipe-dismiss";
 
@@ -59,6 +59,7 @@ export function LeagueCategorySheet({
     scrollContainerRef: bodyRef,
   });
 
+  const isCompactOrCoarse = useMediaQuery("(max-width: 768px), (pointer: coarse)", false);
   const [query, setQuery] = useState("");
   const [showInactive, setShowInactive] = useState(false);
 
@@ -219,7 +220,7 @@ export function LeagueCategorySheet({
             onChange={(e) => setQuery(e.target.value)}
             placeholder="Buscar liga, copa o país…"
             aria-label="Buscar liga, copa o país"
-            autoFocus
+            autoFocus={!isCompactOrCoarse}
           />
         </div>
         {allowShowInactive && inactiveCount > 0 ? (

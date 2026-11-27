@@ -202,6 +202,8 @@ export function BitacoraClubView({
     viewerIdentity,
     viewerRole,
     hasAccountSessionAuth,
+    serverPreferences,
+    serverPreferencesLoaded,
   } = usePlatformCore();
   const {
     setShowMxnBalance,
@@ -233,14 +235,19 @@ export function BitacoraClubView({
     setPrefs(mergeRecordPrefs(readStoredPrefs(), storyPrefs));
   }, [storyPrefs]);
 
+  const shouldFallbackFetchPrefs = Boolean(
+    canPersistServer && serverPreferencesLoaded === undefined && serverPreferences === undefined,
+  );
   const serverPrefsQuery = useAbortableJson<ServerPreferencesEnvelope>(
     "/api/me/preferences",
-    { enabled: canPersistServer },
+    { enabled: shouldFallbackFetchPrefs },
   );
+  const effectiveServerPrefs =
+    serverPreferences !== undefined ? serverPreferences : (serverPrefsQuery.data?.preferences ?? null);
 
   useSafeEffect(() => {
     if (!canPersistServer || appliedServerPrefsRef.current) return;
-    const p = serverPrefsQuery.data?.preferences;
+    const p = effectiveServerPrefs;
     if (!p) return;
     appliedServerPrefsRef.current = true;
     const serverUnit =
@@ -282,7 +289,7 @@ export function BitacoraClubView({
       writeStoredPrefs(next);
       return next;
     });
-  }, [canPersistServer, serverPrefsQuery.data, setShowMxnBalance, setUnitMxn]);
+  }, [canPersistServer, effectiveServerPrefs, setShowMxnBalance, setUnitMxn]);
 
   const persistServerPatch = useCallback(
     (body: Record<string, unknown>) => {

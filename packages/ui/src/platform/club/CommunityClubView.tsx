@@ -1,6 +1,6 @@
 "use client";
 
-import React, { memo, useCallback, useId, useMemo, useState } from "react";
+import React, { memo, useCallback, useId, useMemo, useRef, useState } from "react";
 import { parseStrictFiniteNumber } from "@pitchlab/contracts";
 import {
   Button,
@@ -1003,6 +1003,7 @@ function PickPicker({
   onPick: (picked: AttachedPick) => void;
 }): React.JSX.Element {
   const uid = useId();
+  const listScrollRef = useRef<HTMLDivElement | null>(null);
   const { userTimezone } = usePlatformCore();
   const [query, setQuery] = useState("");
   const q = query.trim().toLowerCase();
@@ -1037,12 +1038,21 @@ function PickPicker({
   }, [games, q]);
 
   return (
-    <TopLayerModalDialog open onClose={onClose} ariaLabelledBy={`${uid}-title`} maxWidth="34rem">
+    <TopLayerModalDialog
+      open
+      onClose={onClose}
+      ariaLabelledBy={`${uid}-title`}
+      maxWidth="34rem"
+      scrollContainerRef={listScrollRef}
+    >
       <div className="pl-com-picker">
-        <div className="pl-com-sheet-head">
-          <h2 id={`${uid}-title`} className="pl-com-sheet-title">
-            Adjuntar pick
-          </h2>
+        <div className="pl-com-sheet-head pl-sheet-drag-zone">
+          <div className="min-w-0">
+            <span className="pl-bottom-sheet-handle sm:hidden mb-2" aria-hidden="true" />
+            <h2 id={`${uid}-title`} className="pl-com-sheet-title">
+              Adjuntar pick
+            </h2>
+          </div>
           <Button
             type="button"
             variant="ghost"
@@ -1084,7 +1094,7 @@ function PickPicker({
           value={query}
           onChange={(e) => setQuery(e.target.value)}
         />
-        <div className="pl-com-picker-list">
+        <div ref={listScrollRef} className="pl-com-picker-list">
           {origin === "Bitácora Propia" ? (
             <>
               <div className="pl-com-picker-section">

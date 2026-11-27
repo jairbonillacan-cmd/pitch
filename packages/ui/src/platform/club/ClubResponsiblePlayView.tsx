@@ -66,6 +66,19 @@ function pauseChoiceLabel(choice: PauseChoice): string {
   return "Sin pausa";
 }
 
+export function resolveStoredPauseUntilIso(
+  pauseChoice: PauseChoice,
+  pauseChosenAtIso: string | null,
+  nowMs = Date.now(),
+): string | null {
+  if (!pauseChoice || !pauseChosenAtIso) return null;
+  const untilMs = Date.parse(pauseChosenAtIso);
+  if (!Number.isFinite(untilMs) || untilMs <= nowMs) {
+    return null;
+  }
+  return new Date(untilMs).toISOString();
+}
+
 function mirrorResponsibleLocalState(next: {
   readonly pauseChoice: PauseChoice;
   readonly pauseUntilIso: string | null;
@@ -84,8 +97,9 @@ export function ClubResponsiblePlayView({
 }: {
   readonly disableNetwork?: boolean;
 } = {}): React.JSX.Element {
-  const { hasAccountSessionAuth, showMxnBalance } = usePlatformCore();
-  const { setShowMxnBalance, navigateTo, pushToast } = usePlatformActions();
+  const { hasAccountSessionAuth, showMxnBalance, serverPreferences, serverPreferencesLoaded } =
+    usePlatformCore();
+  const { setShowMxnBalance, navigateTo, pushToast, updateServerPreferences } = usePlatformActions();
 
   const canPersistServer = Boolean(
     hasAccountSessionAuth && !disableNetwork && typeof fetch === "function",
@@ -95,31 +109,29 @@ export function ClubResponsiblePlayView({
   const [pauseUntilIso, setPauseUntilIso] = useState<string | null>(null);
   const [pendingPause, setPendingPause] = useState<Exclude<PauseChoice, null> | null>(null);
   const [busy, setBusy] = useState<boolean>(false);
-  const hydratedRef = useRef<ServerResponsiblePrefsEnvelope | null>(null);
+  const hydratedRef = useRef<unknown>(null);
 
+  const shouldFallbackFetchPrefs = Boolean(
+    canPersistServer && serverPreferencesLoaded === undefined && serverPreferences === undefined,
+  );
   const serverQuery = useAbortableJson<ServerResponsiblePrefsEnvelope>("/api/me/preferences", {
-    enabled: canPersistServer,
+    enabled: shouldFallbackFetchPrefs,
   });
+  const effectivePrefsPayload =
+    serverPreferences !== undefined ? serverPreferences : (serverQuery.data?.preferences ?? null);
 
   useSafeEffect(() => {
     const stored = readStoredPrefs();
     setPrefs(stored);
-    if (stored.pauseChoice && stored.pauseChosenAtIso) {
-      const startMs = Date.parse(stored.pauseChosenAtIso);
-      if (Number.isFinite(startMs)) {
-        const expectedUntil = new Date(startMs + PAUSE_DURATIONS_MS[stored.pauseChoice]).toISOString();
-        setPauseUntilIso(expectedUntil);
-      }
-    }
+    setPauseUntilIso(resolveStoredPauseUntilIso(stored.pauseChoice, stored.pauseChosenAtIso));
   }, []);
 
   useSafeEffect(() => {
-    const payload = serverQuery.data;
-    if (!canPersistServer || !payload?.preferences) return;
-    if (hydratedRef.current === payload) return;
-    hydratedRef.current = payload;
+    const p = effectivePrefsPayload;
+    if (!canPersistServer || !p) return;
+    if (hydratedRef.current === p) return;
+    hydratedRef.current = p;
 
-    const p = payload.preferences;
     const pauseKind: PauseChoice =
       p.responsiblePauseKind === "24h" ||
       p.responsiblePauseKind === "7d" ||
@@ -146,7 +158,7 @@ export function ClubResponsiblePlayView({
       writeStoredPrefs(next);
       return next;
     });
-  }, [canPersistServer, serverQuery.data, setShowMxnBalance]);
+  }, [canPersistServer, effectivePrefsPayload, setShowMxnBalance]);
 
   const persistServer = useCallback(
     async (patch: Record<string, unknown>, onRevert: () => void): Promise<boolean> => {
@@ -215,10 +227,14 @@ export function ClubResponsiblePlayView({
       });
     }).then((ok) => {
       if (ok) {
+        updateServerPreferences?.({
+          responsiblePauseKind: chosen,
+          responsiblePauseUntilIso: untilIso,
+        });
         pushToast(`Descanso voluntario activado (${pauseChoiceLabel(chosen)}).`, "success");
       }
     });
-  }, [pauseUntilIso, pendingPause, persistServer, prefs.pauseChoice, prefs.pauseChosenAtIso, prefs.privacy.pauseCommunity, pushToast]);
+  }, [pauseUntilIso, pendingPause, persistServer, prefs.pauseChoice, prefs.pauseChosenAtIso, prefs.privacy.pauseCommunity, pushToast, updateServerPreferences]);
 
   const handleClearPause = useCallback(() => {
     const prevChoice = prefs.pauseChoice;

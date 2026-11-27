@@ -13,7 +13,6 @@ import React, {
 import {
   canonicalGameHref,
   competitionPrestigeScore,
-  isLeagueActiveInWindow,
   isNationalCompetition,
   type LeagueId,
 } from "@pitchlab/contracts";
@@ -21,7 +20,8 @@ import { usePackIconBase } from "../../pack-icon-theme";
 import { BrandLogo, ThemeToggle } from "../../primitives";
 import { EmblemSurfaceProvider, LeagueBadge } from "../../sports";
 import { THEME_CHANGE_EVENT, applyThemeMode } from "../../theme-controller";
-import { useSafeEffect } from "../hooks";
+import { useMediaQuery, useSafeEffect } from "../hooks";
+import { usePwaInstallAndPush } from "../hooks/usePwaInstallAndPush";
 import { ProgressiveImage } from "./ProgressiveImage";
 import { encodeForensicTag, getSessionWatermark } from "../access-guard";
 import { formatUnits, profileRecord } from "../profile-stats";
@@ -874,6 +874,33 @@ function ClubWorkspaceShellImpl({
   }, [activePath]);
 
   useSafeEffect(() => {
+    if (typeof window === "undefined") return;
+    const currentEntry = `${window.location.pathname}${window.location.search}` || activePath;
+    try {
+      const key = "pl-intra-nav-trail";
+      const raw = window.sessionStorage.getItem(key);
+      const parsed: unknown = raw ? JSON.parse(raw) : null;
+      const trail = Array.isArray(parsed)
+        ? parsed.filter((item): item is string => typeof item === "string" && item.length > 0)
+        : [];
+      const last = trail[trail.length - 1];
+      if (last !== currentEntry) {
+        if (trail.length >= 2 && trail[trail.length - 2] === currentEntry) {
+          trail.pop();
+        } else {
+          trail.push(currentEntry);
+          if (trail.length > 24) {
+            trail.splice(0, trail.length - 24);
+          }
+        }
+        window.sessionStorage.setItem(key, JSON.stringify(trail));
+      }
+    } catch (err) {
+      void err;
+    }
+  }, [activePath]);
+
+  useSafeEffect(() => {
     if (!navExpanded) return;
     const onKeyDown = (e: KeyboardEvent) => {
       if (e.key !== "Escape") return;
@@ -911,8 +938,12 @@ function ClubWorkspaceShellImpl({
     const menu = profileMenuRef.current;
     if (!menu) return;
     const onToggle = (e: Event) => setProfileMenuOpen((e as ToggleEvent).newState === "open");
+    menu.addEventListener("beforetoggle", onToggle);
     menu.addEventListener("toggle", onToggle);
-    return () => menu.removeEventListener("toggle", onToggle);
+    return () => {
+      menu.removeEventListener("beforetoggle", onToggle);
+      menu.removeEventListener("toggle", onToggle);
+    };
   }, []);
   const ownRecord = useMemo(() => profileRecord(journal), [journal]);
   const profileMenuGroups = useMemo(() => {
@@ -1013,17 +1044,98 @@ function ClubWorkspaceShellImpl({
   };
   const [mobileMoreOpen, setMobileMoreOpen] = useState<boolean>(false);
   const [leagueHubSheetOpen, setLeagueHubSheetOpen] = useState<boolean>(false);
+  const [installPromptDismissed, setInstallPromptDismissed] = useState<boolean>(() => {
+    if (typeof window === "undefined") return false;
+    try {
+      return window.sessionStorage.getItem("pl-pwa-install-dismissed") === "1";
+    } catch {
+      return false;
+    }
+  });
+  const isMobileOrCoarse = useMediaQuery("(max-width: 768px), (pointer: coarse)", false);
+  const pwaInstall = usePwaInstallAndPush({ enabled: false });
+  const headerRef = useRef<HTMLElement>(null);
+  const [headerCompact, setHeaderCompact] = useState<boolean>(false);
   const moreSheetScrollRef = useRef<HTMLDivElement>(null);
   const profileSheetSwipe = useSheetSwipeDismiss({
     onDismiss: closeProfileMenu,
-    disabled: !profileMenuOpen,
+    disabled: false,
     scrollContainerRef: profileMenuRef,
+    dragHandleSelector: ".pl-sheet-drag-zone",
   });
-  const moreSheetSwipe = useSheetSwipeDismiss({
-    onDismiss: () => setMobileMoreOpen(false),
-    disabled: !mobileMoreOpen,
-    scrollContainerRef: moreSheetScrollRef,
-  });
+
+  useSafeEffect(() => {
+    const el = headerRef.current;
+    if (!el || typeof document === "undefined") return;
+    const syncHeaderHeight = () => {
+      const height = Math.round(el.getBoundingClientRect().height);
+      if (height > 0) {
+        document.documentElement.style.setProperty("--pl-header-h", `${height}px`);
+      }
+    };
+    syncHeaderHeight();
+    if (typeof ResizeObserver !== "function") return;
+    const observer = new ResizeObserver(syncHeaderHeight);
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, [isHomeRoute, hasLeaguesOpen, headerCompact]);
+
+  useSafeEffect(() => {
+    if (!isHomeRoute || hasLeaguesOpen || typeof window === "undefined") {
+      setHeaderCompact(false);
+      return;
+    }
+    const mobileMq = window.matchMedia("(max-width: 767px)");
+    let lastY = window.scrollY;
+    let suppressUntil = 0;
+    const onScroll = () => {
+      if (!mobileMq.matches) {
+        suppressUntil = 0;
+        setHeaderCompact(false);
+        return;
+      }
+      const nextY = window.scrollY;
+      const now = typeof performance !== "undefined" ? performance.now() : Date.now();
+      if (now < suppressUntil) {
+        lastY = nextY;
+        return;
+      }
+      const delta = nextY - lastY;
+      lastY = nextY;
+      setHeaderCompact((prev) => {
+        if (!prev && nextY > 120 && delta > 8) {
+          suppressUntil = now + 260;
+          return true;
+        }
+        if (prev && (nextY <= 20 || delta < -16)) {
+          suppressUntil = now + 260;
+          return false;
+        }
+        return prev;
+      });
+    };
+    const onMediaChange = () => {
+      if (!mobileMq.matches) {
+        suppressUntil = 0;
+        setHeaderCompact(false);
+      }
+    };
+    window.addEventListener("scroll", onScroll, { passive: true });
+    mobileMq.addEventListener("change", onMediaChange);
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+      mobileMq.removeEventListener("change", onMediaChange);
+    };
+  }, [isHomeRoute, hasLeaguesOpen]);
+
+  const dismissInstallPrompt = () => {
+    setInstallPromptDismissed(true);
+    try {
+      window.sessionStorage.setItem("pl-pwa-install-dismissed", "1");
+    } catch (err) {
+      void err;
+    }
+  };
 
   const railGroups: RailNavGroup[] = useMemo(() => {
     const explore: RailNavItem[] = [
@@ -1100,17 +1212,52 @@ function ClubWorkspaceShellImpl({
     return map;
   }, [dataset.games, homeActiveDay, homeToday]);
 
+  const activeLeagues30d = useMemo(() => {
+    const set = new Set<LeagueId>();
+    const startDate = new Date(`${homeToday}T00:00:00Z`);
+    const invalidDate = Number.isNaN(startDate.getTime());
+    const yesterdayIso = invalidDate
+      ? ""
+      : new Date(startDate.getTime() - 86_400_000).toISOString().slice(0, 10);
+    const endIso = invalidDate
+      ? ""
+      : new Date(startDate.getTime() + 30 * 86_400_000).toISOString().slice(0, 10);
+    for (const g of dataset.games) {
+      if (set.has(g.league)) continue;
+      if (invalidDate) {
+        if (g.status !== "FT") set.add(g.league);
+        continue;
+      }
+      if (g.status === "LIVE") {
+        set.add(g.league);
+        continue;
+      }
+      if (g.status === "FT") continue;
+      const day = g.dayId || (g.kickoffUtc ? g.kickoffUtc.slice(0, 10) : "");
+      if (day && day >= yesterdayIso && day <= endIso) {
+        set.add(g.league);
+      }
+    }
+    return set;
+  }, [dataset.games, homeToday]);
+
   const activeDatasetLeagues = useMemo(() => {
-    const inWindow = dataset.leagues.filter(
+    const windowActive = dataset.leagues.filter(
+      (lg) => activeLeagues30d.has(lg.league) || lg.activeInWindow === true,
+    );
+    const routeLeague = dataset.leagues.find(
       (lg) =>
-        isLeagueActiveInWindow(dataset.games, lg.league, homeToday, 30) ||
         activePath === `/app/${lg.league}` ||
         activePath.startsWith(`/app/${lg.league}/`),
     );
-    const list =
-      inWindow.length > 0
-        ? inWindow
+    const baseList =
+      windowActive.length > 0
+        ? windowActive
         : dataset.leagues.filter((lg) => lg.upcomingCount > 0 || lg.totalGames > 0).slice(0, 12);
+    const list =
+      routeLeague && !baseList.some((lg) => lg.league === routeLeague.league)
+        ? [...baseList, routeLeague]
+        : baseList;
     return [...list].sort((a, b) => {
       const aToday = todayGamesByLeague.get(a.league) ?? 0;
       const bToday = todayGamesByLeague.get(b.league) ?? 0;
@@ -1128,7 +1275,7 @@ function ClubWorkspaceShellImpl({
       if (rankDiff !== 0) return rankDiff;
       return b.upcomingCount - a.upcomingCount;
     });
-  }, [activePath, dataset.leagues, dataset.games, favoriteLeagues, homeToday, todayGamesByLeague]);
+  }, [activeLeagues30d, activePath, dataset.leagues, favoriteLeagues, todayGamesByLeague]);
   const clubLeagues = useMemo(
     () => activeDatasetLeagues.filter((lg) => !isNationalCompetition(lg.league)),
     [activeDatasetLeagues],
@@ -1156,8 +1303,10 @@ function ClubWorkspaceShellImpl({
         />
       )}
       <header
+        ref={headerRef}
         className="panel-header sticky top-0 z-40 glass-nav-surface"
         data-shell-context={shellContext}
+        data-compact={headerCompact && !hasLeaguesOpen ? "true" : undefined}
       >
         <div className="pl-header-top">
         <div className="pl-header-grid max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-7 h-14 sm:h-16">
@@ -1353,14 +1502,18 @@ function ClubWorkspaceShellImpl({
                               className="league-tab pl-header-overlay-link"
                             >
                               <span className="flex items-center gap-2 min-w-0 flex-1">
-                                <LeagueBadge
-                                  league={lg.league}
-                                  label={lg.label}
-                                  logoUrl={lg.logoUrl}
-                                  size={18}
-                                  decorative
-                                  lowPriority
-                                />
+                                {navExpanded ? (
+                                  <LeagueBadge
+                                    league={lg.league}
+                                    label={lg.label}
+                                    logoUrl={lg.logoUrl}
+                                    size={18}
+                                    decorative
+                                    lowPriority
+                                  />
+                                ) : (
+                                  <span className="pl-header-overlay-emblem-ph" aria-hidden="true" />
+                                )}
                                 <span className="truncate">{lg.label}</span>
                               </span>
                               <span className="pl-header-overlay-count num">
@@ -1405,14 +1558,18 @@ function ClubWorkspaceShellImpl({
                                   className="league-tab pl-header-overlay-link"
                                 >
                                   <span className="flex items-center gap-2 min-w-0 flex-1">
-                                    <LeagueBadge
-                                      league={lg.league}
-                                      label={lg.label}
-                                      logoUrl={lg.logoUrl}
-                                      size={18}
-                                      decorative
-                                      lowPriority
-                                    />
+                                    {navExpanded ? (
+                                      <LeagueBadge
+                                        league={lg.league}
+                                        label={lg.label}
+                                        logoUrl={lg.logoUrl}
+                                        size={18}
+                                        decorative
+                                        lowPriority
+                                      />
+                                    ) : (
+                                      <span className="pl-header-overlay-emblem-ph" aria-hidden="true" />
+                                    )}
                                     <span className="truncate">{lg.label}</span>
                                   </span>
                                   <span className="pl-header-overlay-count num">
@@ -1459,12 +1616,20 @@ function ClubWorkspaceShellImpl({
                               }}
                               className="pl-header-overlay-link pl-header-overlay-link--explore"
                             >
-                              <ShellNavIcon
-                                icon={item.icon}
-                                packSlug={item.packIconSlug}
-                                size={15}
-                                className="pl-header-overlay-icon shrink-0 mt-0.5"
-                              />
+                              {navExpanded ? (
+                                <ShellNavIcon
+                                  icon={item.icon}
+                                  packSlug={item.packIconSlug}
+                                  size={15}
+                                  className="pl-header-overlay-icon shrink-0 mt-0.5"
+                                />
+                              ) : (
+                                <MaestroIcon
+                                  name={item.icon}
+                                  size={15}
+                                  className="pl-header-overlay-icon shrink-0 mt-0.5"
+                                />
+                              )}
                               <span className="min-w-0 flex-1">
                                 <span className="block truncate leading-snug">{item.label}</span>
                                 {hint ? (
@@ -1576,7 +1741,7 @@ function ClubWorkspaceShellImpl({
               style={profileSheetSwipe.sheetStyle}
               {...profileSheetSwipe.handleProps}
             >
-              <div className="pl-profile-menu-sheet-top">
+              <div className="pl-profile-menu-sheet-top pl-sheet-drag-zone">
                 <span className="pl-profile-menu-grab" aria-hidden="true" />
                 <button
                   type="button"
@@ -1862,6 +2027,8 @@ function ClubWorkspaceShellImpl({
               href: i.href,
               label: i.shortLabel ?? i.label,
               icon: i.icon,
+              badge: i.badge,
+              badgeBrand: i.badgeBrand,
             })),
           ] as const
         ).map((item) => {
@@ -1880,8 +2047,21 @@ function ClubWorkspaceShellImpl({
               className="seg-btn flex-col justify-center gap-0.5 text-[11px] px-1 py-1"
               data-active={active ? "true" : undefined}
             >
-              <MaestroIcon name={item.icon} size={15} />
-              <span className="truncate max-w-full">{item.label}</span>
+              <span className="pl-mobile-dock-glyph">
+                <MaestroIcon name={item.icon} size={15} />
+                {item.badge ? (
+                  <span
+                    className={`pl-mobile-dock-badge num ${item.badgeBrand ? "is-brand" : ""}`.trim()}
+                    aria-hidden="true"
+                  >
+                    {item.badge}
+                  </span>
+                ) : null}
+              </span>
+              <span className="truncate max-w-full">
+                {item.label}
+                {item.badge ? <span className="sr-only"> ({item.badge})</span> : null}
+              </span>
             </a>
           );
         })}
@@ -1893,7 +2073,7 @@ function ClubWorkspaceShellImpl({
           className="seg-btn flex-col justify-center gap-0.5 text-[11px] px-1 py-1"
         >
           <MaestroIcon name="layers" size={15} />
-          <span>Más</span>
+          <span>Explorar</span>
         </button>
       </nav>
 
@@ -1903,13 +2083,10 @@ function ClubWorkspaceShellImpl({
         ariaLabelledBy="mobile-more-dialog-title"
         maxWidth="28rem"
         dialogClassName="pl-more-sheet-dialog"
+        scrollContainerRef={moreSheetScrollRef}
       >
-        <div
-          ref={moreSheetScrollRef}
-          className="pl-more-sheet-inner glass-lens glass-ring w-full space-y-4 overflow-y-auto"
-          style={moreSheetSwipe.sheetStyle}
-        >
-          <div className="pl-sheet-drag-zone space-y-3" {...moreSheetSwipe.handleProps}>
+        <div className="pl-more-sheet-inner glass-lens glass-ring w-full space-y-4">
+          <div className="pl-sheet-drag-zone space-y-3">
             <div className="pl-bottom-sheet-handle sm:hidden" aria-hidden="true" />
             <div className="flex items-center justify-between">
               <h2 id="mobile-more-dialog-title" className="m-0 text-base font-bold">
@@ -1917,7 +2094,7 @@ function ClubWorkspaceShellImpl({
               </h2>
               <button
                 type="button"
-                autoFocus
+                autoFocus={!isMobileOrCoarse}
                 className="pl-btn-glass px-2.5 min-h-11 min-w-11 inline-flex items-center justify-center"
                 aria-label="Cerrar menú móvil"
                 onClick={() => setMobileMoreOpen(false)}
@@ -1926,6 +2103,52 @@ function ClubWorkspaceShellImpl({
               </button>
             </div>
           </div>
+
+          <div ref={moreSheetScrollRef} className="pl-more-sheet-scroll space-y-4">
+
+          {!pwaInstall.isStandalone &&
+          !installPromptDismissed &&
+          (pwaInstall.canInstall || pwaInstall.isIosSafari) ? (
+            <div className="pl-more-pwa-banner" role="region" aria-label="Instalar aplicación">
+              <div className="min-w-0 flex-1">
+                <strong className="block text-xs font-bold text-[var(--pl-text)]">
+                  Instala PitchLab
+                </strong>
+                <p className="m-0 text-[11px] text-[var(--pl-text-secondary)]">
+                  {pwaInstall.canInstall
+                    ? "Ábrela directo desde tu pantalla de inicio."
+                    : "En Safari toca Compartir y Añadir a inicio."}
+                </p>
+                {pwaInstall.installStatusMessage ? (
+                  <p className="m-0 mt-1 text-[11px] text-[var(--pl-text-muted)]">
+                    {pwaInstall.installStatusMessage}
+                  </p>
+                ) : null}
+              </div>
+              <div className="flex items-center gap-1.5 shrink-0">
+                {pwaInstall.canInstall ? (
+                  <button
+                    type="button"
+                    className="pl-btn-glass min-h-11 px-3 text-xs font-semibold"
+                    disabled={pwaInstall.installBusy}
+                    onClick={() => {
+                      void pwaInstall.triggerInstall();
+                    }}
+                  >
+                    {pwaInstall.installBusy ? "Instalando…" : "Instalar app"}
+                  </button>
+                ) : null}
+                <button
+                  type="button"
+                  className="pl-btn-glass min-h-11 min-w-11 inline-flex items-center justify-center"
+                  aria-label="Ocultar aviso de instalación"
+                  onClick={dismissInstallPrompt}
+                >
+                  <MaestroIcon name="x" size={14} />
+                </button>
+              </div>
+            </div>
+          ) : null}
 
           <div className="grid grid-cols-2 gap-2">
             {allClubItems.map((m) => (
@@ -2028,6 +2251,7 @@ function ClubWorkspaceShellImpl({
             </a>
             <OddsFormatSegment />
           </div>
+          </div>
         </div>
       </TopLayerModalDialog>
 
@@ -2050,7 +2274,7 @@ function ClubWorkspaceShellImpl({
               activeCount: lg.upcomingCount || lg.totalGames,
               dayCount: todayGamesByLeague.get(lg.league) ?? 0,
               isFavorite: favoriteLeagues.includes(lg.league),
-              isActive: isLeagueActiveInWindow(dataset.games, lg.league, homeToday, 30),
+              isActive: activeLeagues30d.has(lg.league) || lg.activeInWindow === true,
             }))}
           />
         </Suspense>
@@ -2075,7 +2299,7 @@ function primaryNavItems(parlayCount: number, journalCount: number): PrimaryNavI
       href: "/app/parlays",
       label: "Armar parlay",
       navLabel: "Parlays",
-      shortLabel: parlayCount > 0 ? `Parlay (${parlayCount})` : "Parlay",
+      shortLabel: "Parlay",
       icon: "layers",
       badge: parlayCount > 0 ? `${parlayCount}` : undefined,
       badgeBrand: parlayCount > 0,

@@ -5,7 +5,6 @@ import {
   canonicalGameHref,
   formatOddsCaptureEs,
   isBlockedMarketQuoteBook,
-  isLeagueActiveInWindow,
   isPermittedMarketQuoteBook,
   isSafePublicLabel,
   type LeagueId,
@@ -639,16 +638,44 @@ export function OddsCompareClubView(): React.JSX.Element {
     return availableBooks.slice(0, MAX_MATRIX_BOOKS);
   }, [availableBooks, selectedBookTag]);
 
-  const activeLeagues = useMemo(() => {
-    const map = new Map<LeagueId, { label: string; count: number }>();
+  const { activeLeagues30d, activeLeagues } = useMemo(() => {
+    const activeSet = new Set<LeagueId>();
+    const counts = new Map<LeagueId, { label: string; count: number }>();
+    const startDate = new Date(`${anchorDayId}T00:00:00Z`);
+    const validAnchor = !Number.isNaN(startDate.getTime());
+    const yesterdayIso = validAnchor
+      ? new Date(startDate.getTime() - 86_400_000).toISOString().slice(0, 10)
+      : "";
+    const endIso = validAnchor
+      ? new Date(startDate.getTime() + 30 * 86_400_000).toISOString().slice(0, 10)
+      : "";
+
     for (const game of dataset.games) {
-      if (game.status === "FT") continue;
-      if (!isLeagueActiveInWindow(dataset.games, game.league, anchorDayId, 30)) continue;
-      const existing = map.get(game.league);
-      if (existing) existing.count += 1;
-      else map.set(game.league, { label: game.leagueLabel, count: 1 });
+      if (game.status === "LIVE") {
+        activeSet.add(game.league);
+      } else if (game.status !== "FT") {
+        if (!validAnchor) {
+          activeSet.add(game.league);
+        } else {
+          const day = game.dayId || (game.kickoffUtc ? game.kickoffUtc.slice(0, 10) : "");
+          if (day && day >= yesterdayIso && day <= endIso) {
+            activeSet.add(game.league);
+          }
+        }
+      }
     }
-    return Array.from(map.entries());
+
+    for (const game of dataset.games) {
+      if (game.status === "FT" || !activeSet.has(game.league)) continue;
+      const existing = counts.get(game.league);
+      if (existing) existing.count += 1;
+      else counts.set(game.league, { label: game.leagueLabel, count: 1 });
+    }
+
+    return {
+      activeLeagues30d: activeSet,
+      activeLeagues: Array.from(counts.entries()),
+    };
   }, [anchorDayId, dataset.games]);
 
   const leagueTabItems = useMemo<readonly SofascoreTabItem[]>(
@@ -668,7 +695,7 @@ export function OddsCompareClubView(): React.JSX.Element {
     return dataset.games
       .filter((game) => {
         if (game.status === "FT") return false;
-        if (!isLeagueActiveInWindow(dataset.games, game.league, anchorDayId, 30)) return false;
+        if (!activeLeagues30d.has(game.league)) return false;
         if (league !== "all" && game.league !== league) return false;
         if (!q) return true;
         if (
@@ -681,7 +708,7 @@ export function OddsCompareClubView(): React.JSX.Element {
         return game.picks.some((pk) => normalizeSearch(pk.label).includes(q));
       })
       .sort((a, b) => Date.parse(a.kickoffUtc) - Date.parse(b.kickoffUtc));
-  }, [anchorDayId, dataset.games, league, searchQuery]);
+  }, [activeLeagues30d, dataset.games, league, searchQuery]);
 
   const allMatrixRows = useMemo<readonly OddsMatrixRow[]>(() => {
     const q = normalizeSearch(searchQuery);

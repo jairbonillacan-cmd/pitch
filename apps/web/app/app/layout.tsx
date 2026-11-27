@@ -1,3 +1,4 @@
+import "../club-legacy.css";
 import "../shell-ergonomics.css";
 import React from "react";
 import type { Metadata } from "next";

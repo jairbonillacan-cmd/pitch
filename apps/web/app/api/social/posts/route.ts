@@ -2,7 +2,12 @@ import { NextResponse } from "next/server";
 import { createSanitizedErrorPayload, parseStrictFiniteNumber } from "@pitchlab/contracts";
 import { createSocialPost, getSocialPostById, listSocialFeed } from "@pitchlab/db";
 import { z } from "zod";
-import { withActivePaseMutation, withSessionRead } from "../../../../src/server/api-guards";
+import {
+  ApiGuardHttpError,
+  readBoundedJson,
+  withActivePaseMutation,
+  withSessionRead,
+} from "../../../../src/server/api-guards";
 import { withAuthorBadges } from "../../../../src/server/badges";
 import { hasControlOrBidiChars, sanitizeQueryText } from "../../../../src/server/query-params";
 import { parseNewPost, reasonResponse } from "../../../../src/server/social";
@@ -12,26 +17,30 @@ export const dynamic = "force-dynamic";
 
 const FEED_LIMIT_MAX = 40;
 
-const SocialPickInputSchema = z.object({
-  pickId: z.string().trim().min(1).max(120),
-  gameId: z.string().trim().min(1).max(120),
-  label: z.string().trim().min(1).max(120),
-  units: z.number().gt(0).max(5),
-  userDecimal: z.number().gt(1).max(1000),
-  fairDecimal: z.number().gt(1).max(1000),
-  modelProbability: z.number().min(0).max(1),
-});
+const SocialPickInputSchema = z
+  .object({
+    pickId: z.string().trim().min(1).max(120),
+    gameId: z.string().trim().min(1).max(120),
+    label: z.string().trim().min(1).max(120),
+    units: z.number().gt(0).max(5),
+    userDecimal: z.number().gt(1).max(1000),
+    fairDecimal: z.number().gt(1).max(1000),
+    modelProbability: z.number().min(0).max(1),
+  })
+  .strict();
 
-const CreateSocialPostSchema = z.object({
-  body: z.string().max(1200),
-  leagueLabel: z.string().max(80).nullish(),
-  matchLabel: z.string().max(160).nullish(),
-  pickBadge: z.string().max(160).nullish(),
-  gameId: z.string().max(128).nullish(),
-  originType: z.string().max(60).nullish(),
-  sealedJournalEntryId: z.string().max(64).nullish(),
-  pick: SocialPickInputSchema.nullish(),
-});
+const CreateSocialPostSchema = z
+  .object({
+    body: z.string().max(1200),
+    leagueLabel: z.string().max(80).nullish(),
+    matchLabel: z.string().max(160).nullish(),
+    pickBadge: z.string().max(160).nullish(),
+    gameId: z.string().max(128).nullish(),
+    originType: z.string().max(60).nullish(),
+    sealedJournalEntryId: z.string().max(64).nullish(),
+    pick: SocialPickInputSchema.nullish(),
+  })
+  .strict();
 
 export const GET = withSessionRead(
   {
@@ -89,7 +98,10 @@ export const POST = withActivePaseMutation(
     requireSocialHandle: true,
   },
   async ({ request, user }) => {
-    const raw = await request.json().catch(() => null);
+    const raw = await readBoundedJson(request, 32_768).catch((err) => {
+      if (err instanceof ApiGuardHttpError) throw err;
+      return null;
+    });
     const schemaRes = CreateSocialPostSchema.safeParse(raw);
     if (!schemaRes.success) {
       const err = createSanitizedErrorPayload("INVALID_INPUT", "Revisa los datos de tu publicación.");

@@ -10,6 +10,7 @@ import {
   pickReferenceDecimal,
 } from "../access-guard";
 import { normalizePickLabelWithUnit } from "../club/record/record-audit-helpers";
+import { useMediaQuery } from "../hooks";
 import {
   useOverlayState,
   useParlayState,
@@ -51,6 +52,86 @@ function supportsTopLayerExit(): boolean {
   return Boolean(window.CSS?.supports?.("overlay", "auto")) && canTransitionDialogDisplay();
 }
 
+const DIALOG_DRAG_HEADER_SELECTOR =
+  ".pl-sheet-drag-zone, .pl-prefs-modal-head, .pl-home-fmodal-head, .pl-com-sheet-head, .pl-native-modal-head, .pl-cmd-head, header";
+
+const DIALOG_SCROLL_CONTAINER_SELECTORS = [
+  ".pl-sheet-scroll",
+  ".pl-prefs-modal-body",
+  ".pl-more-sheet-inner",
+  ".pl-home-fmodal-checklist",
+  ".pl-home-fmodal-body",
+  ".pl-com-picker-list",
+  ".pl-cmd-list",
+  ".pl-native-modal-body",
+  ".pl-news-reader-body",
+].join(", ");
+
+function resolveSwipeTargetElement(target: EventTarget | null): Element | null {
+  if (!target || typeof target !== "object") return null;
+  if ("closest" in target && typeof (target as Element).closest === "function") {
+    return target as Element;
+  }
+  if ("parentElement" in target) {
+    return (target as Node).parentElement ?? null;
+  }
+  return null;
+}
+
+export function detectDialogScrollContainer(
+  dialog: HTMLElement | null,
+  target: EventTarget | null,
+  explicitScrollRef?: React.RefObject<HTMLElement | null>,
+): HTMLElement | null {
+  if (!dialog) return explicitScrollRef?.current ?? null;
+  if (explicitScrollRef?.current && explicitScrollRef.current.scrollTop > 0) {
+    return explicitScrollRef.current;
+  }
+  const targetEl = resolveSwipeTargetElement(target);
+  let cur: Element | null = targetEl;
+  while (cur && cur !== dialog) {
+    if (cur instanceof HTMLElement && cur.scrollTop > 0) {
+      return cur;
+    }
+    cur = cur.parentElement;
+  }
+  if (explicitScrollRef?.current) {
+    return explicitScrollRef.current;
+  }
+  if (targetEl) {
+    const matchedAncestor = targetEl.closest(DIALOG_SCROLL_CONTAINER_SELECTORS);
+    if (matchedAncestor instanceof HTMLElement && dialog.contains(matchedAncestor)) {
+      return matchedAncestor;
+    }
+  }
+  const detected = dialog.querySelector(DIALOG_SCROLL_CONTAINER_SELECTORS);
+  if (detected instanceof HTMLElement) {
+    return detected;
+  }
+  return dialog;
+}
+
+export function shouldAllowDialogSwipeStart(params: {
+  dialog: HTMLElement | null;
+  target: EventTarget | null;
+  explicitScrollRef?: React.RefObject<HTMLElement | null>;
+}): { allow: boolean; scrollElement: HTMLElement | null } {
+  const { dialog, target, explicitScrollRef } = params;
+  if (!dialog) return { allow: false, scrollElement: null };
+  const targetEl = resolveSwipeTargetElement(target);
+  if (targetEl && targetEl.closest(DIALOG_DRAG_HEADER_SELECTOR)) {
+    return { allow: true, scrollElement: null };
+  }
+  const scrollElement = detectDialogScrollContainer(dialog, target, explicitScrollRef);
+  if (dialog.scrollTop > 0) {
+    return { allow: false, scrollElement: dialog };
+  }
+  if (scrollElement && scrollElement.scrollTop > 0) {
+    return { allow: false, scrollElement };
+  }
+  return { allow: true, scrollElement };
+}
+
 export function TopLayerModalDialog({
   open,
   onClose,
@@ -60,6 +141,7 @@ export function TopLayerModalDialog({
   maxWidth = "32rem",
   dialogClassName,
   keepMounted = false,
+  scrollContainerRef,
   children,
 }: {
   open: boolean;
@@ -70,13 +152,17 @@ export function TopLayerModalDialog({
   maxWidth?: string;
   dialogClassName?: string;
   keepMounted?: boolean;
+  scrollContainerRef?: React.RefObject<HTMLElement | null>;
   children: React.ReactNode;
 }): React.JSX.Element | null {
   const dialogRef = useRef<HTMLDialogElement | null>(null);
+  const resolvedScrollRef = useRef<HTMLElement | null>(null);
+  const touchSwipeAllowedRef = useRef<boolean>(false);
+  const pointerSwipeAllowedRef = useRef<boolean>(false);
   const previousFocusRef = useRef<HTMLElement | null>(null);
   const onCloseRef = useRef(onClose);
   onCloseRef.current = onClose;
-  const [isMobileViewport, setIsMobileViewport] = useState(false);
+  const isMobileViewport = useMediaQuery("(max-width: 767px)", false);
 
   const restorePreviousFocus = () => {
     const target = previousFocusRef.current;
@@ -91,21 +177,12 @@ export function TopLayerModalDialog({
     }
   };
 
-  useEffect(() => {
-    if (typeof window === "undefined" || typeof window.matchMedia !== "function") return;
-    const mq = window.matchMedia("(max-width: 639px)");
-    const sync = () => setIsMobileViewport(mq.matches);
-    sync();
-    mq.addEventListener("change", sync);
-    return () => mq.removeEventListener("change", sync);
-  }, []);
-
   const sheetSwipe = useSheetSwipeDismiss({
     onDismiss: () => {
       onCloseRef.current();
     },
     disabled: !open || !isMobileViewport,
-    scrollContainerRef: dialogRef,
+    scrollContainerRef: resolvedScrollRef,
   });
 
   useEffect(() => {
@@ -245,6 +322,71 @@ export function TopLayerModalDialog({
       : {}),
     ...(isMobileViewport ? sheetSwipe.sheetStyle : {}),
   };
+  const swipeProps: React.HTMLAttributes<HTMLDialogElement> = isMobileViewport
+    ? {
+        onTouchStart: (event) => {
+          const check = shouldAllowDialogSwipeStart({
+            dialog: dialogRef.current,
+            target: event.target,
+            explicitScrollRef: scrollContainerRef,
+          });
+          touchSwipeAllowedRef.current = check.allow;
+          resolvedScrollRef.current = check.scrollElement;
+          if (check.allow) {
+            sheetSwipe.handleProps.onTouchStart(event);
+          }
+        },
+        onTouchMove: (event) => {
+          if (!touchSwipeAllowedRef.current) return;
+          sheetSwipe.handleProps.onTouchMove(event);
+        },
+        onTouchEnd: () => {
+          const allowed = touchSwipeAllowedRef.current;
+          touchSwipeAllowedRef.current = false;
+          if (allowed) {
+            sheetSwipe.handleProps.onTouchEnd();
+          }
+        },
+        onTouchCancel: () => {
+          const allowed = touchSwipeAllowedRef.current;
+          touchSwipeAllowedRef.current = false;
+          if (allowed) {
+            sheetSwipe.handleProps.onTouchCancel();
+          }
+        },
+        onPointerDown: (event) => {
+          const check = shouldAllowDialogSwipeStart({
+            dialog: dialogRef.current,
+            target: event.target,
+            explicitScrollRef: scrollContainerRef,
+          });
+          pointerSwipeAllowedRef.current = check.allow;
+          resolvedScrollRef.current = check.scrollElement;
+          if (check.allow) {
+            sheetSwipe.handleProps.onPointerDown(event);
+          }
+        },
+        onPointerMove: (event) => {
+          if (!pointerSwipeAllowedRef.current) return;
+          sheetSwipe.handleProps.onPointerMove(event);
+        },
+        onPointerUp: () => {
+          const allowed = pointerSwipeAllowedRef.current;
+          pointerSwipeAllowedRef.current = false;
+          if (allowed) {
+            sheetSwipe.handleProps.onPointerUp();
+          }
+        },
+        onPointerCancel: () => {
+          const allowed = pointerSwipeAllowedRef.current;
+          pointerSwipeAllowedRef.current = false;
+          if (allowed) {
+            sheetSwipe.handleProps.onPointerCancel();
+          }
+        },
+      }
+    : {};
+
   return (
     <dialog
       ref={dialogRef}
@@ -253,7 +395,7 @@ export function TopLayerModalDialog({
       {...({ closedby: "any" } as React.DialogHTMLAttributes<HTMLDialogElement>)}
       className={dialogClassName ? `${baseClass} ${dialogClassName}` : baseClass}
       style={Object.keys(dialogStyle).length > 0 ? dialogStyle : undefined}
-      {...(isMobileViewport ? sheetSwipe.handleProps : {})}
+      {...swipeProps}
     >
       {children}
     </dialog>
@@ -453,6 +595,9 @@ export function PickComposerModal(): React.JSX.Element | null {
   const [userDec, setUserDec] = useState<string>("1.95");
   const [oddsMode, setOddsMode] = useState<"observed" | "manual">("observed");
   const [note, setNote] = useState<string>("");
+  const [sealing, setSealing] = useState<boolean>(false);
+  const sealingRef = useRef<boolean>(false);
+  const isCompactOrCoarse = useMediaQuery("(max-width: 768px), (pointer: coarse)", false);
 
   useEffect(() => {
     if (composerPick) {
@@ -460,6 +605,8 @@ export function PickComposerModal(): React.JSX.Element | null {
       setUserDec(pickReferenceDecimal(composerPick).toFixed(2));
       setOddsMode("observed");
       setNote("");
+      sealingRef.current = false;
+      setSealing(false);
     }
   }, [composerPick]);
 
@@ -509,6 +656,24 @@ export function PickComposerModal(): React.JSX.Element | null {
     });
   };
 
+  const handleSeal = () => {
+    if (sealingRef.current || sealing) return;
+    sealingRef.current = true;
+    setSealing(true);
+    const submission: unknown = sealPickToJournal(
+      composerPick,
+      units,
+      parsedDec,
+      note || undefined,
+    );
+    if (submission instanceof Promise) {
+      void submission.finally(() => {
+        sealingRef.current = false;
+        setSealing(false);
+      });
+    }
+  };
+
   return (
     <TopLayerModalDialog
       open={Boolean(composerPick)}
@@ -542,7 +707,7 @@ export function PickComposerModal(): React.JSX.Element | null {
             </div>
             <button
               type="button"
-              className="pl-btn-glass px-2.5 shrink-0"
+              className="pl-btn-glass min-h-11 min-w-11 px-2.5 shrink-0"
               aria-label="Cerrar ventana de sellado"
               onClick={closeComposer}
             >
@@ -653,7 +818,7 @@ export function PickComposerModal(): React.JSX.Element | null {
                 >
                   <button
                     type="button"
-                    className="seg-btn !min-h-[26px] !px-2.5 !text-[11px]"
+                    className="seg-btn min-h-11 md:min-h-7 px-2.5 text-[11px]"
                     aria-pressed={oddsMode === "observed"}
                     onClick={() => {
                       setOddsMode("observed");
@@ -664,7 +829,7 @@ export function PickComposerModal(): React.JSX.Element | null {
                   </button>
                   <button
                     type="button"
-                    className="seg-btn !min-h-[26px] !px-2.5 !text-[11px]"
+                    className="seg-btn min-h-11 md:min-h-7 px-2.5 text-[11px]"
                     aria-pressed={oddsMode === "manual"}
                     onClick={() => setOddsMode("manual")}
                   >
@@ -687,7 +852,7 @@ export function PickComposerModal(): React.JSX.Element | null {
                         setOddsMode(preset.mode);
                         setUserDec(preset.dec.toFixed(2));
                       }}
-                      className="pl-btn-glass !min-h-[28px] !px-2.5 text-xs num inline-flex items-center gap-1"
+                      className="pl-btn-glass min-h-11 md:min-h-7 px-2.5 text-xs num inline-flex items-center gap-1"
                       style={
                         isActive
                           ? {
@@ -711,14 +876,14 @@ export function PickComposerModal(): React.JSX.Element | null {
                 <input
                   id="composer-odds-input"
                   type="text"
-                  autoFocus
+                  autoFocus={!isCompactOrCoarse}
                   inputMode="decimal"
                   value={userDec}
                   onChange={(e) => {
                     setOddsMode("manual");
                     setUserDec(e.target.value);
                   }}
-                  className="glass-input w-full px-3 py-2 text-sm num font-bold"
+                  className="glass-input w-full px-3 py-2 text-base md:text-sm num font-bold"
                 />
                 <span
                   className={`pl-pill num shrink-0 ${
@@ -757,7 +922,7 @@ export function PickComposerModal(): React.JSX.Element | null {
                 value={note}
                 onChange={(e) => setNote(e.target.value)}
                 placeholder="Ej. Tomada antes del reporte de bajas"
-                className="glass-input w-full px-3 py-2 text-sm"
+                className="glass-input w-full px-3 py-2 text-base md:text-sm"
               />
             </div>
           </div>
@@ -765,25 +930,20 @@ export function PickComposerModal(): React.JSX.Element | null {
           <div className="flex items-center justify-end gap-2 pt-2">
             <button
               type="button"
-              className="pl-btn-glass"
+              className="pl-btn-glass min-h-11"
               onClick={closeComposer}
             >
               Cancelar
             </button>
             <button
               type="button"
-              className="pl-btn-primary inline-flex items-center gap-1.5 num"
-              onClick={() =>
-                sealPickToJournal(
-                  composerPick,
-                  units,
-                  parsedDec,
-                  note || undefined,
-                )
-              }
+              className="pl-btn-primary min-h-11 inline-flex items-center gap-1.5 num"
+              disabled={sealing}
+              aria-busy={sealing}
+              onClick={handleSeal}
             >
               <MaestroIcon name="check" size={15} />
-              Sellar en Mi récord ({units.toFixed(2)}u)
+              {sealing ? "Sellando..." : `Sellar en Mi récord (${units.toFixed(2)}u)`}
             </button>
           </div>
         </div>
@@ -1803,62 +1963,121 @@ export function ConfirmActionDialog({
   );
 }
 
+export type RenderedToastItem = {
+  id: string;
+  tone: string;
+  text: string;
+  actionLabel?: string;
+  onAction?: () => void;
+  closing?: boolean;
+};
+
+export function computeNextRenderedToasts(
+  prev: readonly RenderedToastItem[],
+  toasts: readonly Omit<RenderedToastItem, "closing">[],
+): { next: RenderedToastItem[]; newlyClosingIds: string[] } {
+  const activeMap = new Map(toasts.map((t) => [t.id, t]));
+  const prevMap = new Map(prev.map((item) => [item.id, item]));
+  const next: RenderedToastItem[] = [];
+  const newlyClosingIds: string[] = [];
+
+  for (const item of prev) {
+    const fresh = activeMap.get(item.id);
+    if (fresh) {
+      next.push({ ...fresh, closing: false });
+    } else if (!item.closing) {
+      newlyClosingIds.push(item.id);
+      next.push({ ...item, closing: true });
+    } else {
+      next.push(item);
+    }
+  }
+
+  for (const t of toasts) {
+    if (!prevMap.has(t.id)) {
+      next.push({ ...t, closing: false });
+    }
+  }
+
+  return { next, newlyClosingIds };
+}
+
+function areRenderedToastsEqual(
+  a: readonly RenderedToastItem[],
+  b: readonly RenderedToastItem[],
+): boolean {
+  if (a.length !== b.length) return false;
+  for (let i = 0; i < a.length; i += 1) {
+    const ai = a[i];
+    const bi = b[i];
+    if (
+      !ai ||
+      !bi ||
+      ai.id !== bi.id ||
+      ai.tone !== bi.tone ||
+      ai.text !== bi.text ||
+      ai.actionLabel !== bi.actionLabel ||
+      ai.onAction !== bi.onAction ||
+      Boolean(ai.closing) !== Boolean(bi.closing)
+    ) {
+      return false;
+    }
+  }
+  return true;
+}
+
 export function ToastViewport(): React.JSX.Element | null {
   const { toasts } = useOverlayState();
   const { dismissToast, setToastPaused } = usePlatformActions();
-  const [rendered, setRendered] = useState<
-    Array<{
-      id: string;
-      tone: string;
-      text: string;
-      actionLabel?: string;
-      onAction?: () => void;
-      closing?: boolean;
-    }>
-  >(() => toasts.map((t) => ({ ...t })));
+  const [rendered, setRendered] = useState<RenderedToastItem[]>(() =>
+    toasts.map((t) => ({ ...t, closing: false })),
+  );
+  const prevRenderedRef = useRef<RenderedToastItem[]>(rendered);
+  const closingTimersRef = useRef<Map<string, number>>(new Map());
 
   useEffect(() => {
-    const activeIds = new Set(toasts.map((t) => t.id));
-    let hasNewlyClosing = false;
-
-    setRendered((prev) => {
-      const prevMap = new Map(prev.map((item) => [item.id, item]));
-      const next: Array<{
-        id: string;
-        tone: string;
-        text: string;
-        actionLabel?: string;
-        onAction?: () => void;
-        closing?: boolean;
-      }> = [];
-
-      for (const item of prev) {
-        if (activeIds.has(item.id)) {
-          const fresh = toasts.find((t) => t.id === item.id)!;
-          next.push({ ...fresh, closing: false });
-        } else if (!item.closing) {
-          hasNewlyClosing = true;
-          next.push({ ...item, closing: true });
-        } else {
-          next.push(item);
-        }
+    const timers = closingTimersRef.current;
+    for (const toast of toasts) {
+      const pendingTimer = timers.get(toast.id);
+      if (pendingTimer !== undefined) {
+        window.clearTimeout(pendingTimer);
+        timers.delete(toast.id);
       }
+    }
 
-      for (const t of toasts) {
-        if (!prevMap.has(t.id)) {
-          next.push({ ...t, closing: false });
+    const prev = prevRenderedRef.current;
+    const { next, newlyClosingIds } = computeNextRenderedToasts(prev, toasts);
+    if (!areRenderedToastsEqual(prev, next)) {
+      prevRenderedRef.current = next;
+      setRendered(next);
+    }
+
+    for (const id of newlyClosingIds) {
+      if (timers.has(id)) continue;
+      const timerId = window.setTimeout(() => {
+        timers.delete(id);
+        const current = prevRenderedRef.current;
+        const filtered = current.filter(
+          (item) => !(item.id === id && item.closing),
+        );
+        if (filtered.length !== current.length) {
+          prevRenderedRef.current = filtered;
+          setRendered(filtered);
         }
-      }
-
-      return next;
-    });
-
-    if (!hasNewlyClosing) return;
-    const timer = window.setTimeout(() => {
-      setRendered((prev) => prev.filter((item) => !item.closing));
-    }, 260);
-    return () => window.clearTimeout(timer);
+      }, 260);
+      timers.set(id, timerId);
+    }
   }, [toasts]);
+
+  useEffect(() => {
+    const timers = closingTimersRef.current;
+    return () => {
+      for (const timerId of timers.values()) {
+        window.clearTimeout(timerId);
+      }
+      timers.clear();
+    };
+  }, []);
 
   if (rendered.length === 0) return null;
 
@@ -1871,6 +2090,8 @@ export function ToastViewport(): React.JSX.Element | null {
         <div
           key={t.id}
           data-closing={t.closing ? "" : undefined}
+          aria-hidden={t.closing ? true : undefined}
+          inert={t.closing ? true : undefined}
           className="pl-toast-item glass-pill-bar glass-ring rounded-xl px-4 py-2.5 text-xs font-semibold shadow-lg flex items-center gap-2.5"
           onMouseEnter={() => {
             if (t.actionLabel) setToastPaused(t.id, true);
@@ -1905,6 +2126,8 @@ export function ToastViewport(): React.JSX.Element | null {
               type="button"
               className="pl-toast-action-btn"
               data-toast-undo=""
+              disabled={Boolean(t.closing)}
+              tabIndex={t.closing ? -1 : undefined}
               onClick={() => {
                 t.onAction?.();
                 dismissToast(t.id);

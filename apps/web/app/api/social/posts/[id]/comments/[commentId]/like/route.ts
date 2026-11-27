@@ -2,7 +2,12 @@ import { NextResponse } from "next/server";
 import { createSanitizedErrorPayload } from "@pitchlab/contracts";
 import { setSocialCommentHelpful } from "@pitchlab/db";
 import { z } from "zod";
-import { withActivePaseMutation, type ActivePaseMutationContext } from "../../../../../../../../src/server/api-guards";
+import {
+  ApiGuardHttpError,
+  readBoundedJson,
+  withActivePaseMutation,
+  type ActivePaseMutationContext,
+} from "../../../../../../../../src/server/api-guards";
 import { reasonResponse } from "../../../../../../../../src/server/social";
 
 export const runtime = "nodejs";
@@ -12,10 +17,12 @@ type CommentParams = { id: string; commentId: string };
 
 const UUID_RE = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
 
-const CommentParamsSchema = z.object({
-  id: z.string().regex(UUID_RE),
-  commentId: z.string().regex(UUID_RE),
-});
+const CommentParamsSchema = z
+  .object({
+    id: z.string().regex(UUID_RE),
+    commentId: z.string().regex(UUID_RE),
+  })
+  .strict();
 
 const HelpfulPayloadSchema = z
   .object({
@@ -34,7 +41,10 @@ export const PUT = withActivePaseMutation(
   async ({ request, params, user }: ActivePaseMutationContext<CommentParams>) => {
     const parsedParams = CommentParamsSchema.safeParse(params);
     if (!parsedParams.success) return reasonResponse("no_existe");
-    const raw = await request.json().catch(() => null);
+    const raw = await readBoundedJson(request, 8_192).catch((err) => {
+      if (err instanceof ApiGuardHttpError) throw err;
+      return null;
+    });
     const parsedBody = HelpfulPayloadSchema.safeParse(raw);
     if (!parsedBody.success) {
       const err = createSanitizedErrorPayload("INVALID_INPUT", "Falta helpful.");

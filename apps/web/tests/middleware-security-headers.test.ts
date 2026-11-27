@@ -157,6 +157,39 @@ describe("next.config.mjs headers, Dockerignore, PWA y /api/health", () => {
     );
   });
 
+  it("aplica la CSP estricta de /api/me/email-preferences/unsubscribe después de /:path* en next.config.mjs y middleware.ts", async () => {
+    const strictCspRe =
+      /^default-src 'none'; script-src 'none'; style-src 'sha256-[A-Za-z0-9+/=]+'; img-src 'none'; font-src 'none'; connect-src 'none'; form-action 'self'; frame-ancestors 'none'; base-uri 'none'$/;
+
+    for (const phase of [PHASE_DEVELOPMENT_SERVER, "phase-production-server"]) {
+      const cfg = buildNextConfig(phase);
+      const rules = await cfg.headers();
+      const rootIdx = rules.findIndex((rule) => rule.source === "/:path*");
+      const unsubIdx = rules.findIndex(
+        (rule) => rule.source === "/api/me/email-preferences/unsubscribe",
+      );
+      expect(rootIdx).toBeGreaterThanOrEqual(0);
+      expect(unsubIdx).toBeGreaterThan(rootIdx);
+
+      const unsubRuleHeaders = rules[unsubIdx]?.headers ?? [];
+      const csp = unsubRuleHeaders.find((h) => h.key === "Content-Security-Policy")?.value ?? "";
+      expect(csp).toMatch(strictCspRe);
+      expect(unsubRuleHeaders.find((h) => h.key === "Referrer-Policy")?.value).toBe("no-referrer");
+    }
+
+    const mwGet = await middleware(
+      new NextRequest("http://127.0.0.1:6420/api/me/email-preferences/unsubscribe?token=invalid", {
+        method: "GET",
+      }),
+    );
+    expect(mwGet.status).toBe(200);
+    expect(mwGet.headers.get("Content-Security-Policy") ?? "").toMatch(strictCspRe);
+    expect(mwGet.headers.get("Referrer-Policy")).toBe("no-referrer");
+    expect(mwGet.headers.get("Cache-Control")).toBe("private, no-store");
+    expect(mwGet.headers.get("X-Content-Type-Options")).toBe("nosniff");
+    expect(mwGet.headers.get("X-Frame-Options")).toBe("DENY");
+  });
+
   it("manifest usa copy récord sellado, PNGs reales 192/512, sw.js seguro y .dockerignore blinda .env*", () => {
     const m = manifest();
     expect(m.description).toContain("récord sellado");

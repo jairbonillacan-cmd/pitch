@@ -71,11 +71,16 @@ import type {
   SgpCopulaAuditView,
 } from "../types";
 import { ALL, SPORTS, shortDateLabel, sportOf, type SportFilter } from "./home/home-model";
-import { OddsCompareClubView } from "./OddsCompareView";
 import {
   classifyOddsMovement,
   computeExpectedValuePct,
 } from "./picks/BookmakerComparePill";
+
+const loadOddsCompareClubView = () =>
+  import("./OddsCompareView").then((mod) => ({
+    default: mod.OddsCompareClubView,
+  }));
+const LazyOddsCompareClubView = lazy(loadOddsCompareClubView);
 
 const loadParlayBetBuilderDrawer = () =>
   import("./picks/BetBuilderDrawer").then((mod) => ({
@@ -2129,5 +2134,21 @@ export {
 } from "./PropsLabClubView";
 
 export function MomiosExplorerClubView(): React.JSX.Element {
-  return <OddsCompareClubView />;
+  return (
+    <Suspense
+      fallback={
+        <div
+          className="pl-skel-card p-6 rounded-2xl space-y-3"
+          role="status"
+          aria-busy="true"
+          aria-label="Cargando comparador de momios"
+        >
+          <div className="pl-skel-bar h-5 w-44 rounded-md" />
+          <div className="pl-skel-bar h-32 rounded-xl" />
+        </div>
+      }
+    >
+      <LazyOddsCompareClubView />
+    </Suspense>
+  );
 }
