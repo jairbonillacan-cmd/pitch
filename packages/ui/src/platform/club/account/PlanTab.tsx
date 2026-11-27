@@ -801,8 +801,9 @@ export function PlanTab({
               Factura
             </Button>
           ) : (
-            <span className="pl-acct-payment-dash" aria-label="Sin factura">
-              —
+            <span className="pl-acct-payment-dash">
+              <span aria-hidden="true">—</span>
+              <span className="sr-only">Sin factura</span>
             </span>
           ),
       },

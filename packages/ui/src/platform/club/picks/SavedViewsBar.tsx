@@ -70,7 +70,10 @@ export function SavedViewsBar({
               >
                 <span className="truncate max-w-[180px]">{view.name}</span>
                 {view.onlyPositiveEdge ? (
-                  <span className="pl-scr-view-ev-dot" aria-label="Solo con valor EV+" />
+                  <>
+                    <span className="pl-scr-view-ev-dot" aria-hidden="true" />
+                    <span className="sr-only">Solo con valor EV+</span>
+                  </>
                 ) : null}
               </button>
               <button

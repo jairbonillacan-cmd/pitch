@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useId, useMemo, useRef, useState } from "react";
-import type { LiveMatchDetail } from "@pitchlab/contracts";
+import { isLiveCapableLeague, type LiveMatchDetail } from "@pitchlab/contracts";
 import { PBar, TeamBadge } from "../../../sports";
 import {
   formatOddsValue,
@@ -135,7 +135,7 @@ export function PreMatchModule({
   const { toggleWatchlistGame, navigateTo } = usePlatformActions();
   const watchlistGameIds = useWatchlistGameIds();
 
-  const liveSupported = game.sport !== "american-football" && game.league !== "nfl";
+  const liveSupported = isLiveCapableLeague(game.league);
   const liveSnap = useLiveMatch(game.id, liveSupported && liveDetailProp === undefined);
   const effectiveLiveDetail = liveDetailProp !== undefined ? liveDetailProp : liveSnap.data;
 

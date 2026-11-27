@@ -168,9 +168,12 @@ export function AtomicOddsChip({
           {cappedIndicators.length > 0 ? (
             <span className="pl-atom-odds-cell-indicators">
               {cappedIndicators.map((ind) => (
-                <span key={ind.key} className={ind.className} aria-label={ind.ariaLabel}>
+                <span key={ind.key} className={ind.className}>
                   {ind.symbol ? <span aria-hidden="true">{ind.symbol}</span> : null}
-                  {ind.text ? <span>{ind.text}</span> : null}
+                  {ind.text ? (
+                    <span aria-hidden={ind.ariaLabel ? true : undefined}>{ind.text}</span>
+                  ) : null}
+                  {ind.ariaLabel ? <span className="sr-only">{ind.ariaLabel}</span> : null}
                 </span>
               ))}
             </span>
@@ -203,22 +206,18 @@ export function AtomicOddsChip({
             <span className="pl-atom-odds-kicker">Casa</span>
             <strong>{marketFormatted}</strong>
             {resolved.symbol ? (
-              <span
-                className={`pl-atom-odds-delta is-${resolved.direction}`}
-                aria-label={resolved.ariaLabel ?? undefined}
-              >
+              <span className={`pl-atom-odds-delta is-${resolved.direction}`}>
                 <span aria-hidden="true">{resolved.symbol}</span>
-                {resolved.tag ? <span>{resolved.tag}</span> : null}
+                {resolved.tag ? <span aria-hidden="true">{resolved.tag}</span> : null}
+                {resolved.ariaLabel ? <span className="sr-only">{resolved.ariaLabel}</span> : null}
               </span>
             ) : null}
           </span>
         ) : resolved.symbol ? (
-          <span
-            className={`pl-atom-odds-delta is-${resolved.direction}`}
-            aria-label={resolved.ariaLabel ?? undefined}
-          >
+          <span className={`pl-atom-odds-delta is-${resolved.direction}`}>
             <span aria-hidden="true">{resolved.symbol}</span>
-            {resolved.tag ? <span>{resolved.tag}</span> : null}
+            {resolved.tag ? <span aria-hidden="true">{resolved.tag}</span> : null}
+            {resolved.ariaLabel ? <span className="sr-only">{resolved.ariaLabel}</span> : null}
           </span>
         ) : null}
 

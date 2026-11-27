@@ -1450,8 +1450,9 @@ function ParlaysPanel({ entries }: { entries: readonly JournalEntry[] }): React.
                     {leg.league ? <span className="pl-prof-muted"> · {leg.league}</span> : null}
                   </span>
                   {outcome === "won" ? (
-                    <span className="pl-prof-pos" aria-label="Cumplida">
-                      ✓
+                    <span className="pl-prof-pos">
+                      <span aria-hidden="true">✓</span>
+                      <span className="sr-only">Cumplida</span>
                     </span>
                   ) : null}
                 </li>
@@ -1773,8 +1774,9 @@ function SharedParlaysPanel({
                     {leg.league ? <span className="pl-prof-muted"> · {leg.league}</span> : null}
                   </span>
                   {outcome === "won" ? (
-                    <span className="pl-prof-pos" aria-label="Cumplida">
-                      ✓
+                    <span className="pl-prof-pos">
+                      <span aria-hidden="true">✓</span>
+                      <span className="sr-only">Cumplida</span>
                     </span>
                   ) : null}
                 </li>

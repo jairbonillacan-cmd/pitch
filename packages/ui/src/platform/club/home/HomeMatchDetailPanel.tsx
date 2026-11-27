@@ -6,6 +6,7 @@ import {
   canonicalPlayerHref,
   canonicalTeamHref,
   getLeagueCapability,
+  isLiveCapableLeague,
   isLivePhaseActive,
   isSafePublicLabel,
   parseStrictFiniteNumber,
@@ -899,7 +900,10 @@ export function HomeMatchDetailPanel({
     !live &&
     (game.status === "FT" || liveEntry?.phase === "final" || preview?.game.status === "FT");
 
-  const liveDetailSnap = useLiveMatch(game.id, live && liveDetailOverride === undefined);
+  const liveDetailSnap = useLiveMatch(
+    game.id,
+    live && isLiveCapableLeague(game.league) && liveDetailOverride === undefined,
+  );
   const liveDetail: LiveMatchDetail | null =
     liveDetailOverride !== undefined ? liveDetailOverride : live ? liveDetailSnap.data : null;
 

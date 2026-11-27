@@ -3,6 +3,7 @@
 import React, { Suspense, lazy, useMemo, useRef, useState } from "react";
 import {
   canonicalGameHref,
+  isLiveCapableLeague,
   type LeagueId,
   type LiveMatchDetail,
   type StandingRow,
@@ -218,7 +219,7 @@ export function MatchStudioClubView({
     void loadMatchSocialPosts(game.id);
   }, [game.id, loadMatchSocialPosts]);
 
-  const liveSupported = game.sport !== "american-football" && game.league !== "nfl";
+  const liveSupported = isLiveCapableLeague(game.league);
   const liveSnap = useLiveMatch(game.id, liveSupported && !liveDetailOverride);
   const liveDetail = liveDetailOverride ?? liveSnap.data;
   const hasLiveMomentum = Boolean(
