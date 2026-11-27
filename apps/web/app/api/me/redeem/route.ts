@@ -2,7 +2,12 @@ import { NextResponse } from "next/server";
 import { z } from "zod";
 import { createSanitizedErrorPayload } from "@pitchlab/contracts";
 import { redeemAccessCoupon } from "@pitchlab/db";
-import { recordIdorAttempt, withMemberMutation } from "../../../../src/server/api-guards";
+import {
+  ApiGuardHttpError,
+  readBoundedJson,
+  recordIdorAttempt,
+  withMemberMutation,
+} from "../../../../src/server/api-guards";
 import { recordMemberFunnelIfConsented } from "../../../../src/server/funnel";
 import { getMailer } from "../../../../src/server/mailer";
 import { sendTransferRedeemedEmails } from "../../../../src/server/transfer-emails";
@@ -16,6 +21,7 @@ const RedeemCouponBodySchema = z
     code: z.string().trim().min(1).max(64).optional(),
     codigo: z.string().trim().min(1).max(64).optional(),
   })
+  .strict()
   .refine((data) => Boolean(data.code || data.codigo));
 
 export const POST = withMemberMutation(
@@ -26,7 +32,10 @@ export const POST = withMemberMutation(
     failClosed: true,
   },
   async ({ request, user, ipHash }) => {
-    const rawBody: unknown = await request.json().catch(() => null);
+    const rawBody: unknown = await readBoundedJson(request, 16_384).catch((err) => {
+      if (err instanceof ApiGuardHttpError) throw err;
+      return null;
+    });
     const parsed = RedeemCouponBodySchema.safeParse(rawBody);
     if (!parsed.success) {
       const payload = createSanitizedErrorPayload(

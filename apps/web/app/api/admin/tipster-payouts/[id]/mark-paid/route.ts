@@ -9,6 +9,8 @@ import {
   users,
 } from "@pitchlab/db";
 import {
+  ApiGuardHttpError,
+  readBoundedJson,
   withAdminMutation,
   type AdminMutationContext,
   type GuardedRouteHandler,
@@ -21,14 +23,18 @@ import { UUID_RE } from "../../../../../../src/server/transfer-helpers";
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
 
-const LedgerIdParamsSchema = z.object({
-  id: z.string().regex(UUID_RE),
-});
+const LedgerIdParamsSchema = z
+  .object({
+    id: z.string().regex(UUID_RE),
+  })
+  .strict();
 
-const MarkPaidBodySchema = z.object({
-  reference: z.string().trim().min(3).max(80),
-  note: z.string().max(200).nullable().optional(),
-});
+const MarkPaidBodySchema = z
+  .object({
+    reference: z.string().trim().min(3).max(80),
+    note: z.string().max(200).nullable().optional(),
+  })
+  .strict();
 
 export const POST: GuardedRouteHandler<{ id: string }> = withAdminMutation(
   {
@@ -43,7 +49,10 @@ export const POST: GuardedRouteHandler<{ id: string }> = withAdminMutation(
       return NextResponse.json({ ...payload, error: payload.message }, { status: 400 });
     }
 
-    const rawBody: unknown = await request.json().catch(() => null);
+    const rawBody: unknown = await readBoundedJson(request, 16_384).catch((err) => {
+      if (err instanceof ApiGuardHttpError) throw err;
+      return null;
+    });
     const parsedBody = MarkPaidBodySchema.safeParse(rawBody);
     if (!parsedBody.success) {
       const payload = createSanitizedErrorPayload(

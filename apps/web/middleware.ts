@@ -5,7 +5,18 @@ import { THEME_INIT_SCRIPT } from "./src/theme-init-script";
 
 const BETA_COOKIE_NAME = "pl_beta";
 const MUTATION_METHODS = new Set(["POST", "PUT", "PATCH", "DELETE"]);
-const DYNAMIC_CSP_PREFIXES = ["/login", "/signup", "/onboarding", "/precio", "/canjear"] as const;
+const DYNAMIC_CSP_PREFIXES = [
+  "/login",
+  "/signup",
+  "/onboarding",
+  "/precio",
+  "/canjear",
+  "/i",
+  "/p",
+  "/u",
+  "/baja",
+  "/pricing/referral",
+] as const;
 
 const FORBIDDEN_PROD_COOKIE_SECRETS: ReadonlySet<string> = new Set([
   "reemplazar-con-secreto-aleatorio-de-32-caracteres-minimo",
@@ -345,7 +356,14 @@ export async function middleware(request: NextRequest): Promise<NextResponse> {
   }
 
   if (pathname.startsWith("/i/")) {
-    const res = NextResponse.next();
+    const nonce = generateCspNonce();
+    const csp = await buildDynamicCsp(nonce);
+    const requestHeaders = new Headers(request.headers);
+    requestHeaders.set("x-nonce", nonce);
+    requestHeaders.set("Content-Security-Policy", csp);
+
+    const res = NextResponse.next({ request: { headers: requestHeaders } });
+    res.headers.set("Content-Security-Policy", csp);
     res.headers.set("X-Robots-Tag", "noindex, nofollow");
     return applyBaselineSecurityHeaders(res, request);
   }
@@ -406,5 +424,9 @@ export const config = {
     "/precio",
     "/canjear",
     "/i/:path*",
+    "/p/:path*",
+    "/u/:path*",
+    "/baja",
+    "/pricing/referral",
   ],
 };

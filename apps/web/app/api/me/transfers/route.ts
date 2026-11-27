@@ -8,7 +8,12 @@ import {
   quoteTransferAmountCentavos,
   type TransferPlanInterval,
 } from "@pitchlab/db";
-import { withMemberMutation, withSessionRead } from "../../../../src/server/api-guards";
+import {
+  ApiGuardHttpError,
+  readBoundedJson,
+  withMemberMutation,
+  withSessionRead,
+} from "../../../../src/server/api-guards";
 import { getTransferBankConfig, paymentMode } from "../../../../src/server/billing/payment-mode";
 import { recordMemberFunnelIfConsented } from "../../../../src/server/funnel";
 import { serializeTransferRequest } from "../../../../src/server/member-plan";
@@ -31,16 +36,18 @@ const NumericInputSchema = z
   .union([z.null(), z.literal(""), z.number().finite(), z.string().trim().max(32)])
   .optional();
 
-const CreateTransferBodySchema = z.object({
-  planInterval: z.enum(["monthly", "annual"]),
-  originBank: OptionalNullableTextSchema,
-  receiptReference: OptionalNullableTextSchema,
-  payerName: OptionalNullableTextSchema,
-  userNote: z.string().max(500).nullable().optional(),
-  transferDate: TransferDateSchema,
-  reportedAmountCentavosMxn: NumericInputSchema,
-  reportedAmountMxn: NumericInputSchema,
-});
+const CreateTransferBodySchema = z
+  .object({
+    planInterval: z.enum(["monthly", "annual"]),
+    originBank: OptionalNullableTextSchema,
+    receiptReference: OptionalNullableTextSchema,
+    payerName: OptionalNullableTextSchema,
+    userNote: z.string().max(500).nullable().optional(),
+    transferDate: TransferDateSchema,
+    reportedAmountCentavosMxn: NumericInputSchema,
+    reportedAmountMxn: NumericInputSchema,
+  })
+  .strict();
 
 function extractReceiptFields(
   data: z.infer<typeof CreateTransferBodySchema>,
@@ -117,7 +124,10 @@ export const POST = withMemberMutation(
     failClosed: true,
   },
   async ({ request, user }) => {
-    const rawBody: unknown = await request.json().catch(() => null);
+    const rawBody: unknown = await readBoundedJson(request, 32_768).catch((err) => {
+      if (err instanceof ApiGuardHttpError) throw err;
+      return null;
+    });
     const parsed = CreateTransferBodySchema.safeParse(rawBody);
     if (!parsed.success) {
       const payload = createSanitizedErrorPayload(

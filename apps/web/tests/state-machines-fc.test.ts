@@ -1380,6 +1380,7 @@ describe("Máquinas de estado fast-check (fc.commands) · Invariantes críticas"
       fc.asyncProperty(fc.commands(velocityCommands, { maxCommands: 24 }), async (cmds) => {
         runIdx += 1;
         pgRateCounts.clear();
+        await pgClient.exec("DELETE FROM security_rate_buckets;");
         resetRateLimitsForTests();
         resetScrapingVelocityForTests();
         mocks.revokeUserActiveSessions.mockClear();

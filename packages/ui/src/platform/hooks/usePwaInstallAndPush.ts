@@ -24,6 +24,22 @@ export interface PwaPushTopics {
   readonly social: boolean;
 }
 
+export interface ServerPushSubscriptionRecord {
+  readonly endpoint: string;
+  readonly topicPicks: boolean;
+  readonly topicLive: boolean;
+  readonly topicSocial: boolean;
+  readonly updatedAtIso?: string;
+}
+
+export function matchDevicePushSubscription(
+  subscriptions: ReadonlyArray<ServerPushSubscriptionRecord> | null | undefined,
+  localEndpoint: string | null | undefined,
+): ServerPushSubscriptionRecord | null {
+  if (!localEndpoint || !subscriptions || subscriptions.length === 0) return null;
+  return subscriptions.find((sub) => sub.endpoint === localEndpoint) ?? null;
+}
+
 export interface UsePwaInstallAndPushOptions {
   readonly enabled?: boolean;
   readonly onNotify?: (message: string, tone?: "default" | "success" | "warning") => void;
@@ -180,20 +196,52 @@ export function usePwaInstallAndPush(
       headers: { accept: "application/json" },
       signal: controller.signal,
     })
-      .then((res) => (res.ok ? (res.json() as Promise<PushServerStatus>) : null))
-      .then((data) => {
+      .then(async (res) => {
+        if (res.status === 403 && typeof window !== "undefined") {
+          const errPayload = (await res.json().catch(() => null)) as { error?: unknown } | null;
+          if (errPayload?.error === "pase_requerido") {
+            window.dispatchEvent(
+              new CustomEvent("pitchlab:plan-updated", {
+                detail: { reason: "pase_requerido", url: "/api/me/push" },
+              }),
+            );
+          }
+          return null;
+        }
+        return res.ok ? ((await res.json()) as PushServerStatus) : null;
+      })
+      .then(async (data) => {
         if (controller.signal.aborted || !data) return;
         setServerConfigured(Boolean(data.configured));
         setVapidPublicKey(data.vapidPublicKey ?? null);
-        const firstSub = data.subscriptions?.[0];
-        if (firstSub) {
+
+        let localEndpoint: string | null = null;
+        if ("serviceWorker" in navigator && "PushManager" in window) {
+          try {
+            const reg = await Promise.race([
+              navigator.serviceWorker.getRegistration?.() ?? Promise.resolve(undefined),
+              new Promise<undefined>((resolve) => setTimeout(() => resolve(undefined), 1_500)),
+            ]);
+            const localSub = reg?.pushManager ? await reg.pushManager.getSubscription() : null;
+            localEndpoint = localSub?.endpoint ?? null;
+          } catch (err) {
+            void err;
+          }
+        }
+        if (controller.signal.aborted) return;
+
+        const matchedSub = matchDevicePushSubscription(data.subscriptions, localEndpoint);
+        if (matchedSub) {
           setIsSubscribed(true);
-          setActiveEndpoint(firstSub.endpoint);
+          setActiveEndpoint(matchedSub.endpoint);
           setTopics({
-            picks: firstSub.topicPicks,
-            live: firstSub.topicLive,
-            social: firstSub.topicSocial,
+            picks: matchedSub.topicPicks,
+            live: matchedSub.topicLive,
+            social: matchedSub.topicSocial,
           });
+        } else {
+          setIsSubscribed(false);
+          setActiveEndpoint(null);
         }
       })
       .catch((err) => {

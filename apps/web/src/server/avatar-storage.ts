@@ -187,6 +187,7 @@ async function resolveGcsAccessToken(): Promise<string> {
   const res = await fetch(GCS_METADATA_TOKEN_URL, {
     headers: { "Metadata-Flavor": "Google" },
     cache: "no-store",
+    signal: AbortSignal.timeout(5_000),
   });
   if (!res.ok) {
     throw new Error(`No se pudo obtener token de Google Cloud Storage (${res.status}).`);
@@ -255,6 +256,7 @@ const gcsAvatarUploader: AvatarBlobUploader = {
         "Content-Length": String(body.byteLength),
       },
       body,
+      signal: AbortSignal.timeout(10_000),
     });
     if (!res.ok) {
       throw new Error(`Error al subir avatar a Google Cloud Storage (${res.status}).`);
@@ -273,6 +275,7 @@ const gcsAvatarUploader: AvatarBlobUploader = {
       await fetch(deleteUrl, {
         method: "DELETE",
         headers: { Authorization: `Bearer ${token}` },
+        signal: AbortSignal.timeout(10_000),
       });
     } catch (err) {
       void err;
@@ -392,6 +395,7 @@ const s3AvatarUploader: AvatarBlobUploader = {
         "Cache-Control": "public, max-age=31536000, immutable",
       },
       body: new Uint8Array(buffer),
+      signal: AbortSignal.timeout(10_000),
     });
     if (!res.ok) {
       throw new Error(`Error al subir avatar a almacenamiento S3 (${res.status}).`);
@@ -417,6 +421,7 @@ const s3AvatarUploader: AvatarBlobUploader = {
       await fetch(signed.url, {
         method: "DELETE",
         headers: signed.headers,
+        signal: AbortSignal.timeout(10_000),
       });
     } catch (err) {
       void err;

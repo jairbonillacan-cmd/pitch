@@ -3,6 +3,8 @@ import { startTransition, useCallback, useEffect, useRef, useState } from "react
 export const DEFAULT_CLIENT_CACHE_STALE_MS = 25_000;
 export const DEFAULT_CLIENT_CACHE_TTL_MS = 180_000;
 const MAX_CLIENT_CACHE_ENTRIES = 160;
+const DEFAULT_VIEWER_SCOPE = "anon";
+const SCOPE_KEY_SEPARATOR = "::";
 
 interface CacheEntry {
   data: unknown;
@@ -12,6 +14,7 @@ interface CacheEntry {
 }
 
 interface InFlightEntry {
+  scope: string;
   promise: Promise<unknown>;
   controller: AbortController;
   subscribers: number;
@@ -27,6 +30,7 @@ export interface ClientCacheWriteOptions {
   staleTimeMs?: number;
   ttlMs?: number;
   now?: number;
+  viewerScope?: string;
 }
 
 export interface PrefetchClientJsonOptions extends ClientCacheWriteOptions {
@@ -38,6 +42,7 @@ export interface PrefetchClientJsonOptions extends ClientCacheWriteOptions {
 export interface UseClientJsonSwrOptions<T> {
   enabled?: boolean;
   cacheKey?: string | null;
+  viewerScope?: string;
   initialData?: T | null;
   staleTimeMs?: number;
   ttlMs?: number;
@@ -58,6 +63,37 @@ export interface UseClientJsonSwrResult<T> {
 
 const clientCacheStore = new Map<string, CacheEntry>();
 const inFlightRequests = new Map<string, InFlightEntry>();
+let activeViewerScope = DEFAULT_VIEWER_SCOPE;
+
+function normalizeViewerScope(scope?: string | null): string {
+  const clean = scope?.trim();
+  return clean && clean.length > 0 ? clean : activeViewerScope;
+}
+
+function toScopedCacheKey(key: string, scopeOverride?: string | null): string {
+  const scope = normalizeViewerScope(scopeOverride);
+  if (key.startsWith(`${scope}${SCOPE_KEY_SEPARATOR}`)) {
+    return key;
+  }
+  return `${scope}${SCOPE_KEY_SEPARATOR}${key}`;
+}
+
+export function getClientJsonCacheScope(): string {
+  return activeViewerScope;
+}
+
+export function setClientJsonCacheScope(nextScope: string | null | undefined): void {
+  const normalized = nextScope?.trim() || DEFAULT_VIEWER_SCOPE;
+  if (normalized === activeViewerScope) return;
+  const previousScope = activeViewerScope;
+  activeViewerScope = normalized;
+  for (const [scopedKey, active] of Array.from(inFlightRequests.entries())) {
+    if (active.scope === previousScope) {
+      active.controller.abort();
+      inFlightRequests.delete(scopedKey);
+    }
+  }
+}
 
 function mapClientHttpError(status: number): string {
   if (status === 401) {
@@ -97,16 +133,18 @@ function isTypedPayload<T>(value: unknown): value is T {
 export function readClientJsonCache<T>(
   key: string | null | undefined,
   now = Date.now(),
+  viewerScope?: string,
 ): ClientCacheReadResult<T> | null {
   if (!key) return null;
-  const entry = clientCacheStore.get(key);
+  const scopedKey = toScopedCacheKey(key, viewerScope);
+  const entry = clientCacheStore.get(scopedKey);
   if (!entry) return null;
   if (now >= entry.expiresAt) {
-    clientCacheStore.delete(key);
+    clientCacheStore.delete(scopedKey);
     return null;
   }
-  clientCacheStore.delete(key);
-  clientCacheStore.set(key, entry);
+  clientCacheStore.delete(scopedKey);
+  clientCacheStore.set(scopedKey, entry);
   if (!isTypedPayload<T>(entry.data)) return null;
   return {
     data: entry.data,
@@ -121,21 +159,22 @@ export function writeClientJsonCache<T>(
   options?: ClientCacheWriteOptions,
 ): void {
   if (!key) return;
+  const scopedKey = toScopedCacheKey(key, options?.viewerScope);
   const now = options?.now ?? Date.now();
   const ttlMs = Math.max(1_000, options?.ttlMs ?? DEFAULT_CLIENT_CACHE_TTL_MS);
   const staleTimeMs = Math.max(
     0,
     Math.min(ttlMs, options?.staleTimeMs ?? DEFAULT_CLIENT_CACHE_STALE_MS),
   );
-  if (clientCacheStore.has(key)) {
-    clientCacheStore.delete(key);
+  if (clientCacheStore.has(scopedKey)) {
+    clientCacheStore.delete(scopedKey);
   }
   while (clientCacheStore.size >= MAX_CLIENT_CACHE_ENTRIES) {
     const oldestKey = clientCacheStore.keys().next().value;
     if (oldestKey === undefined) break;
     clientCacheStore.delete(oldestKey);
   }
-  clientCacheStore.set(key, {
+  clientCacheStore.set(scopedKey, {
     data,
     fetchedAt: now,
     staleAt: now + staleTimeMs,
@@ -150,9 +189,16 @@ export function invalidateClientJsonCache(prefixOrKey?: string): number {
     return removed;
   }
   let removed = 0;
-  for (const key of Array.from(clientCacheStore.keys())) {
-    if (key === prefixOrKey || key.startsWith(prefixOrKey)) {
-      clientCacheStore.delete(key);
+  const activePrefix = `${activeViewerScope}${SCOPE_KEY_SEPARATOR}`;
+  for (const storedKey of Array.from(clientCacheStore.keys())) {
+    const matchesDirect = storedKey === prefixOrKey || storedKey.startsWith(prefixOrKey);
+    const unscoped = storedKey.startsWith(activePrefix)
+      ? storedKey.slice(activePrefix.length)
+      : null;
+    const matchesActiveScope =
+      unscoped !== null && (unscoped === prefixOrKey || unscoped.startsWith(prefixOrKey));
+    if (matchesDirect || matchesActiveScope) {
+      clientCacheStore.delete(storedKey);
       removed += 1;
     }
   }
@@ -165,6 +211,7 @@ export function clearClientJsonCache(): void {
     active.controller.abort();
   }
   inFlightRequests.clear();
+  activeViewerScope = DEFAULT_VIEWER_SCOPE;
 }
 
 export function getClientJsonCacheStats(): { size: number; inFlight: number } {
@@ -181,9 +228,12 @@ function subscribeSharedFetch<T>(
     credentials: RequestCredentials;
     staleTimeMs: number;
     ttlMs: number;
+    viewerScope?: string;
   },
 ): { promise: Promise<T>; release: () => void } {
-  const existing = inFlightRequests.get(cacheKey);
+  const scope = normalizeViewerScope(options.viewerScope);
+  const scopedKey = toScopedCacheKey(cacheKey, scope);
+  const existing = inFlightRequests.get(scopedKey);
   if (existing) {
     existing.subscribers += 1;
     const sharedPromise = existing.promise.then((payload) => {
@@ -196,9 +246,9 @@ function subscribeSharedFetch<T>(
       promise: sharedPromise,
       release: () => {
         existing.subscribers = Math.max(0, existing.subscribers - 1);
-        if (existing.subscribers === 0 && inFlightRequests.get(cacheKey) === existing) {
+        if (existing.subscribers === 0 && inFlightRequests.get(scopedKey) === existing) {
           existing.controller.abort();
-          inFlightRequests.delete(cacheKey);
+          inFlightRequests.delete(scopedKey);
         }
       },
     };
@@ -206,6 +256,7 @@ function subscribeSharedFetch<T>(
 
   const controller = new AbortController();
   const entry: InFlightEntry = {
+    scope,
     controller,
     subscribers: 1,
     promise: Promise.resolve(null),
@@ -217,23 +268,38 @@ function subscribeSharedFetch<T>(
   })
     .then(async (response) => {
       if (!response.ok) {
+        if (response.status === 403 && typeof window !== "undefined") {
+          const errPayload = (await response
+            .clone()
+            .json()
+            .catch(() => null)) as { error?: unknown } | null;
+          if (errPayload?.error === "pase_requerido") {
+            invalidateClientJsonCache();
+            window.dispatchEvent(
+              new CustomEvent("pitchlab:plan-updated", {
+                detail: { reason: "pase_requerido", url },
+              }),
+            );
+          }
+        }
         throw new Error(mapClientHttpError(response.status));
       }
       const payload: unknown = await response.json();
       writeClientJsonCache(cacheKey, payload, {
         staleTimeMs: options.staleTimeMs,
         ttlMs: options.ttlMs,
+        viewerScope: scope,
       });
       return payload;
     })
     .finally(() => {
-      if (inFlightRequests.get(cacheKey) === entry) {
-        inFlightRequests.delete(cacheKey);
+      if (inFlightRequests.get(scopedKey) === entry) {
+        inFlightRequests.delete(scopedKey);
       }
     });
 
   entry.promise = requestPromise;
-  inFlightRequests.set(cacheKey, entry);
+  inFlightRequests.set(scopedKey, entry);
 
   const typedPromise = requestPromise.then((payload) => {
     if (!isTypedPayload<T>(payload)) {
@@ -246,9 +312,9 @@ function subscribeSharedFetch<T>(
     promise: typedPromise,
     release: () => {
       entry.subscribers = Math.max(0, entry.subscribers - 1);
-      if (entry.subscribers === 0 && inFlightRequests.get(cacheKey) === entry) {
+      if (entry.subscribers === 0 && inFlightRequests.get(scopedKey) === entry) {
         entry.controller.abort();
-        inFlightRequests.delete(cacheKey);
+        inFlightRequests.delete(scopedKey);
       }
     },
   };
@@ -260,8 +326,9 @@ export async function prefetchClientJson<T>(
 ): Promise<T | null> {
   if (!url) return null;
   const cacheKey = options?.cacheKey ?? url;
+  const viewerScope = options?.viewerScope;
   if (!options?.force) {
-    const cached = readClientJsonCache<T>(cacheKey);
+    const cached = readClientJsonCache<T>(cacheKey, Date.now(), viewerScope);
     if (cached && !cached.isStale) {
       return cached.data;
     }
@@ -273,6 +340,7 @@ export async function prefetchClientJson<T>(
     credentials,
     staleTimeMs,
     ttlMs,
+    viewerScope,
   });
   try {
     return await sub.promise;
@@ -294,7 +362,9 @@ export function useClientJsonSwr<T>(
   options?: UseClientJsonSwrOptions<T>,
 ): UseClientJsonSwrResult<T> {
   const enabled = options?.enabled ?? true;
-  const cacheKey = options?.cacheKey ?? url;
+  const rawCacheKey = options?.cacheKey ?? url;
+  const effectiveScope = normalizeViewerScope(options?.viewerScope);
+  const scopedCacheKey = rawCacheKey ? toScopedCacheKey(rawCacheKey, effectiveScope) : null;
   const initialData = options?.initialData ?? null;
   const staleTimeMs = options?.staleTimeMs ?? DEFAULT_CLIENT_CACHE_STALE_MS;
   const ttlMs = options?.ttlMs ?? DEFAULT_CLIENT_CACHE_TTL_MS;
@@ -306,9 +376,9 @@ export function useClientJsonSwr<T>(
   const [reloadNonce, setReloadNonce] = useState(0);
   const forceReloadNonceRef = useRef(0);
 
-  const cachedHit = enabled ? readClientJsonCache<T>(cacheKey) : null;
+  const cachedHit = enabled ? readClientJsonCache<T>(rawCacheKey, Date.now(), effectiveScope) : null;
   const [asyncState, setAsyncState] = useState<SwrAsyncState<T>>(() => ({
-    key: enabled ? (cacheKey ?? null) : null,
+    key: enabled ? scopedCacheKey : null,
     data: cachedHit?.data ?? initialData,
     loading: Boolean(enabled && url && !cachedHit && initialData === null),
     isRevalidating: false,
@@ -324,20 +394,20 @@ export function useClientJsonSwr<T>(
   }, []);
 
   useEffect(() => {
-    if (!enabled || !url || !cacheKey) {
+    if (!enabled || !url || !rawCacheKey || !scopedCacheKey) {
       return;
     }
 
     const forceNetwork = reloadNonce > 0 && forceReloadNonceRef.current === reloadNonce;
-    const hit = forceNetwork ? null : readClientJsonCache<T>(cacheKey);
+    const hit = forceNetwork ? null : readClientJsonCache<T>(rawCacheKey, Date.now(), effectiveScope);
 
     if (hit && !hit.isStale) {
       lastStableDataRef.current = hit.data;
       setAsyncState((prev) =>
-        prev.key === cacheKey && prev.data === hit.data && !prev.loading && !prev.isRevalidating && !prev.error
+        prev.key === scopedCacheKey && prev.data === hit.data && !prev.loading && !prev.isRevalidating && !prev.error
           ? prev
           : {
-              key: cacheKey,
+              key: scopedCacheKey,
               data: hit.data,
               loading: false,
               isRevalidating: false,
@@ -350,7 +420,7 @@ export function useClientJsonSwr<T>(
     if (hit && hit.isStale && !revalidateOnStale) {
       lastStableDataRef.current = hit.data;
       setAsyncState({
-        key: cacheKey,
+        key: scopedCacheKey,
         data: hit.data,
         loading: false,
         isRevalidating: false,
@@ -364,7 +434,7 @@ export function useClientJsonSwr<T>(
     const hasSeed = hit !== null || initialData !== null;
 
     setAsyncState((prev) => ({
-      key: cacheKey,
+      key: scopedCacheKey,
       data: hit?.data ?? initialData ?? (keepPreviousData ? prev.data : null),
       loading: !hasSeed,
       isRevalidating: hasSeed,
@@ -373,10 +443,11 @@ export function useClientJsonSwr<T>(
 
     const startNetworkFetch = () => {
       if (cancelled) return;
-      const subscription = subscribeSharedFetch<T>(cacheKey, url, {
+      const subscription = subscribeSharedFetch<T>(rawCacheKey, url, {
         credentials,
         staleTimeMs,
         ttlMs,
+        viewerScope: effectiveScope,
       });
       releaseSub = subscription.release;
       subscription.promise
@@ -386,7 +457,7 @@ export function useClientJsonSwr<T>(
           startTransition(() => {
             if (cancelled) return;
             setAsyncState({
-              key: cacheKey,
+              key: scopedCacheKey,
               data: payload,
               loading: false,
               isRevalidating: false,
@@ -401,7 +472,7 @@ export function useClientJsonSwr<T>(
           startTransition(() => {
             if (cancelled) return;
             setAsyncState((prev) => ({
-              key: cacheKey,
+              key: scopedCacheKey,
               data: hit?.data ?? initialData ?? (keepPreviousData ? prev.data : null),
               loading: false,
               isRevalidating: false,
@@ -429,14 +500,16 @@ export function useClientJsonSwr<T>(
       }
     };
   }, [
-    cacheKey,
     credentials,
     debounceMs,
+    effectiveScope,
     enabled,
     initialData,
     keepPreviousData,
+    rawCacheKey,
     reloadNonce,
     revalidateOnStale,
+    scopedCacheKey,
     staleTimeMs,
     ttlMs,
     url,
@@ -454,7 +527,7 @@ export function useClientJsonSwr<T>(
   }
 
   if (effectiveCachedData !== null) {
-    const matchesCurrent = asyncState.key === cacheKey;
+    const matchesCurrent = asyncState.key === scopedCacheKey;
     return {
       data: effectiveCachedData,
       loading: false,
@@ -465,7 +538,7 @@ export function useClientJsonSwr<T>(
     };
   }
 
-  const sameKey = asyncState.key === cacheKey;
+  const sameKey = asyncState.key === scopedCacheKey;
   const resolvedData = sameKey
     ? (asyncState.data ?? initialData)
     : (initialData ?? (keepPreviousData ? lastStableDataRef.current : null));

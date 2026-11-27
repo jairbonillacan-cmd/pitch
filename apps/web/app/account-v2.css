@@ -1751,6 +1751,7 @@ dialog.pl-native-dialog.pl-prefs-modal[open] {
   flex-direction: column;
   max-height: calc(100dvh - 32px);
   min-width: 0;
+  overscroll-behavior: contain;
 }
 
 .pl-prefs-modal-head {
@@ -1808,6 +1809,8 @@ dialog.pl-native-dialog.pl-prefs-modal[open] {
   flex: 1 1 auto;
   overflow-y: auto;
   overscroll-behavior: contain;
+  -webkit-overflow-scrolling: touch;
+  touch-action: pan-y;
   padding: 16px 20px;
   min-width: 0;
 }

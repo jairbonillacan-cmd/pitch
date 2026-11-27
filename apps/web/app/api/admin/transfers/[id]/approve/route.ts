@@ -3,6 +3,8 @@ import { z } from "zod";
 import { createSanitizedErrorPayload } from "@pitchlab/contracts";
 import { approveTransferRequest } from "@pitchlab/db";
 import {
+  ApiGuardHttpError,
+  readBoundedJson,
   withAdminMutation,
   type AdminMutationContext,
   type GuardedRouteHandler,
@@ -16,14 +18,17 @@ import { UUID_RE } from "../../../../../../src/server/transfer-helpers";
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
 
-const TransferIdParamsSchema = z.object({
-  id: z.string().regex(UUID_RE),
-});
+const TransferIdParamsSchema = z
+  .object({
+    id: z.string().regex(UUID_RE),
+  })
+  .strict();
 
 const ApproveTransferBodySchema = z
   .object({
     adminNotes: z.string().max(500).nullable().optional(),
   })
+  .strict()
   .optional();
 
 export const POST: GuardedRouteHandler<{ id: string }> = withAdminMutation(
@@ -40,16 +45,13 @@ export const POST: GuardedRouteHandler<{ id: string }> = withAdminMutation(
       return NextResponse.json({ ...payload, error: payload.message }, { status: 400 });
     }
 
-    const rawText = await request.text();
-    let rawBody: unknown = undefined;
-    if (rawText.trim().length > 0) {
-      try {
-        rawBody = JSON.parse(rawText);
-      } catch (err) {
-        void err;
-        const payload = createSanitizedErrorPayload("INVALID_JSON", "Cuerpo JSON inválido.");
-        return NextResponse.json({ ...payload, error: payload.message }, { status: 400 });
-      }
+    let rawBody: unknown;
+    try {
+      rawBody = await readBoundedJson(request, 16_384, { allowEmpty: true });
+    } catch (err) {
+      if (err instanceof ApiGuardHttpError) throw err;
+      const payload = createSanitizedErrorPayload("INVALID_JSON", "Cuerpo JSON inválido.");
+      return NextResponse.json({ ...payload, error: payload.message }, { status: 400 });
     }
 
     const parsedBody = ApproveTransferBodySchema.safeParse(rawBody);

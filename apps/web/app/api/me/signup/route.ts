@@ -9,6 +9,7 @@ import {
   authAccount,
   authSession,
   completeSignup,
+  desc,
   eq,
   FLAG_MONTH1_NO_CARD,
   getBoolFlag,
@@ -17,7 +18,12 @@ import {
   users,
 } from "@pitchlab/db";
 import { startAccountEmails } from "../../../../src/server/account-emails";
-import { withMemberMutation, withSessionRead } from "../../../../src/server/api-guards";
+import {
+  ApiGuardHttpError,
+  readBoundedJson,
+  withMemberMutation,
+  withSessionRead,
+} from "../../../../src/server/api-guards";
 import { getAuth } from "../../../../src/server/auth";
 import { sendReferralSignedUpEmail } from "../../../../src/server/lifecycle-emails";
 import { getMailer } from "../../../../src/server/mailer";
@@ -71,7 +77,10 @@ export const POST = withMemberMutation(
   },
   async ({ request, user }) => {
     const remoteIp = trustedClientIp(request.headers);
-    const raw: unknown = await request.json().catch(() => null);
+    const raw: unknown = await readBoundedJson(request, 32_768).catch((err) => {
+      if (err instanceof ApiGuardHttpError) throw err;
+      return null;
+    });
     const validated = SignupRequestBodySchema.safeParse(raw);
     const body = validated.success ? parseSignupBody(validated.data) : null;
     if (!body) {
@@ -99,14 +108,45 @@ export const POST = withMemberMutation(
       return NextResponse.json({ error: "correo_desechable" }, { status: 400 });
     }
 
-    let turnstileRayId: string | null = null;
-    const turnstileSecret = process.env.TURNSTILE_SECRET_KEY?.trim();
-    const requireSignupTurnstile =
+    const accounts = profile.authUserId
+      ? await db
+          .select({ providerId: authAccount.providerId })
+          .from(authAccount)
+          .where(eq(authAccount.userId, profile.authUserId))
+          .limit(20)
+      : [];
+    const provider = accounts.some((a) => a.providerId === "google") ? "google" : "email";
+
+    const captchaDisabled = process.env.PITCHLAB_CAPTCHA_PROVIDER?.trim().toLowerCase() === "none";
+    const turnstileSecret = captchaDisabled ? "" : (process.env.TURNSTILE_SECRET_KEY?.trim() ?? "");
+    const strictSignupTurnstile =
       Boolean(turnstileSecret) &&
-      (Boolean(body.turnstileToken) ||
-        (process.env.NODE_ENV === "production" &&
-          process.env.PITCHLAB_REQUIRE_SIGNUP_TURNSTILE === "1"));
-    if (requireSignupTurnstile) {
+      process.env.NODE_ENV === "production" &&
+      process.env.PITCHLAB_REQUIRE_SIGNUP_TURNSTILE === "1";
+
+    let verifiedMagicLinkRecent = false;
+    if (strictSignupTurnstile && !body.turnstileToken && provider === "email" && user.emailVerified) {
+      const recentCutoffMs = Date.now() - 2 * 60 * 60_000;
+      const [latestSession] = await db
+        .select({ createdAt: authSession.createdAt, expiresAt: authSession.expiresAt })
+        .from(authSession)
+        .where(eq(authSession.userId, user.authUserId))
+        .orderBy(desc(authSession.createdAt))
+        .limit(1);
+      if (
+        latestSession &&
+        latestSession.createdAt.getTime() >= recentCutoffMs &&
+        latestSession.expiresAt.getTime() > Date.now()
+      ) {
+        verifiedMagicLinkRecent = true;
+      }
+    }
+
+    let turnstileRayId: string | null = null;
+    const shouldVerifyTurnstile =
+      Boolean(turnstileSecret) &&
+      (Boolean(body.turnstileToken) || (strictSignupTurnstile && !verifiedMagicLinkRecent));
+    if (shouldVerifyTurnstile) {
       const captchaCheck = await verifyTurnstile(body.turnstileToken, {
         secret: turnstileSecret,
         ...(remoteIp ? { remoteIp } : {}),
@@ -116,15 +156,6 @@ export const POST = withMemberMutation(
       }
       turnstileRayId = captchaCheck.rayId ?? null;
     }
-
-    const accounts = profile.authUserId
-      ? await db
-          .select({ providerId: authAccount.providerId })
-          .from(authAccount)
-          .where(eq(authAccount.userId, profile.authUserId))
-          .limit(20)
-      : [];
-    const provider = accounts.some((a) => a.providerId === "google") ? "google" : "email";
 
     const trialOn = await getBoolFlag(db, FLAG_MONTH1_NO_CARD, true);
     const result = await completeSignup(db, {

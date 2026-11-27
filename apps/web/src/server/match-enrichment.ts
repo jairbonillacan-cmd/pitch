@@ -407,6 +407,7 @@ function buildLineupSide(params: {
 
 export function buildEnrichedMatchLineups(params: {
   readonly game: PlatformGame;
+  readonly allowFull?: boolean;
   readonly homeSquad: TeamSquadEntry | null;
   readonly awaySquad: TeamSquadEntry | null;
   readonly confirmedLineups?: VerifiedMatchLineups | null;
@@ -415,6 +416,7 @@ export function buildEnrichedMatchLineups(params: {
 }): MatchEnrichedLineups | null {
   const {
     game,
+    allowFull = false,
     homeSquad,
     awaySquad,
     confirmedLineups,
@@ -422,6 +424,9 @@ export function buildEnrichedMatchLineups(params: {
     sanitizePhotoKey,
   } = params;
   if (game.sport !== "football") {
+    return null;
+  }
+  if (!allowFull && game.status !== "FT") {
     return null;
   }
 
@@ -1678,6 +1683,9 @@ export function buildEnrichedMatchInjuries(params: {
     sanitizePhotoKey,
     resolveCanonicalSlug = cleanTeamRouteSlug,
   } = params;
+  if (!allowFull && game.status !== "FT") {
+    return [];
+  }
   const homeCanon = resolveCanonicalSlug(game.home.slug);
   const awayCanon = resolveCanonicalSlug(game.away.slug);
   const byKey = new Map<string, MatchInjuryItem>();

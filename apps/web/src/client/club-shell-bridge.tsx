@@ -7,7 +7,6 @@ import { ExpiredPassGate } from "@pitchlab/ui/expired-pass";
 import { clearRouteScroll, readRouteScroll } from "@pitchlab/ui/navigation-helpers";
 import type { PaymentMode } from "@pitchlab/ui/types";
 
-/** Las 4 páginas del menú principal: se precargan para que el clic sea inmediato. */
 const PRIMARY_ROUTES = ["/app", "/app/parlays", "/app/social", "/app/lab"] as const;
 
 function isAllowedRecoveryPath(rawPath: string): boolean {
@@ -29,13 +28,6 @@ function resetWindowScrollToTop(): void {
   document.body.scrollTop = 0;
 }
 
-/**
- * Monta el encabezado y la barra lateral una sola vez en el layout de /app.
- * Al avanzar entre pantallas sube al inicio; al volver atrás (`popstate` / botón Atrás)
- * restaura la posición de scroll guardada (ADR-053).
- * Si el pase venció (`expiredPassGate`), reevalúa la ruta en cada transición cliente para
- * impedir saltarse `ExpiredPassGate` desde `/app/account` o `/app/canjear`.
- */
 export function ClubShellBridge({
   children,
   expiredPassGate = null,
@@ -56,9 +48,16 @@ export function ClubShellBridge({
     const onPopState = () => {
       isBackNavigationRef.current = true;
     };
+    const onPlanUpdated = () => {
+      router.refresh();
+    };
     window.addEventListener("popstate", onPopState);
-    return () => window.removeEventListener("popstate", onPopState);
-  }, []);
+    window.addEventListener("pitchlab:plan-updated", onPlanUpdated);
+    return () => {
+      window.removeEventListener("popstate", onPopState);
+      window.removeEventListener("pitchlab:plan-updated", onPlanUpdated);
+    };
+  }, [router]);
 
   useLayoutEffect(() => {
     if (prevPathnameRef.current !== pathname) {
@@ -68,10 +67,26 @@ export function ClubShellBridge({
         const savedY = readRouteScroll(pathname);
         if (savedY !== null && savedY > 0) {
           clearRouteScroll(pathname);
-          const restore = () => window.scrollTo({ top: savedY, left: 0, behavior: "instant" });
+          let userInteracted = false;
+          const cancelOnUserScroll = () => {
+            userInteracted = true;
+          };
+          window.addEventListener("wheel", cancelOnUserScroll, { passive: true, once: true });
+          window.addEventListener("touchmove", cancelOnUserScroll, { passive: true, once: true });
+          const restore = () => {
+            if (!userInteracted) {
+              window.scrollTo({ top: savedY, left: 0, behavior: "instant" });
+            }
+          };
           restore();
           const raf = window.requestAnimationFrame(restore);
-          return () => window.cancelAnimationFrame(raf);
+          const settleTimer = window.setTimeout(restore, 120);
+          return () => {
+            window.cancelAnimationFrame(raf);
+            window.clearTimeout(settleTimer);
+            window.removeEventListener("wheel", cancelOnUserScroll);
+            window.removeEventListener("touchmove", cancelOnUserScroll);
+          };
         }
       }
       resetWindowScrollToTop();

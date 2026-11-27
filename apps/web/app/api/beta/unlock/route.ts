@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
-import { withPublicRead } from "../../../../src/server/api-guards";
+import { z } from "zod";
+import { ApiGuardHttpError, readBoundedJson, withPublicRead } from "../../../../src/server/api-guards";
 import {
   checkRateLimit,
   getBetaCookieMaxAge,
@@ -25,6 +26,12 @@ const SECURITY_HEADERS = {
 
 const BETA_PIN_RATE_LIMIT = 5;
 const BETA_PIN_WINDOW_MS = 15 * 60 * 1000;
+const BetaUnlockBodySchema = z
+  .object({
+    code: z.string().max(128),
+    next: z.string().max(512).optional(),
+  })
+  .strict();
 
 export const POST = withPublicRead(
   {
@@ -64,31 +71,27 @@ export const POST = withPublicRead(
       );
     }
 
-    let rawCode: unknown;
-    let rawNext: unknown;
+    let rawBody: unknown;
     try {
-      const parsed: unknown = await request.json();
-      if (!parsed || typeof parsed !== "object" || Array.isArray(parsed)) {
-        return NextResponse.json(
-          { ok: false, error: "Solicitud inválida." },
-          { status: 400, headers: SECURITY_HEADERS },
-        );
-      }
-      if ("code" in parsed) {
-        rawCode = parsed.code;
-      }
-      if ("next" in parsed) {
-        rawNext = parsed.next;
-      }
+      rawBody = await readBoundedJson(request, 8_192);
     } catch (err) {
-      void err;
+      if (err instanceof ApiGuardHttpError) throw err;
       return NextResponse.json(
         { ok: false, error: "Solicitud inválida." },
         { status: 400, headers: SECURITY_HEADERS },
       );
     }
 
-    const code = typeof rawCode === "string" ? rawCode.trim() : "";
+    const parsedBody = BetaUnlockBodySchema.safeParse(rawBody);
+    if (!parsedBody.success) {
+      return NextResponse.json(
+        { ok: false, error: "Solicitud inválida." },
+        { status: 400, headers: SECURITY_HEADERS },
+      );
+    }
+
+    const code = parsedBody.data.code.trim();
+    const rawNext = parsedBody.data.next;
     let valid = false;
     try {
       valid = await verifyPinCodeConstantTime(code);

@@ -94,8 +94,12 @@ function parseXForwardedForLast(header: string | null): string {
 export function trustedClientIp(
   headers: Headers,
   proxyMode: string | undefined = process.env.PITCHLAB_TRUSTED_PROXY,
+  socketRemoteIp?: string | null,
 ): string {
-  const mode = proxyMode?.trim().toLowerCase() || "auto";
+  const configuredMode = proxyMode?.trim().toLowerCase();
+  const mode =
+    configuredMode ||
+    (process.env.NODE_ENV === "production" || isHostedRemoteEnvironment() ? "xff-last" : "auto");
 
   if (mode === "cloudflare") {
     return sanitizeIpCandidate(headers.get("cf-connecting-ip"));
@@ -107,7 +111,7 @@ export function trustedClientIp(
     return sanitizeIpCandidate(headers.get("x-vercel-forwarded-for")?.split(",")[0]);
   }
   if (mode === "xff-last") {
-    return parseXForwardedForLast(headers.get("x-forwarded-for"));
+    return parseXForwardedForLast(headers.get("x-forwarded-for")) || sanitizeIpCandidate(socketRemoteIp);
   }
   if (mode !== "auto") {
     return "";
@@ -312,6 +316,7 @@ export async function checkEndpointRateLimit(
           ["PEXPIRE", safeKey, String(options.windowMs), "NX"],
           ["PTTL", safeKey],
         ]),
+        signal: AbortSignal.timeout(1_500),
       });
       if (res.ok) {
         const rows = (await res.json()) as Array<{ result?: unknown }>;
@@ -325,6 +330,7 @@ export async function checkEndpointRateLimit(
               "Content-Type": "application/json",
             },
             body: JSON.stringify([["PEXPIRE", safeKey, String(options.windowMs)]]),
+            signal: AbortSignal.timeout(1_500),
           });
         }
         const effectiveTtlMs = ttlMs > 0 ? ttlMs : options.windowMs;

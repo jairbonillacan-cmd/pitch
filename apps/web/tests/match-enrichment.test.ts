@@ -205,9 +205,20 @@ describe("match-enrichment server module", () => {
   const awaySquad = makeSquad("real-madrid", "Real Madrid");
   const sanitize = (raw?: string | null) => (raw && raw.startsWith("pl-") ? raw : null);
 
-  it("deriva XI probable excluyendo lesionados y preserva entrenador, banca y estadisticas reales", () => {
+  it("deriva XI probable excluyendo lesionados, aplica Cero-Fuga cuando allowFull=false y preserva entrenador y banca", () => {
+    expect(
+      buildEnrichedMatchLineups({
+        game,
+        allowFull: false,
+        homeSquad,
+        awaySquad,
+        sanitizePhotoKey: sanitize,
+      }),
+    ).toBeNull();
+
     const lineups = buildEnrichedMatchLineups({
       game,
+      allowFull: true,
       homeSquad,
       awaySquad,
       sanitizePhotoKey: sanitize,
@@ -353,9 +364,30 @@ describe("match-enrichment server module", () => {
     expect(memberPlayerPicks.some((p) => p.photoKey === "pl-p:7" && p.marketKey === "player_sot")).toBe(true);
     expect(memberPlayerPicks.some((p) => p.photoKey === "pl-p:1" && p.marketKey === "player_saves")).toBe(true);
 
-    const injuries = buildEnrichedMatchInjuries({
+    const visitorInjuries = buildEnrichedMatchInjuries({
       game,
       allowFull: false,
+      leagueInjuries: [
+        {
+          teamId: asTeamId("laliga.fc-barcelona"),
+          player: "Barcelona Lesionado",
+          position: "FWD",
+          status: "Baja",
+          detail: "Isquiotibiales",
+          injuryType: "Muscular",
+          returnDate: "2026-12-05",
+          reportedAt: "2026-11-20T10:00:00Z",
+        },
+      ],
+      homeSquad,
+      awaySquad,
+      sanitizePhotoKey: sanitize,
+    });
+    expect(visitorInjuries).toEqual([]);
+
+    const injuries = buildEnrichedMatchInjuries({
+      game,
+      allowFull: true,
       leagueInjuries: [
         {
           teamId: asTeamId("laliga.fc-barcelona"),

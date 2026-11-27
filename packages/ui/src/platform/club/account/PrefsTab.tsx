@@ -1261,11 +1261,17 @@ export function PrefsTab({
     [handleDeleteSavedView, handleTogglePinSavedView],
   );
 
+  const exportBusyRef = useRef<boolean>(false);
+  const deleteBusyRef = useRef<boolean>(false);
+  const prefsModalBodyRef = useRef<HTMLDivElement | null>(null);
+
   const handleConfirmExport = useCallback(() => {
+    if (exportBusyRef.current || exportBusy) return;
     if (!canPersistServer) {
       setAccountActionNote("Archivo descargado en modo vista previa.");
       return;
     }
+    exportBusyRef.current = true;
     setExportBusy(true);
     void (async () => {
       try {
@@ -1294,18 +1300,21 @@ export function PrefsTab({
         void err;
         pushToast("Error de conexión al preparar tu descarga.", "warning");
       } finally {
+        exportBusyRef.current = false;
         setExportBusy(false);
       }
     })();
-  }, [canPersistServer, identity.cleanHandle, pushToast]);
+  }, [canPersistServer, exportBusy, identity.cleanHandle, pushToast]);
 
   const handleConfirmArcoDelete = useCallback(() => {
+    if (deleteBusyRef.current || deleteBusy) return;
     if (!canPersistServer) {
       const msg = "En modo de prueba con PIN no hay cuenta guardada en el servidor.";
       setAccountActionNote(msg);
       pushToast(msg, "default");
       return;
     }
+    deleteBusyRef.current = true;
     setDeleteBusy(true);
     void (async () => {
       try {
@@ -1335,10 +1344,11 @@ export function PrefsTab({
         void err;
         pushToast("Error de conexión al enviar la solicitud.", "warning");
       } finally {
+        deleteBusyRef.current = false;
         setDeleteBusy(false);
       }
     })();
-  }, [canPersistServer, pushToast]);
+  }, [canPersistServer, deleteBusy, pushToast]);
 
   const generalModalMeta: {
     readonly title: string;
@@ -1987,10 +1997,11 @@ export function PrefsTab({
         ariaLabelledBy={modalTitleId}
         maxWidth={generalModalMeta?.maxWidth ?? "32rem"}
         dialogClassName="pl-prefs-modal"
+        scrollContainerRef={prefsModalBodyRef}
       >
         {generalModal && generalModalMeta ? (
           <div className="pl-prefs-modal-shell" data-prefs-general-modal={generalModal}>
-            <header className="pl-prefs-modal-head">
+            <header className="pl-prefs-modal-head pl-sheet-drag-zone">
               <div className="min-w-0">
                 <h2 id={modalTitleId} className="pl-prefs-modal-title">
                   {generalModalMeta.title}
@@ -2007,7 +2018,7 @@ export function PrefsTab({
               </button>
             </header>
 
-            <div className="pl-prefs-modal-body">
+            <div ref={prefsModalBodyRef} className="pl-prefs-modal-body">
               {generalModal === "theme" ? (
                 <div className="space-y-4" data-prefs-modal-theme="">
                   <div className="pl-prefs-modal-row">

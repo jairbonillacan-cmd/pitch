@@ -1,7 +1,11 @@
+import { createHash } from "node:crypto";
 import { NextResponse } from "next/server";
 import { z } from "zod";
 import { siteUrl } from "@pitchlab/emails";
-import { withPublicRead } from "../../../../../src/server/api-guards";
+import {
+  ApiGuardHttpError,
+  withPublicRead,
+} from "../../../../../src/server/api-guards";
 import {
   processUnsubscribeToken,
   verifyUnsubscribeToken,
@@ -16,9 +20,11 @@ const NO_STORE = { "Cache-Control": "no-store" } as const;
 const MAX_UNSUBSCRIBE_BODY_BYTES = 8_192;
 const MAX_TOKEN_LENGTH = 2_048;
 
-const UnsubscribeJsonBodySchema = z.object({
-  token: z.string().min(1).max(MAX_TOKEN_LENGTH),
-});
+const UnsubscribeJsonBodySchema = z
+  .object({
+    token: z.string().min(1).max(MAX_TOKEN_LENGTH),
+  })
+  .strict();
 
 const SCOPE_COPY: Record<UnsubscribeScope, string> = {
   weekly_digest: "resumen semanal",
@@ -38,6 +44,53 @@ const SHARED_STYLES = `
       a.primary{background:rgb(16 185 129);color:rgb(5 46 22)}
       a.secondary{background:transparent;color:rgb(184 194 209);border:1px solid rgb(52 64 84);width:100%}
       button:focus-visible,a:focus-visible{outline:3px solid rgb(16 185 129);outline-offset:2px}`;
+
+const STYLE_CONTENT = `${SHARED_STYLES}\n    `;
+const STYLE_SHA256 = createHash("sha256").update(STYLE_CONTENT, "utf8").digest("base64");
+const UNSUBSCRIBE_HTML_HEADERS = {
+  ...NO_STORE,
+  "Content-Type": "text/html; charset=utf-8",
+  "Content-Security-Policy": `default-src 'none'; script-src 'none'; style-src 'sha256-${STYLE_SHA256}'; img-src 'none'; font-src 'none'; connect-src 'none'; form-action 'self'; frame-ancestors 'none'; base-uri 'none'`,
+  "X-Content-Type-Options": "nosniff",
+  "X-Frame-Options": "DENY",
+  "Referrer-Policy": "no-referrer",
+} as const;
+
+async function readBoundedText(request: Request, maxBytes: number): Promise<string> {
+  if (request.body) {
+    const reader = request.body.getReader();
+    const chunks: Uint8Array[] = [];
+    let total = 0;
+    try {
+      while (true) {
+        const { done, value } = await reader.read();
+        if (done) break;
+        if (!value || value.byteLength === 0) continue;
+        total += value.byteLength;
+        if (total > maxBytes) {
+          await reader.cancel().catch(() => {});
+          throw new ApiGuardHttpError(413, "cuerpo_demasiado_grande");
+        }
+        chunks.push(value);
+      }
+    } catch (err) {
+      await reader.cancel().catch(() => {});
+      throw err;
+    }
+    const merged = new Uint8Array(total);
+    let offset = 0;
+    for (const chunk of chunks) {
+      merged.set(chunk, offset);
+      offset += chunk.byteLength;
+    }
+    return new TextDecoder().decode(merged);
+  }
+  const buffer = await request.arrayBuffer();
+  if (buffer.byteLength > maxBytes) {
+    throw new ApiGuardHttpError(413, "cuerpo_demasiado_grande");
+  }
+  return new TextDecoder().decode(buffer);
+}
 
 function escapeHtmlAttr(value: string): string {
   return value
@@ -140,7 +193,7 @@ export const GET = withPublicRead(
     if (!db) {
       return new Response(confirmationHtml(false), {
         status: 503,
-        headers: { ...NO_STORE, "Content-Type": "text/html; charset=utf-8" },
+        headers: UNSUBSCRIBE_HTML_HEADERS,
       });
     }
     const url = new URL(request.url);
@@ -148,19 +201,19 @@ export const GET = withPublicRead(
     if (!rawToken || rawToken.length > MAX_TOKEN_LENGTH) {
       return new Response(confirmationHtml(false), {
         status: 400,
-        headers: { ...NO_STORE, "Content-Type": "text/html; charset=utf-8" },
+        headers: UNSUBSCRIBE_HTML_HEADERS,
       });
     }
     const verified = verifyUnsubscribeToken(rawToken);
     if (!verified) {
       return new Response(confirmationHtml(false), {
         status: 400,
-        headers: { ...NO_STORE, "Content-Type": "text/html; charset=utf-8" },
+        headers: UNSUBSCRIBE_HTML_HEADERS,
       });
     }
     return new Response(confirmPromptHtml(verified.scope, rawToken), {
       status: 200,
-      headers: { ...NO_STORE, "Content-Type": "text/html; charset=utf-8" },
+      headers: UNSUBSCRIBE_HTML_HEADERS,
     });
   },
 );
@@ -174,13 +227,16 @@ export const POST = withPublicRead(
   },
   async ({ request }) => {
     const db = serverDb();
-    const raw = await request.text().catch(() => "");
+    const raw = await readBoundedText(request, MAX_UNSUBSCRIBE_BODY_BYTES).catch((err) => {
+      if (err instanceof ApiGuardHttpError) throw err;
+      return "";
+    });
     const parsedBody = parseUnsubscribeBody(raw);
     if (!db) {
       if (parsedBody.wantsHtml) {
         return new Response(confirmationHtml(false), {
           status: 503,
-          headers: { ...NO_STORE, "Content-Type": "text/html; charset=utf-8" },
+          headers: UNSUBSCRIBE_HTML_HEADERS,
         });
       }
       return NextResponse.json(
@@ -196,7 +252,7 @@ export const POST = withPublicRead(
     if (parsedBody.wantsHtml) {
       return new Response(confirmationHtml(res.ok, res.ok ? res.scope : undefined), {
         status: res.ok ? 200 : 400,
-        headers: { ...NO_STORE, "Content-Type": "text/html; charset=utf-8" },
+        headers: UNSUBSCRIBE_HTML_HEADERS,
       });
     }
     if (!res.ok) {
