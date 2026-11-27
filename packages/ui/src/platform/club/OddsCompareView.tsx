@@ -947,8 +947,9 @@ export function OddsCompareClubView(): React.JSX.Element {
           const quote = row.quotesByBook.get(bookKey);
           if (!quote) {
             return (
-              <span className="pl-mc-empty-cell" aria-label={`Sin cuota de ${book.label}`}>
-                —
+              <span className="pl-mc-empty-cell">
+                <span aria-hidden="true">—</span>
+                <span className="sr-only">Sin cuota de {book.label}</span>
               </span>
             );
           }

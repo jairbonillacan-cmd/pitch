@@ -17,6 +17,7 @@ import {
   TIER1_MAJOR_CUP_IDS,
   getLeagueCapability,
   isLeagueHealthyForUi,
+  isLiveCapableLeague,
   isTier1League,
   type LeagueCapabilityContract,
   type MarketFamilyId,
@@ -441,5 +442,15 @@ describe("LeagueCapabilityContract · Registro canónico de 57 ligas y 34 famili
         snapshotAgeHours: 80,
       }),
     ).toBe(false);
+  });
+
+  it("isLiveCapableLeague restringe el polling en vivo a ligas de fútbol con Bzzoiro", () => {
+    expect(isLiveCapableLeague("liga-mx")).toBe(true);
+    expect(isLiveCapableLeague("premier-league")).toBe(true);
+    expect(isLiveCapableLeague("nfl")).toBe(false);
+    expect(isLiveCapableLeague("nhl")).toBe(false);
+    expect(isLiveCapableLeague("nba")).toBe(false);
+    expect(isLiveCapableLeague("mlb")).toBe(false);
+    expect(isLiveCapableLeague("constructor")).toBe(false);
   });
 });

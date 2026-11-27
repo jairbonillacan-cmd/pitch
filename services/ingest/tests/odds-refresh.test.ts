@@ -234,6 +234,36 @@ describe("Parte 1 · Compuerta legal, adaptadores grabados, cadencia y armado de
     const nowIso = new Date(baseMs + 30 * 60_000).toISOString().replace(".000Z", "Z");
     const capturedAtIso = new Date(baseMs + 20 * 60_000).toISOString().replace(".000Z", "Z");
     const commenceTimeIso = new Date(baseMs + 48 * 3600_000).toISOString().replace(".000Z", "Z");
+    const patchedLive: LiveMatchdaySnapshotPayload = {
+      ...existingLive,
+      edge_matrix_records: existingLive.edge_matrix_records.map((rec) => {
+        const record = rec as Record<string, unknown>;
+        return record.matchup_id === "bundesliga_union_berlin_vs_rb_leipzig"
+          ? { ...record, kickoff_utc: commenceTimeIso }
+          : record;
+      }),
+      outlooks: existingLive.outlooks.map((o) =>
+        o.matchId === "bundesliga_union_berlin_vs_rb_leipzig"
+          ? { ...o, kickoffUtc: commenceTimeIso }
+          : o,
+      ),
+    };
+    writeFileSync(
+      join(tmpSpacetimeData, "live_matchday_v3_snapshot.json"),
+      JSON.stringify(patchedLive),
+      "utf8",
+    );
+    const bundesligaSnapPath = join(tmp, "data", "snapshots", "bundesliga", "latest.json");
+    const bundesligaSnap = JSON.parse(readFileSync(bundesligaSnapPath, "utf8")) as {
+      games: Array<{ id: string; startTime: string; status: string }>;
+      [key: string]: unknown;
+    };
+    bundesligaSnap.games = bundesligaSnap.games.map((g) =>
+      g.id.includes("union") && g.id.includes("leipzig")
+        ? { ...g, status: "scheduled", startTime: commenceTimeIso }
+        : g,
+    );
+    writeFileSync(bundesligaSnapPath, JSON.stringify(bundesligaSnap), "utf8");
     const incomingTicks = parseTheOddsApiEvents({
       eventsPayload: [
         {

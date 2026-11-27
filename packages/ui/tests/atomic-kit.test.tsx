@@ -493,6 +493,7 @@ describe("Componentes atómicos editoriales (`packages/ui/src/platform/atomic/*`
     expect(steamHtml).toContain("1.85");
     expect(steamHtml).toContain("Steam");
     expect(steamHtml).toContain("Valor +7.6 %");
+    expect(steamHtml).not.toMatch(/<span[^>]*aria-label=/);
     assertCleanEditorialHtml(steamHtml, "AtomicOddsChip(steam)");
 
     const cellHtml = renderToStaticMarkup(
@@ -513,6 +514,7 @@ describe("Componentes atómicos editoriales (`packages/ui/src/platform/atomic/*`
     expect(cellHtml).toContain("Justo 1.72");
     expect(cellHtml).toContain("+7.6%");
     expect(cellHtml).toContain("Steam");
+    expect(cellHtml).not.toMatch(/<span[^>]*aria-label=/);
     assertCleanEditorialHtml(cellHtml, "AtomicOddsChip(cell)");
 
     const fairOnlyCellHtml = renderToStaticMarkup(

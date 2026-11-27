@@ -775,6 +775,10 @@ export const LIVE_CAPABLE_BZZOIRO_LEAGUES: Readonly<Record<string, readonly numb
     ),
   );
 
+export function isLiveCapableLeague(id: string): boolean {
+  return Object.prototype.hasOwnProperty.call(LIVE_CAPABLE_BZZOIRO_LEAGUES, id);
+}
+
 export function getLeagueCapability(id: ProductLeagueKey): LeagueCapabilityContract;
 export function getLeagueCapability(id: string): LeagueCapabilityContract | undefined;
 export function getLeagueCapability(id: string): LeagueCapabilityContract | undefined {

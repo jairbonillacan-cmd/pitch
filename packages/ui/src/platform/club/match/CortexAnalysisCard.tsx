@@ -325,8 +325,9 @@ export function CortexAnalysisCard({
                       <span className="pl-cortex-win-fair num">{out.fairLabel}</span>
                     ) : null}
                     {out.isWinner ? (
-                      <span className="pl-cortex-win-check" aria-label="Ganador real del partido">
+                      <span className="pl-cortex-win-check">
                         <MaestroIcon name="check" size={14} />
+                        <span className="sr-only">Ganador real del partido</span>
                       </span>
                     ) : null}
                   </div>

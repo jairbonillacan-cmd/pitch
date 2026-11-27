@@ -3,6 +3,7 @@
 import React, { useMemo, useState } from "react";
 import {
   canonicalTeamHref,
+  isLiveCapableLeague,
   isNationalCompetition,
   parseStrictFiniteNumber,
   sportHasDraw,
@@ -231,7 +232,7 @@ export function MatchContextPanel({
   const platformCore = useOptionalPlatformCore();
   const [selectedPitchPlayer, setSelectedPitchPlayer] = useState<SelectedPitchPlayer | null>(null);
   const [selectedShot, setSelectedShot] = useState<AtomicShotItem | null>(null);
-  const liveSupported = game.sport !== "american-football" && game.league !== "nfl";
+  const liveSupported = isLiveCapableLeague(game.league);
   const liveSnap = useLiveMatch(game.id, liveSupported && liveDetailProp === undefined);
   const effectiveLiveDetail = liveDetailProp !== undefined ? liveDetailProp : liveSnap.data;
 

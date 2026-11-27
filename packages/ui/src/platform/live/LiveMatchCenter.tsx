@@ -5,6 +5,7 @@ import {
   canonicalGameHref,
   canonicalTeamHref,
   LIVE_PHASE_LABEL_ES,
+  isLiveCapableLeague,
   isLivePhaseActive,
   type LiveAveragePosition,
   type LiveIncident,
@@ -784,7 +785,7 @@ export function LiveMatchPanel({
   hideMomentum?: boolean;
   hideScoreboard?: boolean;
 }): React.JSX.Element | null {
-  const supported = game.sport !== "american-football" && game.league !== "nfl";
+  const supported = isLiveCapableLeague(game.league);
   const snap = useLiveMatch(game.id, supported);
   if (!supported) return null;
   return (
