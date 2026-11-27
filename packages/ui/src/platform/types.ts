@@ -642,6 +642,7 @@ export interface PlatformLeagueSummary {
   totalGames: number;
   upcomingCount: number;
   finishedCount: number;
+  activeInWindow?: boolean;
   leaderName?: string;
   leaderPoints?: number;
   standings: StandingRow[];

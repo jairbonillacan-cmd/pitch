@@ -26,6 +26,7 @@ import {
   PlatformProvider,
   clearClientSessionArtifacts,
 } from "../src/platform/platform-provider";
+import { mergeSupplementalDataset } from "../src/platform/platform-storage";
 
 const EMPTY_DATASET = buildPlatformDataset([
   {
@@ -296,5 +297,78 @@ describe("Phase 2C · Client session isolation, PWA push & 6a5a5af8 fixes", () =
     expect(shellBridgeSrc).toContain("router.refresh()");
     expect(shellBridgeSrc).toContain("popstate");
     expect(shellBridgeSrc).toContain("window.scrollTo");
+
+    expect(providerSrc).not.toContain("if (alreadyMergedInRoot)");
+  });
+
+  it("mergeSupplementalDataset preserva y fusiona home.form/away.form sin descartar rachas", () => {
+    const baseSample = buildPlatformDataset([
+      {
+        league: asLeagueId("liga-mx"),
+        leagueLabel: "Liga MX",
+        sport: "football",
+        season: "2026",
+        roundLabel: "Jornada 1",
+        generatedAt: "2026-11-27T12:00:00Z",
+        games: [
+          {
+            id: "lmx-form-1",
+            league: asLeagueId("liga-mx"),
+            leagueLabel: "Liga MX",
+            sport: "football",
+            round: "J1",
+            day: "2026-11-27",
+            dayLabel: "Hoy",
+            kickoffUtc: "2026-11-27T20:00:00Z",
+            kickoffLocal: "14:00",
+            venue: "Azteca",
+            status: "NS",
+            home: {
+              slug: "america",
+              name: "América",
+              shortName: "América",
+              code: "AME",
+              record: "5G-1E-1P",
+            },
+            away: {
+              slug: "chivas",
+              name: "Chivas",
+              shortName: "Chivas",
+              code: "CHV",
+              record: "4G-2E-1P",
+            },
+            x12: [0.5, 0.25, 0.25],
+            projection: { home: 1.7, away: 1.1, total: 2.8 },
+            outcomes: [],
+            marketGroups: [],
+            factors: [],
+            trace: [],
+            picks: [],
+          },
+        ],
+        standings: [],
+      },
+    ]);
+
+    const baseGame = baseSample.games[0]!;
+    const baseNoForm = {
+      ...baseSample,
+      games: [
+        {
+          ...baseGame,
+          home: { ...baseGame.home, form: undefined },
+          away: { ...baseGame.away, form: undefined },
+        },
+      ],
+    };
+    const incomingWithForm = {
+      ...baseGame,
+      home: { ...baseGame.home, form: ["W", "W", "D", "W", "W"] },
+      away: { ...baseGame.away, form: ["L", "W", "D", "L", "W"] },
+    };
+
+    const merged = mergeSupplementalDataset(baseNoForm, [incomingWithForm], false, "");
+    expect(merged.games[0]?.home.form).toEqual(["W", "W", "D", "W", "W"]);
+    expect(merged.games[0]?.away.form).toEqual(["L", "W", "D", "L", "W"]);
   });
 });

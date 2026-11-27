@@ -549,7 +549,13 @@ function mergeSupplementIntoDataset(
       seenLeagues.add(existing.league);
       const incoming = incomingById.get(existing.league);
       if (!incoming) return existing;
-      const takeCounts = incoming.totalGames > existing.totalGames;
+      const takeCounts =
+        (incoming.totalGames > 0 || existing.totalGames === 0) &&
+        (incoming.totalGames !== existing.totalGames ||
+          incoming.upcomingCount !== existing.upcomingCount ||
+          incoming.finishedCount !== existing.finishedCount ||
+          (incoming.activeInWindow !== undefined &&
+            incoming.activeInWindow !== existing.activeInWindow));
       const takeStandings = incoming.standings.length > 0 && existing.standings.length === 0;
       const takeLogo = Boolean(incoming.logoUrl && !existing.logoUrl);
       if (!takeCounts && !takeStandings && !takeLogo) return existing;
@@ -561,6 +567,9 @@ function mergeSupplementIntoDataset(
               totalGames: incoming.totalGames,
               upcomingCount: incoming.upcomingCount,
               finishedCount: incoming.finishedCount,
+              ...(incoming.activeInWindow !== undefined
+                ? { activeInWindow: incoming.activeInWindow }
+                : {}),
               ...(incoming.leaderName ? { leaderName: incoming.leaderName } : {}),
               ...(incoming.leaderPoints !== undefined
                 ? { leaderPoints: incoming.leaderPoints }
@@ -3319,10 +3328,6 @@ export function PlatformGamesSupplement({
         : { ...full, dataset: patchedCore.dataset, rawDataset: patchedCore.rawDataset },
     [alreadyMergedInRoot, full, patchedCore],
   );
-
-  if (alreadyMergedInRoot) {
-    return <>{children}</>;
-  }
 
   return (
     <PlatformCoreContext.Provider value={patchedCore}>

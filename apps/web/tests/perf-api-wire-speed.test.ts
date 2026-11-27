@@ -530,4 +530,33 @@ describe("API wire compression, shell pruning, snapshot cut, props fast-scan and
     expect(fastProps.length).toBeGreaterThan(0);
     expect(propsScanMs).toBeLessThan(1500);
   });
+
+  it("loadInitialShellDatasetForAccess hidrata home.form/away.form en los partidos seleccionados de Stage-1 dentro de <= 480 KB", () => {
+    clearSnapshotCausalityCachesForTests();
+    clearPlatformDataCachesForTests();
+    const memberStage1 = loadInitialShellDatasetForAccess(true);
+    const visitorStage1 = loadInitialShellDatasetForAccess(false);
+
+    expect(memberStage1.games.length).toBeGreaterThan(0);
+    expect(memberStage1.games.length).toBeLessThanOrEqual(52);
+    expect(Buffer.byteLength(JSON.stringify(memberStage1), "utf8")).toBeLessThanOrEqual(480 * 1024);
+    expect(Buffer.byteLength(JSON.stringify(visitorStage1), "utf8")).toBeLessThanOrEqual(480 * 1024);
+
+    const gamesWithForm = memberStage1.games.filter(
+      (g) => Boolean(g.home.form?.length) && Boolean(g.away.form?.length),
+    );
+    expect(gamesWithForm.length).toBeGreaterThan(0);
+    const visitorGamesWithForm = visitorStage1.games.filter(
+      (g) => Boolean(g.home.form?.length) && Boolean(g.away.form?.length),
+    );
+    expect(visitorGamesWithForm.length).toBe(gamesWithForm.length);
+
+    const sampleNonEmpty = memberStage1.games.filter(
+      (g) => g.league === "saudi-pro-league" || g.league === "liga-portugal" || g.league === "caf-champions",
+    );
+    for (const g of sampleNonEmpty) {
+      expect(g.home.form?.length).toBeGreaterThan(0);
+      expect(g.away.form?.length).toBeGreaterThan(0);
+    }
+  });
 });

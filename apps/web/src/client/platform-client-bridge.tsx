@@ -302,7 +302,28 @@ function mergePickQuotes(
   });
 }
 
-function mergeShellExtension(
+function mergeTeamExtensionMeta(
+  baseTeam: PlatformGame["home"],
+  incomingTeam: PlatformGame["home"],
+): { readonly team: PlatformGame["home"]; readonly changed: boolean } {
+  const needsForm =
+    (!baseTeam.form || baseTeam.form.length === 0) &&
+    Boolean(incomingTeam.form && incomingTeam.form.length > 0);
+  const needsRecord = !baseTeam.record && Boolean(incomingTeam.record);
+  if (!needsForm && !needsRecord) {
+    return { team: baseTeam, changed: false };
+  }
+  return {
+    team: {
+      ...baseTeam,
+      ...(needsForm && incomingTeam.form ? { form: incomingTeam.form } : {}),
+      ...(needsRecord && incomingTeam.record ? { record: incomingTeam.record } : {}),
+    },
+    changed: true,
+  };
+}
+
+export function mergeShellExtension(
   base: PlatformDataset,
   extraGames: readonly PlatformGame[],
   extraTeams: readonly ShellTeamEntry[],
@@ -320,11 +341,16 @@ function mergeShellExtension(
       enriched.picks.length > g.picks.length || (!baseHasQuotes && enrichedHasQuotes);
     const shouldUpgradeParlays =
       (enriched.parlayCandidates?.length ?? 0) > (g.parlayCandidates?.length ?? 0);
-    if (!shouldUpgradePicks && !shouldUpgradeParlays) {
+    const homeMerged = mergeTeamExtensionMeta(g.home, enriched.home);
+    const awayMerged = mergeTeamExtensionMeta(g.away, enriched.away);
+    const shouldUpgradeTeams = homeMerged.changed || awayMerged.changed;
+    if (!shouldUpgradePicks && !shouldUpgradeParlays && !shouldUpgradeTeams) {
       return g;
     }
     return {
       ...g,
+      ...(homeMerged.changed ? { home: homeMerged.team } : {}),
+      ...(awayMerged.changed ? { away: awayMerged.team } : {}),
       picks: shouldUpgradePicks ? mergePickQuotes(g.picks, enriched.picks) : g.picks,
       parlayCandidates: enriched.parlayCandidates ?? g.parlayCandidates,
     };

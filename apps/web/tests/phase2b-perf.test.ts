@@ -101,6 +101,19 @@ describe("Fase 2B · Performance web/móvil, contratos C1/C3/C4, lazy views, dra
     expect(memberDetail).not.toBeNull();
     expect(memberDetail!.picksCatalog?.picks.length ?? 0).toBeGreaterThan(0);
 
+    const lineupGameId = "laliga-2026-27-md13-real-madrid-celta-vigo";
+    mocks.getViewerAccess.mockResolvedValue(ACCESS_VISITOR);
+    const visitorLineupDetail = await loadGameDetail(lineupGameId);
+    expect(visitorLineupDetail).not.toBeNull();
+    expect(visitorLineupDetail!.enrichedLineups).toBeNull();
+
+    mocks.getViewerAccess.mockResolvedValue(ACCESS_MEMBER);
+    const memberLineupDetail = await loadGameDetail(lineupGameId);
+    expect(memberLineupDetail).not.toBeNull();
+    expect(memberLineupDetail!.enrichedLineups).not.toBeNull();
+    expect(memberLineupDetail!.enrichedLineups!.home.starters.length).toBe(11);
+    expect(memberLineupDetail!.enrichedLineups!.away.starters.length).toBe(11);
+
     const settled = loadScreenerApiPage({ fullAccess: true, page: 1, pageSize: 10, tab: "settled" });
     const settledFootballId = Object.keys(settled.games).find(
       (id) => settled.games[id]?.sport === "football",

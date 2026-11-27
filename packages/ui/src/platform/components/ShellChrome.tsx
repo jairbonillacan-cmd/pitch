@@ -1238,16 +1238,22 @@ function ClubWorkspaceShellImpl({
   }, [dataset.games, homeToday]);
 
   const activeDatasetLeagues = useMemo(() => {
-    const inWindow = dataset.leagues.filter(
+    const windowActive = dataset.leagues.filter(
+      (lg) => activeLeagues30d.has(lg.league) || lg.activeInWindow === true,
+    );
+    const routeLeague = dataset.leagues.find(
       (lg) =>
-        activeLeagues30d.has(lg.league) ||
         activePath === `/app/${lg.league}` ||
         activePath.startsWith(`/app/${lg.league}/`),
     );
-    const list =
-      inWindow.length > 0
-        ? inWindow
+    const baseList =
+      windowActive.length > 0
+        ? windowActive
         : dataset.leagues.filter((lg) => lg.upcomingCount > 0 || lg.totalGames > 0).slice(0, 12);
+    const list =
+      routeLeague && !baseList.some((lg) => lg.league === routeLeague.league)
+        ? [...baseList, routeLeague]
+        : baseList;
     return [...list].sort((a, b) => {
       const aToday = todayGamesByLeague.get(a.league) ?? 0;
       const bToday = todayGamesByLeague.get(b.league) ?? 0;
@@ -2266,7 +2272,7 @@ function ClubWorkspaceShellImpl({
               activeCount: lg.upcomingCount || lg.totalGames,
               dayCount: todayGamesByLeague.get(lg.league) ?? 0,
               isFavorite: favoriteLeagues.includes(lg.league),
-              isActive: activeLeagues30d.has(lg.league),
+              isActive: activeLeagues30d.has(lg.league) || lg.activeInWindow === true,
             }))}
           />
         </Suspense>
