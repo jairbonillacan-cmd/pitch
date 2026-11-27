@@ -1,3 +1,5 @@
+import fs from "node:fs";
+import path from "node:path";
 import { describe, expect, it } from "vitest";
 import {
   asLeagueId,
@@ -38,6 +40,7 @@ import {
   type GoalkeeperCatalogCandidateInputV6,
   type UsPlayerCatalogCandidateInputV6,
 } from "../src/server/picks-catalog";
+import { resolveSnapshotsRoot } from "../src/server/snapshots";
 
 const FIXED_NOW_ISO = "2026-11-22T12:00:00Z";
 const FORBIDDEN_SIZING_KEYS = ["stake", "kelly", "kellyFraction", "expectedEdge"] as const;
@@ -1506,13 +1509,81 @@ describe("picks-catalog Spacetime v6.0 · Regresiones Error-Driven Block 4A (pst
       ),
     ).toBe(true);
 
-    const nbaGame = makeUsGame("basketball", { id: "nba-disk-injuries-fallback-v6" });
-    const reavesCand: NbaPlayerPropCandidateInput = {
-      playerName: "Austin Reaves",
-      playerSlug: "austin-reaves",
+    const nbaSnapshotsDir = path.join(resolveSnapshotsRoot(), "nba");
+    const nbaInjuriesDisk = JSON.parse(
+      fs.readFileSync(path.join(nbaSnapshotsDir, "injuries.json"), "utf8"),
+    ) as { entries?: Array<{ teamId: string; player: string; position?: string; status: string }> };
+    const nbaSquadsDisk = JSON.parse(
+      fs.readFileSync(path.join(nbaSnapshotsDir, "squads.json"), "utf8"),
+    ) as {
+      teams?: Array<{
+        teamId: string;
+        teamSlug: string;
+        teamName: string;
+        players?: Array<{ name: string; slug: string }>;
+      }>;
+    };
+    const bajaEntries = (nbaInjuriesDisk.entries ?? []).filter((e) => e.status === "Baja");
+    const injuredEntry = bajaEntries[0]!;
+    expect(injuredEntry).toBeDefined();
+    const injuredTeamSlug = injuredEntry.teamId.replace(/^nba\./, "");
+    const injuredDiskTeam = nbaSquadsDisk.teams?.find((t) => t.teamId === injuredEntry.teamId);
+    const injuredTeamName =
+      injuredDiskTeam?.teamName ??
+      injuredTeamSlug
+        .split("-")
+        .map((w) => w.charAt(0).toUpperCase() + w.slice(1))
+        .join(" ");
+    const injuredPlayerSlug = injuredEntry.player
+      .normalize("NFD")
+      .replace(/[\u0300-\u036f]/g, "")
+      .toLowerCase()
+      .replace(/[^a-z0-9]+/g, "-")
+      .replace(/^-|-$/g, "");
+    const bajaNamesByTeam = new Set(bajaEntries.map((e) => `${e.teamId}::${e.player.toLowerCase()}`));
+    const healthyDiskTeam =
+      nbaSquadsDisk.teams?.find(
+        (t) =>
+          t.teamId !== injuredEntry.teamId &&
+          (t.players ?? []).some((p) => !bajaNamesByTeam.has(`${t.teamId}::${p.name.toLowerCase()}`)),
+      ) ?? null;
+    const healthyTeamId = healthyDiskTeam?.teamId ?? "nba.boston-celtics";
+    const healthyTeamSlug = healthyDiskTeam?.teamSlug ?? "boston-celtics";
+    const healthyTeamName = healthyDiskTeam?.teamName ?? "Boston Celtics";
+    const healthyPlayerName =
+      healthyDiskTeam?.players?.find(
+        (p) => !bajaNamesByTeam.has(`${healthyTeamId}::${p.name.toLowerCase()}`),
+      )?.name ?? "Jaylen Brown";
+    const healthyPlayerSlug = healthyPlayerName
+      .normalize("NFD")
+      .replace(/[\u0300-\u036f]/g, "")
+      .toLowerCase()
+      .replace(/[^a-z0-9]+/g, "-")
+      .replace(/^-|-$/g, "");
+
+    const nbaGame = makeUsGame("basketball", {
+      id: "nba-disk-injuries-fallback-v6",
+      home: {
+        slug: healthyTeamSlug,
+        name: healthyTeamName,
+        shortName: healthyTeamName,
+        code: healthyTeamSlug.slice(0, 3).toUpperCase(),
+        record: "14G-5P",
+      },
+      away: {
+        slug: injuredTeamSlug,
+        name: injuredTeamName,
+        shortName: injuredTeamName,
+        code: injuredTeamSlug.slice(0, 3).toUpperCase(),
+        record: "12G-7P",
+      },
+    });
+    const injuredCand: NbaPlayerPropCandidateInput = {
+      playerName: injuredEntry.player,
+      playerSlug: injuredPlayerSlug,
       teamSide: "away",
-      teamName: "Los Angeles Lakers",
-      position: "G",
+      teamName: injuredTeamName,
+      position: injuredEntry.position || "G",
       avgMinutes: 35,
       matchLogs: [
         { minutesPlayed: 35, PTS: 21, REB: 5, AST: 6, "3PM": 3 },
@@ -1520,11 +1591,11 @@ describe("picks-catalog Spacetime v6.0 · Regresiones Error-Driven Block 4A (pst
         { minutesPlayed: 34, PTS: 19, REB: 5, AST: 7, "3PM": 3 },
       ],
     };
-    const brownBostonCand: NbaPlayerPropCandidateInput = {
-      playerName: "Jaylen Brown",
-      playerSlug: "jaylen-brown",
+    const healthyCand: NbaPlayerPropCandidateInput = {
+      playerName: healthyPlayerName,
+      playerSlug: healthyPlayerSlug,
       teamSide: "home",
-      teamName: "Boston Celtics",
+      teamName: healthyTeamName,
       position: "F",
       avgMinutes: 35,
       matchLogs: [
@@ -1533,21 +1604,21 @@ describe("picks-catalog Spacetime v6.0 · Regresiones Error-Driven Block 4A (pst
         { minutesPlayed: 34, PTS: 27, REB: 7, AST: 5, "3PM": 2 },
       ],
     };
-    const lakersSquad: TeamSquadEntry = {
-      teamId: asTeamId("nba.los-angeles-lakers"),
-      teamSlug: "los-angeles-lakers",
-      teamName: "Los Angeles Lakers",
-      coachName: "JJ Redick",
+    const injuredTeamSquad: TeamSquadEntry = {
+      teamId: asTeamId(injuredEntry.teamId),
+      teamSlug: injuredTeamSlug,
+      teamName: injuredTeamName,
+      coachName: "Head Coach",
       updatedAt: FIXED_NOW_ISO,
       players: [
         {
-          id: "nba-reaves",
-          slug: "austin-reaves",
-          name: "Austin Reaves",
-          shortName: "A. Reaves",
+          id: `nba-${injuredPlayerSlug}`,
+          slug: injuredPlayerSlug,
+          name: injuredEntry.player,
+          shortName: injuredEntry.player,
           jersey: "15",
           positionGroup: "MID",
-          positionLabel: "SG",
+          positionLabel: injuredEntry.position || "SG",
           age: 28,
           heightCm: 196,
           weightKg: 89,
@@ -1569,18 +1640,18 @@ describe("picks-catalog Spacetime v6.0 · Regresiones Error-Driven Block 4A (pst
         },
       ],
     };
-    const celticsSquad: TeamSquadEntry = {
-      teamId: asTeamId("nba.boston-celtics"),
-      teamSlug: "boston-celtics",
-      teamName: "Boston Celtics",
+    const healthyTeamSquad: TeamSquadEntry = {
+      teamId: asTeamId(healthyTeamId),
+      teamSlug: healthyTeamSlug,
+      teamName: healthyTeamName,
       coachName: "Joe Mazzulla",
       updatedAt: FIXED_NOW_ISO,
       players: [
         {
-          id: "nba-brown",
-          slug: "jaylen-brown",
-          name: "Jaylen Brown",
-          shortName: "J. Brown",
+          id: `nba-${healthyPlayerSlug}`,
+          slug: healthyPlayerSlug,
+          name: healthyPlayerName,
+          shortName: healthyPlayerName,
           jersey: "7",
           positionGroup: "FWD",
           positionLabel: "SF",
@@ -1608,9 +1679,9 @@ describe("picks-catalog Spacetime v6.0 · Regresiones Error-Driven Block 4A (pst
 
     const diskFallbackCat = buildServerMatchPicksCatalog(nbaGame, {
       fullAccess: true,
-      nbaPlayers: [reavesCand, brownBostonCand],
-      homeSquad: celticsSquad,
-      awaySquad: lakersSquad,
+      nbaPlayers: [injuredCand, healthyCand],
+      homeSquad: healthyTeamSquad,
+      awaySquad: injuredTeamSquad,
       preserveAll: true,
       compact: false,
       nowIso: FIXED_NOW_ISO,
@@ -1620,44 +1691,41 @@ describe("picks-catalog Spacetime v6.0 · Regresiones Error-Driven Block 4A (pst
         .filter((p) => p.family === "nba_player_props")
         .map((p) => p.playerMeta?.playerName),
     );
-    expect(emittedNbaNames.has("Austin Reaves")).toBe(false);
-    expect(emittedNbaNames.has("Jaylen Brown")).toBe(true);
+    expect(emittedNbaNames.has(injuredEntry.player)).toBe(false);
+    expect(emittedNbaNames.has(healthyPlayerName)).toBe(true);
 
     const diskFallbackProps = buildMatchPlayerPropsCatalogV6(nbaGame, {
       fullAccess: true,
-      homeSquad: celticsSquad,
-      awaySquad: lakersSquad,
+      homeSquad: healthyTeamSquad,
+      awaySquad: injuredTeamSquad,
     });
-    expect(diskFallbackProps.props.some((p) => p.playerName === "Austin Reaves")).toBe(false);
-    expect(diskFallbackProps.props.some((p) => p.playerName === "Jaylen Brown")).toBe(true);
+    expect(diskFallbackProps.props.some((p) => p.playerName === injuredEntry.player)).toBe(false);
+    expect(diskFallbackProps.props.some((p) => p.playerName === healthyPlayerName)).toBe(true);
 
-    const hawksGame = makeUsGame("basketball", {
-      id: "nba-hawks-disk-inj-v6",
-      home: { slug: "atlanta-hawks", name: "Atlanta Hawks", shortName: "Hawks", code: "ATL", record: "9G-8P" },
+    const homeOnlyInjuredGame = makeUsGame("basketball", {
+      id: "nba-home-disk-inj-v6",
+      home: {
+        slug: injuredTeamSlug,
+        name: injuredTeamName,
+        shortName: injuredTeamName,
+        code: injuredTeamSlug.slice(0, 3).toUpperCase(),
+        record: "9G-8P",
+      },
     });
-    const mccollumCand: NbaPlayerPropCandidateInput = {
-      playerName: "CJ McCollum",
-      playerSlug: "cj-mccollum",
+    const homeInjuredCand: NbaPlayerPropCandidateInput = {
+      ...injuredCand,
       teamSide: "home",
-      teamName: "Atlanta Hawks",
-      position: "G",
-      avgMinutes: 33,
-      matchLogs: [
-        { minutesPlayed: 33, PTS: 20, REB: 4, AST: 5, "3PM": 3 },
-        { minutesPlayed: 34, PTS: 22, REB: 3, AST: 4, "3PM": 4 },
-        { minutesPlayed: 32, PTS: 18, REB: 4, AST: 6, "3PM": 2 },
-      ],
     };
-    const hawksCat = buildServerMatchPicksCatalog(hawksGame, {
+    const homeInjuredCat = buildServerMatchPicksCatalog(homeOnlyInjuredGame, {
       fullAccess: true,
-      nbaPlayers: [mccollumCand],
+      nbaPlayers: [homeInjuredCand],
       preserveAll: true,
       compact: false,
       nowIso: FIXED_NOW_ISO,
     });
     expect(
-      hawksCat.picks.filter(
-        (p) => p.family === "nba_player_props" && p.playerMeta?.playerName === "CJ McCollum",
+      homeInjuredCat.picks.filter(
+        (p) => p.family === "nba_player_props" && p.playerMeta?.playerName === injuredEntry.player,
       ),
     ).toHaveLength(0);
   });

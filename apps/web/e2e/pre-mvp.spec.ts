@@ -741,12 +741,17 @@ test.describe("PitchLab v4 Liquid Glass & Spacetime Suite E2E", () => {
     // PROFILE-2: perfil de tipster con récord calculado y pestañas por teclado
     await page.goto("/app/u/sofia_nfl");
     await expect(page.getByRole("heading", { level: 1, name: /Sofía Méndez/ })).toBeVisible();
-    await expect(page.locator(".pl-vbadge")).toContainText("Tipster verificado");
-    await expect(page.locator(".pl-prof-record")).toContainText("Saldo");
-    await page.locator("#pl-prof-tab-picks").focus();
+    await expect(page.locator("#main .pl-vbadge:visible")).toContainText("Tipster verificado");
+    await expect(page.locator("#main .pl-prof-record:visible")).toContainText("Saldo");
+    await page.locator("#main #pl-prof-tab-picks:visible").focus();
     await page.keyboard.press("End");
-    await expect(page.locator("#pl-prof-tab-estadisticas")).toHaveAttribute("aria-selected", "true");
-    await expect(page.locator("#pl-prof-panel-estadisticas")).toContainText("Saldo por mes");
+    await expect(page.locator("#main #pl-prof-tab-estadisticas:visible")).toHaveAttribute(
+      "aria-selected",
+      "true",
+    );
+    await expect(page.locator("#main #pl-prof-panel-estadisticas:visible")).toContainText(
+      "Saldo por mes",
+    );
     await page.waitForTimeout(400); // fin de la entrada suave del panel
     const profileA11y = await new AxeBuilder({ page }).withTags(["wcag2a", "wcag2aa"]).analyze();
     expect(profileA11y.violations).toEqual([]);

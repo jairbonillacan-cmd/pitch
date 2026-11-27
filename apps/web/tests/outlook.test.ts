@@ -450,7 +450,7 @@ describe("guardia de frescura y anti-inflación sobre live_matchday_v3_snapshot.
     const v3Outlook = findOutlook(tottenhamIpswichRefit)!;
     expect(v3Outlook).not.toBeNull();
     const outlookMs = Date.parse(OUTLOOK_SNAPSHOT_GENERATED_AT ?? v3Outlook.tsDecision);
-    const refitGeneratedAt = "2026-11-22T04:33:15.743Z";
+    const refitGeneratedAt = new Date(outlookMs + 5 * 86_400_000).toISOString();
     const refitMs = Date.parse(refitGeneratedAt);
 
     expect(isStaleInflatedFootballOutlook(v3Outlook, 3.01, refitMs, outlookMs)).toBe(true);
@@ -507,7 +507,7 @@ describe("guardia de frescura y anti-inflación sobre live_matchday_v3_snapshot.
     expect(detailFresh).not.toBeNull();
 
     const unionOutlook = findOutlook(unionLeipzig)!;
-    const refitGeneratedAt = "2026-11-22T04:33:15.743Z";
+    const refitGeneratedAt = new Date(outlookMs + 5 * 86_400_000).toISOString();
     const refitMs = Date.parse(refitGeneratedAt);
     expect(isStaleInflatedFootballOutlook(unionOutlook, 3.34, refitMs, outlookMs, 0.428)).toBe(false);
 

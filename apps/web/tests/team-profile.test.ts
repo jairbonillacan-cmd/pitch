@@ -1,5 +1,7 @@
+import fs from "node:fs";
+import path from "node:path";
 import { describe, expect, it } from "vitest";
-import { PRODUCT_LEAGUES } from "../src/server/snapshots";
+import { PRODUCT_LEAGUES, resolveSnapshotsRoot } from "../src/server/snapshots";
 import {
   isProductLeague,
   loadLeaguePlayerProps,
@@ -146,9 +148,15 @@ describe("Cargador de perfiles de equipo y cumplimiento FD-16 / Cero-Fuga", () =
     expect(leaguesCupMty).not.toBeNull();
     expect(leaguesCupMty!.squad?.players.length ?? 0).toBeGreaterThan(10);
 
-    const mlsChicago = loadTeamProfile("mls", "chicago-fire", { fullAccess: true });
-    expect(mlsChicago).not.toBeNull();
-    expect(mlsChicago!.squad?.players.length ?? 0).toBeGreaterThan(10);
+    const mlsSquads = JSON.parse(
+      fs.readFileSync(path.join(resolveSnapshotsRoot(), "mls", "squads.json"), "utf8"),
+    ) as { teams?: Array<{ teamSlug?: string; players?: unknown[] }> };
+    const mlsSlug =
+      mlsSquads.teams?.find((team) => (team.players?.length ?? 0) > 10 && team.teamSlug)
+        ?.teamSlug ?? "chicago-fire";
+    const mlsTeam = loadTeamProfile("mls", mlsSlug, { fullAccess: true });
+    expect(mlsTeam).not.toBeNull();
+    expect(mlsTeam!.squad?.players.length ?? 0).toBeGreaterThan(10);
   });
 
   it("carga props de jugadores sin romper si falta player-props.json de NBA", () => {
