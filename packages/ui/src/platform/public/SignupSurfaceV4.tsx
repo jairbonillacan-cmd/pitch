@@ -101,7 +101,6 @@ export interface SignupDetails {
     version: string;
   };
   referralCode?: string;
-  turnstileToken?: string;
 }
 
 export type SignupFlushResult =
@@ -231,11 +230,10 @@ export async function flushSignupDetails(
     return { status: "none" };
   }
   try {
-    let resolvedToken = turnstileTokenOverride ?? details.turnstileToken ?? null;
-    if (!resolvedToken && turnstileSiteKey()) {
-      resolvedToken = await getTurnstileToken(TURNSTILE_ACTION_MAGIC_LINK);
-    }
-    const requestPayload: SignupDetails = resolvedToken
+    const resolvedToken =
+      turnstileTokenOverride ??
+      (turnstileSiteKey() ? await getTurnstileToken(TURNSTILE_ACTION_MAGIC_LINK) : null);
+    const requestPayload = resolvedToken
       ? { ...details, turnstileToken: resolvedToken }
       : details;
     const res = await fetch("/api/me/signup", {
@@ -604,10 +602,6 @@ export function SignupSurfaceV4({
     setCaptchaRequired(false);
 
     const postSignupDest = nextPath && nextPath !== "/app" ? nextPath : "/onboarding";
-    const freshToken =
-      accountsEnabled && turnstileSiteKey()
-        ? await getTurnstileToken(TURNSTILE_ACTION_MAGIC_LINK)
-        : null;
 
     const details: SignupDetails = {
       ...(email.trim() && !provider ? { email: email.trim().toLowerCase() } : {}),
@@ -621,7 +615,6 @@ export function SignupSurfaceV4({
         version: SIGNUP_CONSENT_VERSION,
       },
       ...(invite ? { referralCode: invite.code } : {}),
-      ...(freshToken ? { turnstileToken: freshToken } : {}),
     };
 
     setSubmitting(true);
@@ -635,6 +628,9 @@ export function SignupSurfaceV4({
     }
 
     if (confirmedSession) {
+      const freshToken = turnstileSiteKey()
+        ? await getTurnstileToken(TURNSTILE_ACTION_MAGIC_LINK)
+        : null;
       const flushed = await flushSignupDetails(confirmedSession.email, freshToken ?? undefined);
       setSubmitting(false);
       if (flushed.status === "saved") {
@@ -667,6 +663,9 @@ export function SignupSurfaceV4({
     }
 
     if (provider || !normalizedEmail) {
+      const freshToken = turnstileSiteKey()
+        ? await getTurnstileToken(TURNSTILE_ACTION_MAGIC_LINK)
+        : null;
       const flushed = await flushSignupDetails(undefined, freshToken ?? undefined);
       setSubmitting(false);
       if (flushed.status === "captcha_required") {
@@ -720,10 +719,6 @@ export function SignupSurfaceV4({
         "No pudimos iniciar la verificación humana. Revisa si tu navegador bloquea el widget e intenta de nuevo.",
       );
       return;
-    }
-    const existing = readPendingSignupDetails();
-    if (existing && token) {
-      submitSignupDetails({ ...existing, turnstileToken: token });
     }
     const postSignupDest = nextPath && nextPath !== "/app" ? nextPath : "/onboarding";
     const result = await flushSignupDetails(confirmedSession?.email, token ?? undefined);

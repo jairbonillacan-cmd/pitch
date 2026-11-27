@@ -1059,12 +1059,6 @@ function ClubWorkspaceShellImpl({
     scrollContainerRef: profileMenuRef,
     dragHandleSelector: ".pl-sheet-drag-zone",
   });
-  const moreSheetSwipe = useSheetSwipeDismiss({
-    onDismiss: () => setMobileMoreOpen(false),
-    disabled: !mobileMoreOpen,
-    scrollContainerRef: moreSheetScrollRef,
-    dragHandleSelector: ".pl-sheet-drag-zone",
-  });
 
   useSafeEffect(() => {
     const el = headerRef.current;
@@ -1089,22 +1083,38 @@ function ClubWorkspaceShellImpl({
     }
     const mobileMq = window.matchMedia("(max-width: 767px)");
     let lastY = window.scrollY;
+    let suppressUntil = 0;
     const onScroll = () => {
       if (!mobileMq.matches) {
+        suppressUntil = 0;
         setHeaderCompact(false);
         return;
       }
       const nextY = window.scrollY;
+      const now = typeof performance !== "undefined" ? performance.now() : Date.now();
+      if (now < suppressUntil) {
+        lastY = nextY;
+        return;
+      }
       const delta = nextY - lastY;
       lastY = nextY;
-      if (nextY <= 32 || delta < -8) {
-        setHeaderCompact(false);
-      } else if (nextY > 72 && delta > 8) {
-        setHeaderCompact(true);
-      }
+      setHeaderCompact((prev) => {
+        if (!prev && nextY > 120 && delta > 8) {
+          suppressUntil = now + 260;
+          return true;
+        }
+        if (prev && (nextY <= 20 || delta < -16)) {
+          suppressUntil = now + 260;
+          return false;
+        }
+        return prev;
+      });
     };
     const onMediaChange = () => {
-      if (!mobileMq.matches) setHeaderCompact(false);
+      if (!mobileMq.matches) {
+        suppressUntil = 0;
+        setHeaderCompact(false);
+      }
     };
     window.addEventListener("scroll", onScroll, { passive: true });
     mobileMq.addEventListener("change", onMediaChange);
@@ -2067,12 +2077,8 @@ function ClubWorkspaceShellImpl({
         dialogClassName="pl-more-sheet-dialog"
         scrollContainerRef={moreSheetScrollRef}
       >
-        <div
-          ref={moreSheetScrollRef}
-          className="pl-more-sheet-inner glass-lens glass-ring w-full space-y-4 overflow-y-auto"
-          style={moreSheetSwipe.sheetStyle}
-        >
-          <div className="pl-sheet-drag-zone space-y-3" {...moreSheetSwipe.handleProps}>
+        <div className="pl-more-sheet-inner glass-lens glass-ring w-full space-y-4">
+          <div className="pl-sheet-drag-zone space-y-3">
             <div className="pl-bottom-sheet-handle sm:hidden" aria-hidden="true" />
             <div className="flex items-center justify-between">
               <h2 id="mobile-more-dialog-title" className="m-0 text-base font-bold">
@@ -2089,6 +2095,8 @@ function ClubWorkspaceShellImpl({
               </button>
             </div>
           </div>
+
+          <div ref={moreSheetScrollRef} className="pl-more-sheet-scroll space-y-4">
 
           {!pwaInstall.isStandalone &&
           !installPromptDismissed &&
@@ -2234,6 +2242,7 @@ function ClubWorkspaceShellImpl({
               Ayuda y juego responsable +18
             </a>
             <OddsFormatSegment />
+          </div>
           </div>
         </div>
       </TopLayerModalDialog>

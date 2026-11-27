@@ -38,6 +38,7 @@ export function PublicNavBarClient({
   const navItems = landing ? LANDING_NAV_ITEMS : PUBLIC_NAV_ITEMS;
   const menuBtnRef = useRef<HTMLButtonElement | null>(null);
   const dialogRef = useRef<HTMLDialogElement | null>(null);
+  const restoreFocusOnCloseRef = useRef<boolean>(false);
   const scrollMarker = useRef<HTMLSpanElement | null>(null);
   const drawerId = useId();
   const titleId = useId();
@@ -70,6 +71,7 @@ export function PublicNavBarClient({
   }, [hasSession]);
 
   useSafeEffect(() => {
+    restoreFocusOnCloseRef.current = false;
     setMenuOpen(false);
   }, [activePath]);
 
@@ -111,11 +113,16 @@ export function PublicNavBarClient({
     if (!dialog) return;
 
     const handleClose = () => {
+      const shouldRestoreFocus = restoreFocusOnCloseRef.current;
+      restoreFocusOnCloseRef.current = false;
       setMenuOpen(false);
-      menuBtnRef.current?.focus();
+      if (shouldRestoreFocus) {
+        menuBtnRef.current?.focus({ preventScroll: true });
+      }
     };
     const handleCancel = (event: Event) => {
       event.preventDefault();
+      restoreFocusOnCloseRef.current = true;
       setMenuOpen(false);
     };
     dialog.addEventListener("close", handleClose);
@@ -140,6 +147,7 @@ export function PublicNavBarClient({
     };
     const onPointerUp = (e: PointerEvent) => {
       if (pressedOutside && isBackdropTarget(e)) {
+        restoreFocusOnCloseRef.current = true;
         setMenuOpen(false);
       }
       pressedOutside = false;
@@ -151,6 +159,7 @@ export function PublicNavBarClient({
 
     const onResize = () => {
       if (typeof window !== "undefined" && window.innerWidth >= 900) {
+        restoreFocusOnCloseRef.current = false;
         setMenuOpen(false);
       }
     };
@@ -170,7 +179,15 @@ export function PublicNavBarClient({
     };
   }, []);
 
-  const closeDrawer = () => setMenuOpen(false);
+  const closeFromDismissControl = () => {
+    restoreFocusOnCloseRef.current = true;
+    setMenuOpen(false);
+  };
+
+  const closeFromNavLink = () => {
+    restoreFocusOnCloseRef.current = false;
+    setMenuOpen(false);
+  };
 
   return (
     <>
@@ -216,7 +233,10 @@ export function PublicNavBarClient({
                 aria-label={menuOpen ? "Cerrar menú" : "Abrir menú"}
                 aria-expanded={menuOpen}
                 aria-controls={drawerId}
-                onClick={() => setMenuOpen((prev) => !prev)}
+                onClick={() => {
+                  restoreFocusOnCloseRef.current = true;
+                  setMenuOpen((prev) => !prev);
+                }}
               >
                 {menuOpen ? (
                   <svg
@@ -264,7 +284,7 @@ export function PublicNavBarClient({
                 type="button"
                 className="pl-lp-mobile-close"
                 aria-label="Cerrar menú"
-                onClick={closeDrawer}
+                onClick={closeFromDismissControl}
               >
                 <svg
                   width="18"
@@ -287,7 +307,7 @@ export function PublicNavBarClient({
                   className="pl-lp-navlink"
                   href={item.href}
                   aria-current={activePath === item.href ? "page" : undefined}
-                  onClick={closeDrawer}
+                  onClick={closeFromNavLink}
                 >
                   {item.label}
                 </a>
@@ -295,14 +315,14 @@ export function PublicNavBarClient({
               <a
                 className="pl-lp-navlink pl-lp-mobile-login"
                 href={effectiveSession ? "/app" : "/login"}
-                onClick={closeDrawer}
+                onClick={closeFromNavLink}
               >
                 {effectiveSession ? "Ir a la app" : "Entrar"}
               </a>
               <a
                 className="pl-lp-btn pl-lp-btn-primary"
                 href={effectiveSession ? "/app" : "/signup"}
-                onClick={closeDrawer}
+                onClick={closeFromNavLink}
               >
                 Probar 7 días gratis{" "}
                 <span className="pl-lp-arr" aria-hidden="true">

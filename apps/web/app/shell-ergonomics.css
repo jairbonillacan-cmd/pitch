@@ -3358,6 +3358,7 @@
   @media (max-width: 767px) {
     .panel-header[data-shell-context="home"] .pl-header-sportband {
       display: grid;
+      grid-template-columns: minmax(0, 1fr);
       grid-template-rows: 1fr;
       overflow: hidden;
       opacity: 1;
@@ -3373,6 +3374,8 @@
     }
 
     .panel-header[data-shell-context="home"] .pl-header-sportband > div {
+      min-width: 0;
+      min-inline-size: 0;
       min-height: 0;
       overflow: hidden;
     }
@@ -3401,7 +3404,20 @@
     overscroll-behavior-y: contain;
   }
 
-  .pl-more-sheet-inner,
+  .pl-more-sheet-inner {
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    overscroll-behavior-y: contain;
+  }
+
+  .pl-more-sheet-scroll {
+    flex: 1 1 auto;
+    min-height: 0;
+    overflow-y: auto;
+    overscroll-behavior-y: contain;
+  }
+
   .pl-home-fmodal-body,
   .pl-sheet-body {
     overscroll-behavior-y: contain;

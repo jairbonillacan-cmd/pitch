@@ -88,7 +88,7 @@ describe("ClubLayoutShell header navigation", () => {
     }
   });
 
-  it("renderiza CommandPaletteModal con el estilo sólido PitchLab (#000000/#14141A), sin glass-ring ni texto @tipster", () => {
+  it("renderiza CommandPaletteModal con el estilo sólido PitchLab (tokens oscuros sólidos), sin glass-ring ni texto @tipster", () => {
     const closedHtml = renderToStaticMarkup(
       <PlatformProvider dataset={STORY_DATASET} initialRole="member">
         <CommandPaletteModal />
