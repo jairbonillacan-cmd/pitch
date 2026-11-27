@@ -285,6 +285,8 @@ test("Ficha del partido: módulo «Antes del partido» (bajas, pick congelado, v
     );
     expect(hasOverflow).toBe(false);
 
+    await expect(page.locator(".pl-toast-item")).toHaveCount(0, { timeout: 6000 });
+
     const a11y = await new AxeBuilder({ page })
       .withTags(["wcag2a", "wcag2aa"])
       .analyze();

@@ -2091,6 +2091,7 @@ export function ToastViewport(): React.JSX.Element | null {
           key={t.id}
           data-closing={t.closing ? "" : undefined}
           aria-hidden={t.closing ? true : undefined}
+          inert={t.closing ? true : undefined}
           className="pl-toast-item glass-pill-bar glass-ring rounded-xl px-4 py-2.5 text-xs font-semibold shadow-lg flex items-center gap-2.5"
           onMouseEnter={() => {
             if (t.actionLabel) setToastPaused(t.id, true);

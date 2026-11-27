@@ -272,6 +272,7 @@ describe("Fase 1: Ergonomía táctil, badges CSS y contraste WCAG AA en toasts",
       "utf8",
     );
     expect(overlaysTsx).toContain("prevRenderedRef");
+    expect(overlaysTsx).toContain("inert={t.closing ? true : undefined}");
     expect(overlaysTsx).toContain("scrollContainerRef?: React.RefObject<HTMLElement | null>");
     expect(overlaysTsx).toContain("disabled={sealing}");
     expect(overlaysTsx).toContain("autoFocus={!isCompactOrCoarse}");
