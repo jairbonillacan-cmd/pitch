@@ -4,6 +4,7 @@ import "../../../apps/web/app/astryx-pitchlab.css";
 import "../../../apps/web/app/globals.css";
 import "../../../apps/web/app/legacy-d1-storybook.css";
 import "./heroui-storybook.css";
+import "../../../apps/web/app/club-legacy.css";
 import "../../../apps/web/app/community-v2.css";
 import "../../../apps/web/app/community-social.css";
 import "../../../apps/web/app/account-v2.css";

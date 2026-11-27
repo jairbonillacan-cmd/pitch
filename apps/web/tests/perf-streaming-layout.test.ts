@@ -76,6 +76,7 @@ vi.mock("../src/client/club-shell-bridge", () => ({
     React.createElement("div", { "data-mock-shell": "1" }, props.children as React.ReactNode),
 }));
 
+vi.mock("../app/club-legacy.css", () => ({}));
 vi.mock("../app/shell-ergonomics.css", () => ({}));
 vi.mock("../app/record-v2.css", () => ({}));
 vi.mock("../app/live.css", () => ({}));
