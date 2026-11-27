@@ -3,7 +3,7 @@
 import React, { useId, useRef, useState } from "react";
 import { buildPackIconSources, usePackIconBase } from "../../pack-icon-theme";
 import { BADGE_FAMILY_LABELS, type BadgeFamily } from "../badges";
-import { useSafeEffect } from "../hooks";
+import { useMediaQuery, useSafeEffect } from "../hooks";
 
 const VALID_BADGE_SLUGS = new Set([
   "ojo-fino",
@@ -96,6 +96,7 @@ export function BadgeInfoTrigger({
   const pressedOutsideRef = useRef<boolean>(false);
   const [open, setOpen] = useState<boolean>(false);
   const [tipDismissed, setTipDismissed] = useState<boolean>(false);
+  const isCompactOrCoarse = useMediaQuery("(max-width: 768px), (pointer: coarse)", false);
 
   const iconBase = usePackIconBase();
   const slug = resolveBadgeIconSlug(badgeId, family);
@@ -231,7 +232,7 @@ export function BadgeInfoTrigger({
             <div className="pl-badge-info-foot">
               <button
                 type="button"
-                autoFocus
+                autoFocus={!isCompactOrCoarse}
                 className="pl-badge-info-ok"
                 onClick={() => setOpen(false)}
               >

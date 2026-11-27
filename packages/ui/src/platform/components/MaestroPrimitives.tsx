@@ -607,7 +607,7 @@ export function RoleSwitcherPill({
           <button
             key={opt.role}
             type="button"
-            className="seg-btn !min-h-[28px] !px-2.5 !text-xs"
+            className="seg-btn min-h-11 md:min-h-7 px-2.5 text-xs"
             aria-pressed={active}
             data-active={active ? "true" : undefined}
             data-role-option={opt.role}
