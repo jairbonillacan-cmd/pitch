@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "updatedAtUtc": "2026-11-28T06:16:10Z",
+  "updatedAtUtc": "2026-11-28T09:20:48Z",
   "openIncidents": {
     "validation::calendario::liga-mx": {
       "incidentKey": "validation::calendario::liga-mx",
@@ -12,9 +12,9 @@
       "workflowId": "pre-mvp-snapshot",
       "message": "EMPTY_OR_REGRESSED_SNAPSHOT: El candidato perdió marcadores finales en Liguilla (4 < 9).",
       "failingSinceUtc": "2026-11-26T20:07:51.050Z",
-      "lastSeenAtUtc": "2026-11-28T06:16:10Z",
+      "lastSeenAtUtc": "2026-11-28T09:20:48Z",
       "emailedAtUtc": null,
-      "occurrences": 12
+      "occurrences": 13
     },
     "validation::calendario::bundesliga": {
       "incidentKey": "validation::calendario::bundesliga",
@@ -26,9 +26,9 @@
       "workflowId": "pre-mvp-snapshot",
       "message": "EMPTY_OR_REGRESSED_SNAPSHOT: El candidato perdió marcadores finales en Jornada 11 (1 < 9).",
       "failingSinceUtc": "2026-11-28T00:46:51.260Z",
-      "lastSeenAtUtc": "2026-11-28T06:16:10Z",
+      "lastSeenAtUtc": "2026-11-28T09:20:48Z",
       "emailedAtUtc": null,
-      "occurrences": 3
+      "occurrences": 4
     },
     "validation::calendario::ligue-1": {
       "incidentKey": "validation::calendario::ligue-1",
@@ -40,9 +40,9 @@
       "workflowId": "pre-mvp-snapshot",
       "message": "EMPTY_OR_REGRESSED_SNAPSHOT: El candidato perdió marcadores finales en Jornada 12 (1 < 9).",
       "failingSinceUtc": "2026-11-28T00:46:51.260Z",
-      "lastSeenAtUtc": "2026-11-28T06:16:10Z",
+      "lastSeenAtUtc": "2026-11-28T09:20:48Z",
       "emailedAtUtc": null,
-      "occurrences": 3
+      "occurrences": 4
     },
     "stale::momios::laliga": {
       "incidentKey": "stale::momios::laliga",
@@ -51,11 +51,11 @@
       "targetLabel": "LaLiga · Momios",
       "league": "laliga",
       "dataType": "momios",
-      "message": "Última cuota de LaLiga capturada hace 57.5 h (límite alerta 36 h; caduca en app a las 72 h).",
+      "message": "Última cuota de LaLiga capturada hace 60.6 h (límite alerta 36 h; caduca en app a las 72 h).",
       "failingSinceUtc": "2026-11-27T10:02:59Z",
-      "lastSeenAtUtc": "2026-11-28T06:16:10Z",
+      "lastSeenAtUtc": "2026-11-28T09:20:48Z",
       "emailedAtUtc": null,
-      "occurrences": 7
+      "occurrences": 8
     }
   }
 }
