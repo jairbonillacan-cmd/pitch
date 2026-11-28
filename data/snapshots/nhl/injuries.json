@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "league": "nhl",
-  "observedAt": "2026-11-28T00:44:17.451Z",
+  "observedAt": "2026-11-28T13:25:23.749Z",
   "source": "espn-public-nhl",
   "coverageStatus": "ok",
   "entries": [
@@ -37,16 +37,6 @@
     },
     {
       "teamId": "nhl.boston-bruins",
-      "player": "David Pastrnak",
-      "position": "RW",
-      "status": "Duda",
-      "detail": "Lower Body",
-      "injuryType": "Lower Body",
-      "returnDate": "2026-11-29",
-      "reportedAt": "2026-11-27T19:04:00.000Z"
-    },
-    {
-      "teamId": "nhl.boston-bruins",
       "player": "James Hagens",
       "position": "C",
       "status": "Baja",
@@ -62,8 +52,8 @@
       "status": "Baja",
       "detail": "Parte médico reservado",
       "injuryType": "Undisclosed",
-      "returnDate": "2026-12-01",
-      "reportedAt": "2026-11-27T19:45:00.000Z"
+      "returnDate": "2027-01-02",
+      "reportedAt": "2026-11-28T04:27:00.000Z"
     },
     {
       "teamId": "nhl.buffalo-sabres",
@@ -147,6 +137,16 @@
     },
     {
       "teamId": "nhl.chicago-blackhawks",
+      "player": "Jordan Greenway",
+      "position": "LW",
+      "status": "Duda",
+      "detail": "Upper Body",
+      "injuryType": "Upper Body",
+      "returnDate": "2026-11-29",
+      "reportedAt": "2026-11-28T01:44:00.000Z"
+    },
+    {
+      "teamId": "nhl.chicago-blackhawks",
       "player": "Tyler Bertuzzi",
       "position": "LW",
       "status": "Baja",
@@ -154,16 +154,6 @@
       "injuryType": "Illness",
       "returnDate": "2026-11-29",
       "reportedAt": "2026-11-27T21:13:00.000Z"
-    },
-    {
-      "teamId": "nhl.chicago-blackhawks",
-      "player": "Patrick Kane",
-      "position": "RW",
-      "status": "Baja",
-      "detail": "Lower Body",
-      "injuryType": "Lower Body",
-      "returnDate": "2026-12-03",
-      "reportedAt": "2026-11-27T18:55:00.000Z"
     },
     {
       "teamId": "nhl.chicago-blackhawks",
@@ -414,16 +404,6 @@
       "injuryType": "Upper Body",
       "returnDate": "2026-11-28",
       "reportedAt": "2026-09-24T19:49:00.000Z"
-    },
-    {
-      "teamId": "nhl.minnesota-wild",
-      "player": "Quinn Hughes",
-      "position": "D",
-      "status": "Baja",
-      "detail": "Upper Body",
-      "injuryType": "Upper Body",
-      "returnDate": "2026-12-03",
-      "reportedAt": "2026-11-26T04:22:00.000Z"
     },
     {
       "teamId": "nhl.minnesota-wild",
@@ -797,6 +777,16 @@
     },
     {
       "teamId": "nhl.seattle-kraken",
+      "player": "Philipp Grubauer",
+      "position": "G",
+      "status": "Duda",
+      "detail": "Upper Body",
+      "injuryType": "Upper Body",
+      "returnDate": "2026-11-28",
+      "reportedAt": "2026-11-28T03:10:00.000Z"
+    },
+    {
+      "teamId": "nhl.seattle-kraken",
       "player": "Jake O'Brien",
       "position": "C",
       "status": "Baja",
@@ -834,16 +824,6 @@
       "injuryType": "Lower Body",
       "returnDate": "2026-12-02",
       "reportedAt": "2026-11-24T22:25:00.000Z"
-    },
-    {
-      "teamId": "nhl.st-louis-blues",
-      "player": "Torey Krug",
-      "position": "D",
-      "status": "Baja",
-      "detail": "Tobillo",
-      "injuryType": "Ankle",
-      "returnDate": "2027-07-01",
-      "reportedAt": "2026-10-13T01:42:00.000Z"
     },
     {
       "teamId": "nhl.st-louis-blues",
@@ -1174,16 +1154,6 @@
       "injuryType": "Lower Body",
       "returnDate": "2026-11-28",
       "reportedAt": "2026-10-23T18:11:00.000Z"
-    },
-    {
-      "teamId": "nhl.winnipeg-jets",
-      "player": "Nick Bjugstad",
-      "position": "C",
-      "status": "Baja",
-      "detail": "Pectoral",
-      "injuryType": "Pectoral",
-      "returnDate": "2027-03-11",
-      "reportedAt": "2026-10-23T16:48:00.000Z"
     }
   ]
 }

@@ -1,6 +1,30 @@
 {
   "schemaVersion": 1,
   "league": "laliga",
-  "observedAt": "2026-11-28T00:47:17.355Z",
-  "entries": []
+  "observedAt": "2026-11-28T13:26:54.227Z",
+  "entries": [
+    {
+      "gameId": "laliga-2026-27-md8-rayo-vallecano-athletic-club",
+      "source": "polymarket",
+      "unit": "usd",
+      "observedAt": "2026-11-28T13:26:54.227Z",
+      "outcomes": [
+        {
+          "side": "home",
+          "volume": 223475.45609800002,
+          "price": 0.17
+        },
+        {
+          "side": "draw",
+          "volume": 43483.212964000006,
+          "price": 0.335
+        },
+        {
+          "side": "away",
+          "volume": 779133.9968319999,
+          "price": 0.545
+        }
+      ]
+    }
+  ]
 }
