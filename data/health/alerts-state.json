@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "updatedAtUtc": "2026-11-27T20:23:06Z",
+  "updatedAtUtc": "2026-11-28T00:46:51.260Z",
   "openIncidents": {
     "validation::calendario::liga-mx": {
       "incidentKey": "validation::calendario::liga-mx",
@@ -10,11 +10,39 @@
       "league": "liga-mx",
       "dataType": "calendario",
       "workflowId": "pre-mvp-snapshot",
-      "message": "EMPTY_OR_REGRESSED_SNAPSHOT: El candidato perdió marcadores finales en Liguilla (6 < 9).",
+      "message": "EMPTY_OR_REGRESSED_SNAPSHOT: El candidato perdió marcadores finales en Liguilla (4 < 9).",
       "failingSinceUtc": "2026-11-26T20:07:51.050Z",
-      "lastSeenAtUtc": "2026-11-27T20:23:06Z",
+      "lastSeenAtUtc": "2026-11-28T00:46:51.260Z",
       "emailedAtUtc": null,
-      "occurrences": 9
+      "occurrences": 10
+    },
+    "validation::calendario::bundesliga": {
+      "incidentKey": "validation::calendario::bundesliga",
+      "kind": "validation_rejected",
+      "severity": "critical",
+      "targetLabel": "Bundesliga · Calendario y resultados",
+      "league": "bundesliga",
+      "dataType": "calendario",
+      "workflowId": "pre-mvp-snapshot",
+      "message": "EMPTY_OR_REGRESSED_SNAPSHOT: El candidato perdió marcadores finales en Jornada 11 (1 < 9).",
+      "failingSinceUtc": "2026-11-28T00:46:51.260Z",
+      "lastSeenAtUtc": "2026-11-28T00:46:51.260Z",
+      "emailedAtUtc": null,
+      "occurrences": 1
+    },
+    "validation::calendario::ligue-1": {
+      "incidentKey": "validation::calendario::ligue-1",
+      "kind": "validation_rejected",
+      "severity": "critical",
+      "targetLabel": "Ligue 1 · Calendario y resultados",
+      "league": "ligue-1",
+      "dataType": "calendario",
+      "workflowId": "pre-mvp-snapshot",
+      "message": "EMPTY_OR_REGRESSED_SNAPSHOT: El candidato perdió marcadores finales en Jornada 12 (1 < 9).",
+      "failingSinceUtc": "2026-11-28T00:46:51.260Z",
+      "lastSeenAtUtc": "2026-11-28T00:46:51.260Z",
+      "emailedAtUtc": null,
+      "occurrences": 1
     },
     "stale::momios::laliga": {
       "incidentKey": "stale::momios::laliga",
@@ -23,11 +51,11 @@
       "targetLabel": "LaLiga · Momios",
       "league": "laliga",
       "dataType": "momios",
-      "message": "Última cuota de LaLiga capturada hace 47.6 h (límite alerta 36 h; caduca en app a las 72 h).",
+      "message": "Última cuota de LaLiga capturada hace 52 h (límite alerta 36 h; caduca en app a las 72 h).",
       "failingSinceUtc": "2026-11-27T10:02:59Z",
-      "lastSeenAtUtc": "2026-11-27T20:23:06Z",
+      "lastSeenAtUtc": "2026-11-28T00:46:51.260Z",
       "emailedAtUtc": null,
-      "occurrences": 4
+      "occurrences": 5
     }
   }
 }

@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "league": "nfl",
   "season": "nfl-2026",
-  "updatedAt": "2026-11-27T19:55:57.623Z",
+  "updatedAt": "2026-11-28T00:46:51.260Z",
   "matches": [
     {
       "id": "nfl-2026-w1-new-england-patriots-seattle-seahawks",
@@ -1839,6 +1839,17 @@
       "awayTeam": "nfl.kansas-city-chiefs",
       "homeScore": 13,
       "awayScore": 10,
+      "neutralSite": false
+    },
+    {
+      "id": "nfl-2026-w12-denver-broncos-pittsburgh-steelers",
+      "date": "2026-11-27",
+      "startTime": "2026-11-27T20:00:00.000Z",
+      "round": "Semana 12",
+      "homeTeam": "nfl.pittsburgh-steelers",
+      "awayTeam": "nfl.denver-broncos",
+      "homeScore": 27,
+      "awayScore": 5,
       "neutralSite": false
     }
   ]

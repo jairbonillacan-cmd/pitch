@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "league": "serie-a",
   "season": "serie-a-2026-27",
-  "updatedAt": "2026-11-27T19:55:57.623Z",
+  "updatedAt": "2026-11-28T00:46:51.260Z",
   "matches": [
     {
       "id": "serie-a:2026-27:genoa-cfc:napoli",
@@ -93,10 +93,10 @@
       "neutralSite": false
     },
     {
-      "id": "serie-a-espn-401874927",
+      "id": "serie-a:2026-27:bologna:lazio",
       "date": "2026-08-24",
-      "startTime": "2026-08-24T16:30Z",
-      "round": null,
+      "startTime": "2026-08-24T12:00:00Z",
+      "round": "Jornada 1",
       "homeTeam": "serie-a.bologna",
       "awayTeam": "serie-a.lazio",
       "homeScore": 0,
@@ -104,10 +104,10 @@
       "neutralSite": false
     },
     {
-      "id": "serie-a-espn-401874928",
+      "id": "serie-a:2026-27:roma:fiorentina",
       "date": "2026-08-24",
-      "startTime": "2026-08-24T18:45Z",
-      "round": null,
+      "startTime": "2026-08-24T12:00:00Z",
+      "round": "Jornada 1",
       "homeTeam": "serie-a.roma",
       "awayTeam": "serie-a.fiorentina",
       "homeScore": 4,
@@ -1321,6 +1321,17 @@
       "homeTeam": "serie-a.monza",
       "awayTeam": "serie-a.fiorentina",
       "homeScore": 3,
+      "awayScore": 0,
+      "neutralSite": false
+    },
+    {
+      "id": "serie-a-espn-401875004",
+      "date": "2026-11-27",
+      "startTime": "2026-11-27T19:45Z",
+      "round": null,
+      "homeTeam": "serie-a.venezia",
+      "awayTeam": "serie-a.bologna",
+      "homeScore": 0,
       "awayScore": 0,
       "neutralSite": false
     }

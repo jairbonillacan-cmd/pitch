@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "league": "liga-mx",
-  "observedAt": "2026-11-27T19:56:39.385Z",
+  "observedAt": "2026-11-28T00:47:17.355Z",
   "entries": [
     {
       "gameId": "mx-2026-j17-chivas-cruz-azul-401877047",
@@ -214,12 +214,12 @@
       "gameId": "mx-2026-lg-america-monterrey-401931996",
       "source": "polymarket",
       "unit": "usd",
-      "observedAt": "2026-11-27T19:56:39.385Z",
+      "observedAt": "2026-11-28T00:47:17.355Z",
       "outcomes": [
         {
           "side": "home",
-          "volume": 120.282198,
-          "price": 0.435
+          "volume": 127.477852,
+          "price": 0.455
         },
         {
           "side": "draw",
@@ -228,8 +228,8 @@
         },
         {
           "side": "away",
-          "volume": 371.39142899999996,
-          "price": 0.255
+          "volume": 379.001429,
+          "price": 0.245
         }
       ]
     },
@@ -237,7 +237,7 @@
       "gameId": "mx-2026-lg-atlas-toluca-401931997",
       "source": "polymarket",
       "unit": "usd",
-      "observedAt": "2026-11-27T19:56:39.385Z",
+      "observedAt": "2026-11-28T00:47:17.355Z",
       "outcomes": [
         {
           "side": "home",
@@ -251,7 +251,7 @@
         },
         {
           "side": "away",
-          "volume": 12095.311783999998,
+          "volume": 12104.089561999997,
           "price": 0.445
         }
       ]
@@ -260,12 +260,12 @@
       "gameId": "mx-2026-lg-chivas-pachuca-401931983",
       "source": "polymarket",
       "unit": "usd",
-      "observedAt": "2026-11-27T19:56:39.385Z",
+      "observedAt": "2026-11-28T00:47:17.355Z",
       "outcomes": [
         {
           "side": "home",
-          "volume": 178.625393,
-          "price": 0.57
+          "volume": 182.073669,
+          "price": 0.575
         },
         {
           "side": "draw",
@@ -274,8 +274,8 @@
         },
         {
           "side": "away",
-          "volume": 312.671556,
-          "price": 0.2
+          "volume": 343.671556,
+          "price": 0.19
         }
       ]
     },
@@ -283,12 +283,12 @@
       "gameId": "mx-2026-lg-cruz-azul-leon-401932000",
       "source": "polymarket",
       "unit": "usd",
-      "observedAt": "2026-11-27T19:56:39.385Z",
+      "observedAt": "2026-11-28T00:47:17.355Z",
       "outcomes": [
         {
           "side": "home",
-          "volume": 2825.466733,
-          "price": 0.56
+          "volume": 2835.466733,
+          "price": 0.555
         },
         {
           "side": "draw",
@@ -297,8 +297,8 @@
         },
         {
           "side": "away",
-          "volume": 0,
-          "price": 0.205
+          "volume": 5,
+          "price": 0.215
         }
       ]
     },

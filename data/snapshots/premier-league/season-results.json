@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "league": "premier-league",
   "season": "premier-league-2026-27",
-  "updatedAt": "2026-11-27T19:55:57.623Z",
+  "updatedAt": "2026-11-28T00:46:51.260Z",
   "matches": [
     {
       "id": "premier-league:2026-27:arsenal:coventry-city",
@@ -104,10 +104,10 @@
       "neutralSite": false
     },
     {
-      "id": "premier-league-espn-401879318",
+      "id": "premier-league:2026-27:fulham:chelsea",
       "date": "2026-08-24",
-      "startTime": "2026-08-24T19:00Z",
-      "round": null,
+      "startTime": "2026-08-24T12:00:00Z",
+      "round": "Jornada 1",
       "homeTeam": "premier-league.fulham",
       "awayTeam": "premier-league.chelsea",
       "homeScore": 2,
@@ -1212,6 +1212,17 @@
       "awayTeam": "premier-league.everton",
       "homeScore": 4,
       "awayScore": 0,
+      "neutralSite": false
+    },
+    {
+      "id": "premier-league-espn-401879225",
+      "date": "2026-11-27",
+      "startTime": "2026-11-27T20:00Z",
+      "round": null,
+      "homeTeam": "premier-league.nottingham-forest",
+      "awayTeam": "premier-league.chelsea",
+      "homeScore": 3,
+      "awayScore": 2,
       "neutralSite": false
     }
   ]
